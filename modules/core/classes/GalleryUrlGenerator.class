@@ -22,7 +22,7 @@
 require_once(dirname(__FILE__) . '/GalleryUtilities.class');
 
 if (!defined('GALLERY_MAIN_PHP')) {
-    define('GALLERY_MAIN_PHP', 'main.php');
+    define('GALLERY_MAIN_PHP', 'index.php');
 }
 
 /**
