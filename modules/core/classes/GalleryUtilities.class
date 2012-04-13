@@ -30,7 +30,7 @@
  * @package GalleryCore
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
- * @version $Revision: 20886 $
+ * @version $Revision: 20954 $
  * @static
  */
 class GalleryUtilities {
@@ -764,10 +764,10 @@ class GalleryUtilities {
      * @return string the UTF-8 string
      */
     function unicodeEntitiesToUtf8($string) {
-	$string = preg_replace('/&#([xa-f\d]+);/mei',
-	    "GalleryUtilities::unicodeValueToUtf8Value('\\1')", $string);
+	$string = preg_replace_callback('/&#([xa-f\d]+);/mi', 'eModifierCallback', $string);
 	return $string;
     }
+    function eModifierCallback($matches) { return GalleryUtilities::unicodeValueToUtf8Value($matches[1]); }
 
     /**
      * mb_substr() for UTF-8, with PHP fallback. Truncates incomplete HTML entity at end of result.

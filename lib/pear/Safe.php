@@ -303,6 +303,9 @@ class HTML_Safe
         }
         return true;
     }
+    
+    function eModifierCallback_A($matches) {return chr($matches[1]);}
+    function eModifierCallback_B($matches) {return chr(hexdec($matches[1]));}
 
     /**
      * Handles the writing of attributes - called from $this->_openHandler()
@@ -366,8 +369,8 @@ class HTML_Safe
                    }
                 }
 
-                $tempval = preg_replace('/&#(\d+);?/me', "chr('\\1')", $value); //"'
-                $tempval = preg_replace('/&#x([0-9a-f]+);?/mei', "chr(hexdec('\\1'))", $tempval);
+                $tempval = preg_replace_callback('/&#(\d+);?/m', "eModifierCallback_A", $value); //"'
+                $tempval = preg_replace_callback('/&#x([0-9a-f]+);?/mi', "eModifierCallback_B", $tempval);
 
                 if ((in_array($name, $this->protocolAttributes)) && 
                     (strpos($tempval, ':') !== false)) 
