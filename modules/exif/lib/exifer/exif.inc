@@ -6,7 +6,7 @@
 	Exifer 1.5
 	Extracts EXIF information from digital photos.
 
-	Copyright © 2005 Jake Olefsky
+	Copyright 2005 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
 
@@ -611,7 +611,7 @@ function read_entry(&$result,$in,$seek,$intel,$ifd_name,$globalOffset) {
 			require_once(dirname(__FILE__) . '/makers/olympus.inc');
 			parseOlympus($data,$result,$seek,$globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
-		} else if(strpos($capmake,'Canon')!==false) {
+		} else if(strpos($capmake,'CANON')!==false) {
 			require_once(dirname(__FILE__) . '/makers/canon.inc');
 			parseCanon($data,$result,$seek,$globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
