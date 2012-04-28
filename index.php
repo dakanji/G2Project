@@ -536,7 +536,26 @@ function _GalleryMain($embedded=false, $template=null) {
 		if ($ret) {
 		    return array($ret, null);
 		}
-
+		
+		/* 
+		 * Event call to allow for override of HTML as well as caching status 
+		 * See joomg2 module's 'handleEvent' function for example usage
+		 */  
+		$event = GalleryCoreApi::newEvent('Gallery::BeforeOutput');
+		$event->setEntity($template);
+		$event->setData(array('templatePath' => $templatePath, 'view' => $view, 'html' => $html));
+		list ($ret, $output) = GalleryCoreApi::postEvent($event);
+		if ($ret) {
+			return array($ret, null);
+		} elseif ($output) {
+			$html = $output[0][1];
+			if ($shouldCache) {
+				if ($output[0][0] !== 1) {
+					$shouldCache = NULL;
+				}
+			}
+		}
+		
 		if ($embedded) {
 		    $html = $theme->splitHtml($html, $results);
 		}
