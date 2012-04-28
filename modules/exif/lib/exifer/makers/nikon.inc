@@ -6,7 +6,7 @@
 	Exifer
 	Extracts EXIF information from digital photos.
 	
-	Copyright © 2003 Jake Olefsky
+	Copyright Â© 2003 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
 	
@@ -87,10 +87,65 @@ function lookup_Nikon_tag($tag,$model) {
 //====================================================================
 function formatNikonData($type,$tag,$intel,$model,$data) {
 
-	if($type=="ASCII") {
+	if($tag=="0084" && $model == 1) { //LensInfo by PPl
+		$data = bin2hex($data);
+		if($intel==1) $data = intel2Moto($data);
 		
+		$focalShort = hexdec(substr($data,0,8));
+		$divFocalShort = hexdec(substr($data,8,8));
+		$focalLong = hexdec(substr($data,16,8));
+		$divFocalLong = hexdec(substr($data,24,8));
+		$apertShort = hexdec(substr($data,32,8));
+		$divApertShort = hexdec(substr($data,40,8));
+		$apertLong = hexdec(substr($data,48,8));
+		$divApertLong = hexdec(substr($data,56,8));
+
+		if ($divFocalShort > 0) $focalShort = $focalShort / $divFocalShort;
+		if ($divFocalLong > 0) $focalLong = $focalLong / $divFocalLong;
+		if ($divApertShort > 0) $apertShort = $apertShort / $divApertShort;
+		if ($divApertLong > 0) $apertLong = $apertLong / $divApertLong;
 		
-	} else if($type=="URATIONAL" || $type=="SRATIONAL") {
+		if ($focalShort == $focalLong) {
+			$data = "Fixed " . $focalShort . "mm f/";
+		} else {
+			$data = "Zoom " . $focalShort . "-" . $focalLong . "mm f/";
+		}
+		if ($apertShort == $apertLong) {
+			$data = $data . $apertShort;
+		} else {
+			$data = $data . $apertShort . "-" . $apertLong;
+		}
+		
+		if($tag=="0084" && $model == 1) { //LensInfo by PPl
+			$data = bin2hex($data);
+			if($intel==1) $data = intel2Moto($data);
+			$focalShort = hexdec(substr($data,0,8));
+			$divFocalShort = hexdec(substr($data,8,8));
+			$focalLong = hexdec(substr($data,16,8));
+			$divFocalLong = hexdec(substr($data,24,8));
+			$apertShort = hexdec(substr($data,32,8));
+			$divApertShort = hexdec(substr($data,40,8));
+			$apertLong = hexdec(substr($data,48,8));
+			$divApertLong = hexdec(substr($data,56,8));
+			
+			if ($divFocalShort > 0) $focalShort = $focalShort / $divFocalShort;
+			if ($divFocalLong > 0) $focalLong = $focalLong / $divFocalLong;
+			if ($divApertShort > 0) $apertShort = $apertShort / $divApertShort;
+			if ($divApertLong > 0) $apertLong = $apertLong / $divApertLong;
+			
+			if ($focalShort == $focalLong) {
+				$data = "Fixed " . $focalShort . "mm f/";
+			} else {
+				$data = "Zoom " . $focalShort . "-" . $focalLong . "mm f/";
+			}
+			if ($apertShort == $apertLong) {
+				$data = $data . $apertShort;
+			} else {
+				$data = $data . $apertShort . "-" . $apertLong;
+			}
+    } else if($type=="ASCII") {
+		
+	  } else if($type=="URATIONAL" || $type=="SRATIONAL") {
 		$data = bin2hex($data);
 		if($intel==1) $data = intel2Moto($data);
 		$top = hexdec(substr($data,8,8));
@@ -329,3 +384,4 @@ function parseNikon($block,&$result) {
 
 
 ?>
+

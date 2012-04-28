@@ -723,6 +723,10 @@ class ExifHelper {
 	    array($gallery->i18n('Jpeg IF Offset'), 'IFD1.JpegIFOffset');
 	$data['JpegQual'] =
 	    array($gallery->i18n('Jpeg Quality'), 'SubIFD.MakerNote.JpegQual');
+        $data['LensInfo'] =
+            array($gallery->i18n('LensInfo Nikon'), 'SubIFD.MakerNote.LensInfo');
+        $data['LensType'] =
+            array($gallery->i18n('LensType Canon'), 'SubIFD.MakerNote.Settings 1.LensType');
 	$data['LightSource'] =
 	    array($gallery->i18n('Light Source'), 'SubIFD.LightSource');
 	$data['LongFocalLength'] =

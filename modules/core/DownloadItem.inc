@@ -94,7 +94,7 @@ class DownloadItemView extends GalleryView {
 
 	/* Don't allow malicious URLs */
 	$fileName = GalleryUtilities::getRequestVariables('fileName');
-	if (!empty($fileName) && $fileName != $pseudoFileName) {
+	if (!empty($fileName) && $fileName != $pseudoFileName && urldecode($fileName) != $pseudoFileName) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, 'malicious url');
 	}
 	
