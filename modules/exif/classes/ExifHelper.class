@@ -333,15 +333,17 @@ class ExifHelper {
 	     * decimal separator, but it does not accept '21,3725' as argument. Weird, but it's
 	     * like that.
 	     */
-	    $value = preg_replace_callback('/(\d*)[\.,](\d{3,})/', 'eModifierCallback', $value);
+		$value = preg_replace_callback('/(\d*)[\.,](\d{3,})/', 
+				create_function(
+						'$matches',
+						'return sprintf(\'%.2f\', $matches[1].$matches[2]);'
+				), 
+		$value);
+
 	    break;
 	}
 
 	return $value;
-    }
-
-    function eModifierCallback($matches) {
-         return sprintf(\'%.2f\', $matches[1].$matches[2]);
     }
 
     /**

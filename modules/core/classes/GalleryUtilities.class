@@ -764,10 +764,14 @@ class GalleryUtilities {
      * @return string the UTF-8 string
      */
     function unicodeEntitiesToUtf8($string) {
-	$string = preg_replace_callback('/&#([xa-f\d]+);/mi', 'eModifierCallback', $string);
+	$string = preg_replace_callback('/&#([xa-f\d]+);/mi', 
+			create_function(
+					'$matches',
+					'return GalleryUtilities::unicodeValueToUtf8Value($matches[1]);'
+			), 
+	$string);
 	return $string;
     }
-    function eModifierCallback($matches) { return GalleryUtilities::unicodeValueToUtf8Value($matches[1]); }
 
     /**
      * mb_substr() for UTF-8, with PHP fallback. Truncates incomplete HTML entity at end of result.
