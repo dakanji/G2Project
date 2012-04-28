@@ -1,0 +1,346 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * WebDAV module tests.
+ * @package WebDav
+ * @subpackage PHPUnit
+ * @author Jack Bates <ms419@freezone.co.uk>
+ * @version $Revision: 17580 $
+ */
+class WebDavModuleTest extends GalleryTestCase {
+
+    function WebDavModuleTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+	global $gallery;
+
+	/* Initialize test URL generator */
+	$urlGenerator = new GalleryUrlGenerator();
+	$ret = $urlGenerator->init('http://example.com/gallery2/main.php');
+	if ($ret) {
+	    return $ret;
+	}
+	$gallery->setUrlGenerator($urlGenerator);
+
+	/* Create test items */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
+	    'test/file');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_subAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Load WebDAV module */
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'webdav');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Mock disable WebDAV rewrite rules */
+	$this->_activeRules =& WebDavModuleTestRewriteApi::_fetchActiveRulesForModule('webdav');
+	$this->_activeRules = array();
+	$this->_activateCalls =& WebDavModuleTestRewriteApi::_getActivateCalls();
+	$this->_markFactoryForCleanup();
+	$this->_registerFactoryImplementationForTest(
+	    'RewriteApi', 'WebDavModuleTestRewriteApi', 'WebDavModuleTestRewriteApi',
+	    'modules/webdav/test/phpunit/WebDavModuleTest.class', 'test');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_registerFactoryImplementationForTest(
+	    'HttpAuthInterface_1_0', 'WebDavModuleTestHttpAuthInterface',
+	    'WebDavModuleTestHttpAuthInterface',
+	    'modules/webdav/test/phpunit/WebDavModuleTest.class', 'test');
+	WebDavModuleTestHttpAuthInterface::_requestAuthenticationCalls('reset');
+
+	/* Define OPTIONS request */
+	$this->_optionsRequest = implode("\r\n", array(
+	    'OPTIONS ' . $urlGenerator->generateUrl(
+		array('controller' => 'webdav.WebDav'),
+		array('forceServerRelativeUrl' => true,
+		      'htmlEntities' => false)) . ' HTTP/1.0',
+	    'Host: ' . $urlGenerator->getHostName(),
+	    '',
+	    ''));
+
+	/* Define success and failure responses */
+	$this->_includesDavHeadersResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Allow: OPTIONS,PROPFIND,PROPPATCH,MKCOL,GET,HEAD,DELETE,PUT,MOVE,LOCK,UNLOCK',
+	    'DAV: 1,2',
+	    'MS-Author-Via: DAV',
+	    'Content-Length: 0',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    ''));
+	$this->_missingDavHeadersResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Allow: OPTIONS,GET,HEAD,POST',
+	    'Content-Length: 0',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    ''));
+
+	/* Use WebDavModuleTestPlatform */
+	$this->_platform = new WebDavModuleTestPlatform();
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_includesDavHeadersResponse;
+	$gallery->setPlatform($this->_platform);
+
+	$this->_registerTestEventListener('Gallery::ActivatePlugin', $this->_module);
+    }
+
+    function tearDown() {
+	GalleryDataCache::reset();
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testGetItemLinks() {
+	global $gallery;
+
+	$items = array($this->_item, $this->_subAlbum);
+	$wantsDetailedLinks =
+	    array($this->_item->getId() => true, $this->_subAlbum->getId() => true);
+	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
+	    array($this->_item->getId(), $this->_subAlbum->getId()));
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Any user agent */
+	$_SERVER['HTTP_USER_AGENT'] = 'Foo Bar';
+
+	list ($ret, $links) = $this->_module->getItemLinks(
+	    $items, $wantsDetailedLinks, $permissions, $gallery->getActiveUserId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$expected = array();
+	$expected[$this->_subAlbum->getId()][0]['text'] =
+	    $this->_module->translate(array('text' => 'Mount with WebDAV'));
+	$expected[$this->_subAlbum->getId()][0]['params'] =
+	    array('view' => 'webdav.WebDavMount', 'itemId' => $this->_subAlbum->getId());
+	$this->assertEquals($expected, $links, 'item links for summary');
+
+	/* Verify that item links are only for detailed mode */
+	$wantsDetailedLinks[$this->_subAlbum->getId()] = false;
+	list ($ret, $links) = $this->_module->getItemLinks(
+	    $items, $wantsDetailedLinks, $permissions, $gallery->getActiveUserId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(), $links, 'must be a request for detailed links');
+    }
+
+    function testGetRewriteRules() {
+	$rules = $this->_module->getRewriteRules();
+	$this->assertEquals(array('connect', 'davmount'), array_keys($rules));
+    }
+
+    function testGetRewriteRulesOptionsRuleActive() {
+	$this->_activeRules = array('options');
+
+	$rules = $this->_module->getRewriteRules();
+	$this->assertEquals(array('connect', 'davmount', 'options'), array_keys($rules));
+    }
+
+    function testGetRewriteRulesMissingDavHeaders() {
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_missingDavHeadersResponse;
+
+	$rules = $this->_module->getRewriteRules();
+	$this->assertEquals(array('connect', 'davmount', 'options'), array_keys($rules));
+    }
+
+    function testHandleEventActivatePlugin() {
+	$event = GalleryCoreApi::newEvent('Gallery::ActivatePlugin');
+	$event->setData(array('pluginType' => 'module',
+			      'pluginId' => 'rewrite'));
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('webdav')), $this->_activateCalls);
+    }
+
+    function testHandleEventError() {
+	GalleryUtilities::removeRequestVariable('controller');
+	GalleryUtilities::putRequestVariable('view', 'webdav.WebDav');
+	$this->_registerTestEventListener('Gallery::Error', $this->_module);
+
+	$error = GalleryCoreApi::error(GALLERY_ERROR);
+	$event = GalleryCoreApi::newEvent('Gallery::Error');
+	$event->setData(array('error' => $error));
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('suppressBody' => 1, 'errorHandled' => 1)), $results);
+	$this->assertEquals(0,
+		WebDavModuleTestHttpAuthInterface::_requestAuthenticationCalls('read'),
+		'httpauth should only be called for ERROR_PERMISSION_DENIED');
+    }
+
+    function testHandleEventErrorPermissionDenied() {
+	GalleryUtilities::removeRequestVariable('controller');
+	GalleryUtilities::putRequestVariable('view', 'webdav.WebDav');
+	$this->_registerTestEventListener('Gallery::Error', $this->_module);
+
+	$error = GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
+	$event = GalleryCoreApi::newEvent('Gallery::Error');
+	$event->setData(array('error' => $error));
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('suppressBody' => 1, 'errorHandled' => 1)), $results);
+	$this->assertEquals(1,
+		WebDavModuleTestHttpAuthInterface::_requestAuthenticationCalls('read'),
+		'httpauth has not been called');
+    }
+}
+
+class WebDavModuleTestRewriteApi {
+    var $foo;
+
+    function &_fetchActiveRulesForModule($moduleId) {
+	static $activeRules;
+	return $activeRules;
+    }
+
+    function &_getActivateCalls() {
+	static $activateCalls;
+	return $activateCalls;
+    }
+
+    function isCompatibleWithApi($version) {
+	return array(null, true);
+    }
+
+    function fetchActiveRulesForModule($moduleId) {
+	return array(null, WebDavModuleTestRewriteApi::_fetchActiveRulesForModule($moduleId));
+    }
+
+    function activateRewriteRulesForModule($moduleId) {
+	$activateCalls =& WebDavModuleTestRewriteApi::_getActivateCalls();
+	$activateCalls[] = array($moduleId);
+    }
+}
+
+class WebDavModuleTestPlatform extends GalleryPlatform {
+    var $_messages;
+    var $_buffer;
+
+    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+	return 'test';
+    }
+
+    function feof($handle) {
+	return empty($this->_buffer);
+    }
+
+    function fgets($handle, $length) {
+	if (empty($this->_buffer)) {
+	    return null;
+	}
+
+	if (strpos($this->_buffer, "\n") < $length) {
+	    $length = strpos($this->_buffer, "\n") + 1;
+	}
+
+	return $this->fread($handle, $length);
+    }
+
+    function fread($handle, $length) {
+	if (empty($this->_buffer)) {
+	    return null;
+	}
+
+	$buffer = substr($this->_buffer, 0, $length);
+	$this->_buffer = substr($this->_buffer, $length);
+	return $buffer;
+    }
+
+    function fwrite($handle, $string, $length=0) {
+	if (isset($this->_messages[$string])) {
+	    $this->_buffer = $this->_messages[$string];
+	    return strlen($string);
+	}
+    }
+
+    function fflush($handle) {
+	return true;
+    }
+
+    function fclose($handle) {
+	return true;
+    }
+}
+
+class WebDavModuleTestHttpAuthInterface /* extends HttpAuthInterface_1_0 */ {
+    function _requestAuthenticationCalls($mode=false) {
+	static $calls = 0;
+	if ($mode == 'reset') {
+	    $calls = 0;
+	} else if ($mode == 'read') {
+	    return $calls;
+	} else {
+	    $calls++;
+	}
+    }
+
+    function requestAuthentication() {
+	WebDavModuleTestHttpAuthInterface::_requestAuthenticationCalls();
+	return null;
+    }
+}
+?>

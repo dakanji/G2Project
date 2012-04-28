@@ -1,0 +1,217 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
+/**
+ * Test Quotas Listener functionality
+ * @package Quotas
+ * @subpackage PHPUnit
+ * @author Robert Balousek <volksport@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class QuotasListenerTest extends GalleryTestCase {
+
+    function QuotasListenerTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a container album for any data items we create */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Create a dummy user */
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Create dummy group */
+	list ($ret, $this->_group) = $this->_createRandomGroup();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Save/clear quotas for All Users,Everybody groups so they won't interfere with tests */
+	$this->_saveQuota = array();
+	foreach (array('allUsersGroup', 'everybodyGroup') as $groupName) {
+	    list ($ret, $groupId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'id.' . $groupName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $hasQuota, $quota) = GalleryQuotasHelper::fetchGroupQuota($groupId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    if ($hasQuota) {
+		$this->_saveQuota[$groupId] = $quota;
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'QuotasMap', array('userOrGroupId' => $groupId));
+	    }
+	}
+    }
+
+    function tearDown() {
+	$ret = GalleryCoreApi::deleteEntityById($this->_album->getId(), 'GalleryAlbumItem');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::deleteEntityById($this->_user->getId(), 'GalleryUser');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::deleteEntityById($this->_group->getId(), 'GalleryGroup');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	foreach ($this->_saveQuota as $groupId => $quota) {
+	    $ret = GalleryCoreApi::addMapEntry(
+		'QuotasMap',
+		array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testDeleteEntityQuotasListener() {
+	/* Enable event listener (normally disabled for unit tests) */
+	$this->_registerTestEventListener('GalleryEntity::delete', new QuotasModule());
+
+	$userId = $this->_user->getId();
+
+	list ($ret, $quotaExists, $userQuotaInfo) =
+	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($quotaExists == false, 'Quota should not exist for this user');
+	$this->assert(empty($userQuotaInfo), 'User should have no quota information');
+
+	/* add a quota of 86 KB to this user */
+	$this->_addMapEntry(array('userOrGroupId' => $this->_user->getId(),
+				  'quotaSize' => 86));
+
+	list ($ret, $quotaExists, $userQuotaInfo) =
+	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($quotaExists == true, 'Quota should exist for this user');
+	$this->assertEquals(array('id' => $this->_user->getId(), 'quota' => 86,
+				  'name' =>$this->_user->getUserName()),
+			    $userQuotaInfo,
+			    'User should have quota information');
+	$this->_deleteEntity($this->_user);
+
+	list ($ret, $quotaExists, $userQuotaInfo) =
+	    GalleryQuotasHelper::fetchUserQuota($userId);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($quotaExists == false, 'Quota should not exist for this user');
+	$this->assert(empty($userQuotaInfo), 'User should have no quota information');
+
+	$groupId = $this->_group->getId();
+
+	list ($ret, $quotaExists, $groupQuotaInfo) =
+	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($quotaExists == false, 'Quota should not exist for this group');
+	$this->assert(empty($groupQuotaInfo), 'Group should have no quota information');
+
+	/* add a quota of 47KB for this group */
+	$this->_addMapEntry(array('userOrGroupId' => $this->_group->getId(),
+				  'quotaSize' => 47));
+
+	list ($ret, $quotaExists, $groupQuotaInfo) =
+	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($quotaExists == true, 'Quota should exist for this group');
+	$this->assertEquals(array('id' => $this->_group->getId(), 'quota' => 47,
+				  'name' =>$this->_group->getGroupName()),
+			    $groupQuotaInfo,
+			    'Group should have quota information');
+	$this->_deleteEntity($this->_group);
+
+	list ($ret, $quotaExists, $groupQuotaInfo) =
+	    GalleryQuotasHelper::fetchGroupQuota($groupId);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($quotaExists == false, 'Quota should not exist for this group');
+	$this->assert(empty($groupQuotaInfo), 'Group should have no quota information');
+
+	/* Create a dummy user */
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Create dummy group */
+	list ($ret, $this->_group) = $this->_createRandomGroup();
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function _removeMapEntry($remove) {
+	$ret = GalleryCoreApi::removeMapEntry('QuotasMap', $remove);
+	if ($ret) {
+	    return ($ret);
+	}
+    }
+
+    function _addMapEntry($add) {
+	$ret = GalleryCoreApi::addMapEntry('QuotasMap', $add);
+	if ($ret) {
+	    return ($ret);
+	}
+    }
+
+    function _deleteEntity($entity) {
+	$ret = GalleryCoreApi::deleteEntityById($entity->getId(), $entity->getEntityType());
+	if ($ret) {
+	    return $ret;
+	}
+    }
+}
+?>

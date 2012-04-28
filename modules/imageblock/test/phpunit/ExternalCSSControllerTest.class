@@ -1,0 +1,118 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * ExternalCSS controller tests
+ *
+ * @package ImageBlock
+ * @subpackage PHPUnit
+ * @author Andy Staudacher <ast@gmx.ch>
+ * @version $Revision: 17580 $
+ */
+class ExternalCSSControllerTest extends GalleryControllerTestCase {
+
+    function ExternalCSSControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'imageblock.ExternalCSS');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'imageblock');
+	if ($ret) {
+	    return $ret;
+	}
+
+	foreach (array('albumFrame' => 'frameA', 'itemFrame' => 'frameB') as $key => $value) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, $value);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Ensure there's a image frame implementation */
+	$this->_markFactoryForCleanup();
+	$this->_registerFactoryImplementationForTest('ImageFrameInterface_1_1',
+		'ExternalCSSControllerTestImageFrame', 'testImplId',
+		'modules/imageblock/test/phpunit/ExternalCSSControllerTest.class', 'testModuleId');
+    }
+
+    function testExternalCSSWithDefaultImageFrames() {
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'imageframe.CSS'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	$this->assertEquals('frameA|frameB', GalleryUtilities::getRequestVariables('frames'));
+    }
+
+    function testExternalCSSWithSpecifiedImageFrames() {
+	GalleryUtilities::putRequestVariable('frames', 'frameFromRequest');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'imageframe.CSS'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	$this->assertEquals('frameFromRequest', GalleryUtilities::getRequestVariables('frames'));
+    }
+
+    function testExternalCSSWithoutImageFrameModule() {
+	$this->_unregisterFactoryImplementationForTest('ImageFrameInterface_1_1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'imageblock.ExternalCSS'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testExternalCSSWithoutDefaultImageFrames() {
+	foreach (array('albumFrame', 'itemFrame') as $key) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, '');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'imageblock.ExternalCSS'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testExternalCSSDoesNotRequireAuthToken() {
+	$controller = new ExternalCSSController();
+	$this->assert($controller->omitAuthTokenCheck());
+    }
+}
+
+/**
+ * Test ImageFrame
+ */
+class ExternalCSSControllerTestImageFrame {}
+?>

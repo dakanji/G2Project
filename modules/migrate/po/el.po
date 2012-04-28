@@ -1,0 +1,446 @@
+# $Id: el.po 19453 2008-12-27 16:46:43Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Akis Panas <pasas9@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Migration 1.0.13\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:28-0700\n"
+"PO-Revision-Date: 2008-12-04 02:35+0200\n"
+"Last-Translator: Akis Panas <pasas9@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+"X-Generator: KBabel 1.11.4\n"
+
+msgid "Importing Users"
+msgstr "Εισαγωγή χρηστών"
+
+msgid "Importing Photos"
+msgstr "Εισαγωγή φωτογραφιών"
+
+msgid "Creating thumbnails"
+msgstr "Δημιουργία μικρογραφιών"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Μικρογραφία %d από %d"
+
+#, c-format
+msgid "%sTitle%s was truncated for %sitem %d%s."
+msgstr ""
+
+#, c-format
+msgid "%sSummary%s was truncated for %sitem %d%s."
+msgstr ""
+
+msgid "Set:"
+msgstr "Ρύθμιση:"
+
+msgid "Truncated:"
+msgstr ""
+
+msgid "Migration"
+msgstr "Μετακόμιση"
+
+msgid "Migrate your Gallery 1 albums to Gallery 2"
+msgstr "Μετατοπίστε τα άλμπουμ της Gallery 1 στην Gallery 2"
+
+msgid "Import"
+msgstr "Εισαγωγή"
+
+msgid "Gallery 1"
+msgstr "Gallery 1"
+
+msgid "G1-&gt;G2 Mapping"
+msgstr "Χαρτογράφηση G1-&gt;G2"
+
+msgid "G1 path"
+msgstr "Διαδρομή G1"
+
+#, c-format
+msgid ""
+"G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 "
+"import with the URL redirect option selected. Otherwise follow instructions in %sMigrate "
+"Site Admin%s."
+msgstr ""
+
+msgid "Select Albums and Users"
+msgstr "Επιλογή άλμπουμ και χρηστών"
+
+msgid "You must choose something to import!"
+msgstr "Πρέπει να διαλέξετε κάτι για να εισάγετε!"
+
+msgid "You must specify a custom field name"
+msgstr "Πρέπει να δώσετε όνομα προσαρμοσμένου πεδίου"
+
+msgid "Import Users"
+msgstr "Εισαγωγή χρηστών"
+
+msgid "Select the users to migrate"
+msgstr "Επιλέξτε χρήστες για να μετατοπίσετε"
+
+msgid "Check All"
+msgstr "Επιλογή όλων"
+
+msgid "Clear All"
+msgstr "Καθάρισμα όλων"
+
+msgid "Invert Selection"
+msgstr "Αντίστροφη επιλογής"
+
+msgid "Select"
+msgstr "Επιλογή"
+
+msgid "Username"
+msgstr "Όνομα χρήστη"
+
+msgid "No available users"
+msgstr "Δεν υπάρχουν διαθέσιμοι χρήστες"
+
+msgid "These users are already in your gallery, and will not be imported:"
+msgstr "Αυτοί οι χρήστες είναι ήδη στην Γκαλερί σας, δεν θα εισαχθούν:"
+
+msgid "Import Albums"
+msgstr "Εισαγωγή άλμπουμ"
+
+msgid "Select the albums to migrate"
+msgstr "Επιλέξτε τα άλμπουμ που θα μετατοπιστούν"
+
+msgid "Source:"
+msgstr "Πηγή:"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "Destination:"
+msgstr "Προορισμός:"
+
+msgid "Character Encoding of Source Text:"
+msgstr "Κωδικοποίηση χαρακτήρων κειμένου πηγής:"
+
+msgid "URL Redirection"
+msgstr ""
+
+msgid "Record G1-&gt;G2 mappings during import"
+msgstr ""
+
+msgid "Thumbnail generation"
+msgstr "Δημιουργία μικρογραφίας"
+
+msgid ""
+"Normally Gallery will generate thumbnails the first time you look at them, then save them "
+"for subsequent views.  If you check this box, we'll create the thumbnails at migration "
+"time.  Migration will take longer but the first time you view an album will go much faster."
+msgstr ""
+
+msgid "Item captions"
+msgstr "Λεζάντες αντικειμένων"
+
+msgid ""
+"Gallery 2 has the following fields for all items and albums: title, summary text shown with "
+"thumbnails and description text shown in item or album view. G1 albums already have these "
+"three items (though the names of summary and description are reversed). G1 items have only a "
+"filename and caption. For items imported into G2:"
+msgstr ""
+
+msgid "Set title from:"
+msgstr "Ορίστε τίτλο από:"
+
+msgid "Base filename"
+msgstr "Όνομα του αρχείου"
+
+msgid "Caption"
+msgstr "Λεζάντα:"
+
+msgid "Custom Field:"
+msgstr "Προσαρμοσμένο πεδίο:"
+
+msgid "Enter a custom field name"
+msgstr "Δώστε ένα όνομα προσαρμοσμένου πεδίου"
+
+msgid "Blank"
+msgstr "Κενό"
+
+msgid "Set summary from:"
+msgstr "Ορίστε περίληψη από:"
+
+msgid "Set description from:"
+msgstr "Ορίστε περιγραφή από:"
+
+msgid "Default to same as summary if custom field not set"
+msgstr "Προεπιλογή ίδια με περίληψη αν δεν έχει οριστεί προσαρμοσμένο πεδίο"
+
+msgid "Custom fields"
+msgstr "Προσαρμοσμένα πεδία"
+
+msgid ""
+"Custom fields will not be imported.  Activate Custom Fields module to enable this option."
+msgstr ""
+"Δεν θα γίνει εισαγωγή προσαρμοσμένων πεδίων. Ενεργοποιήστε Προσαρμοσμένα πεδία για να "
+"ενεργοποιηθεί αυτή η επιλογή."
+
+msgid "Import custom fields"
+msgstr "Εισαγωγή προσαρμοσμένων πεδίων"
+
+msgid ""
+"Do not create Gallery 2 custom fields for fields selected above for title, summary or "
+"description"
+msgstr ""
+
+msgid "Prepare Import"
+msgstr "Προετοιμασία εισαγωγής"
+
+msgid "Confirm Migration"
+msgstr "Επιβεβαίωσης μετατόπισης"
+
+msgid "Users to import:"
+msgstr "Χρήστες για εισαγωγή:"
+
+msgid "Albums to import:"
+msgstr "Άλμπουμ για εισαγωγή:"
+
+msgid "Album Name"
+msgstr "Όνομα άλμπουμ"
+
+msgid "Album Title"
+msgstr "Τίτλος άλμπουμ"
+
+msgid "Album Notes"
+msgstr "Σημειώσεις άλμπουμ"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Υπάρχει ήδη ένα άλμπουμ με αυτό το όνομα. Αυτό το άλμπουμ θα μετονομαστεί."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Αυτό το άλμπουμ έχει άκυρο όνομα και θα μετονομαστεί σε <i>%s</i>"
+
+#, c-format
+msgid "This album's owner (%s) hasn't been imported."
+msgstr "Δεν έγινε εισαγωγή του ιδιοκτήτη αυτού του άλμπουμ (%s)"
+
+#, c-format
+msgid "Import %s now."
+msgstr "Εισαγωγή %s τώρα."
+
+msgid ""
+"Top level albums and albums whose parents are not selected will be imported into this album:"
+msgstr ""
+
+#, c-format
+msgid "Title: %s"
+msgstr "Τίτλος: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Περιγραφή: %s"
+
+msgid "Your Gallery 1 will be converted from this character encoding into UTF-8:"
+msgstr "Η Gallery 1 θα μετατραπεί από αυτή την κωδικοποίηση σε UTF-8:"
+
+#, c-format
+msgid "Encoding: %s"
+msgstr "Κωδικοποίηση: %s"
+
+msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgstr ""
+
+msgid "Thumbnails will be generated during migration"
+msgstr "Οι μικρογραφίες θα δημιουργηθούν κατά την μετατόπιση"
+
+msgid "Item fields will be imported from:"
+msgstr "Τα πεδία των αντικειμένων θα εισαχθούν από:"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Custom field:"
+msgstr "Προσαρμοσμένο πεδίο:"
+
+msgid "Summary"
+msgstr "Περίληψη"
+
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgid "(Default to summary value if not set)"
+msgstr "(Προεπιλογή στην περίληψη αν δεν ρυθμιστεί)"
+
+msgid "Custom fields will be imported"
+msgstr "Τα προσαρμοσμένα πεδία θα εισαχθούν"
+
+msgid "Custom fields imported into item fields above will not be duplicated as custom fields"
+msgstr ""
+"Τα προσαρμοσμένα πεδία που θα εισαχθούν στα πιο πάνω πεδία αρχείων δεν θα δημιουργήσουν "
+"διπλά προσαρμοσμένα πεδία."
+
+msgid "Hidden Items"
+msgstr "Κρυφά αντικείμενα"
+
+msgid ""
+"Any hidden albums or items will be imported with restricted view permissions. Activate the "
+"Hidden Items module before migration to import these as \"hidden\" which means they are "
+"invisible to guest users until accessed by the direct URL for those items."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "Import Complete"
+msgstr "Η εισαγωγή ολοκληρώθηκε"
+
+#, c-format
+msgid "Successfully imported %d user."
+msgid_plural "Successfully imported %d users."
+msgstr[0] "Εισήχθηκε %d χρήστης με επιτυχία"
+msgstr[1] "Εισήχθηκαν %d χρήστες με επιτυχία"
+
+msgid "No users imported."
+msgstr "Δεν εισήχθηκε κανένας χρήστης."
+
+#, c-format
+msgid "Imported %s"
+msgstr "Εισήχθηκε %s"
+
+#, c-format
+msgid "Error while importing %d user."
+msgid_plural "Errors while importing %d users."
+msgstr[0] "Σφάλμα κατά την εισαγωγή %d χρήστη."
+msgstr[1] "Σφάλμα κατά την εισαγωγή %d χρηστών."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Σφάλμα εισαγωγής %s"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "Εισήχθηκε %d άλμπουμ με επιτυχία"
+msgstr[1] "Εισήχθηκαν %d άλμπουμ με επιτυχία"
+
+msgid "No albums imported."
+msgstr "Δεν εισήχθηκε κανένα άλμπουμ."
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Σφάλμα κατά την εισαγωγή %d άλμπουμ."
+msgstr[1] "Σφάλμα κατά την εισαγωγή %d άλμπουμ."
+
+msgid "Import more data"
+msgstr "Εισαγωγή περισσότερων στοιχείων"
+
+msgid "To enable URL Redirection under Apache webserver:"
+msgstr ""
+
+#, c-format
+msgid "Ensure the %s Apache module is enabled."
+msgstr "Επιβεβαιωθείτε ότι το %s Apache module είναι ενεργοποιημένο"
+
+msgid ""
+"Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory and add the text "
+"shown below to the file. Remove G1 rewrite rules from an existing file. Redirects will also "
+"work in your Gallery2 directory if G2 is installed in the path where G1 used to be. However, "
+"if you also use the G2 URL Rewrite module then activate the G1 redirect rule in that module "
+"instead of using the block shown below."
+msgstr ""
+
+msgid ""
+"Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if you also wish to "
+"redirect links to image files and album directories. Note that these redirects are not "
+"active until the G1 images are actually removed or moved. Omit the !-f line shown below to "
+"redirect anyway."
+msgstr ""
+
+msgid ""
+"If G2 is installed in the path where G1 used to exist, you will need to remove the G1 file "
+"\"gallery_remote2.php\" file before you can use Gallery Remote to upload images to G2."
+msgstr ""
+
+msgid "Download .htaccess file"
+msgstr "Κατεβάστε το αρχείο .htaccess"
+
+msgid "Import from Gallery 1"
+msgstr "Εισαγωγή από Gallery 1"
+
+msgid ""
+"Copy all or part of an existing Gallery 1 installation into your Gallery 2.  It won't modify "
+"your Gallery 1 data in any way."
+msgstr ""
+"Αντιγράψτε όλη ή μέρος της εγκατάστασης G1 που υπάρχει ήδη στην Gallery 2. Δεν θα "
+"τροποποιήσει τα στοιχεία της Gallery 1 με κανένα τρόπο."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"Δεν έχετε καμία εργαλειοθήκη γραφικών ενεργοποιημένη για τις εικόνες JPEG. Αν θέλετε να "
+"εισάξετε τώρα, δεν θα έχετε καμία μικρογραφία. Επισκεφτείτε την σελίδα %sModules%s για να "
+"ενεργοποιήσετε μια εργαλειοθήκη γραφικών παραστάσεων."
+
+msgid "Path to Gallery 1 albums directory"
+msgstr "Διαδρομή στον κατάλογο άλμπουμ της Gallery 1"
+
+msgid "Example: /var/www/albums"
+msgstr "Παράδειγμα: /var/www/albums"
+
+msgid "You did not enter a path."
+msgstr "Δεν δώσατε καμία διαδρομή."
+
+msgid "The path that you entered is invalid."
+msgstr "Η διαδρομή που δώσατε δεν είναι έγκυρη."
+
+msgid ""
+"<b>Note:</b> Before you import any data you should make sure your Gallery 1 is installed "
+"correctly by adding a photo through the Gallery 1 web interface.  Make sure you resolve any "
+"errors you see there first."
+msgstr ""
+"<b>Σημείωση:</b> Πριν προχωρήσετε με την εισαγωγή στοιχείων βεβαιωθείτε ότι η Gallery 1 "
+"είναι εγκατεστημένη σωστά προσθέτοντας μία φωτογραφία μέσω του περιβάλλοντος εργασίας της "
+"Gallery 1. Βεβαιωθείτε ότι θα λύσετε οποιαδήποτε σφάλματα που θα δείτε εκεί."
+
+msgid "Recently Used Paths"
+msgstr "Πρόσφατες χρησιμοποιημένες διαδρομές"
+
+msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
+msgstr ""
+
+#, c-format
+msgid "There is one G1-&gt;G2 map entry"
+msgid_plural "There are %d G1-&gt;G2 map entries"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid ""
+"Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
+"redirecting to G2 pages.  Delete all entries?"
+msgstr ""
+
+msgid "Delete All"
+msgstr "Διαγραφή όλων"
+
+msgid "Map entries deleted successfully"
+msgstr "Οι εισαγωγές του χάρτη διαγράφηκαν με επιτυχία"

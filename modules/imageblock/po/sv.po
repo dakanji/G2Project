@@ -1,0 +1,310 @@
+# $Id: sv.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Swedish translation
+# Christian Wallin <crille@swipnet.se>, 2002-2005.
+# Mikael Gustafsson <mikael.gustafsson@lecando.com>, 2003-2005.
+# Peter Liversten <skansberget@telia.com>, 2003-2005.
+# Hampus Nygren <hampus@friendlyfire.net>, 2005.
+#
+# Changed the translation from html to UTF-8
+# Anders Lindquist <andersl@saaf.se>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2008-09-25 20:25+0100\n"
+"Last-Translator: Martin Öberg <spam-g2translation@strickz.com>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Bildblock"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Slumpmässig, Senaste eller Mest Visade Foto eller Album"
+
+msgid "Blocks"
+msgstr "Block"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Slumpmässig bild"
+msgstr[1] "Slumpmässiga bilder"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Senaste bild"
+msgstr[1] "Senaste bilder"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Mest visade bild"
+msgstr[1] "Mest visade bilder"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Slumpmässigt album"
+msgstr[1] "Slumpmässiga albumer"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Senaste album"
+msgstr[1] "Senaste albumer"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Mest visade album"
+msgstr[1] "Mest visade albumer"
+
+msgid "Picture of the Day"
+msgstr "Dagens bild"
+
+msgid "Picture of the Week"
+msgstr "Veckans bild"
+
+msgid "Picture of the Month"
+msgstr "Månadens bild"
+
+msgid "Album of the Day"
+msgstr "Dagens album"
+
+msgid "Album of the Week"
+msgstr "Veckans album"
+
+msgid "Album of the Month"
+msgstr "Månadens album"
+
+msgid "Date:"
+msgstr "Datum:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Visningar: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Ägare: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Förhindra att detta album visas i Bildblocket"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Applicera BildBlock-inställningar på underliggande album"
+
+msgid "Image Block Settings"
+msgstr "BildBlock-inställningar"
+
+msgid "Settings saved successfully"
+msgstr "Inställningar sparades framgångsrikt"
+
+msgid "Show"
+msgstr "Visa"
+
+msgid "Heading"
+msgstr "Överskrift"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "View Count"
+msgstr "Visa Räknare"
+
+msgid "Owner"
+msgstr "Ägare"
+
+msgid "Frames"
+msgstr "Ramar"
+
+msgid "View samples"
+msgstr "Visa prover"
+
+msgid "Album Frame"
+msgstr "Albumram"
+
+msgid "Photo Frame"
+msgstr "Fotoram"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Reset"
+msgstr "Nollställ"
+
+msgid "External Image Block"
+msgstr "Externt Bildblock"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Använd ett PHP-block liknande det som visas nedan för att inkludera ett blidblock på en PHP "
+"sida utanför Gallery."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Vertikalltstreck(|) separerad lista vald från: slumpmässig bild, senast visad bild, visad "
+"bild, slumpmässig bild, senaste album, visat album, dagens bild, veckans bild, månadens "
+"bild. dagens album, veckans album, månadens album, specifierat objekt; standard är "
+"slumpmässig bild"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Vertikaltstreckseparerad (|) lista vald från: titel, datum, antal visningar, ägare, rubrik, "
+"fullstorlek, råbild; värdet kan också vara: inget"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Begränsa objekt valet till underalbum till det album med det givna id; eller till objektets "
+"id när det används vid specifierad blocktyp"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Skala bilder till maximal storlek. Om den används för sig själv så kommer Gallery att "
+"bestämma den-närmaste-bildstorleken till det angivna värdet - större bilder kommer att "
+"skalas ner om det behövs i din webbläsare. Om den anges ihop med %svisa=fullStorlek så "
+"kommer alltid den största bilden användas och skalas ner om nödvändigt."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Precis som %smaxSize med undantaget att den inte kommer att använda en bild mindre än den "
+"storlek du begärde, så du kommer få den bild som ligger närmast i storlek. OBS det kan leda "
+"till ett högre användande av bandbredd om en mycket större bild måste skalas ner i din "
+"webbläsare."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href för länkar till bilder; inget värde för att inte länka; standard är länk till objekt i "
+"Gallery"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Addera en mållänk (t.ex. för att öppna länken i ett nytt browser fönster)"
+
+msgid "Image frame to use around images"
+msgstr "Ram att använda runt bilder"
+
+msgid "Image frame to use around albums"
+msgstr "Ram att använda runt album"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr "Om en parameter markerad med * är utelämnad så används sitens förvalda värde."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Bildramar kräver CSS fär att visas korrekt. Inkludera det följande i %s-sektionen för att "
+"stödja bildramar."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Specifiera ram-id (eller en id-lista separerad med vertikalstreck) i ramparametern. Ram-id "
+"är katalog namnen i %s katalogen."
+
+msgid "Image type"
+msgstr "Bildtyp"
+
+msgid "Random image"
+msgstr "Slumpmässig bild"
+
+msgid "Recent image"
+msgstr "Senaste Bild"
+
+msgid "Viewed image"
+msgstr "Visad Bild"
+
+msgid "Random album"
+msgstr "Slumpmässigt album"
+
+msgid "Recent album"
+msgstr "Senaste album"
+
+msgid "Viewed album"
+msgstr "Visade Album"
+
+msgid "Daily image"
+msgstr "Dagensbild"
+
+msgid "Weekly image"
+msgstr "Veckobild"
+
+msgid "Monthly image"
+msgstr "Månadsbild"
+
+msgid "Daily album"
+msgstr "Dagensalbum"
+
+msgid "Weekly album"
+msgstr "Veckoalbum"
+
+msgid "Monthly album"
+msgstr "Månadsalbum"
+
+msgid "Number of items"
+msgstr "Antal objekt"
+
+msgid "Use default settings"
+msgstr "Använd standard inställningar"
+
+msgid "Show heading"
+msgstr "Visa överskrift"
+
+msgid "Show title"
+msgstr "Visa titel"
+
+msgid "Show date"
+msgstr "Visa datum"
+
+msgid "Show view count"
+msgstr "Visa Visningsräknare"
+
+msgid "Show owner"
+msgstr "Visa ägare"

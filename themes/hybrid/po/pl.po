@@ -1,0 +1,261 @@
+# $Id: pl.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2007-08-27 11:58+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Hybrid"
+msgstr "Hybryda"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "Połączona dynamiczna prezentacja albumów/zdjęć/slajdów"
+
+msgid "Show text with thumbnails"
+msgstr "Pokaż tekst i miniaturki"
+
+msgid "Show dates for albums"
+msgstr "Pokaż daty dla albumów"
+
+msgid "Show dates with thumbnails"
+msgstr "Pokaż daty z miniaturkami"
+
+msgid "Show dates in image view"
+msgstr "Pokaż daty w widoku zdjęcia"
+
+msgid "Show album sizes"
+msgstr "Pokaż rozmiar albumu"
+
+msgid "Show view counts"
+msgstr "Pokaż licznik odwiedzin"
+
+msgid "Mouseover on thumbnails"
+msgstr "Informacja na miniaturkach"
+
+msgid "None"
+msgstr "Nic"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/Time"
+msgstr "Data/Czas"
+
+msgid "Title (Date)"
+msgstr "Tytuł (Data)"
+
+msgid "Title (Date/Time)"
+msgstr "Tytuł (Data/Czas)"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Właściciel: %s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "Oglądano: %d raz"
+msgstr[1] "Oglądano: %d razy"
+msgstr[2] "Oglądano: %d razy"
+
+msgid "Date: "
+msgstr "Data: "
+
+msgid "Keywords: "
+msgstr "Słowa kluczowe: "
+
+msgid "Link to this item:"
+msgstr "Link do tej pozycji:"
+
+msgid "Error!"
+msgstr "Błąd!"
+
+msgid "Show Details"
+msgstr "Pokaż szczegóły"
+
+msgid "Hide Details"
+msgstr "Ukryj szczegóły"
+
+msgid "Show Item Links"
+msgstr "Pokaż linki do pozycji"
+
+msgid "Hide Item Links"
+msgstr "Ukryj linki do pozycji"
+
+msgid "Item Details"
+msgstr "Szczegóły"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"Widok albumu:\n"
+"| Spacja = rozpocznij/wstrzymaj pokaz\n"
+"| Ctrl + prawo/lewo = pokaż/ukryj boczny panel\n"
+"| Ctrl + góra/dół = pokaż/ukryj linki pozycji\n"
+"\n"
+"Widok zdjęcia:\n"
+"| Spacja =  rozpocznij/wstrzymaj pokaz\n"
+"| ESC = powrót do widoku albumu\n"
+"| prawo/lewo = następne/poprzednie zdjęcie\n"
+"| góra/dół = pokaż/ukryj opis\n"
+"| Page Up/Dn = przewiń opis\n"
+"| Ctrl + góra/dół = pełny/dopasowany rozmiar\n"
+"W pełnym rozmiarze strzałki góra/dół/prawo/lewo przewijają obraz,\n"
+"\n"
+"użyj Shift zamiast Ctrl, aby zastosować powyższe funkcje\n"
+"Szczegóły pozycji:\n"
+"| ESC = zamknij okno"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "Pokaż tekst i miniaturki"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "Powrót do widoku albumu"
+
+msgid "Pause Slideshow"
+msgstr "Wstrzymaj pokaz"
+
+msgid "Start Slideshow"
+msgstr "Rozpocznij pokaz"
+
+msgid "Full Size"
+msgstr "Pełny rozmiar"
+
+msgid "Fit Size"
+msgstr "Dopasuj rozmiar"
+
+msgid "No Previous Image"
+msgstr "Brak poprzedniego zdjęcia"
+
+msgid "Previous Image"
+msgstr "Poprzednie zdjęcie"
+
+msgid "Previous Image (Load new page)"
+msgstr "Poprzednie zdjęcie (Nowa strona)"
+
+msgid "No Next Image"
+msgstr "Brak następnego zdjęcia"
+
+msgid "Next Image"
+msgstr "Następne zdjęcie"
+
+msgid "Next Image (Load new page)"
+msgstr "Następne zdjęcie (Nowa strona)"
+
+msgid "Hide sidebar"
+msgstr "Ukryj panel boczny"
+
+msgid "Show sidebar"
+msgstr "Pokaż panel poczny"
+
+msgid "no thumbnail"
+msgstr "brak podglądu"
+
+msgid "Item Actions"
+msgstr "Akcja"
+
+msgid "Continue..."
+msgstr "Kontynuuj..."
+
+msgid "Navigation"
+msgstr "Nawigacja"
+
+msgid "Display Options"
+msgstr "Opcje wyglądu"
+
+msgid "Keyboard Controls"
+msgstr "Klawisze kontrolne"
+
+msgid "View"
+msgstr "Tryb"
+
+msgid "guest"
+msgstr "gość"
+
+msgid "Slideshow Options"
+msgstr "Opcje pokazu slajdów"
+
+msgid "Delay"
+msgstr "Opóźnienie"
+
+msgid "3 seconds"
+msgstr "3 sekundy"
+
+msgid "5 seconds"
+msgstr "5 sekund"
+
+msgid "7 seconds"
+msgstr "7 sekund"
+
+msgid "10 seconds"
+msgstr "10 sekund"
+
+msgid "15 seconds"
+msgstr "15 sekund"
+
+msgid "20 seconds"
+msgstr "20 sekund"
+
+msgid "Direction"
+msgstr "Kierunek"
+
+msgid "forward"
+msgstr "do przodu"
+
+msgid "reverse"
+msgstr "do tyłu"
+
+msgid "random"
+msgstr "losowy"
+
+#~ msgid "Show text"
+#~ msgstr "Pokaż tekst"
+
+#~ msgid "Hide text"
+#~ msgstr "Ukryj tekst"

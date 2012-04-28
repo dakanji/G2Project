@@ -1,0 +1,285 @@
+# $Id: fa.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-06-30 21:11+0430\n"
+"PO-Revision-Date: 2008-06-30 21:11+0430\n"
+"Last-Translator: Mohammad Samini <MSamini@iaus.ac.ir>\n"
+"Language-Team: PERSIAN <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "بلاک تصویر"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "نمایش تصادفی، بیشترین مشاهده و یا مشاهده‌های اخیر عکس و یا آلبوم"
+
+msgid "Blocks"
+msgstr "بلوک‌ها"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "تصویر تصادفی"
+msgstr[1] "تصویرهای تصادفی"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "جدیدترین تصویر"
+msgstr[1] "جدیدترین تصویرها"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "مهم‌ترین تصویر از نظر مشاهده"
+msgstr[1] "مهم‌ترین تصویرها از نظر مشاهده"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "آلبوم تصادفی"
+msgstr[1] "آلبوم‌های تصادفی"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "جدیدترین آلبوم"
+msgstr[1] "جدیدترین آلبوم‌ها"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "مهم‌ترین آلبوم از نظر مشاهده"
+msgstr[1] "مهم‌ترین آلبوم‌ها از نظر مشاهده"
+
+msgid "Picture of the Day"
+msgstr "تصویر روز"
+
+msgid "Picture of the Week"
+msgstr "تصویر هفته"
+
+msgid "Picture of the Month"
+msgstr "تصویر ماه"
+
+msgid "Album of the Day"
+msgstr "آلبوم روز"
+
+msgid "Album of the Week"
+msgstr "آلبوم هفته"
+
+msgid "Album of the Month"
+msgstr "آلبوم ماه"
+
+msgid "Date:"
+msgstr "تاریخ:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "بازدیدها: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "متعلق به %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "جلوگیری از نمایش این آلبوم با بلاک تصویر"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "اعمال تنظیمات بلاک تصویر در آلبوم‌های فرعی"
+
+msgid "Image Block Settings"
+msgstr "تنظیم‌های بلاک تصویر"
+
+msgid "Settings saved successfully"
+msgstr "تنظمیات ذخیره شد"
+
+msgid "Show"
+msgstr "نمایش"
+
+msgid "Heading"
+msgstr "سرصفحه"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "View Count"
+msgstr "تعداد بازدید"
+
+msgid "Owner"
+msgstr "توسط"
+
+msgid "Frames"
+msgstr "فریم‌ها"
+
+msgid "View samples"
+msgstr "مشاهده‌ی نمونه"
+
+msgid "Album Frame"
+msgstr "فریم آلبوم"
+
+msgid "Photo Frame"
+msgstr "فریم عکس"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Reset"
+msgstr "بازنشانی"
+
+msgid "External Image Block"
+msgstr "بلاک تصویر بیرونی"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"از یک بلاک پی.اچ.پی مانند انچه در زیر می‌بیند برای نمایش بلاک تصویر خارج از گالری استفاده "
+"نمایید."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"از فهرست زیر در حالی که آیتم‌ها را با لوله (|) از هم جدا کرده‌اید، انتخاب نمایید: randomImage, "
+"recentImage, viewedImage, randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, "
+"monthlyImage, dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; پیش‌فرض randomImage است"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"از فهرست زیر در حالی که آیتم‌ها را با لوله (|) از هم جدا کرده‌اید، انتخاب نمایید: title, date, "
+"views, owner, heading, fullSize; این مقدار همچنین می‌تواند هیچ باشد"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href برای پیوند به تصویر؛ هیچ معرف عدم وجود پیوند؛ به صورت پیش‌فرض به آیتم درون گالری پیوند "
+"داده می‌شود"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "افزودن پیوند مقصد (مثلاً: برای گشودن پیوند در یک پنجره‌ی جدید)"
+
+msgid "Image frame to use around images"
+msgstr "قاب برای پیرامون تصویرها"
+
+msgid "Image frame to use around albums"
+msgstr "قاب برای پیرامون آلبوم‌ها"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+
+msgid "Image type"
+msgstr "نوع تصویر"
+
+msgid "Random image"
+msgstr "تصویر تصادفی"
+
+msgid "Recent image"
+msgstr "تصویر مهم"
+
+msgid "Viewed image"
+msgstr "تصویر مشاهده‌شده"
+
+msgid "Random album"
+msgstr "آلبوم تصادفی"
+
+msgid "Recent album"
+msgstr "آلبوم مهم"
+
+msgid "Viewed album"
+msgstr "آلبوم مشاهده‌شده"
+
+msgid "Daily image"
+msgstr "تصویر روزانه"
+
+msgid "Weekly image"
+msgstr "تصویر هفتگی"
+
+msgid "Monthly image"
+msgstr "تصویر ماهانه"
+
+msgid "Daily album"
+msgstr "آلبوم روزانه"
+
+msgid "Weekly album"
+msgstr "آلبوم هفتگی"
+
+msgid "Monthly album"
+msgstr "آلبوم ماهانه"
+
+msgid "Number of items"
+msgstr "تعداد آیتم‌ها"
+
+msgid "Use default settings"
+msgstr "استفاده از تنظیمات پیش‌فرض"
+
+msgid "Show heading"
+msgstr "نمایش سرآیند"
+
+msgid "Show title"
+msgstr "نمایش عنوان"
+
+msgid "Show date"
+msgstr "نمایش تاریخ"
+
+msgid "Show view count"
+msgstr "نمایش تعداد مشاهده"
+
+msgid "Show owner"
+msgstr "نمایش مالک"

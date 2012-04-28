@@ -1,0 +1,570 @@
+# $Id: nl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-05 21:55+0100\n"
+"PO-Revision-Date: 2006-03-17 20:43+0100\n"
+"Last-Translator: Buut <buut at users.sourceforge Remove - This dot net>\n"
+"Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This feed no longer exists!"
+msgstr "Deze feed bestaat niet meer!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Deze Feed type is niet toegestaan!"
+
+msgid "Incorrect feed type!"
+msgstr "ongeldig feed type!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Reactie module is niet actief of reactie feeds zijn niet toegestaan!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Niet toegestaan om de reacties van dit item te bekijken."
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Exporteer"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS Feed voor dit Album"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS Feed voor deze afbeelding"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS Feed voor deze film"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS Feed voor deze %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Configureerd RSS Feed"
+
+msgid "Simple RSS Feed"
+msgstr "Eenvoudige RSS Feed"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Short URL voor de eenvoudige RSS Feeds"
+
+msgid "RSS Feed"
+msgstr "RSS Feed"
+
+msgid "The name of the configured RSS Feed"
+msgstr "De naam van de geconfigureerde RSS Feed"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Short URL voor de geconfigureerde RSS Feeds"
+
+#, c-format
+msgid "In album %s"
+msgstr "In album %s"
+
+msgid "Items in an album"
+msgstr "Items in een album"
+
+msgid "Sub-albums of an album"
+msgstr "Subalbum van een album"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Items in een album en de subalbums"
+
+msgid "Comments for an album"
+msgstr "Reacties op een album"
+
+msgid "Comments for an item"
+msgstr "Reacties op een item"
+
+#, fuzzy
+msgid "Comments for an album and its subalbums"
+msgstr "Items in een album en de subalbums"
+
+#, fuzzy
+msgid "Random items in an album"
+msgstr "Items in een album"
+
+#, fuzzy
+msgid "Random items in an album and its subalbums"
+msgstr "Items in een album en de subalbums"
+
+msgid "RSS Feeds"
+msgstr "RSS Feed"
+
+msgid "Settings have been saved"
+msgstr "Instellingen zijn opgeslagen"
+
+msgid "Feed successfully deleted"
+msgstr ""
+
+msgid "An error occured"
+msgstr "Er is een fout opgetreden"
+
+msgid "List"
+msgstr "Lijst"
+
+msgid "Edit Feed"
+msgstr "Wijzig Feed"
+
+msgid "New Feed"
+msgstr "Nieuwe Feed"
+
+msgid "Feed URL"
+msgstr "Feel URL"
+
+msgid "Feed name"
+msgstr "Feed Naam"
+
+msgid "You can't change the name of the feed"
+msgstr "U mag de naam van de Feed niet wijzigen"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Kies een naam voor Uw Feed (deze naam wordt gebruikt in de URL naar Uw Feed, dus gebruik "
+"alleen letters)"
+
+msgid "You must enter a name"
+msgstr "Geef een naam op"
+
+msgid "This name is already used, please select another one"
+msgstr "Deze naam bestaat reeds, kies een andere"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Feed settings"
+msgstr "Feed instellingen"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Selecteer welke soort informatie in de Feed opgenomen wordt"
+
+msgid "Type of feed"
+msgstr "Soort Feed"
+
+msgid "Items in this album"
+msgstr "items in dit album"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr "Dit type Feeds is niet toegestaan. Bezoekers kunnen deze niet bekijken."
+
+msgid "Sub-albums of this album"
+msgstr "Sub-albums van dit album"
+
+msgid "Items in this album and its subalbums"
+msgstr "Items in dit album en subalbums"
+
+msgid "Limit the number of items per album"
+msgstr "Beperkt het aantal items van per album"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "ongeldig beperking (dit kan alleen een positief getal zijn, 0 voor onbeperkt)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(geef 0 om de beperking uit te schakelen)"
+
+msgid "Comments for this album"
+msgstr "Reacties voor dit album"
+
+#, fuzzy
+msgid "Comments for this album and its subalbums"
+msgstr "Items in dit album en subalbums"
+
+#, fuzzy
+msgid "Random pictures inside this album"
+msgstr "items in dit album"
+
+#, fuzzy
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Items in dit album en subalbums"
+
+msgid "Comments for this item"
+msgstr "Reacties voor dit item"
+
+msgid "Which items"
+msgstr "Welke items"
+
+msgid "New items only"
+msgstr "Alleen nieuwe items"
+
+msgid "New and updated items"
+msgstr "Nieuwe en vernieuwde items"
+
+msgid "Choose the options for the feed"
+msgstr "Selecteer de optie voor deze feed"
+
+msgid "RSS version"
+msgstr "RSS versie"
+
+msgid "Invalid version"
+msgstr "ongeldige versie"
+
+msgid "Number of items"
+msgstr "Aantal items"
+
+msgid "Invalid number"
+msgstr "ongeldig getal"
+
+msgid "language tag"
+msgstr "Taal tag"
+
+msgid "Invalid language value"
+msgstr "ongeldige taal waarde"
+
+msgid "by default: en-us."
+msgstr "standaard: en-us"
+
+msgid "List of all possible values"
+msgstr "Volledige lijst"
+
+msgid "category tag"
+msgstr "category tag"
+
+msgid "ttl tag"
+msgstr "ttl tag"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr ""
+"Ongeldige 'time to live', de ttl waarde is een waard in minuten (0 om uit te schakelen)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Time to live: dit is de wachttijd in minuten (0 om uit te schakelen) voor aggregators "
+"voordat ze weer controleren of er nieuwe informatie in de feed beschikbaar is."
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Invalid copyright"
+msgstr "Ongeldige copyright"
+
+msgid "Use image tag"
+msgstr "Gebruikt image tag"
+
+msgid "Include image tag"
+msgstr "inclusief image tag"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "Dit voegt een afbeelding toe aan de feed, overeenkomst aan de miniatuur van dit item."
+
+msgid "Invalid value"
+msgstr "ongeldige waarde"
+
+msgid "Use enclosures"
+msgstr ""
+
+msgid "Include enclosure tags"
+msgstr ""
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+
+msgid "Use Media RSS"
+msgstr ""
+
+#, fuzzy
+msgid "Include Media RSS tags"
+msgstr "inclusief image tag"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+
+msgid "about Media RSS"
+msgstr ""
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Cloud tag (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Indien U de cloud tag wil gebruiken, dan kunt U hier de eigenschappen instellen."
+
+msgid "Example: "
+msgstr "Voorbeeld:"
+
+msgid "domain"
+msgstr "domein"
+
+msgid "port"
+msgstr "poort"
+
+msgid "path"
+msgstr "pad"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "protocol"
+
+msgid "Cloud tag"
+msgstr "Cloud tag"
+
+msgid "Include the cloud tag"
+msgstr ""
+
+msgid "Invalid string"
+msgstr "ongeldige tekst"
+
+msgid "Invalid port number"
+msgstr "ongeldig poort nummer"
+
+msgid "Update Feed"
+msgstr "Update Feed"
+
+msgid "Create Feed"
+msgstr "Maak Feed"
+
+msgid "Cancel"
+msgstr "overnieuw"
+
+msgid "RSS feeds for this item"
+msgstr "RSS Feeds voor dit item"
+
+msgid "No feeds have yet been defined"
+msgstr "Er zijn nog geen Feeds gedefinieerd"
+
+msgid "Feed link"
+msgstr "Feed link"
+
+msgid "Feed type"
+msgstr "Feed type"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "delete"
+msgstr "Verwijder"
+
+msgid "edit"
+msgstr "Wijzig"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Deze Feeds zijn beschikbaar in Gallery"
+
+msgid "RSS Settings"
+msgstr "RSS Instellingen"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Simple Feed Settings"
+msgstr "Eenvoudige Feed instellingen"
+
+msgid "General settings"
+msgstr "Algemene instellingen"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "Dit zijn de standaard en maximale waarden welke gebruikt worden in alle feeds."
+
+msgid "Default number of items in feeds"
+msgstr "Standaard aantal items in een Feed"
+
+msgid "Invalid default number"
+msgstr "ongeldig standaard waarde"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maximale aantal items in de feeds."
+
+msgid "Invalid maximum number"
+msgstr "ongeldige hoogste waarde"
+
+#, fuzzy
+msgid "Maximum age for items in feeds"
+msgstr "Maximale aantal items in de feeds."
+
+#, fuzzy
+msgid "Invalid maximum age number"
+msgstr "ongeldige hoogste waarde"
+
+msgid "Default ttl"
+msgstr "Standaard ttl"
+
+msgid "Default copyright"
+msgstr "Standaard copyright"
+
+msgid "Feed Types"
+msgstr "Feed Types"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Geef op welke typen Feeds toegestaan zijn"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Eenvoudige Feeds toegestaan"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Indien dit toegestaan is, kunnen bezoekers zich abboneren op een Feed van een album of "
+"afbeelding."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"Om de instellingen van de Eenvoudige Feed te wijzigen, gebruikt U het tabblad aan de "
+"bovenzijde van het scherm."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Configureerbare RSS Feeds mogen gebruikt worden."
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Wanneer een feed is gedefinieerd, is het voor bezoekers mogelijk om zich te abonneren op "
+"deze feeds."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "RSS Feeds toestaan voor afbeeldingen in een album"
+
+msgid "Fast"
+msgstr "snel"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "RSS Feeds toestaan voor subalbums van een album"
+
+msgid "Slow"
+msgstr "langzaam"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "RSS Feeds toestaan voor afbeeldingen in een album of subalbum"
+
+msgid "Slower"
+msgstr "langzamer"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "RSS Feeds toestaan voor reacties op een afbeelding"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of an album"
+msgstr "RSS Feeds toestaan voor reacties op een album"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "RSS Feeds toestaan voor afbeeldingen in een album of subalbum"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "RSS Feeds toestaan voor afbeeldingen in een album"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "RSS Feeds toestaan voor afbeeldingen in een album of subalbum"
+
+#, fuzzy
+msgid "Slowest"
+msgstr "langzamer"
+
+msgid "Save Settings"
+msgstr "Bewaar"
+
+msgid "Reset"
+msgstr "Herstel"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Help bezoekers om de RSS Feeds te gebruiken"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Indien U bezoekers wil helpen met de Feeds in Uw Gallery, dan kunt U de RSS block toevoegen "
+"aan de thema's welke worden gebruikt in Uw Gallery"
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+
+msgid "Global list of RSS feeds"
+msgstr "Volledige lijst van RSS Feeds"
+
+msgid "On item"
+msgstr "per item"
+
+msgid "Simple Feed settings"
+msgstr "Eenvoudige Feed instellingen"
+
+msgid "For albums"
+msgstr "Voor albums"
+
+msgid "Items in the album"
+msgstr "Items in het album"
+
+msgid "Sub-albums of the album"
+msgstr "Sub-albums van het album"
+
+msgid "Items in the album and its subalbums"
+msgstr "Items in album en subalbums"
+
+msgid "Comments for the album"
+msgstr "Reacties voor het album"
+
+msgid "For items"
+msgstr "voor items"
+
+msgid "Comments for items (always selected)"
+msgstr "Reacties voor item (altijd geselecteerd)"
+
+msgid "List all RSS Feeds"
+msgstr "Lijst van alle RSS Feeds"
+
+msgid "List of RSS Feeds"
+msgstr "Lijst van RSS Feeds"
+
+msgid "Number of feeds to display"
+msgstr "Aantal feeds om te laten zijn."
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "alles"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "Niet toegestaan om dit item te bekijken."

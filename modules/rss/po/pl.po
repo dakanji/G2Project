@@ -1,0 +1,566 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2008-03-18 23:26+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "This feed no longer exists!"
+msgstr "Kanał RSS nie istnieje!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Kanały tego typu są zabronione!"
+
+msgid "Incorrect feed type!"
+msgstr "Nieprawidłowy typ kanału!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Moduł komentarzy nie jest aktywny lub kanał dla komentarzy jest zabroniony!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Brak uprawnień do oglądania komentarzy dla tej pozycji"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "RSS Feed for this Album"
+msgstr "Kanał RSS dla tego albumu"
+
+msgid "RSS Feed for this Photo"
+msgstr "Kanał RSS dla tego zdjęcia"
+
+msgid "RSS Feed for this Movie"
+msgstr "Kanał RSS dla tego filmu"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "Kanał RSS dla %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Konfiguruj kanały RSS"
+
+msgid "Simple RSS Feed"
+msgstr "Prosty kanał RSS"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Skrócony adres URL dla prostego kanału RSS"
+
+msgid "RSS Feed"
+msgstr "Kanał RSS"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Nazwa konfigurowalnego kanału RSS"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Skrócony adres URL dla konfigurowalnego kanału RSS"
+
+#, c-format
+msgid "In album %s"
+msgstr "W albumie %s"
+
+msgid "Items in an album"
+msgstr "Pozycje w albumie"
+
+msgid "Sub-albums of an album"
+msgstr "Podalbumy w albumie"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Pozycje w albumie i jego podalbumach"
+
+msgid "Comments for an album"
+msgstr "Komentarze albumu"
+
+msgid "Comments for an item"
+msgstr "Komentarze pozycji"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Komentarze albumu i jego podalbumów"
+
+msgid "Random items in an album"
+msgstr "Losowe pozycje w albumie"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Losowe pozycje w albumie i jego podalbumach"
+
+msgid "RSS Feeds"
+msgstr "Kanały RSS"
+
+msgid "Settings have been saved"
+msgstr "Ustawienia zostały zapisane"
+
+msgid "Feed successfully deleted"
+msgstr "Kanał zostal skasowany"
+
+msgid "An error occured"
+msgstr "Wystąpił błąd"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "Edit Feed"
+msgstr "Edytuj kanał"
+
+msgid "New Feed"
+msgstr "Nowy kanał"
+
+msgid "Feed URL"
+msgstr "URL kanału"
+
+msgid "Feed name"
+msgstr "Nazwa kanału"
+
+msgid "You can't change the name of the feed"
+msgstr "Nie można zmienić nazwy kanału"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Wybierz nazwę dla twojego kanału (podana nazwa będzie zawarta w adresie URL więc staraj się "
+"korzystać tylko z liter bez polskich znaków)"
+
+msgid "You must enter a name"
+msgstr "Proszę podać nazwę"
+
+msgid "This name is already used, please select another one"
+msgstr "Nazwa jest juz używana, proszę podać inną"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Feed settings"
+msgstr "Ustawienia kanału"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Wybierz jaki typ danych będzie prezentowany w kanale"
+
+msgid "Type of feed"
+msgstr "Typ kanału"
+
+msgid "Items in this album"
+msgstr "Pozycje w tym albumie"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"Kanały tego typu są zabronione przez administratora. Użytkownicy nie będą mogli ich zobaczyć."
+
+msgid "Sub-albums of this album"
+msgstr "Podalbumy w tym albumie"
+
+msgid "Items in this album and its subalbums"
+msgstr "Pozycje w tym albumie i jego podalbumach"
+
+msgid "Limit the number of items per album"
+msgstr "Ogranicz liczbę pozycji w albumie"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr ""
+"Nieprawidłowa wartość limitu (wartość musi być liczbą dodatnią, ustaw 0 aby wyłączyć limit)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(wpisz 0 aby wyłączyć limit)"
+
+msgid "Comments for this album"
+msgstr "Komentarze dla tego albumu"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Komentarze tego albumu i jego podalbumów"
+
+msgid "Random pictures inside this album"
+msgstr "Losowe zdjęcia w tym albumie"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Losowe zdjęcia w tym albumie i jego podalbumach"
+
+msgid "Comments for this item"
+msgstr "Komentarze dla tej pozycji"
+
+msgid "Which items"
+msgstr "Które pozycje"
+
+msgid "New items only"
+msgstr "Tylko nowe pozycje"
+
+msgid "New and updated items"
+msgstr "Nowe i zaktualizowane pozycj"
+
+msgid "Choose the options for the feed"
+msgstr "Wybierz opcje dla kanału"
+
+msgid "RSS version"
+msgstr "Wersja RSS"
+
+msgid "Invalid version"
+msgstr "Nieprawidłowa wersja"
+
+msgid "Number of items"
+msgstr "Liczba pozycji"
+
+msgid "Invalid number"
+msgstr "Nieprawidłowa wartość"
+
+msgid "language tag"
+msgstr "Znacznik języka"
+
+msgid "Invalid language value"
+msgstr "Nieprawidłowy znacznik języka"
+
+msgid "by default: en-us."
+msgstr "domyślnie: en-us"
+
+msgid "List of all possible values"
+msgstr "Lista wszystkich możliwych wartości"
+
+msgid "category tag"
+msgstr "Znacznik kategorii"
+
+msgid "ttl tag"
+msgstr "Znacznik TTL"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "Nieprawidłowa wartość TTL, musisz podać liczbę minut (0 aby wyłączyć TTL)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Time to live (TTL): liczba minut (0 aby wyłączyć TTL) jaką musi odczekać czytnik kanałów RSS "
+"zanim sprawdzi czy kanał został zaktualizowany"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Invalid copyright"
+msgstr "Nieprawidłowy Copyright"
+
+msgid "Use image tag"
+msgstr "Używaj znaczników obrazu"
+
+msgid "Include image tag"
+msgstr "Dodaj znacznik obrazu"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "Ta opcja doda obraz do kanału, zgodnie z miniaturką dla tej pozycji"
+
+msgid "Invalid value"
+msgstr "Nieprawidłowa wartość"
+
+msgid "Use enclosures"
+msgstr "Używaj załączników"
+
+msgid "Include enclosure tags"
+msgstr "Dodaj znacznik załącznika"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+"Ta opcja doda załacznik do każdego zdjęcia w kanale, zawierający pełnowymiarowe zdjęcie"
+
+msgid "Use Media RSS"
+msgstr "Użyj znacznika Media RSS"
+
+msgid "Include Media RSS tags"
+msgstr "Dodaj znacznik Media RSS"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+"Ta opcja doda znacznik Media RSS do kanału, pozwalając tym samym klientom obsługującym pliki "
+"medialne wyświetlać kanał w bardziej czytelny sposób"
+
+msgid "about Media RSS"
+msgstr "(dowiedz się więcej o Media RSS)"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Znacznik Cloud (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr ""
+"Aby używać znacznika Cloud (umożliwiającego powiadamianie czytników o zmianach zawartości "
+"kanału), można ustawić jego właściwości tutaj."
+
+msgid "Example: "
+msgstr "Przykład: "
+
+msgid "domain"
+msgstr "domena"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "ścieżka"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "protokół"
+
+msgid "Cloud tag"
+msgstr "Znacznik Cloud"
+
+msgid "Include the cloud tag"
+msgstr "Włącz znacznik Cloud"
+
+msgid "Invalid string"
+msgstr "Nieprawidłowy ciąg znaków"
+
+msgid "Invalid port number"
+msgstr "Nieprawidłowy numer portu"
+
+msgid "Update Feed"
+msgstr "Uaktualnij kanał"
+
+msgid "Create Feed"
+msgstr "Stwórz kanał"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "RSS feeds for this item"
+msgstr "Kanał RSS dla tej pozycji"
+
+msgid "No feeds have yet been defined"
+msgstr "Nie zostały jeszcze zdefiniowane żadne kanały RSS"
+
+msgid "Feed link"
+msgstr "Link kanału"
+
+msgid "Feed type"
+msgstr "Typ kanału"
+
+msgid "Actions"
+msgstr "Akcje"
+
+msgid "delete"
+msgstr "usuń"
+
+msgid "edit"
+msgstr "edytuj"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "To jest lista wszystkich kanałów RSS dostępnych w tej galerii"
+
+msgid "RSS Settings"
+msgstr "Ustawienia RSS"
+
+msgid "Settings"
+msgstr "Ustawienia"
+
+msgid "Simple Feed Settings"
+msgstr "Ustawienia prostych kanałów"
+
+msgid "General settings"
+msgstr "Ustawienia ogólne"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+"To są wartości domyślne i maksymalne, jakie będą używane przez wszystkie kanały w galerii."
+
+msgid "Default number of items in feeds"
+msgstr "Domyślna liczba pozycji w kanale"
+
+msgid "Invalid default number"
+msgstr "Nieprawidłowa wartość domyślna"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maksymalna liczba pozycji w kanale"
+
+msgid "Invalid maximum number"
+msgstr "Nieprawidłowa wartość maksymalna"
+
+msgid "Maximum age for items in feeds"
+msgstr "Maksymalna liczba pozycji w kanale"
+
+msgid "Invalid maximum age number"
+msgstr "Nieprawidłowa wartość maksymalna"
+
+msgid "Default ttl"
+msgstr "Domyślny TTL"
+
+msgid "Default copyright"
+msgstr "Domyślny Copyright"
+
+msgid "Feed Types"
+msgstr "Typy kanałów"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Skonfiguruj jakie typy kanałów są dozwolone"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Pozwól na używanie prostych kanałów RSS"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Jeśli opcja ta zostanie włączona, użytkownicy będą mogli sybskrybować kanały RSS dowolnych "
+"albumów lub zdjęć, które mogą oglądać."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"Aby edytować ustawienia prostych kanałów RSS, proszę skorzystać z odpowiedniej zakładki na "
+"stronie."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Pozwól na używanie konfigurowalnych kanałów RSS"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Tylko właściciele albumów bedą mogli definiować takie kanały, jak również ustawiać parametry "
+"dla dowolnie wybranego typu kanału."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Teraz kiedy kanał został zdefiniowany, użytkownicy (o ile posiadają prawo do przeglądu "
+"pozycji, do którego odwołuje się kanał RSS) będą mogli je sybskrybować."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu"
+
+msgid "Fast"
+msgstr "Szybko"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Zezwól na kanały RSS do podalbumów w albumie"
+
+msgid "Slow"
+msgstr "Wolno"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu i jego podalbumów"
+
+msgid "Slower"
+msgstr "Wolniej"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Zezwól na kanały RSS do komentarzy zdjęcia"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Zezwól na kanały RSS do komentarzy albumu"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Zezwól na kanały RSS do komentarzy albumu i jego podalbumów"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu i jego podalbumów"
+
+msgid "Slowest"
+msgstr "Najwolniej"
+
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Pomóż wykryć kanały RSS"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Aby pomóc użytkownikom wykrywać kanały RSS w twojej Galerii, można dodać blok RSS do tematu "
+"używanego w twojej galerii."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"To będzie miało dwa efekty: sam blok z listą wszystkich kanałów RSS, który będą mogli "
+"widzieć i wykorzystać użytkownicy; oraz ukryte nagłówki stron WWW, które będą mogły być "
+"wykorzystywane przez nowocześniejsze przeglądarki w celu umożliwienia łatwiejszej "
+"subskrybcji kanałów przez użytkowników."
+
+msgid "Global list of RSS feeds"
+msgstr "Globalna lista kanałów RSS"
+
+msgid "On item"
+msgstr "Na pozycji"
+
+msgid "Simple Feed settings"
+msgstr "Ustawienia prostych kanałów"
+
+msgid "For albums"
+msgstr "Dla albumów"
+
+msgid "Items in the album"
+msgstr "Pozycje w albumie"
+
+msgid "Sub-albums of the album"
+msgstr "Podalbumy w albumie"
+
+msgid "Items in the album and its subalbums"
+msgstr "Pozycje w albumie i jego podalbumach"
+
+msgid "Comments for the album"
+msgstr "Komentarze albumu"
+
+msgid "For items"
+msgstr "Dla pozycji"
+
+msgid "Comments for items (always selected)"
+msgstr "Komentarze pozycji (zawsze wybrane)"
+
+msgid "List all RSS Feeds"
+msgstr "Lista wszystkich kanałów RSS"
+
+msgid "List of RSS Feeds"
+msgstr "Lista kanałów RSS"
+
+msgid "Number of feeds to display"
+msgstr "Liczba kanałów do wyświetlenia"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "wszystko"

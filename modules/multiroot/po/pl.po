@@ -1,0 +1,143 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Multiroot 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:50-0700\n"
+"PO-Revision-Date: 2006-12-27 16:35+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Multiroot"
+msgstr "Multiroot"
+
+msgid "Define an alternate guest view of the Gallery"
+msgstr "Definiuje alternatywny wygląd galerii dla gości"
+
+msgid "Display"
+msgstr "Wygląd"
+
+msgid "Configure Multiroot"
+msgstr "Konfiguruj Multiroota"
+
+msgid "User created and permissions assigned on target album"
+msgstr "Użytkownik został stworzony i zostały nadane prawa do albumu docelowego"
+
+msgid ""
+"Multiroot allows you to create an alternate URL to view part of the Gallery.  This "
+"configuration screen assists in setup and creation of a PHP file for the alternate URL.  "
+"This module never activates and is not needed to use multiroot.  There are two options:"
+msgstr ""
+"Mutiroot zezwala na stworzenie alternatywnych adresów URL do przeglądania części galerii. "
+"Ten ekran konfiguracyjny pomaga skonfigurować i stworzyć plik PHP dla alternatywnego adresu "
+"URL. Moduł ten zawsze pozostaje w fazie konfiguracji i nie jest potrzebny, aby używać "
+"multiroot’a. Dostępne są dwie opcje:"
+
+msgid "Virtual root"
+msgstr "Wirtualny root"
+
+msgid ""
+"This option defines a default album for this view and adjusts navigation links so that no "
+"parent albums above the default are shown.  Both guests and logged in users accessing the "
+"alternate URL will see this effect.  However, Gallery permissions are unchanged so modules "
+"like imageblock and search, or manually entered URLs, can lead visitors to items outside the "
+"default album.  This option is easier to setup as it uses guest permissions already defined "
+"for your Gallery."
+msgstr ""
+"Opcja ta definiuje album domyślny i dopasowuje linki nawigacyjne w ten sposób, że żadne "
+"nadrzędne albumy dla albumu domyślnego nie są pokazywane. Zarówno goście, jak i zalogowani "
+"użytkownicy korzystający z alternatywnego adresu URL zauważą tę zmianę. Aczkolwiek, "
+"uprawnienia pozostaną bez zmian, co umożliwi wyjście spoza albumu domyślnego galerii za "
+"pomocą takich modułów jak 'Blok zdjęć' czy 'Zaawansowane szukanie', czy też po ręcznym "
+"wpisaniu adresu URL. Opcja ta jest łatwiejsza w obsłudze jako, że uprawnienia użytkownika "
+"gość są już zdefiniowane w galerii."
+
+msgid "Alternate guest user"
+msgstr "Alternatywny użytkownik gość"
+
+msgid ""
+"This option defines a new guest view with permissions defined for exactly what this view "
+"should display.  Guests using the alternate URL cannot see any items outside those granted "
+"permission, by browsing or via any modules or URLs.  Logged in users see whatever their "
+"permissions allow, whether accessing the normal or alternate URL.  This option provides "
+"greater access control over the alternate view, but requires additional permissions setup:"
+msgstr ""
+"Opcja ta definiuje nowy widok gościa z uprawnieniami odpowiednimi dokładnie do tego widoku. "
+"Goście używający alternatywnego adresu URL nie będą widzieć żadnych innych pozycji poza tymi "
+"do których mają uprawnienia, zarówno w trakcie przeglądania jak i używania innych modułów "
+"czy adresów URL. Zalogowani użytkownicy będą natomiast widzieć wszystko na co zezwalają ich "
+"uprawnienia, bez względu na to czy korzystają z normalnego czy też alternatywnego adresu "
+"URL. Opcja ta umożliwia większą kontrolę nad alternatywnym widokiem, ale wymaga dodatkowej "
+"konfiguracji uprawnień:"
+
+msgid ""
+"The original/real guest user must have view permission for all items accessible by any "
+"alternate guest user.  The form below assists in creation of an alternate guest and will "
+"assign view permission for the default album and all subalbums/items.  If these albums are "
+"already public and can remain that way, no more setup is required.  Setup for mutually "
+"exclusive views is more complicated: the original guest user must have access to items in "
+"all views, so first setup those permissions.  Then use the tools here to create each "
+"alternate view.  Just use the set of alternate URLs.  Keep the original Gallery URL "
+"unpublished as it shows the combined set of items."
+msgstr ""
+"Oryginalny/prawdziwy użytkownik gość musi mieć uprawnienia podglądu dla wszystkich pozycji "
+"dostępnych dla dowolnego alternatywnego użytkownika gość. Formularz poniżej pomoże stworzyć "
+"alternatywnego użytkownika gość i przypisze mu uprawnienia podglądu dla albumu domyślnego i "
+"jego wszystkich podalbumów/pozycji. Jeśli te albumy są już dostępne dla publiczności i mają "
+"tak pozostać, żadna dodatkowa konfiguracja nie jest wymagana. Konfiguracja dla bardziej "
+"zaawansowanego widoku jest bardziej skomplikowana: najpierw należy nadać oryginalnemu "
+"użytkownikowi gość uprawnienia dostępu do pozycji we wszystkich widokach, a następnie należy "
+"użyć formularza poniżej do stworzenia wszystkich alternatywnych widoków. W tym celu trzeba "
+"po prostu użyć zestawu alternatywnych adresów URL. Oryginalny adres URL galerii powinien "
+"pozostać niepublikowany jako, że pokazuje wszystkie pozycje razem."
+
+msgid "URI for this Gallery:"
+msgstr "Adres URL do galerii:"
+
+msgid "URI for new guest view:"
+msgstr "Adres URL do nowego widoku gościa:"
+
+msgid "Missing value"
+msgstr "Nie podano żadnej wartości"
+
+msgid "Root album of new view"
+msgstr "Album głowny nowego widoku"
+
+msgid "Username of alternate guest user:"
+msgstr "Alternatywna nazwa użytkownika gość:"
+
+msgid "New user will be created if given name does not exist."
+msgstr "Nowy użytkownik zostanie stworzony, jeśli podana nazwa nie istnieje."
+
+msgid "Leave blank to define a virtual root."
+msgstr "Pozostaw puste, aby zdefiniować wirtualnego roota."
+
+msgid "Generate Files"
+msgstr "Wygeneruj pliki"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"

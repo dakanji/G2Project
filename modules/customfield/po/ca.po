@@ -1,0 +1,237 @@
+# $Id: ca.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Oscar Garcia Amor <oscar.garcia@moire.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"Report-Msgid-Bugs-To: <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2005-12-02 15:18+0100\n"
+"PO-Revision-Date: 2006-06-15 15:51+0100\n"
+"Last-Translator: Juan Vega Aiguadé <joan.vega@andornet.ad>\n"
+"Language-Team: Spanish <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Display settings saved successfully"
+msgstr "Configuració de representació guardada amb èxit"
+
+msgid "New field added successfully"
+msgstr "Nou camp agregat amb èxit"
+
+msgid "Field moved successfully"
+msgstr "Camp mogut amb èxit"
+
+msgid "Field removed successfully"
+msgstr "Camp eliminat amb èxit"
+
+msgid "Picklist updated successfully"
+msgstr "Llista d'opcions actualitzada amb èxit"
+
+msgid "Field name already in use"
+msgstr "El nom del camp ja es troba en ús"
+
+msgid "Changes saved successfully"
+msgstr "Canvis guardats amb èxit"
+
+msgid "Custom Fields"
+msgstr "Camps Personalitzats"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "Crea camps d'informació personalizats per als elements de Gallery"
+
+msgid "Extra Data"
+msgstr "Informació Extra"
+
+msgid "Common Fields"
+msgstr "Camps Comuns"
+
+msgid "Album Fields"
+msgstr "Camps d'Àlbum"
+
+msgid "Photo Fields"
+msgstr "Camps de Foto"
+
+msgid "Custom Fields Module"
+msgstr "Mòdul de Camps Personalitzats"
+
+msgid "Search custom fields"
+msgstr "Buscar camps personalitzats"
+
+msgid "Field name cannot be empty"
+msgstr "El nom del camp no pot estar buit"
+
+msgid "Display"
+msgstr "Mostrar"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"Configura l'ordre de mostra i la visibilitat dels camps a continuació. Els camps sumari son "
+"típicament mostrats amb les miniatures en una vista d'àlbum. Els camps detall son mostrats "
+"per lo general veient l'element específic."
+
+msgid "Field"
+msgstr "Camp"
+
+msgid "Summary"
+msgstr "Sumari"
+
+msgid "Detail"
+msgstr "Detall"
+
+msgid "Order"
+msgstr "Ordre"
+
+msgid "up"
+msgstr "adalt"
+
+msgid "down"
+msgstr "abaix"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "Add/Remove"
+msgstr "Agregar/Treure"
+
+msgid "Save any changes above before using the controls below."
+msgstr "Guarda qualsevol canvi anterior abans d'usar els següents controls."
+
+msgid "Add"
+msgstr "Agregar"
+
+msgid "Field:"
+msgstr "Camp:"
+
+msgid "Action:"
+msgstr "Acció:"
+
+msgid "Remove"
+msgstr "Treure"
+
+msgid "Move to Album"
+msgstr "Moure a Álbum"
+
+msgid "Move to Photo"
+msgstr "Moure a Foto"
+
+msgid "Move to Common"
+msgstr "Moure a Comú"
+
+msgid "Go"
+msgstr "Anar"
+
+msgid "Picklist Values"
+msgstr "Valors de la Llista d'Opcions"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"Els camps personalitzats permeten entrada de texte lliure per defecte. Introdueix valors a "
+"continuació per a restringir els valors dels camps a una llista específica d'opcions. "
+"Introdueix una opció per línea. Treu totes les opcions per a tornar al texte lliure. Nota "
+"que els valors existents en els camps no seràn canviats o borrats cuan s'agrega una lista "
+"d'opcions."
+
+msgid "Choices:"
+msgstr "Opcions:"
+
+msgid "Add a custom field above to enable this section."
+msgstr "Agregar un camp personalitzat a continuació per a habilitar aquesta secció."
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"Aquests son configuracions de camp personalitzat específics de l'àlbum. Camps comune estan "
+"disponibles en tots els elements; els camps d'Àlbum i Foto poden ser assignats només als "
+"elements del tipus convenient."
+
+msgid "Edit custom field values for this album"
+msgstr "Editar valors del camp personalitzat per a aquest àlbum"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr ""
+"ADVERTENCIA: &iexcl;Els valors per a tots els camps que no existien també en les "
+"configuracions globals seran suprimits per aquest àlbum i els seus elements!"
+
+msgid "Revert to global custom field settings for this album"
+msgstr "Tornar a les configuracions globals del camp personalitzat per aquest àlbum"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr ""
+"ADVERTENCIA: &iexcl;Els Valors per aquest camp personalitzat en aquest àlbum seran suprimits!"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr ""
+"ADVERTENCIA: &iexcl;Els Valors per aquest camp personalitzat en els elements no foto en "
+"aquest àlbum seran suprimits!"
+
+msgid "Override global custom field settings for this album"
+msgstr "Anul·lar configuracions globales del camp personalitzat per aquest àlbum"
+
+msgid "Edit custom field settings for this album"
+msgstr "Editar les configuracions del camp personalitzat per aquest àlbum"
+
+msgid "No Value"
+msgstr "Nigun Valor"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"Aquesta es la configuració global per a camps personalitzats. Poder ser anul·lats a nivell "
+"d'àlbum. Els camps comuns estan disponibles en tots els elements de la galeria; els camps de "
+"l'àlbum i de la foto es poden assignar solament als elements del tipus apropiat."
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr ""
+"ADVERTENCIA: &iexcl;Tots els valors per aquest camp personalitzat seran suprimits! (Excepte "
+"en àlbums amb configuracions específiques)"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"ADVERTENCIA: &iexcl;Tots els valors per aquest camp personalitzat en els elements no álbum "
+"seran suprimits! (Excepte en àlbums amb configuracions d'àlbum específiques)"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"ADVERTENCIA: &iexcl;Tots els valors per a aquest camp personalitzat en els elements no foto "
+"seran suprimits! (Excepte en àlbums amb configuracions d'àlbum específiques)"

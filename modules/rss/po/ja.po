@@ -1,0 +1,563 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Kennichi Uehara <ken.w3m+nospam@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:56-0800\n"
+"PO-Revision-Date: 2007-03-11 22:03+0900\n"
+"Last-Translator: Yosuke Suzuki <yosuke.suzuki@gmail.com>\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "This feed no longer exists!"
+msgstr "このフィードは既に存在していません。"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "そのタイプのフィードは許可されていません。"
+
+msgid "Incorrect feed type!"
+msgstr "フィードタイプが間違っています"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "コメントモジュールが無効かコメントフィードが許可されていません"
+
+msgid "Not permitted to view comments for this item"
+msgstr "このアイテムのコメントを閲覧する許可がありません"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "RSS Feed for this Album"
+msgstr "このアルバムのRSSフィード"
+
+msgid "RSS Feed for this Photo"
+msgstr "この画像のRSSフィード"
+
+msgid "RSS Feed for this Movie"
+msgstr "この動画のRSSフィード"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "この %s のRSSフィード"
+
+msgid "Configure RSS Feeds"
+msgstr "RSSフィードの設定"
+
+msgid "Simple RSS Feed"
+msgstr "シンプル RSSフィード"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "シンプル RSSフィードの短いURL"
+
+msgid "RSS Feed"
+msgstr "RSS フィード"
+
+msgid "The name of the configured RSS Feed"
+msgstr "設定されたRSSフィードの名前"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "設定可能なRSSフィードの短いURL"
+
+#, c-format
+msgid "In album %s"
+msgstr "%s アルバム内"
+
+msgid "Items in an album"
+msgstr "アルバム内のアイテム"
+
+msgid "Sub-albums of an album"
+msgstr "あるアルバムのサブアルバム"
+
+msgid "Items in an album and its sub-albums"
+msgstr "アルバムとそのサブアルバム内のアイテム"
+
+msgid "Comments for an album"
+msgstr "アルバムへのコメント"
+
+msgid "Comments for an item"
+msgstr "アイテムへのコメント"
+
+msgid "Comments for an album and its subalbums"
+msgstr "アルバムとそのサブアルバムへのコメント"
+
+msgid "Random items in an album"
+msgstr "アルバム内のランダムアイテム"
+
+msgid "Random items in an album and its subalbums"
+msgstr "アルバムとそのサブアルバム内のランダムアイテム"
+
+msgid "RSS Feeds"
+msgstr "RSS フィード"
+
+msgid "Settings have been saved"
+msgstr "設定が保存されました"
+
+msgid "Feed successfully deleted"
+msgstr "フィードの削除に成功しました"
+
+msgid "An error occured"
+msgstr "エラー発生"
+
+msgid "List"
+msgstr "一覧"
+
+msgid "Edit Feed"
+msgstr "フィードを編集"
+
+msgid "New Feed"
+msgstr "新しいフィード"
+
+msgid "Feed URL"
+msgstr "フィードのURL"
+
+msgid "Feed name"
+msgstr "フィードの名前"
+
+msgid "You can't change the name of the feed"
+msgstr "フィードの名前の変更はできません"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"フィードの名前を決めてください (この名前はフィードのURLに使用されるので、半角英数文字のみ使用"
+"するようにしてください)"
+
+msgid "You must enter a name"
+msgstr "名前を入力しなくてはなりません"
+
+msgid "This name is already used, please select another one"
+msgstr "この名前は既に使用されています。別の名前を選択してください。"
+
+msgid "Description"
+msgstr "説明"
+
+msgid "Feed settings"
+msgstr "フィードの設定"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "フィードでどのタイプのデータが提供されるか選択してください"
+
+msgid "Type of feed"
+msgstr "フィードのタイプ"
+
+msgid "Items in this album"
+msgstr "このアルバムのアイテム"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"このタイプのフィードは管理者によって禁止されています。ユーザはそれらを閲覧することができませ"
+"ん。"
+
+msgid "Sub-albums of this album"
+msgstr "このアルバムのサブアルバム"
+
+msgid "Items in this album and its subalbums"
+msgstr "このアルバムとサブアルバム内のアイテム"
+
+msgid "Limit the number of items per album"
+msgstr "アルバムあたりのアイテム数の制限"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "無効な制限 (正の数でなければならない、0では制限なし)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(制限を無くすには0を入力)"
+
+msgid "Comments for this album"
+msgstr "このアルバムに対するコメント"
+
+msgid "Comments for this album and its subalbums"
+msgstr "このアルバムとそのサブアルバムに対するコメント"
+
+msgid "Random pictures inside this album"
+msgstr "このアルバムのランダム画像"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "このアルバムとサブアルバム内のランダム画像"
+
+msgid "Comments for this item"
+msgstr "このアイテムに対するコメント"
+
+msgid "Which items"
+msgstr "どのアイテムか"
+
+msgid "New items only"
+msgstr "新しいアイテムのみ"
+
+msgid "New and updated items"
+msgstr "新しいアイテムと更新されたアイテム"
+
+msgid "Choose the options for the feed"
+msgstr "フィードのオプションを選択してください"
+
+msgid "RSS version"
+msgstr "RSSのバージョン"
+
+msgid "Invalid version"
+msgstr "無効なバージョン"
+
+msgid "Number of items"
+msgstr "アイテム数"
+
+msgid "Invalid number"
+msgstr "無効な数"
+
+msgid "language tag"
+msgstr "言語タグ"
+
+msgid "Invalid language value"
+msgstr "無効な言語の値"
+
+msgid "by default: en-us."
+msgstr "デフォルト値: en-us"
+
+msgid "List of all possible values"
+msgstr "設定可能な全ての値のリスト"
+
+msgid "category tag"
+msgstr "カテゴリタグ"
+
+msgid "ttl tag"
+msgstr "TTLタグ"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "無効な Time to live です。これは分数でなければなりません (0でTTLを無効に)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"持続時間: これはアグリゲータがフィードをアップデートしたかどうかのチェックの間に待つべき分数"
+"(0はttlを無効にする)"
+
+msgid "Copyright"
+msgstr "著作権"
+
+msgid "Invalid copyright"
+msgstr "無効な著作権"
+
+msgid "Use image tag"
+msgstr "イメージタグを使用する"
+
+msgid "Include image tag"
+msgstr "イメージタグを含む"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "これはこのアイテムのサムネイルに対応するメイン画像をフィードに追加します"
+
+msgid "Invalid value"
+msgstr "無効な値"
+
+msgid "Use enclosures"
+msgstr "囲みを使用する"
+
+msgid "Include enclosure tags"
+msgstr "囲みタグを含める"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr "これは囲いをフィード内の各画像に追加をして、最大解像度の画像を含めます"
+
+msgid "Use Media RSS"
+msgstr "メディアRSSを使用する"
+
+msgid "Include Media RSS tags"
+msgstr "メディアRSSタグを含む"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+"これはRSSがメディア指向のクライアントがより役に立つファッションのフィードを表示するために"
+"フィードにタグ付けをします。"
+
+msgid "about Media RSS"
+msgstr "MediaRSSについて"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "タグ集(RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "タグ集を使用したいなら、ここでそのプロパティをセットアップできます。"
+
+msgid "Example: "
+msgstr "例: "
+
+msgid "domain"
+msgstr "ドメイン"
+
+msgid "port"
+msgstr "ポート"
+
+msgid "path"
+msgstr "パス"
+
+msgid "registerProcedure"
+msgstr "登録手続き"
+
+msgid "protocol"
+msgstr "プロトコル"
+
+msgid "Cloud tag"
+msgstr "タグ集"
+
+msgid "Include the cloud tag"
+msgstr "タグ集を含める"
+
+msgid "Invalid string"
+msgstr "無効な文字列"
+
+msgid "Invalid port number"
+msgstr "無効なポート番号"
+
+msgid "Update Feed"
+msgstr "フィードを更新"
+
+msgid "Create Feed"
+msgstr "フィードを作成"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "RSS feeds for this item"
+msgstr "このアイテムのRSSフィード"
+
+msgid "No feeds have yet been defined"
+msgstr "フィードがひとつも定義されていません"
+
+msgid "Feed link"
+msgstr "フィードリンク"
+
+msgid "Feed type"
+msgstr "フィードのタイプ"
+
+msgid "Actions"
+msgstr "アクション"
+
+msgid "delete"
+msgstr "削除"
+
+msgid "edit"
+msgstr "編集"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "これはこのGalleryで有効な全てのフィードの一覧です。"
+
+msgid "RSS Settings"
+msgstr "RSSの設定"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Simple Feed Settings"
+msgstr "シンプルフィードの設定"
+
+msgid "General settings"
+msgstr "一般設定"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "これは、Gallery内の全てのフィードで使用されるデフォルト値と最大値です。"
+
+msgid "Default number of items in feeds"
+msgstr "フィード内のデフォルトアイテム数"
+
+msgid "Invalid default number"
+msgstr "無効なデフォルト数"
+
+msgid "Maximum number of items in feeds"
+msgstr "フィード内の最大アイテム数"
+
+msgid "Invalid maximum number"
+msgstr "無効な最大数"
+
+msgid "Maximum age for items in feeds"
+msgstr "フィード内のアイテムの最大期間"
+
+msgid "Invalid maximum age number"
+msgstr "無効な最大期間数"
+
+msgid "Default ttl"
+msgstr "デフォルトTTL"
+
+msgid "Default copyright"
+msgstr "デフォルトの著作権表示"
+
+msgid "Feed Types"
+msgstr "フィードタイプ"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "どのタイプのフィードを許可するか設定する"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "シンプルRSSフィードの利用を許可する"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"これを有効にした場合、ユーザは自分が見ることのできるどのアルバムや画像のフィードも購読するこ"
+"とができます。"
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr "シンプルフィードの設定をするには、画面上部の対応するタブを利用してください。"
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "設定可能なRSSフィードの使用を許可する"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"アルバム所有者だけはどんなフィードの定義も可能になります。アルバム所有者はほしいフィードのタ"
+"イプのパラメータを設定することができます。"
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"フィードが一旦定義されると、関連するアイテムを見ることができるなら、ユーザはそれらのフィード"
+"を購読することができるでしょう。"
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "アルバム内の画像のRSSフィードを許可する"
+
+msgid "Fast"
+msgstr "速い"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "アルバム内のサブアルバムのRSSフィードを許可する"
+
+msgid "Slow"
+msgstr "遅い"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "アルバムおよびそのサブアルバム内の画像のRSSフィードを許可する"
+
+msgid "Slower"
+msgstr "やや遅い"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "画像へのコメントのRSSフィードを許可する"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "アルバムへのコメントのRSSフィードを許可する"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "アルバムとそのサブアルバムへのコメントのRSSフィードを許可する"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "アルバム内の画像のRSSフィードを許可する"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "アルバムおよびそのサブアルバム内の画像のRSSフィードを許可する"
+
+msgid "Slowest"
+msgstr "最も遅い"
+
+msgid "Save Settings"
+msgstr "設定を保存"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Helping users discover RSS feeds"
+msgstr "ユーザがRSSフィードを発見するのを助ける"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Galleryでユーザがフィードを発見する手助けをしたいなら、このGalleryで使用されているテーマにRSS"
+"ブロックを追加することができます。"
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"これは2つの効果を持っています: ブロック自体(全てのフィードのリストを手に入れて、ユーザはそれ"
+"からフィードを見て選択することができます); そして一般的なウェブブラウザがフィードを購読するこ"
+"とをより簡単するために使用する隠されたページのヘッダ"
+
+msgid "Global list of RSS feeds"
+msgstr "RSSフィードのグローバルリスト"
+
+msgid "On item"
+msgstr "アイテム上"
+
+msgid "Simple Feed settings"
+msgstr "シンプルフィードの設定"
+
+msgid "For albums"
+msgstr "アルバムのための"
+
+msgid "Items in the album"
+msgstr "アルバム内のアイテム"
+
+msgid "Sub-albums of the album"
+msgstr "アルバム内のサブアルバム"
+
+msgid "Items in the album and its subalbums"
+msgstr "アルバムとそのサブアルバム内のアイテム"
+
+msgid "Comments for the album"
+msgstr "アルバムへのコメント"
+
+msgid "For items"
+msgstr "アイテムのための"
+
+msgid "Comments for items (always selected)"
+msgstr "アイテムへのコメント(常に選択されます)"
+
+msgid "List all RSS Feeds"
+msgstr "全てのRSSフィードへの一覧"
+
+msgid "List of RSS Feeds"
+msgstr "RSSフィードの一覧"
+
+msgid "Number of feeds to display"
+msgstr "表示するフィードの数"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "全て"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "このアイテムを閲覧する許可がありません"

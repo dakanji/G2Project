@@ -1,0 +1,293 @@
+# $Id: af.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-10 20:40+0200\n"
+"PO-Revision-Date: 2006-03-16 10:17+0200\n"
+"Last-Translator: Renier <renier@gigaskills.co.za>\n"
+"Language-Team: Afrikaans <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Afrikaans\n"
+"X-Poedit-Country: SOUTH AFRICA\n"
+
+msgid "KB"
+msgstr "KG"
+
+msgid "MB"
+msgstr "MG"
+
+msgid "GB"
+msgstr "GG"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr "Waarskuwing: U het u skyfkwota bereik (%s %s), die item sal nie bygevoeg word nie."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "U gebruik %s %s van u toegewysde %s %s."
+
+msgid "Quotas"
+msgstr "Kwotas"
+
+msgid "User/Group Disk Quotas"
+msgstr "Gebruiker/Groep Skyfkwotas"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Create A New Group Quota"
+msgstr "Skep 'n Nuwe Groepskwota"
+
+msgid "Group Name"
+msgstr "Groepsnaam"
+
+msgid "(required)"
+msgstr "(verpligtend)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "Groepskwota vir '%s' bestaan reeds"
+
+msgid "Quota Size"
+msgstr "Kwota Grootte"
+
+msgid "You must enter a quota size."
+msgstr "U moet 'n kwota grootte verskaf."
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "Kwota grootte moet minder wees as 2097152 MB (2048 GB)."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "Ongeldige kwota grootte, slegs positiewe getalle en desimale."
+
+msgid "Create Group Quota"
+msgstr "Skep Groepskwota"
+
+msgid "Cancel"
+msgstr "Kanselleer"
+
+msgid "Create A New User Quota"
+msgstr "Skep 'n Nuwe Gebruikerskwota"
+
+msgid "User Name"
+msgstr "Gebruikersnaam"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "Gebruikerskwota vir '%s' bestaan reeds"
+
+msgid "Create User Quota"
+msgstr "Skep Gebruikerskwota"
+
+msgid "Delete A Group Quota"
+msgstr "Verwyder 'n Groepskwota"
+
+msgid "Are you sure?"
+msgstr "Is u seker?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr ""
+"Hiermee sal die groepskwota %s (%s %s) volledig uit Gallery verwyder word. U kan dit nie "
+"ongedaan maak nie!"
+
+msgid "Delete"
+msgstr "Verwyder"
+
+msgid "Delete A User Quota"
+msgstr "Verwyder 'n Gebruikerskwota"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr ""
+"Hiermee sal die gebruikerskwota %s (%s %s) volledig uit Gallery verwyder word. U kan dit nie "
+"ongedaan maak nie!"
+
+msgid "Edit A Group Quota"
+msgstr "Wysig 'n Groepskwota"
+
+msgid "Save"
+msgstr "Stoor"
+
+msgid "Undo"
+msgstr "Maak Ongedaan"
+
+msgid "Edit A User Quota"
+msgstr "Wysig 'n Gebruikerskwota"
+
+msgid "Quotas Administration"
+msgstr "Kwota Administrasie"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "Groepskwota van '%s' verwyder"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "Groepskwota van '%s' geskep"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "Groepskwota van '%s' aangepas"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "Gebruikerskwota van '%s' verwyder"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "Gebruikerskwota vir '%s' geskep"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "Gebruikerskwota vir '%s' aangepas"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"Die stelsel stel u in staat om skyfspasie kwotas aan gebruikers toe te ken.  Deur 'n "
+"groepskwota te skep sal daardie kwota aan enige gebruikers in daardie spesifieke groep "
+"toegeken word.  As 'n gebruiker aan meer as een groep behoort sal die hoogste kwota van al "
+"die groepe op hom van toepassing wees.  As u egter 'n gebruikerskwota sou skep sal dit al "
+"die ander kwotas oorskryf."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "Daar is %d groepkwota in die stelsel."
+msgstr[1] "Daar is %d groepkwotas in die stelsel."
+
+msgid "Group Quotas"
+msgstr "Groepskwotas"
+
+msgid "Create Quota"
+msgstr "Skep Kwota"
+
+msgid "Edit Quota"
+msgstr "Wysig Kwota"
+
+msgid "Delete Quota"
+msgstr "Verwyder Kwota"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "Groepskwota vir '%s' bestaan nie.  U moet eers één skep."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "Groepskwotas vir  '%s' bestaan reeds."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Groep '%s' bestaan nie."
+
+msgid "You must enter a group name"
+msgstr "U moet 'n groepsnaam verskaf"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "Wysig Groepskwotas (volgens lys)"
+
+msgid "&laquo; first"
+msgstr "&laquo; eerste"
+
+msgid "&laquo; back"
+msgstr "&laquo; terug"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Bladsy %d van %d word vertoon"
+
+msgid "next &raquo;"
+msgstr "volgende &raquo;"
+
+msgid "last &raquo;"
+msgstr "laaste &raquo;"
+
+msgid "Quota"
+msgstr "Kwota"
+
+msgid "Action"
+msgstr "Aksie"
+
+msgid "edit"
+msgstr "wysig"
+
+msgid "delete"
+msgstr "verwyder"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "Daar is %d gebruikerskwota in die stelsel."
+msgstr[1] "Daar is %d gebruikerskwotas in die stelsel."
+
+msgid "User Quotas"
+msgstr "Gebruikerskwotas"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "Gebruikerskwotas vir '%s' bestaan nie. U moet eers één skep."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "Gebruikerskwota vir '%s' bestaan reeds."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Gebruiker '%s' bestaan nie."
+
+msgid "You must enter a username"
+msgstr "U moet 'n gebruikersnaam verskaf"
+
+msgid "Edit User Quotas (by list)"
+msgstr "Wysig Gebruikerskwotas (volgens lys)"
+
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr ""
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr ""
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr ""
+
+#, fuzzy
+msgid "Quota: Unlimited"
+msgstr "Kwota Grootte"
+
+#, fuzzy
+msgid "User Quota Block"
+msgstr "Gebruikerskwotas"

@@ -1,0 +1,109 @@
+# $Id: zh_CN.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 10:01-0800\n"
+"PO-Revision-Date: 2006-03-10 01:35+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "成功删除了固定网址"
+
+msgid "Permalinks"
+msgstr "固定网址"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "为你的项目产生简单、固定的别名"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "你为你的项目指定的别名名称"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr "这个规则必需启用才能使用你定义的固定网址。关闭这个规则会使你的固定网址失效。"
+
+msgid "Permalink post activation"
+msgstr "固定网址启用完毕"
+
+msgid "URL Rewrite Module"
+msgstr "网址改写模组"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr "你已经启用了固定网址模组，接下来你必需在%s启用固定网址规则。"
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr "修改指到这个项目的固定网址。你可以增加或删除固定网址。"
+
+msgid "You have no permalinks"
+msgstr "你没有任何固定网址"
+
+msgid "Existing permalinks"
+msgstr "现有固定网址"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Permalink name"
+msgstr "固定网址名称"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "固定网址「%s」已经存在，可能用於另一个项目"
+
+msgid "Add a new permalink:"
+msgstr "增加新的固定网址："
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "设为「%s」"
+
+msgid "Auto-permalink"
+msgstr "自动固定网址"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"如果你使用这个功能，在产生新相簿的时候，除非名称已被使用，一个和相簿一样名称的固定网址会自动"
+"产生。你可以移除那个产生的固定网址。"
+
+msgid "Enable auto-permalink"
+msgstr "启用自动固定网址"
+
+msgid "Global list of permalinks"
+msgstr "所有固定网址列表"
+
+msgid "Save"
+msgstr "储存"

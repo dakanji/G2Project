@@ -1,0 +1,470 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * ItemEditTheme controller tests
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class ItemEditThemePluginTest extends ItemEditPluginTestCase {
+
+    function ItemEditThemePluginTest($methodName) {
+	$this->ItemEditPluginTestCase($methodName, 'core', 'ItemEditTheme');
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a random album */
+	list ($ret, $this->_album) = $this->_createRandomAlbum(
+	    $this->_getRootId(), array('theme' => 'ItemEditThemeControllerTest'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Create child album here, since test theme is too rudimentary */
+	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/*
+	 * Also check the grandchild album - to make sure that descendents don't
+	 * just return children
+	 */
+	list ($ret, $this->_grandchildAlbum) = $this->_createRandomAlbum(
+		$this->_childAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	$gallery->setPlatform(new ItemEditThemeTestPlatform($gallery->getPlatform()));
+
+	$this->_preferred = null;
+
+	/* Reset test theme */
+	ItemEditThemeControllerTestTheme::reset();
+    }
+
+    function _setTheme(&$item, $themeId) {
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$item->setTheme($themeId);
+	$ret = $item->save();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testUndo() {
+	/* Use valid inputs */
+	GalleryUtilities::putRequestVariable('form[action][undo]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), null), $results);
+    }
+
+    function testSave() {
+	GalleryUtilities::putRequestVariable('form[key][rows]', 3);
+	GalleryUtilities::putRequestVariable('form[key][columns]', 4);
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully saved theme settings')),
+			    $results);
+
+	/* Verify */
+	$this->assertEquals(array('setParameter(rows, 3)',
+				  'setParameter(columns, 4)'),
+			    ItemEditThemeControllerTestTheme::getMap());
+    }
+
+    function testInvalidSave() {
+	GalleryUtilities::putRequestVariable('form[key][rows]', '3x');
+	GalleryUtilities::putRequestVariable('form[key][columns]', 4);
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array('form[error][key][rows][invalid]'), null),
+			    $results);
+
+	/* Verify that we have a detailed error message */
+	$this->assert(GalleryUtilities::hasRequestVariable('form[errorMessage]'));
+
+	$errorMessage = GalleryUtilities::getRequestVariables('form[errorMessage]');
+	$this->assertEquals('You must enter a number greater than 0', $errorMessage['rows']);
+    }
+
+    function testSaveWithGlobal() {
+	GalleryUtilities::putRequestVariable('form[key][rows]', 3);
+	GalleryUtilities::putRequestVariable('form[key][columns]', 4);
+	GalleryUtilities::putRequestVariable('form[useGlobal][columns]', 'on');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully saved theme settings')),
+			    $results);
+
+	/* Verify */
+	$this->assertEquals(array('setParameter(rows, 3)',
+				  sprintf('removeParameter(columns, %d)', $this->_album->getId())),
+			    ItemEditThemeControllerTestTheme::getMap());
+    }
+
+    /**
+     * Test applying options from 'Theme' tab to sub-albums
+     */
+    function testChangeInDescendents() {
+	GalleryUtilities::putRequestVariable('form[key][rows]', 3);
+	GalleryUtilities::putRequestVariable('form[key][columns]', 4);
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	GalleryUtilities::putRequestVariable('form[changeInDescendents][theme]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully saved theme settings')),
+			    $results);
+	/* Verify - 3 albums should be set */
+	$this->assertEquals(array('setParameter(rows, 3)',
+				  'setParameter(rows, 3)',
+				  'setParameter(rows, 3)',
+				  'setParameter(columns, 4)',
+				  'setParameter(columns, 4)',
+				  'setParameter(columns, 4)'),
+			    ItemEditThemeControllerTestTheme::getMap());
+    }
+
+    /**
+     * Test applying options from 'Theme' tab to sub-albums with no subalbum
+     */
+    function testChangeInDescendentsLeaf() {
+	GalleryUtilities::putRequestVariable('form[key][rows]', 3);
+	GalleryUtilities::putRequestVariable('form[key][columns]', 4);
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	GalleryUtilities::putRequestVariable('form[changeInDescendents][theme]', 1);
+
+	$this->_setTheme($this->_grandchildAlbum, 'ItemEditThemeControllerTest');
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_grandchildAlbum, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully saved theme settings')),
+			    $results);
+	$this->assertEquals(array('setParameter(rows, 3)',
+				  'setParameter(columns, 4)'),
+			    ItemEditThemeControllerTestTheme::getMap());
+    }
+
+    function testChooseTheme() {
+	$this->_setTheme($this->_album, null);
+
+	GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
+	GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
+	GalleryUtilities::putRequestVariable(
+	    'form[serialNumber]', $this->_album->getSerialNumber());
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully changed theme')),
+			    $results);
+
+	list ($ret, $this->_album) = $this->_album->refresh();
+	if ($ret) {
+	    return ($ret);
+	}
+	$this->assertEquals('ItemEditThemeControllerTest', $this->_album->getTheme());
+    }
+
+    function testChooseDefaultTheme() {
+	$this->_setTheme($this->_album, 'ItemEditThemeControllerTest');
+
+	GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
+	GalleryUtilities::putRequestVariable(
+	    'form[serialNumber]', $this->_album->getSerialNumber());
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully changed theme')),
+			    $results);
+
+	list ($ret, $this->_album) = $this->_album->refresh();
+	if ($ret) {
+	    return ($ret);
+	}
+	$themeId = $this->_album->getTheme();
+	$this->assert(empty($themeId));
+    }
+
+    function testChooseBogusTheme() {
+	GalleryUtilities::putRequestVariable('form[theme]', 'BogusBogus!');
+	GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
+
+	$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_BAD_PARAMETER);
+    }
+
+    function testChooseThemeInvalidSerialNumber() {
+	GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
+	GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
+	GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
+	$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_OBSOLETE_DATA);
+    }
+
+    function testChooseThemeInDescendents() {
+	$this->_setTheme($this->_album, null);
+	$this->_setTheme($this->_childAlbum, null);
+	$this->_setTheme($this->_grandchildAlbum, null);
+
+	GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
+	GalleryUtilities::putRequestVariable('form[changeInDescendents][theme]', 1);
+	GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
+	GalleryUtilities::putRequestVariable(
+	    'form[serialNumber]', $this->_album->getSerialNumber());
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_album, $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Successfully changed theme')),
+			    $results);
+
+	list ($ret, $album) = $this->_album->refresh();
+	if ($ret) {
+	    return ($ret);
+	}
+	list ($ret, $childAlbum) = $this->_childAlbum->refresh();
+	if ($ret) {
+	    return ($ret);
+	}
+	list ($ret, $grandchildAlbum) = $this->_grandchildAlbum->refresh();
+	if ($ret) {
+	    return ($ret);
+	}
+
+	$this->assertEquals('ItemEditThemeControllerTest', $album->getTheme(), 'album');
+	$this->assertEquals('ItemEditThemeControllerTest', $childAlbum->getTheme(), 'child');
+	$this->assertEquals('ItemEditThemeControllerTest',
+			    $grandchildAlbum->getTheme(), 'grandchild');
+    }
+}
+
+/**
+ * Test theme
+ */
+class ItemEditThemeControllerTestTheme {
+    function getId() {
+	return 'ItemEditThemeControllerTest';
+    }
+
+    /**
+     * @see GalleryTheme::getSettings
+     */
+    function getSettings($itemId=0) {
+	$settings = array();
+	$settings[] = array('key' => 'rows',
+			    'name' => 'Rows per album page',
+			    'type' => 'text-field',
+			    'typeParams' => array('size' => 2),
+			    'value' => 4);
+	$settings[] = array('key' => 'columns',
+			    'name' => 'Columns per album page',
+			    'type' => 'text-field',
+			    'typeParams' => array('size' => 2),
+			    'value' => 3);
+	return array(null, $settings);
+    }
+
+    /**
+     * @see GalleryTheme::validateSettings
+     */
+    function validateSettings($settings) {
+	$error = array();
+	if (empty($settings['rows']) || !is_numeric($settings['rows'])) {
+	    $error['rows'] = $this->translate('You must enter a number greater than 0');
+	}
+
+	if (empty($settings['columns']) || !is_numeric($settings['columns'])) {
+	    $error['columns'] = $this->translate('You must enter a number greater than 0');
+	}
+
+	return $error;
+    }
+
+    /**
+     * @see GalleryTheme::isAdvancedSettings
+     */
+    function isAdvancedSettings() {
+	return false;
+    }
+
+    function isActive() {
+	return array(null, true);
+    }
+
+    function translate($text) {
+	return $text;
+    }
+
+    function removeParameter($key, $itemIds) {
+	$map =& $this->getMap();
+	foreach ($itemIds as $id) {
+	    $map[] = "removeParameter($key, $id)";
+	}
+	return null;
+    }
+
+    function setParameter($key, $value, $itemIds) {
+	$map =& $this->getMap();
+	foreach ($itemIds as $id) {
+	    $map[] = "setParameter($key, $value)";
+	}
+	return null;
+    }
+
+    function &getMap() {
+	static $map;
+	if (!isset($map)) {
+	    $map = array();
+	}
+	return $map;
+    }
+
+    function init() {
+	return null;
+    }
+
+    function reset() {
+	$map =& ItemEditThemeControllerTestTheme::getMap();
+	$map = array();
+    }
+
+    function getName() {
+	return 'ItemEditThemeControllerTest';
+    }
+}
+
+/**
+ * Test platform
+ */
+class ItemEditThemeTestPlatform {
+
+    function ItemEditThemeTestPlatform($originalPlatform) {
+	$this->_savedPlatform = $originalPlatform;
+    }
+
+    function opendir($path) {
+	if ($path == dirname(__FILE__) . '/../../../../themes/') {
+	    return 'TEST_VALID_RESOURCE';
+	} else {
+	    return null;
+	}
+    }
+
+    function readdir($path) {
+	static $paths;
+	if (!isset($paths)) {
+	    $paths = array('.', '..', 'ItemEditThemeControllerTest');
+	}
+
+	if ($path == 'TEST_VALID_RESOURCE') {
+	    if (empty($paths)) {
+		$paths = null;
+		return null;
+	    } else {
+		return array_shift($paths);
+	    }
+	}
+    }
+
+    function fopen($filename, $modes) {
+	/* Pass lock requests */
+	if (preg_match("|\blocks\b|", $filename)) {
+	    return fopen($filename, $modes);
+	}
+
+	print "Unexpected fopen($filename, $modes)";
+	return null;
+    }
+
+    function fclose($handle) {
+	return fclose($handle); /* needed to release locks */
+    }
+
+    function getDirectorySeparator() {
+	return DIRECTORY_SEPARATOR;
+    }
+
+    function unlink($path) {
+	return unlink($path); /* needed to release locks */
+    }
+
+    function closedir($path) {
+    }
+
+    function realpath($path) {
+	return realpath($path);
+    }
+
+    function file_exists($path) {
+	$base = dirname(__FILE__) . '/../../../../themes/';
+	switch($path) {
+	case $base . 'ItemEditThemeControllerTest/theme.inc':
+	    return 1;
+
+	default:
+	    return 0;
+	}
+    }
+
+    function is_dir($path) {
+	$base = dirname(__FILE__) . '/../../../../themes/';
+	switch($path) {
+	case $base . 'ItemEditThemeControllerTest':
+	    return 1;
+
+	default:
+	    return 0;
+	}
+    }
+
+    function flock($fd, $lockType, $flag) {
+	return $this->_savedPlatform->flock($fd, $lockType, $flag);
+    }
+}
+
+?>

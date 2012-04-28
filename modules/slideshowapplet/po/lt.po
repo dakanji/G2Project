@@ -1,0 +1,176 @@
+# $Id: lt.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Darius Žitkevičius <skystis@splius.lt>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:48-0800\n"
+"PO-Revision-Date: 2006-03-12 23:35+0200\n"
+"Last-Translator: Darius Žitkevičius <skystis@splius.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.1\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "skaidrių peržiūra (visame ekrane)"
+
+msgid "Slideshow Applet"
+msgstr "Skaidrių peržiūros programa"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Skaidrių peržiūra visame ekrane Java programos pagalba"
+
+msgid "Display"
+msgstr "Vaizdas"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Rodyti skaidrių peržiūrą (per visą ekraną)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Kelias iki elemento (pvz.: /albumas/vaizdas.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Skaidrių peržiūra"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Ši programa yra priklausoma nuo G2 modulio,kuris šiuo metu nėra įjungtas.  Paprašykite "
+"administratoriaus, kad aktyvuotu modulį „nutolęs“."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Gaunama nutolusios galerijos programa"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr ""
+"Jūsų naršyklė nepalaiko Java programų; jums reikia naudoti standartinę skaidrių peržiūrą."
+
+msgid "Slideshow Applet Settings"
+msgstr "Skaidrių peržiūros programos nustatymai"
+
+msgid "Defaults"
+msgstr "Numatyti nustatymai"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Šie kintamieji pateikia numatytas reikšmes programoms, kurias jūsų svetainėje vykdo "
+"vartotojai. Vartotojai šias reikšmes galės keisti, programų dialoguose arba keisdami savo "
+"vietinį numatytų reikšmių failą."
+
+msgid "You have no default variables"
+msgstr "Jūs neturite numatytų kintamūjų"
+
+msgid "Variable"
+msgstr "Kintamasis"
+
+msgid "Action"
+msgstr "Veiksmas"
+
+msgid "Delete"
+msgstr "Trinti"
+
+msgid "Add a new default variable"
+msgstr "Pridėti naują numatytą kintamajį"
+
+msgid "You must enter a variable name and value"
+msgstr "Reikia įvesti kintamojo pavadinimą ir jo reikšmę"
+
+msgid "New variable"
+msgstr "Naujas kintamasis"
+
+msgid "Add variable"
+msgstr "Pridėti kintamajį"
+
+msgid "Overrides"
+msgstr "Pakeičia"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Šie kintamieji pakeičia bet kokią numatytą programų, kurias vartotojai vykdo jūsų "
+"svetainėje, nustatymus. Vartotojai šių reikšmių pakeisti negalės."
+
+msgid "You have no override variables"
+msgstr "Jūs neturite kintamųjų, kurie keistu numatytus"
+
+msgid "Add a new override variable"
+msgstr "Pridėti naują kintamajį"
+
+msgid "Help"
+msgstr "Pagalba"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Čia yra kintamieji, kurie įtakoja skaidrių peržiūra."
+
+msgid "variable"
+msgstr "kintamasis"
+
+msgid "values"
+msgstr "reikšmės"
+
+msgid "help"
+msgstr "pagalba"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "maksimalus rodomas paveikslėlių skaičius viename žingsnyje"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "Ar į skaidrių peržiūrą įtraukti paveikslus, kurie yra vidiniuose albumuose?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "jei taip, tuomet skaidrių peržiūra nesiųs pilno dydžio vaizdų"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "ar skaidriu peržiūra pasiekusi pabaigą prasideda iš naujo?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "jei taip, tuomet mažesni nei ekranas vaizdai nebus išdidinami"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"jei taip, tuomet skaidrių peržiūra atsiųs vaizdus iš anksto, kas gali pagreitinti peržiūra, "
+"bet gaili padidinti interneto srautą"
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "skaidrių peržiūros fono spalva"
+
+msgid "size of text overlay"
+msgstr "perdengiančio teksto dydis"
+
+msgid "font of text overlay"
+msgstr "perdengiančio teksto šriftas"
+
+msgid "should the pictures be shown in random order?"
+msgstr "ar vaizdai turėtu būti rodomi atsitiktine tvarka?"
+
+msgid "Complete list of variables"
+msgstr "Pilnas kintamųjų sąrašas"

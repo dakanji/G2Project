@@ -1,0 +1,255 @@
+# $Id: fr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"POT-Creation-Date: 2005-07-06 23:48+0200\n"
+"PO-Revision-Date: 2008-08-14 18:14+0100\n"
+"Last-Translator: Arnaud Mouronval <arnaud.mouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Windows Publishing Wizard"
+msgstr "Assistant de publication de Windows"
+
+msgid "Publish photos to Gallery directly from Windows"
+msgstr "Publier des photos dans Gallery directement depuis Windows"
+
+msgid "Import"
+msgstr "Import"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s à %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Publier vos photos et vos films vers %s"
+
+msgid "Upload to Gallery"
+msgstr "Télécharger vers Gallery"
+
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Microsoft Windows fournit un service qui permet de publier du contenu vers un Web Service. "
+"Suivez les instructions ci-dessous pour activer ce service sur Windows."
+
+msgid "Installation"
+msgstr "Installation"
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Téléchargez le fichier de configuration en utilisant un clic-droit, puis 'Sauver la cible "
+"sous...'. Une fois téléchargé, renommez ce fichier 'install_registry.reg'&nbsp;; si une "
+"alerte vos demande de confirmer le changement du type de fichier, répondez 'oui'. Faites un "
+"clic-droit sur ce fichier et sélectionnez 'Fusionner' (en haut du menu). Windows XP vous "
+"demandera alors si vous désirez importer ces valeurs dans le registe, clickez sur 'OK'. Il "
+"vous dira ensuite que le fichier a été importé avec succès. Clickez encore sur 'OK'."
+
+msgid "(for Windows Vista)"
+msgstr "(pour Windows Vista)"
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr "(pour Windows XP, Windows 2000 et toutes les versions antérieures de Windows"
+
+msgid "Download [install_registry.reg]"
+msgstr "Télécharger [install_registry.reg]"
+
+msgid "Windows Vista"
+msgstr "Windows Vista"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr "Ouvrez l'outil %sWindows Photo Gallery%s."
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr "Sélectionnez une ou plusieurs images / fichiers dans votre galerie de photos Windows."
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+"Cliquez sur \"Imprimer...\" et sélectionnez l'option d'impression en ligne (et non pas "
+"l'option d'impression locale)."
+
+msgid "Select the Gallery 2 printing service."
+msgstr "Sélectionnez le service d'impression Gallery 2."
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+"Et suivez ensuite les instrcution pour vous connecter à Gallery, sélectionner un album et "
+"publie la ou les images."
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr "Windows XP, Windows 2000 et toutes les versions antérieures de Windows"
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+"Ouvrez \"Windows Explorer\" et accéder à un répertoire contenant des images supportées."
+
+msgid "Select the image(s) or a folder."
+msgstr "Sélectionnez les images ou un dossier."
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr "Cliquez sur le lien à gauche intitulé : \"Publier ce fichier sur le Web...\""
+
+msgid "Usage"
+msgstr "Utilisation"
+
+msgid "Specify the name and title for the new album."
+msgstr "Saisissez le nom et le titre de ce noubel album."
+
+msgid "Create a new album"
+msgstr "Créer un nouvel album"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "(required)"
+msgstr "(requis)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Le nom de cet album sur votre disque dur. Il doit être unique dans cet album. N'utilisez que "
+"des caractères alphanumériques, des underscore (_) ou des tirets. Vous pourrez le renommer "
+"plus tard si vous le désirez."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Ce nom contient des caractères invalidés. Merci d'en saisir un autre."
+
+msgid "You must enter a name for this album."
+msgstr "Vous devez entrer un nom pour cet album."
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "This is the album title."
+msgstr "Ceci est le titre de l'album."
+
+msgid "Summary"
+msgstr "Résumé"
+
+msgid "This is the album summary."
+msgstr "Ceci est le résumé de l'album."
+
+msgid "Keywords"
+msgstr "Mots clés"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Les mots clés ne sont pas visibles, mais peuvent être recherchés."
+
+msgid "Description"
+msgstr "Description"
+
+msgid "This is the long description of the album."
+msgstr "Ceci est la description longue de l'album"
+
+msgid "Set options for the photos to be added."
+msgstr "Spécifiez les options pour les photos à ajouter."
+
+msgid "Standard Options"
+msgstr "Options standard"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Maintenant que vous avez choisi l'album de destination, les options suivantes peuvent être "
+"utilisées pour ajouter des photos à Gallery."
+
+msgid "Strip file extensions?"
+msgstr "Supprimer les extensions de fichier"
+
+msgid "Set captions on the published items?"
+msgstr "Définir les sous-titre pour les éléments publiés"
+
+msgid "Login to your account"
+msgstr "Connexion à votre compte"
+
+msgid "Username"
+msgstr "Identifiant de connexion"
+
+msgid "You must enter a username"
+msgstr "Vous devez saisir un identifiant de connexion"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+"Identifiants temporairement désactivés en raison de trop nombreuses tentatives "
+"d'authentification avec échec.Identifiants temporairement désactivés en raison de trop "
+"nombreuses tentatives d'authentification avec échec."
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "You must enter a password"
+msgstr "Vous devez saisir un mot de passe"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Vos informations de connexion ne sont pas correctes. Veuillez essayer de nouveau."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Choisisez un album pour les nouvelles photos ou créez en un nouvel."
+
+msgid "New Album"
+msgstr "Nouvel album"
+
+msgid "You must select an album"
+msgstr "Vous devez sélectionner un album"
+
+#~ msgid "Windows XP"
+#~ msgstr "Depuis Windows XP"
+
+#~ msgid "Publish XP"
+#~ msgstr "Publish XP"
+
+#~ msgid "Step 1"
+#~ msgstr "Étape 1"
+
+#~ msgid "Step 2"
+#~ msgstr "Étape 2"
+
+#~ msgid ""
+#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
+#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
+#~ "to the web...'  Click this link and then follow the instructions to log into your "
+#~ "Gallery, select an album and publish the image."
+#~ msgstr ""
+#~ "Ouvrez un explorateur Windows et naviguez vers un répertoire conenant des images "
+#~ "supportées par Gallery. Sélectionnez des images ou des répertoire, un lien 'Publier ce "
+#~ "fichier sur le Web...' devrait apparaître. Clickez sur ce lien et suivez les instructions "
+#~ "pour vous authentifier sur Gallery, sélectionner un répertoire et publier l'image."

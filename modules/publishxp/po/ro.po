@@ -1,0 +1,216 @@
+# $Id: ro.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Ermanno Baschiera <ermannob@inwind.it>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:36-0700\n"
+"PO-Revision-Date: 2006-03-16 16:27+0100\n"
+"Last-Translator: Serban Constantinescu <serban.constantinescu@gmail.com>\n"
+"Language-Team: <none>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: KBabel 1.3\n"
+"X-Poedit-Language: Romanian\n"
+"X-Poedit-Country: ROMANIA\n"
+
+msgid "Windows Publishing Wizard"
+msgstr ""
+
+msgid "Publish photos to Gallery directly from Windows"
+msgstr ""
+
+msgid "Import"
+msgstr "Import"
+
+#, c-format
+msgid "%s at %s"
+msgstr ""
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr ""
+
+msgid "Upload to Gallery"
+msgstr ""
+
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+
+msgid "Installation"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+
+msgid "(for Windows Vista)"
+msgstr ""
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr ""
+
+msgid "Windows Vista"
+msgstr ""
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr ""
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr ""
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+
+msgid "Select the Gallery 2 printing service."
+msgstr ""
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr ""
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+
+msgid "Select the image(s) or a folder."
+msgstr ""
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+
+#, fuzzy
+msgid "Usage"
+msgstr "Nume utilizator"
+
+msgid "Specify the name and title for the new album."
+msgstr ""
+
+msgid "Create a new album"
+msgstr ""
+
+msgid "Name"
+msgstr "Nume"
+
+msgid "(required)"
+msgstr "(obligatoriu)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Numele acestui album pe hard-disk. Trebuie sa fie unic in acest album. Foloseste doar "
+"caractere alfanumerice, underscore si slash. Vei putea sa-l redenumesti mai tarziu."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Numele contine caractere invalide. Alege alt nume."
+
+msgid "You must enter a name for this album."
+msgstr "Trebuie sa introduci un nume pentru acest album."
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "This is the album title."
+msgstr "Acesta este titlul albumului."
+
+msgid "Summary"
+msgstr "Sumar"
+
+msgid "This is the album summary."
+msgstr "Acesta este sumarul albumului."
+
+msgid "Keywords"
+msgstr "Cuvinte-cheie"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Cuvintele cheie (keywords) nu sunt vizibile, dar se folosesc la cautare."
+
+msgid "Description"
+msgstr "Descriere"
+
+msgid "This is the long description of the album."
+msgstr "Aceasta este descrierea lunga a albumului."
+
+msgid "Set options for the photos to be added."
+msgstr ""
+
+msgid "Standard Options"
+msgstr ""
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+
+msgid "Strip file extensions?"
+msgstr ""
+
+msgid "Set captions on the published items?"
+msgstr ""
+
+msgid "Login to your account"
+msgstr "Mergi la contul tau"
+
+msgid "Username"
+msgstr "Nume utilizator"
+
+msgid "You must enter a username"
+msgstr "Trebuie sa introduci numele utilizatorului"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "You must enter a password"
+msgstr "Trebuie sa introduci o parola"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Informatia de autentificare este incorecta. Mai incearca."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr ""
+
+msgid "New Album"
+msgstr ""
+
+msgid "You must select an album"
+msgstr ""

@@ -1,0 +1,303 @@
+# $Id: fi.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators:
+# - 2005 Marko Kohtala <marko.kohtala@gmail.com>
+# - 2007 Erkka Hakkarainen <erkka.hakkarainen@pp.inet.fi>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-30 08:15+0200\n"
+"PO-Revision-Date: 2007-03-12 15:36+0200\n"
+"Last-Translator: Erkka Hakkarainen <erkka.hakkarainen@pp.inet.fi>\n"
+"Language-Team: Finnish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Kuvalohko"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Satunnainen, Viimeisin tai Eniten Katsottu Kuva tai Albumi"
+
+msgid "Blocks"
+msgstr "Lohkot"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Satunnainen kuva"
+msgstr[1] "Satunnaisia kuvia"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Uusin kuva"
+msgstr[1] "Uusimmat kuvat"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Katsotuin kuva"
+msgstr[1] "Katsotuimmat kuvat"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Satunnainen albumi"
+msgstr[1] "Satunnaisia albumeita"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Uusin albumi"
+msgstr[1] "Uusimmat albumit"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Katsotuin albumi"
+msgstr[1] "Katsotuimmat albumit"
+
+msgid "Picture of the Day"
+msgstr "Päivän Kuva"
+
+msgid "Picture of the Week"
+msgstr "Viikon Kuva"
+
+msgid "Picture of the Month"
+msgstr "Kuukauden Kuva"
+
+msgid "Album of the Day"
+msgstr "Päivän Albumi"
+
+msgid "Album of the Week"
+msgstr "Viikon Albumi"
+
+msgid "Album of the Month"
+msgstr "Kuukauden Albumi"
+
+msgid "Date:"
+msgstr "Päiväys:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Katsottu: %d kertaa"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Omistaja: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Estä albumin näyttäminen kuvalohkossa"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Kohdista ImageBlock asetukset myös ali-albumeihin"
+
+msgid "Image Block Settings"
+msgstr "Image Block Asetukset"
+
+msgid "Settings saved successfully"
+msgstr "Asetukset tallennettu"
+
+msgid "Show"
+msgstr "Näytä"
+
+msgid "Heading"
+msgstr "Otsake"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Date"
+msgstr "Päiväys"
+
+msgid "View Count"
+msgstr "Katselukerrat"
+
+msgid "Owner"
+msgstr "Omistaja"
+
+msgid "Frames"
+msgstr "Kehykset"
+
+msgid "View samples"
+msgstr "Katso näytteet"
+
+msgid "Album Frame"
+msgstr "Albumin Kehys"
+
+msgid "Photo Frame"
+msgstr "Kuvan Kehys"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Reset"
+msgstr "Palauta"
+
+msgid "External Image Block"
+msgstr "Ulkopuolinen Image Block"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Käytä alapuolella näkyvän kaltaista PHP lohkoa lisätäksesi kuvalohkon PHP sivulle Gallerian "
+"ulkopuolella."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Putkisymbolilla(|) eroteltu lista seuraavista: randomImage, recentImage, viewedImage, "
+"randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, "
+"weeklyAlbum, monthlyAlbum, specificItem; oletus on randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Putkisymbolilla(|) eroteltu lista seuraavista: title, date, views, owner, heading, fullSize; "
+"arvo voi olla myös: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Rajaa kohteen valinta gallerian alipuuhun annetun tunnuksen alla; tai kohteeseen jolla on "
+"annettu tunnus kun käytät specificItem lohkotyyppiä"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Skaalaa kuvat maksimikokoonsa. Yksinään käytettynä Galleria etsii määritettyä arvoa lähimmän "
+"koon - isommat kuvat skaalataan pienemmiksi selaimen mukaan. Jos lisäksi on määritetty %"
+"sshow=fullSize, täysikokoista kuvaa käytetään aina ja se skaalataan tarpeen mukaan "
+"pienemmäksi."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Kuten %smaxSize, paitsi ettei korvaa kuvaa, joka on pienepi kuin pyydetty koko. Tällöin koko "
+"on lähinnä vastaava. Huomioi, että kuvan skaalaus selaimessa saattaa vaatia huomattavan "
+"paljon kaistaa, jos pienemmäksi skaalattava kuva on suuri."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr "Href kuvan linkille; jos arvo on NULL, ei linkkiä; oletusarvo on linkki Galleriaan"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Lisää linkin kohde (esimerkiksi avataksesi linkit uudessa selainikkunassa)"
+
+msgid "Image frame to use around images"
+msgstr "Kuvakehys kuvien ympärille"
+
+msgid "Image frame to use around albums"
+msgstr "Kuvakehys albumien ympärille"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Jos tähdellä (*) merkitty parametri jätetään pois, käytetään sivuston yllä määriteltyä "
+"oletusarvoa."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Kuvakehykset tarvitsevat CSS:aa näkyäkseen kunnolla. Liitä seuraaava %s osioon tukeaksesi "
+"kuvakehyksiä."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Määrittele kehyksen tunnus (tai putkella (|) eroteltu lista tunnuksia) kehykset-"
+"parametrissa. Jätä parametri pois tukeaksesi yllä aseteltua kuvakehystä. Kehysten tunnukset "
+"ovat hakemistonimiä hakemistossa %s."
+
+msgid "Image type"
+msgstr "Kuvan tyyppi"
+
+msgid "Random image"
+msgstr "Satunnainen kuva"
+
+msgid "Recent image"
+msgstr "Viimeaikainen kuva"
+
+msgid "Viewed image"
+msgstr "Katsottu kuva"
+
+msgid "Random album"
+msgstr "Satunnainen albumi"
+
+msgid "Recent album"
+msgstr "Viimeaikainen albumi"
+
+msgid "Viewed album"
+msgstr "Katsottu albumi"
+
+msgid "Daily image"
+msgstr "Päivittäinen kuva"
+
+msgid "Weekly image"
+msgstr "Viikottainen kuva"
+
+msgid "Monthly image"
+msgstr "Kuukausittainen kuva"
+
+msgid "Daily album"
+msgstr "Päivittäinen albumi"
+
+msgid "Weekly album"
+msgstr "Viikottainen albumi"
+
+msgid "Monthly album"
+msgstr "Kuukausittainen albumi"
+
+msgid "Number of items"
+msgstr "Kohteiden määrä"
+
+msgid "Use default settings"
+msgstr "Käytä oletusasetuksia"
+
+msgid "Show heading"
+msgstr "Näytä otsake"
+
+msgid "Show title"
+msgstr "Näytä otsikko"
+
+msgid "Show date"
+msgstr "Näytä päiväys"
+
+msgid "Show view count"
+msgstr "Näytä katselukerrat"
+
+msgid "Show owner"
+msgstr "Näytä omistaja"

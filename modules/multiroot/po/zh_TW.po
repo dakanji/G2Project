@@ -1,0 +1,127 @@
+# $Id: zh_TW.po 18950 2008-11-28 17:26:00Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Multiroot 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:50-0700\n"
+"PO-Revision-Date: 2005-08-24 14:00-0400\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Multiroot"
+msgstr "多重根相簿"
+
+msgid "Define an alternate guest view of the Gallery"
+msgstr "定義訪客看到的不同 Gallery 畫面"
+
+msgid "Display"
+msgstr "顯示"
+
+msgid "Configure Multiroot"
+msgstr "設定多重根相簿"
+
+msgid "User created and permissions assigned on target album"
+msgstr "用戶已產生並指定目標相簿的使用權限"
+
+msgid ""
+"Multiroot allows you to create an alternate URL to view part of the Gallery.  This "
+"configuration screen assists in setup and creation of a PHP file for the alternate URL.  "
+"This module never activates and is not needed to use multiroot.  There are two options:"
+msgstr ""
+"多重根相簿讓你產生一個代用的網址來顯示部分的 Gallery。這個設定畫面會協助你設定和產生代用網址"
+"用的 PHP 檔。這個模組永遠不會也不需要啟用才能使用多重根相簿。這裡有兩個選擇："
+
+msgid "Virtual root"
+msgstr "虛擬根相簿"
+
+msgid ""
+"This option defines a default album for this view and adjusts navigation links so that no "
+"parent albums above the default are shown.  Both guests and logged in users accessing the "
+"alternate URL will see this effect.  However, Gallery permissions are unchanged so modules "
+"like imageblock and search, or manually entered URLs, can lead visitors to items outside the "
+"default album.  This option is easier to setup as it uses guest permissions already defined "
+"for your Gallery."
+msgstr ""
+"這個選項為這個顯示定義一個預設相簿並調整導覽鏈接，隱藏預設相簿以上的相簿。使用這個網址的訪客"
+"和登入用戶都會看到這個效果。不過 Gallery 的權限並沒有改變，所以像圖像區塊和搜尋等模組或手動輸"
+"入的網址，還是可以將訪客帶到預設之外的相簿。這個選項比較容易設定，因為它使用你的 Gallery 中已"
+"經定義好的訪客權限。"
+
+msgid "Alternate guest user"
+msgstr "代用的訪客用戶"
+
+msgid ""
+"This option defines a new guest view with permissions defined for exactly what this view "
+"should display.  Guests using the alternate URL cannot see any items outside those granted "
+"permission, by browsing or via any modules or URLs.  Logged in users see whatever their "
+"permissions allow, whether accessing the normal or alternate URL.  This option provides "
+"greater access control over the alternate view, but requires additional permissions setup:"
+msgstr ""
+"這個選項定義一個新的訪客畫面和這個畫面的顯示權限。使用代用網址的訪客無法看到任何不被允許的項"
+"目，不論是經由導覽或任何模組或網址。登入的用戶可以看到任何他們的權限允許的項目，不論是經由正"
+"常或代用的網址。這個選項提供較高的存取控制，但是需要額外的權限設定："
+
+msgid ""
+"The original/real guest user must have view permission for all items accessible by any "
+"alternate guest user.  The form below assists in creation of an alternate guest and will "
+"assign view permission for the default album and all subalbums/items.  If these albums are "
+"already public and can remain that way, no more setup is required.  Setup for mutually "
+"exclusive views is more complicated: the original guest user must have access to items in "
+"all views, so first setup those permissions.  Then use the tools here to create each "
+"alternate view.  Just use the set of alternate URLs.  Keep the original Gallery URL "
+"unpublished as it shows the combined set of items."
+msgstr ""
+"對所有要讓代用的訪客用戶看到的項目，原始（真正）的訪客用戶必需有查看的權限。下面的表格會協助"
+"你產生一個代用的訪客並設定預設相簿和所有子相簿及項目的查看權限。如果這些相簿已經是公開，就不"
+"必作進一步的設定。獨佔的顯示設定比較複雜：原始（真正）的訪客用戶必需能夠查看所有的顯示中的項"
+"目，所以請先設定好那些權限。再使用這裡的工具來產生各別的替代畫面。然後只使用這些替代網址。不"
+"要公佈原來 Gallery 的網址，因為那會顯示所有的項目。"
+
+msgid "URI for this Gallery:"
+msgstr "這個 Gallery 的網址："
+
+msgid "URI for new guest view:"
+msgstr "新的訪客畫面網址："
+
+msgid "Missing value"
+msgstr "沒有數值"
+
+msgid "Root album of new view"
+msgstr "新畫面的根相簿"
+
+msgid "Username of alternate guest user:"
+msgstr "代用的訪客用戶名稱："
+
+msgid "New user will be created if given name does not exist."
+msgstr "如果指定的用戶不存在，會自動產生一個新用戶。"
+
+msgid "Leave blank to define a virtual root."
+msgstr "留空表示定義一個虛擬根相簿。"
+
+msgid "Generate Files"
+msgstr "產生檔案"
+
+msgid "Reset"
+msgstr "重置"

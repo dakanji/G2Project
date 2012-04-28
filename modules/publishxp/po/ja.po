@@ -1,0 +1,223 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:55-0800\n"
+"PO-Revision-Date: 2007-03-11 15:00+0900\n"
+"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Windows Publishing Wizard"
+msgstr "Windows公開ウィザード"
+
+msgid "Publish photos to Gallery directly from Windows"
+msgstr "Windowsから直接Galleryに画像を公開する"
+
+msgid "Import"
+msgstr "インポート"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s at %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "画像と動画を %s に公開する"
+
+msgid "Upload to Gallery"
+msgstr "Gallery へアップロード"
+
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Windowsはあなたのデスクトップから直接ウェブのサービスへコンテンツを公開するための良い機能を"
+"持っています。以下の指示に従って、あなたのWindowsでこのサービスを有効にしてください。"
+
+msgid "Installation"
+msgstr "インストール"
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"右クリックをして「対象をファイルに保存」を選択して「install_registry.reg」という名前でファイ"
+"ルを保存します。ファイルタイプを変更しますか？という確認については「はい」と選択してくださ"
+"い。保存したファイルを右クリックすると、メニューが現れます。そうしたら「結合」を選択してくだ"
+"さい(これはメニューの一番上にあるはずです)。結合をクリックするとレジストリに値を登録するか確"
+"認ダイアログが表示されます。「実行」をクリックしてください。問題がなければ、レジストリのイン"
+"ポートが成功した旨のダイアログが表示されますので、「OK」ボタンをクリックします。"
+
+msgid "(for Windows Vista)"
+msgstr "(Windows Vista用)"
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr "(WindowsXP/2000/それ以前用)"
+
+msgid "Download [install_registry.reg]"
+msgstr "[install_registry.reg] をダウンロード"
+
+msgid "Windows Vista"
+msgstr "Windows Vista"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr "%sWindows画像ギャラリー%sを開く"
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr "Windows画像ギャラリーで一つ以上の画像又はファイルを選択します。"
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+"「印刷...」をクリックしてオンラインプリントオプション(ローカルプリントオプションではありませ"
+"ん)を選択します。"
+
+msgid "Select the Gallery 2 printing service."
+msgstr "Gallery2プリントサービスを選択します。"
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr "以下の説明はGalleryへログインをしてアルバムを選択し、画像を公開します。"
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr "WindowsXP/2000/それ以前のバージョン"
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr "Windowsエクスプローラを開いてサポートする画像を含むフォルダを閲覧します。"
+
+msgid "Select the image(s) or a folder."
+msgstr "画像又はフォルダを選択"
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr "「このファイルをウェブに公開」という左側のリンクをクリックします。"
+
+msgid "Usage"
+msgstr "使用法"
+
+msgid "Specify the name and title for the new album."
+msgstr "新規アルバムの名前とタイトルを指定します。"
+
+msgid "Create a new album"
+msgstr "新しいアルバムを作成"
+
+msgid "Name"
+msgstr "名前"
+
+msgid "(required)"
+msgstr "(必須)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"このアイテムのハードディスク上での名前です。これは、このアルバムでユニークでなくてはいけませ"
+"ん。半角英数字と、半角のアンダー(_)とハイフン(-)しか使えません。この名前はあとで変更すること"
+"ができます。"
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "名前に無効な文字が含まれています。他のものを入力してください。"
+
+msgid "You must enter a name for this album."
+msgstr "このアルバムの名前を入力してください"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "This is the album title."
+msgstr "これはアルバムのタイトルです。"
+
+msgid "Summary"
+msgstr "概要"
+
+msgid "This is the album summary."
+msgstr "これはアルバムの概要です。"
+
+msgid "Keywords"
+msgstr "キーワード"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "キーワードは見えませんが、検索はできます。"
+
+msgid "Description"
+msgstr "説明"
+
+msgid "This is the long description of the album."
+msgstr "これはアルバムの長い説明です。"
+
+msgid "Set options for the photos to be added."
+msgstr "追加される画像のオプションを設定してください。"
+
+msgid "Standard Options"
+msgstr "標準オプション"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"あて先のアルバムを選択したのでGalleryへ画像を追加するときに以下のオプションを使用することがで"
+"きます。"
+
+msgid "Strip file extensions?"
+msgstr "ファイルの拡張子を削除しますか?"
+
+msgid "Set captions on the published items?"
+msgstr "公開されたアイテムのキャプションを設定しますか?"
+
+msgid "Login to your account"
+msgstr "あなたのアカウントへログインしてください"
+
+msgid "Username"
+msgstr "ユーザ名"
+
+msgid "You must enter a username"
+msgstr "ユーザ名を入力してください"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr "何回かログインに失敗したので、一時的にログインできません。"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "You must enter a password"
+msgstr "パスワードを入力してください"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "ログイン情報が間違っています。もう一度試してください。"
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "新しい画像を入れるアルバムを選択するか、新しいアルバムを作成してください。"
+
+msgid "New Album"
+msgstr "新しいアルバム"
+
+msgid "You must select an album"
+msgstr "アルバムを選択してください"

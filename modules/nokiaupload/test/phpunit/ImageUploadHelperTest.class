@@ -1,0 +1,116 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
+
+/**
+ * ImageUploadHelper tests
+ *
+ * @package NokiaUpload
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17627 $
+ */
+class ImageUploadHelperTest extends GalleryTestCase {
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$gallery->setUrlGenerator(new ImageUploadHelperUrlGenerator());
+
+	$this->_markForCleanup($this->_user);
+    }
+
+    function testDoLogin() {
+	/* Can't use prefixes because we're constrained to the Nokia API */
+	GalleryUtilities::putRequestVariable('Username', $this->_user->getUsername(), false);
+	GalleryUtilities::putRequestVariable('Password', 'password', false);
+
+	$ret = $this->_registerEventListener('Gallery::Login');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$status = ImageUploadHelper::doLogin();
+
+	$this->assertEventFired('Gallery::Login', $this->_user);
+	$suffix = "&\r\n";
+	$this->assertEquals(
+	    array('success' => '0',
+		  'rsurl' => ('[view=nokiaupload.RemoteStorageCapabilities|' .
+			      'forceFullUrl=1|htmlEntities=|forceSessionId=]&'),
+		  'capabilities' => array(
+		      ('CreateDirURL=[controller=nokiaupload.NewDirectory|forceFullUrl=1' .
+		       '|htmlEntities=|forceSessionId=]' . $suffix),
+		      ('UploadURL=[controller=nokiaupload.Upload|forceFullUrl=1|htmlEntities=' .
+		       '|forceSessionId=]' . $suffix),
+		      ('DirListURL=[controller=nokiaupload.DirectoryListing|forceFullUrl=1|' .
+		       'htmlEntities=|forceSessionId=]' . $suffix))),
+	    $status);
+    }
+
+    function testDisabledUserLogin() {
+	/* Can't use prefixes because we're constrained to the Nokia API */
+	GalleryUtilities::putRequestVariable('Username', $this->_user->getUsername(), false);
+	GalleryUtilities::putRequestVariable('Password', 'password', false);
+
+	$ret = $this->_disableUserName($this->_user->getUserName());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerEventListener('Gallery::FailedLogin');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$status = ImageUploadHelper::doLogin();
+
+	$this->assertEventFired('Gallery::FailedLogin', null,
+	    array('userName' => $this->_user->getUserName()));
+	$this->assertEquals(array('success' => '2'), $status);
+    }
+}
+
+/**
+ * Fake url generator
+ */
+class ImageUploadHelperUrlGenerator {
+    function generateUrl($params, $options) {
+	$data = array();
+	foreach ($params as $key => $value) {
+	    $data[] = "$key=$value";
+	}
+	foreach ($options as $key => $value) {
+	    $data[] = "$key=$value";
+	}
+	return '[' . join('|', $data) . ']';
+    }
+}
+?>

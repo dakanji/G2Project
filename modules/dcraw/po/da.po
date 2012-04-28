@@ -1,0 +1,144 @@
+# $Id: da.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Allan Beaufour <allan@beaufour.dk>, 2005.
+# - Bjørn Graabek <bjorn@graabek.com>, 2006
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:51-0800\n"
+"PO-Revision-Date: 2008-05-21 13:50+0100\n"
+"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "Grafisk værktøj til at behandle billeder i 'raw' formatet"
+
+msgid "Graphics Toolkits"
+msgstr "Grafiske værktøjer"
+
+msgid "Convert to PPM"
+msgstr "Konverter til PPM"
+
+msgid "Get the width and height of the image"
+msgstr "Hent bredde og højde på billede"
+
+msgid "Convert to a PPM"
+msgstr "Konverter til en PPM"
+
+msgid "Binary output:"
+msgstr "Binære uddata:"
+
+msgid "Dcraw Settings"
+msgstr "Dcraw Opsætning"
+
+msgid "Settings saved successfully"
+msgstr "Indstillingerne er gemt"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw er et grafisk værktøj der kan bruges til at behandle RAW billeder fra dyre "
+"digitalkameraer. Du skal installere Dcraw programmet på din server og indtaste stien til det "
+"i feltet nedenfor. Hvis du er på en Unix maskine, så husk at gøre filen eksekverbar "
+"(<i>chmod 755 dcraw</i> skulle gøre det)."
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>Bemærk</b>: Gallery understøtter Dcraw v5.40 eller nyere."
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+"Exec() funktionen er deaktiveret i din PHP via <b>disabled_functions</b> paramteren i php."
+"ini.  Dette modul kan ikke bruges før denne indstilling er ændret."
+
+msgid "Path to dcraw binary:"
+msgstr "Sti til dcraw program:"
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "Du skal indtaste stien til dit Dcraw program."
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr "Stien du indtastede er ikke et gyldig Dcraw program eller er ikke tilgængelig."
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr ""
+"Stien du indtastede er ikke et gyldigt Dcraw program. Brug 'afprøv' knappen for at "
+"kontrollere hvad der er galt."
+
+msgid "The path you entered isn't valid."
+msgstr "Stien du indtastede er ikke gyldig."
+
+msgid "Save Settings"
+msgstr "Gem indstillinger"
+
+msgid "Test Settings"
+msgstr "Afprøv indstillinger"
+
+msgid "Cancel"
+msgstr "Fortryd"
+
+msgid "Reset"
+msgstr "Nulstil"
+
+msgid "Dcraw binary test results"
+msgstr "Dcraw program testresultater"
+
+msgid "Binary Name"
+msgstr "Programnavn"
+
+msgid "Pass/Fail"
+msgstr "Bestået/Fejlede"
+
+msgid "Passed"
+msgstr "Bestået"
+
+msgid "Failed"
+msgstr "Fejlede"
+
+msgid "Error messages:"
+msgstr "Fejlbeskeder:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Fejlsøgningsdata (%d fejlet test)"
+msgstr[1] "Fejlsøgningsdata (%d fejlede tests)"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"Vi indsamlede fejlsøgningsdata da vi afprøvede dine dcraw programmer. Hvis du nærlæser dette "
+"kan du muligvis finde ud af hvorfor dine Dcraw programmer ikke bestod testene."

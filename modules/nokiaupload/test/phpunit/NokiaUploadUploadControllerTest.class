@@ -1,0 +1,177 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Upload controller tests
+ *
+ * @package NokiaUpload
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17634 $
+ */
+class NokiaUploadUploadControllerTest extends GalleryControllerTestCase {
+
+    function NokiaUploadUploadControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'nokiaupload.Upload');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	list ($ret, $this->_subAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_group) = $this->_createRandomGroup();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_group);
+
+	$ret = GalleryCoreApi::addGroupPermission(
+			  $this->_album->getId(), $this->_group->getId(), 'core.addDataItem');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_user);
+
+	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'nokiaupload');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter(
+			  'module', 'nokiaupload', 'id.mobileGroup', $this->_group->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter(
+			  'module', 'nokiaupload', 'id.uploadAlbum', $this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$_SERVER['HTTP_USER_AGENT'] = 'Nokia6630/1.0 (2.39.129) Series60/2.6 Profile/MIDP-2.0';
+
+	$gallery->setActiveUser($this->_user);
+
+	$session->remove('permissionCache');
+	$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.addAlbumItem');
+	if (!$ret) {
+	    return $this->assert(false, 'expected test user to not have addAlbum access in root');
+	}
+
+	GalleryUtilities::putRequestVariable('Filename', 'uploadTest.jpg', false);
+	GalleryUtilities::putRequestVariable('MimeType', 'image/jpeg', false);
+	GalleryUtilities::putRequestVariable('DirId', $this->_album->getId(), false);
+    }
+
+    function testUploadMissingFile() {
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'nokiaupload.Upload'),
+				  'status' => array('success' => NOKIAUPLOAD_ERR_UNKNOWN,
+						    'spaceleft' => 10000000),
+				  'error' => array()),
+			    $results, 'missing parameter');
+
+    }
+
+    function testUploadEmptyFle() {
+	$_FILES['ImageData'] = array('size' => 0, 'tmp_name' => '');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'nokiaupload.Upload'),
+				  'status' => array('success' => NOKIAUPLOAD_ERR_TOOBIG,
+						    'spaceleft' => 10000000),
+				  'error' => array()),
+			    $results, 'file size');
+    }
+
+    function testUploadBadParent() {
+	$_FILES['ImageData'] = array('size' => 1966,
+	    'tmp_name' => GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
+	GalleryUtilities::putRequestVariable('DirId', 'badId', false);
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'nokiaupload.Upload'),
+				  'status' => array('success' => NOKIAUPLOAD_ERR_UNKNOWN,
+						    'spaceleft' => 10000000),
+				  'error' => array()),
+			    $results, 'bad parent');
+    }
+
+    function testUploadNoPermission() {
+	$_FILES['ImageData'] = array('size' => 1966,
+	    'tmp_name' => GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
+	GalleryUtilities::putRequestVariable('DirId', $this->_subAlbum->getId(), false);
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'nokiaupload.Upload'),
+				  'status' => array('success' => NOKIAUPLOAD_ERR_UNKNOWN,
+						    'spaceleft' => 10000000),
+				  'error' => array()),
+			    $results, 'permission');
+    }
+
+    function testUploadValidRequest() {
+	$_FILES['ImageData'] = array('size' => 1966,
+	    'tmp_name' => GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
+	GalleryUtilities::putRequestVariable('Desc', 'this is the description', false);
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'nokiaupload.Upload'),
+				  'status' => array('success' => NOKIAUPLOAD_ERR_NOERR,
+						    'spaceleft' => 10000000),
+				  'error' => array()),
+			    $results, 'valid request');
+
+	$listener =& GalleryTestCase::getEntityCounter();
+	$itemId = $listener->getRecentEntityId('GalleryPhotoItem');
+	if ($itemId) {
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryPhotoItem');
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals('this is the description', $item->getDescription(),
+				'description mismatch');
+	    $this->assertEquals($this->_album->getId(), $item->getParentId(), 'Wrong parent id');
+	} else {
+	    $this->fail('Missing itemId. Has no item been created?');
+	}
+    }
+}
+?>

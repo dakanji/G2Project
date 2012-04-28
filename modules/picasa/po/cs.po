@@ -1,0 +1,273 @@
+# $Id: cs.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Picasa 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-12 17:37+0100\n"
+"PO-Revision-Date: 2006-02-19 11:46+0100\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Importing albums"
+msgstr "Importuji alba"
+
+msgid "Importing photos"
+msgstr "Importuji fotografie"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyty"
+msgstr[2] "%d megabytů"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyty"
+msgstr[2] "%d kilobytů"
+
+msgid "Base filename"
+msgstr "Základ jména souboru"
+
+msgid "Picasa Caption"
+msgstr "Popisek Picasa"
+
+msgid "Blank"
+msgstr "Prázdný"
+
+msgid "From Picasa 2"
+msgstr "Z Picasa 2"
+
+msgid "Picasa"
+msgstr "Picasa"
+
+msgid "Import for Picasa 2 XML-Exports"
+msgstr "Import do Picasa 2 XML-Exporty"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Picasa 2"
+msgstr "Picasa 2"
+
+msgid "Confirm Import"
+msgstr "Potvrzení importu"
+
+msgid "Album to import:"
+msgstr "Album k importu:"
+
+msgid "Album Name"
+msgstr "Jméno alba"
+
+msgid "Album Caption"
+msgstr "Popisek alba"
+
+msgid "Album Notes"
+msgstr "Poznámky k albu"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Album s tímto jménem již existuje. Toto album bude přejmenováno."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Toto album má neplatné jméno a bude přejmenováno na <i>%s</i>"
+
+msgid "The album will be imported into this album:"
+msgstr "Album bude naimportováno do alba:"
+
+#, c-format
+msgid "Title: %s"
+msgstr "Titulek: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Popis: %s"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Import Complete"
+msgstr "Import dokončen"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "Úspěšně naimportováno %d album."
+msgstr[1] "Úspěšně naimportována %d alba."
+msgstr[2] "Úspěšně naimportováno %d alb."
+
+msgid "No albums imported."
+msgstr "Žádná alba nenaimportována."
+
+#, c-format
+msgid "Imported %s"
+msgstr "Naimportováno %s"
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Chyba při importu %d alba."
+msgstr[1] "Chyba při importu %d alb."
+msgstr[2] "Chyba při importu %d alb."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Chyba při importu %s"
+
+#, c-format
+msgid "Successfully imported %d picture."
+msgid_plural "Successfully imported %d pictures."
+msgstr[0] "Úspěšně naimportován %d obrázek."
+msgstr[1] "Úspěšně naimportovány %d obrázky."
+msgstr[2] "Úspěšně naimportováno %d obrázků."
+
+msgid "No pictures imported."
+msgstr "Žádný obrázek nenaimportován."
+
+#, c-format
+msgid "Error while importing %d picture."
+msgid_plural "Errors while importing %d pictures."
+msgstr[0] "Chyba při importu %d obrázku."
+msgstr[1] "Chyba při importu %d obrázků."
+msgstr[2] "Chyba při importu %d obrázků."
+
+msgid "Import another Picasa album"
+msgstr "Importovat jiná alba Picasa"
+
+msgid "View the imported album"
+msgstr "Zobrazit naimportované album"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Na tento webový server je zakázáno uploadovat soubory z webového prohlížeče.  Prosím "
+"kontaktujte správce serveru."
+
+msgid "Upload archived Picasa export files directly from your computer."
+msgstr "Upload archivních exportních souborů Picasa přímo z Vašeho počítače."
+
+msgid "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Do formuláře níže zadejte celou cestu k souboru a případně i popisek."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload more than that, you "
+"must upload the files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>Poznámka:</b> Můžete uploadovat až %s najednou. Pro větší upload musíte buď nahrátsoubory "
+"zvlášť, použít jiný formát uploadu nebo požádat správce serveru o zvýšení limitu."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be larger than %s. "
+"If you want to upload more than that, you must upload the files separately, use a different "
+"upload format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Poznámka:</b> Můžete nahrát až %s najednou. Každý jednotlivý soubor nesmí být větší než %"
+"s. Pro větší upload musíte buď nahrát soubory zvlášť, použít jiný formát uploadu nebo "
+"požádat správce serveru o zvýšení limitu."
+
+msgid "File"
+msgstr "Soubor"
+
+msgid "You did not enter a path."
+msgstr "Nezadali jste cestu."
+
+msgid "There was an error during the upload."
+msgstr "Při uploadu došlo k chybě."
+
+msgid ""
+"The filetype you entered is not supported. Maybe you did not activate the corresponding "
+"toolkit. (E.g. Archive Upload for ZIP files)"
+msgstr ""
+"Typ souboru, který jste zadali, není podporovaný. Možná jste neaktivovali odpovídající "
+"grafický nástroj. (Například Upload archivů pro ZIP soubory)"
+
+msgid "The archive you uploaded is not a valid Picasa export."
+msgstr "Archiv, který jste nahráli, není validní export Picasa."
+
+msgid "Set item titles from:"
+msgstr "Nastavit titulky položek z:"
+
+msgid "Assign Picasa caption to:"
+msgstr "Přiřadit popisky Picasa k:"
+
+msgid "Summary"
+msgstr "Souhrn"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Add Items"
+msgstr "Přidat položky"
+
+msgid "Import from Picasa 2"
+msgstr "Import z Picasa 2"
+
+msgid ""
+"This operation takes data (images, descriptions, orderings etc.) from <strong>Picasa 2</"
+"strong> and brings it into <strong>Gallery 2</strong>."
+msgstr ""
+"Tato operace zpracuje data (obrázky, popisy, uspořádání atd.) z <strong>Picasa 2</strong> a "
+"převede je do <strong>Galerie 2</strong>."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"Pro zpracování JPEG obrázků nemáte aktivovaný žádný grafický nástroj. Pokud je teď "
+"naimportujete, nebudete mít žádné náhledy. Pro aktivaci grafického nástroje navštivte "
+"stránku %sModulů%s."
+
+msgid "Destination Album"
+msgstr "Cílové album"
+
+msgid "Please select the gallery Album you want to import your picasa album into."
+msgstr "Prosím vyberte album Galerie, do kterého chcete naimportovat album Picasa."
+
+msgid "Path or File"
+msgstr "Cesta k souboru"
+
+msgid ""
+"This process will import Data from a Picasa 2 XML-Export. You must enter the path to the "
+"directory with the Picasa 2 files.  Example: <i>/path/to/picasa2xml</i>"
+msgstr ""
+"Tento proces naimportuje data z Picasa 2 XML-Exportu. Musíte zadat cestu k adresáři s Picasa "
+"2 soubory. Příklad: <i>/cesta/k/picasa2xml</i>"
+
+msgid "The path that you entered does not contain valid Picasa export data."
+msgstr "Cesta, kterou jste zadali, neobsahuje validní exportní data Picasa."
+
+msgid "Recently Used Paths"
+msgstr "Naposledy použité cesty"
+
+msgid "Select"
+msgstr "Vybrat"

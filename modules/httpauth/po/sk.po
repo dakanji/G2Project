@@ -1,0 +1,227 @@
+# $Id: sk.po 20945 2009-12-11 23:39:24Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Branislav Hanacek <brango@radegast>, 2006.
+# Branislav Hanacek <brango@brango.sk>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: HTTP Auth 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:31-0800\n"
+"PO-Revision-Date: 2009-03-22 02:51+0100\n"
+"Last-Translator: shely <helkas@gmail.com>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "HTTP Auth"
+msgstr "HTTP autentifikácia"
+
+msgid "Login using HTTP authentication."
+msgstr "Prihlásenie pomocou HTTP autentifikácie."
+
+msgid "Authentication"
+msgstr "Autentifikácia"
+
+msgid "Authorization Header"
+msgstr "Autorizačná hlavička"
+
+msgid "Pass the Authorization header to Gallery in a request variable."
+msgstr "Predá autorizačnú hlavičku do Galérie v požadovanej premennej."
+
+msgid "Authorization header."
+msgstr "Autorizačná hlavička."
+
+msgid "Logout failed"
+msgstr "Odhlásenie zlyhalo"
+
+msgid ""
+"Gallery tried to logout but failed.  You should close the browser window to logout "
+"successfully."
+msgstr ""
+"Galéria sa pokúsila odhlásiť, ale nepodarilo sa to. Mali by ste zatvoriť okno prehliadača, "
+"aby sa odhlásenie dokončilo."
+
+msgid "HTTP Auth Settings"
+msgstr "Nastavenia HTTP autentifikácie"
+
+msgid "Settings saved successfully"
+msgstr "Nastavenia boli úspešne uložené"
+
+msgid "Missing HTTP Authorization"
+msgstr "Chýbajúca HTTP autentifikácia"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords.  You can still use your web server's "
+"authentication.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Galléria nedokáže pristupovať k HTTP menám a heslám. Môžete však ešte stále použiť "
+"autentifikáciu webového servera. Riešenie problému je zdokumentované na stránke %sGallery "
+"Codex%s."
+
+msgid "URL rewrite module disabled"
+msgstr "Modul Zámena URL adries je vypnutý"
+
+#, c-format
+msgid ""
+"We can't fall back on passing HTTP usernames and passwords to Gallery because the URL "
+"rewrite module is disabled.  You should activate the URL rewrite module in the %sSite Admin "
+"Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+"Predávané HTTP mená a heslá sa nedajú postúpiť do Galérie, pretože je vypnutý modul Zámena "
+"URL adries. Mali by ste aktivovať modul Zámena URL adries na stránke %sSpráva nahrádzania "
+"URL adries%s a zvoliť si buď Apache mod_rewrite alebo ISAPI_Rewrite. Riešenie problému je "
+"zdokumentované na stránke %sGallery Codex%s."
+
+msgid "Bad URL rewrite configuration"
+msgstr "Nesprávna konfigurácia zámeny URL adries"
+
+#, c-format
+msgid ""
+"PHP Path Info rewrite doesn't support the rule to fall back on passing HTTP usernames and "
+"passwords to Gallery.  You should uninstall and reinstall the URL rewrite module in the %"
+"sSite Admin Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Nahrádzanie pomocou PHP Path Info nepodporuje pravidlo na predanie HTTP mena a hesla do "
+"Galérie. Mali by ste odinštalovať a znova nainštalovať modul Zámena URL adries na stránke %"
+"sSpráva nahrádzania URL adries%s a vybrať buď Apache mod_rewrite alebo ISAPI_Rewrite. "
+"Riešenie problému je zdokumentované na stránke %sGallery Codex%s."
+
+msgid "'Authorization Header' rule disabled"
+msgstr "Pravidlo 'Autorizačná hlavička' je vypnuté"
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on passing HTTP usernames and passwords to Gallery is "
+"disabled.  You should activate the HTTP auth 'Authorization Header' rule in the %sSite Admin "
+"URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Pravidlo na zámenu URL adresy na postúpenie HTTP mena a hesla do Galérie je vypnuté. Mali by "
+"ste aktivovať pravidlo 'Autorizačná hlavička' na stránke %sSpráva nahrádzania URL adries%s. "
+"Riešenie problému je zdokumentované na stránke %sGallery Codex%s."
+
+msgid "Unknown Cause"
+msgstr "Neznáma príčina"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords and automated checks failed to find a "
+"cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Galéria nevie pristupovať k HTTP menám a heslám a automaticky overiť príčinu zlyhania. "
+"Riešenie problému je zdokumentované na stránke %sGallery Codex%s."
+
+msgid "Gallery can handle HTTP Basic authentication directly."
+msgstr "Galéria môže základnú HTTP autentifikáciu spracovať priamo."
+
+msgid "Use HTTP Authentication:"
+msgstr "Použiť HTTP autentifikáciu:"
+
+msgid ""
+"Gallery will prompt you to login with HTTP authentication when permission is denied.  HTTP "
+"authentication sends your client a realm to which your username belongs.  It's safe to leave "
+"the realm blank."
+msgstr ""
+"Galéria Vás vyzve, aby ste sa prihlásili, ak je prístup odoprený. HTTP autentifikácia pošle "
+"Vášmu klientovi doménu, ku ktorej patrí používateľské meno. Toto pole môžete nechať "
+"nevyplnené."
+
+msgid "HTTP Authentication Realm:"
+msgstr "Doména HTTP autentifikácie:"
+
+msgid ""
+"Your web server may offer more comprehensive and more secure authentication.  If you "
+"configured your web server to authenticate requests to Gallery, you may choose to trust the "
+"username it reports in the REMOTE_USER environment variable."
+msgstr ""
+"Váš webový server môže ponúknuť komplexnejšiu a bezpečnejšiu autentifikáciu. Ak je Váš "
+"webový server nastavený tak, aby vyžadoval autentifikáciu do Galérie, môžete si zvoliť, že "
+"budete dôverovať používateľskému menu uloženému v premennej prostredia REMOTE_USER."
+
+msgid "Use Web Server Authentication:"
+msgstr "Použiť autentifikáciu webového servera:"
+
+msgid "By default HTTP authentication is only enabled for specific modules."
+msgstr "V normálnom stave je HTTP autentifikácia zapnutá iba v určených moduloch."
+
+msgid "Use the authentication plugins for all modules:"
+msgstr "Použiť rozšírenie autentifikácie pre všetky moduly:"
+
+#, c-format
+msgid ""
+"You may wish to trust only HTTP authentication types or HTTP usernames which match specified "
+"regular expressions - or HTTP usernames may not match your Gallery usernames; for instance "
+"if using %s authentication, the REMOTE_USER environment variable may be username@REALM.TLD.  "
+"In these cases, you may use regular expressions to filter authentication types and usernames."
+msgstr ""
+"Môžete chcieť dôverovať iba určitým typom HTTP autentifikácie alebo používateľským menám, "
+"ktoré spĺňajú určité regulárne výrazy (alebo takým, ktoré ich naopak nespĺňajú). Napríklad "
+"ak používate autentifikáciu %s, premenná prostredia REMOTE_USER môže obsahovať "
+"pouzivatel@DOMENA.SK. V takýchto prípadoch, môžete použiť regulárne výrazy aby ste "
+"odfiltrovali typy autentifikácie a používateľov."
+
+msgid "Use Regular Expressions:"
+msgstr "Použiť regulárne výrazy:"
+
+msgid ""
+"Specify here a regular expression which the authentication type must match for "
+"authentication to proceed; for instance /Negotiate/"
+msgstr ""
+"Sem zadajte regulárny výraz, ktorý musí spĺňať typ autentifikácie aby autentifikácia bola "
+"úspešná. Napríklad /Dohoda/"
+
+msgid "Authentication Type Pattern:"
+msgstr "Vzor autentifikačného typu:"
+
+msgid "You must enter a valid regular expression"
+msgstr "Musíte zadať platný regulárny výraz"
+
+#, c-format
+msgid ""
+"Specify here a regular expression which the username must match for authentication to "
+"proceed and a string with which to replace it.  See PHP %s documentation for more "
+"information."
+msgstr ""
+"Sem zadajte regulárny výraz, ktorý musí spĺňať používateľské meno pre úspešnú autentifikáciu "
+"a reťazec ktorým sa má nahradiť. Viac informácii sa dozviete v dokumentácii PHP funkcie %s."
+
+msgid "Username Pattern:"
+msgstr "Vzor používateľského mena:"
+
+msgid "Username Replacement:"
+msgstr "Náhrada za používateľské meno: "
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Reset"
+msgstr "Východzie hodnoty"
+
+#, c-format
+msgid "If you're not automatically redirected, %sclick here to finish logging out%s."
+msgstr "Ak nebudete automaticky presmerovaný, %skliknite sem, aby sa odhlásenie dokončilo%s."

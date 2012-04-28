@@ -1,0 +1,92 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * EcardSiteAdmin controller tests
+ *
+ * @package Ecard
+ * @subpackage PHPUnit
+ * @author Dariush Molavi <dari@nukedgallery.net>
+ * @version $Revision: 17580 $
+ */
+class EcardSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    function EcardSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'ecard.AdminEcard');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'ecard');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testEcardSiteAdminControllerReset() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'ecard.AdminEcard'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testEcardSiteAdminControllerSave() {
+	GalleryUtilities::putRequestVariable('form[from]', 'nobody@nobody.org');
+	GalleryUtilities::putRequestVariable('form[subject]', 'An eCard has been sent to you');
+	GalleryUtilities::putRequestVariable('form[bcc]', 'nobody2@nobody.org');
+	GalleryUtilities::putRequestVariable('form[header]', "Hi %toName% (%to%)!\r\n"
+					     . '%fromName% (%from%) has sent you an eCard.');
+	GalleryUtilities::putRequestVariable('form[footer]', 'Sent via G2 Ecard tester');
+	GalleryUtilities::putRequestVariable('form[format]', 'html');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'ecard.AdminEcard'),
+				  'status' => array('saved' => 1),
+				  'error' => array()),
+			    $results);
+
+	foreach (array('from' => 'nobody@nobody.org',
+		       'subject' => 'An eCard has been sent to you',
+		       'bcc' => 'nobody2@nobody.org',
+		       'header' =>
+			    "Hi %toName% (%to%)!\r\n%fromName% (%from%) has sent you an eCard.",
+		       'footer' => 'Sent via G2 Ecard tester',
+		       'format' => 'html')
+		 as $key => $expectedValue) {
+	    list ($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'ecard', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+}
+?>

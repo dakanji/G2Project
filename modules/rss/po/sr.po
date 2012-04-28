@@ -1,0 +1,568 @@
+# $Id: sr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:53-0800\n"
+"PO-Revision-Date: 2008-09-21 17:13+0100\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "This feed no longer exists!"
+msgstr "Ovaj izvor više ne postoji!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Izvori tog tipe nisu dozvoljeni!"
+
+msgid "Incorrect feed type!"
+msgstr "Neispravna vrsta izvora!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Modul Komentari nije aktivan ili izvori komentara nisu dozvoljeni!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Nedovoljna prava za pregled komantara na ovaj objekat"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Izvoz"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS izvor ovog albuma"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS izvor ove fotografije"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS izvor ovog filma"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS izvori ove %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Podešavanje RSS izvora"
+
+msgid "Simple RSS Feed"
+msgstr "Jednostavan RSS izvor"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Kratka adresa jednostavnih RSS izvora"
+
+msgid "RSS Feed"
+msgstr "RSS izvor"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Naziv podešenog RSS izvora"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Kratka adresa konfigurabilnih RSS izvora"
+
+#, c-format
+msgid "In album %s"
+msgstr "U albumu %s"
+
+msgid "Items in an album"
+msgstr "Objekti u albumu"
+
+msgid "Sub-albums of an album"
+msgstr "Podalbumi albuma"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Objekti u albumu i podalbumima"
+
+msgid "Comments for an album"
+msgstr "Komentari albuma"
+
+msgid "Comments for an item"
+msgstr "Komentari objekta"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Komenteri albuma i podalbuma"
+
+msgid "Random items in an album"
+msgstr "Slučajno izabrani objekti u albumu"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Slučajno izabrani objekti u albumu i njegovim podalbumima"
+
+msgid "RSS Feeds"
+msgstr "RSS izvori"
+
+msgid "Settings have been saved"
+msgstr "Parametri su sačuvani"
+
+msgid "Feed successfully deleted"
+msgstr "Izvor uspešno izbrisan"
+
+msgid "An error occured"
+msgstr "Desila se greška"
+
+msgid "List"
+msgstr "Spisak"
+
+msgid "Edit Feed"
+msgstr "Ažuriranje izvora"
+
+msgid "New Feed"
+msgstr "Novi izvor"
+
+msgid "Feed URL"
+msgstr "Adresa izvora"
+
+msgid "Feed name"
+msgstr "Naziv izvora"
+
+msgid "You can't change the name of the feed"
+msgstr "Ne možete promeniti naziv izvora"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Izaberite naziv za vaš izvor (biće korišćen samo u adresi izvora, pa koristite samo slovne "
+"znakove)"
+
+msgid "You must enter a name"
+msgstr "Morate uneti naziv"
+
+msgid "This name is already used, please select another one"
+msgstr "Ovaj naziv je već iskorišćen, molimo vas da izaberete drugi"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Feed settings"
+msgstr "Parametri izvora"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Izaberite vrstu podataka koje želite da objavite preko izvora"
+
+msgid "Type of feed"
+msgstr "Vrsta izvora"
+
+msgid "Items in this album"
+msgstr "Objekti u ovom albumu"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"Administrator nije dozvolio korišćenje izvora ove vrste. Korisnici neće biti u mogućnosti da "
+"ih pregledaju."
+
+msgid "Sub-albums of this album"
+msgstr "Podalbumi ovog albuma"
+
+msgid "Items in this album and its subalbums"
+msgstr "Objekti u ovom albumu i njegovim podalbumima"
+
+msgid "Limit the number of items per album"
+msgstr "Ograničenje broja objekata po albumu"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Neispravno ograničenje (mora biti pozitivan broj, ili nula ako ne želite ograničenje)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(unesite nulu ako ne želite ograničenje)"
+
+msgid "Comments for this album"
+msgstr "Komentari na ovaj album"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Komentari na ovaj album i njegove podalbume"
+
+msgid "Random pictures inside this album"
+msgstr "Slučajno izabrane slike u ovom albumu"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Slučajno izabrane slike u ovom albumu i svim njegovim podalbumima"
+
+msgid "Comments for this item"
+msgstr "Komentari na ovaj objekat"
+
+msgid "Which items"
+msgstr "Koji objekti"
+
+msgid "New items only"
+msgstr "Samo novi objekti"
+
+msgid "New and updated items"
+msgstr "Novi i ažurirani objekti"
+
+msgid "Choose the options for the feed"
+msgstr "Izaberite parametre izvora"
+
+msgid "RSS version"
+msgstr "RSS verzija"
+
+msgid "Invalid version"
+msgstr "Neispravna verzija"
+
+msgid "Number of items"
+msgstr "Broj objekata"
+
+msgid "Invalid number"
+msgstr "Neispravan broj"
+
+msgid "language tag"
+msgstr "oznaka jezika"
+
+msgid "Invalid language value"
+msgstr "Neispravna oznaka jezika"
+
+msgid "by default: en-us."
+msgstr "podrazumevano: en-us."
+
+msgid "List of all possible values"
+msgstr "Spisak svih mogućih vrednosti"
+
+msgid "category tag"
+msgstr "oznaka kategorije"
+
+msgid "ttl tag"
+msgstr "ttl oznaka"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "Neispravan životni vek, morate uneti broj minuta (ili nulu za neograničen vek)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Životni vek: Broj minuta (ili nula za neograničen vek) koji agregatori treba da čekaju pre "
+"ponovnog učitavanja izvora"
+
+msgid "Copyright"
+msgstr "Autorsko pravo"
+
+msgid "Invalid copyright"
+msgstr "Neispravno autorsko pravo"
+
+msgid "Use image tag"
+msgstr "Koristi slikovnu oznaku"
+
+msgid "Include image tag"
+msgstr "Uključu slikovnu oznaku"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "Ovim se izvoru dodaje glavna slika, koja odgovara umanjenom prikazu ovog objekta"
+
+msgid "Invalid value"
+msgstr "Neispravna vrednost"
+
+msgid "Use enclosures"
+msgstr "Koristi obuhvatanje"
+
+msgid "Include enclosure tags"
+msgstr "Uključu oznake obuhvatanja"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr "Ovim se dodaje obuhvatanje svakoj slici u izvoru, koje sadrži sliku pune rezolucije"
+
+msgid "Use Media RSS"
+msgstr "Korišćenje Media RSS"
+
+msgid "Include Media RSS tags"
+msgstr "Uključi Media RSS oznake"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+"Ovim se dodaju Media RSS oznake izvoru, čime se omogućava da klijenti koji podržavaju ove "
+"oznake izvor prikažu na korisniji način"
+
+msgid "about Media RSS"
+msgstr "informacije i Media RSS"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Oznaka oblaka (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Ako želite da koristite oznaku oblaka, možete je ovde podesiti"
+
+msgid "Example: "
+msgstr "Primer:"
+
+msgid "domain"
+msgstr "domen"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "putanja"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "protokol"
+
+msgid "Cloud tag"
+msgstr "Oznaka oblaka"
+
+msgid "Include the cloud tag"
+msgstr "Uključu oznaku oblaka"
+
+msgid "Invalid string"
+msgstr "Neispravan niz znakova"
+
+msgid "Invalid port number"
+msgstr "Neispravan broj porta"
+
+msgid "Update Feed"
+msgstr "Ažuriraj izvor"
+
+msgid "Create Feed"
+msgstr "Napravi izvor"
+
+msgid "Cancel"
+msgstr "Otkaži"
+
+msgid "RSS feeds for this item"
+msgstr "RSS izvori za ovaj objekat"
+
+msgid "No feeds have yet been defined"
+msgstr "Nije definisan ni jedan izvor"
+
+msgid "Feed link"
+msgstr "Adresa izvora"
+
+msgid "Feed type"
+msgstr "Vrsta izvora"
+
+msgid "Actions"
+msgstr "Akcije"
+
+msgid "delete"
+msgstr "izbriši"
+
+msgid "edit"
+msgstr "izmeni"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Ovo je spisak svih izvora koje su dostupne iz ove Galerije"
+
+msgid "RSS Settings"
+msgstr "RSS parametri"
+
+msgid "Settings"
+msgstr "Parametri"
+
+msgid "Simple Feed Settings"
+msgstr "Parametri jednostavnih izvora"
+
+msgid "General settings"
+msgstr "Opšti parametri"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+"Ovo su podrazumevane maksimalne vrednosti koje se odnose na sve izvore u okviru vaše Galerije"
+
+msgid "Default number of items in feeds"
+msgstr "Podrazumevan broj objekata u izvorima"
+
+msgid "Invalid default number"
+msgstr "Neispravan podrezumevan broj"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maksimalan broj objekata u izvorima"
+
+msgid "Invalid maximum number"
+msgstr "Neispravan maksimalan broj"
+
+msgid "Maximum age for items in feeds"
+msgstr "Maksimalna starost stavki u izvorima"
+
+msgid "Invalid maximum age number"
+msgstr "Neispravna maksimalna starost"
+
+msgid "Default ttl"
+msgstr "Podrazumevan živ. vek"
+
+msgid "Default copyright"
+msgstr "Podrazumevano autorsko pravo"
+
+msgid "Feed Types"
+msgstr "Vrste izvora"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Zadajte koje vrste izvora su dozvoljene"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Dozvoli korišćenje jednostavnih RSS izvora"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Ako uključite ovu opciju, korisnici će moći da se pretplate na izvor bilo kog albuma ili "
+"fotografije koje mogu da pregledaju."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"Da biste ažurirali parametri jednostavnih izvora, koristite odgovarajuću karticu na vrhu "
+"ekrana."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Dozvoli korišćenje konfigurabilnih RSS izvora"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Samo će vlasnici albuma moći da definišu ovakve izvore. Moći će da podešavaju parametre "
+"vrste izvora koji žele da objave."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Kada se definišu izvori, korisnici će moći da se pretplate na one gde imaju prava pregleda "
+"objavljenih objekata."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Dozvoli korišćenje RSS izvora fotografija unutar albuma"
+
+msgid "Fast"
+msgstr "Brzo"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Dozvoli korišćenje RSS izvora i podalbuma nekog albuma"
+
+msgid "Slow"
+msgstr "Sporo"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Dozvoli korišćenje RSS izvora fotografija unutar albuma i njegovih podalbuma"
+
+msgid "Slower"
+msgstr "Sporije"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Dozvoli RSS izvore komentara na fotografije"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Dozvoli RSS izvore komentara na albume"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Dozvoli RSS izvore komentara na albume i njegove podalbume"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Dozvoli RSS izvore fotografija unutar albuma"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Dozvoli RSS izvore fotografija unutar albuma i njegovih podalbuma"
+
+msgid "Slowest"
+msgstr "Najsporije"
+
+msgid "Save Settings"
+msgstr "Sačuvaj parametre"
+
+msgid "Reset"
+msgstr "Poništi"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Pomoć korisnicima u otkrivanju RSS izvora"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Ako želite da pomognete korisnicima da otkriju izvore u vašoj Galeriji, možete dodati RSS "
+"blok izgledima koje koristite."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"Ovo će imati dva efekta: prikaz samog bloka, koji korisnici mogu da vide i iz njega biraju "
+"izvore (i dobiju spisak svih izvora); kao i dodavanje skrivenih zaglavlja u strane koje "
+"moderni web čitači mogu da prepoznaju i olakšaju korisniku da se pretplati na izvore."
+
+msgid "Global list of RSS feeds"
+msgstr "Globalan spisak RSS izvora"
+
+msgid "On item"
+msgstr "Na objekat"
+
+msgid "Simple Feed settings"
+msgstr "Parametri jednostavnih izvora"
+
+msgid "For albums"
+msgstr "Za albume"
+
+msgid "Items in the album"
+msgstr "Objekti u albumu"
+
+msgid "Sub-albums of the album"
+msgstr "Podalbumi albuma"
+
+msgid "Items in the album and its subalbums"
+msgstr "Objekti u albumu i njegovim podalbumima"
+
+msgid "Comments for the album"
+msgstr "Komentari na album"
+
+msgid "For items"
+msgstr "Za objekte"
+
+msgid "Comments for items (always selected)"
+msgstr "Komentari na objekte (uvek obeleženo)"
+
+msgid "List all RSS Feeds"
+msgstr "Lista svih RSS izvora"
+
+msgid "List of RSS Feeds"
+msgstr "Lista svih RSS izvora"
+
+msgid "Number of feeds to display"
+msgstr "Broj izvora za prikaz"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "svi"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "Nedovoljna prava za pregled ovog objekta"
+
+#~ msgid "In album <a href=\"%s\">%s</a>"
+#~ msgstr "U albumu <a href=\"%s\">%s</a>"

@@ -1,0 +1,103 @@
+# $Id: it.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Reupload 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-16 10:51+0100\n"
+"PO-Revision-Date: 2008-03-27 18:38+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Reuploaded file successfully."
+msgstr "File ricaricati con successo."
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
+
+msgid "Reupload"
+msgstr "Ricarica"
+
+msgid "Allows reupload of pictures."
+msgstr "Permette di rifare l'upload delle immagini."
+
+msgid "Extra Data"
+msgstr "Dati Extra"
+
+msgid "Reupload Photo"
+msgstr "Ricarica Foto"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Il webserver ora è configurato in modo da non permettere il caricamento di file dal browser. "
+"Contattare l'amministratore di sistema per ricevere assistenza."
+
+msgid "Upload a new revision of this picture instead of the old one."
+msgstr ""
+"Permette l'upload di una nuova revisione di questa immagine da sostituire a quella vecchia."
+
+msgid "You cannot reupload this item because it shares its data file with other items."
+msgstr ""
+"Non è possibile ricaricare questo oggetto perché condivide il file dati con altri oggetti."
+
+#, c-format
+msgid ""
+"<b>Note:</b> The new file cannot be larger than %s. If you want to upload a larger file you "
+"must ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Nota:</b> Il nuovo file non può essere più grande di %s. Se si desidera caricare un file "
+"più grande è necessario chiedere all'amministratore di sistema di permettere upload più "
+"grandi."
+
+msgid "File"
+msgstr "File"
+
+msgid "Reupload File"
+msgstr "Ricarica File"
+
+msgid "Unable to reupload file."
+msgstr "Impossibile ricaricare il file."
+
+#, c-format
+msgid "Please check the size and try again. The new file cannot be larger than %s."
+msgstr ""
+"Controllare la dimensione e provare di nuovo. Il nuovo file non può essere più grande di %s."
+
+msgid ""
+"Unable to reupload file. Are you sure the file is of the same type (image, movie) as the "
+"original?"
+msgstr ""
+"Impossibile ricaricare il file. Sicuro che il file sia dello stesso tipo (immagine, filmato) "
+"dell'originale?"

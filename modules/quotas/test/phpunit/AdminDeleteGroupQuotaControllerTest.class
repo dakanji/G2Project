@@ -1,0 +1,126 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
+/**
+ * AdminDeleteGroupQuota controller tests
+ * @package Quotas
+ * @subpackage PHPUnit
+ * @author Robert Balousek <volksport@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
+
+    function AdminDeleteGroupQuotaControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'quotas.AdminDeleteGroupQuota');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a group for quota testing */
+	list ($ret, $this->_group) = $this->_createRandomGroup();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_group);
+    }
+
+    function testCancel() {
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+	GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'quotas.AdminQuotas'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    /**
+     * Create and delete a group quota
+     */
+    function testDeleteGroupQuota() {
+	$this->_createUserOrGroupQuota($this->_group->getId(), 2048);
+
+	GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
+	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.SiteAdmin',
+						'subView' => 'quotas.AdminQuotas'),
+		  'status' => array('deletedGroup' => $this->_group->getGroupName()),
+		  'error' => array()),
+	    $results, 'Failed to delete group quota');
+
+	/* Verify the group quota is gone */
+	list ($ret, $quotaExists, $quota) =
+	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
+	if ($quotaExists) {
+	    $this->assert(false, 'The group quota was not actually deleted');
+	} else {
+	    $this->_deleteUserOrGroupQuota($this->_group->getId());
+	}
+    }
+
+    function testDeleteGroupQuotaGroupIdMissing() {
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+    }
+
+    /**
+     * Delete a non-existant group quota
+     */
+    function testDeleteNonExistantGroupQuota() {
+	GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
+	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'quotas.AdminDeleteGroupQuota'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function _createUserOrGroupQuota($userOrGroupId, $quota) {
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap', array('userOrGroupId' => $userOrGroupId, 'quotaSize' => $quota));
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function _deleteUserOrGroupQuota($userOrGroupId) {
+	$ret =
+	    GalleryCoreApi::removeMapEntry('QuotasMap', array('userOrGroupId' => $userOrGroupId));
+	if ($ret) {
+	    return $ret;
+	}
+    }
+}
+?>

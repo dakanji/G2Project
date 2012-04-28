@@ -1,0 +1,192 @@
+# $Id: nl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators:
+# Gidie <Gidie at users.sourceforge REMOVE THIS dot net>, 2005
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-19 16:05+0100\n"
+"PO-Revision-Date: 2007-12-20 15:16+0100\n"
+"Last-Translator: Marijke <marijke@primosite.nl>\n"
+"Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Upload Applet"
+msgstr "Upload Applet"
+
+msgid "Easy to use upload applet for media"
+msgstr "Eenvoudig te gebruiken upload applet voor media"
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Deze upload applet behoeft een G2 module die op dit moment niet aan staat. Raadpleeg een "
+"beheerder om de 'remote' module aan te zetten."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Bezig met downloaden van de Gallery Remote applet"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"Uw browser ondersteund geen applets; u zult één van de andere upload methodes moeten "
+"gebruiken."
+
+msgid "Uploading files..."
+msgstr "Bestanden uploaden..."
+
+msgid "Upload complete"
+msgstr "Upload voltooid"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"U kunt nog meer uploaden of naar de afbeeldingen gaan welke U heeft geupload. Hiervoor klikt "
+"U op de links hierboven"
+
+msgid "Upload Applet Settings"
+msgstr "Upload Appleti Instellingen"
+
+msgid "Defaults"
+msgstr "Standaard instellingen"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Deze variabelen stellen de standaard waarden in voor gebruikers welke het upload applet "
+"gebruiken met Uw gallery. Gebruiker kunnen deze waarden aanpassen in de applet gebruikers "
+"interface of door de local defaults file te wijzigen."
+
+msgid "You have no default variables"
+msgstr "U heeft geen standaard variabelen"
+
+msgid "Variable"
+msgstr "Variabele"
+
+msgid "Action"
+msgstr "Aktie"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Add a new default variable"
+msgstr "Voeg een nieuwe variabele toe"
+
+msgid "You must enter a variable name and value"
+msgstr "U dient een naam en de waarde voor een variabele op te geven"
+
+msgid "New variable"
+msgstr "Nieuwe variabele"
+
+msgid "Add variable"
+msgstr "Variabele toevoegen"
+
+msgid "Overrides"
+msgstr "Overschrijven"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"De instellingen van deze variabelen zijn dominant. Applet gebruikers kunnen deze waarde niet "
+"wijzigen."
+
+msgid "You have no override variables"
+msgstr "U heeft geen overschrijvende variabelen"
+
+msgid "Add a new override variable"
+msgstr "Voeg een nieuwe overschrijvende variabele toe"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Hier is een selectie van variabelen die de uploads beinvloeden"
+
+msgid "variable"
+msgstr "variabel"
+
+msgid "values"
+msgstr "waarde"
+
+msgid "help"
+msgstr "help"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"verteld de applet om de afbeeldingen te verschalen voor dat deze geupload worden naar het "
+"album. Standaard grootte is de album intermediate afbeelding grootte."
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+"de grootte waarnaar de afbeeldingen verschaald worden; ongeacht de instelling van het album"
+
+msgid "no automatic captions"
+msgstr "Geen automatische samenvatting"
+
+msgid "use filenames for captions"
+msgstr "Gebruik de bestandsnaam als samenvatting"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr ""
+"verwijder de bestands extensie indien de bestandsnaam gebruikt wordt voor de samenvatting"
+
+msgid "use EXIF extension for caption"
+msgstr "Gebruik EXIF informatie voor de samenvatting"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"Indien false, zal de upload applet UTF-8 gebruiken om de afbeeldingsgegevens naar Gallery te "
+"verzenden, in plaats van HTML entities gebruiken."
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"op false instellen indien U wilt voorkomen dat de EXIF gegevens verloren gaan bij het "
+"verschalen van de afbeeldingen zonder ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr ""
+"Indien true, dan geeft de upload applet geen waarschuwing indien ImageMagick niet "
+"geactiveerd is"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr ""
+"Indien true, dan geeft de upload applet geen waarschuwing indien Jpegtran niet gevonden is"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "JPEG compressie kwaliteit tijdens het verschalen door ImageMagick"
+
+msgid "Complete list of variables"
+msgstr "Volledige lijst van variabelen"

@@ -1,0 +1,572 @@
+# $Id: cs.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-19 11:34+0100\n"
+"PO-Revision-Date: 2006-12-08 13:01+0100\n"
+"Last-Translator: Martin Štěpán <drewak@gmail.com>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "This feed no longer exists!"
+msgstr "Tento feed už neexistuje!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Feedy tohoto typu nejsou povoleny!"
+
+msgid "Incorrect feed type!"
+msgstr "Nesprávný typ zdroje!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Modul komentářů není aktivní nebo feedy komentářů nejsou povoleny!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Není dovoleno zobrazit komentáře pro tuto položku"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS feed pro toto album"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS feed pro tuto fotografii"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS feed pro toto video"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS feed pro tuto %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Konfigurace RSS feedů (zdrojů)"
+
+msgid "Simple RSS Feed"
+msgstr "Jednoduchý RSS feed"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Krátká URL adresa pro jednoduché RSS feedy"
+
+msgid "RSS Feed"
+msgstr "RSS feed (zdroj)"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Jméno konfigurovaného RSS feedu"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Krátká URL adresa pro konfigurovatelné RSS Feedy"
+
+#, c-format
+msgid "In album %s"
+msgstr "V albu %s"
+
+msgid "Items in an album"
+msgstr "Položky v albu"
+
+msgid "Sub-albums of an album"
+msgstr "Vnořená alba"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Položky v albu a jejich vnořená alba"
+
+msgid "Comments for an album"
+msgstr "Komentáře k albu"
+
+msgid "Comments for an item"
+msgstr "komentáře k položce"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Komentáře pro alba a jejich vnořená alba"
+
+#, fuzzy
+msgid "Random items in an album"
+msgstr "Položky v albu"
+
+#, fuzzy
+msgid "Random items in an album and its subalbums"
+msgstr "Položky v albu a jejich vnořená alba"
+
+msgid "RSS Feeds"
+msgstr "RSS feedy"
+
+msgid "Settings have been saved"
+msgstr "Nastavení úspěšně uloženo"
+
+msgid "Feed successfully deleted"
+msgstr "Feed úspěšně smazán"
+
+msgid "An error occured"
+msgstr "Došlo k chybě"
+
+msgid "List"
+msgstr "Seznam"
+
+msgid "Edit Feed"
+msgstr "Upravit feed"
+
+msgid "New Feed"
+msgstr "Nový feed"
+
+msgid "Feed URL"
+msgstr "URL adresa feedu"
+
+msgid "Feed name"
+msgstr "Jméno feedu"
+
+msgid "You can't change the name of the feed"
+msgstr "Nemůžete změnit jméno feedu"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Vyberte jméno pro feed (toto jméno bude obsaženo v URL adrese feedu, takže pokud možno "
+"použijte pouze písmena)"
+
+msgid "You must enter a name"
+msgstr "Musíte zadat jméno"
+
+msgid "This name is already used, please select another one"
+msgstr "Toto jméno již je použito, prosím vyberte jiné"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Feed settings"
+msgstr "Nastavení feedu"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Vyberte, jaký typ dat bude zobrazen ve feedu"
+
+msgid "Type of feed"
+msgstr "Typ feedu"
+
+msgid "Items in this album"
+msgstr "Položky v tomto albu"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr "Feedy totoho typu nejsou povoleny správcem. Uživatelé je nebudou moci zobrazit."
+
+msgid "Sub-albums of this album"
+msgstr "Vnořená alba"
+
+msgid "Items in this album and its subalbums"
+msgstr "Položky tohoto alba a jejich vnořená alba"
+
+msgid "Limit the number of items per album"
+msgstr "Omezení počtu položek na album"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Neplatné omezení (musí být kladné číslo, 0 pro vypnutí limitu)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(zadejte 0 pro vypnutí omezení)"
+
+msgid "Comments for this album"
+msgstr "Komentáře pro toto album"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Komentáře tohoto alba a jeho vnořených alb"
+
+#, fuzzy
+msgid "Random pictures inside this album"
+msgstr "Položky v tomto albu"
+
+#, fuzzy
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Položky tohoto alba a jejich vnořená alba"
+
+msgid "Comments for this item"
+msgstr "Komentáře pro tuto položku"
+
+msgid "Which items"
+msgstr "Které položky"
+
+msgid "New items only"
+msgstr "Pouze nové položky"
+
+msgid "New and updated items"
+msgstr "Nové a zaktualizované položky"
+
+msgid "Choose the options for the feed"
+msgstr "Vyberte možnosti feedu"
+
+msgid "RSS version"
+msgstr "Verze RSS"
+
+msgid "Invalid version"
+msgstr "Neplatná verze"
+
+msgid "Number of items"
+msgstr "Počet položek"
+
+msgid "Invalid number"
+msgstr "Neplatné číslo"
+
+msgid "language tag"
+msgstr "tag jazyku"
+
+msgid "Invalid language value"
+msgstr "Neplatná hodnota jazyku"
+
+msgid "by default: en-us."
+msgstr "výchozí: en-us."
+
+msgid "List of all possible values"
+msgstr "Seznam všech možných hodnot"
+
+msgid "category tag"
+msgstr "tag kategorie"
+
+msgid "ttl tag"
+msgstr "tag ttl"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "Neplatná hodnota time-to-live (doba platnosti), musí být počet minut (0 pro vypnutí)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Time to live: musí být počet minut (0 pro vypnutí ttl), kdy by agregátory (RSS čtečky)měli "
+"čekat mezi jednotlivými kontrolami aktualizace feedu."
+
+msgid "Copyright"
+msgstr "Cypyright"
+
+msgid "Invalid copyright"
+msgstr "Neplatný copyright"
+
+msgid "Use image tag"
+msgstr "Použít tag obrázku"
+
+msgid "Include image tag"
+msgstr "Zahrnout tag obrázku"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "Toto přidá do feedu hlavní obrázek odpovídající náhledu pro tuto položku"
+
+msgid "Invalid value"
+msgstr "Neplatná hodnota"
+
+msgid "Use enclosures"
+msgstr "Použít závěry"
+
+msgid "Include enclosure tags"
+msgstr "Zahrnout tagy závěrů"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+"To přídá závěr ke každému obrázku ve feedu, který bude obsahovat obrázek v plném rozlišení"
+
+msgid "Use Media RSS"
+msgstr ""
+
+#, fuzzy
+msgid "Include Media RSS tags"
+msgstr "Zahrnout tag obrázku"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+
+msgid "about Media RSS"
+msgstr ""
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Cloud tag (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Pokud chcete použít cloud tag, můžete zde nastavit jeho vlastnosti"
+
+msgid "Example: "
+msgstr "Příklad: "
+
+msgid "domain"
+msgstr "doména"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "cesta"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "protokol"
+
+msgid "Cloud tag"
+msgstr "Cloud tag"
+
+msgid "Include the cloud tag"
+msgstr "Zahrnout cloud tag"
+
+msgid "Invalid string"
+msgstr "Neplatný řetězec"
+
+msgid "Invalid port number"
+msgstr "Neplatné číslo portu"
+
+msgid "Update Feed"
+msgstr "Aktualizovat feed"
+
+msgid "Create Feed"
+msgstr "Vytvořit feed"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "RSS feeds for this item"
+msgstr "RSS feedy pro tuto položku"
+
+msgid "No feeds have yet been defined"
+msgstr "Zatím nebyly definovány žádné feedy"
+
+msgid "Feed link"
+msgstr "Odkaz feedu"
+
+msgid "Feed type"
+msgstr "Typ feedu"
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "delete"
+msgstr "smazat"
+
+msgid "edit"
+msgstr "upravit"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Toto je seznam všech feedů dostupných v této Galerii"
+
+msgid "RSS Settings"
+msgstr "Nastavení RSS"
+
+msgid "Settings"
+msgstr "Nastavení"
+
+msgid "Simple Feed Settings"
+msgstr "Nastavení jednoduchého feedu"
+
+msgid "General settings"
+msgstr "Obecné nastavení"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+"Toto jsou výchozí a maximální hodnoty, které budou použity pro všechny feedy ve Vaší Galerii"
+
+msgid "Default number of items in feeds"
+msgstr "Výchozí počet položek ve feedu"
+
+msgid "Invalid default number"
+msgstr "Neplatný výchozí počet"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maximální počet položek ve feedu"
+
+msgid "Invalid maximum number"
+msgstr "Neplatný maximální počet"
+
+#, fuzzy
+msgid "Maximum age for items in feeds"
+msgstr "Maximální počet položek ve feedu"
+
+#, fuzzy
+msgid "Invalid maximum age number"
+msgstr "Neplatný maximální počet"
+
+msgid "Default ttl"
+msgstr "Výchozí ttl"
+
+msgid "Default copyright"
+msgstr "Výchozí copyright"
+
+msgid "Feed Types"
+msgstr "Typy feedu"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Určuje, které typy feedů jsou povoleny"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Povolit jednoduché RSS feedy"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Pokud toto povolíte, uživatelé se budou moci přihlásit k feedu pro jakékoliv album, pro "
+"které mají oprávnění k prohlížení."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"Pro úpravu nastavení jednoduchého feedu použijte odpovídající záložku na horní části stránky."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Povolit konfigurovatelný RSS feed"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Tyto feedy budou moci nadefinovat pouze vlastníci alb. Mohou nastavit parametry pro typ "
+"feedu, který chtějí."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Jakmile bude feed nadefinován, uživatelé se budou moci k tomuto feedu přihlásit, pokud mohou "
+"přidruženou položku prohlížet."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Povolit RSS feedy fotografií uvnitř alba"
+
+msgid "Fast"
+msgstr "Rychle"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Povolit RSS feedy vnořených alb"
+
+msgid "Slow"
+msgstr "Pomalu"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Povolit RSS feedy fotografií uvnitř alba a jejich vnořených alb"
+
+msgid "Slower"
+msgstr "Pomaleji"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Povolit RSS feedy komentářů fotografie"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Povolit RSS feedy komentářů alba"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Povolit RSS feedy komentářů fotografií uvnitř alba a jejich vnořených alb"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Povolit RSS feedy fotografií uvnitř alba"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Povolit RSS feedy fotografií uvnitř alba a jejich vnořených alb"
+
+#, fuzzy
+msgid "Slowest"
+msgstr "Pomaleji"
+
+msgid "Save Settings"
+msgstr "Uložit nastavení"
+
+msgid "Reset"
+msgstr "Výchozí hodnoty"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Pomoc uživatelům nalézt RSS feedy"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Pokud chcete pomoci uživatelům nalézt RSS feedy ve Vaší Galerii, můžete přidat RSS blok pro "
+"témata použitá v Galerii."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"Toto bude mít dva důskedky: blok samotný, který budou moci uživatelé vidět a vybrat z něj "
+"feed (a získat seznam všech feedů); a skrytou hlavičku stránky, kterou moderní prohlížeče "
+"mohou využít pro jednodušší přihlášení uživatele k feedům."
+
+msgid "Global list of RSS feeds"
+msgstr "Globální seznam RSS feedů"
+
+msgid "On item"
+msgstr "Na položku"
+
+msgid "Simple Feed settings"
+msgstr "Nastavení jednoduchého feedu"
+
+msgid "For albums"
+msgstr "Pro alba"
+
+msgid "Items in the album"
+msgstr "Položky v albech"
+
+msgid "Sub-albums of the album"
+msgstr "Vnořená alba"
+
+msgid "Items in the album and its subalbums"
+msgstr "Položky v albu a vnořená alba"
+
+msgid "Comments for the album"
+msgstr "Komentáře k albu"
+
+msgid "For items"
+msgstr "Pro položky"
+
+msgid "Comments for items (always selected)"
+msgstr "Komentáře k položkám (vždy vybrány)"
+
+msgid "List all RSS Feeds"
+msgstr "Seznam všech RSS feedů"
+
+msgid "List of RSS Feeds"
+msgstr "Seznam RSS feedů"
+
+msgid "Number of feeds to display"
+msgstr "Počet feedů k zobrazení"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "všechny"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "Není dovoleno zobrazit tuto položku"

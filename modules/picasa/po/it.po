@@ -1,0 +1,269 @@
+# $Id: it.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Picasa 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-15 19:24+0100\n"
+"PO-Revision-Date: 2008-03-28 16:21+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Importing albums"
+msgstr "Importazione album"
+
+msgid "Importing photos"
+msgstr "Importazione foto"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
+
+msgid "Base filename"
+msgstr "Nome file"
+
+msgid "Picasa Caption"
+msgstr "Didascalia Picasa"
+
+msgid "Blank"
+msgstr "Vuoto"
+
+msgid "From Picasa 2"
+msgstr "Da Picasa 2"
+
+msgid "Picasa"
+msgstr "Picasa"
+
+msgid "Import for Picasa 2 XML-Exports"
+msgstr "Importa da Picasa 2 XML-Exports"
+
+msgid "Import"
+msgstr "Importazione"
+
+msgid "Picasa 2"
+msgstr "Picasa 2"
+
+msgid "Confirm Import"
+msgstr "Conferma Importazione"
+
+msgid "Album to import:"
+msgstr "Album da importare:"
+
+msgid "Album Name"
+msgstr "Nome Album"
+
+msgid "Album Caption"
+msgstr "Didascalia Album"
+
+msgid "Album Notes"
+msgstr "Note Album"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Esiste già un album con questo nome. Questo album verrà rinominato."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Questo album ha un nome illegale e verrà rinominato in <i>%s</i>"
+
+msgid "The album will be imported into this album:"
+msgstr "Questo album verrà importato dentro questo album:"
+
+#, c-format
+msgid "Title: %s"
+msgstr "Titolo: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Descrizione: %s"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Import Complete"
+msgstr "Importazione Completata"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "%d album importato con successo."
+msgstr[1] "%d album importati con successo."
+
+msgid "No albums imported."
+msgstr "Nessun album importato."
+
+#, c-format
+msgid "Imported %s"
+msgstr "%s importato"
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Errore durante l'importazione di %d album."
+msgstr[1] "Errori durante l'importazione di %d album."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Errore durante l'importazione di %s"
+
+#, c-format
+msgid "Successfully imported %d picture."
+msgid_plural "Successfully imported %d pictures."
+msgstr[0] "%d immagine importata con successo."
+msgstr[1] "%d immagini importate con successo."
+
+msgid "No pictures imported."
+msgstr "Nessuna immagine importata."
+
+#, c-format
+msgid "Error while importing %d picture."
+msgid_plural "Errors while importing %d pictures."
+msgstr[0] "Errore durante l'importazione di %d immagine."
+msgstr[1] "Errori durante l'importazione di %d immagini."
+
+msgid "Import another Picasa album"
+msgstr "Importa un altro album di Picasa"
+
+msgid "View the imported album"
+msgstr "Visualizza l'album importato"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Il webserver in questo momento è configurato per impedire l'upload di file dal browser. "
+"Contattare l'amministratore del tuo sistema per avere assistenza."
+
+msgid "Upload archived Picasa export files directly from your computer."
+msgstr "Carica i file archivio esportati da Picasa direttamente dal computer."
+
+msgid "Enter the full path to the file and an optional caption in the boxes below."
+msgstr ""
+"Inserire il percorso completo al file e una didascalia facoltativa nei riquadri qui sotto."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload more than that, you "
+"must upload the files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>Nota:</b> È possibile caricare fino a %s alla volta. Se si vuole caricarne di più, è "
+"necessario caricare i file separatamente, usare un altro formato di upload, oppure chiedere "
+"all'amministratore di sistema di permettere caricamenti più grandi."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be larger than %s. "
+"If you want to upload more than that, you must upload the files separately, use a different "
+"upload format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Nota:</b> È possibile caricare fino a %s alla volta. Nessun file individuale può essere "
+"più grande di %s. Se si vuole caricarne di più grandi, è necessario caricare i file "
+"separatamente, usare un altro formato di upload, oppure chiedere all'amministratore di "
+"sistema di permettere caricamenti più grandi."
+
+msgid "File"
+msgstr "File"
+
+msgid "You did not enter a path."
+msgstr "Non è stato inserito un percorso."
+
+msgid "There was an error during the upload."
+msgstr "C'è stato un errore durante il caricamento."
+
+msgid ""
+"The filetype you entered is not supported. Maybe you did not activate the corresponding "
+"toolkit. (E.g. Archive Upload for ZIP files)"
+msgstr ""
+"Il tipo di file che inserito non è supportato. Forse non è stato attivato il set di "
+"strumenti corrispondente. (Ad es. Upload Archivi per i file ZIP)"
+
+msgid "The archive you uploaded is not a valid Picasa export."
+msgstr "L'archivio caricato non è un'esportazione di Picasa valida."
+
+msgid "Set item titles from:"
+msgstr "Imposta i titoli degli oggetti in base a:"
+
+msgid "Assign Picasa caption to:"
+msgstr "Assegna la didascalia di Picasa a:"
+
+msgid "Summary"
+msgstr "Sommario"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Add Items"
+msgstr "Aggiungi Oggetti"
+
+msgid "Import from Picasa 2"
+msgstr "Importazione da Picasa 2"
+
+msgid ""
+"This operation takes data (images, descriptions, orderings etc.) from <strong>Picasa 2</"
+"strong> and brings it into <strong>Gallery 2</strong>."
+msgstr ""
+"Questa operazione prende i dati (immagini, descrizioni, ordinamenti ecc.) da <strong>Picasa "
+"2</strong> e li inserisce in <strong>Gallery 2</strong>."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"Non c'è alcun Set di Strumenti Grafici attivato per gestire le immagini JPEG. Se "
+"l'importazione viene eseguita adesso, non ci sarà alcuna anteprima. Visitare la pagina dei %"
+"sModuli%s per attivare un Set di Strumenti Grafici."
+
+msgid "Destination Album"
+msgstr "Album Destinazione"
+
+msgid "Please select the gallery Album you want to import your picasa album into."
+msgstr "Selezionare l'Album di gallery in cui importare l'album di picasa."
+
+msgid "Path or File"
+msgstr "Percorso o File"
+
+msgid ""
+"This process will import Data from a Picasa 2 XML-Export. You must enter the path to the "
+"directory with the Picasa 2 files.  Example: <i>/path/to/picasa2xml</i>"
+msgstr ""
+"Questo processo importerà i Dati da XML-Export di Picasa 2. È necessario inserire il "
+"percorso della cartella con i file di Picasa 2. Esempio: <i>/percorso/di/picasa2xml</i>"
+
+msgid "The path that you entered does not contain valid Picasa export data."
+msgstr "Il percorso inserito non contiene dei dati di esportazione da Picasa validi."
+
+msgid "Recently Used Paths"
+msgstr "Percorsi Recentemente Utilizzati"
+
+msgid "Select"
+msgstr "Seleziona"

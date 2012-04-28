@@ -1,0 +1,243 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: WebDAV 1.0.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:50-0700\n"
+"PO-Revision-Date: 2007-03-07 11:22+0900\n"
+"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmai.com>\n"
+"Language-Team: Japanese <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "WebDAV"
+msgstr "WebDAV"
+
+msgid "Mount with WebDAV"
+msgstr "WebDAVでマウントする"
+
+msgid "Mount Gallery on your desktop."
+msgstr "GalleryをあなたのPCにマウントします"
+
+msgid "Remote Interfaces"
+msgstr "リモートインターフェース"
+
+msgid "Connect to WebDAV"
+msgstr "WebDAVに接続"
+
+msgid ""
+"Use short URL because most WebDAV clients don't support query strings.  The Windows WebDAV "
+"client requires that you don't add a slash before the %path% variable."
+msgstr ""
+"ほとんどのWebDAVクライアントがクエリ文字列をサポートしないので短いURLを使用してください。"
+"WindowsのWebDAVクライアントはあなたが%path%変数の前にスラッシュを加えないようにする必要があり"
+"ます。"
+
+msgid "Path to an item (eg. /album/image.jpg.html)"
+msgstr "アイテムへのパス (例: /album/image.jpg.html)"
+
+msgid "Mount WebDAV"
+msgstr "WebDAVをマウント"
+
+msgid "Give davmount resources the correct extension."
+msgstr "正しい拡張をdavmountリソースに与えます。"
+
+msgid "OPTIONS Requests"
+msgstr "OPTIONSリクエスト"
+
+msgid "Redirect OPTIONS requests so we can set DAV headers."
+msgstr "DAVヘッダを設定できるようにOPTIONSリクエストをリダイレクトします。"
+
+msgid "WebDAV Mount Instructions"
+msgstr "WebDAVのマウントの説明"
+
+#, c-format
+msgid ""
+"%sClick here%s to mount Gallery on your desktop with a WebDAV client.  Documentation on "
+"mounting Gallery with WebDAV is in the %sGallery Codex%s."
+msgstr ""
+"%sここをクリック%sしてWebDAVクライアントでデスクトップにGalleryをマウントしてください。WebDAV"
+"でGalleryをマウントするためのドキュメントは%sGalleryCodex%sにあります。"
+
+msgid "Alternatively, you can enter the following URL in your WebDAV client:"
+msgstr "代わりに、あなたはWebDAVクライアントに以下のURLを入力することができます:"
+
+msgid "WebDAV Settings"
+msgstr "WebDAVの設定"
+
+msgid "Configuration checked successfully"
+msgstr "設定のチェックに成功しました。"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will successfully connect.  Documentation on mounting Gallery with "
+"WebDAV is in the %sGallery Codex%s."
+msgstr ""
+"ほとんどのWebDAVクライアントは接続に成功するでしょう。WebDAVでGalleryをマウントするためのド"
+"キュメントは%sGalleryCodex%sにあります。"
+
+msgid "The URL to connect to Gallery with WebDAV is:"
+msgstr "WebDAVでGalleryへ接続するためのURLは:"
+
+msgid "PHP has no XML support"
+msgstr "PHPがXMLに対応していません"
+
+#, c-format
+msgid ""
+"You can't connect with WebDAV because PHP has no XML support on this server.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"PHPはこのサーバでXMLをサポートしていないため、WebDAVで接続できません。トラブルシューティング"
+"のドキュメントは%sGallery Codex%sにあります。"
+
+msgid "WebDAV requests not handled"
+msgstr "WebDAVのリクエストは扱えません。"
+
+#, c-format
+msgid ""
+"You can't connect with WebDAV because this server doesn't pass WebDAV requests to Gallery.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"このサーバはGalleryへのWebDAVリクエストを通さないため、WebDAVで接続できません。トラブルシュー"
+"ティングのドキュメントは%sGallery Codex%sにあります。"
+
+msgid "HTTP auth module disabled"
+msgstr "HTTP 認証モジュールが無効です"
+
+#, c-format
+msgid ""
+"You can connect with WebDAV anonymously, but you can't do anything which requires you to "
+"login because the HTTP auth module is disabled.  You should activate the HTTP auth module in "
+"the %sSite Admin Plugins option%s.  Troubleshooting documentation is in the %sGallery Codex%"
+"s."
+msgstr ""
+"匿名でのWebDAVの接続はできますが、HTTP認証モジュールが無効なら、ログインに必要な動作ができま"
+"せん。%sサイト管理プラグインオプション%sでHTTP認証モジュールを有効化すべきです。トラブル"
+"シューティングのドキュメントは%sGallery Codex%sにあります。"
+
+msgid "HTTP auth plugin disabled"
+msgstr "HTTP 認証プラグインが無効です"
+
+msgid ""
+"You can connect with WebDAV anonymously, but you can't do anything which requires you to "
+"login because neither HTTP authentication nor server authentication are enabled in the HTTP "
+"auth module.  You should activate HTTP authentication in the settings of the HTTP auth "
+"module."
+msgstr ""
+"匿名でのWebDAVの接続はできますが、HTTP認証もサーバ認証もHTTP認証モジュールで有効化されていな"
+"いので、ログインに必要な動作ができません。HTTP認証モジュールの設定でHTTP認証を有効化すべきで"
+"す。"
+
+msgid "'Connect to WebDAV' rule disabled"
+msgstr "「WebDAVへの接続」ルールは無効です"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will fail to connect because the URL rewrite rule to generate short "
+"WebDAV URLs is disabled.  You should activate the 'Connect to WebDAV' rule in the %sSite "
+"Admin URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"ほとんどのWebDAVクライアントは短いURLを生成させるURL置き換えモジュールが無効なため、接続に失"
+"敗するでしょう。%sサイト管理URL置き換えオプション%sで「WebDAVへの接続」ルールを有効化すべきで"
+"す。トラブルシューティングのドキュメントは%sGallery Codex%sにあります。"
+
+msgid "Missing DAV headers"
+msgstr "DAVヘッダが見つかりません"
+
+#, c-format
+msgid ""
+"Some WebDAV clients, e.g. Mac OS X WebDAVFS, will fail to connect because OPTIONS responses "
+"are missing DAV headers.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"いくつかのWebDAVクライアント(例：MacOSXのWebDAVFS等)はOPTIONSリクエストにDAVヘッダを見つけら"
+"れないため、接続に失敗するでしょう。トラブルシューティングのドキュメントは%sGallery Codex%sに"
+"あります。"
+
+msgid "Alternative URL missing DAV headers"
+msgstr "代わりのURLにDAVヘッダが見つかりません"
+
+#, c-format
+msgid ""
+"Because OPTIONS responses are missing DAV headers, we try to fall back on an alternative "
+"URL, but alternative URL responses are also missing DAV headers.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+"OPTIONSレスポンスはDAVヘッダを見つけられないため、代替のURLに頼ろうとしますが、代替のURLの応"
+"答もDAVヘッダを見つけられません。トラブルシューティングのドキュメントは%sGallery Codex%sにあ"
+"ります。"
+
+msgid "URL rewrite module disabled"
+msgstr "URL 書き換えモジュールが無効です"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will fail to connect because the URL rewrite module is disabled.  You "
+"should activate the URL rewrite module in the %sSite Admin Plugins option%s and choose "
+"either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting documentation is in the %"
+"sGallery Codex%s."
+msgstr ""
+"多くのWebDAVクライアントはURL書き換えモジュールが無効なため、接続に失敗するでしょう。%sサイト"
+"管理プラグインオプション%sでURL書き換えモジュールを有効化して、Apacheのmod_rewriteか"
+"ISAPI_Rewriteのどちらかを選択してください。トラブルシューティングのドキュメントは%sGallery "
+"Codex%sにあります。"
+
+msgid "Bad URL rewrite configuration"
+msgstr "URL 書き換えの設定が間違っています"
+
+#, c-format
+msgid ""
+"PHP PathInfo rewrite doesn't support the rule to fall back on an alternative URL.  You "
+"should uninstall and reinstall the URL rewrite module in the %sSite Admin Plugins option%s "
+"and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting information is in "
+"the %sGallery Codex%s."
+msgstr ""
+"PHP PathInfoの書き換えは代替のURLを頼るルールをサポートしません。%sサイト管理プラグインオプ"
+"ション%sでURL書き換えモジュールを再インストールしてApacheのmod_rewriteかISAPI_Rewriteのどちら"
+"かを選択してください。トラブルシューティングのドキュメントは%sGallery Codex%sにあります。"
+
+msgid "'OPTIONS Requests' rule disabled"
+msgstr "「OPTIONSリクエスト」ルールは無効です"
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on an alternative URL is disabled.  You should activate "
+"the WebDAV 'OPTIONS Requests' rule in the %sSite Admin URL Rewrite option%s.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"代替のURLを頼るURL書き換えルールは向こうです。%sサイト管理URL書き換えオプション%sでWebDAVの"
+"「OPTIONSリクエスト」ルールを有効化してください。トラブルシューティングのドキュメントは%"
+"sGallery Codex%sにあります。"
+
+msgid "Unknown Cause"
+msgstr "原因不明"
+
+#, c-format
+msgid ""
+"Some WebDAV clients, e.g. Mac OS X WebDAVFS, will fail to connect and automated checks "
+"failed to find a cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"いくつかのWebDAVクライアント(例: MacOS XのWebDAVFS)は接続に失敗して、自動チェックによる原因を"
+"見つけることができないでしょう。トラブルシューティングのドキュメントは%sGallery Codex%sにあり"
+"ます。"
+
+msgid "WebDAV URL"
+msgstr "WebDAV URL"

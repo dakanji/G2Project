@@ -1,0 +1,275 @@
+# $Id: et.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-03 14:13+0300\n"
+"PO-Revision-Date: 2006-08-03 14:17+0200\n"
+"Last-Translator: poromaan <poromaan@gmail.com>\n"
+"Language-Team: Eesti <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Pildiblokk"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Juhuslik, Kõige Hilisem või Kõige Rohkem Vaadatud Foto või Album"
+
+msgid "Blocks"
+msgstr "Blokid"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Juhuslik Pilt"
+msgstr[1] "Juhuslikud Pildid"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Uusim Pilt"
+msgstr[1] "Uusimad Pildid"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Kõige Rohkem Vaadatud Pilt"
+msgstr[1] "Kõige Rohkem Vaadatud Pildid"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Juhuslik Album"
+msgstr[1] "Juhuslikud Albumid"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Uusim Album"
+msgstr[1] "Uusimad Albumid"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Kõige Rohkem Vaadatud Album"
+msgstr[1] "Kõige Rohkem Vaadatud Albumid"
+
+msgid "Picture of the Day"
+msgstr "PäevaPilt"
+
+msgid "Picture of the Week"
+msgstr "NädalaPilt"
+
+msgid "Picture of the Month"
+msgstr "KuuPilt"
+
+msgid "Album of the Day"
+msgstr "PäevaAlbum"
+
+msgid "Album of the Week"
+msgstr "NädalaAlbum"
+
+msgid "Album of the Month"
+msgstr "KuuAlbum"
+
+msgid "Date:"
+msgstr "KP:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Vaadatud: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Omanik: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Väldi selle albumi näitamist PildiBlokis"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Rakenda PildiBloki seaded alam-albumitele"
+
+msgid "Image Block Settings"
+msgstr "PildiBloki Seaded"
+
+msgid "Settings saved successfully"
+msgstr "Seaded edukalt salvestatud"
+
+msgid "Show"
+msgstr "Näita"
+
+msgid "Heading"
+msgstr "Pealkiri"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Date"
+msgstr "KP"
+
+msgid "View Count"
+msgstr "Vaatamiste Arv"
+
+msgid "Owner"
+msgstr "Omanik"
+
+msgid "Frames"
+msgstr "Raamid"
+
+msgid "View samples"
+msgstr "Vaata näidiseid"
+
+msgid "Album Frame"
+msgstr "Albumi Raam"
+
+msgid "Photo Frame"
+msgstr "Foto Raam"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Reset"
+msgstr "Sea Uuesti"
+
+msgid "External Image Block"
+msgstr "Väline PildiBlokk"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+
+msgid "Image frame to use around images"
+msgstr "Pildiraam piltide ümber kasutamiseks"
+
+msgid "Image frame to use around albums"
+msgstr "Pildiraam albumite ümber kasutamiseks"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+
+msgid "Image type"
+msgstr "Pilditüüp"
+
+msgid "Random image"
+msgstr "Juhuslik pilt"
+
+msgid "Recent image"
+msgstr "Hiljutine pilt"
+
+msgid "Viewed image"
+msgstr "Vaadatud pilt"
+
+msgid "Random album"
+msgstr "Juhuslik album"
+
+msgid "Recent album"
+msgstr "Hiljutine album"
+
+msgid "Viewed album"
+msgstr "Vaadatud album"
+
+msgid "Daily image"
+msgstr "Päevane pilt"
+
+msgid "Weekly image"
+msgstr "Nädalane pilt"
+
+msgid "Monthly image"
+msgstr "Kuine pilt"
+
+msgid "Daily album"
+msgstr "Päevane album"
+
+msgid "Weekly album"
+msgstr "Nädalane album"
+
+msgid "Monthly album"
+msgstr "Kuine album"
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Use default settings"
+msgstr "Kasuta üldisi seadeid"
+
+msgid "Show heading"
+msgstr "Näita Pealkirja"
+
+msgid "Show title"
+msgstr "Näita tiitlit"
+
+msgid "Show date"
+msgstr "Näita kuupäeva"
+
+msgid "Show view count"
+msgstr "Näita vaatamiste arvu"
+
+msgid "Show owner"
+msgstr "Näita omanikku"

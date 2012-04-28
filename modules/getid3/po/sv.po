@@ -1,0 +1,280 @@
+# $Id: sv.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Getid3 1.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-13 22:19+0100\n"
+"PO-Revision-Date: 2008-09-25 13:50+0100\n"
+"Last-Translator: Martin Öberg <spam-g2translation@strickz.com>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Getid3"
+msgstr "Getid3"
+
+msgid "A toolkit for getting id3 tag information"
+msgstr "En verktygslåda för extrahering av id3 information"
+
+msgid "Extra Data"
+msgstr "Extra Data"
+
+msgid "Get the origination timestamp"
+msgstr "Hämta ursprunglig tidsstämpel"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Artist"
+msgstr "Artist"
+
+msgid "Audio Bit Rate"
+msgstr "Audio Bithastighet"
+
+msgid "Audio Bit Rate Mode"
+msgstr "Audio Bithastigetsmod"
+
+msgid "Audio Channels"
+msgstr "Audio Kanaler"
+
+msgid "Audio Codec"
+msgstr "Audio Codec"
+
+msgid "Channel Mode"
+msgstr "Kanal Mode"
+
+msgid "Audio Sample Rate"
+msgstr "Audio Samplingsfrekvens"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Date/Time"
+msgstr "Datum/Tid"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "Playtime (Seconds)"
+msgstr "Speltid (Sekunder)"
+
+msgid "Playtime"
+msgstr "Speltid"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Track"
+msgstr "Spår"
+
+msgid "Video Bit Rate"
+msgstr "Video Bithastighet"
+
+msgid "Video Bit Rate Mode"
+msgstr "video Bithastighets Mod"
+
+msgid "Video Codec"
+msgstr "Video Codec"
+
+msgid "Video Data Format"
+msgstr "Video Data Format"
+
+msgid "Video Frame Rate"
+msgstr "Video Bildhastighet"
+
+msgid "Video Resolution X"
+msgstr "Video Upplösning X"
+
+msgid "Video Resolution Y"
+msgstr "Video Upplösning Y"
+
+msgid "Video Software"
+msgstr "Video Mjukvara"
+
+msgid "Year"
+msgstr "År"
+
+msgid "getID3() Settings"
+msgstr "getID3() Inställningar"
+
+#, c-format
+msgid "Added %d property to the Summary view"
+msgid_plural "Added %d properties to the Summary view"
+msgstr[0] "Har laggt till %d egenskapen till Summa vyn"
+msgstr[1] "Har laggt till %d egenskaper till Summa vyn"
+
+#, c-format
+msgid "Removed %d property from the Summary view"
+msgid_plural "Removed %d properties from the Summary view"
+msgstr[0] "Tog bort %d egenskapen från Summa vyn"
+msgstr[1] "Tog bort %d egenskaperna från Summa vyn"
+
+msgid "Restored the default properties for the Summary view"
+msgstr "Återställde standard egenskaperna för Summa vyn"
+
+#, c-format
+msgid "Moved %d property up in the Summary view"
+msgid_plural "Moved %d properties up in the Summary view"
+msgstr[0] "Flyttade %d egenskapen uppåt Summa vyn"
+msgstr[1] "Flyttade %d egenskaperna uppåt Summa vyn"
+
+#, c-format
+msgid "Moved %d property down in the Summary view"
+msgid_plural "Moved %d properties down in the Summary view"
+msgstr[0] "Flyttade %d egenskapen neråt i Summa vyn"
+msgstr[1] "Flyttade %d egenskaperna neråt i Summa vyn"
+
+#, c-format
+msgid "Added %d property to the Detailed view"
+msgid_plural "Added %d properties to the Detailed view"
+msgstr[0] "Har laggt till %d egenskapen till Detalj vyn"
+msgstr[1] "Har laggt till %d egenskaperna till Detalj vyn"
+
+#, c-format
+msgid "Removed %d property from the Detailed view"
+msgid_plural "Removed %d properties from the Detailed view"
+msgstr[0] "Tog bort %d egenskapen från Detalj vyn"
+msgstr[1] "Tog bort %d egenskaperna från Detalj vyn"
+
+msgid "Restored the default properties for the Detailed view"
+msgstr "Återställde standard egenskaperna för Detalj vyn"
+
+#, c-format
+msgid "Moved %d property up in the Detailed view"
+msgid_plural "Moved %d properties up in the Detailed view"
+msgstr[0] "Flyttade %d egenskapen uppåt i Detalj vyn"
+msgstr[1] "Flyttade %d egenskaperna uppåt i Detalj vyn"
+
+#, c-format
+msgid "Moved %d property down in the Detailed view"
+msgid_plural "Moved %d properties down in the Detailed view"
+msgstr[0] "Flyttade %d egenskapen neråt i Detalj vyn"
+msgstr[1] "Flyttade %d egenskaperna neråt i Detalj vyn"
+
+msgid "Settings saved successfully"
+msgstr "Lyckades spara inställningarna"
+
+msgid ""
+"getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, "
+"playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."
+msgstr ""
+"getID3() är ett PHP4 skript som extraherar ut användbar information (som ID3 tags, bit "
+"hastighet, speltid, mm.) från MP3 och andra multimediafilformat (Ogg, WMA, WMV, ASF, WAV, "
+"AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI och fler)."
+
+msgid "Summary and Detailed displays"
+msgstr "Summa och Detaljer"
+
+msgid ""
+"There can be a great deal of information stored in many file formats.  We display that data "
+"in two different views, summary and detailed.  You can choose which properties are displayed "
+"in each view."
+msgstr ""
+"Det finns stora mängder information lagrade i många filformat. Vi visar dessa data i två "
+"olika vyer, summa och detalj vy. Du kan välja vilka egenskaper som visas i dom olika vyerna."
+
+msgid "Available"
+msgstr "Tillgänglig"
+
+msgid "Summary"
+msgstr "Summa"
+
+msgid "Detailed"
+msgstr "Detaljerad"
+
+msgid "You must select at least one value in the available column"
+msgstr "Du måste välja åtminstone ett värde i den tillgängliga kolumnen"
+
+msgid "You must select at least one value in the summary column"
+msgstr "Du måste välja åtminstone ett värde i summa kolumnen"
+
+msgid "You must select at least one value in the detailed column"
+msgstr "Du måste åtminstone välja ett värde i detalj kolumnen"
+
+msgid "Add to Summary"
+msgstr "Addera till Summa"
+
+msgid "Add to Detailed"
+msgstr "Addera till Detaljerade"
+
+msgid "Remove"
+msgstr "Tag bort"
+
+msgid "Up"
+msgstr "Upp"
+
+msgid "Down"
+msgstr "Ner"
+
+msgid "Reset to Defaults"
+msgstr "Återställ till Standard"
+
+msgid ""
+"Restore the original values for the Summary and Detailed views.  Use with caution, there is "
+"no undo!"
+msgstr ""
+"Återställ till orginal värden för Summa och Detalj vyerna. Använd med försiktighet, det "
+"finns ingen återvändo!"
+
+msgid "Restore Summary Defaults"
+msgstr "Återställ standardvärden för Summa"
+
+msgid "Restore Detailed Defaults"
+msgstr "Återställ standardvärden för Detaljerade"
+
+msgid "Item Upload"
+msgstr "Objekt uppladdning"
+
+msgid "When MP3s are added to Gallery check the ID3 title field and apply to:"
+msgstr "Kontrollera ID3-titelfältet när MP3-filer läggs till i Gallery och använd på:"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Getid3 Module"
+msgstr "Getid3 Modul"
+
+msgid "This module does not work on Windows, yet."
+msgstr "Den här modulen fungerar inte i Windows än."
+
+msgid "Audio/Video Properties"
+msgstr "Audio/Video Egenskaper"
+
+msgid "summary"
+msgstr "summa"
+
+msgid "details"
+msgstr "detaljer"
+
+msgid "Archive File List"
+msgstr "Arkiv fils lista"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "Size"
+msgstr "Storlek"
+
+msgid "GetID3/Misc info"
+msgstr "GetID3/Misc information"

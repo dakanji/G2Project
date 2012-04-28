@@ -1,0 +1,309 @@
+# $Id: sl.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-21 15:51+0000\n"
+"PO-Revision-Date: 2008-09-16 11:42+0100\n"
+"Last-Translator: Jure Babnik <jure@salve.si>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: ITALY\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Image Block"
+msgstr "Blok s sliko"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Naključen, najnovejši ali najbolj gledan foto album"
+
+msgid "Blocks"
+msgstr "Bloki"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Naključna slika"
+msgstr[1] "Naključne slike"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Zadnja slika"
+msgstr[1] "Zadnje slike"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Najbolj gledana slika"
+msgstr[1] "Najbolj gledane slike"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Naključen album"
+msgstr[1] "Naključni albumi"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Najnovejši album"
+msgstr[1] "Najnovejši albumi"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Najbolj gledan album"
+msgstr[1] "Najbolj gledani albumi"
+
+msgid "Picture of the Day"
+msgstr "Slika dneva"
+
+msgid "Picture of the Week"
+msgstr "Slika tedna"
+
+msgid "Picture of the Month"
+msgstr "Slika meseca"
+
+msgid "Album of the Day"
+msgstr "Album dneva"
+
+msgid "Album of the Week"
+msgstr "Album tedna"
+
+msgid "Album of the Month"
+msgstr "Album meseca"
+
+msgid "Date:"
+msgstr "Datum:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Ogledov: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Lastnik: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Prepreči, da bi bil ta album prikazan v Bloku s sliko"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Uporabi nastavitve za blok s sliko v podalbumih"
+
+msgid "Image Block Settings"
+msgstr "Nastavitve bloka s sliko"
+
+msgid "Settings saved successfully"
+msgstr "Nastavitve so bile uspešno shranjene"
+
+msgid "Show"
+msgstr "Prikaži"
+
+msgid "Heading"
+msgstr "Glava"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "View Count"
+msgstr "Števec ogledov"
+
+msgid "Owner"
+msgstr "Lastnik"
+
+msgid "Frames"
+msgstr "Robovi"
+
+msgid "View samples"
+msgstr "Prikaži primere"
+
+msgid "Album Frame"
+msgstr "Rob albuma"
+
+msgid "Photo Frame"
+msgstr "Rob slike"
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Reset"
+msgstr "Ponastavi"
+
+msgid "External Image Block"
+msgstr "Zunanji blok s sliko"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Uporabi PHP blok, kot je prikazano spodaj, da vključiš blok s sliko v PHP stran izven "
+"Galerije."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Seznam ločen s pokončno črto (|), ki vključuje elemente izbrane med: randomImage, "
+"recentImage, viewedImage, randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, "
+"monthlyImage, dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; privzeto je randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Seznam ločen s pokončno črto (|), ki vključuje elemente izbrane med: title, date, views, "
+"owner, heading, fullSize; vrednost je lahko tudi: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Omeji izbiro predmeta za prikaz v bloku s sliko na poddrevo galerije v albumu z danim ID-"
+"jem; ali ID predmeta."
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Povečaj/pomanjšaj slike na to največjo velikost. Če je uporabljno samo to, bo Galerija našla "
+"sliko, ki je po velikosti najbližja določeni vrednosti. Večje slike bodo pomanjšane, kolikor "
+"je potrebno, v brskalniku. Če je uporabljeno skupaj z %sshow=fullSize, bo vedno uporabljena "
+"polna velikost slike in po potrebi pomanjšana."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Enako kot %smaxSize, samo da ne bo zamenjana slika, ki je manjša od zahtevane velikosti in "
+"bo izbrana slika, ki je najbližja želeni velikosti. Vedite, da lahko na ta način uporabite "
+"več internetnega pretoka, če mora biti dosti večja slika pomanjšan v vašem brskalniku."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href za povezavo na sliko; vrednost 'none' povzroči, da ni linka; privzeta vrednost je link "
+"na predmet v Galeriji"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Dodaj cilj povezave (=link target) (npr. da se povezava odpre v novem oknu)"
+
+msgid "Image frame to use around images"
+msgstr "Rob slike, ki naj se uporabi na slikah"
+
+msgid "Image frame to use around albums"
+msgstr "Rob slike, ki naj se uporabi na albumih"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Če parameter, ki je označen z * , ni definiran bo uporabljen privzet parameter, ki je "
+"definiran zgoraj."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Robovi slik potrebujejo, da je CSS pravilno izpisan. Uporabite sledeče na sekciji %s, da "
+"omogočite robove slik."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Določite ID roba (ali seznam ID-jev ločenih s pokočno črto (|)) v parametrih roba. Ne "
+"vpišite parametra za omogočenje robov, ki je konfiguriran zgoraj. ID-ji robov so imena map v "
+"mapi %s."
+
+msgid "Image type"
+msgstr "Tip slike"
+
+msgid "Random image"
+msgstr "Naključna slika"
+
+msgid "Recent image"
+msgstr "Zadnja slika"
+
+msgid "Viewed image"
+msgstr "Gledana slika"
+
+msgid "Random album"
+msgstr "Naključni album"
+
+msgid "Recent album"
+msgstr "Zadnji album"
+
+msgid "Viewed album"
+msgstr "Gledan album"
+
+msgid "Daily image"
+msgstr "Dnevna slika"
+
+msgid "Weekly image"
+msgstr "Tedenska slika"
+
+msgid "Monthly image"
+msgstr "Mesečna slika"
+
+msgid "Daily album"
+msgstr "Dnevni album"
+
+msgid "Weekly album"
+msgstr "Tedenski album"
+
+msgid "Monthly album"
+msgstr "Mesečni album"
+
+msgid "Number of items"
+msgstr "Število predmetov"
+
+msgid "Use default settings"
+msgstr "Uporabi privzete nastavitve"
+
+msgid "Show heading"
+msgstr "Pokaži glavo"
+
+msgid "Show title"
+msgstr "Pokaži naslov"
+
+msgid "Show date"
+msgstr "Pokaži datum"
+
+msgid "Show view count"
+msgstr "Pokaži števec ogledov"
+
+msgid "Show owner"
+msgstr "Pokaži lastnika"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Riscala le immagini a questa dimensione massima. Se maxSize oltrepassa le dimensioni "
+#~ "delle anteprime, devi specificare anche g2_show=fullSize"

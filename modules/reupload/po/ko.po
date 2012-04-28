@@ -1,0 +1,98 @@
+# $Id: ko.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Reupload 1.0.7\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:44-0800\n"
+"PO-Revision-Date: 2006-04-11 10:52+0900\n"
+"Last-Translator: Juice <blackmantle@gmail.com>\n"
+"Language-Team: Korean <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Reuploaded file successfully."
+msgstr "새로 올리기 성공했습니다."
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d 메가바이트"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d 킬로바이트"
+
+msgid "Reupload"
+msgstr "다시 올리기"
+
+msgid "Allows reupload of pictures."
+msgstr "사진을 다시 올리는것을 허용합니다."
+
+msgid "Extra Data"
+msgstr ""
+
+msgid "Reupload Photo"
+msgstr "사진 다시 올리기"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"현재 웹서버는 브라우저를 통한 파일 올리기를 차단하고 있습니다. 시스템 관리자에게 문의해보십시"
+"요."
+
+msgid "Upload a new revision of this picture instead of the old one."
+msgstr "기존의 사진을 새로운 사진으로 대체합니다."
+
+msgid "You cannot reupload this item because it shares its data file with other items."
+msgstr ""
+
+#, c-format
+msgid ""
+"<b>Note:</b> The new file cannot be larger than %s. If you want to upload a larger file you "
+"must ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>주의:</b> 새로 올릴 파일은 %s 보다 클수 없습니다. 만일 진정 올리고자 한다면 시스템 관리자"
+"에게 문의하십시요."
+
+msgid "File"
+msgstr "파일"
+
+msgid "Reupload File"
+msgstr "파일 다시 올리기"
+
+msgid "Unable to reupload file."
+msgstr "파일 다시올리기가 가능합니다."
+
+#, c-format
+msgid "Please check the size and try again. The new file cannot be larger than %s."
+msgstr "크기를 확인하시고 다시 시도하십시요. 새 파일은 %s 보다 더 클수 없습니다."
+
+msgid ""
+"Unable to reupload file. Are you sure the file is of the same type (image, movie) as the "
+"original?"
+msgstr "파일을 새로 올릴수 없습니다. 원본과 같은 유형(이미지, 동영상)의 파일이 맞습니까?"

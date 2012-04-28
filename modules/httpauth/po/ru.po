@@ -1,0 +1,226 @@
+# $Id: ru.po 18704 2008-11-15 16:40:40Z mindless $ 
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: HTTP Auth 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 10:02-0800\n"
+"PO-Revision-Date: 2008-10-23 12:15+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "HTTP Auth"
+msgstr "HTTP Аутентификация"
+
+msgid "Login using HTTP authentication."
+msgstr "Вход с использованием HTTP аутентификации"
+
+msgid "Authentication"
+msgstr "Аутентификация"
+
+msgid "Authorization Header"
+msgstr "Заголовок авторизации"
+
+msgid "Pass the Authorization header to Gallery in a request variable."
+msgstr " Передача заголовка авторизации в заданную переменную Галерею "
+
+msgid "Authorization header."
+msgstr "Заголовок авторизации."
+
+msgid "Logout failed"
+msgstr "Выход неудачен"
+
+msgid ""
+"Gallery tried to logout but failed.  You should close the browser window to logout "
+"successfully."
+msgstr "Выход из  Галереи неудачен. Вы должны закрыть окно браузера для успешного выхода."
+
+msgid "HTTP Auth Settings"
+msgstr "Настройки HTTP аутентификации"
+
+msgid "Settings saved successfully"
+msgstr "Настройки успешно сохранены"
+
+msgid "Missing HTTP Authorization"
+msgstr "Неверная HTTP авторизация."
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords.  You can still use your web server's "
+"authentication.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Галерея не имеет доступа к HTTP логинам и паролям. Вы можете всё же использовать вход на "
+"сервер.  Диагностическая документация находится по адресу %sGallery Codex%s."
+
+msgid "URL rewrite module disabled"
+msgstr "Модуль URL rewrite отключен"
+
+#, c-format
+msgid ""
+"We can't fall back on passing HTTP usernames and passwords to Gallery because the URL "
+"rewrite module is disabled.  You should activate the URL rewrite module in the %sSite Admin "
+"Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+"Мы не можем проверить логины и пароли к Галерее потому, что отключен модуль URL rewrite.  Вы "
+"должны активизировать модуль URL rewrite здесь: %sМодули и темы%s, и выбрать Apache "
+"mod_rewrite или ISAPI_Rewrite.  Документация для помощи находится здесь %sGallery Codex%s."
+
+msgid "Bad URL rewrite configuration"
+msgstr "Неверная конфигурация модуля URL rewrite"
+
+#, c-format
+msgid ""
+"PHP Path Info rewrite doesn't support the rule to fall back on passing HTTP usernames and "
+"passwords to Gallery.  You should uninstall and reinstall the URL rewrite module in the %"
+"sSite Admin Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"PHP PathInfo rewrite не поддерживает проверку логинов и паролей к Галерее.  Вы должны "
+"деинсталлировать и снова установить модуль URL rewrite здесь:  %sМодули и темы%s, и выбрать "
+"Apache mod_rewrite или ISAPI_Rewrite. Документация для помощи находится здесь %sGallery Codex"
+"%s."
+
+msgid "'Authorization Header' rule disabled"
+msgstr "Правило 'Заголовок авторизации' отключено"
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on passing HTTP usernames and passwords to Gallery is "
+"disabled.  You should activate the HTTP auth 'Authorization Header' rule in the %sSite Admin "
+"URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+" Правило URL rewrite для проверки логинов и паролей к Галерее отключено. Вы должны "
+"активизировать HTTP auth 'Authorization Header' здесь: %sНастройки модуля URL rewrite%s.  "
+"Документация для помощи находится здесь %sGallery Codex%s."
+
+msgid "Unknown Cause"
+msgstr "Неизвестная причина"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords and automated checks failed to find a "
+"cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Галерея не имеет доступа к HTTP логинам и паролям и автоматическая проверка не находит "
+"причины.  Диагностическая документация находится по адресу %sGallery Codex%s."
+
+msgid "Gallery can handle HTTP Basic authentication directly."
+msgstr "Галерея может напрямую обработать основную HTTP  аутентификацию."
+
+msgid "Use HTTP Authentication:"
+msgstr "Использовать HTTP Аутентификацию:"
+
+msgid ""
+"Gallery will prompt you to login with HTTP authentication when permission is denied.  HTTP "
+"authentication sends your client a realm to which your username belongs.  It's safe to leave "
+"the realm blank."
+msgstr ""
+"Галерея вам предложит пройти авторизацию при помощи HTTP аутентификации, когда доступ "
+"запрещён.  HTTP аутентификация пошлёт вашему клиенту  область, где ваше имя подходит. Можно "
+"оставить область пустой, это безопасно."
+
+msgid "HTTP Authentication Realm:"
+msgstr "Область HTTP аутентификации:"
+
+msgid ""
+"Your web server may offer more comprehensive and more secure authentication.  If you "
+"configured your web server to authenticate requests to Gallery, you may choose to trust the "
+"username it reports in the REMOTE_USER environment variable."
+msgstr ""
+"Ваш сервер может иметь более совершенную и безопасную аутентификацию. Если вы настроите "
+"сервер на аутентификацию запросов к Галерее, вы можете выбрать настоящее имя пользователя в "
+"переменной среды - REMOTE_USER."
+
+msgid "Use Web Server Authentication:"
+msgstr "Использовать аутентификацию сервера:"
+
+msgid "By default HTTP authentication is only enabled for specific modules."
+msgstr "По умолчанию HTTP аутентификация включена не для всех модулей."
+
+msgid "Use the authentication plugins for all modules:"
+msgstr "Использовать HTTP аутентификацию для всех модулей:"
+
+#, c-format
+msgid ""
+"You may wish to trust only HTTP authentication types or HTTP usernames which match specified "
+"regular expressions - or HTTP usernames may not match your Gallery usernames; for instance "
+"if using %s authentication, the REMOTE_USER environment variable may be username@REALM.TLD.  "
+"In these cases, you may use regular expressions to filter authentication types and usernames."
+msgstr ""
+"Вы можете пожелать верить только HTTP типам аутентификации или HTTP именам которые "
+"соответствуют определённым регулярным выражениям или,  HTTP именам не соответствующим именам "
+"Галереи. Например, если выбрать %s аутентификацию, переменная REMOTE_USER может быть такой - "
+"username@REALM.TLD. В этом случае вы можете использовать регулярные выражения для фильтрации "
+"типов аутентификации и логинов."
+
+msgid "Use Regular Expressions:"
+msgstr "Использовать  регулярные выражения:"
+
+msgid ""
+"Specify here a regular expression which the authentication type must match for "
+"authentication to proceed; for instance /Negotiate/"
+msgstr ""
+"Задайте здесь  регулярное выражение, которому тип аутентификации должен соответствовать, "
+"чтобы успешно пройти аутентификацию; например,  /Negotiate/"
+
+msgid "Authentication Type Pattern:"
+msgstr "Образец "
+
+msgid "You must enter a valid regular expression"
+msgstr "Вы должны ввести допустимое регулярное выражение"
+
+#, c-format
+msgid ""
+"Specify here a regular expression which the username must match for authentication to "
+"proceed and a string with which to replace it.  See PHP %s documentation for more "
+"information."
+msgstr ""
+"Задайте здесь  регулярное выражение, которому должен соответствовать логин для успешного "
+"прохождения аутентификации и строку, которая заменит его. Смотрите PHP %s документацию для "
+"более полной информации."
+
+msgid "Username Pattern:"
+msgstr "Образец логина:"
+
+msgid "Username Replacement:"
+msgstr "Замена логина:"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Reset"
+msgstr "Отменить"
+
+#, c-format
+msgid "If you're not automatically redirected, %sclick here to finish logging out%s."
+msgstr ""
+"Если ваш браузер не поддерживает автоматическую переадресацию,  кликните%s здесь%s для "
+"завершения процесса выхода."

@@ -1,0 +1,139 @@
+# $Id: it.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-25 16:49+0200\n"
+"PO-Revision-Date: 2008-03-27 18:31+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: KBabel 1.3\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "create replica"
+msgstr "crea replica"
+
+msgid "replicate an item"
+msgstr "replica un oggetto"
+
+msgid "Replica"
+msgstr "Replica"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Crea copie di oggetti mantenendo comune lo stesso file dati originale"
+
+msgid "Display"
+msgstr "Visualizzazione"
+
+msgid "Create Replica"
+msgstr "Crea Replica"
+
+msgid "Replicate Album"
+msgstr "Replica Album"
+
+msgid "Replicate Photo"
+msgstr "Replica Foto"
+
+msgid "Replicate Movie"
+msgstr "Replica Filmato"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Replica %s"
+
+msgid "Create Replicas"
+msgstr "Crea Repliche"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "%d oggetto replicato con successo"
+msgstr[1] "%d oggetti replicati con successo"
+
+msgid "This album contains no items to replicate."
+msgstr "Questo album non contiene oggetti da replicare."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"Una replica è un oggetto che condivide il file dati originale con un altro oggetto, per "
+"risparmiare spazio su disco. In tutti gli altri aspetti si tratta di un oggetto separato, "
+"con le sue didascalie, anteprime, ridimensionamenti, commenti, ecc. Le didascalie "
+"inizialmente vengono copiate dall'oggetto sorgente ma possono essere modificate. Sia la "
+"replica che la sorgente possono essere spostate o eliminate senza che l'altra ne sia "
+"influenzata."
+
+msgid "Source"
+msgstr "Sorgente"
+
+msgid "Choose the items you want to replicate"
+msgstr "Scegliere gli oggetti da replicare"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(pagina %d di %d)"
+
+msgid "No sources chosen"
+msgstr "Nessuna sorgente selezionata"
+
+msgid "Check All"
+msgstr "Seleziona Tutti"
+
+msgid "Check None"
+msgstr "Deseleziona Tutto"
+
+msgid "Invert"
+msgstr "Inverti"
+
+msgid "Previous Page"
+msgstr "Pagina Precedente"
+
+msgid "Next Page"
+msgstr "Pagina Successiva"
+
+msgid "Destination"
+msgstr "Destinazione"
+
+msgid "Choose a new album for the replica"
+msgstr "Scegliere un nuovo album per la replica"
+
+msgid "No destination chosen"
+msgstr "Nessuna destinazione selezionata"
+
+msgid "Create"
+msgstr "Crea"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Successfully created"
+msgstr "Creazione avvenuta con successo"
+
+msgid "Choose a destination album"
+msgstr "Scegliere un album di destinazione"

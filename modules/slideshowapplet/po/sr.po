@@ -1,0 +1,187 @@
+# $Id: sr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:53-0800\n"
+"PO-Revision-Date: 2008-09-21 17:55+0100\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "projekcija (ceo ekran)"
+
+msgid "Slideshow Applet"
+msgstr "Alatka za projekciju"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Projekcija slika preko celog ekrana pomoću Java apleta"
+
+msgid "Display"
+msgstr "Prikaz"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Prikaz projekcije (preko čitavog ekrana)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Putanja do objekta (npr. /album/slika.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Projekcija"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Ova alatka se oslanja na G2 modul koji trenutno nije aktivan. Zamolike administratora "
+"sistema da aktivira 'daljinski' modul."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Preuzimanje Daljinske alatke Galerije"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Vaš čitač ne podržava aplete; koristite standardnu projekciju."
+
+msgid "Slideshow Applet Settings"
+msgstr "Parametri alatke za projekciju"
+
+msgid "Defaults"
+msgstr "Podrazumevan"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Ove promenljive daju podrazumevane vrednosti apletima koje korisnici izvršavaju na vašem "
+"sajtu. Korisnici će moći da redefinišu ove vrednosti u korisničkim interfejsima apleta, ili "
+"izmenom svojim lokalnih datoteka sa podrazumevanim parametrima."
+
+msgid "You have no default variables"
+msgstr "Nemate podrazumevane promenljive"
+
+msgid "Variable"
+msgstr "Promenljiva"
+
+msgid "Action"
+msgstr "Akcija"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Add a new default variable"
+msgstr "Dodavanje nove podrazumevane promenljive"
+
+msgid "You must enter a variable name and value"
+msgstr "Morate uneti naziv promenljive i vrednost"
+
+msgid "New variable"
+msgstr "Nova promenljiva"
+
+msgid "Add variable"
+msgstr "Dodaj promenljivu"
+
+msgid "Overrides"
+msgstr "Forsiranje vrednosti promenljivih"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Ove promenljive redefinišu bilo koje vrednosti apletima koje korisnici izvršavaju na vašem "
+"sajtu. Korisnici neće biti u mogućnosti da menjaju ove vrednosti."
+
+msgid "You have no override variables"
+msgstr "Nemate redefinisanih promenljivih"
+
+msgid "Add a new override variable"
+msgstr "Dodavanje nove redefinisane promenljive"
+
+msgid "Help"
+msgstr "Pomoć"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Evo dela promenljivih koje utiču na projekcije."
+
+msgid "variable"
+msgstr "promenljiva"
+
+msgid "values"
+msgstr "vrednosti"
+
+msgid "help"
+msgstr "pomoć"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "maksimalan broj slika koje se od jednom prikazuju"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "da li projekcija prikazuje slike unutar podalbuma?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "ako je true, sprečiće projekciju da preuzima slike u punoj veličini"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "da li se projekcija ciklično reprodukuje?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "ako je true, slika manje od veličine ekrana neće biti rastegnute"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"ako je true, projekcija će preuzeti slike pre nego što postanu potrebne, što može ubrzati "
+"projekciju, ali i troši veći propusni opseg"
+
+msgid "color of the slideshow background"
+msgstr "boja pozadine projekcije"
+
+msgid "size of text overlay"
+msgstr "veličina teksta"
+
+msgid "font of text overlay"
+msgstr "font teksta"
+
+msgid "should the pictures be shown in random order?"
+msgstr "da li slike treba da se prikazuju u slučajnom poretku?"
+
+msgid "Complete list of variables"
+msgstr "Kompletan spisak promenljivih"
+
+#~ msgid "Settings saved successfully"
+#~ msgstr "Parametri uspešno sačuvani"
+
+#~ msgid "Limit the slideshow to: "
+#~ msgstr "Ograniči projekciju na: "
+
+#~ msgid "The limit must be a positive number"
+#~ msgstr "Granica mora  biti pozitivan broj"
+
+#~ msgid "Save"
+#~ msgstr "Sačucaj"
+
+#~ msgid "Reset"
+#~ msgstr "Poništo"

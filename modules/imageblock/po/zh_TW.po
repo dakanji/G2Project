@@ -1,0 +1,283 @@
+# $Id: zh_TW.po 18950 2008-11-28 17:26:00Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-07-27 23:11-0400\n"
+"PO-Revision-Date: 2008-11-19 20:06-0500\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Image Block"
+msgstr "圖片區塊"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "隨機，最近或觀賞數最高的照片或相簿"
+
+msgid "Blocks"
+msgstr "區塊"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "隨機圖片"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "最新圖片"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "觀賞數最多的圖片"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "隨機相簿"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "最新相簿"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "觀賞數最多的相簿"
+
+msgid "Picture of the Day"
+msgstr "本日推薦照片"
+
+msgid "Picture of the Week"
+msgstr "本週推薦照片"
+
+msgid "Picture of the Month"
+msgstr "本月推薦照片"
+
+msgid "Album of the Day"
+msgstr "本日推薦相簿"
+
+msgid "Album of the Week"
+msgstr "本週推薦相簿"
+
+msgid "Album of the Month"
+msgstr "本月推薦相簿"
+
+msgid "Date:"
+msgstr "日期："
+
+#, c-format
+msgid "Views: %d"
+msgstr "觀賞次數：%d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "所有人：%s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "避免這個相簿在圖片區塊中出現"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "將圖片區塊的設定應用到子相簿"
+
+msgid "Image Block Settings"
+msgstr "圖片區塊設定"
+
+msgid "Settings saved successfully"
+msgstr "設定儲存成功"
+
+msgid "Show"
+msgstr "顯示"
+
+msgid "Heading"
+msgstr "標題"
+
+msgid "Title"
+msgstr "主題"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "View Count"
+msgstr "觀賞數"
+
+msgid "Owner"
+msgstr "所有人"
+
+msgid "Frames"
+msgstr "邊框"
+
+msgid "View samples"
+msgstr "查看範例"
+
+msgid "Album Frame"
+msgstr "相簿邊框"
+
+msgid "Photo Frame"
+msgstr "照片邊框"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "External Image Block"
+msgstr "外部圖片區塊"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr "使用如下所示的 PHP 碼以便在 Gallery 系統以外的 PHP 頁面中顯示圖片區塊。"
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"使用管道符 '|' 分割選擇列表：randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"使用管道符號 '|' 分開列表中的這些值：title、date、views、owner、heading、fullSize、rawImage；"
+"此值也可以是：none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"當選擇項目時，限制選擇範圍於指定的 ID 的相簿下的子相簿；或當使用 specificItem 區塊類型時應顯"
+"示的項目 ID。"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"縮放圖像到最大尺寸。如果單獨使用，Gallery 會找出和指定的大小最接近的圖像，必要時，較大的圖像"
+"會在你的網頁瀏覽程式中縮小。如果和 %sshow=fullSize 一起使用，Gallery 會永遠使用全尺寸的圖像並"
+"在必要時縮小。"
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"和 %smaxSize 一樣，但是它不會換成比你要求的大小還小的圖像，所以你會得到大小最接近的圖。注意："
+"如果使用很大的圖在網頁瀏覽程式中縮小，可能會使用很大的頻寬"
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr "Href 用來連到圖像；空白表示沒有鏈接；預設值是指到 Gallery 中的項目"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "增加鏈接目標（例如：在新的瀏覽程式視窗打開鏈接）"
+
+msgid "Image frame to use around images"
+msgstr "環繞圖片使用的圖片邊框"
+
+msgid "Image frame to use around albums"
+msgstr "環繞相簿使用的圖片邊框"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr "如果任何標有 * 的參數被省略，將使用上面的網站預設值。"
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr "圖片邊框需要 CSS 才能正確顯示，請在 %s 部分中加入下列指令以支援圖片邊框。"
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"在邊框參數中指定邊框編號（或用管道符分開多個編號）。省略此參數以支援上面的圖片邊框設定。邊框"
+"編號是在 %s 目錄中的目錄名稱。"
+
+msgid "Image type"
+msgstr "圖片種類"
+
+msgid "Random image"
+msgstr "隨機圖片"
+
+msgid "Recent image"
+msgstr "最新圖片"
+
+msgid "Viewed image"
+msgstr "觀賞過的圖片"
+
+msgid "Random album"
+msgstr "隨機相簿"
+
+msgid "Recent album"
+msgstr "最新相簿"
+
+msgid "Viewed album"
+msgstr "觀賞過的相簿"
+
+msgid "Daily image"
+msgstr "本日圖片"
+
+msgid "Weekly image"
+msgstr "本週圖片"
+
+msgid "Monthly image"
+msgstr "本月圖片"
+
+msgid "Daily album"
+msgstr "本日相簿"
+
+msgid "Weekly album"
+msgstr "本週相簿"
+
+msgid "Monthly album"
+msgstr "本月相簿"
+
+msgid "Number of items"
+msgstr "項目數目"
+
+msgid "Use default settings"
+msgstr "使用預設設定"
+
+msgid "Show heading"
+msgstr "顯示標題"
+
+msgid "Show title"
+msgstr "顯示主題"
+
+msgid "Show date"
+msgstr "顯示日期"
+
+msgid "Show view count"
+msgstr "顯示觀賞次數"
+
+msgid "Show owner"
+msgstr "顯示所有人"

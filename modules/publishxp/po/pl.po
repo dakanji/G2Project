@@ -1,0 +1,229 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2008-03-18 23:26+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Windows Publishing Wizard"
+msgstr "Kreator publikacji Windows"
+
+msgid "Publish photos to Gallery directly from Windows"
+msgstr "Publikuje zdjęcia do galerii bezpośrednio z Windows"
+
+msgid "Import"
+msgstr "Import"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s z %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Opublikuj swoje zdjęcia i filmy do %s"
+
+msgid "Upload to Gallery"
+msgstr "Wyślij do Galerii"
+
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Microsoft Windows umożliwia publikację zawartości na stronie WWW, bezpośrednio z lokalnego "
+"komputera. Aby uruchomić ten serwis na twoim Windows, proszę postepować zgodnie z "
+"następującą instrukcją."
+
+msgid "Installation"
+msgstr "Instalacja"
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Pobierz plik konfiguracyjny klikając prawy przycisk myszy i wybierając opcję 'Zapisz "
+"jako...'. Po ściągnięciu pliku, zmień jego nazwę na 'install_registry.reg'. Jeśli zostaniesz "
+"zapytany czy zgadzasz się na zmianę typu pliku, odpowiedz 'Tak'. Następnie kliknij na pliku "
+"prawym przyciskiem myszy i wybierz z menu opcję Scal (powinna znajdować się na samej górze). "
+"Zostaniesz zapytany czy na pewno chcesz dodać informację do rejestru. Kliknij 'Ok'. Po "
+"potwierdzeniu wyświetli się okno z informacją o poprawnym wprowadzeniu danych do rejestru. "
+"Ponownie kliknij 'Ok'."
+
+msgid "(for Windows Vista)"
+msgstr "(dla Windows Vista)"
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr "(dla Windows XP, Windows 2000 i wcześniejszych wersji)"
+
+msgid "Download [install_registry.reg]"
+msgstr "Pobierz [install_registry.reg]"
+
+msgid "Windows Vista"
+msgstr "Windows Vista"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr "Otwórz %sGalerię fotografii systemu Windows%s."
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr "Wybierz jedno lub więcej zdjęć/plików w Galerii fotografii systemu Windows."
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr "Kliknij w opcję \"Drukuj...\" i wybierz opcję drukowania online."
+
+msgid "Select the Gallery 2 printing service."
+msgstr "Wybierz serwis drukowania Gallery 2."
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+"Następnie postępując zgodnie z instrukcją zaloguj się do swojej galerii, wybierz album i "
+"opublikuj zdjęcia."
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr "Windows XP, Windows 2000 i wcześniejsze wersje"
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr "Otwórz Eksplorator Windows i odnajdź katalog ze zdjęciami."
+
+msgid "Select the image(s) or a folder."
+msgstr "Wybierz zdjęcia lub katalog."
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+"Kliknij link \"Opublikuj ten plik w sieci WWW\" znajdujący się w panelu zadań po lewej "
+"stronie. Kliknij link \"Opublikuj ten plik w sieci WWW\" znajdujący się w panelu zadań po "
+"lewej stronie. "
+
+msgid "Usage"
+msgstr "Zastosowanie"
+
+msgid "Specify the name and title for the new album."
+msgstr "Określ nazwę i tytuł dla nowego albumu."
+
+msgid "Create a new album"
+msgstr "Stwórz nowy album"
+
+msgid "Name"
+msgstr "Nazwa"
+
+msgid "(required)"
+msgstr "(wymagane)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Nazwa albumu na serwerze. Musi to być nazwa unikalna, złożona wyłącznie ze znaków "
+"alfanumeryczych oraz myślników i podkreśleń dolnych. Nazwę będziesz mógł zmienić później."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Podana nazwa zawiera niedozwolone znaki. Proszę wybrać inną nazwę."
+
+msgid "You must enter a name for this album."
+msgstr "Proszę podać nazwę dla tego albumu."
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "This is the album title."
+msgstr "To jest tytuł albumu."
+
+msgid "Summary"
+msgstr "Podsumowanie"
+
+msgid "This is the album summary."
+msgstr "To jest podsumowanie albumu."
+
+msgid "Keywords"
+msgstr "Słowa kluczowe"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Słowa kluczowe są niewidoczne, ale są uwzględniane podczas korzystania z wyszukiwarki."
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "This is the long description of the album."
+msgstr "To jest dłuższy opis albumu."
+
+msgid "Set options for the photos to be added."
+msgstr "Ustaw opcje dla dodawanych zdjęć."
+
+msgid "Standard Options"
+msgstr "Opcje standardowe"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Teraz kiedy album docelowy zostal wybrany, proszę określić opcje, jakie będą używane podczas "
+"dodawania zdjęć do Galerii."
+
+msgid "Strip file extensions?"
+msgstr "Pominąć rozszerzenia plików?"
+
+msgid "Set captions on the published items?"
+msgstr "Ustawić podpisy dla publikowanych zdjęć?"
+
+msgid "Login to your account"
+msgstr "Zaloguj się na konto"
+
+msgid "Username"
+msgstr "Użytkownik"
+
+msgid "You must enter a username"
+msgstr "Proszę podać nazwę użytkownika"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr "Logowanie tymczasowo zablokowane ze względu na wielokrotnie nieudane próby."
+
+msgid "Password"
+msgstr "Hasło"
+
+msgid "You must enter a password"
+msgstr "Proszę podać hasło"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Podane dane są nieprawidłowe. Proszę spróbować ponownie."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Wybierz album dla przesyłanych zdjęć lub stwórz nowy."
+
+msgid "New Album"
+msgstr "Nowy album"
+
+msgid "You must select an album"
+msgstr "Proszę wybrać album"

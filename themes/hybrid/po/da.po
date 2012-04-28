@@ -1,0 +1,261 @@
+# $Id: da.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Allan Beaufour <allan@beaufour.dk>, 2005
+# - Bjorn Graabek <bjorn@graabek.com>
+# Bjorn Graabek <bjorn@graabek.com>, 2007.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-10-18 14:14+0200\n"
+"PO-Revision-Date: 2007-09-03 20:57+0100\n"
+"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hybrid"
+msgstr "Hybrid"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "Kombineret og dynamisk album/billede/fremvisning visning"
+
+msgid "Show text with thumbnails"
+msgstr "Vis tekst med miniaturer"
+
+msgid "Show dates for albums"
+msgstr "Vis datoer for albummer"
+
+msgid "Show dates with thumbnails"
+msgstr "Vis datoer med miniaturer"
+
+msgid "Show dates in image view"
+msgstr "Vis datoer i billedvisning"
+
+msgid "Show album sizes"
+msgstr "Vis album størrelser"
+
+msgid "Show view counts"
+msgstr "Vis antal visninger"
+
+msgid "Mouseover on thumbnails"
+msgstr "'Mouseover' på miniaturer"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "Title"
+msgstr "Overskrift"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Date/Time"
+msgstr "Dato/Tid"
+
+msgid "Title (Date)"
+msgstr "Overskrift (Dato)"
+
+msgid "Title (Date/Time)"
+msgstr "Overskrift (Dato/Tid)"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Ejer: %s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "Vist: %d gang"
+msgstr[1] "Vist: %d gange"
+
+msgid "Date: "
+msgstr "Dato: "
+
+msgid "Keywords: "
+msgstr "Nøgleord: "
+
+msgid "Link to this item:"
+msgstr "Link til dette emne:"
+
+msgid "Error!"
+msgstr "Fejl!"
+
+msgid "Show Details"
+msgstr "Vis detaljer"
+
+msgid "Hide Details"
+msgstr "Skjul detaljer"
+
+msgid "Show Item Links"
+msgstr "Vis emnelinks"
+
+msgid "Hide Item Links"
+msgstr "Skjul emnelinks"
+
+msgid "Item Details"
+msgstr "Emnedetaljer"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"Album-visning:\n"
+"| mellemrums-tast = start fremvisning\n"
+"| ctrl-højre/venstre = vis/skjul sidebjælke\n"
+"| ctrl-op/ned = vis/skjul emne links\n"
+"Billed-visning:\n"
+"| mellemrums-tast = start/pause fremvisning\n"
+"| escape = tilbage til albums-visning\n"
+"| venstre/højre = næste/forrige billede\n"
+"| op/ned = vis/skjul beskrivelse\n"
+"| page up/down = rul beskrivelse\n"
+"| ctrl-op/ned = vælg fuld/tilpas størrelse\n"
+"Pil-taster ruller billedet i fuld størrelse; Benyt shift-pil-taster for ovenstående "
+"funktioner\n"
+"Emne Detaljer viser:\n"
+"| escape = luk popup"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "Vis tekst med miniaturer"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "Tilbage til albumvisningen"
+
+msgid "Pause Slideshow"
+msgstr "Stands Fremvisning"
+
+msgid "Start Slideshow"
+msgstr "Start Fremvisning"
+
+msgid "Full Size"
+msgstr "Fuldstørrelse"
+
+msgid "Fit Size"
+msgstr "Tilpas størrelse"
+
+msgid "No Previous Image"
+msgstr "Intet forrige billede"
+
+msgid "Previous Image"
+msgstr "Forrige billede"
+
+msgid "Previous Image (Load new page)"
+msgstr "Forrige billede (indlæs ny side)"
+
+msgid "No Next Image"
+msgstr "Intet næste billede"
+
+msgid "Next Image"
+msgstr "Næste billede"
+
+msgid "Next Image (Load new page)"
+msgstr "Næste billede (indlæs ny side)"
+
+msgid "Hide sidebar"
+msgstr "Skjul sidebjælke"
+
+msgid "Show sidebar"
+msgstr "Vis sidebjælke"
+
+msgid "no thumbnail"
+msgstr "ingen miniature"
+
+msgid "Item Actions"
+msgstr "Emnehandlinger"
+
+msgid "Continue..."
+msgstr "Fortsæt..."
+
+msgid "Navigation"
+msgstr "Navigation"
+
+msgid "Display Options"
+msgstr "Indstillinger for visning"
+
+msgid "Keyboard Controls"
+msgstr "Tastatur kontroller"
+
+msgid "View"
+msgstr "Vis"
+
+msgid "guest"
+msgstr "gæst"
+
+msgid "Slideshow Options"
+msgstr "Indstillinger for fremvisning"
+
+msgid "Delay"
+msgstr "Forsinkelse"
+
+msgid "3 seconds"
+msgstr "3 sekunder"
+
+msgid "5 seconds"
+msgstr "5 sekunder"
+
+msgid "7 seconds"
+msgstr "7 sekunder"
+
+msgid "10 seconds"
+msgstr "10 sekunder"
+
+msgid "15 seconds"
+msgstr "15 sekunder"
+
+msgid "20 seconds"
+msgstr "20 sekunder"
+
+msgid "Direction"
+msgstr "Retning"
+
+msgid "forward"
+msgstr "fremad"
+
+msgid "reverse"
+msgstr "omvendt"
+
+msgid "random"
+msgstr "tilfældig"
+
+#~ msgid "Show text"
+#~ msgstr "Vis tekst"
+
+#~ msgid "Hide text"
+#~ msgstr "Skjul tekst"

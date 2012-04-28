@@ -1,0 +1,308 @@
+# $Id: pl.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2007-08-27 12:02+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Image Block"
+msgstr "Blok Zdjęć"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Przypadkowe, najnowsze lub najczęściej wyświetlane zdjęcia lub albumy"
+
+msgid "Blocks"
+msgstr "Bloki"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Zdjęcie przypadkowe"
+msgstr[1] "Zdjęcia przypadkowe"
+msgstr[2] "Zdjęcia przypadkowe"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Najnowsze zdjęcie"
+msgstr[1] "Najnowsze zdjęcia"
+msgstr[2] "Najnowsze zdjęcia"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Najczęściej wyświetlane zdjęcie"
+msgstr[1] "Najczęściej wyświetlane zdjęcia"
+msgstr[2] "Najczęściej wyświetlane zdjęcia"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Przypadkowy album"
+msgstr[1] "Przypadkowe albumy"
+msgstr[2] "Przypadkowe albumy"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Najnowszy album"
+msgstr[1] "Najnowsze albumy"
+msgstr[2] "Najnowsze albumy"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Najczęściej wyświetlany album"
+msgstr[1] "Najczęściej wyświetlane albumy"
+msgstr[2] "Najczęściej wyświetlane albumy"
+
+msgid "Picture of the Day"
+msgstr "Zdjęcie dnia"
+
+msgid "Picture of the Week"
+msgstr "Zdjęcie tygodnia"
+
+msgid "Picture of the Month"
+msgstr "Zdjęcie miesiąca"
+
+msgid "Album of the Day"
+msgstr "Album dnia"
+
+msgid "Album of the Week"
+msgstr "Album tygodnia"
+
+msgid "Album of the Month"
+msgstr "Album miesiąca"
+
+msgid "Date:"
+msgstr "Data:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Ilość wyświetleń: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Właściciel: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Zapobiegaj wyświetlaniu tego albumu w Bloku Zdjęć"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Zastosuj ustawienia Bloku Zdjęć do podalbumów"
+
+msgid "Image Block Settings"
+msgstr "Ustawienia Bloku Zdjęć"
+
+msgid "Settings saved successfully"
+msgstr "Ustawienia zostały zapisane"
+
+msgid "Show"
+msgstr "Pokaż"
+
+msgid "Heading"
+msgstr "Nagłówek"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "View Count"
+msgstr "Ilość wyświetleń"
+
+msgid "Owner"
+msgstr "Właściciel"
+
+msgid "Frames"
+msgstr "Ramki"
+
+msgid "View samples"
+msgstr "Zobacz przykłady"
+
+msgid "Album Frame"
+msgstr "Ramka albumu"
+
+msgid "Photo Frame"
+msgstr "Ramka zdjęcia"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"
+
+msgid "External Image Block"
+msgstr "Zewnętrzny Blok Zdjęć"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Aby na zewnętrznej stronie PHP umieścić blok ze zdjęciami z galerii, można skorzystać z "
+"poniższego kodu PHP:"
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Lista rozdzielona kreską pionową (|) składająca się z: randomImage, recentImage, "
+"viewedImage, randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, "
+"dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; wartością domyślną jest randomImage."
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Lista rozdzielona kreską pionową (|) składająca się z: title, date, views, owner, heading, "
+"fullSize, rawImage; możliwa jest również wartość: none."
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr "Wybór pozycji ograniczony do pozycji z podalbumu galerii o podanym id."
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Obrazki zostaną przeskalowane do podanej maksymalnej wartości. Jeśli parametr będzie użyty "
+"osobno, galeria zlokalizuje zdjęcia rozmiarowo najbardziej zbliżone do podanej wartości - "
+"większe zdjęcia zostaną zmiejszone w przglądarce w razie potrzeby. Jeśli parametr występuje "
+"razem z %sshow=fullSize, wówczas zdjęcie będzie pokazywane w pełnym rozmiarze i zmniejszane "
+"w razie potrzeby. "
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Parametr podobny do %smaxSize z tym, że nie będzie on zastępować zdjęć mniejszych od "
+"podanego parametru, w związku z czym w bloku pojawią się zdjęcia rozmiarowo najbardziej "
+"zbliżone do podanej wartości. Uwaga: wybranie tej opcji może spowodować zużycie większej "
+"części przepustowości łącza, jeśli większe zdjęcia mają być przeskalowywane w przeglądarce "
+"do mniejszego rozmiaru."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Parametr href dla linku zdjęcia; bez wartości - bez linku; domyślnie - link do pozycji w "
+"galerii"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Sposób otwierania strony (np. otwórz stronę w nowym oknie)"
+
+msgid "Image frame to use around images"
+msgstr "Jaka ramka ma być użyta do zdjęć"
+
+msgid "Image frame to use around albums"
+msgstr "Jaka ramka ma być użyta do albumów"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Jeśli parametr zaznaczony * zostanie pominięty, wówczas zostaną użyte wartości domyślne "
+"strony."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Aby ramki zdjęć były wyświetlane poprawnie, konieczne jest zdefiniowanie CSS. W tym celu "
+"proszę dodać następujący kod w sekcji %s:"
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Identyfikator ramki (lub listę identyfikatorów ramek rozdzieloną |) podawany jest w "
+"parametrze \"frames\". Można ominąć ten parametr, aby wspierać ramki skonfigurowane powyżej. "
+"Identyfikator ramki jest nazwą katalogu w katalogu %s."
+
+msgid "Image type"
+msgstr "Typ zdjęcia"
+
+msgid "Random image"
+msgstr "Przypadkowe zdjęcie"
+
+msgid "Recent image"
+msgstr "Najnowsze zdjęcie"
+
+msgid "Viewed image"
+msgstr "Wyświetlone zdjęcie"
+
+msgid "Random album"
+msgstr "Przypadkowy album"
+
+msgid "Recent album"
+msgstr "Najnowszy album"
+
+msgid "Viewed album"
+msgstr "Wyświetlony album"
+
+msgid "Daily image"
+msgstr "Zdjęcie dnia"
+
+msgid "Weekly image"
+msgstr "Zdjęcie tygodnia"
+
+msgid "Monthly image"
+msgstr "Zdjęcie miesiąca"
+
+msgid "Daily album"
+msgstr "Album dnia"
+
+msgid "Weekly album"
+msgstr "Album tygodnia"
+
+msgid "Monthly album"
+msgstr "Album miesiąca"
+
+msgid "Number of items"
+msgstr "Liczba pozycji"
+
+msgid "Use default settings"
+msgstr "Wykorzystaj ustawienia domyślne"
+
+msgid "Show heading"
+msgstr "Pokaż nagłówek"
+
+msgid "Show title"
+msgstr "Pokaż tytuł"
+
+msgid "Show date"
+msgstr "Pokaż datę"
+
+msgid "Show view count"
+msgstr "Pokaż ilość wyświetleń"
+
+msgid "Show owner"
+msgstr "Pokaż właściciela"

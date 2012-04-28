@@ -1,0 +1,306 @@
+# $Id: bg.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+#
+# # Bisser Dobrev <bdobrev AT comcast DOT net>, 2003-2005
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2005-08-11 08:29-0500\n"
+"Last-Translator: Bisser Dobrev <bdobrev@comcast.net>\n"
+"Language-Team: Bisser Dobrev <bdobrev AT comcast DOT net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Bulgarian\n"
+"X-Poedit-Country: BULGARIA\n"
+
+msgid "Image Block"
+msgstr "Блок с Изображения"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Случайна, ай-нова или най-гледана снимка или албум"
+
+msgid "Blocks"
+msgstr "Блокове"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Случайна Снимка"
+msgstr[1] "Случайна Снимка"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Най-нова Снимка"
+msgstr[1] "Най-нова Снимка"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Най-гледана Снимка"
+msgstr[1] "Най-гледана Снимка"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Случаен Албум"
+msgstr[1] "Случаен Албум"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Най-нов Албум"
+msgstr[1] "Най-нов Албум"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Най-гледан Албум"
+msgstr[1] "Най-гледан Албум"
+
+msgid "Picture of the Day"
+msgstr "Снимка на деня"
+
+msgid "Picture of the Week"
+msgstr "Снимка на седмицата"
+
+msgid "Picture of the Month"
+msgstr "Снимка на месеца"
+
+msgid "Album of the Day"
+msgstr "Албум на деня"
+
+msgid "Album of the Week"
+msgstr "Албум на седмицата"
+
+msgid "Album of the Month"
+msgstr "Албум на месеца"
+
+msgid "Date:"
+msgstr "Дата:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Прегледано: %d пъти"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Притежател: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Този албум няма да бъде показван във 'Блока с Изображения'"
+
+#, fuzzy
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Приложете към под-албумите"
+
+msgid "Image Block Settings"
+msgstr "Настройки за Блока с Изображения"
+
+msgid "Settings saved successfully"
+msgstr "Настройките са успешно записани"
+
+msgid "Show"
+msgstr "Показване на"
+
+msgid "Heading"
+msgstr "Надпис"
+
+msgid "Title"
+msgstr "Заглавие"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "View Count"
+msgstr "Брой прегледи"
+
+msgid "Owner"
+msgstr "Притежател"
+
+msgid "Frames"
+msgstr "Рамки"
+
+msgid "View samples"
+msgstr "Вижте примери"
+
+msgid "Album Frame"
+msgstr "Рамка за албума"
+
+msgid "Photo Frame"
+msgstr "Рамка за снимката"
+
+msgid "Save"
+msgstr "Запишете"
+
+msgid "Reset"
+msgstr "Анулирайте"
+
+msgid "External Image Block"
+msgstr "Външен Блок с Изображения"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Използвайте PHP блок като показания по долу за да добавите блок с изображения в PHP страница "
+"извън Галерията."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Разделен с '|' списък с избрани от следните параметри: andomImage, recentImage, viewedImage, "
+"randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, "
+"weeklyAlbum, monthlyAlbum, specificItem; презададеното е randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Разделен с '|' списък с избрани от следните параметри: title, date, views, owner, heading, "
+"fullSize;  стойноста също така може и да е: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Ограничете избраните елементи до под-дървото на галерията под албума с дадения "
+"идентификатор; или идентификатора на елемента който ще зе показва когато се използва с типа "
+"блок 'specificItem' "
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+"Добавете място на отваряне (например дали да се отвори връзката в нов прозорец на броузера)"
+
+msgid "Image frame to use around images"
+msgstr "Рамка която да е около изображенията"
+
+msgid "Image frame to use around albums"
+msgstr "Рамка която да е около албумите"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr "Ако параметъра маркиран с * е пропуснат, се използват презададените настройки по-горе."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Рамките изискват CSS да се показва правилно. Добавете следното в секцията %s за да имате "
+"поддръжка на рамки."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Посочете идентификатора на рамката (или списък с идентификатори, разделени със знака '|') в "
+"параметъра на рамката. Пропуснете параметъра, за да използвате презададените настройки по-"
+"горе. Идентификаторите на рамките са всъщност имената на директории в директорията %s."
+
+msgid "Image type"
+msgstr "Вид на снимката"
+
+msgid "Random image"
+msgstr "Случайна снимка"
+
+msgid "Recent image"
+msgstr "Скорошна снимка"
+
+msgid "Viewed image"
+msgstr "Гледана снимка"
+
+msgid "Random album"
+msgstr "Случаен албум"
+
+msgid "Recent album"
+msgstr "Скорошен албум"
+
+msgid "Viewed album"
+msgstr "Гледан албум"
+
+msgid "Daily image"
+msgstr "Дневна снимка"
+
+msgid "Weekly image"
+msgstr "Седмична снимка"
+
+msgid "Monthly image"
+msgstr "Месечна снимка"
+
+msgid "Daily album"
+msgstr "Дневен албум"
+
+msgid "Weekly album"
+msgstr "Седмичен албум"
+
+msgid "Monthly album"
+msgstr "Месечен албум"
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Use default settings"
+msgstr "Изпозвайте презададените настройки"
+
+msgid "Show heading"
+msgstr "Показване на надписа"
+
+msgid "Show title"
+msgstr "Показване на заглавието"
+
+msgid "Show date"
+msgstr "Показване на датата"
+
+msgid "Show view count"
+msgstr "Показване на броя прегледи"
+
+msgid "Show owner"
+msgstr "Показване на притежателя"

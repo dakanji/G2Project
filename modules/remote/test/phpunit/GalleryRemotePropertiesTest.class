@@ -1,0 +1,76 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteProperties.class');
+
+/**
+ * GalleryRemoteProperties tests
+ *
+ * @package Remote
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class GalleryRemotePropertiesTest extends GalleryControllerTestCase {
+
+    function GalleryRemotePropertiesTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function testSetAndListProperties() {
+	$props = new GalleryRemoteProperties();
+	$props->setProperty('test.1', 'bar');
+	$props->setProperty('test.2', 'baz');
+	$props->setProperty('test.2', 'overwrite baz');
+	$props->setProperty('test.3', "carriage\rreturn");
+	$props->setProperty('test.4', "carriage return\r\nlinefeed");
+	$props->setProperty('test key.5', "linefeed\nlinefeed");
+	$props->setProperty('test=key.6', "tab\ttab");
+	$props->setProperty('test#key.7', "backslash\\backslash");
+
+	$this->assertEquals(join("\n",
+				 array('#__GR2PROTO__',
+				       'test.1=bar',
+				       'test.2=overwrite baz',
+				       'test.3=carriage\nreturn',
+				       'test.4=carriage return\nlinefeed',
+				       'test key.5=linefeed\nlinefeed',
+				       'test\\=key.6=tab\ttab',
+				       'test\\#key.7=backslash\\\\backslash')),
+			    $props->listProperties());
+    }
+
+    function testHasProperty() {
+	$props = new GalleryRemoteProperties();
+	$props->setProperty('test.1', 'bar');
+	$this->assert($props->hasProperty('test.1'));
+	$this->assert(!$props->hasProperty('test.2'));
+    }
+
+    function testGetProperty() {
+	$props = new GalleryRemoteProperties();
+	$props->setProperty('test.1', 'bar');
+	$this->assertEquals('bar', $props->getProperty('test.1'));
+
+	$props->setProperty('test.2', "carriage\rreturn");
+	$this->assertEquals('carriage\nreturn', $props->getProperty('test.2'));
+    }
+}
+?>

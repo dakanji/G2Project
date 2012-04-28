@@ -1,0 +1,247 @@
+# $Id: eu.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Piarres Beobide <pi@beobide.net>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-12-06 21:11+0100\n"
+"PO-Revision-Date: 2006-05-24 13:04+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Windows Publishing Wizard"
+msgstr ""
+
+msgid "Publish photos to Gallery directly from Windows"
+msgstr ""
+
+msgid "Import"
+msgstr "Inportatu"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s %s-n"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Zure Argazki eta Filmak %s-n argitaratu"
+
+msgid "Upload to Gallery"
+msgstr "Gallery-ra igo"
+
+#, fuzzy
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Windows XP idazmahaietik zuzenean web zerbitzu batetara argitaratzeko aukera ematen duen "
+"ezaugarri bat du. Jarraitu beheko argibideak zure Windows XP sisteman zerbitzu hau gaitzeko"
+
+msgid "Installation"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Konfigurazioa eskubiko botoiaren 'Gorde lotura honela..' aukera erabiliaz deskargatu, "
+"'install_registry.reg' bezala berrizendatu.  Fitxategi mota aldatzean berrespena eskatu "
+"ezkero 'bai' erantzun. Eskubiko botoiaz fitxategi hau klikatzean menu bat agertu beharko "
+"zen. Merge aukera hautatu (zerrendako lehenengoa izan beharko zen).  Balio horiek "
+"erregistrora gehitu nahi dituzun galdetuko dizu. 'Ados' klikatu.  Fitxategia behar bezala "
+"inportatu dela esan beharko lizuke.  'Ados' klikatu berriz."
+
+msgid "(for Windows Vista)"
+msgstr ""
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr "[install_registry.reg] Deskargatu"
+
+#, fuzzy
+msgid "Windows Vista"
+msgstr "Windows XP"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr ""
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr ""
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+
+msgid "Select the Gallery 2 printing service."
+msgstr ""
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr ""
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+
+msgid "Select the image(s) or a folder."
+msgstr ""
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+
+#, fuzzy
+msgid "Usage"
+msgstr "Erabiltzaile-izena"
+
+msgid "Specify the name and title for the new album."
+msgstr "Album berriaren izen eta titulua ezarri."
+
+msgid "Create a new album"
+msgstr "Album berria sortu"
+
+msgid "Name"
+msgstr "Izena"
+
+msgid "(required)"
+msgstr "(beharrezkoa)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Disko gogorrean albumak izango duen izena.  Album honetan bakarra izan behar da.  "
+"Alfazenbakizko karaktereak, azpimarratua eta marratxoa bakarrik erabili. Beranduago "
+"berrizendatzeko aukera izango duzu."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Emandako izenak karaktere baliogabeak ditu.  Beste izen batez saiatu."
+
+msgid "You must enter a name for this album."
+msgstr "Album honentzat izen bat idatzi behar duzu."
+
+msgid "Title"
+msgstr "Titulua"
+
+msgid "This is the album title."
+msgstr "Hau album titulua da"
+
+msgid "Summary"
+msgstr "Laburpena"
+
+msgid "This is the album summary."
+msgstr "Hau album laburpena da"
+
+msgid "Keywords"
+msgstr "Hitz-gakoak"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Hitza gakoak ez dira ikusgarriak baina bai bilagarriak."
+
+msgid "Description"
+msgstr "Deskribapena"
+
+msgid "This is the long description of the album."
+msgstr "Hau album deskribapena luzea da"
+
+msgid "Set options for the photos to be added."
+msgstr "Ezarri gehitu behar diren argazkien aukerak"
+
+msgid "Standard Options"
+msgstr "Aukera Estandarrak"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Orain helburu albuma hautatu duzula, galeriara argazkiak gehitzean aukera hauek erabili "
+"daitezke."
+
+msgid "Strip file extensions?"
+msgstr "Fitxategi luzapenak ezkutatu?"
+
+msgid "Set captions on the published items?"
+msgstr "Argitaratutako elementuen epigrafeak ezarri?"
+
+msgid "Login to your account"
+msgstr "Zure kontuan saioa hasi"
+
+msgid "Username"
+msgstr "Erabiltzaile-izena"
+
+msgid "You must enter a username"
+msgstr "Erabiltzaile izen bat idatzi behar duzu"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+
+msgid "Password"
+msgstr "Pasahitza"
+
+msgid "You must enter a password"
+msgstr "Pasahitza idatzi behar duzu"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Zure saio datuak ez dira zuzenak.  Saiatu berriro."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Aukeratu argazki berrientzat album bat edo album berri bat sortu."
+
+msgid "New Album"
+msgstr "Album berria"
+
+msgid "You must select an album"
+msgstr "Album bat aukeratu behar duzu"
+
+#~ msgid "Publish XP"
+#~ msgstr "XP Argitaratzea"
+
+#~ msgid "Step 1"
+#~ msgstr "1 Urratsa"
+
+#~ msgid "Step 2"
+#~ msgstr "2 Urratsa"
+
+#~ msgid ""
+#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
+#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
+#~ "to the web...'  Click this link and then follow the instructions to log into your "
+#~ "Gallery, select an album and publish the image."
+#~ msgstr ""
+#~ "Windows Explorer ireki eta onartutako irudiak dituen karpeta batetara joan.  Irudia(k) "
+#~ "edo karpeta aukeratu eta ezkerreko barran 'Argitaratu fitxategi hau web-ean' dioen lotura "
+#~ "bat egon beharko luke.  Lotura hori klikatu, Galerian saioa hasteko argibideak jarraitu, "
+#~ "album bat hautatu eta irudia argitaratu."

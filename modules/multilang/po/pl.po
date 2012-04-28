@@ -1,0 +1,134 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: MultiLanguage 1.0.12\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2006-12-27 16:35+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Changes saved successfully"
+msgstr "Zmiany zostały zapisane"
+
+msgid "MultiLanguage"
+msgstr "Wielojęzykowość"
+
+msgid "Support item captions in multiple languages"
+msgstr "Wspiera obsługę podpisów w wielu językach"
+
+msgid "Extra Data"
+msgstr "Dodatkowe dane"
+
+msgid "MultiLanguage Captions"
+msgstr "Podpisy wielojęzykowe"
+
+#, c-format
+msgid "Search titles (%s)"
+msgstr "Przeszukaj tytuły (%s)"
+
+#, c-format
+msgid "Search summaries (%s)"
+msgstr "Przeszukaj podsumowania (%s)"
+
+#, c-format
+msgid "Search descriptions (%s)"
+msgstr "Przeszukaj opisy (%s)"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Summary"
+msgstr "Podsumowanie"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "MultiLanguage Settings"
+msgstr "Ustawienia jezykowe"
+
+msgid "gettext"
+msgstr "pobierz tekst"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Serwer WWW nie wspiera lokalizacji. Proszę poprosić administratora, aby przekonfigurował PHP "
+"z włączoną opcją %s."
+
+msgid "Continue"
+msgstr "Kontynuuj..."
+
+msgid ""
+"Enter text for additional languages.  If all fields are blank then the primary data shown "
+"below will be used.  If any fields are non-empty then the multilanguage data will be used, "
+"even if some fields are blank."
+msgstr ""
+"Dodaj tekst dla dodatkowych języków. Jeśli wszystkie pola będą puste, wówczas używane będą "
+"tylko dane podstawowe. Jeśli natomiast przynajmniej jedno z pól dodatkowych zostanie "
+"wypełnione, wówczas dane wielojęzykowe będą używane."
+
+msgid "Item Data"
+msgstr "Dane pozycji"
+
+msgid "Language"
+msgstr "Język"
+
+msgid "The title of this item."
+msgstr "Tytuł tej pozycji"
+
+msgid "The root album must have a title."
+msgstr "Album główny musi mieć tytuł."
+
+msgid "The summary of this item."
+msgstr "Podsumowanie tej pozycji"
+
+msgid "This is the long description of the item."
+msgstr "Opis tej pozycji"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"
+
+msgid "Settings saved successfully"
+msgstr "Ustawienia zostały zapisane"
+
+msgid ""
+"Maintain primary language captions using the normal Gallery interface.  Here select the "
+"additional languages to support in the MultiLanguage tab."
+msgstr ""
+"Podpisy dla języka domyślnego zostaną zachowane przy pomocy zwykłego interfejsu Galerii. "
+"Tutaj można określić dodatkowe języki, które będą wspierane przez galerię."
+
+msgid "Available"
+msgstr "Dostępny"
+
+msgid "Selected"
+msgstr "Wybrany"

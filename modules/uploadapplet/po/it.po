@@ -1,0 +1,190 @@
+# $Id: it.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-09-16 11:17+0000\n"
+"PO-Revision-Date: 2008-03-28 16:22+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "Upload Applet"
+msgstr "Upload Applet"
+
+msgid "Easy to use upload applet for media"
+msgstr "Un'applet per caricare facilmente nuovi media"
+
+msgid "Import"
+msgstr "Importazione"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"L'applet di upload si basa su un modulo di G2 che attualmente non è attivo. Chiedere a un "
+"amministratore di attivare il modulo 'controllo remoto'."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Scaricamento in corso di Gallery Remote Applet"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"Il browser non supporta le applet; sarà necessario usare uno degli altri metodi di upload."
+
+msgid "Uploading files..."
+msgstr "Caricamento file..."
+
+msgid "Upload complete"
+msgstr "Upload completato"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"È possibile effettuare altri caricamenti oppure andare alle immagini caricate cliccando sui "
+"link qui sopra"
+
+msgid "Upload Applet Settings"
+msgstr "Configurazione Upload Applet"
+
+msgid "Defaults"
+msgstr "Valori Predefiniti"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Queste variabili forniscono valori predefiniti per le applet che gli utenti eseguono nel "
+"sito. Gli utenti saranno in grado di scavalcare questi valori predefiniti agendo "
+"nell'interfaccia utente dell'applet, oppure modificando il loro file dei valori predefiniti "
+"locale."
+
+msgid "You have no default variables"
+msgstr "Non ci sono variabili predefinite"
+
+msgid "Variable"
+msgstr "Variabile"
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Add a new default variable"
+msgstr "Aggiungi una nuova variabile predefinita"
+
+msgid "You must enter a variable name and value"
+msgstr "È necessario inserire un nome e un valore per la variabile"
+
+msgid "New variable"
+msgstr "Nuova variabile"
+
+msgid "Add variable"
+msgstr "Aggiungi variabile"
+
+msgid "Overrides"
+msgstr "Scavalca"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Queste variabili scavalcano ogni altro valore per l'esecuzione di applet utente sul tuo "
+"sito. Gli utenti non potranno cambiare questi valori."
+
+msgid "You have no override variables"
+msgstr "Non ci sono variabili di scavalcamento"
+
+msgid "Add a new override variable"
+msgstr "Aggiungi una nuova variabile di scavalcamento"
+
+msgid "Help"
+msgstr "Aiuto"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Qui c'è una selezione di variabili che influenzano gli upload."
+
+msgid "variable"
+msgstr "variabile"
+
+msgid "values"
+msgstr "valori"
+
+msgid "help"
+msgstr "aiuto"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"fa in modo che l'applet ridimensioni le immagini prima di fare il caricamento nell'album; "
+"per default le ridimensiona alla dimensione delle immagini intermedie dell'album"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+"la dimensione in cui verrà ridimensionata l'immagine; questo scavalca la configurazione "
+"dell'album"
+
+msgid "no automatic captions"
+msgstr "nessuna didascalia automatica"
+
+msgid "use filenames for captions"
+msgstr "usa il nome del file come didascalia"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "se si usa il nome del file come didascalia, rimuove l'estensione"
+
+msgid "use EXIF extension for caption"
+msgstr "usa l'estensione EXIF come didascalia"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"se falso, l'applet per l'upload userà UTF-8 per inviare i meta-dati dell'immagine a Gallery, "
+"anziché tramite entità HTML"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"impostare a falso se si vuole evitare di perdere i dati EXIF quando l'immagine viene "
+"ridimensionata e ImageMagick non è stato trovato"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "se vero, l'applet non si lamenterà se non trova ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "se vero, l'applet non si lamenterà se non trova Jpegtran"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr ""
+"qualità della compressione JPEG quando si effettua il ridimensionamento con ImageMagick"
+
+msgid "Complete list of variables"
+msgstr "Lista completa delle variabili"

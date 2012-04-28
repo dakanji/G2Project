@@ -1,0 +1,158 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/httpauth/classes/HttpAuthPlugin.class');
+
+/**
+ * HTTP auth tests.
+ * @package HttpAuth
+ * @subpackage PHPUnit
+ * @author Jack Bates<ms419@freezone.co.uk>
+ * @version $Revision: 17627 $
+ */
+class HttpAuthPluginTest extends GalleryTestCase {
+
+    function HttpAuthPluginTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create test user */
+	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_user);
+	$_SERVER['AUTH_TYPE'] = 'Test';
+
+	$this->_plugin = new HttpAuthPlugin();
+
+	$this->_saveSession = $gallery->_session;	
+	$gallery->_session = new HttpAuthPluginTestSession();
+
+	$ret = $this->_registerEventListener('Gallery::FailedLogin');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function tearDown() {
+	global $gallery;
+	$gallery->_session = $this->_saveSession;
+
+	$ret = GalleryCoreApi::removeAllMapEntries('FailedLoginsMap');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testValidUser() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$_SERVER['PHP_AUTH_USER'] = $this->_user->getUserName();
+	$_SERVER['PHP_AUTH_PW'] = 'password';
+
+	list ($ret, $user) = $this->_plugin->getUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($this->_user, $user);
+	$this->assertEventNotFired('Gallery::FailedLogin');
+	$this->assert($session->regenerateWasCalled(), 'Session has not been regenerated!');
+    }
+
+    function testInvalidUser() {
+	$_SERVER['PHP_AUTH_USER'] = 'bogusUser-' . rand();
+	$_SERVER['PHP_AUTH_PW'] = 'password';
+
+	list ($ret, $user) = $this->_plugin->getUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assert(!isset($user));
+
+	$this->assertEventFired('Gallery::FailedLogin', null,
+	    array('userName' => $_SERVER['PHP_AUTH_USER']));
+    }
+
+    function testValidUserInvalidPassword() {
+	$_SERVER['PHP_AUTH_USER'] = $this->_user->getUserName();
+	$_SERVER['PHP_AUTH_PW'] = 'wrongPassword';
+
+	list ($ret, $user) = $this->_plugin->getUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assert(!isset($user));
+
+	$this->assertEventFired('Gallery::FailedLogin', null,
+	    array('userName' => $this->_user->getUserName()));
+    }
+
+    function testNoFailedLoginEventForSpecialLogoutUsername() {
+	$_SERVER['PHP_AUTH_USER'] = '__LOGOUT__' . rand();
+	$_SERVER['PHP_AUTH_PW'] = 'somepassword';
+
+	list ($ret, $user) = $this->_plugin->getUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assert(!isset($user));
+	$this->assertEventNotFired('Gallery::FailedLogin');
+    }
+}
+
+/**
+ * Mock Session
+ */
+class HttpAuthPluginTestSession {
+    function HttpAuthPluginTestSession() {
+	$this->_regenerateWasCalled = false;
+    }
+
+    function getUserId() {
+	return null;
+    }
+
+    function regenerate() {
+	$this->_regenerateWasCalled = true;
+    }
+
+    function regenerateWasCalled() {
+	return $this->_regenerateWasCalled;
+    }
+}
+?>

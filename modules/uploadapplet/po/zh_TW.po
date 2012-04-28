@@ -1,0 +1,172 @@
+# $Id: zh_TW.po 18950 2008-11-28 17:26:00Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-08 23:36-0400\n"
+"PO-Revision-Date: 2008-11-19 20:42-0500\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Upload Applet"
+msgstr "上傳小程式"
+
+msgid "Easy to use upload applet for media"
+msgstr "上傳媒體檔案用的簡易小程式"
+
+msgid "Import"
+msgstr "引進"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr "上傳小程式需要的 Gallery 2 模組目前沒有啟動。請要求管理員啟動「遠端上傳」模組。"
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "下載 Gallery 遠端上傳小程式"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr "你的瀏覽程式不支援 Java 小程式；請你使用其他的上傳方法。"
+
+msgid "Uploading files..."
+msgstr "上傳檔案中..."
+
+msgid "Upload complete"
+msgstr "上傳完成"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr "你可以繼續上傳或按上面的鏈接前往你已經上傳的照片。"
+
+msgid "Upload Applet Settings"
+msgstr "上傳小程式設定"
+
+msgid "Defaults"
+msgstr "預設值"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"這些變數提供小程式用戶在你的網站上使用時的預設值。使用者可以在小程式的界面上更改這些值，或在"
+"他們本地主機上的預設值中修改。"
+
+msgid "You have no default variables"
+msgstr "你沒有預設變數"
+
+msgid "Variable"
+msgstr "變數"
+
+msgid "Action"
+msgstr "動作"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Add a new default variable"
+msgstr "增加新的預設變數"
+
+msgid "You must enter a variable name and value"
+msgstr "你必需輸入變數名稱和值"
+
+msgid "New variable"
+msgstr "新變數"
+
+msgid "Add variable"
+msgstr "增加變數"
+
+msgid "Overrides"
+msgstr "優先"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr "這些變數優於任何小程式用戶在你的網站上使用的值。使用者無法改變這些值。"
+
+msgid "You have no override variables"
+msgstr "你沒有優先變數"
+
+msgid "Add a new override variable"
+msgstr "增加新的優先變數"
+
+msgid "Help"
+msgstr "說明"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "這裡是一些會影響上載的變數。"
+
+msgid "variable"
+msgstr "變數"
+
+msgid "values"
+msgstr "值"
+
+msgid "help"
+msgstr "說明"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr "指示小程式在上載圖片到相簿中時先縮放圖片大小；預設值會縮放到相簿的中間大小"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr "圖片會縮放到的大小；這個值優先於相簿設定"
+
+msgid "no automatic captions"
+msgstr "不使用自動說明"
+
+msgid "use filenames for captions"
+msgstr "使用檔名作為說明"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "如果使用檔名為說明，去除副檔名"
+
+msgid "use EXIF extension for caption"
+msgstr "使用 EXIF 延伸資料作為說明"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"若為假，上載小程式會使用 UTF-8 傳送圖像的附屬資料到 Gallery，而不會用 HTML 的跳脫式字元編碼。"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr "如果要避免沒有 ImageMagick 時，縮放圖片會失去 EXIF 資料的話，設成假"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "若為真，小程式不會抱怨它找不到 ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "若為真，小程式不會抱怨它找不到 Jpegtran"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "使用 ImageMagick 縮放大小時的 JPEG 壓縮品質"
+
+msgid "Complete list of variables"
+msgstr "完整變數列表"

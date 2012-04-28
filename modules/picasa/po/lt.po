@@ -1,0 +1,279 @@
+# $Id: lt.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Darius Žitkevičius <skystis@splius.lt>, 2005, 2006.
+# Darius Zitkevicius <skystis@splius.lt>, 2007.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Picasa 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:48-0800\n"
+"PO-Revision-Date: 2007-03-08 23:48+0200\n"
+"Last-Translator: Darius Zitkevicius <skystis@splius.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+msgid "Importing albums"
+msgstr "Importuojami albumai"
+
+msgid "Importing photos"
+msgstr "Importuojamos fotografijos"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabaitas"
+msgstr[1] "%d megabaitai"
+msgstr[2] "%d megabaitų"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobaitas"
+msgstr[1] "%d kilobaitai"
+msgstr[2] "%d kilobaitų"
+
+msgid "Base filename"
+msgstr "Bazinis failo vardas"
+
+msgid "Picasa Caption"
+msgstr "Picasa aprašas"
+
+msgid "Blank"
+msgstr "Tuščia"
+
+msgid "From Picasa 2"
+msgstr "Iš Picasa 2"
+
+msgid "Picasa"
+msgstr "Picasa"
+
+msgid "Import for Picasa 2 XML-Exports"
+msgstr "Importas programos Picasa 2 XML-Eksportui"
+
+msgid "Import"
+msgstr "Importas"
+
+msgid "Picasa 2"
+msgstr "Picasa 2"
+
+msgid "Confirm Import"
+msgstr "Patvirtinti importą"
+
+msgid "Album to import:"
+msgstr "Albumas importavimui"
+
+msgid "Album Name"
+msgstr "Albumo pavadinimas"
+
+msgid "Album Caption"
+msgstr "Albumo aprašas"
+
+msgid "Album Notes"
+msgstr "Albumo pastabos"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Albumas tokiu pavadinimu jau yra. Šio albumo pavadinimas bus pakeistas."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Šio albumo pavadinimas netinkamas, todėl jis bus pakeistas į <i>%s</i>"
+
+msgid "The album will be imported into this album:"
+msgstr "Albumas bus importuotas į šį albumą:"
+
+#, c-format
+msgid "Title: %s"
+msgstr "Pavadinimas: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Apibūdinimas: %s"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "Import Complete"
+msgstr "Importas atliktas"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "Sėkmingai importuotas %d albumas."
+msgstr[1] "Sėkmingai importuoti %d albumai."
+msgstr[2] "Sėkmingai importuota %d albumų."
+
+msgid "No albums imported."
+msgstr "Neimportuotas joks albumas"
+
+#, c-format
+msgid "Imported %s"
+msgstr "Importuota %s"
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Klaida importuojant %d albumą."
+msgstr[1] "Klaida importuojant %d albumus."
+msgstr[2] "Klaida importuojant %d albumų."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Klaida importuojant %s"
+
+#, c-format
+msgid "Successfully imported %d picture."
+msgid_plural "Successfully imported %d pictures."
+msgstr[0] "Sėkmingai importuotas %d vaizdas."
+msgstr[1] "Sėkmingai importuoti %d vaizdai."
+msgstr[2] "Sėkmingai importuota %d vaizdų."
+
+msgid "No pictures imported."
+msgstr "Neimportuotas joks vaizdas."
+
+#, c-format
+msgid "Error while importing %d picture."
+msgid_plural "Errors while importing %d pictures."
+msgstr[0] "Klaida importuojant %d vaizdą."
+msgstr[1] "Klaida importuojant %d vaizdus."
+msgstr[2] "Klaida importuojant %d vaizdų."
+
+msgid "Import another Picasa album"
+msgstr "Importuoti kitą Picasa albumą"
+
+msgid "View the imported album"
+msgstr "Peržiūrėti importuotą albumą"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Jūsų web serveris neleidžia įkelti failų iš naršyklės.  Susisiekite su sistemos "
+"administratoriumi konsultacijoms."
+
+msgid "Upload archived Picasa export files directly from your computer."
+msgstr "Įkelti supakuotą Picasa failą tiesiai iš jūsų kompiuterio."
+
+msgid "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Nurodykite pilną kelią iki failo, papildomai galite įrašyti antraštę laukuose žemiau."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload more than that, you "
+"must upload the files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>Dėmesio:</b> Įkelti galima ne daugiau nei %s vienu metu.  Jei norite įkelti daugiau, "
+"tuomet reikia įkelti failus keliais žingsniais, naudoti kitokį failų  įkėlimo būdą, arba "
+"paprašyti administratoriaus, kad suteiktu galimybę atlikti didesnius įkėlimus."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be larger than %s. "
+"If you want to upload more than that, you must upload the files separately, use a different "
+"upload format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Dėmesio:</b> Įkelti galima nedaugiau nei %s vienu metu.  Vienas failas negali būti "
+"didesnis nei %s. Jei norite įkelti daugiau, tuomet reikia įkelti failus keliais žingsniais, "
+"naudoti kitokį failų  įkėlimo būdą, arba paprašyti administratoriaus, kad suteiktu galimybę "
+"atlikti didesnius įkėlimus."
+
+msgid "File"
+msgstr "Failas"
+
+msgid "You did not enter a path."
+msgstr "Jūs neįvedėte kelio."
+
+msgid "There was an error during the upload."
+msgstr "Įkeliant įvyko klaida."
+
+msgid ""
+"The filetype you entered is not supported. Maybe you did not activate the corresponding "
+"toolkit. (E.g. Archive Upload for ZIP files)"
+msgstr ""
+"Nurodytas failo tipas nepalaikomas. Galbūt jūs neaktyvavote atitinkamo įrankių komplekto "
+"(pvz.: ZIP failams Archyvo įkėlimas)"
+
+msgid "The archive you uploaded is not a valid Picasa export."
+msgstr "Įkeltas archyvas nėra tinkamas Picasa eksportas."
+
+msgid "Set item titles from:"
+msgstr "Nustatyti antraštes pagal:"
+
+msgid "Assign Picasa caption to:"
+msgstr "Picasa aprašus priskirti: "
+
+msgid "Summary"
+msgstr "Santrauka"
+
+msgid "Description"
+msgstr "Aprašymas"
+
+msgid "Add Items"
+msgstr "Naujas elementas"
+
+msgid "Import from Picasa 2"
+msgstr "Importuoti iš Picasa 2"
+
+msgid ""
+"This operation takes data (images, descriptions, orderings etc.) from <strong>Picasa 2</"
+"strong> and brings it into <strong>Gallery 2</strong>."
+msgstr ""
+"Ši operacija paima duomenis (vaizdus, aprašus, rūšiavimo tvarką ir t.t.) iš <strong>Picasa "
+"2</strong> ir visą tai perkelia į <strong>Galeriją 2</strong>."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"Nėra jokio grafinio įrankių rinkinio JPEG vaizdams. Jei importuosite dabar, tuomet nebus "
+"sugeneruotos jokios miniatiūros. Apsilankykite puslapyje %sModuliai%sKad aktyvuoti grafinį "
+"įrankių rinkinį."
+
+msgid "Destination Album"
+msgstr "Paskirties albumas"
+
+msgid "Please select the gallery Album you want to import your picasa album into."
+msgstr "Nurodykite albumą į kurį norite importuoti picasa albumą."
+
+msgid "Path or File"
+msgstr "Kelias iki failo"
+
+msgid ""
+"This process will import Data from a Picasa 2 XML-Export. You must enter the path to the "
+"directory with the Picasa 2 files.  Example: <i>/path/to/picasa2xml</i>"
+msgstr ""
+"Šis procesas importuos duomenis iš Picasa 2 XML-Eksporto. Reikia nurodyti kelią iki aplanko "
+"su Picasa 2 failais. Pavyzdžiui: <i>/kelias/iki/picasa2xml</i>"
+
+msgid "The path that you entered does not contain valid Picasa export data."
+msgstr "Aplanke, kurį nurodėte nėra Picasa eksportavimo duomenų."
+
+msgid "Recently Used Paths"
+msgstr "Paskutiniai naudoti aplankai"
+
+msgid "Select"
+msgstr "Pasirinkti"

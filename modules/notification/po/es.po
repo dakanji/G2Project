@@ -1,0 +1,208 @@
+# $Id: es.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-08-26 13:13+0200\n"
+"PO-Revision-Date: 2008-08-26 14:45+0200\n"
+"Last-Translator: Óscar García Amor <oscar.garcia@moire.org>\n"
+"Language-Team: Spanish <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Notification"
+msgstr "Notificación"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "Permite a los usuarios ser notificados de los eventos mediante una suscripción."
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Watch List"
+msgstr "Lista de Notificaciones"
+
+msgid "Watch"
+msgstr "Observar"
+
+msgid "Plugin Activation Event"
+msgstr "Evento de Activación de Plugin"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "El %s %s fue activado"
+
+msgid "Plugin Deactivation Event"
+msgstr "Evento de Desactivación de un Plugin"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "El %s %s fue desactivado"
+
+msgid "Error Event"
+msgstr "Evento de Error"
+
+msgid "Item Order Event"
+msgstr "Evento de Cambio de Orden de los Elementos"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "Los elementos hijos de %s han sido reordenados."
+
+msgid "User Login Event"
+msgstr "Evento de Conexión del Usuario"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "El usuario %s se ha conectado."
+
+msgid "User Login Failed Event"
+msgstr "Envento de Conexion Fallida del Usuario"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "La conexión del Usuario %s falló."
+
+msgid "User Logout Event"
+msgstr "Evento de Desconexión de Usuario"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "El usuario %s se ha desconectado."
+
+msgid "Permission Removed Event"
+msgstr "Evento de Permiso Eliminado"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "Permisos Cambiados en %s elementos."
+
+msgid "Plugin Uninstalled Event"
+msgstr "Evento de Desistalación de un Plugin"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr "El %s %s fue desinstalado"
+
+msgid "Album Structure Change Event"
+msgstr "Evento de Cambio en la Estrutura del Álbum"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "Ocurrió un Evento de Cambio del Árbol Visible"
+
+msgid "Entity Saved Event"
+msgstr "Evento de Entidad Guardada"
+
+#, c-format
+msgid "%s was saved"
+msgstr "%s fue guardado"
+
+msgid "Entity Deleted Event"
+msgstr "Evento de Entidad Borrada"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "%s fue borrado"
+
+msgid "Item Added"
+msgstr "Elemento Añadido"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"Un nuevo %s ha sido añadido. Para verlo, haz click aquí: \n"
+"%s"
+
+msgid "Select Event"
+msgstr "Seleccionar Evento"
+
+msgid "Select Handler"
+msgstr "Seleccionar Controlador"
+
+msgid "Send an email"
+msgstr "Enviar un correo electrónico"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr ""
+"Si ya no deseas suscribirte a esta notificación, por favor, actualiza la configuración de tu "
+"cuenta en:"
+
+msgid "Item Notification Settings"
+msgstr "Configuración de la Notificación del Elemento"
+
+msgid "Settings saved successfully"
+msgstr "Configuración guardada con éxito"
+
+msgid "Event"
+msgstr "Evento"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Subscribe"
+msgstr "Suscribir"
+
+msgid "Apply to sub items"
+msgstr "Aplicar a los subelementos"
+
+msgid "Not authorized to receive notifications"
+msgstr "No estás autorizado para recibir notificaciones"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "Site Notification Administration"
+msgstr "Administración de la Notificación del Sitio"
+
+msgid "Description"
+msgstr "Descipción"
+
+msgid "Handler"
+msgstr "Controlador"
+
+msgid "Enabled"
+msgstr "Activado"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Event Handler is required"
+msgstr "Se require un controlador para el evento"
+
+msgid "User Notification Administration"
+msgstr "Administración de la Notificación del Usuario"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "Method"
+msgstr "Métodos"
+
+msgid "You are not subscribed to any available events"
+msgstr "No estás suscrito a ninguno de los eventos disponibles"

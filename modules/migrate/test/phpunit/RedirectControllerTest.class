@@ -1,0 +1,271 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Redirect controller tests
+ * @package Migrate
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class RedirectControllerTest extends GalleryControllerTestCase {
+
+    function RedirectControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'migrate.Redirect');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+    	$this->_registerFactoryImplementationForTest(
+	    'GalleryEventListener', 'MigrateModule', 'MigrateModule', 
+	    'modules/migrate/module.inc', 'migrate', array('GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_item);
+
+	list ($ret, $this->_thumb) = $this->_createDerivative($this->_item, $this->_item->getId(),
+							      DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_sized) = $this->_createDerivative($this->_item, $this->_item->getId(),
+							      DERIVATIVE_TYPE_IMAGE_RESIZE);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	$this->_albumId = $this->_album->getId();
+	$this->_albumName = 'testalbum-' . rand();
+	$this->_itemId = $this->_item->getId();
+	$this->_itemName = 'testitem-' . rand();
+
+	/* Add map entries.. */
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap',
+	    array('itemId' => $this->_albumId, 'g1album' => $this->_albumName, 'g1item' => null));
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap', array('itemId' => $this->_itemId,
+	    'g1album' => $this->_albumName, 'g1item' => $this->_itemName));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$_SERVER['PHP_SELF'] = '/gallery2/' . GALLERY_MAIN_PHP;
+
+	$this->_phpVm = new MockPhpVm($this);
+	$gallery->_phpVm = $this->_phpVm;
+	$this->_headers = array();
+    }
+
+    function testRedirect() {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+	$href = $urlGenerator->generateUrl(array('href' => $_SERVER['PHP_SELF']),
+					   array('forceFullUrl' => true));
+
+	/* Album */
+	GalleryUtilities::putRequestVariable('path', $this->_albumName);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_albumId,
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'album');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Album with trailing slash */
+	GalleryUtilities::putRequestVariable('path', $this->_albumName . '/');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_albumId,
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'album trailing slash');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Album page 2 */
+	GalleryUtilities::putRequestVariable('path', $this->_albumName);
+	GalleryUtilities::putRequestVariable('page', '2', false);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_albumId,
+						      'href' => $href,
+						      'page' => '2'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'album page 2');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Item */
+	GalleryUtilities::removeRequestVariable('page', false);
+	GalleryUtilities::putRequestVariable('path', $this->_albumName . '/' . $this->_itemName);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_itemId,
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Item full size */
+	GalleryUtilities::putRequestVariable('path', $this->_albumName . '/' . $this->_itemName);
+	GalleryUtilities::putRequestVariable('full', '1', false);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_itemId,
+						      'href' => $href,
+						      'imageViewsIndex' => '1'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item full size');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Invalid item */
+	GalleryUtilities::removeRequestVariable('full', false);
+	GalleryUtilities::putRequestVariable('path', 'invalid-' . rand() . '/aaa');
+
+	/* Invalid item sends 404 and does exit; we don't want to bail out of unit tests.. */
+	/* $results = $this->handleRequest(); */
+	/* assert(got 404) */
+
+	/* Direct link to full size image */
+	GalleryUtilities::putRequestVariable('path',
+	    $this->_albumName . '/' . $this->_itemName . '.jpg');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.DownloadItem',
+						      'itemId' => $this->_itemId,
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item image file');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Direct link to resized image */
+	GalleryUtilities::putRequestVariable('path',
+	    $this->_albumName . '/' . $this->_itemName . '.sized.jpg');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.DownloadItem',
+						      'itemId' => $this->_sized->getId(),
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item resized file');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Direct link to thumbnail image */
+	GalleryUtilities::putRequestVariable('path',
+	    $this->_albumName . '/' . $this->_itemName . '.thumb.jpg');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.DownloadItem',
+						      'itemId' => $this->_thumb->getId(),
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item thumbnail file');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+
+	/* Fallback to SCRIPT_NAME if PHP_SELF isn't set */
+	$_SERVER['SCRIPT_NAME'] = $_SERVER['PHP_SELF'];
+	unset($_SERVER['PHP_SELF']);
+	GalleryUtilities::putRequestVariable('path', $this->_albumName . '/' . $this->_itemName);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_itemId,
+						      'href' => $href),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item, no PHP_SELF');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+	$this->_headers = array();
+	/*
+	 * Bad PHP_SELF, see http://bugs.php.net/bug.php?id=31843
+	 * In this case we currently rely on REQUEST_URI being rewritten to a valid value.
+	 */
+	$_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'] = '/G1/path/myalbum/aaa.jpg';
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => $this->_itemId),
+				  'status' => array(),
+				  'error' => array()),
+			    $results, 'item, bad PHP_SELF');
+	$this->assertEquals(array('HTTP/1.0 301 Moved Permanently'), $this->_headers);
+    }
+}
+
+/**
+ * Mock PhpVm test class
+ * @package Migrate
+ * @subpackage PHPUnit
+ */
+class MockPhpVm extends GalleryPhpVm {
+    function MockPhpVm(&$test) {
+	$this->_test =& $test;
+    }
+
+    function header($header) {
+	$this->_test->_headers[] = $header;
+    }
+
+    function exit_($status=null) {
+	$this->_test->_exitCalls[] = $status;
+    }
+}
+?>

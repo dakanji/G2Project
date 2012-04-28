@@ -1,0 +1,470 @@
+# $Id: eu.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Migration 1.0.13\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-09 09:53+0100\n"
+"PO-Revision-Date: 2006-05-24 11:44+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
+
+msgid "Importing Users"
+msgstr "Erabiltzaileak Inportatzen"
+
+msgid "Importing Photos"
+msgstr "Argazkiak Inportatzen"
+
+msgid "Creating thumbnails"
+msgstr "Argazkitxoak sortzen"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "%d argazkitxoa %d-tatik"
+
+#, c-format
+msgid "%sTitle%s was truncated for %sitem %d%s."
+msgstr "%sTitulua%s moztua izan da  %selementu %d%s-rentzat"
+
+#, c-format
+msgid "%sSummary%s was truncated for %sitem %d%s."
+msgstr "%sLaburpena%s moztua izan da  %selementu %d%s-rentzat"
+
+msgid "Set:"
+msgstr "Ezarri:"
+
+msgid "Truncated:"
+msgstr "Mozturik:"
+
+msgid "Migration"
+msgstr "Migrazioa"
+
+msgid "Migrate your Gallery 1 albums to Gallery 2"
+msgstr "Zure Gallery 1 albumak Gallery 2-ra migratu"
+
+msgid "Import"
+msgstr "Inportatu"
+
+msgid "Gallery 1"
+msgstr "Gallery 1"
+
+msgid "G1-&gt;G2 Mapping"
+msgstr "G1-&gt;G2 Mapatzea"
+
+msgid "G1 path"
+msgstr "G1 bidea"
+
+#, c-format
+msgid ""
+"G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 "
+"import with the URL redirect option selected. Otherwise follow instructions in %sMigrate "
+"Site Admin%s."
+msgstr ""
+
+msgid "Select Albums and Users"
+msgstr "Album eta Erabiltzaileak hautatu"
+
+msgid "You must choose something to import!"
+msgstr "Inportatzeko zerbait aukeratu behar duzu!"
+
+msgid "You must specify a custom field name"
+msgstr "Eremu pertsonalizatu izen bat ezarri behar duzu"
+
+msgid "Import Users"
+msgstr "Erabiltzaileak Inportatu"
+
+msgid "Select the users to migrate"
+msgstr "Hautatu migratuko diren erabiltzaileak"
+
+msgid "Check All"
+msgstr "Denak markatu"
+
+msgid "Clear All"
+msgstr "Denak garbitu"
+
+msgid "Invert Selection"
+msgstr "Hautapena alderantzizkatu"
+
+msgid "Select"
+msgstr "Hautatu"
+
+msgid "Username"
+msgstr "Erabiltzaile-izena"
+
+msgid "No available users"
+msgstr "Ez dago erabiltzaile erabilgarririk"
+
+msgid "These users are already in your gallery, and will not be imported:"
+msgstr "Erabiltzaile hauek badaude dagoeneko zure galerian eta ez dira inportatuko"
+
+msgid "Import Albums"
+msgstr "Albumak Inportatu"
+
+msgid "Select the albums to migrate"
+msgstr "Albuma migratzeko hautatu"
+
+msgid "Source:"
+msgstr "Jatorria:"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "Destination:"
+msgstr "Helburua:"
+
+msgid "Character Encoding of Source Text:"
+msgstr "Iturburu Testuaren Karaktere Kodeketa:"
+
+msgid "URL Redirection"
+msgstr "URL berbideraketa"
+
+msgid "Record G1-&gt;G2 mappings during import"
+msgstr "G1-&gt;G2 mapatzea gorde inportatzerakoan"
+
+msgid "Thumbnail generation"
+msgstr "Argazkitxo sortzea"
+
+msgid ""
+"Normally Gallery will generate thumbnails the first time you look at them, then save them "
+"for subsequent views.  If you check this box, we'll create the thumbnails at migration "
+"time.  Migration will take longer but the first time you view an album will go much faster."
+msgstr ""
+"Normalean galeriak argazkitxoak bistarazi behar dituen lehenengo aldian sortu eta hurrengo "
+"bistaratzeentzat gordeegiten ditu.  Aukera hau markatu ezkero argazkitxoak migrazio garaian "
+"egingo dira.  Migrazioak asti gehiago tardatuko du baina albuma begiratzen duzun lehen "
+"aldian askoz azkarrago funtzionatuko du."
+
+msgid "Item captions"
+msgstr "Elementu epigrafeak"
+
+msgid ""
+"Gallery 2 has the following fields for all items and albums: title, summary text shown with "
+"thumbnails and description text shown in item or album view. G1 albums already have these "
+"three items (though the names of summary and description are reversed). G1 items have only a "
+"filename and caption. For items imported into G2:"
+msgstr ""
+"Gallery 2-k hurrengo eremu hauek ditu elementu eta albumentzako: izenburua, laburpen testua "
+"argazkitxoekin bistaraziko da eta deskribapen testua elementu eta album bistaratzean "
+"bistaraziko da. G1-ek dagoeneko elementu horiek ditu (nahiz laburpen eta deskribapen izenak "
+"nahasirik egon). G1 elementuek fitxategi izena eta izenburua bakarrik dute. G2-ra "
+"inportaturiko elementuentzat:"
+
+msgid "Set title from:"
+msgstr "Ezarri titulua hemendik:"
+
+msgid "Base filename"
+msgstr "Oinarri fitxategi-izena"
+
+msgid "Caption"
+msgstr "Epigrafea"
+
+msgid "Custom Field:"
+msgstr "Eremu Pertsonalizatua:"
+
+msgid "Enter a custom field name"
+msgstr "Eremu pertsonalizatu izen bat idatzi"
+
+msgid "Blank"
+msgstr "Zurian"
+
+msgid "Set summary from:"
+msgstr "Ezarri laburpena hemendik:"
+
+msgid "Set description from:"
+msgstr "Ezarri deskribapena hemendik:"
+
+msgid "Default to same as summary if custom field not set"
+msgstr "Lehenespen bezala laburpenaren berdina eremu pertsonalizaturik ezarririk ez badago"
+
+msgid "Custom fields"
+msgstr "Eremu pertsonalizatuak"
+
+msgid ""
+"Custom fields will not be imported.  Activate Custom Fields module to enable this option."
+msgstr ""
+"Eremu pertsonalizatuak ez dira inportatuko.  Eremu pertsonalizatu modulua gaitu ezazu aukera "
+"hau gaitzeko."
+
+msgid "Import custom fields"
+msgstr "Eremu pertsonalizatuak inportatu"
+
+msgid ""
+"Do not create Gallery 2 custom fields for fields selected above for title, summary or "
+"description"
+msgstr ""
+"Ez sortu titulua, laburpena eta deskribapenaz gain ez sortu Gallery 2 eremu pertsonalizaturik"
+
+msgid "Prepare Import"
+msgstr "Inportatzeko prestatu"
+
+msgid "Confirm Migration"
+msgstr "Migrazioa berretsi"
+
+msgid "Users to import:"
+msgstr "Inportatzeko erabiltzaileak:"
+
+msgid "Albums to import:"
+msgstr "Inportatzeko albumak:"
+
+msgid "Album Name"
+msgstr "Album Izena"
+
+msgid "Album Title"
+msgstr "Album Titulua"
+
+msgid "Album Notes"
+msgstr "Album Oharrak"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Izen honetako album bat badago dagoeneko. Album hau berrizendatu egingo da"
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Album honek legezkanpoko izen bat du eta <i>%s</i> bezala berrizendatua izango da"
+
+#, c-format
+msgid "This album's owner (%s) hasn't been imported."
+msgstr "Album honen  jabea (%s) ez da inportatu"
+
+#, c-format
+msgid "Import %s now."
+msgstr "%s orain inportatu"
+
+msgid ""
+"Top level albums and albums whose parents are not selected will be imported into this album:"
+msgstr "Gurasoak aukeraturik ez diren maila nagusiko albumak album honetara inportatuko dira"
+
+#, c-format
+msgid "Title: %s"
+msgstr "Titulua: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Deskribapena: %s"
+
+msgid "Your Gallery 1 will be converted from this character encoding into UTF-8:"
+msgstr "Zure Gallery 1 fitxategia karaktere kodeketa UTF-8-ra bihurtuko da:"
+
+#, c-format
+msgid "Encoding: %s"
+msgstr "Kodeketa: %s"
+
+msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgstr "G1-&gt;G2 mapatzea gorde egingo da URL berbidalketarako"
+
+msgid "Thumbnails will be generated during migration"
+msgstr "Argazkitxoak migratzerakoan sortuko dira"
+
+msgid "Item fields will be imported from:"
+msgstr "Elementu eremuak hemendik inportatu:"
+
+msgid "Title"
+msgstr "Titulua"
+
+msgid "Custom field:"
+msgstr "Eremu pertsonalizatua:"
+
+msgid "Summary"
+msgstr "Laburpena"
+
+msgid "Description"
+msgstr "Deskribapena"
+
+msgid "(Default to summary value if not set)"
+msgstr "(Laburpen balio lehenetsia ezarririk ez badago)"
+
+msgid "Custom fields will be imported"
+msgstr "Eremu pertsonalizatuak inportatuko dira"
+
+msgid "Custom fields imported into item fields above will not be duplicated as custom fields"
+msgstr ""
+"Elementu eremuetan inportaturiko eremu pertsonalizatuak ez dira eremu pertsonalizatuak "
+"bezala bikoiztuko"
+
+msgid "Hidden Items"
+msgstr "Ezkutatuko Elementuak"
+
+msgid ""
+"Any hidden albums or items will be imported with restricted view permissions. Activate the "
+"Hidden Items module before migration to import these as \"hidden\" which means they are "
+"invisible to guest users until accessed by the direct URL for those items."
+msgstr ""
+"Edozein ezkutatutako elementu edo album ikuste baimen murriztuekin inportatua izango da. "
+"Ezkutatutako elementuak modulua gaitu ezazu migrazioa aurretik \"ezkutatutako\" elementu "
+"horiek inportatzeko."
+
+msgid "Cancel"
+msgstr "Utzi"
+
+msgid "Import Complete"
+msgstr "Inportatzea osatu da"
+
+#, c-format
+msgid "Successfully imported %d user."
+msgid_plural "Successfully imported %d users."
+msgstr[0] "Erabiltzaile %d behar bezala inportatu da"
+msgstr[1] "%d erabiltzaile behar bezala inportatu dira"
+
+msgid "No users imported."
+msgstr "Ez da erabiltzailerik inportatu"
+
+#, c-format
+msgid "Imported %s"
+msgstr "%s inportaturik"
+
+#, c-format
+msgid "Error while importing %d user."
+msgid_plural "Errors while importing %d users."
+msgstr[0] "Errorea erabiltzaile %d inportatzerakoan"
+msgstr[1] "Erroreak %d erabiltzaile inportatzerakoan"
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Errorea %s inportatzerakoan"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "Album %d behar bezala inportatu da"
+msgstr[1] "%d album behar bezala inportatu dira"
+
+msgid "No albums imported."
+msgstr "Ez da albumik inportatu"
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Errore bat gertatu da album %d inportatzerakoan"
+msgstr[1] "Erroreak gertatu dira %d album inportatzerakoan"
+
+msgid "Import more data"
+msgstr "Datu gehiago inportatu"
+
+msgid "To enable URL Redirection under Apache webserver:"
+msgstr "Apache Web zerbitzarian URL birbidalketa gaitzeko:"
+
+#, c-format
+msgid "Ensure the %s Apache module is enabled."
+msgstr "Ziurtatu Apache %s modulua instalaturik dagoela"
+
+msgid ""
+"Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory and add the text "
+"shown below to the file. Remove G1 rewrite rules from an existing file. Redirects will also "
+"work in your Gallery2 directory if G2 is installed in the path where G1 used to be. However, "
+"if you also use the G2 URL Rewrite module then activate the G1 redirect rule in that module "
+"instead of using the block shown below."
+msgstr ""
+"Zure Gallery1 direktorioan <tt>.htaccess</tt> fitxategia sortu edo editatu eta ipini "
+"fitxategi horretan behean agertzen den testua. Ezabatu G1 berridazketa arauk fitxategi "
+"horretatik. Berbideraketak funtzionatzen jarraituko du zure Gallery2 direktorioan G2 "
+"instalaturiko bidea G1-ek erabilitako berdina bada. Hala re G2 berbideraketa modulua erabili "
+"ezkero G1 berbideraketa arau gaitu ezazu behean agertzen den blokearen ordez."
+
+msgid ""
+"Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if you also wish to "
+"redirect links to image files and album directories. Note that these redirects are not "
+"active until the G1 images are actually removed or moved. Omit the !-f line shown below to "
+"redirect anyway."
+msgstr ""
+"<tt>.htaccess</tt> fitxategi berdina gehitu Gallery1 Album direktorioan loturak irudi "
+"fitxategi eta albumetara birbidaltzeko. Kontutan izan berbideraketa hori ez dela gaiturik "
+"egongo G1 irudiak ezabatu edo mugitu arte. Ez ipini beheko !-f lerroa ala eta guztiz ere "
+"berdbideratzeko."
+
+msgid ""
+"If G2 is installed in the path where G1 used to exist, you will need to remove the G1 file "
+"\"gallery_remote2.php\" file before you can use Gallery Remote to upload images to G2."
+msgstr ""
+"G2 instalaturik dagoen bidea G1 dagoen berdina izan ezkero, G1 \"gallery_remote2.php\" "
+"fitxategia ezabatu behar duzu G2-ra fitxategiak igotzeko Urruneko Galeria erabili ahal "
+"izateko."
+
+msgid "Download .htaccess file"
+msgstr ".htaccess fitxategia deskargatu"
+
+msgid "Import from Gallery 1"
+msgstr "Datuak Gallery 1-etik inportatu"
+
+msgid ""
+"Copy all or part of an existing Gallery 1 installation into your Gallery 2.  It won't modify "
+"your Gallery 1 data in any way."
+msgstr ""
+"Dagoen Gallery 1 instalazioaren zati bat edo dena Gallery 2-ra kopiatu. Honek ez du zure "
+"Gallery 1-eko daturik inola eraldatuko."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"Ez duzu JPEG irudiak kudea ditzaken tresna-jokorik instalaturik.  Orain inportatu ezkero, ez "
+"duzu argazkitxorik edukiko. Begiratu %sModuluak%s orrialdea tresna-joko grafiko bat gaitzeko."
+
+msgid "Path to Gallery 1 albums directory"
+msgstr "Gallery 1 albums direktoriora bidea"
+
+msgid "Example: /var/www/albums"
+msgstr "Adibidea: /var/www/albums"
+
+msgid "You did not enter a path."
+msgstr "Ez duzu bidea idatzi"
+
+msgid "The path that you entered is invalid."
+msgstr "Emandako bidea ez da baliozkoa."
+
+msgid ""
+"<b>Note:</b> Before you import any data you should make sure your Gallery 1 is installed "
+"correctly by adding a photo through the Gallery 1 web interface.  Make sure you resolve any "
+"errors you see there first."
+msgstr ""
+"<b>Oharra:</b> Daturik inportatu aurretik zure Gallery 1 behar bezala instalaturik dagoela "
+"ziurtatu beharko zenuke, honetarako Gallery 1 web interfazearen bidez irudi bat igoaz. Hasi "
+"aurretik proba honetan ager daitekeen edozein errore konpondu beharko zenuke."
+
+msgid "Recently Used Paths"
+msgstr "Azkenez erabiliko bidea"
+
+msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
+msgstr "Galeriak Gallery1 zaharreko URL-ak Gallery2 berrira berbidera ditzake"
+
+#, c-format
+msgid "There is one G1-&gt;G2 map entry"
+msgid_plural "There are %d G1-&gt;G2 map entries"
+msgstr[0] "Hemen G1-&gt;G2 mapatze sarrera bat dago"
+msgstr[1] "Hemen G1-&gt;G2 %d mapatze sarrera daude"
+
+msgid ""
+"Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
+"redirecting to G2 pages.  Delete all entries?"
+msgstr ""
+"Mapa sarrerak ezabatzeak G1 URL-ak HTTP ez da aurkitu erroreak gertatzea eragingo du, G2-ra "
+"berbideratu beharrean. Sarrera guztiak ezabatu?"
+
+msgid "Delete All"
+msgstr "Dena Ezabatu"
+
+msgid "Map entries deleted successfully"
+msgstr "Mapa sarrera behar bezala ezabatu dira"

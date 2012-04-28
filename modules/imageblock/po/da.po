@@ -1,0 +1,302 @@
+# $Id: da.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# - Bjorn Graabek <bjorn@graabek.com>, 2007
+# Bjorn Graabek <bjorn@graabek.com>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-10-21 11:29+0200\n"
+"PO-Revision-Date: 2007-09-03 20:52+0100\n"
+"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Billedblok"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Tilfældig, nyeste eller mest viste foto eller album"
+
+msgid "Blocks"
+msgstr "Blokke"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Tilfældigt billede"
+msgstr[1] "Tilfældige billeder"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Nyeste billede"
+msgstr[1] "Nyeste billeder"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Mest viste billede"
+msgstr[1] "Mest viste billeder"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Tilfældigt album"
+msgstr[1] "Tilfældige albummer"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Nyeste album"
+msgstr[1] "Nyeste albummer"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Mest viste album"
+msgstr[1] "Mest viste albummer"
+
+msgid "Picture of the Day"
+msgstr "Dagens billede"
+
+msgid "Picture of the Week"
+msgstr "Ugens billede"
+
+msgid "Picture of the Month"
+msgstr "Månedens billede"
+
+msgid "Album of the Day"
+msgstr "Dagens album"
+
+msgid "Album of the Week"
+msgstr "Ugens album"
+
+msgid "Album of the Month"
+msgstr "Månedens album"
+
+msgid "Date:"
+msgstr "Dato:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Visninger: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Ejer: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Forhindr dette album i at blive vist i billedblokken"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Anvend billedblok indstillinger på underalbummer"
+
+msgid "Image Block Settings"
+msgstr "Billedblok administration"
+
+msgid "Settings saved successfully"
+msgstr "Opsætningen blev gemt"
+
+msgid "Show"
+msgstr "Vis"
+
+msgid "Heading"
+msgstr "Overskrift"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "View Count"
+msgstr "Visninger"
+
+msgid "Owner"
+msgstr "Ejer"
+
+msgid "Frames"
+msgstr "Rammer"
+
+msgid "View samples"
+msgstr "Vis prøver"
+
+msgid "Album Frame"
+msgstr "Albumramme"
+
+msgid "Photo Frame"
+msgstr "Fotoramme"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Reset"
+msgstr "Nulstil"
+
+msgid "External Image Block"
+msgstr "Ekstern billedblok"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Brug en PHP blok som vist nedenfor for at inkludere en billedblok i en PHP side udenfor "
+"Gallery."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"|-separeret liste af: randomImage, recentImage, viewedImage, randomAlbum, recentAlbum, "
+"viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, monthlyAlbum, "
+"specificItem; standard er randomImage"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"|-separeret liste af: title, date, views, owner, heading, fullSize; rawImage; værdien kan "
+"også være: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Begræns til emner under albummet med det angivne id; eller det id for det emne der skal "
+"vises ved 'specificItem' bloktypen"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Skalér billeder til denne maksimum størrelse. Hvis dette bruges for sig selv, vil Gallery "
+"finde det billede der passer bedst til den valgte værdi. Større billeder vil blive skaleret "
+"ned i din browser. Hvis det vælges sammen med %sshow=fullsize vil \"fuld størrelse\" "
+"billedet altid blive brugt, og skaleret ned som nødvendigt."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Ligsom %smaxSize bortset fra den ikke vil bruge et billeder der er mindre end den ønskede "
+"størrelse, så du altid vil få den mest præcise størrelse. Bemærk at dette muligvis vil bruge "
+"en del mere båndbredde, hvis det meget større billede skal skaleres ned i din browser."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href for et link på et billede; hvis værdien er none kommer der ikke noget link. Standard er "
+"et link til emnet i galleriet."
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Tilføj et \"link target\" (f.eks. for at åbne links i et andet browservindue)"
+
+msgid "Image frame to use around images"
+msgstr "Billedramme til brug rundt om billeder"
+
+msgid "Image frame to use around albums"
+msgstr "Billedramme til brug rundt om albummer"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Hvis en indstilling markeret med * er udeladt så vil standardværdierne for webstedet blive "
+"brugt."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Billedrammer kræver CSS for at blive vist korrekt. Inkluder følgende i %s sektionen for at "
+"få understøttelse for billedrammer."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Angiv rammens id (eller en |-separeret liste af id'er) i rammeparameteren. Udelad "
+"parameteren for at understøtte de billedrammer der er konfigureret ovenfor. Rammeid'er er "
+"biblioteksnavnene i %s biblioteket."
+
+msgid "Image type"
+msgstr "Billedtype"
+
+msgid "Random image"
+msgstr "Tilfældigt billede"
+
+msgid "Recent image"
+msgstr "Nyeste billede"
+
+msgid "Viewed image"
+msgstr "Mest viste billede"
+
+msgid "Random album"
+msgstr "Tilfældigt album"
+
+msgid "Recent album"
+msgstr "Nyeste album"
+
+msgid "Viewed album"
+msgstr "Mest viste album"
+
+msgid "Daily image"
+msgstr "Dagligt billede"
+
+msgid "Weekly image"
+msgstr "Ugentligt billede"
+
+msgid "Monthly image"
+msgstr "Månedligt billede"
+
+msgid "Daily album"
+msgstr "Dagligt album"
+
+msgid "Weekly album"
+msgstr "Ugentligt album"
+
+msgid "Monthly album"
+msgstr "Månedligt album"
+
+msgid "Number of items"
+msgstr "Antal emner"
+
+msgid "Use default settings"
+msgstr "Brug standardværdier"
+
+msgid "Show heading"
+msgstr "Vis overskrift"
+
+msgid "Show title"
+msgstr "Vis titel"
+
+msgid "Show date"
+msgstr "Vis dato"
+
+msgid "Show view count"
+msgstr "Vi antal visninger"
+
+msgid "Show owner"
+msgstr "Vis ejer"

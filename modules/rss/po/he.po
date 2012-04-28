@@ -1,0 +1,569 @@
+# $Id: he.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Guy Sheffer <guysoft@ort.org.il>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-04-05 16:08+0300\n"
+"PO-Revision-Date: 2006-04-06 16:58+0300\n"
+"Last-Translator: Guy Sheffer <guysoft@ort.org.il>\n"
+"Language-Team: Hebrew <guysoft@ort.org.il>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+msgid "This feed no longer exists!"
+msgstr "העדכון הזה לא קיים יותר במערכת!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "עדכונים מהסוג הזה לא מאושרים!"
+
+msgid "Incorrect feed type!"
+msgstr "עידכון הזה הוא מהבוג הלא נכון!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "מודול התגובות לא מופעל, לכן לא ניתן להציג את העדכונים האחרונים"
+
+msgid "Not permitted to view comments for this item"
+msgstr "אין די הרשאות להציג את התגובות של הפריט הזה"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "ייצוא"
+
+msgid "RSS Feed for this Album"
+msgstr "עידכון RSS של אלבום זה"
+
+msgid "RSS Feed for this Photo"
+msgstr "עידכון RSS של תמונה זו"
+
+msgid "RSS Feed for this Movie"
+msgstr "עידכון RSS של סרט זה"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "עיכון RSS בשביל ה%s הזה"
+
+msgid "Configure RSS Feeds"
+msgstr "הגדרת עידכוני RSS"
+
+msgid "Simple RSS Feed"
+msgstr "עידכון RSS פשוט"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "לינק קצר בשביל עידכוני RSS"
+
+msgid "RSS Feed"
+msgstr "עידכון RSS"
+
+msgid "The name of the configured RSS Feed"
+msgstr "השם של ה-RSS שבתהליך הגדרה"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "לינק קצר בשביל RSS הניתן להגדרה"
+
+#, c-format
+msgid "In album %s"
+msgstr "בתוך אלבום %s"
+
+msgid "Items in an album"
+msgstr "פריטים באלבום"
+
+msgid "Sub-albums of an album"
+msgstr "תת-אלבומים של אלבום"
+
+msgid "Items in an album and its sub-albums"
+msgstr "פריטים של האלבום והתת-אלבומים שלו"
+
+msgid "Comments for an album"
+msgstr "תגובות לאלבום"
+
+msgid "Comments for an item"
+msgstr "תגובות לפריט"
+
+#, fuzzy
+msgid "Comments for an album and its subalbums"
+msgstr "פריטים של האלבום והתת-אלבומים שלו"
+
+#, fuzzy
+msgid "Random items in an album"
+msgstr "פריטים באלבום"
+
+#, fuzzy
+msgid "Random items in an album and its subalbums"
+msgstr "פריטים של האלבום והתת-אלבומים שלו"
+
+msgid "RSS Feeds"
+msgstr "עידכוני RSS"
+
+msgid "Settings have been saved"
+msgstr "ההגדרות נשמרו"
+
+msgid "Feed successfully deleted"
+msgstr ""
+
+msgid "An error occured"
+msgstr "אירעה תקלה"
+
+msgid "List"
+msgstr "רשימה"
+
+msgid "Edit Feed"
+msgstr "ערוך עידכון"
+
+msgid "New Feed"
+msgstr "עידכון חדש"
+
+msgid "Feed URL"
+msgstr "עידכון URL"
+
+msgid "Feed name"
+msgstr "שם העדכון"
+
+msgid "You can't change the name of the feed"
+msgstr "אינך יכול/ה לשנות את שם העדכון"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"בחר שם לעדכון שלך (השם הזה יהיה מוזכר בלינק, לכן מומלץ בחום להשתמש באותיות באנגלית בלבלד)"
+
+msgid "You must enter a name"
+msgstr "עליך להקליד שם"
+
+msgid "This name is already used, please select another one"
+msgstr "השם הזה כבר בשימוש, יש לבחור שם אחר"
+
+msgid "Description"
+msgstr "תיאור"
+
+msgid "Feed settings"
+msgstr "הגדרות עידכונים"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "בחר/י את סוג המידע שיוכנס לעדכון"
+
+msgid "Type of feed"
+msgstr "סוג העדכון"
+
+msgid "Items in this album"
+msgstr "פריטים באלבום הזה"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"פריטים מהסוג הזה לא מורשים להיות מוצגים לפי בחירת מנהל המערכת. משתמשים לא יוכלו לצפות בפריט "
+"זה."
+
+msgid "Sub-albums of this album"
+msgstr "תת-אלבומים של אלבום זה"
+
+msgid "Items in this album and its subalbums"
+msgstr "הפריטים באלבום הזה וכל התת-אלבומים שלו"
+
+msgid "Limit the number of items per album"
+msgstr "הגבל את מספר הפריטים לאלבום"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "הגבלה לא חוקית (ההגבלה חייבת להיות מספר חיובי. כדי בטל את ההגבלה יש להקליד 0)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(כדי לבטל את ההגבלה יש להקליד 0)"
+
+msgid "Comments for this album"
+msgstr "תגובות לאלבום זה (בלבד)"
+
+#, fuzzy
+msgid "Comments for this album and its subalbums"
+msgstr "הפריטים באלבום הזה וכל התת-אלבומים שלו"
+
+#, fuzzy
+msgid "Random pictures inside this album"
+msgstr "פריטים באלבום הזה"
+
+#, fuzzy
+msgid "Random pictures inside this album and its subalbums"
+msgstr "הפריטים באלבום הזה וכל התת-אלבומים שלו"
+
+msgid "Comments for this item"
+msgstr "תגובות לפריט זה"
+
+msgid "Which items"
+msgstr "אילו פריטים"
+
+msgid "New items only"
+msgstr "פריטים חדשים בלבד"
+
+msgid "New and updated items"
+msgstr "פריטים חדשים ופריטים מעודכנים"
+
+msgid "Choose the options for the feed"
+msgstr "בחר את האפשריות בשביל העדכון"
+
+msgid "RSS version"
+msgstr "גירסת RSS"
+
+msgid "Invalid version"
+msgstr "גירסה לא חוקית"
+
+msgid "Number of items"
+msgstr "מספר הפריטים"
+
+msgid "Invalid number"
+msgstr "מספר לא חוקי"
+
+msgid "language tag"
+msgstr "תג שפה"
+
+msgid "Invalid language value"
+msgstr "ערך שפה לא חוקי"
+
+msgid "by default: en-us."
+msgstr "בברית המחדל: en-US"
+
+msgid "List of all possible values"
+msgstr "רשימה של כל הערכים האפשריים"
+
+msgid "category tag"
+msgstr "תג קטגוריה"
+
+msgid "ttl tag"
+msgstr "תג ttl"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "זמן חיים לא חוקי, הזמן הזה חייב להיות מספר דקות (0 כדי לבטל ttl)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"זמן חיים: הערך הזה חייב להיות מספר דקות (0 כדי לבטל את ה-ttl) תוכונת ה-RSS צריכים לחכות בין "
+"בדיקות אם העידכון עודכן."
+
+msgid "Copyright"
+msgstr "זכויות יוצרים"
+
+msgid "Invalid copyright"
+msgstr "ערך זכיות יוצרים לא חוקי"
+
+msgid "Use image tag"
+msgstr "השתמש בתג תמונה"
+
+msgid "Include image tag"
+msgstr "כלול תג תמונה"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "מוסיף את התמונה הראשית לעידכון, בהתאמה לתמונה המוקטנת של הפריט"
+
+msgid "Invalid value"
+msgstr "ערך לא חוקי"
+
+msgid "Use enclosures"
+msgstr "השתמש בהכללה"
+
+msgid "Include enclosure tags"
+msgstr "בשתמש בתגי הכללה"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr "אפשרות זו כוללת כל תמונה בעידכון ברזולוציה מלאה"
+
+msgid "Use Media RSS"
+msgstr ""
+
+#, fuzzy
+msgid "Include Media RSS tags"
+msgstr "כלול תג תמונה"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+
+msgid "about Media RSS"
+msgstr ""
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "תג ענן (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "הם ברצונך לכלול את תג הענן, ניתן להגדיר את תכונותיו כאן"
+
+msgid "Example: "
+msgstr "דוגמא:"
+
+msgid "domain"
+msgstr "כתובת (domain)"
+
+msgid "port"
+msgstr "פורט (port)"
+
+msgid "path"
+msgstr "נתיב (path)"
+
+msgid "registerProcedure"
+msgstr "תהליך הרשמה"
+
+msgid "protocol"
+msgstr "פרוטוקול"
+
+msgid "Cloud tag"
+msgstr "תג ענן"
+
+msgid "Include the cloud tag"
+msgstr "כלול את תג הענן"
+
+msgid "Invalid string"
+msgstr "מחרוזת לא חוקית"
+
+msgid "Invalid port number"
+msgstr "מספר פורט לא חוקי"
+
+msgid "Update Feed"
+msgstr "עדכן RSS"
+
+msgid "Create Feed"
+msgstr "צור עידכון RSS"
+
+msgid "Cancel"
+msgstr "בטל"
+
+msgid "RSS feeds for this item"
+msgstr "עידכון RSS בשביל פריט זה"
+
+msgid "No feeds have yet been defined"
+msgstr "לא הוגדרו עוד עידכונים"
+
+msgid "Feed link"
+msgstr "לינן עידכון RSS"
+
+msgid "Feed type"
+msgstr "סוג עידכון RSS"
+
+msgid "Actions"
+msgstr "פעולות"
+
+msgid "delete"
+msgstr "מחק"
+
+msgid "edit"
+msgstr "ערוך"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "זוהי רשימה של כל עידכוני ה-RSS שזמינים בגלריה הזו"
+
+msgid "RSS Settings"
+msgstr "הגדרות עידכוני RSS"
+
+msgid "Settings"
+msgstr "הגדרות"
+
+msgid "Simple Feed Settings"
+msgstr "הגדרות עידכון RSS פשוט"
+
+msgid "General settings"
+msgstr "הגדרות כלליות"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "ישנם ערכים מקסימאלים וערכים בברית-מחדל שבשימוש ע\"י כל העידכנים בגרליה זו."
+
+msgid "Default number of items in feeds"
+msgstr "מספר הפריטים שיופיעו בתוך עידכוני ה-RSS (ערך זה מהווה ברית-מחדל)"
+
+msgid "Invalid default number"
+msgstr "מספר ברית-מחדל לא חוקי"
+
+msgid "Maximum number of items in feeds"
+msgstr "מספר מקסימאלי של פריטים בעידכוני ה-RSS"
+
+msgid "Invalid maximum number"
+msgstr "מספר מקסימום לא חוקי"
+
+#, fuzzy
+msgid "Maximum age for items in feeds"
+msgstr "מספר מקסימאלי של פריטים בעידכוני ה-RSS"
+
+#, fuzzy
+msgid "Invalid maximum age number"
+msgstr "מספר מקסימום לא חוקי"
+
+msgid "Default ttl"
+msgstr "ttl בברית-מחדל"
+
+msgid "Default copyright"
+msgstr "זכויות יוצרים בברית-מחדל"
+
+msgid "Feed Types"
+msgstr "סוגי עידכונים"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "הגדר אילו סוגים של עידכונים מותרים"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "אפשר שימוש בעידכוני RSS פשוטים"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr "אם נבחרה אפשרות זו, המשתמשים יוכלו להרשם לעדכון בכל אלבום או צילום שהם מסוגלים לראות"
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"כדי לערוך את ההגדרות של עידכוני ה-RSS הפשוטים, יש להשתמש בלשונית הממוקמת בחלקו העליון של המסך"
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "אפשר שימוש בעידכוני RSS הניתנים להגדרה"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"רק הבעלים של האלבום יוכלו להגדיר עידכוני RSS מסוג זה. הבעלים יוכלו להגדיר את הפרמטרים בשביל "
+"סוג העידכון."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr "לאחר שהוגדר עידכון ה-RSS, המשתמשים יוכלו להרשם אליו אם הם יכולים לצפות הפריט המקושר."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "אפשר כעידכוני RSS של צילומים בתוך האלבום"
+
+msgid "Fast"
+msgstr "מהיר"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "אפשר עידכוני RSS של תת-אלבומים של אלבום"
+
+msgid "Slow"
+msgstr "איטי"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "אפשר עידכוני RSS של תמונת בתוך אלבום והתת-אלבומים שלו"
+
+msgid "Slower"
+msgstr "איטי יותר"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "אפשר עידכוני RSS לתגובות על תמונות"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of an album"
+msgstr "אפשר עידכוני RSS לתגובות על אלבומים"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "אפשר עידכוני RSS של תמונת בתוך אלבום והתת-אלבומים שלו"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "אפשר כעידכוני RSS של צילומים בתוך האלבום"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "אפשר עידכוני RSS של תמונת בתוך אלבום והתת-אלבומים שלו"
+
+#, fuzzy
+msgid "Slowest"
+msgstr "איטי יותר"
+
+msgid "Save Settings"
+msgstr "שמור הגדרות"
+
+msgid "Reset"
+msgstr "אתחל"
+
+msgid "Helping users discover RSS feeds"
+msgstr "עוזרים למשתמשים למצוא עידכוני RSS"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"אם ברצונך לעזור למשתמשים למצוא עידכוני RSS בגלריה שלך, ניתן להוסיף בלוק RSS לערכות הנושא "
+"שבשימוש בגלריה."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"לפעולה זו יש שתי השפעות: הבלוק עצמו, שמשתמשים יכולים לראות ולבחור ממנו (ולקבל רשימת עידכוני "
+"RSS); וכותרת עליונה נסתרת שדפדפנים מתקדמים מסוגלים לאתר ומאפשרים הרשמה קלה לעידכונים."
+
+msgid "Global list of RSS feeds"
+msgstr "רשימה גלובלית של עידכוני RSS"
+
+msgid "On item"
+msgstr "על פריט"
+
+msgid "Simple Feed settings"
+msgstr "הגדרות עידכוני RSS פשוטים"
+
+msgid "For albums"
+msgstr "בשביל אלבומים"
+
+msgid "Items in the album"
+msgstr "פריטים באלבום"
+
+msgid "Sub-albums of the album"
+msgstr "תת-אלבומים של האלבום"
+
+msgid "Items in the album and its subalbums"
+msgstr "פריטים באלבום והתת-אלבומים שלו"
+
+msgid "Comments for the album"
+msgstr "תגובות לאלבום"
+
+msgid "For items"
+msgstr "בשביל פריטים"
+
+msgid "Comments for items (always selected)"
+msgstr "תגובות בשביל פריטים (תמיד מסומן)"
+
+msgid "List all RSS Feeds"
+msgstr "רשימה של כל עידכוני ה-RSS"
+
+msgid "List of RSS Feeds"
+msgstr "רשימה של עידכוני RSS"
+
+msgid "Number of feeds to display"
+msgstr "מספר עיכוני ה-RSS המוצגים"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "כולם"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "אין דיי הרשאות לראות את פריט זה."

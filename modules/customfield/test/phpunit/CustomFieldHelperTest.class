@@ -1,0 +1,133 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
+
+/**
+ * CustomFieldHelperTest tests.
+ * @package CustomField
+ * @subpackage PHPUnit
+ * @author Felix Rabinovich <felix@rabinovich.org>
+ * @version $Revision: 17580 $
+ */
+class CustomFieldHelperTest extends GalleryTestCase {
+    function CustomFieldHelperTest($methodname) {
+	$this->GalleryTestCase($methodname);
+    }
+
+    function testHandleAdminAction() {
+	$form = GalleryUtilities::getFormVariables('form');
+	$form['action']['add']['common'] = 'Add';
+	$form['common']['newField'] = '';
+	/* This only test empty field name (Bug 1165012) */
+	list ($ret, $status) = CustomFieldHelper::handleAdminAction($form);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('error' => array('empty' => 1)),
+	    $status, 'handleAdmin Action status');
+    }
+
+    function testFetchFieldValues() {
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_item2) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_album, $this->_item,
+		    $this->_item2));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array($this->_album->getId() => array(),
+				  $this->_item->getId() => array(),
+				  $this->_item2->getId() => array()),
+			    $data, 'Multi-item no value retrieve failed');
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = CustomFieldHelper::saveParameters(array(
+	    'common' => array(
+		array('field' => 'Category',
+		      'summary' => true, 'detail' => false, 'choices' => array('A', 'B', 'C'))
+	    ),
+	    'album' => array(
+		array('field' => 'Catalog Id',
+		      'summary' => false, 'detail' => true, 'choices' => array()),
+		array('field' => 'Year',
+		      'summary' => false, 'detail' => true, 'choices' => array())
+	    ),
+	    'photo' => array(
+		array('field' => 'Photographer',
+		      'summary' => true, 'detail' => true, 'choices' => array()),
+	    )
+	), $this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$itemFields = array('Catalog Id' => '123', 'Year' => 2010,
+			    'Photographer' => 'Jack Frost');
+	$ret = CustomFieldHelper::saveFieldValues($this->_item, $itemFields);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = CustomFieldHelper::saveFieldValues($this->_album, $itemFields);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_album, $this->_item,
+		    $this->_item2), 'detail');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array($this->_album->getId() => $itemFields,
+				  $this->_item->getId() => $itemFields,
+				  $this->_item2->getId() => array()),
+			    $data, 'Multi-item retrieve failed');
+
+	list ($ret) = CustomFieldHelper::fetchFieldValues("");
+	$this->assert(ERROR_BAD_PARAMETER & $ret->getErrorCode(),
+		'Non-array value should return an error 1');
+
+	list ($ret) = CustomFieldHelper::fetchFieldValues(array());
+	$this->assert(ERROR_BAD_PARAMETER & $ret->getErrorCode(),
+		'Non-array value should return an error 2');
+    }
+}
+?>

@@ -1,0 +1,191 @@
+# $Id: ca.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Jens Tkotz <jens@peino.de>
+# - Frederik Kunz <frederik.kunz@web.de>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2007-05-22 19:52+0100\n"
+"Last-Translator: el_libre http://www.catmidia.cat <el.libre@gmail.com>\n"
+"Language-Team: Catalan <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10.1\n"
+
+msgid "Upload Applet"
+msgstr "Aplicació de Pujada"
+
+msgid "Easy to use upload applet for media"
+msgstr "És fàcil fer servir l'aplicació de pujada per a mitjans"
+
+msgid "Import"
+msgstr "Importa"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"L'aplicació de pujada es basa en un mòdul de G2 que no està activat. Demaneu a "
+"l'administrador que activi el mòdul 'remote'."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Descarregant Aplicació de Pujada per a mitjans"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr "El vostre navegador no suporta applets, haureu d'utilitzar un altre mètode de pujada."
+
+msgid "Uploading files..."
+msgstr "Pujant els fitxers..."
+
+msgid "Upload complete"
+msgstr "S'ha acabat la pujada"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"Podeu continuar pujant fitxers o anar a una de les fotografies que heu pujat clicant els "
+"enllaços."
+
+msgid "Upload Applet Settings"
+msgstr "Paràmetres de l'aplicació de pujada"
+
+msgid "Defaults"
+msgstr "Predeterminats"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Aquestes variables donen valors per defecte per a les aplicacions que els usuaris/es "
+"executin.els usuaris/es podran fer canvis en aquestes configuracions o canviant el seu arxiu "
+"local de configuració."
+
+msgid "You have no default variables"
+msgstr "No hi ha cap variable per defecte"
+
+msgid "Variable"
+msgstr "Variable"
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Delete"
+msgstr "Suprimeix"
+
+msgid "Add a new default variable"
+msgstr "Afegeix una nova variable per defecte"
+
+msgid "You must enter a variable name and value"
+msgstr "Heu d'introduir un nom i un valor de la variable"
+
+msgid "New variable"
+msgstr "Nova variable"
+
+msgid "Add variable"
+msgstr "Afegeix variable"
+
+msgid "Overrides"
+msgstr "Superposicions"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Aquestes variables es sobreposen a altres valors per a les aplicacions que utilitzin els "
+"usuaris. Els usuaris no podràn canviar aquests valors."
+
+msgid "You have no override variables"
+msgstr "No teniu cap variable superposada"
+
+msgid "Add a new override variable"
+msgstr "Afegeix una nova variable superposada"
+
+msgid "Help"
+msgstr "Ajuda"
+
+#, fuzzy
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Aquesta és una sel·lecció de variables que afecten el procés de pujada."
+
+msgid "variable"
+msgstr "variable"
+
+msgid "values"
+msgstr "valors"
+
+msgid "help"
+msgstr "ajuda"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"dóna instruccions a l'aplicació per a que redimensioni les imatges abans de pujar-les a "
+"l'àlbum; per defecte, les redimensiona a la mida intermitja de l'àlbum"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+"dimensió a la què es redimensionaran les imatges; se superposa a la configuració de l'àlbum"
+
+msgid "no automatic captions"
+msgstr "No omplir els camps automàticament"
+
+msgid "use filenames for captions"
+msgstr "Utilitza el nom del fitxer per a omplir els camps"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "en fer servir el nom del fitxer per als camps, elimina l'extensió"
+
+msgid "use EXIF extension for caption"
+msgstr "utilitza l'extensió EXIF per a omplir el camp"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"si el valor és 'false' (fals), l'aplicació de pujada utilitzarà UTF-8 per a enviar les "
+"metadades de la imatge a Gallery, en comptes aplicar les entrades HTML"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"configureu.ho com a  'false' si voleu evitar perdre les dades EXIF quan la imatge es "
+"redimensioni i no es trobi ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr ""
+"si el valor és 'true' (cert), l'aplicació no mostrarà error si no pot trobar ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "si el valor és 'true' (cert), l'aplicació no mostrarà error si no pot trobar Jpegtran"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "qualitat de compressió JPEg al redimensionar amb ImageMagick"
+
+msgid "Complete list of variables"
+msgstr "Llista completa de variables"

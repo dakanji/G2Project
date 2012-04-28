@@ -1,0 +1,545 @@
+# $Id: tr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - İshak Göker Işık <admin@ansolon.org>
+# - Roman Neumüller <email@katpatuka.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:42-0700\n"
+"PO-Revision-Date: 2007-09-13 20:30+0200\n"
+"Last-Translator: Roman Neumüller <email@katpatuka.org>\n"
+"Language-Team: Turkish <admin@ansolon.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+
+msgid "This feed no longer exists!"
+msgstr "Bu besleme artık mevcut değil"
+
+msgid "Feeds of that type are not allowed!"
+msgstr ""
+
+msgid "Incorrect feed type!"
+msgstr "Yanlış besleme türü!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr ""
+
+msgid "Not permitted to view comments for this item"
+msgstr "Bu albüm için yorumları görüntülemeye izin verilmiyor"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "İhraç"
+
+msgid "RSS Feed for this Album"
+msgstr "Bu Albüm için RSS Besleme"
+
+msgid "RSS Feed for this Photo"
+msgstr "Bu Foto için RSS Besleme"
+
+msgid "RSS Feed for this Movie"
+msgstr "Bu Film için RSS Besleme"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "%s için RSS Besleme"
+
+msgid "Configure RSS Feeds"
+msgstr "RSS Beslemeleri yapılandır"
+
+msgid "Simple RSS Feed"
+msgstr "Basir RSS Besleme"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr ""
+
+msgid "RSS Feed"
+msgstr "RSS Besleme"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Ayarlandığı RSS beslemesinin adı"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr ""
+
+#, c-format
+msgid "In album %s"
+msgstr "%s albümünde"
+
+msgid "Items in an album"
+msgstr "Albümdeki ögeler"
+
+msgid "Sub-albums of an album"
+msgstr "Albümün alt-albümleri"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Bir albümün ve onun alt albümlerin ögeleri"
+
+msgid "Comments for an album"
+msgstr "Albüm için yorumlar"
+
+msgid "Comments for an item"
+msgstr "Öge için yorumlar"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Albüm ve altalbümleri için yorumlar"
+
+msgid "Random items in an album"
+msgstr "Albümdeki rastgele ögeler"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Albümdeki ve alt albümlerindedeki rastgele ögeler"
+
+msgid "RSS Feeds"
+msgstr "RSS Beslemeleri"
+
+msgid "Settings have been saved"
+msgstr "Ayarlar kaydedildi"
+
+msgid "Feed successfully deleted"
+msgstr "RSS beslemesi başarıyla silindi"
+
+msgid "An error occured"
+msgstr "Hata oluştu"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Edit Feed"
+msgstr "Besleme Düzenle"
+
+msgid "New Feed"
+msgstr "Yeni Besleme"
+
+msgid "Feed URL"
+msgstr "Besleme URL"
+
+msgid "Feed name"
+msgstr "Besleme adı"
+
+msgid "You can't change the name of the feed"
+msgstr "Besleme ismini değiştiremezsiniz"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+
+msgid "You must enter a name"
+msgstr "İsim girmelisiniz"
+
+msgid "This name is already used, please select another one"
+msgstr ""
+
+msgid "Description"
+msgstr "Açıklama"
+
+msgid "Feed settings"
+msgstr "Besleme ayarları"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr ""
+
+msgid "Type of feed"
+msgstr "Besleme türü"
+
+msgid "Items in this album"
+msgstr "Bu albümdeki ögeler"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+
+msgid "Sub-albums of this album"
+msgstr "Bu albümün alt-albümleri"
+
+msgid "Items in this album and its subalbums"
+msgstr "Bu albümün ögeler ve altalbümleri"
+
+msgid "Limit the number of items per album"
+msgstr ""
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Geçersiz limit (pozitif sayı olmak zorunda, 0 girerek limiti geçersiz kılarsınız)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(limitsiz için 0 girin)"
+
+msgid "Comments for this album"
+msgstr "Bu albüm için yorumlar"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Bu albüm ve altalbümleri için yorumlar"
+
+msgid "Random pictures inside this album"
+msgstr "Bu albümdeki rastgele resimler"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Bu albümün ve alt albümleri rastgele resimler"
+
+msgid "Comments for this item"
+msgstr "Bu öge için yorumlar"
+
+msgid "Which items"
+msgstr "Hangi ögeler"
+
+msgid "New items only"
+msgstr "Sadece yeni ögeler"
+
+msgid "New and updated items"
+msgstr "Yeni ve güncellenen ögeler"
+
+msgid "Choose the options for the feed"
+msgstr ""
+
+msgid "RSS version"
+msgstr "RSS versiyonu"
+
+msgid "Invalid version"
+msgstr "Geçersiz versiyon"
+
+msgid "Number of items"
+msgstr "Öge Sayısı"
+
+msgid "Invalid number"
+msgstr "Geçersiz numara"
+
+msgid "language tag"
+msgstr "dil etiketi"
+
+msgid "Invalid language value"
+msgstr "Geçersiz dil değeri"
+
+msgid "by default: en-us."
+msgstr "varsayılan: en-us."
+
+msgid "List of all possible values"
+msgstr ""
+
+msgid "category tag"
+msgstr "kategori etiketi"
+
+msgid "ttl tag"
+msgstr "ttl etiketi"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr ""
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+
+msgid "Copyright"
+msgstr "Telif Hakkı"
+
+msgid "Invalid copyright"
+msgstr "Geçersiz telif hakkı"
+
+msgid "Use image tag"
+msgstr "Resim etiketi kullan"
+
+msgid "Include image tag"
+msgstr "Resim etiketi içine kat"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr ""
+
+msgid "Invalid value"
+msgstr "Geçersiz değer"
+
+msgid "Use enclosures"
+msgstr ""
+
+msgid "Include enclosure tags"
+msgstr ""
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+
+msgid "Use Media RSS"
+msgstr "Medya RSS kullan"
+
+msgid "Include Media RSS tags"
+msgstr ""
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+
+msgid "about Media RSS"
+msgstr "Medya RSS hakkında bilgi"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Bulut etiketi (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr ""
+
+msgid "Example: "
+msgstr "Örnek:"
+
+msgid "domain"
+msgstr "alanadı"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "veriyolu"
+
+msgid "registerProcedure"
+msgstr ""
+
+msgid "protocol"
+msgstr "protokol"
+
+msgid "Cloud tag"
+msgstr "Bulut etiketi"
+
+msgid "Include the cloud tag"
+msgstr ""
+
+msgid "Invalid string"
+msgstr "Geçersiz şerit"
+
+msgid "Invalid port number"
+msgstr "Geçersiz port numarası"
+
+msgid "Update Feed"
+msgstr "Beslemeyi Güncelle"
+
+msgid "Create Feed"
+msgstr "Besleme Yarat"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "RSS feeds for this item"
+msgstr "Bu öge için RSS beslemeleri"
+
+msgid "No feeds have yet been defined"
+msgstr ""
+
+msgid "Feed link"
+msgstr "Besleme bağlantısı"
+
+msgid "Feed type"
+msgstr "Besleme türü"
+
+msgid "Actions"
+msgstr "Hareketler"
+
+msgid "delete"
+msgstr "sil"
+
+msgid "edit"
+msgstr "düzenle"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr ""
+
+msgid "RSS Settings"
+msgstr "RSS Ayarları"
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Simple Feed Settings"
+msgstr "Basit Besleme Ayarları"
+
+msgid "General settings"
+msgstr "Genel ayarlar"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+
+msgid "Default number of items in feeds"
+msgstr "Beslemedik varsayılan öge sayısı"
+
+msgid "Invalid default number"
+msgstr "Geçersiz varsayılan sayı"
+
+msgid "Maximum number of items in feeds"
+msgstr "Beslemedeki maksimum öge sayısı"
+
+msgid "Invalid maximum number"
+msgstr "Geçersiz maksimum sayı"
+
+msgid "Maximum age for items in feeds"
+msgstr "Beslemedeki maksimum öge yaşı"
+
+msgid "Invalid maximum age number"
+msgstr "Geçersiz maksimum yaşı"
+
+msgid "Default ttl"
+msgstr "Varayılan ttl"
+
+msgid "Default copyright"
+msgstr "Varsayılan telif hakkı"
+
+msgid "Feed Types"
+msgstr "Besleme Türleri"
+
+msgid "Configure which types of feeds are allowed"
+msgstr ""
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr ""
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr ""
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr ""
+
+msgid "Fast"
+msgstr "Hızlı"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr ""
+
+msgid "Slow"
+msgstr "Yavaş"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr ""
+
+msgid "Slower"
+msgstr "Yavaşça"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr ""
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr ""
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr ""
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr ""
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr ""
+
+msgid "Slowest"
+msgstr "En Yavaş"
+
+msgid "Save Settings"
+msgstr "Ayarları Kaydet"
+
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgid "Helping users discover RSS feeds"
+msgstr "RSS beslemeleri keşfetmek için kullanıcı yardım ediniyor"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+
+msgid "Global list of RSS feeds"
+msgstr "RSS beslemelerin global listesi"
+
+msgid "On item"
+msgstr ""
+
+msgid "Simple Feed settings"
+msgstr "Basit Besleme ayarları"
+
+msgid "For albums"
+msgstr "Albümler İçin"
+
+msgid "Items in the album"
+msgstr "Albümdeki ögeler"
+
+msgid "Sub-albums of the album"
+msgstr "Albümün altalbümleri"
+
+msgid "Items in the album and its subalbums"
+msgstr "Albümdeki ve altalbümlerinedeki ögeler"
+
+msgid "Comments for the album"
+msgstr "Alüm için yorumlar"
+
+msgid "For items"
+msgstr "Ögeler için"
+
+msgid "Comments for items (always selected)"
+msgstr "Ögeler için yorumlar (herzaman seçili)"
+
+msgid "List all RSS Feeds"
+msgstr "Tüm RSS Beslemeleri Listele"
+
+msgid "List of RSS Feeds"
+msgstr "RSS Besleme Listesi"
+
+msgid "Number of feeds to display"
+msgstr "Gösterilecek besleme sayısı"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "hepsi"

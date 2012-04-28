@@ -1,0 +1,308 @@
+# $Id: cs.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-05 13:12+0100\n"
+"PO-Revision-Date: 2006-12-13 19:47+0100\n"
+"Last-Translator: Martin Štěpán <drewak@gmail.com>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+
+msgid "Image Block"
+msgstr "Blok s obrázky"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Náhodná, poslední nebo nejprohlíženější fotografie nebo album"
+
+msgid "Blocks"
+msgstr "Bloky"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Náhodný obrázek"
+msgstr[1] "Náhodné obrázky"
+msgstr[2] "Náhodných obrázků"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Nejnovější obrázek"
+msgstr[1] "Nejnovější obrázky"
+msgstr[2] "Nejnovějších obrázků"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Nejprohlíženější obrázek"
+msgstr[1] "Nejprohlíženější obrázky"
+msgstr[2] "Nejprohlíženějších obrázků"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Nahodné album"
+msgstr[1] "Náhodná alba"
+msgstr[2] "Náhodných alb"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Nejnovější album"
+msgstr[1] "Nejnovější alba"
+msgstr[2] "Nejnovějších alb"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Nejprohlíženější album"
+msgstr[1] "Nejprohlíženější alba"
+msgstr[2] "Nejprohlíženějších alb"
+
+msgid "Picture of the Day"
+msgstr "Obrázek dne"
+
+msgid "Picture of the Week"
+msgstr "Obrázek týdne"
+
+msgid "Picture of the Month"
+msgstr "Obrázek měsíce"
+
+msgid "Album of the Day"
+msgstr "Album dne"
+
+msgid "Album of the Week"
+msgstr "Album týdne"
+
+msgid "Album of the Month"
+msgstr "Album měsíce"
+
+msgid "Date:"
+msgstr "Datum:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Počet zobrazení: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Vlastník: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Toto album nezobrazovat v bloku obrázků"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Použít nastavení bloku obrázků na vnořená alba"
+
+msgid "Image Block Settings"
+msgstr "Nastavení bloků obrázků"
+
+msgid "Settings saved successfully"
+msgstr "Nastavení úspěšně uloženo"
+
+msgid "Show"
+msgstr "Zobrazit"
+
+msgid "Heading"
+msgstr "Hlavička"
+
+msgid "Title"
+msgstr "Titulek"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "View Count"
+msgstr "Počet zobrazení"
+
+msgid "Owner"
+msgstr "Vlastník"
+
+msgid "Frames"
+msgstr "Rámečky"
+
+msgid "View samples"
+msgstr "Zobrazit ukázky"
+
+msgid "Album Frame"
+msgstr "Rámeček alba"
+
+msgid "Photo Frame"
+msgstr "Rámeček fotografie"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Reset"
+msgstr "Výchozí hodnoty"
+
+msgid "External Image Block"
+msgstr "Externí blok s obrázkem"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Pokud chcete vložit blok obrázků do stránek mimo Galerii, použijte PHP kód podobný tomuto."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Rourou '|' oddělený seznam položek vybraných z: randomImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; výchozí je randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Rourou '|' oddělený seznam položek vybraných z: title, date, views, owner, heading, "
+"fullSize; nebo hodnota \"none\""
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Omezit výběr položek na položky vnořené v albu se zadaným ID nebo ID položky zobrazené při "
+"použití s daným typem bloku položek"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Změnit velikost obrázků na maximální. Jedná-li se o osamocený obrázek, Galerie bude hledat "
+"obrázek s velikostí nejbližší k zadané hodnotě - vetším obrázkům bude snížena velikost podle "
+"webového prohlížeče. Jestliže je to vybráno dohromady s %sshow=fullSize, bude vždy použita "
+"plná velikost obrázku a zmenšena pokud to bude nutné."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Stejně jako vyjímka %smaxSize toto nebude nahrazovat obrázky s menší velikostí než je "
+"požadovaná, čili získáte nejbližší velikost. Poznámka: to může vést k zpomalení zobrazení, "
+"když se zmenšuje hodně velký obrázek pro webový prohlížeč."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"HREF pro odkaz na obrázek; žádná hodnota -  bez odkazu; přednastaven je odkaz na položku v "
+"Galerii"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Přidat cíl pro odkaz (například pro otevření odkazů v novém okně prohlížeče)"
+
+msgid "Image frame to use around images"
+msgstr "Rámeček okolo obrázků"
+
+msgid "Image frame to use around albums"
+msgstr "Rámeček okolo alb"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Pokud bude vynechaný některý parametr označený '*', bude použita výchozí hodnota definovaná "
+"výše."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Rámečky obrázků vyžadují správně zobrazené CSS. Pro podporu rámečků použijte následující kód "
+"v %s sekci."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Zadejte id rámečku (nebo seznam id oddělených rourou '|'). Pokud chcete použít rámečky "
+"nakonfigurované výše, parametr vynechte. ID rámečků jsou jména podadresářů v adresáři %s."
+
+msgid "Image type"
+msgstr "Typ obrázku"
+
+msgid "Random image"
+msgstr "Náhodný obrázek"
+
+msgid "Recent image"
+msgstr "Nový obrázek"
+
+msgid "Viewed image"
+msgstr "Prohlížený obrázek"
+
+msgid "Random album"
+msgstr "Nahodné album"
+
+msgid "Recent album"
+msgstr "Nové album"
+
+msgid "Viewed album"
+msgstr "Prohlížené album"
+
+msgid "Daily image"
+msgstr "Obrázek dne"
+
+msgid "Weekly image"
+msgstr "Obrázek týdne"
+
+msgid "Monthly image"
+msgstr "Obrázek měsíce"
+
+msgid "Daily album"
+msgstr "Album dne"
+
+msgid "Weekly album"
+msgstr "Album týdne"
+
+msgid "Monthly album"
+msgstr "Album měsíce"
+
+msgid "Number of items"
+msgstr "Počet položek"
+
+msgid "Use default settings"
+msgstr "Použít výchozí nastavení"
+
+msgid "Show heading"
+msgstr "Zobrazit hlavičku"
+
+msgid "Show title"
+msgstr "Zobrazit titulek"
+
+msgid "Show date"
+msgstr "Zobrazit datum"
+
+msgid "Show view count"
+msgstr "Zobrazit počet zobrazení"
+
+msgid "Show owner"
+msgstr "Zobrazit vlastníka"

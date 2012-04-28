@@ -1,0 +1,213 @@
+# $Id: sk.po 20122 2009-02-17 17:32:58Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
+"PO-Revision-Date: 2009-02-11 21:57+0100\n"
+"Last-Translator: shely <helkas@gmail.com>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Notification"
+msgstr "Upozorňovanie"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "Umožňuje používateľom zapnúť si upozorňovanie na udalosti."
+
+msgid "Gallery"
+msgstr "Galéria"
+
+msgid "Watch List"
+msgstr "Zoznam upozornení"
+
+msgid "Watch"
+msgstr "Upozorniť"
+
+msgid "Plugin Activation Event"
+msgstr "Aktivácia rozšírenia"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "Rozšírenie %s %s bolo aktivované"
+
+msgid "Plugin Deactivation Event"
+msgstr "Deaktivácia rozšírenia"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "Rozšírenie %s %s bolo deaktivované"
+
+msgid "Error Event"
+msgstr "Chyba"
+
+msgid "Item Order Event"
+msgstr "Zoradenie položky"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "Položky v %s boli preusporiadané."
+
+msgid "User Login Event"
+msgstr "Prihlásenie používateľa"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "Používateľ %s sa prihlásil."
+
+msgid "User Login Failed Event"
+msgstr "Nesprávne prihlásenie používateľa"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "Prihlásenie používateľa %s zlyhalo."
+
+msgid "User Logout Event"
+msgstr "Odhlásenie používateľa"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "Používateľ %s sa odhlásil."
+
+msgid "Permission Removed Event"
+msgstr "Odstránenie práv"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "Oprávnenia pre položky %s boli zmenené."
+
+msgid "Plugin Uninstalled Event"
+msgstr "Odinštalovanie rožšírenia"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr "Rozšírenie %s %s bolo odinštalované"
+
+msgid "Album Structure Change Event"
+msgstr "Zmena štruktúry albumu"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "Nastala zmena zobraziteľného stromu"
+
+msgid "Entity Saved Event"
+msgstr "Uloženie položky"
+
+#, c-format
+msgid "%s was saved"
+msgstr "Položka %s bola uložená."
+
+msgid "Entity Deleted Event"
+msgstr "Odstránenie položky"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "Položka %s bola odstránená"
+
+msgid "Item Added"
+msgstr "Pridanie položky"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"Nová položka %s bola pridaná. Ak ju chcete zobraziť, kliknite sem: \n"
+"%s"
+
+msgid "Select Event"
+msgstr "Vyberte udalosť"
+
+msgid "Select Handler"
+msgstr "Vyberte spracovanie"
+
+msgid "Send an email"
+msgstr "Odoslať email"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr ""
+"Ak už naďalej nechcete mať zapnuté toto upozornenie, aktualizujte prosím nastavenia Vášho "
+"konta na stránke:"
+
+msgid "Item Notification Settings"
+msgstr "Nastavenia upozorňovania položkou"
+
+msgid "Settings saved successfully"
+msgstr "Nastavenia boli úspešne uložené"
+
+msgid "Event"
+msgstr "Udalosť"
+
+msgid "Action"
+msgstr "Akcia"
+
+msgid "Subscribe"
+msgstr "Upozorňovať"
+
+msgid "Apply to sub items"
+msgstr "Aplikovať na vnorené položky"
+
+msgid "Not authorized to receive notifications"
+msgstr "Nie ste oprávnený, aby ste dostávali upozornenia"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Reset"
+msgstr "Východzie hodnoty"
+
+msgid "Site Notification Administration"
+msgstr "Administrácia upozorňovania stránkou"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Handler"
+msgstr "Spracovanie"
+
+msgid "Enabled"
+msgstr "Zapnuté"
+
+msgid "Public"
+msgstr "Verejné"
+
+msgid "Event Handler is required"
+msgstr "Nástroj na spracovanie udalosti je povinný"
+
+msgid "User Notification Administration"
+msgstr "Administrácia upozorňovania používateľa"
+
+msgid "Events"
+msgstr "Udalosti"
+
+msgid "Method"
+msgstr "Metóda"
+
+msgid "You are not subscribed to any available events"
+msgstr "Nemáte povolené upozorňovanie pre žiadnu dostupnú udalosť"

@@ -1,0 +1,166 @@
+# $Id: zh_CN.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 10:01-0800\n"
+"PO-Revision-Date: 2006-03-10 12:54+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "幻灯秀（全屏）"
+
+msgid "Slideshow Applet"
+msgstr "幻灯秀程序"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "全屏幕的幻灯秀需要使用 Java Applet"
+
+msgid "Display"
+msgstr "显示"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "查看幻灯秀（全屏）"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "项目路径（如，/album/image.jpg.html）"
+
+msgid "Slideshow"
+msgstr "幻灯秀"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr "上传工具需要的图库2模块目前没有开启，请联络管理员开启 '遥控' 模块。"
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "下载图库遥控JAVA程序"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "您的浏览器不支持JAVA Applets；请您使用其他的上传方法。"
+
+msgid "Slideshow Applet Settings"
+msgstr "幻灯秀程序设定"
+
+msgid "Defaults"
+msgstr "默认"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"这些变量提供用户在你的网站上使用时的默认值。使用者可以在程序界面上更改这些数值，或在他们本地"
+"主机上的默认值中修改。"
+
+msgid "You have no default variables"
+msgstr "没有默认变量"
+
+msgid "Variable"
+msgstr "变量"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "Delete"
+msgstr "上出"
+
+msgid "Add a new default variable"
+msgstr "添加默认变量"
+
+msgid "You must enter a variable name and value"
+msgstr "必须输入变量名和数值"
+
+msgid "New variable"
+msgstr "新变量"
+
+msgid "Add variable"
+msgstr "添加变量"
+
+msgid "Overrides"
+msgstr "优先"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr "该变量优于用户设定值，用户不能改变这些变量。"
+
+msgid "You have no override variables"
+msgstr "没有优先变量"
+
+msgid "Add a new override variable"
+msgstr "添加优先变量"
+
+msgid "Help"
+msgstr "帮助"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "这里有影响幻灯秀的变量选择。"
+
+msgid "variable"
+msgstr "变量"
+
+msgid "values"
+msgstr "数值"
+
+msgid "help"
+msgstr "帮助"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "每次最多显示图像数"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "幻灯秀要显示子相册中的图片么？"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "如果为真，将会防止幻灯秀下载全解析度的图像"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "结束时要重新播放么?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "如果为真，小于屏幕的图像不会拉伸到满屏。"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr "如果为真，幻灯秀会必要时事先下载图像，这回加速过程，但是也会浪费带宽。"
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "幻灯秀的背景颜色"
+
+msgid "size of text overlay"
+msgstr "叠加文字尺寸"
+
+msgid "font of text overlay"
+msgstr "叠加文字字体"
+
+msgid "should the pictures be shown in random order?"
+msgstr "随机显示图片么？"
+
+msgid "Complete list of variables"
+msgstr "变量完整列表"

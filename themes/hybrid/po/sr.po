@@ -1,0 +1,259 @@
+# $Id: sr.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:53-0800\n"
+"PO-Revision-Date: 2008-09-21 18:00+0100\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "Hybrid"
+msgstr "Hibridni"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "Kombinovan prikaz albuma, slike i projekcije"
+
+msgid "Show text with thumbnails"
+msgstr "Prikaz teksta sa umanjenim prikazima"
+
+msgid "Show dates for albums"
+msgstr "Prikaz datuma za albume"
+
+msgid "Show dates with thumbnails"
+msgstr "Prikaz datuma sa umanjenim prikazima"
+
+msgid "Show dates in image view"
+msgstr "Prikaz datuma u pregledu slika"
+
+msgid "Show album sizes"
+msgstr "Prikaz veličina albuma"
+
+msgid "Show view counts"
+msgstr "Prikaz broja pregleda"
+
+msgid "Mouseover on thumbnails"
+msgstr "Prelaskom miša preko umanjenih prikaza, prikaži"
+
+msgid "None"
+msgstr "Ništa"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/Time"
+msgstr "Datum/Vreme"
+
+msgid "Title (Date)"
+msgstr "Naslov (Datum)"
+
+msgid "Title (Date/Time)"
+msgstr "Naslov (Datum i vreme)"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Vlasnik: %s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "Pregledano: %d put"
+msgstr[1] "Pregledano: %d puta"
+
+msgid "Date: "
+msgstr "Datum: "
+
+msgid "Keywords: "
+msgstr "Ključne reči: "
+
+msgid "Link to this item:"
+msgstr "Veži za ovaj objekat:"
+
+msgid "Error!"
+msgstr "Greška!"
+
+msgid "Show Details"
+msgstr "Prikaži detalje"
+
+msgid "Hide Details"
+msgstr "Sakrij detalje"
+
+msgid "Show Item Links"
+msgstr "Prikaži veze objekta"
+
+msgid "Hide Item Links"
+msgstr "Sakrij veze objekta"
+
+msgid "Item Details"
+msgstr "Detalji"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"Prikaz albuma:\n"
+"| razmak = pokreni projekciju\n"
+"| ctrl-desno/levo = prikaži/sakrij izdvojeno okno\n"
+"| ctrl-gore/dole = prikaži/sakrij veze ka objektima\n"
+"Prikaz slika:\n"
+"| razmak = pokreni/zaustavi projekciju\n"
+"| escape = povratak na prikaz albuma\n"
+"| levo/desno = sledeća/prethodna slika\n"
+"| gore/dole = prikaži/sakrij tekst sa opisom\n"
+"| page up/down = listanje teksta sa opisom\n"
+"| ctrl-gore/dole = biranje pune/skalirane veličine\n"
+"Kursorski tasteri pomeraju sliku u punoj veličini; koristite ih u kombinaciji sa tasterom "
+"shift za gore opisane funkcije\n"
+"Prikaz detalja o objektu:\n"
+"| escape = zatvaranje prozora"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "Prikaz teksta sa umanjenim prikazima"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "Povratak u album"
+
+msgid "Pause Slideshow"
+msgstr "Pauziraj projekciju"
+
+msgid "Start Slideshow"
+msgstr "Pokreni projekciju"
+
+msgid "Full Size"
+msgstr "Puna veličina"
+
+msgid "Fit Size"
+msgstr "Uklopi sliku"
+
+msgid "No Previous Image"
+msgstr "Nema prethodne slike"
+
+msgid "Previous Image"
+msgstr "Prethodna slika"
+
+#, fuzzy
+msgid "Previous Image (Load new page)"
+msgstr "Prethodna slika"
+
+msgid "No Next Image"
+msgstr "Nema sledeće slike"
+
+msgid "Next Image"
+msgstr "Sledeća slika"
+
+msgid "Next Image (Load new page)"
+msgstr ""
+
+msgid "Hide sidebar"
+msgstr "Sakrij izdvojeno okno"
+
+msgid "Show sidebar"
+msgstr "Prikaži izdvojeno okno"
+
+msgid "no thumbnail"
+msgstr "bez umanjenog prikaza"
+
+msgid "Item Actions"
+msgstr "Radnje nad objektom"
+
+msgid "Continue..."
+msgstr "Nastavak..."
+
+msgid "Navigation"
+msgstr "Navigacija"
+
+msgid "Display Options"
+msgstr "Parametri prikaza"
+
+msgid "Keyboard Controls"
+msgstr "Kontrole preko tastature"
+
+msgid "View"
+msgstr "Prikaz"
+
+msgid "guest"
+msgstr "gost"
+
+msgid "Slideshow Options"
+msgstr "Parametri projekcije"
+
+msgid "Delay"
+msgstr "Interval"
+
+msgid "3 seconds"
+msgstr "3 sekunde"
+
+msgid "5 seconds"
+msgstr "5 sekundi"
+
+msgid "7 seconds"
+msgstr "7 sekundi"
+
+msgid "10 seconds"
+msgstr "10 sekundi"
+
+msgid "15 seconds"
+msgstr "15 sekundi"
+
+msgid "20 seconds"
+msgstr "20 sekundi"
+
+msgid "Direction"
+msgstr "Smer"
+
+msgid "forward"
+msgstr "napred"
+
+msgid "reverse"
+msgstr "nazad"
+
+msgid "random"
+msgstr "slučajan"
+
+#~ msgid "Show text"
+#~ msgstr "Prikaži tekst"
+
+#~ msgid "Hide text"
+#~ msgstr "Sakrij tekst"

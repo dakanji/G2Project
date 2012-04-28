@@ -1,0 +1,286 @@
+# $Id: et.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-03 13:15+0300\n"
+"PO-Revision-Date: 2006-08-03 13:38+0200\n"
+"Last-Translator: poromaan <poromaan@gmail.com>\n"
+"Language-Team: Eesti <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "KB"
+msgstr "KB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "GB"
+msgstr "GB"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr "Hoiatus: Sa oled jõudnud oma kettakvoodini (%s %s), seda pilti ei lisata."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "Sa kasutad %s %s oma %s %s."
+
+msgid "Quotas"
+msgstr "Kvoodid"
+
+msgid "User/Group Disk Quotas"
+msgstr "Kasutaja/Grupi KettaKvoodid"
+
+msgid "Gallery"
+msgstr "Galerii"
+
+msgid "Create A New Group Quota"
+msgstr "Loo Uus GrupiKvoot"
+
+msgid "Group Name"
+msgstr "Grupi Nimi"
+
+msgid "(required)"
+msgstr "(kohustuslik)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "GrupiKvoot '%s' on juba olemas"
+
+msgid "Quota Size"
+msgstr "Kvoodi Suurus"
+
+msgid "You must enter a quota size."
+msgstr "Sa pead sisestama kvoodi suuruse."
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "Kvoodi suurus peab olema väiksem kui 2097152 MB (2048 GB)."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "Vigane Kkvoodi suurus, lubatud vaid positiivsed numbrid ja kümnendikud"
+
+msgid "Create Group Quota"
+msgstr "Loo GrupiKvoot"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Create A New User Quota"
+msgstr "Loo Uus KasutajaKvoot"
+
+msgid "User Name"
+msgstr "Kasutajanimi"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "Kasutajakvoot '%s' on juba olemas"
+
+msgid "Create User Quota"
+msgstr "Loo KasutajaKvoot"
+
+msgid "Delete A Group Quota"
+msgstr "Kustuta GrupiKvoot"
+
+msgid "Are you sure?"
+msgstr "Oled sa kindel?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr ""
+"See eemaldab täielikult %s (%s %s) grupikvoodi Galeriist. Seda ei saa hiljem olematuks muuta!"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Delete A User Quota"
+msgstr "Kustuta KasutajaKvoot"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr ""
+"See eemaldab täielikult %s (%s %s) kasutajakvoodi Galeriist. Seda ei saa hiljem olematuks "
+"muuta!"
+
+msgid "Edit A Group Quota"
+msgstr "Muuda GrupiKvooti"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Undo"
+msgstr "Taasta endine"
+
+msgid "Edit A User Quota"
+msgstr "Muuda KasutajaKvooti"
+
+msgid "Quotas Administration"
+msgstr "Kvootide Administreerimine"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "Eemaldasin grupikvoodi '%s'"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "Lõin grupikvoodi '%s'"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "Mutsin grupikvoodi '%s'"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "Eemaldasin kasutajakvoodi '%s'"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "Lõin kasutajakvoodi '%s'"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "Muutsin kasutajakvoodi '%s'"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"See süsteem laseb sul määrata kasutajatele kettakvoote. Luues grupikvoodi, määratakse "
+"kõigile sellesse gruppi kuuluvatele kasutajatele see kvoot. Kui kasutaja kuulub mitmesse "
+"gruppi, määratakse kõige suurem kvoot. Kui aga luua kasutajakvoot, muutub see peamiseks ja "
+"kirjutab üle kõik grupikvootide poolt määratud kvoodid."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "Süsteemis on %d grupikvoot."
+msgstr[1] "Süsteemis on kokku %d grupikvooti."
+
+msgid "Group Quotas"
+msgstr "GrupiKvoodid"
+
+msgid "Create Quota"
+msgstr "Loo Kvoot"
+
+msgid "Edit Quota"
+msgstr "Muuda Kvooti"
+
+msgid "Delete Quota"
+msgstr "Kustuta Kvoot"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "Grupikvoot '%s' ei eksisteeri. Sa pead kõigepealt kvoodi looma."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "Grupikvoot '%s' on juba olemas."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Grupp '%s' ei eksisteeri."
+
+msgid "You must enter a group name"
+msgstr "Sa pead sisestama grupi nime"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "Muuda GrupiKvoote (nimekirja järgi)"
+
+msgid "&laquo; first"
+msgstr "&laquo; esimene"
+
+msgid "&laquo; back"
+msgstr "&laquo; tagasi"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Vaatad lehte %d / %d"
+
+msgid "next &raquo;"
+msgstr "järgmine &raquo;"
+
+msgid "last &raquo;"
+msgstr "viimane &raquo;"
+
+msgid "Quota"
+msgstr "Kvoot"
+
+msgid "Action"
+msgstr "Tegevus"
+
+msgid "edit"
+msgstr "muuda"
+
+msgid "delete"
+msgstr "kustuta"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "Süsteemis on %d kasutajakvoot."
+msgstr[1] "Süsteemis on %d kasutajakvooti."
+
+msgid "User Quotas"
+msgstr "KasutajaKvoodid"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "Kasutajakvoot '%s' ei eksisteeri. Sa pead kõigepealt kvoodi looma."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "Kasutajakvoot '%s' on juba olemas."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Kasutajat '%s' ei eksisteeri."
+
+msgid "You must enter a username"
+msgstr "Sa pead sisestama kasutajanime"
+
+msgid "Edit User Quotas (by list)"
+msgstr "Muuda KasutajaKvoote (nimekirja järgi)"
+
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr "Kasutatud: %0.2f %s (%s%%)"
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr "Kvoot: %0.2f %s"
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr "Kasutatud: %0.2f %s"
+
+msgid "Quota: Unlimited"
+msgstr "Kvoot: Piiramatu"
+
+msgid "User Quota Block"
+msgstr "KasutajaKvoodi Blokk"

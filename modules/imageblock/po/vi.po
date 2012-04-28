@@ -1,0 +1,303 @@
+# $Id: vi.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"POT-Creation-Date: 2005-05-05 13:18-0400\n"
+"PO-Revision-Date: 2007-08-22 10:15-0000\n"
+"Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
+"Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Hộp Ảnh"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Ảnh/Album ngẫu nhiên, mới nhất, hoặc được xem nhiều nhất"
+
+msgid "Blocks"
+msgstr "Hộp"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Ảnh ngẫu nhiên"
+msgstr[1] "Ảnh ngẫu nhiên"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Ảnh mới nhất"
+msgstr[1] "Ảnh mới nhất"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Ảnh được xem nhiều nhất"
+msgstr[1] "Ảnh được xem nhiều nhất"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Album ngẫu nhiên"
+msgstr[1] "Album ngẫu nhiên"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Album mới nhất"
+msgstr[1] "Album mới nhất"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Album được xem nhiều nhất"
+msgstr[1] "Album được xem nhiều nhất"
+
+msgid "Picture of the Day"
+msgstr "Ảnh của ngày"
+
+msgid "Picture of the Week"
+msgstr "Ảnh của tuần"
+
+msgid "Picture of the Month"
+msgstr "Ảnh của tháng"
+
+msgid "Album of the Day"
+msgstr "Album của ngày"
+
+msgid "Album of the Week"
+msgstr "Album của tuần"
+
+msgid "Album of the Month"
+msgstr "Album của tháng"
+
+msgid "Date:"
+msgstr "Ngày:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Được xem: %d lần"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Chủ nhân: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Ngăn không cho album này hiển thị trong Image Block"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Áp dụng thông số của Hộp Ảnh cho các album con"
+
+msgid "Image Block Settings"
+msgstr "Thông số của Hộp Ảnh"
+
+msgid "Settings saved successfully"
+msgstr "Đã lưu cài đặt"
+
+msgid "Show"
+msgstr "Hiển thị"
+
+msgid "Heading"
+msgstr "Đề mục"
+
+msgid "Title"
+msgstr "Tiêu đề"
+
+msgid "Date"
+msgstr "Ngày"
+
+msgid "View Count"
+msgstr "Số lượt xem"
+
+msgid "Owner"
+msgstr "Chủ nhân"
+
+msgid "Frames"
+msgstr "Khung"
+
+msgid "View samples"
+msgstr "Xem mẫu"
+
+msgid "Album Frame"
+msgstr "Khung album"
+
+msgid "Photo Frame"
+msgstr "Khung ảnh"
+
+msgid "Save"
+msgstr "Lưu"
+
+msgid "Reset"
+msgstr "Làm lại từ đầu"
+
+msgid "External Image Block"
+msgstr "Hộp ảnh ngoài Gallery"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Sử dụng đoạn mã PHP như dưới đây để chèn một image block vào một trang PHP ở ngoài Gallery."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Danh sách  phân cách bằng các gạch dọc (|)chọn từ các từ khóa sau: randomImage (ảnh ngẫu "
+"nhiên), recentImage (ảnh mới nhất), viewedImage (ảnh được xem nhiều nhất), randomAlbum "
+"(album ngẫu nhiên), recentAlbum (album mới nhất), viewedAlbum (album được xem nhiều nhất), "
+"dailyImage (ảnh của ngày), weeklyImage (ảnh của tuần), monthlyImage (ảnh của tháng), "
+"dailyAlbum (album của ngày), weeklyAlbum (album của tuần), monthlyAlbum (album của tháng), "
+"specificItem (một đối tượng cụ thể); mặc định là randomImage"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Danh sách  phân cách bằng các gạch dọc (|) chọn từ các từ khóa sau: title (tiêu đề), date "
+"(ngày), views (số lượt xem), owner (chủ nhân), heading (đề mục), fullSize (kích thước đầy "
+"đủ), rawImage (ảnh thô); giá trị cũng có thể là none (không có gì)"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Hạn chế chỉ chọn các đối tượng trong một cây con của gallery dưới album có id được cung cấp; "
+"hoặc id của đối tượng sẽ hiển thị khi dùng kiểu khối  specificItem"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Phóng ảnh đến kích thước tối đa. Nếu sử dụng riêng lẻ, Gallery sẽ tìm bản sao ảnh có gần "
+"kích thước nhất với giá trị được yêu cầu - ảnh lớn hơn sẽ được thu nhỏ lại nếu cần trong "
+"trình duyệt của bạn. Nếu được chỉ định cùng với %sshow=fullSize thì ảnh nguyên gốc sẽ luôn "
+"đuợc dùng và thu nhỏ xuống nếu cần."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Giống như %smaxSize, chỉ khác là tùy chọn này sẽ không thay bản sao ảnh có kích thước nhỏ "
+"hơn kích thước được yêu cầu, nên bạn sẽ có ảnh gần kích thước nhất có thể. Lưu ý là tùy chọn "
+"này sẽ dùng nhiều băng thông nếu các ảnh lớn hơn nhiều bị tải về và thu nhỏ ở trình duyệt "
+"của người dùng."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href để có đường dẫn đến ảnh; giá trị none để không có đường dẫn; mặc định là sẽ có đường "
+"dẫn đến đối tượng trong Gallery"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Thêm đích đến cho liên kết (ví dụ như mở liên kết ở một cửa sổ trình duyệt mới)"
+
+msgid "Image frame to use around images"
+msgstr "Khung hình dùng cho ảnh"
+
+msgid "Image frame to use around albums"
+msgstr "Khung hình dùng cho album"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Nếu bất cứ tham số đánh dấu * nào thiếu thì mặc định của Gallery quy định ở trên sẽ được "
+"dùng."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Khung ảnh cần có CSS để có thể hiển thị được. Thêm phần dưới đây vào phần %s để hỗ trợ khung "
+"ảnh."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Chỉ định id của khung (hoặc danh sách id phân cách bằng gạch dọc) trong thông số frames. Bỏ "
+"qua thông số này để hỗ trợ khung của ảnh được chỉ định ở trên. Id của khung là tên các thư "
+"mục trong thư mục %s."
+
+msgid "Image type"
+msgstr "Kiểu ảnh"
+
+msgid "Random image"
+msgstr "Ảnh ngẫu nhiên"
+
+msgid "Recent image"
+msgstr "Ảnh mới nhất"
+
+msgid "Viewed image"
+msgstr "Ảnh được xem nhiều nhất"
+
+msgid "Random album"
+msgstr "Album ngẫu nhiên"
+
+msgid "Recent album"
+msgstr "Album mới nhất"
+
+msgid "Viewed album"
+msgstr "Album được xem nhiều nhất"
+
+msgid "Daily image"
+msgstr "Ảnh của ngày"
+
+msgid "Weekly image"
+msgstr "Ảnh của tuần"
+
+msgid "Monthly image"
+msgstr "Ảnh của tháng"
+
+msgid "Daily album"
+msgstr "Album của ngày"
+
+msgid "Weekly album"
+msgstr "Album của tuần"
+
+msgid "Monthly album"
+msgstr "Album của tháng"
+
+msgid "Number of items"
+msgstr "Số lượng đối tượng"
+
+msgid "Use default settings"
+msgstr "Dùng các thông số mặc định"
+
+msgid "Show heading"
+msgstr "Hiện đề mục"
+
+msgid "Show title"
+msgstr "Hiện tiêu đề"
+
+msgid "Show date"
+msgstr "Hiện ngày"
+
+msgid "Show view count"
+msgstr "Hiện số lượt xem"
+
+msgid "Show owner"
+msgstr "Hiện chủ nhân"

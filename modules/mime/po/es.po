@@ -1,0 +1,136 @@
+# $Id: es.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Óscar García Amor <oscar.garcia@moire.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: MIME Maintenance 1.1.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:46-0700\n"
+"PO-Revision-Date: 2006-11-07 16:33+0100\n"
+"Last-Translator: Óscar García Amor <oscar.garcia@moire.org>\n"
+"Language-Team: Spanish <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This type of file not allowed; item will not be added."
+msgstr "Este tipo de fichero no está permitido; el elemento no será añadido"
+
+msgid "MIME Maintenance"
+msgstr "Mantenimiento MIME"
+
+msgid "Maintain MIME types and file extensions"
+msgstr "Mantiene los tipos MIME y las extensiones de los archivos"
+
+msgid "Extra Data"
+msgstr "Información Extra"
+
+msgid "MIME Types"
+msgstr "Tipos MIME"
+
+msgid "Settings saved successfully"
+msgstr "La configuración se ha guardado con éxito"
+
+msgid "MIME entry saved successfully"
+msgstr "Entrada MIME guardada con éxito"
+
+msgid "MIME entry deleted"
+msgstr "Entrada MIME borrada"
+
+msgid "Allow all uploads"
+msgstr "Permitir todas las subidas"
+
+msgid "Block upload of types selected below"
+msgstr "Bloquear la subida de los tipos seleccionados a continuación"
+
+msgid "Only allow uploads of types selected below"
+msgstr "Solamente permitir la subida de los tipos seleccionados a continuación"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "Add new MIME type"
+msgstr "Añadir un nuevo tipo MIME"
+
+msgid "Extensions"
+msgstr "Extensiones"
+
+msgid "Viewable"
+msgstr "Visible"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "edit"
+msgstr "editar"
+
+msgid "delete"
+msgstr "eliminar"
+
+msgid "Allow Upload"
+msgstr "Permitir la Subida"
+
+msgid "Block Upload"
+msgstr "Bloquear la Subida"
+
+#, c-format
+msgid "Edit MIME type: %s"
+msgstr "Editar el tipo MIME: %s"
+
+msgid "New MIME type"
+msgstr "Nuevo tipo MIME"
+
+msgid "Mime entry saved successfully"
+msgstr "La entrada MIME se ha guardado con éxito"
+
+msgid "MIME type: "
+msgstr "Tipo MIME: "
+
+msgid "Viewable?"
+msgstr "&iquest;Visible?"
+
+msgid "MIME type must be specified."
+msgstr "El tipo MIME debe ser especificado."
+
+msgid "This extension is already in use and cannot be reused."
+msgstr "Esta extensión se encuentra ya en uso y no puede ser reusada."
+
+msgid "You must specify at least one extension."
+msgstr "Debes expecificar al menos una extensión."
+
+msgid "Apply"
+msgstr "Aplicar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+#, c-format
+msgid ""
+"Warning: Adding and allowing upload of any of the following mime types could leave you open "
+"to %sCross Site Scripting%s security vulnerabilities."
+msgstr ""
+"Atención: El agregar y permitir subir cualquiera de los siguientes tipos MIME podria dejarte "
+"abierto a vulnerabilidades de seguridad del tipo %sCross Site Scripting%s."

@@ -1,0 +1,236 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * AdminDcraw controller tests
+ * @package Dcraw
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class AdminDcrawControllerTest extends GalleryControllerTestCase {
+
+    function AdminDcrawControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'dcraw.AdminDcraw');
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform = new UnitTestPlatform();
+	$gallery->setPlatform($this->_platform);
+    }
+
+    function tearDown() {
+	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function _getParam($param) {
+	list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'dcraw', $param);
+	if ($ret) {
+	    return ($ret);
+	    return 'FAILED';
+	}
+	return $path;
+    }
+
+    function testSaveV562() {
+	GalleryUtilities::putRequestVariable('form[path]', '/path/to/dcraw');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply(
+	    'exec',
+	    array(array(array('/path/to/dcraw'))),
+	    array(1, array(), array('Raw Photo Decoder v5.62')));
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array(),
+				  'status' => array('saved' => 1)),
+			    $results);
+
+	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
+	$this->assertEquals('5.62', $this->_getParam('version'));
+    }
+
+    function testSaveV6() {
+	GalleryUtilities::putRequestVariable('form[path]', '/path/to/dcraw');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply(
+	    'exec',
+	    array(array(array('/path/to/dcraw'))),
+	    array(1, array(), array('Raw Photo Decoder "dcraw" v6.35')));
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array(),
+				  'status' => array('saved' => 1)),
+			    $results);
+
+	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
+	$this->assertEquals('6.35', $this->_getParam('version'));
+    }
+
+    function testSaveV7() {
+	GalleryUtilities::putRequestVariable('form[path]', '/path/to/dcraw');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply(
+	    'exec',
+	    array(array(array('/path/to/dcraw'))),
+	    array(1, array(), array('Raw Photo Decoder "dcraw" v7.17')));
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array(),
+				  'status' => array('saved' => 1)),
+			    $results);
+
+	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
+	$this->assertEquals('7.17', $this->_getParam('version'));
+    }
+
+    function testSaveV773() {
+	GalleryUtilities::putRequestVariable('form[path]', '/path/to/dcraw');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply(
+	    'exec',
+	    array(array(array('/path/to/dcraw'))),
+	    array(1, array(), array('Raw Photo Decoder "dcraw" v7.73')));
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array(),
+				  'status' => array('saved' => 1)),
+			    $results);
+
+	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
+	$this->assertEquals('7.73', $this->_getParam('version'));
+    }
+
+    function testSaveMissingPath() {
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array('form[error][path][missing]'),
+				  'status' => array()),
+			    $results);
+    }
+
+    function testSaveBadPath() {
+	GalleryUtilities::putRequestVariable('form[path]', '/bad/path');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/bad/path'), 0);
+	$this->_platform->setReply('is_file', array('/bad/path'), 0);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array('form[error][path][badPath]'),
+				  'status' => array()),
+			    $results);
+    }
+
+    function testSaveFailedTests() {
+	GalleryUtilities::putRequestVariable('form[path]', '/path/to/dcraw');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply(
+	    'exec',
+	    array(array(array('/path/to/dcraw'))),
+	    array(1, array(), array('Wrong version of dcraw')));
+	$this->_platform->setReply('realpath',
+	    array(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'core' .
+			DIRECTORY_SEPARATOR . 'classes/../../..'),
+	    realpath(dirname(dirname(dirname(dirname(dirname(__FILE__)))))), true /*optional*/);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array('form[error][path][testError]'),
+				  'status' => array()),
+			    $results);
+    }
+
+    function testReset() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'dcraw.AdminDcraw'),
+				  'error' => array(),
+				  'status' => array()),
+			    $results);
+    }
+
+    function testCancel() {
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'core.AdminPlugins'),
+				  'error' => array(),
+				  'status' => array()),
+			    $results);
+    }
+}
+?>

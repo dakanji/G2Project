@@ -1,0 +1,173 @@
+# $Id: uk.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:35-0800\n"
+"PO-Revision-Date: 2006-08-07 16:21+0200\n"
+"Last-Translator: Yurii Smetana <yura@stryi.com.ua>\n"
+"Language-Team: British <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "слайдшоу (на цілий екран)"
+
+msgid "Slideshow Applet"
+msgstr "Аплет Слайдшоу"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Слайдшоу на цілий екран використовуючи аплет Java"
+
+msgid "Display"
+msgstr "Показувати"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Переглянути Слайдшоу (на цілий екран)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Шлях до елементу (наприклад, /album/image.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Слайдшоу"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Цей аплет залежить від модулю Галереї який, поки що, не активовано. будь-ласка, попросіть "
+"адміністратора щоб він ввімкнув 'дистанційний' модуль."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Завантаження Аплету Віддалена Галерея"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr ""
+"Ваш веб-оглядач не підтримує аплети; Ви зможете використовувати лише звичайний режим "
+"слайдшоу."
+
+msgid "Slideshow Applet Settings"
+msgstr "Налаштування Аплету Слайдшоу"
+
+msgid "Defaults"
+msgstr "Типово"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Ці змінні описують типові налаштування аплету. Користувачі можуть змінити ці налаштування, "
+"здійснивши зміни в користувацбкому інтерфейсі аплету, або змінюючи їх локальний типовий файл."
+
+msgid "You have no default variables"
+msgstr "Немає жодних типових змінних"
+
+msgid "Variable"
+msgstr "Змінна"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Add a new default variable"
+msgstr "Додати нову типову змінну"
+
+msgid "You must enter a variable name and value"
+msgstr "Ви повинні ввести назву та значення змінної"
+
+msgid "New variable"
+msgstr "Нова змінна"
+
+msgid "Add variable"
+msgstr "Додати змінну"
+
+msgid "Overrides"
+msgstr "Перепризначити"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Ці змінні перепризначають будь-які інші значення аплетів. Користувачі не матимуть змоги "
+"змінити ці налаштування."
+
+msgid "You have no override variables"
+msgstr "Немає жодних перепризначених змінних"
+
+msgid "Add a new override variable"
+msgstr "Додати нову перепризначену змінну"
+
+msgid "Help"
+msgstr "Допомога"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Ось перелік змінних від яких залежить слайдшоу"
+
+msgid "variable"
+msgstr "змінна"
+
+msgid "values"
+msgstr "значення"
+
+msgid "help"
+msgstr "допомога"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "максимальна кількість зобрежень за один \"прохід\""
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "чи повинні відображатись в слайдшоу зображення з вкладених альбомів?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "якщо так, слайдшоу не завантажуватиме зобреження у максимальнії роздільній здатності"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "чи повинне слайдшоу починатись з початку, досягнувши кінця?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "якщо так, зображення менші за екран не розтягуватимуться"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"якщо так, слайдшоу буде завантажувати зображення ще до того як їх показує, що пришвидчить "
+"показ, але може збільшити споживання мережевого трафіку"
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "зробити  кольоровим фон слайдшоу"
+
+msgid "size of text overlay"
+msgstr "розмір текстового перекриття"
+
+msgid "font of text overlay"
+msgstr "розмір текстового перекриття"
+
+msgid "should the pictures be shown in random order?"
+msgstr "чи повинні зображення показуватись у випадковому порядку?"
+
+msgid "Complete list of variables"
+msgstr "Повний перелік змінних"

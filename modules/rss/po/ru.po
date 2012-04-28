@@ -1,0 +1,566 @@
+# $Id: ru.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-17 03:05-0800\n"
+"PO-Revision-Date: 2008-10-12 11:57+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "This feed no longer exists!"
+msgstr "Данный канал больше не существует!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Каналы данного типа не разрешены!"
+
+msgid "Incorrect feed type!"
+msgstr "Некорректный тип канала!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Модуль комментариев не активен, либо канал комментариев закрыт!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Нет разрешения на просмотр комментариев к этому элементу"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "RSS Feed for this Album"
+msgstr "Экспорт RSS альбома"
+
+msgid "RSS Feed for this Photo"
+msgstr "Экспорт RSS фото"
+
+msgid "RSS Feed for this Movie"
+msgstr "Экспорт RSS видео"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "Экспорт RSS для этого %s"
+
+msgid "Configure RSS Feeds"
+msgstr " Настройки RSS"
+
+msgid "Simple RSS Feed"
+msgstr "Упрощённый RSS канал"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Короткий адрес URL для упрощённого RSS канала"
+
+msgid "RSS Feed"
+msgstr "Экспорт RSS "
+
+msgid "The name of the configured RSS Feed"
+msgstr "Имя настраиваемого RSS канала"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Короткий адрес URL для настраиваемого RSS канала"
+
+#, c-format
+msgid "In album %s"
+msgstr "В альбоме %s"
+
+msgid "Items in an album"
+msgstr "Элементы в альбоме"
+
+msgid "Sub-albums of an album"
+msgstr "Вложенные альбомы в альбоме"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Элементы в альбоме и во вложенных в него альбомах"
+
+msgid "Comments for an album"
+msgstr "Комментарии для альбома"
+
+msgid "Comments for an item"
+msgstr "Комментарии для элемента"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Комментарии к альбому и к вложенным в него альбомам"
+
+msgid "Random items in an album"
+msgstr "Случайные элементы в альбоме"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Случайные элементы в альбоме и во вложенных в него альбомах"
+
+msgid "RSS Feeds"
+msgstr "Каналы RSS"
+
+msgid "Settings have been saved"
+msgstr "Настройки сохранены"
+
+msgid "Feed successfully deleted"
+msgstr "Канал успешно удалён"
+
+msgid "An error occured"
+msgstr "Произошла ошибка"
+
+msgid "List"
+msgstr "Список"
+
+msgid "Edit Feed"
+msgstr "Редактировать каналы"
+
+msgid "New Feed"
+msgstr "Новый канал"
+
+msgid "Feed URL"
+msgstr "URL канала"
+
+msgid "Feed name"
+msgstr "Имя канала"
+
+msgid "You can't change the name of the feed"
+msgstr "Вы не можете изменить имя данного канала"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Выберете имя для вашего канала (данное имя будет отображено в адресе URL к вашему каналу, "
+"поэтому постарайтесь использоваться только буквы)"
+
+msgid "You must enter a name"
+msgstr "Вы должны ввести имя"
+
+msgid "This name is already used, please select another one"
+msgstr "Данное имя уже используется, пожалуйста, выберете другое"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Feed settings"
+msgstr "Настройки канала"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Выберете тип данных, который будет присутствовать в канале"
+
+msgid "Type of feed"
+msgstr "Тип канала"
+
+msgid "Items in this album"
+msgstr "Элементы в данном альбоме"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr "Каналы данного типа запрещены администратором. Пользователи не смогут их просмотреть."
+
+msgid "Sub-albums of this album"
+msgstr "Вложенные альбомы для данного альбома"
+
+msgid "Items in this album and its subalbums"
+msgstr "Элементы в этом альбоме и во вложенных в него альбомах"
+
+msgid "Limit the number of items per album"
+msgstr "Ограничить кол-во элементов в альбоме"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Недопустимый лимит (должно быть положительное число, 0 для отсутствия лимита)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(введите 0 для отсутствия лимита)"
+
+msgid "Comments for this album"
+msgstr "Комментарии к данному альбому"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Комментарии к этому альбому и к вложенным в него альбомам"
+
+msgid "Random pictures inside this album"
+msgstr "Случайные картинки внутри этого альбома"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Случайные картинки внутри этого альбома и во вложенных в него альбомах"
+
+msgid "Comments for this item"
+msgstr "Комментарии к данному элементу"
+
+msgid "Which items"
+msgstr "Какие элементы"
+
+msgid "New items only"
+msgstr "Только новые элементы "
+
+msgid "New and updated items"
+msgstr "Новые и обновленные элементы"
+
+msgid "Choose the options for the feed"
+msgstr "Установите параметры данного канала"
+
+msgid "RSS version"
+msgstr "Версия RSS"
+
+msgid "Invalid version"
+msgstr "Неправильная версия"
+
+msgid "Number of items"
+msgstr "Количество элементов"
+
+msgid "Invalid number"
+msgstr "Неверное количество"
+
+msgid "language tag"
+msgstr "языковой тэг"
+
+msgid "Invalid language value"
+msgstr "Неверный тэг языка"
+
+msgid "by default: en-us."
+msgstr "по умолчанию: en-us."
+
+msgid "List of all possible values"
+msgstr "Список всех возможных вариантов"
+
+msgid "category tag"
+msgstr "тэг категории"
+
+msgid "ttl tag"
+msgstr "тэг ttl"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr ""
+"Неверное время жизни, значение должно быть количеством минут (0 для отключения тэга ttl)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Время жизни: продолжительность в минутах (0 для отключения тэга ttl), которую необходимо "
+"выдержать между проверками на предмет обновления канала программами."
+
+msgid "Copyright"
+msgstr "Авторские права"
+
+msgid "Invalid copyright"
+msgstr "Недопустимые авторские права"
+
+msgid "Use image tag"
+msgstr "Использовать тэг изображения"
+
+msgid "Include image tag"
+msgstr "Включить тэг изображения"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr ""
+"Данный параметр добавит к каналу изображение, соответствующее миниатюре данного элемента"
+
+msgid "Invalid value"
+msgstr "Недопустимое значение"
+
+msgid "Use enclosures"
+msgstr "Использоваться вложения"
+
+msgid "Include enclosure tags"
+msgstr "Включить тэги вложений"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+"Данный параметр добавит вложение для каждого изображения в канале, которое будет содержать "
+"полноразмерное изображение."
+
+msgid "Use Media RSS"
+msgstr "Использовать Media RSS"
+
+msgid "Include Media RSS tags"
+msgstr "Включить тэги Media RSS"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+"Это дополнительные тэги Media RSS к каналам. Они позволяют клиентам, ориентированным на "
+"мультимедию, просматривать новости в более приемлемой форме."
+
+msgid "about Media RSS"
+msgstr "О Media RSS"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Тэг облака (cloud tag)  (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Если вы хотите использовать тэг облака, установите здесь его параметры"
+
+msgid "Example: "
+msgstr "Пример:"
+
+msgid "domain"
+msgstr "домен"
+
+msgid "port"
+msgstr "порт"
+
+msgid "path"
+msgstr "путь"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "протокол"
+
+msgid "Cloud tag"
+msgstr "Тэг облака"
+
+msgid "Include the cloud tag"
+msgstr "Включить тэг облака"
+
+msgid "Invalid string"
+msgstr "Неверная строка"
+
+msgid "Invalid port number"
+msgstr "Неверный номер порта"
+
+msgid "Update Feed"
+msgstr "Обновить канал"
+
+msgid "Create Feed"
+msgstr "Создать канал"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "RSS feeds for this item"
+msgstr "RSS канал для данного элемента"
+
+msgid "No feeds have yet been defined"
+msgstr "Нет настроенных каналов"
+
+msgid "Feed link"
+msgstr "Ссылка на канал"
+
+msgid "Feed type"
+msgstr "Тип канала"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "delete"
+msgstr "удалить"
+
+msgid "edit"
+msgstr "изменить"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Это список всех каналов, которые доступны в Галерее"
+
+msgid "RSS Settings"
+msgstr "Настройки RSS"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Simple Feed Settings"
+msgstr "Настройки упрощённого канала"
+
+msgid "General settings"
+msgstr "Общие настройки"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+"Это значения по умолчанию и максимальные значения, которые используются всеми каналами в "
+"вашей Галерее."
+
+msgid "Default number of items in feeds"
+msgstr "Значение по умолчанию количества элементов в каналах"
+
+msgid "Invalid default number"
+msgstr "Неверное значение по умолчанию"
+
+msgid "Maximum number of items in feeds"
+msgstr "Максимальное количество элементов в каналах"
+
+msgid "Invalid maximum number"
+msgstr "Неверное максимальное значение"
+
+msgid "Maximum age for items in feeds"
+msgstr "Максимальное возраст элементов в каналах"
+
+msgid "Invalid maximum age number"
+msgstr "Неверное максимальное значение возраста"
+
+msgid "Default ttl"
+msgstr "ttl - значение по умолчанию "
+
+msgid "Default copyright"
+msgstr "Значение по умолчанию авторских прав"
+
+msgid "Feed Types"
+msgstr "Типы каналов"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Укажите, какие типы каналов будут разрешены"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Разрешить использование упрощённого RSS канала"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Если вы разрешите это, пользователи смогут подписываться на каналы любого, доступного им, "
+"альбома или фотографии."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"Для изменения настроек упрощённого канала используйте соответствующую вкладку вверху экрана."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Разрешить использование настраиваемого RSS канала"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Только владельцы альбомов смогут определять данные каналы. Они смогут устанавливать "
+"параметры для любого типа RSS, который они пожелают использовать."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Как только канал будет настроен, пользователи смогут подписываться на новости, если они "
+"имеют право просматривать соответствующий элемент."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Разрешить RSS каналы для фотографий в альбоме."
+
+msgid "Fast"
+msgstr "Быстро"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Разрешить RSS каналы для вложенных в альбом альбомов."
+
+msgid "Slow"
+msgstr "Медленно"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Разрешить RSS каналы  для фотографий в альбоме и во вложенных в него альбомах"
+
+msgid "Slower"
+msgstr "Ещё медленнее"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Разрешить RSS каналы на комментарии к фотографии"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Разрешить RSS каналы на комментарии к альбому"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Разрешить RSS каналы на комментарии к альбому и к вложенным в него альбомам"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Разрешить RSS каналы для случайных фотографий в альбоме"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Разрешить RSS каналы для случайных фотографий в альбоме и во вложенных в него альбомах"
+
+msgid "Slowest"
+msgstr "Очень медленно"
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Помощь пользователям для ориентации в RSS каналах"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Если вы хотите помочь пользователям сориентироваться в каналах вашей Галереи, можете "
+"добавить блок RSS в тему, которая используется в Галерее."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"Это даст следующий эффект: собственно, сам блок, который пользователи смогут видеть и "
+"выбирать каналы (и получить полный список каналов); и скрытые заголовки страниц, которые "
+"используют современные браузеры для упрощения подписки на эти каналы."
+
+msgid "Global list of RSS feeds"
+msgstr "Общий список RSS каналов"
+
+msgid "On item"
+msgstr "Для элементов"
+
+msgid "Simple Feed settings"
+msgstr "Настройки упрощённого канала"
+
+msgid "For albums"
+msgstr "Для альбомов"
+
+msgid "Items in the album"
+msgstr "Элементы в данном альбоме"
+
+msgid "Sub-albums of the album"
+msgstr "Вложенные альбомы в альбоме"
+
+msgid "Items in the album and its subalbums"
+msgstr "Элементы в альбоме и во вложенных в него альбомах"
+
+msgid "Comments for the album"
+msgstr "Комментарии для данного альбома"
+
+msgid "For items"
+msgstr "Для элементов"
+
+msgid "Comments for items (always selected)"
+msgstr "Комментарии для элементов (всегда выделено)"
+
+msgid "List all RSS Feeds"
+msgstr "Список всех RSS каналов"
+
+msgid "List of RSS Feeds"
+msgstr "Список RSS каналов"
+
+msgid "Number of feeds to display"
+msgstr "Количество каналов для отображения"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "все"

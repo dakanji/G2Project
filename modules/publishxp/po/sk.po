@@ -1,0 +1,250 @@
+# $Id: sk.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Branislav Hanacek <brango@radegast>, 2006.
+# Branislav Hanacek <brango@brango.sk>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
+"PO-Revision-Date: 2007-11-29 02:37+0100\n"
+"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Windows Publishing Wizard"
+msgstr ""
+
+#, fuzzy
+msgid "Publish photos to Gallery directly from Windows"
+msgstr "Publikujte fotky do Galérie priamo z Windows XP"
+
+msgid "Import"
+msgstr "Import"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s v %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Publikujte Vaše Fotky a Videá do %s"
+
+msgid "Upload to Gallery"
+msgstr "Nahrať do Galérie"
+
+#, fuzzy
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Windows XP prichádza s peknou funkciou, ktorá Vám dovoľuje publikovať veci priamo z Vášho "
+"desktopu na web.  Nasledujte inštrukcie popísané nižšie na aktivovanie tejto služby na Vašom "
+"systéme Windows XP."
+
+msgid "Installation"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Stiahnite konfiguračný súbor použitím pravého kliku 'Uložiť cieľ ako...' (Save Target "
+"As...)  Akonáhle bude stiahnutý, premenujte ho na \"install_registry.reg\".  Ak sa Vás to "
+"bude pýtať, či chcete zmeniť typ súboru potvrďte \"Áno\".  Kliknite na súbor pravým "
+"tlačitkom a v menu vyberte Zlúčiť (Merge).  Kliknite Ok. A znovu Ok."
+
+msgid "(for Windows Vista)"
+msgstr ""
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr "Stiahnite [install_registry.reg]"
+
+#, fuzzy
+msgid "Windows Vista"
+msgstr "Windows XP"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr ""
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr ""
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+
+msgid "Select the Gallery 2 printing service."
+msgstr ""
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr ""
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+
+msgid "Select the image(s) or a folder."
+msgstr ""
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+
+#, fuzzy
+msgid "Usage"
+msgstr "Používateľské meno"
+
+msgid "Specify the name and title for the new album."
+msgstr "Uvedte názov a titulok pre nový album."
+
+msgid "Create a new album"
+msgstr "Vytvoriť nový album"
+
+msgid "Name"
+msgstr "Meno"
+
+msgid "(required)"
+msgstr "(požadované)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Meno albumu na vašom disku. Musí byť jedinečné v rámci tohoto albumu. Použite iba "
+"alfanumerické znaky, podčiarkovníky a pomlčky. Meno je možné neskôr zmeniť."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Vami zadané meno obsahuje nepovolené znaky. Prosím, zadajte iné meno."
+
+msgid "You must enter a name for this album."
+msgstr "Musíte zadať meno pre tento album."
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "This is the album title."
+msgstr "Toto je titulok albumu."
+
+msgid "Summary"
+msgstr "Súhrn"
+
+msgid "This is the album summary."
+msgstr "Toto je zhrnutie albumu."
+
+msgid "Keywords"
+msgstr "Kľúčové slová"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Klucove slova nie su viditelne, ale su vyhladavatelne."
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "This is the long description of the album."
+msgstr "Toto je dlhy popis albumu."
+
+msgid "Set options for the photos to be added."
+msgstr "Nastavte možnosti pre pridávané fotky."
+
+msgid "Standard Options"
+msgstr "Štandardné Možnosti"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Teraz, keď už ste si vybrali cieľový album, nasledujúce možnosti môžu byť použité pri "
+"pridávaní fotiek do Galérie."
+
+msgid "Strip file extensions?"
+msgstr "Urezať prípony súborov?"
+
+msgid "Set captions on the published items?"
+msgstr "Nastaviť nadpisy na zverejnené položky?"
+
+msgid "Login to your account"
+msgstr "Prihlasenie na Vas ucet"
+
+msgid "Username"
+msgstr "Používateľské meno"
+
+msgid "You must enter a username"
+msgstr "Musíte zadať meno používateľa"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr "Prihlásenia sú dočasne nedostupné z dôvodu viacerých chybných pokusov."
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "You must enter a password"
+msgstr "Musíte zadať heslo"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Vase prihlasovacie udaje su neplatne.  Prosim skuste znovu."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Vyberte album pre nové fotografie, alebo vytvorte nový"
+
+msgid "New Album"
+msgstr "Nový Album"
+
+msgid "You must select an album"
+msgstr "Musíte vybrať album"
+
+#~ msgid "Publish XP"
+#~ msgstr "Publikuj XP"
+
+#~ msgid "Step 1"
+#~ msgstr "Krok 1"
+
+#~ msgid "Step 2"
+#~ msgstr "Krok 2"
+
+#~ msgid ""
+#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
+#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
+#~ "to the web...'  Click this link and then follow the instructions to log into your "
+#~ "Gallery, select an album and publish the image."
+#~ msgstr ""
+#~ "Otvorte si Váš Windows Explorer a choďte do adresára obsahujúceho podporované obrázky.  "
+#~ "Vyberte obrázky alebo adresár a naľavo by mala byť možnosť, ktorá hovorí 'Publikovať "
+#~ "tento súbor na web...' (Publish this file to the web...)  Kliknite na túto linku a potom "
+#~ "nasledujte inštrukcie na prihlásenie do Vašej Galérie, vyberte album a publikujte obrázok."

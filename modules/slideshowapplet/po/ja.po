@@ -1,0 +1,172 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:45-0700\n"
+"PO-Revision-Date: 2007-03-04 22:26+0900\n"
+"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "スライドショー (フルスクリーン)"
+
+msgid "Slideshow Applet"
+msgstr "スライドショーアプレット"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Javaアプレットを使ったフルスクリーンのスライドショー"
+
+msgid "Display"
+msgstr "表示"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "スライドショーを見る (フルスクリーン)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "アイテムへのパス (例: /album/image.jpg.html)"
+
+msgid "Slideshow"
+msgstr "スライドショー"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"このアプレットは、現在有効になっていないG2モジュールに依存しています。管理者に'remote'モ"
+"ジュールを有効にしてもらうようお願いしてください。"
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Gallery Remote Applet をダウンロードしています"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr ""
+"あなたのブラウザはアプレットをサポートしていません。標準のスライドショーを使用してください。"
+
+msgid "Slideshow Applet Settings"
+msgstr "スライドショーアプレット"
+
+msgid "Defaults"
+msgstr "デフォルト"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"これらの変数は、あなたのサイトで実行されるアプレットのデフォルト値を提供します。ユーザーはこ"
+"れらのデフォルトを、アプレットの画面かローカルのデフォルトファイルを変更することで上書きする"
+"ことができます。"
+
+msgid "You have no default variables"
+msgstr "デフォルト変数がありません"
+
+msgid "Variable"
+msgstr "変数"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Add a new default variable"
+msgstr "新しいデフォルト値を追加する"
+
+msgid "You must enter a variable name and value"
+msgstr "あなたは変数名と値を入力しなければいけません"
+
+msgid "New variable"
+msgstr "新しい変数"
+
+msgid "Add variable"
+msgstr "変数を追加"
+
+msgid "Overrides"
+msgstr "上書き"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"これらの変数はユーザがあなたのサイトで作成するアプレットのためにいかなるほかの値も上書きしま"
+"す。ユーザはこれらの値を変更することはできないでしょう。"
+
+msgid "You have no override variables"
+msgstr "上書きする変数がありません"
+
+msgid "Add a new override variable"
+msgstr "新しい上書きする変数を追加する"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "ここにスライドショーに影響するいくつかの変数があります。"
+
+msgid "variable"
+msgstr "変数"
+
+msgid "values"
+msgstr "値"
+
+msgid "help"
+msgstr "ヘルプ"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "1つに表示する画像の最大数"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "サブアルバムの画像もスライドショーに含めますか?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "trueなら画像を完全にダウンロードすることを防ぐでしょう"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "スライドショーが終わるときにループしますか？"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "trueならスクリーンより小さな写真は伸ばされないでしょう"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"trueならそれらが必要な前にスライドショーは写真をダウンロードするでしょう。それはスピードを上"
+"げることができることだけでなく、帯域幅を消費します。"
+
+msgid "color of the slideshow background"
+msgstr "スライドショーの背景色"
+
+msgid "size of text overlay"
+msgstr "テキストオーバーレイのサイズ"
+
+msgid "font of text overlay"
+msgstr "テキストオーバーレイのフォント"
+
+msgid "should the pictures be shown in random order?"
+msgstr "写真はランダムに表示しますか？"
+
+msgid "Complete list of variables"
+msgstr "変数の全リスト"

@@ -1,0 +1,173 @@
+# $Id: ro.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:39-0800\n"
+"PO-Revision-Date: 2006-01-13 18:57+0100\n"
+"Last-Translator: Serban Constantinescu <serban.constantinescu@gmail.com>\n"
+"Language-Team: <none>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "prezentare (pe tot ecranul)"
+
+msgid "Slideshow Applet"
+msgstr "Applet de prezentare"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Prezentare pe tot ecranul folosind un java applet"
+
+msgid "Display"
+msgstr "Afisare"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Vezi prezentare (pe tot ecranul)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Calea catre un articol (ex. /album/imagine.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Prezentare"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Acest applet se bazeaza pe un modul Gallery care nu este activat momentan. Rugati un "
+"administrator sa activeze modulul 'remote'."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Descarca Gallery Remote Applet"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Browser-ul tau nu suporta applets; foloseste prezentarea standard."
+
+msgid "Slideshow Applet Settings"
+msgstr "Configurari Applet Prezentare"
+
+msgid "Defaults"
+msgstr "Valori Predefinite"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Aceste variabile pun la dispozitie valori predefinite pentru applet-urile pe care "
+"utilizatorii le ruleaza pe site-ul tau. Utilizatorii pot modifica aceste valori predefinite "
+"facand schimbari  in interfata utilizator a applet-ului sau modificand fisierul lor local de "
+"valori predefinite."
+
+msgid "You have no default variables"
+msgstr "Nu ai variabile predefinite"
+
+msgid "Variable"
+msgstr "Variabile"
+
+msgid "Action"
+msgstr "Actiune"
+
+msgid "Delete"
+msgstr "Sterge"
+
+msgid "Add a new default variable"
+msgstr "Adauga o noua variabila predefinita"
+
+msgid "You must enter a variable name and value"
+msgstr "Trebuie sa introduci un nume de variabila si o valoare"
+
+msgid "New variable"
+msgstr "Variabila noua"
+
+msgid "Add variable"
+msgstr "Adauga variabila"
+
+msgid "Overrides"
+msgstr "Suprascrie"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Aceste variabile suprascriu orice alte valori pentru applet-urile pe care utilizatorii le "
+"executa pe acest site. Utilizatorii nu vor putea modifica aceste valori."
+
+msgid "You have no override variables"
+msgstr "Nu exista variable pentru suprascriere"
+
+msgid "Add a new override variable"
+msgstr "Adauga o noua variabila de suprascriere"
+
+msgid "Help"
+msgstr "Ajutor"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Aici este o selectie a variabilelor ce afecteaza prezentarea."
+
+msgid "variable"
+msgstr "variabila"
+
+msgid "values"
+msgstr "valori"
+
+msgid "help"
+msgstr "ajutor"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "numarul maxim de fotografii aratate intr-o singura prezentare"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "prezentarea include si folografiile din sub-albume?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "daca da, nu permite ca prezentarea sa descarce folografii la rezolutie maxima"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "vrei ca prezentarea sa re-inceapa cind ajunga la final ?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "daca da, fotografiile mai mici decit ecranul nu vor fi marite"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"daca da, prezentarea va descarca fotografiile inainte sa fie necesar, ceea ce va mari "
+"viteza, insa va ocupa conexiunea la Internet"
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "culoarea de fundal a prezentarii"
+
+msgid "size of text overlay"
+msgstr "dimensiunea mesajului suprapus"
+
+msgid "font of text overlay"
+msgstr "font-ul mesajului suprapus"
+
+msgid "should the pictures be shown in random order?"
+msgstr "fotografiile sa fie prezentate in ordine aleatoare?"
+
+msgid "Complete list of variables"
+msgstr "Lista completa a variabilelor"

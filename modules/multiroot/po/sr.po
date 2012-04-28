@@ -1,0 +1,138 @@
+# $Id: sr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Multiroot 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:50-0700\n"
+"PO-Revision-Date: 2007-04-16 03:05+0100\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "Multiroot"
+msgstr "Višestruki koren"
+
+msgid "Define an alternate guest view of the Gallery"
+msgstr "Definisanje alternativnog prikaza za goste Galerije"
+
+msgid "Display"
+msgstr "Prikaz"
+
+msgid "Configure Multiroot"
+msgstr "Podešavanje Višestrukog korena"
+
+msgid "User created and permissions assigned on target album"
+msgstr "Napravljen od strane korisnika sa dodeljenim pravima na odredišni album"
+
+msgid ""
+"Multiroot allows you to create an alternate URL to view part of the Gallery.  This "
+"configuration screen assists in setup and creation of a PHP file for the alternate URL.  "
+"This module never activates and is not needed to use multiroot.  There are two options:"
+msgstr ""
+"Višestruki koren vam omogućava da napravite alternativnu adresu za prikaz dela Galerije. "
+"Ovaj konfiguracioni formular vam pomaže u definisanju i pravljenju PHP datoteke za "
+"alternativnu adresu. Ovaj modul se ne može aktivirati i nije potreban za korišćenje "
+"višestrukog korena. Postoje dve mogućnosti:"
+
+msgid "Virtual root"
+msgstr "Virtuelni koren"
+
+msgid ""
+"This option defines a default album for this view and adjusts navigation links so that no "
+"parent albums above the default are shown.  Both guests and logged in users accessing the "
+"alternate URL will see this effect.  However, Gallery permissions are unchanged so modules "
+"like imageblock and search, or manually entered URLs, can lead visitors to items outside the "
+"default album.  This option is easier to setup as it uses guest permissions already defined "
+"for your Gallery."
+msgstr ""
+"Ova opcija definiše podrazumevan album za ovaj prikaz i podešava navigacione veze tako da se "
+"ne prikazuje ni jedan roditeljski album iznad podrazumevanog. I gosti i prijavljeni "
+"korisnici koji pristupaju preko alternativne će videti ovaj efekat. Međutim, prava Galerije "
+"su nepromenjena, tako da moduli poput Bloka sa slikom, pretraživanje ili ručno unete adrese "
+"mogu odvesti posetioce na objekte izvan podrazumevanog albuma. Ova opcija je lakša za "
+"podešavanje pošto koristi prava gostiju koja su već definisana u vašoj Galeriji."
+
+msgid "Alternate guest user"
+msgstr "Alternativni gost-korisnik"
+
+msgid ""
+"This option defines a new guest view with permissions defined for exactly what this view "
+"should display.  Guests using the alternate URL cannot see any items outside those granted "
+"permission, by browsing or via any modules or URLs.  Logged in users see whatever their "
+"permissions allow, whether accessing the normal or alternate URL.  This option provides "
+"greater access control over the alternate view, but requires additional permissions setup:"
+msgstr ""
+"Ova opcija definiše novog gosta sa pravima tako podešenim da se prikaže tačno ono što se i "
+"očekuje. Gosti koji koriste alternativnu adresu ne vide objekte kojima nemaju prava "
+"pristupa, ni običnim pregledom Galerije, ni direktnim pristupom preko adrese ili preko nekog "
+"od modula. Prijavljeni korisnici vide ono što im njihova prava omogućuju, bez obzira na to "
+"da li pristupaju preko normalne ili alternativne adrese. Ova opcija daje veći stepen "
+"kontrole nad alternativnim prikazom, ali zahteva dodatna podešavanja prava:"
+
+msgid ""
+"The original/real guest user must have view permission for all items accessible by any "
+"alternate guest user.  The form below assists in creation of an alternate guest and will "
+"assign view permission for the default album and all subalbums/items.  If these albums are "
+"already public and can remain that way, no more setup is required.  Setup for mutually "
+"exclusive views is more complicated: the original guest user must have access to items in "
+"all views, so first setup those permissions.  Then use the tools here to create each "
+"alternate view.  Just use the set of alternate URLs.  Keep the original Gallery URL "
+"unpublished as it shows the combined set of items."
+msgstr ""
+"Originalni, odnosno pravi, korisnik-gost mora imati pravo pregleda svih objekata kojima može "
+"pristupati i alternativni korisnik-gost. Formular ispod pomaže u pravljanju alternativnog "
+"gosta i dodeliće prava pregleda za podrazumevani album i sve podalbume i podobjekte. Ako su "
+"ovi albumi već javni i mogu tako i da ostanu, nije potrebno nikakvo dodatno podešavanje. "
+"Podešavanje međusobno isključivih pregleda je komplikovanije: originalni gost mora imati "
+"pristup objektima u svim prikazima, pa prvo podesite ta prava. Zatim iskoristite ovde date "
+"alate da napravite svaki od alternativnih prikaza. Koristite samo skup alternativnih adresa. "
+"Nemojte objaviti originalnu adresu Galerije, pošto ona prikazuje kombinovan skup objekata."
+
+msgid "URI for this Gallery:"
+msgstr "Identifikator ove Galerije:"
+
+msgid "URI for new guest view:"
+msgstr "Identifikator prikaza novog gosta:"
+
+msgid "Missing value"
+msgstr "Nedostaje vrednost"
+
+msgid "Root album of new view"
+msgstr "Korenski album novog pregleda"
+
+msgid "Username of alternate guest user:"
+msgstr "Korisničko ime alternativnog korisnika-gosta:"
+
+msgid "New user will be created if given name does not exist."
+msgstr "Ako navedeno ime ne postoji, biće napravljen novi korisnik."
+
+msgid "Leave blank to define a virtual root."
+msgstr "Ostavite praznim za definisanje virtualnog korena."
+
+msgid "Generate Files"
+msgstr "Generiši datoteke"
+
+msgid "Reset"
+msgstr "Poništi"

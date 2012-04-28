@@ -1,0 +1,248 @@
+# $Id: fi.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators
+# - 2007 Erkka Hakkarainen <erkka.hakkarainen@pp.inet.fi>
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-12-11 11:59+0200\n"
+"PO-Revision-Date: 2007-03-12 15:20+0200\n"
+"Last-Translator: Erkka Hakkarainen <erkka.hakkarainen@pp.inet.fi>\n"
+"Language-Team: Finnish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Windows Publishing Wizard"
+msgstr ""
+
+#, fuzzy
+msgid "Publish photos to Gallery directly from Windows"
+msgstr "Julkaise kuvasi galleriaan suoraan Windows XP:stä"
+
+msgid "Import"
+msgstr "Tuonti"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s osoitteessa %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Julkaise Kuvasi: %s"
+
+msgid "Upload to Gallery"
+msgstr "Siirrä Galleriaan"
+
+#, fuzzy
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Windows XP:ssa tulee mukana ominaisuus joka antaa sinun julkaista sisältöä suoraan "
+"koneeltasi web palveluun. Seuraa alla olevia ohjeita laittaaksesi palvelun toimintaan "
+"Windows XP koneellasi."
+
+msgid "Installation"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Lataa konfigurointitiedosto käyttäen oikea-hiiri 'Tallenna Nimellä...' tai 'Save Target "
+"As...' Kun tiedosto on ladattu, laita sen nimeksi 'install_registry.reg'. Jos sinulta "
+"kysytään vahvistusta, vastaa 'Kyllä'. Valitse tiedosto hiiren oikealla näppäimellä ja "
+"näkyviin pitäisi tulla valikko. Valitse Yhdistä/Merge vaihtoehto (tämän pitäisi olla "
+"ylimpänä valikossa). XP kysyy sinulta haluatko lisätä arvot registryyn. Valitse 'Ok'. XP "
+"ilmoittaa että tiedostot tuotiin onnistuneesti. Valitse 'Ok' uudelleen."
+
+msgid "(for Windows Vista)"
+msgstr ""
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr "Lataa [install_registry.reg]"
+
+#, fuzzy
+msgid "Windows Vista"
+msgstr "Windows XP"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr ""
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr ""
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+
+msgid "Select the Gallery 2 printing service."
+msgstr ""
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr ""
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+
+msgid "Select the image(s) or a folder."
+msgstr ""
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+
+#, fuzzy
+msgid "Usage"
+msgstr "Käyttäjänimi"
+
+msgid "Specify the name and title for the new album."
+msgstr "Anna uudelle albumille nimi ja otsikko."
+
+msgid "Create a new album"
+msgstr "Luo uusi albumi"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "(required)"
+msgstr "(vaadittu)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Albumin nimi levyllä. Sen täytyy olla yksiselitteinen tässä albumissa. Käytä vain numeroita, "
+"kirjaimia a-z, alaviivaa tai väliviivoja. Voit vaihtaa sen nimeä myöhemmin."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Nimi sisältää sopimattomia merkkejä. Ole hyvä ja anna toinen nimi."
+
+msgid "You must enter a name for this album."
+msgstr "Sinun tulee antaa tälle albumille nimi."
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "This is the album title."
+msgstr "Tämä on albumin otsikko."
+
+msgid "Summary"
+msgstr "Yhteenveto"
+
+msgid "This is the album summary."
+msgstr "Tämä on albumin yhteenveto."
+
+msgid "Keywords"
+msgstr "Avainsanat"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Avainsanat eivät näy, mutta niiden mukaan voidaan etsiä."
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "This is the long description of the album."
+msgstr "Tämä on albumin pitkä kuvaus."
+
+msgid "Set options for the photos to be added."
+msgstr "Aseta lisättävien kuvien asetukset."
+
+msgid "Standard Options"
+msgstr "Vakioasetukset"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Nyt kun olet valinnut kohdealbumin, seuraavia vaihtoehtoja voidaan käyttää kun kuvia "
+"lisätään Galleriaan."
+
+msgid "Strip file extensions?"
+msgstr "Poista tiedostojen päätteet?"
+
+msgid "Set captions on the published items?"
+msgstr "Aseta julkaistavien kohteiden kuvatekstit?"
+
+msgid "Login to your account"
+msgstr "Kirjaudu tunnuksellesi"
+
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+msgid "You must enter a username"
+msgstr "Sinun tulee antaa käyttäjänimi"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+"Sisäänkirjautumiset tilapäisesti kiellettyjä useiden epäonnistuneiden kirjautumis-yritysten "
+"takia."
+
+msgid "Password"
+msgstr "Salasana"
+
+msgid "You must enter a password"
+msgstr "Sinun tulee antaa salasana"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Sisäänkirjautumistietosi eivät ole oikein. Yritä uudelleen."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Valitse uusille kuville albumi, tai luo uusi albumi."
+
+msgid "New Album"
+msgstr "Uusi Albumi"
+
+msgid "You must select an album"
+msgstr "Sinun tulee valita albumi"
+
+#~ msgid "Publish XP"
+#~ msgstr "Julkaise XP"
+
+#~ msgid "Step 1"
+#~ msgstr "Vaihe 1"
+
+#~ msgid "Step 2"
+#~ msgstr "Vaihe 2"
+
+#~ msgid ""
+#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
+#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
+#~ "to the web...'  Click this link and then follow the instructions to log into your "
+#~ "Gallery, select an album and publish the image."
+#~ msgstr ""
+#~ "Avaa kansio jossa kuvat on. Valitse kuvat tai kansio ja sinun pitäisi nähdä valinta "
+#~ "'Julkaise tiedosto webissä...' tai 'Publish this file to the web...'. Valitse tämä linkki "
+#~ "ja seuraa ohjeita kirjautuaksesi Galleriaan. Valitse albumi ja julkaise kuvat."

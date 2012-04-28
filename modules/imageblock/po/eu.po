@@ -1,0 +1,300 @@
+# $Id: eu.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-04 10:38+0100\n"
+"PO-Revision-Date: 2006-05-24 11:31+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+msgid "Image Block"
+msgstr "Irudi Blokea"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Ausazko, azkeneko edo Ikusien den Album edo Argazkia"
+
+msgid "Blocks"
+msgstr "Blokeak"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Ausazko Irudia"
+msgstr[1] "Ausazko Irudia"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Azken Irudia"
+msgstr[1] "Azken Irudia"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Irudi Ikusiena"
+msgstr[1] "Irudi Ikusiena"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Ausazko Albuma"
+msgstr[1] "Ausazko Albuma"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Album Berriena"
+msgstr[1] "Album Berriena"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Album Ikusiena"
+msgstr[1] "Album Ikusiena"
+
+msgid "Picture of the Day"
+msgstr "Eguneko Irudia"
+
+msgid "Picture of the Week"
+msgstr "Asteko Irudia"
+
+msgid "Picture of the Month"
+msgstr "Hilabeteko Irudia"
+
+msgid "Album of the Day"
+msgstr "Eguneko Albuma"
+
+msgid "Album of the Week"
+msgstr "Asteko Albuma"
+
+msgid "Album of the Month"
+msgstr "Hilabeteko Albuma"
+
+msgid "Date:"
+msgstr "Data:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Ikusketak: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Jabea: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Album hau irudi blokean agertzea ezindu"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Irudi bloke ezarpenak azpi-albumetan ezarri"
+
+msgid "Image Block Settings"
+msgstr "Irudi bloke ezarpenak"
+
+msgid "Settings saved successfully"
+msgstr "Ezarpenak behar bezala gorde dira"
+
+msgid "Show"
+msgstr "Erakutsi"
+
+msgid "Heading"
+msgstr "Burua"
+
+msgid "Title"
+msgstr "Titulua"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "View Count"
+msgstr "Ikuste Kontua"
+
+msgid "Owner"
+msgstr "Jabea"
+
+msgid "Frames"
+msgstr "Markoak"
+
+msgid "View samples"
+msgstr "Adibideak ikusi"
+
+msgid "Album Frame"
+msgstr "Album Markoa"
+
+msgid "Photo Frame"
+msgstr "Argazki Markoa"
+
+msgid "Save"
+msgstr "Gorde"
+
+msgid "Reset"
+msgstr "Berezarri"
+
+msgid "External Image Block"
+msgstr "Kanpo Irudi Blokea"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Behean erakusten den PHP bloke antzeko bat erabili irudi blokea galeriatik kanpoko PHP orri "
+"batetan bistaratzeko"
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Tutuz (|) bereiziriko aukera zerrenda:  randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; lehenetsia randomImage da"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Tutuz (|) bereiziriko aukera zerrenda: title, date, views, owner, heading, fullSize; balioa "
+"hau ere izan daiteke: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Emandako id-a duen albumaren azpian dauden galeria azpi-direktorioei mugatu elementu "
+"hautapena; edo specificItem bloke mota erabiltzean bistarazi behar den elementu id-a."
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href irudi batetara lotzeko, baliorik gabe ez lotzeko; lehenespena elementutik galeriara "
+"lotura egitea da"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Lotura helburu bat gehitu (adibidez lotura nabigatzaile berri batetan irekitzeko)"
+
+msgid "Image frame to use around images"
+msgstr "Irudien inguruan erabiltzeko irudi markoa"
+
+msgid "Image frame to use around albums"
+msgstr "Albumen inguruan erabiltzeko irudi markoa"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"* duen parametro bat ez bete ezkero, guneak parametro horrentzako lehenetsiriko "
+"ezarpenaerabiliko du."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Irudi markoek CSS behar dute behar bezala bistaratzeko. Honako hau ipini %s atalean irudi "
+"markoak onartzeko"
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Marko id-a ezarri (edo tutuz bereiziriko id zerrenda) marko parametroanBehean "
+"konfiguraturiko irudi markoak onartzeko parametroa ez ipini. Marko id-ak direktorio izenak "
+"dira %s direktorioan."
+
+msgid "Image type"
+msgstr "Irudi mota"
+
+msgid "Random image"
+msgstr "Ausazko irudia"
+
+msgid "Recent image"
+msgstr "Azken irudia"
+
+msgid "Viewed image"
+msgstr "Irudi ikusiena"
+
+msgid "Random album"
+msgstr "Ausazko albuma"
+
+msgid "Recent album"
+msgstr "Azken albuma"
+
+msgid "Viewed album"
+msgstr "Album ikusiena"
+
+msgid "Daily image"
+msgstr "Eguneko irudia"
+
+msgid "Weekly image"
+msgstr "Asteko irudia"
+
+msgid "Monthly image"
+msgstr "Hilabeteko irudia"
+
+msgid "Daily album"
+msgstr "Eguneko albuma"
+
+msgid "Weekly album"
+msgstr "Asteko albuma"
+
+msgid "Monthly album"
+msgstr "Hilabeteko albuma"
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Use default settings"
+msgstr "Lehenetsiko ezarpenak erabili"
+
+msgid "Show heading"
+msgstr "Burua bistarazi"
+
+msgid "Show title"
+msgstr "Titulua bistarazi"
+
+msgid "Show date"
+msgstr "Data bistarazi"
+
+msgid "Show view count"
+msgstr "Ikuste kopurua bistarazi"
+
+msgid "Show owner"
+msgstr "Jabea bistarazi"

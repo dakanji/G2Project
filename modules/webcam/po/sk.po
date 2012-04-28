@@ -1,0 +1,134 @@
+# $Id: sk.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Branislav Hanacek <brango@radegast>, 2006.
+# Branislav Hanacek <brango@brango.sk>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: WebCam 1.1.6\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-08-25 08:56-0700\n"
+"PO-Revision-Date: 2006-09-10 21:10+0200\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "WebCam/Live Image"
+msgstr ""
+
+msgid "Available to all users with permission to add items"
+msgstr "Dostupné pre všetkých užívateľov s právom na pridávanie položiek"
+
+msgid "Site Admins only"
+msgstr "Iba administrátor"
+
+msgid "Disabled"
+msgstr "Vypnute"
+
+msgid "WebCam"
+msgstr ""
+
+msgid "Support periodically updated images like a webcam"
+msgstr ""
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Enter a URL below to a webcam or other live image anywhere on the net."
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You must enter a URL to an image"
+msgstr ""
+
+msgid "The URL entered must begin with http:// or file://"
+msgstr ""
+
+msgid "The image URL you specified is unavailable"
+msgstr ""
+
+msgid "The image URL you specified is not an image type"
+msgstr ""
+
+msgid "Check URL"
+msgstr ""
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL: %s"
+
+msgid "change"
+msgstr "zmeniť"
+
+msgid "Add Image"
+msgstr ""
+
+msgid "WebCam Settings"
+msgstr ""
+
+msgid "Settings saved successfully"
+msgstr "Nastavenia boli úspešne uložené"
+
+msgid "Enable"
+msgstr "Zapnúť"
+
+msgid "Add From Web (http://)"
+msgstr ""
+
+msgid "Security Warning"
+msgstr "Bezpečnostné Varovanie"
+
+msgid ""
+"The webcam module can be abused to attack other websites in your name.  For the attacked "
+"party it would seem as if you, the administrator of this Gallery, deliberately attacked "
+"their website because your Gallery acts on behalf of your users.  Therefore it is "
+"recommended to enable this feature only for trusted users."
+msgstr ""
+
+msgid ""
+"The webcam module also allows you to add files from the local server (e.g. with \"file://"
+"home/youraccount/images/foo.jpg\"). This particular feature is limited to site "
+"administrators since it gives access to the local file system."
+msgstr ""
+
+msgid ""
+"Enter length of time a webcam item should keep one image before refreshing from the source "
+"url."
+msgstr ""
+
+msgid "Duration in minutes:"
+msgstr "Trvanie v minútach:"
+
+msgid "Invalid duration value"
+msgstr "Neplatný čas trvnia"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Reset"
+msgstr "Východzie hodnoty"

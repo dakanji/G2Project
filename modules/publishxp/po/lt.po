@@ -1,0 +1,249 @@
+# $Id: lt.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Darius Žitkevičius <skystis@splius.lt>, 2006.
+# Darius Zitkevicius <skystis@splius.lt>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-12 23:29+0200\n"
+"PO-Revision-Date: 2007-03-08 23:49+0200\n"
+"Last-Translator: Darius Zitkevicius <skystis@splius.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+msgid "Windows Publishing Wizard"
+msgstr ""
+
+#, fuzzy
+msgid "Publish photos to Gallery directly from Windows"
+msgstr "Publikuoti vaizdus į Galeriją tiesiai iš Windows XP"
+
+msgid "Import"
+msgstr "Importas"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s - %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Publikuoti savo fotografijas ir Video į %s"
+
+msgid "Upload to Gallery"
+msgstr "Įkelti į galeriją"
+
+#, fuzzy
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Windows XP turi patogų įrankį, kurio pagalba leidžiama turinį iš darbalaukio publikuoti "
+"tiesiogiai į interneto tarnybas.  Atlikite žemiau surašytus nurodymus, kad aktyvuotumėte šią "
+"Windows tarnybą."
+
+msgid "Installation"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Atsisiųskite konfigūracinį failą paspaudę dešinį pelės klavišą ir pasirinkę „Paskirtį "
+"įrašyti kaip...“  Išsaugokite šį failą kaip 'install_registry.reg'.  Ant išsaugoto failo "
+"paspauskite dešinį pelės klavišą ir pasirinkite Merge. Windows paklaus ar jūs norite šias "
+"reikšmes importuoti į sistemos registrą.  Spauskite 'Gerai'.  Vėliau bus pranešta, kad failo "
+"turinys sėkmingai importuotas.  Spauskite 'Gerai' dar kartą."
+
+msgid "(for Windows Vista)"
+msgstr ""
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr "Atsisiųsti [install_registry.reg]"
+
+#, fuzzy
+msgid "Windows Vista"
+msgstr "Windows XP"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr ""
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr ""
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+
+msgid "Select the Gallery 2 printing service."
+msgstr ""
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr ""
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+
+msgid "Select the image(s) or a folder."
+msgstr ""
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+
+#, fuzzy
+msgid "Usage"
+msgstr "Vartotojo vardas"
+
+msgid "Specify the name and title for the new album."
+msgstr "Nurodykite naujo albumo pavadinimą ir antraštę."
+
+msgid "Create a new album"
+msgstr "Sukurti naują albumą"
+
+msgid "Name"
+msgstr "Pavadinimas"
+
+msgid "(required)"
+msgstr "(būtina)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Albumo pavadinimas jūsų failų sistemoje.  Jis turi būti unikalus šiame albume.  Naudokite "
+"tik angliškos abėcėlės simbolius, pabraukimus „_“ ir taškus.  Vėliau šį pavadinimą galėsite "
+"keisti."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Pavadinime yra netinkamų simbolių. Įveskite kitą."
+
+msgid "You must enter a name for this album."
+msgstr "Reikia nurodyti šio albumo pavadinimą."
+
+msgid "Title"
+msgstr "Antraštė"
+
+msgid "This is the album title."
+msgstr "Tai albumo antraštė."
+
+msgid "Summary"
+msgstr "Santrauka"
+
+msgid "This is the album summary."
+msgstr "Tai albumo santrauka."
+
+msgid "Keywords"
+msgstr "Raktiniai žodžiai"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Raktiniai žodžiai nėra matomi, tačiau jie naudojami paieškoje."
+
+msgid "Description"
+msgstr "Aprašymas"
+
+msgid "This is the long description of the album."
+msgstr "Tai pilnas albumo aprašymas."
+
+msgid "Set options for the photos to be added."
+msgstr "Nustatyti įkeliamų fotografijų nustatymus."
+
+msgid "Standard Options"
+msgstr "Standartiniai nustatymai"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Dabar, kai pasirinkote paskirties albumą, galima pasinaudojant nurodytais nustatymais įkelti "
+"fotografijas į galeriją."
+
+msgid "Strip file extensions?"
+msgstr "Iškirpti failų plėtinius?"
+
+msgid "Set captions on the published items?"
+msgstr "Nustatyti publikuojamų elementų antraštes?"
+
+msgid "Login to your account"
+msgstr "Prisijungti prie jūsų paskyros"
+
+msgid "Username"
+msgstr "Vartotojo vardas"
+
+msgid "You must enter a username"
+msgstr "Reikia įvesti vartotojo vardą"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr "Prisiregistravimas laikinai išjungtas, dėl daugelio nesėkmingų registravimosi bandymų."
+
+msgid "Password"
+msgstr "Slaptažodis"
+
+msgid "You must enter a password"
+msgstr "Reikia įvesti slaptažodį"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Jūsų prisijungimo duomenys neteisingi.  Bandykite dar kartą."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Pasirinkite naujų fotografijų albumą, arba sukurkite naują."
+
+msgid "New Album"
+msgstr "Naujas albumas"
+
+msgid "You must select an album"
+msgstr "Reikia pasirinkti albumą"
+
+#~ msgid "Publish XP"
+#~ msgstr "Publikuoti XP"
+
+#~ msgid "Step 1"
+#~ msgstr "Pirmas žingsnis"
+
+#~ msgid "Step 2"
+#~ msgstr "Antras žingsnis"
+
+#~ msgid ""
+#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
+#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
+#~ "to the web...'  Click this link and then follow the instructions to log into your "
+#~ "Gallery, select an album and publish the image."
+#~ msgstr ""
+#~ "Windows naršyklėje susiraskite aplanką, kuriame yra palaikomi paveikslėliai. Pažymėkite "
+#~ "paveikslėlius arba aplankus, dešinėje turėtu atsirasti nuoroda su pasiūlymu 'Publikuoti "
+#~ "šiuos failus Voratinklyje...'  Spauskite šią nuorodą, po to sekite instrukcijas kad "
+#~ "prisijungti prie Galerijos, pasirinkite albumą ir publikuokite paveikslėlius."

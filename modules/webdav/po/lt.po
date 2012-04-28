@@ -1,0 +1,209 @@
+# $Id: lt.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Darius Zitkevicius <skystis@splius.lt>, 2007.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: WebDAV 1.0.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-08-21 09:55-0700\n"
+"PO-Revision-Date: 2007-03-09 00:02+0200\n"
+"Last-Translator: Darius Zitkevicius <skystis@splius.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+msgid "WebDAV"
+msgstr ""
+
+msgid "Mount with WebDAV"
+msgstr ""
+
+msgid "Mount Gallery on your desktop."
+msgstr ""
+
+msgid "Remote Interfaces"
+msgstr "Nutolę interfeisai"
+
+msgid "Connect to WebDAV"
+msgstr ""
+
+msgid ""
+"Use short URL because most WebDAV clients don't support query strings.  The Windows WebDAV "
+"client requires that you don't add a slash before the %path% variable."
+msgstr ""
+
+msgid "Path to an item (eg. /album/image.jpg.html)"
+msgstr ""
+
+msgid "Mount WebDAV"
+msgstr ""
+
+msgid "Give davmount resources the correct extension."
+msgstr ""
+
+msgid "OPTIONS Requests"
+msgstr ""
+
+msgid "Redirect OPTIONS requests so we can set DAV headers."
+msgstr ""
+
+msgid "WebDAV Mount Instructions"
+msgstr ""
+
+#, c-format
+msgid ""
+"%sClick here%s to mount Gallery on your desktop with a WebDAV client.  Documentation on "
+"mounting Gallery with WebDAV is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "Alternatively, you can enter the following URL in your WebDAV client:"
+msgstr ""
+
+msgid "WebDAV Settings"
+msgstr ""
+
+msgid "Configuration checked successfully"
+msgstr ""
+
+#, c-format
+msgid ""
+"Most WebDAV clients will successfully connect.  Documentation on mounting Gallery with "
+"WebDAV is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "The URL to connect to Gallery with WebDAV is:"
+msgstr ""
+
+msgid "PHP has no XML support"
+msgstr ""
+
+#, c-format
+msgid ""
+"You can't connect with WebDAV because PHP has no XML support on this server.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "WebDAV requests not handled"
+msgstr ""
+
+#, c-format
+msgid ""
+"You can't connect with WebDAV because this server doesn't pass WebDAV requests to Gallery.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "HTTP auth module disabled"
+msgstr ""
+
+#, c-format
+msgid ""
+"You can connect with WebDAV anonymously, but you can't do anything which requires you to "
+"login because the HTTP auth module is disabled.  You should activate the HTTP auth module in "
+"the %sSite Admin Plugins option%s.  Troubleshooting documentation is in the %sGallery Codex%"
+"s."
+msgstr ""
+
+msgid "HTTP auth plugin disabled"
+msgstr ""
+
+msgid ""
+"You can connect with WebDAV anonymously, but you can't do anything which requires you to "
+"login because neither HTTP authentication nor server authentication are enabled in the HTTP "
+"auth module.  You should activate HTTP authentication in the settings of the HTTP auth "
+"module."
+msgstr ""
+
+msgid "'Connect to WebDAV' rule disabled"
+msgstr ""
+
+#, c-format
+msgid ""
+"Most WebDAV clients will fail to connect because the URL rewrite rule to generate short "
+"WebDAV URLs is disabled.  You should activate the 'Connect to WebDAV' rule in the %sSite "
+"Admin URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "Missing DAV headers"
+msgstr ""
+
+#, c-format
+msgid ""
+"Some WebDAV clients, e.g. Mac OS X WebDAVFS, will fail to connect because OPTIONS responses "
+"are missing DAV headers.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "Alternative URL missing DAV headers"
+msgstr ""
+
+#, c-format
+msgid ""
+"Because OPTIONS responses are missing DAV headers, we try to fall back on an alternative "
+"URL, but alternative URL responses are also missing DAV headers.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "URL rewrite module disabled"
+msgstr "URL reqrite modulis išjungtas"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will fail to connect because the URL rewrite module is disabled.  You "
+"should activate the URL rewrite module in the %sSite Admin Plugins option%s and choose "
+"either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting documentation is in the %"
+"sGallery Codex%s."
+msgstr ""
+
+msgid "Bad URL rewrite configuration"
+msgstr "Bloga URL rewrite konfigūracija"
+
+#, c-format
+msgid ""
+"PHP PathInfo rewrite doesn't support the rule to fall back on an alternative URL.  You "
+"should uninstall and reinstall the URL rewrite module in the %sSite Admin Plugins option%s "
+"and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting information is in "
+"the %sGallery Codex%s."
+msgstr ""
+
+msgid "'OPTIONS Requests' rule disabled"
+msgstr ""
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on an alternative URL is disabled.  You should activate "
+"the WebDAV 'OPTIONS Requests' rule in the %sSite Admin URL Rewrite option%s.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "Unknown Cause"
+msgstr "Nežinoma priežastis"
+
+#, c-format
+msgid ""
+"Some WebDAV clients, e.g. Mac OS X WebDAVFS, will fail to connect and automated checks "
+"failed to find a cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+
+msgid "WebDAV URL"
+msgstr ""

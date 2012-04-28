@@ -1,0 +1,322 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
+GalleryCoreApi::requireOnce('modules/picasa/test/phpunit/MockLockSystem.class');
+
+/**
+ * ConfirmPicasaImport controller tests
+ * @package Picasa
+ * @subpackage PHPUnit
+ * @author Waldemar Schlackow <gallery@schlackow.de> based on code by Bharat Mediratta
+ * @version $Revision: 17580 $
+ */
+class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
+
+    /**
+     * The id of the album to which all sub-items will be added - this is
+     * deleted in the teardown
+     * @access protected
+     */
+    var $_temporaryAlbumId;
+    /**
+     * The mock platform
+     * @access protected
+     */
+
+    var $_platform;
+
+    function ConfirmPicasaImportControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'picasa.ConfirmPicasaImport');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Make sure translate calls during test won't generate any platform calls */
+	list ($ret) = GalleryCoreApi::getPermissionIds();
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_temporaryAlbum);
+	$this->_temporaryAlbumId = $this->_temporaryAlbum->getId();
+
+	$this->_platform = new UnitTestPlatform();
+	$gallery->setPlatform($this->_platform);
+	$gallery->_lockSystem = new MockLockSystem();
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function _runBackgroundTask($expectedProgressBarDump) {
+	global $gallery;
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+	$mockGenerator = new ConfirmPicasaImportControllerTestUrlGenerator();
+	$gallery->_urlGenerator =& $mockGenerator;
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
+	    'status' => array(), 'error' => array()), $results);
+
+	$this->assertEquals(1, $mockAdapter->getCallbackCount());
+	$ret = $mockAdapter->runCallbacks();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (is_array($expectedProgressBarDump)) {
+	    $this->assertEquals($expectedProgressBarDump, $mockAdapter->getProgressBarDump());
+	} else {
+	    $pattern = '/^' . $expectedProgressBarDump . '$/';
+	    $dump = join(' ', $mockAdapter->getProgressBarDump());
+	    $this->assert(preg_match($pattern, $dump),
+		'Dump ['.$dump.'] did not match pattern ['.$pattern.']');
+	}
+
+	$session =& $gallery->getSession();
+	$status = $session->getStatus();
+
+	return array(null, $status);
+    }
+
+    /**
+     * Test what the controller does when you cancel the Import
+     */
+    function testCancelImport() {
+	global $gallery;
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'picasa.SelectPicasaExportPath'), 'status' => array(),
+	    'error' => array()), $results);
+    }
+
+    /**
+     * Test whether the actual importing works successfully
+     */
+    function testImportAlbumSuccessful() {
+	global $gallery;
+
+	/* Test with the loosest markup type */
+	$ret = $this->_setMarkupType('html', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/*
+	 * The test data, containing only the necessary tags (some are not used yet, but will be
+	 * later). Hence differing from a real Picasa export
+	 */
+	$testXmlData = array('<?xml version="1.0" encoding="utf-8" ?>',
+	    '<album><albumName><![CDATA[GalleryTest 2<script>evil]]></albumName>',
+	    '<albumItemCount>2</albumItemCount>',
+	    '<albumCaption><![CDATA[This is<script>a test]]></albumCaption>',
+	    '<images>',
+	    '<image>',
+		'<itemLargeImage>images/ajipankachile5.jpg0</itemLargeImage>',
+		'<itemWidth>171</itemWidth>',
+	    '<itemHeight>426</itemHeight>',
+		'<itemThumbnailImage>thumbnails/ajipankachile5.jpg0</itemThumbnailImage>',
+		'<itemThumbnailWidth>42</itemThumbnailWidth>',
+		'<itemThumbnailHeight>90</itemThumbnailHeight>',
+		'<itemName>ajipankachile5.jpg0</itemName>',
+		'<itemCaption>Testpicture</itemCaption>',
+	    '</image>',
+	    '<image>',
+		'<itemLargeImage>images/californiadriedchile5.jpg0</itemLargeImage>',
+		'<itemWidth>171</itemWidth>',
+	    '<itemHeight>426</itemHeight>',
+		'<itemThumbnailImage>thumbnails/californiadriedchile5.jpg0</itemThumbnailImage>',
+		'<itemThumbnailWidth>42</itemThumbnailWidth>',
+		'<itemThumbnailHeight>90</itemThumbnailHeight>',
+		'<itemName>californiadriedchile5.jpg0</itemName>',
+		'<itemCaption>californiadriedchile5.jpg0</itemCaption>',
+	    '</image>',
+	    '<image>',
+		'<itemLargeImage><![CDATA[images/a<script>b.jpg0]]></itemLargeImage>',
+		'<itemWidth>171</itemWidth>',
+	    '<itemHeight>426</itemHeight>',
+		'<itemThumbnailImage><![CDATA[thumbnails/a<script>b.jpg0]]></itemThumbnailImage>',
+		'<itemThumbnailWidth>42</itemThumbnailWidth>',
+		'<itemThumbnailHeight>90</itemThumbnailHeight>',
+		'<itemName><![CDATA[a<script>b.jpg0]]></itemName>',
+		'<itemCaption><![CDATA[a<script>b.jpg0]]></itemCaption>',
+	    '</image>',
+	    '</images>',
+	    '</album>');
+	/* Calls that read the mock xml and create the album */
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('/index.xml'), true);
+	$this->_platform->setReply('is_readable', array('/index.xml'), true);
+	$this->_platform->setReply('file', array('/index.xml', ''), $testXmlData);
+	$this->_platform->setReply(
+	    'legalizePathComponent',
+	    array('GalleryTest 2<script>evil', false), 'GalleryTest 2_script_evil');
+	$this->_platform->setReply(
+	    'isLegalPathComponent',
+	    array('GalleryTest 2_script_evil', false), true);
+	$this->_platform->setReply(
+	    'legalizePathComponent',
+	    array('GalleryTest 2_script_evil', true), 'GalleryTest 2_script_evil');
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('fuzzy' => '{.*GalleryTest 2}'), false);
+	$this->_platform->setReply('mkdir', array('fuzzy' => '{.*GalleryTest 2}',
+						  'fuzzy2' => '{\d+}'), true);
+
+	/* Image creation */
+	$testImages = array('ajipankachile5.jpg0', 'californiadriedchile5.jpg0', 'a<script>b.jpg0');
+
+	foreach ($testImages as $testImage) {
+
+	    $this->_platform->setReply('is_uploaded_file', array('/images/' . $testImage . ''),
+		true);
+	    $this->_platform->setReply('legalizePathComponent', array($testImage, false),
+		$testImage);
+	    $this->_platform->setReply('getDirectorySeparator', array(), '/');
+	    $this->_platform->setReply('copy',
+		array('/images/' . $testImage . '', 'fuzzy'=>'{.*/' . $testImage . '}'),
+		true);
+	    $this->_platform->setReply('filesize',
+		array('fuzzy'=>'{.*/' . $testImage . '}'), 10000);
+	}
+
+	GalleryUtilities::putRequestVariable('form[picasaXmlPath]','/');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumId]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'filename');
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '0 [\d\.\d\d].* ' .
+	    'complete:view=core.SiteAdmin,subView=picasa.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('GalleryTest 2&lt;script&gt;evil'),
+			    array_keys($status['albumImportSuccess']));
+	$this->assertEquals(
+	    array('ajipankachile5.jpg0', 'californiadriedchile5.jpg0', 'a&lt;script&gt;b.jpg0'),
+	    array_keys($status['pictureImportSuccess']));
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['GalleryTest 2&lt;script&gt;evil'];
+
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('GalleryTest 2&lt;script&gt;evil',  /* title */
+				  'This is&lt;script&gt;a test',      /* summary */
+				  'This is&lt;script&gt;a test',      /* description */
+				  ),
+			    array($testAlbum->getTitle(),             /* title */
+				  $testAlbum->getSummary(),           /* summary */
+				  $testAlbum->getDescription(),       /* description */
+				  )
+			    );
+
+	/* Verify item attributes (like order weight) */
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(3, count($ids), 'number of children');
+
+	/* Get the allegedly successfully imported items */
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array ('ajipankachile5',    // title
+		'Testpicture',                          // summary
+		'Testpicture',                          // description
+	    ),
+	    array($testItem->getTitle(),                // title
+		$testItem->getSummary(),                // summary
+		$testItem->getDescription(),            // description
+	    ),
+	    'item 0');
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('californiadriedchile5',      // title
+		'californiadriedchile5.jpg0',                   // summary
+		'californiadriedchile5.jpg0',                   //description
+	    ),
+	    array($testItem->getTitle(),            // title
+		$testItem->getSummary(),            // summary
+		$testItem->getDescription(),        // description
+	    ),
+	    'item 1');
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('a&lt;script&gt;b',       /* title */
+				  'a&lt;script&gt;b.jpg0',  /* summary */
+				  'a&lt;script&gt;b.jpg0',  /* description */
+				  ),
+			    array($testItem->getTitle(),       /* title */
+				  $testItem->getSummary(),     /* summary */
+				  $testItem->getDescription(), /* description */
+				  ),
+			    'item 2');
+    }
+}
+
+class ConfirmPicasaImportControllerTestUrlGenerator {
+    function generateUrl($args) {
+	$buf = array();
+	foreach ($args as $key => $value) {
+	    $buf[] = "$key=$value";
+	}
+	return join(',', $buf);
+    }
+}
+?>

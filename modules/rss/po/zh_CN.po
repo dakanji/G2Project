@@ -1,0 +1,561 @@
+# $Id: zh_CN.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-13 10:12-0500\n"
+"PO-Revision-Date: 2006-03-10 12:40+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "This feed no longer exists!"
+msgstr "这个新闻派送已经不存在了！"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "不允许这种新闻派送种类！"
+
+msgid "Incorrect feed type!"
+msgstr "不正确的新闻派送种类！"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "没有启用评论模块或不允许评论新闻派送！"
+
+msgid "Not permitted to view comments for this item"
+msgstr "没有可以观看这个项目评论的权限"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "RSS Feed for this Album"
+msgstr "这个相册的 RSS 新闻派送"
+
+msgid "RSS Feed for this Photo"
+msgstr "这个照片的 RSS 新闻派送"
+
+msgid "RSS Feed for this Movie"
+msgstr "这个电影的 RSS 新闻派送"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "这个%s的新闻派送"
+
+msgid "Configure RSS Feeds"
+msgstr "设定 RSS 新闻派送"
+
+msgid "Simple RSS Feed"
+msgstr "简易 RSS 新闻派送"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "简易 RSS 新闻派送的网址"
+
+msgid "RSS Feed"
+msgstr "RSS 新闻派送"
+
+msgid "The name of the configured RSS Feed"
+msgstr "设定的 RSS 新闻派送名称"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "可配置的 RSS 新闻派送的网址"
+
+#, c-format
+msgid "In album %s"
+msgstr "在相册%s中"
+
+msgid "Items in an album"
+msgstr "相册中的项目"
+
+msgid "Sub-albums of an album"
+msgstr "相册中的子相册"
+
+msgid "Items in an album and its sub-albums"
+msgstr "相册和其子相册中的项目"
+
+msgid "Comments for an album"
+msgstr "相册的评论"
+
+msgid "Comments for an item"
+msgstr "项目的评论"
+
+#, fuzzy
+msgid "Comments for an album and its subalbums"
+msgstr "相册和其子相册中的项目"
+
+#, fuzzy
+msgid "Random items in an album"
+msgstr "相册中的项目"
+
+#, fuzzy
+msgid "Random items in an album and its subalbums"
+msgstr "相册和其子相册中的项目"
+
+msgid "RSS Feeds"
+msgstr "RSS 新闻派送"
+
+msgid "Settings have been saved"
+msgstr "设定已经储存"
+
+msgid "Feed successfully deleted"
+msgstr ""
+
+msgid "An error occured"
+msgstr "发生错误"
+
+msgid "List"
+msgstr "列表"
+
+msgid "Edit Feed"
+msgstr "编辑新闻派送"
+
+msgid "New Feed"
+msgstr "新的新闻派送"
+
+msgid "Feed URL"
+msgstr "新闻派送网址"
+
+msgid "Feed name"
+msgstr "新闻派送名称"
+
+msgid "You can't change the name of the feed"
+msgstr "你不能改变这个新闻派送的名称"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr "为你的新闻派送选一个名称（这个名称会在你的新闻派送网址中用到，所以请尽量使用英文字母）"
+
+msgid "You must enter a name"
+msgstr "你必需输入一个名称"
+
+msgid "This name is already used, please select another one"
+msgstr "这个名称已被使用，请选用另一个名称"
+
+msgid "Description"
+msgstr "详细说明"
+
+msgid "Feed settings"
+msgstr "新闻派送设定"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "选择新闻派送中的资料种类"
+
+msgid "Type of feed"
+msgstr "新闻派送种类"
+
+msgid "Items in this album"
+msgstr "这个相册中的项目"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr "网站管理员不允许这种类型的新闻派送。使用者将无法看到它们。"
+
+msgid "Sub-albums of this album"
+msgstr "这个相册中的子相册"
+
+msgid "Items in this album and its subalbums"
+msgstr "这个相册和其子相册中的项目"
+
+msgid "Limit the number of items per album"
+msgstr "限制相册中的项目数"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "不正确的限制（必需是一个正数，或零表示无限制）"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "（输入零以取消限制）"
+
+msgid "Comments for this album"
+msgstr "这个相册的评论"
+
+#, fuzzy
+msgid "Comments for this album and its subalbums"
+msgstr "这个相册和其子相册中的项目"
+
+#, fuzzy
+msgid "Random pictures inside this album"
+msgstr "这个相册中的项目"
+
+#, fuzzy
+msgid "Random pictures inside this album and its subalbums"
+msgstr "这个相册和其子相册中的项目"
+
+msgid "Comments for this item"
+msgstr "这个项目的评论"
+
+msgid "Which items"
+msgstr "那些项目"
+
+msgid "New items only"
+msgstr "只有新项目"
+
+msgid "New and updated items"
+msgstr "新的和最近更新的项目"
+
+msgid "Choose the options for the feed"
+msgstr "选择新闻派送的选项"
+
+msgid "RSS version"
+msgstr "RSS 版本"
+
+msgid "Invalid version"
+msgstr "不正确的版本"
+
+msgid "Number of items"
+msgstr "项目数"
+
+msgid "Invalid number"
+msgstr "不正确的数字"
+
+msgid "language tag"
+msgstr "语言标签"
+
+msgid "Invalid language value"
+msgstr "不正确的语言值"
+
+msgid "by default: en-us."
+msgstr "默认：en-us。"
+
+msgid "List of all possible values"
+msgstr "所有可能值的列表"
+
+msgid "category tag"
+msgstr "类别标签"
+
+msgid "ttl tag"
+msgstr "ttl 标签"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "不正确的有效时间，必需是分钟数（或用零取消 ttl）"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr "有效时间：阅读程式在两次检查新闻派送是否更新之间需要等待的分钟数（或用零取消 ttl）"
+
+msgid "Copyright"
+msgstr "版权说明"
+
+msgid "Invalid copyright"
+msgstr "不正确的版权说明"
+
+msgid "Use image tag"
+msgstr "使用图像标签"
+
+msgid "Include image tag"
+msgstr "包含图像标签"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "在新闻派送中加上一个对应这个项目缩略图的主图像"
+
+msgid "Invalid value"
+msgstr "不正确的值"
+
+msgid "Use enclosures"
+msgstr "使用附件"
+
+msgid "Include enclosure tags"
+msgstr "包含附件标签"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr "在新闻派送中的每个图像加上含有全尺寸图像的附件"
+
+msgid "Use Media RSS"
+msgstr ""
+
+#, fuzzy
+msgid "Include Media RSS tags"
+msgstr "包含图像标签"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+
+msgid "about Media RSS"
+msgstr ""
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "群组标签（RSS 2.0）"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "如果你要使用群组标签，可以在这里设定它的属性"
+
+msgid "Example: "
+msgstr "范例："
+
+msgid "domain"
+msgstr "领域"
+
+msgid "port"
+msgstr "端口"
+
+msgid "path"
+msgstr "路径"
+
+msgid "registerProcedure"
+msgstr "登录程序"
+
+msgid "protocol"
+msgstr "协定"
+
+msgid "Cloud tag"
+msgstr "群组标签"
+
+msgid "Include the cloud tag"
+msgstr "包含群组标签"
+
+msgid "Invalid string"
+msgstr "不正确的字串"
+
+msgid "Invalid port number"
+msgstr "不正确的端口号"
+
+msgid "Update Feed"
+msgstr "更新新闻派送"
+
+msgid "Create Feed"
+msgstr "产生新闻派送"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "RSS feeds for this item"
+msgstr "这个项目的新闻派送"
+
+msgid "No feeds have yet been defined"
+msgstr "没有定义任何新闻派送"
+
+msgid "Feed link"
+msgstr "新闻派送网址"
+
+msgid "Feed type"
+msgstr "新闻派送种类"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "delete"
+msgstr "删除"
+
+msgid "edit"
+msgstr "编辑"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "这是本 Gallery 所有新闻派送的列表"
+
+msgid "RSS Settings"
+msgstr "RSS 设定"
+
+msgid "Settings"
+msgstr "设定"
+
+msgid "Simple Feed Settings"
+msgstr "简易新闻派送设定"
+
+msgid "General settings"
+msgstr "一般设定"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "这些是你的 Gallery 中所有新闻派送可用的默认和最大值"
+
+msgid "Default number of items in feeds"
+msgstr "默认新闻派送项目数"
+
+msgid "Invalid default number"
+msgstr "不正确的默认值"
+
+msgid "Maximum number of items in feeds"
+msgstr "最大新闻派送项目数"
+
+msgid "Invalid maximum number"
+msgstr "不正确的最大值"
+
+#, fuzzy
+msgid "Maximum age for items in feeds"
+msgstr "最大新闻派送项目数"
+
+#, fuzzy
+msgid "Invalid maximum age number"
+msgstr "不正确的最大值"
+
+msgid "Default ttl"
+msgstr "默认 ttl"
+
+msgid "Default copyright"
+msgstr "默认版权说明"
+
+msgid "Feed Types"
+msgstr "新闻派送种类"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "设定可用那些新闻派送类型"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "允许使用简易 RSS 新闻派送"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr "如果你启用这个选项，使用者将能订阅所有他们可以观看的相册或照片。"
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr "请使用屏幕上端的标签来变更简易新闻派送设定。"
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "允许使用可调式 RSS 新闻派送"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr "只有相册所有人才能定义这种新闻派送。他们可以设定他们想要的新闻派送形式的参数。"
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr "在定义一个新闻派送後，对相关项目有观看权限的使用者就可以订阅它们。"
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "允许在相册中的照片的 RSS 新闻派送"
+
+msgid "Fast"
+msgstr "快"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "允许在相册中的子相册的 RSS 新闻派送"
+
+msgid "Slow"
+msgstr "慢"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "允许相册和其子相册中照片的 RSS 新闻派送"
+
+msgid "Slower"
+msgstr "更慢"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "允许照片评论的 RSS 新闻派送"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments of an album"
+msgstr "允许相册评论的 RSS 新闻派送"
+
+#, fuzzy
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "允许相册和其子相册中照片的 RSS 新闻派送"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "允许在相册中的照片的 RSS 新闻派送"
+
+#, fuzzy
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "允许相册和其子相册中照片的 RSS 新闻派送"
+
+#, fuzzy
+msgid "Slowest"
+msgstr "更慢"
+
+msgid "Save Settings"
+msgstr "储存设定"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Helping users discover RSS feeds"
+msgstr "帮助使用者找到 RSS 新闻派送"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"如果你要协助使用者找到你的 Gallery 的新闻派送，你可以在你使用的 Gallery 布景主题中加上 RSS 区"
+"块。"
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"这会有两个效果：使用者可以用来看到并选取新闻派送（和取得所有新闻派送的列表）的区块本身；还有"
+"浏览程式可用来让使用者更容易地订阅新闻派送的隐藏页面档头。"
+
+msgid "Global list of RSS feeds"
+msgstr "所有新闻派送的列表"
+
+msgid "On item"
+msgstr "使用项目"
+
+msgid "Simple Feed settings"
+msgstr "简易新闻派送设定"
+
+msgid "For albums"
+msgstr "相册"
+
+msgid "Items in the album"
+msgstr "相册中的项目"
+
+msgid "Sub-albums of the album"
+msgstr "相册中的子相册"
+
+msgid "Items in the album and its subalbums"
+msgstr "相册和其子相册中的项目"
+
+msgid "Comments for the album"
+msgstr "相册的评论"
+
+msgid "For items"
+msgstr "项目"
+
+msgid "Comments for items (always selected)"
+msgstr "项目的评论（永远选用）"
+
+msgid "List all RSS Feeds"
+msgstr "所有 RSS 新闻派送列表"
+
+msgid "List of RSS Feeds"
+msgstr "RSS 新闻派送列表"
+
+msgid "Number of feeds to display"
+msgstr "显示的新闻派送数"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "全部"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "没有可以观看这个项目的权限"

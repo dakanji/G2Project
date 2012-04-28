@@ -1,0 +1,173 @@
+# $Id: it.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-09-16 12:30+0000\n"
+"PO-Revision-Date: 2008-03-27 20:40+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "slideshow (a tutto schermo)"
+
+msgid "Slideshow Applet"
+msgstr "Slideshow Applet"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Slideshow a tutto schermo usando un'applet Java"
+
+msgid "Display"
+msgstr "Visualizzazione"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Mostra Slideshow (A Tutto Schermo)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Percorso di un oggetto (ad es. /album/immagine.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Slideshow"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Questa applet si basa su un modulo di G2 che attualmente non è attivo. Chiedere a un "
+"amministratore di attivare il modulo 'controllo remoto'."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Scaricamento in corso di Gallery Remote Applet"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Il browser non supporta le applet; si dovrà usare la slideshow standard."
+
+msgid "Slideshow Applet Settings"
+msgstr "Configurazione Applet Slideshow"
+
+msgid "Defaults"
+msgstr "Valori Predefiniti"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Queste variabili forniscono valori predefiniti per le applet che gli utenti eseguono nel "
+"sito. Gli utenti potranno scavalcare questi parametri facendo dei cambiamenti "
+"nell'interfaccia utente delle applet, oppure cambiando il loro file defaults locale."
+
+msgid "You have no default variables"
+msgstr "Non ci sono variabili predefinite"
+
+msgid "Variable"
+msgstr "Variabile"
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Add a new default variable"
+msgstr "Aggiungi una nuova variabile predefinita"
+
+msgid "You must enter a variable name and value"
+msgstr "È necessario inserire un nome per la variabile e un valore"
+
+msgid "New variable"
+msgstr "Nuova variabile"
+
+msgid "Add variable"
+msgstr "Aggiungi variabile"
+
+msgid "Overrides"
+msgstr "Scavalca"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Queste variabili scavalcano ogni altro valore per le applet che gli utenti eseguono nel "
+"sito. Gli utenti non potranno cambiare questi valori."
+
+msgid "You have no override variables"
+msgstr "Non ci sono variabili di scavalcamento"
+
+msgid "Add a new override variable"
+msgstr "Aggiungi una nuova variabile di scavalcamento"
+
+msgid "Help"
+msgstr "Aiuto"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Qui c'è una selezione di variabili che influenzano le slideshow."
+
+msgid "variable"
+msgstr "variabile"
+
+msgid "values"
+msgstr "valori"
+
+msgid "help"
+msgstr "aiuto"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "numero massimo di immagini visualizzate in un giro"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "includere nella slideshow le immagini dei sotto-album?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "se vero, impedirà alla slideshow di scaricare le immagini a risoluzione intera"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "la slideshow dovrà ricominciare dall'inizio una volta arrivata alla fine?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "se vero, le immagini più piccole delle dimensioni dello schermo non saranno stirate"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"se vero, la slideshow scaricherà le immagini prima che siano necessarie, cosa che può "
+"aumentare la velocità, ma può anche sprecare banda"
+
+msgid "color of the slideshow background"
+msgstr "colore dello sfondo della slideshow"
+
+msgid "size of text overlay"
+msgstr "dimensione del testo in sovraimpressione"
+
+msgid "font of text overlay"
+msgstr "font del testo in sovraimpressione"
+
+msgid "should the pictures be shown in random order?"
+msgstr "le immagini devono essere mostrate in ordine casuale?"
+
+msgid "Complete list of variables"
+msgstr "Lista completa delle variabili"

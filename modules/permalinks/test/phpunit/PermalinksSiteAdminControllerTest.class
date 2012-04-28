@@ -1,0 +1,88 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+* PermalinksSiteAdmin controller tests
+*
+* @package Permalinks
+* @subpackage PHPUnit
+* @author Pierre-Luc Paour <paour@users.sf.net>
+* @version $Revision: 17580 $
+*/
+class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    function PermalinksSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'permalinks.PermalinksSiteAdmin');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'permalinks');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testPermalinksSiteAdminController() {
+	/* test toggling autoPermalink */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'permalinks.PermalinksSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	foreach (array('autoPermalink' => '0') as $key => $expectedValue) {
+	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'permalinks', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+
+	/* test toggle back */
+	GalleryUtilities::putRequestVariable('form[PermalinksSiteAdmin][autoPermalink]', 'on');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'permalinks.PermalinksSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	foreach (array('autoPermalink' => '1') as $key => $expectedValue) {
+	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'permalinks', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+}
+?>

@@ -1,0 +1,279 @@
+# $Id: uk.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Юра <Yura@stryi.com.ua>, 2006.
+# Yurii Smetana <Yura@stryi.com.ua>, 2006.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"PO-Revision-Date: 2006-08-07 20:36+0300\n"
+"Last-Translator: Yurii Smetana <Yura@stryi.com.ua>\n"
+"Language-Team: Ukrainian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.1\n"
+
+msgid "Image Block"
+msgstr ""
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr ""
+
+msgid "Blocks"
+msgstr ""
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Picture of the Day"
+msgstr ""
+
+msgid "Picture of the Week"
+msgstr ""
+
+msgid "Picture of the Month"
+msgstr ""
+
+msgid "Album of the Day"
+msgstr ""
+
+msgid "Album of the Week"
+msgstr ""
+
+msgid "Album of the Month"
+msgstr ""
+
+msgid "Date:"
+msgstr "Дата:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Переглядів: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Власник: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr ""
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr ""
+
+msgid "Image Block Settings"
+msgstr ""
+
+msgid "Settings saved successfully"
+msgstr "Налаштування успішно збережені"
+
+msgid "Show"
+msgstr ""
+
+msgid "Heading"
+msgstr ""
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "View Count"
+msgstr "Переглянути Лічильник"
+
+msgid "Owner"
+msgstr "Власник"
+
+msgid "Frames"
+msgstr ""
+
+msgid "View samples"
+msgstr ""
+
+msgid "Album Frame"
+msgstr "Рамка Альбому"
+
+msgid "Photo Frame"
+msgstr "Рамка Фото"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Reset"
+msgstr "Скинути"
+
+msgid "External Image Block"
+msgstr ""
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+
+msgid "Image frame to use around images"
+msgstr ""
+
+msgid "Image frame to use around albums"
+msgstr ""
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+
+msgid "Image type"
+msgstr ""
+
+msgid "Random image"
+msgstr ""
+
+msgid "Recent image"
+msgstr ""
+
+msgid "Viewed image"
+msgstr ""
+
+msgid "Random album"
+msgstr ""
+
+msgid "Recent album"
+msgstr ""
+
+msgid "Viewed album"
+msgstr ""
+
+msgid "Daily image"
+msgstr ""
+
+msgid "Weekly image"
+msgstr ""
+
+msgid "Monthly image"
+msgstr ""
+
+msgid "Daily album"
+msgstr ""
+
+msgid "Weekly album"
+msgstr ""
+
+msgid "Monthly album"
+msgstr ""
+
+msgid "Number of items"
+msgstr "Element-Anzahl"
+
+msgid "Use default settings"
+msgstr ""
+
+msgid "Show heading"
+msgstr ""
+
+msgid "Show title"
+msgstr ""
+
+msgid "Show date"
+msgstr ""
+
+msgid "Show view count"
+msgstr ""
+
+msgid "Show owner"
+msgstr ""

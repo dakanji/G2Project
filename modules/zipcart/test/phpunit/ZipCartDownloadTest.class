@@ -1,0 +1,190 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test ZipCart Download functionality
+ *
+ * @package ZipCart
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class ZipCartDownloadTest extends GalleryTestCase {
+
+    function ZipCartDownloadTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_view) = GalleryView::loadView('zipcart.Download');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$gallery->_phpVm = new ZipCartDownloadPhpVm($this);
+	$gallery->setConfig('data.gallery.tmp', '/data/tmp/');
+    }
+
+    function testDownloadIE() {
+	global $gallery;
+	$platform = new UnitTestPlatform();
+	$platform->setReply('is_readable', array('/data/tmp/test.zip'), true);
+	$platform->setReply('filesize', array('/data/tmp/test.zip'), 123);
+	$platform->setReply('fopen', array('/data/tmp/test.zip', 'rb', 0), 'testfd');
+	$platform->setReply('fread', array('testfd', 65535), 'zipdata');
+	$platform->setReply('fread', array('testfd', 65535), '');
+	$platform->setReply('fclose', array('testfd'), true);
+	$platform->setReply('unlink', array('/data/tmp/test.zip'), true);
+	$platform->setReply('unlink', array('/data/tmp/test'), true);
+	$gallery->setPlatform($platform);
+
+	GalleryUtilities::putRequestVariable('file', 'test');
+	$_SERVER['HTTP_USER_AGENT'] = 'This is MSIE 6 browser';
+
+	set_error_handler('ZipCartDownloadTest_error_handler');
+	ob_start();
+	$ret = $this->_view->renderImmediate(array(), array());
+	if ($ret) {
+	    return $ret;
+	}
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	$this->assertEquals(
+	    array('Content-Type: application/zip',
+		  'Content-Disposition: inline; filename="G2cart.zip"',
+		  'Content-Length: 123'), $this->_header, 'header');
+	$this->assertEquals('zipdata', $output, 'output');
+    }
+
+    function testDownloadMultipart() {
+	global $gallery;
+	$platform = new UnitTestPlatform();
+	$platform->setReply('is_readable', array('/data/tmp/test.zip'), true);
+	$platform->setReply('filesize', array('/data/tmp/test.zip'), 123);
+	$platform->setReply('fopen', array('/data/tmp/test.zip', 'rb', 0), 'testfd');
+	$platform->setReply('fread', array('testfd', 65535), 'zipdata');
+	$platform->setReply('fread', array('testfd', 65535), '');
+	$platform->setReply('fclose', array('testfd'), true);
+	$platform->setReply('unlink', array('/data/tmp/test.zip'), true);
+	$platform->setReply('unlink', array('/data/tmp/test'), true);
+	$gallery->setPlatform($platform);
+
+	GalleryUtilities::putRequestVariable('file', 'test');
+	$_SERVER['HTTP_USER_AGENT'] = 'This is some Gecko browser';
+
+	set_error_handler('ZipCartDownloadTest_error_handler');
+	ob_start();
+	$ret = $this->_view->renderImmediate(array(), array());
+	if ($ret) {
+	    return $ret;
+	}
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	$this->assertEquals(
+	    array('Content-Type: multipart/mixed; boundary=G2ZipCart'), $this->_header, 'header');
+	$this->assertEquals("--G2ZipCart\nContent-Type: application/zip\nContent-Disposition: " .
+	    "inline; filename=\"G2cart.zip\"\nContent-Length: 123\n\nzipdata\n--G2ZipCart\n" .
+	    "Content-Type: text/html\nPragma: No-cache\n\n<html><body onload=\"location" .
+	    ".reload()\"></body></html>\n\n--G2ZipCart--\n", $output, 'output');
+    }
+
+    function testCartRedirect() {
+	global $gallery;
+	$platform = new UnitTestPlatform();
+	$platform->setReply('is_readable', array('/data/tmp/test.zip'), false);
+	$gallery->setPlatform($platform);
+
+	GalleryUtilities::putRequestVariable('file', 'test');
+
+	ob_start();
+	$ret = $this->_view->renderImmediate(array(), array());
+	if ($ret) {
+	    return $ret;
+	}
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	$this->assertEquals(1, count($this->_header), 'header lines');
+	$this->assertEquals('Location:', substr($this->_header[0], 0, 9), 'header');
+	$this->assertEquals('', $output, 'output');
+    }
+
+    function testBadFile() {
+	global $gallery;
+	$platform = new UnitTestPlatform();
+	$platform->setReply('is_readable', array('/data/tmp/passwd.zip'), false);
+	$gallery->setPlatform($platform);
+
+	/* Verify a malicious file param can't get out of the tmp dir */
+	GalleryUtilities::putRequestVariable('file', '../../etc/passwd');
+
+	ob_start();
+	$ret = $this->_view->renderImmediate(array(), array());
+	if ($ret) {
+	    return $ret;
+	}
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	$this->assertEquals(1, count($this->_header), 'header lines');
+	$this->assertEquals('Location:', substr($this->_header[0], 0, 9), 'header');
+	$this->assertEquals('', $output, 'output');
+    }
+}
+
+/**
+ * ZipCartDownloadPhpVm for header() calls
+ * @package ZipCart
+ * @subpackage PHPUnit
+ */
+class ZipCartDownloadPhpVm extends GalleryPhpVm {
+    function ZipCartDownloadPhpVm(&$test) {
+	$this->_test =& $test;
+    }
+
+    function header($string) {
+	$this->_test->_header[] = $string;
+    }
+
+    function ini_set($varname, $newvalue) {
+    }
+}
+
+function ZipCartDownloadTest_error_handler($errorNumber, $errorString, $file, $line, $context) {
+    if ($errorNumber == 2048) {
+    	return; /* E_STRICT */
+    }
+
+    if (error_reporting() == 0 && strpos($errorString, 'apacheSetenvBroken') !== false) {
+	return;
+    }
+
+    /* Else call our default error_handler */
+    return PHPUnit_error_handler($errorNumber, $errorString, $file, $line, $context);
+}
+?>

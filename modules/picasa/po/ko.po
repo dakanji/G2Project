@@ -1,0 +1,259 @@
+# $Id: ko.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Picasa 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:44-0800\n"
+"PO-Revision-Date: 2006-04-08 12:54+0900\n"
+"Last-Translator: 주기영 <blackmantle@gmail.com>\n"
+"Language-Team: Korean <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Importing albums"
+msgstr ""
+
+msgid "Importing photos"
+msgstr ""
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d 메가바이트"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d 킬로바이트"
+
+msgid "Base filename"
+msgstr "파일 이름을 기본으로"
+
+msgid "Picasa Caption"
+msgstr ""
+
+msgid "Blank"
+msgstr "비워둠"
+
+msgid "From Picasa 2"
+msgstr "Picasa 2 로"
+
+msgid "Picasa"
+msgstr "피카사"
+
+msgid "Import for Picasa 2 XML-Exports"
+msgstr ""
+
+msgid "Import"
+msgstr "가져오기"
+
+msgid "Picasa 2"
+msgstr "피카사2"
+
+msgid "Confirm Import"
+msgstr ""
+
+msgid "Album to import:"
+msgstr ""
+
+msgid "Album Name"
+msgstr "사진첩 이름"
+
+msgid "Album Caption"
+msgstr ""
+
+msgid "Album Notes"
+msgstr ""
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr ""
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr ""
+
+msgid "The album will be imported into this album:"
+msgstr ""
+
+#, c-format
+msgid "Title: %s"
+msgstr "제목: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "설명 : %s"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Import Complete"
+msgstr ""
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No albums imported."
+msgstr ""
+
+#, c-format
+msgid "Imported %s"
+msgstr ""
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Error importing %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully imported %d picture."
+msgid_plural "Successfully imported %d pictures."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No pictures imported."
+msgstr ""
+
+#, c-format
+msgid "Error while importing %d picture."
+msgid_plural "Errors while importing %d pictures."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Import another Picasa album"
+msgstr ""
+
+msgid "View the imported album"
+msgstr ""
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"당신의 서버는 웹 브라우저를 통해 이 아이템을 올리는 것을 허용하지 않습니다. 시스템 관리자에"
+"게 문의 하십시오"
+
+msgid "Upload archived Picasa export files directly from your computer."
+msgstr ""
+
+msgid "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "아래의 글 상자에 전체 경로를 입력하세요. 그리고 파일에 대한 소개를 합니다."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload more than that, you "
+"must upload the files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>주의:</b> 한번에 %s 까지 파일을 올릴 수 있습니다. 만일 더 큰 파일을 올리고자 한다면, 파일"
+"을 조각내야 할 것입니다. 또는, 다른 형식의 파일을 올리거나 큰 파일을 올릴수 있도록 시스템 관"
+"리자에게 요청하십시오."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be larger than %s. "
+"If you want to upload more than that, you must upload the files separately, use a different "
+"upload format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>주의:</b> 한 번에 올릴 수 있는 크기는 %s입니다. 각각의 파일은 %s를 넘지 못합니다. 만일 당"
+"신이 이보다 더 큰 파일을 올리고자 한다면 파일을 조각내거나, 다른 형식의 파일을 사용해야합니"
+"다. 아니면 더 큰 파일을 올릴 수 있도록 시스템 관리자에게 요청 할 수 있습니다."
+
+msgid "File"
+msgstr "파일"
+
+msgid "You did not enter a path."
+msgstr ""
+
+msgid "There was an error during the upload."
+msgstr ""
+
+msgid ""
+"The filetype you entered is not supported. Maybe you did not activate the corresponding "
+"toolkit. (E.g. Archive Upload for ZIP files)"
+msgstr ""
+
+msgid "The archive you uploaded is not a valid Picasa export."
+msgstr ""
+
+msgid "Set item titles from:"
+msgstr "아이템에 대한 제목 설정:"
+
+msgid "Assign Picasa caption to:"
+msgstr ""
+
+msgid "Summary"
+msgstr "간단한 설명"
+
+msgid "Description"
+msgstr "설명"
+
+msgid "Add Items"
+msgstr "아이템 추가"
+
+msgid "Import from Picasa 2"
+msgstr "피카사2에서 가져오기"
+
+msgid ""
+"This operation takes data (images, descriptions, orderings etc.) from <strong>Picasa 2</"
+"strong> and brings it into <strong>Gallery 2</strong>."
+msgstr ""
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+
+msgid "Destination Album"
+msgstr ""
+
+msgid "Please select the gallery Album you want to import your picasa album into."
+msgstr ""
+
+msgid "Path or File"
+msgstr ""
+
+msgid ""
+"This process will import Data from a Picasa 2 XML-Export. You must enter the path to the "
+"directory with the Picasa 2 files.  Example: <i>/path/to/picasa2xml</i>"
+msgstr ""
+
+msgid "The path that you entered does not contain valid Picasa export data."
+msgstr ""
+
+msgid "Recently Used Paths"
+msgstr ""
+
+msgid "Select"
+msgstr "선택"

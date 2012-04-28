@@ -1,0 +1,178 @@
+# $Id: ru.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 10:02-0800\n"
+"PO-Revision-Date: 2008-10-12 12:07+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "слайд-шоу (полноэкранное)"
+
+msgid "Slideshow Applet"
+msgstr "Апплет слайд-шоу"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Полноэкранное слайд-шоу с использованием Java апплета"
+
+msgid "Display"
+msgstr "Отображение"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Слайд-шоу в полный экран"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Путь к элементу (например, /album/image.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Слайд-шоу"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Этот апплет использует модуль Галереи, который в настоящее время отключён. Пожалуйста, "
+"обратитесь к администратору для активации модуля 'remote'."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Загружается апплет Gallery Remote"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Ваш браузер не поддерживает апплеты. Вы должны использовать обычное слайд-шоу."
+
+msgid "Slideshow Applet Settings"
+msgstr "Настройки апплета слайд-шоу"
+
+msgid "Defaults"
+msgstr "По умолчанию"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Данные переменные задают значения по умолчанию для пользователей, которые запускают апплет "
+"на вашем сайте. Пользователи смогут переназначить данные настройки по умолчанию путем "
+"изменения в интерфейсе пользователя в апплете, либо путем изменения локальных значений по "
+"умолчанию в файле."
+
+msgid "You have no default variables"
+msgstr "Нет переменных, установленных по умолчанию"
+
+msgid "Variable"
+msgstr "Переменная"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Add a new default variable"
+msgstr "Добавить новую переменную по умолчанию"
+
+msgid "You must enter a variable name and value"
+msgstr "Вы должны ввести имя переменной и ее значение"
+
+msgid "New variable"
+msgstr "Новая переменная"
+
+msgid "Add variable"
+msgstr "Добавить переменную"
+
+msgid "Overrides"
+msgstr "Замещение"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Данные параметры будут замещать любые другие значения у пользователей апплета во время его "
+"выполнения на вашем сайте. Пользователи не смогут изменить эти значения."
+
+msgid "You have no override variables"
+msgstr "У вас нет переменных для замещения"
+
+msgid "Add a new override variable"
+msgstr "Добавить новую замещаемую переменную"
+
+msgid "Help"
+msgstr "Помощь"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Ниже список переменных, которые влияют на слайд-шоу."
+
+msgid "variable"
+msgstr "переменная"
+
+msgid "values"
+msgstr "значение"
+
+msgid "help"
+msgstr "помощь"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "максимальное количество изображений, показываемых за раз"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "должно ли слайд-шоу отображать изображения во вложенных альбомах?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "если true, слайд-шоу не будет загружать полноразмерные изображения"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "должно ли слайд-шоу повторяться циклически?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "если true, изображения меньше размера экрана не будут растянуты"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"если true, слайд-шоу загрузит изображения перед их показом, что может ускорить скорость "
+"выдачи на экран, но увеличить трафик"
+
+msgid "color of the slideshow background"
+msgstr "цвет фона слайд-шоу"
+
+msgid "size of text overlay"
+msgstr "размер накладываемого текста"
+
+msgid "font of text overlay"
+msgstr "шрифт накладываемого текста"
+
+msgid "should the pictures be shown in random order?"
+msgstr "Показывать изображения в случайном порядке?"
+
+msgid "Complete list of variables"
+msgstr "Полный список переменных"

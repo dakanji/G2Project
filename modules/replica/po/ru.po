@@ -1,0 +1,138 @@
+# $Id: ru.po 20122 2009-02-17 17:32:58Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2008-12-16 19:39+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "create replica"
+msgstr "создать реплику"
+
+msgid "replicate an item"
+msgstr "репродуцировать элемент"
+
+msgid "Replica"
+msgstr "Реплика"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Создание копии элемента на основе оригинального файла"
+
+msgid "Display"
+msgstr "Отображение"
+
+msgid "Create Replica"
+msgstr "Создать реплику"
+
+msgid "Replicate Album"
+msgstr "Репродуцировать альбом"
+
+msgid "Replicate Photo"
+msgstr "Репродуцировать фото"
+
+msgid "Replicate Movie"
+msgstr "Репродуцировать видео"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Репродуцировать %s"
+
+msgid "Create Replicas"
+msgstr "Создать реплики"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "Успешно репродуцирован %d элемент"
+msgstr[1] "Успешно репродуцировано %d элемента"
+msgstr[2] "Успешно репродуцировано %d элементов"
+
+msgid "This album contains no items to replicate."
+msgstr "Альбом не содержит элементов для репродукции."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"Реплика это элемент, который получен из оригинального файла другого  элемента для сохранения "
+"дискового пространства. В общем - это отдельный  элемент со своими подписью, миниатюрой, "
+"комментарием и т.д. Заголовки скопированы с элемента-источника, но могут быть изменены. "
+"Также, реплика или элемент-источник могут быть перемещены или удалены без ущерба друг другу."
+
+msgid "Source"
+msgstr "Источник"
+
+msgid "Choose the items you want to replicate"
+msgstr "Выберите элемент для репродукции"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(страница %d из %d)"
+
+msgid "No sources chosen"
+msgstr "Источник не выбран"
+
+msgid "Check All"
+msgstr "Выделить всё"
+
+msgid "Check None"
+msgstr "Снять выделение со всего"
+
+msgid "Invert"
+msgstr "Инвертировать"
+
+msgid "Previous Page"
+msgstr "Предыдущая страница"
+
+msgid "Next Page"
+msgstr "Следующая страница"
+
+msgid "Destination"
+msgstr "Назначение"
+
+msgid "Choose a new album for the replica"
+msgstr "Выберите новый альбом для репродукции"
+
+msgid "No destination chosen"
+msgstr "Не выбрано назначение"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Successfully created"
+msgstr "Успешно создана"
+
+msgid "Choose a destination album"
+msgstr "Укажите альбом назначения"

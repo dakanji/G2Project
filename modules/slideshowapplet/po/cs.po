@@ -1,0 +1,176 @@
+# $Id: cs.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-31 20:05+0100\n"
+"PO-Revision-Date: 2006-03-11 22:13+0100\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "prezentace (celá obrazovka)"
+
+msgid "Slideshow Applet"
+msgstr "Applet prezentace"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Prezentace na celé obrazovce pomocí Java appletu"
+
+msgid "Display"
+msgstr "Zobrazení"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Zobrazit prezentaci (celá obrazovka)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Cesta k položce (např. /album/image.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Prezentace"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Tento applet závisí na G2 modulu, který momentálně není aktivován. Prosím požádejte správce "
+"o aktivaci modulu pro vzdálený přístup."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Stahuji applet vzdálené Galerie"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Váš webový prohlížeč nepodporuje applety. Použijte prosím standardní prezentaci."
+
+msgid "Slideshow Applet Settings"
+msgstr "Nastavení appletu prezentace"
+
+msgid "Defaults"
+msgstr "Výchozí hodnoty"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Tyto proměnné poskytují výchozí hodnoty pro applety spouštěné uživateli na Vašich stránkách. "
+"Uživatelé budou moci potlačit tyto výchozí hodnoty provedením příslušných změn v "
+"uživatelském rozhraní appletu nebo změnou jejich lokálního souboru nastavení."
+
+msgid "You have no default variables"
+msgstr "Nemáte žádné výchozí proměnné"
+
+msgid "Variable"
+msgstr "Proměnná"
+
+msgid "Action"
+msgstr "Akce"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Add a new default variable"
+msgstr "Přidat novou výchozí proměnnou"
+
+msgid "You must enter a variable name and value"
+msgstr "Musíte zadat jméno proměnné a hodnotu"
+
+msgid "New variable"
+msgstr "Nová proměnná"
+
+msgid "Add variable"
+msgstr "Přidat proměnnou"
+
+msgid "Overrides"
+msgstr "Potlačení"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Tyto proměnné potlačí všechny všechny ostatní hodnoty pro applety spouštěné uživateli na "
+"Vašich stránkách. Uživatelé nebudou moci tyto hodnoty měnit."
+
+msgid "You have no override variables"
+msgstr "Nemáte žádné potlačení proměnných"
+
+msgid "Add a new override variable"
+msgstr "Přidat novou proměnnou potlačení"
+
+msgid "Help"
+msgstr "Pomoc"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Zde jsou vybrané proměnné, které ovlivní uploady."
+
+msgid "variable"
+msgstr "proměnná"
+
+msgid "values"
+msgstr "proměnné"
+
+msgid "help"
+msgstr "pomoc"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "maximální počet obrázků zobrazených v jednom běhu"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "zahrnout obrázky vnořených alb do prezentace?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "při true zabrání prezentaci stahování obrázků v plném rozlišení"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "má prezentace při dosáhnutí konce začít od začátku?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "při true obrázky menší než je velikost obrazovky nebudou roztáhnuty"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"při true bude prezentace stahovat obrázky dříve než je bude potřebovat, což urychlí "
+"zobrazení, ale může mrhat přenosovým pásmem"
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "barva pozadí prezentace"
+
+msgid "size of text overlay"
+msgstr "velikost textu překrytí"
+
+msgid "font of text overlay"
+msgstr "písmo textu překrytí"
+
+msgid "should the pictures be shown in random order?"
+msgstr "mají být obrázky zobrazeny v náhodném pořadí?"
+
+msgid "Complete list of variables"
+msgstr "Kompletní seznam proměnných"

@@ -1,0 +1,143 @@
+# $Id: de.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Jens Tkotz <jens@peino.de>
+# - Frederik Kunz <frederik.kunz@web.de>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: WebCam 1.1.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-12-07 13:31+0100\n"
+"PO-Revision-Date: 2008-07-24 18:43+0100\n"
+"Last-Translator: Jens A. Tkotz <jens@peino.de>\n"
+"Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+msgid "WebCam/Live Image"
+msgstr "WebCam/Live-Bild"
+
+msgid "Available to all users with permission to add items"
+msgstr "Verfügbar für alle Benutzer die das Recht haben Elemente hinzuzufügen"
+
+msgid "Site Admins only"
+msgstr "Nur Administratoren"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "WebCam"
+msgstr "WebCam"
+
+msgid "Support periodically updated images like a webcam"
+msgstr "Unterstützung für sich periodisch ändernde Bilder wie z.B. eine Webcam"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Enter a URL below to a webcam or other live image anywhere on the net."
+msgstr "Geben Sie unten die URL für eine Webcam oder andere Live-Bilder irgendwo im Netz ein."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You must enter a URL to an image"
+msgstr "Sie müssen die URL zu einem Bild angeben"
+
+msgid "The URL entered must begin with http:// or file://"
+msgstr "Die eingegebene URL muss mit http:// oder file:// beginnen"
+
+msgid "The image URL you specified is unavailable"
+msgstr "Die von Ihnen eingegeben URL ist nicht abrufbar"
+
+msgid "The image URL you specified is not an image type"
+msgstr "Die von Ihnen eingegeben URL veweist nicht auf ein Bild"
+
+msgid "Check URL"
+msgstr "URL überprüfen"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL: %s"
+
+msgid "change"
+msgstr "ändern"
+
+msgid "Add Image"
+msgstr "Bild hinzufügen"
+
+msgid "WebCam Settings"
+msgstr "WebCam-Einstellungen"
+
+msgid "Settings saved successfully"
+msgstr "Einstellungen erfolgreich gespeichert"
+
+msgid "Enable"
+msgstr "Aktiviert"
+
+msgid "Add From Web (http://)"
+msgstr "Aus dem Netz hinzufügen (http://)"
+
+msgid "Security Warning"
+msgstr "Sicherheitswarnung"
+
+msgid ""
+"The webcam module can be abused to attack other websites in your name.  For the attacked "
+"party it would seem as if you, the administrator of this Gallery, deliberately attacked "
+"their website because your Gallery acts on behalf of your users.  Therefore it is "
+"recommended to enable this feature only for trusted users."
+msgstr ""
+"Das Webcam Module kann misbraucht werden um andere Webseiten in Ihrem Namen anzugreifen.  "
+"Für die angegriffene Webseite sieht es so aus, als würden SIE den Angriff durchgeführt, da "
+"nach aussen die Gallery in Ihrem Namen auftritt. Daher empfehlen wir dieses Feature nur für "
+"bekannte Benutzer freizuschalten."
+
+msgid ""
+"The webcam module also allows you to add files from the local server (e.g. with \"file://"
+"home/youraccount/images/foo.jpg\"). This particular feature is limited to site "
+"administrators since it gives access to the local file system."
+msgstr ""
+"Das Webcam Module erlaubt es auch Dateien von Ihrem Server hochzuladen. (z.B. via \"file://"
+"home/youraccount/images/jens.jpg\"). Diese spezielle Feature ist jedoch Administratoren "
+"vorbehalten, da es den Zugriff zum Dateisystem erlaubt."
+
+msgid ""
+"Enter length of time a webcam item should keep one image before refreshing from the source "
+"url."
+msgstr ""
+"Geben Sie das Zeitintervall an, wie lange es dauert, bis ein Webcam-Element sein Bild von "
+"der Quelle aktualisiert."
+
+msgid "Duration in minutes:"
+msgstr "Dauer in Minuten:"
+
+msgid "Invalid duration value"
+msgstr "Ungültiger Wert für die Dauer"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Reset"
+msgstr "Zurücksetzen"

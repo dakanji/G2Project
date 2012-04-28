@@ -1,0 +1,282 @@
+# $Id: it.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Getid3 1.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-15 17:59+0100\n"
+"PO-Revision-Date: 2008-03-27 12:05+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Getid3"
+msgstr "Getid3"
+
+msgid "A toolkit for getting id3 tag information"
+msgstr "Un set di strumenti per estrarre le informazioni dei tag id3"
+
+msgid "Extra Data"
+msgstr "Dati Extra"
+
+msgid "Get the origination timestamp"
+msgstr "Estrai la data e l'ora originali"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Artist"
+msgstr "Artista"
+
+msgid "Audio Bit Rate"
+msgstr "Bit Rate Audio"
+
+msgid "Audio Bit Rate Mode"
+msgstr "Modalità Bit Rate Audio"
+
+msgid "Audio Channels"
+msgstr "Canali Audio"
+
+msgid "Audio Codec"
+msgstr "Codec Audio"
+
+msgid "Channel Mode"
+msgstr "Modalità Canali"
+
+msgid "Audio Sample Rate"
+msgstr "Frequenza di Campionamento Audio"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Date/Time"
+msgstr "Data/Ora"
+
+msgid "Genre"
+msgstr "Genere"
+
+msgid "Playtime (Seconds)"
+msgstr "Durata (Secondi)"
+
+msgid "Playtime"
+msgstr "Durata"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Track"
+msgstr "Traccia"
+
+msgid "Video Bit Rate"
+msgstr "Bit Rate Video"
+
+msgid "Video Bit Rate Mode"
+msgstr "Modalità Bit Rate Video"
+
+msgid "Video Codec"
+msgstr "Codec Video"
+
+msgid "Video Data Format"
+msgstr "Formato Dati Video"
+
+msgid "Video Frame Rate"
+msgstr "Frequenza Frame Video"
+
+msgid "Video Resolution X"
+msgstr "Risoluzione Video X"
+
+msgid "Video Resolution Y"
+msgstr "Risoluzione Video Y"
+
+msgid "Video Software"
+msgstr "Software Video"
+
+msgid "Year"
+msgstr "Anno"
+
+msgid "getID3() Settings"
+msgstr "Configurazione getID3()"
+
+#, c-format
+msgid "Added %d property to the Summary view"
+msgid_plural "Added %d properties to the Summary view"
+msgstr[0] "Aggiunta %d proprietà alla schermata Sommario"
+msgstr[1] "Aggiunte %d proprietà alla schermata Sommario"
+
+#, c-format
+msgid "Removed %d property from the Summary view"
+msgid_plural "Removed %d properties from the Summary view"
+msgstr[0] "Rimossa %d proprietà dalla schermata Sommario"
+msgstr[1] "Rimosse %d proprietà dalla schermata Sommario"
+
+msgid "Restored the default properties for the Summary view"
+msgstr "Ripristinate le proprietà predefinite per la schermata Sommario"
+
+#, c-format
+msgid "Moved %d property up in the Summary view"
+msgid_plural "Moved %d properties up in the Summary view"
+msgstr[0] "Spostata in alto %d proprietà nella schermata Sommario"
+msgstr[1] "Spostate in alto %d proprietà nella schermata Sommario"
+
+#, c-format
+msgid "Moved %d property down in the Summary view"
+msgid_plural "Moved %d properties down in the Summary view"
+msgstr[0] "Spostata in basso %d proprietà nella schermata Sommario"
+msgstr[1] "Spostate in basso %d proprietà nella schermata Sommario"
+
+#, c-format
+msgid "Added %d property to the Detailed view"
+msgid_plural "Added %d properties to the Detailed view"
+msgstr[0] "Aggiunta %d proprietà nella schermata Dettagli"
+msgstr[1] "Aggiunte %d proprietà nella schermata Dettagli"
+
+#, c-format
+msgid "Removed %d property from the Detailed view"
+msgid_plural "Removed %d properties from the Detailed view"
+msgstr[0] "Rimossa %d proprietà dalla schermata Dettagli"
+msgstr[1] "Rimosse %d proprietà dalla schermata Dettagli"
+
+msgid "Restored the default properties for the Detailed view"
+msgstr "Ripristinate le proprietà predefinite per la schermata Dettagli"
+
+#, c-format
+msgid "Moved %d property up in the Detailed view"
+msgid_plural "Moved %d properties up in the Detailed view"
+msgstr[0] "Spostata in alto %d proprietà nella schermata Dettagli"
+msgstr[1] "Spostate in alto %d proprietà nella schermata Dettagli"
+
+#, c-format
+msgid "Moved %d property down in the Detailed view"
+msgid_plural "Moved %d properties down in the Detailed view"
+msgstr[0] "Spostata in basso %d proprietà nella schermata Dettagli"
+msgstr[1] "Spostate in basso %d proprietà nella schermata Dettagli"
+
+msgid "Settings saved successfully"
+msgstr "Configurazione salvata con successo"
+
+msgid ""
+"getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, "
+"playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."
+msgstr ""
+"getID3() è uno script in PHP4 che estrae informazioni utili (come i tag ID3, bitrate, "
+"durata, ecc.) dagli MP3 &amp; altri formati di file multimediali (Ogg, WMA, WMV, ASF, WAV, "
+"AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI e altri)."
+
+msgid "Summary and Detailed displays"
+msgstr "Schermate Sommario e Dettagli"
+
+msgid ""
+"There can be a great deal of information stored in many file formats.  We display that data "
+"in two different views, summary and detailed.  You can choose which properties are displayed "
+"in each view."
+msgstr ""
+"Ci possono essere delle grandi quantità di informazioni memorizzate in tanti formati di "
+"file. Questi dati vengono visualizzati in due schermate differenti, sommario e dettagli. È "
+"possibile decidere quale proprietà visualizzare in ciascuna schermata."
+
+msgid "Available"
+msgstr "Disponibile"
+
+msgid "Summary"
+msgstr "Sommario"
+
+msgid "Detailed"
+msgstr "Dettagli"
+
+msgid "You must select at least one value in the available column"
+msgstr "È necessario selezionare almeno un valore nella colonna disponibile"
+
+msgid "You must select at least one value in the summary column"
+msgstr "È necessario selezionare almeno un valore nella colonna sommario"
+
+msgid "You must select at least one value in the detailed column"
+msgstr "È necessario selezionare almeno un valore nella colonna dettagli"
+
+msgid "Add to Summary"
+msgstr "Aggiungi a Sommario"
+
+msgid "Add to Detailed"
+msgstr "Aggiungi a Dettagli"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "Up"
+msgstr "Su"
+
+msgid "Down"
+msgstr "Giù"
+
+msgid "Reset to Defaults"
+msgstr "Reimposta a Valori Predefiniti"
+
+msgid ""
+"Restore the original values for the Summary and Detailed views.  Use with caution, there is "
+"no undo!"
+msgstr ""
+"Ripristina i valori originali per le schermate Sommario e Dettagli. Usare con cautela, non "
+"c'è possibilità di annullare le modifiche."
+
+msgid "Restore Summary Defaults"
+msgstr "Ripristina i Valori Predefiniti di Sommario"
+
+msgid "Restore Detailed Defaults"
+msgstr "Ripristina i Valori Predefiniti di Dettagli"
+
+msgid "Item Upload"
+msgstr "Caricamento Oggetto"
+
+msgid "When MP3s are added to Gallery check the ID3 title field and apply to:"
+msgstr ""
+"Quando gli MP3 vengono aggiunti in Gallery controlla il campo ID3 del titolo e applicalo a:"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Getid3 Module"
+msgstr "Modulo Getid3"
+
+msgid "This module does not work on Windows, yet."
+msgstr "Questo modulo per ora non funziona in Windows."
+
+msgid "Audio/Video Properties"
+msgstr "Proprietà Audio/Video"
+
+msgid "summary"
+msgstr "sommario"
+
+msgid "details"
+msgstr "dettagli"
+
+msgid "Archive File List"
+msgstr "Lista File Archivio"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Size"
+msgstr "Dimensione"
+
+msgid "GetID3/Misc info"
+msgstr "Informazioni GetID3/Misc"

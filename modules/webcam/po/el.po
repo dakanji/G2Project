@@ -1,0 +1,134 @@
+# $Id: el.po 19453 2008-12-27 16:46:43Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Akis Panas <pasas9@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: WebCam 1.1.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-10-11 18:05+0000\n"
+"PO-Revision-Date: 2008-12-04 03:54+0200\n"
+"Last-Translator: Akis Panas <pasas9@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+msgid "WebCam/Live Image"
+msgstr "WebCam/Ζωντανή εικόνα"
+
+msgid "Available to all users with permission to add items"
+msgstr "Διαθέσιμο σε όλους του χρήστες που μπορούν να προσθέσουν αντικείμενα"
+
+msgid "Site Admins only"
+msgstr "Μόνο οι διαχειριστές"
+
+msgid "Disabled"
+msgstr "Απενεργοποιημένη"
+
+msgid "WebCam"
+msgstr "WebCam"
+
+msgid "Support periodically updated images like a webcam"
+msgstr "Υποστηρίζει περιοδικά ανανεωμένες φωτογραφίες όπως μια webcam"
+
+msgid "Import"
+msgstr "Εισαγωγή"
+
+msgid "Enter a URL below to a webcam or other live image anywhere on the net."
+msgstr ""
+"Δώστε μια διεύθυνση πιο κάτω σε μια webcam ή άλλης ζωντανής εικόνας οπουδήποτε στο διαδίκτυο."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You must enter a URL to an image"
+msgstr "Πρέπει να δώσετε μια διεύθυνση σε μια φωτογραφία"
+
+msgid "The URL entered must begin with http:// or file://"
+msgstr "Η διεύθυνση που δώσατε πρέπει να ξεκινά με http:// ή file://"
+
+msgid "The image URL you specified is unavailable"
+msgstr "Η διεύθυνση φωτογραφίας που δώσατε δεν είναι διαθέσιμη"
+
+msgid "The image URL you specified is not an image type"
+msgstr "Η διεύθυνση φωτογραφίας που δώσατε δεν είναι τύπος φωτογραφίας"
+
+msgid "Check URL"
+msgstr "Έλεγχος URL"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL: %s"
+
+msgid "change"
+msgstr "αλλαγή"
+
+msgid "Add Image"
+msgstr "Προσθέστε εικόνα"
+
+msgid "WebCam Settings"
+msgstr "Ρυθμίσεις WebCam"
+
+msgid "Settings saved successfully"
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν με επιτυχία"
+
+msgid "Enable"
+msgstr "Ενεργοποίηση"
+
+msgid "Add From Web (http://)"
+msgstr "Προσθέστε από τον Ιστό"
+
+msgid "Security Warning"
+msgstr "Προειδοποίηση ασφάλειας"
+
+msgid ""
+"The webcam module can be abused to attack other websites in your name.  For the attacked "
+"party it would seem as if you, the administrator of this Gallery, deliberately attacked "
+"their website because your Gallery acts on behalf of your users.  Therefore it is "
+"recommended to enable this feature only for trusted users."
+msgstr ""
+
+msgid ""
+"The webcam module also allows you to add files from the local server (e.g. with \"file://"
+"home/youraccount/images/foo.jpg\"). This particular feature is limited to site "
+"administrators since it gives access to the local file system."
+msgstr ""
+
+msgid ""
+"Enter length of time a webcam item should keep one image before refreshing from the source "
+"url."
+msgstr ""
+"Δώστε την διάρκεια η οποία η webcam θα κρατήσει μια φωτογραφία πριν την ανανέωση από την "
+"διεύθυνση πηγής."
+
+msgid "Duration in minutes:"
+msgstr "Διάρκεια σε λεπτά:"
+
+msgid "Invalid duration value"
+msgstr "Άκυρη τιμή διάρκειας"
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+msgid "Reset"
+msgstr "Επαναφορά"

@@ -1,0 +1,80 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test ColorPackInterface functionality
+ *
+ * @package ColorPack
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class ColorPackTest extends GalleryTestCase {
+
+    function ColorPackTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_colorpack) =
+	    GalleryCoreApi::newFactoryInstance('ColorPackInterface_1_0', 'ColorPackImpl');
+	if ($ret) {
+	    return $ret;
+	}
+	if (!isset($this->_colorpack)) {
+	    print 'Missing ColorPackImpl';
+	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+	}
+    }
+
+    function testColorPackList() {
+	list ($ret, $list) = $this->_colorpack->getColorPacks();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(isset($list['']) && isset($list['blue']), 'Should have "" and "blue" keys');
+    }
+
+    function testColorPackSelect() {
+	$template = new ColorPackDummyGalleryTemplate();
+	$ret = $this->_colorpack->selectColorPack($template, 'blue');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('modules/colorpack/packs/blue/color.css'), $template->style);
+    }
+}
+
+/**
+ * @package ColorPack
+ * @subpackage PHPUnit
+ */
+class ColorPackDummyGalleryTemplate {
+    var $style = array();
+    function style($tpl) {
+	$this->style[] = $tpl;
+    }
+}
+?>

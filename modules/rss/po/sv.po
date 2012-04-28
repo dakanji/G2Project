@@ -1,0 +1,565 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-13 23:34+0100\n"
+"PO-Revision-Date: 2008-09-29 14:58+0100\n"
+"Last-Translator: Martin Öberg <spam-g2translation@strickz.com>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This feed no longer exists!"
+msgstr "Det här flödet finns inte längre!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Flöden av den typen är inte tillåtna!"
+
+msgid "Incorrect feed type!"
+msgstr "Felaktig flödestyp!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Kommentarsmodulen är inte aktiverad eller så är kommentarsflöden inte tillåtna!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Inte tillåten att se kommentarer för det här objektet"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS-flöde för det här albumet"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS-flöde för det här fotot"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS-flöde för den här filmen"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS-flöde för %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Konfigurera RSS-flöden"
+
+msgid "Simple RSS Feed"
+msgstr "Enkelt RSS-flöde"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Kort URL för enkla RSS flöden"
+
+msgid "RSS Feed"
+msgstr "RSS-flöde"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Namnet på det konfigurerade RSS-flödet"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Kort URL för konfigurerbart RSS-flöde"
+
+#, c-format
+msgid "In album %s"
+msgstr "I albumet %s"
+
+msgid "Items in an album"
+msgstr "Objekt i ett album"
+
+msgid "Sub-albums of an album"
+msgstr "Underalbum till ett album"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Objekt i ett album och dess underalbum"
+
+msgid "Comments for an album"
+msgstr "Kommentarer till ett album"
+
+msgid "Comments for an item"
+msgstr "Kommentarer till ett objekt"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Kommentarer till ett album och dess underalbum"
+
+msgid "Random items in an album"
+msgstr "Slumpmässiga objekt i ett album"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Slumpmässiga objekt i ett album och dess underalbum"
+
+msgid "RSS Feeds"
+msgstr "RSS-flöden"
+
+msgid "Settings have been saved"
+msgstr "Inställningarna har sparats"
+
+msgid "Feed successfully deleted"
+msgstr "Flöden har tagits bort"
+
+msgid "An error occured"
+msgstr "Ett fel inträffade"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "Edit Feed"
+msgstr "Redigera flöde"
+
+msgid "New Feed"
+msgstr "Nytt flöde"
+
+msgid "Feed URL"
+msgstr "Flödes-URL"
+
+msgid "Feed name"
+msgstr "Flödesnamn"
+
+msgid "You can't change the name of the feed"
+msgstr "Du kan inte ändra namnet på flödet"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Välj ett namn för ditt flöde (namnet kommer att anges i URL:en till ditt flöde så försök att "
+"bara använda bokstäver)"
+
+msgid "You must enter a name"
+msgstr "Du måste ange ett namn"
+
+msgid "This name is already used, please select another one"
+msgstr "Det här namnet är redan använt, var vänlig och välj ett annat namn"
+
+msgid "Description"
+msgstr "Beskrivning"
+
+msgid "Feed settings"
+msgstr "Flödesinställningar"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Välj vilken typ av data som kommer att presenteras i flödet"
+
+msgid "Type of feed"
+msgstr "Flödestyp"
+
+msgid "Items in this album"
+msgstr "Objekt i det här album"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"Flöden av den här typen tillåts inte av administratören. Användarna kommer inte kunna se dem."
+
+msgid "Sub-albums of this album"
+msgstr "Underalbum till det här albumet"
+
+msgid "Items in this album and its subalbums"
+msgstr "Objekt i det här albumet och dess underalbum"
+
+msgid "Limit the number of items per album"
+msgstr "Begränsa antalet objekt per album"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Ogiltig gräns (måste vara ett positivt heltal, 0 för ingen gräns)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(ange 0 för obegränsat)"
+
+msgid "Comments for this album"
+msgstr "Kommentarer till det här albumet"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Kommentarer till det här albumet och dess underalbum"
+
+msgid "Random pictures inside this album"
+msgstr "Slumpmässiga bilder från detta album"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Slumpmässiga bilder från det här albumet och dess underalbum"
+
+msgid "Comments for this item"
+msgstr "Kommentarer till det här objektet"
+
+msgid "Which items"
+msgstr "Vilka objekt"
+
+msgid "New items only"
+msgstr "Endast nya objekt"
+
+msgid "New and updated items"
+msgstr "Nya och uppdaterade objekt"
+
+msgid "Choose the options for the feed"
+msgstr "Välj alternativ för flödet"
+
+msgid "RSS version"
+msgstr "RSS-version"
+
+msgid "Invalid version"
+msgstr "Ogiltig version"
+
+msgid "Number of items"
+msgstr "Antal objekt"
+
+msgid "Invalid number"
+msgstr "Ogiltigt nummer"
+
+msgid "language tag"
+msgstr "Språktagg"
+
+msgid "Invalid language value"
+msgstr "Ogiltigt språkvärde"
+
+msgid "by default: en-us."
+msgstr "standard: en-us"
+
+msgid "List of all possible values"
+msgstr "Lista med alla möjliga värden"
+
+msgid "category tag"
+msgstr "kategoritagg"
+
+msgid "ttl tag"
+msgstr "TTL-tagg"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "Ogiltig Time To Live, det måste vara ett antal minuter (0 för obegränsat)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Time To Live: Det här måste vara ett antal minuter (0 för obegränsat) som läsare bör vänta "
+"innan de kontrollerar om flödet har uppdaterats igen"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Invalid copyright"
+msgstr "Ogiltig copyright"
+
+msgid "Use image tag"
+msgstr "Använd bildtagg"
+
+msgid "Include image tag"
+msgstr "Inkludera bildtagg"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr ""
+"Det här lägger till en huvudbild till flödet som motsvarar miniatyrbilden för det här "
+"objektet"
+
+msgid "Invalid value"
+msgstr "Ogiltigt värde"
+
+msgid "Use enclosures"
+msgstr "Använd bilagor"
+
+msgid "Include enclosure tags"
+msgstr "Inkludera bilagstaggar"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+"Det här lägger till en bilaga till varje bild i matningen som innehåller bilden i full "
+"upplösning"
+
+msgid "Use Media RSS"
+msgstr "Använd Media RSS"
+
+msgid "Include Media RSS tags"
+msgstr "Inkludera Media RSS-taggar"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+"Det här lägger till Media RSS-taggar i flödet vilket gör att vissa läsare kan presentera "
+"innehållet på ett bättre sätt."
+
+msgid "about Media RSS"
+msgstr "om Media RSS"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Cloud-tagg (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Om du vill använda cloud-taggen, kan du ställa in egenskaperna här"
+
+msgid "Example: "
+msgstr "Exempel: "
+
+msgid "domain"
+msgstr "domän"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "sökväg"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "protokoll"
+
+msgid "Cloud tag"
+msgstr "Cloud-tagg"
+
+msgid "Include the cloud tag"
+msgstr "Inkludera cloud-taggen"
+
+msgid "Invalid string"
+msgstr "Ogiltig sträng"
+
+msgid "Invalid port number"
+msgstr "Ogiltigt portnummer"
+
+msgid "Update Feed"
+msgstr "Uppdatera flöde"
+
+msgid "Create Feed"
+msgstr "Skapa flöde"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "RSS feeds for this item"
+msgstr "RSS-flöden för det här objektet"
+
+msgid "No feeds have yet been defined"
+msgstr "Inga flöden har skapats än"
+
+msgid "Feed link"
+msgstr "Flödeslänk"
+
+msgid "Feed type"
+msgstr "Flödestyp"
+
+msgid "Actions"
+msgstr "Alternativ"
+
+msgid "delete"
+msgstr "ta bort"
+
+msgid "edit"
+msgstr "redigera"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Det här är en lista med alla flöden som finns i ditt Gallery"
+
+msgid "RSS Settings"
+msgstr "RSS inställningar"
+
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "Simple Feed Settings"
+msgstr "Inställningar för enkla flöden"
+
+msgid "General settings"
+msgstr "Allmänna inställningar"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "Det här är standard- och maxvärdena som används av alla flöden i ditt Gallery"
+
+msgid "Default number of items in feeds"
+msgstr "Standardvärde på antal objekt i flöden"
+
+msgid "Invalid default number"
+msgstr "Ogiltigt standardvärde"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maximalt antal objekt i flöden"
+
+msgid "Invalid maximum number"
+msgstr "Ogiltigt max värde"
+
+msgid "Maximum age for items in feeds"
+msgstr "Maximal ålder för objekt i flöden"
+
+msgid "Invalid maximum age number"
+msgstr "Ogiltig max ålder"
+
+msgid "Default ttl"
+msgstr "Standard-TTL"
+
+msgid "Default copyright"
+msgstr "Standard-copyright"
+
+msgid "Feed Types"
+msgstr "Flödestyper"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Konfigurera vilka flödestyper som är tillåtna"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Tillåt enkla RSS-flöden"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Om du aktiverar det här kan användare prenumerera till en matning för alla album och foton "
+"som de kan se."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"För att ändra inställningarna för enkla flöden, använd motsvarande flik högst upp på skärmen."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Tillåt konfigurerbara RSS-flöden"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Bara albumägare kommer att kunna skapa dessa flöden. De kan sätta parametrar för vilken typ "
+"av flöde de vill ha."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Så fort en matning är definierad kan användare prenumerera på dessa matningar om de kan se "
+"objekten."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Tillåt RSS-flöden med foton från ett album"
+
+msgid "Fast"
+msgstr "Snabb"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Tillåt RSS-flöden med underalbum till ett album"
+
+msgid "Slow"
+msgstr "Långsam"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Tillåt RSS-flöden med foton från ett album och dess underalbum"
+
+msgid "Slower"
+msgstr "Långsammare"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Tillåt RSS-flöden med kommentarer till ett foto"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Tillåt RSS-flöden med kommentarer till ett album"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Tillåt RSS-flöden med kommentarer till ett album och dess underalbum"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Tillåt RSS-flöden med slumpmässiga foton från ett album"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Tillåt RSS-flöden med slumpmässiga foton från ett album och dess underalbum"
+
+msgid "Slowest"
+msgstr "Långsammast"
+
+msgid "Save Settings"
+msgstr "Spara inställningarna"
+
+msgid "Reset"
+msgstr "Återställ"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Hjälp användare att upptäcka RSS-flöden"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Om du vill hjälpa användare att upptäcka flöden i ditt Gallery kan du addera RSS-blocket "
+"till det tema du använder."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"Det får två effekter: blocket i sig själv som användarna kan se och välja flöden från (och "
+"få en lista på alla flöden); och dolda sidhuvuden som moderna webbläsare kan använda för att "
+"göra det enklare för användaren att prenumerera på flöden."
+
+msgid "Global list of RSS feeds"
+msgstr "Global lista med RSS-flöden"
+
+msgid "On item"
+msgstr "På objekt"
+
+msgid "Simple Feed settings"
+msgstr "Inställningar för enkla flöden"
+
+msgid "For albums"
+msgstr "För album"
+
+msgid "Items in the album"
+msgstr "Objekt i albumet"
+
+msgid "Sub-albums of the album"
+msgstr "Underalbum till albumet"
+
+msgid "Items in the album and its subalbums"
+msgstr "Objekt i albumet och dess underalbum"
+
+msgid "Comments for the album"
+msgstr "Kommentarer till albumet"
+
+msgid "For items"
+msgstr "För objekt"
+
+msgid "Comments for items (always selected)"
+msgstr "Kommentarer till objekt (alltid valt)"
+
+msgid "List all RSS Feeds"
+msgstr "Lista alla RSS-flöden"
+
+msgid "List of RSS Feeds"
+msgstr "Lista på RSS-flöden"
+
+msgid "Number of feeds to display"
+msgstr "Antal flöden att visa"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "alla"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "Inte tillåten att se detta objekt"

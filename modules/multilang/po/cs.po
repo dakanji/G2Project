@@ -1,0 +1,136 @@
+# $Id: cs.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: MultiLanguage 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-05 15:44+0100\n"
+"PO-Revision-Date: 2005-07-31 16:07+0200\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+
+msgid "Changes saved successfully"
+msgstr "Změny úspěšně uloženy"
+
+msgid "MultiLanguage"
+msgstr "Více jazyků"
+
+msgid "Support item captions in multiple languages"
+msgstr "Podpora vícejazyčných popisků položek"
+
+msgid "Extra Data"
+msgstr "Další data"
+
+msgid "MultiLanguage Captions"
+msgstr "Vícejazyčné popisky"
+
+#, c-format
+msgid "Search titles (%s)"
+msgstr "Hledat v titulcích (%s)"
+
+#, c-format
+msgid "Search summaries (%s)"
+msgstr "Hledat v souhrnech (%s)"
+
+#, c-format
+msgid "Search descriptions (%s)"
+msgstr "Hledat v popisech (%s)"
+
+msgid "Title"
+msgstr "Titulek"
+
+msgid "Summary"
+msgstr "Souhrn"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "MultiLanguage Settings"
+msgstr "Vícejazyčné nastavení"
+
+msgid "gettext"
+msgstr "gettext"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Váš webový server nepodporuje lokalizaci. Prosím informujte správce systému o možnosti "
+"nastavení PHP se zapnutou volbou %s."
+
+msgid "Continue"
+msgstr "Pokračovat"
+
+msgid ""
+"Enter text for additional languages.  If all fields are blank then the primary data shown "
+"below will be used.  If any fields are non-empty then the multilanguage data will be used, "
+"even if some fields are blank."
+msgstr ""
+"Zadejte text pro další jazyky. Pokud nevyplníte ani jedno pole, použijí se primární data "
+"(viz níže). Pokud vyplníte alespoň jedno z polí, bude obsah použit pro vícejazyčná data, i "
+"když budou některá pole prázdná."
+
+msgid "Item Data"
+msgstr "Data položky"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "The title of this item."
+msgstr "Titulek této položky."
+
+msgid "The root album must have a title."
+msgstr "Hlavní album musí mít titulek."
+
+msgid "The summary of this item."
+msgstr "Souhrn této položky."
+
+msgid "This is the long description of the item."
+msgstr "Toto je dlouhý popis položky."
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Reset"
+msgstr "Výchozí hodnoty"
+
+msgid "Settings saved successfully"
+msgstr "Nastavení úspěšně uloženo"
+
+msgid ""
+"Maintain primary language captions using the normal Gallery interface.  Here select the "
+"additional languages to support in the MultiLanguage tab."
+msgstr ""
+"Popisky v hlavním jazyce udržujte pomocí běžného rozhraní Galerie. Zde vyberte další "
+"podporované jazyky, které budou zobrazeny v záložce Více jazyků."
+
+msgid "Available"
+msgstr "Dostupné"
+
+msgid "Selected"
+msgstr "Vybrané"

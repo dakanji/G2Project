@@ -1,0 +1,137 @@
+# $Id: el.po 19453 2008-12-27 16:46:43Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Akis Panas <pasas9@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-03-16 11:32-0700\n"
+"PO-Revision-Date: 2008-12-04 03:31+0200\n"
+"Last-Translator: Akis Panas <pasas9@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+msgid "create replica"
+msgstr "δημιουργία αντίγραφου"
+
+msgid "replicate an item"
+msgstr "αντιγράψτε ένα αντικείμενο"
+
+msgid "Replica"
+msgstr "Αντιγραφή"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Δημιουργία αντιγράφων αντικείμενων έχοντας κοινό το πρωτότυπο αρχείο"
+
+msgid "Display"
+msgstr "Προβολή"
+
+msgid "Create Replica"
+msgstr "Δημιουργία αντίγραφου"
+
+msgid "Replicate Album"
+msgstr "Αντιγραφή άλμπουμ"
+
+msgid "Replicate Photo"
+msgstr "Αντιγραφή φωτογραφίας"
+
+msgid "Replicate Movie"
+msgstr "Αντιγραφή ταινίας"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Αντιγραφή %s"
+
+msgid "Create Replicas"
+msgstr "Δημιουργήστε αντίγραφα"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "Αντιγράφτηκε %d αντικείμενο με επιτυχία"
+msgstr[1] "Αντιγράφτηκαν %d αντικείμενα με επιτυχία"
+
+msgid "This album contains no items to replicate."
+msgstr "Αυτό το άλμπουμ δεν περιέχει κανένα αντικείμενο για αντιγραφή."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"Η αντιγραφή είναι ένα αρχείο το οποίο μοιράζεται το πρωτότυπο αρχείο με ένα άλλο αρχείο, για "
+"οικονομία χώρου. Από όλες τις άλλες απόψεις,  είναι ένα ξεχωριστό αρχείο, με τους δικούς του "
+"τίτλους, μικρογραφίες, άλλα μεγέθη, σχόλια, κτλ. Οι τίτλοι αρχικά αντιγράφονται από το "
+"αρχείο πηγής αλλά μπορούν να αλλαχθούν. Το αντίγραφο ή το αρχείο πηγής μπορούν να "
+"μετακινηθούν ή να διαγραφούν χωρίς να επηρεάζει το ένα το άλλο."
+
+msgid "Source"
+msgstr "Πηγή"
+
+msgid "Choose the items you want to replicate"
+msgstr "Επιλέξτε τα αντικείμενα που θέλετε να αντιγράψετε"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(σελίδα %d από %d)"
+
+msgid "No sources chosen"
+msgstr "Δεν επιλέχθηκε καμία πηγή"
+
+msgid "Check All"
+msgstr "Επιλογή όλων"
+
+msgid "Check None"
+msgstr "Επιλογή καμία"
+
+msgid "Invert"
+msgstr "Αναστρέψτε"
+
+msgid "Previous Page"
+msgstr "Προηγούμενη σελίδα"
+
+msgid "Next Page"
+msgstr "Επόμενη Σελίδα"
+
+msgid "Destination"
+msgstr "Προορισμός"
+
+msgid "Choose a new album for the replica"
+msgstr "Επιλέξτε ένα νέο άλμπουμ για την αντιγραφή"
+
+msgid "No destination chosen"
+msgstr "Δεν επιλέχθηκε κανένας προορισμός"
+
+msgid "Create"
+msgstr "Δημιουργία"
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "Successfully created"
+msgstr "Δημιουργήθηκε με επιτυχία"
+
+msgid "Choose a destination album"
+msgstr "Επιλέξτε το άλμπουμ προορισμού"

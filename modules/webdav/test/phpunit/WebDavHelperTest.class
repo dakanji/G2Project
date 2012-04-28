@@ -1,0 +1,755 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/webdav/classes/WebDavHelper.class');
+
+/**
+ * WebDAV helper tests.
+ * @package WebDav
+ * @subpackage PHPUnit
+ * @author Jack Bates <ms419@freezone.co.uk>
+ * @version $Revision: 17580 $
+ */
+class WebDavHelperTest extends GalleryTestCase {
+
+    function WebDavHelperTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+	global $gallery;
+
+	/* Initialize test URL generator */
+	$this->_urlGenerator = new GalleryUrlGenerator();
+	$ret = $this->_urlGenerator->init('http://example.com/gallery2/main.php');
+	if ($ret) {
+	    return $ret;
+	}
+	$gallery->setUrlGenerator($this->_urlGenerator);
+
+	/* Use WebDavHelperTestPhpVm */
+	$this->_phpVm = new WebDavHelperTestPhpVm();
+	$this->_phpVm->_extension_loaded = true;
+	$gallery->_phpVm =& $this->_phpVm;
+
+	/* Mock activate the HTTP auth and rewrite modules */
+	$moduleStatus = array('httpauth' => array('active' => true),
+			      'rewrite' => array('active' => true));
+	GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
+
+	/* Mock preGallery rewrite parser.  Mock activate WebDAV rewrite rules. */
+	$this->_parserType =& WebDavHelperTestRewriteApi::_getParserType();
+	$this->_parserType = 'preGallery';
+	$this->_activeRules =& WebDavHelperTestRewriteApi::_fetchActiveRulesForModule('webdav');
+	$this->_activeRules = array('connect', 'davmount', 'options');
+	$this->_markFactoryForCleanup();
+	$this->_registerFactoryImplementationForTest(
+	    'RewriteApi', 'WebDavHelperTestRewriteApi', 'WebDavHelperTestRewriteApi',
+	    'modules/webdav/test/phpunit/WebDavHelperTest.class', 'test');
+
+	$this->_registerFactoryImplementationForTest(
+	    'HttpAuthInterface_1_0', 'WebDavHelperTestHttpAuthInterface',
+	    'WebDavHelperTestHttpAuthInterface',
+	    'modules/webdav/test/phpunit/WebDavHelperTest.class', 'test');
+	WebDavHelperTestHttpAuthInterface::_getConfiguration(true);
+
+	/* Define requests */
+	$this->_optionsRequest = implode("\r\n", array(
+	    'OPTIONS ' . $this->_urlGenerator->generateUrl(
+		array('controller' => 'webdav.WebDav'),
+		array('forceServerRelativeUrl' => true,
+		      'htmlEntities' => false)) . ' HTTP/1.0',
+	    'Host: ' . $this->_urlGenerator->getHostName(),
+	    '',
+	    ''));
+	$this->_alternativeUrlRequest = implode("\r\n", array(
+	    'OPTIONS ' . $this->_urlGenerator->generateUrl(
+		array('href' => 'modules/webdav/data/options/'),
+		array('forceServerRelativeUrl' => true,
+		      'htmlEntities' => false)) . ' HTTP/1.0',
+	    'Host: ' . $this->_urlGenerator->getHostName(),
+	    '',
+	    ''));
+
+	/* Define success and failure responses */
+	$this->_methodHandledResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Allow: OPTIONS,GET,HEAD,POST',
+	    'Content-Length: 0',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    'PASS_WEBDAV'));
+	$this->_methodNotHandledResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Allow: OPTIONS,GET,HEAD,POST',
+	    'Content-Length: 0',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    ''));
+	$this->_includesDavHeadersResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Allow: OPTIONS,PROPFIND,PROPPATCH,MKCOL,GET,HEAD,DELETE,PUT,MOVE,LOCK,UNLOCK',
+	    'DAV: 1,2',
+	    'MS-Author-Via: DAV',
+	    'Content-Length: 0',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    ''));
+	$this->_missingDavHeadersResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Allow: OPTIONS,GET,HEAD,POST',
+	    'Content-Length: 0',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    ''));
+
+	/* Use WebDavHelperTestPlatform */
+	$this->_platform = new WebDavHelperTestPlatform();
+
+	$this->_requests = array();
+	foreach (array('PROPFIND', 'PROPPATCH', 'MKCOL', 'DELETE', 'PUT', 'MOVE', 'LOCK', 'UNLOCK')
+		as $requestMethod) {
+	    $this->_requests[$requestMethod] = implode("\r\n", array(
+		$requestMethod . ' ' . $this->_urlGenerator->generateUrl(
+		    array('view' => 'webdav.WebDavWorks'),
+		    array('forceServerRelativeUrl' => true,
+			  'htmlEntities' => false)) . ' HTTP/1.0',
+		'Host: ' . $this->_urlGenerator->getHostName(),
+		'Content-length: 0', /* IIS requires a Content-length at least for PUT requests */
+		'',
+		''));
+
+	    $this->_platform->_messages[$this->_requests[$requestMethod]] =
+		$this->_methodHandledResponse;
+	}
+
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_includesDavHeadersResponse;
+	$this->_platform->_messages[$this->_alternativeUrlRequest] =
+	    $this->_includesDavHeadersResponse;
+	$gallery->setPlatform($this->_platform);
+    }
+
+    function tearDown() {
+	GalleryDataCache::reset();
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testCheckConfiguration() {
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(0, $code, 'error code');
+    }
+
+    function testCheckConfigurationNoXmlParser() {
+	$this->_phpVm->_extension_loaded = false;
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_NO_XML_PARSER, $code);
+    }
+
+    function testCheckConfigurationMethodNotHandled() {
+	$this->_platform->_messages[$this->_requests['PROPFIND']] =
+	    $this->_methodNotHandledResponse;
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_METHOD_NOT_HANDLED, $code);
+    }
+
+    function testCheckConfigurationHttpAuthModuleDisabled() {
+	$moduleStatus = array('rewrite' => array('active' => true));
+	GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_HTTPAUTH_MODULE_DISABLED, $code);
+    }
+
+    function testCheckConfigurationHttpAuthPluginDisabled() {
+	WebDavHelperTestHttpAuthInterface::_getConfiguration(false);
+	/* Even when the httpauth module is active, none of its auth plugins could be active. */
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_HTTPAUTH_AUTH_PLUGINS_DISABLED, $code, 'error code');
+    }
+
+    function testCheckConfigurationRewriteModuleDisabled() {
+	$moduleStatus = array('httpauth' => array('active' => true));
+	GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_REWRITE_MODULE_DISABLED, $code);
+    }
+
+    function testCheckConfigurationConnectRuleDisabled() {
+	$this->_activeRules = array('davmount', 'options');
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_CONNECT_RULE_DISABLED, $code);
+    }
+
+    function testCheckConfigurationAlternativeUrlHeaders() {
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_missingDavHeadersResponse;
+	$this->_platform->_messages[$this->_alternativeUrlRequest] =
+	    $this->_missingDavHeadersResponse;
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_MISSING_DAV_HEADERS
+			    | WEBDAV_STATUS_ALTERNATIVE_URL_HEADERS, $code);
+    }
+
+    function testCheckConfigurationBadRewriteParser() {
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_missingDavHeadersResponse;
+	$this->_parserType = 'inGallery';
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_MISSING_DAV_HEADERS
+			    | WEBDAV_STATUS_BAD_REWRITE_PARSER, $code);
+    }
+
+    function testCheckConfigurationOptionsRuleDisabled() {
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_missingDavHeadersResponse;
+	$this->_activeRules = array('connect', 'davmount');
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_MISSING_DAV_HEADERS
+			    | WEBDAV_STATUS_OPTIONS_RULE_DISABLED, $code);
+    }
+
+    function testCheckConfigurationErrorUnknown() {
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_missingDavHeadersResponse;
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(WEBDAV_STATUS_MISSING_DAV_HEADERS
+			    | WEBDAV_STATUS_ERROR_UNKNOWN, $code);
+    }
+
+    function testCheckConfigurationIncludesDavHeadersIgnoresCauses() {
+	$this->_platform->_messages[$this->_alternativeUrlRequest] =
+	    $this->_missingDavHeadersResponse;
+	$this->_parserType = 'bogus';
+	$this->_activeRules = array('connect', 'davmount');
+
+	list ($ret, $code) = WebDavHelper::checkConfiguration();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assert(!$code);
+    }
+
+    function testCheckRequestMethod() {
+	$success = WebDavHelper::checkRequestMethod('PROPFIND');
+	$this->assert($success);
+    }
+
+    function testCheckRequestMethodNotHandled() {
+	$this->_platform->_messages[$this->_requests['PROPFIND']] =
+	    $this->_methodNotHandledResponse;
+
+	$success = WebDavHelper::checkRequestMethod('PROPFIND');
+	$this->assert(!$success);
+    }
+
+    function testCheckDavHeaders() {
+	$success = WebDavHelper::checkDavHeaders($this->_urlGenerator->generateUrl(
+	    array('controller' => 'webdav.WebDav'),
+	    array('forceFullUrl' => true,
+		  'htmlEntities' => false)));
+	$this->assert($success);
+    }
+
+    function testCheckMissingDavHeaders() {
+	$this->_platform->_messages[$this->_optionsRequest] =
+	    $this->_missingDavHeadersResponse;
+
+	$success = WebDavHelper::checkDavHeaders($this->_urlGenerator->generateUrl(
+	    array('controller' => 'webdav.WebDav'),
+	    array('forceFullUrl' => true,
+		  'htmlEntities' => false)));
+	$this->assert(!$success);
+    }
+
+    function testPropfindFilesRespectsExternalAccessRulesAndDoesNotRepeatProperties() {
+	$files = array();
+	list ($ret, $item, $path, $expectedProps) = $this->_preparePropfindFiles();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = WebDavHelper::_propfindFiles($item, $path, 0, $files);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array(array('path' => $path, 'props' => $expectedProps)), $files);
+    }
+
+    function testPropfindFilesIgnoresArraysAndObjectData() {
+	$files = array();
+	list ($ret, $item, $path, $expectedProps) = $this->_preparePropfindFiles(true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = WebDavHelper::_propfindFiles($item, $path, 0, $files);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array(array('path' => $path, 'props' => $expectedProps)), $files);
+    }
+
+    function testPropfindFilesUsesPathComponentAsFallbackForTitle() {
+	$files = array();
+	list ($ret, $item, $path, $expectedProps) = $this->_preparePropfindFiles(false, '');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = WebDavHelper::_propfindFiles($item, $path, 0, $files);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array(array('path' => $path, 'props' => $expectedProps)), $files);
+    }
+
+    function _preparePropfindFiles($addObjectAndArrayData=false, $itemTitle='This is the title') {
+	/* Create a test item and add a few object members for test */
+	list ($ret, $item) = $this->_createRandomDataItem($this->_rootAlbumId);
+	if ($ret) {
+	    return array($ret, null, null, null);
+	}
+	$this->_markForCleanup($item);
+	list ($ret, $path) = $item->fetchLogicalPath();
+	if ($ret) {
+	    return array($ret, null, null, null);
+	}
+	$item->setCreationTimestamp(10000000);
+	$item->setModificationTimestamp(20000000);
+	$item->setSize(300);
+	$item->setTitle($itemTitle);
+	if ($addObjectAndArrayData) {
+	    $item->summary = array(1, 2, 3);
+	    $item->description = new stdClass();
+	}
+
+	/* Prepare expected result */
+	list ($ret, $memberInfo) =
+	    GalleryCoreApi::getExternalAccessMemberList('GalleryUnknownItem');
+	if ($ret) {
+	    return array($ret, null, null, null);
+	}
+
+	$expectedProps = array();
+	$expectedProps[] = WebDavServer::mkprop('creationdate', 10000000);
+	$expectedProps[] = WebDavServer::mkprop('displayname',
+		empty($itemTitle) ? $item->getPathComponent() : $itemTitle);
+	$expectedProps[] = WebDavServer::mkprop('getlastmodified', 20000000);
+	$expectedProps[] = WebDavServer::mkprop('supportedlock',
+						array(array('scope' => 'exclusive',
+							    'type' => 'write')));
+	$expectedProps[] = WebDavServer::mkprop('lockdiscovery', array());
+	$expectedProps[] = WebDavServer::mkprop('getcontentlength', 300);
+	$expectedProps[] = WebDavServer::mkprop('getcontenttype', 'application/unknown');
+	$expectedProps[] = WebDavServer::mkprop('resourcetype', null);
+	$defaultMembers = array('pathComponent', 'title', 'creationTimestamp',
+				'modificationTimestamp', 'size', 'mimeType');
+	foreach ($memberInfo as $memberName => $accessInfo) {
+	    if ($addObjectAndArrayData && in_array($memberName, array('summary', 'description'))) {
+		continue;
+	    }
+	    if ($accessInfo['read'] && !in_array($memberName, $defaultMembers)) {
+		$getter = 'get' . $memberName;
+		$expectedProps[] = WebDavServer::mkprop(WEBDAV_GALLERY_NAMESPACE,
+							$memberName, $item->$getter());
+	    }
+	}
+
+	return array(null, $item, $path, $expectedProps);
+    }
+
+    function testPropfindFilesRejectsItemObjectWithoutProperMethods() {
+	global $gallery;
+	$user = $gallery->getActiveUser();
+
+	$files = array();
+	$ret = WebDavHelper::_propfindFiles($user, '/', 0, $files);
+	if ($ret && $ret->getErrorCode() & ERROR_BAD_PARAMETER) {
+	    /* As expected */
+	} else if ($ret) {
+	    return $ret;
+	} else {
+	    $this->fail('propfindFiles should only handle item-like objects');
+	}
+    }
+
+    function testSetItemPropsRespectsExternalAccessRules() {
+	list ($ret, $item) = $this->_createRandomDataItem($this->_rootAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($item);
+	list ($ret, $path) = $item->fetchLogicalPath();
+	if ($ret) {
+	    return $ret;
+	}
+	$item->setTitle('old title');
+	$item->setSummary('old summary');
+	$item->setCreationTimestamp(10000000);
+
+	$props = array(0 => array('ns' => WEBDAV_GALLERY_NAMESPACE, 'name' => 'summary',
+				  'value' => 'new summary', 'status' => null),
+		       1 => array('ns' => WEBDAV_GALLERY_NAMESPACE, 'name' => 'entityType',
+				  'value' => 'GalleryItem', 'status' => null),
+		       2 => array('ns' => WEBDAV_GALLERY_NAMESPACE,
+				  'name' => 'creationTimestamp', 'value' => 20000000,
+				  'status' => null),
+		       3 => array('ns' => 'DAV:', 'name' => 'displayname',
+				  'value' => 'new title', 'status' => null),
+		       4 => array('ns' => 'DAV:', 'name' => 'foo',
+				  'value' => 'new foo value', 'status' => null),
+		       5 => array('ns' => 'bar:', 'name' => 'summary',
+				  'value' => 'from invalid namespace', 'status' => null));
+
+	$ret = WebDavHelper::_setItemProps($item, $props);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals('new title', $item->getTitle(), 'title');
+	$this->assertEquals('new summary', $item->getSummary(), 'summary');
+	$this->assertEquals(20000000, $item->getCreationTimestamp(), 'creation timestamp');
+	$this->assertEquals('GalleryUnknownItem', $item->getEntityType(), 'entity type changed');
+
+	/* Verify the status of the props */
+	$this->assertEquals(null, $props[0]['status'], 'summary is writable');
+	$this->assertEquals('403 Forbidden', $props[1]['status'],
+			    'entityType is not writable');
+	$this->assertEquals(null, $props[2]['status'], 'creation timestamp is writable');
+	$this->assertEquals(null, $props[3]['status'], 'DAV:displayname is writable');
+	$this->assertEquals('403 Forbidden', $props[4]['status'],
+			    'DAV:foo is not writable');
+	$this->assertEquals('403 Forbidden', $props[5]['status'], 'invalid namespace');
+    }
+
+    function testGetMountLink() {
+	/* The general case */
+	$_SERVER['HTTP_USER_AGENT'] = 'Foo Bar';
+
+	$itemId = $this->_getRootId();
+	$link = WebDavHelper::getMountLink($itemId);
+
+	$url = 'http://example.com/gallery2/main.php?g2_controller=webdav.WebDav&amp;g2_itemId='
+	    . $itemId;
+	$expected['attrs'] = 'style="behavior: url(#default#anchorClick)" folder="' . $url . '"';
+	$expected['href'] = $this->_urlGenerator->generateUrl(
+		array('view' => 'webdav.DownloadDavMount', 'itemId' => $itemId));
+
+	$this->assertEquals($expected, $link);
+    }
+
+    function testGetMountLinkForInternetExplorer() {
+	$_SERVER['HTTP_USER_AGENT'] = 'MSIE 6';
+	$itemId = $this->_getRootId();
+	$link = WebDavHelper::getMountLink($itemId);
+
+	$url = 'http://example.com/gallery2/main.php?g2_controller=webdav.WebDav&amp;g2_itemId='
+	    . $itemId;
+	$expected['attrs'] = 'style="behavior: url(#default#anchorClick)" folder="' . $url . '"';
+
+	$scriptUrl = 'http://example.com/gallery2/main.php?g2_controller=webdav.WebDav&g2_itemId='
+	    . $itemId;
+	$expected['script'] =
+	    "this.style.behavior = 'url(#default#httpFolder)'; this.navigate('$scriptUrl')";
+	
+	$expected['href'] = $this->_urlGenerator->generateUrl(
+		array('view' => 'webdav.DownloadDavMount', 'itemId' => $itemId));
+
+	$this->assertEquals($expected, $link);
+    }
+
+    function testGetMountLinkForKonqueror() {
+	$_SERVER['HTTP_USER_AGENT'] = 'Konqueror';
+	$itemId = $this->_getRootId();
+	$link = WebDavHelper::getMountLink($itemId);
+
+	$url = 'http://example.com/gallery2/main.php?g2_controller=webdav.WebDav&amp;g2_itemId='
+	    . $itemId;
+	$expected['attrs'] = 'style="behavior: url(#default#anchorClick)" folder="' . $url . '"';
+	$expected['href'] = $this->_urlGenerator->generateUrl(
+	    array('controller' => 'webdav.WebDav', 'itemId' => $itemId),
+	    array('protocol' => 'webdav', 'forceSessionId' => false, 'useAuthToken' => false));
+
+	$this->assertEquals($expected, $link);
+    }
+
+    function testGetParentItemIdByPathDefaultForNoParent() {
+	list ($ret, $parentId) = WebDavHelper::getParentItemIdByPath('foo');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($this->_getRootId(), $parentId);
+    }
+
+    function testGetParentItemIdByPathForTopLevelItems() {
+	list ($ret, $parentId) = WebDavHelper::getParentItemIdByPath('/foo');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($this->_getRootId(), $parentId);
+    }
+
+    function testGetParentItemIdByPathForNonExistentPath() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($album);
+
+	list ($ret, $parentId) = WebDavHelper::getParentItemIdByPath(
+		'/' . $album->getPathComponent()  . '/foo');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($album->getId(), $parentId);
+    }
+
+    function testGetParentItemIdByPathForMissingParent() {
+	list ($ret, $parentId) = WebDavHelper::getParentItemIdByPath('/test_' . rand() . '/foo');
+	if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+	    /* As expected */
+	} else if ($ret) {
+	    return $ret;
+	} else {
+	    $this->fail('should have failed with ERROR_MISSING_OBJECT');
+	}
+    }
+
+    function testMirrorEntitySameEntityType() {
+	list ($ret, $sourceEntity) = $this->_createRandomDataItem($this->_getRootId(),
+	    'test/file', array(), __FILE__, 'GalleryPhotoItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($sourceEntity);
+
+	list ($ret, $targetEntity) = $this->_createRandomDataItem($this->_getRootId(),
+	    'test/new', array(), __FILE__, 'GalleryPhotoItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($targetEntity);
+
+	$expectedItemId = $sourceEntity->getId();
+	$targetItemIdBackup = $targetEntity->getId();
+	$expectedPathComponent = $sourceEntity->getPathComponent();
+
+	$expectedTitle = 'Test title';
+	$sourceEntity->setTitle($expectedTitle);
+
+	$expectedDescription = 'Test description';
+	$sourceEntity->setDescription($expectedDescription);
+	$targetEntity->setDescription('New description');
+
+	$expectedRenderer = 'New renderer';
+	$sourceEntity->setRenderer('Test renderer');
+	$targetEntity->setRenderer($expectedRenderer);
+
+	list ($ret, $mirrorEntity) = WebDavHelper::mirrorEntity($sourceEntity, $targetEntity);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($expectedItemId, $mirrorEntity->getId());
+	$this->assertEquals($expectedPathComponent, $mirrorEntity->getPathComponent());
+	$this->assertEquals($expectedTitle, $mirrorEntity->getTitle());
+	$this->assertEquals($expectedDescription, $mirrorEntity->getDescription());
+	$this->assertEquals($expectedRenderer, $mirrorEntity->getRenderer());
+	$this->assertEquals('test/new', $mirrorEntity->getMimeType());
+
+	/* For tear-down */
+	$targetEntity->id = $targetItemIdBackup;
+    }
+}
+
+class WebDavHelperTestPhpVm extends GalleryPhpVm {
+    var $_extension_loaded;
+
+    function extension_loaded($functionName) {
+	return $this->_extension_loaded;
+    }
+}
+
+class WebDavHelperTestRewriteApi {
+    var $foo;
+
+    function &_fetchActiveRulesForModule($moduleId) {
+	static $activeRules;
+	return $activeRules;
+    }
+
+    function &_getParserType() {
+	static $parserType;
+	return $parserType;
+    }
+
+    function isCompatibleWithApi($version) {
+	return array(null, true);
+    }
+
+    function fetchActiveRulesForModule($moduleId) {
+	return array(null, WebDavHelperTestRewriteApi::_fetchActiveRulesForModule($moduleId));
+    }
+
+    function getParserType() {
+	return WebDavHelperTestRewriteApi::_getParserType();
+    }
+}
+
+class WebDavHelperTestPlatform extends GalleryPlatform {
+    var $_messages;
+    var $_buffer;
+
+    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+	return 'test';
+    }
+
+    function feof($handle) {
+	return empty($this->_buffer);
+    }
+
+    function fgets($handle, $length) {
+	if (empty($this->_buffer)) {
+	    return null;
+	}
+
+	if (strpos($this->_buffer, "\n") < $length) {
+	    $length = strpos($this->_buffer, "\n") + 1;
+	}
+
+	return $this->fread($handle, $length);
+    }
+
+    function fread($handle, $length) {
+	if (empty($this->_buffer)) {
+	    return null;
+	}
+
+	$buffer = substr($this->_buffer, 0, $length);
+	$this->_buffer = substr($this->_buffer, $length);
+	return $buffer;
+    }
+
+    function fwrite($handle, $string, $length=0) {
+	if (isset($this->_messages[$string])) {
+	    $this->_buffer = $this->_messages[$string];
+	    return strlen($string);
+	}
+    }
+
+    function fflush($handle) {
+	return true;
+    }
+
+    function fclose($handle) {
+	return true;
+    }
+}
+
+class WebDavHelperTestHttpAuthInterface /* extends HttpAuthInterface_1_0 */ {
+    function _getConfiguration($initPluginsEnabled=null) {
+	static $pluginsEnabled;
+	if (isset($initPluginsEnabled)) {
+	    $pluginsEnabled = $initPluginsEnabled;
+	}
+	return array(null, $pluginsEnabled, $pluginsEnabled, false);
+    }
+
+    function getConfiguration() {
+	return WebDavHelperTestHttpAuthInterface::_getConfiguration();
+    }
+}
+?>

@@ -1,0 +1,107 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/publishxp/DownloadRegistryFile.inc');
+
+/**
+ * PublishXp DownloadRegistryFile tests
+ * @package PublishXp
+ * @subpackage PHPUnit
+ * @author Andy Staudacher <ast@gmx.ch>
+ * @version $Revision: 17580 $
+ */
+class DownloadRegistryFileTest extends GalleryTestCase {
+    function DownloadRegistryFileTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'core');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'default.language', 'en_US');
+	if ($ret) {
+	    return $ret;
+	}
+	$gallery->setActiveLanguageCode('en_US');
+	if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+	    unset($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	}
+	
+	$this->view = new DownloadRegistryFileView();
+    }
+
+    function testGetCharsetFromRequestDefault() {
+	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default');
+	
+	$this->_setActiveLanguageCode('en_US');
+	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default 2');
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
+	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
+
+	$this->_setActiveLanguageCode('ru_RU');
+	$this->assertEquals('CP1251', $this->view->_getCharsetFromRequest(),
+			    'session override');
+    }
+
+    function testGetCharsetFromRequestComparesToSiteDefaultLocale() {
+	/* Ensure it uses the plugin param and not getDefaultLanguageCode() */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'language.useBrowserPref', '1');
+	if ($ret) {
+	    return $ret;
+	}
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
+	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
+    }
+
+    function testGetCharsetFromRequestChinese() {
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh';
+	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'default');
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-cn';
+	$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 1');
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-tw';
+	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 1');
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-hans_HK';
+	$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 2');
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-Hant';
+	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
+    }
+
+    function _setActiveLanguageCode($languageCode) {
+	global $gallery;
+	$ret = $gallery->setActiveLanguageCode($languageCode);
+	if ($ret) {
+	    return $ret;    
+	}
+    }
+}
+?>

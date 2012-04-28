@@ -1,0 +1,175 @@
+# $Id: no.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Sverre M. Vikan <sverre AT urven DOT net>
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-10 11:05+0100\n"
+"PO-Revision-Date: 2006-03-10 12:49+0100\n"
+"Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
+"Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "Lysbildevisning (fullskjerm)"
+
+msgid "Slideshow Applet"
+msgstr "Lysbildeapplet"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Lysbildevisning i fullskjerm via av en Java-applet"
+
+msgid "Display"
+msgstr "Visning"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Vis lysbilder (Fullskjerm)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Sti til et objekt (f.eks. /album/image.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Lysbildevisning"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Denne appleten krever en G2-modul som ikke for øyeblikket ikke er installert.  Vennligst be "
+"en administrator om å aktivere «fjernstyrings»-modulen"
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Laster ned Gallery Remote"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Din nettleser støtter ikke appleter; du bør bruke standard lysbildevisning."
+
+msgid "Slideshow Applet Settings"
+msgstr "Innstillinger for Lysbildeapplet"
+
+msgid "Defaults"
+msgstr "Standarder"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Disse variablene gir standardverdier til appleter brukere kjører på ditt nettsted. Brukere "
+"vil kunne overstyre disse standardene ved å gjøre endringer i brukergrensesnittet til "
+"appleter, eller ved å endre deres lokale standardfil."
+
+msgid "You have no default variables"
+msgstr "Du har ingen standardverdier"
+
+msgid "Variable"
+msgstr "Variabel"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Add a new default variable"
+msgstr "Legg til en ny standardvariabel"
+
+msgid "You must enter a variable name and value"
+msgstr "Du må skrive inn variabelnavn og -verdi"
+
+msgid "New variable"
+msgstr "Ny variabel"
+
+msgid "Add variable"
+msgstr "Legg til variabel"
+
+msgid "Overrides"
+msgstr "Tilsidesettinger"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Disse verdiene overstyrer alle andre verdier for appleter brukere kjører på ditt nettsted. "
+"Brukere vil ikke kunne endre disse verdiene."
+
+msgid "You have no override variables"
+msgstr "Du har ingen tilsidesettingsvariabler"
+
+msgid "Add a new override variable"
+msgstr "Legg til en ny tilsidesettingsvariabel"
+
+msgid "Help"
+msgstr "Hjelp"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Her er et utvalg variabler som påvirker lysbildevisninger."
+
+msgid "variable"
+msgstr "variabel"
+
+msgid "values"
+msgstr "verdier"
+
+msgid "help"
+msgstr "hjelp"
+
+msgid "maximum number of pictures shown in one go"
+msgstr "Største antall bilder som skal vises i én gjennomkjøring"
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "skal lysbildevisning vise bilder som ligger i underalbum?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "vil forhindre lysbildevisningen fra å laste ned bilder i full oppløsning"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "skal lysbildevisningen starte på nytt når den kommer til slutten?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr "bilder mindre enn skjermen vil ikke strekkes"
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+"lysbildevisningen vil laste ned bilder før de behøves, noe som kan øke hastigheten, men kan "
+"også sløse bort båndbredde"
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "farge eller lysbildebakgrunnen"
+
+msgid "size of text overlay"
+msgstr "størrelse på tekstoverlegg"
+
+msgid "font of text overlay"
+msgstr "skrift for tekstoverlegg"
+
+msgid "should the pictures be shown in random order?"
+msgstr "skal bilder vises i tilfeldig rekkefølge?"
+
+msgid "Complete list of variables"
+msgstr "Komplett liste over variabler"

@@ -1,0 +1,254 @@
+# $Id: zh_CN.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Picasa 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 10:01-0800\n"
+"PO-Revision-Date: 2006-03-10 01:40+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Importing albums"
+msgstr "导入相册"
+
+msgid "Importing photos"
+msgstr "导入照片"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d MB"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d KB"
+
+msgid "Base filename"
+msgstr "基础文件名"
+
+msgid "Picasa Caption"
+msgstr "Picasa 说明文字"
+
+msgid "Blank"
+msgstr "空白"
+
+msgid "From Picasa 2"
+msgstr "从 Picasa 2"
+
+msgid "Picasa"
+msgstr "Picasa"
+
+msgid "Import for Picasa 2 XML-Exports"
+msgstr "从 Picasa 2 XML 输出导入"
+
+msgid "Import"
+msgstr "导入"
+
+msgid "Picasa 2"
+msgstr "Picasa 2"
+
+msgid "Confirm Import"
+msgstr "确认导入"
+
+msgid "Album to import:"
+msgstr "要导入的相册："
+
+msgid "Album Name"
+msgstr "相册名称"
+
+msgid "Album Caption"
+msgstr "相册说明"
+
+msgid "Album Notes"
+msgstr "相册注解"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "有一个现有的相册已经用一样的名字了。这个相册会被改名。"
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "这个相册的名字无法使用，会被改成<i>%s</i>"
+
+msgid "The album will be imported into this album:"
+msgstr "相册会被导入到这个相册中："
+
+#, c-format
+msgid "Title: %s"
+msgstr "主题：%s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "详细描述：%s"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Import Complete"
+msgstr "导入完毕"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "成功导入%d个相册。"
+
+msgid "No albums imported."
+msgstr "没有导入任何相册。"
+
+#, c-format
+msgid "Imported %s"
+msgstr "导入了%s"
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "%d个相册在导入时发生错误。"
+
+#, c-format
+msgid "Error importing %s"
+msgstr "导入%s时发生错误。"
+
+#, c-format
+msgid "Successfully imported %d picture."
+msgid_plural "Successfully imported %d pictures."
+msgstr[0] "成功导入了%d张照片。"
+
+msgid "No pictures imported."
+msgstr "没有导入任何照片。"
+
+#, c-format
+msgid "Error while importing %d picture."
+msgid_plural "Errors while importing %d pictures."
+msgstr[0] "%d张照片在导入时发生错误。"
+
+msgid "Import another Picasa album"
+msgstr "导入另一个 Picasa 相册"
+
+msgid "View the imported album"
+msgstr "观看导入的相册"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr "你的网页伺服器目前不允许由网页浏览程式上载档案。请联络你的系统管理员求助。"
+
+msgid "Upload archived Picasa export files directly from your computer."
+msgstr "直接从你的电脑上载备份的 Picasa 输出档案。"
+
+msgid "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "请在下面的空格中输入档案的完整路径和选用的说明。"
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload more than that, you "
+"must upload the files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>注意：</b>你一次可以上传 %s。如果你需要上传更多，请分开上传档案，或使用其他上传方法，或联"
+"络系统管理员允许更大上传空间。"
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be larger than %s. "
+"If you want to upload more than that, you must upload the files separately, use a different "
+"upload format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>注意：</b>你一次可以上传 %s。每个档案不能大於 %s。如果你需要上传更多，请分开上传档案，或使"
+"用其他上传方法，或联络系统管理员允许更大上传空间。"
+
+msgid "File"
+msgstr "档案"
+
+msgid "You did not enter a path."
+msgstr "你没有输入路径。"
+
+msgid "There was an error during the upload."
+msgstr "上载时发生错误。"
+
+msgid ""
+"The filetype you entered is not supported. Maybe you did not activate the corresponding "
+"toolkit. (E.g. Archive Upload for ZIP files)"
+msgstr "你输入的档案型式并不被支援。可能你没有启用相关的工具。（如 ZIP 档案需要压缩档上传）"
+
+msgid "The archive you uploaded is not a valid Picasa export."
+msgstr "你上载的备份并不是正确的 Picasa 输出。"
+
+msgid "Set item titles from:"
+msgstr "项目主题设成："
+
+msgid "Assign Picasa caption to:"
+msgstr "将 Picasa 说文指定为："
+
+msgid "Summary"
+msgstr "摘要"
+
+msgid "Description"
+msgstr "详细描述"
+
+msgid "Add Items"
+msgstr "增加项目"
+
+msgid "Import from Picasa 2"
+msgstr "从 Picasa 2 导入"
+
+msgid ""
+"This operation takes data (images, descriptions, orderings etc.) from <strong>Picasa 2</"
+"strong> and brings it into <strong>Gallery 2</strong>."
+msgstr ""
+"这个动作从 <strong>Picasa 2</strong> 取得资料（图像、描述、顺序等）并放入 <strong>Gallery 2</"
+"strong> 中。"
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"你没有任何以处厘 JPEG 图像的图形工具。如果你现在导入，你不会有任何缩略图。请到%s模组%s页面启"
+"用适当的图形工具。"
+
+msgid "Destination Album"
+msgstr "目的相册"
+
+msgid "Please select the gallery Album you want to import your picasa album into."
+msgstr "请选择你要将你的 Picasa 相册导入到的 Gallery 相册。"
+
+msgid "Path or File"
+msgstr "档案路径"
+
+msgid ""
+"This process will import Data from a Picasa 2 XML-Export. You must enter the path to the "
+"directory with the Picasa 2 files.  Example: <i>/path/to/picasa2xml</i>"
+msgstr ""
+"这个手续会从一个 Picasa 2 的 XML-Export 档案中导入资料。你必需输入含有 Picasa 2 档案的目录路"
+"径。例如：<i>/path/to/picasa2xml</i>"
+
+msgid "The path that you entered does not contain valid Picasa export data."
+msgstr "你输入的路径不含有效的 Picasa 输出资料。"
+
+msgid "Recently Used Paths"
+msgstr "最近使用的路径"
+
+msgid "Select"
+msgstr "选择"

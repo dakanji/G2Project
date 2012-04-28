@@ -1,0 +1,184 @@
+# $Id: et.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-11 14:27+0300\n"
+"PO-Revision-Date: 2006-08-11 14:35+0200\n"
+"Last-Translator: poromaan <poromaan@gmail.com>\n"
+"Language-Team: Eesti <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Upload Applet"
+msgstr "Üleslaadimise Programm"
+
+msgid "Easy to use upload applet for media"
+msgstr "Kergelt kasutatav meedia üleslaadimise programm"
+
+msgid "Import"
+msgstr "Impordi"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Üleslaadimise programm vajab töötamiseks G2 moodulit, mis ei ole hetkel aktiivne. Palun "
+"paluge administraatoril 'remote' moodul aktiveerida."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Tõmban alla Galerii Remote Programmi"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"Sinu veebilehitseja ei toeta programme; Sa peaksid kasutama teisi üleslaadimise meetoteid."
+
+msgid "Uploading files..."
+msgstr "Laen faile üles..."
+
+msgid "Upload complete"
+msgstr "Üleslaadimine valmis"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"Sa võid jätkata üleslaadimist või minna vaadata mõnda pilti, mille just üles laadisid "
+"klikkides allpool olevaid linke"
+
+msgid "Upload Applet Settings"
+msgstr "Üleslaadimise Programmi Seaded"
+
+msgid "Defaults"
+msgstr "Tavaväärtused"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Need muutujad annavad tavaväärtused programmidele, mida kasutajad sinu saidil käivitavad. "
+"Kasutajad võivad need väärtused üle kirjutada, muutes programmide seadeid kasutajaliidestes "
+"või muutes oma kohalike tavaväärtuste faili."
+
+msgid "You have no default variables"
+msgstr "Sul pole tavamuutujaid"
+
+msgid "Variable"
+msgstr "Muutuja"
+
+msgid "Action"
+msgstr "Tegevus"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Add a new default variable"
+msgstr "Lisa uus tavamuutuja"
+
+msgid "You must enter a variable name and value"
+msgstr "Sa pead sisestama muutuja nime ja väärtuse"
+
+msgid "New variable"
+msgstr "Uus muutuja"
+
+msgid "Add variable"
+msgstr "Lisa muutuja"
+
+msgid "Overrides"
+msgstr "Üle kirjutavad muutujad"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Need muutujad kirjutavad üle kõik teised väärtused programmidele mida kasutajad sinu saidil "
+"käivitavad. Kasutajad ei saa neid väärtusi muuta."
+
+msgid "You have no override variables"
+msgstr "Sul ei ole üle kirjutavaid muutujaid"
+
+msgid "Add a new override variable"
+msgstr "Lisa uus üle kirjutav muutuja"
+
+msgid "Help"
+msgstr "Appi"
+
+#, fuzzy
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Siin on valik muutujaid, mis puudutavad üleslaadimisi."
+
+msgid "variable"
+msgstr "muutuja"
+
+msgid "values"
+msgstr "väärtused"
+
+msgid "help"
+msgstr "appi"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"Käsib programmil piltide suurusi enne üleslaadimist muuta; Tavaseadete kohaselt muudab ringi "
+"albumi keskmise pildi suuruseks."
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr "suuruse ümbermuutmise dimensioonid; see kirjutab albumi seaded üle"
+
+msgid "no automatic captions"
+msgstr "automaatseid kirjeldusi ei panda"
+
+msgid "use filenames for captions"
+msgstr "kasuta faili nimesid kirjeldusteks"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "kui kasutada faili nimesid kirjeldusteks, kustuta faili laiend"
+
+msgid "use EXIF extension for caption"
+msgstr "kasuta EXIF laiendit kirjelduseks"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"kui false, kasutab üleslaadimise programm UTF-8't pildi meta-data saatmisel, mitte HTML'i"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"sea false'ks, kui sa ei taha kaotada EXIF andmeid, kui pilti suurust ümber muudetakse ja "
+"ImageMagickut ei leita"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "kui true, siis ei kurda programm, kui ei leia ImageMagicut"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "kui true, siis programm ei kurda, kui ei leida Jpegtran'i"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "ImageMagicuga pildi suuruse muutmisel kasutatav JPEG'i kvaliteet"
+
+msgid "Complete list of variables"
+msgstr "Täielik muutujate nimekiri"

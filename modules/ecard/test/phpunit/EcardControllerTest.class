@@ -1,0 +1,487 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
+
+/**
+ * Test Ecard functionality
+ * @package Ecard
+ * @subpackage PHPUnit
+ * @author Dariush Molavi <dari@nukedgallery.net>
+ * @version $Revision: 17580 $
+ */
+class EcardControllerTest extends GalleryControllerTestCase {
+
+    function EcardControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'ecard.SendEcard');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'ecard');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'validation.level', 'HIGH');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'subject', 'You got eCard');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+		$this->_album->getId(), $gallery->getActiveUserId(), 'core.all');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_everybodyId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addGroupPermission(
+		$this->_album->getId(), $this->_everybodyId, 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$pathComponent = 'test-' . rand(1, 5000);
+	$this->_itemFile = $pathComponent . '.dat';
+	$this->_resizeFile = $pathComponent . '.jpg';
+	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
+		'application/unknown', array('pathComponent' => $this->_itemFile));
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_resize) = $this->_createDerivative(
+		$this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE,
+		'test-operation|100', 'image/jpeg', array('width' => 100, 'height' => 100));
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Make sure translate calls during test won't generate any platform calls */
+	list ($ret) = GalleryCoreApi::getPermissionIds();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform = new UnitTestPlatform();
+	$this->_controller->setPluginInstances(array());
+    }
+
+    function tearDown() {
+	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testCancel() {
+	$itemId = $this->_item->getId();
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem',
+						      'itemId' => (int)$itemId),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testMissingInputs() {
+	$itemId = $this->_item->getId();
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'ecard.SendEcard'),
+		  'status' => array(),
+		  'error' => array('form[error][to][missing]',
+				   'form[error][from][missing]',
+				   'form[error][text][missing]')),
+	    $results);
+    }
+
+    function testInvalidEmail() {
+	$itemId = $this->_item->getId();
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+	GalleryUtilities::putRequestVariable('form[from]', 'bad!email@test.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[to]', 'bad!email2@test.com');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test text');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'ecard.SendEcard'),
+		  'status' => array(),
+		  'error' => array('form[error][to][invalid]', 'form[error][from][invalid]')),
+	    $results);
+    }
+
+    function testEcardNoSendPermission() {
+	global $gallery;
+	$itemId = $this->_item->getId();
+	$ret = GalleryCoreApi::removeItemPermissions($itemId);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission($itemId, $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test email');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	$gallery->setPlatform($this->_platform);
+	$this->handleRequest(ERROR_PERMISSION_DENIED);
+    }
+
+    function testSendEcard() {
+	global $gallery;
+	$itemId = $this->_item->getId();
+
+	/* Use html format and param specified 'from' for this test */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'format', 'html');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'from', 'eCard Test');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.txt/'),
+				   'The plaintext message: %text% %link%');
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.html/'),
+				   'The html message: %text% %link% %image%');
+	$this->_platform->setReply('mail', array(
+		    'example2@example.com',
+		    'You got eCard',
+		    'fuzzy1' => '/plaintext message: Test < email http.*html '
+		    . 'message: Test &lt; email http.* ' . $this->_resizeFile . '/s',
+		    'fuzzy2' => '/From: eCard Test/'),
+		true);
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test < email');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'ecard.Confirmation', 'itemId' => (int)$itemId),
+				      'status' => array('sent' => 1),
+				      'error' => array()),
+			    $results, 'Failed to send ecard');
+    }
+
+    function testLinkPermission() {
+	/* Verify that without public core.view permission, no link is included */
+	global $gallery;
+	$itemId = $this->_item->getId();
+
+	$ret = GalleryCoreApi::removeGroupPermission($itemId, $this->_everybodyId, 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Use html format and param specified 'from' for this test */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'format', 'html');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'from', 'eCard Test');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.txt/'),
+				   'The plaintext message: %text% %link%');
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.html/'),
+				   'The html message: %text% %link% %image%');
+	$this->_platform->setReply('mail', array(
+		    'example2@example.com',
+		    'You got eCard',
+		    'fuzzy1' => '/plaintext message: Test < email [^h].*html message: Test &lt; '
+		    . 'email  ' . $this->_resizeFile . '/s',
+		    'fuzzy2' => '/From: eCard Test/'),
+		true);
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test < email');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'ecard.Confirmation', 'itemId' => (int)$itemId),
+				      'status' => array('sent' => 1),
+				      'error' => array()),
+			    $results, 'Failed to send ecard');
+    }
+
+    function testSizePermission() {
+	/* Verify permission check for size of image included in email */
+	global $gallery;
+	$itemId = $this->_item->getId();
+
+	$ret = GalleryCoreApi::removeUserPermission(
+		$itemId, $gallery->getActiveUserId(), 'core.viewResizes');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Use plain format and param specified 'from' for this test */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'format', 'plain');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'from', 'eCard Test');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.txt/'),
+				   'message: %image%');
+	$this->_platform->setReply('mail', array(
+		    'example2@example.com',
+		    'You got eCard',
+		    'fuzzy1' => '/message: ' . $this->_itemFile . '/s',
+		    'fuzzy2' => '/From: eCard Test/'),
+		true);
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test < email');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'ecard.Confirmation', 'itemId' => (int)$itemId),
+				      'status' => array('sent' => 1),
+				      'error' => array()),
+			    $results, 'Failed to send ecard');
+    }
+
+    function testValidationPlugin() {
+	global $gallery;
+	$this->_controller->_pluginInstances = array(new AddEcardTestValidation());
+
+	$this->_becomeGuestUser();
+	$ret = GalleryCoreApi::addUserPermission($this->_item->getId(),
+						 $gallery->getActiveUserId(), 'ecard.send');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test email');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+
+	/* Perform the request and verify validation plugin got error */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'ecard.SendEcard'),
+				  'status' => array(),
+				  'error' => array('form[error][AddEcardTestValidation]')),
+			    $results);
+    }
+
+    function testValidationAlternateGuest() {
+	global $gallery;
+	$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
+	$this->_controller->_pluginInstances = array(new AddEcardTestValidation());
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test email');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+
+	/* Perform the request and verify validation plugin got error */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'ecard.SendEcard'),
+				  'status' => array(),
+				  'error' => array('form[error][AddEcardTestValidation]')),
+			    $results);
+    }
+
+    function testValidationPluginOff() {
+	global $gallery;
+	$this->_controller->_pluginInstances = array(new AddEcardTestValidation());
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'validation.level', 'OFF');
+	if ($ret) {
+	    return $ret;
+	}
+	/* Use plain format and form specified 'from' for this test */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'format', 'plain');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'from', '');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_becomeGuestUser();
+	$ret = GalleryCoreApi::addUserPermission($this->_item->getId(),
+						 $gallery->getActiveUserId(), 'ecard.send');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addGroupPermission(
+		$this->_item->getId(), $this->_everybodyId, 'core.viewResizes');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.txt/'),
+				   'The plaintext message: %text%');
+	$this->_platform->setReply('mail', array(
+		    'example2@example.com',
+		    'You got eCard',
+		    'fuzzy1' => '/plaintext.*Test "email"(?!.*html message)/s',
+		    'fuzzy2' => '/From: Unit Tester <example@example.com>/'),
+		true);
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+	GalleryUtilities::putRequestVariable('form[to]', 'example2@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'example@example.com');
+	GalleryUtilities::putRequestVariable('form[fromName]', 'Unit Tester');
+	GalleryUtilities::putRequestVariable('form[text]', 'Test &quot;email&quot;');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+
+	/* Perform the request and eCard sent (validation plugin skipped) */
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'ecard.Confirmation',
+				      'itemId' => (int)$this->_item->getId()),
+				  'status' => array('sent' => 1),
+				  'error' => array()),
+			    $results, 'Failed to send ecard');
+    }
+
+    function testMaliciousContent() {
+	/*
+	 * Verify even in html markup mode, we don't send any user entered html.
+	 * (if this changes then we'll need to use htmlSafe on content)
+	 */
+	global $gallery;
+	$itemId = $this->_item->getId();
+
+	$ret = $this->_setMarkupType('html', true);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'format', 'html');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'ecard', 'from', 'Bad eCard');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.txt/'),
+				   'The plaintext message: %text%');
+	$this->_platform->setReply('file_get_contents', array('fuzzy' => '/Message.html/'),
+				   'The html message: %text%');
+	$this->_platform->setReply('mail', array(
+		    'sucker@example.com',
+		    'You got eCard',
+		    'fuzzy1' => '/plaintext message: Hi <script>alert.*' .
+		    		'html message: Hi &lt;script&gt;alert/s',
+		    'fuzzy2' => '/From: Bad eCard/'),
+		true);
+	$gallery->setPlatform($this->_platform);
+
+	GalleryUtilities::putRequestVariable('form[to]', 'sucker@example.com');
+	GalleryUtilities::putRequestVariable('form[from]', 'hacker@example.com');
+	GalleryUtilities::putRequestVariable('form[text]', 'Hi <script>alert(1);</script> friend');
+	GalleryUtilities::putRequestVariable('form[action][send]', 1);
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'ecard.Confirmation', 'itemId' => (int)$itemId),
+				      'status' => array('sent' => 1),
+				      'error' => array()),
+			    $results, 'Failed to send ecard');
+    }
+}
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
+class AddEcardTestValidation extends GalleryValidationPlugin {
+    function performValidation(&$form, $options=array()) {
+	return array(null,
+		     array('form[error][AddEcardTestValidation]'), false);
+    }
+}
+?>

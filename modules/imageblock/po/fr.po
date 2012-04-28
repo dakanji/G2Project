@@ -1,0 +1,305 @@
+# $Id: fr.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2008-07-19 12:27+0100\n"
+"Last-Translator: Arnaud Mouronval <arnaud.mouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Image Block"
+msgstr "Bloc image"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Photo ou album aléatoire, le plus récent, le plus consulté"
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Image aléatoire"
+msgstr[1] "Images aléatoires"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Image la plus récente"
+msgstr[1] "Images les plus récentes"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Image la plus regardée"
+msgstr[1] "Images les plus regardées"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Album aléatoire"
+msgstr[1] "Albums aléatoires"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Album le plus récent"
+msgstr[1] "Albums les plus récents"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Album le plus consulté"
+msgstr[1] "Albums les plus consultés"
+
+msgid "Picture of the Day"
+msgstr "Image du jour"
+
+msgid "Picture of the Week"
+msgstr "Image de la semaine"
+
+msgid "Picture of the Month"
+msgstr "Image du mois"
+
+msgid "Album of the Day"
+msgstr "Album du jour"
+
+msgid "Album of the Week"
+msgstr "Album de la semaine"
+
+msgid "Album of the Month"
+msgstr "Album du mois"
+
+msgid "Date:"
+msgstr "Date&nbsp;:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Affichages&nbsp;: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Propriétaire&nbsp;: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Empêcher cet album d'être affiché dans par le module \"Image Block\""
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Appliquer les paramètres des blocs image aux sous-albums"
+
+msgid "Image Block Settings"
+msgstr "Paramètrage des blocs image"
+
+msgid "Settings saved successfully"
+msgstr "Paramètres sauvegardés avec succès"
+
+msgid "Show"
+msgstr "Montrer"
+
+msgid "Heading"
+msgstr "Entête"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "View Count"
+msgstr "Compteur de vue"
+
+msgid "Owner"
+msgstr "Propriétaire"
+
+msgid "Frames"
+msgstr "Encadrements"
+
+msgid "View samples"
+msgstr "Voir les exemples"
+
+msgid "Album Frame"
+msgstr "Encadrement de l'album"
+
+msgid "Photo Frame"
+msgstr "Encadrement de la photo"
+
+msgid "Save"
+msgstr "Sauver"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+msgid "External Image Block"
+msgstr "Bloc image externe"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Utiliser un bloc PHP comme celui montré ci-après pour inclure un bloc image dans une page "
+"PHP externe à Gallery."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Liste composée des éléments suivants&nbsp;: randomImage, recentImage, viewedImage, "
+"randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, "
+"weeklyAlbum, monthlyAlbum, specificItem&nbsp;; les éléments doivent être séparés par des "
+"pipes (|)&nbsp;; la valeur par défaut est randomImage"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Liste composée des éléments suivants&nbsp;: title, date, views, owner, heading, fullSize, "
+"rawImage&nbsp;; les éléments doivent être séparés par des \"pipes\" (|)&nbsp;; la valeur "
+"peut également être&nbsp;: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Limiter la sélection à la sous-arborescence de votre gallerie contenue dans l'album ayant "
+"l'id spécifié&nbsp;; ou l'id de l'élément à afficher lorsqu'utilisé avec le type de bloc "
+"specificItem"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Redimensionner les images à cette taille maximale. Si utilisée seule, Gallery va rechercher "
+"l'image de la taille la plus proche à la taille demandée, les images plus grandes seront "
+"redimensionnées automatiquement par le navigateur. Si utilisée avec %sshow=fullSize, l'image "
+"entière sera systématiquement utilisée et redimensionnée si nécessaire."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Similaire à %smaxSize à ceci près qu'il ne va pas la substituer par une image plus petite "
+"que celle que vous demandez. Vous aurez donc l'image de la taille la plus proche. Notez bien "
+"que cette méthode peut utiliser bien plus de bande passante si une image beaucoup plus "
+"grande doit être redimensionnée par votre navigateur."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href du lien pour l'image&nbsp;; une valeur vide signifie aucun lien&nbsp;; la valeur par "
+"défaut correspond au lien vers l'élément dans Gallery"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+"Ajouter une cible au lien (par exemple pour ouvrir les liens dans une nouvelle fenêtre du "
+"navigateur)"
+
+msgid "Image frame to use around images"
+msgstr "Encadrement à utiliser pour les images"
+
+msgid "Image frame to use around albums"
+msgstr "Encadrement à utiliser pour les albums"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Si un des paramètres marqués par * venait à être omis, alors les paramètres par défaut du "
+"site seront utilisés."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Les encadrements nécessitent une feuille de style CSS pour être affichés correctement. "
+"Veuillez inclure le code suivant dans la section %s de votre code."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Spécifiez l'id d'encadrement (ou une liste d'id séparés par des pipes) dans le paramètre "
+"frame. Omettez ce paramètre pour supporter les encadrements d'images configurés ci-dessus. "
+"Les id d'encadrements sont les noms de répertoires dans le répertoire %s."
+
+msgid "Image type"
+msgstr "Type d'image"
+
+msgid "Random image"
+msgstr "Image aléatoire"
+
+msgid "Recent image"
+msgstr "Image la plus récente"
+
+msgid "Viewed image"
+msgstr "Image la plus consultée"
+
+msgid "Random album"
+msgstr "Album aléatoire"
+
+msgid "Recent album"
+msgstr "Album le plus récent"
+
+msgid "Viewed album"
+msgstr "Album le plus consulté"
+
+msgid "Daily image"
+msgstr "Image du jour"
+
+msgid "Weekly image"
+msgstr "Image de la semaine"
+
+msgid "Monthly image"
+msgstr "Image du mois"
+
+msgid "Daily album"
+msgstr "Album du jour"
+
+msgid "Weekly album"
+msgstr "Album de la semaine"
+
+msgid "Monthly album"
+msgstr "Album du mois"
+
+msgid "Number of items"
+msgstr "Nombre d'éléments"
+
+msgid "Use default settings"
+msgstr "Utiliser les paramètres par défaut"
+
+msgid "Show heading"
+msgstr "Afficher l'entête"
+
+msgid "Show title"
+msgstr "Afficher le titre"
+
+msgid "Show date"
+msgstr "Afficher la date"
+
+msgid "Show view count"
+msgstr "Afficher le compteur de vues"
+
+msgid "Show owner"
+msgstr "Afficher le propriétaire"

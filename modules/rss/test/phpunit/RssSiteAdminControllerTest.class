@@ -1,0 +1,201 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
+
+/**
+ * RssSiteAdmin controller tests
+ *
+ * @package Rss
+ * @subpackage PHPUnit
+ * @author Pierre-Luc Paour
+ * @version $Revision: 17580 $
+ */
+class RssSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    var $_feedsToDelete;
+
+    function RssSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'rss.RssSiteAdmin');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function tearDown() {
+	if (!empty($this->_feedsToDelete)) {
+	    foreach ($this->_feedsToDelete as $name) {
+		$ret = RssMapHelper::deleteFeed($name);
+		if ($ret) {
+		    return $ret;
+		}
+	    }
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testRssSiteAdminControllerReset() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	GalleryUtilities::putRequestVariable('form[mode]', 'settings');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array (
+	    'status' => array (),
+	    'error' => array(),
+	    'redirect' => array(
+		'view' => 'core.SiteAdmin',
+		'subView' => 'rss.RssSiteAdmin',
+		'mode' => 'settings')),
+	    $results);
+    }
+
+    function testRssSiteAdminControllerResetSimple() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	GalleryUtilities::putRequestVariable('form[mode]', 'simplefeedsettings');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array (
+	    'status' => array (),
+	    'error' => array(),
+	    'redirect' => array(
+		'view' => 'core.SiteAdmin',
+		'subView' => 'rss.RssSiteAdmin',
+		'mode' => 'simplefeedsettings')),
+	    $results);
+    }
+
+    function testRssSiteAdminControllerSaveSettings() {
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	GalleryUtilities::putRequestVariable('form[mode]', 'settings');
+
+	$values = array(
+	    'defaultVersion' => '2.0',
+	    'defaultCount' => '30',
+	    'maxCount' => '100',
+	    'maxAge' => '35',
+	    'defaultTtl' => '120',
+	    'defaultCopyright' => 'Test copyright',
+	    'allowSimpleFeed' => '1',
+	    'allowConfigurableFeed' => '1',
+	    'allowAlbums' => '1',
+	    'allowPhotos' => '1',
+	    'allowCommentsPhoto' => '1',
+	    'allowCommentsAlbum' => '1');
+	foreach ($values as $key => $value) {
+	    GalleryUtilities::putRequestVariable('form['.$key.']', $value);
+	}
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(array (
+	    'status' => array ('saved' => 1),
+	    'error' => array(),
+	    'redirect' => array(
+		'view' => 'core.SiteAdmin',
+		'subView' => 'rss.RssSiteAdmin',
+		'mode' => 'settings')),
+	    $results);
+
+	foreach ($values as $key => $expectedValue) {
+	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rss', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+
+    function testRssSiteAdminControllerSaveSFSettings() {
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	GalleryUtilities::putRequestVariable('form[mode]', 'simplefeedsettings');
+
+	$values = array(
+	    'sfAlbumType' => 'photos',
+	    'sfPhotosRecursiveLimit' => '10',
+	    'sfDate' => 'new');
+	foreach ($values as $key => $value) {
+	    GalleryUtilities::putRequestVariable('form['.$key.']', $value);
+	}
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(array (
+	    'status' => array ('saved' => 1),
+	    'error' => array(),
+	    'redirect' => array(
+		'view' => 'core.SiteAdmin',
+		'subView' => 'rss.RssSiteAdmin',
+		'mode' => 'simplefeedsettings')),
+	    $results);
+
+	foreach ($values as $key => $expectedValue) {
+	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rss', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+
+    function testRssSiteAdminControllerDelete() {
+	/* create a test feed */
+	$name = 'test'.rand();
+	$params = array('itemId' => $this->_getRootId());
+	$ret = RssMapHelper::createFeed($name, $params);
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('form[action][delete]', $name);
+	GalleryUtilities::putRequestVariable('form[mode]', 'list');
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(array (
+	    'status' => array (),
+	    'error' => array(),
+	    'redirect' => array(
+		'view' => 'core.SiteAdmin',
+		'subView' => 'rss.RssSiteAdmin',
+		'mode' => 'list')),
+	    $results);
+
+	list ($ret, $feed) = RssMapHelper::fetchFeed($name);
+	/* we expect an error */
+	if (!$ret) {
+	    return $this->assert(false, 'Expected an error');
+	}
+	$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'Expected a missing object');
+    }
+}
+?>

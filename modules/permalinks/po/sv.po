@@ -1,0 +1,118 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-13 20:16+0100\n"
+"PO-Revision-Date: 2008-09-29 23:19+0100\n"
+"Last-Translator: Martin Öberg <spam-g2translation@strickz.com>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "Permanenta länkar togs bort utan problem."
+
+msgid "Permalinks"
+msgstr "Permanenta länkar"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "Skapa enklare permanenta alias till dina objekt"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "Namn som du har definierat som ett alias till ditt objekt"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr ""
+"Aktivera den här regeln för att få permanenta länkar att fungera. Om du inaktiverar den här "
+"regeln så slutar de permanenta länkarna att fungera."
+
+msgid "Permalink post activation"
+msgstr "Permanenta länkar har aktiverats"
+
+msgid "URL Rewrite Module"
+msgstr "Modul för omskrivning av URL:er"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr ""
+"Nu när du har aktiverat modulen Permanenta länkar måste du aktivera reglerna för permanenta "
+"länkar i %s."
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr ""
+"Redigera permanenta länkar som hör till det här objektet. Du kan lägga till och ta bort "
+"permanenta länkar."
+
+msgid "You have no permalinks"
+msgstr "Du har inga permanenta länkar"
+
+msgid "Existing permalinks"
+msgstr "Existerande permanenta länkar"
+
+msgid "Delete"
+msgstr "Ta bort"
+
+msgid "Permalink name"
+msgstr "Namn på permanent länk"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "Den permanenta länken '%s' finns redan, kanske på ett annat objekt"
+
+msgid "Add a new permalink:"
+msgstr "Lägg till en ny permanent länk"
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "Sätt till '%s'"
+
+msgid "Auto-permalink"
+msgstr "Automatiska permanenta länkar"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"Om du använder den här funktionen kommer det varje gång ett nytt album skapas även skapas en "
+"ny permanent länk med samma namn som albumet om det inte redan finns en permanent länk med "
+"det namnet. Du kommer att kunna ta bort den permanenta länken om du vill."
+
+msgid "Enable auto-permalink"
+msgstr "Aktivera automatiska permanenta länkar"
+
+msgid "Global list of permalinks"
+msgstr "Global lista över permanenta länkar"
+
+msgid "Save"
+msgstr "Spara"

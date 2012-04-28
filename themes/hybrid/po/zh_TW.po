@@ -1,0 +1,254 @@
+# $Id: zh_TW.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"POT-Creation-Date: 2003-03-10 12:50+0800\n"
+"PO-Revision-Date: 2008-11-19 20:46-0500\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Hybrid"
+msgstr "Hybrid"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "結合相簿／圖片／幻燈片放映的動態顯示畫面"
+
+msgid "Show text with thumbnails"
+msgstr "和縮略圖一起顯示文字"
+
+msgid "Show dates for albums"
+msgstr "顯示相簿日期"
+
+msgid "Show dates with thumbnails"
+msgstr "和縮略圖一起顯示日期"
+
+msgid "Show dates in image view"
+msgstr "在圖片顯示中顯示日期"
+
+msgid "Show album sizes"
+msgstr "顯示相簿大小"
+
+msgid "Show view counts"
+msgstr "顯示觀賞次數"
+
+msgid "Mouseover on thumbnails"
+msgstr "移動滑鼠到縮略圖上"
+
+msgid "None"
+msgstr "無"
+
+msgid "Title"
+msgstr "主題"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Date/Time"
+msgstr "日期／時間"
+
+msgid "Title (Date)"
+msgstr "主題（日期）"
+
+msgid "Title (Date/Time)"
+msgstr "主題（日期／時間）"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "所有人:%s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "觀賞次數：%d"
+
+msgid "Date: "
+msgstr "日期："
+
+msgid "Keywords: "
+msgstr "關鍵字："
+
+msgid "Link to this item:"
+msgstr "連到這個項目："
+
+msgid "Error!"
+msgstr "錯誤！"
+
+msgid "Show Details"
+msgstr "顯示詳細內容"
+
+msgid "Hide Details"
+msgstr "隱藏詳細內容"
+
+msgid "Show Item Links"
+msgstr "顯示項目鏈接"
+
+msgid "Hide Item Links"
+msgstr "隱藏項目鏈接"
+
+msgid "Item Details"
+msgstr "項目詳細內容"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"相簿畫面：\n"
+"| 空白鍵 = 開始幻燈片放映\n"
+"| ctrl-右/左 = 顯示/隱藏邊欄\n"
+"| ctrl-上/下 = 顯示/隱藏項目鏈接\n"
+"圖片畫面：\n"
+"| 空白鍵 = 開始/暫停幻燈片放映\n"
+"| ESC = 回到相簿畫面\n"
+"| 左/右 = 後/前一個圖片\n"
+"| 上/下 = 顯示/隱藏描述文字\n"
+"| 上頁/下頁 = 捲動描述文字\n"
+"| ctrl-上/下 = 選擇全尺寸或自動大小\n"
+"在全尺寸時用方向鍵捲動圖像；用 shift-方向鍵可使用上述功能\n"
+"n顯示項目詳細內容時：\n"
+"| ESC = 關閉跳出視窗"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "和縮略圖一起顯示文字"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "回到相簿畫面"
+
+msgid "Pause Slideshow"
+msgstr "暫停幻燈片放映"
+
+msgid "Start Slideshow"
+msgstr "開始幻燈片放映"
+
+msgid "Full Size"
+msgstr "全尺寸"
+
+msgid "Fit Size"
+msgstr "自動大小"
+
+msgid "No Previous Image"
+msgstr "沒有前一個圖片"
+
+msgid "Previous Image"
+msgstr "前一個圖片"
+
+msgid "Previous Image (Load new page)"
+msgstr "前一個圖片（載入新頁面）"
+
+msgid "No Next Image"
+msgstr "沒有下一個圖片"
+
+msgid "Next Image"
+msgstr "下一個圖片"
+
+msgid "Next Image (Load new page)"
+msgstr "下一個圖片（載入新頁面）"
+
+msgid "Hide sidebar"
+msgstr "隱藏邊欄"
+
+msgid "Show sidebar"
+msgstr "顯示邊欄"
+
+msgid "no thumbnail"
+msgstr "無縮略圖"
+
+msgid "Item Actions"
+msgstr "項目操作"
+
+msgid "Continue..."
+msgstr "繼續..."
+
+msgid "Navigation"
+msgstr "導覽工具"
+
+msgid "Display Options"
+msgstr "顯示選項"
+
+msgid "Keyboard Controls"
+msgstr "鍵盤控制"
+
+msgid "View"
+msgstr "顯示"
+
+msgid "guest"
+msgstr "訪客"
+
+msgid "Slideshow Options"
+msgstr "幻燈片放映選項"
+
+msgid "Delay"
+msgstr "延遲"
+
+msgid "3 seconds"
+msgstr "3秒鐘"
+
+msgid "5 seconds"
+msgstr "秒鐘"
+
+msgid "7 seconds"
+msgstr "7秒鐘"
+
+msgid "10 seconds"
+msgstr "10秒鐘"
+
+msgid "15 seconds"
+msgstr "15秒鐘"
+
+msgid "20 seconds"
+msgstr "20秒鐘"
+
+msgid "Direction"
+msgstr "方向"
+
+msgid "forward"
+msgstr "往前"
+
+msgid "reverse"
+msgstr "往後"
+
+msgid "random"
+msgstr "隨機"
+
+#~ msgid "Show text"
+#~ msgstr "顯示文字"
+
+#~ msgid "Hide text"
+#~ msgstr "隱藏文字"

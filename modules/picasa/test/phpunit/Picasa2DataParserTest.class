@@ -1,0 +1,199 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
+
+/**
+ * Picasa2DataParser tests
+ * @package Picasa
+ * @subpackage PHPUnit
+ * @author Waldemar Schlackow <gallery@schlackow.de>
+ * @version $Revision: 17580 $
+ */
+class Picasa2DataParserTest extends GalleryControllerTestCase {
+
+    function Picasa2DataParserTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    /**
+     * Test whether a wrong XML without a version gives the right error
+     */
+    function testGetBadXmlArray_noversion() {
+	/*No XML version*/
+	$testRawXml = '<?xml encoding="utf-8" ?>';
+	list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
+	/*if ($ret) {
+	    return $ret;
+	}*/
+	$this->assertEquals($ret->_errorMessage, 'Error parsing XML.');
+    }
+
+    /**
+     * Test an XML without a closing tag
+     */
+    function testGetBadXmlArray_notag() {
+	$testRawXml = '<?xml version="1.0" encoding="utf-8" ?>'.
+	    '<album><albumName>GalleryTest'.
+	    '<albumItemCount>2</albumItemCount></album></albumName>';
+	list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
+	if ($ret) {
+	    return $ret;
+	}
+	$expected = array('album' => array ('open' => array ('content' => 'GalleryTest'),
+	    'albumName' => array ('albumItemCount' => '2')));
+	$this->assertEquals($expected, $picasaXmlArray);
+    }
+
+    /**
+     * Test whether the XML-File is parsed correctly
+     */
+    function testGetGoodXmlArray() {
+	$testRawXml = '<?xml version="1.0" encoding="utf-8" ?>'.
+	    '<album><albumName>GalleryTest</albumName>'.
+	    '<albumItemCount>2</albumItemCount>'.
+	    '<albumCaption>This is a test</albumCaption>'.
+	    '<images><image>'.
+		'<isFirstImage>true</isFirstImage>'.
+	    '<isPrevImage>false</isPrevImage>'.
+		'<prevImage />'.
+		'<isLastImage>false</isLastImage>'.
+		'<isNextImage>true</isNextImage>'.
+		'<firstImage>images/ajipankachile5.jpg</firstImage>'.
+		'<itemLargeImage>images/ajipankachile5.jpg</itemLargeImage>'.
+	    '<nextImage>californiadriedchile5.jpg</nextImage>'.
+		'<nextThumbnail>californiadriedchile5.jpg</nextThumbnail>'.
+		'<prevImage></prevImage>'.
+		'<prevThumbnail></prevThumbnail>'.
+	    '<lastImage>images/californiadriedchile5.jpg</lastImage>'.
+	    '<lastThumbnail>thumbnails/californiadriedchile5.jpg</lastThumbnail>'.
+		'<itemWidth>171</itemWidth>'.
+	    '<itemHeight>426</itemHeight>'.
+		'<itemThumbnailImage>thumbnails/ajipankachile5.jpg</itemThumbnailImage>'.
+		'<itemThumbnailWidth>42</itemThumbnailWidth>'.
+		'<itemThumbnailHeight>90</itemThumbnailHeight>'.
+		'<itemName>ajipankachile5.jpg</itemName>'.
+	    '<itemNumber>1717</itemNumber>'.
+		'<itemOriginalPath>l:\photos\gallerytest\ajipankachile5.jpg</itemOriginalPath>'.
+		'<itemNameOnly>itemNameOnly UNDEFINED (9)</itemNameOnly>'.
+		'<itemCaption>Testpicture</itemCaption>'.
+	    '<itemSize>itemSize UNDEFINED (9)</itemSize>'.
+	    '</image></images>'.
+	    '</album>';
+	list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
+	if ($ret) {
+	    return $ret;
+	}
+	$expected = array('album' =>
+	    array(
+		'albumName' => 'GalleryTest',
+		'albumItemCount' => '2',
+		'albumCaption' => 'This is a test',
+		'images' => array(
+		    'image' => array(
+			'isFirstImage' => 'true',
+			'isPrevImage' => 'false',
+			'isLastImage' => 'false',
+			'isNextImage' => 'true',
+			'firstImage' => 'images/ajipankachile5.jpg',
+			'itemLargeImage' => 'images/ajipankachile5.jpg',
+			'nextImage' => 'californiadriedchile5.jpg',
+			'nextThumbnail' => 'californiadriedchile5.jpg',
+			'lastImage' => 'images/californiadriedchile5.jpg',
+			'lastThumbnail' => 'thumbnails/californiadriedchile5.jpg',
+			'itemWidth' => '171',
+			'itemHeight' => '426',
+			'itemThumbnailImage' => 'thumbnails/ajipankachile5.jpg',
+			'itemThumbnailWidth' => '42',
+			'itemThumbnailHeight' => '90',
+			'itemName' => 'ajipankachile5.jpg',
+			'itemNumber' => '1717',
+			'itemOriginalPath' => 'l:\\photos\\gallerytest\\ajipankachile5.jpg',
+			'itemNameOnly' => 'itemNameOnly UNDEFINED (9)',
+			'itemCaption' => 'Testpicture',
+			'itemSize' => 'itemSize UNDEFINED (9)',
+		    )
+		)
+	    )
+	);
+	$this->assertEquals($expected, $picasaXmlArray);
+    }
+
+    /**
+     * Test whether a picasa export is parsed correctly into a PHP array
+     */
+    function testGetAlbumFromArray() {
+
+	$testPicasaXmlArray = array('album' =>
+	    array(
+		'albumName' => 'GalleryTest',
+		'albumItemCount' => '2',
+		'albumCaption' => 'This is a test',
+		'images' => array(
+		    'image' => array(
+			'isFirstImage' => 'true',
+			'isPrevImage' => 'false',
+			'isLastImage' => 'false',
+			'isNextImage' => 'true',
+			'firstImage' => 'images/ajipankachile5.jpg',
+			'itemLargeImage' => 'images/ajipankachile5.jpg',
+			'nextImage' => 'californiadriedchile5.jpg',
+			'nextThumbnail' => 'californiadriedchile5.jpg',
+			'lastImage' => 'images/californiadriedchile5.jpg',
+			'lastThumbnail' => 'thumbnails/californiadriedchile5.jpg',
+			'itemWidth' => '171',
+			'itemHeight' => '426',
+			'itemThumbnailImage' => 'thumbnails/ajipankachile5.jpg',
+			'itemThumbnailWidth' => '42',
+			'itemThumbnailHeight' => '90',
+			'itemName' => 'ajipankachile5.jpg',
+			'itemNumber' => '1717',
+			'itemOriginalPath' => 'l:\\photos\\gallerytest\\ajipankachile5.jpg',
+			'itemNameOnly' => 'itemNameOnly UNDEFINED (9)',
+			'itemCaption' => 'Testpicture',
+			'itemSize' => 'itemSize UNDEFINED (9)',
+		    )
+		)
+	    )
+	);
+	list ($ret, $albumArray) = Picasa2DataParser::getAlbumFromArray($testPicasaXmlArray);
+	if ($ret) {
+	    return $ret;
+	}
+	$expected = array (
+	    'albumName' => 'GalleryTest',
+	    'albumCaption' => 'This is a test',
+	    'images' =>
+		array (
+		    0 => array (
+			'path' => 'images/ajipankachile5.jpg',
+			'name' => 'ajipankachile5.jpg',
+			'caption' => 'Testpicture',
+			'width' => '171',
+			'height' => '426',
+			'thumbwidth' => '42',
+			'thumbheight' => '90',
+		    ),
+		),
+	    );
+	$this->assertEquals($expected, $albumArray);
+    }
+}
+?>

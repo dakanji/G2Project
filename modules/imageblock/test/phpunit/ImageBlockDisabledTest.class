@@ -1,0 +1,268 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+GalleryCoreApi::requireOnce('modules/imageblock/Callbacks.inc');
+GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+
+/**
+ * ImageBlockOption tests
+ * @package ImageBlock
+ * @subpackage PHPUnit
+ * @author Jay Rossiter <cryptographite@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class ImageBlockDisabledTest extends GalleryTestCase {
+
+    function ImageBlockDisabledTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    /**
+     * Create an album for testing
+     */
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+	/* Register a dummy toolkit and operation */
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryToolkit', 'ImageBlockToolkit', 'ImageBlockToolkit',
+	    'modules/imageblock/test/phpunit/ImageBlockDisabledTest.class', 'imageblock', null);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markToolkitForCleanup('ImageBlockToolkit');
+
+	$ret = GalleryCoreApi::registerToolkitOperation(
+	    'ImageBlockToolkit', array('image/gif'), 'testoperation',
+	    array(array('type' => 'int', 'description' => 'size')), 'desc');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$listener = new ImageBlockHelper();
+	$this->_registerTestEventListener('Gallery::ViewableTreeChange', $listener);
+	$this->_registerTestEventListener('GalleryEntity::save', $listener);
+	$this->_registerTestEventListener('GalleryEntity::delete', $listener);
+
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'imageblock');
+	if ($ret || !isset($this->_module)) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_topAlbum, $this->_topItems) =
+	    $this->_createSubAlbumWithItems($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_topAlbum);
+
+	list ($ret, $this->_subAlbum, $this->_subItems) =
+	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Set the ImageBlockDisabled flag */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_itemId) = $this->_module->getParameter('itemId');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_module->setParameter('itemId', $this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    /**
+     * Delete the album that was used for testing
+     */
+    function tearDown() {
+	$ret = GalleryCoreApi::removePluginParameter(
+	    $this->_module->getPluginType(), $this->_module->getId(), 'itemId');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Unset the ImageBlockDisabled flag */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, false);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function _createSubAlbumWithItems($parentId) {
+	/* Create a new album and image, set thumbnail and highlight */
+	list ($ret, $album) = $this->_createRandomAlbum($parentId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($album->getId());
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	$imagePath = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif');
+	list ($ret, $photo, $thumbId) = $this->_addPhoto($album->getId(), $imagePath);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	list ($ret, $tmpId) =
+	    $this->_addDerivative($album, $photo, DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 150);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	$items = array();
+	$items[] = $photo->getId();
+	return array(null, $album, $items);
+    }
+
+    function _addPhoto($parentId, $imagePath) {
+	list ($ret, $photo) =
+	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPhotoItem');
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	list ($ret, $mimeType) = GalleryCoreApi::getMimeType($imagePath);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$ret = $photo->create($parentId, $imagePath, $mimeType,
+			      'testitem_' . time() . substr($imagePath, -4));
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$photo->setTitle('Test Item');
+	$ret = $photo->save();
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	/* add thumbnail */
+	list ($ret, $thumbId) = $this->_addDerivative($photo, $photo,
+	    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 150);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	return array(null, $photo, $thumbId);
+    }
+
+    function _addDerivative(&$item, &$src, $derivativeType, $size) {
+	list ($ret, $derivative) =
+	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $item->getEntityType());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (!isset($derivative)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+	$ret = $derivative->create($item->getId(), $derivativeType);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$derivative->setDerivativeSourceId($src->getId());
+	$derivative->setMimeType($src->getMimeType());
+	$derivative->setDerivativeOperations('testoperation|0');
+	if ($size) {
+	    /* Set scaled size: */
+	    $w = $src->getWidth();
+	    $h = $src->getHeight();
+	    if ($w <= $size && $h <= $size && $derivativeType == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
+		$derivative->setWidth($w);
+		$derivative->setHeight($h);
+	    } else if ($w >= $h) {
+		$derivative->setWidth($size);
+		$derivative->setHeight((int)($size*$h/$w));
+	    } else {
+		$derivative->setHeight($size);
+		$derivative->setWidth((int)($size*$w/$h));
+	    }
+	} else {
+	    /* Set rotated size (swap wd/ht): */
+	    $derivative->setWidth($src->getHeight());
+	    $derivative->setHeight($src->getWidth());
+	}
+	$ret = $derivative->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $derivative->getId());
+    }
+
+    function assertBlock($block) {
+	$this->assert(isset($block['id']), 'Missing id');
+	$this->assert(isset($block['viewCount']), 'Missing viewCount');
+	$this->assert(isset($block['title']), 'Missing title');
+	$this->assert(isset($block['item']), 'Missing item');
+	$this->assert(isset($block['thumb']), 'Missing thumb');
+    }
+
+    function testImageBlockDisabledNoItemsReturned() {
+	$smarty = new GallerySmarty();
+	$callbacks = new ImageBlockCallbacks();
+	$ret = $callbacks->callback(array('useDefaults' => true), $smarty, 'LoadImageBlock');
+	if ($ret) {
+	    return $ret;
+	}
+	$data = $smarty->_tpl_vars;
+	$this->assert(!isset($data['ImageBlockData']['blocks']), 'Block should not exist');
+    }
+
+    function testImageBlockDisabledOneItemReturned() {
+	/* Unset the ImageBlockDisabled flag on the subAlbum */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_subAlbum, true, false);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$smarty = new GallerySmarty();
+	$callbacks = new ImageBlockCallbacks();
+	$ret = $callbacks->callback(array('useDefaults' => true), $smarty, 'LoadImageBlock');
+	if ($ret) {
+	    return $ret;
+	}
+	$data = $smarty->_tpl_vars;
+
+	$this->assert(1 == count($data['ImageBlockData']['blocks']), 'One block');
+	$this->assertBlock($data['ImageBlockData']['blocks'][0]);
+    }
+}
+?>

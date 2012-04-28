@@ -1,0 +1,290 @@
+# $Id: zh_CN.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"PO-Revision-Date: 2006-03-10 11:50+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "Image Block"
+msgstr "图像功能块"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "随机，最近或最具人气照片或相册"
+
+msgid "Blocks"
+msgstr "内容块"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "随机图片"
+msgstr[1] "随机图片"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "最新图片"
+msgstr[1] "最新图片"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "最具人气的图片"
+msgstr[1] "最具人气的图片"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "随机相册"
+msgstr[1] "随机相册"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "最新相册"
+msgstr[1] "最新相册"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "最具人气的相册"
+msgstr[1] "最具人气的相册"
+
+msgid "Picture of the Day"
+msgstr "今日推荐照片"
+
+msgid "Picture of the Week"
+msgstr "本周推荐照片"
+
+msgid "Picture of the Month"
+msgstr "本月推荐照片"
+
+msgid "Album of the Day"
+msgstr "今日推荐相册"
+
+msgid "Album of the Week"
+msgstr "本周推荐相册"
+
+msgid "Album of the Month"
+msgstr "本月推荐相册"
+
+msgid "Date:"
+msgstr "日期:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "人气: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "所有者: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "此相册不在图片内容框中显示"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "应用图像块到子相册"
+
+msgid "Image Block Settings"
+msgstr "图像内容块设置"
+
+msgid "Settings saved successfully"
+msgstr "设置保存成功"
+
+msgid "Show"
+msgstr "显示"
+
+msgid "Heading"
+msgstr "标题"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "View Count"
+msgstr "人气计数器"
+
+msgid "Owner"
+msgstr "所有者"
+
+msgid "Frames"
+msgstr "边框"
+
+msgid "View samples"
+msgstr "查看范例"
+
+msgid "Album Frame"
+msgstr "相册边框"
+
+msgid "Photo Frame"
+msgstr "照片边框"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "External Image Block"
+msgstr "外部图片内容块"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr "使用类似下面显示的PHP内容块以便在图库系统以外的PHP页面中显示图片内容块。"
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"使用管道符 '|' 分割选择列表：randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"使用管道符 '|' 分割选择列表：title, date, views, owner, heading, fullSize；此值也可以是：无"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"使用给出的ID限制在相册中的图库子目录项目选择；或当使用特定的项目内容块类型时设定可显示的项目"
+"ID。"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "添加链接目标（例如：在新的浏览器窗口打开链接）"
+
+msgid "Image frame to use around images"
+msgstr "环绕图片使用的图片边框"
+
+msgid "Image frame to use around albums"
+msgstr "环绕相册使用的图片边框"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr "任何标记有*的参数被省略，将使用上面的网站默认定义值。"
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr "图片边框需要CSS才能正确显示，请包含下列 %s 部分的内容以支持图片边框。"
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"在边框参数中指定边框ID（或用管道符分割列表ID）。省略此参数使用上面的图片边框设定。边框 ID就是"
+"在%s中的目录名。"
+
+msgid "Image type"
+msgstr "图像类型"
+
+msgid "Random image"
+msgstr "随机图像"
+
+msgid "Recent image"
+msgstr "近期图像"
+
+msgid "Viewed image"
+msgstr "最具人气的图片"
+
+msgid "Random album"
+msgstr "随机相册"
+
+msgid "Recent album"
+msgstr "近期相册"
+
+msgid "Viewed album"
+msgstr "最具人气的相册"
+
+msgid "Daily image"
+msgstr "每日图像"
+
+msgid "Weekly image"
+msgstr "每周图像"
+
+msgid "Monthly image"
+msgstr "每月图像"
+
+msgid "Daily album"
+msgstr "每日相册"
+
+msgid "Weekly album"
+msgstr "每周相册"
+
+msgid "Monthly album"
+msgstr "每月相册"
+
+msgid "Number of items"
+msgstr "项目数"
+
+msgid "Use default settings"
+msgstr "使用默认设置"
+
+msgid "Show heading"
+msgstr "显示标题"
+
+msgid "Show title"
+msgstr "显示标题"
+
+msgid "Show date"
+msgstr "显示日期"
+
+msgid "Show view count"
+msgstr "显示人气计数器"
+
+msgid "Show owner"
+msgstr "显示所有者"

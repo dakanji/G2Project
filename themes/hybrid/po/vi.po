@@ -1,0 +1,257 @@
+# $Id: vi.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:47-0800\n"
+"PO-Revision-Date: 2007-08-10 12:28-0000\n"
+"Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
+"Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hybrid"
+msgstr "Lai"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "Trình bày động gồm cả album/ảnh/trình chiếu"
+
+msgid "Show text with thumbnails"
+msgstr "Hiển thị chữ cùng với ảnh con"
+
+msgid "Show dates for albums"
+msgstr "Hiển thị ngày cho album"
+
+msgid "Show dates with thumbnails"
+msgstr "Hiển thị ngày cùng với ảnh con"
+
+msgid "Show dates in image view"
+msgstr "Hiển thị ngày trong phần xem ảnh"
+
+msgid "Show album sizes"
+msgstr "Hiển thị kích thước album"
+
+msgid "Show view counts"
+msgstr "Hiển thị số lần xem"
+
+msgid "Mouseover on thumbnails"
+msgstr "Hiển thị thông tin khi chuột ở trên ảnh con"
+
+msgid "None"
+msgstr "Không hiển thị gì cả"
+
+msgid "Title"
+msgstr "Tiêu đề"
+
+msgid "Date"
+msgstr "Ngày"
+
+msgid "Date/Time"
+msgstr "Ngày và giờ"
+
+msgid "Title (Date)"
+msgstr "Tiêu đề (Ngày)"
+
+msgid "Title (Date/Time)"
+msgstr "Tiêu đề (Ngày/Thời gian)"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Chủ nhân: %s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "Được xem: %d lần"
+msgstr[1] "Được xem: %d lần"
+
+msgid "Date: "
+msgstr "Ngày: "
+
+msgid "Keywords: "
+msgstr "Từ khóa:"
+
+msgid "Link to this item:"
+msgstr "Liên kết đến đối tượng này:"
+
+msgid "Error!"
+msgstr "Có lỗi!"
+
+msgid "Show Details"
+msgstr "Hiển thị thông tin chi tiết"
+
+msgid "Hide Details"
+msgstr "Giấu thông tin chi tiết"
+
+msgid "Show Item Links"
+msgstr "Hiển thị các liên kết của đối tượng"
+
+msgid "Hide Item Links"
+msgstr "Giấu các liên kết của đối tượng"
+
+msgid "Item Details"
+msgstr "Thông tin chi tiết"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"Xem album:\n"
+"| space = bắt đầu trình chiếu\n"
+"| ctrl-phải/trái = hiển thị/dấu đi sidebar\n"
+"| ctrl-lên/xuống = hiển thị/dấu đi các liên kết của đối tượng\n"
+"Xem ảnh:\n"
+"| space = bắt đầu/tạm dừng trình chiếu\n"
+"| escape = trờ về xem album\n"
+"| trái/phải = ảnh tiếp theo/trước\n"
+"| lên/xuống = hiển thị/dấu đi thông tin chi tiết ảnh\n"
+"| page up/down = cuộn thông tin chi tiết ảnh\n"
+"| ctrl-lên/xuống = chọn kích thước gốc/vừa màn hình\n"
+"Các phím mũi tên dùng để cuộn ảnh khi ở kích thước gốc; dùng thêm shift-mũi tên để có các "
+"chức năng trên\n"
+"Khi đang xem chi tiết của đối tượng:\n"
+"| escape = đóng cửa sổ popup"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "Hiển thị chữ cùng với ảnh con"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "Quay lại trang Album"
+
+msgid "Pause Slideshow"
+msgstr "Tạm ngưng trình chiếu"
+
+msgid "Start Slideshow"
+msgstr "Bắt đầu trình chiếu"
+
+msgid "Full Size"
+msgstr "Kích thước đầy đủ"
+
+msgid "Fit Size"
+msgstr "Kích thước vừa với cửa sổ"
+
+msgid "No Previous Image"
+msgstr "Không có ảnh trước"
+
+msgid "Previous Image"
+msgstr "Ảnh trước"
+
+msgid "Previous Image (Load new page)"
+msgstr "Ảnh trước (Tải trang mới)"
+
+msgid "No Next Image"
+msgstr "Không còn ảnh tiếp"
+
+msgid "Next Image"
+msgstr "Ảnh tiếp"
+
+msgid "Next Image (Load new page)"
+msgstr "Ảnh tiếp theo (Tải trang mới)"
+
+msgid "Hide sidebar"
+msgstr "Giấu sidebar"
+
+msgid "Show sidebar"
+msgstr "Hiện sidebar"
+
+msgid "no thumbnail"
+msgstr "không có ảnh con"
+
+msgid "Item Actions"
+msgstr "Chọn lựa của đối tượng"
+
+msgid "Continue..."
+msgstr "Tiếp tục..."
+
+msgid "Navigation"
+msgstr "Điều khiển"
+
+msgid "Display Options"
+msgstr "Thông số hiển thị"
+
+msgid "Keyboard Controls"
+msgstr "Điều khiển bằng bàn phím"
+
+msgid "View"
+msgstr "Xem"
+
+msgid "guest"
+msgstr "khác"
+
+msgid "Slideshow Options"
+msgstr "Thông số trình chiếu"
+
+msgid "Delay"
+msgstr "Độ trễ"
+
+msgid "3 seconds"
+msgstr "3 giây"
+
+msgid "5 seconds"
+msgstr "5 giây"
+
+msgid "7 seconds"
+msgstr "7 giây"
+
+msgid "10 seconds"
+msgstr "10 giây"
+
+msgid "15 seconds"
+msgstr "15 giây"
+
+msgid "20 seconds"
+msgstr "20 giây"
+
+msgid "Direction"
+msgstr "Hướng"
+
+msgid "forward"
+msgstr "đi tới"
+
+msgid "reverse"
+msgstr "đi lui"
+
+msgid "random"
+msgstr "ngẫu nhiên"
+
+#~ msgid "Show text"
+#~ msgstr "Hiện chữ"
+
+#~ msgid "Hide text"
+#~ msgstr "Giấu chữ"

@@ -1,0 +1,174 @@
+# $Id: hu.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-03-16 11:39-0700\n"
+"PO-Revision-Date: 2007-04-01 15:38+0100\n"
+"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"Language-Team: Hungarian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Upload Applet"
+msgstr "Feltöltő Segédprogram"
+
+msgid "Easy to use upload applet for media"
+msgstr "Egyszerűen használható feltöltő segédprogram"
+
+msgid "Import"
+msgstr "Importálás"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"A felöltési segédprogram a Galéria egy olyan moduljára épül, mely jelenleg nincs "
+"engedélyezve. Kérd meg a Rendszergazdát, hogy engedélyezze a 'távoli' modult."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "A Galéria Külső Segédprogramjának letöltése"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"A böngésződ nem támogatja a segédprogramokat(appleteket). Haszáld valamely más feltöltési "
+"módot."
+
+msgid "Uploading files..."
+msgstr "Fájlok feltöltése..."
+
+msgid "Upload complete"
+msgstr "Feltöltés kész"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"További képeket tölthetsz fel, vagy a fenti hivatkozásokra kattintva az eddig feltöltött "
+"képek oldalaira látogathatsz"
+
+msgid "Upload Applet Settings"
+msgstr "Feltöltő Segédprogram Beállításai"
+
+msgid "Defaults"
+msgstr "Alapértelmezettek"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+
+msgid "You have no default variables"
+msgstr ""
+
+msgid "Variable"
+msgstr "Változó"
+
+msgid "Action"
+msgstr "Művelet"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Add a new default variable"
+msgstr "Új alapértelmezett érték hozzáadása"
+
+msgid "You must enter a variable name and value"
+msgstr "Meg kell adnod a változó nevét és értékét"
+
+msgid "New variable"
+msgstr "Új változó"
+
+msgid "Add variable"
+msgstr "Változó hozzáadása"
+
+msgid "Overrides"
+msgstr "Felülbírálások"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+
+msgid "You have no override variables"
+msgstr "Egyetlen változó értékét sem bíráltad felül"
+
+msgid "Add a new override variable"
+msgstr "Új érték felülbírálása"
+
+msgid "Help"
+msgstr "Segítség"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr ""
+
+msgid "variable"
+msgstr "változó"
+
+msgid "values"
+msgstr "értékek"
+
+msgid "help"
+msgstr "segítség"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+
+msgid "no automatic captions"
+msgstr "automatikus leírás nélkül"
+
+msgid "use filenames for captions"
+msgstr "leírások beállítása a fájlnevek alapján"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr ""
+
+msgid "use EXIF extension for caption"
+msgstr "leírások beállítása az EXIF adatokból"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr ""
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "a JPEG tömörítés minősége az ImageMagick-el történő átméretezés esetén"
+
+msgid "Complete list of variables"
+msgstr "A változók teljes listája"

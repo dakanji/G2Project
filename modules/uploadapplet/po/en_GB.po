@@ -1,0 +1,183 @@
+# $Id: en_GB.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-03-07 16:50+0000\n"
+"PO-Revision-Date: 2007-03-07 16:50+0000\n"
+"Last-Translator: Stephen Ryan <ryaner@gmail.com>\n"
+"Language-Team: British <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Upload Applet"
+msgstr "Upload Applet"
+
+msgid "Easy to use upload applet for media"
+msgstr "Easy to use upload applet for media"
+
+msgid "Import"
+msgstr "Import"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Downloading the Gallery Remote Applet"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr "Your browser doesn't support applets; you should use one of the other upload methods."
+
+msgid "Uploading files..."
+msgstr "Uploading files..."
+
+msgid "Upload complete"
+msgstr "Upload complete"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+
+msgid "Upload Applet Settings"
+msgstr "Upload Applet Settings"
+
+msgid "Defaults"
+msgstr "Defaults"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+
+msgid "You have no default variables"
+msgstr "You have no default variables"
+
+msgid "Variable"
+msgstr "Variable"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Add a new default variable"
+msgstr "Add a new default variable"
+
+msgid "You must enter a variable name and value"
+msgstr "You must enter a variable name and value"
+
+msgid "New variable"
+msgstr "New variable"
+
+msgid "Add variable"
+msgstr "Add variable"
+
+msgid "Overrides"
+msgstr "Overrides"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+
+msgid "You have no override variables"
+msgstr "You have no override variables"
+
+msgid "Add a new override variable"
+msgstr "Add a new override variable"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Here is a selection of variables that affect uploads."
+
+msgid "variable"
+msgstr "variable"
+
+msgid "values"
+msgstr "values"
+
+msgid "help"
+msgstr "help"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr "dimension the images will be resized to; this overrides album settings"
+
+msgid "no automatic captions"
+msgstr "no automatic captions"
+
+msgid "use filenames for captions"
+msgstr "use filenames for captions"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "if using the filename for captions, strip the extension"
+
+msgid "use EXIF extension for caption"
+msgstr "use EXIF extension for caption"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "if true, the applet will not complain if it can't find ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "if true, the applet will not complain if it can't find Jpegtran"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "quality of JPEG compression when resizing with ImageMagick"
+
+msgid "Complete list of variables"
+msgstr "Complete list of variables"

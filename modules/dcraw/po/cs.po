@@ -1,0 +1,141 @@
+# $Id: cs.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-06-05 15:47+0200\n"
+"PO-Revision-Date: 2005-09-11 16:18+0200\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "Grafický nástroj pro zpracování obrázků v raw formátu"
+
+msgid "Graphics Toolkits"
+msgstr "Grafické nástroje"
+
+msgid "Convert to PPM"
+msgstr "Zkonvertovat na PPM"
+
+msgid "Get the width and height of the image"
+msgstr "Zjistit šířku a výšku obrázku"
+
+msgid "Convert to a PPM"
+msgstr "Zkonvertovat na PPM"
+
+msgid "Binary output:"
+msgstr "Binární výstup:"
+
+msgid "Dcraw Settings"
+msgstr "Nastavení Dcraw"
+
+msgid "Settings saved successfully"
+msgstr "Nastavení úspěšně uloženo"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw je grafický nástroj, který může být použit pro zpracování obrázků v RAW formátu, které "
+"vytváří některé fotoaparáty. Nejdříve musíte nainstalovat program Dcraw na server a pak "
+"zadat cestu k němu. Pokud je toto systém typu Unix, nezapomeňte na nastavení správných práv "
+"(něco jako <i>chmod 755 dcraw</i>)."
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>Poznámka</b>: Galerie podporuje Dcraw verze 5.40 a novější."
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+
+msgid "Path to dcraw binary:"
+msgstr "Cesta k programu Dcraw:"
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "Musíte zadat cestu k programu Dcraw."
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr "Na cestě, kterou jste zadali, není správný program nebo program není dostupný."
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr ""
+"Na cestě, kterou jste zadali, není správný program. Zkuste tlačítko 'test' ke zjištění "
+"podrobností."
+
+msgid "The path you entered isn't valid."
+msgstr "Cesta, kterou jste zadali, není správná."
+
+msgid "Save Settings"
+msgstr "Uložit nastavení"
+
+msgid "Test Settings"
+msgstr "Vyzkoušet nastavení"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Reset"
+msgstr "Výchozí hodnoty"
+
+msgid "Dcraw binary test results"
+msgstr "Výsledky zkoušky Dcraw"
+
+msgid "Binary Name"
+msgstr "Jméno programu"
+
+msgid "Pass/Fail"
+msgstr "Status"
+
+msgid "Passed"
+msgstr "OK"
+
+msgid "Failed"
+msgstr "Chyba"
+
+msgid "Error messages:"
+msgstr "Chybové zprávy:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Ladící výstup (%d chybný test)"
+msgstr[1] "Ladící výstup (%d chybné testy)"
+msgstr[2] "Ladící výstup (%d chybných testů)"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"Při testování jsme posbírali následující ladící informace. Pokud si je pozorně přečtete, "
+"možná objevíte důvod selhání testů."

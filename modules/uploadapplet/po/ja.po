@@ -1,0 +1,182 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:56-0800\n"
+"PO-Revision-Date: 2006-09-02 23:58+0900\n"
+"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Upload Applet"
+msgstr "アップロードアプレット"
+
+msgid "Easy to use upload applet for media"
+msgstr "簡単にメディアをアップロードできるアプレットです"
+
+msgid "Import"
+msgstr "インポート"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"アップロードアプレットは現在有効になってないモジュールに依存しています。管理者にリモートモ"
+"ジュールを有効にするように頼んでください。"
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Gallery リモートアプレットをダウンロードしています"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr "このブラウザはアプレットをサポートしていません。他のアップロード方法を使ってください。"
+
+msgid "Uploading files..."
+msgstr "ファイルをアップロード中..."
+
+msgid "Upload complete"
+msgstr "アップロード完了"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"アップロードを継続するかもしくは上のリンクをクリックすることでアップロード済みの画像を見に行"
+"くことができます"
+
+msgid "Upload Applet Settings"
+msgstr "アップロードアプレット設定"
+
+msgid "Defaults"
+msgstr "デフォルト"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"これらの変数は、あなたのサイトで実行されるアプレットのデフォルト値を提供します。ユーザーはこ"
+"れらのデフォルトを、アプレットの画面かローカルのデフォルトファイルを変更することで上書きする"
+"ことができます。"
+
+msgid "You have no default variables"
+msgstr "デフォルト変数がありません"
+
+msgid "Variable"
+msgstr "変数"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Add a new default variable"
+msgstr "新しいデフォルト値を追加する"
+
+msgid "You must enter a variable name and value"
+msgstr "あなたは変数名と値を入力しなければいけません"
+
+msgid "New variable"
+msgstr "新しい変数"
+
+msgid "Add variable"
+msgstr "変数を追加"
+
+msgid "Overrides"
+msgstr "上書き"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"これらの変数はユーザーが実行するアプレットのすべての値を上書きします。ユーザーはこれらの値を"
+"変更できません。"
+
+msgid "You have no override variables"
+msgstr "上書きする変数がありません"
+
+msgid "Add a new override variable"
+msgstr "新しい上書きする変数を追加する"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "これらはアップロードに影響する変数の選択肢です"
+
+msgid "variable"
+msgstr "変数"
+
+msgid "values"
+msgstr "値"
+
+msgid "help"
+msgstr "ヘルプ"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"アップロードする前に画像をリサイズするようにアプレットに指示する。デフォルトではアルバム設定"
+"の中間サイズにリサイズします。"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr "画像をリサイズする：これはアルバム設定を上書きします。"
+
+msgid "no automatic captions"
+msgstr "自動キャプションなし"
+
+msgid "use filenames for captions"
+msgstr "ファイル名をキャプションに使う"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "ファイル名をキャプションに使う場合、拡張子を削除する"
+
+msgid "use EXIF extension for caption"
+msgstr "EXIF拡張をキャプションに使う"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"もしfalseなら、HTMLエンティティでエスケープせずに画像メタデータの送信にUTF-8を使います。"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"画像をリサイズして、ImageMagickが見つからない場合にEXIFデータが失われたくなければ、falseに設"
+"定する"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "もしtrueなら、アプレットはImageMagickが見つからないとメッセージを出しません"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "もしtrueなら、アプレットはJpegtranが見つからないとメッセージを出しません"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "ImageMagickでリサイズするときのJPEGの品質"
+
+msgid "Complete list of variables"
+msgstr "変数の全リスト"

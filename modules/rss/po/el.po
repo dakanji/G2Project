@@ -1,0 +1,554 @@
+# $Id: el.po 19453 2008-12-27 16:46:43Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Akis Panas <pasas9@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-16 11:05+0100\n"
+"PO-Revision-Date: 2008-12-04 15:38+0200\n"
+"Last-Translator: Akis Panas <pasas9@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This feed no longer exists!"
+msgstr "Αυτό το feed δεν υπάρχει πλέον!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Δεν επιτρέπονται feeds αυτού του είδους!"
+
+msgid "Incorrect feed type!"
+msgstr "Λανθασμένος τύπος feed!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr ""
+
+msgid "Not permitted to view comments for this item"
+msgstr "Δεν επιτρέπεται να δείτε τα σχόλια γι' αυτό το αρχείο"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Εξαγωγή"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS Feed γι' αυτό το άλμπουμ"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS Feed γι' αυτή την φωτογραφία"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS Feed γι' αυτή την ταινία"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS Feed για %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Ρυθμίσεις RSS Feeds"
+
+msgid "Simple RSS Feed"
+msgstr "Simple RSS Feed"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Συντομο URL για Simple RSS Feeds"
+
+msgid "RSS Feed"
+msgstr "RSS Feed"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Το όνομα του ρυθμιζόμενου RSS Feed"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Σύντομο URL για Ρυθμιζόμενα RSS Feeds"
+
+#, c-format
+msgid "In album %s"
+msgstr "Στο άλμπουμ %s"
+
+msgid "Items in an album"
+msgstr "Αντικείμενα σε ένα άλμπουμ"
+
+msgid "Sub-albums of an album"
+msgstr "Υπο-άλμπουμ κάποιου άλμπουμ"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Αρχεία σε ένα άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Comments for an album"
+msgstr "Σχόλια για άλμπουμ"
+
+msgid "Comments for an item"
+msgstr "Σχόλια για αρχείο"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Σχόλια γι' αυτό το άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Random items in an album"
+msgstr "Τυχαία αρχεία σε ένα άλμπουμ"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Τυχαία αρχεία σε ένα άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "RSS Feeds"
+msgstr "RSS Feeds"
+
+msgid "Settings have been saved"
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν"
+
+msgid "Feed successfully deleted"
+msgstr "Το feed διαγράφηκε με επιτυχία"
+
+msgid "An error occured"
+msgstr "Προέκυψε ένα σφάλμα"
+
+msgid "List"
+msgstr "Λίστα"
+
+msgid "Edit Feed"
+msgstr "Επεξεργασία feed"
+
+msgid "New Feed"
+msgstr "Νέο Feed"
+
+msgid "Feed URL"
+msgstr "Feed URL"
+
+msgid "Feed name"
+msgstr "Όνομα feed"
+
+msgid "You can't change the name of the feed"
+msgstr "Δεν μπορείτε να αλλάξετε το όνομα αυτού του feed"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Διαλέξτε όνομα για το feed σας (αυτό θα υπάρχει στο URL προς του feed σας, κάλο θα είναι να "
+"έχει μόνον γράμματα"
+
+msgid "You must enter a name"
+msgstr "Πρέπει να δώσετε ένα όνομα"
+
+msgid "This name is already used, please select another one"
+msgstr "Αυτό το όνομα ήδη υπάρχει, παρακαλούμε διαλέξτε ένα άλλο"
+
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgid "Feed settings"
+msgstr "Ρυθμίσεις Feed"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Επιλέξτε τον τύπο των στοιχείων που θα παρουσιάζονται στο feed"
+
+msgid "Type of feed"
+msgstr "Τύπος του feed"
+
+msgid "Items in this album"
+msgstr "Αντικείμενα σ' αυτό το άλμπουμ"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"Τύποι αυτών των feeds δεν επιτρέπονται από τον διαχειριστή. Οι χρήστες δεν θα μπορούν να τα "
+"δουν."
+
+msgid "Sub-albums of this album"
+msgstr "Υπό-άλμπουμ αυτού του άλμπουμ"
+
+msgid "Items in this album and its subalbums"
+msgstr "Αρχεία σ' αυτό το άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Limit the number of items per album"
+msgstr "Περιορίστε τον αριθμό των αντικείμενων ανά άλμπουμ"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr ""
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(γράψτε 0 για να απενεργοποιήσετε το όριο)"
+
+msgid "Comments for this album"
+msgstr "Σχόλια γι' αυτό το άλμπουμ"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Σχόλια γι' αυτό το άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Random pictures inside this album"
+msgstr "Τυχαίες φωτογραφίες σ' αυτό το άλμπουμ"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Τυχαίες φωτογραφίες σ' αυτό το άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Comments for this item"
+msgstr "Σχόλια γι' αυτό το αντικείμενο"
+
+msgid "Which items"
+msgstr "Ποια αντικείμενα"
+
+msgid "New items only"
+msgstr "Νέα αντικείμενα μόνο"
+
+msgid "New and updated items"
+msgstr "Νέα και ενημερωμένα αντικείμενα"
+
+msgid "Choose the options for the feed"
+msgstr ""
+
+msgid "RSS version"
+msgstr "Έκδοση RSS"
+
+msgid "Invalid version"
+msgstr "Άκυρη έκδοση"
+
+msgid "Number of items"
+msgstr "Αριθμός των στοιχείων"
+
+msgid "Invalid number"
+msgstr "Άκυρος αριθμός"
+
+msgid "language tag"
+msgstr "ετικέτα γλώσσας"
+
+msgid "Invalid language value"
+msgstr "Άκυρη τιμή γλώσσας"
+
+msgid "by default: en-us."
+msgstr "προεπιλεγμένο: en-us."
+
+msgid "List of all possible values"
+msgstr "Λίστα όλων των πιθανών τιμών"
+
+msgid "category tag"
+msgstr "ετικέτα κατηγορίας"
+
+msgid "ttl tag"
+msgstr "ετικέτα ttl"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr ""
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+
+msgid "Copyright"
+msgstr "Πνευματικά δικαιώματα"
+
+msgid "Invalid copyright"
+msgstr "Άκυρα πνευματικά δικαιώματα"
+
+msgid "Use image tag"
+msgstr "Χρησιμοποιήστε ετικέτα εικόνας"
+
+msgid "Include image tag"
+msgstr "Συμπεριλάβετε ετικέτα εικόνας"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr ""
+
+msgid "Invalid value"
+msgstr "Άκυρη τιμή"
+
+msgid "Use enclosures"
+msgstr ""
+
+msgid "Include enclosure tags"
+msgstr ""
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+
+msgid "Use Media RSS"
+msgstr "Χρησιμοποιήστε Media RSS"
+
+msgid "Include Media RSS tags"
+msgstr "Συμπεριλάβετε ετικέτες Media RSS"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+
+msgid "about Media RSS"
+msgstr "σχετικά με Media RSS"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Σύννεφο ετικέτας (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr ""
+
+msgid "Example: "
+msgstr "Παράδειγμα:"
+
+msgid "domain"
+msgstr ""
+
+msgid "port"
+msgstr ""
+
+msgid "path"
+msgstr "διαδρομή"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "πρωτόκολλο"
+
+msgid "Cloud tag"
+msgstr "Σύννεφο ετικέτας"
+
+msgid "Include the cloud tag"
+msgstr "Συμπεριλάβετε το σύννεφο ετικέτας"
+
+msgid "Invalid string"
+msgstr ""
+
+msgid "Invalid port number"
+msgstr "Άκυρος αριθμός port"
+
+msgid "Update Feed"
+msgstr "Ενημέρωση Feed"
+
+msgid "Create Feed"
+msgstr "Δημιουργία feed"
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "RSS feeds for this item"
+msgstr "RSS feeds γι' αυτό το αρχείο"
+
+msgid "No feeds have yet been defined"
+msgstr "Ακόμη δεν έχει προσδιοριστεί κανένα feed"
+
+msgid "Feed link"
+msgstr "Σύνδεσμος Feed"
+
+msgid "Feed type"
+msgstr "Τύπος Feed"
+
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgid "delete"
+msgstr "διαγραφή"
+
+msgid "edit"
+msgstr "επεξεργασία"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Λίστα όλων των feeds που είναι διαθέσιμα σ' αυτή την Γκαλερί"
+
+msgid "RSS Settings"
+msgstr "Ρυθμίσεις RSS"
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+msgid "Simple Feed Settings"
+msgstr "Ρυθμίσεις Simple Feed"
+
+msgid "General settings"
+msgstr "Γενικές ρυθμίσεις"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+"Αυτές είναι οι προεπιλεγμένες και μέγιστες τιμές που χρησιμοποιούνται από όλα τα feeds της "
+"Γκαλερί σας"
+
+msgid "Default number of items in feeds"
+msgstr "Προεπιλεγμένος αριθμός αντικείμενων στα feeds"
+
+msgid "Invalid default number"
+msgstr "Άκυρος προεπιλεγμένος αριθμός"
+
+msgid "Maximum number of items in feeds"
+msgstr "Μέγιστος αριθμός αρχείων στα feeds"
+
+msgid "Invalid maximum number"
+msgstr "Άκυρος μέγιστος αριθμός"
+
+msgid "Maximum age for items in feeds"
+msgstr "Μέγιστος αριθμός αρχείων στα feeds"
+
+msgid "Invalid maximum age number"
+msgstr "Άκυρος μέγιστος αριθμός χρόνου"
+
+msgid "Default ttl"
+msgstr "Προεπιλεγμένο ttl"
+
+msgid "Default copyright"
+msgstr "Προεπιλεγμένα πνευματικά δικαιώματα"
+
+msgid "Feed Types"
+msgstr "Τύποι Feed"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Ρυθμίστε ποιοι τύποι feeds επιτρέπονται"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Επιτρέψτε Simple  RSS feeds  να χρησιμοποιούνται"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Αν το ενεργοποιήσετε, οι χρήστες θα μπορούν να γίνουν συνδρομητές σε feed για οποιοδήποτε "
+"άλμπουμ ή φωτογραφία μπορούν να δουν."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"Για να επεξεργαστείτε τις ρυθμίσεις για Simple Feeds επιλέξτε την αντίστοιχη καρτέλα στην "
+"κορυφή."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Επιτρέψτε ρυθμιζόμενα  RSS feeds  να χρησιμοποιούνται"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Μόνο οι ιδιοκτήτες των άλμπουμ θα μπορούν να προσδιορίσουν αυτά τα feeds. Μπορούν να "
+"δηλώσουν τις παραμέτρους για τον τύπο του feed που θέλουν."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Επιτρέψτε RSS feeds φωτογραφιών μέσα σε άλμπουμ"
+
+msgid "Fast"
+msgstr "Γρήγορο"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Επιτρέψτε RSS feeds για υπό-άλμπουμ"
+
+msgid "Slow"
+msgstr "Αργό"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Επιτρέψτε RSS feeds φωτογραφιών μέσα σε άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Slower"
+msgstr "Πιο Αργό"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Επιτρέψτε RSS feeds σχολίων μιας φωτογραφίας"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Επιτρέψτε RSS feeds σχολίον  ενός άλμπουμ"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Επιτρέψτε RSS feeds σχολίων ενός άλμπουμ και των υπό-άλμπουμ του"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Επιτρέψτε RSS feeds τυχαίον φωτογραφιών μέσα σε άλμπουμ"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Επιτρέψτε RSS feeds τυχαίον φωτογραφιών μέσα σε άλμπουμ και τα υπό-άλμπουμ του"
+
+msgid "Slowest"
+msgstr "Πιο Αργό"
+
+msgid "Save Settings"
+msgstr "Αποθήκευση ρυθμίσεων"
+
+msgid "Reset"
+msgstr "Επαναφορά"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Βοηθώντας τους χρήστες να ανακαλύψουν τα RSS feeds"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"ν θέλεετε να βοηθήσετε τους χρήστες να ανακαλύψουν  τα feeds σας στη Gallery, μπορείτε να "
+"προσθέσετε το RSS μπλοκ στα θέματα που χρησιμοποιούνται στην Γκαλερί σας."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+
+msgid "Global list of RSS feeds"
+msgstr "Καθολική λίστα RSS feeds"
+
+msgid "On item"
+msgstr "Στο αντικείμενο"
+
+msgid "Simple Feed settings"
+msgstr "Ρυθμίσεις Simple Feed"
+
+msgid "For albums"
+msgstr "Για άλμπουμ"
+
+msgid "Items in the album"
+msgstr "Αντικείμενα στο άλμπουμ"
+
+msgid "Sub-albums of the album"
+msgstr "Υπό-άλμπουμ του άλμπουμ"
+
+msgid "Items in the album and its subalbums"
+msgstr "Αντικείμενα στο άλμπουμ και των υπό-άλμπουμ του"
+
+msgid "Comments for the album"
+msgstr "Σχόλια για το άλμπουμ"
+
+msgid "For items"
+msgstr "Για αντικείμενα"
+
+msgid "Comments for items (always selected)"
+msgstr "Σχόλια για αντικείμενα (πάντα επιλεγμένα)"
+
+msgid "List all RSS Feeds"
+msgstr "Λίστα όλων των RSS Feeds"
+
+msgid "List of RSS Feeds"
+msgstr "Λίστα των RSS Feeds"
+
+msgid "Number of feeds to display"
+msgstr "Αριθμός feeds για προβολή"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "όλα"

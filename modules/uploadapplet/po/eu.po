@@ -1,0 +1,186 @@
+# $Id: eu.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Piarres Beobide <pi@beobide.net>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:59-0800\n"
+"PO-Revision-Date: 2006-05-24 13:46+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Upload Applet"
+msgstr "Igoera Applet-a"
+
+msgid "Easy to use upload applet for media"
+msgstr "Elementuak igotzeko erabiliera errazteko applet-a"
+
+msgid "Import"
+msgstr "Inportatu"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Igoera applet-ak gaiturik ez dagoen G2 modulu baten beharra du.  Eskatu sistema "
+"kudeatzaileari 'urruneko' modulua gaitzeko."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Galeria Urrunekoa Applet-a deskargatzen"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"Zure nabigatzaileak ez du applet-ik onartzen, igoera metodoak bakarrik erabili ditzakezu."
+
+msgid "Uploading files..."
+msgstr "Fitxategiak igotzen..."
+
+msgid "Upload complete"
+msgstr "Igoera osatua"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr "Igoerekin jarraitu edo igotako irudietara joan zaitezke beheko loturak jarraituaz"
+
+msgid "Upload Applet Settings"
+msgstr "Igoera Applet Ezarpenak"
+
+msgid "Defaults"
+msgstr "Lehenespenak"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Aldagai hauek erabiltzaileek zure webgunean abiaraziko applet-etan erabiliko diren "
+"lehenetsiriko balioak dira. Erabiltzaileak balio horiek alda ditzakete applet-aren "
+"erabiltzaile interfazean, edo beren lehenespen fitxategia aldatuaz."
+
+msgid "You have no default variables"
+msgstr "Ez duzu lehenetsiriko aldagairik"
+
+msgid "Variable"
+msgstr "Aldagaia"
+
+msgid "Action"
+msgstr "Ekintza"
+
+msgid "Delete"
+msgstr "Ezabatu"
+
+msgid "Add a new default variable"
+msgstr "Lehenetsiriko aldagai berri bat gehitu"
+
+msgid "You must enter a variable name and value"
+msgstr "Aldagai izen bat idatzi behar duzu"
+
+msgid "New variable"
+msgstr "Aldagai berria"
+
+msgid "Add variable"
+msgstr "Aldagaia gehitu"
+
+msgid "Overrides"
+msgstr "Gainidatzi"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Aldagai hauek erabiltzaileek zure webgunean abiaraziko applet-en beste edozein balio "
+"berridazten dute. Erabiltzaileak ezingo dituzte balio hauek aldatu."
+
+msgid "You have no override variables"
+msgstr "Ez duzu eraldaturiko aldagairik"
+
+msgid "Add a new override variable"
+msgstr "Eraldaturiko aldagai bat gehitu"
+
+msgid "Help"
+msgstr "Laguntza"
+
+#, fuzzy
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Igoeretan eragina duen aldagai aukeraketa bat hemen."
+
+msgid "variable"
+msgstr "aldagaia"
+
+msgid "values"
+msgstr "balioak"
+
+msgid "help"
+msgstr "laguntza"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"applet-ak albumera irudiak igo baino lehen tamaina aldatzea ezarri; lehenespen modura, "
+"albumaren tamaina ertainera aldatuko dira"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr "irudiak tamaina aldatu behar diren dimentsioak; honek album ezarpenak gainidazten ditu"
+
+msgid "no automatic captions"
+msgstr "izenburu automatikorik ez"
+
+msgid "use filenames for captions"
+msgstr "fitxategi izenak erabili izenburu bezala"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "fitxategi izena izenburu bezala erabiltzean, luzapena ezkutatu"
+
+msgid "use EXIF extension for caption"
+msgstr "EXIF luzapena erabili izenburu bezala"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"ezezkoan, igoera applet-ak UTF-8 erabiliko irudiaren meta-data galeriara bidaltzeko, HTML "
+"entitate bidez ihesi beharrean."
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"ezezkoan ezarri irudia tamaina aldatu eta ImageMagick ez aurkitu ezkero EXIF datuak galtzea "
+"ekiditeko"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "baiezkoan, applet-a ezingo du abisua eman ImageMagick ezin badu aurkitu"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "baiezkoan, applet-a ezingo du abisua eman Jpegtran ezin badu aurkitu"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "ImageMAgick erabiliaz tamaina aldatzean erabiliko den JPEG konpresio kalitatea"
+
+msgid "Complete list of variables"
+msgstr "Aldagai zerrenda osoa"

@@ -1,0 +1,2083 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
+
+/**
+ * ConfirmImport controller tests
+ * @package Migrate
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class ConfirmImportControllerTest extends GalleryControllerTestCase {
+
+    /**
+     * The id of the album to which all sub-items will be added - this is
+     * deleted in the teardown
+     * @access protected
+     */
+
+    var $_temporaryAlbumId;
+
+    /**
+     * The count of items in the migration map at the start of the process
+     * @access protected
+     */
+    var $_mapCount;
+
+    function ConfirmImportControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'migrate.ConfirmImport');
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId(),
+							    array('orderBy' => 'orderWeight'));
+	if ($ret) {
+	    return $ret;
+	}
+	/* Assign our test theme */
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_temporaryAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_temporaryAlbum->setTheme('matrix');
+	$ret = $this->_temporaryAlbum->save();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_temporaryAlbumId = $this->_temporaryAlbum->getId();
+
+	list ($ret, $this->guestUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->guestUserId = (int)$this->guestUserId;
+
+	$userName = 'phpunitfoo001';
+	/* Go ahead and create the user instance */
+	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Verify that the user was created successfully */
+	if (!isset($user)) {
+	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+	}
+
+	$ret = $user->create($userName);
+	if ($ret) {
+	    /*
+	     * ERROR_COLLISION is when you try to create something that
+	     * already exists.  If this test user already exists, we're happy.
+	     */
+	    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
+		return $ret;
+	    }
+	}
+	$ret = $user->save();
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_mapCount) = G1MigrateHelper::fetchMapCount();
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->testHidden = !empty($moduleStatusList['hidden']['active']);
+	$this->testComments = !empty($moduleStatusList['comment']['active']);
+	/* Comment permissions might be registered in db even though module isn't active: */
+	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits('comment.all');
+	$this->commentPermissionsExist = !$ret;
+
+	list ($ret, $this->_origMarkup) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* These tests expect a user with username 'admin' to exist */
+	list ($ret, $adminUser) = GalleryCoreApi::fetchUserByUsername('admin');
+	if ($ret) {
+	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+		list ($ret, $adminUser) =
+		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+		if ($ret) {
+		    return $ret;
+		}
+		$ret = $adminUser->create('admin');
+		if ($ret) {
+		    return $ret;
+		}
+		$ret = $adminUser->save();
+		if ($ret) {
+		    return $ret;
+		}
+		$this->_markForCleanup($adminUser);
+	    } else {
+		return $ret;
+	    }
+	}
+	$this->_adminUser = $adminUser;
+
+	list ($ret, $this->_everybodyGroupId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_everybodyGroupId = (int)$this->_everybodyGroupId;
+
+	list ($ret, $this->_adminGroupId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_adminGroupId = (int)$this->_adminGroupId;
+
+	$platform =& $gallery->getPlatform();
+	$this->_slash = $platform->getDirectorySeparator();
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
+						  'misc.markup', $this->_origMarkup);
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	/* Clean up our test users */
+	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunit_foobar');
+	if (!$ret) {
+	    $ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunitfoo001');
+	if (!$ret) {
+	    $ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunitfoo002');
+	if (!$ret) {
+	    $ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Clean up our test album */
+	$ret = GalleryCoreApi::deleteEntityById($this->_temporaryAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($this->_mapCount, $mapCount, 'Test altered number of map entries!');
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function _runBackgroundTask($expectedProgressBarDump) {
+	global $gallery;
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+	$mockGenerator = new ConfirmImportControllerTestUrlGenerator();
+	$gallery->_urlGenerator =& $mockGenerator;
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results,
+			    'Progress bar results');
+
+	$this->assertEquals(1, $mockAdapter->getCallbackCount(), 'Callback count');
+	$ret = $mockAdapter->runCallbacks();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (is_array($expectedProgressBarDump)) {
+	    $this->assertEquals($expectedProgressBarDump, $mockAdapter->getProgressBarDump(),
+		'expected progress bar dump');
+	} else {
+	    $pattern = '/^' . $expectedProgressBarDump . '$/';
+	    $dump = join(' ', $mockAdapter->getProgressBarDump());
+	    $this->assert(preg_match($pattern, $dump),
+			  "Progress Bar Dump [$dump] did not match pattern [$pattern]");
+	}
+
+	$session =& $gallery->getSession();
+	$status = $session->getStatus();
+
+	return array(null, $status);
+    }
+
+    function testImportUserSuccessful() {
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[migrateUser][1057837154_228147420]', 1);
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	/* We still have 2 progressbar resets, even though we don't import albums and make thumbs */
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    array(0, 1, 'reset', 'reset',
+		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('userImportSuccess' => array('phpunit_foobar' => 1),
+				  'userImportFailure' => array(),
+				  'albumImportFailure' => array(),
+				  'albumImportSuccess' => array(),
+				  'urlRedirect' => false),
+			    $status);
+
+	/* Verify the user exists */
+	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunit_foobar');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+    function testImportMissingUserFullname() {
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[migrateUser][1111214688_22997786]', 1);
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	/* We still have 2 progressbar resets, even though we don't import albums and make thumbs */
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    array(0, 1, 'reset', 'reset',
+		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('userImportSuccess' => array('phpunitfoo002' => 1),
+				  'userImportFailure' => array(),
+				  'albumImportFailure' => array(),
+				  'albumImportSuccess' => array(),
+				  'urlRedirect' => false
+				  ),
+			    $status);
+
+	/* Verify the user exists */
+	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunitfoo002');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('phpunitfoo002', $user->getFullName());
+    }
+
+    function testImportUserFailure() {
+	/* Try importing user with username 'admin' which should fail */
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[migrateUser][1054014347_1233740678]', 1);
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	/* We still have 2 progressbar resets, even though we don't import albums and make thumbs */
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    array(0, 1, 'reset', 'reset',
+		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('userImportFailure' => array('admin' => 1),
+				  'userImportSuccess' => array(),
+				  'albumImportFailure' => array(),
+				  'albumImportSuccess' => array(),
+				  'urlRedirect' => false
+				  ),
+			    $status);
+    }
+
+    function testCancelImport() {
+	global $gallery;
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'migrate.SelectGallery'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    /* Import an album with comments and a user. */
+    function testImportAlbumSuccessful() {
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album03]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album02]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'filename');
+	/* The "phpunit_foobar" user (comment owner). */
+	GalleryUtilities::putRequestVariable('form[migrateUser][1057837154_228147420]', 1);
+
+	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
+	if ($ret) {
+	    return $ret;
+	}
+	$importCustomFields = isset($test);
+	if ($importCustomFields) {
+	    GalleryUtilities::putRequestVariable('form[customFields]', 1);
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '0 1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('album03', 'album02'),
+			    array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array('phpunit_foobar' => 1), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['album03'];
+
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Get the theme associated with this album */
+	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $settings) = $theme->getSettings($testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+	/* Get specific values from the theme */
+	list ($ret, $rows) = $theme->getParameter('rows', $testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $cols) = $theme->getParameter('columns', $testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Count the clicks for this item */
+	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/*
+	 * This is the user that we expect to be associated with this album.
+	 * It really shouldn't be the admin, but the test data needs to be
+	 * changed to fix it, so we will change it later - probably to
+	 * phpunit_foobar, or whatever we are loading in the other unit test
+	 */
+	$testOwner = $this->_adminUser;
+
+	/* Load the thumb and resized image sizes for later comparison */
+	list ($ret, $derivativePreferences) =
+	    GalleryCoreApi::fetchDerivativePreferencesForItem($testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	if ($importCustomFields) {
+	    list ($ret, $fieldList) =
+		GalleryCoreApi::getPluginParameter('module', 'customfield', 'common', $testAlbumId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals('Description`0`1', $fieldList, 'list of custom fields');
+	}
+
+	/*
+	 * Array of example data
+	 * (
+	 *   +[title] => Test Album One
+	 *   +[description] => No description
+	 *   +[summary] =>
+	 *   -[bgcolor] =>
+	 *   -[textcolor] =>
+	 *   -[linkcolor] =>
+	 *   -[font] => verdana
+	 *   -[border] => 1
+	 *   -[bordercolor] => black
+	 *   -[returnto] => yes
+	 *   +[thumb_size] => 150
+	 *   +[resize_size] => 400
+	 *   +[rows] => 5
+	 *   +[cols] => 5
+	 *   -[fit_to_window] => no
+	 *   -[use_fullOnly] => no
+	 *   -[print_photos] => none
+	 *   -[use_exif] => yes
+	 *    [perms] => Array
+	 *        ( [canRead] => Array
+	 *            ( [everybody] => 1 )
+	 *            [canViewFullImages] => Array
+	 *            ( [everybody] => 1 )
+	 *        )
+	 *   +[parentAlbumName] => .root
+	 *   +[clicks] => 0
+	 *   +[clicks_date] => 1056014708
+	 *   -[display_clicks] => yes
+	 *   -[public_comments] => yes
+	 *    [extra_fields] => Array
+	 *        ( [0] => Description
+	 *        )
+	 *   +[name] => album01
+	 *   +[owner] => 1054014347u1233740678
+	 *   -[last_mod_time] => 1056015246
+	 */
+
+
+	$this->assertEquals(array('Test Album Three',                    // title
+				  '[b]No description[/b]',               // summary
+				  NULL,                                  // keywords
+				  NULL,                                  // description
+				  $testOwner->getId(),                   // owner
+				  1056015077,                            // album creation
+				  1056015077,                            // clicks counted since
+				  23,                                    // count of clicks
+				  array(array(                           // thumb and resized...
+					      'order' => 0,              // ...sizing preferences
+					      'derivativeType' => 1,
+					      'derivativeOperations' => 'thumbnail|150'
+					      ),
+
+					array('order' => 1,
+					      'derivativeType' => 2,
+					      'derivativeOperations' => 'scale|400'
+					      )
+					),
+				  '5',                                   // rows
+				  '5'                                    // cols
+				  ),
+			    array($testAlbum->getTitle(),                // title
+				  $testAlbum->getSummary(),              // summary
+				  $testAlbum->getKeywords(),             // keywords
+				  $testAlbum->getDescription(),          // description
+				  $testAlbum->getownerId(),              // owner
+				  $testAlbum->getcreationTimestamp(),    // album creation
+				  $testAlbum->getviewedSinceTimestamp(), // clicks counted since
+				  $viewCount,                            // count of clicks
+				  $derivativePreferences,                // thumb and resized
+				                                         // sizing preferences
+				  $rows,                                 // rows
+				  $cols                                  // cols
+
+				  )
+			    );
+	/* albumitem Object
+	 * (
+	 *   +[image] => image Object
+	 *        (
+	 *           +[name] => canon_ae_1
+	 *           +[type] => jpg
+	 *           -[width] => 225
+	 *           -[height] => 165
+	 *           -[resizedName] =>
+	 *           +[thumb_x] =>
+	 *           +[thumb_y] =>
+	 *           +[thumb_width] =>
+	 *           +[thumb_height] =>
+	 *           -[raw_width] => 225
+	 *           -[raw_height] => 165
+	 *           -[version] => 10
+	 *        )
+	 *
+	 *   +[caption] => canon_ae_1
+	 *    [hidden] =>
+	 *   +[highlight] => 1
+	 *   +[isAlbumName] =>
+	 *   +[clicks] =>
+	 *   +[keywords] =>
+	 *    [comments] =>
+	 *   +[uploadDate] => 1056014783
+	 *   +[itemCaptureDate] => Array
+	 *        (
+	 *           +[0] => 1056014783
+	 *        )
+	 *
+	 *    [extraFields] => Array
+	 *        (
+	 *        )
+	 *)
+	 */
+
+
+	/* Verify item attributes (like order weight) */
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(4, count($ids), 'number of children');
+
+	$seenWeights = array();
+	foreach ($ids as $id) {
+	    list ($ret, $itemViewCount[$id]) = GalleryCoreApi::fetchItemViewCount($id);
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($id);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert(!isset($seenWeights[$orderWeight]),
+			  'Seen this weight before: ' . $orderWeight);
+	    $seenWeights[$orderWeight] = 1;
+	}
+
+	/* Get the allegedly successfully imported items */
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array("\xc2\xa1" . 'Time to migrate!', // title
+				  NULL,                                  // summary
+				  'stump grinder chipper shredder',      // keywords
+				  'chipper',                             // description
+				  $testOwner->getId(),                   // owner
+				  1056015116,                            // item creation
+				  1056015077,                            // clicks counted since
+				  3                                      // count of clicks
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getownerId(),               // owner
+				  $testItem->getcreationTimestamp(),     // item creation
+				  $testItem->getviewedSinceTimestamp(),  // clicks counted since
+				  $itemViewCount[$testItem->getId()]     // count of clicks
+				  ),
+			    'item 0');
+
+	if ($importCustomFields) {
+	    GalleryCoreApi::requireOnce(
+		'modules/customfield/classes/CustomFieldHelper.class');
+	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals(array($testItem->getId() =>
+		array('Description' => 'This is actually not a chipper, but a stump grinder.')),
+		$fields, 'custom field values');
+	}
+
+	list ($ret, $chipperThumb) =
+	    GalleryCoreApi::fetchThumbnailsByItemIds(array($testItem->getId()));
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(1, count($chipperThumb), 'thumbnail exists');
+	if (count($chipperThumb) == 1) {
+	    $chipperThumb = array_shift($chipperThumb);
+	    $this->assert(GalleryUtilities::isA($chipperThumb, 'GalleryDerivative'), 'derivative');
+	    $this->assertEquals('crop|34.568,40.923,34.877,35.077;thumbnail|150',
+				$chipperThumb->getDerivativeOperations(), 'derivative operations');
+	}
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Test Album Two',                      // title
+				  'No description',                      // summary
+				  NULL,                                  // keywords
+				  NULL,                                  // description
+				  $testOwner->getId(),                   // owner
+				  1056014506,                            // album creation
+				  1056014506,                            // clicks counted since
+				  5                                      // count of clicks
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getownerId(),               // owner
+				  $testItem->getcreationTimestamp(),     // album creation
+				  $testItem->getviewedSinceTimestamp(),  // clicks counted since
+				  $itemViewCount[$testItem->getId()]     // count of clicks
+				  ),
+			    'item 1');
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array(
+	   'I Love It Victoria Is the Only One Ready for the Shot this time',  // title
+				  NULL,                                  // summary
+				  NULL,                                  // keywords
+	   'I_Love_It_Victoria_Is_the_Only_One_Ready_for_the_Shot_this_time',  // description
+				  $testOwner->getId(),                   // owner
+				  1080631485,                            // item creation
+				  1056015077,                            // clicks counted since
+				  7                                      // count of clicks
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getownerId(),               // owner
+				  $testItem->getcreationTimestamp(),     // item creation
+				  $testItem->getviewedSinceTimestamp(),  // clicks counted since
+				  $itemViewCount[$testItem->getId()]     // count of clicks
+				  ),
+			    'item 2');
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('This image is hidden',                // title
+				  '',                                    // summary
+				  NULL,                                  // keywords
+				  'head_left',                           // description
+				  $testOwner->getId(),                   // owner
+				  1082443249,                            // item creation
+				  1056015077,                            // clicks counted since
+				  1                                      // count of clicks
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getownerId(),               // owner
+				  $testItem->getcreationTimestamp(),     // item creation
+				  $testItem->getviewedSinceTimestamp(),  // clicks counted since
+				  $itemViewCount[$testItem->getId()]     // count of clicks
+				  ),
+			    'item 3');
+
+	if ($this->testComments) {
+	    list ($ret, $comments) =
+		    GalleryCommentHelper::fetchComments($ids[2], 2, ORDER_ASCENDING);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals(2, count($comments), 'number of comments');
+	    if (!empty($comments)) {
+		$this->assertEquals(array('209.98.212.219',
+					  "",
+					  "contenant des caract\xc3\xa8res accentu\xc3\xa9s.",
+					  1088916185
+					  ),
+				    array($comments[0]->getHost(),
+					  $comments[0]->getSubject(),
+					  $comments[0]->getComment(),
+					  $comments[0]->getDate()
+					 )
+				    );
+		/* Get the username of the commenter */
+		list ($ret, $commenterUser) =
+		    GalleryCoreApi::loadEntitiesById($comments[0]->getCommenterId(), 'GalleryUser');
+		if ($ret) {
+		    return $ret;
+		}
+		$this->assertEquals('phpunit_foobar', $commenterUser->getUserName(),
+			'commenter name');
+
+		/*
+		 * The second comment was posted by a guest. We copy the commenter name from
+		 * the G1 comment object into the subject field of the G2 comment in this case.
+		 */
+		 $this->assertEquals(array('209.98.212.218',
+					  "Voil\xc3\xa0 du texte",
+					  "foo bar baz.",
+					  1088916186
+					  ),
+				    array($comments[1]->getHost(),
+					  $comments[1]->getSubject(),
+					  $comments[1]->getComment(),
+					  $comments[1]->getDate()
+					 )
+				    );
+		$this->assertEquals($this->guestUserId, $comments[1]->getCommenterId(),
+			'comment 2 owner id');
+	    }
+	}
+	/*
+	 * [comments] => Array (
+	 *     [0] => comment Object (
+	 *          [commentText] => "Hooray!  This is a @$@ comment!"
+	 *          [datePosted] => "1088663587"
+	 *          [IPNumber] => '209.98.212.219'
+	 *          [name] => 'Administrator (admin)'
+	 *          [UID] => '1054014347_1233740678'
+	 *     )
+	 * )
+	 */
+
+	/* verify permissions on hidden item */
+	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($ids[3], true);
+	if ($ret) {
+	    return $ret;
+	}
+	$expectedPermissions = $this->testComments
+	    ? array(array('groupId' => $this->_everybodyGroupId,
+			  'permission' => 'comment.add'),
+		    array('groupId' => $this->_everybodyGroupId,
+			  'permission' => 'comment.view'))
+	    : array();
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
+				       'permission' => 'core.viewResizes');
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
+				       'permission' => 'core.viewSource');
+	$expectedPermissions[] = array('groupId' => $this->_adminGroupId,
+				       'permission' => 'core.all');
+	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(),
+				       'permission' => 'core.all');
+	if ($this->testHidden) {
+	    $expectedPermissions[] = array('entityId' => $ids[3], 'permission' => 'core.view');
+	}
+
+	usort($expectedPermissions, array($this, '_sortByPermission'));
+	usort($permissions, array($this, '_sortByPermission'));
+	$this->assertEquals($expectedPermissions, $permissions, 'permissions on hidden item');
+
+	$testAlbumId = $status['albumImportSuccess']['album02'];
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(5, count($ids), 'number of album02 children');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('chile [b]negro[/b]', $testItem->getTitle(),
+			    'bbcode in title, other html stripped out');
+    }
+
+    function testImportAlbumAndGenerateThumbnailsNoMarkup() {
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album04]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[generateThumbnails]', 1);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'none');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset [\d \.]* ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('album04'),
+			    array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['album04'];
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(1, count($ids), 'number of children');
+
+	list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($ids);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(1, count($thumbTable), 'thumbnail table');
+	$thumbnail = $thumbTable[$ids[0]];
+	$this->assert(GalleryUtilities::isA($thumbnail, 'GalleryDerivative'));
+
+	if (isset($thumbnail)) {
+	    list ($ret, $isCurrent) = $thumbnail->isCacheCurrent();
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert($isCurrent, 'Cache is not current!');
+	}
+
+	/* verify filename was assigned to title, caption to summary, blank description */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('head_left', $item->getTitle(), 'title');
+	$this->assertEquals('head left', $item->getSummary(), 'summary, html stripped out');
+	$this->assertEquals('', $item->getDescription(), 'description');
+
+	/*
+	 * album04 is a hidden album (hidden in its parent, album03)
+	 * verify view permissions on the migrated album and a child item
+	 */
+	$expectedPermissions = $this->testComments
+	    ? array(array('groupId' => $this->_everybodyGroupId,
+			  'permission' => 'comment.add'),
+		    array('groupId' => $this->_everybodyGroupId,
+			  'permission' => 'comment.view'))
+	    : array();
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
+				       'permission' => 'core.viewResizes');
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
+				       'permission' => 'core.viewSource');
+	$expectedPermissions[] = array('groupId' => $this->_adminGroupId,
+				       'permission' => 'core.all');
+	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(),
+				       'permission' => 'core.all');
+	if ($this->testHidden) {
+	    $expectedPermissions[] = array('entityId' => $testAlbumId, 'permission' => 'core.view');
+	}
+
+	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($testAlbumId, true);
+	if ($ret) {
+	    return $ret;
+	}
+	usort($expectedPermissions, array($this, '_sortByPermission'));
+	usort($permissions, array($this, '_sortByPermission'));
+	$this->assertEquals($expectedPermissions, $permissions, 'permissions on hidden album');
+
+	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($ids[0], true);
+	if ($ret) {
+	    return $ret;
+	}
+	usort($expectedPermissions, array($this, '_sortByPermission'));
+	usort($permissions, array($this, '_sortByPermission'));
+	$this->assertEquals($expectedPermissions, $permissions,
+			    'permissions on item in hidden album');
+    }
+
+
+    function testG1MigrateMap() {
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	/* Verify that controller accepts urlencoded album names: */
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album%30%33]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[urlRedirect]', 1);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'custom');
+	GalleryUtilities::putRequestVariable('form[customfield][summary]', 'Description');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'custom');
+	GalleryUtilities::putRequestVariable('form[customfield][description]', 'Long Description');
+	GalleryUtilities::putRequestVariable('form[set][defaultDescription]', 1);
+
+	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
+	if ($ret) {
+	    return $ret;
+	}
+	$importCustomFields = isset($test);
+	if ($importCustomFields) {
+	    GalleryUtilities::putRequestVariable('form[customFields]', 1);
+	    GalleryUtilities::putRequestVariable('form[skipCustomItemFields]', 1);
+	}
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('album03'),
+			    array_keys($status['albumImportSuccess']));
+	$this->assertEquals(true, $status['urlRedirect']);
+
+	$testAlbumId = $status['albumImportSuccess']['album03'];
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(3, count($ids), 'number of children');
+
+	/* Verify G1->G2 mappings, then delete the data */
+	list ($ret, $itemId) = G1MigrateHelper::fetchMapping('album03');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($testAlbumId, $itemId, 'G1->G2 mapping for testAlbum');
+	list ($ret, $itemId) = G1MigrateHelper::fetchMapping('album03', 'chipper');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($ids[0], $itemId, 'G1->G2 mapping for testItem');
+
+	$ids[] = $testAlbumId;
+	$ret = GalleryCoreApi::removeMapEntry('G1MigrateMap', array('itemId' => $ids));
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* verify summary/description set from custom field */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals("\xc2\xa1" . 'Time to migrate!', $item->getTitle(), 'title');
+	$this->assertEquals('This is actually not a chipper, but a stump grinder.',
+			    $item->getSummary(), 'summary');
+	$this->assertEquals('This is actually not a chipper, but a stump grinder.',
+			    $item->getDescription(), 'description');
+
+	/* verify custom field was not created */
+	if ($importCustomFields) {
+	    list ($ret, $fieldList) =
+		GalleryCoreApi::getPluginParameter('module', 'customfield', 'common', $testAlbumId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals(null, $fieldList, 'should be no custom fields');
+	}
+    }
+
+    /* $album['perms']
+     *
+     * Album Perms
+     * Array(
+     *     [canRead] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canViewFullImages] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canViewComments] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canAddComments] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canChangeText] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canAddTo] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canWrite] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canDeleteFrom] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     *     [canCreateSubAlbum] => Array(
+     *         [1082614545_1013204231] => 1
+     *     )
+     * )
+     * Array(
+     *     [1082614545_1013204231] => Array(
+     *         [0] => canRead
+     *         [1] => canViewFullImages
+     *         [2] => canViewComments
+     *         [3] => canAddComments
+     *         [4] => canChangeText
+     *         [5] => canAddTo
+     *         [6] => canWrite
+     *         [7] => canDeleteFrom
+     *         [8] => canCreateSubAlbum
+     *     )
+     * )
+     *
+     * owner => core.all (also gives comment.all)
+     *
+     * canRead => core.view,core.viewResizes
+     * canViewFullImages => core.viewSource
+     * canViewComments => comment.view
+     * canAddComments => comment.add
+     * canChangeText => core.edit
+     * canAddTo => core.addDataItem
+     * canWrite => core.edit
+     * canDeleteFrom => core.delete
+     * canCreateSubAlbum => core.addAlbumItem
+     *
+     */
+
+    function testImportAlbumPermissionsHtmlMarkup() {
+	global $gallery;
+	$slash = $this->_slash;
+
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album05]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'html');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('album05'),
+			    array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['album05'];
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	/*
+	 * This is the user that we expect to be associated with this album.
+	 * It really shouldn't be the admin, but the test data needs to be
+	 * changed to fix it, so we will change it later - probably to
+	 * phpunit_foobar, or whatever we are loading in the other unit test
+	 */
+	$testOwner = $this->_adminUser;
+
+	$this->assertEquals($testOwner->getId(), $testAlbum->getownerId(), 'album owner');
+	$testPerms = array();
+	$testPermsResult = array();
+	$testPerms['admin'] = array('core.all' => true,
+				    'comment.all' => true && $this->commentPermissionsExist
+				    );
+	$testPerms['phpunitfoo001'] = array('core.view' => true,
+					    'core.viewResizes' => true,
+					    'core.viewSource' => true,
+					    'comment.view' => true && $this->testComments,
+					    'comment.add' => true && $this->testComments,
+					    'core.edit' => true,
+					    'core.addDataItem' => true,
+					    'core.edit' => true,
+					    'core.delete' => true,
+					    'core.addAlbumItem' => true
+					    );
+	foreach ($testPerms as $testUserName => $permsToTest) {
+	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $permissions) =
+		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $userPerms = $groupPerms = array();
+	    foreach ($permissions as $permission) {
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
+		}
+	    }
+	    foreach ($permsToTest as $permToTest => $expected) {
+		if (array_key_exists($testUserInstance->getId(), $userPerms)) {
+		    $testPermsResult[$testUserName][$permToTest] =
+			array_key_exists($permToTest, $userPerms[$testUserInstance->getId()]);
+		} else {
+		    $testPermsResult[$testUserName][$permToTest] = false;
+		}
+	    }
+	}
+
+	$this->assertEquals($testPerms, $testPermsResult, 'testPerms');
+
+
+	/* Verify item attributes (like order weight) */
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(7, count($ids), 'number of children');
+
+	$seenWeights = array();
+	foreach ($ids as $id) {
+	    list ($ret, $itemViewCount[$id]) = GalleryCoreApi::fetchItemViewCount($id);
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($id);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert(!isset($seenWeights[$orderWeight]),
+			  'Seen this weight before: ' . $orderWeight);
+	    $seenWeights[$orderWeight] = 1;
+	}
+
+	/* Get the allegedly successfully imported items */
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($testOwner->getId(),
+			    $testItem->getownerId(),
+			    'item 0');
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	/* we expect no 'phpunit_foobar' user in G2, so defaults to current user as owner */
+	$this->assertEquals($gallery->getActiveUserId(),
+			    $testItem->getownerId(),
+			    'item 1');
+
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($testUserInstance->getId(),
+			    $testItem->getownerId(),
+			    'item 2');
+	$this->assertEquals('&lt;hr&gt;head &lt;u&gt;left&lt;/u&gt;', $testItem->getTitle(),
+			    'title with html');
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($this->guestUserId,
+			    $testItem->getownerId(),
+			    'item 3');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[4], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($testOwner->getId(),
+			    $testItem->getownerId(),
+			    'item 4');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[5], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($this->guestUserId,
+			    $testItem->getownerId(),
+			    'item 5');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[6], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	/* we expect no 'monkey' user in G2, so defaults to current user as owner */
+	$this->assertEquals($gallery->getActiveUserId(),
+			    $testItem->getownerId(),
+			    'item 6');
+    }
+
+    function testImportAlbumPermissions2() {
+	$slash = $this->_slash;
+
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album01]', 1);
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('album01'), array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['album01'];
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	/*
+	 * This is the user that we expect to be associated with this album.
+	 * It really shouldn't be the admin, but the test data needs to be
+	 * changed to fix it, so we will change it later - probably to
+	 * phpunit_foobar, or whatever we are loading in the other unit test
+	 */
+	$testOwner = $this->_adminUser;
+
+	$this->assertEquals($testOwner->getId(), $testAlbum->getownerId(), 'album owner');
+	$testPerms = array();
+	$testPermsResult = array();
+	$testPerms['admin'] = array('core.all' => true,
+				    'comment.all' => true && $this->commentPermissionsExist
+				    );
+	$testPerms['phpunitfoo001'] = array('core.view' => true,
+					    'core.viewResizes' => true,
+					    'core.viewSource' => false,
+					    'comment.view' => false && $this->testComments,
+					    'comment.add' => false && $this->testComments,
+					    'core.edit' => false,
+					    'core.addDataItem' => false,
+					    'core.edit' => false,
+					    'core.delete' => true,
+					    'core.addAlbumItem' => false
+					    );
+	foreach ($testPerms as $testUserName => $permsToTest){
+	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $permissions) =
+		    GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
+	    $userPerms = $groupPerms = array();
+	    foreach ($permissions as $permission) {
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
+		}
+	    }
+	    foreach ($permsToTest as $permToTest => $expected) {
+		if (array_key_exists($testUserInstance->getId(), $userPerms)) {
+		    $testPermsResult[$testUserName][$permToTest] =
+			    array_key_exists($permToTest, $userPerms[$testUserInstance->getId()]);
+		} else {
+		    $testPermsResult[$testUserName][$permToTest] = FALSE;
+		}
+	    }
+	}
+	$this->assertEquals($testPerms, $testPermsResult);
+    }
+
+    function testImportno_NO() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$slash = $this->_slash;
+
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][no_NO]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	/* This import will truncate a title; use buffering to prevent output during unit tests */
+	ob_start();
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	$buflen = ob_get_length();
+	ob_end_clean();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('no_NO'), array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$this->assert($buflen > 0, 'Should have gotten truncate message');
+	$testAlbumId = $status['albumImportSuccess']['no_NO'];
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('Help with the migration module',      // title
+				  'Test',                                // summary
+				  NULL,                                  // keywords
+				  NULL,                                  // description
+				  1090162985,                            // album creation
+				  1090162985,                            // clicks counted since
+				  ),
+			    array($testAlbum->getTitle(),                // title
+				  $testAlbum->getSummary(),              // summary
+				  $testAlbum->getKeywords(),             // keywords
+				  $testAlbum->getDescription(),          // description
+				  $testAlbum->getcreationTimestamp(),    // album creation
+				  $testAlbum->getviewedSinceTimestamp()  // clicks counted since
+				  )
+			    );
+
+	/*
+	 * This is the user that we expect to be associated with this album.
+	 * It really shouldn't be the admin, but the test data needs to be
+	 * changed to fix it, so we will change it later - probably to
+	 * phpunit_foobar, or whatever we are loading in the other unit test
+	 */
+	$testOwner = $this->_adminUser;
+
+	$this->assertEquals($testOwner->getId(), $testAlbum->getownerId(), 'album owner');
+	$testPerms = array();
+	$testPermsResult = array();
+	$testPerms['admin'] = array('core.all' => true,
+				    'comment.all' => true && $this->commentPermissionsExist);
+	$testPerms['phpunitfoo001'] = array('core.view' => false,
+					    'core.viewResizes' => false,
+					    'core.viewSource' => false,
+					    'comment.view' => false && $this->testComments,
+					    'comment.add' => false && $this->testComments,
+					    'core.edit' => false,
+					    'core.addDataItem' => false,
+					    'core.edit' => false,
+					    'core.delete' => false,
+					    'core.addAlbumItem' => false
+					    );
+	foreach ($testPerms as $testUserName => $permsToTest){
+	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $permissions) =
+		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
+	    $userPerms = $groupPerms = array();
+	    foreach ($permissions as $permission) {
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
+		}
+	    }
+	    foreach ($permsToTest as $permToTest => $expected) {
+		if (array_key_exists($testUserInstance->getId(), $userPerms)) {
+		    $testPermsResult[$testUserName][$permToTest] =
+			array_key_exists($permToTest, $userPerms[$testUserInstance->getId()]);
+		} else {
+		    $testPermsResult[$testUserName][$permToTest] = FALSE;
+		}
+	    }
+	}
+	$this->assertEquals($testPerms, $testPermsResult);
+
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Get the allegedly successfully imported albumItem */
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$expectedTitle =
+		"Western European (ISO)\r\nHello World \r\nNorwegian Norsk\r\nHallo Verden\r\n" .
+		"Gallery er s\xc3\xa5 utrolig bra at jeg har satt det opp til flere";
+	$expectedTitle = $storage->_truncateString($expectedTitle, STORAGE_SIZE_MEDIUM);
+	$this->assertEquals(array($expectedTitle,                        // title
+				  NULL,                                  // summary
+				  NULL,      // keywords
+				  NULL, // description
+				  1090163050,                            // album creation
+				  1090162985                             // clicks counted since
+
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getcreationTimestamp(),     // album creation
+				  $testItem->getviewedSinceTimestamp()   // clicks counted since
+				  )
+			    );
+    }
+
+    function testImportfr_FR() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$slash = $this->_slash;
+
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][fr_FR]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	/* This import will truncate a title; use buffering to prevent output during unit tests */
+	ob_start();
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	$buflen = ob_get_length();
+	ob_end_clean();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('fr_FR'), array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$this->assert($buflen > 0, 'Should have gotten truncate message');
+	$testAlbumId = $status['albumImportSuccess']['fr_FR'];
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('G1 to G2 Callery',                    // title
+				  NULL,                                  // summary
+				  NULL,                                  // keywords
+				  'Some summary',                        // description
+				  1084222662,                            // album creation
+				  1084222662                             // clicks counted since
+				  ),
+			    array($testAlbum->getTitle(),                 // title
+				  $testAlbum->getSummary(),               // summary
+				  $testAlbum->getKeywords(),              // keywords
+				  $testAlbum->getDescription(),           // description
+				  $testAlbum->getcreationTimestamp(),     // album creation
+				  $testAlbum->getviewedSinceTimestamp()   // clicks counted since
+				  )
+			    );
+
+	/*
+	 * This is the user that we expect to be associated with this album.
+	 * It really shouldn't be the admin, but the test data needs to be
+	 * changed to fix it, so we will change it later - probably to
+	 * phpunit_foobar, or whatever we are loading in the other unit test
+	 */
+	$testOwner = $this->_adminUser;
+
+	$this->assertEquals($testOwner->getId(), $testAlbum->getownerId(), 'album owner');
+	$testPerms = array();
+	$testPermsResult = array();
+	$testPerms['admin'] = array('core.all' => true,
+				    'comment.all' => true && $this->commentPermissionsExist
+				    );
+	$testPerms['phpunitfoo001'] = array('core.view' => false,
+					    'core.viewResizes' => false,
+					    'core.viewSource' => false,
+					    'comment.view' => false && $this->testComments,
+					    'comment.add' => false && $this->testComments,
+					    'core.edit' => false,
+					    'core.addDataItem' => false,
+					    'core.edit' => false,
+					    'core.delete' => false,
+					    'core.addAlbumItem' => false
+					    );
+	foreach ($testPerms as $testUserName => $permsToTest){
+	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $permissions) =
+		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
+	    $userPerms = $groupPerms = array();
+	    foreach ($permissions as $permission) {
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
+		}
+	    }
+	    foreach ($permsToTest as $permToTest => $expected) {
+		if (array_key_exists($testUserInstance->getId(), $userPerms)) {
+		    $testPermsResult[$testUserName][$permToTest] =
+			array_key_exists($permToTest, $userPerms[$testUserInstance->getId()]);
+		} else {
+		    $testPermsResult[$testUserName][$permToTest] = FALSE;
+		}
+	    }
+	}
+	$this->assertEquals($testPerms, $testPermsResult);
+
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Get the allegedly successfully imported albumItem */
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$expectedTitle =
+		"CHARSET=8859-1, fr-Fr, Hello World, french, fran\xc3\xa7ais, Bonjour Monde\r\n" .
+		"Voil\xc3\xa0 du texte contenant des caract\xc3\xa8res accentu\xc3\xa9s. " .
+		"\xc3\xa7\xc3\xa0 donne";
+	$expectedTitle = $storage->_truncateString($expectedTitle, STORAGE_SIZE_MEDIUM);
+	$this->assertEquals(array($expectedTitle,                        // title
+				  NULL,                                  // summary
+				  NULL,                                  // keywords
+				  NULL,                                  // description
+				  1084222738,                            // album creation
+				  1084222662                             // clicks counted since
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getcreationTimestamp(),     // album creation
+				  $testItem->getviewedSinceTimestamp()   // clicks counted since
+				  )
+			    );
+    }
+
+    function testImportKOI_8() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	$slash = $this->_slash;
+
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][KOI-8]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'KOI8-R');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
+	if ($ret) {
+	    return $ret;
+	}
+	$importCustomFields = isset($test);
+	if ($importCustomFields) {
+	    GalleryUtilities::putRequestVariable('form[customFields]', 1);
+	}
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('KOI-8'), array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['KOI-8'];
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array("\xd0\x9d\xd0\xb5\xd0\xbd\xd0\xb0\xd0" .
+				  "\xb7\xd0\xb2\xd0\xb0\xd0\xbd\xd0\xbd" .
+				  "\xd1\x8b\xd0\xb9",                    // title
+				  NULL,                                  // summary
+				  NULL,                                  // keywords
+				  NULL,               // description
+				  1089666683,                            // album creation
+				  1089666683,                            // clicks counted since
+				  ),
+			    array($testAlbum->getTitle(),                // title
+				  $testAlbum->getSummary(),              // summary
+				  $testAlbum->getKeywords(),             // keywords
+				  $testAlbum->getDescription(),          // description
+				  $testAlbum->getcreationTimestamp(),    // album creation
+				  $testAlbum->getviewedSinceTimestamp()  // clicks counted since
+				  )
+			   );
+	/*
+	 * This is the user that we expect to be associated with this album.
+	 * It really shouldn't be the admin, but the test data needs to be
+	 * changed to fix it, so we will change it later - probably to
+	 * phpunit_foobar, or whatever we are loading in the other unit test
+	 */
+	$testOwner = $this->_adminUser;
+
+	$this->assertEquals($testOwner->getId(), $testAlbum->getownerId(), 'album owner');
+	$testPerms = array();
+	$testPermsResult = array();
+	$testPerms['admin'] = array('core.all' => true,
+				    'comment.all' => true && $this->commentPermissionsExist);
+	$testPerms['phpunitfoo001'] = array('core.view' => false,
+					    'core.viewResizes' => false,
+					    'core.viewSource' => false,
+					    'comment.view' => false && $this->testComments,
+					    'comment.add' => false && $this->testComments,
+					    'core.edit' => false,
+					    'core.addDataItem' => false,
+					    'core.edit' => false,
+					    'core.delete' => false,
+					    'core.addAlbumItem' => false
+					    );
+	foreach ($testPerms as $testUserName => $permsToTest) {
+	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $permissions) =
+		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
+	    $userPerms = $groupPerms = array();
+	    foreach ($permissions as $permission) {
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
+		}
+	    }
+	    foreach ($permsToTest as $permToTest => $expected) {
+		if (array_key_exists($testUserInstance->getId(), $userPerms)) {
+		    $testPermsResult[$testUserName][$permToTest] =
+			    array_key_exists($permToTest, $userPerms[$testUserInstance->getId()]);
+		} else {
+		    $testPermsResult[$testUserName][$permToTest] = false;
+		}
+	    }
+	}
+	$this->assertEquals($testPerms, $testPermsResult);
+
+	if ($importCustomFields) {
+	    list ($ret, $fieldList) =
+		GalleryCoreApi::getPluginParameter('module', 'customfield', 'common', $testAlbumId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals('Description`0`1', $fieldList, 'list of custom fields');
+	}
+
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Get the allegedly successfully imported albumItem */
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array("Russian - KOI-8\r\n" .
+				  "Hello World\r\n" .
+				  "Russian\r\n" .
+				  "\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0" .
+				  "\xba\xd0\xb8\xd0\xb9\r\n" .
+				  "\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0\xd0" .
+				  "\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83" .
+				  "\xd0\xb9 \xd0\xbc\xd0\xb8\xd1\x80",   // title
+				  NULL,                                  // summary
+				  'Gallery 2 migration testing',         // keywords
+				  NULL,                                  // description
+				  1089666791,                            // album creation
+				  1089666683                             // clicks counted since
+				  ),
+			    array($testItem->getTitle(),                 // title
+				  $testItem->getSummary(),               // summary
+				  $testItem->getKeywords(),              // keywords
+				  $testItem->getDescription(),           // description
+				  $testItem->getcreationTimestamp(),     // album creation
+				  $testItem->getviewedSinceTimestamp()   // clicks counted since
+				  )
+			    );
+
+	if ($importCustomFields) {
+	    GalleryCoreApi::requireOnce(
+		'modules/customfield/classes/CustomFieldHelper.class');
+	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
+	    if ($ret) {
+		return $ret;
+	    }
+	    $expected =
+		"\xd0\x95\xd1\x81\xd0\xbb\xd0\xb8 \xd0\xb7\xd0\xb2\xd0\xb5\xd0\xb7\xd0\xb4\xd1" .
+		"\x8b \xd0\xb7\xd0\xb0\xd0\xb6\xd0\xb8\xd0\xb3\xd0\xb0\xd1\x8e\xd1\x82 \xd0\xbd" .
+		"\xd0\xbe\xd1\x87\xd1\x8c\xd1\x8e - \xd0\xb7\xd0\xbd\xd0\xb0\xd1\x87\xd0\xb8\xd1" .
+		"\x82 \xd1\x8d\xd1\x82\xd0\xbe \xd0\xba\xd0\xbe\xd0\xbc\xd1\x83-\xd0\xbd\xd0\xb8" .
+		"\xd0\xb1\xd1\x83\xd0\xb4\xd1\x8c \xd0\xbd\xd0\xb0\xd0\xb4\xd0\xbe. \xd0\x95\xd1" .
+		"\x81\xd0\xbb\xd0\xb8 \xd0\xba\xd1\x82\xd0\xbe-\xd1\x82\xd0\xbe \xd0\xb2\xd1\x8b" .
+		"\xd1\x81\xd1\x82\xd0\xb0\xd1\x81\xd0\xb2\xd0\xbb\xd1\x8f\xd0\xb5\xd1\x82 \xd1" .
+		"\x84\xd0\xbe\xd1\x82\xd0\xbe\xd0\xb3\xd1\x80\xd0\xb0\xd1\x84\xd0\xb8\xd0\xb8 - " .
+		"\xd1\x8d\xd1\x82\xd0\xbe \xd0\xb2\xd0\xb5\xd0\xb4\xd1\x8c \xd0\xbd\xd0\xb5\xd1" .
+		"\x81\xd0\xbf\xd1\x80\xd0\xbe\xd1\x81\xd1\x82\xd0\xb0! \xd0\x9c\xd0\xbe\xd0\xb6" .
+		"\xd0\xb5\xd1\x82, \xd0\xb2 \xd1\x8d\xd1\x82\xd0\xbe\xd0\xbc \xd0\xb2\xd0\xb5\xd0" .
+		"\xbb\xd0\xb8\xd0\xba\xd0\xb0\xd1\x8f \xd0\xb8 \xd1\x81\xd0\xb5\xd1\x80\xd0\xbc" .
+		"\xd1\x8f\xd0\xb6\xd0\xbd\xd0\xb0\xd1\x8f \xd0\xbf\xd1\x80\xd0\xb0\xd0\xb2\xd0" .
+		"\xb4\xd0\xb0 \xd0\xb6\xd0\xb8\xd0\xb7\xd0\xbd\xd0\xb8\x2e";
+
+	    /* The storage might not be able to store the complete string */
+	    $expected = $storage->_truncateString($expected, STORAGE_SIZE_LARGE);
+	    $this->assertEquals(array($testItem->getId() => array('Description' => $expected)),
+				$fields, 'custom field values');
+	}
+    }
+
+    function testImportNonAsciiCustomFieldIntoDescription() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	$slash = $this->_slash;
+
+	/* Custom field names will be provided in UTF8 */
+	$utf8CustomFieldName = "\xd0\x95\xd1\x81\xd0\xbb\xd0\xb8";
+
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][KOI-8]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'KOI8-R');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'custom');
+	GalleryUtilities::putRequestVariable(
+	    'form[customfield][description]', $utf8CustomFieldName);
+
+	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
+	if ($ret) {
+	    return $ret;
+	}
+	$importCustomFields = isset($test);
+	if ($importCustomFields) {
+	    GalleryUtilities::putRequestVariable('form[customFields]', 1);
+	}
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$testAlbumId = $status['albumImportSuccess']['KOI-8'];
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('value', $testItem->getDescription(),
+			    'Custom field value not placed into the description field');
+    }
+
+    function testConvertHtmlToBbcode() {
+	/* UTF8 characters are ignored */
+	$this->assertEquals("\xc3\xb1o\nthis",
+	    ConfirmImportController::convertHtmlToBbcode("\xc3\xb1o\nthis"));
+
+	/* Quotes are escaped */
+	$this->assertEquals("Se\xc3\xb1or Guapo's favorite!",
+	    ConfirmImportController::convertHtmlToBbcode("Se\xc3\xb1or Guapo\x27s favorite!"));
+
+	$this->assertEquals('[b]bold[/b]',
+			    ConfirmImportController::convertHtmlToBbcode('<b>bold</b>'));
+	$this->assertEquals('[i]italic[/i]',
+			    ConfirmImportController::convertHtmlToBbcode('<i>italic</i>'));
+	$this->assertEquals('[i]italic[/i]',
+			    ConfirmImportController::convertHtmlToBbcode('<em>italic</em>'));
+	$this->assertEquals('[b]bold[/b]',
+			    ConfirmImportController::convertHtmlToBbcode('<strong>bold</strong>'));
+	$this->assertEquals("\n",
+			    ConfirmImportController::convertHtmlToBbcode('<br>'));
+	$this->assertEquals("\n",
+			    ConfirmImportController::convertHtmlToBbcode('<br/>'));
+	$this->assertEquals("\n",
+			    ConfirmImportController::convertHtmlToBbcode('<br />'));
+
+	/* Image HTML with edge cases */
+	$this->assertEquals('[img]foo.jpg[/img]',
+			    ConfirmImportController::convertHtmlToBbcode('<img src=\'foo.jpg\'>'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+			    ConfirmImportController::convertHtmlToBbcode('<img src="foo.jpg">'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+			    ConfirmImportController::convertHtmlToBbcode('<img src=foo.jpg>'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    ConfirmImportController::convertHtmlToBbcode('<img style=foo src=\'foo.jpg\'>'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    ConfirmImportController::convertHtmlToBbcode('<img src=\'foo.jpg\' class="bar">'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<img style="foo" src=\'foo.jpg\' class=\'bar\'>'));
+
+	/* List HTML with edge cases */
+	$this->assertEquals('[list][/list]',
+			    ConfirmImportController::convertHtmlToBbcode('<ul></ul>'));
+	$this->assertEquals('[list][*]foo[/list]',
+			    ConfirmImportController::convertHtmlToBbcode('<ul><li>foo</li></ul>'));
+	$this->assertEquals('[list][*]foo[/list]',
+			    ConfirmImportController::convertHtmlToBbcode('<ul><li>foo</ul>'));
+
+	/* URL HTML with edge cases */
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    ConfirmImportController::convertHtmlToBbcode('<a href="http://google.com">Google</a>'));
+	$this->assertEquals(
+	    '[url=http://google.com]Google[/url][url=http://poogle.com]Poogle[/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a href="http://google.com">Google</a><a href="http://poogle.com">Poogle</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a href=\'http://google.com\'>Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a title="foo" href="http://google.com" class="bar">Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a title=foo href=http://google.com class=bar>Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a href=http://google.com class=bar>Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a title=foo href=http://google.com>Google</a>'));
+	$this->assertEquals(
+	  '[url=http://www.topozone.com/map.asp?z=11&n=4163644&e=275692&s=25&size=m&u=1]Topo[/url]',
+	  ConfirmImportController::convertHtmlToBbcode(
+	    '<a href="http://www.topozone.com/map.asp?z=11&n=4163644&e=275692&s=25&size=m&u=1">' .
+	    'Topo</a>'));
+
+
+       /* Mixed HTML */
+	$this->assertEquals('[url=http://google.com][i]Google[/i][/url]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<a href="http://google.com"><i>Google</i></a>'));
+	$this->assertEquals('[b][url=http://google.com]Google[/url][/b]',
+	    ConfirmImportController::convertHtmlToBbcode(
+		'<strong><a href="http://google.com">Google</a></strong>'));
+
+
+	/* Malformed HTML tags should not be turned into BBCode, but we can't stop it */
+	$this->assertEquals('[i][b]interleaved[/i][/b]',
+	    ConfirmImportController::convertHtmlToBbcode('<i><b>interleaved</i></b>'));
+
+	/* Non-supported HTML is stripped completely */
+	$this->assertEquals('foo',
+	    ConfirmImportController::convertHtmlToBbcode('<hr><h1 title="foo">foo</h1>'));
+    }
+
+    function _sortByPermission($a, $b) {
+	if ($cmp = strcmp($a['permission'], $b['permission'])) {
+	    return $cmp;
+	}
+	list ($aKey, $aVal) = each($a);
+	list ($bKey, $bVal) = each($b);
+	if ($cmp = strcmp($aKey, $bKey)) {
+	    return $cmp;
+	}
+	return strcmp($aVal, $bVal);
+    }
+
+    /* Verify that we set the perPage size correctly. */
+    function testAlbumThemeWithPerPage() {
+       	/* Assign our test theme */
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_temporaryAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Use a dummy theme with perPage setting instead of rows and cols. */
+	$this->_temporaryAlbum->setTheme('confirmimportcontrollertest');
+	$ret = $this->_temporaryAlbum->save();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Test stimuli. */
+	$slash = $this->_slash;
+	GalleryUtilities::putRequestVariable('albumsPath',
+	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
+	GalleryUtilities::putRequestVariable('form[sourceAlbums][album03]', 1);
+	GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
+	GalleryUtilities::putRequestVariable('form[action][import]', 1);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumID]', $this->_temporaryAlbumId);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+
+	list ($ret, $status) = $this->_runBackgroundTask(
+	    '1 reset [\d \.]* reset ' .
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('album03'),
+			    array_keys($status['albumImportSuccess']));
+	$this->assertEquals(array(), $status['userImportFailure']);
+	$this->assertEquals(array(), $status['userImportSuccess']);
+	$this->assertEquals(array(), $status['albumImportFailure']);
+	$testAlbumId = $status['albumImportSuccess']['album03'];
+
+	/* Verify the results. */
+
+	/* Get the allegedly successfully imported album */
+	list ($ret, $testAlbum) =
+	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Get the theme associated with this album */
+	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($testAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $settings, $params) = $theme->getSettings($testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $perPage) = $theme->getParameter('perPage', $testAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+	$pageSize = $theme->getPageSize($params);
+
+	$this->assertEquals('Test Album Three', $testAlbum->getTitle(), 'album name');
+	$this->assertEquals('confirmimportcontrollertest', $themeId, 'theme id');
+	$this->assertEquals('25', $perPage, 'perPage');
+	$this->assertEquals('25', $pageSize, 'pageSize');
+    }
+}
+
+class ConfirmImportControllerTestUrlGenerator {
+    function generateUrl($params=array(), $options=array()) {
+	$buf = array();
+	foreach ($params as $key => $value) {
+	    $buf[] = "$key=$value";
+	}
+	return implode(',', $buf);
+    }
+}
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
+
+/**
+ * Test theme
+ */
+class ConfirmImportControllerTestTheme extends GalleryTheme {
+    function ConfirmImportControllerTestTheme() {
+	$this->setId('confirmimportcontrollertest');
+	$this->setStandardSettings(array('perPage' => 9));
+    }
+}
+?>

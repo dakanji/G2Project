@@ -1,0 +1,168 @@
+# $Id: el.po 19453 2008-12-27 16:46:43Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Akis Panas <pasas9@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-09-16 12:30+0000\n"
+"PO-Revision-Date: 2008-12-04 03:43+0200\n"
+"Last-Translator: Akis Panas <pasas9@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "slideshow (πλήρης οθόνη)"
+
+msgid "Slideshow Applet"
+msgstr "Slideshow εφαρμογή"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Slideshow πλήρης οθόνης χρησιμοποιώντας μια Java εφαρμογή"
+
+msgid "Display"
+msgstr "Προβολή"
+
+msgid "View Slideshow (Fullscreen)"
+msgstr "Προβολή Slideshow (Πλήρης οθόνη)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Διαδρομή σε ένα αντικείμενο (π.χ. /album/image.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Slideshow"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Αυτή η εφαρμογή βασίζεται σε μια μονάδα της G2 η οποία είναι απενεργοποιημένη. Παρακαλούμε "
+"ζητήστε από τον διαχειριστή να ενεργοποιήσει τη 'remote' μονάδα."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Γίνεται λήψη της Gallery Remote εφαρμογής"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr "Ο πλοηγός σας δεν υποστηρίζει εφαρμογές. Χρησιμοποιήστε το κανονικό slideshow."
+
+msgid "Slideshow Applet Settings"
+msgstr "Ρυθμίσεις Slideshow εφαρμογής"
+
+msgid "Defaults"
+msgstr "Προεπιλογές"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+
+msgid "You have no default variables"
+msgstr "Δεν έχετε προεπιλεγμένες μεταβλητές"
+
+msgid "Variable"
+msgstr "Μεταβλητή"
+
+msgid "Action"
+msgstr "Ενέργεια"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Add a new default variable"
+msgstr "Προσθέστε μια καινούργια προεπιλεγμένη μεταβλητή"
+
+msgid "You must enter a variable name and value"
+msgstr "Πρέπει να δώσετε ένα όνομα μεταβλητής και τιμή"
+
+msgid "New variable"
+msgstr "Νέα μεταβλητή"
+
+msgid "Add variable"
+msgstr "Προσθήκη μεταβλητής"
+
+msgid "Overrides"
+msgstr "Υπερβάσεις"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+
+msgid "You have no override variables"
+msgstr ""
+
+msgid "Add a new override variable"
+msgstr ""
+
+msgid "Help"
+msgstr "Βοήθεια"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr "Μεταβλητές που επηρεάζουν τα slideshows"
+
+msgid "variable"
+msgstr "μεταβλητή"
+
+msgid "values"
+msgstr "τιμές"
+
+msgid "help"
+msgstr "βοήθεια"
+
+msgid "maximum number of pictures shown in one go"
+msgstr ""
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "το slideshow εμφανίζει τις εικόνες που βρίσκονται σε υπό-άλμπουμ;"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr "αν true, θα εμποδίζει το slideshow να κατεβάζει τις εικόνες πλήρους μεγέθους"
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr ""
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr ""
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+
+msgid "color of the slideshow background"
+msgstr "χρώμα φόντου του slideshow"
+
+msgid "size of text overlay"
+msgstr "μέγεθος κειμένου επικάλυψης"
+
+msgid "font of text overlay"
+msgstr ""
+
+msgid "should the pictures be shown in random order?"
+msgstr "θα πρέπει οι φωτογραφίες να εμφανίζονται με τυχαία ταξινόμηση;"
+
+msgid "Complete list of variables"
+msgstr "Πλήρης λίστα μεταβλητών"

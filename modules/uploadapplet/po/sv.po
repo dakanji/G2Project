@@ -1,0 +1,187 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-01-21 19:31+0100\n"
+"PO-Revision-Date: 2008-09-25 13:52+0100\n"
+"Last-Translator: Martin Öberg <spam-g2translation@strickz.com>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Upload Applet"
+msgstr "Uppladdnings Applet"
+
+msgid "Easy to use upload applet for media"
+msgstr "En lättanvänd uppladdnings applet för mediafiler"
+
+msgid "Import"
+msgstr "Importera"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Uppladdnings appleten behöver en G2 modul som inte är installerad. Be systemadministratören "
+"om att installera 'remote' modulen."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Laddar ner Gallery Remote Applet"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"Din webbläsare understödjer inte applets; Du måste använda någon annan uppladdnings metod."
+
+msgid "Uploading files..."
+msgstr "Laddar upp filer..."
+
+msgid "Upload complete"
+msgstr "Uppladdning klar"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"Du kan fortsätta med uppladdning av filer eller se på någon av bilderna du har laddat upp "
+"genom att klicka på länkarna ovanför"
+
+msgid "Upload Applet Settings"
+msgstr "Inställningar för Uppladdnings Appleten"
+
+msgid "Defaults"
+msgstr "Standard värden"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+"Dom här variablerna tillhandahåller standardvärden för appleten som användaren kör på din "
+"site. Användaren kan ändra på dessa variabler genom att ändra i användargränssnittet till "
+"appleten, eller genom att ändra i sin lokala standard fil."
+
+msgid "You have no default variables"
+msgstr "Du har inga standard variabler"
+
+msgid "Variable"
+msgstr "Variabel"
+
+msgid "Action"
+msgstr "Händelse"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Add a new default variable"
+msgstr "Lägg till en ny standard variabel"
+
+msgid "You must enter a variable name and value"
+msgstr "Du måste ange ett variabel namn"
+
+msgid "New variable"
+msgstr "Ny variabel"
+
+msgid "Add variable"
+msgstr "Addera variabel"
+
+msgid "Overrides"
+msgstr "Åsidosätter"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+"Dessa variabler åsidosätter alla andra inställningar för appleter som användaren kör på din "
+"site. Användarna kan inte ändra på dessa värden."
+
+msgid "You have no override variables"
+msgstr "Du har inga varibler som ersätter standard variablerna"
+
+msgid "Add a new override variable"
+msgstr "Addera en ny variabel som ersätter en standard variabel"
+
+msgid "Help"
+msgstr "Hjälp"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Här är ett urval av varabler som påverkar uppladdningar."
+
+msgid "variable"
+msgstr "Variabel"
+
+msgid "values"
+msgstr "värde"
+
+msgid "help"
+msgstr "hjälp"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+"talar om för appleten att bilderna skall skalas om innan uppladdningen till albumet så att "
+"dom får albumets definierade storlekar"
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+"de dimensioner som bilden kommer att skalas till; detta åsidosätter albumets definierade "
+"storlekar"
+
+msgid "no automatic captions"
+msgstr "ingen automatisk rubrik"
+
+msgid "use filenames for captions"
+msgstr "använd filnamnet till rubrik"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr "om filnamnet används till rubrik ta i så fall bort filens extension"
+
+msgid "use EXIF extension for caption"
+msgstr "använd EXIF information till rubrik"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"Om falsk, så kommer uppladdnings appleten att använda UTF-8 för att sända bildens meta-data "
+"till Gallery, istället för att använda HTML escaping."
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+"sätt till falskt om du vill undvika att förlora EXIF data när bilden skalas om och "
+"ImageMagick inte kan användas"
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr "om sant, så kommer inte appleten att klaga om den inte kan hitta ImageMagick"
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr "om sant, så kommer inte appleten att klaga om den inte kan finna Jpegtran"
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "kvalitet på JPEG kompressionen vid skalning med ImageMagick"
+
+msgid "Complete list of variables"
+msgstr "Komplett lista av variabler"

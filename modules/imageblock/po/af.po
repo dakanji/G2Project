@@ -1,0 +1,298 @@
+# $Id: af.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-12 14:46+0100\n"
+"PO-Revision-Date: 2006-03-16 10:07+0200\n"
+"Last-Translator: Renier <renier@gigaskills.co.za>\n"
+"Language-Team: Afrikaans <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Afrikaans\n"
+"X-Poedit-Country: SOUTH AFRICA\n"
+
+msgid "Image Block"
+msgstr "Beeldblok"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Willekeurig, Mees Onlangse of Mees Besigtigde Foto of Album"
+
+msgid "Blocks"
+msgstr "Blokke"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Willekeurige Beeld"
+msgstr[1] "Willekeurige Beeld"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Nuutste Beeld"
+msgstr[1] "Nuutste Beeld"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Mees Besigtigde Beeld"
+msgstr[1] "Mees Besigtigde Beeld"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Wikkekeurige Album"
+msgstr[1] "Wikkekeurige Album"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Nuutste Album"
+msgstr[1] "Nuutste Album"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Meest Besigtigde Album"
+msgstr[1] "Meest Besigtigde Album"
+
+msgid "Picture of the Day"
+msgstr "Beeld van die Dag"
+
+msgid "Picture of the Week"
+msgstr "Beeld van die Week"
+
+msgid "Picture of the Month"
+msgstr "Beeld van die Maand"
+
+msgid "Album of the Day"
+msgstr "Album van die Dag"
+
+msgid "Album of the Week"
+msgstr "Album van die Week"
+
+msgid "Album of the Month"
+msgstr "Album van die Maand"
+
+msgid "Date:"
+msgstr "Datum:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Kere Besigtig: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Eienaar: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Voorkom dat die album in die Beeldblok vertoon word"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Maak verstelling op sub-albums van krag"
+
+msgid "Image Block Settings"
+msgstr "Beeldblok verstellings"
+
+msgid "Settings saved successfully"
+msgstr "Verstellings suksesvol gestoor"
+
+msgid "Show"
+msgstr "Wys"
+
+msgid "Heading"
+msgstr "Hoof"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "View Count"
+msgstr "Besigtingsteller"
+
+msgid "Owner"
+msgstr "Eienaar"
+
+msgid "Frames"
+msgstr "Rame"
+
+msgid "View samples"
+msgstr "Bekyk voorbeelde"
+
+msgid "Album Frame"
+msgstr "Albumraam"
+
+msgid "Photo Frame"
+msgstr "Fotoraam"
+
+msgid "Save"
+msgstr "Stoor"
+
+msgid "Reset"
+msgstr "Herstel"
+
+msgid "External Image Block"
+msgstr "Eksterne Beeldblok"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Gebruik 'n PHP-blok, soos hieronder vertoon om 'n beeldblok in 'n  PHP-blad buite Gallery in "
+"te sluit."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Pipe(|) aparte lyste gekies vanuit: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specifiItem; standaard is randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Pipe(|) aparte lyste gekies vanuit: title, date, views, owner, heading fullSize; die waarde "
+"kan ook wees: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Beperk die itemkeuses tot die onderliggende items van die verskafde gallery album id; of die "
+"id van die item om te vertoon wanneer dit saam met 'n 'specificItem' bloktipe gebruik word"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Voeg 'n skakelteiken by (bv. om skakels in 'n nuwe blad oop te maak)"
+
+msgid "Image frame to use around images"
+msgstr "Fotoraam om rondom beelde te gebruik"
+
+msgid "Image frame to use around albums"
+msgstr "Fotoraam om rondom albums te gebruik"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"As u 'n parameter gebruik met *, dan gebruik u die standaard werfverstelling hierbo aangedui."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Fotorame vereis CSS om korrek vertoon te word.  Gebruik onderstaande in die %s afdeling om "
+"fotorame te ondersteun."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Verskaf die raam id (of pipe verdeeld lysie van ids) in die raamparameter. Laat die "
+"parameter weg om die bostaande rame te gebruik. Die raam-ids is die directory name in die %s "
+"directory."
+
+msgid "Image type"
+msgstr "Beeldtipe"
+
+msgid "Random image"
+msgstr "Willekeurige beelde"
+
+msgid "Recent image"
+msgstr "Onlangse beelde"
+
+msgid "Viewed image"
+msgstr "Besigtigde beeld"
+
+msgid "Random album"
+msgstr "Wikkekeurige album"
+
+msgid "Recent album"
+msgstr "Onlangse album"
+
+msgid "Viewed album"
+msgstr "Besigtigde album"
+
+msgid "Daily image"
+msgstr "Daaglikse beeld"
+
+msgid "Weekly image"
+msgstr "Weeklikse beeld"
+
+msgid "Monthly image"
+msgstr "Maandelikse beeld"
+
+msgid "Daily album"
+msgstr "Daaglikse album"
+
+msgid "Weekly album"
+msgstr "Weeklikse album"
+
+msgid "Monthly album"
+msgstr "Maandelikse album"
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Use default settings"
+msgstr "Gebruik standaard verstellings"
+
+msgid "Show heading"
+msgstr "Wys hoof"
+
+msgid "Show title"
+msgstr "Wys titel"
+
+msgid "Show date"
+msgstr "Wys datum"
+
+msgid "Show view count"
+msgstr "Wys aantal besigtigings"
+
+msgid "Show owner"
+msgstr "Wys eienaar"

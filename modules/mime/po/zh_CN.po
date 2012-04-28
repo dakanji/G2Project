@@ -1,0 +1,132 @@
+# $Id: zh_CN.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: MIME Maintenance 1.1.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:46-0700\n"
+"PO-Revision-Date: 2006-03-10 12:19+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "This type of file not allowed; item will not be added."
+msgstr ""
+
+msgid "MIME Maintenance"
+msgstr "MIME维护"
+
+msgid "Maintain MIME types and file extensions"
+msgstr "维护MIME类型和文件扩展名"
+
+msgid "Extra Data"
+msgstr "额外数据"
+
+msgid "MIME Types"
+msgstr "MIME类型"
+
+#, fuzzy
+msgid "Settings saved successfully"
+msgstr "MIME条目保存成功"
+
+msgid "MIME entry saved successfully"
+msgstr "MIME条目保存成功"
+
+msgid "MIME entry deleted"
+msgstr "MIME条目已删除"
+
+msgid "Allow all uploads"
+msgstr ""
+
+msgid "Block upload of types selected below"
+msgstr ""
+
+msgid "Only allow uploads of types selected below"
+msgstr ""
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Add new MIME type"
+msgstr "添加新MIME类型"
+
+msgid "Extensions"
+msgstr "扩展名"
+
+msgid "Viewable"
+msgstr "可查看"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "edit"
+msgstr "编辑"
+
+msgid "delete"
+msgstr "删除"
+
+msgid "Allow Upload"
+msgstr ""
+
+msgid "Block Upload"
+msgstr ""
+
+#, c-format
+msgid "Edit MIME type: %s"
+msgstr "编辑MIME类型: %s"
+
+msgid "New MIME type"
+msgstr "新MIME类型"
+
+msgid "Mime entry saved successfully"
+msgstr "MIME条目保存成功"
+
+msgid "MIME type: "
+msgstr "MIME类型: "
+
+msgid "Viewable?"
+msgstr "可查看？"
+
+msgid "MIME type must be specified."
+msgstr "MIME类型必须被指定。"
+
+msgid "This extension is already in use and cannot be reused."
+msgstr "此扩展名已被使用，不能再用。"
+
+msgid "You must specify at least one extension."
+msgstr "您必须指定至少一个扩展名。"
+
+msgid "Apply"
+msgstr "应用"
+
+msgid "Cancel"
+msgstr "取消"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Adding and allowing upload of any of the following mime types could leave you open "
+"to %sCross Site Scripting%s security vulnerabilities."
+msgstr "警告：添加以下的MIME类型可能会使你面临%s跨站点脚本/Cross Site Scripting%s的攻击。"

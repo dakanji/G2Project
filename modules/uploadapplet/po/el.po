@@ -1,0 +1,180 @@
+# $Id: el.po 19453 2008-12-27 16:46:43Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Akis Panas <pasas9@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:48-0700\n"
+"PO-Revision-Date: 2008-12-04 03:48+0200\n"
+"Last-Translator: Akis Panas <pasas9@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+msgid "Upload Applet"
+msgstr "Εφαρμογή αποστολής"
+
+msgid "Easy to use upload applet for media"
+msgstr "Εύκολη στη χρήση εφαρμογή αποστολής για πολυμέσα"
+
+msgid "Import"
+msgstr "Εισαγωγή"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Γίνεται λήψη της Gallery Remote εφαρμογής"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+"Ο περιηγητής σας δεν υποστηρίζει εφαρμογές. Χρησιμοποιήστε μια από τις άλλες μεθόδους "
+"ανεβάσματος αρχείων."
+
+msgid "Uploading files..."
+msgstr "Ανέβασμα αρχείων..."
+
+msgid "Upload complete"
+msgstr "Η αποστολή ολοκληρώθηκε"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+"Μπορείτε να συνεχίσετε να ανεβάζετε φωτογραφίες ή πηγαίνετε στις φωτογραφίες που ανεβάσατε "
+"πατώντας στους συνδέσμους πιο πάνω."
+
+msgid "Upload Applet Settings"
+msgstr "Ρυθμίσεις εφαρμογής αποστολής"
+
+msgid "Defaults"
+msgstr "Προεπιλογές"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+
+msgid "You have no default variables"
+msgstr "Δεν έχετε προεπιλεγμένες μεταβλητές"
+
+msgid "Variable"
+msgstr "Μεταβλητή"
+
+msgid "Action"
+msgstr "Ενέργεια"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Add a new default variable"
+msgstr "Προσθέστε μια καινούργια προεπιλεγμένη μεταβλητή"
+
+msgid "You must enter a variable name and value"
+msgstr "Πρέπει να δώσετε ένα όνομα μεταβλητής και τιμή"
+
+msgid "New variable"
+msgstr "Νέα μεταβλητή"
+
+msgid "Add variable"
+msgstr "Προσθήκη μεταβλητής"
+
+msgid "Overrides"
+msgstr "Υπερβάσεις"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+
+msgid "You have no override variables"
+msgstr ""
+
+msgid "Add a new override variable"
+msgstr ""
+
+msgid "Help"
+msgstr "Βοήθεια"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr "Μεταβλητές που επηρεάζουν την αποστολή αρχείων"
+
+msgid "variable"
+msgstr "μεταβλητή"
+
+msgid "values"
+msgstr "τιμές"
+
+msgid "help"
+msgstr "βοήθεια"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr "οι διαστασεις των εικόνων θα κλιμακωθούν, αυτό υπερισχύει των ρυθμίσεων του άλμπουμ"
+
+msgid "no automatic captions"
+msgstr "χωρίς αυτόματες λεζάντες"
+
+msgid "use filenames for captions"
+msgstr "χρησιμοποιήστε τα ονόματα των αρχείων για λεζάντες"
+
+msgid "if using the filename for captions, strip the extension"
+msgstr ""
+"αν χρησιμοποιείτε το όνομα του αρχείου για λεζάντες, να μην εμφανίζεται η προέκταση του "
+"αρχείου"
+
+msgid "use EXIF extension for caption"
+msgstr "χρησιμοποίηση επέκτασης EXIF για λεζάντα"
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+"αν false, η εφαρμογή αποστολής θα χρησιμοποίηση UTF-8 για να στείλει τα μετά δεδομένα "
+"εικόνας στη Γκαλερί, αντί να τα παρακάμπτει με HTML οντότητες"
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr ""
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "ποιότητα συμπίεσης JPEG κατά την αλλαγή μεγέθους με ImageMagick"
+
+msgid "Complete list of variables"
+msgstr "Πλήρης λίστα μεταβλητών"

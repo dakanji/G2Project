@@ -1,0 +1,134 @@
+# $Id: cs.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: MIME Maintenance 1.1.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:46-0700\n"
+"PO-Revision-Date: 2006-12-04 15:47+0100\n"
+"Last-Translator: Martin Štěpán <drewak@gmail.com>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "This type of file not allowed; item will not be added."
+msgstr "Tento typ souboru není povolen, položka nebude přidána."
+
+msgid "MIME Maintenance"
+msgstr "Správa MIME"
+
+msgid "Maintain MIME types and file extensions"
+msgstr "Správa MIME typů a přípon souborů"
+
+msgid "Extra Data"
+msgstr "Další data"
+
+msgid "MIME Types"
+msgstr "MIME typy"
+
+msgid "Settings saved successfully"
+msgstr "Nastavení úspěšně uložena"
+
+msgid "MIME entry saved successfully"
+msgstr "MIME položka úspěšně uložena"
+
+msgid "MIME entry deleted"
+msgstr "MIME položka vymazána"
+
+msgid "Allow all uploads"
+msgstr "Povolit přidání všech typů"
+
+msgid "Block upload of types selected below"
+msgstr "Zakázat přidání typů vybraných níže"
+
+msgid "Only allow uploads of types selected below"
+msgstr "Povolit pouze přidání typů vybraných níže"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Reset"
+msgstr "Výchozí hodnoty"
+
+msgid "Add new MIME type"
+msgstr "Přidat nový MIME typ"
+
+msgid "Extensions"
+msgstr "Přípony"
+
+msgid "Viewable"
+msgstr "Zobrazitelný"
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "edit"
+msgstr "editovat"
+
+msgid "delete"
+msgstr "smazat"
+
+msgid "Allow Upload"
+msgstr "Povolit přidání"
+
+msgid "Block Upload"
+msgstr "Zakazát přidání"
+
+#, c-format
+msgid "Edit MIME type: %s"
+msgstr "Editovat MIME typ: %s"
+
+msgid "New MIME type"
+msgstr "Nový MIME typ"
+
+msgid "Mime entry saved successfully"
+msgstr "MIME položka úspěšně uložena"
+
+msgid "MIME type: "
+msgstr "MIME typ:"
+
+msgid "Viewable?"
+msgstr "Zobrazitelný?"
+
+msgid "MIME type must be specified."
+msgstr "Musí být zadán MIME typ."
+
+msgid "This extension is already in use and cannot be reused."
+msgstr "Tento typ souboru už je použit."
+
+msgid "You must specify at least one extension."
+msgstr "Musíte zadat alespoň jednu příponu."
+
+msgid "Apply"
+msgstr "Použít"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+#, c-format
+msgid ""
+"Warning: Adding and allowing upload of any of the following mime types could leave you open "
+"to %sCross Site Scripting%s security vulnerabilities."
+msgstr ""
+"Varování: Přidání a povolení přidání některých z těchto mime typů může způsobit bezpečnostní "
+"problém a zranitelnost na %sCross Site Scripting%s."

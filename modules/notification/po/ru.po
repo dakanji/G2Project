@@ -1,0 +1,209 @@
+# $Id: ru.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-08-25 21:12+0300\n"
+"PO-Revision-Date: 2008-10-12 10:11+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "Notification"
+msgstr "Уведомления"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "Позволяет уведомлять пользователей о событиях в Галерее."
+
+msgid "Gallery"
+msgstr "Галерея"
+
+msgid "Watch List"
+msgstr "Список отслеживаемых событий"
+
+msgid "Watch"
+msgstr "Наблюдение"
+
+msgid "Plugin Activation Event"
+msgstr "Активизация модуля"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "%s %s было активизировано"
+
+msgid "Plugin Deactivation Event"
+msgstr "Дезактивация модуля"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "%s %s было дезактивировано"
+
+msgid "Error Event"
+msgstr "Произошла ошибка"
+
+msgid "Item Order Event"
+msgstr "Изменение места элемента"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "Вложенные элементы для %s пересортированы."
+
+msgid "User Login Event"
+msgstr "Вход пользователя"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "Пользователь %s вошёл."
+
+msgid "User Login Failed Event"
+msgstr "Ошибка входа пользователя"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "Пользователь %s, ошибка входа."
+
+msgid "User Logout Event"
+msgstr "Выход пользователя"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "Пользователь %s вышел."
+
+msgid "Permission Removed Event"
+msgstr "Удалено правило доступа"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "Для %s элементов изменены правила доступа."
+
+msgid "Plugin Uninstalled Event"
+msgstr "Удалён модуль"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr " %s %s были удалены"
+
+msgid "Album Structure Change Event"
+msgstr "Изменение структуры альбома"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "Произошло изменение дерева просмотра"
+
+msgid "Entity Saved Event"
+msgstr "Произведено сохранение"
+
+#, c-format
+msgid "%s was saved"
+msgstr "%s было сохранено"
+
+msgid "Entity Deleted Event"
+msgstr "Произведено удаление"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "%s было удалено"
+
+msgid "Item Added"
+msgstr "Добавлен элемент"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"Было добавлено новое %s . Чтобы посмотреть его нажмите здесь: \n"
+" %s"
+
+msgid "Select Event"
+msgstr "Выберите событие"
+
+msgid "Select Handler"
+msgstr "Выберите обработчик"
+
+msgid "Send an email"
+msgstr "Послать E-mail"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr ""
+"Если вы не желаете получать это уведомление, пожалуйста обновите вашу учётную запись здесь:"
+
+msgid "Item Notification Settings"
+msgstr "Настройка уведомлений"
+
+msgid "Settings saved successfully"
+msgstr "Настройки успешно сохранены"
+
+msgid "Event"
+msgstr "Событие"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Subscribe"
+msgstr "Использовать"
+
+msgid "Apply to sub items"
+msgstr "Применить к вложенным элементам"
+
+msgid "Not authorized to receive notifications"
+msgstr "Для получения  уведомлений необходимо войти"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Reset"
+msgstr "Отменить"
+
+msgid "Site Notification Administration"
+msgstr "Управление уведомлениями из Галереи"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Handler"
+msgstr "Обработчик"
+
+msgid "Enabled"
+msgstr "Действует"
+
+msgid "Public"
+msgstr "Открытое"
+
+msgid "Event Handler is required"
+msgstr "Требуется обработчик события"
+
+msgid "User Notification Administration"
+msgstr "Управление уведомлениями пользователя"
+
+msgid "Events"
+msgstr "События"
+
+msgid "Method"
+msgstr "Метод"
+
+msgid "You are not subscribed to any available events"
+msgstr "Вы не выбрали никаких событий"

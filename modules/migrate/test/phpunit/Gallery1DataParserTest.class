@@ -1,0 +1,347 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
+
+/**
+ * Gallery1DataParser tests
+ * @package Migrate
+ * @subpackage PHPUnit
+ * @author Jesse Mullan <jmullan@visi.com>
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class Gallery1DataParserTest extends GalleryControllerTestCase {
+
+    function Gallery1DataParserTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$platform =& $gallery->getPlatform();
+	$slash = $this->_slash = $platform->getDirectorySeparator();
+	$this->_albumsDir = dirname(__FILE__) . $slash . '..' . $slash . 'data' .
+	    $slash . 'albums' . $slash;
+    }
+
+    function testGetFieldsFromAlbum() {
+	list ($ret, $albumFields) = Gallery1DataParser::loadAlbumFields(
+	    $this->_albumsDir . 'album01' . $this->_slash);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$expected = array('title' => 'Who likes bananas?',
+			  'description' => 'No description',
+			  'summary' => '',
+			  'nextname' => 'aaa',
+			  'bgcolor' => '',
+			  'textcolor' => '',
+			  'linkcolor' => '',
+			  'font' => 'verdana',
+			  'border' => '1',
+			  'bordercolor' => 'black',
+			  'returnto' => 'yes',
+			  'thumb_size' => '250',
+			  'resize_size' => '800',
+			  'rows' => '5',
+			  'cols' => '5',
+			  'fit_to_window' => 'no',
+			  'use_fullOnly' => 'no',
+			  'print_photos' => NULL,
+			  'use_exif' => 'yes',
+			  'perms' => array(
+					 'canRead' => array('1082614545_1013204231'=>1),
+					 'canViewFullImages' => array(),
+					 'canViewComments' => array('everybody'=>1),
+					 'canAddComments' => array('everybody'=>1),
+					 'canChangeText' => array('1057837154_228147420'=>1),
+					 'canAddTo' => array('1057837115_2072132305'=>1),
+					 'canWrite' => array('1054014347_1233740678'=>1),
+					 'canDeleteFrom' => array('1082614545_1013204231'=>1)
+					 ),
+			  'parentAlbumName' => '.root',
+			  'clicks' => 30,
+			  'clicks_date' => 1056014708,
+			  'display_clicks' => 'yes',
+			  'public_comments' => 'yes',
+			  'serial_number' => 49,
+			  'extra_fields' => array(0 => 'Description'),
+			  'cached_photo_count' => 2,
+			  'photos_separate' => true,
+			  'name' => 'album01',
+			  'owner' => '1054014347_1233740678',
+			  'last_mod_time' => 1137095674,
+			  'item_owner_display' => 'no',
+			  'item_owner_modify' => 'yes',
+			  'item_owner_delete' => 'yes',
+			  'add_to_beginning' => 'no',
+			  'resize_file_size' => '0',
+			  'last_quality' => '95',
+			  'poll_type' => 'critique',
+			  'poll_scale' => '3',
+			  'poll_nv_pairs' =>
+			  array (0 =>
+				 array ('name' => 'Excellent',
+					'value' => 5,
+					),
+				 1 =>
+				 array ('name' => 'Very Good',
+					'value' => 4,
+					),
+				 2 =>
+				 array ('name' => 'Good',
+					'value' => 3,
+					),
+				 ),
+			  'poll_hint' => 'Vote for this image',
+			  'poll_show_results' => 'no',
+			  'poll_num_results' => '3',
+			  'voter_class' => 'Everybody',
+			  'votes' => array (
+			      'item.canon_ae_1' => array ('f762d6037564281460f5233eb5f54667' => 1,),
+			      'item.1976_ae1' => array ('f762d6037564281460f5233eb5f54667' => 0)),
+			  'slideshow_type' => 'ordered',
+			  'slideshow_length' => '0',
+			  'slideshow_recursive' => 'no',
+			  'max_size' => '0',
+			  'max_file_size' => '0',
+			  'slideshow_loop' => 'yes',
+			  'album_frame' => 'simple_book',
+			  'thumb_frame' => 'solid',
+			  'image_frame' => 'solid',
+			  'showDimensions' => 'no',
+			  'email_me' => array(),
+			  'background' => '',
+			  'guid' => '53c93781a9ef9c7117e9a60859d8961a',
+			  'thumb_ratio' => '1/1',
+			  'nav_thumbs' => 'no',
+			  'nav_thumbs_style' => 'fixed',
+			  'nav_thumbs_first_last' => 'no',
+			  'nav_thumbs_prev_shown' => '1',
+			  'nav_thumbs_next_shown' => '1',
+			  'nav_thumbs_location' => 'top',
+			  'nav_thumbs_size' => '45',
+			  'nav_thumbs_current_bonus' => '15',
+			  'ecards' => NULL,
+			  'poll_orientation' => 'horizontal'
+			  );
+	$this->assertEquals ($expected, $albumFields);
+    }
+
+    function testGetPhotoCountFromAlbum() {
+	list ($ret, $countOfPhotos) =
+	    Gallery1DataParser::getPhotoCount($this->_albumsDir . 'album01/');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(2, $countOfPhotos);
+    }
+
+    function testGetRootAlbums() {
+	list ($ret, $rootAlbums) = Gallery1DataParser::getRootAlbums($this->_albumsDir);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('monkey!',
+				  'album01',
+				  'album03',
+				  'no_NO',
+				  'KOI-8',
+				  'fr_FR'),
+			    $rootAlbums);
+    }
+
+    function testGetParentAlbumList() {
+	list ($ret, $parentAlbumList) = Gallery1DataParser::getParentAlbumList($this->_albumsDir);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('monkey!' => '.root',
+				  'album01' => '.root',
+				  'album02' => 'album03',
+				  'album03' => '.root',
+				  'album04' => 'album03',
+				  'album05' => 'album03',
+				  'no_NO' => '.root',
+				  'KOI-8' => '.root',
+				  'fr_FR' => '.root'
+				  ),
+			    $parentAlbumList);
+    }
+
+    function testGetAlbumList() {
+	list ($ret, $albumList) = Gallery1DataParser::getAlbumList($this->_albumsDir);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('monkey!',
+				  'album01',
+				  'album02',
+				  'album03',
+				  'album04',
+				  'album05',
+				  'no_NO',
+				  'KOI-8',
+				  'fr_FR'),
+			    array_keys($albumList));
+    }
+
+    function testGetAlbumHierarchy() {
+	list ($ret, $albumList) = Gallery1DataParser::getAlbumHierarchy($this->_albumsDir);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('monkey!' => array(),
+				  'album01' => array(),
+				  'album03' => array(
+				      'album02' => array(),
+				      'album04' => array(),
+				      'album05' => array()
+				      ),
+				  'no_NO' => array(),
+				  'KOI-8' => array(),
+				  'fr_FR' => array()
+				  ),
+			    $albumList);
+    }
+
+    function testGetUserUids() {
+	list ($ret, $uids) = Gallery1DataParser::getUserUids($this->_albumsDir);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('1054014347_1233740678' => 'admin',
+				  '1057837115_2072132305' => 'monkey',
+				  '1057837154_228147420' => 'phpunit_foobar',
+				  '1082614545_1013204231' => 'phpunitfoo001',
+				  '1111214688_22997786' => 'phpunitfoo002'
+				  ),
+			    $uids);
+    }
+
+    function testGetUserFieldsByUsername() {
+	/* monkey is the target username */
+	list ($ret, $fields) =
+	    Gallery1DataParser::getUserFieldsByUsername($this->_albumsDir, 'monkey');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('username' => 'monkey',
+				  'fullname' => 'This is a Full Name',
+				  'password' => '9CaE3aea962222af734c00abd8b8364404e9',
+				  'email' => 'jmullan@visi.com',
+				  'isAdmin' => '0',
+				  'canCreateAlbums' => '1',
+				  'uid' => '1057837115_2072132305',
+				  'canChangeOwnPw' => '1',
+				  'defaultLanguage' => 'en_US',
+				  'version' => 6,
+				  'recoverPassHash' => NULL,
+				  'lastAction' => 'login',
+				  'lastActionDate' => 1137095859,
+				  'origEmail' => 'jmullan@visi.com'),
+			    $fields);
+    }
+
+    function testGetUserFieldsByUid() {
+	/* monkey is the target username */
+	list ($ret, $fields) =
+	    Gallery1DataParser::getUserFieldsByUid($this->_albumsDir, '1057837115_2072132305');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('username' => 'monkey',
+				  'fullname' => 'This is a Full Name',
+				  'password' => '9CaE3aea962222af734c00abd8b8364404e9',
+				  'email' => 'jmullan@visi.com',
+				  'isAdmin' => '0',
+				  'canCreateAlbums' => '1',
+				  'uid' => '1057837115_2072132305',
+				  'canChangeOwnPw' => '1',
+				  'defaultLanguage' => 'en_US',
+				  'version' => 6,
+				  'recoverPassHash' => NULL,
+				  'lastAction' => 'login',
+				  'lastActionDate' => 1137095859,
+				  'origEmail' => 'jmullan@visi.com'),
+			    $fields);
+    }
+    function testGetUserFieldsByMissingUid() {
+	/* monkey is the target username */
+	list ($ret, $fields) =
+	    Gallery1DataParser::getUserFieldsByUid($this->_albumsDir, '1057837154_228147420');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('username' => 'phpunit_foobar',
+				  'fullname' => 'Foo Bar',
+				  'password' => 'd53ebf1ed8bfa13e116a08e48f9ea26e',
+				  'email' => 'foobar@baz.org',
+				  'isAdmin' => '1',
+				  'canCreateAlbums' => '0',
+				  'uid' => '1057837154_228147420',
+				  'canChangeOwnPw' => 1,
+				  'defaultLanguage' => '',
+				  'version' => 6,
+				  'recoverPassHash' => NULL,
+				  'lastAction' => NULL,
+				  'lastActionDate' => 1137095529,
+				  'origEmail' => 'foobar@baz.org'),
+			    $fields);
+
+    }
+    function testGetUserFieldsByReallyMissingUid() {
+	list ($ret, $fields) =
+	    Gallery1DataParser::getUserFieldsByUid($this->_albumsDir, '1054014347_123456789');
+	$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER);
+    }
+
+    function testIsValidUid() {
+	$valid = Gallery1DataParser::isValidUid($this->_albumsDir, '1057837115_2072132305');
+	$this->assertEquals($valid, true);
+    }
+
+    function testIsInvalidMissingUid() {
+	$valid = Gallery1DataParser::isValidUid($this->_albumsDir, '1057837115_20721323');
+	$this->assertEquals($valid, false);
+    }
+
+    function testIsInvalidUid1() {
+	$valid = Gallery1DataParser::isValidUid($this->_albumsDir, '5');
+	$this->assertEquals($valid, false);
+    }
+
+    function testIsInvalidUid2() {
+	$valid = Gallery1DataParser::isValidUid($this->_albumsDir, 'monkey');
+	$this->assertEquals($valid, false);
+    }
+}
+?>

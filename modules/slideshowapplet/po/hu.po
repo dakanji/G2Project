@@ -1,0 +1,167 @@
+# $Id: hu.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:45-0700\n"
+"PO-Revision-Date: 2007-04-01 01:33+0100\n"
+"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"Language-Team: Hungarian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "slideshow (fullscreen)"
+msgstr "diavetítés (teljesképernyős)"
+
+msgid "Slideshow Applet"
+msgstr "Diavetítő Segédprogram"
+
+msgid "Fullscreen slideshow using a Java applet"
+msgstr "Teljesképernyős diavetítés Java segédprogram használatával"
+
+msgid "Display"
+msgstr "Megjelenítés"
+
+# +megtekintese/inditasa tul hosszu lenne es szetcsuszna a sidebar matrixban pl
+msgid "View Slideshow (Fullscreen)"
+msgstr "Diavetítés (Teljesképernyős)"
+
+msgid "Path to an item (eg, /album/image.jpg.html)"
+msgstr "Egy elem elérési útja (pl: /album/kep.jpg.html)"
+
+msgid "Slideshow"
+msgstr "Diavetítés"
+
+msgid ""
+"This applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Ez a segédprogram (applet) egy olyan galériamodulra épül, mely jelenleg nincs engedélyezve. "
+"Kérd meg a Rendszergazdát, hogy engedélyezze a 'távoli' modult."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "A Galéria Külső Segédprogramjának (Applet) Letöltése"
+
+msgid "Your browser doesn't support applets; you should use the standard slideshow."
+msgstr ""
+"A böngésződ nem támogatja a segédprogramokat (appletek). Használd a normál diavetítést!"
+
+msgid "Slideshow Applet Settings"
+msgstr "Diavetítő Segédprogram Beállításai"
+
+msgid "Defaults"
+msgstr "Alapértelmezettek"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+
+msgid "You have no default variables"
+msgstr ""
+
+msgid "Variable"
+msgstr "Változó"
+
+msgid "Action"
+msgstr "Művelet"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Add a new default variable"
+msgstr "Új alapértelmezett érték megadása"
+
+msgid "You must enter a variable name and value"
+msgstr "Meg kell adnod a változó nevét és értékét"
+
+msgid "New variable"
+msgstr "Új változó"
+
+msgid "Add variable"
+msgstr "Változó hozzáadása"
+
+msgid "Overrides"
+msgstr "Felülbírálások"
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+
+msgid "You have no override variables"
+msgstr "Egyetlen változót sem bíráltál felül"
+
+msgid "Add a new override variable"
+msgstr "Új érték felülbírálása"
+
+msgid "Help"
+msgstr "Segítség"
+
+msgid "Here are a selection of variables that affect slideshows."
+msgstr ""
+
+msgid "variable"
+msgstr "változó"
+
+msgid "values"
+msgstr "értékek"
+
+msgid "help"
+msgstr "segítség"
+
+msgid "maximum number of pictures shown in one go"
+msgstr ""
+
+msgid "does slideshow display pictures inside sub-albums?"
+msgstr "tartalmazza a diavetítés a belső albumok képeit?"
+
+msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
+msgstr ""
+
+msgid "does slideshow loop when it gets to the end?"
+msgstr "kezdődjön újra a diavetítés amikor a végére ér?"
+
+msgid "if true, pictures smaller than the screen won't be stretched"
+msgstr ""
+
+msgid ""
+"if true, the slideshow will download pictures before they're needed, which can speed up, but "
+"also may waste bandwidth"
+msgstr ""
+
+#, fuzzy
+msgid "color of the slideshow background"
+msgstr "a diavetítés hátterének színe"
+
+msgid "size of text overlay"
+msgstr ""
+
+msgid "font of text overlay"
+msgstr ""
+
+msgid "should the pictures be shown in random order?"
+msgstr "véletlenszerű sorrendben jelenjenek meg a képek?"
+
+msgid "Complete list of variables"
+msgstr "A változók teljes listája"

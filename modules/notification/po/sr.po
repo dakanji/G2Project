@@ -1,0 +1,208 @@
+# $Id: sr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-08-26 13:13+0200\n"
+"PO-Revision-Date: 2008-09-21 16:39+0100\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Serbian <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Notification"
+msgstr "Obaveštenje"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "Omogućava korisnicima da pretplatom budu obavešteni o događajima."
+
+msgid "Gallery"
+msgstr "Galerija"
+
+msgid "Watch List"
+msgstr "Praćeni događaji"
+
+msgid "Watch"
+msgstr "Prati"
+
+msgid "Plugin Activation Event"
+msgstr "Aktivacija dodatka"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "%s %s je aktiviran"
+
+msgid "Plugin Deactivation Event"
+msgstr "Deaktivacija dodatka"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "%s %s je deaktiviran"
+
+msgid "Error Event"
+msgstr "Greška"
+
+msgid "Item Order Event"
+msgstr "Sortiranje objekta"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "Podelementi objekta %s su sortirani na nov način."
+
+msgid "User Login Event"
+msgstr "Prijava korisnika"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "Korisnik %s se prijavio."
+
+msgid "User Login Failed Event"
+msgstr "Neuspešna prijava korisnika"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "Korisnik %s nije uspeo da se prijavi na sistem."
+
+msgid "User Logout Event"
+msgstr "Odjava korisnika"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "Korisnik %s se odjavio."
+
+msgid "Permission Removed Event"
+msgstr "Uklanjanje prava"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "Izmena prava na %s objekata."
+
+msgid "Plugin Uninstalled Event"
+msgstr "Deinstalacija dodatka"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr "%s %s je deinstaliran"
+
+msgid "Album Structure Change Event"
+msgstr "Promena strukture albuma"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "Vidljiv događaj promene stabla"
+
+msgid "Entity Saved Event"
+msgstr "Objekat sačuvan"
+
+#, c-format
+msgid "%s was saved"
+msgstr "%s je sačuvan"
+
+msgid "Entity Deleted Event"
+msgstr "Brisanje objekta"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "%s je izbrisan"
+
+msgid "Item Added"
+msgstr "Dodavanje objekta"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"Novi %s je dodat. Da biste ga pogledali, kliknite ovde: \n"
+"%s"
+
+msgid "Select Event"
+msgstr "Izaberite objekat"
+
+msgid "Select Handler"
+msgstr "Izaberite obrađivača"
+
+msgid "Send an email"
+msgstr "Pošalji email"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr ""
+"Ako više ne želite da budete obavešteni o ovom događaju, molimo vas da ažurirate podešavanja "
+"svog naloga:"
+
+msgid "Item Notification Settings"
+msgstr "Parametri obaveštenja objekata"
+
+msgid "Settings saved successfully"
+msgstr "Paramtri uspešno sačuvani"
+
+msgid "Event"
+msgstr "Događaj"
+
+msgid "Action"
+msgstr "Akcija"
+
+msgid "Subscribe"
+msgstr "Pretplati se"
+
+msgid "Apply to sub items"
+msgstr "Primeni na podobjekte"
+
+msgid "Not authorized to receive notifications"
+msgstr "Nemate prava da primate obaveštenja"
+
+msgid "Save"
+msgstr "Sačivaj"
+
+msgid "Reset"
+msgstr "Poništi"
+
+msgid "Site Notification Administration"
+msgstr "Administracija obaveštenja"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Handler"
+msgstr "Obrađivač"
+
+msgid "Enabled"
+msgstr "Uključen"
+
+msgid "Public"
+msgstr "Javni"
+
+msgid "Event Handler is required"
+msgstr "Neophodan je obrađivač događaja"
+
+msgid "User Notification Administration"
+msgstr "Administracija obaveštavanja korisnika"
+
+msgid "Events"
+msgstr "Događaji"
+
+msgid "Method"
+msgstr "Metod"
+
+msgid "You are not subscribed to any available events"
+msgstr "Niste pretplaćeni ni na jedan događaj"

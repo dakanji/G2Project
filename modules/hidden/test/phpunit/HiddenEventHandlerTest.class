@@ -1,0 +1,365 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
+
+/**
+ * HiddenEventHandlerTest - Tests the event handlers.
+ *
+ * @package Hidden
+ * @subpackage PHPUnit
+ * @author Tim Almdal <tnalmdal@shaw.ca>
+ * @version $Revision: 17580 $
+ */
+class HiddenEventHandlerTest extends GalleryTestCase {
+
+    function HiddenEventHandlerTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_coreParams) =
+	    GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_topAlbum, $this->_topItems) =
+	    $this->_createSubAlbumWithItems($this->_getRootId(), true);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_topAlbum);
+
+	list ($ret, $this->_subAlbum, $this->_subItems) =
+	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_hiddenModule) = GalleryCoreApi::loadPlugin('module', 'hidden');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function _createSubAlbumWithItems($parentId, $top=false) {
+	list ($ret, $album) = $this->_createRandomAlbum($parentId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	if ($top) {
+	    /* Setup permissions */
+	    $albumId = $album->getId();
+	    $ret = GalleryCoreApi::removeItemPermissions($albumId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addGroupPermission(
+		    $albumId, $this->_coreParams['id.adminGroup'], 'core.all');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addUserPermission(
+		    $albumId, $this->_coreParams['id.anonymousUser'], 'core.edit');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addUserPermission(
+		    $albumId, $this->_coreParams['id.anonymousUser'], 'core.changePermissions');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addGroupPermission(
+		    $albumId, $this->_coreParams['id.everybodyGroup'], 'core.viewAll');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	$items = array();
+	for ($i = 0; $i < 3; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($album->getId());
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	return array(null, $album, $items);
+    }
+
+    function testHiddenDeleteHandler() {
+	global $gallery;
+	$gallery->_storage = new UnitTestStorage();
+	$storage =& $gallery->getStorage();
+	$storage->setReply('removeMapEntry', 
+	    array('ItemHiddenMap', array('itemId' => $this->_subItems[2]->getId())), 0);
+	$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
+	$event->setEntity($this->_subItems[2]);
+	list ($ret) = $this->_hiddenModule->handleEvent($event);
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assert($storage->isComplete(), $storage->getRemaining());
+    }
+
+    function testHiddenViewableTreeChangeHandlerForCoreView() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$ret = HiddenHelper::hideItem($this->_topAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = HiddenHelper::hideItem($this->_subItems[0]);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeUserPermission($this->_subItems[1]->getId(),
+	    $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest(
+	    'GalleryEventListener', 'HiddenModule', 'HiddenModule', 
+	    'modules/hidden/module.inc', 'hidden', 
+	    array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_becomeGuestUser();
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_topAlbum->getId(), $gallery->getActiveUserId(), 'core.view', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Top Album should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+    }
+
+    function testHiddenViewableTreeChangeHandlerForCoreViewAll() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$ret = HiddenHelper::hideItem($this->_topAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = HiddenHelper::hideItem($this->_subItems[0]);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeUserPermission($this->_subItems[1]->getId(),
+	    $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest(
+	    'GalleryEventListener', 'HiddenModule', 'HiddenModule', 
+	    'modules/hidden/module.inc', 'hidden', 
+	    array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_becomeGuestUser();
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_topAlbum->getId(), $gallery->getActiveUserId(), 'core.viewAll', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Top Album should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+    }
+
+    function testHiddenViewableTreeChangeHandlerForCoreAll() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$ret = HiddenHelper::hideItem($this->_topAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = HiddenHelper::hideItem($this->_subItems[0]);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeUserPermission($this->_subItems[1]->getId(),
+	    $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest(
+	    'GalleryEventListener', 'HiddenModule', 'HiddenModule', 
+	    'modules/hidden/module.inc', 'hidden', 
+	    array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_becomeGuestUser();
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_topAlbum->getId(), $gallery->getActiveUserId(), 'core.viewAll', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Top Album should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+    }
+
+    function testHiddenViewableTreeChangeHandlerForUnhiddenAlbum() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$ret = HiddenHelper::hideItem($this->_subItems[0]);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeUserPermission($this->_subAlbum->getId(),
+	    $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeUserPermission($this->_subItems[1]->getId(),
+	    $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest(
+	    'GalleryEventListener', 'HiddenModule', 'HiddenModule', 
+	    'modules/hidden/module.inc', 'hidden', 
+	    array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_becomeGuestUser();
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_subAlbum->getId(), $gallery->getActiveUserId(), 'core.viewAll', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+    }
+}
+?>

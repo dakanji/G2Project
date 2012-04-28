@@ -1,0 +1,588 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * An implementation of the GdFunctionality that offers pseudo-gd-
+ * functionality. It allows to set the PHP environment and will then
+ * simulate its inner workings.
+ *
+ * @package Gd
+ * @subpackage PHPUnit
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision: 17580 $
+ */
+class TestGdFunctionality {
+
+    /*
+     * Our current environment
+     */
+    var $_gdEnvironment;
+
+    /*
+     * Keep track of our resources
+     */
+    var $_resourceCounter = 0;
+    var $_undestroyedResourceCounter = 0;
+    var $_resources;
+    var $_outputFiles;
+
+    function TestGdFunctionality() {
+    }
+
+    /**
+     * Set the environment we want to simulate
+     * -> 1. PHP 4.1.0, GD 1.8.2 not bundled (4.1.0|1.6.2|0)
+     *    2. PHP 4.2.0, GD 1.8.2 not bundled
+     * -> 3. PHP 4.3.1, GD 2.0 bundled       (4.3.1|2.0|1)
+     *    4. PHP 4.3.9, GD 1.6.2 not bundled
+     * -> 5. PHP 4.3.9RC1, GD 2.0.28 bundled (4.3.9RC1|2.0.28|1)
+     *    6. PHP 5.0.1, GD 2.0.28 bundled
+     */
+    function setEnvironment($environment) {
+	$this->_gdEnvironment = $environment;
+    }
+
+    function getEnvironmentName() {
+	return $this->_gdEnvironment['name'];
+    }
+
+    /**
+     * Return the name of a new resource
+     *
+     * From a filename like '200x300.gif' set the sizes x=200 y=300
+     *
+     */
+    function getNewResource($filename=null) {
+	$this->_resourceCounter++;
+	$this->_undestroyedResourceCounter++;
+	$name = 'res #' . $this->_resourceCounter;
+	$this->_resources[$name] = array(
+	    'x' => 0,
+	    'y' => 0,
+	    'trueColor' => false,
+	);
+	if (isset($filename)) {
+	    $this->_resources[$name]['filename'] = $filename;
+	    if (preg_match('/(\d+)x(\d+)\./i', $filename, $matches)) {
+		$this->_resources[$name]['x'] = (int) $matches[1];
+		$this->_resources[$name]['y'] = (int) $matches[2];
+	    }
+	}
+	return $name;
+    }
+
+    /**
+     * Make a copy of some resource
+     */
+    function copyResource($otherRes) {
+	$this->_resourceCounter++;
+	$this->_undestroyedResourceCounter++;
+	$newRes = 'Resource #' . $this->_resourceCounter;
+	$this->_resources[$newRes] = $this->_resources[$otherRes];
+	return $newRes;
+    }
+
+    function setResourceData($res, $field, $value) {
+	$this->_resources[$res][$field] = $value;
+    }
+
+    function getResourceData($res, $field) {
+	if (isset($this->_resources[$res][$field])) {
+	    return $this->_resources[$res][$field];
+	}
+	return '';
+    }
+
+    function isValidResource($res) {
+	return isset($this->_resources[$res]);
+    }
+
+    function saveResource($res, $filename, $mimeType) {
+	$this->_outputFiles[$filename] = array(
+	    'x' => $this->getResourceData($res, 'x'),
+	    'y' => $this->getResourceData($res, 'y'),
+	    'mimeType' => $mimeType,
+	);
+	$other = $this->getResourceData($res, 'other');
+	if (is_array($other)) {
+	    $this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $other);
+	}
+	$history = $this->getResourceData($res, 'history');
+	if (is_array($history)) {
+	    $history = array('history' => $history);
+	    $this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $history);
+	}
+    }
+
+    function getOutputFileData($filename) {
+	if (!isset($this->_outputFiles[$filename])) {
+	    return null;
+	}
+	return $this->_outputFiles[$filename];
+    }
+
+    function isValidFile($filename) {
+	if (preg_match('/valid/i', $filename)) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+
+    /*
+     * Here is our implementation of the GdFunctionality-interface
+     * This will do nothing with images, but simulate what might
+     * happen.
+     */
+
+    function phpinfo($section=null) {
+	if ($section != '8') {
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+	}
+	if (!isset($this->_gdEnvironment['phpinfo(8)'])) {
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()), null);
+	}
+	$out = strtr($this->_gdEnvironment['phpinfo(8)'],
+		    array_flip(get_html_translation_table(HTML_ENTITIES)));
+	return array(null, $out);
+    }
+
+    function tempnam($dir, $prefix) {
+	return rand();
+    }
+
+    function copy($filename) {
+	return true;
+    }
+
+    function unlink($filename) {
+	if (!isset($this->_outputFiles[$filename])) {
+	    return false;
+	}
+	unset($this->_outputFiles[$filename]);
+	return true;
+    }
+
+    function chmod($file) {
+	/* ignore this for now */
+    }
+
+    function filesize($filename) {
+	switch ($filename) {
+	case 'compressMe.jpg':
+	    return 250 << 10;
+	case '/valid/compressed.jpg':
+	    switch ($this->_counter--) {
+	    case 2:
+		return 200 << 10;
+	    case 1:
+		return 100 << 10;
+	    case 0:
+		return 150 << 10;
+	    }
+	}
+	print "filesize $filename<br/>\n";
+	return 0;
+    }
+
+    function functionExists($fct) {
+	$fct = strtolower($fct);
+	if (isset($this->_gdEnvironment['functions'][$fct])) {
+	    return $this->_gdEnvironment['functions'][$fct];
+	}
+	return false;
+    }
+
+    function imageTypes() {
+	return $this->_gdEnvironment['imageTypes'];
+    }
+
+    function gd_info() {
+	if (!$this->functionExists('gd_info')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName()), null);
+	}
+	if (!isset($this->_gdEnvironment['gd_info'])) {
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+	}
+	return array(null, $this->_gdEnvironment['gd_info']);
+    }
+
+    function getImageSize($filename) {
+	return array(0, 0);
+    }
+
+    function imageCreate($width, $height) {
+	if (!$this->functionExists('imageCreate')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource();
+	$this->setResourceData($res, 'x', $width);
+	$this->setResourceData($res, 'y', $height);
+	$this->setResourceData($res, 'trueColor', false);
+	return array(null, $res);
+    }
+
+    function imageCreateTruecolor($width, $height) {
+	if (!$this->functionExists('imageCreateTruecolor')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource();
+	$this->setResourceData($res, 'x', $width);
+	$this->setResourceData($res, 'y', $height);
+	$this->setResourceData($res, 'trueColor', true);
+	return array(null, $res);
+    }
+
+    function imageCreateFromGif($filename) {
+	if (!$this->functionExists('imageCreateFromGif')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource($filename);
+	return array(null, $res);
+    }
+
+    function imageCreateFromJpeg($filename) {
+	if (!$this->functionExists('imageCreateFromJpeg')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource($filename);
+	return array(null, $res);
+    }
+
+    function imageCreateFromPng($filename) {
+	if (!$this->functionExists('imageCreateFromPng')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource($filename);
+	return array(null, $res);
+    }
+
+    function imageCreateFromWbmp($filename) {
+	if (!$this->functionExists('imageCreateFromWbmp')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource($filename);
+	return array(null, $res);
+    }
+
+    function imageCreateFromXbm($filename) {
+	if (!$this->functionExists('imageCreateFromXbm')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource($filename);
+	return array(null, $res);
+    }
+
+    function imageCreateFromXpm($filename) {
+	if (!$this->functionExists('imageCreateFromXpm')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	$res = $this->getNewResource($filename);
+	return array(null, $res);
+    }
+
+    function imageGif($res, $filename) {
+	if (!$this->functionExists('imageGif')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($res)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$this->isValidFile($filename)) {
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	}
+	$this->saveResource($res, $filename, 'image/gif');
+	return null;
+    }
+
+    function imageJpeg($res, $filename, $quality) {
+	if (!$this->functionExists('imageJpeg')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($res)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$this->isValidFile($filename)) {
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	}
+	$this->saveResource($res, $filename, 'image/jpeg');
+	return null;
+    }
+
+    function imagePng($res, $filename) {
+	if (!$this->functionExists('imagePng')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($res)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$this->isValidFile($filename)) {
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	}
+	$this->saveResource($res, $filename, 'image/png');
+	return null;
+    }
+
+    function imageWbmp($res, $filename) {
+	if (!$this->functionExists('imageWbmp')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($res)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$this->isValidFile($filename)) {
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	}
+	$this->saveResource($res, $filename, 'image/vnd.wap.wbmp');
+	return null;
+    }
+
+    function imageXbm($res, $filename) {
+	if (!$this->functionExists('imageXbm')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($res)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$this->isValidFile($filename)) {
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	}
+	$this->saveResource($res, $filename, 'image/x-xbitmap');
+	return null;
+    }
+
+    function imageXpm($res, $filename) {
+	if (!$this->functionExists('imageXpm')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($res)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$this->isValidFile($filename)) {
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	}
+	$this->saveResource($res, $filename, 'image/x-xpixmap');
+	return null;
+    }
+
+    function imageCopyResampled($dstRes, $srcRes, $dstX, $dstY, $srcX,
+				$srcY, $dstW, $dstH, $srcW, $srcH) {
+	if (!$this->functionExists('imageCopyResampled')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($srcRes) || !$this->isValidResource($dstRes)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	return null;
+    }
+
+    function imageCopyResized($dstRes, $srcRes, $dstX, $dstY, $srcX,
+			      $srcY, $dstW, $dstH, $srcW, $srcH) {
+	if (!$this->functionExists('imageCopyResized')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($srcRes) || !$this->isValidResource($dstRes)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	return null;
+    }
+
+    function imageCopyMerge($dstRes, $srcRes, $dstX, $dstY, $srcX, $srcY, $srcW, $srcH, $pct) {
+	if (!$this->functionExists('imageCopyMerge')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($srcRes) || !$this->isValidResource($dstRes)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	return null;
+    }
+
+    function imageCopy($dstRes, $srcRes, $dstX, $dstY, $srcX, $srcY, $srcW, $srcH) {
+	if (!$this->functionExists('imageCopy')) {
+	    return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					'Environment: ' . $this->getEnvironmentName());
+	}
+	if (!$this->isValidResource($srcRes) || !$this->isValidResource($dstRes)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+
+	$previousData = $this->getResourceData($dstRes, 'other');
+	if (!empty($previousData)) {
+	    $this->setResourceData($dstRes, 'history', $previousData);
+	}
+	$this->setResourceData(
+	    $dstRes, 'other',
+	    array('copy' => array(
+		      $this->getResourceData($srcRes, 'filename'),
+		      $dstX, $dstY, $srcX, $srcY, $srcW, $srcH)));
+	return null;
+    }
+
+    function imageSx($res) {
+	if (!$this->functionExists('imageSx')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	if (!$this->isValidResource($res)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+			 null);
+	}
+	return array(null, $this->getResourceData($res, 'x'));
+    }
+
+    function imageSy($res) {
+	if (!$this->functionExists('imageSy')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	if (!$this->isValidResource($res)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+			 null);
+	}
+	return array(null, $this->getResourceData($res, 'y'));
+    }
+
+    /* Currently this only handles rotation in 90deg-steps */
+    function imageRotate($srcRes, $angle, $bgdColor) {
+	if (!$this->functionExists('imageRotate')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+	}
+	if ($angle % 90 == 0) {
+	    /* Swap width and height */
+	    $newX = $this->getResourceData($srcRes, 'y');
+	    $newY = $this->getResourceData($srcRes, 'x');
+	} else {
+	    $newX = $this->getResourceData($srcRes, 'x');
+	    $newY = $this->getResourceData($srcRes, 'y');
+	}
+	$res = $this->copyResource($srcRes);
+	$this->setResourceData($res, 'x', $newX);
+	$this->setResourceData($res, 'y', $newY);
+	return array(null, $res);
+    }
+
+    function imagedestroy($res) {
+	$this->_undestroyedResourceCounter--;
+	$this->_resources[$res]['destroyed'] = true;
+    }
+
+    function imagesavealpha($res, $saveflag) {
+    	if (!$this->functionExists('imagesavealpha')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+    	}
+	if (!$this->isValidResource($res)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+			 null);
+	}
+    	return array(null, true);
+    }
+
+    function imagealphablending($res, $blendmode) {
+	if (!$this->isValidResource($res)) {
+	    return false;
+	}
+    	return true;
+    }
+
+    function imagecolorallocatealpha($res, $red, $green, $blue, $alpha) {
+    	if (!$this->functionExists('imagecolorallocatealpha')) {
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+					      'Environment: ' . $this->getEnvironmentName()),
+			 null);
+    	}
+	if (!$this->isValidResource($res)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+			 null);
+	}
+    	return array(null, 1);
+    }
+
+    function imagecolorallocate($res, $red, $green, $blue) {
+    	if (!$this->isValidResource($res)) {
+	    return false;
+	}
+    	return 1;
+    }
+
+    function imagefilledrectangle($res, $x1, $y1, $x2, $y2, $color) {
+    	return $this->isValidResource($res);
+    }
+
+    function imagecolortransparent($res, $color=null) {
+	if (!$this->isValidResource($res)) {
+	    return false;
+	}
+	if ($color !== null) {
+	    $this->setResourceData($res, 'transparentColor', $color);
+	}
+	$transparentColor = $this->getResourceData($res, 'transparentColor');
+    	return $transparentColor == '' ? 1 : $transparentColor;
+    }
+
+    function imagetruecolortopalette($res, $dither, $ncolors) {
+	return $this->isValidResource($res);
+    }
+
+    function imagecolorat($res, $x, $y) {
+	return 1;
+    }
+
+    function imagesetpixel($res, $x, $y, $color) {
+	return $this->isValidResource($res);
+    }
+
+    function imagecolorsforindex($res, $index) {
+	return array('red' => 11, 'green' => 22, 'blue' => 44, 'alpha' => 66);
+    }
+}
+?>

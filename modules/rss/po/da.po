@@ -1,0 +1,567 @@
+# $Id: da.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# - Bjorn Graabek <bjorn@graabek.com>, 2007
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-10 12:51+0100\n"
+"PO-Revision-Date: 2008-05-21 16:17+0100\n"
+"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This feed no longer exists!"
+msgstr "Dette feed eksisterer ikke længere!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Feeds af den type er ikke tilladt!"
+
+msgid "Incorrect feed type!"
+msgstr "Forkert feed type!"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Kommentar modulet er ikke aktivt eller også er kommentar feeds ikke tilladt!"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Ikke tilladt at se kommentarer for dette emne"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Eksport"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS feed for dette album"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS feed for dette foto"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS feed for denne film"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS feed for dette %s"
+
+msgid "Configure RSS Feeds"
+msgstr "Indstil RSS feeds"
+
+msgid "Simple RSS Feed"
+msgstr "Simpel RSS feed"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Kort URL for simple RSS feeds"
+
+msgid "RSS Feed"
+msgstr "RSS feed"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Navnet på den opsatte RSS feed"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Kort URL for konfigurerbare RSS feeds"
+
+#, c-format
+msgid "In album %s"
+msgstr "I album %s"
+
+msgid "Items in an album"
+msgstr "Emner i et album"
+
+msgid "Sub-albums of an album"
+msgstr "Under-albummer af et album"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Emner i et album og dets under-albummer"
+
+msgid "Comments for an album"
+msgstr "Kommentarer til et album"
+
+msgid "Comments for an item"
+msgstr "Kommentarer til et emne"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Kommentarer for et album og dets under-albummer"
+
+msgid "Random items in an album"
+msgstr "Tilfældige emner i et album"
+
+msgid "Random items in an album and its subalbums"
+msgstr "Tilfældige emner i et album og dets under-albummer"
+
+msgid "RSS Feeds"
+msgstr "RSS feeds"
+
+msgid "Settings have been saved"
+msgstr "Indstillinger er gemt"
+
+msgid "Feed successfully deleted"
+msgstr "Feed er slettet"
+
+msgid "An error occured"
+msgstr "Der skete en fejl"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Edit Feed"
+msgstr "Rediger feed"
+
+msgid "New Feed"
+msgstr "Nyt feed"
+
+msgid "Feed URL"
+msgstr "Feed URL"
+
+msgid "Feed name"
+msgstr "Navn på feed"
+
+msgid "You can't change the name of the feed"
+msgstr "Du kan ikke ændre feed'ets navn"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Vælg navn til dit feed (dette navn vil blive brugt i URL'en til dit feed, så prøv kun at "
+"bruge bogstaver)"
+
+msgid "You must enter a name"
+msgstr "Du skal indtaste et navn"
+
+msgid "This name is already used, please select another one"
+msgstr "Dette navn er allerede i brug, vælg et andet"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Feed settings"
+msgstr "Feed indstillinger"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Vælg hvilken type data, der vil være til stede i feedet"
+
+msgid "Type of feed"
+msgstr "Feed type"
+
+msgid "Items in this album"
+msgstr "Emner i dette album"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr "Feeds af denne type er ikke tilladt af administratoren. Brugere vil ikke kunne se dem."
+
+msgid "Sub-albums of this album"
+msgstr "Under-albummer af dette album"
+
+msgid "Items in this album and its subalbums"
+msgstr "Emner i dette album og dets under-albummer"
+
+msgid "Limit the number of items per album"
+msgstr "Begræns antallet af emner pr. album"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Ugyldig grænse (skal være et positivt tal, 0 for at deaktivere denne grænse)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "[indtast 0 for at slå begrænsningen fra)"
+
+msgid "Comments for this album"
+msgstr "Kommentarer for dette album"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Kommentarer for dette album og dets under-albummer"
+
+msgid "Random pictures inside this album"
+msgstr "Tilfældige billeder i dette album"
+
+msgid "Random pictures inside this album and its subalbums"
+msgstr "Tilfældige billeder i dette album og dets under-albummer"
+
+msgid "Comments for this item"
+msgstr "Kommentarer for dette emne"
+
+msgid "Which items"
+msgstr "Hvilke emner"
+
+msgid "New items only"
+msgstr "Kun nye emner"
+
+msgid "New and updated items"
+msgstr "Nye og opdaterede emner"
+
+msgid "Choose the options for the feed"
+msgstr "Vælg indstillingerne for feed'et"
+
+msgid "RSS version"
+msgstr "RSS version"
+
+msgid "Invalid version"
+msgstr "Ugyldig version"
+
+msgid "Number of items"
+msgstr "Antal emner"
+
+msgid "Invalid number"
+msgstr "Ugyldigt nummer"
+
+msgid "language tag"
+msgstr "sprog mærke"
+
+msgid "Invalid language value"
+msgstr "Ugyldig sprog-værdi"
+
+msgid "by default: en-us."
+msgstr "som standard: en-us."
+
+msgid "List of all possible values"
+msgstr "Liste over alle de mulige værdier"
+
+msgid "category tag"
+msgstr "kategori mærke"
+
+msgid "ttl tag"
+msgstr "ttl mærke"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "Ugyldig tid at leve, dette skal være et antal minutter (0 for at deaktivere ttl)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"Tid at leve: Dette skal være et antal minutter (0 for at deaktivere ttl) opsamlere bør vente "
+"mellem kontrol for opdateringer"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Invalid copyright"
+msgstr "Ugyldig copyright"
+
+msgid "Use image tag"
+msgstr "Brug image mærke"
+
+msgid "Include image tag"
+msgstr "Inkludér image mærke"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "Dette tilføjer et hovedbillede til feedet, svarende til miniaturen for dette emne"
+
+msgid "Invalid value"
+msgstr "ugyldig værdi"
+
+#, fuzzy
+msgid "Use enclosures"
+msgstr "Brug ?"
+
+#, fuzzy
+msgid "Include enclosure tags"
+msgstr "Inkludér ? mærker"
+
+#, fuzzy
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+"Dette tilføjer en ? til hvert billede i feedet, der indeholder det oprindelige billede."
+
+msgid "Use Media RSS"
+msgstr "Brug Media RSS"
+
+msgid "Include Media RSS tags"
+msgstr "Inkluder Media RSS mærker"
+
+msgid ""
+"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
+"feed in a more useful fashion"
+msgstr ""
+"Dette tilføjer medie RSS mærker til feedet, hvilket tillader medieorienterede klienter at "
+"vise feedet på en mere brugbar måde."
+
+msgid "about Media RSS"
+msgstr "om Media RSS"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Cloud tag (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Hvis du ønsker at bruge skymærket, kan du opsætte det her"
+
+msgid "Example: "
+msgstr "Eksempel:"
+
+msgid "domain"
+msgstr "domæne"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "sti"
+
+msgid "registerProcedure"
+msgstr "registerProcedure"
+
+msgid "protocol"
+msgstr "protokol"
+
+msgid "Cloud tag"
+msgstr "Cloud tag"
+
+msgid "Include the cloud tag"
+msgstr "Inkluder 'cloud tag'"
+
+msgid "Invalid string"
+msgstr "ugyldig streng"
+
+msgid "Invalid port number"
+msgstr "Ugyldig port nummer"
+
+msgid "Update Feed"
+msgstr "Opdatér feed"
+
+msgid "Create Feed"
+msgstr "Opret feed"
+
+msgid "Cancel"
+msgstr "Afbryd"
+
+msgid "RSS feeds for this item"
+msgstr "RSS feeds for dette emne"
+
+msgid "No feeds have yet been defined"
+msgstr "Der er endnu ikke defineret nogen feeds"
+
+msgid "Feed link"
+msgstr "Feed link"
+
+msgid "Feed type"
+msgstr "Feed type"
+
+msgid "Actions"
+msgstr "Handlinger"
+
+msgid "delete"
+msgstr "slet"
+
+msgid "edit"
+msgstr "rediger"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Dette er en liste over alle feeds der er tilgængelige i dette galleri"
+
+msgid "RSS Settings"
+msgstr "RSS indstillinger"
+
+msgid "Settings"
+msgstr "Indstillinger"
+
+msgid "Simple Feed Settings"
+msgstr "Simpel feed indstillinger"
+
+msgid "General settings"
+msgstr "Generelle indstillinger"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "Disse er stndard og maksimal værdier der bliver benyttet af alle feeds i Gallery"
+
+msgid "Default number of items in feeds"
+msgstr "Standard antal emner i feeds"
+
+msgid "Invalid default number"
+msgstr "Ugyldigt standard nummer"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maksimale antal emner i feeds"
+
+msgid "Invalid maximum number"
+msgstr "Det maksimale antal er ugyldigt"
+
+msgid "Maximum age for items in feeds"
+msgstr "Maksimum alder for emner i feeds"
+
+msgid "Invalid maximum age number"
+msgstr "Ugyldigt maksimum alder tal"
+
+msgid "Default ttl"
+msgstr "Standard ttl"
+
+msgid "Default copyright"
+msgstr "Standard copyright"
+
+msgid "Feed Types"
+msgstr "Feedtyper"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Konfigurer hvilke typer af feeds der er tilladt"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Tillad at Simpel RSS feed kan benyttes"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Hvis du aktiverer dette, kan brugere abbonnere på et feed for ethvert album eller foto de "
+"kan se."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"For at redigere indstillingerne for simple feeds, brug den tilhørende fane i toppen af "
+"skærmen."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Tillad brugen af konfigurerbare RSS feeds."
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Kun albumejere er i stand til at definere sådanne feeds. De kan indstille parametre for den "
+"type feed de ønsker."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Når et feed er defineret, kan brugere abbonnere på disse feeds, hvis de kan se det tilknytte "
+"emne."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Tillad RSS feeds af fotos i et album"
+
+msgid "Fast"
+msgstr "Hurtigt"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Tillad RSS feeds af under-albummer i et album"
+
+msgid "Slow"
+msgstr "Langsomt"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Tillad RSS feeds af foto i et album og dets under-albummer"
+
+msgid "Slower"
+msgstr "Langsommere"
+
+msgid "Allow RSS feeds of comments of a photo"
+msgstr "Tillad RSS feeds af kommentarer til et foto"
+
+msgid "Allow RSS feeds of comments of an album"
+msgstr "Tillad RSS feeds af kommentarer til et album"
+
+msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgstr "Tillad RSS feeds af kommentarer til et album og dets under-albummer"
+
+msgid "Allow RSS feeds of random photos inside an album"
+msgstr "Tillad RSS feeds af tilfældige fotos i et album"
+
+msgid "Allow RSS feeds of random photos inside an album and its subalbums"
+msgstr "Tillad RSS feeds af tilfældige fotos i et album og dets under-albummer"
+
+msgid "Slowest"
+msgstr "Langsommest"
+
+msgid "Save Settings"
+msgstr "Gem indstillinger"
+
+msgid "Reset"
+msgstr "Nulstil"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Hjælp brugere med at opdage RSS feeds"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Hvis du vil hjælpe brugerne at finde feeds i Gallery, kan du tilføje RSS blokken til de "
+"temaer der benyttes i denne Gallery."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"Dette vil have to resultater: Blokken selv, som brugere kan se og vælge feeds fra (og hente "
+"en liste med alle feeds; og et skjulte sideheadere som moderne webbrowsere vil bruge til at "
+"gøre det nemmere for brugere at abbonnere på disse feeds."
+
+msgid "Global list of RSS feeds"
+msgstr "Global liste over RSS feeds"
+
+msgid "On item"
+msgstr "På emne"
+
+msgid "Simple Feed settings"
+msgstr "Simpel feed indstillinger"
+
+msgid "For albums"
+msgstr "For albummer"
+
+msgid "Items in the album"
+msgstr "Emner i albummet"
+
+msgid "Sub-albums of the album"
+msgstr "Under-albummer af albummet"
+
+msgid "Items in the album and its subalbums"
+msgstr "Emner i albummet og dets under-albummer"
+
+msgid "Comments for the album"
+msgstr "Kommentarer til albummet"
+
+msgid "For items"
+msgstr "For emner"
+
+msgid "Comments for items (always selected)"
+msgstr "Kommentarer for emner (altid valgt)"
+
+msgid "List all RSS Feeds"
+msgstr "Vis alle RSS feeds"
+
+msgid "List of RSS Feeds"
+msgstr "Liste over RSS feeds"
+
+msgid "Number of feeds to display"
+msgstr "Antal feeds der skal vises"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "alle"
+
+#~ msgid "Not permitted to view this item"
+#~ msgstr "Ingen tilladelse til at dette emne"

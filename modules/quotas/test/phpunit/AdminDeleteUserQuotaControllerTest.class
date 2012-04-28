@@ -1,0 +1,124 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
+/**
+ * AdminDeleteUserQuota controller tests
+ * @package Quotas
+ * @subpackage PHPUnit
+ * @author Robert Balousek <volksport@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
+
+    function AdminDeleteUserQuotaControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'quotas.AdminDeleteUserQuota');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a user that we can delete */
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_user);
+    }
+
+    function testCancel() {
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'quotas.AdminQuotas'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    /**
+     * Create and delete a user quota
+     */
+    function testDeleteUserQuota() {
+	$this->_createUserQuota($this->_user->getId(), 2048);
+
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'quotas.AdminQuotas'),
+				  'status' => array('deletedUser' => $this->_user->getUserName()),
+				  'error' => array()),
+			    $results,
+			    'Failed to delete user quota');
+
+	/* Verify the user quota is gone */
+	list ($ret, $quotaExists, $quota) =
+	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
+	if ($quotaExists) {
+	    $this->assert(false, 'The user quota was not actually deleted');
+	} else {
+	    $this->_deleteUserQuota($this->_user->getId());
+	}
+    }
+
+    function testDeleteUserQuotaUserIdMissing() {
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+    }
+
+    /**
+     * Delete a non-existant user quota
+     */
+    function testDeleteNonExistantUserQuota() {
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
+	$results = $this->handleRequest();
+
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'quotas.AdminDeleteUserQuota'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function _createUserQuota($userId, $quota) {
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap', array('userOrGroupId' => $userId, 'quotaSize' => $quota));
+	if ($ret) {
+	    return array($ret, null);
+	}
+    }
+
+    function _deleteUserQuota($userId) {
+	$ret = GalleryCoreApi::removeMapEntry('QuotasMap', array('userOrGroupId' => $userId));
+	if ($ret) {
+	    return array($ret, null);
+	}
+    }
+}
+?>

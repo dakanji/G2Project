@@ -1,0 +1,171 @@
+# $Id: ko.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:48-0700\n"
+"PO-Revision-Date: 2006-04-11 12:50+0900\n"
+"Last-Translator: Juice <blackmantle@gmail.com>\n"
+"Language-Team: Korean <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Upload Applet"
+msgstr ""
+
+msgid "Easy to use upload applet for media"
+msgstr "손쉬운 파일올리기를 제공합니다."
+
+msgid "Import"
+msgstr "가져오기"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr ""
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr ""
+
+msgid "Uploading files..."
+msgstr "파일을 올리는 중...."
+
+msgid "Upload complete"
+msgstr "파일 올리기 완료"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+
+msgid "Upload Applet Settings"
+msgstr "올리기 애플릿 설정"
+
+msgid "Defaults"
+msgstr "기본값"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+
+msgid "You have no default variables"
+msgstr "기본 변수가 없습니다."
+
+msgid "Variable"
+msgstr "변수"
+
+msgid "Action"
+msgstr "명령"
+
+msgid "Delete"
+msgstr "지우기"
+
+msgid "Add a new default variable"
+msgstr "기본 변수 추가하기"
+
+msgid "You must enter a variable name and value"
+msgstr "변수 이름과 변수값을 입력해야합니다."
+
+msgid "New variable"
+msgstr "새 변수"
+
+msgid "Add variable"
+msgstr "변수 추가"
+
+msgid "Overrides"
+msgstr ""
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+
+msgid "You have no override variables"
+msgstr ""
+
+msgid "Add a new override variable"
+msgstr ""
+
+msgid "Help"
+msgstr "도움말"
+
+msgid "Here is a selection of variables that affect uploads."
+msgstr ""
+
+msgid "variable"
+msgstr "변수"
+
+msgid "values"
+msgstr "값"
+
+msgid "help"
+msgstr "도움말"
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+
+msgid "no automatic captions"
+msgstr ""
+
+msgid "use filenames for captions"
+msgstr "설명에 파일이름을 입력합니다."
+
+msgid "if using the filename for captions, strip the extension"
+msgstr ""
+
+msgid "use EXIF extension for caption"
+msgstr ""
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr ""
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr "ImageMagick을 이용해 JPE 이미지의 품질을 압축해 작은 이미지를 만듭니다."
+
+msgid "Complete list of variables"
+msgstr ""

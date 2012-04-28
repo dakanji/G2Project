@@ -1,0 +1,240 @@
+# $Id: zh_CN.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.14\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-07-28 12:07-0400\n"
+"PO-Revision-Date: 2006-03-10 01:40+0800\n"
+"Last-Translator: Lyric <lyric@lyricli.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Windows Publishing Wizard"
+msgstr ""
+
+msgid "Publish photos to Gallery directly from Windows"
+msgstr ""
+
+msgid "Import"
+msgstr "导入"
+
+#, c-format
+msgid "%s at %s"
+msgstr "在%2$s的%1$s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "把你的照片和影片发布到%s"
+
+msgid "Upload to Gallery"
+msgstr "上传到 Gallery"
+
+#, fuzzy
+msgid ""
+"Microsoft Windows comes with a nice feature that allows you to publish content from your "
+"desktop directly to a web service.  Follow the instructions below to enable this service on "
+"your Windows system."
+msgstr ""
+"Windows XP 中有一个很好用的功能，它可以把你的电脑中的文件直接发布到网站上。照着下面的指示以启"
+"动你的 Windows XP 系统中的这个功能。"
+
+msgid "Installation"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"按滑鼠右键选「将目标储存为...」以下载设定档案。下载完後，把它的档名改成「install_registry."
+"reg」。如果它要求你确定是否要更改档案类型，选「是」。在档案上按滑鼠右键你应该会看到一个选单。"
+"选合并选项（应该在选单的顶端）。它会问你是否要导入这些值到你的 registry 中。按「OK」。它会告"
+"诉你档案已经导入成功。再按一次「OK」"
+
+msgid "(for Windows Vista)"
+msgstr ""
+
+msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr "下载［install_registry.reg］"
+
+#, fuzzy
+msgid "Windows Vista"
+msgstr "Windows XP"
+
+#, c-format
+msgid "Open your %sWindows Photo Gallery%s."
+msgstr ""
+
+msgid "Select one or more images / files in your Windows Photo Gallery."
+msgstr ""
+
+msgid ""
+"Click \"Print...\" and select the online printing option (not the local printing option)."
+msgstr ""
+
+msgid "Select the Gallery 2 printing service."
+msgstr ""
+
+msgid ""
+"Then follow the instructions to log into your Gallery, select an album and publish the image"
+"(s)."
+msgstr ""
+
+msgid "Windows XP, Windows 2000 and earlier Windows versions"
+msgstr ""
+
+msgid "Open your Windows Explorer and browse to a folder containing supported images."
+msgstr ""
+
+msgid "Select the image(s) or a folder."
+msgstr ""
+
+msgid "Click the link on the left that says \"Publish this file to the web...\""
+msgstr ""
+
+#, fuzzy
+msgid "Usage"
+msgstr "用户名称"
+
+msgid "Specify the name and title for the new album."
+msgstr "请指定新相册的名称和主题。"
+
+msgid "Create a new album"
+msgstr "产生一个新相册"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "(required)"
+msgstr "（必要）"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"相册在你的硬碟中的名称。它必需是这个相册独有的名称。名称只能使用英数字字元、底线和破折号。你"
+"可以事後再更改它的名称。"
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "你的名称含有无效的字元，请再输入一个。"
+
+msgid "You must enter a name for this album."
+msgstr "你必需输入这个相册的名称。"
+
+msgid "Title"
+msgstr "主题"
+
+msgid "This is the album title."
+msgstr "这是这个相册的主题"
+
+msgid "Summary"
+msgstr "摘要"
+
+msgid "This is the album summary."
+msgstr "这是这个相册的摘要"
+
+msgid "Keywords"
+msgstr "关键字"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "关键字不会显示，但可以用来搜寻。"
+
+msgid "Description"
+msgstr "详细描述"
+
+msgid "This is the long description of the album."
+msgstr "这是这个相册的详细描述"
+
+msgid "Set options for the photos to be added."
+msgstr "设定要加入的照片的选项。"
+
+msgid "Standard Options"
+msgstr "标准设定"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr "你已经选好了目标相册，下面的选项可在把照片加入 Gallery 中时使用。"
+
+msgid "Strip file extensions?"
+msgstr "去除档案的副档名？"
+
+msgid "Set captions on the published items?"
+msgstr "为发布的项目设定说明？"
+
+msgid "Login to your account"
+msgstr "登入到你的帐户"
+
+msgid "Username"
+msgstr "用户名称"
+
+msgid "You must enter a username"
+msgstr "你必需输入一个用户名称"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+
+msgid "Password"
+msgstr "密码"
+
+msgid "You must enter a password"
+msgstr "你必需输入一个密码"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "你的登入资讯不正确。请再试一次。"
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "选择一个给新照片用的相册，或产生一个新相册。"
+
+msgid "New Album"
+msgstr "新相册"
+
+msgid "You must select an album"
+msgstr "你必需选择一个相册"
+
+#~ msgid "Publish XP"
+#~ msgstr "XP 发布"
+
+#~ msgid "Step 1"
+#~ msgstr "步骤一"
+
+#~ msgid "Step 2"
+#~ msgstr "步骤二"
+
+#~ msgid ""
+#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
+#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
+#~ "to the web...'  Click this link and then follow the instructions to log into your "
+#~ "Gallery, select an album and publish the image."
+#~ msgstr ""
+#~ "打开你的 Windows Explorer 然後浏览到含有支援的图档类型的档案夹。选择图档或档案夹，然後左边"
+#~ "应该会有一个「把这个档案发布到网页上...」的链接。按这个链接然後遵循它的指示，登入你的 "
+#~ "Gallery，选择一个相册并发布选取的图片。"

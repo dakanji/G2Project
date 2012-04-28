@@ -1,0 +1,304 @@
+# $Id: it.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-21 15:51+0000\n"
+"PO-Revision-Date: 2008-03-27 12:24+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: ITALY\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Image Block"
+msgstr "Blocco Immagine"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Foto o Album Casuali, Più Recenti oppure Più Visitati"
+
+msgid "Blocks"
+msgstr "Blocchi"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Immagine Casuale"
+msgstr[1] "Immagini Casuali"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Immagine più recente"
+msgstr[1] "Immagini più recenti"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Immagine più vista"
+msgstr[1] "Immagini più viste"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Album Casuale"
+msgstr[1] "Album Casuali"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Album più recente"
+msgstr[1] "Album più recenti"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Album più visto"
+msgstr[1] "Album più visti"
+
+msgid "Picture of the Day"
+msgstr "Foto del Giorno"
+
+msgid "Picture of the Week"
+msgstr "Foto della Settimana"
+
+msgid "Picture of the Month"
+msgstr "Foto del Mese"
+
+msgid "Album of the Day"
+msgstr "Album del Giorno"
+
+msgid "Album of the Week"
+msgstr "Album della Settimana"
+
+msgid "Album of the Month"
+msgstr "Album del Mese"
+
+msgid "Date:"
+msgstr "Data:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Visite: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Proprietario: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Impedisci che questo album sia visualizzato nel Blocco Immagine"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Applica la configurazione di ImageBlock ai sotto-album"
+
+msgid "Image Block Settings"
+msgstr "Configurazione Image Block"
+
+msgid "Settings saved successfully"
+msgstr "Configurazione salvata con successo"
+
+msgid "Show"
+msgstr "Visualizza"
+
+msgid "Heading"
+msgstr "Testata"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "View Count"
+msgstr "Visualizza Contatore"
+
+msgid "Owner"
+msgstr "Proprietario"
+
+msgid "Frames"
+msgstr "Cornici"
+
+msgid "View samples"
+msgstr "Visualizza esempi"
+
+msgid "Album Frame"
+msgstr "Cornice Album"
+
+msgid "Photo Frame"
+msgstr "Cornice Foto"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "External Image Block"
+msgstr "Image Block Esterno"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Usare un blocco PHP come quello mostrato qui sotto per includere un blocco immagine in una "
+"pagina PHP al di fuori di Gallery."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Lista separata da pipe(|) di elementi presi tra: randomImage, recentImage, viewedImage, "
+"randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, "
+"weeklyAlbum, monthlyAlbum, specificItem; il predefinito è randomImage"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Lista separata da pipe(|) di elementi presi tra questi: titolo, data, visite, proprietario, "
+"heading, fullSize, rawImage; il valore può anche essere: nessuno"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Limita la selezione degli oggetti al sottoalbero della galleria sotto l'album con l'id "
+"indicato; oppure l'id dell'oggetto da visualizzare con il tipo di blocco specificItem"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Riscala le immagini fino a questa dimensione massima. Se usato da solo Gallery troverà "
+"l'immagine con le dimensioni più vicine al valore specificato - le immagini più grandi "
+"verranno rimpicciolite quanto necessario nel browser. Se specificato assieme a %"
+"sshow=fullSize verranno usate sempre le immagini intere e verranno rimpicciolite se "
+"necessario."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Proprio come %smaxSize eccetto che non sostituirà un'immagine più piccola della dimensione "
+"richiesta, così si otterrà una corrispondenza di dimensione il più possibile esatta. Notare "
+"che questo potrebbe utilizzare molta più banda se un'immagine molto più grande debba essere "
+"rimpicciolita nel browser."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href per il link sull'immagine; nessun valore per nessun link; il predefinito è il link "
+"all'oggetto in Gallery"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+"Aggiunge un link target (ad esempio, per aprire i link in una nuova finestra del browser)"
+
+msgid "Image frame to use around images"
+msgstr "Cornice immagine da usare intorno le immagini"
+
+msgid "Image frame to use around albums"
+msgstr "Cornice immagine da usare intorno gli album"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Se qualche parametro evidenziato da * manca allora verrà usato il valore predefinito del "
+"sito indicato qui sotto."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Le cornici immagine necessitano che il CSS sia visualizzato correttamente. Includere ciò che "
+"segue nella sezione %s per supportare le cornici immagine."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Specificare l'id della cornice (oppure una lista di id separati da pipe) nel parametro "
+"cornici. Non inserire il parametro per supportare le cornici immagine configurate qui sotto. "
+"Gli id delle cornici sono i nomi delle cartelle nella cartella %s."
+
+msgid "Image type"
+msgstr "Tipo immagine"
+
+msgid "Random image"
+msgstr "Immagine casuale"
+
+msgid "Recent image"
+msgstr "Immagine recente"
+
+msgid "Viewed image"
+msgstr "Immagine visitata"
+
+msgid "Random album"
+msgstr "Album casuale"
+
+msgid "Recent album"
+msgstr "Album recente"
+
+msgid "Viewed album"
+msgstr "Album visitato"
+
+msgid "Daily image"
+msgstr "Immagine quotidiana"
+
+msgid "Weekly image"
+msgstr "Immagine settimanale"
+
+msgid "Monthly image"
+msgstr "Immagine mensile"
+
+msgid "Daily album"
+msgstr "Album quotidiano"
+
+msgid "Weekly album"
+msgstr "Album settimanale"
+
+msgid "Monthly album"
+msgstr "Album mensile"
+
+msgid "Number of items"
+msgstr "Numero di oggetti"
+
+msgid "Use default settings"
+msgstr "Usa configurazione predefinita"
+
+msgid "Show heading"
+msgstr "Visualizza testata"
+
+msgid "Show title"
+msgstr "Visualizza titolo"
+
+msgid "Show date"
+msgstr "Visualizza data"
+
+msgid "Show view count"
+msgstr "Visualizza contatore visite"
+
+msgid "Show owner"
+msgstr "Visualizza proprietario"

@@ -1,0 +1,294 @@
+# $Id: he.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Guy Sheffer <guysoft@ort.org.il>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"PO-Revision-Date: 2006-04-07 15:27+0300\n"
+"Last-Translator: Guy Sheffer <guysoft@ort.org.il>\n"
+"Language-Team: Hebrew <guysoft@ort.org.il>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+msgid "Image Block"
+msgstr "בלוק תמונה"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "אלבום או תמונה אקראי, אחרון או הכי נצפה."
+
+msgid "Blocks"
+msgstr "בלוקים"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "תמונה אקראית"
+msgstr[1] "תמונה אקראית"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "התמונה החדשה ביותר"
+msgstr[1] "התמונה החדשה ביותר"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "התמנה הנצפת ביותר"
+msgstr[1] "התמנה הנצפת ביותר"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "אלבום אקראי"
+msgstr[1] "אלבום אקראי"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "האלבום החדש ביותר"
+msgstr[1] "האלבום החדש ביותר"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "האלבום הנצפה ביותר"
+msgstr[1] "האלבום הנצפה ביותר"
+
+msgid "Picture of the Day"
+msgstr "תמונת היום"
+
+msgid "Picture of the Week"
+msgstr "תמונת השבוע"
+
+msgid "Picture of the Month"
+msgstr "תמונת החודש"
+
+msgid "Album of the Day"
+msgstr "אלבום היום"
+
+msgid "Album of the Week"
+msgstr "אלבום השבוע"
+
+msgid "Album of the Month"
+msgstr "אלבום החודש"
+
+msgid "Date:"
+msgstr "תאריך:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "צפיות: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "בעלים: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "מנע מאלבום זה להיות מוצג בבלוק תמונה"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "בצע הגדרות בלוק תמונה לכל התת-אלבומים"
+
+msgid "Image Block Settings"
+msgstr "בגדרות בלוק תמונה"
+
+msgid "Settings saved successfully"
+msgstr "ההגדרות נשמרו בהצלחה"
+
+msgid "Show"
+msgstr "הצג"
+
+msgid "Heading"
+msgstr "שוליים עליונים"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "View Count"
+msgstr "ראה ספירה"
+
+msgid "Owner"
+msgstr "בעלים"
+
+msgid "Frames"
+msgstr "מסגרות"
+
+msgid "View samples"
+msgstr "הצג דוגמאות"
+
+msgid "Album Frame"
+msgstr "מסגרת אלבום"
+
+msgid "Photo Frame"
+msgstr "מסגרת תמונה"
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Reset"
+msgstr "אתחל"
+
+msgid "External Image Block"
+msgstr "בלוק תמונה חיצונית"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr "השתמש בבלוק PHP כמו שמוצג למטה כדי להוסיף תמונה בדף PHP מחוץ לגלריה."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"צינור (|) מפריד רשימה שנבחרה בין: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; ברית המחדל הינו  randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"צינור (|) צינור (|) מפריד רשימה שנבחרה בין:title, date, views, owner, heading, fullSize; "
+"הערך יכול להיות גם: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"הגבל את הפריטים לתת-העך של הגלריה תחת אלבום עם id נתון; או id של הפריט להצגה כאשר עם סוג "
+"הבלוק specificItem."
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "הוסף מטרת לינק (לדוגמא, כדי לפתוח את הלינק בחלון חדש)"
+
+msgid "Image frame to use around images"
+msgstr "המסגרת שתהיה מסביב לתמונות"
+
+msgid "Image frame to use around albums"
+msgstr "המסגרת שתהיה מסביב לאלבומים"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr "אם פרמטר מסומן בכוכבית (*) לא מסומן, אזי ברית המחדל של האתר המוגדר לעיל יהיה בשימוש"
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"מסגרות לתמונות דורשות CSS כדי להיות מוצגים נכון. יש לכלול את הקטע הבא %s כדי לתמוך במסגרות "
+"לתמונות."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"יש להגדיר את ה-id של המסגרת (או רשימה מופרדת בצינורות | של id) בשדה המסגרות. כדי לתמוך "
+"בהגדרות המסגרות לעיל, יש להשאיר את השדה הזה ריק. ה-id של המסגרות הם שמות תת-התקיות הנמצאות "
+"בתקייה %s."
+
+msgid "Image type"
+msgstr "סוג תמונה"
+
+msgid "Random image"
+msgstr "תמונה אקראית"
+
+msgid "Recent image"
+msgstr "תמונה אחרנה"
+
+msgid "Viewed image"
+msgstr "תמונה נצפת"
+
+msgid "Random album"
+msgstr "אלבום אקראי"
+
+msgid "Recent album"
+msgstr "אלבום אחרון"
+
+msgid "Viewed album"
+msgstr "אלבום נמפה"
+
+msgid "Daily image"
+msgstr "תמונה יומית"
+
+msgid "Weekly image"
+msgstr "תמונה שבועית"
+
+msgid "Monthly image"
+msgstr "תמונה חודשית"
+
+msgid "Daily album"
+msgstr "אלבום יומי"
+
+msgid "Weekly album"
+msgstr "אלבום שבועי"
+
+msgid "Monthly album"
+msgstr "אלבום חודשי"
+
+msgid "Number of items"
+msgstr "מספר הפריטים"
+
+msgid "Use default settings"
+msgstr "השתמש בהגדרות ברית-המחדל"
+
+msgid "Show heading"
+msgstr "הצג כותרת עליונה"
+
+msgid "Show title"
+msgstr "הצג כותרת"
+
+msgid "Show date"
+msgstr "הצג תאריך"
+
+msgid "Show view count"
+msgstr "הצג מספר צפיות"
+
+msgid "Show owner"
+msgstr "הצג בעלים"

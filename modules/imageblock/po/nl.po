@@ -1,0 +1,299 @@
+# $Id: nl.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators:
+# Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"PO-Revision-Date: 2005-02-12 15:00+0100\n"
+"Last-Translator: Gidie <gidie at users.sourceforge REMOVE THIS dot net>\n"
+"Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Image Block"
+msgstr "Afbeelding Blok"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Willekeurig, Meest Recent of Meest Bekeken Foto of Album"
+
+msgid "Blocks"
+msgstr "Blokken"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Willekeurige Afbeelding"
+msgstr[1] "Willekeurige Afbeelding"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Nieuwste Afbeelding"
+msgstr[1] "Nieuwste Afbeelding"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Meest Bekeken Afbeelding"
+msgstr[1] "Meest Bekeken Afbeelding"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Willekeurig Album"
+msgstr[1] "Willekeurig Album"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Nieuwste Album"
+msgstr[1] "Nieuwste Album"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Meest Bekeken Album"
+msgstr[1] "Meest Bekeken Album"
+
+msgid "Picture of the Day"
+msgstr "Afbeelding van de Dag"
+
+msgid "Picture of the Week"
+msgstr "Afbeelding van de Week"
+
+msgid "Picture of the Month"
+msgstr "Afbeelding van de Maand"
+
+msgid "Album of the Day"
+msgstr "Album van de Dag"
+
+msgid "Album of the Week"
+msgstr "Album van de Week"
+
+msgid "Album of the Month"
+msgstr "Album van de Maand"
+
+msgid "Date:"
+msgstr "Datum:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Weergaven: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Eigenaar: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Voorkom dat dit album wordt weergegeven in het Afbeeling Blok"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Toepassen op sub-albums"
+
+msgid "Image Block Settings"
+msgstr "Afbeelding Blok Instellingen"
+
+msgid "Settings saved successfully"
+msgstr "Instellingen succesvol opgeslagen"
+
+msgid "Show"
+msgstr "Weergeven"
+
+msgid "Heading"
+msgstr "Kop"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "View Count"
+msgstr "Weergave teller"
+
+msgid "Owner"
+msgstr "Eigenaar"
+
+msgid "Frames"
+msgstr "Kaders"
+
+msgid "View samples"
+msgstr "Voorbeelden bekijken"
+
+msgid "Album Frame"
+msgstr "Kader Album"
+
+msgid "Photo Frame"
+msgstr "Kader Afbeelding"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "External Image Block"
+msgstr "Extern Afbeelding Blok"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Gebruik een PHP blok, zoals hieronder weergegeven om een afbeelding blok in een PHP pagina "
+"buiten Gallery op te nemen."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Pipe(|) aparte lijsten gekozen vanuit: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specifiItem; standaard is randomImage"
+
+#, fuzzy
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Pipe(|) aparte lijsten gekozen vanuit: title, date, views, owner, heading fullSize; the "
+"waarde kan ook zijn: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Beperk de item selectie tot de onderliggende items van het opgegeven gallery album id; of "
+"het id van het weer te geven item by gebruik met het 'specificItem' blok type"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Voeg een link "
+
+msgid "Image frame to use around images"
+msgstr "Afbeelding omlijsting voor gebruik rond afbeeldingen"
+
+msgid "Image frame to use around albums"
+msgstr "Afbeelding omlijsting voor gebruik rond albums"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+"Als u een parameter gebruikt met *, dan gebruikt u de hierboven opgegeven standaard site "
+"instellingen."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Afbeelding kaders vereisen CSS om correct te worden weergeven. Gebruik onderstaande in de %s "
+"sectie om afbeelding kaders te ondersteunen."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Geef het kader (frame) id (of door pipe gescheiden lijst van ids) in frames parameter. Laat "
+"de parameter weg om de hierboven ingestelde kaders te gebruiken. De kader ids zijn de "
+"directory namen in de %s directory."
+
+msgid "Image type"
+msgstr "Type afbeelding"
+
+msgid "Random image"
+msgstr "Willekeurige afbeelding"
+
+msgid "Recent image"
+msgstr "Recente afbeelding"
+
+msgid "Viewed image"
+msgstr "Bekeken afbeelding"
+
+msgid "Random album"
+msgstr "Willekeurig album"
+
+msgid "Recent album"
+msgstr "Recente album"
+
+msgid "Viewed album"
+msgstr "Bekeken album"
+
+msgid "Daily image"
+msgstr "Dagelijkse afbeelding"
+
+msgid "Weekly image"
+msgstr "Wekelijkse afbeelding"
+
+msgid "Monthly image"
+msgstr "Maandelijkse afbeelding"
+
+msgid "Daily album"
+msgstr "Dagelijkse album"
+
+msgid "Weekly album"
+msgstr "Wekelijkse album"
+
+msgid "Monthly album"
+msgstr "Maandelijkse album"
+
+msgid "Number of items"
+msgstr "Aantal items"
+
+msgid "Use default settings"
+msgstr "Gebruik standaard instellingen"
+
+msgid "Show heading"
+msgstr "Kop weergeven"
+
+msgid "Show title"
+msgstr "Titel weergeven"
+
+msgid "Show date"
+msgstr "Datum weergeven"
+
+msgid "Show view count"
+msgstr "Weergave teller weergeven"
+
+msgid "Show owner"
+msgstr "Eigenaar weergeven"

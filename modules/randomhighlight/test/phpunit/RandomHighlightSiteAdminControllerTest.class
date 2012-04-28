@@ -1,0 +1,120 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * RandomHighlightSiteAdmin controller tests
+ *
+ * @package RandomHighlight
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class RandomHighlightSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    function RandomHighlightSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'randomhighlight.RandomHighlightSiteAdmin');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'randomhighlight');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testRandomHighlightSiteAdminControllerUndo() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'randomhighlight.RandomHighlightSiteAdmin'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testRandomHighlightSiteAdminControllerSave() {
+	GalleryUtilities::putRequestVariable('form[duration]', '123.4');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'randomhighlight.RandomHighlightSiteAdmin'),
+				  'status' => array('saved' => 1),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $duration) =
+	    GalleryCoreApi::getPluginParameter('module', 'randomhighlight', 'duration');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('7404', $duration, 'duration');
+    }
+
+    function testRandomHighlightSiteAdminControllerSaveNoDuration() {
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'randomhighlight.RandomHighlightSiteAdmin'),
+				  'status' => array(),
+				  'error' => array('form[error][duration]')),
+			    $results);
+    }
+
+    function testRandomHighlightSiteAdminControllerSaveBadDuration() {
+	GalleryUtilities::putRequestVariable('form[duration]', 'abc5000');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'randomhighlight.RandomHighlightSiteAdmin'),
+				  'status' => array(),
+				  'error' => array('form[error][duration]')),
+			    $results);
+    }
+
+    function testRandomHighlightSiteAdminControllerLocale() {
+	/* Verify the form can accept input in locales that use comma for the fraction separator */
+	GalleryUtilities::putRequestVariable('form[duration]', '123,4');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'randomhighlight.RandomHighlightSiteAdmin'),
+				  'status' => array('saved' => 1),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $duration) =
+	    GalleryCoreApi::getPluginParameter('module', 'randomhighlight', 'duration');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('7404', $duration, 'duration');
+    }
+}
+?>

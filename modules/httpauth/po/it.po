@@ -1,0 +1,225 @@
+# $Id: it.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: HTTP Auth 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-01-03 14:05+0100\n"
+"PO-Revision-Date: 2008-03-27 12:15+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "HTTP Auth"
+msgstr "HTTP Auth"
+
+msgid "Login using HTTP authentication."
+msgstr "Permette di fare il login utilizzando l'autenticazione HTTP."
+
+msgid "Authentication"
+msgstr "Autenticazione"
+
+msgid "Authorization Header"
+msgstr "Header Autorizzazione"
+
+msgid "Pass the Authorization header to Gallery in a request variable."
+msgstr "Passa l'Authorization header a Gallery in una request variable."
+
+msgid "Authorization header."
+msgstr "Authorization header."
+
+msgid "Logout failed"
+msgstr "Logout fallito"
+
+msgid ""
+"Gallery tried to logout but failed.  You should close the browser window to logout "
+"successfully."
+msgstr ""
+"Gallery ha provato a fare il logout ma non ci è riuscita. Chiudere la finestra del browser "
+"per fare il logout."
+
+msgid "HTTP Auth Settings"
+msgstr "Configurazione HTTP Auth"
+
+msgid "Settings saved successfully"
+msgstr "Configurazione salvata con successo"
+
+msgid "Missing HTTP Authorization"
+msgstr "Autorizzazione HTTP mancante"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords.  You can still use your web server's "
+"authentication.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Gallery non può accedere ai nomi utente e alle password HTTP. Si può sempre usare "
+"l'autenticazione del server web. La documentazione per la risoluzione dei problemi si trova "
+"presso %sGallery Codex%s."
+
+msgid "URL rewrite module disabled"
+msgstr "Modulo riscrittura URL disabilitato"
+
+#, c-format
+msgid ""
+"We can't fall back on passing HTTP usernames and passwords to Gallery because the URL "
+"rewrite module is disabled.  You should activate the URL rewrite module in the %sSite Admin "
+"Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+"Non è possibile appoggiarsi a passare nomi utente e password HTTP a Gallery perché il modulo "
+"riscrittura URL è disabilitato. È necessario attivare il modulo riscrittura URL in %"
+"sAmministrazione Sito opzione Plugins%s e selezionare Apache mod_rewrite oppure "
+"ISAPI_Rewrite. La documentazione per la risoluzione dei problemi si trova presso %sGallery "
+"Codex%s."
+
+msgid "Bad URL rewrite configuration"
+msgstr "Configurazione riscrittura URL non corretta"
+
+#, c-format
+msgid ""
+"PHP Path Info rewrite doesn't support the rule to fall back on passing HTTP usernames and "
+"passwords to Gallery.  You should uninstall and reinstall the URL rewrite module in the %"
+"sSite Admin Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"PHP PathInfo rewrite non supporta la regola di appoggiarsi a passare a Gallery i nomi utente "
+"e le password HTTP. È necessario disinstallare e reinstallare il modulo riscrittura URL in %"
+"sAmministrazione Sito opzione Plugins%s e scegliere Apache mod_rewrite oppure ISAPI_Rewrite. "
+"La documentazione per la risoluzione dei problemi si trova presso %sGallery Codex%s."
+
+msgid "'Authorization Header' rule disabled"
+msgstr "Regola 'Authorization Header' disabilitata"
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on passing HTTP usernames and passwords to Gallery is "
+"disabled.  You should activate the HTTP auth 'Authorization Header' rule in the %sSite Admin "
+"URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"La regola di riscrittura URL per appoggiarsi a passare a Gallery i nomi utente e le password "
+"HTTP è disabilitata. È necessario attivare la regola HTTP auth 'Authorization Header' in %"
+"sAmministrazione Sito opzione Riscrittura URL%s. La documentazione per la risoluzione dei "
+"problemi si trova presso %sGallery Codex%s."
+
+msgid "Unknown Cause"
+msgstr "Causa Sconosciuta"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords and automated checks failed to find a "
+"cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Gallery non può accedere ai nomi utente e password HTTP e i controlli automatici non sono "
+"riusciti a trovare una causa. La documentazione per la risoluzione dei problemi si trova "
+"presso %sGallery Codex%s."
+
+msgid "Gallery can handle HTTP Basic authentication directly."
+msgstr "Gallery può gestire l'autenticazione HTTP di base direttamente."
+
+msgid "Use HTTP Authentication:"
+msgstr "Usa Autenticazione HTTP:"
+
+msgid ""
+"Gallery will prompt you to login with HTTP authentication when permission is denied.  HTTP "
+"authentication sends your client a realm to which your username belongs.  It's safe to leave "
+"the realm blank."
+msgstr ""
+"Gallery chiederà di fare il login con l'autenticazione HTTP quando i permessi sono negati. "
+"L'autenticazione HTTP manda al client un realm a cui appartiene il nome utente. Sarebbe più "
+"sicuro lasciare vuoto il realm."
+
+msgid "HTTP Authentication Realm:"
+msgstr "Realm Autenticazione HTTP:"
+
+msgid ""
+"Your web server may offer more comprehensive and more secure authentication.  If you "
+"configured your web server to authenticate requests to Gallery, you may choose to trust the "
+"username it reports in the REMOTE_USER environment variable."
+msgstr ""
+"Il server web può offrire un'autenticazione più completa e sicura. Se il server web è "
+"configurato in modo da autenticare le richieste a Gallery, è possibile scegliere di ritenere "
+"attendibile il nome utente riportato nella variabile d'ambiente REMOTE_USER."
+
+msgid "Use Web Server Authentication:"
+msgstr "Usa Autenticazione del Server Web:"
+
+msgid "By default HTTP authentication is only enabled for specific modules."
+msgstr "Per default l'autenticazione HTTP è attiva solo per moduli specifici."
+
+msgid "Use the authentication plugins for all modules:"
+msgstr "Usa i plugin di autenticazione per tutti i moduli:"
+
+#, c-format
+msgid ""
+"You may wish to trust only HTTP authentication types or HTTP usernames which match specified "
+"regular expressions - or HTTP usernames may not match your Gallery usernames; for instance "
+"if using %s authentication, the REMOTE_USER environment variable may be username@REALM.TLD.  "
+"In these cases, you may use regular expressions to filter authentication types and usernames."
+msgstr ""
+"È possibile decidere di ritenere attendibili solo i tipi di autenticazione HTTP o i nomi "
+"utente HTTP che corrispondano a una specifica espressione regolare - oppure i nomi utente "
+"HTTP possono non corrispondere ai nomi utente di Gallery; per esempio se si usa "
+"l'autenticazione %s, la variabile d'ambiente REMOTE_USER potrebbe essere nomeutente@REALM."
+"TLD. In questi casi, si possono usare delle espressioni regolari per filtrare i tipi di "
+"autenticazione e i nomi utente."
+
+msgid "Use Regular Expressions:"
+msgstr "Usa Espressioni Regolari:"
+
+msgid ""
+"Specify here a regular expression which the authentication type must match for "
+"authentication to proceed; for instance /Negotiate/"
+msgstr ""
+"Specificare qui un'espressione regolare a cui il tipo di autenticazione debba corrispondere "
+"per consentire l'autenticazione; per esempio /Negotiate/"
+
+msgid "Authentication Type Pattern:"
+msgstr "Pattern del Tipo di Autenticazione:"
+
+msgid "You must enter a valid regular expression"
+msgstr "È necessario inserire un'espressione regolare valida"
+
+#, c-format
+msgid ""
+"Specify here a regular expression which the username must match for authentication to "
+"proceed and a string with which to replace it.  See PHP %s documentation for more "
+"information."
+msgstr ""
+"Specificare qui un'espressione regolare a cui il nome utente debba corrispondere per "
+"permettere l'autenticazione e una stringa che lo sostituisca. Vedere la %s documentazione di "
+"PHP per ulteriori informazioni."
+
+msgid "Username Pattern:"
+msgstr "Pattern Nomeutente:"
+
+msgid "Username Replacement:"
+msgstr "Sostituzione Nomeutente:"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Reset"
+msgstr "Reimposta"
+
+#, c-format
+msgid "If you're not automatically redirected, %sclick here to finish logging out%s."
+msgstr "Se non si viene rediretti automaticamente, %scliccare qui per completare il logout%s."

@@ -1,0 +1,385 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
+
+/**
+ * CustomFieldItemEdit controller tests
+ * @package CustomField
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
+
+    function CustomFieldItemEditPluginTest($methodName) {
+	$this->ItemEditPluginTestCase($methodName, 'customfield', 'CustomFieldItemEdit');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_albumG) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_albumG);
+	list ($ret, $this->_itemG) = $this->_createRandomDataItem($this->_albumG->getId(),
+				     'image/test', array(), __FILE__, 'GalleryPhotoItem');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_albumS) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_albumS);
+	list ($ret, $this->_itemS) = $this->_createRandomDataItem($this->_albumS->getId(),
+				     'video/test', array(), __FILE__, 'GalleryMovieItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = CustomFieldHelper::saveParameters(array(
+	    'common' => array(
+		array('field' => 'Catalog Id',
+		      'summary' => false, 'detail' => true, 'choices' => array()),
+		array('field' => 'My Data',
+		      'summary' => true, 'detail' => true, 'choices' => array())
+	    ),
+	    'album' => array(),
+	    'photo' => array(
+		array('field' => 'Location',
+		      'summary' => true, 'detail' => true, 'choices' => array()),
+		array('field' => 'Category',
+		      'summary' => false, 'detail' => false, 'choices' => array('A', 'B'))
+	    )
+	));
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = CustomFieldHelper::saveParameters(array(
+	    'common' => array(
+		array('field' => 'Category',
+		      'summary' => true, 'detail' => false, 'choices' => array('A', 'B', 'C'))
+	    ),
+	    'album' => array(
+		array('field' => 'Catalog Id',
+		      'summary' => false, 'detail' => true, 'choices' => array()),
+		array('field' => 'Year',
+		      'summary' => false, 'detail' => true, 'choices' => array())
+	    ),
+	    'photo' => array(
+		array('field' => 'Photographer',
+		      'summary' => true, 'detail' => true, 'choices' => array()),
+	    )
+	), $this->_albumS->getId());
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testCustomFieldPlugin() {
+	/* Reset */
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	$results = $this->handleRequest($this->itemG, $this->_itemG);
+	$this->assertEquals(array(array(), null), $results, 'Reset');
+
+	/* Set field values (global settings) */
+	GalleryUtilities::putRequestVariable('form[fields][Catalog Id]', '123');
+	GalleryUtilities::putRequestVariable('form[fields][My Data]', '');
+	GalleryUtilities::putRequestVariable('form[fields][Location]', 'There');
+	GalleryUtilities::putRequestVariable('form[fields][Category]', 'B');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$results = $this->handleRequest($this->_itemG, $this->_itemG);
+	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
+			    $results);
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), 'summary');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Location' => 'There'),
+		$data[$this->_itemG->getId()], 'Summary data');
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), 'detail');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Catalog Id' => '123', 'Location' => 'There'),
+			    $data[$this->_itemG->getId()], 'Detail data');
+
+	list ($ret, $data) =
+		CustomFieldHelper::fetchFieldValues(array($this->_itemG), null, 'photo');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Catalog Id' => '123', 'My Data' => '',
+				  'Location' => 'There', 'Category' => 'B'),
+			    $data[$this->_itemG->getId()], 'All data');
+
+	/* Set field values (album-specific settings) */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[fields][Category]', 'C');
+	GalleryUtilities::putRequestVariable('form[fields][Catalog Id]', '456');
+	GalleryUtilities::putRequestVariable('form[fields][Year]', '2004');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
+			    $results);
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS), 'summary');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Category' => 'C'),
+		$data[$this->_albumS->getId()], 'Summary data 2');
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS), 'detail');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Catalog Id' => '456', 'Year' => '2004'),
+			    $data[$this->_albumS->getId()], 'Detail data 2');
+
+	list ($ret, $data) =
+		CustomFieldHelper::fetchFieldValues(array($this->_albumS), null, 'album');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Category' => 'C', 'Catalog Id' => '456', 'Year' => '2004'),
+			    $data[$this->_albumS->getId()], 'All data 2');
+
+	/* ==== Item Admin functions -- set album-specific settings ==== */
+
+	/* Reset */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), null), $results, 'Reset 2');
+
+	/* Add field */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[photo][newField]', 'Photo Fun');
+	GalleryUtilities::putRequestVariable('form[action][add][photo]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('New field added successfully')),
+			    $results, 'Add Photo Field');
+
+	/* Add duplicate */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[common][newField]', 'Photo Fun');
+	GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), '<div class="giError">' .
+	    $this->_translate('Field name already in use') . '</div>'), $results, 'Add Duplicate');
+
+	/* Add picklist */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[pickField]', 'Photo Fun');
+	GalleryUtilities::putRequestVariable('form[picklist]', "One\n Test\nHere  ");
+	GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Picklist updated successfully')),
+			    $results, 'Set Picklist');
+
+	/* Update picklist */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[pickField]', 'Photo Fun');
+	GalleryUtilities::putRequestVariable('form[picklist]', "\nHere\n	Test\nOne");
+	GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Picklist updated successfully')),
+			    $results, 'Update Picklist');
+
+	/* Check data so far */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
+									$this->_albumS->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => 'Catalog Id`0`1|Year`0`1',
+				  'common' => 'Category`1`0`A`B`C',
+				  'photo' => 'Photographer`1`1|Photo Fun`0`1`Here`Test`One'),
+			    $params, 'Check Data 1');
+
+	/* Update display settings */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[common][index][0]', '0');
+	GalleryUtilities::putRequestVariable('form[common][summary][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[common][detail][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[album][index][0]', '1');
+	GalleryUtilities::putRequestVariable('form[album][index][1]', '0');
+	GalleryUtilities::putRequestVariable('form[album][detail][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
+	GalleryUtilities::putRequestVariable('form[photo][index][1]', '1');
+	GalleryUtilities::putRequestVariable('form[photo][summary][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(),
+	    $this->_translate('Display settings saved successfully')), $results, 'Update Display');
+
+	/* Check data so far */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
+									$this->_albumS->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => 'Year`0`1|Catalog Id`0`0',
+				  'common' => 'Category`1`1`A`B`C',
+				  'photo' => 'Photographer`1`1|Photo Fun`0`0`Here`Test`One'),
+			    $params, 'Check Data 2');
+
+	/* Move fields */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[common][goField]', 'Category');
+	GalleryUtilities::putRequestVariable('form[common][goAction]', 'album');
+	GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Field moved successfully')),
+			    $results, 'Move Field to Album');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[photo][goField]', 'Photo Fun');
+	GalleryUtilities::putRequestVariable('form[photo][goAction]', 'common');
+	GalleryUtilities::putRequestVariable('form[action][go][photo]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Field moved successfully')),
+			    $results, 'Move Field to Common');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[album][goField]', 'Year');
+	GalleryUtilities::putRequestVariable('form[album][goAction]', 'common');
+	GalleryUtilities::putRequestVariable('form[action][go][album]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Field moved successfully')),
+			    $results, 'Move Field to Common 2');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[common][goField]', 'Year');
+	GalleryUtilities::putRequestVariable('form[common][goAction]', 'photo');
+	GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Field moved successfully')),
+			    $results, 'Move Field to Photo');
+
+	/* Remove field */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[album][goField]', 'Catalog Id');
+	GalleryUtilities::putRequestVariable('form[album][goAction]', 'remove');
+	GalleryUtilities::putRequestVariable('form[action][go][album]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Field removed successfully')),
+			    $results, 'Remove Field');
+
+	/* Check data so far */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
+									$this->_albumS->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => 'Category`1`1`A`B`C',
+				  'common' => 'Photo Fun`0`0`Here`Test`One',
+				  'photo' => 'Photographer`1`1|Year`0`1'),
+			    $params, 'Check Data 3');
+
+	/* Remove picklist */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
+	GalleryUtilities::putRequestVariable('form[pickField]', 'Photo Fun');
+	GalleryUtilities::putRequestVariable('form[picklist]', "   \n  ");
+	GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+	$results = $this->handleRequest($this->_albumS, $this->_albumS);
+	$this->assertEquals(array(array(), $this->_translate('Picklist updated successfully')),
+			    $results, 'Remove Picklist');
+
+	/* Check data so far */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
+									$this->_albumS->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => 'Category`1`1`A`B`C',
+				  'common' => 'Photo Fun`0`0',
+				  'photo' => 'Photographer`1`1|Year`0`1'),
+			    $params, 'Check Data 4');
+
+	/* Check appropriate field values have been removed with settings changes */
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS));
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('Category' => 'C'),
+			    $data[$this->_albumS->getId()], 'Field values');
+    }
+
+    function testMaliciousMarkup() {
+	$ret = $this->_setMarkupType('html', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('form[fields][Catalog Id]', '1');
+	GalleryUtilities::putRequestVariable('form[fields][My Data]',
+					     'fun<script>alert(1);</script>');
+	GalleryUtilities::putRequestVariable('form[fields][Location]',
+					     '<p onclick="alert(2)">Click</p>');
+	GalleryUtilities::putRequestVariable('form[fields][Category]', 'A');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$results = $this->handleRequest($this->_itemG, $this->_itemG);
+	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
+			    $results);
+
+	list ($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), 'summary');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(array('My Data' => 'fun', 'Location' => '&lt;p&gt;Click&lt;/p&gt;'),
+			    $data[$this->_itemG->getId()], 'Summary data');
+    }
+}
+?>

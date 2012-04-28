@@ -1,0 +1,137 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2006-08-12 19:10+0200\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "create replica"
+msgstr "skapa kopia"
+
+msgid "replicate an item"
+msgstr "kopiera ett objekt"
+
+msgid "Replica"
+msgstr "Kopia"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Skapa objekt kopior som delar på samma orginalfil"
+
+msgid "Display"
+msgstr "Visa"
+
+msgid "Create Replica"
+msgstr "Skapa Kopia"
+
+msgid "Replicate Album"
+msgstr "Kopiera Album"
+
+msgid "Replicate Photo"
+msgstr "Kopiera Foto"
+
+msgid "Replicate Movie"
+msgstr "Kopiera Film"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Kopiera %s"
+
+msgid "Create Replicas"
+msgstr "Skapa Kopior"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "Lyckades kopiera %d objektet"
+msgstr[1] "Lyckades kopiera %d objekt"
+
+msgid "This album contains no items to replicate."
+msgstr "Det här albumet innehåller inga objekt som kan kopieras."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"En kopia är ett objekt som delar orginalfilen med ett annat objekt, för att spara på disk "
+"utrymme. I alla andra avseenden är det ett separat objekt, med sina egna metadata, "
+"miniatyrbild, skalade bilder, kommentarer mm. Rubriker kopieras initialt från källan men kan "
+"ändras. Kopian eller ursprungs objektet kan flyttas eller tas bort utan att påverka varandra."
+
+msgid "Source"
+msgstr "Källa"
+
+msgid "Choose the items you want to replicate"
+msgstr "Välj vilket objektet du vill kopiera"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(sidan %d av %d)"
+
+msgid "No sources chosen"
+msgstr "Ingen källa vald"
+
+msgid "Check All"
+msgstr "Markera alla"
+
+msgid "Check None"
+msgstr "Markera Ingen"
+
+msgid "Invert"
+msgstr "Spegelvänd"
+
+msgid "Previous Page"
+msgstr "Föregående Sida"
+
+msgid "Next Page"
+msgstr "Nästa Sida"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Choose a new album for the replica"
+msgstr "Välj ett nytt album för kopian"
+
+msgid "No destination chosen"
+msgstr "Ingen destination vald"
+
+msgid "Create"
+msgstr "Skapa"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Successfully created"
+msgstr "Skapades framgångsrikt"
+
+msgid "Choose a destination album"
+msgstr "Välj ett destinationsalbum"

@@ -1,0 +1,297 @@
+# $Id: en_GB.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-03-06 23:38+0000\n"
+"PO-Revision-Date: 2007-03-06 23:38+0000\n"
+"Last-Translator: Stephen Ryan <ryaner@gmail.com>\n"
+"Language-Team: British <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Image Block"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Random, Most Recent or Most Viewed Photo or Album"
+
+msgid "Blocks"
+msgstr "Blocks"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Random Image"
+msgstr[1] "Random Images"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Newest Image"
+msgstr[1] "Newest Images"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Most Viewed Image"
+msgstr[1] "Most Viewed Images"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Random Album"
+msgstr[1] "Random Albums"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Newest Album"
+msgstr[1] "Newest Albums"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Most Viewed Album"
+msgstr[1] "Most Viewed Albums"
+
+msgid "Picture of the Day"
+msgstr "Picture of the Day"
+
+msgid "Picture of the Week"
+msgstr "Picture of the Week"
+
+msgid "Picture of the Month"
+msgstr "Picture of the Month"
+
+msgid "Album of the Day"
+msgstr "Album of the Day"
+
+msgid "Album of the Week"
+msgstr "Album of the Week"
+
+msgid "Album of the Month"
+msgstr "Album of the Month"
+
+msgid "Date:"
+msgstr "Date:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Views: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Owner: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Prevent this album from being displayed in the Image Block"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Apply ImageBlock settings to sub-albums"
+
+msgid "Image Block Settings"
+msgstr "Image Block Settings"
+
+msgid "Settings saved successfully"
+msgstr "Settings saved successfully"
+
+msgid "Show"
+msgstr "Show"
+
+msgid "Heading"
+msgstr "Heading"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "View Count"
+msgstr "View Count"
+
+msgid "Owner"
+msgstr "Owner"
+
+msgid "Frames"
+msgstr "Frames"
+
+msgid "View samples"
+msgstr "View samples"
+
+msgid "Album Frame"
+msgstr "Album Frame"
+
+msgid "Photo Frame"
+msgstr "Photo Frame"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "External Image Block"
+msgstr "External Image Block"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr "Add a link target (for example, to open links in a new browser window)"
+
+msgid "Image frame to use around images"
+msgstr "Image frame to use around images"
+
+msgid "Image frame to use around albums"
+msgstr "Image frame to use around albums"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr "If a parameter marked with * is omitted then the site default defined above is used."
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+
+msgid "Image type"
+msgstr "Image type"
+
+msgid "Random image"
+msgstr "Random image"
+
+msgid "Recent image"
+msgstr "Recent image"
+
+msgid "Viewed image"
+msgstr "Viewed image"
+
+msgid "Random album"
+msgstr "Random album"
+
+msgid "Recent album"
+msgstr "Recent album"
+
+msgid "Viewed album"
+msgstr "Viewed album"
+
+msgid "Daily image"
+msgstr "Daily image"
+
+msgid "Weekly image"
+msgstr "Weekly image"
+
+msgid "Monthly image"
+msgstr "Monthly image"
+
+msgid "Daily album"
+msgstr "Daily album"
+
+msgid "Weekly album"
+msgstr "Weekly album"
+
+msgid "Monthly album"
+msgstr "Monthly album"
+
+msgid "Number of items"
+msgstr "Number of items"
+
+msgid "Use default settings"
+msgstr "Use default settings"
+
+msgid "Show heading"
+msgstr "Show heading"
+
+msgid "Show title"
+msgstr "Show title"
+
+msgid "Show date"
+msgstr "Show date"
+
+msgid "Show view count"
+msgstr "Show view count"
+
+msgid "Show owner"
+msgstr "Show owner"

@@ -1,0 +1,285 @@
+# $Id: lt.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Darius Žitkevičius <skystis@splius.lt>, 2005, 2006.
+# Stasys Drazdauskas <stasys@drazdauskas.lt>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:48-0800\n"
+"PO-Revision-Date: 2007-07-22 18:43+0200\n"
+"Last-Translator: Stasys Drazdauskas <stasys@drazdauskas.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.1\n"
+
+msgid "Image Block"
+msgstr "Paveikslėlių blokas"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr ""
+
+msgid "Blocks"
+msgstr "Blokai"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Atsitiktinė nuotrauka"
+msgstr[1] "Atsitiktinės nuotraukos"
+msgstr[2] "Atsitiktinių nuotraukų"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Dažniausiai žiūrėta nuotrauka"
+msgstr[1] "Dažniausiai žiūrėtos nuotraukos"
+msgstr[2] "Dažniausiai žiūrėtų nuotraukų"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Picture of the Day"
+msgstr "Dienos nuotrauka"
+
+msgid "Picture of the Week"
+msgstr "Savaitės nuotrauka"
+
+msgid "Picture of the Month"
+msgstr "Mėnesio nuotrauka"
+
+msgid "Album of the Day"
+msgstr "Dienos albumas"
+
+msgid "Album of the Week"
+msgstr "Savaitės albumas"
+
+msgid "Album of the Month"
+msgstr "Mėnesio albumas"
+
+msgid "Date:"
+msgstr "Data:"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Žiūrėta: %d"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Savininkas: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr ""
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr ""
+
+msgid "Image Block Settings"
+msgstr ""
+
+msgid "Settings saved successfully"
+msgstr "Nustatymai išsaugoti sėkmingai"
+
+msgid "Show"
+msgstr "Rodyti"
+
+msgid "Heading"
+msgstr "Antraštę"
+
+msgid "Title"
+msgstr "Antraštė"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "View Count"
+msgstr "Pažiūrėta"
+
+msgid "Owner"
+msgstr "Savinikas"
+
+msgid "Frames"
+msgstr "Rėmus"
+
+msgid "View samples"
+msgstr ""
+
+msgid "Album Frame"
+msgstr "Albumo rėmelis"
+
+msgid "Photo Frame"
+msgstr "Nuotraukos rėmelis"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Reset"
+msgstr "Anuliuoti pakeitimus"
+
+msgid "External Image Block"
+msgstr ""
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+
+msgid "Image frame to use around images"
+msgstr ""
+
+msgid "Image frame to use around albums"
+msgstr ""
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+
+msgid "Image type"
+msgstr "Paveikslėlio tipas"
+
+msgid "Random image"
+msgstr "Atsitiktinis paveikslėlis"
+
+msgid "Recent image"
+msgstr "Naujausias paveikslėlis"
+
+msgid "Viewed image"
+msgstr "Žiūrėtas paveikslėlis"
+
+msgid "Random album"
+msgstr ""
+
+msgid "Recent album"
+msgstr ""
+
+msgid "Viewed album"
+msgstr ""
+
+msgid "Daily image"
+msgstr ""
+
+msgid "Weekly image"
+msgstr ""
+
+msgid "Monthly image"
+msgstr ""
+
+msgid "Daily album"
+msgstr ""
+
+msgid "Weekly album"
+msgstr ""
+
+msgid "Monthly album"
+msgstr ""
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Use default settings"
+msgstr ""
+
+msgid "Show heading"
+msgstr "Rodyti antraštę"
+
+msgid "Show title"
+msgstr "Rodyti pavadinimą"
+
+msgid "Show date"
+msgstr "Rodyti datą"
+
+msgid "Show view count"
+msgstr "Rodyti peržiūrėjimų skaičių"
+
+msgid "Show owner"
+msgstr "Rodyti savininką"

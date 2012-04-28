@@ -1,0 +1,128 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/picasa/classes/PicasaImportHelper.class');
+
+/**
+ * PicasaImportHelper tests
+ * @package Picasa
+ * @subpackage PHPUnit
+ * @author Waldemar Schlackow <gallery@schlackow.de>
+ * @version $Revision: 17580 $
+ */
+class PicasaImportHelperTest extends GalleryControllerTestCase {
+
+    function PicasaImportHelperTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+    function testConvertHtmlToBbcode() {
+	/* UTF8 characters are ignored */
+	$this->assertEquals('\xc3\xb1o\nthis',
+	    PicasaImportHelper::convertHtmlToBbcode('\xc3\xb1o\nthis'));
+
+	/* Quotes are escaped */
+	$this->assertEquals("Se\xc3\xb1or Guapo's favorite!",
+	    PicasaImportHelper::convertHtmlToBbcode("Se\xc3\xb1or Guapo\x27s favorite!"));
+
+	$this->assertEquals('[b]bold[/b]',
+	    PicasaImportHelper::convertHtmlToBbcode('<b>bold</b>'));
+	$this->assertEquals('[i]italic[/i]',
+	    PicasaImportHelper::convertHtmlToBbcode('<i>italic</i>'));
+	$this->assertEquals('[i]italic[/i]',
+	    PicasaImportHelper::convertHtmlToBbcode('<em>italic</em>'));
+	$this->assertEquals('[b]bold[/b]',
+	    PicasaImportHelper::convertHtmlToBbcode('<strong>bold</strong>'));
+	$this->assertEquals('\n',
+	    PicasaImportHelper::convertHtmlToBbcode('<br>'));
+	$this->assertEquals('\n',
+	    PicasaImportHelper::convertHtmlToBbcode('<br/>'));
+	$this->assertEquals('\n',
+	    PicasaImportHelper::convertHtmlToBbcode('<br />'));
+
+	/* Image HTML with edge cases */
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    PicasaImportHelper::convertHtmlToBbcode('<img src=\'foo.jpg\'>'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    PicasaImportHelper::convertHtmlToBbcode('<img src="foo.jpg">'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    PicasaImportHelper::convertHtmlToBbcode('<img src=foo.jpg>'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    PicasaImportHelper::convertHtmlToBbcode('<img style=foo src=\'foo.jpg\'>'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    PicasaImportHelper::convertHtmlToBbcode('<img src=\'foo.jpg\' class="bar">'));
+	$this->assertEquals('[img]foo.jpg[/img]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<img style="foo" src=\'foo.jpg\' class=\'bar\'>'));
+
+	/* List HTML with edge cases */
+	$this->assertEquals('[list][/list]',
+	    PicasaImportHelper::convertHtmlToBbcode('<ul></ul>'));
+	$this->assertEquals('[list][*]foo[/list]',
+	    PicasaImportHelper::convertHtmlToBbcode('<ul><li>foo</li></ul>'));
+	$this->assertEquals('[list][*]foo[/list]',
+	    PicasaImportHelper::convertHtmlToBbcode('<ul><li>foo</ul>'));
+
+	/* URL HTML with edge cases */
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode('<a href="http://google.com">Google</a>'));
+	$this->assertEquals(
+	    '[url=http://google.com]Google[/url][url=http://poogle.com]Poogle[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a href="http://google.com">Google</a><a href="http://poogle.com">Poogle</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a href=\'http://google.com\'>Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a title="foo" href="http://google.com" class="bar">Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a title=foo href=http://google.com class=bar>Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a href=http://google.com class=bar>Google</a>'));
+	$this->assertEquals('[url=http://google.com]Google[/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a title=foo href=http://google.com>Google</a>'));
+	$this->assertEquals('[url=http://www.topozone.com/map.asp?z=11&n=' .
+			    '4163644&e=275692&s=25&size=m&u=1]Topo[/url]',
+			    PicasaImportHelper::convertHtmlToBbcode(
+				'<a href="http://www.topozone.com/' .
+				'map.asp?z=11&n=4163644&e=275692&s=25&size=m&u=1">Topo</a>'));
+
+	/* Mixed HTML */
+	$this->assertEquals('[url=http://google.com][i]Google[/i][/url]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<a href="http://google.com"><i>Google</i></a>'));
+	$this->assertEquals('[b][url=http://google.com]Google[/url][/b]',
+	    PicasaImportHelper::convertHtmlToBbcode(
+		'<strong><a href="http://google.com">Google</a></strong>'));
+
+	/* Malformed HTML tags should not be turned into BBCode, but we can't stop it */
+	$this->assertEquals('[i][b]interleaved[/i][/b]',
+	    PicasaImportHelper::convertHtmlToBbcode('<i><b>interleaved</i></b>'));
+
+	/* Non-supported HTML is stripped completely */
+	$this->assertEquals('foo',
+	    PicasaImportHelper::convertHtmlToBbcode('<hr><h1 title="foo">foo</h1>'));
+    }
+
+}
+?>

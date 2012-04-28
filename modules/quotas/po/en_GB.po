@@ -1,0 +1,284 @@
+# $Id: en_GB.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-03-07 15:38+0000\n"
+"PO-Revision-Date: 2007-03-07 15:38+0000\n"
+"Last-Translator: Stephen Ryan <ryaner@gmail.com>\n"
+"Language-Team: British <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "KB"
+msgstr "KB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "GB"
+msgstr "GB"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr "Warning: You have reached your disk quota (%s %s), this item will not be added."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "You are using %s %s of your allotted %s %s."
+
+msgid "Quotas"
+msgstr "Quotas"
+
+msgid "User/Group Disk Quotas"
+msgstr "User/Group Disk Quotas"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Create A New Group Quota"
+msgstr "Create A New Group Quota"
+
+msgid "Group Name"
+msgstr "Group Name"
+
+msgid "(required)"
+msgstr "(required)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "Group quota for '%s' already exists"
+
+msgid "Quota Size"
+msgstr "Quota Size"
+
+msgid "You must enter a quota size."
+msgstr "You must enter a quota size."
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "Quota size must be less than 2097152 MB (2048 GB)."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "Invalid quota size, positive numbers and decimals only."
+
+msgid "Create Group Quota"
+msgstr "Create Group Quota"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Create A New User Quota"
+msgstr "Create A New User Quota"
+
+msgid "User Name"
+msgstr "User Name"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "User quota for '%s' already exists"
+
+msgid "Create User Quota"
+msgstr "Create User Quota"
+
+msgid "Delete A Group Quota"
+msgstr "Delete A Group Quota"
+
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr ""
+"This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Delete A User Quota"
+msgstr "Delete A User Quota"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+
+msgid "Edit A Group Quota"
+msgstr "Edit A Group Quota"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Undo"
+msgstr "Undo"
+
+msgid "Edit A User Quota"
+msgstr "Edit A User Quota"
+
+msgid "Quotas Administration"
+msgstr "Quotas Administration"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "Removed group quota for '%s'"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "Created group quota for '%s'"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "Modified group quota for '%s'"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "Removed user quota for '%s'"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "Created user quota for '%s'"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "Modified user quota for '%s'"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "There is %d group quota in the system."
+msgstr[1] "There are %d total group quotas in the system."
+
+msgid "Group Quotas"
+msgstr "Group Quotas"
+
+msgid "Create Quota"
+msgstr "Create Quota"
+
+msgid "Edit Quota"
+msgstr "Edit Quota"
+
+msgid "Delete Quota"
+msgstr "Delete Quota"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "Group quota for '%s' does not exist. You must create one first."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "Group quota for '%s' already exists."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Group '%s' does not exist."
+
+msgid "You must enter a group name"
+msgstr "You must enter a group name"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "Edit Group Quotas (by list)"
+
+msgid "&laquo; first"
+msgstr "&laquo; first"
+
+msgid "&laquo; back"
+msgstr "&laquo; back"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Viewing page %d of %d"
+
+msgid "next &raquo;"
+msgstr "next &raquo;"
+
+msgid "last &raquo;"
+msgstr "last &raquo;"
+
+msgid "Quota"
+msgstr "Quota"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "edit"
+msgstr "edit"
+
+msgid "delete"
+msgstr "delete"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "There is %d user quota in the system."
+msgstr[1] "There are %d total user quotas in the system."
+
+msgid "User Quotas"
+msgstr "User Quotas"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "User quota for '%s' does not exist. You must create one first."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "User quota for '%s' already exists."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "User '%s' does not exist."
+
+msgid "You must enter a username"
+msgstr "You must enter a username"
+
+msgid "Edit User Quotas (by list)"
+msgstr "Edit User Quotas (by list)"
+
+msgid "Username"
+msgstr "Username"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr "Used: %0.2f %s (%s%%)"
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr "Quota: %0.2f %s"
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr "Used: %0.2f %s"
+
+msgid "Quota: Unlimited"
+msgstr "Quota: Unlimited"
+
+msgid "User Quota Block"
+msgstr "User Quota Block"

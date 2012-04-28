@@ -1,0 +1,279 @@
+# $Id: hu.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Previous translators (as far as known, add yourself here, please):
+# - Gergely Dömsödi <doome@uhulinux.hu>
+# - Jozsef R.Nagy <joe7@site.hu>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Image Block 1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-04 20:09+0100\n"
+"PO-Revision-Date: 2007-03-05 21:50+0100\n"
+"Last-Translator: Sandor Dibuz <ha3pg@dwatt.com>\n"
+"Language-Team: magyar <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+msgid "Image Block"
+msgstr "Képblokk"
+
+msgid "Random, Most Recent or Most Viewed Photo or Album"
+msgstr "Véletlen, legfrissebb vagy a legtöbbször megtekintett fotó vagy album"
+
+msgid "Blocks"
+msgstr "Blokkok"
+
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Véletlen kép"
+msgstr[1] "Véletlen képek"
+
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Legújabb kép"
+msgstr[1] "Legújabb képek"
+
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Legtöbbször megnézett kép"
+msgstr[1] "Legtöbbször megnézett képek"
+
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Véletlen album"
+msgstr[1] "Véletlen albumok"
+
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Legújabb album"
+msgstr[1] "Legújabb albumok"
+
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Legtöbbször megnézett album"
+msgstr[1] "Legtöbbször megnézett albumok"
+
+msgid "Picture of the Day"
+msgstr "A nap képe"
+
+msgid "Picture of the Week"
+msgstr "A hét képe"
+
+msgid "Picture of the Month"
+msgstr "A hónap képe"
+
+msgid "Album of the Day"
+msgstr "A nap albuma"
+
+msgid "Album of the Week"
+msgstr "A hét albuma"
+
+msgid "Album of the Month"
+msgstr "A hónap albuma"
+
+msgid "Date:"
+msgstr "Dátum: "
+
+#, c-format
+msgid "Views: %d"
+msgstr "Megtekintve: %dX"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Tulajdonos: %s"
+
+msgid "Prevent this album from being displayed in the Image Block"
+msgstr "Ne jelenjen meg ez az album a képblokkban"
+
+msgid "Apply ImageBlock settings to sub-albums"
+msgstr "Képblokk beállításainak alkalmazása a további albumokra is"
+
+msgid "Image Block Settings"
+msgstr "Képblokk beállításai"
+
+msgid "Settings saved successfully"
+msgstr "Beállítások sikeresen elmentve"
+
+msgid "Show"
+msgstr "Megjelenít"
+
+msgid "Heading"
+msgstr "Fejléc"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "View Count"
+msgstr "Nézettségi számláló"
+
+msgid "Owner"
+msgstr "Tulajdonos"
+
+msgid "Frames"
+msgstr "Keretek"
+
+msgid "View samples"
+msgstr "Minták megtekintése"
+
+msgid "Album Frame"
+msgstr "Albumkeret"
+
+msgid "Photo Frame"
+msgstr "Fényképkeret"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Reset"
+msgstr "Alapbeállítás"
+
+msgid "External Image Block"
+msgstr "Külső képblokk"
+
+msgid ""
+"Use a PHP block like the one shown below to include an image block in a PHP page outside of "
+"Gallery."
+msgstr ""
+
+msgid ""
+"Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, "
+"recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
+"monthlyAlbum, specificItem; default is randomImage"
+msgstr ""
+
+msgid ""
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
+"the value can also be: none"
+msgstr ""
+
+msgid ""
+"Limit the item selection to the subtree of the gallery under the album with the given id; or "
+"the id of the item to display when used with specificItem block type"
+msgstr ""
+
+#, c-format
+msgid ""
+"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
+"image to the specified value - larger images will be scaled down as necessary in your "
+"browser. If specified along with %sshow=fullSize the full size image will always be used and "
+"scaled down as necessary."
+msgstr ""
+
+#, c-format
+msgid ""
+"Just like %smaxSize except that it will not substitute an image smaller than the size you "
+"request, so you'll get the closest match in size possible.  Note that this may use a lot "
+"more bandwidth if a much larger image has to be scaled down in your browser."
+msgstr ""
+
+msgid ""
+"Href for link on image; value of none for no link; default is link to item in the Gallery"
+msgstr ""
+
+msgid "Add a link target (for example, to open links in a new browser window)"
+msgstr ""
+
+msgid "Image frame to use around images"
+msgstr "A képek körül használandó keret"
+
+msgid "Image frame to use around albums"
+msgstr "Az albumokhoz használandó keret"
+
+msgid "If a parameter marked with * is omitted then the site default defined above is used."
+msgstr ""
+
+#, c-format
+msgid ""
+"Image frames require CSS to be displayed correctly. Include the following in the %s section "
+"to support image frames."
+msgstr ""
+
+#, c-format
+msgid ""
+"Specify the frame id (or pipe separated list of ids) in the frames parameter. Omit the "
+"parameter to support the image frames configured above. Frame ids are the directory names in "
+"the %s directory."
+msgstr ""
+
+msgid "Image type"
+msgstr "Kép típusa"
+
+msgid "Random image"
+msgstr "Véletlen kép"
+
+msgid "Recent image"
+msgstr "Legújabb kép"
+
+msgid "Viewed image"
+msgstr "Legtöbbször megtekintett kép"
+
+msgid "Random album"
+msgstr "Véletlen album"
+
+msgid "Recent album"
+msgstr "Legújabb album"
+
+msgid "Viewed album"
+msgstr "Legtöbbször megtekintett album"
+
+msgid "Daily image"
+msgstr "Nap képe"
+
+msgid "Weekly image"
+msgstr "Hét képe"
+
+msgid "Monthly image"
+msgstr "Hónap képe"
+
+msgid "Daily album"
+msgstr "Nap albuma"
+
+msgid "Weekly album"
+msgstr "Hét albuma"
+
+msgid "Monthly album"
+msgstr "Hónap albuma"
+
+msgid "Number of items"
+msgstr "Elemek száma"
+
+msgid "Use default settings"
+msgstr "Alapértelmezett beállítások használata"
+
+msgid "Show heading"
+msgstr "Fejléc mutatása"
+
+msgid "Show title"
+msgstr "Cím mutatása"
+
+msgid "Show date"
+msgstr "Dátum mutatása"
+
+msgid "Show view count"
+msgstr "Nézettségi számláló mutatása"
+
+msgid "Show owner"
+msgstr "Tulajdonos mutatása"

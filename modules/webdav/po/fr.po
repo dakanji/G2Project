@@ -1,0 +1,254 @@
+# $Id: fr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: WebDAV 1.0.9\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-31 15:39+0100\n"
+"PO-Revision-Date: 2007-02-11 12:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "WebDAV"
+msgstr "WebDAV"
+
+msgid "Mount with WebDAV"
+msgstr "Monter avec WebDAV"
+
+msgid "Mount Gallery on your desktop."
+msgstr "Accès à Gallery depuis votre bureau avec le protocole WebDAV"
+
+msgid "Remote Interfaces"
+msgstr "Interfaces distantes"
+
+msgid "Connect to WebDAV"
+msgstr "Se connecter en WebDAV"
+
+msgid ""
+"Use short URL because most WebDAV clients don't support query strings.  The Windows WebDAV "
+"client requires that you don't add a slash before the %path% variable."
+msgstr ""
+"Utilisez une URL courte car la plupart des clients WebDAV ne supportent pas les \"query "
+"strings\". Le client WebDAV de Windows requiert que vous ne mettiez pas de slash avant la "
+"variable %path%."
+
+msgid "Path to an item (eg. /album/image.jpg.html)"
+msgstr "Chemin vers un élément (ex. /album/image.jpg.html)"
+
+msgid "Mount WebDAV"
+msgstr "Monter en WebDAV"
+
+msgid "Give davmount resources the correct extension."
+msgstr "Donnez aux ressources WebDAV l'extension correcte."
+
+msgid "OPTIONS Requests"
+msgstr "Requêtes OPTIONS"
+
+msgid "Redirect OPTIONS requests so we can set DAV headers."
+msgstr ""
+"Rediriger les requêtes OPTIONS de telle sorte que Gallery puisse positionner les entêtes DAV"
+
+msgid "WebDAV Mount Instructions"
+msgstr "Instructions de montage WebDAV"
+
+#, c-format
+msgid ""
+"%sClick here%s to mount Gallery on your desktop with a WebDAV client.  Documentation on "
+"mounting Gallery with WebDAV is in the %sGallery Codex%s."
+msgstr ""
+"%sCliquez ici%s pour monter Gallery sur votre bureau avec un client WebDAV. La documentation "
+"pour accéder à Gallery par WebDAC est disponible sur le %sCodex de Gallery%s."
+
+msgid "Alternatively, you can enter the following URL in your WebDAV client:"
+msgstr "Vous pouvez également saisir l'URL suivante dans votre client WebDAV&nbsp;:"
+
+msgid "WebDAV Settings"
+msgstr "Paramètres de WebDAV"
+
+msgid "Configuration checked successfully"
+msgstr "Configuration vérifiée avec succès"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will successfully connect.  Documentation on mounting Gallery with "
+"WebDAV is in the %sGallery Codex%s."
+msgstr ""
+"La plupart des clients WebDAV se connecteront avec succès. La documentation pour accéder à "
+"Gallery par WebDAC est disponible sur le %sCodex de Gallery%s."
+
+msgid "The URL to connect to Gallery with WebDAV is:"
+msgstr "L'URL pour se connecter à Gallery en WebDAV est&nbsp;:"
+
+msgid "PHP has no XML support"
+msgstr "PHP n'a aucun support pour XML"
+
+#, c-format
+msgid ""
+"You can't connect with WebDAV because PHP has no XML support on this server.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Vous ne pouvez pas vous connecter en WebDAV car PHP n'a aucun support pour XML sur ce "
+"serveur. Une documentation d'aide est disponible dans le %sCodex de Gallery%s."
+
+msgid "WebDAV requests not handled"
+msgstr "Requêtes WebDAV non supportées"
+
+#, c-format
+msgid ""
+"You can't connect with WebDAV because this server doesn't pass WebDAV requests to Gallery.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Vous ne pouvez pas vous connecter en WebDAV car ce serveur ne transmet pas les requêtes "
+"WebDAV à Gallery. Une documentation d'aide à l'analyse d'incidents est disponible dans le %"
+"sCodex de Gallery%s."
+
+msgid "HTTP auth module disabled"
+msgstr "Le module d'authentification HTTP est désactivé"
+
+#, c-format
+msgid ""
+"You can connect with WebDAV anonymously, but you can't do anything which requires you to "
+"login because the HTTP auth module is disabled.  You should activate the HTTP auth module in "
+"the %sSite Admin Plugins option%s.  Troubleshooting documentation is in the %sGallery Codex%"
+"s."
+msgstr ""
+"Vous pouvez vous connecter de manière anonyme en WebDAV, mais vous ne pourrez pas réaliser "
+"la moindre opération qui requiert une authentification de votre part car le module "
+"d'Authentification HTTP est désactivé. Vous devriez activer le module d'Authentification "
+"HTTP dans la section %sComposants de la page d'administration%s. Une documentation d'aide à "
+"l'analyse d'incidents est disponible dans le %sCodex de Gallery%s."
+
+msgid "HTTP auth plugin disabled"
+msgstr "Le module d'authentification HTTP est désactivé"
+
+msgid ""
+"You can connect with WebDAV anonymously, but you can't do anything which requires you to "
+"login because neither HTTP authentication nor server authentication are enabled in the HTTP "
+"auth module.  You should activate HTTP authentication in the settings of the HTTP auth "
+"module."
+msgstr ""
+"Vous pouvez vous connecter anonymement en WebDAV, mais vous ne pourrez pas réaliser la "
+"moindre opération qui requiert une authentification de votre part car ni l'authentification "
+"HTTP ou l'authentification serveur ne sont activées dans le module d'authentification HTTP. "
+"Vous devez activer l'authentification HTTP dans les paramètres du module d'authentification "
+"HTTP."
+
+msgid "'Connect to WebDAV' rule disabled"
+msgstr "La règle 'Se connecter en WebDAV' est désactivée"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will fail to connect because the URL rewrite rule to generate short "
+"WebDAV URLs is disabled.  You should activate the 'Connect to WebDAV' rule in the %sSite "
+"Admin URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"La plupart des clients WebDAV ne parviendront pas à se connecter car la règle de réécriture "
+"des URL permettant d'avoir des URL courtes est désactivée. Vous devriez activer la règle 'Se "
+"connecter en WebDAV' dans %sOptions de réécriture d'URL de l'administration de Gallery%s. "
+"Une documentation d'aide à l'analyse d'incidents est disponible dans le %sCodex de Gallery%s."
+
+msgid "Missing DAV headers"
+msgstr "Entêtes DAV manquantes"
+
+#, c-format
+msgid ""
+"Some WebDAV clients, e.g. Mac OS X WebDAVFS, will fail to connect because OPTIONS responses "
+"are missing DAV headers.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Certains clients WebDAV (par exemple Mac OS X WebDAVFS) ne pourront pas se connecter car les "
+"réponses aux requêtes OPTIONS ne contiennent pas d'entêtes WebDAV. Une documentation d'aide "
+"à l'analyse d'incidents est disponible dans le %sCodex de Gallery%s."
+
+msgid "Alternative URL missing DAV headers"
+msgstr "L'URL alternative ne dispose pas des entêtes DAV"
+
+#, c-format
+msgid ""
+"Because OPTIONS responses are missing DAV headers, we try to fall back on an alternative "
+"URL, but alternative URL responses are also missing DAV headers.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+"Puisque les réponses OPTIONS ne disposent pas des entêtes DAV, nous essayons de retomber sur "
+"une URL alternative, cependant, les réponses à l'URL alternative ne disposent également pas "
+"des entêtes DAV. Une documentation d'aide à l'analyse d'incidents est disponible dans le %"
+"sCodex de Gallery%s."
+
+msgid "URL rewrite module disabled"
+msgstr "Le module de réécriture d'URL est désactivé"
+
+#, c-format
+msgid ""
+"Most WebDAV clients will fail to connect because the URL rewrite module is disabled.  You "
+"should activate the URL rewrite module in the %sSite Admin Plugins option%s and choose "
+"either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting documentation is in the %"
+"sGallery Codex%s."
+msgstr ""
+"La plupart des clients WebDAV ne parviendront pas à se connecter car le module de réécriture "
+"est désactivé. Vous devriez activer le module de réécriture d'URL dans la page %sd'option "
+"des modules%s en choisir l'option Apache mod_rewrite ou ISAPI_Rewrite. Une documentation "
+"d'aide à l'analyse d'incidents est disponible dans le %sCodex de Gallery%s."
+
+msgid "Bad URL rewrite configuration"
+msgstr "Mauvaise configuration de réécriture d'URL"
+
+#, c-format
+msgid ""
+"PHP PathInfo rewrite doesn't support the rule to fall back on an alternative URL.  You "
+"should uninstall and reinstall the URL rewrite module in the %sSite Admin Plugins option%s "
+"and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting information is in "
+"the %sGallery Codex%s."
+msgstr ""
+"La réécriture PHP PathInfo ne supporte pas la règle pour retomber sur une URL alternative. "
+"Vous devriez désinstaller et réinstaller le module de réécriture d'URL dans la page %"
+"sd'option des modules%s en choisir l'option Apache mod_rewrite ou ISAPI_Rewrite. Une "
+"documentation d'aide à l'analyse d'incidents est disponible dans le %sCodex de Gallery%s."
+
+msgid "'OPTIONS Requests' rule disabled"
+msgstr "La règle ''Requêtes OPTIONS' est désactivée"
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on an alternative URL is disabled.  You should activate "
+"the WebDAV 'OPTIONS Requests' rule in the %sSite Admin URL Rewrite option%s.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"La règle de réécriture pour retomber sur une URL alternative est désactivée. Vous devriez "
+"activer la règle 'Requêtes OPTIONS' dans la page %sd'options du module de réécriture d'URL%"
+"s. Une documentation d'aide à l'analyse d'incidents est disponible dans le %sCodex de Gallery"
+"%s."
+
+msgid "Unknown Cause"
+msgstr "Raison inconnue"
+
+#, c-format
+msgid ""
+"Some WebDAV clients, e.g. Mac OS X WebDAVFS, will fail to connect and automated checks "
+"failed to find a cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Certains clients WebDAV (par exemple Mac OS X WebDAVFS) ne pourront pas se connecter et les "
+"tests automatiques ne parviendront pas à établir la cause. Une documentation d'aide à "
+"l'analyse d'incidents est disponible dans le %sCodex de Gallery%s."
+
+msgid "WebDAV URL"
+msgstr "URL de WebDAV"

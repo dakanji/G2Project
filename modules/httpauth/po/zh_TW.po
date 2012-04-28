@@ -1,0 +1,208 @@
+# $Id: zh_TW.po 18950 2008-11-28 17:26:00Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: HTTP Auth 1.0.3\n"
+"POT-Creation-Date: 2006-11-16 20:11-0500\n"
+"PO-Revision-Date: 2006-11-16 14:00-0500\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "HTTP Auth"
+msgstr "HTTP 認証"
+
+msgid "Login using HTTP authentication."
+msgstr "使用 HTTP 認証登入。"
+
+msgid "Authentication"
+msgstr "認証"
+
+msgid "Authorization Header"
+msgstr "認証檔頭"
+
+msgid "Pass the Authorization header to Gallery in a request variable."
+msgstr "在要求變數中將認証檔頭傳給 Gallery。"
+
+msgid "Authorization header."
+msgstr "認証檔頭。"
+
+msgid "Logout failed"
+msgstr "登入失敗"
+
+msgid ""
+"Gallery tried to logout but failed.  You should close the browser window to logout "
+"successfully."
+msgstr "Gallery 試著登出但是失敗了。你必需關掉網頁瀏覽程式才能完全登出。"
+
+msgid "HTTP Auth Settings"
+msgstr "HTTP 認証設定"
+
+msgid "Settings saved successfully"
+msgstr "設定儲存成功"
+
+msgid "Missing HTTP Authorization"
+msgstr "沒有 HTTP 認証"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords.  You can still use your web server's "
+"authentication.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Gallery 無法存取 HTTP 用戶名稱和密碼。你必需用你的網頁伺服器的認証手續。排除問題的說明在 %"
+"sGallery Codex%s。"
+
+msgid "URL rewrite module disabled"
+msgstr "網址改寫模組未啟用"
+
+#, c-format
+msgid ""
+"We can't fall back on passing HTTP usernames and passwords to Gallery because the URL "
+"rewrite module is disabled.  You should activate the URL rewrite module in the %sSite Admin "
+"Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  Troubleshooting "
+"documentation is in the %sGallery Codex%s."
+msgstr ""
+"因為網址改寫模組沒有啟用，我們無法回到傳送用戶名稱和密碼給 Gallery 的方法。你需要在%s網站管理"
+"的外掛組件設定%s中啟用網址改寫模組，並選擇 Apache mode_rewrite 或 ISAPI_Rewrite。排除問題的說"
+"明在 %sGallery Codex%s。"
+
+msgid "Bad URL rewrite configuration"
+msgstr "網址改寫設定不正確"
+
+#, c-format
+msgid ""
+"PHP Path Info rewrite doesn't support the rule to fall back on passing HTTP usernames and "
+"passwords to Gallery.  You should uninstall and reinstall the URL rewrite module in the %"
+"sSite Admin Plugins option%s and choose either Apache mod_rewrite or ISAPI_Rewrite.  "
+"Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"PHP PathInfo 的改寫方式並不容許改寫規則傳送用戶名稱和密碼給 Gallery。你需要在%s網站管理的外掛"
+"組件設定%s中卸載再安裝網址改寫模組，並選擇 Apache mode_rewrite 或 ISAPI_Rewrite。排除問題的說"
+"明在 %sGallery Codex%s。"
+
+msgid "'Authorization Header' rule disabled"
+msgstr "認証檔頭規則未啟用"
+
+#, c-format
+msgid ""
+"The URL rewrite rule to fall back on passing HTTP usernames and passwords to Gallery is "
+"disabled.  You should activate the HTTP auth 'Authorization Header' rule in the %sSite Admin "
+"URL Rewrite option%s.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"傳送用戶名稱和密碼給 Gallery 的網址改寫規則沒有啟用。你需要在%s網站管理的網址改寫設定%s中啟"
+"用 HTTP 認証「認証檔頭」的規則。排除問題的說明在 %sGallery Codex%s。"
+
+msgid "Unknown Cause"
+msgstr "不明原因"
+
+#, c-format
+msgid ""
+"Gallery can't access HTTP usernames and passwords and automated checks failed to find a "
+"cause.  Troubleshooting documentation is in the %sGallery Codex%s."
+msgstr ""
+"Gallery 無法取得 HTTP 用戶名稱和密碼而且自動檢查無法找出原因。排除問題的說明在 %sGallery "
+"Codex%s。"
+
+msgid "Gallery can handle HTTP Basic authentication directly."
+msgstr "Gallery 可以直接處理 HTTP 基本認証。"
+
+msgid "Use HTTP Authentication:"
+msgstr "使用 HTTP 認証："
+
+msgid ""
+"Gallery will prompt you to login with HTTP authentication when permission is denied.  HTTP "
+"authentication sends your client a realm to which your username belongs.  It's safe to leave "
+"the realm blank."
+msgstr ""
+"Gallery 會在存取被拒時要求你使用 HTTP 認証來登入。HTTP 認証會送給你的網頁用戶程式一個你的用戶"
+"名稱所屬的領域。將領域留白也沒有關係。"
+
+msgid "HTTP Authentication Realm:"
+msgstr "HTTP 認証領域："
+
+msgid ""
+"Your web server may offer more comprehensive and more secure authentication.  If you "
+"configured your web server to authenticate requests to Gallery, you may choose to trust the "
+"username it reports in the REMOTE_USER environment variable."
+msgstr ""
+"你的網頁伺服器可能會提供更周詳和更安全的認証方式。如果你設定了你的網頁伺服器來認証對 Gallery "
+"的要求，你可以選擇信任它在 REMOTE_USER 環境變數中報告的用戶名稱。"
+
+msgid "Use Web Server Authentication:"
+msgstr "使用網頁伺服器認証："
+
+msgid "By default HTTP authentication is only enabled for specific modules."
+msgstr "在預設狀況下，HTTP 認証只有在某些特定的模組中啟用。"
+
+msgid "Use the authentication plugins for all modules:"
+msgstr "在所有的模組中啟用HTTP 認証："
+
+#, c-format
+msgid ""
+"You may wish to trust only HTTP authentication types or HTTP usernames which match specified "
+"regular expressions - or HTTP usernames may not match your Gallery usernames; for instance "
+"if using %s authentication, the REMOTE_USER environment variable may be username@REALM.TLD.  "
+"In these cases, you may use regular expressions to filter authentication types and usernames."
+msgstr ""
+"你可以只信任符何指定的使用常規表示式的 HTTP 認証類型或 HTTP 用戶名稱，或不符合你的 Gallery 的"
+"用戶名稱；例如，在使用 %s 認証時，REMOTE_USER 環境變數可能是 username@REALM.TLD。在這些情形"
+"下，你可以用常規表示式來過濾認証類型或用戶名稱。"
+
+msgid "Use Regular Expressions:"
+msgstr "使用常規表示式（regexp）："
+
+msgid ""
+"Specify here a regular expression which the authentication type must match for "
+"authentication to proceed; for instance /Negotiate/"
+msgstr "在這裡指定一個認証類型必需符合才能繼續認証手續的常規表示式；例如 /Negotiate/"
+
+msgid "Authentication Type Pattern:"
+msgstr "認証類型樣式："
+
+msgid "You must enter a valid regular expression"
+msgstr "你必須輸入一個正確的常規表示式"
+
+#, c-format
+msgid ""
+"Specify here a regular expression which the username must match for authentication to "
+"proceed and a string with which to replace it.  See PHP %s documentation for more "
+"information."
+msgstr ""
+"在這裡指定一個用戶名稱必需符合才能繼續認証手續的常規表示式，和一個用來替換的字串。請參考 PHP "
+"%s 說明文件。"
+
+msgid "Username Pattern:"
+msgstr "用戶名稱樣式："
+
+msgid "Username Replacement:"
+msgstr "用戶名稱替換："
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Reset"
+msgstr "重置"
+
+#, c-format
+msgid "If you're not automatically redirected, %sclick here to finish logging out%s."
+msgstr "如果你沒有被自動轉到新的網頁，請%s按這裡完成登出手續%s。"

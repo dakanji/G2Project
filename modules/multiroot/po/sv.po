@@ -1,0 +1,140 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Multiroot 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-08-11 22:41+0200\n"
+"PO-Revision-Date: 2007-03-08 09:30+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Multiroot"
+msgstr "Multiroot"
+
+msgid "Define an alternate guest view of the Gallery"
+msgstr "Definiera en alternativ gäst-vy av Gallery"
+
+msgid "Display"
+msgstr "Visa"
+
+msgid "Configure Multiroot"
+msgstr "Konfigurera Multiroot"
+
+msgid "User created and permissions assigned on target album"
+msgstr "Användare skapad och rättigheterna är tilldelade till målalbumet"
+
+msgid ""
+"Multiroot allows you to create an alternate URL to view part of the Gallery.  This "
+"configuration screen assists in setup and creation of a PHP file for the alternate URL.  "
+"This module never activates and is not needed to use multiroot.  There are two options:"
+msgstr ""
+"Multiroot tillåter dig att skapa en alternativ URL för att visa en del av ditt Gallery. Den "
+"här konfigurations-sidan hjälper dig att skapa en PHP fil för den alternativa URL:en. Den "
+"här modulen aktiveras alldrig, den behövs dessutom inte för att använda multiroot. Det finns "
+"två val:"
+
+msgid "Virtual root"
+msgstr "Virtuell root"
+
+msgid ""
+"This option defines a default album for this view and adjusts navigation links so that no "
+"parent albums above the default are shown.  Both guests and logged in users accessing the "
+"alternate URL will see this effect.  However, Gallery permissions are unchanged so modules "
+"like imageblock and search, or manually entered URLs, can lead visitors to items outside the "
+"default album.  This option is easier to setup as it uses guest permissions already defined "
+"for your Gallery."
+msgstr ""
+"Den här optionen definierar ett standard album för den här vyn och justerar navigerings-"
+"länkarna så att överliggande kataloger inte visas. Både gäster och inloggade användare som "
+"använder denna URL kommer att vara låsta till denna vy. Men Gallery:s rättigheter är "
+"oförändrade så moduler som imageblock och sökning, kan leda besökarna utanför detta album. "
+"Den här optionen är lättare att sätta upp eftersom den använder de rättigheter som gäst-"
+"användare redan har."
+
+msgid "Alternate guest user"
+msgstr "Alternativ gäst-användare"
+
+msgid ""
+"This option defines a new guest view with permissions defined for exactly what this view "
+"should display.  Guests using the alternate URL cannot see any items outside those granted "
+"permission, by browsing or via any modules or URLs.  Logged in users see whatever their "
+"permissions allow, whether accessing the normal or alternate URL.  This option provides "
+"greater access control over the alternate view, but requires additional permissions setup:"
+msgstr ""
+"Den här optionen definierar en ny gäst-vy med rättigheter definierade för vad den här vyn "
+"skall visa. Gäster som använder den alternativa URL:en kan inte se några objekt som inte har "
+"vyns rättigheter, via browsning eller via någon modul eller URL. Inloggade användare kan se "
+"det som deras rättigheter medger, antingen via den normala eller den alternativa URL:en. Den "
+"här optionen tillhandahåller en större kontroll av vad som kan ses via den alternativa-vyn, "
+"men kräver att ytterligare rättigheter definieras."
+
+msgid ""
+"The original/real guest user must have view permission for all items accessible by any "
+"alternate guest user.  The form below assists in creation of an alternate guest and will "
+"assign view permission for the default album and all subalbums/items.  If these albums are "
+"already public and can remain that way, no more setup is required.  Setup for mutually "
+"exclusive views is more complicated: the original guest user must have access to items in "
+"all views, so first setup those permissions.  Then use the tools here to create each "
+"alternate view.  Just use the set of alternate URLs.  Keep the original Gallery URL "
+"unpublished as it shows the combined set of items."
+msgstr ""
+"Den ursprungliga/verkliga gäst-användaren måste ha visarättigheter för alla objekt som skall "
+"kunna visas för den alternativa gäst-användaren. Formuläret här nedan hjälper dig att skapa "
+"den alternativa gäst-användaren och tilldelar visarättighet till katalogen och "
+"underkatalogerna. Om dessa kataloger redan är publika och kan fortsätta att vara det, så "
+"behövs inga ytterligare inställningar. Inställningarna för ömsesidigt uteslutande vyer är "
+"mera komplicerad: Den ursprungliga gäst-användaren måste ha tillgång till objekt i alla "
+"vyer, så sätt först upp dessa rättigheter. Använd sen verktygen här för att skapa varje "
+"alternativ vy. Använd bara uppsättning med alternativa URL:er. Se till att Galleriets "
+"ursprungliga URL inte publiseras eftersom den kommer att visa samtliga objekt."
+
+msgid "URI for this Gallery:"
+msgstr "URI för detta Gallery:"
+
+msgid "URI for new guest view:"
+msgstr "URI för den nya gäst-vyn:"
+
+msgid "Missing value"
+msgstr "Saknat värde"
+
+msgid "Root album of new view"
+msgstr "Rot-album för den nya vyn"
+
+msgid "Username of alternate guest user:"
+msgstr "Användarnamn för den alternativa gäst-användaren:"
+
+msgid "New user will be created if given name does not exist."
+msgstr "Nya användare om det givna namnet inte redan existerar."
+
+msgid "Leave blank to define a virtual root."
+msgstr "Lämna blankt för att definiera en virtuell rot"
+
+msgid "Generate Files"
+msgstr "Skapa Filer"
+
+msgid "Reset"
+msgstr "Återställ"

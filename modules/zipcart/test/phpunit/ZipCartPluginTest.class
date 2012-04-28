@@ -1,0 +1,372 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test ZipCart functionality
+ *
+ * @package ZipCart
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class ZipCartPluginTest extends GalleryTestCase {
+
+    function ZipCartPluginTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_everybodyId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Register dummy toolkit and operation */
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryToolkit', 'ZipCartToolkit', 'ZipCartToolkit',
+	    'modules/zipcart/test/phpunit/ZipCartPluginTest.class', 'zipcartTest', null);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markToolkitForCleanup('ZipCartToolkit');
+
+	$ret = GalleryCoreApi::registerToolkitOperation('ZipCartToolkit',
+	    array('test/jpeg'), 'testoperation',
+	    array(array('type' => 'int', 'description' => 'size')), 'desc');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::registerToolkitOperation('ZipCartToolkit',
+	    array('test/jpeg'), 'testconvert', array(), 'desc');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Test album */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	/* Photo with core.viewSource */
+	list ($ret, $this->_items[0]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
+							'test/jpeg', 'core.viewSource');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Photo with core.viewSource and preferred derivative */
+	list ($ret, $this->_items[1]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
+							'test/jpeg', 'core.viewSource');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $derivativeId) =
+	    $this->_addDerivative($this->_items[1], DERIVATIVE_TYPE_IMAGE_PREFERRED);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Photo with core.viewResizes and resized derivative */
+	list ($ret, $this->_items[2]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
+							'test/jpeg', 'core.viewResizes');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $derivativeId) =
+	    $this->_addDerivative($this->_items[2], DERIVATIVE_TYPE_IMAGE_RESIZE);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Data item with core.viewSource */
+	list ($ret, $this->_items[3]) =
+	    $this->_addItem($this->_album->getId(), 'GalleryUnknownItem',
+			    'test/data', 'core.viewSource');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Photo with a derivative of different extension */
+	list ($ret, $this->_items[4]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
+							'test/jpeg', 'core.viewSource');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $derivativeId) = $this->_addDerivative(
+	    $this->_items[4], DERIVATIVE_TYPE_IMAGE_PREFERRED, 'testconvert|test/out');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new ZipCartPluginTestPlatform($this->_savePlatform));
+    }
+
+    function tearDown() {
+	$ret = GalleryCoreApi::removeMimeType(array('mimeType' => array('test/out')));
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function _addItem($parentId, $itemType, $mimeType, $permission=null) {
+	list ($ret, $item) =
+	    $this->_createRandomDataItem($parentId, $mimeType, array(), __FILE__, $itemType);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$ret = GalleryCoreApi::removeItemPermissions($item->getId());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$ret = GalleryCoreApi::addGroupPermission($item->getId(), $this->_everybodyId, 'core.view');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (isset($permission)) {
+	    $ret = GalleryCoreApi::addGroupPermission($item->getId(),
+						      $this->_everybodyId, $permission);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	return array(null, $item);
+    }
+
+    function _addDerivative($item, $derivativeType, $operation = null) {
+	list ($ret, $derivative) =
+	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $item->getEntityType());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (!isset($derivative)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+	$ret = $derivative->create($item->getId(), $derivativeType);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$derivative->setDerivativeSourceId($item->getId());
+	$derivative->setMimeType($item->getMimeType());
+	$operation = empty($operation) ? 'testoperation|0' : $operation;
+	$derivative->setDerivativeOperations($operation);
+	$ret = $derivative->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $derivative->getId());
+    }
+
+
+    function testZipCart() {
+	global $gallery;
+
+	/* Create our cart */
+	$cartItemIds = array();
+	for ($i = 0; $i < sizeof($this->_items); $i++) {
+	    $cartItemIds[$this->_items[$i]->getId()] = 1;
+	}
+
+	/* Create a mock mime type for derivative */
+	$extension = 'test-' . rand(111, 999);
+	$ret = GalleryCoreApi::addMimeType($extension, 'test/out', false);
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce('modules/zipcart/classes/ZipCartPlugin.class');
+	$cartPlugin = new ZipCartPlugin();
+	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('view' => 'zipcart.Download',
+				  'file' => basename($gallery->_zipCartTempnam)),
+			    $urlParams);
+	$platform =& $gallery->getPlatform();
+	@$platform->unlink($gallery->_zipCartTempnam);
+	$slash = $platform->getDirectorySeparator();
+	$path = $this->_album->getPathComponent();
+	/* Check that the right files were selected.. */
+	$this->assertEquals(
+	    array($path . $slash . $this->_items[0]->getPathComponent(),
+		  $path . $slash . $this->_items[1]->getPathComponent(),
+		  $path . $slash . $this->_items[2]->getPathComponent(),
+		  $path . $slash . $this->_items[3]->getPathComponent(),
+		  $path . $slash . $this->_items[4]->getPathComponent() . '.' . $extension),
+	    $gallery->_zipCartFiles, 'zip files');
+	/* Check that derivatives were used appropriately.. */
+	$this->assertEquals(5, count($gallery->_zipCartSources), '5 sources');
+	$this->assert(strpos($gallery->_zipCartSources[0], "${slash}albums${slash}") !== false,
+		      'first item from original (' . $gallery->_zipCartSources[0] . ')');
+	$this->assert(strpos($gallery->_zipCartSources[1], "${slash}derivative/") !== false,
+		      'second item from derivative (' . $gallery->_zipCartSources[1] . ')');
+	$this->assert(strpos($gallery->_zipCartSources[2], "${slash}derivative/") !== false,
+		      'third item from derivative (' . $gallery->_zipCartSources[2] . ')');
+	$this->assert(strpos($gallery->_zipCartSources[3], "${slash}albums${slash}") !== false,
+		      'fourth item from original (' . $gallery->_zipCartSources[3] . ')');
+    }
+}
+
+/**
+ * Platform for this test
+ *
+ * @package ZipCart
+ * @subpackage PHPUnit
+ */
+class ZipCartPluginTestPlatform {
+
+    function ZipCartPluginTestPlatform($platform) {
+	$this->_platform = $platform;
+    }
+
+    function tempnam($dir, $prefix) {
+	global $gallery;
+	$gallery->_zipCartTempnam = $this->_platform->tempnam($dir, $prefix);
+	return $gallery->_zipCartTempnam;
+    }
+
+    function exec($cmds) {
+	global $gallery;
+	if (count($cmds) == 1 && $cmds[0][1] == $gallery->_zipCartTempnam . '.zip') {
+	    $gallery->_zipCartFiles = array_slice($cmds[0], 2);
+	    return array(true, null, null);
+	}
+	return array(false, null, null);
+    }
+
+    function getDirectorySeparator() {
+	return $this->_platform->getDirectorySeparator();
+    }
+
+    function flock($handle, $operation, &$wouldblock) {
+	return $this->_platform->flock($handle, $operation, $wouldblock);
+    }
+
+    function stat($filename) {
+	return $this->_platform->stat($filename);
+    }
+
+    function is_writeable($filename) {
+	return $this->_platform->is_writeable($filename);
+    }
+
+    function file_exists($path) {
+	return $this->_platform->file_exists($path);
+    }
+
+    function fopen($filename, $mode, $use_include_path=0) {
+	return $this->_platform->fopen($filename, $mode, $use_include_path);
+    }
+
+    function realpath($path) {
+	return $this->_platform->realpath($path);
+    }
+
+    function mkdir($path, $stringPerms='755') {
+	return $this->_platform->mkdir($path, $stringPerms);
+    }
+
+    function fclose($handle) {
+	return $this->_platform->fclose($handle);
+    }
+
+    function copy($source, $dest) {
+	$slash = $this->getDirectorySeparator();
+	if (strpos($dest, 'tmp' . $slash . 'zip') !== false) {
+	    global $gallery;
+	    $gallery->_zipCartSources[] = $source;
+	}
+	return $this->_platform->copy($source, $dest);
+    }
+
+    function filesize($filename) {
+	return $this->_platform->filesize($filename);
+    }
+
+    function getimagesize($filename) {
+	return $this->_platform->getimagesize($filename);
+    }
+
+    function unlink($path) {
+	return $this->_platform->unlink($path);
+    }
+
+    function rmdir($path) {
+	return $this->_platform->rmdir($path);
+    }
+
+    function is_dir($path) {
+	return $this->_platform->is_dir($path);
+    }
+
+    function getcwd() {
+	return $this->_platform->getcwd();
+    }
+
+    function chdir($path) {
+	return $this->_platform->chdir($path);
+    }
+
+    function chmod($path, $mode=null) {
+	return true;
+    }
+}
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
+
+/**
+ * Test toolkit
+ * @package ZipCart
+ * @subpackage PHPUnit
+ */
+class ZipCartToolkit extends GalleryToolkit {
+    function performOperation($mimeType, $operationName, $sourceFilename,
+			      $destFilename, $parameters, $context=array()) {
+	/* Just copy file and return appropriate mime type */
+	global $gallery;
+	if ($sourceFilename != $destFilename) {
+	    $platform =& $gallery->getPlatform();
+	    if (!$platform->copy($sourceFilename, $destFilename)) {
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+			     null, null);
+	    }
+	}
+	$outputMimeType = ($operationName == 'testconvert' ? 'test/out' : $mimeType);
+	return array(null, $outputMimeType, $context);
+    }
+}
+?>

@@ -1,0 +1,219 @@
+# $Id: zh_TW.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-28 14:00+0800\n"
+"PO-Revision-Date: 2005-03-31 14:00+0800\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Display settings saved successfully"
+msgstr "顯示設定儲存成功"
+
+msgid "New field added successfully"
+msgstr "新欄位增加成功"
+
+msgid "Field moved successfully"
+msgstr "欄位移動成功"
+
+msgid "Field removed successfully"
+msgstr "欄位刪除成功"
+
+msgid "Picklist updated successfully"
+msgstr "選擇列表更新成功"
+
+msgid "Field name already in use"
+msgstr "欄位名稱已存在"
+
+msgid "Changes saved successfully"
+msgstr "變更增加成功"
+
+msgid "Custom Fields"
+msgstr "自定欄位"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "為 Gallery 項目新建自定資料欄位"
+
+msgid "Extra Data"
+msgstr "額外資料"
+
+msgid "Common Fields"
+msgstr "一般欄位"
+
+msgid "Album Fields"
+msgstr "相簿欄位"
+
+msgid "Photo Fields"
+msgstr "照片欄位"
+
+msgid "Custom Fields Module"
+msgstr "自定欄位模組"
+
+msgid "Search custom fields"
+msgstr "尋找自定欄位"
+
+msgid "Field name cannot be empty"
+msgstr "欄位名稱不能是空白"
+
+msgid "Display"
+msgstr "顯示"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"設定下方可見欄位的顯示順序。摘要欄位一般會在相簿查看頁面和縮略圖一起顯示。細節欄位一般會在查"
+"看特定項目時顯示。"
+
+msgid "Field"
+msgstr "欄位"
+
+msgid "Summary"
+msgstr "摘要"
+
+msgid "Detail"
+msgstr "詳細資訊"
+
+msgid "Order"
+msgstr "排序"
+
+msgid "up"
+msgstr "向上"
+
+msgid "down"
+msgstr "向下"
+
+msgid "Save"
+msgstr "增加"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Add/Remove"
+msgstr "增加/刪除"
+
+msgid "Save any changes above before using the controls below."
+msgstr "請先增加上面的所有變更，再使用下面的控制選項"
+
+msgid "Add"
+msgstr "增加"
+
+msgid "Field:"
+msgstr "欄位："
+
+msgid "Action:"
+msgstr "操作："
+
+msgid "Remove"
+msgstr "刪除"
+
+msgid "Move to Album"
+msgstr "移動到相簿欄位"
+
+msgid "Move to Photo"
+msgstr "移動到照片欄位"
+
+msgid "Move to Common"
+msgstr "移動到一般欄位"
+
+msgid "Go"
+msgstr "開始"
+
+msgid "Picklist Values"
+msgstr "選擇列表值"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"自定欄位預設為允許輸入任意的文字。在下方輸入數值以限制欄位值為特定列表選擇。每一行請輸入一個"
+"選項。刪除所有選項將恢復任意文字狀態。請注意，當一個選擇列表被增加後，現存的欄位值將不能更改"
+"或刪除。"
+
+msgid "Choices:"
+msgstr "選擇："
+
+msgid "Add a custom field above to enable this section."
+msgstr "在上方增加一個自定欄位來啟用這個部分。"
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"這些是相簿指定的自定欄位設定。一般欄位對所有項目有效；相簿和照片欄位只能指定給適當類型的項"
+"目。"
+
+msgid "Edit custom field values for this album"
+msgstr "編輯此相簿的自定欄位值"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr "警告：此相簿和其項目的不存在於全局設定的所有欄位值將會被刪除！"
+
+msgid "Revert to global custom field settings for this album"
+msgstr "恢復此相簿到全局自定欄位設定"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr "警告：此相簿的這個自定欄位的值將會被刪除！"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr "警告：此相簿中非照片項目的這個自定欄位的值將會被刪除！"
+
+msgid "Override global custom field settings for this album"
+msgstr "覆蓋此相簿的全局自定欄位設定"
+
+msgid "Edit custom field settings for this album"
+msgstr "編輯此相簿的自定欄位設定"
+
+msgid "No Value"
+msgstr "無值"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"這些是自定欄位的全局設定。這些設定可以在相簿級別被覆蓋。一般欄位對於所有 Gallery 項目有效；相"
+"簿和照片欄位只能指定給適當類型的項目。"
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr "警告：此自定欄位的所有值都將被刪除！（除了相簿中的指定設定的值）"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr "警告：此相簿中非相簿項目的這個自定欄位的值將會被刪除！（除了相簿中的指定設定的值）"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr "警告：此相簿中非照片項目的這個自定欄位的值將會被刪除！（除了相簿中的指定設定的值）"

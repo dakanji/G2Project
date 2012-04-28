@@ -1,0 +1,206 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-07-25 21:12+0900\n"
+"PO-Revision-Date: 2008-07-25 21:12+0900\n"
+"Last-Translator: momo-i <webmaster@momo-i.org>\n"
+"Language-Team: Japanese <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Notification"
+msgstr "通知"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "購読でイベントの通知をユーザに許可します。"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Watch List"
+msgstr "監視一覧"
+
+msgid "Watch"
+msgstr "監視"
+
+msgid "Plugin Activation Event"
+msgstr "プラグイン有効化イベント"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "%s%sは有効化されました"
+
+msgid "Plugin Deactivation Event"
+msgstr "プラグイン無効化イベント"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "%s%sは無効化されました"
+
+msgid "Error Event"
+msgstr "エラーイベント"
+
+msgid "Item Order Event"
+msgstr "アイテムオーダーイベント"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "%sの子アイテムは再オーダーされました。"
+
+msgid "User Login Event"
+msgstr "ユーザログインイベント"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "ユーザ%sはログインしました。"
+
+msgid "User Login Failed Event"
+msgstr "ユーザログイン失敗イベント"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "ユーザ%sはログインに失敗しました。"
+
+msgid "User Logout Event"
+msgstr "ユーザログアウトイベント"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "ユーザ%sはログアウトしました。"
+
+msgid "Permission Removed Event"
+msgstr "パーミッション削除イベント"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "%sアイテムでパーミッションが変更しました。"
+
+msgid "Plugin Uninstalled Event"
+msgstr "プラグインアンインストールイベント"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr "%s%sはアンインストールされました"
+
+msgid "Album Structure Change Event"
+msgstr "アルバム構造変更のイベント"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "閲覧可能なツリーの変更イベントが発生しました"
+
+msgid "Entity Saved Event"
+msgstr "エンティティはイベントを保存しました"
+
+#, c-format
+msgid "%s was saved"
+msgstr "%sを保存しました"
+
+msgid "Entity Deleted Event"
+msgstr "エンティティはイベントを削除しました"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "%sを削除しました"
+
+msgid "Item Added"
+msgstr "アイテムを追加しました"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"新規%sを追加しいました。閲覧するにはここをクリックします: \n"
+" %s"
+
+msgid "Select Event"
+msgstr "イベント選択"
+
+msgid "Select Handler"
+msgstr "ハンドラ選択"
+
+msgid "Send an email"
+msgstr "メールを送信"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr "この通知の購読をもう望まない場合、アカウント設定を更新してください:"
+
+msgid "Item Notification Settings"
+msgstr "アイテム通知設定"
+
+msgid "Settings saved successfully"
+msgstr "設定の保存に成功しました"
+
+msgid "Event"
+msgstr "イベント"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Subscribe"
+msgstr "購読"
+
+msgid "Apply to sub items"
+msgstr "サブアイテムに適用"
+
+msgid "Not authorized to receive notifications"
+msgstr "通知を受け取るための認証はありません"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Site Notification Administration"
+msgstr "サイト通知管理"
+
+msgid "Description"
+msgstr "説明"
+
+msgid "Handler"
+msgstr "ハンドラ"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Event Handler is required"
+msgstr "イベントハンドラは必須です"
+
+msgid "User Notification Administration"
+msgstr "ユーザ通知管理"
+
+msgid "Events"
+msgstr "イベント"
+
+msgid "Method"
+msgstr "方法"
+
+msgid "You are not subscribed to any available events"
+msgstr "有効なイベントは何も購読していません"
