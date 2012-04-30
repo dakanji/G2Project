@@ -1,5 +1,7 @@
 <?php
-if (!defined('G2_SUPPORT')) { return; }
+if (!defined('G2_SUPPORT')) { 
+	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
+}
 
 function getCaches() {
     $dirs = array(
