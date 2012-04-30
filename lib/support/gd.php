@@ -198,10 +198,10 @@ function getGdLibraryInfo() {
 $gdInfo = getGdLibraryInfo();
 
 ?>
-<html>
+<html lang="en">
   <head>
     <title>Gallery Support | GD Library Info</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
   </head>
   <body>
     <div id="content">

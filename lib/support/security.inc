@@ -121,19 +121,18 @@ exit;
 function startForm($action='', $name=null) {
     print '<form method="POST" action="' . $action . (isset($name) ? "\" name=\"$name" : '') . '">';
     if (!GallerySetupUtilities::areCookiesSupported()) {
-	print '<input type="hidden" name="' . session_name() . '" value="' . session_id() . '"/>';
+	print '<input type="hidden" name="' . session_name() . '" value="' . session_id() . '">';
     }
 }
 
 function render($renderType, $options=array()) {
     global $baseUrl;
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>Security Check</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
   </head>
   <body>
      <div id="content">
@@ -181,9 +180,9 @@ function render($renderType, $options=array()) {
          </pre>
          <p>
 	   Password:
-	   <input type="password" name="password"/>
+	   <input type="password" name="password">
 	   <script type="text/javascript">document.forms[0]['password'].focus();</script>
-	   <input type="submit" value="Verify Me"/>
+	   <input type="submit" value="Verify Me">
          </p>
          <?php if (isset($options['missingPassword'])): ?>
          <div class="warning">
@@ -214,7 +213,7 @@ function render($renderType, $options=array()) {
            permissions so that you can create the login.txt file.
 	 </p>
 	 <div class="info">
-	   Create this file: <b><?php print $options['baseDir'] ?>login.txt</b> <br/>
+	   Create this file: <b><?php print $options['baseDir'] ?>login.txt</b> <br>
 	   Put this in the file: <b><?php print $options['key']; ?></b>
 	 </div>
 	 <?php if (!empty($options['authFileErrors'])): ?>
@@ -223,7 +222,7 @@ function render($renderType, $options=array()) {
 	     The login.txt file does not exist.
 	   <?php elseif (!empty($options['authFileErrors']['unreadable'])): ?>
              The login.txt file exists, but is not readable by the webserver.
-             <br/> Try: <b>chmod 644 login.txt</b>
+             <br> Try: <b>chmod 644 login.txt</b>
            <?php elseif (!empty($options['authFileErrors']['mismatch'])): ?>
              The password in your login.txt file does not match the key above!
            <?php endif; ?>
@@ -232,7 +231,7 @@ function render($renderType, $options=array()) {
 	 <p>
 	   <?php if (!empty($options['error'])): ?>
 	   <?php endif; ?>
-           <input type="submit" value="Verify me"/>
+           <input type="submit" value="Verify me">
          </p>
        </form>
        <?php endif; ?>
