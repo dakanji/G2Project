@@ -8,7 +8,7 @@ ob_start();
 /* Tell other scripts we passed security.inc ok */
 define('G2_SUPPORT', true);
 if (!empty($_SERVER['QUERY_STRING'])) {
-    foreach (array('phpinfo', 'cache', 'gd', 'chmod', 'import') as $script) {
+    foreach (array('phpinfo', 'cache', 'gd', 'chmod', 'import', 'password') as $script) {
     	/*
     	 * Don't use isset($_GET[$script]) since we want to allow for GET args could collide
     	 * with the above mentioned script names
@@ -94,19 +94,10 @@ function generateUrl($uri, $print=true) {
       <hr class="faint">
 
       <h2>
-	<?php
-	  require_once('../../embed.php');
-	  $ret = GalleryEmbed::init(array('fullInit' => false, 'noDatabase' => true));
-	  /* Ignore error */
-	  $url = GalleryUrlGenerator::appendParamsToUrl('../../' . GALLERY_MAIN_PHP,
-		  array('view' => 'core.UserAdmin', 'subView' => 'core.UserRecoverPasswordAdmin'));
-	?>
-	<a href="<?php print $url ?>">Reset User Password</a>
+        <a href="<?php generateUrl('index.php?password') ?>">Reset Passwords</a>
       </h2>
       <p class="description">
-	Set new password for any user.  Can be used to regain access to an administrator
-	account when the "forgot password" feature cannot be used due to invalid/missing
-	email address or other email problems.
+        Change or Reset Passwords.
       </p>
     </div>
   </body>
