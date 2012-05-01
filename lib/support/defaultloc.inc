@@ -1,3 +1,5 @@
 <?php
-header('Location: ' . str_replace(basename($_SERVER['PHP_SELF']), "index.php", $_SERVER["REQUEST_URI"]));
+$fileInfo = pathinfo($_SERVER['PHP_SELF']);
+$file = basename($file, '.' . $fileInfo['extension']);
+header("Location: " . str_replace($fileInfo['filename'], "index.php?" . $file, $_SERVER['REQUEST_URI']));
 ?>
