@@ -192,4 +192,16 @@ $gallery->setConfig('galleryBaseUrl', '');
  *           $gallery->setConfig('baseUri', 'https://example.com:8080/gallery2/index.php');
  */
 $gallery->setConfig('baseUri', '');
+
+
+/*
+ * Use X-Sendfile (or a similar header) to let the web server serve images directly
+ * to the client. This can significantly increase the performance of your Gallery.
+ * Supported web servers are lighttpd (since 1.4.24), nginx (using X-Accel-Redirect)
+ * and Apache (with mod_xsendfile).
+ * You need to configure your web server first to allow this header, since it can be a 
+ * security risk. See the appropriate documentation for details.
+ */
+$gallery->setConfig('useSendFile', false);
+
 ?>
