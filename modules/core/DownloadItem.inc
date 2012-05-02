@@ -164,6 +164,18 @@ class DownloadItemView extends GalleryView {
 	    if ($stats[7] > 0) {
 		$phpVm->header('Content-length: ' . $stats[7]);
 	    }
+
+	    if ($gallery->getConfig('useSendFile')) {
+	    	if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === 0) {
+		    $phpVm->header('X-Sendfile: ' . $data['derivativePath']);
+		} else if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') === 0) {
+		    $phpVm->header('X-Accel-Redirect: ' . $data['derivativePath']);
+		} else {
+		    $phpVm->header('X-Sendfile: ' . $data['derivativePath']);
+		}
+	        return null;
+	    }
+
 	    /*
 	     * Don't use readfile() because it buffers the entire file in memory.  Profiling shows
 	     * that this approach is as efficient as fpassthru() but we get to call
