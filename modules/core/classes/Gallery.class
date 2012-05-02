@@ -867,7 +867,23 @@ class Gallery {
 
 	$base = $this->getConfig('data.gallery.base');
 	$path = $base . $relativePath;
-	if (file_exists($path) && $fd = fopen($path, 'rb')) {
+
+	if ($this->getConfig('useSendFile') && file_exists($path)) {
+		header('Content-Disposition: inline; filename="' . $filename . '"');
+		if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === 0) {
+			header('X-Sendfile: ' . $path);
+			header('Last-Modified: ' . $lastModified);
+		} else if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') === 0) {
+			header('X-Accel-Redirect: ' . $path);
+			/* NGINX adds a Last-Modified header itself */
+		} else {
+			header('X-Sendfile: ' . $path);
+			/* Apache adds a Last-Modified header itself */
+		}
+		header('Content-type: ' . $mimeType);
+		/* Content-Length is added by Apache, lighttpd and nginx itself */
+		return true;
+	} elseif (file_exists($path) && $fd = fopen($path, 'rb')) {
 	    header('Content-Disposition: inline; filename="' . $filename . '"');
 	    header('Last-Modified: ' . $lastModified);
 	    header('Content-type: ' . $mimeType);
