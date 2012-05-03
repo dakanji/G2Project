@@ -844,64 +844,66 @@ class Gallery {
      * @param int $contentLength the size of the file (used for the Content-length header)
      * @return boolean true if we transferred the file successfully
      */
-    function fastDownload($relativePath, $filename, $lastModified, $mimeType, $contentLength) {
-	global $gallery;
-
-	/*
-	 * Note: don't use GalleryPlatform or GalleryUtilities here because this code is
-	 * a shortcut that is used before we load those classes.
-	 */
-	$fileNameParam = GALLERY_FORM_VARIABLE_PREFIX . 'fileName';
-	$requestFileName = isset($_GET[$fileNameParam]) ? $_GET[$fileNameParam] : null;
-	if (!empty($requestFileName) && $requestFileName != $filename) {
-	    return false;
-	}
-
-	/**
-	 * Try to prevent Apache's mod_deflate from gzipping this output since it's likely already
-	 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
-	 */
-	if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
-	    apache_setenv('no-gzip', '1');
-	}
-
-	$base = $this->getConfig('data.gallery.base');
-	$path = $base . $relativePath;
-
-	if ($this->getConfig('useSendFile') && file_exists($path)) {
-		header('Content-Disposition: inline; filename="' . $filename . '"');
-		if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === 0) {
-			header('X-Sendfile: ' . $path);
-			header('Last-Modified: ' . $lastModified);
-		} else if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') === 0) {
-			header('X-Accel-Redirect: ' . $path);
-			/* NGINX adds a Last-Modified header itself */
-		} else {
-			header('X-Sendfile: ' . $path);
-			/* Apache adds a Last-Modified header itself */
+	function fastDownload($relativePath, $filename, $lastModified, $mimeType, $contentLength) {
+		global $gallery;
+		
+		/**
+		 * Note: don't use GalleryPlatform or GalleryUtilities here because this code is
+		 * a shortcut that is used before we load those classes.
+		 */
+		$fileNameParam = GALLERY_FORM_VARIABLE_PREFIX . 'fileName';
+		$requestFileName = isset($_GET[$fileNameParam]) ? $_GET[$fileNameParam] : null;
+		if (!empty($requestFileName) && $requestFileName != $filename) {
+			return false;
 		}
-		header('Content-type: ' . $mimeType);
-		/* Content-Length is added by Apache, lighttpd and nginx itself */
-		return true;
-	} elseif (file_exists($path) && $fd = fopen($path, 'rb')) {
-	    header('Content-Disposition: inline; filename="' . $filename . '"');
-	    header('Last-Modified: ' . $lastModified);
-	    header('Content-type: ' . $mimeType);
-	    header('Content-length: ' . $contentLength);
-	    header('Expires: ' . $this->getHttpDate(2147483647));
-	    header('Cache-Control: public');
-	    if (get_magic_quotes_runtime()) @set_magic_quotes_runtime(0);/* deprecated in PHP5.3 */
-	    set_time_limit(0);
-	    while (!feof($fd)) {
-		print fread($fd, 4096);
-	    }
-	    fclose($fd);
-
-	    return true;
-	}
-
-	return false;
-    }
+		
+		/**
+		 * Try to prevent Apache's mod_deflate from gzipping this output since it's likely already
+		 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
+		 */
+		if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
+			apache_setenv('no-gzip', '1');
+		}
+		
+		$base = $this->getConfig('data.gallery.base');
+		$path = $base . $relativePath;
+		
+		if ($this->getConfig('useSendFile') && file_exists($path)) {
+			/* 
+			 * Use the X-Sendfile feature to bypass the image firewall PHP bottleneck.
+			 * Must be enabled in config.php
+			 */
+			header('Content-Disposition: inline; filename="' . $filename . '"');
+			if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') === 0) {
+				header('X-Accel-Redirect: ' . $path);
+			} else {
+				header('X-Sendfile: ' . $path);
+				if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === 0) {
+					/* Lighttpd does not add Last-Modified header by itself */
+					header('Last-Modified: ' . $lastModified);
+				}
+			}
+			header('Content-type: ' . $mimeType);
+			/* Content-Length is added by Apache, lighttpd and nginx themselves */
+			return true;
+		} elseif (file_exists($path) && $fd = fopen($path, 'rb')) {
+			header('Content-Disposition: inline; filename="' . $filename . '"');
+			header('Last-Modified: ' . $lastModified);
+			header('Content-type: ' . $mimeType);
+			header('Content-length: ' . $contentLength);
+			header('Expires: ' . $this->getHttpDate(2147483647));
+			header('Cache-Control: public');
+			if (get_magic_quotes_runtime()) @set_magic_quotes_runtime(0);
+				/* deprecated in PHP5.3 */
+				set_time_limit(0);
+				while (!feof($fd)) {
+					print fread($fd, 4096);
+				}
+				fclose($fd);
+				return true;
+			}
+			return false;
+		}
 
     /**
      * Return a date and time string that is conformant to RFC 2616
