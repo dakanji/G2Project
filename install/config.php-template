@@ -176,6 +176,17 @@ $gallery->setConfig('mode.embed.only', false);
 $gallery->setConfig('allowSessionAccess', false);
 
 /*
+ * Use X-Sendfile (or a similar header) to let the web server serve images directly
+ * to the client. This can significantly increase the performance of your Gallery.
+ * Supported web servers are Lighttpd (since 1.4.24), Apache (with mod_xsendfile)
+ * and Nginx (using X-Accel-Redirect).
+ *
+ * Please make sure your webserver is properly configured to use this feature
+ * as it may otherwise pose a security risk.
+ */
+$gallery->setConfig('useSendFile', false);
+
+/*
  * URL of Gallery codebase; required only for multisite install.
  */
 $gallery->setConfig('galleryBaseUrl', '');
