@@ -30,7 +30,10 @@
  *
  * @author Ernesto Baschny <ernst@baschny.de>
  */
-if (!defined('G2_SUPPORT')) { return; }
+if (!defined('G2_SUPPORT')) { 
+	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
+}
+
 
 /*
  * Gets a lot of information about our GD installation and return it as a
@@ -198,10 +201,10 @@ function getGdLibraryInfo() {
 $gdInfo = getGdLibraryInfo();
 
 ?>
-<html>
+<html lang="en">
   <head>
     <title>Gallery Support | GD Library Info</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
   </head>
   <body>
     <div id="content">

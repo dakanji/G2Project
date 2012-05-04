@@ -1,5 +1,7 @@
 <?php
-if (!defined('G2_SUPPORT')) { return; }
+if (!defined('G2_SUPPORT')) { 
+	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
+}
 ob_start();
 phpinfo();
 $phpinfo = ob_get_contents();
@@ -13,10 +15,10 @@ $phpinfo = preg_replace_callback(
     $phpinfo);
 
 ?>
-<html>
+<html lang="en">
   <head>
     <title> Gallery Support | PHP Info</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
     <style type="text/css">
       pre {
 	margin: 0px;

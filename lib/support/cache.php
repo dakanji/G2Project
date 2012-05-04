@@ -1,5 +1,7 @@
 <?php
-if (!defined('G2_SUPPORT')) { return; }
+if (!defined('G2_SUPPORT')) { 
+	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
+}
 
 function getCaches() {
     $dirs = array(
@@ -159,10 +161,10 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
     $_COOKIE['g2cache'] = join(',', $remember);
 }
 ?>
-<html>
+<html lang="en">
   <head>
     <title>Gallery Support | Cache Maintenance</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
   </head>
   <body>
     <div id="content">
@@ -190,10 +192,10 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	  <?php $caches = getCaches(); ?>
 	  <?php foreach ($caches as $key => $info): ?>
 	  <input type="checkbox" name="target[<?php print $key ?>]"
-            <?php if ($info[0]): ?> checked="checked" <?php endif; ?> />
-	  <?php print $info[3] ?> <br/>
+            <?php if ($info[0]): ?> checked="checked" <?php endif; ?>>
+	  <?php print $info[3] ?> <br>
 	  <?php endforeach; ?>
-	  <input type="submit" name="clear" value="Clear Cache"/>
+	  <input type="submit" name="clear" value="Clear Cache">
 	</p>
       </form>
     </div>

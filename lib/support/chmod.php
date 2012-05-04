@@ -18,7 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-if (!defined('G2_SUPPORT')) { return; }
+if (!defined('G2_SUPPORT')) { 
+	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
+}
+
 
 /* Commands */
 define('CMD_CHMOD_MODULES_AND_THEMES_DIR', 'chmodModulesAndThemesDir');
@@ -374,13 +377,13 @@ class PermissionBits {
 $errorBoxOpen = 0;
 function status($msg, $obj) {
     openErrorBox();
-    printf("$msg&nbsp;<b>%s</b><br/>", wordwrap($obj, 85, "<br/>&nbsp;&nbsp;&nbsp;", true));
+    printf("$msg&nbsp;<b>%s</b><br>", wordwrap($obj, 85, "<br>&nbsp;&nbsp;&nbsp;", true));
 }
 
 function error($msg, $obj) {
     openErrorBox();
     print '<span class="error">';
-    printf("$msg&nbsp;<b>%s</b><br/>", wordwrap($obj, 85, "<br/>&nbsp;&nbsp;&nbsp;", true));
+    printf("$msg&nbsp;<b>%s</b><br>", wordwrap($obj, 85, "<br>&nbsp;&nbsp;&nbsp;", true));
     print '</span>';
 }
 
@@ -500,7 +503,7 @@ function printStatus($status) {
     if (!empty($status['error'])) {
 	printf('<script type="text/javascript">printErrorMessage(\'%s\');</script>',
 	       str_replace(array("\\", "'"), array("\\\\", "\\'"),
-	       		   implode('<br/>', $status['error'])));
+	       		   implode('<br>', $status['error'])));
     }
     if (!empty($status['message'])) {
 	printf('<script type="text/javascript">printStatusMessage(\'%s\');</script>',
@@ -520,10 +523,10 @@ function printStatus($status) {
 function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermissions, $permissionBitSets) {
     global $baseUrl;
 ?>
-<html>
+<html lang="en">
   <head>
     <title>Gallery Support - Change Filesystem Permissions</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
     <style type="text/css">
     </style>
     <script type="text/javascript">
@@ -558,7 +561,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
       function printErrorMessage(message) {
         var errorElement = document.getElementById('error');
         errorElement.innerHTML = message +
-          "<br/>Note: Please look at the <a href=\"#details\">[details]</a>. " +
+          "<br>Note: Please look at the <a href=\"#details\">[details]</a>. " +
           "You might be able to change the filesystem permissions of the failed directories " +
           "successfully yourself with an FTP program or a command line shell."
         errorElement.style.display = 'block';
@@ -595,7 +598,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
         &nbsp;
       </div>
 
-      <hr class="faint"/>
+      <hr class="faint">
 
       <?php if (!isModulesOrThemesDirWriteable()): ?>
       <h2>
@@ -621,7 +624,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
       </p>
       <?php endif; ?>
 
-      <hr class="faint"/>
+      <hr class="faint">
 
       <?php startForm('index.php?chmod&amp;command=' . CMD_CHMOD_PLUGIN_DIR, 'pluginForm'); ?>
 	<h2 id="themeOrModule">
@@ -641,13 +644,13 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 	    <?php endforeach; ?>
 	  </select>
 	  &nbsp;&nbsp;
-	  <input type="hidden" name="mode" value="open"/>
-	  <input type="submit" disabled="disabled" name="open" value="Make it open (read/write)"/> |
-	  <input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)"/>
+	  <input type="hidden" name="mode" value="open">
+	  <input type="submit" disabled="disabled" name="open" value="Make it open (read/write)"> |
+	  <input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)">
 	</p>
       </form>
 
-      <hr class="faint"/>
+      <hr class="faint">
 
       <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_STORAGE_DIR)
       ?>">Make the data folder read/write</a></h2>
@@ -658,7 +661,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
         to your webhost to get data folder writeable again.
       </p>
 
-      <hr class="faint"/>
+      <hr class="faint">
 
       <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_LOCALE_DIR)
       ?>">Make the locale folder read/write</a></h2>
@@ -668,7 +671,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
         g2data/locale folder.  Making the locale folder read/write should solve this problem.
       </p>
 
-      <hr class="faint"/>
+      <hr class="faint">
 
       <?php if (isGalleryDirWriteable()): ?>
       <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_GALLERY_DIR)
@@ -687,35 +690,35 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
       </p>
       <?php endif; ?>
 
-      <hr class="faint"/>
+      <hr class="faint">
 
       <h2>Advanced: Choose the path and the permissions manually</h2>
       <?php startForm('index.php?chmod&amp;command=' . CMD_ADVANCED); ?>
 	<p class="description">
 	  <b> Path to change: </b>
-	  <input type="text" name="path" size="50" value="<?php print $path; ?>"/>
-          <br/>
+	  <input type="text" name="path" size="50" value="<?php print $path; ?>">
+          <br>
 	  <span class="subtext">
-	    Gallery folder: <i><?php print GallerySetupUtilities::getConfigDir(); ?></i> <br/>
-            Gallery data folder: <i><?php print getGalleryStoragePath(); ?></i> <br/>
+	    Gallery folder: <i><?php print GallerySetupUtilities::getConfigDir(); ?></i> <br>
+            Gallery data folder: <i><?php print getGalleryStoragePath(); ?></i> <br>
 	  </span>
-          <br/>
+          <br>
           <b> New permissions: </b>
 	  <?php
 	   foreach ($permissionBitSets as $permissionBitSet):
 	       $checked = $permissionBitSet[1]->equals($filePermissions) ? 'checked="checked"' : '';
 	       $value = $permissionBitSet[0]->getAsString() . $permissionBitSet[1]->getAsString();
           ?>
-	  <br/>
+	  <br>
 	  <input id="set_<?php print $value?>" type="radio" name="permissions" value="<?php print $value ?>" <?php print $checked ?>>
 	    <label for="set_<?php print $value?>">
 	      <span class="hasToolTip" title="Files: <?php print $permissionBitSet[1]->getAsString(); ?>, Folders: <?php print $permissionBitSet[0]->getAsString(); ?>"> <?php print $permissionBitSet[1]->getDescription() ?></span>
 	    </label>
 	  </input>
 	  <?php endforeach; ?>
-	  <br/><br/>
+	  <br><br>
 
-          <input type="submit" value="Change the Permissions now!"/>
+          <input type="submit" value="Change the Permissions now!">
         </p>
       </form>
 <?php
