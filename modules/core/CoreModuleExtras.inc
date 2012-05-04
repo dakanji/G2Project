@@ -2557,8 +2557,12 @@ class CoreModuleExtras {
 	case '1.2.37':
 	    /* R2.3 */
 	case '1.3.0':
-	    /* R2.3.1 R2.3.2*/
-	case '1.3.0.x':
+	    /* R2.3.1 */
+	case '1.3.0.1':
+	    /* R2.3.2 */
+	case '1.3.0.2':
+	    /* R2.3.2.1 */
+	case '1.3.0.2.1':
 
 	case 'end of upgrade path':
 	    /*
@@ -2919,7 +2923,25 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	case '1.2.36':
 	case '1.2.37':
 	case '1.3.0':
-	case '1.3.0.x':
+	case '1.3.0.1':
+	case '1.3.0.2':
+	case '1.3.0.2.1':	
+		/* Add config parameter: 'useSendFile' */
+		$configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
+			
+			/**
+			 * Use X-Sendfile (or a similar header) to let the web server serve images directly
+			 * to the client. This can significantly increase the performance of your Gallery.
+			 * Supported web servers are Lighttpd (since 1.4.24), Apache (with mod_xsendfile)
+			 * and Nginx (using X-Accel-Redirect).
+			 *
+			 * Please make sure your webserver is properly configured to use this feature
+			 * as it may otherwise pose a security risk.
+			**/
+			$gallery->setConfig('useSendFile', false);
+				
+		);
+
 
 	case 'end of upgrade path':
 	    /*
