@@ -166,9 +166,7 @@ class DownloadItemView extends GalleryView {
 			}
 			
 			if ($gallery->getConfig('useSendFile')) {
-				if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === 0) {
-					$phpVm->header('X-Sendfile: ' . $data['derivativePath']);
-				} else if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') === 0) {
+				if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') === 0) {
 					$phpVm->header('X-Accel-Redirect: ' . $data['derivativePath']);
 				} else {
 					$phpVm->header('X-Sendfile: ' . $data['derivativePath']);
