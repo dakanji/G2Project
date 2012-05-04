@@ -2562,7 +2562,7 @@ class CoreModuleExtras {
 	    /* R2.3.2 */
 	case '1.3.0.2':
 	    /* R2.3.2.1 */
-	case '1.3.0.2.1':
+	case '1.3.0.2a':
 
 	case 'end of upgrade path':
 	    /*
@@ -2925,7 +2925,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	case '1.3.0':
 	case '1.3.0.1':
 	case '1.3.0.2':
-	case '1.3.0.2.1':	
+	case '1.3.0.2a':	
 		/* Add config parameter: 'useSendFile' */
 		$configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
 			
