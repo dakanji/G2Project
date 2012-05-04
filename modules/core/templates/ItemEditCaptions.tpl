@@ -69,7 +69,7 @@
    name="{g->formVar var="form[items][`$item.id`][summary]"}" value="{$item.summary}"/>
 
   <h4> {g->text text="Keywords"} </h4>
-  <textarea id="keywords_{$item.id}" rows="2" cols="60"
+  <textarea id="keywords_{$item.id}" rows="4" cols="90"
    name="{g->formVar var="form[items][`$item.id`][keywords]"}">{$item.keywords}</textarea>
 
   <h4> {g->text text="Description"} </h4>
