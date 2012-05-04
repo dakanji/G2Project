@@ -87,7 +87,7 @@ $entityInfo['GalleryItem'] = array(
     'members' => array(
 	'canContainChildren' => array('type' => STORAGE_TYPE_BOOLEAN, 'notNull' => 1, 'external-access' => EXTERNAL_ACCESS_READ),
 	'description' => array('type' => STORAGE_TYPE_TEXT, 'size' => STORAGE_SIZE_SMALL, 'external-access' => EXTERNAL_ACCESS_FULL),
-	'keywords' => array('type' => STORAGE_TYPE_STRING, 'size' => STORAGE_SIZE_LARGE, 'external-access' => EXTERNAL_ACCESS_FULL),
+	'keywords' => array('type' => STORAGE_TYPE_TEXT, 'size' => STORAGE_SIZE_SMALL, 'external-access' => EXTERNAL_ACCESS_FULL),
 	'ownerId' => array('type' => STORAGE_TYPE_INTEGER, 'notNull' => 1),
 	'renderer' => array('type' => STORAGE_TYPE_STRING, 'size' => STORAGE_SIZE_MEDIUM),
 	'summary' => array('type' => STORAGE_TYPE_STRING, 'size' => STORAGE_SIZE_LARGE, 'external-access' => EXTERNAL_ACCESS_FULL),

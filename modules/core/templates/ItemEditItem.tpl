@@ -88,7 +88,7 @@
       {g->text text="Keywords are not visible, but are searchable."}
     </p>
 
-    <textarea rows="2" cols="60"
+    <textarea rows="4" cols="90"
      name="{g->formVar var="form[keywords]"}">{$form.keywords}</textarea>
   </div>
 

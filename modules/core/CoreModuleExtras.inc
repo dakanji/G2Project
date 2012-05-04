@@ -2563,6 +2563,11 @@ class CoreModuleExtras {
 	case '1.3.0.2':
 	    /* R2.3.2.1 */
 	case '1.3.0.2a':
+		/* Schema upgrade: Allow longer keyword strings */
+		$ret = $storage->configureStore($module->getId(), array('GalleryItem:1.2'));
+		if ($ret) {
+			return $ret;
+		}
 
 	case 'end of upgrade path':
 	    /*
