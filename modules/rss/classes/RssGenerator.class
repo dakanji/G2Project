@@ -311,9 +311,10 @@ class RssGenerator {
 			. '</media:text>' . $lf;
 
 		    if (isset($item['thumbnail'])) {
-			$data .= ' <media:thumbnail url="' . $item['thumbnail']['url'] . '" width="'
-			    . $item['thumbnail']['width'] . '" height="'
-			    . $item['thumbnail']['height'] . '" />' . $lf;
+			$data .= ' <media:thumbnail url="' . $item['thumbnail']['url']
+			. '" type="' . $item['media']['type'] 
+			. '" width="' . $item['thumbnail']['width'] 
+			. '" height="' . $item['thumbnail']['height'] . '" />' . $lf;
 		    }
 		}
 
