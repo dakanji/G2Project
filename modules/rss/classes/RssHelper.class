@@ -299,7 +299,7 @@ class RssHelper {
 		'" height="' . $thumbnail->getHeight() .
 		'"/></a>' . (!empty($description) ? '<br/>' . $description : $description);
 
-	    $itemSettings['thumbnail']['url'] = $url;
+	    $itemSettings['thumbnail']['url'] = $imageUrl;
 	    $itemSettings['thumbnail']['width'] = $thumbnail->getWidth();
 	    $itemSettings['thumbnail']['height'] = $thumbnail->getHeight();
 	}
