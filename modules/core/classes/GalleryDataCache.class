@@ -685,7 +685,13 @@ class GalleryDataCache {
 		return $ret;
 	    }
 
-	    if (!$affectedRows) {
+	    /* Note: when using mysql or mysqli, getAffectedRows() returns the number of rows
+	       actually _changed_ (not the number of rows that _matched_ the WHERE clause).
+	       If there is more than one update on the same item in the same second,
+	       $affectedRows will be 0 even though the corresponding row is in the
+	       CacheMap, just because the same data will be inserted (updated) twice
+	       If we are here for the second time, it might be because of that problem. */
+	    if ($i < 1 && !$affectedRows) {
 		$ret = GalleryCoreApi::addMapEntry(
 		    'GalleryCacheMap',
 		    array('key' => $key, 'value' => $value, 'userId' => $userId, 'type' => $type,
