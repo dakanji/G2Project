@@ -3640,19 +3640,12 @@ class nusoapclient extends nusoap_base  {
 				}
 				$this->debug('sending message, length: '.strlen($msg));
 				if(ereg('^http:',$this->endpoint)){
-				//if(strpos($this->endpoint,'http:')){
 					$response = $http->send($msg,$timeout);
 				} elseif(ereg('^https',$this->endpoint)){
-				//} elseif(strpos($this->endpoint,'https:')){
-					//if(phpversion() == '4.3.0-dev'){
-						//$response = $http->send($msg,$timeout);
-                   		//$this->request = $http->outgoing_payload;
-						//$this->response = $http->incoming_payload;
-					//} else
 					if (extension_loaded('curl')) {
 						$response = $http->sendHTTPS($msg,$timeout);
 					} else {
-						$this->setError('CURL Extension, or OpenSSL extension w/ PHP version >= 4.3 is required for HTTPS');
+						$this->setError('CURL Extension, or OpenSSL extension required for HTTPS');
 					}								
 				} else {
 					$this->setError('no http/s in endpoint url');

@@ -149,19 +149,6 @@ function GalleryInitFirstPass($params=array()) {
 	$gallery->initEmptySession();
     }
 
-    if (version_compare(phpversion(), '5.0') < 0 && !isset($params['noDatabase'])) {
-	/*
-	 * PHP5 requires static methods to be marked static, or it generates an error.  PHP4 cannot
-	 * parse that syntax, so we cannot modify the code.  So since setting an error handler for
-	 * PHP5 results in a measurable performance hit, we only set it for PHP4.
-	 *
-	 * The error handler relies on a database connection and a session, so don't set it before
-	 * they're initialized.
-	 */
-	set_error_handler('GalleryPhpErrorHandler');
-	$GLOBALS['gallerySetErrorHandler'] = true;
-    }
-
     /* Initialize our translator */
     $language = GalleryUtilities::getRequestVariables('language');
     if (isset($params['activeLanguage']) || !empty($language)) {

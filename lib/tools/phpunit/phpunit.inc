@@ -30,12 +30,7 @@
 // SOFTWARE.
 //
 
-if (version_compare(phpversion(), '5.3', '>=')) {
-    /* Ignore these warnings for PHP 5.3 in Gallery 2.3 */
     error_reporting(E_ALL & ~E_STRICT);
-} else {
-    error_reporting(E_ALL);
-}
 
 /*
 interface Test {

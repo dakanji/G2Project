@@ -53,9 +53,9 @@ class getID3
 		$this->startup_error   = '';
 		$this->startup_warning = '';
 
-		// Check for PHP version >= 4.1.0
-		if (phpversion() < '4.1.0') {
-		    $this->startup_error .= 'getID3() requires PHP v4.1.0 or higher - you are running v'.phpversion();
+		// Check for PHP version >= 5.3.3
+		if (phpversion() < '5.3.3') {
+		    $this->startup_error .= 'This version of gallery2 requires PHP v5.3.3 or higher - you are running PHP v'.phpversion();
 		}
 
 		// Check memory

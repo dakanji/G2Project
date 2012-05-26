@@ -72,16 +72,14 @@ class SystemChecksStep extends InstallStep {
 	$template->renderHeader(true);
 	$template->renderStatusMessage(_('Performing system checks'), '', 0);
 
-	/* assert compatible version of PHP, we accept 4.3.0+ / 5.0.4+ */
-	if (!function_exists('version_compare') || version_compare(phpversion(), '4.3.0', '<')
-		|| (version_compare(phpversion(), '5.0.0', '>=')
-		    && version_compare(phpversion(), '5.0.4', '<'))) {
+	/* assert compatible version of PHP, we accept 5.3.3+ */
+	if (!function_exists('version_compare') && version_compare(phpversion(), '5.3.3', '<'))) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &gt;= 4.3.0 or &gt;= 5.0.4'),
+		array('title' => _('PHP version &gt;= 5.3.3'),
 		      'error' => true,
 		      'notice' => sprintf(
-			  _("Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or " .
-			    "newer. You have PHP version %s installed. Contact your webserver " .
+			  _("Error: This version of Gallery 2 requires PHP 5.3.3 or " .
+			    "newer but you have PHP Version %s installed. Please contact your webserver " .
 			    "administrator to request an upgrade, available at the %sPHP " .
 			    "website%s."), phpversion(), '<a href="http://php.net/">', '</a>'));
 	    $failCount++;
