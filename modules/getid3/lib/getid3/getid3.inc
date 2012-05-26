@@ -923,7 +923,6 @@ class getID3
 
 		// Identify file format - loop through $format_info and detect with reg expr
 		foreach ($this->GetFileFormatArray() as $format_name => $info) {
-			// Using preg_match() instead of ereg() - much faster
 			// The /s switch on preg_match() forces preg_match() NOT to treat
 			// newline (0x0A) characters as special chars but do a binary match
 			if (preg_match('/'.$info['pattern'].'/s', $filedata)) {

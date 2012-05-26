@@ -327,11 +327,7 @@ class GallerySetupUtilities {
 
 	/* Sanitize the sessionId */
 	if (!empty($sessionId)) {
-	    if (function_exists('preg_replace')) {
 		$sessionId = preg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
-	    } else {
-		$sessionId = ereg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
-	    }
 	    /* Make sure we don't use invalid data at a later point */
 	    foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 		unset($superGlobal[$sessionName]);

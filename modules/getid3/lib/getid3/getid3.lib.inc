@@ -20,7 +20,7 @@ class getid3_lib
 			if ($hex) {
 				$returnstring .= str_pad(dechex(ord($string{$i})), 2, '0', STR_PAD_LEFT);
 			} else {
-				$returnstring .= ' '.(ereg("[\x20-\x7E]", $string{$i}) ? $string{$i} : '¤');
+				$returnstring .= ' '.(preg_match("~[\x20-\x7E]~", $string{$i}) ? $string{$i} : '¤');
 			}
 			if ($spaces) {
 				$returnstring .= ' ';
@@ -525,7 +525,7 @@ class getid3_lib
 				}
 			}
 			$commandline = GETID3_HELPERAPPSDIR.'md5sum.exe "'.str_replace('/', DIRECTORY_SEPARATOR, $file).'"';
-			if (ereg("^[\\]?([0-9a-f]{32})", strtolower(`$commandline`), $r)) {
+			if (preg_match("~^[\\]?([0-9a-f]{32})~", strtolower(`$commandline`), $r)) {
 				return $r[1];
 			}
 
@@ -533,7 +533,7 @@ class getid3_lib
 
 			// The following works under UNIX only
 			$file = str_replace('`', '\\`', $file);
-			if (ereg("^([0-9a-f]{32})[ \t\n\r]", `md5sum "$file"`, $r)) {
+			if (preg_match("~^([0-9a-f]{32})[ \t\n\r]~", `md5sum "$file"`, $r)) {
 				return $r[1];
 			}
 
@@ -560,14 +560,14 @@ class getid3_lib
 				}
 			}
 			$commandline = GETID3_HELPERAPPSDIR.'sha1sum.exe "'.str_replace('/', DIRECTORY_SEPARATOR, $file).'"';
-			if (ereg("^sha1=([0-9a-f]{40})", strtolower(`$commandline`), $r)) {
+			if (preg_match("~^sha1=([0-9a-f]{40})~", strtolower(`$commandline`), $r)) {
 				return $r[1];
 			}
 
 		} else {
 
 			$commandline = 'sha1sum '.escapeshellarg($file).'';
-			if (ereg("^([0-9a-f]{40})[ \t\n\r]", strtolower(`$commandline`), $r)) {
+			if (preg_match("~^([0-9a-f]{40})[ \t\n\r]~", strtolower(`$commandline`), $r)) {
 				return $r[1];
 			}
 
