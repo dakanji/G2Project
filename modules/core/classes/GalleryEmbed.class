@@ -472,9 +472,20 @@ class GalleryEmbed /* implements GalleryEventListener */ {
 	    $user->changePassword($args['password']);
 	} else if (!empty($args['hashedpassword'])) {
 	    if (!isset($args['hashmethod'])
-		    || !in_array($args['hashmethod'], array('md5', 'phpass'))) {
+		    || !in_array($args['hashmethod'], 
+		    		array('md5', 'phpass', 
+		    				'sha512', 'sha384', 'sha256', 'sha1',
+		    				'ripemd320', 'ripemd256', 'ripemd160', 'ripemd128', 
+		    				'tiger128,3', 'tiger128,4', 'tiger160,3', 'tiger160,4', 'tiger192,3', 'tiger192,4' 
+		    		)
+		 )) {
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-			'hashmethod must be either md5 or phpass');
+			'Hash Method Not Supported. Supported methods are: 
+				md5, phpass, 
+				sha512, sha384, sha256, sha1, 
+				ripemd320, ripemd256, ripemd160, ripemd128, 
+				tiger128,3, tiger128,4, tiger160,3, tiger160,4, tiger192,3 and tiger192,4
+			');
 	    }
 	    $user->setHashedPassword($args['hashedpassword']);
 	} else if ($create) {
