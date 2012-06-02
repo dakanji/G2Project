@@ -2557,12 +2557,10 @@ class CoreModuleExtras {
 	case '1.2.37':
 	    /* R2.3 */
 	case '1.3.0':
-	    /* R2.3.1 */
-	case '1.3.0.1':
-	    /* R2.3.2 */
-	case '1.3.0.2':
-	    /* R2.3.2.1 */
-	case '1.3.0.2a':
+	    /* R2.3.1 & R2.3.2 */
+	case '1.3.0.x':
+	    /* R2.4.0beta1 */
+	case '1.3.1.0':
 		/* Schema upgrade: Allow longer keyword strings */
 		$ret = $storage->configureStore($module->getId(), array('GalleryItem:1.2'));
 		if ($ret) {
@@ -2928,9 +2926,10 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	case '1.2.36':
 	case '1.2.37':
 	case '1.3.0':
-	case '1.3.0.1':
-	case '1.3.0.2':
-	case '1.3.0.2a':	
+	    /* R2.3.1 & R2.3.2 */
+	case '1.3.0.x':
+	    /* R2.4.0beta1 */
+	case '1.3.1.0':
 		/* Add config parameter: 'useSendFile' */
 		$configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
 			
