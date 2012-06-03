@@ -189,15 +189,15 @@ class GalleryUser extends GalleryEntity {
 
 	/* Also support hashes generated using PHPASS, WHIRLPOOL. RIPEMD, TIGER and SHA for interoperability with other applications */
 	if (strlen($valid) == 32) {
-		$guess = hash('ripemd128', $password));
+		$guess = hash('ripemd128', $password);
 		if (!strcmp($guess, $valid)) {
 			return true;
 		} else {
-			$guess = hash('tiger128,3', $password));
+			$guess = hash('tiger128,3', $password);
 			if (!strcmp($guess, $valid)) {
 				return true;
 			} else {
-				$guess = hash('tiger128,4', $password));
+				$guess = hash('tiger128,4', $password);
 				if (!strcmp($guess, $valid)) {
 					return true;
 				}
@@ -212,15 +212,15 @@ class GalleryUser extends GalleryEntity {
 		if (!strcmp($guess, $valid)) {
 			return true;
 		} else {
-			$guess = hash('ripemd160', $password));
+			$guess = hash('ripemd160', $password);
 			if (!strcmp($guess, $valid)) {
 				return true;
 			} else {
-				$guess = hash('tiger160,3', $password));
+				$guess = hash('tiger160,3', $password);
 				if (!strcmp($guess, $valid)) {
 					return true;
 				} else {
-					$guess = hash('tiger160,4', $password));
+					$guess = hash('tiger160,4', $password);
 					if (!strcmp($guess, $valid)) {
 						return true;
 					}
@@ -228,41 +228,41 @@ class GalleryUser extends GalleryEntity {
 			}
 		}
 	} elseif (strlen($valid) == 48) {
-		$guess = hash('tiger192,3', $password));
+		$guess = hash('tiger192,3', $password);
 		if (!strcmp($guess, $valid)) {
 			return true;
 		} else {
-			$guess = hash('tiger192,4', $password));
+			$guess = hash('tiger192,4', $password);
 			if (!strcmp($guess, $valid)) {
 				return true;
 			}
 		}
 	} elseif (strlen($valid) == 64) {
-		$guess = hash('sha256', $password));
+		$guess = hash('sha256', $password);
 		if (!strcmp($guess, $valid)) {
 			return true;
 		} else {
-			$guess = hash('ripemd256', $password));
+			$guess = hash('ripemd256', $password);
 			if (!strcmp($guess, $valid)) {
 				return true;
 			}
 		}
 	} elseif (strlen($valid) == 80) {
-		$guess = hash('ripemd320', $password));
+		$guess = hash('ripemd320', $password);
 		if (!strcmp($guess, $valid)) {
 			return true;
 		}
 	} elseif (strlen($valid) == 96) {
-		$guess = hash('sha384', $password));
+		$guess = hash('sha384', $password);
 		if (!strcmp($guess, $valid)) {
 			return true;
 		}
 	} elseif (strlen($valid) == 128) {
-		$guess = hash('sha512', $password));
+		$guess = hash('sha512', $password);
 		if (!strcmp($guess, $valid)) {
 			return true;
 		} else {
-			$guess = hash('whirlpool', $password));
+			$guess = hash('whirlpool', $password);
 			if (!strcmp($guess, $valid)) {
 				return true;
 			}
