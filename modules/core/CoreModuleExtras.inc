@@ -2942,7 +2942,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 			 * Please make sure your webserver is properly configured to use this feature
 			 * as it may otherwise pose a security risk.
 			**/
-			$gallery->setConfig('useSendFile', false);
+			$gallery->setConfig('useSendFile', false))
 				
 		);
 
