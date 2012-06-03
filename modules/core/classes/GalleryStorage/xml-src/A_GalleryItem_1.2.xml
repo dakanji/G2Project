@@ -12,6 +12,11 @@
     <schema-major>1</schema-major>
     <schema-minor>3</schema-minor>
   </schema-to>
+  <remove>
+    <index>
+      <column-name>keywords</column-name>
+    </index>
+  </remove>
   <alter>
     <column>
       <column-name>keywords</column-name>
