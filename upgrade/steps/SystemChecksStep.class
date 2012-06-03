@@ -88,7 +88,7 @@ class SystemChecksStep extends UpgradeStep {
 	$template->renderStatusMessage(_('Performing system checks'), '', 0);
 
 	/* assert compatible version of PHP, we accept 5.3.3+ */
-	if (!function_exists('version_compare') && version_compare(phpversion(), '5.3.3', '<'))) {
+	if (!function_exists('version_compare') && version_compare(phpversion(), '5.3.3', '<')) {
 	    $templateData['check'][] =
 		array('title' => _('PHP version &gt;= 5.3.3'),
 		      'error' => true,
