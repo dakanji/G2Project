@@ -244,3 +244,45 @@ fieldset {
 * html .continue:hover { border-color: #74ED74; }
 * html .redo:hover { border-color: #63BAF7; }
 * html .warn:hover { background: #FFA70F; border-color: #FFA70F; }
+
+
+div.box {
+	border: solid #ddd 1px;
+	margin: 15px;
+	padding: 10px;
+}
+
+div.option {
+	display: block;
+	color: #919191;
+}
+
+ul.option li a, ul.option li a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+ul.option li a:hover {
+	color: #adadad;
+	text-decoration: underline;
+}
+
+.round {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px
+}
+
+option.disabled {
+	background-color: #e5e5e3;
+}
+
+popup {
+	background: #5ba3e3;
+	text-align:center;
+}
+
+height300 {
+	height:300px;
+}
+
