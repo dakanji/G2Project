@@ -869,7 +869,7 @@ class Gallery {
 		$base = $this->getConfig('data.gallery.base');
 		$path = $base . $relativePath;
 		
-		if ($this->getConfig('useSendFile') && file_exists($path)) {
+		if ($this->getConfig('useSendFile') && file_exists($path) && !isset($_SERVER['HTTP_RANGE'])) {
 			/* 
 			 * Use the X-Sendfile feature to bypass the image firewall PHP bottleneck.
 			 * Must be enabled in config.php
