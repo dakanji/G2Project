@@ -888,7 +888,7 @@ class Gallery {
 			/* Content-Length is added by Apache, lighttpd and nginx themselves */
 			return true;
 		} elseif (file_exists($path) && $fd = fopen($path, 'rb')) {
-			if(!isset($_SERVER['HTTP_RANGE'])) {
+			if(isset($_SERVER['HTTP_RANGE'])) {
 
 				// Prevent Apache's mod_deflate from gzipping output 
 				if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
