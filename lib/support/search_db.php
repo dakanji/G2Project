@@ -150,13 +150,6 @@ function process($search_string, $advance, $deep) {
 	<head>
 		<title>Gallery Support | MySQL Database Search Tool</title>
 		<link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
-		<style>
-			div.center {
-				padding: 10px;
-				margin: 20px;
-				text-align: center;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="content">
