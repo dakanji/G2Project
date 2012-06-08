@@ -887,18 +887,107 @@ class Gallery {
 			/* Content-Length is added by Apache, lighttpd and nginx themselves */
 			return true;
 		} elseif (file_exists($path) && $fd = fopen($path, 'rb')) {
-			header('Content-Disposition: inline; filename="' . $filename . '"');
-			header('Last-Modified: ' . $lastModified);
-			header('Content-type: ' . $mimeType);
-			header('Content-length: ' . $contentLength);
-			header('Expires: ' . $this->getHttpDate(2147483647));
-			header('Cache-Control: public');
-			set_time_limit(0);
-			while (!feof($fd)) {
-				print fread($fd, 4096);
+			if(!isset($_SERVER['HTTP_RANGE'])) {
+
+				// Prevent Apache's mod_deflate from gzipping output 
+				if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
+					@apache_setenv('no-gzip', '1');
+				}
+				
+				$size		= filesize($path);	// File size
+				$length		= $size;			// Content length
+				$start		= 0;				// Start byte
+				$end		= $size - 1;		// End byte
+				
+				/**
+				 * Now that we've gotten so far without errors we send the accept range header
+				 *
+				 * At the moment we only support single ranges.
+				 * Multiple ranges requires some more work to ensure it works correctly and complies with 
+				 * specifications: http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.2
+				 *
+				 * Multirange support annouces itself with: header('Accept-Ranges: bytes') 
+				 * and must be sent with multipart/byteranges mediatype: (mediatype = mimetype) 
+				 * as well as a boundry header to indicate the various chunks of data.
+				**/
+				list(, $range) = explode('=', GalleryUtilities::getServerVar('HTTP_RANGE'), 2);
+				if (strpos($range, ',') !== false) {
+					// This is a multibyte range
+					header('HTTP/1.1 416 Requested Range Not Satisfiable');
+					header("Content-Range: bytes $start-$end/$size");
+					fclose($fd);
+					return false;
+				} else {
+					header("Accept-Ranges: 0-$length");
+					header('Content-type: ' . $mimeType);		
+				}
+				
+				/**
+				 * If the range starts with a '-' start from the beginning.
+				 * If not, forward the file pointer and make sure to get the end byte if specified
+				**/
+				if ($range0 == '-') {
+					$c_start = $size - substr($range, 1);
+					$c_end = $end;
+				} else {
+					$range = explode('-', $range);
+					$c_start = $range[0];
+					$c_end = (isset($range[1]) && is_numeric($range[1])) ? $range[1] : $size;
+					
+					// End bytes can not be larger than $end.
+					$c_end = ($c_end > $end) ? $end : $c_end;
+				}
+				
+				// Validate the requested range.
+				if ($c_start > $c_end || $c_start > $size - 1 || $c_end >= $size) {
+					header('HTTP/1.1 416 Requested Range Not Satisfiable');
+					header("Content-Range: bytes $start-$end/$size");
+					fclose($fd);
+					return false;
+				} else {
+					$start = $c_start;
+					$end = $c_end;
+					$length = $end - $start + 1;
+										
+					fseek($fd, $start);
+					
+					header('HTTP/1.1 206 Partial Content');
+					header("Content-Range: bytes $start-$end/$size");
+					header("Content-Length: $length");
+					
+					// Start buffered download
+					$buffer = 1024 * 8;
+					while(!feof($fd) && ($p = ftell($fd)) <= $end) {
+						if ($p + $buffer > $end) {
+							// Do not read past length if outputting a file chunk
+							$buffer = $end - $p + 1;
+						}
+						
+						// Reset time limit for big files
+						$gallery->guaranteeTimeLimit(30); 
+						print fread($fd, $buffer);
+						
+						// Free up memory to avoid triggering the PHP memory limit.
+						flush();
+					}
+					
+					fclose($fd);
+					return true;
+				}
+			} else {
+				header('Content-Disposition: inline; filename="' . $filename . '"');
+				header('Last-Modified: ' . $lastModified);
+				header('Content-type: ' . $mimeType);
+				header('Content-length: ' . $contentLength);
+				header('Expires: ' . $this->getHttpDate(2147483647));
+				header('Cache-Control: public');
+				set_time_limit(0);
+				while (!feof($fd)) {
+					print fread($fd, 4096);
+				}
+				fclose($fd);
+				return true;
 			}
-			fclose($fd);
-			return true;
 		}
 		return false;
 	}
