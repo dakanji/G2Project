@@ -1,4 +1,6 @@
 <?php
+// Version
+$script_version = "8";
 /*
  * Description: A tool for searching the Gallery2 database
  * Date: 02 April 2012
@@ -25,9 +27,9 @@
 
 // Verification
 if (!defined('G2_SUPPORT')) { 
-	define('G2_SUPPORT_FILE', true);
 	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
 }
+
 // Prime variables
 if ($_POST["searchstring"]) {
 	$search_string = $_POST["searchstring"];
@@ -53,7 +55,7 @@ function connect() {
     require_once('../../embed.php');
     $ret = GalleryEmbed::init(array('fullInit' => false, 'noDatabase' => true));
     if ($ret) {
-        return '<div class=\"error center\">Error: Could not connect to Gallery.</div><div class=\"error\">' . $ret->getAsHtml() . '</div>';
+        return '<div class=\"error center\">Error: Could not connect to Gallery.</center><br>' . $ret->getAsHtml() . '</div>';
     }
     return null;
 }
@@ -148,18 +150,25 @@ function process($search_string, $advance, $deep) {
 	<head>
 		<title>Gallery Support | MySQL Database Search Tool</title>
 		<link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css">
+		<style>
+			div.center {
+				padding: 10px;
+				margin: 20px;
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="content">
 			<div id="title">
 				<a href="../../">Gallery</a> &raquo;
-				<a href="index.php">Support</a> &raquo; MySQL Database Search Tool
+				<a href="<?php generateUrl('index.php') ?>">Support</a> &raquo; MySQL Database Search Tool
 			</div>
+			<h2>
+				A tool for searching the Gallery2 database (MySQL only)<br>
+				The "Deep" mode matches substrings.
+			</h2>
 			<div class="center">
-				<h2>
-					A tool for searching the Gallery2 database<br>
-					Valid only for MySQL based installations
-				</h2>
 				<form action="search_db.php" method="POST">
 					<input type="hidden" name="advance" value=true /><br>
 					<?php if ($search_string) { ?> 
@@ -168,9 +177,9 @@ function process($search_string, $advance, $deep) {
 						<input required type="search" name="searchstring" placeholder="Search"><br>
 					<?php } ?>
 					<?php if ($deep) { ?> 
-						Match substrings: <input type="checkbox" name="deep" value=true checked="yes"/><br>
+						Deep Mode: <input type="checkbox" name="deep" value=true checked="yes"/><br>
 					<?php } else { ?>
-						Match substrings: <input type="checkbox" name="deep" value=true/><br>
+						Deep Mode: <input type="checkbox" name="deep" value=true/><br>
 					<?php } ?>
 					<input type="submit" value="Search Database">
 				</form>
