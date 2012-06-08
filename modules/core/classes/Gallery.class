@@ -951,9 +951,13 @@ class Gallery {
 										
 					fseek($fd, $start);
 					
-					header('HTTP/1.1 206 Partial Content');
+					header("HTTP/1.1 206 Partial Content");
 					header("Content-Range: bytes $start-$end/$size");
 					header("Content-Length: $length");
+					header("Last-Modified: $lastModified");
+					header('Etag: "'. md5_file($path) .'"');
+					header("Expires: $this->getHttpDate(2147483647)");
+					header("Cache-Control: public");
 					
 					// Start buffered download
 					$buffer = 1024 * 8;
