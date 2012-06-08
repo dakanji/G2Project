@@ -868,7 +868,7 @@ class Gallery {
 		$base = $this->getConfig('data.gallery.base');
 		$path = $base . $relativePath;
 		
-		if ($this->getConfig('useSendFile') && file_exists($path)) {
+		if ($this->getConfig('useSendFile') && file_exists($path) && !isset($_SERVER['HTTP_RANGE'])) {
 			/* 
 			 * Use the X-Sendfile feature to bypass the image firewall PHP bottleneck.
 			 * Must be enabled in config.php
@@ -893,17 +893,15 @@ class Gallery {
 			header('Content-length: ' . $contentLength);
 			header('Expires: ' . $this->getHttpDate(2147483647));
 			header('Cache-Control: public');
-			if (get_magic_quotes_runtime()) @set_magic_quotes_runtime(0);
-				/* deprecated in PHP5.3 */
-				set_time_limit(0);
-				while (!feof($fd)) {
-					print fread($fd, 4096);
-				}
-				fclose($fd);
-				return true;
+			set_time_limit(0);
+			while (!feof($fd)) {
+				print fread($fd, 4096);
 			}
-			return false;
+			fclose($fd);
+			return true;
 		}
+		return false;
+	}
 
     /**
      * Return a date and time string that is conformant to RFC 2616
