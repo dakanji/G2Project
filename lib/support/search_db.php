@@ -55,7 +55,7 @@ function connect() {
     require_once('../../embed.php');
     $ret = GalleryEmbed::init(array('fullInit' => false, 'noDatabase' => true));
     if ($ret) {
-        return '<div class=\"error center\">Error: Could not connect to Gallery.</center><br>' . $ret->getAsHtml() . '</div>';
+        return '<div class=\"error center\">Error: Could not connect to Gallery.</div><div class=\"error\">' . $ret->getAsHtml() . '</div>';
     }
     return null;
 }
