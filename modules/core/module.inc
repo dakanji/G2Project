@@ -193,6 +193,17 @@ class CoreModule extends GalleryModule {
 					    'selectedId' => $itemId,
 					    'return' => 1));
 	    }
+	    
+	    if ($isAlbum && isset($permissions[$itemId]['core.edit'])
+		    && !empty($childCounts[$itemId]) && $childCounts[$itemId] > 1) {
+		$links[$itemId][] =
+		    array('text' => $this->_translate('Rotate Items'),
+			  'params' => array('view' => 'core.ItemAdmin',
+					    'subView' => 'core.ItemRotate',
+					    'itemId' => $item->getParentId(),
+					    'selectedId' => $itemId,
+					    'return' => 1));
+	    }
 
 	    if (isset($wantsDetailedLinks[$itemId]) && $isAlbum
 		    && isset($permissions[$itemId]['core.edit']) && !empty($childCounts[$itemId])
