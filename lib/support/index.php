@@ -8,7 +8,7 @@ ob_start();
 /* Tell other scripts we passed security.inc ok */
 define('G2_SUPPORT', true);
 if (!empty($_SERVER['QUERY_STRING'])) {
-    foreach (array('phpinfo', 'cache', 'gd', 'chmod', 'import', 'password') as $script) {
+    foreach (array('phpinfo', 'cache', 'gd', 'chmod', 'import', 'password', 'search_db') as $script) {
     	/*
     	 * Don't use isset($_GET[$script]) since we want to allow for GET args could collide
     	 * with the above mentioned script names
@@ -94,10 +94,17 @@ function generateUrl($uri, $print=true) {
       <hr class="faint">
 
       <h2>
-        <a href="<?php generateUrl('index.php?password') ?>">Reset Passwords</a>
+        <a href="<?php generateUrl('index.php?password') ?>">Reset User Password</a>
       </h2>
       <p class="description">
         Change or Reset Passwords.
+      </p>
+
+      <h2>
+        <a href="<?php generateUrl('index.php?search_db') ?>">Search Database</a>
+      </h2>
+      <p class="description">
+        A tool for searching the Gallery2 database (MySQL only).
       </p>
     </div>
   </body>
