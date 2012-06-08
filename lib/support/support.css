@@ -206,6 +206,16 @@ div.example pre {
   color: #cc0000;
 }
 
+div.center {
+	padding: 10px;
+	margin: 20px;
+	text-align: center;
+}
+
+fieldset {
+	background-color: #999888;
+}
+
 .btn { display: block; position: relative; background: #aaa; padding: 5px; margin-right: 1em; float: left; color: #000 !important; text-decoration: none; cursor: pointer; }
 .btn * { font-style: normal; background-image: url(images/btn2.png); background-repeat: no-repeat; display: block; position: relative; }
 .btn i { background-position: top left; position: absolute; margin-bottom: -5px;  top: 0; left: 0; width: 5px; height: 5px; }

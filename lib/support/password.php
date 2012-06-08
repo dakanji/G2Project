@@ -247,15 +247,8 @@ if (!isset($output)) {
 	list ($authError, $authString) = validate();
 	// Check if authenticated and this is not a reset call
 	if (!isset($authError) && !isset($reset)) {
-		// Ensure we are on v2.3.0+
-		list ($major, $minor) = GalleryCoreAPI::getApiVersion();
-		if ($major < 7 || $minor < 54) {
-			$invalidVersion = TRUE;
-			$output = "<div class=\"error center\">This script is only compatible with v2.3.0 (and above) of Gallery2</div>";
-		} else {
-			$caches = getCacheDirs();
-			$output = process($new_password_string, $user_name, $admin_change, $advance, $auth);
-		}
+		$caches = getCacheDirs();
+		$output = process($new_password_string, $user_name, $admin_change, $advance, $auth);
 	}
 }
 // Deactivate G2 API Framework
@@ -266,16 +259,6 @@ GalleryEmbed::done();
 	<head>
 		<title>Gallery Support | Password Reset</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
-		<style>
-			div.center {
-				padding: 10px;
-				margin: 20px;
-				text-align: center;
-			}
-			fieldset {
-				background-color: #999888;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="content">
