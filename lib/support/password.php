@@ -266,16 +266,6 @@ GalleryEmbed::done();
 	<head>
 		<title>Gallery Support | Password Reset</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
-		<style>
-			div.center {
-				padding: 10px;
-				margin: 20px;
-				text-align: center;
-			}
-			fieldset {
-				background-color: #999888;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="content">
