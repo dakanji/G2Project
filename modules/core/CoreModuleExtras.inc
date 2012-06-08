@@ -2941,6 +2941,8 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 			 *
 			 * Please make sure your webserver is properly configured to use this feature
 			 * as it may otherwise pose a security risk.
+			 *
+			 * Note that this is not used when the client requests byte ranges.
 			**/
 			$gallery->setConfig('useSendFile', false))
 				
