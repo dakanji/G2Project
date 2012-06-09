@@ -104,7 +104,7 @@ function generateUrl($uri, $print=true) {
         <a href="<?php generateUrl('index.php?search_db') ?>">Search Database</a>
       </h2>
       <p class="description">
-        A tool for searching the Gallery2 database (MySQL only).
+        A tool for searching the Gallery2 database.
       </p>
     </div>
   </body>

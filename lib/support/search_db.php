@@ -159,13 +159,13 @@ function process($search_string, $advance, $deep) {
 		<div id="content">
 			<div id="title">
 				<a href="../../">Gallery</a> &raquo;
-				<a href="<?php generateUrl('index.php') ?>">Support</a> &raquo; MySQL Database Search Tool
+				<a href="index.php">Support</a> &raquo; MySQL Database Search Tool
 			</div>
-			<h2>
-				A tool for searching the Gallery2 database (MySQL only)<br>
-				The "Deep" mode matches substrings.
-			</h2>
 			<div class="center">
+				<h2>
+					A tool for searching the Gallery2 database<br>
+					Valid only for MySQL based installations
+				</h2>
 				<form action="search_db.php" method="POST">
 					<input type="hidden" name="advance" value=true /><br>
 					<?php if ($search_string) { ?> 
@@ -174,9 +174,9 @@ function process($search_string, $advance, $deep) {
 						<input required type="search" name="searchstring" placeholder="Search"><br>
 					<?php } ?>
 					<?php if ($deep) { ?> 
-						Deep Mode: <input type="checkbox" name="deep" value=true checked="yes"/><br>
+						Match substrings: <input type="checkbox" name="deep" value=true checked="yes"/><br>
 					<?php } else { ?>
-						Deep Mode: <input type="checkbox" name="deep" value=true/><br>
+						Match substrings: <input type="checkbox" name="deep" value=true/><br>
 					<?php } ?>
 					<input type="submit" value="Search Database">
 				</form>
