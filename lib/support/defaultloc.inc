@@ -1,8 +1,4 @@
 <?php
-// Verification
-if (!defined('G2_SUPPORT_FILE')) { 
-	die(Illegal Access); 
-}
 /** 
  * Change URL string that brought us here to the required format.
  *
