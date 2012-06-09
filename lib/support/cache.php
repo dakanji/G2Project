@@ -1,5 +1,6 @@
 <?php
 if (!defined('G2_SUPPORT')) { 
+	define('G2_SUPPORT_FILE', true);
 	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
 }
 
