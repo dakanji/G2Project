@@ -28,12 +28,6 @@ if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
 	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
 }
-// Verification
-if (!defined('G2_SUPPORT_FILE')) { 
-	die(Illegal Access); 
-}
-
-
 // Prime variables
 if ($_POST["searchstring"]) {
 	$search_string = $_POST["searchstring"];
