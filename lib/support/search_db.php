@@ -1,6 +1,4 @@
 <?php
-// Version
-$script_version = "8";
 /*
  * Description: A tool for searching the Gallery2 database
  * Date: 02 April 2012
@@ -27,8 +25,14 @@ $script_version = "8";
 
 // Verification
 if (!defined('G2_SUPPORT')) { 
+	define('G2_SUPPORT_FILE', true);
 	require_once(dirname(__FILE__) . '/lib/support/defaultloc.inc'); 
 }
+// Verification
+if (!defined('G2_SUPPORT_FILE')) { 
+	die(Illegal Access); 
+}
+
 
 // Prime variables
 if ($_POST["searchstring"]) {
