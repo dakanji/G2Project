@@ -104,7 +104,14 @@ function generateUrl($uri, $print=true) {
         <a href="<?php generateUrl('index.php?search_db') ?>">Search Database</a>
       </h2>
       <p class="description">
-        A tool for searching the Gallery2 database.
+        Search the Gallery2 database.
+      </p>
+
+      <h2>
+        <a href="<?php generateUrl('index.php?missingObjectFix') ?>">Fix Missing Object Errors</a>
+      </h2>
+      <p class="description">
+        Fix Missing Object Error Messages.
       </p>
     </div>
   </body>
