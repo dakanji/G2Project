@@ -346,7 +346,7 @@ class GalleryItemHelper_simple {
     /**
      * @see GalleryCoreApi::fetchAlbumTree
      */
-    function fetchAlbumTree($itemId=null, $depth=null, $userId=null) {
+    function fetchAlbumTree($itemId=null, $depth=null, $userId=null, $IgnorePerms=false) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 	if (!isset($userId)) {
@@ -372,10 +372,11 @@ class GalleryItemHelper_simple {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
-	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
-	if ($ret) {
-	    return array($ret, null);
+	if ($IgnorePerms !== true) {
+		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
+		if ($ret) {
+			return array($ret, null);
+		}
 	}
 	$parentSequence[] = $itemId;
 	$parentSequence = implode('/', $parentSequence);
