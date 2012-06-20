@@ -121,7 +121,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['keyalbum']['keywords'];
 	foreach ($data as $keyword) {
 	    $found[$keyword['name']] = true;
 	    $this->assert(
@@ -142,7 +143,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['keyalbum']['keywords'];
 	foreach ($data as $keyword) {
 	    $found[$keyword['name']] = true;
 	}
@@ -165,7 +167,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['keyalbum']['keywords'];
 	$this->assertEquals(3, count($data), '3 keywords');
 
 	list ($ret, $param) =
@@ -195,7 +198,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['keyalbum']['keywords'];
 	$this->assertEquals(array(), $data, 'cached data');
     }
 
@@ -224,7 +228,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['keyalbum']['keywords'];
 	foreach ($data as $keyword) {
 	    $found[$keyword['name']] = true;
 	    $weight[$keyword['name']] = isset($keyword['weight']) ? $keyword['weight'] : false;
@@ -264,7 +269,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['keyalbum']['keywords'];
 	foreach ($data as $keyword) {
 	    $found[$keyword['name']] = true;
 	    $weight[$keyword['name']] = isset($keyword['weight']) ? $keyword['weight'] : false;
@@ -285,8 +291,12 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 	$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view,$guestId,1)";
-	$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
-	$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
+	
+	$bl = $this->_smarty->getTemplateVars('block');
+	$this->_smarty->assignByRef('block', $bl);
+	
+	$bl['keyalbum'] = array();
+	$block =& $bl['keyalbum'];
 
 	$queries = array(
 		array('/SELECT DISTINCT\s+\[GalleryItem::keywords\]\s+FROM\s+\[GalleryItem\]\s*$/',
@@ -364,8 +374,11 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
     }
 
     function testSplitKeywords() {
-	$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
-	$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
+	$bl = $this->_smarty->getTemplateVars('block');
+	$this->_smarty->assignByRef('block', $bl);
+	
+	$bl['keyalbum'] = array();
+	$block =& $bl['keyalbum'];
 
 	foreach (array(
 		    '' => array(),

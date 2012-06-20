@@ -25,7 +25,7 @@
  */
 class CommentCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId) {
+    function callback($params, $template, $callback, $userId) {
 	global $gallery;
 	$phpVm = $gallery->getPhpVm();
 
@@ -132,8 +132,10 @@ class CommentCallbacks {
 	    $LoadComments['can'] = $can;
 	    $LoadComments['item'] = (array)$item;
 	    $LoadComments['totalComments'] = $totalComments;
-
-	    $block =& $smarty->_tpl_vars['block'];
+	    
+	    $block = $template->getTemplateVars('block');
+	    $template->assignByRef('block', $block);
+	    
 	    $block['comment']['LoadComments'] = $LoadComments;
 
 	    return null;
@@ -146,7 +148,10 @@ class CommentCallbacks {
 	    }
 
 	    GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-	    $form =& $smarty->_tpl_vars['form'];
+	    
+	    $form = $template->getTemplateVars('form');
+	    $template->assignByRef('form', $form);
+	    
 	    list ($ret, $AddComment) = GalleryCommentHelper::getAddComment($item, $form);
 	    if ($ret) {
 		if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
@@ -154,8 +159,9 @@ class CommentCallbacks {
 		}
 		return $ret;
 	    }
-
-	    $block =& $smarty->_tpl_vars['block'];
+	    
+	    $block = $template->getTemplateVars('block');
+	    $template->assignByRef('block', $block);
 	    $block['comment']['AddComment'] = $AddComment;
 
 	    return null;

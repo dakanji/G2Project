@@ -261,7 +261,7 @@ class ImageBlockTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['ImageBlockData'];
+	$data = $smarty->getTemplateVars('ImageBlockData');
 	$this->assertEquals(3, count($data['blocks']), 'Number of blocks');
 	$data = $data['blocks'];
 	$this->assert($data[0]['id'] != $data[1]['id'], 'Different images');
@@ -998,7 +998,8 @@ class ImageBlockTest extends GalleryTestCase {
 	$params = isset($blocks) ? array('blocks' => $blocks) : array();
 	$params['useDefaults'] = true;
 	if (isset($userId)) {
-	    $smarty->_tpl_vars['theme']['actingUserId'] = $userId;
+		$smarty->assign('theme', array('actingUserId' => $userId));
+	    //$smarty->_tpl_vars['theme']['actingUserId'] = $userId;
 	}
 	if (isset($itemId)) {
 	    $params['itemId'] = $itemId;
@@ -1008,7 +1009,7 @@ class ImageBlockTest extends GalleryTestCase {
 	    return ($ret);
 	    $result = array();
 	} else {
-	    $result = $smarty->_tpl_vars;
+	    $result = $smarty->getTemplateVars();
 	}
 	return $result;
     }
@@ -1058,7 +1059,7 @@ class ImageBlockTestFrame /* extends ImageBlockInterface_1_1 */ {
     	$_REQUEST['ImageBlockTestFrame'] = $frameIds;
     }
 
-    function renderImageFrame($params, $content, &$smarty) {}
+    function renderImageFrame($params, $content, $smarty) {}
 }
 
 /* Allow for suppressed php errors */

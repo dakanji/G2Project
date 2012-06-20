@@ -242,7 +242,7 @@ class ImageBlockDisabledTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars;
+	$data = $smarty->getTemplateVars();
 	$this->assert(!isset($data['ImageBlockData']['blocks']), 'Block should not exist');
     }
 
@@ -259,7 +259,7 @@ class ImageBlockDisabledTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars;
+	$data = $smarty->getTemplateVars();
 
 	$this->assert(1 == count($data['ImageBlockData']['blocks']), 'One block');
 	$this->assertBlock($data['ImageBlockData']['blocks'][0]);

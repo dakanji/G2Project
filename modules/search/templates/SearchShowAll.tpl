@@ -68,7 +68,7 @@
 	&nbsp;
 	<a href="javascript:setCheck(0)">{g->text text="Uncheck All"}</a>
 	&nbsp;
-	<a href="javascript:invertCheck()">{g->text text="Invert"}</a
+	<a href="javascript:invertCheck()">{g->text text="Invert"}</a>
       </div>
     </div>
 

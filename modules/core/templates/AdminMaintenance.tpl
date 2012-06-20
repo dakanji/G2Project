@@ -49,7 +49,7 @@
       <h4>{g->text text="Maintenance Mode"}</h4>
     </td><td align="left" valign="bottom">
       <input type="checkbox" {if $AdminMaintenance.setMode.mode}checked="checked" {/if}
-	     name="{g->formVar var="form[setMode][mode]}"
+	     name="{g->formVar var="form[setMode][mode]"}"
 	     onclick="BlockToggle('setMode-maintenance-url', 'not needed', 'table-row')"/>
     </td>
     <td>

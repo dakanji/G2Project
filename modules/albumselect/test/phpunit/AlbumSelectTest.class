@@ -106,7 +106,8 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumSelect'];
 
 	$this->assertEquals('zzz\\z&amp;zz&quot;zz', $data['titles'][$this->_album->getId()],
 			    'title');
@@ -144,7 +145,8 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumSelect'];
 
 	$this->assertEquals('zzz\\z&amp;zz&quot;zz', $data['titles'][$this->_album->getId()],
 			    'title');
@@ -200,7 +202,9 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumSelect'];
+	
 
 	$this->assertEquals('zzz\\z&amp;zz&quot;zz', $data['titles'][$this->_album->getId()],
 			    'title');
@@ -273,7 +277,8 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumSelect'];
 	/* Make sure the value is correct and that it is cached */
 	$this->assertEquals('zzz\\z&amp;zz&quot;zz', $data['titles'][$this->_album->getId()],
 			    'title');
@@ -324,7 +329,8 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumTree'];
 
 	$this->assert(!empty($data['albumTreeName']), 'albumTreeName');
 
@@ -337,7 +343,8 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumTree'];
 
 	$this->assert(!empty($data['albumTreeName']), 'albumTreeName');
 	$this->assertEquals(3, count($data['tree']), 'default album: count');
@@ -366,7 +373,8 @@ class AlbumSelectTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumTree'];
 
 	$this->assert(!empty($data['albumTreeName']), 'albumTreeName');
 	$this->assert(!empty($data['links']), 'URL prefix not defined');
@@ -431,7 +439,8 @@ class AlbumSelectTest extends GalleryTestCase {
     }
 
     function _assertAlbumTreeData($smarty, $message, $withSubAlbum2=true) {
-	$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+	$data = $smarty->getTemplateVars('block');
+	$data = $data['albumselect']['LoadAlbumData']['albumSelect'];
 	$this->assert(!empty($data['tree']), 'tree');
 	/* Test album and its subalbums should be last 3 (2) tree items: subalbums 1,(2,)3 */
 	$albumNode = count($data['tree']) - ($withSubAlbum2 ? 3 : 2);

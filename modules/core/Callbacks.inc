@@ -24,10 +24,14 @@
  * @version $Revision: 17580 $
  */
 class CoreCallbacks {
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
-	$block =& $smarty->_tpl_vars['block'];
-	$theme =& $smarty->_tpl_vars['theme'];
+	
+	$block = $smarty->getTemplateVars('block');
+	$smarty->assignByRef('block', $block);
+	
+	$theme = $smarty->getTemplateVars('theme');
+	$smarty->assignByRef('theme', $theme);
 
 	switch($callback) {
 	case 'LoadLanguageSelector':
@@ -193,7 +197,7 @@ class CoreCallbacks {
 		}
 
 		list ($ret, $data['file'], $data['l10Domain']) =
-		    $plugin->loadTemplate($smarty->_tpl_vars['form'], $options);
+		    $plugin->loadTemplate($smarty->getTemplateVars('form'), $options);
 		if ($ret) {
 		    return $ret;
 		}

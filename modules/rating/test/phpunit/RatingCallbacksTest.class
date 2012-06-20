@@ -87,8 +87,12 @@ class RatingCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
-	$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['rating']['RatingData'];
+	
+	$summary = $this->_smarty->getTemplateVars('block');
+	$summary = $summary['rating']['RatingSummary'];
+	
 	$this->assertEquals(array('ratingValues' => array(1,2,3,4,5), 'firstCall' => true,
 				  'authToken' => $this->_authToken),
 			    $summary, 'Rating summary array does not match.');
@@ -114,8 +118,11 @@ class RatingCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
-	$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['rating']['RatingData'];
+	
+	$summary = $this->_smarty->getTemplateVars('block');
+	$summary = $summary['rating']['RatingSummary'];
 	$this->assertEquals(array('ratingValues' => array(1,2,3,4,5), 'firstCall' => true,
 				  'authToken' => $this->_authToken),
 			    $summary, 'Rating summary array does not match.');
@@ -139,7 +146,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$this->assert(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+	$this->assert(!$this->_smarty->getTemplateVars('block'), 'Received rating block.');
     }
 
     function testRatingNoViewPermissionPermissionNone() {
@@ -180,7 +187,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$this->assert(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+	$this->assert(!$this->_smarty->getTemplateVars('block'), 'Received rating block.');
     }
     
     function testRatingPermissionViewOnly() {
@@ -205,8 +212,11 @@ class RatingCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
-	$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['rating']['RatingData'];
+	
+	$summary = $this->_smarty->getTemplateVars('block');
+	$summary = $summary['rating']['RatingSummary'];
 	$this->assertEquals(array('ratingValues' => array(1,2,3,4,5), 'firstCall' => true,
 				  'authToken' => $this->_authToken),
 			    $summary, 'Rating summary array does not match.');
@@ -246,8 +256,11 @@ class RatingCallbacksTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	$data = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
-	$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+	$data = $this->_smarty->getTemplateVars('block');
+	$data = $data['rating']['RatingData'];
+	
+	$summary = $this->_smarty->getTemplateVars('block');
+	$summary = $summary['rating']['RatingSummary'];
 	$this->assertEquals(array('ratingValues' => array(1,2,3,4,5), 'firstCall' => true,
 				  'authToken' => $this->_authToken),
 			    $summary, 'Rating summary array does not match.');
@@ -272,7 +285,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$this->assert(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+	$this->assert(!$this->_smarty->getTemplateVars('block'), 'Received rating block.');
     }
 
     function testRatingForDisabledAlbum() {
@@ -286,7 +299,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$this->assert(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+	$this->assert(!$this->_smarty->getTemplateVars('block'), 'Received rating block.');
     }
 }
 ?>

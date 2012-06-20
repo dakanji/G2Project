@@ -89,7 +89,7 @@ class GalleryTemplate {
      * @return mixed value
      */
     function getVariable($key) {
-	$templateVars = $this->_smarty->get_template_vars();
+	$templateVars = $this->_smarty->getTemplateVars();
 	return $templateVars[$key];
     }
 
@@ -100,8 +100,7 @@ class GalleryTemplate {
      * @return mixed value
      */
     function &getVariableByReference($key) {
-	$templateVars =& $this->_smarty->get_template_vars();
-	return $templateVars[$key];
+        return $this->_smarty->tpl_vars[$key]->value;
     }
 
     /**
@@ -111,7 +110,7 @@ class GalleryTemplate {
      * @return boolean
      */
     function hasVariable($key) {
-	$templateVars = $this->_smarty->get_template_vars();
+	$templateVars = $this->_smarty->getTemplateVars();
 	return isset($templateVars[$key]);
     }
 
@@ -122,7 +121,7 @@ class GalleryTemplate {
      * @param mixed $value
      */
     function setVariableByReference($key, &$value) {
-	$this->_smarty->assign_by_ref($key, $value);
+	$this->_smarty->assignByRef($key, $value);
     }
 
     /**
@@ -238,7 +237,8 @@ class GalleryTemplate {
 	    return $ret;
 	}
 
-	list ($ret, $junk) = $this->_smarty->fetch($templateName, null, null, true);
+	list ($ret, $junk) = $this->_smarty->fetch($templateName);
+	print $junk;
 	if ($ret) {
 	    return $ret;
 	}
@@ -326,13 +326,13 @@ class GalleryTemplate {
 	$smarty = new GallerySmarty();
 
 	/* Compiled templates go here */
-	$smarty->compile_dir = $gallery->getConfig('data.smarty.templates_c');
+	$smarty->setCompileDir($gallery->getConfig('data.smarty.templates_c'));
 
 	/* Don't let Smarty change the error reporting level */
-	$smarty->error_reporting = error_reporting();
+	$smarty->setErrorReporting(error_reporting());
 
 	/* We have our own plugins */
-	$smarty->plugins_dir[] = dirname(__FILE__) . '/../../../lib/smarty_plugins';
+	$smarty->addPluginsDir(dirname(__FILE__) . '/../../../lib/smarty_plugins');
 
 	if ($gallery->getDebug()) {
 	    $smarty->debugging = true;
@@ -342,18 +342,20 @@ class GalleryTemplate {
 	$smarty->compile_check = GalleryTemplate::shouldDoCompileCheck();
 
 	$templateAdapter =& $gallery->getTemplateAdapter();
-	$smarty->register_object('g', $templateAdapter, array(), true,
+	$smarty->registerObject('g', $templateAdapter, array(), true,
 				 array('addToTrailer', 'autoComplete', 'container'));
 
-	$smarty->register_resource('gallery',
-				   array('GalleryTemplate',
-					 'resourceGetTemplate',
-					 'resourceGetTimestamp',
-					 'resourceGetSecure',
-					 'resourceGetTrusted'));
+	$smarty->registerResource('gallery',
+				   array(
+				       array($this, 'resourceGetTemplate'),
+				       array($this, 'resourceGetTimestamp'),
+				       array($this, 'resourceGetSecure'),
+				       array($this, 'resourceGetTrusted')
+				   )
+	);
 
 	if ($trimWhitespace) {
-	    $smarty->register_prefilter(array('GalleryTemplate', 'preFilter'));
+	    $smarty->registerFilter('pre', array($this, 'preFilter'));
 	}
 
 	$smarty->assign('head',
@@ -394,8 +396,8 @@ class GalleryTemplate {
      * @return string processed tpl content ready for compilation
      * @static
      */
-    function preFilter($source, &$smarty) {
-	return preg_replace('/^\s+/m', '', $source);
+    function preFilter($source) {
+	    return preg_replace('/^\s+/m', '', $source);
     }
 
     /**
@@ -412,7 +414,7 @@ class GalleryTemplate {
      * @param Smarty $smarty
      * @deprecated
      */
-    function resourceGetTemplateBaseDir($templateName, &$smarty) {
+    function resourceGetTemplateBaseDir($templateName, $smarty) {
 	if (preg_match('/^(module|theme)s\/(.+)(\/.+)/iU', $templateName, $pluginId)) {
 	    return GalleryCoreApi::getCodeBasePath();
 	} else {
@@ -429,12 +431,18 @@ class GalleryTemplate {
      *
      * @see function _getActualTemplatePath
      */
-    function resourceGetTemplate($templateName, &$templateSource, &$smarty) {
+    function resourceGetTemplate($templateName, &$templateSource, $smarty) {
 	$templatePath = GalleryTemplate::_getActualTemplatePath($templateName, $smarty);
 
 	$success = false;
 	if (isset($templatePath)) {
-	    $templateSource = $smarty->_read_file($templatePath);
+		// for unittests comp.
+		if (method_exists($smarty, '_read_file')) {
+			$templateSource = $smarty->_read_file($templatePath);
+		}
+		else {
+			$templateSource = file_get_contents($templatePath);
+		}
 	    if ($templateSource !== false) {
 		$success = true;
 	    } else {
@@ -454,7 +462,7 @@ class GalleryTemplate {
      *
      * @see function _getActualTemplatePath
      */
-    function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
+    function resourceGetTimestamp($templateName, &$templateTimestamp, $smarty) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
@@ -482,7 +490,7 @@ class GalleryTemplate {
      * @static
      * @access private
      */
-     function _getActualTemplatePath($templateName, &$smarty) {
+     function _getActualTemplatePath($templateName, $smarty) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
@@ -490,7 +498,7 @@ class GalleryTemplate {
 	if (preg_match('#^modules/(\w+)/templates/(.*/)?([^/]+)$#', $templateName, $match)) {
 	    list ($unused, $moduleId, $moduleBase, $tplFile) = $match;
 
-	    $theme = $smarty->get_template_vars("theme");
+	    $theme = $smarty->getTemplateVars("theme");
 	    if (empty($theme['themeId'])) {
 		list ($ret, $themeId) = GalleryTemplate::_getThemeId();
 		if ($ret) {
@@ -530,7 +538,7 @@ class GalleryTemplate {
 
 	if (empty($qualifiedTemplatePath)) {
 	    $tplFile = basename($templateName);
-	    $qualifiedTemplateName = $smarty->template_dir . '/' . $templateName;
+	    $qualifiedTemplateName = $smarty->getTemplateDir(0) . '/' . $templateName;
 	    $base = dirname($qualifiedTemplateName);
 
 	    $file = "$base/local/$tplFile";
@@ -595,7 +603,7 @@ class GalleryTemplate {
     /**
      * @see http://smarty.php.net/manual/en/template.resources.php
      */
-    function resourceGetSecure($templateName, &$smarty) {
+    function resourceGetSecure($templateName, $smarty) {
 	/* Assume all templates are secure */
 	return true;
     }
@@ -603,7 +611,7 @@ class GalleryTemplate {
     /**
      * @see http://smarty.php.net/manual/en/template.resources.php
      */
-    function resourceGetTrusted($templateName, &$smarty) {
+    function resourceGetTrusted($templateName, $smarty) {
 	/* Not used for templates */
     }
 }

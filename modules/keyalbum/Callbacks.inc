@@ -25,7 +25,7 @@
  */
 class KeyAlbumCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId) {
+    function callback($params, $smarty, $callback, $userId) {
 
 	switch ($callback) {
 	case 'LoadKeywords':
@@ -53,8 +53,10 @@ class KeyAlbumCallbacks {
 	    if ($ret) {
 		return $ret;
 	    }
+	    
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
 
-	    $block =& $smarty->_tpl_vars['block'];
 	    $block['keyalbum']['keywords'] = !empty($keywords) ? unserialize($keywords) : array();
 
 	    return null;
@@ -69,7 +71,8 @@ class KeyAlbumCallbacks {
 		return $ret;
 	    }
 
-	    $block =& $smarty->_tpl_vars['block'];
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
 	    $block['keyalbum']['keywords'] = $module->splitKeywords($params['keywords'], $split);
 
 	    return null;
