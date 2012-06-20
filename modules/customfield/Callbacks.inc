@@ -25,7 +25,7 @@
  */
 class CustomFieldCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
 	GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
@@ -49,8 +49,10 @@ class CustomFieldCallbacks {
 	    if ($ret) {
 		return $ret;
 	    }
-
-	    $block =& $smarty->_tpl_vars['block'];
+	    
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
 	    $block['customfield']['LoadCustomFields']['fields'] = 
 		isset($fields[$item->getId()]) ? $fields[$item->getId()] : array();
 

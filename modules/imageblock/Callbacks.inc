@@ -25,7 +25,7 @@
  */
 class ImageBlockCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 
 	switch($callback) {
@@ -71,7 +71,7 @@ class ImageBlockCallbacks {
 	     * one, so create a temporary wrapper.
 	     */
 	    $template = new GalleryTemplate(dirname(__FILE__), false);
-	    $template->_smarty =& $smarty;
+	    $template->_smarty = $smarty;
 
 	    /* Remove null parameters */
 	    foreach (array_keys($params) as $key) {

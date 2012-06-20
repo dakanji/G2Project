@@ -134,11 +134,15 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
     /**
      * Smarty callback to render an ImageFrame
      */
-    function renderImageFrame($params, $content, &$smarty) {
-	$smarty->_smarty_include(array(
-	    'smarty_include_tpl_file' => 'gallery:modules/imageframe/templates/ImageFrame.tpl',
-	    'smarty_include_vars' => array('frame' => $params['frame'],
-					   'content' => trim($content))));
+    function renderImageFrame($params, $content, $smarty) {
+    	
+    	// Create a new template, a child of $smarty
+    	$tp = $smarty->createTemplate('gallery:modules/imageframe/templates/ImageFrame.tpl', $smarty);
+    	
+    	$tp->assign('frame', $params['frame']);
+    	$tp->assign('content', trim($content));
+    	
+    	return $tp->fetch();
     }
 
     /**

@@ -25,10 +25,11 @@
  */
 class MembersCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
 
-	$block =& $smarty->_tpl_vars['block'];
+	$block = $smarty->getTemplateVars('block');
+	$smarty->assignByRef('block', $block);
 
 	switch($callback) {
 	case 'LoadMembers':

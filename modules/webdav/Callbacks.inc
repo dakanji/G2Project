@@ -26,7 +26,7 @@
  */
 class WebDavCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
 
 	switch ($callback) {
@@ -44,7 +44,9 @@ class WebDavCallbacks {
 		$link = WebDavHelper::getMountLink($params['itemId']);
 	    }
 
-	    $block =& $smarty->_tpl_vars['block'];
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
 	    $block['webdav']['LoadMountLink'] =
 		array('link' => $link, 'hasPermission' => $hasPermission);
 

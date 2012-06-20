@@ -25,7 +25,7 @@
  */
 class RatingCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId) {
+    function callback($params, $smarty, $callback, $userId) {
 	global $gallery;
 
 	switch ($callback) {
@@ -96,7 +96,9 @@ class RatingCallbacks {
 	    $RatingSummary = array('ratingValues' => array(1, 2, 3, 4, 5),
 				   'firstCall' => true, 'authToken' => $authToken);
 
-	    $block =& $smarty->_tpl_vars['block'];
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
 	    $block['rating']['RatingData'] = $RatingData[$itemId];
 	    $block['rating']['RatingSummary'] = $RatingSummary;
 

@@ -25,7 +25,7 @@
  */
 class AlbumSelectCallbacks {
 
-    function callback($callbackParams, &$smarty, $callback, $userId) {
+    function callback($callbackParams, $smarty, $callback, $userId) {
 	global $gallery;
 	static $idCount = '';
 	switch($callback) {
@@ -205,7 +205,9 @@ class AlbumSelectCallbacks {
 		}
 	    }
 
-	    $block =& $smarty->_tpl_vars['block'];
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
 	    $type = isset($callbackParams['albumTree']) ? 'albumTree' : 'albumSelect';
 	    $block['albumselect']['LoadAlbumData'][$type] = array(
 		'tree' => $treeList,

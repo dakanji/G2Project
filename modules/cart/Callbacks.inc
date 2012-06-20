@@ -25,7 +25,7 @@
  */
 class CartCallbacks {
 
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
 
 	switch($callback) {
@@ -43,7 +43,10 @@ class CartCallbacks {
 		$total += $count;
 	    }
 
-	    $block =& $smarty->_tpl_vars['block'];
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
+	    
 	    $block['cart']['ShowCart']['unique'] = $unique;
 	    $block['cart']['ShowCart']['total'] = $total;
 

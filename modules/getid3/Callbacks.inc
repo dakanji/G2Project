@@ -24,7 +24,7 @@
  */
 class Getid3Callbacks {
 
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
 
 	switch ($callback) {
@@ -95,7 +95,9 @@ class Getid3Callbacks {
 		return null;
 	    }
 
-	    $block =& $smarty->_tpl_vars['block'];
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
 	    $block['getid3']['LoadGetid3Info']['getid3Data'] = $getid3Data;
 	    $block['getid3']['LoadGetid3Info']['getid3ArchiveData'] = $getid3ArchiveData;
 	    $block['getid3']['LoadGetid3Info']['mode'] = $mode;

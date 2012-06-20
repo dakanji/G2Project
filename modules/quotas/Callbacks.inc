@@ -34,10 +34,12 @@ class QuotasCallbacks {
      *
      * @return GalleryStatus a status code
      */
-    function callback($params, &$smarty, $callback, $userId=null) {
+    function callback($params, $smarty, $callback, $userId=null) {
 	global $gallery;
-
-	$blocks =& $smarty->_tpl_vars['block'];
+	
+	$blocks = $smarty->getTemplateVars('block');
+	$smarty->assignByRef('block', $blocks);
+	
 	$block =& $blocks['quotas']['LoadQuotas'];
 
 	switch($callback) {

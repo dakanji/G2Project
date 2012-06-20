@@ -92,7 +92,10 @@ class ExifCallbacks {
 
 	    $ajaxBlockNum = GalleryUtilities::getRequestVariables('blockNum');
 	    $thisBlockNum = !empty($ajaxBlockNum) ? $ajaxBlockNum : ++$blockNum;
-	    $block =& $smarty->_tpl_vars['block'];
+	    
+	    $block = $smarty->getTemplateVars('block');
+	    $smarty->assignByRef('block', $block);
+	    
 	    $block['exif']['LoadExifInfo'] = array('exifData' => $exifData,
 						   'mode' => $mode,
 						   'blockNum' => $thisBlockNum);
