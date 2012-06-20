@@ -51,13 +51,15 @@ class GallerySmarty extends Smarty {
      *               string the output from the template
      */
     function fetch($_smarty_tpl_file, $_smarty_cache_id = null,
-		   $_smarty_compile_id = null, $_smarty_display = false) {
+		   $_smarty_compile_id = null, $_smarty_parent = null,
+		   $_smarty_display = false) {
 	$this->_firstGalleryStatus = null;
 
 	/* This could change the value of _firstError: */
 	$result = parent::fetch($_smarty_tpl_file,
 				$_smarty_cache_id,
 				$_smarty_compile_id,
+				$_smarty_parent,
 				$_smarty_display);
 
 	return array($this->_firstGalleryStatus, $result);

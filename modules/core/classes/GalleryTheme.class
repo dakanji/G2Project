@@ -27,7 +27,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlugin.class');
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Alan Harder <alan.harder@sun.com>
- * @version $Revision: 18843 $
+ * @version $Revision: 20954 $
  * @abstract
  */
 class GalleryTheme extends GalleryPlugin {
@@ -1141,10 +1141,16 @@ class GalleryTheme extends GalleryPlugin {
 		}
 	    }
 
-	    if (!empty($serializedData)) {
-		$template->_smarty->_tpl_vars = unserialize($serializedData);
-		return null;
-	    }
+		// Restore template variables from cache and assign them
+		if (!empty($serializedData)) {
+			$unserial = unserialize($serializedData);
+			if (is_array($unserial)) {
+				foreach ($unserial as $key => $value) {
+					$template->setVariable($key, $value);
+				}
+			}
+			return null;
+		}
 	}
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -1833,7 +1839,7 @@ class GalleryTheme extends GalleryPlugin {
 		$ret = GalleryDataCache::putPageData(
 		    'template', $item->getId(),
 		    array($item->getId(), $params, $dataToLoad, $childIds, $imageViewsIndex),
-		    serialize($template->_smarty->_tpl_vars));
+		    serialize($template->_smarty->getTemplateVars()));
 		if ($ret) {
 		    return $ret;
 		}

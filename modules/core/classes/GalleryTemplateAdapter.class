@@ -25,7 +25,7 @@
  * @package GalleryCore
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
- * @version $Revision: 20952 $
+ * @version $Revision: 20954 $
  */
 class GalleryTemplateAdapter {
 
@@ -90,10 +90,9 @@ class GalleryTemplateAdapter {
      * @see GalleryUrlGenerator::generateUrl
      *
      * @param array $params data in key/value pairs
-     * @param Smarty $smarty the smarty instance
      * @return string a URL
      */
-    function url($params, &$smarty) {
+    function url($params) {
 	global $gallery;
 
 	/* Allow the user to pass in bulk params */
@@ -129,10 +128,9 @@ class GalleryTemplateAdapter {
      * forward, for example.
      *
      * @param array $params data in key/value pairs
-     * @param Smarty $smarty the smarty instance
      * @return a series of XHTML 1.0 compliant <input> elements
      */
-    function hiddenFormVars($params, &$smarty) {
+    function hiddenFormVars($params) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$session =& $gallery->getSession();
@@ -172,10 +170,9 @@ class GalleryTemplateAdapter {
      * @todo This needs to be refactored.
      *
      * @param array $params data in key/value pairs
-     * @param Smarty $smarty the smarty instance
      * @return string date
      */
-    function date($params, &$smarty) {
+    function date($params) {
 	global $gallery;
 	static $defaultFormat;
 	$platform =& $gallery->getPlatform();
@@ -203,15 +200,15 @@ class GalleryTemplateAdapter {
     /**
      * @see GalleryTranslator::translateDomain
      */
-    function text($params, &$smarty) {
+    function text($params, $_template) {
 	global $gallery;
 
 	if (isset($params['l10Domain'])) {
 	    $domain = $params['l10Domain'];
-	} else if (isset($smarty->_tpl_vars['viewL10domain'])) {
-	    $domain = $smarty->_tpl_vars['viewL10domain'];
+	} else if ($_template->getTemplateVars('viewL10domain')) {
+	    $domain = $_template->getTemplateVars('viewL10domain');
 	} else {
-	    $domain = $smarty->_tpl_vars['l10Domain'];
+	    $domain = $_template->getTemplateVars('l10Domain');
 	}
 	$translator =& $gallery->getTranslator();
 	if (!empty($params['postSprintfArg1'])) {
@@ -247,16 +244,16 @@ class GalleryTemplateAdapter {
      * Useful when we are trying to change a value recursively.
      *
      * @param array $params key => value attributes
-     * @param Smarty $smarty the smarty instance
+     * @param Smarty_Internal_Template $_template the smarty instance
      * @return HTML content
      */
-    function changeInDescendents($params, &$smarty) {
+    function changeInDescendents($params, $_template) {
 	global $gallery;
 
 	if (isset($params['l10Domain'])) {
 	    $domain = $params['l10Domain'];
 	} else {
-	    $domain = $smarty->_tpl_vars['l10Domain'];
+	    $domain = $_template->getTemplateVars('l10Domain');
 	}
 	$translator =& $gallery->getTranslator();
 	list ($ret, $text) = $translator->translateDomain($domain, $params);
@@ -285,11 +282,10 @@ class GalleryTemplateAdapter {
      * @todo Figure out a more graceful way to deal with errors here.
      *
      * @param array $params containing item, image, maxSize, fallback, and any img attributes
-     * @param Smarty $smarty the smarty instance
      * @return string HTML content
      */
-    function image($params, &$smarty) {
-	list ($ret, $html) = $this->_image($params, $smarty);
+    function image($params) {
+	list ($ret, $html) = $this->_image($params);
 	if ($ret) {
 	    return '[Render error]';
 	}
@@ -302,7 +298,8 @@ class GalleryTemplateAdapter {
      * @see GalleryTemplateAdapter::image
      * @access private
      */
-    function _image($params, &$smarty) {
+    function _image($params) {
+        
 	/*
 	 * Cases:
 	 * - Item can render itself
@@ -373,11 +370,10 @@ class GalleryTemplateAdapter {
      * @param Smarty $smarty the smarty instance
      * @return string HTML content
      */
-    function head($params, &$smarty) {
+    function head($params, $smarty) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$templateVars =& $smarty->get_template_vars();
-	$head = $templateVars['head'];
+	$head = $smarty->getTemplateVars('head');
 	$output = array('');
 
 	/* Title */
@@ -392,7 +388,7 @@ class GalleryTemplateAdapter {
 
 	/* Javascript */
 	if (!empty($head['javascript'])) {
-	    $theme = $templateVars['theme'];
+	    $theme = $smarty->getTemplateVars('theme');
 	    if (empty($theme['pageType']) || $theme['pageType'] != 'error') {
 		$this->_combineJavascriptFiles(array_keys($head['javascript']), $output);
 	    } else {
@@ -405,12 +401,9 @@ class GalleryTemplateAdapter {
 
 	/* Tpl to include. */
 	foreach ($head['tpl'] as $path => $l10Domain) {
-	    /* Guard template vars so that the include doesn't pollute our namespace */
-	    $save = $smarty->_tpl_vars;
-	    $smarty->_smarty_include(
-		array('smarty_include_tpl_file' => "gallery:$path",
-		      'smarty_include_vars' => array('l10Domain' => $l10Domain)));
-	    $smarty->_tpl_vars = $save;
+	    echo $this->_smarty_include($smarty, "gallery:$path",
+	        array('l10Domain' => $l10Domain)
+	    );
 	}
 
 	/* This should help out users whose browsers are confused about the character set */
@@ -424,6 +417,37 @@ class GalleryTemplateAdapter {
 	}
 
 	return implode("\n", $output);
+    }
+    
+    /**
+     * Handy function for emulate _smarty_include Smarty 2 behaviour
+     * @param Smarty_Internal_Template $smarty
+     * @param string $resource_path
+     * @param array $vars
+     */
+    protected function _smarty_include($smarty, $resource_path, $vars = array())
+    {
+    	if (method_exists($smarty, '_smarty_include')) {
+    		// for unittests compatibility
+    		return $smarty->_smarty_include(array(
+    			'smarty_include_tpl_file' => $resource_path,
+    			'smarty_include_vars' => $vars,
+    		));
+    	}
+    	
+        // Create a new template, a child of $smarty
+        $tp = $smarty->createTemplate($resource_path, $smarty);
+        
+        foreach ((array) $vars as $key => $value)
+        {
+            $tp->assign($key, $value);
+        }
+        
+        return $tp->fetch();
+        
+        // smarty 3.0.8 has following syntax:
+        // list($ret, $html) = $tp->fetch();
+        //return $html;
     }
 
     /**
@@ -535,9 +559,9 @@ class GalleryTemplateAdapter {
      *
      * @param array $params params
      * @param string $content content
-     * @param Smarty $smarty the smarty instance
+     * @param SmartyInternalTemplate $template the smarty instance
      */
-    function autoComplete($params, $content, &$smarty) {
+    function autoComplete($params, $content, $template) {
 	global $gallery;
 	$session =& $gallery->getSession();
 
@@ -557,15 +581,14 @@ class GalleryTemplateAdapter {
 	    $url = str_replace('&amp;', '&', $url);
 	}
 
-	/* Guard template vars so that the include doesn't pollute our namespace */
-	$save = $smarty->_tpl_vars;
-	$smarty->_smarty_include(
-	    array('smarty_include_tpl_file' => 'gallery:modules/core/templates/AutoComplete.tpl',
-		  'smarty_include_vars' =>
-			array('element' => $params['element'],
-			      'url' => $url,
-			      'callCount' => ++$this->_callCount['autoComplete'])));
-	$smarty->_tpl_vars = $save;
+	
+	return $this->_smarty_include($template, 'gallery:modules/core/templates/AutoComplete.tpl',
+		array(
+	    	'element' => $params['element'],
+			'url' => $url,
+			'callCount' => ++$this->_callCount['autoComplete']
+		)
+	);
     }
 
     /**
@@ -574,22 +597,20 @@ class GalleryTemplateAdapter {
      * @param array $params params
      * @param Smarty $smarty the smarty instance
      */
-    function dimensions($params, &$smarty) {
+    function dimensions($params, $template) {
 	if (!isset($this->_callCount['dimensions'])) {
 	    $this->_callCount['dimensions'] = 0;
 	}
-
-	/* Guard template vars so that the include doesn't pollute our namespace */
-	$save = $smarty->_tpl_vars;
-	$smarty->_smarty_include(
-	    array('smarty_include_tpl_file' => 'gallery:modules/core/templates/Dimensions.tpl',
-		  'smarty_include_vars' => array(
-		      'formVar' => $params['formVar'],
-		      'formVarId' => strtr($params['formVar'], '[]', '__'),
-		      'width' => isset($params['width']) ? $params['width'] : null,
-		      'height' => isset($params['height']) ? $params['height'] : null,
-		      'callCount' => ++$this->_callCount['dimensions'])));
-	$smarty->_tpl_vars = $save;
+	
+	return $this->_smarty_include($template, 'gallery:modules/core/templates/Dimensions.tpl',
+		array(
+	    	'formVar' => $params['formVar'],
+        	'formVarId' => strtr($params['formVar'], '[]', '__'),
+        	'width' => isset($params['width']) ? $params['width'] : null,
+        	'height' => isset($params['height']) ? $params['height'] : null,
+        	'callCount' => ++$this->_callCount['dimensions']
+		)
+	);
     }
 
     /**
@@ -600,19 +621,17 @@ class GalleryTemplateAdapter {
      * @param array $params params
      * @param Smarty $smarty the smarty instance
      */
-    function defaultButton($params, &$smarty) {
+    function defaultButton($params, $smarty) {
 	if (!isset($this->_callCount['defaultButton'])) {
 	    $this->_callCount['defaultButton'] = 0;
 	}
 
-	/* Guard template vars so that the include doesn't pollute our namespace */
-	$save = $smarty->_tpl_vars;
-	$smarty->_smarty_include(
-	    array('smarty_include_tpl_file' => 'gallery:modules/core/templates/DefaultButton.tpl',
-		  'smarty_include_vars' => array(
-		      'name' => $params['name'],
-		      'callCount' => ++$this->_callCount['defaultButton'])));
-	$smarty->_tpl_vars = $save;
+	return $this->_smarty_include($template, 'gallery:modules/core/templates/DefaultButton.tpl',
+		array(
+	    	'name' => $params['name'],
+        	'callCount' => ++$this->_callCount['defaultButton'],
+		)
+	);
     }
 
     /**
@@ -717,7 +736,7 @@ class GalleryTemplateAdapter {
     /**
      * Return attributes for container of all Gallery content.
      */
-    function mainDivAttributes($params, &$smarty) {
+    function mainDivAttributes($params, $smarty) {
 	global $gallery;
 
 	$classes = array();
@@ -745,7 +764,7 @@ class GalleryTemplateAdapter {
     /**
      * Return active language code in format used with HTML lang attribute.
      */
-    function language($params, &$smarty) {
+    function language($params) {
 	global $gallery;
 	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	if ($ret || empty($languageCode)) {
@@ -760,7 +779,7 @@ class GalleryTemplateAdapter {
      * @param Smarty $smarty the smarty instance
      * @return HTML content
      */
-    function logoButton($params, &$smarty) {
+    function logoButton($params, $_template) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
@@ -768,8 +787,9 @@ class GalleryTemplateAdapter {
 	    return;
 	}
 
+	$theme_var = (array) $_template->getTemplateVars('theme');
 	list ($ret, $isAdmin) =
-	    GalleryCoreApi::isUserInSiteAdminGroup($smarty->_tpl_vars['theme']['actingUserId']);
+	    GalleryCoreApi::isUserInSiteAdminGroup($theme_var['actingUserId']);
 	if ($ret) {
 	    return;
 	}
@@ -857,7 +877,7 @@ class GalleryTemplateAdapter {
     /**
      * Show debug output.
      */
-    function debug($params, &$smarty) {
+    function debug($params, $smarty) {
 	global $gallery;
 	$debug = $gallery->getDebug();
 	$profiling = $gallery->isProfiling('sql');
@@ -894,17 +914,16 @@ class GalleryTemplateAdapter {
      * @param array $params ('include' => ..., 'url' => ...)
      * @param Smarty $smarty the smarty instance
      */
-    function theme($params, &$smarty) {
+    function theme($params, $smarty) {
 	global $gallery;
 
 	if (isset($params['include'])) {
-	    /* Guard template vars so that the include doesn't pollute our namespace */
-	    $save = $smarty->_tpl_vars;
-	    $smarty->_smarty_include(array(
-		'smarty_include_tpl_file' =>
-		    'gallery:themes/' . $this->_theme->getId(). '/templates/' . $params['include'],
-		'smarty_include_vars' => $params));
-	    $smarty->_tpl_vars = $save;
+	    
+	    return $this->_smarty_include($smarty,
+            'gallery:themes/' . $this->_theme->getId(). '/templates/' . $params['include'],
+            $params
+        );
+	    
 	} else if (isset($params['url'])) {
 	    /*
 	     * Use this combo of dirname and '..' in g2Dir to avoid creating paths in the unit
@@ -937,7 +956,7 @@ class GalleryTemplateAdapter {
      * @param array $params ('type' => <block descriptor>, ...)
      * @param Smarty $smarty the smarty instance
      */
-    function block($params, &$smarty) {
+    function block($params, $smarty) {
 	global $gallery;
 	list ($module, $file) = explode('.', $params['type']);
 	$class = empty($params['class']) ? '' : ' ' . $params['class'];
@@ -959,13 +978,16 @@ class GalleryTemplateAdapter {
 	/* Verify that the requested block actually exists */
 	$tplPath = "gallery:modules/$module/templates/blocks/$file.tpl";
 	$compileCheck = GalleryTemplate::shouldDoCompileCheck();
+	
+    
 	if (!$compileCheck) {
-            $platform =& $gallery->getPlatform();
-            $smartyCompilePath = $smarty->_get_compile_path($tplPath);
-            $tplCompiled = $platform->file_exists($smartyCompilePath);
-        }
-        if (($compileCheck || empty($tplCompiled)) && !$smarty->template_exists($tplPath)) {
-	    /* Fall back to "missing template" block */
+        $platform =& $gallery->getPlatform();
+        $tplCompiled = $smarty->createTemplate($tplPath)->source->exists;
+        //$smartyCompilePath = $smarty->createTemplate($tplPath)->getCompiledFilepath();
+        //$tplCompiled = $platform->file_exists($smartyCompilePath);
+    }
+    if (($compileCheck || empty($tplCompiled)) && !$smarty->templateExists($tplPath)) {
+	    // Fall back to "missing template" block
 	    $module = 'core';
 	    $file = 'Missing';
 	}
@@ -973,12 +995,9 @@ class GalleryTemplateAdapter {
 	$params['class'] = "block-$module-$file$class";
 	$params['l10Domain'] = "modules_$module";
 
-	/* Guard template vars so that the include doesn't pollute our namespace */
-	$save = $smarty->_tpl_vars;
-	$smarty->_smarty_include(
-	    array('smarty_include_tpl_file' => "gallery:modules/$module/templates/blocks/$file.tpl",
-		  'smarty_include_vars' => $params));
-	$smarty->_tpl_vars = $save;
+	return $this->_smarty_include($smarty, "gallery:modules/$module/templates/blocks/$file.tpl",
+		$params
+	);
     }
 
     /**
@@ -992,7 +1011,7 @@ class GalleryTemplateAdapter {
      * @param string $content
      * @param Smarty $smarty the smarty instance
      */
-    function container($params, $content, &$smarty) {
+    function container($params, $content) {
 	if (!isset($content)) {
 	    return;
 	}
@@ -1026,7 +1045,7 @@ class GalleryTemplateAdapter {
      * @param array $params ('type' => <block descriptor>, ...)
      * @param Smarty $smarty the smarty instance
      */
-    function callback($params, &$smarty) {
+    function callback($params, $_template) {
 	global $gallery;
 	static $moduleStatus;
 	if (empty($status)) {
@@ -1043,10 +1062,11 @@ class GalleryTemplateAdapter {
 	if (!empty($status[$module]['active'])) {
 	    GalleryCoreApi::requireOnce("modules/$module/Callbacks.inc");
 
-	    $userId = $smarty->_tpl_vars['theme']['actingUserId'];
+	    $themevar = $_template->getTemplateVars('theme');
+	    $userId = $themevar['actingUserId'];
 	    $className = "${module}Callbacks";
 	    $class = new $className;
-	    $ret = $class->callback($params, $smarty, $file, $userId);
+	    $ret = $class->callback($params, $_template, $file, $userId);
 	    if ($ret) {
 		/* What can we do with this error? */
 		$gallery->debug("Error performing $params[type] callback");
@@ -1062,7 +1082,7 @@ class GalleryTemplateAdapter {
      * @param string $content
      * @param Smarty $smarty the smarty instance
      */
-    function addToTrailer($params, $content, &$smarty) {
+    function addToTrailer($params, $content) {
 	if (!isset($content)) {
 	    return;
 	}
@@ -1082,7 +1102,7 @@ class GalleryTemplateAdapter {
     /**
      * Render trailer output
      */
-    function trailer($params, &$smarty) {
+    function trailer($params) {
 	print $this->_trailer;
 
 	foreach ($this->_trailerCallbacks as $callback) {
@@ -1112,19 +1132,23 @@ class GalleryTemplateAdapter {
      * @param array $params args; should contain widthVar, heightVar, maxSize keys
      * @param Smarty $smarty the smarty instance
      */
-    function shrinkDimensions($params, &$smarty) {
+    function shrinkDimensions($params, $smarty) {
 	if (!isset($params['widthVar']) || !isset($params['heightVar']) ||
 		!isset($params['maxSize'])) {
 	    return;
 	}
 	$widthVar = $params['widthVar'];
 	$heightVar = $params['heightVar'];
-	if (!isset($smarty->_tpl_vars[$widthVar]) || !isset($smarty->_tpl_vars[$heightVar])) {
+	if (!$smarty->getTemplateVars($widthVar) || !$smarty->getTemplateVars($heightVar)) {
 	    return;
 	}
-	list ($smarty->_tpl_vars[$widthVar], $smarty->_tpl_vars[$heightVar]) =
-	    GalleryUtilities::shrinkDimensionsToFit(
-		$smarty->_tpl_vars[$widthVar], $smarty->_tpl_vars[$heightVar], $params['maxSize']);
+	$ret = GalleryUtilities::shrinkDimensionsToFit(
+		$smarty->getTemplateVars($widthVar), $smarty->getTemplateVars($heightVar), $params['maxSize']
+	);
+	
+	$smarty->assign('widthVar', $ret[0]);
+	$smarty->assign('heightVar', $ret[1]);
+	    
     }
 
     /**
