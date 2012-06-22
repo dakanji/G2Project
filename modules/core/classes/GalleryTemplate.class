@@ -157,11 +157,10 @@ class GalleryTemplate {
      * Add a stylesheet to include in the <head> section
      * @param string $path stylesheet path relative to gallery2 dir
      */
-    function style($path) {
-	$this->link(array('rel' => 'stylesheet',
-			  'type' => 'text/css',
-			  'href' => $path));
-    }
+	function style($path) {
+		$head =& $this->getVariableByReference('head');
+		$head['stylesheet'][$path] = true;
+	}
 
     /**
      * Add a JavaScript to include in the <head> section
