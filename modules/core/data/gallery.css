@@ -541,3 +541,41 @@ div.gbLink-Help {
   float: right;
   cursor: pointer;
 }
+
+/* ================================================================ */
+/*                      HTML 5 Style Helpers                        */
+/*                                                                  */
+/*     Allows us to use classes in place of "style" for HTML 5      */
+/* ================================================================ */
+.width100pc {
+	width: 100%;
+}
+.width50pc {
+	width: 50%;
+}
+
+.width75pc {
+	width: 75%;
+}
+
+.width30pc {
+	width: 30%;
+}
+
+table.nocellspacing {
+	cellspacing: 0px;
+}
+
+table.nocellpadding {
+	cellpadding: 0px;
+}
+
+.nodisplay {
+	display: none;
+}
+
+
+.g2logo {
+	width: 107px;
+	height: 48px;
+}

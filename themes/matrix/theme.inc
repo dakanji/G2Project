@@ -71,7 +71,7 @@ class MatrixTheme extends GalleryTheme {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
-	/* Add our header and styles */
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -88,7 +88,8 @@ class MatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -101,7 +102,8 @@ class MatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -115,6 +117,7 @@ class MatrixTheme extends GalleryTheme {
 	    return array($ret, null);
 	}
 
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -122,6 +125,8 @@ class MatrixTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
+    	
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -135,7 +140,8 @@ class MatrixTheme extends GalleryTheme {
 	    return array($ret, null);
 	}
 
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
-    }
+    }    
 }
 ?>

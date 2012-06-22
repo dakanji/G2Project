@@ -5,7 +5,7 @@
 {if !empty($theme.imageViews)}
 {assign var="image" value=$theme.imageViews[$theme.imageViewsIndex]}
 {/if}
-<table width="100%" cellspacing="0" cellpadding="0">
+<table class="width100pc nocellspacing nocellpadding">
   <tr valign="top">
     {if !empty($theme.params.sidebarBlocks)}
     <td id="gsSidebarCol">
@@ -15,7 +15,7 @@
     <td>
       <div id="gsContent">
         <div class="gbBlock gcBackground1">
-          <table width="100%">
+          <table class="width100pc">
             <tr>
               <td>
                 {if !empty($theme.item.title)}
@@ -27,7 +27,7 @@
                 </p>
                 {/if}
               </td>
-              <td style="width: 30%">
+              <td class="width30pc">
                 {g->block type="core.ItemInfo"
                           item=$theme.item
                           showDate=true
