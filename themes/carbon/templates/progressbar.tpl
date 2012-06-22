@@ -26,11 +26,11 @@
     &nbsp;
   </p>
 
-  <p id="progressErrorInfo" style="display: none">
+  <p id="progressErrorInfo" class="nodisplay">
 
   </p>
 
-  <a id="progressContinueLink" style="display: none">
+  <a id="progressContinueLink" class="nodisplay">
     {g->text text="Continue..."}
   </a>
 </div>

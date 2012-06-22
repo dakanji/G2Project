@@ -115,8 +115,6 @@
 
 		    {assign var=childrenInColumnCount value="`$childrenInColumnCount+1`"}
 		    <td id="td_a1" class="{if $child.canContainChildren}giAlbumCell{else}giItemCell{/if}">
-	      {* shim in the style for html 5 validity *}
-         <script type="text/javascript">document.getElementById("td_a1").style.width = '{$theme.columnWidthPct}%';</script>
 		      {if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		        {assign var=frameType value="albumFrame"}
 		        {capture assign=linkUrl}{g->url arg1="view=core.ShowItem"
@@ -235,3 +233,5 @@
 {if !empty($theme.params.sidebarBlocks)}
   {g->theme include="sidebar.tpl"}
 {/if}
+{* shim in the style for html 5 validity *}
+<script type="text/javascript">document.getElementById("td_a1").style.width = '{$theme.columnWidthPct}%';</script>

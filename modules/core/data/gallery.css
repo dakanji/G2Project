@@ -594,13 +594,20 @@ table.nocellpadding {
 	text-align: center;
 }
 
+.progressMemoryInfo {
+	position: absolute;
+	top: 0px;
+	right: 15px;
+}
+
 .g2logo {
 	width: 107px;
 	height: 48px;
 }
 
-.progressMemoryInfo {
-  position: absolute;
-  top: 0px;
-  right: 15px;
+.logoButton {
+	border-style: none;
+	width: 80px;
+	height: 15px;
 }
+

@@ -1061,7 +1061,7 @@ class GalleryTemplateAdapter {
 	    $version = $core->translate(
 		array('text' => "Powered by Gallery v%s", 'arg1' => $installedVersions['gallery']));
 	    return sprintf(
-		'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">%s',
+		'%s<img src="%s" alt="%s" title="%s" class="%s">%s',
 		$useLink ? ('<a href="http://gallery.sourceforge.net"' . $linkTarget . '>')
 		: '',
 		$urlGenerator->generateUrl(array('href' => 'images/gallery.gif')),
@@ -1090,12 +1090,12 @@ class GalleryTemplateAdapter {
 			'Validation disabled until you set allowSessionAccess in config.php'));
 	    }
 	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">%s',
+		    '%s<img src="%s" alt="%s" title="%s" class="%s">%s',
 		    $useLink ? ('<a href="' . $validationUri . '"' . $linkTarget . '>') : '',
 		    $urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')),
-		    $core->translate('This page is valid XHTML 1.0'),
-		    $core->translate('This page is valid XHTML 1.0'),
-		    'border-style: none',
+		    $core->translate('This page is valid HTML 5'),
+		    $core->translate('This page is valid HTML 5'),
+		    'logoButton',
 		    $useLink ? '</a>' : '');
 
 	case 'donate':
@@ -1104,13 +1104,13 @@ class GalleryTemplateAdapter {
 	    }
 	    $installedVersions = $core->getInstalledVersions();
 	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">%s',
+		    '%s<img src="%s" alt="%s" title="%s" class="%s">%s',
 		    $useLink ? ('<a href="http://gallery.sourceforge.net/donate.php?donate_tag=' .
 			$installedVersions['gallery'] . '"' . $linkTarget . '>') : '',
 		    $urlGenerator->generateUrl(array('href' => 'modules/core/data/donate.png')),
 		    $core->translate('Donate to the Gallery project'),
 		    $core->translate('Donate to the Gallery project'),
-		    'border-style: none',
+		    'logoButton',
 		    $useLink ? '</a>' : '');
 
 	case 'gallery2-version':
@@ -1118,12 +1118,12 @@ class GalleryTemplateAdapter {
 		return;
 	    }
 	    return sprintf(
-		    '<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">',
+		    '<img src="%s" alt="%s" title="%s" class="%s">',
 		    $urlGenerator->generateUrl(
 			array('href' => 'modules/core/data/g23-skidoo.png')),
-		    $core->translate('G2.3: Skidoo'),
-		    $core->translate('G2.3: Skidoo'),
-		    'border-style: none');
+		    $core->translate('G2.4: Fenix'),
+		    $core->translate('G2.4: Fenix'),
+		    'logoButton');
 	}
     }
 

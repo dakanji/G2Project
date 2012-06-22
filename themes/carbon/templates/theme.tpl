@@ -2,15 +2,15 @@
  * $Revision: 17592 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="{g->language}" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="{g->language}">
   <head>
     {* Let Gallery print out anything it wants to put into the <head> element *}
     {g->head}
 
     {if $theme.pageType == 'album' || $theme.pageType == 'photo'}
-    <meta name="keywords" content="{$theme.item.keywords}" />
-    <meta name="description" content="{$theme.item.description|markup:strip}" />
+    <meta name="keywords" content="{$theme.item.keywords}" >
+    <meta name="description" content="{$theme.item.description|markup:strip}" >
     {/if}
     {if $theme.pageType != 'admin'}
     <script type="text/javascript" src="{g->url href='themes/carbon/theme.js'}"></script>
@@ -20,9 +20,6 @@
     {if empty($head.title)}
       <title>{$theme.item.title|default:$theme.item.pathComponent|markup:strip}</title>
     {/if}
-
-    {* Include this theme's style sheet *}
-    <link rel="stylesheet" type="text/css" href="{g->theme url="theme.css"}"/>
   </head>
   <body class="gallery">
     {if !empty($jsWarning)}
@@ -39,26 +36,26 @@
       {elseif $theme.pageType == 'progressbar'}
 	<div id="gsHeader">
           {if !empty($theme.params.logoImageLocation)}
-	  <img src="{g->url href=$theme.params.logoImageLocation}" alt=""/>
+	  <img src="{g->url href=$theme.params.logoImageLocation}" alt="">
           {else}
-	  <img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
+	  <img src="{g->url href="images/galleryLogo_sm.gif"}" class="g2logo" alt="">
           {/if}
 	</div>
 	{g->theme include="progressbar.tpl"}
       {else}
       <div id="gsHeader">
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table class="width100pc nocellspacing nocellpadding">
 	  <tr>
-	    <td align="left" valign="top" width="50%">
+	    <td class="width50pc alignLeft alignTop">
 	      <a href="{g->url}">
 		{if !empty($theme.params.logoImageLocation)}
-		<img src="{g->url href=$theme.params.logoImageLocation}" alt=""/>
+		<img src="{g->url href=$theme.params.logoImageLocation}" alt="">
 		{else}
-		<img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
+		<img src="{g->url href="images/galleryLogo_sm.gif"}" class="g2logo" alt="">
 		{/if}
               </a>
 	    </td>
-	    <td align="right" valign="top">
+	    <td class="alignRight alignTop">
 	      {g->theme include="ads.tpl"}
 	    </td>
 	  </tr>
@@ -102,15 +99,15 @@
       {/if}
 
       <div id="gsFooter" class="gcBorder1">
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table class="gcBackground1 width100pc nocellspacing nocellpadding">
 	  <tr>
-	    <td align="left" width="50%">
+	    <td class="width50pc alignLeft">
 	      {g->logoButton type="validation"}
 	      {g->logoButton type="gallery2"}
 	      {g->logoButton type="gallery2-version"}
 	      {g->logoButton type="donate"}
 	    </td>
-	    <td align="right">
+	    <td class="alignRight">
 	      {strip}
 	      {if !empty($theme.params.copyright)}
 		{$theme.params.copyright}

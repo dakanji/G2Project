@@ -2,20 +2,19 @@
  * $Revision: 17075 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<div id="sidebar" class="gcPopupBackground"
- style="position:absolute; left:-190px; top:{$theme.params.sidebarTop}px; padding:1px;">
-  <table cellspacing="0" cellpadding="0">
+<div id="sidebar" class="gcPopupBackground">
+  <table class="nocellspacing nocellpadding">
     <tr>
-      <td align="left" style="padding-left:5px;">
+      <td align="left" class="padLeft5">
 	<h2>{g->text text="Actions"}</h2>
       </td>
-      <td align="right" style="padding-right:2px;">
+      <td align="right" class="padRight2">
 	<div class="buttonHideSidebar"><a href="javascript: slideOut('sidebar')"
 	 title="{g->text text="Close"}"></a></div>
       </td>
     </tr>
     <tr>
-      <td colspan="2" class="gcBackground2" style="padding-bottom:5px">
+      <td colspan="2" class="gcBackground2 padLeft5">
 	<div id="gsSidebar" class="gcBorder1">
 	  {* Show the sidebar blocks chosen for this theme *}
 	  {foreach from=$theme.params.sidebarBlocks item=block}
@@ -26,3 +25,10 @@
     </tr>
   </table>
 </div>
+ {* shim in the style for html 5 validity *}
+ <script type="text/javascript">
+ document.getElementById("sidebar").style.position = 'absolute';
+ document.getElementById("sidebar").style.left = '-190px';
+ document.getElementById("sidebar").style.top = '{$theme.params.sidebarTop}px';
+ document.getElementById("sidebar").style.padding = '1px';
+ </script>
