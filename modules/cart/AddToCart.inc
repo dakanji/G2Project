@@ -28,40 +28,38 @@ GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
  * @version $Revision: 17580 $
  */
 class AddToCartController extends GalleryController {
-
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	global $gallery;
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see GalleryController::handleRequest
+	**/
+	function handleRequest($form) {
+		global $gallery;
+		
+		list ($ret, $item) = $this->getItem();
+		if ($ret) {
+			return array($ret, null);
+		}
+		
+		/* Figure out what ids we care about */
+		if ($item->getCanContainChildren()) {
+			list ($ret, $ids) = GalleryCoreApi::fetchChildDataItemIds($item);
+			if ($ret) {
+				return array($ret, null);
+			}
+		} else {
+			$ids = array($item->getId());
+		}
+		
+		$ret = CartHelper::addItemsToCart($ids);
+		if ($ret) {
+			return array($ret, null);
+		}
+		
+		/* Prepare results */
+		$results['redirect']['href'] = GalleryUtilities::getRequestVariables('return');
+		$results['status'] = array();
+		$results['error'] = array();
+		
+		return array(null, $results);
 	}
-
-	/* Figure out what ids we care about */
-	if ($item->getCanContainChildren()) {
-	    list ($ret, $ids) = GalleryCoreApi::fetchChildDataItemIds($item);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	} else {
-	    $ids = array($item->getId());
-	}
-
-	$ret = CartHelper::addItemsToCart($ids);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Prepare our results */
-	$results['redirect']['view'] = 'cart.ViewCart';
-	$results['redirect']['itemId'] = $item->getId();
-	$results['status'] = array();
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
 }
 ?>
