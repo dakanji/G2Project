@@ -158,7 +158,7 @@ class GalleryTemplateAdapter {
 
 	$out = '';
 	foreach ($vars as $key => $value) {
-	    $out .= sprintf('<input type="hidden" name="%s" value="%s"/>' . "\n",
+	    $out .= sprintf('<input type="hidden" name="%s" value="%s">' . "\n",
 			   GalleryUtilities::prefixFormVariable($key),
 			   $value);
 	}
@@ -263,7 +263,7 @@ class GalleryTemplateAdapter {
 
 	return '<input type="checkbox" id="' . $params['module'] . '_ChangeInDescendents" name="'
 	     . GalleryUtilities::prefixFormVariable(
-		     'form[changeInDescendents][' . $params['module'] . ']') . '"/> <label for="'
+		     'form[changeInDescendents][' . $params['module'] . ']') . '"> <label for="'
 	     . $params['module'] . '_ChangeInDescendents"> ' . $text . '</label>';
     }
 
@@ -370,7 +370,7 @@ class GalleryTemplateAdapter {
      * @param Smarty $smarty the smarty instance
      * @return string HTML content
      */
-    function head($params, $smarty) {
+   function head($params, $smarty) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$head = $smarty->getTemplateVars('head');
@@ -385,12 +385,25 @@ class GalleryTemplateAdapter {
 	foreach (array_keys($head['link']) as $linkHtml) {
 	    $output[] = $linkHtml;
 	}
-
+		
+	/* Stylesheets */
+	if (!empty($head['stylesheet'])) {
+		$theme = $smarty->getTemplateVars('theme');
+		if (empty($theme['pageType']) || $theme['pageType'] != 'error') {
+			$this->_combineCSS(array_keys($head['stylesheet']), $output);
+		} else {
+			foreach (array_keys($head['style']) as $file) {
+				$output[] = sprintf('<link type="text/css" rel="stylesheet" href="%s">',
+				$urlGenerator->generateUrl(array('href' => $file)));
+			}
+		}
+	}
+		
 	/* Javascript */
 	if (!empty($head['javascript'])) {
 	    $theme = $smarty->getTemplateVars('theme');
 	    if (empty($theme['pageType']) || $theme['pageType'] != 'error') {
-		$this->_combineJavascriptFiles(array_keys($head['javascript']), $output);
+		$this->_combineJS(array_keys($head['javascript']), $output);
 	    } else {
 		foreach (array_keys($head['javascript']) as $file) {
 		    $output[] = sprintf('<script type="text/javascript" src="%s"></script>',
@@ -407,12 +420,12 @@ class GalleryTemplateAdapter {
 	}
 
 	/* This should help out users whose browsers are confused about the character set */
-	$output[] = '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>';
+	$output[] = '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">';
 
 	/* Meta */
 	foreach ($head['meta'] as $meta) {
 	    $key = empty($meta['isHttpEquiv']) ? 'name' : 'http-equiv';
-	    $output[] = sprintf('<meta %s="%s" content="%s"/>',
+	    $output[] = sprintf('<meta %s="%s" content="%s">',
 				$key, $meta['name'], $meta['content']);
 	}
 
@@ -450,109 +463,161 @@ class GalleryTemplateAdapter {
         //return $html;
     }
 
-    /**
-     * Combine as many static Javascript files as possible into a single request to
-     * core.CombinedJavascript to minimize the number of connections required by the browser to
-     * retrieve them, which improves performance on slower connections.
-     * @param array $files relative paths to javascript files
-     * @param array $output output buffer to add lines.
-     */
-    function _combineJavascriptFiles($files, &$output) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$urlGenerator =& $gallery->getUrlGenerator();
-
-	$filteredFiles = array();
-	$key = '';
-	$codeBase = GalleryCoreApi::getCodeBasePath();
-	$pattern = '<script type="text/javascript" src="%s"></script>';
-
-	/* Special case utilities.js is superset of yahoo-dom-event.js */
-	/** @todo move this check into GalleryTemplate::javascript */
-	$yde = array_search('lib/yui/yahoo-dom-event.js', $files);
-	if ($yde !== false) {
-	    $util = array_search('lib/yui/utilities.js', $files);
-	    if ($util !== false) {
-		if ($yde < $util) {
-		    $files[$yde] = $files[$util];
-		    unset($files[$util]);
-		} else {
-		    unset($files[$yde]);
+	/**
+	 * Combine as many static Javascript files as possible into a single request to
+	 * core.CombinedStylesheet to minimize the number of connections required by the browser to
+	 * retrieve them, which improves performance on slower connections.
+	 * @param array $files relative paths to stylesheet files
+	 * @param array $output output buffer to add lines.
+	**/
+	function _combineJS($files, &$output) {
+ 		global $gallery;
+		$platform =& $gallery->getPlatform();
+		$urlGenerator =& $gallery->getUrlGenerator();
+		
+		$filteredFiles = array();
+		$key = '';
+		$codeBase = GalleryCoreApi::getCodeBasePath();
+		$pattern = '<script type="text/javascript" src="%s"></script>';
+		
+		/* Special case utilities.js is superset of yahoo-dom-event.js */
+		/** @todo move this check into GalleryTemplate::javascript */
+		$yde = array_search('lib/yui/yahoo-dom-event.js', $files);
+		if ($yde !== false) {
+			$util = array_search('lib/yui/utilities.js', $files);
+			if ($util !== false) {
+				if ($yde < $util) {
+					$files[$yde] = $files[$util];
+					unset($files[$util]);
+				} else {
+					unset($files[$yde]);
+				}
+			}
 		}
-	    }
-	}
-	foreach ($files as $file) {
-	    /*
-	     * Don't do caching if it's a dynamic request, for which we use the quick and dirty
-	     * approach of checking for a ? in the path.  This will fail if you register a short
-	     * url for a JS immediate view, which seems pretty unlikely.
-	     */
-	    $path = $codeBase . $file;
-	    if (strpos($file, '?') === false && $platform->file_exists($path)) {
-		/* 7 == size, 9 == mtime, see http://php.net/stat */
-		$stats = $platform->stat($path);
-		$key .= "$file $stats[7] $stats[9],";
-		$filteredFiles[] = $file;
-	    } else {
+		foreach ($files as $file) {
+			/* Do not cache dynamic requests */
+			$path = $codeBase . $file;
+			if (strpos($file, '?') === false && $platform->file_exists($path)) {
+				/* 7 == size, 9 == mtime, see http://php.net/stat */
+				$stats = $platform->stat($path);
+				$key .= "$file $stats[7] $stats[9],";
+				$filteredFiles[] = $file;
+			} else {
+				if ($filteredFiles) {
+					/* Create a combined stylesheet file for what we have now */
+					$output[] = sprintf($pattern,
+					$this->_makeCombinedFile($filteredFiles, $key, 'Javascript'));
+					$filteredFiles = array();
+					$key = '';
+				}
+				$output[] = sprintf($pattern, $urlGenerator->generateUrl(array('href' => $file)));
+			}
+		}
+		
 		if ($filteredFiles) {
-		    /* Create a combined javascript file for what we have now */
-		    $output[] = sprintf($pattern,
-			$this->_buildCombinedJavascriptFileAndGenerateUrl($filteredFiles, $key));
-		    $filteredFiles = array();
-		    $key = '';
+			$output[] = sprintf(
+					$pattern, 
+					$this->_makeCombinedFile(
+							$filteredFiles, $key, 'Javascript'
+					)
+			);
 		}
-		$output[] = sprintf(
-		    $pattern, $urlGenerator->generateUrl(array('href' => $file)));
-	    }
 	}
 
-	if ($filteredFiles) {
-	    $output[] = sprintf($pattern, $this->_buildCombinedJavascriptFileAndGenerateUrl(
-		$filteredFiles, $key));
+	/**
+	 * Combine as many static Stylesheet files as possible into a single request to
+	 * core.CombinedStylesheet to minimize the number of connections required by the browser to
+	 * retrieve them, which improves performance on slower connections.
+	 * @param array $files relative paths to stylesheet files
+	 * @param array $output output buffer to add lines.
+	**/
+	function _combineCSS($files, &$output) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+		$urlGenerator =& $gallery->getUrlGenerator();
+		
+		$filteredFiles = array();
+		$key = '';
+		$codeBase = GalleryCoreApi::getCodeBasePath();
+		$pattern = '<link type="text/css" rel="stylesheet" href="%s">';
+		
+		foreach ($files as $file) {
+			/* Do not cache dynamic requests */
+			$path = $codeBase . $file;
+			if (strpos($file, '?') === false && $platform->file_exists($path)) {
+				/* 7 == size, 9 == mtime, see http://php.net/stat */
+				$stats = $platform->stat($path);
+				$key .= "$file $stats[7] $stats[9],";
+				$filteredFiles[] = $file;
+			} else {
+				if ($filteredFiles) {
+					/* Create a combined stylesheet file for what we have now */
+					$output[] = sprintf($pattern,
+					$this->_makeCombinedFile($filteredFiles, $key, 'Stylesheet'));
+					$filteredFiles = array();
+					$key = '';
+				}
+				$output[] = sprintf($pattern, $urlGenerator->generateUrl(array('href' => $file)));
+			}
+		}
+		
+		if ($filteredFiles) {
+			$output[] = sprintf(
+					$pattern, 
+					$this->_makeCombinedFile(
+							$filteredFiles, $key, 'Stylesheet'
+					)
+			);
+		}
 	}
-    }
 
-    /**
-     * Combine the specified files into a single file and store it in the disk cache with the key.
-     * @param array files to be combined
-     * @param array string to be used to generate the key
-     * @return string a url to retrieve the combined script file or null
-     */
-    function _buildCombinedJavascriptFileAndGenerateUrl($filteredFiles, $key) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$phpVm = $gallery->getPhpVm();
-
-	$codeBase = GalleryCoreApi::getCodeBasePath();
-
-	$key = $phpVm->md5($key);
-	$cacheFile = GalleryDataCache::getCachePath(
-	    array('type' => 'module',
-		  'itemId' => 'CombinedJavascript_' . $key,
-		  'id' => '_all'));
-	if (!$platform->file_exists($cacheFile)) {
-	    $contents = '';
-	    foreach ($filteredFiles as $file) {
-		$contents .= $platform->file_get_contents($codeBase . $file);
-	    }
-	    GalleryDataCache::putToDisk(
-		array('type' => 'module',
-		      'itemId' => 'CombinedJavascript_' . $key,
-		      'id' => '_all'),
-		$contents);
-	    if ($phpVm->function_exists('gzencode')) {
-		GalleryDataCache::putToDisk(
-		    array('type' => 'module',
-			  'itemId' => 'CombinedJavascript_gzip_' . $key,
-			  'id' => '_all'),
-		    $phpVm->gzencode($contents, 9, FORCE_GZIP));
-	    }
+	/**
+	 * Combine the specified files into a single file and store it in the disk cache with the key.
+	 * @param array files to be combined
+	 * @param array string to be used to generate the key
+	 * @return string a url to retrieve the combined file or null
+	**/
+	function _makeCombinedFile($filteredFiles, $key, $fileType='Javascript') {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$phpVm = $gallery->getPhpVm();
+		
+		$codeBase = GalleryCoreApi::getCodeBasePath();
+		
+		$key = $phpVm->md5($key);
+		$cacheFile = GalleryDataCache::getCachePath(
+				array('type' => 'module',
+						'itemId' => 'Combined' . $fileType . '_' . $key,
+						'id' => '_all'
+				)
+		);
+		if (!$platform->file_exists($cacheFile)) {
+			$contents = '';
+			foreach ($filteredFiles as $file) {
+				$contents .= $platform->file_get_contents($codeBase . $file);
+			}
+			GalleryDataCache::putToDisk(
+					array('type' => 'module',
+							'itemId' => 'Combined' . $fileType . '_' . $key,
+							'id' => '_all'
+					),
+					$contents
+			);
+			if ($phpVm->function_exists('gzencode')) {
+				GalleryDataCache::putToDisk(
+						array('type' => 'module',
+								'itemId' => 'Combined' . $fileType . '_gzip_' . $key, 'id' => '_all'
+						),
+						$phpVm->gzencode($contents, 9, FORCE_GZIP)
+				);
+			}
+		}
+		return $urlGenerator->generateUrl(
+				array('view' => 'core.Combined' . $fileType, 'key' => $key),
+				array('forceDirect' => true, 'forceFullUrl' => true)
+		);
 	}
-	return $urlGenerator->generateUrl(
-	    array('view' => 'core.CombinedJavascript', 'key' => $key),
-	    array('forceDirect' => true, 'forceFullUrl' => true));
-    }
 
     /**
      * Include our AutoCompletion template.
@@ -808,7 +873,7 @@ class GalleryTemplateAdapter {
 	    $version = $core->translate(
 		array('text' => "Powered by Gallery v%s", 'arg1' => $installedVersions['gallery']));
 	    return sprintf(
-		'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
+		'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">%s',
 		$useLink ? ('<a href="http://gallery.sourceforge.net"' . $linkTarget . '>')
 		: '',
 		$urlGenerator->generateUrl(array('href' => 'images/gallery.gif')),
@@ -837,7 +902,7 @@ class GalleryTemplateAdapter {
 			'Validation disabled until you set allowSessionAccess in config.php'));
 	    }
 	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
+		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">%s',
 		    $useLink ? ('<a href="' . $validationUri . '"' . $linkTarget . '>') : '',
 		    $urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')),
 		    $core->translate('This page is valid XHTML 1.0'),
@@ -851,7 +916,7 @@ class GalleryTemplateAdapter {
 	    }
 	    $installedVersions = $core->getInstalledVersions();
 	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
+		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">%s',
 		    $useLink ? ('<a href="http://gallery.sourceforge.net/donate.php?donate_tag=' .
 			$installedVersions['gallery'] . '"' . $linkTarget . '>') : '',
 		    $urlGenerator->generateUrl(array('href' => 'modules/core/data/donate.png')),
@@ -865,7 +930,7 @@ class GalleryTemplateAdapter {
 		return;
 	    }
 	    return sprintf(
-		    '<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>',
+		    '<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15">',
 		    $urlGenerator->generateUrl(
 			array('href' => 'modules/core/data/g23-skidoo.png')),
 		    $core->translate('G2.3: Skidoo'),
@@ -1282,7 +1347,7 @@ class GalleryTemplateAdapter {
 	       $continueUrl);
 	if (($debug = $gallery->getDebug()) && $debug != 'logged') {
 	    /* Don't automatically redirect when in debug mode */
-	    print '<hr/>';
+	    print '<hr>';
 	    print '<pre>';
 	    print $gallery->getDebugBuffer();
 	    print '</pre>';
