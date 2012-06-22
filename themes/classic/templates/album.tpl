@@ -2,8 +2,8 @@
  * $Revision: 16349 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<table width="100%" cellspacing="0" cellpadding="0">
-  <tr valign="top">
+<table class="width100pc nocellspacing nocellpadding">
+  <tr class="alignTop">
     {if !empty($theme.params.sidebarBlocks)}
     <td id="gsSidebarCol">
       {g->theme include="sidebar.tpl"}
@@ -23,7 +23,7 @@
       {/if}
       <div id="gsContent" class="gcBorder1">
         <div class="gbBlock gcBackground1">
-          <table style="width: 100%">
+          <table class="width100pc">
             <tr>
               <td>
                 {if !empty($theme.item.title)}
@@ -35,7 +35,7 @@
                 </p>
                 {/if}
               </td>
-              <td style="width: 30%">
+              <td class="width30pc">
                 {g->block type="core.ItemInfo"
                           item=$theme.item
                           showDate=true
@@ -58,7 +58,7 @@
           <h3 class="emptyAlbum">
 	    {g->text text="This album is empty."}
 	    {if isset($theme.permissions.core_addDataItem)}
-	    <br/>
+	    <br>
               <a href="{g->url arg1="view=core.ItemAdmin" arg2="subView=core.ItemAdd" arg3="itemId=`$theme.item.id`"}"> {g->text text="Add a photo!"} </a>
 	    {/if}
           </h3>
@@ -68,13 +68,13 @@
         {assign var="childrenInColumnCount" value=0}
         <div class="gbBlock">
           <table id="gsThumbMatrix" width="100%">
-            <tr valign="top">
+            <tr class="alignTop">
               {foreach from=$theme.children item=child}
 
               {* Move to a new row *}
               {if ($childrenInColumnCount == $theme.params.columns)}
             </tr>
-            <tr valign="top">
+            <tr class="alignTop">
               {assign var="childrenInColumnCount" value=0}
               {/if}
 

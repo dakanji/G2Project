@@ -2,8 +2,8 @@
  * $Revision: 16235 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<table width="100%" cellspacing="0" cellpadding="0">
-  <tr valign="top">
+<table class="width100pc nocellspacing nocellpadding">
+  <tr class="alignTop">
     {if !empty($theme.params.sidebarBlocks)}
     <td id="gsSidebarCol">
       {g->theme include="sidebar.tpl"}

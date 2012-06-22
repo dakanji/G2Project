@@ -125,7 +125,7 @@ class ClassicTheme extends GalleryTheme {
 	    }
 	}
 
-	/* Add our header and styles */
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -142,7 +142,7 @@ class ClassicTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -155,7 +155,7 @@ class ClassicTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -168,7 +168,7 @@ class ClassicTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -176,6 +176,7 @@ class ClassicTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -188,7 +189,7 @@ class ClassicTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
