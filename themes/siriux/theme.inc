@@ -86,7 +86,7 @@ class SiriuxTheme extends GalleryTheme {
 		break;
 	    }
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -109,7 +109,7 @@ class SiriuxTheme extends GalleryTheme {
 	if (isset($theme['navigator']['last'])) {
 	    unset($theme['navigator']['last']);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -127,7 +127,7 @@ class SiriuxTheme extends GalleryTheme {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['moduleTemplate'] = $templateFile;
 
-	/* Add our header and styles */
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -144,7 +144,7 @@ class SiriuxTheme extends GalleryTheme {
 	/* Add in our extra stuff */
 	$theme =& $template->getVariableByReference('theme');
 	$theme['adminTemplate'] = $templateFile;
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -152,6 +152,7 @@ class SiriuxTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -164,7 +165,7 @@ class SiriuxTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 

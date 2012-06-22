@@ -21,20 +21,22 @@
       {if $theme.params.enableImageMap}{strip}
 	{if isset($theme.navigator.back)}
 	  <a href="{g->url params=$theme.navigator.back.urlParams}"
-	     id="prevArrow" style="position: absolute; margin: 30px 0 0 30px; visibility: hidden"
+	     id="prevArrow" class="navlink" 
 	     onmouseover="document.getElementById('prevArrow').style.visibility='visible'"
-	     onmouseout="document.getElementById('prevArrow').style.visibility='hidden'"
-	  ><img src="{g->theme url="images/arrow-left.gif"}" alt="" width="20" height="17"
-	  /></a>{/if}
+	     onmouseout="document.getElementById('prevArrow').style.visibility='hidden'">
+	     <img src="{g->theme url="images/arrow-left.gif"}" alt="" class="navArrow">
+	  </a>
+	{/if}
 	{g->image item=$theme.item image=$image class="gallery-photo"
 	    fallback=$smarty.capture.fallback usemap=#prevnext}
 	{if isset($theme.navigator.next)}
 	  <a href="{g->url params=$theme.navigator.next.urlParams}"
-	     id="nextArrow" style="position:absolute; margin: 30px 0 0 -50px; visibility: hidden"
+	     id="nextArrow" class="navlink" 
 	     onmouseover="document.getElementById('nextArrow').style.visibility='visible'"
-	     onmouseout="document.getElementById('nextArrow').style.visibility='hidden'"
-	   ><img src="{g->theme url="images/arrow-right.gif"}" alt="" width="20" height="17"
-	   /></a>{/if}
+	     onmouseout="document.getElementById('nextArrow').style.visibility='hidden'">
+	     <img src="{g->theme url="images/arrow-right.gif"}" alt="" class="navArrow">
+	  </a>
+   {/if}
       {/strip}{else}
         {g->image item=$theme.item image=$image class="gallery-photo"
 	 fallback=$smarty.capture.fallback}
@@ -55,7 +57,7 @@
    href="{g->url params=$theme.navigator.back.urlParams}"
    alt="{$theme.item.title|markup:strip|default:$theme.item.pathComponent}"
    onmouseover="document.getElementById('prevArrow').style.visibility='visible'"
-   onmouseout="document.getElementById('prevArrow').style.visibility='hidden'"/>
+   onmouseout="document.getElementById('prevArrow').style.visibility='hidden'">
 {/if}
 {if isset($theme.navigator.next)}
   <area shape="rect" coords="{math equation="round(x/2)"
@@ -63,13 +65,13 @@
    href="{g->url params=$theme.navigator.next.urlParams}"
    alt="{$theme.item.title|markup:strip|default:$theme.item.pathComponent}"
    onmouseover="document.getElementById('nextArrow').style.visibility='visible'"
-   onmouseout="document.getElementById('nextArrow').style.visibility='hidden'"/>
+   onmouseout="document.getElementById('nextArrow').style.visibility='hidden'">
 {/if}
 </map>
 {/if}
 
 
-<br style="clear: both;" />
+<br class="clearBoth">
 
 
 {* Navigator *}
@@ -79,7 +81,7 @@
       currentItem=$block.core.LoadPeers.thisPeerIndex totalItems=$block.core.LoadPeers.peerCount}
 {/if}
 
-<hr/>
+<hr>
 
 {* Description *}
 {if !empty($theme.item.description) && ($theme.item.description != $theme.item.title)}

@@ -28,7 +28,7 @@
       {if $theme.params.groupByYear}
 	{capture name=year}{g->date format="%Y" timestamp=$child.originationTimestamp}{/capture}
 	{if $smarty.capture.year != $currentYear}
-	  <h3 style="clear: both;">{$smarty.capture.year}</h3>
+	  <h3 class="clearBoth">{$smarty.capture.year}</h3>
 	  {assign var="currentYear" value=$smarty.capture.year}
 	{/if}
       {/if}
@@ -98,7 +98,7 @@
 
 {* Description *}
 {if !empty($theme.item.description)}
-  <hr />
+  <hr>
   <p>{$theme.item.description|markup}</p>
 {/if}
 
