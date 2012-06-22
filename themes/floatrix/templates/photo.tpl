@@ -39,7 +39,7 @@
         </div>
         {/if}
 
-        <div id="gsImageViewContainer" style="width: {$image.width}px">
+        <div id="gsImageViewContainer">
           <div id="gsImageView" class="gbBlock">
             {if !empty($theme.imageViews)}
               {capture name="fallback"}
@@ -119,3 +119,5 @@
 	{* Our emergency edit link, if the user removes all blocks containing edit links *}
 	{g->block type="core.EmergencyEditItemLink" class="gbBlock" checkBlocks="sidebar,photo"}
       </div>
+{* shim in the style for html 5 validity *}
+<script type="text/javascript">document.getElementById("gsImageViewContainer").style.width = '{$image.width}px';</script>

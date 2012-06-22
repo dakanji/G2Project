@@ -92,6 +92,7 @@ class FloatrixTheme extends GalleryTheme {
 	}
 
 	$this->_splitItemLinks($template);
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -119,6 +120,7 @@ class FloatrixTheme extends GalleryTheme {
 	}
 
 	$this->_splitItemLinks($template);
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -158,7 +160,7 @@ class FloatrixTheme extends GalleryTheme {
 	if (GalleryUtilities::getRequestVariables('jsWarning') != null) {
 	    $template->setVariable('jsWarning', true);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -171,7 +173,7 @@ class FloatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -179,6 +181,7 @@ class FloatrixTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -191,7 +194,7 @@ class FloatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 }

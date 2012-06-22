@@ -45,7 +45,7 @@
           <h3 class="emptyAlbum">
           {g->text text="This album is empty."}
           {if isset($theme.permissions.core_addDataItem)}
-          <br/>
+          <br>
           <a href="{g->url arg1="view=core.ItemAdmin" arg2="subView=core.ItemAdd" arg3="itemId=`$theme.item.id`"}"> {g->text text="Add a photo!"} </a>
           {/if}
           </h3>
@@ -53,7 +53,7 @@
         {else}
         <div id="gsThumbMatrix">
             {foreach from=$theme.children item=child}
-            <div class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}" style="width: {$theme.params.columnWidth}px; height: {$theme.params.rowHeight}px;">
+            <div class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}">
 
             {if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		{assign var=frameType value="albumFrame"}
@@ -150,5 +150,9 @@
 
 	{* Our emergency edit link, if the user removes all blocks containing edit links *}
 	{g->block type="core.EmergencyEditItemLink" class="gbBlock" checkBlocks="sidebar,album"}
-
       </div>
+{* shim in the style for html 5 validity *}
+<script type="text/javascript">
+document.getElementById("gsThumbMatrix").style.width = '{$theme.params.columnWidth}px';
+document.getElementById("gsThumbMatrix").style.height = '{$theme.params.rowHeight}px';
+</script>
