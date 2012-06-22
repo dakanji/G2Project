@@ -32,7 +32,7 @@
   {if !empty($theme.itemLinks)}
   <div class="gbBlock">
     <h3> {g->text text="Album"} </h3>
-    <select onchange="{literal}if (this.value) { var a=this.value; this.options[0].selected=1; eval(a); }{/literal}" style="margin-left: 1em">
+    <select onchange="{literal}if (this.value) { var a=this.value; this.options[0].selected=1; eval(a); }{/literal}" class="selectLinks">
       <option label="{g->text text="&laquo; actions &raquo;"}" value="">
 	{g->text text="&laquo; actions &raquo;"}
       </option>
@@ -44,9 +44,9 @@
   {/if}
 
   {* Item links *}
-  <div id="photoActions" class="gbBlock" style="display: none">
+  <div id="photoActions" class="gbBlock nodisplay">
     <h3> {g->text text="Photo"} </h3>
-    <select id="linkList" onchange="{literal}if (this.value) { var a=this.value; this.options[0].selected=1; eval(a); }{/literal}" style="margin-left: 1em">
+    <select id="linkList" onchange="{literal}if (this.value) { var a=this.value; this.options[0].selected=1; eval(a); }{/literal}" class="selectLinks">
       <option label="{g->text text="&laquo; actions &raquo;"}" value="">
 	{g->text text="&laquo; actions &raquo;"}
       </option>
@@ -66,7 +66,7 @@
 	<option value="15">{g->text text="15 seconds"}</option>
 	<option value="20">{g->text text="20 seconds"}</option>
       </select>
-      <br/>
+      <br>
       {g->text text="Direction"}:&nbsp;
       <select id="slide_order" onchange="slide_setorder(this.value)">
 	<option selected="selected" value="1">{g->text text="forward"}</option>

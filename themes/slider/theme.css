@@ -161,7 +161,7 @@ table.gbDataTable th, table.gbDataTable td {
 }
 
 
-/* ********************************************************************************
+/* 
  * Sections
  * body.gallery     Page body in G2 standalone (doesn't apply to embedded)
  * #gallery         Page container
@@ -590,4 +590,29 @@ tr.bsw_ParamHeaderRow td {
 td.bsw_BlockCommands {
   white-space: nowrap;
   text-align: center;
+}
+
+.selectLinks {
+  margin-left: 1em;
+}
+
+.navGIF {
+  width: 20px;
+  height: 17px;
+  position: absolute; 
+  top: 30px; 
+  visibility: hidden; 
+  cursor: pointer
+}
+
+.navGIFL {
+  left: 30px; 
+}
+
+.navGIFR {
+  left: 30px; 
+}
+.navPNG {
+  width: 18px;
+  height: 18px;
 }

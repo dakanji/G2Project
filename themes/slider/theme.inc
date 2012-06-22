@@ -87,6 +87,7 @@ class SliderTheme extends GalleryTheme {
 	$theme['imageCount'] = count($imageWidths);
 
 	$template->head('themes/slider/templates/header.tpl');
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -108,6 +109,7 @@ class SliderTheme extends GalleryTheme {
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
+       $this->loadThemeResources($this->getId(), $template);				  
 	    return array(null, 'render.tpl');
 	}
 
@@ -135,7 +137,7 @@ class SliderTheme extends GalleryTheme {
 		break;
 	    }
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, $tplFile);
     }
 
@@ -148,7 +150,7 @@ class SliderTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -161,7 +163,7 @@ class SliderTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -169,6 +171,7 @@ class SliderTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -181,7 +184,7 @@ class SliderTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 

@@ -12,9 +12,6 @@
     {if empty($head.title)}
       <title>{$theme.item.title|markup:strip|default:$theme.item.pathComponent}</title>
     {/if}
-
-    {* Include this theme's style sheet *}
-    <link rel="stylesheet" type="text/css" href="{g->theme url="theme.css"}"/>
     {if $theme.pageType == 'album' || $theme.pageType == 'photo'}{literal}
     <style type="text/css">
       body.gallery { overflow: hidden; }
@@ -28,7 +25,7 @@
 	{g->theme include="slider.tpl"}
       {elseif $theme.pageType == 'progressbar'}
 	<div id="gsHeader">
-	  <img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
+	  <img src="{g->url href="images/galleryLogo_sm.gif"}" class="g2logo" alt="">
 	</div>
 	{g->theme include="progressbar.tpl"}
       {elseif $theme.useFullScreen}
@@ -36,7 +33,7 @@
       {else}
 	<div id="gsHeader">
 	  <a href="{g->url}"><img src="{g->url href="images/galleryLogo_sm.gif"}"
-	   width="107" height="48" alt=""/></a>
+	   class="g2logo" alt=""></a>
 	</div>
 
 	<div id="gsNavBar" class="gcBorder1">
@@ -54,7 +51,7 @@
 	  {include file="gallery:`$theme.adminTemplate`" l10Domain=$theme.adminL10Domain}
 	{elseif $theme.pageType == 'module'}
 	<table width="100%" cellspacing="0" cellpadding="0">
-	  <tr valign="top">
+	  <tr class="alignTop">
 	    <td id="gsSidebarCol">
 	      <div id="gsSidebar" class="gcBorder1">
 		{* Show the sidebar blocks chosen for this theme *}
