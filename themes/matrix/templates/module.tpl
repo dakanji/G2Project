@@ -2,7 +2,7 @@
  * $Revision: 16235 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<table width="100%" cellspacing="0" cellpadding="0">
+<table class="width100pc nocellspacing nocellpadding">
   <tr valign="top">
     {if !empty($theme.params.sidebarBlocks)}
     <td id="gsSidebarCol">

@@ -23,7 +23,7 @@
       {/if}
       <div id="gsContent" class="gcBorder1">
         <div class="gbBlock gcBackground1">
-          <table style="width: 100%">
+          <table class="width100pc">
             <tr>
               <td>
                 {if !empty($theme.item.title)}
@@ -35,7 +35,7 @@
                 </p>
                 {/if}
               </td>
-              <td style="width: 30%">
+              <td class="width30pc">
                 {g->block type="core.ItemInfo"
                           item=$theme.item
                           showDate=true
@@ -58,7 +58,7 @@
           <h3 class="emptyAlbum">
 	    {g->text text="This album is empty."}
 	    {if isset($theme.permissions.core_addDataItem)}
-	    <br/>
+	    <br>
               <a href="{g->url arg1="view=core.ItemAdmin" arg2="subView=core.ItemAdd" arg3="itemId=`$theme.item.id`"}"> {g->text text="Add a photo!"} </a>
 	    {/if}
           </h3>
@@ -79,8 +79,9 @@
               {/if}
 
 	      {assign var=childrenInColumnCount value="`$childrenInColumnCount+1`"}
-	      <td class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}"
-		  style="width: {$theme.columnWidthPct}%">
+	      <td id="td_a1" class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}">
+	      {* shim in the style for html 5 validity *}
+         <script type="text/javascript">document.getElementById("td_a1").style.width = '{$theme.columnWidthPct}%';</script>
 		{if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		  {assign var=frameType value="albumFrame"}
 		  {capture assign=linkUrl}{g->url arg1="view=core.ShowItem"

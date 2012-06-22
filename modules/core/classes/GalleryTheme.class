@@ -2026,5 +2026,18 @@ class GalleryTheme extends GalleryPlugin {
     function getStandardSettings() {
 	return $this->_standardSettings;
     }
+
+    /**
+     * Load the default theme JS and CSS files.
+     *
+     * @param string $theme the theme id
+     * @param object &$template the template object
+    **/ 
+ 	function loadThemeResources($theme, &$template) {
+		$template->style('themes/' .$theme . '/theme.css');
+		$template->javascript('themes/' .$theme . '/theme.js');
+	}
+   
+    
 }
 ?>
