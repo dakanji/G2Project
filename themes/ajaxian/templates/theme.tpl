@@ -2,8 +2,8 @@
  * $Revision: 17067 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="{g->language}" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="{g->language}">
   <head>
     {* Let Gallery print out anything it wants to put into the <head> element *}
     {g->head}
@@ -12,9 +12,6 @@
     {if empty($head.title)}
       <title>{$theme.item.title|markup:strip|default:$theme.item.pathComponent}</title>
     {/if}
-
-    {* Include this theme's style sheet *}
-    <link rel="stylesheet" type="text/css" href="{g->theme url="theme.css"}" />
     {if $theme.pageType == 'album' or $theme.pageType == 'photo'}
     <script type="text/javascript">
       // <![CDATA[
@@ -66,8 +63,8 @@
     {include file="gallery:`$theme.moduleTemplate`" l10Domain=$theme.moduleL10Domain}
       {elseif $theme.pageType == 'progressbar'}
     <div id="header">
-      <h1><img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""
-       id="main-logo" /></h1>
+      <h1><img src="{g->url href="images/galleryLogo_sm.gif"}" class="g2logo" alt=""
+       id="main-logo"></h1>
     </div>
     <div id="main"><div id="frame">
       {g->theme include="progressbar.tpl"}
@@ -75,7 +72,7 @@
       {else}
       <div id="header">
     <h1><a href="{g->url}"><img src="{g->url href="images/galleryLogo_sm.gif"}"
-      width="107" height="48" alt="Gallery" id="main-logo" /></a></h1>
+      width="107" height="48" alt="Gallery" id="main-logo"></a></h1>
     {g->block type="search.SearchBlock" showAdvancedLink=false}
 
     <div class="gbBreadCrumb">

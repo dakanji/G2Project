@@ -26,13 +26,13 @@
       <div id="slideshow-controls">
         <ul id="control-buttons">
     <li><button id="controls-left">
-      <img src="{g->theme url="images/controls-left.png"}" alt="{g->text text="Left"}" />
+      <img src="{g->theme url="images/controls-left.png"}" alt="{g->text text="Left"}">
       </button></li>
     <li><button id="controls-play">
-      <img src="{g->theme url="images/controls-play.png"}" alt="{g->text text="Play/Pause"}" />
+      <img src="{g->theme url="images/controls-play.png"}" alt="{g->text text="Play/Pause"}">
       </button></li>
     <li><button id="controls-right">
-      <img src="{g->theme url="images/controls-right.png"}" alt="{g->text text="Right"}" />
+      <img src="{g->theme url="images/controls-right.png"}" alt="{g->text text="Right"}">
       </button></li>
         </ul>
       </div>
@@ -43,21 +43,21 @@
       </div>
 
       <p><img src="{g->theme url="images/blank.png"}"
-      alt="{g->text text="Main image placeholder"}" id="main-image" /></p>
+      alt="{g->text text="Main image placeholder"}" id="main-image"></p>
     </div>
     {/if}
 
     {assign var="childrenInColumnCount" value=0}
     {assign var="subalbumCount" value=0}
-    <div id="thumbs-container"{if $theme.imageCount < 1 } style="background:none; margin-top:30px"{/if}>
+    <div id="thumbs-container"{if $theme.imageCount < 1 } class="thumbs-container"{/if}>
       <table id="gsThumbMatrix">
-    <tr valign="top">
+    <tr class="alignTop">
     {foreach from=$theme.children item=child}
 
       {if !$child.canContainChildren && $child.entityType != 'GalleryLinkItem'}
         {if ($childrenInColumnCount == $theme.params.columns)}
           {* Move to a new row *}
-          </tr><tr valign="top">
+          </tr><tr class="alignTop">
           {assign var="childrenInColumnCount" value=0}
         {/if}
         {assign var=childrenInColumnCount value="`$childrenInColumnCount+1`"}
@@ -101,7 +101,7 @@
     <div id="subalbums-container">
     <h3>{g->text text="Subalbums"}</h3>
     <table id="gsSubAlbumMatrix">
-      <tr valign="top">
+      <tr class="alignTop">
       {foreach from=$theme.children item=child}
 
     {if $child.canContainChildren || $child.entityType == 'GalleryLinkItem'}
@@ -120,7 +120,7 @@
           <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}"
          class="giMissingThumbnail">
         <img src="{g->theme url="images/missing.png"}" width="40" height="40"
-             alt="{g->text text="no thumbnail"}" />
+             alt="{g->text text="no thumbnail"}">
         {$child.title|entitytruncate:25}</a>
         {/if}
 
