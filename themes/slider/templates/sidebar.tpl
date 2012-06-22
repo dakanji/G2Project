@@ -44,7 +44,7 @@
   {/if}
 
   {* Item links *}
-  <div id="photoActions" class="gbBlock nodisplay">
+  <div id="photoActions" class="gbBlock noDisplay">
     <h3> {g->text text="Photo"} </h3>
     <select id="linkList" onchange="{literal}if (this.value) { var a=this.value; this.options[0].selected=1; eval(a); }{/literal}" class="selectLinks">
       <option label="{g->text text="&laquo; actions &raquo;"}" value="">

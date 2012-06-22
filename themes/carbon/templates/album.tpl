@@ -2,7 +2,7 @@
  * $Revision: 17524 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<table class="gcBackground1" class="width100pc nocellspacing nocellpadding">
+<table class="gcBackground1" class="width100pc noSpacing noPadding">
   <tr valign="top">
     <td>
       <div id="gsContent" class="gcBorder1">
@@ -55,7 +55,7 @@
 	</div>
 	{/if}
 
-	<table class="width100pc nocellspacing nocellpadding">
+	<table class="width100pc noSpacing noPadding">
 	  <tr valign="top">
 	    <td class="width30pc">
 	      <div class="gsContentDetail">

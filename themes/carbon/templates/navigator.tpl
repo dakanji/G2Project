@@ -9,10 +9,10 @@
  * in floated containers for elements that have whitespace before the closing tag.
  *}
 <div>
-  <table class="width100pc nocellspacing nocellpadding"><tr>
+  <table class="width100pc noSpacing noPadding"><tr>
     <td class="width20pc alignLeft">>
       <div class="first-and-previous">
-	<table class="nocellspacing nocellpadding"><tr>
+	<table class="noSpacing noPadding"><tr>
 	  {if isset($theme.navigator.first)}
 	  <td>
 	    <div class="buttonFirst"><a href="{g->url params=$theme.navigator.first.urlParams}"

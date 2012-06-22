@@ -11,7 +11,7 @@
     &nbsp;
   </p>
 
-  <table class="width100pc nocellspacing nocellpadding">
+  <table class="width100pc noSpacing noPadding">
     <tr>
       <td id="progressDone">&nbsp;</td>
       <td id="progressToGo">&nbsp;</td>
@@ -26,11 +26,11 @@
     &nbsp;
   </p>
 
-  <p id="progressErrorInfo" class="nodisplay">
+  <p id="progressErrorInfo" class="noDisplay">
 
   </p>
 
-  <a id="progressContinueLink" class="nodisplay">
+  <a id="progressContinueLink" class="noDisplay">
     {g->text text="Continue..."}
   </a>
 </div>

@@ -2,7 +2,7 @@
  * $Revision: 16931 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<div class="nodisplay">
+<div class="noDisplay">
 {foreach from=$theme.children key=i item=it}
   {if isset($it.image)}
     {if isset($it.renderItem)}

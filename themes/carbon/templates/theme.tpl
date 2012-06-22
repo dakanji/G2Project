@@ -44,7 +44,7 @@
 	{g->theme include="progressbar.tpl"}
       {else}
       <div id="gsHeader">
-	<table class="width100pc nocellspacing nocellpadding">
+	<table class="width100pc noSpacing noPadding">
 	  <tr>
 	    <td class="width50pc alignLeft alignTop">
 	      <a href="{g->url}">
@@ -99,7 +99,7 @@
       {/if}
 
       <div id="gsFooter" class="gcBorder1">
-	<table class="gcBackground1 width100pc nocellspacing nocellpadding">
+	<table class="gcBackground1 width100pc noSpacing noPadding">
 	  <tr>
 	    <td class="width50pc alignLeft">
 	      {g->logoButton type="validation"}

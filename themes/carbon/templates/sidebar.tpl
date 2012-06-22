@@ -3,7 +3,7 @@
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
 <div id="sidebar" class="gcPopupBackground">
-  <table class="nocellspacing nocellpadding">
+  <table class="noSpacing noPadding">
     <tr>
       <td align="left" class="padLeft5">
 	<h2>{g->text text="Actions"}</h2>

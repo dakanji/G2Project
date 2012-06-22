@@ -5,7 +5,7 @@
 {if empty($theme.params.sidebarBlocks)}
   {include file="gallery:`$theme.moduleTemplate`" l10Domain=$theme.moduleL10Domain}
 {else}
-<table class="width100pc nocellspacing nocellpadding">
+<table class="width100pc noSpacing noPadding">
   <tr class="alignTop">
     <td id="gsSidebarCol">
       {g->theme include="sidebar.tpl"}

@@ -5,7 +5,7 @@
 {if !empty($theme.imageViews)}
 {assign var="image" value=$theme.imageViews[$theme.imageViewsIndex]}
 {/if}
-<table class="width100pc nocellspacing nocellpadding">
+<table class="width100pc noSpacing noPadding">
   <tr valign="top">
     {if !empty($theme.params.sidebarBlocks)}
     <td id="gsSidebarCol">

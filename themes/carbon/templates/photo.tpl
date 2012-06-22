@@ -14,7 +14,7 @@
       {if $smarty.capture.exifBlock|trim}
 	{assign var="showExifLink" value=true}
 	<div id="exif" class="gcPopupBackground exifBlock">
-	  <table class="nocellspacing nocellpadding">
+	  <table class="noSpacing noPadding">
 	    <tr>
 	      <td class="padLeft5">
 		<h2>{g->text text="Exif"}</h2>
@@ -37,7 +37,7 @@
   {/foreach}
 {/if}
 
-<table class="gcBackground1 width100pc nocellspacing nocellpadding">
+<table class="gcBackground1 width100pc noSpacing noPadding">
   <tr class="alignTop">
     <td>
       <div id="gsContent" class="gcBorder1">
@@ -74,7 +74,7 @@
 	</div>
 
 	<div class="gsContentPhoto">
-	  <table class="alignCenter nocellspacing nocellpadding">
+	  <table class="alignCenter noSpacing noPadding">
 	    {if $theme.params.navigatorPhotoTop}
 	    <tr>
 	      <td class="gbNavigatorPhoto">
