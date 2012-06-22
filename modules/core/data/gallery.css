@@ -562,6 +562,10 @@ div.gbLink-Help {
 	width: 30%;
 }
 
+.width20pc {
+	width: 20%;
+}
+
 table.nocellspacing {
 	cellspacing: 0px;
 }
@@ -574,8 +578,29 @@ table.nocellpadding {
 	display: none;
 }
 
+.alignTop {
+	vertical-align: top;
+}
+
+.alignLeft {
+	text-align: left;
+}
+
+.alignRight {
+	text-align: right;
+}
+
+.alignCenter {
+	text-align: center;
+}
 
 .g2logo {
 	width: 107px;
 	height: 48px;
+}
+
+.progressMemoryInfo {
+  position: absolute;
+  top: 0px;
+  right: 15px;
 }

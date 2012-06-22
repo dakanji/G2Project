@@ -13,21 +13,20 @@
       {capture name="exifBlock"}{g->block type=$block.0 params=$block.1}{/capture}
       {if $smarty.capture.exifBlock|trim}
 	{assign var="showExifLink" value=true}
-	<div id="exif" class="gcPopupBackground"
-	 style="position:absolute; left:0px; top:0px; padding:1px; visibility:hidden; z-index:5000">
-	  <table cellspacing="0" cellpadding="0">
+	<div id="exif" class="gcPopupBackground exifBlock">
+	  <table class="nocellspacing nocellpadding">
 	    <tr>
-	      <td style="padding-left:5px;">
+	      <td class="padLeft5">
 		<h2>{g->text text="Exif"}</h2>
 	      </td>
-	      <td align="right">
+	      <td class="alignRight">
 		<div class="buttonClose"><a href="javascript:void(0);"
 		 onclick="toggleExif('photo','exif'); return false;"
 		 title="{g->text text="Close"}"></a></div>
 	      </td>
 	    </tr>
 	    <tr>
-	      <td colspan="2" class="gcBackground2" style="padding-bottom:5px;">
+	      <td colspan="2" class="gcBackground2 padBottom5">
 		{$smarty.capture.exifBlock}
 	      </td>
 	    </tr>
@@ -38,8 +37,8 @@
   {/foreach}
 {/if}
 
-<table class="gcBackground1" width="100%" cellspacing="0" cellpadding="0">
-  <tr valign="top">
+<table class="gcBackground1 width100pc nocellspacing nocellpadding">
+  <tr class="alignTop">
     <td>
       <div id="gsContent" class="gcBorder1">
 	<div class="gbBlockTop">
@@ -75,7 +74,7 @@
 	</div>
 
 	<div class="gsContentPhoto">
-	  <table align="center" cellpadding="0" cellspacing="0">
+	  <table class="alignCenter nocellspacing nocellpadding">
 	    {if $theme.params.navigatorPhotoTop}
 	    <tr>
 	      <td class="gbNavigatorPhoto">
@@ -118,7 +117,7 @@
 		  {/if}
 		</div>
 	      </td>
-	      <td align="left" width="240" valign="top">
+	      <td class="photoMicrothumbs">
 		{if $theme.params.showMicroThumbs}
 		<div class="gsContentDetail gcBorder1">
 		  <div class="gbNavigatorMicroThums">

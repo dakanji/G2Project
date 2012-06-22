@@ -9,10 +9,10 @@
  * in floated containers for elements that have whitespace before the closing tag.
  *}
 <div>
-  <table width="100%" cellpadding="0" cellspacing="0"><tr>
-    <td width="20%" align="left">
+  <table class="width100pc nocellspacing nocellpadding"><tr>
+    <td class="width20pc alignLeft">>
       <div class="first-and-previous">
-	<table cellpadding="0" cellspacing="0"><tr>
+	<table class="nocellspacing nocellpadding"><tr>
 	  {if isset($theme.navigator.first)}
 	  <td>
 	    <div class="buttonFirst"><a href="{g->url params=$theme.navigator.first.urlParams}"
@@ -31,7 +31,7 @@
 	</tr></table>
       </div>
     </td>
-    <td align="center">
+    <td class="alignCenter">
       {if $theme.pageType == 'album'}
 	{if !empty($theme.jumpRange)}
 	<div class="gsPages">
@@ -82,7 +82,7 @@
 	</table>
       {/if}
     </td>
-    <td width="20%" align="right" >
+    <td class="width20pc alignRight">
       <div class="next-and-last">
 	<table cellpadding="0" cellspacing="0"><tr>
 	  <td>&nbsp;</td>

@@ -24,7 +24,7 @@
 
       {if (!$peer.canContainChildren && $peer.entityType != 'GalleryLinkItem')}
 	{if ($peer.peerIndex == $data.thisPeerIndex)}
-	  <td id="microThumbCurrent" align="center" width="44" height="40">
+	  <td id="microThumbCurrent" class="microthumbs">
 	    {if isset($peer.thumbnail)}
 	      {g->image item=$peer image=$peer.thumbnail maxSize=40 title="$title"}
 	    {else}
@@ -32,7 +32,7 @@
 	    {/if}
 	  </td>
 	{else}
-	  <td align="center" width="44" height="40">
+	  <td class="microthumbs">
 	    {strip}
 	    <a href="{g->url params=$theme.pageUrl arg1="itemId=`$peer.id`"}">
 	      {if isset($peer.thumbnail)}
