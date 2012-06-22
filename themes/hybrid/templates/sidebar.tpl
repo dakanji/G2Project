@@ -60,7 +60,7 @@
       </li>
       {/if}
     </ul>
-    <ul style="margin-top: 4px">
+    <ul class="marginTop4px">
       <li>
 	<strong>{g->text text="Slideshow Options"}:</strong>
       </li>
@@ -74,7 +74,7 @@
 	 <option value="15">{g->text text="15 seconds"}</option>
 	 <option value="20">{g->text text="20 seconds"}</option>
 	</select>
-	<br/>
+	<br>
 	{g->text text="Direction"}:&nbsp;
 	<select id="slide_order" onchange="slide_setorder(this.value)">
 	 <option selected="selected" value="1">{g->text text="forward"}</option>

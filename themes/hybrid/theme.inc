@@ -167,6 +167,7 @@ class HybridTheme extends GalleryTheme {
 	}
 
 	$template->head('themes/hybrid/templates/header.tpl');
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -188,6 +189,7 @@ class HybridTheme extends GalleryTheme {
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
+		 $this->loadThemeResources($this->getId(), $template);
 	    return array(null, 'render.tpl');
 	}
 
@@ -208,6 +210,7 @@ class HybridTheme extends GalleryTheme {
 		$theme['thumbnail'] = (array)$thumbnail[$item->getId()];
 	    }
 	    $template->style('themes/hybrid/theme.css');
+		 $this->loadThemeResources($this->getId(), $template);
 	    return array(null, 'detail.tpl');
 	}
 
@@ -248,7 +251,7 @@ class HybridTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -261,7 +264,7 @@ class HybridTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -269,6 +272,7 @@ class HybridTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -281,7 +285,7 @@ class HybridTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 

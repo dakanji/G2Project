@@ -5,9 +5,9 @@
 <div id="popup_details" class="gcBorder2"><object type="text/html"></object></div>
 
 <div id="popup_titlebar" class="gcBackground1 giDescription">
-  <div style="float: right; margin-left: 2px">
-    <img src="{$theme.themeUrl}/images/down.png" width="18" height="18"
-     onclick="popup_vis(0)" alt=""/>
+  <div class="floatRight marginLeft2px">
+    <img src="{$theme.themeUrl}/images/down.png" class="navPNG"
+     onclick="popup_vis(0)" alt="">
   </div>
   <strong> {g->text text="Item Details"} </strong>
 </div>
@@ -17,96 +17,95 @@
   <div id="textdiv" class="gcBackground1 gcBorder2">
     <div id="tools_left">
       <img id="text_on" src="{$theme.themeUrl}/images/up.png"
-       width="18" height="18" onclick="text_onoff()" style="display: none"
+       class="navPNG noDisplay" onclick="text_onoff()" 
        alt="{g->text text="Show text when available"}"
-       title="{g->text text="Show text when available"}"
-     /><img id="text_none" src="{$theme.themeUrl}/images/up-off.png"
-       width="18" height="18" onclick="text_onoff()" style="display: none"
+       title="{g->text text="Show text when available"}">
+       <img id="text_none" src="{$theme.themeUrl}/images/up-off.png"
+       class="navPNG noDisplay" onclick="text_onoff()" 
        alt="{g->text text="Show text when available"}"
-       title="{g->text text="Show text when available"}"
-     /><img id="text_off" src="{$theme.themeUrl}/images/down.png"
-       width="18" height="18" onclick="text_onoff()"
-       alt="{g->text text="Keep text hidden"}" title="{g->text text="Keep text hidden"}"
-     /><img src="{$theme.themeUrl}/images/alb.png"
-       width="18" height="18" onclick="image_vis(0)"
-       alt="{g->text text="Back to Album View"}" title="{g->text text="Back to Album View"}"
-     /><img id="slide_poz" src="{$theme.themeUrl}/images/poz.png"
-       width="18" height="18" onclick="slide_onoff()" style="display: none"
-       alt="{g->text text="Pause Slideshow"}" title="{g->text text="Pause Slideshow"}"
-     /><img id="slide_fwd" src="{$theme.themeUrl}/images/fwd.png"
-       width="18" height="18" onclick="slide_onoff()"
-       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}"
-     /><img id="slide_rev" src="{$theme.themeUrl}/images/rev.png"
-       width="18" height="18" onclick="slide_onoff()" style="display: none"
-       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}"
-     /><img id="slide_rand" src="{$theme.themeUrl}/images/rand.png"
-       width="18" height="18" onclick="slide_onoff()" style="display: none"
-       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}"/>
+       title="{g->text text="Show text when available"}">
+       <img id="text_off" src="{$theme.themeUrl}/images/down.png"
+       class="navPNG" onclick="text_onoff()"
+       alt="{g->text text="Keep text hidden"}" title="{g->text text="Keep text hidden"}">
+       <img src="{$theme.themeUrl}/images/alb.png"
+       class="navPNG" onclick="image_vis(0)"
+       alt="{g->text text="Back to Album View"}" title="{g->text text="Back to Album View"}">
+       <img id="slide_poz" src="{$theme.themeUrl}/images/poz.png"
+       class="navPNG noDisplay" onclick="slide_onoff()" 
+       alt="{g->text text="Pause Slideshow"}" title="{g->text text="Pause Slideshow"}">
+       <img id="slide_fwd" src="{$theme.themeUrl}/images/fwd.png"
+       class="navPNG" onclick="slide_onoff()"
+       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}">
+       <img id="slide_rev" src="{$theme.themeUrl}/images/rev.png"
+       class="navPNG noDisplay" onclick="slide_onoff()" 
+       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}">
+       <img id="slide_rand" src="{$theme.themeUrl}/images/rand.png"
+       class="navPNG noDisplay" onclick="slide_onoff()" 
+       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}">
      <span id="date" class="giInfo"></span>
     </div>
     <div id="tools_right">
       <img id="full_size" src="{$theme.themeUrl}/images/full.png"
-       width="18" height="18" onclick="image_zoom(1)" style="display: none"
-       alt="{g->text text="Full Size"}" title="{g->text text="Full Size"}"
-     /><img id="fit_size" src="{$theme.themeUrl}/images/fit.png"
-       width="18" height="18" onclick="image_zoom(0)" style="display: none"
-       alt="{g->text text="Fit Size"}" title="{g->text text="Fit Size"}"
-     /><img src="{$theme.themeUrl}/images/info.png"
-       width="18" height="18" onclick="popup_info(-1)"
-       alt="{g->text text="Item Details"}" title="{g->text text="Item Details"}"
-     /><img id="prev_off" src="{$theme.themeUrl}/images/prev-off.png"
-       width="18" height="18" style="display: none"
-       alt="{g->text text="No Previous Image"}" title="{g->text text="No Previous Image"}"
-     /><img id="prev_img" src="{$theme.themeUrl}/images/prev.png"
-       width="18" height="18" onclick="image_prev()"
-       alt="{g->text text="Previous Image"}" title="{g->text text="Previous Image"}"
-     /><img id="prev_page" src="{$theme.themeUrl}/images/prevpage.png"
-       width="18" height="18" onclick="image_prev()" style="display: none"
+       class="navPNG noDisplay" onclick="image_zoom(1)" 
+       alt="{g->text text="Full Size"}" title="{g->text text="Full Size"}">
+       <img id="fit_size" src="{$theme.themeUrl}/images/fit.png"
+       class="navPNG noDisplay" onclick="image_zoom(0)" 
+       alt="{g->text text="Fit Size"}" title="{g->text text="Fit Size"}">
+       <img src="{$theme.themeUrl}/images/info.png"
+       class="navPNG" onclick="popup_info(-1)"
+       alt="{g->text text="Item Details"}" title="{g->text text="Item Details"}">
+       <img id="prev_off" src="{$theme.themeUrl}/images/prev-off.png"
+       class="navPNG noDisplay"
+       alt="{g->text text="No Previous Image"}" title="{g->text text="No Previous Image"}">
+       <img id="prev_img" src="{$theme.themeUrl}/images/prev.png"
+       class="navPNG" onclick="image_prev()"
+       alt="{g->text text="Previous Image"}" title="{g->text text="Previous Image"}">
+       <img id="prev_page" src="{$theme.themeUrl}/images/prevpage.png"
+       class="navPNG noDisplay" onclick="image_prev()" 
        alt="{g->text text="Previous Image (Load new page)"}"
-       title="{g->text text="Previous Image (Load new page)"}"
-     /><img id="next_off" src="{$theme.themeUrl}/images/next-off.png"
-       width="18" height="18" style="display: none"
-       alt="{g->text text="No Next Image"}" title="{g->text text="No Next Image"}"
-     /><img id="next_img" src="{$theme.themeUrl}/images/next.png"
-       width="18" height="18" onclick="image_next()"
-       alt="{g->text text="Next Image"}" title="{g->text text="Next Image"}"
-     /><img id="next_page" src="{$theme.themeUrl}/images/nextpage.png"
-       width="18" height="18" onclick="image_next()" style="display: none"
+       title="{g->text text="Previous Image (Load new page)"}">
+       <img id="next_off" src="{$theme.themeUrl}/images/next-off.png"
+       class="navPNG noDisplay"
+       alt="{g->text text="No Next Image"}" title="{g->text text="No Next Image"}">
+       <img id="next_img" src="{$theme.themeUrl}/images/next.png"
+       class="navPNG" onclick="image_next()"
+       alt="{g->text text="Next Image"}" title="{g->text text="Next Image"}">
+       <img id="next_page" src="{$theme.themeUrl}/images/nextpage.png"
+       class="navPNG noDisplay" onclick="image_next()" 
        alt="{g->text text="Next Image (Load new page)"}"
-       title="{g->text text="Next Image (Load new page)"}"/>
+       title="{g->text text="Next Image (Load new page)"}">
     </div>
     <div id="title" class="giTitle"></div>
     <div id="text" class="gcBackground2 gcBorder2"></div>
   </div>
 </div>
 
-<table id="hybridMain" border="0" cellspacing="0" cellpadding="0"><tr valign="top">
+<table id="hybridMain" class="noBorder noSpacing noPadding"><tr class="alignTop">
 <td>
-  <div id="sidebar" class="gcBackground1 gcBorder2" style="display: none">
+  <div id="sidebar" class="gcBackground1 gcBorder2 noDisplay">
     {g->theme include="sidebar.tpl"}
   </div>
 </td><td id="gsContent">
   <div id="album_titlebar" class="gcBackground1 gcBorder2">
    <div id="album_tools">
       <img id="sidebar_min" src="{$theme.themeUrl}/images/left.png"
-       width="18" height="18" onclick="sidebar_onoff()" style="display: none"
-       alt="{g->text text="Hide sidebar"}" title="{g->text text="Hide sidebar"}"
-     /><img id="sidebar_max" src="{$theme.themeUrl}/images/right.png"
-       width="18" height="18" onclick="sidebar_onoff()"
-       alt="{g->text text="Show sidebar"}" title="{g->text text="Show sidebar"}"
-     /><img id="slide__fwd" src="{$theme.themeUrl}/images/fwd.png"
-       width="18" height="18" onclick="slide_onoff()"
-       {if $theme.imageCount==0}style="display: none"{/if}
-       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}"
-     /><img id="slide__rev" src="{$theme.themeUrl}/images/rev.png"
-       width="18" height="18" onclick="slide_onoff()" style="display: none"
-       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}"
-     /><img id="slide__rand" src="{$theme.themeUrl}/images/rand.png"
-       width="18" height="18" onclick="slide_onoff()" style="display: none"
-       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}"/>
+       class="navPNG noDisplay" onclick="sidebar_onoff()" 
+       alt="{g->text text="Hide sidebar"}" title="{g->text text="Hide sidebar"}">
+       <img id="sidebar_max" src="{$theme.themeUrl}/images/right.png"
+       class="navPNG" onclick="sidebar_onoff()"
+       alt="{g->text text="Show sidebar"}" title="{g->text text="Show sidebar"}">
+       <img id="slide__fwd" src="{$theme.themeUrl}/images/fwd.png" onclick="slide_onoff()"
+       {if $theme.imageCount==0}class="navPNG noDisplay"{else}class="navPNG"{/if}
+       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}">
+       <img id="slide__rev" src="{$theme.themeUrl}/images/rev.png"
+       class="navPNG noDisplay" onclick="slide_onoff()" 
+       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}">
+       <img id="slide__rand" src="{$theme.themeUrl}/images/rand.png"
+       class="navPNG noDisplay" onclick="slide_onoff()" 
+       alt="{g->text text="Start Slideshow"}" title="{g->text text="Start Slideshow"}">
     </div>
 
-    <table width="90%"><tr><td style="width: 50%">
+    <table class="width90pc"><tr><td class="width50pc">
       <div class="giTitle"> {$theme.item.title|markup} </div>
       <div id="album_desc" class="giDescription"> {$theme.item.description|markup} </div>
       {include file="gallery:modules/core/templates/JavaScriptWarning.tpl" l10Domain="modules_core"}
@@ -206,19 +205,26 @@
 	<table class="itemtext"><tr><td>
 	  <div class="title gcBackground1">
       {/if}
-	    {if isset($it.image) || isset($it.itemLinks)}
-	      <span{if $theme.params.showText} style="float: right"{/if}><img
-	       src="{$theme.themeUrl}/images/menu.png" class="popup_button" width="18" height="18"
-	       alt="{g->text text="Item Actions"}" title="{g->text text="Item Actions"}"
-	       onclick="popup_menu(event,{$i}
-		{if isset($it.image)},{$it.imageIndex})"/></span>
+	{if isset($it.image) || isset($it.itemLinks)}
+	  <span
+	  {if $theme.params.showText}
+	    class="floatRight"
+	  {/if}
+	  ><img src="{$theme.themeUrl}/images/menu.png" class="popup_button" class="navPNG"
+	  alt="{g->text text="Item Actions"}" title="{g->text text="Item Actions"}"
+	  onclick="popup_menu(event,{$i}
+	  {if isset($it.image)}
+	      ,{$it.imageIndex})"></span>
 	      <span id="title_{$it.imageIndex}" class="giTitle"
-		{else},-1)"/></span>
-	      <span class="giTitle"{/if}
-	    {else}
-	      <span class="giTitle"
-	    {/if}
-	    {if !$theme.params.showText} style="display: none"{/if}>
+	  {else}
+	    ,-1)"></span>
+	  {/if}
+	{/if}
+	{if !$theme.params.showText}
+	  <span class="giTitle noDisplay">
+	{else}
+	  <span class="giTitle">
+	{/if}
 	    {$it.title|markup}</span>
       {if $theme.params.showText}
 	  </div>
@@ -233,17 +239,18 @@
 		    showViewCount=$theme.params.showViewCount showOwner=$showOwner}
       {/if}
 	  {if isset($it.image)}
-	    <span id="text_{$it.imageIndex}" style="display: none">{$it.description|markup}</span>
-	    <span id="date_{$it.imageIndex}" style="display: none">{if
-	     $theme.params.showDateInViewer}{g->date timestamp=$it.originationTimestamp}{/if}</span>
+	    <span id="text_{$it.imageIndex}" class="noDisplay">{$it.description|markup}</span>
+	    <span id="date_{$it.imageIndex}" class="noDisplay">
+	    {if $theme.params.showDateInViewer}{g->date timestamp=$it.originationTimestamp}{/if}
+	    </span>
 	  {/if}
       {if $theme.params.showText}
 	</td></tr></table>
       {/if}
 	{if isset($it.itemLinks)}
-	  <span id="links_{$i}" style="display: none">
+	  <span id="links_{$i}" class="noDisplay">
 	  {foreach from=$it.itemLinks item=link}
-	    {g->itemLink link=$link class=null}<br/>
+	    {g->itemLink link=$link class=null}<br>
 	  {/foreach}
 	  </span>
 	{/if}
