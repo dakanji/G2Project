@@ -24,6 +24,7 @@
     /* IE can't inherit these */
     border-style: expression(parentElement.currentStyle.borderStyle);
     border-color: expression(parentElement.currentStyle.borderColor);
+	font-size: 10px;
 }
 
 .gbBlock ul {
@@ -119,6 +120,7 @@ body.gallery {
     border-right-width: 1px;
     width: 175px;
     overflow: hidden;
+	font-size: 10px;
 }
 #gsSidebarCol {
     width: 1%; /* Expand to fit content ("0" bad4 firefox, "1px" bad4 opera) */
@@ -168,7 +170,6 @@ td.giAlbumCell table, td.giItemCell table {
 
 #gallery {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 62.5%;
     color: #333;
     background-color: #fff;
 }
@@ -177,11 +178,11 @@ body.gallery {
 }
 
 .gcBackground1 {
-    background-color: #eee;
+    background-color: #f4f4f4;
 }
 
 .gcBackground2 {
-    background-color: #e7e7e7;
+    background-color: #eee;
 }
 
 .gcBorder1 {
@@ -282,7 +283,7 @@ body.gallery {
 }
 
 #gsNavBar div.gbBreadCrumb {
-    font-size: 1.1em;
+    font-size: 10px;
     font-weight: bold;
 }
 
@@ -572,6 +573,7 @@ span.block-core-SystemLink {
 
 div.block-exif-ExifInfo {
   margin: 5px;
+  font-size: 8px;
 }
 
 span.bsw_ButtonDisabled {
@@ -618,3 +620,8 @@ td.bsw_BlockCommands {
     margin: auto;
 }
 
+.progressMemoryInfo {
+	position: absolute;
+	top: 0px;
+	right: 15px;
+}
