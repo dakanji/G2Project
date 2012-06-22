@@ -2,7 +2,7 @@
  * $Revision: 17524 $
  * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
  *}
-<table class="gcBackground1" width="100%" cellspacing="0" cellpadding="0">
+<table class="gcBackground1" class="width100pc nocellspacing nocellpadding">
   <tr valign="top">
     <td>
       <div id="gsContent" class="gcBorder1">
@@ -55,9 +55,9 @@
 	</div>
 	{/if}
 
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table class="width100pc nocellspacing nocellpadding">
 	  <tr valign="top">
-	    <td width="30%">
+	    <td class="width30pc">
 	      <div class="gsContentDetail">
 		<div class="gbBlock">
 		  {if !empty($theme.item.title)}
@@ -91,7 +91,7 @@
 		<h3 class="emptyAlbum">
 		  {g->text text="This album is empty."}
 		  {if isset($theme.permissions.core_addDataItem)}
-		  <br/>
+		  <br>
 		  <a href="{g->url arg1="view=core.ItemAdmin" arg2="subView=core.ItemAdd"
 				   arg3="itemId=`$theme.item.id`"}">
 		    {g->text text="Add a photo!"}
@@ -102,7 +102,7 @@
 	      {else}
 	      {assign var="childrenInColumnCount" value=0}
 	      <div class="gsContentAlbum">
-		<table id="gsThumbMatrix" width="100%">
+		<table id="gsThumbMatrix" class="width100pc">
 		  <tr valign="top">
 		    {foreach from=$theme.children item=child}
 
@@ -114,8 +114,9 @@
 		    {/if}
 
 		    {assign var=childrenInColumnCount value="`$childrenInColumnCount+1`"}
-		    <td class="{if $child.canContainChildren}giAlbumCell{else}giItemCell{/if}"
-			style="width: {$theme.columnWidthPct}%">
+		    <td id="td_a1" class="{if $child.canContainChildren}giAlbumCell{else}giItemCell{/if}">
+	      {* shim in the style for html 5 validity *}
+         <script type="text/javascript">document.getElementById("td_a1").style.width = '{$theme.columnWidthPct}%';</script>
 		      {if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		        {assign var=frameType value="albumFrame"}
 		        {capture assign=linkUrl}{g->url arg1="view=core.ShowItem"
@@ -158,7 +159,7 @@
 			<table cellpadding="0" cellspacing="0">
 			  <tr>
 			    <td class="giTitleIcon">
-			      <img src="{g->url href="themes/carbon/images/album.gif"}" alt=""/>
+			      <img src="{g->url href="themes/carbon/images/album.gif"}" alt="">
 			    </td>
 			    <td>
 			      <p class="giTitle">{$child.title|markup}</p>

@@ -11,7 +11,7 @@
     &nbsp;
   </p>
 
-  <table width="100%" cellspacing="0" cellpadding="0">
+  <table class="gcBackground1 width100pc nocellspacing nocellpadding">
     <tr>
       <td id="progressDone">&nbsp;</td>
       <td id="progressToGo">&nbsp;</td>
@@ -22,7 +22,7 @@
     &nbsp;
   </p>
 
-  <p id="progressMemoryInfo" style="position: absolute; top: 0px; right: 15px">
+  <p id="progressMemoryInfo" class="progressMemoryInfo">
     &nbsp;
   </p>
 

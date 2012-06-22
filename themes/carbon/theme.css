@@ -632,3 +632,32 @@ a .alt { display: none; }
   background: url('../carbon/images/hidesidebar.gif') no-repeat;
 }
 .buttonHideSidebar a:hover { background-position: -15px 0; }
+
+.microthumbs {
+  text-align: center;
+  width: 44px;
+  height: 40px;
+}
+
+.exifBlock {
+  position:absolute; 
+  left:0px; 
+  top:0px; 
+  padding:1px; 
+  visibility:hidden; 
+  z-index:5000;
+}
+
+.padLeft5 {
+  padding-left:5px;
+}
+
+.padBottom5 {
+  padding-bottom:5px;
+}
+
+.photoMicrothumbs {
+  text-align: left;
+  vertical-align: top;
+  width: 240px;
+}
