@@ -382,14 +382,12 @@ class GalleryDataItem extends GalleryItem {
 	return array(null, $containerPath . $target->getPathComponent());
     }
 
-    /**
-     * @see GalleryRenderer::render
-     *
-     * @todo Change this API to match that of GalleryRenderer::render()
-     *       on the next major GalleryModule API bump.
-     */
-    function render($format, $params) {
-	return null;
+	/**
+	 * @see GalleryRenderer::render
+	 *
+	 */
+    function render($entity, $item, $params) {
+    	return null;
     }
 
     /**
