@@ -41,7 +41,7 @@ class CartModule extends GalleryModule {
 	$this->setTemplateVersion(1);
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 55));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setRequiredModuleApi(array(4, 0));
     }
 

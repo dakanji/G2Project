@@ -33,10 +33,12 @@ class TileTheme extends GalleryTheme {
 	$this->setId('tile');
 	$this->setName($gallery->i18n('Tile'));
 	$this->setDescription($gallery->i18n('Tile view of background image and image thumbnails'));
-	// Version Number = ThemeAPI_Major.ThemeAPI_Minor.Serial_Number
-	$this->setVersion('3.0.0'); 
-	$this->setRequiredCoreApi(array(7, 55));
-	$this->setRequiredThemeApi(array(3, 0));
+	/** 
+	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
+	**/
+	$this->setVersion('3.0.0.0');
+	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setStandardSettings(array('colorpack' => '',
 	    'sidebarBlocks' => serialize(array(
 		array('search.SearchBlock', array('showAdvancedLink' => true)),

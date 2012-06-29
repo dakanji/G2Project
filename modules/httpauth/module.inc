@@ -37,7 +37,7 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 	**/
 	$this->setVersion('4.0.0.0');
 	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(7, 55));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setTemplateVersion(1);
 	$this->setDescription($gallery->i18n('Login using HTTP authentication.'));
 	$this->setGroup('authentication', $gallery->i18n('Authentication'));

@@ -42,7 +42,7 @@ class FotokastenModule extends GalleryModule {
 	**/
 	$this->setVersion('4.0.0.0');
 	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(7, 55));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setTemplateVersion(1);
 	$this->setGroup('commerce', $this->translate('Commerce'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');

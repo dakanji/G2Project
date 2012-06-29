@@ -41,7 +41,7 @@ class CoreModule extends GalleryModule {
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks(
 	    'getItemLinks|getSystemLinks|getItemAdminViews|getSiteAdminViews|getUserAdminViews');
-	$this->setRequiredCoreApi(array(7, 55));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setRequiredModuleApi(array(3, 8));
     }
 

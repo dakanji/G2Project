@@ -33,10 +33,12 @@ class SiriuxTheme extends GalleryTheme {
 	$this->setId('siriux');
 	$this->setName($gallery->i18n('Siriux'));
 	$this->setDescription($gallery->i18n('Siriux.net Gallery theme'));
-	// Version Number = ThemeAPI_Major.ThemeAPI_Minor.Serial_Number
-	$this->setVersion('3.0.0'); 
-	$this->setRequiredCoreApi(array(7, 55));
-	$this->setRequiredThemeApi(array(3, 0));
+	/** 
+	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
+	**/
+	$this->setVersion('3.0.0.0');
+	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setStandardSettings(
 	    array('perPage' => 9,
 		  'contentWidth' => 700,

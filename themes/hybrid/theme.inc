@@ -33,10 +33,12 @@ class HybridTheme extends GalleryTheme {
 	$this->setId('hybrid');
 	$this->setName($gallery->i18n('Hybrid'));
 	$this->setDescription($gallery->i18n('Combined album/image/slideshow dynamic view'));
-	// Version Number = ThemeAPI_Major.ThemeAPI_Minor.Serial_Number
-	$this->setVersion('3.0.0'); 
-	$this->setRequiredCoreApi(array(7, 55));
-	$this->setRequiredThemeApi(array(3, 0));
+	/** 
+	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
+	**/
+	$this->setVersion('3.0.0.0');
+	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(8, 0));
 	$this->setStandardSettings(array(
 	    'rows' => 30, 'columns' => 2,
 	    'albumFrame' => '', 'itemFrame' => '', 'colorpack' => '',
