@@ -51,7 +51,6 @@ class GalleryCoreApi {
      *
      * @todo for next major version bump:
      * - remove support for : separator in GalleryView::loadView
-     * - remove studyPermissions, fetchPermissionsForItems does the same and more.
      * - remove GalleryUtilities::utf8Substring (moved to GalleryCoreApi)
      * - remove lib/wz_dragdrop/ (currently used by G2.1's watermark module)
      * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
