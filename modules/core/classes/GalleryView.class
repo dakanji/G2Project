@@ -373,18 +373,6 @@ class GalleryView {
     }
 
     /**
-     * Return the current item, as specified in the itemId request variable.
-     *
-     * @return array GalleryStatus a status code
-     *               GalleryItem an item
-     *               boolean true if item was specified, false if default was used
-     * @deprecated Please use getItem() instead.
-     */
-    function _getItem() {
-	return $this->getItem();
-    }
-
-    /**
      * Load theme, theme parameters and item to use for this view.
      *
      * @return array GalleryStatus a status code
