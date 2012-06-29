@@ -31,37 +31,23 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 
 	$this->setId('httpauth');
 	$this->setName($gallery->i18n('HTTP Auth'));
-	$this->setVersion('1.0.4'); /* Update upgrade() too! */
-	$this->_templateVersion = 1;
+	/** 
+	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
+	 * Update upgrade() function below too
+	**/
+	$this->setVersion('4.0.0.0');
+	$this->setRequiredModuleApi(array(4, 0));
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setTemplateVersion(1);
 	$this->setDescription($gallery->i18n('Login using HTTP authentication.'));
 	$this->setGroup('authentication', $gallery->i18n('Authentication'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
     }
 
     /**
      * @see GalleryModule::activate
-     * @todo Explicit rewrite module version check can be removed on next major module API version.
      */
     function activate($postActivationEvent=true) {
-	/* Ensure the rewrite module is compatible, 'pattern' is optional since v1.1.8 of rewrite */
-	list ($ret, $modules) = GalleryCoreApi::fetchPluginList('module');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if (isset($modules['rewrite'])) {
-	    list ($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite', true);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if (version_compare($rewrite->getVersion(), '1.1.8', '<')) {
-		return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
-	    }
-	}
-
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
 	    return array($ret, null);
@@ -214,6 +200,7 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Refactored to new event registration from core API 7.34 */
 	case '1.0.2':
 	case '1.0.3':
+	case '1.0.4':
 
 	case 'end of upgrade path':
 	    break;

@@ -94,7 +94,7 @@ class RewriteHelperTest extends GalleryTestCase {
     }
 
     function tearDown() {
-	list ($ret, $redirect) = $this->_module->deactivate(false);
+	$ret = $this->_module->deactivate(false);
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}

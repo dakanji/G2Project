@@ -75,22 +75,10 @@ class GalleryModule extends GalleryPlugin {
      * This follows the same rules as the core API.
      * @see GalleryCoreApi::getApiVersion
      *
-     * @todo for next major version bump:
-     * - Change GalleryDataItem::render to match GalleryRenderer::render and
-     *   consider dropping the format, since it's always HTML.
-     * - Drop the redirect url from GalleryPlugin::deactivate() (also requires a
-     *   major bump in GalleryTheme)
-     * - Remove TYPE=DB_TABLE_TYPE replacement in MySqlStorage::_getSqlReplacements
-     * - change signature of getItemlinks() in all modules (add new parameter)
-     * - Remove rewrite v1.1.8 version checks in webdav, watermark, httpauth, ... (look for todo)
-     * - Change ->_templateVersion = x to ->setTemplateVersion(x) in module constructors
-     * - Remove navId and statusId related functions in GalleryUrlGenerator and GallerySession
-     * - Remove webdav related backwards-compatibility code in ItemAddController.
-     *
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(3, 9);
+	return array(4, 0);
     }
 
     /**
@@ -357,24 +345,24 @@ class GalleryModule extends GalleryPlugin {
     function deactivate($postDeactivationEvent=true) {
 	$ret = GalleryCoreApi::unregisterToolkitsByModuleId($this->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
 	/*
 	 * Call parent::deactivate after our unregistrations such that listeners for the
 	 * deactivation event see the correct state of G2 without this plugin.
 	 */
-	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	$ret = parent::deactivate($postDeactivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	return array(null, $redirect);
+	return null;
     }
 
     /**

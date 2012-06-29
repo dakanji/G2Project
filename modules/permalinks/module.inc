@@ -37,12 +37,16 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setName($gallery->i18n('Permalinks'));
 	$this->setDescription(
 		$gallery->i18n('Create simpler permanent aliases to your items space'));
-	$this->setVersion('1.0.12');
-	$this->_templateVersion = 1;
+	/** 
+	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
+	 * Update upgrade() function below too
+	**/
+	$this->setVersion('4.0.0.0');
+	$this->setRequiredModuleApi(array(4, 0));
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setTemplateVersion(1);
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
     }
 
     /**
@@ -161,9 +165,9 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 
 	    if ($isActive) {
 		/* We can't run without the rewrite module, so we might as well deactivate. */
-		list ($ret, $redirect) = $this->deactivate();
+		$ret = $this->deactivate();
 		if ($ret) {
-		    return array($ret, null);
+		    return $ret;
 		}
 	    }
 	} else if ($event->getEventName() == 'GalleryEntity::save') {

@@ -32,14 +32,17 @@ class AlbumSelectModule extends GalleryModule {
 	global $gallery;
 	$this->setId('albumselect');
 	$this->setName($gallery->i18n('Album Select'));
-	$this->setDescription(
-	    $gallery->i18n('Jump directly to any album using a select box or tree view'));
-	$this->setVersion('1.0.11');
-	$this->_templateVersion = 1;
+	$this->setDescription($gallery->i18n('Jump to albums with select box or tree view'));
+	/** 
+	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
+	 * Update upgrade() function below too
+	**/
+	$this->setVersion('4.0.0.0');
+	$this->setRequiredModuleApi(array(4, 0));
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setTemplateVersion(1);
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
     }
 
     /**
@@ -97,6 +100,8 @@ class AlbumSelectModule extends GalleryModule {
 	    GalleryDataCache::removeFromDisk(
 		array('type' => 'module-data', 'module' => 'albumselect'));
 	}
+	
+	/* No change for 4.0.0.0 */
 
 	return null;
     }

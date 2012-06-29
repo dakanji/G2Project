@@ -35,12 +35,16 @@ class RewriteModule extends GalleryModule {
 	$this->setName($gallery->i18n('URL Rewrite'));
 	$this->setDescription($gallery->i18n(
 	    'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'));
-	$this->setVersion('1.1.19'); /* Update RewriteModuleExtras::upgrade too! */
-	$this->_templateVersion = 1;
+	/** 
+	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
+	 * Update upgrade() function below too
+	**/
+	$this->setVersion('4.0.0.0');
+	$this->setRequiredModuleApi(array(4, 0));
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setTemplateVersion(1);
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
     }
 
     /**

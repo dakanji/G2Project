@@ -211,19 +211,13 @@ class PluginCallbackView extends GalleryView {
 	    }
 
 	    if (empty($result['status'])) {
-		list ($ret, $redirect) = $plugin->deactivate();
+		$ret = $plugin->deactivate();
 		if ($ret) {
 		    return $ret;
 		}
-
-		if ($redirect) {
-		    $result['status'] = 'redirect';
-		    $result['redirect'] = $redirect;
-		} else {
-		    $result['status'] = 'success';
+		$result['status'] = 'success';
 		}
-	    }
-	    break;
+		break;
 
 	case 'upgrade':
 	case 'install':
@@ -270,60 +264,44 @@ class PluginCallbackView extends GalleryView {
 
 	case 'uninstall':
 	    if ($isActive) {
-		list ($ret, $redirect) = $plugin->deactivate();
-		if ($ret) {
-		    return $ret;
-		}
-	    } else {
-		$redirect = false;
+	    	$ret = $plugin->deactivate();
+	    	if ($ret) {
+	    		return $ret;
+	    	}
 	    }
-
-	    if ($redirect) {
-		$result['status'] = 'redirect';
-		$results['redirect'] = $redirect;
-	    } else {
 		$ret = $plugin->uninstall();
 		if ($ret) {
 		    return $ret;
 		}
 		$result['status'] = 'success';
-	    }
 	    break;
 
 	case 'delete':
 	    if ($isActive) {
-		list ($ret, $redirect) = $plugin->deactivate();
-		if ($ret) {
-		    return $ret;
-		}
-	    } else {
-		$redirect = false;
+	    	$ret = $plugin->deactivate();
+	    	if ($ret) {
+	    		return $ret;
+	    	}
 	    }
-
-	    if ($redirect) {
-		$result['status'] = 'redirect';
-		$results['redirect'] = $redirect;
+	    
+	    $ret = $plugin->uninstall();
+	    if ($ret) {
+	    	return $ret;
+	    }
+	    
+	    $path = sprintf(
+	    		"%s%ss/%s", GalleryCoreApi::getCodeBasePath(), $pluginType, $pluginId);
+	    $success = @$platform->recursiveRmdir($path);
+	    if (!$success) {
+	    	$result['status'] = 'fail';
 	    } else {
-		$ret = $plugin->uninstall();
-		if ($ret) {
-		    return $ret;
-		}
-
-		$path = sprintf(
-		    "%s%ss/%s", GalleryCoreApi::getCodeBasePath(), $pluginType, $pluginId);
-		$success = @$platform->recursiveRmdir($path);
-		if (!$success) {
-		    $result['status'] = 'fail';
-		} else {
-		    $ret = GalleryCoreApi::removeMapEntry(
-			'GalleryPluginPackageMap',
-			array('pluginType' => $pluginType, 'pluginId' => $pluginId));
-		    if ($ret) {
-			return $ret;
-		    }
-
-		    $result['status'] = 'success';
-		}
+	    	$ret = GalleryCoreApi::removeMapEntry(
+	    			'GalleryPluginPackageMap',
+	    			array('pluginType' => $pluginType, 'pluginId' => $pluginId));
+	    	if ($ret) {
+	    		return $ret;
+	    	}
+	    	$result['status'] = 'success';
 	    }
 	    break;
 

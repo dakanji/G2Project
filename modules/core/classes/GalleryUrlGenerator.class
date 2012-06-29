@@ -232,18 +232,6 @@ class GalleryUrlGenerator {
     }
 
     /**
-     * Old multisite system used a galleryId based on the current URL.  Return a value here so sites
-     * won't break before they can upgrade.
-     * @todo Remove on next major bump of core api
-     *
-     * @static
-     * @deprecated
-     */
-    function getGalleryId() {
-	return '';
-    }
-
-    /**
      * Split a URI string into file, path, host and protocol substrings and normalize them.
      *
      * Used to allow overriding auto-detected protocol, host, path and default base file.  Also used
@@ -846,17 +834,6 @@ class GalleryUrlGenerator {
     }
 
     /**
-     * Get the current navigation id.
-     *
-     * @return string the navigation id
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function getNavigationId() {
-	return null;
-    }
-
-    /**
      * Get an URL to return to the currently loaded view, stripping all parameters that are of
      * navigational nature.
      *
@@ -878,31 +855,6 @@ class GalleryUrlGenerator {
 		array('return', 'authorization'), true);
 
 	return $this->generateUrl($params, array('forceServerRelativeUrl' => 1));
-    }
-
-    /**
-     * Check if we currently have a back link to where we came from.
-     *
-     * @return boolean true if we can go back
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function isNavigationBackPossible() {
-	return false;
-    }
-
-    /**
-     * Get a list of navigation links to go back to where we came from.
-     *
-     * @param int $depth set this to get links back to a certain depth
-     * @return array ( GalleryStatus a status code,
-     *                 array of navigational links: array('url' => ...,
-     *                                            'name' => 'Back to ...'))
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function getNavigationLinks($depth=null) {
-	return array(null, array());
     }
 
     /**

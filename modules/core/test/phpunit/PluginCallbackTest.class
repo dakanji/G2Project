@@ -291,7 +291,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	$this->_testPlugin->setResult('getId', 'PluginCallbackControllerTest');
 	$this->_testPlugin->setResult('isActive', array(null, true));
-	$this->_testPlugin->setResult('deactivate', array(null, array()));
+	$this->_testPlugin->setResult('deactivate', null);
 	$result = $this->_handleCallback('deactivate');
 
 	$this->assertEquals(array('status' => 'success'), $result);

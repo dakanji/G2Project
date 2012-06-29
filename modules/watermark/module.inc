@@ -33,12 +33,16 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('watermark');
 	$this->setName($gallery->i18n('Watermark'));
 	$this->setDescription($gallery->i18n('Watermark your images'));
-	$this->setVersion('1.1.8'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
+	/** 
+	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
+	 * Update upgrade() function below too
+	**/
+	$this->setVersion('4.0.0.0');
+	$this->setRequiredModuleApi(array(4, 0));
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setTemplateVersion(1);
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|getUserAdminViews');
-	$this->setRequiredCoreApi(array(7, 45));
-	$this->setRequiredModuleApi(array(3, 6));
     }
 
     /**
@@ -185,6 +189,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	case '1.1.5':
 	case '1.1.6':
 	case '1.1.7':
+	case '1.1.8':
 
 	case 'end of upgrade path':
 	    /*
@@ -349,18 +354,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
      *       version.
      */
     function getRewriteRules() {
-	/* Ensure the rewrite module is compatible, 'pattern' is optional since v1.1.8 of rewrite */
-	list ($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite', true);
-	if ($ret) {
-	    if ($gallery->getDebug()) {
-		$gallery->debug('WatermarkModule::getRewriteRules ingoring error: ' .
-				$ret->getAsText());
-	    }
-	    $oldRewriteVersion = false;
-	} else {
-	    $oldRewriteVersion = version_compare($rewrite->getVersion(), '1.1.8', '<');
-	}
-
 	$rules = array();
 	$rule = array(
 		'comment' => $this->translate('Watermark hotlinked images'),
@@ -374,12 +367,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		'help' => $this->translate(
 			'Apply watermark to images downloaded from outside your Gallery. Select ' .
 			'which watermark to use in Watermark Site Admin.'));
-	if ($oldRewriteVersion) {
-	    /* Add a pseudo pattern since it was mandatory until v1.1.8 of the rewrite module. */
-	    $rule['pattern'] = '.';
-	    $rule['locked'] = true;
-	    $rule['parser'] = 'preGallery';
-	}
 	$rules[0] = $rule;
 
 	return $rules;
