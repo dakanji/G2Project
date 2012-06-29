@@ -46,26 +46,8 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 
     /**
      * @see GalleryModule::activate
-     * @todo Explicit rewrite module version check can be removed on next major module API version.
      */
     function activate($postActivationEvent=true) {
-	/* Ensure the rewrite module is compatible, 'pattern' is optional since v1.1.8 of rewrite */
-	list ($ret, $modules) = GalleryCoreApi::fetchPluginList('module');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if (isset($modules['rewrite'])) {
-	    list ($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite', true);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if (version_compare($rewrite->getVersion(), '1.1.8', '<')) {
-		return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
-	    }
-	}
-
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
 	    return array($ret, null);

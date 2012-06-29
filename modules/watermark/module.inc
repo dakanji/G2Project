@@ -355,18 +355,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
      *       version.
      */
     function getRewriteRules() {
-	/* Ensure the rewrite module is compatible, 'pattern' is optional since v1.1.8 of rewrite */
-	list ($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite', true);
-	if ($ret) {
-	    if ($gallery->getDebug()) {
-		$gallery->debug('WatermarkModule::getRewriteRules ingoring error: ' .
-				$ret->getAsText());
-	    }
-	    $oldRewriteVersion = false;
-	} else {
-	    $oldRewriteVersion = version_compare($rewrite->getVersion(), '1.1.8', '<');
-	}
-
 	$rules = array();
 	$rule = array(
 		'comment' => $this->translate('Watermark hotlinked images'),
@@ -380,12 +368,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		'help' => $this->translate(
 			'Apply watermark to images downloaded from outside your Gallery. Select ' .
 			'which watermark to use in Watermark Site Admin.'));
-	if ($oldRewriteVersion) {
-	    /* Add a pseudo pattern since it was mandatory until v1.1.8 of the rewrite module. */
-	    $rule['pattern'] = '.';
-	    $rule['locked'] = true;
-	    $rule['parser'] = 'preGallery';
-	}
 	$rules[0] = $rule;
 
 	return $rules;
