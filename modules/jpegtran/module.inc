@@ -120,15 +120,15 @@ class JpegtranModule extends GalleryModule {
 	 */
 	$ret = GalleryCoreApi::unregisterToolkit($this->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	$ret = parent::deactivate($postDeactivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	return array(null, $redirect);
+	return null;
     }
 
     /**

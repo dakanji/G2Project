@@ -694,25 +694,25 @@ class GalleryTheme extends GalleryPlugin {
 	list ($ret, $defaultTheme) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 	if ($defaultTheme == $this->getId() && $postDeactivationEvent) {
 	    /*
 	     * Can't deactivate default theme.  UI doesn't offer this option, so we should only
-	     * reach this code if default theme needs to be upgraded.  loadPlugin will see a
-	     * redirect URL is returned and jump to upgrader (the actual redirect returned below
-	     * isn't used).  Allow this deactivate if $postDeactivationEvent is false (during
+	     * reach this code if default theme needs to be upgraded.  loadPlugin will see that
+	     * 'upgrade' is returned and jump to the upgrader.  
+	     * Allow this deactivate if $postDeactivationEvent is false (during
 	     * reactivate)
 	     */
-	    return array(null, array('href' => 'upgrade/'));
+	    return 'upgrade';
 	}
 
-	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	$ret = parent::deactivate($postDeactivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	return array(null, $redirect);
+	return null;
     }
 
     /**

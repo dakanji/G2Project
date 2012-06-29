@@ -357,24 +357,24 @@ class GalleryModule extends GalleryPlugin {
     function deactivate($postDeactivationEvent=true) {
 	$ret = GalleryCoreApi::unregisterToolkitsByModuleId($this->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
 	/*
 	 * Call parent::deactivate after our unregistrations such that listeners for the
 	 * deactivation event see the correct state of G2 without this plugin.
 	 */
-	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	$ret = parent::deactivate($postDeactivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	return array(null, $redirect);
+	return null;
     }
 
     /**

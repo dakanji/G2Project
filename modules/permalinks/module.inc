@@ -165,9 +165,9 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 
 	    if ($isActive) {
 		/* We can't run without the rewrite module, so we might as well deactivate. */
-		list ($ret, $redirect) = $this->deactivate();
+		$ret = $this->deactivate();
 		if ($ret) {
-		    return array($ret, null);
+		    return $ret;
 		}
 	    }
 	} else if ($event->getEventName() == 'GalleryEntity::save') {
