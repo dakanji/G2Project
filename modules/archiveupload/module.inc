@@ -34,12 +34,16 @@ class ArchiveUploadModule extends GalleryModule {
 	$this->setId('archiveupload');
 	$this->setName($gallery->i18n('Archive Upload'));
 	$this->setDescription($gallery->i18n('Extract items from uploaded zip files'));
-	$this->setVersion('1.0.10');
-	$this->_templateVersion = 1;
+	/** 
+	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
+	 * Update upgrade() function below too
+	**/
+	$this->setVersion('4.0.0.0');
+	$this->setRequiredModuleApi(array(4, 0));
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setTemplateVersion(1);
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
     }
 
     /**
@@ -58,6 +62,19 @@ class ArchiveUploadModule extends GalleryModule {
 		}
 	    }
 	}
+	
+	switch ($currentVersion) {
+	case '1.0.10':
+	case '4.0.0.0':
+
+	case 'end of upgrade path':
+	    break;
+
+	default:
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+					 sprintf('Unknown module version %s', $currentVersion));
+	}
+	
 
 	return null;
     }

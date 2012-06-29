@@ -54,18 +54,7 @@ class ItemAddController extends GalleryController {
 
 	$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
 
-	/**
-	 * Special case for backwards-compatibility with the webdav module
-	 * @todo Remove on next major API change
-	 */
-	if ($addPluginId == 'ItemAddWebDav') {
-	    /* WebDAV used to do a static ::handleRequest() call. We need an instance. */
-	    $controller = new ItemAddController();
-	} else {
-	    $controller = $this;
-	}
-
-	list ($ret, $item) = $controller->getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -90,28 +79,6 @@ class ItemAddController extends GalleryController {
 
 	if (!isset($addPlugin)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-
-	/**
-	 * Special case for backwards-compatibility with the webdav module
-	 * @todo Remove on next major API change
-	 */
-	if ($addPluginId == 'ItemAddWebDav') {
-	    /* Don't output any HTML (progress-bar) */
-	    ob_start();
-	    $ret = $controller->handleRequestWithProgressBar($form, $item, $addPlugin);
-	    ob_end_clean();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $session =& $gallery->getSession();
-	    $results['status'] = $session->getStatus();
-	    $results['redirect'] = array('view' => 'core.ItemAdmin',
-					 'subView' => 'core.ItemAddConfirmation',
-					 'itemId' => $item->getId());
-	    $results['error'] = array();
-	    return array(null, $results);
 	}
 
 	/* Do the actual work in callback of a progress-bar view */
