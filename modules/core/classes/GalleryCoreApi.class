@@ -50,7 +50,6 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - change GalleryCoreApi::error to only take error code and error message
      * - remove GalleryCapabilities (major bump of embed api too?)
      * - remove 'link' entry in Gallery.class constructor
      * - remove GalleryCoreApi::getPluginBaseDirs();
