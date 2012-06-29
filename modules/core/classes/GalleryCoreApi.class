@@ -50,11 +50,6 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - remove GallerySession::getSessionId
-     * - remove GalleryPlatform::recursiveFixDirPermissions
-     * - remove GalleryUtilities::htmlEntityDecode
-     * - remove GalleryUrlGenerator::getGalleryId
-     * - remove GalleryStatus::wrap
      * - change GalleryCoreApi::error to only take error code and error message
      * - remove GalleryCapabilities (major bump of embed api too?)
      * - remove 'link' entry in Gallery.class constructor
@@ -2849,8 +2844,7 @@ class GalleryCoreApi {
      * Return an error status.
      *
      * Starting in GalleryCoreApi 7.4 we ignore the filename and line number.  You still need to
-     * provide them if you want to provide an error message.  Next major API bump we'll remove the
-     * fileName and lineNumber arguments.
+     * provide them if you want to provide an error message.
      *
      * @param int $errorCode
      * @param string $fileName deprecated
@@ -2858,7 +2852,7 @@ class GalleryCoreApi {
      * @param string $errorMessage
      * @return GalleryStatus an error status
      */
-    function error($errorCode, $fileName='ignored', $lineNumber='ignored', $errorMessage=null) {
+    function error($errorCode, $errorMessage=null) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
 	$status = new GalleryStatus(GALLERY_ERROR | $errorCode, $errorMessage);
 	$status->setStackTrace(debug_backtrace());
