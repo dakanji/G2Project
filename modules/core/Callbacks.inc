@@ -54,16 +54,6 @@ class CoreCallbacks {
 
 	case 'ShouldShowEmergencyEditItemLink':
 	    $check = isset($params['checkBlocks']) ? $params['checkBlocks'] : '';
-	    /**
-	     * @todo Remove support for check[Sidebar|Album|Photo]Blocks on next major api bump
-	     */
-	    foreach (array('checkSidebarBlocks' => 'sidebar',
-			   'checkAlbumBlocks' => 'album',
-			   'checkPhotoBlocks' => 'photo') as $oldParam => $key) {
-		if (!empty($params[$oldParam])) {
-		    $check .= empty($check) ? $key : ",$key";
-		}
-	    }
 
 	    $block['core']['ShouldShowEmergencyEditItemLink'] = false;
 	    if (isset($params['permissions']['core_edit'])) {

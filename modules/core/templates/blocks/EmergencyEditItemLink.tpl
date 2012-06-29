@@ -5,10 +5,7 @@
 {if !isset($item)} {assign var="item" value=$theme.item} {/if}
 {g->callback type="core.ShouldShowEmergencyEditItemLink"
 	     permissions=$permissions|default:$theme.permissions
-	     checkBlocks=$checkBlocks|default:null
-	     checkSidebarBlocks=$checkSidebarBlocks|default:false
-	     checkAlbumBlocks=$checkAlbumBlocks|default:false
-	     checkPhotoBlocks=$checkPhotoBlocks|default:false}
+	     checkBlocks=$checkBlocks|default:null}
   {* Use parameter like checkBlocks="sidebar,album" (other check*Blocks params are deprecated) *}
 
 {if ($block.core.ShouldShowEmergencyEditItemLink)}
