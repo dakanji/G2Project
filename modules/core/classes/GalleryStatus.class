@@ -92,17 +92,6 @@ class GalleryStatus {
     }
 
     /**
-     * Deprecated.  Remove in the next major API bump.
-     *
-     * Add a new file name and line number to our stack trace
-     * @return GalleryStatus the new status object
-     * @deprecated
-     */
-    function wrap() {
-	return $this;
-    }
-
-    /**
      * Return the error as an HTML string
      *
      * @param boolean $showMessage (optional) false to omit errorMessage
