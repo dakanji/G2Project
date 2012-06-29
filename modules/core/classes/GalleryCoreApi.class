@@ -50,10 +50,6 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - remove GalleryCoreApi::getPluginBaseDirs();
-     * - remove GalleryCoreApi::getPluginBaseDir();
-     * - remove GalleryCoreApi::isPluginInDefaultLocation();
-     * - remove $skipBaseDirectoryDetection from GalleryCoreApi::requireOnce();
      * - remove support for check[Sidebar|Album|Photo]Blocks deprecated params
      *   for ShouldShowEmergencyEditItemLink in Callbacks.inc
      *   and comment in blocks/EmergencyEditItemLink.tpl
@@ -2755,9 +2751,8 @@ class GalleryCoreApi {
      * to wrap it.
      *
      * @param string $file
-     * @param boolean $skipBaseDirectoryDetection deprecated
      */
-    function requireOnce($file, $skipBaseDirectoryDetection=false) {
+    function requireOnce($file) {
 	static $loaded;
 	if (!isset($loaded[$file])) {
 	    $loaded[$file] = 1;
