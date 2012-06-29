@@ -1715,14 +1715,7 @@ class MySqlStorage extends GalleryStorage {
 	/* Use InnoDB for transactional tables */
 	$tableType = $this->_isTransactional ? 'InnoDB' : 'MyISAM';
 
-	/**
-	 * @todo On next major bump of Module API, remove 'TYPE=DB_TABLE_TYPE' entry below.
-	 * In revision 14158, we switched from replacing DB_TABLE_TYPE with the tableType to
-	 * replacing it with {ENGINE|TYPE}=tableType. Handle both cases else installing older
-	 * modules will fail.
-	 */
-	return array('TYPE=DB_TABLE_TYPE' => $typeKeyword . '=' . $tableType,
-		     'DB_TABLE_TYPE' => $typeKeyword . '=' . $tableType);
+	return array('DB_TABLE_TYPE' => $typeKeyword . '=' . $tableType);
     }
 
     /**
