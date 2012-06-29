@@ -50,7 +50,6 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - remove 'link' entry in Gallery.class constructor
      * - remove GalleryCoreApi::getPluginBaseDirs();
      * - remove GalleryCoreApi::getPluginBaseDir();
      * - remove GalleryCoreApi::isPluginInDefaultLocation();
