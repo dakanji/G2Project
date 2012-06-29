@@ -33,9 +33,10 @@ class FloatrixTheme extends GalleryTheme {
 	$this->setId('floatrix');
 	$this->setName($gallery->i18n('Floatrix'));
 	$this->setDescription($gallery->i18n('Variable column theme based on Matrix'));
-	$this->setVersion('1.0.8');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredThemeApi(array(2, 5));
+	// Version Number = ThemeAPI_Major.ThemeAPI_Minor.Serial_Number
+	$this->setVersion('3.0.0'); 
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('perPage' => 12,
 		  'columnWidth' => 200, 'rowHeight' => 300,

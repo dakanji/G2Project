@@ -34,9 +34,10 @@ class ClassicTheme extends GalleryTheme {
 	$this->setId('classic');
 	$this->setName($gallery->i18n('Classic'));
 	$this->setDescription($gallery->i18n('Classic Gallery2 root album look and feel'));
-	$this->setVersion('1.1.6');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredThemeApi(array(2, 4));
+	// Version Number = ThemeAPI_Major.ThemeAPI_Minor.Serial_Number
+	$this->setVersion('3.0.0'); 
+	$this->setRequiredCoreApi(array(7, 55));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('rows' => 10, 'columns' => 1,
 		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
