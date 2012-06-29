@@ -430,7 +430,7 @@ class AdminThemesControllerTestTheme {
 
     function deactivate() {
 	$this->_setCalled('deactivate');
-	return array(null, array());
+	return null;
     }
 
     function _setCalled($function) {

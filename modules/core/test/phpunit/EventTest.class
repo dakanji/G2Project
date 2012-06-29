@@ -62,7 +62,7 @@ class EventTest extends GalleryTestCase {
 	}
 
 	if ($isActive) {
-	    list ($ret, $redirect) = $module->deactivate();
+	    $ret = $module->deactivate();
 	    if ($ret) {
 		return $ret;
 	    }

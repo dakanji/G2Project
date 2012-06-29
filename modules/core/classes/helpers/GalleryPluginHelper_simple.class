@@ -135,12 +135,8 @@ class GalleryPluginHelper_simple {
 		     !GalleryPluginHelper_simple::isPluginCompatibleWithApis($plugin))) {
 
 		    /* Try to deactivate the plugin */
-		    list ($ret, $redirectInfo) = $plugin->deactivate();
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    if (!empty($redirectInfo) && !$errorOnVersionMismatch) {
+		    $ret = $plugin->deactivate();
+		    if ($ret && !$errorOnVersionMismatch) {
 			/*
 			 * We were unable to automatically deactivate the plugin!
 			 * Forcibly abort this request and jump to the upgrader so this

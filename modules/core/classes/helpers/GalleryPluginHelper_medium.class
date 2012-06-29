@@ -56,22 +56,21 @@ class GalleryPluginHelper_medium {
      */
     function deactivate($pluginType, $pluginId) {
 	if (empty($pluginId) || empty($pluginType)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
-			 null);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
 
 	list ($ret, $plugin) =
 	    GalleryPluginHelper_simple::loadPlugin($pluginType, $pluginId);
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	list ($ret, $redirect) = $plugin->deactivate();
+	$ret = $plugin->deactivate();
 	if ($ret) {
-	    return array($ret, null);
+	    return $ret;
 	}
 
-	return array(null, $redirect);
+	return null;
     }
 
     /**

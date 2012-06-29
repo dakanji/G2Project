@@ -80,7 +80,7 @@ class RewriteParserTestCase extends GalleryTestCase {
     }
 
     function tearDown() {
-	list ($ret, $redirect) = $this->_module->deactivate();
+	$ret = $this->_module->deactivate();
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}

@@ -95,7 +95,7 @@ class RewriteModuleExtras {
 	    }
 
 	    /* The module needs to be reconfigured */
-	    list ($ret) = $module->deactivate();
+	    $ret = $module->deactivate();
 	    if ($ret) {
 		return $ret;
 	    }

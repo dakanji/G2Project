@@ -71,7 +71,7 @@ class ModuleTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 	if ($isActive) {
-	    list ($ret, $redirect) = $module->deactivate();
+	    $ret = $module->deactivate();
 	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
@@ -246,7 +246,7 @@ class ModuleTest extends GalleryTestCase {
 	}
 
 	/* Deactivate the module */
-	list ($ret, $redirect) = $module->deactivate();
+	$ret = $module->deactivate();
 	if ($ret) {
 	    return $ret;
 	}
@@ -541,7 +541,7 @@ class ModuleTest extends GalleryTestCase {
 	$this->_registerTestEventListener('Gallery::DeactivatePlugin', $testEventListener);
 
 	/* Execute the method under test */
-	list ($ret, $redirect) = $module->deactivate();
+	$ret = $module->deactivate();
 	if ($ret) {
 	    return $ret;
 	}

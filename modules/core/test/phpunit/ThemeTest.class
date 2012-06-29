@@ -71,7 +71,7 @@ class ThemeTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 	if ($isActive) {
-	    list ($ret, $redirect) = $this->_theme->deactivate();
+	    $ret = $this->_theme->deactivate();
 	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
@@ -297,7 +297,7 @@ class ThemeTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	list ($ret, $redirect) = $this->_theme->deactivate();
+	$ret = $this->_theme->deactivate();
 	if ($ret) {
 	    return $ret;
 	}

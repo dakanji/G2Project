@@ -81,7 +81,7 @@ class FactoryTest extends GalleryTestCase {
 
     function tearDown() {
 	foreach (array('factoryTest', 'factoryTest2') as $moduleId) {
-	    list ($ret, $ignored) = GalleryCoreApi::deactivatePlugin('module', $moduleId);
+	    $ret = GalleryCoreApi::deactivatePlugin('module', $moduleId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -233,7 +233,7 @@ class FactoryTest extends GalleryTestCase {
 	global $gallery;
 
 	/* Deactivate FactoryTestModule */
-	list ($ret, $ignored) = GalleryCoreApi::deactivatePlugin('module', 'factoryTest');
+	$ret = GalleryCoreApi::deactivatePlugin('module', 'factoryTest');
 	if ($ret) {
 	    return $ret;
 	}
@@ -261,7 +261,7 @@ class FactoryTest extends GalleryTestCase {
 			    'getAllFactoryImplementationIds');
 
 	/* Deactivate the other factory test module also */
-	list ($ret, $ignored) = GalleryCoreApi::deactivatePlugin('module', 'factoryTest2');
+	$ret = GalleryCoreApi::deactivatePlugin('module', 'factoryTest2');
 	if ($ret) {
 	    return $ret;
 	}
