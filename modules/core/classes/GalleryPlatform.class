@@ -1189,39 +1189,6 @@ class GalleryPlatform {
     }
 
     /**
-     * Fixes the directory permissions (as eg. unzip creates them with file permissions because of
-     * the umask).
-     * @param string $path $path the directory which should be fixed
-     * @return boolean true if all went well, false if there was an error.
-     * @deprecated -- TODO: remove at the next major version bump of core API
-     */
-    function recursiveFixDirPermissions($path) {
-	global $gallery;
-	if ($gallery->getDebug()) {
-	    $gallery->debug("recursiveFixDirPermissions($path)");
-	}
-
-	if (!$this->is_dir($path)) {
-	    return true;
-	} else if (!$this->chmod($path)) {
-	    return false;
-	}
-	$dir = $this->opendir($path);
-	if (!$dir) {
-	    return false;
-	}
-	$slash = $this->getDirectorySeparator();
-	while ($file = $this->readdir($dir)) {
-	    if ($file != '.' && $file != '..' &&
-		    !$this->recursiveFixDirPermissions($path . $slash . $file)) {
-		return false;
-	    }
-	}
-	$this->closedir($dir);
-	return true;
-    }
-
-    /**
      * Format a local time/date according to locale settings.  Converts any text output from
      * strftime tokens to UTF-8.
      * @param string $format
