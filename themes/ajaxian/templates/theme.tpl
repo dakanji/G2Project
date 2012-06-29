@@ -5,13 +5,6 @@
 <!DOCTYPE html>
 <html lang="{g->language}">
   <head>
-    {* Let Gallery print out anything it wants to put into the <head> element *}
-    {g->head}
-
-    {* If Gallery doesn't provide a header, we use the album/photo title (or filename) *}
-    {if empty($head.title)}
-      <title>{$theme.item.title|markup:strip|default:$theme.item.pathComponent}</title>
-    {/if}
     {if $theme.pageType == 'album' or $theme.pageType == 'photo'}
     <script type="text/javascript">
       // <![CDATA[
@@ -25,9 +18,13 @@
       var VIEW_IMAGE = '{g->text text="View fullsize image" forJavascript=true}';
       // ]]>
     </script>
-    <script type="text/javascript" src="{g->theme url="javascript/common-functions.js"}"></script>
-    <script type="text/javascript" src="{g->theme url="javascript/thumbnail-functions.js"}"></script>
-    <script type="text/javascript" src="{g->theme url="javascript/slideshow-functions.js"}"></script>
+    {/if}
+    {* Let Gallery print out anything it wants to put into the <head> element *}
+    {g->head}
+
+    {* If Gallery doesn't provide a header, we use the album/photo title (or filename) *}
+    {if empty($head.title)}
+      <title>{$theme.item.title|markup:strip|default:$theme.item.pathComponent}</title>
     {/if}
     {* Remove thumbnail rollover effect if image frames are used *}
     {if isset($theme.params.itemFrame) || isset($theme.params.photoFrame)}

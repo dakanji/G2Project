@@ -82,6 +82,7 @@ class AjaxianTheme extends GalleryTheme {
 	$theme['imageHeights'] = implode(',', $imageHeights);
 	$theme['imageCount'] = count($imageWidths);
 	$this->loadThemeResources($this->getId(), $template);
+	$this->_loadjsfiles($template);
 	return array(null, 'theme.tpl');
     }
 
@@ -103,6 +104,7 @@ class AjaxianTheme extends GalleryTheme {
 	    return array($ret, null);
 	}
 	$this->loadThemeResources($this->getId(), $template);
+	$this->_loadjsfiles($template);
 	return array(null, 'theme.tpl');
     }
 
@@ -258,5 +260,15 @@ class AjaxianTheme extends GalleryTheme {
 	}
 	return array(null, $imageWidths, $imageHeights);
     }
+    
+	/**
+	 * Loads Theme JS Files.
+	 * @access private
+	**/
+	function _loadjsfiles($template) {
+		$template->javascript('/themes/ajaxian/javascript/common-functions.js');
+		$template->javascript('/themes/ajaxian/javascript/thumbnail-functions.js');
+		$template->javascript('/themes/ajaxian/javascript/slideshow-functions.js');
+   }
 }
 ?>
