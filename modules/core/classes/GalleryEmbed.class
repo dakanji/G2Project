@@ -48,7 +48,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      * @return array major number, minor number
      */
     static function getApiVersion() {
-	return array(1, 5);
+	return array(2, 0);
     }
 
     /**
