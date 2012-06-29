@@ -1346,41 +1346,6 @@ class GallerySession {
     }
 
     /**
-     * Start new navigation.
-     * @param array $navigationData data for this new navigation:
-     *              array('returnName' => ...
-     *                    'returnUrl' => ...
-     *                    ['returnNavId' => ...])
-     * @return string the navigation id
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function addToNavigation($navigationData) {
-        return null;
-    }
-
-    /**
-     * Get data for a specific navigation id.
-     * @param string $navId the navigation id
-     * @return array the navigation data
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function getNavigation($navId) {
-	return array();
-    }
-
-    /**
-     * Jump back from one navigation point to one of its predecessors.
-     * @param string $fromNavId the source navigation id
-     * @param string $destNavId the destination navigation id.  If empty, go back to root.
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function jumpNavigation($fromNavId, $destNavId = '') {
-    }
-
-    /**
      * Return the Unix timestamp from when this session was created.
      * @return int the creation time
      */

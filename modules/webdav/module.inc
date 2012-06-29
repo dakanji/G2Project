@@ -186,17 +186,6 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 	    return array($ret, null);
 	}
 
-	if (isset($modules['rewrite'])) {
-	    list ($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite', true);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if (version_compare($rewrite->getVersion(), '1.1.8', '<')) {
-		return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
-	    }
-	}
-
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
 	    return array($ret, null);
