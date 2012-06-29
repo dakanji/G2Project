@@ -1336,16 +1336,6 @@ class GallerySession {
     }
 
     /**
-     * Return the session id.
-     * @return string the session id
-     * @deprecated
-     * @todo will be removed in the next API branch
-     */
-    function getSessionId() {
-	return $this->getId();
-    }
-
-    /**
      * Return the Unix timestamp from when this session was created.
      * @return int the creation time
      */
