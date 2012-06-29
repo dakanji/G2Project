@@ -50,8 +50,6 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - remove GalleryCapabilities (major bump of embed api too?)
-     * - remove 'link' entry in Gallery.class constructor
      * - remove GalleryCoreApi::getPluginBaseDirs();
      * - remove GalleryCoreApi::getPluginBaseDir();
      * - remove GalleryCoreApi::isPluginInDefaultLocation();
@@ -2746,59 +2744,6 @@ class GalleryCoreApi {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryCharsetHelper_simple.class');
 	return GalleryCharsetHelper_simple::utf8Strcut($string, $start, $length);
-    }
-
-    /**
-     * Returns an array of directories that can contain plugins.
-     *
-     * OBSOLETE.  Remove on next major API bump.
-     *
-     * This function should only be used in special circumstances, for example when a list of all
-     * plugins needs to be made.  Currently it returns gallery2/ and gallery2/plugins/.
-     */
-     function getPluginBaseDirs() {
-	 return array('base' => dirname(dirname(dirname(dirname(__FILE__)))) . '/');
-     }
-
-    /**
-     * Returns the base directory of the specified plugin.
-     *
-     * OBSOLETE.  Remove on next major API bump.
-     *
-     * Modules should never assume the filesystem location of any module, not even the core module.
-     * Use this function to get the base directory of a module. Possible base directories are
-     * usually gallery2/ and gallery2/plugins.
-     * The complete list can be read with GalleryCoreApi::getPluginBaseDirs().
-     *
-     * @param string $pluginType
-     * @param string $pluginId
-     * @param bool $clearCache (optional) force index to be reread from the filesystem
-     * @return string plugin base directory
-     */
-    function getPluginBaseDir($pluginType, $pluginId, $clearCache=false) {
-	return dirname(dirname(dirname(dirname(__FILE__)))) . '/';
-    }
-
-    /**
-     * Indicates whether the specified plugin is in the default plugin directory.
-     *
-     * OBSOLETE.  Remove on next major API bump.
-     *
-     * Sometimes it's useful to know just whether a plugin is in its default directory or not,
-     * without actually getting any information about its path.  It is used for rewriting URL
-     * in the UrlGenerator.
-     *
-     * We don't use GalleryPlatform in this function, because it is too low-level and there are
-     * significant problems with making it work here. One of the problems is that it breaks dozens
-     * of tests that rely on UnitTestPlatform.
-     *
-     * @param string $pluginType
-     * @param string $pluginId
-     * @param bool $clearCache (optional) force index to be reread from the filesystem
-     * @return boolean
-     */
-    function isPluginInDefaultLocation($pluginType, $pluginId, $clearCache=false) {
-	return true;
     }
 
     /**
