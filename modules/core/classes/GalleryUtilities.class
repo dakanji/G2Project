@@ -774,18 +774,6 @@ class GalleryUtilities {
     }
 
     /**
-     * mb_substr() for UTF-8, with PHP fallback. Truncates incomplete HTML entity at end of result.
-     * @param string $string the input string containing raw UTF-8
-     * @param int $start
-     * @param int $length
-     * @return string a multibyte safe substring of input value
-     * @deprecated Please use GalleryCoreApi::utf8Substring instead
-     */
-    function utf8Substring($string, $start, $length) {
-	return GalleryCoreApi::utf8Substring($string, $start, $length);
-    }
-
-    /**
      * Convert a numerical unicode value to a multibyte UTF-8 string.  Adapted from code found here:
      * http://us2.php.net/utf8_encode
      *
