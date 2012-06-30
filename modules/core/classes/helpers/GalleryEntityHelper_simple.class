@@ -31,11 +31,11 @@ class GalleryEntityHelper_simple {
     /**
      * @see GalleryCoreApi::loadEntitiesById
      */
-    static function loadEntitiesById($ids, $requiredEntityType=null) {
+    static function loadEntitiesById($ids, $requiredEntityType) {
 	global $gallery;
 	$gallery->guaranteeTimeLimit(5);
 
-	if (empty($ids)) {
+	if (empty($ids) || empty($requiredEntityType)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
 

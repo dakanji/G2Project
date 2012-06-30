@@ -31,7 +31,7 @@ class GalleryEntityHelper_medium {
     /**
      * @see GalleryCoreApi::deleteEntityById
      */
-    static function deleteEntityById($id, $requiredEntityType=null) {
+    static function deleteEntityById($id, $requiredEntityType) {
 	if (empty($id)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
