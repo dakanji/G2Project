@@ -400,28 +400,6 @@ class GalleryTemplate {
     }
 
     /**
-     * Returns the base directory of the specified template. This is required
-     * to support loading templates from g2data/plugins.
-     *
-     * This method was only used in resourceGetTemplate and resourceGetTimestamp to determine the
-     * base directory.  That functionality is now handled in the _getActualTemplatePath method as
-     * part of the template override version checking, so is no longer required.
-     *
-     * @author Jozef Selesi (selesi at gmail dot com)
-     *
-     * @param string $templateName Template to get base directory for.
-     * @param Smarty $smarty
-     * @deprecated
-     */
-    function resourceGetTemplateBaseDir($templateName, $smarty) {
-	if (preg_match('/^(module|theme)s\/(.+)(\/.+)/iU', $templateName, $pluginId)) {
-	    return GalleryCoreApi::getCodeBasePath();
-	} else {
-	    return $smarty->template_dir . '/';
-	}
-    }
-
-    /**
      * @see http://smarty.php.net/manual/en/template.resources.php
      *
      * This is basically the same as the file: resource except that we look for templates based on
