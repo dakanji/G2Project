@@ -55,21 +55,6 @@ class GalleryTestCase extends TestCase {
     }
 
     /**
-     * Register and event name and associated listener (deprecated).
-     *
-     * @param string $eventName
-     * @param GalleryEventListener $listener
-     * @deprecated Use _registerEventListener.
-     */
-    function _registerTestEventListener($eventName, &$listener) {
-	/*
-	 * Right now, this is just a wrapper for the normal core API method.
-	 * The magic is done in setUp and tearDown / markEventListenersForCleanup.
-	 */
-	GalleryCoreApi::registerEventListener($eventName, $listener);
-    }
-
-    /**
      * Register a The NullEventListener for a test
      *
      * @param mixed $events a single event name or an array of event names to be be registered
