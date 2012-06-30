@@ -95,12 +95,12 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						  'misc.markup', $this->_saveMarkup);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

@@ -76,7 +76,7 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

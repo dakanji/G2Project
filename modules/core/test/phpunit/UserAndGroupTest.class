@@ -48,12 +48,12 @@ class UserAndGroupTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						  'id.adminGroup', $this->_siteAdminGroupId);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

@@ -108,7 +108,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	$gallery->setConfig('anonymousUserId', $this->_originalGuestUserId);
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

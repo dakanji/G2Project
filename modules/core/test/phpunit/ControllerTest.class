@@ -58,7 +58,7 @@ class ControllerTest extends GalleryTestCase {
 	$session->_isPersistent = $this->_originalIsPersistentSession;
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

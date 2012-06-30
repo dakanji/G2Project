@@ -89,19 +89,6 @@ class GalleryTestCase extends TestCase {
 	return null;
     }
 
-    /**
-     * This is deprecated in Gallery 2.3 -- now tests should just return $ret and let the
-     * framework generate the right failure message.
-     * @deprecated
-     */
-    function failWithStatus($ret) {
-	global $gallery;
-
-	/* Fail with as much debug info as we can muster. */
-	$this->assert(false, $ret->getAsHtml() . $gallery->getDebugBuffer());
-	return $ret;
-    }
-
     function setUp() {
 	global $gallery;
 
@@ -304,7 +291,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
 
 	GalleryDataCache::setFileCachingEnabled(true);
@@ -1043,7 +1030,7 @@ class GalleryTestCase extends TestCase {
 	$ret = GalleryCoreApi::registerFactoryImplementationForRequest($classType, $className,
 							 $implId, $implPath, $implModuleId, $hints);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
     }
 

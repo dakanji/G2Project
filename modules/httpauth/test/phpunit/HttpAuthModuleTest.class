@@ -126,7 +126,7 @@ class HttpAuthModuleTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

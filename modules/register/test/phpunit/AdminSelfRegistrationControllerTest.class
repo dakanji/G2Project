@@ -70,12 +70,12 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	if (isset($this->_pendingUser)) {
 	    $ret = GalleryCoreApi::deleteEntityById($this->_pendingUser->getId(), 'GalleryEntity');
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

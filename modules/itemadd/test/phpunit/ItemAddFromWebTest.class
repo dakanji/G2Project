@@ -83,7 +83,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 	$ret = GalleryCoreApi::releaseLocks($this->_lockIds);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$session =& $gallery->getSession();
@@ -95,7 +95,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

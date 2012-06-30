@@ -34,12 +34,12 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::removeMimeType(
 			       array('mimeType' => array('test/test', 'test/test2')));
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

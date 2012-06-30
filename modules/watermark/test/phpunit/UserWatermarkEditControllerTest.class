@@ -86,12 +86,12 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	if (isset($this->_idToDelete)) {
 	    $ret = GalleryCoreApi::deleteEntityById($this->_idToDelete, 'WatermarkImage');
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

@@ -181,7 +181,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						  'misc.markup', $this->_origMarkup);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	/* Clean up our test users */
@@ -221,7 +221,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

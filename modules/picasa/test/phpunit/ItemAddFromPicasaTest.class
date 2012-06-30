@@ -89,7 +89,7 @@ class ItemAddFromPicasaTest extends ItemAddPluginTestCase {
 	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

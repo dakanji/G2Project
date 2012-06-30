@@ -67,12 +67,12 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
     function tearDown() {
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

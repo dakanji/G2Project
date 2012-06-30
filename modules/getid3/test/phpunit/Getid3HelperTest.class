@@ -85,17 +85,17 @@ class Getid3HelperTest extends GalleryTestCase {
     function tearDown() {
 	$ret = Getid3Helper::setProperties(GETID3_SUMMARY, $this->_save['summary']);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = Getid3Helper::setProperties(GETID3_DETAILED, $this->_save['detailed']);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

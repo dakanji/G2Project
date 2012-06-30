@@ -145,29 +145,29 @@ class HttpAuthHelperTest extends GalleryTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
 
 	if (!empty($this->_resetFactory)) {    
 	    /* After the plugin parameters have been reset, reset the factory as well */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    } else {
 		$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId('httpauth');
 		if ($ret) {
-		    $this->failWithStatus($ret);
+		    return $ret;
 		}
 		$ret = $module->performFactoryRegistrations();
 		if ($ret) {
-		    $this->failWithStatus($ret);
+		    return $ret;
 		}
 	    }
 
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->commitTransaction();
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
     }

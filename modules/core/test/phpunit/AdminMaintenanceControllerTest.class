@@ -71,13 +71,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		'GalleryMaintenanceMap', array('taskId' => $taskId));
 	    if ($ret) {
 		/* Don't return early here, give the loop a chance to try to clear all tasks */
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
     }
 

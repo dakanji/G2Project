@@ -63,33 +63,33 @@ class ModuleTest extends GalleryTestCase {
 	/* If a unittest fails it might not deactivate/uninstall the mock module properly */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest', true);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	if ($isActive) {
 	    $ret = $module->deactivate();
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 
 	$ret = $module->uninstall();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::removePlugin('module', 'moduletest');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

@@ -98,7 +98,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 	$translator =& $gallery->getTranslator();
 	list ($ret) = $translator->init($this->_languageCode);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$this->assert($this->_storage->isComplete(), $this->_storage->getRemaining());

@@ -63,7 +63,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

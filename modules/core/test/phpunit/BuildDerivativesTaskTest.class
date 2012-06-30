@@ -50,7 +50,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 	if (GalleryUtilities::isA($storage, 'MSSqlStorage')) {
 	    $ret = $storage->execute('SET ANSI_WARNINGS ON');
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 

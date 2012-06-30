@@ -131,29 +131,29 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    $ret = GalleryCoreApi::addMapEntry(
 		'QuotasMap', array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
 
 	/* Verify test quotas were deleted with users/groups */
 	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	$this->assert(!$hasQuota, $this->_user->getId() . ' user quota was not deleted');
 	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	$this->assert(!$hasQuota, $this->_group->getId() . ' group quota was not deleted');
 	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group2->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	$this->assert(!$hasQuota, $this->_group2->getId() . ' group2 quota was not deleted');
     }

@@ -73,11 +73,11 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::removePluginParameter('module', 'captcha',
 						     'failCount-captcha.UnitTest');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

@@ -65,7 +65,7 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	} else {
 	    /* Init a new translator so that we reset our locale */
 	    $translator = new GalleryTranslator();
@@ -76,7 +76,7 @@ class MainTest extends GalleryTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

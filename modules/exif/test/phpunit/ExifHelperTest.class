@@ -91,22 +91,22 @@ class ExifHelperTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						  'format.datetime', $this->_saveFormat);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = ExifHelper::setProperties(EXIF_SUMMARY, $this->_save['summary']);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = ExifHelper::setProperties(EXIF_DETAILED, $this->_save['detailed']);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

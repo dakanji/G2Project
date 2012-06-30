@@ -84,7 +84,7 @@ class PermalinksTest extends GalleryTestCase {
 	foreach ($this->_aliasNamesToDelete as $name) {
 	    $ret = PermalinksMapHelper::deleteAlias($name);
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 

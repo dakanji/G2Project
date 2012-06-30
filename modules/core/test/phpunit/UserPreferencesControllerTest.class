@@ -61,7 +61,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	$session->put('core.language', $this->_currentLanguage);
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

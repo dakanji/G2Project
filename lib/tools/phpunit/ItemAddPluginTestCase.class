@@ -71,7 +71,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 							  $ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	    return array($error, $status);
 	} else {
 	    /* Check to make sure we got back everything we want */

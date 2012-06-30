@@ -80,17 +80,17 @@ class QuotasListenerTest extends GalleryTestCase {
     function tearDown() {
 	$ret = GalleryCoreApi::deleteEntityById($this->_album->getId(), 'GalleryAlbumItem');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::deleteEntityById($this->_user->getId(), 'GalleryUser');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::deleteEntityById($this->_group->getId(), 'GalleryGroup');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	foreach ($this->_saveQuota as $groupId => $quota) {
@@ -98,13 +98,13 @@ class QuotasListenerTest extends GalleryTestCase {
 		'QuotasMap',
 		array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

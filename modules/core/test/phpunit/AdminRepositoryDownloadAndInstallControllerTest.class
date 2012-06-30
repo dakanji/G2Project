@@ -74,7 +74,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 	$this->assert($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

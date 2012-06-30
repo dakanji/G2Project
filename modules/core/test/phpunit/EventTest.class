@@ -75,12 +75,12 @@ class EventTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::removePlugin('module', 'EventTest');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

@@ -63,7 +63,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
     function tearDown() {
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

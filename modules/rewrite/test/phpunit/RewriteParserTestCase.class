@@ -82,17 +82,17 @@ class RewriteParserTestCase extends GalleryTestCase {
     function tearDown() {
 	$ret = $this->_module->deactivate();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::removePlugin('module', 'rewriteparsermock');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

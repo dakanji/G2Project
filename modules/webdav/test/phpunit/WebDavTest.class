@@ -148,7 +148,7 @@ class WebDavTest extends GalleryTestCase {
 	$this->_streamWrapperRegistration(true);
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

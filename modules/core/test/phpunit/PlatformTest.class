@@ -51,7 +51,7 @@ class PlatformTest extends GalleryTestCase {
     function tearDown() {
 	$ret = GalleryCoreApi::removeMimeType(array('mimeType' => 'test/test'));
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	if (($pos = array_search('xxx', $this->_platform->_blacklistedFileExtensions)) !== false) {
 	    array_splice($this->_platform->_blacklistedFileExtensions, $pos, 1);

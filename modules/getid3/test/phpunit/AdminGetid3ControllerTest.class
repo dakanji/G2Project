@@ -63,7 +63,7 @@ class AdminGetid3ControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
 
 	$ret = Getid3Helper::setProperties(GETID3_SUMMARY, $this->_save['summary']);

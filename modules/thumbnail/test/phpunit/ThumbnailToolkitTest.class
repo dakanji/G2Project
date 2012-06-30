@@ -78,7 +78,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	global $gallery;
 	$ret = GalleryCoreApi::deleteEntityById($this->_itemId, 'ThumbnailImage');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	$platform =& $gallery->getPlatform();
 	if (!$platform->unlink($gallery->getConfig('data.gallery.base') . '/unittest.jpg')) {
@@ -87,12 +87,12 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::unregisterToolkitOperation(
 		'Thumbnail', 'thumbnail', array('test/fakemime', 'image/jpeg'));
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

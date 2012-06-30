@@ -88,7 +88,7 @@ class AlbumSelectTest extends GalleryTestCase {
 	GalleryDataCache::removeFromDisk(array('type' => 'module-data', 'module' => 'albumselect'));
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

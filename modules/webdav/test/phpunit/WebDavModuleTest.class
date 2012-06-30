@@ -135,7 +135,7 @@ class WebDavModuleTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

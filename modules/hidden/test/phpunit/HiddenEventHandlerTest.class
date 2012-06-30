@@ -122,7 +122,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 	$event->setEntity($this->_subItems[2]);
 	list ($ret) = $this->_hiddenModule->handleEvent($event);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	$this->assert($storage->isComplete(), $storage->getRemaining());
     }

@@ -68,28 +68,28 @@ class ThemeTest extends GalleryTestCase {
 	/* If a unit test fails it might not deactivate/uninstall the mock theme properly */
 	list ($ret, $isActive) = $this->_theme->isActive();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 	if ($isActive) {
 	    $ret = $this->_theme->deactivate();
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		return $ret;
 	    }
 	}
 
 	$ret = $this->_theme->uninstall();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = GalleryCoreApi::removePlugin('theme', 'ThemeTest');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

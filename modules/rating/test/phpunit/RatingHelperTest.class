@@ -80,7 +80,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	} else {
 	    /* Init a new translator so that we reset our locale */
 	    $translator = new GalleryTranslator();
@@ -89,7 +89,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 

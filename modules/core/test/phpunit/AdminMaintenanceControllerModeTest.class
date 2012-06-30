@@ -43,7 +43,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return return $ret;
 	}
 
 	$this->_versionFileContents = array($module->getVersion() . "\n",

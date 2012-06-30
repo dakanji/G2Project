@@ -100,12 +100,12 @@ class RewriteModuleTest extends GalleryTestCase {
     function tearDown() {
 	$ret = GalleryCoreApi::removePlugin('module', 'rewritemodulemock');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   $this->failWithStatus($ret);
+	   return $ret;
 	}
     }
 
