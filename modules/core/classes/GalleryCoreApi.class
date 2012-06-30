@@ -51,7 +51,6 @@ class GalleryCoreApi {
      *
      * @todo for next major version bump:
      * - remove support for : separator in GalleryView::loadView
-     * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
      *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
