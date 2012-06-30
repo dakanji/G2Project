@@ -50,11 +50,9 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
      *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - delete modules/core/templates/blocks/NavigationLinks.tpl
      * - remove GalleryRepository::getLanguageDescription
      * - convert the contents of GALLERY_PERMISSION_SESSION_KEY to array indices instead of array
      *   of values.
