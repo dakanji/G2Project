@@ -59,7 +59,7 @@ class GalleryTestCase extends TestCase {
      *
      * @param string $eventName
      * @param GalleryEventListener $listener
-     * @deprecated Use _registerEventLister.
+     * @deprecated Use _registerEventListener.
      */
     function _registerTestEventListener($eventName, &$listener) {
 	/*
