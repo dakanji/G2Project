@@ -535,18 +535,18 @@ class Gallery {
 	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
 
 	    /* Do we already have an activeLanguage for this session? */
-	    list ($ret, $language) = $this->getActiveLanguageCode();
+	    list ($ret, $language) = $this->getActiveLocale();
 	    if ($ret) {
 		return $ret;
 
 	    }
 
 	    $this->_translator = new GalleryTranslator();
-	    list ($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
+	    list ($ret, $locale) = $this->_translator->init($language, $dontUseDatabase);
 	    if ($ret) {
 		return $ret;
 	    }
-	    $ret = $this->setActiveLanguageCode($languageCode);
+	    $ret = $this->setActiveLocale($locale);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -561,7 +561,7 @@ class Gallery {
      * @return array GalleryStatus a status code
      *               string language code
      */
-    function getActiveLanguageCode() {
+    function getActiveLocale() {
 	$session =& $this->getSession();
 	/* During installation, we don't have a session yet */
 	if (!empty($session)) {
@@ -579,7 +579,7 @@ class Gallery {
      * @param string $language language code
      * @return GalleryStatus a status code
      */
-    function setActiveLanguageCode($language) {
+    function setActiveLocale($language) {
 	$session =& $this->getSession();
 	/* During installation, we don't have a session yet */
 	if (!empty($session)) {
