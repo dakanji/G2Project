@@ -72,26 +72,24 @@ class SystemChecksStep extends InstallStep {
 	$template->renderHeader(true);
 	$template->renderStatusMessage(_('Performing system checks'), '', 0);
 
-	/* assert compatible version of PHP, we accept 5.3.2+ and prefer 5.3.6+ */
-	if (!function_exists('version_compare') && version_compare(phpversion(), '5.3.2', '<')) {
+	/* assert compatible version of PHP, we accept 5.3.2+ but prefer 5.4.4+ */
+	if (version_compare(PHP_VERSION, '5.3.2', '<')) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &gt;= 5.3.2 (Prefer &gt;= 5.3.6')),
+		array('title' => _('PHP version &lt; 5.3.2'),
 		      'error' => true,
 		      'notice' => sprintf(
-			  _("Error: This version of Gallery 2 requires PHP 5.3.2 or " .
-			    "newer but you have PHP Version %s installed. Please contact your webserver " .
-			    "administrator to request an upgrade, available at the %sPHP " .
-			    "website%s."), phpversion(), '<a href="http://php.net/">', '</a>'));
+			  _("Error: This version of Gallery 2 requires PHP Version 5.3.2 or newer " .
+			    "but you have PHP Version %s installed."), 
+			    PHP_VERSION));
 	    $failCount++;
-	} elseif (!function_exists('version_compare') && version_compare(phpversion(), '5.3.6', '<')) {
+	} elseif (version_compare(PHP_VERSION, '5.4.4', '<')) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &gt;= 5.3.2 (Prefer &gt;= 5.3.6')),
+		array('title' => _('PHP version &lt; 5.4.4'),
 		      'warning' => true,
 		      'notice' => sprintf(
-			  _("Warning: This version of Gallery 2 preforms best with PHP 5.3.6 or " .
-			    "newer but you have PHP Version %s installed. Please contact your webserver " .
-			    "administrator to request an upgrade, available at the %sPHP " .
-			    "website%s."), phpversion(), '<a href="http://php.net/">', '</a>'));
+			  _("Warning: This version of Gallery 2 performs best with PHP Version 5.4.4 " .
+			    "or newer but you have PHP Version %s installed."), 
+			    PHP_VERSION));
 	} else {
 	    $templateData['check'][] =
 		array('title' => _('PHP Version'), 'success' => true);
