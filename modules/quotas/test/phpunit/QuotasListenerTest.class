@@ -110,7 +110,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
     function testDeleteEntityQuotasListener() {
 	/* Enable event listener (normally disabled for unit tests) */
-	$this->_registerTestEventListener('GalleryEntity::delete', new QuotasModule());
+	$this->_registerEventListener('GalleryEntity::delete', new QuotasModule());
 
 	$userId = $this->_user->getId();
 

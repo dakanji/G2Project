@@ -315,7 +315,7 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	$listener = new ViewTestEventListener($this, 'viewtestthemeid1', null, $itemId);
-	$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
+	$this->_registerEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 	list ($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
 	if ($ret) {
@@ -345,7 +345,7 @@ class ViewTest extends GalleryTestCase {
 
 	$themeParams = array('foo' => 1, 'bar' => 2);
 	$listener = new ViewTestEventListener($this, 'viewtestthemeid1', $themeParams, $itemId);
-	$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
+	$this->_registerEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 	list ($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
 	if ($ret) {
@@ -376,7 +376,7 @@ class ViewTest extends GalleryTestCase {
 
 	$themeParams = array('foo' => 1, 'bar' => 2);
 	$listener = new ViewTestEventListener($this, 'viewtestthemeid2', $themeParams, $itemId);
-	$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
+	$this->_registerEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 	list ($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
 	if ($ret) {
@@ -407,7 +407,7 @@ class ViewTest extends GalleryTestCase {
 
 	$themeParams = array('foo' => 1, 'bar' => 2);
 	$listener = new ViewTestEventListener($this, 'bogustesttheme', $themeParams, $itemId);
-	$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
+	$this->_registerEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 	list ($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
 	if ($ret) {

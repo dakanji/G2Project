@@ -117,9 +117,9 @@ class HttpAuthModuleTest extends GalleryTestCase {
 	unset($_SERVER['REMOTE_USER']);
 	GalleryUtilities::removeRequestVariable('authorization');
 
-	$this->_registerTestEventListener('Gallery::ActivatePlugin', $this->_module);
-	$this->_registerTestEventListener('Gallery::Error', $this->_module);
-	$this->_registerTestEventListener('Gallery::Logout', $this->_module);
+	$this->_registerEventListener('Gallery::ActivatePlugin', $this->_module);
+	$this->_registerEventListener('Gallery::Error', $this->_module);
+	$this->_registerEventListener('Gallery::Logout', $this->_module);
     }
 
     function tearDown() {

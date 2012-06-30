@@ -43,7 +43,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	   return $ret;
 	}
 
-	$this->_registerTestEventListener('GalleryEntity::delete', new WatermarkModule());
+	$this->_registerEventListener('GalleryEntity::delete', new WatermarkModule());
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 	if ($ret) {

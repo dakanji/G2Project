@@ -113,7 +113,7 @@ class WebDavTest extends GalleryTestCase {
 	}
 	$gallery->setUrlGenerator($this->_urlGenerator);
 
-	$this->_registerTestEventListener('Gallery::Error', new WebDavModule());
+	$this->_registerEventListener('Gallery::Error', new WebDavModule());
     }
 
     /**

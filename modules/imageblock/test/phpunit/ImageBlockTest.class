@@ -64,9 +64,9 @@ class ImageBlockTest extends GalleryTestCase {
 	}
 
 	$listener = new ImageBlockHelper();
-	$this->_registerTestEventListener('Gallery::ViewableTreeChange', $listener);
-	$this->_registerTestEventListener('GalleryEntity::save', $listener);
-	$this->_registerTestEventListener('GalleryEntity::delete', $listener);
+	$this->_registerEventListener('Gallery::ViewableTreeChange', $listener);
+	$this->_registerEventListener('GalleryEntity::save', $listener);
+	$this->_registerEventListener('GalleryEntity::delete', $listener);
 
 	/* Create a new album and image, set thumbnail and highlight */
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());

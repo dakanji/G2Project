@@ -294,9 +294,9 @@ class ImageBlockHelperTest extends GalleryTestCase {
 	global $gallery;
 
 	$listener = new ImageBlockHelper();
-	$this->_registerTestEventListener('Gallery::ViewableTreeChange', $listener);
-	$this->_registerTestEventListener('GalleryEntity::save', $listener);
-	$this->_registerTestEventListener('GalleryEntity::delete', $listener);
+	$this->_registerEventListener('Gallery::ViewableTreeChange', $listener);
+	$this->_registerEventListener('GalleryEntity::save', $listener);
+	$this->_registerEventListener('GalleryEntity::delete', $listener);
 
 	list ($ret, $top) = $this->_createTopAlbum();
 	if ($ret) {
@@ -343,9 +343,9 @@ class ImageBlockHelperTest extends GalleryTestCase {
 	global $gallery;
 
 	$listener = new ImageBlockHelper();
-	$this->_registerTestEventListener('Gallery::ViewableTreeChange', $listener);
-	$this->_registerTestEventListener('GalleryEntity::save', $listener);
-	$this->_registerTestEventListener('GalleryEntity::delete', $listener);
+	$this->_registerEventListener('Gallery::ViewableTreeChange', $listener);
+	$this->_registerEventListener('GalleryEntity::save', $listener);
+	$this->_registerEventListener('GalleryEntity::delete', $listener);
 
 	list ($ret, $photo) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {

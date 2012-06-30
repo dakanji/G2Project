@@ -125,7 +125,7 @@ class EventTest extends GalleryTestCase {
 	global $gallery;
 
 	$listener = new EventTestEventListener($this);
-	$this->_registerTestEventListener('GalleryEntity::save', $listener);
+	$this->_registerEventListener('GalleryEntity::save', $listener);
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
@@ -151,7 +151,7 @@ class EventTest extends GalleryTestCase {
 	 * factory implementations
 	 */
 	$listener = new EventTestEventListener();
-	$this->_registerTestEventListener('Gallery::ActivatePlugin', $listener);
+	$this->_registerEventListener('Gallery::ActivatePlugin', $listener);
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'EventTest');
 	if ($ret) {

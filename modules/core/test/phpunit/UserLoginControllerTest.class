@@ -57,7 +57,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$gallery->_session =& $this->_mockSession;
 
 	$eventHandler = new GalleryUserHelper_medium();
-	$this->_registerTestEventListener('Gallery::Login', $eventHandler);
+	$this->_registerEventListener('Gallery::Login', $eventHandler);
 
 	list ($ret, $this->_validationLevel) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');

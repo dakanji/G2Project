@@ -538,7 +538,7 @@ class ModuleTest extends GalleryTestCase {
 
 	/* Register our event listener to observe the test */
 	$testEventListener = new ModuleTestEventListener();
-	$this->_registerTestEventListener('Gallery::DeactivatePlugin', $testEventListener);
+	$this->_registerEventListener('Gallery::DeactivatePlugin', $testEventListener);
 
 	/* Execute the method under test */
 	$ret = $module->deactivate();
