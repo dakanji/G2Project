@@ -55,10 +55,6 @@ class GalleryCoreApi {
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
      *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - consider renaming everything using "languageCode" to "locale" for correct terminology
-     *   (GalleryTranslator.class and Gallery.class)
-     * - delete modules/core/templates/blocks/NavigationLinks.tpl
-     * - remove GalleryRepository::getLanguageDescription
      * - convert the contents of GALLERY_PERMISSION_SESSION_KEY to array indices instead of array
      *   of values.
      */

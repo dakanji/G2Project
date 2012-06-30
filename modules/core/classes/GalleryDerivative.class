@@ -648,18 +648,17 @@ class GalleryDerivative extends GalleryChildEntity {
 	return array(null, $cacheFile);
     }
 
-    /**
-     * Render this item in the given format.  For example,
-     * GalleryDerivativeImage may want to render as an <img> tag in the HTML format.
-     *
-     * @param string $format the format (eg. HTML)
-     * @param GalleryDataItem $item the data item
-     * @param array $params format specific key value pairs
-     * @return string output
-     */
-    function render($format, $item, $params) {
-	return null;
-    }
+	/**
+	 * Render this item in the given format.  For example,
+	 * GalleryDerivativeImage may want to render as an <img> tag in the HTML format.
+	 *
+	 * @param GalleryDataItem $item the data item
+	 * @param array $params format specific key value pairs
+	 * @return string output
+	**/
+	function render($entity, $item, $params) {
+		return null;
+	}
 
     /**
      * Return true if we have no derivative or postfilter operations

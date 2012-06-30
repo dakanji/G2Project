@@ -131,7 +131,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 	    return $ret;
 	}
 
-	$html = $this->_renderer->render('HTML', $this->_item, $this->_item, array());
+	$html = $this->_renderer->render($this->_item, $this->_item, array());
 	$this->assert(
 	    preg_match('{<param name="archive" value="http}', $html),
 	    'item: jar full url: ' . htmlentities($html));
@@ -141,7 +141,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 				 . SESSION_ID_PARAMETER . '}', $html),
 		      'item: image full url: ' . htmlentities($html));
 
-	$html = $this->_renderer->render('HTML', $this->_derivative, $this->_item, array());
+	$html = $this->_renderer->render($this->_derivative, $this->_item, array());
 	$this->assert(preg_match('{<param name="archive" value="http}', $html),
 		      'deriv: jar full url: ' . htmlentities($html));
 	$this->assert(preg_match('{<param[^>]*name="ScrollerThumb"[^>]*value="http}', $html),
@@ -152,11 +152,11 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 
 	/* Accept forceRawImage parameter to bypass applet display */
 	$html = $this->_renderer->render(
-	    'HTML', $this->_item, $this->_item, array('forceRawImage' => true));
+	    $this->_item, $this->_item, array('forceRawImage' => true));
 	$this->assertEquals(null, $html, 'item: raw image');
 
 	$html = $this->_renderer->render(
-	    'HTML', $this->_derivative, $this->_item, array('forceRawImage' => true));
+	    $this->_derivative, $this->_item, array('forceRawImage' => true));
 	$this->assertEquals(null, $html, 'deriv: raw image');
     }
 }

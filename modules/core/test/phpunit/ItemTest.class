@@ -190,7 +190,7 @@ class ItemTest extends GalleryTestCase {
 		$instance->setHeight(100);
 	    }
 	    /* We need to be able to render what we can view inline */
-	    $html = $instance->render('HTML', array('fallback' => 'ERROR', 'class' => 'test'));
+	    $html = $instance->render(null, null, array('fallback' => 'ERROR', 'class' => 'test'));
 	    $inlineOk = ($html != 'ERROR' && $html != null);
 	    $this->assertEquals($inlineOk, $instance->canBeViewedInline(), $mimeType);
 	}
@@ -1840,7 +1840,7 @@ class ItemTestRenderer extends GalleryRenderer {
     /**
      * @see GalleryRenderer::render
      */
-    function render($format, $entity, $item, $params) {
+    function render($entity, $item, $params) {
 	return null;
     }
 }

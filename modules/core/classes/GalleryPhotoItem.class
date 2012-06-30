@@ -196,53 +196,51 @@ class GalleryPhotoItem extends GalleryDataItem {
 	return array('Photo', 'photo');
     }
 
-    /**
-     * @see GalleryDataItem::render
-     */
-    function render($format, $params) {
-	global $gallery;
-
-	switch($format) {
-	case 'HTML':
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(
-		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
-		      'serialNumber' => $this->getSerialNumber()),
-		array('forceFullUrl' => !empty($params['forceFullUrl'])));
-	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
-
-	    /* Shrink our dimensions if necessary */
-	    if (isset($params['maxSize'])) {
-		list ($width, $height) =
-		    GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
-		unset($params['maxSize']);
-	    }
-
-	    $sizeStr = '';
-	    if ($width > 0 && $height > 0) {
-		$sizeStr = sprintf(' width="%s" height="%s"', $width, $height);
-	    }
-	    if (!isset($params['alt'])) {
-		$params['alt'] =
-		    $this->getTitle() ? GalleryUtilities::markup($this->getTitle(), 'strip')
-				      : $this->getPathComponent();
-	    }
-
-	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);
-	    unset($params['fallback']);
-	    unset($params['forceFullUrl']);
-	    unset($params['forceRawImage']);
-	    foreach ($params as $attr => $value) {
-		if (isset($value)) {
-		    $html .= " $attr=\"$value\"";
+	/**
+	 * @see GalleryDataItem::render
+	**/
+	function render($entity, $item, $params) {
+		global $gallery;
+		
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$src = $urlGenerator->generateUrl(
+				array(
+						'view' => 'core.DownloadItem', 
+						'itemId' => $this->getId(),
+						'serialNumber' => $this->getSerialNumber()
+				),
+				array('forceFullUrl' => !empty($params['forceFullUrl']))
+		);
+		list ($width, $height) = array($this->getWidth(), $this->getHeight());
+		
+		/* Shrink our dimensions if necessary */
+		if (isset($params['maxSize'])) {
+			list ($width, $height) = GalleryUtilities::shrinkDimensionsToFit(
+					$width, $height, $params['maxSize']);
+			unset($params['maxSize']);
 		}
-	    }
-	    return $html . '/>';
-
-	default:
-	    return null;
-	}
-    }
+		
+		$sizeStr = '';
+		if ($width > 0 && $height > 0) {
+			$sizeStr = sprintf(' width="%s" height="%s"', $width, $height);
+		}
+		if (!isset($params['alt'])) {
+			$params['alt'] = $this->getTitle() 
+					? GalleryUtilities::markup($this->getTitle(), 'strip')
+					: $this->getPathComponent();
+		}
+		
+		$html = sprintf('<img src="%s"%s', $src, $sizeStr);
+		unset($params['fallback']);
+		unset($params['forceFullUrl']);
+		unset($params['forceRawImage']);
+		foreach ($params as $attr => $value) {
+			if (isset($value)) {
+				$html .= " $attr=\"$value\"";
+			}
+		}
+		return $html . '>';
+	 }
 
     /**
      * @see GalleryEntity::getClassName

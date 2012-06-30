@@ -302,9 +302,9 @@ class GalleryTemplateAdapter {
         
 	/*
 	 * Cases:
-	 * - Item can render itself
-	 * - Entity can render itself (with info from the item)
-	 * - Renderer can render the entity (with info from the item)
+	 * 1 - Item can render itself
+	 * 2 - Entity can render itself (with info from the item)
+	 * 3 - Renderer can render the entity (with info from the item)
 	 */
 	if ($params['item']['id'] == $params['image']['id']) {
 	    /* XXX: Can't be more specific than entity-type = GalleryEntity here */
@@ -342,22 +342,24 @@ class GalleryTemplateAdapter {
 	    $renderer = null;
 	}
 
-	/* TODO: Normalize these 3 different APIs */
 	$html = null;
 	if (isset($renderer)) {
-	    $html = $renderer->render('HTML', $entity ? $entity : $item, $item, $params);
+		// Case 3
+		$html = $renderer->render($entity ? $entity : $item, $item, $params);
 	}
-
+	
 	if ($html === null) {
-	    if ($entity) {
-		$html = $entity->render('HTML', $item, $params);
-	    } else {
-		$html = $item->render('HTML', $params);
-	    }
+		if ($entity) {
+			// Case 2
+			$html = $entity->render(null, $item, $params);
+		} else {
+			// Case 1
+			$html = $item->render(null, null, $params);
+		}
 	}
-
+	
 	if (empty($html)) {
-	    $html = $fallback;
+		$html = $fallback;
 	}
 
 	return array(null, $html);

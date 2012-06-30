@@ -459,51 +459,51 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
     }
 
-    /**
-     * Render image
-     *
-     * @return string content
-     */
-    function render($format, $params) {
-	global $gallery;
-
-	switch($format) {
-	case 'HTML':
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(
-		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
-		      'serialNumber' => $this->getSerialNumber()),
-		array('forceFullUrl' => !empty($params['forceFullUrl'])));
-
-	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
-
-	    /* Shrink our dimensions if necessary */
-	    if (isset($params['maxSize'])) {
-		list ($width, $height) =
-		    GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
-		unset($params['maxSize']);
-	    }
-
-	    $sizeStr = ($width > 0 && $height > 0)
-		? sprintf(' width="%s" height="%s"', $width, $height) : '';
-	    if (!isset($params['alt'])) {
-		$params['alt'] = $this->getPathComponent();
-	    }
-
-	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);
-	    unset($params['fallback']);
-	    unset($params['forceFullUrl']);
-	    foreach ($params as $attr => $value) {
-		if (isset($value)) {
-		    $html .= " $attr=\"$value\"";
+	/**
+	 * Render image
+	 *
+	 * @see GalleryDataItem::render
+	 * @return string content
+	**/
+	function render($entity, $item, $params) {
+		global $gallery;
+		
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$src = $urlGenerator->generateUrl(
+				array(
+						'view' => 'core.DownloadItem', 
+						'itemId' => $this->getId(),
+						'serialNumber' => $this->getSerialNumber()
+				),
+				array('forceFullUrl' => !empty($params['forceFullUrl']))
+		);
+		
+		list ($width, $height) = array($this->getWidth(), $this->getHeight());
+		
+		/* Shrink our dimensions if necessary */
+		if (isset($params['maxSize'])) {
+			list ($width, $height) = GalleryUtilities::shrinkDimensionsToFit(
+					$width, $height, $params['maxSize']
+			);
+			unset($params['maxSize']);
 		}
-	    }
-	    return $html . '/>';
-
-	default:
-	    return null;
+		
+		$sizeStr = ($width > 0 && $height > 0)
+		? sprintf(' width="%s" height="%s"', $width, $height) : '';
+		if (!isset($params['alt'])) {
+			$params['alt'] = $this->getPathComponent();
+		}
+		
+		$html = sprintf('<img src="%s"%s', $src, $sizeStr);
+		unset($params['fallback']);
+		unset($params['forceFullUrl']);
+		foreach ($params as $attr => $value) {
+			if (isset($value)) {
+				$html .= " $attr=\"$value\"";
+			}
+		}
+		return $html . '>';
 	}
-    }
 
     /**
      * So ThumbnailImage is displayable with {g->image}

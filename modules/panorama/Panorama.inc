@@ -57,7 +57,7 @@ class PanoramaView extends GalleryView {
 
 	$template->setVariable('Panorama', array(
 		    'item' => (array)$item,
-		    'appletHtml' => $renderer->render('HTML', $image, $item, array()),
+		    'appletHtml' => $renderer->render($image, $item, array()),
 		    ));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'panorama');
