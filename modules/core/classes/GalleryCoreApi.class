@@ -51,15 +51,11 @@ class GalleryCoreApi {
      *
      * @todo for next major version bump:
      * - remove support for : separator in GalleryView::loadView
-     * - remove GalleryUtilities::utf8Substring (moved to GalleryCoreApi)
-     * - remove lib/wz_dragdrop/ (currently used by G2.1's watermark module)
      * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
      *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - remove resourceGetTemplateBaseDir from GalleryTemplate class
      * - delete GalleryTestCase::failWithStatus
-     * - loadEntitiesById and deleteEntityById: make optional $requiredEntityType mandatory
      * - remove GalleryCoreApi::registerEventListener, GalleryModule::registerEventListeners
      *   and other code marked for removal in helpers/GalleryEventHelper_simple.class
      * - consider renaming everything using "languageCode" to "locale" for correct terminology
@@ -2313,14 +2309,14 @@ class GalleryCoreApi {
      * Load the GalleryEntities with the ids specified
      *
      * @param mixed $ids the ids (or id) of the GalleryEntities to load
-     * @param mixed $requiredEntityType (optional) Throw an ERROR_MISSING_OBJECT if the loaded
+     * @param mixed $requiredEntityType Throw an ERROR_MISSING_OBJECT if the loaded
      *              entity doesn't extend the given entity-type (or types), e.g. 'GalleryItem'.
      *              Specify 'GalleryEntity' if any entity type is allowed.
      * @return array GalleryStatus a status code,
      *               mixed one GalleryEntity or an array of GalleryEntities
      * @deprecated $requiredEntityType will no longer be optional after the next major API change
      */
-    function loadEntitiesById($ids, $requiredEntityType=null) {
+    function loadEntitiesById($ids, $requiredEntityType) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_simple.class');
 	return GalleryEntityHelper_simple::loadEntitiesById($ids, $requiredEntityType);
@@ -2330,13 +2326,13 @@ class GalleryCoreApi {
      * Delete the entity with the given id
      *
      * @param int $id the id of a GalleryEntity to delete
-     * @param mixed $requiredEntityType (optional) Throw an ERROR_MISSING_OBJECT if the loaded
+     * @param mixed $requiredEntityType Throw an ERROR_MISSING_OBJECT if the loaded
      *               entity doesn't extend the given entity-type (or types).
      *               Specify 'GalleryEntity' if any entity type is allowed.
      * @return GalleryStatus a status code
      * @deprecated $requiredEntityType will no longer be optional after the next major API change
      */
-    function deleteEntityById($id, $requiredEntityType=null) {
+    function deleteEntityById($id, $requiredEntityType) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_medium.class');
 	return GalleryEntityHelper_medium::deleteEntityById($id, $requiredEntityType);

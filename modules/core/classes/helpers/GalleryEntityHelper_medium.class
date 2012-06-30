@@ -31,9 +31,9 @@ class GalleryEntityHelper_medium {
     /**
      * @see GalleryCoreApi::deleteEntityById
      */
-    function deleteEntityById($id, $requiredEntityType=null) {
-	if (empty($id)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+    function deleteEntityById($id, $requiredEntityType) {
+	if (empty($ids) || empty($requiredEntityType)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
 	$lockIds = array();
 
