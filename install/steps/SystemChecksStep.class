@@ -72,7 +72,7 @@ class SystemChecksStep extends InstallStep {
 	$template->renderHeader(true);
 	$template->renderStatusMessage(_('Performing system checks'), '', 0);
 
-	/* assert compatible version of PHP, we accept 5.3.2+ but prefer 5.4.4+ */
+	/* assert compatible version of PHP, we accept 5.3.2+ but prefer 5.4.0+ */
 	if (version_compare(PHP_VERSION, '5.3.2', '<')) {
 	    $templateData['check'][] =
 		array('title' => _('PHP version &lt; 5.3.2'),
@@ -82,12 +82,12 @@ class SystemChecksStep extends InstallStep {
 			    "but you have PHP Version %s installed."), 
 			    PHP_VERSION));
 	    $failCount++;
-	} elseif (version_compare(PHP_VERSION, '5.4.4', '<')) {
+	} elseif (version_compare(PHP_VERSION, '5.4.0', '<')) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &lt; 5.4.4'),
+		array('title' => _('PHP version &lt; 5.4.0'),
 		      'warning' => true,
 		      'notice' => sprintf(
-			  _("Warning: This version of Gallery 2 performs best with PHP Version 5.4.4 " .
+			  _("Warning: This version of Gallery 2 performs best with PHP Version 5.4.0 " .
 			    "or newer but you have PHP Version %s installed."), 
 			    PHP_VERSION));
 	} else {
