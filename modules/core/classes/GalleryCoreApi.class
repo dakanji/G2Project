@@ -3196,5 +3196,59 @@ class GalleryCoreApi {
 		'modules/core/classes/helpers/GalleryEventLogHelper_medium.class');
 	return GalleryEventLogHelper_medium::addEventLogEntry($type, $summary, $details);
     }
+    
+ 	/**
+	 * Convenience method to load JQuery and/or JQueryUI and/or JQueryTools
+	 *
+	 * @param string $jQryVer the version of JQuery to load or 'default' for default
+	 * @param string $jUIVer the version of JQueryUI to load or null to skip or 'default' for default
+	 * @param string $jToolsVer the version of JQuery to load or null to skip or 'default' for default
+	 * @param string $jUIStyle the JQueryUI style to load or null to skip or 'default' for default
+	 * @param boolean $core a flag showing whether calling class is a G2 core class.
+	 *
+	 * Examples:
+	 * loadJQuery() 
+	 * 		will load default JQuery only
+	 * loadJQuery('1.4.4', 'default') 
+	 * 		will load JQuery & JQueryUI
+	 * loadJQuery('1.6.0', '1.8.21', 'null', 'default') 
+	 * 		will load JQuery & JQueryUI + default JQueryUI stylesheet
+	 * loadJQuery('1.3.8', '1.8.20', 'null', 'sunny') 
+	 * 		will load JQuery & JQueryUI + 'sunny' JQueryUI stylesheet
+	 * loadJQuery('default', null, '1.2.5') 
+	 * 		will load JQuery & JQueryTools
+	 * loadJQuery('default', '1.7.11', '1.1.0') 
+	 * 		will load JQuery, JQueryUI & JQueryTools
+	 * loadJQuery('1.7.2', '1.8.19', '1.2.5', 'default') 
+	 * 		will load JQuery, JQueryUI & JQueryTools + default JQueryUI stylesheet
+	 * loadJQuery('1.7.1', '1.8.21', '1.2.8', 'sunny') 
+	 * 		will load JQuery, JQueryUI & JQueryTools + 'sunny' JQueryUI stylesheet
+	 *
+	 * Notes:
+	 * 1. Setting the '$core' flag to 'true' will force the use of default versions
+	 * 2. '$core' flag must only be set by a qualifying core class 
+	 *    		as verification is resource intensive
+	**/
+	function loadJQuery($jQryVer='default', $jUIVer=null, $jToolsVer=null, $jUIStyle=null, $core=false) {
+		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryViewHelper_simple.class');
+		return GalleryViewHelper_simple::loadJQuery($jQryVer, $jUIVer, $jToolsVer, $jUIStyle, $core);
+	}
+
+	/**
+	 * Convenience method to load JQuery plugins
+	 *
+	 * @param array $plugins the method detail to return
+	 * @param string $jQryVer version of JQuery to load or 'default' for default
+	 * @param boolean $core flag showing whether calling class is a G2 core class.
+	 *
+	 * Notes:
+	 * 1. Setting the '$core' flag to 'true' will force the use of default versions
+	 * 2. '$core' flag must only be set by a qualifying core class 
+	 *    		as verification is resource intensive
+	**/
+	function loadJQueryPlugins($plugins, $jQryVer='default', $core=false) {
+		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryViewHelper_simple.class');
+		return GalleryViewHelper_simple::loadJQueryPlugins($plugins, $jQryVer, $core);
+	}
 }
 ?>

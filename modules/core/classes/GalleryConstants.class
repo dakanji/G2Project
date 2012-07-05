@@ -397,4 +397,14 @@ define('EXTERNAL_ACCESS_FULL', 0x00000003);
  * Current Schema Version
  */
 define('EXPORT_SCHEMA_VERSION', '1.1');
+
+/*
+ * ****************************************
+ *  JQuery Defaults
+ * ****************************************
+ */
+define('G2_JQUERY_DEFAULT', '1.7.2');
+define('G2_JQUERY_UI_DEFAULT', '1.8.21');
+define('G2_JQUERY_TOOLS_DEFAULT', '1.2.7');
+define('G2_JQUERY_UI_STYLE_DEFAULT', 'base');
 ?>
