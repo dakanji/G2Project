@@ -2985,6 +2985,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	case '1.2.37':
 	case '1.3.0':
 	case '1.3.0.x':
+	/* R2.4.0beta1 */
 	case '1.3.1.0':
 		/* Add config parameter: 'useSendFile' */
 		$configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
