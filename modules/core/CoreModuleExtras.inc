@@ -2557,7 +2557,6 @@ class CoreModuleExtras {
 	case '1.2.37':
 	    /* R2.3 */
 	case '1.3.0':
-	    /* R2.3.1 & R2.3.2 */
 	case '1.3.0.x':
 	    /* R2.4.0beta1 */
 	case '1.3.1.0':
@@ -2566,6 +2565,65 @@ class CoreModuleExtras {
 		if ($ret) {
 			return $ret;
 		}
+		
+		/* Process change to handling mime maintenance from mime module to core */
+		$pluginType = 'module';
+		$pluginId = 'mime';
+		$ds = $platform->getDirectorySeparator();
+		// Check if Mime Module is installed
+		list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
+		if (!$ret && isset($moduleStatus[$pluginId])) {
+			// Transfer basic params from the Mime Module to Core Module
+			list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'mime');
+			list ($retval, $core_module) = GalleryCoreApi::loadPlugin('module', 'core');
+			if (!$ret && !$retval) {
+				list ($ret, $allowMime) = $module->getParameter('allowMime');
+				if (!$ret) {
+					$core_module->setParameter('allowMime', $allowMime)
+				}
+				list ($ret, $mimeList) = $module->getParameter('mimeList');
+				if (!$ret) {
+					$core_module->setParameter('mimeList', $mimeList)
+				}
+			}
+			// Remove Mime Module if installed
+			GalleryCoreApi::unregisterToolkitsByModuleId($pluginId);
+			GalleryCoreApi::unregisterFactoryImplementationsByModuleId($pluginId);
+			GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
+			GalleryDataCache::removeFromDisk(
+					array(
+							'type' => $pluginType, 
+							'itemId' => 'GalleryPluginHelper_fetchPluginStatus', 
+							'id' => '_all'
+					)
+			);
+			GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
+			GalleryCoreApi::unregisterModulePermissions($pluginId);
+			GalleryCoreApi::removeOnLoadHandlers(array());
+			GalleryCoreApi::removePlugin($pluginType, $pluginId);
+			$dataDir = $gallery->getConfig(
+					'data.gallery.plugins_data').$pluginType.'s'.$ds.$pluginId;
+			if ($platform->is_dir($dataDir)) { 
+				$platform->recursiveRmdir($dataDir);
+			}
+			GalleryCoreApi::removeTranslationsForPlugin($pluginType, $pluginId);
+			GalleryCoreApi::removeMapEntry(
+					'GalleryPluginPackageMap', 
+					array(
+							'pluginType' => $pluginType, 
+							'pluginId' => $pluginId
+					)
+			);
+		}			
+		// Register Item Add Factory Implementation for core
+		GalleryCoreApi::registerFactoryImplementation(
+				'ItemAddOption', 
+				'ItemRestrictMimeOption', 
+				'ItemRestrictMimeOption',
+				'modules/core/ItemRestrictMimeOption.inc', 
+				'core', 
+				null
+		);
 
 	case 'end of upgrade path':
 	    /*
@@ -2926,9 +2984,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	case '1.2.36':
 	case '1.2.37':
 	case '1.3.0':
-	    /* R2.3.1 & R2.3.2 */
 	case '1.3.0.x':
-	    /* R2.4.0beta1 */
 	case '1.3.1.0':
 		/* Add config parameter: 'useSendFile' */
 		$configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
@@ -2947,7 +3003,6 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 			$gallery->setConfig('useSendFile', false))
 				
 		);
-
 
 	case 'end of upgrade path':
 	    /*
