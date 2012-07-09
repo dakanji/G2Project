@@ -2579,11 +2579,11 @@ class CoreModuleExtras {
 			if (!$ret && !$retval) {
 				list ($ret, $allowMime) = $module->getParameter('allowMime');
 				if (!$ret) {
-					$core_module->setParameter('allowMime', $allowMime)
+					$core_module->setParameter('allowMime', $allowMime);
 				}
 				list ($ret, $mimeList) = $module->getParameter('mimeList');
 				if (!$ret) {
-					$core_module->setParameter('mimeList', $mimeList)
+					$core_module->setParameter('mimeList', $mimeList);
 				}
 			}
 			// Remove Mime Module if installed
