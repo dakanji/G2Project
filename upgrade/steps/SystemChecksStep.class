@@ -90,20 +90,23 @@ class SystemChecksStep extends UpgradeStep {
 	/* assert compatible version of PHP, we accept 5.3.2+ but prefer 5.4.0+ */
 	if (version_compare(PHP_VERSION, '5.3.2', '<')) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &lt; 5.3.2'),
+		array('title' => _('PHP version &gt;= v5.3.2'),
 		      'error' => true,
 		      'notice' => sprintf(
 			  _("Error: This version of Gallery 2 requires PHP Version 5.3.2 or newer " .
-			    "but you have PHP Version %s installed."), 
+			    "but you have Version %s installed. Please update your PHP " .
+			    "installation to a minimum of Version 5.3.2 to use this version of " .
+			    "Gallery 2. Upgrade to Version 5.4.0 or newer for the best performance."), 
 			    PHP_VERSION));
 	    $failCount++;
 	} elseif (version_compare(PHP_VERSION, '5.4.0', '<')) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &lt; 5.4.0'),
+		array('title' => _('PHP version &gt;= v5.4.0'),
 		      'warning' => true,
 		      'notice' => sprintf(
 			  _("Warning: This version of Gallery 2 performs best with PHP Version 5.4.0 " .
-			    "or newer but you have PHP Version %s installed."), 
+			    "or newer but you have PHP Version %s installed. Gallery can function " .
+			    "with your version of PHP but may require additional server resources."), 
 			    PHP_VERSION));
 	} else {
 	    $templateData['check'][] =
