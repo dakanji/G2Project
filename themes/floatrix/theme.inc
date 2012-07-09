@@ -37,7 +37,7 @@ class FloatrixTheme extends GalleryTheme {
 	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
 	**/
 	$this->setVersion('3.0.0.0');
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setRequiredCoreApi(array(8, 0));
 	$this->setStandardSettings(
 	    array('perPage' => 12,
