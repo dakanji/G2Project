@@ -88,7 +88,7 @@ require_once($g2Base . 'modules/core/classes/GalleryStatus.class');
 require_once($g2Base . 'modules/core/classes/GalleryTranslator.class');
 if (empty($_SESSION['language'])) {
     /* Select language based on preferences sent from browser */
-    $_SESSION['language'] = GalleryTranslator::getLanguageCodeFromRequest();
+    $_SESSION['language'] = GalleryTranslator::getLocaleFromRequest();
 }
 if (function_exists('dgettext')) {
     $gallery = new GalleryStub();

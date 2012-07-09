@@ -42,7 +42,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 	$info = array('name' => $module->translate('MultiLanguage'),
 		      'description' => $module->translate('MultiLanguage Captions'));
 
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $languageCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -91,7 +91,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 	    return array(null, $data);
 	}
 
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $languageCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return array($ret, null);
 	}

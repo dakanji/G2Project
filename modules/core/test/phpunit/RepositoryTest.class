@@ -920,11 +920,11 @@ class RepositoryTest extends GalleryTestCase {
 
     function testGetRepositoryPluginList() {
 	global $gallery;
-	list ($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
+	list ($ret, $saveLanguage) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
-	$ret = $gallery->setActiveLanguageCode('en_US');
+	$ret = $gallery->setActiveLocale('en_US');
 	if ($ret) {
 	    return $ret;
 	}
@@ -968,7 +968,7 @@ class RepositoryTest extends GalleryTestCase {
 				"mismatch in case $caseNumber");
 	}
 
-	$ret = $gallery->setActiveLanguageCode($saveLanguage);
+	$ret = $gallery->setActiveLocale($saveLanguage);
 	if ($ret) {
 	    return $ret;
 	}
@@ -1011,7 +1011,7 @@ class RepositoryTest extends GalleryTestCase {
 	    $this->assert($repository->_utilities->isComplete(),
 		$repository->_utilities->getRemaining());
 
-	    list ($ret, $locale) = $gallery->getActiveLanguageCode();
+	    list ($ret, $locale) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return $ret;
 	    }

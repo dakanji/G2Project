@@ -1452,7 +1452,7 @@ class GalleryTheme extends GalleryPlugin {
 		if (isset($permission['core.delete'])) {
 		    $template->javascript('lib/yui/utilities.js');
 		    $template->javascript('lib/yui/container-min.js');
-		    list ($ret, $lang) = $gallery->getActiveLanguageCode();
+		    list ($ret, $lang) = $gallery->getActiveLocale();
 		    if ($ret) {
 			return $ret;
 		    }

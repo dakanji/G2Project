@@ -538,7 +538,7 @@ class DataCacheTest extends GalleryTestCase {
 	$modeExif = $session->get('exif.module.LoadExifInfo.mode');
 
 	/* Set test environment */
-	$ret = $gallery->setActiveLanguageCode('en');
+	$ret = $gallery->setActiveLocale('en');
 	if ($ret) {
 	    return ($ret);
 	}
@@ -569,7 +569,7 @@ class DataCacheTest extends GalleryTestCase {
 	$modeExif = $session->get('exif.module.LoadExifInfo.mode');
 
 	/* Set test environment */
-	$ret = $gallery->setActiveLanguageCode('fr');
+	$ret = $gallery->setActiveLocale('fr');
 	if ($ret) {
 	    return ($ret);
 	}

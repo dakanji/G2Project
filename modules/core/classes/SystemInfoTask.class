@@ -114,7 +114,7 @@ class SystemInfoTask extends MaintenanceTask {
 	    $acceleration = $core->translate('unknown');
 	}
 
-	list ($ret, $locale) = $gallery->getActiveLanguageCode();
+	list ($ret, $locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    $locale = $core->translate('unknown');
 	}

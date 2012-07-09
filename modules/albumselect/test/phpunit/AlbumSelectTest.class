@@ -257,7 +257,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	/* Preparation */
 	$userId = $gallery->getActiveUserId();
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $languageCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}

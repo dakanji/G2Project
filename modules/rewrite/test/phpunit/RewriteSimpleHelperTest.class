@@ -141,7 +141,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
     function testParseLanguage() {
 	global $gallery;
 
-	list ($ret, $language) = $gallery->getActiveLanguageCode();
+	list ($ret, $language) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}

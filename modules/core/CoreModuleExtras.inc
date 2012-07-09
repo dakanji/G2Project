@@ -184,9 +184,9 @@ class CoreModuleExtras {
 	    $gallery->debug('Set core module parameters');
 
 	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
-	    list ($ret, $defaultLanguage) = $gallery->getActiveLanguageCode();
+	    list ($ret, $defaultLanguage) = $gallery->getActiveLocale();
 	    if ($ret) {
-		$defaultLanguage = GalleryTranslator::getLanguageCodeFromRequest();
+		$defaultLanguage = GalleryTranslator::getLocaleFromRequest();
 	    }
 	    foreach (array('permissions.directory' => '0755',
 			   'permissions.file' => '0644',

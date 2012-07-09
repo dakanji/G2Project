@@ -174,12 +174,12 @@ class GalleryPendingUserHelper {
 
 	if (isset($userIdForLocale)) {
 	    $translator =& $gallery->getTranslator();
-	    $currentLanguageCode = $translator->getActiveLanguageCode();
-	    list ($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($userIdForLocale);
+	    $currentLocale = $translator->getActiveLocale();
+	    list ($ret, $language) = GalleryCoreApi::fetchLocaleForUser($userIdForLocale);
 	    if ($ret) {
 		return $ret;
 	    }
-	    if ($language != $currentLanguageCode) {
+	    if ($language != $currentLocale) {
 		list ($ret) = $translator->init($language);
 		if ($ret) {
 		    return $ret;
@@ -203,8 +203,8 @@ class GalleryPendingUserHelper {
 	    return $ret;
 	}
 
-	if (isset($userIdForLocale) && $language != $currentLanguageCode) {
-	    list ($ret) = $translator->init($currentLanguageCode);
+	if (isset($userIdForLocale) && $language != $currentLocale) {
+	    list ($ret) = $translator->init($currentLocale);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -249,7 +249,7 @@ class GalleryPendingUserHelper {
 	    $email = $admin->getEmail();
 	    if (!empty($email)) {
 		$toList[] = $email;
-		list ($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($admin->getId());
+		list ($ret, $language) = GalleryCoreApi::fetchLocaleForUser($admin->getId());
 		if ($ret) {
 		    return $ret;
 		}
@@ -258,23 +258,23 @@ class GalleryPendingUserHelper {
 	}
 
 	if (!empty($toList)) {
-	    list ($ret, $defaultLanguageCode) = $gallery->getActiveLanguageCode();
+	    list ($ret, $defaultLocale) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return $ret;
 	    }
-	    $currentLanguageCode = $defaultLanguageCode;
+	    $currentLocale = $defaultLocale;
 	    $translator =& $gallery->getTranslator();
 
 	    $decodedUserName = $pendingUser->getUserName();
 	    GalleryUtilities::unsanitizeInputValues($decodedUserName, false);
 	    foreach ($toList as $index => $to) {
 		/* Reinitialize translator with the preferred language of admin where needed */
-		if ($currentLanguageCode != $languageCodeList[$index]) {
-		    list ($ret, $currentLanguageCode) =
+		if ($currentLocale != $languageCodeList[$index]) {
+		    list ($ret, $currentLocale) =
 			$translator->init($languageCodeList[$index]);
 		    if ($ret) {
-			if ($defaultLanguageCode != $languageCodeList[$index]) {
-			    list ($ret2) = $translator->init($defaultLanguageCode);
+			if ($defaultLocale != $languageCodeList[$index]) {
+			    list ($ret2) = $translator->init($defaultLocale);
 			    if ($ret2) {
 				return $ret2;
 			    }
@@ -293,9 +293,9 @@ class GalleryPendingUserHelper {
 			$to,
 			$module->translate($params['adminsubject']));
 		if ($ret) {
-		    if ($defaultLanguageCode != $currentLanguageCode) {
-			list ($ret2, $currentLanguageCode) =
-			    $translator->init($defaultLanguageCode);
+		    if ($defaultLocale != $currentLocale) {
+			list ($ret2, $currentLocale) =
+			    $translator->init($defaultLocale);
 			if ($ret2) {
 			    return $ret2;
 			}
@@ -303,8 +303,8 @@ class GalleryPendingUserHelper {
 		    return $ret;
 		}
 	    }
-	    if ($defaultLanguageCode != $currentLanguageCode) {
-		list ($ret, $currentLanguageCode) = $translator->init($defaultLanguageCode);
+	    if ($defaultLocale != $currentLocale) {
+		list ($ret, $currentLocale) = $translator->init($defaultLocale);
 		if ($ret) {
 		    return $ret;
 		}

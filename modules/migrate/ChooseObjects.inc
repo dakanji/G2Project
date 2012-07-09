@@ -87,7 +87,7 @@ class ChooseObjectsView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	$defaultLanguage = GalleryTranslator::getLanguageCodeFromRequest();
+	$defaultLanguage = GalleryTranslator::getLocaleFromRequest();
 
 	$availableEncodings = array('af_ZA Afrikaans (ISO-8859-1)' => 'ISO-8859-1',
 				    'bg_BG &#x0411;&#x044a;&#x043b;&#x0433;&#x0430;&#x0440;' .

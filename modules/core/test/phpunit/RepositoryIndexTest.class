@@ -135,7 +135,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
     function testGetPluginName() {
 	global $gallery;
-	list ($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
+	list ($ret, $saveLanguage) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -161,7 +161,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	foreach ($testcases as $case) {
 	    if (!is_array($case)) {
-		$ret = $gallery->setActiveLanguageCode($case);
+		$ret = $gallery->setActiveLocale($case);
 		if ($ret) {
 		    return $ret;
 		}
@@ -176,7 +176,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    $this->assertEquals($case['expectedName'], $name, 'Unexpected name returned.');
 	}
 
-	$ret = $gallery->setActiveLanguageCode($saveLanguage);
+	$ret = $gallery->setActiveLocale($saveLanguage);
 	if ($ret) {
 	    return $ret;
 	}
@@ -591,7 +591,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	$this->_setUpRepositoryUtilitiesResponses($utilities);
 	$this->_index->_utilities =& $utilities;
 
-	$ret = $gallery->setActiveLanguageCode('en_GB');
+	$ret = $gallery->setActiveLocale('en_GB');
 	if ($ret) {
 	    return $ret;
 	}
@@ -631,7 +631,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	$this->_setUpRepositoryUtilitiesResponses($utilities);
 	$this->_index->_utilities =& $utilities;
 
-	$ret = $gallery->setActiveLanguageCode('en_GB');
+	$ret = $gallery->setActiveLocale('en_GB');
 	if ($ret) {
 	    return $ret;
 	}
@@ -676,7 +676,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	$this->_setUpRepositoryUtilitiesResponses($utilities, array('noTheme' => 1));
 	$this->_index->_utilities =& $utilities;
 
-	$ret = $gallery->setActiveLanguageCode('en_GB');
+	$ret = $gallery->setActiveLocale('en_GB');
 	if ($ret) {
 	    return $ret;
 	}
@@ -715,7 +715,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	$this->_setUpRepositoryUtilitiesResponses($utilities);
 	$this->_index->_utilities =& $utilities;
 
-	$ret = $gallery->setActiveLanguageCode('en_GB');
+	$ret = $gallery->setActiveLocale('en_GB');
 	if ($ret) {
 	    return $ret;
 	}

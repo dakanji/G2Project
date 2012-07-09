@@ -99,7 +99,7 @@ if (!empty($storageConfig)) {
 	unset($translator);
     } else {
 	if (empty($_SESSION['language'])) {
-	    $_SESSION['language'] = GalleryTranslator::getLanguageCodeFromRequest();
+	    $_SESSION['language'] = GalleryTranslator::getLocaleFromRequest();
 	}
 	$translator->init($_SESSION['language'], true);
 	/* Select domain for translation */

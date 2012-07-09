@@ -503,7 +503,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
 	    $user->setFullName($args['fullname']);
 	}
 	if (isset($args['language'])) {
-	    list ($languageCode) = GalleryTranslator::getSupportedLanguageCode($args['language']);
+	    list ($languageCode) = GalleryTranslator::getSupportedLocale($args['language']);
 	    $user->setLanguage($languageCode);
 	}
 	if (isset($args['creationtimestamp'])) {

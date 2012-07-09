@@ -112,7 +112,7 @@ class DownloadRegistryFileView extends GalleryView {
     function _getCharsetFromRequest() {
 	global $gallery;
 
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $languageCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    if ($gallery->getDebug()) {
 		$gallery->debug('publishxp.DownloadRegistryFile, failed to get the session ' .
@@ -121,18 +121,18 @@ class DownloadRegistryFileView extends GalleryView {
 	    $languageCode = '';
 	}
 
-	list ($ret, $defaultLanguageCode) =
+	list ($ret, $defaultLocale) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 	if ($ret) {
 	    if ($gallery->getDebug()) {
 		$gallery->debug('publishxp.DownloadRegistryFile, failed to get the default ' .
 				'language. Error: ' . $ret->getAsText());
 	    }
-	    $defaultLanguageCode = 'en_US';
+	    $defaultLocale = 'en_US';
 	}
-	$languageCode = empty($languageCode) ? $defaultLanguageCode : $languageCode;
+	$languageCode = empty($languageCode) ? $defaultLocale : $languageCode;
 
-	if ($languageCode == $defaultLanguageCode) {
+	if ($languageCode == $defaultLocale) {
 	    $httpAcceptLanguage = GalleryUtilities::getServerVar('HTTP_ACCEPT_LANGUAGE');
 	    if (!empty($httpAcceptLanguage)) {
 		$codes = explode(',', $httpAcceptLanguage);

@@ -47,7 +47,7 @@ class DownloadRegistryFileTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$gallery->setActiveLanguageCode('en_US');
+	$gallery->setActiveLocale('en_US');
 	if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 	    unset($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 	}
@@ -58,19 +58,19 @@ class DownloadRegistryFileTest extends GalleryTestCase {
     function testGetCharsetFromRequestDefault() {
 	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default');
 	
-	$this->_setActiveLanguageCode('en_US');
+	$this->_setActiveLocale('en_US');
 	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default 2');
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
 	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
 
-	$this->_setActiveLanguageCode('ru_RU');
+	$this->_setActiveLocale('ru_RU');
 	$this->assertEquals('CP1251', $this->view->_getCharsetFromRequest(),
 			    'session override');
     }
 
     function testGetCharsetFromRequestComparesToSiteDefaultLocale() {
-	/* Ensure it uses the plugin param and not getDefaultLanguageCode() */
+	/* Ensure it uses the plugin param and not getDefaultLocale() */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'language.useBrowserPref', '1');
 	if ($ret) {
 	    return $ret;
@@ -96,9 +96,9 @@ class DownloadRegistryFileTest extends GalleryTestCase {
 	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
     }
 
-    function _setActiveLanguageCode($languageCode) {
+    function _setActiveLocale($languageCode) {
 	global $gallery;
-	$ret = $gallery->setActiveLanguageCode($languageCode);
+	$ret = $gallery->setActiveLocale($languageCode);
 	if ($ret) {
 	    return $ret;    
 	}

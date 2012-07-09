@@ -348,7 +348,7 @@ class NotificationEventHandlingTest extends GalleryTestCase {
 
 	$translator =& $gallery->getTranslator();
 
-	list ($ret, $defaultLanguageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $defaultLocale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -369,12 +369,12 @@ class NotificationEventHandlingTest extends GalleryTestCase {
 
 	    $recipients[] = $user->getEmail();
 
-	    list ($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($user->getId());
+	    list ($ret, $language) = GalleryCoreApi::fetchLocaleForUser($user->getId());
 	    if ($ret) {
 		return $ret;
 	    }
 
-	    list ($ret, $currentLanguageCode) = $translator->init($language);
+	    list ($ret, $currentLocale) = $translator->init($language);
 
 	    $subjects[] = 'NotificationRouterTest1 Description';
 
@@ -383,7 +383,7 @@ class NotificationEventHandlingTest extends GalleryTestCase {
 		"\r\n\r\n" . $unsubscribeUrl;
 	}
 
-	list ($ret) = $translator->init($defaultLanguageCode);
+	list ($ret) = $translator->init($defaultLocale);
 	if ($ret) {
 	    return $ret;
 	}

@@ -78,7 +78,7 @@ class RatingHelperTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_session = $this->_origSession;
 
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $languageCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	} else {

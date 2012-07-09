@@ -112,7 +112,7 @@ class RewriteSimpleHelper {
 	$urlGenerator =& $gallery->getUrlGenerator();
 
 	if (empty($urlGenerator->_language)) {
-	    list ($ret, $activeLanguage) = $gallery->getActiveLanguageCode();
+	    list ($ret, $activeLanguage) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return false;
 	    }
@@ -120,9 +120,9 @@ class RewriteSimpleHelper {
 	    $language = explode('_', $activeLanguage);
 
 	    if (isset($language[0]) && isset($language[1])) {
-		list ($defaultLanguageCode, $null) =
-		    GalleryTranslator::getSupportedLanguageCode($language[0], false);
-		if ($defaultLanguageCode == $activeLanguage) {
+		list ($defaultLocale, $null) =
+		    GalleryTranslator::getSupportedLocale($language[0], false);
+		if ($defaultLocale == $activeLanguage) {
 		    unset($language[1]);
 		}
 	    }

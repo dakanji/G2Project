@@ -109,7 +109,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
 			    $results);
 
-	$gallery->setActiveLanguageCode('en_US');
+	$gallery->setActiveLocale('en_US');
 	list ($ret, $album) = $this->_subAlbum->refresh();
 	if ($ret) {
 	    return $ret;
@@ -118,7 +118,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 	$this->assertEquals('summary', $album->getSummary());
 	$this->assertEquals('description', $album->getDescription());
 
-	$gallery->setActiveLanguageCode('zh_CN');
+	$gallery->setActiveLocale('zh_CN');
 	list ($ret, $album) = $this->_subAlbum->refresh();
 	if ($ret) {
 	    return $ret;
@@ -175,7 +175,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
 			    $results);
 
-	$gallery->setActiveLanguageCode('de_DE');
+	$gallery->setActiveLocale('de_DE');
 	list ($ret, $album) = $this->_album->refresh();
 	if ($ret) {
 	    return $ret;

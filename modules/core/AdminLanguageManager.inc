@@ -253,7 +253,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	    } else if (isset($languageData[$language])) {
 		foreach(array_keys($languageData[$language]) as $country) {
 		    list ($ret, $locale) = 
-			$translator->getLanguageCodeFromLocale($language . '_' . $country);
+			$translator->getLocaleFromLocale($language . '_' . $country);
 		    if ($ret) {
 			return array($ret, null, null);
 		    }
@@ -505,7 +505,7 @@ class AdminLanguageManagerView extends GalleryView {
 		foreach ($upgradeInfo['languages'] as $code => $pack) {
 		    $gallery->guaranteeTimeLimit(60);
 		    list ($ret, $language, $country) = 
-			$translator->getLanguageAndCountryFromLanguageCode($code);
+			$translator->getLanguageAndCountryFromLocale($code);
 		    if ($ret) {
 			return array($ret, null);
 		    }

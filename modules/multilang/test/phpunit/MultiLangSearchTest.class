@@ -120,7 +120,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$gallery->setActiveLanguageCode($defaultLanguage);
+	$gallery->setActiveLocale($defaultLanguage);
 
 	list ($ret, $info) = $this->_search->getSearchModuleInfo();
 	if ($ret) {
@@ -141,7 +141,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	$gallery->setActiveLanguageCode($defaultLanguage == 'de_DE' ? 'fr_FR' : 'de_DE');
+	$gallery->setActiveLocale($defaultLanguage == 'de_DE' ? 'fr_FR' : 'de_DE');
 
 	list ($ret, $info) = $this->_search->getSearchModuleInfo();
 	if ($ret) {
@@ -172,7 +172,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 
     function testSearchAll() {
 	global $gallery;
-	$gallery->setActiveLanguageCode('zq_RX');
+	$gallery->setActiveLocale('zq_RX');
 
 	list ($ret, $results) =
 	    $this->_search->search(array('title' => 1), 't' . $this->_randomKey);
@@ -206,7 +206,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 
     function testLimitedSearch() {
 	global $gallery;
-	$gallery->setActiveLanguageCode('zq_RX');
+	$gallery->setActiveLocale('zq_RX');
 
 	list ($ret, $results) =
 	    $this->_search->search(array('title' => 1), $this->_randomKey, 1, 2);
@@ -233,7 +233,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 
     function testEmptySearch() {
 	global $gallery;
-	$gallery->setActiveLanguageCode('zq_RX');
+	$gallery->setActiveLocale('zq_RX');
 
 	/*
 	 * Test album has 't' . _randomKey in summary field for default language and zq_WX.

@@ -105,7 +105,7 @@ class GalleryTranslatorHelper_medium {
 
 	if (!isset($locale)) {
 	    $translator =& $gallery->getTranslator();
-	    $locale = $translator->getActiveLanguageCode();
+	    $locale = $translator->getActiveLocale();
 	}
 	if (empty($locale) || $locale == 'en_US') {
 	    /* Nothing to do */
@@ -146,9 +146,9 @@ class GalleryTranslatorHelper_medium {
     function getLanguageDescription($languageCode) {
 	$cacheKey = "GalleryTranslator::LanguageDescription::$languageCode";
 	if (!GalleryDataCache::containsKey($cacheKey)) {
-	    list ($newLanguageCode, $languageData) =
-		GalleryTranslator::getSupportedLanguageCode($languageCode, false);
-		if (!$newLanguageCode) {
+	    list ($newLocale, $languageData) =
+		GalleryTranslator::getSupportedLocale($languageCode, false);
+		if (!$newLocale) {
 		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					       "Invalid language code specified [$languageCode]"),
 				 null);

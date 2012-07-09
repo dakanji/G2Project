@@ -43,7 +43,7 @@ class AlbumSelectCallbacks {
 	    }
 
 	    /* Try to load it from the cache */
-	    list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	    list ($ret, $languageCode) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return $ret;
 	    }

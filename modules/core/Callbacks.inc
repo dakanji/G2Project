@@ -43,7 +43,7 @@ class CoreCallbacks {
 		}
 	    }
 
-	    list ($ret, $language) = $gallery->getActiveLanguageCode();
+	    list ($ret, $language) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return $ret;
 	    }

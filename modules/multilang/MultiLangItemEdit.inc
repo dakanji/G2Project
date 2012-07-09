@@ -131,7 +131,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 
 	$selectedLanguage = $session->get('multilang.language');
 	if (empty($selectedLanguage)) {
-	    list ($ret, $selectedLanguage) = $gallery->getActiveLanguageCode();
+	    list ($ret, $selectedLanguage) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

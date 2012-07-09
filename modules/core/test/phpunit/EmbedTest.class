@@ -290,8 +290,8 @@ class EmbedTest extends GalleryTestCase {
 
 	$gallery->setActiveUser($users[0]);
 	$session->put('embed.id.externalUser', $activeUserIds[0]);
-	$activeLanguageCode[0] = 'some language code';
-	$session->put('core.language', $activeLanguageCode[0]);
+	$activeLocale[0] = 'some language code';
+	$session->put('core.language', $activeLocale[0]);
 
 	/* Call the function under test */
 	$sessionId = $session->getId();
@@ -303,7 +303,7 @@ class EmbedTest extends GalleryTestCase {
 			    'session user id has changed');
 	$this->assertEquals($activeUserIds[0], $session->get('embed.id.externalUser'),
 			    'embed.id.externalUser has changed');
-	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+	$this->assertEquals($activeLocale[0], $session->get('core.language'),
 			    'core.language has changed');
 	$this->assertEquals($sessionId, $session->getId(),
 			    'session id should not have changed');
@@ -324,8 +324,8 @@ class EmbedTest extends GalleryTestCase {
 
 	$gallery->setActiveUser($users[0]);
 	$session->put('embed.id.externalUser', $activeUserIds[0]);
-	$activeLanguageCode[0] = 'some language code';
-	$session->put('core.language', $activeLanguageCode[0]);
+	$activeLocale[0] = 'some language code';
+	$session->put('core.language', $activeLocale[0]);
 
 	/* Call the function under test */
 	$sessionId = $session->getId();
@@ -338,7 +338,7 @@ class EmbedTest extends GalleryTestCase {
 			    'session user id has not changed');
 	$this->assertEquals($activeUserIds[1], $session->get('embed.id.externalUser'),
 			    'embed.id.externalUser has not changed');
-	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+	$this->assertEquals($activeLocale[0], $session->get('core.language'),
 			    'core.language should not have changed');
 	$this->assert($sessionId != $session->getId(),
 		      'session id did not change with new user');
@@ -359,8 +359,8 @@ class EmbedTest extends GalleryTestCase {
 
 	$gallery->setActiveUser($users[0]);
 	$session->put('embed.id.externalUser', $activeUserIds[0]);
-	$activeLanguageCode[0] = 'some language code';
-	$session->put('core.language', $activeLanguageCode[0]);
+	$activeLocale[0] = 'some language code';
+	$session->put('core.language', $activeLocale[0]);
 
 	$sessionId = $session->getId();
 	$ret = GalleryEmbed::checkActiveUser('');
@@ -371,7 +371,7 @@ class EmbedTest extends GalleryTestCase {
 			    'session user id should be null after logout');
 	$this->assertEquals('', $session->get('embed.id.externalUser'),
 			    'embed.id.externalUser should be \'\' after logout');
-	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+	$this->assertEquals($activeLocale[0], $session->get('core.language'),
 			    'core.language should not have changed (guest)');
 	$this->assert($sessionId != $session->getId(), 'session id should have changed');
 	$this->assertEventFired('Gallery::Logout', $users[0]);
@@ -390,8 +390,8 @@ class EmbedTest extends GalleryTestCase {
 	$this->_becomeGuestUser();
 
 	$session->put('embed.id.externalUser', '');
-	$activeLanguageCode = 'some language code';
-	$session->put('core.language', $activeLanguageCode);
+	$activeLocale = 'some language code';
+	$session->put('core.language', $activeLocale);
 
 	/* Also test resuming a guest session. */
 	$sessionId = $session->getId();
@@ -403,7 +403,7 @@ class EmbedTest extends GalleryTestCase {
 			    'session user id should be the guest id after logout');
 	$this->assertEquals('', $session->get('embed.id.externalUser'),
 			    'embed.id.externalUser should still be empty');
-	$this->assertEquals($activeLanguageCode, $session->get('core.language'),
+	$this->assertEquals($activeLocale, $session->get('core.language'),
 			    'core.language should not have changed (guest)');
 	$this->assertEquals($sessionId, $session->getId(),
 			    'session id should not have changed');
@@ -424,8 +424,8 @@ class EmbedTest extends GalleryTestCase {
 	$this->_becomeGuestUser();
 
 	$session->put('embed.id.externalUser', '');
-	$activeLanguageCode = 'some language code';
-	$session->put('core.language', $activeLanguageCode);
+	$activeLocale = 'some language code';
+	$session->put('core.language', $activeLocale);
 
 	/* And login again */
 	$sessionId = $session->getId();
@@ -437,7 +437,7 @@ class EmbedTest extends GalleryTestCase {
 			    'session user id after login');
 	$this->assertEquals($activeUserIds[0], $session->get('embed.id.externalUser'),
 			    'embed.id.externalUser should be \'\' after logout');
-	$this->assertEquals($activeLanguageCode, $session->get('core.language'),
+	$this->assertEquals($activeLocale, $session->get('core.language'),
 			    'core.language should not have changed (login)');
 	/*
 	 * The session id should change with the new login, but this is handled by the Login

@@ -1296,11 +1296,11 @@ class SessionTest extends GalleryTestCase {
 	    return $ret;
 	}
 	$session->setUserId($this->_anonymousUserId);
-	list ($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+	list ($ret, $detectedLocale) = GalleryTranslator::getDefaultLocale();
 	if ($ret) {
 	    return $ret;
 	}
-	$session->put('core.language', $detectedLanguageCode);
+	$session->put('core.language', $detectedLocale);
 	$ret = $session->start();
 	if ($ret) {
 	    return $ret;
@@ -1310,7 +1310,7 @@ class SessionTest extends GalleryTestCase {
 			    'user id before regenerate');
 	$this->assert(!$session->isPersistent(), 'is not persistent before regenerate');
 	$this->assert(empty($session->_sessionId), 'session id should be empty before test');
-	$this->assertEquals($detectedLanguageCode, $session->get('core.language'),
+	$this->assertEquals($detectedLocale, $session->get('core.language'),
 			    'language before regenerate');
 
 	/* Regenerate the session */
@@ -1320,7 +1320,7 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	/* Verify that the test data is still set and that we got no persistent session */
-	$this->assertEquals($detectedLanguageCode, $session->get('core.language'),
+	$this->assertEquals($detectedLocale, $session->get('core.language'),
 			    'language after test');
 	$this->assert(empty($session->_sessionId), 'session id after test');
 	$this->assert(!$session->isPersistent(), 'is not persistent after regenerate');
@@ -1338,11 +1338,11 @@ class SessionTest extends GalleryTestCase {
 	    return $ret;
 	}
 	$session->setUserId($this->_anonymousUserId);
-	list ($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+	list ($ret, $detectedLocale) = GalleryTranslator::getDefaultLocale();
 	if ($ret) {
 	    return $ret;
 	}
-	$session->put('core.language', $detectedLanguageCode);
+	$session->put('core.language', $detectedLocale);
 	$ret = $session->start();
 	if ($ret) {
 	    return $ret;
@@ -1352,7 +1352,7 @@ class SessionTest extends GalleryTestCase {
 			    'user id before regenerate');
 	$this->assert(!$session->isPersistent(), 'is not persistent before regenerate');
 	$this->assert(empty($session->_sessionId), 'session id should be empty before test');
-	$this->assertEquals($detectedLanguageCode, $session->get('core.language'),
+	$this->assertEquals($detectedLocale, $session->get('core.language'),
 			    'language before regenerate');
 
 	/* Log in */
@@ -1365,7 +1365,7 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	/* Verify that the test values are still set, and that we got a persistent session now */
-	$this->assertEquals($detectedLanguageCode, $session->get('core.language'),
+	$this->assertEquals($detectedLocale, $session->get('core.language'),
 			    'language after test');
 	$this->assert(!empty($session->_sessionId), 'session id after test');
 	$this->assert($session->isPersistent(), 'is persistent after regenerate');
@@ -1889,11 +1889,11 @@ class SessionTest extends GalleryTestCase {
 	$session->put('embed.id.externalUser', 6);
 	$session->put('core.authToken', '1234567890AB');
 	$session->put('secure', true);
-	list ($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+	list ($ret, $detectedLocale) = GalleryTranslator::getDefaultLocale();
 	if ($ret) {
 	    return $ret;
 	}
-	$session->put('core.language', $detectedLanguageCode);
+	$session->put('core.language', $detectedLocale);
 	list ($ret, $required) = $session->_isPersistentSessionRequired();
 	if ($ret) {
 	    return $ret;
@@ -1909,7 +1909,7 @@ class SessionTest extends GalleryTestCase {
 	$this->assertEquals(true, $required, 'anonymous user with non-default language');
 
 	/* Anonymous user with additional data */
-	$session->put('core.language', $detectedLanguageCode);
+	$session->put('core.language', $detectedLocale);
 	$session->put('foo', 'bar');
 	list ($ret, $required) = $session->_isPersistentSessionRequired();
 	if ($ret) {

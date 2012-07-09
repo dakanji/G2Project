@@ -57,7 +57,7 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 	    if (!GalleryUtilities::isValidEmailString($user->getEmail())) {
 		continue;
 	    }
-	    list ($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($user->getId());
+	    list ($ret, $language) = GalleryCoreApi::fetchLocaleForUser($user->getId());
 	    if ($ret) {
 		return $ret;
 	    }
@@ -71,7 +71,7 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 
 	$translator =& $gallery->getTranslator();
 
-	list ($ret, $defaultLanguageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $defaultLocale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -82,9 +82,9 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 	}
 
 	foreach ($emails as $languageCode => $recipients) {
-	    list ($ret, $currentLanguageCode) = $translator->init($languageCode);
+	    list ($ret, $currentLocale) = $translator->init($languageCode);
 	    if ($ret) {
-		list ($ret2) = $translator->init($defaultLanguageCode);
+		list ($ret2) = $translator->init($defaultLocale);
 		if ($ret2) {
 		    return $ret2;
 		}
@@ -101,7 +101,7 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 
 	    list ($ret, $body) = $notification->getNotificationMessage();
 	    if ($ret) {
-		list ($ret2) = $translator->init($defaultLanguageCode);
+		list ($ret2) = $translator->init($defaultLocale);
 		if ($ret2) {
 		    return $ret2;
 		}
@@ -121,7 +121,7 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 			      'unsubscribeUrl' => $unsubscribeUrl),
 			null, $to, $subject);
 	    if ($ret) {
-		list ($ret2) = $translator->init($defaultLanguageCode);
+		list ($ret2) = $translator->init($defaultLocale);
 		if ($ret2) {
 		    return $ret2;
 		}
@@ -129,7 +129,7 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 	    }
 	}
 
-	list ($ret, $currentLanguageCode) = $translator->init($defaultLanguageCode);
+	list ($ret, $currentLocale) = $translator->init($defaultLocale);
 	if ($ret) {
 	    return $ret;
 	}

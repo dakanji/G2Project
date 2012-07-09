@@ -153,9 +153,9 @@ function GalleryInitFirstPass($params=array()) {
     $language = GalleryUtilities::getRequestVariables('language');
     if (isset($params['activeLanguage']) || !empty($language)) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
-	list ($language) = GalleryTranslator::getSupportedLanguageCode(
+	list ($language) = GalleryTranslator::getSupportedLocale(
 	    empty($language) ? $params['activeLanguage'] : $language);
-	$gallery->setActiveLanguageCode($language);
+	$gallery->setActiveLocale($language);
     }
     $ret = $gallery->initTranslator(isset($params['noDatabase']));
     if ($ret) {

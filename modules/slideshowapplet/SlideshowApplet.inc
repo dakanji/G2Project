@@ -100,7 +100,7 @@ class SlideshowAppletView extends GalleryView {
 	    $SlideshowApplet['galleryVersion'] = 2;
 	    $SlideshowApplet['code'] = 'com.gallery.GalleryRemote.GRAppletSlideshow';
 
-	    list ($ret, $locale) = $gallery->getActiveLanguageCode();
+	    list ($ret, $locale) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return array($ret, null);
 	    }

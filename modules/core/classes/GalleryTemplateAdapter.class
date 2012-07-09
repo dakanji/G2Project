@@ -1021,7 +1021,7 @@ class GalleryTemplateAdapter {
      */
     function language($params) {
 	global $gallery;
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $languageCode) = $gallery->getActiveLocale();
 	if ($ret || empty($languageCode)) {
 	    return '';
 	}

@@ -44,12 +44,12 @@ class LanguageTest extends GalleryControllerTestCase {
 	}
     }
 
-    function testGetActiveLanguageCode() {
+    function testGetActiveLocale() {
 	global $gallery;
 	$session =& $gallery->getSession();
 	$session->remove('core.language');
 
-	list ($ret, $language) = $gallery->getActiveLanguageCode();
+	list ($ret, $language) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -60,15 +60,15 @@ class LanguageTest extends GalleryControllerTestCase {
 	$user->setLanguage('test_language');
 	$gallery->setActiveUser($user);
 
-	list ($ret, $language) = $gallery->getActiveLanguageCode();
+	list ($ret, $language) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
 	$this->assertEquals('test_language', $language, 'user language');
 
-	$gallery->setActiveLanguageCode('sess_language');
+	$gallery->setActiveLocale('sess_language');
 
-	list ($ret, $language) = $gallery->getActiveLanguageCode();
+	list ($ret, $language) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -85,7 +85,7 @@ class LanguageTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $language) = $gallery->getActiveLanguageCode();
+	list ($ret, $language) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}

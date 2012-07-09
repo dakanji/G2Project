@@ -34,7 +34,7 @@ class ChangeLanguageController extends GalleryController {
 	global $gallery;
 
 	$language = GalleryUtilities::getRequestVariables('language');
-	$ret = $gallery->setActiveLanguageCode($language);
+	$ret = $gallery->setActiveLocale($language);
 	if ($ret) {
 	    return array($ret, null);
 	}

@@ -56,12 +56,12 @@ class CallbacksTest extends GalleryTestCase {
 	    $countryData['description'],
 	    $LanguageSelector['list'][$language . '_' . $country]);
 
-	list ($ret, $activeLanguageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $activeLocale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
 
-	$this->assertEquals($activeLanguageCode, $LanguageSelector['language']);
+	$this->assertEquals($activeLocale, $LanguageSelector['language']);
     }
 
     function testShouldShowEmergencyEditItemLink1() {

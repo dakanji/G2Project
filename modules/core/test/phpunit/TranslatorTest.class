@@ -40,7 +40,7 @@ class TranslatorTest extends GalleryTestCase {
 	   return $ret;
 	}
 
-	list ($ret, $this->_languageCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $this->_languageCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -66,7 +66,7 @@ class TranslatorTest extends GalleryTestCase {
 
     function tearDown() {
 	global $gallery;
-	$ret = $gallery->setActiveLanguageCode($this->_languageCode);
+	$ret = $gallery->setActiveLocale($this->_languageCode);
 	if ($ret) {
 	    return $ret;
 	}
@@ -81,7 +81,7 @@ class TranslatorTest extends GalleryTestCase {
 	}
     }
 
-    function testGetLanguageCodeFromRequest() {
+    function testGetLocaleFromRequest() {
 	global $gallery;
 	$origLang = getenv('LANG');
 
@@ -125,11 +125,11 @@ class TranslatorTest extends GalleryTestCase {
 
 	/* Invalid accept language/country, fall back to default */
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'xx_YY';
-	$this->assertEquals(null, $translator->getLanguageCodeFromRequest(), 'invalid locale');
+	$this->assertEquals(null, $translator->getLocaleFromRequest(), 'invalid locale');
 
 	/* Invalid,valid accept language */
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'xx,no';
-	$this->assertEquals('no_NO', $translator->getLanguageCodeFromRequest(),
+	$this->assertEquals('no_NO', $translator->getLocaleFromRequest(),
 			    'invalid, valid language');
 
 	/* Init with a real language code, thus browser pref has no meaning */
@@ -143,8 +143,8 @@ class TranslatorTest extends GalleryTestCase {
 	}
     }
 
-    /* Use the Gallery::initTranslator method and make sure the activeLanguageCode has changed  */
-    function testGetLanguageCodeFromRequest2() {
+    /* Use the Gallery::initTranslator method and make sure the activeLocale has changed  */
+    function testGetLocaleFromRequest2() {
 	global $gallery;
 	$origLang = getenv('LANG');
 
@@ -181,8 +181,8 @@ class TranslatorTest extends GalleryTestCase {
 	} else {
 	    $this->assertEquals($origLang, getenv('LANG'), 'null init, lang unchanged');
 	}
-	/* Verify that the activeLanguageCode was changed */
-	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	/* Verify that the activeLocale was changed */
+	list ($ret, $langCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -191,7 +191,7 @@ class TranslatorTest extends GalleryTestCase {
 
     /*
      * The translator should init to the site-wide default language if session/request defines no
-     * preference.  Also check GalleryTranslator::getActiveLanguageCode.
+     * preference.  Also check GalleryTranslator::getActiveLocale.
      */
     function testInitToDefaultLanguage() {
 	global $gallery;
@@ -204,13 +204,13 @@ class TranslatorTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $langCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
 	$this->assertEquals('fr_FR', $langCode, 'from $gallery');
 	$translator =& $gallery->getTranslator();
-	$this->assertEquals('fr_FR', $translator->getActiveLanguageCode(), 'from $translator');
+	$this->assertEquals('fr_FR', $translator->getActiveLocale(), 'from $translator');
     }
 
     /* If we init without database support, fallback to en_US */
@@ -225,7 +225,7 @@ class TranslatorTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $langCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -237,7 +237,7 @@ class TranslatorTest extends GalleryTestCase {
 	global $gallery;
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-	$ret = $gallery->setActiveLanguageCode('fr_FR');
+	$ret = $gallery->setActiveLocale('fr_FR');
 	if ($ret) {
 	    return $ret;
 	}
@@ -247,7 +247,7 @@ class TranslatorTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $langCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -258,7 +258,7 @@ class TranslatorTest extends GalleryTestCase {
 	global $gallery;
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-	$ret = $gallery->setActiveLanguageCode('fr_FR');
+	$ret = $gallery->setActiveLocale('fr_FR');
 	if ($ret) {
 	    return $ret;
 	}
@@ -268,7 +268,7 @@ class TranslatorTest extends GalleryTestCase {
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	list ($ret, $langCode) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -578,7 +578,7 @@ class TranslatorTest extends GalleryTestCase {
 
 	$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 	$codeBase = GalleryCoreApi::getCodeBasePath();
-	$locale = $translator->getActiveLanguageCode();
+	$locale = $translator->getActiveLocale();
 	if ($locale != 'en_US') {
 	    $language = substr($locale, 0, 2);
 	    $platform->setReply('glob', array("${codeBase}modules/*/po", null),
@@ -613,34 +613,34 @@ class TranslatorTest extends GalleryTestCase {
 	$this->assert($platform->isComplete(), $platform->getRemaining());
     }
 
-    function testGetLanguageCodeFromLocale() {
+    function testGetLocaleFromLocale() {
 	global $gallery;
 	$translator =& $gallery->getTranslator();
 
-	$this->assertEquals(array(null, 'en'), $translator->getLanguageCodeFromLocale('en_US'), 
+	$this->assertEquals(array(null, 'en'), $translator->getLocaleFromLocale('en_US'), 
 	    'en_US');
-	$this->assertEquals(array(null, 'en_GB'), $translator->getLanguageCodeFromLocale('en_GB'), 
+	$this->assertEquals(array(null, 'en_GB'), $translator->getLocaleFromLocale('en_GB'), 
 	    'en_GB');
     }
 
-    function testGetLanguageCodeFromLocaleChinese() {
+    function testGetLocaleFromLocaleChinese() {
 	global $gallery;
 	$translator =& $gallery->getTranslator();
 
-	$this->assertEquals(array(null, 'zh_CN'), $translator->getLanguageCodeFromLocale('zh_CN'), 
+	$this->assertEquals(array(null, 'zh_CN'), $translator->getLocaleFromLocale('zh_CN'), 
 	    'zh_CN');
-	$this->assertEquals(array(null, 'zh_TW'), $translator->getLanguageCodeFromLocale('zh_TW'), 
+	$this->assertEquals(array(null, 'zh_TW'), $translator->getLocaleFromLocale('zh_TW'), 
 	    'zh_TW');
     }
 
-    function testGetLanguageAndCountryFromLanguageCode() {
+    function testGetLanguageAndCountryFromLocale() {
 	global $gallery;
 	$translator =& $gallery->getTranslator();
 
 	$this->assertEquals(array(null, 'en', 'US'), 
-	    $translator->getLanguageAndCountryFromLanguageCode('en'), 'en_US');
+	    $translator->getLanguageAndCountryFromLocale('en'), 'en_US');
 	$this->assertEquals(array(null, 'en', 'GB'), 
-	    $translator->getLanguageAndCountryFromLanguageCode('en_GB'), 'en_GB');
+	    $translator->getLanguageAndCountryFromLocale('en_GB'), 'en_GB');
     }
 }
 ?>

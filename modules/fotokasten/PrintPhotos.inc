@@ -214,7 +214,7 @@ class PrintPhotosController extends GalleryController {
 
 	/* add language parameter */
 	if (strpos($referer, '?') && !strpos($referer, 'language=')) {
-	    list ($ret, $language) = $gallery->getActiveLanguageCode();
+	    list ($ret, $language) = $gallery->getActiveLocale();
 	    if (!$ret && !empty($language)) {
 		$referer .= '&language=' . substr($language, 0, 2);
 	    }

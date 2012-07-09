@@ -69,7 +69,7 @@ class ItemDeleteJsView extends GalleryView {
 		 */
 		global $gallery;
 		$platform =& $gallery->getPlatform();
-		list ($ret, $lang) = $gallery->getActiveLanguageCode();
+		list ($ret, $lang) = $gallery->getActiveLocale();
 		if ($ret) {
 		    return $ret;
 		}

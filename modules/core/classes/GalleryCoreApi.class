@@ -1836,9 +1836,9 @@ class GalleryCoreApi {
      * @return array GalleryStatus a status code
      *               string code of preferred locale
      */
-    function fetchLanguageCodeForUser($userId) {
+    function fetchLocaleForUser($userId) {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
-	return GalleryUserHelper_medium::fetchLanguageCodeForUser($userId);
+	return GalleryUserHelper_medium::fetchLocaleForUser($userId);
     }
 
     /**

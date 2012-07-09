@@ -154,9 +154,9 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryCoreApi::fetchLanguageCodeForUser
+     * @see GalleryCoreApi::fetchLocaleForUser
      */
-    function fetchLanguageCodeForUser($userId) {
+    function fetchLocaleForUser($userId) {
 	global $gallery;
 
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');

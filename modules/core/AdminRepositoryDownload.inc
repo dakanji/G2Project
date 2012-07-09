@@ -85,7 +85,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 		    foreach (array_keys($pluginPackages) as $packageName) {
 			if (preg_match('/^lang-(\w+)$/', $packageName, $matches)) {
 			    list ($ret, $language, $country) =
-				$translator->getLanguageAndCountryFromLanguageCode($matches[1]);
+				$translator->getLanguageAndCountryFromLocale($matches[1]);
 			    if (!empty($supportedLanguages[$language][$country])) {
 				$installPackages[$baseSource][$pluginType][$pluginId][$packageName]
 				     = 1;
@@ -204,7 +204,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 		    $condensedData[$langCode] = $languageData;
 	    	} else {
 		    list ($ret, $language) = 
-			$translator->getLanguageAndCountryFromLanguageCode($langCode);
+			$translator->getLanguageAndCountryFromLocale($langCode);
 		    if ($ret) {
 			return array($ret, null);
 		    }
