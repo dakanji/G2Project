@@ -625,8 +625,6 @@ class DatabaseSetupStep extends InstallStep {
 	    /* Platform level requested, platform level not already loaded */
 	    $initiated = $platformLevel;
 	    require_once(dirname(__FILE__) . '/../../modules/core/classes/GalleryCoreApi.class');
-	    require_once(dirname(__FILE__) .
-			 '/../../modules/core/classes/GalleryCapabilities.class');
 	    require_once(dirname(__FILE__) . '/../../modules/core/classes/GalleryPlatform.class');
 	    $gallery->setPlatform(new GalleryPlatform());
 	    /* Configure G2 such that getInstalledVersions() can be called */
