@@ -24,7 +24,6 @@
     /* IE can't inherit these */
     border-style: expression(parentElement.currentStyle.borderStyle);
     border-color: expression(parentElement.currentStyle.borderColor);
-	font-size: 10px;
 }
 
 .gbBlock ul {
@@ -120,7 +119,6 @@ body.gallery {
     border-right-width: 1px;
     width: 175px;
     overflow: hidden;
-	font-size: 10px;
 }
 #gsSidebarCol {
     width: 1%; /* Expand to fit content ("0" bad4 firefox, "1px" bad4 opera) */
@@ -170,6 +168,7 @@ td.giAlbumCell table, td.giItemCell table {
 
 #gallery {
     font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 62.5%;
     color: #333;
     background-color: #fff;
 }
@@ -178,11 +177,11 @@ body.gallery {
 }
 
 .gcBackground1 {
-    background-color: #f4f4f4;
+    background-color: #eee;
 }
 
 .gcBackground2 {
-    background-color: #eee;
+    background-color: #e7e7e7;
 }
 
 .gcBorder1 {
@@ -283,7 +282,7 @@ body.gallery {
 }
 
 #gsNavBar div.gbBreadCrumb {
-    font-size: 10px;
+    font-size: 1.1em;
     font-weight: bold;
 }
 
@@ -573,7 +572,6 @@ span.block-core-SystemLink {
 
 div.block-exif-ExifInfo {
   margin: 5px;
-  font-size: 8px;
 }
 
 span.bsw_ButtonDisabled {
@@ -619,3 +617,111 @@ td.bsw_BlockCommands {
 #gsThumbMatrix .giRatingAverageContainer {
     margin: auto;
 }
+
+#width10 {
+	width: 10%;
+}
+
+#width15 {
+	width: 15%;
+}
+
+#width20 {
+	width: 20%;
+}
+
+#width25 {
+	width: 25%;
+}
+
+#width30 {
+	width: 30%;
+}
+
+#width35 {
+	width: 35%;
+}
+
+#width40 {
+	width: 40%;
+}
+
+#width45 {
+	width: 45%;
+}
+
+#width50 {
+	width: 50%;
+}
+
+#width55 {
+	width: 55%;
+}
+
+#width60 {
+	width: 60%;
+}
+
+#width65 {
+	width: 65%;
+}
+
+#width70 {
+	width: 70%;
+}
+
+#width75 {
+	width: 75%;
+}
+
+#width80 {
+	width: 80%;
+}
+
+#width85 {
+	width: 85%;
+}
+
+#width90 {
+	width: 90%;
+}
+
+#width95 {
+	width: 95%;
+}
+
+#width100 {
+	width: 100%;
+}
+
+#cellS_P0 {
+	cellspacing: 0px;
+	cellpadding: 0px;
+}
+
+#valignTop {
+	valign: top;
+}
+
+#progressMemoryInfo {
+	position: absolute;
+	top: 0px;
+	right: 15px;
+}
+
+#hidden {
+	display: none
+}
+
+#titledivstart {
+	background-color: #ccddff;
+	color: #4466cc;
+	text-align: center;
+	font-size: 1.3em;
+}
+
+#titlediv {
+	color: #222;
+	font-size: 1.3em;
+}
+
