@@ -565,7 +565,7 @@ class GalleryTranslator {
      * @return array GalleryStatus a status code
      * 		     string language code (i.e. en, en_GB, etc.)
      */
-    function getLocaleFromLocale($locale) {
+    function getLocaleFromCode($locale) {
 	list ($language, $country) = explode('_', $locale . '_' );
 	/* Don't apply default to Chinese for political correctness */
 	if ($language == 'zh') {
