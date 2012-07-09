@@ -253,7 +253,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	    } else if (isset($languageData[$language])) {
 		foreach(array_keys($languageData[$language]) as $country) {
 		    list ($ret, $locale) = 
-			$translator->getLocaleFromCode($language . '_' . $country);
+			$translator->getLocaleFromId($language . '_' . $country);
 		    if ($ret) {
 			return array($ret, null, null);
 		    }
