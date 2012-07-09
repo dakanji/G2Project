@@ -62,19 +62,6 @@ class ArchiveUploadModule extends GalleryModule {
 		}
 	    }
 	}
-	
-	switch ($currentVersion) {
-	case '1.0.10':
-	case '4.0.0.0':
-
-	case 'end of upgrade path':
-	    break;
-
-	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
-					 sprintf('Unknown module version %s', $currentVersion));
-	}
-	
 
 	return null;
     }
