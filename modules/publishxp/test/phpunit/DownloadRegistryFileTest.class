@@ -96,9 +96,9 @@ class DownloadRegistryFileTest extends GalleryTestCase {
 	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
     }
 
-    function _setActiveLocale($languageCode) {
+    function _setActiveLocale($locale) {
 	global $gallery;
-	$ret = $gallery->setActiveLocale($languageCode);
+	$ret = $gallery->setActiveLocale($locale);
 	if ($ret) {
 	    return $ret;    
 	}

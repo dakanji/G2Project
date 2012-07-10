@@ -78,13 +78,13 @@ class RatingHelperTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_session = $this->_origSession;
 
-	list ($ret, $languageCode) = $gallery->getActiveLocale();
+	list ($ret, $locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	} else {
 	    /* Init a new translator so that we reset our locale */
 	    $translator = new GalleryTranslator();
-	    $translator->init($languageCode);
+	    $translator->init($locale);
 	}
 
 	$ret = parent::tearDown();

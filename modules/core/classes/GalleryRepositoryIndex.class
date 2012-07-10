@@ -238,7 +238,7 @@ class GalleryRepositoryIndex {
      * @param string $pluginType
      * @param string $pluginId
      * @return array GalleryStatus a status code
-     *		     array languageCode => revision
+     *		     array locale => revision
      */
     function getAvailableLanguagesInPlugin($pluginType, $pluginId) {
 	if (!$this->_isLoaded) {
@@ -403,7 +403,7 @@ class GalleryRepositoryIndex {
 	    return array($ret, null, null);
 	}
 
-	if (preg_match('/^lang-(.*)$/', $package, $languageCode)) {
+	if (preg_match('/^lang-(.*)$/', $package, $locale)) {
 	    /*
 	     * At some future date we may have more than one set of revisions in an index, at
 	     * which point we could return the set of languages that match what we have installed,
@@ -411,7 +411,7 @@ class GalleryRepositoryIndex {
 	     */
 	    $languages = $this->_index[$pluginType . 's'][$pluginId]['languages'];
 	    $version = $header['stringsRevision'];
-	    $build = $languages[$header['stringsRevision']][$languageCode[1]];
+	    $build = $languages[$header['stringsRevision']][$locale[1]];
 	} else {
 	    $version = $header['version'];
 	    $build = $header['buildTimestamp'];

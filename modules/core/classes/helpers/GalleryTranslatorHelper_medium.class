@@ -143,14 +143,14 @@ class GalleryTranslatorHelper_medium {
     /**
      * @see GalleryCoreApi::getLanguageDescription
      */
-    function getLanguageDescription($languageCode) {
-	$cacheKey = "GalleryTranslator::LanguageDescription::$languageCode";
+    function getLanguageDescription($locale) {
+	$cacheKey = "GalleryTranslator::LanguageDescription::$locale";
 	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    list ($newLocale, $languageData) =
-		GalleryTranslator::getSupportedLocale($languageCode, false);
+		GalleryTranslator::getSupportedLocale($locale, false);
 		if (!$newLocale) {
 		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					       "Invalid language code specified [$languageCode]"),
+					       "Invalid language code specified [$locale]"),
 				 null);
 		}
 

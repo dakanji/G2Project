@@ -244,7 +244,7 @@ class GalleryPendingUserHelper {
 	if ($ret) {
 	    return $ret;
 	}
-	$toList = $languageCodeList = array();
+	$toList = $localeList = array();
 	foreach ($adminUsers as $admin) {
 	    $email = $admin->getEmail();
 	    if (!empty($email)) {
@@ -253,7 +253,7 @@ class GalleryPendingUserHelper {
 		if ($ret) {
 		    return $ret;
 		}
-		$languageCodeList[] = $language;
+		$localeList[] = $language;
 	    }
 	}
 
@@ -269,11 +269,11 @@ class GalleryPendingUserHelper {
 	    GalleryUtilities::unsanitizeInputValues($decodedUserName, false);
 	    foreach ($toList as $index => $to) {
 		/* Reinitialize translator with the preferred language of admin where needed */
-		if ($currentLocale != $languageCodeList[$index]) {
+		if ($currentLocale != $localeList[$index]) {
 		    list ($ret, $currentLocale) =
-			$translator->init($languageCodeList[$index]);
+			$translator->init($localeList[$index]);
 		    if ($ret) {
-			if ($defaultLocale != $languageCodeList[$index]) {
+			if ($defaultLocale != $localeList[$index]) {
 			    list ($ret2) = $translator->init($defaultLocale);
 			    if ($ret2) {
 				return $ret2;

@@ -43,7 +43,7 @@ class AlbumSelectCallbacks {
 	    }
 
 	    /* Try to load it from the cache */
-	    list ($ret, $languageCode) = $gallery->getActiveLocale();
+	    list ($ret, $locale) = $gallery->getActiveLocale();
 	    if ($ret) {
 		return $ret;
 	    }
@@ -69,7 +69,7 @@ class AlbumSelectCallbacks {
 	    $cachePathInfo = array('type' => 'module-data',
 				   'module' => 'albumselect',
 				   'itemId' => $userId . '_' . $sessionPermissions
-				   . '_' . $languageCode
+				   . '_' . $locale
 				   . '_' . substr(md5(serialize(array($callbackParams,
 								      $rootAlbumId))), 0, 5));
 	    list ($treeList, $titles, $titlesForJs, $links) =

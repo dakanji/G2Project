@@ -257,7 +257,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	/* Preparation */
 	$userId = $gallery->getActiveUserId();
-	list ($ret, $languageCode) = $gallery->getActiveLocale();
+	list ($ret, $locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -268,7 +268,7 @@ class AlbumSelectTest extends GalleryTestCase {
 	}
 	$cachePathInfo = array('type' => 'module-data',
 			       'module' => 'albumselect',
-			       'itemId' => $userId . '__' . $languageCode .
+			       'itemId' => $userId . '__' . $locale .
 			       '_' . substr(md5(serialize(array($callbackParams,
 								$rootAlbumId))), 0, 5));
 

@@ -82,8 +82,8 @@ class UnitTestRepositoryUtilities extends MockObject {
 	return $this->_makeReply('getPluginPackages', array($pluginType, $pluginId));
     }
 
-    function getLanguageDescription($languageCode) {
-	return $this->_makeReply('getLanguageDescription', array($languageCode));
+    function getLanguageDescription($locale) {
+	return $this->_makeReply('getLanguageDescription', array($locale));
     }
 
     function getPluginVersion($pluginType, $pluginId) {

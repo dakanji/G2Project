@@ -118,15 +118,15 @@ class RepositoryDescriptor extends RepositoryObject {
 	list ($supportedLanguages, $defaultCountry) = $translator->getLanguageData();
 	foreach ($supportedLanguages as $language => $countries) {
 	    foreach ($countries as $country => $description) {
-		$languageCode = $language . '_' . $country;
+		$locale = $language . '_' . $country;
 
 		/* We've already got the en_US strings. */
-		if ($languageCode == 'en_US') {
+		if ($locale == 'en_US') {
 		    continue;
 		}
 
 		/* Translate into current language. */
-		$translator->init($languageCode);
+		$translator->init($locale);
 		foreach ($descriptions['en_US'] as $stringId => $originalString) {
 		    list ($ret, $translatedString) = $translator->translateDomain(
 			sprintf('%ss_%s', $pluginType, $this->_pluginId),
@@ -134,7 +134,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		    if ($ret) {
 			return $ret;
 		    }
-		    $descriptions[$languageCode][$stringId] = $translatedString;
+		    $descriptions[$locale][$stringId] = $translatedString;
 		}
 	    }
 	}
@@ -171,8 +171,8 @@ class RepositoryDescriptor extends RepositoryObject {
 
 	/* Create available languages meta data. */
 	foreach ($this->_data['files'] as $fileName => $fileMetaData) {
-	    if (preg_match('/po\/(.*)\.po$/U', $fileName, $languageCode)) {
-		$languageCode = $languageCode[1];
+	    if (preg_match('/po\/(.*)\.po$/U', $fileName, $locale)) {
+		$locale = $locale[1];
 
 		/* Get revision number from po file. */
 		list ($ret, $revision) =
@@ -188,7 +188,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		}
 
 		$stringsRevision = $this->_data['header']['stringsRevision'];
-		$this->_data['languages'][$stringsRevision][$languageCode] = $revision;
+		$this->_data['languages'][$stringsRevision][$locale] = $revision;
 	    }
 	}
 
@@ -411,8 +411,8 @@ class RepositoryDescriptor extends RepositoryObject {
 	return $this->_data['header']['buildTimestamp'];
     }
 
-    function getLanguageRevision($languageCode) {
-	return $this->_data['languages'][$this->getStringsRevision()][$languageCode];
+    function getLanguageRevision($locale) {
+	return $this->_data['languages'][$this->getStringsRevision()][$locale];
     }
 }
 ?>

@@ -62,15 +62,15 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	list ($ret, $this->_languageCode) = $gallery->getActiveLocale();
+	list ($ret, $this->_locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
 
 	/* Force translated text to English to make comparisons easier. */
 	$translator =& $gallery->getTranslator();
-	$this->_languageCode = $translator->_languageCode;
-	list ($ret, $languageCode) = $translator->init('en');
+	$this->_locale = $translator->_locale;
+	list ($ret, $locale) = $translator->init('en');
 	if ($ret) {
 	    return $ret;
 	}
@@ -96,7 +96,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
     function tearDown() {
 	global $gallery;
 	$translator =& $gallery->getTranslator();
-	list ($ret) = $translator->init($this->_languageCode);
+	list ($ret) = $translator->init($this->_locale);
 	if ($ret) {
 	    return $ret;
 	}

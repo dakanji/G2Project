@@ -81,8 +81,8 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 	    return $ret;
 	}
 
-	foreach ($emails as $languageCode => $recipients) {
-	    list ($ret, $currentLocale) = $translator->init($languageCode);
+	foreach ($emails as $locale => $recipients) {
+	    list ($ret, $currentLocale) = $translator->init($locale);
 	    if ($ret) {
 		list ($ret2) = $translator->init($defaultLocale);
 		if ($ret2) {

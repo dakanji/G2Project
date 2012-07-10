@@ -400,10 +400,10 @@ class RepositoryDescriptorTestPlugin {
 }
 
 class RepositoryDescriptorTestTranslator {
-    var $_languageCode;
+    var $_locale;
 
-    function init($languageCode) {
-	$this->_languageCode = $languageCode;
+    function init($locale) {
+	$this->_locale = $locale;
     }
 
     function getLanguageData() {
@@ -412,7 +412,7 @@ class RepositoryDescriptorTestTranslator {
 
     function translateDomain($domain, $string) {
 	return array(null, sprintf(
-	    '%s-%s-%s', $this->_languageCode, $domain, $string['text']));
+	    '%s-%s-%s', $this->_locale, $domain, $string['text']));
     }
 }
 

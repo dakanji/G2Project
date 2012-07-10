@@ -1021,11 +1021,11 @@ class GalleryTemplateAdapter {
      */
     function language($params) {
 	global $gallery;
-	list ($ret, $languageCode) = $gallery->getActiveLocale();
-	if ($ret || empty($languageCode)) {
+	list ($ret, $locale) = $gallery->getActiveLocale();
+	if ($ret || empty($locale)) {
 	    return '';
 	}
-	return strtr($languageCode, '_', '-');
+	return strtr($locale, '_', '-');
     }
 
     /**

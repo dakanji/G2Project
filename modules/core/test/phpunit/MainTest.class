@@ -63,13 +63,13 @@ class MainTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_session = $this->_saveSession;
 
-	list ($ret, $languageCode) = $gallery->getActiveLocale();
+	list ($ret, $locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	} else {
 	    /* Init a new translator so that we reset our locale */
 	    $translator = new GalleryTranslator();
-	    $translator->init($languageCode);
+	    $translator->init($locale);
 	}
 	GalleryUtilities::removeRequestVariable('view');
 	GalleryUtilities::removeRequestVariable('controller');

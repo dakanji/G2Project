@@ -112,13 +112,13 @@ class DownloadRegistryFileView extends GalleryView {
     function _getCharsetFromRequest() {
 	global $gallery;
 
-	list ($ret, $languageCode) = $gallery->getActiveLocale();
+	list ($ret, $locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    if ($gallery->getDebug()) {
 		$gallery->debug('publishxp.DownloadRegistryFile, failed to get the session ' .
 				'language. Error: ' . $ret->getAsText());
 	    }
-	    $languageCode = '';
+	    $locale = '';
 	}
 
 	list ($ret, $defaultLocale) =
@@ -130,17 +130,17 @@ class DownloadRegistryFileView extends GalleryView {
 	    }
 	    $defaultLocale = 'en_US';
 	}
-	$languageCode = empty($languageCode) ? $defaultLocale : $languageCode;
+	$locale = empty($locale) ? $defaultLocale : $locale;
 
-	if ($languageCode == $defaultLocale) {
+	if ($locale == $defaultLocale) {
 	    $httpAcceptLanguage = GalleryUtilities::getServerVar('HTTP_ACCEPT_LANGUAGE');
 	    if (!empty($httpAcceptLanguage)) {
 		$codes = explode(',', $httpAcceptLanguage);
-		$languageCode = $codes[0];
+		$locale = $codes[0];
 	    }
 	}
 
-	list ($language, $country) = preg_split('/[-_]/', $languageCode . '_');
+	list ($language, $country) = preg_split('/[-_]/', $locale . '_');
 
 	/*
 	 * Lookup table: language code to Windows Code Page. Source:

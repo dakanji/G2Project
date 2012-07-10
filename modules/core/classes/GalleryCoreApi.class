@@ -3136,14 +3136,14 @@ class GalleryCoreApi {
      * Returns the language description of the specified language-country code.
      * eg. en_US => English (US)
      *
-     * @param string $languageCode
+     * @param string $locale
      * @return array GalleryStatus a status code
      *		     string language description
      */
-    function getLanguageDescription($languageCode) {
+    function getLanguageDescription($locale) {
     	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryTranslatorHelper_medium.class');
-	return GalleryTranslatorHelper_medium::getLanguageDescription($languageCode);
+	return GalleryTranslatorHelper_medium::getLanguageDescription($locale);
     }
 
     /**

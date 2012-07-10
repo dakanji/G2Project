@@ -358,7 +358,7 @@ class GalleryTestResult extends TestResult {
 	$database = $storage->getAdoDbType() . ' ' . $storage->getVersion();
 	$OS = array_shift(explode(' ', php_uname()));
 	$locking = $params['lock.system'];
-	$language = $translator->_languageCode;
+	$language = $translator->_locale;
 	$owner = 'NAME_PLACEHOLDER';
 	$count = $this->countTests();
 	$failed = $this->_testsFailed;

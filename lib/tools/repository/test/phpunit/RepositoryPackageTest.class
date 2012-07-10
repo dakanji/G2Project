@@ -271,7 +271,7 @@ class RepositoryPackageTestDescriptor {
 	return $this->_pluginStringsRevision;
     }
 
-    function getLanguageRevision($languageCode) {
+    function getLanguageRevision($locale) {
 	return $this->_pluginStringsRevision;
     }
 }

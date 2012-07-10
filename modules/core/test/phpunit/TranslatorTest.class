@@ -40,7 +40,7 @@ class TranslatorTest extends GalleryTestCase {
 	   return $ret;
 	}
 
-	list ($ret, $this->_languageCode) = $gallery->getActiveLocale();
+	list ($ret, $this->_locale) = $gallery->getActiveLocale();
 	if ($ret) {
 	    return $ret;
 	}
@@ -66,14 +66,14 @@ class TranslatorTest extends GalleryTestCase {
 
     function tearDown() {
 	global $gallery;
-	$ret = $gallery->setActiveLocale($this->_languageCode);
+	$ret = $gallery->setActiveLocale($this->_locale);
 	if ($ret) {
 	    return $ret;
 	}
 
 	/* Init a new translator so that we reset our locale */
 	$translator = new GalleryTranslator();
-	$translator->init($this->_languageCode);
+	$translator->init($this->_locale);
 
 	$ret = parent::tearDown();
 	if ($ret) {
@@ -102,7 +102,7 @@ class TranslatorTest extends GalleryTestCase {
 	/* Init with a null language code and a valid accept language */
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
 	$translator = new GalleryTranslator();
-	list ($ret, $languageCode) = $translator->init();
+	list ($ret, $locale) = $translator->init();
 	if ($ret) {
 	    return $ret;
 	}
@@ -111,7 +111,7 @@ class TranslatorTest extends GalleryTestCase {
 	} else {
 	    $this->assertEquals($origLang, getenv('LANG'), 'null init, lang unchanged');
 	}
-	$this->assertEquals('de_DE', $languageCode, 'returned language code');
+	$this->assertEquals('de_DE', $locale, 'returned language code');
 
 	/* Init with a null language code and a valid accept language/country */
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'pt_BR';
@@ -375,7 +375,7 @@ class TranslatorTest extends GalleryTestCase {
 
     function testComment() {
 	$translator = new GalleryTranslator();
-	list ($ret, $languageCode) = $translator->init('en_US');
+	list ($ret, $locale) = $translator->init('en_US');
 	if ($ret) {
 	    return $ret;
 	}
@@ -392,7 +392,7 @@ class TranslatorTest extends GalleryTestCase {
     function testApiChange() {
 	/* Core API 7.10 now allows simple string param, and 'args' array insead of 'arg1', etc */
 	$translator = new GalleryTranslator();
-	list ($ret, $languageCode) = $translator->init('en_US');
+	list ($ret, $locale) = $translator->init('en_US');
 	if ($ret) {
 	    return $ret;
 	}

@@ -244,13 +244,13 @@ class UserHelperTest extends GalleryTestCase {
 	}
 
 	/* Verify we get the default language code */
-	list ($ret, $languageCode) =
+	list ($ret, $locale) =
 	    GalleryUserHelper_medium::fetchLocaleForUser($testUserId);
 	if ($ret) {
 	    return $ret;
 	}
 
-	$this->assertEquals($defaultLocale, $languageCode, 'should be same as default');
+	$this->assertEquals($defaultLocale, $locale, 'should be same as default');
 
 	/*
 	 * Test in case user has a preferred language.
@@ -279,13 +279,13 @@ class UserHelperTest extends GalleryTestCase {
 	    return $ret;
 	}
 
-	list ($ret, $languageCode) =
+	list ($ret, $locale) =
 	    GalleryUserHelper_medium::fetchLocaleForUser($testUserId);
 	if ($ret) {
 	    return $ret;
 	}
 
-	$this->assertEquals($preSetLocale, $languageCode, 'should be same as preferred');
+	$this->assertEquals($preSetLocale, $locale, 'should be same as preferred');
     }
 }
 

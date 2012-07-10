@@ -156,13 +156,13 @@ class RepositoryPackage extends RepositoryObject {
      * @return string package file name
      */
     function getPackageFileName($package) {
-	if (preg_match('/^lang-(.*)$/', $package, $languageCode)) {
+	if (preg_match('/^lang-(.*)$/', $package, $locale)) {
 	    $stringsRevision = $this->_descriptor->getStringsRevision();
-	    $languageCode = $languageCode[1];
+	    $locale = $locale[1];
 
 	    $packageFileName = sprintf('%s-%s-%s-%s.package', $this->_descriptor->getPluginId(),
 		$package, $stringsRevision,
-		$this->_descriptor->getLanguageRevision($languageCode));
+		$this->_descriptor->getLanguageRevision($locale));
 	} else {
 	    $packageFileName = sprintf('%s-%s-%s-%s.package', $this->_descriptor->getPluginId(),
 		$this->_descriptor->getPluginVersion(), $this->_descriptor->getBuildTimestamp(),
