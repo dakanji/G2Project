@@ -1,7 +1,7 @@
 # $Revision: 20959 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/getid3/AdminGetid3.inc	3841613948	2215924818	11965	12382
-modules/getid3/Callbacks.inc	845092487	2440207638	3129	3238
+modules/getid3/Callbacks.inc	490112072	3730560015	3183	3294
 modules/getid3/CantActivate.inc	2745628594	2041300454	1266	1303
 modules/getid3/Getid3DescriptionOption.inc	1089678408	506952625	3599	3718
 modules/getid3/Getid3DetailMode.inc	2138193685	3814825687	1701	1754
@@ -14,8 +14,8 @@ modules/getid3/classes/Getid3Interface_1_0.class	3759185638	2916288181	1706	1752
 modules/getid3/classes/Getid3Toolkit.class	423685493	566505581	1636	1685
 modules/getid3/classes/Maps.inc	2496215893	1219936948	363	367
 modules/getid3/classes/Maps.xml	2730319525	1553220985	795	824
-modules/getid3/lib/getid3/getid3.inc	29830192	4079601218	44402	45709
-modules/getid3/lib/getid3/getid3.lib.inc	3256621232	1567351945	42167	43497
+modules/getid3/lib/getid3/getid3.inc	102490250	2780875553	44365	45671
+modules/getid3/lib/getid3/getid3.lib.inc	3081192047	2395816911	42207	43537
 modules/getid3/lib/getid3/module.archive.gzip.inc	1385732734	3293573531	9031	9290
 modules/getid3/lib/getid3/module.archive.tar.inc	1566141950	350392543	5826	5993
 modules/getid3/lib/getid3/module.archive.zip.inc	1867336314	2921626629	20133	20547
@@ -27,9 +27,9 @@ modules/getid3/lib/getid3/module.audio.ogg.inc	3164681888	2756981466	25622	26169
 modules/getid3/lib/getid3/module.misc.iso.inc	1477726749	1355306345	25801	26186
 modules/getid3/lib/getid3/module.tag.apetag.inc	4088591406	1178496586	11649	11932
 modules/getid3/lib/getid3/module.tag.id3v1.inc	2151904307	588434175	11405	11766
-modules/getid3/lib/getid3/module.tag.id3v2.inc	3341738065	2304663304	120441	123571
-modules/getid3/lib/getid3/module.tag.lyrics3.inc	953340716	2967321638	10091	10362
-modules/getid3/module.inc	1458485423	2053375361	4706	4878
+modules/getid3/lib/getid3/module.tag.id3v2.inc	4218943349	3541462430	120435	123565
+modules/getid3/lib/getid3/module.tag.lyrics3.inc	2935578509	2998391842	10107	10378
+modules/getid3/module.inc	3316184323	1960419244	4816	4993
 modules/getid3/po/GNUmakefile	1866879166	2808215985	98	103
 modules/getid3/po/af.mo	365982896	365982896	2595	2595
 modules/getid3/po/af.po	3336406577	1116458845	6228	6505
@@ -106,10 +106,10 @@ modules/getid3/test/data/tartest.tar	2511675230	2511675230	10240	10240
 modules/getid3/test/data/test_small.avi	3115826269	3115826269	2576	2576
 modules/getid3/test/data/tgztest.tgz	1409292668	1409292668	10240	10240
 modules/getid3/test/data/ziptest.zip	1381713389	1381713389	1266	1266
-modules/getid3/test/phpunit/AdminGetid3ControllerTest.class	123378973	3580748052	12834	13219
+modules/getid3/test/phpunit/AdminGetid3ControllerTest.class	729797323	298104177	12818	13203
 modules/getid3/test/phpunit/Getid3DescriptionOptionTest.class	983249987	2727035092	4613	4776
 modules/getid3/test/phpunit/Getid3DetailModeControllerTest.class	1039539848	1619928277	3207	3301
-modules/getid3/test/phpunit/Getid3HelperTest.class	1287903351	1030970779	15044	15502
+modules/getid3/test/phpunit/Getid3HelperTest.class	3085997396	928718790	14996	15454
 modules/getid3/test/phpunit/Getid3ToolkitTest.class	2411192387	590778765	2287	2362
 R	modules/getid3/classes/Entities.inc
 R	modules/getid3/locale/af/LC_MESSAGES/modules_getid3.mo
