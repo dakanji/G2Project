@@ -1101,7 +1101,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	$currentView = 'core.SiteAdmin';
 	list ($ret, $view) = GalleryView::loadView($currentView);
 	if ($ret) {
-	    return return $ret;
+	    return $ret;
 	}
 
 	$gallery->setCurrentView($currentView);
@@ -1121,7 +1121,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	$currentView = 'core.MaintenanceMode';
 	list ($ret, $view) = GalleryView::loadView($currentView);
 	if ($ret) {
-	    return return $ret;
+	    return $ret;
 	}
 
 	$gallery->setCurrentView($currentView);
@@ -1148,7 +1148,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	$currentView = 'core.SiteAdmin';
 	list ($ret, $view) = GalleryView::loadView($currentView);
 	if ($ret) {
-	    return return $ret;
+	    return $ret;
 	}
 
 	$gallery->setCurrentView($currentView);

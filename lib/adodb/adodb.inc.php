@@ -475,7 +475,7 @@
 	 * @param [argPassword]		Associated password
 	 * @param [argDatabaseName]	database
 	 *
-	 * @return return true or false
+	 * @return true or false
 	 */	
 	function PConnect($argHostname = "", $argUsername = "", $argPassword = "", $argDatabaseName = "")
 	{
@@ -524,7 +524,7 @@
 	 *
 	 * @param sql	SQL to send to database
 	 *
-	 * @return return FALSE, or the prepared statement, or the original sql if
+	 * @return FALSE, or the prepared statement, or the original sql if
 	 * 			if the database does not support prepare.
 	 *
 	 */	
@@ -543,7 +543,7 @@
 	 *
 	 * @param sql	SQL to send to database
 	 *
-	 * @return return FALSE, or the prepared statement, or the original sql if
+	 * @return FALSE, or the prepared statement, or the original sql if
 	 * 			if the database does not support prepare.
 	 *
 	 */	
