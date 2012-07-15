@@ -351,7 +351,7 @@ class ItemTest extends GalleryTestCase {
 	    }
 	    for ($j = 0; $j < 3; $j++) {
 		if (isset($ret[$j])) {
-		    return $ret[$j];
+		    return $ret;[$j];
 		}
 	    }
 	}

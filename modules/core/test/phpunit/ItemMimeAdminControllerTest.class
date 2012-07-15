@@ -49,12 +49,12 @@ class ItemMimeAdminControllerTest extends GalleryControllerTestCase {
     function tearDown() {
 	$ret = GalleryCoreApi::removeMimeType(array('mimeType' => 'test/test'));
 	if ($ret) {
-	    return $ret
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   return $ret
+	   return $ret;
 	}
     }
 
