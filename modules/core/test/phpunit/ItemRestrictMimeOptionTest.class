@@ -83,7 +83,7 @@ class ItemRestrictMimeOptionTest extends ItemAddOptionTestCase {
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	    return $ret
+	    return $ret;
 	}
     }
 

@@ -34,12 +34,12 @@
 	$ret = GalleryCoreApi::removeMimeType(
 			       array('mimeType' => array('test/test', 'test/test2')));
 	if ($ret) {
-	    return $ret
+	    return $ret;
 	}
 
 	$ret = parent::tearDown();
 	if ($ret) {
-	   return $ret
+	   return $ret;
 	}
     }
 
