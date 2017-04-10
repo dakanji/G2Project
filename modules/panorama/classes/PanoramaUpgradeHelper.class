@@ -39,7 +39,7 @@ class PanoramaUpgradeHelper {
      *
      * @return GalleryStatus a status code
      */
-    function revertEntities() {
+    static function revertEntities() {
 	global $gallery;
 
 	$query = '

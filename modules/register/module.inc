@@ -27,6 +27,10 @@
  */
 class RegisterModule extends GalleryModule {
 
+    function __construct() {
+	$this->RegisterModule();
+    }
+
     function RegisterModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class RegisterModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 	if ($ret) {
 	    return $ret;

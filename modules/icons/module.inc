@@ -27,6 +27,10 @@
  */
 class IconsModule extends GalleryModule {
 
+    function __construct() {
+	$this->IconsModule();
+    }
+
     function IconsModule() {
 	global $gallery;
 	$this->setId('icons');
@@ -43,7 +47,7 @@ class IconsModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'icons');
 	if ($ret) {
 	    return $ret;

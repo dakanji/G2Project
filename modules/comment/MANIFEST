@@ -124,17 +124,6 @@ modules/comment/templates/ShowComments.tpl	4205555145	1382995389	1028	1064
 modules/comment/templates/blocks/AddComment.tpl	2477465774	654975537	1092	1128
 modules/comment/templates/blocks/ViewComments.tpl	3244566125	534510370	1176	1207
 modules/comment/templates/blocks/blocks.inc	139562107	2222779249	915	944
-modules/comment/test/phpunit/AddCommentControllerTest.class	1309560019	2210438098	22489	23133
-modules/comment/test/phpunit/AdminModerateSpamControllerTest.class	610489015	2493469859	3507	3622
-modules/comment/test/phpunit/AkismetApiTest.class	1182411909	2383113391	11921	12270
-modules/comment/test/phpunit/CommentCallbackViewTest.class	4227464363	3843982356	6306	6535
-modules/comment/test/phpunit/CommentSearchTest.class	1798227380	3801866992	8980	9289
-modules/comment/test/phpunit/CommentSiteAdminControllerTest.class	3491106141	1763994466	9299	9584
-modules/comment/test/phpunit/CommentTest.class	1557554158	1418014585	19735	20382
-modules/comment/test/phpunit/DeleteCommentControllerTest.class	557883124	725856476	4067	4187
-modules/comment/test/phpunit/EditCommentControllerTest.class	3426397993	4143974068	16062	16469
-modules/comment/test/phpunit/ShowAllCommentsViewTest.class	346206761	3209163755	9326	9612
-modules/comment/test/phpunit/ShowCommentsViewTest.class	2714112049	898373459	6638	6835
 R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryComment_1_0.sql

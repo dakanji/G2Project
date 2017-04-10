@@ -27,6 +27,10 @@
  */
 class QuotasModule extends GalleryModule {
 
+    function __construct() {
+	$this->QuotasModule();
+    }
+
     function QuotasModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class QuotasModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {

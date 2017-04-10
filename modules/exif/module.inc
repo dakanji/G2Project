@@ -31,6 +31,10 @@
  */
 class ExifModule extends GalleryModule {
 
+    function __construct() {
+	$this->ExifModule();
+    }
+
     function ExifModule() {
 	global $gallery;
 
@@ -48,7 +52,7 @@ class ExifModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!isset($currentVersion)) {

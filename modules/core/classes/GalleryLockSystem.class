@@ -50,6 +50,10 @@ class GalleryLockSystem {
     var $_releaseQueue;
 
 
+    function __construct() {
+	$this->GalleryLockSystem();
+    }
+
     function GalleryLockSystem() {
 	$this->_locks = $this->_releaseQueue = array();
     }

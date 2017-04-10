@@ -29,6 +29,10 @@
  */
 class DcrawModule extends GalleryModule {
 
+    function __construct() {
+	$this->DcrawModule();
+    }
+
     function DcrawModule() {
 	global $gallery;
 

@@ -27,6 +27,10 @@
  */
 class NetPbmModule extends GalleryModule {
 
+    function __construct() {
+	$this->NetPbmModule();
+    }
+
     function NetPbmModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class NetPbmModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'netpbm');
 	if ($ret) {
 	    return $ret;

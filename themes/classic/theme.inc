@@ -28,6 +28,10 @@
  */
 class ClassicTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->ClassicTheme();
+    }
+
     function ClassicTheme() {
 	global $gallery;
 

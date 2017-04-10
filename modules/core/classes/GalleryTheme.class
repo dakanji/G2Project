@@ -59,6 +59,10 @@ class GalleryTheme extends GalleryPlugin {
      * theme.inc are still in the themes folder.  The old themes call $this->GalleryTheme() in their
      * constructor.
      */
+    function __construct() {
+	$this->GalleryTheme();
+    }
+
     function GalleryTheme() {
     }
 
@@ -72,7 +76,7 @@ class GalleryTheme extends GalleryPlugin {
      *
      * @return array major number, minor number
      */
-    function getApiVersion() {
+    static function getApiVersion() {
 	return array(2, 6);
     }
 

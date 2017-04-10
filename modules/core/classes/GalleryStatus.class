@@ -54,6 +54,10 @@ class GalleryStatus {
      * @param int $errorCode an error code
      * @param string $errorMessage (optional) descriptive message of the error
      */
+    function __construct($errorCode, $errorMessage=null) {
+	$this->GalleryStatus($errorCode, $errorMessage);
+    }
+
     function GalleryStatus($errorCode, $errorMessage=null) {
 	$this->_errorCode = $errorCode;
 	$this->_errorMessage = $errorMessage;

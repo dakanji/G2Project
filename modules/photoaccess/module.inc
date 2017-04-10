@@ -27,6 +27,10 @@
  */
 class PhotoAccessModule extends GalleryModule {
 
+    function __construct() {
+	$this->PhotoAccessModule();
+    }
+
     function PhotoAccessModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class PhotoAccessModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	if (!isset($currentVersion)) {
 	    $currentVersion = '0';
@@ -135,7 +139,7 @@ class PhotoAccessModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 
 	foreach ($items as $item) {

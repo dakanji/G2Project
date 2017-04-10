@@ -82,6 +82,11 @@ class JPEG // extends PEAR
      *
      * @param string  the name or url of the jpeg file
      */
+    function __construct($fileName)
+    {
+	$this->JPEG($fileName);
+    }
+
     function JPEG($fileName)
     {
         //$this->PEAR();

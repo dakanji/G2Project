@@ -30,6 +30,10 @@
  */
 class JpegtranModule extends GalleryModule {
 
+    function __construct() {
+	$this->JpegtranModule();
+    }
+
     function JpegtranModule() {
 	global $gallery;
 

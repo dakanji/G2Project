@@ -27,6 +27,10 @@
  */
 class HybridTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->HybridTheme();
+    }
+
     function HybridTheme() {
 	global $gallery;
 

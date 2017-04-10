@@ -29,6 +29,10 @@ GalleryCoreApi::requireOnce('modules/dynamicalbum/UpdatesAlbum.inc');
  */
 class PopularAlbumView extends UpdatesAlbumView {
 
+    function __construct() {
+	$this->PopularAlbumView();
+    }
+
     function PopularAlbumView() {
 	global $gallery;
 	$this->_view = 'dynamicalbum.PopularAlbum';

@@ -25,6 +25,10 @@
  */
 class SlideshowAppletModule extends GalleryModule {
 
+    function __construct() {
+	$this->SlideshowAppletModule();
+    }
+
     function SlideshowAppletModule() {
 	global $gallery;
 	$this->setId('slideshowapplet');
@@ -41,7 +45,7 @@ class SlideshowAppletModule extends GalleryModule {
     /**
      * @see GalleryPlugin::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) =
@@ -90,7 +94,7 @@ class SlideshowAppletModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	global $gallery;
 
 	$links = array();

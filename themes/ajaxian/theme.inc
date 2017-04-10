@@ -27,6 +27,10 @@
  */
 class AjaxianTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->AjaxianTheme();
+    }
+
     function AjaxianTheme() {
 	global $gallery;
 

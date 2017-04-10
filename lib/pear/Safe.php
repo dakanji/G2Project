@@ -286,6 +286,11 @@ class HTML_Safe
      *
      * @access public
      */
+    function __construct() 
+    {
+	$this->HTML_Safe();
+    }
+
     function HTML_Safe() 
     {
         //making regular expressions based on Proto & CSS arrays
@@ -366,8 +371,16 @@ class HTML_Safe
                    }
                 }
 
-                $tempval = preg_replace('/&#(\d+);?/me', "chr('\\1')", $value); //"'
-                $tempval = preg_replace('/&#x([0-9a-f]+);?/mei', "chr(hexdec('\\1'))", $tempval);
+                $tempval = preg_replace_callback('/&#(\d+);?/m',
+				function ($m) {
+					return chr($m[1]);
+				},
+				$value);  //"'
+                $tempval = preg_replace_callback('/&#x([0-9a-f]+);?/mi',
+				function ($m) {
+					return chr(hexdec($m[1]));
+				},
+				 $tempval);
 
                 if ((in_array($name, $this->protocolAttributes)) && 
                     (strpos($tempval, ':') !== false)) 

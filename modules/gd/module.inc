@@ -29,6 +29,10 @@
  */
 class GdModule extends GalleryModule {
 
+    function __construct() {
+	$this->GdModule();
+    }
+
     function GdModule() {
 	global $gallery;
 
@@ -46,7 +50,7 @@ class GdModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	if (!isset($currentVersion)) {
 	    /* Initial install */
 	    $ret = $this->setParameter('jpegQuality', '75');

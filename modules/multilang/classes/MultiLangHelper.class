@@ -35,7 +35,7 @@ class MultiLangHelper {
      * @return array GalleryStatus a status code
      *               array (language => array data, ..)
      */
-    function getItemData($itemId) {
+    static function getItemData($itemId) {
 	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('MultiLangItemMap',
 	    array('language', 'title', 'summary', 'description'),
 	    array('itemId' => (int)$itemId));
@@ -61,7 +61,7 @@ class MultiLangHelper {
      * @param string $description (optional)
      * @return GalleryStatus a status code
      */
-    function setItemData($item, $language, $title=null, $summary=null, $description=null) {
+    static function setItemData($item, $language, $title=null, $summary=null, $description=null) {
 	$itemId = $item->getId();
 	list ($ret, $data) = MultiLangHelper::getItemData($itemId);
 	if ($ret) {
@@ -152,7 +152,7 @@ class MultiLangHelper {
      * @param GalleryItem $item
      * @return GalleryStatus a status code
      */
-    function onLoad(&$item) {
+    static function onLoad(&$item) {
 	global $gallery;
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {

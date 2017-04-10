@@ -48,7 +48,7 @@ class RssHelper {
      * @param array $params Additional parameters.
      * @return GalleryStatus
      */
-    function getFeed(&$generator, $id, $param) {
+    static function getFeed(&$generator, $id, $param) {
 	global $gallery;
 
 	/* get gallery entity by id */
@@ -609,7 +609,7 @@ class RssHelper {
      * @return array GalleryStatus
      *               array of feedType => translation
      */
-    function getFeedTypeTranslation() {
+    static function getFeedTypeTranslation() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rss');
 	if ($ret) {
 	    return array($ret, null);

@@ -32,7 +32,7 @@ class RewriteModuleExtras {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($module, $currentVersion) {
+    static function upgrade($module, $currentVersion) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 

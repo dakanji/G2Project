@@ -28,6 +28,10 @@
  */
 class ItemAddModule extends GalleryModule {
 
+    function __construct() {
+	$this->ItemAddModule();
+    }
+
     function ItemAddModule() {
 	global $gallery;
 	$this->setId('itemadd');
@@ -73,7 +77,7 @@ class ItemAddModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
 	    return $ret;

@@ -28,6 +28,10 @@
  */
 class SlideshowModule extends GalleryModule {
 
+    function __construct() {
+	$this->SlideshowModule();
+    }
+
     function SlideshowModule() {
 	global $gallery;
 	$this->setId('slideshow');
@@ -66,7 +70,7 @@ class SlideshowModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
@@ -116,7 +120,7 @@ class SlideshowModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 

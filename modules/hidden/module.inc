@@ -31,6 +31,10 @@
  */
 class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->HiddenModule();
+    }
+
     function HiddenModule() {
 	global $gallery;
 
@@ -48,7 +52,7 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion, $statusMonitor) {
+    function upgrade($currentVersion, $statusMonitor=null) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 

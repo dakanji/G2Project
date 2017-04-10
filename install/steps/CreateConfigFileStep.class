@@ -25,6 +25,10 @@
 class CreateConfigFileStep extends InstallStep {
     var $_firstTime;
 
+    function __construct() {
+	$this->CreateConfigFileStep();
+    }
+
     function CreateConfigFileStep() {
 	$this->_firstTime = true;
     }

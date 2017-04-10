@@ -31,6 +31,10 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
  */
 class PostgreSqlStorage extends GalleryStorage {
 
+    function __construct($config) {
+	$this->PostgreSqlStorage($config);
+    }
+
     function PostgreSqlStorage($config) {
 	$this->GalleryStorage($config);
 	$this->_isTransactional = true;

@@ -89,7 +89,7 @@ class GalleryModule extends GalleryPlugin {
      *
      * @return array major number, minor number
      */
-    function getApiVersion() {
+    static function getApiVersion() {
 	return array(3, 9);
     }
 
@@ -530,7 +530,7 @@ class GalleryModule extends GalleryPlugin {
      *                                           'params' => array(key => value, key => value))
      *                                     ...))
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 	return array(null, array());
     }
 

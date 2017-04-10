@@ -27,6 +27,10 @@
  */
 class RearrangeModule extends GalleryModule {
 
+    function __construct() {
+	$this->RearrangeModule();
+    }
+
     function RearrangeModule() {
 	global $gallery;
 	$this->setId('rearrange');
@@ -43,7 +47,7 @@ class RearrangeModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 
 	$itemIds = array();

@@ -26,6 +26,10 @@
  */
 class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->WebDavModule();
+    }
+
     function WebDavModule() {
 	global $gallery;
 
@@ -64,7 +68,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	switch ($currentVersion) {
@@ -208,7 +212,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	$links = array();
 	foreach ($items as $item) {
 	    if (!$item->getCanContainChildren() || empty($wantsDetailedLinks[$item->getId()])) {

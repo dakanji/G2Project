@@ -464,6 +464,10 @@ class soap_fault extends nusoap_base {
     * @param string $faultstring human readable error message
     * @param string $faultdetail
 	*/
+	function __construct($faultcode,$faultactor='',$faultstring='',$faultdetail=''){
+		$this->soap_fault($faultcode,$faultactor,$faultstring,$faultdetail);
+	}
+
 	function soap_fault($faultcode,$faultactor='',$faultstring='',$faultdetail=''){
 		$this->faultcode = $faultcode;
 		$this->faultactor = $faultactor;
@@ -532,6 +536,10 @@ class XMLSchema extends nusoap_base  {
 	* @param    string $xml xml document URI
 	* @access   public
 	*/
+	function __construct($schema='',$xml=''){
+		$this->XMLSchema($schema,$xml);
+	}
+
 	function XMLSchema($schema='',$xml=''){
 
 		$this->debug('xmlschema class instantiated, inside constructor');
@@ -1181,6 +1189,10 @@ class soapval extends nusoap_base {
 	* @param	array $attributes associative array of attributes to add to element serialization
 	* @access   public
 	*/
+  	function __construct($name='soapval',$type=false,$value=-1,$element_ns=false,$type_ns=false,$attributes=false) {
+		$this->soapval($name,$type,$value,$element_ns,$type_ns,$attributes);
+	}
+
   	function soapval($name='soapval',$type=false,$value=-1,$element_ns=false,$type_ns=false,$attributes=false) {
 		$this->name = $name;
 		$this->value = $value;
@@ -1238,6 +1250,10 @@ class soap_transport_http extends nusoap_base {
 	/**
 	* constructor
 	*/
+	function __construct($url){
+		$this->soap_transport_http($url);
+	}
+
 	function soap_transport_http($url){
 		$this->url = $url;
 		$u = parse_url($url);
@@ -1713,6 +1729,10 @@ class soap_server extends nusoap_base {
     * @param string $wsdl path or URL to a WSDL file
 	* @access   public
 	*/
+	function __construct($wsdl=false){
+		$this->soap_server($wsdl);
+	}
+
 	function soap_server($wsdl=false){
 
 		// turn on debugging?
@@ -2213,6 +2233,10 @@ class wsdl extends XMLSchema {
      * @param string $wsdl WSDL document URL
      * @access public 
      */
+    function __construct($wsdl = '')
+	$this->wsdl($wsdl);
+    }
+
     function wsdl($wsdl = '')
     {
         $this->wsdl = $wsdl; 
@@ -3049,6 +3073,10 @@ class soap_parser extends nusoap_base {
 	* @param    string $encoding character encoding scheme of message
 	* @access   public
 	*/
+	function __construct($xml,$encoding='UTF-8',$method=''){
+		$this->soap_parser($xml,$encoding,$method);
+	}
+
 	function soap_parser($xml,$encoding='UTF-8',$method=''){
 		$this->xml = $xml;
 		$this->xml_encoding = $encoding;
@@ -3462,6 +3490,10 @@ class nusoapclient extends nusoap_base  {
 	* @param	int $portName optional portName in WSDL document
 	* @access   public
 	*/
+	function __construct($endpoint,$wsdl = false){
+		$this->nusoapclient($endpoint,$wsdl);
+	}
+
 	function nusoapclient($endpoint,$wsdl = false){
 		$this->endpoint = $endpoint;
 

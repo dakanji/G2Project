@@ -30,6 +30,10 @@
  */
 class NokiaUploadModule extends GalleryModule {
 
+    function __construct() {
+	$this->NokiaUploadModule();
+    }
+
     function NokiaUploadModule() {
 	global $gallery;
 

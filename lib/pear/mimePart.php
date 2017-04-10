@@ -139,6 +139,11 @@ class Mail_mimePart {
      *                  charset      - Character set to use
      * @access public
      */
+    function __construct($body = '', $params = array())
+    {
+	$this->Mail_mimePart($body, $params);
+    }
+
     function Mail_mimePart($body = '', $params = array())
     {
         if (!defined('MAIL_MIMEPART_CRLF')) {

@@ -27,6 +27,10 @@
  */
 class CarbonTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->CarbonTheme();
+    }
+
     function CarbonTheme() {
 	global $gallery;
 

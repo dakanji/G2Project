@@ -27,6 +27,10 @@
  */
 class MatrixTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->MatrixTheme();
+    }
+
     function MatrixTheme() {
 	global $gallery;
 

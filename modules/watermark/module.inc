@@ -27,6 +27,10 @@
  */
 class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->WatermarkModule();
+    }
+
     function WatermarkModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();

@@ -25,6 +25,10 @@
  */
 class UploadAppletModule extends GalleryModule {
 
+    function __construct() {
+	$this->UploadAppletModule();
+    }
+
     function UploadAppletModule() {
 	global $gallery;
 	$this->setId('uploadapplet');
@@ -41,7 +45,7 @@ class UploadAppletModule extends GalleryModule {
     /**
      * @see GalleryPlugin::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) =

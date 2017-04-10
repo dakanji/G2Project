@@ -30,6 +30,10 @@
  */
 class PanoramaModule extends GalleryModule {
 
+    function __construct() {
+	$this->PanoramaModule();
+    }
+
     function PanoramaModule() {
 	global $gallery;
 	$this->setId('panorama');
@@ -46,7 +50,7 @@ class PanoramaModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	if (!isset($currentVersion)) {
 	    /* Initial install */
 	    foreach (array('itemType' => 1,
@@ -103,7 +107,7 @@ class PanoramaModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');

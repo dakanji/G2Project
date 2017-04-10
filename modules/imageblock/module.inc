@@ -27,6 +27,10 @@
  */
 class ImageBlockModule extends GalleryModule {
 
+    function __construct() {
+	$this->ImageBlockModule();
+    }
+
     function ImageBlockModule() {
 	global $gallery;
 	$this->setId('imageblock');
@@ -64,7 +68,7 @@ class ImageBlockModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 

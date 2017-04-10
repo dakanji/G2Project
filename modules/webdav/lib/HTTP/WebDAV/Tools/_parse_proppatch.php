@@ -88,6 +88,11 @@ class _parse_proppatch
      * @param resource input stream file descriptor
      * @access public
      */
+    function __construct($handle)
+    {
+	$this->_parse_proppatch($handle);
+    }
+
     function _parse_proppatch($handle)
     {
         // open input stream

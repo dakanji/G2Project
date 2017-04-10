@@ -29,6 +29,10 @@
  */
 class ThumbnailModule extends GalleryModule {
 
+    function __construct() {
+	$this->ThumbnailModule();
+    }
+
     function ThumbnailModule() {
 	global $gallery;
 
@@ -46,7 +50,7 @@ class ThumbnailModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
 	$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
 	if ($ret) {

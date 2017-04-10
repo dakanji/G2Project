@@ -36,7 +36,7 @@ class NetPbmToolkitHelper {
      * @return GalleryStatus a status code
      *         array('operations' => ..., 'properties' => ...)
      */
-    function getOperationsAndProperties($saveParameters=false) {
+    static function getOperationsAndProperties($saveParameters=false) {
 	global $gallery;
 
 	list ($ret, $netPbmPath) =
@@ -173,7 +173,7 @@ class NetPbmToolkitHelper {
      *		     )
      *         array hash map of mime types
      */
-    function testJhead($jheadPath) {
+    static function testJhead($jheadPath) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	/*
@@ -217,7 +217,7 @@ class NetPbmToolkitHelper {
      *		     )
      *         array of string mime types
      */
-    function testBinaries($netPbmPath) {
+    static function testBinaries($netPbmPath) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	$isRestrictedPath = $platform->isRestrictedByOpenBaseDir($netPbmPath);
@@ -301,7 +301,7 @@ class NetPbmToolkitHelper {
      * @param array $tests testBinaries test results
      * @return GalleryStatus a status code
      */
-    function saveParameters($tests) {
+    static function saveParameters($tests) {
 	$paramList = array('pnmtojpeg' => 'p.mtojpeg', 'bmptopnm' => 'bmptop.m',
 			   'pnmcomp' => 'p.mcomp');
 	foreach ($tests as $test) {

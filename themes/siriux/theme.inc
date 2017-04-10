@@ -27,6 +27,10 @@
  */
 class SiriuxTheme extends GalleryTheme {
 
+    function __construct() {
+	$this-> SiriuxTheme();
+    }
+
     function SiriuxTheme() {
 	global $gallery;
 

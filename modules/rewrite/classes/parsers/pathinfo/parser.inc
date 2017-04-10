@@ -33,6 +33,10 @@ define('REWRITE_STATUS_NO_PATH_INFO', 21);
  */
 class PathInfoParser extends RewriteParser {
 
+    function __construct() {
+	$this->PathInfoParser();
+    }
+
     function PathInfoParser() {
 	$this->_setParserId('pathinfo');
 	$this->_setParserType('inGallery');

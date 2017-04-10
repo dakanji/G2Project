@@ -28,6 +28,10 @@
  */
 class CaptchaModule extends GalleryModule {
 
+    function __construct() {
+	$this->CaptchaModule();
+    }
+
     function CaptchaModule() {
 	global $gallery;
 	$this->setId('captcha');
@@ -65,7 +69,7 @@ class CaptchaModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1 = null) {
 
 	switch ($currentVersion) {
 	case '':

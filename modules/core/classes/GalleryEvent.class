@@ -49,9 +49,14 @@ class GalleryEvent {
     var $_data;
 
 
+    function __construct() {
+	$this->GalleryEvent();
+    }
+
     function GalleryEvent() {
+        $temp = null;
 	$this->setEventName(null);
-	$this->setEntity($null=null);
+	$this->setEntity($temp);
 	$this->setData(null);
     }
 

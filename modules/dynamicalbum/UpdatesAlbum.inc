@@ -27,6 +27,10 @@
  */
 class UpdatesAlbumView extends GalleryView {
 
+    function __construct() {
+	$this->UpdatesAlbumView();
+    }
+
     function UpdatesAlbumView() {
 	global $gallery;
 	$this->_view = 'dynamicalbum.UpdatesAlbum';

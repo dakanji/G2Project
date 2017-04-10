@@ -27,6 +27,10 @@
  */
 class KeyAlbumModule extends GalleryModule {
 
+    function __construct() {
+	$this->KeyAlbumModule();
+    }
+
     function KeyAlbumModule() {
 	global $gallery;
 	$this->setId('keyalbum');
@@ -43,7 +47,7 @@ class KeyAlbumModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'keyalbum');
 	if ($ret) {
 	    return $ret;

@@ -27,6 +27,10 @@
  */
 class MP3AudioModule extends GalleryModule {
 
+    function __construct() {
+	$this->MP3AudioModule();
+    }
+
     function MP3AudioModule() {
 	global $gallery;
 	$this->setId('mp3audio');

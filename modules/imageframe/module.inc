@@ -27,6 +27,10 @@
  */
 class ImageFrameModule extends GalleryModule {
 
+    function __construct() {
+	$this->ImageFrameModule();
+    }
+
     function ImageFrameModule() {
 	global $gallery;
 	$this->setId('imageframe');

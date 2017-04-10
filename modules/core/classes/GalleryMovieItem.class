@@ -88,6 +88,8 @@ class GalleryMovieItem extends GalleryDataItem {
 	    'video/quicktime',
 	    'video/mpeg',
 	    'video/mp4',
+	    'video/flv',
+	    'video/x-flv',
 	    'video/x-msvideo',
 	    'video/x-ms-wmv',
 	    'video/x-ms-asf',
@@ -232,7 +234,38 @@ class GalleryMovieItem extends GalleryDataItem {
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 	    switch ($this->getMimeType()) {
+	    case 'video/mp4':
+	    case 'video/flv':
+	    case 'video/x-flv':
 	    case 'video/quicktime':
+		if (in_array(strtolower(substr($this->getPathComponent(), -4)), array(".mp4", ".flv")))
+			return sprintf(
+"<script type=\"text/javascript\" src=\"%s\"></script>
+<div id=\"movie-item-%d\">%s</div>
+<!-- type => %s -->
+<script type=\"text/javascript\">
+  jwplayer(\"movie-item-%d\").setup(
+    {
+      'height': '%d',
+      'width': '%d',
+      'file': '%s',
+      'title': '%s',
+      'autostart': 'true',
+      'bufferlength': '10',
+      'controlbar': 'bottom',
+      'display.showmute': 'true',
+      'stretching': 'uniform',
+      'wmode': 'transparent',
+      'modes': [
+         { 'type': 'flash', 'src': '%s' },
+         { 'type': 'html5' },
+         { 'type': 'download' }
+        ]
+    });
+</script>",
+$urlGenerator->makeAbsoluteUrl('lib/jwplayer.js'), $this->getId(), $fallback,
+$this->getMimeType(), $this->getId(), $height+20, $width,
+$src, htmlspecialchars($this->getTitle()), $urlGenerator->makeAbsoluteUrl('lib/player.swf'));
 		return sprintf(
 		'<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
 			 codebase="http://www.apple.com/qtactivex/qtplugin.cab"
@@ -256,12 +289,32 @@ class GalleryMovieItem extends GalleryDataItem {
 		$fallback);
 
 	    case 'video/mpeg':
-	    case 'video/mp4':
+	    //case 'video/mp4':
 	    case 'video/x-msvideo':
 	    case 'video/x-ms-wmv':
 		$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
 	    case 'video/x-ms-asf':
 	    case 'video/x-ms-asx':
+		if (in_array(strtolower(substr($this->getPathComponent(), -4)), array(".asf", ".wmv")))
+			return sprintf(
+"<script type=\"text/javascript\" src=\"%s\"></script>
+<script type=\"text/javascript\" src=\"%s\"></script>
+<div id=\"movie-item-%d\">%s</div>
+<!-- type => %s -->
+<script type=\"text/javascript\">
+    var elm = document.getElementById(\"%s\");
+    var src = '%s';
+    var cfg = {
+        file:'%s',
+        width:'%d',
+        height:'%d',
+        windowless: 'true',
+        autostart: 'true'
+    };
+    var ply = new jeroenwijering.Player(elm,src,cfg);
+</script>",
+$urlGenerator->makeAbsoluteUrl('lib/silverlight.js'), $urlGenerator->makeAbsoluteUrl('lib/wmvplayer.js'), $this->getId(), $fallback,
+$this->getMimeType(), $this->getId(), $urlGenerator->makeAbsoluteUrl('lib/wmvplayer.xaml'), $src, $height+20, $width);
 		if (!isset($classId)) {
 		    $classId = 'CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95';
 		}
@@ -287,7 +340,8 @@ class GalleryMovieItem extends GalleryDataItem {
 		$fallback);
 
 	    default:
-		return $fallback;
+		return sprintf("<!-- type: %s -->\n%s", $this->getMimeType(), $fallback);
+		//return $fallback;
 	    }
 
 	default:

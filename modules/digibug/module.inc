@@ -27,6 +27,10 @@
  */
 class DigibugModule extends GalleryModule {
 
+    function __construct() {
+	$this->DigibugModule();
+    }
+
     function DigibugModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class DigibugModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	if (!isset($currentVersion)) {
 	    $currentVersion = '0';
@@ -130,7 +134,7 @@ class DigibugModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	global $gallery;
 	$session =& $gallery->getSession();
 

@@ -25,6 +25,10 @@
  */
 class RemoteModule extends GalleryModule {
 
+    function __construct() {
+	$this->RemoteModule();
+    }
+
     function RemoteModule() {
 	global $gallery;
 	$this->setId('remote');
@@ -41,7 +45,7 @@ class RemoteModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
 	if ($ret) {
 	    return $ret;

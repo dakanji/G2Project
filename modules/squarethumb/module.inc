@@ -30,6 +30,10 @@
  */
 class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->SquareThumbModule();
+    }
+
     function SquareThumbModule() {
 	global $gallery;
 
@@ -47,7 +51,7 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'squarethumb');
 	if ($ret) {
 	    return $ret;

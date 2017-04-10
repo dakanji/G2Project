@@ -29,6 +29,10 @@
  */
 class Getid3Module extends GalleryModule {
 
+    function __construct() {
+	$this->Getid3Module();
+    }
+
     function Getid3Module() {
 	global $gallery;
 
@@ -46,7 +50,7 @@ class Getid3Module extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!isset($currentVersion)) {

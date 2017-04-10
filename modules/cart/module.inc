@@ -27,6 +27,10 @@
  */
 class CartModule extends GalleryModule {
 
+    function __construct() {
+	$this->CartModule();
+    }
+
     function CartModule() {
 	global $gallery;
 
@@ -44,7 +48,7 @@ class CartModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (empty($currentVersion)) {
@@ -148,7 +152,7 @@ class CartModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 	foreach ($items as $item) {
 	    if (isset($permissions[$item->getId()]['cart.add'])) {
