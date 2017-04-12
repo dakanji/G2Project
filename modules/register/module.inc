@@ -27,28 +27,28 @@
  */
 class RegisterModule extends GalleryModule {
 
+    function __construct() {
+	$this->RegisterModule();
+    }
+
     function RegisterModule() {
 	global $gallery;
 
 	$this->setId('register');
 	$this->setName($gallery->i18n('Registration'));
 	$this->setDescription($gallery->i18n('New User Registration'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSystemLinks|getUserAdminViews|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 	if ($ret) {
 	    return $ret;

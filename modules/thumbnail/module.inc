@@ -29,28 +29,28 @@
  */
 class ThumbnailModule extends GalleryModule {
 
+    function __construct() {
+	$this->ThumbnailModule();
+    }
+
     function ThumbnailModule() {
 	global $gallery;
 
 	$this->setId('thumbnail');
 	$this->setName($gallery->i18n('Thumbnail Manager'));
 	$this->setDescription($gallery->i18n('Set default thumbnails for non-image items'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update ThumbnailModuleExtras::upgrade also! */
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
 	$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
 	if ($ret) {

@@ -30,27 +30,27 @@
  */
 class PanoramaModule extends GalleryModule {
 
+    function __construct() {
+	$this->PanoramaModule();
+    }
+
     function PanoramaModule() {
 	global $gallery;
 	$this->setId('panorama');
 	$this->setName($gallery->i18n('Panorama'));
 	$this->setDescription($gallery->i18n('View wide jpeg/gif images in a java applet viewer'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	if (!isset($currentVersion)) {
 	    /* Initial install */
 	    foreach (array('itemType' => 1,
@@ -107,7 +107,7 @@ class PanoramaModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');

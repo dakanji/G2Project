@@ -35,7 +35,7 @@ class GalleryMembersHelper {
      * @return array GalleryStatus a status code,
      *               int ItemCount a users total item count
      */
-    function fetchUserItemCount($userId) {
+    static function fetchUserItemCount($userId) {
 	global $gallery;
 
 	list ($ret, $aclIds) =
@@ -84,7 +84,7 @@ class GalleryMembersHelper {
      * @return array GalleryStatus a status code,
      *               array (GalleryItem, GalleryItem, ...)
      */
-    function fetchLastUserItems($userId, $offset, $count, $orderDirection=ORDER_DESCENDING) {
+    static function fetchLastUserItems($userId, $offset, $count, $orderDirection=ORDER_DESCENDING) {
 	global $gallery;
 
 	switch($orderDirection) {
@@ -165,7 +165,7 @@ class GalleryMembersHelper {
      * @return array GalleryStatus a status code,
      *               boolean canViewMembersModule permission
      */
-    function canViewMembersModule($userId) {
+    static function canViewMembersModule($userId) {
 	list ($ret, $viewSelectedGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'members', 'canViewMembersModule');
 	if ($ret) {
@@ -186,7 +186,7 @@ class GalleryMembersHelper {
      * @return array GalleryStatus a status code,
      *               boolean canViewProfileEmail permission
      */
-    function canViewProfileEmail($userId) {
+    static function canViewProfileEmail($userId) {
 	$result = false;
 	/* Can the user view email addresses in the member profile? */
 	list ($ret, $resultOne) =
@@ -225,7 +225,7 @@ class GalleryMembersHelper {
      * @return array GalleryStatus a status code,
      *               int daysSinceCreation number in days
      */
-    function daysSinceCreation($userId) {
+    static function daysSinceCreation($userId) {
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 	if ($ret) {
 	    return array($ret, null);
@@ -248,7 +248,7 @@ class GalleryMembersHelper {
      * @return array GalleryStatus
      *               int how many members are registered
      */
-    function getMembersCount() {
+    static function getMembersCount() {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 	if ($ret) {

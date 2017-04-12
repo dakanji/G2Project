@@ -27,21 +27,21 @@
  */
 class ImageFrameModule extends GalleryModule {
 
+    function __construct() {
+	$this->ImageFrameModule();
+    }
+
     function ImageFrameModule() {
 	global $gallery;
 	$this->setId('imageframe');
 	$this->setName($gallery->i18n('ImageFrame'));
 	$this->setDescription($gallery->i18n('Render frames around images'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

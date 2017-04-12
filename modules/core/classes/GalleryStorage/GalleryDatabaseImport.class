@@ -69,6 +69,10 @@ class GalleryImportElement extends GalleryXmlHandler {
      * @param GalleryImportElement $parent The parent object. Used to follow the parent chain in
      *           order to set error messages and to provide status information to the caller.
      */
+    function __construct($parent=null) {
+	$this->GalleryImportElement($parent);
+    }
+
     function GalleryImportElement($parent=null) {
 	global $gallery;
 
@@ -136,6 +140,10 @@ class GalleryDatabaseImport extends GalleryImportElement {
      * them.
      */
     var $_fileReadChunkSize = 8192;
+
+    function __construct() {
+	$this->GalleryDatabaseImport();
+    }
 
     function GalleryDatabaseImport() {
 	parent::GalleryImportElement();
@@ -374,6 +382,10 @@ class GalleryDatabaseImport extends GalleryImportElement {
  * @private
  */
 class _GalleryExportTag extends GalleryImportElement {
+    function __construct($parent, $attributes) {
+	$this->_GalleryExportTag($parent, $attributes);
+    }
+
     function _GalleryExportTag($parent, $attributes) {
 	parent::GalleryImportElement($parent);
 	$this->writeVersions($attributes['core-version'], $attributes['gallery-version']);
@@ -426,6 +438,10 @@ class _GalleryPluginTag extends GalleryImportElement {
     /** Variable to hold the module id */
     var $_id;
 
+    function __construct($parent, $attributes) {
+	$this->_GalleryPluginTag($parent, $attributes);
+    }
+
     function _GalleryPluginTag($parent, $attributes) {
 	parent::GalleryImportElement($parent);
 	$this->_id = $attributes['id'];
@@ -456,6 +472,10 @@ class _GallerySequenceTag extends GalleryImportElement {
     /** The starting value. */
     var $_startValue;
     
+    function __construct($parent, $attributes) {
+	$this->_GallerySequenceTag($parent, $attributes);
+    }
+
     function _GallerySequenceTag($parent, $attributes) {
 	parent::GalleryImportElement($parent);
 	$this->_sequenceName = $attributes['name'];
@@ -491,6 +511,10 @@ class _GallerySequenceTag extends GalleryImportElement {
 class _GalleryTableTag extends GalleryImportElement {
     /** Variable to hold the table name */
     var $_name;
+
+    function __construct($parent, $attributes) {
+	$this->_GalleryTableTag($parent, $attributes);
+    }
 
     function _GalleryTableTag($parent, $attributes) {
     	parent::GalleryImportElement($parent);
@@ -533,6 +557,10 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 
     /** Holds the table type */
     var $_tableType = null;
+
+    function __construct($parent, $tableName, $attributes) {
+	$this->_GalleryTableDefinitionTag($parent, $tableName, $attributes);
+    }
 
     function _GalleryTableDefinitionTag($parent, $tableName, $attributes) {
 	parent::GalleryImportElement($parent);
@@ -632,6 +660,10 @@ class _GalleryTableInfoTag extends GalleryImportElement {
     /** Holds the table type */
     var $_tableType = null;
 
+    function __construct($parent, $attributes) {
+	$this->_GalleryTableInfoTag($parent, $attributes);
+    }
+
     function _GalleryTableInfoTag($parent, $attributes) {
 	parent::GalleryImportElement($parent);
 	$this->_tableInfo = '';
@@ -659,6 +691,10 @@ class _GalleryDataTag extends GalleryImportElement {
 
     /** Row counter so we can provide feedback to the user. */
     var $_rowCounter;
+
+    function __construct($parent, $tableName, $attributes) {
+	$this->_GalleryDataTag($parent, $tableName, $attributes);
+    }
 
     function _GalleryDataTag($parent, $tableName, $attributes) {
 	parent::GalleryImportElement($parent);
@@ -711,6 +747,10 @@ class _GalleryFieldDefinitionTag extends GalleryImportElement {
     /** Name of the column */
     var $_translatedName = array();
     
+    function __construct($parent, $attributes) {
+	$this->_GalleryFieldDefinitionTag($parent, $attributes);
+    }
+
     function _GalleryFieldDefinitionTag($parent, $attributes) {
 	parent::GalleryImportElement($parent);
 	$colName = GalleryUtilities::strToLower($attributes['name']);
@@ -741,6 +781,10 @@ class _GalleryRowTag extends GalleryImportElement {
 
     /** Holds the generated insert for this table */
     var $_currentSql;
+
+    function __construct($parent, $tableName, $fields, $attributes) {
+	$this->_GalleryRowTag($parent, $tableName, $fields, $attributes);
+    }
 
     function _GalleryRowTag($parent, $tableName, $fields, $attributes) {
 	parent::GalleryImportElement($parent);
@@ -801,6 +845,10 @@ class _GalleryFieldValueTag extends GalleryImportElement {
     /** Temporary storage for the null field value indicator */
     var $_memberData;
 
+    function __construct($parent, $memberData, $attributes) {
+	$this->_GalleryFieldValueTag($parent, $memberData, $attributes);
+    }
+
     function _GalleryFieldValueTag($parent, $memberData, $attributes) {
 	parent::GalleryImportElement($parent);
 	$this->_fieldData = '';
@@ -846,6 +894,10 @@ class GalleryXmlProcessor {
      */
     var $_xmlParser;
     
+    function __construct($rootElement) {
+	$this->GalleryXmlProcessor($rootElement);
+    }
+
     function GalleryXmlProcessor($rootElement) {
 	$this->_elementStack[] = $rootElement;
 

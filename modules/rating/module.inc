@@ -26,22 +26,22 @@
  */
 class RatingModule extends GalleryModule {
 
+    function __construct() {
+	$this->RatingModule();
+    }
+
     function RatingModule() {
 	global $gallery;
 
 	$this->setId('rating');
 	$this->setName($gallery->i18n('Rating'));
 	$this->setDescription($gallery->i18n('Item Rating Interface'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() too */
+	$this->_templateVersion = 1;
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -172,7 +172,7 @@ class RatingModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!isset($currentVersion)) {
@@ -228,7 +228,6 @@ class RatingModule extends GalleryModule {
 	case '1.0.11':
 	    /* Combined YUI libraries into a single file */
 	case '1.0.12': 
-	case '1.0.13':
 
 	case 'end of upgrade path':
 	    break;

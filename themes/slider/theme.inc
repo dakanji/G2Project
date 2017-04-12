@@ -28,18 +28,20 @@
  */
 class SliderTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->SliderTheme();
+    }
+
     function SliderTheme() {
 	global $gallery;
 
 	$this->setId('slider');
 	$this->setName($gallery->i18n('Slider'));
-	$this->setDescription($gallery->i18n('Image viewer/slideshow'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setDescription(
+	    $gallery->i18n('Image viewer/slideshow; subalbums/other items not shown'));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(array(
 	    'colorpack' => '',
 	    'sidebarBlocks' => serialize(array(
@@ -89,7 +91,6 @@ class SliderTheme extends GalleryTheme {
 	$theme['imageCount'] = count($imageWidths);
 
 	$template->head('themes/slider/templates/header.tpl');
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -111,7 +112,6 @@ class SliderTheme extends GalleryTheme {
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
-       $this->loadThemeResources($this->getId(), $template);				  
 	    return array(null, 'render.tpl');
 	}
 
@@ -139,7 +139,7 @@ class SliderTheme extends GalleryTheme {
 		break;
 	    }
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, $tplFile);
     }
 
@@ -152,7 +152,7 @@ class SliderTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -165,7 +165,7 @@ class SliderTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -173,7 +173,6 @@ class SliderTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -186,7 +185,7 @@ class SliderTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 

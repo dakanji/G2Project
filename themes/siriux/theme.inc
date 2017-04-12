@@ -27,18 +27,19 @@
  */
 class SiriuxTheme extends GalleryTheme {
 
+    function __construct() {
+	$this-> SiriuxTheme();
+    }
+
     function SiriuxTheme() {
 	global $gallery;
 
 	$this->setId('siriux');
 	$this->setName($gallery->i18n('Siriux'));
 	$this->setDescription($gallery->i18n('Siriux.net Gallery theme'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('perPage' => 9,
 		  'contentWidth' => 700,
@@ -89,7 +90,7 @@ class SiriuxTheme extends GalleryTheme {
 		break;
 	    }
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -112,7 +113,7 @@ class SiriuxTheme extends GalleryTheme {
 	if (isset($theme['navigator']['last'])) {
 	    unset($theme['navigator']['last']);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -130,7 +131,7 @@ class SiriuxTheme extends GalleryTheme {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['moduleTemplate'] = $templateFile;
 
-	$this->loadThemeResources($this->getId(), $template);
+	/* Add our header and styles */
 	return array(null, 'theme.tpl');
     }
 
@@ -147,7 +148,7 @@ class SiriuxTheme extends GalleryTheme {
 	/* Add in our extra stuff */
 	$theme =& $template->getVariableByReference('theme');
 	$theme['adminTemplate'] = $templateFile;
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -155,7 +156,6 @@ class SiriuxTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -168,7 +168,7 @@ class SiriuxTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 

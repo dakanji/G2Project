@@ -27,18 +27,19 @@
  */
 class HybridTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->HybridTheme();
+    }
+
     function HybridTheme() {
 	global $gallery;
 
 	$this->setId('hybrid');
 	$this->setName($gallery->i18n('Hybrid'));
 	$this->setDescription($gallery->i18n('Combined album/image/slideshow dynamic view'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(array(
 	    'rows' => 30, 'columns' => 2,
 	    'albumFrame' => '', 'itemFrame' => '', 'colorpack' => '',
@@ -170,7 +171,6 @@ class HybridTheme extends GalleryTheme {
 	}
 
 	$template->head('themes/hybrid/templates/header.tpl');
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -192,7 +192,6 @@ class HybridTheme extends GalleryTheme {
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
-		 $this->loadThemeResources($this->getId(), $template);
 	    return array(null, 'render.tpl');
 	}
 
@@ -213,7 +212,6 @@ class HybridTheme extends GalleryTheme {
 		$theme['thumbnail'] = (array)$thumbnail[$item->getId()];
 	    }
 	    $template->style('themes/hybrid/theme.css');
-		 $this->loadThemeResources($this->getId(), $template);
 	    return array(null, 'detail.tpl');
 	}
 
@@ -254,7 +252,7 @@ class HybridTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -267,7 +265,7 @@ class HybridTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -275,7 +273,6 @@ class HybridTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -288,7 +285,7 @@ class HybridTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 

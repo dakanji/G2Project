@@ -29,28 +29,28 @@
  */
 class Getid3Module extends GalleryModule {
 
+    function __construct() {
+	$this->Getid3Module();
+    }
+
     function Getid3Module() {
 	global $gallery;
 
 	$this->setId('getid3');
 	$this->setName($gallery->i18n('Getid3'));
 	$this->setDescription($gallery->i18n('A toolkit for getting id3 tag information'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() function below too */
+	$this->_templateVersion = 1;
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!isset($currentVersion)) {
@@ -80,6 +80,7 @@ class Getid3Module extends GalleryModule {
 	    case '1.0.5':
 	    case '1.0.6':
 	    case '1.0.7':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	    case 'end of upgrade path':
 		break;

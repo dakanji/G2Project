@@ -31,6 +31,10 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
  */
 class OracleStorage extends GalleryStorage {
 
+    function __construct($config) {
+	$this->OracleStorage($config);
+    }
+
     function OracleStorage($config) {
 	$this->GalleryStorage($config);
 	$this->_isTransactional = true;

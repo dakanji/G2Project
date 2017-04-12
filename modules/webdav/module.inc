@@ -26,22 +26,22 @@
  */
 class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->WebDavModule();
+    }
+
     function WebDavModule() {
 	global $gallery;
 
 	$this->setId('webdav');
 	$this->setName($gallery->i18n('WebDAV'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() too! */
+	$this->_templateVersion = 1;
 	$this->setDescription($gallery->i18n('Mount Gallery on your desktop.'));
 	$this->setGroup('interfaces', $gallery->i18n('Remote Interfaces'));
 	$this->setCallbacks('getItemLinks|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -68,7 +68,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	switch ($currentVersion) {
@@ -169,6 +169,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 	case '1.0.8':
 	case '1.0.9':
 	case '1.0.10':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    break;
@@ -191,6 +192,17 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 	    return array($ret, null);
 	}
 
+	if (isset($modules['rewrite'])) {
+	    list ($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite', true);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    if (version_compare($rewrite->getVersion(), '1.1.8', '<')) {
+		return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
+	    }
+	}
+
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
 	    return array($ret, null);
@@ -202,7 +214,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	$links = array();
 	foreach ($items as $item) {
 	    if (!$item->getCanContainChildren() || empty($wantsDetailedLinks[$item->getId()])) {

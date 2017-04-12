@@ -31,6 +31,10 @@ GalleryCoreApi::requireOnce('modules/notification/classes/GalleryCoreEventNotifi
  * @version $Revision: 18172 $
  */
 class NotificationModule extends GalleryModule {
+    function __construct() {
+	$this->NotificationModule();
+    }
+
     function NotificationModule() {
 	global $gallery;
 	$this->setId('notification');
@@ -38,13 +42,9 @@ class NotificationModule extends GalleryModule {
 	$this->setDescription(
 		$gallery->i18n('Allow users to be notified of events by subscription.'));
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
 	$this->setCallbacks('getSiteAdminViews|getUserAdminViews|getItemLinks|getItemAdminViews');
     }
 
@@ -199,7 +199,7 @@ class NotificationModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	$links = array();
 
 	list ($ret, $showView) = $this->_showWatch($userId);
@@ -223,7 +223,7 @@ class NotificationModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion, $statusMonitor) {
+    function upgrade($currentVersion, $statusMonitor=null) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 

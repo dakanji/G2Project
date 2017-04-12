@@ -33,7 +33,7 @@ class ExifExtractor extends ExifInterface_1_0 {
     /**
      * @see ExifInterface_1_0::getMetaData
      */
-    function getMetaData($itemIds, $properties=array()) {
+    static function getMetaData($itemIds, $properties=array()) {
 	global $gallery;
 	GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
@@ -84,7 +84,18 @@ class ExifExtractor extends ExifInterface_1_0 {
 		}
 	    }
 	}
+	//fdbg ('clear');
+	// Получение загловка из ADOBE XMP
+	$command = 'exiftool -g -json -struct -xmp:all "'.$path.'"';
+	exec($command, $output, $return_var);
+	$metadata = implode('', $output);
+	$metadata = json_decode($metadata);
+	$title = $metadata[0]->{'XMP'}->{'Title'};
+	//fdbg ($title);
 
+	//fdbg ('clear');
+	//fdbg ($data[$itemId]['IPTC/ObjectName']['value']);
+	$data[$itemId]['IPTC/ObjectName']['value'] = $title;
 	return array(null, $data);
     }
 }

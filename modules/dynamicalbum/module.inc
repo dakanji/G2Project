@@ -27,28 +27,28 @@
  */
 class DynamicAlbumModule extends GalleryModule {
 
+    function __construct() {
+	$this->DynamicAlbumModule();
+    }
+
     function DynamicAlbumModule() {
 	global $gallery;
 	$this->setId('dynamicalbum');
 	$this->setName($gallery->i18n('Dynamic Albums'));
 	$this->setDescription(
 		$gallery->i18n('Dynamic albums for newest, most viewed or random items'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1 = NULL) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 	if ($ret) {
 	    return $ret;
@@ -103,7 +103,7 @@ class DynamicAlbumModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 	if ($ret) {

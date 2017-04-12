@@ -26,21 +26,21 @@
  */
 class PicasaModule extends GalleryModule {
 
+    function __construct() {
+	$this->PicasaModule();
+    }
+
     function PicasaModule() {
 	global $gallery;
 	$this->setId('picasa');
 	$this->setName($gallery->i18n('Picasa'));
 	$this->setDescription($gallery->i18n('Import for Picasa 2 XML-Exports'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('import', $this->translate('Import'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

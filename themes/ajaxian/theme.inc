@@ -27,18 +27,19 @@
  */
 class AjaxianTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->AjaxianTheme();
+    }
+
     function AjaxianTheme() {
 	global $gallery;
 
 	$this->setId('ajaxian');
 	$this->setName($gallery->i18n('Ajaxian'));
 	$this->setDescription($gallery->i18n('DHTML-enabled Slideshow theme'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('rows' => 3, 'columns' => 8,
 		  'showAlbumOwner' => 0,
@@ -83,8 +84,7 @@ class AjaxianTheme extends GalleryTheme {
 	$theme['imageWidths'] = implode(',', $imageWidths);
 	$theme['imageHeights'] = implode(',', $imageHeights);
 	$theme['imageCount'] = count($imageWidths);
-	$this->loadThemeResources($this->getId(), $template);
-	$this->_loadjsfiles($template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -105,8 +105,7 @@ class AjaxianTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
-	$this->_loadjsfiles($template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -123,7 +122,7 @@ class AjaxianTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -140,7 +139,7 @@ class AjaxianTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -148,7 +147,6 @@ class AjaxianTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -165,7 +163,7 @@ class AjaxianTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -262,15 +260,5 @@ class AjaxianTheme extends GalleryTheme {
 	}
 	return array(null, $imageWidths, $imageHeights);
     }
-    
-	/**
-	 * Loads Theme JS Files.
-	 * @access private
-	**/
-	function _loadjsfiles($template) {
-		$template->javascript('/themes/ajaxian/javascript/common-functions.js');
-		$template->javascript('/themes/ajaxian/javascript/thumbnail-functions.js');
-		$template->javascript('/themes/ajaxian/javascript/slideshow-functions.js');
-   }
 }
 ?>

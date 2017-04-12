@@ -26,21 +26,21 @@
  */
 class SitemapModule extends GalleryModule {
 
+    function __construct() {
+	$this->SitemapModule();
+    }
+
     function SitemapModule() {
 	global $gallery;
 	$this->setId('sitemap');
 	$this->setName($gallery->i18n('Sitemap'));
 	$this->setDescription($gallery->i18n('Generate a Google Sitemap for your Gallery'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('export', $gallery->i18n('Export'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

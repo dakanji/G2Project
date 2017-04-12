@@ -28,21 +28,22 @@
  */
 class AlbumSelectModule extends GalleryModule {
 
+    function __construct() {
+	$this->AlbumSelectModule();
+    }
+
     function AlbumSelectModule() {
 	global $gallery;
 	$this->setId('albumselect');
 	$this->setName($gallery->i18n('Album Select'));
-	$this->setDescription($gallery->i18n('Jump to albums with select box or tree view'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setDescription(
+	    $gallery->i18n('Jump directly to any album using a select box or tree view'));
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -61,7 +62,7 @@ class AlbumSelectModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 	if ($ret) {
 	    return $ret;
@@ -100,8 +101,6 @@ class AlbumSelectModule extends GalleryModule {
 	    GalleryDataCache::removeFromDisk(
 		array('type' => 'module-data', 'module' => 'albumselect'));
 	}
-	
-	/* No change for 4.0.0.0 */
 
 	return null;
     }

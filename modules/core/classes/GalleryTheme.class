@@ -27,7 +27,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlugin.class');
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Alan Harder <alan.harder@sun.com>
- * @version $Revision: 20954 $
+ * @version $Revision: 18843 $
  * @abstract
  */
 class GalleryTheme extends GalleryPlugin {
@@ -59,6 +59,10 @@ class GalleryTheme extends GalleryPlugin {
      * theme.inc are still in the themes folder.  The old themes call $this->GalleryTheme() in their
      * constructor.
      */
+    function __construct() {
+	$this->GalleryTheme();
+    }
+
     function GalleryTheme() {
     }
 
@@ -69,7 +73,7 @@ class GalleryTheme extends GalleryPlugin {
      *
      * @return array major number, minor number
      */
-    function getApiVersion() {
+    static function getApiVersion() {
 	return array(3, 0);
     }
 
@@ -690,25 +694,25 @@ class GalleryTheme extends GalleryPlugin {
 	list ($ret, $defaultTheme) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 	if ($ret) {
-	    return $ret;
+	    return array($ret, null);
 	}
 	if ($defaultTheme == $this->getId() && $postDeactivationEvent) {
 	    /*
 	     * Can't deactivate default theme.  UI doesn't offer this option, so we should only
-	     * reach this code if default theme needs to be upgraded.  loadPlugin will see that
-	     * 'upgrade' is returned and jump to the upgrader.  
-	     * Allow this deactivate if $postDeactivationEvent is false (during
+	     * reach this code if default theme needs to be upgraded.  loadPlugin will see a
+	     * redirect URL is returned and jump to upgrader (the actual redirect returned below
+	     * isn't used).  Allow this deactivate if $postDeactivationEvent is false (during
 	     * reactivate)
 	     */
-	    return 'upgrade';
+	    return array(null, array('href' => 'upgrade/'));
 	}
 
-	$ret = parent::deactivate($postDeactivationEvent);
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
 	if ($ret) {
-	    return $ret;
+	    return array($ret, null);
 	}
 
-	return null;
+	return array(null, $redirect);
     }
 
     /**
@@ -1138,16 +1142,10 @@ class GalleryTheme extends GalleryPlugin {
 		}
 	    }
 
-		// Restore template variables from cache and assign them
-		if (!empty($serializedData)) {
-			$unserial = unserialize($serializedData);
-			if (is_array($unserial)) {
-				foreach ($unserial as $key => $value) {
-					$template->setVariable($key, $value);
-				}
-			}
-			return null;
-		}
+	    if (!empty($serializedData)) {
+		$template->_smarty->_tpl_vars = unserialize($serializedData);
+		return null;
+	    }
 	}
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -1452,7 +1450,7 @@ class GalleryTheme extends GalleryPlugin {
 		if (isset($permission['core.delete'])) {
 		    $template->javascript('lib/yui/utilities.js');
 		    $template->javascript('lib/yui/container-min.js');
-		    list ($ret, $lang) = $gallery->getActiveLocale();
+		    list ($ret, $lang) = $gallery->getActiveLanguageCode();
 		    if ($ret) {
 			return $ret;
 		    }
@@ -1836,7 +1834,7 @@ class GalleryTheme extends GalleryPlugin {
 		$ret = GalleryDataCache::putPageData(
 		    'template', $item->getId(),
 		    array($item->getId(), $params, $dataToLoad, $childIds, $imageViewsIndex),
-		    serialize($template->_smarty->getTemplateVars()));
+		    serialize($template->_smarty->_tpl_vars));
 		if ($ret) {
 		    return $ret;
 		}
@@ -2023,18 +2021,5 @@ class GalleryTheme extends GalleryPlugin {
     function getStandardSettings() {
 	return $this->_standardSettings;
     }
-
-    /**
-     * Load the default theme JS and CSS files.
-     *
-     * @param string $theme the theme id
-     * @param object &$template the template object
-    **/ 
- 	function loadThemeResources($theme, &$template) {
-		$template->style('themes/' .$theme . '/theme.css');
-		$template->javascript('themes/' .$theme . '/theme.js');
-	}
-   
-    
 }
 ?>

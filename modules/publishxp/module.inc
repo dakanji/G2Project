@@ -31,20 +31,21 @@
  */
 class PublishXpModule extends GalleryModule {
 
+    function __construct() {
+	$this->PublishXpModule();
+    }
+
     function PublishXpModule() {
 	global $gallery;
 	$this->setId('publishxp');
 	$this->setName($gallery->i18n('Windows Publishing Wizard'));
 	$this->setDescription($gallery->i18n('Publish photos to Gallery directly from Windows'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

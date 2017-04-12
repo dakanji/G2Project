@@ -84,7 +84,7 @@ class FfmpegToolkit extends GalleryToolkit {
 	$futureOp = false;
 	switch($operationName) {
 	case 'convert-to-image/jpeg':
-	    $args = array('-f', 'mjpeg', '-t', '0.001', '-y', $tmpFilename);
+	    $args = array('-f', 'mjpeg', '-vframes', '1', '-y', $tmpFilename);
 	    if (isset($context['ffmpeg.offset'])) {
 		array_unshift($args, '-ss', $context['ffmpeg.offset']);
 		unset($context['ffmpeg.offset']);
@@ -297,7 +297,7 @@ Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'dscn3232.mov':
 		$duration = 3600*$regs[1] + 60*$regs[2] + $regs[3];
 	    }
 
-	    if (preg_match("/Stream.*?Video:.*?(\d+)x(\d+).*\ +([0-9\.]+) (fps|tb).*/",
+	    if (preg_match("/Stream.*?Video:.*, ?(\d+)x(\d+).*\ +([0-9\.]+) (fps|tb).*/",
 			   $resultLine, $regs)) {
 		$successfulRun = true;
 		list ($width, $height, $vframerate) = array($regs[1], $regs[2], $regs[3]);

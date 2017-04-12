@@ -27,21 +27,21 @@
  */
 class ReuploadModule extends GalleryModule {
 
+    function __construct() {
+	$this->ReuploadModule();
+    }
+
     function ReuploadModule() {
 	global $gallery;
 	$this->setId('reupload');
 	$this->setName($gallery->i18n('Reupload'));
 	$this->setDescription($gallery->i18n('Allows reupload of pictures.'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

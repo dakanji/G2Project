@@ -26,27 +26,27 @@
  */
 class RandomHighlightModule extends GalleryModule {
 
+    function __construct() {
+	$this->RandomHighlightModule();
+    }
+
     function RandomHighlightModule() {
 	global $gallery;
 	$this->setId('randomhighlight');
 	$this->setName($gallery->i18n('Random Highlight'));
 	$this->setDescription($gallery->i18n('Periodically change the album highlight'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() function below too */
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) =
@@ -120,6 +120,7 @@ class RandomHighlightModule extends GalleryModule {
 	    case '1.0.7':
 	    case '1.0.8':
 	    case '1.0.9':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	    case 'end of upgrade path':
 		break;

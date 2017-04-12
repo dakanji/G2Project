@@ -27,18 +27,19 @@
  */
 class FloatrixTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->FloatrixTheme();
+    }
+
     function FloatrixTheme() {
 	global $gallery;
 
 	$this->setId('floatrix');
 	$this->setName($gallery->i18n('Floatrix'));
 	$this->setDescription($gallery->i18n('Variable column theme based on Matrix'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('perPage' => 12,
 		  'columnWidth' => 200, 'rowHeight' => 300,
@@ -95,7 +96,6 @@ class FloatrixTheme extends GalleryTheme {
 	}
 
 	$this->_splitItemLinks($template);
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -123,7 +123,6 @@ class FloatrixTheme extends GalleryTheme {
 	}
 
 	$this->_splitItemLinks($template);
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -163,7 +162,7 @@ class FloatrixTheme extends GalleryTheme {
 	if (GalleryUtilities::getRequestVariables('jsWarning') != null) {
 	    $template->setVariable('jsWarning', true);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -176,7 +175,7 @@ class FloatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -184,7 +183,6 @@ class FloatrixTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -197,7 +195,7 @@ class FloatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 }

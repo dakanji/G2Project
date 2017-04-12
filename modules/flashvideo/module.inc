@@ -27,20 +27,21 @@
  */
 class FlashVideoModule extends GalleryModule {
 
+    function __construct() {
+	$this->FlashVideoModule();
+    }
+
     function FlashVideoModule() {
 	global $gallery;
 	$this->setId('flashvideo');
 	$this->setName($gallery->i18n('Flash Video'));
 	$this->setDescription($gallery->i18n('Enable display of Flash video files'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

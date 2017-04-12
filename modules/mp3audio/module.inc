@@ -27,21 +27,22 @@
  */
 class MP3AudioModule extends GalleryModule {
 
+    function __construct() {
+	$this->MP3AudioModule();
+    }
+
     function MP3AudioModule() {
 	global $gallery;
 	$this->setId('mp3audio');
 	$this->setName($gallery->i18n('MP3 Audio'));
 	$this->setDescription(
 		$gallery->i18n('Enable inline play of mp3 audio files with a flash player'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

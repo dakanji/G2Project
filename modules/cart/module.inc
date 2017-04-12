@@ -27,18 +27,18 @@
  */
 class CartModule extends GalleryModule {
 
+    function __construct() {
+	$this->CartModule();
+    }
+
     function CartModule() {
 	global $gallery;
 
 	$this->setId('cart');
 	$this->setName($gallery->i18n('Cart'));
 	$this->setDescription($gallery->i18n('Shopping Cart Module'));
-	/** 
-	 * Version = MajorAPI.MinorAPI.ModuleSerialMajor.ModuleSerialMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() function below too */
+	$this->_templateVersion = 1;
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
 	$this->setRequiredCoreApi(array(8, 0));
@@ -48,7 +48,7 @@ class CartModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (empty($currentVersion)) {
@@ -138,6 +138,7 @@ class CartModule extends GalleryModule {
 	case '1.0.10':
 	case '1.0.11':
 	case '1.0.12':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    break;
@@ -153,7 +154,7 @@ class CartModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 	foreach ($items as $item) {
 	    if (isset($permissions[$item->getId()]['cart.add'])) {

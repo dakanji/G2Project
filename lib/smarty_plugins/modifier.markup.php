@@ -91,6 +91,10 @@ class GalleryHtmlMarkupParser {
 class GalleryBbcodeMarkupParser {
     var $_bbcode;
 
+    function __construct() {
+	$this->GalleryBbcodeMarkupParser();
+    }
+
     function GalleryBbcodeMarkupParser() {
 	if (!class_exists('StringParser_BBCode')) {
 	    GalleryCoreApi::requireOnce('lib/bbcode/stringparser_bbcode.class.php');

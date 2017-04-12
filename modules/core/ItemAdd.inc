@@ -756,7 +756,7 @@ class ItemAddOption {
      *               array ItemAddOption instances
      * @static
      */
-    function getAllAddOptions() {
+    static function getAllAddOptions() {
 	/* Get all the option plugins */
 	list ($ret, $allOptionIds) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('ItemAddOption');

@@ -610,7 +610,7 @@ class SystemChecksStep extends UpgradeStep {
 	return $storageFiles;
     }
 
-    function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
+    static function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
 	$base = realpath(dirname(__FILE__) . '/../..') . '/';
 
 	if ($useSetTimeLimit) {

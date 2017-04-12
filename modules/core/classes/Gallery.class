@@ -168,6 +168,10 @@ class Gallery {
     var $_phpVm = null;
 
 
+    function __construct() {
+        $this->Gallery();
+    }
+
     function Gallery() {
 	$this->_activeUser = null;
 

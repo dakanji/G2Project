@@ -27,18 +27,19 @@
  */
 class TileTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->TileTheme();
+    }
+
     function TileTheme() {
 	global $gallery;
 
 	$this->setId('tile');
 	$this->setName($gallery->i18n('Tile'));
 	$this->setDescription($gallery->i18n('Tile view of background image and image thumbnails'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(array('colorpack' => '',
 	    'sidebarBlocks' => serialize(array(
 		array('search.SearchBlock', array('showAdvancedLink' => true)),
@@ -116,7 +117,6 @@ class TileTheme extends GalleryTheme {
 	if ($showHead) {
 	    $template->head('themes/tile/templates/header.tpl');
 	}
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -138,7 +138,6 @@ class TileTheme extends GalleryTheme {
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
-		 $this->loadThemeResources($this->getId(), $template);
 	    return array(null, 'render.tpl');
 	}
 
@@ -168,7 +167,7 @@ class TileTheme extends GalleryTheme {
 		break;
 	    }
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, $tplFile);
     }
 
@@ -181,7 +180,7 @@ class TileTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -194,7 +193,7 @@ class TileTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -202,7 +201,6 @@ class TileTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -215,7 +213,7 @@ class TileTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 

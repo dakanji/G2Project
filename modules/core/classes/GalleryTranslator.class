@@ -48,7 +48,7 @@ class GalleryTranslator {
      * @var string
      * @access private
      */
-    var $_locale;
+    var $_languageCode;
 
     /**
      * Does the active language read right-to-left?
@@ -57,6 +57,10 @@ class GalleryTranslator {
      */
     var $_isRightToLeft;
 
+
+    function __construct() {
+	$this->GalleryTranslator();
+    }
 
     function GalleryTranslator() {
 	$this->_boundDomains = array();
@@ -67,7 +71,7 @@ class GalleryTranslator {
      * @return boolean
      * @static
      */
-    function canTranslate() {
+    static function canTranslate() {
 	return function_exists('dgettext');
     }
 
@@ -98,7 +102,7 @@ class GalleryTranslator {
      *                     ...)
      * @static
      */
-    function getLanguageData() {
+    static function getLanguageData() {
 	static $supportedLanguages = array();
 	static $defaultCountry = array();
 
@@ -284,33 +288,33 @@ class GalleryTranslator {
     /**
      * Initialize the translator with the specified language code hint
      *
-     * @param string $locale the language code hint (eg. 'en_US' or 'zh_CN')
+     * @param string $languageCode the language code hint (eg. 'en_US' or 'zh_CN')
      * @param boolean $dontUseDatabase (optional) true if we should not use the database
      * @return array GalleryStatus a status code
      *               string language code
      */
-    function init($locale=null, $dontUseDatabase=false) {
-	if (empty($locale) && !$dontUseDatabase) {
-	    list ($ret, $locale) = GalleryTranslator::getDefaultLocale();
+    function init($languageCode=null, $dontUseDatabase=false) {
+	if (empty($languageCode) && !$dontUseDatabase) {
+	    list ($ret, $languageCode) = GalleryTranslator::getDefaultLanguageCode();
 	    if ($ret) {
 		return array($ret, null);
 	    }
 	}
 
-	list ($locale, $data) = GalleryTranslator::getSupportedLocale($locale);
+	list ($languageCode, $data) = GalleryTranslator::getSupportedLanguageCode($languageCode);
 
 	/* If we're using gettext, try to bind to a language */
 	if (function_exists('dgettext')) {
 	    $this->_isRightToLeft = isset($data['right-to-left']);
 	    /* Some systems only require LANG, some (like Mandrake) seem to require LANGUAGE also */
-	    putenv("LANG=${locale}");
-	    putenv("LANGUAGE=${locale}");
+	    putenv("LANG=${languageCode}");
+	    putenv("LANGUAGE=${languageCode}");
 
-	    GalleryTranslator::_setlocale(LC_ALL, $locale);
+	    GalleryTranslator::_setlocale(LC_ALL, $languageCode);
 	}
 
-	$this->_locale = $locale;
-	return array(null, $locale);
+	$this->_languageCode = $languageCode;
+	return array(null, $languageCode);
     }
 
     /**
@@ -365,7 +369,7 @@ class GalleryTranslator {
      *               string language code
      * @static
      */
-    function getDefaultLocale() {
+    static function getDefaultLanguageCode() {
 	list ($ret, $useBrowserPref) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'language.useBrowserPref');
 	if ($ret) {
@@ -374,47 +378,47 @@ class GalleryTranslator {
 
 	if ($useBrowserPref) {
 	    /* Check the user-agent's preferences */
-	    $locale = GalleryTranslator::getLocaleFromRequest();
+	    $languageCode = GalleryTranslator::getLanguageCodeFromRequest();
 	}
 
-	if (empty($locale)) {
+	if (empty($languageCode)) {
 	    /* Use the site-wide default language */
-	    list ($ret, $locale) =
+	    list ($ret, $languageCode) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 	    if ($ret) {
 		return array($ret, null);
 	    }
 	}
 
-	return array(null, $locale);
+	return array(null, $languageCode);
     }
 
     /**
      * Return supported locale that was selected after initialization.
      * @return string locale
      */
-    function getActiveLocale() {
-	return $this->_locale;
+    function getActiveLanguageCode() {
+	return $this->_languageCode;
     }
 
     /**
      * Find a supported locale from given string.
      *
-     * @param string $locale the language code hint
+     * @param string $languageCode the language code hint
      * @param boolean $fallback (optional) if false, return array(null,null) for no match
      *        instead of en_US
      * @return array (string a language code in <language>_<COUNTRY> format,
      *                array data about this language code (description,right-to-left?))
      * @static
      */
-    function getSupportedLocale($locale, $fallback=true) {
+    static function getSupportedLanguageCode($languageCode, $fallback=true) {
 	static $supportedLanguages;
 	static $defaultCountry;
 	if (!isset($supportedLanguages)) {
 	    list ($supportedLanguages, $defaultCountry) = GalleryTranslator::getLanguageData();
 	}
 
-	list ($language, $country) = preg_split('/[-_]/', "${locale}_");
+	list ($language, $country) = preg_split('/[-_]/', "${languageCode}_");
 	$country = GalleryUtilities::strToUpper($country);
 	if ((empty($country) || !isset($supportedLanguages[$language][$country]))
 		&& isset($defaultCountry[$language])) {
@@ -439,14 +443,14 @@ class GalleryTranslator {
      * @return null or a language code in the <language>_<COUNTRY> format, eg: en_US
      * @static
      */
-    function getLocaleFromRequest() {
+    static function getLanguageCodeFromRequest() {
 	/* Take the first thing the browser accepts that we can use */
 	$httpAcceptLanguage = GalleryUtilities::getServerVar('HTTP_ACCEPT_LANGUAGE');
 	if (!empty($httpAcceptLanguage)) {
 	    foreach (explode(',', $httpAcceptLanguage) as $code) {
-		list ($locale) = GalleryTranslator::getSupportedLocale($code, false);
-		if (isset($locale)) {
-		    return $locale;
+		list ($languageCode) = GalleryTranslator::getSupportedLanguageCode($code, false);
+		if (isset($languageCode)) {
+		    return $languageCode;
 		}
 	    }
 	}
@@ -489,7 +493,7 @@ class GalleryTranslator {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
 
-	if (function_exists('dgettext') && $this->_locale != 'en_US') {
+	if (function_exists('dgettext') && $this->_languageCode != 'en_US') {
 	    if (isset($domain) && !isset($this->_boundDomains[$domain])) {
 		/* The installer and upgrader use a separate domain and should never end up here */
 		$localeDir = $gallery->getConfig('data.gallery.locale');
@@ -554,7 +558,7 @@ class GalleryTranslator {
 	 * This is a useful debug routine.  Uncomment it to have every string prefixed with the
 	 * domain it was localized in.
 	 */
-	// $localized = "<font size=1 color=#C33>$domain/{$this->_locale}:</font>$localized";
+	// $localized = "<font size=1 color=#C33>$domain/{$this->_languageCode}:</font>$localized";
 
 	return array(null, $localized);
     }
@@ -565,7 +569,7 @@ class GalleryTranslator {
      * @return array GalleryStatus a status code
      * 		     string language code (i.e. en, en_GB, etc.)
      */
-    function getLocaleFromId($locale) {
+    function getLanguageCodeFromLocale($locale) {
 	list ($language, $country) = explode('_', $locale . '_' );
 	/* Don't apply default to Chinese for political correctness */
 	if ($language == 'zh') {
@@ -587,7 +591,7 @@ class GalleryTranslator {
      * 		     string language
      * 		     string country
      */
-    function getLanguageAndCountryFromLocale($langCode) {
+    function getLanguageAndCountryFromLanguageCode($langCode) {
 	list ($language, $country) = explode('_', $langCode . '_');
 	if (empty($country)) {
 	    list ($value, $defaultCountries) = $this->getLanguageData();

@@ -137,7 +137,7 @@ class GalleryView {
      *               GalleryView a view
      * @static
      */
-    function loadView($viewName) {
+    static function loadView($viewName) {
 	global $gallery;
 
 	/* Continue to support old style : separator for a while */
@@ -338,7 +338,7 @@ class GalleryView {
      *               GalleryItem an item
      *               boolean true if item was specified, false if default was used
      */
-    function getItem($checkPermissions=true) {
+    static function getItem($checkPermissions=true) {
 	global $gallery;
 	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 	$wasSpecified = true;
@@ -640,7 +640,7 @@ class GalleryView {
      * @return GalleryStatus
      * @static
      */
-    function setStandardTemplateVariables(&$template) {
+    static function setStandardTemplateVariables(&$template) {
 	global $gallery;
 	$session =& $gallery->getSession();
 

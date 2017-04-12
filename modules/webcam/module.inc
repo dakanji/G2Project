@@ -25,27 +25,27 @@
  */
 class WebCamModule extends GalleryModule {
 
+    function __construct() {
+	$this->WebCamModule();
+    }
+
     function WebCamModule() {
 	global $gallery;
 	$this->setId('webcam');
 	$this->setName($gallery->i18n('WebCam'));
 	$this->setDescription($gallery->i18n('Support periodically updated images like a webcam'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() function below too */
+	$this->_templateVersion = 1;
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
@@ -126,6 +126,7 @@ class WebCamModule extends GalleryModule {
 	    case '1.1.5':
 	    case '1.1.6':
 	    case '1.1.7':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	    case 'end of upgrade path':
 		break;

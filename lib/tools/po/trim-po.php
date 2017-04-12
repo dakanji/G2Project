@@ -81,12 +81,10 @@ function isValidUtf8($string) {
 
 function checkStringForBadUtf8($string, $path) {
     if (!isValidUtf8($string)) {
-	$printableString = preg_replace_callback('/([^\x20-\x7e])/',  
-			create_function(
-					'$matches',
-					'return "\\\\\\x" . dechex(ord($matches[1]));'
-			), 
-	$string);
+	$printableString = preg_replace_callback('/([^\x20-\x7e])/', 
+					function ($m) {
+						return "\\\\\\x".dechex(ord($m[1]));
+					}, $string);
 	fwrite(stdErr(),
 	       "\nWarning: Translation contains invalid UTF-8"
 	       . " \"$printableString\" in file $path\n");

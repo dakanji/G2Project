@@ -34,7 +34,7 @@ class NewItemsHelper {
      * @return array GalleryStatus a status code
      *               int count
      */
-    function fetchAlbumCount() {
+    static function fetchAlbumCount() {
 	global $gallery;
 	$query = 'SELECT COUNT([GalleryAlbumItem::id]) FROM [GalleryAlbumItem] ' .
 		 'WHERE [GalleryAlbumItem::orderBy] LIKE \'%NewItems%\'';
@@ -56,7 +56,7 @@ class NewItemsHelper {
      *
      * @return GalleryStatus a status code
      */
-    function resetNewItemSorts() {
+    static function resetNewItemSorts() {
 	global $gallery;
 	$query = 'SELECT [GalleryAlbumItem::id] FROM [GalleryAlbumItem] ' .
 		 'WHERE [GalleryAlbumItem::orderBy] LIKE \'%NewItems%\'';

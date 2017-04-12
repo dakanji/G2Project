@@ -37,6 +37,10 @@ class GalleryPersistent {
     var $_persistentStatus;
 
 
+    function __construct() {
+	$this->GalleryPersistent();
+    }
+
     function GalleryPersistent() {
 	/* Initialize our persistent info tracker */
 	$this->_persistentStatus['flags'] = 0;

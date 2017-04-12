@@ -29,28 +29,28 @@
  */
 class SnapGalaxyModule extends GalleryModule {
 
+    function __construct() {
+	$this->SnapGalaxyModule();
+    }
+
     function SnapGalaxyModule() {
 	global $gallery;
 
 	$this->setId('snapgalaxy');
 	$this->setName($gallery->i18n('SnapGalaxy'));
 	$this->setDescription($gallery->i18n('SnapGalaxy Photo Printing Module'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() too */
+	$this->_templateVersion = 1;
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x=null) {
 	global $gallery;
 
 	if (!isset($currentVersion)) {
@@ -91,7 +91,6 @@ class SnapGalaxyModule extends GalleryModule {
 	case '0.9.3':
 	case '0.9.4':
 	case '0.9.5':
-	case '1.0.0':
 
 	case 'end of upgrade path':
 	    break;
@@ -121,7 +120,7 @@ class SnapGalaxyModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	$links = array();
 
 	foreach ($items as $item) {

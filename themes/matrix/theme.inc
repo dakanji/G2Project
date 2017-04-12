@@ -27,18 +27,19 @@
  */
 class MatrixTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->MatrixTheme();
+    }
+
     function MatrixTheme() {
 	global $gallery;
 
 	$this->setId('matrix');
 	$this->setName($gallery->i18n('Matrix'));
 	$this->setDescription($gallery->i18n('Standard Gallery2 look and feel'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('rows' => 3, 'columns' => 3,
 		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
@@ -74,7 +75,7 @@ class MatrixTheme extends GalleryTheme {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
-	$this->loadThemeResources($this->getId(), $template);
+	/* Add our header and styles */
 	return array(null, 'theme.tpl');
     }
 
@@ -91,8 +92,7 @@ class MatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -105,8 +105,7 @@ class MatrixTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -120,7 +119,6 @@ class MatrixTheme extends GalleryTheme {
 	    return array($ret, null);
 	}
 
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
     }
 
@@ -128,8 +126,6 @@ class MatrixTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-    	
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -143,8 +139,7 @@ class MatrixTheme extends GalleryTheme {
 	    return array($ret, null);
 	}
 
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'theme.tpl');
-    }    
+    }
 }
 ?>

@@ -28,22 +28,22 @@
  * @version $Revision: 20951 $
  */
 class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
+    function __construct() {
+	$this->MigrateModule();
+    }
+
     function MigrateModule() {
 	global $gallery;
 
 	$this->setId('migrate');
 	$this->setName($gallery->i18n('Migration'));
 	$this->setDescription($gallery->i18n('Migrate your Gallery 1 albums to Gallery 2'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0'); /* Update upgrade() also */
+	$this->_templateVersion = 1;
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -52,7 +52,7 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
      * We pushed all this code into its own file since we need it very rarely so it doesn't
      * make sense to load it every single time.
      */
-    function upgrade($currentVersion, $statusMonitor) {
+    function upgrade($currentVersion, $statusMonitor=null) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 
@@ -81,6 +81,7 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	case '1.0.12':
 	case '1.0.13':
 	case '1.0.14':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    /*

@@ -143,7 +143,7 @@ class GalleryUrlGenerator {
      * @return string the current URL path component plus query parameters
      * @static
      */
-    function getCurrentRequestUri() {
+    static function getCurrentRequestUri() {
 	$cacheKey = 'GalleryUrlGenerator::currentRequestUri';
 	if (GalleryDataCache::containsKey($cacheKey)) {
 	    $path = GalleryDataCache::get($cacheKey);
@@ -182,7 +182,7 @@ class GalleryUrlGenerator {
      * @return string the new URL (&amp; separates added params)
      * @static
      */
-    function appendParamsToUrl($url, $params, $addPrefix=true, $htmlEntities=true,
+    static function appendParamsToUrl($url, $params, $addPrefix=true, $htmlEntities=true,
 			       $urlEncode=true) {
 	if (empty($params)) {
 	    return $url;
@@ -220,7 +220,7 @@ class GalleryUrlGenerator {
      * @static
      * @access private
      */
-    function _flattenParamsArray($nestedParams, &$flatParams, $keyBase=null) {
+    static function _flattenParamsArray($nestedParams, &$flatParams, $keyBase=null) {
 	foreach ($nestedParams as $key => $value) {
 	    $key = empty($keyBase) ? $key : $keyBase . '[' . $key . ']';
 	    if (is_array($value)) {

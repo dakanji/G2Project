@@ -28,27 +28,28 @@
  */
 class ReplicaModule extends GalleryModule {
 
+    function __construct() {
+	$this->ReplicaModule();
+    }
+
     function ReplicaModule() {
 	global $gallery;
 	$this->setId('replica');
 	$this->setName($gallery->i18n('Replica'));
 	$this->setDescription(
 		$gallery->i18n('Create item copies sharing the same original data file'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getItemLinks|getItemAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	global $gallery;
 	$links = array();
 	foreach ($items as $item) {

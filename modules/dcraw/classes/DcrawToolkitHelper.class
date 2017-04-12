@@ -62,7 +62,7 @@ class DcrawToolkitHelper {
      *                      'success' => boolean: test successful?
      *                      'message' => string: the error message
      */
-    function testBinary($dcrawPath) {
+    static function testBinary($dcrawPath) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 

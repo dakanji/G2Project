@@ -26,15 +26,19 @@
  */
 class CoreModule extends GalleryModule {
 
+    function __construct() {
+	$this->CoreModule();
+    }
+
     function CoreModule() {
 	global $gallery;
 
 	$this->setId('core');
 	$this->setName($gallery->i18n('Core'));
-	$this->setGalleryVersion('2.4.0Beta1');
+	$this->setGalleryVersion('2.4.0');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
-	$this->setVersion('1.3.1.0');
+	$this->setVersion('1.3.0.2');
 	$this->_templateVersion = 1;
 
 	$this->setDescription($gallery->i18n('Gallery 2 Core Module'));
@@ -48,7 +52,7 @@ class CoreModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -185,17 +189,6 @@ class CoreModule extends GalleryModule {
 			      $itemTypeNames[2]),
 			  'params' => array('view' => 'core.ItemAdmin',
 					    'subView' => 'core.ItemMove',
-					    'itemId' => $item->getParentId(),
-					    'selectedId' => $itemId,
-					    'return' => 1));
-	    }
-	    
-	    if ($isAlbum && isset($permissions[$itemId]['core.edit'])
-		    && !empty($childCounts[$itemId]) && $childCounts[$itemId] > 1) {
-		$links[$itemId][] =
-		    array('text' => $this->_translate('Rotate Items'),
-			  'params' => array('view' => 'core.ItemAdmin',
-					    'subView' => 'core.ItemRotate',
 					    'itemId' => $item->getParentId(),
 					    'selectedId' => $itemId,
 					    'return' => 1));
@@ -492,7 +485,7 @@ class CoreModule extends GalleryModule {
      *
      * @see GalleryModule::install
      */
-    function upgrade($currentVersion, $statusMonitor) {
+    function upgrade($currentVersion, $statusMonitor = null) {
 	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::upgrade($this, $currentVersion, $statusMonitor);
 	if ($ret) {
@@ -524,7 +517,7 @@ class CoreModule extends GalleryModule {
      * @return array 'core' => core module version, 'gallery' => gallery version
      * @static
      */
-    function getInstalledVersions() {
+    static function getInstalledVersions() {
 	global $gallery;
 
 	if (GalleryDataCache::containsKey('CoreModule::installedVersions')) {

@@ -27,18 +27,19 @@
  */
 class CarbonTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->CarbonTheme();
+    }
+
     function CarbonTheme() {
 	global $gallery;
 
 	$this->setId('carbon');
 	$this->setName($gallery->i18n('Carbon'));
 	$this->setDescription($gallery->i18n('Gallery2 theme by mincel.com'));
-	/** 
-	 * Version = MajorThemeAPI.MinorThemeAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('3.0.0.0');
-	$this->setRequiredThemeApi(array(3, 0));
+	$this->setVersion('2.0.0');
 	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('rows' => 3, 'columns' => 3,
 		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
@@ -191,7 +192,7 @@ class CarbonTheme extends GalleryTheme {
 	    $template->setVariable('jsWarning', true);
 	}
 
-	$this->loadThemeResources($this->getId(), $template);
+	/* Add our header and styles */
 	return array(null, 'theme.tpl');
     }
 
@@ -213,7 +214,7 @@ class CarbonTheme extends GalleryTheme {
 	if (GalleryUtilities::getRequestVariables('jsWarning') != null) {
 	    $template->setVariable('jsWarning', true);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -231,7 +232,7 @@ class CarbonTheme extends GalleryTheme {
 	if (GalleryUtilities::getRequestVariables('jsWarning') != null) {
 	    $template->setVariable('jsWarning', true);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -244,7 +245,7 @@ class CarbonTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 
@@ -252,7 +253,6 @@ class CarbonTheme extends GalleryTheme {
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	$this->loadThemeResources($this->getId(), $template);
 	return array(null, 'error.tpl');
     }
 
@@ -265,7 +265,7 @@ class CarbonTheme extends GalleryTheme {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$this->loadThemeResources($this->getId(), $template);
+
 	return array(null, 'theme.tpl');
     }
 

@@ -30,7 +30,7 @@ class ModRewriteHelper {
     /**
      * @see RewriteParser::saveActiveRules
      */
-    function saveActiveRules($parser, $activeRules=null, $upgradeModule=null) {
+    static function saveActiveRules($parser, $activeRules=null, $upgradeModule=null) {
 	list ($ret, $code) = ModRewriteHelper::checkFile();
 	if ($ret) {
 	    return array($ret, null, null);
@@ -112,7 +112,7 @@ class ModRewriteHelper {
     /**
      * @see RewriteParser::saveAccessList
      */
-    function saveAccessList($accessList, $allowEmptyReferer) {
+    static function saveAccessList($accessList, $allowEmptyReferer) {
 	list ($ret, $code) = ModRewriteHelper::checkFile();
 	if ($ret) {
 	    return array($ret, null);
@@ -154,7 +154,7 @@ class ModRewriteHelper {
     /**
      * @see RewriteParser::needsConfiguration
      */
-    function needsConfiguration() {
+    static function needsConfiguration() {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -527,7 +527,7 @@ class ModRewriteHelper {
     /**
      * @see RewriteParser::loadTestResultsTemplate
      */
-    function loadTestResultsTemplate(&$template, &$form) {
+    static function loadTestResultsTemplate(&$template, &$form) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$baseUrlComponents = parse_url($urlGenerator->getCurrentUrlDir(true));
@@ -619,7 +619,7 @@ class ModRewriteHelper {
     /**
      * @see RewriteParser::loadAdminParserTemplate
      */
-    function loadAdminRewriteTemplate(&$template, &$form) {
+    static function loadAdminRewriteTemplate(&$template, &$form) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$AdminParser = array();
@@ -654,7 +654,7 @@ class ModRewriteHelper {
      * @param ModRewriteParser $parser
      * @param boolean $saveActiveRules true if we want to write the .htaccess
      */
-    function saveEmbedConfig($param, $parser, $saveActiveRules) {
+    static function saveEmbedConfig($param, $parser, $saveActiveRules) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 

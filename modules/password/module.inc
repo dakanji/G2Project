@@ -31,6 +31,10 @@
  */
 class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->PasswordModule();
+    }
+
     function PasswordModule() {
 	global $gallery;
 
@@ -38,21 +42,17 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setName($gallery->i18n('Password Protected Albums'));
 	$this->setDescription(
 	    $gallery->i18n('Assign passwords for viewing particular albums'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $this->translate('Display'));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'password');
 	if ($ret) {
 	    return $ret;

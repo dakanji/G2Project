@@ -223,7 +223,7 @@ class Picasa2DataParser {
      * @param string $picasaXmlPath the picasa export path
      * @return array a status code and an album/image array
      */
-    function getAlbum($picasaXmlPath) {
+    static function getAlbum($picasaXmlPath) {
 	list ($ret, $rawXml) = Picasa2DataParser::getRawXmlFromPicasaPath($picasaXmlPath);
 	if ($ret) {
 	    return array($ret, null);

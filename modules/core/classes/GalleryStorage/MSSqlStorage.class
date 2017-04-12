@@ -39,6 +39,10 @@ class MSSqlStorage extends GalleryStorage {
      */
     var $_serverInfo;
 
+    function __construct($config) {
+	$this->MSSqlStorage($config);
+    }
+
     function MSSqlStorage($config) {
 	$this->GalleryStorage($config);
 	$this->_isTransactional = true;

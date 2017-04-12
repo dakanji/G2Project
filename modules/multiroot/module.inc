@@ -28,21 +28,22 @@
  */
 class MultirootModule extends GalleryModule {
 
+    function __construct() {
+	$this->MultirootModule();
+    }
+
     function MultirootModule() {
 	global $gallery;
 
 	$this->setId('multiroot');
 	$this->setName($gallery->i18n('Multiroot'));
 	$this->setDescription($gallery->i18n('Define an alternate guest view of the Gallery'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

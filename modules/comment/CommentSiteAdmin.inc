@@ -32,6 +32,10 @@ GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class'
 class CommentSiteAdminController extends GalleryController {
     var $_akismet;
 
+    function __construct() {
+	$this->CommentSiteAdminController();
+    }
+
     function CommentSiteAdminController() {
 	$this->_akismet = new AkismetApi();
     }

@@ -31,6 +31,10 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
  */
 class Db2Storage extends GalleryStorage {
 
+    function __construct($config) {
+	$this->Db2Storage($config);
+    }
+
     function Db2Storage($config) {
 	$this->GalleryStorage($config);
 	$this->_isTransactional = true;

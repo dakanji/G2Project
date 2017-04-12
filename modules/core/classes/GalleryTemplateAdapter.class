@@ -66,6 +66,10 @@ class GalleryTemplateAdapter {
     var $_progressBarStats;
 
 
+    function __construct() {
+	$this->GalleryTemplateAdapter();
+    }
+
     function GalleryTemplateAdapter() {
 	$this->_callCount = array();
 	$this->_theme = null;

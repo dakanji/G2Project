@@ -1262,7 +1262,7 @@ class GallerySession {
      * @return array
      * @static
      */
-    function getRemoteIdentifier() {
+    static function getRemoteIdentifier() {
 	$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 	return array(GalleryUtilities::getRemoteHostAddress(),
 		     isset($httpUserAgent) ? md5($httpUserAgent) : null);
@@ -1302,7 +1302,7 @@ class GallerySession {
      *
      * @return int a score
      */
-    function compareIdentifiers($a, $b) {
+    static function compareIdentifiers($a, $b) {
 	$score = 0;
 	if (is_array($a) && is_array($b)) {
 	    for ($i = 0; $i < sizeof($a); $i++) {

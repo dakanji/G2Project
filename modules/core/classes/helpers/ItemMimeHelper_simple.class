@@ -26,7 +26,7 @@
  * @version $Revision: 17580 $
  * @static
  */
-class ItemMimeHelper_simple {
+class MimeHelper {
     /**
      * Return mime types and applicable file extensions
      *
@@ -34,8 +34,8 @@ class ItemMimeHelper_simple {
      *               array('ext' => array(string mime type => array of string extensions)
      *                     'viewable' => array(string mime type => boolean is viewable))
      */
-    function getMimeTypeMap() {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ItemMimeTypeMap',
+    static function getMimeTypeMap() {
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryMimeTypeMap',
 	    array('mimeType', 'extension', 'viewable'), array(),
 	    array('orderBy' => array('mimeType' => ORDER_ASCENDING)));
 	if ($ret) {

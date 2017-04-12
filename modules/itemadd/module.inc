@@ -28,21 +28,21 @@
  */
 class ItemAddModule extends GalleryModule {
 
+    function __construct() {
+	$this->ItemAddModule();
+    }
+
     function ItemAddModule() {
 	global $gallery;
 	$this->setId('itemadd');
 	$this->setName($gallery->i18n('Add Items'));
 	$this->setDescription($gallery->i18n('Add items from local server or the web'));
-	/** 
-	 * Version = MajorModuleAPI.MinorModuleAPI.SerialNumberMajor.SerialNumberMinor
-	 * Update upgrade() function below too
-	**/
-	$this->setVersion('4.0.0.0');
-	$this->setRequiredModuleApi(array(4, 0));
-	$this->setRequiredCoreApi(array(8, 0));
-	$this->setTemplateVersion(1);
+	$this->setVersion('2.0.0');
+	$this->_templateVersion = 1;
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -77,7 +77,7 @@ class ItemAddModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
 	    return $ret;
