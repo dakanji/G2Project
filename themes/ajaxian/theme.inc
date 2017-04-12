@@ -37,9 +37,9 @@ class AjaxianTheme extends GalleryTheme {
 	$this->setId('ajaxian');
 	$this->setName($gallery->i18n('Ajaxian'));
 	$this->setDescription($gallery->i18n('DHTML-enabled Slideshow theme'));
-	$this->setVersion('1.0.4');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredThemeApi(array(2, 5));
+	$this->setVersion('2.0.0');
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredThemeApi(array(3, 0));
 	$this->setStandardSettings(
 	    array('rows' => 3, 'columns' => 8,
 		  'showAlbumOwner' => 0,
