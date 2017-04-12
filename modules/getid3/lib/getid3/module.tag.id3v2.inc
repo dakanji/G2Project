@@ -2617,10 +2617,10 @@ class getid3_id3v2 extends getid3_handler
 
 
 
-	public static function LanguageLookup($languagecode, $casesensitive=false) {
+	public static function LanguageLookup($locale, $casesensitive=false) {
 
 		if (!$casesensitive) {
-			$languagecode = strtolower($languagecode);
+			$locale = strtolower($locale);
 		}
 
 		// http://www.id3.org/id3v2.4.0-structure.txt
@@ -3069,7 +3069,7 @@ class getid3_id3v2 extends getid3_handler
 
 		*/
 
-		return getid3_lib::EmbeddedLookup($languagecode, $begin, __LINE__, __FILE__, 'id3v2-languagecode');
+		return getid3_lib::EmbeddedLookup($locale, $begin, __LINE__, __FILE__, 'id3v2-locale');
 	}
 
 
