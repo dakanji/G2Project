@@ -374,6 +374,8 @@ class RewriteModuleExtras {
 	case '1.1.16':
 	case '1.1.17':
 	case '1.1.18':
+	case '1.1.19':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    break;

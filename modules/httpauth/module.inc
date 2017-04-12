@@ -35,13 +35,13 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 
 	$this->setId('httpauth');
 	$this->setName($gallery->i18n('HTTP Auth'));
-	$this->setVersion('1.0.4'); /* Update upgrade() too! */
+	$this->setVersion('2.0.0'); /* Update upgrade() too! */
 	$this->_templateVersion = 1;
 	$this->setDescription($gallery->i18n('Login using HTTP authentication.'));
 	$this->setGroup('authentication', $gallery->i18n('Authentication'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

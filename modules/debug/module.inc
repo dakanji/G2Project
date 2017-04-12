@@ -39,12 +39,12 @@ class DebugModule extends GalleryModule {
 	$this->setId('debug');
 	$this->setName($gallery->i18n('Debugging'));
 	$this->setDescription($gallery->i18n('Debugging and Developer Tools'));
-	$this->setVersion('1.0.8');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

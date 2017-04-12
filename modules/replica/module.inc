@@ -38,12 +38,12 @@ class ReplicaModule extends GalleryModule {
 	$this->setName($gallery->i18n('Replica'));
 	$this->setDescription(
 		$gallery->i18n('Create item copies sharing the same original data file'));
-	$this->setVersion('1.0.5');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getItemLinks|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 42));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

@@ -38,12 +38,12 @@ class EcardModule extends GalleryModule {
 	$this->setId('ecard');
 	$this->setName($gallery->i18n('eCard'));
 	$this->setDescription($gallery->i18n('Send photos as eCards'));
-	$this->setVersion('1.0.4'); /* Update upgrade() too */
+	$this->setVersion('2.0.0'); /* Update upgrade() too */
 	$this->_templateVersion = 1;
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -116,6 +116,8 @@ class EcardModule extends GalleryModule {
 	case '1.0.1':
 	case '1.0.2':
 	case '1.0.3':
+	case '1.0.4':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    break;

@@ -38,12 +38,12 @@ class CaptchaModule extends GalleryModule {
 	$this->setName($gallery->i18n('Captcha'));
 	$this->setDescription($gallery->i18n('Prevents abuse by deterring automated bots with ' .
 					     'input that requires visual comprehension'));
-	$this->setVersion('1.1.7'); /* Update upgrade() function below too */
+	$this->setVersion('2.0.0'); /* Update upgrade() function below too */
 	$this->_templateVersion = 1;
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -107,6 +107,9 @@ class CaptchaModule extends GalleryModule {
 	    /* .mo file migration */
 	case '1.1.5':
 	case '1.1.6':
+	case '1.1.7':
+	case '2.0.0':
+	    /* GalleryCoreApi 8.0 and GalleryModule 4.0 */
 
 	case 'end of upgrade path':
 	    break;

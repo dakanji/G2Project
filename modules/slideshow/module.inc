@@ -37,12 +37,12 @@ class SlideshowModule extends GalleryModule {
 	$this->setId('slideshow');
 	$this->setName($gallery->i18n('Slideshow'));
 	$this->setDescription($gallery->i18n('Slideshow'));
-	$this->setVersion('2.0.0');
+	$this->setVersion('2.1.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getItemLinks|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 49));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

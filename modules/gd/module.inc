@@ -39,12 +39,12 @@ class GdModule extends GalleryModule {
 	$this->setId('gd');
 	$this->setName($gallery->i18n('Gd'));
 	$this->setDescription($gallery->i18n('Gd Graphics Toolkit'));
-	$this->setVersion('1.1.6');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

@@ -41,12 +41,12 @@ class JpegtranModule extends GalleryModule {
 	$this->setName($gallery->i18n('Jpegtran'));
 	$this->setDescription(
 	    $gallery->i18n('Graphics toolkit for lossless JPEG transformations'));
-	$this->setVersion('1.0.1');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

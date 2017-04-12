@@ -34,12 +34,12 @@ class SlideshowAppletModule extends GalleryModule {
 	$this->setId('slideshowapplet');
 	$this->setName($gallery->i18n('Slideshow Applet'));
 	$this->setDescription($gallery->i18n('Fullscreen slideshow using a Java applet'));
-	$this->setVersion('1.0.13');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getItemLinks|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

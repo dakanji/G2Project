@@ -36,12 +36,12 @@ class IconsModule extends GalleryModule {
 	$this->setId('icons');
 	$this->setName($gallery->i18n('Icons'));
 	$this->setDescription($gallery->i18n('Display icons for links'));
-	$this->setVersion('1.1.5'); /* Update upgrade() function below too */
+	$this->setVersion('2.0.0'); /* Update upgrade() function below too */
 	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**
@@ -96,6 +96,8 @@ class IconsModule extends GalleryModule {
 	    /* .mo file migration */
 	case '1.1.3':
 	case '1.1.4':
+	case '1.1.5':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    break;

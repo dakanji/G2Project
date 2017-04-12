@@ -36,12 +36,12 @@ class ReuploadModule extends GalleryModule {
 	$this->setId('reupload');
 	$this->setName($gallery->i18n('Reupload'));
 	$this->setDescription($gallery->i18n('Allows reupload of pictures.'));
-	$this->setVersion('1.0.7');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

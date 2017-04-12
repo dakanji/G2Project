@@ -36,12 +36,12 @@ class FlashVideoModule extends GalleryModule {
 	$this->setId('flashvideo');
 	$this->setName($gallery->i18n('Flash Video'));
 	$this->setDescription($gallery->i18n('Enable display of Flash video files'));
-	$this->setVersion('1.0.3');
+	$this->setVersion('2.0.0');
 	$this->_templateVersion = 1;
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(8, 0));
+	$this->setRequiredModuleApi(array(4, 0));
     }
 
     /**

@@ -30,7 +30,7 @@
  * The current protocol version of the template data.  Whenever the template library changes,
  * bump this number to trigger a complete rebuild of all compiled templates.
  */
-define('TEMPLATE_DATA_VERSION', 14);
+define('TEMPLATE_DATA_VERSION', 15);
 
 /**
  * This is Gallery's templating class.  It hides the details of the implementation (eg, Smarty)

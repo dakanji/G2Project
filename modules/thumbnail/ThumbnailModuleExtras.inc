@@ -337,6 +337,8 @@ class ThumbnailModuleExtras {
 	case '1.0.12':
 	    /* Require minimum core API 7.45 */
 	case '1.0.13':
+	case '1.0.14':
+	    /* Core API 8.0 & Module API 4.0 */
 
 	case 'end of upgrade path':
 	    /*
