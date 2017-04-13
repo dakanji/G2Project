@@ -46,7 +46,6 @@ class GalleryModule extends GalleryPlugin {
      *   getSystemLinks
      *   getItemLinks
      *   getItemSummaries
-     *   registerEventListeners (deprecated)
      *
      * eg. getItemAdminViews|getSystemLinks|getItemLinks
      *
@@ -91,14 +90,6 @@ class GalleryModule extends GalleryPlugin {
      */
     static function getApiVersion() {
 	return array(4, 0);
-    }
-
-    /**
-     * Register any event listeners that this module requires.  Each module will get a chance to
-     * register its event listeners before any events are posted.
-     * @deprecated Will be removed on next major API fump
-     */
-    function registerEventListeners() {
     }
 
     /**

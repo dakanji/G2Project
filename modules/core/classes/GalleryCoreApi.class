@@ -54,8 +54,6 @@ class GalleryCoreApi {
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
      *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - remove GalleryCoreApi::registerEventListener, GalleryModule::registerEventListeners
-     *   and other code marked for removal in helpers/GalleryEventHelper_simple.class
      * - delete modules/core/templates/blocks/NavigationLinks.tpl
      * - remove GalleryRepository::getLanguageDescription
      * - convert the contents of GALLERY_PERMISSION_SESSION_KEY to array indices instead of array
@@ -2169,19 +2167,6 @@ class GalleryCoreApi {
     static function newEvent($eventName) {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryEventHelper_simple.class');
 	return GalleryEventHelper_simple::newEvent($eventName);
-    }
-
-    /**
-     * Register an event listener.
-     * @param string $eventName the name of the event, e.g. GalleryEntity::save
-     * @param GalleryEventListener $eventListener
-     * @param boolean $disableForUnitTests (optional) if true, disable event listener during tests
-     * @deprecated Use GalleryCoreApi::registerFactoryImplementation('GalleryEventListener', ...
-     */
-    function registerEventListener($eventName, &$eventListener, $disableForUnitTests=false) {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryEventHelper_simple.class');
-	return GalleryEventHelper_simple::registerEventListener(
-	    $eventName, $eventListener, $disableForUnitTests);
     }
 
     /**
