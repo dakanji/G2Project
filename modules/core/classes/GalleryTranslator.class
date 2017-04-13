@@ -28,7 +28,6 @@
  * 	       (i.e. en_US => en; en_GB => en_GB) in some cases the $langCode == $locale.  The
  * 	       exception is the handling of chinese.  For political reasons there is no default
  * 	       country and it's always represented by the full $locale (zh_CN or zh_TW)
- * @todo go through and standardize the usage or remove the langCode usage and just use locale 
  * @package GalleryCore
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -569,7 +568,7 @@ class GalleryTranslator {
      * @return array GalleryStatus a status code
      * 		     string language code (i.e. en, en_GB, etc.)
      */
-    function getLocaleFromLocale($locale) {
+    function getLocaleFromId($locale) {
 	list ($language, $country) = explode('_', $locale . '_' );
 	/* Don't apply default to Chinese for political correctness */
 	if ($language == 'zh') {
