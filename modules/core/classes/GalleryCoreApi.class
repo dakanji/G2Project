@@ -50,14 +50,6 @@ class GalleryCoreApi {
      * @return array major number, minor number
      *
      * @todo for next major version bump:
-     * - remove support for check[Sidebar|Album|Photo]Blocks deprecated params
-     *   for ShouldShowEmergencyEditItemLink in Callbacks.inc
-     *   and comment in blocks/EmergencyEditItemLink.tpl
-     * - remove GalleryView::_getItem() (the private version of getItem());
-     * - remove support for : separator in GalleryView::loadView
-     * - delete GallerySqlFragment.class
-     * - remove studyPermissions, fetchPermissionsForItems does the same and more.
-     * - remove GalleryUtilities::utf8Substring (moved to GalleryCoreApi)
      * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
@@ -710,24 +702,6 @@ class GalleryCoreApi {
 	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 	return GalleryPermissionHelper_simple::getPermissions(
 	    $itemId, $userId, $sessionPermissions);
-    }
-
-    /**
-     * Study the permissions for all items (for the given user).
-     * Caches the results in memory for the duration of the HTTP request handling
-     * such that subsequent permission checks go to memory rather than to the DB.
-     *
-     * @param array $itemIds GalleryItem ids
-     * @param int $userId an optional user id (default is current user)
-     * @param boolean $sessionPermissions (optional) false to ignore session based permissions
-     * @deprecated Use fetchPermissionsForItems instead.
-     * @return GalleryStatus a status code
-     */
-    static function studyPermissions($itemIds, $userId=null, $sessionPermissions=true) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	return GalleryPermissionHelper_simple::studyPermissions(
-	    $itemIds, $userId, $sessionPermissions);
     }
 
     /**

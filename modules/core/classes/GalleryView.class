@@ -140,15 +140,6 @@ class GalleryView {
     static function loadView($viewName) {
 	global $gallery;
 
-	/* Continue to support old style : separator for a while */
-	if (preg_match('/^(\w+)[.:](\w+)$/', $viewName, $regs) == 1) {
-	    $module = $regs[1];
-	    $class = $regs[2];
-	} else {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					      "$viewName can't be parsed"), null);
-	}
-
 	/* If the module is not active, only let site admins see the config view */
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $module);
 	if ($ret) {
