@@ -54,8 +54,6 @@ class GalleryCoreApi {
      * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
      *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
      *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - remove resourceGetTemplateBaseDir from GalleryTemplate class
-     * - delete GalleryTestCase::failWithStatus
      * - loadEntitiesById and deleteEntityById: make optional $requiredEntityType mandatory
      * - remove GalleryCoreApi::registerEventListener, GalleryModule::registerEventListeners
      *   and other code marked for removal in helpers/GalleryEventHelper_simple.class
