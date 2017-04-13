@@ -372,7 +372,7 @@ class GdToolkitHelper {
 	if ($ret) {
 	    return array($ret, false);
 	}
-	if (preg_match('/^>?2\.0/', $gdVersion)) {
+	if (preg_match('/^>?2\/', $gdVersion)) {
 	    return array(null, true);
 	}
 	return array(null, false);
