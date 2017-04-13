@@ -27,6 +27,10 @@
  */
 class ReuploadModule extends GalleryModule {
 
+    function __construct() {
+	$this->ReuploadModule();
+    }
+
     function ReuploadModule() {
 	global $gallery;
 	$this->setId('reupload');

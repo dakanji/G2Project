@@ -29,6 +29,10 @@
  */
 class SearchModule extends GalleryModule {
 
+    function __construct() {
+	$this->SearchModule();
+    }
+
     function SearchModule() {
 	global $gallery;
 

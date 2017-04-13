@@ -47,7 +47,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      * @see GalleryCoreApi::getApiVersion, the same rules and notes apply to the Embedding API
      * @return array major number, minor number
      */
-    function getApiVersion() {
+    static function getApiVersion() {
 	return array(1, 5);
     }
 
@@ -85,7 +85,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      * )
      * @return GalleryStatus a status object
      */
-    function init($initParams=array()) {
+    static function init($initParams=array()) {
 	/* GDC as static var replacement for better testability */
 	static $firstCacheKey = 'GalleryEmbed::initFirstPass';
 	static $secondCacheKey = 'GalleryEmbed::initSecondPass';
@@ -142,7 +142,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      *
      * @return GalleryStatus a status object
      */
-    function done() {
+    static function done() {
 	global $gallery;
 	global $gallerySetErrorHandler;
 
@@ -184,7 +184,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      *                           'sidebarBlocksHtml' => array('blockHtml', 'blockHtml'),
      *                           'themeData' => mixed theme data]
      */
-    function handleRequest() {
+    static function handleRequest() {
 	global $gallerySetErrorHandler;
 	$result = GalleryMain(true);
 
@@ -205,7 +205,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      * @access private
      * @todo Ensure that the active user ($gallery->getActiveUser) is changed as well
      */
-    function checkActiveUser($activeUserId) {
+    static function checkActiveUser($activeUserId) {
 	global $gallery;
 	$session =& $gallery->getSession();
 	$phpVm = $gallery->getPhpVm();
@@ -790,7 +790,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      *               array (string javascript1, string javascript2, ...),
      *               array (string meta1, string meta2, ...)
      */
-    function parseHead($headhtml) {
+    static function parseHead($headhtml) {
 	$title = '';
 	$css = $javascript = $meta = array();
 
@@ -848,7 +848,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      *               string head content or null if none required
      * @deprecated Use getBlock() instead
      */
-    function getImageBlock($params) {
+    static function getImageBlock($params) {
 	return GalleryEmbed::getBlock('imageblock', 'ImageBlock', $params);
     }
 
@@ -1080,7 +1080,7 @@ class GalleryEmbed /* implements GalleryEventListener */ {
      * http://example.com/gallery2/embed.php?getEmbedPath=1 via fsockopen.
      * @static 
      */
-    function getEmbedPathByHttpRequest() {
+    static function getEmbedPathByHttpRequest() {
 	global $gallery;
 
 	if (!class_exists('GalleryCoreApi')) {

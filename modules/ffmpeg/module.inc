@@ -29,6 +29,10 @@
  */
 class FfmpegModule extends GalleryModule {
 
+    function __construct() {
+	$this->FfmpegModule();
+    }
+
     function FfmpegModule() {
 	global $gallery;
 
@@ -46,7 +50,7 @@ class FfmpegModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 

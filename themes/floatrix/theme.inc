@@ -27,6 +27,10 @@
  */
 class FloatrixTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->FloatrixTheme();
+    }
+
     function FloatrixTheme() {
 	global $gallery;
 

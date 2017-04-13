@@ -41,6 +41,10 @@ class RewriteApi {
      */
     var $_parser;
 
+    function __construct() {
+	$this->RewriteApi();
+    }
+
     function RewriteApi() {
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $this->_parser) = RewriteHelper::getRewriteParser();

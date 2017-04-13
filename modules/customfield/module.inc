@@ -29,6 +29,10 @@
  */
 class CustomFieldModule extends GalleryModule {
 
+    function __construct() {
+	$this->CustomFieldModule();
+    }
+
     function CustomFieldModule() {
 	global $gallery;
 
@@ -46,7 +50,7 @@ class CustomFieldModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {

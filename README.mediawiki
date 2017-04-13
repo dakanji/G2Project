@@ -1,12 +1,13 @@
 = Introduction =
 
-Welcome to the Community Update Project for Gallery 2, web based software product that lets you manage your photos on your own website.
+Welcome to the Community Update Project for Gallery 2, a web based software product that lets you manage your photos on your own website.
 This effort aims towards the development of community backed updates to Gallery 2. 
 
-Official development of Gallery 2 has stopped in favour of Gallery 3 but since Gallery 3 still has some way to go on the development path, 
-Gallery 2 remains today for many, in testament to the work of the development team, the most powerful, most fully featured and most flexible and agile choice.
+Official development of Gallery 2 has stopped in favour of Gallery 3 but as Gallery 3 never really quite got to the same level, 
+Gallery 2 remained for many, in testament to the work of the development team, the most powerful, most fully featured and most flexible and agile choice.
 
-The aim of this effort is to add enhancements and fixes to the code and for these to be pushed to the official repository. 
+In any case, development of Gallery 3 soon came to a halt and with that, an end to the Official Gallery Project.
+The aim of this effort is to add enhancements and fixes to the Gallery 2 code so that its several loyal fans can continue using this awesome piece of software engineering. 
 
 = Choosing a package =
 
@@ -18,29 +19,53 @@ You can choose from one of the following branches:
 
 = Updating Gallery 2 =
 
-== Version 2.2.6 and above ==
+== Version 2.3.0 and above ==
 
 # Backup your installation including your database
-# Overwrite your installation with the new version, navigate to your gallery and follow the on-screen instructions
+# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
+# Overwrite your installation with the lastest version, navigate to your gallery and follow the on-screen instructions
+
+== Version 2.2.6 ==
+
+# Backup your installation including your database
+# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
+# Overwrite your installation with the lastest version, navigate to your gallery and follow the on-screen instructions
 
 == From Before Version 2.2.6 ==
 # Backup your installation including your database
+# Update or downgrade PHP to v5.2.0
 # Overwrite your installation with a Version 2.2.6 file set, navigate to your gallery and follow the on-screen instructions
 # When you are satisfied that the upgrade to Version 2.2.6 is complete, backup your Version 2.2.6 installation and database
-# Overwrite your Version 2.2.6 installation with the new version, navigate to your gallery and follow the on-screen instructions
+# Update PHP to v5.3.0, or, preferably, v7.0.0 or more recent
+# Overwrite your Version 2.2.6 installation with the lastest version, navigate to your gallery and follow the on-screen instructions
 
 = Migrating From Gallery 1 =
 
 == Version 1.5 and above ==
-# Backup your installation including your database
-# Follow the instructions on [http://codex.gallery2.org/Gallery2:migration migrating Gallery 1 to Gallery 2]
+
+# Backup your installation
+# Update or downgrade to PHP 4.x (v4.3.0 or more recent)
+# Follow the "Pre-Migration Prep" instructions on [http://codex.galleryproject.org/Gallery2:migration]
+# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
+# Follow the other instructions on [http://codex.galleryproject.org/Gallery2:migration]
+# When you are satisfied that the migration to Gallery 2 is complete, backup your installation including your database
 
 == From Before Version 1.5 ==
-# Backup your installation including your database
+
+# Backup your installation
+# Update or downgrade to PHP 4.x (v4.3.0 or more recent)
 # Upgrade your installation to Version 1.5
-# When you are satisfied that the upgrade to Version 1.5 is complete, backup your Version 1.5 installation and database
-# Follow the instructions on [http://codex.gallery2.org/Gallery2:migration migrating Gallery 1 to Gallery 2]
+# When you are satisfied that the upgrade to Version 1.5 is complete, backup your Version 1.5 installation
+# Follow the "Pre-Migration Prep" instructions on [http://codex.galleryproject.org/Gallery2:migration]
+# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
+# Follow the other instructions on [http://codex.galleryproject.org/Gallery2:migration]
+# When you are satisfied that the migration to Gallery 2 is complete, backup your installation including your database
+
+= Migrating From Gallery 3 =
+
+It is currently not possible to migrate from Gallery 3 to Gallery 2 
+
 
 = Issues / Bugs =
 
-Check the [http://codex.gallery2.org/Gallery2:Known_Issues Known Issues] list and [https://github.com/dakanji/G2Update/issues Bug Tracker] for information and some workarounds for known problems.
+Check the [http://codex.gallery2.org/Gallery2:Known_Issues Known Issues] list and [https://github.com/dakanji/G2Project/issues Bug Tracker] for information and some workarounds for known problems.

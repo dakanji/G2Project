@@ -28,6 +28,10 @@
  */
 class ArchiveUploadModule extends GalleryModule {
 
+    function __construct() {
+	$this->ArchiveUploadModule();
+    }
+
     function ArchiveUploadModule() {
 	global $gallery;
 
@@ -45,7 +49,7 @@ class ArchiveUploadModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
 	if ($ret) {
 	    return $ret;

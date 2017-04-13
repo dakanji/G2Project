@@ -28,6 +28,10 @@
  */
 class SliderTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->SliderTheme();
+    }
+
     function SliderTheme() {
 	global $gallery;
 

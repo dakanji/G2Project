@@ -173,7 +173,7 @@ class GalleryItem extends GalleryFileSystemEntity {
      *        Defaults to false.
      * @return GalleryStatus a status code
      */
-    function create($parentId, $path, $canContainChildren=false) {
+    function create($parentId=null, $path=null, $canContainChildren=false) {
 	global $gallery;
 
 	if (!isset($path) || !isset($parentId)) {
@@ -245,7 +245,7 @@ class GalleryItem extends GalleryFileSystemEntity {
     /**
      * @see GalleryEntity::createLink
      */
-    function createLink($entity, $parentId) {
+    function createLink($entity, $parentId=null) {
 	global $gallery;
 
 	$ret = parent::createLink($entity, $parentId);
@@ -393,7 +393,7 @@ class GalleryItem extends GalleryFileSystemEntity {
      *
      * @return GalleryStatus a status code
      */
-    function save($postEvent=true) {
+    function save($postEvent=true, $x1=null) {
 	global $gallery;
 	$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 

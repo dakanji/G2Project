@@ -31,6 +31,10 @@
  */
 class PublishXpModule extends GalleryModule {
 
+    function __construct() {
+	$this->PublishXpModule();
+    }
+
     function PublishXpModule() {
 	global $gallery;
 	$this->setId('publishxp');

@@ -26,6 +26,10 @@
  */
 class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->HttpAuthModule();
+    }
+
     function HttpAuthModule() {
 	global $gallery;
 
@@ -116,7 +120,7 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	switch ($currentVersion) {
 	case null:
 	    /* Initial install */
@@ -219,7 +223,7 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 		sprintf('Unknown module version %s', $currentVersion));
 	}
     }

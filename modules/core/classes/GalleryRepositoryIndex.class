@@ -58,6 +58,10 @@ class GalleryRepositoryIndex {
     var $_utilities;
 
 
+    function __construct($source) {
+	$this->GalleryRepositoryIndex($source);
+    }
+
     function GalleryRepositoryIndex($source) {
 	$this->_utilities = new GalleryRepositoryUtilities();
 	$this->_source = $source;

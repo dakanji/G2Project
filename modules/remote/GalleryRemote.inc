@@ -68,6 +68,7 @@ class GalleryRemoteController extends GalleryController {
 	global $gallery;
 	$session =& $gallery->getSession();
 
+	GalleryUtilities::unsanitizeInputValues($form, false);
 	$start = array_sum(explode(' ', microtime()));
 
 	$status = $error = array();

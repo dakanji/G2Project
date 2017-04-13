@@ -30,6 +30,10 @@
  */
 class ImageMagickModule extends GalleryModule {
 
+    function __construct() {
+	$this->ImageMagickModule();
+    }
+
     function ImageMagickModule() {
 	global $gallery;
 
@@ -47,7 +51,7 @@ class ImageMagickModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imagemagick');
 	if ($ret) {
 	    return $ret;

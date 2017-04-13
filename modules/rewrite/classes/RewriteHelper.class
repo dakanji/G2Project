@@ -43,7 +43,7 @@ class RewriteHelper {
      * @return array GalleryStatus a status code
      *               RewritePlugin a loaded parser
      */
-    function getRewriteParser($new=false) {
+    static function getRewriteParser($new=false) {
 	global $gallery;
 	static $rewriteParser;
 	$platform =& $gallery->getPlatform();
@@ -83,7 +83,7 @@ class RewriteHelper {
      *               array string module (on error)
      *                     int rule id (on error)
      */
-    function parseActiveRules(&$activeRules, $rewriteParser, $upgradeModule=null, $flags=null) {
+    static function parseActiveRules(&$activeRules, $rewriteParser, $upgradeModule=null, $flags=null) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -410,7 +410,7 @@ class RewriteHelper {
      * @return array GalleryStatus a status code
      *               array (mixed ruleId => array ('pattern' => string pattern))
      */
-    function getHistoryForModule($moduleId) {
+    static function getHistoryForModule($moduleId) {
 	list ($ret, $history) = GalleryCoreApi::getPluginParameter(
 	    'module', 'rewrite', 'history.' . $moduleId);
 	if ($ret) {
@@ -427,7 +427,7 @@ class RewriteHelper {
      * @param array $history array (mixed ruleId => array ('pattern' => string pattern))
      * @return GalleryStatus a status code
      */
-    function setHistoryForModule($moduleId, $history) {
+    static function setHistoryForModule($moduleId, $history) {
 	if (!empty($history)) {
 	    $ret = GalleryCoreApi::setPluginParameter(
 		'module', 'rewrite', 'history.' . $moduleId, serialize($history));

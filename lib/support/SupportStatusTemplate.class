@@ -29,6 +29,11 @@ class SupportStatusTemplate {
      * Create a SupportStatusTemplate.
      * @param string $title the status title
      */
+    function __construct($title) {
+    {
+	$this->SupportStatusTemplate($title);
+    }
+
     function SupportStatusTemplate($title) {
     	$this->_title = $title;
     }

@@ -28,6 +28,10 @@
  */
 class MultirootModule extends GalleryModule {
 
+    function __construct() {
+	$this->MultirootModule();
+    }
+
     function MultirootModule() {
 	global $gallery;
 

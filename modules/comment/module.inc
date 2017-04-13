@@ -34,6 +34,10 @@ define('COMMENT_PUBLISH_STATUS_SPAM', 2);
  */
 class CommentModule extends GalleryModule {
 
+    function __construct() {
+	$this->CommentModule();
+    }
+
     function CommentModule() {
 	global $gallery;
 
@@ -52,7 +56,7 @@ class CommentModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1 = null) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 
@@ -251,7 +255,7 @@ class CommentModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
 	list ($ret, $showAll) = $this->getParameter('comments.latest');
 	if ($ret) {
 	    return array($ret, null);

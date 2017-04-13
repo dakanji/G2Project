@@ -29,6 +29,10 @@
  */
 class RssModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->RssModule();
+    }
+
     function RssModule() {
 	global $gallery;
 
@@ -54,7 +58,7 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 	$links = array();
 
@@ -192,7 +196,7 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 
 	/**
 	 * @todo add a default to this switch statement and include all historical versions, like

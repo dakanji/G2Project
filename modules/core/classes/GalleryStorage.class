@@ -179,6 +179,10 @@ class GalleryStorage {
     /**
      * @param array $config database configuration values
      */
+    function __construct($config) {
+	$this->GalleryStorage($config);
+    }
+
     function GalleryStorage($config) {
 	$this->_type = $config['type'];
 	$this->_username = $config['username'];
@@ -211,7 +215,7 @@ class GalleryStorage {
 	global $gallery;
 
 	$this->_traceStart();
-	$db =& ADONewConnection($this->getAdoDbType());
+	$db = ADONewConnection($this->getAdoDbType());
 	$this->_traceStop();
 	if (empty($db)) {
 	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
@@ -480,10 +484,14 @@ class GalleryStorage {
 	    $count = empty($optional['limit']['count']) ? -1 : $optional['limit']['count'];
 	    $offset = empty($optional['limit']['offset']) ? -1 : $optional['limit']['offset'];
 
+	    if (is_null($data))
+		$data = false;
 	    $this->_traceStart();
 	    $recordSet = $this->_db->SelectLimit($query, $count, $offset, $data);
 	    $this->_traceStop();
 	} else {
+	    if (is_null($data))
+		$data = false;
 	    $this->_traceStart();
 	    $recordSet = $this->_db->Execute($query, $data);
 	    $this->_traceStop();
@@ -1517,6 +1525,10 @@ class GallerySearchResults {
      */
     var $_mapInfo;
 
+    function __construct($recordSet, $fieldNames=null, $mapInfo=null) {
+	$this->GallerySearchResults($recordSet, $fieldNames, $mapInfo);
+    }
+
     function GallerySearchResults($recordSet, $fieldNames=null, $mapInfo=null) {
 	$this->_recordSet = $recordSet;
 	$this->_fieldNames = $fieldNames;
@@ -1538,7 +1550,7 @@ class GallerySearchResults {
      * @return array the next result or false if EOF
      */
     function nextResult() {
-	$row =& $this->_recordSet->FetchRow();
+	$row = $this->_recordSet->FetchRow();
 	if (!empty($row) && !empty($this->_fieldNames) && !empty($this->_mapInfo)) {
 	    /* Normalize fetched values */
 	    global $gallery;
@@ -1579,6 +1591,10 @@ class GallerySqlFragment {
      * @param array $values values.. variable number of parameters must match
      *                        number of ? markers in sql fragment
      */
+    function __construct($fragment, $values) {
+	$this->GallerySqlFragment($fragment, $values);
+    }
+
     function GallerySqlFragment($fragment, $values) {
 	$this->_values = func_get_args();
 	$this->_fragment = array_shift($this->_values);
@@ -1668,6 +1684,10 @@ function GalleryAdodbErrorHandler($dbms, $fn, $errno, $errmsg, $p1=false, $p2=fa
  * @subpackage Storage
  */
 class MySqlStorage extends GalleryStorage {
+
+    function __construct($config) {
+	$this->MySqlStorage($config);
+    }
 
     function MySqlStorage($config) {
 	$this->GalleryStorage($config);

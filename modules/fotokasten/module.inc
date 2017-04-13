@@ -30,6 +30,10 @@ define('FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD', 'f12a65d90445f95b90e5fd30c75ee74
  */
 class FotokastenModule extends GalleryModule {
 
+    function __construct() {
+	$this->FotokastenModule();
+    }
+
     function FotokastenModule() {
 	global $gallery;
 
@@ -47,7 +51,7 @@ class FotokastenModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) =
@@ -119,7 +123,7 @@ class FotokastenModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
 	global $gallery;
 	$session =& $gallery->getSession();
 

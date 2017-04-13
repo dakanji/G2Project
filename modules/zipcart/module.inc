@@ -27,6 +27,10 @@
  */
 class ZipCartModule extends GalleryModule {
 
+    function __construct() {
+	$this->ZipCartModule();
+    }
+
     function ZipCartModule() {
 	global $gallery;
 

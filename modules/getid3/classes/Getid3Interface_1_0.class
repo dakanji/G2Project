@@ -40,7 +40,7 @@ class Getid3Interface_1_0 {
      *               array( id => array(property=>value,...) )
      */
     function getMetaData($itemIds, $properties=array()) {
-	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
     }
 }
 ?>

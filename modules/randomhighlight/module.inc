@@ -26,6 +26,10 @@
  */
 class RandomHighlightModule extends GalleryModule {
 
+    function __construct() {
+	$this->RandomHighlightModule();
+    }
+
     function RandomHighlightModule() {
 	global $gallery;
 	$this->setId('randomhighlight');
@@ -42,7 +46,7 @@ class RandomHighlightModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) =

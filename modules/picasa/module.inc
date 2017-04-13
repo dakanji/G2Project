@@ -26,6 +26,10 @@
  */
 class PicasaModule extends GalleryModule {
 
+    function __construct() {
+	$this->PicasaModule();
+    }
+
     function PicasaModule() {
 	global $gallery;
 	$this->setId('picasa');

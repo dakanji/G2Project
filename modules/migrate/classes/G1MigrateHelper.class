@@ -34,7 +34,7 @@ class G1MigrateHelper {
      * @return array GalleryStatus a status code
      *               int count
      */
-    function fetchMapCount() {
+    static function fetchMapCount() {
 	global $gallery;
 
 	$query = 'SELECT COUNT(*) FROM [G1MigrateMap]';
@@ -59,7 +59,7 @@ class G1MigrateHelper {
      * @return array GalleryStatus a status code
      *               int id of G2 item or null if not found
      */
-    function fetchMapping($g1album, $g1item=null) {
+    static function fetchMapping($g1album, $g1item=null) {
 	global $gallery;
 
 	$query = 'SELECT [G1MigrateMap::itemId] FROM [G1MigrateMap]

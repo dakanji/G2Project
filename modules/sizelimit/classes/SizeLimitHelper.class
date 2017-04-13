@@ -37,7 +37,7 @@ class SizeLimitHelper {
      * @return array GalleryStatus a status code,
      *               array (errors), array (warnings)
      */
-    function applyLimits(&$item, $operation, $args) {
+    static function applyLimits(&$item, $operation, $args) {
 
 	/* Get the path of the source */
 	list ($ret, $sourcePath) = $item->fetchPath();
@@ -115,7 +115,7 @@ class SizeLimitHelper {
      * @return array GalleryStatus a status code,
      *               array (errors), array (warnings)
      */
-    function buildDerivativeWithLimits($item, $operation, $args) {
+    static function buildDerivativeWithLimits($item, $operation, $args) {
 	/* Check to see if we have a preferred source */
 	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredSource($item);
 	if ($ret) {

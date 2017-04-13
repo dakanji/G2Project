@@ -31,7 +31,7 @@ class Getid3Extractor extends Getid3Interface_1_0 {
     /**
      * @see Getid3Interface_1_0::getMetaData
      */
-    function getMetaData($itemIds, $properties=array()) {
+    static function getMetaData($itemIds, $properties=array()) {
 	if (!is_array($itemIds)) {
 	    $itemIds = array($itemIds);
 	}

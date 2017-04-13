@@ -130,6 +130,11 @@ class Services_JSON
     *                                   bubble up with an error, so all return values
     *                                   from encode() should be checked with isError()
     */
+    function __construct($use = 0)
+    {
+	$this->Services_JSON($use);
+    }
+
     function Services_JSON($use = 0)
     {
         $this->use = $use;
@@ -779,6 +784,12 @@ if (class_exists('PEAR_Error')) {
 
     class Services_JSON_Error extends PEAR_Error
     {
+        function __construct($message = 'unknown error', $code = null,
+                                     $mode = null, $options = null, $userinfo = null)
+        {
+		$this->Services_JSON_Error($message, $code, $mode, $options, $userinfo);
+	}
+
         function Services_JSON_Error($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
@@ -793,6 +804,12 @@ if (class_exists('PEAR_Error')) {
      */
     class Services_JSON_Error
     {
+        function __construct($message = 'unknown error', $code = null,
+                                     $mode = null, $options = null, $userinfo = null)
+	{
+		$this->Services_JSON_Error($message, $code, $mode, $options, $userinfo);
+	}
+
         function Services_JSON_Error($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {

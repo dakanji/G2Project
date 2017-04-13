@@ -27,6 +27,10 @@
  */
 class FlashVideoModule extends GalleryModule {
 
+    function __construct() {
+	$this->FlashVideoModule();
+    }
+
     function FlashVideoModule() {
 	global $gallery;
 	$this->setId('flashvideo');

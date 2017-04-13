@@ -29,6 +29,10 @@
  */
 class NewItemsModule extends GalleryModule {
 
+    function __construct() {
+	$this->NewItemsModule();
+    }
+
     function NewItemsModule() {
 	global $gallery;
 
@@ -46,7 +50,7 @@ class NewItemsModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	if (!isset($currentVersion)) {
 	    foreach (array('days.new' => '7',
 			   'days.updated' => '7' )

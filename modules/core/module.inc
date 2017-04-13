@@ -26,6 +26,10 @@
  */
 class CoreModule extends GalleryModule {
 
+    function __construct() {
+	$this->CoreModule();
+    }
+
     function CoreModule() {
 	global $gallery;
 
@@ -48,7 +52,7 @@ class CoreModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -481,7 +485,7 @@ class CoreModule extends GalleryModule {
      *
      * @see GalleryModule::install
      */
-    function upgrade($currentVersion, $statusMonitor) {
+    function upgrade($currentVersion, $statusMonitor = null) {
 	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::upgrade($this, $currentVersion, $statusMonitor);
 	if ($ret) {
@@ -513,7 +517,7 @@ class CoreModule extends GalleryModule {
      * @return array 'core' => core module version, 'gallery' => gallery version
      * @static
      */
-    function getInstalledVersions() {
+    static function getInstalledVersions() {
 	global $gallery;
 
 	if (GalleryDataCache::containsKey('CoreModule::installedVersions')) {

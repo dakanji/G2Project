@@ -25,6 +25,10 @@
  */
 class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 
+    function __construct() {
+	$this->LinkItemModule();
+    }
+
     function LinkItemModule() {
 	global $gallery;
 	$this->setId('linkitem');
@@ -41,7 +45,7 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();

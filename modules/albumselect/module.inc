@@ -28,6 +28,10 @@
  */
 class AlbumSelectModule extends GalleryModule {
 
+    function __construct() {
+	$this->AlbumSelectModule();
+    }
+
     function AlbumSelectModule() {
 	global $gallery;
 	$this->setId('albumselect');
@@ -58,7 +62,7 @@ class AlbumSelectModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 	if ($ret) {
 	    return $ret;

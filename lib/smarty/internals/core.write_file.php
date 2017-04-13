@@ -51,4 +51,4 @@ function smarty_core_write_file($params, &$smarty)
 
 /* vim: set expandtab: */
 
-?>
+

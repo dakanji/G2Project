@@ -29,6 +29,10 @@
  */
 class RewriteModule extends GalleryModule {
 
+    function __construct() {
+	$this->RewriteModule();
+    }
+
     function RewriteModule() {
 	global $gallery;
 	$this->setId('rewrite');
@@ -46,7 +50,7 @@ class RewriteModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	GalleryCoreApi::requireOnce('modules/rewrite/RewriteModuleExtras.inc');
 	$ret = RewriteModuleExtras::upgrade($this, $currentVersion);
 	if ($ret) {

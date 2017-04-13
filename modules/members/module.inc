@@ -26,6 +26,10 @@
  */
 class MembersModule extends GalleryModule {
 
+    function __construct() {
+	$this->MembersModule();
+    }
+
     function MembersModule() {
 	global $gallery;
 
@@ -43,7 +47,7 @@ class MembersModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	if (!isset($currentVersion)) {
 	    list ($ret, $viewSelectedGroupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');

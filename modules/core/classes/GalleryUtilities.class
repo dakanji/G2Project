@@ -33,6 +33,7 @@
  * @version $Revision: 20886 $
  * @static
  */
+
 class GalleryUtilities {
 
     /**
@@ -43,7 +44,7 @@ class GalleryUtilities {
      * @param string $filename
      * @return array the file basename, the file extension
      */
-    function getFileNameComponents($filename) {
+    static function getFileNameComponents($filename) {
 
 	$pos = strrpos($filename, '.');
 
@@ -69,7 +70,7 @@ class GalleryUtilities {
      * @param string $filename
      * @return array the file extension
      */
-    function getFileExtension($filename) {
+    static function getFileExtension($filename) {
 	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
 	return $extension;
     }
@@ -81,7 +82,7 @@ class GalleryUtilities {
      * @param string $filename
      * @return array the file base
      */
-    function getFileBase($filename) {
+    static function getFileBase($filename) {
 	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
 	return $base;
     }
@@ -92,7 +93,7 @@ class GalleryUtilities {
      * @param boolean $prefix (optional) false to omit Gallery variable prefix (not recommended)
      * @return array file data
      */
-    function getFile($key, $prefix=true) {
+    static function getFile($key, $prefix=true) {
 	$file = array();
 	if ($prefix) {
 	    $key = GALLERY_FORM_VARIABLE_PREFIX . $key;
@@ -121,7 +122,7 @@ class GalleryUtilities {
      * @param boolean $prefix (optional) false to omit Gallery variable prefix (not recommended)
      * @return array key value pairs
      */
-    function getFormVariables($key, $prefix=true) {
+    static function getFormVariables($key, $prefix=true) {
 	if ($prefix) {
 	    $key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 	}
@@ -161,7 +162,7 @@ class GalleryUtilities {
      * @param boolean $prefix (optional) if true, remove form variable prefix from keys in result
      * @return array unsanitized key value pairs
      */
-    function getUrlVariablesFiltered($skip=array(), $prefix=false) {
+    static function getUrlVariablesFiltered($skip=array(), $prefix=false) {
 	$filter = array();
 	foreach ($skip as $key) {
 	    $filter[GALLERY_FORM_VARIABLE_PREFIX . $key] = true;
@@ -191,7 +192,7 @@ class GalleryUtilities {
      * @author Tobias Tom <t.tom@succont.de>
      * @todo Verify that both arguments are arrays.
      */
-    function array_merge_replace($array, $newValues) {
+    static function array_merge_replace($array, $newValues) {
 	foreach ($newValues as $key => $value) {
 	    if (is_array($value)) {
 		if (!isset($array[$key])) {
@@ -219,7 +220,7 @@ class GalleryUtilities {
      * @param string $key
      * @param boolean $prefix (optional) false to omit Gallery variable prefix (not recommended)
      */
-    function removeFormVariables($key, $prefix=true) {
+    static function removeFormVariables($key, $prefix=true) {
 	/* Remove all matching GET and POST variables */
 	if ($prefix) {
 	    $key = GALLERY_FORM_VARIABLE_PREFIX . $key;
@@ -235,11 +236,29 @@ class GalleryUtilities {
      * @param one or more string parameters
      * @return mixed a single string value or many values
      */
-    function getRequestVariables() {
+    static function getRequestVariables() {
 	$values = array();
+        // twu2 begin
+        // is running in nginx?
+        $is_nginx = strncmp($_SERVER['SERVER_SOFTWARE'], 'nginx', 5) == 0 ? 1 : 0;
+        // twu2 end
 	foreach (func_get_args() as $argName) {
+/* original code
 	    $values[] = GalleryUtilities::_getRequestVariable(
 		GALLERY_FORM_VARIABLE_PREFIX . $argName);
+*/
+	    $s = GalleryUtilities::_getRequestVariable(
+		GALLERY_FORM_VARIABLE_PREFIX . $argName);
+            // twu2 begin
+            // maybe fix the issue with nginx, it change + to %2b
+            // then we got + here (in fact , it's ' ')
+            // only convert for g2_path and g2_fileName
+            if ($is_nginx  && ($argName == 'path' || $argName == 'fileName')) {
+                $x = str_replace('+', ' ', $s);
+                $s = $x;
+            }
+	    $values[] = $s;
+            // twu2 end
 	}
 
 	/* Sanitize the input */
@@ -255,7 +274,7 @@ class GalleryUtilities {
      * Return all request variables with the Gallery variable prefix.
      * @return array request variable name => value
      */
-    function getAllRequestVariables() {
+    static function getAllRequestVariables() {
 	$values = array();
 	$prefixLength = strlen(GALLERY_FORM_VARIABLE_PREFIX);
 	foreach ($_POST as $key => $value) {
@@ -283,7 +302,7 @@ class GalleryUtilities {
      * @param one or more string parameters
      * @return mixed a single string value or many values
      */
-    function getRequestVariablesNoPrefix() {
+    static function getRequestVariablesNoPrefix() {
 	$values = array();
 	foreach (func_get_args() as $argName) {
 	    $values[] = GalleryUtilities::_getRequestVariable($argName);
@@ -304,7 +323,7 @@ class GalleryUtilities {
      * @param string $value
      * @param boolean $prefix (optional) false to omit Gallery variable prefix (not recommended)
      */
-    function putRequestVariable($key, $value, $prefix=true) {
+    static function putRequestVariable($key, $value, $prefix=true) {
 	if ($prefix) {
 	    $key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 	}
@@ -327,7 +346,7 @@ class GalleryUtilities {
      * @param mixed $value
      * @param array $array the destination
      */
-    function _internalPutRequestVariable($keyPath, $value, &$array) {
+    static function _internalPutRequestVariable($keyPath, $value, &$array) {
 	$key = array_shift($keyPath);
 	while (!empty($keyPath)) {
 	    $array =& $array[$key];
@@ -342,7 +361,7 @@ class GalleryUtilities {
      * @param string $key
      * @param boolean $prefix (optional) false to omit Gallery variable prefix (not recommended)
      */
-    function hasRequestVariable($key, $prefix=true) {
+    static function hasRequestVariable($key, $prefix=true) {
 	if ($prefix) {
 	    $key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 	}
@@ -355,7 +374,7 @@ class GalleryUtilities {
      * @param string $key
      * @param boolean $prefix (optional) false to omit Gallery variable prefix (not recommended)
      */
-    function removeRequestVariable($key, $prefix=true) {
+    static function removeRequestVariable($key, $prefix=true) {
 	if ($prefix) {
 	    $key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 	}
@@ -373,7 +392,7 @@ class GalleryUtilities {
      * @param array $array the source
      * @access private
      */
-    function _internalRemoveRequestVariable($keyPath, &$array) {
+    static function _internalRemoveRequestVariable($keyPath, &$array) {
 	$key = array_shift($keyPath);
 	while (!empty($keyPath)) {
 	    if (empty($array[$key])) {
@@ -392,7 +411,7 @@ class GalleryUtilities {
      * @param string $key form variable name
      * @return string prefixed form variable name
      */
-    function prefixFormVariable($key) {
+    static function prefixFormVariable($key) {
 	return GALLERY_FORM_VARIABLE_PREFIX . $key;
     }
 
@@ -401,7 +420,7 @@ class GalleryUtilities {
      * @param int $count the number of markers to return
      * @return string
      */
-    function makeMarkers($count, $markerFragment='?') {
+    static function makeMarkers($count, $markerFragment='?') {
 	if (is_array($count)) {
 	    $count = count($count);
 	}
@@ -427,7 +446,7 @@ class GalleryUtilities {
      * @param array $options (optional) options to pass to UrlGenerator
      * @return string a URL
      */
-    function convertPathToUrl($path, $options=array()) {
+    static function convertPathToUrl($path, $options=array()) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	$dirbase = $platform->realpath(dirname(__FILE__) . '/../../..') . '/';
@@ -458,7 +477,7 @@ class GalleryUtilities {
      * @param int $targetHeight (optional) target height, defaults to same as width
      * @return array(width, height)
      */
-    function shrinkDimensionsToFit($width, $height, $targetWidth, $targetHeight=null) {
+    static function shrinkDimensionsToFit($width, $height, $targetWidth, $targetHeight=null) {
 	if (!isset($targetHeight)) {
 	    $targetHeight = $targetWidth;
 	}
@@ -477,7 +496,7 @@ class GalleryUtilities {
      * @param int $targetHeight (optional) target height, defaults to same as width
      * @return array(width, height)
      */
-    function scaleDimensionsToFit($width, $height, $targetWidth, $targetHeight=null) {
+    static function scaleDimensionsToFit($width, $height, $targetWidth, $targetHeight=null) {
 	if (!isset($targetHeight)) {
 	    $targetHeight = $targetWidth;
 	}
@@ -499,7 +518,7 @@ class GalleryUtilities {
      * @param int $precision defaults to zero
      * @return string rounded value
      */
-    function roundToString($floatValue, $precision=0) {
+    static function roundToString($floatValue, $precision=0) {
 	return str_replace(',', '.', round($floatValue, $precision));
     }
 
@@ -509,7 +528,7 @@ class GalleryUtilities {
      * can ditch this method and just cast to (float).  (Note that newer PHP versions may accept
      * only "." even if locale uses ",").
      */
-    function castToFloat($value) {
+    static function castToFloat($value) {
 	if (is_string($value) && (float)'1.1' != 1.1
 		&& ($test = (string)1.1) != '1.1' && strlen($test) == 3) {
 	    return (float)str_replace('.', $test{1}, $value);
@@ -525,7 +544,7 @@ class GalleryUtilities {
      * @param string $className
      * @return boolean
      */
-    function isA($instance, $className) {
+    static function isA($instance, $className) {
 	return is_a($instance, $className);
     }
 
@@ -537,7 +556,7 @@ class GalleryUtilities {
      * @param string $className
      * @return boolean
      */
-    function isExactlyA($instance, $className) {
+    static function isExactlyA($instance, $className) {
 	return (($instanceClass = get_class($instance)) == $className || $instanceClass ==
 		strtr($className, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'));
     }
@@ -554,7 +573,7 @@ class GalleryUtilities {
      * @return array int the number of entities in the string
      *               string the output string
      */
-    function entitySubstr($string, $start, $length=null, $countEntitiesAsOne=true) {
+    static function entitySubstr($string, $start, $length=null, $countEntitiesAsOne=true) {
 	$stringLength = strlen($string);
 	if ($stringLength < $start) {
 	    return array(0, false);
@@ -618,7 +637,7 @@ class GalleryUtilities {
      * @param string $source encoded using UTF-8
      * @return string of unicode entities
      */
-    function utf8ToUnicodeEntities($source) {
+    static function utf8ToUnicodeEntities($source) {
 	/*
 	 * Array used to figure what number to decrement from character order value according to
 	 * number of characters used to map unicode to ASCII by UTF-8
@@ -701,7 +720,7 @@ class GalleryUtilities {
      * @param boolean $adaptForMagicQuotes (optional) false to skip undoing the damage caused
      *                by magic_quotes
      */
-    function sanitizeInputValues(&$value, $adaptForMagicQuotes=true) {
+    static function sanitizeInputValues(&$value, $adaptForMagicQuotes=true) {
 	if (is_array($value)) {
 	    foreach (array_keys($value) as $key) {
 		$newKey = $key;
@@ -739,7 +758,7 @@ class GalleryUtilities {
      * @param boolean $adaptForMagicQuotes (optional) false to skip redoing the damage caused
      *                by magic_quotes
      */
-    function unsanitizeInputValues(&$value, $adaptForMagicQuotes=true) {
+    static function unsanitizeInputValues(&$value, $adaptForMagicQuotes=true) {
 	if (is_array($value)) {
 	    foreach (array_keys($value) as $key) {
 		GalleryUtilities::unsanitizeInputValues($value[$key], $adaptForMagicQuotes);
@@ -763,9 +782,11 @@ class GalleryUtilities {
      * @param string $string the input string with UTF-8 entities
      * @return string the UTF-8 string
      */
-    function unicodeEntitiesToUtf8($string) {
-	$string = preg_replace('/&#([xa-f\d]+);/mei',
-	    "GalleryUtilities::unicodeValueToUtf8Value('\\1')", $string);
+    static function unicodeEntitiesToUtf8($string) {
+	$string = preg_replace_callback('/&#([xa-f\d]+);/mi',
+				function ($m) {
+					return GalleryUtilities::unicodeValueToUtf8Value($m[1]);
+				}, $string);
 	return $string;
     }
 
@@ -777,7 +798,7 @@ class GalleryUtilities {
      * @return string a multibyte safe substring of input value
      * @deprecated Please use GalleryCoreApi::utf8Substring instead
      */
-    function utf8Substring($string, $start, $length) {
+    static function utf8Substring($string, $start, $length) {
 	return GalleryCoreApi::utf8Substring($string, $start, $length);
     }
 
@@ -788,7 +809,7 @@ class GalleryUtilities {
      * @param int $num the unicode value
      * @return string the UTF-8 string
      */
-    function unicodeValueToUtf8Value($num) {
+    static function unicodeValueToUtf8Value($num) {
 	if ($num[0] == 'x') {
 	    /* Convert hex to decimal */
 	    $num = hexdec(substr($num, 1));
@@ -826,7 +847,7 @@ class GalleryUtilities {
      * @deprecated
      * @todo Remove at the next major version bump of core API
      */
-    function htmlEntityDecode($string) {
+    static function htmlEntityDecode($string) {
 	return empty($string) ? $string : html_entity_decode($string, ENT_COMPAT);
     }
 
@@ -836,7 +857,7 @@ class GalleryUtilities {
      * @param string $markupType (optional) markup type, defaults from core markup parameter
      * @return string resulting text
      */
-    function markup($text, $markupType=null) {
+    static function markup($text, $markupType=null) {
 	GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 	return smarty_modifier_markup($text, $markupType);
     }
@@ -847,7 +868,7 @@ class GalleryUtilities {
      * @param boolean $decode (optional) true to decode entities, process, then recode
      * @return string safe HTML
      */
-    function htmlSafe($html, $decode=false) {
+    static function htmlSafe($html, $decode=false) {
 	GalleryCoreApi::requireOnce('lib/pear/Safe.php');
 	static $parser;
 	if (!isset($parser)) {
@@ -870,7 +891,7 @@ class GalleryUtilities {
      * @return string a single value
      * @access private
      */
-    function _getRequestVariable($key) {
+    static function _getRequestVariable($key) {
 	$keyPath = preg_split('/[\[\]]/', $key, -1, PREG_SPLIT_NO_EMPTY);
 	$result = GalleryUtilities::_internalGetRequestVariable($keyPath, $_GET);
 	if (isset($result)) {
@@ -889,7 +910,7 @@ class GalleryUtilities {
      * @return the value or null if it does not exist
      * @access private
      */
-    function _internalGetRequestVariable($keyPath, $array) {
+    static function _internalGetRequestVariable($keyPath, $array) {
 	$key = array_shift($keyPath);
 	while (!empty($keyPath)) {
 	    if (!isset($array[$key])) {
@@ -910,7 +931,7 @@ class GalleryUtilities {
      *     existing header.  This differs from the PHP header() $replace param which adds a header
      *     if it would otherwise replace and existing header.
      */
-    function setResponseHeader($header, $replace=true) {
+    static function setResponseHeader($header, $replace=true) {
 	/* Use our PHP VM for testability */
 	global $gallery;
 	$phpVm = $gallery->getPhpVm();
@@ -948,7 +969,7 @@ class GalleryUtilities {
      * @return array key => value pairs of headers
      * @access private
      */
-    function &_getResponseHeaders() {
+    static function &_getResponseHeaders() {
 	static $responseHeaders;
 	return $responseHeaders;
     }
@@ -960,7 +981,7 @@ class GalleryUtilities {
      * @param string $list the list of legal paths
      * @return boolean
      */
-    function isPathInList($path, $list) {
+    static function isPathInList($path, $list) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
@@ -991,7 +1012,7 @@ class GalleryUtilities {
      * @param string $addr an address in dotted quad form
      * @return boolean
      */
-    function isTrustedProxy($addr) {
+    static function isTrustedProxy($addr) {
 	return (boolean)preg_match('/^((10\.\d{1,3}\.\d{1,3}\.\d{1,3})|'
 	    . '(172\.(1[6-9]|2[0-9]|3[0-1])\.\d{1,3}\.\d{1,3})|'
 	    . '(192\.168\.\d{1,3}\.\d{1,3}))$/', $addr);
@@ -1001,7 +1022,7 @@ class GalleryUtilities {
      * Return the address of the remote host.
      * @return string the remote host address (or null)
      */
-    function getRemoteHostAddress() {
+    static function getRemoteHostAddress() {
 	$addr = null;
 	if (isset($_SERVER['REMOTE_ADDR'])) {
 	    $addr = $_SERVER['REMOTE_ADDR'];
@@ -1024,7 +1045,7 @@ class GalleryUtilities {
      * @return array boolean true if dir exists or was created successfully
      *               array of directories that were created
      */
-    function guaranteeDirExists($dir) {
+    static function guaranteeDirExists($dir) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	if ($platform->file_exists($dir)) {
@@ -1067,7 +1088,7 @@ class GalleryUtilities {
      * @return array an associative array of tree data.  Each node has a 'depth' element, and a
      *               'data' element that contains all the members of the current album item.
      */
-    function createAlbumTree($albums) {
+    static function createAlbumTree($albums) {
 	if (empty($albums)) {
 	    $tree = array(); return $tree;  /* Help CodeAudit match up returns */
 	}
@@ -1117,7 +1138,7 @@ class GalleryUtilities {
      * @param int $depth (optional) current depth
      * @access private
      */
-    function _createDepthTree(&$map, $id, $depth=0) {
+    static function _createDepthTree(&$map, $id, $depth=0) {
 	$data = array();
 	$data[] = array('depth' => $depth, 'data' => (array)$map[$id]['instance']);
 	if (isset($map[$id]['children'])) {
@@ -1136,7 +1157,7 @@ class GalleryUtilities {
      * @return array GalleryStatus a status code
      *               string pseudoFileName a filename
      */
-    function getPseudoFileName($entity) {
+    static function getPseudoFileName($entity) {
 	/*
 	 * If our GalleryEntity is a GalleryFileSystemEntity, then we've got a path component so
 	 * we're cool.  If it's a derivative, then get the pseudo filename of its parent and use
@@ -1183,7 +1204,7 @@ class GalleryUtilities {
      * @see Gallery::getHttpDate
      * @deprecated
      */
-    function getHttpDate($time='') {
+    static function getHttpDate($time='') {
 	global $gallery;
 	return $gallery->getHttpDate($time);
     }
@@ -1192,7 +1213,7 @@ class GalleryUtilities {
      * Get contents of MANIFEST files.
      * @return array (file => array('checksum'=>..,'size'=>..,'viewable'=>..), ..)
      */
-    function readManifest() {
+    static function readManifest() {
 	/*
 	 * Be careful not to reference $gallery here; this method is called from the installer.
 	 * Look in (modules|themes)/.../MANIFEST and top level MANIFEST.
@@ -1226,7 +1247,7 @@ class GalleryUtilities {
      * @param string $filePath the path to the MANIFEST file
      * @return array(file => array('checksum'=>..,'size'=>..,'viewable'=>..), ...)
      */
-    function readIndividualManifest($filePath, &$manifest) {
+    static function readIndividualManifest($filePath, &$manifest) {
 	global $gallery;
 
 	/* If the method getPlatform exists, then we are not installing and it is safe to use. */
@@ -1266,7 +1287,7 @@ class GalleryUtilities {
      * @param string $email email address
      * @return boolean
      */
-    function isValidEmailString($email) {
+    static function isValidEmailString($email) {
 	return (preg_match('/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9_.-]+\.[a-zA-Z]{2,6}$/', $email) > 0);
     }
 
@@ -1276,7 +1297,7 @@ class GalleryUtilities {
      * @param string $salt (optional) salt or hash containing salt (randomly generated if omitted)
      * @return string hashed password
      */
-    function md5Salt($password, $salt='') {
+    static function md5Salt($password, $salt='') {
 	if (empty($salt)) {
 	    for ($i = 0; $i < 4; $i++) {
 		$char = mt_rand(48, 109);
@@ -1295,7 +1316,7 @@ class GalleryUtilities {
      * @param string $hashedPassword hashed password
      * @return boolean true if correct
      */
-    function isCorrectPassword($guess, $hashedPassword) {
+    static function isCorrectPassword($guess, $hashedPassword) {
 	return (GalleryUtilities::md5Salt($guess, $hashedPassword) === $hashedPassword);
     }
 
@@ -1309,7 +1330,7 @@ class GalleryUtilities {
      * @param array $provided (major, minor)
      * @return boolean true if compatible
      */
-    function isCompatibleWithApi($required, $provided) {
+    static function isCompatibleWithApi($required, $provided) {
 	if (!is_array($required) || !is_array($provided)) {
 	    return false;
 	}
@@ -1335,7 +1356,7 @@ class GalleryUtilities {
      * @param array $array
      * @return array of keys
      */
-    function arrayKeysRecursive($array) {
+    static function arrayKeysRecursive($array) {
 	$keys = array();
 	foreach ($array as $key => $item) {
 	    $keys[] = $key;
@@ -1351,7 +1372,7 @@ class GalleryUtilities {
      * @param string $ini_string name of the php.ini value to be retrieved
      * @return boolean value
      */
-    function getPhpIniBool($ini_string) {
+    static function getPhpIniBool($ini_string) {
 	$value = ini_get($ini_string);
 
 	if (!strcasecmp('on', $value) || $value == 1 || $value === true) {
@@ -1370,7 +1391,7 @@ class GalleryUtilities {
      * Return id of the search engine currently crawling the site by analyzing the current request.
      * @return string the crawler id, or null if it's a regular user
      */
-    function identifySearchEngine() {
+    static function identifySearchEngine() {
 	if (!isset($_SERVER['HTTP_USER_AGENT'])) {
 	    return null;
 	}
@@ -1399,7 +1420,7 @@ class GalleryUtilities {
      * @param string $key the key in the _SERVER superglobal
      * @return string the value
      */
-    function getServerVar($key) {
+    static function getServerVar($key) {
 	if (!isset($_SERVER[$key])) {
 	    return null;
 	}
@@ -1414,7 +1435,7 @@ class GalleryUtilities {
      * @param string $key the key in the _COOKIE superglobal
      * @return string the value
      */
-    function getCookieVar($key) {
+    static function getCookieVar($key) {
 	if (!isset($_COOKIE[$key])) {
 	    return null;
 	}
@@ -1432,7 +1453,7 @@ class GalleryUtilities {
      * @see Gallery::isEmbedded
      * @deprecated
      */
-    function isEmbedded() {
+    static function isEmbedded() {
 	global $gallery;
 	return $gallery->isEmbedded();
     }
@@ -1470,7 +1491,7 @@ class GalleryUtilities {
      * @param boolean $force force the reevaluation of the HTTP header string Cookie
      * @param boolean $unset unset static variable for testability
      */
-    function fixCookieVars($force=false, $unset=false) {
+    static function fixCookieVars($force=false, $unset=false) {
 	static $fixed;
 	if (!isset($fixed) || $force) {
 	    $fixed = true;
@@ -1563,7 +1584,7 @@ class GalleryUtilities {
      * @param array $fixedCookies (string already registered cookie name, ...)
      * @access private
      */
-    function _registerCookieAttr($attr, &$fixedCookies) {
+    static function _registerCookieAttr($attr, &$fixedCookies) {
 	global $gallery;
 	/* Split NAME [=VALUE], value is optional for all attributes but the cookie name */
 	if (($pos = strpos($attr, '=')) !== false) {
@@ -1617,7 +1638,7 @@ class GalleryUtilities {
      * @param string $string
      * @return string lowercase version of the string
      */
-    function strToLower($string) {
+    static function strToLower($string) {
 	return strtr($string, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
     }
 
@@ -1626,7 +1647,7 @@ class GalleryUtilities {
      * @param string $string
      * @return string uppercase version of the string
      */
-    function strToUpper($string) {
+    static function strToUpper($string) {
 	return strtr($string, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     }
 
@@ -1639,7 +1660,7 @@ class GalleryUtilities {
      * @param string $header
      * @return bool true if the given header is safe
      */
-    function isSafeHttpHeader($header) {
+    static function isSafeHttpHeader($header) {
 	if (!is_string($header)) {
 	    return false;
 	}

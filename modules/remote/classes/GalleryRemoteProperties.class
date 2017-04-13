@@ -32,6 +32,10 @@ class GalleryRemoteProperties {
      */
     var $_map;
 
+    function __construct() {
+	$this->GalleryRemoteProperties();
+    }
+
     function GalleryRemoteProperties() {
 	$this->_map = array();
     }

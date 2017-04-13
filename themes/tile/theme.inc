@@ -27,6 +27,10 @@
  */
 class TileTheme extends GalleryTheme {
 
+    function __construct() {
+	$this->TileTheme();
+    }
+
     function TileTheme() {
 	global $gallery;
 

@@ -25,6 +25,10 @@
  */
 class WebCamModule extends GalleryModule {
 
+    function __construct() {
+	$this->WebCamModule();
+    }
+
     function WebCamModule() {
 	global $gallery;
 	$this->setId('webcam');
@@ -41,7 +45,7 @@ class WebCamModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');

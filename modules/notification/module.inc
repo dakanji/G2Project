@@ -31,6 +31,10 @@ GalleryCoreApi::requireOnce('modules/notification/classes/GalleryCoreEventNotifi
  * @version $Revision: 18172 $
  */
 class NotificationModule extends GalleryModule {
+    function __construct() {
+	$this->NotificationModule();
+    }
+
     function NotificationModule() {
 	global $gallery;
 	$this->setId('notification');
@@ -195,7 +199,7 @@ class NotificationModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
 	$links = array();
 
 	list ($ret, $showView) = $this->_showWatch($userId);
@@ -219,7 +223,7 @@ class NotificationModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion, $statusMonitor) {
+    function upgrade($currentVersion, $statusMonitor=null) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 

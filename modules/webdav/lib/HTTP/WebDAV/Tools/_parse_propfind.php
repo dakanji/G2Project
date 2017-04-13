@@ -72,6 +72,11 @@ class _parse_propfind
      * @param resource input stream file descriptor
      * @access public
      */
+    function __construct($handle)
+    {
+	$this->_parse_propfind($handle);
+    }
+
     function _parse_propfind($handle)
     {
         // open input stream

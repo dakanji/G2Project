@@ -31,6 +31,10 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
  */
 class SQLiteStorage extends GalleryStorage {
 
+    function __construct($config) {
+	$this->SQLiteStorage($config);
+    }
+
     function SQLiteStorage($config) {
 	$this->GalleryStorage($config);
 	/**

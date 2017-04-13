@@ -26,6 +26,10 @@
  */
 class RatingModule extends GalleryModule {
 
+    function __construct() {
+	$this->RatingModule();
+    }
+
     function RatingModule() {
 	global $gallery;
 
@@ -168,7 +172,7 @@ class RatingModule extends GalleryModule {
     /**
      * @see GalleryModule::upgrade
      */
-    function upgrade($currentVersion) {
+    function upgrade($currentVersion, $x1=null) {
 	global $gallery;
 
 	if (!isset($currentVersion)) {
