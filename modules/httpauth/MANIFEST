@@ -4,11 +4,11 @@ modules/httpauth/FinishLogout.inc	12951231	2679569573	1881	1936
 modules/httpauth/HttpAuthSiteAdmin.inc	4186254593	376719926	4487	4636
 modules/httpauth/HttpAuthWorks.inc	2136919531	1975198014	1466	1512
 modules/httpauth/TryLogout.inc	1913749198	2750229125	2220	2280
-modules/httpauth/classes/HttpAuthHelper.class	2407205543	995647936	11117	11486
+modules/httpauth/classes/HttpAuthHelper.class	1893911496	2124591309	11173	11542
 modules/httpauth/classes/HttpAuthInterface_1_0.class	330322941	637015678	2650	2718
 modules/httpauth/classes/HttpAuthPlugin.class	3882217169	2247055358	2506	2580
 modules/httpauth/classes/ServerAuthPlugin.class	752668062	3902009249	2216	2282
-modules/httpauth/module.inc	808094979	1284886379	11164	11556
+modules/httpauth/module.inc	3324482696	556902155	10602	10980
 modules/httpauth/po/GNUmakefile	1866879166	2808215985	98	103
 modules/httpauth/po/af.mo	3687831618	3687831618	693	693
 modules/httpauth/po/af.po	1390343050	2152345248	5693	5883
@@ -72,6 +72,10 @@ modules/httpauth/po/zh_TW.po	2221044716	1258408995	8458	8666
 modules/httpauth/templates/FinishLogout.tpl	1234303161	3238766006	368	379
 modules/httpauth/templates/HttpAuthSiteAdmin.tpl	1148897401	2229504017	8465	8611
 modules/httpauth/templates/TryLogout.tpl	3374667996	3244326300	680	703
+modules/httpauth/test/phpunit/HttpAuthHelperTest.class	1150324037	3444179387	21418	22156
+modules/httpauth/test/phpunit/HttpAuthModuleTest.class	908733694	1239079864	9486	9819
+modules/httpauth/test/phpunit/HttpAuthPluginTest.class	2631602509	3822934757	3896	4054
+modules/httpauth/test/phpunit/ServerAuthPluginTest.class	1385708446	1718765372	2843	2962
 R	modules/httpauth/classes/HttpAuthErrorEventListener.class
 R	modules/httpauth/locale/af/LC_MESSAGES/modules_httpauth.mo
 R	modules/httpauth/locale/ar/LC_MESSAGES/modules_httpauth.mo

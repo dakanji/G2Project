@@ -1,7 +1,7 @@
 # $Revision: 20944 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/thumbnail/CustomThumbnailOption.inc	484223068	3486514028	4224	4352
-modules/thumbnail/ThumbnailModuleExtras.inc	1445480680	2323769289	12541	12979
+modules/thumbnail/ThumbnailModuleExtras.inc	3728100079	1798760057	12619	13059
 modules/thumbnail/ThumbnailSiteAdmin.inc	564303362	2819739056	5491	5670
 modules/thumbnail/classes/Entities.inc	467279930	2632856511	817	831
 modules/thumbnail/classes/GNUmakefile	1995366819	843025639	51	52
@@ -9,12 +9,12 @@ modules/thumbnail/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/thumbnail/classes/GalleryStorage/schema.tpl	846229748	78599929	6201	6393
 modules/thumbnail/classes/GalleryStorage/xml-src/A_ThumbnailImage_1.0.xml	3084293411	1810171766	393	408
 modules/thumbnail/classes/GalleryStorage/xml-src/A_ThumbnailImage_1.1.xml	3855592580	3925942035	456	474
-modules/thumbnail/classes/ThumbnailHelper.class	205537884	71873030	13359	13801
-modules/thumbnail/classes/ThumbnailImage.class	2742187143	1780250731	14728	15290
+modules/thumbnail/classes/ThumbnailHelper.class	2351985108	3834195993	13422	13864
+modules/thumbnail/classes/ThumbnailImage.class	2201779299	3081359009	14688	15250
 modules/thumbnail/classes/ThumbnailToolkit.class	1665082444	806580684	3336	3430
 modules/thumbnail/images/G2audio.jpg	3650686913	3650686913	15472	15472
 modules/thumbnail/images/G2video.jpg	4287254857	4287254857	15777	15777
-modules/thumbnail/module.inc	1412556678	3261790783	5671	5861
+modules/thumbnail/module.inc	3609135289	1921707992	5742	5936
 modules/thumbnail/po/GNUmakefile	1866879166	2808215985	98	103
 modules/thumbnail/po/af.mo	4078979474	4078979474	3581	3581
 modules/thumbnail/po/af.po	314992084	2870845489	4889	5047
@@ -81,6 +81,10 @@ modules/thumbnail/po/zh_TW.mo	3726649654	3726649654	3905	3905
 modules/thumbnail/po/zh_TW.po	950510868	1383193899	4677	4826
 modules/thumbnail/templates/CustomThumbnail.tpl	2108872081	4048438064	1263	1301
 modules/thumbnail/templates/ThumbnailSiteAdmin.tpl	1158827467	1932247526	5209	5370
+modules/thumbnail/test/phpunit/CustomThumbnailOptionTest.class	3691880320	41639042	16737	17202
+modules/thumbnail/test/phpunit/ThumbnailImageTest.class	2627123583	2593142983	4920	5084
+modules/thumbnail/test/phpunit/ThumbnailSiteAdminControllerTest.class	223692435	2779551717	8683	8899
+modules/thumbnail/test/phpunit/ThumbnailToolkitTest.class	2465299890	1414216747	7129	7358
 R	modules/thumbnail/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/thumbnail/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/thumbnail/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_ThumbnailImage_1.0.sql

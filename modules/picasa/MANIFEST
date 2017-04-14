@@ -4,10 +4,10 @@ modules/picasa/ConfirmPicasaImport.inc	884805978	60970275	11367	11737
 modules/picasa/ImportResults.inc	3277981103	4086496798	2004	2067
 modules/picasa/ItemAddFromPicasa.inc	2427260600	3528975688	13227	13624
 modules/picasa/SelectPicasaExportPath.inc	1793474855	2653725842	5006	5166
-modules/picasa/classes/Picasa2DataParser.class	991592716	3703217985	8234	8478
-modules/picasa/classes/PicasaImportHelper.class	3714528750	408835710	2558	2641
+modules/picasa/classes/Picasa2DataParser.class	2277353606	4101127966	8241	8485
+modules/picasa/classes/PicasaImportHelper.class	3814496980	3681296640	2565	2648
 modules/picasa/docs/README.TXT	1672042385	3644211501	1911	1963
-modules/picasa/module.inc	3479263201	4100135145	2057	2121
+modules/picasa/module.inc	2899473994	2306483113	2115	2183
 modules/picasa/po/GNUmakefile	1866879166	2808215985	98	103
 modules/picasa/po/af.mo	1767204335	1767204335	3854	3854
 modules/picasa/po/af.po	635951777	2802612728	7017	7281
@@ -74,6 +74,12 @@ modules/picasa/templates/ConfirmPicasaImport.tpl	124847254	2567539181	2300	2364
 modules/picasa/templates/ImportResults.tpl	2438470173	3563259660	3028	3121
 modules/picasa/templates/ItemAddFromPicasa.tpl	3110733420	3809985034	3277	3355
 modules/picasa/templates/SelectPicasaExportPath.tpl	3262615310	452826698	3550	3643
+modules/picasa/test/phpunit/ConfirmPicasaImportControllerTest.class	71949226	1119127180	11382	11704
+modules/picasa/test/phpunit/ItemAddFromPicasaTest.class	3386656085	211137794	13285	13635
+modules/picasa/test/phpunit/MockLockSystem.class	1367781928	1469247006	2297	2392
+modules/picasa/test/phpunit/Picasa2DataParserTest.class	4069989014	4033940869	6763	6962
+modules/picasa/test/phpunit/PicasaImportHelperTest.class	617840302	786213907	5632	5760
+modules/picasa/test/phpunit/SelectPicasaExportPathControllerTest.class	2733766544	800938388	3947	4067
 R	modules/picasa/locale/af/LC_MESSAGES/modules_picasa.mo
 R	modules/picasa/locale/ar/LC_MESSAGES/modules_picasa.mo
 R	modules/picasa/locale/ca/LC_MESSAGES/modules_picasa.mo

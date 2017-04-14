@@ -15,12 +15,12 @@ modules/notification/classes/Maps.inc	1026015924	3821589915	512	516
 modules/notification/classes/Maps.xml	916258743	589742415	909	946
 modules/notification/classes/NotificationEvent_1_0.class	1014553423	2504007671	4305	4448
 modules/notification/classes/NotificationHandler_1_0.class	1915483658	2258076878	2389	2459
-modules/notification/classes/NotificationHelper.class	1989597060	3794919248	19025	19667
+modules/notification/classes/NotificationHelper.class	4157363223	2163568047	19102	19744
 modules/notification/classes/NotificationItemStateChangeHandler.class	3727378679	2610000440	4040	4162
-modules/notification/classes/NotificationMethodEmail.class	3617427277	3785085280	3827	3967
+modules/notification/classes/NotificationMethodEmail.class	2693043010	1905359048	3761	3901
 modules/notification/classes/NotificationRouter.class	4151100137	3289101501	3929	4065
 modules/notification/data/grids.css	306719567	1359423447	5521	5735
-modules/notification/module.inc	3795278661	3483293241	11515	11868
+modules/notification/module.inc	1990098761	2427536283	11590	11947
 modules/notification/po/GNUmakefile	1866879166	2808215985	98	103
 modules/notification/po/de.mo	1413395520	1413395520	4339	4339
 modules/notification/po/de.po	2198011095	2875925803	5328	5540
@@ -53,6 +53,7 @@ modules/notification/templates/NotificationEmail.tpl	4016169603	1759950061	333	3
 modules/notification/templates/NotificationItemAdmin.tpl	575960760	3773897579	3002	3082
 modules/notification/templates/NotificationSiteAdmin.tpl	1518921993	3058466987	6117	6249
 modules/notification/templates/NotificationUserAdmin.tpl	1468707910	3382012777	4009	4114
+modules/notification/test/phpunit/NotificationEventHandlingTest.class	2718194177	1666850162	19265	19880
 R	modules/notification/NotificationItem.inc
 R	modules/notification/NotificationItemOption.inc
 R	modules/notification/classes/NotificationEventInterface_1_0.class

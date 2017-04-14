@@ -1,16 +1,16 @@
 # $Revision: 20944 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/multilang/CantActivate.inc	3722388885	3564627161	2103	2174
-modules/multilang/MultiLangItemEdit.inc	3241613517	552987424	6014	6198
+modules/multilang/MultiLangItemEdit.inc	1002617298	997358507	6008	6192
 modules/multilang/MultiLangSiteAdmin.inc	1548702223	1444077769	3518	3628
 modules/multilang/classes/GNUmakefile	1995366819	843025639	51	52
 modules/multilang/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/multilang/classes/GalleryStorage/schema.tpl	1553321331	1456997872	3267	3377
 modules/multilang/classes/Maps.inc	2168041728	943860264	540	544
 modules/multilang/classes/Maps.xml	2509545159	1753304741	1097	1137
-modules/multilang/classes/MultiLangHelper.class	921263625	1697200314	5104	5280
-modules/multilang/classes/MultiLangSearch.class	3327121672	3204568062	6148	6350
-modules/multilang/module.inc	2584801483	465996299	5113	5289
+modules/multilang/classes/MultiLangHelper.class	4058419506	865160114	5119	5295
+modules/multilang/classes/MultiLangSearch.class	688032403	1896497859	6106	6308
+modules/multilang/module.inc	3165549266	2445057637	5184	5364
 modules/multilang/po/GNUmakefile	1866879166	2808215985	98	103
 modules/multilang/po/af.mo	1893296660	1893296660	2939	2939
 modules/multilang/po/af.po	3087023771	1128584077	3906	4041
@@ -78,6 +78,8 @@ modules/multilang/po/zh_TW.po	3501033841	1510393746	3730	3859
 modules/multilang/templates/CantActivate.tpl	3755474582	2386812161	766	787
 modules/multilang/templates/MultiLangItemEdit.tpl	3175931029	4152622662	3982	4095
 modules/multilang/templates/MultiLangSiteAdmin.tpl	1236195742	4050000804	2281	2354
+modules/multilang/test/phpunit/MultiLangItemEditPluginTest.class	1133006135	3431223287	5999	6187
+modules/multilang/test/phpunit/MultiLangSearchTest.class	407961040	3496298581	7535	7791
 R	modules/multilang/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/multilang/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/multilang/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GNUmakefile

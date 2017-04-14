@@ -4,8 +4,8 @@ modules/slideshow/AdminSlideshow.inc	1727799496	510451371	4508	4654
 modules/slideshow/DownloadPicLens.inc	41037804	632133398	4287	4430
 modules/slideshow/Slideshow.inc	3700292185	547246302	5087	5244
 modules/slideshow/SlideshowMediaRss.inc	2516852590	1470781937	2913	3012
-modules/slideshow/classes/PicLensHelper.class	2793311883	4103961579	3583	3698
-modules/slideshow/classes/SlideshowHelper.class	3868731230	2767122313	8551	8793
+modules/slideshow/classes/PicLensHelper.class	3213693181	799069366	3597	3712
+modules/slideshow/classes/SlideshowHelper.class	1524601336	2133664061	8565	8807
 modules/slideshow/classes/SlideshowImpl.class	1549271542	2358545689	1412	1453
 modules/slideshow/classes/SlideshowInterface_1_0.class	2488831358	3110021081	1511	1555
 modules/slideshow/data/images/blank.gif	1304196098	1304196098	43	43
@@ -37,7 +37,7 @@ modules/slideshow/data/images/prev_grey.gif	1782379711	1782379711	748	748
 modules/slideshow/data/images/prev_red.gif	1158961775	1158961775	748	748
 modules/slideshow/data/lytebox.css	1919031562	3387490952	5650	5742
 modules/slideshow/data/lytebox.js	3976214017	1280869800	38716	39559
-modules/slideshow/module.inc	996990142	2989401491	8592	8872
+modules/slideshow/module.inc	3919567139	361476914	8674	8958
 modules/slideshow/po/GNUmakefile	1866879166	2808215985	98	103
 modules/slideshow/po/af.mo	1503277470	1503277470	798	798
 modules/slideshow/po/af.po	3972720467	3666667970	4616	4845
@@ -117,6 +117,10 @@ modules/slideshow/po/zh_TW.po	2767474733	1197068710	2936	3026
 modules/slideshow/templates/AdminSlideshow.tpl	2043805322	879062846	2212	2268
 modules/slideshow/templates/Slideshow.tpl	911373697	860843215	1852	1901
 modules/slideshow/templates/SlideshowMediaRss.tpl	3854190623	4251526956	1992	2023
+modules/slideshow/test/phpunit/AdminSlideshowControllerTest.class	2983376728	1565670254	4210	4339
+modules/slideshow/test/phpunit/DownloadPicLensViewTest.class	3297094055	545619231	8112	8353
+modules/slideshow/test/phpunit/PicLensHelperTest.class	3626988022	2167950912	8417	8662
+modules/slideshow/test/phpunit/SlideshowHelperTest.class	1862432909	3947142424	14866	15350
 R	modules/slideshow/templates/Header.tpl
 R	modules/slideshow/test/phpunit/SlideshowTest.class
 R	modules/slideshow/locale/af/LC_MESSAGES/modules_slideshow.mo

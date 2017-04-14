@@ -1,6 +1,6 @@
 # $Revision: 20944 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/publishxp/DownloadRegistryFile.inc	1213106015	3868950556	7028	7245
+modules/publishxp/DownloadRegistryFile.inc	3611453061	1416247959	6950	7167
 modules/publishxp/ItemAddPublishXp.inc	3416259	3835410692	2075	2133
 modules/publishxp/Login.inc	1519400422	1248100089	1487	1527
 modules/publishxp/NewAlbum.inc	483591818	2580656640	5554	5721
@@ -9,7 +9,7 @@ modules/publishxp/PublishXpLogin.inc	4106641328	3092964443	4166	4301
 modules/publishxp/SelectAlbum.inc	3285480463	3371063961	5223	5383
 modules/publishxp/UploadItems.inc	1544193814	1497943183	9274	9569
 modules/publishxp/UploadedItem.inc	2583495757	333083209	1731	1774
-modules/publishxp/module.inc	1539177326	3261941828	2167	2227
+modules/publishxp/module.inc	2589687599	1620775440	2228	2292
 modules/publishxp/po/GNUmakefile	1866879166	2808215985	98	103
 modules/publishxp/po/af.mo	2335288335	2335288335	4408	4408
 modules/publishxp/po/af.po	2969266204	1327117341	7789	8036
@@ -80,6 +80,12 @@ modules/publishxp/templates/Options.tpl	2982131217	458187472	1840	1882
 modules/publishxp/templates/PublishXpLogin.tpl	66379377	3600130739	1911	1969
 modules/publishxp/templates/SelectAlbum.tpl	130900258	197519155	1884	1931
 modules/publishxp/templates/UploadItems.tpl	554662807	3033881529	2666	2733
+modules/publishxp/test/phpunit/DownloadRegistryFileTest.class	1073431971	2597807761	3540	3647
+modules/publishxp/test/phpunit/NewAlbumControllerTest.class	1400855028	4179763688	6939	7132
+modules/publishxp/test/phpunit/OptionsControllerTest.class	796939332	2834053007	3563	3678
+modules/publishxp/test/phpunit/PublishXpLoginControllerTest.class	1371558155	4166332437	2915	3010
+modules/publishxp/test/phpunit/SelectAlbumControllerTest.class	1836986709	2116475192	2656	2736
+modules/publishxp/test/phpunit/UploadItemsControllerTest.class	388310398	1290772789	10027	10299
 R	modules/publishxp/locale/af/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/ar/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/ca/LC_MESSAGES/modules_publishxp.mo

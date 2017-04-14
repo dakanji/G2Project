@@ -1,6 +1,6 @@
 # $Revision: 20949 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/rating/Callbacks.inc	1109944024	2380198342	3170	3279
+modules/rating/Callbacks.inc	1462178621	4243633018	3224	3335
 modules/rating/Preloads.inc	3764303936	3436280279	1283	1324
 modules/rating/RatingAlbum.inc	1331672103	1970658682	6656	6867
 modules/rating/RatingCallback.inc	2793466275	3939983601	2905	3010
@@ -11,7 +11,7 @@ modules/rating/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/rating/classes/GalleryStorage/schema.tpl	1287325099	324355419	7603	7846
 modules/rating/classes/Maps.inc	3736103824	2523464981	970	975
 modules/rating/classes/Maps.xml	219510663	3143016974	1831	1902
-modules/rating/classes/RatingHelper.class	4077688725	2001245595	7309	7553
+modules/rating/classes/RatingHelper.class	2528781858	2378105804	7323	7567
 modules/rating/classes/RatingSortOrder.class	4030676344	3597705502	1793	1847
 modules/rating/images/star_07.gif	2895369100	2895369100	175	175
 modules/rating/images/star_r_0.0.gif	3117757632	3117757632	109	109
@@ -20,7 +20,7 @@ modules/rating/images/star_r_1.0.gif	950031169	950031169	190	190
 modules/rating/images/star_u_1.0.gif	968361793	968361793	185	185
 modules/rating/images/star_u_noborder.gif	773766236	773766236	171	171
 modules/rating/images/transparent.gif	1799978585	1799978585	177	177
-modules/rating/module.inc	959096456	1889043141	9456	9794
+modules/rating/module.inc	2897559386	4073768227	9524	9866
 modules/rating/po/GNUmakefile	1866879166	2808215985	98	103
 modules/rating/po/af.mo	121205669	121205669	1101	1101
 modules/rating/po/af.po	4142166462	196113847	3351	3497
@@ -101,6 +101,12 @@ modules/rating/templates/RatingItemEdit.tpl	1173479391	559208215	694	708
 modules/rating/templates/RatingSiteAdmin.tpl	309645489	2743105844	3778	3886
 modules/rating/templates/blocks/Rating.tpl	2809670753	2114018607	484	500
 modules/rating/templates/blocks/blocks.inc	3573707839	4057157947	98	101
+modules/rating/test/phpunit/RatingAlbumTest.class	389382882	1849711213	6586	6790
+modules/rating/test/phpunit/RatingCallbackViewTest.class	1936463895	1613539562	7410	7669
+modules/rating/test/phpunit/RatingCallbacksTest.class	571717162	1464186686	9762	10067
+modules/rating/test/phpunit/RatingHelperTest.class	2069399517	899751964	13366	13797
+modules/rating/test/phpunit/RatingOptionTest.class	2614016316	3080775778	3849	3978
+modules/rating/test/phpunit/RatingSiteAdminControllerTest.class	1905673841	104161865	5628	5801
 R	modules/rating/locale/af/LC_MESSAGES/modules_rating.mo
 R	modules/rating/locale/ar/LC_MESSAGES/modules_rating.mo
 R	modules/rating/locale/ca/LC_MESSAGES/modules_rating.mo

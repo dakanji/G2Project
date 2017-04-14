@@ -1,17 +1,17 @@
 # $Revision: 20953 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/remote/GalleryRemote.inc	3052892675	1389828159	39592	40865
+modules/remote/GalleryRemote.inc	614071154	801948309	39648	40922
 modules/remote/GalleryRemoteWebStart.inc	2854769784	1522422252	3346	3462
 modules/remote/ItemAddGalleryRemote.inc	3782132920	3485470761	2003	2070
 modules/remote/RemoteSiteAdmin.inc	2760017490	1822786855	2619	2711
 modules/remote/applets/GalleryRemote.jar	3306380431	3306380431	712475	712475
 modules/remote/applets/img.jar	3083847189	3083847189	19215	19215
 modules/remote/applets/metadata-extractor-2.1.jar	674518813	674518813	69694	69694
-modules/remote/classes/GalleryRemoteConstants.class	1375775560	2432692192	2681	2764
-modules/remote/classes/GalleryRemoteProperties.class	3681535635	496594609	2967	3065
+modules/remote/classes/GalleryRemoteConstants.class	2424523669	2496550532	2695	2778
+modules/remote/classes/GalleryRemoteProperties.class	3098213031	3073433050	3038	3140
 modules/remote/images/rar_about_gr1.png	2906701870	2906701870	6720	6720
 modules/remote/images/rar_icon_32.gif	939897893	939897893	1718	1718
-modules/remote/module.inc	2896847628	1126302873	2508	2593
+modules/remote/module.inc	1663186325	488348069	2576	2665
 modules/remote/po/GNUmakefile	4182585338	210146087	97	101
 modules/remote/po/af.mo	1153164391	1153164391	918	918
 modules/remote/po/af.po	3991187113	719021252	2965	3048
@@ -82,6 +82,9 @@ modules/remote/po/zh_TW.mo	1629787690	1629787690	1036	1036
 modules/remote/po/zh_TW.po	438622567	3255591325	2886	2967
 modules/remote/templates/ItemAddGalleryRemote.tpl	3245453232	65028951	943	959
 modules/remote/templates/RemoteSiteAdmin.tpl	2474736933	2620707733	939	967
+modules/remote/test/phpunit/GalleryRemoteControllerTest.class	4210146723	2791202004	35968	36952
+modules/remote/test/phpunit/GalleryRemotePropertiesTest.class	978936041	490914863	2655	2731
+modules/remote/test/phpunit/RemoteSiteAdminControllerTest.class	3369798955	719466419	2459	2537
 R	modules/remote/locale/af/LC_MESSAGES/modules_remote.mo
 R	modules/remote/locale/ar/LC_MESSAGES/modules_remote.mo
 R	modules/remote/locale/ca/LC_MESSAGES/modules_remote.mo

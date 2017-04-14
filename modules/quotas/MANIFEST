@@ -7,18 +7,18 @@ modules/quotas/AdminDeleteUserQuota.inc	2742374528	2209900850	4167	4300
 modules/quotas/AdminEditGroupQuota.inc	44682782	3538476274	6152	6340
 modules/quotas/AdminEditUserQuota.inc	3719244454	1835117438	6104	6292
 modules/quotas/AdminQuotas.inc	3905780181	3687436398	10725	11054
-modules/quotas/Callbacks.inc	929724706	1558595975	2861	2947
+modules/quotas/Callbacks.inc	1426215282	247741358	2909	2997
 modules/quotas/DiskQuotaOption.inc	2091684764	1450274151	3840	3957
 modules/quotas/Preloads.inc	2075171244	3465144413	1197	1236
 modules/quotas/classes/GNUmakefile	1995366819	843025639	51	52
-modules/quotas/classes/GalleryQuotasHelper.class	3223114449	1043221509	12373	12801
+modules/quotas/classes/GalleryQuotasHelper.class	1682039832	662303431	12436	12864
 modules/quotas/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/quotas/classes/GalleryStorage/schema.tpl	1494742575	3756930921	7436	7652
 modules/quotas/classes/GalleryStorage/xml-src/A_QuotasMap_1.0.xml	1935613243	3312187849	796	829
 modules/quotas/classes/Maps.inc	4106363238	2716469295	323	327
 modules/quotas/classes/Maps.xml	2514565467	601092775	499	519
 modules/quotas/data/transparent.gif	2298612248	2298612248	43	43
-modules/quotas/module.inc	3739771650	3964011153	4301	4444
+modules/quotas/module.inc	148137959	815298973	4370	4517
 modules/quotas/po/GNUmakefile	1866879166	2808215985	98	103
 modules/quotas/po/af.mo	750128267	750128267	6156	6156
 modules/quotas/po/af.po	912878623	468420293	7487	7780
@@ -95,6 +95,16 @@ modules/quotas/templates/AdminEditUserQuota.tpl	2932932500	3957851887	1812	1875
 modules/quotas/templates/AdminQuotas.tpl	2504987963	2497429822	10237	10555
 modules/quotas/templates/blocks/QuotasSummary.tpl	980660503	2007832468	1739	1791
 modules/quotas/templates/blocks/blocks.inc	2797426493	3011282377	112	117
+modules/quotas/test/phpunit/AdminCreateGroupQuotaControllerTest.class	3343127869	4108150813	6061	6240
+modules/quotas/test/phpunit/AdminCreateUserQuotaControllerTest.class	1274997423	1048354503	5540	5698
+modules/quotas/test/phpunit/AdminDeleteGroupQuotaControllerTest.class	2769565202	1187634581	4009	4135
+modules/quotas/test/phpunit/AdminDeleteUserQuotaControllerTest.class	2805838639	1201117139	3956	4080
+modules/quotas/test/phpunit/AdminEditGroupQuotaControllerTest.class	2808962341	1377666669	6489	6691
+modules/quotas/test/phpunit/AdminEditUserQuotaControllerTest.class	3372883610	1553960297	5869	6040
+modules/quotas/test/phpunit/AdminQuotasControllerTest.class	2128296551	4234394512	9474	9748
+modules/quotas/test/phpunit/DiskQuotasOptionTest.class	1094524100	1666882947	12066	12452
+modules/quotas/test/phpunit/QuotasHelperTest.class	2761236948	2800492487	21798	22434
+modules/quotas/test/phpunit/QuotasListenerTest.class	1271494532	1103649681	6360	6577
 R	modules/quotas/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/quotas/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/quotas/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_QuotasMap_1_0.sql

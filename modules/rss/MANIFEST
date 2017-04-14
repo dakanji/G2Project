@@ -1,6 +1,6 @@
 # $Revision: 20953 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/rss/Callbacks.inc	488743046	2409811557	2152	2223
+modules/rss/Callbacks.inc	3616162626	3037683151	2234	2308
 modules/rss/EditFeed.inc	3353965782	3424204581	11020	11374
 modules/rss/FeedList.inc	3166092528	3133586348	1607	1655
 modules/rss/Preloads.inc	748143693	1837323132	1299	1340
@@ -12,10 +12,10 @@ modules/rss/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/rss/classes/GalleryStorage/schema.tpl	735314505	1054898641	3674	3802
 modules/rss/classes/Maps.inc	3736870917	1753952197	488	492
 modules/rss/classes/Maps.xml	923671256	639776472	850	884
-modules/rss/classes/RssGenerator.class	221129333	266543127	11002	11351
-modules/rss/classes/RssHelper.class	3164193386	3556434274	18704	19336
-modules/rss/classes/RssMapHelper.class	4079727934	802905387	7580	7864
-modules/rss/module.inc	35087112	2468474743	9128	9464
+modules/rss/classes/RssGenerator.class	1913360313	3393861527	11037	11387
+modules/rss/classes/RssHelper.class	1363633975	2321914178	18723	19355
+modules/rss/classes/RssMapHelper.class	1424276244	1741315593	7629	7913
+modules/rss/module.inc	3025691324	4097681478	9199	9539
 modules/rss/po/GNUmakefile	1866879166	2808215985	98	103
 modules/rss/po/af.mo	168413486	168413486	911	911
 modules/rss/po/af.po	61119097	1706206836	9612	10153
@@ -88,6 +88,11 @@ modules/rss/templates/RssBlockHead.tpl	1771909245	1213978188	388	400
 modules/rss/templates/RssSiteAdmin.tpl	3545413638	2342429042	16975	17451
 modules/rss/templates/blocks/RssBlock.tpl	1716832780	921395428	625	646
 modules/rss/templates/blocks/blocks.inc	2110983884	3679917574	448	467
+modules/rss/test/phpunit/RssEditFeedTest.class	3701675934	948932018	8775	9094
+modules/rss/test/phpunit/RssMapTest.class	402367435	238015797	3475	3615
+modules/rss/test/phpunit/RssRenderTest.class	2280750102	1065610741	9253	9581
+modules/rss/test/phpunit/RssSiteAdminControllerTest.class	1378361675	2338365336	5639	5840
+modules/rss/test/phpunit/RssTest.class	2645771492	884908459	2581	2682
 R	modules/rss/locale/af/LC_MESSAGES/modules_rss.mo
 R	modules/rss/locale/ar/LC_MESSAGES/modules_rss.mo
 R	modules/rss/locale/ca/LC_MESSAGES/modules_rss.mo

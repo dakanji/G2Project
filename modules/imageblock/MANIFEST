@@ -1,6 +1,6 @@
 # $Revision: 20949 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/imageblock/Callbacks.inc	1692468317	1342718929	2880	2974
+modules/imageblock/Callbacks.inc	526246160	2462734754	2878	2972
 modules/imageblock/External.inc	1890664423	34135774	4204	4345
 modules/imageblock/ExternalCSS.inc	92655111	2929538848	3149	3261
 modules/imageblock/ImageBlockOption.inc	1925592883	3190985389	3190	3285
@@ -12,10 +12,10 @@ modules/imageblock/classes/GalleryStorage/schema.tpl	915282624	2757417009	13937	
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.0.xml	2220890733	582360795	733	761
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.1.xml	1988743235	4024673389	627	652
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.2.xml	2133512389	2910752323	796	828
-modules/imageblock/classes/ImageBlockHelper.class	3022860855	518216004	32688	33744
+modules/imageblock/classes/ImageBlockHelper.class	2292858252	3293677018	32772	33828
 modules/imageblock/classes/Maps.inc	3965587607	2986913692	719	724
 modules/imageblock/classes/Maps.xml	3678630263	325108851	1305	1356
-modules/imageblock/module.inc	1159473462	2631207893	4752	4907
+modules/imageblock/module.inc	2162717489	1336698584	4825	4984
 modules/imageblock/po/GNUmakefile	1866879166	2808215985	98	103
 modules/imageblock/po/af.mo	2816538918	2816538918	5307	5307
 modules/imageblock/po/af.po	3712527220	281327275	7904	8202
@@ -101,6 +101,13 @@ modules/imageblock/templates/ImageBlockOption.tpl	1883633046	4086364636	796	817
 modules/imageblock/templates/ImageBlockSiteAdmin.tpl	3359826556	804630648	6150	6293
 modules/imageblock/templates/blocks/ImageBlock.tpl	1752323807	2655879344	879	898
 modules/imageblock/templates/blocks/blocks.inc	1401326904	2167541536	1900	1952
+modules/imageblock/test/phpunit/ExternalCSSControllerTest.class	1117401257	1663656693	3716	3834
+modules/imageblock/test/phpunit/ImageBlockDisabledTest.class	490469702	2020941972	8116	8384
+modules/imageblock/test/phpunit/ImageBlockHandlerTest.class	2863890997	1039969209	15879	16377
+modules/imageblock/test/phpunit/ImageBlockHelperTest.class	1616790202	3165440103	16274	16813
+modules/imageblock/test/phpunit/ImageBlockOptionTest.class	3023423957	1811517169	5459	5649
+modules/imageblock/test/phpunit/ImageBlockSiteAdminControllerTest.class	2833633020	4259630529	3838	3950
+modules/imageblock/test/phpunit/ImageBlockTest.class	1337761127	2107501103	39367	40441
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_ImageBlockCacheMap.sql

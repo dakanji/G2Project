@@ -13,9 +13,9 @@ modules/watermark/classes/GNUmakefile	1995366819	843025639	51	52
 modules/watermark/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/watermark/classes/GalleryStorage/schema.tpl	3978047140	3299013688	7032	7245
 modules/watermark/classes/GalleryStorage/xml-src/A_WatermarkImage_1.0.xml	739496766	586525217	475	495
-modules/watermark/classes/WatermarkHelper.class	1101398150	375386246	20999	21717
-modules/watermark/classes/WatermarkImage.class	2787681394	2358175147	13305	13843
-modules/watermark/module.inc	2815620128	764099023	10840	11228
+modules/watermark/classes/WatermarkHelper.class	829173544	3331129563	21055	21773
+modules/watermark/classes/WatermarkImage.class	3799306350	2649001439	12563	13104
+modules/watermark/module.inc	48036659	3741277707	10301	10677
 modules/watermark/po/GNUmakefile	1866879166	2808215985	98	103
 modules/watermark/po/af.mo	3020830337	3020830337	6007	6007
 modules/watermark/po/af.po	874308819	2534693598	8756	9075
@@ -92,6 +92,16 @@ modules/watermark/templates/WatermarkEdit.tpl	3627520804	3016463024	4243	4365
 modules/watermark/templates/WatermarkOption.tpl	1128399985	815391097	2127	2184
 modules/watermark/templates/WatermarkSiteAdmin.tpl	1140550999	257806434	4312	4424
 modules/watermark/templates/WatermarkSiteAdminEdit.tpl	3589683621	3671144263	238	243
+modules/watermark/test/data/SiteAdminControllerMaliciousFile.php	753305439	3790688835	849	870
+modules/watermark/test/data/UserWatermarkControllerTestFile.yyy	2462724539	2462724539	26	26
+modules/watermark/test/phpunit/ConfirmDeleteControllerTest.class	300083999	1936162466	5446	5619
+modules/watermark/test/phpunit/ItemEditWatermarkPluginTest.class	3037529235	2492621072	17420	17897
+modules/watermark/test/phpunit/UserWatermarkEditControllerTest.class	3849540679	2294544490	13339	13705
+modules/watermark/test/phpunit/UserWatermarksControllerTest.class	202233218	3821982006	11589	11950
+modules/watermark/test/phpunit/WatermarkOptionTest.class	140883854	1961365492	11738	12096
+modules/watermark/test/phpunit/WatermarkSiteAdminControllerTest.class	1775973169	818817439	15142	15595
+modules/watermark/test/phpunit/WatermarkSiteAdminEditControllerTest.class	1861552671	3549723176	10308	10585
+modules/watermark/test/phpunit/WatermarkTest.class	2076812507	3095706794	9762	10087
 modules/watermark/watermark.js	1363252951	1563226077	3672	3763
 R	modules/watermark/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/watermark/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile

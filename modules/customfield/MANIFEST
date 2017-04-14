@@ -1,10 +1,10 @@
 # $Revision: 20944 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/customfield/Callbacks.inc	3104186177	3749362829	2017	2080
+modules/customfield/Callbacks.inc	3104816208	681279430	2028	2093
 modules/customfield/CustomFieldItemAdmin.inc	3176644500	1416415909	4292	4433
 modules/customfield/CustomFieldItemEdit.inc	2725511180	1321695145	5523	5699
 modules/customfield/CustomFieldSiteAdmin.inc	4060106083	1844564222	2489	2573
-modules/customfield/classes/CustomFieldHelper.class	3301949137	197081542	15794	16298
+modules/customfield/classes/CustomFieldHelper.class	3592811460	37180876	15836	16340
 modules/customfield/classes/CustomFieldInterface_1_0.class	1854130355	2688248481	1937	1992
 modules/customfield/classes/CustomFieldSearch.class	2951353294	4202705356	3861	3990
 modules/customfield/classes/GNUmakefile	1995366819	843025639	51	52
@@ -13,7 +13,7 @@ modules/customfield/classes/GalleryStorage/schema.tpl	3527620299	2466710599	5306
 modules/customfield/classes/GalleryStorage/xml-src/A_CustomFieldMap_1.0.xml	1313334479	803029683	645	671
 modules/customfield/classes/Maps.inc	1240819450	1387319953	535	539
 modules/customfield/classes/Maps.xml	2655281086	1514795119	911	946
-modules/customfield/module.inc	27850284	3826202183	4197	4334
+modules/customfield/module.inc	1275168948	86953194	4270	4411
 modules/customfield/po/GNUmakefile	1866879166	2808215985	98	103
 modules/customfield/po/af.mo	3187980371	3187980371	6666	6666
 modules/customfield/po/af.po	2259065238	3106812149	7510	7745
@@ -84,6 +84,12 @@ modules/customfield/templates/CustomFieldItemEdit.tpl	259731891	3354680338	1588	
 modules/customfield/templates/CustomFieldSiteAdmin.tpl	97398211	3139585259	1181	1204
 modules/customfield/templates/blocks/CustomFields.tpl	2593254485	2719376695	519	535
 modules/customfield/templates/blocks/blocks.inc	3405463935	3210145025	108	113
+modules/customfield/test/phpunit/CustomFieldHelperTest.class	1462529357	4127565410	4193	4326
+modules/customfield/test/phpunit/CustomFieldInterfaceTest.class	894753012	2087395326	4767	4930
+modules/customfield/test/phpunit/CustomFieldItemAdminControllerTest.class	3586003264	747265806	5162	5321
+modules/customfield/test/phpunit/CustomFieldItemEditPluginTest.class	2603483592	1764026290	15875	16260
+modules/customfield/test/phpunit/CustomFieldSearchTest.class	3986355208	2820267733	5703	5895
+modules/customfield/test/phpunit/CustomFieldSiteAdminControllerTest.class	3508822749	2662634451	10563	10820
 R	modules/customfield/classes/CustomFieldMap.class
 R	modules/customfield/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/customfield/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile

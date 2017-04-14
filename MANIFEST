@@ -1,8 +1,9 @@
 # $Revision: 20995 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 LICENSE	3778559985	3184057198	18011	18351
-MANIFEST	2012310955	1220002304	72310	73859
-README.html	3230948271	3603113010	85381	87899
+MANIFEST	3132874960	1501369575	72362	73912
+README.html	25034124	1850658825	85498	88025
+README.mediawiki	2047694546	1640639535	4372	4442
 bootstrap.inc	270495883	4258233691	1987	2044
 embed.php	1017113822	3867634306	1520	1557
 images/g2Logo.gif	1196739865	1196739865	6395	6395
@@ -12,12 +13,12 @@ images/galleryLogo_sm.png	1945861746	1945861746	10222	10222
 images/gulftech.png	258707301	258707301	5804	5804
 images/intershot.png	3917150669	3917150669	5032	5032
 images/xhtml10.png	1165418597	1165418597	321	321
-index.php	556442353	1926952025	1989	2038
-init.inc	1615800107	877835472	9927	10200
+index.php	1352971835	1404498460	23544	24261
+init.inc	1474824110	679797308	9260	9519
 install/GalleryStub.class	2425718103	2146174878	1267	1308
 install/InstallStep.class	207743803	734144895	2455	2568
 install/StatusTemplate.class	1237812938	895877765	3272	3373
-install/config.php-template	2957370160	1862011592	8172	8367
+install/config.php-template	1900996028	4219170194	8708	8916
 install/images/background.png	2766840926	2766840926	23329	23329
 install/images/btn2.png	331379507	331379507	1040	1040
 install/images/g2Logo_install_head.png	551346589	551346589	13842	13842
@@ -28,7 +29,7 @@ install/images/pixbl.gif	3423258834	3423258834	35	35
 install/images/pixgrn.gif	2511823829	2511823829	35	35
 install/images/pixor.gif	3720751771	3720751771	35	35
 install/images/shade.png	908234537	908234537	156	156
-install/index.php	4038684849	2652693861	10328	10672
+install/index.php	2399193562	462571306	10322	10666
 install/install.css	2784492664	2841482408	8818	9246
 install/po/GNUmakefile	131239173	1173653828	126	132
 install/po/af.po	1914434462	899122889	52568	53958
@@ -66,15 +67,15 @@ install/po/zh_CN.po	2034757366	3280031865	50187	51495
 install/po/zh_TW.po	201876394	2459893241	50358	51601
 install/steps/AdminUserSetupStep.class	2633244585	2167754216	4262	4384
 install/steps/AuthenticateStep.class	880033354	2147259164	3006	3103
-install/steps/CreateConfigFileStep.class	2791391093	2545766408	8585	8821
-install/steps/DatabaseSetupStep.class	3112236666	1666180320	26735	27492
+install/steps/CreateConfigFileStep.class	2216455559	1580570004	8653	8893
+install/steps/DatabaseSetupStep.class	27733784	4285988489	26635	27390
 install/steps/FinishedStep.class	689150474	230028816	1263	1302
 install/steps/InstallCoreModuleStep.class	2189001138	2671263119	9758	10013
 install/steps/InstallOtherModulesStep.class	1760267942	1947093984	9505	9806
 install/steps/MultisiteStep.class	2085288473	3304521921	7000	7200
 install/steps/SecureStep.class	431365702	3949339770	2224	2286
 install/steps/StorageSetupStep.class	1263159464	2336445612	10827	11147
-install/steps/SystemChecksStep.class	349184240	1527726350	19374	19905
+install/steps/SystemChecksStep.class	184906414	1032699225	19720	20259
 install/steps/WelcomeStep.class	2304532275	760752874	1930	1994
 install/templates/AdminUserSetupRequest.html	3396872259	231344062	3620	3734
 install/templates/AdminUserSetupSuccess.html	4206166754	147542172	100	105
@@ -103,147 +104,345 @@ install/templates/StorageSetupSuccess.html	1056692906	3881909576	97	102
 install/templates/SystemChecks.html	3858186548	1672036693	1111	1150
 install/templates/VersionCheckFailed.html	3503490372	428774140	1791	1850
 install/templates/Welcome.html	2098666671	905586701	1591	1618
-lib/JSON/JSON.php	2355118408	4191637452	33859	34664
-lib/adodb/adodb-error.inc.php	1040093936	3090507908	8551	8809
-lib/adodb/adodb-iterator.inc.php	176674495	1475248384	1598	1683
-lib/adodb/adodb-lib.inc.php	2145122244	963936708	35452	36626
-lib/adodb/adodb-perf.inc.php	1301433500	611828434	31875	32964
-lib/adodb/adodb-php4.inc.php	2838910786	4033442795	321	337
-lib/adodb/adodb-time.inc.php	1936910898	3460597074	42267	43693
-lib/adodb/adodb.inc.php	2419601414	1719736122	121539	125793
-lib/adodb/drivers/adodb-ado.inc.php	2435412931	2165065754	15822	16467
-lib/adodb/drivers/adodb-ado5.inc.php	1994328760	444487906	16569	17244
-lib/adodb/drivers/adodb-ado_mssql.inc.php	3130942139	3417876634	4437	4590
-lib/adodb/drivers/adodb-db2.inc.php	1353394187	1947008669	20254	21053
-lib/adodb/drivers/adodb-mysql.inc.php	2262467770	1142752974	20943	21732
-lib/adodb/drivers/adodb-mysqli.inc.php	2243764263	1483736138	28858	29994
-lib/adodb/drivers/adodb-mysqlt.inc.php	6610985	1610383375	3774	3929
-lib/adodb/drivers/adodb-oci8.inc.php	1306419861	3780508650	44340	45892
-lib/adodb/drivers/adodb-oci805.inc.php	1038355683	4278497749	1580	1639
-lib/adodb/drivers/adodb-oci8po.inc.php	3747024384	2552736144	5502	5719
-lib/adodb/drivers/adodb-oracle.inc.php	304896900	2767489378	9281	9619
-lib/adodb/drivers/adodb-pdo.inc.php	1308179357	4160252343	11528	12011
-lib/adodb/drivers/adodb-pdo_sqlite.inc.php	3152151292	888323237	9927	10192
-lib/adodb/drivers/adodb-postgres64.inc.php	1091993600	1959237717	31852	32916
-lib/adodb/drivers/adodb-postgres7.inc.php	571291752	1804105142	7131	7396
-lib/adodb/license.txt	579487579	2288399938	25898	26079
-lib/adodb/perf/perf-db2.inc.php	2446433986	1018088926	3008	3110
-lib/adodb/perf/perf-mssql.inc.php	4255560908	484319740	4822	4986
-lib/adodb/perf/perf-mysql.inc.php	128618149	1003137382	8430	8745
-lib/adodb/perf/perf-oci8.inc.php	512922822	2745210880	18316	18866
-lib/adodb/perf/perf-postgres.inc.php	709955596	3948032690	5399	5554
-lib/adodb/readme.txt	3426737861	427074808	1670	1731
-lib/adodb/tohtml.inc.php	4072632515	1134147243	5531	5726
+lib/JSON/JSON.php	3476207355	674960390	34421	35243
+lib/adodb/.mailmap	2426753673	1280049622	187	191
+lib/adodb/LICENSE.md	4217789063	43401402	26224	26720
+lib/adodb/README.md	4264978921	984159452	4616	4725
+lib/adodb/adodb-active-record.inc.php	36008426	653860619	26952	28094
+lib/adodb/adodb-active-recordx.inc.php	1444369743	2183104303	38843	40340
+lib/adodb/adodb-csvlib.inc.php	1854945199	1748204333	8513	8832
+lib/adodb/adodb-datadict.inc.php	842883381	2270965288	28124	29157
+lib/adodb/adodb-error.inc.php	1780858551	3227436579	8874	9139
+lib/adodb/adodb-errorhandler.inc.php	3976095876	46569525	2838	2918
+lib/adodb/adodb-errorpear.inc.php	1760241058	1311781371	2345	2433
+lib/adodb/adodb-exceptions.inc.php	2978865510	1428338073	2322	2403
+lib/adodb/adodb-iterator.inc.php	95627190	126056465	780	806
+lib/adodb/adodb-lib.inc.php	1014277792	3061637117	37702	38953
+lib/adodb/adodb-memcache.lib.inc.php	1747942748	1919819027	5054	5244
+lib/adodb/adodb-pager.inc.php	285230293	3520874477	8124	8413
+lib/adodb/adodb-pear.inc.php	4081638045	2592218985	9553	9923
+lib/adodb/adodb-perf.inc.php	1728343520	277725917	31750	32849
+lib/adodb/adodb-php4.inc.php	4241598626	3816742929	414	430
+lib/adodb/adodb-time.inc.php	2273521205	2121996482	43120	44582
+lib/adodb/adodb-xmlschema.inc.php	652982676	3073406410	54867	57091
+lib/adodb/adodb-xmlschema03.inc.php	566876893	3370651167	62152	64558
+lib/adodb/adodb.inc.php	160516312	997714708	133627	138602
+lib/adodb/composer.json	3007208709	3724012925	696	733
+lib/adodb/contrib/toxmlrpc.inc.php	1075298391	4113839183	6523	6704
+lib/adodb/cute_icons_for_site/adodb.gif	4161675739	4161675739	1091	1091
+lib/adodb/cute_icons_for_site/adodb2.gif	487453208	487453208	1458	1458
+lib/adodb/datadict/datadict-access.inc.php	2134255690	2276924982	2161	2256
+lib/adodb/datadict/datadict-db2.inc.php	1459720142	3776025697	4088	4231
+lib/adodb/datadict/datadict-firebird.inc.php	2947128882	1936371041	3873	4024
+lib/adodb/datadict/datadict-generic.inc.php	654191715	4115952160	2644	2771
+lib/adodb/datadict/datadict-ibase.inc.php	2469226066	2939762698	1522	1589
+lib/adodb/datadict/datadict-informix.inc.php	2844641773	980204264	1894	1975
+lib/adodb/datadict/datadict-mssql.inc.php	667680452	2159111086	7497	7782
+lib/adodb/datadict/datadict-mssqlnative.inc.php	2570251870	3423513791	10019	10388
+lib/adodb/datadict/datadict-mysql.inc.php	943223373	853015667	4713	4896
+lib/adodb/datadict/datadict-oci8.inc.php	1835826028	4092388733	7689	7989
+lib/adodb/datadict/datadict-postgres.inc.php	1824326764	4053369048	15931	16415
+lib/adodb/datadict/datadict-sapdb.inc.php	2281679185	2099937349	3324	3446
+lib/adodb/datadict/datadict-sqlite.inc.php	1708053744	1196545486	2756	2846
+lib/adodb/datadict/datadict-sybase.inc.php	300509350	1172671771	5882	6112
+lib/adodb/docs/README.md	2195106470	167737622	584	601
+lib/adodb/docs/adodb.gif	4161675739	4161675739	1091	1091
+lib/adodb/docs/adodb2.gif	487453208	487453208	1458	1458
+lib/adodb/docs/changelog.md	1425553597	2079379921	34880	35371
+lib/adodb/docs/changelog_v2.x.md	938353340	280585843	34756	35287
+lib/adodb/docs/changelog_v3.x.md	141193587	1529367772	16203	16445
+lib/adodb/docs/changelog_v4+5.md	3167869765	2954882965	7057	7166
+lib/adodb/docs/changelog_v4.x.md	380646640	1746588265	48005	48727
+lib/adodb/drivers/adodb-access.inc.php	2701505707	1476682567	2236	2324
+lib/adodb/drivers/adodb-ado.inc.php	542438813	3437909095	16320	16980
+lib/adodb/drivers/adodb-ado5.inc.php	1963761429	2518058363	17406	18114
+lib/adodb/drivers/adodb-ado_access.inc.php	3365968229	3646993252	1428	1478
+lib/adodb/drivers/adodb-ado_mssql.inc.php	1170355766	302293175	4397	4547
+lib/adodb/drivers/adodb-ads.inc.php	3792643755	1698098622	23758	24542
+lib/adodb/drivers/adodb-borland_ibase.inc.php	63489254	3299176735	2228	2315
+lib/adodb/drivers/adodb-csv.inc.php	720693121	445496272	4939	5146
+lib/adodb/drivers/adodb-db2.inc.php	1792142027	1956845825	22050	22899
+lib/adodb/drivers/adodb-db2oci.inc.php	1760616025	1039594312	4678	4904
+lib/adodb/drivers/adodb-db2ora.inc.php	2166431691	248245093	1985	2071
+lib/adodb/drivers/adodb-fbsql.inc.php	1966392034	3059113066	6514	6781
+lib/adodb/drivers/adodb-firebird.inc.php	553911625	3602272835	1926	1999
+lib/adodb/drivers/adodb-ibase.inc.php	616493718	3029578123	24574	25492
+lib/adodb/drivers/adodb-informix.inc.php	3943368784	645339433	1052	1093
+lib/adodb/drivers/adodb-informix72.inc.php	3984969454	1222307020	14920	15445
+lib/adodb/drivers/adodb-ldap.inc.php	3523220493	1167207641	11120	11548
+lib/adodb/drivers/adodb-mssql.inc.php	3982677062	2190266466	34393	35571
+lib/adodb/drivers/adodb-mssql_n.inc.php	2162482098	598122869	10020	10269
+lib/adodb/drivers/adodb-mssqlnative.inc.php	3749365177	1020246780	35967	37164
+lib/adodb/drivers/adodb-mssqlpo.inc.php	3292032580	1931386161	1556	1614
+lib/adodb/drivers/adodb-mysql.inc.php	945491287	43482367	22518	23409
+lib/adodb/drivers/adodb-mysqli.inc.php	4011605767	784071165	33207	34500
+lib/adodb/drivers/adodb-mysqlpo.inc.php	3431319499	3910720982	3171	3299
+lib/adodb/drivers/adodb-mysqlt.inc.php	2834920380	2969790600	3552	3689
+lib/adodb/drivers/adodb-netezza.inc.php	2703777459	1633895918	4822	4979
+lib/adodb/drivers/adodb-oci8.inc.php	673166009	250079550	47040	48858
+lib/adodb/drivers/adodb-oci805.inc.php	48449354	4199444202	1588	1643
+lib/adodb/drivers/adodb-oci8po.inc.php	3600638088	2837791453	6063	6290
+lib/adodb/drivers/adodb-oci8quercus.inc.php	1708476383	3088153727	2450	2539
+lib/adodb/drivers/adodb-odbc.inc.php	1165746548	1573727750	19391	20129
+lib/adodb/drivers/adodb-odbc_db2.inc.php	2902610632	1970434245	9381	9750
+lib/adodb/drivers/adodb-odbc_mssql.inc.php	3714504810	756679922	10743	11106
+lib/adodb/drivers/adodb-odbc_oracle.inc.php	3563053383	647080550	3225	3336
+lib/adodb/drivers/adodb-odbtp.inc.php	3109400179	3278550846	23818	24658
+lib/adodb/drivers/adodb-odbtp_unicode.inc.php	3555154464	2781055028	1167	1202
+lib/adodb/drivers/adodb-oracle.inc.php	3841634322	3501205725	9484	9827
+lib/adodb/drivers/adodb-pdo.inc.php	2390510237	1159168924	17077	17880
+lib/adodb/drivers/adodb-pdo_mssql.inc.php	1310896691	963000073	1531	1593
+lib/adodb/drivers/adodb-pdo_mysql.inc.php	530289607	2033335683	6924	7226
+lib/adodb/drivers/adodb-pdo_oci.inc.php	4060620820	2683373946	2733	2826
+lib/adodb/drivers/adodb-pdo_pgsql.inc.php	2792615779	990439205	8486	8716
+lib/adodb/drivers/adodb-pdo_sqlite.inc.php	2909968401	3397383508	5984	6188
+lib/adodb/drivers/adodb-pdo_sqlsrv.inc.php	1596781280	3896177965	1013	1062
+lib/adodb/drivers/adodb-postgres.inc.php	1533500816	23549018	611	625
+lib/adodb/drivers/adodb-postgres64.inc.php	3479861798	328675952	32210	33328
+lib/adodb/drivers/adodb-postgres7.inc.php	717514082	2919127569	10591	10977
+lib/adodb/drivers/adodb-postgres8.inc.php	2661744198	2446934638	1450	1500
+lib/adodb/drivers/adodb-postgres9.inc.php	3136298862	949702549	821	853
+lib/adodb/drivers/adodb-proxy.inc.php	1727079659	3193074820	884	917
+lib/adodb/drivers/adodb-sapdb.inc.php	2902463288	253650378	5226	5411
+lib/adodb/drivers/adodb-sqlanywhere.inc.php	2786138339	1188205978	4233	4398
+lib/adodb/drivers/adodb-sqlite.inc.php	2778605485	225236458	10654	11105
+lib/adodb/drivers/adodb-sqlite3.inc.php	3031690248	2720024426	10311	10749
+lib/adodb/drivers/adodb-sqlitepo.inc.php	1781860561	2410471501	1863	1921
+lib/adodb/drivers/adodb-sybase.inc.php	2666648705	881248138	12443	12886
+lib/adodb/drivers/adodb-sybase_ase.inc.php	798599693	4096913590	3316	3436
+lib/adodb/drivers/adodb-vfp.inc.php	24255532	2163487842	2504	2607
+lib/adodb/lang/adodb-ar.inc.php	33602952	2178674248	1915	1947
+lib/adodb/lang/adodb-bg.inc.php	3795254492	754899202	2495	2531
+lib/adodb/lang/adodb-ca.inc.php	3632191595	233601042	2004	2037
+lib/adodb/lang/adodb-cn.inc.php	1712910670	1908571043	1883	1916
+lib/adodb/lang/adodb-cz.inc.php	914831536	2522736434	1854	1889
+lib/adodb/lang/adodb-da.inc.php	2871191779	4144354154	1904	1936
+lib/adodb/lang/adodb-de.inc.php	5025698	2293620545	2030	2062
+lib/adodb/lang/adodb-en.inc.php	265058138	1136724820	1956	1991
+lib/adodb/lang/adodb-eo.inc.php	3626105081	2230118419	1904	1938
+lib/adodb/lang/adodb-es.inc.php	3600469732	1083986057	1919	1951
+lib/adodb/lang/adodb-fa.inc.php	3385797779	1677015305	2202	2236
+lib/adodb/lang/adodb-fr.inc.php	1140373777	2672528876	1611	1643
+lib/adodb/lang/adodb-hu.inc.php	2262959425	2948056294	1994	2027
+lib/adodb/lang/adodb-it.inc.php	1637486686	74221943	1983	2016
+lib/adodb/lang/adodb-nl.inc.php	909167387	4080059219	1892	1924
+lib/adodb/lang/adodb-pl.inc.php	1923828502	931409103	1937	1971
+lib/adodb/lang/adodb-pt-br.inc.php	1894211804	3236545431	1955	1989
+lib/adodb/lang/adodb-ro.inc.php	325828405	856225951	1891	1925
+lib/adodb/lang/adodb-ru.inc.php	107392018	3030641313	2391	2425
+lib/adodb/lang/adodb-sv.inc.php	3526337488	3957586094	1843	1875
+lib/adodb/lang/adodb-th.inc.php	1126821882	3447674423	1708	1740
+lib/adodb/lang/adodb-uk.inc.php	2274577734	599389780	2291	2325
+lib/adodb/pear/Auth/Container/ADOdb.php	3917309835	1827678086	11613	12019
+lib/adodb/pear/auth_adodb_example.php	509137085	2198718508	751	776
+lib/adodb/pear/readme.Auth.txt	1718938246	2394348009	549	569
+lib/adodb/perf/perf-db2.inc.php	825531497	3170784209	3246	3354
+lib/adodb/perf/perf-informix.inc.php	3196328404	3701541892	2169	2240
+lib/adodb/perf/perf-mssql.inc.php	538657613	3006733547	4889	5053
+lib/adodb/perf/perf-mssqlnative.inc.php	156870596	2862904925	4896	5060
+lib/adodb/perf/perf-mysql.inc.php	3149685844	2240937943	8408	8724
+lib/adodb/perf/perf-oci8.inc.php	4098363305	4145380743	24349	25052
+lib/adodb/perf/perf-postgres.inc.php	4036794668	1747607374	5445	5599
+lib/adodb/pivottable.inc.php	439530461	2701537657	6311	6499
+lib/adodb/rsfilter.inc.php	1962333819	3046793234	1589	1651
+lib/adodb/server.php	669119363	1691216780	2370	2470
+lib/adodb/session/adodb-compress-bzip2.php	2175715164	728780851	2139	2257
+lib/adodb/session/adodb-compress-gzip.php	2905435676	1338336917	1594	1687
+lib/adodb/session/adodb-cryptsession.php	3885623752	4278973724	721	748
+lib/adodb/session/adodb-cryptsession2.php	2438103247	3985508012	722	749
+lib/adodb/session/adodb-encrypt-mcrypt.php	2888430929	1544381669	1911	2020
+lib/adodb/session/adodb-encrypt-md5.php	602501593	1586590952	848	887
+lib/adodb/session/adodb-encrypt-secret.php	988406498	3179577312	1098	1146
+lib/adodb/session/adodb-encrypt-sha1.php	1756845136	3532470095	370	401
+lib/adodb/session/adodb-sess.txt	3370746969	2075113436	3782	3913
+lib/adodb/session/adodb-session-clob.php	2507103609	1889156729	644	668
+lib/adodb/session/adodb-session-clob2.php	2731489591	2061163335	645	669
+lib/adodb/session/adodb-session.php	1551678668	984509040	21247	22181
+lib/adodb/session/adodb-session2.php	2735659510	903634256	21818	22757
+lib/adodb/session/adodb-sessions.mysql.sql	3530310960	263537047	396	412
+lib/adodb/session/adodb-sessions.oracle.clob.sql	3606524847	446414879	281	296
+lib/adodb/session/adodb-sessions.oracle.sql	762145166	1731806379	313	329
+lib/adodb/session/crypt.inc.php	3910063568	1663311529	2809	2966
+lib/adodb/session/old/adodb-cryptsession.php	3587477589	1864630542	9029	9354
+lib/adodb/session/old/adodb-session-clob.php	1353003495	1339267095	14230	14678
+lib/adodb/session/old/adodb-session.php	3135781492	1966309654	13565	14004
+lib/adodb/session/old/crypt.inc.php	224098092	3750214541	1424	1487
+lib/adodb/session/session_schema.xml	1173036123	792618229	536	562
+lib/adodb/session/session_schema2.xml	1006213600	3026615669	711	749
+lib/adodb/toexport.inc.php	2808753463	716408740	3464	3600
+lib/adodb/tohtml.inc.php	3697915175	2836165580	5665	5866
+lib/adodb/xmlschema.dtd	1896874110	3303537253	1452	1490
+lib/adodb/xmlschema03.dtd	598928194	1426316118	1677	1719
+lib/adodb/xsl/convert-0.1-0.2.xsl	3918284563	1142789150	5513	5717
+lib/adodb/xsl/convert-0.1-0.3.xsl	230246431	3343111468	6072	6292
+lib/adodb/xsl/convert-0.2-0.1.xsl	1904552980	3747835529	5572	5778
+lib/adodb/xsl/convert-0.2-0.3.xsl	2095627995	3103809821	7591	7871
+lib/adodb/xsl/remove-0.2.xsl	1908444280	3111363449	1453	1506
+lib/adodb/xsl/remove-0.3.xsl	1232274712	3105234724	1453	1506
 lib/bbcode/LICENSE	1793344454	3126165959	1114	1135
-lib/bbcode/stringparser.class.php	1439637440	3441158040	37028	38572
+lib/bbcode/stringparser.class.php	1829247233	868511622	37292	38848
 lib/bbcode/stringparser_bbcode.class.php	1199712176	470497117	53143	55122
-lib/javascript/AutoComplete.js	379561997	2547982996	4675	4787
+lib/javascript/AutoComplete.js	2700392656	2471498674	4294	4400
 lib/javascript/BlockSelectWidget.js	123449156	3786196010	20176	20807
 lib/javascript/BlockToggle.js	3943541113	61893498	1359	1392
 lib/javascript/ColorChooser.js	872353840	419682691	3966	4080
 lib/javascript/Cropper.js	3823190899	3714495948	10765	11099
+lib/javascript/jsess.min.js	2725791092	3930134733	4666	4667
 lib/joomla/crypt.php	1032699013	446631591	3783	3936
 lib/pear/COPYING.LESSER	1966157434	3192664508	7639	7804
-lib/pear/HTMLSax3.php	3747438975	824134221	43725	45075
-lib/pear/Safe.php	2043305110	4294795660	18278	18952
-lib/pear/mime.php	2073871846	4235511310	34930	35845
-lib/pear/mimePart.php	1798739292	1057505025	12521	12872
-lib/phpass/PasswordHash.inc	1017797334	694606203	6598	6846
-lib/smarty/COPYING.lib	2819441257	4217144802	24389	24847
-lib/smarty/Config_File.class.php	327545969	41467365	12742	13131
-lib/smarty/README	1850069890	1091915656	3392	3477
-lib/smarty/Smarty.class.php	1964410360	3777352900	63466	65426
-lib/smarty/Smarty_Compiler.class.php	1928338230	2313936654	92618	94948
-lib/smarty/debug.tpl	4026419042	1932865254	3562	3718
-lib/smarty/internals/core.assemble_plugin_filepath.php	2308203854	285966143	1949	2016
-lib/smarty/internals/core.assign_smarty_interface.php	3876088753	1676896789	1258	1301
-lib/smarty/internals/core.create_dir_structure.php	2232009467	226847810	2507	2586
-lib/smarty/internals/core.display_debug_console.php	2623652360	3109619299	1583	1644
-lib/smarty/internals/core.get_include_path.php	2904186623	2076945407	1002	1046
-lib/smarty/internals/core.get_microtime.php	4175355305	2363575603	360	383
-lib/smarty/internals/core.get_php_resource.php	600575070	46127069	2467	2547
-lib/smarty/internals/core.is_secure.php	1006502704	3895749665	1694	1753
-lib/smarty/internals/core.is_trusted.php	738474400	4013353103	1284	1331
-lib/smarty/internals/core.load_plugins.php	2582671890	3075972098	4429	4554
-lib/smarty/internals/core.load_resource_plugin.php	3083340139	958865844	2147	2221
-lib/smarty/internals/core.process_cached_inserts.php	2576649032	3444191154	2464	2535
-lib/smarty/internals/core.process_compiled_include.php	1826267639	3344251893	1025	1062
-lib/smarty/internals/core.read_cache_file.php	2573194400	2033973560	3604	3705
-lib/smarty/internals/core.rm_auto.php	2261804047	688618704	2286	2357
-lib/smarty/internals/core.rmdir.php	2415460627	1014435373	1444	1498
-lib/smarty/internals/core.run_insert_handler.php	2810320771	3072536386	2656	2727
-lib/smarty/internals/core.smarty_include_php.php	1062397499	381887763	1602	1652
-lib/smarty/internals/core.write_cache_file.php	120483243	3185751241	3620	3716
-lib/smarty/internals/core.write_compiled_include.php	708809425	1641020757	3130	3221
-lib/smarty/internals/core.write_compiled_resource.php	1297727610	3763704011	1081	1116
-lib/smarty/internals/core.write_file.php	3527680757	2480813280	1524	1577
-lib/smarty/plugins/block.textformat.php	941417647	3056605918	2843	2946
-lib/smarty/plugins/compiler.assign.php	270811913	82757519	1123	1163
-lib/smarty/plugins/function.assign_debug_info.php	1066413903	2429981306	1162	1202
-lib/smarty/plugins/function.config_load.php	1562870436	2539480862	6158	6300
-lib/smarty/plugins/function.counter.php	2313392670	4113559049	1772	1852
-lib/smarty/plugins/function.cycle.php	2535274429	3387179515	3192	3294
-lib/smarty/plugins/function.debug.php	2310365736	3966496971	835	870
-lib/smarty/plugins/function.eval.php	175387613	2692956850	1014	1063
-lib/smarty/plugins/function.fetch.php	818178005	1635725448	8745	8966
-lib/smarty/plugins/function.html_checkboxes.php	1022408579	158205255	4381	4524
-lib/smarty/plugins/function.html_image.php	3718330911	2435668647	4783	4925
-lib/smarty/plugins/function.html_options.php	837622559	2229995754	3797	3919
-lib/smarty/plugins/function.html_radios.php	2829508658	1036916117	4841	4997
-lib/smarty/plugins/function.html_select_date.php	4154866324	1643859524	11955	12286
-lib/smarty/plugins/function.html_select_time.php	3360050068	2520058297	7262	7456
-lib/smarty/plugins/function.html_table.php	3581409823	1472393310	5343	5520
-lib/smarty/plugins/function.mailto.php	4188691726	1967013991	5236	5401
-lib/smarty/plugins/function.math.php	4020728981	2161267496	2579	2663
-lib/smarty/plugins/function.popup.php	2834617843	1222903078	3280	3399
-lib/smarty/plugins/function.popup_init.php	3132366341	2556338109	979	1019
-lib/smarty/plugins/modifier.capitalize.php	2040480662	65541879	1037	1080
-lib/smarty/plugins/modifier.cat.php	3804093512	1426896802	623	656
-lib/smarty/plugins/modifier.count_characters.php	4197276449	1384233138	743	775
-lib/smarty/plugins/modifier.count_paragraphs.php	1486572716	1728078823	630	659
-lib/smarty/plugins/modifier.count_sentences.php	3521295329	3882198646	653	682
-lib/smarty/plugins/modifier.count_words.php	2916689380	3127696403	751	784
-lib/smarty/plugins/modifier.date_format.php	1542189017	1689913309	1782	1840
-lib/smarty/plugins/modifier.debug_print_var.php	1482012117	3170243800	3160	3257
-lib/smarty/plugins/modifier.default.php	4123781456	3841623911	635	667
-lib/smarty/plugins/modifier.escape.php	1066204664	1604304404	2751	2844
-lib/smarty/plugins/modifier.indent.php	616465163	3183265596	567	595
-lib/smarty/plugins/modifier.lower.php	2046168879	205927100	481	507
-lib/smarty/plugins/modifier.nl2br.php	39964044	4029780705	717	752
-lib/smarty/plugins/modifier.regex_replace.php	200348667	2248347825	1255	1303
-lib/smarty/plugins/modifier.replace.php	983758123	901211326	585	615
-lib/smarty/plugins/modifier.spacify.php	2754184993	3836379118	644	674
-lib/smarty/plugins/modifier.string_format.php	3249927007	3773462783	579	608
-lib/smarty/plugins/modifier.strip.php	982963012	3023277631	742	775
-lib/smarty/plugins/modifier.strip_tags.php	775938197	3768042181	676	708
-lib/smarty/plugins/modifier.truncate.php	882974910	3333143683	1324	1374
-lib/smarty/plugins/modifier.upper.php	2036914576	1330812571	481	507
-lib/smarty/plugins/modifier.wordwrap.php	1323391675	2906645702	613	642
-lib/smarty/plugins/outputfilter.trimwhitespace.php	514580796	3494815097	2669	2744
-lib/smarty/plugins/shared.escape_special_chars.php	747808564	3354495556	774	805
-lib/smarty/plugins/shared.make_timestamp.php	1115248245	3247734388	1167	1213
+lib/pear/HTMLSax3.php	1259804584	3317760716	44949	46343
+lib/pear/Safe.php	4191362348	3063497662	18440	19127
+lib/pear/mime.php	428632879	3562751027	35010	35930
+lib/pear/mimePart.php	217043838	3843377627	12629	12985
+lib/phpass/PasswordHash.inc	3915599148	1706812497	6732	6985
+lib/smarty/Config_File.class.php	3353324014	285780060	12864	13257
+lib/smarty/Smarty.class.php	1055384618	2620094557	63679	65647
+lib/smarty/Smarty_Compiler.class.php	3061036976	1407169916	94377	96742
+lib/smarty/internals/core.assemble_plugin_filepath.php	4274123603	1538746352	1932	1997
+lib/smarty/internals/core.write_cache_file.php	1314511550	2858788921	3647	3743
+lib/smarty/plugins/block.textformat.php	554709200	798036995	3234	3346
+lib/smarty/plugins/function.counter.php	1311396267	3511275299	1830	1907
+lib/smarty/plugins/function.cycle.php	123367380	2246484392	3314	3420
+lib/smarty/plugins/function.fetch.php	4072219462	844443908	8757	8978
+lib/smarty/plugins/function.html_checkboxes.php	1367542747	535645053	7347	7562
+lib/smarty/plugins/function.html_image.php	3117134505	1833592742	5313	5471
+lib/smarty/plugins/function.html_options.php	3665964197	1291060973	6516	6691
+lib/smarty/plugins/function.html_radios.php	57372931	1683617433	6448	6647
+lib/smarty/plugins/function.html_select_date.php	27781028	3320345646	14568	14961
+lib/smarty/plugins/function.html_select_time.php	3592959	3136078843	13249	13614
+lib/smarty/plugins/function.html_table.php	2275250752	4066896950	5423	5599
+lib/smarty/plugins/function.mailto.php	2430814190	4163027469	5457	5608
+lib/smarty/plugins/function.math.php	4073971733	1160842657	3358	3462
+lib/smarty/plugins/modifier.capitalize.php	1547668070	1014110680	2765	2829
+lib/smarty/plugins/modifier.date_format.php	2807158004	831152992	2258	2322
+lib/smarty/plugins/modifier.debug_print_var.php	3743438637	4121119363	2884	2974
+lib/smarty/plugins/modifier.escape.php	2149788958	2065777585	5152	5294
+lib/smarty/plugins/modifier.regex_replace.php	1861413032	754979657	1560	1614
+lib/smarty/plugins/modifier.replace.php	1072259131	3593089038	834	866
+lib/smarty/plugins/modifier.spacify.php	668108671	2519263177	761	787
+lib/smarty/plugins/modifier.truncate.php	1353281102	3012159058	2142	2200
+lib/smarty/plugins/modifiercompiler.cat.php	2200073052	2733072794	636	665
+lib/smarty/plugins/modifiercompiler.count_characters.php	327620732	3098092951	912	944
+lib/smarty/plugins/modifiercompiler.count_paragraphs.php	2982100377	2165692789	672	699
+lib/smarty/plugins/modifiercompiler.count_sentences.php	2133003808	3557740949	754	781
+lib/smarty/plugins/modifiercompiler.count_words.php	2426614116	3872333252	974	1005
+lib/smarty/plugins/modifiercompiler.default.php	3060837814	4051692591	785	819
+lib/smarty/plugins/modifiercompiler.escape.php	1613315062	2585661649	3315	3404
+lib/smarty/plugins/modifiercompiler.from_charset.php	1059478690	2399128837	761	794
+lib/smarty/plugins/modifiercompiler.indent.php	1515168511	1188093969	711	742
+lib/smarty/plugins/modifiercompiler.lower.php	372334827	2399406297	734	764
+lib/smarty/plugins/modifiercompiler.noprint.php	1269294990	245687602	407	431
+lib/smarty/plugins/modifiercompiler.string_format.php	1435106801	1249447031	585	610
+lib/smarty/plugins/modifiercompiler.strip.php	1980390687	4289498246	818	850
+lib/smarty/plugins/modifiercompiler.strip_tags.php	4211478594	2230546339	733	765
+lib/smarty/plugins/modifiercompiler.to_charset.php	58211106	3828787776	755	788
+lib/smarty/plugins/modifiercompiler.unescape.php	1689424596	2679246492	1190	1240
+lib/smarty/plugins/modifiercompiler.upper.php	499446125	2183216202	694	723
+lib/smarty/plugins/modifiercompiler.wordwrap.php	1352165648	2730879825	1533	1578
+lib/smarty/plugins/outputfilter.trimwhitespace.php	3295074644	1570209174	3390	3482
+lib/smarty/plugins/shared.escape_special_chars.php	1287407080	1978504107	1670	1720
+lib/smarty/plugins/shared.literal_compiler_param.php	296787068	282242474	1000	1033
+lib/smarty/plugins/shared.make_timestamp.php	681144632	2066163321	1297	1339
+lib/smarty/plugins/shared.mb_str_replace.php	1614488216	2910159338	1747	1801
+lib/smarty/plugins/shared.mb_unicode.php	3196804119	3234316250	1511	1558
+lib/smarty/plugins/shared.mb_wordwrap.php	509646215	1724653286	2827	2909
+lib/smarty/plugins/variablefilter.htmlspecialchars.php	157240832	864533478	432	452
+lib/smarty/sysplugins/smarty_cacheresource.php	50940827	20068362	11374	11754
+lib/smarty/sysplugins/smarty_cacheresource_custom.php	1894397620	2968164768	8080	8316
+lib/smarty/sysplugins/smarty_cacheresource_keyvaluestore.php	824977872	2303278327	16459	16921
+lib/smarty/sysplugins/smarty_config_source.php	453861462	2677165879	2941	3035
+lib/smarty/sysplugins/smarty_internal_cacheresource_file.php	983047433	4253829483	10393	10658
+lib/smarty/sysplugins/smarty_internal_compile_append.php	3092714194	464091015	1559	1611
+lib/smarty/sysplugins/smarty_internal_compile_assign.php	3967144615	741913091	3844	3927
+lib/smarty/sysplugins/smarty_internal_compile_block.php	95536242	27978598	12827	13099
+lib/smarty/sysplugins/smarty_internal_compile_break.php	4020609833	4111616839	2257	2333
+lib/smarty/sysplugins/smarty_internal_compile_call.php	441302218	452142324	4707	4836
+lib/smarty/sysplugins/smarty_internal_compile_capture.php	3271799635	567134640	3070	3167
+lib/smarty/sysplugins/smarty_internal_compile_config_load.php	812241696	3805826677	2426	2510
+lib/smarty/sysplugins/smarty_internal_compile_continue.php	172744139	587482084	2282	2359
+lib/smarty/sysplugins/smarty_internal_compile_debug.php	3795533343	1833020921	1033	1075
+lib/smarty/sysplugins/smarty_internal_compile_eval.php	3793710130	4132095049	1972	2044
+lib/smarty/sysplugins/smarty_internal_compile_extends.php	2263023100	391796060	5977	6104
+lib/smarty/sysplugins/smarty_internal_compile_for.php	838635146	2083377780	5878	6028
+lib/smarty/sysplugins/smarty_internal_compile_foreach.php	60421127	255128403	9122	9352
+lib/smarty/sysplugins/smarty_internal_compile_function.php	2007637318	2006838248	7057	7221
+lib/smarty/sysplugins/smarty_internal_compile_if.php	820815744	3680430426	9211	9417
+lib/smarty/sysplugins/smarty_internal_compile_include.php	2734302655	1130848355	9889	10103
+lib/smarty/sysplugins/smarty_internal_compile_include_php.php	1466325917	1903858967	3243	3350
+lib/smarty/sysplugins/smarty_internal_compile_insert.php	4147613217	1783522966	5216	5357
+lib/smarty/sysplugins/smarty_internal_compile_ldelim.php	1052537412	1945549853	1005	1046
+lib/smarty/sysplugins/smarty_internal_compile_nocache.php	4127515208	3423947074	1854	1926
+lib/smarty/sysplugins/smarty_internal_compile_private_block_plugin.php	1087053066	1687333381	3382	3468
+lib/smarty/sysplugins/smarty_internal_compile_private_function_plugin.php	1074844523	3284437174	2040	2112
+lib/smarty/sysplugins/smarty_internal_compile_private_modifier.php	1968786889	4041564178	6777	6908
+lib/smarty/sysplugins/smarty_internal_compile_private_object_block_function.php	1694829891	2592459150	3649	3736
+lib/smarty/sysplugins/smarty_internal_compile_private_object_function.php	568082723	2000643014	2511	2589
+lib/smarty/sysplugins/smarty_internal_compile_private_print_expression.php	4076974174	4147433721	6715	6870
+lib/smarty/sysplugins/smarty_internal_compile_private_registered_block.php	2064966799	2594934856	5747	5859
+lib/smarty/sysplugins/smarty_internal_compile_private_registered_function.php	2914903893	2938158161	2897	2977
+lib/smarty/sysplugins/smarty_internal_compile_private_special_variable.php	4003176462	1949688068	3582	3688
+lib/smarty/sysplugins/smarty_internal_compile_rdelim.php	4254262854	2233991235	1011	1051
+lib/smarty/sysplugins/smarty_internal_compile_section.php	3766125368	3200344278	7437	7639
+lib/smarty/sysplugins/smarty_internal_compile_setfilter.php	2004097051	3025031557	1981	2052
+lib/smarty/sysplugins/smarty_internal_compile_while.php	1208089058	4105560920	3636	3729
+lib/smarty/sysplugins/smarty_internal_compilebase.php	3370640744	687957217	6421	6596
+lib/smarty/sysplugins/smarty_internal_config.php	7075792	394369562	9682	9984
+lib/smarty/sysplugins/smarty_internal_config_file_compiler.php	1333629293	4187869785	4390	4533
+lib/smarty/sysplugins/smarty_internal_configfilelexer.php	2570681796	567383650	23672	24293
+lib/smarty/sysplugins/smarty_internal_configfileparser.php	3881137342	375692186	33282	34202
+lib/smarty/sysplugins/smarty_internal_data.php	1805106792	3059082228	17102	17652
+lib/smarty/sysplugins/smarty_internal_debug.php	1806192633	191586846	6407	6612
+lib/smarty/sysplugins/smarty_internal_filter_handler.php	1295523114	3767830175	2632	2701
+lib/smarty/sysplugins/smarty_internal_function_call_handler.php	1377485779	1890742991	2474	2529
+lib/smarty/sysplugins/smarty_internal_get_include_path.php	1293323761	3092050629	1049	1096
+lib/smarty/sysplugins/smarty_internal_nocache_insert.php	3763716538	3533531899	1726	1779
+lib/smarty/sysplugins/smarty_internal_parsetree.php	3387536753	2505183410	9657	10051
+lib/smarty/sysplugins/smarty_internal_resource_eval.php	1685180452	3148292609	2662	2755
+lib/smarty/sysplugins/smarty_internal_resource_extends.php	248044302	2549661024	6483	6639
+lib/smarty/sysplugins/smarty_internal_resource_file.php	2215377495	1715784271	2735	2824
+lib/smarty/sysplugins/smarty_internal_resource_php.php	1256821695	847407972	3625	3738
+lib/smarty/sysplugins/smarty_internal_resource_registered.php	1625597985	3251879323	3049	3143
+lib/smarty/sysplugins/smarty_internal_resource_stream.php	1228833688	2245831780	2219	2294
+lib/smarty/sysplugins/smarty_internal_resource_string.php	481409717	4282693783	2695	2790
+lib/smarty/sysplugins/smarty_internal_smartytemplatecompiler.php	709142008	1622556936	3258	3384
+lib/smarty/sysplugins/smarty_internal_template.php	2885557664	2722456168	27650	28333
+lib/smarty/sysplugins/smarty_internal_templatebase.php	3527327222	1566814175	34946	35756
+lib/smarty/sysplugins/smarty_internal_templatecompilerbase.php	1126152071	437458189	29891	30551
+lib/smarty/sysplugins/smarty_internal_templatelexer.php	3266159714	1921048008	38542	39731
+lib/smarty/sysplugins/smarty_internal_templateparser.php	3002750080	3426812973	159540	162789
+lib/smarty/sysplugins/smarty_internal_utility.php	4157591585	3767441375	34115	34944
+lib/smarty/sysplugins/smarty_internal_write_file.php	1696868617	648879492	2684	2771
+lib/smarty/sysplugins/smarty_resource.php	2353795435	1434968596	28496	29355
+lib/smarty/sysplugins/smarty_resource_custom.php	1879966434	742658501	2856	2951
+lib/smarty/sysplugins/smarty_resource_recompiled.php	1427822588	1092397194	824	859
+lib/smarty/sysplugins/smarty_resource_uncompiled.php	719469785	137321374	1200	1243
+lib/smarty/sysplugins/smarty_security.php	3828509567	3996882770	15892	16350
 lib/smarty_plugins/modifier.entitytruncate.php	2763536144	1457443811	2977	3052
 lib/smarty_plugins/modifier.ireplace.php	1069812364	960038529	1424	1460
-lib/smarty_plugins/modifier.markup.php	263285997	2205796315	7241	7457
+lib/smarty_plugins/modifier.markup.php	3477583612	2529209777	7197	7416
 lib/smarty_plugins/modifier.print_r.php	1670726933	2824517169	1198	1232
 lib/smarty_plugins/modifier.repeat.php	1182308915	2299260913	1174	1206
 lib/smarty_plugins/modifier.split.php	1362216239	3252583537	1295	1328
 lib/smarty_plugins/modifier.utf8.php	1125119681	662910906	1211	1244
 lib/smtp/smtp.php	3441186374	46319221	5491	5670
-lib/support/GallerySetupUtilities.class	1376417965	3131738500	13336	13785
-lib/support/SupportStatusTemplate.class	1848943280	3244726256	3264	3365
-lib/support/cache.php	2208471221	3358589203	5903	6104
-lib/support/chmod.php	3400987791	837529650	27212	27967
-lib/support/gd.php	1098809380	2022646149	6753	6973
+lib/support/GallerySetupUtilities.class	2923303362	354978185	13313	13758
+lib/support/SupportStatusTemplate.class	1261493445	2401490545	3351	3457
+lib/support/cache.php	1000845569	1174175328	6002	6206
+lib/support/chmod.php	579314387	1792114407	27330	28092
+lib/support/defaultloc.inc	4041722015	3013903132	1945	1998
+lib/support/gd.php	2607632990	357341508	6856	7080
 lib/support/images/btn2.png	331379507	331379507	1040	1040
 lib/support/images/pbarBGor.gif	3886118901	3886118901	173	173
 lib/support/images/pixgrn.gif	2511823829	2511823829	35	35
 lib/support/images/shade.png	908234537	908234537	156	156
-lib/support/import.php	1758772476	1536431222	6077	6274
-lib/support/index.php	2660729584	2091082867	3541	3654
-lib/support/phpinfo.php	2702929155	4269279857	1482	1554
-lib/support/security.inc	1808243567	2666437356	8847	9091
-lib/support/support.css	509227295	3746260795	4853	5089
+lib/support/import.php	4165312458	2494954173	6167	6365
+lib/support/index.php	700768044	3145124821	3218	3329
+lib/support/missingObjectFix.php	960494988	4017125080	19228	19427
+lib/support/password.php	571040579	1128040512	12929	13311
+lib/support/phpinfo.php	3711668380	4164243073	1585	1660
+lib/support/search_db.php	3940488339	1042832696	6562	6750
+lib/support/security.inc	3096933687	4214218686	8734	8977
+lib/support/support.css	2878067503	2207261727	5373	5401
 lib/support/templates/FailedPasswordEmail.tpl	2615356371	667648218	995	1006
 lib/support/templates/ImportFinished.html	2884595331	2064642014	464	478
 lib/support/templates/ImportRequest.html	1525305536	3412087689	2653	2708
@@ -278,10 +477,10 @@ lib/tools/dtd/MapsDefinition2.0.dtd	900628018	721299069	804	825
 lib/tools/phpunit/CodeAuditTestCase.class	2937121895	1489757038	13100	13534
 lib/tools/phpunit/GalleryControllerTestCase.class	814125998	4192561769	2928	3017
 lib/tools/phpunit/GalleryImmediateViewTestCase.class	3827030412	1098319677	1652	1703
-lib/tools/phpunit/GalleryTestCase.class	2831387007	2086815948	35090	36325
+lib/tools/phpunit/GalleryTestCase.class	2982282161	568601716	34174	35381
 lib/tools/phpunit/GalleryViewTestCase.class	3768617374	1155632316	2756	2844
 lib/tools/phpunit/ItemAddOptionTestCase.class	4074402371	2651911341	2797	2880
-lib/tools/phpunit/ItemAddPluginTestCase.class	445682387	3199733396	3552	3662
+lib/tools/phpunit/ItemAddPluginTestCase.class	2350196778	76747545	3536	3646
 lib/tools/phpunit/ItemEditOptionTestCase.class	1541402973	2308738324	3831	3961
 lib/tools/phpunit/ItemEditPluginTestCase.class	1467343146	3805040282	3050	3140
 lib/tools/phpunit/MockObject.class	1003150188	1063695160	3712	3826
@@ -289,15 +488,15 @@ lib/tools/phpunit/MockTemplateAdapter.class	1924247213	1826195888	2522	2613
 lib/tools/phpunit/UnitTestPhpVm.class	3501840858	855872739	4646	4793
 lib/tools/phpunit/UnitTestPlatform.class	2892112957	835246780	8528	8815
 lib/tools/phpunit/UnitTestRepository.class	362023540	1760566331	5457	5606
-lib/tools/phpunit/UnitTestRepositoryUtilities.class	636746736	981635448	4859	4984
+lib/tools/phpunit/UnitTestRepositoryUtilities.class	2631616245	1256149654	4847	4972
 lib/tools/phpunit/UnitTestStorage.class	3971959783	950022536	10128	10461
 lib/tools/phpunit/UnitTestTemplate.class	4026686332	2073396672	2453	2540
 lib/tools/phpunit/UnitTestUrlGenerator.class	2869960763	4228535839	1407	1448
 lib/tools/phpunit/add.png	4269699919	4269699919	733	733
 lib/tools/phpunit/cancel.png	1391979309	1391979309	587	587
-lib/tools/phpunit/index.php	1832203898	3850837483	17215	17785
+lib/tools/phpunit/index.php	1934763971	747491709	17209	17779
 lib/tools/phpunit/index.tpl	1191376221	412742823	15010	15412
-lib/tools/phpunit/phpunit.inc	824395249	2247051390	24359	25175
+lib/tools/phpunit/phpunit.inc	906244981	3467320390	24211	25022
 lib/tools/phpunit/runframe.tpl	2788036252	136184029	642	656
 lib/tools/phpunit/stylesheet.css	1374510298	519923479	2546	2726
 lib/tools/po/.htaccess	3087127056	3127319940	47	50
@@ -307,7 +506,7 @@ lib/tools/po/header.pl	1950674109	3670944210	1141	1170
 lib/tools/po/header.txt	1760350386	3876386917	864	882
 lib/tools/po/premerge-messages.pl	3726868671	3199359966	912	970
 lib/tools/po/shtool	2882826200	4174946454	23738	24454
-lib/tools/po/trim-po.php	231051602	3175515092	6034	6227
+lib/tools/po/trim-po.php	3327249990	570383914	6080	6276
 lib/tools/po/update-all-translations.pl	3708308864	3555382906	4344	4503
 lib/tools/reports/localization.php	3634042351	3318067534	9460	9818
 lib/tools/reports/localization/main_detail.inc	3051651751	4196324261	1926	1975
@@ -321,10 +520,10 @@ lib/tools/repository/MainPage.inc	589324679	479195440	2280	2347
 lib/tools/repository/PackagePlugin.inc	3361429058	329112904	6652	6873
 lib/tools/repository/RepositoryManager.inc	892159253	1062688064	3663	3774
 lib/tools/repository/classes/RepositoryControllerAndView.class	3651965303	3587541279	2901	2992
-lib/tools/repository/classes/RepositoryDescriptor.class	1974001034	3766829947	11983	12401
+lib/tools/repository/classes/RepositoryDescriptor.class	1527180049	1907580426	11923	12341
 lib/tools/repository/classes/RepositoryIndex.class	44801417	3524305663	7806	8045
 lib/tools/repository/classes/RepositoryObject.class	3625137614	1626155931	7062	7311
-lib/tools/repository/classes/RepositoryPackage.class	4129256648	1841533835	6403	6593
+lib/tools/repository/classes/RepositoryPackage.class	3885232587	2386975557	6379	6569
 lib/tools/repository/index.php	496741222	3444693173	4246	4382
 lib/tools/repository/templates/IndexGenerationResults.tpl	2326188115	1924854796	641	656
 lib/tools/repository/templates/MainPage.tpl	2956138095	2743965073	1509	1555
@@ -338,9 +537,9 @@ lib/tools/repository/test/data/SampleDescriptors.inc	2969388301	4169550474	9161	
 lib/tools/repository/test/data/SampleIndex.inc	3557942706	2885381598	2575	2645
 lib/tools/repository/test/data/testShowViewTemplate.tpl	3021762416	3854479862	8	9
 lib/tools/repository/test/phpunit/RepositoryControllerAndViewTest.class	211706951	1912817744	1809	1866
-lib/tools/repository/test/phpunit/RepositoryDescriptorTest.class	3370807683	3792202640	14979	15408
+lib/tools/repository/test/phpunit/RepositoryDescriptorTest.class	876774627	1244341263	14949	15378
 lib/tools/repository/test/phpunit/RepositoryObjectTest.class	3837739682	3634548850	5224	5372
-lib/tools/repository/test/phpunit/RepositoryPackageTest.class	2483297935	2704342140	9069	9347
+lib/tools/repository/test/phpunit/RepositoryPackageTest.class	3518856390	3422823051	9063	9341
 lib/tools/repository/test/phpunit/RepositoryTestTemplate.class	2265709719	1112169089	1998	2068
 lib/tools/repository/test/phpunit/RepositoryToolsIndexTest.class	750227753	4149233749	5171	5330
 lib/tools/stubs/.htaccess	3087127056	3127319940	47	50
@@ -350,8 +549,7 @@ lib/tools/stubs/TestCase_stub.class	3109004389	2345949244	1009	1041
 lib/tools/uml/GNUmakefile	3017185505	848639846	105	113
 lib/tools/uml/JavaClasses.xsl	3568222088	609909517	2176	2227
 lib/tools/uml/make-java-classes.pl	3765624927	2605669075	2734	2840
-lib/wz_dragdrop/transparentpixel.gif	140141401	140141401	43	43
-lib/wz_dragdrop/wz_dragdrop.js	3756427581	4136821188	38687	40134
+lib/wmvplayer.xaml	2822119906	1179710481	20166	20495
 lib/yui/animation-min.js	2133972072	3743040915	12597	12605
 lib/yui/autocomplete-min.js	2233441447	2518314397	32986	32997
 lib/yui/color.js	331944292	2602190372	1970	1985
@@ -429,7 +627,7 @@ locale/zh_CN/LC_MESSAGES/gallery2_install.mo	1081254654	1081254654	21980	21980
 locale/zh_CN/LC_MESSAGES/gallery2_upgrade.mo	1833202137	1833202137	9693	9693
 locale/zh_TW/LC_MESSAGES/gallery2_install.mo	3442085387	3442085387	48670	48670
 locale/zh_TW/LC_MESSAGES/gallery2_upgrade.mo	1730324525	1730324525	30937	30937
-main.php	1846816161	3888110784	22978	23678
+main.php	3869169316	3858854603	58	61
 upgrade/StatusTemplate.class	747430760	4221774782	3264	3365
 upgrade/UpgradeStep.class	2657872810	3921737293	3002	3128
 upgrade/images/background.png	2766840926	2766840926	23329	23329
@@ -442,7 +640,7 @@ upgrade/images/pixbl.gif	3423258834	3423258834	35	35
 upgrade/images/pixgrn.gif	2511823829	2511823829	35	35
 upgrade/images/pixor.gif	3720751771	3720751771	35	35
 upgrade/images/shade.png	908234537	908234537	156	156
-upgrade/index.php	119982385	556516181	8540	8819
+upgrade/index.php	4206437813	605989698	8534	8813
 upgrade/po/GNUmakefile	3981272167	3303981136	126	132
 upgrade/po/af.po	107211449	2154000863	30066	30974
 upgrade/po/ar.po	4220149761	1390568623	19827	20620
@@ -482,9 +680,9 @@ upgrade/steps/CleanCacheStep.class	790260383	4032469718	2969	3056
 upgrade/steps/DatabaseBackupStep.class	3506221559	4026783986	4974	5133
 upgrade/steps/FinishedStep.class	1747006403	3757360985	1119	1154
 upgrade/steps/RedirectToInstallerStep.class	3025547747	981705963	1683	1734
-upgrade/steps/SystemChecksStep.class	644458660	3913762445	30765	31598
+upgrade/steps/SystemChecksStep.class	3830432912	1302514172	31118	31959
 upgrade/steps/UpgradeCoreModuleStep.class	2848662031	1436550976	6069	6239
-upgrade/steps/UpgradeOtherModulesStep.class	2878653873	3697120883	13475	13894
+upgrade/steps/UpgradeOtherModulesStep.class	3641408196	1624257359	13622	14049
 upgrade/steps/WelcomeStep.class	1072547237	2014275845	2120	2188
 upgrade/templates/AuthenticateRequest.html	2329849259	3587194261	3265	3328
 upgrade/templates/AuthenticateSuccessful.html	2066199327	580023278	101	106
@@ -508,10 +706,56 @@ upgrade/templates/UpgradeOtherModulesRequest.html	3936730741	3691428943	6082	624
 upgrade/templates/UpgradeOtherModulesSuccess.html	4040704282	3055221477	1911	1964
 upgrade/templates/Welcome.html	1562303185	3152313631	1612	1640
 upgrade/upgrade.css	4189210737	3336397921	7707	8065
+R	lib/adodb/license.txt
+R	lib/adodb/readme.txt
+R	lib/smarty/COPYING.lib
+R	lib/smarty/README
+R	lib/smarty/debug.tpl
+R	lib/smarty/internals/core.assign_smarty_interface.php
+R	lib/smarty/internals/core.create_dir_structure.php
+R	lib/smarty/internals/core.display_debug_console.php
+R	lib/smarty/internals/core.get_include_path.php
+R	lib/smarty/internals/core.get_microtime.php
+R	lib/smarty/internals/core.get_php_resource.php
+R	lib/smarty/internals/core.is_secure.php
+R	lib/smarty/internals/core.is_trusted.php
+R	lib/smarty/internals/core.load_plugins.php
+R	lib/smarty/internals/core.load_resource_plugin.php
+R	lib/smarty/internals/core.process_cached_inserts.php
+R	lib/smarty/internals/core.process_compiled_include.php
+R	lib/smarty/internals/core.read_cache_file.php
+R	lib/smarty/internals/core.rm_auto.php
+R	lib/smarty/internals/core.rmdir.php
+R	lib/smarty/internals/core.run_insert_handler.php
+R	lib/smarty/internals/core.smarty_include_php.php
+R	lib/smarty/internals/core.write_compiled_include.php
+R	lib/smarty/internals/core.write_compiled_resource.php
+R	lib/smarty/internals/core.write_file.php
+R	lib/smarty/plugins/compiler.assign.php
+R	lib/smarty/plugins/function.assign_debug_info.php
+R	lib/smarty/plugins/function.config_load.php
+R	lib/smarty/plugins/function.debug.php
+R	lib/smarty/plugins/function.eval.php
+R	lib/smarty/plugins/function.popup.php
+R	lib/smarty/plugins/function.popup_init.php
+R	lib/smarty/plugins/modifier.cat.php
+R	lib/smarty/plugins/modifier.count_characters.php
+R	lib/smarty/plugins/modifier.count_paragraphs.php
+R	lib/smarty/plugins/modifier.count_sentences.php
+R	lib/smarty/plugins/modifier.count_words.php
+R	lib/smarty/plugins/modifier.default.php
+R	lib/smarty/plugins/modifier.indent.php
+R	lib/smarty/plugins/modifier.lower.php
+R	lib/smarty/plugins/modifier.nl2br.php
+R	lib/smarty/plugins/modifier.string_format.php
+R	lib/smarty/plugins/modifier.strip.php
+R	lib/smarty/plugins/modifier.strip_tags.php
+R	lib/smarty/plugins/modifier.upper.php
+R	lib/smarty/plugins/modifier.wordwrap.php
+R	lib/wz_dragdrop/transparentpixel.gif
+R	lib/wz_dragdrop/wz_dragdrop.js
 R	lib/bbcode/COPYING
 R	lib/bbcode/README
-R	lib/adodb/drivers/adodb-sqlite.inc.php
-R	lib/adodb/drivers/adodb-sqlitepo.inc.php
 R	lib/tools/bin/makeManifest.pl
 R	docs/DEVELOPER_GUIDELINES
 R	docs/EMBEDDING
@@ -1335,10 +1579,6 @@ R	lib/IE7/test-trans.png
 R	lib/IE7/test.html
 R	lib/IE7/usage.html
 R	lib/IE7
-R	lib/adodb/drivers/adodb-mssql.inc.php
-R	lib/adodb/drivers/adodb-mssqlpo.inc.php
-R	lib/adodb/drivers/adodb-odbc.inc.php
-R	lib/adodb/drivers/adodb-postgres.inc.php
 R	lib/bbcode/bbcode.class
 R	lib/java/GRApplet.tpl
 R	lib/java/GalleryRemoteApplet.jar

@@ -3,9 +3,9 @@
 modules/password/PasswordEntry.inc	1793199297	435250	5412	5585
 modules/password/PasswordOption.inc	305464911	2407204423	4085	4202
 modules/password/classes/PasswordCaptchaAdminOption.class	1679362035	3698437326	1557	1600
-modules/password/classes/PasswordHelper.class	798237110	3566743305	21894	22618
-modules/password/classes/PasswordInterface_1_0.class	1548522200	2785474633	2138	2205
-modules/password/module.inc	1072580581	1505966769	7028	7263
+modules/password/classes/PasswordHelper.class	1263518672	3490398136	21991	22719
+modules/password/classes/PasswordInterface_1_0.class	3496929408	3432336037	2159	2226
+modules/password/module.inc	3891714135	501722867	7099	7338
 modules/password/po/GNUmakefile	1866879166	2808215985	98	103
 modules/password/po/af.mo	1239596715	1239596715	789	789
 modules/password/po/af.po	3362246993	293853485	2414	2503
@@ -72,6 +72,8 @@ modules/password/po/zh_TW.mo	3456389811	3456389811	1841	1841
 modules/password/po/zh_TW.po	1906146936	750084535	2647	2735
 modules/password/templates/PasswordEntry.tpl	1285853226	3104870874	1736	1784
 modules/password/templates/PasswordOption.tpl	1095098112	408611822	2095	2158
+modules/password/test/phpunit/PasswordEntryControllerTest.class	4065352233	2155493731	14757	15211
+modules/password/test/phpunit/PasswordOptionTest.class	414750903	4179378560	36311	37595
 R	modules/password/locale/af/LC_MESSAGES/modules_password.mo
 R	modules/password/locale/ar/LC_MESSAGES/modules_password.mo
 R	modules/password/locale/ca/LC_MESSAGES/modules_password.mo

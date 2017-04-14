@@ -7,11 +7,11 @@ modules/register/UserSelfRegistration.inc	736131403	3810717247	7378	7620
 modules/register/classes/Entities.inc	1221958225	962197223	883	898
 modules/register/classes/GNUmakefile	1995366819	843025639	51	52
 modules/register/classes/GalleryPendingUser.class	426603587	2038545149	6463	6725
-modules/register/classes/GalleryPendingUserHelper.class	2191639863	1992620760	11873	12264
+modules/register/classes/GalleryPendingUserHelper.class	2978041572	1061966767	11747	12138
 modules/register/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/register/classes/GalleryStorage/schema.tpl	1096339555	885059222	4055	4188
 modules/register/classes/RegisterCaptchaAdminOption.class	1578338079	2615908369	1542	1585
-modules/register/module.inc	285129770	2606696288	4220	4366
+modules/register/module.inc	1663395985	878861955	4290	4440
 modules/register/po/GNUmakefile	1866879166	2808215985	98	103
 modules/register/po/af.mo	2077268678	2077268678	5028	5028
 modules/register/po/af.po	4087734230	2840222712	7805	8106
@@ -95,6 +95,10 @@ modules/register/templates/ConfirmationEmail.tpl	1713865073	2113866380	638	653
 modules/register/templates/SelfRegistrationSuccess.tpl	4064764910	4132640095	1350	1387
 modules/register/templates/UserSelfRegistration.tpl	884353210	2740354428	2868	2969
 modules/register/templates/WelcomeEmail.tpl	3036640492	1788145169	416	428
+modules/register/test/phpunit/AdminSelfRegistrationControllerTest.class	4170277921	1880911811	6776	6993
+modules/register/test/phpunit/GalleryPendingUserTest.class	3583654909	3558907859	3403	3532
+modules/register/test/phpunit/RegisterModuleTest.class	1700558554	3696512019	2399	2482
+modules/register/test/phpunit/UserSelfRegistrationControllerTest.class	3701390268	3418760210	21414	22026
 R	modules/register/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/register/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/register/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GNUmakefile

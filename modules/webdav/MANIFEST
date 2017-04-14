@@ -1,6 +1,6 @@
 # $Revision: 20953 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/webdav/Callbacks.inc	3129432041	3333664925	1690	1747
+modules/webdav/Callbacks.inc	3011094820	1758887376	1744	1803
 modules/webdav/DownloadDavMount.inc	106082901	645047105	2685	2774
 modules/webdav/ItemAddWebDav.inc	2385453325	1637079039	11338	11695
 modules/webdav/WebDav.inc	1201544233	2567208272	8399	8647
@@ -12,14 +12,14 @@ modules/webdav/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/webdav/classes/GalleryStorage/schema.tpl	2987186905	263852955	2641	2739
 modules/webdav/classes/Maps.inc	3097969041	2458683522	580	584
 modules/webdav/classes/Maps.xml	389449069	1930493512	1049	1087
-modules/webdav/classes/WebDavHelper.class	3575049037	3557867977	60515	62536
+modules/webdav/classes/WebDavHelper.class	2266098235	3229030153	60578	62599
 modules/webdav/classes/WebDavRewriteHelper.class	2791747207	834285223	2434	2512
 modules/webdav/data/options/.htaccess	1142116337	350654909	1316	1345
-modules/webdav/lib/HTTP/WebDAV/Server.php	3188671581	2775969229	76271	78839
-modules/webdav/lib/HTTP/WebDAV/Tools/_parse_lockinfo.php	1990170537	2877955227	7352	7595
-modules/webdav/lib/HTTP/WebDAV/Tools/_parse_propfind.php	2455667239	2699967238	5716	5894
-modules/webdav/lib/HTTP/WebDAV/Tools/_parse_proppatch.php	3043766895	3884388501	6806	7036
-modules/webdav/module.inc	3872337750	1125741059	11900	12306
+modules/webdav/lib/HTTP/WebDAV/Server.php	3707735482	1834750007	76287	78855
+modules/webdav/lib/HTTP/WebDAV/Tools/_parse_lockinfo.php	2315347429	920414276	7433	7681
+modules/webdav/lib/HTTP/WebDAV/Tools/_parse_propfind.php	3108954608	1450343290	5797	5980
+modules/webdav/lib/HTTP/WebDAV/Tools/_parse_proppatch.php	441817700	1082975057	6888	7123
+modules/webdav/module.inc	2829679971	264014406	11706	12107
 modules/webdav/po/GNUmakefile	1866879166	2808215985	98	103
 modules/webdav/po/cs.mo	2916382892	2916382892	1214	1214
 modules/webdav/po/cs.po	1719416637	2909949522	6703	6917
@@ -63,6 +63,11 @@ modules/webdav/templates/WebDavMount.tpl	1285933952	1131356078	1575	1614
 modules/webdav/templates/WebDavSiteAdmin.tpl	2913657798	2978836993	8329	8468
 modules/webdav/templates/blocks/WebDavUrl.tpl	493169764	3681910557	274	282
 modules/webdav/templates/blocks/blocks.inc	740358944	826543430	102	107
+modules/webdav/test/phpunit/WebDavControllerTest.class	4154324146	3485804730	3413	3509
+modules/webdav/test/phpunit/WebDavHelperTest.class	1465924795	1812010584	23897	24652
+modules/webdav/test/phpunit/WebDavModuleTest.class	1445997603	1102443496	10187	10533
+modules/webdav/test/phpunit/WebDavRewriteHelperTest.class	1065850760	3780555375	4575	4737
+modules/webdav/test/phpunit/WebDavTest.class	679293474	2199674639	61089	63302
 R	modules/webdav/classes/WebDavActivatePluginEventListener.class
 R	modules/webdav/locale/cs/LC_MESSAGES/modules_webdav.mo
 R	modules/webdav/locale/da/LC_MESSAGES/modules_webdav.mo

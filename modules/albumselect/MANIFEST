@@ -1,7 +1,7 @@
 # $Revision: 20949 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/albumselect/AlbumSelectSiteAdmin.inc	383521473	944040508	3089	3192
-modules/albumselect/Callbacks.inc	2987880365	49867463	10168	10483
+modules/albumselect/Callbacks.inc	3658088406	493561299	10288	10609
 modules/albumselect/Preloads.inc	641120267	3829809665	1435	1484
 modules/albumselect/dtree.css	2003205622	1649496906	566	590
 modules/albumselect/dtree.js	2305996336	2367691161	11383	11718
@@ -26,7 +26,7 @@ modules/albumselect/images/plus.gif	1359509001	1359509001	89	89
 modules/albumselect/images/plus_rtl.gif	919754713	919754713	89	89
 modules/albumselect/images/plusbottom.gif	2430757682	2430757682	88	88
 modules/albumselect/images/plusbottom_rtl.gif	4196910978	4196910978	88	88
-modules/albumselect/module.inc	1778989167	3190178190	4776	4930
+modules/albumselect/module.inc	384181535	1941072813	4849	5007
 modules/albumselect/po/GNUmakefile	1866879166	2808215985	98	103
 modules/albumselect/po/af.mo	3234328409	3234328409	2544	2544
 modules/albumselect/po/af.po	1781439070	1943927276	3367	3477
@@ -109,6 +109,8 @@ modules/albumselect/templates/AlbumSelectSiteAdmin.tpl	2375828209	3557109120	293
 modules/albumselect/templates/blocks/AlbumSelect.tpl	1141924427	1923607784	790	812
 modules/albumselect/templates/blocks/AlbumTree.tpl	4202942162	4106732246	3075	3138
 modules/albumselect/templates/blocks/blocks.inc	644573625	3295783091	213	221
+modules/albumselect/test/phpunit/AlbumSelectSiteAdminControllerTest.class	2326967454	1643457738	2806	2889
+modules/albumselect/test/phpunit/AlbumSelectTest.class	1723736069	4213322754	16547	17026
 R	modules/albumselect/locale/af/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/ar/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/bg/LC_MESSAGES/modules_albumselect.mo

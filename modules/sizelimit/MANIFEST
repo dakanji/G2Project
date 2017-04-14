@@ -2,8 +2,8 @@
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/sizelimit/SetSizeOption.inc	2738766490	254209503	3486	3593
 modules/sizelimit/SizeLimitOption.inc	3927032876	956214567	10378	10700
-modules/sizelimit/classes/SizeLimitHelper.class	3357904909	3357219888	6574	6810
-modules/sizelimit/module.inc	3166130499	3861984348	3195	3296
+modules/sizelimit/classes/SizeLimitHelper.class	1936892518	2330363177	6588	6824
+modules/sizelimit/module.inc	4232240866	1960768656	3257	3362
 modules/sizelimit/po/GNUmakefile	1866879166	2808215985	98	103
 modules/sizelimit/po/af.mo	1477115003	1477115003	1585	1585
 modules/sizelimit/po/af.po	3333736148	2140534850	3028	3123
@@ -73,6 +73,10 @@ modules/sizelimit/po/zh_CN.po	4097838765	1990369621	2939	3026
 modules/sizelimit/po/zh_TW.mo	1577040955	1577040955	2112	2112
 modules/sizelimit/po/zh_TW.po	4288302660	3237267179	2933	3020
 modules/sizelimit/templates/SizeLimitOption.tpl	486719065	3193257643	4767	4872
+modules/sizelimit/test/phpunit/EventHandlerTest.class	3446644722	3171089868	2298	2373
+modules/sizelimit/test/phpunit/SetSizeOptionTest.class	109325531	754769903	31057	31971
+modules/sizelimit/test/phpunit/SizeLimitHelperTest.class	307793041	2412009569	8248	8513
+modules/sizelimit/test/phpunit/SizeLimitOptionTest.class	2753569053	1292036616	12915	13309
 R	modules/sizelimit/locale/af/LC_MESSAGES/modules_sizelimit.mo
 R	modules/sizelimit/locale/ar/LC_MESSAGES/modules_sizelimit.mo
 R	modules/sizelimit/locale/ca/LC_MESSAGES/modules_sizelimit.mo
