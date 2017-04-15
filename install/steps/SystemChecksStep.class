@@ -72,19 +72,27 @@ class SystemChecksStep extends InstallStep {
 	$template->renderHeader(true);
 	$template->renderStatusMessage(_('Performing system checks'), '', 0);
 
-	/* assert compatible version of PHP, we accept 4.3.0+ / 5.0.4+ */
-	if (!function_exists('version_compare') || version_compare(phpversion(), '4.3.0', '<')
-		|| (version_compare(phpversion(), '5.0.0', '>=')
-		    && version_compare(phpversion(), '5.0.4', '<'))) {
+	/* assert compatible version of PHP, we accept 5.6.0+ but prefer 7.0.0+ */
+	if (version_compare(PHP_VERSION, '5.6.0', '<')) {
 	    $templateData['check'][] =
-		array('title' => _('PHP version &gt;= 4.3.0 or &gt;= 5.0.4'),
+		array('title' => _('PHP version &gt;= v5.6.0'),
 		      'error' => true,
 		      'notice' => sprintf(
-			  _("Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or " .
-			    "newer. You have PHP version %s installed. Contact your webserver " .
-			    "administrator to request an upgrade, available at the %sPHP " .
-			    "website%s."), phpversion(), '<a href="http://php.net/">', '</a>'));
+			  _("Error: This version of Gallery 2 requires PHP Version 5.6.0 or newer " .
+			    "but you have Version %s installed. Please update your PHP " .
+			    "installation to a minimum of Version 5.6.0 to use this version of " .
+			    "Gallery 2. Upgrade to Version 7.0.0 or newer for the best performance."), 
+			    PHP_VERSION));
 	    $failCount++;
+	} elseif (version_compare(PHP_VERSION, '7.0.0', '<')) {
+	    $templateData['check'][] =
+		array('title' => _('PHP version &gt;= v7.0.0'),
+		      'warning' => true,
+		      'notice' => sprintf(
+			  _("Warning: This version of Gallery 2 performs best with PHP Version 7.0.0 " .
+			    "or newer but you have PHP Version %s installed. This version can function " .
+			    "with your version of PHP but may be slower and require additional server resources."), 
+			    PHP_VERSION));
 	} else {
 	    $templateData['check'][] =
 		array('title' => _('PHP Version'), 'success' => true);

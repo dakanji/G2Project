@@ -1,9 +1,8 @@
 # $Revision: 20995 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 LICENSE	3778559985	3184057198	18011	18351
-MANIFEST	84515352	1993303144	65609	67066
+MANIFEST	329061086	268489989	83141	84848
 README.html	3230948271	3603113010	85381	87899
-README.mediawiki	2047694546	1640639535	4372	4442
 bootstrap.inc	270495883	4258233691	1987	2044
 embed.php	1017113822	3867634306	1520	1557
 images/g2Logo.gif	1196739865	1196739865	6395	6395
@@ -75,7 +74,7 @@ install/steps/InstallOtherModulesStep.class	1760267942	1947093984	9505	9806
 install/steps/MultisiteStep.class	2085288473	3304521921	7000	7200
 install/steps/SecureStep.class	431365702	3949339770	2224	2286
 install/steps/StorageSetupStep.class	1263159464	2336445612	10827	11147
-install/steps/SystemChecksStep.class	349184240	1527726350	19374	19905
+install/steps/SystemChecksStep.class	4105761537	361971484	19739	20278
 install/steps/WelcomeStep.class	2304532275	760752874	1930	1994
 install/templates/AdminUserSetupRequest.html	3396872259	231344062	3620	3734
 install/templates/AdminUserSetupSuccess.html	4206166754	147542172	100	105
@@ -667,6 +666,7 @@ upgrade/templates/UpgradeOtherModulesRequest.html	3936730741	3691428943	6082	624
 upgrade/templates/UpgradeOtherModulesSuccess.html	4040704282	3055221477	1911	1964
 upgrade/templates/Welcome.html	1562303185	3152313631	1612	1640
 upgrade/upgrade.css	4189210737	3336397921	7707	8065
+R	README.mediawiki
 R	lib/adodb/license.txt
 R	lib/adodb/readme.txt
 R	lib/smarty/COPYING.lib
