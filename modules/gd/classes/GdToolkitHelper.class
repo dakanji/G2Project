@@ -181,7 +181,7 @@ class GdToolkitHelper {
      * Checks if a certain operation is supported by this GD library
      * @return boolean
      */
-    function isOperationSupported($operation, $gd=null) {
+    static function isOperationSupported($operation, $gd=null) {
 	if (!isset($gd)) {
 	    $gd =& GdToolkitHelper::getGdFunctionality();
 	}

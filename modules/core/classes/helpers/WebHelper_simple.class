@@ -335,7 +335,7 @@ class WebHelper_simple {
      * @param array $fromComponents context we're redirecting from
      * @param string redirect URL
      */
-    function _parseLocation($location, $fromComponents) {
+    static function _parseLocation($location, $fromComponents) {
 	if (is_array($location)) {
 	    /* If odd http response has multiple Location headers just pick the first */
 	    $location = array_shift($location);
