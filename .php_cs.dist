@@ -20,42 +20,63 @@ $finder = PhpCsFixer\Finder::create()
     ->name('*.inc')
     ->name('*.php');
 
-return PhpCsFixer\Config::create()
-    ->setRiskyAllowed(false)
-    ->setRules(
-        array(
-        '@PSR2' => true,
-        'blank_line_before_return' => true,
-        'braces' => array(
-            'allow_single_line_closure' => true,
-            'position_after_functions_and_oop_constructs' => 'same'
-        ),
-        'concat_space' => array('spacing' => 'one'),
-        'declare_equal_normalize' => array('space' => 'single'),
-        'hash_to_slash_comment' => true,
-        'include' => true,
-        'indentation_type' => true,
-        'linebreak_after_opening_tag' => true,
-        'lowercase_cast' => true,
-        'method_separation' => true,
-        'new_with_braces' => true,
-        'native_function_casing' => true,
-        'no_blank_lines_after_class_opening' => true,
-        'no_blank_lines_after_phpdoc' => true,
-        'no_empty_comment' => true,
-        'no_empty_phpdoc' => true,
-        'no_empty_statement' => true,
-        'no_extra_consecutive_blank_lines' => true,
-        'no_mixed_echo_print' => array('use' => 'echo'),
-        'no_short_echo_tag' => true,
-        'normalize_index_brace' => true,
-        'pow_to_exponentiation' => false,
-        'protected_to_private' => true,
-        'random_api_migration' => false,
-        'self_accessor' => true,
-        'standardize_not_equals' => true,
-        'ternary_to_null_coalescing' => false,
-        )
-    )
-    ->setIndent("\t")
-    ->setFinder($finder);
+	return PhpCsFixer\Config::create()
+		->setRiskyAllowed(true)
+		->setRules(
+			array(
+				'@PSR2' => true,
+	        	'align_multiline_comment' => array('comment_type' => 'phpdocs_like'),
+	        	'array_syntax' => array('syntax' => 'long'),
+				'blank_line_before_statement' => true,
+				'braces' => array(
+					'allow_single_line_closure' => true,
+	            	'position_after_anonymous_constructs' => 'same',
+	            	'position_after_control_structures' => 'same',
+					'position_after_functions_and_oop_constructs' => 'same',
+				),
+				'cast_spaces' => array('space' => 'none'),
+				'comment_to_phpdoc' => false,
+				'concat_space' => array('spacing' => 'one'),
+				'date_time_immutable' => false,
+				'declare_equal_normalize' => array('space' => 'single'),
+				'escape_implicit_backslashes' => false,
+				'explicit_indirect_variable' => false,
+				'explicit_string_variable' => false,
+	        	'fully_qualified_strict_types' => false,
+				'hash_to_slash_comment' => true,
+				'include' => true,
+				'linebreak_after_opening_tag' => true,
+				'list_syntax' => false,
+				'lowercase_cast' => true,
+				'method_chaining_indentation' => false,
+				'new_with_braces' => true,
+				'native_function_casing' => true,
+				'no_blank_lines_after_class_opening' => true,
+				'no_blank_lines_after_phpdoc' => true,
+				'no_empty_comment' => true,
+				'no_empty_phpdoc' => true,
+				'no_empty_statement' => true,
+				'no_extra_blank_lines' => true,
+				'no_mixed_echo_print' => array('use' => 'echo'),
+	        	'no_null_property_initialization' => true,
+				'no_php4_constructor' => true,
+				'no_short_echo_tag' => true,
+	        	'no_trailing_comma_in_list_call' => true,
+	        	'no_trailing_comma_in_singleline_array' => true,
+	        	'no_unneeded_control_parentheses' => true,
+	        	'no_whitespace_before_comma_in_array' => true,
+	        	'no_whitespace_in_blank_line' => true,
+				'normalize_index_brace' => true,
+				'protected_to_private' => true,
+				'pow_to_exponentiation' => true,
+				'random_api_migration' => true,
+				'self_accessor' => true,
+	        	'single_line_comment_style' => true,
+				'standardize_not_equals' => true,
+				'trailing_comma_in_multiline_array' => true,
+	        	'trim_array_spaces' => true,
+	        	'whitespace_after_comma_in_array' => true,
+			)
+		)
+	->setIndent("\t")
+	->setFinder($finder);
