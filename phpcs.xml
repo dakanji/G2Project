@@ -1,79 +1,81 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <ruleset name="G2_Ruleset">
-
-	<description>
-		Coding Standards Ruleset for Gallery 2 Community Edition
-	</description>
-
-	<include-pattern>*.php</include-pattern>
-	<include-pattern>*.inc</include-pattern>
-	<include-pattern>*.class</include-pattern>
-	<include-pattern>*.css</include-pattern>
-	<include-pattern>*.js</include-pattern>
-	<include-pattern>*.html</include-pattern>
-
-	<exclude-pattern>./lib/adodb/*</include-pattern>
-	<exclude-pattern>./lib/bbcode/*</include-pattern>
-	<exclude-pattern>./lib/joomla/*</include-pattern>
-	<exclude-pattern>./lib/JSON/*</include-pattern>
-	<exclude-pattern>./lib/pear/*</include-pattern>
-	<exclude-pattern>./lib/phpass/*</include-pattern>
-	<exclude-pattern>./lib/smarty/*</include-pattern>
-	<exclude-pattern>./lib/smarty_plugins/*</include-pattern>
-	<exclude-pattern>./lib/smtp/*</include-pattern>
-	<exclude-pattern>./lib/yui/*</include-pattern>
-	<exclude-pattern>./*/po/*</include-pattern>
-	<exclude-pattern>./modules/*/lib/*</exclude-pattern>
-	<exclude-pattern>./modules/core/CoreModuleExtras.inc</exclude-pattern>
-	<exclude-pattern>./modules/core/classes/helpers/GalleryPermissionHelper_simple.class</include-pattern>
+	<description>Coding Standards for Gallery 2 Community Edition</description>
 
 
+	<!-- GENERAL:
+		- Rules basically follow PSR2
+		- These should be run after php-cs-fixer as neither gives satisfactory results alone.
+		- php-cs-fixer includes some useful additional ones from Symphony
+		- Run php-cs-fixer first, then PHPCBF
+		- Repeat run process
+	-->
+	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
 
-	<!-- Inline control structures like 'if($a) continue;' are not allowed -->
-	<rule ref="Generic.ControlStructures.InlineControlStructure"/>
+	<exclude-pattern type="relative">
+		^/modules/*/*/Maps.inc
+	</exclude-pattern>
 
-	<!-- Line endings must UNIX line endings -->
+
+	<!-- STYLE RULE 01:
+	Line endings SHALL have UNIX line endings
+	-->
 	<rule ref="Generic.Files.LineEndings"/>
 
-	<!-- Lines should not longer than $lineLimit (warning) and must not be longer than $absoluteLineLimit (error) -->
+	<!-- STYLE RULE 02:
+	Lines of code SHALL NOT be longer than the $lineLimit value.
+	-->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="lineLimit" value="80" />
-			<property name="absoluteLineLimit" value="120" />
+			<property name="lineLimit" value="120" />
+			<property name="absoluteLineLimit" value="0" />
 		</properties>
 	</rule>
 
-	<!--
-		The assignment signs of multiple adjacent assignments should be aligned.
-		$maxPadding is the maximum amount of padding allowed before alignment is ignored.
+	<!-- STYLE RULE 03:
+	Asignment Signs:
+		- The assignment signs of multiple adjacent assignments SHOULD be aligned.
+		- $maxPadding is the maximum amount of padding allowed before alignment is ignored.
 	-->
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
 		<properties>
-			<property name="maxPadding" value="50"/>
+			<property name="maxPadding" value="25"/>
 		</properties>
 	</rule>
 
-	<!--  There may be no spaces after cast statements -->
+	<!-- STYLE RULE 04:
+	There SHALL be no spaces after cast statements
+	-->
 	<rule ref="Generic.Formatting.NoSpaceAfterCast"/>
 
-	<!--   The function brace is on the same line as the function declaration. One space is required between the closing parenthesis and the brace. -->
+	<!-- STYLE RULE 05:
+	Function Braces:
+		- SHALL be on the same line as the function declaration.
+		- SHALL have one space between the closing parenthesis and the brace.
+	-->
 	<rule ref="PSR2">
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
 	</rule>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
 
-	<!-- Disallow PHP 4 style class constructors.  -->
+	<!-- STYLE RULE 06:
+	PHP 4 style class constructors SHALL NOT be used.
+	-->
 	<rule ref="Generic.NamingConventions.ConstructorName"/>
 
-	<!-- Disallow shorthand PHP open tags.  -->
+	<!-- STYLE RULE 07:
+	PHP short open tags SHALL NOT be used.
+	-->
 	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
 
-	<!-- The constants 'TRUE', 'FALSE' or 'NULL' must be uppercase.  -->
+	<!-- STYLE RULE 08:
+	The constants 'TRUE', 'FALSE' or 'NULL' shall be uppercase.
+	-->
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
 
-	<!--
-		Strings must not be concatenated when they could be written as one string.
-		Multiple lines are excepted.
+	<!-- STYLE RULE 09:
+	Strings SHALL NOT be concatenated when they could be written as one string.
+	Strings spanning multiple lines MAY be so concatenated.
 	-->
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
@@ -81,17 +83,25 @@
 		</properties>
 	</rule>
 
-	<!-- Allow comment only lines. -->
+	<!-- STYLE RULE 10:
+	Comment only lines SHALL be allowed.
+	-->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
 			<property name="ignoreComments" value="true" />
 		</properties>
 	</rule>
 
-	<!-- Tabs must represent 4 spaces -->
+	<!-- STYLE RULE 11:
+	Tabs SHALL represent four spaces
+	-->
 	<arg name="tab-width" value="4"/>
 
-	<!-- Check that control structures are structured correctly and their content is indented correctly. Allow tab indents.  -->
+	<!-- STYLE RULE 12:
+	Control Structures:
+	 	- SHALL be structured correctly and their contents indented.
+		- Tab indents SHALL be allowed.
+	-->
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
 			<property name="tabIndent" value="true" />
@@ -99,125 +109,187 @@
 		</properties>
 	</rule>
 
-	<!-- Tabs, not spaces, must be used for indentation.  -->
+	<!-- STYLE RULE 13:
+	Tabs, not spaces, SHALL be used for indentation.
+	-->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
-	<!--  Classes must have their opening brace on a new line and contents must be indented.  -->
+	<!-- STYLE RULE 14:
+	Classes SHALL have their opening brace on a new line and their contents indented.
+	-->
 	<rule ref="PEAR.Classes.ClassDeclaration"/>
 
-	<!-- Disallow perl-style comments (#).   -->
+	<!-- STYLE RULE 15:
+	Perl style comments (#) SHALL NOT be allowed.
+	-->
 	<rule ref="PEAR.Commenting.InlineComment"/>
 
-	<!--
-		Closing parenthesis of a multi-line IF statement must:
-			- be on a new line,
-			- each line must begin with a boolean operator,
-			- there must be a single space between the closing parenthesis and the opening brace.
+	<!-- STYLE RULE 16:
+	Closing parenthesis of a multi-line "IF" statements:
+		- SHALL be on a new line.
+		- Each line SHALL begin with a boolean operator.
+		- There SHALL be a single space between the closing parenthesis and the opening brace.
 	-->
 	<rule ref="PEAR.ControlStructures.MultiLineCondition"/>
 
-	<!-- Ensure zero spaces inside parenthesis except when spanning multiple lines -->
+	<!-- STYLE RULE 17:
+	Parenthesis SHALL NOT have whitespace after or before the opening and closing braces
+	Parenthesis spanning multiple lines MAY have such WhiteSpace
+	-->
 	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
 		<properties>
 			<property name="ignoreNewlines" value="true" />
 		</properties>
 	</rule>
 
-	<!-- "include_once" must only be used in conditional situations and "require_once" elsewhere. Do not surround the file being included with brackets. -->
+	<!-- STYLE RULE 18:
+	"include_once" SHALL only be used in conditional situations and "require_once" elsewhere.
+	The file being requested SHALL NOT be enclosed in brackets.
+	-->
 	<rule ref="PEAR.Files.IncludingFile"/>
 
-	<!-- Assignment that spawn multiple lines must have their assignment sign indented and on the new line.  -->
+	<!-- STYLE RULE 19:
+	Assignments spanning multiple lines SHALL have their assignment signs indented.
+	Such assignment signs SHALL be on new lines.
+	-->
 	<rule ref="PEAR.Formatting.MultiLineAssignment"/>
 
-	<!-- Function parameters with default values must come at the end of the function signature. -->
+	<!-- STYLE RULE 20:
+	Function parameters with default values SHALL be at the end of function signatures.
+	-->
 	<rule ref="PEAR.Functions.ValidDefaultValue"/>
 
-	<!-- Object operators must be indented if they are the first thing on a line. -->
+	<!-- STYLE RULE 21:
+	Object operators SHALL be indented if they are the first thing on a line.
+	-->
 	<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
 
-	<!-- Align closing braces of scopes. -->
+	<!-- STYLE RULE 22:
+	The closing braces of scopes SHALL be aligned.
+	-->
 	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
 
-	<!-- Use "Elseif" instead of "Else If". -->
+	<!-- STYLE RULE 23:
+	"Elseif" SHALL be used instead of "Else If".
+	-->
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
 
-	<!--
-		Class declaration must adhere to PSR2 rules:
-			- 1 space between keywords,
-			- 1 space after classname,
-			- Keyword on same line as classname ,
-			- Closing braces for interface methods must go on the next line after,
-			- Closing brace must be on a line by itself.
+	<!-- STYLE RULE 24:
+	Class Declarations:
+		- There SHALL be one space between keywords,
+		- There SHALL be one space after classnames,
+		- Keywords SHALL be on the same line as classnames,
+		- Closing braces for interface methods SHALL be on the next line after,
+		- The closing brace SHALL be on a line by itself.
 	-->
 	<rule ref="PSR2.Classes.ClassDeclaration"/>
 
-	<!--
-		Property declaration must adhere to PSR2 rules:
-			- Property names must not be prefixed with an underscore,
-			- The "var" keyword must not be used to declare a property,
-			- Keyword on same line as classname ,
-			- Maximum of one property declared per statement,
-			- Visibility must be declared for all properties.
+	<!-- STYLE RULE 25:
+	Property names MAY be prefixed with an underscore.
+	-->
+	<rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+		<severity>0</severity>
+	</rule>
+
+	<!-- STYLE RULE 26:
+	Property Declarations:
+		- The "var" keyword SHALL NOT be used to declare a property,
+		- Keywords SHALL be on the same line as classnames,
+		- A maximum of one property SHALL be declared per statement,
+		- Visibility SHALL be declared for all properties.
 	-->
 	<rule ref="PSR2.Classes.PropertyDeclaration"/>
 
-	<!--
-		Method declaration must adhere to PSR2 rules:
-			- Method name should not be prefixed with an underscore to indicate visibility,
-			- The static declaration must come after the visibility declaration,
-			- The final declaration must precede the visibility declaration,
-			- The abstract declaration must precede the visibility declaration.
+	<!-- STYLE RULE 27:
+	Method names MAY be prefixed with an underscore.
+	-->
+	<rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+		<severity>0</severity>
+	</rule>
+
+	<!-- STYLE RULE 28:
+	Method Declarations:
+		- The static declaration SHALL come after the visibility declaration,
+		- The final declaration SHALL precede the visibility declaration,
+		- The abstract declaration SHALL precede the visibility declaration.
 	-->
 	<rule ref="PSR2.Methods.MethodDeclaration"/>
 
-	<!--
-		Switch statements must adhere to PSR2 rules:
-			- Keywords must be lowercase,
-			- Keywords must not be indented from SWITCH keyword (EXCEPTION: We follow Linux Kernel Guide here),
-			- CASE keyword must be followed by a single space,
-			- There must be no space before the colon in a case statement,
-			- Statements must not be defined using curly braces,
-			- Terminating statement must be indented to the same level as the CASE body,
-			- There must be a comment when fall-through is intentional in a non-empty case body.
+	<!-- STYLE RULE 29:
+	Switch Statements:
+		- Keywords SHALL be lowercase,
+		- Keywords SHALL be indented from the "SWITCH" keyword,
+		- The "CASE" keyword SHALL be followed by a single space,
+		- There SHALL be no space before the colon in a "CASE" statement,
+		- Statements SHALL NOT be defined using curly braces,
+		- Terminating statements SHALL be indented to the same level as the "CASE" body,
+		- There SHALL be a comment indicating intentional fall-throughs in non-empty "CASE" bodies.
 	-->
-	<rule ref="PSR2.ControlStructures.SwitchDeclaration">
-		<properties>
-			<property name="indent" value="0"/>
-		</properties>
-	</rule>
+	<rule ref="PSR2.ControlStructures.SwitchDeclaration"/>
 
-	<!-- End files with a new line. -->
+	<!-- STYLE RULE 30:
+	Files SHALL be ended with a new line.
+	-->
 	<rule ref="PSR2.Files.EndFileNewline"/>
 
-	<!--  There must be one blank line after the namespace declaration. -->
+	<!--  There SHALL be one blank line after namespace declarations. -->
 	<rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
 
-	<!--
-		"USE" blocks must adhere to PSR2 rules:
-			- There must be one USE keyword per declaration,
-			- USE declarations must go after the first namespace declaration,
-			- There must be one blank line after the last USE statement.
+	<!-- STYLE RULE 31:
+	"USE" Blocks:
+		- There SHALL be one USE keyword per declaration,
+		- USE declarations SHALL go after the first namespace declaration,
+		- There SHALL be one blank line after the last USE statement.
 	-->
 	<rule ref="PSR2.Namespaces.UseDeclaration"/>
 
-	<!-- Ensure the value of a comparison is not assigned to a variable. -->
+	<!-- STYLE RULE 32:
+	Values of comparisons SHALL NOT be assigned to variables.
+	-->
 	<rule ref="Squiz.PHP.DisallowComparisonAssignment"/>
 
-	<!-- Ensure there are no functions defined inside PHP functions. Closures are ok. -->
+	<!-- STYLE RULE 33:
+	PHP functions SHALL NOT have functions defined within. -->
 	<rule ref="Squiz.PHP.InnerFunctions"/>
 
-	<!-- "$this" must not be used in static methods. -->
+	<!-- STYLE RULE 34:
+	Static methods SHALL NOT use "$this".
+	-->
 	<rule ref="Squiz.Scope.StaticThisUsage"/>
 
-	<!-- Methods must have two blank lines between them. -->
+	<!-- STYLE RULE 35:
+	Methods SHALL have two blank lines between them.
+	-->
 	<rule ref="Squiz.WhiteSpace.FunctionSpacing"/>
 
-	<!-- Language constructs without brackets, such as echo, must contain a single space between them and their content. -->
+	<!-- STYLE RULE 36:
+	Constructs without brackets, e.g., "echo", SHALL contain a single space after the construct.
+	-->
 	<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
 
-	<!-- There must be one space before and after logical operators. -->
+	<!-- STYLE RULE 37:
+	There SHALL be one space before and after logical operators.
+	-->
 	<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
 
-	<!-- Disallow PHP closing tags at the end of relevant files. -->
+	<!-- STYLE RULE 38:
+	Whitespace:
+		- There SHALL NOT be whitespace proceeding a file's contents.
+		- There SHALL NOT be whitespace after a file's contents.
+		- There SHALL NOT be whitespace after line content.
+		- There SHALL NOT be multiple blank lines within functions.
+	-->
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+
+	<!-- STYLE RULE 39:
+	Inline "IF" statements SHALL NOT be used.
+	-->
+	<rule ref="Squiz.PHP.DisallowInlineIf">
+		<severity>0</severity>
+	</rule>
+
+	<!-- STYLE RULE 40:
+	Closing tags SHALL NOT be included at the end of PHP only files.
+	-->
 	<rule ref="Zend.Files.ClosingTag"/>
 </ruleset>
