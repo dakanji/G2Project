@@ -28,49 +28,48 @@
  * @version $Revision: 18172 $
  */
 class DebugModule extends GalleryModule {
+	public function __construct() {
+		global $gallery;
 
-    function __construct() {
-	$this->DebugModule();
-    }
-
-    function DebugModule() {
-	global $gallery;
-
-	$this->setId('debug');
-	$this->setName($gallery->i18n('Debugging'));
-	$this->setDescription($gallery->i18n('Debugging and Developer Tools'));
-	$this->setVersion('1.0.8');
-	$this->_templateVersion = 1;
-	$this->setGroup('gallery', $gallery->i18n('Gallery'));
-	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::getItemLinks
-     */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId=null) {
-	$links = array();
-
-	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($userId);
-	if ($ret) {
-	    return array($ret, null);
+		$this->setId('debug');
+		$this->setName($gallery->i18n('Debugging'));
+		$this->setDescription($gallery->i18n('Debugging and Developer Tools'));
+		$this->setVersion('1.0.8');
+		$this->_templateVersion = 1;
+		$this->setGroup('gallery', $gallery->i18n('Gallery'));
+		$this->setCallbacks('getItemLinks');
+		$this->setRequiredCoreApi(array(7, 27));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	if ($isAdmin) {
-	    foreach ($items as $item) {
-		$itemId = $item->getId();
-		if (isset($wantsDetailedLinks[$itemId])) {
-		    $links[$itemId][] =
-			array('text' => $this->translate('Show Debug Tree'),
-			      'params' => array('view' => 'debug.ShowTree',
-						'itemId' => $itemId));
+	/**
+	 * @see GalleryModule::getItemLinks
+	 */
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
+		$links = array();
+
+		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($userId);
+
+		if ($ret) {
+			return array($ret, null);
 		}
-	    }
-	}
 
-	return array(null, $links);
-    }
+		if ($isAdmin) {
+			foreach ($items as $item) {
+				$itemId = $item->getId();
+
+				if (isset($wantsDetailedLinks[$itemId])) {
+					$links[$itemId][] = array(
+						'text'   => $this->translate('Show Debug Tree'),
+						'params' => array(
+							'view'   => 'debug.ShowTree',
+							'itemId' => $itemId,
+						),
+					);
+				}
+			}
+		}
+
+		return array(null, $links);
+	}
 }
-?>

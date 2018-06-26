@@ -28,56 +28,54 @@
  * @static
  */
 class GalleryRemoteConstants {
+	/**
+	 * Return the current Major/Minor version codes
+	 * @return array (MAJ => ##, MIN => ##)
+	 */
+	public static function getVersionCodes() {
+		static $grVersionCodes;
 
-    /**
-     * Return the current Major/Minor version codes
-     * @return array (MAJ => ##, MIN => ##)
-     */
-    static function getVersionCodes() {
-	static $grVersionCodes;
+		if (empty($grVersionCodes)) {
+			$grVersionCodes['MAJ'] = 2;
+			$grVersionCodes['MIN'] = 14;
+		}
 
-	if (empty($grVersionCodes)) {
-	    $grVersionCodes['MAJ'] = 2;
-	    $grVersionCodes['MIN'] = 14;
+		return $grVersionCodes;
 	}
 
-	return $grVersionCodes;
-    }
+	/**
+	 * Return remote protocol status codes
+	 * @return array (SUCCESS => ##, PASSWORD_WRONG => ##, ...)
+	 */
+	public static function getStatusCodes() {
+		static $grStatusCodes;
 
-    /**
-     * Return remote protocol status codes
-     * @return array (SUCCESS => ##, PASSWORD_WRONG => ##, ...)
-     */
-    static function getStatusCodes() {
-	static $grStatusCodes;
+		if (empty($grStatusCodes)) {
+			$grStatusCodes['SUCCESS'] = 0;
 
-	if (empty($grStatusCodes)) {
-	    $grStatusCodes['SUCCESS']                           = 0;
+			$grStatusCodes['PROTOCOL_MAJOR_VERSION_INVALID']  = 101;
+			$grStatusCodes['PROTOCOL_MINOR_VERSION_INVALID']  = 102;
+			$grStatusCodes['PROTOCOL_VERSION_FORMAT_INVALID'] = 103;
+			$grStatusCodes['PROTOCOL_VERSION_MISSING']        = 104;
 
-	    $grStatusCodes['PROTOCOL_MAJOR_VERSION_INVALID']	= 101;
-	    $grStatusCodes['PROTOCOL_MINOR_VERSION_INVALID']	= 102;
-	    $grStatusCodes['PROTOCOL_VERSION_FORMAT_INVALID']   = 103;
-	    $grStatusCodes['PROTOCOL_VERSION_MISSING']		= 104;
+			$grStatusCodes['PASSWORD_WRONG'] = 201;
+			$grStatusCodes['LOGIN_MISSING']  = 202;
 
-	    $grStatusCodes['PASSWORD_WRONG']                    = 201;
-	    $grStatusCodes['LOGIN_MISSING']                     = 202;
+			$grStatusCodes['UNKNOWN_COMMAND']   = 301;
+			$grStatusCodes['MISSING_ARGUMENTS'] = 302;
 
-	    $grStatusCodes['UNKNOWN_COMMAND']		        = 301;
-	    $grStatusCodes['MISSING_ARGUMENTS']		        = 302;
+			$grStatusCodes['NO_ADD_PERMISSION']   = 401;
+			$grStatusCodes['NO_FILENAME']         = 402;
+			$grStatusCodes['UPLOAD_PHOTO_FAIL']   = 403;
+			$grStatusCodes['NO_WRITE_PERMISSION'] = 404;
+			$grStatusCodes['NO_VIEW PERMISSION']  = 405;
 
-	    $grStatusCodes['NO_ADD_PERMISSION']	                = 401;
-	    $grStatusCodes['NO_FILENAME']			= 402;
-	    $grStatusCodes['UPLOAD_PHOTO_FAIL']	                = 403;
-	    $grStatusCodes['NO_WRITE_PERMISSION']	        = 404;
-	    $grStatusCodes['NO_VIEW PERMISSION']	        = 405;
+			$grStatusCodes['NO_CREATE_ALBUM_PERMISSION'] = 501;
+			$grStatusCodes['CREATE_ALBUM_FAILED']        = 502;
+			$grStatusCodes['MOVE_ALBUM_FAILED']          = 503;
+			$grStatusCodes['ROTATE_IMAGE_FAILED']        = 504;
+		}
 
-	    $grStatusCodes['NO_CREATE_ALBUM_PERMISSION']	= 501;
-	    $grStatusCodes['CREATE_ALBUM_FAILED']		= 502;
-	    $grStatusCodes['MOVE_ALBUM_FAILED']	                = 503;
-	    $grStatusCodes['ROTATE_IMAGE_FAILED']               = 504;
+		return $grStatusCodes;
 	}
-
-	return $grStatusCodes;
-    }
 }
-?>

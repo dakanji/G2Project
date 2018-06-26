@@ -29,74 +29,86 @@ GalleryCoreApi::requireOnce('modules/exif/classes/ExifInterface_1_0.class');
  * @version $Revision: 17580 $
  */
 class ExifExtractor extends ExifInterface_1_0 {
+	/**
+	 * @see ExifInterface_1_0::getMetaData
+	 */
+	public static function getMetaData($itemIds, $properties = array()) {
+		global $gallery;
+		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
-    /**
-     * @see ExifInterface_1_0::getMetaData
-     */
-    static function getMetaData($itemIds, $properties=array()) {
-	global $gallery;
-	GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
-
-	if (!is_array($itemIds)) {
-	    $itemIds = array($itemIds);
-	}
-	if (!is_array($properties)) {
-	    $properties = array($properties);
-	}
-
-	$data = array();
-	foreach ($itemIds as $itemId) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    /* Only look at JPEG/raw DataItems.. */
-	    if (!GalleryUtilities::isA($item, 'GalleryDataItem') ||
-		    !preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())) {
-		continue;
-	    }
-	    list ($ret, $path) = $item->fetchPath();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $data[$itemId] = array();
-	    $rawExifData = read_exif_data_raw($path, false);
-	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
-	    list ($ret, $iptcObj) = ExifHelper::getIptcObject($path);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach (ExifHelper::getExifKeys() as $property => $keyData) {
-		if (!empty($properties) && !in_array($property, $properties)) {
-		    continue;
+		if (!is_array($itemIds)) {
+			$itemIds = array($itemIds);
 		}
-		for ($i = 1; $i < count($keyData); $i++) {
-		    $value = ExifHelper::getExifValue($rawExifData, explode('.', $keyData[$i]));
-		    if (!isset($value)) {
-			$value = ExifHelper::getIptcValue($iptcObj, explode('.', $keyData[$i]));
-		    }
-		    if (isset($value)) {
-			$value = ExifHelper::postProcessValue($property, $value);
-			$data[$itemId][$property] =
-			    array('title' => $keyData[0], 'value' => $value);
-			break;
-		    }
-		}
-	    }
-	}
-	//fdbg ('clear');
-	// Получение загловка из ADOBE XMP
-	$command = 'exiftool -g -json -struct -xmp:all "'.$path.'"';
-	exec($command, $output, $return_var);
-	$metadata = implode('', $output);
-	$metadata = json_decode($metadata);
-	$title = $metadata[0]->{'XMP'}->{'Title'};
-	//fdbg ($title);
 
-	//fdbg ('clear');
-	//fdbg ($data[$itemId]['IPTC/ObjectName']['value']);
-	$data[$itemId]['IPTC/ObjectName']['value'] = $title;
-	return array(null, $data);
-    }
+		if (!is_array($properties)) {
+			$properties = array($properties);
+		}
+
+		$data = array();
+
+		foreach ($itemIds as $itemId) {
+			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			// Only look at JPEG/raw DataItems..
+			if (!GalleryUtilities::isA($item, 'GalleryDataItem')
+				|| !preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())
+			) {
+				continue;
+			}
+			list($ret, $path) = $item->fetchPath();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$data[$itemId] = array();
+			$rawExifData   = read_exif_data_raw($path, false);
+			GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+			list($ret, $iptcObj) = ExifHelper::getIptcObject($path);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach (ExifHelper::getExifKeys() as $property => $keyData) {
+				if (!empty($properties) && !in_array($property, $properties)) {
+					continue;
+				}
+
+				for ($i = 1; $i < count($keyData); $i++) {
+					$value = ExifHelper::getExifValue($rawExifData, explode('.', $keyData[$i]));
+
+					if (!isset($value)) {
+						$value = ExifHelper::getIptcValue($iptcObj, explode('.', $keyData[$i]));
+					}
+
+					if (isset($value)) {
+						$value                    = ExifHelper::postProcessValue($property, $value);
+						$data[$itemId][$property] = array(
+							'title' => $keyData[0],
+							'value' => $value,
+						);
+
+						break;
+					}
+				}
+			}
+		}
+		//fdbg ('clear');
+		// Получение загловка из ADOBE XMP
+		$command = 'exiftool -g -json -struct -xmp:all "' . $path . '"';
+		exec($command, $output, $return_var);
+		$metadata = implode('', $output);
+		$metadata = json_decode($metadata);
+		$title    = $metadata[0]->{'XMP'}->{'Title'};
+		//fdbg ($title);
+
+		//fdbg ('clear');
+		//fdbg ($data[$itemId]['IPTC/ObjectName']['value']);
+		$data[$itemId]['IPTC/ObjectName']['value'] = $title;
+
+		return array(null, $data);
+	}
 }
-?>

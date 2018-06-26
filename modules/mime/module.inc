@@ -28,65 +28,77 @@
  * @version $Revision: 18172 $
  */
 class MimeModule extends GalleryModule {
-
-    function __construct() {
-	$this->MimeModule();
-    }
-
-    function MimeModule() {
-	global $gallery;
-	$this->setId('mime');
-	$this->setName($gallery->i18n('MIME Maintenance'));
-	$this->setDescription($gallery->i18n('Maintain MIME types and file extensions'));
-	$this->setVersion('1.1.5');
-	$this->_templateVersion = 1;
-	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('MIME Types'),
-				 'view' => 'mime.MimeAdmin')));
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddOption', 'RestrictMimeOption', 'RestrictMimeOption',
-	    'modules/mime/RestrictMimeOption.inc', 'mime', null);
-	if ($ret) {
-	    return $ret;
+	public function __construct() {
+		global $gallery;
+		$this->setId('mime');
+		$this->setName($gallery->i18n('MIME Maintenance'));
+		$this->setDescription($gallery->i18n('Maintain MIME types and file extensions'));
+		$this->setVersion('1.1.5');
+		$this->_templateVersion = 1;
+		$this->setGroup('data', $gallery->i18n('Extra Data'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion, $x1=null) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('MIME Types'),
+					'view' => 'mime.MimeAdmin',
+				),
+			),
+		);
 	}
-	foreach (array('allowMime' => 'all', 'mimeList' => '') as $key => $value) {
-	    if (!isset($params[$key])) {
-		$ret = $this->setParameter($key, $value);
+
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'ItemAddOption',
+			'RestrictMimeOption',
+			'RestrictMimeOption',
+			'modules/mime/RestrictMimeOption.inc',
+			'mime',
+			null
+		);
+
 		if ($ret) {
-		    return $ret;
+			return $ret;
 		}
-	    }
+
+		return null;
 	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryModule::upgrade
+	 */
+	public function upgrade($currentVersion, $x1 = null) {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array(
+			'allowMime' => 'all',
+			'mimeList'  => '',
+		) as $key => $value) {
+			if (!isset($params[$key])) {
+				$ret = $this->setParameter($key, $value);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		return null;
+	}
 }
-?>

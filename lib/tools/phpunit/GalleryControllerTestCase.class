@@ -26,64 +26,74 @@
  * @version $Revision: 17590 $
  */
 class GalleryControllerTestCase extends GalleryTestCase {
+	/**
+	 * The controller instance
+	 * @access protected
+	 */
+	public $_controller;
 
-    /**
-     * The controller instance
-     * @access protected
-     */
-    var $_controller;
+	public function __construct($methodName, $controllerName) {
+		parent::__construct($methodName);
 
-    function GalleryControllerTestCase($methodName, $controllerName) {
-	$this->GalleryTestCase($methodName);
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+		list($ret, $this->_controller) = GalleryController::loadController($controllerName);
 
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-	list ($ret, $this->_controller) = GalleryController::loadController($controllerName);
-	if ($ret) {
-	    $this->fail($ret->getAsHtml());
-	}
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-	global $gallery;
-
-	$gallery->_session->put('session.siteAdminActivityTimestamp', time());
-    }
-
-    function handleRequest($errorCode=null) {
-	/* Get our form variables */
-	$form = GalleryUtilities::getFormVariables('form');
-
-	list ($ret, $results) = $this->_controller->handleRequest($form);
-	if (isset($errorCode)) {
-	    if ($ret) {
-		if (($ret->getErrorCode() & $errorCode) != $errorCode) {
-		    $this->fail(
-			    sprintf('Expected error code (%s) but received (%s)',
-				implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-				implode(' | ', GalleryStatus::getErrorCodeConstants(
-									  $ret->getErrorCode()))));
+		if ($ret) {
+			$this->fail($ret->getAsHtml());
 		}
-	    } else {
-		$this->fail(sprintf('Expected error code (%s) but test was successful',
-				implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode))));
-	    }
-	} else if ($ret) {
-	    $this->fail($ret->getAsHtml());
-	    return array();
-	} else {
-	    /* Check to make sure we got back everything we want */
-	    $this->assert(isset($results['status']), 'controller results missing status');
-	    $this->assert(isset($results['error']), 'controller results missing error');
-	    $this->assert(isset($results['redirect']) || isset($results['delegate']) ||
-			      isset($results['return']),
-			  'controller results needs one of (redirect, delegate)');
 	}
 
-	return $results;
-    }
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+		global $gallery;
+
+		$gallery->_session->put('session.siteAdminActivityTimestamp', time());
+	}
+
+	public function handleRequest($errorCode = null) {
+		// Get our form variables
+		$form = GalleryUtilities::getFormVariables('form');
+
+		list($ret, $results) = $this->_controller->handleRequest($form);
+
+		if (isset($errorCode)) {
+			if ($ret) {
+				if (($ret->getErrorCode() & $errorCode) != $errorCode) {
+					$this->fail(
+						sprintf(
+							'Expected error code (%s) but received (%s)',
+							implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
+							implode(' | ', GalleryStatus::getErrorCodeConstants(
+								$ret->getErrorCode()
+							))
+						)
+					);
+				}
+			} else {
+				$this->fail(sprintf(
+					'Expected error code (%s) but test was successful',
+					implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode))
+				));
+			}
+		} elseif ($ret) {
+			$this->fail($ret->getAsHtml());
+
+			return array();
+		} else {
+			// Check to make sure we got back everything we want
+			$this->assert(isset($results['status']), 'controller results missing status');
+			$this->assert(isset($results['error']), 'controller results missing error');
+			$this->assert(
+				isset($results['redirect']) || isset($results['delegate']) ||
+				  isset($results['return']),
+				'controller results needs one of (redirect, delegate)'
+			);
+		}
+
+		return $results;
+	}
 }
-?>

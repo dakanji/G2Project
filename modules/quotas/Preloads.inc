@@ -24,16 +24,16 @@
  * @version $Revision: 17580 $
  */
 class QuotasPreloads {
-    function preload(&$template, $preload, $paramSet) {
-	static $loaded;
+	public function preload(&$template, $preload, $paramSet) {
+		static $loaded;
 
-	if (!empty($loaded[$preload])) {
-	    return null;
+		if (!empty($loaded[$preload])) {
+			return null;
+		}
+
+		$loaded[$preload] = 1;
+		$template->style('modules/quotas/quotas.css');
+
+		return null;
 	}
-
-	$loaded[$preload] = 1;
-	$template->style('modules/quotas/quotas.css');
-	return null;
-    }
 }
-?>

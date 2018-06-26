@@ -28,48 +28,52 @@ GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.clas
  * @version $Revision: 17580 $
  */
 class RedirectController extends GalleryController {
-    /**
-     * @see GalleryController::omitAuthTokenCheck
-     */
-    function omitAuthTokenCheck() {
-	return true;
-    }
-
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest(&$form) {
-	$alias = GalleryUtilities::getRequestVariables('filename');
-	if (empty($alias)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	/**
+	 * @see GalleryController::omitAuthTokenCheck
+	 */
+	public function omitAuthTokenCheck() {
+		return true;
 	}
 
-	list ($ret, $itemId) = PermalinksMapHelper::fetchItemIdForAlias($alias);
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest(&$form) {
+		$alias = GalleryUtilities::getRequestVariables('filename');
+
+		if (empty($alias)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
+
+		list($ret, $itemId) = PermalinksMapHelper::fetchItemIdForAlias($alias);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Avoid information disclosure, act as if the item didn't exist.
+		if (isset($itemId)) {
+			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		if (empty($itemId) || !$hasPermission) {
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		}
+
+		// Delegate to the ShowItem view
+		GalleryUtilities::putRequestVariable('itemId', $itemId);
+		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
+
+		$results = array(
+			'delegate' => array('view' => 'core.ShowItem'),
+			'status'   => array(),
+			'error'    => array(),
+		);
+
+		return array(null, $results);
 	}
-
-	/* Avoid information disclosure, act as if the item didn't exist. */
-	if (isset($itemId)) {
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	if (empty($itemId) || !$hasPermission) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
-
-	/* Delegate to the ShowItem view */
-	GalleryUtilities::putRequestVariable('itemId', $itemId);
-	GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
-
-	$results = array('delegate' => array('view' => 'core.ShowItem'),
-			 'status' => array(),
-			 'error' => array());
-
-	return array(null, $results);
-    }
 }
-?>

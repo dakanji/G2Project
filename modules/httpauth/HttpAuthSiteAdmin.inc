@@ -28,122 +28,162 @@ GalleryCoreApi::requireOnce('modules/httpauth/classes/HttpAuthHelper.class');
  * @version $Revision: 17580 $
  */
 class HttpAuthSiteAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$error = $status = array();
-	if (isset($form['action']['save'])) {
-	    ob_start();
-	    if (preg_match($form['authtypePattern'], '') === false) {
-		$error[] = 'form[error][authtype][regex][invalid]';
-	    }
-	    $status['authtypeRegexMessage'] = ob_get_contents();
-	    ob_clean();
-
-	    ob_start();
-	    if (preg_match($form['usernamePattern'], '') === false) {
-		$error[] = 'form[error][username][regex][invalid]';
-	    }
-	    $status['usernameRegexMessage'] = ob_get_contents();
-	    ob_clean();
-
-	    if (!empty($error)) {
-		return array(null, array('delegate' => array('view' => 'core.SiteAdmin',
-			'subView' => 'httpauth.HttpAuthSiteAdmin'),
-		    'error' => $error,
-		    'status' => $status));
-	    }
-
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    foreach (array('httpAuthPlugin', 'useGlobally', 'serverAuthPlugin', 'regexAuthPlugin',
-		    'authtypePattern', 'usernamePattern', 'usernameReplace', 'authName') as $key) {
-		if (isset($form[$key])) {
-		    $ret = $module->setParameter($key, $form[$key]);
-		    if ($ret) {
+		if ($ret) {
 			return array($ret, null);
-		    }
-		} else {
-		    $ret = $module->removeParameter($key);
-		    if ($ret) {
-			return array($ret, null);
-		    }
 		}
-	    }
 
-	    $ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId('httpauth');
-	    if ($ret) {
-		return array($ret, null);
-	    }
+		$error = $status = array();
 
-	    $ret = $module->performFactoryRegistrations();
-	    if ($ret) {
-		return array($ret, null);
-	    }
+		if (isset($form['action']['save'])) {
+			ob_start();
 
-	    $status['saved'] = true;
+			if (preg_match($form['authtypePattern'], '') === false) {
+				$error[] = 'form[error][authtype][regex][invalid]';
+			}
+			$status['authtypeRegexMessage'] = ob_get_contents();
+			ob_clean();
+
+			ob_start();
+
+			if (preg_match($form['usernamePattern'], '') === false) {
+				$error[] = 'form[error][username][regex][invalid]';
+			}
+			$status['usernameRegexMessage'] = ob_get_contents();
+			ob_clean();
+
+			if (!empty($error)) {
+				return array(
+					null,
+					array(
+						'delegate' => array(
+							'view'    => 'core.SiteAdmin',
+							'subView' => 'httpauth.HttpAuthSiteAdmin',
+						),
+						'error'    => $error,
+						'status'   => $status,
+					),
+				);
+			}
+
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach (array(
+				'httpAuthPlugin',
+				'useGlobally',
+				'serverAuthPlugin',
+				'regexAuthPlugin',
+				'authtypePattern',
+				'usernamePattern',
+				'usernameReplace',
+				'authName',
+			) as $key) {
+				if (isset($form[$key])) {
+					$ret = $module->setParameter($key, $form[$key]);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				} else {
+					$ret = $module->removeParameter($key);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+			}
+
+			$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId('httpauth');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$ret = $module->performFactoryRegistrations();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$status['saved'] = true;
+		}
+
+		return array(
+			null,
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'httpauth.HttpAuthSiteAdmin',
+				),
+				'error'    => $error,
+				'status'   => $status,
+			),
+		);
 	}
-
-	return array(null, array('redirect' => array('view' => 'core.SiteAdmin',
-						     'subView' => 'httpauth.HttpAuthSiteAdmin'),
-				 'error' => $error,
-				 'status' => $status));
-    }
 }
 
 /**
  * Show configuration warnings and settings to site admins.
  */
 class HttpAuthSiteAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$HttpAuthSiteAdmin = array();
-
-	list ($ret, $HttpAuthSiteAdmin['code']) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Load our default values if we didn't just come from this form */
-	if ($form['formName'] != 'HttpAuthSiteAdmin') {
-	    $form['formName'] = 'HttpAuthSiteAdmin';
-	    foreach (array('httpAuthPlugin', 'useGlobally', 'serverAuthPlugin', 'regexAuthPlugin',
-		    'authtypePattern', 'usernamePattern', 'usernameReplace', 'authName') as $key) {
-		if (!empty($params[$key])) {
-		    $form[$key] = $params[$key];
+		if ($ret) {
+			return array($ret, null);
 		}
-	    }
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$HttpAuthSiteAdmin = array();
+
+		list($ret, $HttpAuthSiteAdmin['code']) = HttpAuthHelper::checkConfiguration();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Load our default values if we didn't just come from this form
+		if ($form['formName'] != 'HttpAuthSiteAdmin') {
+			$form['formName'] = 'HttpAuthSiteAdmin';
+
+			foreach (array(
+				'httpAuthPlugin',
+				'useGlobally',
+				'serverAuthPlugin',
+				'regexAuthPlugin',
+				'authtypePattern',
+				'usernamePattern',
+				'usernameReplace',
+				'authName',
+			) as $key) {
+				if (!empty($params[$key])) {
+					$form[$key] = $params[$key];
+				}
+			}
+		}
+
+		// Render HTML body
+		$template->setVariable('HttpAuthSiteAdmin', $HttpAuthSiteAdmin);
+		$template->setVariable('controller', 'httpauth.HttpAuthSiteAdmin');
+		$template->javascript('lib/javascript/BlockToggle.js');
+
+		return array(null, array('body' => 'modules/httpauth/templates/HttpAuthSiteAdmin.tpl'));
 	}
-
-	/* Render HTML body */
-	$template->setVariable('HttpAuthSiteAdmin', $HttpAuthSiteAdmin);
-	$template->setVariable('controller', 'httpauth.HttpAuthSiteAdmin');
-	$template->javascript('lib/javascript/BlockToggle.js');
-
-	return array(null, array('body' => 'modules/httpauth/templates/HttpAuthSiteAdmin.tpl'));
-    }
 }
-?>

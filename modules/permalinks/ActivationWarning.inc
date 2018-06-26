@@ -26,18 +26,18 @@
  * @version $Revision: 17580 $
  */
 class ActivationWarningView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$template->setVariable('controller', 'permalinks.PermalinksSiteAdmin');
+
+		return array(null, array('body' => 'modules/permalinks/templates/ActivationWarning.tpl'));
 	}
-
-	$template->setVariable('controller', 'permalinks.PermalinksSiteAdmin');
-	return array(null, array('body' => 'modules/permalinks/templates/ActivationWarning.tpl'));
-     }
 }
-?>

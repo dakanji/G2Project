@@ -28,130 +28,156 @@ GalleryCoreApi::requireOnce('modules/imageframe/classes/ImageFrameInterface_1_1.
  * @version $Revision: 17580 $
  */
 class ImageFrameImpl extends ImageFrameInterface_1_1 {
-    /**
-     * @see ImageFrameInterface_1_1::getImageFrameList
-     */
-    function getImageFrameList() {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	/*
-	 * Load the plugin even if it's deactivated since we only need it for translation, and
-	 * it's possible that this is getting called during the core upgrade, when we won't be
-	 * able to properly deal with deactivated plugins.
+	/**
+	 * @see ImageFrameInterface_1_1::getImageFrameList
 	 */
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe', true);
-	if ($ret) {
-	    return array($ret, null);
-	}
+	public function getImageFrameList() {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-	$frames = array('solid' => $module->translate('Solid'));
-	$dir = dirname(__FILE__) . '/../frames';
-	if ($platform->is_dir($dir) && $platform->is_readable($dir)
-		&& $fd = $platform->opendir($dir)) {
-	    while ($file = $platform->readdir($fd)) {
-		$subdir = "$dir/$file";
-		$frameinc = "$subdir/frame.inc";
-		if ($platform->is_dir($subdir) && $platform->file_exists($frameinc)) {
-		    require($frameinc);
-		    $frames[$file] = $module->translate($frameData['name']);
+		/*
+		 * Load the plugin even if it's deactivated since we only need it for translation, and
+		 * it's possible that this is getting called during the core upgrade, when we won't be
+		 * able to properly deal with deactivated plugins.
+		 */
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe', true);
+
+		if ($ret) {
+			return array($ret, null);
 		}
-	    }
-	    $platform->closedir($fd);
-	}
-	asort($frames);
 
-	return array(null,
-		     array_merge(array('none' => $module->translate('None')), $frames));
-    }
+		$frames = array('solid' => $module->translate('Solid'));
+		$dir    = dirname(__FILE__) . '/../frames';
 
-    /**
-     * @see ImageFrameInterface_1_1::init
-     */
-    function init(&$template, $frameIds) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	static $simpleFrames;
-	if (!$template->hasVariable('ImageFrameData')) {
-	    $simpleFrames = array(
-		'none' => array('type' => 'style', 'style' => 'border-style: none'),
-		'solid' => array('type' => 'style',
-				 'style' => 'border: 1px solid black !important'));
-	    $templateAdapter =& $gallery->getTemplateAdapter();
-	    $template->setVariable('ImageFrameData', array('idList' => '', 'data' => array()));
-	}
-	$template->head('modules/imageframe/templates/ImageFrameHead.tpl');
-	$data =& $template->getVariableByReference('ImageFrameData');
+		if ($platform->is_dir($dir) && $platform->is_readable($dir)
+			&& $fd = $platform->opendir($dir)
+		) {
+			while ($file = $platform->readdir($fd)) {
+				$subdir   = "$dir/$file";
+				$frameinc = "$subdir/frame.inc";
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-	if ($ret) {
-	    return $ret;
-	}
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$baseUrl = $urlGenerator->generateUrl(array('href' => 'modules/imageframe/frames'));
-	if (!is_array($frameIds)) {
-	    $frameIds = array($frameIds);
-	}
-
-	foreach ($frameIds as $frameId) {
-	    if (isset($data['data'][$frameId])) {
-		continue;
-	    }
-	    if (isset($simpleFrames[$frameId])) {
-		$data['data'][$frameId] = $simpleFrames[$frameId];
-	    } else {
-		$dir = dirname(__FILE__) . "/../frames/$frameId";
-		$frameinc = "$dir/frame.inc";
-		if ($platform->is_dir($dir) && $platform->file_exists($frameinc)) {
-		    require($frameinc);
-		    $frame = array('type' => isset($frameData['style']) ? 'style' : 'image');
-		    foreach ($frameData as $key => $value) {
-			if ($key == 'name' || $key == 'description') {
-			    $frame[$key] = $module->translate($value);
-			} else if (!strncmp($key, 'image', 5) && $value) {
-			    $frame[$key] = "$baseUrl/$frameId/" . $value;
-			} else {
-			    $frame[$key] = $value;
+				if ($platform->is_dir($subdir) && $platform->file_exists($frameinc)) {
+					include $frameinc;
+					$frames[$file] = $module->translate($frameData['name']);
+				}
 			}
-		    }
-		    if ($frame['type'] == 'image') {
-			$frame['wHL'] = max($frameData['widthTTL'], $frameData['widthBBL']);
-			$frame['wHR'] = max($frameData['widthTTR'], $frameData['widthBBR']);
-			$frame['hVT'] = max($frameData['heightLLT'], $frameData['heightRRT']);
-			$frame['hVB'] = max($frameData['heightLLB'], $frameData['heightRRB']);
-			$frame['rowspan'] = 1 + ($frame['hVT']>0?1:0) + ($frame['hVB']>0?1:0);
-			$frame['colspan'] = 1 + ($frame['wHL']>0?1:0) + ($frame['wHR']>0?1:0);
-		    }
-		    $data['data'][$frameId] = $frame;
+			$platform->closedir($fd);
 		}
-	    }
+		asort($frames);
+
+		return array(
+			null,
+			array_merge(array('none' => $module->translate('None')), $frames),
+		);
 	}
-	$data['idList'] = implode('|', array_keys($data['data']));
 
-	return null;
-    }
+	/**
+	 * @see ImageFrameInterface_1_1::init
+	 */
+	public function init(&$template, $frameIds) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+		static $simpleFrames;
 
-    /**
-     * Smarty callback to render an ImageFrame
-     */
-    function renderImageFrame($params, $content, &$smarty) {
-	$smarty->_smarty_include(array(
-	    'smarty_include_tpl_file' => 'gallery:modules/imageframe/templates/ImageFrame.tpl',
-	    'smarty_include_vars' => array('frame' => $params['frame'],
-					   'content' => trim($content))));
-    }
+		if (!$template->hasVariable('ImageFrameData')) {
+			$simpleFrames    = array(
+				'none'  => array(
+					'type'  => 'style',
+					'style' => 'border-style: none',
+				),
+				'solid' => array(
+					'type'  => 'style',
+					'style' => 'border: 1px solid black !important',
+				),
+			);
+			$templateAdapter =& $gallery->getTemplateAdapter();
+			$template->setVariable('ImageFrameData', array(
+				'idList' => '',
+				'data'   => array(),
+			));
+		}
+		$template->head('modules/imageframe/templates/ImageFrameHead.tpl');
+		$data =& $template->getVariableByReference('ImageFrameData');
 
-    /**
-     * @see ImageFrameInterface_1_1::getSampleUrl
-     */
-    function getSampleUrl($itemId=null) {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$params = array('view' => 'imageframe.Sample');
-	if (isset($itemId)) {
-	    $params['itemId'] = $itemId;
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
+
+		if ($ret) {
+			return $ret;
+		}
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$baseUrl      = $urlGenerator->generateUrl(array('href' => 'modules/imageframe/frames'));
+
+		if (!is_array($frameIds)) {
+			$frameIds = array($frameIds);
+		}
+
+		foreach ($frameIds as $frameId) {
+			if (isset($data['data'][$frameId])) {
+				continue;
+			}
+
+			if (isset($simpleFrames[$frameId])) {
+				$data['data'][$frameId] = $simpleFrames[$frameId];
+			} else {
+				$dir      = dirname(__FILE__) . "/../frames/$frameId";
+				$frameinc = "$dir/frame.inc";
+
+				if ($platform->is_dir($dir) && $platform->file_exists($frameinc)) {
+					include $frameinc;
+					$frame = array('type' => isset($frameData['style']) ? 'style' : 'image');
+
+					foreach ($frameData as $key => $value) {
+						if ($key == 'name' || $key == 'description') {
+							$frame[$key] = $module->translate($value);
+						} elseif (!strncmp($key, 'image', 5) && $value) {
+							$frame[$key] = "$baseUrl/$frameId/" . $value;
+						} else {
+							$frame[$key] = $value;
+						}
+					}
+
+					if ($frame['type'] == 'image') {
+						$frame['wHL']     = max($frameData['widthTTL'], $frameData['widthBBL']);
+						$frame['wHR']     = max($frameData['widthTTR'], $frameData['widthBBR']);
+						$frame['hVT']     = max($frameData['heightLLT'], $frameData['heightRRT']);
+						$frame['hVB']     = max($frameData['heightLLB'], $frameData['heightRRB']);
+						$frame['rowspan'] = 1 + ($frame['hVT'] > 0 ? 1 : 0) + ($frame['hVB'] > 0 ? 1 : 0);
+						$frame['colspan'] = 1 + ($frame['wHL'] > 0 ? 1 : 0) + ($frame['wHR'] > 0 ? 1 : 0);
+					}
+					$data['data'][$frameId] = $frame;
+				}
+			}
+		}
+		$data['idList'] = implode('|', array_keys($data['data']));
+
+		return null;
 	}
-	return array(null, $urlGenerator->generateUrl($params));
-    }
+
+	/**
+	 * Smarty callback to render an ImageFrame
+	 */
+	public function renderImageFrame($params, $content, &$smarty) {
+		$smarty->_smarty_include(array(
+			'smarty_include_tpl_file' => 'gallery:modules/imageframe/templates/ImageFrame.tpl',
+			'smarty_include_vars'     => array(
+				'frame'   => $params['frame'],
+				'content' => trim($content),
+			),
+		));
+	}
+
+	/**
+	 * @see ImageFrameInterface_1_1::getSampleUrl
+	 */
+	public function getSampleUrl($itemId = null) {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$params       = array('view' => 'imageframe.Sample');
+
+		if (isset($itemId)) {
+			$params['itemId'] = $itemId;
+		}
+
+		return array(null, $urlGenerator->generateUrl($params));
+	}
 }
-?>

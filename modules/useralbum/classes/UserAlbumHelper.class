@@ -27,144 +27,190 @@
  * @static
  */
 class UserAlbumHelper {
+	/**
+	 * Create a new user album
+	 *
+	 * @param GalleryUser $user new user
+	 * @return GalleryStatus a status code
+	 */
+	public static function createUserAlbum($user) {
+		global $gallery;
 
-    /**
-     * Create a new user album
-     *
-     * @param GalleryUser $user new user
-     * @return GalleryStatus a status code
-     */
-    static function createUserAlbum($user) {
-	global $gallery;
+		list($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
-	list ($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $module) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Create album.. */
-	$albumTitle = trim($user->getFullName());
-	if (empty($albumTitle)) {
-	    $albumTitle = $user->getUserName();
-	}
-	$albumName = $user->getUserName();
-	while (true) {
-	    list ($ret, $album) = GalleryCoreApi::createAlbum(
-		$module['targetLocation'], $albumName, $albumTitle, '', '', '');
-	    if (!$ret) {
-		break;
-	    }
-	    if ($ret->getErrorCode() & ERROR_COLLISION) {
-		$albumName .= '_';
-	    } else {
-		return $ret;
-	    }
-	}
-
-	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Set owner.. */
-	$album->setOwnerId($user->getId());
-	$ret = $album->save();
-	if ($ret) {
-	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
-	}
-	$albumId = $album->getId();
-
-	/* Set permissions.. */
-
-	/* If the active user isn't the album owner, the default permissions should be removed */
-	$currentUserId = $gallery->getActiveUserId();
-	if ($currentUserId != $user->getId()) {
-	    $ret = GalleryCoreApi::removeUserPermission($albumId, $currentUserId, 'core.all');
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
-	    }
-	}
-
-	/* Make sure the album owner has core.all permissions */
-	$ret = GalleryCoreApi::addUserPermission($albumId, $user->getId(), 'core.all');
-	if ($ret) {
-	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
-	}
-
-	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($albumId, true);
-	if ($ret) {
-	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
-	}
-	$visited = array();
-	foreach ($permissions as $permission) {
-	    /* don't bother for administrator group */
-	    if (empty($permission['groupId']) || $permission['groupId'] != $core['id.adminGroup']) {
-		/* remove all view permissions at once */
-		if (strstr($permission['permission'], 'core.view') ||
-		    ($permission['permission'] == 'core.all')) {
-		    if (!empty($permission['groupId']) && empty($visited[$permission['groupId']])) {
-			$ret = GalleryCoreApi::removeGroupPermission($albumId,
-			    $permission['groupId'], 'core.viewAll');
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($lockId);
-			    return $ret;
-			}
-			$visited[$permission['groupId']] = 1;
-		    } else if (!empty($permission['userId'])
-			    && empty($visited[$permission['userId']])) {
-			$ret = GalleryCoreApi::removeUserPermission($albumId,
-			    $permission['userId'], 'core.viewAll');
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($lockId);
-			    return $ret;
-			}
-			$visited[$permission['userId']] = 1;
-		    }
-		}
-	    }
-	}
-
-	$viewPermissions = $module['fullSize'] ? array('core.viewAll')
-					       : array('core.view', 'core.viewResizes');
-	switch ($module['view']) {
-	case 'everybody':
-	    $groupId = $core['id.everybodyGroup'];
-	    break;
-	case 'allusers':
-	    $groupId = $core['id.allUserGroup'];
-	    break;
-	}
-	if (isset($groupId)) {
-	    foreach ($viewPermissions as $permission) {
-		$ret = GalleryCoreApi::addGroupPermission($albumId, $groupId, $permission);
 		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return $ret;
+			return $ret;
 		}
-	    }
-	}
+		list($ret, $module) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
 
-	$ret = GalleryCoreApi::releaseLocks($lockId);
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Record id of album */
-	$ret = GalleryCoreApi::setPluginParameter(
-			       'module', 'useralbum', 'albumId', $albumId, $user->getId());
-	if ($ret) {
-	    return $ret;
-	}
+		// Create album..
+		$albumTitle = trim($user->getFullName());
 
-	return null;
-    }
+		if (empty($albumTitle)) {
+			$albumTitle = $user->getUserName();
+		}
+		$albumName = $user->getUserName();
+
+		while (true) {
+			list($ret, $album) = GalleryCoreApi::createAlbum(
+				$module['targetLocation'],
+				$albumName,
+				$albumTitle,
+				'',
+				'',
+				''
+			);
+
+			if (!$ret) {
+				break;
+			}
+
+			if ($ret->getErrorCode() & ERROR_COLLISION) {
+				$albumName .= '_';
+			} else {
+				return $ret;
+			}
+		}
+
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Set owner..
+		$album->setOwnerId($user->getId());
+		$ret = $album->save();
+
+		if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
+
+			return $ret;
+		}
+		$albumId = $album->getId();
+
+		// Set permissions..
+
+		// If the active user isn't the album owner, the default permissions should be removed
+		$currentUserId = $gallery->getActiveUserId();
+
+		if ($currentUserId != $user->getId()) {
+			$ret = GalleryCoreApi::removeUserPermission($albumId, $currentUserId, 'core.all');
+
+			if ($ret) {
+				GalleryCoreApi::releaseLocks($lockId);
+
+				return $ret;
+			}
+		}
+
+		// Make sure the album owner has core.all permissions
+		$ret = GalleryCoreApi::addUserPermission($albumId, $user->getId(), 'core.all');
+
+		if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
+
+			return $ret;
+		}
+
+		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($albumId, true);
+
+		if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
+
+			return $ret;
+		}
+		$visited = array();
+
+		foreach ($permissions as $permission) {
+			// don't bother for administrator group
+			if (empty($permission['groupId']) || $permission['groupId'] != $core['id.adminGroup']) {
+				// remove all view permissions at once
+				if (strstr($permission['permission'], 'core.view')
+					|| ($permission['permission'] == 'core.all')
+				) {
+					if (!empty($permission['groupId']) && empty($visited[$permission['groupId']])) {
+						$ret = GalleryCoreApi::removeGroupPermission(
+							$albumId,
+							$permission['groupId'],
+							'core.viewAll'
+						);
+
+						if ($ret) {
+							GalleryCoreApi::releaseLocks($lockId);
+
+							return $ret;
+						}
+						$visited[$permission['groupId']] = 1;
+					} elseif (!empty($permission['userId'])
+						&& empty($visited[$permission['userId']])
+					) {
+						$ret = GalleryCoreApi::removeUserPermission(
+							$albumId,
+							$permission['userId'],
+							'core.viewAll'
+						);
+
+						if ($ret) {
+							GalleryCoreApi::releaseLocks($lockId);
+
+							return $ret;
+						}
+						$visited[$permission['userId']] = 1;
+					}
+				}
+			}
+		}
+
+		$viewPermissions = $module['fullSize'] ? array('core.viewAll') : array('core.view', 'core.viewResizes');
+
+		switch ($module['view']) {
+			case 'everybody':
+				$groupId = $core['id.everybodyGroup'];
+
+				break;
+
+			case 'allusers':
+				$groupId = $core['id.allUserGroup'];
+
+				break;
+		}
+
+		if (isset($groupId)) {
+			foreach ($viewPermissions as $permission) {
+				$ret = GalleryCoreApi::addGroupPermission($albumId, $groupId, $permission);
+
+				if ($ret) {
+					GalleryCoreApi::releaseLocks($lockId);
+
+					return $ret;
+				}
+			}
+		}
+
+		$ret = GalleryCoreApi::releaseLocks($lockId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Record id of album
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'useralbum',
+			'albumId',
+			$albumId,
+			$user->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
+	}
 }
-?>

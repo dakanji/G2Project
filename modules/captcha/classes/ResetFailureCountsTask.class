@@ -28,44 +28,48 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  * @version $Revision: 17580 $
  */
 class ResetFailureCountsTask extends MaintenanceTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-	$info['l10Domain'] = 'modules_captcha';
-	$info['title'] = $gallery->i18n('Reset captcha failure counts');
-	$info['description'] = $gallery->i18n(
-	    'Captcha records failure counts in the database when configured for medium' .
-	    ' security level.  Run this task to clear all counters.');
-	return $info;
-    }
+		$info['l10Domain']   = 'modules_captcha';
+		$info['title']       = $gallery->i18n('Reset captcha failure counts');
+		$info['description'] = $gallery->i18n(
+			'Captcha records failure counts in the database when configured for medium' .
+			' security level.  Run this task to clear all counters.'
+		);
 
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'captcha');
-	if ($ret) {
-	    return array($ret, null, null);
+		return $info;
 	}
 
-	foreach ($params as $key => $value) {
-	    if (substr($key, 0, 10) == 'failCount-') {
-		$ret = GalleryCoreApi::removePluginParameter('module', 'captcha', $key);
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'captcha');
+
 		if ($ret) {
-		    return array($ret, null, null);
+			return array($ret, null, null);
 		}
-	    }
-	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'captcha');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
+		foreach ($params as $key => $value) {
+			if (substr($key, 0, 10) == 'failCount-') {
+				$ret = GalleryCoreApi::removePluginParameter('module', 'captcha', $key);
 
-	return array(null, true, array($module->translate('Successfully reset failure counts')));
-    }
+				if ($ret) {
+					return array($ret, null, null);
+				}
+			}
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'captcha');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		return array(null, true, array($module->translate('Successfully reset failure counts')));
+	}
 }
-?>

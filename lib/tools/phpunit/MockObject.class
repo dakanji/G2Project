@@ -36,79 +36,95 @@
  * @version $Revision: 17580 $
  */
 class MockObject {
-    function MockObject() {
-	$this->_className = get_class($this);
-	$_GET[$this->_className] = array('replies' => array(), 'errorCount' => 0);
-    }
-
-    function setReply($function, $inputs, $outputs, $optional=false) {
-	$_GET[$this->_className]['replies'][] =
-	    array($function, $inputs, $outputs, $optional);
-    }
-
-    function isComplete() {
-	foreach ($_GET[$this->_className]['replies'] as $reply) {
-	    if (!$reply[3]) { /* ignore optional replies */
-		$incomplete = true;
-		break;
-	    }
-	}
-	return empty($incomplete) && !$_GET[$this->_className]['errorCount'];
-    }
-
-    function getRemaining() {
-	return 'Error count: ' . $_GET[$this->_className]['errorCount']
-	    . "\nRemaining requests: " .
-	    print_r($_GET[$this->_className]['replies'], true);
-    }
-
-    function _makeReply($function, $request) {
-	while ($expected = array_shift($_GET[$this->_className]['replies'])) {
-	    if ($expected[0] == $function && $this->_parametersMatch($expected[1], $request)) {
-		$this->_called[$function][] = $request;
-		return $expected[2];
-	    }
-	    if (!$expected[3]) {
-		break; /* Not optional -- error */
-	    }
+	public function __construct() {
+		$this->_className        = get_class($this);
+		$_GET[$this->_className] = array(
+			'replies'    => array(),
+			'errorCount' => 0,
+		);
 	}
 
-	$_GET[$this->_className]['errorCount']++;
-	printf("Unhandled reply<br/>\n");
-	printf("Received:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
-	       $function, print_r($request, true));
-	printf("Expected:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
-	       $expected[0], print_r($expected[1], true));
-	printf('<b>Mismatch At</b>: %s<br/>',
-	       htmlspecialchars(GalleryTestCase::DeepCompare($request, $expected[1])));
-
-	$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
-	print $ret->getAsHtml();
-    }
-
-    function getCalled($function) {
-	return $this->_called[$function];
-    }
-
-    function _parametersMatch($expected, $actual) {
-	if ($expected === '*') {
-	    return 1;
+	public function setReply($function, $inputs, $outputs, $optional = false) {
+		$_GET[$this->_className]['replies'][] = array($function, $inputs, $outputs, $optional);
 	}
 
-	$i = 0;
-	foreach ($expected as $key => $value) {
-	    if ($i >= count($actual)) {
-		return false;
-	    }
-	    if (!strncmp($key, 'fuzzy', 5)) {
-		if (!preg_match($value, $actual[$i++])) {
-		    return false;
+	public function isComplete() {
+		foreach ($_GET[$this->_className]['replies'] as $reply) {
+			if (!$reply[3]) { // ignore optional replies
+				$incomplete = true;
+
+				break;
+			}
 		}
-	    } else if ($value != $actual[$i++]) {
-		return false;
-	    }
+
+		return empty($incomplete) && !$_GET[$this->_className]['errorCount'];
 	}
-	return ($i == count($actual));
-    }
+
+	public function getRemaining() {
+		return 'Error count: ' . $_GET[$this->_className]['errorCount']
+		. "\nRemaining requests: " .
+		print_r($_GET[$this->_className]['replies'], true);
+	}
+
+	public function _makeReply($function, $request) {
+		while ($expected = array_shift($_GET[$this->_className]['replies'])) {
+			if ($expected[0] == $function && $this->_parametersMatch($expected[1], $request)) {
+				$this->_called[$function][] = $request;
+
+				return $expected[2];
+			}
+
+			if (!$expected[3]) {
+				break; // Not optional -- error
+			}
+		}
+
+		$_GET[$this->_className]['errorCount']++;
+		printf("Unhandled reply<br/>\n");
+		printf(
+			"Received:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
+			$function,
+			print_r($request, true)
+		);
+		printf(
+			"Expected:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
+			$expected[0],
+			print_r($expected[1], true)
+		);
+		printf(
+			'<b>Mismatch At</b>: %s<br/>',
+			htmlspecialchars(GalleryTestCase::DeepCompare($request, $expected[1]))
+		);
+
+		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
+		echo $ret->getAsHtml();
+	}
+
+	public function getCalled($function) {
+		return $this->_called[$function];
+	}
+
+	public function _parametersMatch($expected, $actual) {
+		if ($expected === '*') {
+			return 1;
+		}
+
+		$i = 0;
+
+		foreach ($expected as $key => $value) {
+			if ($i >= count($actual)) {
+				return false;
+			}
+
+			if (!strncmp($key, 'fuzzy', 5)) {
+				if (!preg_match($value, $actual[$i++])) {
+					return false;
+				}
+			} elseif ($value != $actual[$i++]) {
+				return false;
+			}
+		}
+
+		return $i == count($actual);
+	}
 }
-?>

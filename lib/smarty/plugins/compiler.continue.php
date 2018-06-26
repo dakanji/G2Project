@@ -10,7 +10,6 @@
  * @param string containing var-attribute and value-attribute
  * @param Smarty_Compiler
  */
-function smarty_compiler_continue($contents, &$smarty)
-{
-    return 'continue;';
+function smarty_compiler_continue($contents, &$smarty) {
+	return 'continue;';
 }

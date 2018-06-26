@@ -26,11 +26,10 @@
  * @version $Revision: 17580 $
  */
 class ProgressBarView extends GalleryView {
-    /**
-     * @see GalleryView::getViewType
-     */
-    function getViewType() {
-	return VIEW_TYPE_PROGRESS_BAR;
-    }
+	/**
+	 * @see GalleryView::getViewType
+	 */
+	public function getViewType() {
+		return VIEW_TYPE_PROGRESS_BAR;
+	}
 }
-?>

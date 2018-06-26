@@ -11,14 +11,12 @@
  * Author:   Monte Ohrt <monte at ohrt dot com>
  * -------------------------------------------------------------
  */
-function smarty_modifier_stars($string, $suffix = 0, $char = '*')
-{
-    $_prefix_len = strlen($string) - $suffix;
-    if($_prefix_len > 0) {
-        return str_repeat($char, $_prefix_len) . substr($string, -$suffix, $suffix);
-    } else {
-        return $string;
-    }
+function smarty_modifier_stars($string, $suffix = 0, $char = '*') {
+	$_prefix_len = strlen($string) - $suffix;
+
+	if ($_prefix_len > 0) {
+		return str_repeat($char, $_prefix_len) . substr($string, -$suffix, $suffix);
+	}
+
+	return $string;
 }
-
-

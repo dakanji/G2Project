@@ -27,28 +27,28 @@
  * @static
  */
 class GalleryMembersHelper {
+	/**
+	 * Return the total number of items a user owns
+	 *
+	 * @param int $userId
+	 * @return array GalleryStatus a status code,
+	 *               int ItemCount a users total item count
+	 */
+	public static function fetchUserItemCount($userId) {
+		global $gallery;
 
-    /**
-     * Return the total number of items a user owns
-     *
-     * @param int $userId
-     * @return array GalleryStatus a status code,
-     *               int ItemCount a users total item count
-     */
-    static function fetchUserItemCount($userId) {
-	global $gallery;
+		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
 
-	list ($ret, $aclIds) =
-	    GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (empty($aclIds)) {
-	    return array(null, 0);
-	}
-	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	$query = sprintf('
+		if (empty($aclIds)) {
+			return array(null, 0);
+		}
+		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+
+		$query = sprintf('
 	SELECT
 	  COUNT([GalleryItem::id])
 	FROM
@@ -61,56 +61,60 @@ class GalleryMembersHelper {
 	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	', $aclMarkers);
 
-	$data = array_merge(array((int)$userId), $aclIds);
+		$data = array_merge(array((int)$userId), $aclIds);
 
-	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $searchResults) = $gallery->search($query, $data);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$result   = $searchResults->nextResult();
+		$numItems = (int)$result[0];
+
+		return array(null, $numItems);
 	}
 
-	$result = $searchResults->nextResult();
-	$numItems = (int)$result[0];
+	/**
+	 * Return the last N items a user created
+	 *
+	 * @param int $userId
+	 * @param int $offset
+	 * @param int $count
+	 * @param string $orderDirection (optional)
+	 * @return array GalleryStatus a status code,
+	 *               array (GalleryItem, GalleryItem, ...)
+	 */
+	public static function fetchLastUserItems($userId, $offset, $count, $orderDirection = ORDER_DESCENDING) {
+		global $gallery;
 
-	return array(null, $numItems);
-    }
+		switch ($orderDirection) {
+			case ORDER_ASCENDING:
+				$direction = 'ASC';
 
-    /**
-     * Return the last N items a user created
-     *
-     * @param int $userId
-     * @param int $offset
-     * @param int $count
-     * @param string $orderDirection (optional)
-     * @return array GalleryStatus a status code,
-     *               array (GalleryItem, GalleryItem, ...)
-     */
-    static function fetchLastUserItems($userId, $offset, $count, $orderDirection=ORDER_DESCENDING) {
-	global $gallery;
+				break;
 
-	switch($orderDirection) {
-	case ORDER_ASCENDING:
-	    $direction = 'ASC';
-	    break;
+			case ORDER_DESCENDING:
+				$direction = 'DESC';
 
-	case ORDER_DESCENDING:
-	    $direction = 'DESC';
-	    break;
+				break;
 
-	default:
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
+			default:
+				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
 
-	list ($ret, $aclIds) =
-	    GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (empty($aclIds)) {
-	    return array(null, array());
-	}
-	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
 
-	$query = sprintf('
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (empty($aclIds)) {
+			return array(null, array());
+		}
+		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+
+		$query = sprintf('
 	SELECT
 	  [GalleryItem::id], [GalleryEntity::creationTimestamp]
 	FROM
@@ -127,138 +131,149 @@ class GalleryMembersHelper {
 	  [GalleryEntity::creationTimestamp] ' . $direction . '
 	', $aclMarkers);
 
-	$data = array();
-	$data[] = (int)$userId;
-	$data = array_merge($data, $aclIds);
+		$data   = array();
+		$data[] = (int)$userId;
+		$data   = array_merge($data, $aclIds);
 
-	$options = array();
-	$options['limit'] = array('count' => (int)$count, 'offset' => (int)$offset);
+		$options          = array();
+		$options['limit'] = array(
+			'count'  => (int)$count,
+			'offset' => (int)$offset,
+		);
 
-	list ($ret, $searchResults) = $gallery->search($query, $data, $options);
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $searchResults) = $gallery->search($query, $data, $options);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Get all of our item ids
+		$itemIds = array();
+
+		while ($result = $searchResults->nextResult()) {
+			$itemIds[] = (int)$result[0];
+		}
+
+		// Convert them to entities
+		if (sizeof($itemIds) > 0) {
+			list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		} else {
+			$items = array();
+		}
+
+		return array(null, $items);
 	}
 
-	/* Get all of our item ids */
-	$itemIds = array();
-	while ($result = $searchResults->nextResult()) {
-	    $itemIds[] = (int)$result[0];
-	}
-
-	/* Convert them to entities */
-	if (sizeof($itemIds) > 0) {
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	} else {
-	    $items = array();
-	}
-
-	return array(null, $items);
-    }
-
-    /**
-     * Return true if the user has permission to view the Members Module
-     *
-     * @param int $userId
-     * @return array GalleryStatus a status code,
-     *               boolean canViewMembersModule permission
-     */
-    static function canViewMembersModule($userId) {
-	list ($ret, $viewSelectedGroupId) =
-	    GalleryCoreApi::getPluginParameter('module', 'members', 'canViewMembersModule');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $result) = GalleryCoreApi::isUserInGroup($userId, $viewSelectedGroupId);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $result);
-    }
-
-    /**
-     * Return true if the user has permission to view members email addresses
-     *
-     * @param int $userId
-     * @return array GalleryStatus a status code,
-     *               boolean canViewProfileEmail permission
-     */
-    static function canViewProfileEmail($userId) {
-	$result = false;
-	/* Can the user view email addresses in the member profile? */
-	list ($ret, $resultOne) =
-	    GalleryCoreApi::getPluginParameter('module', 'members', 'canViewEmailAddress');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $groupId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Is the current user an admin? */
-	list ($ret, $resultTwo) = GalleryCoreApi::isUserInGroup($userId, $groupId);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/*
-	 * User can see member email in the profile if they are an admin,
-	 * or if the module setting says they are allowed to.
+	/**
+	 * Return true if the user has permission to view the Members Module
+	 *
+	 * @param int $userId
+	 * @return array GalleryStatus a status code,
+	 *               boolean canViewMembersModule permission
 	 */
-	if ($resultOne || $resultTwo) {
-	    $result = true;
+	public static function canViewMembersModule($userId) {
+		list($ret, $viewSelectedGroupId) = GalleryCoreApi::getPluginParameter('module', 'members', 'canViewMembersModule');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $result) = GalleryCoreApi::isUserInGroup($userId, $viewSelectedGroupId);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $result);
 	}
 
-	return array(null, $result);
-    }
-
-    /**
-     * Return the calendar days since the user's creationTimestamp.
-     *
-     * @param int $userId
-     * @return array GalleryStatus a status code,
-     *               int daysSinceCreation number in days
-     */
-    static function daysSinceCreation($userId) {
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/*
-	 * The difference in the day of creationTimestamp and todays date,
-	 * divided by the number of seconds in a day, gives us a result in days
+	/**
+	 * Return true if the user has permission to view members email addresses
+	 *
+	 * @param int $userId
+	 * @return array GalleryStatus a status code,
+	 *               boolean canViewProfileEmail permission
 	 */
-	$todayStamp = strtotime(date("F j, Y", time()));
-	$creationStamp = strtotime(date("F j, Y", $user->getCreationTimestamp()));
-	$age = (int)round(($todayStamp - $creationStamp) / (24 * 60 * 60));
+	public static function canViewProfileEmail($userId) {
+		$result = false;
+		// Can the user view email addresses in the member profile?
+		list($ret, $resultOne) = GalleryCoreApi::getPluginParameter('module', 'members', 'canViewEmailAddress');
 
-	return array(null, $age);
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
 
-    /**
-     * Get the current member count
-     *
-     * @return array GalleryStatus
-     *               int how many members are registered
-     */
-    static function getMembersCount() {
-	list ($ret, $groupId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Is the current user an admin?
+		list($ret, $resultTwo) = GalleryCoreApi::isUserInGroup($userId, $groupId);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		/*
+		 * User can see member email in the profile if they are an admin,
+		 * or if the module setting says they are allowed to.
+		 */
+		if ($resultOne || $resultTwo) {
+			$result = true;
+		}
+
+		return array(null, $result);
 	}
-	list ($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount(null, $groupId);
-	if ($ret) {
-	    return array($ret, null);
+
+	/**
+	 * Return the calendar days since the user's creationTimestamp.
+	 *
+	 * @param int $userId
+	 * @return array GalleryStatus a status code,
+	 *               int daysSinceCreation number in days
+	 */
+	public static function daysSinceCreation($userId) {
+		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		/*
+		 * The difference in the day of creationTimestamp and todays date,
+		 * divided by the number of seconds in a day, gives us a result in days
+		 */
+		$todayStamp    = strtotime(date('F j, Y', time()));
+		$creationStamp = strtotime(date('F j, Y', $user->getCreationTimestamp()));
+		$age           = (int)round(($todayStamp - $creationStamp) / (24 * 60 * 60));
+
+		return array(null, $age);
 	}
-	return array(null, (int)$totalUserCount);
-    }
+
+	/**
+	 * Get the current member count
+	 *
+	 * @return array GalleryStatus
+	 *               int how many members are registered
+	 */
+	public static function getMembersCount() {
+		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount(null, $groupId);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, (int)$totalUserCount);
+	}
 }
-?>

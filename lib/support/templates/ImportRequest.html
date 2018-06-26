@@ -20,25 +20,27 @@
 	    onchange="enableSubmit(this.options[this.selectedIndex].value, this.form)">
         <option value="-1">&laquo; select a backup file &raquo;</option>
 	<?php foreach ($templateData['backupFiles'] as $fileName): ?>
-	   <option value="<?php print $fileName ?>"<?php if (isset($templateData['verifiedFile']) && $templateData['verifiedFile'] == $fileName): ?> selected="selected" <?php endif; ?> >
-	     <?php print $fileName ?>
+	   <option value="<?php echo $fileName ?>"<?php if (isset($templateData['verifiedFile']) && $templateData['verifiedFile'] == $fileName): ?> selected="selected" <?php endif; ?> >
+	     <?php echo $fileName ?>
 	   </option>
 	<?php endforeach; ?>
       </select>
-      <input type="hidden" name="verifiedFile" value="<?php if (isset($templateData['verifiedFile'])) print $templateData['verifiedFile'] ?>" />
+      <input type="hidden" name="verifiedFile" value="<?php if (isset($templateData['verifiedFile'])) {
+	echo $templateData['verifiedFile'];
+} ?>" />
       <br/><br/>
       <div class="warning">
         <h4>Warning</h4>
         <p class="description">Restoring the database to a backup that does not match the images in the Gallery data directory could severely damage your Gallery installation.</p>
         
 	<?php foreach ($templateData['warnings'] as $warning): ?>
-	  <p class="description"><?php print $warning ?><br/></p>
+	  <p class="description"><?php echo $warning ?><br/></p>
 	<?php endforeach; ?>
 	<?php if (!empty($templateData['versionWarnings'])): ?>
           <h4>Version Incompatibilities Detected</h4>
           <p>
           <?php foreach ($templateData['versionWarnings'] as $warning): ?>
-            <?php print $warning ?><br/>
+            <?php echo $warning ?><br/>
           <?php endforeach; ?>
           </p>
           <p>If you are restoring the database because of a failed upgrade, you should be alright.

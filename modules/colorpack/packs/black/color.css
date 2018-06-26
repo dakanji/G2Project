@@ -1,4 +1,4 @@
-/* <?php $colorpackName = $gallery->i18n('Black'); ?>
+/* ^PHPCS_CSS_T_OPEN_TAG^ $colorpackName = $gallery->i18n('Black'); ^PHPCS_CSS_T_CLOSE_TAG^
  * $Revision: 15978 $
  */
 
@@ -36,5 +36,5 @@ table.gbDataTable th { background-color: #303030 !important; }
 }
 
 .autoCompleteContainer li {
-    color: #000 !important;
+	color: #000 !important;
 }

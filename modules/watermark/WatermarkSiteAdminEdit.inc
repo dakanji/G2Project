@@ -28,47 +28,59 @@ GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
  * @version $Revision: 17580 $
  */
 class WatermarkSiteAdminEditController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	list ($ret, $results) = WatermarkHelper::handleEditRequest($form,
-	    'core.SiteAdmin', 'watermark.WatermarkSiteAdmin', 'watermark.WatermarkSiteAdminEdit');
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $results) = WatermarkHelper::handleEditRequest(
+			$form,
+			'core.SiteAdmin',
+			'watermark.WatermarkSiteAdmin',
+			'watermark.WatermarkSiteAdminEdit'
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $results);
 	}
-	return array(null, $results);
-    }
 }
 
 /**
  * Edit default placement and settings for a watermark image
  */
 class WatermarkSiteAdminEditView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$ret = WatermarkHelper::loadEditTemplate(
+			$template,
+			$form,
+			'WatermarkSiteAdminEdit',
+			'SiteAdmin'
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(
+			null,
+			array('body' => 'modules/watermark/templates/WatermarkSiteAdminEdit.tpl'),
+		);
 	}
-
-	$ret = WatermarkHelper::loadEditTemplate($template, $form,
-						 'WatermarkSiteAdminEdit', 'SiteAdmin');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null,
-		     array('body' => 'modules/watermark/templates/WatermarkSiteAdminEdit.tpl'));
-    }
 }
-?>

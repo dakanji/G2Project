@@ -26,80 +26,96 @@
  * @version $Revision: 17580 $
  */
 class LinkItemSiteAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = $error = array();
-	if (isset($form['action']['save'])) {
-	    foreach (array('arrowWatermark', 'urlSnapshot') as $key) {
-		$ret = GalleryCoreApi::setPluginParameter(
-			'module', 'linkitem', $key, empty($form[$key]) ? 0 : 1);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
-	    $ret = GalleryCoreApi::setPluginParameter(
-		    'module', 'linkitem', 'snapshotExec', $form['snapshotExec']);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $status['saved'] = 1;
+
+		$status = $error = array();
+
+		if (isset($form['action']['save'])) {
+			foreach (array('arrowWatermark', 'urlSnapshot') as $key) {
+				$ret = GalleryCoreApi::setPluginParameter(
+					'module',
+					'linkitem',
+					$key,
+					empty($form[$key]) ? 0 : 1
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'linkitem',
+				'snapshotExec',
+				$form['snapshotExec']
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$status['saved'] = 1;
+		}
+
+		// Figure out where to redirect upon success
+		$method                      = empty($error) ? 'redirect' : 'delegate';
+		$results[$method]['view']    = 'core.SiteAdmin';
+		$results[$method]['subView'] = 'linkitem.LinkItemSiteAdmin';
+		$results['status']           = $status;
+		$results['error']            = $error;
+
+		return array(null, $results);
 	}
-
-	/* Figure out where to redirect upon success */
-	$method = empty($error) ? 'redirect' : 'delegate';
-	$results[$method]['view'] = 'core.SiteAdmin';
-	$results[$method]['subView'] = 'linkitem.LinkItemSiteAdmin';
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Settings for Link Items
  */
 class LinkItemSiteAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['formName'] != 'LinkItemSiteAdmin') {
-	    $form['formName'] = 'LinkItemSiteAdmin';
-	    foreach (array('arrowWatermark', 'urlSnapshot', 'snapshotExec') as $key) {
-		list ($ret, $form[$key]) =
-		    GalleryCoreApi::getPluginParameter('module', 'linkitem', $key);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
+
+		if ($form['formName'] != 'LinkItemSiteAdmin') {
+			$form['formName'] = 'LinkItemSiteAdmin';
+
+			foreach (array('arrowWatermark', 'urlSnapshot', 'snapshotExec') as $key) {
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'linkitem', $key);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+		}
+
+		GalleryCoreApi::requireOnce('modules/linkitem/classes/LinkItemToolkit.class');
+		$template->setVariable(
+			'LinkItemSiteAdmin',
+			array(
+				'snapshotParams' => LinkItemToolkit::getSnapshotParams(),
+				'paramsPath'     => dirname(__FILE__)
+						. $platform->getDirectorySeparator() . 'params.txt',
+			)
+		);
+
+		$template->setVariable('controller', 'linkitem.LinkItemSiteAdmin');
+
+		return array(null, array('body' => 'modules/linkitem/templates/LinkItemSiteAdmin.tpl'));
 	}
-
-	GalleryCoreApi::requireOnce('modules/linkitem/classes/LinkItemToolkit.class');
-	$template->setVariable('LinkItemSiteAdmin',
-		array('snapshotParams' => LinkItemToolkit::getSnapshotParams(),
-		      'paramsPath' => dirname(__FILE__)
-				      . $platform->getDirectorySeparator() . 'params.txt'));
-
-	$template->setVariable('controller', 'linkitem.LinkItemSiteAdmin');
-	return array(null, array('body' => 'modules/linkitem/templates/LinkItemSiteAdmin.tpl'));
-    }
 }
-?>

@@ -28,53 +28,61 @@ GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Interface_1_0.class');
  * @version $Revision: 17580 $
  */
 class Getid3Extractor extends Getid3Interface_1_0 {
-    /**
-     * @see Getid3Interface_1_0::getMetaData
-     */
-    static function getMetaData($itemIds, $properties=array()) {
-	if (!is_array($itemIds)) {
-	    $itemIds = array($itemIds);
-	}
-	if (!is_array($properties)) {
-	    $properties = array($properties);
-	}
-
-	$data = array();
-	foreach ($itemIds as $itemId) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    /* Only look at GalleryDataItems */
-	    if (!GalleryUtilities::isA($item, 'GalleryDataItem')) {
-		continue;
-	    }
-	    list ($ret, $path) = $item->fetchPath();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $data[$itemId] = array();
-
-	    GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
-	    Getid3Helper::_fetchRawGetid3Data($path, $rawGetid3Data);
-
-	    foreach (Getid3Helper::getGetid3Keys() as $property => $keyData) {
-		if (!empty($properties) && !in_array($property, $properties)) {
-		    continue;
+	/**
+	 * @see Getid3Interface_1_0::getMetaData
+	 */
+	public static function getMetaData($itemIds, $properties = array()) {
+		if (!is_array($itemIds)) {
+			$itemIds = array($itemIds);
 		}
-		for ($i = 1; $i < count($keyData); $i++) {
-		    $value = Getid3Helper::_getValue($rawGetid3Data, explode('.', $keyData[$i]));
-		    if (isset($value)) {
-			$value = Getid3Helper::postProcessValue($property, $value);
-			$data[$itemId][$property] =
-			    array('title' => $keyData[0], 'value' => $value);
-			break;
-		    }
-		}
-	    }
-	}
 
-	return array(null, $data);
-    }
+		if (!is_array($properties)) {
+			$properties = array($properties);
+		}
+
+		$data = array();
+
+		foreach ($itemIds as $itemId) {
+			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			// Only look at GalleryDataItems
+			if (!GalleryUtilities::isA($item, 'GalleryDataItem')) {
+				continue;
+			}
+			list($ret, $path) = $item->fetchPath();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$data[$itemId] = array();
+
+			GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
+			Getid3Helper::_fetchRawGetid3Data($path, $rawGetid3Data);
+
+			foreach (Getid3Helper::getGetid3Keys() as $property => $keyData) {
+				if (!empty($properties) && !in_array($property, $properties)) {
+					continue;
+				}
+
+				for ($i = 1; $i < count($keyData); $i++) {
+					$value = Getid3Helper::_getValue($rawGetid3Data, explode('.', $keyData[$i]));
+
+					if (isset($value)) {
+						$value                    = Getid3Helper::postProcessValue($property, $value);
+						$data[$itemId][$property] = array(
+							'title' => $keyData[0],
+							'value' => $value,
+						);
+
+						break;
+					}
+				}
+			}
+		}
+
+		return array(null, $data);
+	}
 }
-?>

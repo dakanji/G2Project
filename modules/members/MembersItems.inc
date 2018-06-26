@@ -26,92 +26,99 @@
  * @version $Revision: 17580 $
  */
 class MembersItemsView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
+		list($ret, $result) = GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
 
-	GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
-	list ($ret, $result) =
-	    GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$result) {
+			return array(null, array('redirect' => array('view' => 'core.ShowItem')));
+		}
+
+		if (!isset($form['list']['page']) || $form['list']['page'] < 1) {
+			$form['list']['page'] = 1;
+		}
+
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
+		if (empty($userId)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
+
+		if ($form['formName'] != 'MembersItems') {
+			// Set some defaults
+			$form['formName'] = 'MembersItems';
+		}
+
+		$MembersItems = array();
+
+		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $form['list']['count']) = GalleryMembersHelper::fetchUserItemCount($user->getId());
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['list']['count'] == 0) {
+			return array(null, array('redirect' => array('view' => 'core.ShowItem')));
+		}
+
+		$form['list']['pageSize'] = $form['list']['count'] > 25 ? 25 : $form['list']['count'];
+
+		// Figure out our max pages, make sure our current page fits in it
+		$form['list']['maxPages'] = ceil($form['list']['count'] / $form['list']['pageSize']);
+
+		if ($form['list']['page'] > $form['list']['maxPages']) {
+			$form['list']['page'] = $form['list']['maxPages'];
+		}
+
+		// Calculate the next/back pages
+		$form['list']['nextPage']     = min($form['list']['page'] + 1, $form['list']['maxPages']);
+		$form['list']['backPage']     = max(1, $form['list']['page'] - 1);
+		$form['list']['startingItem'] = ($form['list']['page'] - 1) * $form['list']['pageSize'];
+
+		list($ret, $lastItems) = GalleryMembersHelper::fetchLastUserItems(
+			$userId,
+			$form['list']['startingItem'],
+			$form['list']['pageSize'],
+			ORDER_DESCENDING
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$MembersItems['user'] = (array)$user;
+
+		$MembersItems['lastItems'] = array();
+
+		foreach ($lastItems as $item) {
+			$MembersItems['lastItems'][] = (array)$item;
+		}
+
+		$template->setVariable('MembersItems', $MembersItems);
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$template->title($module->translate('Member Items'));
+
+		return array(null, array('body' => 'modules/members/templates/MembersItems.tpl'));
 	}
-	if (!$result) {
-	    return array(null, array('redirect' => array('view' => 'core.ShowItem')));
-	}
-
-	if (!isset($form['list']['page']) || $form['list']['page'] < 1) {
-	    $form['list']['page'] = 1;
-	}
-
-	$userId = GalleryUtilities::getRequestVariables('userId');
-	if (empty($userId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-
-	if ($form['formName'] != 'MembersItems') {
-	    /* Set some defaults */
-	    $form['formName'] = 'MembersItems';
-	}
-
-	$MembersItems = array();
-
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $form['list']['count']) =
-	    GalleryMembersHelper::fetchUserItemCount($user->getId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['list']['count'] == 0) {
-	    return array(null, array('redirect' => array('view' => 'core.ShowItem')));
-	}
-
-	$form['list']['pageSize'] = $form['list']['count'] > 25 ? 25 : $form['list']['count'];
-
-	/* Figure out our max pages, make sure our current page fits in it */
-	$form['list']['maxPages'] = ceil($form['list']['count'] / $form['list']['pageSize']);
-	if ($form['list']['page'] > $form['list']['maxPages']) {
-	    $form['list']['page'] = $form['list']['maxPages'];
-	}
-
-	/* Calculate the next/back pages */
-	$form['list']['nextPage'] = min($form['list']['page']+1, $form['list']['maxPages']);
-	$form['list']['backPage'] = max(1, $form['list']['page']-1);
-	$form['list']['startingItem'] = ($form['list']['page'] - 1) * $form['list']['pageSize'];
-
-	list ($ret, $lastItems) =
-	    GalleryMembersHelper::fetchLastUserItems($userId,
-						     $form['list']['startingItem'],
-						     $form['list']['pageSize'],
-						     ORDER_DESCENDING);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$MembersItems['user'] = (array)$user;
-
-	$MembersItems['lastItems'] = array();
-	foreach ($lastItems as $item) {
-	    $MembersItems['lastItems'][] = (array)$item;
-	}
-
-	$template->setVariable('MembersItems', $MembersItems);
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Member Items'));
-	return array(null, array('body' => 'modules/members/templates/MembersItems.tpl'));
-    }
 }
-?>

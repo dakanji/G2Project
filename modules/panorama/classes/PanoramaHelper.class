@@ -27,69 +27,77 @@
  * @static
  */
 class PanoramaHelper {
+	/**
+	 * Fetch largest viewable images for use in a panorama
+	 *
+	 * @param array $items of GalleryDataItem
+	 * @return array GalleryStatus a status code
+	 *               array of given-itemId=>GalleryDataItem-for-display
+	 */
+	public static function fetchViewableImages($items) {
+		global $gallery;
 
-    /**
-     * Fetch largest viewable images for use in a panorama
-     *
-     * @param array $items of GalleryDataItem
-     * @return array GalleryStatus a status code
-     *               array of given-itemId=>GalleryDataItem-for-display
-     */
-    static function fetchViewableImages($items) {
-	global $gallery;
-	foreach ($items as $item) {
-	    if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
-		$ids[] = $item->getId();
-	    }
-	}
-	if (!isset($ids)) {
-	    return array(null, array());
-	}
-	list ($ret, $preferredFullImages) =
-	    GalleryCoreApi::fetchPreferredsByItemIds($ids);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $resizedImages) =
-	    GalleryCoreApi::fetchResizesByItemIds($ids);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$ret = GalleryCoreApi::studyPermissions($ids);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$data = array();
-	foreach ($items as $item) {
-	    $id = $item->getId();
-	    if (!in_array($id, $ids)) {
-		continue;
-	    }
-	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($id);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if (isset($permissions['core.viewSource'])) {
-		/* Full size; check for preferred copy */
-		if (isset($preferredFullImages[$id])) {
-		    $data[$id] = $preferredFullImages[$id];
-		} else {
-		    $data[$id] = $item;
+		foreach ($items as $item) {
+			if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
+				$ids[] = $item->getId();
+			}
 		}
-	    } else if (isset($permissions['core.viewResizes']) &&
-		       isset($resizedImages[$id])) {
-		$max = -1;
-		foreach ($resizedImages[$id] as $resize) {
-		    $size = $resize->getWidth() + $resize->getHeight();
-		    if ($size > $max) {
-			$data[$id] = $resize;
-		    }
+
+		if (!isset($ids)) {
+			return array(null, array());
 		}
-	    }
+		list($ret, $preferredFullImages) = GalleryCoreApi::fetchPreferredsByItemIds($ids);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $resizedImages) = GalleryCoreApi::fetchResizesByItemIds($ids);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$ret = GalleryCoreApi::studyPermissions($ids);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$data = array();
+
+		foreach ($items as $item) {
+			$id = $item->getId();
+
+			if (!in_array($id, $ids)) {
+				continue;
+			}
+			list($ret, $permissions) = GalleryCoreApi::getPermissions($id);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			if (isset($permissions['core.viewSource'])) {
+				// Full size; check for preferred copy
+				if (isset($preferredFullImages[$id])) {
+					$data[$id] = $preferredFullImages[$id];
+				} else {
+					$data[$id] = $item;
+				}
+			} elseif (isset($permissions['core.viewResizes'])
+				&& isset($resizedImages[$id])
+			) {
+				$max = -1;
+
+				foreach ($resizedImages[$id] as $resize) {
+					$size = $resize->getWidth() + $resize->getHeight();
+
+					if ($size > $max) {
+						$data[$id] = $resize;
+					}
+				}
+			}
+		}
+
+		return array(null, $data);
 	}
-	return array(null, $data);
-    }
 }
-?>

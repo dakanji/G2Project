@@ -31,15 +31,13 @@
  * @abstract
  */
 class GalleryAuthPlugin {
-
-    /**
-     * Perform authentication & return a user object
-     *
-     * @return array GalleryStatus a status code
-     *               GalleryUser the active user or null
-     */
-    function getUser() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
+	/**
+	 * Perform authentication & return a user object
+	 *
+	 * @return array GalleryStatus a status code
+	 *               GalleryUser the active user or null
+	 */
+	public function getUser() {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 }
-?>

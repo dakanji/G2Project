@@ -26,87 +26,98 @@
  * @version $Revision: 17580 $
  */
 class ExternalCSSController extends GalleryController {
-
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (isset($imageframe)) {
-	    $frames = GalleryUtilities::getRequestVariables('frames');
-	    if (empty($frames)) {
-		$frames = array();
-		foreach (array('albumFrame', 'itemFrame') as $key) {
-		    list ($ret, $frame) =
-			GalleryCoreApi::getPluginParameter('module', 'imageblock', $key);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    if (!empty($frame)) {
-			$frames[] = $frame;
-		    }
-		}
-		if (!empty($frames)) {
-		    GalleryUtilities::putRequestVariable('frames', implode('|', $frames));
-		}
-	    }
-	}
-	return array(null,
-		     array('delegate' => array('view' =>
-				empty($frames) ? 'imageblock.ExternalCSS' : 'imageframe.CSS'),
-			   'status' => array(), 'error' => array()));
-    }
-
-    /**
-     * @see GalleryController::omitAuthTokenCheck
-     */
-    function omitAuthTokenCheck() {
-	/*
-	 * The sole purpose of this controller is to delegate dynamically to different views.
-	 * It does not do any controller-like action, thus there is no need for an auth-token check.
+	/**
+	 * @see GalleryController::handleRequest
 	 */
-	return true;
-    }
+	public function handleRequest($form) {
+		list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 
-    /**
-     * @see GalleryController::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (isset($imageframe)) {
+			$frames = GalleryUtilities::getRequestVariables('frames');
+
+			if (empty($frames)) {
+				$frames = array();
+
+				foreach (array('albumFrame', 'itemFrame') as $key) {
+					list($ret, $frame) = GalleryCoreApi::getPluginParameter('module', 'imageblock', $key);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					if (!empty($frame)) {
+						$frames[] = $frame;
+					}
+				}
+
+				if (!empty($frames)) {
+					GalleryUtilities::putRequestVariable('frames', implode('|', $frames));
+				}
+			}
+		}
+
+		return array(
+			null,
+			array(
+				'delegate' => array(
+					'view' => empty($frames) ? 'imageblock.ExternalCSS' : 'imageframe.CSS',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+		);
+	}
+
+	/**
+	 * @see GalleryController::omitAuthTokenCheck
+	 */
+	public function omitAuthTokenCheck() {
+		/*
+		 * The sole purpose of this controller is to delegate dynamically to different views.
+		 * It does not do any controller-like action, thus there is no need for an auth-token check.
+		 */
+		return true;
+	}
+
+	/**
+	 * @see GalleryController::isAllowedInEmbedOnly
+	 */
+	public function isAllowedInEmbedOnly() {
+		return true;
+	}
 }
 
 /**
  * Generate CSS when no frames are selected
  */
 class ExternalCSSView extends GalleryView {
+	/**
+	 * @see GalleryView::isImmediate
+	 */
+	public function isImmediate() {
+		return true;
+	}
 
-    /**
-     * @see GalleryView::isImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
+	/**
+	 * @see GalleryView::isAllowedInEmbedOnly
+	 */
+	public function isAllowedInEmbedOnly() {
+		return true;
+	}
 
-    /**
-     * @see GalleryView::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
+	/**
+	 * @see GalleryView::renderImmediate
+	 */
+	public function renderImmediate($status, $error) {
+		header('Content-type: text/html');
+		header('Expires: ' . GalleryUtilities::getHttpDate(time() + 2592000));
+		echo '<style type="text/css"> img.giThumbnail { border-style: none; } </style>';
+		echo "\n";
 
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	header('Content-type: text/html');
-	header('Expires: ' . GalleryUtilities::getHttpDate(time() + 2592000));
-	print '<style type="text/css"> img.giThumbnail { border-style: none; } </style>';
-	print "\n";
-	return null;
-    }
+		return null;
+	}
 }
-?>

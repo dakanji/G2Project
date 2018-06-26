@@ -26,85 +26,95 @@
  * @version $Revision: 17580 $
  */
 class MultiLangSiteAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$status = array();
+
+		if (isset($form['action']['save'])) {
+			$languages = isset($form['languages']) ? $form['languages'] : array();
+			$ret       = GalleryCoreApi::setPluginParameter(
+				'module',
+				'multilang',
+				'languages',
+				implode('|', $languages)
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			// TODO: if removed some language then optionally delete all data for that language?
+			$status['saved'] = 1;
+		} // else $form['action']['reset']
+
+		// Figure out where to redirect upon success
+		$results['redirect']['view']    = 'core.SiteAdmin';
+		$results['redirect']['subView'] = 'multilang.MultiLangSiteAdmin';
+		$results['status']              = $status;
+		$results['error']               = array();
+
+		return array(null, $results);
 	}
-
-	$status = array();
-	if (isset($form['action']['save'])) {
-	    $languages = isset($form['languages']) ? $form['languages'] : array();
-	    $ret = GalleryCoreApi::setPluginParameter(
-			  'module', 'multilang', 'languages', implode('|', $languages));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    /* TODO: if removed some language then optionally delete all data for that language? */
-	    $status['saved'] = 1;
-	} /* else $form['action']['reset'] */
-
-	/* Figure out where to redirect upon success */
-	$results['redirect']['view'] = 'core.SiteAdmin';
-	$results['redirect']['subView'] = 'multilang.MultiLangSiteAdmin';
-	$results['status'] = $status;
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Settings for MultiLang
  */
 class MultiLangSiteAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'MultiLangSiteAdmin') {
+			$form['formName']       = 'MultiLangSiteAdmin';
+			list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$form['languages'] = empty($languages) ? array() : explode('|', $languages);
+		}
+
+		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+		$languageList       = array();
+
+		foreach ($supportedLanguages as $language => $countryList) {
+			foreach ($countryList as $country => $languageData) {
+				$languageList[$language . '_' . $country] = $languageData['description'];
+			}
+		}
+		$selectedList = array();
+
+		foreach ($form['languages'] as $language) {
+			if (isset($languageList[$language])) {
+				$selectedList[$language] = $languageList[$language];
+				unset($languageList[$language]);
+			} else {
+				$selectedList[$language] = $language;
+			}
+		}
+
+		$template->setVariable('MultiLangSiteAdmin', array(
+			'availableList' => $languageList,
+			'selectedList'  => $selectedList,
+		));
+		$template->setVariable('controller', 'multilang.MultiLangSiteAdmin');
+
+		return array(null, array('body' => 'modules/multilang/templates/MultiLangSiteAdmin.tpl'));
 	}
-
-	if ($form['formName'] != 'MultiLangSiteAdmin') {
-	    $form['formName'] = 'MultiLangSiteAdmin';
-	    list ($ret, $languages) =
-		GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $form['languages'] = empty($languages) ? array() : explode('|', $languages);
-	}
-
-	$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
-	$languageList = array();
-	foreach ($supportedLanguages as $language => $countryList) {
-	    foreach ($countryList as $country => $languageData) {
-		$languageList[$language . '_' . $country] = $languageData['description'];
-	    }
-	}
-	$selectedList = array();
-	foreach ($form['languages'] as $language) {
-	    if (isset($languageList[$language])) {
-		$selectedList[$language] = $languageList[$language];
-		unset($languageList[$language]);
-	    } else {
-		$selectedList[$language] = $language;
-	    }
-	}
-
-	$template->setVariable('MultiLangSiteAdmin', array('availableList' => $languageList,
-							   'selectedList' => $selectedList));
-	$template->setVariable('controller', 'multilang.MultiLangSiteAdmin');
-	return array(null, array('body' => 'modules/multilang/templates/MultiLangSiteAdmin.tpl'));
-    }
 }
-?>

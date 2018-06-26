@@ -26,116 +26,139 @@
  * @version $Revision: 17657 $
  */
 class ExternalView extends GalleryView {
+	/**
+	 * @see GalleryView::isImmediate
+	 */
+	public function isImmediate() {
+		return true;
+	}
 
-    /**
-     * @see GalleryView::isImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
+	/**
+	 * @see GalleryView::isAllowedInEmbedOnly
+	 */
+	public function isAllowedInEmbedOnly() {
+		return true;
+	}
 
-    /**
-     * @see GalleryView::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
+	/**
+	 * Specify the template instance to use for our immediate view.  Used by our test code.
+	 * @param GalleryTemplate $template
+	 */
+	public function setTemplate(&$template) {
+		$this->_template =& $template;
+	}
 
-    /**
-     * Specify the template instance to use for our immediate view.  Used by our test code.
-     * @param GalleryTemplate $template
-     */
-    function setTemplate(&$template) {
-	$this->_template =& $template;
-    }
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function renderImmediate($status, $error) {
+		GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function renderImmediate($status, $error) {
-	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
-	global $gallery;
+		// Force UrlGenerator to not add session id into urls..
+		$session                  =& $gallery->getSession();
+		$session->_isUsingCookies = true;
 
-	/* Force UrlGenerator to not add session id into urls.. */
-	$session =& $gallery->getSession();
-	$session->_isUsingCookies = true;
+		$frameIds = array();
+		$params   = array(
+			'maxSize'   => null,
+			'exactSize' => null,
+		);
 
-	$frameIds = array();
-	$params = array('maxSize' => null, 'exactSize' => null);
-	foreach (array('blocks', 'show', 'itemId', 'maxSize', 'exactSize',
-		       'link', 'linkTarget', 'itemFrame', 'albumFrame') as $key) {
-	    $tmp = GalleryUtilities::getRequestVariables($key);
-	    if (!empty($tmp)) {
-		$params[$key] = $tmp;
-		if ($key == 'itemFrame' || $key == 'albumFrame') {
-		    $frameIds[$tmp] = 1;
+		foreach (array(
+			'blocks',
+			'show',
+			'itemId',
+			'maxSize',
+			'exactSize',
+			'link',
+			'linkTarget',
+			'itemFrame',
+			'albumFrame',
+		) as $key) {
+			$tmp = GalleryUtilities::getRequestVariables($key);
+
+			if (!empty($tmp)) {
+				$params[$key] = $tmp;
+
+				if ($key == 'itemFrame' || $key == 'albumFrame') {
+					$frameIds[$tmp] = 1;
+				}
+			}
 		}
-	    }
-	}
 
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-	if (isset($this->_template)) {
-	    $template =& $this->_template;
-	} else {
-	    $template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
-	}
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
-	$ret = ImageBlockHelper::loadImageBlocks($template, $params);
-	if ($ret) {
-	    return $ret;
-	}
+		if (isset($this->_template)) {
+			$template =& $this->_template;
+		} else {
+			$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+		}
 
-	if (!empty($frameIds)) {
-	    $frameIds = array_keys($frameIds);
+		$ret = ImageBlockHelper::loadImageBlocks($template, $params);
 
-	    list ($ret, $imageframe) =
-		GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    if (isset($imageframe)) {
-		$ret = $imageframe->init($template, $frameIds);
 		if ($ret) {
-		    return $ret;
-		}
-	    }
-	}
-
-	$phpVm = $gallery->getPhpVm();
-	if ($template->hasVariable('ImageBlockData')) {
-	    $ImageBlockData =& $template->getVariableByReference('ImageBlockData');
-	    $ImageBlockData['forceFullUrl'] = 1;
-
-	    /* Check for rawImage - if requested, send binary image (only one image) */
-	    if (isset($params['show']) && $params['show'] === 'rawImage') {
-		if (isset($ImageBlockData['blocks'][0]['deriv']['id'])) {
-		    GalleryUtilities::putRequestVariable('itemId',
-			    $ImageBlockData['blocks'][0]['deriv']['id']);
-
-		    list ($ret, $view) = GalleryView::loadView('core.DownloadItem');
-		    if ($ret) {
 			return $ret;
-		    }
-		    return $view->renderImmediate(null, null);
-		} else if (!$phpVm->headers_sent()) {
-		    $phpVm->header('HTTP/1.0 404 Not Found');
-		}
-	    } else {
-		if (!$phpVm->headers_sent()) {
-		    $phpVm->header("Content-type: text/html; charset=UTF-8");
-		    $expires = $gallery->getHttpDate($phpVm->time() - 7*24*3600);
-		    $phpVm->header('Cache-Control: no-cache');
-		    $phpVm->header('Pragma: no-cache');
-		    $phpVm->header('Expires: ' . $expires);	    
 		}
 
-		$template->setVariable('l10Domain', 'modules_imageblock');
-		$template->display('gallery:modules/imageblock/templates/ImageBlock.tpl');
-	    }
+		if (!empty($frameIds)) {
+			$frameIds = array_keys($frameIds);
+
+			list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
+
+			if ($ret) {
+				return $ret;
+			}
+
+			if (isset($imageframe)) {
+				$ret = $imageframe->init($template, $frameIds);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		$phpVm = $gallery->getPhpVm();
+
+		if ($template->hasVariable('ImageBlockData')) {
+			$ImageBlockData                 =& $template->getVariableByReference('ImageBlockData');
+			$ImageBlockData['forceFullUrl'] = 1;
+
+			// Check for rawImage - if requested, send binary image (only one image)
+			if (isset($params['show']) && $params['show'] === 'rawImage') {
+				if (isset($ImageBlockData['blocks'][0]['deriv']['id'])) {
+					GalleryUtilities::putRequestVariable(
+						'itemId',
+						$ImageBlockData['blocks'][0]['deriv']['id']
+					);
+
+					list($ret, $view) = GalleryView::loadView('core.DownloadItem');
+
+					if ($ret) {
+						return $ret;
+					}
+
+					return $view->renderImmediate(null, null);
+				}
+
+				if (!$phpVm->headers_sent()) {
+					$phpVm->header('HTTP/1.0 404 Not Found');
+				}
+			} else {
+				if (!$phpVm->headers_sent()) {
+					$phpVm->header('Content-type: text/html; charset=UTF-8');
+					$expires = $gallery->getHttpDate($phpVm->time() - 7 * 24 * 3600);
+					$phpVm->header('Cache-Control: no-cache');
+					$phpVm->header('Pragma: no-cache');
+					$phpVm->header('Expires: ' . $expires);
+				}
+
+				$template->setVariable('l10Domain', 'modules_imageblock');
+				$template->display('gallery:modules/imageblock/templates/ImageBlock.tpl');
+			}
+		}
+
+		return null;
 	}
-
-	return null;
-    }
 }
-?>

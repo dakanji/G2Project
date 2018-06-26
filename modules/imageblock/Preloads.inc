@@ -24,52 +24,52 @@
  * @version $Revision: 17580 $
  */
 class ImageBlockPreloads {
-    function preload(&$template, $preload, $paramSet) {
-	global $gallery;
+	public function preload(&$template, $preload, $paramSet) {
+		global $gallery;
 
-	switch($preload) {
-	case 'ImageBlock':
-	    list ($ret, $moduleParams) =
-		GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $frameIds = array();
-	    foreach ($paramSet as $params) {
-		foreach (array('itemFrame', 'albumFrame', 'photoFrame') as $key) {
-		    if (isset($params[$key])) {
-			$frameIds[$params[$key]] = 1;
-		    } else if (isset($moduleParams[$key])) {
-			$frameIds[$moduleParams[$key]] = 1;
-		    }
+		switch ($preload) {
+			case 'ImageBlock':
+				list($ret, $moduleParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
+
+				if ($ret) {
+					return $ret;
+				}
+				$frameIds = array();
+
+				foreach ($paramSet as $params) {
+					foreach (array('itemFrame', 'albumFrame', 'photoFrame') as $key) {
+						if (isset($params[$key])) {
+							$frameIds[$params[$key]] = 1;
+						} elseif (isset($moduleParams[$key])) {
+							$frameIds[$moduleParams[$key]] = 1;
+						}
+					}
+				}
+
+				if (!empty($frameIds)) {
+					$frameIds                = array_keys($frameIds);
+					list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
+
+					if ($ret) {
+						return $ret;
+					}
+
+					if (isset($imageframe)) {
+						$ret = $imageframe->init($template, $frameIds);
+
+						if ($ret) {
+							if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
+								// It's there, but unusable so ignore it.
+							} else {
+								return $ret;
+							}
+						}
+					}
+				}
+
+				return null;
 		}
-	    }
 
-	    if (!empty($frameIds)) {
-		$frameIds = array_keys($frameIds);
-		list ($ret, $imageframe) =
-		    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-		if ($ret) {
-		    return $ret;
-		}
-
-		if (isset($imageframe)) {
-		    $ret = $imageframe->init($template, $frameIds);
-		    if ($ret) {
-			if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
-			    /* It's there, but unusable so ignore it. */
-			} else {
-			    return $ret;
-			}
-		    }
-		}
-	    }
-
-	    return null;
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

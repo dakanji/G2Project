@@ -30,35 +30,33 @@
  * @abstract
  */
 class CartPluginInterface_1_0 {
+	/**
+	 * Return the item types that this cart plugin can fulfill, e.g.
+	 * array('GalleryPhotoItem', 'GalleryMovieItem')
+	 *
+	 * @return array item types
+	 */
+	public function getSupportedItemTypes() {
+		return array();
+	}
 
-    /**
-     * Return the item types that this cart plugin can fulfill, e.g.
-     * array('GalleryPhotoItem', 'GalleryMovieItem')
-     *
-     * @return array item types
-     */
-    function getSupportedItemTypes() {
-	return array();
-    }
+	/**
+	 * Get the localized name of the action (eg. "Print with Shutterfly") to show to users.
+	 *
+	 * @return array GalleryStatus a status code
+	 *               string the action display name
+	 */
+	public function getActionDisplayName() {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 
-    /**
-     * Get the localized name of the action (eg. "Print with Shutterfly") to show to users.
-     *
-     * @return array GalleryStatus a status code
-     *               string the action display name
-     */
-    function getActionDisplayName() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
-
-    /**
-     * Do whatever magic this plugin wants to do with the cart
-     *
-     * @return array GalleryStatus a status code
-     *               array url components that can be passed to the UrlGenerator
-     */
-    function fulfillCart($cartItemIds) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
+	/**
+	 * Do whatever magic this plugin wants to do with the cart
+	 *
+	 * @return array GalleryStatus a status code
+	 *               array url components that can be passed to the UrlGenerator
+	 */
+	public function fulfillCart($cartItemIds) {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 }
-?>

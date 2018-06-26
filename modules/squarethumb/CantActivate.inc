@@ -26,17 +26,16 @@
  * @version $Revision: 17580 $
  */
 class CantActivateView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, array('body' => 'modules/squarethumb/templates/CantActivate.tpl'));
 	}
-
-	return array(null, array('body' => 'modules/squarethumb/templates/CantActivate.tpl'));
-    }
 }
-?>

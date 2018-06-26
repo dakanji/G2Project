@@ -27,18 +27,18 @@
  * @version $Revision: 17580 $
  */
 class ConfirmationView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		list($ret, $item) = $this->getItem();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$template->setVariable('Confirmation', array('itemId' => $item->getId()));
+
+		return array(null, array('body' => 'modules/ecard/templates/Confirmation.tpl'));
 	}
-
-	$template->setVariable('Confirmation', array('itemId' => $item->getId()));
-	return array(null, array('body' => 'modules/ecard/templates/Confirmation.tpl'));
-    }
 }
-?>

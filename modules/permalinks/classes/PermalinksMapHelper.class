@@ -27,93 +27,111 @@
  * @static
  */
 class PermalinksMapHelper {
+	/**
+	 * Return the aliases defined for a given item
+	 *
+	 * @param int $itemId (optional) item id or null for all aliases
+	 * @return array GalleryStatus a status code
+	 *         array of aliase names
+	 */
+	public static function fetchAliasesForItem($itemId = null) {
+		$match                      = isset($itemId) ? array('destId' => (int)$itemId) : array();
+		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
+			'PermalinksMap',
+			array('aliasName'),
+			$match
+		);
 
-    /**
-     * Return the aliases defined for a given item
-     *
-     * @param int $itemId (optional) item id or null for all aliases
-     * @return array GalleryStatus a status code
-     *         array of aliase names
-     */
-    static function fetchAliasesForItem($itemId=null) {
-	$match = isset($itemId) ? array('destId' => (int)$itemId) : array();
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('PermalinksMap',
-	    array('aliasName'), $match);
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$aliases = array();
+
+		while ($result = $searchResults->nextResult()) {
+			$aliases[] = $result[0];
+		}
+
+		return array(null, $aliases);
 	}
 
-	$aliases = array();
-	while ($result = $searchResults->nextResult()) {
-	    $aliases[] = $result[0];
-	}
-	return array(null, $aliases);
-    }
+	/**
+	 * Return the item id the alias name refers to, if any
+	 *
+	 * @param string $aliasName
+	 * @return array GalleryStatus a status code
+	 *               int item id
+	 */
+	public static function fetchItemIdForAlias($aliasName) {
+		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
+			'PermalinksMap',
+			array('destId'),
+			array('aliasName' => $aliasName)
+		);
 
-    /**
-     * Return the item id the alias name refers to, if any
-     *
-     * @param string $aliasName
-     * @return array GalleryStatus a status code
-     *               int item id
-     */
-    static function fetchItemIdForAlias($aliasName) {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('PermalinksMap',
-	    array('destId'), array('aliasName' => $aliasName));
-	if ($ret) {
-	    return array($ret, null);
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	if ($result = $searchResults->nextResult()) {
-	    $destId = (int)$result[0];
-	} else {
-	    $destId = null;
-	}
-	return array(null, $destId);
-    }
+		if ($result = $searchResults->nextResult()) {
+			$destId = (int)$result[0];
+		} else {
+			$destId = null;
+		}
 
-    /**
-     * Create an alias
-     *
-     * @param string $aliasName
-     * @param int $itemId
-     * @return GalleryStatus a status code
-     */
-    static function createAlias($aliasName, $itemId) {
-	/* first, check for collision */
-	list ($ret, $collisionId) = PermalinksMapHelper::fetchItemIdForAlias($aliasName);
-	if ($ret) {
-	    return $ret;
-	}
-	if (isset($collisionId)) {
-	    /* we expected null, this means we have a collision. Throw it */
-	    return GalleryCoreApi::error(ERROR_COLLISION);
+		return array(null, $destId);
 	}
 
-	/* Add a new alias */
-	$ret = GalleryCoreApi::addMapEntry('PermalinksMap',
-					   array('aliasName' => $aliasName, 'destId' => $itemId));
-	if ($ret) {
-	    return $ret;
+	/**
+	 * Create an alias
+	 *
+	 * @param string $aliasName
+	 * @param int $itemId
+	 * @return GalleryStatus a status code
+	 */
+	public static function createAlias($aliasName, $itemId) {
+		// first, check for collision
+		list($ret, $collisionId) = self::fetchItemIdForAlias($aliasName);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (isset($collisionId)) {
+			// we expected null, this means we have a collision. Throw it
+			return GalleryCoreApi::error(ERROR_COLLISION);
+		}
+
+		// Add a new alias
+		$ret = GalleryCoreApi::addMapEntry(
+			'PermalinksMap',
+			array(
+				'aliasName' => $aliasName,
+				'destId'    => $itemId,
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	return null;
-    }
+	/**
+	 * Delete an alias
+	 *
+	 * @param int $aliasName
+	 * @return GalleryStatus a status code
+	 */
+	public static function deleteAlias($aliasName) {
+		// Remove this alias from our groups table.
+		$ret = GalleryCoreApi::removeMapEntry('PermalinksMap', array('aliasName' => $aliasName));
 
-    /**
-     * Delete an alias
-     *
-     * @param int $aliasName
-     * @return GalleryStatus a status code
-     */
-    static function deleteAlias($aliasName) {
-	/* Remove this alias from our groups table. */
-	$ret = GalleryCoreApi::removeMapEntry('PermalinksMap', array('aliasName' => $aliasName));
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
-
-	return null;
-    }
 }
-?>

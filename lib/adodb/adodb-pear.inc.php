@@ -20,7 +20,7 @@
 
  DB_Common
  ---------
- 	query - returns PEAR_Error on error
+	 query - returns PEAR_Error on error
 	limitQuery - return PEAR_Error on error
 	prepare - does not return PEAR_Error on error
 	execute - does not return PEAR_Error on error
@@ -38,55 +38,54 @@
 
  DB_Result
  ---------
- 	numRows - returns -1 if not supported
+	 numRows - returns -1 if not supported
 	numCols
 	fetchInto - does not support passing of fetchmode
 	fetchRows - does not support passing of fetchmode
 	free
  */
 
-define('ADODB_PEAR',dirname(__FILE__));
-include_once "PEAR.php";
-include_once ADODB_PEAR."/adodb-errorpear.inc.php";
-include_once ADODB_PEAR."/adodb.inc.php";
+define('ADODB_PEAR', dirname(__FILE__));
+
+require_once 'PEAR.php';
+
+require_once ADODB_PEAR . '/adodb-errorpear.inc.php';
+
+require_once ADODB_PEAR . '/adodb.inc.php';
 
 if (!defined('DB_OK')) {
-define("DB_OK",	1);
-define("DB_ERROR",-1);
+	define('DB_OK', 1);
+	define('DB_ERROR', -1);
 
-/**
- * This is a special constant that tells DB the user hasn't specified
- * any particular get mode, so the default should be used.
- */
+	/**
+	 * This is a special constant that tells DB the user hasn't specified
+	 * any particular get mode, so the default should be used.
+	 */
+	define('DB_FETCHMODE_DEFAULT', 0);
 
-define('DB_FETCHMODE_DEFAULT', 0);
+	/**
+	 * Column data indexed by numbers, ordered from 0 and up
+	 */
+	define('DB_FETCHMODE_ORDERED', 1);
 
-/**
- * Column data indexed by numbers, ordered from 0 and up
- */
+	/**
+	 * Column data indexed by column names
+	 */
+	define('DB_FETCHMODE_ASSOC', 2);
 
-define('DB_FETCHMODE_ORDERED', 1);
+	// for compatibility
 
-/**
- * Column data indexed by column names
- */
+	define('DB_GETMODE_ORDERED', DB_FETCHMODE_ORDERED);
+	define('DB_GETMODE_ASSOC', DB_FETCHMODE_ASSOC);
 
-define('DB_FETCHMODE_ASSOC', 2);
-
-/* for compatibility */
-
-define('DB_GETMODE_ORDERED', DB_FETCHMODE_ORDERED);
-define('DB_GETMODE_ASSOC',   DB_FETCHMODE_ASSOC);
-
-/**
- * these are constants for the tableInfo-function
- * they are bitwised or'ed. so if there are more constants to be defined
- * in the future, adjust DB_TABLEINFO_FULL accordingly
- */
-
-define('DB_TABLEINFO_ORDER', 1);
-define('DB_TABLEINFO_ORDERTABLE', 2);
-define('DB_TABLEINFO_FULL', 3);
+	/**
+	 * these are constants for the tableInfo-function
+	 * they are bitwised or'ed. so if there are more constants to be defined
+	 * in the future, adjust DB_TABLEINFO_FULL accordingly
+	 */
+	define('DB_TABLEINFO_ORDER', 1);
+	define('DB_TABLEINFO_ORDERTABLE', 2);
+	define('DB_TABLEINFO_FULL', 3);
 }
 
 /**
@@ -95,9 +94,7 @@ define('DB_TABLEINFO_FULL', 3);
  * common to all parts of DB.
  *
  */
-
-class DB
-{
+class DB {
 	/**
 	 * Create a new DB object for the specified database type
 	 *
@@ -105,13 +102,14 @@ class DB
 	 *
 	 * @return object a newly created DB object, or a DB error code on
 	 * error
-	 */
-
-	function factory($type)
-	{
-		include_once(ADODB_DIR."/drivers/adodb-$type.inc.php");
+	 */public function factory($type) {
+		include_once ADODB_DIR . "/drivers/adodb-$type.inc.php";
 		$obj = NewADOConnection($type);
-		if (!is_object($obj)) $obj = new PEAR_Error('Unknown Database Driver: '.$dsninfo['phptype'],-1);
+
+		if (!is_object($obj)) {
+			$obj = new PEAR_Error('Unknown Database Driver: ' . $dsninfo['phptype'], -1);
+		}
+
 		return $obj;
 	}
 
@@ -134,58 +132,102 @@ class DB
 	 * @see DB::parseDSN
 	 * @see DB::isError
 	 */
-	function connect($dsn, $options = false)
-	{
+	public function connect($dsn, $options = false) {
 		if (is_array($dsn)) {
 			$dsninfo = $dsn;
 		} else {
-			$dsninfo = DB::parseDSN($dsn);
-		}
-		switch ($dsninfo["phptype"]) {
-			case 'pgsql': 	$type = 'postgres7'; break;
-			case 'ifx':		$type = 'informix9'; break;
-			default: 		$type = $dsninfo["phptype"]; break;
+			$dsninfo = self::parseDSN($dsn);
 		}
 
-		if (is_array($options) && isset($options["debug"]) &&
-			$options["debug"] >= 2) {
+		switch ($dsninfo['phptype']) {
+		case 'pgsql':
+			$type = 'postgres7';
+
+			break;
+
+		case 'ifx':
+			$type = 'informix9';
+
+			break;
+
+		default:
+			$type = $dsninfo['phptype'];
+
+			break;
+	}
+
+		if (is_array($options) && isset($options['debug'])
+		&& $options['debug'] >= 2
+	) {
 			// expose php errors with sufficient debug level
-			 @include_once("adodb-$type.inc.php");
+			@include_once "adodb-$type.inc.php";
 		} else {
-			 @include_once("adodb-$type.inc.php");
+			@include_once "adodb-$type.inc.php";
 		}
 
 		@$obj = NewADOConnection($type);
+
 		if (!is_object($obj)) {
-			$obj = new PEAR_Error('Unknown Database Driver: '.$dsninfo['phptype'],-1);
+			$obj = new PEAR_Error('Unknown Database Driver: ' . $dsninfo['phptype'], -1);
+
 			return $obj;
 		}
+
 		if (is_array($options)) {
-			foreach($options as $k => $v) {
-				switch(strtolower($k)) {
+			foreach ($options as $k => $v) {
+				switch (strtolower($k)) {
 				case 'persist':
-				case 'persistent': 	$persist = $v; break;
-				#ibase
-				case 'dialect': 	$obj->dialect = $v; break;
-				case 'charset':		$obj->charset = $v; break;
-				case 'buffers':		$obj->buffers = $v; break;
-				#ado
-				case 'charpage':	$obj->charPage = $v; break;
-				#mysql
-				case 'clientflags': $obj->clientFlags = $v; break;
-				}
+				case 'persistent':
+					$persist = $v;
+
+					break;
+				// ibase
+				case 'dialect':
+					$obj->dialect = $v;
+
+					break;
+
+				case 'charset':
+					$obj->charset = $v;
+
+					break;
+
+				case 'buffers':
+					$obj->buffers = $v;
+
+					break;
+				// ado
+				case 'charpage':
+					$obj->charPage = $v;
+
+					break;
+				// mysql
+				case 'clientflags':
+					$obj->clientFlags = $v;
+
+					break;
+			}
 			}
 		} else {
-		   	$persist = false;
+			$persist = false;
 		}
 
-		if (isset($dsninfo['socket'])) $dsninfo['hostspec'] .= ':'.$dsninfo['socket'];
-		else if (isset($dsninfo['port'])) $dsninfo['hostspec'] .= ':'.$dsninfo['port'];
+		if (isset($dsninfo['socket'])) {
+			$dsninfo['hostspec'] .= ':' . $dsninfo['socket'];
+		} elseif (isset($dsninfo['port'])) {
+			$dsninfo['hostspec'] .= ':' . $dsninfo['port'];
+		}
 
-		if($persist) $ok = $obj->PConnect($dsninfo['hostspec'], $dsninfo['username'],$dsninfo['password'],$dsninfo['database']);
-		else  $ok = $obj->Connect($dsninfo['hostspec'], $dsninfo['username'],$dsninfo['password'],$dsninfo['database']);
+		if ($persist) {
+			$ok = $obj->PConnect($dsninfo['hostspec'], $dsninfo['username'], $dsninfo['password'], $dsninfo['database']);
+		} else {
+			$ok = $obj->Connect($dsninfo['hostspec'], $dsninfo['username'], $dsninfo['password'], $dsninfo['database']);
+		}
 
-		if (!$ok) $obj = ADODB_PEAR_Error();
+		if (!$ok) {
+			$obj = ADODB_PEAR_Error();
+		}
+
 		return $obj;
 	}
 
@@ -194,8 +236,7 @@ class DB
 	 *
 	 * @return int the DB API version number
 	 */
-	function apiVersion()
-	{
+	public function apiVersion() {
 		return 2;
 	}
 
@@ -206,14 +247,15 @@ class DB
 	 *
 	 * @return bool whether $value is an error
 	 */
-	function isError($value)
-	{
-		if (!is_object($value)) return false;
+	public function isError($value) {
+		if (!is_object($value)) {
+			return false;
+		}
 		$class = strtolower(get_class($value));
-		return $class == 'pear_error' || is_subclass_of($value, 'pear_error') ||
-				$class == 'db_error' || is_subclass_of($value, 'db_error');
-	}
 
+		return $class == 'pear_error' || is_subclass_of($value, 'pear_error') ||
+			$class == 'db_error' || is_subclass_of($value, 'db_error');
+	}
 
 	/**
 	 * Tell whether a result code from a DB method is a warning.
@@ -224,8 +266,7 @@ class DB
 	 *
 	 * @return bool whether $value is a warning
 	 */
-	function isWarning($value)
-	{
+	public function isWarning($value) {
 		return false;
 		/*
 		return is_object($value) &&
@@ -265,21 +306,20 @@ class DB
 	 *
 	 * @author Tomas V.V.Cox <cox@idecnet.com>
 	 */
-	function parseDSN($dsn)
-	{
+	public function parseDSN($dsn) {
 		if (is_array($dsn)) {
 			return $dsn;
 		}
 
 		$parsed = array(
-			'phptype'  => false,
-			'dbsyntax' => false,
-			'protocol' => false,
-			'hostspec' => false,
-			'database' => false,
-			'username' => false,
-			'password' => false
-		);
+		'phptype'  => false,
+		'dbsyntax' => false,
+		'protocol' => false,
+		'hostspec' => false,
+		'database' => false,
+		'username' => false,
+		'password' => false,
+	);
 
 		// Find phptype and dbsyntax
 		if (($pos = strpos($dsn, '://')) !== false) {
@@ -287,16 +327,16 @@ class DB
 			$dsn = substr($dsn, $pos + 3);
 		} else {
 			$str = $dsn;
-			$dsn = NULL;
+			$dsn = null;
 		}
 
 		// Get phptype and dbsyntax
 		// $str => phptype(dbsyntax)
 		if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
-			$parsed['phptype'] = $arr[1];
+			$parsed['phptype']  = $arr[1];
 			$parsed['dbsyntax'] = (empty($arr[2])) ? $arr[1] : $arr[2];
 		} else {
-			$parsed['phptype'] = $str;
+			$parsed['phptype']  = $str;
 			$parsed['dbsyntax'] = $str;
 		}
 
@@ -306,9 +346,10 @@ class DB
 
 		// Get (if found): username and password
 		// $dsn => username:password@protocol+hostspec/database
-		if (($at = strpos($dsn,'@')) !== false) {
+		if (($at = strpos($dsn, '@')) !== false) {
 			$str = substr($dsn, 0, $at);
 			$dsn = substr($dsn, $at + 1);
+
 			if (($pos = strpos($str, ':')) !== false) {
 				$parsed['username'] = urldecode(substr($str, 0, $pos));
 				$parsed['password'] = urldecode(substr($str, $pos + 1));
@@ -319,17 +360,17 @@ class DB
 
 		// Find protocol and hostspec
 		// $dsn => protocol+hostspec/database
-		if (($pos=strpos($dsn, '/')) !== false) {
+		if (($pos = strpos($dsn, '/')) !== false) {
 			$str = substr($dsn, 0, $pos);
 			$dsn = substr($dsn, $pos + 1);
 		} else {
 			$str = $dsn;
-			$dsn = NULL;
+			$dsn = null;
 		}
 
 		// Get protocol + hostspec
 		// $str => protocol+hostspec
-		if (($pos=strpos($str, '+')) !== false) {
+		if (($pos = strpos($str, '+')) !== false) {
 			$parsed['protocol'] = substr($str, 0, $pos);
 			$parsed['hostspec'] = urldecode(substr($str, $pos + 1));
 		} else {
@@ -356,15 +397,16 @@ class DB
 	 * @return bool true if the extension was already or successfully
 	 * loaded, false if it could not be loaded
 	 */
-	function assertExtension($name)
-	{
+	public function assertExtension($name) {
 		if (!extension_loaded($name)) {
-			$dlext = (strncmp(PHP_OS,'WIN',3) === 0) ? '.dll' : '.so';
+			$dlext = (strncmp(PHP_OS, 'WIN', 3) === 0) ? '.dll' : '.so';
 			@dl($name . $dlext);
 		}
+
 		if (!extension_loaded($name)) {
 			return false;
 		}
+
 		return true;
 	}
 }

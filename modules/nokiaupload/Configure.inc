@@ -26,115 +26,123 @@
  * @version $Revision: 17580 $
  */
 class ConfigureController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
+		global $gallery;
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
-	global $gallery;
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$error = array();
-	$status = array();
-	if (isset($form['action']['save'])) {
-
-	    if (empty($form['group'])) {
-		$error[] = 'form[error][group][missing]';
-	    }
-	    if (empty($form['album'])) {
-		$error[] = 'form[error][album][missing]';
-	    }
-
-	    if (empty($error)) {
-
-		/* Create group for the mobile users. */
-		list ($ret, $groupId) = ImageUploadHelper::createMobileUserGroup($form['group']);
 		if ($ret) {
-		    if ($ret->getErrorCode() & ERROR_COLLISION) {
-			$error[] = 'form[error][group][duplicate]';
-		    } else {
 			return array($ret, null);
-		    }
 		}
+
+		$error  = array();
+		$status = array();
+
+		if (isset($form['action']['save'])) {
+			if (empty($form['group'])) {
+				$error[] = 'form[error][group][missing]';
+			}
+
+			if (empty($form['album'])) {
+				$error[] = 'form[error][album][missing]';
+			}
+
+			if (empty($error)) {
+				// Create group for the mobile users.
+				list($ret, $groupId) = ImageUploadHelper::createMobileUserGroup($form['group']);
+
+				if ($ret) {
+					if ($ret->getErrorCode() & ERROR_COLLISION) {
+						$error[] = 'form[error][group][duplicate]';
+					} else {
+						return array($ret, null);
+					}
+				}
+
+				if (empty($error)) {
+					list($ret, $albumId) = ImageUploadHelper::createUploadAlbum($form['album'], $form['parent']);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+					$ret = ImageUploadHelper::setAlbumPermissions($albumId, $groupId);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					$status['configured'] = 'nokiaupload';
+				}
+			}
+		} // else $form['action']['cancel']
 
 		if (empty($error)) {
-		    list ($ret, $albumId) =
-			ImageUploadHelper::createUploadAlbum($form['album'], $form['parent']);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    $ret = ImageUploadHelper::setAlbumPermissions($albumId, $groupId);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    $status['configured'] = 'nokiaupload';
+			$results['redirect'] = array(
+				'view'    => 'core.SiteAdmin',
+				'subView' => 'core.AdminPlugins',
+			);
+		} else {
+			$results['delegate'] = array(
+				'view'    => 'core.SiteAdmin',
+				'subView' => 'nokiaupload.Configure',
+			);
 		}
-	    }
-	} /* else $form['action']['cancel'] */
+		$results['status'] = $status;
+		$results['error']  = $error;
 
-	if (empty($error)) {
-	    $results['redirect'] = array('view' => 'core.SiteAdmin',
-					 'subView' => 'core.AdminPlugins');
-	} else {
-	    $results['delegate'] = array('view' => 'core.SiteAdmin',
-					 'subView' => 'nokiaupload.Configure');
+		return array(null, $results);
 	}
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Initial setup for NokiaUpload
  */
 class ConfigureView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Load our default values if we didn't just come from this form.
+		if ($form['formName'] != 'NokiaUploadConfigure') {
+			$form['formName'] = 'NokiaUploadConfigure';
+			$form['group']    = $module->translate('Mobile Users');
+			$form['album']    = $module->translate('Pictures from mobile phones');
+			$form['parent']   = '';
+		}
+
+		list($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$albumTree = GalleryUtilities::createAlbumTree($albums);
+
+		$template->setVariable('NokiaUploadConfigure', array('albumTree' => $albumTree));
+		$template->setVariable('controller', 'nokiaupload.Configure');
+
+		return array(null, array('body' => 'modules/nokiaupload/templates/Configure.tpl'));
 	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Load our default values if we didn't just come from this form. */
-	if ($form['formName'] != 'NokiaUploadConfigure') {
-	    $form['formName'] = 'NokiaUploadConfigure';
-	    $form['group'] = $module->translate('Mobile Users');
-	    $form['album'] = $module->translate('Pictures from mobile phones');
-	    $form['parent'] = '';
-	}
-
-	list ($ret, $albumIds) =
-	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$albumTree = GalleryUtilities::createAlbumTree($albums);
-
-	$template->setVariable('NokiaUploadConfigure', array('albumTree' => $albumTree));
-	$template->setVariable('controller', 'nokiaupload.Configure');
-	return array(null, array('body' => 'modules/nokiaupload/templates/Configure.tpl'));
-    }
 }
-?>

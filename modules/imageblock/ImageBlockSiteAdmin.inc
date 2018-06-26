@@ -26,102 +26,121 @@
  * @version $Revision: 17580 $
  */
 class ImageBlockSiteAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = array();
-	if (isset($form['action']['save'])) {
-	    $param = array();
-	    foreach (array('heading', 'title', 'date', 'views', 'owner') as $key) {
-		if (isset($form[$key]) && $form[$key]) {
-		    $param[] = $key;
-		}
-	    }
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock',
-						      'show', implode('|', $param));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach (array('albumFrame', 'itemFrame') as $key) {
-		if (isset($form[$key])) {
-		    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock',
-							      $key, $form[$key]);
-		    if ($ret) {
+		if ($ret) {
 			return array($ret, null);
-		    }
 		}
-	    }
-	    $status['saved'] = 1;
-	} /* else $form['action']['reset'] */
 
-	/* Figure out where to redirect upon success */
-	$results['redirect']['view'] = 'core.SiteAdmin';
-	$results['redirect']['subView'] = 'imageblock.ImageBlockSiteAdmin';
-	$results['status'] = $status;
-	$results['error'] = array();
+		$status = array();
 
-	return array(null, $results);
-    }
+		if (isset($form['action']['save'])) {
+			$param = array();
+
+			foreach (array('heading', 'title', 'date', 'views', 'owner') as $key) {
+				if (isset($form[$key]) && $form[$key]) {
+					$param[] = $key;
+				}
+			}
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'imageblock',
+				'show',
+				implode('|', $param)
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach (array('albumFrame', 'itemFrame') as $key) {
+				if (isset($form[$key])) {
+					$ret = GalleryCoreApi::setPluginParameter(
+						'module',
+						'imageblock',
+						$key,
+						$form[$key]
+					);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+			}
+			$status['saved'] = 1;
+		} // else $form['action']['reset']
+
+		// Figure out where to redirect upon success
+		$results['redirect']['view']    = 'core.SiteAdmin';
+		$results['redirect']['subView'] = 'imageblock.ImageBlockSiteAdmin';
+		$results['status']              = $status;
+		$results['error']               = array();
+
+		return array(null, $results);
+	}
 }
 
 /**
  * Settings for Image Block
  */
 class ImageBlockSiteAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	if ($form['formName'] != 'ImageBlockSiteAdmin') {
-	    $form['formName'] = 'ImageBlockSiteAdmin';
-	    foreach (array('heading', 'title', 'date', 'views', 'owner') as $tmp) {
-		$form[$tmp] = 0;
-	    }
-	    list ($ret, $param) =
-		GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach (explode('|', $param['show']) as $tmp) {
-		$form[$tmp] = 1;
-	    }
-	    $form['albumFrame'] = $param['albumFrame'];
-	    $form['itemFrame'] = $param['itemFrame'];
-	}
-	$ImageBlockSiteAdmin = array('prefix' => GALLERY_FORM_VARIABLE_PREFIX);
+		if ($form['formName'] != 'ImageBlockSiteAdmin') {
+			$form['formName'] = 'ImageBlockSiteAdmin';
 
-	/* ImageFrame settings, if available */
-	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (isset($imageframe)) {
-	    list ($ret, $ImageBlockSiteAdmin['list']) = $imageframe->getImageFrameList();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    list ($ret, $ImageBlockSiteAdmin['sampleUrl']) = $imageframe->getSampleUrl();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
+			foreach (array('heading', 'title', 'date', 'views', 'owner') as $tmp) {
+				$form[$tmp] = 0;
+			}
+			list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
 
-	$template->setVariable('ImageBlockSiteAdmin', $ImageBlockSiteAdmin);
-	$template->setVariable('controller', 'imageblock.ImageBlockSiteAdmin');
-	return array(null, array('body' => 'modules/imageblock/templates/ImageBlockSiteAdmin.tpl'));
-    }
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach (explode('|', $param['show']) as $tmp) {
+				$form[$tmp] = 1;
+			}
+			$form['albumFrame'] = $param['albumFrame'];
+			$form['itemFrame']  = $param['itemFrame'];
+		}
+		$ImageBlockSiteAdmin = array('prefix' => GALLERY_FORM_VARIABLE_PREFIX);
+
+		// ImageFrame settings, if available
+		list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (isset($imageframe)) {
+			list($ret, $ImageBlockSiteAdmin['list']) = $imageframe->getImageFrameList();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			list($ret, $ImageBlockSiteAdmin['sampleUrl']) = $imageframe->getSampleUrl();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		$template->setVariable('ImageBlockSiteAdmin', $ImageBlockSiteAdmin);
+		$template->setVariable('controller', 'imageblock.ImageBlockSiteAdmin');
+
+		return array(null, array('body' => 'modules/imageblock/templates/ImageBlockSiteAdmin.tpl'));
+	}
 }
-?>

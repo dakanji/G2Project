@@ -25,50 +25,55 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  * @version $Revision: 17580 $
  */
-class PhotoAccessCartPlugin /* implements CartPluginInterface_1_0 and CartPluginInterface_1_1 */ {
-    /**
-     * @see CartPluginInterface_1_0::getSupportedItemTypes
-     */
-    function getSupportedItemTypes() {
-	return array('GalleryPhotoItem');
-    }
-
-    /**
-     * @see CartPluginInterface_1_1::getRequiredPermissions
-     */
-    function getRequiredPermissions() {
-	return array('photoaccess.print');
-    }
-
-    /**
-     * @see CartPluginInterface_1_0::getActionDisplayName
-     */
-    function getActionDisplayName() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'photoaccess');
-	if ($ret) {
-	    return array($ret, null);
+class PhotoAccessCartPlugin // implements CartPluginInterface_1_0 and CartPluginInterface_1_1
+{
+	/**
+	 * @see CartPluginInterface_1_0::getSupportedItemTypes
+	 */
+	public function getSupportedItemTypes() {
+		return array('GalleryPhotoItem');
 	}
 
-	$action = $module->translate('Print with PhotoWorks');
-	return array(null, $action);
-    }
-
-    /**
-     * @see CartPluginInterface_1_0::fulfillCart
-     */
-    function fulfillCart($cartItemIds) {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$returnUrl = $urlGenerator->generateUrl(
-		array('view' => 'cart.ViewCart'), array('forceFullUrl' => true));
-
-	GalleryCoreApi::requireOnce('modules/photoaccess/classes/PhotoAccessHelper.class');
-	list ($ret, $cartUrl) = PhotoAccessHelper::printPhotos($cartItemIds, $returnUrl);
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see CartPluginInterface_1_1::getRequiredPermissions
+	 */
+	public function getRequiredPermissions() {
+		return array('photoaccess.print');
 	}
 
-	return array(null, array('href' => $cartUrl));
-    }
+	/**
+	 * @see CartPluginInterface_1_0::getActionDisplayName
+	 */
+	public function getActionDisplayName() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'photoaccess');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$action = $module->translate('Print with PhotoWorks');
+
+		return array(null, $action);
+	}
+
+	/**
+	 * @see CartPluginInterface_1_0::fulfillCart
+	 */
+	public function fulfillCart($cartItemIds) {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$returnUrl    = $urlGenerator->generateUrl(
+			array('view' => 'cart.ViewCart'),
+			array('forceFullUrl' => true)
+		);
+
+		GalleryCoreApi::requireOnce('modules/photoaccess/classes/PhotoAccessHelper.class');
+		list($ret, $cartUrl) = PhotoAccessHelper::printPhotos($cartItemIds, $returnUrl);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, array('href' => $cartUrl));
+	}
 }
-?>

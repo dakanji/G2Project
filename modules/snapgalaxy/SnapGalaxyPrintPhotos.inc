@@ -26,40 +26,40 @@
  * @version $Revision: 17934 $
  */
 class SnapGalaxyPrintPhotosController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
+		list($ret, $item) = $this->getItem();
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$returnUrl = GalleryUtilities::getRequestVariables('returnUrl');
+		$ret       = $urlGenerator->assertIsInternalUrl($returnUrl);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$returnUrl = GalleryUtilities::htmlEntityDecode($returnUrl);
+
+		GalleryCoreApi::requireOnce('modules/snapgalaxy/classes/SnapGalaxyHelper.class');
+		list($ret, $cartUrl) = SnapGalaxyHelper::printPhotos(array($item->getId() => 1), $returnUrl);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Prepare our results
+		$results['redirect']['href'] = $cartUrl;
+		$results['status']           = array();
+		$results['error']            = array();
+
+		return array(null, $results);
 	}
-
-	$returnUrl = GalleryUtilities::getRequestVariables('returnUrl');
-	$ret = $urlGenerator->assertIsInternalUrl($returnUrl);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$returnUrl = GalleryUtilities::htmlEntityDecode($returnUrl);
-
-	GalleryCoreApi::requireOnce('modules/snapgalaxy/classes/SnapGalaxyHelper.class');
-	list ($ret, $cartUrl) =
-	    SnapGalaxyHelper::printPhotos(array($item->getId() => 1), $returnUrl);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Prepare our results */
-	$results['redirect']['href'] = $cartUrl;
-	$results['status'] = array();
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
 }
-?>

@@ -35,36 +35,34 @@
  * @subpackage PHPUnit
  */
 class RepositoryTestTemplate {
-    var $_templateContents;
-    var $_variables;
+	public $_templateContents;
+	public $_variables;
 
-    function RepositoryTestTemplate($templateContents = '', $contentsVariable = '') {
-	$this->_templateContents = $templateContents;
+	public function __construct($templateContents = '', $contentsVariable = '') {
+		$this->_templateContents = $templateContents;
 
-	if (!empty($contentsVariable)) {
-	    $this->_variables['contents'] = $contentsVariable;
+		if (!empty($contentsVariable)) {
+			$this->_variables['contents'] = $contentsVariable;
+		}
 	}
-    }
 
-    function setVariable($key, $value) {
-	$this->_variables[] = $key == 'random' ? array($key => 'random')
-					       : array($key => $value);
-    }
+	public function setVariable($key, $value) {
+		$this->_variables[] = $key == 'random' ? array($key => 'random') : array($key => $value);
+	}
 
-    function hasVariable($key) {
-	return isset($this->_variables[$key]);
-    }
+	public function hasVariable($key) {
+		return isset($this->_variables[$key]);
+	}
 
-    function getVariable($key) {
-	return $this->_variables[$key];
-    }
+	public function getVariable($key) {
+		return $this->_variables[$key];
+	}
 
-    function getVariables() {
-	return $this->_variables;
-    }
+	public function getVariables() {
+		return $this->_variables;
+	}
 
-    function fetch($template) {
-	return array(null, $this->_templateContents);
-    }
+	public function fetch($template) {
+		return array(null, $this->_templateContents);
+	}
 }
-?>

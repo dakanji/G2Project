@@ -26,16 +26,16 @@
  * @version $Revision: 17580 $
  */
 class RssPreloads {
-    function preload(&$template, $preload, $paramSet) {
-	global $gallery;
+	public function preload(&$template, $preload, $paramSet) {
+		global $gallery;
 
-	switch($preload) {
-	case 'RssBlock':
-	    $template->head('modules/rss/templates/RssBlockHead.tpl');
-	    return null;
+		switch ($preload) {
+			case 'RssBlock':
+				$template->head('modules/rss/templates/RssBlockHead.tpl');
+
+				return null;
+		}
+
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

@@ -32,110 +32,140 @@ GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class
  * @version $Revision: 17580 $
  */
 class CustomFieldItemAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest() {
+		global $gallery;
+		$session =& $gallery->getSession();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest() {
-	global $gallery;
-	$session =& $gallery->getSession();
+		$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
 
-	$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
+		list($ret, $item) = $this->getItem();
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	if (!empty($adminMode)) {
-	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    /* Activate album-specific settings: */
-	    if ($adminMode == 2) {
-		/* Copy in global settings */
-		list ($ret, $globalParam) = CustomFieldHelper::loadParameters();
 		if ($ret) {
-		    return array($ret, null);
-		}
-		$ret = CustomFieldHelper::saveParameters($globalParam, $itemId);
-		if ($ret) {
-		    return array($ret, null);
-		}
-		/* Mark setId on existing field values */
-		list ($ret, $searchResults) = $gallery->search(
-		    'SELECT [ChildEntity::id] FROM [ChildEntity] WHERE [ChildEntity::parentId]=?',
-		    array($itemId));
-		if ($ret) {
-		    return array($ret, null);
-		}
-		$idList = array($itemId);
-		while ($rec = $searchResults->nextResult()) {
-		    $idList[] = $rec[0];
-		}
-		$ret = GalleryCoreApi::updateMapEntry(
-		    'CustomFieldMap',
-		    array('itemId' => $idList),
-		    array('setId' => $itemId) );
-		if ($ret) {
-		    return array($ret, null);
-		}
-	    }
-
-	    /* Revert to global settings: */
-	    if ($adminMode == -2) {
-		/* Remove album-specific settings */
-		foreach (array('common', 'album', 'photo') as $set) {
-		    $ret = GalleryCoreApi::removePluginParameter(
-					   'module', 'customfield', $set, $itemId);
-		}
-		/* Clear setId for existing field values that can be retained */
-		list ($ret, $globalParam) = CustomFieldHelper::loadParameters();
-		if ($ret) {
-		    return array($ret, null);
-		}
-		foreach (array('common' => 0, 'album' => 1, 'photo' => 2) as $set => $setType) {
-		    $fieldList = array();
-		    foreach ($globalParam[$set] as $it) {
-			$fieldList[] = $it['field'];
-		    }
-		    if (empty($fieldList)) {
-			continue;
-		    }
-		    $match = array('setId' => $itemId, 'field' => $fieldList);
-		    if ($setType > 0) {
-			$match['setType'] = $setType;
-		    }
-		    $ret = GalleryCoreApi::updateMapEntry(
-			'CustomFieldMap', $match, array('setId' => 0));
-		    if ($ret) {
 			return array($ret, null);
-		    }
 		}
-		/* Remove remaining field values */
-		$ret = GalleryCoreApi::removeMapEntry(
-		    'CustomFieldMap', array('setId' => $itemId));
-		if ($ret) {
-		    return array($ret, null);
-		}
-	    }
+		$itemId = $item->getId();
 
-	    /* Set admin mode in session */
-	    if ($adminMode > 0) {
-		$session->put(CUSTOM_FIELD_SESSION_KEY, $itemId);
-	    } else {
-		$session->remove(CUSTOM_FIELD_SESSION_KEY);
-	    }
+		if (!empty($adminMode)) {
+			$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			// Activate album-specific settings:
+			if ($adminMode == 2) {
+				// Copy in global settings
+				list($ret, $globalParam) = CustomFieldHelper::loadParameters();
+
+				if ($ret) {
+					return array($ret, null);
+				}
+				$ret = CustomFieldHelper::saveParameters($globalParam, $itemId);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+				// Mark setId on existing field values
+				list($ret, $searchResults) = $gallery->search(
+					'SELECT [ChildEntity::id] FROM [ChildEntity] WHERE [ChildEntity::parentId]=?',
+					array($itemId)
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+				$idList = array($itemId);
+
+				while ($rec = $searchResults->nextResult()) {
+					$idList[] = $rec[0];
+				}
+				$ret = GalleryCoreApi::updateMapEntry(
+					'CustomFieldMap',
+					array('itemId' => $idList),
+					array('setId' => $itemId)
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+
+			// Revert to global settings:
+			if ($adminMode == -2) {
+				// Remove album-specific settings
+				foreach (array('common', 'album', 'photo') as $set) {
+					$ret = GalleryCoreApi::removePluginParameter(
+						'module',
+						'customfield',
+						$set,
+						$itemId
+					);
+				}
+				// Clear setId for existing field values that can be retained
+				list($ret, $globalParam) = CustomFieldHelper::loadParameters();
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				foreach (array(
+					'common' => 0,
+					'album'  => 1,
+					'photo'  => 2,
+				) as $set => $setType) {
+					$fieldList = array();
+
+					foreach ($globalParam[$set] as $it) {
+						$fieldList[] = $it['field'];
+					}
+
+					if (empty($fieldList)) {
+						continue;
+					}
+					$match = array(
+						'setId' => $itemId,
+						'field' => $fieldList,
+					);
+
+					if ($setType > 0) {
+						$match['setType'] = $setType;
+					}
+					$ret = GalleryCoreApi::updateMapEntry(
+						'CustomFieldMap',
+						$match,
+						array('setId' => 0)
+					);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+				// Remove remaining field values
+				$ret = GalleryCoreApi::removeMapEntry(
+					'CustomFieldMap',
+					array('setId' => $itemId)
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+
+			// Set admin mode in session
+			if ($adminMode > 0) {
+				$session->put(CUSTOM_FIELD_SESSION_KEY, $itemId);
+			} else {
+				$session->remove(CUSTOM_FIELD_SESSION_KEY);
+			}
+		}
+
+		$results['return'] = 1;
+		$results['status'] = array();
+		$results['error']  = array();
+
+		return array(null, $results);
 	}
-
-	$results['return'] = 1;
-	$results['status'] = array();
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
 }
-?>

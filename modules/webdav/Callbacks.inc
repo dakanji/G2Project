@@ -25,33 +25,34 @@
  * @version $Revision: 17580 $
  */
 class WebDavCallbacks {
+	public function callback($params, &$smarty, $callback, $userId = null) {
+		global $gallery;
 
-    function callback($params, &$smarty, $callback, $userId=null) {
-	global $gallery;
+		switch ($callback) {
+			case 'LoadMountLink':
+				GalleryCoreApi::requireOnce('modules/webdav/classes/WebDavHelper.class');
 
-	switch ($callback) {
-	case 'LoadMountLink':
-	    GalleryCoreApi::requireOnce('modules/webdav/classes/WebDavHelper.class');
+				list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($params['itemId'], 'core.view');
 
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($params['itemId'], 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
+				if ($ret) {
+					return $ret;
+				}
 
-	    $link = array();
-	    if ($hasPermission) {
-		$link = WebDavHelper::getMountLink($params['itemId']);
-	    }
+				$link = array();
 
-	    $block =& $smarty->_tpl_vars['block'];
-	    $block['webdav']['LoadMountLink'] =
-		array('link' => $link, 'hasPermission' => $hasPermission);
+				if ($hasPermission) {
+					$link = WebDavHelper::getMountLink($params['itemId']);
+				}
 
-	    return null;
+				$block                            =& $smarty->_tpl_vars['block'];
+				$block['webdav']['LoadMountLink'] = array(
+					'link'          => $link,
+					'hasPermission' => $hasPermission,
+				);
+
+				return null;
+		}
+
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

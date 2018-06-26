@@ -26,74 +26,79 @@
  * @version $Revision: 17580 $
  */
 class MembersProfileView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
+		list($ret, $result) = GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
 
-	GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
-	list ($ret, $result) =
-	    GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$result) {
+			return array(null, array('redirect' => array('view' => 'core.ShowItem')));
+		}
+
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
+		if (empty($userId)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
+
+		if ($form['formName'] != 'MembersProfile') {
+			// Set some defaults
+			$form['formName'] = 'MembersProfile';
+		}
+
+		$MembersProfile = array();
+
+		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$MembersProfile['user'] = (array)$user;
+
+		list($ret, $lastItems) = GalleryMembersHelper::fetchLastUserItems($user->getId(), 0, 5, ORDER_DESCENDING);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$MembersProfile['lastItems'] = array();
+
+		foreach ($lastItems as $item) {
+			$MembersProfile['lastItems'][] = (array)$item;
+		}
+
+		list($ret, $daysSinceCreation) = GalleryMembersHelper::daysSinceCreation($user->getId());
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$MembersProfile['daysSinceCreation'] = $daysSinceCreation;
+
+		list($ret, $canViewProfileEmail) = GalleryMembersHelper::canViewProfileEmail($gallery->getActiveUserId());
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$MembersProfile['canViewProfileEmail'] = $canViewProfileEmail;
+
+		$template->setVariable('MembersProfile', $MembersProfile);
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$template->title($module->translate('Members Profile'));
+
+		return array(null, array('body' => 'modules/members/templates/MembersProfile.tpl'));
 	}
-	if (!$result) {
-	    return array(null, array('redirect' => array('view' => 'core.ShowItem')));
-	}
-
-	$userId = GalleryUtilities::getRequestVariables('userId');
-	if (empty($userId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-
-	if ($form['formName'] != 'MembersProfile') {
-	    /* Set some defaults */
-	    $form['formName'] = 'MembersProfile';
-	}
-
-	$MembersProfile = array();
-
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$MembersProfile['user'] = (array)$user;
-
-	list ($ret, $lastItems) =
-	   GalleryMembersHelper::fetchLastUserItems($user->getId(), 0, 5, ORDER_DESCENDING);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$MembersProfile['lastItems'] = array();
-	foreach ($lastItems as $item) {
-	    $MembersProfile['lastItems'][] = (array)$item;
-	}
-
-	list ($ret, $daysSinceCreation) = GalleryMembersHelper::daysSinceCreation($user->getId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$MembersProfile['daysSinceCreation'] = $daysSinceCreation;
-
-	list ($ret, $canViewProfileEmail) =
-	    GalleryMembersHelper::canViewProfileEmail($gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$MembersProfile['canViewProfileEmail'] = $canViewProfileEmail;
-
-	$template->setVariable('MembersProfile', $MembersProfile);
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Members Profile'));
-	return array(null, array('body' => 'modules/members/templates/MembersProfile.tpl'));
-    }
 }
-?>

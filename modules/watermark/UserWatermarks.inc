@@ -26,144 +26,151 @@
  * @version $Revision: 17580 $
  */
 class UserWatermarksController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		global $gallery;
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-        global $gallery;
+		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $isOn) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$user = $gallery->getActiveUser();
+
+		if ($isAnonymous || $user->isLocked() || !$isOn) {
+			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+		}
+
+		$status = $error = array();
+
+		if (isset($form['action']['add']) && !empty($form['tmp_name'][1])) {
+			list($ret, $item) = WatermarkHelper::createWatermarkImage($form);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$results['redirect']['view']        = 'core.UserAdmin';
+			$results['redirect']['subView']     = 'watermark.UserWatermarkEdit';
+			$results['redirect']['watermarkId'] = $item->getId();
+		} elseif (isset($form['action']['add'])) {
+			$error[]                        = 'form[error][missingFile]';
+			$results['delegate']['view']    = 'core.UserAdmin';
+			$results['delegate']['subView'] = 'watermark.UserWatermarks';
+		} elseif (isset($form['action']['delete']) && isset($form['delete']['watermarkId'])) {
+			list($ret, $wasDeleted) = WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			if ($wasDeleted) {
+				$status['delete']               = 1;
+				$results['redirect']['view']    = 'core.UserAdmin';
+				$results['redirect']['subView'] = 'watermark.UserWatermarks';
+			} else {
+				// Watermark is in use.. redirect to confirm page:
+				$results['redirect']['view']        = 'core.UserAdmin';
+				$results['redirect']['subView']     = 'watermark.ConfirmDelete';
+				$results['redirect']['watermarkId'] = $form['delete']['watermarkId'];
+			}
+		}
+
+		$results['status'] = $status;
+		$results['error']  = $error;
+
+		return array(null, $results);
 	}
-	list ($ret, $isOn) =
-	    GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-        $user = $gallery->getActiveUser();
-
-	if ($isAnonymous || $user->isLocked() || !$isOn) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
-	}
-
-	$status = $error = array();
-	if (isset($form['action']['add']) && !empty($form['tmp_name'][1])) {
-	    list ($ret, $item) = WatermarkHelper::createWatermarkImage($form);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $results['redirect']['view'] = 'core.UserAdmin';
-	    $results['redirect']['subView'] = 'watermark.UserWatermarkEdit';
-	    $results['redirect']['watermarkId'] = $item->getId();
-	} else if (isset($form['action']['add'])) {
-	    $error[] = 'form[error][missingFile]';
-	    $results['delegate']['view'] = 'core.UserAdmin';
-	    $results['delegate']['subView'] = 'watermark.UserWatermarks';
-	} else if (isset($form['action']['delete']) && isset($form['delete']['watermarkId'])) {
-	    list ($ret, $wasDeleted) =
-		WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if ($wasDeleted) {
-		$status['delete'] = 1;
-		$results['redirect']['view'] = 'core.UserAdmin';
-		$results['redirect']['subView'] = 'watermark.UserWatermarks';
-	    } else {
-		/* Watermark is in use.. redirect to confirm page: */
-		$results['redirect']['view'] = 'core.UserAdmin';
-		$results['redirect']['subView'] = 'watermark.ConfirmDelete';
-		$results['redirect']['watermarkId'] = $form['delete']['watermarkId'];
-	    }
-	}
-
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Manage user watermarks
  */
 class UserWatermarksView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
+		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $isOn) =
-	    GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
-	if ($ret) {
-	    return array($ret, null);
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $isOn) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
 
-        $user = $gallery->getActiveUser();
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	if ($isAnonymous || $user->isLocked() || !$isOn) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
-	}
+		$user = $gallery->getActiveUser();
 
-	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	foreach ($watermarks as $id => $watermark) {
-	    /* Exclude site-wide watermarks (and, in the case of admins -- other people's) */
-	    if ($watermark->getOwnerId() != $gallery->getActiveUserId()) {
-		unset($watermarks[$id]);
-		continue;
-	    }
+		if ($isAnonymous || $user->isLocked() || !$isOn) {
+			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+		}
 
-	    $watermarks[$id] = (array)$watermark;
-	}
+		list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 
-	if ($form['formName'] != 'UserWatermarks') {
-	    $form['formName'] = 'UserWatermarks';
-	    if (!empty($watermarks)) {
-		$ids = array_keys($watermarks);
-		$form['watermarkId'] = array_shift($ids);
-	    }
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	/* Set the form's encoding type since we're uploading binary files */
-	if ($template->hasVariable('UserAdmin')) {
-	    $UserAdmin =& $template->getVariableByReference('UserAdmin');
-	    $UserAdmin['enctype'] = 'multipart/form-data';
-	} else {
-	    $UserAdmin['enctype'] = 'multipart/form-data';
-	    $template->setVariable('UserAdmin', $UserAdmin);
-	}
+		foreach ($watermarks as $id => $watermark) {
+			// Exclude site-wide watermarks (and, in the case of admins -- other people's)
+			if ($watermark->getOwnerId() != $gallery->getActiveUserId()) {
+				unset($watermarks[$id]);
 
-	$template->setVariable('UserWatermarks', array('watermarks' => $watermarks));
-	$template->setVariable('controller', 'watermark.UserWatermarks');
-	return array(null, array('body' => 'modules/watermark/templates/UserWatermarks.tpl'));
-    }
+				continue;
+			}
 
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'watermark');
-	if ($ret) {
-	    return array($ret, null);
+			$watermarks[$id] = (array)$watermark;
+		}
+
+		if ($form['formName'] != 'UserWatermarks') {
+			$form['formName'] = 'UserWatermarks';
+
+			if (!empty($watermarks)) {
+				$ids                 = array_keys($watermarks);
+				$form['watermarkId'] = array_shift($ids);
+			}
+		}
+
+		// Set the form's encoding type since we're uploading binary files
+		if ($template->hasVariable('UserAdmin')) {
+			$UserAdmin            =& $template->getVariableByReference('UserAdmin');
+			$UserAdmin['enctype'] = 'multipart/form-data';
+		} else {
+			$UserAdmin['enctype'] = 'multipart/form-data';
+			$template->setVariable('UserAdmin', $UserAdmin);
+		}
+
+		$template->setVariable('UserWatermarks', array('watermarks' => $watermarks));
+		$template->setVariable('controller', 'watermark.UserWatermarks');
+
+		return array(null, array('body' => 'modules/watermark/templates/UserWatermarks.tpl'));
 	}
 
-	return array(null, $core->translate('user watermarks'));
-    }
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'watermark');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $core->translate('user watermarks'));
+	}
 }
-?>

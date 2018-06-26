@@ -27,67 +27,79 @@
  * @version $Revision: 17580 $
  */
 class ItemDeleteSingleController extends GalleryController {
-
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
-	
-	list ($pageItemId, $page) = 
-	    GalleryUtilities::getRequestVariables('pageId', 'page');
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	/* The framework shouldn't let us get this far if we don't have delete permission */
-	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.delete');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	
-	/* Get the parent *before* we delete the item */	
-	$parentId = $item->getParentId();
-	
-	/* Get the root album id, so we don't try to delete it */
-	list ($ret, $rootId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* The view shouldn't let us try to delete the root album, either */
-	if ($itemId == $rootId) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					 "Can't delete the root album"), null);
-	}
-
-	$ret = GalleryCoreApi::deleteEntityById($itemId, 'GalleryItem');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	
-	list ($ret, $unused) = GalleryCoreApi::guaranteeAlbumHasThumbnail($parentId);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	/**
-	 * @todo: once there is a common status message, use it to provide feedback on success
+	 * @see GalleryController::handleRequest
 	 */
-	$params = array('view' => 'core.ShowItem', 
-	      'itemId' => ($itemId == $pageItemId ? $parentId : $pageItemId));
-	if (!empty($page)) {
-	    $params['page'] = $page;
+	public function handleRequest($form) {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
+
+		list($pageItemId, $page) = GalleryUtilities::getRequestVariables('pageId', 'page');
+
+		list($ret, $item) = $this->getItem();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$itemId = $item->getId();
+
+		// The framework shouldn't let us get this far if we don't have delete permission
+		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.delete');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Get the parent *before* we delete the item
+		$parentId = $item->getParentId();
+
+		// Get the root album id, so we don't try to delete it
+		list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// The view shouldn't let us try to delete the root album, either
+		if ($itemId == $rootId) {
+			return array(
+				GalleryCoreApi::error(
+					ERROR_BAD_PARAMETER,
+					__FILE__,
+					__LINE__,
+					"Can't delete the root album"
+				),
+				null,
+			);
+		}
+
+		$ret = GalleryCoreApi::deleteEntityById($itemId, 'GalleryItem');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $unused) = GalleryCoreApi::guaranteeAlbumHasThumbnail($parentId);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		/**
+		 * @todo: once there is a common status message, use it to provide feedback on success
+		 */
+		$params = array(
+			'view'   => 'core.ShowItem',
+			'itemId' => ($itemId == $pageItemId ? $parentId : $pageItemId),
+		);
+
+		if (!empty($page)) {
+			$params['page'] = $page;
+		}
+		$result['redirect'] = $params;
+		$result['status']   = array();
+		$result['error']    = array();
+
+		return array(null, $result);
 	}
-	$result['redirect'] = $params;
-	$result['status'] = array();
-	$result['error'] = array();
-	return array(null, $result);
-    }
 }
-?>

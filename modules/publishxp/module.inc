@@ -30,35 +30,34 @@
  * @version $Revision: 18172 $
  */
 class PublishXpModule extends GalleryModule {
+	public function __construct() {
+		global $gallery;
+		$this->setId('publishxp');
+		$this->setName($gallery->i18n('Windows Publishing Wizard'));
+		$this->setDescription($gallery->i18n('Publish photos to Gallery directly from Windows'));
+		$this->setVersion('1.0.14');
+		$this->_templateVersion = 1;
+		$this->setGroup('import', $gallery->i18n('Import'));
+		$this->setCallbacks('');
+		$this->setRequiredCoreApi(array(7, 53));
+		$this->setRequiredModuleApi(array(3, 6));
+	}
 
-    function __construct() {
-	$this->PublishXpModule();
-    }
+	/**
+	 * Registers the item add operation with Gallery.
+	 *
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		GalleryCoreApi::registerFactoryImplementation(
+			'ItemAddPlugin',
+			'ItemAddPublishXp',
+			'ItemAddPublishXp',
+			'modules/publishxp/ItemAddPublishXp.inc',
+			'publishxp',
+			null
+		);
 
-    function PublishXpModule() {
-	global $gallery;
-	$this->setId('publishxp');
-	$this->setName($gallery->i18n('Windows Publishing Wizard'));
-	$this->setDescription($gallery->i18n('Publish photos to Gallery directly from Windows'));
-	$this->setVersion('1.0.14');
-	$this->_templateVersion = 1;
-	$this->setGroup('import', $gallery->i18n('Import'));
-	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * Registers the item add operation with Gallery.
-     *
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddPlugin', 'ItemAddPublishXp', 'ItemAddPublishXp',
-	    'modules/publishxp/ItemAddPublishXp.inc', 'publishxp', null);
-
-	return null;
-    }
+		return null;
+	}
 }
-?>

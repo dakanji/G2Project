@@ -28,178 +28,185 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform.class');
  * @version $Revision: 17580 $
  */
 class WinNtPlatform extends GalleryPlatform {
-
-    /**
-     * @see GalleryPlatform::rename
-     */
-    function rename($oldname, $newname) {
-	/*
-	 * Windows gets upset if the new file already exists.  If that's
-	 * the case, remove the new file before renaming.
+	/**
+	 * @see GalleryPlatform::rename
 	 */
-	if ($this->file_exists($newname)) {
-	    @$this->unlink($newname);
-	}
-	return parent::rename($oldname, $newname);
-    }
-
-    /**
-     * @see GalleryPlatform::exec
-     */
-    function exec($cmdArray, $returnErrorOutput=false) {
-	global $gallery;
-	$gallery->guaranteeTimeLimit(5);
-
-	/* Assemble the command array into a pipeline */
-	$command = '';
-	foreach ($cmdArray as $cmdAndArgs) {
-
-	    if (!empty($command)) {
-		$command .= ' | ';
-	    }
-
-	    foreach ($cmdAndArgs as $arg) {
-		if ($arg === '>') {
-		    $command .= '>';
-		} else {
-		    $command .= ' "' . $arg . '" ';
+	public function rename($oldname, $newname) {
+		/*
+		 * Windows gets upset if the new file already exists.  If that's
+		 * the case, remove the new file before renaming.
+		 */
+		if ($this->file_exists($newname)) {
+			@$this->unlink($newname);
 		}
-	    }
+
+		return parent::rename($oldname, $newname);
 	}
 
-	/* We're going to redirect STDERR to a file */
-	$tmpDir = $gallery->getConfig('data.gallery.tmp');
-	$debugFile = tempnam($tmpDir, 'g2dbg');
-
-	/*
-	 * Ok, this is screwy, but for some reason these
-	 * don't work:
-	 *
-	 *    cmd /c "c:\path with\spaces\binary" "arg"
-	 *    cmd /c " c:\path\\ with\spaces\binary arg "
-	 *    cmd /c " 'c:\path\ with\spaces\binary' 'arg' "
-	 *
-	 * But this does:
-	 *
-	 *    cmd /c " "c:\path with\spaces\binary" "arg" "
-	 *
-	 * Turns out that this is a documented feature of cmd.exe.
-	 * See "cmd.exe /help" for more details
-	 *
+	/**
+	 * @see GalleryPlatform::exec
 	 */
-	$command = 'cmd /c "' . $command . ' 2> "' . $debugFile . '" "';
+	public function exec($cmdArray, $returnErrorOutput = false) {
+		global $gallery;
+		$gallery->guaranteeTimeLimit(5);
 
-	if ($gallery->getDebug()) {
-	    $gallery->debug("Executing: $command");
-	}
-	$results = array();
-	exec($command, $results, $status);
+		// Assemble the command array into a pipeline
+		$command = '';
 
-	list ($ret, $expected) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
-	if ($ret) {
-	    if ($gallery->getDebug()) {
-		$gallery->debug('Unable to look up core.exec.expectedStatus param');
-	    }
-	    $expected = 0;
-	}
-
-	$stderr = array();
-	if ($this->file_exists($debugFile)) {
-	    if ($this->filesize($debugFile) > 0) {
-		if ($fd = $this->fopen($debugFile, "r")) {
-		    while (!$this->feof($fd)) {
-			$buf = $this->fgets($fd, 4096);
-			$buf = rtrim($buf);
-			if (!empty($buf)) {
-			    $stderr[] = $buf;
+		foreach ($cmdArray as $cmdAndArgs) {
+			if (!empty($command)) {
+				$command .= ' | ';
 			}
-		    }
-		    $this->fclose($fd);
+
+			foreach ($cmdAndArgs as $arg) {
+				if ($arg === '>') {
+					$command .= '>';
+				} else {
+					$command .= ' "' . $arg . '" ';
+				}
+			}
 		}
-	    }
-	    $this->unlink($debugFile);
+
+		// We're going to redirect STDERR to a file
+		$tmpDir    = $gallery->getConfig('data.gallery.tmp');
+		$debugFile = tempnam($tmpDir, 'g2dbg');
+
+		/*
+		 * Ok, this is screwy, but for some reason these
+		 * don't work:
+		 *
+		 *    cmd /c "c:\path with\spaces\binary" "arg"
+		 *    cmd /c " c:\path\\ with\spaces\binary arg "
+		 *    cmd /c " 'c:\path\ with\spaces\binary' 'arg' "
+		 *
+		 * But this does:
+		 *
+		 *    cmd /c " "c:\path with\spaces\binary" "arg" "
+		 *
+		 * Turns out that this is a documented feature of cmd.exe.
+		 * See "cmd.exe /help" for more details
+		 *
+		 */
+		$command = 'cmd /c "' . $command . ' 2> "' . $debugFile . '" "';
+
+		if ($gallery->getDebug()) {
+			$gallery->debug("Executing: $command");
+		}
+		$results = array();
+		exec($command, $results, $status);
+
+		list($ret, $expected) = GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
+
+		if ($ret) {
+			if ($gallery->getDebug()) {
+				$gallery->debug('Unable to look up core.exec.expectedStatus param');
+			}
+			$expected = 0;
+		}
+
+		$stderr = array();
+
+		if ($this->file_exists($debugFile)) {
+			if ($this->filesize($debugFile) > 0) {
+				if ($fd = $this->fopen($debugFile, 'r')) {
+					while (!$this->feof($fd)) {
+						$buf = $this->fgets($fd, 4096);
+						$buf = rtrim($buf);
+
+						if (!empty($buf)) {
+							$stderr[] = $buf;
+						}
+					}
+					$this->fclose($fd);
+				}
+			}
+			$this->unlink($debugFile);
+		}
+
+		// Dump any output we have
+		if ($gallery->getDebug()) {
+			$gallery->debug('Regular Output:');
+
+			foreach ($results as $line) {
+				$gallery->debug($line);
+			}
+
+			$gallery->debug('Error Output:');
+
+			foreach ($stderr as $line) {
+				$gallery->debug($line);
+			}
+			$gallery->debug("Status: $status (expected $expected)");
+		}
+
+		return array($status == $expected, $results, $stderr);
 	}
 
-	/* Dump any output we have */
-	if ($gallery->getDebug()) {
-	    $gallery->debug("Regular Output:");
-	    foreach ($results as $line) {
-		$gallery->debug($line);
-	    }
-
-	    $gallery->debug("Error Output:");
-	    foreach ($stderr as $line) {
-		$gallery->debug($line);
-	    }
-	    $gallery->debug("Status: $status (expected $expected)");
+	/**
+	 * @see GalleryPlatform::isRestrictedByOpenBaseDir
+	 */
+	public function isRestrictedByOpenBaseDir($path) {
+		return $this->_isRestrictedByOpenBaseDir($path, ';', false);
 	}
 
-	return array($status == $expected, $results, $stderr);
-    }
-
-    /**
-     * @see GalleryPlatform::isRestrictedByOpenBaseDir
-     */
-    function isRestrictedByOpenBaseDir($path) {
-	return $this->_isRestrictedByOpenBaseDir($path, ';', false);
-    }
-
-    /**
-     * @see GalleryPlatform::is_executable
-     */
-    function is_executable($filename) {
-	/* Any existing file is considered executable on Windows */
-	return $this->file_exists($filename);
-    }
-
-    /**
-     * @see GalleryPlatform::splitPath
-     */
-    function splitPath($path) {
-	$list = array();
-	if (preg_match('|^([A-Za-z]:)?[\\\/]|', $path, $match)) {
-	    $list[] = $match[0];
-	    $path = substr($path, strlen($match[0]));
+	/**
+	 * @see GalleryPlatform::is_executable
+	 */
+	public function is_executable($filename) {
+		// Any existing file is considered executable on Windows
+		return $this->file_exists($filename);
 	}
-	foreach (preg_split('|[\\\/]|', $path) as $element) {
-	    if (!empty($element)) {
-		$list[] = $element;
-	    }
+
+	/**
+	 * @see GalleryPlatform::splitPath
+	 */
+	public function splitPath($path) {
+		$list = array();
+
+		if (preg_match('|^([A-Za-z]:)?[\\\/]|', $path, $match)) {
+			$list[] = $match[0];
+			$path   = substr($path, strlen($match[0]));
+		}
+
+		foreach (preg_split('|[\\\/]|', $path) as $element) {
+			if (!empty($element)) {
+				$list[] = $element;
+			}
+		}
+
+		return $list;
 	}
-	return $list;
-    }
 
-    /**
-     * @see GalleryPlatform::isSymlinkSupported
-     */
-    function isSymlinkSupported() {
-	return false;
-    }
-
-    /**
-     * @see GalleryPlatform::getLineEnding
-     */
-    function getLineEnding() {
-	return "\r\n";
-    }
-
-    /**
-     * @see GalleryPlatform::strftime
-     */
-    function strftime($format, $timestamp=null) {
-	/* Windows doesn't have %e but has %#d, same thing but without leading space for 1-9 */
-	if (($pos = strpos($format, '%e')) !== false) {
-	    /* %#d doesn't work on 2 out of 2 tested WinXP platforms */
-	    $replacement = parent::strftime('%d', $timestamp);
-	    /*
-	     * %d returns always 2 digits, 01 - 31
-	     * Replace leading 0 for single digit months with a space
-	     */
-	    $format{$pos} = ($replacement{0} == '0') ? ' ' : $replacement{0};
-	    $format{$pos+1} = $replacement{1};
+	/**
+	 * @see GalleryPlatform::isSymlinkSupported
+	 */
+	public function isSymlinkSupported() {
+		return false;
 	}
-	return parent::strftime($format, $timestamp);
-    }
+
+	/**
+	 * @see GalleryPlatform::getLineEnding
+	 */
+	public function getLineEnding() {
+		return "\r\n";
+	}
+
+	/**
+	 * @see GalleryPlatform::strftime
+	 */
+	public function strftime($format, $timestamp = null) {
+		// Windows doesn't have %e but has %#d, same thing but without leading space for 1-9
+		if (($pos = strpos($format, '%e')) !== false) {
+			// %#d doesn't work on 2 out of 2 tested WinXP platforms
+			$replacement = parent::strftime('%d', $timestamp);
+			/*
+			 * %d returns always 2 digits, 01 - 31
+			 * Replace leading 0 for single digit months with a space
+			 */
+			$format[$pos]     = ($replacement[0] == '0') ? ' ' : $replacement[0];
+			$format[$pos + 1] = $replacement[1];
+		}
+
+		return parent::strftime($format, $timestamp);
+	}
 }
-?>

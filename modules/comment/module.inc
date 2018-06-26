@@ -33,337 +33,394 @@ define('COMMENT_PUBLISH_STATUS_SPAM', 2);
  * @version $Revision: 18172 $
  */
 class CommentModule extends GalleryModule {
+	public function __construct() {
+		global $gallery;
 
-    function __construct() {
-	$this->CommentModule();
-    }
-
-    function CommentModule() {
-	global $gallery;
-
-	$this->setId('comment');
-	$this->setName($gallery->i18n('Comments'));
-	$this->setDescription($gallery->i18n('User commenting system'));
-	$this->setVersion('1.1.14'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
-	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setCallbacks('getItemLinks|getItemSummaries|' .
-			    'getSiteAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 41));
-	$this->setRequiredModuleApi(array(3, 9));
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion, $x1 = null) {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	if (!isset($currentVersion)) {
-	    $currentVersion = '0';
-	} else if (version_compare($currentVersion, '0.9.6', '<=')
-		|| substr($currentVersion, 0, 4) == '0.81') {
-	    /* Instead of enumerating all previous versions... */
-	    $currentVersion = '0.9.6';
+		$this->setId('comment');
+		$this->setName($gallery->i18n('Comments'));
+		$this->setDescription($gallery->i18n('User commenting system'));
+		$this->setVersion('1.1.14'); // Update upgrade() function below too
+		$this->_templateVersion = 1;
+		$this->setGroup('data', $gallery->i18n('Extra Data'));
+		$this->setCallbacks('getItemLinks|getItemSummaries|' .
+				'getSiteAdminViews|getItemAdminViews');
+		$this->setRequiredCoreApi(array(7, 41));
+		$this->setRequiredModuleApi(array(3, 9));
 	}
 
-	switch ($currentVersion) {
-	case '0':
-	    /* Initial install.  Register our permissions */
-	    $permissions[] = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
-	    $permissions[] = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
-	    $permissions[] = array('delete', $gallery->i18n('[comment] Delete comments'),
-				   0, array());
-	     $permissions[] = array('view', $gallery->i18n('[comment] View comments'), 0, array());
-	     $permissions[] = array('all', $gallery->i18n('[comment] All access'),
-		 GALLERY_PERMISSION_COMPOSITE,
-		 array('comment.add', 'comment.edit', 'comment.delete', 'comment.view'));
-	     foreach ($permissions as $p) {
-		$ret = GalleryCoreApi::registerPermission($this->getId(),
-							  'comment.' . $p[0],
-							  $p[1], $p[2], $p[3]);
-		if ($ret) {
-		    return $ret;
-		}
-	     }
+	/**
+	 * @see GalleryModule::upgrade
+	 */
+	public function upgrade($currentVersion, $x1 = null) {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	     foreach (array('comments.show' => 10, 'comments.latest' => 1,
-			    'comments.moderate' => 0, 'validation.level' => 'HIGH')
-		     as $key => $value) {
-		$ret = $this->setParameter($key, $value);
-		if ($ret) {
-		    return $ret;
+		if (!isset($currentVersion)) {
+			$currentVersion = '0';
+		} elseif (version_compare($currentVersion, '0.9.6', '<=')
+		|| substr($currentVersion, 0, 4) == '0.81') {
+			// Instead of enumerating all previous versions...
+			$currentVersion = '0.9.6';
 		}
-	    }
-	    break;
+
+		switch ($currentVersion) {
+	case '0':
+		// Initial install.  Register our permissions
+		$permissions[] = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
+		$permissions[] = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
+		$permissions[] = array('delete', $gallery->i18n('[comment] Delete comments'),
+				   0, array(), );
+		 $permissions[] = array('view', $gallery->i18n('[comment] View comments'), 0, array());
+		 $permissions[] = array('all', $gallery->i18n('[comment] All access'),
+		 GALLERY_PERMISSION_COMPOSITE,
+		 array('comment.add', 'comment.edit', 'comment.delete', 'comment.view'), );
+
+		 foreach ($permissions as $p) {
+		 	$ret = GalleryCoreApi::registerPermission(
+			$this->getId(),
+							  'comment.' . $p[0],
+							  $p[1],
+			$p[2],
+			$p[3]
+		);
+
+		 	if ($ret) {
+		 		return $ret;
+		 	}
+		 }
+
+		 foreach (array('comments.show' => 10, 'comments.latest' => 1,
+				'comments.moderate' => 0, 'validation.level' => 'HIGH', )
+			 as $key => $value) {
+		 	$ret = $this->setParameter($key, $value);
+
+		 	if ($ret) {
+		 		return $ret;
+		 	}
+		 }
+
+		break;
 
 	case '0.9.6':
-	    /*
-	     * Remove comment.search permission included in older module versions.
-	     * As this is a composite permission we can simply remove its entry in the
-	     * PermissionSet table and not touch any item permissions.
-	     */
-	    $ret = GalleryCoreApi::removeMapEntry(
+		/*
+		 * Remove comment.search permission included in older module versions.
+		 * As this is a composite permission we can simply remove its entry in the
+		 * PermissionSet table and not touch any item permissions.
+		 */
+		$ret = GalleryCoreApi::removeMapEntry(
 		'GalleryPermissionSetMap',
-		array('module' => 'comment', 'permission' => 'comment.search'));
-	    if ($ret) {
-		return $ret;
-	    }
+		array('module' => 'comment', 'permission' => 'comment.search')
+		);
 
+		if ($ret) {
+			return $ret;
+		}
+
+		// Fall Through
 	case '0.9.7':
 	case '1.0.0':
-	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
-	    if ($ret) {
-		return $ret;
-	    }
+		$ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
 
+		if ($ret) {
+			return $ret;
+		}
+
+		// Fall Through
 	case '1.0.1':
 	case '1.0.2':
 	case '1.0.3':
 	case '1.0.4':
 	case '1.0.5':
-	    foreach (array('comments.show' => 10, 'comments.captcha' => 0, 'comments.latest' => 1)
-		     as $key => $value) {
-		$ret = $this->setParameter($key, $value);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
+		foreach (array('comments.show' => 10, 'comments.captcha' => 0, 'comments.latest' => 1)
+			 as $key => $value) {
+			$ret = $this->setParameter($key, $value);
 
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		// Fall Through
 	case '1.0.6':
 	case '1.0.7':
-	    list ($ret, $level) = $this->getParameter('comments.captcha');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $ret = $this->setParameter('validation.level', $level ? 'HIGH' : 'OFF');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $ret = $this->removeParameter('comments.captcha');
-	    if ($ret) {
-		return $ret;
-	    }
+		list($ret, $level) = $this->getParameter('comments.captcha');
 
+		if ($ret) {
+			return $ret;
+		}
+		$ret = $this->setParameter('validation.level', $level ? 'HIGH' : 'OFF');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = $this->removeParameter('comments.captcha');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Fall Through
 	case '1.0.8':
 	case '1.0.9':
 	case '1.1.0':
 	case '1.1.1':
-	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.1'));
-	    if ($ret) {
-		return $ret;
-	    }
+		$ret = $storage->configureStore($this->getId(), array('GalleryComment:1.1'));
 
+		if ($ret) {
+			return $ret;
+		}
+
+		// Fall Through
 	case '1.1.2':
 	case '1.1.3':
 	case '1.1.3.1':
-	    /* .mo file migration */
+		// .mo file migration
 	case '1.1.3.2':
-	    /* Gallery 2.2.4 security release */
+		// Gallery 2.2.4 security release
 	case '1.1.4':
 	case '1.1.5':
-	    /* Add Akismet support */
-	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.2'));
-	    if ($ret) {
-		return $ret;
-	    }
+		// Add Akismet support
+		$ret = $storage->configureStore($this->getId(), array('GalleryComment:1.2'));
+
+		if ($ret) {
+			return $ret;
+		}
+		// Fall Through
 	case '1.1.6':
-	    /* Add CommentAddNotification class */
+		// Add CommentAddNotification class
 	case '1.1.7':
-	    /* Refactored to new event registration from core API 7.34 */
+		// Refactored to new event registration from core API 7.34
 	case '1.1.8':
 	case '1.1.9':
-	    /* Combined YUI libraries into a single utilities.js file */ 
+		// Combined YUI libraries into a single utilities.js file
 	case '1.1.10':
 	case '1.1.11':
-	    /* Add Comment Moderation Queue Support */
-	    $ret = $this->setParameter('comments.moderate', 0);
-	    if ($ret) {
-		return $ret;
-	    }
+		// Add Comment Moderation Queue Support
+		$ret = $this->setParameter('comments.moderate', 0);
 
+		if ($ret) {
+			return $ret;
+		}
+
+		// Fall Through
 	case '1.1.12':
 	case '1.1.13':
-
 	case 'end of upgrade path':
-	    /*
-	     * Leave this bogus case at the end of the legitimate case statements so that we
-	     * always properly terminate our upgrade path with a break.
-	     */
-	    break;
+		/*
+		 * Leave this bogus case at the end of the legitimate case statements so that we
+		 * always properly terminate our upgrade path with a break.
+		 */
+		break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
-					 sprintf('Unknown module version %s', $currentVersion));
+		return GalleryCoreApi::error(
+			ERROR_BAD_PLUGIN,
+			__FILE__,
+			__LINE__,
+					 sprintf('Unknown module version %s', $currentVersion)
+		);
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'GalleryCommentHelper', 'GalleryCommentHelper', 
-	    'modules/comment/classes/GalleryCommentHelper.class', 'comment', 
-	    array('GalleryEntity::delete', 'GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
+		return null;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEntity', 'GalleryComment', 'GalleryComment',
-	    'modules/comment/classes/GalleryComment.class', 'comment', null);
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+		'GalleryEventListener',
+		'GalleryCommentHelper',
+		'GalleryCommentHelper',
+		'modules/comment/classes/GalleryCommentHelper.class',
+		'comment',
+		array('GalleryEntity::delete', 'GalleryEntity::save')
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+		'GalleryEntity',
+		'GalleryComment',
+		'GalleryComment',
+		'modules/comment/classes/GalleryComment.class',
+		'comment',
+		null
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+		'GallerySearchInterface_1_0',
+		'GalleryCommentSearch',
+		'comment',
+		'modules/comment/classes/GalleryCommentSearch.class',
+		'comment',
+		null
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+		'CaptchaAdminOption',
+		'CommentCaptchaAdminOption',
+		'CommentCaptchaAdminOption',
+		'modules/comment/classes/CommentCaptchaAdminOption.class',
+		'comment',
+		null
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+		'NotificationEvent_1_0',
+		'CommentAddNotification',
+		'CommentAddNotification',
+		'modules/comment/classes/CommentAddNotification.class',
+		'comment',
+		array('GalleryEntity::save')
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GallerySearchInterface_1_0', 'GalleryCommentSearch', 'comment',
-	    'modules/comment/classes/GalleryCommentSearch.class', 'comment', null);
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryModule::getModuleEntityTypes
+	 */
+	public function getModuleEntityTypes() {
+		return array('GalleryComment');
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'CaptchaAdminOption', 'CommentCaptchaAdminOption', 'CommentCaptchaAdminOption',
-	    'modules/comment/classes/CommentCaptchaAdminOption.class', 'comment', null);
-	if ($ret) {
-	    return $ret;
-	}
+	/**
+	 * @see GalleryModule::getItemLinks
+	 */
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
+		list($ret, $showAll) = $this->getParameter('comments.latest');
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'NotificationEvent_1_0', 'CommentAddNotification', 'CommentAddNotification',
-	    'modules/comment/classes/CommentAddNotification.class', 'comment', 
-	    array('GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
+		$links = array();
 
-	return null;
-    }
+		foreach ($items as $item) {
+			$itemId = $item->getId();
 
-    /**
-     * @see GalleryModule::getModuleEntityTypes
-     */
-    function getModuleEntityTypes() {
-	return array('GalleryComment');
-    }
-
-    /**
-     * @see GalleryModule::getItemLinks
-     */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
-	list ($ret, $showAll) = $this->getParameter('comments.latest');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$links = array();
-	foreach ($items as $item) {
-	    $itemId = $item->getId();
-	    if (isset($wantsDetailedLinks[$itemId])) {
-		if (isset($permissions[$itemId]['comment.add'])) {
-		    $links[$itemId][] = array(
+			if (isset($wantsDetailedLinks[$itemId])) {
+				if (isset($permissions[$itemId]['comment.add'])) {
+					$links[$itemId][] = array(
 			'text' => $this->translate('Add Comment'),
 			'params' => array('view' => 'comment.AddComment',
-					  'itemId' => $itemId, 'return' => 1));
-		}
+					  'itemId' => $itemId, 'return' => 1, ), );
+				}
 
-		if ($showAll && isset($permissions[$itemId]['comment.view'])) {
-		    $links[$itemId][] = array(
+				if ($showAll && isset($permissions[$itemId]['comment.view'])) {
+					$links[$itemId][] = array(
 			'text' => $this->translate('View Latest Comments'),
 			'params' => array('view' => 'comment.ShowAllComments',
-					  'itemId' => $itemId, 'return' => 1));
+					  'itemId' => $itemId, 'return' => 1, ), );
+				}
+			}
 		}
-	    }
+
+		return array(null, $links);
 	}
 
-	return array(null, $links);
-    }
+	/**
+	 * @see GalleryModule::getItemSummaries
+	 */
+	public function getItemSummaries($items, $permissions, &$template) {
+		$ids = array();
 
-    /**
-     * @see GalleryModule::getItemSummaries
-     */
-    function getItemSummaries($items, $permissions, &$template) {
-	$ids = array();
-	foreach ($items as $item) {
-	    $ids[] = $item->getId();
-	}
+		foreach ($items as $item) {
+			$ids[] = $item->getId();
+		}
 
-	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-	list ($ret, $commentCounts) = GalleryCommentHelper::fetchCommentCounts($ids);
-	if ($ret) {
-	    return array($ret, null);
-	}
+		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+		list($ret, $commentCounts) = GalleryCommentHelper::fetchCommentCounts($ids);
 
-	$summaries = array();
-	foreach ($items as $item) {
-	    $message = array();
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	    if (isset($permissions[$item->getId()]['comment.view'])) {
-		if (!empty($commentCounts[$item->getId()])) {
-		    $summaries[$item->getId()] =
+		$summaries = array();
+
+		foreach ($items as $item) {
+			$message = array();
+
+			if (isset($permissions[$item->getId()]['comment.view'])) {
+				if (!empty($commentCounts[$item->getId()])) {
+					$summaries[$item->getId()] =
 			$this->translate(array('text' => 'Comments: %d',
-					       'arg1' => $commentCounts[$item->getId()]));
+						   'arg1' => $commentCounts[$item->getId()], ));
+				}
+			}
 		}
-	    }
+
+		return array(null, $summaries);
 	}
 
-	return array(null, $summaries);
-    }
+	/**
+	 * @see GalleryModule::getItemAdminViews
+	 */
+	public function getItemAdminViews($item) {
+		$views = array();
+		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
-    /**
-     * @see GalleryModule::getItemAdminViews
-     */
-    function getItemAdminViews($item) {
-	$views = array();
-	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (isset($permissions['comment.edit']) ||
+		isset($permissions['comment.delete']) ||
+		isset($permissions['comment.view'])) {
+			$views[] = array('name' => $this->translate('View Comments'),
+				 'view' => 'comment.ShowComments', );
+		}
+
+		return array(null, $views);
 	}
 
-	if (isset($permissions['comment.edit']) ||
-	    isset($permissions['comment.delete']) ||
-	    isset($permissions['comment.view'])) {
-		$views[] = array('name' => $this->translate('View Comments'),
-				 'view' => 'comment.ShowComments');
-	}
-
-	return array(null, $views);
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Comments'),
-				 'view' => 'comment.CommentSiteAdmin'),
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(null,
+			 array(array('name' => $this->translate('Comments'),
+				 'view' => 'comment.CommentSiteAdmin', ),
 			   array('name' => $this->translate('Moderate Comments'),
-				 'view' => 'comment.AdminModerateSpam')));
-    }
+				 'view' => 'comment.AdminModerateSpam', ), ), );
+	}
 
-    /**
-     * @see GalleryModule::getRewriteRules
-     */
-    function getRewriteRules() {
-	$rules = array();
+	/**
+	 * @see GalleryModule::getRewriteRules
+	 */
+	public function getRewriteRules() {
+		$rules = array();
 
-	$rule = array();
-	$rule['match'] = array('view' => 'comment.AddComment');
-	$rule['pattern'] = 'c/add/%itemId%.html';
-	$rule['comment'] = $this->translate('Add Comment');
-	$rules[] = $rule;
+		$rule = array();
+		$rule['match'] = array('view' => 'comment.AddComment');
+		$rule['pattern'] = 'c/add/%itemId%.html';
+		$rule['comment'] = $this->translate('Add Comment');
+		$rules[] = $rule;
 
-	$rule = array();
-	$rule['match'] = array('view' => 'comment.ShowAllComments');
-	$rule['pattern'] = 'c/view/%itemId%.html';
-	$rule['comment'] = $this->translate('View Comments');
-	$rules[] = $rule;
+		$rule = array();
+		$rule['match'] = array('view' => 'comment.ShowAllComments');
+		$rule['pattern'] = 'c/view/%itemId%.html';
+		$rule['comment'] = $this->translate('View Comments');
+		$rules[] = $rule;
 
-	return $rules;
-    }
+		return $rules;
+	}
 }
-?>

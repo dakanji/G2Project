@@ -26,66 +26,71 @@
  * @author Jozef Selesi <selesi at gmail dot com>
  * @version $Revision: 17580 $
  */
- class RepositoryControllerAndView {
+class RepositoryControllerAndView {
+	/**
+	 * Template object used for displaying page contents.
+	 *
+	 * @var object
+	 * @access private
+	 */
+	public $_template;
 
-    /**
-     * Template object used for displaying page contents.
-     *
-     * @var object
-     * @access private
-     */
-    var $_template;
+	/**
+	 * Initializes the Smarty template system.
+	 */
+	public function init() {
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+		$this->_template = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
 
-    /**
-     * Initializes the Smarty template system.
-     */
-    function init() {
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-	$this->_template = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
-
-	/* Set the translation domain */
-	$this->_template->setVariable('l10Domain', 'lib_repository');
-    }
-
-    /**
-     * Checks if the specified template exists in repository/templates/ and includes it.
-     * Include any data used by the template as an array in the second parameter.
-     *
-     * @param string $view name of the template file to load, without the extension
-     * @param array $data template data
-     * @return GalleryStatus a status code
-     */
-    function showView($view, $data) {
-	global $gallery;
-
-	$quiet = GalleryUtilities::getRequestVariables('quiet');
-	if ($quiet) {
-	    return null;
+		// Set the translation domain
+		$this->_template->setVariable('l10Domain', 'lib_repository');
 	}
 
-	/* Calculate template file name and verify that it exists. */
-	$viewFileRelative = $gallery->getConfig('repository.templates') . $view . '.tpl';
-	$viewFile = dirname(__FILE__) . '/../../../../' . $viewFileRelative;
+	/**
+	 * Checks if the specified template exists in repository/templates/ and includes it.
+	 * Include any data used by the template as an array in the second parameter.
+	 *
+	 * @param string $view name of the template file to load, without the extension
+	 * @param array $data template data
+	 * @return GalleryStatus a status code
+	 */
+	public function showView($view, $data) {
+		global $gallery;
 
-	$platform =& $gallery->getPlatform();
-	if (!$platform->file_exists($viewFile)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
-					"Invalid path: $viewFile");
+		$quiet = GalleryUtilities::getRequestVariables('quiet');
+
+		if ($quiet) {
+			return null;
+		}
+
+		// Calculate template file name and verify that it exists.
+		$viewFileRelative = $gallery->getConfig('repository.templates') . $view . '.tpl';
+		$viewFile         = dirname(__FILE__) . '/../../../../' . $viewFileRelative;
+
+		$platform =& $gallery->getPlatform();
+
+		if (!$platform->file_exists($viewFile)) {
+			return GalleryCoreApi::error(
+				ERROR_BAD_PATH,
+				__FILE__,
+				__LINE__,
+				"Invalid path: $viewFile"
+			);
+		}
+
+		// Set the Smarty variables from the data array.
+		foreach ($data as $key => $value) {
+			$this->_template->setVariable($key, $value);
+		}
+
+		// Send template to the browser.
+		list($ret, $templateContents) = $this->_template->fetch('gallery:' . $viewFileRelative);
+
+		if ($ret) {
+			return $ret;
+		}
+		echo $templateContents;
+
+		return null;
 	}
-
-	/* Set the Smarty variables from the data array. */
-	foreach ($data as $key => $value) {
-	    $this->_template->setVariable($key, $value);
-	}
-
-	/* Send template to the browser. */
-	list($ret, $templateContents) = $this->_template->fetch('gallery:' . $viewFileRelative);
-	if ($ret) {
-	    return $ret;
-	}
-	print $templateContents;
-
-	return null;
-    }
 }
-?>

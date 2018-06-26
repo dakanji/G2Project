@@ -26,151 +26,168 @@
  * @version $Revision: 20951 $
  */
 class ZipCartModule extends GalleryModule {
+	public function __construct() {
+		global $gallery;
 
-    function __construct() {
-	$this->ZipCartModule();
-    }
-
-    function ZipCartModule() {
-	global $gallery;
-
-	$this->setId('zipcart');
-	$this->setName($gallery->i18n('Zip Download'));
-	$this->setDescription($gallery->i18n('Download cart items in a zip file'));
-	$this->setVersion('1.0.15');
-	$this->_templateVersion = 1;
-	$this->setGroup('commerce', $gallery->i18n('Commerce'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 30));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	/* Register our cart plugin */
-	foreach (array('1_0', '1_1') as $version) {
-	    $ret = GalleryCoreApi::registerFactoryImplementation(
-		'CartPluginInterface_' . $version, 'ZipCartPlugin', 'zipcart',
-		'modules/zipcart/classes/ZipCartPlugin.class', 'zipcart', null);
-	    if ($ret) {
-		return $ret;
-	    }
+		$this->setId('zipcart');
+		$this->setName($gallery->i18n('Zip Download'));
+		$this->setDescription($gallery->i18n('Download cart items in a zip file'));
+		$this->setVersion('1.0.15');
+		$this->_templateVersion = 1;
+		$this->setGroup('commerce', $gallery->i18n('Commerce'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 30));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::needsConfiguration
-     */
-    function needsConfiguration() {
-	/* This module requires exec() */
-	if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-	    return array(null, true);
-	}
-
-	list ($ret, $value) = $this->getParameter('path');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, empty($value));
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {
-	global $gallery;
-
-	/* This module requires exec() */
-	if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-	    return array(null, false);
-	}
-
-	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret) {
-	    return array($ret, false);
-	}
-	if (!$needsConfiguration) {
-	    return array(null, true);
-	}
-
-	/* Try a bunch of likely seeming paths to see if any of them work. */
-	$platform =& $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
-
-	/*
-	 * Start with system paths.  Tack on a trailing slash if necessary,
-	 * then tack on other likely paths, based on our OS
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
 	 */
-	$paths = array();
-	if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
-	    foreach (explode(';', getenv('PATH')) as $path) {
-		$path = trim($path);
-		if (empty($path)) {
-		    continue;
-		}
-		if ($path{strlen($path)-1} != $slash) {
-		    $path .= $slash;
-		}
-		$paths[] = $path . 'zip.exe';
-	    }
+	public function performFactoryRegistrations() {
+		// Register our cart plugin
+		foreach (array('1_0', '1_1') as $version) {
+			$ret = GalleryCoreApi::registerFactoryImplementation(
+				'CartPluginInterface_' . $version,
+				'ZipCartPlugin',
+				'zipcart',
+				'modules/zipcart/classes/ZipCartPlugin.class',
+				'zipcart',
+				null
+			);
 
-	    $paths[] = 'C:\\Program Files\\Zip\\zip.exe';
-	    $paths[] = 'C:\\apps\Zip\\zip.exe';
-	    $paths[] = 'C:\\Zip\\zip.exe';
-	    $paths[] = 'C:\\cygwin\\bin\\zip.exe';
-	} else if (GalleryUtilities::isA($platform, 'UnixPlatform')) {
-	    foreach (explode(':', getenv('PATH')) as $path) {
-		$path = trim($path);
-		if (empty($path)) {
-		    continue;
+			if ($ret) {
+				return $ret;
+			}
 		}
-		if ($path{strlen($path)-1} != $slash) {
-		    $path .= $slash;
-		}
-		$paths[] = $path . 'zip';
-	    }
 
-	    $paths[] = '/usr/bin/zip';
-	    $paths[] = '/usr/local/bin/zip';
-	    $paths[] = '/bin/zip';
-	    $paths[] = '/sw/bin/zip';
-	} else {
-	    return array(null, false);
+		return null;
 	}
 
-	/* Now try each path in turn to see which ones work */
-	foreach ($paths as $path) {
-	    if (!$platform->isRestrictedByOpenBaseDir($path) && $platform->is_executable($path)) {
-		/* We have a winner */
-		$ret = $this->setParameter('path', $path);
+	/**
+	 * @see GalleryModule::needsConfiguration
+	 */
+	public function needsConfiguration() {
+		// This module requires exec()
+		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
+			return array(null, true);
+		}
+
+		list($ret, $value) = $this->getParameter('path');
+
 		if ($ret) {
-		    return array($ret, false);
+			return array($ret, null);
 		}
-		return array(null, true);
-	    }
+
+		return array(null, empty($value));
 	}
 
-	return array(null, false);
-    }
+	/**
+	 * @see GalleryModule::autoConfigure
+	 */
+	public function autoConfigure() {
+		global $gallery;
 
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Zip Download'),
-				 'view' => 'zipcart.ZipCartAdmin')));
-    }
+		// This module requires exec()
+		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
+			return array(null, false);
+		}
 
-    /**
-     * @see GalleryModule::getConfigurationView
-     */
-    function getConfigurationView() {
-	return 'zipcart.ZipCartAdmin';
-    }
+		list($ret, $needsConfiguration) = $this->needsConfiguration();
+
+		if ($ret) {
+			return array($ret, false);
+		}
+
+		if (!$needsConfiguration) {
+			return array(null, true);
+		}
+
+		// Try a bunch of likely seeming paths to see if any of them work.
+		$platform =& $gallery->getPlatform();
+		$slash    = $platform->getDirectorySeparator();
+
+		/*
+		 * Start with system paths.  Tack on a trailing slash if necessary,
+		 * then tack on other likely paths, based on our OS
+		 */
+		$paths = array();
+
+		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
+			foreach (explode(';', getenv('PATH')) as $path) {
+				$path = trim($path);
+
+				if (empty($path)) {
+					continue;
+				}
+
+				if ($path[strlen($path) - 1] != $slash) {
+					$path .= $slash;
+				}
+				$paths[] = $path . 'zip.exe';
+			}
+
+			$paths[] = 'C:\\Program Files\\Zip\\zip.exe';
+			$paths[] = 'C:\\apps\Zip\\zip.exe';
+			$paths[] = 'C:\\Zip\\zip.exe';
+			$paths[] = 'C:\\cygwin\\bin\\zip.exe';
+		} elseif (GalleryUtilities::isA($platform, 'UnixPlatform')) {
+			foreach (explode(':', getenv('PATH')) as $path) {
+				$path = trim($path);
+
+				if (empty($path)) {
+					continue;
+				}
+
+				if ($path[strlen($path) - 1] != $slash) {
+					$path .= $slash;
+				}
+				$paths[] = $path . 'zip';
+			}
+
+			$paths[] = '/usr/bin/zip';
+			$paths[] = '/usr/local/bin/zip';
+			$paths[] = '/bin/zip';
+			$paths[] = '/sw/bin/zip';
+		} else {
+			return array(null, false);
+		}
+
+		// Now try each path in turn to see which ones work
+		foreach ($paths as $path) {
+			if (!$platform->isRestrictedByOpenBaseDir($path) && $platform->is_executable($path)) {
+				// We have a winner
+				$ret = $this->setParameter('path', $path);
+
+				if ($ret) {
+					return array($ret, false);
+				}
+
+				return array(null, true);
+			}
+		}
+
+		return array(null, false);
+	}
+
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Zip Download'),
+					'view' => 'zipcart.ZipCartAdmin',
+				),
+			),
+		);
+	}
+
+	/**
+	 * @see GalleryModule::getConfigurationView
+	 */
+	public function getConfigurationView() {
+		return 'zipcart.ZipCartAdmin';
+	}
 }
-?>

@@ -13,47 +13,49 @@
   Microsoft Access data driver. Requires ODBC. Works only on MS Windows.
 */
 if (!defined('_ADODB_ODBC_LAYER')) {
-	if (!defined('ADODB_DIR')) die();
+	if (!defined('ADODB_DIR')) {
+		die();
+	}
 
-	include(ADODB_DIR."/drivers/adodb-odbc.inc.php");
+	include ADODB_DIR . '/drivers/adodb-odbc.inc.php';
 }
- if (!defined('_ADODB_ACCESS')) {
- 	define('_ADODB_ACCESS',1);
 
-class  ADODB_access extends ADODB_odbc {
-	var $databaseType = 'access';
-	var $hasTop = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
-	var $fmtDate = "#Y-m-d#";
-	var $fmtTimeStamp = "#Y-m-d h:i:sA#"; // note not comma
-	var $_bindInputArray = false; // strangely enough, setting to true does not work reliably
-	var $sysDate = "FORMAT(NOW,'yyyy-mm-dd')";
-	var $sysTimeStamp = 'NOW';
-	var $hasTransactions = false;
-	var $upperCase = 'ucase';
+if (!defined('_ADODB_ACCESS')) {
+	define('_ADODB_ACCESS', 1);
 
-	function __construct()
-	{
-	global $ADODB_EXTENSION;
+	class ADODB_access extends ADODB_odbc {
+		public $databaseType    = 'access';
+		public $hasTop          = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+		public $fmtDate         = '#Y-m-d#';
+		public $fmtTimeStamp    = '#Y-m-d h:i:sA#'; // note not comma
+		public $_bindInputArray = false; // strangely enough, setting to true does not work reliably
+		public $sysDate         = "FORMAT(NOW,'yyyy-mm-dd')";
+		public $sysTimeStamp    = 'NOW';
+		public $hasTransactions = false;
+		public $upperCase       = 'ucase';
 
-		$ADODB_EXTENSION = false;
-		parent::__construct();
-	}
+		public function __construct() {
+			global $ADODB_EXTENSION;
 
-	function Time()
-	{
-		return time();
-	}
+			$ADODB_EXTENSION = false;
+			parent::__construct();
+		}
 
-	function BeginTrans() { return false;}
+		public function Time() {
+			return time();
+		}
 
-	function IfNull( $field, $ifNull )
-	{
-		return " IIF(IsNull($field), $ifNull, $field) "; // if Access
-	}
-/*
-	function MetaTables()
-	{
-	global $ADODB_FETCH_MODE;
+		public function BeginTrans() {
+			return false;
+		}
+
+		public function IfNull($field, $ifNull) {
+			return " IIF(IsNull($field), $ifNull, $field) "; // if Access
+		}
+		/*
+		function MetaTables()
+		{
+		global $ADODB_FETCH_MODE;
 
 		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -72,17 +74,14 @@ class  ADODB_access extends ADODB_odbc {
 				$arr2[] = $arr[$i][2];
 		}
 		return $arr2;
-	}*/
-}
-
-
-class  ADORecordSet_access extends ADORecordSet_odbc {
-
-	var $databaseType = "access";
-
-	function __construct($id,$mode=false)
-	{
-		return parent::__construct($id,$mode);
+		}*/
 	}
-}// class
+
+	class ADORecordSet_access extends ADORecordSet_odbc {
+		public $databaseType = 'access';
+
+		public function __construct($id, $mode = false) {
+			return parent::__construct($id, $mode);
+		}
+	}// class
 }

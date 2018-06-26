@@ -10,7 +10,6 @@
  * @param string containing var-attribute and value-attribute
  * @param Smarty_Compiler
  */
-function smarty_compiler_break($contents, &$smarty)
-{
-    return 'break;';
+function smarty_compiler_break($contents, &$smarty) {
+	return 'break;';
 }

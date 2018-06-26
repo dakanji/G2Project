@@ -24,74 +24,85 @@
  * @version $Revision: 20951 $
  */
 class UploadAppletModule extends GalleryModule {
-
-    function __construct() {
-	$this->UploadAppletModule();
-    }
-
-    function UploadAppletModule() {
-	global $gallery;
-	$this->setId('uploadapplet');
-	$this->setName($gallery->i18n('Upload Applet'));
-	$this->setDescription($gallery->i18n('Easy to use upload applet for media'));
-	$this->setVersion('1.0.11');
-	$this->_templateVersion = 1;
-	$this->setGroup('import', $gallery->i18n('Import'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryPlugin::upgrade
-     */
-    function upgrade($currentVersion, $x1=null) {
-	global $gallery;
-
-	list ($ret, $params) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
-	if ($ret) {
-	    return $ret;
+	public function __construct() {
+		global $gallery;
+		$this->setId('uploadapplet');
+		$this->setName($gallery->i18n('Upload Applet'));
+		$this->setDescription($gallery->i18n('Easy to use upload applet for media'));
+		$this->setVersion('1.0.11');
+		$this->_templateVersion = 1;
+		$this->setGroup('import', $gallery->i18n('Import'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	if (!isset($params['uploaddefaultVariables'])) {
-	    $ret = $this->setParameter('uploaddefaultVariables', '');
-	    if ($ret) {
-		return $ret;
-	    }
+	/**
+	 * @see GalleryPlugin::upgrade
+	 */
+	public function upgrade($currentVersion, $x1 = null) {
+		global $gallery;
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!isset($params['uploaddefaultVariables'])) {
+			$ret = $this->setParameter('uploaddefaultVariables', '');
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		if (!isset($params['uploadoverrideVariables'])) {
+			$ret = $this->setParameter(
+				'uploadoverrideVariables',
+				'toSysOut=true|htmlEscapeCaptions=true'
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		return null;
 	}
 
-	if (!isset($params['uploadoverrideVariables'])) {
-	    $ret = $this->setParameter('uploadoverrideVariables',
-		    'toSysOut=true|htmlEscapeCaptions=true');
-	    if ($ret) {
-		return $ret;
-	    }
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'ItemAddPlugin',
+			'ItemAddUploadApplet',
+			'ItemAddUploadApplet',
+			'modules/uploadapplet/ItemAddUploadApplet.inc',
+			'uploadapplet',
+			null
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddPlugin', 'ItemAddUploadApplet', 'ItemAddUploadApplet',
-	    'modules/uploadapplet/ItemAddUploadApplet.inc', 'uploadapplet', null);
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Upload Applet'),
+					'view' => 'uploadapplet.UploadAppletSiteAdmin',
+				),
+			),
+		);
 	}
-
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null, array(array('name' => $this->translate('Upload Applet'),
-				       'view' => 'uploadapplet.UploadAppletSiteAdmin')));
-    }
 }
-?>

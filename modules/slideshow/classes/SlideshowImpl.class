@@ -28,14 +28,16 @@ GalleryCoreApi::requireOnce('modules/slideshow/classes/SlideshowInterface_1_0.cl
  * @version $Revision: 17580 $
  */
 class SlideshowImpl extends SlideshowInterface_1_0 {
-
-    /**
-     * @see SlideshowInterface_1_0::getLinkData
-     */
-    function getLinkData($itemIds) {
-	return array(null,
-		     array('view' => 'slideshow.Slideshow',
-			   'itemList' => implode('|', $itemIds)));
-    }
+	/**
+	 * @see SlideshowInterface_1_0::getLinkData
+	 */
+	public function getLinkData($itemIds) {
+		return array(
+			null,
+			array(
+				'view'     => 'slideshow.Slideshow',
+				'itemList' => implode('|', $itemIds),
+			),
+		);
+	}
 }
-?>

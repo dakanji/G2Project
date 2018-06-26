@@ -24,16 +24,16 @@
  * @version $Revision: 17580 $
  */
 class SearchPreloads {
-    function preload(&$template, $preload, $paramSet) {
-	global $gallery;
+	public function preload(&$template, $preload, $paramSet) {
+		global $gallery;
 
-	switch($preload) {
-	case 'SearchBlock':
-	    $template->javascript('modules/search/SearchBlock.js');
-	    return null;
+		switch ($preload) {
+			case 'SearchBlock':
+				$template->javascript('modules/search/SearchBlock.js');
+
+				return null;
+		}
+
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

@@ -26,66 +26,76 @@
  * @version $Revision: 17580 $
  */
 class RestrictMimeOption extends ItemAddOption {
+	/**
+	 * @see ItemAddOption::isAppropriate
+	 */
+	public function isAppropriate() {
+		list($ret, $allowMime) = GalleryCoreApi::getPluginParameter('module', 'mime', 'allowMime');
 
-    /**
-     * @see ItemAddOption::isAppropriate
-     */
-    function isAppropriate() {
-	list ($ret, $allowMime) = GalleryCoreApi::getPluginParameter('module', 'mime', 'allowMime');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $allowMime != 'all');
-    }
-
-    /**
-     * @see ItemAddOption::handleRequestAfterAdd
-     */
-    function handleRequestAfterAdd($form, $items) {
-	global $gallery;
-	$errors = $warnings = array();
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'mime');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	list ($ret, $allowMime) = $module->getParameter('allowMime');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	list ($ret, $mimeList) = $module->getParameter('mimeList');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$mimeList = array_flip(explode(' | ', $mimeList));
-
-	for ($i = 0; $i < count($items); $i++) {
-	    if (!GalleryUtilities::isA($items[$i], 'GalleryDataItem')) {
-		continue;
-	    }
-
-	    $warnings[$i] = array();
-	    $mimeType = $items[$i]->getMimeType();
-	    $extension = GalleryUtilities::getFileExtension($items[$i]->getPathComponent());
-	    if (!empty($extension)) {
-		list ($ret, $derivedMimeType) = GalleryCoreApi::convertExtensionToMime($extension);
 		if ($ret) {
-		    return array($ret, null, null);
+			return array($ret, null);
 		}
-	    } else {
-		$derivedMimeType = $mimeType;
-	    }
-	    if (($allowMime == 'block'
-			&& (isset($mimeList[$mimeType]) || isset($mimeList[$derivedMimeType])))
-		    || ($allowMime == 'allow'
-			&& (!isset($mimeList[$mimeType]) || !isset($mimeList[$derivedMimeType])))) {
-		$warnings[$i][] = $module->translate(
-			'This type of file not allowed; item will not be added.');
-		$gallery->addShutdownAction(array('GalleryCoreApi', 'deleteEntityById'),
-					    array($items[$i]->getId()));
-	    }
+
+		return array(null, $allowMime != 'all');
 	}
 
-	return array(null, $errors, $warnings);
-    }
+	/**
+	 * @see ItemAddOption::handleRequestAfterAdd
+	 */
+	public function handleRequestAfterAdd($form, $items) {
+		global $gallery;
+		$errors              = $warnings = array();
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'mime');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		list($ret, $allowMime) = $module->getParameter('allowMime');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		list($ret, $mimeList) = $module->getParameter('mimeList');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$mimeList = array_flip(explode(' | ', $mimeList));
+
+		for ($i = 0; $i < count($items); $i++) {
+			if (!GalleryUtilities::isA($items[$i], 'GalleryDataItem')) {
+				continue;
+			}
+
+			$warnings[$i] = array();
+			$mimeType     = $items[$i]->getMimeType();
+			$extension    = GalleryUtilities::getFileExtension($items[$i]->getPathComponent());
+
+			if (!empty($extension)) {
+				list($ret, $derivedMimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+
+				if ($ret) {
+					return array($ret, null, null);
+				}
+			} else {
+				$derivedMimeType = $mimeType;
+			}
+
+			if (($allowMime == 'block'
+				&& (isset($mimeList[$mimeType]) || isset($mimeList[$derivedMimeType])))
+				|| ($allowMime == 'allow'
+				&& (!isset($mimeList[$mimeType]) || !isset($mimeList[$derivedMimeType])))
+			) {
+				$warnings[$i][] = $module->translate(
+					'This type of file not allowed; item will not be added.'
+				);
+				$gallery->addShutdownAction(
+					array('GalleryCoreApi', 'deleteEntityById'),
+					array($items[$i]->getId())
+				);
+			}
+		}
+
+		return array(null, $errors, $warnings);
+	}
 }
-?>

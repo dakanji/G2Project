@@ -27,71 +27,92 @@
  * @version $Revision: 20951 $
  */
 class ItemAddModule extends GalleryModule {
-
-    function __construct() {
-	$this->ItemAddModule();
-    }
-
-    function ItemAddModule() {
-	global $gallery;
-	$this->setId('itemadd');
-	$this->setName($gallery->i18n('Add Items'));
-	$this->setDescription($gallery->i18n('Add items from local server or the web'));
-	$this->setVersion('1.0.9');
-	$this->_templateVersion = 1;
-	$this->setGroup('import', $gallery->i18n('Import'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddPlugin', 'ItemAddFromWeb', 'ItemAddFromWeb',
-	    'modules/itemadd/ItemAddFromWeb.inc', 'itemadd', null, 3);
-	if ($ret) {
-	    return $ret;
+	public function __construct() {
+		global $gallery;
+		$this->setId('itemadd');
+		$this->setName($gallery->i18n('Add Items'));
+		$this->setDescription($gallery->i18n('Add items from local server or the web'));
+		$this->setVersion('1.0.9');
+		$this->_templateVersion = 1;
+		$this->setGroup('import', $gallery->i18n('Import'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 53));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddPlugin', 'ItemAddFromServer', 'ItemAddFromServer',
-	    'modules/itemadd/ItemAddFromServer.inc', 'itemadd', null, 4);
-	if ($ret) {
-	    return $ret;
-	}
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'ItemAddPlugin',
+			'ItemAddFromWeb',
+			'ItemAddFromWeb',
+			'modules/itemadd/ItemAddFromWeb.inc',
+			'itemadd',
+			null,
+			3
+		);
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null, array(array('name' => $this->translate('Web/Server'),
-				       'view' => 'itemadd.ItemAddSiteAdmin')));
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion, $x1=null) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
-	if ($ret) {
-	    return $ret;
-	}
-	foreach (array('fromserver' => 'on', 'fromweb' => 'admin') as $key => $value) {
-	    if (!isset($params[$key])) {
-		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+			return $ret;
 		}
-	    }
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'ItemAddPlugin',
+			'ItemAddFromServer',
+			'ItemAddFromServer',
+			'modules/itemadd/ItemAddFromServer.inc',
+			'itemadd',
+			null,
+			4
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Web/Server'),
+					'view' => 'itemadd.ItemAddSiteAdmin',
+				),
+			),
+		);
+	}
+
+	/**
+	 * @see GalleryModule::upgrade
+	 */
+	public function upgrade($currentVersion, $x1 = null) {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array(
+			'fromserver' => 'on',
+			'fromweb'    => 'admin',
+		) as $key => $value) {
+			if (!isset($params[$key])) {
+				$ret = $this->setParameter($key, $value);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		return null;
+	}
 }
-?>

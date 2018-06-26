@@ -24,71 +24,75 @@
  * @version $Revision: 17580 $
  */
 class ImageBlockCallbacks {
+	public function callback($params, &$smarty, $callback, $userId = null) {
+		GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 
-    function callback($params, &$smarty, $callback, $userId=null) {
-	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+		switch ($callback) {
+			case 'LoadImageBlock':
+				// Pick up our overrides
+				if (!$params['useDefaults']) {
+					/*
+					 * If we're overriding the defaults, then overlay our changes on top of the
+					 * defaults and pass in a complete 'show' parameter.
+					 */
+					list($ret, $moduleParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
 
-	switch($callback) {
-	case 'LoadImageBlock':
-	    /* Pick up our overrides */
-	    if (!$params['useDefaults']) {
-		/*
-		 * If we're overriding the defaults, then overlay our changes on top of the
-		 * defaults and pass in a complete 'show' parameter.
-		 */
-		list ($ret, $moduleParams) =
-		    GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-		if ($ret) {
-		    return $ret;
+					if ($ret) {
+						return $ret;
+					}
+
+					// GalleryEmbed::getBlocks() sets 'show' as a pipe delimited list
+					if (!isset($params['show'])) {
+						// As a theme block the 'show' elements are set as separate properties
+						$showMap = array_flip(explode('|', $moduleParams['show']));
+
+						foreach (array(
+							'showHeading' => 'heading',
+							'showTitle'   => 'title',
+							'showViews'   => 'views',
+							'showOwner'   => 'owner',
+							'showDate'    => 'date',
+						)
+						as $blockVarName => $showMapName) {
+							if (empty($params[$blockVarName])) {
+								unset($showMap[$showMapName]);
+							} else {
+								$showMap[$showMapName] = 1;
+							}
+						}
+
+						$params['show'] = implode('|', array_keys($showMap));
+					}
+				}
+
+				if (isset($userId)) {
+					// Support guest-preview mode
+					$params['userId'] = $userId;
+				}
+
+				/*
+				 * ImageBlockHelper expects a GalleryTemplate, but Smarty callbacks don't provide
+				 * one, so create a temporary wrapper.
+				 */
+				$template          = new GalleryTemplate(dirname(__FILE__), false);
+				$template->_smarty =& $smarty;
+
+				// Remove null parameters
+				foreach (array_keys($params) as $key) {
+					if (!isset($params[$key])) {
+						unset($params[$key]);
+					}
+				}
+
+				$ret = ImageBlockHelper::loadImageBlocks($template, $params);
+
+				if ($ret) {
+					return $ret;
+				}
+
+				return null;
 		}
 
-		/* GalleryEmbed::getBlocks() sets 'show' as a pipe delimited list */
-		if (!isset($params['show'])) {
-		    /* As a theme block the 'show' elements are set as separate properties */
-		    $showMap = array_flip(explode('|', $moduleParams['show']));
-		    foreach (array('showHeading' => 'heading',
-				   'showTitle' => 'title', 'showViews' => 'views',
-				   'showOwner' => 'owner', 'showDate' => 'date')
-			    as $blockVarName => $showMapName) {
-			if (empty($params[$blockVarName])) {
-			    unset($showMap[$showMapName]);
-			} else {
-			    $showMap[$showMapName] = 1;
-			}
-		    }
-
-		    $params['show'] = implode('|', array_keys($showMap));
-		}
-	    }
-
-	    if (isset($userId)) {
-		/* Support guest-preview mode */
-		$params['userId'] = $userId;
-	    }
-
-	    /*
-	     * ImageBlockHelper expects a GalleryTemplate, but Smarty callbacks don't provide
-	     * one, so create a temporary wrapper.
-	     */
-	    $template = new GalleryTemplate(dirname(__FILE__), false);
-	    $template->_smarty =& $smarty;
-
-	    /* Remove null parameters */
-	    foreach (array_keys($params) as $key) {
-		if (!isset($params[$key])) {
-		    unset($params[$key]);
-		}
-	    }
-
-	    $ret = ImageBlockHelper::loadImageBlocks($template, $params);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    return null;
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

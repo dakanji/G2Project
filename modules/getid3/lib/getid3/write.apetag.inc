@@ -14,12 +14,9 @@
 //                                                            ///
 /////////////////////////////////////////////////////////////////
 
+getid3_lib::IncludeDependency(GETID3_INCLUDEPATH . 'module.tag.apetag.php', __FILE__, true);
 
-getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.tag.apetag.php', __FILE__, true);
-
-class getid3_write_apetag
-{
-
+class getid3_write_apetag {
 	public $filename;
 	public $tag_data;
 	public $always_preserve_replaygain = true;    // ReplayGain / MP3gain tags will be copied from old tag even if not passed in data
@@ -33,7 +30,7 @@ class getid3_write_apetag
 	public function WriteAPEtag() {
 		// NOTE: All data passed to this function must be UTF-8 format
 
-		$getID3 = new getID3;
+		$getID3       = new getID3();
 		$ThisFileInfo = $getID3->analyze($this->filename);
 
 		if (isset($ThisFileInfo['ape']['tag_offset_start']) && isset($ThisFileInfo['lyrics3']['tag_offset_end'])) {
@@ -49,6 +46,7 @@ class getid3_write_apetag
 
 		if ($this->always_preserve_replaygain) {
 			$ReplayGainTagsToPreserve = array('mp3gain_minmax', 'mp3gain_album_minmax', 'mp3gain_undo', 'replaygain_track_peak', 'replaygain_track_gain', 'replaygain_album_peak', 'replaygain_album_gain');
+
 			foreach ($ReplayGainTagsToPreserve as $rg_key) {
 				if (isset($ThisFileInfo['ape']['items'][strtolower($rg_key)]['data'][0]) && !isset($this->tag_data[strtoupper($rg_key)][0])) {
 					$this->tag_data[strtoupper($rg_key)][0] = $ThisFileInfo['ape']['items'][strtolower($rg_key)]['data'][0];
@@ -62,47 +60,55 @@ class getid3_write_apetag
 				flock($fp, LOCK_EX);
 
 				$PostAPEdataOffset = $ThisFileInfo['avdataend'];
+
 				if (isset($ThisFileInfo['ape']['tag_offset_end'])) {
 					$PostAPEdataOffset = max($PostAPEdataOffset, $ThisFileInfo['ape']['tag_offset_end']);
 				}
+
 				if (isset($ThisFileInfo['lyrics3']['tag_offset_start'])) {
 					$PostAPEdataOffset = max($PostAPEdataOffset, $ThisFileInfo['lyrics3']['tag_offset_start']);
 				}
 				fseek($fp, $PostAPEdataOffset);
 				$PostAPEdata = '';
+
 				if ($ThisFileInfo['filesize'] > $PostAPEdataOffset) {
 					$PostAPEdata = fread($fp, $ThisFileInfo['filesize'] - $PostAPEdataOffset);
 				}
 
 				fseek($fp, $PostAPEdataOffset);
+
 				if (isset($ThisFileInfo['ape']['tag_offset_start'])) {
 					fseek($fp, $ThisFileInfo['ape']['tag_offset_start']);
 				}
 				ftruncate($fp, ftell($fp));
 				fwrite($fp, $APEtag, strlen($APEtag));
+
 				if (!empty($PostAPEdata)) {
 					fwrite($fp, $PostAPEdata, strlen($PostAPEdata));
 				}
 				flock($fp, LOCK_UN);
 				fclose($fp);
 				ignore_user_abort($oldignoreuserabort);
+
 				return true;
 			}
 		}
+
 		return false;
 	}
 
 	public function DeleteAPEtag() {
-		$getID3 = new getID3;
+		$getID3       = new getID3();
 		$ThisFileInfo = $getID3->analyze($this->filename);
+
 		if (isset($ThisFileInfo['ape']['tag_offset_start']) && isset($ThisFileInfo['ape']['tag_offset_end'])) {
 			if (is_writable($this->filename) && is_file($this->filename) && ($fp = fopen($this->filename, 'a+b'))) {
-
 				flock($fp, LOCK_EX);
 				$oldignoreuserabort = ignore_user_abort(true);
 
 				fseek($fp, $ThisFileInfo['ape']['tag_offset_end']);
 				$DataAfterAPE = '';
+
 				if ($ThisFileInfo['filesize'] > $ThisFileInfo['ape']['tag_offset_end']) {
 					$DataAfterAPE = fread($fp, $ThisFileInfo['filesize'] - $ThisFileInfo['ape']['tag_offset_end']);
 				}
@@ -120,48 +126,52 @@ class getid3_write_apetag
 
 				return true;
 			}
+
 			return false;
 		}
+
 		return true;
 	}
-
 
 	public function GenerateAPEtag() {
 		// NOTE: All data passed to this function must be UTF-8 format
 
 		$items = array();
+
 		if (!is_array($this->tag_data)) {
 			return false;
 		}
+
 		foreach ($this->tag_data as $key => $arrayofvalues) {
 			if (!is_array($arrayofvalues)) {
 				return false;
 			}
 
 			$valuestring = '';
+
 			foreach ($arrayofvalues as $value) {
-				$valuestring .= str_replace("\x00", '', $value)."\x00";
+				$valuestring .= str_replace("\x00", '', $value) . "\x00";
 			}
 			$valuestring = rtrim($valuestring, "\x00");
 
 			// Length of the assigned value in bytes
-			$tagitem  = getid3_lib::LittleEndian2String(strlen($valuestring), 4);
+			$tagitem = getid3_lib::LittleEndian2String(strlen($valuestring), 4);
 
 			//$tagitem .= $this->GenerateAPEtagFlags(true, true, false, 0, false);
 			$tagitem .= "\x00\x00\x00\x00";
 
-			$tagitem .= $this->CleanAPEtagItemKey($key)."\x00";
+			$tagitem .= $this->CleanAPEtagItemKey($key) . "\x00";
 			$tagitem .= $valuestring;
 
 			$items[] = $tagitem;
-
 		}
 
-		return $this->GenerateAPEtagHeaderFooter($items, true).implode('', $items).$this->GenerateAPEtagHeaderFooter($items, false);
+		return $this->GenerateAPEtagHeaderFooter($items, true) . implode('', $items) . $this->GenerateAPEtagHeaderFooter($items, false);
 	}
 
-	public function GenerateAPEtagHeaderFooter(&$items, $isheader=false) {
+	public function GenerateAPEtagHeaderFooter(&$items, $isheader = false) {
 		$tagdatalength = 0;
+
 		foreach ($items as $itemdata) {
 			$tagdatalength += strlen($itemdata);
 		}
@@ -176,14 +186,17 @@ class getid3_write_apetag
 		return $APEheader;
 	}
 
-	public function GenerateAPEtagFlags($header=true, $footer=true, $isheader=false, $encodingid=0, $readonly=false) {
+	public function GenerateAPEtagFlags($header = true, $footer = true, $isheader = false, $encodingid = 0, $readonly = false) {
 		$APEtagFlags = array_fill(0, 4, 0);
+
 		if ($header) {
 			$APEtagFlags[0] |= 0x80; // Tag contains a header
 		}
+
 		if (!$footer) {
 			$APEtagFlags[0] |= 0x40; // Tag contains no footer
 		}
+
 		if ($isheader) {
 			$APEtagFlags[0] |= 0x20; // This is the header, not the footer
 		}
@@ -198,7 +211,7 @@ class getid3_write_apetag
 			$APEtagFlags[3] |= 0x01; // Tag or Item is Read Only
 		}
 
-		return chr($APEtagFlags[3]).chr($APEtagFlags[2]).chr($APEtagFlags[1]).chr($APEtagFlags[0]);
+		return chr($APEtagFlags[3]) . chr($APEtagFlags[2]) . chr($APEtagFlags[1]) . chr($APEtagFlags[0]);
 	}
 
 	public function CleanAPEtagItemKey($itemkey) {
@@ -211,14 +224,15 @@ class getid3_write_apetag
 			case 'LC':
 			case 'ISRC':
 				$itemkey = strtoupper($itemkey);
+
 				break;
 
 			default:
 				$itemkey = ucwords($itemkey);
+
 				break;
 		}
+
 		return $itemkey;
-
 	}
-
 }

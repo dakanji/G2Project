@@ -26,64 +26,74 @@
  * @version $Revision: 17580 $
  */
 class RandomHighlightOption extends ItemEditOption {
-
-    /**
-     * @see ItemEditOption::isAppropriate
-     */
-    function isAppropriate($item, $thumbnail) {
-	return array(null, isset($thumbnail));
-    }
-
-    /**
-     * @see ItemEditOption::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item, $thumbnail) {
-	$form['RandomHighlightOption']['isRandomHighlight'] =
-	    $thumbnail->hasOnLoadHandler('RandomHighlight');
-	return array(null, 'modules/randomhighlight/templates/RandomHighlightOption.tpl',
-			   'modules_randomhighlight');
-    }
-
-    /**
-     * @see ItemEditOption::handleRequestAfterEdit
-     */
-    function handleRequestAfterEdit($form, &$item, &$preferred) {
-	list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$thumbnail = array_shift($thumbnail);
-	$isRandomHighlight = isset($form['RandomHighlightOption']['isRandomHighlight'])
-			     && $form['RandomHighlightOption']['isRandomHighlight'];
-
-	if (isset($thumbnail)
-		&& $isRandomHighlight != $thumbnail->hasOnLoadHandler('RandomHighlight')) {
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	    list ($ret, $thumbnail) = $thumbnail->refresh();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
-	    }
-	    if ($isRandomHighlight) {
-		$thumbnail->addOnLoadHandler('RandomHighlight');
-	    } else {
-		$thumbnail->removeOnLoadHandler('RandomHighlight');
-	    }
-	    $ret = $thumbnail->save();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
-	    }
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
+	/**
+	 * @see ItemEditOption::isAppropriate
+	 */
+	public function isAppropriate($item, $thumbnail) {
+		return array(null, isset($thumbnail));
 	}
 
-	return array(null, array(), array());
-    }
+	/**
+	 * @see ItemEditOption::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+		$form['RandomHighlightOption']['isRandomHighlight'] = $thumbnail->hasOnLoadHandler('RandomHighlight');
+
+		return array(
+			null,
+			'modules/randomhighlight/templates/RandomHighlightOption.tpl',
+			'modules_randomhighlight',
+		);
+	}
+
+	/**
+	 * @see ItemEditOption::handleRequestAfterEdit
+	 */
+	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$thumbnail         = array_shift($thumbnail);
+		$isRandomHighlight = isset($form['RandomHighlightOption']['isRandomHighlight'])
+				 && $form['RandomHighlightOption']['isRandomHighlight'];
+
+		if (isset($thumbnail)
+			&& $isRandomHighlight != $thumbnail->hasOnLoadHandler('RandomHighlight')
+		) {
+			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+			list($ret, $thumbnail) = $thumbnail->refresh();
+
+			if ($ret) {
+				GalleryCoreApi::releaseLocks($lockId);
+
+				return array($ret, null, null);
+			}
+
+			if ($isRandomHighlight) {
+				$thumbnail->addOnLoadHandler('RandomHighlight');
+			} else {
+				$thumbnail->removeOnLoadHandler('RandomHighlight');
+			}
+			$ret = $thumbnail->save();
+
+			if ($ret) {
+				GalleryCoreApi::releaseLocks($lockId);
+
+				return array($ret, null, null);
+			}
+			$ret = GalleryCoreApi::releaseLocks($lockId);
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+		}
+
+		return array(null, array(), array());
+	}
 }
-?>

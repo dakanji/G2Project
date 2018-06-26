@@ -33,79 +33,93 @@ GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryIndex.class'
  * @module RepositoryManagerController
  */
 class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
+	/**
+	 * Displays the contents of the repository.
+	 *
+	 * @return GalleryStatus a status code
+	 */
+	public function browse() {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
 
-    /**
-     * Displays the contents of the repository.
-     *
-     * @return GalleryStatus a status code
-     */
-    function browse() {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
+		// Get repository plugin meta data.
+		$index = new RepositoryIndex();
+		$index->init($gallery->getConfig('repository.path'));
+		list($ret, $pluginInfo) = $index->getPluginInfo();
 
-	/* Get repository plugin meta data. */
-	$index = new RepositoryIndex();
-	$index->init($gallery->getConfig('repository.path'));
-	list ($ret, $pluginInfo) = $index->getPluginInfo();
-	if ($ret) {
-	    return $ret;
-	}
-	$data['pluginInfo'] = $pluginInfo;
-
-	/* Add action links. */
-	$upgradeablePlugins = array();
-	foreach ($data['pluginInfo'] as $indexId => $plugin) {
-	    $data['pluginInfo'][$indexId]['actions']['remove'] = $urlGenerator->generateUrl(array(
-		'controller' => 'RepositoryManager', 'action' => 'removePlugin',
-		'pluginId' => $plugin['id'], 'pluginType' => $plugin['type']));
-	}
-
-	if (count($upgradeablePlugins) > 0) {
-	    $data['upgradeRepositoryLink'] = $urlGenerator->generateUrl(array(
-		'controller' => 'PackagePlugin', 'action' => 'packagePlugins',
-		'filter' => sprintf('/%s/', implode('|', $upgradeablePlugins))));
-	}
-
-	$ret = $this->showView('RepositoryManager', $data);
-	if ($ret) {
-	    return $ret;
-	}
-
-	return null;
-    }
-
-    /**
-     * Removes the specified plugin from the repository.
-     *
-     * For now, versions are ignored - all versions of the plugin are removed.
-     */
-    function removePlugin() {
-	global $gallery;
-
-	list ($pluginId, $pluginType) =
-	    GalleryUtilities::getRequestVariables('pluginId', 'pluginType');
-
-	if (empty($pluginId) || empty($pluginType)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					sprintf('pluginId [%s] and/or pluginType [%s] not set.',
-						$pluginId, $pluginType));
-	}
-
-	/* Remove 'pluginId-*' files from 'repository/pluginType'. */
-	$removedFiles = array();
-	$platform =& $gallery->getPlatform();
-	$repositoryPluginDir = $gallery->getConfig('repository.path') . $pluginType . '/';
-	if ($dir = $platform->opendir($repositoryPluginDir)) {
-	    while (false !== ($file = readdir($dir))) {
-		if (preg_match(sprintf('/^%s/', $pluginId), $file)) {
-		    $platform->unlink($repositoryPluginDir . $file);
-		    $removedFiles[] = $file;
+		if ($ret) {
+			return $ret;
 		}
-	    }
+		$data['pluginInfo'] = $pluginInfo;
+
+		// Add action links.
+		$upgradeablePlugins = array();
+
+		foreach ($data['pluginInfo'] as $indexId => $plugin) {
+			$data['pluginInfo'][$indexId]['actions']['remove'] = $urlGenerator->generateUrl(array(
+				'controller' => 'RepositoryManager',
+				'action'     => 'removePlugin',
+				'pluginId'   => $plugin['id'],
+				'pluginType' => $plugin['type'],
+			));
+		}
+
+		if (count($upgradeablePlugins) > 0) {
+			$data['upgradeRepositoryLink'] = $urlGenerator->generateUrl(array(
+				'controller' => 'PackagePlugin',
+				'action'     => 'packagePlugins',
+				'filter'     => sprintf('/%s/', implode('|', $upgradeablePlugins)),
+			));
+		}
+
+		$ret = $this->showView('RepositoryManager', $data);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	$this->showView('PackageRemovalResults', array('files' => $removedFiles));
-	return null;
-    }
+	/**
+	 * Removes the specified plugin from the repository.
+	 *
+	 * For now, versions are ignored - all versions of the plugin are removed.
+	 */
+	public function removePlugin() {
+		global $gallery;
+
+		list($pluginId, $pluginType) = GalleryUtilities::getRequestVariables('pluginId', 'pluginType');
+
+		if (empty($pluginId) || empty($pluginType)) {
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				sprintf(
+					'pluginId [%s] and/or pluginType [%s] not set.',
+					$pluginId,
+					$pluginType
+				)
+			);
+		}
+
+		// Remove 'pluginId-*' files from 'repository/pluginType'.
+		$removedFiles        = array();
+		$platform            =& $gallery->getPlatform();
+		$repositoryPluginDir = $gallery->getConfig('repository.path') . $pluginType . '/';
+
+		if ($dir = $platform->opendir($repositoryPluginDir)) {
+			while (false !== ($file = readdir($dir))) {
+				if (preg_match(sprintf('/^%s/', $pluginId), $file)) {
+					$platform->unlink($repositoryPluginDir . $file);
+					$removedFiles[] = $file;
+				}
+			}
+		}
+
+		$this->showView('PackageRemovalResults', array('files' => $removedFiles));
+
+		return null;
+	}
 }
-?>

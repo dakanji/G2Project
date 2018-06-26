@@ -13,7 +13,7 @@
   Declares the ADODB Base Class for PHP5 "ADODB_BASE_RS", and supports iteration with
   the ADODB_Iterator class.
 
-  		$rs = $db->Execute("select * from adoxyz");
+		  $rs = $db->Execute("select * from adoxyz");
 		foreach($rs as $k => $v) {
 			echo $k; print_r($v); echo "<br>";
 		}

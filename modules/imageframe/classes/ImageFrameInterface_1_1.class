@@ -29,41 +29,39 @@
  * @abstract
  */
 class ImageFrameInterface_1_1 {
+	/**
+	 * Get list of available image frames
+	 *
+	 * @return array GalleryStatus a status code,
+	 *               array(frame_id=>localized_frame_name)
+	 */
+	public function getImageFrameList() {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 
-    /**
-     * Get list of available image frames
-     *
-     * @return array GalleryStatus a status code,
-     *               array(frame_id=>localized_frame_name)
-     */
-    function getImageFrameList() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
+	/**
+	 * Prepare imageframe system.  Pass in list of ids that may be used in a view.
+	 * Use {g->block type="imageframe" frame=".."} .. {/g->block} where needed, passing the frame
+	 * to render and the frame contents.  The image in the content must have id="%ID%" and
+	 * class="%CLASS%".  See example in SampleHead.tpl/SampleBody.tpl.
+	 * This method may be called more than once in a request.
+	 *
+	 * @param GalleryTemplate $template
+	 * @param mixed $frameIds array of frame ids to prepare for use or single frame id
+	 * @return GalleryStatus a status code
+	 */
+	public function init(&$template, $frameIds) {
+		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+	}
 
-    /**
-     * Prepare imageframe system.  Pass in list of ids that may be used in a view.
-     * Use {g->block type="imageframe" frame=".."} .. {/g->block} where needed, passing the frame
-     * to render and the frame contents.  The image in the content must have id="%ID%" and
-     * class="%CLASS%".  See example in SampleHead.tpl/SampleBody.tpl.
-     * This method may be called more than once in a request.
-     *
-     * @param GalleryTemplate $template
-     * @param mixed $frameIds array of frame ids to prepare for use or single frame id
-     * @return GalleryStatus a status code
-     */
-    function init(&$template, $frameIds) {
-	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
-    }
-
-    /**
-     * Get url for displaying samples of all image frames.  Pass an itemId to the view to use the
-     * thumbnail of that item in the samples; otherwise a default image will be used.
-     *
-     * @return array GalleryStatus a status code,
-     *               string view url
-     */
-    function getSampleUrl($itemId=null) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
+	/**
+	 * Get url for displaying samples of all image frames.  Pass an itemId to the view to use the
+	 * thumbnail of that item in the samples; otherwise a default image will be used.
+	 *
+	 * @return array GalleryStatus a status code,
+	 *               string view url
+	 */
+	public function getSampleUrl($itemId = null) {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 }
-?>
