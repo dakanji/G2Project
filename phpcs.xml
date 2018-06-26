@@ -18,9 +18,9 @@
 	<arg name="tab-width" value="4"/>
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
 
-	<!-- Load WordPress Standards -->
-	<config name="installed_paths" value="/Users/Dayo/Documents/GitRepos/G2Project/wpcs" />
-	<autoload>/Users/Dayo/Documents/GitRepos/G2Project/wpcs/WordPress/PHPCSAliases.php</autoload>
+	<!-- Load WordPress Standards ... Edit paths in both lines below -->
+	<config name="installed_paths" value="/path/to/git/repo/G2Project/wpcs" />
+	<autoload>/path/to/git/repo/G2Project/wpcs/WordPress/PHPCSAliases.php</autoload>
 
 	<!-- STYLE RULE 01:
 	Line endings MUST have UNIX line endings
