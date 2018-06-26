@@ -1,24 +1,24 @@
 # $Revision: 20944 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/quotas/AdminCreateGroupQuota.inc	3738200115	2061841664	5564	5730
-modules/quotas/AdminCreateUserQuota.inc	3887733451	3288733143	5519	5686
-modules/quotas/AdminDeleteGroupQuota.inc	802074492	2159902754	4208	4341
-modules/quotas/AdminDeleteUserQuota.inc	2742374528	2209900850	4167	4300
-modules/quotas/AdminEditGroupQuota.inc	44682782	3538476274	6152	6340
-modules/quotas/AdminEditUserQuota.inc	3719244454	1835117438	6104	6292
-modules/quotas/AdminQuotas.inc	3905780181	3687436398	10725	11054
-modules/quotas/Callbacks.inc	929724706	1558595975	2861	2947
-modules/quotas/DiskQuotaOption.inc	2091684764	1450274151	3840	3957
-modules/quotas/Preloads.inc	2075171244	3465144413	1197	1236
+modules/quotas/AdminCreateGroupQuota.inc	4198367365	4175066876	5699	5884
+modules/quotas/AdminCreateUserQuota.inc	2509504163	3004856388	5631	5813
+modules/quotas/AdminDeleteGroupQuota.inc	1995057865	96037618	4237	4373
+modules/quotas/AdminDeleteUserQuota.inc	3825508369	3177813412	4192	4328
+modules/quotas/AdminEditGroupQuota.inc	3716466745	2542156916	6319	6521
+modules/quotas/AdminEditUserQuota.inc	3781475539	605569244	6270	6472
+modules/quotas/AdminQuotas.inc	1403517984	577760500	10732	11074
+modules/quotas/Callbacks.inc	1107955922	4240946504	2834	2920
+modules/quotas/DiskQuotaOption.inc	1366465417	964835871	3888	4018
+modules/quotas/Preloads.inc	3812245923	3385440334	1200	1239
 modules/quotas/classes/GNUmakefile	1995366819	843025639	51	52
-modules/quotas/classes/GalleryQuotasHelper.class	1682039832	662303431	12436	12864
+modules/quotas/classes/GalleryQuotasHelper.class	1744593848	3137641643	12456	12927
 modules/quotas/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/quotas/classes/GalleryStorage/schema.tpl	1494742575	3756930921	7436	7652
 modules/quotas/classes/GalleryStorage/xml-src/A_QuotasMap_1.0.xml	1935613243	3312187849	796	829
-modules/quotas/classes/Maps.inc	4106363238	2716469295	323	327
+modules/quotas/classes/Maps.inc	2501757378	4076619281	379	393
 modules/quotas/classes/Maps.xml	2514565467	601092775	499	519
 modules/quotas/data/transparent.gif	2298612248	2298612248	43	43
-modules/quotas/module.inc	3490190137	2552904096	4371	4518
+modules/quotas/module.inc	499696390	1232005074	4362	4531
 modules/quotas/po/GNUmakefile	1866879166	2808215985	98	103
 modules/quotas/po/af.mo	750128267	750128267	6156	6156
 modules/quotas/po/af.po	912878623	468420293	7487	7780
@@ -85,7 +85,7 @@ modules/quotas/po/zh_CN.mo	3378166950	3378166950	6163	6163
 modules/quotas/po/zh_CN.po	1602749560	3508209578	7496	7778
 modules/quotas/po/zh_TW.mo	2743298036	2743298036	6489	6489
 modules/quotas/po/zh_TW.po	161793560	2769235793	7564	7844
-modules/quotas/quotas.css	3755106924	3762835623	812	860
+modules/quotas/quotas.css	759482179	83293757	728	776
 modules/quotas/templates/AdminCreateGroupQuota.tpl	37386492	3248769709	2039	2113
 modules/quotas/templates/AdminCreateUserQuota.tpl	1920787349	3376338168	2012	2086
 modules/quotas/templates/AdminDeleteGroupQuota.tpl	2727176389	337892831	1135	1171
@@ -94,7 +94,7 @@ modules/quotas/templates/AdminEditGroupQuota.tpl	2554269948	2661141466	1819	1882
 modules/quotas/templates/AdminEditUserQuota.tpl	2932932500	3957851887	1812	1875
 modules/quotas/templates/AdminQuotas.tpl	2504987963	2497429822	10237	10555
 modules/quotas/templates/blocks/QuotasSummary.tpl	980660503	2007832468	1739	1791
-modules/quotas/templates/blocks/blocks.inc	2797426493	3011282377	112	117
+modules/quotas/templates/blocks/blocks.inc	2299276334	4041553862	112	118
 R	modules/quotas/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/quotas/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/quotas/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_QuotasMap_1_0.sql
