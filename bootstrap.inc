@@ -19,6 +19,7 @@
  */
 /**
  * Bootstrap code that we're going to need no matter what we do
+ *
  * @package Gallery
  */
 
@@ -27,7 +28,7 @@
  * so that we can use it in the FastDownload code in main.php.
  */
 if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
-	define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
+    define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
 }
 
 require_once dirname(__FILE__) . '/modules/core/classes/Gallery.class';
@@ -44,14 +45,18 @@ $gallery->init();
 $GLOBALS['gallery'] =& $gallery;
 
 if (!defined('GALLERY_CONFIG_DIR')) {
-	define('GALLERY_CONFIG_DIR', dirname(__FILE__));
+    define('GALLERY_CONFIG_DIR', dirname(__FILE__));
 }
-@require GALLERY_CONFIG_DIR . '/config.php';
+
+if (file_exists(GALLERY_CONFIG_DIR . '/config.php')) {
+	require GALLERY_CONFIG_DIR . '/config.php';
+}
 
 /*
  * Disable session.use_trans_sid to mitigate performance-penalty
  * (do it before any output is started)
  */
 if (!defined('SID')) {
-	@ini_set('session.use_trans_sid', 0);
+    @ini_set('session.use_trans_sid', 0);
 }
+?>
