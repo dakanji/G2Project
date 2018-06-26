@@ -333,9 +333,7 @@ function getGalleryDirUrl() {
 	return getBaseUrl() . $urlPath;
 }
 
-/**
- * Mini url generator for the installer
- */
+// Mini url generator for the installer
 function generateUrl($uri, $print = true) {
 	if (!strncmp($uri, 'index.php', 9)) {
 		// Cookieless browsing: If session.use_trans_sid is on then it will add the session id.
@@ -367,3 +365,6 @@ $_SESSION['install_steps'] = serialize($steps);
 if (isset($galleryStub)) {
 	$_SESSION['galleryStub'] = serialize($galleryStub);
 }
+
+// Remove login.txt file
+unlink($g2Base . 'login.txt');
