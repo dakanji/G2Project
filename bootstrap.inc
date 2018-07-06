@@ -35,6 +35,8 @@ require_once dirname(__FILE__) . '/modules/core/classes/Gallery.class';
 
 require_once dirname(__FILE__) . '/modules/core/classes/GalleryDataCache.class';
 
+require_once dirname(__FILE__) . '/lib/composer/vendor/autoload.php';
+
 /*
  * Set up our Gallery global.  This global should be the only one that Gallery requires.
  * Everything else should be inside it so that we do not pollute the namespace
@@ -59,4 +61,3 @@ if (file_exists(GALLERY_CONFIG_DIR . '/config.php')) {
 if (!defined('SID')) {
     @ini_set('session.use_trans_sid', 0);
 }
-?>
