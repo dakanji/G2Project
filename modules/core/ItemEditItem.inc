@@ -369,7 +369,9 @@ class ItemEditItem extends ItemEditPlugin {
 			return array($ret, null, null);
 		}
 
-		$can                        = array('createThumbnail' => false);
+		$can                        = array(
+			'createThumbnail' => false,
+		);
 		$can['changePathComponent'] = $can['editThumbnail'] = ($item->getId() != $rootAlbumId);
 
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {

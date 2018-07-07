@@ -47,7 +47,7 @@ class ImageBlockPreloads {
 				}
 
 				if (!empty($frameIds)) {
-					$frameIds                = array_keys($frameIds);
+					$frameIds               = array_keys($frameIds);
 					list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 
 					if ($ret) {

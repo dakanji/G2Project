@@ -650,7 +650,7 @@ class GalleryModule extends GalleryPlugin {
 	 * $rule['keywords']    Pattern keywords should have the same name as its coresponding
 	 *                      url parameter key. This is an array of additional keywords
 	 *                      defined keyword => array(pattern => regex, ignored => 1). If ignored
-	 *			    is set, the this keyword wont be appended to the queryString.
+	 *              is set, the this keyword wont be appended to the queryString.
 	 * $rule['queryString'] Additional queryString parameters to append.
 	 * $rule['locked']      If this is set, the user may not change the pattern.
 	 * $rule['comment']     This should be a localized comment.
@@ -673,7 +673,7 @@ class GalleryModule extends GalleryPlugin {
 
 	public function getGroup() {
 		if (empty($this->_group)) {
-			$groupLabel        = 'Other';
+			$groupLabel       = 'Other';
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {

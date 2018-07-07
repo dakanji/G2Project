@@ -260,7 +260,7 @@ class IsapiRewriteHelper {
 		$Httpdini['host']        = preg_quote(GalleryUtilities::getServerVar('SERVER_NAME'));
 
 		if ($embedded) {
-			$Httpdini['baseFile']               = $urlGenerator->_file[false];
+			$Httpdini['baseFile']              = $urlGenerator->_file[false];
 			list($ret, $Httpdini['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -549,9 +549,13 @@ class IsapiRewriteHelper {
 			return array($ret, null, null);
 		}
 
-		$fetch                 = $urlGenerator->generateUrl(
-			array('href' => 'modules/rewrite/data/isapi_rewrite/Rewrite.txt'),
-			array('forceFullUrl' => true)
+		$fetch                = $urlGenerator->generateUrl(
+			array(
+				'href' => 'modules/rewrite/data/isapi_rewrite/Rewrite.txt',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
@@ -706,8 +710,8 @@ class IsapiRewriteHelper {
 			}
 
 			if (GalleryUtilities::isEmbedded()) {
-				$AdminParser['isEmbedded']             = 1;
-				$AdminParser['host']                   = substr($urlGenerator->makeUrl('/'), 0, -1);
+				$AdminParser['isEmbedded']            = 1;
+				$AdminParser['host']                  = substr($urlGenerator->makeUrl('/'), 0, -1);
 				list($ret, $form['embeddedLocation']) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'rewrite',

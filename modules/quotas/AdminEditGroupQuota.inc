@@ -38,7 +38,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$groupId            = GalleryUtilities::getRequestVariables('groupId');
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -154,7 +154,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId            = GalleryUtilities::getRequestVariables('groupId');
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -174,7 +174,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 			$form['formName'] = 'AdminEditGroupQuota';
 		}
 
-		$form['groupName']                                  = $group->getGroupName();
+		$form['groupName']                                 = $group->getGroupName();
 		list($ret, $form['quotaSize'], $form['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
 
 		if ($ret) {
@@ -183,7 +183,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 
 		$AdminEditGroupQuota            = array();
 		$AdminEditGroupQuota['groupId'] = $group->getId();
-		list($ret, $module)            = GalleryCoreApi::loadPlugin('module', 'quotas');
+		list($ret, $module)             = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 		if ($ret) {
 			return array($ret, null);
@@ -197,6 +197,11 @@ class AdminEditGroupQuotaView extends GalleryView {
 		$template->setVariable('AdminEditGroupQuota', $AdminEditGroupQuota);
 		$template->setVariable('controller', 'quotas.AdminEditGroupQuota');
 
-		return array(null, array('body' => 'modules/quotas/templates/AdminEditGroupQuota.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/quotas/templates/AdminEditGroupQuota.tpl',
+			),
+		);
 	}
 }

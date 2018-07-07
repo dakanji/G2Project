@@ -773,7 +773,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			}
 
 			if (!empty($jheadPath)) {
-				$cmd                          = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+				$cmd                         = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
 				list($ret, $stdout, $stderr) = $this->_exec(array($cmd));
 
 				if ($ret) {

@@ -155,7 +155,9 @@ class UserRecoverPasswordController extends GalleryController {
 						if (($lastRequest - (7 * 24 * 60 * 60) + (20 * 60)) < time()) {
 							$ret             = GalleryCoreApi::updateMapEntry(
 								'GalleryRecoverPasswordMap',
-								array('userName' => $user->getUserName()),
+								array(
+									'userName' => $user->getUserName(),
+								),
 								array(
 									'authString' => $authString,
 									'requestExpires' => $requestExpires,
@@ -333,6 +335,11 @@ class UserRecoverPasswordView extends GalleryView {
 		$template->setVariable('UserRecoverPassword', $UserRecoverPassword);
 		$template->setVariable('controller', 'core.UserRecoverPassword');
 
-		return array(null, array('body' => 'modules/core/templates/UserRecoverPassword.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserRecoverPassword.tpl',
+			),
+		);
 	}
 }

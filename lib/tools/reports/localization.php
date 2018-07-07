@@ -33,9 +33,9 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 	$type = 'detail';
 }
 $precision = isset($_GET['precision']) ? (int)$_GET['precision'] : ($type == 'detail' ? 2 : 1);
-$pow       = 10** $precision;
+$pow       = 10 ** $precision;
 
-$poFiles                                                = findPoFiles('../../..');
+$poFiles                                               = findPoFiles('../../..');
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 
 require dirname(__FILE__) . '/localization/main_' . $type . '.inc';
@@ -83,8 +83,8 @@ function parsePoFiles($poFiles) {
 			continue;
 		}
 		list($plugin, $locale) = array($matches[1], $matches[2]);
-		$seenPlugins[$plugin]   = 1;
-		$stat                   = stat($poFile);
+		$seenPlugins[$plugin]  = 1;
+		$stat                  = stat($poFile);
 
 		if ($stat && $stat['mtime'] > $mostRecentPoDate) {
 			$mostRecentPoDate = $stat['mtime'];

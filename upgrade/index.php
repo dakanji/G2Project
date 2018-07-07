@@ -131,7 +131,7 @@ if (!empty($storageConfig)) {
 	$gallery->guaranteeTimeLimit(300);
 
 	// Check to see if we have a database.  If we don't, then go to the installer
-	$storage                  =& $gallery->getStorage();
+	$storage                 =& $gallery->getStorage();
 	list($ret, $isInstalled) = $storage->isInstalled();
 
 	if ($ret || !$isInstalled) {

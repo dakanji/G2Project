@@ -40,7 +40,9 @@ class DirectoryListingController extends GalleryController {
 			return array(GalleryCoreApi::error(ERROR_REQUEST_FORGED), null);
 		}
 
-		$results['delegate'] = array('view' => 'nokiaupload.DirectoryListing');
+		$results['delegate'] = array(
+			'view' => 'nokiaupload.DirectoryListing',
+		);
 		$results['status']   = ImageUploadHelper::getDirectoryListing();
 		$results['error']    = array();
 

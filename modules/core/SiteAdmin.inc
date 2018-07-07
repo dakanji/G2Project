@@ -122,7 +122,9 @@ class SiteAdminView extends GalleryView {
 				$currentSubView = GalleryUtilities::getRequestVariables('subView');
 
 				foreach (array_keys($moduleViews) as $i) {
-					$outer = array('name' => $moduleViews[$i]['name']);
+					$outer = array(
+						'name' => $moduleViews[$i]['name'],
+					);
 
 					if (isset($moduleViews[$i]['group'])) {
 						$outer['group'] = $moduleViews[$i]['group'];
@@ -254,7 +256,12 @@ class SiteAdminView extends GalleryView {
 		$template->setVariable('SiteAdmin', $SiteAdmin);
 		$template->title($module->translate('Gallery Site Administration'));
 
-		return array(null, array('body' => 'modules/core/templates/SiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/SiteAdmin.tpl',
+			),
+		);
 	}
 
 	/**

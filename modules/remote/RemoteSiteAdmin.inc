@@ -86,7 +86,7 @@ class RemoteSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'RemoteSiteAdmin') {
-			$form['formName']    = 'RemoteSiteAdmin';
+			$form['formName']   = 'RemoteSiteAdmin';
 			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
 
 			if ($ret) {
@@ -100,6 +100,11 @@ class RemoteSiteAdminView extends GalleryView {
 
 		$template->setVariable('controller', 'remote.RemoteSiteAdmin');
 
-		return array(null, array('body' => 'modules/remote/templates/RemoteSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/remote/templates/RemoteSiteAdmin.tpl',
+			),
+		);
 	}
 }

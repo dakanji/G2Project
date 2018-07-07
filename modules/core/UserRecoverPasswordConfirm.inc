@@ -109,7 +109,9 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 
 						$ret = GalleryCoreApi::removeMapEntry(
 							'FailedLoginsMap',
-							array('userName' => $user->getUserName())
+							array(
+								'userName' => $user->getUserName(),
+							)
 						);
 
 						if ($ret) {
@@ -120,7 +122,9 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 					}
 					$ret = GalleryCoreApi::removeMapEntry(
 						'GalleryRecoverPasswordMap',
-						array('userName' => $user->getUserName())
+						array(
+							'userName' => $user->getUserName(),
+						)
 					);
 
 					if ($ret) {
@@ -196,8 +200,10 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 		$template->setVariable('controller', 'core.UserRecoverPasswordConfirm');
 
 		return array(
-				null,
-				array('body' => 'modules/core/templates/UserRecoverPasswordConfirm.tpl'),
-			);
+			null,
+			array(
+				'body' => 'modules/core/templates/UserRecoverPasswordConfirm.tpl',
+			),
+		);
 	}
 }

@@ -74,7 +74,9 @@ class MimeEditController extends GalleryController {
 			}
 
 			if (empty($error)) {
-				$ret = GalleryCoreApi::removeMimeType(array('mimeType' => $form['mimeType']));
+				$ret = GalleryCoreApi::removeMimeType(array(
+					'mimeType' => $form['mimeType'],
+				));
 
 				if ($ret) {
 					return array($ret, null);
@@ -179,6 +181,11 @@ class MimeEditView extends GalleryView {
 
 		$template->setVariable('controller', 'mime.MimeEdit');
 
-		return array(null, array('body' => 'modules/mime/templates/MimeEdit.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/mime/templates/MimeEdit.tpl',
+			),
+		);
 	}
 }

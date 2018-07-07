@@ -677,7 +677,7 @@ class GalleryUrlGenerator {
 			&& $session && !$session->isUsingCookies())
 		) {
 			if (!empty($this->_embedSessionString) && !empty($appSession)) {
-				list($sessionKey, $sessionId)   = explode('=', $this->_embedSessionString, 2);
+				list($sessionKey, $sessionId)    = explode('=', $this->_embedSessionString, 2);
 				$embedSessionParams              = array();
 				$embedSessionParams[$sessionKey] = $sessionId;
 			} elseif (!empty($sessionId)) {
@@ -922,7 +922,9 @@ class GalleryUrlGenerator {
 			true
 		);
 
-		return $this->generateUrl($params, array('forceServerRelativeUrl' => 1));
+		return $this->generateUrl($params, array(
+			'forceServerRelativeUrl' => 1,
+		));
 	}
 
 	/**
@@ -984,7 +986,9 @@ class GalleryUrlGenerator {
 		global $gallery;
 
 		if (!isset($this->_localUrlMap)) {
-			$this->_localUrlMap = GalleryDataCache::getFromDisk(array('type' => 'local-url-map'));
+			$this->_localUrlMap = GalleryDataCache::getFromDisk(array(
+				'type' => 'local-url-map',
+			));
 
 			if (!isset($this->_localUrlMap)) {
 				$this->_localUrlMap = array();
@@ -1030,7 +1034,9 @@ class GalleryUrlGenerator {
 	public function _saveLocalUrlMap(&$urlGenerator) {
 		if (!empty($urlGenerator->_localUrlMapDirty)) {
 			GalleryDataCache::putToDisk(
-				array('type' => 'local-url-map'),
+				array(
+					'type' => 'local-url-map',
+				),
 				$urlGenerator->_localUrlMap
 			);
 			$urlGenerator->_localUrlMapDirty = false;

@@ -72,8 +72,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
-		$inactivityTimeout            = (int)$params['session.inactivityTimeout'];
-		$lifetime                     = (int)$params['session.lifetime'];
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -89,7 +89,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 			$phpVm->time() - (7 * 86400),
 		);
 
-		$query                = '
+		$query               = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR

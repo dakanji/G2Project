@@ -31,7 +31,7 @@ if (!defined('ADODB_VFP')) {
 		public $replaceQuote    = "'+chr(39)+'";
 		public $true            = '.T.';
 		public $false           = '.F.';
-		public $hasTop          = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+		public $hasTop          = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
 		public $_bindInputArray = false; // strangely enough, setting to true does not work reliably
 		public $sysTimeStamp    = 'datetime()';
 		public $sysDate         = 'date()';

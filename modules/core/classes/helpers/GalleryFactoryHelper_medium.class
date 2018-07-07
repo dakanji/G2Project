@@ -88,7 +88,9 @@ class GalleryFactoryHelper_medium {
 				'classType' => $classType,
 				'implId'    => $implId,
 			),
-			array('hints' => $data)
+			array(
+				'hints' => $data,
+			)
 		);
 
 		if ($ret) {
@@ -106,7 +108,9 @@ class GalleryFactoryHelper_medium {
 	public static function unregisterImplementationsByModuleId($moduleId) {
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryFactoryMap',
-			array('implModuleId' => $moduleId)
+			array(
+				'implModuleId' => $moduleId,
+			)
 		);
 
 		if ($ret) {
@@ -265,6 +269,8 @@ class GalleryFactoryHelper_medium {
 	 */
 	public function _array_unshift_key_value(&$array, $key, $value) {
 		unset($array[$key]);
-		$array = array_merge(array($key => $value), $array);
+		$array = array_merge(array(
+			$key => $value,
+		), $array);
 	}
 }

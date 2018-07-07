@@ -24,7 +24,7 @@
  */
 class StorageSetupStep extends InstallStep {
 	public function stepName() {
-		return _('Storage Setup');
+		return 'Storage Setup';
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -239,7 +239,7 @@ class StorageSetupStep extends InstallStep {
 		$isAccessible = false;
 
 		foreach ($storageUrlCandidates as $storageFolderUrl) {
-			$url                              = $storageFolderUrl . $probeFileName;
+			$url                             = $storageFolderUrl . $probeFileName;
 			list($urlFetched, $isAccessible) = $this->_isUrlAccessible($url, $checkString);
 
 			if ($urlFetched && $isAccessible) {
@@ -287,8 +287,8 @@ class StorageSetupStep extends InstallStep {
 		// Read the web page into a buffer
 		$ok = fwrite($fd, sprintf(
 			"GET %s HTTP/1.0\r\n" .
-				  "Host: %s\r\n" .
-				  "\r\n",
+			  "Host: %s\r\n" .
+			  "\r\n",
 			$get,
 			$components['host']
 		));

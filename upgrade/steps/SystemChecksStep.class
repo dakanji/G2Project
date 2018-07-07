@@ -885,7 +885,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		$gallery->startRecordingDebugSnippet();
 		list($ret, $metatables) = $storageExtras->_metaTables();
-		$snippet                 = $gallery->stopRecordingDebugSnippet();
+		$snippet                = $gallery->stopRecordingDebugSnippet();
 
 		if ($ret) {
 			$gallery->debug($ret->getAsHtml());

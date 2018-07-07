@@ -146,8 +146,8 @@ class DownloadItemView extends GalleryView {
 
 			if (isset($watermark)) {
 				global $gallery;
-				$platform              =& $gallery->getPlatform();
-				$tmpFile               = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'wmk_');
+				$platform             =& $gallery->getPlatform();
+				$tmpFile              = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'wmk_');
 				list($ret, $mimeType) = $toolkit->performOperation(
 					$mimeType,
 					'composite',

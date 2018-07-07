@@ -40,7 +40,9 @@ class NewDirectoryController extends GalleryController {
 			return array(GalleryCoreApi::error(ERROR_REQUEST_FORGED), null);
 		}
 
-		$results['delegate'] = array('view' => 'nokiaupload.NewDirectory');
+		$results['delegate'] = array(
+			'view' => 'nokiaupload.NewDirectory',
+		);
 		$results['status']   = ImageUploadHelper::createNewDirectory();
 		$results['error']    = array();
 

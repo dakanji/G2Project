@@ -69,10 +69,16 @@ class MaintenanceHelper_simple {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryMaintenanceMap',
 			array('runId', 'timestamp', 'success', 'details'),
-			array('taskId' => $taskId),
 			array(
-				'orderBy' => array('timestamp' => ORDER_DESCENDING),
-				'limit'   => array('count' => 1),
+				'taskId' => $taskId,
+			),
+			array(
+				'orderBy' => array(
+					'timestamp' => ORDER_DESCENDING,
+				),
+				'limit'   => array(
+					'count' => 1,
+				),
 			)
 		);
 
@@ -106,7 +112,7 @@ class MaintenanceHelper_simple {
 	public static function addRun($taskId, $timestamp, $success, $details) {
 		global $gallery;
 
-		$storage            =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 		list($ret, $runId) = $storage->getUniqueId();
 
 		if ($ret) {

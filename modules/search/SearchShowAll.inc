@@ -207,6 +207,11 @@ class SearchShowAllView extends GalleryView {
 		$template->javascript('modules/search/HighlightResults.js');
 		$template->title($module->translate('Gallery Search'));
 
-		return array(null, array('body' => 'modules/search/templates/SearchShowAll.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/search/templates/SearchShowAll.tpl',
+			),
+		);
 	}
 }

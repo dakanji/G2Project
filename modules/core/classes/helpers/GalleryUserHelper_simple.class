@@ -104,7 +104,11 @@ class GalleryUserHelper_simple {
 				'itemId'       => (int)$itemId,
 				'accessListId' => $aclIds,
 			),
-			array('limit' => array('count' => 1))
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {

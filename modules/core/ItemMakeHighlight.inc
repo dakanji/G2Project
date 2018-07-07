@@ -119,10 +119,17 @@ class ItemMakeHighlightView extends GalleryView {
 			$parentList[] = (array)$parent;
 		}
 
-		$template->setVariable('ItemMakeHighlight', array('parentList' => $parentList));
+		$template->setVariable('ItemMakeHighlight', array(
+			'parentList' => $parentList,
+		));
 		$template->setVariable('controller', 'core.ItemMakeHighlight');
 
-		return array(null, array('body' => 'modules/core/templates/ItemMakeHighlight.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemMakeHighlight.tpl',
+			),
+		);
 	}
 
 	/**

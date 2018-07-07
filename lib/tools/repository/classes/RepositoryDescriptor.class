@@ -113,7 +113,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		 * Get translated strings for all supported languages. All
 		 * locales must be installed on the system for this to work.
 		 */
-		$translator                                 =& $gallery->getTranslator();
+		$translator                                =& $gallery->getTranslator();
 		list($supportedLanguages, $defaultCountry) = $translator->getLanguageData();
 
 		foreach ($supportedLanguages as $language => $countries) {
@@ -131,7 +131,9 @@ class RepositoryDescriptor extends RepositoryObject {
 				foreach ($descriptions['en_US'] as $stringId => $originalString) {
 					list($ret, $translatedString) = $translator->translateDomain(
 						sprintf('%ss_%s', $pluginType, $this->_pluginId),
-						array('text' => $originalString)
+						array(
+							'text' => $originalString,
+						)
 					);
 
 					if ($ret) {

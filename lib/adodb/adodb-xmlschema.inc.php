@@ -5,6 +5,7 @@
 	 Whenever there is any discrepancy between the two licenses,
 	 the BSD license will take precedence.
 *******************************************************************************/
+
 /**
  * xmlschema is a class that allows the user to quickly and easily
  * build a database on any ADOdb-supported platform using a simple
@@ -408,27 +409,27 @@ class dbTable extends dbObject {
 	 * $name is the name of the table to which the field should be added.
 	 * $type is an ADODB datadict field type. The following field types
 	 * are supported as of ADODB 3.40:
-	 * 	- C:  varchar
-	 *	- X:  CLOB (character large object) or largest varchar size
-	 *	   if CLOB is not supported
-	 *	- C2: Multibyte varchar
-	 *	- X2: Multibyte CLOB
-	 *	- B:  BLOB (binary large object)
-	 *	- D:  Date (some databases do not support this, and we return a datetime type)
-	 *	- T:  Datetime or Timestamp
-	 *	- L:  Integer field suitable for storing booleans (0 or 1)
-	 *	- I:  Integer (mapped to I4)
-	 *	- I1: 1-byte integer
-	 *	- I2: 2-byte integer
-	 *	- I4: 4-byte integer
-	 *	- I8: 8-byte integer
-	 *	- F:  Floating point number
-	 *	- N:  Numeric or decimal number
+	 *  - C:  varchar
+	 *  - X:  CLOB (character large object) or largest varchar size
+	 *     if CLOB is not supported
+	 *  - C2: Multibyte varchar
+	 *  - X2: Multibyte CLOB
+	 *  - B:  BLOB (binary large object)
+	 *  - D:  Date (some databases do not support this, and we return a datetime type)
+	 *  - T:  Datetime or Timestamp
+	 *  - L:  Integer field suitable for storing booleans (0 or 1)
+	 *  - I:  Integer (mapped to I4)
+	 *  - I1: 1-byte integer
+	 *  - I2: 2-byte integer
+	 *  - I4: 4-byte integer
+	 *  - I8: 8-byte integer
+	 *  - F:  Floating point number
+	 *  - N:  Numeric or decimal number
 	 *
 	 * @param string $name Name of the table to which the field will be added.
-	 * @param string $type	ADODB datadict field type.
-	 * @param string $size	Field size
-	 * @param array $opts	Field options array
+	 * @param string $type  ADODB datadict field type.
+	 * @param string $size  Field size
+	 * @param array $opts   Field options array
 	 * @return array Field specifier array
 	 */
 	public function addField($name, $type, $size = null, $opts = null) {
@@ -460,7 +461,7 @@ class dbTable extends dbObject {
 	 * This method adds a field option allowed by the ADOdb datadict
 	 * and appends it to the given field.
 	 *
-	 * @param string $field	Field name
+	 * @param string $field Field name
 	 * @param string $opt ADOdb field option
 	 * @param mixed $value Field option value
 	 * @return array Field specifier array
@@ -470,7 +471,9 @@ class dbTable extends dbObject {
 			$this->fields[$this->FieldID($field)]['OPTS'][] = $opt;
 		// Add the option and value
 		} else {
-			$this->fields[$this->FieldID($field)]['OPTS'][] = array($opt => $value);
+			$this->fields[$this->FieldID($field)]['OPTS'][] = array(
+				$opt => $value,
+			);
 		}
 	}
 
@@ -638,17 +641,17 @@ class dbTable extends dbObject {
  */
 class dbIndex extends dbObject {
 	/**
-	 * @var string	Index name
+	 * @var string  Index name
 	 */
 	public $name;
 
 	/**
-	 * @var array	Index options: Index-level options
+	 * @var array   Index options: Index-level options
 	 */
 	public $opts = array();
 
 	/**
-	 * @var array	Indexed fields: Table columns included in this index
+	 * @var array   Indexed fields: Table columns included in this index
 	 */
 	public $columns = array();
 
@@ -996,22 +999,22 @@ class dbData extends dbObject {
  */
 class dbQuerySet extends dbObject {
 	/**
-	 * @var array	List of SQL queries
+	 * @var array   List of SQL queries
 	 */
 	public $queries = array();
 
 	/**
-	 * @var string	String used to build of a query line by line
+	 * @var string  String used to build of a query line by line
 	 */
 	public $query;
 
 	/**
-	 * @var string	Query prefix key
+	 * @var string  Query prefix key
 	 */
 	public $prefixKey = '';
 
 	/**
-	 * @var boolean	Auto prefix enable (TRUE)
+	 * @var boolean Auto prefix enable (TRUE)
 	 */
 	public $prefixMethod = 'AUTO';
 
@@ -1158,7 +1161,7 @@ class dbQuerySet extends dbObject {
 	/**
 	 * Adds a completed query to the query list
 	 *
-	 * @return string	SQL of added query
+	 * @return string   SQL of added query
 	 */
 	public function addQuery() {
 		if (!isset($this->query)) {
@@ -1264,19 +1267,19 @@ class dbQuerySet extends dbObject {
  */
 class adoSchema {
 	/**
-	 * @var array	Array containing SQL queries to generate all objects
+	 * @var array   Array containing SQL queries to generate all objects
 	 * @access private
 	 */
 	public $sqlArray;
 
 	/**
-	 * @var object	ADOdb connection object
+	 * @var object  ADOdb connection object
 	 * @access private
 	 */
 	public $db;
 
 	/**
-	 * @var object	ADOdb Data Dictionary
+	 * @var object  ADOdb Data Dictionary
 	 * @access private
 	 */
 	public $dict;
@@ -1300,13 +1303,13 @@ class adoSchema {
 	public $objectPrefix = '';
 
 	/**
-	 * @var long	Original Magic Quotes Runtime value
+	 * @var long    Original Magic Quotes Runtime value
 	 * @access private
 	 */
 	public $mgq;
 
 	/**
-	 * @var long	System debug
+	 * @var long    System debug
 	 * @access private
 	 */
 	public $debug;
@@ -1324,17 +1327,17 @@ class adoSchema {
 	public $schemaVersion;
 
 	/**
-	 * @var int	Success of last Schema execution
+	 * @var int Success of last Schema execution
 	 */
 	public $success;
 
 	/**
-	 * @var bool	Execute SQL inline as it is generated
+	 * @var bool    Execute SQL inline as it is generated
 	 */
 	public $executeInline;
 
 	/**
-	 * @var bool	Continue SQL execution if errors occur
+	 * @var bool    Continue SQL execution if errors occur
 	 */
 	public $continueOnError;
 
@@ -1611,7 +1614,7 @@ class adoSchema {
 	 * @see ParseSchema(), ParseSchemaString(), ExecuteInline()
 	 *
 	 * @param array $sqlArray Array of SQL statements that will be applied rather than
-	 *		the current schema.
+	 *      the current schema.
 	 * @param boolean $continueOnErr Continue to apply the schema even if an error occurs.
 	 * @returns integer 0 if failure, 1 if errors, 2 if successful.
 	 */
@@ -2132,8 +2135,8 @@ class adoSchema {
 	/**
 	 * Returns an object name with the current prefix prepended.
 	 *
-	 * @param string	$name Name
-	 * @return string	Prefixed name
+	 * @param string    $name Name
+	 * @return string   Prefixed name
 	 *
 	 * @access private
 	 */

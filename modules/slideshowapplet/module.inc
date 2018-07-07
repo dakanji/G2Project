@@ -157,7 +157,9 @@ class SlideshowAppletModule extends GalleryModule {
 
 		$rule             = array();
 		$rule['comment']  = $this->translate('View Slideshow (Fullscreen)');
-		$rule['match']    = array('view' => 'slideshowapplet.SlideshowApplet');
+		$rule['match']    = array(
+			'view' => 'slideshowapplet.SlideshowApplet',
+		);
 		$rule['onLoad']   = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
 		$rule['pattern']  = 'v/%path%/slideshowapplet.html';
 		$rule['keywords'] = array(

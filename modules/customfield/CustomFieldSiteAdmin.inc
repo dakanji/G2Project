@@ -82,7 +82,9 @@ class CustomFieldSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/customfield/templates/CustomFieldSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/customfield/templates/CustomFieldSiteAdmin.tpl',
+			),
 		);
 	}
 }

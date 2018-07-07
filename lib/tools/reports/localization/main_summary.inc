@@ -14,13 +14,15 @@
 	View: <b> summary </b> | <a href="?type=detail"> detail </a>
 	<table class="report">
 		<?php $index = 0; ?>
-		<?php foreach ($reportData as $locale => $localeData) {
-	?>
-			<?php if (!($index % 20)) {
-		?>
-				<?php include dirname(__FILE__) . '/row_header_summary.inc'; ?>
+		<?php
+		foreach ($reportData as $locale => $localeData) {
+			?>
 			<?php
-	} ?>
+			if (!($index % 20)) {
+				?>
+				<?php include dirname(__FILE__) . '/row_header_summary.inc'; ?>
+				<?php
+			} ?>
 			<?php $index++; ?>
 		<tr>
 		  <td class="dark">
@@ -57,8 +59,9 @@
 			<?php echo $summaryData['obsolete']; ?>%
 		  </td>
 		</tr>
-		<?php
-} ?>
+			<?php
+		}
+		?>
 	</table>
 	  </center>
 	</body>

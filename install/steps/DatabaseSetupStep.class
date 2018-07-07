@@ -24,7 +24,7 @@
  */
 class DatabaseSetupStep extends InstallStep {
 	public function stepName() {
-		return _('Database Setup');
+		return 'Database Setup';
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -36,16 +36,16 @@ class DatabaseSetupStep extends InstallStep {
 			$this->_config = $galleryStub->getConfig('storage.config');
 
 			if (empty($this->_config)) {
-				$this->_config = array();
-				$this->_config['type'] = 'mysqlt';
-				$this->_config['hostname'] = 'localhost';
-				$this->_config['username'] = 'root';
-				$this->_config['password'] = '';
-				$this->_config['database'] = 'gallery2';
-				$this->_config['schema'] = '';
-				$this->_config['tablePrefix'] = 'g2_';
+				$this->_config                 = array();
+				$this->_config['type']         = 'mysqlt';
+				$this->_config['hostname']     = 'localhost';
+				$this->_config['username']     = 'root';
+				$this->_config['password']     = '';
+				$this->_config['database']     = 'gallery2';
+				$this->_config['schema']       = '';
+				$this->_config['tablePrefix']  = 'g2_';
 				$this->_config['columnPrefix'] = 'g_';
-				$firstConfig = true;
+				$firstConfig                   = true;
 			}
 			// All keys but 'schema' exist in all versions of G2
 			if (!isset($this->_config['schema'])) {
@@ -56,8 +56,15 @@ class DatabaseSetupStep extends InstallStep {
 		$templateData['password'] = strlen($this->_config['password']) ? '******' : '';
 
 		if (!empty($_POST['action']) && $_POST['action'] == 'save') {
-			foreach (array('type', 'hostname', 'username', 'database', 'schema',
-			   'tablePrefix', 'columnPrefix', ) as $key) {
+			foreach (array(
+				'type',
+				'hostname',
+				'username',
+				'database',
+				'schema',
+				'tablePrefix',
+				'columnPrefix',
+			) as $key) {
 				$this->_config[$key] = $this->sanitize($_POST[$key]);
 			}
 
@@ -72,105 +79,93 @@ class DatabaseSetupStep extends InstallStep {
 
 		if ($this->_config['type'] == 'mysqlt' && function_exists('mysqli_real_connect')) {
 			$this->_config['type'] = 'mysqli';
-			$mysqltType = 'mysqli';
+			$mysqltType            = 'mysqli';
 		}
 
 		if ($this->_config['type'] == 'pdo_sqlite') {
-			$this->_config['database'] =
-			'sqlite:' . $galleryStub->getConfig('data.gallery.base') . 'gallery2.db';
+			$this->_config['database'] = 'sqlite:' . $galleryStub->getConfig('data.gallery.base') . 'gallery2.db';
 		}
 
 		switch ($this->_config['type']) {
-		case 'mysql':
-		case 'mysqlt':
-		if (!$firstConfig && !function_exists('mysql_connect')) {
-			$templateData['error']['phpDbMissing'] =
-			_('You must have the MySQL PHP module installed');
-		}
-		$dbPlatformType = 'mysql';
+			case 'mysql':
+			case 'mysqlt':
+				if (!$firstConfig && !function_exists('mysql_connect')) {
+					$templateData['error']['phpDbMissing'] = 'You must have the MySQL PHP module installed';
+				}
+				$dbPlatformType = 'mysql';
 
-		break;
+				break;
 
-		case 'mysqli':
-		if (!$firstConfig && !function_exists('mysqli_real_connect')) {
-			$templateData['error']['phpDbMissing'] =
-			_('You must have the MySQL Improved PHP module installed');
-		}
-		$dbPlatformType = 'mysql';
+			case 'mysqli':
+				if (!$firstConfig && !function_exists('mysqli_real_connect')) {
+					$templateData['error']['phpDbMissing'] = 'You must have the MySQL Improved PHP module installed';
+				}
+				$dbPlatformType = 'mysql';
 
-		break;
+				break;
 
-		case 'db2':
-		if (!$firstConfig && !function_exists('db2_connect')) {
-			$templateData['error']['phpDbMissing'] =
-			_('You must have the ibm_db2 PHP module installed');
-		}
-		$dbPlatformType = 'db2';
+			case 'db2':
+				if (!$firstConfig && !function_exists('db2_connect')) {
+					$templateData['error']['phpDbMissing'] = 'You must have the ibm_db2 PHP module installed';
+				}
+				$dbPlatformType = 'db2';
 
-		break;
+				break;
 
-		case 'postgres7':
-		if (!$firstConfig && !function_exists('pg_connect')) {
-			$templateData['error']['phpDbMissing'] =
-			_('You must have the PostgreSQL PHP module installed');
-		}
-		$dbPlatformType = 'postgres';
+			case 'postgres7':
+				if (!$firstConfig && !function_exists('pg_connect')) {
+					$templateData['error']['phpDbMissing'] = 'You must have the PostgreSQL PHP module installed';
+				}
+				$dbPlatformType = 'postgres';
 
-		break;
+				break;
 
-		case 'oci8po':
-		if (!$firstConfig && !function_exists('OCIPLogon')) {
-			$templateData['error']['phpDbMissing'] =
-			_('You must have the Oracle OCI8 PHP module installed');
-		}
-		$dbPlatformType = 'oracle';
+			case 'oci8po':
+				if (!$firstConfig && !function_exists('OCIPLogon')) {
+					$templateData['error']['phpDbMissing'] = 'You must have the Oracle OCI8 PHP module installed';
+				}
+				$dbPlatformType = 'oracle';
 
-		break;
+				break;
 
-		case 'ado_mssql':
-		if (!$firstConfig && !class_exists('COM')) {
-			$templateData['error']['phpDbMissing'] =
-			_('You must have the Component Object Model(COM) PHP module installed');
-		}
-		$dbPlatformType = 'mssql';
+			case 'ado_mssql':
+				if (!$firstConfig && !class_exists('COM')) {
+					$templateData['error']['phpDbMissing'] = 'You must have the Component Object Model(COM) PHP module installed';
+				}
+				$dbPlatformType = 'mssql';
 
-		break;
+				break;
 
 			case 'pdo_sqlite':
 				if (!$firstConfig && !class_exists('PDO')) {
-					$templateData['error']['phpDbMissing'] =
-						_('You must have the PHP Data Object(PDO) PHP module installed');
+					$templateData['error']['phpDbMissing'] = 'You must have the PHP Data Object(PDO) PHP module installed';
 				}
 				$dbPlatformType = 'sqlite';
 
 				break;
 
 			default:
-		$this->_config['type'] = 'mysqlt';
-		$dbPlatformType = 'mysql';
-		$templateData['error']['invalidDbType'] = 1;
-	}
+				$this->_config['type']                  = 'mysqlt';
+				$dbPlatformType                         = 'mysql';
+				$templateData['error']['invalidDbType'] = 1;
+		}
 
 		if (!empty($_POST['action']) && $_POST['action'] == 'save') {
 			if (empty($this->_config['columnPrefix'])) {
-				$templateData['error']['columnPrefix'] =
-			sprintf(_('You must specify a column prefix (we recommend %s)'), 'g_');
+				$templateData['error']['columnPrefix'] = sprintf('You must specify a column prefix (we recommend %s)', 'g_');
 			} elseif (preg_match('{[^A-Za-z0-9_]}', $this->_config['columnPrefix'])) {
-				$templateData['error']['columnPrefix'] =
-			_('Use only letters, numbers and underscore in the column prefix');
+				$templateData['error']['columnPrefix'] = 'Use only letters, numbers and underscore in the column prefix';
 			}
 
 			if (empty($this->_config['tablePrefix'])) {
-				$templateData['error']['tablePrefix'] =
-			sprintf(_('You must specify a table prefix (we recommend %s)'), 'g2_');
+				$templateData['error']['tablePrefix'] = sprintf('You must specify a table prefix (we recommend %s)', 'g2_');
 			} elseif (preg_match('{[^A-Za-z0-9_]}', $this->_config['tablePrefix'])) {
-				$templateData['error']['tablePrefix'] =
-			_('Use only letters, numbers and underscore in the table prefix');
+				$templateData['error']['tablePrefix'] = 'Use only letters, numbers and underscore in the table prefix';
 			}
 
 			if (empty($templateData['errors']) && empty($templateData['error'])) {
 				// Load up ADOdb
-				require_once dirname(__FILE__) . '/../../lib/adodb/adodb.inc.php';
+				include_once dirname(__FILE__) . '/../../lib/adodb/adodb.inc.php';
 
 				$this->_captureStart();
 				$this->_db =& ADONewConnection($this->_config['type']);
@@ -178,9 +173,9 @@ class DatabaseSetupStep extends InstallStep {
 
 				if (empty($this->_db)) {
 					$templateData['errors'][] = sprintf(
-			_('Unable to create a database connection of type %s'),
-			$this->_config['type']
-			);
+						'Unable to create a database connection of type %s',
+						$this->_config['type']
+					);
 				}
 
 				if (empty($templateData['errors'])) {
@@ -189,25 +184,24 @@ class DatabaseSetupStep extends InstallStep {
 
 					if ($dbPlatformType != 'mssql') {
 						$result = $this->_db->NConnect(
-				$this->_config['hostname'],
-							   $this->_config['username'],
-							   $this->_config['password'],
-							   $this->_config['database']
-			);
+							$this->_config['hostname'],
+							$this->_config['username'],
+							$this->_config['password'],
+							$this->_config['database']
+						);
 					} else {
 						$result = $this->_db->NConnect(
-				'PROVIDER=MSDASQL;DRIVER={SQL Server};SERVER='
-				. $this->_config['hostname'] . ';DATABASE='
-				. $this->_config['database'],
-				$this->_config['username'],
-				$this->_config['password'],
-				'MSDASQL'
-			);
+							'PROVIDER=MSDASQL;DRIVER={SQL Server};SERVER='
+							. $this->_config['hostname'] . ';DATABASE='
+							. $this->_config['database'],
+							$this->_config['username'],
+							$this->_config['password'],
+							'MSDASQL'
+						);
 					}
 
 					if ($result === false) {
-						$templateData['errors'][] =
-				_('Unable to connect to database with the information provided.');
+						$templateData['errors'][] = 'Unable to connect to database with the information provided.';
 					} elseif ($dbPlatformType == 'postgres7' && !empty($this->_config['schema'])) {
 						$this->_db->Execute('set search_path to ' . $this->_config['schema']);
 					}
@@ -220,9 +214,8 @@ class DatabaseSetupStep extends InstallStep {
 				$result = $this->_db->MetaTables();
 
 				if ($result === false) {
-					$templateData['errors'][] =
-			_('The database you specified does not exist.  Please create it.');
-					$dbVersion = '';
+					$templateData['errors'][] = 'The database you specified does not exist.  Please create it.';
+					$dbVersion                = '';
 				} else {
 					/*
 					 * Check if the db user has (all?) required db privileges to finish the
@@ -231,8 +224,7 @@ class DatabaseSetupStep extends InstallStep {
 					list($ret, $error) = $this->_testPrivileges($dbPlatformType, $result);
 
 					if ($ret === false) {
-						$templateData['errors'][] =
-				_('The database privileges test did not complete successfully.');
+						$templateData['errors'][] = 'The database privileges test did not complete successfully.';
 
 						if (!empty($error)) {
 							$templateData['errors'][] = $error;
@@ -249,8 +241,8 @@ class DatabaseSetupStep extends InstallStep {
 				$this->_captureEnd();
 
 				// Check the status of the disk storage (g2data directory)
-				$versions = $this->_getVersions();
-				$datVersion = $versions['installed'];
+				$versions        = $this->_getVersions();
+				$datVersion      = $versions['installed'];
 				$codebaseVersion = $versions['codebase'];
 				$galleryStub->setConfig('codebase.version', $codebaseVersion);
 			}
@@ -265,53 +257,50 @@ class DatabaseSetupStep extends InstallStep {
 				} elseif (!empty($dbVersion) && empty($datVersion)) {
 					// Database tables exist, but g2data seems to be not ok.
 					// Explain and offer clean install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
-					$templateData['warnings'][] =
-			_('Gallery tables already exist in this database!  But there is no ' .
-			  '\'versions.dat\' file in your G2 storage directory which we interpret ' .
-			  'as a broken state of G2. Either create a versions.dat file with the ' .
-			  'correct format if you think your G2 should still work or select a ' .
-			  'clean install, which will erase all data in the database and in the ' .
-			  'storage directory.');
+					$templateData['warnings'][]              = 'Gallery tables already exist in this database!  But there is no ' .
+					'\'versions.dat\' file in your G2 storage directory which we interpret ' .
+					'as a broken state of G2. Either create a versions.dat file with the ' .
+					'correct format if you think your G2 should still work or select a ' .
+					'clean install, which will erase all data in the database and in the ' .
+					'storage directory.';
 				} elseif (empty($dbVersion) && !empty($datVersion)) {
 					// Database tables don't exist, but g2data has versions.dat
 					// Explain and offer clean install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
-					$templateData['warnings'][] =
-			_('The G2 storage directory has a versions.dat file of an old install. ' .
-			  'But the Gallery database tables don\'t exist. Select a clean install ' .
-			  'to erase all data in the Gallery storage directory and advance to the ' .
-			  'next step.');
+					$templateData['warnings'][]              = 'The G2 storage directory has a versions.dat file of an old install. ' .
+					'But the Gallery database tables don\'t exist. Select a clean install ' .
+					'to erase all data in the Gallery storage directory and advance to the ' .
+					'next step.';
 				} elseif ($dbVersion != $datVersion) {
 					// Installed version is not ok, mismatch between g2data and the database
 					// Explain and offer Clean Install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
-					$templateData['warnings'][] =
-			_('Gallery tables already exist in the database and there is a versions.' .
-			  'dat file in the Gallery storage directory. But the version of the ' .
-			  'installed Gallery database tables does not match the version of the ' .
-			  'installed data in the Gallery storage directory. Select a clean ' .
-			  'install to erase all data in the database and in the storage directory' .
-			  ' and to advance to the next step.');
+					$templateData['warnings'][]              = 'Gallery tables already exist in the database and there is a versions.' .
+					'dat file in the Gallery storage directory. But the version of the ' .
+					'installed Gallery database tables does not match the version of the ' .
+					'installed data in the Gallery storage directory. Select a clean ' .
+					'install to erase all data in the database and in the storage directory' .
+					' and to advance to the next step.';
 				} else {
 					// Installed version is ok, offer Reuse Tables and Clean Install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
-					$templateData['showConfirmReuseTables'] = 1;
+					$templateData['showConfirmReuseTables']  = 1;
 
-					$templateData['warnings'][] =
-			_('Gallery tables already exist in the database and the Gallery storage ' .
-			  'directory seems to be intact. Either choose to reuse the existing ' .
-			  'database tables and storage directory data or select a clean install ' .
-			  'to erase all existing data in the database and the storage directory.');
+					$templateData['warnings'][] = 'Gallery tables already exist in the database and the Gallery storage ' .
+					'directory seems to be intact. Either choose to reuse the existing ' .
+					'database tables and storage directory data or select a clean install ' .
+					'to erase all existing data in the database and the storage directory.';
 				}
 			}
 
-			if (empty($templateData['errors']) && empty($templateData['error']) &&
-		(empty($confirmRequired) || !empty($_POST['confirmReuseTables']))) {
+			if (empty($templateData['errors']) && empty($templateData['error'])
+				&& (empty($confirmRequired) || !empty($_POST['confirmReuseTables']))
+			) {
 				$this->setComplete(true);
 			}
 		} elseif (!empty($_GET['action']) && $_GET['action'] == 'clean') {
@@ -321,9 +310,8 @@ class DatabaseSetupStep extends InstallStep {
 
 				// Reset the storage directory
 				if (!$this->_emptyGalleryStorageDirectory()) {
-					$templateData['errors'][] =
-			_('Could not execute the required API to erase the storage directory. ' .
-			  'Please erase the Gallery storage directory manually.');
+					$templateData['errors'][] = 'Could not execute the required API to erase the storage directory. ' .
+					'Please erase the Gallery storage directory manually.';
 				} else {
 					$storageCleaned = true;
 				}
@@ -335,11 +323,10 @@ class DatabaseSetupStep extends InstallStep {
 				if ($ret) {
 					$ret = $ret;
 					global $gallery;
-					$templateData['errors'][] =
-			_('Could not execute the required API to drop the Gallery database tables' .
-			  '. Please clean the Gallery database manually.');
+					$templateData['errors'][]       = 'Could not execute the required API to drop the Gallery database tables' .
+					'. Please clean the Gallery database manually.';
 					$templateData['databaseErrors'] = $gallery->getDebugBuffer();
-					$templateData['stackTrace'][] = $ret->getAsHtml();
+					$templateData['stackTrace'][]   = $ret->getAsHtml();
 					$gallery->clearDebugBuffer();
 				} else {
 					$dbCleaned = true;
@@ -351,9 +338,8 @@ class DatabaseSetupStep extends InstallStep {
 					$this->setComplete(true);
 				}
 			} else {
-				$templateData['errors'][] =
-			_('Could not load the G2 API. Please erase the Gallery database tables and ' .
-			  'the storage directory manually.');
+				$templateData['errors'][] = 'Could not load the G2 API. Please erase the Gallery database tables and ' .
+				'the storage directory manually.';
 			}
 		}
 
@@ -371,22 +357,24 @@ class DatabaseSetupStep extends InstallStep {
 				$galleryStub->setConfig('installed.version', $datVersion);
 			}
 			$templateData['bodyFile'] = 'DatabaseSetupSuccess.html';
-		} elseif ((empty($templateData['errors']) && empty($templateData['error']) ||
-		   !empty($_POST['action']) && $_POST['action'] == 'clean') &&
-		   !empty($_POST['confirmCleanInstall'])) {
+		} elseif ((empty($templateData['errors']) && empty($templateData['error'])
+			|| !empty($_POST['action']) && $_POST['action'] == 'clean')
+			&& !empty($_POST['confirmCleanInstall'])
+		) {
 			$galleryStub->setConfig('storage.config', $this->_config);
 			$templateData['bodyFile'] = 'CleanInstallRequest.html';
 		} else {
 			$templateData['config'] = $this->_config;
 
-			foreach (array($mysqltType => _('MySQL (v3.23.34a and newer)'),
-			   'mysql'  => _('MySQL (versions before v3.23.34a)'),
-			   'postgres7' => _('PostgreSQL v7.x and newer'),
-			   'oci8po' => _('Oracle (9i and newer)'),
-			   'db2' => _('IBM DB2 (v9.x and newer)'),
-			   'ado_mssql' => _('Microsoft SQL Server 2005 and newer'),
-						   'pdo_sqlite' => _('SQLite v3.x (Experimental!)'), )
-			 as $key => $value) {
+			foreach (array(
+				$mysqltType  => 'MySQL (v3.23.34a and newer)',
+				'mysql'      => 'MySQL (versions before v3.23.34a)',
+				'postgres7'  => 'PostgreSQL v7.x and newer',
+				'oci8po'     => 'Oracle (9i and newer)',
+				'db2'        => 'IBM DB2 (v9.x and newer)',
+				'ado_mssql'  => 'Microsoft SQL Server 2005 and newer',
+				'pdo_sqlite' => 'SQLite v3.x (Experimental!)',
+			) as $key => $value) {
 				$templateData['dbList'][$key] = $value;
 			}
 			$templateData['dbSelected'][$this->_config['type']] = 1;
@@ -410,7 +398,7 @@ class DatabaseSetupStep extends InstallStep {
 
 	public function _getCaptured() {
 		if (empty($this->_debugContents)) {
-			return "";
+			return '';
 		}
 
 		$contents = $this->_debugContents;
@@ -438,7 +426,7 @@ class DatabaseSetupStep extends InstallStep {
 		global $gallery;
 
 		if (!is_array($metatables) || empty($dbType)) {
-			return array(false, _('Unknown database type or no known tables information.'));
+			return array(false, 'Unknown database type or no known tables information.');
 		}
 
 		/*
@@ -464,27 +452,28 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		if (!$ok) {
-			return array(false,
-		sprintf(
-			_('Could not find an unused table prefix similar to "%s".'),
-			$tablePrefix
-		), );
+			return array(
+				false,
+				sprintf(
+					'Could not find an unused table prefix similar to "%s".',
+					$tablePrefix
+				),
+			);
 		}
 
 		// Load the Test SQL code
-		require_once dirname(__FILE__) .
-			 '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class';
+		include_once dirname(__FILE__) .
+		 '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class';
 		// GalleryPlatform is not available at this point
 		$schemaTpl = dirname(__FILE__) . '/../../modules/core/classes/GalleryStorage/schema.tpl';
 
 		if (!($sqlData = file($schemaTpl))) {
-			return array(false, sprintf(_('Could not open schema file: "%s".'), $schemaTpl));
+			return array(false, sprintf('Could not open schema file: "%s".', $schemaTpl));
 		}
 		$moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $dbType);
 
 		for ($i = 1; $i <= 4; $i++) {
-			list($success, $errorMessage) =
-		$this->_executeSql($moduleSql['test']['InstallerTest'][$i], $tablePrefix);
+			list($success, $errorMessage) = $this->_executeSql($moduleSql['test']['InstallerTest'][$i], $tablePrefix);
 
 			if (!$success) {
 				return array(false, $errorMessage);
@@ -493,19 +482,25 @@ class DatabaseSetupStep extends InstallStep {
 
 		// Check CREATE and DROP SEQUENCE privileges
 		$sequenceId = 'g2privtestseq';
-		$result = $this->_db->CreateSequence($tablePrefix . $sequenceId);
+		$result     = $this->_db->CreateSequence($tablePrefix . $sequenceId);
 
 		if (empty($result)) {
-			return array(false, _('Failed to create a database test sequence. ' .
-			 'Check the returned error message and README.html ' .
-			 'for missing privileges and clean up the database.'));
+			return array(
+				false,
+				'Failed to create a database test sequence. ' .
+				'Check the returned error message and README.html ' .
+				'for missing privileges and clean up the database.',
+			);
 		}
 		$result = $this->_db->DropSequence($tablePrefix . $sequenceId);
 
 		if (empty($result)) {
-			return array(false, _('Test failed to drop a database test sequence. ' .
-			 'Check the returned error message and README.html ' .
-			 'for missing privileges and clean up the database.'));
+			return array(
+				false,
+				'Test failed to drop a database test sequence. ' .
+				'Check the returned error message and README.html ' .
+				'for missing privileges and clean up the database.',
+			);
 		}
 
 		return array(true, null);
@@ -519,7 +514,7 @@ class DatabaseSetupStep extends InstallStep {
 	 */
 	public function _executeSql($buffer, $tablePrefix) {
 		if (empty($buffer)) {
-			return array(false, _('Missing SQL statements'));
+			return array(false, 'Missing SQL statements');
 		}
 		/*
 		 * Split the file where semicolons are followed by a blank line..
@@ -544,8 +539,11 @@ class DatabaseSetupStep extends InstallStep {
 				$result = $this->_db->Execute($query);
 
 				if (empty($result)) {
-					return array(false, _('Check the returned error message and README.html ' .
-				 'for missing privileges and clean up the database.'));
+					return array(
+						false,
+						'Check the returned error message and README.html ' .
+						'for missing privileges and clean up the database.',
+					);
 				}
 			}
 		}
@@ -565,17 +563,18 @@ class DatabaseSetupStep extends InstallStep {
 	public function _getVersions() {
 		global $galleryStub;
 
-		$versions['installed'] = $versions['codebase'] =  '';
+		$versions['installed'] = $versions['codebase'] = '';
 
 		// Load platform level to use the CoreModule and read data from versions.dat
 		$this->_loadG2Api(2);
 
-		require_once dirname(__FILE__) . '/../../modules/core/module.inc';
-		$coreModule = new CoreModule();
+		include_once dirname(__FILE__) . '/../../modules/core/module.inc';
+		$coreModule   = new CoreModule();
 		$instVersions = $coreModule->getInstalledVersions();
 
-		if (isset($instVersions) && isset($instVersions['core']) &&
-		!empty($instVersions['core'])) {
+		if (isset($instVersions) && isset($instVersions['core'])
+			&& !empty($instVersions['core'])
+		) {
 			$versions['installed'] = $instVersions['core'];
 		}
 
@@ -603,13 +602,13 @@ class DatabaseSetupStep extends InstallStep {
 			$dbVersion = 'corrupt db install';
 
 			if ($this->in_array_cin(
-			$this->_config['tablePrefix'] . 'PluginParameterMap',
-					$metaTables
-		)) {
+				$this->_config['tablePrefix'] . 'PluginParameterMap',
+				$metaTables
+			)
+			) {
 				// Initiate the G2 API to use its db abstraction layer
 				if ($this->_loadG2Api(3)) {
-					list($ret, $version) =
-			GalleryCoreApi::getPluginParameter('module', 'core', '_version');
+					list($ret, $version) = GalleryCoreApi::getPluginParameter('module', 'core', '_version');
 
 					if (!$ret && !empty($version)) {
 						$dbVersion = $version;
@@ -633,24 +632,24 @@ class DatabaseSetupStep extends InstallStep {
 	 * @param int $level (optional) which level to load
 	 * @return boolean success
 	 */
-	public function _loadG2Api($level=1) {
+	public function _loadG2Api($level = 1) {
 		global $galleryStub;
 		/*
 		 * levels: 0 = off, 1 = basic, 2 = platform, 3 = initfirstpass / db
 		 * firstPass includes platform level
 		 */
 		static $initiated;
-		$platformLevel = 2;
+		$platformLevel  = 2;
 		$firstPassLevel = 3;
-		$success = true;
+		$success        = true;
 
 		if (!isset($initiated)) {
 			$initiated = 1;
 
 			// Include basic G2 classes to use G2 API to get the core version etc.
-			require_once dirname(__FILE__) . '/../../modules/core/classes/Gallery.class';
+			include_once dirname(__FILE__) . '/../../modules/core/classes/Gallery.class';
 
-			require_once dirname(__FILE__) . '/../../modules/core/classes/GalleryDataCache.class';
+			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryDataCache.class';
 			$GLOBALS['gallery'] = new Gallery();
 			$GLOBALS['gallery']->init();
 			/*
@@ -659,17 +658,17 @@ class DatabaseSetupStep extends InstallStep {
 			 */
 			$configPath = $galleryStub->getConfig('data.gallery.base');
 
-			if ($configPath[strlen($configPath)-1] != DIRECTORY_SEPARATOR) {
-				$configPath .=  DIRECTORY_SEPARATOR;
+			if ($configPath[strlen($configPath) - 1] != DIRECTORY_SEPARATOR) {
+				$configPath .= DIRECTORY_SEPARATOR;
 			}
 			$GLOBALS['gallery']->setConfig('data.gallery.base', $configPath);
 			$GLOBALS['gallery']->setConfig(
-			'plugins.dirname',
-					   $galleryStub->getConfig('plugins.dirname')
-		);
+				'plugins.dirname',
+				$galleryStub->getConfig('plugins.dirname')
+			);
 			$GLOBALS['gallery']->setConfig('data.gallery.version', $configPath . 'versions.dat');
 			$GLOBALS['gallery']->setConfig('data.gallery.locale', $configPath . 'locale'
-					   . DIRECTORY_SEPARATOR);
+				   . DIRECTORY_SEPARATOR);
 		}
 		global $gallery;
 
@@ -677,17 +676,17 @@ class DatabaseSetupStep extends InstallStep {
 			// Platform level requested, platform level not already loaded
 			$initiated = $platformLevel;
 
-			require_once dirname(__FILE__) . '/../../modules/core/classes/GalleryCoreApi.class';
+			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryCoreApi.class';
 
-			require_once dirname(__FILE__) .
+			include_once dirname(__FILE__) .
 			 '/../../modules/core/classes/GalleryCapabilities.class';
 
-			require_once dirname(__FILE__) . '/../../modules/core/classes/GalleryPlatform.class';
+			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryPlatform.class';
 			$gallery->setPlatform(new GalleryPlatform());
 			// Configure G2 such that getInstalledVersions() can be called
 			$gallery->initTranslator(true);
 
-			require_once dirname(__FILE__) . '/../../modules/core/classes/GalleryModule.class';
+			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryModule.class';
 		}
 
 		if ($level == $firstPassLevel && $initiated < $firstPassLevel) {
@@ -699,12 +698,14 @@ class DatabaseSetupStep extends InstallStep {
 			$gallery->setDebug(false);
 			$gallery->setProfile(false);
 			// Init paths etc., used for the clean DB function
-			require_once dirname(__FILE__) . '/../../init.inc';
+			include_once dirname(__FILE__) . '/../../init.inc';
 
 			if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
 				define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
 			}
-			$ret = GalleryInitFirstPass(array('noDatabase' => true));
+			$ret     = GalleryInitFirstPass(array(
+				'noDatabase' => true,
+			));
 			$success = !$ret;
 
 			GalleryDataCache::setFileCachingEnabled(false);
@@ -730,10 +731,10 @@ class DatabaseSetupStep extends InstallStep {
 		global $gallery;
 
 		// Make sure that all the required paths exist.
-		$baseDir = $gallery->getConfig('data.gallery.base');
+		$baseDir  = $gallery->getConfig('data.gallery.base');
 		$platform =& $gallery->getPlatform();
 
-		if ($baseDir[strlen($baseDir)-1] != $platform->getDirectorySeparator()) {
+		if ($baseDir[strlen($baseDir) - 1] != $platform->getDirectorySeparator()) {
 			$baseDir .= $platform->getDirectorySeparator();
 		}
 

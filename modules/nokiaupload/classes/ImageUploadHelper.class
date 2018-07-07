@@ -94,7 +94,9 @@ class ImageUploadHelper {
 
 		if ($status['success'] == NOKIAUPLOAD_ERR_AUTH) {
 			$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-			$event->setData(array('userName' => $username));
+			$event->setData(array(
+				'userName' => $username,
+			));
 			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 			// ignore errors, we're erroring out anyway
 			return $status;
@@ -145,7 +147,9 @@ class ImageUploadHelper {
 		// Generate URL for Remote Storage Capabilities query
 		$generator =& $gallery->getUrlGenerator();
 		$rsurl     = $generator->generateUrl(
-			array('view' => 'nokiaupload.RemoteStorageCapabilities'),
+			array(
+				'view' => 'nokiaupload.RemoteStorageCapabilities',
+			),
 			array(
 				'forceFullUrl'   => true,
 				'htmlEntities'   => false,
@@ -185,7 +189,9 @@ class ImageUploadHelper {
 		$urlGen =& $gallery->getUrlGenerator();
 
 		$createDirUrl = $urlGen->generateUrl(
-			array('controller' => 'nokiaupload.NewDirectory'),
+			array(
+				'controller' => 'nokiaupload.NewDirectory',
+			),
 			array(
 				'forceFullUrl'   => true,
 				'htmlEntities'   => false,
@@ -194,7 +200,9 @@ class ImageUploadHelper {
 		);
 
 		$uploadUrl = $urlGen->generateUrl(
-			array('controller' => 'nokiaupload.Upload'),
+			array(
+				'controller' => 'nokiaupload.Upload',
+			),
 			array(
 				'forceFullUrl'   => true,
 				'htmlEntities'   => false,
@@ -203,7 +211,9 @@ class ImageUploadHelper {
 		);
 
 		$albumListUrl = $urlGen->generateUrl(
-			array('controller' => 'nokiaupload.DirectoryListing'),
+			array(
+				'controller' => 'nokiaupload.DirectoryListing',
+			),
 			array(
 				'forceFullUrl'   => true,
 				'htmlEntities'   => false,
@@ -382,7 +392,9 @@ class ImageUploadHelper {
 		$gallery->debug('### UploadHelper ###');
 
 		// Default status.  Changes only if everything works out.
-		$status = array('success' => NOKIAUPLOAD_ERR_UNKNOWN);
+		$status = array(
+			'success' => NOKIAUPLOAD_ERR_UNKNOWN,
+		);
 
 		/*
 		 * We must specify how many bytes are still available for the current user.  Use a big
@@ -449,7 +461,7 @@ class ImageUploadHelper {
 			list($ret, $lockId) = GalleryCoreApi::acquireReadLock($albumId);
 
 			if (!$ret) {
-				$title                = GalleryUtilities::getFileBase($itemName);
+				$title               = GalleryUtilities::getFileBase($itemName);
 				list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 					$file['tmp_name'],
 					$itemName,
@@ -627,7 +639,9 @@ class ImageUploadHelper {
 		// Set the album info and save it
 		$urlGen =& $gallery->getUrlGenerator();
 		$url    = $urlGen->generateUrl(
-			array('controller' => 'nokiaupload.Login'),
+			array(
+				'controller' => 'nokiaupload.Login',
+			),
 			array(
 				'forceFullUrl'   => true,
 				'forceSessionId' => false,

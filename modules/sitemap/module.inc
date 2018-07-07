@@ -59,7 +59,9 @@ class SitemapModule extends GalleryModule {
 		$rules = array();
 
 		$rule            = array();
-		$rule['match']   = array('view' => 'sitemap.Sitemap');
+		$rule['match']   = array(
+			'view' => 'sitemap.Sitemap',
+		);
 		$rule['pattern'] = 'sitemap';
 		$rule['comment'] = $this->translate('Download Sitemap');
 		$rules[]         = $rule;

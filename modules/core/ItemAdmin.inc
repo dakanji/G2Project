@@ -195,7 +195,9 @@ class ItemAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/ItemAdmin.tpl'),
+			array(
+				'body' => 'modules/core/templates/ItemAdmin.tpl',
+			),
 		);
 	}
 

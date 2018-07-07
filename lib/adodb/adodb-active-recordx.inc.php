@@ -1313,7 +1313,7 @@ function adodb_GetActiveRecordsClass(
 		$myId = 'id';
 	}
 	$index = 0;
-	$found     = false;
+	$found = false;
 	/** @todo Improve by storing once and for all in table metadata */
 	/** @todo Also re-use info for hasManyId */
 	foreach ($tableInfo->flds as $fld) {

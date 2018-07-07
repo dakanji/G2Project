@@ -71,7 +71,9 @@ class MSSqlStorage extends GalleryStorage {
 		}
 
 		if (version_compare($this->_serverInfo, '9.0', '<')) {
-			return array('NVARCHAR(MAX)' => 'NTEXT');
+			return array(
+				'NVARCHAR(MAX)' => 'NTEXT',
+			);
 		}
 
 		return array();

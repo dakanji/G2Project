@@ -54,6 +54,11 @@ class FileNotFoundView extends GalleryView {
 		$phpVm->header('HTTP/1.0 404 Not Found');
 		$template->setVariable('FileNotFound', $path);
 
-		return array(null, array('body' => 'modules/rewrite/templates/FileNotFound.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/rewrite/templates/FileNotFound.tpl',
+			),
+		);
 	}
 }

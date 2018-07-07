@@ -112,7 +112,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 		public $ansiOuter       = true;
 		public $identitySQL     = 'values IDENTITY_VAL_LOCAL()';
 		public $_bindInputArray = true;
-		public $hasInsertID    = true;
+		public $hasInsertID     = true;
 		public $rsPrefix        = 'ADORecordset_odbc_';
 
 		public function __construct() {

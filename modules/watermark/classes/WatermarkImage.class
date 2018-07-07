@@ -410,7 +410,9 @@ class WatermarkImage extends GalleryEntity {
 						'itemId'       => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
-					array('forceFullUrl' => !empty($params['forceFullUrl']))
+					array(
+						'forceFullUrl' => !empty($params['forceFullUrl']),
+					)
 				);
 
 				list($width, $height) = array($this->getWidth(), $this->getHeight());

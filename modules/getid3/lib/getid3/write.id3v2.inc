@@ -1743,7 +1743,9 @@ class getid3_write_id3v2 {
 			$tagheader  = 'ID3';
 			$tagheader .= chr($this->majorversion);
 			$tagheader .= chr($this->minorversion);
-			$tagheader .= $this->GenerateID3v2TagFlags(array('unsynchronisation' => $TagUnsynchronisation));
+			$tagheader .= $this->GenerateID3v2TagFlags(array(
+				'unsynchronisation' => $TagUnsynchronisation,
+			));
 			$tagheader .= getid3_lib::BigEndian2String(strlen($tagstring), 4, true);
 
 			return $tagheader . $tagstring;
@@ -1994,11 +1996,11 @@ class getid3_write_id3v2 {
 
 	public function IsWithinBitRange($number, $maxbits, $signed = false) {
 		if ($signed) {
-			if (($number > (0 - 2**($maxbits - 1))) && ($number <= 2**($maxbits - 1))) {
+			if (($number > (0 - 2 ** ($maxbits - 1))) && ($number <= 2 ** ($maxbits - 1))) {
 				return true;
 			}
 		} else {
-			if (($number >= 0) && ($number <= 2** $maxbits)) {
+			if (($number >= 0) && ($number <= 2 ** $maxbits)) {
 				return true;
 			}
 		}

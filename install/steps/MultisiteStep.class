@@ -69,14 +69,14 @@ class MultisiteStep extends InstallStep {
 				return false;
 			}
 			$this->_configPath = rtrim(
-					$this->sanitize($_POST['configPath']),
-					' ' . DIRECTORY_SEPARATOR
-				);
+				$this->sanitize($_POST['configPath']),
+				' ' . DIRECTORY_SEPARATOR
+			);
 			$this->_baseUri    = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
 
 			if (substr($this->_baseUri, -4) != '.php'
-					&& substr($this->_baseUri, -1) != '/'
-				) {
+				&& substr($this->_baseUri, -1) != '/'
+			) {
 				$this->_baseUri .= '/' . GALLERY_MAIN_PHP;
 			}
 		}

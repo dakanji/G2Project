@@ -93,7 +93,9 @@ class UserRecoverPasswordAdminController extends GalleryController {
 
 					$ret = GalleryCoreApi::removeMapEntry(
 						'FailedLoginsMap',
-						array('userName' => $user->getUserName())
+						array(
+							'userName' => $user->getUserName(),
+						)
 					);
 
 					if ($ret) {
@@ -186,7 +188,12 @@ class UserRecoverPasswordAdminView extends GalleryView {
 		$template->setVariable('UserRecoverPasswordAdmin', $UserRecoverPasswordAdmin);
 		$template->setVariable('controller', 'core.UserRecoverPasswordAdmin');
 
-		return array(null, array('body' => 'modules/core/templates/UserRecoverPasswordAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserRecoverPasswordAdmin.tpl',
+			),
+		);
 	}
 
 	/**

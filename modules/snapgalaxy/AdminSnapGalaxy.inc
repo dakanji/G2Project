@@ -61,7 +61,9 @@ class AdminSnapGalaxyController extends GalleryController {
 					}
 				}
 
-				$redirect            = array('view' => 'core.SiteAdmin');
+				$redirect            = array(
+					'view' => 'core.SiteAdmin',
+				);
 				$redirect['subView'] = 'snapgalaxy.AdminSnapGalaxy';
 				$status['saved']     = 1;
 			}
@@ -113,6 +115,11 @@ class AdminSnapGalaxyView extends GalleryView {
 
 		$template->setVariable('controller', 'snapgalaxy.AdminSnapGalaxy');
 
-		return array(null, array('body' => 'modules/snapgalaxy/templates/AdminSnapGalaxy.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/snapgalaxy/templates/AdminSnapGalaxy.tpl',
+			),
+		);
 	}
 }

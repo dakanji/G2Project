@@ -187,14 +187,18 @@ class WatermarkSiteAdminView extends GalleryView {
 			$template->setVariable('SiteAdmin', $SiteAdmin);
 		}
 
-		$WatermarkSiteAdmin = array('owners' => $owners);
+		$WatermarkSiteAdmin = array(
+			'owners' => $owners,
+		);
 
 		$template->setVariable('WatermarkSiteAdmin', $WatermarkSiteAdmin);
 		$template->setVariable('controller', 'watermark.WatermarkSiteAdmin');
 
 		return array(
 			null,
-			array('body' => 'modules/watermark/templates/WatermarkSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/watermark/templates/WatermarkSiteAdmin.tpl',
+			),
 		);
 	}
 }

@@ -40,7 +40,7 @@ class GalleryToolkit {
 	 * @param string $propertyName
 	 * @param string $sourceFilename
 	 * @return array GalleryStatus a status code,
-	 *	       mixed the value of the property
+	 *         mixed the value of the property
 	 */
 	public function getProperty($mimeType, $propertyName, $sourceFilename) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);

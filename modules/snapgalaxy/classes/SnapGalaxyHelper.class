@@ -129,7 +129,9 @@ class SnapGalaxyHelper {
 			}
 
 			if ($needSession) {
-				$sessionParam   = array($pwSession->getKey() => $pwSession->getId());
+				$sessionParam   = array(
+					$pwSession->getKey() => $pwSession->getId(),
+				);
 				$protectedIds[] = $source->getId();
 			} else {
 				$sessionParam = array();
@@ -262,7 +264,9 @@ class SnapGalaxyHelper {
 			$session->put('snapgalaxy.cartUrlFragment', $cartUrlFragment);
 			$redirectUrl = 'http://' . $snapgalaxyServer . $matches[2];
 		} else {
-			$redirectUrl = $urlGenerator->generateUrl(array('view' => 'snapgalaxy.FulfillmentError'));
+			$redirectUrl = $urlGenerator->generateUrl(array(
+				'view' => 'snapgalaxy.FulfillmentError',
+			));
 		}
 
 		return array(null, $redirectUrl);

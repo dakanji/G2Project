@@ -73,7 +73,7 @@ class NewItemsHelper {
 			if ($i++ % 10 == 0) {
 				$gallery->guaranteeTimeLimit(5);
 			}
-			$itemId              = (int)$result[0];
+			$itemId             = (int)$result[0];
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 
 			if ($ret) {

@@ -40,7 +40,9 @@ class LoginController extends GalleryController {
 			return array(GalleryCoreApi::error(ERROR_REQUEST_FORGED), null);
 		}
 
-		$results['delegate'] = array('view' => 'nokiaupload.Login');
+		$results['delegate'] = array(
+			'view' => 'nokiaupload.Login',
+		);
 		$results['status']   = ImageUploadHelper::doLogin();
 		$results['error']    = array();
 

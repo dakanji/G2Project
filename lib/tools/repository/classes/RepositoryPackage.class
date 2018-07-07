@@ -69,7 +69,7 @@ class RepositoryPackage extends RepositoryObject {
 	 * @param boolean $overwritePackages specifies whether to overwrite existing packages
 	 * @param boolean $compressToo write a compressed version also?
 	 * @return array GalleryStatus a status code
-	 *		     array packages created for this plugin
+	 *           array packages created for this plugin
 	 */
 	public function writeAllPackagesToDisk($overwritePackages = false, $compressToo = false) {
 		$packagesWritten = array();
@@ -165,9 +165,9 @@ class RepositoryPackage extends RepositoryObject {
 	 * include the build timestamp - date and time of the last modified file in the plugin's CVS
 	 * directory. Examples:
 	 *
-	 * Package Name	File Name
-	 *  lang-en_EN	 pluginid-lang-en_EN-1.1-1.23.package
-	 *  base		 pluginid-1.0.3-20051810223141-base.package
+	 * Package Name File Name
+	 *  lang-en_EN   pluginid-lang-en_EN-1.1-1.23.package
+	 *  base         pluginid-1.0.3-20051810223141-base.package
 	 *
 	 * @param string $package package name
 	 * @return string package file name

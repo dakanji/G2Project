@@ -76,7 +76,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			$platform =& $gallery->getPlatform();
 			// Pass referer checking
 			if (!empty($form['webPage'])) {
-				$extraHeaders = array('Referer' => str_replace('&amp;', '&', $form['webPage']));
+				$extraHeaders = array(
+					'Referer' => str_replace('&amp;', '&', $form['webPage']),
+				);
 			}
 
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'itemadd');
@@ -97,7 +99,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				GalleryUtilities::unsanitizeInputValues($url, false);
 
 				if (empty($extraHeaders)) {
-					$extraHeaders = array('Referer' => str_replace('&amp;', '&', $url));
+					$extraHeaders = array(
+						'Referer' => str_replace('&amp;', '&', $url),
+					);
 				}
 				list($successfullyCopied, $response, $headers) = GalleryCoreApi::fetchWebFile($url, $tmpFile, $extraHeaders);
 

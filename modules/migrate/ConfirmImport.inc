@@ -394,7 +394,7 @@ class ConfirmImportController extends GalleryController {
 		 */
 		$i = $numberOfItemsImported = 0;
 
-		while ($albumfields && $i < count($form['sourceAlbums'])** 2 && !connection_aborted()) {
+		while ($albumfields && $i < count($form['sourceAlbums']) ** 2 && !connection_aborted()) {
 			$gallery->guaranteeTimeLimit(30);
 			$album = array_shift($albumfields);
 
@@ -807,7 +807,7 @@ class ConfirmImportController extends GalleryController {
 
 												return $ret;
 											}
-											$permUsername          = $permsUserFields['username'];
+											$permUsername         = $permsUserFields['username'];
 											list($ret, $permUser) = GalleryCoreApi::fetchUserByUsername(
 												GalleryCoreApi::convertToUtf8(
 													$permUsername,
@@ -825,11 +825,11 @@ class ConfirmImportController extends GalleryController {
 
 											if ($permUser) {
 												$ret = GalleryCoreApi::addUserPermission(
-															$newAlbumInstance->getId(),
-															$permUser->getId(),
-															$tmpTranslatedPerm,
-															false
-														);
+													$newAlbumInstance->getId(),
+													$permUser->getId(),
+													$tmpTranslatedPerm,
+													false
+												);
 
 												if ($ret) {
 													GalleryCoreApi::releaseLocks($importLockIds);
@@ -994,7 +994,7 @@ class ConfirmImportController extends GalleryController {
 			}
 
 			$albumHighlight[$newAlbumInstanceId] = false;
-			list($ret, $item)                   = GalleryCoreApi::loadEntitiesById($newAlbumInstanceId, 'GalleryAlbumItem');
+			list($ret, $item)                    = GalleryCoreApi::loadEntitiesById($newAlbumInstanceId, 'GalleryAlbumItem');
 
 			if ($ret) {
 				return $ret;
@@ -1141,7 +1141,7 @@ class ConfirmImportController extends GalleryController {
 							return $ret;
 						}
 					}
-					$itemLockIds                = array();
+					$itemLockIds               = array();
 					list($ret, $itemLockIds[]) = GalleryCoreApi::acquireWriteLock($newItem->getId());
 
 					if ($ret) {
@@ -1204,7 +1204,7 @@ class ConfirmImportController extends GalleryController {
 						&& $importAlbumItem->image->thumb_height > 0
 					) {
 						// Load the thumbnail
-						$thumbnails              = array();
+						$thumbnails             = array();
 						list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
 							array($newItem->getId())
 						);
@@ -1235,21 +1235,21 @@ class ConfirmImportController extends GalleryController {
 								return $ret;
 							}
 
-							$width                   = $importAlbumItem->image->raw_width;
-							$height                  = $importAlbumItem->image->raw_height;
-							$xPerc                   = GalleryUtilities::roundToString(
+							$width                  = $importAlbumItem->image->raw_width;
+							$height                 = $importAlbumItem->image->raw_height;
+							$xPerc                  = GalleryUtilities::roundToString(
 								$importAlbumItem->image->thumb_x * 100 / $width,
 								3
 							);
-							$yPerc                   = GalleryUtilities::roundToString(
+							$yPerc                  = GalleryUtilities::roundToString(
 								$importAlbumItem->image->thumb_y * 100 / $height,
 								3
 							);
-							$widthPerc               = GalleryUtilities::roundToString(
+							$widthPerc              = GalleryUtilities::roundToString(
 								$importAlbumItem->image->thumb_width * 100 / $width,
 								3
 							);
-							$heightPerc              = GalleryUtilities::roundToString(
+							$heightPerc             = GalleryUtilities::roundToString(
 								$importAlbumItem->image->thumb_height * 100 / $height,
 								3
 							);
@@ -1416,11 +1416,11 @@ class ConfirmImportController extends GalleryController {
 
 								if (!$validCommentUid) {
 									// Fallback to the album owner.
-									$validCommentUid       = Gallery1DataParser::isValidUid(
-												$albumsPath,
-												$album['owner']
-											);
-									$g1CommenterId = $album['owner'];
+									$validCommentUid = Gallery1DataParser::isValidUid(
+										$albumsPath,
+										$album['owner']
+									);
+									$g1CommenterId   = $album['owner'];
 								}
 
 								if ($validCommentUid) {
@@ -1435,11 +1435,11 @@ class ConfirmImportController extends GalleryController {
 										return $ret;
 									}
 									list($ret, $commentG2User) = GalleryCoreApi::fetchUserByUsername(
-											GalleryCoreApi::convertToUtf8(
-												$commentG1User['username'],
-												$sourceEncoding
-											)
-										);
+										GalleryCoreApi::convertToUtf8(
+											$commentG1User['username'],
+											$sourceEncoding
+										)
+									);
 
 									if ($ret) {
 										if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
@@ -1719,7 +1719,7 @@ class ConfirmImportController extends GalleryController {
 			$thumbsCreated       = 0;
 
 			while (!empty($itemsCreated)) {
-				$chunk                   = array_splice($itemsCreated, 0, 20);
+				$chunk                  = array_splice($itemsCreated, 0, 20);
 				list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($chunk);
 
 				if ($ret) {
@@ -1946,7 +1946,7 @@ class ConfirmImportView extends GalleryView {
 		}
 		$albumsPath         = GalleryUtilities::getRequestVariables('albumsPath');
 		$destinationAlbumID = $form['destinationAlbumID'];
-		list($ret, $uids)  = Gallery1DataParser::getUserUids($albumsPath);
+		list($ret, $uids)   = Gallery1DataParser::getUserUids($albumsPath);
 
 		if ($ret) {
 			return array($ret, null);
@@ -2021,7 +2021,7 @@ class ConfirmImportView extends GalleryView {
 				}
 				$albumOwnerUserName[$albumName] = $testUser['username'];
 				$albumOwnerUid[$albumName]      = $album['owner'];
-				list($ret, $owner)             = GalleryCoreApi::fetchUserByUsername(
+				list($ret, $owner)              = GalleryCoreApi::fetchUserByUsername(
 					GalleryCoreApi::convertToUtf8($testUser['username'], $form['sourceEncoding'])
 				);
 
@@ -2070,6 +2070,11 @@ class ConfirmImportView extends GalleryView {
 		$template->setVariable('ConfirmImport', $ConfirmImport);
 		$template->setVariable('controller', 'migrate.ConfirmImport');
 
-		return array(null, array('body' => 'modules/migrate/templates/ConfirmImport.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/migrate/templates/ConfirmImport.tpl',
+			),
+		);
 	}
 }

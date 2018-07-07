@@ -238,9 +238,9 @@ class Gallery1DataParser {
 		if ($tmp[strlen($tmp) - 1] != $slash) {
 			$tmp .= $slash;
 		}
-		$path               = trim($tmp);
-		$albumPath          = explode($slash, $path);
-		$albumName          = $albumPath[count($albumPath) - 2];
+		$path              = trim($tmp);
+		$albumPath         = explode($slash, $path);
+		$albumName         = $albumPath[count($albumPath) - 2];
 		list($ret, $album) = self::loadFile($path . 'album.dat');
 
 		if ($ret) {
@@ -438,8 +438,8 @@ class Gallery1DataParser {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$usernames           = array_flip($uids);
-		$uid                 = $usernames[$username];
+		$usernames          = array_flip($uids);
+		$uid                = $usernames[$username];
 		list($ret, $fields) = self::getUserFieldsByUid($path, $uid);
 
 		if ($ret) {

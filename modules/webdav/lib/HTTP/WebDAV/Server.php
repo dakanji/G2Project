@@ -832,7 +832,9 @@ class HTTP_WebDAV_Server {
 				foreach (explode(',', $matches[1]) as $range) {
 					// ranges are either from-to pairs or just end positions
 					list($start, $end)   = explode('-', $range);
-					$options['ranges'][] = ($start === '') ? array('last' => $end) : array(
+					$options['ranges'][] = ($start === '') ? array(
+						'last' => $end,
+					) : array(
 						'start' => $start,
 						'end'   => $end,
 					);

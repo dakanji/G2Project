@@ -84,7 +84,7 @@ class IconsSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'IconsSiteAdmin') {
-			$form['formName']              = 'IconsSiteAdmin';
+			$form['formName']             = 'IconsSiteAdmin';
 			list($ret, $form['iconpack']) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 
 			if ($ret) {
@@ -162,6 +162,11 @@ class IconsSiteAdminView extends GalleryView {
 		$template->setVariable('IconsSiteAdmin', $IconsSiteAdmin);
 		$template->setVariable('controller', 'icons.IconsSiteAdmin');
 
-		return array(null, array('body' => 'modules/icons/templates/IconsSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/icons/templates/IconsSiteAdmin.tpl',
+			),
+		);
 	}
 }

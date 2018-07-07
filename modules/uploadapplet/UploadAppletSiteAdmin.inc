@@ -128,7 +128,7 @@ class UploadAppletSiteAdminController extends GalleryController {
 
 			foreach ($variables1 as $variable) {
 				list($key, $value) = explode('=', $variable);
-				$variables2[$key]   = $value;
+				$variables2[$key]  = $value;
 			}
 
 			return array(null, $variables2);
@@ -192,7 +192,9 @@ class UploadAppletSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/uploadapplet/templates/UploadAppletSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/uploadapplet/templates/UploadAppletSiteAdmin.tpl',
+			),
 		);
 	}
 }

@@ -127,7 +127,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'rows',
 				'name'       => $core->translate('Rows per album page'),
 				'type'       => 'text-field',
-				'typeParams' => array('size' => 2),
+				'typeParams' => array(
+					'size' => 2,
+				),
 				'value'      => $params['rows'],
 			);
 		}
@@ -137,7 +139,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'columns',
 				'name'       => $core->translate('Columns per album page'),
 				'type'       => 'text-field',
-				'typeParams' => array('size' => 2),
+				'typeParams' => array(
+					'size' => 2,
+				),
 				'value'      => $params['columns'],
 			);
 		}
@@ -147,7 +151,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'perPage',
 				'name'       => $core->translate('Number of items to show per page'),
 				'type'       => 'text-field',
-				'typeParams' => array('size' => 2),
+				'typeParams' => array(
+					'size' => 2,
+				),
 				'value'      => $params['perPage'],
 			);
 		}
@@ -157,7 +163,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'rowHeight',
 				'name'       => $core->translate('Row height (pixels)'),
 				'type'       => 'text-field',
-				'typeParams' => array('size' => 3),
+				'typeParams' => array(
+					'size' => 3,
+				),
 				'value'      => $params['rowHeight'],
 			);
 		}
@@ -167,7 +175,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'columnWidth',
 				'name'       => $core->translate('Column width (pixels)'),
 				'type'       => 'text-field',
-				'typeParams' => array('size' => 3),
+				'typeParams' => array(
+					'size' => 3,
+				),
 				'value'      => $params['columnWidth'],
 			);
 		}
@@ -204,7 +214,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'sidebarBlocks',
 				'name'       => $core->translate('Blocks to show in the sidebar'),
 				'type'       => 'block-list',
-				'typeParams' => array('packType' => 'block-list'),
+				'typeParams' => array(
+					'packType' => 'block-list',
+				),
 				'value'      => $params['sidebarBlocks'],
 			);
 		}
@@ -214,7 +226,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'albumBlocks',
 				'name'       => $core->translate('Blocks to show on album pages'),
 				'type'       => 'block-list',
-				'typeParams' => array('packType' => 'block-list'),
+				'typeParams' => array(
+					'packType' => 'block-list',
+				),
 				'value'      => $params['albumBlocks'],
 			);
 		}
@@ -224,7 +238,9 @@ class GalleryTheme extends GalleryPlugin {
 				'key'        => 'photoBlocks',
 				'name'       => $core->translate('Blocks to show on photo pages'),
 				'type'       => 'block-list',
-				'typeParams' => array('packType' => 'block-list'),
+				'typeParams' => array(
+					'packType' => 'block-list',
+				),
 				'value'      => $params['photoBlocks'],
 			);
 		}
@@ -793,7 +809,12 @@ class GalleryTheme extends GalleryPlugin {
 			 * isn't used).  Allow this deactivate if $postDeactivationEvent is false (during
 			 * reactivate)
 			 */
-			return array(null, array('href' => 'upgrade/'));
+			return array(
+				null,
+				array(
+					'href' => 'upgrade/',
+				),
+			);
 		}
 
 		list($ret, $redirect) = parent::deactivate($postDeactivationEvent);
@@ -822,7 +843,9 @@ class GalleryTheme extends GalleryPlugin {
 
 		$urlGenerator      =& $gallery->getUrlGenerator();
 		$theme['themeId']  = $this->getId();
-		$theme['themeUrl'] = $urlGenerator->generateUrl(array('href' => 'themes/' . $this->getId()));
+		$theme['themeUrl'] = $urlGenerator->generateUrl(array(
+			'href' => 'themes/' . $this->getId(),
+		));
 
 		if (!isset($theme['pageUrl'])) {
 			$theme['pageUrl'] = array(
@@ -869,7 +892,12 @@ class GalleryTheme extends GalleryPlugin {
 			$theme['isFallback']       = true;
 			$theme['fallbackTemplate'] = $viewResults['body'];
 
-			return array(null, array('body' => 'modules/core/templates/FallbackTheme.tpl'));
+			return array(
+				null,
+				array(
+					'body' => 'modules/core/templates/FallbackTheme.tpl',
+				),
+			);
 		}
 
 		if (!$gallery->getConfig('showSidebarBlocks') && !empty($params['sidebarBlocks'])) {
@@ -918,7 +946,7 @@ class GalleryTheme extends GalleryPlugin {
 				$theme['pageType']       = 'admin';
 				$theme['adminTemplate']  = $viewResults['body'];
 				$theme['adminL10Domain'] = $view->getL10Domain();
-				list($ret, $result)     = $this->showAdminPage(
+				list($ret, $result)      = $this->showAdminPage(
 					$template,
 					$item,
 					$params,
@@ -981,7 +1009,12 @@ class GalleryTheme extends GalleryPlugin {
 								$redirect['page'] = $page;
 							}
 
-							return array(null, array('redirect' => $redirect));
+							return array(
+								null,
+								array(
+									'redirect' => $redirect,
+								),
+							);
 						}
 						$page = 1;
 					}
@@ -1012,7 +1045,7 @@ class GalleryTheme extends GalleryPlugin {
 							}
 
 							// Load up our child count so that we can figure out the max pages
-							$itemId                  = $item->getId();
+							$itemId                 = $item->getId();
 							list($ret, $childCount) = GalleryCoreApi::fetchChildCounts(
 								array($itemId),
 								$theme['actingUserId']
@@ -1037,7 +1070,12 @@ class GalleryTheme extends GalleryPlugin {
 								$redirect['page'] = $theme['totalPages'];
 							}
 
-							return array(null, array('redirect' => $redirect));
+							return array(
+								null,
+								array(
+									'redirect' => $redirect,
+								),
+							);
 						}
 					} else {
 						/*
@@ -1066,7 +1104,7 @@ class GalleryTheme extends GalleryPlugin {
 						return array($ret, null);
 					}
 				} else {
-					$theme['pageType']   = 'photo';
+					$theme['pageType']  = 'photo';
 					list($ret, $result) = $this->showPhotoPage($template, $item, $params);
 
 					if ($ret) {
@@ -1119,7 +1157,7 @@ class GalleryTheme extends GalleryPlugin {
 
 			case VIEW_TYPE_PROGRESS_BAR:
 				// We only use this for progressbar views (for now)
-				$theme['pageType']   = 'progressbar';
+				$theme['pageType']  = 'progressbar';
 				list($ret, $result) = $this->showProgressBarPage($template, $item, $params);
 
 				if ($ret) {
@@ -1131,7 +1169,7 @@ class GalleryTheme extends GalleryPlugin {
 			case VIEW_TYPE_ERROR:
 				$theme['pageType']      = 'error';
 				$theme['errorTemplate'] = $viewResults['body'];
-				list($ret, $result)    = $this->showErrorPage($template);
+				list($ret, $result)     = $this->showErrorPage($template);
 
 				if ($ret) {
 					return array($ret, null);
@@ -1143,7 +1181,7 @@ class GalleryTheme extends GalleryPlugin {
 				$theme['pageType']        = 'module';
 				$theme['moduleTemplate']  = $viewResults['body'];
 				$theme['moduleL10Domain'] = $view->getL10Domain();
-				list($ret, $result)      = $this->showModulePage(
+				list($ret, $result)       = $this->showModulePage(
 					$template,
 					$item,
 					$params,
@@ -1703,7 +1741,9 @@ class GalleryTheme extends GalleryPlugin {
 			}
 
 			if (isset($load['itemLinks'])) {
-				$itemLinks = array($itemId => array());
+				$itemLinks = array(
+					$itemId => array(),
+				);
 
 				foreach ($childIds as $id) {
 					$itemLinks[$id] = array();
@@ -1725,7 +1765,9 @@ class GalleryTheme extends GalleryPlugin {
 
 			if (empty($load['childItemLinksDetailed'])) {
 				// We always want detailed links for the current item
-				$wantsDetailedLinks = array($itemId => 1);
+				$wantsDetailedLinks = array(
+					$itemId => 1,
+				);
 			} else {
 				// We want detailed links for everybody
 				$wantsDetailedLinks = array_flip($allItemIds);
@@ -1981,8 +2023,8 @@ class GalleryTheme extends GalleryPlugin {
 			 * Figure out all possible views of this item that the user can see and get them into an
 			 * acceptable format for the template engine
 			 */
-			$imageViews               = array();
-			$can                      = array();
+			$imageViews              = array();
+			$can                     = array();
 			list($ret, $permissions) = GalleryCoreApi::getPermissions($itemId, $theme['actingUserId']);
 
 			if ($ret) {
@@ -2269,7 +2311,9 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if (empty($results['bodyHtml'])) {
-			$results = array('bodyHtml' => $mainHtml);
+			$results = array(
+				'bodyHtml' => $mainHtml,
+			);
 		}
 
 		// If we extracted the sidebar, it'll be in our extra html, so move that over

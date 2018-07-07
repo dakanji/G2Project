@@ -399,7 +399,7 @@ class AdminExifView extends GalleryView {
 		$visibleKeys = array();
 
 		// Prepare the summary list
-		$summaryList      = array();
+		$summaryList     = array();
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -411,7 +411,7 @@ class AdminExifView extends GalleryView {
 		}
 
 		// Prepare the detailed list
-		$detailedList     = array();
+		$detailedList    = array();
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {
@@ -450,6 +450,11 @@ class AdminExifView extends GalleryView {
 		$template->setVariable('AdminExif', $AdminExif);
 		$template->setVariable('controller', 'exif.AdminExif');
 
-		return array(null, array('body' => 'modules/exif/templates/AdminExif.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/exif/templates/AdminExif.tpl',
+			),
+		);
 	}
 }

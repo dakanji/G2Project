@@ -55,7 +55,7 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 			 * communicate to G2 directly, even when G2 is embedded
 			 */
 			$ItemAddUploadApplet['g2BaseUrl'] = $urlGenerator->getCurrentUrlDir(true);
-			list($ret, $cookiePath)          = $urlGenerator->getCookiePath(true);
+			list($ret, $cookiePath)           = $urlGenerator->getCookiePath(true);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -95,7 +95,7 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 					$variablesArray = explode('|', $params['upload' . $type . 'Variables']);
 
 					foreach ($variablesArray as $variable) {
-						list($name, $value)               = explode('=', $variable);
+						list($name, $value)                = explode('=', $variable);
 						$ItemAddUploadApplet[$type][$name] = $value;
 					}
 				}

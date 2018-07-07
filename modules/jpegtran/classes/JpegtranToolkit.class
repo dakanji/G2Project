@@ -225,7 +225,7 @@ class JpegtranToolkit extends GalleryToolkit {
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($tmpDir);
 
-		$cmd                               = array($jpegtran, '-verbose', '-outfile', $tmpFilename, $filename);
+		$cmd                              = array($jpegtran, '-verbose', '-outfile', $tmpFilename, $filename);
 		list($success, $ignored, $output) = $platform->exec(array($cmd));
 		@$platform->unlink($tmpFilename);
 		$platform->chdir($oldCwd);

@@ -94,7 +94,9 @@ $entityInfo['GalleryDerivative']       = array(
 			'type' => STORAGE_TYPE_STRING,
 			'size' => STORAGE_SIZE_LARGE,
 		),
-		'isBroken'             => array('type' => STORAGE_TYPE_BOOLEAN),
+		'isBroken'             => array(
+			'type' => STORAGE_TYPE_BOOLEAN,
+		),
 	),
 	'parent'  => 'GalleryChildEntity',
 	'module'  => 'core',
@@ -131,7 +133,9 @@ $entityInfo['GalleryEntity']           = array(
 			'type'    => STORAGE_TYPE_BOOLEAN,
 			'notNull' => 1,
 		),
-		'linkId'                => array('type' => STORAGE_TYPE_INTEGER),
+		'linkId'                => array(
+			'type' => STORAGE_TYPE_INTEGER,
+		),
 		'modificationTimestamp' => array(
 			'type'            => STORAGE_TYPE_INTEGER,
 			'notNull'         => 1,
@@ -301,7 +305,9 @@ $entityInfo['GalleryUser']             = array(
 			'size'            => STORAGE_SIZE_MEDIUM,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
-		'locked'         => array('type' => STORAGE_TYPE_BOOLEAN),
+		'locked'         => array(
+			'type' => STORAGE_TYPE_BOOLEAN,
+		),
 	),
 	'parent'  => 'GalleryEntity',
 	'module'  => 'core',

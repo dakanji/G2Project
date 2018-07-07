@@ -72,7 +72,11 @@ class GalleryUserGroupHelper_simple {
 				'userId'  => $userId,
 				'groupId' => $groupId,
 			),
-			array('limit' => array('count' => 1))
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {
@@ -96,7 +100,7 @@ class GalleryUserGroupHelper_simple {
 		if (GalleryDataCache::containsKey($cacheKey)) {
 			$data = GalleryDataCache::get($cacheKey);
 		} else {
-			$query                      = '
+			$query                     = '
 	    SELECT
 	      [GalleryGroup::id],
 	      [GalleryGroup::groupName]

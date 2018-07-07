@@ -165,7 +165,9 @@ class NotificationItemAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/notification/templates/NotificationItemAdmin.tpl'),
+			array(
+				'body' => 'modules/notification/templates/NotificationItemAdmin.tpl',
+			),
 		);
 	}
 
@@ -234,7 +236,7 @@ class NotificationItemAdminView extends GalleryView {
 			}
 
 			if (!$isAdminGroup) {
-				$permission                   = $instance->getPermission();
+				$permission                  = $instance->getPermission();
 				list($ret, $itemPermissions) = GalleryCoreApi::getPermissions($itemId);
 
 				if ($ret) {

@@ -13,59 +13,60 @@ The aim of this effort is to add enhancements and fixes to the Gallery 2 code so
 
 You can choose from one of the following branches:
 
-* '''[https://github.com/dakanji/G2Project/tree/master Master Branch]''' - This branch contains the latest stable code and is always deployable. Relatively few updates, features or bug fixes will have been applied and it will be the closest branch to the last official release by the Gallery Project Team. The current issued fileset can be [https://github.com/dakanji/G2Project/releases DOWNLOADED HERE].
-* '''[https://github.com/dakanji/G2Project/tree/dev Dev Branch]''' - This branch contains the latest semi-stable code and is normally deployable. Users are encouraged to install and implement code from this branch to help drive development forward with their feedback. This branch is never formally "issued" but the current fileset can be [https://github.com/dakanji/G2Project/zipball/dev DOWNLOADED HERE].
+* '''[https://github.com/dakanji/G2Project-main/tree/master Master Branch]''' - This branch contains the latest stable code and is always deployable. Relatively few updates, features or bug fixes will have been applied and it will be the closest branch to the last official release by the Gallery Project Team. The current issued fileset can be [https://github.com/dakanji/G2Project-main/releases DOWNLOADED HERE].
+* '''[https://github.com/dakanji/G2Project-main/tree/dev Dev Branch]''' - This branch contains the latest semi-stable code and is normally deployable. Users are encouraged to install and implement code from this branch to help drive development forward with their feedback. This branch is never formally "issued" but the current fileset can be [https://github.com/dakanji/G2Project-main/zipball/dev DOWNLOADED HERE].
 * '''Other Branches''' - These contain ongoing work streams which may, or may not, be deployable.
 
 = Updating Gallery 2 =
 
-== Version 2.3.0 and above ==
+== From Version 2.3.0 and above ==
 
 # Backup your installation including your database
-# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
-# Overwrite your installation with the lastest version, navigate to your gallery and follow the on-screen instructions
+# Update PHP to v5.3.3, or, preferably, v7.3.x
+# Overwrite your installation with the [https://github.com/dakanji/G2Project-main/releases LATEST COMMUNITY VERSION], navigate to your gallery and follow the on-screen instructions
 
-== Version 2.2.6 ==
+== From Version 2.2.6 ==
 
 # Backup your installation including your database
-# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
-# Overwrite your installation with the lastest version, navigate to your gallery and follow the on-screen instructions
+# Update PHP to v5.3.3, or, preferably, v7.3.x
+# Overwrite your installation with the [https://github.com/dakanji/G2Project-main/releases LATEST COMMUNITY VERSION], navigate to your gallery and follow the on-screen instructions
 
 == From Before Version 2.2.6 ==
 # Backup your installation including your database
-# Update or downgrade PHP to v5.2.0
+# Update or downgrade PHP to versions between v4.3.x and v5.2.x
 # Overwrite your installation with a Version 2.2.6 file set, navigate to your gallery and follow the on-screen instructions
 # When you are satisfied that the upgrade to Version 2.2.6 is complete, backup your Version 2.2.6 installation and database
-# Update PHP to v5.3.0, or, preferably, v7.0.0 or more recent
-# Overwrite your Version 2.2.6 installation with the lastest version, navigate to your gallery and follow the on-screen instructions
+# Update PHP to v5.3.3, or, preferably, v7.3.0
+# Overwrite your Version 2.2.6 installation with the [https://github.com/dakanji/G2Project-main/releases LATEST COMMUNITY VERSION], navigate to your gallery and follow the on-screen instructions
 
-= Migrating From Gallery 1 =
+= Upgrading From Gallery 1 =
 
-== Version 1.5 and above ==
+== From Version 1.5 and above ==
 
 # Backup your installation
-# Update or downgrade to PHP 4.x (v4.3.0 or more recent)
+# Update or downgrade to PHP 4.3.x
 # Follow the "Pre-Migration Prep" instructions on [http://codex.galleryproject.org/Gallery2:migration]
-# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
+# Update PHP to v5.3.3, or, preferably, v7.3.x
 # Follow the other instructions on [http://codex.galleryproject.org/Gallery2:migration]
 # When you are satisfied that the migration to Gallery 2 is complete, backup your installation including your database
 
 == From Before Version 1.5 ==
 
 # Backup your installation
-# Update or downgrade to PHP 4.x (v4.3.0 or more recent)
+# Update or downgrade to PHP 4.3.x
 # Upgrade your installation to Version 1.5
 # When you are satisfied that the upgrade to Version 1.5 is complete, backup your Version 1.5 installation
 # Follow the "Pre-Migration Prep" instructions on [http://codex.galleryproject.org/Gallery2:migration]
-# Update PHP to v5.6.0, or, preferably, v7.0.0 or more recent
+# Update PHP to v5.3.3, or, preferably, v7.3.x
 # Follow the other instructions on [http://codex.galleryproject.org/Gallery2:migration]
 # When you are satisfied that the migration to Gallery 2 is complete, backup your installation including your database
 
-= Migrating From Gallery 3 =
+= Upgrading From Gallery 3 =
 
-It is currently not possible to migrate from Gallery 3 to Gallery 2 
+It is currently not possible to auto upgrade from Gallery 3 to Gallery 2.
+You will need to manually transfer your Gallery 3 items. 
 
 
 = Issues / Bugs =
 
-Check the [http://codex.gallery2.org/Gallery2:Known_Issues Known Issues] list and [https://github.com/dakanji/G2Project/issues Bug Tracker] for information and some workarounds for known problems.
+Check the [http://codex.gallery2.org/Gallery2:Known_Issues Known Issues] list and [https://github.com/dakanji/G2Project-main/issues Bug Tracker] for information and some workarounds for known problems.

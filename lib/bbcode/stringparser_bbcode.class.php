@@ -649,7 +649,7 @@ class StringParser_BBCode extends StringParser {
 				}
 					$this->_appendText($needle);
 
-					return true;
+				return true;
 				// break not necessary because every if clause contains return
 			case 2: // CLOSE TAG
 				if ($needle != ']') {
@@ -721,18 +721,18 @@ class StringParser_BBCode extends StringParser {
 					return true;
 				}
 
-					if ($needle == ' ') {
-						$this->_setStatus(4);
+				if ($needle == ' ') {
+					$this->_setStatus(4);
 
-						return true;
-					}
+					return true;
+				}
 
-					if ($needle == ']') {
-						return $this->_openElement(2);
-					}
+				if ($needle == ']') {
+					return $this->_openElement(2);
+				}
 						$this->_appendText($needle);
 
-						return true;
+				return true;
 				// break not needed because every if clause contains return!
 			case 4: // ATTRIBUTE NAME
 				if ($needle == ' ') {
@@ -774,7 +774,7 @@ class StringParser_BBCode extends StringParser {
 				}
 					$this->_appendText($needle);
 
-					return true;
+				return true;
 				// break not needed because every if clause contains return!
 			case 5: // ATTRIBUTE VALUE
 				if ($this->_quoting !== null) {
@@ -812,21 +812,21 @@ class StringParser_BBCode extends StringParser {
 					return true;
 				}
 
-					if ($needle == ' ') {
-						$this->_topNode('setAttribute', $this->_savedName, $this->_savedValue);
-						$this->_setStatus(4);
+				if ($needle == ' ') {
+					$this->_topNode('setAttribute', $this->_savedName, $this->_savedValue);
+					$this->_setStatus(4);
 
-						return true;
-					}
+					return true;
+				}
 
-					if ($needle == ']') {
-						$this->_topNode('setAttribute', $this->_savedName, $this->_savedValue);
+				if ($needle == ']') {
+					$this->_topNode('setAttribute', $this->_savedName, $this->_savedValue);
 
-						return $this->_openElement(2);
-					}
+					return $this->_openElement(2);
+				}
 						$this->_appendText($needle);
 
-						return true;
+				return true;
 				// break not needed because every if clause contains return!
 			case 7:
 				if ($needle == '[/') {

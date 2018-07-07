@@ -222,7 +222,7 @@ class AdminMaintenanceView extends GalleryView {
 			}
 		}
 
-		$maintenanceMode                 = $gallery->getConfig('mode.maintenance');
+		$maintenanceMode                = $gallery->getConfig('mode.maintenance');
 		list($ret, $maintenanceModeUrl) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -250,7 +250,9 @@ class AdminMaintenanceView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/AdminMaintenance.tpl'),
+			array(
+				'body' => 'modules/core/templates/AdminMaintenance.tpl',
+			),
 		);
 	}
 }

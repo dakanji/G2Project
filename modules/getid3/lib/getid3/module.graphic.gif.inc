@@ -69,7 +69,7 @@ class getid3_gif extends getid3_handler {
 		if ($info['gif']['header']['flags']['global_color_table']) {
 			// the number of bytes contained in the Global Color Table. To determine that
 			// actual size of the color table, raise 2 to [the value of the field + 1]
-			$info['gif']['header']['global_color_size'] = 2**(($info['gif']['header']['raw']['flags'] & 0x07) + 1);
+			$info['gif']['header']['global_color_size'] = 2 ** (($info['gif']['header']['raw']['flags'] & 0x07) + 1);
 			$info['video']['bits_per_sample']           = ($info['gif']['header']['raw']['flags'] & 0x07) + 1;
 		} else {
 			$info['gif']['header']['global_color_size'] = 0;

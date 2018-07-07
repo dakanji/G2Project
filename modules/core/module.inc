@@ -173,7 +173,7 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
-				$title                    = smarty_modifier_escape(GalleryUtilities::markup(
+				$title                   = smarty_modifier_escape(GalleryUtilities::markup(
 					$item->getTitle(),
 					'strip'
 				), 'javascript', 'UTF-8');
@@ -248,7 +248,7 @@ class CoreModule extends GalleryModule {
 				&& isset($permissions[$itemId]['core.edit']) && !empty($childCounts[$itemId])
 				&& $childCounts[$itemId] > 0
 			) {
-				$link                         = array(
+				$link                        = array(
 					'text'   => $this->_translate('Edit Captions'),
 					'params' => array(
 						'view'    => 'core.ItemAdmin',
@@ -329,7 +329,7 @@ class CoreModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$links                = array();
+		$links               = array();
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -488,7 +488,7 @@ class CoreModule extends GalleryModule {
 	public function getItemAdminViews($item) {
 		global $gallery;
 
-		$views                    = array();
+		$views                   = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -515,7 +515,7 @@ class CoreModule extends GalleryModule {
 		}
 		$hasThumb = !empty($thumbTable[$item->getId()]);
 
-		$parentId                       = $item->getParentId();
+		$parentId                      = $item->getParentId();
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 
 		if ($ret) {

@@ -40,7 +40,14 @@ class MembersItemsView extends GalleryView {
 		}
 
 		if (!$result) {
-			return array(null, array('redirect' => array('view' => 'core.ShowItem')));
+			return array(
+				null,
+				array(
+					'redirect' => array(
+						'view' => 'core.ShowItem',
+					),
+				),
+			);
 		}
 
 		if (!isset($form['list']['page']) || $form['list']['page'] < 1) {
@@ -73,7 +80,14 @@ class MembersItemsView extends GalleryView {
 		}
 
 		if ($form['list']['count'] == 0) {
-			return array(null, array('redirect' => array('view' => 'core.ShowItem')));
+			return array(
+				null,
+				array(
+					'redirect' => array(
+						'view' => 'core.ShowItem',
+					),
+				),
+			);
 		}
 
 		$form['list']['pageSize'] = $form['list']['count'] > 25 ? 25 : $form['list']['count'];
@@ -119,6 +133,11 @@ class MembersItemsView extends GalleryView {
 
 		$template->title($module->translate('Member Items'));
 
-		return array(null, array('body' => 'modules/members/templates/MembersItems.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/members/templates/MembersItems.tpl',
+			),
+		);
 	}
 }

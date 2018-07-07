@@ -187,7 +187,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-				$ret = GalleryCoreApi::addMapEntry('ItemHiddenMap', array('itemId' => $itemId));
+				$ret = GalleryCoreApi::addMapEntry('ItemHiddenMap', array(
+					'itemId' => $itemId,
+				));
 
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockId);
@@ -380,7 +382,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		// Remove onLoadHandler and remove from ItemHiddenMap
 		if ($itemId == $hideId) {
-			$ret = GalleryCoreApi::removeMapEntry('ItemHiddenMap', array('itemId' => $itemId));
+			$ret = GalleryCoreApi::removeMapEntry('ItemHiddenMap', array(
+				'itemId' => $itemId,
+			));
 
 			if ($ret) {
 				return $ret;
@@ -600,8 +604,8 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 */
 	public static function handleMoveItem($item) {
 		global $gallery;
-		$oldParentId          = $item->getOriginalValue('parentId');
-		$newParentId          = $item->getParentId();
+		$oldParentId         = $item->getOriginalValue('parentId');
+		$newParentId         = $item->getParentId();
 		list($ret, $parents) = GalleryCoreApi::loadEntitiesById(array($oldParentId, $newParentId), 'GalleryItem');
 
 		if ($ret) {

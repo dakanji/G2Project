@@ -217,10 +217,10 @@ class NetPbmToolkitHelper {
 	 *
 	 * @param string $jheadPath path to the jhead binary
 	 * @return array GalleryStatus general status of tests
-	 *	       array ('name' => string: the name of the binary,
-	 *		      'success' => boolean: test successful?
-	 *		      'message' => string: the error message
-	 *		     )
+	 *         array ('name' => string: the name of the binary,
+	 *            'success' => boolean: test successful?
+	 *            'message' => string: the error message
+	 *           )
 	 *         array hash map of mime types
 	 */
 	public static function testJhead($jheadPath) {
@@ -265,10 +265,10 @@ class NetPbmToolkitHelper {
 	 *
 	 * @param string $netPbmPath path to the NetPbm we are testing
 	 * @return array GalleryStatus general status of tests
-	 *	       array ('name' => string: the name of the binary,
-	 *		      'success' => boolean: test successful?
-	 *		      'message' => string: the error message
-	 *		     )
+	 *         array ('name' => string: the name of the binary,
+	 *            'success' => boolean: test successful?
+	 *            'message' => string: the error message
+	 *           )
 	 *         array of string mime types
 	 */
 	public static function testBinaries($netPbmPath) {

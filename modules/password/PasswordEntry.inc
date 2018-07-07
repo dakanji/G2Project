@@ -43,7 +43,7 @@ class PasswordEntryController extends GalleryController {
 		if (isset($form['action']['password'])
 			&& isset($form['itemId']) && isset($form['password'])
 		) {
-			$itemId              = $form['itemId'];
+			$itemId             = $form['itemId'];
 			list($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -87,7 +87,9 @@ class PasswordEntryController extends GalleryController {
 			&& GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
 
 			// Prepare for validation
-			$options                       = array('pass' => $isCorrect);
+			$options                      = array(
+				'pass' => $isCorrect,
+			);
 			list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'password', 'validation.level');
 
 			if ($ret) {
@@ -176,7 +178,12 @@ class PasswordEntryView extends GalleryView {
 
 		$template->setVariable('controller', 'password.PasswordEntry');
 
-		return array(null, array('body' => 'modules/password/templates/PasswordEntry.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/password/templates/PasswordEntry.tpl',
+			),
+		);
 	}
 
 	/**

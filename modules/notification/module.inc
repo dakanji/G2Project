@@ -249,7 +249,7 @@ class NotificationModule extends GalleryModule {
 	public function getUserAdminViews($user) {
 		$views = array();
 
-		$userId                = $user->getId();
+		$userId               = $user->getId();
 		list($ret, $showView) = $this->_showWatch($userId);
 
 		if ($ret) {
@@ -339,7 +339,7 @@ class NotificationModule extends GalleryModule {
 			}
 
 			if ($currentVersion != '0') {
-				$enableMap            = array();
+				$enableMap           = array();
 				list($ret, $results) = $storage->search('SELECT COUNT(*) FROM [NotificationSubscriptions]', array());
 
 				if ($ret) {
@@ -351,7 +351,11 @@ class NotificationModule extends GalleryModule {
 
 				$offset     = 0;
 				$blockCount = 200;
-				$options    = array('limit' => array('count' => $blockCount));
+				$options    = array(
+					'limit' => array(
+						'count' => $blockCount,
+					),
+				);
 				$rowsRead   = 0;
 
 				list($ret, $eventMapLock) = $this->getParameter('id.eventMapLock');
@@ -368,7 +372,7 @@ class NotificationModule extends GalleryModule {
 				while ($rowsRead < $count) {
 					$gallery->guaranteeTimeLimit(30);
 					$options['limit']['offset'] = $offset;
-					list($ret, $results)       = GalleryCoreApi::getMapEntry(
+					list($ret, $results)        = GalleryCoreApi::getMapEntry(
 						'NotificationSubscriptions',
 						$select,
 						array(),

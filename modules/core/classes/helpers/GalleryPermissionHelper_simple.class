@@ -91,7 +91,7 @@ class GalleryPermissionHelper_simple {
 				return array($ret, null);
 			}
 
-			$storage                       =& $gallery->getStorage();
+			$storage                      =& $gallery->getStorage();
 			list($ret, $bitAndPermission) = $storage->getFunctionSql('BITAND', array('[GalleryAccessMap::permission]', '?'));
 
 			if ($ret) {
@@ -197,7 +197,7 @@ class GalleryPermissionHelper_simple {
 		$cacheKey = 'GalleryPermissionHelper::_allPermissions';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			$permissions                = array();
+			$permissions               = array();
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'GalleryPermissionSetMap',
 				array('module', 'permission', 'description', 'bits', 'flags')
@@ -312,7 +312,7 @@ class GalleryPermissionHelper_simple {
 		$entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 		$groupBy         = 'GROUP BY [GalleryAccessSubscriberMap::itemId]';
 
-		$storage            =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 		list($ret, $bitOr) = $storage->getFunctionSql(
 			'BIT_OR',
 			array(
@@ -434,7 +434,7 @@ class GalleryPermissionHelper_simple {
 				foreach ($allPermissions as $id => $permission) {
 					if (($permission['flags'] & GALLERY_PERMISSION_COMPOSITE) > 0) {
 						if (($permission['bits'] & $permissionBits) == $permission['bits']) {
-							$entry         = array(
+							$entry     = array(
 								'id'          => $id,
 								'module'      => $permission['module'],
 								'description' => $permission['description'],
@@ -460,7 +460,7 @@ class GalleryPermissionHelper_simple {
 						foreach ($allPermissions as $id => $permission) {
 							if (($permission['flags'] & GALLERY_PERMISSION_COMPOSITE) == 0) {
 								if (($permission['bits'] & $leftoverBits) == $permission['bits']) {
-									$results[]         = array(
+									$results[]     = array(
 										'id'     => $id,
 										'module' => $permission['module'],
 										'description' => $permission['description'],

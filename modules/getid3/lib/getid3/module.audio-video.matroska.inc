@@ -1264,7 +1264,9 @@ class getid3_matroska extends getid3_handler {
 											break;
 
 										case EBML_ID_CLUSTERBLOCKGROUP:
-											$cluster_block_group = array('offset' => $this->current_offset);
+											$cluster_block_group = array(
+												'offset' => $this->current_offset,
+											);
 
 											while ($this->getEBMLelement($sub_subelement, $subelement['end'], array(EBML_ID_CLUSTERBLOCK))) {
 												switch ($sub_subelement['id']) {

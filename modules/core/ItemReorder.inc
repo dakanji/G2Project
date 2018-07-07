@@ -66,8 +66,8 @@ class ItemReorderController extends GalleryController {
 
 			// Make sure that the selectedId and targetId are children of the album
 			if (empty($error)) {
-				$selectedId            = (int)$form['selectedId'];
-				$targetId              = (int)$form['targetId'];
+				$selectedId           = (int)$form['selectedId'];
+				$targetId             = (int)$form['targetId'];
 				list($ret, $entities) = GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId), 'GalleryItem');
 
 				if ($ret) {
@@ -259,7 +259,12 @@ class ItemReorderView extends GalleryView {
 		$template->setVariable('ItemReorder', $ItemReorder);
 		$template->setVariable('controller', 'core.ItemReorder');
 
-		return array(null, array('body' => 'modules/core/templates/ItemReorder.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemReorder.tpl',
+			),
+		);
 	}
 
 	/**

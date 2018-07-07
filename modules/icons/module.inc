@@ -49,7 +49,9 @@ class IconsModule extends GalleryModule {
 			return $ret;
 		}
 
-		foreach (array('iconpack' => '') as $key => $value) {
+		foreach (array(
+			'iconpack' => '',
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

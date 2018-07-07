@@ -56,7 +56,7 @@ class WelcomeStep extends UpgradeStep {
 		$this->setComplete(true);
 
 		if (isset($translator)) {
-			list($supportedLanguages) = $translator->getLanguageData();
+			list($supportedLanguages)  = $translator->getLanguageData();
 			$templateData['languages'] = array();
 
 			foreach ($supportedLanguages as $lang => $list) {

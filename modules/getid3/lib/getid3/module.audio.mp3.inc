@@ -837,7 +837,7 @@ class getid3_mp3 extends getid3_handler {
 						// byte $B5  MP3 Gain
 						$thisfile_mpeg_audio_lame_raw['mp3_gain']    = getid3_lib::BigEndian2Int(substr($headerstring, $LAMEtagOffsetContant + 0xB5, 1), false, true);
 						$thisfile_mpeg_audio_lame['mp3_gain_db']     = (getid3_lib::RGADamplitude2dB(2) / 4) * $thisfile_mpeg_audio_lame_raw['mp3_gain'];
-						$thisfile_mpeg_audio_lame['mp3_gain_factor'] = 2** ($thisfile_mpeg_audio_lame['mp3_gain_db'] / 6);
+						$thisfile_mpeg_audio_lame['mp3_gain_factor'] = 2 ** ($thisfile_mpeg_audio_lame['mp3_gain_db'] / 6);
 
 						// bytes $B6-$B7  Preset and surround info
 						$PresetSurroundBytes = getid3_lib::BigEndian2Int(substr($headerstring, $LAMEtagOffsetContant + 0xB6, 2));
@@ -2049,7 +2049,9 @@ class getid3_mp3 extends getid3_handler {
 
 	public static function ClosestStandardMP3Bitrate($bit_rate) {
 		static $standard_bit_rates = array(320000, 256000, 224000, 192000, 160000, 128000, 112000, 96000, 80000, 64000, 56000, 48000, 40000, 32000, 24000, 16000, 8000);
-		static $bit_rate_table     = array(0 => '-');
+		static $bit_rate_table     = array(
+			0 => '-',
+		);
 		$round_bit_rate            = intval(round($bit_rate, -3));
 
 		if (!isset($bit_rate_table[$round_bit_rate])) {

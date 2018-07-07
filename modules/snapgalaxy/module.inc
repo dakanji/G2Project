@@ -148,13 +148,13 @@ class SnapGalaxyModule extends GalleryModule {
 				&& GalleryUtilities::isA($item, 'GalleryPhotoItem')
 			) {
 				$links[$itemId][] = array(
-						'text'   => $this->translate('Print on SnapGalaxy.com'),
-						'params' => array(
-							'controller' => 'snapgalaxy.SnapGalaxyPrintPhotos',
-							'itemId'     => $itemId,
-							'returnUrl'  => '%CURRENT_URL%',
-						),
-					);
+					'text'   => $this->translate('Print on SnapGalaxy.com'),
+					'params' => array(
+						'controller' => 'snapgalaxy.SnapGalaxyPrintPhotos',
+						'itemId'     => $itemId,
+						'returnUrl'  => '%CURRENT_URL%',
+					),
+				);
 			}
 		}
 

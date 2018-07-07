@@ -2292,189 +2292,189 @@ class getid3_id3v2 extends getid3_handler {
 		/** This is not a comment!
 		 *
 		 *
-		 * AED	Dirhams
-		 * AFA	Afghanis
-		 * ALL	Leke
-		 * AMD	Drams
-		 * ANG	Guilders
-		 * AOA	Kwanza
-		 * ARS	Pesos
-		 * ATS	Schillings
-		 * AUD	Dollars
-		 * AWG	Guilders
-		 * AZM	Manats
-		 * BAM	Convertible Marka
-		 * BBD	Dollars
-		 * BDT	Taka
-		 * BEF	Francs
-		 * BGL	Leva
-		 * BHD	Dinars
-		 * BIF	Francs
-		 * BMD	Dollars
-		 * BND	Dollars
-		 * BOB	Bolivianos
-		 * BRL	Brazil Real
-		 * BSD	Dollars
-		 * BTN	Ngultrum
-		 * BWP	Pulas
-		 * BYR	Rubles
-		 * BZD	Dollars
-		 * CAD	Dollars
-		 * CDF	Congolese Francs
-		 * CHF	Francs
-		 * CLP	Pesos
-		 * CNY	Yuan Renminbi
-		 * COP	Pesos
-		 * CRC	Colones
-		 * CUP	Pesos
-		 * CVE	Escudos
-		 * CYP	Pounds
-		 * CZK	Koruny
-		 * DEM	Deutsche Marks
-		 * DJF	Francs
-		 * DKK	Kroner
-		 * DOP	Pesos
-		 * DZD	Algeria Dinars
-		 * EEK	Krooni
-		 * EGP	Pounds
-		 * ERN	Nakfa
-		 * ESP	Pesetas
-		 * ETB	Birr
-		 * EUR	Euro
-		 * FIM	Markkaa
-		 * FJD	Dollars
-		 * FKP	Pounds
-		 * FRF	Francs
-		 * GBP	Pounds
-		 * GEL	Lari
-		 * GGP	Pounds
-		 * GHC	Cedis
-		 * GIP	Pounds
-		 * GMD	Dalasi
-		 * GNF	Francs
-		 * GRD	Drachmae
-		 * GTQ	Quetzales
-		 * GYD	Dollars
-		 * HKD	Dollars
-		 * HNL	Lempiras
-		 * HRK	Kuna
-		 * HTG	Gourdes
-		 * HUF	Forints
-		 * IDR	Rupiahs
-		 * IEP	Pounds
-		 * ILS	New Shekels
-		 * IMP	Pounds
-		 * INR	Rupees
-		 * IQD	Dinars
-		 * IRR	Rials
-		 * ISK	Kronur
-		 * ITL	Lire
-		 * JEP	Pounds
-		 * JMD	Dollars
-		 * JOD	Dinars
-		 * JPY	Yen
-		 * KES	Shillings
-		 * KGS	Soms
-		 * KHR	Riels
-		 * KMF	Francs
-		 * KPW	Won
-		 * KWD	Dinars
-		 * KYD	Dollars
-		 * KZT	Tenge
-		 * LAK	Kips
-		 * LBP	Pounds
-		 * LKR	Rupees
-		 * LRD	Dollars
-		 * LSL	Maloti
-		 * LTL	Litai
-		 * LUF	Francs
-		 * LVL	Lati
-		 * LYD	Dinars
-		 * MAD	Dirhams
-		 * MDL	Lei
-		 * MGF	Malagasy Francs
-		 * MKD	Denars
-		 * MMK	Kyats
-		 * MNT	Tugriks
-		 * MOP	Patacas
-		 * MRO	Ouguiyas
-		 * MTL	Liri
-		 * MUR	Rupees
-		 * MVR	Rufiyaa
-		 * MWK	Kwachas
-		 * MXN	Pesos
-		 * MYR	Ringgits
-		 * MZM	Meticais
-		 * NAD	Dollars
-		 * NGN	Nairas
-		 * NIO	Gold Cordobas
-		 * NLG	Guilders
-		 * NOK	Krone
-		 * NPR	Nepal Rupees
-		 * NZD	Dollars
-		 * OMR	Rials
-		 * PAB	Balboa
-		 * PEN	Nuevos Soles
-		 * PGK	Kina
-		 * PHP	Pesos
-		 * PKR	Rupees
-		 * PLN	Zlotych
-		 * PTE	Escudos
-		 * PYG	Guarani
-		 * QAR	Rials
-		 * ROL	Lei
-		 * RUR	Rubles
-		 * RWF	Rwanda Francs
-		 * SAR	Riyals
-		 * SBD	Dollars
-		 * SCR	Rupees
-		 * SDD	Dinars
-		 * SEK	Kronor
-		 * SGD	Dollars
-		 * SHP	Pounds
-		 * SIT	Tolars
-		 * SKK	Koruny
-		 * SLL	Leones
-		 * SOS	Shillings
-		 * SPL	Luigini
-		 * SRG	Guilders
-		 * STD	Dobras
-		 * SVC	Colones
-		 * SYP	Pounds
-		 * SZL	Emalangeni
-		 * THB	Baht
-		 * TJR	Rubles
-		 * TMM	Manats
-		 * TND	Dinars
-		 * TOP	Pa'anga
-		 * TRL	Liras
-		 * TTD	Dollars
-		 * TVD	Tuvalu Dollars
-		 * TWD	New Dollars
-		 * TZS	Shillings
-		 * UAH	Hryvnia
-		 * UGX	Shillings
-		 * USD	Dollars
-		 * UYU	Pesos
-		 * UZS	Sums
-		 * VAL	Lire
-		 * VEB	Bolivares
-		 * VND	Dong
-		 * VUV	Vatu
-		 * WST	Tala
-		 * XAF	Francs
-		 * XAG	Ounces
-		 * XAU	Ounces
-		 * XCD	Dollars
-		 * XDR	Special Drawing Rights
-		 * XPD	Ounces
-		 * XPF	Francs
-		 * XPT	Ounces
-		 * YER	Rials
-		 * YUM	New Dinars
-		 * ZAR	Rand
-		 * ZMK	Kwacha
-		 * ZWD	Zimbabwe Dollars
+		 * AED  Dirhams
+		 * AFA  Afghanis
+		 * ALL  Leke
+		 * AMD  Drams
+		 * ANG  Guilders
+		 * AOA  Kwanza
+		 * ARS  Pesos
+		 * ATS  Schillings
+		 * AUD  Dollars
+		 * AWG  Guilders
+		 * AZM  Manats
+		 * BAM  Convertible Marka
+		 * BBD  Dollars
+		 * BDT  Taka
+		 * BEF  Francs
+		 * BGL  Leva
+		 * BHD  Dinars
+		 * BIF  Francs
+		 * BMD  Dollars
+		 * BND  Dollars
+		 * BOB  Bolivianos
+		 * BRL  Brazil Real
+		 * BSD  Dollars
+		 * BTN  Ngultrum
+		 * BWP  Pulas
+		 * BYR  Rubles
+		 * BZD  Dollars
+		 * CAD  Dollars
+		 * CDF  Congolese Francs
+		 * CHF  Francs
+		 * CLP  Pesos
+		 * CNY  Yuan Renminbi
+		 * COP  Pesos
+		 * CRC  Colones
+		 * CUP  Pesos
+		 * CVE  Escudos
+		 * CYP  Pounds
+		 * CZK  Koruny
+		 * DEM  Deutsche Marks
+		 * DJF  Francs
+		 * DKK  Kroner
+		 * DOP  Pesos
+		 * DZD  Algeria Dinars
+		 * EEK  Krooni
+		 * EGP  Pounds
+		 * ERN  Nakfa
+		 * ESP  Pesetas
+		 * ETB  Birr
+		 * EUR  Euro
+		 * FIM  Markkaa
+		 * FJD  Dollars
+		 * FKP  Pounds
+		 * FRF  Francs
+		 * GBP  Pounds
+		 * GEL  Lari
+		 * GGP  Pounds
+		 * GHC  Cedis
+		 * GIP  Pounds
+		 * GMD  Dalasi
+		 * GNF  Francs
+		 * GRD  Drachmae
+		 * GTQ  Quetzales
+		 * GYD  Dollars
+		 * HKD  Dollars
+		 * HNL  Lempiras
+		 * HRK  Kuna
+		 * HTG  Gourdes
+		 * HUF  Forints
+		 * IDR  Rupiahs
+		 * IEP  Pounds
+		 * ILS  New Shekels
+		 * IMP  Pounds
+		 * INR  Rupees
+		 * IQD  Dinars
+		 * IRR  Rials
+		 * ISK  Kronur
+		 * ITL  Lire
+		 * JEP  Pounds
+		 * JMD  Dollars
+		 * JOD  Dinars
+		 * JPY  Yen
+		 * KES  Shillings
+		 * KGS  Soms
+		 * KHR  Riels
+		 * KMF  Francs
+		 * KPW  Won
+		 * KWD  Dinars
+		 * KYD  Dollars
+		 * KZT  Tenge
+		 * LAK  Kips
+		 * LBP  Pounds
+		 * LKR  Rupees
+		 * LRD  Dollars
+		 * LSL  Maloti
+		 * LTL  Litai
+		 * LUF  Francs
+		 * LVL  Lati
+		 * LYD  Dinars
+		 * MAD  Dirhams
+		 * MDL  Lei
+		 * MGF  Malagasy Francs
+		 * MKD  Denars
+		 * MMK  Kyats
+		 * MNT  Tugriks
+		 * MOP  Patacas
+		 * MRO  Ouguiyas
+		 * MTL  Liri
+		 * MUR  Rupees
+		 * MVR  Rufiyaa
+		 * MWK  Kwachas
+		 * MXN  Pesos
+		 * MYR  Ringgits
+		 * MZM  Meticais
+		 * NAD  Dollars
+		 * NGN  Nairas
+		 * NIO  Gold Cordobas
+		 * NLG  Guilders
+		 * NOK  Krone
+		 * NPR  Nepal Rupees
+		 * NZD  Dollars
+		 * OMR  Rials
+		 * PAB  Balboa
+		 * PEN  Nuevos Soles
+		 * PGK  Kina
+		 * PHP  Pesos
+		 * PKR  Rupees
+		 * PLN  Zlotych
+		 * PTE  Escudos
+		 * PYG  Guarani
+		 * QAR  Rials
+		 * ROL  Lei
+		 * RUR  Rubles
+		 * RWF  Rwanda Francs
+		 * SAR  Riyals
+		 * SBD  Dollars
+		 * SCR  Rupees
+		 * SDD  Dinars
+		 * SEK  Kronor
+		 * SGD  Dollars
+		 * SHP  Pounds
+		 * SIT  Tolars
+		 * SKK  Koruny
+		 * SLL  Leones
+		 * SOS  Shillings
+		 * SPL  Luigini
+		 * SRG  Guilders
+		 * STD  Dobras
+		 * SVC  Colones
+		 * SYP  Pounds
+		 * SZL  Emalangeni
+		 * THB  Baht
+		 * TJR  Rubles
+		 * TMM  Manats
+		 * TND  Dinars
+		 * TOP  Pa'anga
+		 * TRL  Liras
+		 * TTD  Dollars
+		 * TVD  Tuvalu Dollars
+		 * TWD  New Dollars
+		 * TZS  Shillings
+		 * UAH  Hryvnia
+		 * UGX  Shillings
+		 * USD  Dollars
+		 * UYU  Pesos
+		 * UZS  Sums
+		 * VAL  Lire
+		 * VEB  Bolivares
+		 * VND  Dong
+		 * VUV  Vatu
+		 * WST  Tala
+		 * XAF  Francs
+		 * XAG  Ounces
+		 * XAU  Ounces
+		 * XCD  Dollars
+		 * XDR  Special Drawing Rights
+		 * XPD  Ounces
+		 * XPF  Francs
+		 * XPT  Ounces
+		 * YER  Rials
+		 * YUM  New Dinars
+		 * ZAR  Rand
+		 * ZMK  Kwacha
+		 * ZWD  Zimbabwe Dollars
 		 *
 		 */
 
@@ -2486,189 +2486,189 @@ class getid3_id3v2 extends getid3_handler {
 
 		/** This is not a comment!
 		 *
-		 * AED	United Arab Emirates
-		 * AFA	Afghanistan
-		 * ALL	Albania
-		 * AMD	Armenia
-		 * ANG	Netherlands Antilles
-		 * AOA	Angola
-		 * ARS	Argentina
-		 * ATS	Austria
-		 * AUD	Australia
-		 * AWG	Aruba
-		 * AZM	Azerbaijan
-		 * BAM	Bosnia and Herzegovina
-		 * BBD	Barbados
-		 * BDT	Bangladesh
-		 * BEF	Belgium
-		 * BGL	Bulgaria
-		 * BHD	Bahrain
-		 * BIF	Burundi
-		 * BMD	Bermuda
-		 * BND	Brunei Darussalam
-		 * BOB	Bolivia
-		 * BRL	Brazil
-		 * BSD	Bahamas
-		 * BTN	Bhutan
-		 * BWP	Botswana
-		 * BYR	Belarus
-		 * BZD	Belize
-		 * CAD	Canada
-		 * CDF	Congo/Kinshasa
-		 * CHF	Switzerland
-		 * CLP	Chile
-		 * CNY	China
-		 * COP	Colombia
-		 * CRC	Costa Rica
-		 * CUP	Cuba
-		 * CVE	Cape Verde
-		 * CYP	Cyprus
-		 * CZK	Czech Republic
-		 * DEM	Germany
-		 * DJF	Djibouti
-		 * DKK	Denmark
-		 * DOP	Dominican Republic
-		 * DZD	Algeria
-		 * EEK	Estonia
-		 * EGP	Egypt
-		 * ERN	Eritrea
-		 * ESP	Spain
-		 * ETB	Ethiopia
-		 * EUR	Euro Member Countries
-		 * FIM	Finland
-		 * FJD	Fiji
-		 * FKP	Falkland Islands (Malvinas)
-		 * FRF	France
-		 * GBP	United Kingdom
-		 * GEL	Georgia
-		 * GGP	Guernsey
-		 * GHC	Ghana
-		 * GIP	Gibraltar
-		 * GMD	Gambia
-		 * GNF	Guinea
-		 * GRD	Greece
-		 * GTQ	Guatemala
-		 * GYD	Guyana
-		 * HKD	Hong Kong
-		 * HNL	Honduras
-		 * HRK	Croatia
-		 * HTG	Haiti
-		 * HUF	Hungary
-		 * IDR	Indonesia
-		 * IEP	Ireland (Eire)
-		 * ILS	Israel
-		 * IMP	Isle of Man
-		 * INR	India
-		 * IQD	Iraq
-		 * IRR	Iran
-		 * ISK	Iceland
-		 * ITL	Italy
-		 * JEP	Jersey
-		 * JMD	Jamaica
-		 * JOD	Jordan
-		 * JPY	Japan
-		 * KES	Kenya
-		 * KGS	Kyrgyzstan
-		 * KHR	Cambodia
-		 * KMF	Comoros
-		 * KPW	Korea
-		 * KWD	Kuwait
-		 * KYD	Cayman Islands
-		 * KZT	Kazakstan
-		 * LAK	Laos
-		 * LBP	Lebanon
-		 * LKR	Sri Lanka
-		 * LRD	Liberia
-		 * LSL	Lesotho
-		 * LTL	Lithuania
-		 * LUF	Luxembourg
-		 * LVL	Latvia
-		 * LYD	Libya
-		 * MAD	Morocco
-		 * MDL	Moldova
-		 * MGF	Madagascar
-		 * MKD	Macedonia
-		 * MMK	Myanmar (Burma)
-		 * MNT	Mongolia
-		 * MOP	Macau
-		 * MRO	Mauritania
-		 * MTL	Malta
-		 * MUR	Mauritius
-		 * MVR	Maldives (Maldive Islands)
-		 * MWK	Malawi
-		 * MXN	Mexico
-		 * MYR	Malaysia
-		 * MZM	Mozambique
-		 * NAD	Namibia
-		 * NGN	Nigeria
-		 * NIO	Nicaragua
-		 * NLG	Netherlands (Holland)
-		 * NOK	Norway
-		 * NPR	Nepal
-		 * NZD	New Zealand
-		 * OMR	Oman
-		 * PAB	Panama
-		 * PEN	Peru
-		 * PGK	Papua New Guinea
-		 * PHP	Philippines
-		 * PKR	Pakistan
-		 * PLN	Poland
-		 * PTE	Portugal
-		 * PYG	Paraguay
-		 * QAR	Qatar
-		 * ROL	Romania
-		 * RUR	Russia
-		 * RWF	Rwanda
-		 * SAR	Saudi Arabia
-		 * SBD	Solomon Islands
-		 * SCR	Seychelles
-		 * SDD	Sudan
-		 * SEK	Sweden
-		 * SGD	Singapore
-		 * SHP	Saint Helena
-		 * SIT	Slovenia
-		 * SKK	Slovakia
-		 * SLL	Sierra Leone
-		 * SOS	Somalia
-		 * SPL	Seborga
-		 * SRG	Suriname
-		 * STD	São Tome and Principe
-		 * SVC	El Salvador
-		 * SYP	Syria
-		 * SZL	Swaziland
-		 * THB	Thailand
-		 * TJR	Tajikistan
-		 * TMM	Turkmenistan
-		 * TND	Tunisia
-		 * TOP	Tonga
-		 * TRL	Turkey
-		 * TTD	Trinidad and Tobago
-		 * TVD	Tuvalu
-		 * TWD	Taiwan
-		 * TZS	Tanzania
-		 * UAH	Ukraine
-		 * UGX	Uganda
-		 * USD	United States of America
-		 * UYU	Uruguay
-		 * UZS	Uzbekistan
-		 * VAL	Vatican City
-		 * VEB	Venezuela
-		 * VND	Viet Nam
-		 * VUV	Vanuatu
-		 * WST	Samoa
-		 * XAF	Communauté Financière Africaine
-		 * XAG	Silver
-		 * XAU	Gold
-		 * XCD	East Caribbean
-		 * XDR	International Monetary Fund
-		 * XPD	Palladium
-		 * XPF	Comptoirs Français du Pacifique
-		 * XPT	Platinum
-		 * YER	Yemen
-		 * YUM	Yugoslavia
-		 * ZAR	South Africa
-		 * ZMK	Zambia
-		 * ZWD	Zimbabwe
+		 * AED  United Arab Emirates
+		 * AFA  Afghanistan
+		 * ALL  Albania
+		 * AMD  Armenia
+		 * ANG  Netherlands Antilles
+		 * AOA  Angola
+		 * ARS  Argentina
+		 * ATS  Austria
+		 * AUD  Australia
+		 * AWG  Aruba
+		 * AZM  Azerbaijan
+		 * BAM  Bosnia and Herzegovina
+		 * BBD  Barbados
+		 * BDT  Bangladesh
+		 * BEF  Belgium
+		 * BGL  Bulgaria
+		 * BHD  Bahrain
+		 * BIF  Burundi
+		 * BMD  Bermuda
+		 * BND  Brunei Darussalam
+		 * BOB  Bolivia
+		 * BRL  Brazil
+		 * BSD  Bahamas
+		 * BTN  Bhutan
+		 * BWP  Botswana
+		 * BYR  Belarus
+		 * BZD  Belize
+		 * CAD  Canada
+		 * CDF  Congo/Kinshasa
+		 * CHF  Switzerland
+		 * CLP  Chile
+		 * CNY  China
+		 * COP  Colombia
+		 * CRC  Costa Rica
+		 * CUP  Cuba
+		 * CVE  Cape Verde
+		 * CYP  Cyprus
+		 * CZK  Czech Republic
+		 * DEM  Germany
+		 * DJF  Djibouti
+		 * DKK  Denmark
+		 * DOP  Dominican Republic
+		 * DZD  Algeria
+		 * EEK  Estonia
+		 * EGP  Egypt
+		 * ERN  Eritrea
+		 * ESP  Spain
+		 * ETB  Ethiopia
+		 * EUR  Euro Member Countries
+		 * FIM  Finland
+		 * FJD  Fiji
+		 * FKP  Falkland Islands (Malvinas)
+		 * FRF  France
+		 * GBP  United Kingdom
+		 * GEL  Georgia
+		 * GGP  Guernsey
+		 * GHC  Ghana
+		 * GIP  Gibraltar
+		 * GMD  Gambia
+		 * GNF  Guinea
+		 * GRD  Greece
+		 * GTQ  Guatemala
+		 * GYD  Guyana
+		 * HKD  Hong Kong
+		 * HNL  Honduras
+		 * HRK  Croatia
+		 * HTG  Haiti
+		 * HUF  Hungary
+		 * IDR  Indonesia
+		 * IEP  Ireland (Eire)
+		 * ILS  Israel
+		 * IMP  Isle of Man
+		 * INR  India
+		 * IQD  Iraq
+		 * IRR  Iran
+		 * ISK  Iceland
+		 * ITL  Italy
+		 * JEP  Jersey
+		 * JMD  Jamaica
+		 * JOD  Jordan
+		 * JPY  Japan
+		 * KES  Kenya
+		 * KGS  Kyrgyzstan
+		 * KHR  Cambodia
+		 * KMF  Comoros
+		 * KPW  Korea
+		 * KWD  Kuwait
+		 * KYD  Cayman Islands
+		 * KZT  Kazakstan
+		 * LAK  Laos
+		 * LBP  Lebanon
+		 * LKR  Sri Lanka
+		 * LRD  Liberia
+		 * LSL  Lesotho
+		 * LTL  Lithuania
+		 * LUF  Luxembourg
+		 * LVL  Latvia
+		 * LYD  Libya
+		 * MAD  Morocco
+		 * MDL  Moldova
+		 * MGF  Madagascar
+		 * MKD  Macedonia
+		 * MMK  Myanmar (Burma)
+		 * MNT  Mongolia
+		 * MOP  Macau
+		 * MRO  Mauritania
+		 * MTL  Malta
+		 * MUR  Mauritius
+		 * MVR  Maldives (Maldive Islands)
+		 * MWK  Malawi
+		 * MXN  Mexico
+		 * MYR  Malaysia
+		 * MZM  Mozambique
+		 * NAD  Namibia
+		 * NGN  Nigeria
+		 * NIO  Nicaragua
+		 * NLG  Netherlands (Holland)
+		 * NOK  Norway
+		 * NPR  Nepal
+		 * NZD  New Zealand
+		 * OMR  Oman
+		 * PAB  Panama
+		 * PEN  Peru
+		 * PGK  Papua New Guinea
+		 * PHP  Philippines
+		 * PKR  Pakistan
+		 * PLN  Poland
+		 * PTE  Portugal
+		 * PYG  Paraguay
+		 * QAR  Qatar
+		 * ROL  Romania
+		 * RUR  Russia
+		 * RWF  Rwanda
+		 * SAR  Saudi Arabia
+		 * SBD  Solomon Islands
+		 * SCR  Seychelles
+		 * SDD  Sudan
+		 * SEK  Sweden
+		 * SGD  Singapore
+		 * SHP  Saint Helena
+		 * SIT  Slovenia
+		 * SKK  Slovakia
+		 * SLL  Sierra Leone
+		 * SOS  Somalia
+		 * SPL  Seborga
+		 * SRG  Suriname
+		 * STD  São Tome and Principe
+		 * SVC  El Salvador
+		 * SYP  Syria
+		 * SZL  Swaziland
+		 * THB  Thailand
+		 * TJR  Tajikistan
+		 * TMM  Turkmenistan
+		 * TND  Tunisia
+		 * TOP  Tonga
+		 * TRL  Turkey
+		 * TTD  Trinidad and Tobago
+		 * TVD  Tuvalu
+		 * TWD  Taiwan
+		 * TZS  Tanzania
+		 * UAH  Ukraine
+		 * UGX  Uganda
+		 * USD  United States of America
+		 * UYU  Uruguay
+		 * UZS  Uzbekistan
+		 * VAL  Vatican City
+		 * VEB  Venezuela
+		 * VND  Viet Nam
+		 * VUV  Vanuatu
+		 * WST  Samoa
+		 * XAF  Communauté Financière Africaine
+		 * XAG  Silver
+		 * XAU  Gold
+		 * XCD  East Caribbean
+		 * XDR  International Monetary Fund
+		 * XPD  Palladium
+		 * XPF  Comptoirs Français du Pacifique
+		 * XPT  Platinum
+		 * YER  Yemen
+		 * YUM  Yugoslavia
+		 * ZAR  South Africa
+		 * ZMK  Zambia
+		 * ZWD  Zimbabwe
 		 *
 		 */
 
@@ -2693,435 +2693,435 @@ class getid3_id3v2 extends getid3_handler {
 
 		/** This is not a comment!
 		 *
-		 * XXX	unknown
-		 * xxx	unknown
-		 * aar	Afar
-		 * abk	Abkhazian
-		 * ace	Achinese
-		 * ach	Acoli
-		 * ada	Adangme
-		 * afa	Afro-Asiatic (Other)
-		 * afh	Afrihili
-		 * afr	Afrikaans
-		 * aka	Akan
-		 * akk	Akkadian
-		 * alb	Albanian
-		 * ale	Aleut
-		 * alg	Algonquian Languages
-		 * amh	Amharic
-		 * ang	English, Old (ca. 450-1100)
-		 * apa	Apache Languages
-		 * ara	Arabic
-		 * arc	Aramaic
-		 * arm	Armenian
-		 * arn	Araucanian
-		 * arp	Arapaho
-		 * art	Artificial (Other)
-		 * arw	Arawak
-		 * asm	Assamese
-		 * ath	Athapascan Languages
-		 * ava	Avaric
-		 * ave	Avestan
-		 * awa	Awadhi
-		 * aym	Aymara
-		 * aze	Azerbaijani
-		 * bad	Banda
-		 * bai	Bamileke Languages
-		 * bak	Bashkir
-		 * bal	Baluchi
-		 * bam	Bambara
-		 * ban	Balinese
-		 * baq	Basque
-		 * bas	Basa
-		 * bat	Baltic (Other)
-		 * bej	Beja
-		 * bel	Byelorussian
-		 * bem	Bemba
-		 * ben	Bengali
-		 * ber	Berber (Other)
-		 * bho	Bhojpuri
-		 * bih	Bihari
-		 * bik	Bikol
-		 * bin	Bini
-		 * bis	Bislama
-		 * bla	Siksika
-		 * bnt	Bantu (Other)
-		 * bod	Tibetan
-		 * bra	Braj
-		 * bre	Breton
-		 * bua	Buriat
-		 * bug	Buginese
-		 * bul	Bulgarian
-		 * bur	Burmese
-		 * cad	Caddo
-		 * cai	Central American Indian (Other)
-		 * car	Carib
-		 * cat	Catalan
-		 * cau	Caucasian (Other)
-		 * ceb	Cebuano
-		 * cel	Celtic (Other)
-		 * ces	Czech
-		 * cha	Chamorro
-		 * chb	Chibcha
-		 * che	Chechen
-		 * chg	Chagatai
-		 * chi	Chinese
-		 * chm	Mari
-		 * chn	Chinook jargon
-		 * cho	Choctaw
-		 * chr	Cherokee
-		 * chu	Church Slavic
-		 * chv	Chuvash
-		 * chy	Cheyenne
-		 * cop	Coptic
-		 * cor	Cornish
-		 * cos	Corsican
-		 * cpe	Creoles and Pidgins, English-based (Other)
-		 * cpf	Creoles and Pidgins, French-based (Other)
-		 * cpp	Creoles and Pidgins, Portuguese-based (Other)
-		 * cre	Cree
-		 * crp	Creoles and Pidgins (Other)
-		 * cus	Cushitic (Other)
-		 * cym	Welsh
-		 * cze	Czech
-		 * dak	Dakota
-		 * dan	Danish
-		 * del	Delaware
-		 * deu	German
-		 * din	Dinka
-		 * div	Divehi
-		 * doi	Dogri
-		 * dra	Dravidian (Other)
-		 * dua	Duala
-		 * dum	Dutch, Middle (ca. 1050-1350)
-		 * dut	Dutch
-		 * dyu	Dyula
-		 * dzo	Dzongkha
-		 * efi	Efik
-		 * egy	Egyptian (Ancient)
-		 * eka	Ekajuk
-		 * ell	Greek, Modern (1453-)
-		 * elx	Elamite
-		 * eng	English
-		 * enm	English, Middle (ca. 1100-1500)
-		 * epo	Esperanto
-		 * esk	Eskimo (Other)
-		 * esl	Spanish
-		 * est	Estonian
-		 * eus	Basque
-		 * ewe	Ewe
-		 * ewo	Ewondo
-		 * fan	Fang
-		 * fao	Faroese
-		 * fas	Persian
-		 * fat	Fanti
-		 * fij	Fijian
-		 * fin	Finnish
-		 * fiu	Finno-Ugrian (Other)
-		 * fon	Fon
-		 * fra	French
-		 * fre	French
-		 * frm	French, Middle (ca. 1400-1600)
-		 * fro	French, Old (842- ca. 1400)
-		 * fry	Frisian
-		 * ful	Fulah
-		 * gaa	Ga
-		 * gae	Gaelic (Scots)
-		 * gai	Irish
-		 * gay	Gayo
-		 * gdh	Gaelic (Scots)
-		 * gem	Germanic (Other)
-		 * geo	Georgian
-		 * ger	German
-		 * gez	Geez
-		 * gil	Gilbertese
-		 * glg	Gallegan
-		 * gmh	German, Middle High (ca. 1050-1500)
-		 * goh	German, Old High (ca. 750-1050)
-		 * gon	Gondi
-		 * got	Gothic
-		 * grb	Grebo
-		 * grc	Greek, Ancient (to 1453)
-		 * gre	Greek, Modern (1453-)
-		 * grn	Guarani
-		 * guj	Gujarati
-		 * hai	Haida
-		 * hau	Hausa
-		 * haw	Hawaiian
-		 * heb	Hebrew
-		 * her	Herero
-		 * hil	Hiligaynon
-		 * him	Himachali
-		 * hin	Hindi
-		 * hmo	Hiri Motu
-		 * hun	Hungarian
-		 * hup	Hupa
-		 * hye	Armenian
-		 * iba	Iban
-		 * ibo	Igbo
-		 * ice	Icelandic
-		 * ijo	Ijo
-		 * iku	Inuktitut
-		 * ilo	Iloko
-		 * ina	Interlingua (International Auxiliary language Association)
-		 * inc	Indic (Other)
-		 * ind	Indonesian
-		 * ine	Indo-European (Other)
-		 * ine	Interlingue
-		 * ipk	Inupiak
-		 * ira	Iranian (Other)
-		 * iri	Irish
-		 * iro	Iroquoian uages
-		 * isl	Icelandic
-		 * ita	Italian
-		 * jav	Javanese
-		 * jaw	Javanese
-		 * jpn	Japanese
-		 * jpr	Judeo-Persian
-		 * jrb	Judeo-Arabic
-		 * kaa	Kara-Kalpak
-		 * kab	Kabyle
-		 * kac	Kachin
-		 * kal	Greenlandic
-		 * kam	Kamba
-		 * kan	Kannada
-		 * kar	Karen
-		 * kas	Kashmiri
-		 * kat	Georgian
-		 * kau	Kanuri
-		 * kaw	Kawi
-		 * kaz	Kazakh
-		 * kha	Khasi
-		 * khi	Khoisan (Other)
-		 * khm	Khmer
-		 * kho	Khotanese
-		 * kik	Kikuyu
-		 * kin	Kinyarwanda
-		 * kir	Kirghiz
-		 * kok	Konkani
-		 * kom	Komi
-		 * kon	Kongo
-		 * kor	Korean
-		 * kpe	Kpelle
-		 * kro	Kru
-		 * kru	Kurukh
-		 * kua	Kuanyama
-		 * kum	Kumyk
-		 * kur	Kurdish
-		 * kus	Kusaie
-		 * kut	Kutenai
-		 * lad	Ladino
-		 * lah	Lahnda
-		 * lam	Lamba
-		 * lao	Lao
-		 * lat	Latin
-		 * lav	Latvian
-		 * lez	Lezghian
-		 * lin	Lingala
-		 * lit	Lithuanian
-		 * lol	Mongo
-		 * loz	Lozi
-		 * ltz	Letzeburgesch
-		 * lub	Luba-Katanga
-		 * lug	Ganda
-		 * lui	Luiseno
-		 * lun	Lunda
-		 * luo	Luo (Kenya and Tanzania)
-		 * mac	Macedonian
-		 * mad	Madurese
-		 * mag	Magahi
-		 * mah	Marshall
-		 * mai	Maithili
-		 * mak	Macedonian
-		 * mak	Makasar
-		 * mal	Malayalam
-		 * man	Mandingo
-		 * mao	Maori
-		 * map	Austronesian (Other)
-		 * mar	Marathi
-		 * mas	Masai
-		 * max	Manx
-		 * may	Malay
-		 * men	Mende
-		 * mga	Irish, Middle (900 - 1200)
-		 * mic	Micmac
-		 * min	Minangkabau
-		 * mis	Miscellaneous (Other)
-		 * mkh	Mon-Kmer (Other)
-		 * mlg	Malagasy
-		 * mlt	Maltese
-		 * mni	Manipuri
-		 * mno	Manobo Languages
-		 * moh	Mohawk
-		 * mol	Moldavian
-		 * mon	Mongolian
-		 * mos	Mossi
-		 * mri	Maori
-		 * msa	Malay
-		 * mul	Multiple Languages
-		 * mun	Munda Languages
-		 * mus	Creek
-		 * mwr	Marwari
-		 * mya	Burmese
-		 * myn	Mayan Languages
-		 * nah	Aztec
-		 * nai	North American Indian (Other)
-		 * nau	Nauru
-		 * nav	Navajo
-		 * nbl	Ndebele, South
-		 * nde	Ndebele, North
-		 * ndo	Ndongo
-		 * nep	Nepali
-		 * new	Newari
-		 * nic	Niger-Kordofanian (Other)
-		 * niu	Niuean
-		 * nla	Dutch
-		 * nno	Norwegian (Nynorsk)
-		 * non	Norse, Old
-		 * nor	Norwegian
-		 * nso	Sotho, Northern
-		 * nub	Nubian Languages
-		 * nya	Nyanja
-		 * nym	Nyamwezi
-		 * nyn	Nyankole
-		 * nyo	Nyoro
-		 * nzi	Nzima
-		 * oci	Langue d'Oc (post 1500)
-		 * oji	Ojibwa
-		 * ori	Oriya
-		 * orm	Oromo
-		 * osa	Osage
-		 * oss	Ossetic
-		 * ota	Turkish, Ottoman (1500 - 1928)
-		 * oto	Otomian Languages
-		 * paa	Papuan-Australian (Other)
-		 * pag	Pangasinan
-		 * pal	Pahlavi
-		 * pam	Pampanga
-		 * pan	Panjabi
-		 * pap	Papiamento
-		 * pau	Palauan
-		 * peo	Persian, Old (ca 600 - 400 B.C.)
-		 * per	Persian
-		 * phn	Phoenician
-		 * pli	Pali
-		 * pol	Polish
-		 * pon	Ponape
-		 * por	Portuguese
-		 * pra	Prakrit uages
-		 * pro	Provencal, Old (to 1500)
-		 * pus	Pushto
-		 * que	Quechua
-		 * raj	Rajasthani
-		 * rar	Rarotongan
-		 * roa	Romance (Other)
-		 * roh	Rhaeto-Romance
-		 * rom	Romany
-		 * ron	Romanian
-		 * rum	Romanian
-		 * run	Rundi
-		 * rus	Russian
-		 * sad	Sandawe
-		 * sag	Sango
-		 * sah	Yakut
-		 * sai	South American Indian (Other)
-		 * sal	Salishan Languages
-		 * sam	Samaritan Aramaic
-		 * san	Sanskrit
-		 * sco	Scots
-		 * scr	Serbo-Croatian
-		 * sel	Selkup
-		 * sem	Semitic (Other)
-		 * sga	Irish, Old (to 900)
-		 * shn	Shan
-		 * sid	Sidamo
-		 * sin	Singhalese
-		 * sio	Siouan Languages
-		 * sit	Sino-Tibetan (Other)
-		 * sla	Slavic (Other)
-		 * slk	Slovak
-		 * slo	Slovak
-		 * slv	Slovenian
-		 * smi	Sami Languages
-		 * smo	Samoan
-		 * sna	Shona
-		 * snd	Sindhi
-		 * sog	Sogdian
-		 * som	Somali
-		 * son	Songhai
-		 * sot	Sotho, Southern
-		 * spa	Spanish
-		 * sqi	Albanian
-		 * srd	Sardinian
-		 * srr	Serer
-		 * ssa	Nilo-Saharan (Other)
-		 * ssw	Siswant
-		 * ssw	Swazi
-		 * suk	Sukuma
-		 * sun	Sudanese
-		 * sus	Susu
-		 * sux	Sumerian
-		 * sve	Swedish
-		 * swa	Swahili
-		 * swe	Swedish
-		 * syr	Syriac
-		 * tah	Tahitian
-		 * tam	Tamil
-		 * tat	Tatar
-		 * tel	Telugu
-		 * tem	Timne
-		 * ter	Tereno
-		 * tgk	Tajik
-		 * tgl	Tagalog
-		 * tha	Thai
-		 * tib	Tibetan
-		 * tig	Tigre
-		 * tir	Tigrinya
-		 * tiv	Tivi
-		 * tli	Tlingit
-		 * tmh	Tamashek
-		 * tog	Tonga (Nyasa)
-		 * ton	Tonga (Tonga Islands)
-		 * tru	Truk
-		 * tsi	Tsimshian
-		 * tsn	Tswana
-		 * tso	Tsonga
-		 * tuk	Turkmen
-		 * tum	Tumbuka
-		 * tur	Turkish
-		 * tut	Altaic (Other)
-		 * twi	Twi
-		 * tyv	Tuvinian
-		 * uga	Ugaritic
-		 * uig	Uighur
-		 * ukr	Ukrainian
-		 * umb	Umbundu
-		 * und	Undetermined
-		 * urd	Urdu
-		 * uzb	Uzbek
-		 * vai	Vai
-		 * ven	Venda
-		 * vie	Vietnamese
-		 * vol	Volapük
-		 * vot	Votic
-		 * wak	Wakashan Languages
-		 * wal	Walamo
-		 * war	Waray
-		 * was	Washo
-		 * wel	Welsh
-		 * wen	Sorbian Languages
-		 * wol	Wolof
-		 * xho	Xhosa
-		 * yao	Yao
-		 * yap	Yap
-		 * yid	Yiddish
-		 * yor	Yoruba
-		 * zap	Zapotec
-		 * zen	Zenaga
-		 * zha	Zhuang
-		 * zho	Chinese
-		 * zul	Zulu
-		 * zun	Zuni
+		 * XXX  unknown
+		 * xxx  unknown
+		 * aar  Afar
+		 * abk  Abkhazian
+		 * ace  Achinese
+		 * ach  Acoli
+		 * ada  Adangme
+		 * afa  Afro-Asiatic (Other)
+		 * afh  Afrihili
+		 * afr  Afrikaans
+		 * aka  Akan
+		 * akk  Akkadian
+		 * alb  Albanian
+		 * ale  Aleut
+		 * alg  Algonquian Languages
+		 * amh  Amharic
+		 * ang  English, Old (ca. 450-1100)
+		 * apa  Apache Languages
+		 * ara  Arabic
+		 * arc  Aramaic
+		 * arm  Armenian
+		 * arn  Araucanian
+		 * arp  Arapaho
+		 * art  Artificial (Other)
+		 * arw  Arawak
+		 * asm  Assamese
+		 * ath  Athapascan Languages
+		 * ava  Avaric
+		 * ave  Avestan
+		 * awa  Awadhi
+		 * aym  Aymara
+		 * aze  Azerbaijani
+		 * bad  Banda
+		 * bai  Bamileke Languages
+		 * bak  Bashkir
+		 * bal  Baluchi
+		 * bam  Bambara
+		 * ban  Balinese
+		 * baq  Basque
+		 * bas  Basa
+		 * bat  Baltic (Other)
+		 * bej  Beja
+		 * bel  Byelorussian
+		 * bem  Bemba
+		 * ben  Bengali
+		 * ber  Berber (Other)
+		 * bho  Bhojpuri
+		 * bih  Bihari
+		 * bik  Bikol
+		 * bin  Bini
+		 * bis  Bislama
+		 * bla  Siksika
+		 * bnt  Bantu (Other)
+		 * bod  Tibetan
+		 * bra  Braj
+		 * bre  Breton
+		 * bua  Buriat
+		 * bug  Buginese
+		 * bul  Bulgarian
+		 * bur  Burmese
+		 * cad  Caddo
+		 * cai  Central American Indian (Other)
+		 * car  Carib
+		 * cat  Catalan
+		 * cau  Caucasian (Other)
+		 * ceb  Cebuano
+		 * cel  Celtic (Other)
+		 * ces  Czech
+		 * cha  Chamorro
+		 * chb  Chibcha
+		 * che  Chechen
+		 * chg  Chagatai
+		 * chi  Chinese
+		 * chm  Mari
+		 * chn  Chinook jargon
+		 * cho  Choctaw
+		 * chr  Cherokee
+		 * chu  Church Slavic
+		 * chv  Chuvash
+		 * chy  Cheyenne
+		 * cop  Coptic
+		 * cor  Cornish
+		 * cos  Corsican
+		 * cpe  Creoles and Pidgins, English-based (Other)
+		 * cpf  Creoles and Pidgins, French-based (Other)
+		 * cpp  Creoles and Pidgins, Portuguese-based (Other)
+		 * cre  Cree
+		 * crp  Creoles and Pidgins (Other)
+		 * cus  Cushitic (Other)
+		 * cym  Welsh
+		 * cze  Czech
+		 * dak  Dakota
+		 * dan  Danish
+		 * del  Delaware
+		 * deu  German
+		 * din  Dinka
+		 * div  Divehi
+		 * doi  Dogri
+		 * dra  Dravidian (Other)
+		 * dua  Duala
+		 * dum  Dutch, Middle (ca. 1050-1350)
+		 * dut  Dutch
+		 * dyu  Dyula
+		 * dzo  Dzongkha
+		 * efi  Efik
+		 * egy  Egyptian (Ancient)
+		 * eka  Ekajuk
+		 * ell  Greek, Modern (1453-)
+		 * elx  Elamite
+		 * eng  English
+		 * enm  English, Middle (ca. 1100-1500)
+		 * epo  Esperanto
+		 * esk  Eskimo (Other)
+		 * esl  Spanish
+		 * est  Estonian
+		 * eus  Basque
+		 * ewe  Ewe
+		 * ewo  Ewondo
+		 * fan  Fang
+		 * fao  Faroese
+		 * fas  Persian
+		 * fat  Fanti
+		 * fij  Fijian
+		 * fin  Finnish
+		 * fiu  Finno-Ugrian (Other)
+		 * fon  Fon
+		 * fra  French
+		 * fre  French
+		 * frm  French, Middle (ca. 1400-1600)
+		 * fro  French, Old (842- ca. 1400)
+		 * fry  Frisian
+		 * ful  Fulah
+		 * gaa  Ga
+		 * gae  Gaelic (Scots)
+		 * gai  Irish
+		 * gay  Gayo
+		 * gdh  Gaelic (Scots)
+		 * gem  Germanic (Other)
+		 * geo  Georgian
+		 * ger  German
+		 * gez  Geez
+		 * gil  Gilbertese
+		 * glg  Gallegan
+		 * gmh  German, Middle High (ca. 1050-1500)
+		 * goh  German, Old High (ca. 750-1050)
+		 * gon  Gondi
+		 * got  Gothic
+		 * grb  Grebo
+		 * grc  Greek, Ancient (to 1453)
+		 * gre  Greek, Modern (1453-)
+		 * grn  Guarani
+		 * guj  Gujarati
+		 * hai  Haida
+		 * hau  Hausa
+		 * haw  Hawaiian
+		 * heb  Hebrew
+		 * her  Herero
+		 * hil  Hiligaynon
+		 * him  Himachali
+		 * hin  Hindi
+		 * hmo  Hiri Motu
+		 * hun  Hungarian
+		 * hup  Hupa
+		 * hye  Armenian
+		 * iba  Iban
+		 * ibo  Igbo
+		 * ice  Icelandic
+		 * ijo  Ijo
+		 * iku  Inuktitut
+		 * ilo  Iloko
+		 * ina  Interlingua (International Auxiliary language Association)
+		 * inc  Indic (Other)
+		 * ind  Indonesian
+		 * ine  Indo-European (Other)
+		 * ine  Interlingue
+		 * ipk  Inupiak
+		 * ira  Iranian (Other)
+		 * iri  Irish
+		 * iro  Iroquoian uages
+		 * isl  Icelandic
+		 * ita  Italian
+		 * jav  Javanese
+		 * jaw  Javanese
+		 * jpn  Japanese
+		 * jpr  Judeo-Persian
+		 * jrb  Judeo-Arabic
+		 * kaa  Kara-Kalpak
+		 * kab  Kabyle
+		 * kac  Kachin
+		 * kal  Greenlandic
+		 * kam  Kamba
+		 * kan  Kannada
+		 * kar  Karen
+		 * kas  Kashmiri
+		 * kat  Georgian
+		 * kau  Kanuri
+		 * kaw  Kawi
+		 * kaz  Kazakh
+		 * kha  Khasi
+		 * khi  Khoisan (Other)
+		 * khm  Khmer
+		 * kho  Khotanese
+		 * kik  Kikuyu
+		 * kin  Kinyarwanda
+		 * kir  Kirghiz
+		 * kok  Konkani
+		 * kom  Komi
+		 * kon  Kongo
+		 * kor  Korean
+		 * kpe  Kpelle
+		 * kro  Kru
+		 * kru  Kurukh
+		 * kua  Kuanyama
+		 * kum  Kumyk
+		 * kur  Kurdish
+		 * kus  Kusaie
+		 * kut  Kutenai
+		 * lad  Ladino
+		 * lah  Lahnda
+		 * lam  Lamba
+		 * lao  Lao
+		 * lat  Latin
+		 * lav  Latvian
+		 * lez  Lezghian
+		 * lin  Lingala
+		 * lit  Lithuanian
+		 * lol  Mongo
+		 * loz  Lozi
+		 * ltz  Letzeburgesch
+		 * lub  Luba-Katanga
+		 * lug  Ganda
+		 * lui  Luiseno
+		 * lun  Lunda
+		 * luo  Luo (Kenya and Tanzania)
+		 * mac  Macedonian
+		 * mad  Madurese
+		 * mag  Magahi
+		 * mah  Marshall
+		 * mai  Maithili
+		 * mak  Macedonian
+		 * mak  Makasar
+		 * mal  Malayalam
+		 * man  Mandingo
+		 * mao  Maori
+		 * map  Austronesian (Other)
+		 * mar  Marathi
+		 * mas  Masai
+		 * max  Manx
+		 * may  Malay
+		 * men  Mende
+		 * mga  Irish, Middle (900 - 1200)
+		 * mic  Micmac
+		 * min  Minangkabau
+		 * mis  Miscellaneous (Other)
+		 * mkh  Mon-Kmer (Other)
+		 * mlg  Malagasy
+		 * mlt  Maltese
+		 * mni  Manipuri
+		 * mno  Manobo Languages
+		 * moh  Mohawk
+		 * mol  Moldavian
+		 * mon  Mongolian
+		 * mos  Mossi
+		 * mri  Maori
+		 * msa  Malay
+		 * mul  Multiple Languages
+		 * mun  Munda Languages
+		 * mus  Creek
+		 * mwr  Marwari
+		 * mya  Burmese
+		 * myn  Mayan Languages
+		 * nah  Aztec
+		 * nai  North American Indian (Other)
+		 * nau  Nauru
+		 * nav  Navajo
+		 * nbl  Ndebele, South
+		 * nde  Ndebele, North
+		 * ndo  Ndongo
+		 * nep  Nepali
+		 * new  Newari
+		 * nic  Niger-Kordofanian (Other)
+		 * niu  Niuean
+		 * nla  Dutch
+		 * nno  Norwegian (Nynorsk)
+		 * non  Norse, Old
+		 * nor  Norwegian
+		 * nso  Sotho, Northern
+		 * nub  Nubian Languages
+		 * nya  Nyanja
+		 * nym  Nyamwezi
+		 * nyn  Nyankole
+		 * nyo  Nyoro
+		 * nzi  Nzima
+		 * oci  Langue d'Oc (post 1500)
+		 * oji  Ojibwa
+		 * ori  Oriya
+		 * orm  Oromo
+		 * osa  Osage
+		 * oss  Ossetic
+		 * ota  Turkish, Ottoman (1500 - 1928)
+		 * oto  Otomian Languages
+		 * paa  Papuan-Australian (Other)
+		 * pag  Pangasinan
+		 * pal  Pahlavi
+		 * pam  Pampanga
+		 * pan  Panjabi
+		 * pap  Papiamento
+		 * pau  Palauan
+		 * peo  Persian, Old (ca 600 - 400 B.C.)
+		 * per  Persian
+		 * phn  Phoenician
+		 * pli  Pali
+		 * pol  Polish
+		 * pon  Ponape
+		 * por  Portuguese
+		 * pra  Prakrit uages
+		 * pro  Provencal, Old (to 1500)
+		 * pus  Pushto
+		 * que  Quechua
+		 * raj  Rajasthani
+		 * rar  Rarotongan
+		 * roa  Romance (Other)
+		 * roh  Rhaeto-Romance
+		 * rom  Romany
+		 * ron  Romanian
+		 * rum  Romanian
+		 * run  Rundi
+		 * rus  Russian
+		 * sad  Sandawe
+		 * sag  Sango
+		 * sah  Yakut
+		 * sai  South American Indian (Other)
+		 * sal  Salishan Languages
+		 * sam  Samaritan Aramaic
+		 * san  Sanskrit
+		 * sco  Scots
+		 * scr  Serbo-Croatian
+		 * sel  Selkup
+		 * sem  Semitic (Other)
+		 * sga  Irish, Old (to 900)
+		 * shn  Shan
+		 * sid  Sidamo
+		 * sin  Singhalese
+		 * sio  Siouan Languages
+		 * sit  Sino-Tibetan (Other)
+		 * sla  Slavic (Other)
+		 * slk  Slovak
+		 * slo  Slovak
+		 * slv  Slovenian
+		 * smi  Sami Languages
+		 * smo  Samoan
+		 * sna  Shona
+		 * snd  Sindhi
+		 * sog  Sogdian
+		 * som  Somali
+		 * son  Songhai
+		 * sot  Sotho, Southern
+		 * spa  Spanish
+		 * sqi  Albanian
+		 * srd  Sardinian
+		 * srr  Serer
+		 * ssa  Nilo-Saharan (Other)
+		 * ssw  Siswant
+		 * ssw  Swazi
+		 * suk  Sukuma
+		 * sun  Sudanese
+		 * sus  Susu
+		 * sux  Sumerian
+		 * sve  Swedish
+		 * swa  Swahili
+		 * swe  Swedish
+		 * syr  Syriac
+		 * tah  Tahitian
+		 * tam  Tamil
+		 * tat  Tatar
+		 * tel  Telugu
+		 * tem  Timne
+		 * ter  Tereno
+		 * tgk  Tajik
+		 * tgl  Tagalog
+		 * tha  Thai
+		 * tib  Tibetan
+		 * tig  Tigre
+		 * tir  Tigrinya
+		 * tiv  Tivi
+		 * tli  Tlingit
+		 * tmh  Tamashek
+		 * tog  Tonga (Nyasa)
+		 * ton  Tonga (Tonga Islands)
+		 * tru  Truk
+		 * tsi  Tsimshian
+		 * tsn  Tswana
+		 * tso  Tsonga
+		 * tuk  Turkmen
+		 * tum  Tumbuka
+		 * tur  Turkish
+		 * tut  Altaic (Other)
+		 * twi  Twi
+		 * tyv  Tuvinian
+		 * uga  Ugaritic
+		 * uig  Uighur
+		 * ukr  Ukrainian
+		 * umb  Umbundu
+		 * und  Undetermined
+		 * urd  Urdu
+		 * uzb  Uzbek
+		 * vai  Vai
+		 * ven  Venda
+		 * vie  Vietnamese
+		 * vol  Volapük
+		 * vot  Votic
+		 * wak  Wakashan Languages
+		 * wal  Walamo
+		 * war  Waray
+		 * was  Washo
+		 * wel  Welsh
+		 * wen  Sorbian Languages
+		 * wol  Wolof
+		 * xho  Xhosa
+		 * yao  Yao
+		 * yap  Yap
+		 * yid  Yiddish
+		 * yor  Yoruba
+		 * zap  Zapotec
+		 * zen  Zenaga
+		 * zha  Zhuang
+		 * zho  Chinese
+		 * zul  Zulu
+		 * zun  Zuni
 		 *
 		 */
 
@@ -3258,173 +3258,173 @@ class getid3_id3v2 extends getid3_handler {
 
 		/** This is not a comment!
 		 *
-		 * AENC	Audio encryption
-		 * APIC	Attached picture
-		 * ASPI	Audio seek point index
-		 * BUF	Recommended buffer size
-		 * CNT	Play counter
-		 * COM	Comments
-		 * COMM	Comments
-		 * COMR	Commercial frame
-		 * CRA	Audio encryption
-		 * CRM	Encrypted meta frame
-		 * ENCR	Encryption method registration
-		 * EQU	Equalisation
-		 * EQU2	Equalisation (2)
-		 * EQUA	Equalisation
-		 * ETC	Event timing codes
-		 * ETCO	Event timing codes
-		 * GEO	General encapsulated object
-		 * GEOB	General encapsulated object
-		 * GRID	Group identification registration
-		 * IPL	Involved people list
-		 * IPLS	Involved people list
-		 * LINK	Linked information
-		 * LNK	Linked information
-		 * MCDI	Music CD identifier
-		 * MCI	Music CD Identifier
-		 * MLL	MPEG location lookup table
-		 * MLLT	MPEG location lookup table
-		 * OWNE	Ownership frame
-		 * PCNT	Play counter
-		 * PIC	Attached picture
-		 * POP	Popularimeter
-		 * POPM	Popularimeter
-		 * POSS	Position synchronisation frame
-		 * PRIV	Private frame
-		 * RBUF	Recommended buffer size
-		 * REV	Reverb
-		 * RVA	Relative volume adjustment
-		 * RVA2	Relative volume adjustment (2)
-		 * RVAD	Relative volume adjustment
-		 * RVRB	Reverb
-		 * SEEK	Seek frame
-		 * SIGN	Signature frame
-		 * SLT	Synchronised lyric/text
-		 * STC	Synced tempo codes
-		 * SYLT	Synchronised lyric/text
-		 * SYTC	Synchronised tempo codes
-		 * TAL	Album/Movie/Show title
-		 * TALB	Album/Movie/Show title
-		 * TBP	BPM (Beats Per Minute)
-		 * TBPM	BPM (beats per minute)
-		 * TCM	Composer
-		 * TCMP	Part of a compilation
-		 * TCO	Content type
-		 * TCOM	Composer
-		 * TCON	Content type
-		 * TCOP	Copyright message
-		 * TCP	Part of a compilation
-		 * TCR	Copyright message
-		 * TDA	Date
-		 * TDAT	Date
-		 * TDEN	Encoding time
-		 * TDLY	Playlist delay
-		 * TDOR	Original release time
-		 * TDRC	Recording time
-		 * TDRL	Release time
-		 * TDTG	Tagging time
-		 * TDY	Playlist delay
-		 * TEN	Encoded by
-		 * TENC	Encoded by
-		 * TEXT	Lyricist/Text writer
-		 * TFLT	File type
-		 * TFT	File type
-		 * TIM	Time
-		 * TIME	Time
-		 * TIPL	Involved people list
-		 * TIT1	Content group description
-		 * TIT2	Title/songname/content description
-		 * TIT3	Subtitle/Description refinement
-		 * TKE	Initial key
-		 * TKEY	Initial key
-		 * TLA	Language(s)
-		 * TLAN	Language(s)
-		 * TLE	Length
-		 * TLEN	Length
-		 * TMCL	Musician credits list
-		 * TMED	Media type
-		 * TMOO	Mood
-		 * TMT	Media type
-		 * TOA	Original artist(s)/performer(s)
-		 * TOAL	Original album/movie/show title
-		 * TOF	Original filename
-		 * TOFN	Original filename
-		 * TOL	Original Lyricist(s)/text writer(s)
-		 * TOLY	Original lyricist(s)/text writer(s)
-		 * TOPE	Original artist(s)/performer(s)
-		 * TOR	Original release year
-		 * TORY	Original release year
-		 * TOT	Original album/Movie/Show title
-		 * TOWN	File owner/licensee
-		 * TP1	Lead artist(s)/Lead performer(s)/Soloist(s)/Performing group
-		 * TP2	Band/Orchestra/Accompaniment
-		 * TP3	Conductor/Performer refinement
-		 * TP4	Interpreted, remixed, or otherwise modified by
-		 * TPA	Part of a set
-		 * TPB	Publisher
-		 * TPE1	Lead performer(s)/Soloist(s)
-		 * TPE2	Band/orchestra/accompaniment
-		 * TPE3	Conductor/performer refinement
-		 * TPE4	Interpreted, remixed, or otherwise modified by
-		 * TPOS	Part of a set
-		 * TPRO	Produced notice
-		 * TPUB	Publisher
-		 * TRC	ISRC (International Standard Recording Code)
-		 * TRCK	Track number/Position in set
-		 * TRD	Recording dates
-		 * TRDA	Recording dates
-		 * TRK	Track number/Position in set
-		 * TRSN	Internet radio station name
-		 * TRSO	Internet radio station owner
-		 * TS2	Album-Artist sort order
-		 * TSA	Album sort order
-		 * TSC	Composer sort order
-		 * TSI	Size
-		 * TSIZ	Size
-		 * TSO2	Album-Artist sort order
-		 * TSOA	Album sort order
-		 * TSOC	Composer sort order
-		 * TSOP	Performer sort order
-		 * TSOT	Title sort order
-		 * TSP	Performer sort order
-		 * TSRC	ISRC (international standard recording code)
-		 * TSS	Software/hardware and settings used for encoding
-		 * TSSE	Software/Hardware and settings used for encoding
-		 * TSST	Set subtitle
-		 * TST	Title sort order
-		 * TT1	Content group description
-		 * TT2	Title/Songname/Content description
-		 * TT3	Subtitle/Description refinement
-		 * TXT	Lyricist/text writer
-		 * TXX	User defined text information frame
-		 * TXXX	User defined text information frame
-		 * TYE	Year
-		 * TYER	Year
-		 * UFI	Unique file identifier
-		 * UFID	Unique file identifier
-		 * ULT	Unsychronised lyric/text transcription
-		 * USER	Terms of use
-		 * USLT	Unsynchronised lyric/text transcription
-		 * WAF	Official audio file webpage
-		 * WAR	Official artist/performer webpage
-		 * WAS	Official audio source webpage
-		 * WCM	Commercial information
-		 * WCOM	Commercial information
-		 * WCOP	Copyright/Legal information
-		 * WCP	Copyright/Legal information
-		 * WOAF	Official audio file webpage
-		 * WOAR	Official artist/performer webpage
-		 * WOAS	Official audio source webpage
-		 * WORS	Official Internet radio station homepage
-		 * WPAY	Payment
-		 * WPB	Publishers official webpage
-		 * WPUB	Publishers official webpage
-		 * WXX	User defined URL link frame
-		 * WXXX	User defined URL link frame
-		 * TFEA	Featured Artist
-		 * TSTU	Recording Studio
-		 * rgad	Replay Gain Adjustment
+		 * AENC Audio encryption
+		 * APIC Attached picture
+		 * ASPI Audio seek point index
+		 * BUF  Recommended buffer size
+		 * CNT  Play counter
+		 * COM  Comments
+		 * COMM Comments
+		 * COMR Commercial frame
+		 * CRA  Audio encryption
+		 * CRM  Encrypted meta frame
+		 * ENCR Encryption method registration
+		 * EQU  Equalisation
+		 * EQU2 Equalisation (2)
+		 * EQUA Equalisation
+		 * ETC  Event timing codes
+		 * ETCO Event timing codes
+		 * GEO  General encapsulated object
+		 * GEOB General encapsulated object
+		 * GRID Group identification registration
+		 * IPL  Involved people list
+		 * IPLS Involved people list
+		 * LINK Linked information
+		 * LNK  Linked information
+		 * MCDI Music CD identifier
+		 * MCI  Music CD Identifier
+		 * MLL  MPEG location lookup table
+		 * MLLT MPEG location lookup table
+		 * OWNE Ownership frame
+		 * PCNT Play counter
+		 * PIC  Attached picture
+		 * POP  Popularimeter
+		 * POPM Popularimeter
+		 * POSS Position synchronisation frame
+		 * PRIV Private frame
+		 * RBUF Recommended buffer size
+		 * REV  Reverb
+		 * RVA  Relative volume adjustment
+		 * RVA2 Relative volume adjustment (2)
+		 * RVAD Relative volume adjustment
+		 * RVRB Reverb
+		 * SEEK Seek frame
+		 * SIGN Signature frame
+		 * SLT  Synchronised lyric/text
+		 * STC  Synced tempo codes
+		 * SYLT Synchronised lyric/text
+		 * SYTC Synchronised tempo codes
+		 * TAL  Album/Movie/Show title
+		 * TALB Album/Movie/Show title
+		 * TBP  BPM (Beats Per Minute)
+		 * TBPM BPM (beats per minute)
+		 * TCM  Composer
+		 * TCMP Part of a compilation
+		 * TCO  Content type
+		 * TCOM Composer
+		 * TCON Content type
+		 * TCOP Copyright message
+		 * TCP  Part of a compilation
+		 * TCR  Copyright message
+		 * TDA  Date
+		 * TDAT Date
+		 * TDEN Encoding time
+		 * TDLY Playlist delay
+		 * TDOR Original release time
+		 * TDRC Recording time
+		 * TDRL Release time
+		 * TDTG Tagging time
+		 * TDY  Playlist delay
+		 * TEN  Encoded by
+		 * TENC Encoded by
+		 * TEXT Lyricist/Text writer
+		 * TFLT File type
+		 * TFT  File type
+		 * TIM  Time
+		 * TIME Time
+		 * TIPL Involved people list
+		 * TIT1 Content group description
+		 * TIT2 Title/songname/content description
+		 * TIT3 Subtitle/Description refinement
+		 * TKE  Initial key
+		 * TKEY Initial key
+		 * TLA  Language(s)
+		 * TLAN Language(s)
+		 * TLE  Length
+		 * TLEN Length
+		 * TMCL Musician credits list
+		 * TMED Media type
+		 * TMOO Mood
+		 * TMT  Media type
+		 * TOA  Original artist(s)/performer(s)
+		 * TOAL Original album/movie/show title
+		 * TOF  Original filename
+		 * TOFN Original filename
+		 * TOL  Original Lyricist(s)/text writer(s)
+		 * TOLY Original lyricist(s)/text writer(s)
+		 * TOPE Original artist(s)/performer(s)
+		 * TOR  Original release year
+		 * TORY Original release year
+		 * TOT  Original album/Movie/Show title
+		 * TOWN File owner/licensee
+		 * TP1  Lead artist(s)/Lead performer(s)/Soloist(s)/Performing group
+		 * TP2  Band/Orchestra/Accompaniment
+		 * TP3  Conductor/Performer refinement
+		 * TP4  Interpreted, remixed, or otherwise modified by
+		 * TPA  Part of a set
+		 * TPB  Publisher
+		 * TPE1 Lead performer(s)/Soloist(s)
+		 * TPE2 Band/orchestra/accompaniment
+		 * TPE3 Conductor/performer refinement
+		 * TPE4 Interpreted, remixed, or otherwise modified by
+		 * TPOS Part of a set
+		 * TPRO Produced notice
+		 * TPUB Publisher
+		 * TRC  ISRC (International Standard Recording Code)
+		 * TRCK Track number/Position in set
+		 * TRD  Recording dates
+		 * TRDA Recording dates
+		 * TRK  Track number/Position in set
+		 * TRSN Internet radio station name
+		 * TRSO Internet radio station owner
+		 * TS2  Album-Artist sort order
+		 * TSA  Album sort order
+		 * TSC  Composer sort order
+		 * TSI  Size
+		 * TSIZ Size
+		 * TSO2 Album-Artist sort order
+		 * TSOA Album sort order
+		 * TSOC Composer sort order
+		 * TSOP Performer sort order
+		 * TSOT Title sort order
+		 * TSP  Performer sort order
+		 * TSRC ISRC (international standard recording code)
+		 * TSS  Software/hardware and settings used for encoding
+		 * TSSE Software/Hardware and settings used for encoding
+		 * TSST Set subtitle
+		 * TST  Title sort order
+		 * TT1  Content group description
+		 * TT2  Title/Songname/Content description
+		 * TT3  Subtitle/Description refinement
+		 * TXT  Lyricist/text writer
+		 * TXX  User defined text information frame
+		 * TXXX User defined text information frame
+		 * TYE  Year
+		 * TYER Year
+		 * UFI  Unique file identifier
+		 * UFID Unique file identifier
+		 * ULT  Unsychronised lyric/text transcription
+		 * USER Terms of use
+		 * USLT Unsynchronised lyric/text transcription
+		 * WAF  Official audio file webpage
+		 * WAR  Official artist/performer webpage
+		 * WAS  Official audio source webpage
+		 * WCM  Commercial information
+		 * WCOM Commercial information
+		 * WCOP Copyright/Legal information
+		 * WCP  Copyright/Legal information
+		 * WOAF Official audio file webpage
+		 * WOAR Official artist/performer webpage
+		 * WOAS Official audio source webpage
+		 * WORS Official Internet radio station homepage
+		 * WPAY Payment
+		 * WPB  Publishers official webpage
+		 * WPUB Publishers official webpage
+		 * WXX  User defined URL link frame
+		 * WXXX User defined URL link frame
+		 * TFEA Featured Artist
+		 * TSTU Recording Studio
+		 * rgad Replay Gain Adjustment
 		 *
 		 */
 
@@ -3439,173 +3439,173 @@ class getid3_id3v2 extends getid3_handler {
 
 		/** This is not a comment!
 		 *
-		 * AENC	audio_encryption
-		 * APIC	attached_picture
-		 * ASPI	audio_seek_point_index
-		 * BUF	recommended_buffer_size
-		 * CNT	play_counter
-		 * COM	comment
-		 * COMM	comment
-		 * COMR	commercial_frame
-		 * CRA	audio_encryption
-		 * CRM	encrypted_meta_frame
-		 * ENCR	encryption_method_registration
-		 * EQU	equalisation
-		 * EQU2	equalisation
-		 * EQUA	equalisation
-		 * ETC	event_timing_codes
-		 * ETCO	event_timing_codes
-		 * GEO	general_encapsulated_object
-		 * GEOB	general_encapsulated_object
-		 * GRID	group_identification_registration
-		 * IPL	involved_people_list
-		 * IPLS	involved_people_list
-		 * LINK	linked_information
-		 * LNK	linked_information
-		 * MCDI	music_cd_identifier
-		 * MCI	music_cd_identifier
-		 * MLL	mpeg_location_lookup_table
-		 * MLLT	mpeg_location_lookup_table
-		 * OWNE	ownership_frame
-		 * PCNT	play_counter
-		 * PIC	attached_picture
-		 * POP	popularimeter
-		 * POPM	popularimeter
-		 * POSS	position_synchronisation_frame
-		 * PRIV	private_frame
-		 * RBUF	recommended_buffer_size
-		 * REV	reverb
-		 * RVA	relative_volume_adjustment
-		 * RVA2	relative_volume_adjustment
-		 * RVAD	relative_volume_adjustment
-		 * RVRB	reverb
-		 * SEEK	seek_frame
-		 * SIGN	signature_frame
-		 * SLT	synchronised_lyric
-		 * STC	synced_tempo_codes
-		 * SYLT	synchronised_lyric
-		 * SYTC	synchronised_tempo_codes
-		 * TAL	album
-		 * TALB	album
-		 * TBP	bpm
-		 * TBPM	bpm
-		 * TCM	composer
-		 * TCMP	part_of_a_compilation
-		 * TCO	genre
-		 * TCOM	composer
-		 * TCON	genre
-		 * TCOP	copyright_message
-		 * TCP	part_of_a_compilation
-		 * TCR	copyright_message
-		 * TDA	date
-		 * TDAT	date
-		 * TDEN	encoding_time
-		 * TDLY	playlist_delay
-		 * TDOR	original_release_time
-		 * TDRC	recording_time
-		 * TDRL	release_time
-		 * TDTG	tagging_time
-		 * TDY	playlist_delay
-		 * TEN	encoded_by
-		 * TENC	encoded_by
-		 * TEXT	lyricist
-		 * TFLT	file_type
-		 * TFT	file_type
-		 * TIM	time
-		 * TIME	time
-		 * TIPL	involved_people_list
-		 * TIT1	content_group_description
-		 * TIT2	title
-		 * TIT3	subtitle
-		 * TKE	initial_key
-		 * TKEY	initial_key
-		 * TLA	language
-		 * TLAN	language
-		 * TLE	length
-		 * TLEN	length
-		 * TMCL	musician_credits_list
-		 * TMED	media_type
-		 * TMOO	mood
-		 * TMT	media_type
-		 * TOA	original_artist
-		 * TOAL	original_album
-		 * TOF	original_filename
-		 * TOFN	original_filename
-		 * TOL	original_lyricist
-		 * TOLY	original_lyricist
-		 * TOPE	original_artist
-		 * TOR	original_year
-		 * TORY	original_year
-		 * TOT	original_album
-		 * TOWN	file_owner
-		 * TP1	artist
-		 * TP2	band
-		 * TP3	conductor
-		 * TP4	remixer
-		 * TPA	part_of_a_set
-		 * TPB	publisher
-		 * TPE1	artist
-		 * TPE2	band
-		 * TPE3	conductor
-		 * TPE4	remixer
-		 * TPOS	part_of_a_set
-		 * TPRO	produced_notice
-		 * TPUB	publisher
-		 * TRC	isrc
-		 * TRCK	track_number
-		 * TRD	recording_dates
-		 * TRDA	recording_dates
-		 * TRK	track_number
-		 * TRSN	internet_radio_station_name
-		 * TRSO	internet_radio_station_owner
-		 * TS2	album_artist_sort_order
-		 * TSA	album_sort_order
-		 * TSC	composer_sort_order
-		 * TSI	size
-		 * TSIZ	size
-		 * TSO2	album_artist_sort_order
-		 * TSOA	album_sort_order
-		 * TSOC	composer_sort_order
-		 * TSOP	performer_sort_order
-		 * TSOT	title_sort_order
-		 * TSP	performer_sort_order
-		 * TSRC	isrc
-		 * TSS	encoder_settings
-		 * TSSE	encoder_settings
-		 * TSST	set_subtitle
-		 * TST	title_sort_order
-		 * TT1	content_group_description
-		 * TT2	title
-		 * TT3	subtitle
-		 * TXT	lyricist
-		 * TXX	text
-		 * TXXX	text
-		 * TYE	year
-		 * TYER	year
-		 * UFI	unique_file_identifier
-		 * UFID	unique_file_identifier
-		 * ULT	unsychronised_lyric
-		 * USER	terms_of_use
-		 * USLT	unsynchronised_lyric
-		 * WAF	url_file
-		 * WAR	url_artist
-		 * WAS	url_source
-		 * WCM	commercial_information
-		 * WCOM	commercial_information
-		 * WCOP	copyright
-		 * WCP	copyright
-		 * WOAF	url_file
-		 * WOAR	url_artist
-		 * WOAS	url_source
-		 * WORS	url_station
-		 * WPAY	url_payment
-		 * WPB	url_publisher
-		 * WPUB	url_publisher
-		 * WXX	url_user
-		 * WXXX	url_user
-		 * TFEA	featured_artist
-		 * TSTU	recording_studio
-		 * rgad	replay_gain_adjustment
+		 * AENC audio_encryption
+		 * APIC attached_picture
+		 * ASPI audio_seek_point_index
+		 * BUF  recommended_buffer_size
+		 * CNT  play_counter
+		 * COM  comment
+		 * COMM comment
+		 * COMR commercial_frame
+		 * CRA  audio_encryption
+		 * CRM  encrypted_meta_frame
+		 * ENCR encryption_method_registration
+		 * EQU  equalisation
+		 * EQU2 equalisation
+		 * EQUA equalisation
+		 * ETC  event_timing_codes
+		 * ETCO event_timing_codes
+		 * GEO  general_encapsulated_object
+		 * GEOB general_encapsulated_object
+		 * GRID group_identification_registration
+		 * IPL  involved_people_list
+		 * IPLS involved_people_list
+		 * LINK linked_information
+		 * LNK  linked_information
+		 * MCDI music_cd_identifier
+		 * MCI  music_cd_identifier
+		 * MLL  mpeg_location_lookup_table
+		 * MLLT mpeg_location_lookup_table
+		 * OWNE ownership_frame
+		 * PCNT play_counter
+		 * PIC  attached_picture
+		 * POP  popularimeter
+		 * POPM popularimeter
+		 * POSS position_synchronisation_frame
+		 * PRIV private_frame
+		 * RBUF recommended_buffer_size
+		 * REV  reverb
+		 * RVA  relative_volume_adjustment
+		 * RVA2 relative_volume_adjustment
+		 * RVAD relative_volume_adjustment
+		 * RVRB reverb
+		 * SEEK seek_frame
+		 * SIGN signature_frame
+		 * SLT  synchronised_lyric
+		 * STC  synced_tempo_codes
+		 * SYLT synchronised_lyric
+		 * SYTC synchronised_tempo_codes
+		 * TAL  album
+		 * TALB album
+		 * TBP  bpm
+		 * TBPM bpm
+		 * TCM  composer
+		 * TCMP part_of_a_compilation
+		 * TCO  genre
+		 * TCOM composer
+		 * TCON genre
+		 * TCOP copyright_message
+		 * TCP  part_of_a_compilation
+		 * TCR  copyright_message
+		 * TDA  date
+		 * TDAT date
+		 * TDEN encoding_time
+		 * TDLY playlist_delay
+		 * TDOR original_release_time
+		 * TDRC recording_time
+		 * TDRL release_time
+		 * TDTG tagging_time
+		 * TDY  playlist_delay
+		 * TEN  encoded_by
+		 * TENC encoded_by
+		 * TEXT lyricist
+		 * TFLT file_type
+		 * TFT  file_type
+		 * TIM  time
+		 * TIME time
+		 * TIPL involved_people_list
+		 * TIT1 content_group_description
+		 * TIT2 title
+		 * TIT3 subtitle
+		 * TKE  initial_key
+		 * TKEY initial_key
+		 * TLA  language
+		 * TLAN language
+		 * TLE  length
+		 * TLEN length
+		 * TMCL musician_credits_list
+		 * TMED media_type
+		 * TMOO mood
+		 * TMT  media_type
+		 * TOA  original_artist
+		 * TOAL original_album
+		 * TOF  original_filename
+		 * TOFN original_filename
+		 * TOL  original_lyricist
+		 * TOLY original_lyricist
+		 * TOPE original_artist
+		 * TOR  original_year
+		 * TORY original_year
+		 * TOT  original_album
+		 * TOWN file_owner
+		 * TP1  artist
+		 * TP2  band
+		 * TP3  conductor
+		 * TP4  remixer
+		 * TPA  part_of_a_set
+		 * TPB  publisher
+		 * TPE1 artist
+		 * TPE2 band
+		 * TPE3 conductor
+		 * TPE4 remixer
+		 * TPOS part_of_a_set
+		 * TPRO produced_notice
+		 * TPUB publisher
+		 * TRC  isrc
+		 * TRCK track_number
+		 * TRD  recording_dates
+		 * TRDA recording_dates
+		 * TRK  track_number
+		 * TRSN internet_radio_station_name
+		 * TRSO internet_radio_station_owner
+		 * TS2  album_artist_sort_order
+		 * TSA  album_sort_order
+		 * TSC  composer_sort_order
+		 * TSI  size
+		 * TSIZ size
+		 * TSO2 album_artist_sort_order
+		 * TSOA album_sort_order
+		 * TSOC composer_sort_order
+		 * TSOP performer_sort_order
+		 * TSOT title_sort_order
+		 * TSP  performer_sort_order
+		 * TSRC isrc
+		 * TSS  encoder_settings
+		 * TSSE encoder_settings
+		 * TSST set_subtitle
+		 * TST  title_sort_order
+		 * TT1  content_group_description
+		 * TT2  title
+		 * TT3  subtitle
+		 * TXT  lyricist
+		 * TXX  text
+		 * TXXX text
+		 * TYE  year
+		 * TYER year
+		 * UFI  unique_file_identifier
+		 * UFID unique_file_identifier
+		 * ULT  unsychronised_lyric
+		 * USER terms_of_use
+		 * USLT unsynchronised_lyric
+		 * WAF  url_file
+		 * WAR  url_artist
+		 * WAS  url_source
+		 * WCM  commercial_information
+		 * WCOM commercial_information
+		 * WCOP copyright
+		 * WCP  copyright
+		 * WOAF url_file
+		 * WOAR url_artist
+		 * WOAS url_source
+		 * WORS url_station
+		 * WPAY url_payment
+		 * WPB  url_publisher
+		 * WPUB url_publisher
+		 * WXX  url_user
+		 * WXXX url_user
+		 * TFEA featured_artist
+		 * TSTU recording_studio
+		 * rgad replay_gain_adjustment
 		 *
 		 */
 

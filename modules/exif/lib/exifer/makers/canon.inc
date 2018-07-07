@@ -598,25 +598,25 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 				default:
 					$result['ExposureMode'] = 'Unknown';
 			}
-			$result['Unknown']               = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//21
-			$result['Unknown']               = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//22
-			$result['LongFocalLength']       = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//23
+			$result['Unknown']           = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//21
+			$result['Unknown']           = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//22
+			$result['LongFocalLength']   = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//23
 			$result['LongFocalLength']  .= ' focal units';
-			$result['ShortFocalLength']      = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//24
+			$result['ShortFocalLength']  = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//24
 			$result['ShortFocalLength'] .= ' focal units';
-			$result['FocalUnits']            = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//25
+			$result['FocalUnits']        = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//25
 			$result['FocalUnits']       .= ' per mm';
-			$result['Unknown']               = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//26
-			$result['Unknown']               = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//27
-			$result['FlashActivity']         = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                          += 4;//28
+			$result['Unknown']           = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//26
+			$result['Unknown']           = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//27
+			$result['FlashActivity']     = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                      += 4;//28
 			switch ($result['FlashActivity']) {
 				case 0:
 					$result['FlashActivity'] = 'Flash Did Not Fire';
@@ -633,7 +633,7 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 			}
 			$result['FlashDetails'] = str_pad(base_convert(intel2Moto(substr($data, $place, 4)), 16, 2), 16, '0', STR_PAD_LEFT);
 			$place                 += 4;//29
-			$flashDetails       = array();
+			$flashDetails           = array();
 
 			if (substr($result['FlashDetails'], 1, 1) == 1) {
 				$flashDetails[] = 'External E-TTL';
@@ -655,12 +655,12 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 				$flashDetails[] = '1st curtain sync';
 			}
 			$result['FlashDetails'] = implode(',', $flashDetails);
-			$result['Unknown']          = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                     += 4;//30
-			$result['Unknown']          = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                     += 4;//31
-			$anotherFocusMode           = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                     += 4;//32
+			$result['Unknown']      = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                 += 4;//30
+			$result['Unknown']      = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                 += 4;//31
+			$anotherFocusMode       = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                 += 4;//32
 			if (strpos(strtoupper($exif['IFD0']['Model']), 'G1') !== false) {
 				switch ($anotherFocusMode) {
 					case 0:
@@ -750,7 +750,7 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 			$place                   += 4;//13
 			$result['AFPointUsed']    = hexdec(intel2Moto(substr($data, $place, 4)));
 			$place                   += 4;//14
-			$afPointUsed          = array();
+			$afPointUsed              = array();
 
 			if ($result['AFPointUsed'] & 0x0001) {
 				$afPointUsed[] = 'Right'; //bit 0
@@ -780,8 +780,8 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 				$afPointUsed[] = '15'; //bit 15
 			}
 			$result['AFPointUsed'] = implode(',', $afPointUsed);
-			$result['FlashBias']       = intel2Moto(substr($data, $place, 4));
-			$place                    += 4;//15
+			$result['FlashBias']   = intel2Moto(substr($data, $place, 4));
+			$place                += 4;//15
 			switch ($result['FlashBias']) {
 				case 'ffc0':
 					$result['FlashBias'] = '-2 EV';
@@ -871,14 +871,14 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 				default:
 					$result['FlashBias'] = 'Unknown';
 			}
-			$result['Unknown']              = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                         += 4;//16
-			$result['Unknown']              = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                         += 4;//17
-			$result['Unknown']              = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                         += 4;//18
-			$result['SubjectDistance']      = hexdec(intel2Moto(substr($data, $place, 4)));
-			$place                         += 4;//19
+			$result['Unknown']          = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                     += 4;//16
+			$result['Unknown']          = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                     += 4;//17
+			$result['Unknown']          = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                     += 4;//18
+			$result['SubjectDistance']  = hexdec(intel2Moto(substr($data, $place, 4)));
+			$place                     += 4;//19
 			$result['SubjectDistance'] .= '/100 m';
 		} elseif ($tag == '0008') { //image number
 			if ($intel == 1) {

@@ -57,10 +57,10 @@ function smarty_function_config_load($params, &$smarty) {
 	}
 
 	$_params = array(
-			'resource_name'      => $_file,
-			'resource_base_path' => $smarty->config_dir,
-			'get_source'         => false,
-		);
+		'resource_name'      => $_file,
+		'resource_base_path' => $smarty->config_dir,
+		'get_source'         => false,
+	);
 	$smarty->_parse_resource_name($_params);
 	$_file_path = $_params['resource_type'] . ':' . $_params['resource_name'];
 

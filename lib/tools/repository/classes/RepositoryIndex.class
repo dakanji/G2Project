@@ -68,7 +68,7 @@ class RepositoryIndex extends RepositoryObject {
 	 * Generates the repository index.
 	 *
 	 * @return array GalleryStatus a status code
-	 *		     array themes => count, modules => count
+	 *           array themes => count, modules => count
 	 */
 	public function generate() {
 		global $gallery;
@@ -218,7 +218,7 @@ class RepositoryIndex extends RepositoryObject {
 	 * Gets plugin meta data from the index, minus the description strings.
 	 *
 	 * @return array GalleryStatis a status code
-	 *		     array index
+	 *           array index
 	 */
 	public function getPluginInfo() {
 		global $gallery;

@@ -109,7 +109,7 @@ class ExifDescriptionOption extends ItemAddOption {
 				}
 
 				for ($i = 0; $i < count($currentItems); $i++) {
-					$itemId                        = $currentItems[$i]->getId();
+					$itemId                       = $currentItems[$i]->getId();
 					list($ret, $currentItems[$i]) = $currentItems[$i]->refresh();
 
 					if ($ret) {

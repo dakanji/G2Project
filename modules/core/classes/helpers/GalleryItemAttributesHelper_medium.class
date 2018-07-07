@@ -56,7 +56,9 @@ class GalleryItemAttributesHelper_medium {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
 			array('itemId', 'orderWeight'),
-			array('itemId' => $itemIds)
+			array(
+				'itemId' => $itemIds,
+			)
 		);
 
 		if ($ret) {

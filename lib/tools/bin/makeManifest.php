@@ -142,8 +142,8 @@ function makeManifest($filterPath = '') {
 
 		foreach ($entries as $entry) {
 			list($file, $isBinary) = preg_split('/\@\@/', $entry);
-			$relativeFilePath       = $file;
-			$file                   = $baseDir . $file;
+			$relativeFilePath      = $file;
+			$file                  = $baseDir . $file;
 
 			if (preg_match('/deleted:(.*)/', $relativeFilePath, $matches)) {
 				$deleted[$matches[1]] = true;

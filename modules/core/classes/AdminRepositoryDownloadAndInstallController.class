@@ -71,7 +71,9 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 		$totalActions = $this->_countInstallActions($sourcedFiles);
 
-		$status = array('error' => array());
+		$status = array(
+			'error' => array(),
+		);
 
 		// Download files.
 		$currentAction = 0;
@@ -225,7 +227,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	 * @param array $installPackages packages to install
 	 * @param array $repositories an array of GalleryRepository
 	 * @return array GalleryStatus a status code
-	 * 		     array list of corresponding files for the specified packages
+	 *           array list of corresponding files for the specified packages
 	 */
 	public function _createDownloadFileList($installPackages, $repositories) {
 		// Create download file list.
@@ -344,7 +346,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$platform        =& $gallery->getPlatform();
 
-		$status              = array();
+		$status             = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {

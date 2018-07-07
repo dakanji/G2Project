@@ -161,7 +161,9 @@ class GalleryLinkItem extends GalleryItem {
 						'view'   => 'core.ShowItem',
 						'itemId' => $link,
 					),
-					array('forceFullUrl' => true)
+					array(
+						'forceFullUrl' => true,
+					)
 				);
 			}
 

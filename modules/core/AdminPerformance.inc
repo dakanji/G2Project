@@ -38,7 +38,7 @@ class AdminPerformanceController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results                   = $status = $error = array();
+		$results                  = $status = $error = array();
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
@@ -243,6 +243,11 @@ class AdminPerformanceView extends GalleryView {
 		$template->setVariable('AdminPerformance', $AdminPerformance);
 		$template->setVariable('controller', 'core.AdminPerformance');
 
-		return array(null, array('body' => 'modules/core/templates/AdminPerformance.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminPerformance.tpl',
+			),
+		);
 	}
 }

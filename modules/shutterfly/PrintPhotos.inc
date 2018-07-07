@@ -50,7 +50,9 @@ class PrintPhotosView extends GalleryView {
 		list($itemId, $returnUrl) = GalleryUtilities::getRequestVariables('itemId', 'returnUrl');
 
 		if (!empty($itemId)) {
-			$cartItemIds = array($itemId => 1);
+			$cartItemIds = array(
+				$itemId => 1,
+			);
 		} else {
 			$session     =& $gallery->getSession();
 			$cartItemIds = $session->get('shutterfly.cart');
@@ -67,7 +69,7 @@ class PrintPhotosView extends GalleryView {
 		}
 
 		// Load the necessary item data
-		$itemIds            = array_keys($cartItemIds);
+		$itemIds           = array_keys($cartItemIds);
 		list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryPhotoItem');
 
 		if ($ret) {
@@ -148,13 +150,17 @@ class PrintPhotosView extends GalleryView {
 			}
 
 			if ($needSession) {
-				$sessionParam   = array($sfSession->getKey() => $sfSession->getId());
+				$sessionParam   = array(
+					$sfSession->getKey() => $sfSession->getId(),
+				);
 				$protectedIds[] = $source->getId();
 			} else {
 				$sessionParam = array();
 			}
 
-			$entry                = array('item' => (array)$item);
+			$entry                = array(
+				'item' => (array)$item,
+			);
 			$entry['imageUrl']    = $urlGenerator->generateUrl(
 				array_merge(
 					array(

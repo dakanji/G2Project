@@ -437,7 +437,7 @@ class GalleryItemHelper_advanced {
 	public static function deleteSortOrder($sortOrder) {
 		global $gallery;
 
-		$query                      = '
+		$query                     = '
 	SELECT
 	  [GalleryAlbumItem::id]
 	FROM
@@ -467,7 +467,7 @@ class GalleryItemHelper_advanced {
 
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
-			$currentIds          = array_splice($ids, 0, $batchSize);
+			$currentIds         = array_splice($ids, 0, $batchSize);
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 			if ($ret) {
@@ -526,7 +526,7 @@ class GalleryItemHelper_advanced {
 	public static function deleteRenderer($rendererClassName) {
 		global $gallery;
 
-		$query                      = '
+		$query                     = '
 	SELECT
 	  [GalleryItem::id]
 	FROM
@@ -551,7 +551,7 @@ class GalleryItemHelper_advanced {
 
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
-			$currentIds          = array_splice($ids, 0, $batchSize);
+			$currentIds         = array_splice($ids, 0, $batchSize);
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 			if ($ret) {

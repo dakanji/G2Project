@@ -13,19 +13,19 @@ function smarty_modifier_round($size, $locale = null) {
 		$locale =& LTLocales::getLocale();
 	}
 
-	if ($size < 2** 10) {
+	if ($size < 2 ** 10) {
 		return $size . ' ' . $locale->tr('bytes');
 	}
 
-	if ($size >= 2** 10 && $size < 2** 20) {
-		return round($size / 2** 10, 0) . ' ' . $locale->tr('kb');
+	if ($size >= 2 ** 10 && $size < 2 ** 20) {
+		return round($size / 2 ** 10, 0) . ' ' . $locale->tr('kb');
 	}
 
-	if ($size >= 2** 20 && $size < 2** 30) {
-		return round($size / 2** 20, 1) . ' ' . $locale->tr('mb');
+	if ($size >= 2 ** 20 && $size < 2 ** 30) {
+		return round($size / 2 ** 20, 1) . ' ' . $locale->tr('mb');
 	}
 
-	if ($size > 2** 30) {
-		return round($size / 2** 30, 2) . ' ' . $locale->tr('gb');
+	if ($size > 2 ** 30) {
+		return round($size / 2 ** 30, 2) . ' ' . $locale->tr('gb');
 	}
 }

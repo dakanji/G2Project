@@ -393,14 +393,16 @@ class AdminGetid3View extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$form['item'] = array('mp3title' => $addOption & GETID3_MP3_TITLE);
+			$form['item'] = array(
+				'mp3title' => $addOption & GETID3_MP3_TITLE,
+			);
 		}
 
 		$getid3Keys  = Getid3Helper::getGetid3Keys();
 		$visibleKeys = array();
 
 		// Prepare the summary list
-		$summaryList      = array();
+		$summaryList     = array();
 		list($ret, $tmp) = Getid3Helper::getProperties(GETID3_SUMMARY);
 
 		if ($ret) {
@@ -412,7 +414,7 @@ class AdminGetid3View extends GalleryView {
 		}
 
 		// Prepare the detailed list
-		$detailedList     = array();
+		$detailedList    = array();
 		list($ret, $tmp) = Getid3Helper::getProperties(GETID3_DETAILED);
 
 		if ($ret) {
@@ -444,6 +446,11 @@ class AdminGetid3View extends GalleryView {
 		$template->setVariable('AdminGetid3', $AdminGetid3);
 		$template->setVariable('controller', 'getid3:AdminGetid3');
 
-		return array(null, array('body' => 'modules/getid3/templates/AdminGetid3.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/getid3/templates/AdminGetid3.tpl',
+			),
+		);
 	}
 }

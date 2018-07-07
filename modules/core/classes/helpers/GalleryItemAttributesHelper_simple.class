@@ -69,7 +69,9 @@ class GalleryItemAttributesHelper_simple {
 				}
 			}
 
-			$lastViewed = array($itemId => $elapsed);
+			$lastViewed = array(
+				$itemId => $elapsed,
+			);
 			$session->put('core.lastViewed', $lastViewed);
 		} else {
 			$lastViewed =& $session->get('core.lastViewed');
@@ -88,8 +90,12 @@ class GalleryItemAttributesHelper_simple {
 		$func = '= [GalleryItemAttributesMap::viewCount] + ?';
 		$ret  = GalleryCoreApi::updateMapEntry(
 			'GalleryItemAttributesMap',
-			array('itemId' => $itemId),
-			array('viewCount' => new GallerySqlFragment($func, $step))
+			array(
+				'itemId' => $itemId,
+			),
+			array(
+				'viewCount' => new GallerySqlFragment($func, $step),
+			)
 		);
 
 		if ($ret) {
@@ -122,7 +128,9 @@ class GalleryItemAttributesHelper_simple {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
 			array('itemId', 'viewCount'),
-			array('itemId' => $itemIds)
+			array(
+				'itemId' => $itemIds,
+			)
 		);
 
 		if ($ret) {
@@ -157,7 +165,9 @@ class GalleryItemAttributesHelper_simple {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
 			array('parentSequence'),
-			array('itemId' => (int)$itemId)
+			array(
+				'itemId' => (int)$itemId,
+			)
 		);
 
 		if ($ret) {

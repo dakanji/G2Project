@@ -64,7 +64,7 @@ class UserPreferencesController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$userId              = $gallery->getActiveUserId();
+			$userId             = $gallery->getActiveUserId();
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
 
 			if ($ret) {
@@ -101,7 +101,9 @@ class UserPreferencesController extends GalleryController {
 					$error[] = 'form[error][currentPassword][incorrect]';
 
 					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-					$event->setData(array('userName' => $user->getUserName()));
+					$event->setData(array(
+						'userName' => $user->getUserName(),
+					));
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
@@ -198,7 +200,12 @@ class UserPreferencesView extends GalleryView {
 
 		// Locked users aren't allowed to edit themselves - display message
 		if ($user->isLocked()) {
-			return array(null, array('body' => 'modules/core/templates/UserLocked.tpl'));
+			return array(
+				null,
+				array(
+					'body' => 'modules/core/templates/UserLocked.tpl',
+				),
+			);
 		}
 
 		// Load the form with user data the first time around.
@@ -234,7 +241,12 @@ class UserPreferencesView extends GalleryView {
 		$template->setVariable('UserPreferences', $UserPreferences);
 		$template->setVariable('controller', 'core.UserPreferences');
 
-		return array(null, array('body' => 'modules/core/templates/UserPreferences.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserPreferences.tpl',
+			),
+		);
 	}
 
 	/**

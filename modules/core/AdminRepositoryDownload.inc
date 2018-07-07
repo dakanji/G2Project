@@ -81,7 +81,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			// Create package list.
 			$installPackages = array();
 
-			$utils                       = new GalleryRepositoryUtilities();
+			$utils                      = new GalleryRepositoryUtilities();
 			list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 			if ($ret) {
@@ -90,8 +90,8 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 
 			if (!empty($form['base'])) {
 				list($languages, $defaultCountry) = $translator->getLanguageData();
-				list($baseSource, $baseNewBuild)   = explode(':', $form['base']);
-				$supportedLanguages                = GalleryCoreApi::getSupportedLanguages();
+				list($baseSource, $baseNewBuild)  = explode(':', $form['base']);
+				$supportedLanguages               = GalleryCoreApi::getSupportedLanguages();
 
 				if (empty($pluginPackages['base']['build'])
 					|| $pluginPackages['base']['build'] != $baseNewBuild
@@ -188,7 +188,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			'pluginType' => $pluginType,
 		);
 
-		$utils                       = new GalleryRepositoryUtilities();
+		$utils                      = new GalleryRepositoryUtilities();
 		list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 		if ($ret) {
@@ -242,9 +242,9 @@ class AdminRepositoryDownloadView extends GalleryView {
 					}
 				}
 			}
-			$upgradeData['languages']                   = $condensedData;
-			$upgradeData['languageCount']               = count($upgradeData['languages']);
-			$upgradeData['repository']                  = $source;
+			$upgradeData['languages']                  = $condensedData;
+			$upgradeData['languageCount']              = count($upgradeData['languages']);
+			$upgradeData['repository']                 = $source;
 			list($ret, $upgradeData['repositoryName']) = GalleryRepository::translateRepositoryName($source);
 
 			if ($ret) {
@@ -288,7 +288,12 @@ class AdminRepositoryDownloadView extends GalleryView {
 		$template->setVariable('controller', 'core.AdminRepositoryDownload');
 		$template->javascript('modules/core/templates/AdminRepositoryDownload.js');
 
-		return array(null, array('body' => 'modules/core/templates/AdminRepositoryDownload.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminRepositoryDownload.tpl',
+			),
+		);
 	}
 
 	public function versionComparator($a, $b) {

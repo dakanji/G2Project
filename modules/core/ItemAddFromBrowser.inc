@@ -32,9 +32,9 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	public function handleRequest($form, &$item) {
 		global $gallery;
 
-		$status              = array();
-		$error               = array();
-		$uploaded            = false;
+		$status             = array();
+		$error              = array();
+		$uploaded           = false;
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {

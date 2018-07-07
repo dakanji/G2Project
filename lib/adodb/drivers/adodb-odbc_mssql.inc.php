@@ -35,7 +35,7 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 		(case when c.xusertype=61 then 0 else c.xprec end),
 		(case when c.xusertype=61 then 0 else c.xscale end)
 		from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-	public $hasTop           = 'top';		// support mssql/interbase SELECT TOP 10 * FROM TABLE
+	public $hasTop           = 'top';       // support mssql/interbase SELECT TOP 10 * FROM TABLE
 	public $sysDate          = 'GetDate()';
 	public $sysTimeStamp     = 'GetDate()';
 	public $leftOuter        = '*=';
@@ -181,7 +181,7 @@ order by constraint_name, referenced_table_name, keyno";
 			$fld->type = $rs->fields[1];
 
 			$fld->not_null       = (!$rs->fields[3]);
-			$fld->auto_increment = ($rs->fields[4] == 128);		// sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
+			$fld->auto_increment = ($rs->fields[4] == 128);     // sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
 
 			if (isset($rs->fields[5]) && $rs->fields[5]) {
 				if ($rs->fields[5] > 0) {

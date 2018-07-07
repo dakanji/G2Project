@@ -41,7 +41,7 @@ class PanoramaUpgradeHelper {
 	public static function revertEntities() {
 		global $gallery;
 
-		$query                      = '
+		$query                     = '
 	  SELECT
 	    [GalleryEntity::id], [GalleryEntity::entityType]
 	  FROM

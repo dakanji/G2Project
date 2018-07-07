@@ -95,7 +95,7 @@ class SiriuxTheme extends GalleryTheme {
 
 		// Find the thumbnail size for this album
 		$theme['params']['thumbnailSize'] = 150;
-		list($ret, $preferences)         = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
+		list($ret, $preferences)          = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
 
 		if ($ret) {
 			return array($ret, null);
@@ -237,7 +237,9 @@ class SiriuxTheme extends GalleryTheme {
 			'key'        => 'contentWidth',
 			'name'       => $this->translate('Width of page content in pixels'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 2),
+			'typeParams' => array(
+				'size' => 2,
+			),
 			'value'      => $params['contentWidth'],
 		);
 		$settings[] = array(

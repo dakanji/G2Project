@@ -87,7 +87,7 @@ class ViewCartView extends GalleryView {
 			}
 
 			// Filter out unsupported actions
-			$itemIds                    = array_keys($supportedItemIds);
+			$itemIds                   = array_keys($supportedItemIds);
 			list($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
 
 			if ($ret) {
@@ -145,7 +145,9 @@ class ViewCartView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/cart/templates/ViewCart.tpl'),
+			array(
+				'body' => 'modules/cart/templates/ViewCart.tpl',
+			),
 		);
 	}
 

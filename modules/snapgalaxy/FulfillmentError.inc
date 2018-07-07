@@ -38,6 +38,11 @@ class FulfillmentErrorView extends GalleryView {
 
 		$template->title($module->translate('SnapGalaxy Fulfillment Error'));
 
-		return array(null, array('body' => 'modules/snapgalaxy/templates/FulfillmentError.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/snapgalaxy/templates/FulfillmentError.tpl',
+			),
+		);
 	}
 }

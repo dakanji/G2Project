@@ -79,7 +79,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$this->_progressTitle = _('Backing up the Gallery database');
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 0);
 
-		$exporter                           = $storage->getDatabaseExporter();
+		$exporter                          = $storage->getDatabaseExporter();
 		list($ret, $backupFile, $warnings) = $exporter->exportToXmlFile(array($this, 'backupCallback'));
 
 		if (!$ret) {
@@ -136,7 +136,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$templateData['storeConfig'] = $gallery->getConfig('storage.config');
 
 		// Load all table versions
-		$storage                    =& $gallery->getStorage();
+		$storage                   =& $gallery->getStorage();
 		list($ret, $tableVersions) = $storage->getTableVersions();
 
 		if ($ret) {
@@ -144,13 +144,17 @@ class DatabaseBackupStep extends UpgradeStep {
 			$templateData['canDoBackup'] = false;
 		} else {
 			list($major, $minor) = $tableVersions['Schema'];
-			$canDoBackup          = version_compare("$major.$minor", '1.2', '>=');
+			$canDoBackup         = version_compare("$major.$minor", '1.2', '>=');
 
 			if ($canDoBackup) {
 				// Verify that the type / info fields are populated
-				$query                = 'SELECT [::name] FROM [GallerySchema]
+				$query               = 'SELECT [::name] FROM [GallerySchema]
 			   WHERE [::type] in (\'map\',  \'entity\')';
-				list($ret, $results) = $storage->search($query, array(), array('limit' => array('count' => 1)));
+				list($ret, $results) = $storage->search($query, array(), array(
+					'limit' => array(
+						'count' => 1,
+					),
+				));
 
 				if ($ret) {
 					$templateData['warnings'][] = _('Unable to determine if automated backup is available.');

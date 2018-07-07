@@ -184,6 +184,11 @@ class HttpAuthSiteAdminView extends GalleryView {
 		$template->setVariable('controller', 'httpauth.HttpAuthSiteAdmin');
 		$template->javascript('lib/javascript/BlockToggle.js');
 
-		return array(null, array('body' => 'modules/httpauth/templates/HttpAuthSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/httpauth/templates/HttpAuthSiteAdmin.tpl',
+			),
+		);
 	}
 }

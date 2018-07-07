@@ -10,7 +10,9 @@ $entityInfo['WatermarkImage'] = array(
 			'type'            => STORAGE_TYPE_BOOLEAN,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
-		'applyToThumbnail' => array('type' => STORAGE_TYPE_BOOLEAN),
+		'applyToThumbnail' => array(
+			'type' => STORAGE_TYPE_BOOLEAN,
+		),
 		'name'             => array(
 			'type'            => STORAGE_TYPE_STRING,
 			'size'            => STORAGE_SIZE_MEDIUM,
@@ -28,7 +30,9 @@ $entityInfo['WatermarkImage'] = array(
 			'size'            => STORAGE_SIZE_MEDIUM,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
-		'size'             => array('type' => STORAGE_TYPE_INTEGER),
+		'size'             => array(
+			'type' => STORAGE_TYPE_INTEGER,
+		),
 		'width'            => array(
 			'type'            => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_READ,
@@ -37,7 +41,9 @@ $entityInfo['WatermarkImage'] = array(
 			'type'            => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
-		'ownerId'          => array('type' => STORAGE_TYPE_INTEGER),
+		'ownerId'          => array(
+			'type' => STORAGE_TYPE_INTEGER,
+		),
 		'xPercentage'      => array(
 			'type'            => STORAGE_TYPE_STRING,
 			'size'            => STORAGE_SIZE_SMALL,

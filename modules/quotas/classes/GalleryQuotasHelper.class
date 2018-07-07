@@ -89,7 +89,7 @@ class GalleryQuotasHelper {
 	 */
 	public static function getUserDiskQuota($userId) {
 		global $gallery;
-		$userDiskQuota                                = null;
+		$userDiskQuota                               = null;
 		list($ret, $userQuotaExists, $userQuotaInfo) = self::fetchUserQuota($userId);
 
 		if ($ret) {
@@ -154,7 +154,9 @@ class GalleryQuotasHelper {
 
 		$data             = $groupQuotaIds;
 		$options          = array();
-		$options['limit'] = array('count' => 1);
+		$options['limit'] = array(
+			'count' => 1,
+		);
 
 		list($ret, $searchResults) = $gallery->search($query, $data, $options);
 

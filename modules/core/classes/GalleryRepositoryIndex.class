@@ -73,7 +73,7 @@ class GalleryRepositoryIndex {
 		$indexUrl     = $gallery->getConfig('repository.url') . $this->_source . '/index';
 		$indexHashUrl = $indexUrl . '.hash';
 
-		$path                      = $this->getRepositoryCacheDir();
+		$path                     = $this->getRepositoryCacheDir();
 		list($success1, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'modules');
 		list($success2, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'themes');
 
@@ -169,9 +169,9 @@ class GalleryRepositoryIndex {
 	 * has been downloaded) and each plugin type count.
 	 *
 	 * @return array GalleryStatus a status code
-	 *		     array 'timestamp' => integer (Unix timestamp)
-	 *			   'moduleCount' => integer
-	 *			   'themeCount' => integer
+	 *           array 'timestamp' => integer (Unix timestamp)
+	 *             'moduleCount' => integer
+	 *             'themeCount' => integer
 	 */
 	public function getMetaData() {
 		if (!$this->_isLoaded) {
@@ -275,7 +275,7 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     string plugin build
+	 *           string plugin build
 	 */
 	public function getPluginHeader($pluginType, $pluginId) {
 		if (!$this->_isLoaded) {
@@ -314,7 +314,7 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     array languageCode => revision
+	 *           array languageCode => revision
 	 */
 	public function getAvailableLanguagesInPlugin($pluginType, $pluginId) {
 		if (!$this->_isLoaded) {
@@ -350,7 +350,7 @@ class GalleryRepositoryIndex {
 
 			foreach ($data['languages'][$stringRevision] as $langCode => $version) {
 				list($language, $country) = explode('_', $langCode . '_');
-				$installed                 = empty($country) ? !empty($languages[$language]) : !empty($languages[$language][$country]);
+				$installed                = empty($country) ? !empty($languages[$language]) : !empty($languages[$language][$country]);
 
 				if ($installed) {
 					$languageData[$langCode] = $version;
@@ -381,7 +381,7 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     string the plugin name
+	 *           string the plugin name
 	 */
 	public function getPluginName($pluginType, $pluginId) {
 		global $gallery;
@@ -435,7 +435,7 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     string descriptor URL
+	 *           string descriptor URL
 	 */
 	public function getDescriptorUrl($pluginType, $pluginId) {
 		if (!$this->_isLoaded) {
@@ -475,7 +475,7 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginId
 	 * @param string $package package name
 	 * @return array GalleryStatus a status code
-	 *		     string package URL
+	 *           string package URL
 	 */
 	public function getPackageUrl($pluginType, $pluginId, $package) {
 		list($ret, $version, $build) = $this->getPackageVersionAndBuild($pluginType, $pluginId, $package);
@@ -516,8 +516,8 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginId
 	 * @param string $package package name
 	 * @return array GalleryStatus a status code
-	 *		     string version/revision
-	 *		     string build/revision
+	 *           string version/revision
+	 *           string build/revision
 	 */
 	public function getPackageVersionAndBuild($pluginType, $pluginId, $package) {
 		if (!$this->_isLoaded) {
@@ -566,11 +566,13 @@ class GalleryRepositoryIndex {
 	 * @param string $pluginType 'module' or 'theme'
 	 * @param boolean $showAllPlugins return all plugins, even incompatible ones
 	 * @param array $coreApis core APIs to base compatibility check on
-	 *		    'core'/'module'/'theme' => array(versionMajor, versionMinor)
+	 *          'core'/'module'/'theme' => array(versionMajor, versionMinor)
 	 * @return array plugin list
 	 */
 	public function getPlugins($pluginType, $showAllPlugins = false, $coreApis = null) {
-		$pluginList = array($pluginType => array());
+		$pluginList = array(
+			$pluginType => array(),
+		);
 
 		foreach ($this->_index[$pluginType . 's'] as $pluginId => $plugin) {
 			// Skip core module.
@@ -648,10 +650,10 @@ class GalleryRepositoryIndex {
 	 *
 	 * @param mixed $locales a single or an array of locale identifiers.
 	 * @return array GalleryStatus a status code
-	 *		     array[$pluginType] =>
-	 *			array($pluginId => array('name' => $pluginName,
-	 * 			    'files' => array('descriptor' => $descriptorUrl,
-	 * 				'en_gb' => url, 'pt_BR' => url...))
+	 *           array[$pluginType] =>
+	 *          array($pluginId => array('name' => $pluginName,
+	 *              'files' => array('descriptor' => $descriptorUrl,
+	 *              'en_gb' => url, 'pt_BR' => url...))
 	 */
 	public function getLanguagePackageFiles($locales) {
 		global $gallery;
@@ -708,7 +710,7 @@ class GalleryRepositoryIndex {
 						continue;
 					}
 
-					$stringsRevision         = $entry['header']['stringsRevision'];
+					$stringsRevision        = $entry['header']['stringsRevision'];
 					list($ret, $pluginName) = $this->getPluginName($pluginType, $pluginId);
 
 					if ($ret) {

@@ -158,10 +158,10 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname           = $this->TableName($tabname);
-		$f                 = array();
+		$tabname            = $this->TableName($tabname);
+		$f                  = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s                 = "ALTER TABLE $tabname $this->addCol";
+		$s                  = "ALTER TABLE $tabname $this->addCol";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";
@@ -193,7 +193,7 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 		$sql     = array();
 
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
-		$alter                   = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';
+		$alter                     = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';
 
 		foreach ($lines as $v) {
 			$not_null = false;
@@ -204,8 +204,8 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 
 			if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
 				list(, $colname, $default) = $matches;
-				$v                       = preg_replace('/^' . preg_quote($colname) . '\s/', '', $v);
-				$t                       = trim(str_replace('DEFAULT ' . $default, '', $v));
+				$v                         = preg_replace('/^' . preg_quote($colname) . '\s/', '', $v);
+				$t                         = trim(str_replace('DEFAULT ' . $default, '', $v));
 
 				if ($constraintname = $this->DefaultConstraintname($tabname, $colname)) {
 					$sql[] = 'ALTER TABLE ' . $tabname . ' DROP CONSTRAINT ' . $constraintname;

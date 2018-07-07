@@ -116,6 +116,11 @@ class LinkItemSiteAdminView extends GalleryView {
 
 		$template->setVariable('controller', 'linkitem.LinkItemSiteAdmin');
 
-		return array(null, array('body' => 'modules/linkitem/templates/LinkItemSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/linkitem/templates/LinkItemSiteAdmin.tpl',
+			),
+		);
 	}
 }

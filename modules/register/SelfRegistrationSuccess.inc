@@ -40,7 +40,9 @@ class SelfRegistrationSuccessView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/register/templates/SelfRegistrationSuccess.tpl'),
+			array(
+				'body' => 'modules/register/templates/SelfRegistrationSuccess.tpl',
+			),
 		);
 	}
 }

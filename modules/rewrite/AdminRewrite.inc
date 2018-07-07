@@ -413,6 +413,11 @@ class AdminRewriteView extends GalleryView {
 		$template->setVariable('controller', 'rewrite.AdminRewrite');
 		$template->javascript('lib/javascript/BlockToggle.js');
 
-		return array(null, array('body' => 'modules/rewrite/templates/AdminRewrite.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/rewrite/templates/AdminRewrite.tpl',
+			),
+		);
 	}
 }

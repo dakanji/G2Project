@@ -66,16 +66,28 @@ class MP3AudioRenderer extends GalleryRenderer {
 		 * "Click to activate..." in IE
 		 */
 		$SWFObjectUrl      = $urlGenerator->generateUrl(
-			array('href' => 'modules/mp3audio/lib/swfobject.js'),
-			array('forceFullUrl' => true)
+			array(
+				'href' => 'modules/mp3audio/lib/swfobject.js',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		$expressInstallUrl = $urlGenerator->generateUrl(
-			array('href' => 'modules/mp3audio/lib/expressinstall.swf'),
-			array('forceFullUrl' => true)
+			array(
+				'href' => 'modules/mp3audio/lib/expressinstall.swf',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		$playerUrl         = $urlGenerator->generateUrl(
-			array('href' => 'modules/mp3audio/lib/G2mp3.swf'),
-			array('forceFullUrl' => true)
+			array(
+				'href' => 'modules/mp3audio/lib/G2mp3.swf',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 
 		GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
@@ -94,7 +106,7 @@ class MP3AudioRenderer extends GalleryRenderer {
 		// To allow for sharing we must also pass the playerUrl
 		//$flashVars .= '&swfUrl=' . urlencode($playerUrl);
 
-		$itemId                 = $item->getId();
+		$itemId                = $item->getId();
 		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
 
 		if (!$ret && !empty($thumbnail)) {

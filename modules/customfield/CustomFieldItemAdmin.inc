@@ -84,8 +84,12 @@ class CustomFieldItemAdminController extends GalleryController {
 				}
 				$ret = GalleryCoreApi::updateMapEntry(
 					'CustomFieldMap',
-					array('itemId' => $idList),
-					array('setId' => $itemId)
+					array(
+						'itemId' => $idList,
+					),
+					array(
+						'setId' => $itemId,
+					)
 				);
 
 				if ($ret) {
@@ -136,7 +140,9 @@ class CustomFieldItemAdminController extends GalleryController {
 					$ret = GalleryCoreApi::updateMapEntry(
 						'CustomFieldMap',
 						$match,
-						array('setId' => 0)
+						array(
+							'setId' => 0,
+						)
 					);
 
 					if ($ret) {
@@ -146,7 +152,9 @@ class CustomFieldItemAdminController extends GalleryController {
 				// Remove remaining field values
 				$ret = GalleryCoreApi::removeMapEntry(
 					'CustomFieldMap',
-					array('setId' => $itemId)
+					array(
+						'setId' => $itemId,
+					)
 				);
 
 				if ($ret) {

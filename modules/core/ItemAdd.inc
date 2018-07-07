@@ -129,7 +129,9 @@ class ItemAddController extends GalleryController {
 		return array(
 			null,
 			array(
-				'delegate' => array('view' => 'core.ProgressBar'),
+				'delegate' => array(
+					'view' => 'core.ProgressBar',
+				),
 				'status'   => array(),
 				'error'    => array(),
 			),
@@ -210,7 +212,9 @@ class ItemAddController extends GalleryController {
 					'addPlugin' => $addPluginId,
 					'itemId'    => $item->getId(),
 				),
-				array('forceFullUrl' => true)
+				array(
+					'forceFullUrl' => true,
+				)
 			);
 		} else {
 			$session->putStatus($status);
@@ -230,7 +234,9 @@ class ItemAddController extends GalleryController {
 						'itemId'    => $item->getId(),
 						'form'      => $form,
 					),
-					array('forceFullUrl' => true)
+					array(
+						'forceFullUrl' => true,
+					)
 				);
 				$templateAdapter->updateProgressBar(
 					$this->_coreModule->translate('Adding items'),
@@ -244,7 +250,9 @@ class ItemAddController extends GalleryController {
 						'subView' => 'core.ItemAddConfirmation',
 						'itemId'  => $item->getId(),
 					),
-					array('forceFullUrl' => true)
+					array(
+						'forceFullUrl' => true,
+					)
 				);
 			}
 		}
@@ -457,7 +465,7 @@ class ItemAddController extends GalleryController {
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
 
-		$parentId                           = $archiveItem->getParentId();
+		$parentId                          = $archiveItem->getParentId();
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
 
 		if ($ret) {
@@ -496,8 +504,8 @@ class ItemAddController extends GalleryController {
 		 * If archive title matches the filename or base filename then name new items
 		 * with the same strategy; otherwise just use the archive title.
 		 */
-		$archiveTitle       = $archiveItem->getTitle();
-		$archiveName        = $archiveItem->getPathComponent();
+		$archiveTitle      = $archiveItem->getTitle();
+		$archiveName       = $archiveItem->getPathComponent();
 		list($archiveBase) = GalleryUtilities::getFileNameComponents($archiveName);
 
 		if ($archiveTitle == $archiveName) {
@@ -840,7 +848,9 @@ class ItemAddView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/ItemAdd.tpl'),
+			array(
+				'body' => 'modules/core/templates/ItemAdd.tpl',
+			),
 		);
 	}
 

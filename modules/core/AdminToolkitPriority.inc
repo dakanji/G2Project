@@ -49,8 +49,12 @@ class AdminToolkitPriorityController extends GalleryController {
 				if ($priority != $list[$toolkit]) {
 					$ret = GalleryCoreApi::updateMapEntry(
 						'GalleryToolkitOperationMimeTypeMap',
-						array('toolkitId' => $toolkit),
-						array('priority' => $priority)
+						array(
+							'toolkitId' => $toolkit,
+						),
+						array(
+							'priority' => $priority,
+						)
 					);
 
 					if ($ret) {
@@ -110,6 +114,11 @@ class AdminToolkitPriorityView extends GalleryView {
 		$template->setVariable('AdminToolkitPriority', $AdminToolkitPriority);
 		$template->setVariable('controller', 'core.AdminToolkitPriority');
 
-		return array(null, array('body' => 'modules/core/templates/AdminToolkitPriority.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminToolkitPriority.tpl',
+			),
+		);
 	}
 }

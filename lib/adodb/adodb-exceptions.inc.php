@@ -68,12 +68,12 @@ class ADODB_Exception extends Exception {
 /**
  * Default Error Handler. This will be called with the following params
  *
- * @param $dbms		the RDBMS you are connecting to
- * @param $fn		the name of the calling function (in uppercase)
- * @param $errno		the native error number from the database
- * @param $errmsg	the native error msg from the database
- * @param $p1		$fn specific parameter - see below
- * @param $P2		$fn specific parameter - see below
+ * @param $dbms     the RDBMS you are connecting to
+ * @param $fn       the name of the calling function (in uppercase)
+ * @param $errno        the native error number from the database
+ * @param $errmsg   the native error msg from the database
+ * @param $p1       $fn specific parameter - see below
+ * @param $P2       $fn specific parameter - see below
  */
 function adodb_throw($dbms, $fn, $errno, $errmsg, $p1, $p2, $thisConnection) {
 	global $ADODB_EXCEPTION;

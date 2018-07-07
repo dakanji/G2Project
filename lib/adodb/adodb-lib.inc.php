@@ -899,14 +899,14 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 					//Oracle needs BLOB types to be handled with a returning clause
 					//postgres has special needs as well
 					$setFields .= _adodb_column_sql(
-							$zthis,
-							'U',
-							$type,
-							$upperfname,
-							$fnameq,
-							$arrFields,
-							$magicq
-						);
+						$zthis,
+						'U',
+						$type,
+						$upperfname,
+						$fnameq,
+						$arrFields,
+						$magicq
+					);
 				}
 			}
 		}

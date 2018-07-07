@@ -41,7 +41,12 @@ class SliderTheme extends GalleryTheme {
 		$this->setStandardSettings(array(
 			'colorpack'      => '',
 			'sidebarBlocks'  => serialize(array(
-				array('search.SearchBlock', array('showAdvancedLink' => true)),
+				array(
+					'search.SearchBlock',
+					array(
+						'showAdvancedLink' => true,
+					),
+				),
 				array('imageblock.ImageBlock', array()),
 			)),
 			'enableImageMap' => 0,

@@ -78,7 +78,7 @@ class UploadItemsController extends GalleryController {
 			}
 
 			// Get the file passed in this submission
-			$file                   = GalleryUtilities::getFile('userFile', false);
+			$file                  = GalleryUtilities::getFile('userFile', false);
 			list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($form['albumId']);
 
 			if ($ret) {

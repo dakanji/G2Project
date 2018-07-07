@@ -30,8 +30,8 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status              = null;
-		$error               = array();
+		$status             = null;
+		$error              = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
 		if ($ret) {
@@ -101,7 +101,9 @@ class ItemEditThumbPage extends ItemEditPlugin {
 		if ($ret) {
 			return array($ret, null, null);
 		}
-		$ItemEditThumbPage = array('pageList' => array());
+		$ItemEditThumbPage = array(
+			'pageList' => array(),
+		);
 
 		for ($i = 1; $i <= $count; $i++) {
 			$ItemEditThumbPage['pageList'][$i] = $i;

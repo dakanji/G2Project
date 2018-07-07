@@ -412,7 +412,7 @@ class ThumbnailHelper {
 		}
 
 		if (!empty($derivative)) {
-			$derivative          = array_shift($derivative);
+			$derivative         = array_shift($derivative);
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 			if ($ret) {
@@ -516,7 +516,7 @@ class ThumbnailHelper {
 	public static function getMimeTypeMap() {
 		global $gallery;
 
-		$query                      = '
+		$query                     = '
 	    SELECT [GalleryMimeTypeMap::mimeType], [GalleryMimeTypeMap::extension]
 	    FROM [GalleryMimeTypeMap]
 	    ORDER BY [GalleryMimeTypeMap::mimeType]

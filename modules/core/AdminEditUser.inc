@@ -38,7 +38,7 @@ class AdminEditUserController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$userId            = GalleryUtilities::getRequestVariables('userId');
+		$userId           = GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -104,7 +104,9 @@ class AdminEditUserController extends GalleryController {
 			if (isset($form['action']['resetFailedLogins'])) {
 				$ret = GalleryCoreApi::removeMapEntry(
 					'FailedLoginsMap',
-					array('userName' => $user->getUserName())
+					array(
+						'userName' => $user->getUserName(),
+					)
 				);
 
 				if ($ret) {
@@ -188,7 +190,7 @@ class AdminEditUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId            = GalleryUtilities::getRequestVariables('userId');
+		$userId           = GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -247,7 +249,9 @@ class AdminEditUserView extends GalleryView {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'FailedLoginsMap',
 			array('count'),
-			array('userName' => $user->getUserName())
+			array(
+				'userName' => $user->getUserName(),
+			)
 		);
 
 		if ($ret) {
@@ -273,6 +277,11 @@ class AdminEditUserView extends GalleryView {
 		$template->setVariable('AdminEditUser', $AdminEditUser);
 		$template->setVariable('controller', 'core.AdminEditUser');
 
-		return array(null, array('body' => 'modules/core/templates/AdminEditUser.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminEditUser.tpl',
+			),
+		);
 	}
 }

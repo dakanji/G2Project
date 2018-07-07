@@ -38,8 +38,18 @@ class TileTheme extends GalleryTheme {
 		$this->setStandardSettings(array(
 			'colorpack'     => '',
 			'sidebarBlocks' => serialize(array(
-				array('search.SearchBlock', array('showAdvancedLink' => true)),
-				array('core.ItemLinks', array('useDropdown' => false)),
+				array(
+					'search.SearchBlock',
+					array(
+						'showAdvancedLink' => true,
+					),
+				),
+				array(
+					'core.ItemLinks',
+					array(
+						'useDropdown' => false,
+					),
+				),
 				array('core.PeerList', array()),
 				array('imageblock.ImageBlock', array()),
 			)),

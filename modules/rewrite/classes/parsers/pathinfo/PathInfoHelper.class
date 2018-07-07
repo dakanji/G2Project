@@ -105,14 +105,18 @@ class PathInfoHelper {
 
 		foreach ($regexRules as $rule) {
 			if (empty($rule['pattern'])) {
-				$static['/'] = array('queryString' => $rule['queryString']);
+				$static['/'] = array(
+					'queryString' => $rule['queryString'],
+				);
 
 			/*
 			 * Backreference 0 contains the text that matched the full pattern, backreference 1
 			 * contains the text that matched the first parenthesized subpattern, and so on.
 			 */
 			} elseif (count($rule['keywords']) < 2) {
-				$static['/' . $rule['pattern']] = array('queryString' => $rule['queryString']);
+				$static['/' . $rule['pattern']] = array(
+					'queryString' => $rule['queryString'],
+				);
 			} else {
 				$dynamic[] = array(
 					'pattern'     => '@^/' . $rule['pattern'] . '$@',
@@ -162,9 +166,13 @@ class PathInfoHelper {
 			return array($ret, null, null);
 		}
 
-		$fetch                 = $urlGenerator->generateUrl(
-			array('href' => 'modules/rewrite/data/path_info/index.php/test/path/info'),
-			array('forceFullUrl' => true)
+		$fetch                = $urlGenerator->generateUrl(
+			array(
+				'href' => 'modules/rewrite/data/path_info/index.php/test/path/info',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 

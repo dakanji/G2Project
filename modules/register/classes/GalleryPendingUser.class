@@ -151,7 +151,11 @@ class GalleryPendingUser extends GalleryEntity {
 		list($ret, $results) = $gallery->search(
 			$query,
 			array($userName),
-			array('limit' => array('count' => 1))
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {
@@ -178,7 +182,11 @@ class GalleryPendingUser extends GalleryEntity {
 		list($ret, $results) = $gallery->search(
 			$query,
 			array($userName),
-			array('limit' => array('count' => 1))
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {

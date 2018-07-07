@@ -31,7 +31,7 @@ if (!defined('ADODB_SAPDB')) {
 		public $concat_operator = '||';
 		public $sysDate         = 'DATE';
 		public $sysTimeStamp    = 'TIMESTAMP';
-		public $fmtDate         = "'Y-m-d'";	/// used by DBDate() as the default date format used by the database
+		public $fmtDate         = "'Y-m-d'";    /// used by DBDate() as the default date format used by the database
 		public $fmtTimeStamp    = "'Y-m-d H:i:s'"; /// used by DBTimeStamp as the default timestamp fmt.
 		public $hasInsertId     = true;
 		public $_bindInputArray = true;
@@ -92,7 +92,7 @@ if (!defined('ADODB_SAPDB')) {
 
 			if ($primary) {
 				$indexes['SYSPRIMARYKEYINDEX'] = array(
-					'unique'  => true,	// by definition
+					'unique'  => true,  // by definition
 					'columns' => $this->GetCol("SELECT columnname FROM COLUMNS WHERE tablename=$table AND mode='KEY' ORDER BY pos"),
 				);
 			}

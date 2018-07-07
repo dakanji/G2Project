@@ -72,7 +72,9 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			}
 
 			if (empty($form['repositories'])) {
-				$form['repositories'] = array('released' => 1);
+				$form['repositories'] = array(
+					'released' => 1,
+				);
 			}
 
 			// filter the form values through our list of valid keys to avoid exploits
@@ -196,7 +198,7 @@ class AdminRepositoryView extends GalleryView {
 
 		if ($form['formName'] != 'AdminRepository') {
 			// Set some defaults
-			$form['formName']     = 'AdminRepository';
+			$form['formName']    = 'AdminRepository';
 			list($ret, $sources) = GalleryCoreApi::getPluginParameter('module', 'core', 'core.repositories');
 
 			if ($ret) {
@@ -206,7 +208,9 @@ class AdminRepositoryView extends GalleryView {
 		}
 
 		if (empty($form['repositories'])) {
-			$form['repositories'] = array('released' => 1);
+			$form['repositories'] = array(
+				'released' => 1,
+			);
 		}
 
 		// Check if incompatible plugins should be shown.
@@ -287,7 +291,9 @@ class AdminRepositoryView extends GalleryView {
 				return array($ret, null);
 			}
 
-			$AdminRepository['indexMetaData'][$source] = array_merge(array('name' => $message), $indexMetaData);
+			$AdminRepository['indexMetaData'][$source] = array_merge(array(
+				'name' => $message,
+			), $indexMetaData);
 
 			list($ret, $tmp) = $repository->getAllUpgradeablePackages();
 
@@ -340,7 +346,12 @@ class AdminRepositoryView extends GalleryView {
 		$template->javascript('lib/yui/container-min.js');
 		$template->javascript('modules/core/templates/AdminRepository.js');
 
-		return array(null, array('body' => 'modules/core/templates/AdminRepository.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminRepository.tpl',
+			),
+		);
 	}
 
 	/**

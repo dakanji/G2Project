@@ -52,7 +52,9 @@ class ConfirmRegistrationController extends GalleryController {
 				list($ret, $user) = GalleryCoreApi::fetchUserByUsername($username);
 
 				if (!$ret) {
-					$results['redirect'] = array('return' => true);
+					$results['redirect'] = array(
+						'return' => true,
+					);
 				} else {
 					$results['error'][] = 'form[error][unknownUser]';
 				}
@@ -93,6 +95,11 @@ class ConfirmRegistrationView extends GalleryView {
 	public function loadTemplate(&$template, &$form) {
 		$template->setVariable('controller', 'register.ConfirmRegistration');
 
-		return array(null, array('body' => 'modules/register/templates/ConfirmRegistration.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/register/templates/ConfirmRegistration.tpl',
+			),
+		);
 	}
 }

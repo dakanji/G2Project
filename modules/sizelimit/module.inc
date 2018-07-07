@@ -99,7 +99,7 @@ class SizeLimitModule extends GalleryModule {
 			if (GalleryUtilities::isA($album, 'GalleryAlbumItem')
 				&& $album->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
 			) {
-				$parentId            = (int)$album->getParentId();
+				$parentId           = (int)$album->getParentId();
 				list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 					'module',
 					'sizelimit',

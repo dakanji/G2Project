@@ -47,7 +47,9 @@ class RemoteModule extends GalleryModule {
 			return $ret;
 		}
 
-		foreach (array('showItemAdd' => 1) as $key => $value) {
+		foreach (array(
+			'showItemAdd' => 1,
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

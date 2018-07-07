@@ -165,6 +165,11 @@ class SelectPicasaExportPathView extends GalleryView {
 		$template->setVariable('controller', 'picasa.SelectPicasaExportPath');
 		$template->setVariable('SelectPicasaExportPath', $SelectPicasaExportPath);
 
-		return array(null, array('body' => 'modules/picasa/templates/SelectPicasaExportPath.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/picasa/templates/SelectPicasaExportPath.tpl',
+			),
+		);
 	}
 }
