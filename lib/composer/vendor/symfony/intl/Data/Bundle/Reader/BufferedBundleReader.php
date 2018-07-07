@@ -18,34 +18,32 @@ use Symfony\Component\Intl\Data\Util\RingBuffer;
  *
  * @internal
  */
-class BufferedBundleReader implements BundleReaderInterface
-{
-    private $reader;
-    private $buffer;
+class BufferedBundleReader implements BundleReaderInterface {
 
-    /**
-     * Buffers a given reader.
-     *
-     * @param BundleReaderInterface $reader     The reader to buffer
-     * @param int                   $bufferSize The number of entries to store in the buffer
-     */
-    public function __construct(BundleReaderInterface $reader, $bufferSize)
-    {
-        $this->reader = $reader;
-        $this->buffer = new RingBuffer($bufferSize);
-    }
+	private $reader;
+	private $buffer;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function read($path, $locale)
-    {
-        $hash = $path.'//'.$locale;
+	/**
+	 * Buffers a given reader.
+	 *
+	 * @param BundleReaderInterface $reader     The reader to buffer
+	 * @param int                   $bufferSize The number of entries to store in the buffer
+	 */
+	public function __construct(BundleReaderInterface $reader, $bufferSize) {
+		$this->reader = $reader;
+		$this->buffer = new RingBuffer($bufferSize);
+	}
 
-        if (!isset($this->buffer[$hash])) {
-            $this->buffer[$hash] = $this->reader->read($path, $locale);
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function read($path, $locale) {
+		$hash = $path . '//' . $locale;
 
-        return $this->buffer[$hash];
-    }
+		if (!isset($this->buffer[$hash])) {
+			$this->buffer[$hash] = $this->reader->read($path, $locale);
+		}
+
+		return $this->buffer[$hash];
+	}
 }

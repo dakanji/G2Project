@@ -132,6 +132,11 @@ class WebCamSiteAdminView extends GalleryView {
 		$template->setVariable('WebCamSiteAdmin', $WebCamSiteAdmin);
 		$template->setVariable('controller', 'webcam.WebCamSiteAdmin');
 
-		return array(null, array('body' => 'modules/webcam/templates/WebCamSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/webcam/templates/WebCamSiteAdmin.tpl',
+			),
+		);
 	}
 }

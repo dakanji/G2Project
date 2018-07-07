@@ -22,121 +22,112 @@ use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
  *
  * @internal
  */
-class CurrencyDataProvider
-{
-    const INDEX_SYMBOL = 0;
-    const INDEX_NAME = 1;
-    const INDEX_FRACTION_DIGITS = 0;
-    const INDEX_ROUNDING_INCREMENT = 1;
+class CurrencyDataProvider {
 
-    private $path;
-    private $reader;
+	const INDEX_SYMBOL             = 0;
+	const INDEX_NAME               = 1;
+	const INDEX_FRACTION_DIGITS    = 0;
+	const INDEX_ROUNDING_INCREMENT = 1;
 
-    /**
-     * Creates a data provider that reads currency-related data from a
-     * resource bundle.
-     *
-     * @param string                     $path   The path to the resource bundle
-     * @param BundleEntryReaderInterface $reader The reader for reading the resource bundle
-     */
-    public function __construct($path, BundleEntryReaderInterface $reader)
-    {
-        $this->path = $path;
-        $this->reader = $reader;
-    }
+	private $path;
+	private $reader;
 
-    public function getCurrencies()
-    {
-        return $this->reader->readEntry($this->path, 'meta', array('Currencies'));
-    }
+	/**
+	 * Creates a data provider that reads currency-related data from a
+	 * resource bundle.
+	 *
+	 * @param string                     $path   The path to the resource bundle
+	 * @param BundleEntryReaderInterface $reader The reader for reading the resource bundle
+	 */
+	public function __construct($path, BundleEntryReaderInterface $reader) {
+		$this->path   = $path;
+		$this->reader = $reader;
+	}
 
-    public function getSymbol($currency, $displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+	public function getCurrencies() {
+		return $this->reader->readEntry($this->path, 'meta', array( 'Currencies' ));
+	}
 
-        return $this->reader->readEntry($this->path, $displayLocale, array('Names', $currency, static::INDEX_SYMBOL));
-    }
+	public function getSymbol($currency, $displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-    public function getName($currency, $displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+		return $this->reader->readEntry($this->path, $displayLocale, array( 'Names', $currency, static::INDEX_SYMBOL ));
+	}
 
-        return $this->reader->readEntry($this->path, $displayLocale, array('Names', $currency, static::INDEX_NAME));
-    }
+	public function getName($currency, $displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-    public function getNames($displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+		return $this->reader->readEntry($this->path, $displayLocale, array( 'Names', $currency, static::INDEX_NAME ));
+	}
 
-        // ====================================================================
-        // For reference: It is NOT possible to return names indexed by
-        // numeric code here, because some numeric codes map to multiple
-        // 3-letter codes (e.g. 32 => "ARA", "ARP", "ARS")
-        // ====================================================================
+	public function getNames($displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-        $names = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
+		// ====================================================================
+		// For reference: It is NOT possible to return names indexed by
+		// numeric code here, because some numeric codes map to multiple
+		// 3-letter codes (e.g. 32 => "ARA", "ARP", "ARS")
+		// ====================================================================
 
-        if ($names instanceof \Traversable) {
-            $names = iterator_to_array($names);
-        }
+		$names = $this->reader->readEntry($this->path, $displayLocale, array( 'Names' ));
 
-        $index = static::INDEX_NAME;
+		if ($names instanceof \Traversable) {
+			$names = iterator_to_array($names);
+		}
 
-        array_walk($names, function (&$value) use ($index) {
-            $value = $value[$index];
-        });
+		$index = static::INDEX_NAME;
 
-        // Sorting by value cannot be done during bundle generation, because
-        // binary bundles are always sorted by keys
-        $collator = new \Collator($displayLocale);
-        $collator->asort($names);
+		array_walk($names, function (&$value) use ($index) {
+			$value = $value[$index];
+		});
 
-        return $names;
-    }
+		// Sorting by value cannot be done during bundle generation, because
+		// binary bundles are always sorted by keys
+		$collator = new \Collator($displayLocale);
+		$collator->asort($names);
 
-    /**
-     * Data provider for {@link \Symfony\Component\Intl\Currency::getFractionDigits()}.
-     */
-    public function getFractionDigits($currency)
-    {
-        try {
-            return $this->reader->readEntry($this->path, 'meta', array('Meta', $currency, static::INDEX_FRACTION_DIGITS));
-        } catch (MissingResourceException $e) {
-            return $this->reader->readEntry($this->path, 'meta', array('Meta', 'DEFAULT', static::INDEX_FRACTION_DIGITS));
-        }
-    }
+		return $names;
+	}
 
-    /**
-     * Data provider for {@link \Symfony\Component\Intl\Currency::getRoundingIncrement()}.
-     */
-    public function getRoundingIncrement($currency)
-    {
-        try {
-            return $this->reader->readEntry($this->path, 'meta', array('Meta', $currency, static::INDEX_ROUNDING_INCREMENT));
-        } catch (MissingResourceException $e) {
-            return $this->reader->readEntry($this->path, 'meta', array('Meta', 'DEFAULT', static::INDEX_ROUNDING_INCREMENT));
-        }
-    }
+	/**
+	 * Data provider for {@link \Symfony\Component\Intl\Currency::getFractionDigits()}.
+	 */
+	public function getFractionDigits($currency) {
+		try {
+			return $this->reader->readEntry($this->path, 'meta', array( 'Meta', $currency, static::INDEX_FRACTION_DIGITS ));
+		} catch (MissingResourceException $e) {
+			return $this->reader->readEntry($this->path, 'meta', array( 'Meta', 'DEFAULT', static::INDEX_FRACTION_DIGITS ));
+		}
+	}
 
-    /**
-     * Data provider for {@link \Symfony\Component\Intl\Currency::getNumericCode()}.
-     */
-    public function getNumericCode($currency)
-    {
-        return $this->reader->readEntry($this->path, 'meta', array('Alpha3ToNumeric', $currency));
-    }
+	/**
+	 * Data provider for {@link \Symfony\Component\Intl\Currency::getRoundingIncrement()}.
+	 */
+	public function getRoundingIncrement($currency) {
+		try {
+			return $this->reader->readEntry($this->path, 'meta', array( 'Meta', $currency, static::INDEX_ROUNDING_INCREMENT ));
+		} catch (MissingResourceException $e) {
+			return $this->reader->readEntry($this->path, 'meta', array( 'Meta', 'DEFAULT', static::INDEX_ROUNDING_INCREMENT ));
+		}
+	}
 
-    /**
-     * Data provider for {@link \Symfony\Component\Intl\Currency::forNumericCode()}.
-     */
-    public function forNumericCode($numericCode)
-    {
-        return $this->reader->readEntry($this->path, 'meta', array('NumericToAlpha3', (string) $numericCode));
-    }
+	/**
+	 * Data provider for {@link \Symfony\Component\Intl\Currency::getNumericCode()}.
+	 */
+	public function getNumericCode($currency) {
+		return $this->reader->readEntry($this->path, 'meta', array( 'Alpha3ToNumeric', $currency ));
+	}
+
+	/**
+	 * Data provider for {@link \Symfony\Component\Intl\Currency::forNumericCode()}.
+	 */
+	public function forNumericCode($numericCode) {
+		return $this->reader->readEntry($this->path, 'meta', array( 'NumericToAlpha3', (string)$numericCode ));
+	}
 }

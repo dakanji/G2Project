@@ -561,14 +561,14 @@ class adodb_perf {
 		}
 		//$this->conn->debug=1;
 		$rs = $this->conn->SelectLimit(
-				"select avg(timer) as avg_timer,$sql1,count(*),max(timer) as max_timer,min(timer) as min_timer
+			"select avg(timer) as avg_timer,$sql1,count(*),max(timer) as max_timer,min(timer) as min_timer
 				from $perf_table
 				where {$this->conn->upperCase}({$this->conn->substr}(sql0,1,5)) not in ('DROP ','INSER','COMMI','CREAT')
 				and (tracer is null or tracer not like 'ERROR:%')
 				group by sql1
 				order by 1 desc",
-				$numsql
-			);
+			$numsql
+		);
 
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
@@ -649,15 +649,15 @@ class adodb_perf {
 		}
 
 		$rs = $this->conn->SelectLimit(
-				"select sum(timer) as total,$sql1,count(*),max(timer) as max_timer,min(timer) as min_timer
+			"select sum(timer) as total,$sql1,count(*),max(timer) as max_timer,min(timer) as min_timer
 				from $perf_table
 				where {$this->conn->upperCase}({$this->conn->substr}(sql0,1,5))  not in ('DROP ','INSER','COMMI','CREAT')
 				and (tracer is null or tracer not like 'ERROR:%')
 				group by sql1
 				having count(*)>1
 				order by 1 desc",
-				$numsql
-			);
+			$numsql
+		);
 
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);

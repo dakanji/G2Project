@@ -53,7 +53,7 @@ class ImageBlockCallbacks {
 							'showOwner'   => 'owner',
 							'showDate'    => 'date',
 						)
-						as $blockVarName => $showMapName) {
+ as $blockVarName => $showMapName) {
 							if (empty($params[$blockVarName])) {
 								unset($showMap[$showMapName]);
 							} else {

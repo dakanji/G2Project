@@ -80,7 +80,7 @@ class SlideshowModule extends GalleryModule {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
-		$dir            = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow';
+		$dir           = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow';
 		list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 		if (!$success) {
@@ -160,7 +160,9 @@ class SlideshowModule extends GalleryModule {
 				'forJavascript' => true,
 				'forceFullUrl'  => true,
 			);
-			$jsUrlParamsDirect = array_merge($jsUrlParams, array('forceDirect' => true));
+			$jsUrlParamsDirect = array_merge($jsUrlParams, array(
+				'forceDirect' => true,
+			));
 
 			if (isset($wantsDetailedLinks[$itemId])) {
 				/*
@@ -278,7 +280,9 @@ class SlideshowModule extends GalleryModule {
 
 		$rule             = array();
 		$rule['comment']  = $this->translate('View Slideshow');
-		$rule['match']    = array('view' => 'slideshow.Slideshow');
+		$rule['match']    = array(
+			'view' => 'slideshow.Slideshow',
+		);
 		$rule['onLoad']   = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
 		$rule['pattern']  = 'v/%path%/slideshow.html';
 		$rule['keywords'] = array(

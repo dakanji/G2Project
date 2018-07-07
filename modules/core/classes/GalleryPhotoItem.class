@@ -227,14 +227,16 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 		switch ($format) {
 			case 'HTML':
-				$urlGenerator          =& $gallery->getUrlGenerator();
-				$src                   = $urlGenerator->generateUrl(
+				$urlGenerator         =& $gallery->getUrlGenerator();
+				$src                  = $urlGenerator->generateUrl(
 					array(
 						'view'         => 'core.DownloadItem',
 						'itemId'       => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
-					array('forceFullUrl' => !empty($params['forceFullUrl']))
+					array(
+						'forceFullUrl' => !empty($params['forceFullUrl']),
+					)
 				);
 				list($width, $height) = array($this->getWidth(), $this->getHeight());
 

@@ -240,6 +240,11 @@ class AdminGroupsView extends GalleryView {
 		$template->setVariable('AdminGroups', $AdminGroups);
 		$template->setVariable('controller', 'core.AdminGroups');
 
-		return array(null, array('body' => 'modules/core/templates/AdminGroups.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminGroups.tpl',
+			),
+		);
 	}
 }

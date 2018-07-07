@@ -1,5 +1,4 @@
 <?php
 
-class ParseError extends Error
-{
+class ParseError extends Error {
 }

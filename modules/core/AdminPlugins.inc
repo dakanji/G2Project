@@ -135,8 +135,8 @@ class AdminPluginsView extends GalleryView {
 		}
 		usort($plugins, array($this, 'pluginSort'));
 
-		$AdminPlugins                              = array();
-		$AdminPlugins['plugins']                   = $plugins;
+		$AdminPlugins                             = array();
+		$AdminPlugins['plugins']                  = $plugins;
 		list($ret, $AdminPlugins['defaultTheme']) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -172,7 +172,12 @@ class AdminPluginsView extends GalleryView {
 		$template->javascript('lib/yui/container-min.js');
 		$template->javascript('modules/core/templates/AdminPlugins.js');
 
-		return array(null, array('body' => 'modules/core/templates/AdminPlugins.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminPlugins.tpl',
+			),
+		);
 	}
 
 	public function pluginSort($a, $b) {

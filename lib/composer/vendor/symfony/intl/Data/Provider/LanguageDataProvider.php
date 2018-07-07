@@ -21,62 +21,56 @@ use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
  *
  * @internal
  */
-class LanguageDataProvider
-{
-    private $path;
-    private $reader;
+class LanguageDataProvider {
 
-    /**
-     * Creates a data provider that reads locale-related data from .res files.
-     *
-     * @param string                     $path   The path to the directory containing the .res files
-     * @param BundleEntryReaderInterface $reader The reader for reading the .res files
-     */
-    public function __construct($path, BundleEntryReaderInterface $reader)
-    {
-        $this->path = $path;
-        $this->reader = $reader;
-    }
+	private $path;
+	private $reader;
 
-    public function getLanguages()
-    {
-        return $this->reader->readEntry($this->path, 'meta', array('Languages'));
-    }
+	/**
+	 * Creates a data provider that reads locale-related data from .res files.
+	 *
+	 * @param string                     $path   The path to the directory containing the .res files
+	 * @param BundleEntryReaderInterface $reader The reader for reading the .res files
+	 */
+	public function __construct($path, BundleEntryReaderInterface $reader) {
+		$this->path   = $path;
+		$this->reader = $reader;
+	}
 
-    public function getAliases()
-    {
-        return $this->reader->readEntry($this->path, 'root', array('Aliases'));
-    }
+	public function getLanguages() {
+		return $this->reader->readEntry($this->path, 'meta', array( 'Languages' ));
+	}
 
-    public function getName($language, $displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+	public function getAliases() {
+		return $this->reader->readEntry($this->path, 'root', array( 'Aliases' ));
+	}
 
-        return $this->reader->readEntry($this->path, $displayLocale, array('Names', $language));
-    }
+	public function getName($language, $displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-    public function getNames($displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+		return $this->reader->readEntry($this->path, $displayLocale, array( 'Names', $language ));
+	}
 
-        $languages = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
+	public function getNames($displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-        if ($languages instanceof \Traversable) {
-            $languages = iterator_to_array($languages);
-        }
+		$languages = $this->reader->readEntry($this->path, $displayLocale, array( 'Names' ));
 
-        $collator = new \Collator($displayLocale);
-        $collator->asort($languages);
+		if ($languages instanceof \Traversable) {
+			$languages = iterator_to_array($languages);
+		}
 
-        return $languages;
-    }
+		$collator = new \Collator($displayLocale);
+		$collator->asort($languages);
 
-    public function getAlpha3Code($language)
-    {
-        return $this->reader->readEntry($this->path, 'meta', array('Alpha2ToAlpha3', $language));
-    }
+		return $languages;
+	}
+
+	public function getAlpha3Code($language) {
+		return $this->reader->readEntry($this->path, 'meta', array( 'Alpha2ToAlpha3', $language ));
+	}
 }

@@ -186,7 +186,7 @@ class SizeLimitHelper {
 			}
 		}
 
-		$operationString         = $operation . '|' . implode(',', $args);
+		$operationString        = $operation . '|' . implode(',', $args);
 		list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 			$preferred->getDerivativeOperations(),
 			$operationString
@@ -225,7 +225,7 @@ class SizeLimitHelper {
 				$args[0],
 				$args[1]
 			);
-			$ret                   = self::_updateResizes($item->getId(), $width, $height);
+			$ret                  = self::_updateResizes($item->getId(), $width, $height);
 
 			if ($ret) {
 				return $ret;

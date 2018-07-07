@@ -28,8 +28,8 @@ class ADODB_sqlite extends ADOConnection {
 	public $concat_operator = '||';
 	public $_errorNo        = 0;
 	public $hasLimit        = true;
-	public $hasInsertID     = true; 		/// supports autoincrement ID?
-	public $hasAffectedRows = true; 	/// supports affected rows for update/delete?
+	public $hasInsertID     = true;         /// supports autoincrement ID?
+	public $hasAffectedRows = true;     /// supports affected rows for update/delete?
 	public $metaTablesSQL   = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
 	public $sysDate         = "adodb_date('Y-m-d')";
 	public $sysTimeStamp    = "adodb_date('Y-m-d H:i:s')";

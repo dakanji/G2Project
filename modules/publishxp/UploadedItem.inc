@@ -39,7 +39,9 @@ class UploadedItemView extends GalleryView {
 		return array(
 			null,
 			array(
-				'redirect' => array('view' => 'core.ShowItem'),
+				'redirect' => array(
+					'view' => 'core.ShowItem',
+				),
 				'status'   => array(),
 				'error'    => array(),
 			),

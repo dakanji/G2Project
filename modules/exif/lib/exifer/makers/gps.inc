@@ -39,107 +39,107 @@ function lookup_GPS_tag($tag) {
 		case '0001':
 			$tag = 'Latitude Reference';
 
-			break;			//north or south
+			break;          //north or south
 		case '0002':
 			$tag = 'Latitude';
 
-			break;					//dd mm.mm or dd mm ss
+			break;                  //dd mm.mm or dd mm ss
 		case '0003':
 			$tag = 'Longitude Reference';
 
-			break;		//east or west
+			break;      //east or west
 		case '0004':
 			$tag = 'Longitude';
 
-			break;					//dd mm.mm or dd mm ss
+			break;                  //dd mm.mm or dd mm ss
 		case '0005':
 			$tag = 'Altitude Reference';
 
-			break;			//sea level or below sea level
+			break;          //sea level or below sea level
 		case '0006':
 			$tag = 'Altitude';
 
-			break;					//positive rational number
+			break;                  //positive rational number
 		case '0007':
 			$tag = 'Time';
 
-			break;						//three positive rational numbers
+			break;                      //three positive rational numbers
 		case '0008':
 			$tag = 'Satellite';
 
-			break;					//text string up to 999 bytes long
+			break;                  //text string up to 999 bytes long
 		case '0009':
 			$tag = 'ReceiveStatus';
 
-			break;				//in progress or interop
+			break;              //in progress or interop
 		case '000a':
 			$tag = 'MeasurementMode';
 
-			break;			//2D or 3D
+			break;          //2D or 3D
 		case '000b':
 			$tag = 'MeasurementPrecision';
 
-			break;		//positive rational number
+			break;      //positive rational number
 		case '000c':
 			$tag = 'SpeedUnit';
 
-			break;					//KPH, MPH, knots
+			break;                  //KPH, MPH, knots
 		case '000d':
 			$tag = 'ReceiverSpeed';
 
-			break;				//positive rational number
+			break;              //positive rational number
 		case '000e':
 			$tag = 'MovementDirectionRef';
 
-			break;		//true or magnetic north
+			break;      //true or magnetic north
 		case '000f':
 			$tag = 'MovementDirection';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case '0010':
 			$tag = 'ImageDirectionRef';
 
-			break;			//true or magnetic north
+			break;          //true or magnetic north
 		case '0011':
 			$tag = 'ImageDirection';
 
-			break;				//positive rational number
+			break;              //positive rational number
 		case '0012':
 			$tag = 'GeodeticSurveyData';
 
-			break;			//text string up to 999 bytes long
+			break;          //text string up to 999 bytes long
 		case '0013':
 			$tag = 'DestLatitudeRef';
 
-			break;			//north or south
+			break;          //north or south
 		case '0014':
 			$tag = 'DestinationLatitude';
 
-			break;		//three positive rational numbers
+			break;      //three positive rational numbers
 		case '0015':
 			$tag = 'DestLongitudeRef';
 
-			break;			//east or west
+			break;          //east or west
 		case '0016':
 			$tag = 'DestinationLongitude';
 
-			break;		//three positive rational numbers
+			break;      //three positive rational numbers
 		case '0017':
 			$tag = 'DestBearingRef';
 
-			break;				//true or magnetic north
+			break;              //true or magnetic north
 		case '0018':
 			$tag = 'DestinationBearing';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case '0019':
 			$tag = 'DestDistanceRef';
 
-			break;			//km, miles, knots
+			break;          //km, miles, knots
 		case '001a':
 			$tag = 'DestinationDistance';
 
-			break;		//positive rational number
+			break;      //positive rational number
 		case '001b':
 			$tag = 'ProcessingMethod';
 
@@ -153,11 +153,11 @@ function lookup_GPS_tag($tag) {
 		case '001d':
 			$tag = 'Datestamp';
 
-			break;					//text string 10 bytes long
+			break;                  //text string 10 bytes long
 		case '001e':
 			$tag = 'DifferentialCorrection';
 
-			break;		//integer in range 0-65535
+			break;      //integer in range 0-65535
 		default:
 			$tag = 'unknown:' . $tag;
 
@@ -172,15 +172,15 @@ function lookup_GPS_tag($tag) {
 //====================================================================
 function GPSRational($data, $intel) {
 	if ($intel == 1) {
-		$top = hexdec(substr($data, 8, 8)); 	//intel stores them bottom-top
+		$top = hexdec(substr($data, 8, 8));     //intel stores them bottom-top
 	} else {
-		$top = hexdec(substr($data, 0, 8));				//motorola stores them top-bottom
+		$top = hexdec(substr($data, 0, 8));             //motorola stores them top-bottom
 	}
 
 	if ($intel == 1) {
-		$bottom = hexdec(substr($data, 0, 8));	//intel stores them bottom-top
+		$bottom = hexdec(substr($data, 0, 8));  //intel stores them bottom-top
 	} else {
-		$bottom = hexdec(substr($data, 8, 8));			//motorola stores them top-bottom
+		$bottom = hexdec(substr($data, 8, 8));          //motorola stores them top-bottom
 	}
 
 	if ($bottom != 0) {
@@ -210,19 +210,19 @@ function formatGPSData($type, $tag, $intel, $data) {
 		}
 
 		if ($intel == 1) {
-			$top = hexdec(substr($data, 8, 8)); 	//intel stores them bottom-top
+			$top = hexdec(substr($data, 8, 8));     //intel stores them bottom-top
 		} else {
-			$top = hexdec(substr($data, 0, 8));				//motorola stores them top-bottom
+			$top = hexdec(substr($data, 0, 8));             //motorola stores them top-bottom
 		}
 
 		if ($intel == 1) {
-			$bottom = hexdec(substr($data, 0, 8));	//intel stores them bottom-top
+			$bottom = hexdec(substr($data, 0, 8));  //intel stores them bottom-top
 		} else {
-			$bottom = hexdec(substr($data, 8, 8));			//motorola stores them top-bottom
+			$bottom = hexdec(substr($data, 8, 8));          //motorola stores them top-bottom
 		}
 
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
-			$top = $top - 4294967296;		//this makes the number signed instead of unsigned
+			$top = $top - 4294967296;       //this makes the number signed instead of unsigned
 		}
 
 		if ($tag == '0002' || $tag == '0004') { //Latitude

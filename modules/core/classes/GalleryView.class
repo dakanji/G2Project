@@ -321,7 +321,13 @@ class GalleryView {
 					$redirect['itemId'] = $itemId;
 				}
 
-				return array(null, array('redirect' => $redirect), null);
+				return array(
+					null,
+					array(
+						'redirect' => $redirect,
+					),
+					null,
+				);
 			}
 		}
 
@@ -392,7 +398,7 @@ class GalleryView {
 
 		// If we don't have an itemId, default to the root album
 		if (empty($itemId)) {
-			$wasSpecified        = false;
+			$wasSpecified       = false;
 			list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 			if ($ret) {
@@ -449,7 +455,7 @@ class GalleryView {
 		if ($ret) {
 			// Ignore missing object here to avoid revealing valid/invalid ids
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$wasSpecified        = false;
+				$wasSpecified       = false;
 				list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 				if (!$ret) {
@@ -615,7 +621,7 @@ class GalleryView {
 	 * @static
 	 */
 	public function _loadTheme($themeId) {
-		$validTheme         = false;
+		$validTheme        = false;
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
 
 		if ($ret) {
@@ -743,20 +749,22 @@ class GalleryView {
 		global $gallery;
 		$session =& $gallery->getSession();
 
-		$user                         = (array)$gallery->getActiveUser();
+		$user                        = (array)$gallery->getActiveUser();
 		list($ret, $user['isGuest']) = GalleryCoreApi::isAnonymousUser($user['id']);
 
 		if ($ret) {
 			return $ret;
 		}
-		$user['isRegisteredUser']     = !$user['isGuest'];
+		$user['isRegisteredUser']    = !$user['isGuest'];
 		list($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
 			$user['isAdmin'] = false;
 		}
 		$template->setVariable('user', $user);
-		$themeVars = array('guestPreviewMode' => $session->get('theme.guestPreviewMode') ? 1 : 0);
+		$themeVars = array(
+			'guestPreviewMode' => $session->get('theme.guestPreviewMode') ? 1 : 0,
+		);
 
 		if (!$themeVars['guestPreviewMode']) {
 			$themeVars['actingUserId'] = $gallery->getActiveUserId();
@@ -811,7 +819,9 @@ class GalleryView {
 					// Redirect to login view
 					$result = array(
 						null,
-						array('redirect' => $gallery->getConfig('loginRedirect')),
+						array(
+							'redirect' => $gallery->getConfig('loginRedirect'),
+						),
 					);
 				}
 			}

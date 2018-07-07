@@ -98,7 +98,9 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		$platform        =& $gallery->getPlatform();
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
-		$status = array('error' => array());
+		$status = array(
+			'error' => array(),
+		);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -219,7 +221,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 * Update the general settings (UseBrowserPref and default language)
 	 * @param array $form the form values
 	 * @return array GalleryStatus a status code
-	 *		     bool flag indicating that the settings were updated
+	 *           bool flag indicating that the settings were updated
 	 */
 	public function _updateGeneralSettings($form) {
 		// Handle general language settings.
@@ -264,15 +266,15 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 * @param array $form the form values
 	 * @param array $repositories an array of GalleryRepositories
 	 * @return array GalleryStatus a status code
-	 *		     array list of language packages to install
-	 * 		     array list of language packages to remove
+	 *           array list of language packages to install
+	 *           array list of language packages to remove
 	 */
 	public function _getFormLanguages($form, $repositories) {
 		global $gallery;
 		$translator =& $gallery->getTranslator();
 
 		list($languageData) = $translator->getLanguageData();
-		$locales             = array(
+		$locales            = array(
 			'install' => array(),
 			'delete'  => array(),
 		);
@@ -303,8 +305,8 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 * @param array $deleteLanguages list of packages to be deleted
 	 * @param array $callback progress notification callback
 	 * @return array GalleryStatus a status code
-	 * 		     int number of language packages deleted
-	 *		     array string status messages indicating problems encounterd
+	 *           int number of language packages deleted
+	 *           array string status messages indicating problems encounterd
 	 */
 	public function _deleteLanguagePackages($deleteLanguages, $callback) {
 		global $gallery;
@@ -350,8 +352,8 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 * @param array $repositories an array of GalleryRepositories
 	 * @param array $callback progress notification callback
 	 * @return array GalleryStatus a status code
-	 *		     array string status messages indicating problems encounterd
-	 * 		     int count of packages installed
+	 *           array string status messages indicating problems encounterd
+	 *           int count of packages installed
 	 */
 	public function _downloadAndInstallLanguagePackages($sourceFiles, $repositories, &$callback) {
 		$status = array();
@@ -447,7 +449,7 @@ class AdminLanguageManagerView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($outer, $inner) = explode('.', $key);
+				list($outer, $inner)  = explode('.', $key);
 				$form[$outer][$inner] = $value;
 			}
 
@@ -519,7 +521,12 @@ class AdminLanguageManagerView extends GalleryView {
 		$template->setVariable('controller', 'core.AdminLanguageManager');
 		$template->javascript('lib/yui/utilities.js');
 
-		return array(null, array('body' => 'modules/core/templates/AdminLanguageManager.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminLanguageManager.tpl',
+			),
+		);
 	}
 
 	/**
@@ -530,15 +537,15 @@ class AdminLanguageManagerView extends GalleryView {
 	 * @param GalleryRepository $repository
 	 * @param array $enableAllFlags flags indicating if the select all flag should be be enabled
 	 * @return array GalleryStatus a status code
-	 *		     array package list
+	 *           array package list
 	 */
 	public function _getAllLanguages($repository, &$enableAllFlags) {
 		global $gallery;
 		$translator =& $gallery->getTranslator();
 
 		list($languageData, $defaultCountry) = $translator->getLanguageData();
-		$supportedLanguages                   = GalleryCoreApi::getSupportedLanguages();
-		$packages                             = array();
+		$supportedLanguages                  = GalleryCoreApi::getSupportedLanguages();
+		$packages                            = array();
 
 		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);

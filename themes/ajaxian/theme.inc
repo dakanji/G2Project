@@ -46,7 +46,12 @@ class AjaxianTheme extends GalleryTheme {
 				'showMicroThumbs' => 0,
 				'sidebarBlocks'   => serialize(array()),
 				'albumBlocks'     => serialize(array(
-					array('core.ItemLinks', array('useDropdown' => true)),
+					array(
+						'core.ItemLinks',
+						array(
+							'useDropdown' => true,
+						),
+					),
 				)),
 				'photoBlocks'     => serialize(array(
 					array('exif.ExifInfo', array()),

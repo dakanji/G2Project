@@ -44,7 +44,9 @@ class RssMapHelper {
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'RssMap',
 				array('feedName', 'itemId', 'ownerId', 'params'),
-				array('itemId' => $itemId)
+				array(
+					'itemId' => $itemId,
+				)
 			);
 
 			if ($ret) {
@@ -125,7 +127,9 @@ class RssMapHelper {
 		$params = array();
 
 		if (isset($limit)) {
-			$params['limit'] = array('count' => $limit);
+			$params['limit'] = array(
+				'count' => $limit,
+			);
 		}
 
 		list($ret, $searchResults) = $gallery->search($query, null, $params);
@@ -153,7 +157,9 @@ class RssMapHelper {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'RssMap',
 			array('params'),
-			array('feedName' => $feedName)
+			array(
+				'feedName' => $feedName,
+			)
 		);
 
 		if ($ret) {
@@ -183,9 +189,9 @@ class RssMapHelper {
 			}
 			// unserialization error
 			return array(
-					GalleryCoreApi::error(ERROR_STORAGE_FAILURE),
-					null,
-				);
+				GalleryCoreApi::error(ERROR_STORAGE_FAILURE),
+				null,
+			);
 		}
 
 		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
@@ -240,7 +246,9 @@ class RssMapHelper {
 	public static function updateFeed($feedName, $params) {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'RssMap',
-			array('feedName' => $feedName),
+			array(
+				'feedName' => $feedName,
+			),
 			array(
 				'feedName' => $feedName,
 				'itemId'   => $params['itemId'],
@@ -262,7 +270,9 @@ class RssMapHelper {
 	 * @return GalleryStatus a status code
 	 */
 	public static function deleteFeed($feedName) {
-		$ret = GalleryCoreApi::removeMapEntry('RssMap', array('feedName' => $feedName));
+		$ret = GalleryCoreApi::removeMapEntry('RssMap', array(
+			'feedName' => $feedName,
+		));
 
 		if ($ret) {
 			return $ret;

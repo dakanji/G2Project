@@ -19,327 +19,320 @@ use Symfony\Component\Intl\Locale;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @group intl-data
  */
-abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
-{
-    // The below arrays document the state of the ICU data bundled with this package.
+abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest {
 
-    protected static $scripts = array(
-        'Adlm',
-        'Afak',
-        'Aghb',
-        'Ahom',
-        'Arab',
-        'Armi',
-        'Armn',
-        'Avst',
-        'Bali',
-        'Bamu',
-        'Bass',
-        'Batk',
-        'Beng',
-        'Bhks',
-        'Blis',
-        'Bopo',
-        'Brah',
-        'Brai',
-        'Bugi',
-        'Buhd',
-        'Cakm',
-        'Cans',
-        'Cari',
-        'Cham',
-        'Cher',
-        'Cirt',
-        'Copt',
-        'Cprt',
-        'Cyrl',
-        'Cyrs',
-        'Deva',
-        'Dogr',
-        'Dsrt',
-        'Dupl',
-        'Egyd',
-        'Egyh',
-        'Egyp',
-        'Elba',
-        'Ethi',
-        'Geok',
-        'Geor',
-        'Glag',
-        'Gong',
-        'Gonm',
-        'Goth',
-        'Gran',
-        'Grek',
-        'Gujr',
-        'Guru',
-        'Hanb',
-        'Hang',
-        'Hani',
-        'Hano',
-        'Hans',
-        'Hant',
-        'Hatr',
-        'Hebr',
-        'Hira',
-        'Hluw',
-        'Hmng',
-        'Hrkt',
-        'Hung',
-        'Inds',
-        'Ital',
-        'Jamo',
-        'Java',
-        'Jpan',
-        'Jurc',
-        'Kali',
-        'Kana',
-        'Khar',
-        'Khmr',
-        'Khoj',
-        'Knda',
-        'Kore',
-        'Kpel',
-        'Kthi',
-        'Lana',
-        'Laoo',
-        'Latf',
-        'Latg',
-        'Latn',
-        'Lepc',
-        'Limb',
-        'Lina',
-        'Linb',
-        'Lisu',
-        'Loma',
-        'Lyci',
-        'Lydi',
-        'Mahj',
-        'Maka',
-        'Mand',
-        'Mani',
-        'Marc',
-        'Maya',
-        'Medf',
-        'Mend',
-        'Merc',
-        'Mero',
-        'Mlym',
-        'Modi',
-        'Mong',
-        'Moon',
-        'Mroo',
-        'Mtei',
-        'Mult',
-        'Mymr',
-        'Narb',
-        'Nbat',
-        'Newa',
-        'Nkgb',
-        'Nkoo',
-        'Nshu',
-        'Ogam',
-        'Olck',
-        'Orkh',
-        'Orya',
-        'Osge',
-        'Osma',
-        'Palm',
-        'Pauc',
-        'Perm',
-        'Phag',
-        'Phli',
-        'Phlp',
-        'Phlv',
-        'Phnx',
-        'Plrd',
-        'Prti',
-        'Qaaa',
-        'Qaab',
-        'Qaac',
-        'Qaad',
-        'Qaae',
-        'Qaaf',
-        'Qaag',
-        'Qaah',
-        'Qaak',
-        'Qaal',
-        'Qaam',
-        'Qaan',
-        'Qaao',
-        'Qaap',
-        'Qaaq',
-        'Qaar',
-        'Qaas',
-        'Qaat',
-        'Qaau',
-        'Qaav',
-        'Qaaw',
-        'Qaax',
-        'Qaay',
-        'Qaaz',
-        'Qaba',
-        'Qabb',
-        'Qabc',
-        'Qabd',
-        'Qabe',
-        'Qabf',
-        'Qabg',
-        'Qabh',
-        'Qabi',
-        'Qabj',
-        'Qabk',
-        'Qabl',
-        'Qabm',
-        'Qabn',
-        'Qabo',
-        'Qabp',
-        'Qabq',
-        'Qabr',
-        'Qabs',
-        'Qabt',
-        'Qabu',
-        'Qabv',
-        'Qabw',
-        'Qabx',
-        'Rjng',
-        'Rohg',
-        'Roro',
-        'Runr',
-        'Samr',
-        'Sara',
-        'Sarb',
-        'Saur',
-        'Sgnw',
-        'Shaw',
-        'Shrd',
-        'Sidd',
-        'Sind',
-        'Sinh',
-        'Sogd',
-        'Sogo',
-        'Sora',
-        'Soyo',
-        'Sund',
-        'Sylo',
-        'Syrc',
-        'Syre',
-        'Syrj',
-        'Syrn',
-        'Tagb',
-        'Takr',
-        'Tale',
-        'Talu',
-        'Taml',
-        'Tang',
-        'Tavt',
-        'Telu',
-        'Teng',
-        'Tfng',
-        'Tglg',
-        'Thaa',
-        'Thai',
-        'Tibt',
-        'Tirh',
-        'Ugar',
-        'Vaii',
-        'Visp',
-        'Wara',
-        'Wole',
-        'Xpeo',
-        'Xsux',
-        'Yiii',
-        'Zanb',
-        'Zinh',
-        'Zmth',
-        'Zsye',
-        'Zsym',
-        'Zxxx',
-        'Zyyy',
-        'Zzzz',
-    );
+	// The below arrays document the state of the ICU data bundled with this package.
 
-    /**
-     * @var ScriptDataProvider
-     */
-    protected $dataProvider;
+	protected static $scripts = array(
+		'Adlm',
+		'Afak',
+		'Aghb',
+		'Ahom',
+		'Arab',
+		'Armi',
+		'Armn',
+		'Avst',
+		'Bali',
+		'Bamu',
+		'Bass',
+		'Batk',
+		'Beng',
+		'Bhks',
+		'Blis',
+		'Bopo',
+		'Brah',
+		'Brai',
+		'Bugi',
+		'Buhd',
+		'Cakm',
+		'Cans',
+		'Cari',
+		'Cham',
+		'Cher',
+		'Cirt',
+		'Copt',
+		'Cprt',
+		'Cyrl',
+		'Cyrs',
+		'Deva',
+		'Dogr',
+		'Dsrt',
+		'Dupl',
+		'Egyd',
+		'Egyh',
+		'Egyp',
+		'Elba',
+		'Ethi',
+		'Geok',
+		'Geor',
+		'Glag',
+		'Gong',
+		'Gonm',
+		'Goth',
+		'Gran',
+		'Grek',
+		'Gujr',
+		'Guru',
+		'Hanb',
+		'Hang',
+		'Hani',
+		'Hano',
+		'Hans',
+		'Hant',
+		'Hatr',
+		'Hebr',
+		'Hira',
+		'Hluw',
+		'Hmng',
+		'Hrkt',
+		'Hung',
+		'Inds',
+		'Ital',
+		'Jamo',
+		'Java',
+		'Jpan',
+		'Jurc',
+		'Kali',
+		'Kana',
+		'Khar',
+		'Khmr',
+		'Khoj',
+		'Knda',
+		'Kore',
+		'Kpel',
+		'Kthi',
+		'Lana',
+		'Laoo',
+		'Latf',
+		'Latg',
+		'Latn',
+		'Lepc',
+		'Limb',
+		'Lina',
+		'Linb',
+		'Lisu',
+		'Loma',
+		'Lyci',
+		'Lydi',
+		'Mahj',
+		'Maka',
+		'Mand',
+		'Mani',
+		'Marc',
+		'Maya',
+		'Medf',
+		'Mend',
+		'Merc',
+		'Mero',
+		'Mlym',
+		'Modi',
+		'Mong',
+		'Moon',
+		'Mroo',
+		'Mtei',
+		'Mult',
+		'Mymr',
+		'Narb',
+		'Nbat',
+		'Newa',
+		'Nkgb',
+		'Nkoo',
+		'Nshu',
+		'Ogam',
+		'Olck',
+		'Orkh',
+		'Orya',
+		'Osge',
+		'Osma',
+		'Palm',
+		'Pauc',
+		'Perm',
+		'Phag',
+		'Phli',
+		'Phlp',
+		'Phlv',
+		'Phnx',
+		'Plrd',
+		'Prti',
+		'Qaaa',
+		'Qaab',
+		'Qaac',
+		'Qaad',
+		'Qaae',
+		'Qaaf',
+		'Qaag',
+		'Qaah',
+		'Qaak',
+		'Qaal',
+		'Qaam',
+		'Qaan',
+		'Qaao',
+		'Qaap',
+		'Qaaq',
+		'Qaar',
+		'Qaas',
+		'Qaat',
+		'Qaau',
+		'Qaav',
+		'Qaaw',
+		'Qaax',
+		'Qaay',
+		'Qaaz',
+		'Qaba',
+		'Qabb',
+		'Qabc',
+		'Qabd',
+		'Qabe',
+		'Qabf',
+		'Qabg',
+		'Qabh',
+		'Qabi',
+		'Qabj',
+		'Qabk',
+		'Qabl',
+		'Qabm',
+		'Qabn',
+		'Qabo',
+		'Qabp',
+		'Qabq',
+		'Qabr',
+		'Qabs',
+		'Qabt',
+		'Qabu',
+		'Qabv',
+		'Qabw',
+		'Qabx',
+		'Rjng',
+		'Rohg',
+		'Roro',
+		'Runr',
+		'Samr',
+		'Sara',
+		'Sarb',
+		'Saur',
+		'Sgnw',
+		'Shaw',
+		'Shrd',
+		'Sidd',
+		'Sind',
+		'Sinh',
+		'Sogd',
+		'Sogo',
+		'Sora',
+		'Soyo',
+		'Sund',
+		'Sylo',
+		'Syrc',
+		'Syre',
+		'Syrj',
+		'Syrn',
+		'Tagb',
+		'Takr',
+		'Tale',
+		'Talu',
+		'Taml',
+		'Tang',
+		'Tavt',
+		'Telu',
+		'Teng',
+		'Tfng',
+		'Tglg',
+		'Thaa',
+		'Thai',
+		'Tibt',
+		'Tirh',
+		'Ugar',
+		'Vaii',
+		'Visp',
+		'Wara',
+		'Wole',
+		'Xpeo',
+		'Xsux',
+		'Yiii',
+		'Zanb',
+		'Zinh',
+		'Zmth',
+		'Zsye',
+		'Zsym',
+		'Zxxx',
+		'Zyyy',
+		'Zzzz',
+	);
 
-    protected function setUp()
-    {
-        parent::setUp();
+	/**
+	 * @var ScriptDataProvider
+	 */
+	protected $dataProvider;
 
-        $this->dataProvider = new ScriptDataProvider(
-            $this->getDataDirectory().'/'.Intl::SCRIPT_DIR,
-            $this->createEntryReader()
-        );
-    }
+	protected function setUp() {
+		parent::setUp();
 
-    abstract protected function getDataDirectory();
+		$this->dataProvider = new ScriptDataProvider(
+			$this->getDataDirectory() . '/' . Intl::SCRIPT_DIR,
+			$this->createEntryReader()
+		);
+	}
 
-    public function testGetScripts()
-    {
-        $this->assertSame(static::$scripts, $this->dataProvider->getScripts());
-    }
+	abstract protected function getDataDirectory();
 
-    /**
-     * @dataProvider provideLocales
-     */
-    public function testGetNames($displayLocale)
-    {
-        $scripts = array_keys($this->dataProvider->getNames($displayLocale));
+	public function testGetScripts() {
+		$this->assertSame(static::$scripts, $this->dataProvider->getScripts());
+	}
 
-        sort($scripts);
+	/**
+	 * @dataProvider provideLocales
+	 */
+	public function testGetNames($displayLocale) {
+		$scripts = array_keys($this->dataProvider->getNames($displayLocale));
 
-        // We can't assert on exact list of scripts, as there's too many variations between locales.
-        // The best we can do is to make sure getNames() returns a subset of what getScripts() returns.
-        $this->assertNotEmpty($scripts);
-        $this->assertEmpty(array_diff($scripts, self::$scripts));
-    }
+		sort($scripts);
 
-    public function testGetNamesDefaultLocale()
-    {
-        Locale::setDefault('de_AT');
+		// We can't assert on exact list of scripts, as there's too many variations between locales.
+		// The best we can do is to make sure getNames() returns a subset of what getScripts() returns.
+		$this->assertNotEmpty($scripts);
+		$this->assertEmpty(array_diff($scripts, self::$scripts));
+	}
 
-        $this->assertSame(
-            $this->dataProvider->getNames('de_AT'),
-            $this->dataProvider->getNames()
-        );
-    }
+	public function testGetNamesDefaultLocale() {
+		Locale::setDefault('de_AT');
 
-    /**
-     * @dataProvider provideLocaleAliases
-     */
-    public function testGetNamesSupportsAliases($alias, $ofLocale)
-    {
-        // Can't use assertSame(), because some aliases contain scripts with
-        // different collation (=order of output) than their aliased locale
-        // e.g. sr_Latn_ME => sr_ME
-        $this->assertEquals(
-            $this->dataProvider->getNames($ofLocale),
-            $this->dataProvider->getNames($alias)
-        );
-    }
+		$this->assertSame(
+			$this->dataProvider->getNames('de_AT'),
+			$this->dataProvider->getNames()
+		);
+	}
 
-    /**
-     * @dataProvider provideLocales
-     */
-    public function testGetName($displayLocale)
-    {
-        $names = $this->dataProvider->getNames($displayLocale);
+	/**
+	 * @dataProvider provideLocaleAliases
+	 */
+	public function testGetNamesSupportsAliases($alias, $ofLocale) {
+		// Can't use assertSame(), because some aliases contain scripts with
+		// different collation (=order of output) than their aliased locale
+		// e.g. sr_Latn_ME => sr_ME
+		$this->assertEquals(
+			$this->dataProvider->getNames($ofLocale),
+			$this->dataProvider->getNames($alias)
+		);
+	}
 
-        foreach ($names as $script => $name) {
-            $this->assertSame($name, $this->dataProvider->getName($script, $displayLocale));
-        }
-    }
+	/**
+	 * @dataProvider provideLocales
+	 */
+	public function testGetName($displayLocale) {
+		$names = $this->dataProvider->getNames($displayLocale);
 
-    public function testGetNameDefaultLocale()
-    {
-        Locale::setDefault('de_AT');
+		foreach ($names as $script => $name) {
+			$this->assertSame($name, $this->dataProvider->getName($script, $displayLocale));
+		}
+	}
 
-        $names = $this->dataProvider->getNames('de_AT');
+	public function testGetNameDefaultLocale() {
+		Locale::setDefault('de_AT');
 
-        foreach ($names as $script => $name) {
-            $this->assertSame($name, $this->dataProvider->getName($script));
-        }
-    }
+		$names = $this->dataProvider->getNames('de_AT');
+
+		foreach ($names as $script => $name) {
+			$this->assertSame($name, $this->dataProvider->getName($script));
+		}
+	}
 }

@@ -2,15 +2,17 @@
 // __construct
 $finder = PhpCsFixer\Finder::create()
 	->name('/.+\.(php|inc|class|css|js|xaml|xml|html)$/')
-    ->in(__DIR__);
+	->exclude('*/Iconv/Resources/charset/')
+    ->in(__DIR__)
+;
 
 return PhpCsFixer\Config::create()
 	->setRiskyAllowed(true)
-	->setRules([
+	->setRules(array(
 		'@PSR2' => true,
 		'align_multiline_comment' => array('comment_type' => 'phpdocs_like'),
 		'array_syntax' => array('syntax' => 'long'),
-		'blank_line_before_statement' => array('statements' => [
+		'blank_line_before_statement' => array('statements' => array(
 			'break',
 			'case',
 			'continue',
@@ -33,7 +35,7 @@ return PhpCsFixer\Config::create()
 			'try',
 			'while',
 			'yield',
-		]),
+		)),
 		'braces' => array(
 			'allow_single_line_closure' => true,
 			'position_after_anonymous_constructs' => 'same',
@@ -63,7 +65,7 @@ return PhpCsFixer\Config::create()
 		'no_empty_comment' => true,
 		'no_empty_phpdoc' => true,
 		'no_empty_statement' => true,
-		'no_extra_blank_lines' => array('tokens' => [
+		'no_extra_blank_lines' => array('tokens' => array(
 			'break',
 			'case',
 			'continue',
@@ -77,7 +79,7 @@ return PhpCsFixer\Config::create()
 			'throw',
 			'use',
 			'useTrait',
-		]),
+		)),
 		'no_mixed_echo_print' => array('use' => 'echo'),
 		'no_null_property_initialization' => true,
 		'no_php4_constructor' => true,
@@ -86,7 +88,7 @@ return PhpCsFixer\Config::create()
         'no_superfluous_phpdoc_tags' => true,
 		'no_trailing_comma_in_list_call' => true,
 		'no_trailing_comma_in_singleline_array' => true,
-		'no_unneeded_control_parentheses' => array('statements' => [
+		'no_unneeded_control_parentheses' => array('statements' => array(
 			'break',
 			'clone',
 			'continue',
@@ -94,7 +96,7 @@ return PhpCsFixer\Config::create()
 			'return',
 			'switch_case',
 			'yield',
-		]),
+		)),
         'no_useless_else' => true,
         'no_useless_return' => true,
 		'no_whitespace_before_comma_in_array' => true,
@@ -102,18 +104,19 @@ return PhpCsFixer\Config::create()
 		'normalize_index_brace' => true,
 		'protected_to_private' => true,
 		'pow_to_exponentiation' => true,
-		'random_api_migration' => array('replacements' => [
+		'random_api_migration' => array('replacements' => array(
 			'getrandmax' => 'mt_getrandmax',
 			'rand' => 'mt_rand',
 			'srand' => 'mt_srand',
-		]),
+		)),
 		'self_accessor' => true,
 		'single_line_comment_style' => true,
 		'standardize_not_equals' => true,
 		'trailing_comma_in_multiline_array' => true,
 		'trim_array_spaces' => true,
 		'whitespace_after_comma_in_array' => true,
-	])
-->setCacheFile(__DIR__.'/.php_cs.cache')
-->setIndent("\t")
-->setFinder($finder);
+	))
+	->setCacheFile(__DIR__.'/.php_cs.cache')
+	->setIndent("\t")
+	->setFinder($finder)
+;

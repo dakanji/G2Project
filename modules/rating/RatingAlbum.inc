@@ -131,7 +131,7 @@ class RatingAlbumView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($limit, $itemId) = GalleryUtilities::getRequestVariables('limit', 'itemId');
-		$theme['pageUrl']      = array(
+		$theme['pageUrl']     = array(
 			'view'  => 'rating.RatingAlbum',
 			'limit' => $limit,
 		);

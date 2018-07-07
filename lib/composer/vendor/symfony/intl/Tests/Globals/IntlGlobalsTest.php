@@ -13,10 +13,8 @@ namespace Symfony\Component\Intl\Tests\Globals;
 
 use Symfony\Component\Intl\Globals\IntlGlobals;
 
-class IntlGlobalsTest extends AbstractIntlGlobalsTest
-{
-    protected function getIntlErrorName($errorCode)
-    {
-        return IntlGlobals::getErrorName($errorCode);
-    }
+class IntlGlobalsTest extends AbstractIntlGlobalsTest {
+	protected function getIntlErrorName($errorCode) {
+		return IntlGlobals::getErrorName($errorCode);
+	}
 }

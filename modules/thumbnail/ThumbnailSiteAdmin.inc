@@ -124,7 +124,9 @@ class ThumbnailSiteAdminController extends GalleryController {
 	public function _exitStatus($status) {
 		$results['redirect']['view']    = 'core.SiteAdmin';
 		$results['redirect']['subView'] = 'thumbnail.ThumbnailSiteAdmin';
-		$results['status']              = array($status => 1);
+		$results['status']              = array(
+			$status => 1,
+		);
 		$results['error']               = array();
 
 		return $results;
@@ -198,6 +200,11 @@ class ThumbnailSiteAdminView extends GalleryView {
 
 		$template->setVariable('controller', 'thumbnail.ThumbnailSiteAdmin');
 
-		return array(null, array('body' => 'modules/thumbnail/templates/ThumbnailSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/thumbnail/templates/ThumbnailSiteAdmin.tpl',
+			),
+		);
 	}
 }

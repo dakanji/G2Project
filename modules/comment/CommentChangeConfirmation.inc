@@ -45,7 +45,9 @@ class CommentChangeConfirmationView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/comment/templates/CommentChangeConfirmation.tpl'),
+			array(
+				'body' => 'modules/comment/templates/CommentChangeConfirmation.tpl',
+			),
 		);
 	}
 }

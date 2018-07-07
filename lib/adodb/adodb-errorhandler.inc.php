@@ -25,12 +25,12 @@ if (!defined('ADODB_ERROR_HANDLER')) {
 /**
  * Default Error Handler. This will be called with the following params
  *
- * @param $dbms		the RDBMS you are connecting to
- * @param $fn		the name of the calling function (in uppercase)
- * @param $errno		the native error number from the database
- * @param $errmsg	the native error msg from the database
- * @param $p1		$fn specific parameter - see below
- * @param $p2		$fn specific parameter - see below
+ * @param $dbms     the RDBMS you are connecting to
+ * @param $fn       the name of the calling function (in uppercase)
+ * @param $errno        the native error number from the database
+ * @param $errmsg   the native error msg from the database
+ * @param $p1       $fn specific parameter - see below
+ * @param $p2       $fn specific parameter - see below
  */
 function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnection) {
 	if (error_reporting() == 0) {

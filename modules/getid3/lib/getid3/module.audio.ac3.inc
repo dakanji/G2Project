@@ -346,9 +346,9 @@ class getid3_ac3 extends getid3_handler {
 
 		if (empty($centerMixLevelLookup)) {
 			$centerMixLevelLookup = array(
-				0 => 2**(-3.0 / 6), // 0.707 (-3.0 dB)
-				1 => 2**(-4.5 / 6), // 0.595 (-4.5 dB)
-				2 => 2**(-6.0 / 6), // 0.500 (-6.0 dB)
+				0 => 2 ** (-3.0 / 6), // 0.707 (-3.0 dB)
+				1 => 2 ** (-4.5 / 6), // 0.595 (-4.5 dB)
+				2 => 2 ** (-6.0 / 6), // 0.500 (-6.0 dB)
 				3 => 'reserved',
 			);
 		}
@@ -361,8 +361,8 @@ class getid3_ac3 extends getid3_handler {
 
 		if (empty($surroundMixLevelLookup)) {
 			$surroundMixLevelLookup = array(
-				0 => 2**(-3.0 / 6),
-				1 => 2**(-6.0 / 6),
+				0 => 2 ** (-3.0 / 6),
+				1 => 2 ** (-6.0 / 6),
 				2 => 0,
 				3 => 'reserved',
 			);

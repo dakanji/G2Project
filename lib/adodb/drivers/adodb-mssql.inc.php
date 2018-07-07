@@ -44,7 +44,7 @@ if (ADODB_PHPVER >= 0x4300) {
 	// docs say 4.2.0, but testing shows only since 4.3.0 does it work!
 	ini_set('mssql.datetimeconvert', 0);
 } else {
-	global $ADODB_mssql_mths;		// array, months must be upper-case
+	global $ADODB_mssql_mths;       // array, months must be upper-case
 
 	$ADODB_mssql_date_order = 'mdy';
 	$ADODB_mssql_mths       = array(
@@ -103,7 +103,7 @@ class ADODB_mssql extends ADOConnection {
 		(case when c.xusertype=61 then 0 else c.xprec end),
 		(case when c.xusertype=61 then 0 else c.xscale end)
 	from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-	public $hasTop           = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+	public $hasTop           = 'top';       // support mssql SELECT TOP 10 * FROM TABLE
 	public $hasGenID         = true;
 	public $sysDate          = 'convert(datetime,convert(char,GetDate(),102),102)';
 	public $sysTimeStamp     = 'GetDate()';
@@ -480,7 +480,7 @@ class ADODB_mssql extends ADOConnection {
 			$fld->type = $rs->fields[1];
 
 			$fld->not_null       = (!$rs->fields[3]);
-			$fld->auto_increment = ($rs->fields[4] == 128);		// sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
+			$fld->auto_increment = ($rs->fields[4] == 128);     // sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
 
 			if (isset($rs->fields[5]) && $rs->fields[5]) {
 				if ($rs->fields[5] > 0) {
@@ -1087,7 +1087,7 @@ class ADORecordset_mssql extends ADORecordSet {
 	public function FetchField($fieldOffset = -1) {
 		if ($fieldOffset != -1) {
 			$f = @mssql_fetch_field($this->_queryID, $fieldOffset);
-		} elseif ($fieldOffset == -1) {	// The $fieldOffset argument is not provided thus its -1
+		} elseif ($fieldOffset == -1) { // The $fieldOffset argument is not provided thus its -1
 			$f = @mssql_fetch_field($this->_queryID);
 		}
 		$false = false;

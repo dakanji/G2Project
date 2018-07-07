@@ -16,123 +16,121 @@ use Symfony\Polyfill\Util\Binary;
 /**
  * @internal
  */
-final class Php56
-{
-    const LDAP_ESCAPE_FILTER = 1;
-    const LDAP_ESCAPE_DN = 2;
+final class Php56 {
 
-    public static function hash_equals($knownString, $userInput)
-    {
-        if (!\is_string($knownString)) {
-            trigger_error('Expected known_string to be a string, '.gettype($knownString).' given', E_USER_WARNING);
+	const LDAP_ESCAPE_FILTER = 1;
+	const LDAP_ESCAPE_DN     = 2;
 
-            return false;
-        }
+	public static function hash_equals($knownString, $userInput) {
+		if (!\is_string($knownString)) {
+			trigger_error('Expected known_string to be a string, ' . gettype($knownString) . ' given', E_USER_WARNING);
 
-        if (!\is_string($userInput)) {
-            trigger_error('Expected user_input to be a string, '.gettype($userInput).' given', E_USER_WARNING);
+			return false;
+		}
 
-            return false;
-        }
+		if (!\is_string($userInput)) {
+			trigger_error('Expected user_input to be a string, ' . gettype($userInput) . ' given', E_USER_WARNING);
 
-        $knownLen = Binary::strlen($knownString);
-        $userLen = Binary::strlen($userInput);
+			return false;
+		}
 
-        if ($knownLen !== $userLen) {
-            return false;
-        }
+		$knownLen = Binary::strlen($knownString);
+		$userLen  = Binary::strlen($userInput);
 
-        $result = 0;
+		if ($knownLen !== $userLen) {
+			return false;
+		}
 
-        for ($i = 0; $i < $knownLen; ++$i) {
-            $result |= \ord($knownString[$i]) ^ \ord($userInput[$i]);
-        }
+		$result = 0;
 
-        return 0 === $result;
-    }
+		for ($i = 0; $i < $knownLen; ++$i) {
+			$result |= \ord($knownString[$i]) ^ \ord($userInput[$i]);
+		}
 
-    /**
-     * Stub implementation of the {@link ldap_escape()} function of the ldap
-     * extension.
-     *
-     * Escape strings for safe use in LDAP filters and DNs.
-     *
-     * @author Chris Wright <ldapi@daverandom.com>
-     *
-     * @param string $subject
-     * @param string $ignore
-     * @param int    $flags
-     *
-     * @return string
-     *
-     * @see http://stackoverflow.com/a/8561604
-     */
-    public static function ldap_escape($subject, $ignore = '', $flags = 0)
-    {
-        static $charMaps = null;
+		return 0 === $result;
+	}
 
-        if (null === $charMaps) {
-            $charMaps = array(
-                self::LDAP_ESCAPE_FILTER => array('\\', '*', '(', ')', "\x00"),
-                self::LDAP_ESCAPE_DN => array('\\', ',', '=', '+', '<', '>', ';', '"', '#', "\r"),
-            );
+	/**
+	 * Stub implementation of the {@link ldap_escape()} function of the ldap
+	 * extension.
+	 *
+	 * Escape strings for safe use in LDAP filters and DNs.
+	 *
+	 * @author Chris Wright <ldapi@daverandom.com>
+	 *
+	 * @param string $subject
+	 * @param string $ignore
+	 * @param int    $flags
+	 *
+	 * @return string
+	 *
+	 * @see http://stackoverflow.com/a/8561604
+	 */
+	public static function ldap_escape($subject, $ignore = '', $flags = 0) {
+		static $charMaps = null;
 
-            $charMaps[0] = array();
+		if (null === $charMaps) {
+			$charMaps = array(
+				self::LDAP_ESCAPE_FILTER => array( '\\', '*', '(', ')', "\x00" ),
+				self::LDAP_ESCAPE_DN     => array( '\\', ',', '=', '+', '<', '>', ';', '"', '#', "\r" ),
+			);
 
-            for ($i = 0; $i < 256; ++$i) {
-                $charMaps[0][\chr($i)] = sprintf('\\%02x', $i);
-            }
+			$charMaps[0] = array();
 
-            for ($i = 0, $l = \count($charMaps[self::LDAP_ESCAPE_FILTER]); $i < $l; ++$i) {
-                $chr = $charMaps[self::LDAP_ESCAPE_FILTER][$i];
-                unset($charMaps[self::LDAP_ESCAPE_FILTER][$i]);
-                $charMaps[self::LDAP_ESCAPE_FILTER][$chr] = $charMaps[0][$chr];
-            }
+			for ($i = 0; $i < 256; ++$i) {
+				$charMaps[0][\chr($i)] = sprintf('\\%02x', $i);
+			}
 
-            for ($i = 0, $l = \count($charMaps[self::LDAP_ESCAPE_DN]); $i < $l; ++$i) {
-                $chr = $charMaps[self::LDAP_ESCAPE_DN][$i];
-                unset($charMaps[self::LDAP_ESCAPE_DN][$i]);
-                $charMaps[self::LDAP_ESCAPE_DN][$chr] = $charMaps[0][$chr];
-            }
-        }
+			for ($i = 0, $l = \count($charMaps[self::LDAP_ESCAPE_FILTER]); $i < $l; ++$i) {
+				$chr = $charMaps[self::LDAP_ESCAPE_FILTER][$i];
+				unset($charMaps[self::LDAP_ESCAPE_FILTER][$i]);
+				$charMaps[self::LDAP_ESCAPE_FILTER][$chr] = $charMaps[0][$chr];
+			}
 
-        // Create the base char map to escape
-        $flags = (int) $flags;
-        $charMap = array();
+			for ($i = 0, $l = \count($charMaps[self::LDAP_ESCAPE_DN]); $i < $l; ++$i) {
+				$chr = $charMaps[self::LDAP_ESCAPE_DN][$i];
+				unset($charMaps[self::LDAP_ESCAPE_DN][$i]);
+				$charMaps[self::LDAP_ESCAPE_DN][$chr] = $charMaps[0][$chr];
+			}
+		}
 
-        if ($flags & self::LDAP_ESCAPE_FILTER) {
-            $charMap += $charMaps[self::LDAP_ESCAPE_FILTER];
-        }
+		// Create the base char map to escape
+		$flags   = (int)$flags;
+		$charMap = array();
 
-        if ($flags & self::LDAP_ESCAPE_DN) {
-            $charMap += $charMaps[self::LDAP_ESCAPE_DN];
-        }
+		if ($flags & self::LDAP_ESCAPE_FILTER) {
+			$charMap += $charMaps[self::LDAP_ESCAPE_FILTER];
+		}
 
-        if (!$charMap) {
-            $charMap = $charMaps[0];
-        }
+		if ($flags & self::LDAP_ESCAPE_DN) {
+			$charMap += $charMaps[self::LDAP_ESCAPE_DN];
+		}
 
-        // Remove any chars to ignore from the list
-        $ignore = (string) $ignore;
+		if (!$charMap) {
+			$charMap = $charMaps[0];
+		}
 
-        for ($i = 0, $l = \strlen($ignore); $i < $l; ++$i) {
-            unset($charMap[$ignore[$i]]);
-        }
+		// Remove any chars to ignore from the list
+		$ignore = (string)$ignore;
 
-        // Do the main replacement
-        $result = strtr($subject, $charMap);
+		for ($i = 0, $l = \strlen($ignore); $i < $l; ++$i) {
+			unset($charMap[$ignore[$i]]);
+		}
 
-        // Encode leading/trailing spaces if self::LDAP_ESCAPE_DN is passed
-        if ($flags & self::LDAP_ESCAPE_DN) {
-            if ($result[0] === ' ') {
-                $result = '\\20'.substr($result, 1);
-            }
+		// Do the main replacement
+		$result = strtr($subject, $charMap);
 
-            if ($result[\strlen($result) - 1] === ' ') {
-                $result = substr($result, 0, -1).'\\20';
-            }
-        }
+		// Encode leading/trailing spaces if self::LDAP_ESCAPE_DN is passed
+		if ($flags & self::LDAP_ESCAPE_DN) {
+			if ($result[0] === ' ') {
+				$result = '\\20' . substr($result, 1);
+			}
 
-        return $result;
-    }
+			if ($result[\strlen($result) - 1] === ' ') {
+				$result = substr($result, 0, -1) . '\\20';
+			}
+		}
+
+		return $result;
+	}
 }

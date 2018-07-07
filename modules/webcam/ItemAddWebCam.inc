@@ -66,7 +66,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 				$error[]            = 'form[error][imageUrl][invalid]';
 				$successfullyCopied = true;
 			} elseif ($urlComponents['scheme'] == 'http') {
-				$tmpFile                                        = $platform->tempnam($tmpDir, 'webcam');
+				$tmpFile                                       = $platform->tempnam($tmpDir, 'webcam');
 				list($successfullyCopied, $response, $headers) = GalleryCoreApi::fetchWebFile($url, $tmpFile);
 
 				if (!$successfullyCopied) {
@@ -100,7 +100,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 				}
 
 				// Get the mime type.
-				$base                  = GalleryUtilities::getFileBase($basename);
+				$base                 = GalleryUtilities::getFileBase($basename);
 				list($ret, $mimeType) = GalleryCoreApi::getMimeType($basename, $mimeType);
 
 				if ($ret) {

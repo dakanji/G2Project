@@ -111,7 +111,7 @@ class ItemCreateReplicaController extends GalleryController {
 				 * Lock everything up and start linkin'.  We need to read lock
 				 * the source ids, source hierarchy and destination hierarchy.
 				 */
-				$ids                  = array_merge($selectedIds, array($itemId, $destinationId));
+				$ids                 = array_merge($selectedIds, array($itemId, $destinationId));
 				list($ret, $locks[]) = GalleryCoreApi::acquireReadLock($ids);
 
 				if ($ret) {
@@ -190,7 +190,7 @@ class ItemCreateReplicaController extends GalleryController {
 				$redirect['itemId']  = $itemId;
 			}
 		} elseif (isset($form['action']['next'])) {
-			$page                 = GalleryUtilities::getRequestVariables('page');
+			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchLinkableChildItemIdsWithPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -317,7 +317,7 @@ class ItemCreateReplicaView extends GalleryView {
 				// While we're at it, attach the thumbnails
 				if (isset($thumbnails[$peerItem->getId()])) {
 					$thumbnail                              = $thumbnails[$peerItem->getId()];
-					list($ret, $thumbnail)                 = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
+					list($ret, $thumbnail)                  = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
 					$peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 				}
 			}
@@ -355,7 +355,12 @@ class ItemCreateReplicaView extends GalleryView {
 		$template->javascript('lib/yui/treeview-min.js');
 		$template->style('modules/core/data/tree.css');
 
-		return array(null, array('body' => 'modules/replica/templates/ItemCreateReplica.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/replica/templates/ItemCreateReplica.tpl',
+			),
+		);
 	}
 
 	/**

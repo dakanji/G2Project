@@ -168,7 +168,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 		}
 
 		// Update our dimensions
-		$mimeType             = $this->getMimeType();
+		$mimeType            = $this->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 
 		if ($ret) {
@@ -204,7 +204,9 @@ class GalleryDerivativeImage extends GalleryDerivative {
 						'itemId'       => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
-					array('forceFullUrl' => !empty($params['forceFullUrl']))
+					array(
+						'forceFullUrl' => !empty($params['forceFullUrl']),
+					)
 				);
 
 				list($width, $height) = array($this->getWidth(), $this->getHeight());

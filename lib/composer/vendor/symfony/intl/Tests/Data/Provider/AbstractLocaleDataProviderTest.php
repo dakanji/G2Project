@@ -18,94 +18,86 @@ use Symfony\Component\Intl\Locale;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
-{
-    /**
-     * @var LocaleDataProvider
-     */
-    protected $dataProvider;
+abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest {
 
-    protected function setUp()
-    {
-        parent::setUp();
+	/**
+	 * @var LocaleDataProvider
+	 */
+	protected $dataProvider;
 
-        $this->dataProvider = new LocaleDataProvider(
-            $this->getDataDirectory().'/'.Intl::LOCALE_DIR,
-            $this->createEntryReader()
-        );
-    }
+	protected function setUp() {
+		parent::setUp();
 
-    abstract protected function getDataDirectory();
+		$this->dataProvider = new LocaleDataProvider(
+			$this->getDataDirectory() . '/' . Intl::LOCALE_DIR,
+			$this->createEntryReader()
+		);
+	}
 
-    public function testGetLocales()
-    {
-        $this->assertSame($this->getLocales(), $this->dataProvider->getLocales());
-    }
+	abstract protected function getDataDirectory();
 
-    public function testGetLocaleAliases()
-    {
-        $this->assertSame($this->getLocaleAliases(), $this->dataProvider->getAliases());
-    }
+	public function testGetLocales() {
+		$this->assertSame($this->getLocales(), $this->dataProvider->getLocales());
+	}
 
-    /**
-     * @dataProvider provideLocales
-     */
-    public function testGetNames($displayLocale)
-    {
-        $locales = array_keys($this->dataProvider->getNames($displayLocale));
+	public function testGetLocaleAliases() {
+		$this->assertSame($this->getLocaleAliases(), $this->dataProvider->getAliases());
+	}
 
-        sort($locales);
+	/**
+	 * @dataProvider provideLocales
+	 */
+	public function testGetNames($displayLocale) {
+		$locales = array_keys($this->dataProvider->getNames($displayLocale));
 
-        // We can't assert on exact list of locale, as there's too many variations.
-        // The best we can do is to make sure getNames() returns a subset of what getLocales() returns.
-        $this->assertNotEmpty($locales);
-        $this->assertEmpty(array_diff($locales, $this->getLocales()));
-    }
+		sort($locales);
 
-    public function testGetNamesDefaultLocale()
-    {
-        Locale::setDefault('de_AT');
+		// We can't assert on exact list of locale, as there's too many variations.
+		// The best we can do is to make sure getNames() returns a subset of what getLocales() returns.
+		$this->assertNotEmpty($locales);
+		$this->assertEmpty(array_diff($locales, $this->getLocales()));
+	}
 
-        $this->assertSame(
-            $this->dataProvider->getNames('de_AT'),
-            $this->dataProvider->getNames()
-        );
-    }
+	public function testGetNamesDefaultLocale() {
+		Locale::setDefault('de_AT');
 
-    /**
-     * @dataProvider provideLocaleAliases
-     */
-    public function testGetNamesSupportsAliases($alias, $ofLocale)
-    {
-        // Can't use assertSame(), because some aliases contain scripts with
-        // different collation (=order of output) than their aliased locale
-        // e.g. sr_Latn_ME => sr_ME
-        $this->assertEquals(
-            $this->dataProvider->getNames($ofLocale),
-            $this->dataProvider->getNames($alias)
-        );
-    }
+		$this->assertSame(
+			$this->dataProvider->getNames('de_AT'),
+			$this->dataProvider->getNames()
+		);
+	}
 
-    /**
-     * @dataProvider provideLocales
-     */
-    public function testGetName($displayLocale)
-    {
-        $names = $this->dataProvider->getNames($displayLocale);
+	/**
+	 * @dataProvider provideLocaleAliases
+	 */
+	public function testGetNamesSupportsAliases($alias, $ofLocale) {
+		// Can't use assertSame(), because some aliases contain scripts with
+		// different collation (=order of output) than their aliased locale
+		// e.g. sr_Latn_ME => sr_ME
+		$this->assertEquals(
+			$this->dataProvider->getNames($ofLocale),
+			$this->dataProvider->getNames($alias)
+		);
+	}
 
-        foreach ($names as $locale => $name) {
-            $this->assertSame($name, $this->dataProvider->getName($locale, $displayLocale));
-        }
-    }
+	/**
+	 * @dataProvider provideLocales
+	 */
+	public function testGetName($displayLocale) {
+		$names = $this->dataProvider->getNames($displayLocale);
 
-    public function testGetNameDefaultLocale()
-    {
-        Locale::setDefault('de_AT');
+		foreach ($names as $locale => $name) {
+			$this->assertSame($name, $this->dataProvider->getName($locale, $displayLocale));
+		}
+	}
 
-        $names = $this->dataProvider->getNames('de_AT');
+	public function testGetNameDefaultLocale() {
+		Locale::setDefault('de_AT');
 
-        foreach ($names as $locale => $name) {
-            $this->assertSame($name, $this->dataProvider->getName($locale));
-        }
-    }
+		$names = $this->dataProvider->getNames('de_AT');
+
+		foreach ($names as $locale => $name) {
+			$this->assertSame($name, $this->dataProvider->getName($locale));
+		}
+	}
 }

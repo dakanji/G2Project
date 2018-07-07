@@ -36,6 +36,11 @@ class CantActivateView extends GalleryView {
 			return array($ret, null);
 		}
 
-		return array(null, array('body' => 'modules/thumbpage/templates/CantActivate.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/thumbpage/templates/CantActivate.tpl',
+			),
+		);
 	}
 }

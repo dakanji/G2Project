@@ -105,7 +105,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 		// Try to crop/fit according to param, but fallback to other based on toolkit support
 		if ($width != $height) {
 			for ($i = 0; $i < 2; $i++) {
-				$operation                       = ($square['mode'] == 'fit') ? 'composite' : 'crop';
+				$operation                      = ($square['mode'] == 'fit') ? 'composite' : 'crop';
 				list($ret, $toolkit, $nextMime) = GalleryCoreApi::getToolkitByOperation($mimeType, $operation);
 
 				if ($ret) {
@@ -143,7 +143,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 				}
 			}
 
-			$args                               = ($width > $height) ? array(100 * (1 - $height / $width) / 2, 0, 100 * $height / $width, 100) : array(0, 100 * (1 - $width / $height) / 2, 100, 100 * $width / $height);
+			$args                              = ($width > $height) ? array(100 * (1 - $height / $width) / 2, 0, 100 * $height / $width, 100) : array(0, 100 * (1 - $width / $height) / 2, 100, 100 * $width / $height);
 			list($ret, $mimeType, $subContext) = $toolkit->performOperation(
 				$mimeType,
 				'crop',
@@ -166,7 +166,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-			$subContext['next.toolkit']         = $subContext['next.operation'] = null;
+			$subContext['next.toolkit']        = $subContext['next.operation'] = null;
 			list($ret, $mimeType, $subContext) = $toolkit->performOperation(
 				$mimeType,
 				'thumbnail',
@@ -280,7 +280,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 					null,
 				);
 			}
-			$newContext                         = array(
+			$newContext                        = array(
 				'width'  => $size,
 				'height' => $size,
 			);

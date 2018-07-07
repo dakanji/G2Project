@@ -37,13 +37,13 @@ class Smarty_Compiler extends Smarty {
 	/**#@+
 	 * @access private
 	 */
-	public $_folded_blocks        = array();    // keeps folded template blocks
+	public $_folded_blocks = array();    // keeps folded template blocks
 	public $_current_file;       // the current template being compiled
-	public $_current_line_no      = 1;          // line number for error messages
-	public $_capture_stack        = array();    // keeps track of nested capture buffers
-	public $_plugin_info          = array();    // keeps track of plugins to load
-	public $_init_smarty_vars     = false;
-	public $_permitted_tokens     = array('true', 'false', 'yes', 'no', 'on', 'off', 'null');
+	public $_current_line_no  = 1;          // line number for error messages
+	public $_capture_stack    = array();    // keeps track of nested capture buffers
+	public $_plugin_info      = array();    // keeps track of plugins to load
+	public $_init_smarty_vars = false;
+	public $_permitted_tokens = array('true', 'false', 'yes', 'no', 'on', 'off', 'null');
 	public $_db_qstr_regexp;        // regexps are setup in the constructor
 	public $_si_qstr_regexp;
 	public $_qstr_regexp;
@@ -64,9 +64,9 @@ class Smarty_Compiler extends Smarty {
 	public $_obj_start_regexp;
 	public $_obj_params_regexp;
 	public $_obj_call_regexp;
-	public $_cacheable_state      = 0;
-	public $_cache_attrs_count    = 0;
-	public $_nocache_count        = 0;
+	public $_cacheable_state   = 0;
+	public $_cache_attrs_count = 0;
+	public $_nocache_count     = 0;
 	public $_cache_serial;
 	public $_cache_include;
 
@@ -558,7 +558,7 @@ class Smarty_Compiler extends Smarty {
 					return '<?php endif; ?>';
 				}
 
-					return '<?php endfor; endif; ?>';
+				return '<?php endfor; endif; ?>';
 
 			case 'foreach':
 				$this->_push_tag('foreach');
@@ -579,7 +579,7 @@ class Smarty_Compiler extends Smarty {
 					return '<?php endif; unset($_from); ?>';
 				}
 
-					return '<?php endforeach; endif; unset($_from); ?>';
+				return '<?php endforeach; endif; unset($_from); ?>';
 
 				break;
 
@@ -2394,7 +2394,9 @@ class Smarty_Compiler extends Smarty {
 			foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
 				if ($prefilter === false) {
 					unset($this->_plugins['prefilter'][$filter_name]);
-					$_params = array('plugins' => array(array('prefilter', $filter_name, null, null, false)));
+					$_params = array(
+						'plugins' => array(array('prefilter', $filter_name, null, null, false)),
+					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
 					smarty_core_load_plugins($_params, $this);
@@ -2406,7 +2408,9 @@ class Smarty_Compiler extends Smarty {
 			foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
 				if ($postfilter === false) {
 					unset($this->_plugins['postfilter'][$filter_name]);
-					$_params = array('plugins' => array(array('postfilter', $filter_name, null, null, false)));
+					$_params = array(
+						'plugins' => array(array('postfilter', $filter_name, null, null, false)),
+					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
 					smarty_core_load_plugins($_params, $this);

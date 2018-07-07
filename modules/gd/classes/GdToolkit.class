@@ -82,7 +82,7 @@ class GdToolkit extends GalleryToolkit {
 	 * Do we have a working version of imageCreateTrueColor()?
 	 *
 	 * @return array GalleryStatus
-	 *	       boolean true if this function should work
+	 *         boolean true if this function should work
 	 * @access private
 	 */
 	public function _hasImageCreateTrueColor() {
@@ -147,7 +147,7 @@ class GdToolkit extends GalleryToolkit {
 			));
 		}
 
-		$outputMimeType         = $mimeType;
+		$outputMimeType        = $mimeType;
 		list($ret, $sourceRes) = $this->_getImageResource($mimeType, $sourceFilename);
 
 		if ($ret) {
@@ -242,7 +242,7 @@ class GdToolkit extends GalleryToolkit {
 				 * PHP >= 4.3.0
 				 * $parameters[0]: rotation degrees
 				 */
-				$degrees              = 0 - $parameters[0];
+				$degrees             = 0 - $parameters[0];
 				list($ret, $destRes) = $gd->imageRotate($sourceRes, $degrees, 0);
 				$this->_free($sourceRes);
 
@@ -290,7 +290,7 @@ class GdToolkit extends GalleryToolkit {
 					$destRes,
 					$sourceRes,
 					0,
-					0,				// dst x,y
+					0,              // dst x,y
 					$pixelX,
 					$pixelY,
 					$pixelWidth,
@@ -428,7 +428,7 @@ class GdToolkit extends GalleryToolkit {
 				$compositeAlignY = min($compositeAlignY, $sourceHeight - $compositeHeight);
 				$compositeAlignY = max(0, $compositeAlignY);
 
-				$dataDir                 = $gallery->getConfig('data.gallery.base');
+				$dataDir                = $gallery->getConfig('data.gallery.base');
 				list($ret, $overlayRes) = $this->_getImageResource(
 					$compositeOverlayMimeType,
 					$dataDir . $compositeOverlayPath
@@ -564,7 +564,7 @@ class GdToolkit extends GalleryToolkit {
 	 * @param string $mimeType the mime-type of the image
 	 * @param string $filename the path to the file to read
 	 * @return array GalleryStatus a status code
-	 *	       resource the GD resource
+	 *         resource the GD resource
 	 * @access private
 	 */
 	public function _getImageResource($mimeType, $filename) {
@@ -626,11 +626,11 @@ class GdToolkit extends GalleryToolkit {
 	 * @param bool $prepareAlpha (optional) whether the resource should be prepared to host any
 	 *                                      transparencies
 	 * @return array GalleryStatus
-	 *	       resource the GD resource
+	 *         resource the GD resource
 	 * @access private
 	 */
 	public function _getTrueColorImageRes($width, $height, $prepareAlpha = false) {
-		$gd                                   =& $this->_getGdFunctionality();
+		$gd                                  =& $this->_getGdFunctionality();
 		list($ret, $hasImageCreateTrueColor) = $this->_hasImageCreateTrueColor();
 
 		if ($ret) {
@@ -763,7 +763,7 @@ class GdToolkit extends GalleryToolkit {
 	 * @param int $destHeight the destination height
 	 * @param bool $hasAlpha (optional) whether the source image has any transparency
 	 * @return array GalleryStatus
-	 *	       resource the destination GD-resource
+	 *         resource the destination GD-resource
 	 * @access private
 	 */
 	public function _resizeImageResource($sourceRes, $destWidth, $destHeight, $hasAlpha = false) {
@@ -845,12 +845,12 @@ class GdToolkit extends GalleryToolkit {
 	 * Get the image dimentions for an already opened GD resource.
 	 *
 	 * @return array GalleryStatus
-	 *	       int width
-	 *	       int height
+	 *         int width
+	 *         int height
 	 * @access private
 	 */
 	public function _getImageDimensionsForResource($res) {
-		$gd             =& $this->_getGdFunctionality();
+		$gd            =& $this->_getGdFunctionality();
 		list($ret, $x) = $gd->imageSx($res);
 
 		if ($ret) {

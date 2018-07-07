@@ -173,7 +173,7 @@ class GalleryMovieItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		$mimeType             = $this->getMimeType();
+		$mimeType            = $this->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
 
 		if ($ret) {

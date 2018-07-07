@@ -144,6 +144,11 @@ class UserAlbumSiteAdminView extends GalleryView {
 		$template->setVariable('UserAlbumSiteAdmin', $UserAlbumSiteAdmin);
 		$template->setVariable('controller', 'useralbum.UserAlbumSiteAdmin');
 
-		return array(null, array('body' => 'modules/useralbum/templates/UserAlbumSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/useralbum/templates/UserAlbumSiteAdmin.tpl',
+			),
+		);
 	}
 }

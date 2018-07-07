@@ -1,6 +1,6 @@
 <?php
 
-static $data = array (
+static $data = array(
   'µ' => 'μ',
   '¼' => ' 1⁄4 ',
   '½' => ' 1⁄2 ',

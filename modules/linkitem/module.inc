@@ -86,9 +86,9 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 		}
 
 		foreach (array(
-				'arrowWatermark' => 1, 
-				'urlSnapshot' => 0, 
-				'snapshotExec' => 'khtml2png'
+				'arrowWatermark' => 1,
+				'urlSnapshot' => 0,
+				'snapshotExec' => 'khtml2png',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
@@ -218,9 +218,9 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 			array(
 				array(
 					'name' => $this->translate('Link Items'),
-					'view' => 'linkitem.LinkItemSiteAdmin', 
-				)
-			), 
+					'view' => 'linkitem.LinkItemSiteAdmin',
+				),
+			),
 		);
 	}
 

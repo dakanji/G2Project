@@ -18,61 +18,57 @@ use Symfony\Component\Intl\Data\Bundle\Writer\JsonBundleWriter;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class JsonBundleWriterTest extends TestCase
-{
-    /**
-     * @var JsonBundleWriter
-     */
-    private $writer;
+class JsonBundleWriterTest extends TestCase {
 
-    private $directory;
+	/**
+	 * @var JsonBundleWriter
+	 */
+	private $writer;
 
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
+	private $directory;
 
-    protected function setUp()
-    {
-        $this->writer = new JsonBundleWriter();
-        $this->directory = sys_get_temp_dir().'/JsonBundleWriterTest/'.mt_rand(1000, 9999);
-        $this->filesystem = new Filesystem();
+	/**
+	 * @var Filesystem
+	 */
+	private $filesystem;
 
-        $this->filesystem->mkdir($this->directory);
-    }
+	protected function setUp() {
+		$this->writer     = new JsonBundleWriter();
+		$this->directory  = sys_get_temp_dir() . '/JsonBundleWriterTest/' . mt_rand(1000, 9999);
+		$this->filesystem = new Filesystem();
 
-    protected function tearDown()
-    {
-        $this->filesystem->remove($this->directory);
-    }
+		$this->filesystem->mkdir($this->directory);
+	}
 
-    public function testWrite()
-    {
-        $this->writer->write($this->directory, 'en', array(
-            'Entry1' => array(
-                'Array' => array('foo', 'bar'),
-                'Integer' => 5,
-                'Boolean' => false,
-                'Float' => 1.23,
-            ),
-            'Entry2' => 'String',
-            'Traversable' => new \ArrayIterator(array(
-                'Foo' => 'Bar',
-            )),
-        ));
+	protected function tearDown() {
+		$this->filesystem->remove($this->directory);
+	}
 
-        $this->assertFileEquals(__DIR__.'/Fixtures/en.json', $this->directory.'/en.json');
-    }
+	public function testWrite() {
+		$this->writer->write($this->directory, 'en', array(
+			'Entry1'      => array(
+				'Array'   => array( 'foo', 'bar' ),
+				'Integer' => 5,
+				'Boolean' => false,
+				'Float'   => 1.23,
+			),
+			'Entry2'      => 'String',
+			'Traversable' => new \ArrayIterator(array(
+				'Foo' => 'Bar',
+			)),
+		));
 
-    /**
-     * @requires extension intl
-     */
-    public function testWriteResourceBundle()
-    {
-        $bundle = new \ResourceBundle('rb', __DIR__.'/Fixtures', false);
+		$this->assertFileEquals(__DIR__ . '/Fixtures/en.json', $this->directory . '/en.json');
+	}
 
-        $this->writer->write($this->directory, 'en', $bundle);
+	/**
+	 * @requires extension intl
+	 */
+	public function testWriteResourceBundle() {
+		$bundle = new \ResourceBundle('rb', __DIR__ . '/Fixtures', false);
 
-        $this->assertFileEquals(__DIR__.'/Fixtures/rb.json', $this->directory.'/en.json');
-    }
+		$this->writer->write($this->directory, 'en', $bundle);
+
+		$this->assertFileEquals(__DIR__ . '/Fixtures/rb.json', $this->directory . '/en.json');
+	}
 }

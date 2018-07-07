@@ -224,12 +224,18 @@ class CoreModuleExtras {
 					'format.datetime'           => '%c',
 					'repository.updateTime'     => '0',
 					'acceleration'              => serialize(array(
-						'guest' => array('type' => 'none'),
-						'user'  => array('type' => 'none'),
+						'guest' => array(
+							'type' => 'none',
+						),
+						'user'  => array(
+							'type' => 'none',
+						),
 					)),
 					'smarty.compile_check'      => '0',
 					'validation.level'          => 'MEDIUM',
-					'core.repositories'         => serialize(array('released' => 1)),
+					'core.repositories'         => serialize(array(
+						'released' => 1,
+					)),
 				) as $key => $value) {
 					if (!isset($param[$key])) {
 						$ret = $module->setParameter($key, (string)$value);
@@ -406,10 +412,10 @@ class CoreModuleExtras {
 
 					if ($ret) {
 						$gallery->debug(sprintf(
-										'Error: Failed to register a permission, ' .
+							'Error: Failed to register a permission, ' .
 										'this is the error stack trace: %s',
-										$ret->getAsText()
-									));
+							$ret->getAsText()
+						));
 
 						return $ret;
 					}
@@ -436,11 +442,11 @@ class CoreModuleExtras {
 
 					if ($ret) {
 						$gallery->debug(sprintf(
-									'Error: %s returned an error, ' .
+							'Error: %s returned an error, ' .
 									'this is the error stack trace: %s',
-									$func,
-									$ret->getAsText()
-								));
+							$func,
+							$ret->getAsText()
+						));
 
 						return $ret;
 					}
@@ -750,7 +756,11 @@ class CoreModuleExtras {
 	    ';
 
 				// Determine how many items we are going to process for our status message
-				list($ret, $results) = $gallery->search($totalRowsQuery, array(), array('limit' => array('count' => 1)));
+				list($ret, $results) = $gallery->search($totalRowsQuery, array(), array(
+					'limit' => array(
+						'count' => 1,
+					),
+				));
 
 				if ($ret) {
 					return $ret;
@@ -789,7 +799,7 @@ class CoreModuleExtras {
 					if ($results->resultCount() == 0) {
 						break;
 					}
-					$result                                   = $results->nextResult();
+					$result                                  = $results->nextResult();
 					list($targetItemId, $permissionRowCount) = array((int)$result[0], (int)$result[1]);
 
 					// Create a new ACL
@@ -841,13 +851,13 @@ class CoreModuleExtras {
 						 * of permission rows as our target.  Our target item is included in the dupes,
 						 * so this will always return at least 1 row.
 						 */
-						$markers              = GalleryUtilities::makeMarkers($count);
-						$query                = sprintf($refineDupesQuery, $markers);
+						$markers             = GalleryUtilities::makeMarkers($count);
+						$query               = sprintf($refineDupesQuery, $markers);
 						list($ret, $results) = $gallery->search(
 							$query,
 							array_merge($chunk, array($permissionRowCount))
 						);
-						$possibleDupeIds      = array();
+						$possibleDupeIds     = array();
 
 						$dupeIds = array();
 
@@ -946,7 +956,7 @@ class CoreModuleExtras {
 					$gallery->getConfig('data.gallery.plugins_data') . 'modules' => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'layouts' => true,
 				)
-				as $dir => $isRequired) {
+ as $dir => $isRequired) {
 					if ($platform->file_exists($dir)) {
 						if ($platform->is_dir($dir)) {
 							// No need to do anything.  Except maybe we could check permissions here.
@@ -1179,7 +1189,7 @@ class CoreModuleExtras {
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                      = 'SELECT [GalleryDerivative::id]
+				$query                     = 'SELECT [GalleryDerivative::id]
 		      FROM [GalleryDerivative], [GalleryEntity]
 		      WHERE [GalleryDerivative::isBroken] IS NULL
 		      AND [GalleryDerivative::id] = [GalleryEntity::id]
@@ -1257,7 +1267,7 @@ class CoreModuleExtras {
 								return $ret;
 							}
 
-							$currentDerivativeIds     = array_splice($derivativeIds, 0, $loadBatchSize);
+							$currentDerivativeIds    = array_splice($derivativeIds, 0, $loadBatchSize);
 							list($ret, $derivatives) = GalleryCoreApi::loadEntitiesById(
 								$currentDerivativeIds,
 								'GalleryDerivative'
@@ -1604,7 +1614,7 @@ class CoreModuleExtras {
 					'format.time'     => '%X',
 					'format.datetime' => '%c',
 				)
-				as $key => $value) {
+ as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
 					if ($ret) {
@@ -1825,7 +1835,7 @@ class CoreModuleExtras {
 					'exec.beNice'           => '0',
 					'repository.updateTime' => '0',
 				)
-				as $key => $value) {
+ as $key => $value) {
 					if (!isset($coreParams[$key])) {
 						$ret = $module->setParameter($key, $value);
 
@@ -1836,7 +1846,9 @@ class CoreModuleExtras {
 				}
 				$ret = GalleryCoreApi::removeMapEntry(
 					'GalleryPluginParameterMap',
-					array('pluginType' => 'modules')
+					array(
+						'pluginType' => 'modules',
+					)
 				);
 
 				if ($ret) {
@@ -1878,7 +1890,7 @@ class CoreModuleExtras {
 				 * cache/entity/.  Delete the old files in cache/derivative/.
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                      = 'SELECT [GalleryDerivativeImage::id]
+				$query                     = 'SELECT [GalleryDerivativeImage::id]
 		      FROM [GalleryDerivativeImage]';
 				list($ret, $searchResults) = $gallery->search($query);
 
@@ -1919,7 +1931,7 @@ class CoreModuleExtras {
 					for ($i = 0; $i < $totalDerivatives; $i++) {
 						// Delete the file if it exists
 						list($first, $second) = GalleryDataCache::getCacheTuple($derivativeIds[$i]);
-						$fastDownloadFilePath  = sprintf(
+						$fastDownloadFilePath = sprintf(
 							'%derivative/%s/%s/%d-fast.inc',
 							$base,
 							$first,
@@ -1985,8 +1997,12 @@ class CoreModuleExtras {
 			case '1.0.19':
 				// Add page level caching and the GalleryCache map
 				$acceleration = serialize(array(
-					'guest' => array('type' => 'none'),
-					'user'  => array('type' => 'none'),
+					'guest' => array(
+						'type' => 'none',
+					),
+					'user'  => array(
+						'type' => 'none',
+					),
 				));
 				$ret          = GalleryCoreApi::setPluginParameter(
 					'module',
@@ -2252,18 +2268,18 @@ class CoreModuleExtras {
 						$indexColumns = implode('`, `' . $storage->_columnPrefix, $change[3]);
 						$indexColumns = $storage->_columnPrefix . $indexColumns;
 						$query        = sprintf(
-								'
+							'
 		    ALTER TABLE `%s%s`
 		    DROP INDEX `%s%s`,
 		    ADD INDEX `%s%s`(`%s`);',
-								$storage->_tablePrefix,
-								$change[0],
-								$storage->_columnPrefix,
-								$change[1],
-								$storage->_tablePrefix,
-								$change[2],
-								$indexColumns
-							);
+							$storage->_tablePrefix,
+							$change[0],
+							$storage->_columnPrefix,
+							$change[1],
+							$storage->_tablePrefix,
+							$change[2],
+							$indexColumns
+						);
 						// Ignore error, since there's nothing to do for most installations
 						$storage->execute($query);
 					}
@@ -2372,7 +2388,9 @@ class CoreModuleExtras {
 			case '1.0.30':
 				// Pull dangerous mime types
 				$ret = GalleryCoreApi::removeMimeType(
-					array('mimeType' => array('text/html', 'application/xhtml+xml', 'text/xml'))
+					array(
+						'mimeType' => array('text/html', 'application/xhtml+xml', 'text/xml'),
+					)
 				);
 
 				if ($ret) {
@@ -2453,7 +2471,7 @@ class CoreModuleExtras {
 				 * classes and set the items to use the PanoramaRenderer instead
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                      = '
+				$query                     = '
 	      SELECT
 		[GalleryEntity::id], [GalleryEntity::entityType]
 	      FROM
@@ -2562,7 +2580,7 @@ class CoreModuleExtras {
 			case '1.1.6':
 				// Remove useless rows in AccessSubscriberMap
 				$gallery->guaranteeTimeLimit(60);
-				$query                      = '
+				$query                     = '
 	      SELECT
 		[GalleryAccessSubscriberMap::itemId]
 	      FROM
@@ -2684,7 +2702,9 @@ class CoreModuleExtras {
 				// Fall Through
 			case '1.1.16':
 				// Initialize multiple repositories
-				$ret = $module->setParameter('core.repositories', serialize(array('released' => 1)));
+				$ret = $module->setParameter('core.repositories', serialize(array(
+					'released' => 1,
+				)));
 
 				if ($ret) {
 					return $ret;
@@ -3346,7 +3366,7 @@ $gallery->setConfig(\'galleryBaseUrl\', \'\');
 
 					// Generate cookieId
 					list($usec, $sec) = explode(' ', microtime());
-					$cookieId          = substr(md5(mt_rand()), 0, 6);
+					$cookieId         = substr(md5(mt_rand()), 0, 6);
 
 					$add[]           = '
 /*
@@ -4266,7 +4286,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 						return array($ret, null);
 					}
 					$gallery->guaranteeTimeLimit(120);
-					$storageExtras              =& $storage->_getExtras();
+					$storageExtras             =& $storage->_getExtras();
 					list($ret, $tableVersions) = $storageExtras->_loadTableVersions();
 
 					if ($ret) {
@@ -4305,8 +4325,8 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 						 * 2. Convert text column to binary column
 						 * 3. Convert them to character/text columns with UTF8 charset
 						 */
-						$query                = "SHOW FULL COLUMNS FROM `$tableName`";
-						$originalFetchMode    = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
+						$query               = "SHOW FULL COLUMNS FROM `$tableName`";
+						$originalFetchMode   = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
 						list($ret, $results) = $storage->search($query);
 
 						if ($ret) {

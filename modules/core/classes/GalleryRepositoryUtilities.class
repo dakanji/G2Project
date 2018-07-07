@@ -95,7 +95,7 @@ class GalleryRepositoryUtilities {
 	 * @param int $build1 first build (yyyymmddhhmmss)
 	 * @param int $build2 second build
 	 * @return array GalleryStatus a status code
-	 *		      string 'older', 'equal', 'newer'
+	 *            string 'older', 'equal', 'newer'
 	 */
 	public function compareVersions($version1, $version2, $build1 = null, $build2 = null) {
 		$relation = '';
@@ -197,7 +197,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     string strings.raw timestamp
+	 *           string strings.raw timestamp
 	 */
 	public function getLanguageBaseRevision($pluginType, $pluginId) {
 		global $gallery;
@@ -241,7 +241,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     boolean availability
+	 *           boolean availability
 	 */
 	public function isPluginAvailable($pluginType, $pluginId) {
 		list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
@@ -300,7 +300,7 @@ class GalleryRepositoryUtilities {
 	 * @param array $providedApis provided core API versions
 	 *              ('core', 'module', 'theme' => array(Major, Minor))
 	 * @return array array provided core API version
-	 *		     array provided plugin (based on its type) API version
+	 *           array provided plugin (based on its type) API version
 	 */
 	public function getProvidedApis($pluginType, $providedApis = null) {
 		if (empty($providedApis)) {
@@ -327,7 +327,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     array[$packageName] => array('version' => $version, 'build' => $build)
+	 *           array[$packageName] => array('version' => $version, 'build' => $build)
 	 */
 	public function getPluginPackages($pluginType, $pluginId) {
 		if (empty($pluginType) || empty($pluginId)) {
@@ -373,7 +373,7 @@ class GalleryRepositoryUtilities {
 	 *
 	 * @param string $languageCode
 	 * @return array GalleryStatus a status code
-	 *		     string language description
+	 *           string language description
 	 * @deprecated use GalleryCoreApi::getLanguageDescription() remove after next api bump.
 	 */
 	public function getLanguageDescription($languageCode) {
@@ -386,7 +386,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $pluginType
 	 * @param string $pluginId
 	 * @return array GalleryStatus a status code
-	 *		     string version
+	 *           string version
 	 */
 	public function getPluginVersion($pluginType, $pluginId) {
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
@@ -408,7 +408,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $url url to download from
 	 * @param string $ignoreCompression don't try to get the compressed version of the file
 	 * @return array boolean file was successfully downloaded
-	 *		     string file contents
+	 *           string file contents
 	 */
 	public function downloadFile($url, $ignoreCompression = false) {
 		global $gallery;
@@ -672,7 +672,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $outputFile name of the temporary file containing the downloaded packages
 	 * @param array $callback progress notification callback
 	 * @return array GalleryStatus a status code
-	 * 		     array of packages that were downloaded
+	 *           array of packages that were downloaded
 	 */
 	public function splitAggregatePackage($source, $outputFile, &$callback) {
 		global $gallery;
@@ -763,7 +763,9 @@ class GalleryRepositoryUtilities {
 			}
 
 			if (empty($packages[$pluginType][$pluginId])) {
-				$packages[$pluginType][$pluginId] = array('files' => array());
+				$packages[$pluginType][$pluginId] = array(
+					'files' => array(),
+				);
 			}
 
 			// Write package to the local repository cache directory
@@ -839,7 +841,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $source repository source
 	 * @param array $filesToDownload list of files to download
 	 * @return array GalleryStatus a status code
-	 * 		     string name of the temporary file containing the aggregated download
+	 *           string name of the temporary file containing the aggregated download
 	 */
 	public function downloadAggregatePackages($source, $filesToDownload) {
 		global $gallery;

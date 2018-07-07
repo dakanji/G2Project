@@ -86,7 +86,7 @@ class ConfirmDeleteView extends GalleryView {
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		if ($form['formName'] != 'ConfirmDelete') {
-			$form['formName']                               = 'ConfirmDelete';
+			$form['formName']                              = 'ConfirmDelete';
 			list($form['watermarkId'], $form['fromAdmin']) = GalleryUtilities::getRequestVariables('watermarkId', 'fromAdmin');
 		}
 
@@ -128,6 +128,11 @@ class ConfirmDeleteView extends GalleryView {
 		);
 		$template->setVariable('controller', 'watermark.ConfirmDelete');
 
-		return array(null, array('body' => 'modules/watermark/templates/ConfirmDelete.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/watermark/templates/ConfirmDelete.tpl',
+			),
+		);
 	}
 }

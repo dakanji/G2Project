@@ -34,7 +34,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			$error = array();
 
 			if (!empty($form['theme'])) {
-				$themeId            = $form['theme'];
+				$themeId           = $form['theme'];
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 				if ($ret) {
@@ -189,7 +189,9 @@ class ItemEditTheme extends ItemEditPlugin {
 		if ($ret) {
 			return array($ret, null, null);
 		}
-		$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
+		$themeList = array(
+			'' => $module->translate('&laquo; default theme &raquo;'),
+		);
 
 		foreach ($themeStatusList as $id => $status) {
 			if (empty($status['active'])) {

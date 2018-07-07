@@ -70,6 +70,11 @@ class PanoramaView extends GalleryView {
 		}
 		$template->title($module->translate('Panorama'));
 
-		return array(null, array('body' => 'modules/panorama/templates/Panorama.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/panorama/templates/Panorama.tpl',
+			),
+		);
 	}
 }

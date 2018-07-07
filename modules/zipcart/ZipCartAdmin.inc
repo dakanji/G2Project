@@ -143,7 +143,7 @@ class ZipCartAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'ZipCartAdmin') {
-			$form['formName']          = 'ZipCartAdmin';
+			$form['formName']         = 'ZipCartAdmin';
 			list($ret, $form['path']) = GalleryCoreApi::getPluginParameter('module', 'zipcart', 'path');
 
 			if ($ret) {
@@ -182,6 +182,11 @@ class ZipCartAdminView extends GalleryView {
 		$template->setVariable('ZipCartAdmin', $ZipCartAdmin);
 		$template->setVariable('controller', 'zipcart.ZipCartAdmin');
 
-		return array(null, array('body' => 'modules/zipcart/templates/ZipCartAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/zipcart/templates/ZipCartAdmin.tpl',
+			),
+		);
 	}
 }

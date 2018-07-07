@@ -24,12 +24,12 @@
 /**************************************************************************************************
  * SWISScenter Source                                                              Nigel Barnes
  *
- * 	Provides functions for reading information from the 'APP1' Extensible Metadata
- *	Platform (XMP) segment of JPEG format files.
- *	This XMP segment is XML based and contains the Resource Description Framework (RDF)
- *	data, which itself can contain the Dublin Core Metadata Initiative (DCMI) information.
+ *  Provides functions for reading information from the 'APP1' Extensible Metadata
+ *  Platform (XMP) segment of JPEG format files.
+ *  This XMP segment is XML based and contains the Resource Description Framework (RDF)
+ *  data, which itself can contain the Dublin Core Metadata Initiative (DCMI) information.
  *
- * 	This code uses segments from the JPEG Metadata Toolkit project by Evan Hunter.
+ *  This code uses segments from the JPEG Metadata Toolkit project by Evan Hunter.
  *************************************************************************************************/
 class Image_XMP {
 	/**

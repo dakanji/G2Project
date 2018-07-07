@@ -259,7 +259,9 @@ class AddCommentView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/comment/templates/AddComment.tpl'),
+			array(
+				'body' => 'modules/comment/templates/AddComment.tpl',
+			),
 		);
 	}
 

@@ -17,118 +17,50 @@
 	<!-- ARGS -->
 	<arg name="tab-width" value="4"/>
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
+	<arg name="ignore" value="*/Iconv/Resources/charset/*"/>
 
 	<!-- Load WordPress Standards ... Edit paths in both lines below -->
-	<config name="installed_paths" value="/path/to/git/repo/G2Project/wpcs" />
-	<autoload>/path/to/git/repo/G2Project/wpcs/WordPress/PHPCSAliases.php</autoload>
-
-	<!-- STYLE RULE 01:
-	Line endings MUST have UNIX line endings
-	-->
-	<rule ref="Generic.Files.LineEndings"/>
-
-	<!-- STYLE RULE 02:
-	Tabs, not spaces, MUST be used for indentation.
-	-->
+	<config name="installed_paths" value="/path/to/git/repo/G2Project-main/wpcs" />
+	<autoload>/path/to/git/repo/G2Project-main/wpcs/WordPress/PHPCSAliases.php</autoload>
+	
+	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
 	<rule ref="PSR2">
+		<!-- PSR2 EXCEPTION: Allow Tab Indents -->
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+		<!-- PSR2 EXCEPTION: Put Class Opening Braces on the Same Line -->
+		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+		<!-- PSR2 EXCEPTION: Allow Property Declarations to Start with an Underscore -->
+		<exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
+		<!-- PSR2 EXCEPTION: Allow Method Declarations to Start with an Underscore -->
+		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
 	</rule>
+
+	<!-- APPLY SELECTED GENERIC RULES -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-	<rule ref="WordPress.WhiteSpace.PrecisionAlignment"/>
-
-	<!-- STYLE RULE 03:
-	Line Lengths:
-	- Lines of code SHOULD NOT be longer than 100 characters.
-	- Lines of code MUST NOT be longer than 120 characters.
-	-->
-	<rule ref="Generic.Files.LineLength">
-		<properties>
-			<property name="lineLimit" value="100" />
-			<property name="absoluteLineLimit" value="120" />
-		</properties>
-	</rule>
-
-	<!-- STYLE RULE 04:
-	Asignment Signs:
-		- The assignment signs of multiple adjacent assignments SHOULD be aligned.
-		- $maxPadding and $maxColumn are the maximum amount of padding allowed before alignment is ignored.
-	-->
-	<rule ref="Generic.Formatting.MultipleStatementAlignment">
-		<properties>
-			<property name="maxPadding" value="50"/>
-		</properties>
-	</rule>
-	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
-		<properties>
-			<property name="maxColumn" value="50"/>
-		</properties>
-	</rule>
-
-	<!-- STYLE RULE 05:
-	There MUST be no spaces after cast statements
-	-->
 	<rule ref="Generic.Formatting.NoSpaceAfterCast"/>
-
-	<!-- STYLE RULE 06:
-	Function Braces:
-		- MUST be on the same line as the function declaration.
-		- MUST have one space between the closing parenthesis and the brace.
-	-->
-	<rule ref="PSR2">
-		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
-	</rule>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
-
-	<!-- STYLE RULE 07:
-	PHP 4 style class constructors MUST NOT be used.
-	-->
 	<rule ref="Generic.NamingConventions.ConstructorName"/>
-
-	<!-- STYLE RULE 08:
-	PHP short open tags MUST NOT be used.
-	-->
-	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
 	<rule ref="Generic.PHP.DisallowAlternativePHPTags"/>
-
-	<!-- STYLE RULE 09:
-	PHP keywords, e.g., class, function and case,  MUST be in lower case.
-	PHP constants, e.g., true, false and null,  MUST be in lower case.
-	-->
-	<rule ref="Generic.PHP.LowerCaseKeyword"/>
-	<rule ref="Generic.PHP.LowerCaseConstant"/>
-
-	<!-- STYLE RULE 10:
-	Strings MUST NOT be concatenated when they could be written as one string.
-	Strings spanning multiple lines MAY be so concatenated.
-	-->
+	<rule ref="Generic.Classes.OpeningBraceSameLine"/>
+	<rule ref="Generic.ControlStructures.InlineControlStructure"/>
+	<rule ref="Generic.PHP.Syntax"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
 			<property name="allowMultiline" value="true" />
 		</properties>
 	</rule>
-
-	<!-- STYLE RULE 11:
-	Comment only lines MUST be allowed.
-	-->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
 			<property name="ignoreComments" value="true" />
+			<property name="lineLimit" value="100" />
+			<property name="absoluteLineLimit" value="120" />
 		</properties>
 	</rule>
-
-	<!-- STYLE RULE 12:
-	The padding around equal signs in function argument lists MUST be zero.
-	-->
-	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
-
-	<!-- STYLE RULE 13:
-	Control Structures:
-	 	- MUST be structured correctly and their contents indented.
-		- Tab indents MUST be used.
-		- Inline Tabs MUST NOT be used.
-		- Values for associative arrays SHOULD start on a new line
-		- The last item of a multiline array MUST have a comma:
-	-->
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<properties>
+			<property name="maxPadding" value="50"/>
+		</properties>
+	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
 			<property name="exact" value="false"/>
@@ -137,156 +69,34 @@
 			<property name="ignoreIndentationTokens" type="array" value="T_HEREDOC, T_NOWDOC, T_INLINE_HTML"/>
 		</properties>
 	</rule>
-	<rule ref="WordPress.Arrays.ArrayIndentation"/>
-	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing"/>
-	rule ref="WordPress.WhiteSpace.DisallowInlineTabs"/>
-	<rule ref="WordPress.Arrays.CommaAfterArrayItem"/>
-
-
-	<!-- STYLE RULE 14:
-	Classes MUST have their opening brace on the same line as the delaration and their contents indented.
-	-->
-	<rule ref="PEAR.Classes.ClassDeclaration"/>
-	<!-- Opening brace on same line rule temporarily disabled. Handle in PHP-CS-Fixer -->
-	<!-- <rule ref="Generic.Classes.OpeningBraceSameLine"/>	-->
-
-	<!-- STYLE RULE 15:
-	Perl style comments (#) MUST NOT be allowed.
-	-->
-	<rule ref="PEAR.Commenting.InlineComment"/>
-
-	<!-- STYLE RULE 16:
-	Closing parenthesis of a multi-line "IF" statements:
-		- MUST be on a new line.
-		- Each line MUST begin with a boolean operator.
-		- There MUST be a single space between the closing parenthesis and the opening brace.
-	-->
-	<rule ref="PEAR.ControlStructures.MultiLineCondition"/>
-
-	<!-- STYLE RULE 17:
-	Parenthesis MUST NOT have whitespace after or before the opening and closing braces
-	Parenthesis spanning multiple lines MAY have such WhiteSpace
-	-->
 	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
 		<properties>
 			<property name="ignoreNewlines" value="true" />
 		</properties>
 	</rule>
 
-	<!-- STYLE RULE 18:
-	"include_once" MUST only be used in conditional situations and "require_once" elsewhere.
-	The file being requested MUST NOT be enclosed in brackets.
-	-->
-	<rule ref="PEAR.Files.IncludingFile"/>
-
-	<!-- STYLE RULE 19:
-	Assignments spanning multiple lines MUST have their assignment signs indented.
-	Such assignment signs MUST be on new lines.
-	-->
-	<rule ref="PEAR.Formatting.MultiLineAssignment"/>
-
-	<!-- STYLE RULE 20:
-	Function parameters with default values MUST be at the end of function signatures.
-	-->
-	<rule ref="PEAR.Functions.ValidDefaultValue"/>
-
-	<!-- STYLE RULE 21:
-	Object operators MUST be indented if they are the first thing on a line.
-	-->
-	<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
-
-	<!-- STYLE RULE 22:
-	The closing braces of scopes MUST be aligned.
-	-->
-	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
-
-	<!-- STYLE RULE 23:
-	"Elseif" MUST be used instead of "Else If".
-	-->
-	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
-
-	<!-- STYLE RULE 24:
-	Class Declarations:
-		- There MUST be one space between keywords,
-		- There MUST be one space after classnames,
-		- Keywords MUST be on the same line as classnames,
-		- Closing braces for interface methods MUST be on the next line after,
-		- The closing brace MUST be on a line by itself.
-	-->
-	<rule ref="PSR2.Classes.ClassDeclaration"/>
-
-	<!-- STYLE RULE 25:
-	Property names MAY be prefixed with an underscore.
-	-->
-	<rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
-		<severity>0</severity>
-	</rule>
-
-	<!-- STYLE RULE 26:
-	Property Declarations:
-		- The "var" keyword MUST NOT be used to declare a property,
-		- Keywords MUST be on the same line as classnames,
-		- A maximum of one property MUST be declared per statement,
-		- Visibility MUST be declared on all properties.
-	-->
-	<rule ref="PSR2.Classes.PropertyDeclaration"/>
-
-	<!-- STYLE RULE 27:
-	Method names MAY be prefixed with an underscore.
-	-->
-	<rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-		<severity>0</severity>
-	</rule>
-
-	<!-- STYLE RULE 28:
-	Method Declarations:
-		- The static declaration MUST come after the visibility declaration,
-		- The final declaration MUST precede the visibility declaration,
-		- The abstract declaration MUST precede the visibility declaration.
-		- Visibility MUST be declared on all methods.
-	-->
-	<rule ref="PSR2.Methods.MethodDeclaration"/>
-
-	<!-- STYLE RULE 29:
-	Switch Statements:
-		- Keywords MUST be lowercase,
-		- Keywords MUST be indented from the "SWITCH" keyword,
-		- The "CASE" keyword MUST be followed by a single space,
-		- There MUST be no space before the colon in a "CASE" statement,
-		- Statements MUST NOT be defined using curly braces,
-		- Terminating statements MUST be indented to the same level as the "CASE" body,
-		- There MUST be a comment indicating intentional fall-throughs in non-empty "CASE" bodies.
-	-->
-	<rule ref="PSR2.ControlStructures.SwitchDeclaration"/>
-
-	<!-- STYLE RULE 30:
-	Files MUST be ended with a new line.
-	-->
-	<rule ref="PSR2.Files.EndFileNewline"/>
-
-	<!--  There MUST be one blank line after namespace declarations. -->
-	<rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
-
-	<!-- STYLE RULE 31:
-	"USE" Blocks:
-		- There MUST be one USE keyword per declaration,
-		- USE declarations MUST go after the first namespace declaration,
-		- There MUST be one blank line after the last USE statement.
-	-->
-	<rule ref="PSR2.Namespaces.UseDeclaration"/>
-
-	<!-- STYLE RULE 32:
-	PHP functions MUST NOT have functions defined within. -->
+	<!-- APPLY SELECTED SQUIZ RULES -->
 	<rule ref="Squiz.PHP.InnerFunctions"/>
-
-	<!-- STYLE RULE 33:
-	Static methods MUST NOT use "$this".
-	-->
 	<rule ref="Squiz.Scope.StaticThisUsage"/>
-
-	<!-- STYLE RULE 34:
-	There MUST be one blank line before and after functions except when it is the first or last block in a scope
-	-->
+	<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+	<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+	<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+	<rule ref="Squiz.Classes.SelfMemberReference">
+		<exclude name="Squiz.Classes.SelfMemberReference.NotUsed"/>
+	</rule>
+	<rule ref="Squiz.Strings.DoubleQuoteUsage">
+		<exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+	</rule>
+	<rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+	</rule>
+	<rule ref="Squiz.PHP.EmbeddedPhp">
+		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingBefore"/>
+		<exclude name="Squiz.PHP.EmbeddedPhp.Indent"/>
+		<exclude name="Squiz.PHP.EmbeddedPhp.OpenTagIndent"/>
+		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingAfter"/>
+	</rule>
 	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
 		<properties>
 			<property name="spacing" value="1" />
@@ -294,97 +104,37 @@
 			<property name="spacingAfterLast" value="0" />
 		</properties>
 	</rule>
-
-	<!-- STYLE RULE 35:
-	Constructs without brackets, e.g., "echo", MUST contain a single space after the construct.
-	-->
-	<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
-
-	<!-- STYLE RULE 36:
-	There MUST be one space before and after logical operators.
-	There MUST be one space before and after comparison operators.
-	There MUST be one space before and after assignment operators.
-	There MUST be one space before and after string operators.
-	There MUST be one space after commas.
-	-->
-	<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
 	<rule ref="Squiz.Strings.ConcatenationSpacing">
 		<properties>
 			<property name="spacing" value="1"/>
 			<property name="ignoreNewlines" value="true"/>
 		</properties>
 	</rule>
-	<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
 
-	<!-- STYLE RULE 37:
-	Whitespace:
-		- There MUST NOT be whitespace proceeding a file's contents.
-		- There MUST NOT be whitespace after a file's contents.
-		- There MUST NOT be whitespace after line content.
-		- There MUST NOT be multiple blank lines within functions.
-	-->
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+	<!-- APPLY SELECTED PEAR RULES -->
+	<rule ref="PEAR.Commenting.InlineComment"/>
+	<rule ref="PEAR.ControlStructures.MultiLineCondition"/>
+	<rule ref="PEAR.Files.IncludingFile"/>
+	<rule ref="PEAR.Formatting.MultiLineAssignment"/>
+	<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
+	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
 
-	<!-- STYLE RULE 38:
-	Braces MUST always be used for control structures.
-	-->
-	<rule ref="Generic.ControlStructures.InlineControlStructure"/>
-	<rule ref="Squiz.ControlStructures.ControlSignature"/>
-
-	<!-- STYLE RULE 39:
-	Improper PHP syntax MUST be avoided.
-	-->
-	<rule ref="Generic.PHP.Syntax"/>
-
-	<!-- STYLE RULE 40:
-	Code that sacrifises readability for cleverness or brevity MUST not be used.
-	-->
-	<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
-	<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
-
-	<!-- STYLE RULE 41:
-	There MUST NOT be whitespace before semicolons.
-	-->
+	<!-- APPLY SELECTED WORDPRESS RULES -->
+	<rule ref="WordPress.WhiteSpace.DisallowInlineTabs"/>
+	<rule ref="WordPress.Arrays.CommaAfterArrayItem"/>	
+	<rule ref="WordPress.Arrays.ArrayIndentation"/>	
+	<rule ref="WordPress.WhiteSpace.PrecisionAlignment"/>
 	<rule ref="WordPress.WhiteSpace.SemicolonSpacing"/>
-
-	<!-- STYLE RULE 42:
-	References to "self" in a class MUST be lower-case and MUST NOT have extraneous spaces.
-	The fully-qualified class name MAY be used instead of "self".
-	-->
-	<rule ref="Squiz.Classes.SelfMemberReference"/>
-	<rule ref="Squiz.Classes.SelfMemberReference.NotUsed">
-		<severity>0</severity>
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="50"/>
+			<property name="exact" value="true"/>
+			<property name="alignMultilineItems" value="!=100"/>
+		</properties>
 	</rule>
-
-	<!-- STYLE RULE 43:
-	The PHP open and close tags of multi-line snippets within HTML code MUST be on a line by themselves.
-	-->
-	<rule ref="Squiz.PHP.EmbeddedPhp"/>
-	<rule ref="Squiz.PHP.EmbeddedPhp.SpacingBefore">
-		<severity>0</severity>
+	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
+		<properties>
+			<property name="allow_single_item_single_line_associative_arrays" value="false"/>
+		</properties>
 	</rule>
-	<rule ref="Squiz.PHP.EmbeddedPhp.Indent">
-		<severity>0</severity>
-	</rule>
-	<rule ref="Squiz.PHP.EmbeddedPhp.OpenTagIndent">
-		<severity>0</severity>
-	</rule>
-	<rule ref="Squiz.PHP.EmbeddedPhp.SpacingAfter">
-		<severity>0</severity>
-	</rule>
-
-	<!-- STYLE RULE 44:
-	Single quotes MUST be used for strings except when including variables.
-	-->
-	<rule ref="Squiz.Strings.DoubleQuoteUsage"/>
-	<rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
-		<severity>0</severity>
-	</rule>
-
-	<!-- STYLE RULE 45:
-	The closing PHP tag MUST be omitted from files containing only PHP.
-	-->
-	<rule ref="PSR2.Files.ClosingTag"/>
-
-
 </ruleset>

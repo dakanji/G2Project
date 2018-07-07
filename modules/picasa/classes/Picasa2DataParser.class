@@ -236,14 +236,14 @@ class Picasa2DataParser {
 			$albumArray['albumName'] = trim($imageArray['album']['albumName']);
 		} else {
 			return array(
-				 GalleryCoreApi::error(
-					 ERROR_BAD_PARAMETER,
-					 __FILE__,
-					 __LINE__,
-					 'No albumName in Picasa export.'
-				 ),
-				 null,
-			 );
+				GalleryCoreApi::error(
+					ERROR_BAD_PARAMETER,
+					__FILE__,
+					__LINE__,
+					'No albumName in Picasa export.'
+				),
+				null,
+			);
 		}
 
 		if (isset($imageArray['album']['albumCaption'])) {

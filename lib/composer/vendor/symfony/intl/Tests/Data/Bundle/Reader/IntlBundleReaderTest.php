@@ -18,90 +18,82 @@ use Symfony\Component\Intl\Data\Bundle\Reader\IntlBundleReader;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @requires extension intl
  */
-class IntlBundleReaderTest extends TestCase
-{
-    /**
-     * @var IntlBundleReader
-     */
-    private $reader;
+class IntlBundleReaderTest extends TestCase {
 
-    protected function setUp()
-    {
-        $this->reader = new IntlBundleReader();
-    }
+	/**
+	 * @var IntlBundleReader
+	 */
+	private $reader;
 
-    public function testReadReturnsArrayAccess()
-    {
-        $data = $this->reader->read(__DIR__.'/Fixtures/res', 'ro');
+	protected function setUp() {
+		$this->reader = new IntlBundleReader();
+	}
 
-        $this->assertInstanceOf('\ArrayAccess', $data);
-        $this->assertSame('Bar', $data['Foo']);
-        $this->assertArrayNotHasKey('ExistsNot', $data);
-    }
+	public function testReadReturnsArrayAccess() {
+		$data = $this->reader->read(__DIR__ . '/Fixtures/res', 'ro');
 
-    public function testReadFollowsAlias()
-    {
-        // "alias" = "ro"
-        $data = $this->reader->read(__DIR__.'/Fixtures/res', 'alias');
+		$this->assertInstanceOf('\ArrayAccess', $data);
+		$this->assertSame('Bar', $data['Foo']);
+		$this->assertArrayNotHasKey('ExistsNot', $data);
+	}
 
-        $this->assertInstanceOf('\ArrayAccess', $data);
-        $this->assertSame('Bar', $data['Foo']);
-        $this->assertArrayNotHasKey('ExistsNot', $data);
-    }
+	public function testReadFollowsAlias() {
+		// "alias" = "ro"
+		$data = $this->reader->read(__DIR__ . '/Fixtures/res', 'alias');
 
-    public function testReadDoesNotFollowFallback()
-    {
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('ResourceBundle does not support disabling fallback properly on HHVM.');
-        }
+		$this->assertInstanceOf('\ArrayAccess', $data);
+		$this->assertSame('Bar', $data['Foo']);
+		$this->assertArrayNotHasKey('ExistsNot', $data);
+	}
 
-        // "ro_MD" -> "ro"
-        $data = $this->reader->read(__DIR__.'/Fixtures/res', 'ro_MD');
+	public function testReadDoesNotFollowFallback() {
+		if (defined('HHVM_VERSION')) {
+			$this->markTestSkipped('ResourceBundle does not support disabling fallback properly on HHVM.');
+		}
 
-        $this->assertInstanceOf('\ArrayAccess', $data);
-        $this->assertSame('Bam', $data['Baz']);
-        $this->assertArrayNotHasKey('Foo', $data);
-        $this->assertNull($data['Foo']);
-        $this->assertArrayNotHasKey('ExistsNot', $data);
-    }
+		// "ro_MD" -> "ro"
+		$data = $this->reader->read(__DIR__ . '/Fixtures/res', 'ro_MD');
 
-    public function testReadDoesNotFollowFallbackAlias()
-    {
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('ResourceBundle does not support disabling fallback properly on HHVM.');
-        }
+		$this->assertInstanceOf('\ArrayAccess', $data);
+		$this->assertSame('Bam', $data['Baz']);
+		$this->assertArrayNotHasKey('Foo', $data);
+		$this->assertNull($data['Foo']);
+		$this->assertArrayNotHasKey('ExistsNot', $data);
+	}
 
-        // "mo" = "ro_MD" -> "ro"
-        $data = $this->reader->read(__DIR__.'/Fixtures/res', 'mo');
+	public function testReadDoesNotFollowFallbackAlias() {
+		if (defined('HHVM_VERSION')) {
+			$this->markTestSkipped('ResourceBundle does not support disabling fallback properly on HHVM.');
+		}
 
-        $this->assertInstanceOf('\ArrayAccess', $data);
-        $this->assertSame('Bam', $data['Baz'], 'data from the aliased locale can be accessed');
-        $this->assertArrayNotHasKey('Foo', $data);
-        $this->assertNull($data['Foo']);
-        $this->assertArrayNotHasKey('ExistsNot', $data);
-    }
+		// "mo" = "ro_MD" -> "ro"
+		$data = $this->reader->read(__DIR__ . '/Fixtures/res', 'mo');
 
-    /**
-     * @expectedException \Symfony\Component\Intl\Exception\ResourceBundleNotFoundException
-     */
-    public function testReadFailsIfNonExistingLocale()
-    {
-        $this->reader->read(__DIR__.'/Fixtures/res', 'foo');
-    }
+		$this->assertInstanceOf('\ArrayAccess', $data);
+		$this->assertSame('Bam', $data['Baz'], 'data from the aliased locale can be accessed');
+		$this->assertArrayNotHasKey('Foo', $data);
+		$this->assertNull($data['Foo']);
+		$this->assertArrayNotHasKey('ExistsNot', $data);
+	}
 
-    /**
-     * @expectedException \Symfony\Component\Intl\Exception\ResourceBundleNotFoundException
-     */
-    public function testReadFailsIfNonExistingFallbackLocale()
-    {
-        $this->reader->read(__DIR__.'/Fixtures/res', 'ro_AT');
-    }
+	/**
+	 * @expectedException \Symfony\Component\Intl\Exception\ResourceBundleNotFoundException
+	 */
+	public function testReadFailsIfNonExistingLocale() {
+		$this->reader->read(__DIR__ . '/Fixtures/res', 'foo');
+	}
 
-    /**
-     * @expectedException \Symfony\Component\Intl\Exception\RuntimeException
-     */
-    public function testReadFailsIfNonExistingDirectory()
-    {
-        $this->reader->read(__DIR__.'/foo', 'ro');
-    }
+	/**
+	 * @expectedException \Symfony\Component\Intl\Exception\ResourceBundleNotFoundException
+	 */
+	public function testReadFailsIfNonExistingFallbackLocale() {
+		$this->reader->read(__DIR__ . '/Fixtures/res', 'ro_AT');
+	}
+
+	/**
+	 * @expectedException \Symfony\Component\Intl\Exception\RuntimeException
+	 */
+	public function testReadFailsIfNonExistingDirectory() {
+		$this->reader->read(__DIR__ . '/foo', 'ro');
+	}
 }

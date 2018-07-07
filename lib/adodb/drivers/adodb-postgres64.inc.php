@@ -101,11 +101,11 @@ class ADODB_postgres64 extends ADOConnection {
 		AND a.attrelid = bc.oid AND bc.relname = '%s'";
 
 	public $hasAffectedRows = true;
-	public $hasLimit        = false;	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
+	public $hasLimit        = false;    // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
-	public $true            = 'TRUE';		// string that represents TRUE for a database
-	public $false           = 'FALSE';		// string that represents FALSE for a database
-	public $fmtDate         = "'Y-m-d'";	// used by DBDate() as the default date format used by the database
+	public $true            = 'TRUE';       // string that represents TRUE for a database
+	public $false           = 'FALSE';      // string that represents FALSE for a database
+	public $fmtDate         = "'Y-m-d'";    // used by DBDate() as the default date format used by the database
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
 	public $hasMoveFirst    = true;
 	public $hasGenID        = true;
@@ -113,7 +113,7 @@ class ADODB_postgres64 extends ADOConnection {
 	public $_genSeqSQL      = 'CREATE SEQUENCE %s START %s';
 	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
 	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
-	public $random          = 'random()';		/// random function
+	public $random          = 'random()';       /// random function
 	public $autoRollback    = true; // apparently pgsql does not autorollback properly before php 4.3.4
 							// http://bugs.php.net/bug.php?id=25404
 
@@ -1250,7 +1250,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 			case 'IMAGE': // user defined type
 			case 'BLOB': // user defined type
-			case 'BIT':	// This is a bit string, not a single bit, so don't return 'L'
+			case 'BIT': // This is a bit string, not a single bit, so don't return 'L'
 			case 'VARBIT':
 			case 'BYTEA':
 				return 'B';

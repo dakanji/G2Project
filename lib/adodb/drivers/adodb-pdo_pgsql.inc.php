@@ -41,11 +41,11 @@ WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s'))
 	FROM pg_class bc, pg_class ic, pg_index i, pg_attribute a WHERE bc.oid = i.indrelid AND ic.oid = i.indexrelid AND (i.indkey[0] = a.attnum OR i.indkey[1] = a.attnum OR i.indkey[2] = a.attnum OR i.indkey[3] = a.attnum OR i.indkey[4] = a.attnum OR i.indkey[5] = a.attnum OR i.indkey[6] = a.attnum OR i.indkey[7] = a.attnum) AND a.attrelid = bc.oid AND bc.relname = '%s'";
 
 	public $hasAffectedRows = true;
-	public $hasLimit        = false;	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
+	public $hasLimit        = false;    // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
-	public $true            = 't';		// string that represents TRUE for a database
-	public $false           = 'f';		// string that represents FALSE for a database
-	public $fmtDate         = "'Y-m-d'";	// used by DBDate() as the default date format used by the database
+	public $true            = 't';      // string that represents TRUE for a database
+	public $false           = 'f';      // string that represents FALSE for a database
+	public $fmtDate         = "'Y-m-d'";    // used by DBDate() as the default date format used by the database
 	public $fmtTimeStamp    = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
 	public $hasMoveFirst    = true;
 	public $hasGenID        = true;
@@ -53,7 +53,7 @@ WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s'))
 	public $_genSeqSQL      = 'CREATE SEQUENCE %s START %s';
 	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
 	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
-	public $random          = 'random()';		/// random function
+	public $random          = 'random()';       /// random function
 	public $concat_operator = '||';
 
 	public function _init($parentDriver) {

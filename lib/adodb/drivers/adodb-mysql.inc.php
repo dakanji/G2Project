@@ -50,8 +50,8 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 		public $clientFlags      = 0;
 		public $charSet          = '';
 		public $substr           = 'substring';
-		public $nameQuote        = '`';		/// string to use to quote identifiers and names
-		public $compat323        = false; 		// true if compat with mysql 3.23
+		public $nameQuote        = '`';     /// string to use to quote identifiers and names
+		public $compat323        = false;       // true if compat with mysql 3.23
 
 		public function __construct() {
 			if (defined('ADODB_EXTENSION')) {
@@ -863,7 +863,7 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 				if ($o) {
 					$o->binary = (strpos($f, 'binary') !== false);
 				}
-			} else {	// The $fieldOffset argument is not provided thus its -1
+			} else {    // The $fieldOffset argument is not provided thus its -1
 				$o = @mysql_fetch_field($this->_queryID);
 				//if ($o) $o->max_length = @mysql_field_len($this->_queryID); // suggested by: Jim Nicholson (jnich#att.com)
 				$o->max_length = -1; // mysql returns the max length less spaces -- so it is unrealiable
@@ -992,7 +992,7 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 						return 'R';
 					}
 
-						return 'I';
+					return 'I';
 
 				default:
 					return 'N';

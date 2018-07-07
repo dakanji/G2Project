@@ -129,7 +129,9 @@ class PhotoAccessHelper {
 			}
 
 			if ($needSession) {
-				$sessionParam   = array($pwSession->getKey() => $pwSession->getId());
+				$sessionParam   = array(
+					$pwSession->getKey() => $pwSession->getId(),
+				);
 				$protectedIds[] = $source->getId();
 			} else {
 				$sessionParam = array();
@@ -245,7 +247,9 @@ class PhotoAccessHelper {
 		list($body, $response, $headers) = GalleryCoreApi::postToWebPage(
 			$cartUrl,
 			$postData,
-			array('User-Agent' => GalleryUtilities::getServerVar('HTTP_USER_AGENT'))
+			array(
+				'User-Agent' => GalleryUtilities::getServerVar('HTTP_USER_AGENT'),
+			)
 		);
 
 		/* Expect a response of the form:
@@ -273,7 +277,9 @@ class PhotoAccessHelper {
 			$session->put('photoaccess.cartUrlFragment', $cartUrlFragment);
 			$redirectUrl = 'http://' . $photoAccessServer . str_replace('&#38;', '&', $matches[2]);
 		} else {
-			$redirectUrl = $urlGenerator->generateUrl(array('view' => 'photoaccess.FulfillmentError'));
+			$redirectUrl = $urlGenerator->generateUrl(array(
+				'view' => 'photoaccess.FulfillmentError',
+			));
 		}
 
 		return array(null, $redirectUrl);

@@ -309,7 +309,9 @@ class GalleryRemoteController extends GalleryController {
 			$response->setProperty('status_text', 'Password incorrect.');
 
 			$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-			$event->setData(array('userName' => $form['uname']));
+			$event->setData(array(
+				'userName' => $form['uname'],
+			));
 			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -322,9 +324,9 @@ class GalleryRemoteController extends GalleryController {
 		if ($gallery->getActiveUser()) {
 			// already logged in... this sounds like the applet logging in with a cookie
 			$response->setProperty(
-					'server_version',
-					sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN'])
-				);
+				'server_version',
+				sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN'])
+			);
 			$response->setProperty('status', $grStatusCodes['LOGIN_MISSING']);
 			$response->setProperty('status_text', 'Login parameters not found.');
 
@@ -347,9 +349,9 @@ class GalleryRemoteController extends GalleryController {
 
 		$response->setProperty('debug_anonymous_login', true);
 		$response->setProperty(
-					'server_version',
-					sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN'])
-				);
+			'server_version',
+			sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN'])
+		);
 		$response->setProperty('status', $grStatusCodes['SUCCESS']);
 		$response->setProperty('status_text', 'Login successful.');
 
@@ -744,7 +746,7 @@ class GalleryRemoteController extends GalleryController {
 
 		$grStatusCodes = GalleryRemoteConstants::getStatusCodes();
 
-		$itemId = $form['set_albumName'];	  // TODO: Eliminate this throwback to G1
+		$itemId = $form['set_albumName'];     // TODO: Eliminate this throwback to G1
 
 		$ret = $this->_assertHasViewPermission($itemId);
 
@@ -870,7 +872,7 @@ class GalleryRemoteController extends GalleryController {
 			}
 
 			// get the random function for the DB
-			$storage              =& $gallery->getStorage();
+			$storage             =& $gallery->getStorage();
 			list($ret, $orderBy) = $storage->getFunctionSql('RAND', array());
 
 			if ($ret) {
@@ -904,7 +906,9 @@ class GalleryRemoteController extends GalleryController {
 			$data = $aclIds;
 
 			$params          = array();
-			$params['limit'] = array('count' => $form['limit']);
+			$params['limit'] = array(
+				'count' => $form['limit'],
+			);
 
 			list($ret, $searchResults) = $gallery->search($query, $data, $params);
 

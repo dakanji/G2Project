@@ -271,7 +271,9 @@ class GalleryChildEntityHelper_simple {
 		}
 		$join = array_flip($join);
 
-		$idJoins = $class ? array($class => 'id') : array();
+		$idJoins = $class ? array(
+			$class => 'id',
+		) : array();
 
 		if ($requiredPermission) {
 			list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($requiredPermission, $userId);
@@ -702,14 +704,14 @@ class GalleryChildEntityHelper_simple {
 						break;
 					}
 						// Sort order implementation is missing -- fall through to the default
-						if ($usingDefaults) {
-							return self::_getOrderInfo(
-								'orderWeight',
-								ORDER_ASCENDING
-							);
-						}
+					if ($usingDefaults) {
+						return self::_getOrderInfo(
+							'orderWeight',
+							ORDER_ASCENDING
+						);
+					}
 
-							return self::_getOrderInfo(null, null);
+					return self::_getOrderInfo(null, null);
 			}
 
 			if (isset($column)) {

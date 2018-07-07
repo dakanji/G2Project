@@ -171,7 +171,7 @@ class Gallery {
 
 		// Default config settings (can be overridden via config.php or embedded environment)
 		$this->_config = array(
-			'login'             => true,		// Offer UserAdmin links (Login/Logout/Your Account)
+			'login'             => true,        // Offer UserAdmin links (Login/Logout/Your Account)
 
 			// UrlGenerator parameters for redirect URL to login page. Can be overridden.
 			'loginRedirect'     => array(
@@ -180,7 +180,7 @@ class Gallery {
 				'return'  => true,
 			),
 
-			'link'              => true,		 // @deprecated - Allow item linking
+			'link'              => true,         // @deprecated - Allow item linking
 			// (now unused, there is a separate replica module
 
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
@@ -206,7 +206,7 @@ class Gallery {
 	 * @see GalleryStorage::search
 	 */
 	public function search($query, $data = array(), $options = array()) {
-		$storage              =& $this->getStorage();
+		$storage             =& $this->getStorage();
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
@@ -569,7 +569,7 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator         = new GalleryTranslator();
+			$this->_translator        = new GalleryTranslator();
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {

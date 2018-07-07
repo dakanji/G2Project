@@ -379,7 +379,7 @@ class ConfirmPicasaImportView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$albumName                    = $album['albumName'];
+		$albumName                   = $album['albumName'];
 		list($ret, $existingAlbumId) = GalleryCoreApi::fetchChildIdByPathComponent(
 			$destinationAlbumId,
 			$platform->legalizePathComponent($albumName)
@@ -408,6 +408,11 @@ class ConfirmPicasaImportView extends GalleryView {
 		$template->setVariable('ConfirmPicasaImport', $ConfirmPicasaImport);
 		$template->setVariable('controller', 'picasa.ConfirmPicasaImport');
 
-		return array(null, array('body' => 'modules/picasa/templates/ConfirmPicasaImport.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/picasa/templates/ConfirmPicasaImport.tpl',
+			),
+		);
 	}
 }

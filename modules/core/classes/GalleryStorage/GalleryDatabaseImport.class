@@ -233,16 +233,16 @@ class GalleryDatabaseImport extends GalleryImportElement {
 	/**
 	 * Do the version validation prior actually reloading the Gallery installation
 	 * @param array $versions The plugin status as extracted from the <plugin-status> tag.
-	 * 				$versions[1] - The plugin id
-	 * 				$versions[2] - Required Core Api
-	 * 				$versions[3] - Require Api (Module or Theme)
-	 * 				$versions[4] - Plugin Version number
-	 * 				$versions[5] - The plugin active flag.
-	 * 				$versions[6] - The plugin type module | theme.
+	 *              $versions[1] - The plugin id
+	 *              $versions[2] - Required Core Api
+	 *              $versions[3] - Require Api (Module or Theme)
+	 *              $versions[4] - Plugin Version number
+	 *              $versions[5] - The plugin active flag.
+	 *              $versions[6] - The plugin type module | theme.
 	 * @param array A keyed array for errors and warnings. Keys are 'errors' and 'warnings'.
 	 */
 	public function _doStatusCheck($versions, &$errors) {
-		$pluginType                = $versions[6];
+		$pluginType               = $versions[6];
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 
 		if ($ret) {
@@ -750,7 +750,7 @@ class _GalleryDataTag extends GalleryImportElement {
 		parent::__construct($parent);
 
 		list($this->_tableName) = $this->_storage->_translateTableName($tableName);
-		$this->_rowCounter       = 0;
+		$this->_rowCounter      = 0;
 	}
 
 	/**
@@ -914,7 +914,7 @@ class _GalleryFieldValueTag extends GalleryImportElement {
 	/**
 	 * @see GalleryXmlHandler::_processEndElement
 	 * @todo At some future date, decode the data from base64 encoded.  Only if a similiar change
-	 * 	     is done to GalleryDatabaseExport.
+	 *       is done to GalleryDatabaseExport.
 	 * @access protected
 	 */
 	public function _processEndElement($tag) {

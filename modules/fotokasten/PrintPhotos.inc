@@ -51,7 +51,9 @@ class PrintPhotosController extends GalleryController {
 		$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 		if (!empty($itemId)) {
-			$cartItemIds = array($itemId => 1);
+			$cartItemIds = array(
+				$itemId => 1,
+			);
 		} else {
 			$session     =& $gallery->getSession();
 			$cartItemIds = $session->get('fotokasten.cart');
@@ -63,7 +65,7 @@ class PrintPhotosController extends GalleryController {
 		}
 
 		// Load the necessary item data
-		$itemIds            = array_keys($cartItemIds);
+		$itemIds           = array_keys($cartItemIds);
 		list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryPhotoItem');
 
 		if ($ret) {
@@ -143,7 +145,9 @@ class PrintPhotosController extends GalleryController {
 			}
 
 			if ($needSession) {
-				$sessionParam   = array($foSession->getKey() => $foSession->getId());
+				$sessionParam   = array(
+					$foSession->getKey() => $foSession->getId(),
+				);
 				$protectedIds[] = $source->getId();
 			} else {
 				$sessionParam = array();
@@ -257,7 +261,9 @@ class PrintPhotosController extends GalleryController {
 		return array(
 			null,
 			array(
-				'redirect' => array('href' => $referer), // redirect to shopping basket
+				'redirect' => array(
+					'href' => $referer,
+				), // redirect to shopping basket
 				'status'   => array(),
 				'error'    => array(),
 			),

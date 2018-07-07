@@ -166,6 +166,11 @@ class SelectGalleryView extends GalleryView {
 		$template->setVariable('SelectGallery', $SelectGallery);
 		$template->setVariable('controller', 'migrate.SelectGallery');
 
-		return array(null, array('body' => 'modules/migrate/templates/SelectGallery.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/migrate/templates/SelectGallery.tpl',
+			),
+		);
 	}
 }

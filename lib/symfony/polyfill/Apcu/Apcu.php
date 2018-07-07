@@ -19,88 +19,88 @@ namespace Symfony\Polyfill\Apcu;
  *
  * @internal
  */
-final class Apcu
-{
-    public static function apcu_add($key, $var = null, $ttl = 0)
-    {
-        if (!\is_array($key)) {
-            return apc_add($key, $var, $ttl);
-        }
+final class Apcu {
+	public static function apcu_add($key, $var = null, $ttl = 0) {
+		if (!\is_array($key)) {
+			return apc_add($key, $var, $ttl);
+		}
 
-        $errors = array();
-        foreach ($key as $k => $v) {
-            if (!apc_add($k, $v, $ttl)) {
-                $errors[$k] = -1;
-            }
-        }
+		$errors = array();
 
-        return $errors;
-    }
+		foreach ($key as $k => $v) {
+			if (!apc_add($k, $v, $ttl)) {
+				$errors[$k] = -1;
+			}
+		}
 
-    public static function apcu_store($key, $var = null, $ttl = 0)
-    {
-        if (!\is_array($key)) {
-            return apc_store($key, $var, $ttl);
-        }
+		return $errors;
+	}
 
-        $errors = array();
-        foreach ($key as $k => $v) {
-            if (!apc_store($k, $v, $ttl)) {
-                $errors[$k] = -1;
-            }
-        }
+	public static function apcu_store($key, $var = null, $ttl = 0) {
+		if (!\is_array($key)) {
+			return apc_store($key, $var, $ttl);
+		}
 
-        return $errors;
-    }
+		$errors = array();
 
-    public static function apcu_exists($keys)
-    {
-        if (!\is_array($keys)) {
-            return apc_exists($keys);
-        }
+		foreach ($key as $k => $v) {
+			if (!apc_store($k, $v, $ttl)) {
+				$errors[$k] = -1;
+			}
+		}
 
-        $existing = array();
-        foreach ($keys as $k) {
-            if (apc_exists($k)) {
-                $existing[$k] = true;
-            }
-        }
+		return $errors;
+	}
 
-        return $existing;
-    }
+	public static function apcu_exists($keys) {
+		if (!\is_array($keys)) {
+			return apc_exists($keys);
+		}
 
-    public static function apcu_fetch($key, &$success = null)
-    {
-        if (!\is_array($key)) {
-            return apc_fetch($key, $success);
-        }
+		$existing = array();
 
-        $succeeded = true;
-        $values = array();
-        foreach ($key as $k) {
-            $v = apc_fetch($k, $success);
-            if ($success) {
-                $values[$k] = $v;
-            } else {
-                $succeeded = false;
-            }
-        }
-        $success = $succeeded;
+		foreach ($keys as $k) {
+			if (apc_exists($k)) {
+				$existing[$k] = true;
+			}
+		}
 
-        return $values;
-    }
+		return $existing;
+	}
 
-    public static function apcu_delete($key)
-    {
-        if (!\is_array($key)) {
-            return apc_delete($key);
-        }
+	public static function apcu_fetch($key, &$success = null) {
+		if (!\is_array($key)) {
+			return apc_fetch($key, $success);
+		}
 
-        $success = true;
-        foreach ($key as $k) {
-            $success = apc_delete($k) && $success;
-        }
+		$succeeded = true;
+		$values = array();
 
-        return $success;
-    }
+		foreach ($key as $k) {
+			$v = apc_fetch($k, $success);
+
+			if ($success) {
+				$values[$k] = $v;
+			} else {
+				$succeeded = false;
+			}
+		}
+		$success = $succeeded;
+
+		return $values;
+	}
+
+	public static function apcu_delete($key) {
+		if (!\is_array($key)) {
+			return apc_delete($key);
+		}
+
+		$success = true;
+
+		foreach ($key as $k) {
+			$success = apc_delete($k) && $success;
+		}
+
+		return $success;
+	}
 }

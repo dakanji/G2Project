@@ -157,7 +157,9 @@ class _parse_proppatch {
 		}
 
 		if ($this->depth == 3) {
-			$prop          = array('name' => $name);
+			$prop          = array(
+				'name' => $name,
+			);
 			$this->current = array(
 				'name'   => $name,
 				'ns'     => $ns,

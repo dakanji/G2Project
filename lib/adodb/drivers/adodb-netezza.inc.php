@@ -43,9 +43,9 @@ class ADODB_netezza extends ADODB_postgres64 {
 	public $metaKeySQL      = '';
 	public $hasAffectedRows = true;
 	public $hasLimit        = true;
-	public $true            = 't';		// string that represents TRUE for a database
-	public $false           = 'f';		// string that represents FALSE for a database
-	public $fmtDate         = "'Y-m-d'";	// used by DBDate() as the default date format used by the database
+	public $true            = 't';      // string that represents TRUE for a database
+	public $false           = 'f';      // string that represents FALSE for a database
+	public $fmtDate         = "'Y-m-d'";    // used by DBDate() as the default date format used by the database
 	public $fmtTimeStamp    = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
 	public $ansiOuter       = true;
 	public $autoRollback    = true; // apparently pgsql does not autorollback properly before 4.3.4

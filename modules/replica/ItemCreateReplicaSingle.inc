@@ -219,7 +219,9 @@ class ItemCreateReplicaSingleView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/replica/templates/ItemCreateReplicaSingle.tpl'),
+			array(
+				'body' => 'modules/replica/templates/ItemCreateReplicaSingle.tpl',
+			),
 		);
 	}
 

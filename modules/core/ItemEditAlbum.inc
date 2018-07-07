@@ -550,7 +550,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 				// Add new resizes, using existing derivative entities until we run out
 				foreach ($newResizes as $resize) {
 					if (!empty($resizesTable[$childId])) {
-						$derivative          = array_shift($resizesTable[$childId]);
+						$derivative         = array_shift($resizesTable[$childId]);
 						list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 						if ($ret) {

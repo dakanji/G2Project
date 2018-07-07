@@ -202,6 +202,11 @@ class ItemAddSiteAdminView extends GalleryView {
 		$template->setVariable('ItemAddSiteAdmin', $ItemAddSiteAdmin);
 		$template->setVariable('controller', 'itemadd.ItemAddSiteAdmin');
 
-		return array(null, array('body' => 'modules/itemadd/templates/ItemAddSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/itemadd/templates/ItemAddSiteAdmin.tpl',
+			),
+		);
 	}
 }

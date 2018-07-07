@@ -129,7 +129,7 @@ class ItemDeleteController extends GalleryController {
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
-			$page                 = GalleryUtilities::getRequestVariables('page');
+			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				array('core.delete', 'core.view')
@@ -307,7 +307,12 @@ class ItemDeleteView extends GalleryView {
 		$template->setVariable('controller', 'core.ItemDelete');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 
-		return array(null, array('body' => 'modules/core/templates/ItemDelete.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemDelete.tpl',
+			),
+		);
 	}
 
 	/**

@@ -233,7 +233,9 @@ class NotificationSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/notification/templates/NotificationSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/notification/templates/NotificationSiteAdmin.tpl',
+			),
 		);
 	}
 

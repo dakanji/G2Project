@@ -411,7 +411,9 @@ class GalleryEntity extends GalleryPersistent {
 
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryAccessSubscriberMap',
-			array('itemId' => $this->getId())
+			array(
+				'itemId' => $this->getId(),
+			)
 		);
 
 		if ($ret) {

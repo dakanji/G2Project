@@ -93,10 +93,10 @@ class getid3_zip extends getid3_handler {
 				}
 
 				if (!empty($info['zip']['files']['[Content_Types].xml'])
-						&& !empty($info['zip']['files']['_rels']['.rels'])
-						&& !empty($info['zip']['files']['docProps']['app.xml'])
-						&& !empty($info['zip']['files']['docProps']['core.xml'])
-					) {
+					&& !empty($info['zip']['files']['_rels']['.rels'])
+					&& !empty($info['zip']['files']['docProps']['app.xml'])
+					&& !empty($info['zip']['files']['docProps']['core.xml'])
+				) {
 					// http://technet.microsoft.com/en-us/library/cc179224.aspx
 					$info['fileformat'] = 'zip.msoffice';
 

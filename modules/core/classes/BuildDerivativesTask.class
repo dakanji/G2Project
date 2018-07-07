@@ -123,7 +123,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		while ($result = $derivatives->nextResult()) {
 			$gallery->startRecordingDebugSnippet();
 			list($ret, $derivative, $wasBuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($result[0], true);
-			$debug                              = $gallery->stopRecordingDebugSnippet();
+			$debug                             = $gallery->stopRecordingDebugSnippet();
 
 			if ($ret) {
 				$debug .= "\nError: building $result[0]: " . $ret->getAsHtml();

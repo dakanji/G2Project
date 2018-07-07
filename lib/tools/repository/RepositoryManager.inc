@@ -118,7 +118,9 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 			}
 		}
 
-		$this->showView('PackageRemovalResults', array('files' => $removedFiles));
+		$this->showView('PackageRemovalResults', array(
+			'files' => $removedFiles,
+		));
 
 		return null;
 	}

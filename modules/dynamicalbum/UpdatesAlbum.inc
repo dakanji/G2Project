@@ -93,7 +93,7 @@ class UpdatesAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams               = array(
+			$item->urlParams           = array(
 				'view'        => $this->_view,
 				'highlightId' => $itemId,
 			);
@@ -132,8 +132,10 @@ class UpdatesAlbumView extends GalleryView {
 	 */
 	public function loadTemplate(&$template, &$form) {
 		list($itemId, $show, $albumId) = GalleryUtilities::getRequestVariables('itemId', 'show', 'albumId');
-		$theme                          =& $template->getVariableByReference('theme');
-		$theme['pageUrl']               = array('view' => $this->_view);
+		$theme                         =& $template->getVariableByReference('theme');
+		$theme['pageUrl']              = array(
+			'view' => $this->_view,
+		);
 
 		if (!empty($show)) {
 			$theme['pageUrl']['show'] = $show;
@@ -291,7 +293,11 @@ class UpdatesAlbumView extends GalleryView {
 		list($ret, $searchResults) = $gallery->search(
 			$query,
 			$data,
-			array('limit' => array('count' => $size))
+			array(
+				'limit' => array(
+					'count' => $size,
+				),
+			)
 		);
 
 		if ($ret) {

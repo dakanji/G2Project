@@ -49,7 +49,7 @@ class ItemMoveController extends GalleryController {
 
 			if (!empty($form['destination'])) {
 				// Check if we can add albums or items here
-				$newParentId              = $form['destination'];
+				$newParentId             = $form['destination'];
 				list($ret, $permissions) = GalleryCoreApi::getPermissions($newParentId);
 
 				if ($ret) {
@@ -130,7 +130,7 @@ class ItemMoveController extends GalleryController {
 				$storage =& $gallery->getStorage();
 
 				// Read lock old and new parent album, and all ancestor albums
-				$lockIds                 = array();
+				$lockIds                = array();
 				list($ret, $oldParents) = GalleryCoreApi::fetchParentSequence($itemId);
 
 				if ($ret) {
@@ -141,8 +141,8 @@ class ItemMoveController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-				$oldParents[]           = $itemId;
-				$newParents[]           = $newParentId;
+				$oldParents[]          = $itemId;
+				$newParents[]          = $newParentId;
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(
 					array_unique(array_merge($oldParents, $newParents))
 				);
@@ -246,7 +246,7 @@ class ItemMoveController extends GalleryController {
 				$redirect['itemId']  = $itemId;
 			}
 		} elseif (isset($form['action']['next'])) {
-			$page                 = GalleryUtilities::getRequestVariables('page');
+			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.delete');
 
 			if ($ret) {
@@ -472,7 +472,12 @@ class ItemMoveView extends GalleryView {
 		$template->javascript('lib/yui/treeview-min.js');
 		$template->style('modules/core/data/tree.css');
 
-		return array(null, array('body' => 'modules/core/templates/ItemMove.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemMove.tpl',
+			),
+		);
 	}
 
 	/**

@@ -1083,7 +1083,7 @@ class GalleryPlatform {
 			$gallery->debug("mail($to, $subject, $body, $headers)");
 		}
 
-		$config              = array();
+		$config             = array();
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if (!$ret) {

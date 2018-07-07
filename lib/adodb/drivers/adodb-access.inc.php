@@ -25,7 +25,7 @@ if (!defined('_ADODB_ACCESS')) {
 
 	class ADODB_access extends ADODB_odbc {
 		public $databaseType    = 'access';
-		public $hasTop          = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+		public $hasTop          = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
 		public $fmtDate         = '#Y-m-d#';
 		public $fmtTimeStamp    = '#Y-m-d h:i:sA#'; // note not comma
 		public $_bindInputArray = false; // strangely enough, setting to true does not work reliably

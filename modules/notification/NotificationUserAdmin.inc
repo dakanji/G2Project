@@ -53,7 +53,7 @@ class NotificationUserAdminController extends GalleryController {
 
 		if (!empty($form['action']['save'])) {
 			foreach ($form['notifications'] as $i => $notification) {
-				$notificationName      = $notification['name'];
+				$notificationName     = $notification['name'];
 				list($ret, $instance) = GalleryCoreApi::newFactoryInstanceById(
 					'NotificationEvent_1_0',
 					$notificationName
@@ -193,7 +193,9 @@ class NotificationUserAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/notification/templates/NotificationUserAdmin.tpl'),
+			array(
+				'body' => 'modules/notification/templates/NotificationUserAdmin.tpl',
+			),
 		);
 	}
 
@@ -208,7 +210,7 @@ class NotificationUserAdminView extends GalleryView {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$form['formName']           = 'NotificationUserAdmin';
+		$form['formName']          = 'NotificationUserAdmin';
 		list($ret, $notifications) = NotificationHelper::getEnabledNotifications();
 
 		if ($ret) {
@@ -307,7 +309,7 @@ class NotificationUserAdminView extends GalleryView {
 
 					if (count($itemIds) > 0) {
 						// Filter out items that we (no longer) have access to
-						$permission                   = $instance->getPermission();
+						$permission                  = $instance->getPermission();
 						list($ret, $itemPermissions) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
 
 						if ($ret) {

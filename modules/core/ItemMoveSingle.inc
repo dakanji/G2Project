@@ -130,7 +130,7 @@ class ItemMoveSingleController extends GalleryController {
 					return array($ret, null);
 				}
 
-				$oldParentId            = $item->getParentId();
+				$oldParentId           = $item->getParentId();
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLockParents($oldParentId);
 
 				if ($ret) {
@@ -291,7 +291,12 @@ class ItemMoveSingleView extends GalleryView {
 		$template->javascript('lib/yui/treeview-min.js');
 		$template->style('modules/core/data/tree.css');
 
-		return array(null, array('body' => 'modules/core/templates/ItemMoveSingle.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemMoveSingle.tpl',
+			),
+		);
 	}
 
 	/**

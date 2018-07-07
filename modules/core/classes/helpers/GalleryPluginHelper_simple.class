@@ -616,7 +616,9 @@ class GalleryPluginHelper_simple {
 			$data = array();
 
 			while ($result = $searchResults->nextResult()) {
-				$data[$result[0]] = array('active' => (int)$result[1]);
+				$data[$result[0]] = array(
+					'active' => (int)$result[1],
+				);
 			}
 			GalleryDataCache::put($cacheKey, $data);
 		} else {

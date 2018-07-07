@@ -179,7 +179,9 @@ class CaptchaSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/captcha/templates/CaptchaSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/captcha/templates/CaptchaSiteAdmin.tpl',
+			),
 		);
 	}
 }

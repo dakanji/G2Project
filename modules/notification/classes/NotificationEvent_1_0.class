@@ -51,7 +51,7 @@ class NotificationEvent_1_0 {
 	 * Return a localized description of the event.
 	 *
 	 * @return array GalleryStatus a status codet
-	 * 		     string Localized description of event
+	 *           string Localized description of event
 	 * @abstract
 	 */
 	public function getDescription() {
@@ -63,7 +63,7 @@ class NotificationEvent_1_0 {
 	 * notification message.
 	 *
 	 * @return array GalleryStatus
-	 *		     string A formatted and localized plain text message.
+	 *           string A formatted and localized plain text message.
 	 * @abstract
 	 */
 	public function getNotificationMessage() {
@@ -114,7 +114,7 @@ class NotificationEvent_1_0 {
 	 * required entry is 'eventName'.
 	 *
 	 * @return array ('eventName' => eventName, 'entityType' => entityType,
-	 * 		      'persistentFlag' => flags)
+	 *            'persistentFlag' => flags)
 	 * @abstract
 	 */
 	public function getEventSpecs() {
@@ -127,7 +127,7 @@ class NotificationEvent_1_0 {
 	 * @param string $moduleId the module id
 	 * @param mixed $translateParms parameters to the module translate method
 	 * @return array GalleryStatus
-	 *		     string A formatted and localized plain text message.
+	 *           string A formatted and localized plain text message.
 	 * @access protected
 	 */
 	public function _translateText($moduleId, $translateParms) {

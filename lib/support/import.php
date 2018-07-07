@@ -47,7 +47,9 @@ $templateData             = array();
 $templateData['bodyFile'] = 'ImportRequest.html';
 $renderFullPage           = true;
 
-$ret = GalleryEmbed::init(array('fullInit' => false));
+$ret = GalleryEmbed::init(array(
+	'fullInit' => false,
+));
 
 if ($ret) {
 	$templateData['errors'][] = $ret->getAsHtml();
@@ -88,7 +90,7 @@ if ($ret) {
 			$template->renderStatusMessage('Restoring Gallery Database', '', 0);
 
 			// Do the database import
-			$importer            = $storage->getDatabaseImporter();
+			$importer           = $storage->getDatabaseImporter();
 			list($ret, $errors) = $importer->importToDb($verifiedFile, 'importProgressCallback');
 
 			if ($ret) {

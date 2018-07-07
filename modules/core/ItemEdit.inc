@@ -372,7 +372,12 @@ class ItemEditView extends GalleryView {
 		$template->setVariable('ItemEdit', $ItemEdit);
 		$template->setVariable('controller', 'core.ItemEdit');
 
-		return array(null, array('body' => 'modules/core/templates/ItemEdit.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemEdit.tpl',
+			),
+		);
 	}
 
 	/**

@@ -16,21 +16,20 @@ namespace Symfony\Polyfill\Php54;
  *
  * @internal
  */
-final class Php54
-{
-    public static function hex2bin($data)
-    {
-        $len = \strlen($data);
+final class Php54 {
+	public static function hex2bin($data) {
+		$len = \strlen($data);
 
-        if (null === $len) {
-            return;
-        }
-        if ($len % 2) {
-            trigger_error('hex2bin(): Hexadecimal input string must have an even length', E_USER_WARNING);
+		if (null === $len) {
+			return;
+		}
 
-            return false;
-        }
+		if ($len % 2) {
+			trigger_error('hex2bin(): Hexadecimal input string must have an even length', E_USER_WARNING);
 
-        return pack('H*', $data);
-    }
+			return false;
+		}
+
+		return pack('H*', $data);
+	}
 }

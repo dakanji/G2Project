@@ -46,7 +46,9 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 			return array($ret, null);
 		}
 
-		$frames = array('solid' => $module->translate('Solid'));
+		$frames = array(
+			'solid' => $module->translate('Solid'),
+		);
 		$dir    = dirname(__FILE__) . '/../frames';
 
 		if ($platform->is_dir($dir) && $platform->is_readable($dir)
@@ -67,7 +69,9 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 
 		return array(
 			null,
-			array_merge(array('none' => $module->translate('None')), $frames),
+			array_merge(array(
+				'none' => $module->translate('None'),
+			), $frames),
 		);
 	}
 
@@ -105,7 +109,9 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 			return $ret;
 		}
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$baseUrl      = $urlGenerator->generateUrl(array('href' => 'modules/imageframe/frames'));
+		$baseUrl      = $urlGenerator->generateUrl(array(
+			'href' => 'modules/imageframe/frames',
+		));
 
 		if (!is_array($frameIds)) {
 			$frameIds = array($frameIds);
@@ -124,7 +130,9 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 
 				if ($platform->is_dir($dir) && $platform->file_exists($frameinc)) {
 					include $frameinc;
-					$frame = array('type' => isset($frameData['style']) ? 'style' : 'image');
+					$frame = array(
+						'type' => isset($frameData['style']) ? 'style' : 'image',
+					);
 
 					foreach ($frameData as $key => $value) {
 						if ($key == 'name' || $key == 'description') {
@@ -172,7 +180,9 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	public function getSampleUrl($itemId = null) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$params       = array('view' => 'imageframe.Sample');
+		$params       = array(
+			'view' => 'imageframe.Sample',
+		);
 
 		if (isset($itemId)) {
 			$params['itemId'] = $itemId;

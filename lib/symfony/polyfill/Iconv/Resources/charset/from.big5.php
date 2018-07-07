@@ -1,6 +1,6 @@
 <?php
 
-static $data = array (
+static $data = array(
   '¡@' => 'ã€€',
   '¡A' => 'ï¼Œ',
   '¡B' => 'ã€',

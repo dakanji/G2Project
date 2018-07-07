@@ -137,7 +137,7 @@ class GalleryTemplate {
 
 		if (!isset($l10Domain)) {
 			list($type, $id, $junk) = explode('/', $tpl, 3);
-			$l10Domain               = $type . '_' . $id;
+			$l10Domain              = $type . '_' . $id;
 		}
 		$head['tpl'][$tpl] = $l10Domain;
 	}
@@ -184,7 +184,9 @@ class GalleryTemplate {
 
 		foreach ($attributes as $key => $value) {
 			if ($key == 'href') {
-				$value = $urlGenerator->generateUrl(array('href' => $value));
+				$value = $urlGenerator->generateUrl(array(
+					'href' => $value,
+				));
 			}
 			$linkHtml .= " $key=\"$value\"";
 		}
@@ -266,7 +268,7 @@ class GalleryTemplate {
 	 * created on demand here.
 	 *
 	 * @return array GalleryStatus a status code
-	 * 		     string directory to use for complide templates
+	 *           string directory to use for complide templates
 	 */
 	public function _initCompiledTemplateDir() {
 		global $gallery;
@@ -627,7 +629,7 @@ class GalleryTemplate {
 	 * @access private
 	 */
 	public static function _getThemeId() {
-		$view                = new GalleryView();
+		$view               = new GalleryView();
 		list($ret, $itemId) = $view->getItem();
 
 		if ($ret) {

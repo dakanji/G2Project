@@ -102,9 +102,9 @@ class MultiLangItemEdit extends ItemEditPlugin {
 		if ($form['formName'] != 'MultiLangItemEdit') {
 			$form['formName'] = 'MultiLangItemEdit';
 		}
-		$form['mainTitle']                 = $item->getTitle();
-		$form['mainSummary']               = $item->getSummary();
-		$form['mainDescription']           = $item->getDescription();
+		$form['mainTitle']                = $item->getTitle();
+		$form['mainSummary']              = $item->getSummary();
+		$form['mainDescription']          = $item->getDescription();
 		list($ret, $form['languageData']) = MultiLangHelper::getItemData($item->getId());
 
 		if ($ret) {

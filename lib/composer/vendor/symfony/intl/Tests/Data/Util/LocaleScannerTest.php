@@ -18,60 +18,60 @@ use Symfony\Component\Intl\Data\Util\LocaleScanner;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class LocaleScannerTest extends TestCase
-{
-    private $directory;
+class LocaleScannerTest extends TestCase {
 
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
+	private $directory;
 
-    /**
-     * @var LocaleScanner
-     */
-    private $scanner;
+	/**
+	 * @var Filesystem
+	 */
+	private $filesystem;
 
-    protected function setUp()
-    {
-        $this->directory = sys_get_temp_dir().'/LocaleScannerTest/'.mt_rand(1000, 9999);
-        $this->filesystem = new Filesystem();
-        $this->scanner = new LocaleScanner();
+	/**
+	 * @var LocaleScanner
+	 */
+	private $scanner;
 
-        $this->filesystem->mkdir($this->directory);
+	protected function setUp() {
+		$this->directory  = sys_get_temp_dir() . '/LocaleScannerTest/' . mt_rand(1000, 9999);
+		$this->filesystem = new Filesystem();
+		$this->scanner    = new LocaleScanner();
 
-        $this->filesystem->touch($this->directory.'/en.txt');
-        $this->filesystem->touch($this->directory.'/en_alias.txt');
-        $this->filesystem->touch($this->directory.'/de.txt');
-        $this->filesystem->touch($this->directory.'/de_alias.txt');
-        $this->filesystem->touch($this->directory.'/fr.txt');
-        $this->filesystem->touch($this->directory.'/fr_alias.txt');
-        $this->filesystem->touch($this->directory.'/root.txt');
-        $this->filesystem->touch($this->directory.'/supplementalData.txt');
-        $this->filesystem->touch($this->directory.'/supplementaldata.txt');
-        $this->filesystem->touch($this->directory.'/meta.txt');
+		$this->filesystem->mkdir($this->directory);
 
-        file_put_contents($this->directory.'/en_alias.txt', 'en_alias{"%%ALIAS"{"en"}}');
-        file_put_contents($this->directory.'/de_alias.txt', 'de_alias{"%%ALIAS"{"de"}}');
-        file_put_contents($this->directory.'/fr_alias.txt', 'fr_alias{"%%ALIAS"{"fr"}}');
-    }
+		$this->filesystem->touch($this->directory . '/en.txt');
+		$this->filesystem->touch($this->directory . '/en_alias.txt');
+		$this->filesystem->touch($this->directory . '/de.txt');
+		$this->filesystem->touch($this->directory . '/de_alias.txt');
+		$this->filesystem->touch($this->directory . '/fr.txt');
+		$this->filesystem->touch($this->directory . '/fr_alias.txt');
+		$this->filesystem->touch($this->directory . '/root.txt');
+		$this->filesystem->touch($this->directory . '/supplementalData.txt');
+		$this->filesystem->touch($this->directory . '/supplementaldata.txt');
+		$this->filesystem->touch($this->directory . '/meta.txt');
 
-    protected function tearDown()
-    {
-        $this->filesystem->remove($this->directory);
-    }
+		file_put_contents($this->directory . '/en_alias.txt', 'en_alias{"%%ALIAS"{"en"}}');
+		file_put_contents($this->directory . '/de_alias.txt', 'de_alias{"%%ALIAS"{"de"}}');
+		file_put_contents($this->directory . '/fr_alias.txt', 'fr_alias{"%%ALIAS"{"fr"}}');
+	}
 
-    public function testScanLocales()
-    {
-        $sortedLocales = array('de', 'de_alias', 'en', 'en_alias', 'fr', 'fr_alias');
+	protected function tearDown() {
+		$this->filesystem->remove($this->directory);
+	}
 
-        $this->assertSame($sortedLocales, $this->scanner->scanLocales($this->directory));
-    }
+	public function testScanLocales() {
+		$sortedLocales = array( 'de', 'de_alias', 'en', 'en_alias', 'fr', 'fr_alias' );
 
-    public function testScanAliases()
-    {
-        $sortedAliases = array('de_alias' => 'de', 'en_alias' => 'en', 'fr_alias' => 'fr');
+		$this->assertSame($sortedLocales, $this->scanner->scanLocales($this->directory));
+	}
 
-        $this->assertSame($sortedAliases, $this->scanner->scanAliases($this->directory));
-    }
+	public function testScanAliases() {
+		$sortedAliases = array(
+			'de_alias' => 'de',
+			'en_alias' => 'en',
+			'fr_alias' => 'fr',
+		);
+
+		$this->assertSame($sortedAliases, $this->scanner->scanAliases($this->directory));
+	}
 }

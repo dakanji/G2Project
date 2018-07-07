@@ -16,47 +16,43 @@ namespace Symfony\Component\Intl\Util;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class SvnCommit
-{
-    private $svnInfo;
+class SvnCommit {
 
-    /**
-     * Creates a commit from the given "svn info" data.
-     *
-     * @param \SimpleXMLElement $svnInfo the XML result from the "svn info" command
-     */
-    public function __construct(\SimpleXMLElement $svnInfo)
-    {
-        $this->svnInfo = $svnInfo;
-    }
+	private $svnInfo;
 
-    /**
-     * Returns the revision of the commit.
-     *
-     * @return string The revision of the commit
-     */
-    public function getRevision()
-    {
-        return (string) $this->svnInfo['revision'];
-    }
+	/**
+	 * Creates a commit from the given "svn info" data.
+	 *
+	 * @param \SimpleXMLElement $svnInfo the XML result from the "svn info" command
+	 */
+	public function __construct(\SimpleXMLElement $svnInfo) {
+		$this->svnInfo = $svnInfo;
+	}
 
-    /**
-     * Returns the author of the commit.
-     *
-     * @return string The author name
-     */
-    public function getAuthor()
-    {
-        return (string) $this->svnInfo->author;
-    }
+	/**
+	 * Returns the revision of the commit.
+	 *
+	 * @return string The revision of the commit
+	 */
+	public function getRevision() {
+		return (string)$this->svnInfo['revision'];
+	}
 
-    /**
-     * Returns the date of the commit.
-     *
-     * @return string The commit date
-     */
-    public function getDate()
-    {
-        return (string) $this->svnInfo->date;
-    }
+	/**
+	 * Returns the author of the commit.
+	 *
+	 * @return string The author name
+	 */
+	public function getAuthor() {
+		return (string)$this->svnInfo->author;
+	}
+
+	/**
+	 * Returns the date of the commit.
+	 *
+	 * @return string The commit date
+	 */
+	public function getDate() {
+		return (string)$this->svnInfo->date;
+	}
 }

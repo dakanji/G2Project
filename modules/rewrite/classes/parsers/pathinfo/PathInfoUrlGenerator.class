@@ -72,7 +72,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 			// Split the query params off (we add them later again, at generateUrl time)
 			if (strpos($this->_piFile[$fD], '?') !== false) {
 				list($this->_piFile[$fD], $this->_baseParamString[$fD]) = explode('?', $this->_piFile[$fD]);
-				$this->_baseParamString[$fD]                             = '?' . $this->_baseParamString[$fD];
+				$this->_baseParamString[$fD]                            = '?' . $this->_baseParamString[$fD];
 			}
 		}
 

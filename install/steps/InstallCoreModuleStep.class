@@ -103,7 +103,7 @@ class InstallCoreModuleStep extends InstallStep {
 			 * that they said that it was ok to reuse existing tables in the database setup step,
 			 * which means we don't have to perform an install now.
 			 */
-			$storage                  =& $gallery->getStorage();
+			$storage                 =& $gallery->getStorage();
 			list($ret, $isInstalled) = $storage->isInstalled();
 
 			if ($ret) {

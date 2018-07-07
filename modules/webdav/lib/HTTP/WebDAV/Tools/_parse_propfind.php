@@ -148,7 +148,9 @@ class _parse_propfind {
 
 		// requested properties are found at level 2
 		if ($this->depth == 2) {
-			$prop = array('name' => $name);
+			$prop = array(
+				'name' => $name,
+			);
 
 			if ($ns) {
 				$prop['ns'] = $ns;

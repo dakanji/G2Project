@@ -61,7 +61,7 @@ class ArchiveUploadHelper {
 		list($success, $results, $error) = $platform->exec(array(
 			array($unzipPath, '-v', dirname(dirname(__FILE__)) . '/data/test.zip'),
 		));
-		$valid                            = false;
+		$valid                           = false;
 
 		foreach ($results as $resultLine) {
 			if (strpos($resultLine, 'test.txt') !== false) {

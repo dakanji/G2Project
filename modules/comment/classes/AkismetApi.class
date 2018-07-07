@@ -80,7 +80,9 @@ class AkismetApi {
 	public function verifyApiKey($apiKey) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$baseUrl      = $urlGenerator->generateUrl(array(), array('forceFullUrl' => 1));
+		$baseUrl      = $urlGenerator->generateUrl(array(), array(
+			'forceFullUrl' => 1,
+		));
 
 		$url = 'http://rest.akismet.com/1.1/verify-key';
 
@@ -96,7 +98,9 @@ class AkismetApi {
 				'key'  => $apiKey,
 				'blog' => $baseUrl,
 			),
-			array('User-Agent' => $userAgent)
+			array(
+				'User-Agent' => $userAgent,
+			)
 		);
 
 		if (!preg_match('{^HTTP/1.\d 200 OK$}', $status) || $body != 'valid') {
@@ -148,7 +152,9 @@ class AkismetApi {
 	public function _request($type, &$comment, $includeBrowserSpecificDetails) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$baseUrl      = $urlGenerator->generateUrl(array(), array('forceFullUrl' => true));
+		$baseUrl      = $urlGenerator->generateUrl(array(), array(
+			'forceFullUrl' => true,
+		));
 
 		list($ret, $apiKey) = GalleryCoreApi::getPluginParameter('module', 'comment', 'akismet.apiKey');
 
@@ -219,7 +225,9 @@ class AkismetApi {
 		list($body, $status, $headers) = GalleryCoreApi::postToWebPage(
 			$url,
 			$postDataArray,
-			array('User-Agent' => $userAgent)
+			array(
+				'User-Agent' => $userAgent,
+			)
 		);
 
 		return array(null, $body, $status, $headers);

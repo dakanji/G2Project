@@ -247,6 +247,11 @@ class UserSelfRegistrationView extends GalleryView {
 		$template->setVariable('UserSelfRegistration', $UserSelfRegistration);
 		$template->setVariable('controller', 'register.UserSelfRegistration');
 
-		return array(null, array('body' => 'modules/register/templates/UserSelfRegistration.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/register/templates/UserSelfRegistration.tpl',
+			),
+		);
 	}
 }

@@ -33,8 +33,8 @@ class GdToolkitHelper {
 	 *
 	 * @param object a $gd GdFunctionality-object to work with
 	 * @return GalleryStatus a status code
-	 *	 array('operations' => ...
-	 *	       'properties' => ...)
+	 *   array('operations' => ...
+	 *         'properties' => ...)
 	 */
 	public static function getOperationsAndProperties($gd = null) {
 		global $gallery;
@@ -334,7 +334,7 @@ class GdToolkitHelper {
 	 *
 	 * @param string $gdVersion A gd version string or empty to check the current version
 	 * @return array GalleryStatus
-	 *	       boolean true if supported, false otherwise
+	 *         boolean true if supported, false otherwise
 	 */
 	public static function isGdVersionSupported($gdVersion = null, $gd = null) {
 		if (!isset($gdVersion)) {
@@ -364,7 +364,7 @@ class GdToolkitHelper {
 	 * not available on the standard GD library. Those are tested here.
 	 *
 	 * @return array GalleryStatus
-	 *	       boolean true if it is the bundled library, false otherwise
+	 *         boolean true if it is the bundled library, false otherwise
 	 */
 	public static function isBundled($gd = null) {
 		if (!isset($gd)) {
@@ -384,7 +384,7 @@ class GdToolkitHelper {
 	 * Find out which mime types are supported on this GD.
 	 *
 	 * @return array GalleryStatus
-	 *	       array supported mime-types
+	 *         array supported mime-types
 	 */
 	public static function discoverMimeTypes($gd = null) {
 		if (!isset($gd)) {

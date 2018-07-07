@@ -48,8 +48,18 @@ class MatrixTheme extends GalleryTheme {
 				'showMicroThumbs' => 0,
 				'dynamicLinks'    => 'browse',
 				'sidebarBlocks'   => serialize(array(
-					array('search.SearchBlock', array('showAdvancedLink' => true)),
-					array('core.ItemLinks', array('useDropdown' => false)),
+					array(
+						'search.SearchBlock',
+						array(
+							'showAdvancedLink' => true,
+						),
+					),
+					array(
+						'core.ItemLinks',
+						array(
+							'useDropdown' => false,
+						),
+					),
 					array('core.PeerList', array()),
 					array('imageblock.ImageBlock', array()),
 				)),

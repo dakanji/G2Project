@@ -47,7 +47,11 @@ class RepositoryTestTemplate {
 	}
 
 	public function setVariable($key, $value) {
-		$this->_variables[] = $key == 'random' ? array($key => 'random') : array($key => $value);
+		$this->_variables[] = $key == 'random' ? array(
+			$key => 'random',
+		) : array(
+			$key => $value,
+		);
 	}
 
 	public function hasVariable($key) {

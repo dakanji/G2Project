@@ -90,7 +90,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 			$parent->Execute(sprintf($this->_genIDSQL, $seq, $num));
 
 			if ($parent->affected_rows() > 0) {
-				$num      += 1;
+				$num          += 1;
 				$parent->genID = intval($num);
 
 				return intval($num);

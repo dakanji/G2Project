@@ -19,122 +19,116 @@ use Symfony\Component\Intl\Exception\RuntimeException;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class SvnRepository
-{
-    /**
-     * @var string The path to the repository
-     */
-    private $path;
+class SvnRepository {
 
-    /**
-     * @var \SimpleXMLElement
-     */
-    private $svnInfo;
+	/**
+	 * @var string The path to the repository
+	 */
+	private $path;
 
-    /**
-     * @var SvnCommit
-     */
-    private $lastCommit;
+	/**
+	 * @var \SimpleXMLElement
+	 */
+	private $svnInfo;
 
-    /**
-     * Downloads the ICU data for the given version.
-     *
-     * @param string $url       The URL to download from
-     * @param string $targetDir The directory in which to store the repository
-     *
-     * @return static
-     *
-     * @throws RuntimeException if an error occurs during the download
-     */
-    public static function download($url, $targetDir)
-    {
-        exec('which svn', $output, $result);
+	/**
+	 * @var SvnCommit
+	 */
+	private $lastCommit;
 
-        if (0 !== $result) {
-            throw new RuntimeException('The command "svn" is not installed.');
-        }
+	/**
+	 * Downloads the ICU data for the given version.
+	 *
+	 * @param string $url       The URL to download from
+	 * @param string $targetDir The directory in which to store the repository
+	 *
+	 * @return static
+	 *
+	 * @throws RuntimeException if an error occurs during the download
+	 */
+	public static function download($url, $targetDir) {
+		exec('which svn', $output, $result);
 
-        $filesystem = new Filesystem();
+		if (0 !== $result) {
+			throw new RuntimeException('The command "svn" is not installed.');
+		}
 
-        if (!$filesystem->exists($targetDir.'/.svn')) {
-            $filesystem->remove($targetDir);
-            $filesystem->mkdir($targetDir);
+		$filesystem = new Filesystem();
 
-            exec('svn checkout '.$url.' '.$targetDir, $output, $result);
+		if (!$filesystem->exists($targetDir . '/.svn')) {
+			$filesystem->remove($targetDir);
+			$filesystem->mkdir($targetDir);
 
-            if (0 !== $result) {
-                throw new RuntimeException('The SVN checkout of '.$url.'failed.');
-            }
-        }
+			exec('svn checkout ' . $url . ' ' . $targetDir, $output, $result);
 
-        return new static(realpath($targetDir));
-    }
+			if (0 !== $result) {
+				throw new RuntimeException('The SVN checkout of ' . $url . 'failed.');
+			}
+		}
 
-    /**
-     * Reads the SVN repository at the given path.
-     *
-     * @param string $path The path to the repository
-     */
-    public function __construct($path)
-    {
-        $this->path = $path;
-    }
+		return new static(realpath($targetDir));
+	}
 
-    /**
-     * Returns the path to the repository.
-     *
-     * @return string The path to the repository
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
+	/**
+	 * Reads the SVN repository at the given path.
+	 *
+	 * @param string $path The path to the repository
+	 */
+	public function __construct($path) {
+		$this->path = $path;
+	}
 
-    /**
-     * Returns the URL of the repository.
-     *
-     * @return string The URL of the repository
-     */
-    public function getUrl()
-    {
-        return (string) $this->getSvnInfo()->entry->url;
-    }
+	/**
+	 * Returns the path to the repository.
+	 *
+	 * @return string The path to the repository
+	 */
+	public function getPath() {
+		return $this->path;
+	}
 
-    /**
-     * Returns the last commit of the repository.
-     *
-     * @return SvnCommit The last commit
-     */
-    public function getLastCommit()
-    {
-        if (null === $this->lastCommit) {
-            $this->lastCommit = new SvnCommit($this->getSvnInfo()->entry->commit);
-        }
+	/**
+	 * Returns the URL of the repository.
+	 *
+	 * @return string The URL of the repository
+	 */
+	public function getUrl() {
+		return (string)$this->getSvnInfo()->entry->url;
+	}
 
-        return $this->lastCommit;
-    }
+	/**
+	 * Returns the last commit of the repository.
+	 *
+	 * @return SvnCommit The last commit
+	 */
+	public function getLastCommit() {
+		if (null === $this->lastCommit) {
+			$this->lastCommit = new SvnCommit($this->getSvnInfo()->entry->commit);
+		}
 
-    /**
-     * Returns information about the SVN repository.
-     *
-     * @return \SimpleXMLElement The XML result from the "svn info" command
-     *
-     * @throws RuntimeException if the "svn info" command failed
-     */
-    private function getSvnInfo()
-    {
-        if (null === $this->svnInfo) {
-            exec('svn info --xml '.$this->path, $output, $result);
+		return $this->lastCommit;
+	}
 
-            $svnInfo = simplexml_load_string(implode("\n", $output));
+	/**
+	 * Returns information about the SVN repository.
+	 *
+	 * @return \SimpleXMLElement The XML result from the "svn info" command
+	 *
+	 * @throws RuntimeException if the "svn info" command failed
+	 */
+	private function getSvnInfo() {
+		if (null === $this->svnInfo) {
+			exec('svn info --xml ' . $this->path, $output, $result);
 
-            if (0 !== $result) {
-                throw new RuntimeException('svn info failed');
-            }
+			$svnInfo = simplexml_load_string(implode("\n", $output));
 
-            $this->svnInfo = $svnInfo;
-        }
+			if (0 !== $result) {
+				throw new RuntimeException('svn info failed');
+			}
 
-        return $this->svnInfo;
-    }
+			$this->svnInfo = $svnInfo;
+		}
+
+		return $this->svnInfo;
+	}
 }

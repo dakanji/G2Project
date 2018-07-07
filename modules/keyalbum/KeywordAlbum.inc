@@ -131,7 +131,7 @@ class KeywordAlbumView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($keyword, $itemId) = GalleryUtilities::getRequestVariables('keyword', 'itemId');
-		$rawKeyword              = $keyword;
+		$rawKeyword             = $keyword;
 		GalleryUtilities::unsanitizeInputValues($rawKeyword, false);
 		$theme['pageUrl'] = array(
 			'view'    => 'keyalbum.KeywordAlbum',

@@ -86,12 +86,16 @@ function generateEntityDbXml() {
 								break;
 
 							case 'INDEXED':
-								$indexes[]                                       = array( 'columns' => array( $member['name'] ) );
+								$indexes[]                                       = array(
+									'columns' => array( $member['name'] ),
+								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 								break;
 
 							case 'UNIQUE':
-								$keys[]                                          = array( 'columns' => array( $member['name'] ) );
+								$keys[]                                          = array(
+									'columns' => array( $member['name'] ),
+								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 								break;
 
@@ -237,12 +241,16 @@ function generateMapDbXml() {
 								break;
 
 							case 'INDEXED':
-								$indexes[]                                       = array( 'columns' => array( $member['name'] ) );
+								$indexes[]                                       = array(
+									'columns' => array( $member['name'] ),
+								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 								break;
 
 							case 'UNIQUE':
-								$keys[]                                          = array( 'columns' => array( $member['name'] ) );
+								$keys[]                                          = array(
+									'columns' => array( $member['name'] ),
+								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 								break;
 

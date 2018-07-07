@@ -145,6 +145,11 @@ class NewItemsSiteAdminView extends GalleryView {
 
 		$template->setVariable('controller', 'newitems.NewItemsSiteAdmin');
 
-		return array(null, array('body' => 'modules/newitems/templates/NewItemsSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/newitems/templates/NewItemsSiteAdmin.tpl',
+			),
+		);
 	}
 }

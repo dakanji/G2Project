@@ -597,10 +597,10 @@ class ADODB_Session {
 
 	// Slurp in the session variables and return the serialized string
 	public function read($key) {
-		$conn	= self::_conn();
-		$data	= self::dataFieldName();
-		$filter	= self::filter();
-		$table	= self::table();
+		$conn   = self::_conn();
+		$data   = self::dataFieldName();
+		$filter = self::filter();
+		$table  = self::table();
 
 		if (!$conn) {
 			return '';
@@ -727,7 +727,7 @@ class ADODB_Session {
 			}
 		}
 
-		if (!$clob) {	// no lobs, simply use replace()
+		if (!$clob) {   // no lobs, simply use replace()
 			$arr[$data] = $val;
 			$rs         = $conn->Replace($table, $arr, 'sesskey', $autoQuote = true);
 		} else {

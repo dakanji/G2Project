@@ -188,7 +188,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 						}
 
 						if ($isSupported) {
-							$watermarkOp                               = 'composite|plugins_data/modules/linkitem/arrow.png,'
+							$watermarkOp                              = 'composite|plugins_data/modules/linkitem/arrow.png,'
 							 . 'image/png,14,14,bottom-right,0,0';
 							list($ret, $isSupported, $outputMimeType) = GalleryCoreApi::isSupportedOperationSequence(
 								$outputMimeType,
@@ -289,7 +289,9 @@ class ItemAddLinkItem extends ItemAddPlugin {
 		}
 		$template->setVariable(
 			'ItemAddLinkItem',
-			array('albumTree' => GalleryUtilities::createAlbumTree($albums))
+			array(
+				'albumTree' => GalleryUtilities::createAlbumTree($albums),
+			)
 		);
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');

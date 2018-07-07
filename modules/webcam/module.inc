@@ -258,9 +258,9 @@ class WebCamModule extends GalleryModule {
 
 		if ($old) {
 			global $gallery;
-			$platform         =& $gallery->getPlatform();
-			$tmpDir           = $gallery->getConfig('data.gallery.tmp');
-			$backupFile       = $platform->tempnam($tmpDir, 'webcambak');
+			$platform        =& $gallery->getPlatform();
+			$tmpDir          = $gallery->getConfig('data.gallery.tmp');
+			$backupFile      = $platform->tempnam($tmpDir, 'webcambak');
 			list($ret, $url) = $this->getParameter('imageUrl', $id);
 
 			if ($ret) {
@@ -279,7 +279,7 @@ class WebCamModule extends GalleryModule {
 				$tmpFile            = $urlComponents['path'];
 				$successfullyCopied = $platform->file_exists($tmpFile);
 			} else {
-				$tmpFile                                        = $platform->tempnam($tmpDir, 'webcam');
+				$tmpFile                                       = $platform->tempnam($tmpDir, 'webcam');
 				list($successfullyCopied, $response, $headers) = GalleryCoreApi::fetchWebFile($url, $tmpFile);
 			}
 

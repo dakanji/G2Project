@@ -92,7 +92,9 @@ class UserLoginController extends GalleryController {
 				$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
 
 				// Prepare for validation
-				$options                       = array('pass' => $isCorrect);
+				$options                      = array(
+					'pass' => $isCorrect,
+				);
 				list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
 
 				if ($ret) {
@@ -168,7 +170,9 @@ class UserLoginController extends GalleryController {
 			if (!empty($error)) {
 				if (!empty($form['username'])) {
 					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-					$event->setData(array('userName' => $form['username']));
+					$event->setData(array(
+						'userName' => $form['username'],
+					));
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
@@ -237,7 +241,7 @@ class UserLoginView extends GalleryView {
 			$form['username'] = '';
 		}
 
-		$reauthenticate       = false;
+		$reauthenticate      = false;
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -255,6 +259,11 @@ class UserLoginView extends GalleryView {
 		$template->setVariable('reauthenticate', $reauthenticate);
 		$template->setVariable('controller', 'core.UserLogin');
 
-		return array(null, array('body' => 'modules/core/templates/UserLogin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserLogin.tpl',
+			),
+		);
 	}
 }

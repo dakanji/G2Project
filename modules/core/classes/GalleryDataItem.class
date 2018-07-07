@@ -206,7 +206,7 @@ class GalleryDataItem extends GalleryItem {
 			return $ret;
 		}
 
-		$platform                =& $gallery->getPlatform();
+		$platform               =& $gallery->getPlatform();
 		list($ret, $sourcePath) = $linkedEntity->fetchPath();
 
 		if ($ret) {

@@ -396,8 +396,8 @@ class getid3_ogg extends getid3_handler {
 		$filedataoffset                += 4;
 		$info['ogg']['bitrate_min']     = getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 4));
 		$filedataoffset                += 4;
-		$info['ogg']['blocksize_small'] = 2**(getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0x0F);
-		$info['ogg']['blocksize_large'] = 2**((getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0xF0) >> 4);
+		$info['ogg']['blocksize_small'] = 2 ** (getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0x0F);
+		$info['ogg']['blocksize_large'] = 2 ** ((getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0xF0) >> 4);
 		$info['ogg']['stop_bit']        = getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)); // must be 1, marks end of packet
 
 		$info['audio']['bitrate_mode'] = 'vbr'; // overridden if actually abr

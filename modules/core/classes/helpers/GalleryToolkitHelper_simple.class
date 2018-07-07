@@ -199,7 +199,9 @@ class GalleryToolkitHelper_simple {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryToolkitOperationMimeTypeMap',
 			array('priority'),
-			array('toolkitId' => (string)$toolkitId)
+			array(
+				'toolkitId' => (string)$toolkitId,
+			)
 		);
 
 		if ($ret) {

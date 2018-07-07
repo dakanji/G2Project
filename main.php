@@ -184,8 +184,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 	// Figure out the target view/controller
 	list($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
-	$controllerName                   = is_string($controllerName) ? $controllerName : null;
-	$viewName                         = is_string($viewName) ? $viewName : null;
+	$controllerName                  = is_string($controllerName) ? $controllerName : null;
+	$viewName                        = is_string($viewName) ? $viewName : null;
 	$gallery->debug("controller $controllerName, view $viewName");
 
 	// Check if core module needs upgrading
@@ -254,8 +254,12 @@ function _GalleryMain($embedded = false, $template = null) {
 			if (!$isAdmin) {
 				if (($redirectUrl = $gallery->getConfig('mode.maintenance')) === true) {
 					$redirectUrl = $urlGenerator->generateUrl(
-						array('view' => 'core.MaintenanceMode'),
-						array('forceFullUrl' => true)
+						array(
+							'view' => 'core.MaintenanceMode',
+						),
+						array(
+							'forceFullUrl' => true,
+						)
 					);
 				}
 				list($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
@@ -325,7 +329,9 @@ function _GalleryMain($embedded = false, $template = null) {
 			$urlToGenerate = $results['redirect'];
 			$redirectUrl   = $urlGenerator->generateUrl(
 				$urlToGenerate,
-				array('forceFullUrl' => true)
+				array(
+					'forceFullUrl' => true,
+				)
 			);
 		}
 
@@ -387,7 +393,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				return array(null, $results);
 			}
 
-			$viewName          = 'core.MaintenanceMode';
+			$viewName         = 'core.MaintenanceMode';
 			list($ret, $view) = GalleryView::loadView($viewName);
 
 			if ($ret) {
@@ -415,7 +421,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	$html = '';
 
 	if ($shouldCache) {
-		$session           =& $gallery->getSession();
+		$session          =& $gallery->getSession();
 		list($ret, $html) = GalleryDataCache::getPageData(
 			'page',
 			$urlGenerator->getCacheableUrl()
@@ -542,7 +548,9 @@ function _GalleryMain($embedded = false, $template = null) {
 				} else {
 					$redirectUrl = $urlGenerator->generateUrl(
 						$results['redirect'],
-						array('forceFullUrl' => true)
+						array(
+							'forceFullUrl' => true,
+						)
 					);
 				}
 
@@ -663,10 +671,10 @@ function _GalleryMain($embedded = false, $template = null) {
 
 						if ($embedded) {
 							$data['themeData'] = $session->replaceSessionIdInData(
-									$data['themeData'],
-									$sessionId,
-									SESSION_TEMP_ID
-								);
+								$data['themeData'],
+								$sessionId,
+								SESSION_TEMP_ID
+							);
 						}
 					}
 
@@ -736,7 +744,9 @@ function _GalleryMain_doRedirect(
 	) {
 		$redirectUrl = GalleryUrlGenerator::appendParamsToUrl(
 			$redirectUrl,
-			array($session->getKey() => $session->getId())
+			array(
+				$session->getKey() => $session->getId(),
+			)
 		);
 	}
 
@@ -782,7 +792,12 @@ function _GalleryMain_doRedirect(
 
 		GalleryUtilities::setResponseHeader("Location: $redirectUrl");
 
-		return array(null, array('isDone' => true));
+		return array(
+			null,
+			array(
+				'isDone' => true,
+			),
+		);
 	}
 
 	return array(

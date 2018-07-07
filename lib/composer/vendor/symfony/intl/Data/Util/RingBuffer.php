@@ -24,67 +24,62 @@ use Symfony\Component\Intl\Exception\OutOfBoundsException;
  *
  * @internal
  */
-class RingBuffer implements \ArrayAccess
-{
-    private $values = array();
+class RingBuffer implements \ArrayAccess {
 
-    private $indices = array();
+	private $values = array();
 
-    private $cursor = 0;
+	private $indices = array();
 
-    private $size;
+	private $cursor = 0;
 
-    public function __construct($size)
-    {
-        $this->size = $size;
-    }
+	private $size;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetExists($key)
-    {
-        return isset($this->indices[$key]);
-    }
+	public function __construct($size) {
+		$this->size = $size;
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetGet($key)
-    {
-        if (!isset($this->indices[$key])) {
-            throw new OutOfBoundsException(sprintf(
-                'The index "%s" does not exist.',
-                $key
-            ));
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function offsetExists($key) {
+		return isset($this->indices[$key]);
+	}
 
-        return $this->values[$this->indices[$key]];
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function offsetGet($key) {
+		if (!isset($this->indices[$key])) {
+			throw new OutOfBoundsException(sprintf(
+				'The index "%s" does not exist.',
+				$key
+			));
+		}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetSet($key, $value)
-    {
-        if (false !== ($keyToRemove = array_search($this->cursor, $this->indices))) {
-            unset($this->indices[$keyToRemove]);
-        }
+		return $this->values[$this->indices[$key]];
+	}
 
-        $this->values[$this->cursor] = $value;
-        $this->indices[$key] = $this->cursor;
+	/**
+	 * {@inheritdoc}
+	 */
+	public function offsetSet($key, $value) {
+		if (false !== ($keyToRemove = array_search($this->cursor, $this->indices))) {
+			unset($this->indices[$keyToRemove]);
+		}
 
-        $this->cursor = ($this->cursor + 1) % $this->size;
-    }
+		$this->values[$this->cursor] = $value;
+		$this->indices[$key]         = $this->cursor;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetUnset($key)
-    {
-        if (isset($this->indices[$key])) {
-            $this->values[$this->indices[$key]] = null;
-            unset($this->indices[$key]);
-        }
-    }
+		$this->cursor = ($this->cursor + 1) % $this->size;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function offsetUnset($key) {
+		if (isset($this->indices[$key])) {
+			$this->values[$this->indices[$key]] = null;
+			unset($this->indices[$key]);
+		}
+	}
 }

@@ -54,8 +54,8 @@ if ($glob) {
 
 if (!empty($_GET['run'])) {
 	list($action, $run) = explode(':', $_GET['run']);
-	$run                 = substr($run, 0, strspn($run, '0123456789'));
-	$runFile             = "${testReportDir}run-$run.html";
+	$run                = substr($run, 0, strspn($run, '0123456789'));
+	$runFile            = "${testReportDir}run-$run.html";
 
 	switch ($action) {
 		case 'frame':

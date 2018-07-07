@@ -14,71 +14,58 @@ namespace Symfony\Polyfill\Util;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class LegacyTestListener extends \PHPUnit_Framework_TestSuite implements \PHPUnit_Framework_TestListener
-{
-    private $suite;
-    private $trait;
+class LegacyTestListener extends \PHPUnit_Framework_TestSuite implements \PHPUnit_Framework_TestListener {
 
-    public function __construct(\PHPUnit_Framework_TestSuite $suite = null)
-    {
-        if ($suite) {
-            $this->suite = $suite;
-            $this->setName($suite->getName().' with polyfills enabled');
-            $this->addTest($suite);
-        }
-        $this->trait = new TestListenerTrait();
-    }
+	private $suite;
+	private $trait;
 
-    public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
-    {
-        $this->trait->startTestSuite($suite);
-    }
+	public function __construct(\PHPUnit_Framework_TestSuite $suite = null) {
+		if ($suite) {
+			$this->suite = $suite;
+			$this->setName($suite->getName() . ' with polyfills enabled');
+			$this->addTest($suite);
+		}
+		$this->trait = new TestListenerTrait();
+	}
 
-    protected function setUp()
-    {
-        TestListenerTrait::$enabledPolyfills = $this->suite->getName();
-    }
+	public function startTestSuite(\PHPUnit_Framework_TestSuite $suite) {
+		$this->trait->startTestSuite($suite);
+	}
 
-    protected function tearDown()
-    {
-        TestListenerTrait::$enabledPolyfills = false;
-    }
+	protected function setUp() {
+		TestListenerTrait::$enabledPolyfills = $this->suite->getName();
+	}
 
-    public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time)
-    {
-        $this->trait->addError($test, $e, $time);
-    }
+	protected function tearDown() {
+		TestListenerTrait::$enabledPolyfills = false;
+	}
 
-    public function addWarning(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_Warning $e, $time)
-    {
-    }
+	public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
+		$this->trait->addError($test, $e, $time);
+	}
 
-    public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time)
-    {
-        $this->trait->addError($test, $e, $time);
-    }
+	public function addWarning(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_Warning $e, $time) {
+	}
 
-    public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
-    {
-    }
+	public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time) {
+		$this->trait->addError($test, $e, $time);
+	}
 
-    public function addRiskyTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
-    {
-    }
+	public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
+	}
 
-    public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
-    {
-    }
+	public function addRiskyTest(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
+	}
 
-    public function endTestSuite(\PHPUnit_Framework_TestSuite $suite)
-    {
-    }
+	public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
+	}
 
-    public function startTest(\PHPUnit_Framework_Test $test)
-    {
-    }
+	public function endTestSuite(\PHPUnit_Framework_TestSuite $suite) {
+	}
 
-    public function endTest(\PHPUnit_Framework_Test $test, $time)
-    {
-    }
+	public function startTest(\PHPUnit_Framework_Test $test) {
+	}
+
+	public function endTest(\PHPUnit_Framework_Test $test, $time) {
+	}
 }

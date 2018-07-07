@@ -482,7 +482,9 @@ class GalleryUtilities {
 		// Prepend the Gallery base URL
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		return $urlGenerator->generateUrl(array('href' => $relativePath), $options);
+		return $urlGenerator->generateUrl(array(
+			'href' => $relativePath,
+		), $options);
 	}
 
 	/**
@@ -1356,11 +1358,13 @@ class GalleryUtilities {
 
 				if (count($line) == 2 && $line[0] == 'R') {
 					$file            = trim($line[1]);
-					$manifest[$file] = array('removed' => 1);
+					$manifest[$file] = array(
+						'removed' => 1,
+					);
 				} else {
 					list($file, $cksum, $cksum_crlf, $size, $size_crlf) = $line;
-					$file                                                = trim($file);
-					$manifest[$file]                                     = array(
+					$file                                               = trim($file);
+					$manifest[$file]                                    = array(
 						'checksum'      => $cksum,
 						'checksum_crlf' => $cksum_crlf,
 						'size'          => $size,

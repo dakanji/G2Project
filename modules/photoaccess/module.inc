@@ -174,13 +174,13 @@ class PhotoAccessModule extends GalleryModule {
 				&& GalleryUtilities::isA($item, 'GalleryPhotoItem')
 			) {
 				$links[$itemId][] = array(
-						'text'   => $this->translate('Print on PhotoWorks.com'),
-						'params' => array(
-							'controller' => 'photoaccess.PrintPhoto',
-							'itemId'     => $itemId,
-							'returnUrl'  => '%CURRENT_URL%',
-						),
-					);
+					'text'   => $this->translate('Print on PhotoWorks.com'),
+					'params' => array(
+						'controller' => 'photoaccess.PrintPhoto',
+						'itemId'     => $itemId,
+						'returnUrl'  => '%CURRENT_URL%',
+					),
+				);
 			}
 		}
 

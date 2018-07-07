@@ -147,7 +147,7 @@ if (!defined('ADODB_SESSION')) {
 	/****************************************************************************************\
 		Global definitions
 	****************************************************************************************/
-	global 	$ADODB_SESSION_CONNECT,
+	global  $ADODB_SESSION_CONNECT,
 	$ADODB_SESSION_DRIVER,
 	$ADODB_SESSION_USER,
 	$ADODB_SESSION_PWD,
@@ -213,7 +213,7 @@ if (!defined('ADODB_SESSION')) {
 			return true;
 		}
 
-		global 	$ADODB_SESSION_CONNECT,
+		global  $ADODB_SESSION_CONNECT,
 		$ADODB_SESSION_DRIVER,
 		$ADODB_SESSION_USER,
 		$ADODB_SESSION_PWD,

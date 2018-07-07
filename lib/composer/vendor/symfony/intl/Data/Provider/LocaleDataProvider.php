@@ -21,63 +21,58 @@ use Symfony\Component\Intl\Locale;
  *
  * @internal
  */
-class LocaleDataProvider
-{
-    private $path;
-    private $reader;
+class LocaleDataProvider {
 
-    /**
-     * Creates a data provider that reads locale-related data from .res files.
-     *
-     * @param string                     $path   The path to the directory containing the .res files
-     * @param BundleEntryReaderInterface $reader The reader for reading the .res files
-     */
-    public function __construct($path, BundleEntryReaderInterface $reader)
-    {
-        $this->path = $path;
-        $this->reader = $reader;
-    }
+	private $path;
+	private $reader;
 
-    public function getLocales()
-    {
-        return $this->reader->readEntry($this->path, 'meta', array('Locales'));
-    }
+	/**
+	 * Creates a data provider that reads locale-related data from .res files.
+	 *
+	 * @param string                     $path   The path to the directory containing the .res files
+	 * @param BundleEntryReaderInterface $reader The reader for reading the .res files
+	 */
+	public function __construct($path, BundleEntryReaderInterface $reader) {
+		$this->path   = $path;
+		$this->reader = $reader;
+	}
 
-    public function getAliases()
-    {
-        $aliases = $this->reader->readEntry($this->path, 'meta', array('Aliases'));
+	public function getLocales() {
+		return $this->reader->readEntry($this->path, 'meta', array( 'Locales' ));
+	}
 
-        if ($aliases instanceof \Traversable) {
-            $aliases = iterator_to_array($aliases);
-        }
+	public function getAliases() {
+		$aliases = $this->reader->readEntry($this->path, 'meta', array( 'Aliases' ));
 
-        return $aliases;
-    }
+		if ($aliases instanceof \Traversable) {
+			$aliases = iterator_to_array($aliases);
+		}
 
-    public function getName($locale, $displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+		return $aliases;
+	}
 
-        return $this->reader->readEntry($this->path, $displayLocale, array('Names', $locale));
-    }
+	public function getName($locale, $displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-    public function getNames($displayLocale = null)
-    {
-        if (null === $displayLocale) {
-            $displayLocale = Locale::getDefault();
-        }
+		return $this->reader->readEntry($this->path, $displayLocale, array( 'Names', $locale ));
+	}
 
-        $names = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
+	public function getNames($displayLocale = null) {
+		if (null === $displayLocale) {
+			$displayLocale = Locale::getDefault();
+		}
 
-        if ($names instanceof \Traversable) {
-            $names = iterator_to_array($names);
-        }
+		$names = $this->reader->readEntry($this->path, $displayLocale, array( 'Names' ));
 
-        $collator = new \Collator($displayLocale);
-        $collator->asort($names);
+		if ($names instanceof \Traversable) {
+			$names = iterator_to_array($names);
+		}
 
-        return $names;
-    }
+		$collator = new \Collator($displayLocale);
+		$collator->asort($names);
+
+		return $names;
+	}
 }

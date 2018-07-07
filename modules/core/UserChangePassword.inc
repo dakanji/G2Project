@@ -64,7 +64,9 @@ class UserChangePasswordController extends GalleryController {
 					$error[] = 'form[error][currentPassword][incorrect]';
 
 					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-					$event->setData(array('userName' => $user->getUserName()));
+					$event->setData(array(
+						'userName' => $user->getUserName(),
+					));
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
@@ -163,12 +165,22 @@ class UserChangePasswordView extends GalleryView {
 		$user = $gallery->getActiveUser();
 
 		if ($user->isLocked()) {
-			return array(null, array('body' => 'modules/core/templates/UserLocked.tpl'));
+			return array(
+				null,
+				array(
+					'body' => 'modules/core/templates/UserLocked.tpl',
+				),
+			);
 		}
 
 		$template->setVariable('controller', 'core.UserChangePassword');
 
-		return array(null, array('body' => 'modules/core/templates/UserChangePassword.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserChangePassword.tpl',
+			),
+		);
 	}
 
 	/**

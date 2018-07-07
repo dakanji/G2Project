@@ -33,7 +33,7 @@
 class GdFunctionality {
 	/**
 	 * @return array GalleryStatus
-	 *	       string phpinfo output
+	 *         string phpinfo output
 	 */
 	public function phpinfo($section = null) {
 		ob_start();
@@ -125,7 +125,7 @@ class GdFunctionality {
 	 * - PHP 4 >= 4.3.0, PHP 5
 	 *
 	 * @return array GalleryStatus
-	 *	       array the output of gd_info
+	 *         array the output of gd_info
 	 */
 	public function gd_info() {
 		if (!function_exists('gd_info')) {
@@ -154,7 +154,7 @@ class GdFunctionality {
 	 * - any PHP
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreate($width, $height) {
 		$res = @imagecreate($width, $height);
@@ -184,7 +184,7 @@ class GdFunctionality {
 	 * since this is the minimal required version).
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateTruecolor($width, $height) {
 		if (!function_exists('imageCreateTruecolor')) {
@@ -224,7 +224,7 @@ class GdFunctionality {
 	 * Check if a resource that is based on $filename is valid
 	 *
 	 * @return array GalleryStatus
-	 *	       resource GD resource
+	 *         resource GD resource
 	 */
 	public function checkResource($res, $filename) {
 		if (!$res) {
@@ -252,7 +252,7 @@ class GdFunctionality {
 	 * - GD with GIF support
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateFromGif($filename) {
 		if (!function_exists('imageCreateFromGif')) {
@@ -261,7 +261,7 @@ class GdFunctionality {
 				null,
 			);
 		}
-		$res                   = @imagecreatefromgif($filename);
+		$res                  = @imagecreatefromgif($filename);
 		list($ret, $resource) = $this->checkResource($res, $filename);
 
 		if ($ret) {
@@ -279,7 +279,7 @@ class GdFunctionality {
 	 * - GD >= 1.8 (for JPEG support)
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateFromJpeg($filename) {
 		$res = @imagecreatefromjpeg($filename);
@@ -295,7 +295,7 @@ class GdFunctionality {
 	 * - GD (with PNG support)
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateFromPng($filename) {
 		$res = @imagecreatefrompng($filename);
@@ -311,7 +311,7 @@ class GdFunctionality {
 	 * - GD >= 1.8 (for WBMP support)
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateFromWbmp($filename) {
 		$res = @imagecreatefromwbmp($filename);
@@ -327,7 +327,7 @@ class GdFunctionality {
 	 * - GD
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateFromXbm($filename) {
 		$res = @imagecreatefromxbm($filename);
@@ -343,7 +343,7 @@ class GdFunctionality {
 	 * - GD
 	 *
 	 * @return array GalleryStatus
-	 *	       res GD-resource
+	 *         res GD-resource
 	 */
 	public function imageCreateFromXpm($filename) {
 		$res = @imageCreateFromXpm($filename);
@@ -605,7 +605,7 @@ class GdFunctionality {
 	 * - PHP 4 >= 4.3.0 or PHP 5
 	 *
 	 * @return array GalleryStatus
-	 *	       resource new gd resource
+	 *         resource new gd resource
 	 */
 	public function imageRotate($srcRes, $angle, $bgdColor) {
 		if (!function_exists('imageRotate')) {
@@ -640,7 +640,7 @@ class GdFunctionality {
 	 *
 	 * @param resource $res
 	 * @return array GalleryStatus
-	 *	             bool true on success, false on failure
+	 *               bool true on success, false on failure
 	 */
 	public function imagesavealpha($res, $saveflag) {
 		if (!function_exists('imagesavealpha')) {
@@ -676,7 +676,7 @@ class GdFunctionality {
 	 * @param int $blue
 	 * @param int $alpha
 	 * @return array GalleryStatus
-	 *	             int a color identifier, false on failure
+	 *               int a color identifier, false on failure
 	 */
 	public function imagecolorallocatealpha($res, $red, $green, $blue, $alpha) {
 		if (!function_exists('imagecolorallocatealpha')) {

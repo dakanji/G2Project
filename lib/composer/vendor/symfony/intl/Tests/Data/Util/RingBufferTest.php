@@ -17,86 +17,77 @@ use Symfony\Component\Intl\Data\Util\RingBuffer;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RingBufferTest extends TestCase
-{
-    /**
-     * @var RingBuffer
-     */
-    private $buffer;
+class RingBufferTest extends TestCase {
 
-    protected function setUp()
-    {
-        $this->buffer = new RingBuffer(2);
-    }
+	/**
+	 * @var RingBuffer
+	 */
+	private $buffer;
 
-    public function testWriteWithinBuffer()
-    {
-        $this->buffer[0] = 'foo';
-        $this->buffer['bar'] = 'baz';
+	protected function setUp() {
+		$this->buffer = new RingBuffer(2);
+	}
 
-        $this->assertArrayHasKey(0, $this->buffer);
-        $this->assertArrayHasKey('bar', $this->buffer);
-        $this->assertSame('foo', $this->buffer[0]);
-        $this->assertSame('baz', $this->buffer['bar']);
-    }
+	public function testWriteWithinBuffer() {
+		$this->buffer[0]     = 'foo';
+		$this->buffer['bar'] = 'baz';
 
-    public function testWritePastBuffer()
-    {
-        $this->buffer[0] = 'foo';
-        $this->buffer['bar'] = 'baz';
-        $this->buffer[2] = 'bam';
+		$this->assertArrayHasKey(0, $this->buffer);
+		$this->assertArrayHasKey('bar', $this->buffer);
+		$this->assertSame('foo', $this->buffer[0]);
+		$this->assertSame('baz', $this->buffer['bar']);
+	}
 
-        $this->assertArrayHasKey('bar', $this->buffer);
-        $this->assertArrayHasKey(2, $this->buffer);
-        $this->assertSame('baz', $this->buffer['bar']);
-        $this->assertSame('bam', $this->buffer[2]);
-    }
+	public function testWritePastBuffer() {
+		$this->buffer[0]     = 'foo';
+		$this->buffer['bar'] = 'baz';
+		$this->buffer[2]     = 'bam';
 
-    /**
-     * @expectedException \Symfony\Component\Intl\Exception\OutOfBoundsException
-     */
-    public function testReadNonExistingFails()
-    {
-        $this->buffer['foo'];
-    }
+		$this->assertArrayHasKey('bar', $this->buffer);
+		$this->assertArrayHasKey(2, $this->buffer);
+		$this->assertSame('baz', $this->buffer['bar']);
+		$this->assertSame('bam', $this->buffer[2]);
+	}
 
-    public function testQueryNonExisting()
-    {
-        $this->assertArrayNotHasKey('foo', $this->buffer);
-    }
+	/**
+	 * @expectedException \Symfony\Component\Intl\Exception\OutOfBoundsException
+	 */
+	public function testReadNonExistingFails() {
+		$this->buffer['foo'];
+	}
 
-    public function testUnsetNonExistingSucceeds()
-    {
-        unset($this->buffer['foo']);
+	public function testQueryNonExisting() {
+		$this->assertArrayNotHasKey('foo', $this->buffer);
+	}
 
-        $this->assertArrayNotHasKey('foo', $this->buffer);
-    }
+	public function testUnsetNonExistingSucceeds() {
+		unset($this->buffer['foo']);
 
-    /**
-     * @expectedException \Symfony\Component\Intl\Exception\OutOfBoundsException
-     */
-    public function testReadOverwrittenFails()
-    {
-        $this->buffer[0] = 'foo';
-        $this->buffer['bar'] = 'baz';
-        $this->buffer[2] = 'bam';
+		$this->assertArrayNotHasKey('foo', $this->buffer);
+	}
 
-        $this->buffer[0];
-    }
+	/**
+	 * @expectedException \Symfony\Component\Intl\Exception\OutOfBoundsException
+	 */
+	public function testReadOverwrittenFails() {
+		$this->buffer[0]     = 'foo';
+		$this->buffer['bar'] = 'baz';
+		$this->buffer[2]     = 'bam';
 
-    public function testQueryOverwritten()
-    {
-        $this->assertArrayNotHasKey(0, $this->buffer);
-    }
+		$this->buffer[0];
+	}
 
-    public function testUnsetOverwrittenSucceeds()
-    {
-        $this->buffer[0] = 'foo';
-        $this->buffer['bar'] = 'baz';
-        $this->buffer[2] = 'bam';
+	public function testQueryOverwritten() {
+		$this->assertArrayNotHasKey(0, $this->buffer);
+	}
 
-        unset($this->buffer[0]);
+	public function testUnsetOverwrittenSucceeds() {
+		$this->buffer[0]     = 'foo';
+		$this->buffer['bar'] = 'baz';
+		$this->buffer[2]     = 'bam';
 
-        $this->assertArrayNotHasKey(0, $this->buffer);
-    }
+		unset($this->buffer[0]);
+
+		$this->assertArrayNotHasKey(0, $this->buffer);
+	}
 }

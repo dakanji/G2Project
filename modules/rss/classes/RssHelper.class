@@ -651,7 +651,9 @@ class RssHelper {
 		$params = array();
 
 		if (isset($limit)) {
-			$params['limit'] = array('count' => $limit);
+			$params['limit'] = array(
+				'count' => $limit,
+			);
 		}
 
 		list($ret, $searchResults) = $gallery->search($query, $data, $params);

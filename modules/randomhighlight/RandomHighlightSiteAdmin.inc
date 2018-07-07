@@ -87,7 +87,7 @@ class RandomHighlightSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'RandomHighlightSiteAdmin') {
-			$form['formName']      = 'RandomHighlightSiteAdmin';
+			$form['formName']     = 'RandomHighlightSiteAdmin';
 			list($ret, $duration) = GalleryCoreApi::getPluginParameter('module', 'randomhighlight', 'duration');
 
 			if ($ret) {

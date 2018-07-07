@@ -44,13 +44,27 @@ class FinishLogoutView extends GalleryView {
 		if ($isAnonymous) {
 			// Use an absolute return URI to remove user:pass again after the logout
 			$url = $urlGenerator->generateUrl(
-				array('view' => GALLERY_DEFAULT_VIEW),
-				array('forceFullUrl' => true)
+				array(
+					'view' => GALLERY_DEFAULT_VIEW,
+				),
+				array(
+					'forceFullUrl' => true,
+				)
 			);
 
-			return array(null, array('redirectUrl' => HttpAuthHelper::stripHttpAuthFromUrl($url)));
+			return array(
+				null,
+				array(
+					'redirectUrl' => HttpAuthHelper::stripHttpAuthFromUrl($url),
+				),
+			);
 		}
 
-		return array(null, array('body' => 'modules/httpauth/templates/FinishLogout.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/httpauth/templates/FinishLogout.tpl',
+			),
+		);
 	}
 }

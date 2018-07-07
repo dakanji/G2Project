@@ -159,7 +159,9 @@ class getid3_wavpack extends getid3_handler {
 			}
 
 			while (!feof($this->getid3->fp) && ($this->ftell() < ($blockheader_offset + $blockheader_size + 8))) {
-				$metablock       = array('offset' => $this->ftell());
+				$metablock       = array(
+					'offset' => $this->ftell(),
+				);
 				$metablockheader = $this->fread(2);
 
 				if (feof($this->getid3->fp)) {

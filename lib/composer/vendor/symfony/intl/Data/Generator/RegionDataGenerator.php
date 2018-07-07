@@ -25,128 +25,121 @@ use Symfony\Component\Intl\Data\Util\LocaleScanner;
  *
  * @internal
  */
-class RegionDataGenerator extends AbstractDataGenerator
-{
-    const UNKNOWN_REGION_ID = 'ZZ';
-    const OUTLYING_OCEANIA_REGION_ID = 'QO';
-    const EUROPEAN_UNION_ID = 'EU';
-    const NETHERLANDS_ANTILLES_ID = 'AN';
-    const BOUVET_ISLAND_ID = 'BV';
-    const HEARD_MCDONALD_ISLANDS_ID = 'HM';
-    const CLIPPERTON_ISLAND_ID = 'CP';
+class RegionDataGenerator extends AbstractDataGenerator {
 
-    /**
-     * Regions excluded from generation.
-     */
-    private static $blacklist = array(
-        self::UNKNOWN_REGION_ID => true,
-        // Look like countries, but are sub-continents
-        self::OUTLYING_OCEANIA_REGION_ID => true,
-        self::EUROPEAN_UNION_ID => true,
-        // No longer exists
-        self::NETHERLANDS_ANTILLES_ID => true,
-        // Uninhabited islands
-        self::BOUVET_ISLAND_ID => true,
-        self::HEARD_MCDONALD_ISLANDS_ID => true,
-        self::CLIPPERTON_ISLAND_ID => true,
-    );
+	const UNKNOWN_REGION_ID          = 'ZZ';
+	const OUTLYING_OCEANIA_REGION_ID = 'QO';
+	const EUROPEAN_UNION_ID          = 'EU';
+	const NETHERLANDS_ANTILLES_ID    = 'AN';
+	const BOUVET_ISLAND_ID           = 'BV';
+	const HEARD_MCDONALD_ISLANDS_ID  = 'HM';
+	const CLIPPERTON_ISLAND_ID       = 'CP';
 
-    /**
-     * Collects all available language codes.
-     *
-     * @var string[]
-     */
-    private $regionCodes = array();
+	/**
+	 * Regions excluded from generation.
+	 */
+	private static $blacklist = array(
+		self::UNKNOWN_REGION_ID          => true,
+		// Look like countries, but are sub-continents
+		self::OUTLYING_OCEANIA_REGION_ID => true,
+		self::EUROPEAN_UNION_ID          => true,
+		// No longer exists
+		self::NETHERLANDS_ANTILLES_ID    => true,
+		// Uninhabited islands
+		self::BOUVET_ISLAND_ID           => true,
+		self::HEARD_MCDONALD_ISLANDS_ID  => true,
+		self::CLIPPERTON_ISLAND_ID       => true,
+	);
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function scanLocales(LocaleScanner $scanner, $sourceDir)
-    {
-        return $scanner->scanLocales($sourceDir.'/region');
-    }
+	/**
+	 * Collects all available language codes.
+	 *
+	 * @var string[]
+	 */
+	private $regionCodes = array();
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function compileTemporaryBundles(GenrbCompiler $compiler, $sourceDir, $tempDir)
-    {
-        $compiler->compile($sourceDir.'/region', $tempDir);
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function scanLocales(LocaleScanner $scanner, $sourceDir) {
+		return $scanner->scanLocales($sourceDir . '/region');
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function preGenerate()
-    {
-        $this->regionCodes = array();
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function compileTemporaryBundles(GenrbCompiler $compiler, $sourceDir, $tempDir) {
+		$compiler->compile($sourceDir . '/region', $tempDir);
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataForLocale(BundleReaderInterface $reader, $tempDir, $displayLocale)
-    {
-        $localeBundle = $reader->read($tempDir, $displayLocale);
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function preGenerate() {
+		$this->regionCodes = array();
+	}
 
-        // isset() on \ResourceBundle returns true even if the value is null
-        if (isset($localeBundle['Countries']) && null !== $localeBundle['Countries']) {
-            $data = array(
-                'Version' => $localeBundle['Version'],
-                'Names' => $this->generateRegionNames($localeBundle),
-            );
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function generateDataForLocale(BundleReaderInterface $reader, $tempDir, $displayLocale) {
+		$localeBundle = $reader->read($tempDir, $displayLocale);
 
-            $this->regionCodes = array_merge($this->regionCodes, array_keys($data['Names']));
+		// isset() on \ResourceBundle returns true even if the value is null
+		if (isset($localeBundle['Countries']) && null !== $localeBundle['Countries']) {
+			$data = array(
+				'Version' => $localeBundle['Version'],
+				'Names'   => $this->generateRegionNames($localeBundle),
+			);
 
-            return $data;
-        }
-    }
+			$this->regionCodes = array_merge($this->regionCodes, array_keys($data['Names']));
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataForRoot(BundleReaderInterface $reader, $tempDir)
-    {
-    }
+			return $data;
+		}
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir)
-    {
-        $rootBundle = $reader->read($tempDir, 'root');
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function generateDataForRoot(BundleReaderInterface $reader, $tempDir) {
+	}
 
-        $this->regionCodes = array_unique($this->regionCodes);
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir) {
+		$rootBundle = $reader->read($tempDir, 'root');
 
-        sort($this->regionCodes);
+		$this->regionCodes = array_unique($this->regionCodes);
 
-        return array(
-            'Version' => $rootBundle['Version'],
-            'Regions' => $this->regionCodes,
-        );
-    }
+		sort($this->regionCodes);
 
-    /**
-     * @return array
-     */
-    protected function generateRegionNames(ArrayAccessibleResourceBundle $localeBundle)
-    {
-        $unfilteredRegionNames = iterator_to_array($localeBundle['Countries']);
-        $regionNames = array();
+		return array(
+			'Version' => $rootBundle['Version'],
+			'Regions' => $this->regionCodes,
+		);
+	}
 
-        foreach ($unfilteredRegionNames as $region => $regionName) {
-            if (isset(self::$blacklist[$region])) {
-                continue;
-            }
+	/**
+	 * @return array
+	 */
+	protected function generateRegionNames(ArrayAccessibleResourceBundle $localeBundle) {
+		$unfilteredRegionNames = iterator_to_array($localeBundle['Countries']);
+		$regionNames           = array();
 
-            // WORLD/CONTINENT/SUBCONTINENT/GROUPING
-            if (ctype_digit($region) || is_int($region)) {
-                continue;
-            }
+		foreach ($unfilteredRegionNames as $region => $regionName) {
+			if (isset(self::$blacklist[$region])) {
+				continue;
+			}
 
-            $regionNames[$region] = $regionName;
-        }
+			// WORLD/CONTINENT/SUBCONTINENT/GROUPING
+			if (ctype_digit($region) || is_int($region)) {
+				continue;
+			}
 
-        return $regionNames;
-    }
+			$regionNames[$region] = $regionName;
+		}
+
+		return $regionNames;
+	}
 }

@@ -39,7 +39,14 @@ class MembersListView extends GalleryView {
 		}
 
 		if (!$result) {
-			return array(null, array('redirect' => array('view' => 'core.ShowItem')));
+			return array(
+				null,
+				array(
+					'redirect' => array(
+						'view' => 'core.ShowItem',
+					),
+				),
+			);
 		}
 
 		if ($form['formName'] != 'MembersList') {
@@ -116,6 +123,11 @@ class MembersListView extends GalleryView {
 
 		$template->title($module->translate('Members List'));
 
-		return array(null, array('body' => 'modules/members/templates/MembersList.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/members/templates/MembersList.tpl',
+			),
+		);
 	}
 }

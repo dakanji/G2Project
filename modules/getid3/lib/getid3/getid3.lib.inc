@@ -86,7 +86,7 @@ class getid3_lib {
 		static $hasINT64 = null;
 
 		if ($hasINT64 === null) { // 10x faster than is_null()
-			$hasINT64 = is_int(2** 31); // 32-bit int are limited to (2^31)-1
+			$hasINT64 = is_int(2 ** 31); // 32-bit int are limited to (2^31)-1
 			if (!$hasINT64 && !defined('PHP_INT_MIN')) {
 				define('PHP_INT_MIN', ~PHP_INT_MAX);
 			}
@@ -184,7 +184,7 @@ class getid3_lib {
 			$signbit = '1';
 		}
 		$normalizedbinary  = self::NormalizeBinaryPoint(self::Float2BinaryDecimal($floatvalue), $fractionbits);
-		$biasedexponent    = 2**($exponentbits - 1) - 1 + $normalizedbinary['exponent']; // (127 or 1023) +/- exponent
+		$biasedexponent    = 2 ** ($exponentbits - 1) - 1 + $normalizedbinary['exponent']; // (127 or 1023) +/- exponent
 		$exponentbitstring = str_pad(decbin($biasedexponent), $exponentbits, '0', STR_PAD_LEFT);
 		$fractionbitstring = str_pad(substr($normalizedbinary['normalized'], 2), $fractionbits, '0', STR_PAD_RIGHT);
 
@@ -226,7 +226,7 @@ class getid3_lib {
 				$exponentstring = substr($bitword, 1, 15);
 				$isnormalized   = intval($bitword[16]);
 				$fractionstring = substr($bitword, 17, 63);
-				$exponent       = 2**(self::Bin2Dec($exponentstring) - 16383);
+				$exponent       = 2 ** (self::Bin2Dec($exponentstring) - 16383);
 				$fraction       = $isnormalized + self::DecimalBinary2Float($fractionstring);
 				$floatvalue     = $exponent * $fraction;
 
@@ -248,10 +248,10 @@ class getid3_lib {
 		$exponent       = self::Bin2Dec($exponentstring);
 		$fraction       = self::Bin2Dec($fractionstring);
 
-		if (($exponent == (2** $exponentbits - 1)) && ($fraction != 0)) {
+		if (($exponent == (2 ** $exponentbits - 1)) && ($fraction != 0)) {
 			// Not a Number
 			$floatvalue = false;
-		} elseif (($exponent == (2** $exponentbits - 1)) && ($fraction == 0)) {
+		} elseif (($exponent == (2 ** $exponentbits - 1)) && ($fraction == 0)) {
 			if ($signbit == '1') {
 				$floatvalue = '-infinity';
 			} else {
@@ -266,13 +266,13 @@ class getid3_lib {
 			$floatvalue = ($signbit ? 0 : -0);
 		} elseif (($exponent == 0) && ($fraction != 0)) {
 			// These are 'unnormalized' values
-			$floatvalue = 2** (-1 * (2**($exponentbits - 1) - 2)) * self::DecimalBinary2Float($fractionstring);
+			$floatvalue = 2 ** (-1 * (2 ** ($exponentbits - 1) - 2)) * self::DecimalBinary2Float($fractionstring);
 
 			if ($signbit == '1') {
 				$floatvalue *= -1;
 			}
 		} elseif ($exponent != 0) {
-			$floatvalue = 2** ($exponent - (2**($exponentbits - 1) - 1)) * (1 + self::DecimalBinary2Float($fractionstring));
+			$floatvalue = 2 ** ($exponent - (2 ** ($exponentbits - 1) - 1)) * (1 + self::DecimalBinary2Float($fractionstring));
 
 			if ($signbit == '1') {
 				$floatvalue *= -1;
@@ -293,9 +293,9 @@ class getid3_lib {
 		for ($i = 0; $i < $bytewordlen; $i++) {
 			if ($synchsafe) { // disregard MSB, effectively 7-bit bytes
 				//$intvalue = $intvalue | (ord($byteword{$i}) & 0x7F) << (($bytewordlen - 1 - $i) * 7); // faster, but runs into problems past 2^31 on 32-bit systems
-				$intvalue += (ord($byteword[$i]) & 0x7F) * 2**(($bytewordlen - 1 - $i) * 7);
+				$intvalue += (ord($byteword[$i]) & 0x7F) * 2 ** (($bytewordlen - 1 - $i) * 7);
 			} else {
-				$intvalue += ord($byteword[$i]) * 256** ($bytewordlen - 1 - $i);
+				$intvalue += ord($byteword[$i]) * 256 ** ($bytewordlen - 1 - $i);
 			}
 		}
 
@@ -380,7 +380,7 @@ class getid3_lib {
 		$decvalue = 0;
 
 		for ($i = 0; $i < strlen($binstring); $i++) {
-			$decvalue += ((int)substr($binstring, strlen($binstring) - $i - 1, 1)) * 2** $i;
+			$decvalue += ((int)substr($binstring, strlen($binstring) - $i - 1, 1)) * 2 ** $i;
 		}
 
 		return self::CastAsInt($decvalue * $signmult);
@@ -514,17 +514,17 @@ class getid3_lib {
 	}
 
 	public static function FixedPoint8_8($rawdata) {
-		return self::BigEndian2Int(substr($rawdata, 0, 1)) + (float)(self::BigEndian2Int(substr($rawdata, 1, 1)) / 2** 8);
+		return self::BigEndian2Int(substr($rawdata, 0, 1)) + (float)(self::BigEndian2Int(substr($rawdata, 1, 1)) / 2 ** 8);
 	}
 
 	public static function FixedPoint16_16($rawdata) {
-		return self::BigEndian2Int(substr($rawdata, 0, 2)) + (float)(self::BigEndian2Int(substr($rawdata, 2, 2)) / 2** 16);
+		return self::BigEndian2Int(substr($rawdata, 0, 2)) + (float)(self::BigEndian2Int(substr($rawdata, 2, 2)) / 2 ** 16);
 	}
 
 	public static function FixedPoint2_30($rawdata) {
 		$binarystring = self::BigEndian2Bin($rawdata);
 
-		return self::Bin2Dec(substr($binarystring, 0, 2)) + (float)(self::Bin2Dec(substr($binarystring, 2, 30)) / 2** 30);
+		return self::Bin2Dec(substr($binarystring, 0, 2)) + (float)(self::Bin2Dec(substr($binarystring, 2, 30)) / 2 ** 30);
 	}
 
 	public static function CreateDeepArray($ArrayPath, $Separator, $Value) {

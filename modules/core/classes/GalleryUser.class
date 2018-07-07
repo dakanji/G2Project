@@ -138,7 +138,11 @@ class GalleryUser extends GalleryEntity {
 		list($ret, $results) = $gallery->search(
 			$query,
 			array($userName),
-			array('limit' => array('count' => 1))
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {
@@ -331,7 +335,9 @@ class GalleryUser extends GalleryEntity {
 		// Delete all of his permissions from the permissions map table
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryAccessMap',
-			array('userOrGroupId' => $this->getId())
+			array(
+				'userOrGroupId' => $this->getId(),
+			)
 		);
 
 		if ($ret) {

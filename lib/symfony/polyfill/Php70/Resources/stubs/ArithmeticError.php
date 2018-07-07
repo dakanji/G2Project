@@ -1,5 +1,4 @@
 <?php
 
-class ArithmeticError extends Error
-{
+class ArithmeticError extends Error {
 }

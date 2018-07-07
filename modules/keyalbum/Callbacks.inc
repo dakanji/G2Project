@@ -27,11 +27,11 @@ class KeyAlbumCallbacks {
 	public function callback($params, &$smarty, $callback, $userId) {
 		switch ($callback) {
 			case 'LoadKeywords':
-				$onlyPublic               = (bool)$params['onlyPublic'];
-				$sizeLimit                = (int)$params['sizeLimit'];
-				$param                    = 'allKeywords' . ($onlyPublic ? '.public' : '')
+				$onlyPublic              = (bool)$params['onlyPublic'];
+				$sizeLimit               = (int)$params['sizeLimit'];
+				$param                   = 'allKeywords' . ($onlyPublic ? '.public' : '')
 				. ($sizeLimit ? '.' . $sizeLimit : '');
-				$includeFrequency         = (bool)$params['includeFrequency'];
+				$includeFrequency        = (bool)$params['includeFrequency'];
 				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param . '.time');
 
 				if ($ret) {
@@ -188,12 +188,12 @@ class KeyAlbumCallbacks {
 		 * frequencies are very close together, this makes the resulting font-size rather normal
 		 * than large.
 		 */
-		$adjustment = $maxWeight**((float)$minCount / $maxCount) - 1.0;
+		$adjustment = $maxWeight ** ((float)$minCount / $maxCount) - 1.0;
 
 		foreach ($keywords as $i => $keyword) {
 			// Scale the resulting weights to be floats between 1 and $maxWeight.
 			$keywords[$i]['weight'] = GalleryUtilities::roundToString(
-				$maxWeight**((float)$keyword['count'] / $maxCount) - $adjustment,
+				$maxWeight ** ((float)$keyword['count'] / $maxCount) - $adjustment,
 				2
 			);
 			unset($keywords[$i]['count']);

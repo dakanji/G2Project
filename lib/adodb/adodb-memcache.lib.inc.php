@@ -48,7 +48,7 @@ class ADODB_Cache_MemCache {
 	//-----------------------------
 	// memcache specific variables
 
-	public $hosts;	// array of hosts
+	public $hosts;  // array of hosts
 	public $port     = 11211;
 	public $compress = false; // memcache compression with zlib
 

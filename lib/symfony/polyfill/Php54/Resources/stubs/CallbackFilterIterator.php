@@ -9,20 +9,17 @@
  * file that was distributed with this source code.
  */
 
-class CallbackFilterIterator extends FilterIterator
-{
-    private $iterator;
-    private $callback;
+class CallbackFilterIterator extends FilterIterator {
+	private $iterator;
+	private $callback;
 
-    public function __construct(Iterator $iterator, $callback)
-    {
-        $this->iterator = $iterator;
-        $this->callback = $callback;
-        parent::__construct($iterator);
-    }
+	public function __construct(Iterator $iterator, $callback) {
+		$this->iterator = $iterator;
+		$this->callback = $callback;
+		parent::__construct($iterator);
+	}
 
-    public function accept()
-    {
-        return call_user_func($this->callback, $this->current(), $this->key(), $this->iterator);
-    }
+	public function accept() {
+		return call_user_func($this->callback, $this->current(), $this->key(), $this->iterator);
+	}
 }

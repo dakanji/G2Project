@@ -31,9 +31,9 @@ $ADODB_INCLUDED_CSV = 1;
 	/**
 	 * convert a recordset into special format
 	 *
-	 * @param rs	the recordset
+	 * @param rs    the recordset
 	 *
-	 * @return	the CSV formated data
+	 * @return  the CSV formated data
 	 */
 function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	$max = ($rs) ? $rs->FieldCount() : 0;
@@ -91,13 +91,13 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 /**
  * Open CSV file and convert it into Data.
  *
- * @param url  		file/ftp/http url
- * @param err		returns the error message
- * @param timeout	dispose if recordset has been alive for $timeout secs
+ * @param url       file/ftp/http url
+ * @param err       returns the error message
+ * @param timeout   dispose if recordset has been alive for $timeout secs
  *
- * @return		recordset, or false if error occured. If no
- *			error occurred in sql INSERT/UPDATE/DELETE,
- *			empty recordset is returned
+ * @return      recordset, or false if error occured. If no
+ *          error occurred in sql INSERT/UPDATE/DELETE,
+ *          empty recordset is returned
  */
 function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 	$false = false;

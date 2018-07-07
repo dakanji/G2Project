@@ -43,8 +43,18 @@ class HybridTheme extends GalleryTheme {
 			'colorpack'        => '',
 			'sidebarBlocks'    => serialize(
 				array(
-					array('search.SearchBlock', array('showAdvancedLink' => true)),
-					array('core.ItemLinks', array('useDropdown' => false)),
+					array(
+						'search.SearchBlock',
+						array(
+							'showAdvancedLink' => true,
+						),
+					),
+					array(
+						'core.ItemLinks',
+						array(
+							'useDropdown' => false,
+						),
+					),
 					array('core.PeerList', array()),
 					array('imageblock.ImageBlock', array()),
 				)
@@ -258,7 +268,7 @@ class HybridTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$theme                  =& $template->getVariableByReference('theme');
+			$theme                 =& $template->getVariableByReference('theme');
 			list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 			if ($ret) {
@@ -279,7 +289,7 @@ class HybridTheme extends GalleryTheme {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$theme                 =& $template->getVariableByReference('theme');
+		$theme                =& $template->getVariableByReference('theme');
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
 
 		if ($ret) {
@@ -305,7 +315,12 @@ class HybridTheme extends GalleryTheme {
 		}
 		$redirect['showId'] = $item->getId();
 
-		return array(null, array('redirect' => $redirect));
+		return array(
+			null,
+			array(
+				'redirect' => $redirect,
+			),
+		);
 	}
 
 	/**

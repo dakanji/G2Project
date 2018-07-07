@@ -67,8 +67,8 @@ class AlbumSelectCallbacks {
 				if ($ret) {
 					return $ret;
 				}
-				$sessionPermissions                             = implode('-', array_diff($aclIdsWithSessionPermissions, $aclIds));
-				$cachePathInfo                                  = array(
+				$sessionPermissions                            = implode('-', array_diff($aclIdsWithSessionPermissions, $aclIds));
+				$cachePathInfo                                 = array(
 					'type'   => 'module-data',
 					'module' => 'albumselect',
 					'itemId' => $userId . '_' . $sessionPermissions
@@ -93,7 +93,9 @@ class AlbumSelectCallbacks {
 					if ($ret) {
 						return $ret;
 					}
-					$titles = array('root' => preg_replace('/\r\n/', ' ', $rootAlbum->getTitle()));
+					$titles = array(
+						'root' => preg_replace('/\r\n/', ' ', $rootAlbum->getTitle()),
+					);
 
 					if (isset($callbackParams['stripTitles'])) {
 						$titles['root'] = smarty_modifier_markup($titles['root'], 'strip');
@@ -251,7 +253,9 @@ class AlbumSelectCallbacks {
 						if ($id != 'prefix') {
 							$links[$id] = GalleryUrlGenerator::appendParamsToUrl(
 								$url,
-								array($session->getKey() => $session->getId()),
+								array(
+									$session->getKey() => $session->getId(),
+								),
 								true,
 								false
 							);

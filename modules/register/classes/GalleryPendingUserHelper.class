@@ -37,7 +37,7 @@ class GalleryPendingUserHelper {
 	public static function fetchPendingUserByUserName($userName) {
 		global $gallery;
 
-		$query                      = '
+		$query                     = '
 	SELECT [GalleryPendingUser::id] FROM [GalleryPendingUser]
 	WHERE [GalleryPendingUser::userName] = ?
 	';
@@ -50,8 +50,8 @@ class GalleryPendingUserHelper {
 		if ($searchResults->resultCount() == 0) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
-		$result            = $searchResults->nextResult();
-		$id                = (int)$result[0];
+		$result           = $searchResults->nextResult();
+		$id               = (int)$result[0];
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryPendingUser');
 
 		if ($ret) {
@@ -207,8 +207,8 @@ class GalleryPendingUserHelper {
 		);
 
 		if (isset($userIdForLocale)) {
-			$translator            =& $gallery->getTranslator();
-			$currentLanguageCode   = $translator->getActiveLanguageCode();
+			$translator           =& $gallery->getTranslator();
+			$currentLanguageCode  = $translator->getActiveLanguageCode();
 			list($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($userIdForLocale);
 
 			if ($ret) {
@@ -294,7 +294,7 @@ class GalleryPendingUserHelper {
 			$email = $admin->getEmail();
 
 			if (!empty($email)) {
-				$toList[]              = $email;
+				$toList[]             = $email;
 				list($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($admin->getId());
 
 				if ($ret) {

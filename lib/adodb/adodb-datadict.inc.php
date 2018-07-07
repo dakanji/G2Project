@@ -189,7 +189,7 @@ class ADODB_DataDict {
 	public $addCol            = ' ADD';
 	public $alterCol          = ' ALTER COLUMN';
 	public $dropCol           = ' DROP COLUMN';
-	public $renameColumn      = 'ALTER TABLE %s RENAME COLUMN %s TO %s';	// table, old-column, new-column, column-definitions (not used by default)
+	public $renameColumn      = 'ALTER TABLE %s RENAME COLUMN %s TO %s';    // table, old-column, new-column, column-definitions (not used by default)
 	public $nameRegex         = '\w';
 	public $nameRegexBrackets = 'a-zA-Z0-9_\(\)';
 	public $schema            = false;
@@ -197,7 +197,7 @@ class ADODB_DataDict {
 	public $autoIncrement     = false;
 	public $dataProvider;
 	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME'); // for changetablesql
-	public $blobSize            = 100; 	/// any varchar/char field this size or greater is treated as a blob
+	public $blobSize            = 100;  /// any varchar/char field this size or greater is treated as a blob
 							/// in other words, we use a text area for editting.
 
 	public function GetCommentSQL($table, $col) {
@@ -481,8 +481,8 @@ class ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname                 = $this->TableName($tabname);
-		$sql                     = array();
+		$tabname                   = $this->TableName($tabname);
+		$sql                       = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 		// genfields can return FALSE at times
 		if ($lines == null) {
@@ -514,8 +514,8 @@ class ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname                 = $this->TableName($tabname);
-		$sql                     = array();
+		$tabname                   = $this->TableName($tabname);
+		$sql                       = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 		// genfields can return FALSE at times
 		if ($lines == null) {

@@ -126,7 +126,7 @@ class RepositoryObject {
 	 * @param boolean $overwriteFile overwrite file if it exists
 	 * @param boolean $compressToo optionally write a compressed version of the file
 	 * @return array GalleryStatus a status code
-	 *		     boolean whether the file was written to disk
+	 *           boolean whether the file was written to disk
 	 */
 	public function writeToDisk($overwriteFile = false, $compressToo = false) {
 		global $gallery;

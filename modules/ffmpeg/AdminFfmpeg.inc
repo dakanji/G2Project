@@ -214,7 +214,7 @@ class AdminFfmpegController extends GalleryController {
 		}
 
 		while (!empty($ids)) {
-			$idSet               = array_splice($ids, 0, 100);
+			$idSet              = array_splice($ids, 0, 100);
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($idSet);
 
 			if ($ret) {
@@ -375,6 +375,11 @@ class AdminFfmpegView extends GalleryView {
 		$template->setVariable('AdminFfmpeg', $AdminFfmpeg);
 		$template->setVariable('controller', 'ffmpeg.AdminFfmpeg');
 
-		return array(null, array('body' => 'modules/ffmpeg/templates/AdminFfmpeg.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/ffmpeg/templates/AdminFfmpeg.tpl',
+			),
+		);
 	}
 }

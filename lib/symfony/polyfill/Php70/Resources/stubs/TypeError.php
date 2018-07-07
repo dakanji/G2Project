@@ -1,5 +1,4 @@
 <?php
 
-class TypeError extends Error
-{
+class TypeError extends Error {
 }

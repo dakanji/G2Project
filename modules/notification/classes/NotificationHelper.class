@@ -53,10 +53,10 @@ class NotificationHelper {
 	 * Get the enable notifications.
 	 * @param boolean $forUpdate (optional) Grab the write lock. (default is false)
 	 * @return array GalleryStatus
-	 * 		     array An associative array of the enabled events and handlers
-	 * 				['Event Name']['handler'] => 'public' => 0|1)
-	 * 							     'enabled' => 0|1)
-	 * 		     int the lock id
+	 *           array An associative array of the enabled events and handlers
+	 *              ['Event Name']['handler'] => 'public' => 0|1)
+	 *                               'enabled' => 0|1)
+	 *           int the lock id
 	 */
 	public static function getEnabledNotifications($forUpdate = false) {
 		$eventMapLockId = null;
@@ -110,10 +110,10 @@ class NotificationHelper {
 	 * Get all the event notifications.
 	 * @param boolean $display (optional) add display entry to the list. default: false
 	 * @return array GalleryStatus
-	 *  	     array (event id => event description)
+	 *           array (event id => event description)
 	 */
 	public static function getDefinedEvents($display = false) {
-		$descriptions        = $events = array();
+		$descriptions       = $events = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'notification');
 
 		if ($ret) {
@@ -169,7 +169,7 @@ class NotificationHelper {
 	 * Get all the notification handlers.
 	 * @param boolean $display (optional) add display entry to the list. default: false
 	 * @return array GalleryStatus
-	 *  	     array (handler id => handler description)
+	 *           array (handler id => handler description)
 	 */
 	public static function getDefinedHandlers($display = false) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'notification');
@@ -214,7 +214,9 @@ class NotificationHelper {
 	public static function getSubscriptions($userId, $itemId = null) {
 		global $gallery;
 
-		$selection = array('userId' => $userId);
+		$selection = array(
+			'userId' => $userId,
+		);
 
 		if (isset($itemId)) {
 			$selection['itemId'] = $itemId;
@@ -376,7 +378,9 @@ class NotificationHelper {
 		list($ret, $searchResult) = GalleryCoreApi::getMapEntry(
 			'SubscriptionMap',
 			array('notificationName', 'userId', 'handlerName'),
-			array('itemId' => $itemId)
+			array(
+				'itemId' => $itemId,
+			)
 		);
 
 		if ($ret) {
@@ -508,7 +512,7 @@ class NotificationHelper {
 			return $ret;
 		}
 
-		$sql                  = 'SELECT COUNT(*) FROM [SubscriptionMap]
+		$sql                 = 'SELECT COUNT(*) FROM [SubscriptionMap]
 		 WHERE [SubscriptionMap::notificationName] = ?';
 		list($ret, $results) = $storage->search($sql, array($event));
 

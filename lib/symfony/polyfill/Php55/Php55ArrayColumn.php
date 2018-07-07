@@ -27,38 +27,36 @@ namespace Symfony\Polyfill\Php55;
 /**
  * @internal
  */
-final class Php55ArrayColumn
-{
-    public static function array_column(array $input, $columnKey, $indexKey = null)
-    {
-        $output = array();
+final class Php55ArrayColumn {
+	public static function array_column(array $input, $columnKey, $indexKey = null) {
+		$output = array();
 
-        foreach ($input as $row) {
-            $key = $value = null;
-            $keySet = $valueSet = false;
+		foreach ($input as $row) {
+			$key = $value = null;
+			$keySet = $valueSet = false;
 
-            if ($indexKey !== null && array_key_exists($indexKey, $row)) {
-                $keySet = true;
-                $key = (string) $row[$indexKey];
-            }
+			if ($indexKey !== null && array_key_exists($indexKey, $row)) {
+				$keySet = true;
+				$key = (string)$row[$indexKey];
+			}
 
-            if ($columnKey === null) {
-                $valueSet = true;
-                $value = $row;
-            } elseif (\is_array($row) && \array_key_exists($columnKey, $row)) {
-                $valueSet = true;
-                $value = $row[$columnKey];
-            }
+			if ($columnKey === null) {
+				$valueSet = true;
+				$value = $row;
+			} elseif (\is_array($row) && \array_key_exists($columnKey, $row)) {
+				$valueSet = true;
+				$value = $row[$columnKey];
+			}
 
-            if ($valueSet) {
-                if ($keySet) {
-                    $output[$key] = $value;
-                } else {
-                    $output[] = $value;
-                }
-            }
-        }
+			if ($valueSet) {
+				if ($keySet) {
+					$output[$key] = $value;
+				} else {
+					$output[] = $value;
+				}
+			}
+		}
 
-        return $output;
-    }
+		return $output;
+	}
 }

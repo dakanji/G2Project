@@ -16,10 +16,8 @@ namespace Symfony\Polyfill\Php71;
  *
  * @internal
  */
-final class Php71
-{
-    public static function is_iterable($var)
-    {
-        return \is_array($var) || $var instanceof \Traversable;
-    }
+final class Php71 {
+	public static function is_iterable($var) {
+		return \is_array($var) || $var instanceof \Traversable;
+	}
 }

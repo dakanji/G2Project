@@ -125,7 +125,9 @@ class AdminCreateGroupView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/AdminCreateGroup.tpl'),
+			array(
+				'body' => 'modules/core/templates/AdminCreateGroup.tpl',
+			),
 		);
 	}
 }

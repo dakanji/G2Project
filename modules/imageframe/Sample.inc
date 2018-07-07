@@ -51,7 +51,9 @@ class SampleView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$ImageFrameSample = array('list' => $list);
+		$ImageFrameSample = array(
+			'list' => $list,
+		);
 		$itemId           = GalleryUtilities::getRequestVariables('itemId');
 
 		if (!empty($itemId)) {

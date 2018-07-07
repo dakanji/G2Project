@@ -21,285 +21,298 @@ namespace Symfony\Polyfill\Intl\Normalizer;
  *
  * @internal
  */
-class Normalizer
-{
-    const NONE = 1;
-    const FORM_D = 2;
-    const FORM_KD = 3;
-    const FORM_C = 4;
-    const FORM_KC = 5;
-    const NFD = 2;
-    const NFKD = 3;
-    const NFC = 4;
-    const NFKC = 5;
+class Normalizer {
 
-    private static $C;
-    private static $D;
-    private static $KD;
-    private static $cC;
-    private static $ulenMask = array("\xC0" => 2, "\xD0" => 2, "\xE0" => 3, "\xF0" => 4);
-    private static $ASCII = "\x20\x65\x69\x61\x73\x6E\x74\x72\x6F\x6C\x75\x64\x5D\x5B\x63\x6D\x70\x27\x0A\x67\x7C\x68\x76\x2E\x66\x62\x2C\x3A\x3D\x2D\x71\x31\x30\x43\x32\x2A\x79\x78\x29\x28\x4C\x39\x41\x53\x2F\x50\x22\x45\x6A\x4D\x49\x6B\x33\x3E\x35\x54\x3C\x44\x34\x7D\x42\x7B\x38\x46\x77\x52\x36\x37\x55\x47\x4E\x3B\x4A\x7A\x56\x23\x48\x4F\x57\x5F\x26\x21\x4B\x3F\x58\x51\x25\x59\x5C\x09\x5A\x2B\x7E\x5E\x24\x40\x60\x7F\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F";
+	const NONE    = 1;
+	const FORM_D  = 2;
+	const FORM_KD = 3;
+	const FORM_C  = 4;
+	const FORM_KC = 5;
+	const NFD     = 2;
+	const NFKD    = 3;
+	const NFC     = 4;
+	const NFKC    = 5;
 
-    public static function isNormalized($s, $form = self::NFC)
-    {
-        if ($form <= self::NONE || self::NFKC < $form) {
-            return false;
-        }
-        $s = (string) $s;
-        if (!isset($s[strspn($s, self::$ASCII)])) {
-            return true;
-        }
-        if (self::NFC === $form && preg_match('//u', $s) && !preg_match('/[^\x00-\x{2FF}]/u', $s)) {
-            return true;
-        }
+	private static $C;
+	private static $D;
+	private static $KD;
+	private static $cC;
+	private static $ulenMask = array(
+		"\xC0" => 2,
+		"\xD0" => 2,
+		"\xE0" => 3,
+		"\xF0" => 4,
+	);
+	private static $ASCII    = "\x20\x65\x69\x61\x73\x6E\x74\x72\x6F\x6C\x75\x64\x5D\x5B\x63\x6D\x70\x27\x0A\x67\x7C\x68\x76\x2E\x66\x62\x2C\x3A\x3D\x2D\x71\x31\x30\x43\x32\x2A\x79\x78\x29\x28\x4C\x39\x41\x53\x2F\x50\x22\x45\x6A\x4D\x49\x6B\x33\x3E\x35\x54\x3C\x44\x34\x7D\x42\x7B\x38\x46\x77\x52\x36\x37\x55\x47\x4E\x3B\x4A\x7A\x56\x23\x48\x4F\x57\x5F\x26\x21\x4B\x3F\x58\x51\x25\x59\x5C\x09\x5A\x2B\x7E\x5E\x24\x40\x60\x7F\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F";
 
-        return false; // Pretend false as quick checks implementented in PHP won't be so quick
-    }
+	public static function isNormalized($s, $form = self::NFC) {
+		if ($form <= self::NONE || self::NFKC < $form) {
+			return false;
+		}
+		$s = (string)$s;
+		if (!isset($s[strspn($s, self::$ASCII)])) {
+			return true;
+		}
+		if (self::NFC === $form && preg_match('//u', $s) && !preg_match('/[^\x00-\x{2FF}]/u', $s)) {
+			return true;
+		}
 
-    public static function normalize($s, $form = self::NFC)
-    {
-        $s = (string) $s;
-        if (!preg_match('//u', $s)) {
-            return false;
-        }
+		return false; // Pretend false as quick checks implementented in PHP won't be so quick
+	}
 
-        switch ($form) {
-            case self::NONE: return $s;
-            case self::NFC: $C = true; $K = false; break;
-            case self::NFD: $C = false; $K = false; break;
-            case self::NFKC: $C = true; $K = true; break;
-            case self::NFKD: $C = false; $K = true; break;
-            default: return false;
-        }
+	public static function normalize($s, $form = self::NFC) {
+		$s = (string)$s;
+		if (!preg_match('//u', $s)) {
+			return false;
+		}
 
-        if ('' === $s) {
-            return '';
-        }
+		switch ($form) {
+			case self::NONE:
+				return $s;
+			case self::NFC:
+				$C = true;
+				$K = false;
+				break;
+			case self::NFD:
+				$C = false;
+				$K = false;
+				break;
+			case self::NFKC:
+				$C = true;
+				$K = true;
+				break;
+			case self::NFKD:
+				$C = false;
+				$K = true;
+				break;
+			default:
+				return false;
+		}
 
-        if ($K && null === self::$KD) {
-            self::$KD = self::getData('compatibilityDecomposition');
-        }
+		if ('' === $s) {
+			return '';
+		}
 
-        if (null === self::$D) {
-            self::$D = self::getData('canonicalDecomposition');
-            self::$cC = self::getData('combiningClass');
-        }
+		if ($K && null === self::$KD) {
+			self::$KD = self::getData('compatibilityDecomposition');
+		}
 
-        if (null !== $mbEncoding = (2 /* MB_OVERLOAD_STRING */ & (int) ini_get('mbstring.func_overload')) ? mb_internal_encoding() : null) {
-            mb_internal_encoding('8bit');
-        }
+		if (null === self::$D) {
+			self::$D  = self::getData('canonicalDecomposition');
+			self::$cC = self::getData('combiningClass');
+		}
 
-        $r = self::decompose($s, $K);
+		if (null !== $mbEncoding = (2 /* MB_OVERLOAD_STRING */ & (int)ini_get('mbstring.func_overload')) ? mb_internal_encoding() : null) {
+			mb_internal_encoding('8bit');
+		}
 
-        if ($C) {
-            if (null === self::$C) {
-                self::$C = self::getData('canonicalComposition');
-            }
+		$r = self::decompose($s, $K);
 
-            $r = self::recompose($r);
-        }
-        if (null !== $mbEncoding) {
-            mb_internal_encoding($mbEncoding);
-        }
+		if ($C) {
+			if (null === self::$C) {
+				self::$C = self::getData('canonicalComposition');
+			}
 
-        return $r;
-    }
+			$r = self::recompose($r);
+		}
+		if (null !== $mbEncoding) {
+			mb_internal_encoding($mbEncoding);
+		}
 
-    private static function recompose($s)
-    {
-        $ASCII = self::$ASCII;
-        $compMap = self::$C;
-        $combClass = self::$cC;
-        $ulenMask = self::$ulenMask;
+		return $r;
+	}
 
-        $result = $tail = '';
+	private static function recompose($s) {
+		$ASCII     = self::$ASCII;
+		$compMap   = self::$C;
+		$combClass = self::$cC;
+		$ulenMask  = self::$ulenMask;
 
-        $i = $s[0] < "\x80" ? 1 : $ulenMask[$s[0] & "\xF0"];
-        $len = \strlen($s);
+		$result = $tail = '';
 
-        $lastUchr = substr($s, 0, $i);
-        $lastUcls = isset($combClass[$lastUchr]) ? 256 : 0;
+		$i   = $s[0] < "\x80" ? 1 : $ulenMask[$s[0] & "\xF0"];
+		$len = \strlen($s);
 
-        while ($i < $len) {
-            if ($s[$i] < "\x80") {
-                // ASCII chars
+		$lastUchr = substr($s, 0, $i);
+		$lastUcls = isset($combClass[$lastUchr]) ? 256 : 0;
 
-                if ($tail) {
-                    $lastUchr .= $tail;
-                    $tail = '';
-                }
+		while ($i < $len) {
+			if ($s[$i] < "\x80") {
+				// ASCII chars
 
-                if ($j = strspn($s, $ASCII, $i + 1)) {
-                    $lastUchr .= substr($s, $i, $j);
-                    $i += $j;
-                }
+				if ($tail) {
+					$lastUchr .= $tail;
+					$tail      = '';
+				}
 
-                $result .= $lastUchr;
-                $lastUchr = $s[$i];
-                $lastUcls = 0;
-                ++$i;
-                continue;
-            }
+				if ($j = strspn($s, $ASCII, $i + 1)) {
+					$lastUchr .= substr($s, $i, $j);
+					$i        += $j;
+				}
 
-            $ulen = $ulenMask[$s[$i] & "\xF0"];
-            $uchr = substr($s, $i, $ulen);
+				$result  .= $lastUchr;
+				$lastUchr = $s[$i];
+				$lastUcls = 0;
+				++$i;
+				continue;
+			}
 
-            if ($lastUchr < "\xE1\x84\x80" || "\xE1\x84\x92" < $lastUchr
-                ||   $uchr < "\xE1\x85\xA1" || "\xE1\x85\xB5" < $uchr
-                || $lastUcls) {
-                // Table lookup and combining chars composition
+			$ulen = $ulenMask[$s[$i] & "\xF0"];
+			$uchr = substr($s, $i, $ulen);
 
-                $ucls = isset($combClass[$uchr]) ? $combClass[$uchr] : 0;
+			if ($lastUchr < "\xE1\x84\x80" || "\xE1\x84\x92" < $lastUchr
+				|| $uchr < "\xE1\x85\xA1" || "\xE1\x85\xB5" < $uchr
+				|| $lastUcls
+			) {
+				// Table lookup and combining chars composition
 
-                if (isset($compMap[$lastUchr.$uchr]) && (!$lastUcls || $lastUcls < $ucls)) {
-                    $lastUchr = $compMap[$lastUchr.$uchr];
-                } elseif ($lastUcls = $ucls) {
-                    $tail .= $uchr;
-                } else {
-                    if ($tail) {
-                        $lastUchr .= $tail;
-                        $tail = '';
-                    }
+				$ucls = isset($combClass[$uchr]) ? $combClass[$uchr] : 0;
 
-                    $result .= $lastUchr;
-                    $lastUchr = $uchr;
-                }
-            } else {
-                // Hangul chars
+				if (isset($compMap[$lastUchr . $uchr]) && (!$lastUcls || $lastUcls < $ucls)) {
+					$lastUchr = $compMap[$lastUchr . $uchr];
+				} elseif ($lastUcls = $ucls) {
+					$tail .= $uchr;
+				} else {
+					if ($tail) {
+						$lastUchr .= $tail;
+						$tail      = '';
+					}
 
-                $L = \ord($lastUchr[2]) - 0x80;
-                $V = \ord($uchr[2]) - 0xA1;
-                $T = 0;
+					$result  .= $lastUchr;
+					$lastUchr = $uchr;
+				}
+			} else {
+				// Hangul chars
 
-                $uchr = substr($s, $i + $ulen, 3);
+				$L = \ord($lastUchr[2]) - 0x80;
+				$V = \ord($uchr[2]) - 0xA1;
+				$T = 0;
 
-                if ("\xE1\x86\xA7" <= $uchr && $uchr <= "\xE1\x87\x82") {
-                    $T = \ord($uchr[2]) - 0xA7;
-                    0 > $T && $T += 0x40;
-                    $ulen += 3;
-                }
+				$uchr = substr($s, $i + $ulen, 3);
 
-                $L = 0xAC00 + ($L * 21 + $V) * 28 + $T;
-                $lastUchr = \chr(0xE0 | $L >> 12).\chr(0x80 | $L >> 6 & 0x3F).\chr(0x80 | $L & 0x3F);
-            }
+				if ("\xE1\x86\xA7" <= $uchr && $uchr <= "\xE1\x87\x82") {
+					$T            = \ord($uchr[2]) - 0xA7;
+					0 > $T && $T += 0x40;
+					$ulen        += 3;
+				}
 
-            $i += $ulen;
-        }
+				$L        = 0xAC00 + ($L * 21 + $V) * 28 + $T;
+				$lastUchr = \chr(0xE0 | $L >> 12) . \chr(0x80 | $L >> 6 & 0x3F) . \chr(0x80 | $L & 0x3F);
+			}
 
-        return $result.$lastUchr.$tail;
-    }
+			$i += $ulen;
+		}
 
-    private static function decompose($s, $c)
-    {
-        $result = '';
+		return $result . $lastUchr . $tail;
+	}
 
-        $ASCII = self::$ASCII;
-        $decompMap = self::$D;
-        $combClass = self::$cC;
-        $ulenMask = self::$ulenMask;
-        if ($c) {
-            $compatMap = self::$KD;
-        }
+	private static function decompose($s, $c) {
+		$result = '';
 
-        $c = array();
-        $i = 0;
-        $len = \strlen($s);
+		$ASCII     = self::$ASCII;
+		$decompMap = self::$D;
+		$combClass = self::$cC;
+		$ulenMask  = self::$ulenMask;
+		if ($c) {
+			$compatMap = self::$KD;
+		}
 
-        while ($i < $len) {
-            if ($s[$i] < "\x80") {
-                // ASCII chars
+		$c   = array();
+		$i   = 0;
+		$len = \strlen($s);
 
-                if ($c) {
-                    ksort($c);
-                    $result .= implode('', $c);
-                    $c = array();
-                }
+		while ($i < $len) {
+			if ($s[$i] < "\x80") {
+				// ASCII chars
 
-                $j = 1 + strspn($s, $ASCII, $i + 1);
-                $result .= substr($s, $i, $j);
-                $i += $j;
-                continue;
-            }
+				if ($c) {
+					ksort($c);
+					$result .= implode('', $c);
+					$c       = array();
+				}
 
-            $ulen = $ulenMask[$s[$i] & "\xF0"];
-            $uchr = substr($s, $i, $ulen);
-            $i += $ulen;
+				$j       = 1 + strspn($s, $ASCII, $i + 1);
+				$result .= substr($s, $i, $j);
+				$i      += $j;
+				continue;
+			}
 
-            if ($uchr < "\xEA\xB0\x80" || "\xED\x9E\xA3" < $uchr) {
-                // Table lookup
+			$ulen = $ulenMask[$s[$i] & "\xF0"];
+			$uchr = substr($s, $i, $ulen);
+			$i   += $ulen;
 
-                if ($uchr !== $j = isset($compatMap[$uchr]) ? $compatMap[$uchr] : (isset($decompMap[$uchr]) ? $decompMap[$uchr] : $uchr)) {
-                    $uchr = $j;
+			if ($uchr < "\xEA\xB0\x80" || "\xED\x9E\xA3" < $uchr) {
+				// Table lookup
 
-                    $j = \strlen($uchr);
-                    $ulen = $uchr[0] < "\x80" ? 1 : $ulenMask[$uchr[0] & "\xF0"];
+				if ($uchr !== $j = isset($compatMap[$uchr]) ? $compatMap[$uchr] : (isset($decompMap[$uchr]) ? $decompMap[$uchr] : $uchr)) {
+					$uchr = $j;
 
-                    if ($ulen != $j) {
-                        // Put trailing chars in $s
+					$j    = \strlen($uchr);
+					$ulen = $uchr[0] < "\x80" ? 1 : $ulenMask[$uchr[0] & "\xF0"];
 
-                        $j -= $ulen;
-                        $i -= $j;
+					if ($ulen != $j) {
+						// Put trailing chars in $s
 
-                        if (0 > $i) {
-                            $s = str_repeat(' ', -$i).$s;
-                            $len -= $i;
-                            $i = 0;
-                        }
+						$j -= $ulen;
+						$i -= $j;
 
-                        while ($j--) {
-                            $s[$i + $j] = $uchr[$ulen + $j];
-                        }
+						if (0 > $i) {
+							$s    = str_repeat(' ', -$i) . $s;
+							$len -= $i;
+							$i    = 0;
+						}
 
-                        $uchr = substr($uchr, 0, $ulen);
-                    }
-                }
-                if (isset($combClass[$uchr])) {
-                    // Combining chars, for sorting
+						while ($j--) {
+							$s[$i + $j] = $uchr[$ulen + $j];
+						}
 
-                    if (!isset($c[$combClass[$uchr]])) {
-                        $c[$combClass[$uchr]] = '';
-                    }
-                    $c[$combClass[$uchr]] .= $uchr;
-                    continue;
-                }
-            } else {
-                // Hangul chars
+						$uchr = substr($uchr, 0, $ulen);
+					}
+				}
+				if (isset($combClass[$uchr])) {
+					// Combining chars, for sorting
 
-                $uchr = unpack('C*', $uchr);
-                $j = (($uchr[1] - 224) << 12) + (($uchr[2] - 128) << 6) + $uchr[3] - 0xAC80;
+					if (!isset($c[$combClass[$uchr]])) {
+						$c[$combClass[$uchr]] = '';
+					}
+					$c[$combClass[$uchr]] .= $uchr;
+					continue;
+				}
+			} else {
+				// Hangul chars
 
-                $uchr = "\xE1\x84".\chr(0x80 + (int) ($j / 588))
-                       ."\xE1\x85".\chr(0xA1 + (int) (($j % 588) / 28));
+				$uchr = unpack('C*', $uchr);
+				$j    = (($uchr[1] - 224) << 12) + (($uchr[2] - 128) << 6) + $uchr[3] - 0xAC80;
 
-                if ($j %= 28) {
-                    $uchr .= $j < 25
-                        ? ("\xE1\x86".\chr(0xA7 + $j))
-                        : ("\xE1\x87".\chr(0x67 + $j));
-                }
-            }
-            if ($c) {
-                ksort($c);
-                $result .= implode('', $c);
-                $c = array();
-            }
+				$uchr = "\xE1\x84" . \chr(0x80 + (int)($j / 588))
+					   . "\xE1\x85" . \chr(0xA1 + (int)(($j % 588) / 28));
 
-            $result .= $uchr;
-        }
+				if ($j %= 28) {
+					$uchr .= $j < 25 ? ("\xE1\x86" . \chr(0xA7 + $j)) : ("\xE1\x87" . \chr(0x67 + $j));
+				}
+			}
+			if ($c) {
+				ksort($c);
+				$result .= implode('', $c);
+				$c       = array();
+			}
 
-        if ($c) {
-            ksort($c);
-            $result .= implode('', $c);
-        }
+			$result .= $uchr;
+		}
 
-        return $result;
-    }
+		if ($c) {
+			ksort($c);
+			$result .= implode('', $c);
+		}
 
-    private static function getData($file)
-    {
-        if (file_exists($file = __DIR__.'/Resources/unidata/'.$file.'.php')) {
-            return require $file;
-        }
+		return $result;
+	}
 
-        return false;
-    }
+	private static function getData($file) {
+		if (file_exists($file = __DIR__ . '/Resources/unidata/' . $file . '.php')) {
+			return include $file;
+		}
+
+		return false;
+	}
 }

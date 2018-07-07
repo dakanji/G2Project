@@ -90,7 +90,9 @@ class getid3_writetags {
 		if (filesize($this->filename) == 0) {
 			// empty file special case - allow any tag format, don't check existing format
 			// could be useful if you want to generate tag data for a non-existant file
-			$this->ThisFileInfo = array('fileformat' => '');
+			$this->ThisFileInfo = array(
+				'fileformat' => '',
+			);
 			$AllowedTagFormats  = array('id3v1', 'id3v2.2', 'id3v2.3', 'id3v2.4', 'ape', 'lyrics3');
 		} else {
 			$getID3             = new getID3();

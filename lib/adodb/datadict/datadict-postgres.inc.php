@@ -52,7 +52,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 			case 'IMAGE': // user defined type
 			case 'BLOB': // user defined type
-			case 'BIT':	// This is a bit string, not a single bit, so don't return 'L'
+			case 'BIT': // This is a bit string, not a single bit, so don't return 'L'
 			case 'VARBIT':
 			case 'BYTEA':
 				return 'B';
@@ -163,11 +163,11 @@ class ADODB2_postgres extends ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname           = $this->TableName($tabname);
-		$sql               = array();
-		$not_null          = false;
+		$tabname            = $this->TableName($tabname);
+		$sql                = array();
+		$not_null           = false;
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$alter             = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
+		$alter              = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
 
 		foreach ($lines as $v) {
 			if (($not_null = preg_match('/NOT NULL/i', $v))) {
@@ -176,9 +176,9 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 			if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
 				list(, $colname, $default) = $matches;
-				$sql[]                   = $alter . str_replace('DEFAULT ' . $default, '', $v);
-				$sql[]                   = 'UPDATE ' . $tabname . ' SET ' . $colname . '=' . $default;
-				$sql[]                   = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET DEFAULT ' . $default;
+				$sql[]                     = $alter . str_replace('DEFAULT ' . $default, '', $v);
+				$sql[]                     = 'UPDATE ' . $tabname . ' SET ' . $colname . '=' . $default;
+				$sql[]                     = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET DEFAULT ' . $default;
 			} else {
 				$sql[] = $alter . $v;
 			}
@@ -222,10 +222,10 @@ class ADODB2_postgres extends ADODB_DataDict {
 		$has_alter_column = 8.0 <= (float)@$this->serverInfo['version'];
 
 		if ($has_alter_column) {
-			$tabname           = $this->TableName($tabname);
-			$sql               = array();
+			$tabname            = $this->TableName($tabname);
+			$sql                = array();
 			list($lines, $pkey) = $this->_GenFields($flds);
-			$set_null          = false;
+			$set_null           = false;
 
 			foreach ($lines as $v) {
 				$alter = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';
@@ -244,9 +244,9 @@ class ADODB2_postgres extends ADODB_DataDict {
 				}
 
 				if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
-					$existing                = $this->MetaColumns($tabname);
+					$existing                  = $this->MetaColumns($tabname);
 					list(, $colname, $default) = $matches;
-					$alter                  .= $colname;
+					$alter                    .= $colname;
 
 					if ($this->connection) {
 						$old_coltype = $this->connection->MetaType($existing[strtoupper($colname)]);
@@ -280,8 +280,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 					// drop default?
 					preg_match('/^\s*(\S+)\s+(.*)$/', $v, $matches);
 					list(, $colname, $rest) = $matches;
-					$alter                .= $colname;
-					$sql[]                 = $alter . ' TYPE ' . $rest;
+					$alter                 .= $colname;
+					$sql[]                  = $alter . ' TYPE ' . $rest;
 				}
 
 				// list($colname) = explode(' ',$v);
@@ -380,14 +380,14 @@ class ADODB2_postgres extends ADODB_DataDict {
 		$copyflds = implode(', ', $copyflds);
 
 		$tempname = $tabname . '_tmp';
-		$aSql[]   = 'BEGIN';		// we use a transaction, to make sure not to loose the content of the table
+		$aSql[]   = 'BEGIN';        // we use a transaction, to make sure not to loose the content of the table
 		$aSql[]   = "SELECT * INTO TEMPORARY TABLE $tempname FROM $tabname";
 		$aSql     = array_merge($aSql, $this->DropTableSQL($tabname));
 		$aSql     = array_merge($aSql, $this->CreateTableSQL($tabname, $tableflds, $tableoptions));
 		$aSql[]   = "INSERT INTO $tabname SELECT $copyflds FROM $tempname";
 
-		if ($seq_name && $seq_fld) {	// if we have a sequence we need to set it again
-			$seq_name = $tabname . '_' . $seq_fld . '_seq';	// has to be the name of the new implicit sequence
+		if ($seq_name && $seq_fld) {    // if we have a sequence we need to set it again
+			$seq_name = $tabname . '_' . $seq_fld . '_seq'; // has to be the name of the new implicit sequence
 			$aSql[]   = "SELECT setval('$seq_name',MAX($seq_fld)) FROM $tabname";
 		}
 		$aSql[] = "DROP TABLE $tempname";

@@ -208,7 +208,9 @@ class RewriteHelper {
 
 				// Add custom keywords to the list of allowed keywords
 				if (!isset($rules[$ruleId]['keywords']['itemId'])) {
-					$rules[$ruleId]['keywords']['itemId'] = array('pattern' => '([0-9]+)');
+					$rules[$ruleId]['keywords']['itemId'] = array(
+						'pattern' => '([0-9]+)',
+					);
 				}
 
 				// Restrict this rule to given query string conditions

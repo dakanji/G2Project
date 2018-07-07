@@ -51,7 +51,7 @@ class getid3_lpac extends getid3_handler {
 
 		$info['lpac']['flags']['fast_compress']             = (bool)($flags['parameters'] & 0x40000000);
 		$info['lpac']['flags']['random_access']             = (bool)($flags['parameters'] & 0x08000000);
-		$info['lpac']['block_length']                       = 2** (($flags['parameters'] & 0x07000000) >> 24) * 256;
+		$info['lpac']['block_length']                       = 2 ** (($flags['parameters'] & 0x07000000) >> 24) * 256;
 		$info['lpac']['flags']['adaptive_prediction_order'] = (bool)($flags['parameters'] & 0x00800000);
 		$info['lpac']['flags']['adaptive_quantization']     = (bool)($flags['parameters'] & 0x00400000);
 		$info['lpac']['flags']['joint_stereo']              = (bool)($flags['parameters'] & 0x00040000);

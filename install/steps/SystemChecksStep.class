@@ -24,7 +24,7 @@
  */
 class SystemChecksStep extends InstallStep {
 	public function stepName() {
-		return _('System Checks');
+		return 'System Checks';
 	}
 
 	/*
@@ -54,16 +54,14 @@ class SystemChecksStep extends InstallStep {
 	}
 
 	public function processRequest() {
-		// Guide to target PHP
-		$prefPHP = " Use PHP Version 7.3.x for the best performance."
+		// Target PHP Version
+		$prefPHP = 'Use PHP Version 7.3.x for the best performance.'
 		
 		// Zend test
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');
 			header('Content-Length: 8');
-			$x = array(
-				new stdclass(),
-			);
+			$x = array( new stdclass() );
 			// v-- This may cause PHP to crash!
 			$x = $x[0];
 			echo "SUCCESS\n";
@@ -81,43 +79,43 @@ class SystemChecksStep extends InstallStep {
 
 		$template = new StatusTemplate();
 		$template->renderHeader(true);
-		$template->renderStatusMessage(_('Performing system checks'), '', 0);
+		$template->renderStatusMessage('Performing system checks', '', 0);
 
 		// assert compatible version of PHP, we accept 5.3.3+ but prefer 7.1.0+
 		if (version_compare(PHP_VERSION, '5.3.3', '<')) {
 			$templateData['check'][] = array(
-				'title'  => _('PHP version &gt;= v5.3.3'),
+				'title'  => 'PHP version &gt;= v5.3.3',
 				'error'  => true,
-				'notice' => sprintf(_('Error: Gallery 2 has an absolute mimimum requirement of PHP Version 5.3.3 but you have PHP Version %s installed. Please update to PHP Version 5.3.3, as a minimum, to use this version of Gallery 2.' . $prefPHP), PHP_VERSION),
+				'notice' => sprintf('Error: Gallery 2 has an absolute mimimum requirement of PHP Version 5.3.3 but you have PHP Version %s installed. Please update to PHP Version 5.3.3, as a minimum, to use this version of Gallery 2. %s', PHP_VERSION, $prefPHP),
 			);
 			$failCount++;
 		} elseif (version_compare(PHP_VERSION, '5.6.0', '<')) {
 			$templateData['check'][] = array(
-				'title'  => _('PHP version &gt;= v5.6.0'),
+				'title'   => 'PHP version &gt;= v5.6.0',
 				'warning' => true,
-				'notice' => sprintf(_('Warning: Gallery  2 has an acceptable mimimum requirement of PHP Version 5.6.0 but you have PHP Version %s installed. Gallery 2 should function with your version of PHP but will be slower and will require additional server resources.' . $prefPHP), PHP_VERSION),
+				'notice'  => sprintf('Warning: Gallery  2 has an acceptable mimimum requirement of PHP Version 5.6.0 but you have PHP Version %s installed. Gallery 2 should function with your version of PHP but will be slower and will require additional server resources. %s', PHP_VERSION, $prefPHP),
 			);
 		} elseif (version_compare(PHP_VERSION, '7.1.0', '<')) {
 			$templateData['check'][] = array(
-				'title'   => _('PHP Version &gt;= v7.1.0'),
+				'title'   => 'PHP Version &gt;= v7.1.0',
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Gallery  2 has a desirable mimimum requirement of PHP Version 7.1.x but you have PHP Version %s installed. Gallery 2 will function with your version of PHP but may be slower and require additional server resources.' . $prefPHP), PHP_VERSION),
+				'notice'  => sprintf('Warning: Gallery  2 has a desirable mimimum requirement of PHP Version 7.1.x but you have PHP Version %s installed. Gallery 2 will function with your version of PHP but may be slower and require additional server resources. %s', PHP_VERSION, $prefPHP),
 			);
 		} elseif (version_compare(PHP_VERSION, '7.3.0', '<')) {
 			$templateData['check'][] = array(
-				'title'   => _('PHP Version &gt;= v7.3.0'),
+				'title'   => 'PHP Version &gt;= v7.3.0',
 				'success' => true,
-				'notice'  => sprintf(_('Note: Gallery 2 performs best with PHP Version 7.3.x but you have PHP Version %s installed.' . $prefPHP), PHP_VERSION),
+				'notice'  => sprintf('Note: Gallery 2 performs best with PHP Version 7.3.x but you have PHP Version %s installed. %s', PHP_VERSION, $prefPHP),
 			);
 		} elseif (version_compare(PHP_VERSION, '7.3.99', '>')) {
 			$templateData['check'][] = array(
-				'title'   => _('PHP Version &gt;= v7.4.0'),
+				'title'   => 'PHP Version &gt;= v7.4.0',
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Gallery 2 has NOT been tested on PHP Version 7.4.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP.' . $prefPHP), PHP_VERSION),
+				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.4.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
 			);
 		} else {
 			$templateData['check'][] = array(
-				'title'   => _('PHP Version &gt;= v7.3.0'),
+				'title'   => 'PHP Version &gt;= v7.3.0',
 				'success' => true,
 			);
 		}
@@ -125,14 +123,14 @@ class SystemChecksStep extends InstallStep {
 		// assert that __FILE__ works correctly
 		if (!self::CheckFileDirective()) {
 			$templateData['check'][] = array(
-				'title'  => _('FILE directive supported'),
+				'title'  => 'FILE directive supported',
 				'error'  => true,
-				'notice' => _('Error: your PHP __FILE__ directive is not functioning correctly. Please file a support request with your webserver administrator or in the Gallery Support Forum.'),
+				'notice' => 'Error: your PHP __FILE__ directive is not functioning correctly. Please file a support request with your webserver administrator or in the Gallery Support Forum.',
 			);
 			$failCount++;
 		} else {
 			$templateData['check'][] = array(
-				'title'   => _('FILE Directive'),
+				'title'   => 'FILE Directive',
 				'success' => true,
 			);
 		}
@@ -140,14 +138,14 @@ class SystemChecksStep extends InstallStep {
 		// Make sure that safe mode is not enabled
 		if (GalleryUtilities::getPhpIniBool('safe_mode')) {
 			$templateData['check'][] = array(
-				'title'  => _('Safe mode disabled'),
+				'title'  => 'Safe mode disabled',
 				'error'  => true,
-				'notice' => _('Error: Your version of PHP is configured with safe mode enabled. You must disable safe mode before Gallery will run.'),
+				'notice' => 'Error: Your version of PHP is configured with safe mode enabled. You must disable safe mode before Gallery will run.',
 			);
 			$failCount++;
 		} else {
 			$templateData['check'][] = array(
-				'title'   => _('Safe Mode'),
+				'title'   => 'Safe Mode',
 				'success' => true,
 			);
 		}
@@ -155,9 +153,9 @@ class SystemChecksStep extends InstallStep {
 		// Make sure we have PCRE support
 		if (!function_exists('preg_match') || !function_exists('preg_replace')) {
 			$templateData['check'][] = array(
-				'title'  => _('Regular expressions'),
+				'title'  => 'Regular expressions',
 				'error'  => true,
-				'notice' => sprintf(_('Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. You must enable these functions before Gallery will run.'), '<a href="http://php.net/pcre">', '</a>'),
+				'notice' => sprintf('Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. You must enable these functions before Gallery will run.', '<a href="http://php.net/pcre">', '</a>'),
 			);
 			$failCount++;
 		}
@@ -166,13 +164,13 @@ class SystemChecksStep extends InstallStep {
 		// Warning when exec() is disabled
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			$templateData['check'][] = array(
-				'title'   => _('exec() allowed'),
+				'title'   => 'exec() allowed',
 				'warning' => true,
-				'notice'  => _('Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. You will not be able to use modules that require external binaries (e.g. ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change it in the global php.ini.'),
+				'notice'  => 'Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. You will not be able to use modules that require external binaries (e.g. ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change it in the global php.ini.',
 			);
 		} else {
 			$templateData['check'][] = array(
-				'title'   => _('exec() allowed'),
+				'title'   => 'exec() allowed',
 				'success' => true,
 			);
 		}
@@ -181,13 +179,13 @@ class SystemChecksStep extends InstallStep {
 		if (in_array('set_time_limit', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			$timeLimit               = ini_get('max_execution_time');
 			$templateData['check'][] = array(
-				'title'   => _('set_time_limit() allowed'),
+				'title'   => 'set_time_limit() allowed',
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: The set_time_limit() function is disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. Gallery can function with this setting, but it will not operate reliably. Any operation that takes longer than %d seconds will fail (and in some cases just return a blank page) possibly leading to data corruption.'), $timeLimit),
+				'notice'  => sprintf('Warning: The set_time_limit() function is disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. Gallery can function with this setting, but it will not operate reliably. Any operation that takes longer than %d seconds will fail (and in some cases just return a blank page) possibly leading to data corruption.', $timeLimit),
 			);
 		} else {
 			$templateData['check'][] = array(
-				'title'   => _('set_time_limit() allowed'),
+				'title'   => 'set_time_limit() allowed',
 				'success' => true,
 			);
 
@@ -196,7 +194,7 @@ class SystemChecksStep extends InstallStep {
 			$setTimeLimitAvailable = true;
 		}
 
-		$template->renderStatusMessage(_('Performing system checks'), '', 0.02);
+		$template->renderStatusMessage('Performing system checks', '', 0.02);
 
 		// Make sure filesystem operations are allowed
 		$missingFilesystemFunctions = array();
@@ -234,9 +232,9 @@ class SystemChecksStep extends InstallStep {
 
 		if (!empty($missingFilesystemFunctions)) {
 			$templateData['check'][] = array(
-				'title'  => _('Filesystem Operations'),
+				'title'  => 'Filesystem Operations',
 				'error'  => true,
-				'notice' => sprintf(_('Error: Essential filesystem operations are disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. You must allow these functions before Gallery will run. These functions are missing: %s.'), implode(', ', $missingFilesystemFunctions)),
+				'notice' => sprintf('Error: Essential filesystem operations are disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. You must allow these functions before Gallery will run. These functions are missing: %s.', implode(', ', $missingFilesystemFunctions)),
 			);
 			$failCount++;
 		}
@@ -247,7 +245,7 @@ class SystemChecksStep extends InstallStep {
 			$templateData['check'][] = array(
 				'title'   => 'File Uploads Allowed',
 				'warning' => true,
-				'notice'  => _('Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in php.ini). You will need to enable this option if you want to upload files to your Gallery with a web browser.'),
+				'notice'  => 'Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in php.ini). You will need to enable this option if you want to upload files to your Gallery with a web browser.',
 			);
 			$suggestedHtaccess[]     = 'php_flag file_uploads on';
 		} else {
@@ -268,7 +266,7 @@ class SystemChecksStep extends InstallStep {
 			$templateData['check'][] = array(
 				'title'   => $title,
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Your PHP is configured to limit the size of file uploads to a maximum of %sb (<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow uploading bigger files.'), ini_get('upload_max_filesize')),
+				'notice'  => sprintf('Warning: Your PHP is configured to limit the size of file uploads to a maximum of %sb (<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow uploading bigger files.', ini_get('upload_max_filesize')),
 			);
 			$suggestedHtaccess[]     = sprintf('php_value upload_max_filesize %sM', $minimumUploadSize);
 		} else {
@@ -289,7 +287,7 @@ class SystemChecksStep extends InstallStep {
 			$templateData['check'][] = array(
 				'title'   => $title,
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Your PHP is configured to limit post data to a maximum of %sb (<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading bigger files.'), ini_get('post_max_size')),
+				'notice'  => sprintf('Warning: Your PHP is configured to limit post data to a maximum of %sb (<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading bigger files.', ini_get('post_max_size')),
 			);
 			$suggestedHtaccess[]     = sprintf('php_value post_max_size %sM', $minimumPostSize);
 		} else {
@@ -311,7 +309,7 @@ class SystemChecksStep extends InstallStep {
 			$templateData['check'][] = array(
 				'title'   => $title,
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in php.ini). You should raise this limit to at least <b>%sMb</b> for proper Gallery operation.'), $memoryLimit, $minimumMemoryLimit),
+				'notice'  => sprintf('Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in php.ini). You should raise this limit to at least <b>%sMb</b> for proper Gallery operation.', $memoryLimit, $minimumMemoryLimit),
 			);
 			$suggestedHtaccess[]     = sprintf('php_value memory_limit %sM', $minimumMemoryLimit);
 		} else {
@@ -322,25 +320,25 @@ class SystemChecksStep extends InstallStep {
 		}
 
 		// Check for gettext support
-		$title = _('Translation support');
+		$title = 'Translation support';
 
 		if (!function_exists('dgettext')) {
 			$templateData['check'][] = array(
 				'title'   => $title,
 				'warning' => true,
-				'notice'  => sprintf(_('Your webserver does not support localization. To enable support for ' . 'additional languages please instruct your system administrator to reconfigure PHP with the %sgettext%s option enabled.'), '<a href="http://php.net/gettext">', '</a>'),
+				'notice'  => sprintf('Your webserver does not support localization. To enable support for ' . 'additional languages please instruct your system administrator to reconfigure PHP with the %sgettext%s option enabled.', '<a href="http://php.net/gettext">', '</a>'),
 			);
 		} elseif (!function_exists('bind_textdomain_codeset')) {
 			$templateData['check'][] = array(
 				'title'   => $title,
 				'warning' => true,
-				'notice'  => sprintf(_('Your PHP is missing the function %sbind_textdomain_codeset%s. This ' . 'means Gallery may display extended characters for some languages incorrectly.'), '<a href="http://php.net/bind_textdomain_codeset">', '</a>'),
+				'notice'  => sprintf('Your PHP is missing the function %sbind_textdomain_codeset%s. This ' . 'means Gallery may display extended characters for some languages incorrectly.', '<a href="http://php.net/bind_textdomain_codeset">', '</a>'),
 			);
 		} elseif (!function_exists('dngettext')) {
 			$templateData['check'][] = array(
 				'title'   => $title,
 				'warning' => true,
-				'notice'  => sprintf(_('Your PHP is missing the function %sdngettext%s. This means Gallery ' . 'will be unable to translate plural forms.'), '<a href="http://php.net/dngettext">', '</a>'),
+				'notice'  => sprintf('Your PHP is missing the function %sdngettext%s. This means Gallery ' . 'will be unable to translate plural forms.', '<a href="http://php.net/dngettext">', '</a>'),
 			);
 		} else {
 			$templateData['check'][] = array(
@@ -352,9 +350,9 @@ class SystemChecksStep extends InstallStep {
 		// $x=$x[0] <--(an object) can crash PHP with zend.ze1_compatibility_mode ON
 		if (GalleryUtilities::getPhpIniBool('zend.ze1_compatibility_mode')) {
 			$templateData['check'][] = array(
-				'title'   => _('Zend compatibility mode'),
+				'title'   => 'Zend compatibility mode',
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Your PHP is configured with Zend ze1_compatibility_mode ' . 'which can cause PHP to crash.  Click %shere%s to test your PHP.  ' . 'If you see "SUCCESS" then your PHP is ok.  If you get an ' . 'error or no response then you must turn off ze1_compatibility_mode ' . 'before proceeding.'), sprintf('<a href="%s">', INDEX_PHP . '?step=' . $this->_stepNumber . '&amp;zendtest=1'), '</a>'),
+				'notice'  => sprintf('Warning: Your PHP is configured with Zend ze1_compatibility_mode ' . 'which can cause PHP to crash.  Click %shere%s to test your PHP.  ' . 'If you see "SUCCESS" then your PHP is ok.  If you get an ' . 'error or no response then you must turn off ze1_compatibility_mode ' . 'before proceeding.', sprintf('<a href="%s">', INDEX_PHP . '?step=' . $this->_stepNumber . '&amp;zendtest=1'), '</a>'),
 			);
 		}
 		// skip showing 'success' for this one
@@ -362,9 +360,9 @@ class SystemChecksStep extends InstallStep {
 		// Warning if putenv is disabled
 		if (in_array('putenv', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			$templateData['check'][] = array(
-				'title'   => _('putenv() allowed'),
+				'title'   => 'putenv() allowed',
 				'warning' => true,
-				'notice'  => _('Warning: The putenv() function is disabled in your PHP by the <b>' . 'disabled_functions</b> parameter in php.ini.  Gallery can function with ' . 'this setting, but on some rare systems Gallery will be unable to run in ' . 'other languages than the system language and English.'),
+				'notice'  => 'Warning: The putenv() function is disabled in your PHP by the <b>' . 'disabled_functions</b> parameter in php.ini.  Gallery can function with ' . 'this setting, but on some rare systems Gallery will be unable to run in ' . 'other languages than the system language and English.',
 			);
 		}
 		// skip showing 'success' for this one
@@ -394,15 +392,15 @@ class SystemChecksStep extends InstallStep {
 			$templateData['check'][] = array(
 				'title'   => 'Output Buffering Disabled',
 				'warning' => true,
-				'notice'  => sprintf(_('Warning: Output buffering is enabled in your PHP by the <b>%s</b> ' . 'parameter(s) in php.ini.  Gallery can function with this setting - ' . 'downloading files is even faster - but Gallery might be unable to ' . 'serve large files (e.g. large videos) and run into the memory limit.' . ' Also, some features like the progress bars might not work correctly' . ' if output buffering is enabled unless ini_set() is allowed.'), implode(', ', $outputBuffers)),
+				'notice'  => sprintf('Warning: Output buffering is enabled in your PHP by the <b>%s</b> ' . 'parameter(s) in php.ini.  Gallery can function with this setting - ' . 'downloading files is even faster - but Gallery might be unable to ' . 'serve large files (e.g. large videos) and run into the memory limit.' . ' Also, some features like the progress bars might not work correctly' . ' if output buffering is enabled unless ini_set() is allowed.', implode(', ', $outputBuffers)),
 			);
 		}
 		// skip showing 'success' for this one
 
-		$template->renderStatusMessage(_('Performing system checks'), '', 0.06);
+		$template->renderStatusMessage('Performing system checks', '', 0.06);
 
 		// Check all files against MANIFEST
-		$title = _('Gallery file integrity');
+		$title = 'Gallery file integrity';
 
 		if (!self::CheckFileDirective() || !empty($missingFilesystemFunctions)) {
 			$templateData['check'][] = array(
@@ -416,7 +414,7 @@ class SystemChecksStep extends InstallStep {
 				$templateData['check'][] = array(
 					'title'  => 'Theme Available',
 					'error'  => true,
-					'notice' => sprintf(_('Error: There must be at least one theme in the %s folder!'), dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'themes'),
+					'notice' => sprintf('Error: There must be at least one theme in the %s folder!', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'themes'),
 				);
 				$failCount++;
 			}
@@ -463,7 +461,7 @@ class SystemChecksStep extends InstallStep {
 			$galleryStub->setConfig('systemchecks.issvninstall', $isSvnInstall);
 		}
 
-		$template->renderStatusMessage(_('Performing system checks'), '', 1);
+		$template->renderStatusMessage('Performing system checks', '', 1);
 		$template->hideStatusBlock();
 
 		$templateData['suggestedHtaccess'] = join("\n", $suggestedHtaccess);
@@ -524,7 +522,7 @@ class SystemChecksStep extends InstallStep {
 			return null;
 		}
 
-		$statusMonitor->renderStatusMessage(_('Performing system checks'), '', 0.1);
+		$statusMonitor->renderStatusMessage('Performing system checks', '', 0.1);
 
 		if ($useSetTimeLimit) {
 			set_time_limit(180);
@@ -543,7 +541,7 @@ class SystemChecksStep extends InstallStep {
 			$path = $base . $file;
 
 			if ($i % $stepSize == 0) {
-				$statusMonitor->renderStatusMessage(_('Performing system checks'), '', 0.12 + $i / $stepSize * 0.04);
+				$statusMonitor->renderStatusMessage('Performing system checks', '', 0.12 + $i / $stepSize * 0.04);
 
 				if ($useSetTimeLimit) {
 					set_time_limit(180);

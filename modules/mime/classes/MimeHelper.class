@@ -39,7 +39,11 @@ class MimeHelper {
 			'GalleryMimeTypeMap',
 			array('mimeType', 'extension', 'viewable'),
 			array(),
-			array('orderBy' => array('mimeType' => ORDER_ASCENDING))
+			array(
+				'orderBy' => array(
+					'mimeType' => ORDER_ASCENDING,
+				),
+			)
 		);
 
 		if ($ret) {

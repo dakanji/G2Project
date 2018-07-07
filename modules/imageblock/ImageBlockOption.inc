@@ -88,7 +88,7 @@ class ImageBlockOption extends ItemEditOption {
 	 * @see ItemEditOption::requiresProgressBar
 	 */
 	public function requiresProgressBar($form) {
-		$itemId                         = GalleryUtilities::getRequestVariables('itemId');
+		$itemId                        = GalleryUtilities::getRequestVariables('itemId');
 		list($ret, $currentlyDisabled) = ImageBlockHelper::getDisabledFlag($itemId);
 
 		if ($ret) {

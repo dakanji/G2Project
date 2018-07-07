@@ -128,7 +128,7 @@ class SlideshowAppletSiteAdminController extends GalleryController {
 
 			foreach ($variables1 as $variable) {
 				list($key, $value) = explode('=', $variable);
-				$variables2[$key]   = $value;
+				$variables2[$key]  = $value;
 			}
 
 			return array(null, $variables2);
@@ -190,7 +190,9 @@ class SlideshowAppletSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/slideshowapplet/templates/SlideshowAppletSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/slideshowapplet/templates/SlideshowAppletSiteAdmin.tpl',
+			),
 		);
 	}
 }

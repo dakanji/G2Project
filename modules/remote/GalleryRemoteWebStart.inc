@@ -102,11 +102,12 @@ class GalleryRemoteWebStartView extends GalleryView {
   <application-desc main-class="com.gallery.GalleryRemote.GalleryRemote">
 	<argument>-url</argument>
 	<argument><?php echo $codebase; ?></argument>
-		<?php if (isset($username)) {
+		<?php
+		if (isset($username)) {
 			?>
 	<argument>-username</argument>
 	<argument><?php echo $username; ?></argument>
-		<?php
+			<?php
 		} ?>
   </application-desc>
 </jnlp>

@@ -81,7 +81,9 @@ class PublishXpLoginController extends GalleryController {
 
 			if (!empty($error) && !empty($form['userName'])) {
 				$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-				$event->setData(array('userName' => $form['userName']));
+				$event->setData(array(
+					'userName' => $form['userName'],
+				));
 				list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {
@@ -125,7 +127,14 @@ class PublishXpLoginView extends GalleryView {
 
 		if (!$isAnonymous) {
 			// No need to log in
-			return array(null, array('redirect' => array('view' => 'publishxp.SelectAlbum')));
+			return array(
+				null,
+				array(
+					'redirect' => array(
+						'view' => 'publishxp.SelectAlbum',
+					),
+				),
+			);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');

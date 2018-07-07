@@ -66,6 +66,11 @@ class UserWatermarkEditView extends GalleryView {
 			return array($ret, null);
 		}
 
-		return array(null, array('body' => 'modules/watermark/templates/UserWatermarkEdit.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/watermark/templates/UserWatermarkEdit.tpl',
+			),
+		);
 	}
 }

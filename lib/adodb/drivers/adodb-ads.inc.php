@@ -46,15 +46,15 @@ if (!defined('ADODB_DIR')) {
 --------------------------------------------------------------------------------------*/
 
 class ADODB_ads extends ADOConnection {
-	public $databaseType        = 'ads';
-	public $fmt                 = "'m-d-Y'";
-	public $fmtTimeStamp        = "'Y-m-d H:i:s'";
+	public $databaseType    = 'ads';
+	public $fmt             = "'m-d-Y'";
+	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 	public $concat_operator = '';
-	public $replaceQuote        = "''"; // string to use to replace quotes
-	public $dataProvider        = 'ads';
-	public $hasAffectedRows     = true;
-	public $binmode             = ODBC_BINMODE_RETURN;
-	public $useFetchArray       = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
+	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $dataProvider    = 'ads';
+	public $hasAffectedRows = true;
+	public $binmode         = ODBC_BINMODE_RETURN;
+	public $useFetchArray   = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
 	// breaking backward-compat
 	//var $longreadlen = 8000; // default number of chars to return for a Blob/Long field
 	public $_bindInputArray                   = false;
@@ -140,8 +140,8 @@ class ADODB_ads extends ADOConnection {
 	// returns the Server version and Description
 	public function ServerInfo() {
 		if (!empty($this->host) && ADODB_PHPVER >= 0x4300) {
-			$stmt            = $this->Prepare('EXECUTE PROCEDURE sp_mgGetInstallInfo()');
-			$res = $this->Execute($stmt);
+			$stmt = $this->Prepare('EXECUTE PROCEDURE sp_mgGetInstallInfo()');
+			$res  = $this->Execute($stmt);
 
 			if (!$res) {
 				echo $this->ErrorMsg();
@@ -692,8 +692,8 @@ class ADODB_ads extends ADOConnection {
 
 		if (! ads_execute($stmtid, array($val), array(SQL_BINARY))) {
 			if ($this->_haserrorfunctions) {
-				$this->_errorMsg = ads_errormsg();
-				$this->_errorCode        = ads_error();
+				$this->_errorMsg  = ads_errormsg();
+				$this->_errorCode = ads_error();
 			}
 
 			return false;

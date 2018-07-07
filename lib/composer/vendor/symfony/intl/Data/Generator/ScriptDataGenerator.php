@@ -22,80 +22,74 @@ use Symfony\Component\Intl\Data\Util\LocaleScanner;
  *
  * @internal
  */
-class ScriptDataGenerator extends AbstractDataGenerator
-{
-    /**
-     * Collects all available language codes.
-     *
-     * @var string[]
-     */
-    private $scriptCodes = array();
+class ScriptDataGenerator extends AbstractDataGenerator {
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function scanLocales(LocaleScanner $scanner, $sourceDir)
-    {
-        return $scanner->scanLocales($sourceDir.'/lang');
-    }
+	/**
+	 * Collects all available language codes.
+	 *
+	 * @var string[]
+	 */
+	private $scriptCodes = array();
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function compileTemporaryBundles(GenrbCompiler $compiler, $sourceDir, $tempDir)
-    {
-        $compiler->compile($sourceDir.'/lang', $tempDir);
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function scanLocales(LocaleScanner $scanner, $sourceDir) {
+		return $scanner->scanLocales($sourceDir . '/lang');
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function preGenerate()
-    {
-        $this->scriptCodes = array();
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function compileTemporaryBundles(GenrbCompiler $compiler, $sourceDir, $tempDir) {
+		$compiler->compile($sourceDir . '/lang', $tempDir);
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataForLocale(BundleReaderInterface $reader, $tempDir, $displayLocale)
-    {
-        $localeBundle = $reader->read($tempDir, $displayLocale);
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function preGenerate() {
+		$this->scriptCodes = array();
+	}
 
-        // isset() on \ResourceBundle returns true even if the value is null
-        if (isset($localeBundle['Scripts']) && null !== $localeBundle['Scripts']) {
-            $data = array(
-                'Version' => $localeBundle['Version'],
-                'Names' => iterator_to_array($localeBundle['Scripts']),
-            );
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function generateDataForLocale(BundleReaderInterface $reader, $tempDir, $displayLocale) {
+		$localeBundle = $reader->read($tempDir, $displayLocale);
 
-            $this->scriptCodes = array_merge($this->scriptCodes, array_keys($data['Names']));
+		// isset() on \ResourceBundle returns true even if the value is null
+		if (isset($localeBundle['Scripts']) && null !== $localeBundle['Scripts']) {
+			$data = array(
+				'Version' => $localeBundle['Version'],
+				'Names'   => iterator_to_array($localeBundle['Scripts']),
+			);
 
-            return $data;
-        }
-    }
+			$this->scriptCodes = array_merge($this->scriptCodes, array_keys($data['Names']));
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataForRoot(BundleReaderInterface $reader, $tempDir)
-    {
-    }
+			return $data;
+		}
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir)
-    {
-        $rootBundle = $reader->read($tempDir, 'root');
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function generateDataForRoot(BundleReaderInterface $reader, $tempDir) {
+	}
 
-        $this->scriptCodes = array_unique($this->scriptCodes);
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir) {
+		$rootBundle = $reader->read($tempDir, 'root');
 
-        sort($this->scriptCodes);
+		$this->scriptCodes = array_unique($this->scriptCodes);
 
-        return array(
-            'Version' => $rootBundle['Version'],
-            'Scripts' => $this->scriptCodes,
-        );
-    }
+		sort($this->scriptCodes);
+
+		return array(
+			'Version' => $rootBundle['Version'],
+			'Scripts' => $this->scriptCodes,
+		);
+	}
 }

@@ -304,7 +304,7 @@ class GalleryController {
 	 */
 	public function permissionCheck($ret) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		$view                 = new GalleryView();
+		$view                = new GalleryView();
 		list($ret, $results) = $view->_permissionCheck($ret);
 
 		if (!empty($results['redirect'])) {

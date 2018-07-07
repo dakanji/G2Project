@@ -11,9 +11,8 @@
 
 namespace Symfony\Polyfill\Tests\Php73;
 
-function genOneToTen()
-{
-    for ($i = 1; $i <= 10; ++$i) {
-        yield $i;
-    }
+function genOneToTen() {
+	for ($i = 1; $i <= 10; ++$i) {
+		yield $i;
+	}
 }

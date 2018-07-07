@@ -87,7 +87,11 @@ class GalleryFactoryHelper_simple {
 						'orderWeight',
 					),
 					array(),
-					array('orderBy' => array('orderWeight' => ORDER_ASCENDING))
+					array(
+						'orderBy' => array(
+							'orderWeight' => ORDER_ASCENDING,
+						),
+					)
 				);
 
 				if ($ret) {
@@ -148,7 +152,7 @@ class GalleryFactoryHelper_simple {
 		}
 
 		// Right now we just use the first available hint
-		$className             = $classNames[0];
+		$className            = $classNames[0];
 		list($ret, $instance) = self::newInstance($classType, $className);
 
 		if ($ret) {
@@ -242,7 +246,7 @@ class GalleryFactoryHelper_simple {
 			return array(null, null);
 		}
 
-		$className             = $registry['ids'][$classType][$id];
+		$className            = $registry['ids'][$classType][$id];
 		list($ret, $instance) = self::newInstance($classType, $className);
 
 		if ($ret) {

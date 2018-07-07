@@ -46,7 +46,9 @@ class IconsImpl extends IconsInterface_1_0 {
 			return array($ret, null);
 		}
 
-		$icons = array('' => $module->translate('None'));
+		$icons = array(
+			'' => $module->translate('None'),
+		);
 		$dir   = dirname(__FILE__) . '/../iconpacks';
 
 		if ($platform->is_dir($dir) && $platform->is_readable($dir)

@@ -22,7 +22,7 @@
  */
 class XmlParser {
 	public $_xmlObject;
-	public $_output    = array();
+	public $_output = array();
 
 	public function __construct() {
 		$this->_xmlObject = xml_parser_create();
@@ -51,7 +51,9 @@ class XmlParser {
 	}
 
 	public function startHandler($parser, $name, $attribs) {
-		$content = array('name' => $name);
+		$content = array(
+			'name' => $name,
+		);
 
 		if (!empty($attribs)) {
 			$content['attrs'] = $attribs;

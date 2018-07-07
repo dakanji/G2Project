@@ -43,7 +43,7 @@ class SizeLimitOption extends ItemEditOption {
 		 * Get the parameters for this album;
 		 * we are assuming that both $height and $width are either in or out...
 		 */
-		$SizeLimitOption     = array();
+		$SizeLimitOption    = array();
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'sizelimit',

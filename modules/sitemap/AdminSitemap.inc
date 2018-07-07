@@ -43,9 +43,16 @@ class AdminSitemapView extends GalleryView {
 		}
 		$template->setVariable(
 			'AdminSitemap',
-			array('canRewrite' => !empty($moduleStatus['rewrite']['active']))
+			array(
+				'canRewrite' => !empty($moduleStatus['rewrite']['active']),
+			)
 		);
 
-		return array(null, array('body' => 'modules/sitemap/templates/AdminSitemap.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/sitemap/templates/AdminSitemap.tpl',
+			),
+		);
 	}
 }

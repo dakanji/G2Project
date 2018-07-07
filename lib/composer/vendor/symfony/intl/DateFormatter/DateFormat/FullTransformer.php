@@ -21,327 +21,315 @@ use Symfony\Component\Intl\Globals\IntlGlobals;
  *
  * @internal
  */
-class FullTransformer
-{
-    private $quoteMatch = "'(?:[^']+|'')*'";
-    private $implementedChars = 'MLydQqhDEaHkKmsz';
-    private $notImplementedChars = 'GYuwWFgecSAZvVW';
-    private $regExp;
+class FullTransformer {
 
-    /**
-     * @var Transformer[]
-     */
-    private $transformers;
+	private $quoteMatch          = "'(?:[^']+|'')*'";
+	private $implementedChars    = 'MLydQqhDEaHkKmsz';
+	private $notImplementedChars = 'GYuwWFgecSAZvVW';
+	private $regExp;
 
-    private $pattern;
-    private $timezone;
+	/**
+	 * @var Transformer[]
+	 */
+	private $transformers;
 
-    /**
-     * @param string $pattern  The pattern to be used to format and/or parse values
-     * @param string $timezone The timezone to perform the date/time calculations
-     */
-    public function __construct($pattern, $timezone)
-    {
-        $this->pattern = $pattern;
-        $this->timezone = $timezone;
+	private $pattern;
+	private $timezone;
 
-        $implementedCharsMatch = $this->buildCharsMatch($this->implementedChars);
-        $notImplementedCharsMatch = $this->buildCharsMatch($this->notImplementedChars);
-        $this->regExp = "/($this->quoteMatch|$implementedCharsMatch|$notImplementedCharsMatch)/";
+	/**
+	 * @param string $pattern  The pattern to be used to format and/or parse values
+	 * @param string $timezone The timezone to perform the date/time calculations
+	 */
+	public function __construct($pattern, $timezone) {
+		$this->pattern  = $pattern;
+		$this->timezone = $timezone;
 
-        $this->transformers = array(
-            'M' => new MonthTransformer(),
-            'L' => new MonthTransformer(),
-            'y' => new YearTransformer(),
-            'd' => new DayTransformer(),
-            'q' => new QuarterTransformer(),
-            'Q' => new QuarterTransformer(),
-            'h' => new Hour1201Transformer(),
-            'D' => new DayOfYearTransformer(),
-            'E' => new DayOfWeekTransformer(),
-            'a' => new AmPmTransformer(),
-            'H' => new Hour2400Transformer(),
-            'K' => new Hour1200Transformer(),
-            'k' => new Hour2401Transformer(),
-            'm' => new MinuteTransformer(),
-            's' => new SecondTransformer(),
-            'z' => new TimezoneTransformer(),
-        );
-    }
+		$implementedCharsMatch    = $this->buildCharsMatch($this->implementedChars);
+		$notImplementedCharsMatch = $this->buildCharsMatch($this->notImplementedChars);
+		$this->regExp             = "/($this->quoteMatch|$implementedCharsMatch|$notImplementedCharsMatch)/";
 
-    /**
-     * Return the array of Transformer objects.
-     *
-     * @return Transformer[] Associative array of Transformer objects (format char => Transformer)
-     */
-    public function getTransformers()
-    {
-        return $this->transformers;
-    }
+		$this->transformers = array(
+			'M' => new MonthTransformer(),
+			'L' => new MonthTransformer(),
+			'y' => new YearTransformer(),
+			'd' => new DayTransformer(),
+			'q' => new QuarterTransformer(),
+			'Q' => new QuarterTransformer(),
+			'h' => new Hour1201Transformer(),
+			'D' => new DayOfYearTransformer(),
+			'E' => new DayOfWeekTransformer(),
+			'a' => new AmPmTransformer(),
+			'H' => new Hour2400Transformer(),
+			'K' => new Hour1200Transformer(),
+			'k' => new Hour2401Transformer(),
+			'm' => new MinuteTransformer(),
+			's' => new SecondTransformer(),
+			'z' => new TimezoneTransformer(),
+		);
+	}
 
-    /**
-     * Format a DateTime using ICU dateformat pattern.
-     *
-     * @param \DateTime $dateTime A DateTime object to be used to generate the formatted value
-     *
-     * @return string The formatted value
-     */
-    public function format(\DateTime $dateTime)
-    {
-        $formatted = preg_replace_callback($this->regExp, function ($matches) use ($dateTime) {
-            return $this->formatReplace($matches[0], $dateTime);
-        }, $this->pattern);
+	/**
+	 * Return the array of Transformer objects.
+	 *
+	 * @return Transformer[] Associative array of Transformer objects (format char => Transformer)
+	 */
+	public function getTransformers() {
+		return $this->transformers;
+	}
 
-        return $formatted;
-    }
+	/**
+	 * Format a DateTime using ICU dateformat pattern.
+	 *
+	 * @param \DateTime $dateTime A DateTime object to be used to generate the formatted value
+	 *
+	 * @return string The formatted value
+	 */
+	public function format(\DateTime $dateTime) {
+		$formatted = preg_replace_callback($this->regExp, function ($matches) use ($dateTime) {
+			return $this->formatReplace($matches[0], $dateTime);
+		}, $this->pattern);
 
-    /**
-     * Return the formatted ICU value for the matched date characters.
-     *
-     * @param string    $dateChars The date characters to be replaced with a formatted ICU value
-     * @param \DateTime $dateTime  A DateTime object to be used to generate the formatted value
-     *
-     * @return string The formatted value
-     *
-     * @throws NotImplementedException When it encounters a not implemented date character
-     */
-    public function formatReplace($dateChars, $dateTime)
-    {
-        $length = strlen($dateChars);
+		return $formatted;
+	}
 
-        if ($this->isQuoteMatch($dateChars)) {
-            return $this->replaceQuoteMatch($dateChars);
-        }
+	/**
+	 * Return the formatted ICU value for the matched date characters.
+	 *
+	 * @param string    $dateChars The date characters to be replaced with a formatted ICU value
+	 * @param \DateTime $dateTime  A DateTime object to be used to generate the formatted value
+	 *
+	 * @return string The formatted value
+	 *
+	 * @throws NotImplementedException When it encounters a not implemented date character
+	 */
+	public function formatReplace($dateChars, $dateTime) {
+		$length = strlen($dateChars);
 
-        if (isset($this->transformers[$dateChars[0]])) {
-            $transformer = $this->transformers[$dateChars[0]];
+		if ($this->isQuoteMatch($dateChars)) {
+			return $this->replaceQuoteMatch($dateChars);
+		}
 
-            return $transformer->format($dateTime, $length);
-        }
+		if (isset($this->transformers[$dateChars[0]])) {
+			$transformer = $this->transformers[$dateChars[0]];
 
-        // handle unimplemented characters
-        if (false !== strpos($this->notImplementedChars, $dateChars[0])) {
-            throw new NotImplementedException(sprintf('Unimplemented date character "%s" in format "%s"', $dateChars[0], $this->pattern));
-        }
-    }
+			return $transformer->format($dateTime, $length);
+		}
 
-    /**
-     * Parse a pattern based string to a timestamp value.
-     *
-     * @param \DateTime $dateTime A configured DateTime object to use to perform the date calculation
-     * @param string    $value    String to convert to a time value
-     *
-     * @return int|false The corresponding Unix timestamp
-     *
-     * @throws \InvalidArgumentException When the value can not be matched with pattern
-     */
-    public function parse(\DateTime $dateTime, $value)
-    {
-        $reverseMatchingRegExp = $this->getReverseMatchingRegExp($this->pattern);
-        $reverseMatchingRegExp = '/^'.$reverseMatchingRegExp.'$/';
+		// handle unimplemented characters
+		if (false !== strpos($this->notImplementedChars, $dateChars[0])) {
+			throw new NotImplementedException(sprintf('Unimplemented date character "%s" in format "%s"', $dateChars[0], $this->pattern));
+		}
+	}
 
-        $options = array();
+	/**
+	 * Parse a pattern based string to a timestamp value.
+	 *
+	 * @param \DateTime $dateTime A configured DateTime object to use to perform the date calculation
+	 * @param string    $value    String to convert to a time value
+	 *
+	 * @return int|false The corresponding Unix timestamp
+	 *
+	 * @throws \InvalidArgumentException When the value can not be matched with pattern
+	 */
+	public function parse(\DateTime $dateTime, $value) {
+		$reverseMatchingRegExp = $this->getReverseMatchingRegExp($this->pattern);
+		$reverseMatchingRegExp = '/^' . $reverseMatchingRegExp . '$/';
 
-        if (preg_match($reverseMatchingRegExp, $value, $matches)) {
-            $matches = $this->normalizeArray($matches);
+		$options = array();
 
-            foreach ($this->transformers as $char => $transformer) {
-                if (isset($matches[$char])) {
-                    $length = strlen($matches[$char]['pattern']);
-                    $options = array_merge($options, $transformer->extractDateOptions($matches[$char]['value'], $length));
-                }
-            }
+		if (preg_match($reverseMatchingRegExp, $value, $matches)) {
+			$matches = $this->normalizeArray($matches);
 
-            // reset error code and message
-            IntlGlobals::setError(IntlGlobals::U_ZERO_ERROR);
+			foreach ($this->transformers as $char => $transformer) {
+				if (isset($matches[$char])) {
+					$length  = strlen($matches[$char]['pattern']);
+					$options = array_merge($options, $transformer->extractDateOptions($matches[$char]['value'], $length));
+				}
+			}
 
-            return $this->calculateUnixTimestamp($dateTime, $options);
-        }
+			// reset error code and message
+			IntlGlobals::setError(IntlGlobals::U_ZERO_ERROR);
 
-        // behave like the intl extension
-        IntlGlobals::setError(IntlGlobals::U_PARSE_ERROR, 'Date parsing failed');
+			return $this->calculateUnixTimestamp($dateTime, $options);
+		}
 
-        return false;
-    }
+		// behave like the intl extension
+		IntlGlobals::setError(IntlGlobals::U_PARSE_ERROR, 'Date parsing failed');
 
-    /**
-     * Retrieve a regular expression to match with a formatted value.
-     *
-     * @param string $pattern The pattern to create the reverse matching regular expression
-     *
-     * @return string The reverse matching regular expression with named captures being formed by the
-     *                transformer index in the $transformer array
-     */
-    public function getReverseMatchingRegExp($pattern)
-    {
-        $escapedPattern = preg_quote($pattern, '/');
+		return false;
+	}
 
-        // ICU 4.8 recognizes slash ("/") in a value to be parsed as a dash ("-") and vice-versa
-        // when parsing a date/time value
-        $escapedPattern = preg_replace('/\\\[\-|\/]/', '[\/\-]', $escapedPattern);
+	/**
+	 * Retrieve a regular expression to match with a formatted value.
+	 *
+	 * @param string $pattern The pattern to create the reverse matching regular expression
+	 *
+	 * @return string The reverse matching regular expression with named captures being formed by the
+	 *                transformer index in the $transformer array
+	 */
+	public function getReverseMatchingRegExp($pattern) {
+		$escapedPattern = preg_quote($pattern, '/');
 
-        $reverseMatchingRegExp = preg_replace_callback($this->regExp, function ($matches) {
-            $length = strlen($matches[0]);
-            $transformerIndex = $matches[0][0];
+		// ICU 4.8 recognizes slash ("/") in a value to be parsed as a dash ("-") and vice-versa
+		// when parsing a date/time value
+		$escapedPattern = preg_replace('/\\\[\-|\/]/', '[\/\-]', $escapedPattern);
 
-            $dateChars = $matches[0];
-            if ($this->isQuoteMatch($dateChars)) {
-                return $this->replaceQuoteMatch($dateChars);
-            }
+		$reverseMatchingRegExp = preg_replace_callback($this->regExp, function ($matches) {
+			$length           = strlen($matches[0]);
+			$transformerIndex = $matches[0][0];
 
-            $transformers = $this->getTransformers();
-            if (isset($transformers[$transformerIndex])) {
-                $transformer = $transformers[$transformerIndex];
-                $captureName = str_repeat($transformerIndex, $length);
+			$dateChars = $matches[0];
+			if ($this->isQuoteMatch($dateChars)) {
+				return $this->replaceQuoteMatch($dateChars);
+			}
 
-                return "(?P<$captureName>".$transformer->getReverseMatchingRegExp($length).')';
-            }
-        }, $escapedPattern);
+			$transformers = $this->getTransformers();
+			if (isset($transformers[$transformerIndex])) {
+				$transformer = $transformers[$transformerIndex];
+				$captureName = str_repeat($transformerIndex, $length);
 
-        return $reverseMatchingRegExp;
-    }
+				return "(?P<$captureName>" . $transformer->getReverseMatchingRegExp($length) . ')';
+			}
+		}, $escapedPattern);
 
-    /**
-     * Check if the first char of a string is a single quote.
-     *
-     * @param string $quoteMatch The string to check
-     *
-     * @return bool true if matches, false otherwise
-     */
-    public function isQuoteMatch($quoteMatch)
-    {
-        return "'" === $quoteMatch[0];
-    }
+		return $reverseMatchingRegExp;
+	}
 
-    /**
-     * Replaces single quotes at the start or end of a string with two single quotes.
-     *
-     * @param string $quoteMatch The string to replace the quotes
-     *
-     * @return string A string with the single quotes replaced
-     */
-    public function replaceQuoteMatch($quoteMatch)
-    {
-        if (preg_match("/^'+$/", $quoteMatch)) {
-            return str_replace("''", "'", $quoteMatch);
-        }
+	/**
+	 * Check if the first char of a string is a single quote.
+	 *
+	 * @param string $quoteMatch The string to check
+	 *
+	 * @return bool true if matches, false otherwise
+	 */
+	public function isQuoteMatch($quoteMatch) {
+		return "'" === $quoteMatch[0];
+	}
 
-        return str_replace("''", "'", substr($quoteMatch, 1, -1));
-    }
+	/**
+	 * Replaces single quotes at the start or end of a string with two single quotes.
+	 *
+	 * @param string $quoteMatch The string to replace the quotes
+	 *
+	 * @return string A string with the single quotes replaced
+	 */
+	public function replaceQuoteMatch($quoteMatch) {
+		if (preg_match("/^'+$/", $quoteMatch)) {
+			return str_replace("''", "'", $quoteMatch);
+		}
 
-    /**
-     * Builds a chars match regular expression.
-     *
-     * @param string $specialChars A string of chars to build the regular expression
-     *
-     * @return string The chars match regular expression
-     */
-    protected function buildCharsMatch($specialChars)
-    {
-        $specialCharsArray = str_split($specialChars);
+		return str_replace("''", "'", substr($quoteMatch, 1, -1));
+	}
 
-        $specialCharsMatch = implode('|', array_map(function ($char) {
-            return $char.'+';
-        }, $specialCharsArray));
+	/**
+	 * Builds a chars match regular expression.
+	 *
+	 * @param string $specialChars A string of chars to build the regular expression
+	 *
+	 * @return string The chars match regular expression
+	 */
+	protected function buildCharsMatch($specialChars) {
+		$specialCharsArray = str_split($specialChars);
 
-        return $specialCharsMatch;
-    }
+		$specialCharsMatch = implode('|', array_map(function ($char) {
+			return $char . '+';
+		}, $specialCharsArray));
 
-    /**
-     * Normalize a preg_replace match array, removing the numeric keys and returning an associative array
-     * with the value and pattern values for the matched Transformer.
-     *
-     * @return array
-     */
-    protected function normalizeArray(array $data)
-    {
-        $ret = array();
+		return $specialCharsMatch;
+	}
 
-        foreach ($data as $key => $value) {
-            if (!is_string($key)) {
-                continue;
-            }
+	/**
+	 * Normalize a preg_replace match array, removing the numeric keys and returning an associative array
+	 * with the value and pattern values for the matched Transformer.
+	 *
+	 * @return array
+	 */
+	protected function normalizeArray(array $data) {
+		$ret = array();
 
-            $ret[$key[0]] = array(
-                'value' => $value,
-                'pattern' => $key,
-            );
-        }
+		foreach ($data as $key => $value) {
+			if (!is_string($key)) {
+				continue;
+			}
 
-        return $ret;
-    }
+			$ret[$key[0]] = array(
+				'value'   => $value,
+				'pattern' => $key,
+			);
+		}
 
-    /**
-     * Calculates the Unix timestamp based on the matched values by the reverse matching regular
-     * expression of parse().
-     *
-     * @param \DateTime $dateTime The DateTime object to be used to calculate the timestamp
-     * @param array     $options  An array with the matched values to be used to calculate the timestamp
-     *
-     * @return bool|int The calculated timestamp or false if matched date is invalid
-     */
-    protected function calculateUnixTimestamp(\DateTime $dateTime, array $options)
-    {
-        $options = $this->getDefaultValueForOptions($options);
+		return $ret;
+	}
 
-        $year = $options['year'];
-        $month = $options['month'];
-        $day = $options['day'];
-        $hour = $options['hour'];
-        $hourInstance = $options['hourInstance'];
-        $minute = $options['minute'];
-        $second = $options['second'];
-        $marker = $options['marker'];
-        $timezone = $options['timezone'];
+	/**
+	 * Calculates the Unix timestamp based on the matched values by the reverse matching regular
+	 * expression of parse().
+	 *
+	 * @param \DateTime $dateTime The DateTime object to be used to calculate the timestamp
+	 * @param array     $options  An array with the matched values to be used to calculate the timestamp
+	 *
+	 * @return bool|int The calculated timestamp or false if matched date is invalid
+	 */
+	protected function calculateUnixTimestamp(\DateTime $dateTime, array $options) {
+		$options = $this->getDefaultValueForOptions($options);
 
-        // If month is false, return immediately (intl behavior)
-        if (false === $month) {
-            IntlGlobals::setError(IntlGlobals::U_PARSE_ERROR, 'Date parsing failed');
+		$year         = $options['year'];
+		$month        = $options['month'];
+		$day          = $options['day'];
+		$hour         = $options['hour'];
+		$hourInstance = $options['hourInstance'];
+		$minute       = $options['minute'];
+		$second       = $options['second'];
+		$marker       = $options['marker'];
+		$timezone     = $options['timezone'];
 
-            return false;
-        }
+		// If month is false, return immediately (intl behavior)
+		if (false === $month) {
+			IntlGlobals::setError(IntlGlobals::U_PARSE_ERROR, 'Date parsing failed');
 
-        // Normalize hour
-        if ($hourInstance instanceof HourTransformer) {
-            $hour = $hourInstance->normalizeHour($hour, $marker);
-        }
+			return false;
+		}
 
-        // Set the timezone if different from the default one
-        if (null !== $timezone && $timezone !== $this->timezone) {
-            $dateTime->setTimezone(new \DateTimeZone($timezone));
-        }
+		// Normalize hour
+		if ($hourInstance instanceof HourTransformer) {
+			$hour = $hourInstance->normalizeHour($hour, $marker);
+		}
 
-        // Normalize yy year
-        preg_match_all($this->regExp, $this->pattern, $matches);
-        if (in_array('yy', $matches[0])) {
-            $dateTime->setTimestamp(time());
-            $year = $year > $dateTime->format('y') + 20 ? 1900 + $year : 2000 + $year;
-        }
+		// Set the timezone if different from the default one
+		if (null !== $timezone && $timezone !== $this->timezone) {
+			$dateTime->setTimezone(new \DateTimeZone($timezone));
+		}
 
-        $dateTime->setDate($year, $month, $day);
-        $dateTime->setTime($hour, $minute, $second);
+		// Normalize yy year
+		preg_match_all($this->regExp, $this->pattern, $matches);
+		if (in_array('yy', $matches[0])) {
+			$dateTime->setTimestamp(time());
+			$year = $year > $dateTime->format('y') + 20 ? 1900 + $year : 2000 + $year;
+		}
 
-        return $dateTime->getTimestamp();
-    }
+		$dateTime->setDate($year, $month, $day);
+		$dateTime->setTime($hour, $minute, $second);
 
-    /**
-     * Add sensible default values for missing items in the extracted date/time options array. The values
-     * are base in the beginning of the Unix era.
-     *
-     * @return array
-     */
-    private function getDefaultValueForOptions(array $options)
-    {
-        return array(
-            'year' => isset($options['year']) ? $options['year'] : 1970,
-            'month' => isset($options['month']) ? $options['month'] : 1,
-            'day' => isset($options['day']) ? $options['day'] : 1,
-            'hour' => isset($options['hour']) ? $options['hour'] : 0,
-            'hourInstance' => isset($options['hourInstance']) ? $options['hourInstance'] : null,
-            'minute' => isset($options['minute']) ? $options['minute'] : 0,
-            'second' => isset($options['second']) ? $options['second'] : 0,
-            'marker' => isset($options['marker']) ? $options['marker'] : null,
-            'timezone' => isset($options['timezone']) ? $options['timezone'] : null,
-        );
-    }
+		return $dateTime->getTimestamp();
+	}
+
+	/**
+	 * Add sensible default values for missing items in the extracted date/time options array. The values
+	 * are base in the beginning of the Unix era.
+	 *
+	 * @return array
+	 */
+	private function getDefaultValueForOptions(array $options) {
+		return array(
+			'year'         => isset($options['year']) ? $options['year'] : 1970,
+			'month'        => isset($options['month']) ? $options['month'] : 1,
+			'day'          => isset($options['day']) ? $options['day'] : 1,
+			'hour'         => isset($options['hour']) ? $options['hour'] : 0,
+			'hourInstance' => isset($options['hourInstance']) ? $options['hourInstance'] : null,
+			'minute'       => isset($options['minute']) ? $options['minute'] : 0,
+			'second'       => isset($options['second']) ? $options['second'] : 0,
+			'marker'       => isset($options['marker']) ? $options['marker'] : null,
+			'timezone'     => isset($options['timezone']) ? $options['timezone'] : null,
+		);
+	}
 }

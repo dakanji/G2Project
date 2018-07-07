@@ -56,7 +56,7 @@ class ItemPermissionsController extends GalleryController {
 
 			// Handle delete group perm actions
 			list($groupId, $permissionId) = explode(',', $form['group']['delete'][$index]);
-			$ret                           = GalleryCoreApi::removeGroupPermission(
+			$ret                          = GalleryCoreApi::removeGroupPermission(
 				$itemId,
 				$groupId,
 				$permissionId,
@@ -75,7 +75,7 @@ class ItemPermissionsController extends GalleryController {
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[group][permission]'] = $permissionId;
-			list($ret, $group)                  = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+			list($ret, $group)                   = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 			if (!$ret) {
 				$redirect['form[group][groupName]'] = $group->getGroupName();
@@ -88,7 +88,7 @@ class ItemPermissionsController extends GalleryController {
 
 			// Handle delete user perm actions
 			list($userId, $permissionId) = explode(',', $form['user']['delete'][$index]);
-			$ret                          = GalleryCoreApi::removeUserPermission(
+			$ret                         = GalleryCoreApi::removeUserPermission(
 				$itemId,
 				$userId,
 				$permissionId,
@@ -107,7 +107,7 @@ class ItemPermissionsController extends GalleryController {
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[user][permission]'] = $permissionId;
-			list($ret, $user)                  = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+			list($ret, $user)                   = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 			if (!$ret) {
 				$redirect['form[user][userName]'] = $user->getUserName();
@@ -134,7 +134,7 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Validate the permission
-			$permission                  = $form['user']['permission'];
+			$permission                 = $form['user']['permission'];
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -195,7 +195,7 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Validate the permission
-			$permission                  = $form['group']['permission'];
+			$permission                 = $form['group']['permission'];
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -619,7 +619,12 @@ class ItemPermissionsView extends GalleryView {
 		$template->setVariable('ItemPermissions', $ItemPermissions);
 		$template->setVariable('controller', 'core.ItemPermissions');
 
-		return array(null, array('body' => 'modules/core/templates/ItemPermissions.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemPermissions.tpl',
+			),
+		);
 	}
 
 	/**
