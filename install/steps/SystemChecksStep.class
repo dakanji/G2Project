@@ -55,7 +55,7 @@ class SystemChecksStep extends InstallStep {
 
 	public function processRequest() {
 		// Target PHP Version
-		$prefPHP = 'Use PHP Version 7.3.x for the best performance.'
+		$prefPHP = 'Use PHP Version 7.2.x for the best performance.'
 		
 		// Zend test
 		if (!empty($_GET['zendtest'])) {
@@ -86,7 +86,7 @@ class SystemChecksStep extends InstallStep {
 			$templateData['check'][] = array(
 				'title'  => 'PHP version &gt;= v5.3.3',
 				'error'  => true,
-				'notice' => sprintf('Error: Gallery 2 has an absolute mimimum requirement of PHP Version 5.3.3 but you have PHP Version %s installed. Please update to PHP Version 5.3.3, as a minimum, to use this version of Gallery 2. %s', PHP_VERSION, $prefPHP),
+				'notice' => sprintf('Error: Gallery 2 has an absolute mimimum requirement of PHP Version 5.3.3 but you have PHP Version %s installed. Please update to PHP Version 5.3.3, as an absolute mimimum, to use this version of Gallery 2. %s', PHP_VERSION, $prefPHP),
 			);
 			$failCount++;
 		} elseif (version_compare(PHP_VERSION, '5.6.0', '<')) {
@@ -101,21 +101,15 @@ class SystemChecksStep extends InstallStep {
 				'warning' => true,
 				'notice'  => sprintf('Warning: Gallery  2 has a desirable mimimum requirement of PHP Version 7.1.x but you have PHP Version %s installed. Gallery 2 will function with your version of PHP but may be slower and require additional server resources. %s', PHP_VERSION, $prefPHP),
 			);
-		} elseif (version_compare(PHP_VERSION, '7.3.0', '<')) {
+		} elseif (version_compare(PHP_VERSION, '7.2.99', '>')) {
 			$templateData['check'][] = array(
 				'title'   => 'PHP Version &gt;= v7.3.0',
-				'success' => true,
-				'notice'  => sprintf('Note: Gallery 2 performs best with PHP Version 7.3.x but you have PHP Version %s installed. %s', PHP_VERSION, $prefPHP),
-			);
-		} elseif (version_compare(PHP_VERSION, '7.3.99', '>')) {
-			$templateData['check'][] = array(
-				'title'   => 'PHP Version &gt;= v7.4.0',
 				'warning' => true,
-				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.4.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
+				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.3.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
 			);
 		} else {
 			$templateData['check'][] = array(
-				'title'   => 'PHP Version &gt;= v7.3.0',
+				'title'   => 'PHP Version &gt;= v7.1.0',
 				'success' => true,
 			);
 		}
