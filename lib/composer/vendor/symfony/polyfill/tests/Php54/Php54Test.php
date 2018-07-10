@@ -23,9 +23,9 @@ class Php54Test extends TestCase {
 
 	public function provideClassUsesValid() {
 		return array(
-			array( 'stdClass' ),
-			array( new \stdClass() ),
-			array( 'Iterator' ),
+			array('stdClass'),
+			array(new \stdClass()),
+			array('Iterator'),
 		);
 	}
 

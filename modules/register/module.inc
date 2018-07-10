@@ -59,8 +59,7 @@ class RegisterModule extends GalleryModule {
 			'usersubject'      => $this->translate('Welcome to Gallery'),
 			'from'             => 'webmaster@' . GalleryUtilities::getServerVar('SERVER_NAME'),
 			'validation.level' => 'HIGH',
-		)
-		as $key => $value) {
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

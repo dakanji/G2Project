@@ -116,8 +116,7 @@ class AdminThemesController extends GalleryController {
 				'default.orderDirection',
 				'default.theme',
 				'default.newAlbumsUseDefaults',
-			)
-			as $key) {
+			) as $key) {
 				list($outer, $inner) = explode('.', $key);
 
 				if (isset($form[$outer][$inner])) {
@@ -457,8 +456,7 @@ class AdminThemesView extends GalleryView {
 			'default.theme',
 			'default.theme',
 			'default.newAlbumsUseDefaults',
-		)
-		as $key) {
+		) as $key) {
 			list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
 
 			if ($ret) {

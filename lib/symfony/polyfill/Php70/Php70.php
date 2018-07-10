@@ -19,7 +19,7 @@ namespace Symfony\Polyfill\Php70;
 final class Php70 {
 	public static function intdiv($dividend, $divisor) {
 		$dividend = self::intArg($dividend, __FUNCTION__, 1);
-		$divisor = self::intArg($divisor, __FUNCTION__, 2);
+		$divisor  = self::intArg($divisor, __FUNCTION__, 2);
 
 		if (0 === $divisor) {
 			throw new \DivisionByZeroError('Division by zero');
@@ -33,7 +33,7 @@ final class Php70 {
 	}
 
 	public static function preg_replace_callback_array(array $patterns, $subject, $limit = -1, &$count = 0) {
-		$count = 0;
+		$count  = 0;
 		$result = (string)$subject;
 
 		if (0 === $limit = self::intArg($limit, __FUNCTION__, 3)) {
@@ -52,7 +52,9 @@ final class Php70 {
 		static $handler;
 
 		if (!$handler) {
-			$handler = function () { return false; };
+			$handler = function () {
+				return false;
+			};
 		}
 		set_error_handler($handler);
 		@trigger_error('');

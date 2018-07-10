@@ -255,7 +255,7 @@ final class Iconv {
 			if (2 === \count($str)) {
 				if (isset($headers[$str[0]])) {
 					if (!\is_array($headers[$str[0]])) {
-						$headers[$str[0]] = array( $headers[$str[0]] );
+						$headers[$str[0]] = array($headers[$str[0]]);
 					}
 					$headers[$str[0]][] = ltrim($str[1]);
 				} else {
@@ -411,7 +411,7 @@ final class Iconv {
 
 			$o = $Q ? $c = preg_replace_callback(
 				'/[=_\?\x00-\x1F\x80-\xFF]/',
-				array( __CLASS__, 'qpByteCallback' ),
+				array(__CLASS__, 'qpByteCallback'),
 				$c
 			) : base64_encode($lineData . $c);
 

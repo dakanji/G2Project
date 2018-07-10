@@ -282,14 +282,14 @@ class ClassLoader {
 	 * @param bool $prepend Whether to prepend the autoloader or not
 	 */
 	public function register($prepend = false) {
-		spl_autoload_register(array( $this, 'loadClass' ), true, $prepend);
+		spl_autoload_register(array($this, 'loadClass'), true, $prepend);
 	}
 
 	/**
 	 * Unregisters this instance as an autoloader.
 	 */
 	public function unregister() {
-		spl_autoload_unregister(array( $this, 'loadClass' ));
+		spl_autoload_unregister(array($this, 'loadClass'));
 	}
 
 	/**

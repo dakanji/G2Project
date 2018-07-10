@@ -61,7 +61,7 @@ class SystemChecksStep extends InstallStep {
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');
 			header('Content-Length: 8');
-			$x = array( new stdclass() );
+			$x = array(new stdclass());
 			// v-- This may cause PHP to crash!
 			$x = $x[0];
 			echo "SUCCESS\n";

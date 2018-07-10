@@ -906,7 +906,7 @@ abstract class AbstractLanguageDataProviderTest extends AbstractDataProviderTest
 	public function provideLanguagesWithAlpha3Equivalent() {
 		return array_map(
 			function ($value) {
-				return array( $value );
+				return array($value);
 			},
 			array_keys(static::$alpha2ToAlpha3)
 		);
@@ -922,7 +922,7 @@ abstract class AbstractLanguageDataProviderTest extends AbstractDataProviderTest
 	public function provideLanguagesWithoutAlpha3Equivalent() {
 		return array_map(
 			function ($value) {
-				return array( $value );
+				return array($value);
 			},
 			array_diff(static::$languages, array_keys(static::$alpha2ToAlpha3))
 		);

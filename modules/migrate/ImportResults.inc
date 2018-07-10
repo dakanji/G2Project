@@ -50,8 +50,7 @@ class ImportResultsView extends GalleryView {
 			'userImportSuccess',
 			'albumImportFailure',
 			'albumImportSuccess',
-		)
-		as $key) {
+		) as $key) {
 			if (isset($status[$key])) {
 				$counts[$key] = sizeof($status[$key]);
 			} else {

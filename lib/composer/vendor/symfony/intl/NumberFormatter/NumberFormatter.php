@@ -231,13 +231,13 @@ class NumberFormatter {
 	private static $int64Max = 9223372036854775807;
 
 	private static $enSymbols = array(
-		self::DECIMAL  => array( '.', ',', ';', '%', '0', '#', '-', '+', '¤', '¤¤', '.', 'E', '‰', '*', '∞', 'NaN', '@', ',' ),
-		self::CURRENCY => array( '.', ',', ';', '%', '0', '#', '-', '+', '¤', '¤¤', '.', 'E', '‰', '*', '∞', 'NaN', '@', ',' ),
+		self::DECIMAL  => array('.', ',', ';', '%', '0', '#', '-', '+', '¤', '¤¤', '.', 'E', '‰', '*', '∞', 'NaN', '@', ','),
+		self::CURRENCY => array('.', ',', ';', '%', '0', '#', '-', '+', '¤', '¤¤', '.', 'E', '‰', '*', '∞', 'NaN', '@', ','),
 	);
 
 	private static $enTextAttributes = array(
-		self::DECIMAL  => array( '', '', '-', '', ' ', '', '' ),
-		self::CURRENCY => array( '¤', '', '-¤', '', ' ', '' ),
+		self::DECIMAL  => array('', '', '-', '', ' ', '', ''),
+		self::CURRENCY => array('¤', '', '-¤', '', ' ', ''),
 	);
 
 	/**

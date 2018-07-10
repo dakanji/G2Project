@@ -671,8 +671,7 @@ class GalleryToolkitHelper_medium {
 				'convert-to-image/jpeg;' . $operations,
 				'convert-to-image/x-portable-pixmap;convert-to-image/jpeg;' .
 				$operations,
-			)
- as $tmpOperations) {
+			) as $tmpOperations) {
 				// Remove trailing ';' on empty $operations
 				$tmpOperations                            = preg_replace('/;$/', '', $tmpOperations);
 				list($ret, $isSupported, $outputMimeType) = self::isSupportedOperationSequence(
@@ -707,8 +706,7 @@ class GalleryToolkitHelper_medium {
 			foreach (array(
 				$operations . ';convert-to-image/jpeg',
 				$operations . ';convert-to-image/x-portable-pixmap;convert-to-image/jpeg',
-			)
- as $tmpOperations) {
+			) as $tmpOperations) {
 				// Remove leading ';' on empty $operations
 				$tmpOperations                               = preg_replace('/^;/', '', $tmpOperations);
 				list($ret, $isSupported, $tmpOutputMimeType) = self::isSupportedOperationSequence(

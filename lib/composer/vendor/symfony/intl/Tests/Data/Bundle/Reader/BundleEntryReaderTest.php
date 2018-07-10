@@ -95,7 +95,7 @@ class BundleEntryReaderTest extends TestCase {
 			->with(self::RES_DIR, 'root')
 			->will($this->returnValue(self::$data));
 
-		$this->assertSame('Bar', $this->reader->readEntry(self::RES_DIR, 'root', array( 'Entries', 'Foo' )));
+		$this->assertSame('Bar', $this->reader->readEntry(self::RES_DIR, 'root', array('Entries', 'Foo')));
 	}
 
 	/**
@@ -107,7 +107,7 @@ class BundleEntryReaderTest extends TestCase {
 			->with(self::RES_DIR, 'root')
 			->will($this->returnValue(self::$data));
 
-		$this->reader->readEntry(self::RES_DIR, 'root', array( 'Entries', 'NonExisting' ));
+		$this->reader->readEntry(self::RES_DIR, 'root', array('Entries', 'NonExisting'));
 	}
 
 	public function testFallbackIfEntryDoesNotExist() {
@@ -121,7 +121,7 @@ class BundleEntryReaderTest extends TestCase {
 			->with(self::RES_DIR, 'en')
 			->will($this->returnValue(self::$fallbackData));
 
-		$this->assertSame('Lah', $this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Entries', 'Bam' )));
+		$this->assertSame('Lah', $this->reader->readEntry(self::RES_DIR, 'en_GB', array('Entries', 'Bam')));
 	}
 
 	/**
@@ -133,7 +133,7 @@ class BundleEntryReaderTest extends TestCase {
 			->with(self::RES_DIR, 'en_GB')
 			->will($this->returnValue(self::$data));
 
-		$this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Entries', 'Bam' ), false);
+		$this->reader->readEntry(self::RES_DIR, 'en_GB', array('Entries', 'Bam'), false);
 	}
 
 	public function testFallbackIfLocaleDoesNotExist() {
@@ -147,7 +147,7 @@ class BundleEntryReaderTest extends TestCase {
 			->with(self::RES_DIR, 'en')
 			->will($this->returnValue(self::$fallbackData));
 
-		$this->assertSame('Lah', $this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Entries', 'Bam' )));
+		$this->assertSame('Lah', $this->reader->readEntry(self::RES_DIR, 'en_GB', array('Entries', 'Bam')));
 	}
 
 	/**
@@ -159,18 +159,18 @@ class BundleEntryReaderTest extends TestCase {
 			->with(self::RES_DIR, 'en_GB')
 			->will($this->throwException(new ResourceBundleNotFoundException()));
 
-		$this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Entries', 'Bam' ), false);
+		$this->reader->readEntry(self::RES_DIR, 'en_GB', array('Entries', 'Bam'), false);
 	}
 
 	public function provideMergeableValues() {
 		return array(
-			array( 'foo', null, 'foo' ),
-			array( null, 'foo', 'foo' ),
-			array( array( 'foo', 'bar' ), null, array( 'foo', 'bar' ) ),
-			array( array( 'foo', 'bar' ), array(), array( 'foo', 'bar' ) ),
-			array( null, array( 'baz' ), array( 'baz' ) ),
-			array( array(), array( 'baz' ), array( 'baz' ) ),
-			array( array( 'foo', 'bar' ), array( 'baz' ), array( 'baz', 'foo', 'bar' ) ),
+			array('foo', null, 'foo'),
+			array(null, 'foo', 'foo'),
+			array(array('foo', 'bar'), null, array('foo', 'bar')),
+			array(array('foo', 'bar'), array(), array('foo', 'bar')),
+			array(null, array('baz'), array('baz')),
+			array(array(), array('baz'), array('baz')),
+			array(array('foo', 'bar'), array('baz'), array('baz', 'foo', 'bar')),
 		);
 	}
 
@@ -243,7 +243,7 @@ class BundleEntryReaderTest extends TestCase {
 				)));
 		}
 
-		$this->assertSame($result, $this->reader->readEntry(self::RES_DIR, 'en', array( 'Foo', 'Bar' ), true));
+		$this->assertSame($result, $this->reader->readEntry(self::RES_DIR, 'en', array('Foo', 'Bar'), true));
 	}
 
 	/**
@@ -266,7 +266,7 @@ class BundleEntryReaderTest extends TestCase {
 				),
 			)));
 
-		$this->assertSame($parentData, $this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Foo', 'Bar' ), true));
+		$this->assertSame($parentData, $this->reader->readEntry(self::RES_DIR, 'en_GB', array('Foo', 'Bar'), true));
 	}
 
 	/**
@@ -300,7 +300,7 @@ class BundleEntryReaderTest extends TestCase {
 				)));
 		}
 
-		$this->assertSame($childData, $this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Foo', 'Bar' ), true));
+		$this->assertSame($childData, $this->reader->readEntry(self::RES_DIR, 'en_GB', array('Foo', 'Bar'), true));
 	}
 
 	/**
@@ -321,7 +321,7 @@ class BundleEntryReaderTest extends TestCase {
 				'Foo' => 'Bar',
 			)));
 
-		$this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Foo', 'Bar' ), true);
+		$this->reader->readEntry(self::RES_DIR, 'en_GB', array('Foo', 'Bar'), true);
 	}
 
 	/**
@@ -360,7 +360,7 @@ class BundleEntryReaderTest extends TestCase {
 				)));
 		}
 
-		$this->assertSame($result, $this->reader->readEntry(self::RES_DIR, 'en_GB', array( 'Foo', 'Bar' ), true));
+		$this->assertSame($result, $this->reader->readEntry(self::RES_DIR, 'en_GB', array('Foo', 'Bar'), true));
 	}
 
 	/**
@@ -401,6 +401,6 @@ class BundleEntryReaderTest extends TestCase {
 				)));
 		}
 
-		$this->assertSame($result, $this->reader->readEntry(self::RES_DIR, 'mo', array( 'Foo', 'Bar' ), true));
+		$this->assertSame($result, $this->reader->readEntry(self::RES_DIR, 'mo', array('Foo', 'Bar'), true));
 	}
 }

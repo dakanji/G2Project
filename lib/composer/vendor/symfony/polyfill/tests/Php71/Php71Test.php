@@ -23,11 +23,11 @@ class Php71Test extends TestCase {
 
 	public function provideIsIterable() {
 		return array(
-			array( true, array( 1, 2, 3 ) ),
-			array( true, new \ArrayIterator(array( 1, 2, 3 )) ),
-			array( false, 1 ),
-			array( false, 3.14 ),
-			array( false, new \stdClass() ),
+			array(true, array(1, 2, 3)),
+			array(true, new \ArrayIterator(array(1, 2, 3))),
+			array(false, 1),
+			array(false, 3.14),
+			array(false, new \stdClass()),
 		);
 	}
 }

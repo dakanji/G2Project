@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir   = dirname($vendorDir);
 
 return array(
-	'Symfony\\Polyfill\\'        => array( $vendorDir . '/symfony/polyfill/src' ),
-	'Symfony\\Component\\Intl\\' => array( $vendorDir . '/symfony/intl' ),
+	'Symfony\\Polyfill\\'        => array($vendorDir . '/symfony/polyfill/src'),
+	'Symfony\\Component\\Intl\\' => array($vendorDir . '/symfony/intl'),
 );

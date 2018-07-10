@@ -174,7 +174,7 @@ class nusoap_base {
 			'array'  => 'array',
 			'Array'  => 'array',
 		),
-		'http://xml.apache.org/xml-soap'   => array( 'Map' ),
+		'http://xml.apache.org/xml-soap'   => array('Map'),
 	);
 
 	/**
@@ -1979,7 +1979,7 @@ class soap_server extends nusoap_base {
 							if (sizeof($this->opData['output']['parts']) > 1) {
 								$opParams = $method_response;
 							} else {
-								$opParams = array( $method_response );
+								$opParams = array($method_response);
 							}
 							$return_val = $this->wsdl->serializeRPCParameters($this->methodname, 'output', $opParams);
 						} else {

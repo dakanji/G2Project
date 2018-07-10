@@ -38,11 +38,11 @@ class LanguageDataProvider {
 	}
 
 	public function getLanguages() {
-		return $this->reader->readEntry($this->path, 'meta', array( 'Languages' ));
+		return $this->reader->readEntry($this->path, 'meta', array('Languages'));
 	}
 
 	public function getAliases() {
-		return $this->reader->readEntry($this->path, 'root', array( 'Aliases' ));
+		return $this->reader->readEntry($this->path, 'root', array('Aliases'));
 	}
 
 	public function getName($language, $displayLocale = null) {
@@ -50,7 +50,7 @@ class LanguageDataProvider {
 			$displayLocale = Locale::getDefault();
 		}
 
-		return $this->reader->readEntry($this->path, $displayLocale, array( 'Names', $language ));
+		return $this->reader->readEntry($this->path, $displayLocale, array('Names', $language));
 	}
 
 	public function getNames($displayLocale = null) {
@@ -58,7 +58,7 @@ class LanguageDataProvider {
 			$displayLocale = Locale::getDefault();
 		}
 
-		$languages = $this->reader->readEntry($this->path, $displayLocale, array( 'Names' ));
+		$languages = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
 
 		if ($languages instanceof \Traversable) {
 			$languages = iterator_to_array($languages);
@@ -71,6 +71,6 @@ class LanguageDataProvider {
 	}
 
 	public function getAlpha3Code($language) {
-		return $this->reader->readEntry($this->path, 'meta', array( 'Alpha2ToAlpha3', $language ));
+		return $this->reader->readEntry($this->path, 'meta', array('Alpha2ToAlpha3', $language));
 	}
 }

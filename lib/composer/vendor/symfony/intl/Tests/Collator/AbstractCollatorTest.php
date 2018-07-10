@@ -33,12 +33,12 @@ abstract class AbstractCollatorTest extends TestCase {
 		return array(
 			/* array, sortFlag, expected */
 			array(
-				array( 'a', 'b', 'c' ),
+				array('a', 'b', 'c'),
 				Collator::SORT_REGULAR,
-				array( 'a', 'b', 'c' ),
+				array('a', 'b', 'c'),
 			),
 			array(
-				array( 'c', 'b', 'a' ),
+				array('c', 'b', 'a'),
 				Collator::SORT_REGULAR,
 				array(
 					2 => 'a',
@@ -47,7 +47,7 @@ abstract class AbstractCollatorTest extends TestCase {
 				),
 			),
 			array(
-				array( 'b', 'c', 'a' ),
+				array('b', 'c', 'a'),
 				Collator::SORT_REGULAR,
 				array(
 					2 => 'a',

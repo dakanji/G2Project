@@ -102,8 +102,7 @@ class CommentModule extends GalleryModule {
 					'comments.latest'   => 1,
 					'comments.moderate' => 0,
 					'validation.level'  => 'HIGH',
-				)
-				as $key => $value) {
+				) as $key => $value) {
 					$ret = $this->setParameter($key, $value);
 
 					if ($ret) {
@@ -150,8 +149,7 @@ class CommentModule extends GalleryModule {
 					'comments.show'    => 10,
 					'comments.captcha' => 0,
 					'comments.latest'  => 1,
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = $this->setParameter($key, $value);
 
 					if ($ret) {

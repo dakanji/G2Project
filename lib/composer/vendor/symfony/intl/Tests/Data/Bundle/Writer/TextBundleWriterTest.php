@@ -57,7 +57,7 @@ class TextBundleWriterTest extends TestCase {
 					),
 				),
 				'Integer'                 => 5,
-				'IntVector'               => array( 0, 1, 2, 3 ),
+				'IntVector'               => array(0, 1, 2, 3),
 				'NotAnIntVector'          => array(
 					0 => 0,
 					2 => 1,
@@ -96,7 +96,7 @@ class TextBundleWriterTest extends TestCase {
 					),
 				),
 				'Integer'                 => 5,
-				'IntVector'               => array( 0, 1, 2, 3 ),
+				'IntVector'               => array(0, 1, 2, 3),
 				'NotAnIntVector'          => array(
 					0 => 0,
 					2 => 1,

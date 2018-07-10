@@ -50,8 +50,7 @@ class NewItemsModule extends GalleryModule {
 			foreach (array(
 				'days.new'     => '7',
 				'days.updated' => '7',
-			)
-			as $key => $value) {
+			) as $key => $value) {
 				$ret = $this->setParameter($key, $value);
 
 				if ($ret) {

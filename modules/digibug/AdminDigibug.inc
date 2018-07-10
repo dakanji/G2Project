@@ -86,8 +86,7 @@ class AdminDigibugController extends GalleryController {
 						}
 					}
 				} else {
-					foreach (array('digibugIdChoice', 'digibugCustomerId', 'digibugPricelistId')
- as $key) {
+					foreach (array('digibugIdChoice', 'digibugCustomerId', 'digibugPricelistId') as $key) {
 						$ret = $module->setParameter($key, trim($form[$key]));
 
 						if ($ret) {
@@ -96,7 +95,9 @@ class AdminDigibugController extends GalleryController {
 					}
 				}
 
-				$redirect = array('view' => 'core.SiteAdmin');
+				$redirect = array(
+					'view' => 'core.SiteAdmin',
+				);
 
 				if ($isActive) {
 					$redirect['subView'] = 'digibug.AdminDigibug';
@@ -166,9 +167,16 @@ class AdminDigibugView extends GalleryView {
 			$form['formName'] = 'AdminDigibug';
 		}
 		$template->style('modules/digibug/digibug.css');
-		$template->setVariable('AdminDigibug', array('isConfigure' => !$isActive));
+		$template->setVariable('AdminDigibug', array(
+			'isConfigure' => !$isActive,
+		));
 		$template->setVariable('controller', 'digibug.AdminDigibug');
 
-		return array(null, array('body' => 'modules/digibug/templates/AdminDigibug.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/digibug/templates/AdminDigibug.tpl',
+			),
+		);
 	}
 }

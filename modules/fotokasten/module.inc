@@ -59,7 +59,7 @@ class FotokastenModule extends GalleryModule {
 			'affiliateId'     => FOTOKASTEN_GALLERY_AFFILIATE_ID,
 			'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD,
 		)
-		as $key => $value) {
+ as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

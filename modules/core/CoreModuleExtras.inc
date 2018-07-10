@@ -955,8 +955,7 @@ class CoreModuleExtras {
 					substr($gallery->getConfig('data.gallery.plugins_data'), 0, -1) => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'modules' => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'layouts' => true,
-				)
- as $dir => $isRequired) {
+				) as $dir => $isRequired) {
 					if ($platform->file_exists($dir)) {
 						if ($platform->is_dir($dir)) {
 							// No need to do anything.  Except maybe we could check permissions here.
@@ -1613,8 +1612,7 @@ class CoreModuleExtras {
 					'format.date'     => '%x',
 					'format.time'     => '%X',
 					'format.datetime' => '%c',
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
 					if ($ret) {
@@ -1834,8 +1832,7 @@ class CoreModuleExtras {
 					'cookie.domain'         => '',
 					'exec.beNice'           => '0',
 					'repository.updateTime' => '0',
-				)
- as $key => $value) {
+				) as $key => $value) {
 					if (!isset($coreParams[$key])) {
 						$ret = $module->setParameter($key, $value);
 

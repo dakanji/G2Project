@@ -81,8 +81,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 			'keywords'     => '[GalleryItem::keywords]',
 			'summaries'    => '[GalleryItem::summary]',
 			'titles'       => '[GalleryItem::title]',
-		)
-		as $key => $column) {
+		) as $key => $column) {
 			if (isset($options[$key])) {
 				$whereList[]        = "$column LIKE ?";
 				$whereData[]        = '%' . $criteria . '%';
@@ -209,8 +208,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 				'[GalleryItem::summary]'     => $text['summary'],
 				'[GalleryItem::keywords]'    => $text['keywords'],
 				'[GalleryItem::description]' => $text['description'],
-			)
-			as $columnName => $fieldText) {
+			) as $columnName => $fieldText) {
 				if (isset($selectMap[$columnName])) {
 					/*
 					 * Remember that our field columns start at column index 4

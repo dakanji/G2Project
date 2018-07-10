@@ -187,10 +187,12 @@ class GalleryTestCase extends TestCase {
 		$_ENV              = array_shift($this->_saveVars);
 		$gallery->_storage = array_shift($this->_saveVars);
 		$platform          = array_shift($this->_saveVars);
+		
 		$gallery->setPlatform($platform);
 		$gallery->setActiveUser(array_shift($this->_saveVars));
 		$urlGenerator = array_shift($this->_saveVars);
 		$gallery->setUrlGenerator($urlGenerator);
+		
 		$gallery->_translator = array_shift($this->_saveVars);
 		$gallery->_config     = array_shift($this->_saveVars);
 		$gallery->_phpVm      = array_shift($this->_saveVars);
@@ -1332,9 +1334,10 @@ class GalleryTestCase extends TestCase {
 /**
  * Event listener that tracks how many entities were created and destroyed during the test.
  * We can use this to track to see if a test is leaking entities (ie, not doing proper cleanup).
+ *
+ * Extends GalleryEventListener
  */
-class EntityCounterEventListener // extends GalleryEventListener
-{
+class EntityCounterEventListener {
 	public function __construct() {
 		$this->_count = 0;
 		$this->_ids   = array();
@@ -1379,9 +1382,10 @@ class EntityCounterEventListener // extends GalleryEventListener
  * Generalized Test Event Handler
  * @package Gallery
  * @subpackage PHPUnit
+ *
+ * implements GalleryEventListener
  */
-class NullEventListener // implements GalleryEventListener
-{
+class NullEventListener {
 	/**
 	 * @see GalleryEventListener::handleEvent
 	 */

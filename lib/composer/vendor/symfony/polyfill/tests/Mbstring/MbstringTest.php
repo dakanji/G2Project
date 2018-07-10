@@ -47,14 +47,14 @@ class MbstringTest extends TestCase {
 		$this->assertSame('déjà', mb_convert_encoding(base64_encode('déjà'), 'Utf-8', 'Base64'));
 		$this->assertSame('déjà', mb_convert_encoding('d&eacute;j&#224;', 'Utf-8', 'Html-entities'));
 		$this->assertSame('déjà', mb_convert_encoding(utf8_decode('déjà'), 'Utf-8', 'ASCII,ISO-2022-JP,UTF-8,ISO-8859-1'));
-		$this->assertSame('déjà', mb_convert_encoding(utf8_decode('déjà'), 'Utf-8', array( 'ASCII', 'ISO-2022-JP', 'UTF-8', 'ISO-8859-1' )));
+		$this->assertSame('déjà', mb_convert_encoding(utf8_decode('déjà'), 'Utf-8', array('ASCII', 'ISO-2022-JP', 'UTF-8', 'ISO-8859-1')));
 	}
 
 	/**
 	 * @covers Symfony\Polyfill\Mbstring\Mbstring::mb_decode_numericentity
 	 */
 	public function testDecodeNumericEntity() {
-		$convmap = array( 0x80, 0x10ffff, 0x1, 0x1fffff );
+		$convmap = array(0x80, 0x10ffff, 0x1, 0x1fffff);
 		$this->assertNull(@mb_decode_numericentity(new \stdClass(), $convmap, 'UTF-8'));
 		$this->assertFalse(@mb_decode_numericentity('déjà', new \stdClass(), 'UTF-8'));
 		$this->assertFalse(@mb_decode_numericentity('déjà', array(), 'UTF-8'));
@@ -88,7 +88,7 @@ class MbstringTest extends TestCase {
 		array_push($convmap, 0x1f600, 0x1f64f, -0x1f602, 0x0);
 		$this->assertSame('déjà 😂 â ã', mb_decode_numericentity('déjà &#0; &#225; &#226;', $convmap, 'UTF-8'));
 
-		$convmap = array( 0x100, 0x10ffff, 0x0, 0x1fffff );
+		$convmap = array(0x100, 0x10ffff, 0x0, 0x1fffff);
 		$this->assertSame("\xFE", mb_decode_numericentity('&#351;', $convmap, 'ISO-8859-9'));
 	}
 
@@ -97,7 +97,7 @@ class MbstringTest extends TestCase {
 	 */
 	public function testDecodeNumericEntityWarnsOnInvalidInputType() {
 		$this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 1 to be string');
-		mb_decode_numericentity(new \stdClass(), array( 0x0, 0x10ffff, 0x0, 0x1fffff ), 'UTF-8');
+		mb_decode_numericentity(new \stdClass(), array(0x0, 0x10ffff, 0x0, 0x1fffff), 'UTF-8');
 	}
 
 	/**
@@ -105,14 +105,14 @@ class MbstringTest extends TestCase {
 	 */
 	public function testDecodeNumericEntityWarnsOnInvalidEncodingType() {
 		$this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 3 to be string');
-		mb_decode_numericentity('déjà', array( 0x0, 0x10ffff, 0x0, 0x1fffff ), new \stdClass());
+		mb_decode_numericentity('déjà', array(0x0, 0x10ffff, 0x0, 0x1fffff), new \stdClass());
 	}
 
 	/**
 	 * @covers Symfony\Polyfill\Mbstring\Mbstring::mb_encode_numericentity
 	 */
 	public function testEncodeNumericEntity() {
-		$convmap = array( 0x80, 0x10ffff, 0x1, 0x1fffff );
+		$convmap = array(0x80, 0x10ffff, 0x1, 0x1fffff);
 		$this->assertNull(@mb_encode_numericentity(new \stdClass(), $convmap, 'UTF-8'));
 		$this->assertFalse(@mb_encode_numericentity('déjà', new \stdClass(), 'UTF-8'));
 		$this->assertFalse(@mb_encode_numericentity('déjà', array(), 'UTF-8'));
@@ -133,7 +133,7 @@ class MbstringTest extends TestCase {
 		array_push($convmap, 0x0, 0x1f, 0x1f602, 0x1fffff);
 		$this->assertSame('&#128514; &#96;', mb_encode_numericentity("\x00 a", $convmap, 'UTF-8'));
 
-		$convmap = array( 0x100, 0x10ffff, 0x0, 0x1fffff );
+		$convmap = array(0x100, 0x10ffff, 0x0, 0x1fffff);
 		$this->assertSame('&#351;', mb_encode_numericentity("\xFE", $convmap, 'ISO-8859-9'));
 
 		if (PHP_VERSION > 54000) {
@@ -150,7 +150,7 @@ class MbstringTest extends TestCase {
 	 */
 	public function testEncodeNumericEntityWarnsOnInvalidInputType() {
 		$this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 1 to be string');
-		mb_encode_numericentity(new \stdClass(), array( 0x0, 0x10ffff, 0x0, 0x1fffff ), 'UTF-8');
+		mb_encode_numericentity(new \stdClass(), array(0x0, 0x10ffff, 0x0, 0x1fffff), 'UTF-8');
 	}
 
 	/**
@@ -158,7 +158,7 @@ class MbstringTest extends TestCase {
 	 */
 	public function testEncodeNumericEntityWarnsOnInvalidEncodingType() {
 		$this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 3 to be string');
-		mb_encode_numericentity('déjà', array( 0x0, 0x10ffff, 0x0, 0x1fffff ), new \stdClass());
+		mb_encode_numericentity('déjà', array(0x0, 0x10ffff, 0x0, 0x1fffff), new \stdClass());
 	}
 
 	/**
@@ -167,7 +167,7 @@ class MbstringTest extends TestCase {
 	 */
 	public function testEncodeNumericEntityWarnsOnInvalidIsHexType() {
 		$this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 4 to be bool');
-		mb_encode_numericentity('déjà', array( 0x0, 0x10ffff, 0x0, 0x1fffff ), 'UTF-8', new \stdClass());
+		mb_encode_numericentity('déjà', array(0x0, 0x10ffff, 0x0, 0x1fffff), 'UTF-8', new \stdClass());
 	}
 
 	/**
@@ -306,8 +306,8 @@ class MbstringTest extends TestCase {
 		$this->assertTrue(mb_detect_order('ASCII, UTF-8'));
 		$this->assertSame('ASCII', mb_detect_encoding('abc'));
 		$this->assertSame('UTF-8', mb_detect_encoding('abc', 'UTF8, ASCII'));
-		$this->assertSame('ISO-8859-1', mb_detect_encoding("\xE9", array( 'UTF-8', 'ASCII', 'ISO-8859-1' ), true));
-		$this->assertFalse(mb_detect_encoding("\xE9", array( 'UTF-8', 'ASCII', 'Windows-1252' ), true));
+		$this->assertSame('ISO-8859-1', mb_detect_encoding("\xE9", array('UTF-8', 'ASCII', 'ISO-8859-1'), true));
+		$this->assertFalse(mb_detect_encoding("\xE9", array('UTF-8', 'ASCII', 'Windows-1252'), true));
 	}
 
 	/**
@@ -315,8 +315,8 @@ class MbstringTest extends TestCase {
 	 */
 	public function testDetectOrder() {
 		$this->assertTrue(mb_detect_order('ASCII, UTF-8'));
-		$this->assertSame(array( 'ASCII', 'UTF-8' ), mb_detect_order());
-		$this->assertTrue(mb_detect_order(array( 'ASCII', 'UTF-8' )));
+		$this->assertSame(array('ASCII', 'UTF-8'), mb_detect_order());
+		$this->assertTrue(mb_detect_order(array('ASCII', 'UTF-8')));
 	}
 
 	/**
@@ -333,7 +333,7 @@ class MbstringTest extends TestCase {
 	 * @covers Symfony\Polyfill\Mbstring\Mbstring::mb_encoding_aliases
 	 */
 	public function testEncodingAliases() {
-		$this->assertSame(array( 'utf8' ), mb_encoding_aliases('UTF-8'));
+		$this->assertSame(array('utf8'), mb_encoding_aliases('UTF-8'));
 		$this->assertFalse(p::mb_encoding_aliases('ASCII'));
 	}
 

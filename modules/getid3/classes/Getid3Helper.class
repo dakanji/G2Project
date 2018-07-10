@@ -461,8 +461,7 @@ class Getid3Helper {
 			'riff.AVI .INFO.IDIT.0.data',
 			'quicktime.moov.subatoms.0.creation_time_unix',
 			'quicktime.moov.subatoms.0.subatoms.1.subatoms.0.subatoms.0.creation_time_unix',
-		)
-		as $tag) {
+		) as $tag) {
 			$value = self::_getValue($rawGetid3Data, explode('.', $tag));
 
 			if (isset($value)) {

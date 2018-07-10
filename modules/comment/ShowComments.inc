@@ -115,8 +115,7 @@ class ShowCommentsView extends GalleryView {
 			'edit'     => 'comment.edit',
 			'view'     => 'comment.view',
 			'markSpam' => 'comment.edit',
-		)
- as $canFlag => $permission) {
+		) as $canFlag => $permission) {
 			$can[$canFlag] = isset($permissions[$permission]);
 		}
 
@@ -132,7 +131,9 @@ class ShowCommentsView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/comment/templates/ShowComments.tpl'),
+			array(
+				'body' => 'modules/comment/templates/ShowComments.tpl',
+			),
 		);
 	}
 

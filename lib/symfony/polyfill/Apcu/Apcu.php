@@ -74,7 +74,7 @@ final class Apcu {
 		}
 
 		$succeeded = true;
-		$values = array();
+		$values    = array();
 
 		foreach ($key as $k) {
 			$v = apc_fetch($k, $success);

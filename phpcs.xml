@@ -5,10 +5,7 @@
 
 	<!-- GENERAL:
 		- Rules basically follow PSR2
-		- These should be run after php-cs-fixer as neither gives satisfactory results alone.
-		- php-cs-fixer includes some useful additional ones from Symphony
-		- Run php-cs-fixer first, then PHPCBF
-		- Repeat run process
+		- php-cs-fixer should be run after this as neither gives satisfactory results alone.
 	-->
 
 	<!-- Assume UTF-8 -->
@@ -19,9 +16,9 @@
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
 	<arg name="ignore" value="*/Iconv/Resources/charset/*"/>
 
-	<!-- Load WordPress Standards ... Edit paths in both lines below -->
+	<!-- Load WordPress Standards ... Edit path below -->
 	<config name="installed_paths" value="/path/to/git/repo/G2Project-main/wpcs" />
-	<autoload>/path/to/git/repo/G2Project-main/wpcs/WordPress/PHPCSAliases.php</autoload>
+	<autoload>phpcsWPCSLoader.php</autoload>
 	
 	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
 	<rule ref="PSR2">
@@ -35,7 +32,7 @@
 		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
 	</rule>
 
-	<!-- APPLY SELECTED GENERIC RULES -->
+	<!-- APPLY ADDITIONAL SELECTED GENERIC RULES -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<rule ref="Generic.Formatting.NoSpaceAfterCast"/>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
@@ -75,7 +72,7 @@
 		</properties>
 	</rule>
 
-	<!-- APPLY SELECTED SQUIZ RULES -->
+	<!-- APPLY ADDITIONAL SELECTED SQUIZ RULES -->
 	<rule ref="Squiz.PHP.InnerFunctions"/>
 	<rule ref="Squiz.Scope.StaticThisUsage"/>
 	<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
@@ -111,7 +108,7 @@
 		</properties>
 	</rule>
 
-	<!-- APPLY SELECTED PEAR RULES -->
+	<!-- APPLY ADDITIONAL SELECTED PEAR RULES -->
 	<rule ref="PEAR.Commenting.InlineComment"/>
 	<rule ref="PEAR.ControlStructures.MultiLineCondition"/>
 	<rule ref="PEAR.Files.IncludingFile"/>
@@ -119,7 +116,7 @@
 	<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
 	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
 
-	<!-- APPLY SELECTED WORDPRESS RULES -->
+	<!-- APPLY ADDITIONAL SELECTED WORDPRESS RULES -->
 	<rule ref="WordPress.WhiteSpace.DisallowInlineTabs"/>
 	<rule ref="WordPress.Arrays.CommaAfterArrayItem"/>	
 	<rule ref="WordPress.Arrays.ArrayIndentation"/>	

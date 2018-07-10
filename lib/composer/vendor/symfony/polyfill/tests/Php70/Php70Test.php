@@ -28,12 +28,12 @@ class Php70Test extends TestCase {
 
 	public function provideIntdiv() {
 		return array(
-			array( 1, 3, 2 ),
-			array( -1, -3, 2 ),
-			array( -1, 3, -2 ),
-			array( 1, -3, -2 ),
-			array( 1, PHP_INT_MAX, PHP_INT_MAX ),
-			array( 1, ~PHP_INT_MAX, ~PHP_INT_MAX ),
+			array(1, 3, 2),
+			array(-1, -3, 2),
+			array(-1, 3, -2),
+			array(1, -3, -2),
+			array(1, PHP_INT_MAX, PHP_INT_MAX),
+			array(1, ~PHP_INT_MAX, ~PHP_INT_MAX),
 		);
 	}
 

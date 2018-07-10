@@ -685,7 +685,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 	public function provideCurrencies() {
 		return array_map(
 			function ($currency) {
-				return array( $currency );
+				return array($currency);
 			},
 			static::$currencies
 		);
@@ -708,7 +708,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 	public function provideCurrenciesWithNumericEquivalent() {
 		return array_map(
 			function ($value) {
-				return array( $value );
+				return array($value);
 			},
 			array_keys(static::$alpha3ToNumeric)
 		);
@@ -724,7 +724,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 	public function provideCurrenciesWithoutNumericEquivalent() {
 		return array_map(
 			function ($value) {
-				return array( $value );
+				return array($value);
 			},
 			array_diff(static::$currencies, array_keys(static::$alpha3ToNumeric))
 		);
@@ -743,7 +743,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 
 		return array_map(
 			function ($numeric, $alpha3) {
-				return array( $numeric, $alpha3 );
+				return array($numeric, $alpha3);
 			},
 			array_keys($numericToAlpha3),
 			$numericToAlpha3
@@ -769,7 +769,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 
 		return array_map(
 			function ($value) {
-				return array( $value );
+				return array($value);
 			},
 			$invalidNumericCodes
 		);

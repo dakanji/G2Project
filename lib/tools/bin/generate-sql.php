@@ -26,7 +26,7 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 require_once dirname(__FILE__) . '/XmlParser.inc';
 
 $output = '';
-foreach (array( 'mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite' ) as $db) {
+foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) {
 	$output  .= '## ' . $db . "\n";
 	$xmlFiles = glob('tmp/dbxml/*.xml');
 	if (empty($xmlFiles)) {

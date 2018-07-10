@@ -54,8 +54,7 @@ class RewriteModuleExtras {
 					'isapirewrite.httpdini'      => '',
 					'pathinfo.forced'            => '0',
 					'pathinfo.parser'            => serialize(array()),
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
 					if ($ret) {
@@ -91,8 +90,7 @@ class RewriteModuleExtras {
 					'galleryLocation'  => '',
 					'embeddedLocation' => '',
 					'embeddedHtaccess' => '',
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
 					if ($ret) {
@@ -112,8 +110,7 @@ class RewriteModuleExtras {
 			case '0.9.4':
 				foreach (array(
 					'accessList' => serialize(array()),
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
 					if ($ret) {
@@ -136,8 +133,7 @@ class RewriteModuleExtras {
 			case '0.9.10':
 				foreach (array(
 					'status' => serialize(array()),
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
 					if ($ret) {
@@ -207,8 +203,7 @@ class RewriteModuleExtras {
 					'status',
 					'embeddedLocation',
 					'embeddedHtaccess',
-				)
- as $key) {
+				) as $key) {
 					list($ret, $value) = $module->getParameter($key);
 
 					if ($ret) {

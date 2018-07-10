@@ -60,7 +60,7 @@ class LocaleScannerTest extends TestCase {
 	}
 
 	public function testScanLocales() {
-		$sortedLocales = array( 'de', 'de_alias', 'en', 'en_alias', 'fr', 'fr_alias' );
+		$sortedLocales = array('de', 'de_alias', 'en', 'en_alias', 'fr', 'fr_alias');
 
 		$this->assertSame($sortedLocales, $this->scanner->scanLocales($this->directory));
 	}

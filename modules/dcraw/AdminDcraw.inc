@@ -74,8 +74,7 @@ class AdminDcrawController extends GalleryController {
 				foreach (array(
 					'path'    => $form['path'],
 					'version' => $version,
-				)
- as $key => $value) {
+				) as $key => $value) {
 					$ret = GalleryCoreApi::setPluginParameter('module', 'dcraw', $key, $value);
 
 					if ($ret) {
@@ -162,7 +161,7 @@ class AdminDcrawView extends GalleryView {
 			if (!empty($form['path'])) {
 				$gallery->startRecordingDebugSnippet();
 				list($ret, $testResults) = DcrawToolkitHelper::testBinary($form['path']);
-				$debugSnippet             = $gallery->stopRecordingDebugSnippet();
+				$debugSnippet            = $gallery->stopRecordingDebugSnippet();
 
 				$success = true;
 
@@ -217,6 +216,11 @@ class AdminDcrawView extends GalleryView {
 		$template->setVariable('AdminDcraw', $AdminDcraw);
 		$template->setVariable('controller', 'dcraw.AdminDcraw');
 
-		return array(null, array('body' => 'modules/dcraw/templates/AdminDcraw.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/dcraw/templates/AdminDcraw.tpl',
+			),
+		);
 	}
 }

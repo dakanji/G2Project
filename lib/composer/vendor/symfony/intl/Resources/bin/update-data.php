@@ -183,8 +183,8 @@ $jsonDir = $baseDir;
 //$phpDir = $baseDir.'/'.Intl::PHP;
 //$resDir = $baseDir.'/'.Intl::RB_V2;
 
-$targetDirs  = array( $jsonDir/*, $resDir*/ );
-$workingDirs = array( $jsonDir/*, $txtDir, $resDir*/ );
+$targetDirs  = array($jsonDir/*, $resDir*/);
+$workingDirs = array($jsonDir/*, $txtDir, $resDir*/);
 
 //$config->addBundleWriter($txtDir, new TextBundleWriter());
 $config->addBundleWriter($jsonDir, new JsonBundleWriter());

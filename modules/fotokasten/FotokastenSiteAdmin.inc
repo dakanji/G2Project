@@ -69,7 +69,7 @@ class FotokastenSiteAdminController extends GalleryController {
 				'affiliateId'     => FOTOKASTEN_GALLERY_AFFILIATE_ID,
 				'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD,
 			)
-			as $key => $value) {
+ as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'fotokasten',
@@ -126,6 +126,11 @@ class FotokastenSiteAdminView extends GalleryView {
 		$template->setVariable('FotokastenSiteAdmin', $FotokastenSiteAdmin);
 		$template->setVariable('controller', 'fotokasten.FotokastenSiteAdmin');
 
-		return array(null, array('body' => 'modules/fotokasten/templates/FotokastenSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/fotokasten/templates/FotokastenSiteAdmin.tpl',
+			),
+		);
 	}
 }

@@ -31,25 +31,25 @@ class Php56Test extends TestCase {
 
 	public function provideHashEqualsTrue() {
 		return array(
-			array( 'same', 'same' ),
-			array( '', '' ),
+			array('same', 'same'),
+			array('', ''),
 		);
 	}
 
 	public function provideHashEqualsFalse() {
 		// Data from PHP.net's hash_equals tests.
 		return array(
-			array( 123, 123 ),
-			array( null, '' ),
-			array( null, null ),
-			array( 'not1same', 'not2same' ),
-			array( 'short', 'longer' ),
-			array( 'longer', 'short' ),
-			array( '', 'notempty' ),
-			array( 'notempty', '' ),
-			array( 123, 'NaN' ),
-			array( 'NaN', 123 ),
-			array( null, 123 ),
+			array(123, 123),
+			array(null, ''),
+			array(null, null),
+			array('not1same', 'not2same'),
+			array('short', 'longer'),
+			array('longer', 'short'),
+			array('', 'notempty'),
+			array('notempty', ''),
+			array(123, 'NaN'),
+			array('NaN', 123),
+			array(null, 123),
 		);
 	}
 
@@ -76,15 +76,15 @@ class Php56Test extends TestCase {
 	 */
 	public function provideLdapEscapeValues() {
 		$values = array(
-			array( 'foo=bar(baz)*', null, p::LDAP_ESCAPE_DN, 'foo\3dbar(baz)*' ),
-			array( 'foo=bar(baz)*', null, null, '\66\6f\6f\3d\62\61\72\28\62\61\7a\29\2a' ),
-			array( 'foo=bar(baz)*', null, p::LDAP_ESCAPE_DN | p::LDAP_ESCAPE_FILTER, 'foo\3dbar\28baz\29\2a' ),
-			array( 'foo=bar(baz)*', null, p::LDAP_ESCAPE_FILTER, 'foo=bar\28baz\29\2a' ),
-			array( 'foo=bar(baz)*', 'ao', null, '\66oo\3d\62a\72\28\62a\7a\29\2a' ),
+			array('foo=bar(baz)*', null, p::LDAP_ESCAPE_DN, 'foo\3dbar(baz)*'),
+			array('foo=bar(baz)*', null, null, '\66\6f\6f\3d\62\61\72\28\62\61\7a\29\2a'),
+			array('foo=bar(baz)*', null, p::LDAP_ESCAPE_DN | p::LDAP_ESCAPE_FILTER, 'foo\3dbar\28baz\29\2a'),
+			array('foo=bar(baz)*', null, p::LDAP_ESCAPE_FILTER, 'foo=bar\28baz\29\2a'),
+			array('foo=bar(baz)*', 'ao', null, '\66oo\3d\62a\72\28\62a\7a\29\2a'),
 		);
 
 		if (PHP_VERSION_ID >= 70100) {
-			$values[] = array( " foo=bar\r(baz)* ", null, p::LDAP_ESCAPE_DN, '\20foo\3dbar\0d(baz)*\20' );
+			$values[] = array(" foo=bar\r(baz)* ", null, p::LDAP_ESCAPE_DN, '\20foo\3dbar\0d(baz)*\20');
 		}
 
 		return $values;

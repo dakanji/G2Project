@@ -113,8 +113,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 							return array($ret, null, null);
 						}
 
-						foreach ($importStatus['pictureImportSuccess']
-						as $pictureName => $pictureId) {
+						foreach ($importStatus['pictureImportSuccess'] as $pictureName => $pictureId) {
 							$status['addedFiles'][] = array(
 								'fileName' => $pictureName,
 								'id'       => $pictureId,
@@ -328,14 +327,14 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 			$sanitizedFilename = $filename = $importAlbumItem['name'];
 			GalleryUtilities::sanitizeInputValues($sanitizedFilename);
 			list($base, $extension) = GalleryUtilities::getFileNameComponents($sanitizedFilename);
-			$filecaption             = PicasaImportHelper::convertHtml(
+			$filecaption            = PicasaImportHelper::convertHtml(
 				$markupType,
 				$importAlbumItem['caption'],
 				$sourceEncoding
 			);
-			$filetitle               = ($form['set']['title'] == 'filename') ? $base : (($form['set']['title'] == 'caption') ? $filecaption : '');
-			$filesummary             = empty($form['set']['summary']) ? '' : $filecaption;
-			$filedescription         = empty($form['set']['description']) ? '' : $filecaption;
+			$filetitle              = ($form['set']['title'] == 'filename') ? $base : (($form['set']['title'] == 'caption') ? $filecaption : '');
+			$filesummary            = empty($form['set']['summary']) ? '' : $filecaption;
+			$filedescription        = empty($form['set']['description']) ? '' : $filecaption;
 			list($ret, $mimeType)   = GalleryCoreApi::convertExtensionToMime($extension);
 
 			if ($ret) {

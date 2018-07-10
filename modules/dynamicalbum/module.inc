@@ -65,8 +65,7 @@ class DynamicAlbumModule extends GalleryModule {
 			'itemlink.date'      => 0,
 			'itemlink.views'     => 0,
 			'itemlink.random'    => 0,
-		)
-		as $key => $value) {
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

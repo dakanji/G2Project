@@ -675,7 +675,7 @@ abstract class AbstractDataProviderTest extends TestCase {
 	public function provideLocales() {
 		return array_map(
 			function ($locale) {
-				return array( $locale );
+				return array($locale);
 			},
 			$this->getLocales()
 		);
@@ -684,7 +684,7 @@ abstract class AbstractDataProviderTest extends TestCase {
 	public function provideLocaleAliases() {
 		return array_map(
 			function ($alias, $ofLocale) {
-				return array( $alias, $ofLocale );
+				return array($alias, $ofLocale);
 			},
 			array_keys($this->getLocaleAliases()),
 			$this->getLocaleAliases()
@@ -694,7 +694,7 @@ abstract class AbstractDataProviderTest extends TestCase {
 	public function provideRootLocales() {
 		return array_map(
 			function ($locale) {
-				return array( $locale );
+				return array($locale);
 			},
 			$this->getRootLocales()
 		);
