@@ -85,6 +85,11 @@ class AuthenticateStep extends InstallStep {
 		} else {
 			$templateData['bodyFile'] = 'AuthenticateRequest.html';
 		}
+		
+		// Remove login.txt file
+		if (file_exists($authFile)) {
+			unlink($authFile);
+		}
 	}
 
 	public function getUniqueKey() {
