@@ -377,6 +377,11 @@ class EditFeedView extends GalleryView {
 		$template->setVariable('param', $param);
 		$template->setVariable('controller', 'rss.EditFeed');
 
-		return array(null, array('body' => 'modules/rss/templates/EditFeed.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/rss/templates/EditFeed.tpl',
+			),
+		);
 	}
 }

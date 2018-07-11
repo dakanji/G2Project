@@ -331,7 +331,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			$ItemEditPhotoThumbnail['editThumbnail']['cropHeight']          = $crop['height'];
 			$ItemEditPhotoThumbnail['editThumbnail']['targetThumbnailSize'] = $targetThumbnailSize;
 
-			$aspectlist          = array();
+			$aspectlist         = array();
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {

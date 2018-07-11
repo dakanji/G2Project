@@ -63,6 +63,11 @@ class ImportResultsView extends GalleryView {
 		$template->setVariable('ImportResults', $ImportResults);
 		$template->setVariable('controller', 'picasa.ImportResults');
 
-		return array(null, array('body' => 'modules/picasa/templates/ImportResults.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/picasa/templates/ImportResults.tpl',
+			),
+		);
 	}
 }

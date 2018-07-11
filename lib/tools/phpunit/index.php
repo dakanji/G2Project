@@ -31,7 +31,6 @@ require '../../../bootstrap.inc';
 require_once '../../../init.inc';
 
 if (function_exists('date_default_timezone_set')) {
-	// PHP 5.3 requires a default be set before using any date/time functions
 	@date_default_timezone_set(date_default_timezone_get());
 }
 
@@ -54,8 +53,8 @@ if ($glob) {
 
 if (!empty($_GET['run'])) {
 	list($action, $run) = explode(':', $_GET['run']);
-	$run                 = substr($run, 0, strspn($run, '0123456789'));
-	$runFile             = "${testReportDir}run-$run.html";
+	$run                = substr($run, 0, strspn($run, '0123456789'));
+	$runFile            = "${testReportDir}run-$run.html";
 
 	switch ($action) {
 		case 'frame':
@@ -626,13 +625,10 @@ if ($ret && ($ret->getErrorCode() & ERROR_PERMISSION_DENIED)) {
 
 // Check that our dev environment is correct
 $incorrectDevEnv       = array();
-$desiredErrorReporting = E_ALL & ~2048;  // E_STRICT == 2048, but that constant isn't in PHP4
+$desiredErrorReporting = E_ALL & ~2048;
 foreach (array(
 	'error_reporting'                => array($desiredErrorReporting),
-	'short_open_tag'                 => array('off', 0),
-	'magic_quotes_gpc'               => array('on', 1),
 	'allow_call_time_pass_reference' => array('off', 0),
-	'register_globals'               => array('off', 0),
 	'display_errors'                 => array('on', 1),
 	'allow_url_fopen'                => array('off', 0),
 	'include_path'                   => array('/bogus'),
@@ -644,12 +640,12 @@ foreach (array(
 	}
 }
 
-/*
- * Uncomment this to see debug output before tests run
+
+// Uncomment this to see debug output before tests run
 print "<pre>";
 print $gallery->getDebugBuffer();
 print "</pre>";
- */
+
 
 require dirname(__FILE__) . '/index.tpl';
 

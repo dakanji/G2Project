@@ -475,7 +475,9 @@ class Mail_mime {
 		$params['encoding']  = $value['encoding'];
 
 		if ($value['disposition'] != 'inline') {
-			$fname               = array('fname' => $value['name']);
+			$fname               = array(
+				'fname' => $value['name'],
+			);
 			$fname_enc           = $this->_encodeHeaders($fname);
 			$params['dfilename'] = $fname_enc['fname'];
 		}
@@ -801,7 +803,9 @@ class Mail_mime {
 	 * @access public
 	 */
 	public function encodeRecipients($recipients) {
-		$input  = array('To' => $recipients);
+		$input  = array(
+			'To' => $recipients,
+		);
 		$retval = $this->_encodeHeaders($input);
 
 		return $retval['To'];

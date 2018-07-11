@@ -47,8 +47,8 @@ class FlashVideoRenderer extends GalleryRenderer {
 			return null;
 		}
 
-		$urlGenerator                  =& $gallery->getUrlGenerator();
-		$src                           = $urlGenerator->generateUrl(
+		$urlGenerator                 =& $gallery->getUrlGenerator();
+		$src                          = $urlGenerator->generateUrl(
 			array(
 				'view'         => 'core.DownloadItem',
 				'itemId'       => $entity->getId(),
@@ -70,16 +70,28 @@ class FlashVideoRenderer extends GalleryRenderer {
 		 * "Click to activate..." in IE
 		 */
 		$SWFObjectUrl      = $urlGenerator->generateUrl(
-			array('href' => 'modules/flashvideo/lib/swfobject.js'),
-			array('forceFullUrl' => true)
+			array(
+				'href' => 'modules/flashvideo/lib/swfobject.js',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		$expressInstallUrl = $urlGenerator->generateUrl(
-			array('href' => 'modules/flashvideo/lib/expressinstall.swf'),
-			array('forceFullUrl' => true)
+			array(
+				'href' => 'modules/flashvideo/lib/expressinstall.swf',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		$playerUrl         = $urlGenerator->generateUrl(
-			array('href' => 'modules/flashvideo/lib/G2flv.swf'),
-			array('forceFullUrl' => true)
+			array(
+				'href' => 'modules/flashvideo/lib/G2flv.swf',
+			),
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		$flashVars         = 'flvUrl=' . urlencode($src) . '&Width=' . $width . '&Height=' . $height
 		   . '&title=' . urlencode($title);
@@ -100,7 +112,7 @@ class FlashVideoRenderer extends GalleryRenderer {
 		// To allow for sharing we must also pass the playerUrl
 		//$flashVars .= '&swfUrl=' . urlencode($playerUrl);
 
-		$itemId                 = $item->getId();
+		$itemId                = $item->getId();
 		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
 
 		if (!$ret && !empty($thumbnail)) {

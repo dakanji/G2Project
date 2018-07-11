@@ -42,7 +42,9 @@ class RatingHelper {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'RatingCacheMap',
 			array('itemId', 'averageRating', 'voteCount'),
-			array('itemId' => $itemIds)
+			array(
+				'itemId' => $itemIds,
+			)
 		);
 
 		if ($ret) {
@@ -238,7 +240,7 @@ class RatingHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$query                      = '
+		$query                     = '
 	    SELECT
 	    ' . $avg . ',
 	    COUNT([RatingMap::rating])
@@ -261,7 +263,9 @@ class RatingHelper {
 			$averageRating = round($result[0], 3) * 1000;
 			$voteCount     = $result[1];
 
-			$ret = GalleryCoreApi::removeMapEntry('RatingCacheMap', array('itemId' => $itemId));
+			$ret = GalleryCoreApi::removeMapEntry('RatingCacheMap', array(
+				'itemId' => $itemId,
+			));
 
 			if ($ret) {
 				return array($ret, null);

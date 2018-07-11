@@ -68,8 +68,8 @@ class FfmpegModule extends GalleryModule {
 			}
 		}
 
-		$slash          = $platform->getDirectorySeparator();
-		$imageDir       = $gallery->getConfig('data.gallery.plugins_data') . "modules${slash}ffmpeg";
+		$slash         = $platform->getDirectorySeparator();
+		$imageDir      = $gallery->getConfig('data.gallery.plugins_data') . "modules${slash}ffmpeg";
 		list($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 
 		if (!$success) {

@@ -48,8 +48,18 @@ class CarbonTheme extends GalleryTheme {
 				'showMicroThumbs'      => 1,
 				'dynamicLinks'         => 'browse',
 				'sidebarBlocks'        => serialize(array(
-					array('search.SearchBlock', array('showAdvancedLink' => true)),
-					array('core.ItemLinks', array('useDropdown' => false)),
+					array(
+						'search.SearchBlock',
+						array(
+							'showAdvancedLink' => true,
+						),
+					),
+					array(
+						'core.ItemLinks',
+						array(
+							'useDropdown' => false,
+						),
+					),
 					array('core.PeerList', array()),
 					array('imageblock.ImageBlock', array()),
 				)),
@@ -124,7 +134,9 @@ class CarbonTheme extends GalleryTheme {
 				'Blocks to show on album pages (below description)'
 			),
 			'type'       => 'block-list',
-			'typeParams' => array('packType' => 'block-list'),
+			'typeParams' => array(
+				'packType' => 'block-list',
+			),
 			'value'      => $params['albumUpperBlocks'],
 		);
 		$settings[] = array(
@@ -133,14 +145,18 @@ class CarbonTheme extends GalleryTheme {
 				'Blocks to show on photo pages (below description)'
 			),
 			'type'       => 'block-list',
-			'typeParams' => array('packType' => 'block-list'),
+			'typeParams' => array(
+				'packType' => 'block-list',
+			),
 			'value'      => $params['photoUpperBlocks'],
 		);
 		$settings[] = array(
 			'key'        => 'sidebarTop',
 			'name'       => $this->translate('Sidebar top position'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 4),
+			'typeParams' => array(
+				'size' => 4,
+			),
 			'value'      => $params['sidebarTop'],
 		);
 		$settings[] = array(
@@ -149,35 +165,45 @@ class CarbonTheme extends GalleryTheme {
 				'Maximum number of micro navigation thumbnails'
 			),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 2),
+			'typeParams' => array(
+				'size' => 2,
+			),
 			'value'      => $params['maxMicroThumbs'],
 		);
 		$settings[] = array(
 			'key'        => 'logoImageLocation',
 			'name'       => $this->translate('URL or path to alternate logo image'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 30),
+			'typeParams' => array(
+				'size' => 30,
+			),
 			'value'      => $params['logoImageLocation'],
 		);
 		$settings[] = array(
 			'key'        => 'extraLink',
 			'name'       => $this->translate('Extra link for top navigation bar'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 30),
+			'typeParams' => array(
+				'size' => 30,
+			),
 			'value'      => $params['extraLink'],
 		);
 		$settings[] = array(
 			'key'        => 'extraLinkUrl',
 			'name'       => $this->translate('URL for the extra link'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 30),
+			'typeParams' => array(
+				'size' => 30,
+			),
 			'value'      => $params['extraLinkUrl'],
 		);
 		$settings[] = array(
 			'key'        => 'copyright',
 			'name'       => $this->translate('Copyright message to display on footer'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 30),
+			'typeParams' => array(
+				'size' => 30,
+			),
 			'value'      => $params['copyright'],
 		);
 

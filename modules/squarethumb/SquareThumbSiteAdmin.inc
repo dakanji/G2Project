@@ -46,9 +46,9 @@ class SquareThumbSiteAdminController extends GalleryController {
 			if ($form['mode'] == 'fit') {
 				// Can't crop-to-square without PPM support
 				list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
-						'image/x-portable-pixmap',
-						'convert-to-image/jpeg'
-					);
+					'image/x-portable-pixmap',
+					'convert-to-image/jpeg'
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -64,11 +64,11 @@ class SquareThumbSiteAdminController extends GalleryController {
 					$error[] = 'form[error][color][invalid]';
 				} else {
 					$ret = GalleryCoreApi::setPluginParameter(
-							'module',
-							'squarethumb',
-							'color',
-							$form['color']
-						);
+						'module',
+						'squarethumb',
+						'color',
+						$form['color']
+					);
 
 					if ($ret) {
 						return array($ret, null);
@@ -78,11 +78,11 @@ class SquareThumbSiteAdminController extends GalleryController {
 
 			if (empty($error)) {
 				$ret = GalleryCoreApi::setPluginParameter(
-						'module',
-						'squarethumb',
-						'mode',
-						$form['mode']
-					);
+					'module',
+					'squarethumb',
+					'mode',
+					$form['mode']
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -147,7 +147,9 @@ class SquareThumbSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/squarethumb/templates/SquareThumbSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/squarethumb/templates/SquareThumbSiteAdmin.tpl',
+			),
 		);
 	}
 }

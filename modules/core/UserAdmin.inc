@@ -130,7 +130,12 @@ class UserAdminView extends GalleryView {
 		$template->setVariable('UserAdmin', $UserAdmin);
 		$template->title($module->translate('Gallery User Administration'));
 
-		return array(null, array('body' => 'modules/core/templates/UserAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserAdmin.tpl',
+			),
+		);
 	}
 
 	/**

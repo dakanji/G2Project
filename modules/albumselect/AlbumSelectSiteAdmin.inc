@@ -110,7 +110,7 @@ class AlbumSelectSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'AlbumSelectSiteAdmin') {
-			$form['formName']    = 'AlbumSelectSiteAdmin';
+			$form['formName']   = 'AlbumSelectSiteAdmin';
 			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 
 			if ($ret) {
@@ -126,7 +126,9 @@ class AlbumSelectSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/albumselect/templates/AlbumSelectSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/albumselect/templates/AlbumSelectSiteAdmin.tpl',
+			),
 		);
 	}
 }

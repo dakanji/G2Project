@@ -178,7 +178,9 @@ class GalleryPluginHelper_medium {
 
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryPluginParameterMap',
-			array('itemId' => $itemId)
+			array(
+				'itemId' => $itemId,
+			)
 		);
 
 		if ($ret) {
@@ -473,7 +475,9 @@ class GalleryPluginHelper_medium {
 				'itemId'        => $itemId,
 				'parameterName' => $parameterName,
 			),
-			array('parameterValue' => (string)$parameterValue)
+			array(
+				'parameterValue' => (string)$parameterValue,
+			)
 		);
 
 		if ($ret) {

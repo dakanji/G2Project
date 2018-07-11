@@ -163,7 +163,7 @@ class CommentSiteAdminController extends GalleryController {
 			return $ret;
 		}
 
-		$status              = array();
+		$status             = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
@@ -269,7 +269,9 @@ class CommentSiteAdminController extends GalleryController {
 				'subView'  => 'comment.CommentSiteAdmin',
 				'statusId' => $statusId,
 			),
-			array('forceFullUrl' => true)
+			array(
+				'forceFullUrl' => true,
+			)
 		);
 		$templateAdapter->completeProgressBar($continueUrl, false);
 
@@ -316,7 +318,9 @@ class CommentSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/comment/templates/CommentSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/comment/templates/CommentSiteAdmin.tpl',
+			),
 		);
 	}
 }

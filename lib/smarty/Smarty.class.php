@@ -888,7 +888,9 @@ class Smarty {
 	public function load_filter($type, $name) {
 		switch ($type) {
 			case 'output':
-				$_params = array('plugins' => array(array($type . 'filter', $name, null, null, false)));
+				$_params = array(
+					'plugins' => array(array($type . 'filter', $name, null, null, false)),
+				);
 
 				include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
 				smarty_core_load_plugins($_params, $this);
@@ -932,11 +934,11 @@ class Smarty {
 			);
 		}
 		$_params = array(
-				'auto_base'   => $this->cache_dir,
-				'auto_source' => $tpl_file,
-				'auto_id'     => $_auto_id,
-				'exp_time'    => $exp_time,
-			);
+			'auto_base'   => $this->cache_dir,
+			'auto_source' => $tpl_file,
+			'auto_id'     => $_auto_id,
+			'exp_time'    => $exp_time,
+		);
 
 		include_once SMARTY_CORE_DIR . 'core.rm_auto.php';
 
@@ -1166,18 +1168,24 @@ class Smarty {
 				$_smarty_results = $_params['results'];
 
 				if (!empty($this->_cache_info['insert_tags'])) {
-					$_params = array('plugins' => $this->_cache_info['insert_tags']);
+					$_params = array(
+						'plugins' => $this->_cache_info['insert_tags'],
+					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
 					smarty_core_load_plugins($_params, $this);
-					$_params = array('results' => $_smarty_results);
+					$_params = array(
+						'results' => $_smarty_results,
+					);
 
 					include_once SMARTY_CORE_DIR . 'core.process_cached_inserts.php';
 					$_smarty_results = smarty_core_process_cached_inserts($_params, $this);
 				}
 
 				if (!empty($this->_cache_info['cache_serials'])) {
-					$_params = array('results' => $_smarty_results);
+					$_params = array(
+						'results' => $_smarty_results,
+					);
 
 					include_once SMARTY_CORE_DIR . 'core.process_compiled_include.php';
 					$_smarty_results = smarty_core_process_compiled_include($_params, $this);
@@ -1408,9 +1416,9 @@ class Smarty {
 			}
 			// get file source and timestamp
 			$_params = array(
-					'resource_name' => $resource_name,
-					'get_source'    => false,
-				);
+				'resource_name' => $resource_name,
+				'get_source'    => false,
+			);
 
 			if (!$this->_fetch_resource_info($_params)) {
 				return false;
@@ -1435,7 +1443,9 @@ class Smarty {
 	 * @return boolean
 	 */
 	public function _compile_resource($resource_name, $compile_path) {
-		$_params = array('resource_name' => $resource_name);
+		$_params = array(
+			'resource_name' => $resource_name,
+		);
 
 		if (!$this->_fetch_resource_info($_params)) {
 			return false;
@@ -1561,7 +1571,9 @@ class Smarty {
 		}
 
 		$_return = false;
-		$_params = array('resource_name' => $params['resource_name']);
+		$_params = array(
+			'resource_name' => $params['resource_name'],
+		);
 
 		if (isset($params['resource_base_path'])) {
 			$_params['resource_base_path'] = $params['resource_base_path'];
@@ -1679,7 +1691,9 @@ class Smarty {
 						return true;
 					}
 					// didn't find the file, try include_path
-					$_params = array('file_path' => $_fullpath);
+					$_params = array(
+						'file_path' => $_fullpath,
+					);
 
 					include_once SMARTY_CORE_DIR . 'core.get_include_path.php';
 
@@ -1697,7 +1711,9 @@ class Smarty {
 		}
 
 		if (empty($this->_plugins['resource'][$params['resource_type']])) {
-			$_params = array('type' => $params['resource_type']);
+			$_params = array(
+				'type' => $params['resource_type'],
+			);
 
 			include_once SMARTY_CORE_DIR . 'core.load_resource_plugin.php';
 			smarty_core_load_resource_plugin($_params, $this);

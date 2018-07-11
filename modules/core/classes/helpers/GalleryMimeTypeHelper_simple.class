@@ -31,7 +31,7 @@ class GalleryMimeTypeHelper_simple {
 	 * @see GalleryCoreApi::getMimeType
 	 */
 	public static function getMimeType($filename, $requestMimeType = null) {
-		$extension             = GalleryUtilities::getFileExtension($filename);
+		$extension            = GalleryUtilities::getFileExtension($filename);
 		list($ret, $mimetype) = self::convertExtensionToMime($extension);
 
 		if ($ret) {
@@ -138,7 +138,7 @@ class GalleryMimeTypeHelper_simple {
 				 * conversions.. for now I set desc order by extension so image/jpeg will
 				 * map to jpg instead of jpe (quick fix for most common case).
 				 */
-				$query                      = '
+				$query                     = '
 		SELECT
 		    [GalleryMimeTypeMap::extension],
 		    [GalleryMimeTypeMap::mimeType],

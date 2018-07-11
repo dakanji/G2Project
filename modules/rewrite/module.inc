@@ -139,13 +139,21 @@ class RewriteModule extends GalleryModule {
 		$activeRules = unserialize($activeRules);
 
 		if (empty($activeRules)) {
-			$activeRules = array('rewrite' => array(0 => array('pattern' => 'v/%path%')));
+			$activeRules = array(
+				'rewrite' => array(
+					0 => array(
+						'pattern' => 'v/%path%',
+					),
+				),
+			);
 			/*
 			 * We'll break fast download cache if we activate the short URL for download items with
 			 * an inGallery parser
 			 */
 			if ($rewriteParser->getParserType() != 'inGallery') {
-				$activeRules['rewrite'][1] = array('pattern' => 'd/%itemId%-%serialNumber%/%fileName%');
+				$activeRules['rewrite'][1] = array(
+					'pattern' => 'd/%itemId%-%serialNumber%/%fileName%',
+				);
 			}
 		}
 
@@ -309,7 +317,9 @@ class RewriteModule extends GalleryModule {
 		// Rule 0: Show Item
 		$rules[0] = array(
 			'comment'  => $this->translate('Show Item'),
-			'match'    => array('view' => 'core.ShowItem'),
+			'match'    => array(
+				'view' => 'core.ShowItem',
+			),
 			'pattern'  => 'v/%path%',
 			'keywords' => array(
 				'path'     => array(
@@ -334,70 +344,82 @@ class RewriteModule extends GalleryModule {
 
 		// Rule 1: Download Item
 		$rules[1] = array(
-				'comment'  => $this->translate('Download Item'),
-				'match'    => array('view' => 'core.DownloadItem'),
-				'pattern'  => 'd/%itemId%-%serialNumber%/%fileName%',
-				'keywords' => array(
-					'serialNumber' => array(
-						'pattern'  => '([0-9]+)',
-						'help'     => $this->translate(
-							'Ensures browsers do not use cached version when image has changed'
-						),
-						'function' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber'),
+			'comment'  => $this->translate('Download Item'),
+			'match'    => array(
+				'view' => 'core.DownloadItem',
+			),
+			'pattern'  => 'd/%itemId%-%serialNumber%/%fileName%',
+			'keywords' => array(
+				'serialNumber' => array(
+					'pattern'  => '([0-9]+)',
+					'help'     => $this->translate(
+						'Ensures browsers do not use cached version when image has changed'
 					),
-					'fileName'     => array(
-						'pattern'  => '([^/?]+)',
-						'help'     => $this->translate('The item file name.'),
-						'function' => array('rewrite', 'RewriteSimpleHelper', 'parseFileName'),
-					),
+					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber'),
 				),
-				'help'     => $this->translate('The general URL for downloading items.'),
-			);
+				'fileName'     => array(
+					'pattern'  => '([^/?]+)',
+					'help'     => $this->translate('The item file name.'),
+					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseFileName'),
+				),
+			),
+			'help'     => $this->translate('The general URL for downloading items.'),
+		);
 
 		// Rule 4: Site Admin
 		$rules[4] = array(
-				'comment' => $this->translate('Site Admin'),
-				'match'   => array('view' => 'core.SiteAdmin'),
-				'pattern' => 'admin/',
-				'help'    => $this->translate('Quick and easy way to access Site Admin.'),
-			);
+			'comment' => $this->translate('Site Admin'),
+			'match'   => array(
+				'view' => 'core.SiteAdmin',
+			),
+			'pattern' => 'admin/',
+			'help'    => $this->translate('Quick and easy way to access Site Admin.'),
+		);
 
 		// Rule 2: File not found
 		$rules[2] = array(
-				'comment'     => $this->translate('404 File not found'),
-				'keywords'    => array(
-					'path' => array(
-						'pattern' => '([^?]+)',
-						'ignore'  => true,
-					),
+			'comment'     => $this->translate('404 File not found'),
+			'keywords'    => array(
+				'path' => array(
+					'pattern' => '([^?]+)',
+					'ignore'  => true,
 				),
-				'queryString' => array('view' => 'rewrite.FileNotFound'),
-				'pattern'     => '%path%',
-				'locked'      => true,
-			);
+			),
+			'queryString' => array(
+				'view' => 'rewrite.FileNotFound',
+			),
+			'pattern'     => '%path%',
+			'locked'      => true,
+		);
 
 		// Rule 3: Block hotlinked items
 		$rules[3] = array(
-				'comment'       => $this->translate('Block hotlinked items'),
-				'flags'         => array('F'),
-				'restrict'      => array('view' => 'core.DownloadItem'),
-				'exemptReferer' => true,
-			);
+			'comment'       => $this->translate('Block hotlinked items'),
+			'flags'         => array('F'),
+			'restrict'      => array(
+				'view' => 'core.DownloadItem',
+			),
+			'exemptReferer' => true,
+		);
 
 		// Rule 5: Send HTML for hotlinked items
 		$rules[5] = array(
-				'comment'       => $this->translate('Send HTML for hotlinked items'),
-				'restrict'      => array(
-					GalleryUtilities::prefixFormVariable('view') => 'core.DownloadItem',
-					GalleryUtilities::prefixFormVariable('itemId') => '%itemId%',
-				),
-				'exemptReferer' => true,
-				'queryString'   => array('view' => 'rewrite.DownloadItem'),
-				'options'       => array('forceDirect' => true),
-				'flags'         => array('L'),
-				'help'          => $this->translate('Blocks use of images in other sites (HTML creates broken'
-				. ' image), but allows linking to images.'),
-			);
+			'comment'       => $this->translate('Send HTML for hotlinked items'),
+			'restrict'      => array(
+				GalleryUtilities::prefixFormVariable('view') => 'core.DownloadItem',
+				GalleryUtilities::prefixFormVariable('itemId') => '%itemId%',
+			),
+			'exemptReferer' => true,
+			'queryString'   => array(
+				'view' => 'rewrite.DownloadItem',
+			),
+			'options'       => array(
+				'forceDirect' => true,
+			),
+			'flags'         => array('L'),
+			'help'          => $this->translate('Blocks use of images in other sites (HTML creates broken'
+			. ' image), but allows linking to images.'),
+		);
 
 		return $rules;
 	}

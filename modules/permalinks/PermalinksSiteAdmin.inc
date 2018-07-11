@@ -104,7 +104,7 @@ class PermalinksSiteAdminView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$PermalinksSiteAdmin                         = array();
+		$PermalinksSiteAdmin                        = array();
 		list($ret, $PermalinksSiteAdmin['aliases']) = PermalinksMapHelper::fetchAliasesForItem();
 
 		if ($ret) {
@@ -120,6 +120,11 @@ class PermalinksSiteAdminView extends GalleryView {
 		$template->setVariable('PermalinksSiteAdmin', $PermalinksSiteAdmin);
 		$template->setVariable('controller', 'permalinks.PermalinksSiteAdmin');
 
-		return array(null, array('body' => 'modules/permalinks/templates/PermalinksSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/permalinks/templates/PermalinksSiteAdmin.tpl',
+			),
+		);
 	}
 }

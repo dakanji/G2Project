@@ -30,7 +30,7 @@ class CommentCallbacks {
 
 		switch ($callback) {
 			case 'LoadComments':
-				$itemId            = $params['itemId'];
+				$itemId           = $params['itemId'];
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 				if ($ret) {
@@ -140,8 +140,7 @@ class CommentCallbacks {
 					'delete' => 'comment.delete',
 					'edit'   => 'comment.edit',
 					'view'   => 'comment.view',
-				)
- as $canFlag => $permission) {
+				) as $canFlag => $permission) {
 					$can[$canFlag] = isset($permissions[$permission]);
 				}
 
@@ -166,7 +165,7 @@ class CommentCallbacks {
 				}
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-				$form                    =& $smarty->_tpl_vars['form'];
+				$form                   =& $smarty->_tpl_vars['form'];
 				list($ret, $AddComment) = GalleryCommentHelper::getAddComment($item, $form);
 
 				if ($ret) {

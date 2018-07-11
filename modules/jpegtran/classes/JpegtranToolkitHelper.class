@@ -92,7 +92,12 @@ class JpegtranToolkitHelper {
 			}
 		}
 
-		return array(null, array('operations' => $operations));
+		return array(
+			null,
+			array(
+				'operations' => $operations,
+			),
+		);
 	}
 
 	/**
@@ -209,7 +214,7 @@ class JpegtranToolkitHelper {
 		}
 
 		// Test the optional crop support (only patched versions of jpegtran can crop)
-		$command                          = array(
+		$command                         = array(
 			$jpegtranPath,
 			'-verbose',
 			'-copy',

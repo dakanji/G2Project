@@ -294,7 +294,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		$storage =& $gallery->getStorage();
 
 		// Delete any children
-		$query                      = '
+		$query                     = '
 	SELECT
 	  [GalleryChildEntity::id]
 	FROM

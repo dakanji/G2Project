@@ -68,7 +68,7 @@ class GalleryItemAttributesHelper_advanced {
 
 		$aggregate = ($direction == LOWER_WEIGHT) ? 'MIN' : 'MAX';
 
-		$query                      = '
+		$query                     = '
 	SELECT
 	  ' . $aggregate . '([GalleryItemAttributesMap::orderWeight])
 	FROM
@@ -104,7 +104,7 @@ class GalleryItemAttributesHelper_advanced {
 			$comparison = '>';
 		}
 
-		$query                      = '
+		$query                     = '
 	SELECT
 	  ' . $aggregate . '([GalleryItemAttributesMap=2::orderWeight])
 	FROM
@@ -140,8 +140,12 @@ class GalleryItemAttributesHelper_advanced {
 	public static function setViewCount($itemId, $count) {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryItemAttributesMap',
-			array('itemId' => $itemId),
-			array('viewCount' => $count)
+			array(
+				'itemId' => $itemId,
+			),
+			array(
+				'viewCount' => $count,
+			)
 		);
 
 		if ($ret) {
@@ -163,8 +167,12 @@ class GalleryItemAttributesHelper_advanced {
 
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryItemAttributesMap',
-			array('itemId' => $itemId),
-			array('parentSequence' => $parentSequence)
+			array(
+				'itemId' => $itemId,
+			),
+			array(
+				'parentSequence' => $parentSequence,
+			)
 		);
 
 		if ($ret) {
@@ -206,7 +214,9 @@ class GalleryItemAttributesHelper_advanced {
 	public static function removeItemAttributes($itemId) {
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryItemAttributesMap',
-			array('itemId' => $itemId)
+			array(
+				'itemId' => $itemId,
+			)
 		);
 
 		if ($ret) {
@@ -222,8 +232,12 @@ class GalleryItemAttributesHelper_advanced {
 	public static function setOrderWeight($itemId, $orderWeight) {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryItemAttributesMap',
-			array('itemId' => $itemId),
-			array('orderWeight' => $orderWeight)
+			array(
+				'itemId' => $itemId,
+			),
+			array(
+				'orderWeight' => $orderWeight,
+			)
 		);
 
 		if ($ret) {
@@ -242,7 +256,7 @@ class GalleryItemAttributesHelper_advanced {
 		$oldParentSequence = join('/', $oldParentSequence) . '/';
 		$newParentSequence = join('/', $newParentSequence) . '/';
 
-		$storage                =& $gallery->getStorage();
+		$storage               =& $gallery->getStorage();
 		list($ret, $substring) = $storage->getFunctionSql('SUBSTRING', array(
 			'[GalleryItemAttributesMap::parentSequence]',
 			strlen($oldParentSequence) + 1,

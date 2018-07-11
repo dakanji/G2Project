@@ -63,8 +63,14 @@ class GalleryToolkitHelper_medium {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryToolkitOperationMap',
 			array('parametersCrc', 'outputMimeType'),
-			array('name' => $operationName),
-			array('limit' => array('count' => 1))
+			array(
+				'name' => $operationName,
+			),
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {
@@ -166,8 +172,14 @@ class GalleryToolkitHelper_medium {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryToolkitPropertyMap',
 			array('type'),
-			array('name' => $propertyName),
-			array('limit' => array('count' => 1))
+			array(
+				'name' => $propertyName,
+			),
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
 		);
 
 		if ($ret) {
@@ -256,7 +268,9 @@ class GalleryToolkitHelper_medium {
 		// Remove our toolkit/operation mappings
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryToolkitOperationMimeTypeMap',
-			array('toolkitId' => $toolkitId)
+			array(
+				'toolkitId' => $toolkitId,
+			)
 		);
 
 		if ($ret) {
@@ -285,7 +299,9 @@ class GalleryToolkitHelper_medium {
 		while ($result = $searchResults->nextResult()) {
 			$ret = GalleryCoreApi::removeMapEntry(
 				'GalleryToolkitOperationMap',
-				array('name' => $result[0])
+				array(
+					'name' => $result[0],
+				)
 			);
 
 			if ($ret) {
@@ -294,7 +310,9 @@ class GalleryToolkitHelper_medium {
 
 			$ret = GalleryCoreApi::removeMapEntry(
 				'GalleryToolkitOperationParameterMap',
-				array('operationName' => $result[0])
+				array(
+					'operationName' => $result[0],
+				)
 			);
 
 			if ($ret) {
@@ -305,7 +323,9 @@ class GalleryToolkitHelper_medium {
 		// Remove our toolkit/property mappings
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryToolkitPropertyMimeTypeMap',
-			array('toolkitId' => $toolkitId)
+			array(
+				'toolkitId' => $toolkitId,
+			)
 		);
 
 		if ($ret) {
@@ -334,7 +354,9 @@ class GalleryToolkitHelper_medium {
 		while ($result = $searchResults->nextResult()) {
 			$ret = GalleryCoreApi::removeMapEntry(
 				'GalleryToolkitPropertyMap',
-				array('name' => $result[0])
+				array(
+					'name' => $result[0],
+				)
 			);
 
 			if ($ret) {
@@ -361,7 +383,9 @@ class GalleryToolkitHelper_medium {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryFactoryMap',
 			array('implId'),
-			array('implModuleId' => $moduleId)
+			array(
+				'implModuleId' => $moduleId,
+			)
 		);
 
 		if ($ret) {
@@ -516,7 +540,9 @@ class GalleryToolkitHelper_medium {
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'GalleryToolkitOperationMimeTypeMap',
 				array('mimeType', 'toolkitId', 'priority'),
-				array('operationName' => $operationName),
+				array(
+					'operationName' => $operationName,
+				),
 				array(
 					'orderBy' => array(
 						'mimeType' => ORDER_ASCENDING,
@@ -551,7 +577,7 @@ class GalleryToolkitHelper_medium {
 		$cacheKey = 'GalleryToolkitHelper::getRedundantPriorities()';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			$query                = '
+			$query               = '
 	    SELECT
 	      [GalleryToolkitOperationMimeTypeMap::operationName],
 	      [GalleryToolkitOperationMimeTypeMap::mimeType],
@@ -645,10 +671,9 @@ class GalleryToolkitHelper_medium {
 				'convert-to-image/jpeg;' . $operations,
 				'convert-to-image/x-portable-pixmap;convert-to-image/jpeg;' .
 				$operations,
-			)
-			as $tmpOperations) {
+			) as $tmpOperations) {
 				// Remove trailing ';' on empty $operations
-				$tmpOperations                             = preg_replace('/;$/', '', $tmpOperations);
+				$tmpOperations                            = preg_replace('/;$/', '', $tmpOperations);
 				list($ret, $isSupported, $outputMimeType) = self::isSupportedOperationSequence(
 					$mimeType,
 					$tmpOperations
@@ -681,10 +706,9 @@ class GalleryToolkitHelper_medium {
 			foreach (array(
 				$operations . ';convert-to-image/jpeg',
 				$operations . ';convert-to-image/x-portable-pixmap;convert-to-image/jpeg',
-			)
-			as $tmpOperations) {
+			) as $tmpOperations) {
 				// Remove leading ';' on empty $operations
-				$tmpOperations                                = preg_replace('/^;/', '', $tmpOperations);
+				$tmpOperations                               = preg_replace('/^;/', '', $tmpOperations);
 				list($ret, $isSupported, $tmpOutputMimeType) = self::isSupportedOperationSequence(
 					$mimeType,
 					$tmpOperations

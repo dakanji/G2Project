@@ -227,7 +227,9 @@ class SendEcardController extends GalleryController {
 				'head_charset'  => 'UTF-8',
 			));
 
-			$tmp = array('From' => $headers['from']);
+			$tmp = array(
+				'From' => $headers['from'],
+			);
 
 			if (isset($headers['bcc'])) {
 				$tmp['bcc'] = $headers['bcc'];
@@ -374,7 +376,7 @@ class SendEcardView extends GalleryView {
 		$SendEcard['footer'] = EcardHelper::replaceKeywords($config['footer'], $form);
 
 		// Check if we should use validation plugins
-		$plugins                           = array();
+		$plugins                          = array();
 		list($ret, $useValidationPlugins) = EcardHelper::useValidationPlugins();
 
 		if ($ret) {
@@ -420,7 +422,12 @@ class SendEcardView extends GalleryView {
 
 		$template->title($module->translate('Send eCard'));
 
-		return array(null, array('body' => 'modules/ecard/templates/SendEcard.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/ecard/templates/SendEcard.tpl',
+			),
+		);
 	}
 
 	/**

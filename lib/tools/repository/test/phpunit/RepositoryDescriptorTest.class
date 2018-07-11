@@ -105,12 +105,24 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 				),
 			),
 			'directories' => array(
-				'po'                    => array('packages' => array('base')),
-				'locale/aa/LC_MESSAGES' => array('packages' => array('lang-aa')),
-				'locale/aa'             => array('packages' => array('lang-aa')),
-				'locale'                => array('packages' => array('base')),
-				'test/phpunit'          => array('packages' => array()),
-				'test'                  => array('packages' => array()),
+				'po'                    => array(
+					'packages' => array('base'),
+				),
+				'locale/aa/LC_MESSAGES' => array(
+					'packages' => array('lang-aa'),
+				),
+				'locale/aa'             => array(
+					'packages' => array('lang-aa'),
+				),
+				'locale'                => array(
+					'packages' => array('base'),
+				),
+				'test/phpunit'          => array(
+					'packages' => array(),
+				),
+				'test'                  => array(
+					'packages' => array(),
+				),
 			),
 			'header'      => array(
 				'stringsRevision' => '22222',
@@ -226,14 +238,30 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 					),
 				),
 				'directories'  => array(
-					'locale/aa/LC_MESSAGES' => array('packages' => array('lang-aa')),
-					'locale/aa'             => array('packages' => array('lang-aa')),
-					'po'                    => array('packages' => array('base')),
-					'locale'                => array('packages' => array('base')),
-					'test'                  => array('packages' => array()),
-					'test/phpunit'          => array('packages' => array()),
+					'locale/aa/LC_MESSAGES' => array(
+						'packages' => array('lang-aa'),
+					),
+					'locale/aa'             => array(
+						'packages' => array('lang-aa'),
+					),
+					'po'                    => array(
+						'packages' => array('base'),
+					),
+					'locale'                => array(
+						'packages' => array('base'),
+					),
+					'test'                  => array(
+						'packages' => array(),
+					),
+					'test/phpunit'          => array(
+						'packages' => array(),
+					),
 				),
-				'languages'    => array('22222' => array('aa' => '14444')),
+				'languages'    => array(
+					'22222' => array(
+						'aa' => '14444',
+					),
+				),
 			),
 			$descriptor->_data,
 			'Descriptor does not match expected data.'
@@ -390,7 +418,9 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$base     = $descriptor->getPluginDir();
 		$platform->setReply('is_readable', array($base . 'MANIFEST'), true);
-		$platform->setReply('stat', array($base . 'MANIFEST'), array(9 => 1000000));
+		$platform->setReply('stat', array($base . 'MANIFEST'), array(
+			9 => 1000000,
+		));
 
 		// file.1 has a bad crc
 		$platform->setReply('file_exists', array($base . 'file.1'), true);

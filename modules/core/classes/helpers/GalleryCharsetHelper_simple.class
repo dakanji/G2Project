@@ -157,18 +157,18 @@ class GalleryCharsetHelper_simple {
 			return $phpVm->recode_string($sourceEncoding . '..UTF-8', $string);
 		}
 		GalleryCoreApi::requireOnce(
-				'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
-			);
+			'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
+		);
 		$charset =& GalleryCharsetHelper_medium::getCharsetTable($sourceEncoding);
 
 		if (isset($charset)) {
 			return preg_replace_callback(
-					'/([\x80-\xFF])/s',
-					function ($m) {
-						return $charset[ord($m[1])];
-					},
-					$string
-				);
+				'/([\x80-\xFF])/s',
+				function ($m) {
+					return $charset[ord($m[1])];
+				},
+				$string
+			);
 		}
 
 		return $string;
@@ -210,8 +210,8 @@ class GalleryCharsetHelper_simple {
 			return $phpVm->recode_string('UTF-8..' . $targetEncoding, $string);
 		}
 		GalleryCoreApi::requireOnce(
-				'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
-			);
+			'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
+		);
 		$sourceCharset =& GalleryCharsetHelper_medium::getCharsetTable($targetEncoding);
 
 		if (isset($sourceCharset)) {

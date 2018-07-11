@@ -162,7 +162,12 @@ class ConfigureMultirootView extends GalleryView {
 		$template->setVariable('Multiroot', $multiroot);
 		$template->setVariable('controller', 'multiroot.ConfigureMultiroot');
 
-		return array(null, array('body' => 'modules/multiroot/templates/ConfigureMultiroot.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/multiroot/templates/ConfigureMultiroot.tpl',
+			),
+		);
 	}
 
 	/**

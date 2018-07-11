@@ -78,7 +78,12 @@ class ShowItemView extends GalleryView {
 			$urlGenerator =& $gallery->getUrlGenerator();
 			$redirect     = dirname($urlGenerator->getCurrentUrlDir()) . '/' . GALLERY_MAIN_PHP;
 
-			return array(null, array('redirectUrl' => $redirect));
+			return array(
+				null,
+				array(
+					'redirectUrl' => $redirect,
+				),
+			);
 		}
 
 		/*

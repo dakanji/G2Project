@@ -374,7 +374,7 @@ class FfmpegToolkit extends GalleryToolkit {
 				$regs
 			)
 			) {
-				$successfulRun                      = true;
+				$successfulRun                     = true;
 				list($width, $height, $vframerate) = array($regs[1], $regs[2], $regs[3]);
 			}
 
@@ -407,14 +407,14 @@ class FfmpegToolkit extends GalleryToolkit {
 		}
 
 		return array(
-				GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE),
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-			);
+			GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE),
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+		);
 	}
 
 	/**

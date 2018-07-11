@@ -49,7 +49,12 @@ class FloatrixTheme extends GalleryTheme {
 				'showMicroThumbs' => 0,
 				'dynamicLinks'    => 'browse',
 				'sidebarBlocks'   => serialize(array(
-					array('core.ItemLinks', array('useDropdown' => false)),
+					array(
+						'core.ItemLinks',
+						array(
+							'useDropdown' => false,
+						),
+					),
 					array('core.PeerList', array()),
 					array('imageblock.ImageBlock', array()),
 				)),

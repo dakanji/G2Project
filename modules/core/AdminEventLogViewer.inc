@@ -45,6 +45,11 @@ class AdminEventLogViewerView extends GalleryView {
 
 		$template->javascript('lib/yui/utilities.js');
 
-		return array(null, array('body' => 'modules/core/templates/AdminEventLogViewer.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminEventLogViewer.tpl',
+			),
+		);
 	}
 }

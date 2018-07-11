@@ -256,7 +256,7 @@ class GalleryMimeTypeHelper_advanced {
 		global $gallery;
 
 		// Check to see if the extension already exists.
-		$query                = '
+		$query               = '
 	SELECT
 	    [GalleryMimeTypeMap::extension]
 	FROM
@@ -264,7 +264,11 @@ class GalleryMimeTypeHelper_advanced {
 	WHERE
 	    [GalleryMimeTypeMap::extension] = ?
 	';
-		list($ret, $results) = $gallery->search($query, array($extension), array('limit' => array('count' => 1)));
+		list($ret, $results) = $gallery->search($query, array($extension), array(
+			'limit' => array(
+				'count' => 1,
+			),
+		));
 
 		if ($ret) {
 			return $ret;

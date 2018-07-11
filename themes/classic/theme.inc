@@ -49,8 +49,18 @@ class ClassicTheme extends GalleryTheme {
 				'colorpack'       => '',
 				'sidebarBlocks'   => serialize(
 					array(
-						array('search.SearchBlock', array('showAdvancedLink' => true)),
-						array('core.ItemLinks', array('useDropdown' => false)),
+						array(
+							'search.SearchBlock',
+							array(
+								'showAdvancedLink' => true,
+							),
+						),
+						array(
+							'core.ItemLinks',
+							array(
+								'useDropdown' => false,
+							),
+						),
 						array('core.PeerList', array()),
 						array('imageblock.ImageBlock', array()),
 					)
@@ -92,7 +102,9 @@ class ClassicTheme extends GalleryTheme {
 			'key'        => 'subalbumDepth',
 			'name'       => $this->translate('Depth of subalbums links (0=no limit)'),
 			'type'       => 'text-field',
-			'typeParams' => array('size' => 2),
+			'typeParams' => array(
+				'size' => 2,
+			),
 			'value'      => $params['subalbumDepth'],
 		);
 		$settings[] = array(
@@ -295,7 +307,7 @@ class ClassicTheme extends GalleryTheme {
 					return $ret;
 				}
 			} else {
-				$id                = $item->getId();
+				$id               = $item->getId();
 				list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($id, $maxDepth, $userId);
 
 				if ($ret) {

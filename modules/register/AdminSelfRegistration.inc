@@ -93,7 +93,7 @@ class AdminSelfRegistrationController extends GalleryController {
 					return array($ret, null);
 				}
 			} else {
-				$userName          = $pendingUser->getUserName();
+				$userName         = $pendingUser->getUserName();
 				list($ret, $lock) = GalleryCoreApi::acquireWriteLock(array($pendingUser->getId()));
 
 				if ($ret) {
@@ -215,6 +215,11 @@ class AdminSelfRegistrationView extends GalleryView {
 		$template->setVariable('SelfRegistration', $selfregistration);
 		$template->setVariable('controller', 'register.AdminSelfRegistration');
 
-		return array(null, array('body' => 'modules/register/templates/AdminSelfRegistration.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/register/templates/AdminSelfRegistration.tpl',
+			),
+		);
 	}
 }

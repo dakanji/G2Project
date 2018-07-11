@@ -241,6 +241,11 @@ class RssSiteAdminView extends GalleryView {
 		$template->setVariable('RssSiteAdmin', $RssSiteAdmin);
 		$template->setVariable('controller', 'rss.RssSiteAdmin');
 
-		return array(null, array('body' => 'modules/rss/templates/RssSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/rss/templates/RssSiteAdmin.tpl',
+			),
+		);
 	}
 }

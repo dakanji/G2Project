@@ -59,7 +59,12 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 			asort($colorpacks);
 		}
 
-		return array(null, array_merge(array('' => $this->translate('None')), $colorpacks));
+		return array(
+			null,
+			array_merge(array(
+				'' => $this->translate('None'),
+			), $colorpacks),
+		);
 	}
 
 	/**
@@ -80,7 +85,7 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 	 */
 	public function translate($string) {
 		global $gallery;
-		$translator           =& $gallery->getTranslator();
+		$translator          =& $gallery->getTranslator();
 		list($ret, $content) = $translator->translateDomain('modules_colorpack', $string);
 
 		if ($ret) {

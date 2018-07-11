@@ -177,7 +177,7 @@ class ChooseObjectsView extends GalleryView {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$existingUsers         = $newUsers = array();
+		$existingUsers        = $newUsers = array();
 		list($ret, $allUsers) = Gallery1DataParser::getUserUids($albumsPath);
 
 		if ($ret) {
@@ -266,7 +266,12 @@ class ChooseObjectsView extends GalleryView {
 		$template->setVariable('ChooseObjects', $ChooseObjects);
 		$template->setVariable('controller', 'migrate.ChooseObjects');
 
-		return array(null, array('body' => 'modules/migrate/templates/ChooseObjects.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/migrate/templates/ChooseObjects.tpl',
+			),
+		);
 	}
 
 	/**

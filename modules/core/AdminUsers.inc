@@ -201,7 +201,9 @@ class AdminUsersView extends GalleryView {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'FailedLoginsMap',
 			array('userName', 'count'),
-			array('userName' => array_values($userNames))
+			array(
+				'userName' => array_values($userNames),
+			)
 		);
 
 		if ($ret) {
@@ -226,9 +228,16 @@ class AdminUsersView extends GalleryView {
 			$form['list']['userNames'][$userId]['failedLogins'] = (isset($failedLogins[$user->getUserName()])) ? $failedLogins[$user->getUserName()] : 0;
 		}
 
-		$template->setVariable('AdminUsers', array('totalUserCount' => $totalUserCount));
+		$template->setVariable('AdminUsers', array(
+			'totalUserCount' => $totalUserCount,
+		));
 		$template->setVariable('controller', 'core.AdminUsers');
 
-		return array(null, array('body' => 'modules/core/templates/AdminUsers.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminUsers.tpl',
+			),
+		);
 	}
 }

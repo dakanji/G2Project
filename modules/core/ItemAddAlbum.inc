@@ -180,7 +180,12 @@ class ItemAddAlbumView extends GalleryView {
 		$template->setVariable('ItemAddAlbum', array());
 		$template->setVariable('controller', 'core.ItemAddAlbum');
 
-		return array(null, array('body' => 'modules/core/templates/ItemAddAlbum.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemAddAlbum.tpl',
+			),
+		);
 	}
 
 	/**

@@ -337,6 +337,11 @@ class AdminQuotasView extends GalleryView {
 		$template->setVariable('AdminQuotas', $AdminQuotas);
 		$template->setVariable('controller', 'quotas.AdminQuotas');
 
-		return array(null, array('body' => 'modules/quotas/templates/AdminQuotas.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/quotas/templates/AdminQuotas.tpl',
+			),
+		);
 	}
 }

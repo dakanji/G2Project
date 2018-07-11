@@ -91,7 +91,7 @@ class ReplicaModule extends GalleryModule {
 	 */
 	public function getItemAdminViews($item) {
 		global $gallery;
-		$views                    = array();
+		$views                   = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {

@@ -31,7 +31,7 @@ class NotificationHandler_1_0 {
 	/**
 	 * Return a localized description of the handler.
 	 * @return array GalleryStatus
-	 * 		     string Localized description of the handler.
+	 *           string Localized description of the handler.
 	 * @abstract
 	 */
 	public function getDescription() {
@@ -54,7 +54,7 @@ class NotificationHandler_1_0 {
 	 * @param string $moduleId the module id
 	 * @param mixed $translateParms parameters to the module translate method
 	 * @return array GalleryStatus
-	 *		     string A formatted and localized plain text message.
+	 *           string A formatted and localized plain text message.
 	 * @access protected
 	 */
 	public function _translateText($moduleId, $translateParms) {

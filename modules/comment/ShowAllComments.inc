@@ -247,7 +247,9 @@ class ShowAllCommentsView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/comment/templates/ShowAllComments.tpl'),
+			array(
+				'body' => 'modules/comment/templates/ShowAllComments.tpl',
+			),
 		);
 	}
 

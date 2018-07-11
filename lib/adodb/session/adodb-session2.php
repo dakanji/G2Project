@@ -618,9 +618,9 @@ class ADODB_Session {
 
 	// Slurp in the session variables and return the serialized string
 	public static function read($key) {
-		$conn	= self::_conn();
-		$filter	= self::filter();
-		$table	= self::table();
+		$conn   = self::_conn();
+		$filter = self::filter();
+		$table  = self::table();
 
 		if (!$conn) {
 			return '';
@@ -749,7 +749,7 @@ class ADODB_Session {
 			}
 		}
 
-		if (!$clob) {	// no lobs, simply use replace()
+		if (!$clob) {   // no lobs, simply use replace()
 			$rs = $conn->Execute("SELECT COUNT(*) AS cnt FROM $table WHERE $binary sesskey = " . $conn->Param(0), array($key));
 
 			if ($rs) {

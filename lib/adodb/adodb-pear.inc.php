@@ -11,8 +11,8 @@
  *
  * PEAR DB Emulation Layer for ADODB.
  *
- * The following code is modelled on PEAR DB code by Stig Bakken <ssb@fast.no>								   |
- * and Tomas V.V.Cox <cox@idecnet.com>.	Portions (c)1997-2002 The PHP Group.
+ * The following code is modelled on PEAR DB code by Stig Bakken <ssb@fast.no>                                 |
+ * and Tomas V.V.Cox <cox@idecnet.com>. Portions (c)1997-2002 The PHP Group.
  */
 
  /*
@@ -254,7 +254,7 @@ class DB {
 		$class = strtolower(get_class($value));
 
 		return $class == 'pear_error' || is_subclass_of($value, 'pear_error') ||
-			$class == 'db_error' || is_subclass_of($value, 'db_error');
+		$class == 'db_error' || is_subclass_of($value, 'db_error');
 	}
 
 	/**

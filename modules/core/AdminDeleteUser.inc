@@ -85,7 +85,7 @@ class AdminDeleteUserController extends GalleryController {
 					$error[] = 'form[error][text][newOwnerIsGuest]';
 				}
 			} else { // new owner field is empty, set the default new owner: 'admin'
-				$activeUserId          = $gallery->getActiveUserId(); // activeUser = site admin
+				$activeUserId         = $gallery->getActiveUserId(); // activeUser = site admin
 				list($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($activeUserId, 'GalleryUser');
 
 				if ($ret) {
@@ -183,7 +183,7 @@ class AdminDeleteUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId            = GalleryUtilities::getRequestVariables('userId');
+		$userId           = GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -211,7 +211,9 @@ class AdminDeleteUserView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/AdminDeleteUser.tpl'),
+			array(
+				'body' => 'modules/core/templates/AdminDeleteUser.tpl',
+			),
 		);
 	}
 }

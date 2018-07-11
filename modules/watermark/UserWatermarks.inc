@@ -155,10 +155,17 @@ class UserWatermarksView extends GalleryView {
 			$template->setVariable('UserAdmin', $UserAdmin);
 		}
 
-		$template->setVariable('UserWatermarks', array('watermarks' => $watermarks));
+		$template->setVariable('UserWatermarks', array(
+			'watermarks' => $watermarks,
+		));
 		$template->setVariable('controller', 'watermark.UserWatermarks');
 
-		return array(null, array('body' => 'modules/watermark/templates/UserWatermarks.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/watermark/templates/UserWatermarks.tpl',
+			),
+		);
 	}
 
 	/**

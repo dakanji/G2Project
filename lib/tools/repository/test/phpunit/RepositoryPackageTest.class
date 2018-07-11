@@ -57,8 +57,12 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		// Prepare the data we expect from the methods tested for comparison.
 		$this->_expectedPackageData['package1'] = array(
-			0 => array('random' => 'random'),
-			1 => array('directories' => array('dir1', 'dir2')),
+			0 => array(
+				'random' => 'random',
+			),
+			1 => array(
+				'directories' => array('dir1', 'dir2'),
+			),
 			2 => array(
 				'files' => array(
 					array(
@@ -74,8 +78,12 @@ class RepositoryPackageTest extends GalleryTestCase {
 		);
 
 		$this->_expectedPackageData['package2'] = array(
-			3 => array('random' => 'random'),
-			4 => array('directories' => array('dir2', 'dir3')),
+			3 => array(
+				'random' => 'random',
+			),
+			4 => array(
+				'directories' => array('dir2', 'dir3'),
+			),
 			5 => array(
 				'files' => array(
 					array(

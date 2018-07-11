@@ -30,7 +30,9 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 		$name = $args['name'];
 
 		if (isset($args['script'])) {
-			$_params = array('resource_name' => $smarty->_dequote($args['script']));
+			$_params = array(
+				'resource_name' => $smarty->_dequote($args['script']),
+			);
 
 			include_once SMARTY_CORE_DIR . 'core.get_php_resource.php';
 

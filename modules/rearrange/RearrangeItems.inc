@@ -178,7 +178,7 @@ class RearrangeItemsView extends GalleryView {
 						}
 					}
 					$child['thumbnail'] = (array)$thumb;
-					list($w, $h)       = GalleryUtilities::shrinkDimensionsToFit(
+					list($w, $h)        = GalleryUtilities::shrinkDimensionsToFit(
 						$thumb->getWidth(),
 						$thumb->getHeight(),
 						100
@@ -217,7 +217,12 @@ class RearrangeItemsView extends GalleryView {
 		$template->setVariable('controller', 'rearrange.RearrangeItems');
 		$template->head('modules/rearrange/templates/Header.tpl');
 
-		return array(null, array('body' => 'modules/rearrange/templates/RearrangeItems.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/rearrange/templates/RearrangeItems.tpl',
+			),
+		);
 	}
 
 	/**

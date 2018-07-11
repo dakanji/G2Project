@@ -45,7 +45,7 @@ class RemoteStorageCapabilitiesView extends GalleryView {
 		$capabilities = ImageUploadHelper::getRSCapabilities();
 
 		if (empty($capabilities)) {
-			$reply               = NOKIAUPLOAD_ERR_UNKNOWN . "\r\n";
+			$reply              = NOKIAUPLOAD_ERR_UNKNOWN . "\r\n";
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
 
 			if ($ret) {

@@ -119,6 +119,11 @@ class ShowTreeView extends GalleryView {
 
 		$template->title($module->translate('Gallery Debug'));
 
-		return array(null, array('body' => 'modules/debug/templates/ShowTree.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/debug/templates/ShowTree.tpl',
+			),
+		);
 	}
 }

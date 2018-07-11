@@ -78,10 +78,10 @@ class GalleryDatabaseExport {
 	 * @param string $fileName (optional) Name of the file to write the database extract xml to,
 	 *      if not supplied will default to g2data/backups/backup_date.xml.
 	 * @return array GalleryStatus a status code
-	 *		     string Path name of the backup file
-	 *		     array of warning messages to be displayed to the administrator.
+	 *           string Path name of the backup file
+	 *           array of warning messages to be displayed to the administrator.
 	 * @todo When the progress bar handling is standardized for both upgrades and maintenance
-	 * 	     screens, then replace the call back function with a StatusMonitor object.
+	 *       screens, then replace the call back function with a StatusMonitor object.
 	 */
 	public function exportToXmlFile($progressCallback, $fileName = null) {
 		global $gallery;
@@ -510,7 +510,7 @@ class GalleryDatabaseExport {
 
 		list($name1, $name2, $nameInSchema) = $storage->_translateTableName($table);
 
-		$query                = 'SELECT [::createSql], [::pluginId], [::type], [::info]
+		$query               = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
 		list($ret, $results) = $storage->search($query, array($nameInSchema));
@@ -681,7 +681,7 @@ class GalleryDatabaseExport {
 			}
 
 			if ($ret) {
-				$fields                    = array(
+				$fields                   = array(
 					'id' => array(
 						'type'    => STORAGE_TYPE_INTEGER,
 						'notNull' => 1,
@@ -758,12 +758,16 @@ class GalleryDatabaseExport {
 			. ' ORDER BY ' . implode(' ASC, ', $fieldNames) . ' ASC';
 
 			$offset   = 0;
-			$options  = array('limit' => array('count' => $this->_rowChunkSize));
+			$options  = array(
+				'limit' => array(
+					'count' => $this->_rowChunkSize,
+				),
+			);
 			$rowsRead = 0;
 
 			while ($rowsRead < $rowCount) {
 				$options['limit']['offset'] = $offset;
-				list($ret, $results)       = $storage->search($query, array(), $options);
+				list($ret, $results)        = $storage->search($query, array(), $options);
 
 				if ($ret) {
 					return $ret;
@@ -843,7 +847,7 @@ class GalleryDatabaseExport {
 	 * Creates the file name and opens the file to write the content of the backup.
 	 *
 	 * @param string $fileName (optional) Name of the file to write the database extract xml to,
-	 *		 if not supplied will default to g2data/backups/g2backup_date.txt
+	 *       if not supplied will default to g2data/backups/g2backup_date.txt
 	 * @return array GalleryStatus a status code
 	 *               fileHandle file handle to the open file
 	 *               string path name of the backup file
@@ -855,7 +859,7 @@ class GalleryDatabaseExport {
 		$phpVm    = $gallery->getPhpVm();
 
 		if (empty($fileName)) {
-			$dirName                = $gallery->getConfig('data.gallery.backup');
+			$dirName               = $gallery->getConfig('data.gallery.backup');
 			list($exists, $unused) = GalleryUtilities::guaranteeDirExists($dirName);
 
 			if (!$exists) {

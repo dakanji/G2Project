@@ -279,7 +279,7 @@ class ExifHelper {
 
 		$exifKeys = self::getExifKeys();
 
-		$results                 = array();
+		$results                = array();
 		list($ret, $properties) = self::getProperties($viewMode);
 
 		if ($ret) {
@@ -399,8 +399,7 @@ class ExifHelper {
 		 * both are set to shot time by cameras, scanners set only SubIFD.DateTimeDigitized.
 		 * Adobe sets IFD0.DateTime to the last modification date/time. So we prefer creation date.
 		 */
-		foreach (array('SubIFD.DateTimeOriginal', 'SubIFD.DateTimeDigitized', 'IFD0.DateTime')
- as $tag) {
+		foreach (array('SubIFD.DateTimeOriginal', 'SubIFD.DateTimeDigitized', 'IFD0.DateTime') as $tag) {
 			$value = self::getExifValue($rawExifData, explode('.', $tag));
 
 			if (isset($value)) {
@@ -533,8 +532,14 @@ class ExifHelper {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'ExifPropertiesMap',
 			array('property', 'sequence'),
-			array('viewMode' => $viewMode),
-			array('orderBy' => array('sequence' => ORDER_ASCENDING))
+			array(
+				'viewMode' => $viewMode,
+			),
+			array(
+				'orderBy' => array(
+					'sequence' => ORDER_ASCENDING,
+				),
+			)
 		);
 
 		if ($ret) {
@@ -561,7 +566,9 @@ class ExifHelper {
 		// Remove all old map entries
 		$ret = GalleryCoreApi::removeMapEntry(
 			'ExifPropertiesMap',
-			array('viewMode' => $viewMode)
+			array(
+				'viewMode' => $viewMode,
+			)
 		);
 
 		if ($ret) {

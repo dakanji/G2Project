@@ -158,95 +158,95 @@ function lookup_tag($tag) {
 		case '000b':
 			$tag = 'ACDComment';
 
-			break;						//text string up to 999 bytes long
+			break;                      //text string up to 999 bytes long
 		case '00fe':
 			$tag = 'ImageType';
 
-			break;						//integer -2147483648 to 2147483647
+			break;                      //integer -2147483648 to 2147483647
 		case '0106':
 			$tag = 'PhotometricInterpret';
 
-			break;			//?? Please send sample image with this tag
+			break;          //?? Please send sample image with this tag
 		case '010e':
 			$tag = 'ImageDescription';
 
-			break;				//text string up to 999 bytes long
+			break;              //text string up to 999 bytes long
 		case '010f':
 			$tag = 'Make';
 
-			break;							//text string up to 999 bytes long
+			break;                          //text string up to 999 bytes long
 		case '0110':
 			$tag = 'Model';
 
-			break;							//text string up to 999 bytes long
+			break;                          //text string up to 999 bytes long
 		case '0112':
 			$tag = 'Orientation';
 
-			break;					//integer values 1-9
+			break;                  //integer values 1-9
 		case '0115':
 			$tag = 'SamplePerPixel';
 
-			break;					//integer 0-65535
+			break;                  //integer 0-65535
 		case '011a':
 			$tag = 'xResolution';
 
-			break;					//positive rational number
+			break;                  //positive rational number
 		case '011b':
 			$tag = 'yResolution';
 
-			break;					//positive rational number
+			break;                  //positive rational number
 		case '011c':
 			$tag = 'PlanarConfig';
 
-			break;					//integer values 1-2
+			break;                  //integer values 1-2
 		case '0128':
 			$tag = 'ResolutionUnit';
 
-			break;					//integer values 1-3
+			break;                  //integer values 1-3
 		case '0131':
 			$tag = 'Software';
 
-			break;						//text string up to 999 bytes long
+			break;                      //text string up to 999 bytes long
 		case '0132':
 			$tag = 'DateTime';
 
-			break;						//YYYY:MM:DD HH:MM:SS
+			break;                      //YYYY:MM:DD HH:MM:SS
 		case '013b':
 			$tag = 'Artist';
 
-			break;							//text string up to 999 bytes long
+			break;                          //text string up to 999 bytes long
 		case '013c':
 			$tag = 'HostComputer';
 
-			break;					//text string
+			break;                  //text string
 		case '013e':
 			$tag = 'WhitePoint';
 
-			break;						//two positive rational numbers
+			break;                      //two positive rational numbers
 		case '013f':
 			$tag = 'PrimaryChromaticities';
 
-			break;			//six positive rational numbers
+			break;          //six positive rational numbers
 		case '0211':
 			$tag = 'YCbCrCoefficients';
 
-			break;				//three positive rational numbers
+			break;              //three positive rational numbers
 		case '0213':
 			$tag = 'YCbCrPositioning';
 
-			break;				//integer values 1-2
+			break;              //integer values 1-2
 		case '0214':
 			$tag = 'ReferenceBlackWhite';
 
-			break;			//six positive rational numbers
+			break;          //six positive rational numbers
 		case '8298':
 			$tag = 'Copyright';
 
-			break;						//text string up to 999 bytes long
+			break;                      //text string up to 999 bytes long
 		case '8649':
 			$tag = 'PhotoshopSettings';
 
-			break;				//??
+			break;              //??
 		case '8825':
 			$tag = 'GPSInfoOffset';
 
@@ -255,310 +255,310 @@ function lookup_tag($tag) {
 		case '8769':
 			$tag = 'ExifOffset';
 
-			break;						//positive integer
+			break;                      //positive integer
 			//used by Exif SubIFD "Image Tags"
 		case '829a':
 			$tag = 'ExposureTime';
 
-			break;					//seconds or fraction of seconds 1/x
+			break;                  //seconds or fraction of seconds 1/x
 		case '829d':
 			$tag = 'FNumber';
 
-			break;						//positive rational number
+			break;                      //positive rational number
 		case '8822':
 			$tag = 'ExposureProgram';
 
-			break;				//integer value 1-9
+			break;              //integer value 1-9
 		case '8824':
 			$tag = 'SpectralSensitivity';
 
-			break;			//??
+			break;          //??
 		case '8827':
 			$tag = 'ISOSpeedRatings';
 
-			break;				//integer 0-65535
+			break;              //integer 0-65535
 		case '9000':
 			$tag = 'ExifVersion';
 
-			break;					//??
+			break;                  //??
 		case '9003':
 			$tag = 'DateTimeOriginal';
 
-			break;				//YYYY:MM:DD HH:MM:SS
+			break;              //YYYY:MM:DD HH:MM:SS
 		case '9004':
 			$tag = 'DateTimedigitized';
 
-			break;				//YYYY:MM:DD HH:MM:SS
+			break;              //YYYY:MM:DD HH:MM:SS
 		case '9101':
 			$tag = 'ComponentsConfiguration';
 
-			break;		//??
+			break;      //??
 		case '9102':
 			$tag = 'CompressedBitsPerPixel';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case '9201':
 			$tag = 'ShutterSpeedValue';
 
-			break;				//seconds or fraction of seconds 1/x
+			break;              //seconds or fraction of seconds 1/x
 		case '9202':
 			$tag = 'ApertureValue';
 
-			break;					//positive rational number
+			break;                  //positive rational number
 		case '9203':
 			$tag = 'BrightnessValue';
 
-			break;				//positive rational number
+			break;              //positive rational number
 		case '9204':
 			$tag = 'ExposureBiasValue';
 
-			break;				//positive rational number (EV)
+			break;              //positive rational number (EV)
 		case '9205':
 			$tag = 'MaxApertureValue';
 
-			break;				//positive rational number
+			break;              //positive rational number
 		case '9206':
 			$tag = 'SubjectDistance';
 
-			break;				//positive rational number (meters)
+			break;              //positive rational number (meters)
 		case '9207':
 			$tag = 'MeteringMode';
 
-			break;					//integer 1-6 and 255
+			break;                  //integer 1-6 and 255
 		case '9208':
 			$tag = 'LightSource';
 
-			break;					//integer 1-255
+			break;                  //integer 1-255
 		case '9209':
 			$tag = 'Flash';
 
-			break;							//integer 1-255
+			break;                          //integer 1-255
 		case '920a':
 			$tag = 'FocalLength';
 
-			break;					//positive rational number (mm)
+			break;                  //positive rational number (mm)
 		case '9213':
 			$tag = 'ImageHistory';
 
-			break;					//text string up to 999 bytes long
+			break;                  //text string up to 999 bytes long
 		case '927c':
 			$tag = 'MakerNote';
 
-			break;						//a bunch of data
+			break;                      //a bunch of data
 		case '9286':
 			$tag = 'UserComment';
 
-			break;					//text string
+			break;                  //text string
 		case '9290':
 			$tag = 'SubsecTime';
 
-			break;						//text string up to 999 bytes long
+			break;                      //text string up to 999 bytes long
 		case '9291':
 			$tag = 'SubsecTimeOriginal';
 
-			break;				//text string up to 999 bytes long
+			break;              //text string up to 999 bytes long
 		case '9292':
 			$tag = 'SubsecTimeDigitized';
 
-			break;			//text string up to 999 bytes long
+			break;          //text string up to 999 bytes long
 		case 'a000':
 			$tag = 'FlashPixVersion';
 
-			break;				//??
+			break;              //??
 		case 'a001':
 			$tag = 'ColorSpace';
 
-			break;						//values 1 or 65535
+			break;                      //values 1 or 65535
 		case 'a002':
 			$tag = 'ExifImageWidth';
 
-			break;					//ingeter 1-65535
+			break;                  //ingeter 1-65535
 		case 'a003':
 			$tag = 'ExifImageHeight';
 
-			break;				//ingeter 1-65535
+			break;              //ingeter 1-65535
 		case 'a004':
 			$tag = 'RelatedSoundFile';
 
-			break;				//text string 12 bytes long
+			break;              //text string 12 bytes long
 		case 'a005':
 			$tag = 'ExifInteroperabilityOffset';
 
-			break;		//positive integer
+			break;      //positive integer
 		case 'a20c':
 			$tag = 'SpacialFreqResponse';
 
-			break;			//??
+			break;          //??
 		case 'a20b':
 			$tag = 'FlashEnergy';
 
-			break;					//positive rational number
+			break;                  //positive rational number
 		case 'a20e':
 			$tag = 'FocalPlaneXResolution';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case 'a20f':
 			$tag = 'FocalPlaneYResolution';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case 'a210':
 			$tag = 'FocalPlaneResolutionUnit';
 
-			break;		//values 1-3
+			break;      //values 1-3
 		case 'a214':
 			$tag = 'SubjectLocation';
 
-			break;				//two integers 0-65535
+			break;              //two integers 0-65535
 		case 'a215':
 			$tag = 'ExposureIndex';
 
-			break;					//positive rational number
+			break;                  //positive rational number
 		case 'a217':
 			$tag = 'SensingMethod';
 
-			break;					//values 1-8
+			break;                  //values 1-8
 		case 'a300':
 			$tag = 'FileSource';
 
-			break;						//integer
+			break;                      //integer
 		case 'a301':
 			$tag = 'SceneType';
 
-			break;						//integer
+			break;                      //integer
 		case 'a302':
 			$tag = 'CFAPattern';
 
-			break;						//undefined data type
+			break;                      //undefined data type
 		case 'a401':
 			$tag = 'CustomerRender';
 
-			break;					//values 0 or 1
+			break;                  //values 0 or 1
 		case 'a402':
 			$tag = 'ExposureMode';
 
-			break;					//values 0-2
+			break;                  //values 0-2
 		case 'a403':
 			$tag = 'WhiteBalance';
 
-			break;					//values 0 or 1
+			break;                  //values 0 or 1
 		case 'a404':
 			$tag = 'DigitalZoomRatio';
 
-			break;				//positive rational number
+			break;              //positive rational number
 		case 'a405':
 			$tag = 'FocalLengthIn35mmFilm';
 
-			break;				//??
+			break;              //??
 		case 'a406':
 			$tag = 'SceneCaptureMode';
 
-			break;				//values 0-3
+			break;              //values 0-3
 		case 'a407':
 			$tag = 'GainControl';
 
-			break;					//values 0-4
+			break;                  //values 0-4
 		case 'a408':
 			$tag = 'Contrast';
 
-			break;						//values 0-2
+			break;                      //values 0-2
 		case 'a409':
 			$tag = 'Saturation';
 
-			break;						//values 0-2
+			break;                      //values 0-2
 		case 'a40a':
 			$tag = 'Sharpness';
 
-			break;						//values 0-2
+			break;                      //values 0-2
 			//used by Interoperability IFD
 		case '0001':
 			$tag = 'InteroperabilityIndex';
 
-			break; 			//text string 3 bytes long
+			break;          //text string 3 bytes long
 		case '0002':
 			$tag = 'InteroperabilityVersion';
 
-			break; 		//datatype undefined
+			break;      //datatype undefined
 		case '1000':
 			$tag = 'RelatedImageFileFormat';
 
-			break;			//text string up to 999 bytes long
+			break;          //text string up to 999 bytes long
 		case '1001':
 			$tag = 'RelatedImageWidth';
 
-			break;				//integer in range 0-65535
+			break;              //integer in range 0-65535
 		case '1002':
 			$tag = 'RelatedImageLength';
 
-			break;				//integer in range 0-65535
+			break;              //integer in range 0-65535
 			//used by IFD1 "Thumbnail"
 		case '0100':
 			$tag = 'ImageWidth';
 
-			break;						//integer in range 0-65535
+			break;                      //integer in range 0-65535
 		case '0101':
 			$tag = 'ImageLength';
 
-			break;					//integer in range 0-65535
+			break;                  //integer in range 0-65535
 		case '0102':
 			$tag = 'BitsPerSample';
 
-			break;					//integers in range 0-65535
+			break;                  //integers in range 0-65535
 		case '0103':
 			$tag = 'Compression';
 
-			break;					//values 1 or 6
+			break;                  //values 1 or 6
 		case '0106':
 			$tag = 'PhotometricInterpretation';
 
-			break;		//values 0-4
+			break;      //values 0-4
 		case '010e':
 			$tag = 'ThumbnailDescription';
 
-			break;			//text string up to 999 bytes long
+			break;          //text string up to 999 bytes long
 		case '010f':
 			$tag = 'ThumbnailMake';
 
-			break;					//text string up to 999 bytes long
+			break;                  //text string up to 999 bytes long
 		case '0110':
 			$tag = 'ThumbnailModel';
 
-			break;					//text string up to 999 bytes long
+			break;                  //text string up to 999 bytes long
 		case '0111':
 			$tag = 'StripOffsets';
 
-			break;					//??
+			break;                  //??
 		case '0112':
 			$tag = 'ThumbnailOrientation';
 
-			break;			//integer 1-9
+			break;          //integer 1-9
 		case '0115':
 			$tag = 'SamplesPerPixel';
 
-			break;				//??
+			break;              //??
 		case '0116':
 			$tag = 'RowsPerStrip';
 
-			break;					//??
+			break;                  //??
 		case '0117':
 			$tag = 'StripByteCounts';
 
-			break;				//??
+			break;              //??
 		case '011a':
 			$tag = 'ThumbnailXResolution';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case '011b':
 			$tag = 'ThumbnailYResolution';
 
-			break;			//positive rational number
+			break;          //positive rational number
 		case '011c':
 			$tag = 'PlanarConfiguration';
 
-			break;			//values 1 or 2
+			break;          //values 1 or 2
 		case '0128':
 			$tag = 'ThumbnailResolutionUnit';
 
-			break;		//values 1-3
+			break;      //values 1-3
 		case '0201':
 			$tag = 'JpegIFOffset';
 
@@ -823,19 +823,19 @@ function formatData($type, $tag, $intel, $data) {
 		}
 
 		if ($intel == 1) {
-			$top = hexdec(substr($data, 8, 8)); 	//intel stores them bottom-top
+			$top = hexdec(substr($data, 8, 8));     //intel stores them bottom-top
 		} else {
-			$top = hexdec(substr($data, 0, 8));				//motorola stores them top-bottom
+			$top = hexdec(substr($data, 0, 8));             //motorola stores them top-bottom
 		}
 
 		if ($intel == 1) {
-			$bottom = hexdec(substr($data, 0, 8));	//intel stores them bottom-top
+			$bottom = hexdec(substr($data, 0, 8));  //intel stores them bottom-top
 		} else {
-			$bottom = hexdec(substr($data, 8, 8));			//motorola stores them top-bottom
+			$bottom = hexdec(substr($data, 8, 8));          //motorola stores them top-bottom
 		}
 
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
-			$top = $top - 4294967296;		//this makes the number signed instead of unsigned
+			$top = $top - 4294967296;       //this makes the number signed instead of unsigned
 		}
 
 		if ($bottom != 0) {
@@ -903,11 +903,11 @@ function formatData($type, $tag, $intel, $data) {
 		$data = hexdec($data);
 
 		if ($type == 'SSHORT' && $data > 32767) {
-			$data = $data - 65536;	//this makes the number signed instead of unsigned
+			$data = $data - 65536;  //this makes the number signed instead of unsigned
 		}
 
 		if ($type == 'SLONG' && $data > 2147483647) {
-			$data = $data - 4294967296;	//this makes the number signed instead of unsigned
+			$data = $data - 4294967296; //this makes the number signed instead of unsigned
 		}
 
 		if ($tag == '0112') { //Orientation
@@ -1140,7 +1140,7 @@ function formatData($type, $tag, $intel, $data) {
 			$data = str_replace('01', 'Directly Photographed', $data);
 		}
 
-		if ($tag == '9101') {	//ComponentsConfiguration
+		if ($tag == '9101') {   //ComponentsConfiguration
 			$data = bin2hex($data);
 			$data = str_replace('01', 'Y', $data);
 			$data = str_replace('02', 'Cb', $data);
@@ -1205,9 +1205,9 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 	//4 byte value or pointer to value if larger than 4 bytes
 	$value = fread($in, 4);
 
-	if ($bytesofdata <= 4) { 	//if datatype is 4 bytes or less, its the value
+	if ($bytesofdata <= 4) {    //if datatype is 4 bytes or less, its the value
 		$data = $value;
-	} elseif ($bytesofdata < 100000) {				//otherwise its a pointer to the value, so lets go get it
+	} elseif ($bytesofdata < 100000) {              //otherwise its a pointer to the value, so lets go get it
 		$value = bin2hex($value);
 
 		if ($intel == 1) {
@@ -1314,7 +1314,7 @@ function read_exif_data_raw($path, $verbose) {
 	$result['VerboseOutput'] = $verbose;
 	$result['Errors']        = 0;
 
-	if (!$in || !$seek) {	//if the path was invalid, this error will catch it
+	if (!$in || !$seek) {   //if the path was invalid, this error will catch it
 		$result['Errors']                   = 1;
 		$result['Error'][$result['Errors']] = 'The file could not be found.';
 
@@ -1365,7 +1365,7 @@ function read_exif_data_raw($path, $verbose) {
 			$result['JFIF']['ExtensionCode'] = bin2hex(substr($data, 6, 1));
 
 			$globalOffset += hexdec($size) + 2;
-		} elseif ($data == 'ffed') {	//IPTC Marker
+		} elseif ($data == 'ffed') {    //IPTC Marker
 			$result['ValidIPTCData'] = 1;
 			$result['IPTC']['Size']  = hexdec($size);
 
@@ -1374,7 +1374,7 @@ function read_exif_data_raw($path, $verbose) {
 				$result['IPTC']['Data'] = $data;
 			}
 			$globalOffset += hexdec($size) + 2;
-		} elseif ($data == 'ffe2') {	//EXIF extension Marker
+		} elseif ($data == 'ffe2') {    //EXIF extension Marker
 			$result['ValidAPP2Data'] = 1;
 			$result['APP2']['Size']  = hexdec($size);
 
@@ -1383,7 +1383,7 @@ function read_exif_data_raw($path, $verbose) {
 				$result['APP2']['Data'] = $data;
 			}
 			$globalOffset += hexdec($size) + 2;
-		} elseif ($data == 'fffe') {	//COM extension Marker
+		} elseif ($data == 'fffe') {    //COM extension Marker
 			$result['ValidCOMData'] = 1;
 			$result['COM']['Size']  = hexdec($size);
 

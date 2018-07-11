@@ -101,7 +101,7 @@ if (!defined('ADODB_SESSION')) {
 	/****************************************************************************************\
 		Global definitions
 	****************************************************************************************/
-	global 	$ADODB_SESSION_CONNECT,
+	global  $ADODB_SESSION_CONNECT,
 	$ADODB_SESSION_DRIVER,
 	$ADODB_SESSION_USER,
 	$ADODB_SESSION_PWD,
@@ -177,7 +177,7 @@ if (!defined('ADODB_SESSION')) {
 			return true;
 		}
 
-		global 	$ADODB_SESSION_CONNECT,
+		global  $ADODB_SESSION_CONNECT,
 		$ADODB_SESSION_DRIVER,
 		$ADODB_SESSION_USER,
 		$ADODB_SESSION_PWD,
@@ -265,8 +265,8 @@ if (!defined('ADODB_SESSION')) {
 		$ADODB_SESS_DEBUG,
 		$ADODB_SESSION_CRC,
 		$ADODB_SESSION_EXPIRE_NOTIFY,
-		$ADODB_SESSION_DRIVER,			// added
-		$ADODB_SESSION_USE_LOBS;		// added
+		$ADODB_SESSION_DRIVER,          // added
+		$ADODB_SESSION_USE_LOBS;        // added
 
 		$expiry = time() + $ADODB_SESS_LIFE;
 
@@ -296,7 +296,7 @@ if (!defined('ADODB_SESSION')) {
 			$arr['expireref'] = $$var;
 		}
 
-		if ($ADODB_SESSION_USE_LOBS === false) {	// no lobs, simply use replace()
+		if ($ADODB_SESSION_USE_LOBS === false) {    // no lobs, simply use replace()
 			$rs = $ADODB_SESS_CONN->Replace($ADODB_SESSION_TBL, $arr, 'sesskey', $autoQuote = true);
 
 			if (!$rs) {

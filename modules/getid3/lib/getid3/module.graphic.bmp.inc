@@ -288,7 +288,7 @@ class getid3_bmp extends getid3_handler {
 			$PaletteEntries = 0;
 
 			if ($thisfile_bmp_header_raw['bits_per_pixel'] < 16) {
-				$PaletteEntries = 2** $thisfile_bmp_header_raw['bits_per_pixel'];
+				$PaletteEntries = 2 ** $thisfile_bmp_header_raw['bits_per_pixel'];
 			} elseif (isset($thisfile_bmp_header_raw['colors_used']) && ($thisfile_bmp_header_raw['colors_used'] > 0) && ($thisfile_bmp_header_raw['colors_used'] <= 256)) {
 				$PaletteEntries = $thisfile_bmp_header_raw['colors_used'];
 			}

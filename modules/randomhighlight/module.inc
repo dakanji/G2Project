@@ -50,7 +50,9 @@ class RandomHighlightModule extends GalleryModule {
 			return $ret;
 		}
 
-		foreach (array('duration' => 7200 /* 2 hours */) as $key => $value) {
+		foreach (array(
+			'duration' => 7200, // 2 hours
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

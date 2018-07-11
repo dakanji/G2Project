@@ -62,7 +62,7 @@ class SlideshowHelper {
 
 		if (!$item->getCanContainChildren()) {
 			// Photo: do slideshow of parent album, start at this photo
-			$startId           = $item->getId();
+			$startId          = $item->getId();
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
 
 			if ($ret) {
@@ -91,8 +91,8 @@ class SlideshowHelper {
 			return array($ret, null, null, null, null);
 		}
 
-		$itemId                               = $item->getId();
-		$prevOffset                           = $nextOffset = null;
+		$itemId                              = $item->getId();
+		$prevOffset                          = $nextOffset = null;
 		list($ret, $prevOffset, $nextOffset) = self::paginateItemSlideshow(
 			$itemId,
 			$offset
@@ -125,7 +125,7 @@ class SlideshowHelper {
 			return array(null, null, null);
 		}
 
-		$items                   = array();
+		$items                  = array();
 		list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 		if ($ret) {

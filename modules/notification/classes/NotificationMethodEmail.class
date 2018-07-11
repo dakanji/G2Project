@@ -125,7 +125,9 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 			$redirect['view']    = 'core.UserAdmin';
 			$redirect['subView'] = 'notification.NotificationUserAdmin';
 
-			$unsubscribeUrl = $urlGenerator->generateUrl($redirect, array('forceFullUrl' => true));
+			$unsubscribeUrl = $urlGenerator->generateUrl($redirect, array(
+				'forceFullUrl' => true,
+			));
 			$ret            = GalleryCoreApi::sendTemplatedEmail(
 				'modules/notification/templates/NotificationEmail.tpl',
 				array(

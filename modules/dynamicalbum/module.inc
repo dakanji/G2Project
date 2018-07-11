@@ -31,8 +31,8 @@ class DynamicAlbumModule extends GalleryModule {
 		$this->setId('dynamicalbum');
 		$this->setName($gallery->i18n('Dynamic Albums'));
 		$this->setDescription(
-		$gallery->i18n('Dynamic albums for newest, most viewed or random items')
-	);
+			$gallery->i18n('Dynamic albums for newest, most viewed or random items')
+		);
 		$this->setVersion('1.0.3');
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
@@ -51,11 +51,21 @@ class DynamicAlbumModule extends GalleryModule {
 			return $ret;
 		}
 
-		foreach (array('themeId' => '', 'size.date' => 24, 'size.views' => 24, 'size.random' => 24,
-			'type.date' => 'data', 'type.views' => 'data', 'type.random' => 'data',
-			'description.date' => '', 'description.views' => '', 'description.random' => '',
-			'itemlink.date' => 0, 'itemlink.views' => 0, 'itemlink.random' => 0, )
-		as $key => $value) {
+		foreach (array(
+			'themeId'            => '',
+			'size.date'          => 24,
+			'size.views'         => 24,
+			'size.random'        => 24,
+			'type.date'          => 'data',
+			'type.views'         => 'data',
+			'type.random'        => 'data',
+			'description.date'   => '',
+			'description.views'  => '',
+			'description.random' => '',
+			'itemlink.date'      => 0,
+			'itemlink.views'     => 0,
+			'itemlink.random'    => 0,
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -66,8 +76,7 @@ class DynamicAlbumModule extends GalleryModule {
 		}
 
 		if (!isset($params['themeSettingsId'])) {
-			list($ret, $entity) =
-		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryEntity');
+			list($ret, $entity) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryEntity');
 
 			if ($ret) {
 				return $ret;
@@ -75,11 +84,11 @@ class DynamicAlbumModule extends GalleryModule {
 
 			if (!isset($entity)) {
 				return GalleryCoreApi::error(
-			ERROR_MISSING_OBJECT,
-			__FILE__,
-			__LINE__,
-						 'Unable to get a GalleryEntity instance'
-		);
+					ERROR_MISSING_OBJECT,
+					__FILE__,
+					__LINE__,
+					'Unable to get a GalleryEntity instance'
+				);
 			}
 			$ret = $entity->create();
 
@@ -105,15 +114,22 @@ class DynamicAlbumModule extends GalleryModule {
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {
-		return array(null, array(array('name' => $this->translate('Dynamic Albums'),
-					   'view' => 'dynamicalbum.DynamicAlbumSiteAdmin', )));
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Dynamic Albums'),
+					'view' => 'dynamicalbum.DynamicAlbumSiteAdmin',
+				),
+			),
+		);
 	}
 
 	/**
 	 * @see GalleryModule::getItemLinks
 	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
-		$links = array();
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
+		$links              = array();
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 
 		if ($ret) {
@@ -121,7 +137,8 @@ class DynamicAlbumModule extends GalleryModule {
 		}
 
 		if (!$params['itemlink.date'] && !$params['itemlink.views']
-		&& !$params['itemlink.random']) {
+			&& !$params['itemlink.random']
+		) {
 			return array(null, $links);
 		}
 
@@ -131,23 +148,32 @@ class DynamicAlbumModule extends GalleryModule {
 			if ($item->getCanContainChildren() && isset($wantsDetailedLinks[$itemId])) {
 				if ($params['itemlink.date']) {
 					$links[$itemId][] = array(
-				'text' => $this->translate('View Latest Updates'),
-				'params' => array('view' => 'dynamicalbum.UpdatesAlbum',
-						  'albumId' => $itemId, ), );
+						'text'   => $this->translate('View Latest Updates'),
+						'params' => array(
+							'view'    => 'dynamicalbum.UpdatesAlbum',
+							'albumId' => $itemId,
+						),
+					);
 				}
 
 				if ($params['itemlink.views']) {
 					$links[$itemId][] = array(
-				'text' => $this->translate('View Popular Items'),
-				'params' => array('view' => 'dynamicalbum.PopularAlbum',
-						  'albumId' => $itemId, ), );
+						'text'   => $this->translate('View Popular Items'),
+						'params' => array(
+							'view'    => 'dynamicalbum.PopularAlbum',
+							'albumId' => $itemId,
+						),
+					);
 				}
 
 				if ($params['itemlink.random']) {
 					$links[$itemId][] = array(
-				'text' => $this->translate('View Random Items'),
-				'params' => array('view' => 'dynamicalbum.RandomAlbum',
-						  'albumId' => $itemId, ), );
+						'text'   => $this->translate('View Random Items'),
+						'params' => array(
+							'view'    => 'dynamicalbum.RandomAlbum',
+							'albumId' => $itemId,
+						),
+					);
 				}
 			}
 		}
@@ -160,18 +186,30 @@ class DynamicAlbumModule extends GalleryModule {
 	 */
 	public function getRewriteRules() {
 		return array(
-		array('comment' => $this->translate('Updates Album'),
-			  'match' => array('view' => 'dynamicalbum.UpdatesAlbum'),
-			  'pattern' => 'updates',
-			  'help' => $this->translate('Short URL for album of recent items'), ),
-		array('comment' => $this->translate('Popular Album'),
-			  'match' => array('view' => 'dynamicalbum.PopularAlbum'),
-			  'pattern' => 'popular',
-			  'help' => $this->translate('Short URL for album of most viewed items'), ),
-		array('comment' => $this->translate('Random Album'),
-			  'match' => array('view' => 'dynamicalbum.RandomAlbum'),
-			  'pattern' => 'random',
-			  'help' => $this->translate('Short URL for album of random items'), ),
+			array(
+				'comment' => $this->translate('Updates Album'),
+				'match'   => array(
+					'view' => 'dynamicalbum.UpdatesAlbum',
+				),
+				'pattern' => 'updates',
+				'help'    => $this->translate('Short URL for album of recent items'),
+			),
+			array(
+				'comment' => $this->translate('Popular Album'),
+				'match'   => array(
+					'view' => 'dynamicalbum.PopularAlbum',
+				),
+				'pattern' => 'popular',
+				'help'    => $this->translate('Short URL for album of most viewed items'),
+			),
+			array(
+				'comment' => $this->translate('Random Album'),
+				'match'   => array(
+					'view' => 'dynamicalbum.RandomAlbum',
+				),
+				'pattern' => 'random',
+				'help'    => $this->translate('Short URL for album of random items'),
+			),
 		);
 	}
 }

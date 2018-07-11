@@ -89,7 +89,9 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			return $ret;
 		}
 
-		$ret = $this->showView('PackageResults', array('results' => array($pluginInfo)));
+		$ret = $this->showView('PackageResults', array(
+			'results' => array($pluginInfo),
+		));
 
 		if ($ret) {
 			return $ret;
@@ -134,7 +136,9 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				$packagedPluginList[] = $pluginInfo;
 			}
 		}
-		$this->showView('PackageResults', array('results' => $packagedPluginList));
+		$this->showView('PackageResults', array(
+			'results' => $packagedPluginList,
+		));
 
 		return null;
 	}
@@ -217,7 +221,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	 *
 	 * @param array $links 'action' => array(UrlGeneratorParameters)
 	 * @return array GalleryStatus a status code
-	 *		     array plugin list
+	 *           array plugin list
 	 */
 	public function getAvailablePluginList($links) {
 		global $gallery;

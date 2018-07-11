@@ -45,7 +45,9 @@ class ErrorPageView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-		$ErrorPage            = array('isAdmin' => !$ret && $isAdmin);
+		$ErrorPage           = array(
+			'isAdmin' => !$ret && $isAdmin,
+		);
 
 		$showDetails = $ErrorPage['isAdmin'] || $gallery->getDebug();
 
@@ -125,7 +127,12 @@ class ErrorPageView extends GalleryView {
 		$template->javascript('lib/javascript/BlockToggle.js');
 		$template->setVariable('ErrorPage', $ErrorPage);
 
-		return array(null, array('body' => 'modules/core/templates/ErrorPage.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ErrorPage.tpl',
+			),
+		);
 	}
 
 	/**
@@ -144,7 +151,9 @@ class ErrorPageView extends GalleryView {
 
 		// Post Gallery::Error event
 		$event = GalleryCoreApi::newEvent('Gallery::Error');
-		$event->setData(array('error' => $error));
+		$event->setData(array(
+			'error' => $error,
+		));
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {

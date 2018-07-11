@@ -159,7 +159,9 @@ class GalleryBbcodeMarkupParser {
 			'url',
 			'usecontent?',
 			array($this, 'url'),
-			array('usecontent_param' => 'default'),
+			array(
+				'usecontent_param' => 'default',
+			),
 			'link',
 			array('listitem', 'block', 'inline'),
 			array('link')
@@ -170,7 +172,9 @@ class GalleryBbcodeMarkupParser {
 			'color',
 			'callback_replace',
 			array($this, 'color'),
-			array('usecontent_param' => 'default'),
+			array(
+				'usecontent_param' => 'default',
+			),
 			'inline',
 			array('listitem', 'block', 'inline', 'link'),
 			array()

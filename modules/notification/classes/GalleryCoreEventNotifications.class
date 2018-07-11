@@ -54,7 +54,9 @@ class ActivatePluginNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::ActivatePlugin');
+		return array(
+			'eventName' => 'Gallery::ActivatePlugin',
+		);
 	}
 
 	/**
@@ -101,7 +103,9 @@ class DeactivatePluginNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::DeactivatePlugin');
+		return array(
+			'eventName' => 'Gallery::DeactivatePlugin',
+		);
 	}
 
 	/**
@@ -161,7 +165,9 @@ class ErrorNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::Error');
+		return array(
+			'eventName' => 'Gallery::Error',
+		);
 	}
 
 	/**
@@ -206,7 +212,9 @@ class ItemOrderNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::ItemOrder');
+		return array(
+			'eventName' => 'Gallery::ItemOrder',
+		);
 	}
 
 	/**
@@ -322,7 +330,9 @@ class FailedLoginNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::FailedLogin');
+		return array(
+			'eventName' => 'Gallery::FailedLogin',
+		);
 	}
 
 	/**
@@ -413,7 +423,9 @@ class RemovePermissionNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::RemovePermission');
+		return array(
+			'eventName' => 'Gallery::RemovePermission',
+		);
 	}
 
 	/**
@@ -465,7 +477,9 @@ class UninstallPluginNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::UninstallPlugin');
+		return array(
+			'eventName' => 'Gallery::UninstallPlugin',
+		);
 	}
 
 	/**
@@ -528,7 +542,9 @@ class AlbumStructureChangeNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::ViewableTreeChange');
+		return array(
+			'eventName' => 'Gallery::ViewableTreeChange',
+		);
 	}
 
 	/**
@@ -697,7 +713,9 @@ class ItemAddedNotification extends NotificationEvent_1_0 {
 	 * @see NotificationEvent_1_0::getEventSpecs
 	 */
 	public function getEventSpecs() {
-		return array('eventName' => 'Gallery::itemAdded');
+		return array(
+			'eventName' => 'Gallery::itemAdded',
+		);
 	}
 
 	/**

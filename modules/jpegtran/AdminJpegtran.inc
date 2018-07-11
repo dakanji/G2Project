@@ -87,7 +87,7 @@ class AdminJpegtranController extends GalleryController {
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
-			$realPath                 = $platform->realpath($form['path']);
+			$realPath                = $platform->realpath($form['path']);
 			list($ret, $testResults) = JpegtranToolkitHelper::testBinary($realPath);
 
 			if ($ret) {
@@ -202,7 +202,7 @@ class AdminJpegtranView extends GalleryView {
 			if (!empty($form['path'])) {
 				$gallery->startRecordingDebugSnippet();
 				list($ret, $testResults) = JpegtranToolkitHelper::testBinary($platform->realpath($form['path']));
-				$debugSnippet             = $gallery->stopRecordingDebugSnippet();
+				$debugSnippet            = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -244,6 +244,11 @@ class AdminJpegtranView extends GalleryView {
 		$template->setVariable('AdminJpegtran', $AdminJpegtran);
 		$template->setVariable('controller', 'jpegtran.AdminJpegtran');
 
-		return array(null, array('body' => 'modules/jpegtran/templates/AdminJpegtran.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/jpegtran/templates/AdminJpegtran.tpl',
+			),
+		);
 	}
 }

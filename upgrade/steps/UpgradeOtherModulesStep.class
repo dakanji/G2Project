@@ -392,7 +392,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 
 			foreach ($deactivatedPlugins[$type] as $pluginId) {
-				$plugin               = new $className($pluginId);
+				$plugin              = new $className($pluginId);
 				list($ret, $ignored) = $plugin->deactivate(false);
 
 				if ($ret) {

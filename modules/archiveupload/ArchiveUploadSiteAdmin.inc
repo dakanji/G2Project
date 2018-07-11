@@ -59,7 +59,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 					if ($retryPath[strlen($retryPath) - 1] != $slash) {
 						$retryPath .= $slash;
 					}
-					$retryPath   .= 'unzip';
+					$retryPath  .= 'unzip';
 					list($valid) = ArchiveUploadHelper::testBinary($retryPath);
 
 					if ($valid) {
@@ -183,7 +183,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 					'success' => true,
 				);
 			} elseif (isset($form['error']['unzipPath']['exec'])) {
-				$test                              = array(
+				$test                             = array(
 					'name'    => 'unzip',
 					'success' => false,
 				);
@@ -195,7 +195,9 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 			}
 
 			if (isset($test)) {
-				$template->setVariable('ArchiveUploadSiteAdmin', array('tests' => array($test)));
+				$template->setVariable('ArchiveUploadSiteAdmin', array(
+					'tests' => array($test),
+				));
 			}
 		}
 
@@ -203,7 +205,9 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/archiveupload/templates/ArchiveUploadSiteAdmin.tpl'),
+			array(
+				'body' => 'modules/archiveupload/templates/ArchiveUploadSiteAdmin.tpl',
+			),
 		);
 	}
 }

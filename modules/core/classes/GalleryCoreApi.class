@@ -432,10 +432,10 @@ class GalleryCoreApi {
 	 * @return array GalleryStatus as status code
 	 *                      array (moduleId => array('active' => true/false,
 	 *                                               'available' => true/false,
-	 *						     'callbacks' => string,
-	 *						     'requiredCoreApi' => array
-	 *						     'requiredModuleApi' => array,
-	 *						     'version' => string)
+	 *                           'callbacks' => string,
+	 *                           'requiredCoreApi' => array
+	 *                           'requiredModuleApi' => array,
+	 *                           'version' => string)
 	 */
 	public static function fetchPluginStatus($pluginType, $ignoreCache = false) {
 		self::requireOnce(
@@ -921,7 +921,7 @@ class GalleryCoreApi {
 	 * Grant permissions identified by an entity id to the current user's session.
 	 *
 	 * @param int $entityId The permission identifier (e.g. a user, group, or entity id) which
-	 *			    grants one or more permissions to one or more items
+	 *              grants one or more permissions to one or more items
 	 */
 	public static function addPermissionToSession($entityId) {
 		self::requireOnce(
@@ -3220,7 +3220,7 @@ class GalleryCoreApi {
 	 * @param string $url
 	 * @param array $extraHeaders (optional) extra headers to pass to the server
 	 * @return array(boolean success, string body, http response, headers, url)
-	 *	the url is the final url retrieved after redirects
+	 *  the url is the final url retrieved after redirects
 	 */
 	public static function fetchWebPage($url, $extraHeaders = array()) {
 		self::requireOnce('modules/core/classes/helpers/WebHelper_simple.class');
@@ -3330,7 +3330,9 @@ class GalleryCoreApi {
 	 * plugins needs to be made.  Currently it returns gallery2/ and gallery2/plugins/.
 	 */
 	public function getPluginBaseDirs() {
-		return array('base' => dirname(dirname(dirname(dirname(__FILE__)))) . '/');
+		return array(
+			'base' => dirname(dirname(dirname(dirname(__FILE__)))) . '/',
+		);
 	}
 
 	/**
@@ -3483,7 +3485,7 @@ class GalleryCoreApi {
 			return array(self::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$storage                    =& $gallery->getStorage();
+		$storage                   =& $gallery->getStorage();
 		list($ret, $searchResults) = $storage->getMapEntry($mapName, $select, $match, $optional);
 
 		if ($ret) {
@@ -3572,7 +3574,7 @@ class GalleryCoreApi {
 	public function describeMap($mapName, $tryAllModules = false) {
 		global $gallery;
 
-		$storage                 =& $gallery->getStorage();
+		$storage                =& $gallery->getStorage();
 		list($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
 
 		if ($ret) {
@@ -3592,7 +3594,7 @@ class GalleryCoreApi {
 	 */
 	public static function describeEntity($entityName, $tryAllModules = false) {
 		global $gallery;
-		$storage                 =& $gallery->getStorage();
+		$storage                =& $gallery->getStorage();
 		list($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
 
 		if ($ret) {
@@ -3872,7 +3874,7 @@ class GalleryCoreApi {
 	 *
 	 * @param string $languageCode
 	 * @return array GalleryStatus a status code
-	 *		     string language description
+	 *           string language description
 	 */
 	public static function getLanguageDescription($languageCode) {
 		self::requireOnce(
@@ -3913,7 +3915,7 @@ class GalleryCoreApi {
 	/**
 	 * Allows the application to programmatically set Gallery into or out of maintenance mode.
 	 * @param mixed $mode This can either be a boolean flag or a string representing the url of the
-	 * 			  custom maintenance mode page.
+	 *            custom maintenance mode page.
 	 * @return GalleryStatus a status code
 	 */
 	public static function setMaintenanceMode($mode) {

@@ -80,7 +80,9 @@ class WatermarkSiteAdminEditView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/watermark/templates/WatermarkSiteAdminEdit.tpl'),
+			array(
+				'body' => 'modules/watermark/templates/WatermarkSiteAdminEdit.tpl',
+			),
 		);
 	}
 }

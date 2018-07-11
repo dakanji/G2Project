@@ -139,8 +139,8 @@ class GalleryRepository {
 	 * Determines whether a core module upgrade is available.
 	 *
 	 * @return array GalleryStatus a status code
-	 *		     boolean availability
-	 *		     array repository core and plugin api versions
+	 *           boolean availability
+	 *           array repository core and plugin api versions
 	 */
 	public function isCoreUpgradeAvailable() {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -197,11 +197,13 @@ class GalleryRepository {
 	 * @param bool $forBasePackageUpgrade (optional) Include all packages that are upgradeable once
 	 *                                     the base package has been upgraded. Default true.
 	 * @return array GalleryStatus a status code
-	 *		     array package list
+	 *           array package list
 	 */
 	public function getPluginUpgradeInfo($pluginType, $pluginId, $forBasePackageUpgrade = true) {
 		global $gallery;
-		$upgradeInfo = array('upgradeable' => false);
+		$upgradeInfo = array(
+			'upgradeable' => false,
+		);
 
 		// Get installed packages meta data.
 		list($ret, $installedPackages) = $this->_utilities->getPluginPackages($pluginType, $pluginId);
@@ -320,9 +322,9 @@ class GalleryRepository {
 	 * @param string $pluginType
 	 * @param boolean $showAllPlugins show incompatible plugins
 	 * @param array $coreApis core APIs to base compatibility check on
-	 *		    'core'/'module'/'theme' => array(versionMajor, versionMinor)
+	 *          'core'/'module'/'theme' => array(versionMajor, versionMinor)
 	 * @return array GalleryStatus a status code
-	 *		     array plugin list
+	 *           array plugin list
 	 */
 	public function getRepositoryPluginList($pluginType, $showAllPlugins = false, $coreApis = null) {
 		global $gallery;
@@ -390,7 +392,7 @@ class GalleryRepository {
 			$isDowngraded = version_compare($localVersion, $plugin['header']['version'], '>');
 
 			list($providedCoreApiVersion, $providedPluginApiVersion) = $this->_utilities->getProvidedApis($pluginType, $coreApis);
-			$pluginList[$pluginId]                                    = array(
+			$pluginList[$pluginId]                                   = array(
 				'type'              => $pluginType,
 				'name'              => $plugin['descriptions'][$language]['name'],
 				'description'       => $plugin['descriptions'][$language]['description'],
@@ -465,7 +467,7 @@ class GalleryRepository {
 	 * packages and adds it to a list if it is.
 	 *
 	 * @return array GalleryStatus a status code
-	 *		     array package list
+	 *           array package list
 	 */
 	public function getAllUpgradeablePackages() {
 		$packages = array();
@@ -541,7 +543,7 @@ class GalleryRepository {
 	 * Checks if the plugins directory exists and creates a subdirectory for each plugin type.
 	 *
 	 * @return boolean indicates whether the plugins directory is correctly set up
-	 *	       string user-friendly error message
+	 *         string user-friendly error message
 	 * @todo Delete on the next major API bump as it is not referenced.
 	 */
 	public function createPluginsDirectory() {
@@ -578,7 +580,7 @@ class GalleryRepository {
 	 *
 	 * @param array $pluginData array(pluginType => array(pluginId => array(packages)))
 	 * @return array GalleryStatus a status code
-	 *		     array list of packages with corresponding URLs
+	 *           array list of packages with corresponding URLs
 	 */
 	public function getDownloadFileList($pluginData) {
 		$files = array();
@@ -634,7 +636,7 @@ class GalleryRepository {
 	 * @param string $packageName
 	 * @param string $relativePackageUrl URL of the package to download relative to repository URL
 	 * @return array GalleryStatus a status code
-	 *		     array descriptor
+	 *           array descriptor
 	 */
 	public function downloadAndUnpack($pluginType, $pluginId, $packageName, $relativePackageUrl) {
 		global $gallery;
@@ -718,13 +720,13 @@ class GalleryRepository {
 	 * @param array $pluginDownloadData list of plugins to download
 	 * @param array $callback information for progress bar updates
 	 * @ret array GalleryStatus a status code
-	 * 		  boolean a flag indicating the plugin should be re-activated
-	 * 		  array string status messages indicating problems encounterd
+	 *        boolean a flag indicating the plugin should be re-activated
+	 *        array string status messages indicating problems encounterd
 	 */
 	public function downloadPackagesForPlugin($pluginType, $pluginId, $pluginDownloadData, &$callback) {
 		global $gallery;
 
-		$status              = array();
+		$status             = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -1117,8 +1119,8 @@ class GalleryRepository {
 	 * @param array $filesToDownload list of files to download
 	 * @param array $callback progress notification callback
 	 * @return array GalleryStatus a status code
-	 * 		     array string status messages indicating problems encounterd
-	 * 		     int count of packages installed
+	 *           array string status messages indicating problems encounterd
+	 *           int count of packages installed
 	 */
 	public function downloadAndUnpackPackages($filesToDownload, &$callback) {
 		global $gallery;
@@ -1236,7 +1238,7 @@ class GalleryRepository {
 	 * @param array $packages packages returned from splitAggregatePackage
 	 * @param array $callback progress notification callback
 	 * @return array GalleryStatus a status code
-	 *  	     array string status messages indicating problems encounterd
+	 *           array string status messages indicating problems encounterd
 	 */
 	public function _preverifyAggregatePackages($packages, &$callback) {
 		global $gallery;

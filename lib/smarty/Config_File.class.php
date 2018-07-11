@@ -307,7 +307,9 @@ class Config_File {
 				}
 
 				if (!isset($config_data['sections'][$section_name])) {
-					$config_data['sections'][$section_name] = array('vars' => array());
+					$config_data['sections'][$section_name] = array(
+						'vars' => array(),
+					);
 				}
 				$vars =& $config_data['sections'][$section_name]['vars'];
 

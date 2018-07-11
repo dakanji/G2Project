@@ -24,7 +24,7 @@ class ADODB2_mysql extends ADODB_DataDict {
 	public $dropTable          = 'DROP TABLE IF EXISTS %s'; // requires mysql 3.22 or later
 
 	public $dropIndex    = 'DROP INDEX %s ON %s';
-	public $renameColumn = 'ALTER TABLE %s CHANGE COLUMN %s %s %s';	// needs column-definition!
+	public $renameColumn = 'ALTER TABLE %s CHANGE COLUMN %s %s %s'; // needs column-definition!
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {

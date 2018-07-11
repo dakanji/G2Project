@@ -121,7 +121,7 @@ class getid3_monkey extends getid3_handler {
 
 		if ($thisfile_monkeysaudio['flags']['peak_level']) {
 			$thisfile_monkeysaudio['peak_level'] = $thisfile_monkeysaudio_raw['nPeakLevel'];
-			$thisfile_monkeysaudio['peak_ratio'] = $thisfile_monkeysaudio['peak_level'] / 2**($thisfile_monkeysaudio['bits_per_sample'] - 1);
+			$thisfile_monkeysaudio['peak_ratio'] = $thisfile_monkeysaudio['peak_level'] / 2 ** ($thisfile_monkeysaudio['bits_per_sample'] - 1);
 		}
 
 		if ($thisfile_monkeysaudio_raw['nVersion'] >= 3980) {

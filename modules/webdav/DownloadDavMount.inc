@@ -53,7 +53,9 @@ class DownloadDavMountView extends GalleryView {
 		 * and reusing session id by another browser may be considdered session hijacking
 		 */
 		echo '  <dm:url>' . $urlGenerator->generateUrl(
-			array('controller' => 'webdav.WebDav'),
+			array(
+				'controller' => 'webdav.WebDav',
+			),
 			array(
 				'forceFullUrl'   => true,
 				'forceSessionId' => false,

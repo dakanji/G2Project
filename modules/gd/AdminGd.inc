@@ -173,6 +173,11 @@ class AdminGdView extends GalleryView {
 		$template->setVariable('AdminGd', $AdminGd);
 		$template->setVariable('controller', 'gd.AdminGd');
 
-		return array(null, array('body' => 'modules/gd/templates/AdminGd.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/gd/templates/AdminGd.tpl',
+			),
+		);
 	}
 }

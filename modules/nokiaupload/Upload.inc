@@ -40,7 +40,9 @@ class UploadController extends GalleryController {
 			return array(GalleryCoreApi::error(ERROR_REQUEST_FORGED), null);
 		}
 
-		$results['delegate'] = array('view' => 'nokiaupload.Upload');
+		$results['delegate'] = array(
+			'view' => 'nokiaupload.Upload',
+		);
 		$results['status']   = ImageUploadHelper::doUpload();
 		$results['error']    = array();
 

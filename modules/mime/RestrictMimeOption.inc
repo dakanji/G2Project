@@ -44,7 +44,7 @@ class RestrictMimeOption extends ItemAddOption {
 	 */
 	public function handleRequestAfterAdd($form, $items) {
 		global $gallery;
-		$errors              = $warnings = array();
+		$errors             = $warnings = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'mime');
 
 		if ($ret) {

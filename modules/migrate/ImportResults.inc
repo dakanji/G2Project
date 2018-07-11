@@ -45,9 +45,12 @@ class ImportResultsView extends GalleryView {
 		$status = $template->getVariable('status');
 		$counts = array();
 
-		foreach (array('userImportFailure', 'userImportSuccess',
-			   'albumImportFailure', 'albumImportSuccess', )
-		 as $key) {
+		foreach (array(
+			'userImportFailure',
+			'userImportSuccess',
+			'albumImportFailure',
+			'albumImportSuccess',
+		) as $key) {
 			if (isset($status[$key])) {
 				$counts[$key] = sizeof($status[$key]);
 			} else {
@@ -55,13 +58,18 @@ class ImportResultsView extends GalleryView {
 			}
 		}
 
-		$ImportResults = array();
+		$ImportResults           = array();
 		$ImportResults['counts'] = $counts;
 		$ImportResults['status'] = $status;
 
 		$template->setVariable('ImportResults', $ImportResults);
 		$template->setVariable('controller', 'migrate.ImportResults');
 
-		return array(null, array('body' => 'modules/migrate/templates/ImportResults.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/migrate/templates/ImportResults.tpl',
+			),
+		);
 	}
 }

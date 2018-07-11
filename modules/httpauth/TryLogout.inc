@@ -45,7 +45,9 @@ class TryLogoutView extends GalleryView {
 
 		foreach (array('scriptUrl', 'hrefUrl') as $key) {
 			$url             = $urlGenerator->generateUrl(
-				array('view' => 'httpauth.FinishLogout'),
+				array(
+					'view' => 'httpauth.FinishLogout',
+				),
 				array(
 					'forceFullUrl' => true,
 					'htmlEntities' => $key == 'hrefUrl',
@@ -57,6 +59,11 @@ class TryLogoutView extends GalleryView {
 		// Render HTML body
 		$template->setVariable('TryLogout', $TryLogout);
 
-		return array(null, array('body' => 'modules/httpauth/templates/TryLogout.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/httpauth/templates/TryLogout.tpl',
+			),
+		);
 	}
 }

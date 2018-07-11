@@ -168,7 +168,7 @@ class ThumbnailModuleExtras {
 				}
 
 				// Before 0.9.3, mime-type thumbnails had a parentId of rootId. After 0.9.3 it was 0.
-				$query                = '
+				$query               = '
 	    SELECT
 	      [ThumbnailImage::id], [ThumbnailImage::fileName]
 	    FROM
@@ -311,7 +311,7 @@ class ThumbnailModuleExtras {
 
 							return $ret;
 						}
-						$dir            = dirname($path);
+						$dir           = dirname($path);
 						list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 						if (!$success) {

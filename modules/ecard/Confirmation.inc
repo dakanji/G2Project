@@ -37,8 +37,15 @@ class ConfirmationView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$template->setVariable('Confirmation', array('itemId' => $item->getId()));
+		$template->setVariable('Confirmation', array(
+			'itemId' => $item->getId(),
+		));
 
-		return array(null, array('body' => 'modules/ecard/templates/Confirmation.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/ecard/templates/Confirmation.tpl',
+			),
+		);
 	}
 }

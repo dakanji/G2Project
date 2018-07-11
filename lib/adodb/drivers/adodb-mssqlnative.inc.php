@@ -75,7 +75,7 @@ if (ADODB_PHPVER >= 0x4300) {
 	// docs say 4.2.0, but testing shows only since 4.3.0 does it work!
 	ini_set('mssql.datetimeconvert', 0);
 } else {
-	global $ADODB_mssql_mths;		// array, months must be upper-case
+	global $ADODB_mssql_mths;       // array, months must be upper-case
 	$ADODB_mssql_date_order = 'mdy';
 	$ADODB_mssql_mths       = array(
 		'JAN' => 1,
@@ -122,7 +122,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		join sys.tables st on st.name=o.name
 		join sys.columns sc on sc.object_id = st.object_id and sc.name=c.name
 		where o.name='%s'";
-	public $hasTop            = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+	public $hasTop            = 'top';      // support mssql SELECT TOP 10 * FROM TABLE
 	public $hasGenID          = true;
 	public $sysDate           = 'convert(datetime,convert(char,GetDate(),102),102)';
 	public $sysTimeStamp      = 'GetDate()';

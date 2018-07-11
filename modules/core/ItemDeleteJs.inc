@@ -71,7 +71,7 @@ class ItemDeleteJsView extends GalleryView {
 				 *       and refactor the hardcoded .mo file locations.
 				 */
 				global $gallery;
-				$platform          =& $gallery->getPlatform();
+				$platform         =& $gallery->getPlatform();
 				list($ret, $lang) = $gallery->getActiveLanguageCode();
 
 				if ($ret) {

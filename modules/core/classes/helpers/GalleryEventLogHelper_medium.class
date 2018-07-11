@@ -72,7 +72,9 @@ class GalleryEventLogHelper_medium {
 
 		$ret = GalleryCoreApi::updateMapEntry(
 			'EventLogMap',
-			array('id' => $id),
+			array(
+				'id' => $id,
+			),
 			$rowData,
 			true
 		);

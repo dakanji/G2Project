@@ -30,8 +30,8 @@ class CodeAuditTestCase extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
 		$this->_shouldHalt = false;
-		$this->_baseDir = realpath(dirname(__FILE__) . '/../../..');
-		$this->_checkTime = time();
+		$this->_baseDir    = realpath(dirname(__FILE__) . '/../../..');
+		$this->_checkTime  = time();
 	}
 
 	public function testCodeAudit() {
@@ -108,11 +108,11 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 		$parser = xml_parser_create();
 		xml_parse_into_struct(
-		$parser,
-		$platform->file_get_contents("$dirPath/.svn/entries"),
-				  $xmlValues,
-		$xmlIndex
-	);
+			$parser,
+			$platform->file_get_contents("$dirPath/.svn/entries"),
+			$xmlValues,
+			$xmlIndex
+		);
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
@@ -131,33 +131,34 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$subPath = $dirPath . '/' . $xmlValues[$entry]['attributes']['NAME'];
 
 			if (!empty($xmlValues[$entry]['attributes']['DELETED'])
-			&& $xmlValues[$entry]['attributes']['DELETED'] == 'true') {
+				&& $xmlValues[$entry]['attributes']['DELETED'] == 'true'
+			) {
 				echo "Skipping deleted entry: $subPath<br/>";
 
 				continue;
 			}
 
 			switch ($xmlValues[$entry]['attributes'][$KIND]) {
-		case 'dir':
-		$dirPaths[] = $subPath;
+				case 'dir':
+					$dirPaths[] = $subPath;
 
-		break;
+					break;
 
-		case 'file':
-		if ($this->shouldCheckFile($subPath)) {
-			$this->_timeCheck();
-			$this->checkFile($subPath, $platform->file_get_contents($subPath));
+				case 'file':
+					if ($this->shouldCheckFile($subPath)) {
+						$this->_timeCheck();
+						$this->checkFile($subPath, $platform->file_get_contents($subPath));
 
-			if ($this->_shouldHalt) {
-				return array();
+						if ($this->_shouldHalt) {
+							return array();
+						}
+					}
+
+					break;
+
+				default:
+					$this->assert(false, 'Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]);
 			}
-		}
-
-		break;
-
-		default:
-		$this->assert(false, 'Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]);
-		}
 		}
 
 		return $dirPaths;
@@ -187,11 +188,11 @@ class CodeAuditTestCase extends GalleryTestCase {
 		 * $matches[2][$i] is the kind field.
 		 * $matches[5][$i] is the deleted field, if present.
 		 */
-		$count = preg_match_all(
-		'/\f\n([^\f\n]*)\n([^\f\n]*)\n(([^\f\n]*\n){20}([^\f\n]*)\n)?/',
-		$platform->file_get_contents($dirPath . '/.svn/entries'),
-		$matches
-	);
+		$count    = preg_match_all(
+			'/\f\n([^\f\n]*)\n([^\f\n]*)\n(([^\f\n]*\n){20}([^\f\n]*)\n)?/',
+			$platform->file_get_contents($dirPath . '/.svn/entries'),
+			$matches
+		);
 		$dirPaths = array();
 
 		for ($i = 0; $i < $count; $i++) {
@@ -204,26 +205,26 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$subPath = $dirPath . '/' . $matches[1][$i];
 
 			switch ($matches[2][$i]) {
-		case 'dir':
-		$dirPaths[] = $subPath;
+				case 'dir':
+					$dirPaths[] = $subPath;
 
-		break;
+					break;
 
-		case 'file':
-		if ($this->shouldCheckFile($subPath)) {
-			$this->_timeCheck();
-			$this->checkFile($subPath, $platform->file_get_contents($subPath));
+				case 'file':
+					if ($this->shouldCheckFile($subPath)) {
+						$this->_timeCheck();
+						$this->checkFile($subPath, $platform->file_get_contents($subPath));
 
-			if ($this->_shouldHalt) {
-				return array();
+						if ($this->_shouldHalt) {
+							return array();
+						}
+					}
+
+					break;
+
+				default:
+					$this->assert(false, 'Unable to parse ' . $matches[2][$i]);
 			}
-		}
-
-		break;
-
-		default:
-		$this->assert(false, 'Unable to parse ' . $matches[2][$i]);
-		}
 		}
 
 		return $dirPaths;
@@ -238,7 +239,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 		if (time() - $this->_checkTime >= 20) {
 			$this->_checkTime = time();
-			$usedMemory = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
+			$usedMemory       = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
 			echo '<script type="text/javascript">updateStats(0,0,0,'
 			. $usedMemory . ");</script>\n";
 		}
@@ -297,17 +298,17 @@ class CodeAuditTestCase extends GalleryTestCase {
 	 * @param string $fileName (optional) Cache tokens between function calls for this file name
 	 * @return array of function calls, e.g. array('$bar->foo("hello world")')
 	 */
-	public function getFunctionCalls($phpCode, $function, $fileName=null) {
+	public function getFunctionCalls($phpCode, $function, $fileName = null) {
 		$calls = array();
 
 		if (is_array($function)) {
 			$classMethodCallsOnly = true;
-			$className = GalleryUtilities::strToLower($function[0]);
-			$functionName = $function[1];
+			$className            = GalleryUtilities::strToLower($function[0]);
+			$functionName         = $function[1];
 		} else {
 			$classMethodCallsOnly = false;
-			$functionName = $function;
-			$className = null;
+			$functionName         = $function;
+			$className            = null;
 		}
 		$functionName = GalleryUtilities::strToLower($functionName);
 
@@ -328,7 +329,8 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 		foreach ($tokens as $i => $token) {
 			if (is_array($token) && $token[0] == T_STRING
-			&& GalleryUtilities::strToLower($token[1]) == $functionName) {
+				&& GalleryUtilities::strToLower($token[1]) == $functionName
+			) {
 				$candidateTokens[] = $i;
 			}
 		}
@@ -344,16 +346,19 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$j = $this->_getNextTokenIndex($tokens, $baseIndex, true);
 
 			if ($classMethodCallsOnly && isset($tokens[$j][0])
-			&& in_array($tokens[$j][0], array(T_DOUBLE_COLON, T_OBJECT_OPERATOR))) {
+				&& in_array($tokens[$j][0], array(T_DOUBLE_COLON, T_OBJECT_OPERATOR))
+			) {
 				$k = $this->_getNextTokenIndex($tokens, $j, true);
 				// Check whether it matches $foo->bar or Foo::bar
 				if (isset($tokens[$k][0]) && in_array(
-			$tokens[$k][0],
-							  array(T_STRING, T_VARIABLE)
-		)) {
+					$tokens[$k][0],
+					array(T_STRING, T_VARIABLE)
+				)
+				) {
 					if ($tokens[$k][0] == T_STRING
-				&& GalleryUtilities::strToLower($tokens[$k][1]) != $className
-				|| $tokens[$k][0] == T_VARIABLE && !empty($className)) {
+						&& GalleryUtilities::strToLower($tokens[$k][1]) != $className
+						|| $tokens[$k][0] == T_VARIABLE && !empty($className)
+					) {
 						continue;
 					}
 					$call = $tokens[$k][1] . $tokens[$j][1] . $call;
@@ -368,22 +373,22 @@ class CodeAuditTestCase extends GalleryTestCase {
 			if (!isset($tokens[$i]) || $tokens[$i] !== '(') {
 				continue;
 			}
-			$call .= '(';
+			$call      .= '(';
 			$parenCount = 1;
 
 			while (($i = $this->_getNextTokenIndex($tokens, $i)) && isset($tokens[$i])
 			&& $parenCount != 0) {
 				switch ($tokens[$i]) {
-		case ')':
-			$parenCount--;
+					case ')':
+						$parenCount--;
 
-			break;
+						break;
 
-		case '(':
-			$parenCount++;
+					case '(':
+						$parenCount++;
 
-			break;
-		}
+						break;
+				}
 
 				if (is_array($tokens[$i])) {
 					$call .= $tokens[$i][1];
@@ -410,7 +415,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$parameterString = preg_replace('/^.*?\((.*)\)$/', 'array(\1)', $functionCall);
 		// Seek to the beginning of the parameter string
 		$tokens = token_get_all('<?php ' . $parameterString . '; ?>');
-		$i = 0;
+		$i      = 0;
 
 		do {
 			$i = $this->_getNextTokenIndex($tokens, $i);
@@ -419,29 +424,29 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 		// Explode the parameters by ',' unless we're in a sub-expression (in parens)
 		$params = array();
-		$param = '';
+		$param  = '';
 
 		while (($i = $this->_getNextTokenIndex($tokens, $i)) && isset($tokens[$i])
 			&& $parenCount != 0) {
 			switch ($tokens[$i]) {
-		case ')':
-			$parenCount--;
+				case ')':
+					$parenCount--;
 
-			break;
+					break;
 
-		case '(':
-			$parenCount++;
+				case '(':
+					$parenCount++;
 
-			break;
+					break;
 
-		case ',':
-			if ($parenCount === 1) {
-				$params[] = $param;
-				$param = '';
+				case ',':
+					if ($parenCount === 1) {
+						$params[] = $param;
+						$param    = '';
+					}
+
+					break;
 			}
-
-			break;
-		}
 
 			if (is_array($tokens[$i])) {
 				$param .= $tokens[$i][1];
@@ -465,7 +470,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 	 * @param boolean $previous whether to seek backwards (defaults to forward (false))
 	 * @return int the index of the next token in the request direction, or null
 	 */
-	public function _getNextTokenIndex(&$tokens, $i, $previous=false) {
+	public function _getNextTokenIndex(&$tokens, $i, $previous = false) {
 		$i += $previous ? -1 : 1;
 
 		if (!isset($tokens[$i])) {

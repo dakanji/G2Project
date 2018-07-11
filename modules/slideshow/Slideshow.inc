@@ -115,7 +115,9 @@ class SlideshowView extends GalleryView {
 				'forceFullUrl'  => true,
 				'htmlEntities'  => false,
 			);
-			$jsUrlParamsDirect          = array_merge($jsUrlParams, array('forceDirect' => true));
+			$jsUrlParamsDirect          = array_merge($jsUrlParams, array(
+				'forceDirect' => true,
+			));
 			$Slideshow['piclensSwfUrl'] = $urlGenerator->generateUrl(
 				array(
 					'view' => 'slideshow.DownloadPicLens',

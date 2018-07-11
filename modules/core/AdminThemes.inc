@@ -36,84 +36,87 @@ class AdminThemesController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$status = $error = $errorMessage = array();
-		$theme = null;
+		$status  = $error = $errorMessage = array();
+		$theme   = null;
 		$themeId = GalleryUtilities::getRequestVariables('themeId');
 
 		if (isset($form['action']['saveDefaults'])) {
 			// Do some basic input validation (by whitelisting)
 			GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
-			list($ret, $orderByList, $presortList, $orderDirectionList) =
-		GallerySortInterface_1_2::getAllSortOrders(false);
+			list($ret, $orderByList, $presortList, $orderDirectionList) = GallerySortInterface_1_2::getAllSortOrders(false);
 
 			if ($ret) {
 				return array($ret, null);
 			}
 
 			if (isset($form['default']['orderBy'])
-			&& !isset($orderByList[$value = $form['default']['orderBy']])) {
+				&& !isset($orderByList[$value = $form['default']['orderBy']])
+			) {
 				$error = GalleryCoreApi::error(
-			ERROR_BAD_PARAMETER,
-			__FILE__,
-			__LINE__,
-			"Unknown sort order '$value'"
-		);
+					ERROR_BAD_PARAMETER,
+					__FILE__,
+					__LINE__,
+					"Unknown sort order '$value'"
+				);
 
 				return array($error, null);
 			}
 
 			if (isset($form['default']['presort'])
-			&& !isset($presortList[$value = $form['default']['presort']])) {
+				&& !isset($presortList[$value = $form['default']['presort']])
+			) {
 				$error = GalleryCoreApi::error(
-			ERROR_BAD_PARAMETER,
-			__FILE__,
-			__LINE__,
-		   "Unknown presort order '$value'"
-		);
+					ERROR_BAD_PARAMETER,
+					__FILE__,
+					__LINE__,
+					"Unknown presort order '$value'"
+				);
 
 				return array($error, null);
 			}
 
 			if (isset($form['default']['orderDirection'])
-			&& !isset($orderDirectionList[$value = $form['default']['orderDirection']])) {
+				&& !isset($orderDirectionList[$value = $form['default']['orderDirection']])
+			) {
 				$error = GalleryCoreApi::error(
-			ERROR_BAD_PARAMETER,
-			__FILE__,
-			__LINE__,
-			"Unknown order direction '$value'"
-		);
+					ERROR_BAD_PARAMETER,
+					__FILE__,
+					__LINE__,
+					"Unknown order direction '$value'"
+				);
 
 				return array($error, null);
 			}
 
 			if (isset($form['default']['theme'])) {
-				list($ret, $defaultTheme) =
-			GalleryCoreApi::loadPlugin('theme', $form['default']['theme'], false, true);
+				list($ret, $defaultTheme) = GalleryCoreApi::loadPlugin('theme', $form['default']['theme'], false, true);
 
 				if ($ret) {
 					return array($ret, null);
 				}
 			}
 
-			if (isset($form['default']['newAlbumsUseDefaults']) &&
-			!in_array($form['default']['newAlbumsUseDefaults'], array('true', 'false'))) {
+			if (isset($form['default']['newAlbumsUseDefaults'])
+				&& !in_array($form['default']['newAlbumsUseDefaults'], array('true', 'false'))
+			) {
 				$error = GalleryCoreApi::error(
-			ERROR_BAD_PARAMETER,
-			__FILE__,
-			__LINE__,
-			'Unknown value for newAlbumDefaults ' .
-			$form['default']['newAlbumsUseDefaults']
-		);
+					ERROR_BAD_PARAMETER,
+					__FILE__,
+					__LINE__,
+					'Unknown value for newAlbumDefaults ' .
+					$form['default']['newAlbumsUseDefaults']
+				);
 
 				return array($error, null);
 			}
 
 			// Save the values
-			foreach (array('default.orderBy',
-			   'default.orderDirection',
-			   'default.theme',
-			   'default.newAlbumsUseDefaults', )
-			 as $key) {
+			foreach (array(
+				'default.orderBy',
+				'default.orderDirection',
+				'default.theme',
+				'default.newAlbumsUseDefaults',
+			) as $key) {
 				list($outer, $inner) = explode('.', $key);
 
 				if (isset($form[$outer][$inner])) {
@@ -136,17 +139,18 @@ class AdminThemesController extends GalleryController {
 			}
 
 			// Redirect upon success
-			$redirect['view'] = 'core.SiteAdmin';
-			$redirect['subView'] = 'core.AdminThemes';
-			$redirect['themeId'] = $themeId;
+			$redirect['view']        = 'core.SiteAdmin';
+			$redirect['subView']     = 'core.AdminThemes';
+			$redirect['themeId']     = $themeId;
 			$status['savedDefaults'] = 1;
 		} else {
 			if (!empty($themeId)) {
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
 
 				if ($ret) {
-					if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH &&
-			isset($form['action']['upgrade'])) {
+					if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH
+						&& isset($form['action']['upgrade'])
+					) {
 						list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, true);
 
 						if ($ret) {
@@ -186,9 +190,9 @@ class AdminThemesController extends GalleryController {
 
 						if (!empty($setting['typeParams']['packType'])) {
 							list($success, $value) = $theme->packSetting(
-				$setting['typeParams']['packType'],
-					$value
-				);
+								$setting['typeParams']['packType'],
+								$value
+							);
 						}
 
 						if ($setting['value'] !== $value) {
@@ -214,22 +218,22 @@ class AdminThemesController extends GalleryController {
 
 					if (empty($error)) {
 						// Redirect upon success
-						$redirect['view'] = 'core.SiteAdmin';
-						$redirect['subView'] = 'core.AdminThemes';
-						$redirect['themeId'] = $themeId;
+						$redirect['view']     = 'core.SiteAdmin';
+						$redirect['subView']  = 'core.AdminThemes';
+						$redirect['themeId']  = $themeId;
 						$status['savedTheme'] = $theme->translate($theme->getName());
 					}
 				} else {
 					foreach ($validationErrors as $validationKey => $validationMessage) {
-						$error[] = sprintf('form[error][key][%s][invalid]', $validationKey);
+						$error[]                      = sprintf('form[error][key][%s][invalid]', $validationKey);
 						$errorMessage[$validationKey] = $validationMessage;
 					}
 					GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
 				}
 			} elseif ($theme && isset($form['action']['undoTheme'])) {
-				$redirect['view'] = 'core.SiteAdmin';
-				$redirect['subView'] = 'core.AdminThemes';
-				$redirect['themeId'] = $themeId;
+				$redirect['view']        = 'core.SiteAdmin';
+				$redirect['subView']     = 'core.AdminThemes';
+				$redirect['themeId']     = $themeId;
 				$status['restoredTheme'] = $theme->translate($theme->getName());
 			}
 		}
@@ -237,11 +241,11 @@ class AdminThemesController extends GalleryController {
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
 		} else {
-			$results['delegate']['view'] = 'core.SiteAdmin';
+			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminThemes';
 		}
 		$results['status'] = $status;
-		$results['error'] = $error;
+		$results['error']  = $error;
 
 		return array(null, $results);
 	}
@@ -267,8 +271,7 @@ class AdminThemesView extends GalleryView {
 			return array($ret, null);
 		}
 
-		list($ret, $defaultThemeId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+		list($ret, $defaultThemeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 		if ($ret) {
 			return array($ret, null);
@@ -339,19 +342,19 @@ class AdminThemesView extends GalleryView {
 				continue;
 			}
 
-			$entry = array();
-			$entry['name'] = $theme->translate($theme->getName());
-			$entry['active'] = !empty($status['active']);
+			$entry              = array();
+			$entry['name']      = $theme->translate($theme->getName());
+			$entry['active']    = !empty($status['active']);
 			$entry['l10Domain'] = $theme->getL10Domain();
-			$entry['action'] = array();
-			$coreApiCompatible = GalleryUtilities::isCompatibleWithApi(
-		$theme->getRequiredCoreApi(),
-			GalleryCoreApi::getApiVersion()
-		);
+			$entry['action']    = array();
+			$coreApiCompatible  = GalleryUtilities::isCompatibleWithApi(
+				$theme->getRequiredCoreApi(),
+				GalleryCoreApi::getApiVersion()
+			);
 			$themeApiCompatible = GalleryUtilities::isCompatibleWithApi(
-		$theme->getRequiredThemeApi(),
-			GalleryTheme::getApiVersion()
-		);
+				$theme->getRequiredThemeApi(),
+				GalleryTheme::getApiVersion()
+			);
 
 			if ($coreApiCompatible && $themeApiCompatible) {
 				if (empty($status['active'])) {
@@ -363,64 +366,82 @@ class AdminThemesView extends GalleryView {
 					 */
 					if ($status['version'] != $theme->getVersion()) {
 						if (empty($status['version'])) {
-							$entry['action'][] =
-				array('text' => $module->translate('install'),
-					  'params' => array('controller' => 'core.AdminThemes',
-							'themeId' => $id,
-							'form[action][install]' => 1, ), );
-							$entry['state'] = 'install';
+							$entry['action'][] = array(
+								'text'   => $module->translate('install'),
+								'params' => array(
+									'controller' => 'core.AdminThemes',
+									'themeId'    => $id,
+									'form[action][install]' => 1,
+								),
+							);
+							$entry['state']    = 'install';
 						} else {
-							$entry['action'][] =
-				array('text' => $module->translate('upgrade'),
-					  'params' => array('controller' => 'core.AdminThemes',
-							'themeId' => $id,
-							'form[action][upgrade]' => 1, ), );
-							$entry['state'] = 'upgrade';
+							$entry['action'][] = array(
+								'text'   => $module->translate('upgrade'),
+								'params' => array(
+									'controller' => 'core.AdminThemes',
+									'themeId'    => $id,
+									'form[action][upgrade]' => 1,
+								),
+							);
+							$entry['state']    = 'upgrade';
 						}
 					} else {
-						$entry['action'][] =
-				array('text' => $module->translate('activate'),
-				  'params' => array('controller' => 'core.AdminThemes',
-							'themeId' => $id,
-							'form[action][activate]' => 1, ), );
-						$entry['action'][] =
-				array('text' => $module->translate('uninstall'),
-				  'params' => array('controller' => 'core.AdminThemes',
-							'themeId' => $id,
-							'form[action][uninstall]' => 1, ), );
+						$entry['action'][] = array(
+							'text'   => $module->translate('activate'),
+							'params' => array(
+								'controller' => 'core.AdminThemes',
+								'themeId'    => $id,
+								'form[action][activate]' => 1,
+							),
+						);
+						$entry['action'][] = array(
+							'text'   => $module->translate('uninstall'),
+							'params' => array(
+								'controller' => 'core.AdminThemes',
+								'themeId'    => $id,
+								'form[action][uninstall]' => 1,
+							),
+						);
 					}
 				} else {
 					$entry['state'] = 'active';
 
 					if ($id != $defaultThemeId) {
-						$entry['action'][] =
-				array('text' => $module->translate('deactivate'),
-				  'params' => array('controller' => 'core.AdminThemes',
-							'themeId' => $id,
-							'form[action][deactivate]' => 1, ), );
+						$entry['action'][] = array(
+							'text'   => $module->translate('deactivate'),
+							'params' => array(
+								'controller' => 'core.AdminThemes',
+								'themeId'    => $id,
+								'form[action][deactivate]' => 1,
+							),
+						);
 					}
 
 					if ($status['version'] != $theme->getVersion()) {
-						$entry['action'][] =
-				array('text' => $module->translate('upgrade'),
-				  'params' => array('controller' => 'core.AdminThemes',
-							'themeId' => $id,
-							'form[action][upgrade]' => 1, ), );
-						$entry['state'] = 'upgrade';
+						$entry['action'][] = array(
+							'text'   => $module->translate('upgrade'),
+							'params' => array(
+								'controller' => 'core.AdminThemes',
+								'themeId'    => $id,
+								'form[action][upgrade]' => 1,
+							),
+						);
+						$entry['state']    = 'upgrade';
 					}
 				}
 			} else {
-				$entry['state'] = 'incompatible';
+				$entry['state']                    = 'incompatible';
 				$entry['api']['required']['theme'] = join('.', $theme->getRequiredThemeApi());
-				$entry['api']['required']['core'] = join('.', $theme->getRequiredCoreApi());
+				$entry['api']['required']['core']  = join('.', $theme->getRequiredCoreApi());
 				$entry['api']['provided']['theme'] = join('.', GalleryTheme::getApiVersion());
-				$entry['api']['provided']['core'] = join('.', GalleryCoreApi::getApiVersion());
+				$entry['api']['provided']['core']  = join('.', GalleryCoreApi::getApiVersion());
 			}
 
-			$entry['description'] = $theme->getDescription();
-			$entry['version'] = $theme->getVersion();
+			$entry['description']      = $theme->getDescription();
+			$entry['version']          = $theme->getVersion();
 			$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
-			$themes[$id] = $entry;
+			$themes[$id]               = $entry;
 
 			if (!empty($status['active'])) {
 				$themeList[$id] = $theme->translate($theme->getName());
@@ -429,14 +450,14 @@ class AdminThemesView extends GalleryView {
 
 		$AdminThemes = array();
 		// Load up the stored defaults
-		foreach (array('default.orderBy',
-			   'default.orderDirection',
-			   'default.theme',
-			   'default.theme',
-			   'default.newAlbumsUseDefaults', )
-		 as $key) {
-			list($ret, $value) =
-		GalleryCoreApi::getPluginParameter('module', 'core', $key);
+		foreach (array(
+			'default.orderBy',
+			'default.orderDirection',
+			'default.theme',
+			'default.theme',
+			'default.newAlbumsUseDefaults',
+		) as $key) {
+			list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
 
 			if ($ret) {
 				return array($ret, null);
@@ -446,47 +467,46 @@ class AdminThemesView extends GalleryView {
 				$tmp = explode('|', $value, 2);
 
 				if (count($tmp) == 2) {
-					$value = $tmp[1];
+					$value                      = $tmp[1];
 					$form['default']['presort'] = $tmp[0];
 				} else {
 					$form['default']['presort'] = '';
 				}
 			}
 
-			list($outer, $inner) = explode('.', $key);
+			list($outer, $inner)  = explode('.', $key);
 			$form[$outer][$inner] = $value;
 		}
 
 		$newAlbumsUseDefaultsList = array(
-		'false' => $module->translate('Inherit settings from parent album'),
-		'true' => $module->translate('Use these settings'),
+			'false' => $module->translate('Inherit settings from parent album'),
+			'true'  => $module->translate('Use these settings'),
 		);
 
 		// Set up our sort order selection list
 		GalleryCoreApi::requireOnce(
-		'modules/core/classes/GallerySortInterface_1_2.class'
-	);
-		list($ret, $orderByList, $presortList, $orderDirectionList) =
-		GallerySortInterface_1_2::getAllSortOrders(false);
+			'modules/core/classes/GallerySortInterface_1_2.class'
+		);
+		list($ret, $orderByList, $presortList, $orderDirectionList) = GallerySortInterface_1_2::getAllSortOrders(false);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		$AdminThemes['orderByList'] = $orderByList;
-		$AdminThemes['presortList'] = $presortList;
-		$AdminThemes['orderDirectionList'] = $orderDirectionList;
-		$AdminThemes['themeList'] = $themeList;
+		$AdminThemes['orderByList']              = $orderByList;
+		$AdminThemes['presortList']              = $presortList;
+		$AdminThemes['orderDirectionList']       = $orderDirectionList;
+		$AdminThemes['themeList']                = $themeList;
 		$AdminThemes['newAlbumsUseDefaultsList'] = $newAlbumsUseDefaultsList;
 
 		// Load the config settings from the active theme
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
 
 		if ($ret) {
-			if ($ret->getErrorCode()
-			& (ERROR_PLUGIN_VERSION_MISMATCH | ERROR_BAD_PARAMETER | ERROR_BAD_PLUGIN)) {
+			if ($ret->getErrorCode() & (ERROR_PLUGIN_VERSION_MISMATCH | ERROR_BAD_PARAMETER | ERROR_BAD_PLUGIN)
+			) {
 				// The default theme isn't available. Show a warning, don't load any settings.
-				$theme = null;
+				$theme                             = null;
 				$form['error']['themeUnavailable'] = true;
 			} else {
 				return array($ret, null);
@@ -527,9 +547,9 @@ class AdminThemesView extends GalleryView {
 
 					if (!empty($setting['typeParams']['packType'])) {
 						list($success, $form['key'][$key]) = $theme->unpackSetting(
-				$setting['typeParams']['packType'],
-				$setting['value']
-			);
+							$setting['typeParams']['packType'],
+							$setting['value']
+						);
 					} else {
 						$form['key'][$key] = $setting['value'];
 					}
@@ -550,12 +570,17 @@ class AdminThemesView extends GalleryView {
 			}
 		}
 
-		$AdminThemes['themes'] = $themes;
+		$AdminThemes['themes']  = $themes;
 		$AdminThemes['themeId'] = $themeId;
 
 		$template->setVariable('AdminThemes', $AdminThemes);
 		$template->setVariable('controller', 'core.AdminThemes');
 
-		return array(null, array('body' => 'modules/core/templates/AdminThemes.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminThemes.tpl',
+			),
+		);
 	}
 }

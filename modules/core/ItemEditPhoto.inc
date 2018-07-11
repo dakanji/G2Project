@@ -57,7 +57,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 			if (empty($error)) {
 				// Load existing resizes
-				$itemId               = $item->getId();
+				$itemId              = $item->getId();
 				list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($itemId));
 
 				if ($ret) {
@@ -125,7 +125,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 					// Add new resizes, using existing derivative entities until we run out
 					foreach ($form['resizes'] as $resizeData) {
 						if (!empty($resizesTable)) {
-							$derivative          = array_shift($resizesTable);
+							$derivative         = array_shift($resizesTable);
 							list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 							if ($ret) {

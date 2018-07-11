@@ -32,8 +32,8 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status              = null;
-		$error               = array();
+		$status             = null;
+		$error              = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 
 		if ($ret) {
@@ -140,7 +140,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 				break;
 
 			default:
-				$set                                            = GalleryUtilities::isA($item, 'GalleryAlbumItem') ? 'album' : (GalleryUtilities::isA($item, 'GalleryPhotoItem') ? 'photo' : 'common');
+				$set                                           = GalleryUtilities::isA($item, 'GalleryAlbumItem') ? 'album' : (GalleryUtilities::isA($item, 'GalleryPhotoItem') ? 'photo' : 'common');
 				list($ret, $tmp, $param, $isContainerSettings) = CustomFieldHelper::fetchFieldValues(array($item), null, $set);
 
 				if ($ret) {

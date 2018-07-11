@@ -89,7 +89,9 @@ class ShowItemErrorView extends GalleryView {
 
 				return array(
 					null,
-					array('body' => 'modules/core/templates/ShowItemError.tpl'),
+					array(
+						'body' => 'modules/core/templates/ShowItemError.tpl',
+					),
 				);
 
 			default:

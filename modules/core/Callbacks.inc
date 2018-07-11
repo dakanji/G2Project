@@ -90,7 +90,7 @@ class CoreCallbacks {
 				$item = $params['item'];
 
 				if (isset($item['parent']->getChildrenFunction)) {
-					$parent               = $item['parent'];
+					$parent              = $item['parent'];
 					list($ret, $peerIds) = call_user_func($parent->getChildrenFunction, $userId);
 
 					if ($ret) {

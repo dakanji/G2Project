@@ -301,8 +301,7 @@ class RatingModule extends GalleryModule {
 			'orderDirection'   => ORDER_DESCENDING,
 			'minLimit'         => 2,
 			'description'      => '',
-		)
- as $key => $value) {
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$this->setParameter($key, $value);
 
@@ -369,7 +368,9 @@ class RatingModule extends GalleryModule {
 		return array(
 			array(
 				'comment'  => $this->translate('Rating Album'),
-				'match'    => array('view' => 'rating.RatingAlbum'),
+				'match'    => array(
+					'view' => 'rating.RatingAlbum',
+				),
 				'pattern'  => 'rating/%limit%',
 				'keywords' => array(
 					'limit' => array(
@@ -396,7 +397,9 @@ class RatingModule extends GalleryModule {
 			if (GalleryUtilities::isA($entity, 'GalleryItem')) {
 				$ret = GalleryCoreApi::removeMapEntry(
 					'RatingMap',
-					array('itemId' => $entity->getId())
+					array(
+						'itemId' => $entity->getId(),
+					)
 				);
 
 				if ($ret) {
@@ -404,7 +407,9 @@ class RatingModule extends GalleryModule {
 				}
 				$ret = GalleryCoreApi::removeMapEntry(
 					'RatingCacheMap',
-					array('itemId' => $entity->getId())
+					array(
+						'itemId' => $entity->getId(),
+					)
 				);
 
 				if ($ret) {

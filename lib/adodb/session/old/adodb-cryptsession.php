@@ -71,7 +71,7 @@ if (!defined('_ADODB_LAYER')) {
 if (!defined('ADODB_SESSION')) {
 	define('ADODB_SESSION', 1);
 
-	global 	$ADODB_SESSION_CONNECT,
+	global  $ADODB_SESSION_CONNECT,
 	$ADODB_SESSION_DRIVER,
 	$ADODB_SESSION_USER,
 	$ADODB_SESSION_PWD,
@@ -119,7 +119,7 @@ if (!defined('ADODB_SESSION')) {
 	}
 
 	function adodb_sess_open($save_path, $session_name) {
-		global 	$ADODB_SESSION_CONNECT,
+		global  $ADODB_SESSION_CONNECT,
 		$ADODB_SESSION_DRIVER,
 		$ADODB_SESSION_USER,
 		$ADODB_SESSION_PWD,

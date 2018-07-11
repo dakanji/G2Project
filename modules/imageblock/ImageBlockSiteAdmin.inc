@@ -116,7 +116,9 @@ class ImageBlockSiteAdminView extends GalleryView {
 			$form['albumFrame'] = $param['albumFrame'];
 			$form['itemFrame']  = $param['itemFrame'];
 		}
-		$ImageBlockSiteAdmin = array('prefix' => GALLERY_FORM_VARIABLE_PREFIX);
+		$ImageBlockSiteAdmin = array(
+			'prefix' => GALLERY_FORM_VARIABLE_PREFIX,
+		);
 
 		// ImageFrame settings, if available
 		list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
@@ -141,6 +143,11 @@ class ImageBlockSiteAdminView extends GalleryView {
 		$template->setVariable('ImageBlockSiteAdmin', $ImageBlockSiteAdmin);
 		$template->setVariable('controller', 'imageblock.ImageBlockSiteAdmin');
 
-		return array(null, array('body' => 'modules/imageblock/templates/ImageBlockSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/imageblock/templates/ImageBlockSiteAdmin.tpl',
+			),
+		);
 	}
 }

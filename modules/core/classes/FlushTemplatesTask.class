@@ -66,7 +66,9 @@ class FlushTemplatesTask extends MaintenanceTask {
 		}
 
 		// Clear UrlGenerator's /local/ URL map, somewhat related to templates/theming
-		GalleryDataCache::removeFromDisk(array('type' => 'local-url-map'));
+		GalleryDataCache::removeFromDisk(array(
+			'type' => 'local-url-map',
+		));
 
 		$details = array();
 

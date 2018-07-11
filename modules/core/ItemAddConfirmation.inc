@@ -75,7 +75,12 @@ class ItemAddConfirmationView extends GalleryView {
 		$template->setVariable('ItemAddConfirmation', $ItemAddConfirmation);
 		$template->setVariable('controller', '');
 
-		return array(null, array('body' => 'modules/core/templates/ItemAddConfirmation.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemAddConfirmation.tpl',
+			),
+		);
 	}
 
 	/**

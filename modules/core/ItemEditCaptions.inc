@@ -309,7 +309,12 @@ class ItemEditCaptionsView extends GalleryView {
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
 
-		return array(null, array('body' => 'modules/core/templates/ItemEditCaptions.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemEditCaptions.tpl',
+			),
+		);
 	}
 
 	/**

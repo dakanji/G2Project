@@ -387,7 +387,9 @@ class GallerySession {
 					$this->_modificationTime = $phpVm->time();
 					$ret                     = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
-						array('id' => $this->_sessionId),
+						array(
+							'id' => $this->_sessionId,
+						),
 						array(
 							'userId'            => $this->_userId,
 							'remoteIdentifier'  => serialize($this->_remoteIdentifier),
@@ -409,8 +411,12 @@ class GallerySession {
 					$this->_modificationTime = $phpVm->time();
 					$ret                     = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
-						array('id' => $this->_sessionId),
-						array('modificationTimestamp' => $this->_modificationTime),
+						array(
+							'id' => $this->_sessionId,
+						),
+						array(
+							'modificationTimestamp' => $this->_modificationTime,
+						),
 						$useNonTransactionalConnection
 					);
 
@@ -486,7 +492,9 @@ class GallerySession {
 			$this->_sessionId = GalleryUtilities::strToLower($this->_sessionId);
 			$ret              = GalleryCoreApi::removeMapEntry(
 				'GallerySessionMap',
-				array('id' => $this->_sessionId)
+				array(
+					'id' => $this->_sessionId,
+				)
 			);
 
 			if ($ret) {
@@ -598,7 +606,7 @@ class GallerySession {
 		if ($ret) {
 			return $ret;
 		}
-		$urlGenerator            =& $gallery->getUrlGenerator();
+		$urlGenerator           =& $gallery->getUrlGenerator();
 		list($ret, $cookiePath) = $urlGenerator->getCookiePath();
 
 		if ($ret) {
@@ -860,7 +868,7 @@ class GallerySession {
 	 */
 	public function _isPersistentSessionAllowedForRequest() {
 		if (!isset($this->_isPersistentSessionAllowedForRequest)) {
-			$flag                     = true; // Default to true
+			$flag                    = true; // Default to true
 			list($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 
 			if (!empty($controller)) {
@@ -926,7 +934,9 @@ class GallerySession {
 					'modificationTimestamp',
 					'data',
 				),
-				array('id' => $this->_sessionId)
+				array(
+					'id' => $this->_sessionId,
+				)
 			);
 
 			if ($ret) {
@@ -969,7 +979,9 @@ class GallerySession {
 					// The session has timed out, remove it
 					$ret = GalleryCoreApi::removeMapEntry(
 						'GallerySessionMap',
-						array('id' => $this->_sessionId)
+						array(
+							'id' => $this->_sessionId,
+						)
 					);
 
 					if ($ret) {
@@ -1176,7 +1188,7 @@ class GallerySession {
 			 * 500 sessionIds + DELETE those sessionIds is more expensive we optimize for MySQL by
 			 * using DELETE ... LIMIT 500
 			 */
-			$query                = '
+			$query               = '
 	    DELETE FROM [GallerySessionMap]
 	    ' . $where . '
 	    LIMIT ' . (int)$this->_expirationLimit;
@@ -1194,7 +1206,7 @@ class GallerySession {
 	    SELECT [GallerySessionMap::id]
 	    FROM [GallerySessionMap]' . $where;
 			$option['limit']['count'] = $this->_expirationLimit;
-			list($ret, $results)     = $gallery->search($query, $data, $option);
+			list($ret, $results)      = $gallery->search($query, $data, $option);
 
 			if ($ret) {
 				return $ret;
@@ -1207,7 +1219,7 @@ class GallerySession {
 					$ids[] = $row[0];
 				}
 				// Delete the selected sessions
-				$query                = sprintf(
+				$query               = sprintf(
 					'
 		DELETE FROM [GallerySessionMap]
 		WHERE [GallerySessionMap::id] IN (%s)',
@@ -1558,7 +1570,7 @@ class GallerySession {
 	/**
 	 * Check if the site admininstration session timeout has expired
 	 * @return array GalleryStatus a status code
-	 * 		     boolean true if the timeout has expired.
+	 *           boolean true if the timeout has expired.
 	 * @access public
 	 */
 	public function hasSiteAdminSessionExpired() {

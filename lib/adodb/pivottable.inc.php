@@ -137,10 +137,10 @@ if (0) {
 	//
 
 	$sql = PivotTableSQL(
-		$gDB,  											// adodb connection
-		'products p ,categories c ,suppliers s',  		// tables
-		'CompanyName,QuantityPerUnit',					// row fields
-		'CategoryName',									// column fields
+		$gDB,                                           // adodb connection
+		'products p ,categories c ,suppliers s',        // tables
+		'CompanyName,QuantityPerUnit',                  // row fields
+		'CategoryName',                                 // column fields
 		'p.CategoryID = c.CategoryID and s.SupplierID= p.SupplierID' // joins/where
 	);
 	echo "<pre>$sql";
@@ -174,9 +174,9 @@ if (0) {
 	// "categories" and "suppliers"
 	//
 	$sql = PivotTableSQL(
-		$gDB,										// adodb connection
-		'products p ,categories c ,suppliers s',	// tables
-		'CompanyName,QuantityPerUnit',				// row fields
+		$gDB,                                       // adodb connection
+		'products p ,categories c ,suppliers s',    // tables
+		'CompanyName,QuantityPerUnit',              // row fields
 		// column ranges
 		array(
 			' 0 '      => 'UnitsInStock <= 0',
@@ -186,8 +186,8 @@ if (0) {
 			'16+'      => '15 < UnitsInStock',
 		),
 		' p.CategoryID = c.CategoryID and s.SupplierID= p.SupplierID', // joins/where
-		'UnitsInStock', 							// sum this field
-		'Sum'										// sum label prefix
+		'UnitsInStock',                             // sum this field
+		'Sum'                                       // sum label prefix
 	);
 	echo "<pre>$sql";
 	$rs = $gDB->Execute($sql);

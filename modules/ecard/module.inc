@@ -44,7 +44,7 @@ class EcardModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion, $x1=null) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
 		if (!isset($currentVersion)) {
@@ -59,18 +59,22 @@ class EcardModule extends GalleryModule {
 		}
 
 		foreach (array(
-		'from' => $this->translate('Gallery &lt;gallery&gt;'),
-		'subject' => $this->translate('You have been sent an eCard'),
-		'bcc' => '',
-		'header' => $this->translate(array(
-			'text' => 'Hi %s!%s%s (%s) has sent you an eCard:', 'arg1' => '%toName%',
-			'arg2' => "\n", 'arg3' => '%fromName%', 'arg4' => '%from%', )),
-		'footer' => $this->translate(
-			'This eCard was sent with Gallery 2 - Your photos on your website'
-		),
-		'format' => 'html',
-		'validation.level' => 'HIGH', )
-		as $key => $value) {
+			'from'             => $this->translate('Gallery &lt;gallery&gt;'),
+			'subject'          => $this->translate('You have been sent an eCard'),
+			'bcc'              => '',
+			'header'           => $this->translate(array(
+				'text' => 'Hi %s!%s%s (%s) has sent you an eCard:',
+				'arg1' => '%toName%',
+				'arg2' => "\n",
+				'arg3' => '%fromName%',
+				'arg4' => '%from%',
+			)),
+			'footer'           => $this->translate(
+				'This eCard was sent with Gallery 2 - Your photos on your website'
+			),
+			'format'           => 'html',
+			'validation.level' => 'HIGH',
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -81,64 +85,64 @@ class EcardModule extends GalleryModule {
 		}
 
 		switch ($currentVersion) {
-	case '0':
-	case '0.0.6':
-	case '0.0.7':
-		list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+			case '0':
+			case '0.0.6':
+			case '0.0.7':
+				list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
-		if ($ret) {
-			return $ret;
+				if ($ret) {
+					return $ret;
+				}
+
+				// Register our permissions
+				$ret = GalleryCoreApi::registerPermission(
+					$this->getId(),
+					'ecard.send',
+					$gallery->i18n('[ecard] Send eCards'),
+					0,
+					array()
+				);
+
+				if ($ret) {
+					return $ret;
+				}
+				// Give everybody permission by default
+				$gallery->guaranteeTimeLimit(300);
+				$ret = GalleryCoreApi::addGroupPermission(
+					$coreParams['id.rootAlbum'],
+					$coreParams['id.everybodyGroup'],
+					'ecard.send',
+					true
+				);
+
+				if ($ret) {
+					return $ret;
+				}
+
+				break;
+
+			case '0.0.8':
+			case '0.0.9':
+			case '0.1.0':
+			case '0.1.1':
+			case '0.9.0':
+			case '0.9.1':
+			case '1.0.0':
+				// .mo file migration
+			case '1.0.1':
+			case '1.0.2':
+			case '1.0.3':
+			case 'end of upgrade path':
+				break;
+
+			default:
+				return GalleryCoreApi::error(
+					ERROR_BAD_PLUGIN,
+					__FILE__,
+					__LINE__,
+					sprintf('Unknown module version %s', $currentVersion)
+				);
 		}
-
-		// Register our permissions
-		$ret = GalleryCoreApi::registerPermission(
-			$this->getId(),
-		'ecard.send',
-			$gallery->i18n('[ecard] Send eCards'),
-			0,
-			array()
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-		// Give everybody permission by default
-		$gallery->guaranteeTimeLimit(300);
-		$ret = GalleryCoreApi::addGroupPermission(
-		$coreParams['id.rootAlbum'],
-			$coreParams['id.everybodyGroup'],
-		'ecard.send',
-			true
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		break;
-
-	case '0.0.8':
-	case '0.0.9':
-	case '0.1.0':
-	case '0.1.1':
-	case '0.9.0':
-	case '0.9.1':
-	case '1.0.0':
-		// .mo file migration
-	case '1.0.1':
-	case '1.0.2':
-	case '1.0.3':
-	case 'end of upgrade path':
-		break;
-
-	default:
-		return GalleryCoreApi::error(
-			ERROR_BAD_PLUGIN,
-			__FILE__,
-			__LINE__,
-		sprintf('Unknown module version %s', $currentVersion)
-		);
-	}
 
 		return null;
 	}
@@ -146,20 +150,23 @@ class EcardModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::getItemLinks
 	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1=null) {
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
 		$links = array();
 
 		foreach ($items as $item) {
 			$itemId = $item->getId();
 
-			if (GalleryUtilities::isA($item, 'GalleryPhotoItem') &&
-			isset($permissions[$itemId]['ecard.send']) &&
-			isset($wantsDetailedLinks[$itemId])) {
-				$params['view'] = 'ecard.SendEcard';
+			if (GalleryUtilities::isA($item, 'GalleryPhotoItem')
+				&& isset($permissions[$itemId]['ecard.send'])
+				&& isset($wantsDetailedLinks[$itemId])
+			) {
+				$params['view']   = 'ecard.SendEcard';
 				$params['itemId'] = $itemId;
 				$params['return'] = 1;
-				$links[$itemId][] = array('text' => $this->translate('Send as eCard'),
-					  'params' => $params, );
+				$links[$itemId][] = array(
+					'text'   => $this->translate('Send as eCard'),
+					'params' => $params,
+				);
 			}
 		}
 
@@ -170,8 +177,15 @@ class EcardModule extends GalleryModule {
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {
-		return array(null, array(array('name' => $this->translate('eCard'),
-					   'view' => 'ecard.AdminEcard', )));
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('eCard'),
+					'view' => 'ecard.AdminEcard',
+				),
+			),
+		);
 	}
 
 	/**
@@ -179,13 +193,13 @@ class EcardModule extends GalleryModule {
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'CaptchaAdminOption',
-		'EcardCaptchaAdminOption',
-		'EcardCaptchaAdminOption',
-		'modules/ecard/classes/EcardCaptchaAdminOption.class',
-		'ecard',
-		null
-	);
+			'CaptchaAdminOption',
+			'EcardCaptchaAdminOption',
+			'EcardCaptchaAdminOption',
+			'modules/ecard/classes/EcardCaptchaAdminOption.class',
+			'ecard',
+			null
+		);
 
 		if ($ret) {
 			return $ret;

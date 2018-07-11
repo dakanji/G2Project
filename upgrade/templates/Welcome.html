@@ -14,24 +14,26 @@
 		<?php echo _('If you have a busy site, consider putting your Gallery in maintenance mode. This gives visitors a message that the site is temporarily offline, rather than showing everybody this upgrade page. Edit your config.php file to activate maintenance mode.'); ?>
 	</p>
 	<?php endif; ?>
-	<?php global $translator;
+	<?php
+	global $translator;
 
-if (isset($translator)) : ?>
+	if (isset($translator)) :
+		?>
 	<form method="post" action="<?php generateUrl('index.php'); ?>"><p>
-		<?php echo _('Select Language:'); ?>
+			<?php echo _('Select Language:'); ?>
 	  <input type="hidden" name="step" value="<?php echo $stepNumber; ?>"/>
 	  <select name="language" onchange="this.form.submit()" style="direction:ltr">
-		<?php
-		// Don't use $language here as it conflicts with $_SESSION if register_globals is on
-		foreach ($templateData['languages'] as $code => $description) {
-			echo '<option value="' . $code . '"';
+			<?php
+			// Don't use $language here as it conflicts with $_SESSION if register_globals is on
+			foreach ($templateData['languages'] as $code => $description) {
+				echo '<option value="' . $code . '"';
 
-			if ($code == $_SESSION['language']) {
-				echo ' selected="selected"';
+				if ($code == $_SESSION['language']) {
+					echo ' selected="selected"';
+				}
+				echo '>' . $description . "</option>\n";
 			}
-			echo '>' . $description . "</option>\n";
-		}
-		?>
+			?>
 	  </select>
 	  <noscript><input type="submit" value="<?php echo _('Go'); ?>"/></noscript>
 	</p></form>

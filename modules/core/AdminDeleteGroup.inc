@@ -90,7 +90,7 @@ class AdminDeleteGroupView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId            = GalleryUtilities::getRequestVariables('groupId');
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -112,7 +112,9 @@ class AdminDeleteGroupView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/AdminDeleteGroup.tpl'),
+			array(
+				'body' => 'modules/core/templates/AdminDeleteGroup.tpl',
+			),
 		);
 	}
 }

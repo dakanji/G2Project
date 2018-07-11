@@ -275,7 +275,7 @@ class AdminCoreView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($outer, $inner) = explode('.', $key);
+				list($outer, $inner)  = explode('.', $key);
 				$form[$outer][$inner] = $value;
 			}
 
@@ -371,7 +371,9 @@ class AdminCoreView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/core/templates/AdminCore.tpl'),
+			array(
+				'body' => 'modules/core/templates/AdminCore.tpl',
+			),
 		);
 	}
 }

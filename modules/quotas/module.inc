@@ -154,7 +154,9 @@ class QuotasModule extends GalleryModule {
 				if ($quotaExists) {
 					$ret = GalleryCoreApi::removeMapEntry(
 						'QuotasMap',
-						array('userOrGroupId' => $entity->getId())
+						array(
+							'userOrGroupId' => $entity->getId(),
+						)
 					);
 
 					if ($ret) {

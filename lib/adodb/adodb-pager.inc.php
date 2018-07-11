@@ -24,12 +24,12 @@
 
 */
 class ADODB_Pager {
-	public $id; 	// unique id for pager (defaults to 'adodb')
-	public $db; 	// ADODB connection object
-	public $sql; 	// sql used
-	public $rs;	// recordset generated
-	public $curr_page;	// current page number before Render() called, calculated in constructor
-	public $rows;		// number of rows per page
+	public $id;     // unique id for pager (defaults to 'adodb')
+	public $db;     // ADODB connection object
+	public $sql;    // sql used
+	public $rs; // recordset generated
+	public $curr_page;  // current page number before Render() called, calculated in constructor
+	public $rows;       // number of rows per page
 	public $linksPerPage = 10; // number of links per page in navigation bar
 	public $showPageLinks;
 

@@ -26,7 +26,7 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 require_once dirname(__FILE__) . '/XmlParser.inc';
 
 $output = '';
-foreach (array( 'mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite' ) as $db) {
+foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) {
 	$output  .= '## ' . $db . "\n";
 	$xmlFiles = glob('tmp/dbxml/*.xml');
 	if (empty($xmlFiles)) {
@@ -51,10 +51,7 @@ foreach (array( 'mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite' ) as $db
 
 $fd = fopen('schema.tpl', 'w');
 fwrite($fd, $output);
-fclose($fd);
-
-class BaseGenerator
-{
+fclose($fd);class BaseGenerator {
 	function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
@@ -181,10 +178,7 @@ class BaseGenerator
 	function isIndex($child) {
 		return $child['name'] == 'INDEX';
 	}
-}
-
-class MySqlGenerator extends BaseGenerator
-{
+}class MySqlGenerator extends BaseGenerator {
 	function MySqlGenerator() {
 		$this->setColumnDefinitionMap(
 			array(
@@ -410,10 +404,7 @@ class MySqlGenerator extends BaseGenerator
 	function getDbType() {
 		return 'mysql';
 	}
-}
-
-class PostgresGenerator extends BaseGenerator
-{
+}class PostgresGenerator extends BaseGenerator {
 	function PostgresGenerator() {
 		$this->setColumnDefinitionMap(
 			array(
@@ -675,10 +666,7 @@ class PostgresGenerator extends BaseGenerator
 	function getDbType() {
 		return 'postgres';
 	}
-}
-
-class OracleGenerator extends BaseGenerator
-{
+}class OracleGenerator extends BaseGenerator {
 	function OracleGenerator() {
 		$this->setColumnDefinitionMap(
 			array(
@@ -925,9 +913,7 @@ class OracleGenerator extends BaseGenerator
 	function getDbType() {
 		return 'oracle';
 	}
-}
-
-/**
+}/**
  *  Notes regarding DB2 limitations on Table and Index names:
  *
  *  DB2 currently limits the length of table names to 30 characters, and index names to 18
@@ -951,8 +937,7 @@ class OracleGenerator extends BaseGenerator
  *  That works out to:
  *    <= 5 chars      + 5                        + 2                           +  1  + 5 = <= 18
  */
-class Db2Generator extends BaseGenerator
-{
+class Db2Generator extends BaseGenerator {
 	function Db2Generator() {
 		/* The column size is limited to 32kbyte */
 		$this->setColumnDefinitionMap(
@@ -1237,10 +1222,7 @@ class Db2Generator extends BaseGenerator
 	function getDbType() {
 		return 'db2';
 	}
-}
-
-class MSSqlGenerator extends BaseGenerator
-{
+}class MSSqlGenerator extends BaseGenerator {
 	function MSSqlGenerator() {
 		$this->setColumnDefinitionMap(
 			array(
@@ -1497,10 +1479,7 @@ class MSSqlGenerator extends BaseGenerator
 	function getDbType() {
 		return 'mssql';
 	}
-}
-
-class SQLiteGenerator extends BaseGenerator
-{
+}class SQLiteGenerator extends BaseGenerator {
 	function SQLiteGenerator() {
 		$this->setColumnDefinitionMap(
 			array(

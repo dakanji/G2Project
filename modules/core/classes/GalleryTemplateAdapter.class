@@ -99,7 +99,7 @@ class GalleryTemplateAdapter {
 		// Search for args and add them to the params
 		for ($i = 1; ($arg = "arg$i") && isset($params[$arg]); $i++) {
 			list($key, $value) = explode('=', $params[$arg], 2);
-			$urlParams[$key]    = $value;
+			$urlParams[$key]   = $value;
 			unset($params[$arg]);
 		}
 
@@ -184,7 +184,7 @@ class GalleryTemplateAdapter {
 
 		if (empty($params['format'])) {
 			if (!isset($defaultFormat)) {
-				$defaultFormat     = array(
+				$defaultFormat    = array(
 					'date'     => '%x',
 					'time'     => '%X',
 					'datetime' => '%c',
@@ -230,7 +230,7 @@ class GalleryTemplateAdapter {
 			 * for particular %s values.  Currently only supports a single arg.
 			 * Fallback to normal translation of given $params.
 			 */
-			$string            = sprintf($params['text'], $params['postSprintfArg1']);
+			$string           = sprintf($params['text'], $params['postSprintfArg1']);
 			list($ret, $text) = $translator->translateDomain($domain, $string);
 
 			if ($ret || $text == $string) {
@@ -270,7 +270,7 @@ class GalleryTemplateAdapter {
 		} else {
 			$domain = $smarty->_tpl_vars['l10Domain'];
 		}
-		$translator        =& $gallery->getTranslator();
+		$translator       =& $gallery->getTranslator();
 		list($ret, $text) = $translator->translateDomain($domain, $params);
 
 		if ($ret) {
@@ -421,7 +421,9 @@ class GalleryTemplateAdapter {
 				foreach (array_keys($head['javascript']) as $file) {
 					$output[] = sprintf(
 						'<script type="text/javascript" src="%s"></script>',
-						$urlGenerator->generateUrl(array('href' => $file))
+						$urlGenerator->generateUrl(array(
+							'href' => $file,
+						))
 					);
 				}
 			}
@@ -434,7 +436,9 @@ class GalleryTemplateAdapter {
 			$smarty->_smarty_include(
 				array(
 					'smarty_include_tpl_file' => "gallery:$path",
-					'smarty_include_vars'     => array('l10Domain' => $l10Domain),
+					'smarty_include_vars'     => array(
+						'l10Domain' => $l10Domain,
+					),
 				)
 			);
 			$smarty->_tpl_vars = $save;
@@ -516,7 +520,9 @@ class GalleryTemplateAdapter {
 				}
 				$output[] = sprintf(
 					$pattern,
-					$urlGenerator->generateUrl(array('href' => $file))
+					$urlGenerator->generateUrl(array(
+						'href' => $file,
+					))
 				);
 			}
 		}
@@ -615,7 +621,9 @@ class GalleryTemplateAdapter {
 		if (strstr($url, 'authToken') === false) {
 			$url = GalleryUrlGenerator::appendParamsToUrl(
 				$url,
-				array('authToken' => $session->getAuthToken())
+				array(
+					'authToken' => $session->getAuthToken(),
+				)
 			);
 			$url = str_replace('&amp;', '&', $url);
 		}
@@ -765,7 +773,9 @@ class GalleryTemplateAdapter {
 		} else {
 			if (!array_key_exists('class', $params)) {
 				// Use default classes
-				$params['class'] = $this->linkId(array('urlParams' => $link['params']));
+				$params['class'] = $this->linkId(array(
+					'urlParams' => $link['params'],
+				));
 			}
 			$tag    = '<a href="' . $urlGenerator->generateUrl($link['params'], $link['options']) . '"'
 			. (isset($link['script']) ? ' onclick="' . $link['script'] . ';return false"' : '')
@@ -852,7 +862,7 @@ class GalleryTemplateAdapter {
 	 */
 	public function logoButton($params, &$smarty) {
 		global $gallery;
-		$urlGenerator      =& $gallery->getUrlGenerator();
+		$urlGenerator     =& $gallery->getUrlGenerator();
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
@@ -886,7 +896,9 @@ class GalleryTemplateAdapter {
 				return sprintf(
 					'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
 					$useLink ? ('<a href="http://gallery.sourceforge.net"' . $linkTarget . '>') : '',
-					$urlGenerator->generateUrl(array('href' => 'images/gallery.gif')),
+					$urlGenerator->generateUrl(array(
+						'href' => 'images/gallery.gif',
+					)),
 					$version,
 					$version,
 					'border-style: none',
@@ -906,7 +918,9 @@ class GalleryTemplateAdapter {
 					if ($session->isUsingCookies()) {
 						$validationUri = $urlGenerator->appendParamsToUrl(
 							$validationUri,
-							array($session->getKey() => $session->getId())
+							array(
+								$session->getKey() => $session->getId(),
+							)
 						);
 					}
 					$validationUri = sprintf(
@@ -925,7 +939,9 @@ class GalleryTemplateAdapter {
 				return sprintf(
 					'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
 					$useLink ? ('<a href="' . $validationUri . '"' . $linkTarget . '>') : '',
-					$urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')),
+					$urlGenerator->generateUrl(array(
+						'href' => 'images/xhtml10.png',
+					)),
 					$core->translate('This page is valid XHTML 1.0'),
 					$core->translate('This page is valid XHTML 1.0'),
 					'border-style: none',
@@ -942,7 +958,9 @@ class GalleryTemplateAdapter {
 					'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
 					$useLink ? ('<a href="http://gallery.sourceforge.net/donate.php?donate_tag=' .
 					$installedVersions['gallery'] . '"' . $linkTarget . '>') : '',
-					$urlGenerator->generateUrl(array('href' => 'modules/core/data/donate.png')),
+					$urlGenerator->generateUrl(array(
+						'href' => 'modules/core/data/donate.png',
+					)),
 					$core->translate('Donate to the Gallery project'),
 					$core->translate('Donate to the Gallery project'),
 					'border-style: none',
@@ -957,7 +975,9 @@ class GalleryTemplateAdapter {
 				return sprintf(
 					'<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>',
 					$urlGenerator->generateUrl(
-						array('href' => 'modules/core/data/g23-skidoo.png')
+						array(
+							'href' => 'modules/core/data/g23-skidoo.png',
+						)
 					),
 					$core->translate('G2.3: Skidoo'),
 					$core->translate('G2.3: Skidoo'),
@@ -1045,7 +1065,9 @@ class GalleryTemplateAdapter {
 				$target = $params['url'];
 			}
 
-			return $urlGenerator->generateUrl(array('href' => $base . $target));
+			return $urlGenerator->generateUrl(array(
+				'href' => $base . $target,
+			));
 		}
 	}
 
@@ -1060,7 +1082,7 @@ class GalleryTemplateAdapter {
 	public function block($params, &$smarty) {
 		global $gallery;
 		list($module, $file) = explode('.', $params['type']);
-		$class                = empty($params['class']) ? '' : ' ' . $params['class'];
+		$class               = empty($params['class']) ? '' : ' ' . $params['class'];
 
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
@@ -1142,7 +1164,9 @@ class GalleryTemplateAdapter {
 			array(
 				'smarty_include_tpl_file' => "gallery:modules/$module/templates/containers/$file.tpl",
 				'smarty_include_vars'     => array_merge(
-					array('content' => $content),
+					array(
+						'content' => $content,
+					),
 					$params
 				),
 			)

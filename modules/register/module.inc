@@ -43,20 +43,23 @@ class RegisterModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion, $x1=null) {
+	public function upgrade($currentVersion, $x1 = null) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		foreach (array('confirmation' => 'admin', 'emailadmins' => 1, 'emailusers' => 1,
-			   'subject' => $this->translate('Account activation'),
-			   'adminsubject' => $this->translate('New user registration'),
-			   'usersubject' => $this->translate('Welcome to Gallery'),
-			   'from' => 'webmaster@' . GalleryUtilities::getServerVar('SERVER_NAME'),
-			   'validation.level' => 'HIGH', )
-		as $key => $value) {
+		foreach (array(
+			'confirmation'     => 'admin',
+			'emailadmins'      => 1,
+			'emailusers'       => 1,
+			'subject'          => $this->translate('Account activation'),
+			'adminsubject'     => $this->translate('New user registration'),
+			'usersubject'      => $this->translate('Welcome to Gallery'),
+			'from'             => 'webmaster@' . GalleryUtilities::getServerVar('SERVER_NAME'),
+			'validation.level' => 'HIGH',
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -74,26 +77,26 @@ class RegisterModule extends GalleryModule {
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEntity',
-		'GalleryPendingUser',
-		'GalleryPendingUser',
-		'modules/register/classes/GalleryPendingUser.class',
-		'register',
-		null
-	);
+			'GalleryEntity',
+			'GalleryPendingUser',
+			'GalleryPendingUser',
+			'modules/register/classes/GalleryPendingUser.class',
+			'register',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'CaptchaAdminOption',
-		'RegisterCaptchaAdminOption',
-		'RegisterCaptchaAdminOption',
-		'modules/register/classes/RegisterCaptchaAdminOption.class',
-		'register',
-		null
-	);
+			'CaptchaAdminOption',
+			'RegisterCaptchaAdminOption',
+			'RegisterCaptchaAdminOption',
+			'modules/register/classes/RegisterCaptchaAdminOption.class',
+			'register',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
@@ -123,10 +126,13 @@ class RegisterModule extends GalleryModule {
 
 		if ($isAnonymous) {
 			$links['Register'] = array(
-		'text' => $this->translate('Register'),
-		'params' => array('view' => 'core.UserAdmin',
-				  'subView' => 'register.UserSelfRegistration',
-				  'return' => 1, ), );
+				'text'   => $this->translate('Register'),
+				'params' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+					'return'  => 1,
+				),
+			);
 		}
 
 		return array(null, $links);
@@ -145,8 +151,10 @@ class RegisterModule extends GalleryModule {
 		}
 
 		if ($isAnonymous) {
-			$views[] = array('name' => $this->translate('Register'),
-				 'view' => 'register.UserSelfRegistration', );
+			$views[] = array(
+				'name' => $this->translate('Register'),
+				'view' => 'register.UserSelfRegistration',
+			);
 		}
 
 		return array(null, $views);
@@ -156,7 +164,14 @@ class RegisterModule extends GalleryModule {
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {
-		return array(null, array(array('name' => $this->translate('Registration'),
-					   'view' => 'register.AdminSelfRegistration', )));
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Registration'),
+					'view' => 'register.AdminSelfRegistration',
+				),
+			),
+		);
 	}
 }

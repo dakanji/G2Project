@@ -14,8 +14,9 @@
 	View: <a href="?type=summary"> summary </a> | <b> detail </b>
 	<table class="report">
 		<?php $index = 0; ?>
-		<?php foreach ($reportData as $locale => $localeData) {
-	?>
+		<?php
+		foreach ($reportData as $locale => $localeData) {
+			?>
 			<?php include dirname(__FILE__) . '/row_header_detail.inc'; ?>
 			<?php $index++; ?>
 		<tr>
@@ -35,18 +36,20 @@
 			<?php include dirname(__FILE__) . '/plugin_rowdata.inc'; ?>
 		</tr>
 
-			<?php for ($i = 1; $i < sizeof($localeData['plugins']); $i++) {
-		?>
+			<?php
+			for ($i = 1; $i < sizeof($localeData['plugins']); $i++) {
+				?>
 		<tr>
 				<?php $keys = array_keys($localeData['plugins']); ?>
 				<?php $plugin = $keys[$i]; ?>
 				<?php $pluginData = $localeData['plugins'][$plugin]; ?>
 				<?php include dirname(__FILE__) . '/plugin_rowdata.inc'; ?>
 		</tr>
+				<?php
+			} ?>
 			<?php
-	} ?>
-		<?php
-} ?>
+		}
+		?>
 	</table>
 	  </center>
 	</body>

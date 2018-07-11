@@ -235,6 +235,11 @@ class SetupRewriteView extends GalleryView {
 		$template->setVariable('SetupRewrite', $SetupRewrite);
 		$template->setVariable('controller', 'rewrite.SetupRewrite');
 
-		return array(null, array('body' => 'modules/rewrite/templates/SetupRewrite.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/rewrite/templates/SetupRewrite.tpl',
+			),
+		);
 	}
 }

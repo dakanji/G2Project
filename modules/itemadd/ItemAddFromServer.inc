@@ -365,8 +365,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 	 * @return GalleryStatus
 	 */
 	public function addItem($parentId, $file, $useSymlink, $textFields, &$status, &$error) {
-		$fileName              = basename($file);
-		$base                  = GalleryUtilities::getFileBase($fileName);
+		$fileName             = basename($file);
+		$base                 = GalleryUtilities::getFileBase($fileName);
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType($fileName);
 
 		if ($ret) {
@@ -428,9 +428,9 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$dirName     = basename($path);
 		$dirNameUtf8 = GalleryCoreApi::convertToUtf8($dirName);
 		GalleryUtilities::sanitizeInputValues($dirNameUtf8);
-		$dirTitle           = $textFields['title'] ? $dirNameUtf8 : null;
-		$dirSummary         = $textFields['summary'] ? $dirNameUtf8 : null;
-		$dirDescription     = $textFields['description'] ? $dirNameUtf8 : null;
+		$dirTitle          = $textFields['title'] ? $dirNameUtf8 : null;
+		$dirSummary        = $textFields['summary'] ? $dirNameUtf8 : null;
+		$dirDescription    = $textFields['description'] ? $dirNameUtf8 : null;
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$parentId,
 			$dirName,

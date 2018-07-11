@@ -80,7 +80,7 @@ class FlashVideoModule extends GalleryModule {
 		$storage =& $gallery->getStorage();
 
 		// Add renderer on all GalleryMovieItems with video/x-flv mime type that need it
-		$query                      = '
+		$query                     = '
 	SELECT
 	  [GalleryDataItem::id]
 	FROM
@@ -100,7 +100,7 @@ class FlashVideoModule extends GalleryModule {
 		}
 
 		while (!empty($ids)) {
-			$itemIds            = array_splice($ids, 0, 100);
+			$itemIds           = array_splice($ids, 0, 100);
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryDataItem');
 
 			if ($ret) {

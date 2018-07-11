@@ -81,7 +81,9 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 				'itemId' => (int)$result[0],
 			);
 			$path   = substr(
-				$urlGenerator->generateUrl($params, array('forceFullUrl' => true)),
+				$urlGenerator->generateUrl($params, array(
+					'forceFullUrl' => true,
+				)),
 				strlen($urlGenerator->getCurrentUrlDir()) - 1
 			);
 

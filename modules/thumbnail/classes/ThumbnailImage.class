@@ -203,13 +203,13 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		$this->setWidth(0);
 		$this->setHeight(0);
 
-		$platform          =& $gallery->getPlatform();
+		$platform         =& $gallery->getPlatform();
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
 			return $ret;
 		}
-		$dir            = dirname($path);
+		$dir           = dirname($path);
 		list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 		if (!$success) {
@@ -441,7 +441,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	 * Full path to image file
 	 *
 	 * @return array GalleryStatus a status code,
-	 *			   string path
+	 *             string path
 	 */
 	public function fetchPath() {
 		global $gallery;
@@ -520,7 +520,9 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 						'itemId'       => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
-					array('forceFullUrl' => !empty($params['forceFullUrl']))
+					array(
+						'forceFullUrl' => !empty($params['forceFullUrl']),
+					)
 				);
 
 				list($width, $height) = array($this->getWidth(), $this->getHeight());

@@ -54,7 +54,9 @@ class CustomThumbnailOption extends ItemEditOption {
 				$ItemAdmin            =& $template->getVariableByReference('ItemAdmin');
 				$ItemAdmin['enctype'] = 'multipart/form-data';
 			} else {
-				$ItemAdmin = array('enctype' => 'multipart/form-data');
+				$ItemAdmin = array(
+					'enctype' => 'multipart/form-data',
+				);
 				$template->setVariable('ItemAdmin', $ItemAdmin);
 			}
 		}

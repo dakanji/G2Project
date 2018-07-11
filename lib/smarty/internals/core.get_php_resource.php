@@ -25,7 +25,9 @@ function smarty_core_get_php_resource(&$params, &$smarty) {
 			$_readable = true;
 		} else {
 			// test for file in include_path
-			$_params = array('file_path' => $params['resource_name']);
+			$_params = array(
+				'file_path' => $params['resource_name'],
+			);
 
 			include_once SMARTY_CORE_DIR . 'core.get_include_path.php';
 

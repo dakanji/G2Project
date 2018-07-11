@@ -55,7 +55,7 @@ class SlideshowAppletView extends GalleryView {
 
 		if (!$item->getCanContainChildren()) {
 			// Photo: do slideshow of parent album, start at this photo
-			$startId           = $item->getId();
+			$startId          = $item->getId();
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
 
 			if ($ret) {
@@ -86,7 +86,7 @@ class SlideshowAppletView extends GalleryView {
 			 * communicate to G2 directly, even when G2 is embedded
 			 */
 			$SlideshowApplet['g2BaseUrl'] = $urlGenerator->getCurrentUrlDir(true);
-			list($ret, $cookiePath)      = $urlGenerator->getCookiePath(true);
+			list($ret, $cookiePath)       = $urlGenerator->getCookiePath(true);
 
 			if ($ret) {
 				return array($ret, null);
@@ -131,7 +131,7 @@ class SlideshowAppletView extends GalleryView {
 					$variablesArray = explode('|', $params['slideshow' . $type . 'Variables']);
 
 					foreach ($variablesArray as $variable) {
-						list($name, $value)           = explode('=', $variable);
+						list($name, $value)            = explode('=', $variable);
 						$SlideshowApplet[$type][$name] = $value;
 					}
 				}
@@ -144,7 +144,9 @@ class SlideshowAppletView extends GalleryView {
 
 		return array(
 			null,
-			array('body' => 'modules/slideshowapplet/templates/SlideshowApplet.tpl'),
+			array(
+				'body' => 'modules/slideshowapplet/templates/SlideshowApplet.tpl',
+			),
 		);
 	}
 

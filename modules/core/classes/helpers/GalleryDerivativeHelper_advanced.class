@@ -70,7 +70,9 @@ class GalleryDerivativeHelper_advanced {
 	public static function adjustDependentDerivatives($id, $operation, $reverse = false) {
 		global $gallery;
 
-		$ids       = array((int)$id => 1);
+		$ids       = array(
+			(int)$id => 1,
+		);
 		$lastCount = 0;
 
 		// Discover the entire derivative dependency tree
@@ -143,7 +145,7 @@ class GalleryDerivativeHelper_advanced {
 
 			foreach ($derivatives as $derivative) {
 				foreach ($toolkits as $toolkitId => $toolkit) {
-					$currentOperations              = $derivative->getDerivativeOperations();
+					$currentOperations             = $derivative->getDerivativeOperations();
 					list($success, $newOperations) = $toolkit->applyTransform($operation, $currentOperations, $reverse);
 
 					if ($success) {
@@ -345,7 +347,7 @@ class GalleryDerivativeHelper_advanced {
 				}
 			}
 
-			$operationString         = $operation . '|' . join(',', $args);
+			$operationString        = $operation . '|' . join(',', $args);
 			list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 				$preferred->getDerivativeOperations(),
 				$operationString
@@ -561,7 +563,9 @@ class GalleryDerivativeHelper_advanced {
 	public static function removePreferencesForItem($itemId) {
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryDerivativePreferencesMap',
-			array('itemId' => $itemId)
+			array(
+				'itemId' => $itemId,
+			)
 		);
 
 		if ($ret) {
@@ -664,7 +668,7 @@ class GalleryDerivativeHelper_advanced {
 					);
 				} else {
 					list($op, $args) = explode('|', $opString);
-					$operations1[]    = array(
+					$operations1[]   = array(
 						'op'   => $op,
 						'args' => explode(',', $args),
 					);
@@ -679,7 +683,7 @@ class GalleryDerivativeHelper_advanced {
 					);
 				} else {
 					list($op, $args) = explode('|', $opString);
-					$operations2[]    = array(
+					$operations2[]   = array(
 						'op'   => $op,
 						'args' => explode(',', $args),
 					);

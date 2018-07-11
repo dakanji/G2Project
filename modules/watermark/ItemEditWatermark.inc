@@ -169,7 +169,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		$total = count($itemIds);
 
 		while (!empty($itemIds)) {
-			$batchIds           = array_splice($itemIds, 0, 100);
+			$batchIds          = array_splice($itemIds, 0, 100);
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds, 'GalleryItem');
 
 			if ($ret) {
@@ -320,7 +320,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		$itemId = $item->getId();
 
 		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-			$displayImage             = $item;
+			$displayImage            = $item;
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds(array($itemId));
 
 			if ($ret) {
@@ -459,7 +459,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		}
 
 		if (!empty($preferredTable[$item->getId()])) {
-			$preferred            = $preferredTable[$item->getId()];
+			$preferred           = $preferredTable[$item->getId()];
 			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($preferred->getMimeType(), 'composite');
 
 			if ($ret) {

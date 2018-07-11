@@ -177,7 +177,7 @@ class Assert {
 					$this->failNotEquals($expected, $actual, 'expected', $message);
 				}
 
-				return;		// no further tests after equals()
+				return;     // no further tests after equals()
 			}
 		}
 
@@ -381,16 +381,16 @@ class TestCase extends Assert // implements Test
 		}
 	}
 
-	public function setUp() // expect override
-	{
+	public function setUp() {
+		// expect override
 		//print("TestCase::setUp()<br>\n");
 		$this->fLifeCycle['setUp'] = 1;
 
 		return null;
 	}
 
-	public function tearDown() // possible override
-	{
+	public function tearDown() {
+		// possible override
 		//print("TestCase::tearDown()<br>\n");
 		$this->fLifeCycle['tearDown'] = 1;
 
@@ -399,8 +399,8 @@ class TestCase extends Assert // implements Test
 
 	////////////////////////////////////////////////////////////////
 
-	public function _createResult() // protected
-	{
+	public function _createResult() {
+		// protected
 		// override this to use specialized subclass of TestResult
 		return new TestResult();
 	}
@@ -416,7 +416,7 @@ class TestCase extends Assert // implements Test
 		/* report error that requires correction in the test script
 		 itself, or (heaven forbid) in this testing infrastructure */
 		$this->fExceptions[] = new PHPUnitException($message, 'ERROR');
-		$this->fResult->stop();	// [does not work]
+		$this->fResult->stop(); // [does not work]
 	}
 
 	public function failed() {
@@ -628,8 +628,8 @@ class TestResult {
 	public function __construct() {
 	}
 
-	public function _endTest(&$test) // protected
-	{
+	public function _endTest(&$test) {
+		// protected
 		/* specialize this for end-of-test action, such as progress
 		reports  */
 	}
@@ -691,8 +691,8 @@ class TestResult {
 		return $this->fStop;
 	}
 
-	public function _startTest($test) // protected
-	{
+	public function _startTest($test) {
+		// protected
 		// specialize this for start-of-test actions
 	}
 

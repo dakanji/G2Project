@@ -277,7 +277,12 @@ class AdminModerateSpamView extends GalleryView {
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');
 
-		return array(null, array('body' => 'modules/comment/templates/AdminModerateSpam.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/comment/templates/AdminModerateSpam.tpl',
+			),
+		);
 	}
 
 	/**

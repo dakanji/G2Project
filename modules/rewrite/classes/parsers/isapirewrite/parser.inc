@@ -268,7 +268,9 @@ class IsapiRewriteParser extends RewriteParser {
 			}
 
 			list($ret, $code) = IsapiRewriteHelper::saveEmbedConfig(
-				array('embeddedLocation' => $form['embeddedLocation']),
+				array(
+					'embeddedLocation' => $form['embeddedLocation'],
+				),
 				$this,
 				GalleryUtilities::getRequestVariables('controller') != 'SetupRewriteController'
 			);
@@ -320,7 +322,12 @@ class IsapiRewriteParser extends RewriteParser {
 			return array($ret, null);
 		}
 
-		return array(null, array('embeddedLocation' => $value));
+		return array(
+			null,
+			array(
+				'embeddedLocation' => $value,
+			),
+		);
 	}
 
 	/**

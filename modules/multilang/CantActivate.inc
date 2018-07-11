@@ -66,6 +66,11 @@ class CantActivateView extends GalleryView {
 
 		$template->setVariable('controller', 'multilang.CantActivate');
 
-		return array(null, array('body' => 'modules/multilang/templates/CantActivate.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/multilang/templates/CantActivate.tpl',
+			),
+		);
 	}
 }

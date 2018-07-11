@@ -62,7 +62,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 		// Get our form variables
 		$form = GalleryUtilities::getFormVariables('form');
 
-		$this->_addController        = new ItemAddPluginTestItemAddController();
+		$this->_addController       = new ItemAddPluginTestItemAddController();
 		list($ret, $error, $status) = $this->_plugin->handleRequest($form, $item, $this->_addController);
 
 		if (isset($errorCode)) {

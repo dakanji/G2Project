@@ -157,7 +157,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			return null;
 		}
 
-		$parentId                      = $this->getParentId();
+		$parentId                     = $this->getParentId();
 		list($ret, $newPathComponent) = GalleryCoreApi::getLegalPathComponent($newPathComponent, $parentId, $this->getId());
 
 		if ($ret) {
@@ -378,7 +378,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 		$absolutePath = $gallery->getConfig('data.gallery.albums');
 
 		if ($this->isLinked()) {
-			$linkedEntity             = $this->getLinkedEntity();
+			$linkedEntity            = $this->getLinkedEntity();
 			list($ret, $logicalPath) = $linkedEntity->fetchLogicalPath();
 
 			if ($ret) {
