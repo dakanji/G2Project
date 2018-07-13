@@ -353,7 +353,7 @@ class GallerySession {
     function save($useNonTransactionalConnection=false) {
 	global $gallery;
 	$phpVm = $gallery->getPhpVm();
-	$dieRoll = $phpVm->rand(1, 100);
+	$dieRoll = $phpVm->getRand(1, 100);
 
 	if (!empty($this->_sessionId)
 		&& ($this->_isPersistentSessionAllowedForRequest() || $this->_forceSaveSession)) {
