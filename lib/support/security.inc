@@ -19,27 +19,25 @@
  */
 
 if (php_sapi_name() == 'cli') {
-	// We don't apply this security check to command-line PHP
-	return;
+    /* We don't apply this security check to command-line PHP */
+    return;
 }
 
 if (!defined('G2_SUPPORT_URL_FRAGMENT')) {
-	echo 'Error: Missing value for G2_SUPPORT_URL_FRAGMENT';
-
-	exit;
+    print 'Error: Missing value for G2_SUPPORT_URL_FRAGMENT';
+    exit;
 }
 
-require_once dirname(__FILE__) . '/GallerySetupUtilities.class';
+require_once(dirname(__FILE__) . '/GallerySetupUtilities.class');
 
 GallerySetupUtilities::startSession();
 
-// The $baseUrl global is used by other scripts to figure out where to find our CSS
+/* The $baseUrl global is used by other scripts to figure out where to find our CSS */
 $config = GallerySetupUtilities::getGalleryConfig();
-
 if (!empty($config) && $config['galleryBaseUrl'] != '') {
-	$baseUrl = $config['galleryBaseUrl'] . 'lib/support/';
+    $baseUrl = $config['galleryBaseUrl'] . 'lib/support/';
 } else {
-	$baseUrl = G2_SUPPORT_URL_FRAGMENT;
+    $baseUrl = G2_SUPPORT_URL_FRAGMENT;
 }
 
 /*
@@ -47,103 +45,95 @@ if (!empty($config) && $config['galleryBaseUrl'] != '') {
  * We don't want that to happen, so check for ourselves first.
  */
 $options = array();
-
 if (empty($config)) {
-	render('missingConfig', $options);
-} elseif (empty($config['setup.password'])) {
-	render('missingSetupPassword', $options);
-} elseif (!GallerySetupUtilities::isSessionAuthenticated()) {
-	$baseDir = defined('GALLERY_CONFIG_DIR') ?
+    render('missingConfig', $options);
+} else if (empty($config['setup.password'])) {
+    render('missingSetupPassword', $options);
+} else if (!GallerySetupUtilities::isSessionAuthenticated()) {
+    $baseDir = defined('GALLERY_CONFIG_DIR') ?
 	GALLERY_CONFIG_DIR : dirname(dirname(dirname(__FILE__)));
-	$authFile = $baseDir . '/login.txt';
-	$options['attempts'] = GallerySetupUtilities::getLoginAttempts();
-	$options['error'] = ($options['attempts'] === false);
-	$options['authFile'] = sprintf(
-	'%s%s%s',
-		basename(dirname($authFile)),
-		DIRECTORY_SEPARATOR,
-		basename($authFile)
-	);
-	$options['baseDir'] = basename($baseDir) . DIRECTORY_SEPARATOR;
-	$options['key'] = GallerySetupUtilities::getAuthenticationKey();
+    $authFile = $baseDir . '/login.txt';
+    $options['attempts'] = GallerySetupUtilities::getLoginAttempts();
+    $options['error'] = ($options['attempts'] === false);
+    $options['authFile'] = sprintf(
+	'%s%s%s', basename(dirname($authFile)), DIRECTORY_SEPARATOR, basename($authFile));
+    $options['baseDir'] = basename($baseDir) . DIRECTORY_SEPARATOR;
+    $options['key'] = GallerySetupUtilities::getAuthenticationKey();
+    if (empty($options['key'])) {
+	$options['key'] = GallerySetupUtilities::generateAuthenticationKey();
+	GallerySetupUtilities::setAuthenticationKey($options['key']);
+    }
 
-	if (empty($options['key'])) {
-		$options['key'] = GallerySetupUtilities::generateAuthenticationKey();
-		GallerySetupUtilities::setAuthenticationKey($options['key']);
+    if ($options['error'] || $options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
+	if (!file_exists($authFile)) {
+	    $options['authFileErrors']['missing'] = 1;
+	} else if (!is_readable($authFile)) {
+	    $options['authFileErrors']['unreadable'] = 1;
+	} else {
+	    $authKeyFromFile = trim(join('', file($authFile)));
+	    if ($authKeyFromFile == $options['key']) {
+		GallerySetupUtilities::authenticateThisSession();
+		GallerySetupUtilities::redirectBackToSelf();
+		exit;
+	    } else {
+		$options['authFileErrors']['mismatch'] = 1;
+	    }
 	}
+	render('loginTxtForm', $options);
+    } else if (!empty($_POST['password'])) {
+	if ($_POST['password'] == $config['setup.password']) {
+	    GallerySetupUtilities::authenticateThisSession();
+	    GallerySetupUtilities::redirectBackToSelf();
+	    exit;
+	} else {
+	    $options['attempts']++;
+	    if (!GallerySetupUtilities::setLoginAttempts($options['attempts'])) {
+		$options['error'] = true;
+	    }
 
-	if ($options['error'] || $options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
-		if (!file_exists($authFile)) {
-			$options['authFileErrors']['missing'] = 1;
-		} elseif (!is_readable($authFile)) {
-			$options['authFileErrors']['unreadable'] = 1;
-		} else {
-			$authKeyFromFile = trim(join('', file($authFile)));
-
-			if ($authKeyFromFile == $options['key']) {
-				GallerySetupUtilities::authenticateThisSession();
-				GallerySetupUtilities::redirectBackToSelf();
-
-				exit;
-			}
-			$options['authFileErrors']['mismatch'] = 1;
+	    if ($options['error'] || $options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
+		if ($options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
+		    $ret = GallerySetupUtilities::notifySiteAdministrator();
+		    /* swallow return code; we can't do anything with it */
 		}
 		render('loginTxtForm', $options);
-	} elseif (!empty($_POST['password'])) {
-		if ($_POST['password'] == $config['setup.password']) {
-			GallerySetupUtilities::authenticateThisSession();
-			GallerySetupUtilities::redirectBackToSelf();
-
-			exit;
-		}
-		$options['attempts']++;
-
-		if (!GallerySetupUtilities::setLoginAttempts($options['attempts'])) {
-			$options['error'] = true;
-		}
-
-		if ($options['error'] || $options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
-			if ($options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
-				$ret = GallerySetupUtilities::notifySiteAdministrator();
-				// swallow return code; we can't do anything with it
-			}
-			render('loginTxtForm', $options);
-		} else {
-			$options['wrongPassword'] = 1;
-			render('passwordForm', $options);
-		}
-	} else {
-		if (isset($_POST['password'])) {
-			$options['missingPassword'] = 1;
-		}
+	    } else {
+		$options['wrongPassword'] = 1;
 		render('passwordForm', $options);
+	    }
 	}
+    } else {
+	if (isset($_POST['password'])) {
+	    $options['missingPassword'] = 1;
+	}
+	render('passwordForm', $options);
+    }
 }
 
 if (GallerySetupUtilities::isSessionAuthenticated()) {
-	// This is the only safe way out of this include.  Everything else aborts now
-	return;
+    /* This is the only safe way out of this include.  Everything else aborts now */
+    return;
 }
 
-// Unless we're properly authenticated, this is the end of the line
+/* Unless we're properly authenticated, this is the end of the line */
 exit;
 
 function startForm($action='', $name=null) {
-	echo '<form method="POST" action="' . $action . (isset($name) ? "\" name=\"$name" : '') . '">';
-
-	if (!GallerySetupUtilities::areCookiesSupported()) {
-		echo '<input type="hidden" name="' . session_name() . '" value="' . session_id() . '"/>';
-	}
+    print '<form method="POST" action="' . $action . (isset($name) ? "\" name=\"$name" : '') . '">';
+    if (!GallerySetupUtilities::areCookiesSupported()) {
+	print '<input type="hidden" name="' . session_name() . '" value="' . session_id() . '"/>';
+    }
 }
 
 function render($renderType, $options=array()) {
-	global $baseUrl; ?>
+    global $baseUrl;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>Security Check</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
   </head>
   <body>
      <div id="content">
@@ -176,8 +166,8 @@ function render($renderType, $options=array()) {
 	 <?php startForm(); ?>
          <?php if (!empty($options['attempts'])): ?>
          <div class="warning">
-           Failed login attempts: <?php echo $options['attempts'] ?> out of a total of
-          <?php echo G2_SUPPORT_MAX_LOGIN_ATTEMPTS; ?>.
+           Failed login attempts: <?php print $options['attempts'] ?> out of a total of
+          <?php print G2_SUPPORT_MAX_LOGIN_ATTEMPTS; ?>.
          </div>
          <?php endif; ?>
 
@@ -224,8 +214,8 @@ function render($renderType, $options=array()) {
            permissions so that you can create the login.txt file.
 	 </p>
 	 <div class="info">
-	   Create this file: <b><?php echo $options['baseDir'] ?>login.txt</b> <br/>
-	   Put this in the file: <b><?php echo $options['key']; ?></b>
+	   Create this file: <b><?php print $options['baseDir'] ?>login.txt</b> <br/>
+	   Put this in the file: <b><?php print $options['key']; ?></b>
 	 </div>
 	 <?php if (!empty($options['authFileErrors'])): ?>
 	 <div class="error">

@@ -1,0 +1,120 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * SelectPicasaExportPath controller tests
+ * @package Picasa
+ * @subpackage PHPUnit
+ * @author Waldemar Schlackow <gallery@schlackow.de>
+ * @version $Revision: 17580 $
+ */
+class SelectPicasaExportPathControllerTest extends GalleryControllerTestCase {
+
+    var $_platform;
+
+    function SelectPicasaExportPathControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'picasa.SelectPicasaExportPath');
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+	$this->_platform = new UnitTestPlatform();
+    }
+
+    function tearDown() {
+	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    /**
+     * Test what the controller does when you enter a bad Picasa export path
+     */
+    function testBadpicasaXmlPath() {
+	global $gallery;
+
+	/* Activate the mock platform */
+	$gallery->setPlatform($this->_platform);
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('/index.xml'), true);
+	$this->_platform->setReply('is_readable', array('/index.xml'), false);
+
+	GalleryUtilities::putRequestVariable('form[picasaXmlPath]', '/');
+	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+		'subView' => 'picasa.SelectPicasaExportPath'),
+		'status' => array(),
+		'error' => array('form[error][picasaXmlPath][invalid]')),
+	    $results);
+    }
+
+    /**
+     * Test what the controller does when you enter a valid Picasa export path
+     */
+    function testGoodPicasaXmlPath() {
+	global $gallery;
+	/* Activate the mock platform */
+	$gallery->setPlatform($this->_platform);
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('/index.xml'), true);
+	$this->_platform->setReply('is_readable', array('/index.xml'), true);
+
+	$picasaXmlPath = '/';
+
+	GalleryUtilities::putRequestVariable('form[picasaXmlPath]', $picasaXmlPath);
+	GalleryUtilities::putRequestVariable('form[destinationAlbumId]', 0);
+	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+		'subView' => 'picasa.ConfirmPicasaImport',
+		'picasaXmlPath' => $picasaXmlPath,
+		'destinationAlbumId' => '0'),
+		'status' => array(),
+		'error' => array()),
+	    $results);
+    }
+
+    /**
+     * Test what the controller does when you enter a missing Picasa export path
+     */
+    function testMissingpicasaXmlPath() {
+	GalleryUtilities::putRequestVariable('form[picasaXmlPath]', '');
+	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+		'subView' => 'picasa.SelectPicasaExportPath'),
+		'status' => array(),
+		'error' => array('form[error][picasaXmlPath][missing]')),
+	    $results);
+    }
+}
+?>

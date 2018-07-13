@@ -1,0 +1,117 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * @package Mime
+ * @subpackage PHPUnit
+ * @author Felix Rabinovich <felix@rabinovich.org>
+ * @version $Revision: 17580 $
+ */
+class MimeAdminControllerTest extends GalleryControllerTestCase {
+
+    function MimeAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'mime.MimeAdmin');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'mime');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function tearDown() {
+	$ret = GalleryCoreApi::removeMimeType(array('mimeType' => 'test/test'));
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testSaveAllowAll() {
+	GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
+	GalleryUtilities::putRequestVariable('form[allowMime]', 'all');
+	GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'mime.MimeAdmin'),
+				  'status' => array('saved' => true),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('all', $params['allowMime'], 'allowMime');
+	$this->assertEquals('', $params['mimeList'], 'mimeList');
+    }
+
+    function testSaveBlock() {
+	GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
+	GalleryUtilities::putRequestVariable('form[allowMime]', 'block');
+	GalleryUtilities::putRequestVariable('form[upload][image/bmp]', 'on');
+	GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'mime.MimeAdmin'),
+				  'status' => array('saved' => true),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('block', $params['allowMime'], 'allowMime');
+	$this->assertEquals('image/bmp | test/test', $params['mimeList'], 'mimeList');
+    }
+
+    function testDelete() {
+	GalleryUtilities::putRequestVariable('form[action][delete]', 'test/test');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'mime.MimeAdmin'),
+				  'status' => array('deleted' => 'test/test'),
+				  'error' => array()),
+			    $results, 'Delete');
+	list ($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$this->assertEquals(array(), $extensions, 'Delete results');
+    }
+}
+?>

@@ -26,61 +26,50 @@
  * @version $Revision: 18172 $
  */
 class FlashVideoModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
-		$this->setId('flashvideo');
-		$this->setName($gallery->i18n('Flash Video'));
-		$this->setDescription($gallery->i18n('Enable display of Flash video files'));
-		$this->setVersion('1.0.3');
-		$this->_templateVersion = 1;
-		$this->setGroup('display', $gallery->i18n('Display'));
-		$this->setCallbacks('');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 6));
+
+    function FlashVideoModule() {
+	global $gallery;
+	$this->setId('flashvideo');
+	$this->setName($gallery->i18n('Flash Video'));
+	$this->setDescription($gallery->i18n('Enable display of Flash video files'));
+	$this->setVersion('1.0.3');
+	$this->_templateVersion = 1;
+	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(7, 27));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::performFactoryRegistrations
+     */
+    function performFactoryRegistrations() {
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryRenderer', 'FlashVideoRenderer', 'FlashVideoRenderer',
+	    'modules/flashvideo/classes/FlashVideoRenderer.class', 'flashvideo', null);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::performFactoryRegistrations
-	 */
-	public function performFactoryRegistrations() {
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'GalleryRenderer',
-			'FlashVideoRenderer',
-			'FlashVideoRenderer',
-			'modules/flashvideo/classes/FlashVideoRenderer.class',
-			'flashvideo',
-			null
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'ItemAddOption',
-			'FlashVideoOption',
-			'FlashVideoOption',
-			'modules/flashvideo/FlashVideoOption.inc',
-			'flashvideo',
-			null
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemAddOption', 'FlashVideoOption', 'FlashVideoOption',
+	    'modules/flashvideo/FlashVideoOption.inc', 'flashvideo', null);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::activate
-	 */
-	public function activate($postActivationEvent = true) {
-		global $gallery;
-		$storage =& $gallery->getStorage();
+	return null;
+    }
 
-		// Add renderer on all GalleryMovieItems with video/x-flv mime type that need it
-		$query                     = '
+    /**
+     * @see GalleryModule::activate
+     */
+    function activate($postActivationEvent=true) {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	/* Add renderer on all GalleryMovieItems with video/x-flv mime type that need it */
+	$query = '
 	SELECT
 	  [GalleryDataItem::id]
 	FROM
@@ -88,80 +77,65 @@ class FlashVideoModule extends GalleryModule {
 	WHERE
 	  [GalleryDataItem::mimeType] = \'video/x-flv\'
 	';
-		list($ret, $searchResults) = $gallery->search($query);
-
-		if ($ret) {
+	list ($ret, $searchResults) = $gallery->search($query);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$ids = array();
+	while ($result = $searchResults->nextResult()) {
+	    $ids[] = (int)$result[0];
+	}
+	while (!empty($ids)) {
+	    $itemIds = array_splice($ids, 0, 100);
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryDataItem');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    foreach ($items as $item) {
+		if (GalleryUtilities::isA($item, 'GalleryMovieItem') && !$item->getRenderer()) {
+		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
+		    if ($ret) {
 			return array($ret, null);
-		}
-		$ids = array();
-
-		while ($result = $searchResults->nextResult()) {
-			$ids[] = (int)$result[0];
-		}
-
-		while (!empty($ids)) {
-			$itemIds           = array_splice($ids, 0, 100);
-			list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryDataItem');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			foreach ($items as $item) {
-				if (GalleryUtilities::isA($item, 'GalleryMovieItem') && !$item->getRenderer()) {
-					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
-
-					if ($ret) {
-						return array($ret, null);
-					}
-					list($ret, $item) = $item->refresh();
-
-					if ($ret) {
-						GalleryCoreApi::releaseLocks($lockId);
-
-						return array($ret, null);
-					}
-					$item->setRenderer('FlashVideoRenderer');
-					$ret = $item->save();
-
-					if ($ret) {
-						GalleryCoreApi::releaseLocks($lockId);
-
-						return array($ret, null);
-					}
-					$ret = GalleryCoreApi::releaseLocks($lockId);
-
-					if ($ret) {
-						return array($ret, null);
-					}
-				}
-			}
-			$ret = $storage->checkPoint();
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		list($ret, $redirect) = parent::activate($postActivationEvent);
-
-		if ($ret) {
+		    }
+		    list ($ret, $item) = $item->refresh();
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
 			return array($ret, null);
+		    }
+		    $item->setRenderer('FlashVideoRenderer');
+		    $ret = $item->save();
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
+			return array($ret, null);
+		    }
+		    $ret = GalleryCoreApi::releaseLocks($lockId);
+		    if ($ret) {
+			return array($ret, null);
+		    }
 		}
-
-		return array(null, $redirect);
+	    }
+	    $ret = $storage->checkPoint();
+	    if ($ret) {
+		return array($ret, null);
+	    }
 	}
 
-	/**
-	 * @see GalleryPlugin::uninstall
-	 */
-	public function uninstall() {
-		$ret = GalleryCoreApi::deleteRenderer('FlashVideoRenderer');
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return parent::uninstall();
+	list ($ret, $redirect) = parent::activate($postActivationEvent);
+	if ($ret) {
+	    return array($ret, null);
 	}
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryPlugin::uninstall
+     */
+    function uninstall() {
+	$ret = GalleryCoreApi::deleteRenderer('FlashVideoRenderer');
+	if ($ret) {
+	    return $ret;
+	}
+	return parent::uninstall();
+    }
 }
+?>

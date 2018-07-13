@@ -26,74 +26,64 @@
  * @version $Revision: 17580 $
  */
 class GalleryViewTestCase extends GalleryTestCase {
-	/**
-	 * The view instance
-	 * @var GalleryView
-	 * @access protected
-	 */
-	public $_view;
 
-	/**
-	 * A template instance used as parameter to loadTemplate
-	 * @var GalleryTemplate
-	 * @access protected
-	 */
-	public $_template;
+    /**
+     * The view instance
+     * @var GalleryView
+     * @access protected
+     */
+    var $_view;
 
-	public function __construct($methodName, $viewName) {
-		parent::__construct($methodName);
+    /**
+     * A template instance used as parameter to loadTemplate
+     * @var GalleryTemplate
+     * @access protected
+     */
+    var $_template;
 
-		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		list($ret, $this->_view) = GalleryView::loadView($viewName);
+    function GalleryViewTestCase($methodName, $viewName) {
+	$this->GalleryTestCase($methodName);
 
-		if ($ret) {
-			$this->fail($ret->getAsHtml());
-		}
-
-		$this->_template = new UnitTestTemplate();
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+	list ($ret, $this->_view) = GalleryView::loadView($viewName);
+	if ($ret) {
+	    $this->fail($ret->getAsHtml());
 	}
 
-	public function loadTemplate($errorCode = null) {
-		// Get our form variables
-		$form = GalleryUtilities::getFormVariables('form');
+	$this->_template = new UnitTestTemplate();
+    }
 
-		if (!isset($form['formName'])) {
-			$form['formName'] = '';
-		}
-
-		list($ret, $results) = $this->_view->loadTemplate($this->_template, $form);
-
-		if (isset($errorCode)) {
-			if ($ret) {
-				if (($ret->getErrorCode() & $errorCode) != $errorCode) {
-					$this->fail(
-						sprintf(
-							'Expected error code (%s) but received (%s)',
-							implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-							implode(' | ', GalleryStatus::getErrorCodeConstants(
-								$ret->getErrorCode()
-							))
-						)
-					);
-				}
-			} else {
-				$this->fail(sprintf(
-					'Expected error code (%s) but test was successful',
-					implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode))
-				));
-			}
-		} elseif ($ret) {
-			$this->fail($ret->getAsHtml());
-
-			return array();
-		} else {
-			// Check to make sure we got back everything we want
-			$this->assert(
-				isset($results['body']) || isset($results['redirect']),
-				'view results neither specify a body nor a redirect'
-			);
-		}
-
-		return $results;
+    function loadTemplate($errorCode=null) {
+	/* Get our form variables */
+	$form = GalleryUtilities::getFormVariables('form');
+	if (!isset($form['formName'])) {
+	    $form['formName'] = '';
 	}
+
+	list ($ret, $results) = $this->_view->loadTemplate($this->_template, $form);
+	if (isset($errorCode)) {
+	    if ($ret) {
+		if (($ret->getErrorCode() & $errorCode) != $errorCode) {
+		    $this->fail(
+			    sprintf('Expected error code (%s) but received (%s)',
+				implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
+				implode(' | ', GalleryStatus::getErrorCodeConstants(
+									  $ret->getErrorCode()))));
+		}
+	    } else {
+		$this->fail(sprintf('Expected error code (%s) but test was successful',
+				implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode))));
+	    }
+	} else if ($ret) {
+	    $this->fail($ret->getAsHtml());
+	    return array();
+	} else {
+	    /* Check to make sure we got back everything we want */
+	    $this->assert(isset($results['body']) || isset($results['redirect']),
+		'view results neither specify a body nor a redirect');
+	}
+
+	return $results;
+    }
 }
+?>

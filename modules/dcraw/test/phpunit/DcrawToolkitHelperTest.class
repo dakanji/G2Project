@@ -1,0 +1,170 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * AdminDcraw controller tests
+ * @package Dcraw
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17780 $
+ */
+class DcrawToolkitHelperTest extends GalleryTestCase {
+
+    function DcrawToolkitHelperTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Make sure translate calls during test won't generate any platform calls */
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_module->translate('Binary output:');
+
+	$this->_platform = new UnitTestPlatform();
+	$gallery->setPlatform($this->_platform);
+    }
+
+    function tearDown() {
+	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testBinaryV562() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply('exec', array(array(array('/path/to/dcraw'))),
+				   array(0, array(), array('Raw Photo Decoder v5.62')));
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('name' => 'dcraw', 'success' => true)), $testArray);
+	$this->assertEquals('5.62', $version);
+    }
+
+    function testBinaryV6() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply('exec', array(array(array('/path/to/dcraw'))),
+				   array(0, array(), array('Raw Photo Decoder "dcraw" v6.35')));
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('name' => 'dcraw', 'success' => true)), $testArray);
+	$this->assertEquals('6.35', $version);
+    }
+
+    function testBinaryV7() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply('exec', array(array(array('/path/to/dcraw'))),
+				   array(0, array(), array('Raw Photo Decoder "dcraw" v7.17')));
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('name' => 'dcraw', 'success' => true)), $testArray);
+	$this->assertEquals('7.17', $version);
+    }
+
+    function testBinaryV773() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply('exec', array(array(array('/path/to/dcraw'))),
+				   array(0, array(), array('Raw Photo Decoder "dcraw" v7.73')));
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('name' => 'dcraw', 'success' => true)), $testArray);
+	$this->assertEquals('7.73', $version);
+    }
+
+    function testBinaryV853() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	/* Newer versions of dcraw return the help screen to stdout and not in title case. */
+	$this->_platform->setReply('exec', array(array(array('/path/to/dcraw'))),
+				   array(0, array('Raw photo decoder "dcraw" v8.53'), array()));
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('name' => 'dcraw', 'success' => true)), $testArray);
+	$this->assertEquals('8.53', $version);
+    }
+
+    function testBinaryOutsideOpenBasedir() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 1);
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	$this->assertErrorEquals(ERROR_BAD_PATH, $ret);
+    }
+
+    function testBinaryPathIsADirectory() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to'), 0);
+	$this->_platform->setReply('is_file', array('/path/to'), 0);
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to');
+	$this->assert($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
+	$this->assertEquals($testArray, null);
+    }
+
+    function testBinaryWrongVersion() {
+	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
+	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+	$this->_platform->setReply('exec', array(array(array('/path/to/dcraw'))),
+				   array(0, array(), array('Raw Photo Decoder "dcraw" v4.0')));
+
+	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(
+	    array(array('name' => 'dcraw', 'success' => false,
+			'message' => array($this->_module->translate('Binary output:'),
+					   'Raw Photo Decoder "dcraw" v4.0'))),
+	    $testArray);
+    }
+}
+?>

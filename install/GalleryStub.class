@@ -23,26 +23,19 @@
  * @package Install
  */
 class GalleryStub {
-	public $_hash;
-	public $_debug;
+    var $_hash;
+    var $_debug;
+    function setConfig($key, $value) {
+	$this->_hash[$key] = $value;
+    }
 
-	public function setConfig($key, $value) {
-		$this->_hash[$key] = $value;
-	}
+    function getConfig($key) {
+	return isset($this->_hash[$key]) ? $this->_hash[$key] : '';
+    }
 
-	public function getConfig($key) {
-		return isset($this->_hash[$key]) ? $this->_hash[$key] : '';
-	}
-
-	public function setDebug() {
-	}
-
-	public function setDebugLogFile() {
-	}
-
-	public function setProfile() {
-	}
-
-	public function debug() {
-	}
+    function setDebug() { }
+    function setDebugLogFile() { }
+    function setProfile() { }
+    function debug() { }
 }
+?>

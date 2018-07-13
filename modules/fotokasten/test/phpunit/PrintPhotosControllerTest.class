@@ -1,0 +1,276 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Fotokasten cart plugin
+ *
+ * @package Fotokasten
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class PrintPhotosControllerTest extends GalleryControllerTestCase {
+
+    function PrintPhotosControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'fotokasten.PrintPhotos');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Use mock soap client */
+	$this->_controller->soapclient = 'FotokastenTestSoapClient';
+	FotokastenTestSoapClient::setTest($this);
+
+	/* Create some random photo items that we can print */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.all');
+	if ($ret) {
+	    return $ret;
+	}
+
+	for ($i = 0; $i < 3; $i++) {
+	    list ($ret, $this->_items[$i]) =
+		$this->_createRandomDataItem($this->_album->getId(),
+					     'test/jpeg',
+					     array(),
+					     __FILE__,
+					     'GalleryPhotoItem');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Print permission on all but one */
+	$ret = GalleryCoreApi::removeUserPermission(
+	    $this->_items[1]->getId(), $gallery->getActiveUserId(), 'fotokasten.print');
+	if ($ret) {
+	    return $ret;
+	}
+	/* Public view permission on one */
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_items[2]->getId(), $anonymousUserId, 'core.viewAll');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Clear any existing fotokasten session */
+	$session =& $gallery->getSession();
+	$this->_saveEndpoint = $session->get('fotokasten.endpoint');
+	$this->_sessionKey = GalleryUtilities::prefixFormVariable($session->getKey());
+	$session->remove('fotokasten.endpoint');
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	/* Restore session id */
+	$session =& $gallery->getSession();
+	if (isset($this->_saveEndpoint)) {
+	    $session->put('fotokasten.endpoint', $this->_saveEndpoint);
+	} else {
+	    $session->remove('fotokasten.endpoint');
+	}
+
+	/* Remove session created for print service, if any */
+	if (isset($this->_printSID)) {
+	    $testSession = new GallerySession();
+	    $testSession->_sessionId = $this->_printSID;
+	    $testSession->reset();
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testPrintSingle() {
+	GalleryUtilities::putRequestVariable('itemId', $this->_items[2]->getId());
+
+	$result = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('href' => 'TEST_redirect'),
+				  'status' => array(),
+				  'error' => array()),
+			    $result);
+
+	$this->assertEquals('TEST_endpoint', $this->_basketEndpoint, 'endpoint');
+	$this->assert(isset($this->_basketParams['request']['basket']), 'basket');
+	$basket = $this->_basketParams['request']['basket'];
+	$this->assertEquals(array('item1'), array_keys($basket), 'item keys');
+	$this->assert(isset($basket['item1']['photo_url']), 'photo url');
+	$this->assert(!strpos($basket['item1']['photo_url'], $this->_sessionKey),
+		      'should be no session param in photo url for public photo');
+	$this->assert(strpos($basket['item1']['photo_url'], 'itemId=' . $this->_items[2]->getId()),
+		      'item id');
+    }
+
+    function testPrintProtectedPhoto() {
+	global $gallery;
+
+	$itemId = $this->_items[2]->getId();
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	/* We only have permission to print and view the thumbnail */
+	$ret = GalleryCoreApi::removeItemPermissions($itemId);
+	if ($ret) {
+	    return ($ret);
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $itemId, $gallery->getActiveUserId(), 'fotokasten.print');
+	if ($ret) {
+	    return ($ret);
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $itemId, $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return ($ret);
+	}
+
+	$result = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('href' => 'TEST_redirect'),
+				  'status' => array(),
+				  'error' => array()),
+			    $result);
+
+	$this->assertEquals('TEST_endpoint', $this->_basketEndpoint, 'endpoint');
+	$this->assert(isset($this->_basketParams['request']['basket']), 'basket');
+	$basket = $this->_basketParams['request']['basket'];
+	$this->assertEquals(array('item1'), array_keys($basket), 'item keys');
+	$this->assert(isset($basket['item1']['photo_url']), 'photo url');
+	$this->assert(strpos($basket['item1']['photo_url'], $this->_sessionKey),
+		      'should be a session param in photo url for private photo');
+	$this->assert(strpos($basket['item1']['photo_url'], 'itemId=' . $this->_items[2]->getId()),
+		      'item id');
+
+	/* Grab session we provide for the raw image */
+	$session =& $gallery->getSession();
+	$sessionVar = GalleryUtilities::prefixFormVariable($session->getKey());
+	preg_match_all("/$sessionVar=([0-9a-f]*)/", $basket['item1']['photo_url'], $matches);
+	$fotokastenSessionId = $matches[1][0];
+
+	$_COOKIE[SESSION_ID_PARAMETER] = $fotokastenSessionId;
+	$fotokastenSession = new GallerySession();
+	$ret = $fotokastenSession->init();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array($itemId), $fotokastenSession->get('core.isPrintService'),
+			    'Fotokasten session missing item id');
+    }
+
+    function testPrintCart() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	$session->put('fotokasten.cart', array($this->_items[0]->getId() => 1,
+					       $this->_items[1]->getId() => 1,
+					       $this->_items[2]->getId() => 2));
+
+	$result = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('href' => 'TEST_redirect'),
+				  'status' => array(),
+				  'error' => array()),
+			    $result);
+
+	$printCart = $session->get('fotokasten.cart');
+	$this->assertEquals(null, $printCart, 'cart');
+
+	$this->assertEquals('TEST_endpoint', $this->_basketEndpoint, 'endpoint');
+	$this->assert(isset($this->_basketParams['request']['basket']), 'basket');
+	$basket = $this->_basketParams['request']['basket'];
+	$this->assertEquals(array('item1', 'item2'), array_keys($basket), 'item keys');
+	$this->assert(isset($basket['item1']['photo_url']), 'photo url');
+	preg_match('/' . $this->_sessionKey . '=([A-Za-z0-9]+)/',
+		   $basket['item1']['photo_url'], $matches);
+	if (!empty($matches[1])) {
+	    $this->_printSID = $matches[1];
+	} else{
+	    $this->assert(false, 'missing sessionid: ' . $basket['item1']['photo_url']);
+	}
+	$this->assert(!strpos($basket['item2']['photo_url'], $this->_sessionKey),
+		      'should be no session param in photo url for public photo');
+	$this->assert(strpos($basket['item1']['photo_url'], 'itemId=' . $this->_items[0]->getId()),
+		      'item id 1');
+	$this->assert(strpos($basket['item2']['photo_url'], 'itemId=' . $this->_items[2]->getId()),
+		      'item id 2');
+    }
+}
+
+/**
+ * Fake soap client for testing.
+ * @package Fotokasten
+ * @subpackage PHPUnit
+ */
+class FotokastenTestSoapClient {
+    function FotokastenTestSoapClient($endpoint) {
+	$this->endpoint = $endpoint;
+	$this->fault = false;
+    }
+
+    function call($method, $params, $namespace, $action) {
+	switch ($method) {
+	case 'registerSession':
+	    return array('endpoint' => 'TEST_endpoint', 'error_code' => 0);
+
+	case 'transferBasket':
+	    $test =& $this->getTest();
+	    $test['test']->_basketEndpoint = $this->endpoint;
+	    $test['test']->_basketParams = $params;
+	    return array('browserlink' => 'TEST_redirect', 'error_code' => 0);
+
+	default:
+	    $this->faultcode = 'TEST_error';
+	    $this->faultstring = "Unknown method: $method";
+	    return null;
+	}
+    }
+
+    function &getTest() {
+	static $test = array();
+	return $test;
+    }
+    function setTest(&$set) {
+	$test =& FotokastenTestSoapClient::getTest();
+	$test['test'] =& $set;
+    }
+}
+?>

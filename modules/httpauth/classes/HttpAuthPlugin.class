@@ -31,48 +31,44 @@ GalleryCoreApi::requireOnce('modules/httpauth/classes/HttpAuthHelper.class');
  * @author Jack Bates <ms419@freezone.co.uk>
  * @version $Revision: 17580 $
  */
-class HttpAuthPlugin // extends GalleryAuthPlugin
-{
-	/**
-	 * @see GalleryAuthPlugin::getUser
-	 */
-	public function getUser() {
-		list($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
+class HttpAuthPlugin /* extends GalleryAuthPlugin */ {
 
-		list($ret, $user) = HttpAuthHelper::getUser($authtype, $username);
+    /**
+     * @see GalleryAuthPlugin::getUser
+     */
+    function getUser() {
+	list ($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		/*
-		 * We are effectively logging in on every request when we use this plugin.  We can't
-		 * post a login event each time we do this, but we need to post FailedLogin events.
-		 */
-		if (isset($user) && $user->isCorrectPassword($password)) {
-			$ret = HttpAuthHelper::regenerateSessionIfNecessary($user);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			return array(null, $user);
-		}
-
-		if (!empty($username) && strpos($username, '__LOGOUT__') !== 0) {
-			/*
-			 * Don't post an event if the username starts with __logout__ since that is used when we
-			 * try to force the user-agent to clear its auth cache.
-			 */
-			$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-			$event->setData(array('userName' => $username));
-			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		return array(null, null);
+	list ($ret, $user) = HttpAuthHelper::getUser($authtype, $username);
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	/*
+	 * We are effectively logging in on every request when we use this plugin.  We can't
+	 * post a login event each time we do this, but we need to post FailedLogin events.
+	 */
+	if (isset($user) && $user->isCorrectPassword($password)) {
+	    $ret = HttpAuthHelper::regenerateSessionIfNecessary($user);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    return array(null, $user);
+	} else if (!empty($username) && strpos($username, '__LOGOUT__') !== 0) {
+	    /*
+	     * Don't post an event if the username starts with __logout__ since that is used when we
+	     * try to force the user-agent to clear its auth cache.
+	     */
+	    $event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+	    $event->setData(array('userName' => $username));
+	    list ($ret, $ignored) = GalleryCoreApi::postEvent($event);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	return array(null, null);
+    }
 }
+?>

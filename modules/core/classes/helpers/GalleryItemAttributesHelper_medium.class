@@ -27,50 +27,44 @@
  * @static
  */
 class GalleryItemAttributesHelper_medium {
-	/**
-	 * @see GalleryCoreApi::fetchItemOrderWeight
-	 */
-	public static function fetchOrderWeight($itemId) {
-		list($ret, $orderWeights) = self::fetchOrderWeights(array($itemId));
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if (!isset($orderWeights[$itemId])) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-		}
-
-		return array(null, (int)$orderWeights[$itemId]);
+    /**
+     * @see GalleryCoreApi::fetchItemOrderWeight
+     */
+    function fetchOrderWeight($itemId) {
+	list ($ret, $orderWeights) =
+	    GalleryItemAttributesHelper_medium::fetchOrderWeights(array($itemId));
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryCoreApi::fetchItemOrderWeights
-	 */
-	public static function fetchOrderWeights($itemIds) {
-		global $gallery;
-
-		foreach ($itemIds as $idx => $id) {
-			$itemIds[$idx] = (int)$id;
-		}
-		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
-			'GalleryItemAttributesMap',
-			array('itemId', 'orderWeight'),
-			array(
-				'itemId' => $itemIds,
-			)
-		);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$data = array();
-
-		while ($result = $searchResults->nextResult()) {
-			$data[(int)$result[0]] = $result[1];
-		}
-
-		return array(null, $data);
+	if (!isset($orderWeights[$itemId])) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 	}
+
+	return array(null, (int)$orderWeights[$itemId]);
+    }
+
+    /**
+     * @see GalleryCoreApi::fetchItemOrderWeights
+     */
+    function fetchOrderWeights($itemIds) {
+	global $gallery;
+
+	foreach ($itemIds as $idx => $id) {
+	    $itemIds[$idx] = (int)$id;
+	}
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryItemAttributesMap',
+	    array('itemId', 'orderWeight'), array('itemId' => $itemIds));
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$data = array();
+	while ($result = $searchResults->nextResult()) {
+	    $data[(int)$result[0]] = $result[1];
+	}
+	return array(null, $data);
+    }
 }
+?>

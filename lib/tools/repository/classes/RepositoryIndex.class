@@ -29,245 +29,211 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
  * @version $Revision: 17580 $
  */
 class RepositoryIndex extends RepositoryObject {
-	/**
-	 * The repository index, unserialized.
-	 *
-	 * @var string
-	 * @access private
-	 */
-	public $_index;
 
-	/**
-	 * Serialized index hash.
-	 *
-	 * @var string
-	 * @access private
-	 */
-	public $_indexHash;
+    /**
+     * The repository index, unserialized.
+     *
+     * @var string
+     * @access private
+     */
+    var $_index;
 
-	/**
-	 * Initialize the template and set the index filesystem path.
-	 *
-	 * @return GalleryStatus a status code
-	 */
-	public function init($repositoryDir) {
-		parent::init();
+    /**
+     * Serialized index hash.
+     *
+     * @var string
+     * @access private
+     */
+    var $_indexHash;
 
-		$ret = $this->setOutputDir($repositoryDir);
+    /**
+     * Initialize the template and set the index filesystem path.
+     *
+     * @return GalleryStatus a status code
+     */
+    function init($repositoryDir) {
+	parent::init();
 
-		if ($ret) {
-			return $ret;
-		}
-
-		$this->setOutputFile('index');
-
-		return null;
+	$ret = $this->setOutputDir($repositoryDir);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * Generates the repository index.
-	 *
-	 * @return array GalleryStatus a status code
-	 *           array themes => count, modules => count
-	 */
-	public function generate() {
-		global $gallery;
+	$this->setOutputFile('index');
+	return null;
+    }
 
-		$pluginTypes      = array('modules', 'themes');
-		$pluginCount      = array(
-			'themes'  => 0,
-			'modules' => 0,
-		);
-		$index            = array();
-		$buildLookupTable = array();
+    /**
+     * Generates the repository index.
+     *
+     * @return array GalleryStatus a status code
+     *		     array themes => count, modules => count
+     */
+    function generate() {
+	global $gallery;
 
-		$platform =& $gallery->getPlatform();
+	$pluginTypes = array('modules', 'themes');
+	$pluginCount = array('themes' => 0, 'modules' => 0);
+	$index = array();
+	$buildLookupTable = array();
 
-		foreach ($pluginTypes as $pluginType) {
-			if (false !== ($dir = $platform->opendir($this->_outputDir . $pluginType))) {
-				while (false !== ($file = $platform->readdir($dir))) {
-					if (!preg_match('/\.descriptor$/', $file)) {
-						continue;
-					}
+	$platform =& $gallery->getPlatform();
+	foreach ($pluginTypes as $pluginType) {
+	    if (false !== ($dir = $platform->opendir($this->_outputDir . $pluginType))) {
+		while (false !== ($file = $platform->readdir($dir))) {
+		    if (!preg_match('/\.descriptor$/', $file)) {
+			continue;
+		    }
 
-					// Read the descriptor.
-					$descriptorPath = sprintf('%s%s/%s', $this->_outputDir, $pluginType, $file);
+		    /* Read the descriptor. */
+		    $descriptorPath = sprintf('%s%s/%s', $this->_outputDir, $pluginType, $file);
+		    if (false === ($descriptorContents =
+			    $platform->file_get_contents($descriptorPath))) {
+			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__,
+					__LINE__, "Error reading descriptor [$descriptorPath]"),
+				     null);
+		    }
 
-					if (false === ($descriptorContents = $platform->file_get_contents($descriptorPath))
-					) {
-						return array(
-							GalleryCoreApi::error(
-								ERROR_PLATFORM_FAILURE,
-								__FILE__,
-								__LINE__,
-								"Error reading descriptor [$descriptorPath]"
-							),
-							null,
-						);
-					}
+		    /* Unserialize it. */
+		    if (false === ($descriptor = unserialize($descriptorContents))) {
+			return array(GalleryCoreApi::error(
+					 ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+					 "Error unserializing descriptor [$descriptorContents]"),
+				     null);
+		    }
+		    $currentPluginId = $descriptor['header']['id'];
+		    $indexPluginData = isset($index[$pluginType][$currentPluginId])
+				     ? $index[$pluginType][$currentPluginId]
+				     : null;
 
-					// Unserialize it.
-					if (false === ($descriptor = unserialize($descriptorContents))) {
-						return array(
-							GalleryCoreApi::error(
-								ERROR_BAD_PARAMETER,
-								__FILE__,
-								__LINE__,
-								"Error unserializing descriptor [$descriptorContents]"
-							),
-							null,
-						);
-					}
-					$currentPluginId = $descriptor['header']['id'];
-					$indexPluginData = isset($index[$pluginType][$currentPluginId]) ? $index[$pluginType][$currentPluginId] : null;
+		    /* Increase count if this is a new plugin in the index. */
+		    if (!isset($index[$pluginType][$currentPluginId])) {
+			$pluginCount[$pluginType]++;
+		    }
 
-					// Increase count if this is a new plugin in the index.
-					if (!isset($index[$pluginType][$currentPluginId])) {
-						$pluginCount[$pluginType]++;
-					}
+		    /*
+		     * Check if current plugin is a newer version of a plugin that's already in the
+		     * in the index. We replace it if it is, because the index should only contain
+		     * the latest versions of plugins.
+		     */
+		    $currentPluginVersion = $descriptor['header']['version'];
+		    $currentPluginBuild = $descriptor['header']['buildTimestamp'];
+		    $indexPluginVersion = is_array($indexPluginData)
+					? $indexPluginData['header']['version']
+					: '0.0';
+		    $indexPluginBuild = is_array($indexPluginData)
+					? $indexPluginData['header']['buildTimestamp']
+					: 0;
 
-					/*
-					 * Check if current plugin is a newer version of a plugin that's already in the
-					 * in the index. We replace it if it is, because the index should only contain
-					 * the latest versions of plugins.
-					 */
-					$currentPluginVersion = $descriptor['header']['version'];
-					$currentPluginBuild   = $descriptor['header']['buildTimestamp'];
-					$indexPluginVersion   = is_array($indexPluginData) ? $indexPluginData['header']['version'] : '0.0';
-					$indexPluginBuild     = is_array($indexPluginData) ? $indexPluginData['header']['buildTimestamp'] : 0;
-
-					list($ret, $relation) = $this->_utilities->compareVersions(
-						$currentPluginVersion,
-						$indexPluginVersion,
-						$currentPluginBuild,
-						$indexPluginBuild
-					);
-
-					if ($ret) {
-						return array($ret, null);
-					}
-
-					if ($relation == 'newer') {
-						$index[$pluginType][$currentPluginId]['header']       = $descriptor['header'];
-						$index[$pluginType][$currentPluginId]['descriptions'] = $descriptor['descriptions'];
-					}
-
-					/*
-					 * The languages section should contain the latest available language
-					 * for each strings.raw version available in the repository. The client then
-					 * simply checks to see if there is a newer language for its strings.raw and
-					 * downloads it.
-					 */
-					if (!empty($descriptor['languages'])) {
-						$stringsRevision = $descriptor['header']['stringsRevision'];
-
-						if (!isset($index[$pluginType][$currentPluginId]['languages'])
-							|| $relation == 'newer'
-						) {
-							$index[$pluginType][$currentPluginId]['languages'][$stringsRevision] = $descriptor['languages'][$stringsRevision];
-						}
-					}
-
-					// Add provided API versions to the core module's header.
-					if ($pluginType == 'modules' && $currentPluginId == 'core') {
-						$index[$pluginType][$currentPluginId]['header']['coreApiVersion']   = GalleryCoreApi::getApiVersion();
-						$index[$pluginType][$currentPluginId]['header']['moduleApiVersion'] = GalleryModule::getApiVersion();
-						$index[$pluginType][$currentPluginId]['header']['themeApiVersion']  = GalleryTheme::getApiVersion();
-					}
-				}
-			} else {
-				return array(
-					GalleryCoreApi::error(
-						ERROR_PLATFORM_FAILURE,
-						__FILE__,
-						__LINE__,
-						"Couldn't open directory [$this->_outputDir$pluginType]"
-					),
-					null,
-				);
-			}
-		}
-
-		$serializedIndex  = serialize($index);
-		$this->_index     = $index;
-		$this->_indexHash = md5($serializedIndex);
-
-		// Write index to disk.
-		$this->_template->setVariable('contents', $serializedIndex);
-		$ret = $this->writeToDisk(true, true);
-
-		if ($ret) {
+		    list ($ret, $relation) =
+			$this->_utilities->compareVersions($currentPluginVersion,
+			    $indexPluginVersion, $currentPluginBuild, $indexPluginBuild);
+		    if ($ret) {
 			return array($ret, null);
+		    }
+
+		    if ($relation == 'newer') {
+			$index[$pluginType][$currentPluginId]['header'] = $descriptor['header'];
+			$index[$pluginType][$currentPluginId]['descriptions'] =
+			    $descriptor['descriptions'];
+		    }
+
+		    /*
+		     * The languages section should contain the latest available language
+		     * for each strings.raw version available in the repository. The client then
+		     * simply checks to see if there is a newer language for its strings.raw and
+		     * downloads it.
+		     */
+		    if (!empty($descriptor['languages'])) {
+			$stringsRevision = $descriptor['header']['stringsRevision'];
+			if (!isset($index[$pluginType][$currentPluginId]['languages']) ||
+			        $relation == 'newer') {
+			    $index[$pluginType][$currentPluginId]['languages'][$stringsRevision] =
+				$descriptor['languages'][$stringsRevision];
+			}
+		    }
+
+		    /* Add provided API versions to the core module's header. */
+		    if ($pluginType == 'modules' && $currentPluginId == 'core') {
+			$index[$pluginType][$currentPluginId]['header']['coreApiVersion'] =
+			    GalleryCoreApi::getApiVersion();
+			$index[$pluginType][$currentPluginId]['header']['moduleApiVersion'] =
+			    GalleryModule::getApiVersion();
+			$index[$pluginType][$currentPluginId]['header']['themeApiVersion'] =
+			    GalleryTheme::getApiVersion();
+		    }
 		}
-
-		// Write index hash to disk.
-		$indexFile = $this->_fileName;
-		$this->setOutputFile($indexFile . '.hash');
-		$this->_template->setVariable('contents', $this->_indexHash);
-		$ret = $this->writeToDisk(true);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$this->setOutputFile($indexFile);
-
-		return array(null, $pluginCount);
+	    } else {
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+					"Couldn't open directory [$this->_outputDir$pluginType]"),
+			     null);
+	    }
 	}
 
-	/**
-	 * Gets plugin meta data from the index, minus the description strings.
-	 *
-	 * @return array GalleryStatis a status code
-	 *           array index
-	 */
-	public function getPluginInfo() {
-		global $gallery;
+	$serializedIndex = serialize($index);
+	$this->_index = $index;
+	$this->_indexHash = md5($serializedIndex);
 
-		// Read index from disk if it's not in memory.
-		if (!is_array($this->_index)) {
-			$platform  =& $gallery->getPlatform();
-			$indexPath = $this->_outputDir . $this->_fileName;
-
-			if (false === ($index = $platform->file_get_contents($indexPath))) {
-				return array(
-					GalleryCoreApi::error(
-						ERROR_PLATFORM_FAILURE,
-						__FILE__,
-						__LINE__,
-						sprintf('Error reading index [%s]', $indexPath)
-					),
-					null,
-				);
-			}
-
-			if (false === ($this->_index = unserialize($index))) {
-				return array(
-					GalleryCoreApi::error(
-						ERROR_BAD_PARAMETER,
-						__FILE__,
-						__LINE__,
-						"Couldn't unserialize index [$index]"
-					),
-					null,
-				);
-			}
-		}
-
-		// Create a simplified pluginInfo array, without descriptions.
-		$pluginInfo = array();
-
-		foreach ($this->_index as $pluginType => $plugins) {
-			foreach ($plugins as $pluginId => $pluginMetaData) {
-				$pluginInfo[] = array(
-					'type'              => $pluginType,
-					'id'                => $pluginId,
-					'version'           => $pluginMetaData['header']['version'],
-					'requiredCoreApi'   => $pluginMetaData['header']['requiredCoreApi'],
-					'requiredPluginApi' => $pluginMetaData['header']['requiredPluginApi'],
-				);
-			}
-		}
-
-		return array(null, $pluginInfo);
+	/* Write index to disk. */
+	$this->_template->setVariable('contents', $serializedIndex);
+	$ret = $this->writeToDisk(true, true);
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	/* Write index hash to disk. */
+	$indexFile = $this->_fileName;
+	$this->setOutputFile($indexFile . '.hash');
+	$this->_template->setVariable('contents', $this->_indexHash);
+	$ret = $this->writeToDisk(true);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$this->setOutputFile($indexFile);
+
+	return array(null, $pluginCount);
+    }
+
+    /**
+     * Gets plugin meta data from the index, minus the description strings.
+     *
+     * @return array GalleryStatis a status code
+     *		     array index
+     */
+    function getPluginInfo() {
+	global $gallery;
+
+	/* Read index from disk if it's not in memory. */
+	if (!is_array($this->_index)) {
+	    $platform =& $gallery->getPlatform();
+	    $indexPath = $this->_outputDir . $this->_fileName;
+	    if (false === ($index = $platform->file_get_contents($indexPath))) {
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+					     sprintf('Error reading index [%s]', $indexPath)),
+			     null);
+	    }
+
+	    if (false === ($this->_index = unserialize($index))) {
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+						   "Couldn't unserialize index [$index]"),
+			     null);
+	    }
+	}
+
+	/* Create a simplified pluginInfo array, without descriptions. */
+	$pluginInfo = array();
+	foreach ($this->_index as $pluginType => $plugins) {
+	    foreach ($plugins as $pluginId => $pluginMetaData) {
+		$pluginInfo[] = array(
+		    'type' => $pluginType,
+		    'id' => $pluginId,
+		    'version' => $pluginMetaData['header']['version'],
+		    'requiredCoreApi' => $pluginMetaData['header']['requiredCoreApi'],
+		    'requiredPluginApi' => $pluginMetaData['header']['requiredPluginApi']);
+	    }
+	}
+
+	return array(null, $pluginInfo);
+    }
 }
+?>

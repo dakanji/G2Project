@@ -28,206 +28,163 @@
  * @version $Revision: 18172 $
  */
 class ThumbnailModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
 
-		$this->setId('thumbnail');
-		$this->setName($gallery->i18n('Thumbnail Manager'));
-		$this->setDescription($gallery->i18n('Set default thumbnails for non-image items'));
-		$this->setVersion('1.0.14'); // Update ThumbnailModuleExtras::upgrade also!
-		$this->_templateVersion = 1;
-		$this->setGroup('display', $gallery->i18n('Display'));
-		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 45));
-		$this->setRequiredModuleApi(array(3, 6));
+    function ThumbnailModule() {
+	global $gallery;
+
+	$this->setId('thumbnail');
+	$this->setName($gallery->i18n('Thumbnail Manager'));
+	$this->setDescription($gallery->i18n('Set default thumbnails for non-image items'));
+	$this->setVersion('1.0.14'); /* Update ThumbnailModuleExtras::upgrade also! */
+	$this->_templateVersion = 1;
+	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 45));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::upgrade
+     */
+    function upgrade($currentVersion) {
+	GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
+	$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::upgrade
-	 */
-	public function upgrade($currentVersion, $x1 = null) {
-		GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
-		$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
+	return null;
+    }
 
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+    /**
+     * @see GalleryModule::performFactoryRegistrations
+     */
+    function performFactoryRegistrations() {
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryEntity', 'ThumbnailImage', 'ThumbnailImage',
+	    'modules/thumbnail/classes/ThumbnailImage.class', 'thumbnail', null);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::performFactoryRegistrations
-	 */
-	public function performFactoryRegistrations() {
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'GalleryEntity',
-			'ThumbnailImage',
-			'ThumbnailImage',
-			'modules/thumbnail/classes/ThumbnailImage.class',
-			'thumbnail',
-			null
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'GalleryToolkit',
-			'ThumbnailToolkit',
-			'Thumbnail',
-			'modules/thumbnail/classes/ThumbnailToolkit.class',
-			'thumbnail',
-			null
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'ItemEditOption',
-			'CustomThumbnailOption',
-			'CustomThumbnailOption',
-			'modules/thumbnail/CustomThumbnailOption.inc',
-			'thumbnail',
-			array('ItemEditItem')
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'GalleryEventListener',
-			'ThumbnailModule',
-			'ThumbnailModule',
-			'modules/thumbnail/module.inc',
-			'thumbnail',
-			array('GalleryEntity::delete')
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryToolkit', 'ThumbnailToolkit', 'Thumbnail',
+	    'modules/thumbnail/classes/ThumbnailToolkit.class', 'thumbnail', null);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::getModuleEntityTypes
-	 */
-	public function getModuleEntityTypes() {
-		return array('ThumbnailImage');
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemEditOption', 'CustomThumbnailOption', 'CustomThumbnailOption',
+	    'modules/thumbnail/CustomThumbnailOption.inc', 'thumbnail', array('ItemEditItem'));
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::activate
-	 */
-	public function activate($postActivationEvent = true) {
-		GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
-		list($ret, $ignored) = ThumbnailModuleExtras::activate($postActivationEvent);
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryEventListener', 'ThumbnailModule', 'ThumbnailModule', 
+	    'modules/thumbnail/module.inc', 'thumbnail', array('GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+	return null;
+    }
 
-		if ($ret) {
-			return array($ret, null);
-		}
+    /**
+     * @see GalleryModule::getModuleEntityTypes
+     */
+    function getModuleEntityTypes() {
+	return array('ThumbnailImage');
+    }
 
-		list($ret, $redirect) = parent::activate($postActivationEvent);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		return array(null, $redirect);
+    /**
+     * @see GalleryModule::activate
+     */
+    function activate($postActivationEvent=true) {
+	GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
+	list ($ret, $ignored) = ThumbnailModuleExtras::activate($postActivationEvent);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryModule::uninstall
-	 */
-	public function uninstall() {
-		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-		global $gallery;
-
-		list($ret, $containerId) = $this->getParameter('id.container');
-
-		if ($ret) {
-			return $ret;
-		}
-		$containerId = (int)$containerId;
-
-		// Also deletes ThumbnailImage entities and restores thumbnails for the affected items.
-		$ret = parent::uninstall();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		// Remove the thumbnail container.
-		$ret = GalleryCoreApi::deleteEntityById($containerId, 'GalleryChildEntity');
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+	list ($ret, $redirect) = parent::activate($postActivationEvent);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryModule::getSiteAdminViews
-	 */
-	public function getSiteAdminViews() {
-		return array(
-			null,
-			array(
-				array(
-					'name' => $this->translate('Thumbnails'),
-					'view' => 'thumbnail.ThumbnailSiteAdmin',
-				),
-			),
-		);
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::uninstall
+     */
+    function uninstall() {
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	global $gallery;
+
+	list ($ret, $containerId) = $this->getParameter('id.container');
+	if ($ret) {
+	    return $ret;
+	}
+	$containerId = (int)$containerId;
+
+	/* Also deletes ThumbnailImage entities and restores thumbnails for the affected items. */
+	$ret = parent::uninstall();
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * Event handler for GalleryEntity::delete event.
-	 * Remove custom ThumbnailImage if the thumbnail itself is deleted.
-	 *
-	 * @see GalleryEventListener::handleEvent
-	 */
-	public function handleEvent($event) {
-		$entity = $event->getEntity();
+	/* Remove the thumbnail container. */
+	$ret = GalleryCoreApi::deleteEntityById($containerId, 'GalleryChildEntity');
+	if ($ret) {
+	    return $ret;
+	}
+	
+	return null;
+    }
 
-		if (GalleryUtilities::isA($entity, 'GalleryDerivativeImage')
-			&& $entity->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
-			&& $entity->getDerivativeSourceId() != $entity->getParentId()
-		) {
-			list($ret, $source) = GalleryCoreApi::loadEntitiesById(
-				$entity->getDerivativeSourceId(),
-				array('GalleryFileSystemEntity', 'GalleryDerivative')
-			);
+    /**
+     * @see GalleryModule::getSiteAdminViews
+     */
+    function getSiteAdminViews() {
+	return array(null,
+		     array(array('name' => $this->translate('Thumbnails'),
+				 'view' => 'thumbnail.ThumbnailSiteAdmin')));
+    }
 
-			if ($ret) {
-				if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-					// Already gone.. ok!
-					return array(null, null);
-				}
-
-				return array($ret, null);
-			}
-
-			if (GalleryUtilities::isA($source, 'ThumbnailImage')) {
-				// Prevent that we try to restore the thumbnail during the deletion.
-				$key = 'ThumbnailImage::delete';
-				GalleryDataCache::put($key, $entity->getId());
-				$ret = GalleryCoreApi::deleteEntityById($source->getId(), 'ThumbnailImage');
-				GalleryDataCache::remove($key);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
+    /**
+     * Event handler for GalleryEntity::delete event.
+     * Remove custom ThumbnailImage if the thumbnail itself is deleted.
+     *
+     * @see GalleryEventListener::handleEvent
+     */
+    function handleEvent($event) {
+	$entity = $event->getEntity();
+	if (GalleryUtilities::isA($entity, 'GalleryDerivativeImage') &&
+		$entity->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_THUMBNAIL &&
+		$entity->getDerivativeSourceId() != $entity->getParentId()) {
+	    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
+		$entity->getDerivativeSourceId(),
+		array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	    if ($ret) {
+		if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+		    /* Already gone.. ok! */
+		    return array(null, null);
 		}
-
-		return array(null, null);
+		return array($ret, null);
+	    }
+	    if (GalleryUtilities::isA($source, 'ThumbnailImage')) {
+		/* Prevent that we try to restore the thumbnail during the deletion. */
+		$key = 'ThumbnailImage::delete';
+		GalleryDataCache::put($key, $entity->getId());
+		$ret = GalleryCoreApi::deleteEntityById($source->getId(), 'ThumbnailImage');
+		GalleryDataCache::remove($key);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
 	}
+	return array(null, null);
+    }
 }
+?>

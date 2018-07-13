@@ -26,23 +26,18 @@
  * @version $Revision: 17580 $
  */
 class FulfillmentErrorView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'snapgalaxy');
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$template->title($module->translate('SnapGalaxy Fulfillment Error'));
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/snapgalaxy/templates/FulfillmentError.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'snapgalaxy');
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$template->title($module->translate('SnapGalaxy Fulfillment Error'));
+	return array(null, array('body' => 'modules/snapgalaxy/templates/FulfillmentError.tpl'));
+    }
 }
+?>

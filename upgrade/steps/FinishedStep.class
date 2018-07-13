@@ -23,12 +23,13 @@
  * @package Upgrade
  */
 class FinishedStep extends UpgradeStep {
-	public function stepName() {
-		return _('Finish Upgrade');
-	}
+    function stepName() {
+	return _('Finish Upgrade');
+    }
 
-	public function loadTemplateData(&$templateData) {
-		$templateData['bodyFile'] = 'Finished.html';
-		$this->setComplete(true);
-	}
+    function loadTemplateData(&$templateData) {
+	$templateData['bodyFile'] = 'Finished.html';
+	$this->setComplete(true);
+    }
 }
+?>

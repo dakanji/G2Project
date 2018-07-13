@@ -26,109 +26,89 @@
  * @version $Revision: 17580 $
  */
 class SampleView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		list($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if (!isset($imageframe)) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-		}
-
-		list($ret, $list) = $imageframe->getImageFrameList();
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$ret = $imageframe->init($template, array_keys($list));
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$ImageFrameSample = array(
-			'list' => $list,
-		);
-		$itemId           = GalleryUtilities::getRequestVariables('itemId');
-
-		if (!empty($itemId)) {
-			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-			list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
-
-			if ($ret) {
-				return array($ret, null);
-			}
-			list($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			if ($canSee && isset($thumbnail[$itemId])) {
-				$ImageFrameSample['item']  = (array)$item;
-				$ImageFrameSample['thumb'] = (array)$thumbnail[$itemId];
-			}
-		}
-
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$template->setVariable('ImageFrameSample', $ImageFrameSample);
-		$template->title($module->translate('Image Frame Samples'));
-
-		return array(
-			null,
-			array(
-				'body'          => 'modules/imageframe/templates/SampleBody.tpl',
-				'useFullScreen' => true,
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	list ($ret, $imageframe) =
+	    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (!isset($imageframe)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 	}
 
-	/**
-	 * @see GalleryView::loadThemeAndParameters
-	 */
-	public function loadThemeAndParameters() {
-		list($ret, $theme, $params, $item) = parent::loadThemeAndParameters();
-
-		if ($ret) {
-			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-				return array($ret, null, null, null);
-			}
-			// Fallback to default theme if given invalid itemId
-			GalleryUtilities::removeRequestVariable('itemId');
-			list($ret, $theme, $params, $item) = parent::loadThemeAndParameters();
-
-			if ($ret) {
-				return array($ret, null, null, null);
-			}
-		}
-
-		return array(null, $theme, $params, $item);
+	list ($ret, $list) = $imageframe->getImageFrameList();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$ret = $imageframe->init($template, array_keys($list));
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryView::getViewDescription
-	 */
-	public function getViewDescription() {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		return array(null, $module->translate('Image Frame Samples'));
+	$ImageFrameSample = array('list' => $list);
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
+	if (!empty($itemId)) {
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    list ($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    if ($canSee && isset($thumbnail[$itemId])) {
+		$ImageFrameSample['item'] = (array)$item;
+		$ImageFrameSample['thumb'] = (array)$thumbnail[$itemId];
+	    }
 	}
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$template->setVariable('ImageFrameSample', $ImageFrameSample);
+	$template->title($module->translate('Image Frame Samples'));
+	return array(null, array('body' => 'modules/imageframe/templates/SampleBody.tpl',
+				 'useFullScreen' => true));
+    }
+
+    /**
+     * @see GalleryView::loadThemeAndParameters
+     */
+    function loadThemeAndParameters() {
+	list ($ret, $theme, $params, $item) = parent::loadThemeAndParameters();
+	if ($ret) {
+	    if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		return array($ret, null, null, null);
+	    }
+	    /* Fallback to default theme if given invalid itemId */
+	    GalleryUtilities::removeRequestVariable('itemId');
+	    list ($ret, $theme, $params, $item) = parent::loadThemeAndParameters();
+	    if ($ret) {
+		return array($ret, null, null, null);
+	    }
+	}
+	return array(null, $theme, $params, $item);
+    }
+
+    /**
+     * @see GalleryView::getViewDescription
+     */
+    function getViewDescription() {
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $module->translate('Image Frame Samples'));
+    }
 }
+?>

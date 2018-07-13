@@ -26,118 +26,109 @@
  * @version $Revision: 17580 $
  */
 class ItemEditMovie extends ItemEditPlugin {
-	/**
-	 * @see ItemEditPlugin::handleRequest
-	 */
-	public function handleRequest($form, &$item, &$preferred) {
-		global $gallery;
 
-		$status = null;
-		$error  = array();
+    /**
+     * @see ItemEditPlugin::handleRequest
+     */
+    function handleRequest($form, &$item, &$preferred) {
+	global $gallery;
 
-		// Figure out which command we're taking
-		if (isset($form['action']['save'])) {
-			// Missing values get set to 0
-			if (isset($form['width']) && $form['width'] < 0) {
-				$error[] = 'form[error][width][invalid]';
-			} else {
-				$form['width'] = (int)$form['width'];
-			}
+	$status = null;
+	$error = array();
 
-			if (isset($form['height']) && $form['height'] < 0) {
-				$error[] = 'form[error][height][invalid]';
-			} else {
-				$form['height'] = (int)$form['height'];
-			}
+	/* Figure out which command we're taking */
+	if (isset($form['action']['save'])) {
 
-			if (empty($error)) {
-				list($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
+	    /* Missing values get set to 0 */
+	    if (isset($form['width']) && $form['width'] < 0) {
+		$error[] = 'form[error][width][invalid]';
+	    } else {
+		$form['width'] = (int)$form['width'];
+	    }
 
-				if ($ret) {
-					return array($ret, null, null, null);
-				}
+	    if (isset($form['height']) && $form['height'] < 0) {
+		$error[] = 'form[error][height][invalid]';
+	    } else {
+		$form['height'] = (int)$form['height'];
+	    }
 
-				list($ret, $item) = $item->refresh();
-
-				if ($ret) {
-					GalleryCoreApi::releaseLocks($lock);
-
-					return array($ret, null, null, null);
-				}
-
-				$item->setWidth($form['width']);
-				$item->setHeight($form['height']);
-				$item->setSerialNumber($form['serialNumber']);
-				$ret = $item->save();
-
-				if ($ret) {
-					GalleryCoreApi::releaseLocks($lock);
-
-					return array($ret, null, null, null);
-				}
-
-				$ret = GalleryCoreApi::releaseLocks($lock);
-
-				if ($ret) {
-					return array($ret, null, null, null);
-				}
-
-				// Prepare our status message
-				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-
-				if ($ret) {
-					return array($ret, null, null, null);
-				}
-
-				$status = $module->translate('Changes saved successfully');
-			}
-		}
-
-		return array(null, $error, $status, false);
-	}
-
-	/**
-	 * @see ItemEditPlugin::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		global $gallery;
-
-		if ($form['formName'] != 'ItemEditMovie') {
-			// First time around, load the form with item data
-			$form['width']    = $item->getWidth();
-			$form['height']   = $item->getHeight();
-			$form['formName'] = 'ItemEditMovie';
-		}
-
-		$ItemEditMovie = array();
-
-		$template->setVariable('ItemEditMovie', $ItemEditMovie);
-		$template->setVariable('controller', 'core.ItemEditMovie');
-
-		return array(
-			null,
-			'modules/core/templates/ItemEditMovie.tpl',
-			'modules_core',
-		);
-	}
-
-	/**
-	 * @see ItemEditPlugin::isSupported
-	 */
-	public function isSupported($item, $thumbnail) {
-		return GalleryUtilities::isA($item, 'GalleryMovieItem');
-	}
-
-	/**
-	 * @see ItemEditPlugin::getTitle
-	 */
-	public function getTitle() {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-
+	    if (empty($error)) {
+		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
 		if ($ret) {
-			return array($ret, null);
+		    return array($ret, null, null, null);
 		}
 
-		return array(null, $module->translate('Movie Size'));
+		list ($ret, $item) = $item->refresh();
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($lock);
+		    return array($ret, null, null, null);
+		}
+
+		$item->setWidth($form['width']);
+		$item->setHeight($form['height']);
+		$item->setSerialNumber($form['serialNumber']);
+		$ret = $item->save();
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($lock);
+		    return array($ret, null, null, null);
+		}
+
+		$ret = GalleryCoreApi::releaseLocks($lock);
+		if ($ret) {
+		    return array($ret, null, null, null);
+		}
+
+		/* Prepare our status message */
+		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+		if ($ret) {
+		    return array($ret, null, null, null);
+		}
+
+		$status = $module->translate('Changes saved successfully');
+	    }
 	}
+
+	return array(null, $error, $status, false);
+    }
+
+    /**
+     * @see ItemEditPlugin::loadTemplate
+     */
+    function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	global $gallery;
+
+	if ($form['formName'] != 'ItemEditMovie') {
+	    /* First time around, load the form with item data */
+	    $form['width'] = $item->getWidth();
+	    $form['height'] = $item->getHeight();
+	    $form['formName'] = 'ItemEditMovie';
+	}
+
+	$ItemEditMovie = array();
+
+	$template->setVariable('ItemEditMovie', $ItemEditMovie);
+	$template->setVariable('controller', 'core.ItemEditMovie');
+	return array(null,
+		     'modules/core/templates/ItemEditMovie.tpl', 'modules_core');
+    }
+
+    /**
+     * @see ItemEditPlugin::isSupported
+     */
+    function isSupported($item, $thumbnail) {
+	return (GalleryUtilities::isA($item, 'GalleryMovieItem'));
+    }
+
+    /**
+     * @see ItemEditPlugin::getTitle
+     */
+    function getTitle() {
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $module->translate('Movie Size'));
+    }
 }
+?>

@@ -1,0 +1,212 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test SnapGalaxy cart functionality
+ *
+ * @package SnapGalaxy
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class SnapGalaxyCartPluginTest extends GalleryTestCase {
+
+    function SnapGalaxyCartPluginTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Control the user agent; we pass this to SnapGalaxy */
+	$_SERVER['HTTP_USER_AGENT'] = 'Test User Agent';
+	$_SERVER['HTTP_REFERER'] = 'TestHttpReferer';
+
+	/* Create some random photo items that we can print */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.all');
+	if ($ret) {
+	    return $ret;
+	}
+
+	for ($i = 0; $i < 3; $i++) {
+	    /*
+	     * Create a new item and force it to be a GalleryPhotoItem, cause that's the only
+	     * type that this plugin will print.  Make it an unsupported mime type so that no
+	     * graphics toolkits will get involved.
+	     */
+	    list ($ret, $this->_items[$i]) =
+	    $this->_createRandomDataItem($this->_album->getId(),
+			     'test/jpeg', array(), __FILE__, 'GalleryPhotoItem');
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    /* Create a thumbnail, watermark one of them */
+	    list ($ret, $derivative) = $this->_createDerivative(
+		$this->_items[$i], $this->_items[$i]->getId(),
+		DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|150', 'test/file',
+		$i ? array() : array('postFilterOperations' => 'watermark|yes'));
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    /*
+	     * Save the thumb and source ids for the test platform so that it can verify that
+	     * the right post data goes through.
+	     */
+	    $this->_thumbIds[$i] = $derivative->getId();
+	    $this->_sourceIds[$i] = $this->_items[$i]->getId();
+	}
+
+	/* Create a preferred */
+	list ($ret, $derivative) = $this->_createDerivative(
+	    $this->_items[2], $this->_items[2]->getId(),
+	    DERIVATIVE_TYPE_IMAGE_PREFERRED, 'scale|400', 'test/file');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_sourceIds[2] = $derivative->getId();
+
+	/* Print permission on all but one */
+	$ret = GalleryCoreApi::removeUserPermission(
+	    $this->_items[1]->getId(), $gallery->getActiveUserId(), 'snapgalaxy.print');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Public view permission on one */
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_items[2]->getId(), $anonymousUserId, 'core.viewAll');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->checkPoint();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Empty out the plugin session id */
+	$session =& $gallery->getSession();
+	$this->_saveCartUrlFragment = $session->get('snapgalaxy.cartUrlFragment');
+	$session->remove('snapgalaxy.cartUrlFragment');
+
+	/* Make sure translate calls during test won't generate any platform calls */
+	list ($ret) = GalleryCoreApi::getPermissionIds();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Swap in a dummy url generator */
+	$gallery->_urlGenerator = new SnapGalaxyCartPluginTestUrlGenerator();
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	/* Restore session id */
+	$session =& $gallery->getSession();
+	if (isset($this->_saveCartUrlFragment)) {
+	    $session->put('snapgalaxy.cartUrlFragment', $this->_saveCartUrlFragment);
+	} else {
+	    $session->remove('snapgalaxy.cartUrlFragment');
+	}
+	$ret = parent::tearDown();
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testFulfillCart() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce(
+	    'modules/snapgalaxy/classes/SnapGalaxyCartPlugin.class');
+
+	/* Create our cart */
+	$cartItemIds = array();
+	for ($i = 0; $i < count($this->_items); $i++) {
+	    $cartItemIds[$this->_items[$i]->getId()] = $i+1;
+	}
+
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('www.snapgalaxy.com', 80, '', '', 5), 'testFd');
+	$platform->setReply('fwrite',
+	    array('testFd', 'fuzzy' => "{POST /pt/ptcartpost HTTP/1\.0}", ''), 100);
+	$platform->setReply('fflush', array('testFd'), true);
+	$platform->setReply('fgets', array('testFd', 4096), 'HTTP/1.1 200 OK');
+	$platform->setReply('feof', array('testFd'), false);
+	$platform->setReply('fgets', array('testFd', 4096), '');
+	$platform->setReply('feof', array('testFd'), false);
+	$platform->setReply('fread', array('testFd', 4096),
+	    'requesturl="/REQUEST_URL" redirecturl="/REDIRECT_URL"');
+	$platform->setReply('feof', array('testFd'), true);
+	$platform->setReply('fclose', array('testFd'), true);
+	$gallery->setPlatform($platform);
+
+	$cartPlugin = new SnapGalaxyCartPlugin();
+	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('href' => 'http://www.snapgalaxy.com/REDIRECT_URL'), $urlParams);
+    }
+}
+
+/**
+ * Mock url generator for this test
+ *
+ * @package SnapGalaxy
+ * @subpackage PHPUnit
+ */
+class SnapGalaxyCartPluginTestUrlGenerator {
+    function generateUrl($params=array(), $options=array()) {
+	$lines = array();
+	foreach ($params as $key => $value) {
+	    $lines[] = "$key=$value";
+	}
+	return implode('/', $lines);
+    }
+}
+?>

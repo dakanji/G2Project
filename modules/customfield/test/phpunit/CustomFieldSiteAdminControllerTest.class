@@ -1,0 +1,257 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * CustomFieldSiteAdmin controller tests
+ * @package CustomField
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    function CustomFieldSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'customfield.CustomFieldSiteAdmin');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+
+	foreach (array('common', 'album', 'photo') as $key) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'customfield', $key, '');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testCustomFieldSiteAdminController() {
+	/* Reset.. */
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array(), 'error' => array()),
+			    $results);
+
+	/* Add some fields.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[common][newField]', 'Common Field');
+	GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('added' => 1), 'error' => array()),
+			    $results, 'Add Common Field');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[common][newField]', 'Another|Common');
+	GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('added' => 1), 'error' => array()),
+			    $results, 'Add Another Common');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[album][newField]', 'Album Field');
+	GalleryUtilities::putRequestVariable('form[action][add][album]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('added' => 1), 'error' => array()),
+			    $results, 'Add Album Field');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[photo][newField]', 'Photo Field');
+	GalleryUtilities::putRequestVariable('form[action][add][photo]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('added' => 1), 'error' => array()),
+			    $results, 'Add Photo Field');
+
+	/* Add duplicate.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[common][newField]', 'Photo Field');
+	GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('error' => array('duplicate' => 1)),
+				  'error' => array()),
+			    $results, 'Add Duplicate');
+
+	/* Add picklist.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[pickField]', 'Album Field');
+	GalleryUtilities::putRequestVariable('form[picklist]', "One\nTwo\nThree  \n  ");
+	GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('picklist' => 1), 'error' => array()),
+			    $results, 'Set Picklist');
+
+	/* Update picklist.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[pickField]', 'Album Field');
+	GalleryUtilities::putRequestVariable('form[picklist]', "\n Three\nTwo\nOne  \n  ");
+	GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('picklist' => 1), 'error' => array()),
+			    $results, 'Update Picklist');
+
+	/* Check data so far.. */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+	foreach ($params as $key => $value) {
+	    if ($key[0] == '_') {
+		unset($params[$key]);
+	    }
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => 'Album Field`0`1`Three`Two`One',
+				  'common' => 'Common Field`0`1|Another:Common`0`1',
+				  'photo' => 'Photo Field`0`1'),
+			    $params, 'Check Data 1');
+
+	/* Update display settings.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[common][index][0]', '1');
+	GalleryUtilities::putRequestVariable('form[common][index][1]', '0');
+	GalleryUtilities::putRequestVariable('form[common][summary][1]', 'on');
+	GalleryUtilities::putRequestVariable('form[album][index][0]', '0');
+	GalleryUtilities::putRequestVariable('form[album][summary][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[album][detail][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
+	GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('saved' => 1), 'error' => array()),
+			    $results, 'Update Display');
+
+	/* Check data so far.. */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+	foreach ($params as $key => $value) {
+	    if ($key[0] == '_') {
+		unset($params[$key]);
+	    }
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => 'Album Field`1`1`Three`Two`One',
+				  'common' => 'Another:Common`0`0|Common Field`1`0',
+				  'photo' => 'Photo Field`0`1'),
+			    $params, 'Check Data 2');
+
+	/* Move fields.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[common][goField]', 'Common Field');
+	GalleryUtilities::putRequestVariable('form[common][goAction]', 'photo');
+	GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('moved' => 1), 'error' => array()),
+			    $results, 'Move Field');
+
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[album][goField]', 'Album Field');
+	GalleryUtilities::putRequestVariable('form[album][goAction]', 'common');
+	GalleryUtilities::putRequestVariable('form[action][go][album]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('moved' => 1), 'error' => array()),
+			    $results, 'Move Field');
+
+	/* Remove field.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[common][goField]', 'Another:Common');
+	GalleryUtilities::putRequestVariable('form[common][goAction]', 'remove');
+	GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('removed' => 1), 'error' => array()),
+			    $results, 'Remove Field');
+
+	/* Check data so far.. */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+	foreach ($params as $key => $value) {
+	    if ($key[0] == '_') {
+		unset($params[$key]);
+	    }
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => '',
+				  'common' => 'Album Field`1`1`Three`Two`One',
+				  'photo' => 'Photo Field`0`1|Common Field`1`0'),
+			    $params, 'Check Data 3');
+
+	/* Remove picklist.. */
+	GalleryUtilities::removeFormVariables('form');
+	GalleryUtilities::putRequestVariable('form[pickField]', 'Album Field');
+	GalleryUtilities::putRequestVariable('form[picklist]', '');
+	GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						   'subView' => 'customfield.CustomFieldSiteAdmin'),
+				  'status' => array('picklist' => 1), 'error' => array()),
+			    $results, 'Remove Picklist');
+
+	/* Check data so far.. */
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+	foreach ($params as $key => $value) {
+	    if ($key[0] == '_') {
+		unset($params[$key]);
+	    }
+	}
+	ksort($params);
+	$this->assertEquals(array('album' => '',
+				  'common' => 'Album Field`1`1',
+				  'photo' => 'Photo Field`0`1|Common Field`1`0'),
+			    $params, 'Check Data 4');
+    }
+}
+?>

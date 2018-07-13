@@ -26,75 +26,64 @@
  * @version $Revision: 17580 $
  */
 class DownloadDavMountView extends GalleryView {
-	/**
-	 * @see GalleryView::isImmediate
+
+    /**
+     * @see GalleryView::isImmediate
+     */
+    function isImmediate() {
+	return true;
+    }
+
+    /**
+     * @see GalleryView::renderImmediate
+     */
+    function renderImmediate($status, $error) {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+
+	GalleryUtilities::setResponseHeader(
+	    'Content-Type: application/davmount+xml; charset=UTF-8');
+	GalleryUtilities::setResponseHeader(
+	    'Content-Disposition: inline; filename="Gallery.davmount"');
+	echo "<dm:mount xmlns:dm=\"http://purl.org/NET/webdav/mount\">\n";
+
+	/*
+	 * I guess URL shouldn't include session id because a query string may break some clients
+	 * and reusing session id by another browser may be considdered session hijacking
 	 */
-	public function isImmediate() {
-		return true;
+	echo '  <dm:url>' . $urlGenerator->generateUrl(array('controller' => 'webdav.WebDav'),
+	    array('forceFullUrl' => true, 'forceSessionId' => false)) . "</dm:url>\n";
+
+	list ($itemId, $path) = GalleryUtilities::getRequestVariables('itemId', 'path');
+	if (isset($itemId)) {
+	    list ($ret, $item) =
+		GalleryCoreApi::loadEntitiesById($itemId, 'GalleryFileSystemEntity');
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    list ($ret, $path) = $item->fetchLogicalPath();
+	    if ($ret) {
+		return $ret;
+	    }
 	}
 
-	/**
-	 * @see GalleryView::renderImmediate
-	 */
-	public function renderImmediate($status, $error) {
-		global $gallery;
-		$urlGenerator =& $gallery->getUrlGenerator();
-
-		GalleryUtilities::setResponseHeader(
-			'Content-Type: application/davmount+xml; charset=UTF-8'
-		);
-		GalleryUtilities::setResponseHeader(
-			'Content-Disposition: inline; filename="Gallery.davmount"'
-		);
-		echo "<dm:mount xmlns:dm=\"http://purl.org/NET/webdav/mount\">\n";
-
-		/*
-		 * I guess URL shouldn't include session id because a query string may break some clients
-		 * and reusing session id by another browser may be considdered session hijacking
-		 */
-		echo '  <dm:url>' . $urlGenerator->generateUrl(
-			array(
-				'controller' => 'webdav.WebDav',
-			),
-			array(
-				'forceFullUrl'   => true,
-				'forceSessionId' => false,
-			)
-		) . "</dm:url>\n";
-
-		list($itemId, $path) = GalleryUtilities::getRequestVariables('itemId', 'path');
-
-		if (isset($itemId)) {
-			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryFileSystemEntity');
-
-			if ($ret) {
-				return $ret;
-			}
-
-			list($ret, $path) = $item->fetchLogicalPath();
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		$path = ltrim($path, '/');
-
-		if (!empty($path)) {
-			echo '  <dm:open>' . $path . "</dm:open>\n";
-		}
-
-		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		if (!$isAnonymous) {
-			$user = $gallery->getActiveUser();
-			echo '  <dm:username>' . $user->getUserName() . "</dm:username>\n";
-		}
-
-		echo "</dm:mount>\n";
+	$path = ltrim($path, '/');
+	if (!empty($path)) {
+	    echo '  <dm:open>' . $path . "</dm:open>\n";
 	}
+
+	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	if (!$isAnonymous) {
+	    $user = $gallery->getActiveUser();
+	    echo '  <dm:username>' . $user->getUserName() . "</dm:username>\n";
+	}
+
+	echo "</dm:mount>\n";
+    }
 }
+?>

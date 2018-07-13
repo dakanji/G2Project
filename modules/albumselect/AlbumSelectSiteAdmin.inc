@@ -26,109 +26,78 @@
  * @version $Revision: 17580 $
  */
 class AlbumSelectSiteAdminController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$status = $error = array();
-
-		if (isset($form['action']['save'])) {
-			foreach (array(
-				'sort',
-				'treeLines',
-				'treeIcons',
-				'treeCookies',
-				'treeExpandCollapse',
-				'treeCloseSameLevel',
-			) as $key) {
-				$ret = GalleryCoreApi::setPluginParameter(
-					'module',
-					'albumselect',
-					$key,
-					($key == 'sort') ? $form['sort'] : ((isset($form[$key]) && $form[$key]) ? 1 : 0)
-				);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-			$status['saved'] = 1;
-
-			// Flush our cache
-			GalleryDataCache::removeFromDisk(
-				array(
-					'type'   => 'module-data',
-					'module' => 'albumselect',
-				)
-			);
-		}
-
-		$results = array(
-			'redirect' => array(
-				'view'    => 'core.SiteAdmin',
-				'subView' => 'albumselect.AlbumSelectSiteAdmin',
-			),
-			'status'   => $status,
-			'error'    => $error,
-		);
-
-		return array(null, $results);
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$status = $error = array();
+	if (isset($form['action']['save'])) {
+	    foreach (array('sort', 'treeLines', 'treeIcons', 'treeCookies',
+			   'treeExpandCollapse', 'treeCloseSameLevel') as $key) {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'albumselect', $key,
+			      ($key == 'sort') ? $form['sort']
+					       : ((isset($form[$key]) && $form[$key]) ? 1 : 0));
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	    $status['saved'] = 1;
+
+	    /* Flush our cache */
+	    GalleryDataCache::removeFromDisk(
+		array('type' => 'module-data', 'module' => 'albumselect'));
+	}
+
+	$results = array('redirect' => array('view' => 'core.SiteAdmin',
+					     'subView' => 'albumselect.AlbumSelectSiteAdmin'),
+			 'status' => $status,
+			 'error' => $error);
+
+	return array(null, $results);
+    }
 }
 
 /**
  * Settings for Album Select
  */
 class AlbumSelectSiteAdminView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		foreach (array(
-			'sort',
-			'treeLines',
-			'treeIcons',
-			'treeCookies',
-			'treeExpandCollapse',
-			'treeCloseSameLevel',
-		) as $key) {
-			if (!isset($form[$key])) {
-				$form[$key] = false;
-			}
-		}
-
-		if ($form['formName'] != 'AlbumSelectSiteAdmin') {
-			$form['formName']   = 'AlbumSelectSiteAdmin';
-			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			foreach ($params as $key => $value) {
-				$form[$key] = $value;
-			}
-		}
-
-		$template->setVariable('controller', 'albumselect.AlbumSelectSiteAdmin');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/albumselect/templates/AlbumSelectSiteAdmin.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	foreach (array('sort', 'treeLines', 'treeIcons', 'treeCookies',
+		       'treeExpandCollapse', 'treeCloseSameLevel') as $key) {
+	    if (!isset($form[$key])) {
+		$form[$key] = false;
+	    }
+	}
+	if ($form['formName'] != 'AlbumSelectSiteAdmin') {
+	    $form['formName'] = 'AlbumSelectSiteAdmin';
+	    list ($ret, $params) =
+		GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    foreach ($params as $key => $value) {
+		$form[$key] = $value;
+	    }
+	}
+
+	$template->setVariable('controller', 'albumselect.AlbumSelectSiteAdmin');
+	return array(null,
+		     array('body' => 'modules/albumselect/templates/AlbumSelectSiteAdmin.tpl'));
+    }
 }
+?>

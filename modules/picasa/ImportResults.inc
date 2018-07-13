@@ -26,48 +26,38 @@
  * @version $Revision: 17580 $
  */
 class ImportResultsView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		global $gallery;
 
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	global $gallery;
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if ($form['formName'] != 'ImportResults') {
-			$form['formName'] = 'ImportResults';
-		}
-		$status = $template->getVariable('status');
-		$counts = array();
-
-		foreach (array(
-			'albumImportFailure',
-			'albumImportSuccess',
-			'pictureImportFailure',
-			'pictureImportSuccess',
-		) as $key) {
-			if (isset($status[$key])) {
-				$counts[$key] = sizeof($status[$key]);
-			} else {
-				$counts[$key] = 0;
-			}
-		}
-
-		$ImportResults           = array();
-		$ImportResults['counts'] = $counts;
-		$ImportResults['status'] = $status;
-		$template->setVariable('ImportResults', $ImportResults);
-		$template->setVariable('controller', 'picasa.ImportResults');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/picasa/templates/ImportResults.tpl',
-			),
-		);
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	if ($form['formName'] != 'ImportResults') {
+	    $form['formName'] = 'ImportResults';
+	}
+	$status = $template->getVariable('status');
+	$counts = array();
+	foreach (array('albumImportFailure', 'albumImportSuccess',
+		       'pictureImportFailure', 'pictureImportSuccess') as $key) {
+	    if (isset($status[$key])) {
+		$counts[$key] = sizeof($status[$key]);
+	    } else {
+		$counts[$key] = 0;
+	    }
+	}
+
+	$ImportResults = array();
+	$ImportResults['counts'] = $counts;
+	$ImportResults['status'] = $status;
+	$template->setVariable('ImportResults', $ImportResults);
+	$template->setVariable('controller', 'picasa.ImportResults');
+	return array(null, array('body' => 'modules/picasa/templates/ImportResults.tpl'));
+    }
 }
+?>

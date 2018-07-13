@@ -1,14 +1,14 @@
 # $Revision: 20959 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/httpauth/FinishLogout.inc	997949933	2752291727	1940	2010
-modules/httpauth/HttpAuthSiteAdmin.inc	593045033	631083606	4631	4825
-modules/httpauth/HttpAuthWorks.inc	1793562665	3193824387	1448	1492
-modules/httpauth/TryLogout.inc	3694373442	1101204427	2266	2335
-modules/httpauth/classes/HttpAuthHelper.class	2589567147	640156952	11055	11466
-modules/httpauth/classes/HttpAuthInterface_1_0.class	3624816179	493189557	2593	2659
-modules/httpauth/classes/HttpAuthPlugin.class	1712464010	2614238783	2477	2555
-modules/httpauth/classes/ServerAuthPlugin.class	1246384241	3950878487	2200	2267
-modules/httpauth/module.inc	2603199629	60263561	11504	11983
+modules/httpauth/FinishLogout.inc	12951231	2679569573	1881	1936
+modules/httpauth/HttpAuthSiteAdmin.inc	4186254593	376719926	4487	4636
+modules/httpauth/HttpAuthWorks.inc	2136919531	1975198014	1466	1512
+modules/httpauth/TryLogout.inc	1913749198	2750229125	2220	2280
+modules/httpauth/classes/HttpAuthHelper.class	2407205543	995647936	11117	11486
+modules/httpauth/classes/HttpAuthInterface_1_0.class	330322941	637015678	2650	2718
+modules/httpauth/classes/HttpAuthPlugin.class	3882217169	2247055358	2506	2580
+modules/httpauth/classes/ServerAuthPlugin.class	752668062	3902009249	2216	2282
+modules/httpauth/module.inc	808094979	1284886379	11164	11556
 modules/httpauth/po/GNUmakefile	1866879166	2808215985	98	103
 modules/httpauth/po/af.mo	3687831618	3687831618	693	693
 modules/httpauth/po/af.po	1390343050	2152345248	5693	5883
@@ -72,6 +72,10 @@ modules/httpauth/po/zh_TW.po	2221044716	1258408995	8458	8666
 modules/httpauth/templates/FinishLogout.tpl	1234303161	3238766006	368	379
 modules/httpauth/templates/HttpAuthSiteAdmin.tpl	1148897401	2229504017	8465	8611
 modules/httpauth/templates/TryLogout.tpl	3374667996	3244326300	680	703
+modules/httpauth/test/phpunit/HttpAuthHelperTest.class	1037974416	265827	21498	22236
+modules/httpauth/test/phpunit/HttpAuthModuleTest.class	2528567438	1014857803	9514	9847
+modules/httpauth/test/phpunit/HttpAuthPluginTest.class	17964552	1412945005	3928	4086
+modules/httpauth/test/phpunit/ServerAuthPluginTest.class	2391977525	1117806405	2875	2994
 R	modules/httpauth/classes/HttpAuthErrorEventListener.class
 R	modules/httpauth/locale/af/LC_MESSAGES/modules_httpauth.mo
 R	modules/httpauth/locale/ar/LC_MESSAGES/modules_httpauth.mo

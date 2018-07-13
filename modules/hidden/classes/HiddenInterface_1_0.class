@@ -29,36 +29,38 @@
  * @abstract
  */
 class HiddenInterface_1_0 {
-	/**
-	 * Hide an item
-	 *
-	 * @param GalleryItem $item
-	 * @param boolean $useProgressBar (default is false)
-	 * @return GalleryStatus a status code
-	 */
-	public static function hideItem(&$item, $useProgressBar = false) {
-		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
-	}
 
-	/**
-	 * Unhide an item
-	 *
-	 * @param GalleryItem $item
-	 * @param boolean $useProgressBar (default is false)
-	 * @return GalleryStatus a status code
-	 */
-	public static function unHideItem(&$item, $useProgressBar = false) {
-		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
-	}
+    /**
+     * Hide an item
+     *
+     * @param GalleryItem $item
+     * @param boolean $useProgressBar (default is false)
+     * @return GalleryStatus a status code
+     */
+    function hideItem(&$item, $useProgressBar=false) {
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+    }
 
-	/**
-	 * Is item hidden?
-	 *
-	 * @param GalleryItem $item
-	 * @return array GalleryStatus a status code
-	 *               boolean true if hidden
-	 */
-	public function isHidden($item) {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-	}
+    /**
+     * Unhide an item
+     *
+     * @param GalleryItem $item
+     * @param boolean $useProgressBar (default is false)
+     * @return GalleryStatus a status code
+     */
+    function unHideItem(&$item, $useProgressBar=false) {
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+    }
+
+    /**
+     * Is item hidden?
+     *
+     * @param GalleryItem $item
+     * @return array GalleryStatus a status code
+     *               boolean true if hidden
+     */
+    function isHidden($item) {
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+    }
 }
+?>

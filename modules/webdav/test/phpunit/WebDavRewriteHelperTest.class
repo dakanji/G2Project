@@ -1,0 +1,162 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/webdav/classes/WebDavRewriteHelper.class');
+GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
+
+/**
+ * WebDAV rewrite helper tests.
+ * @package WebDav
+ * @subpackage PHPUnit
+ * @author Jack Bates <ms419@freezone.co.uk>
+ * @version $Revision: 17580 $
+ */
+class WebDavRewriteHelperTest extends GalleryTestCase {
+
+    function WebDavRewriteHelperTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$urlGenerator = new RewriteUrlGenerator();
+	$urlGenerator->init('phpunit');
+	$gallery->setUrlGenerator($urlGenerator);
+    }
+
+    function testParsePath() {
+	/* Create test items */
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($album);
+
+	/* Write lock the album we're moving */
+	list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($album->getId());
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIs);
+	    return $ret;
+	}
+
+	/* Refresh the album incase it changed before it was locked */
+	list ($ret, $album) = $album->refresh();
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+
+	/* Rename the album */
+	$oldPathComponent = $album->getPathComponent();
+	$ret = $album->rename('The Quick!Brown#Fox');
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+
+	$ret = $album->save();
+	if ($ret) {
+	    $album->rename($oldPathComponent);
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($album->getId(), 'test/file');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Write lock the item we're moving */
+	list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($item->getId());
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIs);
+	    return $ret;
+	}
+
+	/* Refresh the item incase it changed before it was locked */
+	list ($ret, $item) = $item->refresh();
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+
+	/* Rename the item */
+	$oldPathComponent = $item->getPathComponent();
+	$ret = $item->rename('Jumps Over%The/Lazy_Dog');
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+
+	$ret = $item->save();
+	if ($ret) {
+	    $item->rename($oldPathComponent);
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Use valid inputs */
+	$url = 'w%path%';
+	$params = array('controller' => 'webdav.WebDav', 'itemId' => $item->getId());
+	$entity = null;
+
+	/* Perform the request and verify that we succeeded */
+	$ret = WebDavRewriteHelper::parsePath($url, $params, $entity);
+
+	$this->assert($ret, 'status');
+	$this->assertEquals('w/The%20Quick_Brown%23Fox/Jumps%20Over_The_Lazy_Dog', $url, 'url');
+	$this->assertEquals(array('controller' => 'webdav.WebDav'), $params, 'params');
+	$this->assertEquals($item, $entity, 'entity');
+
+	/* Use valid inputs */
+	list ($ret, $path) = $item->fetchLogicalPath();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$url = 'w%path%';
+	$params = array('controller' => 'webdav.WebDav', 'path' => $path);
+	$entity = null;
+
+	/* Perform the request and verify that we succeeded */
+	$ret = WebDavRewriteHelper::parsePath($url, $params, $entity);
+
+	$this->assert($ret, 'status');
+	$this->assertEquals('w/The%20Quick_Brown%23Fox/Jumps%20Over_The_Lazy_Dog', $url, 'url');
+	$this->assertEquals(array('controller' => 'webdav.WebDav'), $params, 'params');
+	$this->assertEquals(null, $entity, 'entity');
+    }
+}
+?>

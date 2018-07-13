@@ -26,51 +26,46 @@
  * @version $Revision: 17580 $
  */
 class CantActivateController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		// Figure out where to redirect upon success
-		$results['redirect']['view']    = 'core.SiteAdmin';
-		$results['redirect']['subView'] = 'core.AdminPlugins';
-		$results['status']              = array();
-		$results['error']               = array();
-
-		return array(null, $results);
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	/* Figure out where to redirect upon success */
+	$results['redirect']['view'] = 'core.SiteAdmin';
+	$results['redirect']['subView'] = 'core.AdminPlugins';
+	$results['status'] = array();
+	$results['error'] = array();
+
+	return array(null, $results);
+    }
 }
 
 /**
  * This view will complain about missing gettext
  */
 class CantActivateView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if ($form['formName'] != 'CantActivate') {
-			$form['formName'] = 'CantActivate';
-		}
-
-		$template->setVariable('controller', 'multilang.CantActivate');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/multilang/templates/CantActivate.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	if ($form['formName'] != 'CantActivate') {
+	    $form['formName'] = 'CantActivate';
+	}
+
+	$template->setVariable('controller', 'multilang.CantActivate');
+	return array(null, array('body' => 'modules/multilang/templates/CantActivate.tpl'));
+    }
 }
+?>

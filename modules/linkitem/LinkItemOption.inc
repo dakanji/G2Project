@@ -26,66 +26,59 @@
  * @version $Revision: 17580 $
  */
 class LinkItemOption extends ItemEditOption {
-	/**
-	 * @see ItemEditOption::isAppropriate
-	 */
-	public function isAppropriate($item, $thumbnail) {
-		return array(
-			null,
-			GalleryUtilities::isA($item, 'GalleryLinkItem') && !is_numeric($item->getLink()),
-		);
+
+    /**
+     * @see ItemEditOption::isAppropriate
+     */
+    function isAppropriate($item, $thumbnail) {
+	return array(null,
+	    GalleryUtilities::isA($item, 'GalleryLinkItem') && !is_numeric($item->getLink()));
+    }
+
+    /**
+     * @see ItemEditOption::loadTemplate
+     */
+    function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	if (!isset($form['LinkItemOption'])) {
+	    $form['LinkItemOption']['link'] = $item->getLink();
 	}
 
-	/**
-	 * @see ItemEditOption::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		if (!isset($form['LinkItemOption'])) {
-			$form['LinkItemOption']['link'] = $item->getLink();
-		}
+	return array(null, 'modules/linkitem/templates/LinkItemOption.tpl', 'modules_linkitem');
+    }
 
-		return array(null, 'modules/linkitem/templates/LinkItemOption.tpl', 'modules_linkitem');
+    /**
+     * @see ItemEditOption::handleRequestAfterEdit
+     */
+    function handleRequestAfterEdit($form, &$item, &$preferred) {
+	$error = $warning = array();
+	if (empty($form['LinkItemOption']['link'])) {
+	    $error[] = 'form[LinkItemOption][error][link][missing]';
+	} else {
+	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($item->getId()));
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+
+	    list ($ret, $item) = $item->refresh();
+	    if ($ret) {
+		GalleryCoreApi::releaseLocks($lockId);
+		return array($ret, null, null);
+	    }
+
+	    $item->setLink($form['LinkItemOption']['link']);
+	    $ret = $item->save();
+	    if ($ret) {
+		GalleryCoreApi::releaseLocks($lockId);
+		return array($ret, null, null);
+	    }
+
+	    $ret = GalleryCoreApi::releaseLocks($lockId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
 	}
 
-	/**
-	 * @see ItemEditOption::handleRequestAfterEdit
-	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
-		$error = $warning = array();
-
-		if (empty($form['LinkItemOption']['link'])) {
-			$error[] = 'form[LinkItemOption][error][link][missing]';
-		} else {
-			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($item->getId()));
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-
-			list($ret, $item) = $item->refresh();
-
-			if ($ret) {
-				GalleryCoreApi::releaseLocks($lockId);
-
-				return array($ret, null, null);
-			}
-
-			$item->setLink($form['LinkItemOption']['link']);
-			$ret = $item->save();
-
-			if ($ret) {
-				GalleryCoreApi::releaseLocks($lockId);
-
-				return array($ret, null, null);
-			}
-
-			$ret = GalleryCoreApi::releaseLocks($lockId);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		}
-
-		return array(null, $error, $warning);
-	}
+	return array(null, $error, $warning);
+    }
 }
+?>

@@ -1,0 +1,140 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
+
+/**
+ * Test Rss functionality
+ *
+ * @package Rss
+ * @subpackage PHPUnit
+ * @author Pierre-Luc Paour
+ * @version $Revision: 17580 $
+ */
+class RssMapTest extends GalleryTestCase {
+
+    var $_feedsToDelete;
+
+    function RssMapTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$this->_feedsToDelete = array();
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* create an album */
+	list ($ret, $this->_root) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_root);
+
+	/* create a test feed */
+	$this->_name = 'test'.rand();
+	$params = array('itemId' => $this->_root->getId());
+	$ret = RssMapHelper::createFeed($this->_name, $params);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_feedsToDelete[] = $this->_name;
+    }
+
+    function tearDown() {
+	if (!empty($this->_feedsToDelete)) {
+	    foreach ($this->_feedsToDelete as $name) {
+		$ret = RssMapHelper::deleteFeed($name);
+		if ($ret) {
+		    return $ret;
+		}
+	    }
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testCollision() {
+	$params = array('itemId' => $this->_root);
+	$ret = RssMapHelper::createFeed($this->_name, $params);
+	/* we expect an error */
+	if (!$ret) {
+	    return $this->assert(false, 'Expected an error');
+	}
+	$this->assert($ret->getErrorCode() & ERROR_COLLISION,
+	    'No collision reported, but expected one');
+    }
+
+    function testDelete() {
+	$ret = RssMapHelper::deleteFeed($this->_name);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $feed) = RssMapHelper::fetchFeed($this->_name);
+	/* we expect an error */
+	if (!$ret) {
+	    return $this->assert(false, 'Expected an error');
+	}
+	$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT,
+	    'No missing object reported, but expected it to be missing');
+    }
+
+    function testFetchFeedsForId() {
+	global $gallery;
+
+	list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem($this->_root->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($feeds, array(array(
+	    'name' => $this->_name,
+	    'itemId' => $this->_root->getId(),
+	    'ownerId' => $gallery->getActiveUserId(),
+	    'params' => array(
+		'itemId' => $this->_root->getId()))));
+    }
+
+    function testFetchFeedNames() {
+	global $gallery;
+
+	list ($ret, $names) = RssMapHelper::fetchFeedNames();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assert(in_array($this->_name, $names));
+    }
+}
+?>

@@ -33,35 +33,34 @@ GalleryCoreApi::requireOnce('modules/httpauth/classes/HttpAuthHelper.class');
  * @author Jack Bates <ms419@freezone.co.uk>
  * @version $Revision: 17580 $
  */
-class ServerAuthPlugin // extends GalleryAuthPlugin
-{
-	/**
-	 * @see GalleryAuthPlugin::getUser
-	 */
-	public function getUser() {
-		$authtype = GalleryUtilities::getServerVar('AUTH_TYPE');
-		$username = GalleryUtilities::getServerVar('REMOTE_USER');
+class ServerAuthPlugin /* extends GalleryAuthPlugin */ {
 
-		// TODO: http://issues.apache.org/bugzilla/show_bug.cgi?id=38325
-		if (empty($username)) {
-			$authtype = GalleryUtilities::getServerVar('REDIRECT_AUTH_TYPE');
-			$username = GalleryUtilities::getServerVar('REDIRECT_REMOTE_USER');
-		}
+    /**
+     * @see GalleryAuthPlugin::getUser
+     */
+    function getUser() {
+	$authtype = GalleryUtilities::getServerVar('AUTH_TYPE');
+	$username = GalleryUtilities::getServerVar('REMOTE_USER');
 
-		list($ret, $user) = HttpAuthHelper::getUser($authtype, $username);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if (!empty($user)) {
-			$ret = HttpAuthHelper::regenerateSessionIfNecessary($user);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		return array(null, $user);
+	/* TODO: http://issues.apache.org/bugzilla/show_bug.cgi?id=38325 */
+	if (empty($username)) {
+	    $authtype = GalleryUtilities::getServerVar('REDIRECT_AUTH_TYPE');
+	    $username = GalleryUtilities::getServerVar('REDIRECT_REMOTE_USER');
 	}
+
+	list ($ret, $user) = HttpAuthHelper::getUser($authtype, $username);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!empty($user)) {
+	    $ret = HttpAuthHelper::regenerateSessionIfNecessary($user);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	return array(null, $user);
+    }
 }
+?>

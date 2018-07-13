@@ -1,0 +1,877 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
+
+/**
+ * HiddenItemOption tests - hiding an unhiding items and albums.
+ * Also tests onLoad handler and hiding via HiddenInterface.
+ *
+ * @package Hidden
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @author Jess Martin <jmartin@cs.unc.edu>
+ * @version $Revision: 17580 $
+ */
+class HiddenItemOptionTest extends ItemEditOptionTestCase {
+
+    function HiddenItemOptionTest($methodName) {
+	$this->ItemEditOptionTestCase($methodName, 'hidden', 'HiddenItemOption');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_coreParams) =
+	    GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $this->_topAlbum, $this->_topItems) =
+	    $this->_createSubAlbumWithItems($this->_getRootId(), true);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_topAlbum);
+
+	list ($ret, $this->_subAlbum, $this->_subItems) =
+	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest(
+	    'GalleryEventListener', 'HiddenModule', 'HiddenModule', 
+	    'modules/hidden/module.inc', 'hidden', 
+	    array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete'));
+	if ($ret) {
+	    return $ret;
+	}
+
+    }
+
+    function _createSubAlbumWithItems($parentId, $top=false) {
+	list ($ret, $album) = $this->_createRandomAlbum($parentId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	if ($top) {
+	    /* Setup permissions */
+	    $albumId = $album->getId();
+	    $ret = GalleryCoreApi::removeItemPermissions($albumId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addGroupPermission(
+		    $albumId, $this->_coreParams['id.adminGroup'], 'core.all');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addUserPermission(
+		    $albumId, $this->_coreParams['id.anonymousUser'], 'core.edit');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addUserPermission(
+		    $albumId, $this->_coreParams['id.anonymousUser'], 'core.changePermissions');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    $ret = GalleryCoreApi::addGroupPermission(
+		    $albumId, $this->_coreParams['id.everybodyGroup'], 'core.viewAll');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	$items = array();
+	for ($i = 0; $i < 3; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($album->getId());
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	return array(null, $album, $items);
+    }
+
+    function _assertHidden(&$item, $hiddenBy, $messagePrefix) {
+	list ($ret, $item) = $item->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+	$isHidden = (boolean)$hiddenBy;
+	$this->assertEquals($isHidden && ($item->getId() == $hiddenBy),
+			    $item->hasOnLoadHandler('Hidden'), $messagePrefix . ' onLoadHander');
+	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($item->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$found = array(false, false, false);
+	foreach ($permissions as $permission) {
+	    if ($permission['permission'] != 'core.view') {
+		continue;
+	    }
+	    if (isset($permission['entityId'])) {
+		$this->assertEquals($hiddenBy, $permission['entityId'],
+				    $messagePrefix . ' hidden by itemId');
+		$found[0] = $found[0] || ($permission['entityId'] == $hiddenBy);
+	    } else if (isset($permission['userId'])
+		    && $permission['userId'] == $this->_coreParams['id.anonymousUser']) {
+		$found[1] = true;
+	    } else if (isset($permission['groupId'])
+		    && $permission['groupId'] == $this->_coreParams['id.everybodyGroup']) {
+		$found[2] = true;
+	    }
+	}
+	$this->assertEquals($isHidden, $found[0], $messagePrefix . ' hidden permission');
+	$this->assertEquals(false, $found[1], $messagePrefix . ' anonymousUser core.view');
+	$this->assertEquals(!$isHidden, $found[2], $messagePrefix . ' everybodyGroup core.view');
+    }
+
+    function _moveItem(&$item, $newParentId) {
+	list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($item->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $lockIds[]) =
+	    GalleryCoreApi::acquireReadLock(array($item->getParentId(), $newParentId));
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $item->move($newParentId);
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+	$ret = $item->save();
+	if ($ret) {
+	    GalleryCoreApi::releaseLocks($lockIds);
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::releaseLocks($lockIds);
+	if ($ret) {
+	    return $ret;
+	}
+	return null;
+    }
+
+
+    function testHideItem() {
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topItems[1]);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topItems[1], $this->_topItems[1]->getId(), 'hide:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 0;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topItems[1]);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topItems[1], false, 'unhide:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testPermission() {
+	$ret = GalleryCoreApi::removeUserPermission($this->_topItems[1]->getId(),
+		$this->_coreParams['id.anonymousUser'], 'core.changePermissions');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_becomeGuestUser();
+
+	/* Permissions ok for topItems[0] */
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topItems[0]);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topItems[0], $this->_topItems[0]->getId(), 'item0:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* No core.changePermissions permission for topItems[1] */
+	$result = $this->_handleRequestAfterEdit($form, $this->_topItems[1],
+						 ERROR_PERMISSION_DENIED);
+
+	$ret = $this->_assertHidden($this->_topItems[1], false, 'item1:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testHideAlbum() {
+	global $gallery;
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$albumId = $this->_topAlbum->getId();
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topAlbum, $albumId, 'hide album:');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $albumId, 'hide subalbum:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_topItems[$i], $albumId, "hide item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subItems[$i], $albumId, "hide subitem$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	$progress = $mockAdapter->getProgressBarDump();
+	$this->assert(count($progress) > 3, 'progress bar: ' . print_r($progress, true));
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$form['HiddenItemOption']['setHidden'] = 0;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topAlbum, false, 'unhide album:');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, false, 'unhide subalbum:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_topItems[$i], false, "unhide item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subItems[$i], false, "unhide subitem$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	$progress = $mockAdapter->getProgressBarDump();
+	$this->assert(count($progress) > 3, 'progress bar: ' . print_r($progress, true));
+    }
+
+    function testHideAlbumWithHiddenItem() {
+	global $gallery;
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$ret = HiddenHelper::hideItem($this->_subItems[0]);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subItems[0], $this->_subItems[0]->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_subAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'hide album:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_subItems[$i],
+		    $i ? $this->_subAlbum->getId() : $this->_subItems[0]->getId(), "hide item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 0;
+	$result = $this->_handleRequestAfterEdit($form, $this->_subAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_subAlbum, false, 'unhide album:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_subItems[$i],
+		    $i ? false : $this->_subItems[0]->getId(), "item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testHideAlbumWithHiddenAlbum() {
+	global $gallery;
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topAlbum, $this->_topAlbum->getId(), 'hide album:');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(),
+				    'hidden subalbum:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_topItems[$i], $this->_topAlbum->getId(),
+					"hide item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subItems[$i], $this->_subAlbum->getId(),
+					"hidden subitem$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 0;
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topAlbum, false, 'unhide album:');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'subalbum:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_topItems[$i], false, "unhide item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subItems[$i], $this->_subAlbum->getId(),
+					"subitem$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testHideItemInHiddenAlbum() {
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subItems[1], $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_subItems[1]);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_subItems[1], $this->_subItems[1]->getId(), 'hide:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form = array();
+	$result = $this->_handleRequestAfterEdit($form, $this->_subItems[1]);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_subItems[1], $this->_subAlbum->getId(), 'unhide:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testHideAlbumInHiddenAlbum() {
+	global $gallery;
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$ret = HiddenHelper::hideItem($this->_topAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_topAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 1;
+	$result = $this->_handleRequestAfterEdit($form, $this->_subAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topAlbum, $this->_topAlbum->getId(), 'hidden album:');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'hide subalbum:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_topItems[$i], $this->_topAlbum->getId(),
+					"hidden item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subItems[$i], $this->_subAlbum->getId(),
+					"hide subitem$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$form['HiddenItemOption']['setHidden'] = 0;
+	$result = $this->_handleRequestAfterEdit($form, $this->_subAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	$ret = $this->_assertHidden($this->_topAlbum, $this->_topAlbum->getId(), 'hidden album:');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_topAlbum->getId(),
+				    'unhide subalbum:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_topItems[$i], $this->_topAlbum->getId(),
+					"hidden item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subItems[$i], $this->_topAlbum->getId(),
+					"unhide subitem$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testAddItemToHiddenAlbum() {
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($item, $this->_subAlbum->getId(), 'item:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMoveItemIntoHiddenAlbum() {
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_topItems[2], $this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_topItems[2], $this->_subAlbum->getId(), 'item:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMoveItemDeepIntoHiddenAlbum() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $subAlbum) = $this->_createRandomAlbum($album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($subAlbum, $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_topItems[2], $subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_topItems[2], $this->_subAlbum->getId(), 'item:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMoveItemOutOfHiddenAlbum() {
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subItems[2], $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_subItems[2], $this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_subItems[2], false, 'item:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMoveItemBetweenHiddenAlbums() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($album);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subItems[2], $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_subItems[2], $album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_subItems[2], $album->getId(), 'item:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMoveAlbumIntoHiddenAlbum() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($album);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($album, $album->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_subAlbum, $album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_subAlbum, $album->getId(), 'album:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_subItems[$i], $album->getId(), "item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testMoveAlbumOutOfHiddenAlbum() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($album);
+	$ret = HiddenHelper::hideItem($this->_topAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_topAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_subAlbum, $album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_subAlbum, false, 'album:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_subItems[$i], false, "item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testMoveAlbumBetweenHiddenAlbums() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($album);
+	$ret = HiddenHelper::hideItem($album);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($this->_topAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subItems[1], $this->_topAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_subAlbum, $album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_subAlbum, $album->getId(), 'album:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_subItems[$i], $album->getId(), "item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testMoveHiddenItemIntoHiddenAlbum() {
+	$ret = HiddenHelper::hideItem($this->_topItems[1]);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_topItems[1], $this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_topItems[1], $this->_topItems[1]->getId(), 'item:');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMoveHiddenAlbumIntoHiddenAlbum() {
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($album);
+	$ret = HiddenHelper::hideItem($album);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($this->_subAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_assertHidden($this->_subItems[1], $this->_subAlbum->getId(), 'setup:');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_moveItem($this->_subAlbum, $album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'album:');
+	if ($ret) {
+	    return $ret;
+	}
+	for ($i = 0; $i < 3; $i++) {
+	    $ret = $this->_assertHidden($this->_subItems[$i], $this->_subAlbum->getId(), "item$i:");
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testHiddenInterface() {
+	list ($ret, $interface) = GalleryCoreApi::newFactoryInstance('HiddenInterface_1_0');
+	if ($ret) {
+	    return $ret;
+	}
+	if (isset($interface)) {
+	    $ret = $interface->hideItem($this->_topItems[1]);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_topItems[1], $this->_topItems[1]->getId(), 'item:');
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $isHidden) = $interface->isHidden($this->_topItems[1]);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert($isHidden, 'isHidden item');
+	    list ($ret, $isHidden) = $interface->isHidden($this->_topItems[2]);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert(!$isHidden, 'isHidden other item');
+	    $ret = $interface->hideItem($this->_subAlbum);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = $this->_assertHidden($this->_subAlbum, $this->_subAlbum->getId(), 'album:');
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $isHidden) = $interface->isHidden($this->_subAlbum);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert($isHidden, 'isHidden album');
+	} else {
+	    $this->assert(false, 'failed to create factory instance');
+	}
+    }
+
+    function testOnLoad() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'hidden');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = HiddenHelper::hideItem($this->_topItems[1]);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+	$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+	GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
+	GalleryUtilities::putRequestVariable('itemId', $this->_topItems[1]->getId());
+
+	/* No action if we already have core.view, like admin */
+	$ret = $module->onLoad($this->_topItems[1], false);
+	if ($ret) {
+	    return ($ret);
+	}
+	$this->assertEquals(array(), $session->get(GALLERY_PERMISSION_SESSION_KEY), 'admin');
+
+	$this->_becomeGuestUser();
+	GalleryDataCache::reset();
+	$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+
+	/* Session permission is granted if we have viewResizes or viewSource */
+	$ret = $module->onLoad($this->_topItems[1], false);
+	if ($ret) {
+	    return ($ret);
+	}
+	$this->assertEquals(array($this->_topItems[1]->getId()),
+			    $session->get(GALLERY_PERMISSION_SESSION_KEY), 'guest');
+
+	$ret = GalleryCoreApi::removeGroupPermission($this->_topItems[1]->getId(),
+		$this->_coreParams['id.everybodyGroup'], 'core.viewAll');
+	if ($ret) {
+	    return ($ret);
+	}
+	GalleryDataCache::reset();
+	$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+
+	/*
+	 * No action if don't have any view permissions, as with a password protected item
+	 * for which we haven't yet entered the password.
+	 */
+	$ret = $module->onLoad($this->_topItems[1], false);
+	if ($ret) {
+	    return ($ret);
+	}
+	$this->assertEquals(array(), $session->get(GALLERY_PERMISSION_SESSION_KEY), 'no view');
+
+	if (isset($saveSessionPerms)) {
+	    $session->put(GALLERY_PERMISSION_SESSION_KEY, $saveSessionPerms);
+	} else {
+	    $session->remove(GALLERY_PERMISSION_SESSION_KEY);
+	}
+    }
+}
+?>

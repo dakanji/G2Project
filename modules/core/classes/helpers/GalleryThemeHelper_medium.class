@@ -28,245 +28,226 @@
  * @static
  */
 class GalleryThemeHelper_medium {
-	/**
-	 * @see GalleryCoreApi::loadThemeSettingsForm
-	 */
-	public static function loadThemeSettingsForm($themeId, $itemId, &$template, &$form) {
-		$data = array();
 
-		if (empty($themeId)) {
-			list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+    /**
+     * @see GalleryCoreApi::loadThemeSettingsForm
+     */
+    function loadThemeSettingsForm($themeId, $itemId, &$template, &$form) {
+	$data = array();
+	if (empty($themeId)) {
+	    list ($ret, $themeId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+	if ($ret) {
+	    return $ret;
+	}
+	$data['theme'] = array('name' => $theme->getName(), 'l10Domain' => $theme->getL10Domain());
 
-			if ($ret) {
-				return $ret;
-			}
-		}
-		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+	if ($theme->isAdvancedSettings()) {
+	    list ($ret, $data['customTemplate']) =
+		$theme->loadSettingsTemplate($template, $form, $itemId);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
 
+	/* Get the per-item settings (global + item) */
+	list ($ret, $settings) = $theme->getSettings($itemId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Fetch the global-only params */
+	list ($ret, $globalParams) =
+	    GalleryCoreApi::fetchAllPluginParameters('theme', $themeId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	for ($i = 0; $i < count($settings); $i++) {
+	    if (!empty($settings[$i]['typeParams']['packType'])) {
+		$packType = $settings[$i]['typeParams']['packType'];
+		$key = $settings[$i]['key'];
+
+		list ($success, $settings[$i]['value']) =
+		    $theme->unpackSetting($packType, $settings[$i]['value']);
+		list ($success, $globalParams[$key]) =
+		    $theme->unpackSetting($packType, $globalParams[$key]);
+	    }
+	}
+
+	/* Fetch the item-only params */
+	list ($ret, $itemParams) =
+	    GalleryCoreApi::fetchAllPluginParameters('theme', $themeId, $itemId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	foreach ($settings as $setting) {
+	    $key = $setting['key'];
+	    if (empty($form['formName'])) {
+		$form['key'][$key] = $setting['value'];
+		$form['useGlobal'][$key] = isset($itemParams[$key]) ? 0 : 1;
+	    } else if (!isset($form['useGlobal'][$key])) {
+		$form['useGlobal'][$key] = 0;
+	    }
+	}
+
+	$data['settings'] = $settings;
+	$data['globalParams'] = $globalParams;
+
+	list ($ret, $data['availableBlocks']) = GalleryThemeHelper_medium::loadAvailableBlocks();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Query param is "version".. bump if data format in js changes */
+	$template->javascript('lib/javascript/BlockSelectWidget.js?1');
+	$template->setVariable('ThemeSettingsForm', $data);
+
+	return null;
+    }
+
+    /**
+     * @see GalleryCoreApi::loadAvailableBlocks
+     */
+    function loadAvailableBlocks($getInactive=false) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$data = array();
+	$base = GalleryCoreApi::getCodeBasePath();
+	foreach ($pluginStatus as $pluginId => $status) {
+	    if (empty($status['active']) && !$getInactive) {
+		continue;
+	    }
+
+	    $configFile = "{$base}modules/$pluginId/templates/blocks/blocks.inc";
+	    if (!$platform->file_exists($configFile)) {
+		continue;
+	    }
+
+	    $blocks = array();
+	    include($configFile);
+
+	    if (!empty($blocks)) {
+		$data[$pluginId] = $blocks;
+	    }
+	}
+
+	return array(null, $data);
+    }
+
+    /**
+     * @see GalleryCoreApi::handleThemeSettingsRequest
+     */
+    function handleThemeSettingsRequest($themeId, $itemId, $form) {
+	if (empty($themeId)) {
+	    list ($ret, $themeId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	$status = null;
+	$error = $errorMessage = array();
+
+	if ($theme->isAdvancedSettings()) {
+	    list ($ret, $error, $status) = $theme->handleSettingsRequest($form, $itemId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	if (isset($form['action']['save']) && empty($error)) {
+	    /* Validate the settings */
+	    $themeForm = isset($form['key']) ? $form['key'] : array();
+	    $validationErrors = $theme->validateSettings($themeForm);
+	    if (empty($validationErrors)) {
+		/* Get the item settings */
+		list ($ret, $settings) = $theme->getSettings($itemId);
 		if ($ret) {
-			return $ret;
-		}
-		$data['theme'] = array(
-			'name'      => $theme->getName(),
-			'l10Domain' => $theme->getL10Domain(),
-		);
-
-		if ($theme->isAdvancedSettings()) {
-			list($ret, $data['customTemplate']) = $theme->loadSettingsTemplate($template, $form, $itemId);
-
-			if ($ret) {
-				return $ret;
-			}
+		    return array($ret, null, null);
 		}
 
-		// Get the per-item settings (global + item)
-		list($ret, $settings) = $theme->getSettings($itemId);
-
-		if ($ret) {
-			return $ret;
+		if (isset($form['changeInDescendents'])) {
+		    list ($ret, $item) =
+			GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
+		    if ($ret) {
+			return array($ret, null, null);
+		    }
+		    list ($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
+		    if ($ret) {
+			return array($ret, null, null);
+		    }
+		    array_unshift($subAlbumIds, $itemId);
+		} else {
+		    $subAlbumIds = array($itemId);
 		}
 
-		// Fetch the global-only params
-		list($ret, $globalParams) = GalleryCoreApi::fetchAllPluginParameters('theme', $themeId);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		for ($i = 0; $i < count($settings); $i++) {
-			if (!empty($settings[$i]['typeParams']['packType'])) {
-				$packType = $settings[$i]['typeParams']['packType'];
-				$key      = $settings[$i]['key'];
-
-				list($success, $settings[$i]['value']) = $theme->unpackSetting($packType, $settings[$i]['value']);
-				list($success, $globalParams[$key])    = $theme->unpackSetting($packType, $globalParams[$key]);
-			}
-		}
-
-		// Fetch the item-only params
-		list($ret, $itemParams) = GalleryCoreApi::fetchAllPluginParameters('theme', $themeId, $itemId);
-
-		if ($ret) {
-			return $ret;
-		}
-
+		/*
+		 * Any settings that are marked as "use global" should be removed from this item.
+		 * Others should be updated in the database.  Note that we set the parameter even
+		 * if it is the same as the original setting value, since we want to make sure
+		 * that the value is stored per item, and the original setting value could have
+		 * been from the global space.
+		 */
 		foreach ($settings as $setting) {
-			$key = $setting['key'];
-
-			if (empty($form['formName'])) {
-				$form['key'][$key]       = $setting['value'];
-				$form['useGlobal'][$key] = isset($itemParams[$key]) ? 0 : 1;
-			} elseif (!isset($form['useGlobal'][$key])) {
-				$form['useGlobal'][$key] = 0;
-			}
-		}
-
-		$data['settings']     = $settings;
-		$data['globalParams'] = $globalParams;
-
-		list($ret, $data['availableBlocks']) = self::loadAvailableBlocks();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		// Query param is "version".. bump if data format in js changes
-		$template->javascript('lib/javascript/BlockSelectWidget.js?1');
-		$template->setVariable('ThemeSettingsForm', $data);
-
-		return null;
-	}
-
-	/**
-	 * @see GalleryCoreApi::loadAvailableBlocks
-	 */
-	public static function loadAvailableBlocks($getInactive = false) {
-		global $gallery;
-		$platform =& $gallery->getPlatform();
-
-		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$data = array();
-		$base = GalleryCoreApi::getCodeBasePath();
-
-		foreach ($pluginStatus as $pluginId => $status) {
-			if (empty($status['active']) && !$getInactive) {
-				continue;
-			}
-
-			$configFile = "{$base}modules/$pluginId/templates/blocks/blocks.inc";
-
-			if (!$platform->file_exists($configFile)) {
-				continue;
-			}
-
-			$blocks = array();
-
-			include $configFile;
-
-			if (!empty($blocks)) {
-				$data[$pluginId] = $blocks;
-			}
-		}
-
-		return array(null, $data);
-	}
-
-	/**
-	 * @see GalleryCoreApi::handleThemeSettingsRequest
-	 */
-	public static function handleThemeSettingsRequest($themeId, $itemId, $form) {
-		if (empty($themeId)) {
-			list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-
+		    $key = $setting['key'];
+		    if (!empty($form['useGlobal'][$key])) {
+			$ret = $theme->removeParameter($key, $subAlbumIds);
 			if ($ret) {
-				return array($ret, null, null);
+			    return array($ret, null, null);
 			}
-		}
-		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-
-		if ($ret) {
-			return array($ret, null, null);
-		}
-
-		$status = null;
-		$error  = $errorMessage = array();
-
-		if ($theme->isAdvancedSettings()) {
-			list($ret, $error, $status) = $theme->handleSettingsRequest($form, $itemId);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		}
-
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-
-		if ($ret) {
-			return array($ret, null, null);
-		}
-
-		if (isset($form['action']['save']) && empty($error)) {
-			// Validate the settings
-			$themeForm        = isset($form['key']) ? $form['key'] : array();
-			$validationErrors = $theme->validateSettings($themeForm);
-
-			if (empty($validationErrors)) {
-				// Get the item settings
-				list($ret, $settings) = $theme->getSettings($itemId);
-
-				if ($ret) {
-					return array($ret, null, null);
-				}
-
-				if (isset($form['changeInDescendents'])) {
-					list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
-
-					if ($ret) {
-						return array($ret, null, null);
-					}
-					list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
-
-					if ($ret) {
-						return array($ret, null, null);
-					}
-					array_unshift($subAlbumIds, $itemId);
-				} else {
-					$subAlbumIds = array($itemId);
-				}
-
-				/*
-				 * Any settings that are marked as "use global" should be removed from this item.
-				 * Others should be updated in the database.  Note that we set the parameter even
-				 * if it is the same as the original setting value, since we want to make sure
-				 * that the value is stored per item, and the original setting value could have
-				 * been from the global space.
-				 */
-				foreach ($settings as $setting) {
-					$key = $setting['key'];
-
-					if (!empty($form['useGlobal'][$key])) {
-						$ret = $theme->removeParameter($key, $subAlbumIds);
-
-						if ($ret) {
-							return array($ret, null, null);
-						}
-					} else {
-						if ($setting['type'] == 'checkbox') {
-							$value = isset($themeForm[$key]) ? 1 : 0;
-						} else {
-							$value = $themeForm[$key];
-						}
-
-						if (!empty($setting['typeParams']['packType'])) {
-							list($success, $value) = $theme->packSetting(
-								$setting['typeParams']['packType'],
-								$value
-							);
-						}
-
-						$ret = $theme->setParameter($key, $value, $subAlbumIds);
-
-						if ($ret) {
-							return array($ret, null, null);
-						}
-					}
-				}
-
-				$status = $module->translate('Successfully saved theme settings');
+		    } else {
+			if ($setting['type'] == 'checkbox') {
+			    $value = isset($themeForm[$key]) ? 1 : 0;
 			} else {
-				foreach ($validationErrors as $validationKey => $validationMessage) {
-					$error[]                      = 'form[error][key][' . $validationKey . '][invalid]';
-					$errorMessage[$validationKey] = $validationMessage;
-				}
-				GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
+			    $value = $themeForm[$key];
 			}
+
+			if (!empty($setting['typeParams']['packType'])) {
+			    list ($success, $value) = $theme->packSetting(
+				$setting['typeParams']['packType'], $value);
+			}
+
+			$ret = $theme->setParameter($key, $value, $subAlbumIds);
+			if ($ret) {
+			    return array($ret, null, null);
+			}
+		    }
 		}
 
-		return array(null, $error, $status);
+		$status = $module->translate('Successfully saved theme settings');
+	    } else {
+		foreach ($validationErrors as $validationKey => $validationMessage) {
+		    $error[] = 'form[error][key][' . $validationKey . '][invalid]';
+		    $errorMessage[$validationKey] = $validationMessage;
+		}
+		GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
+	    }
 	}
+
+	return array(null, $error, $status);
+    }
 }
+?>

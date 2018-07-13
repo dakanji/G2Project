@@ -26,42 +26,42 @@
  * @version $Revision: 17580 $
  */
 class ItemAddGalleryRemote extends ItemAddPlugin {
-	/**
-	 * @see ItemAdd:loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form, $item) {
-		if ($form['formName'] != 'ItemAddGalleryRemote') {
-			$form['formName'] = 'ItemAddGalleryRemote';
-		}
 
-		$template->setVariable('ItemAddGalleryRemote', array());
-
-		return array(null, 'modules/remote/templates/ItemAddGalleryRemote.tpl', 'modules_remote');
+    /**
+     * @see ItemAdd:loadTemplate
+     */
+    function loadTemplate(&$template, &$form, $item) {
+	if ($form['formName'] != 'ItemAddGalleryRemote') {
+	    $form['formName'] = 'ItemAddGalleryRemote';
 	}
 
-	/**
-	 * @see ItemAddPlugin::getTitle
-	 */
-	public function getTitle() {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'remote');
+	$template->setVariable('ItemAddGalleryRemote', array());
+	return array(null, 'modules/remote/templates/ItemAddGalleryRemote.tpl', 'modules_remote');
+    }
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		return array(null, $module->translate('Gallery Remote'));
+    /**
+     * @see ItemAddPlugin::getTitle
+     */
+    function getTitle() {
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'remote');
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see ItemAddPlugin::isAppropriate
-	 */
-	public function isAppropriate() {
-		list($ret, $showItemAdd) = GalleryCoreApi::getPluginParameter('module', 'remote', 'showItemAdd');
+	return array(null, $module->translate('Gallery Remote'));
+    }
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		return array(null, $showItemAdd);
+    /**
+     * @see ItemAddPlugin::isAppropriate
+     */
+    function isAppropriate() {
+	list ($ret, $showItemAdd) =
+	    GalleryCoreApi::getPluginParameter('module', 'remote', 'showItemAdd');
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	return array(null, $showItemAdd);
+    }
 }
+?>

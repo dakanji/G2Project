@@ -26,111 +26,91 @@
  * @version $Revision: 17580 $
  */
 class FotokastenSiteAdminController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$status = $error = array();
-
-		if (isset($form['action']['save'])) {
-			if (empty($form['affiliateId']) || !preg_match('/^\d+$/', trim($form['affiliateId']))) {
-				$error[] = 'form[error][affiliateId]';
-			}
-
-			if (empty($form['affiliateIdPass'])
-				|| !preg_match('/^[A-Za-z0-9]+$/', trim($form['affiliateIdPass']))
-			) {
-				$error[] = 'form[error][affiliateIdPass]';
-			}
-
-			if (empty($error)) {
-				foreach (array('affiliateId', 'affiliateIdPass') as $key) {
-					$ret = GalleryCoreApi::setPluginParameter(
-						'module',
-						'fotokasten',
-						$key,
-						trim($form[$key])
-					);
-
-					if ($ret) {
-						return array($ret, null);
-					}
-				}
-				$status['saved'] = 1;
-			}
-		} elseif (isset($form['action']['useGalleryId'])) {
-			foreach (array(
-				'affiliateId'     => FOTOKASTEN_GALLERY_AFFILIATE_ID,
-				'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD,
-			)
- as $key => $value) {
-				$ret = GalleryCoreApi::setPluginParameter(
-					'module',
-					'fotokasten',
-					$key,
-					$value
-				);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-			$status['usingGalleryId'] = 1;
-		}
-
-		$method                      = empty($error) ? 'redirect' : 'delegate';
-		$results[$method]['view']    = 'core.SiteAdmin';
-		$results[$method]['subView'] = 'fotokasten.FotokastenSiteAdmin';
-		$results['status']           = $status;
-		$results['error']            = $error;
-
-		return array(null, $results);
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$status = $error = array();
+	if (isset($form['action']['save'])) {
+	    if (empty($form['affiliateId']) || !preg_match('/^\d+$/', trim($form['affiliateId']))) {
+		$error[] = 'form[error][affiliateId]';
+	    }
+	    if (empty($form['affiliateIdPass'])
+		    || !preg_match('/^[A-Za-z0-9]+$/', trim($form['affiliateIdPass']))) {
+		$error[] = 'form[error][affiliateIdPass]';
+	    }
+	    if (empty($error)) {
+		foreach (array('affiliateId', 'affiliateIdPass') as $key) {
+		    $ret = GalleryCoreApi::setPluginParameter(
+			    'module', 'fotokasten', $key, trim($form[$key]));
+		    if ($ret) {
+			return array($ret, null);
+		    }
+		}
+		$status['saved'] = 1;
+	    }
+	} else if (isset($form['action']['useGalleryId'])) {
+	    foreach (array('affiliateId' => FOTOKASTEN_GALLERY_AFFILIATE_ID,
+			   'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD)
+		     as $key => $value) {
+		$ret = GalleryCoreApi::setPluginParameter(
+		    'module', 'fotokasten', $key, $value);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	    $status['usingGalleryId'] = 1;
+	}
+
+
+	$method = empty($error) ? 'redirect' : 'delegate';
+	$results[$method]['view'] = 'core.SiteAdmin';
+	$results[$method]['subView'] = 'fotokasten.FotokastenSiteAdmin';
+	$results['status'] = $status;
+	$results['error'] = $error;
+
+	return array(null, $results);
+    }
 }
 
 /**
  * Settings for Fotokasten
  */
 class FotokastenSiteAdminView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if ($form['formName'] != 'FotokastenSiteAdmin') {
-			$form['formName'] = 'FotokastenSiteAdmin';
-
-			foreach (array('affiliateId', 'affiliateIdPass') as $key) {
-				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'fotokasten', $key);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-		}
-
-		$FotokastenSiteAdmin                                   = array();
-		$FotokastenSiteAdmin['usingDefaultGalleryAffiliateId'] = ($form['affiliateId'] == FOTOKASTEN_GALLERY_AFFILIATE_ID);
-
-		$template->setVariable('FotokastenSiteAdmin', $FotokastenSiteAdmin);
-		$template->setVariable('controller', 'fotokasten.FotokastenSiteAdmin');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/fotokasten/templates/FotokastenSiteAdmin.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	if ($form['formName'] != 'FotokastenSiteAdmin') {
+	    $form['formName'] = 'FotokastenSiteAdmin';
+	    foreach (array('affiliateId', 'affiliateIdPass') as $key) {
+		list ($ret, $form[$key]) =
+		    GalleryCoreApi::getPluginParameter('module', 'fotokasten', $key);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	}
+
+	$FotokastenSiteAdmin = array();
+	$FotokastenSiteAdmin['usingDefaultGalleryAffiliateId'] =
+	    ($form['affiliateId'] == FOTOKASTEN_GALLERY_AFFILIATE_ID);
+
+	$template->setVariable('FotokastenSiteAdmin', $FotokastenSiteAdmin);
+	$template->setVariable('controller', 'fotokasten.FotokastenSiteAdmin');
+	return array(null, array('body' => 'modules/fotokasten/templates/FotokastenSiteAdmin.tpl'));
+    }
 }
+?>

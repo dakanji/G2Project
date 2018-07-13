@@ -1,0 +1,175 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * SlideshowAppletSiteAdmin controller tests
+ *
+ * @package SlideshowApplet
+ * @subpackage PHPUnit
+ * @author Pierre-Luc Paour <paour@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    function SlideshowAppletSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'slideshowapplet.SlideshowAppletSiteAdmin');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'slideshowapplet');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testSlideshowAppletSiteAdminControllerAddReplaceDefault() {
+	list ($ret, $orig) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
+								'slideshowdefaultVariables');
+	if ($ret) {
+	    return $ret;
+	}
+	GalleryUtilities::putRequestVariable('form[default][name]', 'name');
+	GalleryUtilities::putRequestVariable('form[default][value]', 'value');
+	GalleryUtilities::putRequestVariable('form[variable][type]', 'default');
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'slideshowapplet.SlideshowAppletSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	$target = empty($orig)?'name=value':$orig.'|name=value';
+	foreach (array('slideshowdefaultVariables' => $target) as $key => $expectedValue) {
+	    list ($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+
+	/* now test replacing */
+	GalleryUtilities::putRequestVariable('form[default][value]', 'value1');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'slideshowapplet.SlideshowAppletSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	$target = empty($orig)?'name=value1':$orig.'|name=value1';
+	foreach (array('slideshowdefaultVariables' => $target) as $key => $expectedValue) {
+	    list ($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+
+    function testSlideshowAppletSiteAdminControllerAddOverride() {
+	list ($ret, $orig) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
+								'slideshowoverrideVariables');
+	if ($ret) {
+	    return $ret;
+	}
+	GalleryUtilities::putRequestVariable('form[override][name]', 'name');
+	GalleryUtilities::putRequestVariable('form[override][value]', 'value');
+	GalleryUtilities::putRequestVariable('form[variable][type]', 'override');
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'slideshowapplet.SlideshowAppletSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	$target = empty($orig)?'name=value':$orig.'|name=value';
+	foreach (array('slideshowoverrideVariables' => $target) as $key => $expectedValue) {
+	    list ($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+
+    function testSlideshowAppletSiteAdminControllerDelete() {
+	list ($ret, $orig) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
+								'slideshowdefaultVariables');
+	if ($ret) {
+	    return $ret;
+	}
+	GalleryUtilities::putRequestVariable('form[default][name]', 'name');
+	GalleryUtilities::putRequestVariable('form[default][value]', 'value');
+	GalleryUtilities::putRequestVariable('form[variable][type]', 'default');
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'slideshowapplet.SlideshowAppletSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	$target = empty($orig)?'name=value':$orig.'|name=value';
+	foreach (array('slideshowdefaultVariables' => $target) as $key => $expectedValue) {
+	    list ($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+
+	/* now test deleting */
+	GalleryUtilities::removeRequestVariable('form[action][add]');
+	GalleryUtilities::removeRequestVariable('form[default][name]');
+	GalleryUtilities::removeRequestVariable('form[default][value]');
+	GalleryUtilities::putRequestVariable('form[action][delete]', '1');
+	GalleryUtilities::putRequestVariable('form[delete][variable]', 'name');
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+	    'subView' => 'slideshowapplet.SlideshowAppletSiteAdmin'),
+	    'status' => array(),
+	    'error' => array()),
+	    $results);
+
+	foreach (array('slideshowdefaultVariables' => $orig) as $key => $expectedValue) {
+	    list ($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals($expectedValue, $value, $key);
+	}
+    }
+}
+?>

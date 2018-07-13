@@ -29,254 +29,222 @@ GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHelper.cla
  * @version $Revision: 17802 $
  */
 class NotificationSiteAdminController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		global $gallery;
-		$storage =& $gallery->getStorage();
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	global $gallery;
+	$storage =& $gallery->getStorage();
 
-		$error = $status = array();
+	$error = $status = array();
 
-		// Check if logged in and is admin
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	/* Check if logged in and is admin */
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
+	}
 
-		if ($ret) {
+	$returnOption = 'redirect';
+
+	if (!empty($form['action']['save'])) {
+	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'notification');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    list ($ret, $notifications, $eventMapLockId) =
+		NotificationHelper::getEnabledNotifications(true);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    $inputRows = 0;
+	    foreach ($form['notificationMap'] as $i => $notificationMap) {
+		if (empty($notificationMap['currentName'])
+			&& empty($notificationMap['notificationName'])) {
+		    continue;
+		}
+
+		if (!empty($notificationMap['notificationName'])
+			&& empty($notificationMap['handler'])) {
+		    $error[] = 'form[error][notificationMap][' . $i . '][noEventHandler]';
+		    continue;
+		}
+
+		$inputRows++;
+		if (empty($notificationMap['currentName'])) {
+		    $ret = $this->_addHandlerEntry($notifications, $notificationMap);
+		    if ($ret) {
 			return array($ret, null);
-		}
-
-		$returnOption = 'redirect';
-
-		if (!empty($form['action']['save'])) {
-			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'notification');
-
+		    }
+		} else if (empty($notificationMap['notificationName'])) {
+		    $this->_removeHandlerEntry($notifications, $notificationMap);
+		} else {
+		    $notificationName = $notificationMap['notificationName'];
+		    $handlerId = $notificationMap['handler'];
+		    if ($notificationMap['currentName'] != $notificationName
+			    || $notificationMap['currentHandler'] != $handlerId) {
+			$this->_removeHandlerEntry($notifications, $notificationMap);
+			$ret = $this->_addHandlerEntry($notifications, $notificationMap);
 			if ($ret) {
-				return array($ret, null);
+			    return array($ret, null);
 			}
-
-			list($ret, $notifications, $eventMapLockId) = NotificationHelper::getEnabledNotifications(true);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-			$inputRows = 0;
-
-			foreach ($form['notificationMap'] as $i => $notificationMap) {
-				if (empty($notificationMap['currentName'])
-					&& empty($notificationMap['notificationName'])
-				) {
-					continue;
-				}
-
-				if (!empty($notificationMap['notificationName'])
-					&& empty($notificationMap['handler'])
-				) {
-					$error[] = 'form[error][notificationMap][' . $i . '][noEventHandler]';
-
-					continue;
-				}
-
-				$inputRows++;
-
-				if (empty($notificationMap['currentName'])) {
-					$ret = $this->_addHandlerEntry($notifications, $notificationMap);
-
-					if ($ret) {
-						return array($ret, null);
-					}
-				} elseif (empty($notificationMap['notificationName'])) {
-					$this->_removeHandlerEntry($notifications, $notificationMap);
-				} else {
-					$notificationName = $notificationMap['notificationName'];
-					$handlerId        = $notificationMap['handler'];
-
-					if ($notificationMap['currentName'] != $notificationName
-						|| $notificationMap['currentHandler'] != $handlerId
-					) {
-						$this->_removeHandlerEntry($notifications, $notificationMap);
-						$ret = $this->_addHandlerEntry($notifications, $notificationMap);
-
-						if ($ret) {
-							return array($ret, null);
-						}
-					} else {
-						$notifications[$notificationName][$handlerId]['public']  = !empty($notificationMap['public']);
-						$notifications[$notificationName][$handlerId]['enabled'] = !empty($notificationMap['enabled']);
-					}
-				}
-			}
-
-			if (empty($error)) {
-				$ret = GalleryCoreApi::setPluginParameter(
-					'module',
-					'notification',
-					'_enabledMap',
-					serialize($notifications)
-				);
-
-				if (empty($ret)) {
-					// Alert the user of the changes we have done.
-					$status['saved'] = 1;
-				}
-			} else {
-				$returnOption = 'delegate';
-				$displayRows  = $inputRows + 1;
-			}
-
-			$ret = GalleryCoreApi::releaseLocks($eventMapLockId);
-
-			if ($ret) {
-				return array($ret, null);
-			}
+		    } else {
+			$notifications[$notificationName][$handlerId]['public'] =
+			    !empty($notificationMap['public']);
+			$notifications[$notificationName][$handlerId]['enabled'] =
+			    !empty($notificationMap['enabled']);
+		    }
 		}
+	    }
 
-		$results[$returnOption] = array(
-			'view'    => 'core.SiteAdmin',
-			'subView' => 'notification.NotificationSiteAdmin',
-		);
-
-		if ($returnOption == 'delegate') {
-			$results['delegate']['form[displayRows]'] = $displayRows;
+	    if (empty($error)) {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'notification', '_enabledMap',
+							  serialize($notifications));
+		if (empty($ret)) {
+		    /* Alert the user of the changes we have done. */
+		    $status['saved'] = 1;
 		}
-		$results['status'] = $status;
-		$results['error']  = $error;
+	    } else {
+		$returnOption = 'delegate';
+		$displayRows = $inputRows + 1;
+	    }
 
-		return array(null, $results);
+	    $ret = GalleryCoreApi::releaseLocks($eventMapLockId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
 	}
 
-	/**
-	 * Add the event/handler combination to the available notifications
-	 *
-	 * @param array $notifications The array of enabled event/handler combinations
-	 * @param array $notificationMap the current form entry defining an event/handler combinations
-	 * @return array GalleryStatus
-	 * @private
-	 */
-	public function _addHandlerEntry(&$notifications, $notificationMap) {
-		$notificationName = $notificationMap['notificationName'];
-		$handlerId        = $notificationMap['handler'];
+	$results[$returnOption] = array('view' => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin');
+	if ($returnOption == 'delegate') {
+	    $results['delegate']['form[displayRows]'] = $displayRows;
+	}
+	$results['status'] = $status;
+	$results['error'] = $error;
+	return array(null, $results);
+    }
 
-		list($ret, $handler) = GalleryCoreApi::newFactoryInstanceById('NotificationHandler_1_0', $handlerId);
+    /**
+     * Add the event/handler combination to the available notifications
+     *
+     * @param array $notifications The array of enabled event/handler combinations
+     * @param array $notificationMap the current form entry defining an event/handler combinations
+     * @return array GalleryStatus
+     * @private
+     */
+    function _addHandlerEntry(&$notifications, $notificationMap) {
+	$notificationName = $notificationMap['notificationName'];
+	$handlerId = $notificationMap['handler'];
 
-		if ($ret) {
-			return $ret;
-		}
-
-		$notifications[$notificationName][$handlerId] = array(
-			'public'  => !empty($notificationMap['public']),
-			'enabled' => !empty($notificationMap['enabled']),
-		);
-
-		return null;
+	list ($ret, $handler) =
+	    GalleryCoreApi::newFactoryInstanceById('NotificationHandler_1_0', $handlerId);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * Remove the event/handler combination to the available notifications
-	 *
-	 * @param array $notifications The array of enabled event/handler combinations
-	 * @param array $notificationMap the current form entry defining an event/handler combinations
-	 * @private
-	 */
-	public function _removeHandlerEntry(&$notifications, $notificationMap) {
-		$notificationName = $notificationMap['currentName'];
-		$handlerId        = $notificationMap['currentHandler'];
+	$notifications[$notificationName][$handlerId] =
+			array('public' => !empty($notificationMap['public']),
+			      'enabled' => !empty($notificationMap['enabled']));
 
-		unset($notifications[$notificationName][$handlerId]);
+	return null;
+    }
 
-		if (empty($notifications[$notificationName])) {
-			unset($notifications[$notificationMap['currentName']]);
-		}
+    /**
+     * Remove the event/handler combination to the available notifications
+     *
+     * @param array $notifications The array of enabled event/handler combinations
+     * @param array $notificationMap the current form entry defining an event/handler combinations
+     * @private
+     */
+    function _removeHandlerEntry(&$notifications, $notificationMap) {
+	$notificationName = $notificationMap['currentName'];
+	$handlerId = $notificationMap['currentHandler'];
+
+	unset($notifications[$notificationName][$handlerId]);
+	
+	if (empty($notifications[$notificationName])) {
+	    unset($notifications[$notificationMap['currentName']]);
 	}
+    }
 }
 
 /**
  * This view shows all the event / method settings on a site-wide basis.
  */
 class NotificationSiteAdminView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		global $gallery;
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	global $gallery;
 
-		$template->style('modules/notification/data/grids.css');
+	$template->style('modules/notification/data/grids.css');
 
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		list($ret, $definedEvents) = NotificationHelper::getDefinedEvents(true);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$template->setVariable('definedEvents', $definedEvents);
-
-		list($ret, $handlers) = NotificationHelper::getDefinedHandlers(true);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$template->setVariable('eventHandlers', $handlers);
-
-		if ($form['formName'] != 'NotificationSiteAdmin') {
-			$ret = $this->_initializeForm($form, $definedEvents, $handlers);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		$template->setVariable('controller', 'notification.NotificationSiteAdmin');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/notification/templates/NotificationSiteAdmin.tpl',
-			),
-		);
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * Helper function to initialize the form
-	 * @param array $form the form values
-	 * @param array $events the defined notification events
-	 * @param array $handlers the defined notification handlers
-	 * @return GalleryStatus
-	 * @access private
-	 */
-	public function _initializeForm(&$form, $events, $handlers) {
-		$form['formName'] = 'NotificationSiteAdmin';
-
-		list($ret, $notifications) = NotificationHelper::getEnabledNotifications();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$form['notificationMap'] = array();
-		$i                       = 1;
-
-		foreach ($notifications as $notificationName => $handlers) {
-			foreach ($handlers as $handler => $enabledEvent) {
-				$form['notificationMap'][$i++] = array(
-					'currentName'      => $notificationName,
-					'notificationName' => $notificationName,
-					'description'      => $events[$notificationName]['description'],
-					'isGlobal'         => $events[$notificationName]['global'],
-					'currentHandler'   => $handler,
-					'handler'          => $handler,
-					'public'           => $enabledEvent['public'],
-					'enabled'          => $enabledEvent['enabled'],
-				);
-			}
-		}
-
-		$form['totalRows']   = count($form['notificationMap']) + 20;
-		$form['displayRows'] = count($notifications) + 1;
-
-		return null;
+	list ($ret, $definedEvents) = NotificationHelper::getDefinedEvents(true);
+	if ($ret) {
+	    return array($ret, null);
 	}
+	$template->setVariable('definedEvents', $definedEvents);
+
+	list ($ret, $handlers) = NotificationHelper::getDefinedHandlers(true);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$template->setVariable('eventHandlers', $handlers);
+
+	if ($form['formName'] != 'NotificationSiteAdmin') {
+	    $ret = $this->_initializeForm($form, $definedEvents, $handlers);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	$template->setVariable('controller', 'notification.NotificationSiteAdmin');
+
+	return array(null,
+		     array('body' => 'modules/notification/templates/NotificationSiteAdmin.tpl'));
+    }
+
+    /**
+     * Helper function to initialize the form
+     * @param array $form the form values
+     * @param array $events the defined notification events
+     * @param array $handlers the defined notification handlers
+     * @return GalleryStatus
+     * @access private
+     */
+    function _initializeForm(&$form, $events, $handlers) {
+	$form['formName'] = 'NotificationSiteAdmin';
+
+	list ($ret, $notifications) = NotificationHelper::getEnabledNotifications();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['notificationMap'] = array();
+	$i = 1;
+	foreach ($notifications as $notificationName => $handlers) {
+	    foreach($handlers as $handler => $enabledEvent) {
+		$form['notificationMap'][$i++] = array('currentName' => $notificationName,
+				      'notificationName' => $notificationName,
+				      'description' => $events[$notificationName]['description'],
+				      'isGlobal' => $events[$notificationName]['global'],
+				      'currentHandler' => $handler,
+				      'handler' => $handler,
+				      'public' => $enabledEvent['public'],
+				      'enabled' => $enabledEvent['enabled']);
+	    }
+	}
+
+	$form['totalRows'] = count($form['notificationMap']) + 20;
+	$form['displayRows'] = count($notifications) + 1;
+	return null;
+    }
 }
+?>

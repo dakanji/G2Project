@@ -27,86 +27,76 @@
  * @version $Revision: 17580 $
  */
 class HiddenItemOption extends ItemEditOption {
-	/**
-	 * @see ItemEditOption::isAppropriate
-	 */
-	public function isAppropriate($item, $thumbnail) {
-		list($ret, $canHide) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.changePermissions');
 
-		if ($ret) {
-			return array($ret, null);
-		}
+    /**
+     * @see ItemEditOption::isAppropriate
+     */
+    function isAppropriate($item, $thumbnail) {
+	list ($ret, $canHide) =
+	    GalleryCoreApi::hasItemPermission($item->getId(), 'core.changePermissions');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $canHide);
+    }
 
-		return array(null, $canHide);
+    /**
+     * @see ItemEditOption::loadTemplate
+     */
+    function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	$form['HiddenItemOption']['isHidden'] = $item->hasOnLoadHandler('Hidden');
+	$form['HiddenItemOption']['isAlbum'] = $item->getCanContainChildren();
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'hidden');
+	if ($ret) {
+	    return array($ret, null, null);
 	}
 
-	/**
-	 * @see ItemEditOption::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		$form['HiddenItemOption']['isHidden'] = $item->hasOnLoadHandler('Hidden');
-		$form['HiddenItemOption']['isAlbum']  = $item->getCanContainChildren();
+	if (false) {
+	    /* Specific translations: */ _('Hide Album'); _('Hide Photo'); _('Hide Movie');
+	}
+	$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
+	$form['HiddenItemOption']['heading'] = $module->_translate(
+		array('text' => 'Hide %s', 'arg1' => $itemTypeNames[0]), $itemTypeNames[2]);
 
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'hidden');
+	return array(null, 'modules/hidden/templates/HiddenItemOption.tpl', 'modules_hidden');
+    }
 
-		if ($ret) {
-			return array($ret, null, null);
-		}
+    /**
+     * @see ItemEditOption::handleRequestAfterEdit
+     */
+    function handleRequestAfterEdit($form, &$item, &$preferred) {
+	GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
+	$error = $warning = array();
+	$useProgressBar = $item->getCanContainChildren();
 
-		if (false) {
-			/* Specific translations: */ _('Hide Album');
-			_('Hide Photo');
-			_('Hide Movie');
-		}
-		$itemTypeNames                       = array_merge($item->itemTypeName(), $item->itemTypeName(false));
-		$form['HiddenItemOption']['heading'] = $module->_translate(
-			array(
-				'text' => 'Hide %s',
-				'arg1' => $itemTypeNames[0],
-			),
-			$itemTypeNames[2]
-		);
-
-		return array(null, 'modules/hidden/templates/HiddenItemOption.tpl', 'modules_hidden');
+	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.changePermissions');
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	if (!empty($form['HiddenItemOption']['setHidden'])) {
+	    $ret = HiddenHelper::hideItem($item, $useProgressBar);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	} else {
+	    $ret = HiddenHelper::unHideItem($item, $useProgressBar);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
 	}
 
-	/**
-	 * @see ItemEditOption::handleRequestAfterEdit
-	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
-		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
-		$error          = $warning = array();
-		$useProgressBar = $item->getCanContainChildren();
+	return array(null, $error, $warning);
+    }
 
-		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.changePermissions');
-
-		if ($ret) {
-			return array($ret, null, null);
-		}
-
-		if (!empty($form['HiddenItemOption']['setHidden'])) {
-			$ret = HiddenHelper::hideItem($item, $useProgressBar);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		} else {
-			$ret = HiddenHelper::unHideItem($item, $useProgressBar);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		}
-
-		return array(null, $error, $warning);
-	}
-
-	/**
-	 * @see ItemEditOption::requiresProgressBar
-	 */
-	public function requiresProgressBar($form) {
-		// Progress bar if changing hidden status for an album
-		return isset($form['HiddenItemOption']['progressBar'])
-		&& ($form['HiddenItemOption']['progressBar'] == 'hide') == !empty($form['HiddenItemOption']['setHidden']);
-	}
+    /**
+     * @see ItemEditOption::requiresProgressBar
+     */
+    function requiresProgressBar($form) {
+	/* Progress bar if changing hidden status for an album */
+	return isset($form['HiddenItemOption']['progressBar'])
+	    && ($form['HiddenItemOption']['progressBar'] == 'hide')
+	       == !empty($form['HiddenItemOption']['setHidden']);
+    }
 }
+?>

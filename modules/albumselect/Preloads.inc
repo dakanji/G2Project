@@ -24,27 +24,26 @@
  * @version $Revision: 17580 $
  */
 class AlbumSelectPreloads {
-	public function preload(&$template, $preload, $paramSet) {
-		static $loaded;
+    function preload(&$template, $preload, $paramSet) {
+	static $loaded;
 
-		if (!empty($loaded[$preload])) {
-			return null;
-		}
-
-		$loaded[$preload] = 1;
-
-		switch ($preload) {
-			case 'AlbumTree':
-				$template->style('modules/albumselect/dtree.css');
-				$template->javascript('modules/albumselect/dtree.js');
-
-				return null;
-
-			case 'AlbumSelect':
-				// Nothing to do
-				return null;
-		}
-
-		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	if (!empty($loaded[$preload])) {
+	    return null;
 	}
+
+	$loaded[$preload] = 1;
+	switch($preload) {
+	case 'AlbumTree':
+	    $template->style('modules/albumselect/dtree.css');
+	    $template->javascript('modules/albumselect/dtree.js');
+	    return null;
+
+	case 'AlbumSelect':
+	    /* Nothing to do */
+	    return null;
+	}
+
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+    }
 }
+?>

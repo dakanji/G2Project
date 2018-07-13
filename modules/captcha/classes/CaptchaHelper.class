@@ -26,52 +26,48 @@
  * @version $Revision: 17580 $
  */
 class CaptchaHelper {
-	/**
-	 * Verify the existence of the GD functions that we require to draw a captcha.
-	 * @return array ('fail' => array(func, func, ...), 'success' => array(func, func, ...))
-	 */
-	public static function testRequiredGdFunctions() {
-		global $gallery;
-		$phpVm = $gallery->getPhpVm();
+    /**
+     * Verify the existence of the GD functions that we require to draw a captcha.
+     * @return array ('fail' => array(func, func, ...), 'success' => array(func, func, ...))
+     */
+    function testRequiredGdFunctions() {
+	global $gallery;
+	$phpVm = $gallery->getPhpVm();
 
-		$gdFunctions   = array();
-		$gdFunctions[] = 'ImageCreateFromJPEG';
-		$gdFunctions[] = 'ImageColorAllocate';
-		$gdFunctions[] = 'ImageString';
-		$gdFunctions[] = 'ImageJPEG';
-		$gdFunctions[] = 'ImageDestroy';
-		$gdFunctions[] = 'imagesx';
+	$gdFunctions = array();
+	$gdFunctions[] = 'ImageCreateFromJPEG';
+	$gdFunctions[] = 'ImageColorAllocate';
+	$gdFunctions[] = 'ImageString';
+	$gdFunctions[] = 'ImageJPEG';
+	$gdFunctions[] = 'ImageDestroy';
+	$gdFunctions[] = 'imagesx';
 
-		$gdReport = array(
-			'success' => array(),
-			'fail'    => array(),
-		);
-
-		foreach ($gdFunctions as $gdFunction) {
-			if ($phpVm->function_exists($gdFunction)) {
-				$gdReport['success'][] = $gdFunction;
-			} else {
-				$gdReport['fail'][] = $gdFunction;
-			}
-		}
-
-		return $gdReport;
+	$gdReport = array('success' => array(), 'fail' => array());
+	foreach ($gdFunctions as $gdFunction) {
+	    if ($phpVm->function_exists($gdFunction)) {
+		$gdReport['success'][] = $gdFunction;
+	    } else {
+		$gdReport['fail'][] = $gdFunction;
+	    }
 	}
 
-	/**
-	 * Generate a new captcha code and put it into the session.
-	 */
-	public static function generateCaptchaSessionKey() {
-		global $gallery;
+	return $gdReport;
+    }
 
-		// These letters are relatively unambiguous when made hard to read
-		$goodChars = 'ABEHJKMNPSUWXZ';
-		$code      = '';
+    /**
+     * Generate a new captcha code and put it into the session.
+     */
+    function generateCaptchaSessionKey() {
+	global $gallery;
 
-		for ($i = 0; $i < 6; $i++) {
-			$code .= substr($goodChars, mt_rand(0, strlen($goodChars) - 1), 1);
-		}
-		$session =& $gallery->getSession();
-		$session->put('captcha.key', $code);
+	/* These letters are relatively unambiguous when made hard to read */
+	$goodChars = 'ABEHJKMNPSUWXZ';
+	$code = '' ;
+	for ($i = 0; $i < 6; $i++) {
+	    $code .= substr($goodChars, rand(0, strlen($goodChars) - 1), 1);
 	}
+	$session =& $gallery->getSession();
+	$session->put('captcha.key', $code);
+    }
 }
+?>

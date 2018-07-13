@@ -1,0 +1,163 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
+
+/**
+ * Getid3DescriptionOption tests
+ * @package Getid3
+ * @subpackage PHPUnit
+ * @author Don Willingham <donwillingham@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class Getid3DescriptionOptionTest extends ItemAddOptionTestCase {
+
+    function Getid3DescriptionOptionTest($methodName) {
+	$this->ItemAddOptionTestCase($methodName, 'getid3', 'Getid3DescriptionOption');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+	GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'getid3');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_items = array();
+	list ($ret, $this->_items[0]) =
+	    $this->_createRandomDataItem(
+		$this->_album->getId(),
+		'audio/mpeg',
+		array('title' => 'original title 0'),
+		dirname(__FILE__) . '/../data/sine_8000_11025_64.mp3');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testCreateDescription() {
+	$ret = GalleryCoreApi::setPluginParameter('module', 'getid3', 'addOption',
+						  GETID3_MP3_TITLE);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+	$this->assertEquals(array(array(), array()), $result);
+
+	list ($ret, $item) = $this->_items[0]->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals('8000Hz sine', $item->getTitle());
+    }
+
+    function testMultipleCreateDescription() {
+	$totalTestItems = 3;
+	for ($j = 1; $j < $totalTestItems; $j++) {
+	    list ($ret, $this->_items[$j]) =
+		$this->_createRandomDataItem(
+		    $this->_album->getId(), 'audio/mpeg',
+		    array('title' => "original title $j"),
+		    dirname(__FILE__) . '/../data/sine_8000_11025_64.mp3');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'getid3', 'addOption',
+						  GETID3_MP3_TITLE);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+	$this->assertEquals(array(array(), array()), $result);
+
+	for ($j = 0; $j < $totalTestItems; $j++) {
+	    list ($ret, $item) = $this->_items[$j]->refresh();
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals('8000Hz sine', $item->getTitle(), "title $j");
+	}
+    }
+
+    function testCreateWithCheckDisabled() {
+	$ret = GalleryCoreApi::setPluginParameter('module', 'getid3', 'addOption', '0');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+	$this->assertEquals(array(array(), array()), $result);
+
+	list ($ret, $item) = $this->_items[0]->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals('original title 0', $item->getTitle(), 'title 0');
+    }
+
+    function testMultipleCreateWithCheckDisabled() {
+	$totalTestItems = 3;
+	for ($j = 1; $j < $totalTestItems; $j++) {
+	    list ($ret, $this->_items[$j]) =
+		$this->_createRandomDataItem(
+		    $this->_album->getId(), 'audio/mpeg',
+		    array('title' => "original title $j"),
+		    dirname(__FILE__) . '/../data/sine_8000_11025_64.mp3');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'getid3', 'addOption', '0');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+	$this->assertEquals(array(array(), array()), $result);
+
+	for ($j = 0; $j < $totalTestItems; $j++) {
+	    list ($ret, $item) = $this->_items[$j]->refresh();
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals("original title $j", $item->getTitle(), "title $j");
+	}
+    }
+}
+?>

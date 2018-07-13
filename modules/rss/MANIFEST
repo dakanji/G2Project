@@ -1,21 +1,21 @@
 # $Revision: 20953 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/rss/Callbacks.inc	1356255807	245798100	2194	2266
-modules/rss/EditFeed.inc	3988564481	2111200793	11329	11716
-modules/rss/FeedList.inc	2195810094	348489617	1629	1684
-modules/rss/Preloads.inc	760225642	3350195372	1303	1344
-modules/rss/Render.inc	3333883833	293529144	5557	5765
-modules/rss/RssSiteAdmin.inc	2317358021	1366693625	6611	6862
-modules/rss/SimpleRender.inc	1607235904	2272467270	2812	2909
+modules/rss/Callbacks.inc	488743046	2409811557	2152	2223
+modules/rss/EditFeed.inc	3353965782	3424204581	11020	11374
+modules/rss/FeedList.inc	3166092528	3133586348	1607	1655
+modules/rss/Preloads.inc	748143693	1837323132	1299	1340
+modules/rss/Render.inc	3713608013	1943839879	5593	5783
+modules/rss/RssSiteAdmin.inc	3271206401	576425267	6427	6642
+modules/rss/SimpleRender.inc	2152011890	1382960533	2760	2853
 modules/rss/classes/GNUmakefile	1995366819	843025639	51	52
 modules/rss/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/rss/classes/GalleryStorage/schema.tpl	735314505	1054898641	3674	3802
-modules/rss/classes/Maps.inc	2038968508	2414367548	601	625
+modules/rss/classes/Maps.inc	3736870917	1753952197	488	492
 modules/rss/classes/Maps.xml	923671256	639776472	850	884
-modules/rss/classes/RssGenerator.class	105879565	550401373	10764	11110
-modules/rss/classes/RssHelper.class	4164547457	1952092028	19035	19758
-modules/rss/classes/RssMapHelper.class	996775477	4239802947	7566	7896
-modules/rss/module.inc	3631557551	2035746273	9395	9780
+modules/rss/classes/RssGenerator.class	221129333	266543127	11002	11351
+modules/rss/classes/RssHelper.class	3164193386	3556434274	18704	19336
+modules/rss/classes/RssMapHelper.class	4079727934	802905387	7580	7864
+modules/rss/module.inc	35087112	2468474743	9128	9464
 modules/rss/po/GNUmakefile	1866879166	2808215985	98	103
 modules/rss/po/af.mo	168413486	168413486	911	911
 modules/rss/po/af.po	61119097	1706206836	9612	10153
@@ -87,7 +87,12 @@ modules/rss/templates/FeedList.tpl	2594576884	1759005026	916	947
 modules/rss/templates/RssBlockHead.tpl	1771909245	1213978188	388	400
 modules/rss/templates/RssSiteAdmin.tpl	3545413638	2342429042	16975	17451
 modules/rss/templates/blocks/RssBlock.tpl	1716832780	921395428	625	646
-modules/rss/templates/blocks/blocks.inc	752457853	825171026	467	485
+modules/rss/templates/blocks/blocks.inc	2110983884	3679917574	448	467
+modules/rss/test/phpunit/RssEditFeedTest.class	173250592	4086969745	8791	9110
+modules/rss/test/phpunit/RssMapTest.class	4100650609	4048953496	3491	3631
+modules/rss/test/phpunit/RssRenderTest.class	2280750102	1065610741	9253	9581
+modules/rss/test/phpunit/RssSiteAdminControllerTest.class	1955575130	759585878	5655	5856
+modules/rss/test/phpunit/RssTest.class	776542442	3161872637	2597	2698
 R	modules/rss/locale/af/LC_MESSAGES/modules_rss.mo
 R	modules/rss/locale/ar/LC_MESSAGES/modules_rss.mo
 R	modules/rss/locale/ca/LC_MESSAGES/modules_rss.mo

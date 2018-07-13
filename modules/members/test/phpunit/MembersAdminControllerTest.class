@@ -1,0 +1,77 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * MembersAdmin controller tests
+ *
+ * @package Members
+ * @subpackage PHPUnit
+ * @author Robert Balousek <rbalousek@hotmail.com>
+ * @version $Revision: 17580 $
+ */
+class MembersAdminControllerTest extends GalleryControllerTestCase {
+
+    function MembersAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'members.AdminMembers');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'members');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMembersAdminControllerReset() {
+
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'members.AdminMembers'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testMembersAdminControllerSave() {
+
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	GalleryUtilities::putRequestVariable('form[canViewMembersModule]', '2');
+	GalleryUtilities::putRequestVariable('form[canViewEmailAddress]', '0');
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'members.AdminMembers'),
+				  'status' => array('saved' => 1),
+				  'error' => array()),
+			    $results);
+
+	/* TODO: verify that the parameters were actually saved properly to the database */
+    }
+}
+?>

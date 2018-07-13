@@ -1,0 +1,95 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * PublishXp controller tests
+ * @package PublishXp
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17627 $
+ */
+class PublishXpLoginControllerTest extends GalleryControllerTestCase {
+    function PublishXpLoginControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'publishxp.PublishXpLogin');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_user);
+    }
+
+    function testLogin() {
+	GalleryUtilities::putRequestVariable('form[userName]', $this->_user->getUserName());
+	GalleryUtilities::putRequestVariable('form[password]', 'password');
+	GalleryUtilities::putRequestVariable('form[action][login]', 1);
+
+	$ret = $this->_registerEventListener('Gallery::Login');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$result = $this->handleRequest();
+	$this->assertEquals(
+	    array('status' => array(),
+		  'error' => array(),
+		  'redirect' => array('view' => 'publishxp.SelectAlbum')),
+	    $result);
+
+	/* Verify our event got posted */
+	$this->assertEventFired('Gallery::Login', $this->_user);
+    }
+
+    function testLoginDisabledUser() {
+	GalleryUtilities::putRequestVariable('form[userName]', $this->_user->getUserName());
+	GalleryUtilities::putRequestVariable('form[password]', 'password');
+	GalleryUtilities::putRequestVariable('form[action][login]', 1);
+
+	$ret = $this->_disableUserName($this->_user->getUserName());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerEventListener('Gallery::FailedLogin');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$result = $this->handleRequest();
+	$this->assertEquals(
+	    array('status' => array(),
+		  'error' => array('form[error][userName][disabled]'),
+		  'delegate' => array('view' => 'publishxp.PublishXpLogin')),
+	    $result);
+
+	/* Verify our event got posted */
+	$this->assertEventFired('Gallery::FailedLogin', null,
+	    array('userName' => $this->_user->getUserName()));
+    }
+}
+?>

@@ -26,152 +26,130 @@
  * @version $Revision: 18172 $
  */
 class ImageBlockModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
-		$this->setId('imageblock');
-		$this->setName($gallery->i18n('Image Block'));
-		$this->setDescription($gallery->i18n('Random, Most Recent or Most Viewed Photo or Album'));
-		$this->setVersion('1.1.9');
-		$this->_templateVersion = 1;
-		$this->setGroup('blocks', $gallery->i18n('Blocks'));
-		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 47));
-		$this->setRequiredModuleApi(array(3, 6));
+
+    function ImageBlockModule() {
+	global $gallery;
+	$this->setId('imageblock');
+	$this->setName($gallery->i18n('Image Block'));
+	$this->setDescription($gallery->i18n('Random, Most Recent or Most Viewed Photo or Album'));
+	$this->setVersion('1.1.9');
+	$this->_templateVersion = 1;
+	$this->setGroup('blocks', $gallery->i18n('Blocks'));
+	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 47));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::activate
+     */
+    function activate($postActivationEvent=true) {
+	/**
+	 * Our cache is probably out of date. Flush it. 
+	 * @todo What about the ImageBlockDisabledMap which is out of date as well?
+	 */
+	$ret = GalleryCoreApi::removeAllMapEntries('ImageBlockCacheMap');
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryModule::activate
-	 */
-	public function activate($postActivationEvent=true) {
-		/**
-		 * Our cache is probably out of date. Flush it.
-		 * @todo What about the ImageBlockDisabledMap which is out of date as well?
-		 */
-		$ret = GalleryCoreApi::removeAllMapEntries('ImageBlockCacheMap');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		list($ret, $redirect) = parent::activate($postActivationEvent);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		return array(null, $redirect);
+	list ($ret, $redirect) = parent::activate($postActivationEvent);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryModule::upgrade
-	 */
-	public function upgrade($currentVersion, $x1=null) {
-		global $gallery;
-		$storage =& $gallery->getStorage();
+	return array(null, $redirect);
+    }
 
-		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
-			$ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.0'));
+    /**
+     * @see GalleryModule::upgrade
+     */
+    function upgrade($currentVersion) {
+	global $gallery;
+	$storage =& $gallery->getStorage();
 
-			if ($ret) {
-				return $ret;
-			}
-		}
+	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
+	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.0'));
+	    if ($ret) {
+		return $ret;
+	    }
+	}
 
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-
-		if ($ret) {
-			return $ret;
-		}
-
-		foreach (array('show' => 'heading|title|date|views', 'albumFrame' => '', 'itemFrame' => '')
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
+	if ($ret) {
+	    return $ret;
+	}
+	foreach (array('show' => 'heading|title|date|views', 'albumFrame' => '', 'itemFrame' => '')
 		as $key => $value) {
-			if (!isset($params[$key])) {
-				$ret = $this->setParameter($key, $value);
-
-				if ($ret) {
-					return $ret;
-				}
-			}
-		}
-
-		// Remove the blocks parameter if necessary, we forgot to remove it in beta 4
-		if (isset($params['blocks'])) {
-			$ret = GalleryCoreApi::removePluginParameter('module', 'imageblock', 'blocks');
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		if (!empty($currentVersion) && version_compare($currentVersion, '1.1.7', '<=')) {
-			GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
-			$ret = $storage->removeAllMapEntries('ImageBlockCacheMap', true);
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		if (!empty($currentVersion) && version_compare($currentVersion, '1.1.5', '<=')) {
-			// Add ImageBlockCacheMap::random
-			$ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.1'));
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		if (!empty($currentVersion) && version_compare($currentVersion, '1.1.7', '<=')) {
-			// Add proper index with new ::random column
-			$ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.2'));
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @see GalleryModule::performFactoryRegistrations
-	 */
-	public function performFactoryRegistrations() {
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEventListener',
-		'ImageBlockHelper',
-		'ImageBlockHelper',
-		'modules/imageblock/classes/ImageBlockHelper.class',
-		'imageblock',
-		array('Gallery::ViewableTreeChange', 'GalleryEntity::delete', 'GalleryEntity::save')
-	);
-
+	    if (!isset($params[$key])) {
+		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-			return $ret;
+		    return $ret;
 		}
-
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-	   'ItemEditOption',
-		'ImageBlockOption',
-		'ImageBlockOption',
-	   'modules/imageblock/ImageBlockOption.inc',
-		'imageblock',
-		array('ItemEditAlbum')
-	);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+	    }
 	}
 
-	/**
-	 * @see GalleryModule::getSiteAdminViews
-	 */
-	public function getSiteAdminViews() {
-		return array(null,
-			 array(array('name' => $this->translate('Image Block'),
-				 'view' => 'imageblock.ImageBlockSiteAdmin', )), );
+	/* Remove the blocks parameter if necessary, we forgot to remove it in beta 4 */
+	if (isset($params['blocks'])) {
+	    $ret = GalleryCoreApi::removePluginParameter('module', 'imageblock', 'blocks');
+	    if ($ret) {
+		return $ret;
+	    }
 	}
+
+	if (!empty($currentVersion) && version_compare($currentVersion, '1.1.7', '<=')) {
+	    GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	    $ret = $storage->removeAllMapEntries('ImageBlockCacheMap', true);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	if (!empty($currentVersion) && version_compare($currentVersion, '1.1.5', '<=')) {
+	    /* Add ImageBlockCacheMap::random */
+	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.1'));
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	if (!empty($currentVersion) && version_compare($currentVersion, '1.1.7', '<=')) {
+	    /* Add proper index with new ::random column */
+	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.2'));
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	return null;
+    }
+
+    /**
+     * @see GalleryModule::performFactoryRegistrations
+     */
+    function performFactoryRegistrations() {
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryEventListener', 'ImageBlockHelper', 'ImageBlockHelper', 
+	    'modules/imageblock/classes/ImageBlockHelper.class', 'imageblock', 
+	    array('Gallery::ViewableTreeChange', 'GalleryEntity::delete', 'GalleryEntity::save'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	   'ItemEditOption', 'ImageBlockOption', 'ImageBlockOption',
+	   'modules/imageblock/ImageBlockOption.inc', 'imageblock', array('ItemEditAlbum'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	return null;
+    }
+
+    /**
+     * @see GalleryModule::getSiteAdminViews
+     */
+    function getSiteAdminViews() {
+	return array(null,
+		     array(array('name' => $this->translate('Image Block'),
+				 'view' => 'imageblock.ImageBlockSiteAdmin')));
+    }
 }
+?>

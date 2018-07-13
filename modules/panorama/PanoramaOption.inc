@@ -26,82 +26,74 @@
  * @version $Revision: 17580 $
  */
 class PanoramaOption extends ItemEditOption {
-	/**
-	 * @see ItemEditOption::isAppropriate
-	 */
-	public function isAppropriate($item, $thumbnail) {
-		if (!GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
-			return array(null, false);
-		}
-		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');
 
-		if ($ret || !$param['itemType']) {
-			return array(null, false);
-		}
-		list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+    /**
+     * @see ItemEditOption::isAppropriate
+     */
+    function isAppropriate($item, $thumbnail) {
+	if (!GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
+	    return array(null, false);
+	}
+	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');
+	if ($ret || !$param['itemType']) {
+	    return array(null, false);
+	}
+	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	if ($ret) {
+	    return array(null, false);
+	}
+	$width = empty($preferred)
+	    ? $item->getWidth() : $preferred[$item->getId()]->getWidth();
+	$mimeType = empty($preferred)
+	    ? $item->getMimeType() : $preferred[$item->getId()]->getMimeType();
+	return array(null,
+		     $item->getRenderer() == 'PanoramaRenderer' ||
+		     ($width > $param['width'] &&
+		      ($mimeType == 'image/jpeg' || $mimeType == 'image/gif')));
+    }
 
-		if ($ret) {
-			return array(null, false);
-		}
-		$width    = empty($preferred) ? $item->getWidth() : $preferred[$item->getId()]->getWidth();
-		$mimeType = empty($preferred) ? $item->getMimeType() : $preferred[$item->getId()]->getMimeType();
+    /**
+     * @see ItemEditOption::loadTemplate
+     */
+    function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$form['PanoramaOption']['isPanorama'] = $item->getRenderer() == 'PanoramaRenderer';
+	return array(null, 'modules/panorama/templates/PanoramaOption.tpl', 'modules_panorama');
+    }
 
-		return array(
-			null,
-			$item->getRenderer() == 'PanoramaRenderer' ||
-			($width > $param['width'] &&
-			 ($mimeType == 'image/jpeg' || $mimeType == 'image/gif')),
-		);
+    /**
+     * @see ItemEditOption::handleRequestAfterEdit
+     */
+    function handleRequestAfterEdit($form, &$item, &$preferred) {
+	$isUsingPanoramaRenderer = $item->getRenderer() == 'PanoramaRenderer';
+	if ($isUsingPanoramaRenderer && !isset($form['PanoramaOption']['isPanorama'])) {
+	    $item->setRenderer(null);
+	} else if (!$isUsingPanoramaRenderer && isset($form['PanoramaOption']['isPanorama'])) {
+	    $item->setRenderer('PanoramaRenderer');
 	}
 
-	/**
-	 * @see ItemEditOption::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	if ($item->isModified()) {
+	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($item->getId()));
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
 
-		if ($ret) {
-			return array($ret, null, null);
-		}
-		$form['PanoramaOption']['isPanorama'] = $item->getRenderer() == 'PanoramaRenderer';
+	    $ret = $item->save();
+	    if ($ret) {
+		GalleryCoreApi::releaseLocks($lockId);
+		return array($ret, null, null);
+	    }
 
-		return array(null, 'modules/panorama/templates/PanoramaOption.tpl', 'modules_panorama');
+	    $ret = GalleryCoreApi::releaseLocks($lockId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
 	}
 
-	/**
-	 * @see ItemEditOption::handleRequestAfterEdit
-	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
-		$isUsingPanoramaRenderer = $item->getRenderer() == 'PanoramaRenderer';
-
-		if ($isUsingPanoramaRenderer && !isset($form['PanoramaOption']['isPanorama'])) {
-			$item->setRenderer(null);
-		} elseif (!$isUsingPanoramaRenderer && isset($form['PanoramaOption']['isPanorama'])) {
-			$item->setRenderer('PanoramaRenderer');
-		}
-
-		if ($item->isModified()) {
-			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($item->getId()));
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-
-			$ret = $item->save();
-
-			if ($ret) {
-				GalleryCoreApi::releaseLocks($lockId);
-
-				return array($ret, null, null);
-			}
-
-			$ret = GalleryCoreApi::releaseLocks($lockId);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		}
-
-		return array(null, array(), array());
-	}
+	return array(null, array(), array());
+    }
 }
+?>

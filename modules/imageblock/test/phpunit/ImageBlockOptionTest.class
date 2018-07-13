@@ -1,0 +1,190 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * ImageBlockOption tests
+ * @package ImageBlock
+ * @subpackage PHPUnit
+ * @author Jay Rossiter <cryptographite@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class ImageBlockOptionTest extends ItemEditOptionTestCase {
+
+    function ImageBlockOptionTest($methodName) {
+	$this->ItemEditOptionTestCase($methodName, 'imageblock', 'ImageBlockOption');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_topAlbum, $this->_topItems) =
+		$this->_createSubAlbumWithItems($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_topAlbum);
+
+	list ($ret, $this->_subAlbum, $this->_subItems) =
+		$this->_createSubAlbumWithItems($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function tearDown() {
+	foreach (array_merge($this->_topItems, $this->_subItems) as $item) {
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'ImageBlockDisabledMap', array('itemId' => $item->getId()));
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'ImageBlockDisabledMap', array('itemId' => $this->_subAlbum->getId()));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function _createSubAlbumWithItems($parentId) {
+	/* Create a new album and image, set thumbnail and highlight */
+	list ($ret, $album) = $this->_createRandomAlbum($parentId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	$items = array();
+	for ($i = 0; $i < 5; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($album->getId());
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+	return array(null, $album, $items);
+    }
+
+    function testImageBlockOption() {
+	/* Enable the Option */
+	$form['ImageBlockOption']['setRecursive'] = 'off';
+	$form['ImageBlockOption']['setDisabled'] = 'on';
+
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($disabledFlag, 'Album not set disabled');
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!$disabledFlag, 'SubAlbum set disabled 1');
+
+	/*
+	 * Disable the Option
+	 */
+	$form['ImageBlockOption']['setRecursive'] = 'off';
+	$form['ImageBlockOption']['setDisabled'] = 'off';
+
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!$disabledFlag, 'Album set disabled');
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!$disabledFlag, 'SubAlbum set disabled 2');
+    }
+
+    function testImageBlockOptionRecursive() {
+	global $gallery;
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	/*
+	 * Enable the Option recursively
+	 */
+	$form['ImageBlockOption']['setRecursive'] = 'on';
+	$form['ImageBlockOption']['setDisabled'] = 'on';
+
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($disabledFlag, 'Album not set disabled');
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert($disabledFlag, 'SubAlbum not set disabled');
+
+	/*
+	 * Disable the Option recursively
+	 */
+	$form['ImageBlockOption']['setRecursive'] = 'on';
+	$form['ImageBlockOption']['setDisabled'] = 'off';
+
+	$result = $this->_handleRequestAfterEdit($form, $this->_topAlbum);
+	$this->assertEquals(array(array(), array()), $result);
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!$disabledFlag, 'Album still disabled');
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(!$disabledFlag, 'SubAlbum still disabled');
+    }
+}
+?>

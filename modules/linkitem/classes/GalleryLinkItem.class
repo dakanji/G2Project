@@ -37,173 +37,155 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
  * @version $Revision: 17580 $
  */
 class GalleryLinkItem extends GalleryItem {
-	/**
-	 * The id of the linked album or text of external link.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>link</member-name>
-	 * @g2   <member-type>TEXT</member-type>
-	 * @g2   <member-size>SMALL</member-size>
-	 * @g2   <required/>
-	 * @g2   <member-external-access>READ</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var string $link
-	 * @access public
+
+    /**
+     * The id of the linked album or text of external link.
+     *
+     * @g2 <member>
+     * @g2   <member-name>link</member-name>
+     * @g2   <member-type>TEXT</member-type>
+     * @g2   <member-size>SMALL</member-size>
+     * @g2   <required/>
+     * @g2   <member-external-access>READ</member-external-access>
+     * @g2 </member>
+     *
+     * @var string $link
+     * @access public
+     */
+    var $link;
+
+    /**
+     * Create a new instance of this GalleryEntity in the persistent store.
+     * Let the parent do its work, then add any initialization specific to this class.
+     *
+     * @param int $parentId the id of the parent object
+     * @param mixed $link the link target: either string url or int id of a GalleryAlbumItem
+     * @return GalleryStatus a status code
+     */
+    function create($parentId, $link) {
+	if (!isset($parentId) || empty($link)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (is_numeric($link)) {
+	    /* Link to an album */
+	    list ($ret, $linkedAlbum) = GalleryCoreApi::loadEntitiesById($link, 'GalleryAlbumItem');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$ret = parent::create($parentId, 'linkitem' . rand(1000, 9999));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->setLink($link);
+	if (isset($linkedAlbum)) {
+	    $this->setTitle($linkedAlbum->getTitle());
+	    $this->setSummary($linkedAlbum->getSummary());
+	    $this->setDescription($linkedAlbum->getDescription());
+	    $this->setKeywords($linkedAlbum->getKeywords());
+	} else {
+	    $this->setTitle(basename($link));
+	}
+
+	return null;
+    }
+
+    /**
+     * @see GalleryFileSystemEntity::move
+     */
+    function move($newParentId) {
+	/*
+	 * We don't really have anything in the filesystem to move.
+	 * Pretend to be a linked entity during the move to avoid platform rename.
 	 */
-	public $link;
+	$this->setLinkedEntity('fake');
 
-	/**
-	 * Create a new instance of this GalleryEntity in the persistent store.
-	 * Let the parent do its work, then add any initialization specific to this class.
-	 *
-	 * @param int $parentId the id of the parent object
-	 * @param mixed $link the link target: either string url or int id of a GalleryAlbumItem
-	 * @return GalleryStatus a status code
-	 */
-	public function create($parentId, $link) {
-		if (!isset($parentId) || empty($link)) {
-			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-		}
+	$ret = parent::move($newParentId);
+	$this->setLinkedEntity(null);
 
-		if (is_numeric($link)) {
-			// Link to an album
-			list($ret, $linkedAlbum) = GalleryCoreApi::loadEntitiesById($link, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	return null;
+    }
 
-			if ($ret) {
-				return $ret;
-			}
-		}
+    /**
+     * @see GalleryEntity::itemTypeName
+     */
+    function itemTypeName($localized = true) {
+	if ($localized) {
+	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'linkitem');
+	    if (!$ret) {
+		return array($module->translate('Link'), $module->translate('link'));
+	    }
+	}
+	return array('Link', 'link');
+    }
 
-		$ret = parent::create($parentId, 'linkitem' . mt_rand(1000, 9999));
+    /**
+     * @see GalleryEntity::onLoad
+     */
+    function onLoad() {
+	$ret = parent::onLoad();
+	if ($ret) {
+	    return $ret;
+	}
 
+	/* Redirect if trying to show this item */
+	list ($view, $itemId) = GalleryUtilities::getRequestVariables('view', 'itemId');
+	if ($view == 'core.ShowItem' && $itemId == $this->getId()) {
+	    global $gallery;
+	    $link = $this->getLink();
+	    if (is_numeric($link)) {
+		$session =& $gallery->getSession();
+		$ret = $session->start();
 		if ($ret) {
-			return $ret;
+		    return $ret;
 		}
+		$session->doNotUseTempId();
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$link = $urlGenerator->generateUrl(array('view' => 'core.ShowItem',
+							 'itemId' => $link),
+						   array('forceFullUrl' => true));
+	    }
 
-		$this->setLink($link);
-
-		if (isset($linkedAlbum)) {
-			$this->setTitle($linkedAlbum->getTitle());
-			$this->setSummary($linkedAlbum->getSummary());
-			$this->setDescription($linkedAlbum->getDescription());
-			$this->setKeywords($linkedAlbum->getKeywords());
-		} else {
-			$this->setTitle(basename($link));
-		}
-
-		return null;
+	    $phpVm = $gallery->getPhpVm();
+	    $phpVm->header('Location: ' . str_replace('&amp;', '&', $link));
+	    $phpVm->exit_();
 	}
 
-	/**
-	 * @see GalleryFileSystemEntity::move
-	 */
-	public function move($newParentId) {
-		/*
-		 * We don't really have anything in the filesystem to move.
-		 * Pretend to be a linked entity during the move to avoid platform rename.
-		 */
-		$this->setLinkedEntity('fake');
+	return null;
+    }
 
-		$ret = parent::move($newParentId);
-		$this->setLinkedEntity(null);
+    /* Add functions to make this entity thumbnail-able */
+    function fetchPath() {
+	return array(null, $this->getLink());
+    }
+    function getMimeType() {
+	return 'gallery/linkitem';
+    }
+    function getWidth() {
+	return 0;
+    }
+    function getHeight() {
+	return 0;
+    }
 
-		if ($ret) {
-			return $ret;
-		}
+    /**
+     * @see GalleryEntity::getClassName
+     */
+    function getClassName() {
+	return 'GalleryLinkItem';
+    }
 
-		return null;
-	}
+    function getLink() {
+	return $this->link;
+    }
 
-	/**
-	 * @see GalleryEntity::itemTypeName
-	 */
-	public function itemTypeName($localized = true) {
-		if ($localized) {
-			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'linkitem');
-
-			if (!$ret) {
-				return array($module->translate('Link'), $module->translate('link'));
-			}
-		}
-
-		return array('Link', 'link');
-	}
-
-	/**
-	 * @see GalleryEntity::onLoad
-	 */
-	public function onLoad() {
-		$ret = parent::onLoad();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		// Redirect if trying to show this item
-		list($view, $itemId) = GalleryUtilities::getRequestVariables('view', 'itemId');
-
-		if ($view == 'core.ShowItem' && $itemId == $this->getId()) {
-			global $gallery;
-			$link = $this->getLink();
-
-			if (is_numeric($link)) {
-				$session =& $gallery->getSession();
-				$ret     = $session->start();
-
-				if ($ret) {
-					return $ret;
-				}
-				$session->doNotUseTempId();
-				$urlGenerator =& $gallery->getUrlGenerator();
-				$link         = $urlGenerator->generateUrl(
-					array(
-						'view'   => 'core.ShowItem',
-						'itemId' => $link,
-					),
-					array(
-						'forceFullUrl' => true,
-					)
-				);
-			}
-
-			$phpVm = $gallery->getPhpVm();
-			$phpVm->header('Location: ' . str_replace('&amp;', '&', $link));
-			$phpVm->exit_();
-		}
-
-		return null;
-	}
-
-	// Add functions to make this entity thumbnail-able
-	public function fetchPath() {
-		return array(null, $this->getLink());
-	}
-
-	public function getMimeType() {
-		return 'gallery/linkitem';
-	}
-
-	public function getWidth() {
-		return 0;
-	}
-
-	public function getHeight() {
-		return 0;
-	}
-
-	/**
-	 * @see GalleryEntity::getClassName
-	 */
-	public function getClassName() {
-		return 'GalleryLinkItem';
-	}
-
-	public function getLink() {
-		return $this->link;
-	}
-
-	public function setLink($link) {
-		$this->link = $link;
-	}
+    function setLink($link) {
+	$this->link = $link;
+    }
 }
+?>

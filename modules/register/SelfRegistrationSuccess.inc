@@ -26,23 +26,21 @@
  * @version $Revision: 17580 $
  */
 class SelfRegistrationSuccessView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		list($pending, $sentConfirmationEmail) = GalleryUtilities::getRequestVariables('pending', 'sentConfirmationEmail');
 
-		$SelfRegistrationSuccess                          = array();
-		$SelfRegistrationSuccess['pending']               = $pending;
-		$SelfRegistrationSuccess['sentConfirmationEmail'] = $sentConfirmationEmail;
-		$template->setVariable('controller', 'register.UserSelfRegistration');
-		$template->setVariable('SelfRegistrationSuccess', $SelfRegistrationSuccess);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	list ($pending, $sentConfirmationEmail) =
+	    GalleryUtilities::getRequestVariables('pending', 'sentConfirmationEmail');
 
-		return array(
-			null,
-			array(
-				'body' => 'modules/register/templates/SelfRegistrationSuccess.tpl',
-			),
-		);
-	}
+	$SelfRegistrationSuccess = array();
+	$SelfRegistrationSuccess['pending'] = $pending;
+	$SelfRegistrationSuccess['sentConfirmationEmail'] = $sentConfirmationEmail;
+	$template->setVariable('controller', 'register.UserSelfRegistration');
+	$template->setVariable('SelfRegistrationSuccess', $SelfRegistrationSuccess);
+	return array(null,
+		     array('body' => 'modules/register/templates/SelfRegistrationSuccess.tpl'));
+    }
 }
+?>

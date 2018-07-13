@@ -18,69 +18,70 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryTemplate.class';
+require_once(dirname(__FILE__) . '/../../../modules/core/classes/GalleryTemplate.class');
 
 /**
  * Unit test GalleryTemplate.  This is a fake GalleryTemplate that just serves as a container for
  * template data to be used in GalleryView tests, free of dependencies to Smarty.
- *
+ * 
  * @package Gallery
  * @subpackage PHPUnit
  * @author Andy Staudacher <ast@gmx.ch>
  * @version $Revision: 17580 $
  */
 class UnitTestTemplate extends GalleryTemplate {
-	public $_data = array();
 
-	public function __construct() {
-	}
+    var $_data = array();
 
-	/**
-	 * @see GalleryTemplate::setVariable
-	 */
-	public function setVariable($key, $value = null) {
-		$this->_data[$key] = $value;
-	}
+    function UnitTestTemplate() {}
 
-	/**
-	 * @see GalleryTemplate::getVariable
-	 */
-	public function getVariable($key) {
-		return $this->_data[$key];
-	}
+    /**
+     * @see GalleryTemplate::setVariable
+     */
+    function setVariable($key, $value=null) {
+	$this->_data[$key] = $value;
+    }
 
-	/**
-	 * @see GalleryTemplate::getVariableByReference
-	 */
-	public function &getVariableByReference($key) {
-		return $this->_data[$key];
-	}
+    /**
+     * @see GalleryTemplate::getVariable
+     */
+    function getVariable($key) {
+    	return $this->_data[$key];
+    }
 
-	/**
-	 * @see GalleryTemplate::hasVariable
-	 */
-	public function hasVariable($key) {
-		return isset($this->_data[$key]);
-	}
+    /**
+     * @see GalleryTemplate::getVariableByReference
+     */
+    function &getVariableByReference($key) {
+	return $this->_data[$key];
+    }
 
-	/**
-	 * @see GalleryTemplate::setVariableByReference
-	 */
-	public function setVariableByReference($key, &$value) {
-		$this->_data[$key] =& $value;
-	}
+    /**
+     * @see GalleryTemplate::hasVariable
+     */
+    function hasVariable($key) {
+	return isset($this->_data[$key]);
+    }
 
-	/**
-	 * Not implemented. Use a real GalleryTemplate to test compiled templates.
-	 */
-	public function fetch($templateName) {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-	}
+    /**
+     * @see GalleryTemplate::setVariableByReference
+     */
+    function setVariableByReference($key, &$value) {
+	$this->_data[$key] =& $value;
+    }
 
-	/**
-	 * Not implemented. Use a real GalleryTemplate to test compiled templates.
-	 */
-	public function display($templateName) {
-		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
-	}
+    /**
+     * Not implemented. Use a real GalleryTemplate to test compiled templates.
+     */
+    function fetch($templateName) {
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+    }
+
+    /**
+     * Not implemented. Use a real GalleryTemplate to test compiled templates.
+     */
+    function display($templateName) {
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+    }
 }
+?>

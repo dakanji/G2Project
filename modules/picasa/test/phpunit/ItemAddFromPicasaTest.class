@@ -1,0 +1,350 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/picasa/test/phpunit/MockLockSystem.class');
+
+/**
+ * ItemAddFromPicasa controller tests
+ * @package Picasa
+ * @subpackage PHPUnit
+ * @author Waldemar Schlackow <waldemar@opencodes.org>
+ * @version $Revision: 17580 $
+ */
+class ItemAddFromPicasaTest extends ItemAddPluginTestCase {
+
+    var $_temporaryAlbum;
+
+    function ItemAddFromPicasaTest($methodName) {
+       $this->ItemAddPluginTestCase($methodName, 'picasa', 'ItemAddFromPicasa');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Make the tests independent of the archiveupload module */
+	$this->_registerFactoryImplementationForTest(
+	    'GalleryToolkit', 'ItemAddFromPicasaTestToolkit', 'ItemAddFromPicasaTestToolkit',
+	    'modules/picasa/test/phpunit/ItemAddFromPicasaTest.class', 'picasaTest');
+	$this->_markFactoryForCleanup();
+	$this->_markToolkitForCleanup('ItemAddFromPicasaTestToolkit');
+
+	$ret = GalleryCoreApi::registerToolkitOperation(
+		'ItemAddFromPicasaTestToolkit', array('application/zip'), 'extract', array(),
+		'', '', 1);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Make sure translate calls during test won't generate any platform calls */
+	list ($ret) = GalleryCoreApi::getPermissionIds();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$gallery->_lockSystem = new MockLockSystem();
+
+	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_temporaryAlbum);
+
+	list ($ret, $this->_lockIds) =
+	    GalleryCoreApi::acquireReadLock($this->_temporaryAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_platform = new UnitTestPlatform();
+	$gallery->setPlatform($this->_platform);
+    }
+
+    function tearDown() {
+	$ret = GalleryCoreApi::releaseLocks($this->_lockIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    /**
+     * Test whether the importing routine works; NOTE: archiveupload module is required
+     */
+    function testImportFromPicasaSuccessful() {
+	/* Test with the loosest markup type */
+	$ret = $this->_setMarkupType('html', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* The XML Data that we will test with */
+	$testXmlData = array('<?xml version="1.0" encoding="utf-8" ?>',
+	    '<album><albumName><![CDATA[GalleryTest 2<script>evil]]></albumName>',
+	    '<albumItemCount>2</albumItemCount>',
+	    '<albumCaption><![CDATA[This is a<script>test]]></albumCaption>',
+	    '<images>',
+	    '<image>',
+	    '<itemLargeImage>images/ajipankachile5.jpg0</itemLargeImage>',
+	    '<itemWidth>171</itemWidth>',
+	    '<itemHeight>426</itemHeight>',
+	    '<itemThumbnailImage>thumbnails/ajipankachile5.jpg0</itemThumbnailImage>',
+	    '<itemThumbnailWidth>42</itemThumbnailWidth>',
+	    '<itemThumbnailHeight>90</itemThumbnailHeight>',
+	    '<itemName>ajipankachile5.jpg0</itemName>',
+	    '<itemCaption>Testpicture</itemCaption>',
+	    '</image>',
+	    '<image>',
+	    '<itemLargeImage>images/californiadriedchile5.jpg0</itemLargeImage>',
+	    '<itemWidth>171</itemWidth>',
+	    '<itemHeight>426</itemHeight>',
+	    '<itemThumbnailImage>thumbnails/californiadriedchile5.jpg0</itemThumbnailImage>',
+	    '<itemThumbnailWidth>42</itemThumbnailWidth>',
+	    '<itemThumbnailHeight>90</itemThumbnailHeight>',
+	    '<itemName>californiadriedchile5.jpg0</itemName>',
+	    '<itemCaption>Testpicture</itemCaption>',
+	    '</image>',
+	    '<image>',
+	    '<itemLargeImage><![CDATA[images/a<script>b.jpg0]]></itemLargeImage>',
+	    '<itemWidth>171</itemWidth>',
+	    '<itemHeight>426</itemHeight>',
+	    '<itemThumbnailImage><![CDATA[thumbnails/a<script>b.jpg0]]></itemThumbnailImage>',
+	    '<itemThumbnailWidth>42</itemThumbnailWidth>',
+	    '<itemThumbnailHeight>90</itemThumbnailHeight>',
+	    '<itemName><![CDATA[a<script>b.jpg0]]></itemName>',
+	    '<itemCaption><![CDATA[Test<script>picture]]></itemCaption>',
+	    '</image>',
+	    '</images>',
+	    '</album>');
+	/* Use valid inputs */
+	GalleryUtilities::putRequestVariable('form[action][addFromPicasa]', 1);
+	GalleryUtilities::putRequestVariable('form[name][picasaZipPath]', 'C:\picasaimport.zip');
+	GalleryUtilities::putRequestVariable('form[type][picasaZipPath]', 'application/zip');
+	GalleryUtilities::putRequestVariable('form[tmp_name][picasaZipPath]', '/picasaimport.tmp');
+	GalleryUtilities::putRequestVariable('form[size][picasaZipPath]', 10000);
+	GalleryUtilities::putRequestVariable('form[error][picasaZipPath]', 0);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 1);
+	GalleryUtilities::putRequestVariable('form[set][description]', 1);
+
+	/* Prepare our mock platform for many, many calls */
+	$this->_platform->setReply('tempnam',
+	    array('fuzzy1' => '{.*}', 'fuzzy2' => '{.*}'), '/tmp');
+	$this->_platform->setReply('mkdir', array('/tmp.dir', 755), true);
+	$this->_platform->setReply('exec',
+	    array(array(array('0' => 'test_extract', '1' => '/picasaimport.tmp'))), array(true));
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('/tmp.dir/index.xml'), true);
+	$this->_platform->setReply('is_readable', array('/tmp.dir/index.xml'), true);
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('/tmp.dir/index.xml'), true);
+	$this->_platform->setReply('is_readable', array('/tmp.dir/index.xml'), true);
+	$this->_platform->setReply('file', array('/tmp.dir/index.xml', ''), $testXmlData);
+	$this->_platform->setReply(
+	    'legalizePathComponent',
+	    array('GalleryTest 2<script>evil', false), 'GalleryTest 2_script_evil');
+	$this->_platform->setReply(
+	    'isLegalPathComponent', array('GalleryTest 2_script_evil', false), true);
+	$this->_platform->setReply(
+	    'legalizePathComponent', array('GalleryTest 2_script_evil', true),
+	    'GalleryTest 2_script_evil');
+	$this->_platform->setReply('getDirectorySeparator', array(), '/');
+	$this->_platform->setReply('file_exists', array('fuzzy' => '{.*GalleryTest 2}'), false);
+	$this->_platform->setReply('mkdir', array('fuzzy' => '{.*GalleryTest 2}',
+		    'fuzzy2' => '{\d+}'), true);
+
+	/* Image creation */
+	$testImages = array('ajipankachile5.jpg0', 'californiadriedchile5.jpg0', 'a<script>b.jpg0');
+	foreach ($testImages as $testImage) {
+	    $this->_platform->setReply('is_uploaded_file',
+		array('/tmp.dir/images/' . $testImage . ''),
+		true);
+	    $this->_platform->setReply('legalizePathComponent', array($testImage, false),
+		$testImage);
+	    $this->_platform->setReply('getDirectorySeparator', array(), '/');
+	    $this->_platform->setReply('copy',
+		array('/tmp.dir/images/' . $testImage . '', 'fuzzy'=>'{.*/' . $testImage . '}'),
+		true);
+	    $this->_platform->setReply('filesize',
+		array('fuzzy'=>'{.*/' . $testImage . '}'), 10000);
+	}
+	/* Deletion of the temporary directory */
+	$this->_platform->setReply('recursiveRmdir', array('/tmp.dir'), true);
+	$this->_platform->setReply('unlink', array('/tmp'), true);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_temporaryAlbum);
+	if (count($results) == 2) {
+	    list ($error, $status) = $results;
+	} else {
+	    $this->fail('unexpected results: ' . print_r($results, true));
+	    return;
+	}
+	$i = 0;
+
+	/* We don't know the ids, but we can verify everything else */
+	foreach ($testImages as $file) {
+	    $this->assertEquals(htmlentities($file), $status['addedFiles'][$i]['fileName']);
+	    $this->assert(isset($status['addedFiles'][$i]['id']));
+	    $ids[] = $status['addedFiles'][$i]['id'];
+	    $this->assertEquals(array(), $status['addedFiles'][$i]['warnings']);
+	    $i++;
+	}
+
+	$this->assertEquals(3, $i, 'count of imported items');
+
+	$this->assertEquals(array(), $error);
+
+	/* Verify item attributes (like order weight) */
+	list ($ret, $itemIds) = GalleryCoreApi::fetchChildItemIds($this->_temporaryAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	/* There should have been one album imported */
+	$this->assertEquals(1, count($itemIds), 'child count 1');
+
+	list ($ret, $importedAlbum) = GalleryCoreApi::loadEntitiesById($itemIds[0], 'GalleryItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $itemIds) = GalleryCoreApi::fetchChildItemIds($importedAlbum);
+	if ($ret) {
+	    return $ret;
+	}
+	/* There should have been one album imported */
+	$this->assertEquals(3, count($itemIds), 'child count');
+
+	$seenWeights = array();
+	foreach ($ids as $id) {
+	    list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($id);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assertEquals(0, $viewCount);
+
+	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($id);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $this->assert(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
+	    $seenWeights[$orderWeight] = 1;
+	}
+
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryDataItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$i = 0;
+
+	foreach ($testImages as $testImage) {
+	    $this->_platform->setReply('legalizePathComponent',  array($testImage, false),
+		$testImage);
+	}
+
+	foreach ($items as $item) {
+	    $this->assertEquals($this->_platform->legalizePathComponent($testImages[$i]),
+                   $item->getPathComponent(), 'path component');
+	    list ($base, $extension) = GalleryUtilities::getFileNameComponents($testImages[$i]);
+	    $sanitizedBase = $base;
+	    GalleryUtilities::sanitizeInputValues($sanitizedBase);
+	    $this->assertEquals($sanitizedBase, $item->getTitle(), "title $i");
+	    if ($i == 2) {
+		$this->assertEquals('Test&lt;script&gt;picture', $item->getSummary(), "summary $i");
+		$this->assertEquals('Test&lt;script&gt;picture', $item->getDescription(), "dsc $i");
+	    } else {
+		$this->assertEquals('Testpicture', $item->getSummary(), "summary $i");
+		$this->assertEquals('Testpicture', $item->getDescription(), "description $i");
+	    }
+	    $i++;
+	}
+    }
+
+    /**
+     * Test what happens if an unknown file type is uploaded
+     */
+    function testImportFromPicasaFailed_unknowntype() {
+
+	/* Use valid inputs */
+	GalleryUtilities::putRequestVariable('form[action][addFromPicasa]', 1);
+	GalleryUtilities::putRequestVariable('form[name][picasaZipPath]', 'C:\picasaimport.foo');
+	GalleryUtilities::putRequestVariable('form[type][picasaZipPath]', 'application/unknown');
+	GalleryUtilities::putRequestVariable('form[tmp_name][picasaZipPath]', '/picasaimport.tmp');
+	GalleryUtilities::putRequestVariable('form[size][picasaZipPath]', 10000);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 1);
+	GalleryUtilities::putRequestVariable('form[set][description]', 0);
+
+	/* Perform the request and verify that we succeeded */
+	list ($error, $status) = $this->handleRequest($this->_temporaryAlbum);
+	$i = 0;
+
+	$this->assertEquals(array(), $status, 'count of imported items');
+	$this->assertEquals(array('form[error][picasaZipPath][notsupported]'), $error);
+    }
+
+    /**
+     * Test what happens if no file input is given
+     */
+    function testImportFromPicasaFailed_emptypath() {
+
+	/* Use valid inputs */
+	GalleryUtilities::putRequestVariable('form[action][addFromPicasa]', 1);
+	GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
+	GalleryUtilities::putRequestVariable('form[set][summary]', 1);
+	GalleryUtilities::putRequestVariable('form[set][description]', 0);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_temporaryAlbum);
+	if (count($results) == 2) {
+	    list ($error, $status) = $results;
+	} else {
+	    $this->fail('unexpected results: ' . print_r($results, true));
+	    return;
+	}
+	$i = 0;
+
+	$this->assertEquals(array(), $status, 'count of imported items');
+	$this->assertEquals(array('form[error][picasaZipPath][missing]'), $error);
+    }
+}
+
+class ItemAddFromPicasaTestToolkit {
+    function performOperation($mimeType, $operationName, $sourceFilename,
+			      $destFilename, $parameters, $context=array()) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	/* Pseudo extract call to verify that the toolkit was called */
+	$platform->exec(array(array('0' => 'test_extract', '1' => '/picasaimport.tmp')));
+
+	return array(null, $mimeType, $context);
+    }
+}
+?>

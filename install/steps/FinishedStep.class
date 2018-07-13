@@ -23,16 +23,17 @@
  * @package Install
  */
 class FinishedStep extends InstallStep {
-	public function stepName() {
-		return _('Finish Installation');
-	}
+    function stepName() {
+	return _('Finish Installation');
+    }
 
-	public function loadTemplateData(&$templateData) {
-		global $galleryStub;
+    function loadTemplateData(&$templateData) {
+	global $galleryStub;
 
-		$templateData['baseUri']    = $_SESSION['baseUri'];
-		$templateData['galleryDir'] = basename($_SESSION['configPath']);
-		$templateData['bodyFile']   = 'Finished.html';
-		$this->setComplete(true);
-	}
+	$templateData['baseUri'] = $_SESSION['baseUri'];
+	$templateData['galleryDir'] = basename($_SESSION['configPath']);
+	$templateData['bodyFile'] = 'Finished.html';
+	$this->setComplete(true);
+    }
 }
+?>

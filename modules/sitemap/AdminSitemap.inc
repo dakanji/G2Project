@@ -26,33 +26,24 @@
  * @version $Revision: 17580 $
  */
 class AdminSitemapView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$template->setVariable(
-			'AdminSitemap',
-			array(
-				'canRewrite' => !empty($moduleStatus['rewrite']['active']),
-			)
-		);
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/sitemap/templates/AdminSitemap.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$template->setVariable('AdminSitemap',
+		array('canRewrite' => !empty($moduleStatus['rewrite']['active'])));
+
+	return array(null, array('body' => 'modules/sitemap/templates/AdminSitemap.tpl'));
+    }
 }
+?>

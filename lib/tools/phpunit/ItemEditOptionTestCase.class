@@ -18,11 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryView.class';
-
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryController.class';
-
-require_once dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc';
+require_once(dirname(__FILE__) . '/../../../modules/core/classes/GalleryView.class');
+require_once(dirname(__FILE__) . '/../../../modules/core/classes/GalleryController.class');
+require_once(dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc');
 
 /**
  * An ItemEditOption specific version of GalleryTestCase
@@ -32,111 +30,101 @@ require_once dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc';
  * @version $Revision: 17580 $
  */
 class ItemEditOptionTestCase extends GalleryTestCase {
-	/**
-	 * The option instance
-	 * @access protected
-	 */
-	public $_option;
 
-	/**
-	 * immediate status view
-	 * @access private
-	 */
-	public $_statusMonitor;
+    /**
+     * The option instance
+     * @access protected
+     */
+    var $_option;
 
-	public function __construct($methodName, $moduleName, $optionName) {
-		parent::__construct($methodName);
+    /**
+     * immediate status view
+     * @access private
+     */
+    var $_statusMonitor;
 
-		list($ret, $this->_option) = GalleryCoreApi::newFactoryInstanceById('ItemEditOption', $optionName);
+    function ItemEditOptionTestCase($methodName, $moduleName, $optionName) {
+	$this->GalleryTestCase($methodName);
 
-		if ($ret) {
-			return $ret;
-		}
-
-		if (!isset($this->_option)) {
-			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-		}
-
-		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
-
-		if ($ret) {
-			return $ret;
-		}
-		$this->_statusMonitor = new ItemEditOptionTestImmediateStatusView();
+	list ($ret, $this->_option) =
+	    GalleryCoreApi::newFactoryInstanceById('ItemEditOption', $optionName);
+	if ($ret) {
+	    return $ret;
+	}
+	if (!isset($this->_option)) {
+	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 	}
 
-	public function _handleRequestAfterEdit($form, &$item, $errorCode = null) {
-		list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_statusMonitor = new ItemEditOptionTestImmediateStatusView();
+    }
 
-		if ($ret) {
-			return array($ret, null);
-		}
-		$preferred = empty($preferred) ? null : array_shift($preferred);
+    function _handleRequestAfterEdit($form, &$item, $errorCode=null) {
+	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$preferred = empty($preferred) ? null : array_shift($preferred);
 
-		list($ret, $error, $warning) = $this->_option->handleRequestAfterEdit(
-			$form,
-			$item,
-			$preferred,
-			$this->_statusMonitor
-		);
+	list ($ret, $error, $warning) = $this->_option->handleRequestAfterEdit(
+		$form, $item, $preferred, $this->_statusMonitor);
+	if (isset($errorCode)) {
+	    if (!$ret || ($ret->getErrorCode() & $errorCode) != $errorCode) {
+		$this->fail(sprintf('Expected error code (%s) but received (%s)',
+			    implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
+			    $ret ? implode(' | ',
+				     GalleryStatus::getErrorCodeConstants($ret->getErrorCode()))
+				 : 'success'));
+	    }
+	} else if ($ret) {
+	    return $ret;
+	} else {
+	    /* Check to make sure we got back everything we want */
+	    $this->assert(isset($error) && is_array($error), 'option error results missing');
 
-		if (isset($errorCode)) {
-			if (!$ret || ($ret->getErrorCode() & $errorCode) != $errorCode) {
-				$this->fail(sprintf(
-					'Expected error code (%s) but received (%s)',
-					implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-					$ret ? implode(
-						' | ',
-						GalleryStatus::getErrorCodeConstants($ret->getErrorCode())
-					) : 'success'
-				));
-			}
-		} elseif ($ret) {
-			return $ret;
-		} else {
-			// Check to make sure we got back everything we want
-			$this->assert(isset($error) && is_array($error), 'option error results missing');
-
-			// Check to make sure we got back everything we want
-			$this->assert(isset($warning) && is_array($warning), 'option warning results missing');
-		}
-
-		return array($error, $warning);
+	    /* Check to make sure we got back everything we want */
+	    $this->assert(isset($warning) && is_array($warning), 'option warning results missing');
 	}
 
-	public function _translate($message) {
-		return $this->_module->translate($message);
-	}
+	return array($error, $warning);
+    }
+
+    function _translate($message) {
+	return $this->_module->translate($message);
+    }
 }
 
 /**
  * Test ImmediateStatusView implementation
  */
 class ItemEditOptionTestImmediateStatusView extends GalleryView {
-	public function doLoadImmediateTemplate() {
-		$this->_l10Domain = 'test';
-		$this->_template  = 'test';
+    function doLoadImmediateTemplate() {
+	$this->_l10Domain = 'test';
+	$this->_template = 'test';
+	return null;
+    }
 
-		return null;
-	}
+    function renderHeader() {
+	return null;
+    }
 
-	public function renderHeader() {
-		return null;
-	}
+    function renderStatusMessage($statusMessage) {
+	return null;
+    }
 
-	public function renderStatusMessage($statusMessage) {
-		return null;
-	}
+    function renderRedirect($redirectUrl) {
+	return null;
+    }
 
-	public function renderRedirect($redirectUrl) {
-		return null;
-	}
+    function renderFooter() {
+	return null;
+    }
 
-	public function renderFooter() {
-		return null;
-	}
-
-	public function setMain($main) {
-		return null;
-	}
+    function setMain($main) {
+	return null;
+    }
 }
+?>

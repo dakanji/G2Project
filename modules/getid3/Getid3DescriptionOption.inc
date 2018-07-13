@@ -26,102 +26,94 @@
  * @version $Revision: 17580 $
  */
 class Getid3DescriptionOption extends ItemAddOption {
-	/**
-	 * @see ItemAddOption::isAppropriate
-	 */
-	public function isAppropriate() {
-		list($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'getid3', 'addOption');
 
-		if ($ret) {
-			return array($ret, false);
-		}
+    /**
+     * @see ItemAddOption::isAppropriate
+     */
+    function isAppropriate() {
+	list ($ret, $addOption) =
+	     GalleryCoreApi::getPluginParameter('module', 'getid3', 'addOption');
+	if ($ret) {
+	    return array($ret, false);
+	}
+	return array(null, $addOption > 0);
+    }
 
-		return array(null, $addOption > 0);
+    /**
+     * @see ItemAddOption::handleRequestAfterAdd
+     */
+    function handleRequestAfterAdd($form, $items) {
+	$errors = $warnings = array();
+	GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Extractor.class');
+	GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
+
+	list ($ret, $addOption) =
+	    GalleryCoreApi::getPluginParameter('module', 'getid3', 'addOption');
+	if ($ret) {
+	    return array($ret, null, null);
 	}
 
-	/**
-	 * @see ItemAddOption::handleRequestAfterAdd
+	/* Copy the array because we will change it with do / while / array_splice */
+	$itemsInBatches = $items;
+	/*
+	 * Batch size should be <= ulimit max open files, as long as we don't query this value,
+	 * assume a value of 100 which is fairly low
 	 */
-	public function handleRequestAfterAdd($form, $items) {
-		$errors = $warnings = array();
-		GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Extractor.class');
-		GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
+	$batchSize = 100;
+	do {
+	    $currentItems = array_splice($itemsInBatches, 0, $batchSize);
+	    $itemIds = array();
+	    foreach ($currentItems as $item) {
+		$itemIds[] = $item->getId();
+	    }
+	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemIds);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
 
-		list($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'getid3', 'addOption');
-
-		if ($ret) {
+	    for ($i = 0; $i < count($currentItems); $i++) {
+		if ($currentItems[$i]->getMimeType() == 'audio/mpeg') {
+		    list ($ret, $currentItems[$i]) = $currentItems[$i]->refresh();
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
 			return array($ret, null, null);
+		    }
+
+		    $itemId = $currentItems[$i]->getId();
+
+		    list ($ret, $getid3Data) =
+			Getid3Extractor::getMetaData(array($itemId), array('Title'));
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($lockId);
+			return array($ret, null, null);
+		    }
+
+		    $mustSave = false;
+
+		    if (!empty($getid3Data[$itemId]['Title']['value'])) {
+			if ($addOption & GETID3_MP3_TITLE) {
+			    $currentItems[$i]->setTitle($getid3Data[$itemId]['Title']['value']);
+			    $mustSave = true;
+			}
+		    }
+
+		    if ($mustSave) {
+			$ret = $currentItems[$i]->save();
+			if ($ret) {
+			    GalleryCoreApi::releaseLocks($lockId);
+			    return array($ret, null, null);
+			}
+		    }
 		}
+	    }
 
-		// Copy the array because we will change it with do / while / array_splice
-		$itemsInBatches = $items;
-		/*
-		 * Batch size should be <= ulimit max open files, as long as we don't query this value,
-		 * assume a value of 100 which is fairly low
-		 */
-		$batchSize = 100;
+	    $ret = GalleryCoreApi::releaseLocks($lockId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	} while (!empty($itemsInBatches));
 
-		do {
-			$currentItems = array_splice($itemsInBatches, 0, $batchSize);
-			$itemIds      = array();
-
-			foreach ($currentItems as $item) {
-				$itemIds[] = $item->getId();
-			}
-			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemIds);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-
-			for ($i = 0; $i < count($currentItems); $i++) {
-				if ($currentItems[$i]->getMimeType() == 'audio/mpeg') {
-					list($ret, $currentItems[$i]) = $currentItems[$i]->refresh();
-
-					if ($ret) {
-						GalleryCoreApi::releaseLocks($lockId);
-
-						return array($ret, null, null);
-					}
-
-					$itemId = $currentItems[$i]->getId();
-
-					list($ret, $getid3Data) = Getid3Extractor::getMetaData(array($itemId), array('Title'));
-
-					if ($ret) {
-						GalleryCoreApi::releaseLocks($lockId);
-
-						return array($ret, null, null);
-					}
-
-					$mustSave = false;
-
-					if (!empty($getid3Data[$itemId]['Title']['value'])) {
-						if ($addOption & GETID3_MP3_TITLE) {
-							$currentItems[$i]->setTitle($getid3Data[$itemId]['Title']['value']);
-							$mustSave = true;
-						}
-					}
-
-					if ($mustSave) {
-						$ret = $currentItems[$i]->save();
-
-						if ($ret) {
-							GalleryCoreApi::releaseLocks($lockId);
-
-							return array($ret, null, null);
-						}
-					}
-				}
-			}
-
-			$ret = GalleryCoreApi::releaseLocks($lockId);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		} while (!empty($itemsInBatches));
-
-		return array(null, $errors, $warnings);
-	}
+	return array(null, $errors, $warnings);
+    }
 }
+?>

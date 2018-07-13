@@ -44,243 +44,244 @@
  * @version $Revision: 18157 $
  */
 class UnitTestPlatform extends MockObject {
-	public function __construct() {
-		parent::__construct();
-	}
+    function UnitTestPlatform() {
+	parent::MockObject();
+    }
 
-	public function copy($source, $dest) {
-		return $this->_makeReply('copy', array($source, $dest));
-	}
+    function copy($source, $dest) {
+	return $this->_makeReply('copy', array($source, $dest));
+    }
 
-	public function symlink($source, $dest) {
-		return $this->_makeReply('symlink', array($source, $dest));
-	}
+    function symlink($source, $dest) {
+	return $this->_makeReply('symlink', array($source, $dest));
+    }
 
-	public function move_uploaded_file($filename, $newFilename = null) {
-		return $this->_makeReply('move_uploaded_file', array($filename, $newFilename));
-	}
+    function move_uploaded_file($filename, $newFilename=null) {
+	return $this->_makeReply('move_uploaded_file', array($filename, $newFilename));
+    }
 
-	public function tempnam($dir, $prefix) {
-		return $this->_makeReply('tempnam', array($dir, $prefix));
-	}
+    function tempnam($dir, $prefix) {
+	return $this->_makeReply('tempnam', array($dir, $prefix));
+    }
 
-	public function file_exists($filename) {
-		return $this->_makeReply('file_exists', array($filename));
-	}
+    function file_exists($filename) {
+	return $this->_makeReply('file_exists', array($filename));
+    }
 
-	public function is_link($filename) {
-		return $this->_makeReply('is_link', array($filename));
-	}
+    function is_link($filename) {
+	return $this->_makeReply('is_link', array($filename));
+    }
 
-	public function is_dir($filename) {
-		return $this->_makeReply('is_dir', array($filename));
-	}
+    function is_dir($filename) {
+	return $this->_makeReply('is_dir', array($filename));
+    }
 
-	public function is_file($filename) {
-		return $this->_makeReply('is_file', array($filename));
-	}
+    function is_file($filename) {
+	return $this->_makeReply('is_file', array($filename));
+    }
 
-	public function is_writeable($filename) {
-		return $this->_makeReply('is_writeable', array($filename));
-	}
+    function is_writeable($filename) {
+	return $this->_makeReply('is_writeable', array($filename));
+    }
 
-	public function is_readable($filename) {
-		return $this->_makeReply('is_readable', array($filename));
-	}
+    function is_readable($filename) {
+	return $this->_makeReply('is_readable', array($filename));
+    }
 
-	public function is_uploaded_file($filename) {
-		return $this->_makeReply('is_uploaded_file', array($filename));
-	}
+    function is_uploaded_file($filename) {
+	return $this->_makeReply('is_uploaded_file', array($filename));
+    }
 
-	public function is_executable($filename) {
-		return $this->_makeReply('is_executable', array($filename));
-	}
+    function is_executable($filename) {
+	return $this->_makeReply('is_executable', array($filename));
+    }
 
-	public function filesize($filename) {
-		return $this->_makeReply('filesize', array($filename));
-	}
+    function filesize($filename) {
+	return $this->_makeReply('filesize', array($filename));
+    }
 
-	public function clearstatcache() {
-		return $this->_makeReply('clearstatcache', array());
-	}
+    function clearstatcache() {
+	return $this->_makeReply('clearstatcache', array());
+    }
 
-	public function file($filename, $use_include_path = false) {
-		return $this->_makeReply('file', array($filename, $use_include_path));
-	}
+    function file($filename, $use_include_path=false) {
+	return $this->_makeReply('file', array($filename, $use_include_path));
+    }
 
-	public function readfile($filename, $use_include_path = false) {
-		return $this->_makeReply('readfile', array($filename, $use_include_path));
-	}
+    function readfile($filename, $use_include_path=false) {
+	return $this->_makeReply('readfile', array($filename, $use_include_path));
+    }
 
-	public function file_get_contents($filename) {
-		return $this->_makeReply('file_get_contents', array($filename));
-	}
+    function file_get_contents($filename) {
+	return $this->_makeReply('file_get_contents', array($filename));
+    }
 
-	public function fopen($filename, $mode, $use_include_path = 0) {
-		return $this->_makeReply('fopen', array($filename, $mode, $use_include_path));
-	}
+    function fopen($filename, $mode, $use_include_path=0) {
+	return $this->_makeReply('fopen', array($filename, $mode, $use_include_path));
+    }
 
-	public function flock($handle, $operation, &$wouldblock) {
-		return $this->_makeReply('flock', array($handle, $operation, &$wouldblock));
-	}
+    function flock($handle, $operation, &$wouldblock) {
+	return $this->_makeReply('flock', array($handle, $operation, &$wouldblock));
+    }
 
-	public function atomicWrite($filename, $data) {
-		return $this->_makeReply('atomicWrite', array($filename, $data));
-	}
+    function atomicWrite($filename, $data) {
+	return $this->_makeReply('atomicWrite', array($filename, $data));
+    }
 
-	public function opendir($path) {
-		return $this->_makeReply('opendir', array($path));
-	}
+    function opendir($path) {
+	return $this->_makeReply('opendir', array($path));
+    }
 
-	public function readdir($resource) {
-		return $this->_makeReply('readdir', array($resource));
-	}
+    function readdir($resource) {
+	return $this->_makeReply('readdir', array($resource));
+    }
 
-	public function closedir($resource) {
-		return $this->_makeReply('closedir', array($resource));
-	}
+    function closedir($resource) {
+	return $this->_makeReply('closedir', array($resource));
+    }
 
-	public function rename($oldname, $newname) {
-		return $this->_makeReply('rename', array($oldname, $newname));
-	}
+    function rename($oldname, $newname) {
+	return $this->_makeReply('rename', array($oldname, $newname));
+    }
 
-	public function stat($filename) {
-		return $this->_makeReply('stat', array($filename));
-	}
+    function stat($filename) {
+	return $this->_makeReply('stat', array($filename));
+    }
 
-	public function getimagesize($filename) {
-		return $this->_makeReply('getimagesize', array($filename));
-	}
+    function getimagesize($filename) {
+	return $this->_makeReply('getimagesize', array($filename));
+    }
 
-	public function unlink($filename) {
-		return $this->_makeReply('unlink', array($filename));
-	}
+    function unlink($filename) {
+	return $this->_makeReply('unlink', array($filename));
+    }
 
-	public function rmdir($filename) {
-		return $this->_makeReply('rmdir', array($filename));
-	}
+    function rmdir($filename) {
+	return $this->_makeReply('rmdir', array($filename));
+    }
 
-	public function recursiveRmdir($dirname) {
-		return $this->_makeReply('recursiveRmdir', array($dirname));
-	}
+    function recursiveRmdir($dirname) {
+	return $this->_makeReply('recursiveRmdir', array($dirname));
+    }
 
-	public function mkdir($path, $stringPerms = '755') {
-		return $this->_makeReply('mkdir', array($path, $stringPerms));
-	}
+    function mkdir($path, $stringPerms='755') {
+	return $this->_makeReply('mkdir', array($path, $stringPerms));
+    }
 
-	public function isLegalPathComponent($component, $forDirectory = false) {
-		return $this->_makeReply('isLegalPathComponent', array($component, $forDirectory));
-	}
+    function isLegalPathComponent($component, $forDirectory=false) {
+	return $this->_makeReply('isLegalPathComponent', array($component, $forDirectory));
+    }
 
-	public function getLegalPathCharacters() {
-		return $this->_makeReply('getLegalPathCharacters', array());
-	}
+    function getLegalPathCharacters() {
+	return $this->_makeReply('getLegalPathCharacters', array());
+    }
 
-	public function legalizePathComponent($component, $forDirectory = false) {
-		return $this->_makeReply('legalizePathComponent', array($component, $forDirectory));
-	}
+    function legalizePathComponent($component, $forDirectory=false) {
+	return $this->_makeReply('legalizePathComponent', array($component, $forDirectory));
+    }
 
-	public function exec($cmdArray) {
-		return $this->_makeReply('exec', array($cmdArray));
-	}
+    function exec($cmdArray) {
+	return $this->_makeReply('exec', array($cmdArray));
+    }
 
-	public function getDirectorySeparator() {
-		return $this->_makeReply('getDirectorySeparator', array());
-	}
+    function getDirectorySeparator() {
+	return $this->_makeReply('getDirectorySeparator', array());
+    }
 
-	public function isRestrictedByOpenBaseDir($path) {
-		return $this->_makeReply('isRestrictedByOpenBaseDir', array($path));
-	}
+    function isRestrictedByOpenBaseDir($path) {
+	return $this->_makeReply('isRestrictedByOpenBaseDir', array($path));
+    }
 
-	public function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
-		return $this->_makeReply('fsockopen', array($target, $port, &$errno, &$errstr, $timeout));
-	}
+    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+	return $this->_makeReply('fsockopen', array($target, $port, &$errno, &$errstr, $timeout));
+    }
 
-	public function fwrite($handle, $string, $length = null) {
-		return $this->_makeReply('fwrite', array($handle, $string, $length));
-	}
+    function fwrite($handle, $string, $length=null) {
+	return $this->_makeReply('fwrite', array($handle, $string, $length));
+    }
 
-	public function file_put_contents($path, $contents) {
-		return $this->_makeReply('file_put_contents', array($path, $contents));
-	}
+    function file_put_contents($path, $contents) {
+	return $this->_makeReply('file_put_contents', array($path, $contents));
+    }
 
-	public function fclose($handle) {
-		return $this->_makeReply('fclose', array($handle));
-	}
+    function fclose($handle) {
+	return $this->_makeReply('fclose', array($handle));
+    }
 
-	public function fflush($handle) {
-		return $this->_makeReply('fflush', array($handle));
-	}
+    function fflush($handle) {
+	return $this->_makeReply('fflush', array($handle));
+    }
 
-	public function feof($handle) {
-		return $this->_makeReply('feof', array($handle));
-	}
+    function feof($handle) {
+	return $this->_makeReply('feof', array($handle));
+    }
 
-	public function fread($handle, $length) {
-		return $this->_makeReply('fread', array($handle, $length));
-	}
+    function fread($handle, $length) {
+	return $this->_makeReply('fread', array($handle, $length));
+    }
 
-	public function fseek($handle, $offset, $whence = SEEK_SET) {
-		return $this->_makeReply('fseek', array($handle, $offset, $whence));
-	}
+    function fseek($handle, $offset, $whence = SEEK_SET) {
+	return $this->_makeReply('fseek', array($handle, $offset, $whence));
+    }
 
-	public function ftruncate($handle, $size) {
-		return $this->_makeReply('ftruncate', array($handle, $size));
-	}
+    function ftruncate($handle, $size) {
+	return $this->_makeReply('ftruncate', array($handle, $size));
+    }
 
-	public function fgets($handle, $length = 0) {
-		return $this->_makeReply('fgets', array($handle, $length));
-	}
+    function fgets($handle, $length=0) {
+	return $this->_makeReply('fgets', array($handle, $length));
+    }
 
-	public function realpath($file) {
-		return $this->_makeReply('realpath', array($file));
-	}
+    function realpath($file) {
+	return $this->_makeReply('realpath', array($file));
+    }
 
-	public function touch($file, $time = null, $atime = null) {
-		return $this->_makeReply('touch', array($file, $time, $atime));
-	}
+    function touch($file, $time=null, $atime=null) {
+	return $this->_makeReply('touch', array($file, $time, $atime));
+    }
 
-	public function mail($to, $subject, $body, $headers = null) {
-		return $this->_makeReply('mail', array($to, $subject, $body, $headers));
-	}
+    function mail($to, $subject, $body, $headers=null) {
+	return $this->_makeReply('mail', array($to, $subject, $body, $headers));
+    }
 
-	public function splitPath($path) {
-		return $this->_makeReply('splitPath', array($path));
-	}
+    function splitPath($path) {
+	return $this->_makeReply('splitPath', array($path));
+    }
 
-	public function isSymlinkSupported() {
-		return $this->_makeReply('isSymlinkSupported', array());
-	}
+    function isSymlinkSupported() {
+	return $this->_makeReply('isSymlinkSupported', array());
+    }
 
-	public function getLineEnding() {
-		return $this->_makeReply('getLineEnding', array());
-	}
+    function getLineEnding() {
+	return $this->_makeReply('getLineEnding', array());
+    }
 
-	public function chdir($path) {
-		return $this->_makeReply('chdir', array($path));
-	}
+    function chdir($path) {
+	return $this->_makeReply('chdir', array($path));
+    }
 
-	public function getcwd() {
-		return $this->_makeReply('getcwd', array());
-	}
+    function getcwd() {
+	return $this->_makeReply('getcwd', array());
+    }
 
-	public function chmod($path, $mode = null) {
-		return $this->_makeReply('chmod', array($path, $mode));
-	}
+    function chmod($path, $mode=null) {
+	return $this->_makeReply('chmod', array($path, $mode));
+    }
 
-	public function recursiveChmod($path, $dirMode = null, $fileMode = null) {
-		return $this->_makeReply('recursiveChmod', array($path, $dirMode, $fileMode));
-	}
+    function recursiveChmod($path, $dirMode=null, $fileMode=null) {
+	return $this->_makeReply('recursiveChmod', array($path, $dirMode, $fileMode));
+    }
 
-	public function recursiveFixDirPermissions($path) {
-		return $this->_makeReply('recursiveFixDirPermissions', array($path));
-	}
+    function recursiveFixDirPermissions($path) {
+	return $this->_makeReply('recursiveFixDirPermissions', array($path));
+    }
 
-	public function strftime($format, $timestamp = null) {
-		return $this->_makeReply('strftime', array($format, $timestamp));
-	}
+    function strftime($format, $timestamp=null) {
+	return $this->_makeReply('strftime', array($format, $timestamp));
+    }
 
-	public function glob($pattern, $flags = null) {
-		return $this->_makeReply('glob', array($pattern, $flags));
-	}
+    function glob($pattern, $flags=null) {
+	return $this->_makeReply('glob', array($pattern, $flags));
+    }
 }
+?>

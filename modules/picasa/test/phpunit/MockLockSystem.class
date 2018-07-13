@@ -1,0 +1,95 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
+
+/**
+ * This is a mock LockSystem to get rid of the pain of Flock platform calls in unit tests
+ * @package Picasa
+ * @subpackage PHPUnit
+ * @author Waldemar Schlackow <waldemar@opencodes.org>
+ * @version $Revision: 17580 $
+ */
+class MockLockSystem extends GalleryLockSystem {
+
+    function FlockLockSystem() {
+	$this->_locks = array();
+    }
+
+    /**
+     * @see GalleryLockSystem::acquireReadLock
+     */
+    function acquireReadLock($ids, $timeout=10) {
+	   return array(null, 1);
+    }
+
+    /**
+     * @see GalleryLockSystem::isReadLocked
+     */
+    function isReadLocked($id) {
+	return true;
+    }
+
+    /**
+     * @see GalleryLockSystem::acquireWriteLock
+     */
+    function acquireWriteLock($ids, $timeout=10) {
+	return array(null, 1);
+    }
+
+    /**
+     * @see GalleryLockSystem::isWriteLocked
+     */
+    function isWriteLocked($id) {
+    return true;
+    }
+
+    /**
+     * @see GalleryLockSystem::releaseLocks
+     */
+    function releaseLocks($lockIds) {
+	return null;
+    }
+
+    /**
+     * @see GalleryLockSystem::refreshAllLocks
+     */
+    function releaseAllLocks() {
+	return null;
+    }
+
+    /**
+     * @see GalleryLockSystem::refreshLocks
+     */
+    function refreshLocks($freshUntil) {
+	return null;
+    }
+
+    /**
+     * Return the ids of all the locks we hold
+     *
+     * @return array lock ids
+     */
+    function getLockIds() {
+	return array();
+    }
+
+}
+?>

@@ -26,15 +26,12 @@
  * @version $Revision: 17580 $
  */
 class CantActivateView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		return array(
-			null,
-			array(
-				'body' => 'modules/getid3/templates/CantActivate.tpl',
-			),
-		);
-	}
+
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	return array(null, array('body' => 'modules/getid3/templates/CantActivate.tpl'));
+    }
 }
+?>

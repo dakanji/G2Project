@@ -1,0 +1,539 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Image Block helper
+ * @package ImageBlock
+ * @subpackage PHPUnit
+ * @author Jay Rossiter <cryptographite@users.sf.net>
+ * @version $Revision: 17616 $
+ */
+class ImageBlockHelperTest extends GalleryTestCase {
+
+    function ImageBlockHelperTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function _createTopAlbum() {
+	/* Create a new album and image, set thumbnail and highlight */
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$this->_markForCleanup($album);
+	return array(null, $album);
+    }
+
+    function _createHierarchy() {
+	list ($ret, $this->_topAlbum, $this->_topItems) =
+	    $this->_createSubAlbumWithItems($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_topAlbum);
+
+	list ($ret, $this->_subAlbum, $this->_subItems) =
+	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function _createSubAlbumWithItems($parentId) {
+	/* Create a new album and image, set thumbnail and highlight */
+	list ($ret, $album) = $this->_createRandomAlbum($parentId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	$items = array();
+	for ($i = 0; $i < 5; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($album->getId());
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	return array(null, $album, $items);
+    }
+
+    function testImageBlockHelperGetDisabledFlag() {
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addMapEntry(
+	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	$this->assert($disabledFlag, 'getDisabledFlag returned false');
+
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	$this->assert(!$disabledFlag, 'getDisabledFlag returned true');
+    }
+
+    function testImageBlockHelperSetDisabledFlag() {
+	global $gallery;
+
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, false, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$itemIds = array();
+	foreach ($this->_topItems as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_topAlbum->getId();
+	sort($itemIds);
+
+	$query = 'SELECT [ImageBlockDisabledMap::itemId] ' .
+		 'FROM [ImageBlockDisabledMap] ' .
+		 'WHERE [ImageBlockDisabledMap::itemId] IN (' .
+		 GalleryUtilities::makeMarkers(sizeof($itemIds)) .
+		 ')';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	sort($itemIds);
+	sort($dbItemIds);
+	$this->assertEquals($itemIds, $dbItemIds, 'Items not added to the DisableMap');
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, false, false);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	$this->assertEquals(array(), $dbItemIds, 'Items not removed from the DisabledMap');
+    }
+
+    function testImageBlockHelperSetDisabledFlagRecursive() {
+	global $gallery;
+
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$itemIds = array();
+	foreach (array_merge($this->_topItems, $this->_subItems) as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_topAlbum->getId();
+	$itemIds[] = (int)$this->_subAlbum->getId();
+	sort($itemIds);
+
+	$query = 'SELECT [ImageBlockDisabledMap::itemId] ' .
+		 'FROM [ImageBlockDisabledMap] ' .
+		 'WHERE [ImageBlockDisabledMap::itemId] IN (' .
+		 GalleryUtilities::makeMarkers(sizeof($itemIds)) .
+		 ')';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	sort($dbItemIds);
+	$this->assertEquals($itemIds, $dbItemIds, 'Items not added to the DisableMap');
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, false);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$query = 'SELECT [ImageBlockDisabledMap::itemId] ' .
+		 'FROM [ImageBlockDisabledMap] ' .
+		 'WHERE [ImageBlockDisabledMap::itemId] IN (' .
+		 GalleryUtilities::makeMarkers(sizeof($itemIds)) .
+		 ')';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	$this->assertEquals(array(), $dbItemIds, 'Items not removed from the DisabledMap');
+    }
+
+    function testImageBlockHelperSetDisabledFlagFirstSubAlbumThenRecursive() {
+	global $gallery;
+
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Prepare the test by first disabling the subalbum */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_subAlbum, false, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$itemIds = array();
+	foreach ($this->_subItems as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_subAlbum->getId();
+
+	/* Verify the precondition of the test */
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ImageBlockDisabledMap',
+								  array('itemId'),
+								  array('itemId' => $itemIds));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+
+	sort($itemIds);
+	sort($dbItemIds);
+	$this->assertEquals($itemIds, $dbItemIds,
+			    'Precondition: Items not added to the DisableMap');
+
+	/* Execute the test: Ensure that we succeed and don't attempt to insert duplicate rows. */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	foreach ($this->_topItems as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_topAlbum->getId();
+
+	/* Verify the results */
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ImageBlockDisabledMap',
+								  array('itemId'),
+								  array('itemId' => $itemIds));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+
+	sort($dbItemIds);
+	sort($itemIds);
+	$this->assertEquals($itemIds, $dbItemIds, 'Not all items have been flagged as disabled');
+    }
+
+    /**
+     * Verify the fix for bug 1536395
+     * http://sourceforge.net/tracker/index.php?func=detail&aid=1536395&group_id=7130&atid=107130
+     */
+    function testMaxSizeWithoutViewSourcePermission() {
+	global $gallery;
+
+	$listener = new ImageBlockHelper();
+	$this->_registerTestEventListener('Gallery::ViewableTreeChange', $listener);
+	$this->_registerTestEventListener('GalleryEntity::save', $listener);
+	$this->_registerTestEventListener('GalleryEntity::delete', $listener);
+
+	list ($ret, $top) = $this->_createTopAlbum();
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $album) = $this->_createRandomAlbum($top->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $photo) = $this->_createRandomDataItem($album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $thumbnail) = $this->_createDerivative(
+	    $album, $photo->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeItemPermissions($photo->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $photo->getId(), $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $results) = ImageBlockHelper::_getBlockData(
+	    'Album', 'recent', 1, $top->getId(), false, null, 200 /* maxSize */);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($thumbnail->getId(), $results[0]['thumb']['id']);
+    }
+
+    function testResizedWithoutViewResizePermission() {
+	global $gallery;
+
+	$listener = new ImageBlockHelper();
+	$this->_registerTestEventListener('Gallery::ViewableTreeChange', $listener);
+	$this->_registerTestEventListener('GalleryEntity::save', $listener);
+	$this->_registerTestEventListener('GalleryEntity::delete', $listener);
+
+	list ($ret, $photo) = $this->_createRandomDataItem($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($photo);
+
+	list ($ret, $thumbnail) = $this->_createDerivative(
+	    $photo, $photo->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, '',
+	    'test/file', array('width' => 120, 'width' => 130));
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $resize) = $this->_createDerivative(
+	    $photo, $photo->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE, '',
+	    'test/file', array('width' => 120, 'width' => 130));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeItemPermissions($photo->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $photo->getId(), $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+	    $photo->getId(), $gallery->getActiveUserId(), 'core.viewSource');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $results) = ImageBlockHelper::_getBlockData(
+	    'Image', 'specific', 1, $photo->getId(), false, null, 130 /* maxSize */);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($thumbnail->getId(), $results[0]['thumb']['id'],
+			    sprintf('Wrong image picked. Thumb id: %d, resize id: %d, item id: %d',
+				    $thumbnail->getId(), $resize->getId(), $photo->getId()));
+    }
+
+    function testGetRandomKeyReturnsPositiveInteger() {
+	$this->assert(is_int($a = ImageBlockHelper::getRandomKey()), "$a must be integer");
+    }
+
+    function testGetRandomKeyInDefaultRange() {
+	$a = ImageBlockHelper::getRandomKey();
+	$this->assert(0 <= $a, "$a must be >= 0");
+	$b = ImageBlockHelper::getRandomKey();
+	$this->assert(2147483647 >= $b, "$a must be >= 2147483647");
+    }
+
+    function testGetRandomKeyWithRange() {
+	$a = ImageBlockHelper::getRandomKey(17, 30);
+	$this->assert($a <= 30 && $a >= 17, "$a is not in specified range");
+    }
+
+    function testGetRandomKeyWithMinimalRange() {
+	$a = ImageBlockHelper::getRandomKey(17, 17);
+	$this->assertEquals(17, $a);
+    }
+
+    function testGetRandomKeyWithSmallRange() {
+	$a = ImageBlockHelper::getRandomKey(25, 26);
+	$this->assert($a == 25 || $a == 26, "$a is outside of specified range");
+    }
+
+    function testFetchViewableDataForRandomImageWithCache() {
+	global $gallery;
+	$gallery->_storage = new UnitTestStorage();
+	$storage =& $gallery->getStorage();
+	$gallery->_phpVm = new UnitTestPhpVm();
+	$phpVm = $gallery->getPhpVm();
+
+	$userId = (int)$gallery->getActiveUserId();
+
+	/* The isCached query must be fired before checking the random number range query */
+	$isCachedQuery =
+	    'SELECT COUNT(*) FROM [ImageBlockCacheMap] WHERE [ImageBlockCacheMap::userId] = ?';
+	$storage->setReply('search', array($isCachedQuery, array($userId), array()),
+	    array(null, new UnitTestStorageSearchResults(array(array(2)))));
+
+	$query = '
+	SELECT MIN([ImageBlockCacheMap::random]), MAX([ImageBlockCacheMap::random])
+	FROM [ImageBlockCacheMap] LEFT JOIN [ImageBlockDisabledMap] ON '
+	. '[ImageBlockCacheMap::itemId]=[ImageBlockDisabledMap::itemId]
+	WHERE [ImageBlockCacheMap::userId] = ? AND [ImageBlockCacheMap::itemType] = ? AND '
+	. '[ImageBlockCacheMap::random] IS NOT NULL AND [ImageBlockDisabledMap::itemId] IS NULL';
+	$storage->setReply('search', array($query, array($userId, 1), array()),
+	    array(null, new UnitTestStorageSearchResults(array(array(5, 9)))));
+
+	$phpVm->setReply('rand', array(5, 9), 7);
+
+	$query = 'SELECT [ImageBlockCacheMap::itemId] FROM [ImageBlockCacheMap] '
+	       . 'LEFT JOIN [ImageBlockDisabledMap] ON '
+	       . '[ImageBlockCacheMap::itemId]=[ImageBlockDisabledMap::itemId] '
+	       . 'WHERE [ImageBlockCacheMap::userId] = ? AND [ImageBlockCacheMap::itemType] = ? '
+	       . 'AND [ImageBlockDisabledMap::itemId] IS NULL AND [ImageBlockCacheMap::random] > ? '
+	       . 'ORDER BY [ImageBlockCacheMap::random] ASC';
+	$storage->setReply('getFunctionSql', array('LIMIT', array(2, $query)),
+	    array(null, $query . ' LIMIT 2'));
+
+	$storage->setReply('search', array($query . ' LIMIT 2', array($userId, 1, 6), array()),
+	    array(null, new UnitTestStorageSearchResults(array(array(15, 4), array(19, 99)))));
+
+	list ($ret, $results) = ImageBlockHelper::fetchViewableData('Image', 'random', 2);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(array('id' => 15, 'viewCount' => 4),
+				  array('id' => 19, 'viewCount' => 99)),
+			    $results);
+
+	$this->assert($storage->isComplete(), $storage->getRemaining());
+    }
+
+    /**
+     * Verify the fix for bug 1878943
+     * http://sourceforge.net/tracker/index.php?func=detail&aid=1878943&group_id=7130&atid=107130
+     */
+    function testFetchViewableDataForMultipleRandomImages() {
+	global $gallery;
+	$max = (int)0x7fffffff;
+	$userId = $gallery->getActiveUserId();
+
+	list ($ret, $album, $items) =
+	    $this->_createSubAlbumWithItems($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($album);
+
+	/* Thumbnails must be generated for the cache to be properly updated */
+	foreach( $items as $item ) {
+	    list ($ret, $thumbnail) = $this->_createDerivative(
+		$item, $item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, '',
+		'test/file', array('width' => 120, 'width' => 130));
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Ensure that wrap around must be used by rigging the random key */
+	$gallery->_phpVm = new UnitTestPhpVm();
+	$phpVm = $gallery->getPhpVm();
+	$phpVm->setReply('rand', '*', $max);
+
+	list($ret, $randItems) =
+	    ImageBlockHelper::fetchViewableData('Image', 'random', count($items), $album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(count($items), count($randItems),
+	    sprintf("Wrong number of random images returned, asked for %d, but got %d",
+		count($items), count($randItems)));
+    }
+
+    function testGetRandomKeyRange() {
+	global $gallery;
+	$gallery->_storage = new UnitTestStorage();
+	$storage =& $gallery->getStorage();
+
+	$query = '
+	SELECT MIN([ImageBlockCacheMap::random]), MAX([ImageBlockCacheMap::random])
+	FROM [ImageBlockCacheMap] LEFT JOIN [ImageBlockDisabledMap] ON '
+	. '[ImageBlockCacheMap::itemId]=[ImageBlockDisabledMap::itemId]
+	WHERE [ImageBlockCacheMap::userId] = ? AND [ImageBlockCacheMap::itemType] = ? AND '
+	. '[ImageBlockCacheMap::random] IS NOT NULL AND [ImageBlockDisabledMap::itemId] IS NULL';
+
+	$storage->setReply('search', array($query, array($gallery->getActiveUserId(), 1), array()),
+	    array(null, new UnitTestStorageSearchResults(array(array(5, 9)))));
+
+	list ($ret, $range) = ImageBlockHelper::getRandomKeyRange($gallery->getActiveUserId(), 1);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array(5, 9), $range);
+
+	$this->assert($storage->isComplete(), $storage->getRemaining());
+    }
+}
+?>

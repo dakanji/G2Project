@@ -29,49 +29,39 @@
  * @module MainPageController
  */
 class MainPageControllerAndView extends RepositoryControllerAndView {
-	/**
-	 * Displays the available actions in the repository tools.
-	 *
-	 * @return GalleryStatus a status code
-	 */
-	public function showAvailableActions() {
-		global $gallery;
-		$data         = array();
-		$urlGenerator =& $gallery->getUrlGenerator();
 
-		// Make sure logged in user is an administrator.
-		list($ret, $data['isSiteAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
+    /**
+     * Displays the available actions in the repository tools.
+     *
+     * @return GalleryStatus a status code
+     */
+     function showAvailableActions() {
+	global $gallery;
+	$data = array();
+	$urlGenerator =& $gallery->getUrlGenerator();
 
-		if ($ret) {
-			echo $ret->getAsHtml();
-
-			return;
-		}
-
-		// Create links for repository actions.
-		$data['packagePluginLink'] = $urlGenerator->generateUrl(array(
-			'controller' => 'PackagePlugin',
-			'action'     => 'showAvailablePlugins',
-		));
-		$data['packageAllPlugins'] = $urlGenerator->generateUrl(array(
-			'controller' => 'PackagePlugin',
-			'action'     => 'packagePlugins',
-		));
-		$data['generateIndex']     = $urlGenerator->generateUrl(array(
-			'controller' => 'IndexGenerator',
-			'action'     => 'generate',
-		));
-		$data['browseRepository']  = $urlGenerator->generateUrl(array(
-			'controller' => 'RepositoryManager',
-			'action'     => 'browse',
-		));
-
-		$ret = $this->showView('MainPage', $data);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+	/* Make sure logged in user is an administrator. */
+	list ($ret, $data['isSiteAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return;
 	}
+
+	/* Create links for repository actions. */
+	$data['packagePluginLink'] = $urlGenerator->generateUrl(array(
+	    'controller' => 'PackagePlugin', 'action' => 'showAvailablePlugins'));
+	$data['packageAllPlugins'] = $urlGenerator->generateUrl(array(
+	    'controller' => 'PackagePlugin', 'action' => 'packagePlugins'));
+	$data['generateIndex'] = $urlGenerator->generateUrl(array(
+	    'controller' => 'IndexGenerator', 'action' => 'generate'));
+	$data['browseRepository'] = $urlGenerator->generateUrl(array(
+	    'controller' => 'RepositoryManager', 'action' => 'browse'));
+
+	$ret = $this->showView('MainPage', $data);
+	if ($ret) {
+	    return $ret;
+	}
+	return null;
+    }
 }
+?>

@@ -1,0 +1,111 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * AdminSnapGalaxy controller tests
+ *
+ * @package SnapGalaxy
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class AdminSnapGalaxyControllerTest extends GalleryControllerTestCase {
+
+    function AdminSnapGalaxyControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'snapgalaxy.AdminSnapGalaxy');
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'snapgalaxy');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testAdminSnapGalaxyControllerReset() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'snapgalaxy.AdminSnapGalaxy'),
+		  'status' => array(),
+		  'error' => array()),
+	    $results);
+    }
+
+    function testAdminSnapGalaxyControllerSave() {
+	GalleryUtilities::putRequestVariable('form[snapgalaxyPartnerId]', '1234_a-X');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.SiteAdmin',
+				     'subView' => 'snapgalaxy.AdminSnapGalaxy'),
+		  'status' => array('saved' => 1),
+		  'error' => array()),
+	    $results);
+
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'snapgalaxy');
+	if ($ret) {
+	    return $ret;
+	}
+	foreach ($params as $key => $value) {
+	    if ($key[0] == '_') {
+		unset($params[$key]);
+	    }
+	}
+	ksort($params);
+
+	$this->assertEquals(array('snapgalaxyPartnerId' => '1234_a-X'),
+	    $params, 'Verify settings');
+    }
+
+    function testAdminSnapGalaxyControllerSaveMissingValues() {
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'snapgalaxy.AdminSnapGalaxy'),
+		  'status' => array(),
+		  'error' => array('form[error][snapgalaxyPartnerId][invalid]')),
+	    $results);
+    }
+
+    function testAdminSnapGalaxyControllerSaveInvalidValues() {
+    	GalleryUtilities::putRequestVariable('form[snapgalaxyPartnerId]', 'ç&%/1234');
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'snapgalaxy.AdminSnapGalaxy'),
+		  'status' => array(),
+		  'error' => array('form[error][snapgalaxyPartnerId][invalid]')),
+	    $results);
+    }
+}
+?>

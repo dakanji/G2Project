@@ -1,21 +1,21 @@
 # $Revision: 20949 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/imageblock/Callbacks.inc	3852651612	3563161064	2949	3046
-modules/imageblock/External.inc	176068514	1784752766	4254	4418
-modules/imageblock/ExternalCSS.inc	2702616855	821652629	3148	3271
-modules/imageblock/ImageBlockOption.inc	3814106893	2062684862	3191	3295
-modules/imageblock/ImageBlockSiteAdmin.inc	1456581333	1902630610	3945	4098
-modules/imageblock/Preloads.inc	1718774043	121016481	2145	2220
+modules/imageblock/Callbacks.inc	1692468317	1342718929	2880	2974
+modules/imageblock/External.inc	1890664423	34135774	4204	4345
+modules/imageblock/ExternalCSS.inc	92655111	2929538848	3149	3261
+modules/imageblock/ImageBlockOption.inc	1925592883	3190985389	3190	3285
+modules/imageblock/ImageBlockSiteAdmin.inc	2538646306	4043778827	3889	4016
+modules/imageblock/Preloads.inc	1113462248	3993289374	2097	2172
 modules/imageblock/classes/GNUmakefile	1995366819	843025639	51	52
 modules/imageblock/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/imageblock/classes/GalleryStorage/schema.tpl	915282624	2757417009	13937	14302
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.0.xml	2220890733	582360795	733	761
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.1.xml	1988743235	4024673389	627	652
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.2.xml	2133512389	2910752323	796	828
-modules/imageblock/classes/ImageBlockHelper.class	3045370456	1088623782	33169	34433
-modules/imageblock/classes/Maps.inc	919346238	408391873	903	938
+modules/imageblock/classes/ImageBlockHelper.class	3022860855	518216004	32688	33744
+modules/imageblock/classes/Maps.inc	3965587607	2986913692	719	724
 modules/imageblock/classes/Maps.xml	3678630263	325108851	1305	1356
-modules/imageblock/module.inc	4075217303	3379582221	4746	4923
+modules/imageblock/module.inc	1159473462	2631207893	4752	4907
 modules/imageblock/po/GNUmakefile	1866879166	2808215985	98	103
 modules/imageblock/po/af.mo	2816538918	2816538918	5307	5307
 modules/imageblock/po/af.po	3712527220	281327275	7904	8202
@@ -100,7 +100,14 @@ modules/imageblock/templates/ImageBlock.tpl	3654088814	2254832309	2742	2823
 modules/imageblock/templates/ImageBlockOption.tpl	1883633046	4086364636	796	817
 modules/imageblock/templates/ImageBlockSiteAdmin.tpl	3359826556	804630648	6150	6293
 modules/imageblock/templates/blocks/ImageBlock.tpl	1752323807	2655879344	879	898
-modules/imageblock/templates/blocks/blocks.inc	1088441097	2205832351	2061	2128
+modules/imageblock/templates/blocks/blocks.inc	1401326904	2167541536	1900	1952
+modules/imageblock/test/phpunit/ExternalCSSControllerTest.class	1117401257	1663656693	3716	3834
+modules/imageblock/test/phpunit/ImageBlockDisabledTest.class	4050317325	3418427662	8128	8396
+modules/imageblock/test/phpunit/ImageBlockHandlerTest.class	1588235743	2183833606	15955	16453
+modules/imageblock/test/phpunit/ImageBlockHelperTest.class	3141749168	1556314145	16298	16837
+modules/imageblock/test/phpunit/ImageBlockOptionTest.class	4016752140	2789180505	5475	5665
+modules/imageblock/test/phpunit/ImageBlockSiteAdminControllerTest.class	2833633020	4259630529	3838	3950
+modules/imageblock/test/phpunit/ImageBlockTest.class	2818554836	793564039	39302	40375
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_ImageBlockCacheMap.sql

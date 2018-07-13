@@ -1,0 +1,308 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * ItemCreateReplica controller tests
+ * @package Replica
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
+
+    function ItemCreateReplicaControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'replica.ItemCreateReplica');
+    }
+
+    function setUp() {
+    	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a container album for all our test items */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+    }
+
+    /**
+     * Test linking an item
+     */
+    function testReplicaSuccessful() {
+	list ($ret, $childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $childItem) = $this->_createRandomDataItem($childAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	global $gallery;
+	GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]',
+					     array($childItem->getId() => 1));
+	GalleryUtilities::putRequestVariable('form[action][link]', 1);
+	GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'replica.ItemCreateReplica',
+						      'itemId' => $childAlbum->getId()),
+				  'status' => array('linked' => array('count' => 1)),
+				  'error' => array()),
+			    $results);
+    }
+
+    /**
+     * Test linking an album (this should fail)
+     */
+    function testAlbumReplicaUnsuccessful() {
+	list ($ret, $childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $grandChildAlbum) = $this->_createRandomAlbum($childAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	global $gallery;
+	GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]',
+					     array($grandChildAlbum->getId() => 1));
+	GalleryUtilities::putRequestVariable('form[action][link]', 1);
+	GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
+
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+    }
+
+    /**
+     * Test linking an item without view permission (this should fail)
+     */
+    function testReplicaWithoutViewFullPermissions() {
+	global $gallery;
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::removeItemPermissions($item->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]',
+					     array($item->getId() => 1));
+	GalleryUtilities::putRequestVariable('form[action][link]', 1);
+	GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
+
+	$results = $this->handleRequest(ERROR_MISSING_OBJECT);
+    }
+
+    /**
+     * Test linking an item to a bogus destination
+     */
+    function testReplicaIntoBogusDestination() {
+	list ($ret, $childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $childItem) = $this->_createRandomDataItem($childAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	global $gallery;
+	GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]',
+					     array($childItem->getId() => 1));
+	GalleryUtilities::putRequestVariable('form[action][link]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'replica.ItemCreateReplica'),
+				  'status' => array(),
+				  'error' => array('form[error][destination][empty]')),
+			    $results);
+    }
+
+    /**
+     * Test moving an item into a container where we have no add permissions
+     */
+    function testReplicaIntoAlbumWithNoAddPermissions() {
+    	global $gallery;
+
+	list ($ret, $childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $childItem) = $this->_createRandomDataItem($childAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Remove add permission in the destination */
+	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]',
+					     array($childItem->getId() => 1));
+	GalleryUtilities::putRequestVariable('form[action][link]', 1);
+	GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
+
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+    }
+
+    function testCreateReplicaNextPageOutOfRange() {
+	global $gallery;
+
+	/* create random items */
+	$items = array();
+	for ($i = 0; $i < 5; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($this->_album->getId());
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$selectedIds = array();
+	foreach ($items as $item) {
+	    $selectedIds[$item->getId()] = 1;
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]', $selectedIds);
+	GalleryUtilities::putRequestVariable('form[numPerPage]', 3);
+	GalleryUtilities::putRequestVariable('page', 3);
+	GalleryUtilities::putRequestVariable('form[action][next]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'replica.ItemCreateReplica',
+						      'itemId' => $this->_album->getId(),
+						      'page' => 2),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testCreateReplicaPreviousPageOutOfRange() {
+	global $gallery;
+
+	/* create random items */
+	$items = array();
+	for ($i = 0; $i < 5; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($this->_album->getId());
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$selectedIds = array();
+	foreach ($items as $item) {
+	    $selectedIds[$item->getId()] = 1;
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]', $selectedIds);
+	GalleryUtilities::putRequestVariable('page', -1);
+	GalleryUtilities::putRequestVariable('form[action][previous]', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'replica.ItemCreateReplica',
+						      'itemId' => $this->_album->getId(),
+						      'page' => 1),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    /*
+     * Bug #995734
+     * Cancel button should return to the current album view
+     */
+    function testCreateReplicaCancelButton() {
+	list ($ret, $childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $childItem) = $this->_createRandomDataItem($childAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	global $gallery;
+	GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
+	GalleryUtilities::putRequestVariable('form[selectedIds]',
+					     array($childItem->getId() => 1));
+	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('return' => 1,
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    /*
+     * Bug 1165669: Create link with no selection
+     */
+    function testReplicaNoSelection() {
+	list ($ret, $childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
+	GalleryUtilities::putRequestVariable('form[action][link]', 1);
+	GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'replica.ItemCreateReplica'),
+				  'status' => array(),
+				  'error' => array('form[error][sources][empty]')), $results);
+    }
+}
+?>

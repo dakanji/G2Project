@@ -23,37 +23,40 @@
  * @package Install
  */
 class SecureStep extends InstallStep {
-	public function stepName() {
-		return _('Check Security');
+    function stepName() {
+	return _('Check Security');
+    }
+
+    function loadTemplateData(&$templateData) {
+	$templateData['secure'] = 0;
+
+	/* For non-MS Windows, we show permission warnings too */
+	if ($doFilesystemPermissionCheck = strncasecmp(PHP_OS, 'win', 3) != 0) {
+	    $configFilePath = $_SESSION['configPath'] . '/config.php';
+
+	    if (!file_exists($configFilePath)) {
+		$templateData['errors']['missingConfigFile'] = 1;
+	    } else {
+		/* Grab the last 3 characters of the mode for file and parent dir */
+		$stat = stat($configFilePath);
+		$fileMode = substr(sprintf('%o', $stat['mode']), -3);
+		$stat = stat($_SESSION['configPath']);
+		$dirMode = substr(sprintf('%o', $stat['mode']), -3);
+
+		$templateData['configFilePath'] = realpath($configFilePath);
+		$templateData['file']['mode'] = $fileMode;
+		$templateData['file']['secure'] =
+			!((int)$fileMode{1} & 2 || (int)$fileMode{2} & 2);
+		$templateData['dir']['mode'] = $dirMode;
+		$templateData['dir']['secure'] = !((int)$dirMode{1} & 2 || (int)$dirMode{2} & 2);
+		$templateData['secure'] =
+			$templateData['file']['secure'] && $templateData['dir']['secure'];
+	    }
 	}
+	$templateData['showFileSystemPermissionWarnings'] = $doFilesystemPermissionCheck;
 
-	public function loadTemplateData(&$templateData) {
-		$templateData['secure'] = 0;
-
-		// For non-MS Windows, we show permission warnings too
-		if ($doFilesystemPermissionCheck = strncasecmp(PHP_OS, 'win', 3) != 0) {
-			$configFilePath = $_SESSION['configPath'] . '/config.php';
-
-			if (!file_exists($configFilePath)) {
-				$templateData['errors']['missingConfigFile'] = 1;
-			} else {
-				// Grab the last 3 characters of the mode for file and parent dir
-				$stat     = stat($configFilePath);
-				$fileMode = substr(sprintf('%o', $stat['mode']), -3);
-				$stat     = stat($_SESSION['configPath']);
-				$dirMode  = substr(sprintf('%o', $stat['mode']), -3);
-
-				$templateData['configFilePath'] = realpath($configFilePath);
-				$templateData['file']['mode']   = $fileMode;
-				$templateData['file']['secure'] = !((int)$fileMode[1] & 2 || (int)$fileMode[2] & 2);
-				$templateData['dir']['mode']    = $dirMode;
-				$templateData['dir']['secure']  = !((int)$dirMode[1] & 2 || (int)$dirMode[2] & 2);
-				$templateData['secure']         = $templateData['file']['secure'] && $templateData['dir']['secure'];
-			}
-		}
-		$templateData['showFileSystemPermissionWarnings'] = $doFilesystemPermissionCheck;
-
-		$templateData['bodyFile'] = 'Secure.html';
-		$this->setComplete(true);
-	}
+	$templateData['bodyFile'] = 'Secure.html';
+	$this->setComplete(true);
+    }
 }
+?>

@@ -29,145 +29,116 @@ define('FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD', 'f12a65d90445f95b90e5fd30c75ee74
  * @version $Revision: 20958 $
  */
 class FotokastenModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
 
-		$this->setId('fotokasten');
-		$this->setName($gallery->i18n('Fotokasten'));
-		$this->setDescription($gallery->i18n('Fotokasten Photo Printing Module'));
-		$this->setVersion('1.0.12');
-		$this->_templateVersion = 1;
-		$this->setGroup('commerce', $this->translate('Commerce'));
-		$this->setCallbacks('getSiteAdminViews|getItemLinks');
-		$this->setRequiredCoreApi(array(7, 30));
-		$this->setRequiredModuleApi(array(3, 6));
+    function FotokastenModule() {
+	global $gallery;
+
+	$this->setId('fotokasten');
+	$this->setName($gallery->i18n('Fotokasten'));
+	$this->setDescription($gallery->i18n('Fotokasten Photo Printing Module'));
+	$this->setVersion('1.0.12');
+	$this->_templateVersion = 1;
+	$this->setGroup('commerce', $this->translate('Commerce'));
+	$this->setCallbacks('getSiteAdminViews|getItemLinks');
+	$this->setRequiredCoreApi(array(7, 30));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::upgrade
+     */
+    function upgrade($currentVersion) {
+	global $gallery;
+
+	list ($ret, $params) =
+	    GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
+	if ($ret) {
+	    return $ret;
 	}
-
-	/**
-	 * @see GalleryModule::upgrade
-	 */
-	public function upgrade($currentVersion, $x1 = null) {
-		global $gallery;
-
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
-
+	foreach (array('affiliateId' => FOTOKASTEN_GALLERY_AFFILIATE_ID,
+		       'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD)
+		as $key => $value) {
+	    if (!isset($params[$key])) {
+		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-			return $ret;
+		    return $ret;
 		}
-
-		foreach (array(
-			'affiliateId'     => FOTOKASTEN_GALLERY_AFFILIATE_ID,
-			'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD,
-		)
- as $key => $value) {
-			if (!isset($params[$key])) {
-				$ret = $this->setParameter($key, $value);
-
-				if ($ret) {
-					return $ret;
-				}
-			}
-		}
-
-		if (!isset($currentVersion)) {
-			list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-
-			if ($ret) {
-				return $ret;
-			}
-
-			// Register our permission
-			$ret = GalleryCoreApi::registerPermission(
-				$this->getId(),
-				'fotokasten.print',
-				$gallery->i18n('[fotokasten] Print')
-			);
-
-			if ($ret) {
-				return $ret;
-			}
-			// Give everybody print permission by default
-			$gallery->guaranteeTimeLimit(300);
-			$ret = GalleryCoreApi::addGroupPermission(
-				$coreParams['id.rootAlbum'],
-				$coreParams['id.everybodyGroup'],
-				'fotokasten.print',
-				true
-			);
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		return null;
+	    }
 	}
 
-	/**
-	 * @see GalleryModule::performFactoryRegistrations
-	 */
-	public function performFactoryRegistrations() {
-		foreach (array('1_0', '1_1') as $version) {
-			$ret = GalleryCoreApi::registerFactoryImplementation(
-				'CartPluginInterface_' . $version,
-				'FotokastenCartPlugin',
-				'fotokasten',
-				'modules/fotokasten/classes/FotokastenCartPlugin.class',
-				'fotokasten',
-				null
-			);
+	if (!isset($currentVersion)) {
+	    list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+	    if ($ret) {
+		return $ret;
+	    }
 
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		return null;
+	    /* Register our permission */
+	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'fotokasten.print',
+						      $gallery->i18n('[fotokasten] Print'));
+	    if ($ret) {
+		return $ret;
+	    }
+	    /* Give everybody print permission by default */
+	    $gallery->guaranteeTimeLimit(300);
+	    $ret = GalleryCoreApi::addGroupPermission(
+		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
+		'fotokasten.print', true);
+	    if ($ret) {
+		return $ret;
+	    }
 	}
 
-	/**
-	 * @see GalleryModule::getSiteAdminViews
-	 */
-	public function getSiteAdminViews() {
-		return array(
-			null,
-			array(
-				array(
-					'name' => $this->translate('Fotokasten'),
-					'view' => 'fotokasten.FotokastenSiteAdmin',
-				),
-			),
-		);
+	return null;
+    }
+
+    /**
+     * @see GalleryModule::performFactoryRegistrations
+     */
+    function performFactoryRegistrations() {
+	foreach (array('1_0', '1_1') as $version) {
+	    $ret = GalleryCoreApi::registerFactoryImplementation(
+		'CartPluginInterface_' . $version, 'FotokastenCartPlugin', 'fotokasten',
+		'modules/fotokasten/classes/FotokastenCartPlugin.class', 'fotokasten', null);
+	    if ($ret) {
+		return $ret;
+	    }
 	}
 
-	/**
-	 * @see GalleryModule::getItemLinks
-	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
-		global $gallery;
-		$session =& $gallery->getSession();
+	return null;
+    }
 
-		$links = array();
+    /**
+     * @see GalleryModule::getSiteAdminViews
+     */
+    function getSiteAdminViews() {
+	return array(null,
+		     array(array('name' => $this->translate('Fotokasten'),
+				 'view' => 'fotokasten.FotokastenSiteAdmin')));
+    }
 
-		foreach ($items as $item) {
-			$itemId = $item->getId();
+    /**
+     * @see GalleryModule::getItemLinks
+     */
+    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+	global $gallery;
+	$session =& $gallery->getSession();
 
-			if (isset($wantsDetailedLinks[$itemId])
-				&& isset($permissions[$itemId]['fotokasten.print'])
-				&& GalleryUtilities::isA($item, 'GalleryPhotoItem')
-			) {
-				$links[$itemId][] = array(
-					'text'   => $this->translate('Print on Fotokasten.de'),
-					'params' => array(
-						'controller' => 'fotokasten.PrintPhotos',
-						'itemId'     => $itemId,
-						'authToken'  => $session->getAuthToken(),
-						'return'     => 1,
-					),
-				);
-			}
-		}
-
-		return array(null, $links);
+	$links = array();
+	foreach ($items as $item) {
+	    $itemId = $item->getId();
+	    if (isset($wantsDetailedLinks[$itemId]) &&
+		    isset($permissions[$itemId]['fotokasten.print']) &&
+		    GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
+		$links[$itemId][] =
+		    array('text' => $this->translate('Print on Fotokasten.de'),
+			  'params' => array('controller' => 'fotokasten.PrintPhotos',
+					    'itemId' => $itemId,
+					    'authToken' => $session->getAuthToken(),
+					    'return' => 1));
+	    }
 	}
+
+	return array(null, $links);
+    }
 }
+?>

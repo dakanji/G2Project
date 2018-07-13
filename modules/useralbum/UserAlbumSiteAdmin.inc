@@ -26,129 +26,101 @@
  * @version $Revision: 17580 $
  */
 class UserAlbumSiteAdminController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$status = array();
-
-		if (isset($form['action']['save'])) {
-			foreach (array('create', 'view', 'fullSize', 'targetLocation') as $key) {
-				$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', $key, $form[$key]);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-
-			foreach (array('loginRedirect', 'homeLink') as $key) {
-				$ret = GalleryCoreApi::setPluginParameter(
-					'module',
-					'useralbum',
-					$key,
-					isset($form[$key]) ? 1 : 0
-				);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-			$status['saved'] = 1;
-		} // else $form['action']['reset']
-
-		// Figure out where to redirect upon success
-		$results['redirect']['view']    = 'core.SiteAdmin';
-		$results['redirect']['subView'] = 'useralbum.UserAlbumSiteAdmin';
-		$results['status']              = $status;
-		$results['error']               = array();
-
-		return array(null, $results);
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$status = array();
+	if (isset($form['action']['save'])) {
+	    foreach (array('create', 'view', 'fullSize', 'targetLocation') as $key) {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', $key, $form[$key]);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	    foreach (array('loginRedirect', 'homeLink') as $key) {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', $key,
+							  isset($form[$key]) ? 1 : 0);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	    $status['saved'] = 1;
+	} /* else $form['action']['reset'] */
+
+	/* Figure out where to redirect upon success */
+	$results['redirect']['view'] = 'core.SiteAdmin';
+	$results['redirect']['subView'] = 'useralbum.UserAlbumSiteAdmin';
+	$results['status'] = $status;
+	$results['error'] = array();
+
+	return array(null, $results);
+    }
 }
 
 /**
  * Settings for User Albums
  */
 class UserAlbumSiteAdminView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if ($form['formName'] != 'UserAlbumSiteAdmin') {
-			$form['formName'] = 'UserAlbumSiteAdmin';
-
-			foreach (array(
-				'create',
-				'view',
-				'fullSize',
-				'targetLocation',
-				'loginRedirect',
-				'homeLink',
-			) as $key) {
-				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'useralbum', $key);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-		}
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'useralbum');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		// Get ids of all all albums where we can add new album items
-		list($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		// Load all the album entities
-		list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$g2AlbumTree = GalleryUtilities::createAlbumTree($albums);
-
-		$UserAlbumSiteAdmin = array(
-			'createList'     => array(
-				'immediate' => $module->translate('When user is created'),
-				'access'    => $module->translate('When first accessed'),
-			),
-			'viewList'       => array(
-				'everybody' => $module->translate('Everybody'),
-				'allusers'  => $module->translate('Registered Users'),
-				'user'      => $module->translate('User Only'),
-			),
-			'sizeList'       => array(
-				'1' => $module->translate('Yes'),
-				'0' => $module->translate('No'),
-			),
-			'targetLocation' => $g2AlbumTree,
-		);
-
-		$template->setVariable('UserAlbumSiteAdmin', $UserAlbumSiteAdmin);
-		$template->setVariable('controller', 'useralbum.UserAlbumSiteAdmin');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/useralbum/templates/UserAlbumSiteAdmin.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	if ($form['formName'] != 'UserAlbumSiteAdmin') {
+	    $form['formName'] = 'UserAlbumSiteAdmin';
+	    foreach (array('create', 'view', 'fullSize', 'targetLocation',
+			   'loginRedirect', 'homeLink') as $key) {
+		list ($ret, $form[$key]) =
+		    GalleryCoreApi::getPluginParameter('module', 'useralbum', $key);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	}
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'useralbum');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	/* Get ids of all all albums where we can add new album items */
+	list ($ret, $albumIds) =
+	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Load all the album entities */
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$g2AlbumTree = GalleryUtilities::createAlbumTree($albums);
+
+	$UserAlbumSiteAdmin = array(
+	    'createList' => array('immediate' => $module->translate('When user is created'),
+				  'access' => $module->translate('When first accessed')),
+	    'viewList' => array('everybody' => $module->translate('Everybody'),
+				'allusers' => $module->translate('Registered Users'),
+				'user' => $module->translate('User Only')),
+	    'sizeList' => array('1' => $module->translate('Yes'),
+				'0' => $module->translate('No')),
+	    'targetLocation' => $g2AlbumTree
+	);
+
+	$template->setVariable('UserAlbumSiteAdmin', $UserAlbumSiteAdmin);
+	$template->setVariable('controller', 'useralbum.UserAlbumSiteAdmin');
+	return array(null, array('body' => 'modules/useralbum/templates/UserAlbumSiteAdmin.tpl'));
+    }
 }
+?>

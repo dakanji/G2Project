@@ -27,66 +27,62 @@
  * @static
  */
 class G1MigrateHelper {
-	/**
-	 * Count number of mappings in migration table
-	 *
-	 * @return array GalleryStatus a status code
-	 *               int count
-	 */
-	public static function fetchMapCount() {
-		global $gallery;
 
-		$query = 'SELECT COUNT(*) FROM [G1MigrateMap]';
+    /**
+     * Count number of mappings in migration table
+     *
+     * @return array GalleryStatus a status code
+     *               int count
+     */
+    function fetchMapCount() {
+	global $gallery;
 
-		list($ret, $searchResults) = $gallery->search($query, array(), array());
+	$query = 'SELECT COUNT(*) FROM [G1MigrateMap]';
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$count = 0;
-
-		if ($result = $searchResults->nextResult()) {
-			$count = (int)$result[0];
-		}
-
-		return array(null, $count);
+	list ($ret, $searchResults) = $gallery->search($query, array(), array());
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * Get mapping for given G1 album/item
-	 *
-	 * @param string $g1album G1 album name
-	 * @param string $g1item (optional) G1 item name
-	 * @return array GalleryStatus a status code
-	 *               int id of G2 item or null if not found
-	 */
-	public static function fetchMapping($g1album, $g1item = null) {
-		global $gallery;
+	$count = 0;
+	if ($result = $searchResults->nextResult()) {
+	    $count = (int)$result[0];
+	}
+	return array(null, $count);
+    }
 
-		$query = 'SELECT [G1MigrateMap::itemId] FROM [G1MigrateMap]
+    /**
+     * Get mapping for given G1 album/item
+     *
+     * @param string $g1album G1 album name
+     * @param string $g1item (optional) G1 item name
+     * @return array GalleryStatus a status code
+     *               int id of G2 item or null if not found
+     */
+    function fetchMapping($g1album, $g1item=null) {
+	global $gallery;
+
+	$query = 'SELECT [G1MigrateMap::itemId] FROM [G1MigrateMap]
 		  WHERE [G1MigrateMap::g1album]=? AND [G1MigrateMap::g1item]';
-		$data  = array($g1album);
+	$data = array($g1album);
 
-		if (isset($g1item)) {
-			$query .= '=?';
-			$data[] = $g1item;
-		} else {
-			$query .= ' IS NULL';
-		}
-
-		list($ret, $searchResults) = $gallery->search($query, $data);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$id = null;
-
-		if ($result = $searchResults->nextResult()) {
-			$id = (int)$result[0];
-		}
-
-		return array(null, $id);
+	if (isset($g1item)) {
+	    $query .= '=?';
+	    $data[] = $g1item;
+	} else {
+	    $query .= ' IS NULL';
 	}
+
+	list ($ret, $searchResults) = $gallery->search($query, $data);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$id = null;
+	if ($result = $searchResults->nextResult()) {
+	    $id = (int)$result[0];
+	}
+	return array(null, $id);
+    }
 }
+?>

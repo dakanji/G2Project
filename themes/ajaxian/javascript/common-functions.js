@@ -18,36 +18,36 @@
  */
 
 var DEBUG_MESSAGES = 8;
-var msgnumber      = 1;
+var msgnumber = 1;
 
 /* Cross-browser event handling, by Scott Andrew */
 function addEvent(element, eventType, lamdaFunction, useCapture) {
-	if (element.addEventListener) {
-		element.addEventListener(eventType, lamdaFunction, useCapture);
-		return true;
-	} else if (element.attachEvent) {
-		var r = element.attachEvent('on' + eventType, lamdaFunction);
-		return r;
-	} else {
-		return false;
-	}
+    if (element.addEventListener) {
+	element.addEventListener(eventType, lamdaFunction, useCapture);
+	return true;
+    } else if (element.attachEvent) {
+	var r = element.attachEvent('on' + eventType, lamdaFunction);
+	return r;
+    } else {
+	return false;
+    }
 }
 
 /* Kills an event's propagation and default action */
 function knackerEvent(eventObject) {
-	if (eventObject && eventObject.stopPropagation) {
-		eventObject.stopPropagation();
-	}
-	if (window.event && window.event.cancelBubble) {
-		window.event.cancelBubble = true;
-	}
+    if (eventObject && eventObject.stopPropagation) {
+	eventObject.stopPropagation();
+    }
+    if (window.event && window.event.cancelBubble) {
+	window.event.cancelBubble = true;
+    }
 
-	if (eventObject && eventObject.preventDefault) {
-		eventObject.preventDefault();
-	}
-	if (window.event) {
-		window.event.returnValue = false;
-	}
+    if (eventObject && eventObject.preventDefault) {
+	eventObject.preventDefault();
+    }
+    if (window.event) {
+	window.event.returnValue = false;
+    }
 }
 
 /*
@@ -55,7 +55,7 @@ function knackerEvent(eventObject) {
  * hard-code an event return false for it to work.
  */
 function cancelEventSafari() {
-	return false;
+    return false;
 }
 
 /*
@@ -63,44 +63,44 @@ function cancelEventSafari() {
  * <http://www.oreillynet.com/pub/a/javascript/excerpt/JSDHTMLCkbk_chap5/index5.html>
  */
 function getElementStyle(elementID, CssStyleProperty) {
-	var element = document.getElementById(elementID);
-	if (element.currentStyle) {
-		return element.currentStyle[toCamelCase(CssStyleProperty)];
-	} else if (window.getComputedStyle) {
-		var compStyle = window.getComputedStyle(element, '');
-		return compStyle.getPropertyValue(CssStyleProperty);
-	} else {
-		return '';
-	}
+    var element = document.getElementById(elementID);
+    if (element.currentStyle) {
+	return element.currentStyle[toCamelCase(CssStyleProperty)];
+    } else if (window.getComputedStyle) {
+	var compStyle = window.getComputedStyle(element, '');
+	return compStyle.getPropertyValue(CssStyleProperty);
+    } else {
+	return '';
+    }
 }
 
 function createCookie(name, value, days) {
-	var expires = '';
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-		var expires = '; expires=' + date.toGMTString();
-	}
-	document.cookie = name + '=' + value + expires + '; path=/';
+    var expires = '';
+    if (days) {
+	var date = new Date();
+	date.setTime(date.getTime() + (days*24*60*60*1000));
+	var expires = '; expires=' + date.toGMTString();
+    }
+    document.cookie = name + '=' + value + expires + '; path=/';
 }
 
 function readCookie(name) {
-	var cookieCrumbs = document.cookie.split(';');
-	var nameToFind   = name + '=';
-	for (var i = 0; i < cookieCrumbs.length; i++) {
-		var crumb = cookieCrumbs[i];
-		while (crumb.charAt(0) == ' ') {
-			crumb = crumb.substring(1, crumb.length); /* delete spaces */
-		}
-		if (crumb.indexOf(nameToFind) == 0) {
-			return crumb.substring(nameToFind.length, crumb.length);
-		}
+    var cookieCrumbs = document.cookie.split(';');
+    var nameToFind = name + '=';
+    for (var i = 0; i < cookieCrumbs.length; i++) {
+	var crumb = cookieCrumbs[i];
+	while (crumb.charAt(0) == ' ') {
+	    crumb = crumb.substring(1, crumb.length); /* delete spaces */
 	}
-	return null;
+	if (crumb.indexOf(nameToFind) == 0) {
+	    return crumb.substring(nameToFind.length, crumb.length);
+	}
+    }
+    return null;
 }
 
 function eraseCookie(name) {
-	createCookie(name, '', -1);
+    createCookie(name, '', -1);
 }
 
 /*
@@ -108,37 +108,38 @@ function eraseCookie(name) {
  * From <http://dhtmlkitchen.com/learn/js/setstyle/index4.jsp>
  */
 function toCamelCase(CssProperty) {
-	var stringArray = CssProperty.toLowerCase().split('-');
-	if (stringArray.length == 1) {
-		return stringArray[0];
-	}
-	var ret = (CssProperty.indexOf("-") == 0) ? stringArray[0].charAt(0).toUpperCase() + stringArray[0].substring(1)
-		  : stringArray[0];
-	for (var i = 1; i < stringArray.length; i++) {
-		var s = stringArray[i];
-		ret  += s.charAt(0).toUpperCase() + s.substring(1);
-	}
-	return ret;
+    var stringArray = CssProperty.toLowerCase().split('-');
+    if (stringArray.length == 1) {
+	return stringArray[0];
+    }
+    var ret = (CssProperty.indexOf("-") == 0)
+	      ? stringArray[0].charAt(0).toUpperCase() + stringArray[0].substring(1)
+	      : stringArray[0];
+    for (var i = 1; i < stringArray.length; i++) {
+	var s = stringArray[i];
+	ret += s.charAt(0).toUpperCase() + s.substring(1);
+    }
+    return ret;
 }
 
 /* Adds a status message to the page; very useful for debugging without alerts */
 function addMessage(msg) {
-	if (DEBUG_AJAXIAN) {
-		var msgarea = document.getElementById('msgarea');
-		if (msgarea) {
-			msgarea.style.display = 'block';
-			if (msgarea.getElementsByTagName('h4').length < 1) {
-				var debugHeading = document.createElement('h4');
-				debugHeading.appendChild(document.createTextNode('Debug output'));
-				msgarea.appendChild(debugHeading);
-			}
-			if (msgarea.getElementsByTagName('p').length > DEBUG_MESSAGES) {
-				msgarea.removeChild(msgarea.getElementsByTagName('p')[0]);
-			}
-			var note = document.createElement('p');
-			note.appendChild(document.createTextNode(msgnumber + ': ' + msg));
-			msgnumber++;
-			msgarea.appendChild(note);
-		}
+    if (DEBUG_AJAXIAN) {
+	var msgarea = document.getElementById('msgarea');
+	if (msgarea) {
+	    msgarea.style.display = 'block';
+	    if (msgarea.getElementsByTagName('h4').length < 1) {
+		var debugHeading = document.createElement('h4');
+		debugHeading.appendChild(document.createTextNode('Debug output'));
+		msgarea.appendChild(debugHeading);
+	    }
+	    if (msgarea.getElementsByTagName('p').length > DEBUG_MESSAGES) {
+		msgarea.removeChild(msgarea.getElementsByTagName('p')[0]);
+	    }
+	    var note = document.createElement('p');
+	    note.appendChild(document.createTextNode(msgnumber + ': ' + msg));
+	    msgnumber++;
+	    msgarea.appendChild(note);
 	}
+    }
 }

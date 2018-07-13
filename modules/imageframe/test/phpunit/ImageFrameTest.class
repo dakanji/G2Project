@@ -1,0 +1,170 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
+/**
+ * Test ImageFrameInterface functionality
+ *
+ * @package ImageFrame
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class ImageFrameTest extends GalleryTestCase {
+
+    function ImageFrameTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_imageframe) =
+	    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1', 'ImageFrameImpl');
+	if ($ret) {
+	    return $ret;
+	}
+	if (!isset($this->_imageframe)) {
+	    print 'Missing ImageFrameImpl';
+	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+	}
+    }
+
+    function _resetIFCounter() {
+	if (!function_exists('smarty_function_counter')) {
+	    GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.counter.php');
+	}
+	$smarty = new Smarty();
+	$params = array('name' => 'ImageFrame_counter', 'print' => true, 'direction' => 'down');
+	while (smarty_function_counter($params, $smarty) > 1);
+	$params['direction'] = 'up';
+	$this->assertEquals(0, smarty_function_counter($params, $smarty));
+    }
+
+    function testImageFrameList() {
+	list ($ret, $list) = $this->_imageframe->getImageFrameList();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(isset($list['none']) && isset($list['dots']) && isset($list['wood']));
+    }
+
+    function testImageFrameInit() {
+	$template = new ImageFrameDummyGalleryTemplate();
+	$ret = $this->_imageframe->init($template, array('none', 'dots', 'wood'));
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(isset($template->data['ImageFrameData']), 'template data');
+	$data = $template->data['ImageFrameData'];
+	$this->assertEquals(array('idList', 'data'), array_keys($data), 'Data keys');
+	$this->assertEquals('none|dots|wood', $data['idList'], 'Id list');
+	$this->assertEquals(array('type' => 'style', 'style' => 'border-style: none'),
+			    $data['data']['none'], 'None');
+	$this->assertEquals('style', $data['data']['dots']['type'], 'Dots type');
+	$this->assert(preg_match('/border.*dashed.*padding/', $data['data']['dots']['style']),
+		      'Dots style');
+	$this->assert(count($data['data']['wood']) > 20 && isset($data['data']['wood']['name']),
+		      'Wood');
+	$this->assert(strpos($data['data']['wood']['imageTL'], 'frames/wood'), 'Wood image');
+	$this->assert(isset($template->data['head']), 'head data');
+	$this->assertEquals(array('modules/imageframe/templates/ImageFrameHead.tpl'),
+			    $template->data['head'], 'head tpl');
+
+	/* Another init should add data, not overwrite */
+	$ret = $this->_imageframe->init($template, array('solid'));
+	if ($ret) {
+	    return $ret;
+	}
+	$data = $template->data['ImageFrameData'];
+	$this->assertEquals('none|dots|wood|solid', $data['idList'], 'Id list 2');
+    }
+
+    function testImageFrameSample() {
+	list ($ret, $url) = $this->_imageframe->getSampleUrl();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(strpos($url, 'imageframe.Sample'), 'sample url');
+	list ($ret, $url) = $this->_imageframe->getSampleUrl(12345);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(strpos($url, 'itemId=12345'), 'url2 id');
+    }
+
+    function testSmartyCounter() {
+	/*
+	 * Each imageframe is rendered in a separate {g->container} call which does
+	 * not pass $smarty by reference.  Hence we cannot store a counter in $smarty
+	 * and have the value retained between calls to generate a unique id for each
+	 * imageframe.  Luckily, {counter} stores its data in a static variable and
+	 * not in $smarty so we can use it.  This unit test verifies this behavior
+	 * (in case it changes in a future version of smarty).
+	 */
+    	$this->_resetIFCounter();
+
+	$template1 = new GalleryTemplate(dirname(dirname(__FILE__)), true, true);
+	$template2 = new GalleryTemplate(dirname(dirname(__FILE__)), true, true);
+
+	/* Verify these are separate instances */
+	$template1->setVariable('foo', 'bar');
+	$template2->setVariable('foo', 'hoho');
+	$this->assertEquals('bar', $template1->getVariable('foo'));
+
+	/* Verify {counter} works across smarty instances */
+	$result = $template1->fetch('gallery:data/counter.tpl');
+	$result[1] = trim($result[1]);
+	$this->assertEquals(array(null, '1'), $result);
+	$result = $template2->fetch('gallery:data/counter.tpl');
+	$result[1] = trim($result[1]);
+	$this->assertEquals(array(null, '2'), $result);
+    }
+}
+
+/**
+ * @package ImageFrame
+ * @subpackage PHPUnit
+ */
+class ImageFrameDummyGalleryTemplate {
+    var $data = array();
+    function hasVariable($key) {
+	return isset($this->data[$key]);
+    }
+    function setVariable($key, $value) {
+	$this->data[$key] = $value;
+    }
+    function &getVariableByReference($key) {
+	return $this->data[$key];
+    }
+    function &_getSmarty($trimWhitespace) {
+	return $this;
+    }
+    function register_block() { }
+    function register_function() { }
+    function head($tpl) {
+	$this->data['head'][] = $tpl;
+    }
+}
+?>

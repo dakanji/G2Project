@@ -31,20 +31,13 @@
  * @version $Revision: 17580 $
  */
 class UploadedItemView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		// Views need to either return a body template or a redirect. Just return a dummy here.
-		return array(
-			null,
-			array(
-				'redirect' => array(
-					'view' => 'core.ShowItem',
-				),
-				'status'   => array(),
-				'error'    => array(),
-			),
-		);
-	}
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	/* Views need to either return a body template or a redirect. Just return a dummy here. */
+	return array(null, array('redirect' => array('view' => 'core.ShowItem'),
+				 'status' => array(), 'error' => array()));
+    }
 }
+?>

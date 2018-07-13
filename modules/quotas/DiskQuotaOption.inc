@@ -26,105 +26,92 @@
  * @version $Revision: 17580 $
  */
 class DiskQuotaOption extends ItemAddOption {
-	/**
-	 * @see ItemAddOption::isAppropriate
-	 */
-	public function isAppropriate() {
-		return array(null, true);
+
+    /**
+     * @see ItemAddOption::isAppropriate
+     */
+    function isAppropriate() {
+	return array(null, true);
+    }
+
+    /**
+     * @see ItemAddOption::handleRequestAfterAdd
+     */
+    function handleRequestAfterAdd($form, $items) {
+	global $gallery;
+	GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
+	$warnings = $errors = array();
+
+	/* user's disk quota in KB */
+	list ($ret, $quotaExists, $userDiskQuota) =
+	    GalleryQuotasHelper::getUserDiskQuota($gallery->getActiveUserId());
+	if ($ret) {
+	    return array($ret, null, null);
 	}
 
-	/**
-	 * @see ItemAddOption::handleRequestAfterAdd
-	 */
-	public function handleRequestAfterAdd($form, $items) {
-		global $gallery;
-		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+	/* if user has a quota */
+	if ($quotaExists) {
+	    $excludedIds = array();
+	    foreach ($items as $item) {
+		$excludedIds[] = $item->getId();
+	    }
+	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    foreach ($items as $i => $item) {
+		$warnings[$i] = array();
 
-		$warnings = $errors = array();
+		/* we should come here only if we are adding a data item, not sub-album */
+		$albumId = $item->getParentId();
 
-		// user's disk quota in KB
-		list($ret, $quotaExists, $userDiskQuota) = GalleryQuotasHelper::getUserDiskQuota($gallery->getActiveUserId());
+		/* calculate the item ids of the newly added items */
+		array_shift($excludedIds);
 
+		/* user's disk usage in KiloBytes */
+		list ($ret, $userDiskUsage) = GalleryQuotasHelper::getUserDiskUsage(
+		    $gallery->getActiveUserId(), $excludedIds);
 		if ($ret) {
+		    return array($ret, null, null);
+		}
+
+		if ($userDiskUsage > $userDiskQuota) {
+		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) =
+			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
+		    if ($ret) {
 			return array($ret, null, null);
+		    }
+		    $warnings[$i][] = $module->translate(
+			array('text' => 'Warning: You have reached your disk quota (%s %s), '
+					. 'this item will not be added.',
+			      'arg1' => $userDiskQuotaHumanReadable,
+			      'arg2' => $userDiskQuotaHumanReadableUnit));
+
+		    $gallery->addShutdownAction(
+			array('GalleryCoreApi', 'deleteEntityById'), array($item->getId()));
+		} else {
+		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) =
+			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
+		    if ($ret) {
+			return array($ret, null, null);
+		    }
+		    list ($ret, $userDiskUsageHumanReadable, $userDiskUsageHumanReadableUnit) =
+			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskUsage);
+		    if ($ret) {
+			return array($ret, null, null);
+		    }
+
+		    $warnings[$i][] = $module->translate(
+			array('text' => 'You are using %s %s of your allotted %s %s.',
+			      'arg1' => $userDiskUsageHumanReadable,
+			      'arg2' => $userDiskUsageHumanReadableUnit,
+			      'arg3' => $userDiskQuotaHumanReadable,
+			      'arg4' => $userDiskQuotaHumanReadableUnit));
 		}
-
-		// if user has a quota
-		if ($quotaExists) {
-			$excludedIds = array();
-
-			foreach ($items as $item) {
-				$excludedIds[] = $item->getId();
-			}
-			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-
-			foreach ($items as $i => $item) {
-				$warnings[$i] = array();
-
-				// we should come here only if we are adding a data item, not sub-album
-				$albumId = $item->getParentId();
-
-				// calculate the item ids of the newly added items
-				array_shift($excludedIds);
-
-				// user's disk usage in KiloBytes
-				list($ret, $userDiskUsage) = GalleryQuotasHelper::getUserDiskUsage(
-					$gallery->getActiveUserId(),
-					$excludedIds
-				);
-
-				if ($ret) {
-					return array($ret, null, null);
-				}
-
-				if ($userDiskUsage > $userDiskQuota) {
-					list($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) = GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
-
-					if ($ret) {
-						return array($ret, null, null);
-					}
-					$warnings[$i][] = $module->translate(
-						array(
-							'text' => 'Warning: You have reached your disk quota (%s %s), '
-																			. 'this item will not be added.',
-							'arg1' => $userDiskQuotaHumanReadable,
-							'arg2' => $userDiskQuotaHumanReadableUnit,
-						)
-					);
-
-					$gallery->addShutdownAction(
-						array('GalleryCoreApi', 'deleteEntityById'),
-						array($item->getId())
-					);
-				} else {
-					list($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) = GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
-
-					if ($ret) {
-						return array($ret, null, null);
-					}
-					list($ret, $userDiskUsageHumanReadable, $userDiskUsageHumanReadableUnit) = GalleryQuotasHelper::humanReadableFromKilobytes($userDiskUsage);
-
-					if ($ret) {
-						return array($ret, null, null);
-					}
-
-					$warnings[$i][] = $module->translate(
-						array(
-							'text' => 'You are using %s %s of your allotted %s %s.',
-							'arg1' => $userDiskUsageHumanReadable,
-							'arg2' => $userDiskUsageHumanReadableUnit,
-							'arg3' => $userDiskQuotaHumanReadable,
-							'arg4' => $userDiskQuotaHumanReadableUnit,
-						)
-					);
-				}
-			}
-		}
-
-		return array(null, $errors, $warnings);
+	    }
 	}
+	return array(null, $errors, $warnings);
+    }
 }
+?>

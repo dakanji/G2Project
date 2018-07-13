@@ -1,54 +1,54 @@
-	<script type="text/javascript">
-	  // <![CDATA[
-	  function BlockToggle(objId, togId) {
-		var o = document.getElementById(objId), t = document.getElementById(togId);
-		if (o.style.display == 'none') {
+    <script type="text/javascript">
+      // <![CDATA[
+      function BlockToggle(objId, togId) {
+        var o = document.getElementById(objId), t = document.getElementById(togId);
+        if (o.style.display == 'none') {
 	  o.style.display = 'inline';
 	  t.innerHTML = '-';
-		} else {
+        } else {
 	  o.style.display = 'none';
 	  t.innerHTML = '+';
-		}
-	  }
-	  // ]]>
-	</script>
+        }
+      }
+      // ]]>
+    </script>
 
-	<h1><?php echo _('System Checks'); ?></h1>
+    <h1><?php print _('System Checks') ?></h1>
 
-	<div class="systemChecks">
-	<table>
-	<?php foreach ($templateData['check'] as $check) : ?>
-	  <tr>
+    <div class="systemChecks">
+    <table>
+    <?php foreach ($templateData['check'] as $check): ?>
+      <tr>
 	<td>
-		<?php echo $check['title']; ?>
+	  <?php print $check['title'] ?>
 	</td>
 
 	<td style="float: right">
-		<?php if (isset($check['success'])) : ?>
-		<h2 class="success"> <?php echo _('Success'); ?> </h2>
-		<?php elseif (isset($check['warning'])) : ?>
-		<h2 class="warning"> <?php echo _('Warning'); ?> </h2>
-		<?php else : ?>
-		<h2 class="error"> <?php echo _('Failed'); ?> </h2>
-		<?php endif; ?>
+	  <?php if (isset($check['success'])): ?>
+	    <h2 class="success"> <?php print _('Success') ?> </h2>
+	  <?php elseif (isset($check['warning'])): ?>
+	    <h2 class="warning"> <?php print _('Warning') ?> </h2>
+	  <?php else: ?>
+	    <h2 class="error"> <?php print _('Failed') ?> </h2>
+	  <?php endif; ?>
 	</td>
-	  </tr>
+      </tr>
 
-		<?php if (isset($check['notice'])) : ?>
-	  <tr>
+      <?php if (isset($check['notice'])): ?>
+      <tr>
 	<td colspan="2" class="notice">
-			<?php echo $check['notice']; ?>
+	  <?php print $check['notice']; ?>
 	</td>
-	  </tr>
-		<?php endif; ?>
-	<?php endforeach; ?>
-	</table>
+      </tr>
+      <?php endif; ?>
+      <?php endforeach; ?>
+    </table>
 
-	<?php if (! empty($templateData['suggestedHtaccess'])) : ?>
-	<p> <?php echo _('If you are using Apache, create a file named .htaccess in the main Gallery directory with the following content:'); ?> </p>
-	<div class="example">
-	  <pre><?php echo $templateData['suggestedHtaccess']; ?></pre>
-	</div>
-	<?php endif; ?>
+    <?php if (! empty($templateData['suggestedHtaccess'])): ?>
+    <p> <?php print _('If you are using Apache, create a file named .htaccess in the main Gallery directory with the following content:'); ?> </p>
+    <div class="example">
+      <pre><?php print $templateData['suggestedHtaccess'] ?></pre>
+    </div>
+    <?php endif; ?>
 
-	</div>
+    </div>

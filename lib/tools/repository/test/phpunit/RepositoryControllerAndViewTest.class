@@ -23,9 +23,9 @@
  * @subpackage PHPUnit
  * @author Jozef Selesi <selesi at gmail dot com>
  */
+
 GalleryCoreApi::requireOnce(
-	'lib/tools/repository/classes/RepositoryControllerAndView.class'
-);
+    'lib/tools/repository/classes/RepositoryControllerAndView.class');
 
 /**
  * Test RepositoryController functionality
@@ -34,25 +34,24 @@ GalleryCoreApi::requireOnce(
  * @subpackage PHPUnit
  */
 class RepositoryControllerTest extends GalleryTestCase {
-	/**
-	 * Test whether RepositoryController::showView properly includes the
-	 * specified template file.
-	 */
-	public function testShowView() {
-		global $gallery;
-		$gallery->setConfig('repository.templates', dirname(__FILE__) . '/../data/');
 
-		$controller = new RepositoryController();
-		$ret        = $controller->showView('testShowViewTemplate', '');
+    /**
+     * Test whether RepositoryController::showView properly includes the
+     * specified template file.
+     */
+    function testShowView() {
+	global $gallery;
+	$gallery->setConfig('repository.templates', dirname(__FILE__) . '/../data/');
 
-		if ($ret) {
-			return $ret;
-		}
-
-		$this->assert(
-			in_array(realpath($gallery->getConfig('repository.templates')
-				. 'testShowViewTemplate.tpl'), get_included_files()),
-			'Template not included.'
-		);
+	$controller = new RepositoryController();
+	$ret = $controller->showView('testShowViewTemplate', '');
+	if ($ret) {
+	    return ($ret);
 	}
+
+	$this->assert(in_array(realpath($gallery->getConfig('repository.templates')
+				. 'testShowViewTemplate.tpl'), get_included_files()),
+		      'Template not included.');
+    }
 }
+?>

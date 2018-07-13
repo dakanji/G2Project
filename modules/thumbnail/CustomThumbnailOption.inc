@@ -26,130 +26,103 @@
  * @version $Revision: 17580 $
  */
 class CustomThumbnailOption extends ItemEditOption {
-	/**
-	 * @see ItemEditOption::isAppropriate
-	 */
-	public function isAppropriate($item, $thumbnail) {
-		return array(null, GalleryUtilities::isA($item, 'GalleryItem'));
+
+    /**
+     * @see ItemEditOption::isAppropriate
+     */
+    function isAppropriate($item, $thumbnail) {
+	return array(null, GalleryUtilities::isA($item, 'GalleryItem'));
+    }
+
+    /**
+     * @see ItemEditOption::loadTemplate
+     */
+    function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+
+	/* Is this item already using a custom thumbnail.. */
+	list ($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	if (isset($thumbnailImage)) {
+	    $thumbnailImage = (array)$thumbnailImage;
+	} else {
+	    /* Set the form's encoding type since we're uploading binary files */
+	    if ($template->hasVariable('ItemAdmin')) {
+		$ItemAdmin =& $template->getVariableByReference('ItemAdmin');
+		$ItemAdmin['enctype'] = 'multipart/form-data';
+	    } else {
+		$ItemAdmin = array('enctype' => 'multipart/form-data');
+		$template->setVariable('ItemAdmin', $ItemAdmin);
+	    }
 	}
 
-	/**
-	 * @see ItemEditOption::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	/* Check toolkit support for jpeg thumbnails */
+	list ($ret, $mimeList) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
+	if ($ret) {
+	    return array($ret, null, null);
+	}
 
-		// Is this item already using a custom thumbnail..
-		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
+	$template->setVariable('CustomThumbnailOption',
+			       array('thumbnail' => $thumbnailImage,
+				     'canResize' => isset($mimeList['image/jpeg'])));
 
+	return array(null,
+		    'modules/thumbnail/templates/CustomThumbnail.tpl',
+		    'modules_thumbnail');
+    }
+
+    /**
+     * @see ItemEditOption::handleRequestAfterEdit
+     */
+    function handleRequestAfterEdit($form, &$item, &$preferred) {
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+
+	$error = $warning = array();
+	if (!empty($form['tmp_name'][1])) {
+	    list ($ret, $lockId) = GalleryCoreApi::acquireReadLock(array($item->getId()));
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+
+	    list ($ret, $thumbnailId) = ThumbnailHelper::addItem(
+		null, $item->getId(), $form['name'][1], $form['tmp_name'][1], $form['type'][1]);
+	    if ($ret && ($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE)) {
+		$error[] = 'form[CustomThumbnailOption][error][imageMime]';
+	    } else if ($ret) {
+		GalleryCoreApi::releaseLocks($lockId);
+		return array($ret, null, null);
+	    }
+
+	    if (empty($error)) {
+		$ret = ThumbnailHelper::applyThumbnail($item, $thumbnailId);
 		if ($ret) {
-			return array($ret, null, null);
+		    GalleryCoreApi::releaseLocks($lockId);
+		    return array($ret, null, null);
 		}
+	    }
 
-		if (isset($thumbnailImage)) {
-			$thumbnailImage = (array)$thumbnailImage;
-		} else {
-			// Set the form's encoding type since we're uploading binary files
-			if ($template->hasVariable('ItemAdmin')) {
-				$ItemAdmin            =& $template->getVariableByReference('ItemAdmin');
-				$ItemAdmin['enctype'] = 'multipart/form-data';
-			} else {
-				$ItemAdmin = array(
-					'enctype' => 'multipart/form-data',
-				);
-				$template->setVariable('ItemAdmin', $ItemAdmin);
-			}
-		}
-
-		// Check toolkit support for jpeg thumbnails
-		list($ret, $mimeList) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
-
-		if ($ret) {
-			return array($ret, null, null);
-		}
-
-		$template->setVariable(
-			'CustomThumbnailOption',
-			array(
-				'thumbnail' => $thumbnailImage,
-				'canResize' => isset($mimeList['image/jpeg']),
-			)
-		);
-
-		return array(
-			null,
-			'modules/thumbnail/templates/CustomThumbnail.tpl',
-			'modules_thumbnail',
-		);
+	    $ret = GalleryCoreApi::releaseLocks($lockId);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	} else if (isset($form['CustomThumbnailOption']['delete'])) {
+	    list ($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    if (!isset($thumbnailImage)) {
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+			     null, null);
+	    }
+	    $ret = GalleryCoreApi::deleteEntityById($thumbnailImage->getId(), 'ThumbnailImage');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
 	}
 
-	/**
-	 * @see ItemEditOption::handleRequestAfterEdit
-	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
-		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-
-		$error = $warning = array();
-
-		if (!empty($form['tmp_name'][1])) {
-			list($ret, $lockId) = GalleryCoreApi::acquireReadLock(array($item->getId()));
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-
-			list($ret, $thumbnailId) = ThumbnailHelper::addItem(
-				null,
-				$item->getId(),
-				$form['name'][1],
-				$form['tmp_name'][1],
-				$form['type'][1]
-			);
-
-			if ($ret && ($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE)) {
-				$error[] = 'form[CustomThumbnailOption][error][imageMime]';
-			} elseif ($ret) {
-				GalleryCoreApi::releaseLocks($lockId);
-
-				return array($ret, null, null);
-			}
-
-			if (empty($error)) {
-				$ret = ThumbnailHelper::applyThumbnail($item, $thumbnailId);
-
-				if ($ret) {
-					GalleryCoreApi::releaseLocks($lockId);
-
-					return array($ret, null, null);
-				}
-			}
-
-			$ret = GalleryCoreApi::releaseLocks($lockId);
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		} elseif (isset($form['CustomThumbnailOption']['delete'])) {
-			list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-
-			if (!isset($thumbnailImage)) {
-				return array(
-					GalleryCoreApi::error(ERROR_MISSING_OBJECT),
-					null,
-					null,
-				);
-			}
-			$ret = GalleryCoreApi::deleteEntityById($thumbnailImage->getId(), 'ThumbnailImage');
-
-			if ($ret) {
-				return array($ret, null, null);
-			}
-		}
-
-		return array(null, $error, $warning);
-	}
+	return array(null, $error, $warning);
+    }
 }
+?>

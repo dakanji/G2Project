@@ -1,0 +1,290 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
+
+/**
+ * Test Members List/Profile functionality
+ * @package Members
+ * @subpackage PHPUnit
+ * @author Robert Balousek <rbalousek@hotmail.com>
+ * @version $Revision: 17580 $
+ */
+class MembersTest extends GalleryTestCase {
+
+    function MembersTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a container album for any data items we create */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_rootAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	/* Create a dummy user */
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_user);
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'members');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testFetchUserItemCount() {
+	/* Initial check, should be zero */
+	list ($ret, $itemCount) = GalleryMembersHelper::fetchUserItemCount($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(0, $itemCount);
+
+	/*
+	 * Create some random items so that there's something for the API method to work with.
+	 * Set the timestamp to bogus (but well known) values and set the owner to our test user.
+	 */
+	$numItems = 4;
+	for ($i = 0; $i < $numItems; $i++) {
+	    list ($ret, $originalItems[$i]) = $this->_createRandomDataItem(
+		$this->_album->getId(), 'application/unknown',
+		array('creationTimestamp' => $i * 1000, 'ownerId' => $this->_user->getId()));
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Ask for the item count */
+	list ($ret, $itemCount) =
+	    GalleryMembersHelper::fetchUserItemCount($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* assert it equals our original number of items we created*/
+	$this->assertEquals($numItems, $itemCount);
+    }
+
+
+    function testFetchLastUserItems() {
+	/*
+	 * Create some random items so that there's something for the API method to work with.
+	 * Set the timestamp to bogus (but well known) values and set the owner to our test user.
+	 */
+	for ($i = 0; $i < 4; $i++) {
+	    list ($ret, $originalItems[$i]) =
+		$this->_createRandomDataItem($this->_album->getId(),
+					     'application/unknown',
+					     array('creationTimestamp' => $i * 1000,
+						   'ownerId' => $this->_user->getId()));
+	}
+
+	/* Ask for the middle two items in ascending order */
+	list ($ret, $items) =
+	    GalleryMembersHelper::fetchLastUserItems($this->_user->getId(), 1, 2, ORDER_ASCENDING);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array($originalItems[1], $originalItems[2]), $items);
+    }
+
+    function testCanViewMembersModule() {
+	global $gallery;
+
+	list ($ret, $adminGroupId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter(
+	    'module', 'members', 'canViewMembersModule', $adminGroupId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) =
+	    GalleryMembersHelper::canViewMembersModule($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(false, $result);
+
+	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $adminGroupId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::canViewMembersModule($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(true, $result);
+    }
+
+    function testCanViewProfileEmail() {
+	global $gallery;
+
+	/* not admin, view emails off */
+	$ret = GalleryCoreApi::setPluginParameter('module',
+						  'members',
+						  'canViewEmailAddress',
+						  0);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::canViewProfileEmail($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(false, $result);
+
+	/* not admin, view emails on*/
+	$ret = GalleryCoreApi::setPluginParameter('module',
+						  'members',
+						  'canViewEmailAddress',
+						  1);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::canViewProfileEmail($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(true, $result);
+
+	/* admin, view emails off*/
+	$ret = GalleryCoreApi::setPluginParameter('module',
+						  'members',
+						  'canViewEmailAddress',
+						  0);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $adminGroupId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $adminGroupId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::canViewProfileEmail($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(true, $result);
+
+	/* admin, view emails on*/
+	$ret = GalleryCoreApi::setPluginParameter('module',
+						  'members',
+						  'canViewEmailAddress',
+						  1);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $adminGroupId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::canViewProfileEmail($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(true, $result);
+    }
+
+    function testDaysSinceCreation() {
+	global $gallery;
+
+	list ($ret, $result) = GalleryMembersHelper::daysSinceCreation($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(0, $result, '0 days');
+
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$sevenDays = date("U", mktime(0, 0, 0, date("m"), date("d")-7, date("Y")));
+	$this->_user->setCreationTimestamp($sevenDays);
+	$ret = $this->_user->save();
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::daysSinceCreation($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(7, $result, '7 days ago');
+
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$sixDays = date("U", mktime(0, 0, 0, date("m"), date("d")-6, date("Y")));
+	$this->_user->setCreationTimestamp($sixDays);
+	$ret = $this->_user->save();
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $result) = GalleryMembersHelper::daysSinceCreation($this->_user->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(6, $result, '6 days ago');
+    }
+}
+?>

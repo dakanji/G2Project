@@ -1,66 +1,68 @@
-<?php
-// $Id: frame.inc 15342 2006-12-01 21:14:46Z andy_st $
-  // Contributed by: KnightScene
+<?php /* $Id: frame.inc 15342 2006-12-01 21:14:46Z andy_st $ */
+  /* Contributed by: KnightScene */
 $frameData = array(
-	'name'      => $gallery->i18n('Photo Corners'),
 
-	// Top Left
-	'imageTL'   => 'TL.gif',
-	'widthTL'   => 60,
-	'heightTL'  => 60,
+'name' => $gallery->i18n('Photo Corners'),
 
-	// Top
-	'imageTTL'  => '',
-	'widthTTL'  => 0,
+/* Top Left */
+'imageTL' => 'TL.gif',
+'widthTL' => 60,
+'heightTL' => 60,
 
-	'imageTT'   => 'TT.gif',
-	'heightTT'  => 60,
+/* Top */
+'imageTTL' => '',
+'widthTTL' => 0,
 
-	'imageTTR'  => '',
-	'widthTTR'  => 0,
+'imageTT' => 'TT.gif',
+'heightTT' => 60,
 
-	// Top Right
-	'imageTR'   => 'TR.gif',
-	'widthTR'   => 60,
-	'heightTR'  => 60,
+'imageTTR' => '',
+'widthTTR' => 0,
 
-	// Left
-	'imageLLT'  => '',
-	'heightLLT' => 0,
+/* Top Right */
+'imageTR' => 'TR.gif',
+'widthTR' => 60,
+'heightTR' => 60,
 
-	'imageLL'   => 'LL.gif',
-	'widthLL'   => 60,
+/* Left */
+'imageLLT' => '',
+'heightLLT' => 0,
 
-	'imageLLB'  => '',
-	'heightLLB' => 0,
+'imageLL' => 'LL.gif',
+'widthLL' => 60,
 
-	// Right
-	'imageRRT'  => '',
-	'heightRRT' => 0,
+'imageLLB' => '',
+'heightLLB' => 0,
 
-	'imageRR'   => 'RR.gif',
-	'widthRR'   => 60,
+/* Right */
+'imageRRT' => '',
+'heightRRT' => 0,
 
-	'imageRRB'  => '',
-	'heightRRB' => 0,
+'imageRR' => 'RR.gif',
+'widthRR' => 60,
 
-	// Bottom Left
-	'imageBL'   => 'BL.gif',
-	'widthBL'   => 60,
-	'heightBL'  => 60,
+'imageRRB' => '',
+'heightRRB' => 0,
 
-	// Bottom
-	'imageBBL'  => '',
-	'widthBBL'  => 0,
+/* Bottom Left */
+'imageBL' => 'BL.gif',
+'widthBL' => 60,
+'heightBL' => 60,
 
-	'imageBB'   => 'BB.gif',
-	'heightBB'  => 60,
+/* Bottom */
+'imageBBL' => '',
+'widthBBL' => 0,
 
-	'imageBBR'  => '',
-	'widthBBR'  => 0,
+'imageBB' => 'BB.gif',
+'heightBB' => 60,
 
-	// Bottom Right
-	'imageBR'   => 'BR.gif',
-	'widthBR'   => 60,
-	'heightBR'  => 60,
+'imageBBR' => '',
+'widthBBR' => 0,
+
+/* Bottom Right */
+'imageBR' => 'BR.gif',
+'widthBR' => 60,
+'heightBR' => 60
+
 );
+?>

@@ -37,576 +37,526 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryFileSystemEntity.class'
  * @version $Revision: 17580 $
  */
 class ThumbnailImage extends GalleryFileSystemEntity {
-	/**
-	 * The mime type of the image.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>mimeType</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>MEDIUM</member-size>
-	 * @g2   <member-external-access>READ</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var string $mimeType
-	 * @access public
-	 */
-	public $mimeType;
 
-	/**
-	 * The size of the image file.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>size</member-name>
-	 * @g2   <member-type>INTEGER</member-type>
-	 * @g2   <member-external-access>FULL</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var int $size
-	 * @access public
-	 */
-	public $size;
+    /**
+     * The mime type of the image.
+     *
+     * @g2 <member>
+     * @g2   <member-name>mimeType</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>MEDIUM</member-size>
+     * @g2   <member-external-access>READ</member-external-access>
+     * @g2 </member>
+     *
+     * @var string $mimeType
+     * @access public
+     */
+    var $mimeType;
 
-	/**
-	 * The width of the image.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>width</member-name>
-	 * @g2   <member-type>INTEGER</member-type>
-	 * @g2   <member-external-access>FULL</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var int $width
-	 * @access public
-	 */
-	public $width;
+    /**
+     * The size of the image file.
+     *
+     * @g2 <member>
+     * @g2   <member-name>size</member-name>
+     * @g2   <member-type>INTEGER</member-type>
+     * @g2   <member-external-access>FULL</member-external-access>
+     * @g2 </member>
+     *
+     * @var int $size
+     * @access public
+     */
+    var $size;
 
-	/**
-	 * The height of the image.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>height</member-name>
-	 * @g2   <member-type>INTEGER</member-type>
-	 * @g2   <member-external-access>FULL</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var int $height
-	 * @access public
-	 */
-	public $height;
+    /**
+     * The width of the image.
+     *
+     * @g2 <member>
+     * @g2   <member-name>width</member-name>
+     * @g2   <member-type>INTEGER</member-type>
+     * @g2   <member-external-access>FULL</member-external-access>
+     * @g2 </member>
+     *
+     * @var int $width
+     * @access public
+     */
+    var $width;
 
-	/**
-	 * The mime types for which this image is the default thumbnail.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>itemMimeTypes</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>MEDIUM</member-size>
-	 * @g2   <member-external-access>READ</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var string $itemMimeTypes
-	 * @access public
-	 */
-	public $itemMimeTypes;
+    /**
+     * The height of the image.
+     *
+     * @g2 <member>
+     * @g2   <member-name>height</member-name>
+     * @g2   <member-type>INTEGER</member-type>
+     * @g2   <member-external-access>FULL</member-external-access>
+     * @g2 </member>
+     *
+     * @var int $height
+     * @access public
+     */
+    var $height;
 
-	/**
-	 * Get array of item mime types.
-	 *
-	 * @return array(string mime type)
-	 */
-	public function getItemMimeTypesList() {
-		return explode('|', $this->getitemMimeTypes());
+    /**
+     * The mime types for which this image is the default thumbnail.
+     *
+     * @g2 <member>
+     * @g2   <member-name>itemMimeTypes</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>MEDIUM</member-size>
+     * @g2   <member-external-access>READ</member-external-access>
+     * @g2 </member>
+     *
+     * @var string $itemMimeTypes
+     * @access public
+     */
+    var $itemMimeTypes;
+
+    /**
+     * Get array of item mime types.
+     *
+     * @return array(string mime type)
+     */
+    function getItemMimeTypesList() {
+	return explode('|', $this->getitemMimeTypes());
+    }
+
+    /**
+     * Set array of item mime types.
+     *
+     * @param array $mimeTypeList array(string mime type, ..)
+     */
+    function setItemMimeTypesList($mimeTypeList) {
+	$this->setitemMimeTypes(implode('|', $mimeTypeList));
+    }
+
+    /**
+     * Create a new instance of this type in the persistent store.
+     *
+     * @param string $inputFileName the path to a data file to be contained
+     * @param string $mimeType the mime type of the new item
+     * @param string $targetName (optional) the desired name of the new item.
+     * @param int $parentId (optional) Id of the parent entity or null. Defaults to null.
+     * @return GalleryStatus a status code
+     */
+    function create($inputFileName, $mimeType, $targetName=null, $parentId=null) {
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	/* Validate the input file */
+	if (empty($inputFileName)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	}
+	if (!$platform->file_exists($inputFileName)) {
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, $inputFileName);
 	}
 
-	/**
-	 * Set array of item mime types.
-	 *
-	 * @param array $mimeTypeList array(string mime type, ..)
-	 */
-	public function setItemMimeTypesList($mimeTypeList) {
-		$this->setitemMimeTypes(implode('|', $mimeTypeList));
+	$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
+
+	list ($ret, $thumbnailContainerId) =
+		GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * Create a new instance of this type in the persistent store.
-	 *
-	 * @param string $inputFileName the path to a data file to be contained
-	 * @param string $mimeType the mime type of the new item
-	 * @param string $targetName (optional) the desired name of the new item.
-	 * @param int $parentId (optional) Id of the parent entity or null. Defaults to null.
-	 * @return GalleryStatus a status code
+	/*
+	 * Use the common thumbnail container for mime-type thumbs mainly for name / path
+	 * collision checking.
 	 */
-	public function create($inputFileName = null, $mimeType = null, $targetName = null, $parentId = null) {
-		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-		global $gallery;
-		$platform =& $gallery->getPlatform();
+	if (empty($parentId)) {
+	    $parentId = (int)$thumbnailContainerId;
+	}
 
-		// Validate the input file
-		if (empty($inputFileName)) {
-			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-		}
+	$parentLockId = null;
+	if (!GalleryCoreApi::isReadLocked($parentId)) {
+	    if ($parentId == $thumbnailContainerId) {
+		/* For mime-type thumbs, we need a write-lock to prevent collisions. */
+		list ($ret, $parentLockId) = GalleryCoreApi::acquireWriteLock($parentId);
+	    } else {
+		list ($ret, $parentLockId) = GalleryCoreApi::acquireReadLock($parentId);
+	    }
+	    if ($ret) {
+		return $ret;
+	    }
+	}
 
-		if (!$platform->file_exists($inputFileName)) {
-			return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, $inputFileName);
-		}
+	$ret = parent::create($parentId, $baseName);
+	if ($ret) {
+	    if ($parentLockId) {
+		GalleryCoreApi::releaseLocks($parentLockId);
+	    }
+	    return $ret;
+	}
 
-		$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
+	if ($parentLockId) {
+	    $ret = GalleryCoreApi::releaseLocks($parentLockId);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
 
-		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
+	$this->setMimeType($mimeType);
+	$this->setWidth(0);
+	$this->setHeight(0);
 
+	$platform =& $gallery->getPlatform();
+	list ($ret, $path) = $this->fetchPath();
+	if ($ret) {
+	    return $ret;
+	}
+	$dir = dirname($path);
+	list ($success) = GalleryUtilities::guaranteeDirExists($dir);
+	if (!$success) {
+	    return GalleryCoreApi::error(ERROR_BAD_PATH);
+	}
+
+	$newFileName = $path;
+	if (!$platform->copy($inputFileName, $newFileName)) {
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	}
+	$this->setSize($platform->filesize($newFileName));
+
+	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
+	if ($ret) {
+	    return $ret;
+	}
+
+	if (isset($toolkit)) {
+	    list ($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $newFileName);
+	    if ($ret) {
+		$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
+		return $ret;
+	    }
+	    $this->setWidth($dimensions[0]);
+	    $this->setHeight($dimensions[1]);
+	}
+
+	return null;
+    }
+
+    /**
+     * @see GalleryEntity::save
+     */
+    function save($postEvent=true) {
+	return parent::save($postEvent, 0);
+    }
+
+    /**
+     * Deletes this ThumbnailImage.
+     * 
+     * @see GalleryEntity::delete
+     */
+    function delete() {
+	global $gallery;
+
+	list ($ret, $path) = $this->fetchPath();
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Lock our parent to ensure that we can fetch our path. */
+	$parentLockId = null;
+	if (!GalleryCoreApi::isReadLocked($this->getParentId())) {
+	    list ($ret, $parentLockId) = GalleryCoreApi::acquireReadLock($this->getParentId());
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Delete myself */
+	$ret = parent::delete();
+	if ($ret) {
+	    if ($parentLockId) {
+		GalleryCoreApi::releaseLocks($parentLockId);
+	    }
+	    return $ret;
+	}
+
+	/* Delete our source file */
+	$platform =& $gallery->getPlatform();
+	if (!$platform->unlink($path)) {
+	    if ($parentLockId) {
+		GalleryCoreApi::releaseLocks($parentLockId);
+	    }
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
+					 "Could not delete $path");
+	}
+
+	if ($parentLockId) {
+	    $ret = GalleryCoreApi::releaseLocks($parentLockId);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	/* Restore thumbnails of affected items. */
+	list ($ret, $thumbnailContainerId) =
+		GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = $this->_restoreItemThumbnails();
+	if ($ret) {
+	    return $ret;
+	}
+
+	return null;
+    }
+
+    /**
+     * Ensure that items / derivatives affected by the deletion of a ThumbnailItem still have
+     * a thumbnail after the removal. Restore the sourceId to the original item (if there is
+     * toolkit support for that source mimeType). And pick a new highlight for AlbumItems.
+     *
+     * @return GalleryStatus a status code
+     */
+    function _restoreItemThumbnails() {
+	list ($ret, $derivativesTable) =
+		GalleryCoreApi::fetchDerivativesBySourceIds(array($this->getId()),
+							array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL));
+	if ($ret) {
+	    return $ret;
+	}
+
+	/*
+	 * In theory, custom thumbnails can only be the source for a single item.
+	 * And mime-type thumbnails are never a source for other thumbnails.
+	 * But we make this code a little more robust.
+	 */
+	foreach ($derivativesTable as $itemId => $derivatives) {
+	    if (empty($derivatives)) {
+		continue;
+	    }
+	    $derivative = array_shift($derivatives);
+
+	    /* Don't loop in thumbnail delete event. */
+	    $key = 'ThumbnailImage::delete';
+	    if (GalleryDataCache::containsKey($key)
+		    && GalleryDataCache::get($key) == $derivative->getId()) {
+		continue;
+	    }
+
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+		list ($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($item->getId());
 		if ($ret) {
-			return $ret;
+		    return $ret;
 		}
+		continue;
+	    }
 
-		/*
-		 * Use the common thumbnail container for mime-type thumbs mainly for name / path
-		 * collision checking.
-		 */
-		if (empty($parentId)) {
-			$parentId = (int)$thumbnailContainerId;
-		}
+	    /* Make sure operations contains only thumbnail and composite */
+	    $operations = rtrim(preg_replace('/(^|;)((?!thumbnail\||composite\|).*?(;|$))+/', '$1',
+					 $derivative->getDerivativeOperations()), ';');
 
-		$parentLockId = null;
+	    list ($ret, $source) = GalleryCoreApi::fetchPreferredSource($item);
+	    if ($ret) {
+		return $ret;
+	    }
 
-		if (!GalleryCoreApi::isReadLocked($parentId)) {
-			if ($parentId == $thumbnailContainerId) {
-				// For mime-type thumbs, we need a write-lock to prevent collisions.
-				list($ret, $parentLockId) = GalleryCoreApi::acquireWriteLock($parentId);
-			} else {
-				list($ret, $parentLockId) = GalleryCoreApi::acquireReadLock($parentId);
-			}
+	    list ($ret, $operations, $outputMimeType) =
+		GalleryCoreApi::makeSupportedViewableOperationSequence(
+					 $source->getMimeType(), $operations, true);
+	    if ($ret) {
+		return $ret;
+	    }
 
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		$ret = parent::create($parentId, $baseName);
-
+	    if (empty($operations)) {
+		/* Operations not supported.. remove the thumbnail */
+		$ret = GalleryCoreApi::deleteEntityById($derivative->getId(), 'GalleryDerivative');
 		if ($ret) {
-			if ($parentLockId) {
-				GalleryCoreApi::releaseLocks($parentLockId);
-			}
-
-			return $ret;
+		    return $ret;
 		}
-
-		if ($parentLockId) {
-			$ret = GalleryCoreApi::releaseLocks($parentLockId);
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		$this->setMimeType($mimeType);
-		$this->setWidth(0);
-		$this->setHeight(0);
-
-		$platform         =& $gallery->getPlatform();
-		list($ret, $path) = $this->fetchPath();
-
+	    } else {
+		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 		if ($ret) {
-			return $ret;
-		}
-		$dir           = dirname($path);
-		list($success) = GalleryUtilities::guaranteeDirExists($dir);
-
-		if (!$success) {
-			return GalleryCoreApi::error(ERROR_BAD_PATH);
+		    return $ret;
 		}
 
-		$newFileName = $path;
+		$derivative->setMimeType($outputMimeType);
+		$derivative->setDerivativeOperations($operations);
+		$derivative->setDerivativeSourceId($source->getId());
 
-		if (!$platform->copy($inputFileName, $newFileName)) {
-			return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
-		}
-		$this->setSize($platform->filesize($newFileName));
-
-		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
-
+		$ret = $derivative->save();
 		if ($ret) {
-			return $ret;
+		    return $ret;
 		}
 
-		if (isset($toolkit)) {
-			list($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $newFileName);
-
-			if ($ret) {
-				$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
-
-				return $ret;
-			}
-			$this->setWidth($dimensions[0]);
-			$this->setHeight($dimensions[1]);
+		$ret = GalleryCoreApi::releaseLocks($lockId);
+		if ($ret) {
+		    return $ret;
 		}
-
-		return null;
+	    }
 	}
 
-	/**
-	 * @see GalleryEntity::save
+	return null;
+    }
+
+
+    /**
+     * Full path to image file
+     *
+     * @return array GalleryStatus a status code,
+     *               string path
+     */
+    function fetchPath() {
+	global $gallery;
+
+	list ($ret, $logicalPath) = $this->fetchLogicalPath();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/*
+	 * Logical path is slash (/) delimited.  Convert that to the platform's actual
+	 * directory separator.
 	 */
-	public function save($postEvent = true, $setAclId = 0) {
-		return parent::save($postEvent, $setAclId);
+	$platform =& $gallery->getPlatform();
+	if ($platform->getDirectorySeparator() != '/') {
+	    $logicalPath = str_replace('/', $platform->getDirectorySeparator(), $logicalPath);
+	}
+	
+     	return array(null, $this->getThumbnailDir() . $logicalPath);
+    }
+
+    function fetchLogicalPath() {
+	list ($ret, $thumbnailContainerId) =
+		GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if ($this->getParentId() != $thumbnailContainerId) {
+	    /* Custom thumbnails are stored in a decimal tree, e.g. 7/75.jpg. */
+	    $id = (string)$this->getId();
+	    $path = $id{0} . '/' . $id . '.jpg';
+	} else {
+	    /* Mime-type thumbnails are right under the plugin_data/modules/thumbnail/ folder. */
+	    $path = $this->getPathComponent();
 	}
 
-	/**
-	 * Deletes this ThumbnailImage.
-	 *
-	 * @see GalleryEntity::delete
-	 */
-	public function delete() {
-		global $gallery;
+	return array(null, $path);
+    }
 
-		list($ret, $path) = $this->fetchPath();
+    /**
+     * Thumbnail directory
+     *
+     * @return string Directory where thumbnail images are stored
+     */
+    function getThumbnailDir() {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
+	
+	return $gallery->getConfig('data.gallery.plugins_data') .
+	    'modules' . $slash . 'thumbnail' . $slash;
+    }
 
-		if ($ret) {
-			return $ret;
+    /** @see GalleryFileSystemEntity::move */
+    function move($newParentId) {
+	return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
+    }
+
+    /**
+     * Render image
+     *
+     * @return string content
+     */
+    function render($format, $params) {
+	global $gallery;
+
+	switch($format) {
+	case 'HTML':
+	    $urlGenerator =& $gallery->getUrlGenerator();
+	    $src = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
+		      'serialNumber' => $this->getSerialNumber()),
+		array('forceFullUrl' => !empty($params['forceFullUrl'])));
+
+	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
+
+	    /* Shrink our dimensions if necessary */
+	    if (isset($params['maxSize'])) {
+		list ($width, $height) =
+		    GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
+		unset($params['maxSize']);
+	    }
+
+	    $sizeStr = ($width > 0 && $height > 0)
+		? sprintf(' width="%s" height="%s"', $width, $height) : '';
+	    if (!isset($params['alt'])) {
+		$params['alt'] = $this->getPathComponent();
+	    }
+
+	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);
+	    unset($params['fallback']);
+	    unset($params['forceFullUrl']);
+	    foreach ($params as $attr => $value) {
+		if (isset($value)) {
+		    $html .= " $attr=\"$value\"";
 		}
+	    }
+	    return $html . '/>';
 
-		// Lock our parent to ensure that we can fetch our path.
-		$parentLockId = null;
-
-		if (!GalleryCoreApi::isReadLocked($this->getParentId())) {
-			list($ret, $parentLockId) = GalleryCoreApi::acquireReadLock($this->getParentId());
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		// Delete myself
-		$ret = parent::delete();
-
-		if ($ret) {
-			if ($parentLockId) {
-				GalleryCoreApi::releaseLocks($parentLockId);
-			}
-
-			return $ret;
-		}
-
-		// Delete our source file
-		$platform =& $gallery->getPlatform();
-
-		if (!$platform->unlink($path)) {
-			if ($parentLockId) {
-				GalleryCoreApi::releaseLocks($parentLockId);
-			}
-
-			return GalleryCoreApi::error(
-				ERROR_BAD_PATH,
-				__FILE__,
-				__LINE__,
-				"Could not delete $path"
-			);
-		}
-
-		if ($parentLockId) {
-			$ret = GalleryCoreApi::releaseLocks($parentLockId);
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		// Restore thumbnails of affected items.
-		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
-
-		if ($ret) {
-			return $ret;
-		}
-		$ret = $this->_restoreItemThumbnails();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
+	default:
+	    return null;
 	}
+    }
 
-	/**
-	 * Ensure that items / derivatives affected by the deletion of a ThumbnailItem still have
-	 * a thumbnail after the removal. Restore the sourceId to the original item (if there is
-	 * toolkit support for that source mimeType). And pick a new highlight for AlbumItems.
-	 *
-	 * @return GalleryStatus a status code
-	 */
-	public function _restoreItemThumbnails() {
-		list($ret, $derivativesTable) = GalleryCoreApi::fetchDerivativesBySourceIds(
-			array($this->getId()),
-			array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL)
-		);
+    /**
+     * So ThumbnailImage is displayable with {g->image}
+     */
+    function getRenderer() {
+	return null;
+    }
 
-		if ($ret) {
-			return $ret;
-		}
+    /**
+     * @see GalleryEntity::getClassName
+     */
+    function getClassName() {
+	return 'ThumbnailImage';
+    }
 
-		/*
-		 * In theory, custom thumbnails can only be the source for a single item.
-		 * And mime-type thumbnails are never a source for other thumbnails.
-		 * But we make this code a little more robust.
-		 */
-		foreach ($derivativesTable as $itemId => $derivatives) {
-			if (empty($derivatives)) {
-				continue;
-			}
-			$derivative = array_shift($derivatives);
+    function getMimeType() {
+	return $this->mimeType;
+    }
 
-			// Don't loop in thumbnail delete event.
-			$key = 'ThumbnailImage::delete';
+    function setMimeType($mimeType) {
+	$this->mimeType = $mimeType;
+    }
 
-			if (GalleryDataCache::containsKey($key)
-				&& GalleryDataCache::get($key) == $derivative->getId()
-			) {
-				continue;
-			}
+    function getSize() {
+	return $this->size;
+    }
 
-			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+    function setSize($size) {
+	$this->size = $size;
+    }
 
-			if ($ret) {
-				return $ret;
-			}
+    function getWidth() {
+	return $this->width;
+    }
 
-			if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-				list($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($item->getId());
+    function setWidth($width) {
+	$this->width = $width;
+    }
 
-				if ($ret) {
-					return $ret;
-				}
+    function getHeight() {
+	return $this->height;
+    }
 
-				continue;
-			}
+    function setHeight($height) {
+	$this->height = $height;
+    }
 
-			// Make sure operations contains only thumbnail and composite
-			$operations = rtrim(preg_replace(
-				'/(^|;)((?!thumbnail\||composite\|).*?(;|$))+/',
-				'$1',
-				$derivative->getDerivativeOperations()
-			), ';');
+    function getItemMimeTypes() {
+	return $this->itemMimeTypes;
+    }
 
-			list($ret, $source) = GalleryCoreApi::fetchPreferredSource($item);
-
-			if ($ret) {
-				return $ret;
-			}
-
-			list($ret, $operations, $outputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
-				$source->getMimeType(),
-				$operations,
-				true
-			);
-
-			if ($ret) {
-				return $ret;
-			}
-
-			if (empty($operations)) {
-				// Operations not supported.. remove the thumbnail
-				$ret = GalleryCoreApi::deleteEntityById($derivative->getId(), 'GalleryDerivative');
-
-				if ($ret) {
-					return $ret;
-				}
-			} else {
-				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
-
-				if ($ret) {
-					return $ret;
-				}
-
-				$derivative->setMimeType($outputMimeType);
-				$derivative->setDerivativeOperations($operations);
-				$derivative->setDerivativeSourceId($source->getId());
-
-				$ret = $derivative->save();
-
-				if ($ret) {
-					return $ret;
-				}
-
-				$ret = GalleryCoreApi::releaseLocks($lockId);
-
-				if ($ret) {
-					return $ret;
-				}
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Full path to image file
-	 *
-	 * @return array GalleryStatus a status code,
-	 *             string path
-	 */
-	public function fetchPath() {
-		global $gallery;
-
-		list($ret, $logicalPath) = $this->fetchLogicalPath();
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		/*
-		 * Logical path is slash (/) delimited.  Convert that to the platform's actual
-		 * directory separator.
-		 */
-		$platform =& $gallery->getPlatform();
-
-		if ($platform->getDirectorySeparator() != '/') {
-			$logicalPath = str_replace('/', $platform->getDirectorySeparator(), $logicalPath);
-		}
-
-		return array(null, $this->getThumbnailDir() . $logicalPath);
-	}
-
-	public function fetchLogicalPath() {
-		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if ($this->getParentId() != $thumbnailContainerId) {
-			// Custom thumbnails are stored in a decimal tree, e.g. 7/75.jpg.
-			$id   = (string)$this->getId();
-			$path = $id[0] . '/' . $id . '.jpg';
-		} else {
-			// Mime-type thumbnails are right under the plugin_data/modules/thumbnail/ folder.
-			$path = $this->getPathComponent();
-		}
-
-		return array(null, $path);
-	}
-
-	/**
-	 * Thumbnail directory
-	 *
-	 * @return string Directory where thumbnail images are stored
-	 */
-	public function getThumbnailDir() {
-		global $gallery;
-		$platform =& $gallery->getPlatform();
-		$slash    = $platform->getDirectorySeparator();
-
-		return $gallery->getConfig('data.gallery.plugins_data') .
-		'modules' . $slash . 'thumbnail' . $slash;
-	}
-
-	/** @see GalleryFileSystemEntity::move */
-	public function move($newParentId) {
-		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
-	}
-
-	/**
-	 * Render image
-	 *
-	 * @return string content
-	 */
-	public function render($format, $params) {
-		global $gallery;
-
-		switch ($format) {
-			case 'HTML':
-				$urlGenerator =& $gallery->getUrlGenerator();
-				$src          = $urlGenerator->generateUrl(
-					array(
-						'view'         => 'core.DownloadItem',
-						'itemId'       => $this->getId(),
-						'serialNumber' => $this->getSerialNumber(),
-					),
-					array(
-						'forceFullUrl' => !empty($params['forceFullUrl']),
-					)
-				);
-
-				list($width, $height) = array($this->getWidth(), $this->getHeight());
-
-				// Shrink our dimensions if necessary
-				if (isset($params['maxSize'])) {
-					list($width, $height) = GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
-					unset($params['maxSize']);
-				}
-
-				$sizeStr = ($width > 0 && $height > 0) ? sprintf(' width="%s" height="%s"', $width, $height) : '';
-
-				if (!isset($params['alt'])) {
-					$params['alt'] = $this->getPathComponent();
-				}
-
-				$html = sprintf('<img src="%s"%s', $src, $sizeStr);
-				unset($params['fallback']);
-				unset($params['forceFullUrl']);
-
-				foreach ($params as $attr => $value) {
-					if (isset($value)) {
-						$html .= " $attr=\"$value\"";
-					}
-				}
-
-				return $html . '/>';
-
-			default:
-				return null;
-		}
-	}
-
-	/**
-	 * So ThumbnailImage is displayable with {g->image}
-	 */
-	public function getRenderer() {
-		return null;
-	}
-
-	/**
-	 * @see GalleryEntity::getClassName
-	 */
-	public function getClassName() {
-		return 'ThumbnailImage';
-	}
-
-	public function getMimeType() {
-		return $this->mimeType;
-	}
-
-	public function setMimeType($mimeType) {
-		$this->mimeType = $mimeType;
-	}
-
-	public function getSize() {
-		return $this->size;
-	}
-
-	public function setSize($size) {
-		$this->size = $size;
-	}
-
-	public function getWidth() {
-		return $this->width;
-	}
-
-	public function setWidth($width) {
-		$this->width = $width;
-	}
-
-	public function getHeight() {
-		return $this->height;
-	}
-
-	public function setHeight($height) {
-		$this->height = $height;
-	}
-
-	public function getItemMimeTypes() {
-		return $this->itemMimeTypes;
-	}
-
-	public function setItemMimeTypes($itemMimeTypes) {
-		$this->itemMimeTypes = $itemMimeTypes;
-	}
+    function setItemMimeTypes($itemMimeTypes) {
+	$this->itemMimeTypes = $itemMimeTypes;
+    }
 }
+?>

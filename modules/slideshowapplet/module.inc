@@ -24,168 +24,142 @@
  * @version $Revision: 20951 $
  */
 class SlideshowAppletModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
-		$this->setId('slideshowapplet');
-		$this->setName($gallery->i18n('Slideshow Applet'));
-		$this->setDescription($gallery->i18n('Fullscreen slideshow using a Java applet'));
-		$this->setVersion('1.0.13');
-		$this->_templateVersion = 1;
-		$this->setGroup('display', $gallery->i18n('Display'));
-		$this->setCallbacks('getItemLinks|getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 9));
+
+    function SlideshowAppletModule() {
+	global $gallery;
+	$this->setId('slideshowapplet');
+	$this->setName($gallery->i18n('Slideshow Applet'));
+	$this->setDescription($gallery->i18n('Fullscreen slideshow using a Java applet'));
+	$this->setVersion('1.0.13');
+	$this->_templateVersion = 1;
+	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setCallbacks('getItemLinks|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 27));
+	$this->setRequiredModuleApi(array(3, 9));
+    }
+
+    /**
+     * @see GalleryPlugin::upgrade
+     */
+    function upgrade($currentVersion) {
+	global $gallery;
+
+	list ($ret, $params) =
+	    GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryPlugin::upgrade
-	 */
-	public function upgrade($currentVersion, $x1 = null) {
-		global $gallery;
+	if (!isset($params['slideshowdefaultVariables'])) {
+	    /* upgrade or install */
+	    if (isset($params['slideshowRecursive']) && isset($params['slideshowMaxPictures'])) {
+		/* definitely upgrade */
+		$newDefault = 'slideshowRecursive=' . $params['slideshowRecursive'] .
+			      '|slideshowMaxPictures=' . $params['slideshowMaxPictures'];
 
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
-
+		/* remove the old parameters */
+		$ret = $this->removeParameter('slideshowRecursive');
 		if ($ret) {
-			return $ret;
+		    return $ret;
 		}
 
-		if (!isset($params['slideshowdefaultVariables'])) {
-			// upgrade or install
-			if (isset($params['slideshowRecursive']) && isset($params['slideshowMaxPictures'])) {
-				// definitely upgrade
-				$newDefault = 'slideshowRecursive=' . $params['slideshowRecursive'] .
-				  '|slideshowMaxPictures=' . $params['slideshowMaxPictures'];
-
-				// remove the old parameters
-				$ret = $this->removeParameter('slideshowRecursive');
-
-				if ($ret) {
-					return $ret;
-				}
-
-				$ret = $this->removeParameter('slideshowMaxPictures');
-
-				if ($ret) {
-					return $ret;
-				}
-			} else {
-				// install
-				$newDefault = 'slideshowRecursive=false|slideshowMaxPictures=0';
-			}
-			$ret = $this->setParameter('slideshowdefaultVariables', $newDefault);
-
-			if ($ret) {
-				return $ret;
-			}
+		$ret = $this->removeParameter('slideshowMaxPictures');
+		if ($ret) {
+		    return $ret;
 		}
-
-		if (!isset($params['slideshowoverrideVariables'])) {
-			$ret = $this->setParameter('slideshowoverrideVariables', 'toSysOut=true');
-
-			if ($ret) {
-				return $ret;
-			}
-		}
-
-		return null;
+	    } else {
+		/* install */
+		$newDefault = 'slideshowRecursive=false|slideshowMaxPictures=0';
+	    }
+	    $ret = $this->setParameter('slideshowdefaultVariables', $newDefault);
+	    if ($ret) {
+		return $ret;
+	    }
 	}
 
-	/**
-	 * @see GalleryModule::getItemLinks
-	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $x1 = null) {
-		global $gallery;
+	if (!isset($params['slideshowoverrideVariables'])) {
+	    $ret = $this->setParameter('slideshowoverrideVariables', 'toSysOut=true');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
 
-		$links = array();
+	return null;
+    }
 
-		foreach ($items as $item) {
-			$itemId = $item->getId();
+    /**
+     * @see GalleryModule::getItemLinks
+     */
+    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+	global $gallery;
 
-			if (isset($wantsDetailedLinks[$itemId])) {
-				$showSlideshowLink = false;
+	$links = array();
+	foreach ($items as $item) {
+	    $itemId = $item->getId();
+	    if (isset($wantsDetailedLinks[$itemId])) {
+		$showSlideshowLink = false;
 
-				if ($item->getCanContainChildren()) {
-					if (!isset($userId)) {
-						$userId = $gallery->getActiveUserId();
+		if ($item->getCanContainChildren()) {
+		    if (!isset($userId)) {
+			$userId = $gallery->getActiveUserId();
+		    }
+
+		    list ($ret, $query, $data) = GalleryCoreApi::buildItemQuery(
+			'GalleryChildEntity', 'id', '[GalleryChildEntity::parentId] = ?', null,
+			null, 'GalleryPhotoItem', 'core.view', null, $userId);
+
+		    if (!$ret || !empty($query)) {
+			array_unshift($data, $item->getId());
+			list ($ret, $searchResults) = $gallery->search($query, $data, null);
+
+			if (!$ret) {
+			    $showSlideshowLink = $searchResults->resultCount() > 0;
+			}
+		    }
+		} else {
+		    /** @todo Check with isA instead of entityType (thus matching subclasses). */
+		    $showSlideshowLink = $item->getEntityType() === 'GalleryPhotoItem';
 					}
-
-					list($ret, $query, $data) = GalleryCoreApi::buildItemQuery(
-						'GalleryChildEntity',
-						'id',
-						'[GalleryChildEntity::parentId] = ?',
-						null,
-						null,
-						'GalleryPhotoItem',
-						'core.view',
-						null,
-						$userId
-					);
-
-					if (!$ret || !empty($query)) {
-						array_unshift($data, $item->getId());
-						list($ret, $searchResults) = $gallery->search($query, $data, null);
-
-						if (!$ret) {
-							$showSlideshowLink = $searchResults->resultCount() > 0;
-						}
-					}
-				} else {
-					/** @todo Check with isA instead of entityType (thus matching subclasses). */
-					$showSlideshowLink = $item->getEntityType() === 'GalleryPhotoItem';
-				}
-
-				if ($showSlideshowLink) {
-					$links[$itemId][] = array(
-						'text'   => $this->translate('View Slideshow (Fullscreen)'),
-						'params' => array(
-							'view'   => 'slideshowapplet.SlideshowApplet',
-							'itemId' => $itemId,
-						),
-					);
-				}
-			}
+		if ($showSlideshowLink) {
+		    $links[$itemId][] =
+			array('text' => $this->translate('View Slideshow (Fullscreen)'),
+			      'params' => array(
+			      'view' => 'slideshowapplet.SlideshowApplet',
+			      'itemId' => $itemId));
 		}
-
-		return array(null, $links);
+	    }
 	}
+	return array(null, $links);
+    }
 
-	/**
-	 * @see GalleryModule::getRewriteRules
-	 */
-	public function getRewriteRules() {
-		$rules = array();
+    /**
+     * @see GalleryModule::getRewriteRules
+     */
+    function getRewriteRules() {
+	$rules = array();
 
-		$rule             = array();
-		$rule['comment']  = $this->translate('View Slideshow (Fullscreen)');
-		$rule['match']    = array(
-			'view' => 'slideshowapplet.SlideshowApplet',
-		);
-		$rule['onLoad']   = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
-		$rule['pattern']  = 'v/%path%/slideshowapplet.html';
-		$rule['keywords'] = array(
-			'path' => array(
-				'pattern'  => '([^?]+)',
-				'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
-				'help'     => $this->translate('Path to an item (eg, /album/image.jpg.html)'),
-			),
-		);
-		$rules[]          = $rule;
+	$rule = array();
+	$rule['comment'] = $this->translate('View Slideshow (Fullscreen)');
+	$rule['match'] = array('view' => 'slideshowapplet.SlideshowApplet');
+	$rule['onLoad'] = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
+	$rule['pattern'] = 'v/%path%/slideshowapplet.html';
+	$rule['keywords'] = array(
+	    'path' => array(
+		'pattern' => '([^?]+)',
+		'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
+		'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)')));
+	$rules[] = $rule;
 
-		return $rules;
-	}
+	return $rules;
+    }
 
-	/**
-	 * @see GalleryModule::getSiteAdminViews
-	 */
-	public function getSiteAdminViews() {
-		return array(
-			null,
-			array(
-				array(
-					'name' => $this->translate('Slideshow Applet'),
-					'view' => 'slideshowapplet.SlideshowAppletSiteAdmin',
-				),
-			),
-		);
-	}
+    /**
+     * @see GalleryModule::getSiteAdminViews
+     */
+    function getSiteAdminViews() {
+	return array(null,
+		     array(array('name' => $this->translate('Slideshow Applet'),
+				 'view' => 'slideshowapplet.SlideshowAppletSiteAdmin')));
+    }
 }
+?>

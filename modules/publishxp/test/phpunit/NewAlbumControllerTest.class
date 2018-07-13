@@ -1,0 +1,193 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * NewAlbum controller tests
+ * @package PublishXp
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
+class NewAlbumControllerTest extends GalleryControllerTestCase {
+
+    function NewAlbumControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'publishxp.NewAlbum');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	    return $ret;
+    	}
+
+    	list ($ret, $parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($parentAlbum);
+	$this->_parentAlbumId = $parentAlbum->getId();
+	$this->_userId = $gallery->getActiveUserId();
+
+	GalleryUtilities::putRequestVariable('form[parentId]', $this->_parentAlbumId);
+	GalleryUtilities::putRequestVariable('form[action][newAlbum]', 1);
+	GalleryUtilities::putRequestVariable(
+	    'form[pathComponent]', $this->_pathComponent = 'test-' . rand(1000, 9999));
+	GalleryUtilities::putRequestVariable('form[title]', 'test title');
+	GalleryUtilities::putRequestVariable('form[summary]', 'test summary');
+	GalleryUtilities::putRequestVariable('form[description]', 'test description');
+    }
+
+    function testNewAlbumFailsWithoutViewPermission() {
+	$ret = GalleryCoreApi::removeItemPermissions($this->_parentAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest(ERROR_MISSING_OBJECT);
+	$this->assertEquals(null, $results, 'attempt without view permission');
+    }
+
+    function testNewAlbumFailsWithoutAddAlbumPermission() {
+	$ret = GalleryCoreApi::removeItemPermissions($this->_parentAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret =
+	    GalleryCoreApi::addUserPermission($this->_parentAlbumId, $this->_userId, 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+	$this->assertEquals(null, $results, 'attempt without view permission');
+    }
+
+    function testNewAlbum() {
+    	$ret = GalleryCoreApi::removeItemPermissions($this->_parentAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret =
+	    GalleryCoreApi::addUserPermission($this->_parentAlbumId, $this->_userId, 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_parentAlbumId, $this->_userId, 'core.addAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest();
+
+	$entityCounter =& GalleryTestCase::getEntityCounter();
+	$albumId = $entityCounter->getRecentEntityId('GalleryAlbumItem');
+	$this->assertEquals(array('redirect' => array('view' => 'publishxp.SelectAlbum',
+						      'albumId' => $albumId),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($this->_parentAlbumId, $album->getParentId(), 'id of parent album');
+	$this->assertEquals($this->_pathComponent, $album->getPathComponent());
+	$this->assertEquals('test title', $album->getTitle());
+	$this->assertEquals('test summary', $album->getSummary());
+	$this->assertEquals('test description', $album->getDescription());
+	/* For Oracle, null is replaced with '' when loading data from the database */
+	$this->assert(in_array($album->getKeywords(), array(null, '')), 'keywords should be empty');
+    }
+
+    function testNewAlbumWithXss() {
+	GalleryUtilities::putRequestVariable('form[parentId]', $this->_getRootId());
+	GalleryUtilities::putRequestVariable(
+	    'form[pathComponent]', $pathComponent = 'test-' . rand(1000, 9999));
+	GalleryUtilities::putRequestVariable('form[title]', 'test<script>evil</script> title');
+	GalleryUtilities::putRequestVariable('form[summary]', 'test<script>evil</script> summary');
+	GalleryUtilities::putRequestVariable('form[description]', 'test<script>evil</script> desc');
+	GalleryUtilities::putRequestVariable('form[action][newAlbum]', 1);
+
+	$results = $this->handleRequest();
+	$entityCounter =& GalleryTestCase::getEntityCounter();
+	$albumId = $entityCounter->getRecentEntityId('GalleryAlbumItem');
+	$this->assertEquals(array('redirect' => array('view' => 'publishxp.SelectAlbum',
+						      'albumId' => $albumId),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals($this->_getRootId(), $album->getParentId());
+	$this->assertEquals($pathComponent, $album->getPathComponent());
+	$this->assertEquals('test&lt;script&gt;evil&lt;/script&gt; title', $album->getTitle());
+	$this->assertEquals('test&lt;script&gt;evil&lt;/script&gt; summary', $album->getSummary());
+	$this->assertEquals('test&lt;script&gt;evil&lt;/script&gt; desc', $album->getDescription());
+
+	$ret = GalleryCoreApi::deleteEntityById($albumId, 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testNewAlbumInvalidPathComponent() {
+	GalleryUtilities::putRequestVariable('form[pathComponent]', '@!INVALID!@');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'publishxp.NewAlbum'),
+				  'status' => array(),
+				  'error' => array('form[error][pathComponent][invalid]')),
+			    $results);
+    }
+
+    function testNewAlbumMissingElements() {
+	GalleryUtilities::removeRequestVariable('form[pathComponent]');
+	GalleryUtilities::removeRequestVariable('form[title]');
+	GalleryUtilities::removeRequestVariable('form[summary]');
+	GalleryUtilities::removeRequestVariable('form[description]');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'publishxp.NewAlbum'),
+				  'status' => array(),
+				  'error' => array(
+				      'form[error][pathComponent][missing]',
+				      'form[error][title][missing]')),
+			    $results);
+    }
+
+    function testNewAlbumBogusParentId() {
+	GalleryUtilities::putRequestVariable('form[parentId]', 0);
+
+	/* We don't allow this via the UI, so a system error is acceptable */
+	$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+    }
+}
+?>

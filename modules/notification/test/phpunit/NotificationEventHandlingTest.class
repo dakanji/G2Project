@@ -1,0 +1,615 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHelper.class');
+GalleryCoreApi::requireOnce('modules/notification/classes/NotificationEvent_1_0.class');
+GalleryCoreApi::requireOnce('modules/notification/classes/NotificationRouter.class');
+GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHandler_1_0.class');
+GalleryCoreApi::requireOnce(
+			   'modules/notification/classes/NotificationItemStateChangeHandler.class');
+GalleryCoreApi::requireOnce('modules/notification/classes/GalleryCoreEventNotifications.class');
+GalleryCoreApi::requireOnce('modules/notification/classes/NotificationMethodEmail.class');
+
+/**
+ * NotificationHelper tests
+ * @package Notification
+ * @subpackage PHPUnit
+ * @author Zimzat <zimzat@zimzat.com>
+ * @author Tim Almdal <tnalmdal@shaw.ca>
+ * @version $Revision: 18145 $
+ */
+class NotificationEventHandlingTest extends GalleryTestCase {
+    function NotificationEventHandlingTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+
+	parent::setUp();
+
+	$this->_unregisterFactoryImplementationForTest('NotificationEvent_1_0');
+	$this->_unregisterFactoryImplementationForTest('NotificationHandler_1_0');
+	$this->_unregisterFactoryImplementationForTest('GalleryEventListener');
+
+	$ret = $this->_registerFactoryImplementationForTest('GalleryEventListener',
+	    'NotificationHelperTestEventHandler', 'NotificationRouter',
+	    'modules/notification/test/phpunit/NotificationHelperTest.class',
+	    'notification', array('eventName' => 'Test::Event'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest('NotificationEvent_1_0',
+	    'NotificationRouterTest1', 'Test::Event1',
+	    'modules/notification/test/phpunit/NotificationRouterTest.class',
+	    'notification', array('Test::Event'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_registerFactoryImplementationForTest('NotificationEvent_1_0',
+	    'NotificationRouterTest2', 'Test::Event2',
+	    'modules/notification/test/phpunit/NotificationRouterTest.class',
+	    'notification', array('Test::Event2'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Test Handler definition */
+	$ret = $this->_registerFactoryImplementationForTest(
+	    'NotificationHandler_1_0', 'NotificationRouterTestHandler1', 'Test::EventHandler1',
+	    'modules/notification/test/phpunit/NotificationRouterTest.class',
+	    'notification', array());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, notification, 0)';
+	list ($ret, $pluginParms) =
+	    GalleryCoreApi::fetchAllPluginParameters('module', 'notification');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$enabled['Test::Event1'] = array('Test::EventHandler1' => array('public' => true,
+		     'enabled' => true));
+	$enabled['Test::Event2'] = array('NotificationRouterTestHandler' => array('public' => true,
+		     'enabled' => false));
+	$pluginParms['_enabledMap'] = serialize($enabled);
+	GalleryDataCache::put($cacheKey, $pluginParms);
+
+	$this->_users = array();
+	$this->_userIds = array();
+
+	list ($ret, $this->_groupAdmin) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($parentAlbum);
+	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($parentAlbum->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$entities = array($this->_getRootId(), $this->_childAlbum->getId());
+	foreach (array('User1', 'User2', 'User3') as $userName) {
+	    $fields = array('userName' => $userName, 'fullName' => 'Test ' . $userName);
+	    if ('User2' !== $userName) {
+		$fields['email'] = $userName . '@gallery2.org';
+		$fields['language'] = 'User1' === $userName ? 'en' : 'de';
+	    }
+
+	    list ($ret, $user) = $this->_createUser($fields);
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    $this->_users[$userName] = $user;
+	    $userId = $user->getId();
+	    $this->_userIds[] = $userId;
+	    $this->_markForCleanup($user);
+
+	    list ($ret) = GalleryCoreApi::fetchPermissionsForItems($entities, $userId);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$userId = $gallery->getActiveUserId();
+	list ($ret) = GalleryCoreApi::fetchPermissionsForItems($entities, $userId);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret) =
+	    GalleryCoreApi::loadEntitiesById($this->_childAlbum->getId(), 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $childItems) = GalleryCoreApi::fetchChildItemIds($this->_childAlbum);
+	if ($ret) {
+		return $ret;
+	}
+
+	list ($ret, $this->_rootAlbum) = GalleryCoreApi::loadEntitiesById($this->_getRootId(),
+									  'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $users) = GalleryCoreApi::loadEntitiesById($this->_userIds, 'GalleryUser');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_storageSet = true;
+	$gallery->_storage = new UnitTestStorage();
+	$this->_saveLockSystem = $gallery->_lockSystem;
+	$gallery->_lockSystem = null;
+
+	$this->_emailSubject = array();
+    }
+
+    function tearDown() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$gallery->_lockSystem =& $this->_saveLockSystem;
+
+	if (!empty($this->_storageSet)) {
+	    $this->assert($storage->isComplete(), $storage->getRemaining());
+	}
+
+	parent::tearDown();
+    }
+
+    function testRouterEnabledEvent() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$eventId = 'Test::Event';
+	$event = GalleryCoreApi::newEvent($eventId);
+	$event->setEntity($this->_childAlbum);
+
+	$gallery->setActiveUser($this->_users['User1']);
+	$userId = $gallery->getActiveUserId();
+
+	$itemId = $this->_childAlbum->getId();
+
+	$storage->setReply('search',
+	      array('
+             SELECT DISTINCT [::notificationName], [::handlerName]
+	      FROM [SubscriptionMap]
+	     WHERE [::notificationName] IN (?)',
+		    array('Test::Event1'), array()),
+	      array(null, new UnitTestStorageSearchResults(array(
+						   array('Test::Event1', 'Test::EventHandler1')))));
+	$storage->setReply('getMapEntry',
+	      array('GalleryUserGroupMap', array('userId'),
+		    array('userId' => $this->_users['User1']->getId(),
+			  'groupId' => $this->_groupAdmin), 
+		    array('limit' => array('count' => 1))),
+	      array(null, new UnitTestStorageSearchResults(array(array()))));
+	$storage->setReply('getMapEntry',
+	      array('SubscriptionMap', array('userId'),
+		    array('notificationName' => 'Test::Event1', 'itemId' => $itemId), array()),
+	      array(null, new UnitTestStorageSearchResults(array(array($userId),
+							array($this->_users['User1']->getId())))));
+
+	$handler = new NotificationRouter();
+	list ($ret, $data) = $handler->handleEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	if (GalleryDataCache::containsKey('NotificationEventHandlingTest:subscriber')) {
+	    $subscribers = GalleryDataCache::get('NotificationEventHandlingTest:subscriber');
+
+	    $this->assertEquals(array($userId, $this->_users['User1']->getId()), $subscribers,
+			    'Subscribers did not match');
+	} else {
+	    $this->assert(false, 'handleNotification not called');
+	}
+
+	if (GalleryDataCache::containsKey('NotificationEventHandlingTest:notification')) {
+	    list ($ret, $expected) =
+		GalleryCoreApi::newFactoryInstanceById('NotificationEvent_1_0', 'Test::Event1');
+	    if ($ret) {
+		return $ret;
+	    }
+	    $expected->setEvent($event);
+
+	    $notification = GalleryDataCache::get('NotificationEventHandlingTest:notification');
+	    $this->assertEquals($expected, $notification, 'Notification did not match');
+	}
+    }
+
+    function testRouterEnabledEventNoSubscribers() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$eventId = 'Test::Event';
+	$event = GalleryCoreApi::newEvent($eventId);
+	$event->setEntity($this->_childAlbum);
+	$itemId = $this->_childAlbum->getId();
+
+	$gallery->setActiveUser($this->_users['User1']);
+
+	$storage->setReply('search',
+	      array('
+	    SELECT DISTINCT [::notificationName], [::handlerName]
+	      FROM [SubscriptionMap]
+	     WHERE [::notificationName] IN (?)',
+		    array('Test::Event1'), array()),
+	      array(null, new UnitTestStorageSearchResults(array(
+						   array('Test::Event1', 'Test::EventHandler1')))));
+
+	$storage->setReply('getMapEntry',
+	      array('GalleryUserGroupMap', array('userId'),
+		    array('userId' => $this->_users['User1']->getId(), 
+			  'groupId' => $this->_groupAdmin), 
+		    array('limit' => array('count' => 1))),
+	      array(null, new UnitTestStorageSearchResults(array(array()))));
+
+	$storage->setReply('getMapEntry',
+	      array('SubscriptionMap', array('userId'),
+		    array('notificationName' => 'Test::Event1', 'itemId' => $itemId), array()),
+	      array(null, new UnitTestStorageSearchResults(array())));
+
+	$handler = new NotificationRouter();
+	list ($ret, $data) = $handler->handleEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(null, $data, 'Unexpected result, handler was called');
+    }
+
+    function testRouterDisabledEvent() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$event = GalleryCoreApi::newEvent('Test::Event2');
+	$event->setData($this->_getRootId());
+
+	$gallery->setActiveUser($this->_users['User1']);
+
+	$storage->setReply('search',
+	      array('
+	    SELECT DISTINCT [::notificationName], [::handlerName]
+	      FROM [SubscriptionMap]
+	     WHERE [::notificationName] IN (?)',
+		    array('Test::Event2'), array()),
+	      array(null, new UnitTestStorageSearchResults(array(
+						array('Test::Event2', 'Test::EventHandler1')))));
+
+	$storage->setReply('getMapEntry',
+	      array('GalleryUserGroupMap', array('userId'),
+		    array('userId' => $this->_users['User1']->getId(), 
+			  'groupId' => $this->_groupAdmin), 
+		    array('limit' => array('count' => 1))),
+	      array(null, new UnitTestStorageSearchResults(array(array()))));
+
+	$handler = new NotificationRouter();
+	list ($ret, $data) = $handler->handleEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(null, $data, 'Unexpected result, handler was called');
+    }
+
+    function testEmailHandler() {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'notification');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$handler = new NotificationMethodEmail();
+
+	$event = GalleryCoreApi::newEvent('Test::Event1');
+	$event->setData($this->_getRootId());
+
+	$body1 = 'Lets put a long message here that is greater than 70 characters so'
+				. ' that we can test the word wrapping of the body text.';
+	$body2 = 'If you no longer wish to subscribe to this notification '
+				. 'please update your account settings at:';
+
+	$notification = new NotificationRouterTest1();
+	$notification->_message = $body1;
+	$notification->setEvent($event);
+
+	$translator =& $gallery->getTranslator();
+
+	list ($ret, $defaultLanguageCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$subjects = array();
+	$bodies = array();
+	$recipients = array();
+
+	$redirect['view'] = 'core.UserAdmin';
+	$redirect['subView'] = 'notification.NotificationUserAdmin';
+
+	$unsubscribeUrl = $urlGenerator->generateUrl($redirect, array('forceFullUrl' => true));
+
+	foreach ($this->_users as $userName => $user) {
+	    if ($userName === 'User2') {
+		continue;
+	    }
+
+	    $recipients[] = $user->getEmail();
+
+	    list ($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($user->getId());
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    list ($ret, $currentLanguageCode) = $translator->init($language);
+
+	    $subjects[] = 'NotificationRouterTest1 Description';
+
+	    $translatedBody2 = $module->translate($body2);
+	    $bodies[] = wordwrap($body1, 70) . "\r\n\r\n" . wordwrap($translatedBody2, 70) .
+		"\r\n\r\n" . $unsubscribeUrl;
+	}
+
+	list ($ret) = $translator->init($defaultLanguageCode);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new NotificationEventHandlingPlatform($savePlatform, $this));
+
+	$ret = $handler->handleNotification($this->_userIds, $notification);
+
+	$gallery->setPlatform($savePlatform); /* reset the platform before doing anything else */
+	if ($ret) {
+	    return $ret;
+	}
+
+	/*
+	 * .tpl files in SVN on Windows will have \r\n line endings, on Linux they'll have \n.
+	 * Since we hardcode the line ending above in our expected data, normalize it all here so
+	 * that we can do a clean comparison.
+	 */
+	$bodies = str_replace("\r\n", "\n", $bodies);
+	$this->_emailBody = str_replace("\r\n", "\n", $this->_emailBody);
+
+	$this->assertEquals($subjects, $this->_emailSubject, 'Email subjects unexpected');
+	$this->assertEquals($bodies, $this->_emailBody, 'Email bodies unexpected');
+	$this->assertEquals($recipients, $this->_emailTo, 'Unexpected Recipients list');
+    }
+
+    function testItemSave() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$itemId = $this->_childAlbum->getId();
+	$parentId = $this->_childAlbum->getParentId();
+	$storage->setReply('getMapEntry',
+	      array('SubscriptionMap',
+		    array('notificationName', 'userId', 'handlerName'),
+		    array('itemId' => $parentId), array()),
+	      array(null, new UnitTestStorageSearchResults(array(
+		    array('Test::Event2', $this->_users['User1']->getId(), 'Test:EventHandler',
+			  'Test::Event2'),
+		    array('Test::Event1', $this->_users['User3']->getId(), 'Test:EventHandler',
+			  'test::event')))));
+
+	list ($ret, $hintLockId) = GalleryCoreApi::getPluginParameter('module', 'notification',
+								      'id.hintsLock');
+	if ($ret) {
+	    return $ret;
+	}
+	$storage->setReply('acquireWriteLock', array(array($hintLockId), 10),
+			   array(null,
+				 array('lockId' => 42, 'type' => LOCK_WRITE,
+				       'ids' => array($hintLockId => true))));
+
+	list ($ret, $hints) = GalleryCoreApi::getFactoryDefinitionHints('GalleryEventListener',
+									'NotificationRouter');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$storage->setReply('isTransactional', array(), false);
+	$storage->setReply('releaseLocks', array(array(42)), null);
+
+	$storage->setReply('addMapEntry',
+	      array('SubscriptionMap',
+		    array('userId' => $this->_users['User3']->getId(),
+			  'itemId' => $itemId, 'notificationName' => 'Test::Event1',
+			  'handlerName' => 'Test:EventHandler'), null),
+	      null);
+	/* The album might use some presort */
+	$storage->setReply('getFunctionSql', '*', array(null, ''), true);
+	$storage->setReply('getFunctionSql', '*', array(null, ''), true);
+	/* The fetchChildItemIds() query */
+	$storage->setReply('search', '*', array(null, new UnitTestStorageSearchResults(array())));
+	$storage->setReply('checkPoint', array(), null);
+
+	$event = GalleryCoreApi::newEvent('GalleryEntity::save');
+	$this->_childAlbum->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
+	$event->setEntity($this->_childAlbum);
+
+	$handler = new NotificationItemStateChangeHandler();
+	list ($ret, $data) = $handler->handleEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(null, $data, 'Unexpected result, handler was called');
+    }
+
+    function testItemDelete() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$storage->setReply('removeMapEntry',
+			   array('SubscriptionMap',
+				 array('itemId' => $this->_rootAlbum->getId())),
+			   null);
+
+	$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
+	$event->setEntity($this->_rootAlbum);
+
+	$handler = new NotificationItemStateChangeHandler();
+	list ($ret, $data) = $handler->handleEvent($event);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(null, $data, 'Unexpected result, handler was called');
+    }
+}
+
+class NotificationRouterTest1 extends NotificationEvent_1_0 {
+    function getDescription() {
+	global $gallery;
+	return array(null, $gallery->i18n('NotificationRouterTest1 Description'));
+    }
+
+    function getPermission() {
+	return 'core.view';
+    }
+
+    function getItemId() {
+	$entity = $this->_event->getEntity();
+	return $entity->getId();
+    }
+
+    function getNotificationMessage() {
+	return array(null, $this->_message);
+    }
+
+    function getEventSpecs() {
+	return array('eventName' => 'Test::Event', 'entityType' => 'GalleryEntity');
+    }
+
+    function isAppropriateForItem($item) {
+	return true;
+    }
+}
+
+class NotificationRouterTest2 extends NotificationEvent_1_0 {
+    function getDescription() {
+	global $gallery;
+	return array(null, $gallery->i18n('NotificationRouterTest2 Description'));
+    }
+
+    function getPermission() {
+	return 'core.edit';
+    }
+
+    function getItemId() {
+	return (int)$this->_event->_data;
+    }
+
+    function isAppropriateForItem($item) {
+	return true;
+    }
+}
+
+class NotificationRouterTestHandler1 extends NotificationHandler_1_0 {
+    function getDescription() {
+	global $gallery;
+	return $gallery->i18n('Test Notification Test Class Description');
+    }
+
+    function handleNotification($subscribers, $notification) {
+	GalleryDataCache::put('NotificationEventHandlingTest:subscriber', $subscribers);
+	GalleryDataCache::put('NotificationEventHandlingTest:notification', $notification);
+	return null;
+    }
+}
+
+class NotificationEventHandlingPlatform {
+    function NotificationEventHandlingPlatform($platform, &$test) {
+	$this->_platform = $platform;
+	$this->_test =& $test;
+    }
+
+    function mail($to, $subject, $body, $headers=null) {
+	/* Don't actually send email */
+	$this->_test->_emailSubject[] .= $subject;
+	$this->_test->_emailBody[] = trim($body);
+	$this->_test->_emailTo[] = $to;
+	return true;
+    }
+
+    function realpath($file) {
+	return $this->_platform->realpath($file);
+    }
+
+    function getDirectorySeparator() {
+	return $this->_platform->getDirectorySeparator();
+    }
+
+    function file_exists($filename) {
+	return $this->_platform->file_exists($filename);
+    }
+
+    function is_dir($filename) {
+	return $this->_platform->is_dir($filename);
+    }
+
+    function is_writeable($filename) {
+	return $this->_platform->is_writeable($filename);
+    }
+
+    function is_readable($filename) {
+	return $this->_platform->is_readable($filename);
+    }
+
+    function stat($filename) {
+	return $this->_platform->stat($filename);
+    }
+
+    function mkdir($path) {
+	return $this->_platform->mkdir($path);
+    }
+
+    function fopen($filename, $mode, $use_include_path=0) {
+	return $this->_platform->fopen($filename, $mode, $use_include_path);
+    }
+
+    function recursiveRmdir($dirname) {
+	return $this->_platform->recursiveRmdir($dirname);
+    }
+
+    function fclose($handle) {
+	return $this->_platform->fclose($handle);
+    }
+}
+?>

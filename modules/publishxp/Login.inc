@@ -28,6 +28,7 @@
  * @author Timothy Webb <tiwebb@cisco.com>
  * @version $Revision: 17580 $
  */
+
 GalleryCoreApi::requireOnce('modules/publishxp/PublishXpLogin.inc');
 
 /**
@@ -36,3 +37,4 @@ GalleryCoreApi::requireOnce('modules/publishxp/PublishXpLogin.inc');
  */
 class LoginView extends PublishXpLoginView {
 }
+?>

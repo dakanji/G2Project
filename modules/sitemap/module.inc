@@ -25,47 +25,42 @@
  * @version $Revision: 20951 $
  */
 class SitemapModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
-		$this->setId('sitemap');
-		$this->setName($gallery->i18n('Sitemap'));
-		$this->setDescription($gallery->i18n('Generate a Google Sitemap for your Gallery'));
-		$this->setVersion('1.0.6');
-		$this->_templateVersion = 1;
-		$this->setGroup('export', $gallery->i18n('Export'));
-		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
-	}
 
-	/**
-	 * @see GalleryModule::getSiteAdminViews
-	 */
-	public function getSiteAdminViews() {
-		$data = array(
-			array(
-				'name' => $this->translate('Google Sitemap'),
-				'view' => 'sitemap.AdminSitemap',
-			),
-		);
+    function SitemapModule() {
+	global $gallery;
+	$this->setId('sitemap');
+	$this->setName($gallery->i18n('Sitemap'));
+	$this->setDescription($gallery->i18n('Generate a Google Sitemap for your Gallery'));
+	$this->setVersion('1.0.6');
+	$this->_templateVersion = 1;
+	$this->setGroup('export', $gallery->i18n('Export'));
+	$this->setCallbacks('getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 20));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
 
-		return array(null, $data);
-	}
+    /**
+     * @see GalleryModule::getSiteAdminViews
+     */
+    function getSiteAdminViews() {
+	$data = array(array('name' => $this->translate('Google Sitemap'),
+			    'view' => 'sitemap.AdminSitemap'));
+	return array(null, $data);
+    }
 
-	/**
-	 * @see GalleryModule::getRewriteRules
-	 */
-	public function getRewriteRules() {
-		$rules = array();
+    /**
+     * @see GalleryModule::getRewriteRules
+     */
+    function getRewriteRules() {
+	$rules = array();
 
-		$rule            = array();
-		$rule['match']   = array(
-			'view' => 'sitemap.Sitemap',
-		);
-		$rule['pattern'] = 'sitemap';
-		$rule['comment'] = $this->translate('Download Sitemap');
-		$rules[]         = $rule;
+	$rule = array();
+	$rule['match'] = array('view' => 'sitemap.Sitemap');
+	$rule['pattern'] = 'sitemap';
+	$rule['comment'] = $this->translate('Download Sitemap');
+	$rules[] = $rule;
 
-		return $rules;
-	}
+	return $rules;
+    }
 }
+?>

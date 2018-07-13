@@ -1,0 +1,256 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
+
+/**
+ * Test MultiLangSearch functionality
+ *
+ * @package MultiLang
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class MultiLangSearchTest extends GalleryTestCase {
+
+    function MultiLangSearchTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Make sure search is active */
+	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return $ret;
+	}
+
+	if (empty($moduleStatusList['search']['active'])) {
+	    return $this->assert(false, 'Search module not active');
+	}
+
+	/* Get search instance */
+	list ($ret, $this->_search) =
+	    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', 'MultiLangSearch');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(isset($this->_search), 'Missing MultiLangSearch instance');
+
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'multilang');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_randomKey = 'a' . rand() . 'z';
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
+	    array('summary' => 't' . $this->_randomKey));
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = MultiLangHelper::setItemData($this->_album, 'zq_RX',
+	    't' . $this->_randomKey, 's' . $this->_randomKey, 'd' . $this->_randomKey);
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = MultiLangHelper::setItemData($this->_album, 'zq_WX',
+	    'foo', 't' . $this->_randomKey, 'bar');
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = MultiLangHelper::setItemData($this->_item, 'zq_RX',
+	    't' . $this->_randomKey, 's' . $this->_randomKey, 'd' . $this->_randomKey);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$session =& $gallery->getSession();
+	$this->_saveLanguage = $session->get('core.language');
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	$session =& $gallery->getSession();
+	if (empty($this->_saveLanguage)) {
+	    $session->remove('core.language');
+	} else {
+	    $session->put('core.language', $this->_saveLanguage);
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testGetSearchModuleInfoDefaultLanguage() {
+	global $gallery;
+	list ($ret, $defaultLanguage) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
+	if ($ret) {
+	    return $ret;
+	}
+	$gallery->setActiveLanguageCode($defaultLanguage);
+
+	list ($ret, $info) = $this->_search->getSearchModuleInfo();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(
+	    array('name' => $this->_module->translate('MultiLanguage'),
+		  'description' => $this->_module->translate('MultiLanguage Captions'),
+		  'options' => array()),
+	    $info);
+    }
+
+    function testGetSearchModuleInfoActiveLanguage() {
+	global $gallery;
+	list ($ret, $defaultLanguage) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
+	if ($ret) {
+	    return $ret;
+	}
+	$gallery->setActiveLanguageCode($defaultLanguage == 'de_DE' ? 'fr_FR' : 'de_DE');
+
+	list ($ret, $info) = $this->_search->getSearchModuleInfo();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(
+	    array('name' => $this->_module->translate('MultiLanguage'),
+		  'description' => $this->_module->translate('MultiLanguage Captions'),
+		  'options' => array(
+			'title' =>
+			array('description' => $this->_module->translate(
+			      array('text' => 'Search titles (%s)', 'arg1' =>
+				    $defaultLanguage == 'de_DE' ? 'Fran&#231;ais' : 'Deutsch')),
+			      'enabled' => 1),
+			'summary' =>
+			array('description' => $this->_module->translate(
+			      array('text' => 'Search summaries (%s)', 'arg1' =>
+				    $defaultLanguage == 'de_DE' ? 'Fran&#231;ais' : 'Deutsch')),
+			      'enabled' => 1),
+			'description' =>
+			array('description' => $this->_module->translate(
+			      array('text' => 'Search descriptions (%s)', 'arg1' =>
+				    $defaultLanguage == 'de_DE' ? 'Fran&#231;ais' : 'Deutsch')),
+			      'enabled' => 1))),
+	    $info);
+    }
+
+    function testSearchAll() {
+	global $gallery;
+	$gallery->setActiveLanguageCode('zq_RX');
+
+	list ($ret, $results) =
+	    $this->_search->search(array('title' => 1), 't' . $this->_randomKey);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$title = $this->_module->translate('Title');
+	$summary = $this->_module->translate('Summary');
+	$description = $this->_module->translate('Description');
+
+	$this->assertEquals(
+	    array('start' => 1, 'end' => 2, 'count' => 2,
+		  'results' => array(
+			array('itemId' => $this->_item->getId(),
+			      'fields' => array(array('key' => $title,
+						      'value' => 't' . $this->_randomKey),
+						array('key' => $summary,
+						      'value' => 's' . $this->_randomKey),
+						array('key' => $description,
+						      'value' => 'd' . $this->_randomKey))),
+			array('itemId' => $this->_album->getId(),
+			      'fields' => array(array('key' => $title,
+						      'value' => 't' . $this->_randomKey),
+						array('key' => $summary,
+						      'value' => 's' . $this->_randomKey),
+						array('key' => $description,
+						      'value' => 'd' . $this->_randomKey))))),
+	    $results);
+    }
+
+    function testLimitedSearch() {
+	global $gallery;
+	$gallery->setActiveLanguageCode('zq_RX');
+
+	list ($ret, $results) =
+	    $this->_search->search(array('title' => 1), $this->_randomKey, 1, 2);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$title = $this->_module->translate('Title');
+	$summary = $this->_module->translate('Summary');
+	$description = $this->_module->translate('Description');
+
+	$this->assertEquals(
+	    array('start' => 2, 'end' => 2, 'count' => 2,
+		  'results' => array(
+			array('itemId' => $this->_album->getId(),
+			      'fields' => array(array('key' => $title,
+						      'value' => 't' . $this->_randomKey),
+						array('key' => $summary,
+						      'value' => 's' . $this->_randomKey),
+						array('key' => $description,
+						      'value' => 'd' . $this->_randomKey))))),
+	    $results);
+    }
+
+    function testEmptySearch() {
+	global $gallery;
+	$gallery->setActiveLanguageCode('zq_RX');
+
+	/*
+	 * Test album has 't' . _randomKey in summary field for default language and zq_WX.
+	 * These should not make this search find it.
+	 */
+	list ($ret, $results) =
+	    $this->_search->search(array('summary' => 1, 'description' => 1),
+				   't' . $this->_randomKey);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('start' => 0,
+				  'end' => 0,
+				  'count' => 0,
+				  'results' => array()),
+			    $results);
+    }
+}
+?>

@@ -28,70 +28,60 @@ GalleryCoreApi::requireOnce('modules/colorpack/classes/ColorPackInterface_1_0.cl
  * @version $Revision: 17580 $
  */
 class ColorPackImpl extends ColorPackInterface_1_0 {
-	/**
-	 * @see ColorPackInterface_1_0::getColorPacks
-	 */
-	public function getColorPacks() {
-		global $gallery;
-		$platform =& $gallery->getPlatform();
+    /**
+     * @see ColorPackInterface_1_0::getColorPacks
+     */
+    function getColorPacks() {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
 
-		$colorpacks = array();
-		$dir        = dirname(dirname(__FILE__)) . '/packs';
-
-		if ($platform->is_dir($dir) && $platform->is_readable($dir)
-			&& $fd = $platform->opendir($dir)
-		) {
-			ob_start();
-
-			while ($file = $platform->readdir($fd)) {
-				$subdir = "$dir/$file";
-				$inc    = "$subdir/color.css";
-
-				if ($platform->is_dir($subdir) && $platform->file_exists($inc)) {
-					$colorpackName = null;
-
-					include $inc;
-					$colorpacks[$file] = isset($colorpackName) ? $this->translate($colorpackName) : $file;
-				}
-			}
-			ob_end_clean();
-			$platform->closedir($fd);
-			asort($colorpacks);
+	$colorpacks = array();
+	$dir = dirname(dirname(__FILE__)) . '/packs';
+	if ($platform->is_dir($dir) && $platform->is_readable($dir)
+		&& $fd = $platform->opendir($dir)) {
+	    ob_start();
+	    while ($file = $platform->readdir($fd)) {
+		$subdir = "$dir/$file";
+		$inc = "$subdir/color.css";
+		if ($platform->is_dir($subdir) && $platform->file_exists($inc)) {
+		    $colorpackName = null;
+		    include($inc);
+		    $colorpacks[$file] =
+			isset($colorpackName) ? $this->translate($colorpackName) : $file;
 		}
-
-		return array(
-			null,
-			array_merge(array(
-				'' => $this->translate('None'),
-			), $colorpacks),
-		);
+	    }
+	    ob_end_clean();
+	    $platform->closedir($fd);
+	    asort($colorpacks);
 	}
 
-	/**
-	 * @see ColorPackInterface_1_0::selectColorPack
-	 */
-	public function selectColorPack(&$template, $colorpack) {
-		if (!empty($colorpack)) {
-			$template->style("modules/colorpack/packs/$colorpack/color.css");
-		}
+	return array(null, array_merge(array('' => $this->translate('None')), $colorpacks));
+    }
 
-		return null;
+    /**
+     * @see ColorPackInterface_1_0::selectColorPack
+     */
+    function selectColorPack(&$template, $colorpack) {
+	if (!empty($colorpack)) {
+	    $template->style("modules/colorpack/packs/$colorpack/color.css");
 	}
 
-	/**
-	 * Translate given string
-	 * @param string $string
-	 * @return translated string
-	 */
-	public function translate($string) {
-		global $gallery;
-		$translator          =& $gallery->getTranslator();
-		list($ret, $content) = $translator->translateDomain('modules_colorpack', $string);
+	return null;
+    }
 
-		if ($ret) {
-			return $string;
-		}
-
-		return $content;
+    /**
+     * Translate given string
+     * @param string $string
+     * @return translated string
+     */
+    function translate($string) {
+	global $gallery;
+	$translator =& $gallery->getTranslator();
+	list ($ret, $content) = $translator->translateDomain('modules_colorpack', $string);
+	if ($ret) {
+	    return $string;
 	}
+	return $content;
+    }
 }
+?>

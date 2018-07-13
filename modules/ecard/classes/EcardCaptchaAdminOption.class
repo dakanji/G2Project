@@ -25,21 +25,18 @@
  * @version $Revision: 17580 $
  */
 class EcardCaptchaAdminOption extends CaptchaAdminOption {
-	/**
-	 * @see CaptchaAdminOption::getOptionData
-	 */
-	public function getOptionData() {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'ecard');
-
-		if ($ret) {
-			return array($ret, null, null, null);
-		}
-		// Note: we use validation.level for all plugins, but config is via captcha module
-		return array(
-			null,
-			$module->translate('Send eCard'),
-			array('module', 'ecard', 'validation.level'),
-			array('HIGH', 'OFF'),
-		);
+    /**
+     * @see CaptchaAdminOption::getOptionData
+     */
+    function getOptionData() {
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'ecard');
+	if ($ret) {
+	    return array($ret, null, null, null);
 	}
+	/* Note: we use validation.level for all plugins, but config is via captcha module */
+	return array(null, $module->translate('Send eCard'),
+		     array('module', 'ecard', 'validation.level'),
+		     array('HIGH', 'OFF'));
+    }
 }
+?>

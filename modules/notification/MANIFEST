@@ -1,26 +1,26 @@
 # $Revision: 20949 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/notification/NotificationItemAdmin.inc	1584530686	167248671	6980	7268
-modules/notification/NotificationItemsAddedOption.inc	1020503664	2917851422	1667	1719
-modules/notification/NotificationSiteAdmin.inc	616530292	221828209	8039	8321
-modules/notification/NotificationUserAdmin.inc	2629113890	1268050907	9538	9898
+modules/notification/NotificationItemAdmin.inc	1119993891	2969667612	6836	7079
+modules/notification/NotificationItemsAddedOption.inc	4290820015	3884608449	1684	1737
+modules/notification/NotificationSiteAdmin.inc	660927202	18078272	7960	8210
+modules/notification/NotificationUserAdmin.inc	4060377910	1465161545	8908	9206
 modules/notification/classes/GNUmakefile	2105416224	3784514995	52	54
-modules/notification/classes/GalleryCoreEventNotifications.class	174286776	3335700269	17759	18558
+modules/notification/classes/GalleryCoreEventNotifications.class	2553874238	1278582421	18132	18851
 modules/notification/classes/GalleryStorage/GNUmakefile	947975502	710467981	62	64
 modules/notification/classes/GalleryStorage/schema.tpl	2816593812	3355671955	6922	7129
 modules/notification/classes/GalleryStorage/xml-src/R_NotificationEvents_1.0.xml	677883759	1639838060	288	299
 modules/notification/classes/GalleryStorage/xml-src/R_NotificationMethods_1.0.xml	2721386557	2631571632	289	300
 modules/notification/classes/GalleryStorage/xml-src/R_NotificationSubscriptions_1.0.xml	2576379670	1564719350	295	306
-modules/notification/classes/Maps.inc	681174930	1638454601	645	669
+modules/notification/classes/Maps.inc	1026015924	3821589915	512	516
 modules/notification/classes/Maps.xml	916258743	589742415	909	946
-modules/notification/classes/NotificationEvent_1_0.class	2434602483	551014135	4144	4288
-modules/notification/classes/NotificationHandler_1_0.class	1167259531	3233754700	2339	2410
-modules/notification/classes/NotificationHelper.class	1076161869	560657652	18994	19764
-modules/notification/classes/NotificationItemStateChangeHandler.class	2971896332	793228323	4071	4223
-modules/notification/classes/NotificationMethodEmail.class	3216435900	2474795510	3866	4028
-modules/notification/classes/NotificationRouter.class	2373257173	2176067832	3848	3996
-modules/notification/data/grids.css	2093789034	1251416721	5476	5690
-modules/notification/module.inc	3017667223	1372785922	11947	12422
+modules/notification/classes/NotificationEvent_1_0.class	1014553423	2504007671	4305	4448
+modules/notification/classes/NotificationHandler_1_0.class	1915483658	2258076878	2389	2459
+modules/notification/classes/NotificationHelper.class	1989597060	3794919248	19025	19667
+modules/notification/classes/NotificationItemStateChangeHandler.class	3727378679	2610000440	4040	4162
+modules/notification/classes/NotificationMethodEmail.class	3617427277	3785085280	3827	3967
+modules/notification/classes/NotificationRouter.class	4151100137	3289101501	3929	4065
+modules/notification/data/grids.css	306719567	1359423447	5521	5735
+modules/notification/module.inc	3795278661	3483293241	11515	11868
 modules/notification/po/GNUmakefile	1866879166	2808215985	98	103
 modules/notification/po/de.mo	1413395520	1413395520	4339	4339
 modules/notification/po/de.po	2198011095	2875925803	5328	5540
@@ -53,6 +53,11 @@ modules/notification/templates/NotificationEmail.tpl	4016169603	1759950061	333	3
 modules/notification/templates/NotificationItemAdmin.tpl	575960760	3773897579	3002	3082
 modules/notification/templates/NotificationSiteAdmin.tpl	1518921993	3058466987	6117	6249
 modules/notification/templates/NotificationUserAdmin.tpl	1468707910	3382012777	4009	4114
+modules/notification/test/phpunit/NotificationEventHandlingTest.class	578621928	557573124	19295	19910
+modules/notification/test/phpunit/NotificationHelperTest.class	2406271751	848555909	27386	28245
+modules/notification/test/phpunit/NotificationItemAdminControllerTest.class	3190134193	3792252588	11981	12318
+modules/notification/test/phpunit/NotificationSiteAdminControllerTest.class	3426920465	3039329652	23051	23631
+modules/notification/test/phpunit/NotificationUserAdminControllerTest.class	3779618540	2494172920	15211	15627
 R	modules/notification/NotificationItem.inc
 R	modules/notification/NotificationItemOption.inc
 R	modules/notification/classes/NotificationEventInterface_1_0.class

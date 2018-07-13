@@ -26,85 +26,67 @@
  * @version $Revision: 17580 $
  */
 class RemoteSiteAdminController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$status = $error = array();
-
-		if (isset($form['action']['save'])) {
-			foreach (array('showItemAdd') as $key) {
-				$ret = GalleryCoreApi::setPluginParameter(
-					'module',
-					'remote',
-					$key,
-					(isset($form[$key]) && $form[$key]) ? 1 : 0
-				);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-			$status['saved'] = 1;
-		}
-
-		$results = array(
-			'redirect' => array(
-				'view'    => 'core.SiteAdmin',
-				'subView' => 'remote.RemoteSiteAdmin',
-			),
-			'status'   => $status,
-			'error'    => $error,
-		);
-
-		return array(null, $results);
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$status = $error = array();
+	if (isset($form['action']['save'])) {
+	    foreach (array('showItemAdd') as $key) {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'remote', $key,
+						(isset($form[$key]) && $form[$key]) ? 1 : 0);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	    $status['saved'] = 1;
+	}
+
+	$results = array('redirect' => array('view' => 'core.SiteAdmin',
+					     'subView' => 'remote.RemoteSiteAdmin'),
+			 'status' => $status,
+			 'error' => $error);
+
+	return array(null, $results);
+    }
 }
 
 /**
  * Settings for Remote
  */
 class RemoteSiteAdminView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if (!isset($form['showItemAdd'])) {
-			$form['showItemAdd'] = false;
-		}
-
-		if ($form['formName'] != 'RemoteSiteAdmin') {
-			$form['formName']   = 'RemoteSiteAdmin';
-			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			foreach ($params as $key => $value) {
-				$form[$key] = $value;
-			}
-		}
-
-		$template->setVariable('controller', 'remote.RemoteSiteAdmin');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/remote/templates/RemoteSiteAdmin.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	if (!isset($form['showItemAdd'])) {
+	    $form['showItemAdd'] = false;
+	}
+	if ($form['formName'] != 'RemoteSiteAdmin') {
+	    $form['formName'] = 'RemoteSiteAdmin';
+	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    foreach ($params as $key => $value) {
+		$form[$key] = $value;
+	    }
+	}
+
+	$template->setVariable('controller', 'remote.RemoteSiteAdmin');
+	return array(null, array('body' => 'modules/remote/templates/RemoteSiteAdmin.tpl'));
+    }
 }
+?>

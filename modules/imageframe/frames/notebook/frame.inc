@@ -1,66 +1,68 @@
-<?php
-// $Id: frame.inc 15342 2006-12-01 21:14:46Z andy_st $
-  // Contributed by: carlandtracey.com
+<?php /* $Id: frame.inc 15342 2006-12-01 21:14:46Z andy_st $ */
+  /* Contributed by: carlandtracey.com */
 $frameData = array(
-	'name'      => $gallery->i18n('Spiral Notebook'),
 
-	// Top Left
-	'imageTL'   => 'TL.gif',
-	'widthTL'   => 30,
-	'heightTL'  => 14,
+'name' => $gallery->i18n('Spiral Notebook'),
 
-	// Top
-	'imageTTL'  => '',
-	'widthTTL'  => 0,
+/* Top Left */
+'imageTL' => 'TL.gif',
+'widthTL' => 30,
+'heightTL' => 14,
 
-	'imageTT'   => 'TT.gif',
-	'heightTT'  => 14,
+/* Top */
+'imageTTL' => '',
+'widthTTL' => 0,
 
-	'imageTTR'  => '',
-	'widthTTR'  => 0,
+'imageTT' => 'TT.gif',
+'heightTT' => 14,
 
-	// Top Right
-	'imageTR'   => 'TR.gif',
-	'widthTR'   => 15,
-	'heightTR'  => 14,
+'imageTTR' => '',
+'widthTTR' => 0,
 
-	// Left
-	'imageLLT'  => '',
-	'heightLLT' => 0,
+/* Top Right */
+'imageTR' => 'TR.gif',
+'widthTR' => 15,
+'heightTR' => 14,
 
-	'imageLL'   => 'LL.gif',
-	'widthLL'   => 30,
+/* Left */
+'imageLLT' => '',
+'heightLLT' => 0,
 
-	'imageLLB'  => '',
-	'heightLLB' => 0,
+'imageLL' => 'LL.gif',
+'widthLL' => 30,
 
-	// Right
-	'imageRRT'  => '',
-	'heightRRT' => 0,
+'imageLLB' => '',
+'heightLLB' => 0,
 
-	'imageRR'   => 'RR.gif',
-	'widthRR'   => 15,
+/* Right */
+'imageRRT' => '',
+'heightRRT' => 0,
 
-	'imageRRB'  => '',
-	'heightRRB' => 0,
+'imageRR' => 'RR.gif',
+'widthRR' => 15,
 
-	// Bottom Left
-	'imageBL'   => 'BL.gif',
-	'widthBL'   => 30,
-	'heightBL'  => 15,
+'imageRRB' => '',
+'heightRRB' => 0,
 
-	// Bottom
-	'imageBBL'  => '',
-	'widthBBL'  => 0,
+/* Bottom Left */
+'imageBL' => 'BL.gif',
+'widthBL' => 30,
+'heightBL' => 15,
 
-	'imageBB'   => 'BB.gif',
-	'heightBB'  => 15,
+/* Bottom */
+'imageBBL' => '',
+'widthBBL' => 0,
 
-	'imageBBR'  => '',
-	'widthBBR'  => 0,
+'imageBB' => 'BB.gif',
+'heightBB' => 15,
 
-	// Bottom Right
-	'imageBR'   => 'BR.gif',
-	'widthBR'   => 15,
-	'heightBR'  => 15,
+'imageBBR' => '',
+'widthBBR' => 0,
+
+/* Bottom Right */
+'imageBR' => 'BR.gif',
+'widthBR' => 15,
+'heightBR' => 15
+
 );
+?>

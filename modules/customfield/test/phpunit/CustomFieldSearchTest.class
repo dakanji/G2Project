@@ -1,0 +1,192 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test CustomFieldSearch functionality
+ * @package CustomField
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class CustomFieldSearchTest extends GalleryTestCase {
+
+    function CustomFieldSearchTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	// Make sure search is active..
+	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return $ret;
+	}
+
+	if (empty($moduleStatusList['search']['active'])) {
+	    return $this->assert(false, 'Search module not installed');
+	}
+
+	// Get search instance..
+	list ($ret, $this->_search) =
+	    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', 'CustomFieldSearch');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(isset($this->_search), 'Missing CustomFieldSearch instance');
+
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'customfield');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_randomKey = "a" . rand(1,100000) . "z";
+
+	list ($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core',
+								   'id.everybodyGroup');
+	if ($ret) {
+	    return $ret;
+	}
+
+	// Create an album and define custom fields..
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	$ret = GalleryCoreApi::addGroupPermission($this->_album->getId(), $groupId, 'core.view');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = CustomFieldHelper::saveParameters(array(
+	    'common' => array(
+		array('field' => 'Catalog Id',
+		      'summary' => false, 'detail' => true, 'choices' => array())
+	    ),
+	    'album' => array(),
+	    'photo' => array(
+		array('field' => 'Location',
+		      'summary' => true, 'detail' => true, 'choices' => array()),
+		array('field' => 'Category',
+		      'summary' => false, 'detail' => false, 'choices' => array('A', 'B'))
+	    )
+	), $this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	// Create some items and set custom field values..
+	$values = array( array('Catalog Id' => $this->_randomKey, 'Category' => 'A'),
+			 array('Catalog Id' => 'abc', 'Location' => 'at ' . $this->_randomKey),
+			 array('Category' => 'Special:' . $this->_randomKey . ':') );
+	for ($i = 0; $i < 3; $i++) {
+	    list ($ret, $this->_items[$i]) = $this->_createRandomDataItem(
+		$this->_album->getId(), 'image/test', array(), __FILE__, 'GalleryPhotoItem');
+	    if ($ret) {
+		return $ret;
+	    }
+	    $ret = CustomFieldHelper::saveFieldValues($this->_items[$i], $values[$i]);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+    }
+
+    function testGetSearchModuleInfo() {
+	list ($ret, $info) = $this->_search->getSearchModuleInfo();
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(
+	    array('name' => $this->_module->translate('Custom Fields'),
+		  'description' => $this->_module->translate('Custom Fields Module'),
+		  'options' => array('customfield' =>
+			array('description' => $this->_module->translate('Search custom fields'),
+			      'enabled' => 1))),
+	    $info);
+    }
+
+    function testSearchAll() {
+	list ($ret, $results) =
+	    $this->_search->search(array('customfield' => 1), $this->_randomKey);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(
+	    array('start' => 1, 'end' => 3, 'count' => 3,
+		  'results' => array(
+			array('itemId' => $this->_items[2]->getId(),
+			      'fields' => array(array('key' => 'Category',
+						'value' => 'Special:' . $this->_randomKey . ':'))),
+			array('itemId' => $this->_items[1]->getId(),
+			      'fields' => array(array('key' => 'Location',
+						      'value' => 'at ' . $this->_randomKey))),
+			array('itemId' => $this->_items[0]->getId(),
+			      'fields' => array(array('key' => 'Catalog Id',
+						      'value' => $this->_randomKey))))),
+	    $results);
+    }
+
+    function testLimitedSearch() {
+	list ($ret, $results) =
+	    $this->_search->search(array('customfield' => 1), $this->_randomKey, 1, 2);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(
+	    array('start' => 2, 'end' => 3, 'count' => 3,
+		  'results' => array(
+			array('itemId' => $this->_items[1]->getId(),
+			      'fields' => array(array('key' => 'Location',
+						      'value' => 'at ' . $this->_randomKey))),
+			array('itemId' => $this->_items[0]->getId(),
+			      'fields' => array(array('key' => 'Catalog Id',
+						      'value' => $this->_randomKey))))),
+	    $results);
+    }
+
+    function testEmptySearch() {
+	list ($ret, $results) =
+	    $this->_search->search(array('customfield' => 1),
+				   'some string that will never show up');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->assertEquals(array('start' => 0,
+				  'end' => 0,
+				  'count' => 0,
+				  'results' => array()),
+			    $results);
+    }
+}
+
+?>

@@ -5,25 +5,25 @@
  */
 
 div#imagearea {
-	position: absolute;
-	left: 0; top: 0;
-	right: 0;
-	bottom: 20px;
-	overflow: hidden;
-	text-align: center;
+    position: absolute;
+    left: 0; top: 0;
+    right: 0;
+    bottom: 20px;
+    overflow: hidden;
+    text-align: center;
 }
 div#imagearea img {
-	display: block;
-	margin: auto;
+    display: block;
+    margin: auto;
 }
 
 div#titlebar {
-	position: absolute;
-	left: 0; bottom: 0;
-	right: 0;
-	min-height: 19px;
-	text-align: center;
-	border-top-width: 1px;
+    position: absolute;
+    left: 0; bottom: 0;
+    right: 0;
+    min-height: 19px;
+    text-align: center;
+    border-top-width: 1px;
 }
 div#tools_left { float: left; }
 div#tools_left img { margin-right: 1px; display: none; }
@@ -31,49 +31,49 @@ div#tools_right { float: right; }
 div#tools_right img { margin-left: 1px; display: none; }
 
 div#thumbs {
-	overflow: auto;
-	white-space: nowrap;
+    overflow: auto;
+    white-space: nowrap;
 }
 div.sliderHoriz {
-	width: 100%;
-	height: auto;
-	clear: both;
-	border-top-width: 1px;
+    width: 100%;
+    height: auto;
+    clear: both;
+    border-top-width: 1px;
 }
 div.sliderHoriz img {
-	display: inline;
-	vertical-align: middle;
-	margin: 0 2px;
+    display: inline;
+    vertical-align: middle;
+    margin: 0 2px;
 }
 div.sliderVert {
-	position: absolute;
-	left: 0; top: 0;
-	width: auto;
-	height: 100%;
-	text-align: center;
-	border-right-width: 1px;
+    position: absolute;
+    left: 0; top: 0;
+    width: auto;
+    height: 100%;
+    text-align: center;
+    border-right-width: 1px;
 }
 div.sliderVert img {
-	display: block;
-	margin: 2px auto;
+    display: block;
+    margin: 2px auto;
 }
 
 div#options {
-	display: none;
-	position: absolute;
-	left: 0; top: 0;
-	overflow: auto;
-	z-index: 1;
-	border-width: 2px;
-	border-style: ridge;
-	background-color: inherit;
-	background-color: expression(parentElement.currentStyle.backgroundColor);
+    display: none;
+    position: absolute;
+    left: 0; top: 0;
+    overflow: auto;
+    z-index: 1;
+    border-width: 2px;
+    border-style: ridge;
+    background-color: inherit;
+    background-color: expression(parentElement.currentStyle.backgroundColor);
 }
 div#options #gsSidebar {
-	border-right-width: 0;
+    border-right-width: 0;
 }
 #gsSidebar .block-core-SystemLink {
-	display: block;
+    display: block;
 }
 
 
@@ -86,78 +86,78 @@ div#options #gsSidebar {
  */
 
 #gallery h2, #gallery h3, #gallery h4, #gallery form {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #gallery p {
-	margin: 0.6em 0;
-	padding: 0;
+    margin: 0.6em 0;
+    padding: 0;
 }
 
 
 .gbBlock {
-	padding: 0.7em;
-	border-width: 0 0 1px 0;
-	border-style: inherit;
-	border-color: inherit;
-	/* IE can't inherit these */
-	border-style: expression(parentElement.currentStyle.borderStyle);
-	border-color: expression(parentElement.currentStyle.borderColor);
+    padding: 0.7em;
+    border-width: 0 0 1px 0;
+    border-style: inherit;
+    border-color: inherit;
+    /* IE can't inherit these */
+    border-style: expression(parentElement.currentStyle.borderStyle);
+    border-color: expression(parentElement.currentStyle.borderColor);
 }
 
 .gbBlock ul {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 .gbBlock ul ul {
-	margin: 0 0 0.5em 1.0em;
+    margin: 0 0 0.5em 1.0em;
 }
 
 .gbBlock li {
-	padding: 6px 0 0 0;
+    padding: 6px 0 0 0;
 }
 
 #gallery .gbBlock h3 {
-	margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 #gallery .gbBlock h4 {
-	margin-top: 0.5em;
+    margin-top: 0.5em;
 }
 
 
 #gsNavBar div.gbBreadCrumb {
-	margin: 0;
-	padding: 4px 8px;
+    margin: 0;
+    padding: 4px 8px;
 }
 
 table.gbDataTable {
-	padding-bottom: 4px;
+    padding-bottom: 4px;
 }
 
 table.gbDataTable th, table.gbDataTable td {
-	padding: 4px;
+    padding: 4px;
 }
 
 
 .giBlockToggle {
-	padding: 0 0.4em 0.1em;
+    padding: 0 0.4em 0.1em;
 }
 .giBlockToggle:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 
 .gbMarkupBar {
-	margin: 4px 0;
+    margin: 4px 0;
 }
 
 #gallery .gbMarkupBar input {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -171,59 +171,59 @@ table.gbDataTable th, table.gbDataTable td {
  */
 
 body.gallery {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #gallery {
-	padding: 8px;
+    padding: 8px;
 }
 #gallery.rtl {
-	direction: rtl;
+    direction: rtl;
 }
 
 #gsNavBar {
-	border-top-width: 1px;
-	border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
 }
 
 #gsNavBar div.gbSystemLinks {
-	padding: 4px 6px;
+    padding: 4px 6px;
 }
 
 #gsNavBar div.gbSystemLinks span {
-	padding: 0 4px;
+    padding: 0 4px;
 }
 
 #gsSidebar {
-	border-right-width: 1px;
-	width: 175px;
-	overflow: hidden;
+    border-right-width: 1px;
+    width: 175px;
+    overflow: hidden;
 }
 #gsSidebarCol {
-	width: 1%; /* Expand to fit content ("0" bad4 firefox, "1px" bad4 opera) */
+    width: 1%; /* Expand to fit content ("0" bad4 firefox, "1px" bad4 opera) */
 }
 
 td.giAlbumCell, td.giItemCell {
-	padding: 1em;
-	text-align: center;
+    padding: 1em;
+    text-align: center;
 }
 
 #gallery td.giAlbumCell select, #gallery td.giItemCell select {
-	margin-top: 0.8em;
+    margin-top: 0.8em;
 }
 
 /* So imageframed thumbs can be centered */
 td.giAlbumCell table, td.giItemCell table {
-	margin: auto;
+    margin: auto;
 }
 
 #gsPages span {
-	padding: 0 0.3em;
+    padding: 0 0.3em;
 }
 
 #gallery #gsSidebar ul {
-	font-size: 1em;
+    font-size: 1em;
 }
 
 /* ********************************************************************************
@@ -247,98 +247,98 @@ td.giAlbumCell table, td.giItemCell table {
  */
 
 #gallery {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 62.5%;
-	color: #333;
-	background-color: #fff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 62.5%;
+    color: #333;
+    background-color: #fff;
 }
 body.gallery {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .gcBackground1 {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 .gcBackground2 {
-	background-color: #e7e7e7;
+    background-color: #e7e7e7;
 }
 
 .gcBorder1 {
-	border: 0 solid #ccc;
+    border: 0 solid #ccc;
 }
 
 .gcBorder2 {
-	border: 0 solid #888;
+    border: 0 solid #888;
 }
 
 #gallery a {
-	font-weight: bold;
-	text-decoration: none;
-	color: #6b8cb7;
+    font-weight: bold;
+    text-decoration: none;
+    color: #6b8cb7;
 }
 #gallery a:hover {
-	text-decoration: underline;
-	color: #f4560f;
+    text-decoration: underline;
+    color: #f4560f;
 }
 #gallery a:active {
-	text-decoration: none;
-	color: #f9c190;
+    text-decoration: none;
+    color: #f9c190;
 }
 
 #gallery img {
-	border-width: 0;
+    border-width: 0;
 }
 
 #gallery h2, #gallery h3, #gallery h4 {
-	font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;
+    font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;
 }
 
 #gallery input:focus, #gallery textarea:focus {
-	background-color: #ffc;
-	color: #000;
+    background-color: #ffc;
+    color: #000;
 }
 
 #gallery input.inputTypeSubmit, #gallery input.inputTypeButton {  /* No input[type=submit] in IE */
-	color: #333;
-	background-color: #eee;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #e7e7e7 #666 #666 #e7e7e7;
+    color: #333;
+    background-color: #eee;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #e7e7e7 #666 #666 #e7e7e7;
 }
 
 #gallery select {
-	font-size: 1em;
+    font-size: 1em;
 }
 
 .giTitle, #gallery h2, #gallery h3, #gallery h4 {
-	font-size: 1.3em;
-	font-weight: bold;
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 #gallery pre, #gallery tt {
-	font-family: Courier New;
-	font-size: 1.2em;
+    font-family: Courier New;
+    font-size: 1.2em;
 }
 
 .giSubtitle {
-	font-size: 0.9em;
-	font-weight: normal;
-	vertical-align: text-bottom;
+    font-size: 0.9em;
+    font-weight: normal;
+    vertical-align: text-bottom;
 }
 
 .giDescription {
-	font-size: 1.1em;
-	line-height: 1.4em;
+    font-size: 1.1em;
+    line-height: 1.4em;
 }
 
 .giInfo {
-	font-size: 0.9em;
-	color: #888;
+    font-size: 0.9em;
+    color: #888;
 }
 
 .giSuccess, .giWarning, .giError  {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .giSuccess { color: #5c0; }
@@ -346,35 +346,35 @@ body.gallery {
 .giError { color: #a44; }
 
 .giNew, .giUpdated {
-	border-width: 2px;
-	border-style: ridge;
-	padding: 0 3px;
-	line-height: 1.9em;
+    border-width: 2px;
+    border-style: ridge;
+    padding: 0 3px;
+    line-height: 1.9em;
 }
 
 #gsNavBar div.gbBreadCrumb {
-	font-size: 1.1em;
-	font-weight: bold;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
 #gsNavBar div.gbBreadCrumb a, #gsNavBar div.gbBreadCrumb span {
-	padding: 0 0 0 14px;
-	background: url('../matrix/images/icon_path_separator.gif') no-repeat left;
+    padding: 0 0 0 14px;
+    background: url('../matrix/images/icon_path_separator.gif') no-repeat left;
 }
 
 #gsNavBar div.gbBreadCrumb a.BreadCrumb-1 {   /* no :first-child in IE */
-	padding-left: 0;
-	background-image: none;
-	white-space: nowrap;
+    padding-left: 0;
+    background-image: none;
+    white-space: nowrap;
 }
 #gallery.IE div.gbBreadCrumb span {
-	display: inline-block;   /* IE loses padding-left on wrapped inline nowrap element */
-	padding-right: 4px;      /* IE has less space at right of each span */
+    display: inline-block;   /* IE loses padding-left on wrapped inline nowrap element */
+    padding-right: 4px;      /* IE has less space at right of each span */
 }
 
 #gsNavBar div.gbBreadCrumb span.BreadCrumb-1 {   /* no :first-child in IE */
-	padding-left: 0;
-	background-image: none;
+    padding-left: 0;
+    background-image: none;
 }
 
 #gsNavBar div.gbSystemLinks {
@@ -382,89 +382,89 @@ body.gallery {
 }
 
 table.gbDataTable th {
-	text-align: left;
-	background-color: #e7e7e7;
+    text-align: left;
+    background-color: #e7e7e7;
 }
 
 .gbEven {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .gbBusy {
-	background-color: #ae9 !important;
+    background-color: #ae9 !important;
 }
 
 .gbOdd {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 
 div.gbTabBar {
-	font-size: 0.9em;
-	font-weight: bold;
-	margin: 0.8em 0 0;
-	padding: 6px;
-	background: url('../matrix/images/tab_bg.gif') repeat-x bottom;
-	white-space: nowrap;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0.8em 0 0;
+    padding: 6px;
+    background: url('../matrix/images/tab_bg.gif') repeat-x bottom;
+    white-space: nowrap;
 }
 
 div.gbTabBar span.o {
-	padding: 6px 0 5px 8px;
-	background: url('../matrix/images/tab_left.jpg') no-repeat left top;
+    padding: 6px 0 5px 8px;
+    background: url('../matrix/images/tab_left.jpg') no-repeat left top;
 }
 #gallery.IE div.gbTabBar span.o {
-	display: inline-block;   /* IE loses padding-left on wrapped inline nowrap element */
-	margin-bottom: 1px;      /* ..and then adds padding differently with inline-block.. */
+    display: inline-block;   /* IE loses padding-left on wrapped inline nowrap element */
+    margin-bottom: 1px;      /* ..and then adds padding differently with inline-block.. */
 }
 /* IE may clip off the right end of a long set of tabs, so allow IE to wrap them */
 #gallery.IE div.gbTabBar { padding-bottom: 0; white-space: normal; }
 #gallery.IE div.gbTabBar span.giSelected { margin-bottom: 0; }
 
 #gallery div.gbTabBar span span {
-	padding: 6px 12px 5px 4px;
-	background: url('../matrix/images/tab_right.jpg') no-repeat right top;
+    padding: 6px 12px 5px 4px;
+    background: url('../matrix/images/tab_right.jpg') no-repeat right top;
 }
 
 #gallery div.gbTabBar a {
-	color: #777;
-	text-decoration: none;
+    color: #777;
+    text-decoration: none;
 }
 
 #gallery div.gbTabBar a:hover {
-	color: #333;
+    color: #333;
 }
 
 #gallery div.gbTabBar span.giSelected {
-	padding-bottom: 6px;
-	background-image: url('../matrix/images/tab_left_on.jpg');
+    padding-bottom: 6px;
+    background-image: url('../matrix/images/tab_left_on.jpg');
 }
 
 #gallery div.gbTabBar span.giSelected span {
-	color: #333;
-	padding-bottom: 6px;
-	background-image: url('../matrix/images/tab_right_on.jpg');
+    color: #333;
+    padding-bottom: 6px;
+    background-image: url('../matrix/images/tab_right_on.jpg');
 }
 
 .autoCompleteShadow {
-	background-color: #a0a0a0 !important;
+    background-color: #a0a0a0 !important;
 }
 
 .autoCompleteContainer {
-	border-color: #444 #444 #0a0;
-	background-color: #fff;
+    border-color: #444 #444 #0a0;
+    background-color: #fff;
 }
 
 .autoCompleteContainer li.yui-ac-highlight {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 #gallery .gbMarkupBar input {
-	font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 .giSearchHighlight {
-	font-weight: bold;
-	background-color: #ff6;
+    font-weight: bold;
+    background-color: #ff6;
 }
 
 
@@ -477,18 +477,18 @@ div.gbTabBar span.o {
  */
 
 #gsNavBar div {
-	margin-top: 0.1em;  /* Align system links with breadcrumb */
-	font-weight: bold;
+    margin-top: 0.1em;  /* Align system links with breadcrumb */
+    font-weight: bold;
 }
 
 #gsSidebar div ul {   /* no > in IE */
-	font-size: 1.1em;
-	font-weight: bold;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 #gsSidebar div ul ul { font-size: 1.0em; }
 
 #gsSidebar ul span {
-	color: #999;
+    color: #999;
 }
 
 div.block-search-SearchBlock a.advanced {

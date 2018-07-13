@@ -1,13 +1,13 @@
 # $Revision: 20944 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/picasa/ConfirmPicasaImport.inc	4212786182	2030648322	11624	12042
-modules/picasa/ImportResults.inc	280145786	4142697811	2044	2117
-modules/picasa/ItemAddFromPicasa.inc	2593562448	2114804578	13567	14033
-modules/picasa/SelectPicasaExportPath.inc	1729215751	1662650986	5135	5310
-modules/picasa/classes/Picasa2DataParser.class	674627517	1402210184	8348	8651
-modules/picasa/classes/PicasaImportHelper.class	642575947	3449290693	2568	2653
+modules/picasa/ConfirmPicasaImport.inc	884805978	60970275	11367	11737
+modules/picasa/ImportResults.inc	3277981103	4086496798	2004	2067
+modules/picasa/ItemAddFromPicasa.inc	2427260600	3528975688	13227	13624
+modules/picasa/SelectPicasaExportPath.inc	1793474855	2653725842	5006	5166
+modules/picasa/classes/Picasa2DataParser.class	991592716	3703217985	8234	8478
+modules/picasa/classes/PicasaImportHelper.class	3714528750	408835710	2558	2641
 modules/picasa/docs/README.TXT	1672042385	3644211501	1911	1963
-modules/picasa/module.inc	3092064078	1061352881	2089	2164
+modules/picasa/module.inc	3479263201	4100135145	2057	2121
 modules/picasa/po/GNUmakefile	1866879166	2808215985	98	103
 modules/picasa/po/af.mo	1767204335	1767204335	3854	3854
 modules/picasa/po/af.po	635951777	2802612728	7017	7281
@@ -74,6 +74,12 @@ modules/picasa/templates/ConfirmPicasaImport.tpl	124847254	2567539181	2300	2364
 modules/picasa/templates/ImportResults.tpl	2438470173	3563259660	3028	3121
 modules/picasa/templates/ItemAddFromPicasa.tpl	3110733420	3809985034	3277	3355
 modules/picasa/templates/SelectPicasaExportPath.tpl	3262615310	452826698	3550	3643
+modules/picasa/test/phpunit/ConfirmPicasaImportControllerTest.class	917000153	1264771393	11398	11720
+modules/picasa/test/phpunit/ItemAddFromPicasaTest.class	2672431902	153324344	13301	13651
+modules/picasa/test/phpunit/MockLockSystem.class	1367781928	1469247006	2297	2392
+modules/picasa/test/phpunit/Picasa2DataParserTest.class	4069989014	4033940869	6763	6962
+modules/picasa/test/phpunit/PicasaImportHelperTest.class	617840302	786213907	5632	5760
+modules/picasa/test/phpunit/SelectPicasaExportPathControllerTest.class	4185876735	2785768022	3963	4083
 R	modules/picasa/locale/af/LC_MESSAGES/modules_picasa.mo
 R	modules/picasa/locale/ar/LC_MESSAGES/modules_picasa.mo
 R	modules/picasa/locale/ca/LC_MESSAGES/modules_picasa.mo

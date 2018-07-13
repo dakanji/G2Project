@@ -29,58 +29,54 @@
  * @version $Revision: 18172 $
  */
 class NokiaUploadModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
 
-		$this->setId('nokiaupload');
-		$this->setName($gallery->i18n('Nokia Image Upload'));
-		$this->setDescription(
-			$gallery->i18n('Implementation of Nokia Image Upload Server API v1.1')
-		);
-		$this->setVersion('1.0.12');
-		$this->_templateVersion = 1;
-		$this->setGroup('import', $gallery->i18n('Import'));
-		$this->setCallbacks('');
-		$this->setRequiredCoreApi(array(7, 53));
-		$this->setRequiredModuleApi(array(3, 6));
+    function NokiaUploadModule() {
+	global $gallery;
+
+	$this->setId('nokiaupload');
+	$this->setName($gallery->i18n('Nokia Image Upload'));
+	$this->setDescription(
+	    $gallery->i18n('Implementation of Nokia Image Upload Server API v1.1'));
+	$this->setVersion('1.0.12');
+	$this->_templateVersion = 1;
+	$this->setGroup('import', $gallery->i18n('Import'));
+	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(7, 53));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::autoConfigure
+     */
+    function autoConfigure() {
+	list ($ret, $needsConfiguration) = $this->needsConfiguration();
+	if ($ret) {
+	    return array($ret, null);
 	}
+	return array(null, !$needsConfiguration);
+    }
 
-	/**
-	 * @see GalleryModule::autoConfigure
-	 */
-	public function autoConfigure() {
-		list($ret, $needsConfiguration) = $this->needsConfiguration();
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		return array(null, !$needsConfiguration);
+    /**
+     * @see GalleryModule::needsConfiguration
+     */
+    function needsConfiguration() {
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'nokiaupload');
+	if ($ret) {
+	    return array($ret, null);
 	}
-
-	/**
-	 * @see GalleryModule::needsConfiguration
-	 */
-	public function needsConfiguration() {
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'nokiaupload');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		foreach (array('id.mobileGroup', 'id.uploadAlbum') as $key) {
-			if (empty($params[$key])) {
-				return array(null, true);
-			}
-		}
-
-		return array(null, false);
+	foreach (array('id.mobileGroup', 'id.uploadAlbum') as $key) {
+	    if (empty($params[$key])) {
+		return array(null, true);
+	    }
 	}
+	return array(null, false);
+    }
 
-	/**
-	 * @see GalleryModule::getConfigurationView
-	 */
-	public function getConfigurationView() {
-		return 'nokiaupload.Configure';
-	}
+    /**
+     * @see GalleryModule::getConfigurationView
+     */
+    function getConfigurationView() {
+	return 'nokiaupload.Configure';
+    }
 }
+?>

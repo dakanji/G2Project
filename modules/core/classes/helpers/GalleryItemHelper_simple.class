@@ -27,82 +27,78 @@
  * @static
  */
 class GalleryItemHelper_simple {
-	/**
-	 * @see GalleryCoreApi::fetchThemeId
-	 */
-	public static function fetchThemeId($item) {
-		global $gallery;
 
-		// Find the right theme for this item
-		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-			$themeId = $item->getTheme();
-		} else {
-			list($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryAlbumItem');
+    /**
+     * @see GalleryCoreApi::fetchThemeId
+     */
+    function fetchThemeId($item) {
+	global $gallery;
 
-			if ($ret) {
-				return array($ret, null);
-			}
+	/* Find the right theme for this item */
+	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    $themeId = $item->getTheme();
+	} else {
+	    list ($ret, $parent) =
+		GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryAlbumItem');
+	    if ($ret) {
+		return array($ret, null);
+	    }
 
-			$themeId = $parent->getTheme();
-		}
-
-		if (empty($themeId)) {
-			list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		// No default?  We're screwed
-		if (empty($themeId)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-		}
-
-		return array(null, $themeId);
+	    $themeId = $parent->getTheme();
 	}
 
-	/**
-	 * @see GalleryCoreApi::fetchChildCounts
-	 */
-	public static function fetchChildCounts($itemIds, $userId = null) {
-		global $gallery;
+	if (empty($themeId)) {
+	    list ($ret, $themeId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
 
-		if (!isset($userId)) {
-			$userId = $gallery->getActiveUserId();
-		}
+	/* No default?  We're screwed */
+	if (empty($themeId)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	}
 
-		if (empty($itemIds)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-		}
+	return array(null, $themeId);
+    }
 
-		$counts = $missing = array();
+    /**
+     * @see GalleryCoreApi::fetchChildCounts
+     */
+    function fetchChildCounts($itemIds, $userId=null) {
+	global $gallery;
+	if (!isset($userId)) {
+	    $userId = $gallery->getActiveUserId();
+	}
 
-		foreach ($itemIds as $itemId) {
-			$cacheKey = "GalleryItemHelper::fetchChildCounts($itemId, $userId)";
+	if (empty($itemIds)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	}
 
-			if (GalleryDataCache::containsKey($cacheKey)) {
-				$counts[$itemId] = GalleryDataCache::get($cacheKey);
-			} else {
-				$missing[] = $itemId;
-			}
-		}
+	$counts = $missing = array();
+	foreach ($itemIds as $itemId) {
+	    $cacheKey = "GalleryItemHelper::fetchChildCounts($itemId, $userId)";
+	    if (GalleryDataCache::containsKey($cacheKey)) {
+		$counts[$itemId] = GalleryDataCache::get($cacheKey);
+	    } else {
+		$missing[] = $itemId;
+	    }
+	}
 
-		if (empty($missing)) {
-			return array(null, $counts);
-		}
-		$parentIdMarkers = GalleryUtilities::makeMarkers(count($missing));
+	if (empty($missing)) {
+	    return array(null, $counts);
+	}
+	$parentIdMarkers = GalleryUtilities::makeMarkers(count($missing));
 
-		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
+	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (!empty($aclIds)) {
+	    $aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if (!empty($aclIds)) {
-			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-
-			$query = sprintf('
+	    $query = sprintf('
 	    SELECT
 	      [GalleryChildEntity::parentId],
 	      COUNT([GalleryChildEntity::id])
@@ -118,160 +114,135 @@ class GalleryItemHelper_simple {
 	      [GalleryChildEntity::parentId]
 	    ', $parentIdMarkers, $aclMarkers);
 
-			$data = array_merge($missing, $aclIds);
+	    $data = array_merge($missing, $aclIds);
 
-			list($ret, $searchResults) = $gallery->search($query, $data);
+	    list ($ret, $searchResults) = $gallery->search($query, $data);
+	    if ($ret) {
+		return array($ret, null);
+	    }
 
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			while ($result = $searchResults->nextResult()) {
-				$counts[$result[0]] = $result[1];
-				GalleryDataCache::put(
-					"GalleryItemHelper::fetchChildCounts($result[0], $userId)",
-					$result[1]
-				);
-			}
-		}
-
-		return array(null, $counts);
+	    while ($result = $searchResults->nextResult()) {
+		$counts[$result[0]] = $result[1];
+		GalleryDataCache::put("GalleryItemHelper::fetchChildCounts($result[0], $userId)",
+				      $result[1]);
+	    }
 	}
 
-	/**
-	 * @see GalleryCoreApi::fetchDescendentCounts
-	 */
-	public static function fetchDescendentCounts($itemIds, $userId = null) {
-		global $gallery;
+	return array(null, $counts);
+    }
 
-		if (!isset($userId)) {
-			$userId = $gallery->getActiveUserId();
-		}
-
-		foreach ($itemIds as $idx => $id) {
-			$itemIds[$idx] = (int)$id;
-		}
-		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
-			'GalleryDescendentCountsMap',
-			array('itemId', 'descendentCount'),
-			array(
-				'userId' => $userId,
-				'itemId' => $itemIds,
-			)
-		);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$counts = array();
-
-		while ($result = $searchResults->nextResult()) {
-			$counts[$result[0]] = $result[1];
-		}
-
-		// Now we have all the results that were cached.  Get the rest
-		$remaining = array();
-
-		foreach ($itemIds as $itemId) {
-			if (!isset($counts[$itemId])) {
-				$remaining[] = $itemId;
-			}
-		}
-
-		if (!empty($remaining)) {
-			list($ret, $results) = self::fetchUncachedDescendentCounts($remaining, $userId);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			// Update the cache
-			foreach ($results as $itemId => $count) {
-				$ret = GalleryCoreApi::addMapEntry(
-					'GalleryDescendentCountsMap',
-					array(
-						'userId'          => $userId,
-						'itemId'          => $itemId,
-						'descendentCount' => $count,
-					)
-				);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-			}
-
-			/*
-			 * Merge the results together.
-			 * Array_merge() renumbers numerical indices so we can't use it
-			 */
-			foreach ($results as $key => $value) {
-				$counts[$key] = $value;
-			}
-		}
-
-		return array(null, $counts);
+    /**
+     * @see GalleryCoreApi::fetchDescendentCounts
+     */
+    function fetchDescendentCounts($itemIds, $userId=null) {
+	global $gallery;
+	if (!isset($userId)) {
+	    $userId = $gallery->getActiveUserId();
 	}
 
-	/**
-	 * Fetch the number of descendents for a given item
-	 *
-	 * @param array $itemIds the item ids
-	 * @param int $userId an optional user id (default is the current user)
-	 * @return array GalleryStatus a status code
-	 *               array(id => ##, id => ##)
-	 */
-	public function fetchUncachedDescendentCounts($itemIds, $userId) {
-		global $gallery;
+	foreach ($itemIds as $idx => $id) {
+	    $itemIds[$idx] = (int)$id;
+	}
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryDescendentCountsMap',
+	    array('itemId', 'descendentCount'),
+	    array('userId' => $userId, 'itemId' => $itemIds));
+	if ($ret) {
+	    return array($ret, null);
+	}
 
-		if (!isset($userId)) {
-			$userId = $gallery->getActiveUserId();
-		}
+	$counts = array();
+	while ($result = $searchResults->nextResult()) {
+	    $counts[$result[0]] = $result[1];
+	}
 
-		foreach ($itemIds as $idx => $id) {
-			$itemIds[$idx] = (int)$id;
-		}
-		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId, false);
+	/* Now we have all the results that were cached.  Get the rest */
+	$remaining = array();
+	foreach ($itemIds as $itemId) {
+	    if (!isset($counts[$itemId])) {
+		$remaining[] = $itemId;
+	    }
+	}
 
+	if (!empty($remaining)) {
+	    list ($ret, $results) =
+		GalleryItemHelper_simple::fetchUncachedDescendentCounts($remaining, $userId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    /* Update the cache */
+	    foreach ($results as $itemId => $count) {
+		$ret = GalleryCoreApi::addMapEntry(
+		    'GalleryDescendentCountsMap',
+		    array('userId' => $userId, 'itemId' => $itemId, 'descendentCount' => $count));
 		if ($ret) {
-			return array($ret, null);
+		    return array($ret, null);
 		}
+	    }
 
-		if (empty($aclIds)) {
-			return array(null, array());
-		}
+	    /*
+	     * Merge the results together.
+	     * Array_merge() renumbers numerical indices so we can't use it
+	     */
+	    foreach ($results as $key => $value) {
+		$counts[$key] = $value;
+	    }
+	}
 
-		$aclMarkers  = GalleryUtilities::makeMarkers(count($aclIds));
-		$itemMarkers = GalleryUtilities::makeMarkers(count($itemIds));
+	return array(null, $counts);
+    }
 
-		$storage            =& $gallery->getStorage();
-		list($ret, $concat) = $storage->getFunctionSql(
-			'CONCAT',
-			array(
-				'[GalleryItemAttributesMap=1::parentSequence]',
-				'[GalleryItemAttributesMap=1::itemId]',
-				'\'/%\'',
-			)
+    /**
+     * Fetch the number of descendents for a given item
+     *
+     * @param array $itemIds the item ids
+     * @param int $userId an optional user id (default is the current user)
+     * @return array GalleryStatus a status code
+     *               array(id => ##, id => ##)
+     */
+    function fetchUncachedDescendentCounts($itemIds, $userId) {
+	global $gallery;
+
+	if (!isset($userId)) {
+	    $userId = $gallery->getActiveUserId();
+	}
+
+	foreach ($itemIds as $idx => $id) {
+	    $itemIds[$idx] = (int)$id;
+	}
+	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId, false);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (empty($aclIds)) {
+	    return array(null, array());
+	}
+
+	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+	$itemMarkers = GalleryUtilities::makeMarkers(count($itemIds));
+
+	$storage =& $gallery->getStorage();
+	list ($ret, $concat) = $storage->getFunctionSql(
+	    'CONCAT',
+	    array('[GalleryItemAttributesMap=1::parentSequence]',
+		  '[GalleryItemAttributesMap=1::itemId]',
+		  '\'/%\''));
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	list ($ret, $like) =
+	    $storage->getFunctionSql(
+		'LIKE',
+		array('[GalleryItemAttributesMap=2::parentSequence]',
+		      $concat)
 		);
+	if ($ret) {
+	    return array($ret, null);
+	}
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		list($ret, $like) = $storage->getFunctionSql(
-			'LIKE',
-			array(
-				'[GalleryItemAttributesMap=2::parentSequence]',
-				$concat,
-			)
-		);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$query = sprintf('
+	$query = sprintf('
 	SELECT
 	  [GalleryItemAttributesMap=1::itemId],
 	  COUNT([GalleryItemAttributesMap=2::itemId])
@@ -291,57 +262,51 @@ class GalleryItemHelper_simple {
 	  [GalleryItemAttributesMap=1::itemId]
 	', $itemMarkers, $like, $aclMarkers);
 
-		$data                      = array_merge($itemIds, $aclIds);
-		list($ret, $searchResults) = $gallery->search($query, $data);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$counts = array();
-
-		while ($result = $searchResults->nextResult()) {
-			$counts[$result[0]] = $result[1];
-		}
-
-		foreach ($itemIds as $itemId) {
-			if (!isset($counts[$itemId])) {
-				$counts[$itemId] = 0;
-			}
-		}
-
-		return array(null, $counts);
+	$data = array_merge($itemIds, $aclIds);
+	list ($ret, $searchResults) = $gallery->search($query, $data);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * @see GalleryCoreApi::fetchItemIdCount
-	 */
-	public static function fetchItemIdCount($itemType, $permission = 'core.view', $userId = null) {
-		global $gallery;
+	$counts = array();
+	while ($result = $searchResults->nextResult()) {
+	    $counts[$result[0]] = $result[1];
+	}
+	foreach ($itemIds as $itemId) {
+	    if (!isset($counts[$itemId])) {
+		$counts[$itemId] = 0;
+	    }
+	}
 
-		if (!isset($userId)) {
-			$userId = $gallery->getActiveUserId();
-		}
+	return array(null, $counts);
+    }
 
-		if (empty($itemType)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-		}
+    /**
+     * @see GalleryCoreApi::fetchItemIdCount
+     */
+    function fetchItemIdCount($itemType, $permission='core.view', $userId=null) {
+	global $gallery;
+	if (!isset($userId)) {
+	    $userId = $gallery->getActiveUserId();
+	}
 
-		$cacheKey = "GalleryItemHelper::fetchItemIdCount($itemType, $permission, $userId)";
+	if (empty($itemType)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	}
 
-		if (GalleryDataCache::containsKey($cacheKey)) {
-			$count = GalleryDataCache::get($cacheKey);
-		} else {
-			list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $userId);
+	$cacheKey = "GalleryItemHelper::fetchItemIdCount($itemType, $permission, $userId)";
+	if (GalleryDataCache::containsKey($cacheKey)) {
+	    $count = GalleryDataCache::get($cacheKey);
+	} else {
+	    list ($ret, $aclIds) =
+		GalleryCoreApi::fetchAccessListIds($permission, $userId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    if (!empty($aclIds)) {
+		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			if (!empty($aclIds)) {
-				$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-
-				$query = sprintf('
+		$query = sprintf('
 		SELECT
 		  COUNT([GalleryItem::id])
 		FROM
@@ -355,74 +320,67 @@ class GalleryItemHelper_simple {
 		  AND
 		  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 		', $aclMarkers);
-				$data  = array_merge(array($itemType), $aclIds);
+		$data = array_merge(array($itemType), $aclIds);
 
-				list($ret, $searchResults) = $gallery->search($query, $data);
-
-				if ($ret) {
-					return array($ret, null);
-				}
-
-				if ($searchResults->resultCount() != 1) {
-					return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
-				}
-
-				$result = $searchResults->nextResult();
-				$count  = (int)$result[0];
-			} else {
-				$count = 0;
-			}
-
-			GalleryDataCache::put($cacheKey, $count);
+		list ($ret, $searchResults) = $gallery->search($query, $data);
+		if ($ret) {
+		    return array($ret, null);
 		}
 
-		return array(null, $count);
+		if ($searchResults->resultCount() != 1) {
+		    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
+		}
+
+		$result = $searchResults->nextResult();
+		$count = (int)$result[0];
+	    } else {
+		$count = 0;
+	    }
+
+	    GalleryDataCache::put($cacheKey, $count);
 	}
 
-	/**
-	 * @see GalleryCoreApi::fetchAlbumTree
-	 */
-	public static function fetchAlbumTree($itemId = null, $depth = null, $userId = null) {
-		global $gallery;
-		$storage =& $gallery->getStorage();
+	return array(null, $count);
+    }
 
-		if (!isset($userId)) {
-			$userId = $gallery->getActiveUserId();
-		}
+    /**
+     * @see GalleryCoreApi::fetchAlbumTree
+     */
+    function fetchAlbumTree($itemId=null, $depth=null, $userId=null) {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	if (!isset($userId)) {
+	    $userId = $gallery->getActiveUserId();
+	}
 
-		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
+	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (empty($aclIds)) {
+	    return array(null, array());
+	}
+	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		if ($ret) {
-			return array($ret, null);
-		}
+	if (!isset($itemId)) {
+	    list ($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	list ($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
+	if ($ret) {
+	    return array($ret, null);
+	}
 
-		if (empty($aclIds)) {
-			return array(null, array());
-		}
-		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$parentSequence[] = $itemId;
+	$parentSequence = implode('/', $parentSequence);
 
-		if (!isset($itemId)) {
-			list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
-
-		if ($ret) {
-			return array($ret, null);
-		}
-		$parentSequence[] = $itemId;
-		$parentSequence   = implode('/', $parentSequence);
-
-		$query = sprintf('
+	$query = sprintf('
 	SELECT
 	  [GalleryAlbumItem::id],
 	  [GalleryItemAttributesMap::parentSequence],
@@ -442,33 +400,30 @@ class GalleryItemHelper_simple {
 	  [GalleryItemAttributesMap::orderWeight]
 	', $parentSequence, $aclMarkers);
 
-		$data = $aclIds;
+	$data = $aclIds;
 
-		list($ret, $searchResults) = $gallery->search($query, $data);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$tree    = array();
-		$pathlen = strlen($parentSequence) + 1;
-
-		while ($result = $searchResults->nextResult()) {
-			$path = explode('/', substr($result[1], $pathlen) . $result[0]);
-
-			if (isset($depth) && count($path) > $depth) {
-				continue;
-			}
-			$branch =& $tree;
-
-			foreach ($path as $id) {
-				if (isset($branch[$id])) {
-					$branch =& $branch[$id];
-				}
-			}
-			$branch[$result[0]] = array();
-		}
-
-		return array(null, $tree);
+	list ($ret, $searchResults) = $gallery->search($query, $data);
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$tree = array();
+	$pathlen = strlen($parentSequence) + 1;
+	while ($result = $searchResults->nextResult()) {
+	    $path = explode('/', substr($result[1], $pathlen) . $result[0]);
+	    if (isset($depth) && count($path) > $depth) {
+		continue;
+	    }
+	    $branch =& $tree;
+	    foreach ($path as $id) {
+		if (isset($branch[$id])) {
+		    $branch =& $branch[$id];
+		}
+	    }
+	    $branch[$result[0]] = array();
+	}
+
+	return array(null, $tree);
+    }
 }
+?>

@@ -18,11 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryView.class';
-
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryController.class';
-
-require_once dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc';
+require_once(dirname(__FILE__) . '/../../../modules/core/classes/GalleryView.class');
+require_once(dirname(__FILE__) . '/../../../modules/core/classes/GalleryController.class');
+require_once(dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc');
 
 /**
  * An ItemEditPlugin specific version of GalleryTestCase
@@ -32,60 +30,61 @@ require_once dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc';
  * @version $Revision: 17580 $
  */
 class ItemEditPluginTestCase extends GalleryTestCase {
-	/**
-	 * The plugin instance
-	 * @access protected
-	 */
-	public $_plugin;
 
-	public function __construct($methodName, $moduleName, $pluginName) {
-		parent::__construct($methodName);
+    /**
+     * The plugin instance
+     * @access protected
+     */
+    var $_plugin;
 
-		list($ret, $this->_plugin) = GalleryCoreApi::newFactoryInstanceById('ItemEditPlugin', $pluginName);
+    function ItemEditPluginTestCase($methodName, $moduleName, $pluginName) {
+	$this->GalleryTestCase($methodName);
 
-		if ($ret) {
-			return $ret;
-		}
-
-		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
-
-		if ($ret) {
-			return $ret;
-		}
+	list ($ret, $this->_plugin) =
+	    GalleryCoreApi::newFactoryInstanceById('ItemEditPlugin', $pluginName);
+	if ($ret) {
+	    return $ret;
 	}
 
-	public function handleRequest(&$item, &$preferred, $errorCode = null) {
-		// Get our form variables
-		$form = GalleryUtilities::getFormVariables('form');
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
+	if ($ret) {
+	    return $ret;
+	}
+    }
 
-		list($ret, $error, $status, $needsProgressBar) = $this->_plugin->handleRequest($form, $item, $preferred);
+    function handleRequest(&$item, &$preferred, $errorCode=null) {
+	/* Get our form variables */
+	$form = GalleryUtilities::getFormVariables('form');
 
-		if (isset($errorCode)) {
-			$expectedErrorCode = implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode));
+	list ($ret, $error, $status, $needsProgressBar) =
+	    $this->_plugin->handleRequest($form, $item, $preferred);
+	if (isset($errorCode)) {
+	    $expectedErrorCode = implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode));
+	    if ($ret) {
+		$actualErrorCode =
+		    implode(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()));
+	    } else {
+		$actualErrorCode = 'SUCCESS';
+	    }
+	    $this->assertEquals($expectedErrorCode, $actualErrorCode, 'Unexpected error code!');
+	} else if ($ret) {
+	    return ($ret);
+	} else {
+	    /* Check to make sure we got back everything we want */
+	    $this->assert(isset($error) && is_array($error), 'plugin error results missing');
 
-			if ($ret) {
-				$actualErrorCode = implode(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()));
-			} else {
-				$actualErrorCode = 'SUCCESS';
-			}
-			$this->assertEquals($expectedErrorCode, $actualErrorCode, 'Unexpected error code!');
-		} elseif ($ret) {
-			return $ret;
-		} else {
-			// Check to make sure we got back everything we want
-			$this->assert(isset($error) && is_array($error), 'plugin error results missing');
-
-			/*
-			 * This doesn't appear to test much, but it will cause us to examine $status so if
-			 * it's not set then we'll trigger a PHP warning which will fail the test
-			 */
-			$this->assert(isset($status) || $status == null, 'plugin status result missing');
-		}
-
-		return array($error, $status);
+	    /*
+	     * This doesn't appear to test much, but it will cause us to examine $status so if
+	     * it's not set then we'll trigger a PHP warning which will fail the test
+	     */
+	    $this->assert(isset($status) || $status == null, 'plugin status result missing');
 	}
 
-	public function _translate($message) {
-		return $this->_module->translate($message);
-	}
+	return array($error, $status);
+    }
+
+    function _translate($message) {
+	return $this->_module->translate($message);
+    }
 }
+?>

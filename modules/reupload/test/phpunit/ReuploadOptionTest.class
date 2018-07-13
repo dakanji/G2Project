@@ -1,0 +1,208 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
+
+/**
+ * Reupload controller tests
+ * @package Reupload
+ * @subpackage PHPUnit
+ * @author Piotr P. Karwasz <piotr.karwasz@ens.fr>
+ * @version $Revision: 17580 $
+ */
+class ReuploadOptionTest extends ItemEditOptionTestCase {
+    function ReuploadOptionTest($methodName) {
+	$this->ItemEditOptionTestCase($methodName, 'reupload', 'ReuploadPhotoOption');
+    }
+
+    function setUp() {
+	global $gallery;
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	/* Register a dummy toolkit */
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryToolkit', 'ReuploadOptionTestToolkit', 'ReuploadOptionTestToolkit',
+	    'modules/reupload/test/phpunit/ReuploadOptionTest.class', 'reuploadTest', null);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markToolkitForCleanup('ReuploadOptionTestToolkit');
+
+	$ret = GalleryCoreApi::registerToolkitProperty('ReuploadOptionTestToolkit',
+	    array('image/known'), 'dimensions', 'int,int', 'desc');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $this->_item) =
+	    $this->_createRandomDataItem($this->_album->getId(), 'image/known');
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_itemSize = $this->_item->getSize();
+
+	/* create custom platform to return dummy filesize, imagesize, etc. */
+	$gallery->setPlatform(new ReuploadOptionTestPlatform($gallery->getPlatform()));
+    }
+
+    function testReupload() {
+	$form['tmp_name']['reupload'] = 'bogus.tmp';
+	$form['size']['reupload'] = 800;
+	$form['serialNumber'] = $this->_item->getSerialNumber();
+
+	/* Perform the request and verify that we succeeded */
+	list ($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+	$this->assertEquals(array(), $errors, 'Errors');
+	$this->assertEquals(array($this->_translate('Reuploaded file successfully.')),
+			    $warnings, 'Warnings');
+	$this->assertEquals(800, $this->_item->getSize(), 'Item size');
+    }
+
+    /*
+     * This imitates the case when the file couldn't be uploaded.
+     * We are assuming that the reason is that filesize exceeds the limit
+     * which is most common case.
+     */
+    function testReuploadFailure() {
+	$form['tmp_name']['reupload'] = '';
+	$form['name']['reupload'] = 'itried.jpg';
+	$form['size']['reupload'] = 0;
+	$form['serialNumber'] = $this->_item->getSerialNumber();
+
+	/* Perform the request and verify that we failed and filesize didn't change */
+	list ($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+	$this->assertEquals(array('form[error][reupload][failure]'), $errors, 'Errors');
+	$this->assertEquals(array(), $warnings, 'Warnings');
+	$this->assertEquals($this->_itemSize, $this->_item->getSize(), 'Item size');
+    }
+
+    /* This imitates the case when the new file has different mime type than the old one */
+    function testReuploadToolkitFailure() {
+	$form['tmp_name']['reupload'] = 'bogus.mpeg';
+	$form['size']['reupload'] = 1500;
+	$form['serialNumber'] = $this->_item->getSerialNumber();
+	GalleryUtilities::putRequestVariable('dimensions', 'bad_data');
+
+	/* Perform the request and verify that we failed and filesize didn't change */
+	list ($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+	$this->assertEquals(array('form[error][reupload][toolkit]'), $errors, 'Errors');
+	$this->assertEquals(array(), $warnings, 'Warnings');
+	/* Size might been changed, but transaction was aborted */
+	list ($ret, $item) = $this->_item->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals($this->_itemSize, $item->getSize(), 'Item size');
+    }
+
+    /*
+     * This imitates the case when we didn't even try to upload the file
+     * Shouldn't be any errors!
+     */
+    function testReuploadNothing() {
+	$form['tmp_name']['reupload'] = '';
+	$form['name']['reupload'] = '';
+	$form['size']['reupload'] = 0;
+	$form['serialNumber'] = $this->_item->getSerialNumber();
+
+	/* Perform the request and verify that we failed and filesize didn't change */
+	list ($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+	$this->assertEquals(array(), $errors, 'Errors');
+	$this->assertEquals(array(), $warnings, 'Warnings');
+    }
+
+    /**
+     * Verify that attempt to reupload to a linked entity is blocked (UI doesn't allow it).
+     */
+    function testReuploadLinkedEntity() {
+	list ($ret, $linkedEntity) = $this->_createLinkedItem($this->_album->getId(), $this->_item);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$form['tmp_name']['reupload'] = 'bogus.tmp';
+	$form['size']['reupload'] = 800;
+	$form['serialNumber'] = $this->_item->getSerialNumber();
+
+	/* Perform the request and verify that we failed */
+	$this->_handleRequestAfterEdit($form, $this->_item, ERROR_BAD_PARAMETER);
+    }
+}
+
+/**
+ * Test platform
+ */
+class ReuploadOptionTestPlatform extends GalleryPlatform {
+    function ReuploadOptionTestPlatform($originalPlatform) {
+	$this->_savedPlatform = $originalPlatform;
+    }
+
+    function is_uploaded_file($file) {
+	return true;
+    }
+
+    function file_exists($file) {
+	return !strstr($file,'albumtest');
+    }
+
+    function unlink($file) {
+	return true;
+    }
+
+    function copy($input, $output) {
+	return true;
+    }
+
+    function filesize($path) {
+	return 800;
+    }
+}
+
+/**
+ * Test toolkit
+ */
+class ReuploadOptionTestToolkit extends GalleryToolkit {
+    /**
+     * @see GalleryToolkit::getProperty
+     */
+    function getProperty($mimeType, $propertyName, $file) {
+	if ($propertyName == 'dimensions') {
+	    $dimensionRequest = GalleryUtilities::getRequestVariables('dimensions');
+	    if ($dimensionRequest == 'bad_data') {
+		return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE), null);
+	    } else {
+		return array(null, array(2603, 1966));
+	    }
+	}
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+    }
+}
+
+?>

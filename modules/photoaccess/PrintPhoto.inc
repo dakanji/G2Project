@@ -26,40 +26,38 @@
  * @version $Revision: 17580 $
  */
 class PrintPhotoController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		global $gallery;
-		$urlGenerator =& $gallery->getUrlGenerator();
 
-		list($ret, $item) = $this->getItem();
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$returnUrl = GalleryUtilities::getRequestVariables('returnUrl');
-		$ret       = $urlGenerator->assertIsInternalUrl($returnUrl);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		GalleryCoreApi::requireOnce('modules/photoaccess/classes/PhotoAccessHelper.class');
-		list($ret, $cartUrl) = PhotoAccessHelper::printPhotos(array(
-			$item->getId() => 1,
-		), $returnUrl);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		// Prepare our results
-		$results['redirect']['href'] = $cartUrl;
-		$results['status']           = array();
-		$results['error']            = array();
-
-		return array(null, $results);
+	list ($ret, $item) = $this->getItem();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	$returnUrl = GalleryUtilities::getRequestVariables('returnUrl');
+	$ret = $urlGenerator->assertIsInternalUrl($returnUrl);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	GalleryCoreApi::requireOnce('modules/photoaccess/classes/PhotoAccessHelper.class');
+	list ($ret, $cartUrl) =
+	    PhotoAccessHelper::printPhotos(array($item->getId() => 1), $returnUrl);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Prepare our results */
+	$results['redirect']['href'] = $cartUrl;
+	$results['status'] = array();
+	$results['error'] = array();
+
+	return array(null, $results);
+    }
 }
+?>

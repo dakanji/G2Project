@@ -27,7 +27,8 @@
  * -------------------------------------------------------------
  */
 function smarty_modifier_print_r($object) {
-	echo '<pre>';
-	print_r($object);
-	echo '</pre>';
+    print "<pre>";
+    print_r($object);
+    print "</pre>";
 }
+?>

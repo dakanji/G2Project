@@ -1,0 +1,188 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
+
+/**
+ * MultiLangItemEdit controller tests
+ * @package MultiLang
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17580 $
+ */
+class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
+
+    function MultiLangItemEditPluginTest($methodName) {
+	$this->ItemEditPluginTestCase($methodName, 'multilang', 'MultiLangItemEdit');
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	$this->_registerTestEventListener('GalleryEntity::delete', new MultiLangModule());
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
+	    array('title' => 'title', 'summary' => 'summary', 'description' => 'description',
+		  'onLoadHandlers' => '|MultiLang|'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'multilang',
+						  'languages', 'de_DE|he_IL|zh_CN');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$session =& $gallery->getSession();
+	$this->_saveLanguage = $session->get('core.language');
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	$session =& $gallery->getSession();
+	if (empty($this->_saveLanguage)) {
+	    $session->remove('core.language');
+	} else {
+	    $session->put('core.language', $this->_saveLanguage);
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+    }
+
+    function testReset() {
+	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	$results = $this->handleRequest($this->album, $this->_album);
+	$this->assertEquals(array(array(), null), $results);
+    }
+
+    function testSaveAndDelete() {
+	global $gallery;
+
+	GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
+	GalleryUtilities::putRequestVariable('form[title]', 'cn title');
+	GalleryUtilities::putRequestVariable('form[summary]', 'cn summary');
+	GalleryUtilities::putRequestVariable('form[description]', '');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	list ($ret, $this->_subAlbum) = $this->_createRandomAlbum($this->_album->getId(),
+	    array('title' => 'title', 'summary' => 'summary', 'description' => 'description',
+		  'onLoadHandlers' => '|MultiLang|'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$results = $this->handleRequest($this->_subAlbum, $this->_subAlbum);
+	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
+			    $results);
+
+	$gallery->setActiveLanguageCode('en_US');
+	list ($ret, $album) = $this->_subAlbum->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('title', $album->getTitle());
+	$this->assertEquals('summary', $album->getSummary());
+	$this->assertEquals('description', $album->getDescription());
+
+	$gallery->setActiveLanguageCode('zh_CN');
+	list ($ret, $album) = $this->_subAlbum->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals('cn title', $album->getTitle());
+	$this->assertEquals('cn summary', $album->getSummary());
+	$this->assertEquals('', $album->getDescription(), 'cn description');
+
+	$ret = GalleryCoreApi::deleteEntityById($this->_subAlbum->getId(), 'GalleryAlbumItem');
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $data) = MultiLangHelper::getItemData($this->_subAlbum->getId());
+	if ($ret) {
+	    return ($ret);
+	}
+	$this->assertEquals(array(), $data, 'MultiLang data for test item not deleted!');
+    }
+
+    function testMissingRootTitle() {
+	$rootAlbumId = $this->_getRootId();
+	$ret = GalleryCoreApi::setPluginParameter(
+	    'module', 'core', 'id.rootAlbum', $this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	$results = $this->handleRequest($this->_album, $this->_album);
+	$this->assertEquals(array(array('form[error][title][missingRootTitle]'), null),
+			    $results);
+	$ret = GalleryCoreApi::setPluginParameter(
+	    'module', 'core', 'id.rootAlbum', $rootAlbumId);
+	if ($ret) {
+	    return $ret;
+	}
+    }
+
+    function testMaliciousMarkup() {
+	global $gallery;
+	$ret = $this->_setMarkupType('html', true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	GalleryUtilities::putRequestVariable('form[language]', 'de_DE');
+	GalleryUtilities::putRequestVariable('form[title]', '<script>bad</script> title');
+	GalleryUtilities::putRequestVariable('form[summary]', 'summary <blink>fun</blink>');
+	GalleryUtilities::putRequestVariable('form[description]', '<applet class="bad"/>desc');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$results = $this->handleRequest($this->_album, $this->_album);
+	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
+			    $results);
+
+	$gallery->setActiveLanguageCode('de_DE');
+	list ($ret, $album) = $this->_album->refresh();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assertEquals(' title', $album->getTitle());
+	$this->assertEquals('summary fun', $album->getSummary());
+	$this->assertEquals('desc', $album->getDescription());
+    }
+}
+?>

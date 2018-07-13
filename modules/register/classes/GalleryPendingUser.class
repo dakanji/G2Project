@@ -41,104 +41,105 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  * @version $Revision: 17580 $
  */
 class GalleryPendingUser extends GalleryEntity {
-	/**
-	 * The User's username
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>userName</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>SMALL</member-size>
-	 * @g2   <unique/>
-	 * @g2   <required/>
-	 * @g2   <member-external-access>READ</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var string $userName
-	 * @access public
-	 */
-	public $userName;
 
-	/**
-	 * The User's full name
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>fullName</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>MEDIUM</member-size>
-	 * @g2   <member-external-access>FULL</member-external-access>
-	 * @g2 </member>
-	 *
-	 * @var string $fullName
-	 * @access public
-	 */
-	public $fullName;
+    /**
+     * The User's username
+     *
+     * @g2 <member>
+     * @g2   <member-name>userName</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>SMALL</member-size>
+     * @g2   <unique/>
+     * @g2   <required/>
+     * @g2   <member-external-access>READ</member-external-access>
+     * @g2 </member>
+     *
+     * @var string $userName
+     * @access public
+     */
+    var $userName;
 
-	/**
-	 * The User's password in a hashed form.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>hashedPassword</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>MEDIUM</member-size>
-	 * @g2 </member>
-	 *
-	 * @var string $hashedPassword
-	 * @access public
-	 */
-	public $hashedPassword;
+    /**
+     * The User's full name
+     *
+     * @g2 <member>
+     * @g2   <member-name>fullName</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>MEDIUM</member-size>
+     * @g2   <member-external-access>FULL</member-external-access>
+     * @g2 </member>
+     *
+     * @var string $fullName
+     * @access public
+     */
+    var $fullName;
 
-	/**
-	 * The User's email address.
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>email</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>MEDIUM</member-size>
-	 * @g2 </member>
-	 *
-	 * @var string $email
-	 * @access public
-	 */
-	public $email;
+    /**
+     * The User's password in a hashed form.
+     *
+     * @g2 <member>
+     * @g2   <member-name>hashedPassword</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>MEDIUM</member-size>
+     * @g2 </member>
+     *
+     * @var string $hashedPassword
+     * @access public
+     */
+    var $hashedPassword;
 
-	/**
-	 * The User's language preference
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>language</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>MEDIUM</member-size>
-	 * @g2 </member>
-	 *
-	 * @var string $language
-	 * @access public
-	 */
-	public $language;
+    /**
+     * The User's email address.
+     *
+     * @g2 <member>
+     * @g2   <member-name>email</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>MEDIUM</member-size>
+     * @g2 </member>
+     *
+     * @var string $email
+     * @access public
+     */
+    var $email;
 
-	/**
-	 * The registration key (used in confirmation url)
-	 *
-	 * @g2 <member>
-	 * @g2   <member-name>registrationKey</member-name>
-	 * @g2   <member-type>STRING</member-type>
-	 * @g2   <member-size>SMALL</member-size>
-	 * @g2 </member>
-	 *
-	 * @var string $registrationKey
-	 * @access public
-	 */
-	public $registrationKey;
+    /**
+     * The User's language preference
+     *
+     * @g2 <member>
+     * @g2   <member-name>language</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>MEDIUM</member-size>
+     * @g2 </member>
+     *
+     * @var string $language
+     * @access public
+     */
+    var $language;
 
-	/**
-	 * Create a new instance of this user in the persistent store
-	 *
-	 * @return GalleryStatus a status code
-	 */
-	public function create($userName) {
-		global $gallery;
+    /**
+     * The registration key (used in confirmation url)
+     *
+     * @g2 <member>
+     * @g2   <member-name>registrationKey</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>SMALL</member-size>
+     * @g2 </member>
+     *
+     * @var string $registrationKey
+     * @access public
+     */
+    var $registrationKey;
 
-		// first check for a collision in the pending users table
-		$query = '
+    /**
+     * Create a new instance of this user in the persistent store
+     *
+     * @return GalleryStatus a status code
+     */
+    function create($userName) {
+	global $gallery;
+
+	/* first check for a collision in the pending users table */
+	$query = '
 	SELECT
 	  [GalleryPendingUser::id]
 	FROM
@@ -147,29 +148,21 @@ class GalleryPendingUser extends GalleryEntity {
 	  [GalleryPendingUser::userName] = ?
 	';
 
-		// Check to see if we have a collision
-		list($ret, $results) = $gallery->search(
-			$query,
-			array($userName),
-			array(
-				'limit' => array(
-					'count' => 1,
-				),
-			)
-		);
+	/* Check to see if we have a collision */
+	list ($ret, $results) =
+	    $gallery->search($query, array($userName),
+			     array('limit' => array('count' => 1)));
+	if ($ret) {
+	    return $ret;
+	}
 
-		if ($ret) {
-			return $ret;
-		}
+	$result = $results->nextResult();
+	if ($result[0] > 0) {
+	    return GalleryCoreApi::error(ERROR_COLLISION);
+	}
 
-		$result = $results->nextResult();
-
-		if ($result[0] > 0) {
-			return GalleryCoreApi::error(ERROR_COLLISION);
-		}
-
-		// then check for a collision in the real user table
-		$query = '
+	/* then check for a collision in the real user table */
+	$query = '
 	SELECT
 	  [GalleryUser::id]
 	FROM
@@ -178,101 +171,92 @@ class GalleryPendingUser extends GalleryEntity {
 	  [GalleryUser::userName] = ?
 	';
 
-		// Check to see if we have a collision
-		list($ret, $results) = $gallery->search(
-			$query,
-			array($userName),
-			array(
-				'limit' => array(
-					'count' => 1,
-				),
-			)
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$result = $results->nextResult();
-
-		if ($result[0] > 0) {
-			return GalleryCoreApi::error(ERROR_COLLISION);
-		}
-
-		// okay, we don't have any collisions, so go on
-		$ret = parent::create();
-
-		if ($ret) {
-			return $ret;
-		}
-
-		$this->setUserName($userName);
-		$this->setRegistrationKey('G' . mt_rand(100000, 999999) . '2');
-
-		return null;
+	/* Check to see if we have a collision */
+	list ($ret, $results) =
+	    $gallery->search($query, array($userName),
+			     array('limit' => array('count' => 1)));
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * Change the user's password to the new value provided.
-	 *
-	 * @param string $newPassword a plaintext password
-	 */
-	public function changePassword($newPassword) {
-		$this->setHashedPassword(GalleryUtilities::md5Salt($newPassword));
+	$result = $results->nextResult();
+	if ($result[0] > 0) {
+	    return GalleryCoreApi::error(ERROR_COLLISION);
 	}
 
-	/**
-	 * @see GalleryEntity::getClassName
-	 */
-	public function getClassName() {
-		return 'GalleryPendingUser';
+	/* okay, we don't have any collisions, so go on */
+	$ret = parent::create();
+	if ($ret) {
+	    return $ret;
 	}
 
-	public function getUserName() {
-		return $this->userName;
-	}
+	$this->setUserName($userName);
+	$this->setRegistrationKey('G' . rand(100000,999999) . '2');
+	return null;
+    }
 
-	public function setUserName($userName) {
-		$this->userName = $userName;
-	}
+    /**
+     * Change the user's password to the new value provided.
+     *
+     * @param string $newPassword a plaintext password
+     */
+    function changePassword($newPassword) {
+	$this->setHashedPassword(GalleryUtilities::md5Salt($newPassword));
+    }
 
-	public function getFullName() {
-		return $this->fullName;
-	}
+    /**
+     * @see GalleryEntity::getClassName
+     */
+    function getClassName() {
+	return 'GalleryPendingUser';
+    }
 
-	public function setFullName($fullName) {
-		$this->fullName = $fullName;
-	}
+    function getUserName() {
+	return $this->userName;
+    }
 
-	public function getHashedPassword() {
-		return $this->hashedPassword;
-	}
+    function setUserName($userName) {
+	$this->userName = $userName;
+    }
 
-	public function setHashedPassword($hashedPassword) {
-		$this->hashedPassword = $hashedPassword;
-	}
+    function getFullName() {
+	return $this->fullName;
+    }
 
-	public function getEmail() {
-		return $this->email;
-	}
+    function setFullName($fullName) {
+	$this->fullName = $fullName;
+    }
 
-	public function setEmail($email) {
-		$this->email = $email;
-	}
+    function getHashedPassword() {
+	return $this->hashedPassword;
+    }
 
-	public function getLanguage() {
-		return $this->language;
-	}
+    function setHashedPassword($hashedPassword) {
+	$this->hashedPassword = $hashedPassword;
+    }
 
-	public function setLanguage($language) {
-		$this->language = $language;
-	}
+    function getEmail() {
+	return $this->email;
+    }
 
-	public function getRegistrationKey() {
-		return $this->registrationKey;
-	}
+    function setEmail($email) {
+	$this->email = $email;
+    }
 
-	public function setRegistrationKey($registrationKey) {
-		$this->registrationKey = $registrationKey;
-	}
+    function getLanguage() {
+	return $this->language;
+    }
+
+    function setLanguage($language) {
+	$this->language = $language;
+    }
+
+    function getRegistrationKey() {
+	return $this->registrationKey;
+    }
+
+    function setRegistrationKey($registrationKey) {
+	$this->registrationKey = $registrationKey;
+    }
 }
+?>

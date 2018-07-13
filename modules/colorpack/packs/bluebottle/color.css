@@ -1,4 +1,4 @@
-/* ^PHPCS_CSS_T_OPEN_TAG^ $colorpackName = $gallery->i18n('Blue Bottle'); ^PHPCS_CSS_T_CLOSE_TAG^
+/* <?php $colorpackName = $gallery->i18n('Blue Bottle'); ?>
  * $Revision: 15978 $
  */
 
@@ -37,5 +37,5 @@ table.gbDataTable th { background-color: #456789 !important; }
 }
 
 .autoCompleteContainer li {
-	color: #000 !important;
+    color: #000 !important;
 }

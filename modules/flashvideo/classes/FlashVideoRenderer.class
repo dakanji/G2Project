@@ -28,160 +28,128 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryRenderer.class');
  * @version $Revision: 17580 $
  */
 class FlashVideoRenderer extends GalleryRenderer {
-	/**
-	 * @see GalleryRenderer::canBeViewedInline
-	 */
-	public function canBeViewedInline($item) {
-		return GalleryUtilities::isA($item, 'GalleryMovieItem')
-		&& $item->getMimeType() == 'video/x-flv';
+
+    /**
+     * @see GalleryRenderer::canBeViewedInline
+     */
+    function canBeViewedInline($item) {
+	return GalleryUtilities::isA($item, 'GalleryMovieItem')
+	    && $item->getMimeType() == 'video/x-flv';
+    }
+
+    /**
+     * @see GalleryRenderer::render
+     */
+    function render($format, $entity, $item, $params) {
+	global $gallery;
+	$fallback = trim(preg_replace("/[\r\n]/", '', $params['fallback']));
+
+	if ($format != 'HTML' || $entity->getMimeType() != 'video/x-flv') {
+	    return null;
 	}
 
-	/**
-	 * @see GalleryRenderer::render
+	$urlGenerator =& $gallery->getUrlGenerator();
+	$src = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $entity->getId(),
+		      'serialNumber' => $entity->getSerialNumber()),
+		array('forceFullUrl' => true, 'forceSessionId' => true, 'htmlEntities' => false));
+	list ($width, $height, $title) =
+		array($entity->getWidth(), $entity->getHeight(), $item->getTitle());
+	GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
+	$title = smarty_modifier_markup($title, 'strip');
+
+	/* Default player: G2flv.swf */
+	/*
+	 * Including SWFObject<http://blog.deconcept.com/swfobject/> to defeat the
+	 * "Click to activate..." in IE
 	 */
-	public function render($format, $entity, $item, $params) {
-		global $gallery;
-		$fallback = trim(preg_replace("/[\r\n]/", '', $params['fallback']));
-
-		if ($format != 'HTML' || $entity->getMimeType() != 'video/x-flv') {
-			return null;
-		}
-
-		$urlGenerator                 =& $gallery->getUrlGenerator();
-		$src                          = $urlGenerator->generateUrl(
-			array(
-				'view'         => 'core.DownloadItem',
-				'itemId'       => $entity->getId(),
-				'serialNumber' => $entity->getSerialNumber(),
-			),
-			array(
-				'forceFullUrl'   => true,
-				'forceSessionId' => true,
-				'htmlEntities'   => false,
-			)
-		);
-		list($width, $height, $title) = array($entity->getWidth(), $entity->getHeight(), $item->getTitle());
-		GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
-		$title = smarty_modifier_markup($title, 'strip');
-
-		// Default player: G2flv.swf
-		/*
-		 * Including SWFObject<http://blog.deconcept.com/swfobject/> to defeat the
-		 * "Click to activate..." in IE
-		 */
-		$SWFObjectUrl      = $urlGenerator->generateUrl(
-			array(
-				'href' => 'modules/flashvideo/lib/swfobject.js',
-			),
-			array(
-				'forceFullUrl' => true,
-			)
-		);
-		$expressInstallUrl = $urlGenerator->generateUrl(
-			array(
-				'href' => 'modules/flashvideo/lib/expressinstall.swf',
-			),
-			array(
-				'forceFullUrl' => true,
-			)
-		);
-		$playerUrl         = $urlGenerator->generateUrl(
-			array(
-				'href' => 'modules/flashvideo/lib/G2flv.swf',
-			),
-			array(
-				'forceFullUrl' => true,
-			)
-		);
-		$flashVars         = 'flvUrl=' . urlencode($src) . '&Width=' . $width . '&Height=' . $height
+	$SWFObjectUrl = $urlGenerator->generateUrl(
+	    array('href' => 'modules/flashvideo/lib/swfobject.js'),
+	    array('forceFullUrl' => true));
+	$expressInstallUrl = $urlGenerator->generateUrl(
+	    array('href' => 'modules/flashvideo/lib/expressinstall.swf'),
+	    array('forceFullUrl' => true));
+	$playerUrl = $urlGenerator->generateUrl(
+	    array('href' => 'modules/flashvideo/lib/G2flv.swf'),
+	    array('forceFullUrl' => true));
+	$flashVars = 'flvUrl=' . urlencode($src) . '&Width=' . $width . '&Height=' . $height
 		   . '&title=' . urlencode($title);
-		$extraAttr         = '';
+	$extraAttr = '';
 
-		// Uncomment the next line to allow download button. Default: false
-		//$flashVars .= '&allowDownload=true';
+	/* Uncomment the next line to allow download button. Default: false */
+	//$flashVars .= '&allowDownload=true';
+	
+	/* Uncomment the next line to disallow fullscreen button. Default: true */
+	//$flashVars .= '&allowFullscreen=false';
 
-		// Uncomment the next line to disallow fullscreen button. Default: true
-		//$flashVars .= '&allowFullscreen=false';
+	/*
+	 * Uncomment the next line to allow the share button also the swfUrl below.
+	 * Default: false
+	 */
+	//$flashVars .= '&share=true';
 
-		/*
-		 * Uncomment the next line to allow the share button also the swfUrl below.
-		 * Default: false
-		 */
-		//$flashVars .= '&share=true';
+	/* To allow for sharing we must also pass the playerUrl */
+	//$flashVars .= '&swfUrl=' . urlencode($playerUrl);
 
-		// To allow for sharing we must also pass the playerUrl
-		//$flashVars .= '&swfUrl=' . urlencode($playerUrl);
-
-		$itemId                = $item->getId();
-		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
-
-		if (!$ret && !empty($thumbnail)) {
-			$thumbUrl   = $urlGenerator->generateUrl(
-				array(
-					'view'         => 'core.DownloadItem',
-					'itemId'       => $thumbnail[$itemId]->getId(),
-					'serialNumber' => $thumbnail[$itemId]->getSerialNumber(),
-				),
-				array(
-					'forceFullUrl'   => true,
-					'forceSessionId' => true,
-					'htmlEntities'   => false,
-				)
-			);
-			$flashVars .= '&thumbUrl=' . urlencode($thumbUrl);
-		}
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'flashvideo');
-
-		if ($ret) {
-			return null;
-		}
-
-		foreach (array(
-			'langDownload'   => $module->translate('Download'),
-			'langFullscreen' => $module->translate('Fullscreen'),
-			'langNormal'     => $module->translate('Normal'),
-			'langPlay'       => $module->translate('Play'),
-			'langPause'      => $module->translate('Pause'),
-			'langForward'    => $module->translate('Forward'),
-			'langRewind'     => $module->translate('Rewind'),
-			'langMute'       => $module->translate('Mute'),
-			'langUnmute'     => $module->translate('Unmute'),
-			'langShare'      => $module->translate('Share'),
+	$itemId = $item->getId();
+	list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+	if (!$ret && !empty($thumbnail)) {
+	    $thumbUrl = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $thumbnail[$itemId]->getId(),
+		      'serialNumber' => $thumbnail[$itemId]->getSerialNumber()),
+		array('forceFullUrl' => true, 'forceSessionId' => true, 'htmlEntities' => false));
+	    $flashVars .= '&thumbUrl=' . urlencode($thumbUrl);
+	}
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'flashvideo');
+	if ($ret) {
+	    return null;
+	}
+	foreach (array('langDownload' => $module->translate('Download'),
+		       'langFullscreen' => $module->translate('Fullscreen'),
+		       'langNormal' => $module->translate('Normal'),
+		       'langPlay' => $module->translate('Play'),
+		       'langPause' => $module->translate('Pause'),
+		       'langForward' => $module->translate('Forward'),
+		       'langRewind' => $module->translate('Rewind'),
+		       'langMute' => $module->translate('Mute'),
+		       'langUnmute' => $module->translate('Unmute'),
+		       'langShare' => $module->translate('Share'),
 		) as $key => $value) {
-			$flashVars .= '&' . $key . '=' . urlencode($value);
-		}
-		$jsWarning = $module->translate('JavaScript required to view this content.');
+	    $flashVars .= '&' . $key . '=' . urlencode($value);
+	}
+	$jsWarning = $module->translate('JavaScript required to view this content.');
 
-		/*
-		 * To use FlowPlayer ( http://flowplayer.sourceforge.net )
-		 * place FlowPlayer.swf in the flashvideo/lib directory and uncomment the lines below:
-		 */
-		/*
-		$playerUrl = $urlGenerator->generateUrl(
+	/*
+	 * To use FlowPlayer ( http://flowplayer.sourceforge.net )
+	 * place FlowPlayer.swf in the flashvideo/lib directory and uncomment the lines below:
+	 */  
+	/*
+	$playerUrl = $urlGenerator->generateUrl(
 		array('href' => 'modules/flashvideo/lib/FlowPlayer.swf'),
 		array('forceFullUrl' => true));
-		$flashVars = sprintf('config={videoFile:\'%s\'}&autoPlay=true&loop=false',
+	$flashVars = sprintf('config={videoFile:\'%s\'}&autoPlay=true&loop=false',
 		urlencode($src));
-		$extraAttr = ' wmode="transparent"';
-		*/
+	$extraAttr = ' wmode="transparent"';
+	*/
 
-		/*
-		 * To use FLVPlayer ( http://www.peldi.com/fmswiki/index.php?title=FLVPlayer )
-		 * get this version of the player: http://gallery.menalto.com/files/flvplayer.zip
-		 * unzip in the flashvideo/lib directory and uncomment the lines below:
-		 */
-		/*
-		$playerUrl = $urlGenerator->generateUrl(
+
+	/*
+	 * To use FLVPlayer ( http://www.peldi.com/fmswiki/index.php?title=FLVPlayer )
+	 * get this version of the player: http://gallery.menalto.com/files/flvplayer.zip
+	 * unzip in the flashvideo/lib directory and uncomment the lines below:
+	 */
+	/*
+	$playerUrl = $urlGenerator->generateUrl(
 		array('href' => 'modules/flashvideo/lib/flvplayer.swf'),
 		array('forceFullUrl' => true));
-		$skinUrl = $urlGenerator->generateUrl(
+	$skinUrl = $urlGenerator->generateUrl(
 		array('href' => 'modules/flashvideo/lib/skin'), array('forceFullUrl' => true));
-		$flashVars = sprintf('streamName=%s&skinName=%s&autoPlay=true&autoRewind=false',
-				 urlencode($src), urlencode($skinUrl));
-		*/
+	$flashVars = sprintf('streamName=%s&skinName=%s&autoPlay=true&autoRewind=false',
+			     urlencode($src), urlencode($skinUrl));
+	*/
 
-		return sprintf(
-			'<script type="text/javascript" src="%s"></script>
+	return sprintf(
+	    '<script type="text/javascript" src="%s"></script>
 	     <script type="text/javascript">
 	     // <![CDATA[
 	     function divResize(id, nw, nh) {
@@ -204,12 +172,8 @@ class FlashVideoRenderer extends GalleryRenderer {
 	     so.write("soContent");
 	     // ]]>
 	     </script>',
-			$SWFObjectUrl,
-			$jsWarning,
-			$playerUrl,
-			!empty($params['id']) ? $params['id'] : 'movie',
-			$flashVars,
-			$expressInstallUrl
-		);
-	}
+	    $SWFObjectUrl, $jsWarning, $playerUrl,
+	    !empty($params['id']) ? $params['id'] : 'movie', $flashVars, $expressInstallUrl);
+    }
 }
+?>

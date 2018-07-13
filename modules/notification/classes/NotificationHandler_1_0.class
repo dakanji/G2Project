@@ -28,44 +28,43 @@
  * @abstract
  */
 class NotificationHandler_1_0 {
-	/**
-	 * Return a localized description of the handler.
-	 * @return array GalleryStatus
-	 *           string Localized description of the handler.
-	 * @abstract
-	 */
-	public function getDescription() {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+    /**
+     * Return a localized description of the handler.
+     * @return array GalleryStatus
+     * 		     string Localized description of the handler.
+     * @abstract
+     */
+    function getDescription() {
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+    }
+
+    /**
+     * Handle the event.
+     * @param array $subscribers Array of userIds to send the notification to
+     * @param NotificationEvent_1_0 $notification The event notification descriptor
+     * @return GalleryStatus
+     * @abstract
+     */
+    function handleNotification($subscribers, $notification) {
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+    }
+
+    /**
+     * Provide a common routine to do translations of descriptions
+     * @param string $moduleId the module id
+     * @param mixed $translateParms parameters to the module translate method
+     * @return array GalleryStatus
+     *		     string A formatted and localized plain text message.
+     * @access protected
+     */
+    function _translateText($moduleId, $translateParms) {
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
-	/**
-	 * Handle the event.
-	 * @param array $subscribers Array of userIds to send the notification to
-	 * @param NotificationEvent_1_0 $notification The event notification descriptor
-	 * @return GalleryStatus
-	 * @abstract
-	 */
-	public function handleNotification($subscribers, $notification) {
-		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
-	}
-
-	/**
-	 * Provide a common routine to do translations of descriptions
-	 * @param string $moduleId the module id
-	 * @param mixed $translateParms parameters to the module translate method
-	 * @return array GalleryStatus
-	 *           string A formatted and localized plain text message.
-	 * @access protected
-	 */
-	public function _translateText($moduleId, $translateParms) {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		$text = $module->translate($translateParms);
-
-		return array(null, $text);
-	}
+	$text = $module->translate($translateParms);
+	return array(null, $text);
+    }
 }
+?>

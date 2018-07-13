@@ -1,0 +1,386 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
+GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
+/**
+ * Quotas tests
+ * @package Quotas
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @author Robert Balousek <volksport@users.sf.net>
+ * @version $Revision: 17580 $
+ */
+class DiskQuotasOptionTest extends ItemAddOptionTestCase {
+
+    function DiskQuotasOptionTest($methodName) {
+	$this->ItemAddOptionTestCase($methodName, 'quotas', 'DiskQuotaOption');
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$ret = parent::setUp();
+	if ($ret) {
+	   return $ret;
+	}
+
+	/* Create a container album for any data items we create */
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_album);
+
+	/* Create a dummy user */
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_user);
+
+	$gallery->setActiveUser($this->_user);
+
+	/* Create dummy groups */
+	list ($ret, $this->_group) = $this->_createRandomGroup();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_group);
+
+	list ($ret, $this->_group2) = $this->_createRandomGroup();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_markForCleanup($this->_group2);
+
+	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group2->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Save/clear quotas for All Users,Everybody groups so they won't interfere with tests */
+	$this->_saveQuota = array();
+	foreach (array('allUserGroup', 'everybodyGroup') as $groupName) {
+	    list ($ret, $groupId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'id.' . $groupName);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $hasQuota, $quota) = GalleryQuotasHelper::fetchGroupQuota($groupId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    if ($hasQuota) {
+		$this->_saveQuota[$groupId] = $quota;
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'QuotasMap', array('userOrGroupId' => $groupId));
+		if ($ret) {
+		    return $ret;
+		}
+	    }
+	}
+
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'quotas');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$this->_usingMessage =
+	    $this->_module->translate('You are using %s %s of your allotted %s %s.');
+	$this->_exceedMessage = $this->_module->translate(
+	    'Warning: You have reached your disk quota (%s %s), this item will not be added.');
+	$this->_KB = $this->_module->translate('KB');
+	$this->_MB = $this->_module->translate('MB');
+	$this->_GB = $this->_module->translate('GB');
+
+	$this->_platform =& $gallery->getPlatform();
+
+	/*
+	 * We'll be running shutdown actions in these tests, but we don't want to update
+	 * the modification timestamp of the root album (due to adding a subalbum) so
+	 * clear the list before we start our tests.
+	 */
+	$gallery->_shutdownActions = null;
+    }
+
+    function tearDown() {
+	foreach ($this->_saveQuota as $groupId => $quota) {
+	    $ret = GalleryCoreApi::addMapEntry(
+		'QuotasMap', array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	}
+
+	$ret = parent::tearDown();
+	if ($ret) {
+	   $this->failWithStatus($ret);
+	}
+
+	/* Verify test quotas were deleted with users/groups */
+	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assert(!$hasQuota, $this->_user->getId() . ' user quota was not deleted');
+	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assert(!$hasQuota, $this->_group->getId() . ' group quota was not deleted');
+	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group2->getId());
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assert(!$hasQuota, $this->_group2->getId() . ' group2 quota was not deleted');
+    }
+
+    function testNoQuota() {
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(), $warnings, 'warnings');
+    }
+
+    function testUserMBQuotaAddOneOk() {
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '2000'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
+							  array(), __FILE__);
+	if ($ret) {
+	    return $ret;
+	}
+	$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(array(sprintf($this->_usingMessage, $filesize, $this->_KB,
+						1.95, $this->_MB))), $warnings, 'warnings');
+    }
+
+    function testUserKBQuotaAddOneFail() {
+	global $gallery;
+
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '5'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(array(sprintf($this->_exceedMessage, 5, $this->_KB))),
+			    $warnings, 'warnings');
+
+	$gallery->performShutdownActions();
+
+	/* Verify item was deleted */
+	list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item->getId(), 'GalleryDataItem');
+	$this->assert($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
+		      'item should have been deleted');
+    }
+
+    function testUserQuotaAddTwo() {
+	global $gallery;
+
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '15'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
+							  array(), __FILE__);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+	list ($ret, $item2) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item, $item2));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(
+		array(sprintf($this->_usingMessage, $filesize, $this->_KB, 15, $this->_KB)),
+		array(sprintf($this->_exceedMessage, 15, $this->_KB))),
+	    $warnings, 'warnings');
+
+	$gallery->performShutdownActions();
+
+	/* Verify first item ok and second item was deleted */
+	list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item->getId(), 'GalleryDataItem');
+	if ($ret) {
+	    return ($ret);
+	}
+	list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item2->getId(), 'GalleryDataItem');
+	$this->assert($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
+		      'item should have been deleted');
+    }
+
+    function testGroupGBQuota() {
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '2000000'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
+							  array(), __FILE__);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(array(sprintf($this->_usingMessage, $filesize, $this->_KB,
+						1.91, $this->_GB))), $warnings, 'warnings');
+    }
+
+    function testGroupTBQuota() {
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_group->getId(), 
+		  'quotaSize' => '2047483648'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	for ($y = 0; $y < 3; $y++) {
+	    list ($ret, $items[$y]) = 
+	    $this->_createRandomDataItem($this->_album->getId(), 
+					 'test/file',
+					 array('ownerId' => $this->_user->getId(),
+					 'size' => 1073741824), __FILE__);
+	    if ($ret) {
+		return $ret;
+	    }
+	
+	    $filesizes[$y] = $items[$y]->getSize()/1024/1024/1024;
+	}
+
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $items);
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(
+	    array(sprintf($this->_usingMessage, $filesizes[0], 
+			  $this->_GB, 1952.63, $this->_GB)), 
+	    array(sprintf($this->_usingMessage, $filesizes[0] + $filesizes[1],
+			  $this->_GB, 1952.63, $this->_GB)), 
+	    array(sprintf($this->_usingMessage, 
+			  $filesizes[0] + $filesizes[1] + $filesizes[2],
+			  $this->_GB, 1952.63, $this->_GB))), 
+	    $warnings, 'warnings');
+    }
+
+    function testGroupQuotas() {
+	/* Should use higher of assigned group quotas */
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '5'));
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_group2->getId(), 'quotaSize' => '500'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
+							  array(), __FILE__);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(array(sprintf($this->_usingMessage, $filesize, $this->_KB,
+						500, $this->_KB))), $warnings, 'warnings');
+    }
+
+    function testUserAndGroupQuota() {
+	global $gallery;
+
+	/* Should always use user quota and ignore group quota(s) */
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '6'));
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '2'));
+	if ($ret) {
+	    return $ret;
+	}
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
+	    array('userOrGroupId' => $this->_group2->getId(), 'quotaSize' => '200'));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+	$this->assertEquals(array(), $errors, 'errors');
+	$this->assertEquals(array(array(sprintf($this->_exceedMessage, 6, $this->_KB))),
+			    $warnings, 'warnings');
+
+	$gallery->performShutdownActions();
+
+	/* Verify item was deleted */
+	list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item->getId(), 'GalleryDataItem');
+	$this->assert($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
+		      'item should have been deleted');
+    }
+}
+?>

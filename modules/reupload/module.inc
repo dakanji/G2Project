@@ -26,36 +26,32 @@
  * @version $Revision: 18172 $
  */
 class ReuploadModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
-		$this->setId('reupload');
-		$this->setName($gallery->i18n('Reupload'));
-		$this->setDescription($gallery->i18n('Allows reupload of pictures.'));
-		$this->setVersion('1.0.7');
-		$this->_templateVersion = 1;
-		$this->setGroup('data', $gallery->i18n('Extra Data'));
-		$this->setCallbacks('');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
+
+    function ReuploadModule() {
+	global $gallery;
+	$this->setId('reupload');
+	$this->setName($gallery->i18n('Reupload'));
+	$this->setDescription($gallery->i18n('Allows reupload of pictures.'));
+	$this->setVersion('1.0.7');
+	$this->_templateVersion = 1;
+	$this->setGroup('data', $gallery->i18n('Extra Data'));
+	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(7, 20));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::performFactoryRegistrations
+     */
+    function performFactoryRegistrations() {
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemEditOption', 'ReuploadPhotoOption', 'ReuploadPhotoOption',
+	    'modules/reupload/ReuploadPhotoOption.inc', 'reupload',
+	    array('ItemEditRotateAndScalePhoto'));
+	if ($ret) {
+	    return $ret;
 	}
-
-	/**
-	 * @see GalleryModule::performFactoryRegistrations
-	 */
-	public function performFactoryRegistrations() {
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'ItemEditOption',
-			'ReuploadPhotoOption',
-			'ReuploadPhotoOption',
-			'modules/reupload/ReuploadPhotoOption.inc',
-			'reupload',
-			array('ItemEditRotateAndScalePhoto')
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
-	}
+	return null;
+    }
 }
+?>

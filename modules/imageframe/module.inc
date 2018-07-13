@@ -26,36 +26,32 @@
  * @version $Revision: 17580 $
  */
 class ImageFrameModule extends GalleryModule {
-	public function __construct() {
-		global $gallery;
-		$this->setId('imageframe');
-		$this->setName($gallery->i18n('ImageFrame'));
-		$this->setDescription($gallery->i18n('Render frames around images'));
-		$this->setVersion('1.0.7');
-		$this->_templateVersion = 1;
-		$this->setGroup('display', $gallery->i18n('Display'));
-		$this->setCallbacks('');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 6));
+
+    function ImageFrameModule() {
+	global $gallery;
+	$this->setId('imageframe');
+	$this->setName($gallery->i18n('ImageFrame'));
+	$this->setDescription($gallery->i18n('Render frames around images'));
+	$this->setVersion('1.0.7');
+	$this->_templateVersion = 1;
+	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(7, 27));
+	$this->setRequiredModuleApi(array(3, 6));
+    }
+
+    /**
+     * @see GalleryModule::performFactoryRegistrations
+     */
+    function performFactoryRegistrations() {
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ImageFrameInterface_1_1', 'ImageFrameImpl', 'ImageFrame',
+	    'modules/imageframe/classes/ImageFrameImpl.class', 'imageframe', null);
+	if ($ret) {
+	    return $ret;
 	}
 
-	/**
-	 * @see GalleryModule::performFactoryRegistrations
-	 */
-	public function performFactoryRegistrations() {
-		$ret = GalleryCoreApi::registerFactoryImplementation(
-			'ImageFrameInterface_1_1',
-			'ImageFrameImpl',
-			'ImageFrame',
-			'modules/imageframe/classes/ImageFrameImpl.class',
-			'imageframe',
-			null
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		return null;
-	}
+	return null;
+    }
 }
+?>

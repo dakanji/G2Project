@@ -28,63 +28,57 @@ GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class
  * @version $Revision: 17580 $
  */
 class CustomFieldSiteAdminController extends GalleryController {
-	/**
-	 * @see GalleryController::handleRequest
-	 */
-	public function handleRequest($form) {
-		// Make sure we have adequate permissions
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		list($ret, $status) = CustomFieldHelper::handleAdminAction($form);
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		// Figure out where to redirect upon success
-		$results['redirect']['view']    = 'core.SiteAdmin';
-		$results['redirect']['subView'] = 'customfield.CustomFieldSiteAdmin';
-		$results['status']              = $status;
-		$results['error']               = array();
-
-		return array(null, $results);
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	/* Make sure we have adequate permissions */
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	list ($ret, $status) = CustomFieldHelper::handleAdminAction($form);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Figure out where to redirect upon success */
+	$results['redirect']['view'] = 'core.SiteAdmin';
+	$results['redirect']['subView'] = 'customfield.CustomFieldSiteAdmin';
+	$results['status'] = $status;
+	$results['error'] = array();
+
+	return array(null, $results);
+    }
 }
 
 /**
  * Settings for custom fields
  */
 class CustomFieldSiteAdminView extends GalleryView {
-	/**
-	 * @see GalleryView::loadTemplate
-	 */
-	public function loadTemplate(&$template, &$form) {
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		if ($form['formName'] != 'CustomFieldSiteAdmin') {
-			$form['formName'] = 'CustomFieldSiteAdmin';
-
-			$ret = CustomFieldHelper::loadAdminForm($form);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-		$template->setVariable('controller', 'customfield.CustomFieldSiteAdmin');
-
-		return array(
-			null,
-			array(
-				'body' => 'modules/customfield/templates/CustomFieldSiteAdmin.tpl',
-			),
-		);
+    /**
+     * @see GalleryView::loadTemplate
+     */
+    function loadTemplate(&$template, &$form) {
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret) {
+	    return array($ret, null);
 	}
+
+	if ($form['formName'] != 'CustomFieldSiteAdmin') {
+	    $form['formName'] = 'CustomFieldSiteAdmin';
+
+	    $ret = CustomFieldHelper::loadAdminForm($form);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	$template->setVariable('controller', 'customfield.CustomFieldSiteAdmin');
+	return array(null,
+		     array('body' => 'modules/customfield/templates/CustomFieldSiteAdmin.tpl'));
+    }
 }
+?>
