@@ -28,55 +28,63 @@ GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
  * @version $Revision: 17580 $
  */
 class MP3AudioOptionTest extends ItemAddOptionTestCase {
-
-    function MP3AudioOptionTest($methodName) {
-	$this->ItemAddOptionTestCase($methodName, 'mp3audio', 'MP3AudioOption');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'mp3audio', 'MP3AudioOption');
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function setUp() {
+		$ret = parent::setUp();
 
-	$this->_items = array();
-	list ($ret, $this->_items[0]) = $this->_createRandomDataItem(
-		$this->_album->getId(), 'audio/wav');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $this->_items[1]) = $this->_createRandomDataItem(
-		$this->_album->getId(), 'audio/mpeg');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
+
+		$this->_items                = array();
+		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'audio/wav'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $this->_items[1]) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'audio/mpeg'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_noWarnings = array();
+		$this->_noErrors   = array();
 	}
 
-	$this->_noWarnings = array();
-	$this->_noErrors = array();
-    }
+	public function testAddItems() {
+		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
-    function testAddItems() {
-	$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-	$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		list($ret, $item) = $this->_items[0]->refresh();
 
-	list ($ret, $item) = $this->_items[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		// For Oracle, null is replaced with '' when loading data from the database
+		$this->assert(in_array($item->getRenderer(), array(null, '')), 'wav renderer');
+
+		list($ret, $item) = $this->_items[1]->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('MP3AudioRenderer', $item->getRenderer(), 'mp3 renderer');
 	}
-	/* For Oracle, null is replaced with '' when loading data from the database */
-	$this->assert(in_array($item->getRenderer(), array(null, '')), 'wav renderer');
-
-	list ($ret, $item) = $this->_items[1]->refresh();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('MP3AudioRenderer', $item->getRenderer(), 'mp3 renderer');
-    }
 }
-?>

@@ -26,102 +26,130 @@
  * @version $Revision: 17580 $
  */
 class SquareThumbSiteAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = $error = array();
-	if (isset($form['action']['save'])) {
-	    if (empty($form['mode'])) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	    } else {
-		if ($form['mode'] == 'fit') {
-		    /* Can't crop-to-square without PPM support */
-		    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
-			'image/x-portable-pixmap', 'convert-to-image/jpeg');
-		    if ($ret) {
+		if ($ret) {
 			return array($ret, null);
-		    }
+		}
 
-		    if (!isset($toolkit)) { 
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-		    } else if (empty($form['color'])) {
-			$error[] = 'form[error][color][missing]';
-		    } else if (!preg_match('/^[0-9a-f]{6}$/i', $form['color'])) {
-			$error[] = 'form[error][color][invalid]';
-		    } else {
-			$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb',
-								  'color', $form['color']);
-			if ($ret) {
-			    return array($ret, null);
+		$status = $error = array();
+
+		if (isset($form['action']['save'])) {
+			if (empty($form['mode'])) {
+				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
-		    }
-		}
 
-		if (empty($error)) {
-		    $ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb',
-							      'mode', $form['mode']);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    $status['saved'] = 1;
-		}
-	    }
-	} /* else $form['action']['reset'] */
+			if ($form['mode'] == 'fit') {
+				// Can't crop-to-square without PPM support
+				list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
+					'image/x-portable-pixmap',
+					'convert-to-image/jpeg'
+				);
 
-	$method = empty($error) ? 'redirect' : 'delegate';
-	$results = array($method => array('view' => 'core.SiteAdmin',
-					  'subView' => 'squarethumb.SquareThumbSiteAdmin'),
-			 'status' => $status,
-			 'error' => $error);
+				if ($ret) {
+					return array($ret, null);
+				}
 
-	return array(null, $results);
-    }
+				if (!isset($toolkit)) {
+					return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				}
+
+				if (empty($form['color'])) {
+					$error[] = 'form[error][color][missing]';
+				} elseif (!preg_match('/^[0-9a-f]{6}$/i', $form['color'])) {
+					$error[] = 'form[error][color][invalid]';
+				} else {
+					$ret = GalleryCoreApi::setPluginParameter(
+						'module',
+						'squarethumb',
+						'color',
+						$form['color']
+					);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+			}
+
+			if (empty($error)) {
+				$ret = GalleryCoreApi::setPluginParameter(
+					'module',
+					'squarethumb',
+					'mode',
+					$form['mode']
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+				$status['saved'] = 1;
+			}
+		} // else $form['action']['reset']
+
+		$method  = empty($error) ? 'redirect' : 'delegate';
+		$results = array(
+			$method  => array(
+				'view'    => 'core.SiteAdmin',
+				'subView' => 'squarethumb.SquareThumbSiteAdmin',
+			),
+			'status' => $status,
+			'error'  => $error,
+		);
+
+		return array(null, $results);
+	}
 }
 
 /**
  * Settings for square thumbnails
  */
 class SquareThumbSiteAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['formName'] != 'SquareThumbSiteAdmin') {
-	    $form['formName'] = 'SquareThumbSiteAdmin';
-	    foreach (array('mode', 'color') as $key) {
-		list ($ret, $form[$key]) =
-		    GalleryCoreApi::getPluginParameter('module', 'squarethumb', $key);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
-	}
 
-	/* Can't crop-to-square without ppm support */
-	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/x-portable-pixmap',
-								      'convert-to-image/jpeg');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$form['allowFitToSquareMode'] = isset($toolkit);
-	$form['mode'] = $form['allowFitToSquareMode'] ? $form['mode'] : 'crop';
+		if ($form['formName'] != 'SquareThumbSiteAdmin') {
+			$form['formName'] = 'SquareThumbSiteAdmin';
 
-	$template->setVariable('controller', 'squarethumb.SquareThumbSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/squarethumb/templates/SquareThumbSiteAdmin.tpl'));
-    }
+			foreach (array('mode', 'color') as $key) {
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'squarethumb', $key);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+		}
+
+		// Can't crop-to-square without ppm support
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
+			'image/x-portable-pixmap',
+			'convert-to-image/jpeg'
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$form['allowFitToSquareMode'] = isset($toolkit);
+		$form['mode']                 = $form['allowFitToSquareMode'] ? $form['mode'] : 'crop';
+
+		$template->setVariable('controller', 'squarethumb.SquareThumbSiteAdmin');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/squarethumb/templates/SquareThumbSiteAdmin.tpl',
+			),
+		);
+	}
 }
-?>

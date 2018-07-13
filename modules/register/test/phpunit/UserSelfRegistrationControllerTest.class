@@ -29,567 +29,678 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class'
  * @version $Revision: 18057 $
  */
 class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
-
-    function UserSelfRegistrationControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'register.UserSelfRegistration');
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'register.UserSelfRegistration');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'register');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'register');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array(
+			'emailadmins'      => 0,
+			'emailusers'       => 1,
+			'subject'          => 'ConfEmail',
+			'usersubject'      => 'WelcomeEmail',
+			'validation.level' => 'HIGH',
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'register', $key, $value);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		$this->_emailSubject = '';
+		$this->_controller->setPluginInstances(array());
 	}
 
-	foreach (array('emailadmins' => 0, 'emailusers' => 1,
-		       'subject' => 'ConfEmail', 'usersubject' => 'WelcomeEmail',
-		       'validation.level' => 'HIGH') as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'register', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
+	public function testCancel() {
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view' => 'core.UserAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
 
-	$this->_emailSubject = '';
-	$this->_controller->setPluginInstances(array());
-    }
+	public function testRegisterWithAutomaticActivation() {
+		global $gallery;
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 
-    function testCancel() {
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testRegisterWithAutomaticActivation() {
-	global $gallery;
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
-	    return $ret;
+		$userName = 'user-selfreg' . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+		$savePlatform =& $gallery->getPlatform();
+		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.SelfRegistrationSuccess',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results,
+			'Failed to register user with automatic activation'
+		);
+
+		$gallery->setPlatform($savePlatform);
+
+		// The newly registered user is a real user by now
+		list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
+		$this->_markForCleanup($user);
+
+		// Make sure welcome email was "sent"
+		$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
+		$this->assertEquals('WelcomeEmail', $this->_emailSubject, 'email subject');
 	}
 
-	$userName = 'user-selfreg' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+	public function testRegisterWithEMailActivation() {
+		global $gallery;
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		if ($ret) {
+			return $ret;
+		}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess'),
-		'status' => array(),
-		'error' => array()),
-	    $results,
-	    'Failed to register user with automatic activation');
+		$userName = 'user-' . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$gallery->setPlatform($savePlatform);
+		$savePlatform =& $gallery->getPlatform();
+		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
 
-	/* The newly registered user is a real user by now */
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
-	$this->_markForCleanup($user);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'                  => 'core.UserAdmin',
+					'subView'               => 'register.SelfRegistrationSuccess',
+					'pending'               => true,
+					'sentConfirmationEmail' => true,
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results,
+			'Failed to register user with email activation'
+		);
 
-	/* Make sure welcome email was "sent" */
-	$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
-	$this->assertEquals('WelcomeEmail', $this->_emailSubject, 'email subject');
-    }
+		$gallery->setPlatform($savePlatform);
 
-    function testRegisterWithEMailActivation() {
-	global $gallery;
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
-	if ($ret) {
-	    return $ret;
-	}
+		// Make sure the pending user exists
+		list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
 
-	$userName = 'user-' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess',
-				      'pending' => true,
-				      'sentConfirmationEmail' => true),
-	  'status' => array(),
-	  'error' => array()),
-	    $results,
-	    'Failed to register user with email activation');
-
-	$gallery->setPlatform($savePlatform);
-
-	/* Make sure the pending user exists */
-	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($user);
-
-	/* Make sure confirmation email was "sent" */
-	$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
-	$this->assertEquals('ConfEmail', $this->_emailSubject, 'email subject');
-    }
-
-    function testEntities() {
-	/* Make sure emails sent out don't include text like &amp; */
-	/* Also verify password with <&"> characters is not entitized before being hashed */
-	global $gallery;
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
-	if ($ret) {
-	    return $ret;
+		// Make sure confirmation email was "sent"
+		$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
+		$this->assertEquals('ConfEmail', $this->_emailSubject, 'email subject');
 	}
 
-	$userName = $entitizedName = 'test < & > ' . rand();
-	GalleryUtilities::sanitizeInputValues($entitizedName);
+	public function testEntities() {
+		// Make sure emails sent out don't include text like &amp;
+		// Also verify password with <&"> characters is not entitized before being hashed
+		global $gallery;
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
 
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'pass&word>');
-	GalleryUtilities::putRequestVariable('form[password2]', 'pass&word>');
+		if ($ret) {
+			return $ret;
+		}
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$userName = $entitizedName = 'test < & > ' . mt_rand();
+		GalleryUtilities::sanitizeInputValues($entitizedName);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess',
-				      'pending' => true,
-				      'sentConfirmationEmail' => true),
-				  'status' => array(),
-				  'error' => array()),
-	    $results,
-	    'Failed to register user with email activation');
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'pass&word>');
+		GalleryUtilities::putRequestVariable('form[password2]', 'pass&word>');
 
-	$gallery->setPlatform($savePlatform);
+		$savePlatform =& $gallery->getPlatform();
+		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
 
-	/* make sure the pending user exists */
-	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($user);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'                  => 'core.UserAdmin',
+					'subView'               => 'register.SelfRegistrationSuccess',
+					'pending'               => true,
+					'sentConfirmationEmail' => true,
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results,
+			'Failed to register user with email activation'
+		);
 
-	/* verify un-entitized username was used in email */
-	/* the confirm link should also use unentitized(but urlencoded) value; not verified here */
-	$this->assert(strpos($this->_emailBody, $userName) !== false,
-		      'Email body should have unentitized username: ' . $this->_emailBody);
+		$gallery->setPlatform($savePlatform);
 
-	list ($ret, $userEntity) =
-	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
-	if ($ret) {
-	    return ($ret);
-	}
-	$this->assert(!empty($userEntity), 'factory error');
-	$userEntity->setHashedPassword($user->getHashedPassword());
-	$this->assert($userEntity->isCorrectPassword('pass&word>'), 'password check');
-    }
+		// make sure the pending user exists
+		list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
 
-    function testMissingInputs() {
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.UserSelfRegistration'),
-		  'status' => array(),
-		  'error' => array('form[error][userName][missing]',
-				   'form[error][email][missing]',
-				   'form[error][password1][missing]',
-				   'form[error][password2][missing]',
-				   'form[error][fullName][missing]')),
-	    $results);
-    }
+		// verify un-entitized username was used in email
+		// the confirm link should also use unentitized(but urlencoded) value; not verified here
+		$this->assert(
+			strpos($this->_emailBody, $userName) !== false,
+			'Email body should have unentitized username: ' . $this->_emailBody
+		);
 
-    function testInvalidEmail() {
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', 'user-selfreg' . rand());
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'bad!email@test.com');
-	GalleryUtilities::putRequestVariable('form[password1]', 'pass');
-	GalleryUtilities::putRequestVariable('form[password2]', 'pass');
+		list($ret, $userEntity) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.UserSelfRegistration'),
-		  'status' => array(),
-		  'error' => array('form[error][email][invalid]')),
-	    $results);
-    }
-
-    function testPasswordMismatch() {
-	$userName = 'user-selfreg' . rand();
-
-	/* Create one user */
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'passwordRight');
-	GalleryUtilities::putRequestVariable('form[password2]', 'passwordWrong');
-
-	$results = $this->handleRequest();
-
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.UserSelfRegistration'),
-		  'status' => array(),
-		  'error' => array('form[error][password2][mismatch]')),
-	    $results);
-    }
-
-    function testCreateDuplicatePendingUser() {
-	$userName = 'user-selfreg' . rand();
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'admin');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!empty($userEntity), 'factory error');
+		$userEntity->setHashedPassword($user->getHashedPassword());
+		$this->assert($userEntity->isCorrectPassword('pass&word>'), 'password check');
 	}
 
-	/* Create one user */
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+	public function testMissingInputs() {
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess',
-				      'pending' => true),
-		  'status' => array(),
-		  'error' => array()),
-	    $results,
-	    'Failed to create first pending user');
-
-	/* Create a second user with the same name */
-	/* fails because we have the existing pending user */
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.UserSelfRegistration'),
-		  'status' => array(),
-		  'error' => array('form[error][userName][exists]')),
-	    $results, 'Create duplicate');
-
-	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($user);
-    }
-
-    function testCreateDuplicateUser() {
-	global $gallery;
-
-	$userName = 'user-selfreg' . rand();
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array(
+					'form[error][userName][missing]',
+					'form[error][email][missing]',
+					'form[error][password1][missing]',
+					'form[error][password2][missing]',
+					'form[error][fullName][missing]',
+				),
+			),
+			$results
+		);
 	}
 
-	/* Create one user */
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+	public function testInvalidEmail() {
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', 'user-selfreg' . mt_rand());
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'bad!email@test.com');
+		GalleryUtilities::putRequestVariable('form[password1]', 'pass');
+		GalleryUtilities::putRequestVariable('form[password2]', 'pass');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess'),
-		  'status' => array(),
-		  'error' => array()),
-	    $results,
-	    'Failed to create first user');
-
-	$gallery->setPlatform($savePlatform);
-
-	/* Create a second user with the same name */
-	/* Fails because we have the existing  user */
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.UserSelfRegistration'),
-		  'status' => array(),
-		  'error' => array('form[error][userName][exists]')),
-	    $results, 'Create duplicate');
-
-	/* Find userid */
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($user);
-    }
-
-    /**
-     * Two plugins both returning errors.  The first plugin returns a false 'continue',
-     * so we should only see the first error in the form return
-     */
-    function testPlugins1() {
-	$userName = 'user-selfreg' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
-
-	$plugin1 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin1->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
-	$plugin1->setContinue(false);
-
-	$plugin2 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin2->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]'));
-	$plugin2->setContinue(true);
-	$this->_controller->setPluginInstances(array($plugin1, $plugin2));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array(
-	    'delegate' => array('view' => 'core.UserAdmin',
-				'subView' => 'register.UserSelfRegistration'),
-	    'status' => array(),
-	    'error' => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')),
-	    $results);
-    }
-
-    /**
-     * Two plugins returning errors
-     */
-    function testPlugins2() {
-	$userName = 'user-selfreg' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
-
-	$plugin1 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin1->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
-	$plugin1->setContinue(true);
-
-	$plugin2 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin2->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]'));
-	$plugin2->setContinue(false);
-	$this->_controller->setPluginInstances(array($plugin1, $plugin2));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array(
-	    'delegate' => array('view' => 'core.UserAdmin',
-				'subView' => 'register.UserSelfRegistration'),
-	    'status' => array(),
-	    'error' => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]',
-			     'form[error][UserSelfRegistrationControllerTestPlugin2][anError]')),
-	    $results);
-    }
-
-    /**
-     * No plugin errors - user is created successfully
-     */
-    function testPlugins3() {
-	global $gallery;
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][email][invalid]'),
+			),
+			$results
+		);
 	}
 
-	$userName = 'user-selfreg' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+	public function testPasswordMismatch() {
+		$userName = 'user-selfreg' . mt_rand();
 
-	$plugin = new UserSelfRegistrationControllerTestPlugin();
-	$plugin->setErrors(array());
-	$plugin->setContinue(true);
+		// Create one user
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'passwordRight');
+		GalleryUtilities::putRequestVariable('form[password2]', 'passwordWrong');
 
-	$this->_controller->setPluginInstances(array($plugin));
+		$results = $this->handleRequest();
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess'),
-		  'status' => array(),
-		  'error' => array()),
-	    $results);
-
-	$gallery->setPlatform($savePlatform);
-
-	/* find userid */
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($user);
-    }
-
-    function testPluginsOff() {
-	global $gallery;
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'validation.level', 'OFF');
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
-	    return $ret;
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][password2][mismatch]'),
+			),
+			$results
+		);
 	}
 
-	$userName = 'user-selfreg' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+	public function testCreateDuplicatePendingUser() {
+		$userName = 'user-selfreg' . mt_rand();
 
-	$plugin = new UserSelfRegistrationControllerTestPlugin();
-	$plugin->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
-	$plugin->setContinue(false);
-	$this->_controller->setPluginInstances(array($plugin));
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'admin');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		if ($ret) {
+			return $ret;
+		}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess'),
-		  'status' => array(),
-		  'error' => array()),
-	    $results);
+		// Create one user
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$gallery->setPlatform($savePlatform);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.SelfRegistrationSuccess',
+					'pending' => true,
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results,
+			'Failed to create first pending user'
+		);
 
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
-	    return $ret;
+		// Create a second user with the same name
+		// fails because we have the existing pending user
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][userName][exists]'),
+			),
+			$results,
+			'Create duplicate'
+		);
+
+		list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
 	}
-	$this->_markForCleanup($user);
-    }
+
+	public function testCreateDuplicateUser() {
+		global $gallery;
+
+		$userName = 'user-selfreg' . mt_rand();
+
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Create one user
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+		$savePlatform =& $gallery->getPlatform();
+		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.SelfRegistrationSuccess',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results,
+			'Failed to create first user'
+		);
+
+		$gallery->setPlatform($savePlatform);
+
+		// Create a second user with the same name
+		// Fails because we have the existing  user
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][userName][exists]'),
+			),
+			$results,
+			'Create duplicate'
+		);
+
+		// Find userid
+		list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
+	}
+
+	/**
+	 * Two plugins both returning errors.  The first plugin returns a false 'continue',
+	 * so we should only see the first error in the form return
+	 */
+	public function testPlugins1() {
+		$userName = 'user-selfreg' . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+		$plugin1 = new UserSelfRegistrationControllerTestPlugin();
+		$plugin1->setErrors(
+			array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')
+		);
+		$plugin1->setContinue(false);
+
+		$plugin2 = new UserSelfRegistrationControllerTestPlugin();
+		$plugin2->setErrors(
+			array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]')
+		);
+		$plugin2->setContinue(true);
+		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'),
+			),
+			$results
+		);
+	}
+
+	/**
+	 * Two plugins returning errors
+	 */
+	public function testPlugins2() {
+		$userName = 'user-selfreg' . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+		$plugin1 = new UserSelfRegistrationControllerTestPlugin();
+		$plugin1->setErrors(
+			array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')
+		);
+		$plugin1->setContinue(true);
+
+		$plugin2 = new UserSelfRegistrationControllerTestPlugin();
+		$plugin2->setErrors(
+			array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]')
+		);
+		$plugin2->setContinue(false);
+		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.UserSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array(
+					'form[error][UserSelfRegistrationControllerTestPlugin1][anError]',
+					'form[error][UserSelfRegistrationControllerTestPlugin2][anError]',
+				),
+			),
+			$results
+		);
+	}
+
+	/**
+	 * No plugin errors - user is created successfully
+	 */
+	public function testPlugins3() {
+		global $gallery;
+
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$userName = 'user-selfreg' . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+		$plugin = new UserSelfRegistrationControllerTestPlugin();
+		$plugin->setErrors(array());
+		$plugin->setContinue(true);
+
+		$this->_controller->setPluginInstances(array($plugin));
+
+		$savePlatform =& $gallery->getPlatform();
+		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.SelfRegistrationSuccess',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$gallery->setPlatform($savePlatform);
+
+		// find userid
+		list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
+	}
+
+	public function testPluginsOff() {
+		global $gallery;
+
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'validation.level', 'OFF');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$userName = 'user-selfreg' . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[userName]', $userName);
+		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+		GalleryUtilities::putRequestVariable('form[language]', 'language');
+		GalleryUtilities::putRequestVariable('form[password1]', 'password');
+		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+		$plugin = new UserSelfRegistrationControllerTestPlugin();
+		$plugin->setErrors(
+			array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')
+		);
+		$plugin->setContinue(false);
+		$this->_controller->setPluginInstances(array($plugin));
+
+		$savePlatform =& $gallery->getPlatform();
+		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'register.SelfRegistrationSuccess',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$gallery->setPlatform($savePlatform);
+
+		list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
+	}
 }
 
 class RegisterDummyPlatform {
-    function RegisterDummyPlatform($platform, &$test) {
-	$this->_platform = $platform;
-	$this->_test =& $test;
-    }
+	public function __construct($platform, &$test) {
+		$this->_platform = $platform;
+		$this->_test     =& $test;
+	}
 
-    function mail($to, $subject, $body, $headers=null) {
-	/* Don't actually send email */
-	$this->_test->_emailSubject .= $subject;
-	$this->_test->_emailBody = $body;
-	return true;
-    }
+	public function mail($to, $subject, $body, $headers = null) {
+		// Don't actually send email
+		$this->_test->_emailSubject .= $subject;
+		$this->_test->_emailBody     = $body;
 
-    function realpath($file) {
-	return $this->_platform->realpath($file);
-    }
+		return true;
+	}
 
-    function getDirectorySeparator() {
-	return $this->_platform->getDirectorySeparator();
-    }
+	public function realpath($file) {
+		return $this->_platform->realpath($file);
+	}
 
-    function file_exists($filename) {
-	return $this->_platform->file_exists($filename);
-    }
+	public function getDirectorySeparator() {
+		return $this->_platform->getDirectorySeparator();
+	}
 
-    function is_dir($filename) {
-	return $this->_platform->is_dir($filename);
-    }
+	public function file_exists($filename) {
+		return $this->_platform->file_exists($filename);
+	}
 
-    function is_writeable($filename) {
-	return $this->_platform->is_writeable($filename);
-    }
+	public function is_dir($filename) {
+		return $this->_platform->is_dir($filename);
+	}
 
-    function is_readable($filename) {
-	return $this->_platform->is_readable($filename);
-    }
+	public function is_writeable($filename) {
+		return $this->_platform->is_writeable($filename);
+	}
 
-    function stat($filename) {
-	return $this->_platform->stat($filename);
-    }
+	public function is_readable($filename) {
+		return $this->_platform->is_readable($filename);
+	}
 
-    function mkdir($path) {
-	return $this->_platform->mkdir($path);
-    }
+	public function stat($filename) {
+		return $this->_platform->stat($filename);
+	}
 
-    function fopen($filename, $mode, $use_include_path=0) {
-	return $this->_platform->fopen($filename, $mode, $use_include_path);
-    }
+	public function mkdir($path) {
+		return $this->_platform->mkdir($path);
+	}
 
-    function recursiveRmdir($dirname) {
-	return $this->_platform->recursiveRmdir($dirname);
-    }
+	public function fopen($filename, $mode, $use_include_path = 0) {
+		return $this->_platform->fopen($filename, $mode, $use_include_path);
+	}
 
-    function fclose($handle) {
-	return $this->_platform->fclose($handle);
-    }
+	public function recursiveRmdir($dirname) {
+		return $this->_platform->recursiveRmdir($dirname);
+	}
 
-    function flock($handle, $operation, &$wouldblock) {
-	return $this->_platform->flock($handle, $operation, $wouldblock);
-    }
+	public function fclose($handle) {
+		return $this->_platform->fclose($handle);
+	}
 
-    function unlink($filename) {
-	return $this->_platform->unlink($filename);
-    }
+	public function flock($handle, $operation, &$wouldblock) {
+		return $this->_platform->flock($handle, $operation, $wouldblock);
+	}
+
+	public function unlink($filename) {
+		return $this->_platform->unlink($filename);
+	}
 }
 
 
@@ -597,16 +708,15 @@ class RegisterDummyPlatform {
  * Mock ValidationPlugin
  */
 class UserSelfRegistrationControllerTestPlugin extends GalleryValidationPlugin {
-    function setContinue($continue) {
-	$this->_continue = $continue;
-    }
+	public function setContinue($continue) {
+		$this->_continue = $continue;
+	}
 
-    function setErrors($errors) {
-	$this->_errors = $errors;
-    }
+	public function setErrors($errors) {
+		$this->_errors = $errors;
+	}
 
-    function performValidation(&$form, $options=array()) {
-	return array(null, $this->_errors, $this->_continue);
-    }
+	public function performValidation(&$form, $options = array()) {
+		return array(null, $this->_errors, $this->_continue);
+	}
 }
-?>

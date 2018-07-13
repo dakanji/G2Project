@@ -26,135 +26,160 @@
  * @version $Revision: 17580 $
  */
 class ItemEditThumbPage extends ItemEditPlugin {
+	/**
+	 * @see ItemEditPlugin::handleRequest
+	 */
+	public function handleRequest($form, &$item, &$preferred) {
+		$status             = null;
+		$error              = array();
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
-    /**
-     * @see ItemEditPlugin::handleRequest
-     */
-    function handleRequest($form, &$item, &$preferred) {
-	$status = null;
-	$error = array();
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
-	    return array($ret, null, null, null);
-	}
-
-	if (isset($form['action']['save'])) {
-	    list ($ret, $thumbnails) =
-		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    $thumb = array_shift($thumbnails);
-	    $operations = $thumb->getDerivativeOperations();
-	    if ($form['page'] == 1) {
-		$operations = preg_replace('/(^|;)select-page\|\d+(;|$)/', '$1', $operations);
-	    } else if (preg_match('/(((^|;)select-page\|)(\d+))(;|$)/', $operations, $regs)) {
-		if ($form['page'] != $regs[4]) {
-		    $operations = str_replace($regs[1], $regs[2] . $form['page'], $operations);
+		if ($ret) {
+			return array($ret, null, null, null);
 		}
-	    } else {
-		$operations = 'select-page|' . $form['page'] . ';' . $operations;
-	    }
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    $thumb->setDerivativeOperations($operations);
-	    $ret = $thumb->save();
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
 
-	    $status = $module->translate('Changes saved successfully');
-	} /* else $form['action']['reset']) */
+		if (isset($form['action']['save'])) {
+			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
-	return array(null, $error, $status, false);
-    }
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			$thumb      = array_shift($thumbnails);
+			$operations = $thumb->getDerivativeOperations();
 
-    /**
-     * @see ItemEditPlugin::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item, $thumbnail) {
-	if ($form['formName'] != 'ItemEditThumbPage') {
-	    $form['formName'] = 'ItemEditThumbPage';
-	    $form['page'] = 1;
-	    if (preg_match('/(^|;)select-page\|(\d+)/',
-			   $thumbnail->getDerivativeOperations(), $regs)) {
-		$form['page'] = $regs[2];
-	    }
+			if ($form['page'] == 1) {
+				$operations = preg_replace('/(^|;)select-page\|\d+(;|$)/', '$1', $operations);
+			} elseif (preg_match('/(((^|;)select-page\|)(\d+))(;|$)/', $operations, $regs)) {
+				if ($form['page'] != $regs[4]) {
+					$operations = str_replace($regs[1], $regs[2] . $form['page'], $operations);
+				}
+			} else {
+				$operations = 'select-page|' . $form['page'] . ';' . $operations;
+			}
+			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			$thumb->setDerivativeOperations($operations);
+			$ret = $thumb->save();
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			$ret = GalleryCoreApi::releaseLocks($lockId);
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+
+			$status = $module->translate('Changes saved successfully');
+		} // else $form['action']['reset'])
+
+		return array(null, $error, $status, false);
 	}
-	list ($ret, $count) = $this->_getPageCount($item);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$ItemEditThumbPage = array('pageList' => array());
-	for ($i = 1; $i <= $count; $i++) {
-	    $ItemEditThumbPage['pageList'][$i] = $i;
-	}
-	$template->setVariable('ItemEditThumbPage', $ItemEditThumbPage);
-	$template->setVariable('controller', 'thumbpage.ItemEditThumbPage');
-	return array(null,
-		     'modules/thumbpage/templates/Page.tpl', 'modules_thumbpage');
-    }
 
-    /**
-     * @see ItemEditPlugin::isSupported
-     */
-    function isSupported($item, $thumbnail) {
-	if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
-	    list ($ret, $mimeTypes) =
-		GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'pageTypes');
-	    if (!$ret) {
-		$list = explode('|', $mimeTypes);
-		if (in_array($item->getMimeType(), $list)) {
-		    list ($ret, $count) = $this->_getPageCount($item);
-		    return (!$ret && $count > 1);
+	/**
+	 * @see ItemEditPlugin::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+		if ($form['formName'] != 'ItemEditThumbPage') {
+			$form['formName'] = 'ItemEditThumbPage';
+			$form['page']     = 1;
+
+			if (preg_match(
+				'/(^|;)select-page\|(\d+)/',
+				$thumbnail->getDerivativeOperations(),
+				$regs
+			)
+			) {
+				$form['page'] = $regs[2];
+			}
 		}
-	    }
-	}
-	return false;
-    }
+		list($ret, $count) = $this->_getPageCount($item);
 
-    /**
-     * @see ItemEditPlugin::getTitle
-     */
-    function getTitle() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $module->translate('Thumbnail'));
-    }
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$ItemEditThumbPage = array(
+			'pageList' => array(),
+		);
 
-    /**
-     * Get the page-count property
-     * @param GalleryDataItem $item
-     * @return array GalleryStatus a status code
-     *               int page count
-     * @access private
-     */
-    function _getPageCount(&$item) {
-	list ($ret, $path) = $item->fetchPath();
-	if ($ret) {
-	    return array($ret, null);
+		for ($i = 1; $i <= $count; $i++) {
+			$ItemEditThumbPage['pageList'][$i] = $i;
+		}
+		$template->setVariable('ItemEditThumbPage', $ItemEditThumbPage);
+		$template->setVariable('controller', 'thumbpage.ItemEditThumbPage');
+
+		return array(
+			null,
+			'modules/thumbpage/templates/Page.tpl',
+			'modules_thumbpage',
+		);
 	}
-	list ($ret, $toolkit) =
-	    GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'page-count');
-	if ($ret) {
-	    return array($ret, null);
+
+	/**
+	 * @see ItemEditPlugin::isSupported
+	 */
+	public function isSupported($item, $thumbnail) {
+		if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
+			list($ret, $mimeTypes) = GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'pageTypes');
+
+			if (!$ret) {
+				$list = explode('|', $mimeTypes);
+
+				if (in_array($item->getMimeType(), $list)) {
+					list($ret, $count) = $this->_getPageCount($item);
+
+					return !$ret && $count > 1;
+				}
+			}
+		}
+
+		return false;
 	}
-	if (!isset($toolkit)) {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+
+	/**
+	 * @see ItemEditPlugin::getTitle
+	 */
+	public function getTitle() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('Thumbnail'));
 	}
-	list ($ret, $result) = $toolkit->getProperty($item->getMimeType(), 'page-count', $path);
-	if ($ret) {
-	    return array($ret, null);
+
+	/**
+	 * Get the page-count property
+	 * @param GalleryDataItem $item
+	 * @return array GalleryStatus a status code
+	 *               int page count
+	 * @access private
+	 */
+	public function _getPageCount(&$item) {
+		list($ret, $path) = $item->fetchPath();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'page-count');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!isset($toolkit)) {
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+		}
+		list($ret, $result) = $toolkit->getProperty($item->getMimeType(), 'page-count', $path);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $result[0]);
 	}
-	return array(null, $result[0]);
-    }
 }
-?>

@@ -27,32 +27,34 @@ GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class
  * @version $Revision: 17580 $
  */
 class UploadController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		ImageUploadHelper::logRequest('UploadController');
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	ImageUploadHelper::logRequest('UploadController');
+		// Request forgery protection
+		$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 
-	/* Request forgery protection */
-	$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
-	if (strstr($httpUserAgent, 'Nokia') === false) {
-	    return array(GalleryCoreApi::error(ERROR_REQUEST_FORGED), null);
+		if (strstr($httpUserAgent, 'Nokia') === false) {
+			return array(GalleryCoreApi::error(ERROR_REQUEST_FORGED), null);
+		}
+
+		$results['delegate'] = array(
+			'view' => 'nokiaupload.Upload',
+		);
+		$results['status']   = ImageUploadHelper::doUpload();
+		$results['error']    = array();
+
+		return array(null, $results);
 	}
 
-	$results['delegate'] = array('view' => 'nokiaupload.Upload');
-	$results['status'] = ImageUploadHelper::doUpload();
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
-
-    /**
-     * @see GalleryController::omitAuthTokenCheck
-     */
-    function omitAuthTokenCheck() {
-	return true;
-    }
+	/**
+	 * @see GalleryController::omitAuthTokenCheck
+	 */
+	public function omitAuthTokenCheck() {
+		return true;
+	}
 }
 
 
@@ -60,43 +62,42 @@ class UploadController extends GalleryController {
  * This view implements the Nokia Image Uploader API's 'Upload' command.
  */
 class UploadView extends GalleryView {
-
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
-
-    /**
-     * API defines the output very specifically so we can't allow any global templating to be used.
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	global $gallery;
-	$gallery->debug("##### UploadView #####\n\$status = ");
-	$gallery->debug_r($status);
-
-	$reply = $status['success'] . "\r\n";
-
-	if ($status['success'] == NOKIAUPLOAD_ERR_NOERR) {
-	    $reply .= 'Free=' . $status['spaceleft'] . "\r\n";
-	} else {
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret) {
-		$reply .= "Upload failed.\r\n";
-	    } else {
-		$reply .= $module->translate('Upload failed.') . "\r\n";
-	    }
+	/**
+	 * @see GalleryView::renderImmediate
+	 */
+	public function isImmediate() {
+		return true;
 	}
 
-	$gallery->debug("Sending:\n$reply");
+	/**
+	 * API defines the output very specifically so we can't allow any global templating to be used.
+	 * @see GalleryView::renderImmediate
+	 */
+	public function renderImmediate($status, $error) {
+		global $gallery;
+		$gallery->debug("##### UploadView #####\n\$status = ");
+		$gallery->debug_r($status);
 
-	header("Content-type: text/plain; charset=UTF-8");
-	header('Content-Length: ' . strlen($reply));
-	print $reply;
+		$reply = $status['success'] . "\r\n";
 
-	return null;
-    }
+		if ($status['success'] == NOKIAUPLOAD_ERR_NOERR) {
+			$reply .= 'Free=' . $status['spaceleft'] . "\r\n";
+		} else {
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
+
+			if ($ret) {
+				$reply .= "Upload failed.\r\n";
+			} else {
+				$reply .= $module->translate('Upload failed.') . "\r\n";
+			}
+		}
+
+		$gallery->debug("Sending:\n$reply");
+
+		header('Content-type: text/plain; charset=UTF-8');
+		header('Content-Length: ' . strlen($reply));
+		echo $reply;
+
+		return null;
+	}
 }
-?>

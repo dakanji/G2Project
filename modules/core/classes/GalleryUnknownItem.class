@@ -39,74 +39,75 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @version $Revision: 17580 $
  */
 class GalleryUnknownItem extends GalleryDataItem {
+	/**
+	 * Create a new GalleryUnknownItem from an image file
+	 *
+	 * @param int $parentId the id of the parent GalleryItem
+	 * @param string $inputFileName the path to the source image
+	 * @param string $mimeType
+	 * @param string $targetName the desired name of the new item
+	 * @param boolean $symlink (optional) a boolean true if we should symlink instead
+	 *        of copy (default is false).
+	 * @return GalleryStatus a status code
+	 */
+	public function create($parentId, $inputFileName, $mimeType, $targetName = null, $symlink = false) {
+		// Create our data item
+		$ret = parent::create($parentId, $inputFileName, $mimeType, $targetName, $symlink);
 
-    /**
-     * Create a new GalleryUnknownItem from an image file
-     *
-     * @param int $parentId the id of the parent GalleryItem
-     * @param string $inputFileName the path to the source image
-     * @param string $mimeType
-     * @param string $targetName the desired name of the new item
-     * @param boolean $symlink (optional) a boolean true if we should symlink instead
-     *        of copy (default is false).
-     * @return GalleryStatus a status code
-     */
-    function create($parentId, $inputFileName, $mimeType, $targetName=null, $symlink=false) {
-	/* Create our data item */
-	$ret = parent::create($parentId, $inputFileName, $mimeType, $targetName, $symlink);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		// We're linkable
+		$this->setIsLinkable(true);
+
+		return null;
 	}
 
-	/* We're linkable */
-	$this->setIsLinkable(true);
+	/**
+	 * @see GalleryEntity::itemTypeName
+	 * @staticvar mimeMap array(mimeTypePattern => array(CapName,name))
+	 */
+	public function itemTypeName($localized = true) {
+		global $gallery;
+		static $mimeMap;
 
-	return null;
-    }
+		if (!isset($mimeMap)) {
+			$mimeMap = array(
+				':^audio/:'
+						=> array($gallery->i18n('Audio'), $gallery->i18n('audio')),
+				':^application/(zip|mac-[cb].*|x-((us|g)?tar|gzip|compress|cpio|stuffit|shar))$:'
+						=> array($gallery->i18n('Archive'), $gallery->i18n('archive')),
+				':^(text/|application/(pdf|postscript|photoshop|msword|vnd.ms-powerpoint)$):'
+						=> array($gallery->i18n('Document'), $gallery->i18n('document')),
+				':application/vnd.ms-excel:'
+						=> array($gallery->i18n('Spreadsheet'), $gallery->i18n('spreadsheet')),
+			);
+		}
 
-    /**
-     * @see GalleryEntity::itemTypeName
-     * @staticvar mimeMap array(mimeTypePattern => array(CapName,name))
-     */
-    function itemTypeName($localized = true) {
-	global $gallery;
-	static $mimeMap;
-
-	if (!isset($mimeMap)) {
-	    $mimeMap = array(
-		':^audio/:'
-		    => array($gallery->i18n('Audio'), $gallery->i18n('audio')),
-		':^application/(zip|mac-[cb].*|x-((us|g)?tar|gzip|compress|cpio|stuffit|shar))$:'
-		    => array($gallery->i18n('Archive'), $gallery->i18n('archive')),
-		':^(text/|application/(pdf|postscript|photoshop|msword|vnd.ms-powerpoint)$):'
-		    => array($gallery->i18n('Document'), $gallery->i18n('document')),
-		':application/vnd.ms-excel:'
-		    => array($gallery->i18n('Spreadsheet'), $gallery->i18n('spreadsheet')),
-	    );
-	}
-
-	$core = null;
-	if ($localized) {
-	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret) {
 		$core = null;
-	    }
-	}
-	foreach ($mimeMap as $pattern => $result) {
-	    if (preg_match($pattern, $this->mimeType)) {
-		return isset($core) ?
-		    array($core->translate($result[0]), $core->translate($result[1])) : $result;
-	    }
-	}
-	return isset($core) ? array($core->translate('File'), $core->translate('file'))
-			    : array('File', 'file');
-    }
 
-    /**
-     * @see GalleryEntity::getClassName
-     */
-    function getClassName() {
-	return 'GalleryUnknownItem';
-    }
+		if ($localized) {
+			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
+
+			if ($ret) {
+				$core = null;
+			}
+		}
+
+		foreach ($mimeMap as $pattern => $result) {
+			if (preg_match($pattern, $this->mimeType)) {
+				return isset($core) ? array($core->translate($result[0]), $core->translate($result[1])) : $result;
+			}
+		}
+
+		return isset($core) ? array($core->translate('File'), $core->translate('file')) : array('File', 'file');
+	}
+
+	/**
+	 * @see GalleryEntity::getClassName
+	 */
+	public function getClassName() {
+		return 'GalleryUnknownItem';
+	}
 }
-?>

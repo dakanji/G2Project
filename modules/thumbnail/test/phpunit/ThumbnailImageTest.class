@@ -29,136 +29,168 @@ GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
  * @version $Revision: 17580 $
  */
 class ThumbnailImageTest extends GalleryTestCase {
-
-    function ThumbnailImageTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$iterations = 2;
-	$parentId = $this->_getRootId();
-	for ($i = 0; $i < $iterations; $i++) {
-	    $gallery->guaranteeTimeLimit(5);
+	public function setUp() {
+		global $gallery;
 
-	    list ($ret, $this->_albums[$i]) = $this->_createRandomAlbum($parentId);
-	    if ($ret) {
-		return $ret;
-	    }
+		$ret = parent::setUp();
 
-	    $parentId = $this->_albums[$i]->getId();
+		if ($ret) {
+			return $ret;
+		}
+
+		$iterations = 2;
+		$parentId   = $this->_getRootId();
+
+		for ($i = 0; $i < $iterations; $i++) {
+			$gallery->guaranteeTimeLimit(5);
+
+			list($ret, $this->_albums[$i]) = $this->_createRandomAlbum($parentId);
+
+			if ($ret) {
+				return $ret;
+			}
+
+			$parentId = $this->_albums[$i]->getId();
+		}
+
+		// delete the top album
+		$this->_markForCleanup($this->_albums[0]);
+
+		list($ret, $this->_item) = $this->_createRandomDataItem($parentId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Add a custom thumbnail for the data item.
+		list($ret, $customThumbId) = ThumbnailHelper::addItem(
+			null,
+			$this->_item->getId(),
+			'G2audio.jpg',
+			dirname(__FILE__) . '/../../images/' . 'G2audio.jpg',
+			'image/jpeg',
+			array(
+				'width'  => 400,
+				'height' => 352,
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Use existing mime-type thumbnail for tests.
+		list($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $thumbnailImages) = GalleryCoreApi::loadEntitiesById(
+			array($customThumbId, $mimeTypeMap['audio/mpeg']),
+			'ThumbnailImage'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_customThumbnail   = array_shift($thumbnailImages);
+		$this->_mimeTypeThumbnail = array_shift($thumbnailImages);
 	}
 
-	/* delete the top album */
-	$this->_markForCleanup($this->_albums[0]);
+	public function testFetchLogicalPathForCustomThumbnail() {
+		list($ret, $logicalPath) = $this->_customThumbnail->fetchLogicalPath();
 
-	list ($ret, $this->_item) = $this->_createRandomDataItem($parentId);
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$id = (string)$this->_customThumbnail->getid();
 
-	/* Add a custom thumbnail for the data item. */
-	list ($ret, $customThumbId) = ThumbnailHelper::addItem(null, $this->_item->getId(),
-			    'G2audio.jpg', dirname(__FILE__) . '/../../images/' . 'G2audio.jpg',
-			    'image/jpeg', array('width' => 400, 'height' => 352));
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Use existing mime-type thumbnail for tests. */
-	list ($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
-	if ($ret) {
-	    return $ret;
+		$this->assertEquals(
+			sprintf(
+				'%s/%s',
+				$id[0],
+				$id . '.jpg'
+			),
+			$logicalPath
+		);
 	}
 
-	list ($ret, $thumbnailImages) = GalleryCoreApi::loadEntitiesById(
-	    array($customThumbId, $mimeTypeMap['audio/mpeg']), 'ThumbnailImage');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_customThumbnail = array_shift($thumbnailImages);
-	$this->_mimeTypeThumbnail = array_shift($thumbnailImages);
-    }
+	public function testMimeTypeThumbnailHasThumbContainerAsParent() {
+		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
 
-    function testFetchLogicalPathForCustomThumbnail() {
-	list ($ret, $logicalPath) = $this->_customThumbnail->fetchLogicalPath();
-	if ($ret) {
-	    return $ret;
-	}
-	$id = (string)$this->_customThumbnail->getid();
-
-	$this->assertEquals(sprintf('%s/%s',
-				    $id{0},
-				    $id . '.jpg'),
-			    $logicalPath);
-    }
-
-    function testMimeTypeThumbnailHasThumbContainerAsParent() {
-	list ($ret, $thumbnailContainerId) =
-		GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals((int)$thumbnailContainerId, $this->_mimeTypeThumbnail->getParentId());
-    }
-
-    function testCustomThumbnailHasItemAsParent() {
-	$this->assertEquals($this->_item->getId(), $this->_customThumbnail->getParentId());
-    }
-
-    function testFetchLogicalPathForMimeTypeThumbnail() {
-	list ($ret, $logicalPath) = $this->_mimeTypeThumbnail->fetchLogicalPath();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals((int)$thumbnailContainerId, $this->_mimeTypeThumbnail->getParentId());
 	}
 
-	$this->assertEquals($this->_mimeTypeThumbnail->getPathComponent(), $logicalPath);
-    }
+	public function testCustomThumbnailHasItemAsParent() {
+		$this->assertEquals($this->_item->getId(), $this->_customThumbnail->getParentId());
+	}
 
-    function testCustomThumbForRootAlbum() {
-	$existingPathComponent = $this->_mimeTypeThumbnail->getPathComponent();
-	list ($ret, $rootAlbumId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
-	    return $ret;
-	}
-	$filename = dirname(__FILE__) . '/../../images/G2audio.jpg';
-	list ($ret, $thumbnailId) = ThumbnailHelper::addItem(
-		null, $rootAlbumId, $existingPathComponent, $filename, 'image/jpeg');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $thumbnail) = GalleryCoreApi::loadEntitiesById($thumbnailId, 'ThumbnailImage');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($thumbnail);
+	public function testFetchLogicalPathForMimeTypeThumbnail() {
+		list($ret, $logicalPath) = $this->_mimeTypeThumbnail->fetchLogicalPath();
 
-	/* Verify that the new thumbnail exists and has the correct attributes. */
-	list ($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($rootAlbumId);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_mimeTypeThumbnail->getPathComponent(), $logicalPath);
 	}
-	$this->assertEquals($thumbnailId, $thumbnailImage->getId(), 'id');
-	list ($ret, $logicalPath) = $thumbnail->fetchLogicalPath();
-	if ($ret) {
-	    return $ret;
+
+	public function testCustomThumbForRootAlbum() {
+		$existingPathComponent   = $this->_mimeTypeThumbnail->getPathComponent();
+		list($ret, $rootAlbumId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+
+		if ($ret) {
+			return $ret;
+		}
+		$filename                = dirname(__FILE__) . '/../../images/G2audio.jpg';
+		list($ret, $thumbnailId) = ThumbnailHelper::addItem(
+			null,
+			$rootAlbumId,
+			$existingPathComponent,
+			$filename,
+			'image/jpeg'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $thumbnail) = GalleryCoreApi::loadEntitiesById($thumbnailId, 'ThumbnailImage');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($thumbnail);
+
+		// Verify that the new thumbnail exists and has the correct attributes.
+		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($rootAlbumId);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals($thumbnailId, $thumbnailImage->getId(), 'id');
+		list($ret, $logicalPath) = $thumbnail->fetchLogicalPath();
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $path) = $thumbnail->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $existingPath) = $this->_mimeTypeThumbnail->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert($path != $existingPath, 'path collision');
 	}
-	list ($ret, $path) = $thumbnail->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $existingPath) = $this->_mimeTypeThumbnail->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($path != $existingPath, 'path collision');
-    }
 }
-?>

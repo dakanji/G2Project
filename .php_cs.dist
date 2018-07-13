@@ -45,6 +45,11 @@ return PhpCsFixer\Config::create()
 			'position_after_functions_and_oop_constructs' => 'same',
 		),
 		'cast_spaces' => array('space' => 'none'),
+		'class_attributes_separation' => array(
+			'elements' => array(
+				'method',
+			),
+		),
 		'comment_to_phpdoc' => false,
 		'concat_space' => array('spacing' => 'one'),
 		'date_time_immutable' => false,
@@ -58,6 +63,7 @@ return PhpCsFixer\Config::create()
 		'linebreak_after_opening_tag' => true,
 		'list_syntax' => array('syntax' => 'long'),
 		'lowercase_cast' => true,
+		'mb_str_functions' => false,
 		'method_chaining_indentation' => true,
 		'new_with_braces' => true,
 		'native_function_casing' => true,
@@ -100,7 +106,7 @@ return PhpCsFixer\Config::create()
 				'srand' => 'mt_srand',
 			),
 		),
-		'self_accessor' => true,
+		'self_accessor' => false,
 		'single_line_comment_style' => true,
 		'standardize_not_equals' => true,
 		'trailing_comma_in_multiline_array' => true,

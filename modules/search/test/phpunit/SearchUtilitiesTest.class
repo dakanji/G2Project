@@ -27,19 +27,15 @@
  * @version $Revision: 17580 $
  */
 class SearchUtilitiesTest extends GalleryTestCase {
+	public function __construct($methodName) {
+		parent::__construct($methodName);
+	}
 
-    function SearchUtilitiesTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
+	public function testSanitizeSearchCriteria() {
+		global $gallery;
 
-    function testSanitizeSearchCriteria() {
-	global $gallery;
+		GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
 
-	GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
-
-	$this->assertEquals('%%foo%%bar%%', SearchUtilities::sanitizeSearchCriteria('%foo%bar%'));
-    }
-
+		$this->assertEquals('%%foo%%bar%%', SearchUtilities::sanitizeSearchCriteria('%foo%bar%'));
+	}
 }
-
-?>

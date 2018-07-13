@@ -28,175 +28,195 @@ GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
  * @version $Revision: 17580 $
  */
 class ViewCartView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		$returnItemId = GalleryUtilities::getRequestVariables('itemId');
+		$template->setVariable('itemId', $returnItemId);
 
-	$returnItemId = GalleryUtilities::getRequestVariables('itemId');
-	$template->setVariable('itemId', $returnItemId);
+		list($ret, $itemList) = CartHelper::loadCartItems();
 
-	list ($ret, $itemList) = CartHelper::loadCartItems();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
-	if ($ret) {
-	    return array($ret, null);
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 
-	if ($form['formName'] != 'ViewCart') {
-	    /* First time around, initialize the cart counts */
-	    foreach ($cartItemIds as $itemId => $count) {
-		$form['counts'][$itemId] = $count;
-	    }
-	    $form['formName'] = 'ViewCart';
-	}
-	$ViewCart = array();
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	/* Find all our cart plugins */
-	list ($ret, $plugins) = $this->_loadAllCartPlugins();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Apply the plugin filter criteria (item types, required permissions) */
-	$items = $supportedItemIds = $thumbnails = $itemTypeNames = array();
-	if (!empty($cartItemIds)) {
-	    foreach ($itemList as $item) {
-		$items[$item->getId()] = (array)$item;
-
-		/* TODO: This is a O(N^3) operation -- probably should be optimized */
-		foreach ($plugins as $pluginId => $pluginData) {
-		    foreach ($pluginData['supportedItemTypes'] as $type) {
-			if ($type == '*' || GalleryUtilities::isA($item, $type)) {
-			    $plugins[$pluginId]['supported'][$item->getId()] = 1;
-			    $supportedItemIds[$item->getId()] = 1;
-			    break;
+		if ($form['formName'] != 'ViewCart') {
+			// First time around, initialize the cart counts
+			foreach ($cartItemIds as $itemId => $count) {
+				$form['counts'][$itemId] = $count;
 			}
-		    }
+			$form['formName'] = 'ViewCart';
+		}
+		$ViewCart = array();
+
+		// Find all our cart plugins
+		list($ret, $plugins) = $this->_loadAllCartPlugins();
+
+		if ($ret) {
+			return array($ret, null);
 		}
 
-		$itemTypeNames[$item->getId()] = $item->itemTypeName();
-	    }
+		// Apply the plugin filter criteria (item types, required permissions)
+		$items = $supportedItemIds = $thumbnails = $itemTypeNames = array();
 
-	    /* Filter out unsupported actions */
-	    $itemIds = array_keys($supportedItemIds);
-	    list ($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach ($plugins as $pluginId => $pluginData) {
-		if (empty($pluginData['supported'])) {
-		    continue;
-		}
-		foreach ($pluginData['supported'] as $itemId => $ignored) {
-		    $grantedPermissions = 0;
-		    foreach ($pluginData['requiredPermissions'] as $permissionId) {
-			if (!empty($permissionMap[$itemId][$permissionId])) {
-			    $grantedPermissions++;
+		if (!empty($cartItemIds)) {
+			foreach ($itemList as $item) {
+				$items[$item->getId()] = (array)$item;
+
+				// TODO: This is a O(N^3) operation -- probably should be optimized
+				foreach ($plugins as $pluginId => $pluginData) {
+					foreach ($pluginData['supportedItemTypes'] as $type) {
+						if ($type == '*' || GalleryUtilities::isA($item, $type)) {
+							$plugins[$pluginId]['supported'][$item->getId()] = 1;
+							$supportedItemIds[$item->getId()]                = 1;
+
+							break;
+						}
+					}
+				}
+
+				$itemTypeNames[$item->getId()] = $item->itemTypeName();
 			}
-		    }
-		    if ($grantedPermissions == count($pluginData['requiredPermissions'])) {
-		    	$plugins[$pluginId]['isAvailable'] = 1;
-		    	break;
-		    }
+
+			// Filter out unsupported actions
+			$itemIds                   = array_keys($supportedItemIds);
+			list($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach ($plugins as $pluginId => $pluginData) {
+				if (empty($pluginData['supported'])) {
+					continue;
+				}
+
+				foreach ($pluginData['supported'] as $itemId => $ignored) {
+					$grantedPermissions = 0;
+
+					foreach ($pluginData['requiredPermissions'] as $permissionId) {
+						if (!empty($permissionMap[$itemId][$permissionId])) {
+							$grantedPermissions++;
+						}
+					}
+
+					if ($grantedPermissions == count($pluginData['requiredPermissions'])) {
+						$plugins[$pluginId]['isAvailable'] = 1;
+
+						break;
+					}
+				}
+			}
+
+			// Fetch thumbnails
+			list($ret, $thumbnailList) = GalleryCoreApi::fetchThumbnailsByItemIds(array_keys($cartItemIds));
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach ($thumbnailList as $thumbnail) {
+				$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
+			}
 		}
-	    }
 
-	    /* Fetch thumbnails */
-	    list ($ret, $thumbnailList) =
-		GalleryCoreApi::fetchThumbnailsByItemIds(array_keys($cartItemIds));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach ($thumbnailList as $thumbnail) {
-		$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
-	    }
-	}
-	
-	$ViewCart['items'] = $items;
-	$ViewCart['itemTypeNames'] = $itemTypeNames;
-	$ViewCart['thumbnails'] = $thumbnails;
-	$ViewCart['plugins'] = $plugins;
-	$ViewCart['controller'] = 'cart.ModifyCart';
-	$template->setVariable('ViewCart', $ViewCart);
+		$ViewCart['items']         = $items;
+		$ViewCart['itemTypeNames'] = $itemTypeNames;
+		$ViewCart['thumbnails']    = $thumbnails;
+		$ViewCart['plugins']       = $plugins;
+		$ViewCart['controller']    = 'cart.ModifyCart';
+		$template->setVariable('ViewCart', $ViewCart);
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'cart');
-	if ($ret) {
-	    return array($ret, null);
-	}
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'cart');
 
-	$template->title($module->translate('View Your Cart'));
-	return array(null,
-		     array('body' => 'modules/cart/templates/ViewCart.tpl'));
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
 
-    /**
-     * Load all plugin instances and read their information into a data structure.
-     *
-     * @return array GalleryStatus,
-     *               array string plugin id => array plugin data
-     * @access private
-     */
-    function _loadAllCartPlugins() {
-	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
-	list ($ret, $basicInterfaceIds) =
-	    GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_0');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_1.class');
-	list ($ret, $advancedInterfaceIds) =
-	    GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_1');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$plugins = $instances = array();
-	foreach ($basicInterfaceIds as $id => $className) {
-	    list ($ret, $instances[$id]) =
-		GalleryCoreApi::newFactoryInstance('CartPluginInterface_1_0', $className);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $plugins[$id]['requiredPermissions'] = array();
-	}
-	foreach ($advancedInterfaceIds as $id => $className) {
-	    list ($ret, $instances[$id]) =
-		GalleryCoreApi::newFactoryInstance('CartPluginInterface_1_1', $className);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $plugins[$id]['requiredPermissions'] = $instances[$id]->getRequiredPermissions();
+		$template->title($module->translate('View Your Cart'));
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/cart/templates/ViewCart.tpl',
+			),
+		);
 	}
 
-	foreach ($instances as $id => $instance) {
-	    list ($ret, $plugins[$id]['actionDisplayName']) = $instance->getActionDisplayName();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    /*
-	     * Figure out what types each plugin can handle so that we can cue the UI
-	     * to only send it the ones of the appropriate types.
-	     */
-	    $plugins[$id]['supportedItemTypes'] = $instances[$id]->getSupportedItemTypes();
+	/**
+	 * Load all plugin instances and read their information into a data structure.
+	 *
+	 * @return array GalleryStatus,
+	 *               array string plugin id => array plugin data
+	 * @access private
+	 */
+	public function _loadAllCartPlugins() {
+		GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+		list($ret, $basicInterfaceIds) = GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_0');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_1.class');
+		list($ret, $advancedInterfaceIds) = GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_1');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$plugins = $instances = array();
+
+		foreach ($basicInterfaceIds as $id => $className) {
+			list($ret, $instances[$id]) = GalleryCoreApi::newFactoryInstance('CartPluginInterface_1_0', $className);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$plugins[$id]['requiredPermissions'] = array();
+		}
+
+		foreach ($advancedInterfaceIds as $id => $className) {
+			list($ret, $instances[$id]) = GalleryCoreApi::newFactoryInstance('CartPluginInterface_1_1', $className);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$plugins[$id]['requiredPermissions'] = $instances[$id]->getRequiredPermissions();
+		}
+
+		foreach ($instances as $id => $instance) {
+			list($ret, $plugins[$id]['actionDisplayName']) = $instance->getActionDisplayName();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			/*
+			 * Figure out what types each plugin can handle so that we can cue the UI
+			 * to only send it the ones of the appropriate types.
+			 */
+			$plugins[$id]['supportedItemTypes'] = $instances[$id]->getSupportedItemTypes();
+		}
+
+		return array(null, $plugins);
 	}
 
-	return array(null, $plugins);
-    }
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'cart');
 
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'cart');
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('view cart'));
 	}
-
-	return array(null, $module->translate('view cart'));
-    }
 }
-?>

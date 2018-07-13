@@ -27,111 +27,122 @@ GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHelper.cla
  * @author Tim Almdal <tnalmdal@shaw.ca>
  * @version $Revision: 17580 $
  */
-class NotificationRouter /* extends GalleryEventListener */ {
-    /**
-     * Generic event handler for notifications.
-     * Determine if there are any notification handlers registered for the input event and if there
-     * are any subscribers.
-     *
-     * @see GalleryEventListener::handleEvent
-     */
-    function handleEvent($event) {
-	global $gallery;
+class NotificationRouter // extends GalleryEventListener
+{
+	/**
+	 * Generic event handler for notifications.
+	 * Determine if there are any notification handlers registered for the input event and if there
+	 * are any subscribers.
+	 *
+	 * @see GalleryEventListener::handleEvent
+	 */
+	public function handleEvent($event) {
+		global $gallery;
 
-	if ($gallery->getDebug()) {
-	    $gallery->debug('<hr/>NotificationRouter::handleEvent');
-	    $gallery->debug_r($event);
-	}
-
-	$eventName = $event->getEventName();
-
-	list ($ret, $implementations) = GalleryCoreApi::getAllFactoryImplementationIdsWithHint(
-							    'NotificationEvent_1_0', $eventName);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $active) =
-	    NotificationHelper::getActiveNotificationsHandlers(array_keys($implementations));
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if (count($active) == 0) {
-	    return array(null, null);
-	}
-
-	list ($ret, $notifications) = NotificationHelper::getEnabledNotifications();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	foreach ($active as $notificationName => $handlers) {
-	    list ($ret, $notification) = GalleryCoreApi::newFactoryInstanceById(
-						     'NotificationEvent_1_0', $notificationName);
-	    if ($ret) {
-		return array($ret, null);;
-	    }
-
-	    $specs = $notification->getEventSpecs();
-	    $entity = $event->getEntity();
-
-	    if (!empty($entity) && !empty($specs['entityType'])) {
-		if (!GalleryUtilities::isA($entity, $specs['entityType'])) {
-		    continue;
+		if ($gallery->getDebug()) {
+			$gallery->debug('<hr/>NotificationRouter::handleEvent');
+			$gallery->debug_r($event);
 		}
 
-		if (!empty($specs['persistentFlag'])
-			&& !$entity->testPersistentFlag($specs['persistentFlag'])) {
-		    continue;
-		}
-	    }
+		$eventName = $event->getEventName();
 
-	    $notification->setEvent($event);
+		list($ret, $implementations) = GalleryCoreApi::getAllFactoryImplementationIdsWithHint(
+								'NotificationEvent_1_0',
+		$eventName
+	);
 
-	    foreach ($handlers as $handlerId) {
-		if (empty($notifications[$notificationName][$handlerId])
-			|| empty($notifications[$notificationName][$handlerId]['enabled'])) {
-		    continue;
-		}
-
-		$ret = $this->_fireNotification($notificationName, $notification, $handlerId);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
+
+		list($ret, $active) =
+		NotificationHelper::getActiveNotificationsHandlers(array_keys($implementations));
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (count($active) == 0) {
+			return array(null, null);
+		}
+
+		list($ret, $notifications) = NotificationHelper::getEnabledNotifications();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		foreach ($active as $notificationName => $handlers) {
+			list($ret, $notification) = GalleryCoreApi::newFactoryInstanceById(
+							 'NotificationEvent_1_0',
+			$notificationName
+		);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$specs = $notification->getEventSpecs();
+			$entity = $event->getEntity();
+
+			if (!empty($entity) && !empty($specs['entityType'])) {
+				if (!GalleryUtilities::isA($entity, $specs['entityType'])) {
+					continue;
+				}
+
+				if (!empty($specs['persistentFlag'])
+			&& !$entity->testPersistentFlag($specs['persistentFlag'])) {
+					continue;
+				}
+			}
+
+			$notification->setEvent($event);
+
+			foreach ($handlers as $handlerId) {
+				if (empty($notifications[$notificationName][$handlerId])
+			|| empty($notifications[$notificationName][$handlerId]['enabled'])) {
+					continue;
+				}
+
+				$ret = $this->_fireNotification($notificationName, $notification, $handlerId);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+		}
+
+		return array(null, null);
 	}
 
-	return array(null, null);
-    }
+	/**
+	 * Fire the actual notification
+	 * @param string $name Notification name
+	 * @param string $handler Notification handler name
+	 * @return GalleryStatus
+	 */
+	public function _fireNotification($name, $notification, $handler) {
+		list($ret, $handlerInstance) =
+		GalleryCoreApi::newFactoryInstanceById('NotificationHandler_1_0', $handler);
 
-    /**
-     * Fire the actual notification
-     * @param string $name Notification name
-     * @param Notificationevent $$notification
-     * @param string $handler Notification handler name
-     * @return GalleryStatus
-     */
-    function _fireNotification($name, $notification, $handler) {
-	list ($ret, $handlerInstance) =
-	    GalleryCoreApi::newFactoryInstanceById('NotificationHandler_1_0', $handler);
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $subscribers) = NotificationHelper::getSubscribers($name, $notification);
-	if ($ret) {
-	    return $ret;
-	}
-	if (count($subscribers) > 0) {
-	    $ret = $handlerInstance->handleNotification($subscribers, $notification);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
+		list($ret, $subscribers) = NotificationHelper::getSubscribers($name, $notification);
 
-	return null;
-    }
+		if ($ret) {
+			return $ret;
+		}
+
+		if (count($subscribers) > 0) {
+			$ret = $handlerInstance->handleNotification($subscribers, $notification);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		return null;
+	}
 }
-
-?>

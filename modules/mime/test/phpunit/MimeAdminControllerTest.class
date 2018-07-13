@@ -25,93 +25,126 @@
  * @version $Revision: 17580 $
  */
 class MimeAdminControllerTest extends GalleryControllerTestCase {
-
-    function MimeAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'mime.MimeAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'mime.MimeAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'mime');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'mime');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-	$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
-	if ($ret) {
-	    return $ret;
+
+	public function tearDown() {
+		$ret = GalleryCoreApi::removeMimeType(array(
+			'mimeType' => 'test/test',
+		));
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
-    }
 
-    function tearDown() {
-	$ret = GalleryCoreApi::removeMimeType(array('mimeType' => 'test/test'));
-	if ($ret) {
-	    $this->failWithStatus($ret);
+	public function testSaveAllowAll() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
+		GalleryUtilities::putRequestVariable('form[allowMime]', 'all');
+		GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'mime.MimeAdmin',
+				),
+				'status'   => array(
+					'saved' => true,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('all', $params['allowMime'], 'allowMime');
+		$this->assertEquals('', $params['mimeList'], 'mimeList');
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
+	public function testSaveBlock() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
+		GalleryUtilities::putRequestVariable('form[allowMime]', 'block');
+		GalleryUtilities::putRequestVariable('form[upload][image/bmp]', 'on');
+		GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'mime.MimeAdmin',
+				),
+				'status'   => array(
+					'saved' => true,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('block', $params['allowMime'], 'allowMime');
+		$this->assertEquals('image/bmp | test/test', $params['mimeList'], 'mimeList');
 	}
-    }
 
-    function testSaveAllowAll() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
-	GalleryUtilities::putRequestVariable('form[allowMime]', 'all');
-	GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+	public function testDelete() {
+		GalleryUtilities::putRequestVariable('form[action][delete]', 'test/test');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'mime.MimeAdmin',
+				),
+				'status'   => array(
+					'deleted' => 'test/test',
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Delete'
+		);
+		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'mime.MimeAdmin'),
-				  'status' => array('saved' => true),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return array($ret, null);
+		}
+		$this->assertEquals(array(), $extensions, 'Delete results');
 	}
-	$this->assertEquals('all', $params['allowMime'], 'allowMime');
-	$this->assertEquals('', $params['mimeList'], 'mimeList');
-    }
-
-    function testSaveBlock() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
-	GalleryUtilities::putRequestVariable('form[allowMime]', 'block');
-	GalleryUtilities::putRequestVariable('form[upload][image/bmp]', 'on');
-	GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'mime.MimeAdmin'),
-				  'status' => array('saved' => true),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('block', $params['allowMime'], 'allowMime');
-	$this->assertEquals('image/bmp | test/test', $params['mimeList'], 'mimeList');
-    }
-
-    function testDelete() {
-	GalleryUtilities::putRequestVariable('form[action][delete]', 'test/test');
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'mime.MimeAdmin'),
-				  'status' => array('deleted' => 'test/test'),
-				  'error' => array()),
-			    $results, 'Delete');
-	list ($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$this->assertEquals(array(), $extensions, 'Delete results');
-    }
 }
-?>

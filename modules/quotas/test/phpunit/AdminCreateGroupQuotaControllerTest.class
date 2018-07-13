@@ -26,154 +26,213 @@
  * @version $Revision: 17580 $
  */
 class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
-
-    function AdminCreateGroupQuotaControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'quotas.AdminCreateGroupQuota');
-    }
-
-    function testCancel() {
-	/* Create a group to add a quota to */
-	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'quotas.AdminCreateGroupQuota');
 	}
 
-	GalleryUtilities::putRequestVariable('groupId', $group->getId());
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+	public function testCancel() {
+		// Create a group to add a quota to
+		list($ret, $group) = $this->_createRandomGroup();
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminQuotas'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_deleteEntity($group);
-    }
+		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 
-    function testCreateGroupQuota() {
-	/* Create a group to add a quota to */
-	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret) {
-	    return $ret;
-	}
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
-	GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
-	GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
-	GalleryUtilities::putRequestVariable('groupId', $group->getId());
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminQuotas',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminQuotas'),
-				  'status' => array('createdGroup' => $group->getGroupName()),
-				  'error' => array()),
-			    $results);
-	$this->_deleteGroupQuota($group->getId());
-	$this->_deleteEntity($group);
-    }
-
-    function testCreateGroupQuotaMissingValues() {
-	/* Create a group for our tests */
-	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret) {
-	    return $ret;
+		$this->_deleteEntity($group);
 	}
 
-	/* No Values */
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('groupId', $group->getId());
+	public function testCreateGroupQuota() {
+		// Create a group to add a quota to
+		list($ret, $group) = $this->_createRandomGroup();
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminCreateGroupQuota'),
-				  'status' => array(),
-				  'error' => array('form[error][quotaSize][missing]',
-						   'form[error][quotaUnit][missing]')),
-			    $results);
+		if ($ret) {
+			return $ret;
+		}
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
+		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
+		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
+		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 
-	/* quota size */
-	GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminCreateGroupQuota'),
-				  'status' => array(),
-				  'error' => array('form[error][quotaUnit][missing]')),
-			    $results);
-
-	/* quota unit only */
-	GalleryUtilities::removeRequestVariable('form[quotaSize]');
-	GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminCreateGroupQuota'),
-				  'status' => array(),
-				  'error' => array('form[error][quotaSize][missing]')),
-			    $results);
-
-	$this->_deleteEntity($group);
-    }
-
-    function testCreateGroupQuotaGroupIdMissing() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-    }
-
-    function testCreateGroupQuotaDuplicateQuota() {
-	/* Create a group to add a quota to */
-	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminQuotas',
+				),
+				'status'   => array(
+					'createdGroup' => $group->getGroupName(),
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+		$this->_deleteGroupQuota($group->getId());
+		$this->_deleteEntity($group);
 	}
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
-	GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
-	GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
-	GalleryUtilities::putRequestVariable('groupId', $group->getId());
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminQuotas'),
-				  'status' => array('createdGroup' => $group->getGroupName()),
-				  'error' => array()),
-			    $results);
+	public function testCreateGroupQuotaMissingValues() {
+		// Create a group for our tests
+		list($ret, $group) = $this->_createRandomGroup();
 
-	/* Attempt to create a quota for the group that already has one */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'quotas.AdminCreateGroupQuota'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_deleteGroupQuota($group->getId());
-	$this->_deleteEntity($group);
-    }
+		// No Values
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 
-    function _deleteEntity($entity) {
-	global $gallery;
-	$ret = GalleryCoreApi::deleteEntityById($entity->getId(), $entity->getEntityType());
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminCreateGroupQuota',
+				),
+				'status'   => array(),
+				'error'    => array(
+					'form[error][quotaSize][missing]',
+					'form[error][quotaUnit][missing]',
+				),
+			),
+			$results
+		);
+
+		// quota size
+		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminCreateGroupQuota',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][quotaUnit][missing]'),
+			),
+			$results
+		);
+
+		// quota unit only
+		GalleryUtilities::removeRequestVariable('form[quotaSize]');
+		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminCreateGroupQuota',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][quotaSize][missing]'),
+			),
+			$results
+		);
+
+		$this->_deleteEntity($group);
 	}
-    }
 
-    function _createGroupQuota($groupId, $quota) {
-	$ret = GalleryCoreApi::addMapEntry(
-	    'QuotasMap',
-	    array('userOrGroupId' => $groupId, 'quotaSize' => $quota));
-	if ($ret) {
-	    return $ret;
+	public function testCreateGroupQuotaGroupIdMissing() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
-    }
 
-    function _deleteGroupQuota($groupId) {
-	$ret = GalleryCoreApi::removeMapEntry('QuotasMap', array('userOrGroupId' => $groupId));
-	if ($ret) {
-	    return $ret;
+	public function testCreateGroupQuotaDuplicateQuota() {
+		// Create a group to add a quota to
+		list($ret, $group) = $this->_createRandomGroup();
+
+		if ($ret) {
+			return $ret;
+		}
+		GalleryUtilities::putRequestVariable('form[action][create]', 1);
+		GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
+		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
+		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
+		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminQuotas',
+				),
+				'status'   => array(
+					'createdGroup' => $group->getGroupName(),
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		// Attempt to create a quota for the group that already has one
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'quotas.AdminCreateGroupQuota',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$this->_deleteGroupQuota($group->getId());
+		$this->_deleteEntity($group);
 	}
-    }
+
+	public function _deleteEntity($entity) {
+		global $gallery;
+		$ret = GalleryCoreApi::deleteEntityById($entity->getId(), $entity->getEntityType());
+
+		if ($ret) {
+			return $ret;
+		}
+	}
+
+	public function _createGroupQuota($groupId, $quota) {
+		$ret = GalleryCoreApi::addMapEntry(
+			'QuotasMap',
+			array(
+				'userOrGroupId' => $groupId,
+				'quotaSize'     => $quota,
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+	}
+
+	public function _deleteGroupQuota($groupId) {
+		$ret = GalleryCoreApi::removeMapEntry('QuotasMap', array(
+			'userOrGroupId' => $groupId,
+		));
+
+		if ($ret) {
+			return $ret;
+		}
+	}
 }
-?>

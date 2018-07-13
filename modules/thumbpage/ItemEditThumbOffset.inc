@@ -26,139 +26,165 @@
  * @version $Revision: 17580 $
  */
 class ItemEditThumbOffset extends ItemEditPlugin {
+	/**
+	 * @see ItemEditPlugin::handleRequest
+	 */
+	public function handleRequest($form, &$item, &$preferred) {
+		$status             = null;
+		$error              = array();
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
-    /**
-     * @see ItemEditPlugin::handleRequest
-     */
-    function handleRequest($form, &$item, &$preferred) {
-	$status = null;
-	$error = array();
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
-	    return array($ret, null, null, null);
-	}
-
-	if (isset($form['action']['save'])) {
-	    list ($ret, $duration) = $this->_getDuration($item);
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    if ($form['offset'] > $duration || $form['offset'] < 0) {
-		$error[] = 'form[error][offset][invalid]';
-	    }
-	}
-
-	if (isset($form['action']['save']) && empty($error)) {
-	    list ($ret, $thumbnails) =
-		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    $thumb = array_shift($thumbnails);
-	    $operations = $thumb->getDerivativeOperations();
-	    if ($form['offset'] == 0) {
-		$operations = preg_replace('/(^|;)select-offset\|[0-9.]+(;|$)/', '$1', $operations);
-	    } else if (preg_match('/(((^|;)select-offset\|)([0-9.]+))(;|$)/', $operations, $regs)) {
-		if ($form['offset'] != $regs[4]) {
-		    $operations = str_replace($regs[1], $regs[2] . $form['offset'], $operations);
+		if ($ret) {
+			return array($ret, null, null, null);
 		}
-	    } else {
-		$operations = 'select-offset|' . $form['offset'] . ';' . $operations;
-	    }
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    $thumb->setDerivativeOperations($operations);
-	    $ret = $thumb->save();
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
 
-	    $status = $module->translate('Changes saved successfully');
-	} /* else $form['action']['reset']) */
+		if (isset($form['action']['save'])) {
+			list($ret, $duration) = $this->_getDuration($item);
 
-	return array(null, $error, $status, false);
-    }
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
 
-    /**
-     * @see ItemEditPlugin::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item, $thumbnail) {
-	if ($form['formName'] != 'ItemEditThumbOffset') {
-	    $form['formName'] = 'ItemEditThumbOffset';
-	    $form['offset'] = '0';
-	    if (preg_match('/(^|;)select-offset\|([0-9.]+)/',
-			   $thumbnail->getDerivativeOperations(), $regs)) {
-		$form['offset'] = $regs[2];
-	    }
-	}
-	list ($ret, $duration) = $this->_getDuration($item);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$form['duration'] = sprintf('%.3f', $duration);
-	$template->setVariable('controller', 'thumbpage.ItemEditThumbOffset');
-	return array(null,
-		     'modules/thumbpage/templates/Offset.tpl', 'modules_thumbpage');
-    }
+			if ($form['offset'] > $duration || $form['offset'] < 0) {
+				$error[] = 'form[error][offset][invalid]';
+			}
+		}
 
-    /**
-     * @see ItemEditPlugin::isSupported
-     */
-    function isSupported($item, $thumbnail) {
-	if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
-	    list ($ret, $mimeTypes) =
-		GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'movieTypes');
-	    if (!$ret) {
-		$list = explode('|', $mimeTypes);
-		return in_array($item->getMimeType(), $list);
-	    }
-	}
-	return false;
-    }
+		if (isset($form['action']['save']) && empty($error)) {
+			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
-    /**
-     * @see ItemEditPlugin::getTitle
-     */
-    function getTitle() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $module->translate('Thumbnail'));
-    }
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			$thumb      = array_shift($thumbnails);
+			$operations = $thumb->getDerivativeOperations();
 
-    /**
-     * Get the movie duration
-     * @param GalleryDataItem $item
-     * @return array GalleryStatus a status code
-     *               float duration
-     * @access private
-     */
-    function _getDuration(&$item) {
-	list ($ret, $path) = $item->fetchPath();
-	if ($ret) {
-	    return array($ret, null);
+			if ($form['offset'] == 0) {
+				$operations = preg_replace('/(^|;)select-offset\|[0-9.]+(;|$)/', '$1', $operations);
+			} elseif (preg_match('/(((^|;)select-offset\|)([0-9.]+))(;|$)/', $operations, $regs)) {
+				if ($form['offset'] != $regs[4]) {
+					$operations = str_replace($regs[1], $regs[2] . $form['offset'], $operations);
+				}
+			} else {
+				$operations = 'select-offset|' . $form['offset'] . ';' . $operations;
+			}
+			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			$thumb->setDerivativeOperations($operations);
+			$ret = $thumb->save();
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			$ret = GalleryCoreApi::releaseLocks($lockId);
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+
+			$status = $module->translate('Changes saved successfully');
+		} // else $form['action']['reset'])
+
+		return array(null, $error, $status, false);
 	}
-	list ($ret, $toolkit) =
-	    GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'dimensions-and-duration');
-	if ($ret) {
-	    return array($ret, null);
+
+	/**
+	 * @see ItemEditPlugin::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+		if ($form['formName'] != 'ItemEditThumbOffset') {
+			$form['formName'] = 'ItemEditThumbOffset';
+			$form['offset']   = '0';
+
+			if (preg_match(
+				'/(^|;)select-offset\|([0-9.]+)/',
+				$thumbnail->getDerivativeOperations(),
+				$regs
+			)
+			) {
+				$form['offset'] = $regs[2];
+			}
+		}
+		list($ret, $duration) = $this->_getDuration($item);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$form['duration'] = sprintf('%.3f', $duration);
+		$template->setVariable('controller', 'thumbpage.ItemEditThumbOffset');
+
+		return array(
+			null,
+			'modules/thumbpage/templates/Offset.tpl',
+			'modules_thumbpage',
+		);
 	}
-	if (!isset($toolkit)) {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+
+	/**
+	 * @see ItemEditPlugin::isSupported
+	 */
+	public function isSupported($item, $thumbnail) {
+		if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
+			list($ret, $mimeTypes) = GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'movieTypes');
+
+			if (!$ret) {
+				$list = explode('|', $mimeTypes);
+
+				return in_array($item->getMimeType(), $list);
+			}
+		}
+
+		return false;
 	}
-	list ($ret, $result) = $toolkit->getProperty(
-	    $item->getMimeType(), 'dimensions-and-duration', $path);
-	if ($ret) {
-	    return array($ret, null);
+
+	/**
+	 * @see ItemEditPlugin::getTitle
+	 */
+	public function getTitle() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('Thumbnail'));
 	}
-	return array(null, $result[2]);
-    }
+
+	/**
+	 * Get the movie duration
+	 * @param GalleryDataItem $item
+	 * @return array GalleryStatus a status code
+	 *               float duration
+	 * @access private
+	 */
+	public function _getDuration(&$item) {
+		list($ret, $path) = $item->fetchPath();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'dimensions-and-duration');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!isset($toolkit)) {
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+		}
+		list($ret, $result) = $toolkit->getProperty(
+			$item->getMimeType(),
+			'dimensions-and-duration',
+			$path
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $result[2]);
+	}
 }
-?>

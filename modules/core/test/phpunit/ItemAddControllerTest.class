@@ -26,803 +26,1105 @@
  * @version $Revision: 17580 $
  */
 class ItemAddControllerTest extends GalleryControllerTestCase {
-
-    function ItemAddControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'core.ItemAdd');
-    }
-
-    function setUp() {
-	global $gallery;
-	$session =& $gallery->getSession();
-
-    	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core.ItemAdd');
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
-							       array('orderBy' => 'orderWeight'));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function setUp() {
+		global $gallery;
+		$session =& $gallery->getSession();
 
-	$this->_markFactoryForCleanup();
-	$this->_unregisterFactoryImplementationForTest('ItemAddPlugin');
-	$this->_unregisterFactoryImplementationForTest('ItemAddOption');
-	$path = 'modules/core/test/phpunit/ItemAddControllerTest.class';
+		$ret = parent::setUp();
 
-	$this->_registerFactoryImplementationForTest(
-	    'ItemAddPlugin', 'ItemAddControllerTestPluginSuccess',
-	    'ItemAddControllerTestPluginSuccess', $path, 'coreTest');
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_registerFactoryImplementationForTest(
-	    'ItemAddPlugin', 'ItemAddControllerTestPluginContinue',
-	    'ItemAddControllerTestPluginContinue', $path, 'coreTest');
+		list($ret, $this->_album) = $this->_createRandomAlbum(
+			$this->_getRootId(),
+			array(
+				'orderBy' => 'orderWeight',
+			)
+		);
 
-	$this->_registerFactoryImplementationForTest(
-	    'ItemAddPlugin', 'ItemAddControllerTestPluginFail',
-	    'ItemAddControllerTestPluginFail', $path, 'coreTest');
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
 
-	$this->_registerFactoryImplementationForTest(
-	    'GalleryToolkit', 'ItemAddControllerTestToolkit',
-	    'ItemAddControllerTestToolkit', $path, 'coreTest');
+		$this->_markFactoryForCleanup();
+		$this->_unregisterFactoryImplementationForTest('ItemAddPlugin');
+		$this->_unregisterFactoryImplementationForTest('ItemAddOption');
+		$path = 'modules/core/test/phpunit/ItemAddControllerTest.class';
 
-	$this->_markToolkitForCleanup('ItemAddControllerTestToolkit');
+		$this->_registerFactoryImplementationForTest(
+			'ItemAddPlugin',
+			'ItemAddControllerTestPluginSuccess',
+			'ItemAddControllerTestPluginSuccess',
+			$path,
+			'coreTest'
+		);
 
-	$ret = GalleryCoreApi::registerToolkitOperation(
-	    'ItemAddControllerTestToolkit', array('test/archive'), 'extract',
-	    array(), 'test-description');
-	if ($ret) {
-	    return $ret;
-	}
+		$this->_registerFactoryImplementationForTest(
+			'ItemAddPlugin',
+			'ItemAddControllerTestPluginContinue',
+			'ItemAddControllerTestPluginContinue',
+			$path,
+			'coreTest'
+		);
 
-	$this->_controller->setOptionInstances(array());
+		$this->_registerFactoryImplementationForTest(
+			'ItemAddPlugin',
+			'ItemAddControllerTestPluginFail',
+			'ItemAddControllerTestPluginFail',
+			$path,
+			'coreTest'
+		);
 
-	$gallery->_templateAdapter = new MockTemplateAdapter();
-	$this->_templateAdapter =& $gallery->getTemplateAdapter();
+		$this->_registerFactoryImplementationForTest(
+			'GalleryToolkit',
+			'ItemAddControllerTestToolkit',
+			'ItemAddControllerTestToolkit',
+			$path,
+			'coreTest'
+		);
 
-	$session->remove('itemAdd.error');
-    }
+		$this->_markToolkitForCleanup('ItemAddControllerTestToolkit');
 
-    function handleRequestWithProgressBar($form, $item, $addPlugin) {
-	return $this->_controller->handleRequestWithProgressBar($form, $item, $addPlugin);
-    }
+		$ret = GalleryCoreApi::registerToolkitOperation(
+			'ItemAddControllerTestToolkit',
+			array('test/archive'),
+			'extract',
+			array(),
+			'test-description'
+		);
 
-    /**
-     * Assert form / validation errors from the progress-bar callback.
-     * @param array $expectedError array of expected errors, or null
-     */
-    function _assertErrorFromProgressBar($expectedError) {
-	global $gallery;
-	$session =& $gallery->getSession();
+		if ($ret) {
+			return $ret;
+		}
 
-	$error = $session->get('itemAdd.error');
-	$this->assertEquals($expectedError, $error, 'item add error');
-    }
+		$this->_controller->setOptionInstances(array());
 
-    /**
-     * Assert the completeProgressBar() parameters for progress-bar based tasks.
-     * @param array $requiredUrlParameters URL generator parameters required to be part of the
-     *                                     continue URL
-     * @param bool $expectedDoRedirect expected value of doRedirect of the final completeProgressBar
-     *                                 call
-     */
-    function _assertCompleteProgressBar($requiredUrlParameters, $expectedDoRedirect) {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
+		$gallery->_templateAdapter = new MockTemplateAdapter();
+		$this->_templateAdapter    =& $gallery->getTemplateAdapter();
 
-	$completeProgressBarDump = $this->_templateAdapter->getCompleteProgressBarDump();
-	if (!isset($completeProgressBarDump[1])) {
-	    $this->fail('missing continueUrl / doRedirect');
-	    return;
-	}
-
-	$expectedUrl =
-	    $urlGenerator->generateUrl($requiredUrlParameters);
-	$this->assert(strpos($completeProgressBarDump[0], $expectedUrl) !== false,
-		      'incorrect continueUrl: ' . $completeProgressBarDump[0]);
-
-	$this->assertEquals($expectedDoRedirect, $completeProgressBarDump[1],
-			    'expected doRedirect');
-    }
-
-    function _getStatusFromProgressBar() {
-	global $gallery;
-	$session =& $gallery->getSession();
-	return $session->getStatus();
-    }
-
-    function testHandleRequestRequiresAddPermission() {
-    	global $gallery;
-
-    	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
-
-	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.view');
-	if ($ret) {
-	    return $ret;
+		$session->remove('itemAdd.error');
 	}
 
-	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
-	$this->assertEquals(null, $results);
-    }
-
-    function testHandleRequestRequiresContainerItem() {
-	/* Some users report illegal child error when adding items.  Do the check ASAP. */
-	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
+	public function handleRequestWithProgressBar($form, $item, $addPlugin) {
+		return $this->_controller->handleRequestWithProgressBar($form, $item, $addPlugin);
 	}
 
-	GalleryUtilities::putRequestVariable('itemId', $item->getId());
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
-
-	$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-	$this->assertEquals(null, $results);
-    }
-
-    function testHandleRequestDelegatesToProgressBarView() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' =>
-				  array('view' => 'core.ProgressBar'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-
-	if ($this->_templateAdapter->getCallbackCount() !== 1) {
-	    $this->assertEquals(1, $this->_templateAdapter->getCallbackCount(),
-			  'Wrong callback count. One callback required for handleRequest.');
-	} else {
-	    $callback = $this->_templateAdapter->getCallback(0);
-	    $callbackMethod = $callback[0][1];
-	    $this->assertEquals('handleRequestWithProgressBar', $callbackMethod);
-	}
-    }
-
-    function testHandleRequestWithProgressBarWithFailure() {
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginFail());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_assertErrorFromProgressBar(array('failed'));
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAdd',
-		  'addPlugin' => 'ItemAddControllerTestPluginFail',
-		  'itemId' => $this->_album->getId()),
-	    true);
-    }
-
-    function testHandleRequestWithProgressBarContinueAdding() {
-	/*
-	 * An add item request that succeeds without actually adding any items and is forwarded to
-	 * the view.
+	/**
+	 * Assert form / validation errors from the progress-bar callback.
+	 * @param array $expectedError array of expected errors, or null
 	 */
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
+	public function _assertErrorFromProgressBar($expectedError) {
+		global $gallery;
+		$session =& $gallery->getSession();
 
-	$form = array('someParameter' => 'value 1', 'other&Parameter' => 'value two');
-	$ret = $this->handleRequestWithProgressBar($form, $this->_album,
-						   new ItemAddControllerTestPluginContinue());
-	if ($ret) {
-	    return $ret;
+		$error = $session->get('itemAdd.error');
+		$this->assertEquals($expectedError, $error, 'item add error');
 	}
 
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAdd',
-		  'addPlugin' => 'ItemAddControllerTestPluginContinue',
-		  'itemId' => $this->_album->getId(), 'form' => $form),
-	    true);
-	$this->assertEquals(array(), $this->_getStatusFromProgressBar(), 'status');
-    }
-
-    function testHandleRequestWithProgressBarSuccess() {
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAddConfirmation',
-		  'itemId' => $this->_album->getId()),
-	    true);
-	$this->assertEquals(array('addedFiles' => array(
-				array('fileName' => 'foo-' . $item->getId(),
-				      'id' => $item->getId(),
-				      'warnings' => array()))),
-			    $this->_getStatusFromProgressBar(), 'status');
-    }
-
-    function testHandleRequestWithProgressBarWithOptionAndError() {
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
-	$this->_controller->setOptionInstances(
-	    array('ItemAddTestOption' => new ItemAddTestOption(true)));
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_assertErrorFromProgressBar(
-	    array('an error', 'form[error][itemsAddedDespiteFormErrors]'));
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAdd',
-		  'addPlugin' => 'ItemAddControllerTestPluginSuccess',
-		  'itemId' => $this->_album->getId()),
-	    true);
-	/* No status information is saved / shown */
-	$this->assertEquals(null, $this->_getStatusFromProgressBar(), 'status');
-    }
-
-    function testHandleRequestWithProgressBarWithOption() {
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
-	$this->_controller->setOptionInstances(
-	    array('ItemAddTestOption' => new ItemAddTestOption(false)));
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAddConfirmation',
-		  'itemId' => $this->_album->getId()),
-	    true);
-	$this->assertEquals(array('addedFiles' => array(
-				array('fileName' => 'foo-' . $item->getId(),
-				      'id' => $item->getId(),
-				      'warnings' => array('a warning')))),
-			    $this->_getStatusFromProgressBar(), 'status');
-    }
-
-    function testHandleRequestWithProgressBarWithArchiveExtract() {
-	list ($ret, $archive) = $this->_createRandomDataItem(
-	    $this->_album->getId(), 'test/archive',
-	    array('pathComponent' => 'foo.zip', 'title' => 'foo', 'summary' => 'hoho'));
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
-	$this->_controller->setOptionInstances(
-	    array('ItemAddTestOption' => new ItemAddTestOption(false)));
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAddConfirmation',
-		  'itemId' => $this->_album->getId()),
-	    true);
-
-	$isUnix = strncasecmp(PHP_OS, 'win', 3);
-	$status = $this->_getStatusFromProgressBar();
-	$addedItems = $status['addedFiles'];
-	$this->assertEquals($isUnix ? 7 : 4, count($addedItems), 'added wrong # of items');
-
-	/*
-	 * Sort the added files list by filename because we can't guarantee
-	 * the file order across platforms.
+	/**
+	 * Assert the completeProgressBar() parameters for progress-bar based tasks.
+	 * @param array $requiredUrlParameters URL generator parameters required to be part of the
+	 *                                     continue URL
+	 * @param bool $expectedDoRedirect expected value of doRedirect of the final completeProgressBar
+	 *                                 call
 	 */
-	$sortAddedFilesFunc =
-	    create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
-	usort($addedItems, $sortAddedFilesFunc);
+	public function _assertCompleteProgressBar($requiredUrlParameters, $expectedDoRedirect) {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
 
-	$itemNames = array();
-	foreach ($addedItems as $i => $addedItem) {
-	    $itemNames[] = $addedItem['fileName'];
-	    $this->assertEquals(array('a warning'), $addedItem['warnings'],
-				"warning $i - item not processed by ItemAddOption");
+		$completeProgressBarDump = $this->_templateAdapter->getCompleteProgressBarDump();
+
+		if (!isset($completeProgressBarDump[1])) {
+			$this->fail('missing continueUrl / doRedirect');
+
+			return;
+		}
+
+		$expectedUrl = $urlGenerator->generateUrl($requiredUrlParameters);
+		$this->assert(
+			strpos($completeProgressBarDump[0], $expectedUrl) !== false,
+			'incorrect continueUrl: ' . $completeProgressBarDump[0]
+		);
+
+		$this->assertEquals(
+			$expectedDoRedirect,
+			$completeProgressBarDump[1],
+			'expected doRedirect'
+		);
 	}
 
-	$expected = array();
-	$expected[] = 'blah.ext';
-	if ($isUnix) {
-	    $expected[] = 'foo&lt;body onload=alert(album_xss)&gt;bar';
-	    $expected[] = 'foo&lt;body onload=alert(item_xss)&gt;.ext';
-	}
-	$expected[] = 'foo-' . $item->getId();
-	$expected[] = 'foo.ext';
-	if ($isUnix) {
-	    $expected[] = 'foo.ext';
-	}
-	$expected[] = 'subdir';
-	$this->assertEquals($expected, $itemNames, 'files');
+	public function _getStatusFromProgressBar() {
+		global $gallery;
+		$session =& $gallery->getSession();
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
-	$this->assert(in_array($item->getId(), $childIds), 'normal item has been deleted');
-
-	list ($ret, $item) =
-	    GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
-	$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
-	$this->assert($item->getParentId() != $this->_album->getId(), 'should be in subalbum');
-    }
-
-    function testHandleRequestWithProgressBarWithArchiveExtractNoAddAlbumPermission() {
-	global $gallery;
-
-	list ($ret, $archive) = $this->_createRandomDataItem(
-	    $this->_album->getId(), 'test/archive',
-	    array('pathComponent' => 'foo.zip', 'title' => 'foo', 'summary' => 'hoho'));
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		return $session->getStatus();
 	}
 
-	/* Ensure that the active user is missing the core.addAlbumItem permission */
-	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	foreach (array('core.view', 'core.addDataItem') as $permissionId) {
-	    $ret = GalleryCoreApi::addUserPermission(
-		$this->_album->getId(), $gallery->getActiveUserId(), $permissionId);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
+	public function testHandleRequestRequiresAddPermission() {
+		global $gallery;
 
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
 
-	$this->_controller->setOptionInstances(
-	    array('ItemAddTestOption' => new ItemAddTestOption(false)));
+		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::addUserPermission(
+			$this->_album->getId(),
+			$gallery->getActiveUserId(),
+			'core.view'
+		);
 
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAddConfirmation',
-		  'itemId' => $this->_album->getId()),
-	    true);
+		if ($ret) {
+			return $ret;
+		}
 
-	$isUnix = strncasecmp(PHP_OS, 'win', 3);
-	$status = $this->_getStatusFromProgressBar();
-	$addedItems = $status['addedFiles'];
-	$this->assertEquals($isUnix ? 5 : 3, count($addedItems), 'added wrong # of items');
-
-	/*
-	 * Sort the added files list by filename because we can't guarantee
-	 * the file order across platforms.
-	 */
-	$sortAddedFilesFunc =
-	    create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
-	usort($addedItems, $sortAddedFilesFunc);
-
-	$itemNames = array();
-	foreach ($addedItems as $i => $addedItem) {
-	    $itemNames[] = $addedItem['fileName'];
-	    $this->assertEquals(array('a warning'), $addedItem['warnings'],
-				"warning $i - item not processed by ItemAddOption");
+		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+		$this->assertEquals(null, $results);
 	}
 
-	/* All files from the archive should be added in a flat hierarchy, folders are ignored */
-	$expected = array();
-	$expected[] = 'blah.ext';
-	if ($isUnix) {
-	    $expected[] = 'foo&lt;body onload=alert(item_xss)&gt;.ext';
-	}
-	$expected[] = 'foo-' . $item->getId();
-	$expected[] = 'foo.ext';
-	if ($isUnix) {
-	    $expected[] = 'foo.ext';
-	}
-	$this->assertEquals($expected, $itemNames, 'files');
+	public function testHandleRequestRequiresContainerItem() {
+		// Some users report illegal child error when adding items.  Do the check ASAP.
+		list($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
-	$this->assert(in_array($item->getId(), $childIds), 'normal item has been deleted');
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $item) =
-	    GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
-	$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
-	$this->assertEquals($this->_album->getId(), $item->getParentId(),
-	    'should be in same album, not in subalbum');
+		GalleryUtilities::putRequestVariable('itemId', $item->getId());
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
 
-	list ($ret, $subAlbumIds) = GalleryCoreApi::fetchChildAlbumItemIds($this->_album);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(), $subAlbumIds, 'no sub-albums should be created');
-    }
-
-    function testHandleRequestWithXss() {
-	list ($ret, $archive) = $this->_createRandomDataItem(
-	    $this->_album->getId(), 'test/archive',
-	    array('pathComponent' => 'foo.zip', 'title' => 'foo', 'summary' => 'hoho'));
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
-	$this->_controller->setOptionInstances(
-	    array('ItemAddTestOption' => new ItemAddTestOption(false)));
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+		$this->assertEquals(null, $results);
 	}
 
-	$status = $this->_getStatusFromProgressBar();
-	$addedItems = $status['addedFiles'];
+	public function testHandleRequestDelegatesToProgressBarView() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
 
-	/*
-	 * Sort the added files list by filename because we can't guarantee
-	 * the file order across platforms.
-	 */
-	$sortAddedFilesFunc =
-	    create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
-	usort($addedItems, $sortAddedFilesFunc);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'core.ProgressBar',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$isUnix = strncasecmp(PHP_OS, 'win', 3);
-	if ($isUnix) {
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(
-		array($addedItems[1]['id'], $addedItems[2]['id']),
-		'GalleryItem');
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    /**
-	     * On Windows, this file can't be created to begin with because it can't handle
-	     * the < and > in the filename.
-	     * @todo switch to using a mock platform so that we can test this properly on Windows
-	     */
-	    $this->assertEquals(
-		'foo&lt;body onload=alert(album_xss)&gt;bar', $items[0]->getTitle());
-	    $this->assertEquals(
-		'foo&lt;body onload=alert(item_xss)&gt;', $items[1]->getTitle());
-	}
-    }
-
-    function testHandleRequestWithProgressBarAutoRedirectOnError() {
-    	global $gallery;
-
-    	/* Ensure that we don't redirect because of time constraints */
-    	$gallery->_phpVm = new ItemAddPhpVm(0, 0);
-
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
-
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginFail());
-	if ($ret) {
-	    return $ret;
+		if ($this->_templateAdapter->getCallbackCount() !== 1) {
+			$this->assertEquals(
+				1,
+				$this->_templateAdapter->getCallbackCount(),
+				'Wrong callback count. One callback required for handleRequest.'
+			);
+		} else {
+			$callback       = $this->_templateAdapter->getCallback(0);
+			$callbackMethod = $callback[0][1];
+			$this->assertEquals('handleRequestWithProgressBar', $callbackMethod);
+		}
 	}
 
-	$this->_assertErrorFromProgressBar(array('failed'));
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAdd',
-		  'addPlugin' => 'ItemAddControllerTestPluginFail',
-		  'itemId' => $this->_album->getId()),
-	    true);
-	$this->assertEquals(null, $this->_getStatusFromProgressBar(), 'status');
-    }
+	public function testHandleRequestWithProgressBarWithFailure() {
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
 
-    function testHandleRequestWithProgressBarAutoRedirectOnSuccessWithinPeriod() {
-	global $gallery;
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginFail()
+		);
 
-	/* Time progresses very slowly */
-    	$gallery->_phpVm = new ItemAddPhpVm(0, 1);
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		$this->_assertErrorFromProgressBar(array('failed'));
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
+				'addPlugin' => 'ItemAddControllerTestPluginFail',
+				'itemId'    => $this->_album->getId(),
+			),
+			true
+		);
 	}
 
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+	public function testHandleRequestWithProgressBarContinueAdding() {
+		/*
+		 * An add item request that succeeds without actually adding any items and is forwarded to
+		 * the view.
+		 */
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
 
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
+		$form = array(
+			'someParameter'   => 'value 1',
+			'other&Parameter' => 'value two',
+		);
+		$ret  = $this->handleRequestWithProgressBar(
+			$form,
+			$this->_album,
+			new ItemAddControllerTestPluginContinue()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
+				'addPlugin' => 'ItemAddControllerTestPluginContinue',
+				'itemId'    => $this->_album->getId(),
+				'form'      => $form,
+			),
+			true
+		);
+		$this->assertEquals(array(), $this->_getStatusFromProgressBar(), 'status');
 	}
 
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAddConfirmation',
-		  'itemId' => $this->_album->getId()),
-	    true);
-	$this->assertEquals(array('addedFiles' => array(
-				array('fileName' => 'foo-' . $item->getId(),
-				      'id' => $item->getId(),
-				      'warnings' => array()))),
-			    $this->_getStatusFromProgressBar(), 'status');
-    }
+	public function testHandleRequestWithProgressBarSuccess() {
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
 
-    function testHandleRequestWithProgressBarNoAutoRedirectOnSuccessAfterPeriod() {
-	global $gallery;
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Make the time progress in large steps */
-    	$gallery->_phpVm = new ItemAddPhpVm(0, 16);
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
 
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'    => 'core.ItemAdmin',
+				'subView' => 'core.ItemAddConfirmation',
+				'itemId'  => $this->_album->getId(),
+			),
+			true
+		);
+		$this->assertEquals(
+			array(
+				'addedFiles' => array(
+					array(
+						'fileName' => 'foo-' . $item->getId(),
+						'id'       => $item->getId(),
+						'warnings' => array(),
+					),
+				),
+			),
+			$this->_getStatusFromProgressBar(),
+			'status'
+		);
 	}
 
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+	public function testHandleRequestWithProgressBarWithOptionAndError() {
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
 
-	$ret = $this->handleRequestWithProgressBar(array(), $this->_album,
-						   new ItemAddControllerTestPluginSuccess());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$this->_controller->setOptionInstances(
+			array(
+				'ItemAddTestOption' => new ItemAddTestOption(true),
+			)
+		);
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(
+			array('an error', 'form[error][itemsAddedDespiteFormErrors]')
+		);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
+				'addPlugin' => 'ItemAddControllerTestPluginSuccess',
+				'itemId'    => $this->_album->getId(),
+			),
+			true
+		);
+		// No status information is saved / shown
+		$this->assertEquals(null, $this->_getStatusFromProgressBar(), 'status');
 	}
 
-	$this->_assertErrorFromProgressBar(null);
-	$this->_assertCompleteProgressBar(
-	    array('view' => 'core.ItemAdmin',
-		  'subView' => 'core.ItemAddConfirmation',
-		  'itemId' => $this->_album->getId()),
-	    false);
-	$this->assertEquals(array('addedFiles' => array(
-				array('fileName' => 'foo-' . $item->getId(),
-				      'id' => $item->getId(),
-				      'warnings' => array()))),
-			    $this->_getStatusFromProgressBar(), 'status');
-    }
+	public function testHandleRequestWithProgressBarWithOption() {
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
 
-    function testPostprocessItemsProtectsFromProcessingItemsTwice() {
-	for ($i = 0; $i < 2; $i++) {
-	    list ($ret, $items[$i]) =
-		GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	    if ($ret) {
-		return $ret;
-	    }
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$this->_controller->setOptionInstances(
+			array(
+				'ItemAddTestOption' => new ItemAddTestOption(false),
+			)
+		);
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'    => 'core.ItemAdmin',
+				'subView' => 'core.ItemAddConfirmation',
+				'itemId'  => $this->_album->getId(),
+			),
+			true
+		);
+		$this->assertEquals(
+			array(
+				'addedFiles' => array(
+					array(
+						'fileName' => 'foo-' . $item->getId(),
+						'id'       => $item->getId(),
+						'warnings' => array('a warning'),
+					),
+				),
+			),
+			$this->_getStatusFromProgressBar(),
+			'status'
+		);
 	}
 
-	$addOption = new ItemAddTestOption(false);
-	$this->_controller->setOptionInstances(
-	    array('ItemAddTestOption' => $addOption));
+	public function testHandleRequestWithProgressBarWithArchiveExtract() {
+		list($ret, $archive) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'test/archive',
+			array(
+				'pathComponent' => 'foo.zip',
+				'title'         => 'foo',
+				'summary'       => 'hoho',
+			)
+		);
 
-	$status['addedFiles'][0] = array('fileName' => 'file 1', 'id' => $items[0]->getId());
-	$status['addedFiles'][1] = array('fileName' => 'file 2', 'id' => $items[1]->getId());
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
 
-	list ($ret, $this->_controller->_coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$this->_controller->setOptionInstances(
+			array(
+				'ItemAddTestOption' => new ItemAddTestOption(false),
+			)
+		);
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'    => 'core.ItemAdmin',
+				'subView' => 'core.ItemAddConfirmation',
+				'itemId'  => $this->_album->getId(),
+			),
+			true
+		);
+
+		$isUnix     = strncasecmp(PHP_OS, 'win', 3);
+		$status     = $this->_getStatusFromProgressBar();
+		$addedItems = $status['addedFiles'];
+		$this->assertEquals($isUnix ? 7 : 4, count($addedItems), 'added wrong # of items');
+
+		/*
+		 * Sort the added files list by filename because we can't guarantee
+		 * the file order across platforms.
+		 */
+		$sortAddedFilesFunc = create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+		usort($addedItems, $sortAddedFilesFunc);
+
+		$itemNames = array();
+
+		foreach ($addedItems as $i => $addedItem) {
+			$itemNames[] = $addedItem['fileName'];
+			$this->assertEquals(
+				array('a warning'),
+				$addedItem['warnings'],
+				"warning $i - item not processed by ItemAddOption"
+			);
+		}
+
+		$expected   = array();
+		$expected[] = 'blah.ext';
+
+		if ($isUnix) {
+			$expected[] = 'foo&lt;body onload=alert(album_xss)&gt;bar';
+			$expected[] = 'foo&lt;body onload=alert(item_xss)&gt;.ext';
+		}
+		$expected[] = 'foo-' . $item->getId();
+		$expected[] = 'foo.ext';
+
+		if ($isUnix) {
+			$expected[] = 'foo.ext';
+		}
+		$expected[] = 'subdir';
+		$this->assertEquals($expected, $itemNames, 'files');
+
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
+		$this->assert(in_array($item->getId(), $childIds), 'normal item has been deleted');
+
+		list($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
+		$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
+		$this->assert($item->getParentId() != $this->_album->getId(), 'should be in subalbum');
 	}
 
-	list ($ret, $error) = $this->_controller->postProcessItems(array(), $status);
-	if ($ret) {
-	    return $ret;
+	public function testHandleRequestWithProgressBarWithArchiveExtractNoAddAlbumPermission() {
+		global $gallery;
+
+		list($ret, $archive) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'test/archive',
+			array(
+				'pathComponent' => 'foo.zip',
+				'title'         => 'foo',
+				'summary'       => 'hoho',
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Ensure that the active user is missing the core.addAlbumItem permission
+		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array('core.view', 'core.addDataItem') as $permissionId) {
+			$ret = GalleryCoreApi::addUserPermission(
+				$this->_album->getId(),
+				$gallery->getActiveUserId(),
+				$permissionId
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$this->_controller->setOptionInstances(
+			array(
+				'ItemAddTestOption' => new ItemAddTestOption(false),
+			)
+		);
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'    => 'core.ItemAdmin',
+				'subView' => 'core.ItemAddConfirmation',
+				'itemId'  => $this->_album->getId(),
+			),
+			true
+		);
+
+		$isUnix     = strncasecmp(PHP_OS, 'win', 3);
+		$status     = $this->_getStatusFromProgressBar();
+		$addedItems = $status['addedFiles'];
+		$this->assertEquals($isUnix ? 5 : 3, count($addedItems), 'added wrong # of items');
+
+		/*
+		 * Sort the added files list by filename because we can't guarantee
+		 * the file order across platforms.
+		 */
+		$sortAddedFilesFunc = create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+		usort($addedItems, $sortAddedFilesFunc);
+
+		$itemNames = array();
+
+		foreach ($addedItems as $i => $addedItem) {
+			$itemNames[] = $addedItem['fileName'];
+			$this->assertEquals(
+				array('a warning'),
+				$addedItem['warnings'],
+				"warning $i - item not processed by ItemAddOption"
+			);
+		}
+
+		// All files from the archive should be added in a flat hierarchy, folders are ignored
+		$expected   = array();
+		$expected[] = 'blah.ext';
+
+		if ($isUnix) {
+			$expected[] = 'foo&lt;body onload=alert(item_xss)&gt;.ext';
+		}
+		$expected[] = 'foo-' . $item->getId();
+		$expected[] = 'foo.ext';
+
+		if ($isUnix) {
+			$expected[] = 'foo.ext';
+		}
+		$this->assertEquals($expected, $itemNames, 'files');
+
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
+		$this->assert(in_array($item->getId(), $childIds), 'normal item has been deleted');
+
+		list($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
+		$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
+		$this->assertEquals(
+			$this->_album->getId(),
+			$item->getParentId(),
+			'should be in same album, not in subalbum'
+		);
+
+		list($ret, $subAlbumIds) = GalleryCoreApi::fetchChildAlbumItemIds($this->_album);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array(), $subAlbumIds, 'no sub-albums should be created');
 	}
 
-	$this->assertEquals(array(array(0 => $items[0]->getId(), 1 => $items[1]->getId())),
-			    $_SERVER['ItemAddControllerTest']['optionCalls'], 'first call');
+	public function testHandleRequestWithXss() {
+		list($ret, $archive) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'test/archive',
+			array(
+				'pathComponent' => 'foo.zip',
+				'title'         => 'foo',
+				'summary'       => 'hoho',
+			)
+		);
 
-	list ($ret, $error) = $this->_controller->postProcessItems(array(), $status);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$this->_controller->setOptionInstances(
+			array(
+				'ItemAddTestOption' => new ItemAddTestOption(false),
+			)
+		);
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$status     = $this->_getStatusFromProgressBar();
+		$addedItems = $status['addedFiles'];
+
+		/*
+		 * Sort the added files list by filename because we can't guarantee
+		 * the file order across platforms.
+		 */
+		$sortAddedFilesFunc = create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+		usort($addedItems, $sortAddedFilesFunc);
+
+		$isUnix = strncasecmp(PHP_OS, 'win', 3);
+
+		if ($isUnix) {
+			list($ret, $items) = GalleryCoreApi::loadEntitiesById(
+				array($addedItems[1]['id'], $addedItems[2]['id']),
+				'GalleryItem'
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+
+			/**
+			 * On Windows, this file can't be created to begin with because it can't handle
+			 * the < and > in the filename.
+			 * @todo switch to using a mock platform so that we can test this properly on Windows
+			 */
+			$this->assertEquals(
+				'foo&lt;body onload=alert(album_xss)&gt;bar',
+				$items[0]->getTitle()
+			);
+			$this->assertEquals(
+				'foo&lt;body onload=alert(item_xss)&gt;',
+				$items[1]->getTitle()
+			);
+		}
 	}
 
-	$this->assertEquals(array(array(0 => $items[0]->getId(), 1 => $items[1]->getId())),
-			    $_SERVER['ItemAddControllerTest']['optionCalls'], 'second call');
-    }
+	public function testHandleRequestWithProgressBarAutoRedirectOnError() {
+		global $gallery;
 
-    function testHandleRequestItemAddWebDavBackwardsCompatibility() {
-	/*
-	 * The webdav module used to invoke ItemAddController::handleRequest() from another
-	 * controller which was a bad hack.  To keep this hack working, ItemAddController needs
-	 * to handle ItemAddWebDav add-plugin requests in a special way, not delegating to the
-	 * progress-bar view.
-	 */
+		// Ensure that we don't redirect because of time constraints
+		$gallery->_phpVm = new ItemAddPhpVm(0, 0);
 
-	/* Don't test with the real plugin instance */
-	$this->_registerFactoryImplementationForTest(
-	    'ItemAddPlugin', 'ItemAddControllerTestAddPluginWebDav', 'ItemAddWebDav',
-	    'modules/core/test/phpunit/ItemAddControllerTest.class', 'coreTest');
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
 
-	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginFail()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(array('failed'));
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
+				'addPlugin' => 'ItemAddControllerTestPluginFail',
+				'itemId'    => $this->_album->getId(),
+			),
+			true
+		);
+		$this->assertEquals(null, $this->_getStatusFromProgressBar(), 'status');
 	}
 
-	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
-	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddWebDav');
+	public function testHandleRequestWithProgressBarAutoRedirectOnSuccessWithinPeriod() {
+		global $gallery;
 
-	ob_start();
-	/* Do a static call, that's how WebDAV invokes / invoked the controller. */
-	list ($ret, $results) = ItemAddController::handleRequest(array());
-	$output = ob_get_contents();
-	ob_end_clean();
-	if ($ret) {
-	    return $ret;
+		// Time progresses very slowly
+		$gallery->_phpVm = new ItemAddPhpVm(0, 1);
+
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'    => 'core.ItemAdmin',
+				'subView' => 'core.ItemAddConfirmation',
+				'itemId'  => $this->_album->getId(),
+			),
+			true
+		);
+		$this->assertEquals(
+			array(
+				'addedFiles' => array(
+					array(
+						'fileName' => 'foo-' . $item->getId(),
+						'id'       => $item->getId(),
+						'warnings' => array(),
+					),
+				),
+			),
+			$this->_getStatusFromProgressBar(),
+			'status'
+		);
 	}
 
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.ItemAdmin',
-				      'subView' => 'core.ItemAddConfirmation',
-				      'itemId' => $this->_album->getId()),
-		  'status' => array('addedFiles' => array(
-				array('fileName' => 'foo-' . $item->getId(),
-				      'id' => $item->getId(),
-				      'warnings' => array()))),
-		  'error' => array()),
-	    $results);
+	public function testHandleRequestWithProgressBarNoAutoRedirectOnSuccessAfterPeriod() {
+		global $gallery;
 
-	$this->assertEquals(0, $this->_templateAdapter->getCallbackCount(),
-			    'trailer callback count');
-	$this->assertEquals('', $output, 'HTML output');
-    }
+		// Make the time progress in large steps
+		$gallery->_phpVm = new ItemAddPhpVm(0, 16);
+
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+		$ret = $this->handleRequestWithProgressBar(
+			array(),
+			$this->_album,
+			new ItemAddControllerTestPluginSuccess()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_assertErrorFromProgressBar(null);
+		$this->_assertCompleteProgressBar(
+			array(
+				'view'    => 'core.ItemAdmin',
+				'subView' => 'core.ItemAddConfirmation',
+				'itemId'  => $this->_album->getId(),
+			),
+			false
+		);
+		$this->assertEquals(
+			array(
+				'addedFiles' => array(
+					array(
+						'fileName' => 'foo-' . $item->getId(),
+						'id'       => $item->getId(),
+						'warnings' => array(),
+					),
+				),
+			),
+			$this->_getStatusFromProgressBar(),
+			'status'
+		);
+	}
+
+	public function testPostprocessItemsProtectsFromProcessingItemsTwice() {
+		for ($i = 0; $i < 2; $i++) {
+			list($ret, $items[$i]) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		$addOption = new ItemAddTestOption(false);
+		$this->_controller->setOptionInstances(
+			array(
+				'ItemAddTestOption' => $addOption,
+			)
+		);
+
+		$status['addedFiles'][0] = array(
+			'fileName' => 'file 1',
+			'id'       => $items[0]->getId(),
+		);
+		$status['addedFiles'][1] = array(
+			'fileName' => 'file 2',
+			'id'       => $items[1]->getId(),
+		);
+
+		list($ret, $this->_controller->_coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $error) = $this->_controller->postProcessItems(array(), $status);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				array(
+					0 => $items[0]->getId(),
+					1 => $items[1]->getId(),
+				),
+			),
+			$_SERVER['ItemAddControllerTest']['optionCalls'],
+			'first call'
+		);
+
+		list($ret, $error) = $this->_controller->postProcessItems(array(), $status);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				array(
+					0 => $items[0]->getId(),
+					1 => $items[1]->getId(),
+				),
+			),
+			$_SERVER['ItemAddControllerTest']['optionCalls'],
+			'second call'
+		);
+	}
+
+	public function testHandleRequestItemAddWebDavBackwardsCompatibility() {
+		/*
+		 * The webdav module used to invoke ItemAddController::handleRequest() from another
+		 * controller which was a bad hack.  To keep this hack working, ItemAddController needs
+		 * to handle ItemAddWebDav add-plugin requests in a special way, not delegating to the
+		 * progress-bar view.
+		 */
+
+		// Don't test with the real plugin instance
+		$this->_registerFactoryImplementationForTest(
+			'ItemAddPlugin',
+			'ItemAddControllerTestAddPluginWebDav',
+			'ItemAddWebDav',
+			'modules/core/test/phpunit/ItemAddControllerTest.class',
+			'coreTest'
+		);
+
+		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddWebDav');
+
+		ob_start();
+		// Do a static call, that's how WebDAV invokes / invoked the controller.
+		list($ret, $results) = ItemAddController::handleRequest(array());
+		$output              = ob_get_contents();
+		ob_end_clean();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemAddConfirmation',
+					'itemId'  => $this->_album->getId(),
+				),
+				'status'   => array(
+					'addedFiles' => array(
+						array(
+							'fileName' => 'foo-' . $item->getId(),
+							'id'       => $item->getId(),
+							'warnings' => array(),
+						),
+					),
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$this->assertEquals(
+			0,
+			$this->_templateAdapter->getCallbackCount(),
+			'trailer callback count'
+		);
+		$this->assertEquals('', $output, 'HTML output');
+	}
 }
 
 /**
  * ItemAddPlugin that doesn't fail, nor complete
  */
 class ItemAddControllerTestPluginContinue {
-    function handleRequest($form, &$item) {
-	if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
-	    return
-		array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
-	}
+	public function handleRequest($form, &$item) {
+		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
 
-	return array(null, array(), array());
-    }
+		return array(null, array(), array());
+	}
 }
 
 /**
  * ItemAddPlugin that always completes
  */
 class ItemAddControllerTestPluginSuccess {
-    function handleRequest($form, &$item) {
-	if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
-	    return
-		array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
-	}
+	public function handleRequest($form, &$item) {
+		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
 
-	/* Pretend we just added item(s) that are already there */
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$addedFiles = array();
-	foreach ($childIds as $id) {
-	    $addedFiles[] = array('fileName' => 'foo-' . $id, 'id' => $id, 'warnings' => array());
-	}
+		// Pretend we just added item(s) that are already there
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 
-	return array(null, array(), array('addedFiles' => $addedFiles));
-    }
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$addedFiles = array();
+
+		foreach ($childIds as $id) {
+			$addedFiles[] = array(
+				'fileName' => 'foo-' . $id,
+				'id'       => $id,
+				'warnings' => array(),
+			);
+		}
+
+		return array(
+			null,
+			array(),
+			array(
+				'addedFiles' => $addedFiles,
+			),
+		);
+	}
 }
 
 /**
  * ItemAddPlugin to test backwards compatibility with the WebDAV module.
  */
 class ItemAddControllerTestAddPluginWebDav {
-    function handleRequest($form, &$item) {
-	/* Pretend we just added item(s) that are already there */
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
-	if ($ret) {
-	    return array($ret, null, null);
+	public function handleRequest($form, &$item) {
+		// Pretend we just added item(s) that are already there
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$addedFiles = array();
+
+		foreach ($childIds as $id) {
+			$addedFiles[] = array(
+				'fileName' => 'foo-' . $id,
+				'id'       => $id,
+				'warnings' => array(),
+			);
+		}
+
+		return array(
+			null,
+			array(),
+			array(
+				'addedFiles' => $addedFiles,
+			),
+		);
 	}
-	$addedFiles = array();
-	foreach ($childIds as $id) {
-	    $addedFiles[] = array('fileName' => 'foo-' . $id, 'id' => $id, 'warnings' => array());
-	}
-	return array(null, array(), array('addedFiles' => $addedFiles));
-    }
 }
 
 /**
  * ItemAddPlugin that always fails
  */
 class ItemAddControllerTestPluginFail {
-    function handleRequest($form, &$item) {
-	if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
-	    return
-		array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+	public function handleRequest($form, &$item) {
+		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
+
+		return array(null, array('failed'), array());
 	}
-	return array(null, array('failed'), array());
-    }
 }
 
 /**
  * Test ItemAddOption
  */
 class ItemAddTestOption extends ItemAddOption {
-    function ItemAddTestOption($withError=false) {
-	$this->_withError = $withError;
-	$_SERVER['ItemAddControllerTest']['optionCalls'] = array();
-    }
-
-    function handleRequestAfterAdd($form, $items) {
-	$errors = array();
-	$warnings = array();
-	$itemIds = array();
-	for ($i = 0; $i < count($items); $i++) {
-	    if ($this->_withError) {
-		$errors[] = 'an error';
-	    }
-	    $warnings[$i] = array();
-	    $warnings[$i][] = 'a warning';
-	    $itemIds[$i] = $items[$i]->getId();
+	public function __construct($withError = false) {
+		$this->_withError                                = $withError;
+		$_SERVER['ItemAddControllerTest']['optionCalls'] = array();
 	}
-	$_SERVER['ItemAddControllerTest']['optionCalls'][] = $itemIds;
-	return array(null, $errors, $warnings);
-    }
 
-    function isAppropriate() {
-	return array(null, true);
-    }
+	public function handleRequestAfterAdd($form, $items) {
+		$errors   = array();
+		$warnings = array();
+		$itemIds  = array();
+
+		for ($i = 0; $i < count($items); $i++) {
+			if ($this->_withError) {
+				$errors[] = 'an error';
+			}
+			$warnings[$i]   = array();
+			$warnings[$i][] = 'a warning';
+			$itemIds[$i]    = $items[$i]->getId();
+		}
+		$_SERVER['ItemAddControllerTest']['optionCalls'][] = $itemIds;
+
+		return array(null, $errors, $warnings);
+	}
+
+	public function isAppropriate() {
+		return array(null, true);
+	}
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -831,53 +1133,63 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
  * Test toolkit
  */
 class ItemAddControllerTestToolkit extends GalleryToolkit {
+	public function performOperation(
+		$mimeType,
+		$operationName,
+		$sourceFilename,
+		$destFilename,
+		$parameters,
+		$context = array()
+	) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-    function performOperation($mimeType, $operationName, $sourceFilename,
-			      $destFilename, $parameters, $context=array()) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
+		if ($operationName != 'extract') {
+			return array(
+				GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+				null,
+				null,
+			);
+		}
 
-	if ($operationName != 'extract') {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
-			 null, null);
+		$platform->copy(__FILE__, $destFilename . '/foo.ext');
+		$platform->mkdir($destFilename . '/subdir');
+		$platform->copy(__FILE__, $destFilename . '/subdir' . '/blah.ext');
+
+		/**
+		 * Windows can't handle < and > in filenames so the next 3 ops will fail.  They'd fail in
+		 * production, too so at least for now this is a sane test.
+		 * @todo switch to using a mock platform so that we can test this properly on Windows
+		 */
+		$isUnix = strncasecmp(PHP_OS, 'win', 3);
+
+		if ($isUnix) {
+			$platform->copy(__FILE__, $destFilename . '/foo<body onload=alert(item_xss)>.ext');
+			$platform->mkdir($destFilename . '/foo<body onload=alert(album_xss)>bar');
+			$platform->copy(
+				__FILE__,
+				$destFilename . '/foo<body onload=alert(album_xss)>bar' . '/foo.ext'
+			);
+		}
+
+		return array(null, $mimeType, $context);
 	}
-
-	$platform->copy(__FILE__, $destFilename . '/foo.ext');
-	$platform->mkdir($destFilename . '/subdir');
-	$platform->copy(__FILE__, $destFilename . '/subdir' . '/blah.ext');
-
-	/**
-	 * Windows can't handle < and > in filenames so the next 3 ops will fail.  They'd fail in
-	 * production, too so at least for now this is a sane test.
-	 * @todo switch to using a mock platform so that we can test this properly on Windows
-	 */
-	$isUnix = strncasecmp(PHP_OS, 'win', 3);
-	if ($isUnix) {
-	    $platform->copy(__FILE__, $destFilename . '/foo<body onload=alert(item_xss)>.ext');
-	    $platform->mkdir($destFilename . '/foo<body onload=alert(album_xss)>bar');
-	    $platform->copy(
-		__FILE__, $destFilename . '/foo<body onload=alert(album_xss)>bar' . '/foo.ext');
-	}
-
-	return array(null, $mimeType, $context);
-    }
 }
 
 /**
  * Configurable PHP VM
  */
 class ItemAddPhpVm extends GalleryPhpVm {
-    /**
-     * Constructor
-     * @param int $timeIncrement time slice. time() increments by this value for each call.
-     */
-    function ItemAddPhpVm($time=0, $timeIncrement=1) {
-	$_SERVER['phpVm.timeIncrement'] = $timeIncrement;
-	$_SERVER['phpVm.time'] = $time;
-    }
+	/**
+	 * Constructor
+	 * @param int $timeIncrement time slice. time() increments by this value for each call.
+	 */
+	public function __construct($time = 0, $timeIncrement = 1) {
+		$_SERVER['phpVm.timeIncrement'] = $timeIncrement;
+		$_SERVER['phpVm.time']          = $time;
+	}
 
-    function time() {
-	return $_SERVER['phpVm.time'] += $_SERVER['phpVm.timeIncrement'];
-    }
+	public function time() {
+		return $_SERVER['phpVm.time'] += $_SERVER['phpVm.timeIncrement'];
+	}
 }
-?>

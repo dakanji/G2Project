@@ -26,20 +26,24 @@
  * @version $Revision: 17580 $
  */
 class CaptchaConfigAdminController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$results['status']   = $results['error'] = array();
+		$results['redirect'] = array(
+			'view'    => 'core.SiteAdmin',
+			'subView' => 'core.AdminPlugins',
+		);
+
+		return array(null, $results);
 	}
-
-	$results['status'] = $results['error'] = array();
-	$results['redirect'] = array('view' => 'core.SiteAdmin', 'subView' => 'core.AdminPlugins');
-	return array(null, $results);
-    }
 }
 
 
@@ -48,27 +52,33 @@ class CaptchaConfigAdminController extends GalleryController {
  * there's nothing we can do about it.
  */
 class CaptchaConfigAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'CaptchaConfigAdmin') {
+			$form['formName'] = 'CaptchaConfigAdmin';
+		}
+
+		GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
+		$gdReport = CaptchaHelper::testRequiredGdFunctions();
+
+		$template->setVariable('CaptchaConfigAdmin', array(
+			'gdReport' => $gdReport,
+		));
+		$template->setVariable('controller', 'captcha.CaptchaConfigAdmin');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/captcha/templates/CaptchaConfigAdmin.tpl',
+			),
+		);
 	}
-
-	if ($form['formName'] != 'CaptchaConfigAdmin') {
-	    $form['formName'] = 'CaptchaConfigAdmin';
-	}
-
-	GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
-	$gdReport = CaptchaHelper::testRequiredGdFunctions();
-
-	$template->setVariable('CaptchaConfigAdmin', array('gdReport' => $gdReport));
-	$template->setVariable('controller', 'captcha.CaptchaConfigAdmin');
-	return array(null,
-		     array('body' => 'modules/captcha/templates/CaptchaConfigAdmin.tpl'));
-    }
 }
-?>

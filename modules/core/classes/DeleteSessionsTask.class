@@ -28,101 +28,120 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  * @version $Revision: 17580 $
  */
 class DeleteSessionsTask extends MaintenanceTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-	return array('l10Domain' => 'modules_core',
-		     'title' => $gallery->i18n('Delete user sessions'),
-		     'description' => $gallery->i18n(
-			 'Delete all persistent user sessions according to your current session ' .
-			 'expiration settings.'));
-    }
-
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	global $gallery;
-	$templateAdapter =& $gallery->getTemplateAdapter();
-	$session =& $gallery->getSession();
-	$phpVm = $gallery->getPhpVm();
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
+		return array(
+			'l10Domain'   => 'modules_core',
+			'title'       => $gallery->i18n('Delete user sessions'),
+			'description' => $gallery->i18n(
+				'Delete all persistent user sessions according to your current session ' .
+				 'expiration settings.'
+			),
+		);
 	}
 
-	/* Touch this admin session to ensure that we don't delete it */
-	$session->put('touch', $phpVm->time());
-	$ret = $session->save();
-	if ($ret) {
-	    return array($ret, null, null);
-	}
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		global $gallery;
+		$templateAdapter =& $gallery->getTemplateAdapter();
+		$session         =& $gallery->getSession();
+		$phpVm           = $gallery->getPhpVm();
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$inactivityTimeout = (int)$params['session.inactivityTimeout'];
-	$lifetime = (int)$params['session.lifetime'];
-	list ($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return array($ret, null, null);
-	}
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
-	$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 0);
+		if ($ret) {
+			return array($ret, null, null);
+		}
 
-	$data = array($phpVm->time() - $inactivityTimeout, $phpVm->time() - $lifetime,
-		      $anonymousUserId, $phpVm->time() - (7 * 86400));
+		// Touch this admin session to ensure that we don't delete it
+		$session->put('touch', $phpVm->time());
+		$ret = $session->save();
 
-	$query = '
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
+		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 0);
+
+		$data = array(
+			$phpVm->time() - $inactivityTimeout,
+			$phpVm->time() - $lifetime,
+			$anonymousUserId,
+			$phpVm->time() - (7 * 86400),
+		);
+
+		$query               = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR
 	      [GallerySessionMap::creationTimestamp] < ? OR
 	      ([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)
 	';
-	list ($ret, $results) = $gallery->search($query, $data);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$result = $results->nextResult();
-	$total = $result[0];
+		list($ret, $results) = $gallery->search($query, $data);
 
-	if ($total) {
-	    /* This limit controls the query text length, 1000 sessionIds => query size = 32kbyte */
-	    $stepSize = $session->_expirationLimit = 1000;
-	    $iterations = ceil($total / $stepSize);
-	    $option['limit']['count'] = $stepSize;
-
-	    for ($i = 1; $i <= $iterations; $i++) {
-		$gallery->guaranteeTimeLimit(120);
-		$ret = $session->_expireSessions();
 		if ($ret) {
-		    return array($ret, null, null);
+			return array($ret, null, null);
+		}
+		$result = $results->nextResult();
+		$total  = $result[0];
+
+		if ($total) {
+			// This limit controls the query text length, 1000 sessionIds => query size = 32kbyte
+			$stepSize                 = $session->_expirationLimit = 1000;
+			$iterations               = ceil($total / $stepSize);
+			$option['limit']['count'] = $stepSize;
+
+			for ($i = 1; $i <= $iterations; $i++) {
+				$gallery->guaranteeTimeLimit(120);
+				$ret = $session->_expireSessions();
+
+				if ($ret) {
+					return array($ret, null, null);
+				}
+
+				$templateAdapter->updateProgressBar(
+					$module->translate('Delete user sessions'),
+					'',
+					$i / $iterations
+				);
+			}
 		}
 
-		$templateAdapter->updateProgressBar(
-		    $module->translate('Delete user sessions'), '', $i / $iterations);
-	    }
+		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
+
+		$result = array(
+			$module->translate(array(
+				'text' => 'Deleted %d sessions.',
+				'arg1' => (int)$total,
+			)),
+		);
+
+		return array(null, true, $result);
 	}
 
-	$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
-
-	$result = array($module->translate(array('text' => 'Deleted %d sessions.',
-						 'arg1' => (int)$total)));
-
-	return array(null, true, $result);
-    }
-
-    /**
-     * @see MaintenanceTask::requiresProgressBar
-     */
-    function requiresProgressBar() {
-	return true;
-    }
+	/**
+	 * @see MaintenanceTask::requiresProgressBar
+	 */
+	public function requiresProgressBar() {
+		return true;
+	}
 }
-?>

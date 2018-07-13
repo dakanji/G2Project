@@ -27,115 +27,154 @@
  * @version $Revision: 17580 $
  */
 class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function WebCamSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'webcam.WebCamSiteAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'webcam.WebCamSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'webcam');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'webcam');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::setPluginParameter('module', 'webcam', 'fromweb', 'admin');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$ret = GalleryCoreApi::setPluginParameter('module', 'webcam', 'fromweb', 'admin');
-	if ($ret) {
-	    return $ret;
+	public function testWebCamSiteAdminControllerUndo() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'webcam.WebCamSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-    }
 
-    function testWebCamSiteAdminControllerUndo() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	public function testWebCamSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[duration]', '123.4');
+		GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'webcam.WebCamSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'webcam.WebCamSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-    function testWebCamSiteAdminControllerSave() {
-	GalleryUtilities::putRequestVariable('form[duration]', '123.4');
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'webcam.WebCamSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('7404', $params['duration']);
+		$this->assertEquals('off', $params['fromweb']);
 	}
-	$this->assertEquals('7404', $params['duration']);
-	$this->assertEquals('off', $params['fromweb']);
-    }
 
-    function testWebCamSiteAdminControllerSaveNoDuration() {
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testWebCamSiteAdminControllerSaveNoDuration() {
+		GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'webcam.WebCamSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][duration]')),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'webcam.WebCamSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][duration]'),
+			),
+			$results
+		);
 
-	list ($ret, $fromWeb) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
-	if ($ret) {
-	    return $ret;
+		list($ret, $fromWeb) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('admin', $fromWeb);
 	}
-	$this->assertEquals('admin', $fromWeb);
-    }
 
-    function testWebCamSiteAdminControllerSaveBadDuration() {
-	GalleryUtilities::putRequestVariable('form[duration]', 'abc');
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testWebCamSiteAdminControllerSaveBadDuration() {
+		GalleryUtilities::putRequestVariable('form[duration]', 'abc');
+		GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'webcam.WebCamSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][duration]')),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'webcam.WebCamSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][duration]'),
+			),
+			$results
+		);
 
-	list ($ret, $fromWeb) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
-	if ($ret) {
-	    return $ret;
+		list($ret, $fromWeb) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('admin', $fromWeb);
 	}
-	$this->assertEquals('admin', $fromWeb);
-    }
 
-    function testWebCamSiteAdminControllerLocale() {
-	/* Verify the form can accept input in locales that use comma for the fraction separator */
-	GalleryUtilities::putRequestVariable('form[duration]', '123,4');
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testWebCamSiteAdminControllerLocale() {
+		// Verify the form can accept input in locales that use comma for the fraction separator
+		GalleryUtilities::putRequestVariable('form[duration]', '123,4');
+		GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'webcam.WebCamSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'webcam.WebCamSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
-	if ($ret) {
-	    return $ret;
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('7404', $params['duration']);
+		$this->assertEquals('off', $params['fromweb']);
 	}
-	$this->assertEquals('7404', $params['duration']);
-	$this->assertEquals('off', $params['fromweb']);
-    }
 }
-?>

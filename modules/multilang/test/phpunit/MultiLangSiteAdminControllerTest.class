@@ -27,71 +27,93 @@
  * @version $Revision: 17580 $
  */
 class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function MultiLangSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'multilang.MultiLangSiteAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'multilang.MultiLangSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-    }
 
-    function testMultiLangSiteAdminControllerReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	public function testMultiLangSiteAdminControllerReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-				      'subView' => 'multilang.MultiLangSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testMultiLangSiteAdminControllerSave() {
-	GalleryUtilities::putRequestVariable('form[languages][0]', 'de_DE');
-	GalleryUtilities::putRequestVariable('form[languages][1]', 'he_IL');
-	GalleryUtilities::putRequestVariable('form[languages][2]', 'zh_CN');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-				      'subView' => 'multilang.MultiLangSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $languages) =
-	    GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'multilang.MultiLangSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-	$this->assertEquals('de_DE|he_IL|zh_CN', $languages, 'languages');
-    }
 
-    function testMultiLangSiteAdminControllerSaveNoLanguages() {
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testMultiLangSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[languages][0]', 'de_DE');
+		GalleryUtilities::putRequestVariable('form[languages][1]', 'he_IL');
+		GalleryUtilities::putRequestVariable('form[languages][2]', 'zh_CN');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-				      'subView' => 'multilang.MultiLangSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'multilang.MultiLangSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	list ($ret, $languages) =
-	    GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
-	if ($ret) {
-	    return $ret;
+		list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('de_DE|he_IL|zh_CN', $languages, 'languages');
 	}
-	$this->assertEquals('', $languages, 'languages');
-    }
+
+	public function testMultiLangSiteAdminControllerSaveNoLanguages() {
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'multilang.MultiLangSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('', $languages, 'languages');
+	}
 }
-?>

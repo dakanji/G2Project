@@ -26,110 +26,131 @@
  * @version $Revision: 17580 $
  */
 class WatermarkOption extends ItemAddOption {
+	/**
+	 * @see ItemAddOption::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form, $item) {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
 
-    /**
-     * @see ItemAddOption::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
-	$WatermarkOption = array();
-	if (!$params['forceDefaultWatermark'] || empty($params['defaultWatermarkId'])) {
-	    GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-	    list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-
-	    $currentId = null;
-	    foreach (array_keys($watermarks) as $id) {
-		if (!isset($currentId)) {
-		    $currentId = $id;
-		}
-		$watermarks[$id] = (array)$watermarks[$id];
-	    }
-
-	    $WatermarkOption['watermarks'] = $watermarks;
-	    $WatermarkOption['currentId'] = $currentId;
-	}
-
-	$template->setVariable('WatermarkOption', $WatermarkOption);
-	return array(null,
-		     'modules/watermark/templates/WatermarkOption.tpl',
-		     'modules_watermark');
-    }
-
-    /**
-     * @see ItemAddOption::isAppropriate
-     */
-    function isAppropriate() {
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-
-	/* Only appropriate if we've got some watermarks to show */
-	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, !empty($watermarks));
-    }
-
-    /**
-     * @see ItemAddOption::handleRequestAfterAdd
-     */
-    function handleRequestAfterAdd($form, $items) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	if ($params['forceDefaultWatermark'] && !empty($params['defaultWatermarkId'])) {
-	    $form['WatermarkOption']['watermarkId'] = $params['defaultWatermarkId'];
-	}
-
-	if (!empty($form['WatermarkOption']['watermarkId'])) {
-	    list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById(
-		$form['WatermarkOption']['watermarkId'], 'WatermarkImage');
-	    if ($ret) {
-		if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-		    return array($ret, null, null);
-		}
-		$ret = GalleryCoreApi::addEventLogEntry('WATERMARK ERROR', 
-		    'Watermark doesn\'t exist', $form['WatermarkOption']['watermarkId']);
 		if ($ret) {
-		    return array($ret, null, null);
-		}
-
-		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
-		if ($ret) {
-		    return array($ret, null, null);
-		}
-		$message = 
-		    $module->translate('Error: Missing watermark. Please see the Event Logs '
-				       . 'page in the Site Admin.');
-
-		return array(null, array($message), array());
-	    }
-
-	    foreach ($items as $i => $item) {
-		if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
-		    $watermarkArray =
-			array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL => $watermark->getApplyToThumbnail(),
-			      DERIVATIVE_TYPE_IMAGE_RESIZE => $watermark->getApplyToResizes(),
-			      DERIVATIVE_TYPE_IMAGE_PREFERRED => $watermark->getApplyToPreferred());
-		    $ret = WatermarkHelper::watermarkItem($watermark, $item,
-							  $watermark->getXPercentage(),
-							  $watermark->getYPercentage(),
-							  $watermarkArray);
-		    if ($ret) {
 			return array($ret, null, null);
-		    }
 		}
-	    }
+
+		$WatermarkOption = array();
+
+		if (!$params['forceDefaultWatermark'] || empty($params['defaultWatermarkId'])) {
+			GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+			list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+
+			$currentId = null;
+
+			foreach (array_keys($watermarks) as $id) {
+				if (!isset($currentId)) {
+					$currentId = $id;
+				}
+				$watermarks[$id] = (array)$watermarks[$id];
+			}
+
+			$WatermarkOption['watermarks'] = $watermarks;
+			$WatermarkOption['currentId']  = $currentId;
+		}
+
+		$template->setVariable('WatermarkOption', $WatermarkOption);
+
+		return array(
+			null,
+			'modules/watermark/templates/WatermarkOption.tpl',
+			'modules_watermark',
+		);
 	}
-	return array(null, array(), array());
-    }
+
+	/**
+	 * @see ItemAddOption::isAppropriate
+	 */
+	public function isAppropriate() {
+		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
+		// Only appropriate if we've got some watermarks to show
+		list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, !empty($watermarks));
+	}
+
+	/**
+	 * @see ItemAddOption::handleRequestAfterAdd
+	 */
+	public function handleRequestAfterAdd($form, $items) {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		if ($params['forceDefaultWatermark'] && !empty($params['defaultWatermarkId'])) {
+			$form['WatermarkOption']['watermarkId'] = $params['defaultWatermarkId'];
+		}
+
+		if (!empty($form['WatermarkOption']['watermarkId'])) {
+			list($ret, $watermark) = GalleryCoreApi::loadEntitiesById(
+				$form['WatermarkOption']['watermarkId'],
+				'WatermarkImage'
+			);
+
+			if ($ret) {
+				if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+					return array($ret, null, null);
+				}
+				$ret = GalleryCoreApi::addEventLogEntry(
+					'WATERMARK ERROR',
+					'Watermark doesn\'t exist',
+					$form['WatermarkOption']['watermarkId']
+				);
+
+				if ($ret) {
+					return array($ret, null, null);
+				}
+
+				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
+
+				if ($ret) {
+					return array($ret, null, null);
+				}
+				$message = $module->translate('Error: Missing watermark. Please see the Event Logs '
+					   . 'page in the Site Admin.');
+
+				return array(null, array($message), array());
+			}
+
+			foreach ($items as $i => $item) {
+				if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
+					$watermarkArray = array(
+						DERIVATIVE_TYPE_IMAGE_THUMBNAIL                  => $watermark->getApplyToThumbnail(),
+						DERIVATIVE_TYPE_IMAGE_RESIZE => $watermark->getApplyToResizes(),
+						DERIVATIVE_TYPE_IMAGE_PREFERRED => $watermark->getApplyToPreferred(),
+					);
+					$ret            = WatermarkHelper::watermarkItem(
+						$watermark,
+						$item,
+						$watermark->getXPercentage(),
+						$watermark->getYPercentage(),
+						$watermarkArray
+					);
+
+					if ($ret) {
+						return array($ret, null, null);
+					}
+				}
+			}
+		}
+
+		return array(null, array(), array());
+	}
 }
-?>

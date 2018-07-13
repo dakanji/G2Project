@@ -28,131 +28,148 @@ GalleryCoreApi::requireOnce('modules/httpauth/classes/HttpAuthPlugin.class');
  * @version $Revision: 17627 $
  */
 class HttpAuthPluginTest extends GalleryTestCase {
-
-    function HttpAuthPluginTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	/* Create test user */
-	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_user);
-	$_SERVER['AUTH_TYPE'] = 'Test';
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
 
-	$this->_plugin = new HttpAuthPlugin();
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_saveSession = $gallery->_session;	
-	$gallery->_session = new HttpAuthPluginTestSession();
+		// Create test user
+		list($ret, $this->_user) = $this->_createRandomUser(null, 'password');
 
-	$ret = $this->_registerEventListener('Gallery::FailedLogin');
-	if ($ret) {
-	    return $ret;
-	}
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_user);
+		$_SERVER['AUTH_TYPE'] = 'Test';
 
-    function tearDown() {
-	global $gallery;
-	$gallery->_session = $this->_saveSession;
+		$this->_plugin = new HttpAuthPlugin();
 
-	$ret = GalleryCoreApi::removeAllMapEntries('FailedLoginsMap');
-	if ($ret) {
-	    $this->failWithStatus($ret);
-	}
+		$this->_saveSession = $gallery->_session;
+		$gallery->_session  = new HttpAuthPluginTestSession();
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
+		$ret = $this->_registerEventListener('Gallery::FailedLogin');
 
-    function testValidUser() {
-	global $gallery;
-	$session =& $gallery->getSession();
-
-	$_SERVER['PHP_AUTH_USER'] = $this->_user->getUserName();
-	$_SERVER['PHP_AUTH_PW'] = 'password';
-
-	list ($ret, $user) = $this->_plugin->getUser();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$this->assertEquals($this->_user, $user);
-	$this->assertEventNotFired('Gallery::FailedLogin');
-	$this->assert($session->regenerateWasCalled(), 'Session has not been regenerated!');
-    }
+	public function tearDown() {
+		global $gallery;
+		$gallery->_session = $this->_saveSession;
 
-    function testInvalidUser() {
-	$_SERVER['PHP_AUTH_USER'] = 'bogusUser-' . rand();
-	$_SERVER['PHP_AUTH_PW'] = 'password';
+		$ret = GalleryCoreApi::removeAllMapEntries('FailedLoginsMap');
 
-	list ($ret, $user) = $this->_plugin->getUser();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	$this->assert(!isset($user));
+	public function testValidUser() {
+		global $gallery;
+		$session =& $gallery->getSession();
 
-	$this->assertEventFired('Gallery::FailedLogin', null,
-	    array('userName' => $_SERVER['PHP_AUTH_USER']));
-    }
+		$_SERVER['PHP_AUTH_USER'] = $this->_user->getUserName();
+		$_SERVER['PHP_AUTH_PW']   = 'password';
 
-    function testValidUserInvalidPassword() {
-	$_SERVER['PHP_AUTH_USER'] = $this->_user->getUserName();
-	$_SERVER['PHP_AUTH_PW'] = 'wrongPassword';
+		list($ret, $user) = $this->_plugin->getUser();
 
-	list ($ret, $user) = $this->_plugin->getUser();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_user, $user);
+		$this->assertEventNotFired('Gallery::FailedLogin');
+		$this->assert($session->regenerateWasCalled(), 'Session has not been regenerated!');
 	}
 
-	$this->assert(!isset($user));
+	public function testInvalidUser() {
+		$_SERVER['PHP_AUTH_USER'] = 'bogusUser-' . mt_rand();
+		$_SERVER['PHP_AUTH_PW']   = 'password';
 
-	$this->assertEventFired('Gallery::FailedLogin', null,
-	    array('userName' => $this->_user->getUserName()));
-    }
+		list($ret, $user) = $this->_plugin->getUser();
 
-    function testNoFailedLoginEventForSpecialLogoutUsername() {
-	$_SERVER['PHP_AUTH_USER'] = '__LOGOUT__' . rand();
-	$_SERVER['PHP_AUTH_PW'] = 'somepassword';
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $user) = $this->_plugin->getUser();
-	if ($ret) {
-	    return $ret;
+		$this->assert(!isset($user));
+
+		$this->assertEventFired(
+			'Gallery::FailedLogin',
+			null,
+			array(
+				'userName' => $_SERVER['PHP_AUTH_USER'],
+			)
+		);
 	}
 
-	$this->assert(!isset($user));
-	$this->assertEventNotFired('Gallery::FailedLogin');
-    }
+	public function testValidUserInvalidPassword() {
+		$_SERVER['PHP_AUTH_USER'] = $this->_user->getUserName();
+		$_SERVER['PHP_AUTH_PW']   = 'wrongPassword';
+
+		list($ret, $user) = $this->_plugin->getUser();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(!isset($user));
+
+		$this->assertEventFired(
+			'Gallery::FailedLogin',
+			null,
+			array(
+				'userName' => $this->_user->getUserName(),
+			)
+		);
+	}
+
+	public function testNoFailedLoginEventForSpecialLogoutUsername() {
+		$_SERVER['PHP_AUTH_USER'] = '__LOGOUT__' . mt_rand();
+		$_SERVER['PHP_AUTH_PW']   = 'somepassword';
+
+		list($ret, $user) = $this->_plugin->getUser();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(!isset($user));
+		$this->assertEventNotFired('Gallery::FailedLogin');
+	}
 }
 
 /**
  * Mock Session
  */
 class HttpAuthPluginTestSession {
-    function HttpAuthPluginTestSession() {
-	$this->_regenerateWasCalled = false;
-    }
+	public function __construct() {
+		$this->_regenerateWasCalled = false;
+	}
 
-    function getUserId() {
-	return null;
-    }
+	public function getUserId() {
+		return null;
+	}
 
-    function regenerate() {
-	$this->_regenerateWasCalled = true;
-    }
+	public function regenerate() {
+		$this->_regenerateWasCalled = true;
+	}
 
-    function regenerateWasCalled() {
-	return $this->_regenerateWasCalled;
-    }
+	public function regenerateWasCalled() {
+		return $this->_regenerateWasCalled;
+	}
 }
-?>

@@ -28,136 +28,189 @@ GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class
  * @version $Revision: 17580 $
  */
 class CustomFieldInterfaceTest extends GalleryTestCase {
-
-    function CustomFieldInterfaceTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-	global $gallery;
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return ($ret);
-	}
-	list ($ret, $this->_interface) =
-	    GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0', 'CustomFieldHelper');
-	if ($ret || !isset($this->_interface)) {
-	    print $ret->getAsHtml();
-	    return ($ret);
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+		global $gallery;
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
+
+		if ($ret) {
+			echo $ret->getAsHtml();
+
+			return $ret;
+		}
+		list($ret, $this->_interface) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0', 'CustomFieldHelper');
+
+		if ($ret || !isset($this->_interface)) {
+			echo $ret->getAsHtml();
+
+			return $ret;
+		}
+
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_album);
+
+		list($ret, $this->_item) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'image/test',
+			array(),
+			__FILE__,
+			'GalleryPhotoItem'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array(
+			'common' => '',
+			'album'  => '',
+			'photo'  => 'Test`0`1',
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'customfield', $key, $value);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
 	}
 
-	$this->_markForCleanup($this->_album);
+	public function testInterface() {
 
-	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
-		'image/test', array(), __FILE__, 'GalleryPhotoItem');
-	if ($ret) {
-	    return $ret;
-	}
+		// Create global fields..
+		list($ret, $duplicates) = $this->_interface->createCustomFields(array('One', 'Two'));
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array(), $duplicates, 'Add global 1');
 
-	foreach (array('common' => '', 'album' => '', 'photo' => 'Test`0`1') as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'customfield', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-    }
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
 
-    function testInterface() {
+		if ($ret) {
+			return $ret;
+		}
 
-	// Create global fields..
-	list ($ret, $duplicates) = $this->_interface->createCustomFields(array('One', 'Two'));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(), $duplicates, 'Add global 1');
+		foreach ($params as $key => $value) {
+			if ($key[0] == '_') {
+				unset($params[$key]);
+			}
+		}
+		ksort($params);
+		$this->assertEquals(
+			array(
+				'album'  => '',
+				'common' => 'One`0`1|Two`0`1',
+				'photo'  => 'Test`0`1',
+			),
+			$params,
+			'Check Data 1'
+		);
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
-	if ($ret) {
-	    return $ret;
-	}
-	foreach ($params as $key => $value) {
-	    if ($key[0] == '_') {
-		unset($params[$key]);
-	    }
-	}
-	ksort($params);
-	$this->assertEquals(array('album' => '',
-				  'common' => 'One`0`1|Two`0`1',
-				  'photo' => 'Test`0`1'),
-			    $params, 'Check Data 1');
+		// Create global fields, with duplicate..
+		list($ret, $duplicates) = $this->_interface->createCustomFields(array('Test', 'Three', 'Two'));
 
-	// Create global fields, with duplicate..
-	list ($ret, $duplicates) =
-	    $this->_interface->createCustomFields(array('Test', 'Three', 'Two'));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array('Test', 'Two'), $duplicates, 'Add global 2');
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array('Test', 'Two'), $duplicates, 'Add global 2');
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
-	if ($ret) {
-	    return $ret;
-	}
-	foreach ($params as $key => $value) {
-	    if ($key[0] == '_') {
-		unset($params[$key]);
-	    }
-	}
-	ksort($params);
-	$this->assertEquals(array('album' => '',
-				  'common' => 'One`0`1|Two`0`1|Three`0`1',
-				  'photo' => 'Test`0`1'),
-			    $params, 'Check Data 2');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
 
-	// Create album-specific fields..
-	list ($ret, $duplicates) =
-	    $this->_interface->createCustomFields(array('Photographer', 'Location', 'One'),
-						  $this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(), $duplicates, 'Add album');
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
-									$this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	ksort($params);
-	$this->assertEquals(array('common' => 'Photographer`0`1|Location`0`1|One`0`1'),
-			    $params, 'Check Data 3');
+		foreach ($params as $key => $value) {
+			if ($key[0] == '_') {
+				unset($params[$key]);
+			}
+		}
+		ksort($params);
+		$this->assertEquals(
+			array(
+				'album'  => '',
+				'common' => 'One`0`1|Two`0`1|Three`0`1',
+				'photo'  => 'Test`0`1',
+			),
+			$params,
+			'Check Data 2'
+		);
 
-	// Set field values..
-	$ret = $this->_interface->setCustomFieldValues($this->_item->getId(),
-		array('Photographer' => 'Me', 'Location' => 'Here'));
-	if ($ret) {
-	    return $ret;
-	}
+		// Create album-specific fields..
+		list($ret, $duplicates) = $this->_interface->createCustomFields(
+			array('Photographer', 'Location', 'One'),
+			$this->_album->getId()
+		);
 
-	list ($ret, $data, $tmp, $isContainer) =
-		CustomFieldHelper::fetchFieldValues(array($this->_item));
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array(), $duplicates, 'Add album');
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'customfield',
+			$this->_album->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		ksort($params);
+		$this->assertEquals(
+			array(
+				'common' => 'Photographer`0`1|Location`0`1|One`0`1',
+			),
+			$params,
+			'Check Data 3'
+		);
+
+		// Set field values..
+		$ret = $this->_interface->setCustomFieldValues(
+			$this->_item->getId(),
+			array(
+				'Photographer' => 'Me',
+				'Location'     => 'Here',
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::fetchFieldValues(array($this->_item));
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'Photographer' => 'Me',
+				'Location'     => 'Here',
+			),
+			$data[$this->_item->getId()],
+			'Field values'
+		);
+		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 	}
-	$this->assertEquals(array('Photographer' => 'Me', 'Location' => 'Here'),
-			    $data[$this->_item->getId()], 'Field values');
-	$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
-    }
 }
-?>

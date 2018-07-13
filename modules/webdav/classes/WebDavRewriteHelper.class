@@ -27,52 +27,51 @@
  * @static
  */
 class WebDavRewriteHelper {
-
-    /**
-     * Hacked version of RewriteSimpleHelper::parserPath to support either 'path' or 'itemId' and
-     * empty path or '/' for short URL to the root album.  Uses rawurlencode instead of urlencode to
-     * encode ' ' as '%20', instead of '+'.
-     * @see RewriteSimpleHelper::parsePath
-     */
-    function parsePath(&$url, &$params, &$entity) {
-	global $gallery;
-
-	if (isset($params['itemId'])) {
-	    if (!isset($entity)) {
-		$urlGenerator =& $gallery->getUrlGenerator();
-		$entity = $urlGenerator->loadEntity($params['itemId']);
-	    }
-
-	    if (!GalleryUtilities::isA($entity, 'GalleryFileSystemEntity')) {
-		return;
-	    }
-
-	    list ($ret, $params['path']) = $entity->fetchLogicalPath();
-	    if ($ret) {
-		return;
-	    }
-
-	    unset($params['itemId']);
-	}
-
-	if (empty($params['path'])) {
-	    $params['path'] = '';
-	} else {
-	    $params['path'] = ltrim($params['path'], '/');
-
-	    /* rawurlencode except for path separators */
-	    $params['path'] = str_replace('%2F', '/', rawurlencode($params['path']));
-	}
-
-	/*
-	 * We add in a leading slash to the path because the rule is designed not to have
-	 * one, so that it can trigger on gallery2/w/ and gallery2/w (Windows XP will
-	 * PROPFIND the path without the trailing slash
+	/**
+	 * Hacked version of RewriteSimpleHelper::parserPath to support either 'path' or 'itemId' and
+	 * empty path or '/' for short URL to the root album.  Uses rawurlencode instead of urlencode to
+	 * encode ' ' as '%20', instead of '+'.
+	 * @see RewriteSimpleHelper::parsePath
 	 */
-	$url = str_replace('%path%', '/' . $params['path'], $url);
-	unset($params['path']);
+	public function parsePath(&$url, &$params, &$entity) {
+		global $gallery;
 
-	return true;
-    }
+		if (isset($params['itemId'])) {
+			if (!isset($entity)) {
+				$urlGenerator =& $gallery->getUrlGenerator();
+				$entity       = $urlGenerator->loadEntity($params['itemId']);
+			}
+
+			if (!GalleryUtilities::isA($entity, 'GalleryFileSystemEntity')) {
+				return;
+			}
+
+			list($ret, $params['path']) = $entity->fetchLogicalPath();
+
+			if ($ret) {
+				return;
+			}
+
+			unset($params['itemId']);
+		}
+
+		if (empty($params['path'])) {
+			$params['path'] = '';
+		} else {
+			$params['path'] = ltrim($params['path'], '/');
+
+			// rawurlencode except for path separators
+			$params['path'] = str_replace('%2F', '/', rawurlencode($params['path']));
+		}
+
+		/*
+		 * We add in a leading slash to the path because the rule is designed not to have
+		 * one, so that it can trigger on gallery2/w/ and gallery2/w (Windows XP will
+		 * PROPFIND the path without the trailing slash
+		 */
+		$url = str_replace('%path%', '/' . $params['path'], $url);
+		unset($params['path']);
+
+		return true;
+	}
 }
-?>

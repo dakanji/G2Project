@@ -28,69 +28,101 @@ GalleryCoreApi::requireOnce('modules/webdav/classes/WebDavHelper.class');
  * @version $Revision: 17580 $
  */
 class WebDavControllerTest extends GalleryControllerTestCase {
-    function WebDavControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'webdav.WebDav');
-    }
-
-    function testRequireAuthForAllRequestsByWindowsWebfolders() {
-	/* See bug 1645834 */
-	$this->_becomeGuestUser();
-
-	foreach (array('Microsoft Data Access Internet Publishing Provider DAV foo bar',
-		       'Microsoft-WebDAV-MiniRedir/5.1.2600') as $userAgent) {
-	    $_SERVER['HTTP_USER_AGENT'] = $userAgent;
-
-	    foreach (array('options', 'propfind', 'proppatch', 'mkcol', 'delete',
-		'move', 'lock', 'unlock', 'put', 'get', 'head') as $requestMethod) {
-		$_SERVER['REQUEST_METHOD'] = $requestMethod;
-
-		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
-		$this->assertEquals(null, $results,
-				    "User-Agent: $userAgent, Request-Method: $requestMethod");
-	    }
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'webdav.WebDav');
 	}
-    }
 
-    function testNoAuthRequestForLoggedInUsersForRequestsByWindowsWebfolders() {
-	$_SERVER['REQUEST_METHOD'] = 'propfind';
-	$_SERVER['HTTP_USER_AGENT'] =
-		'Microsoft Data Access Internet Publishing Provider DAV foo bar';
+	public function testRequireAuthForAllRequestsByWindowsWebfolders() {
+		// See bug 1645834
+		$this->_becomeGuestUser();
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'webdav.WebDav'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		foreach (array(
+			'Microsoft Data Access Internet Publishing Provider DAV foo bar',
+			'Microsoft-WebDAV-MiniRedir/5.1.2600',
+		) as $userAgent) {
+			$_SERVER['HTTP_USER_AGENT'] = $userAgent;
 
-    function testNoAuthRequiredForOtherClients() {
-	$_SERVER['REQUEST_METHOD'] = 'propfind';
-	$_SERVER['HTTP_USER_AGENT'] = 'SOME USER AGENT STRING';
-	$this->_becomeGuestUser();
+			foreach (array(
+				'options',
+				'propfind',
+				'proppatch',
+				'mkcol',
+				'delete',
+				'move',
+				'lock',
+				'unlock',
+				'put',
+				'get',
+				'head',
+			) as $requestMethod) {
+				$_SERVER['REQUEST_METHOD'] = $requestMethod;
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'webdav.WebDav'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+				$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+				$this->assertEquals(
+					null,
+					$results,
+					"User-Agent: $userAgent, Request-Method: $requestMethod"
+				);
+			}
+		}
+	}
 
-    function testSpecialCharactersInFileName() {
-	$_SERVER['REQUEST_METHOD'] = 'propfind';
-	$_SERVER['HTTP_USER_AGENT'] = 'SOME USER AGENT STRING';
+	public function testNoAuthRequestForLoggedInUsersForRequestsByWindowsWebfolders() {
+		$_SERVER['REQUEST_METHOD']  = 'propfind';
+		$_SERVER['HTTP_USER_AGENT'] = 'Microsoft Data Access Internet Publishing Provider DAV foo bar';
 
-	GalleryUtilities::putRequestVariable('path', '@dir/Black&White');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'webdav.WebDav',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$originalPath = GalleryUtilities::getRequestVariables('originalPath');
-	$path = GalleryUtilities::getRequestVariables('path');
-	$this->assertEquals(array('delegate' => array('view' => 'webdav.WebDav'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+	public function testNoAuthRequiredForOtherClients() {
+		$_SERVER['REQUEST_METHOD']  = 'propfind';
+		$_SERVER['HTTP_USER_AGENT'] = 'SOME USER AGENT STRING';
+		$this->_becomeGuestUser();
 
-	$this->assertEquals('@dir/Black&amp;White', $originalPath, 'Unexpected Original Path');
-	$this->assertEquals('_dir/Black_White', $path, 'Unexpected New Path');
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'webdav.WebDav',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
+
+	public function testSpecialCharactersInFileName() {
+		$_SERVER['REQUEST_METHOD']  = 'propfind';
+		$_SERVER['HTTP_USER_AGENT'] = 'SOME USER AGENT STRING';
+
+		GalleryUtilities::putRequestVariable('path', '@dir/Black&White');
+
+		$results      = $this->handleRequest();
+		$originalPath = GalleryUtilities::getRequestVariables('originalPath');
+		$path         = GalleryUtilities::getRequestVariables('path');
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'webdav.WebDav',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$this->assertEquals('@dir/Black&amp;White', $originalPath, 'Unexpected Original Path');
+		$this->assertEquals('_dir/Black_White', $path, 'Unexpected New Path');
+	}
 }
-?>

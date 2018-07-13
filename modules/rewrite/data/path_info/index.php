@@ -24,13 +24,11 @@
  *
  * Usage: index.php/test/path/info
  */
-
 if (isset($_SERVER['PATH_INFO'])
 	&& (!isset($_SERVER['SCRIPT_NAME']) || $_SERVER['PATH_INFO'] != $_SERVER['SCRIPT_NAME'])
-	&& $_SERVER['PATH_INFO'] == '/test/path/info') {
-    print("PASS_PATH_INFO\n");
+	&& $_SERVER['PATH_INFO'] == '/test/path/info'
+) {
+	echo "PASS_PATH_INFO\n";
 } else {
-    print("FAIL_PATH_INFO\n");
+	echo "FAIL_PATH_INFO\n";
 }
-
-?>

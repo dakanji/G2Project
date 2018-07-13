@@ -26,88 +26,104 @@
  * @version $Revision: 17580 $
  */
 class ShowTreeView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		// Make sure we have permission
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	/* Make sure we have permission */
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Get the entity */
-	$entityId = GalleryUtilities::getRequestVariables('entityId');
-	if (empty($entityId)) {
-	    list ($ret, $entity) = $this->getItem();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $entityId = $entity->getId();
-	} else {
-	    list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId, 'GalleryEntity');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-
-	$parentIds = $childIds = $entityObjects = $isItemTable = $entityTable = array();
-	if (GalleryUtilities::isA($entity, 'GalleryChildEntity')) {
-	    global $gallery;
-
-	    /* Get the parent ids leading up to this entity */
-	    if (GalleryUtilities::isA($entity, 'GalleryItem')) {
-		list ($ret, $parentIds) = GalleryCoreApi::fetchParentSequence($entityId, true);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    } else if ($entity->getParentId()) {
-		$parentIds[] = $entity->getParentId();
-	    }
 
-	    /* Get all of this entity's children */
-	    list ($ret, $results) = $gallery->search('
+		// Get the entity
+		$entityId = GalleryUtilities::getRequestVariables('entityId');
+
+		if (empty($entityId)) {
+			list($ret, $entity) = $this->getItem();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$entityId = $entity->getId();
+		} else {
+			list($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId, 'GalleryEntity');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		$parentIds = $childIds = $entityObjects = $isItemTable = $entityTable = array();
+
+		if (GalleryUtilities::isA($entity, 'GalleryChildEntity')) {
+			global $gallery;
+
+			// Get the parent ids leading up to this entity
+			if (GalleryUtilities::isA($entity, 'GalleryItem')) {
+				list($ret, $parentIds) = GalleryCoreApi::fetchParentSequence($entityId, true);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			} elseif ($entity->getParentId()) {
+				$parentIds[] = $entity->getParentId();
+			}
+
+			// Get all of this entity's children
+			list($ret, $results) = $gallery->search('
 		SELECT [::id] FROM [GalleryChildEntity] WHERE [::parentId] = ?
 	    ', array($entityId));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    while ($result = $results->nextResult()) {
-		$childIds[] = (int)$result[0];
-	    }
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			while ($result = $results->nextResult()) {
+				$childIds[] = (int)$result[0];
+			}
+		}
+
+		if (!empty($parentIds) || !empty($childIds)) {
+			// Load everything at once
+			list($ret, $entityObjects) = GalleryCoreApi::loadEntitiesById(
+				array_merge($parentIds, $childIds),
+				'GalleryEntity'
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+		$entityObjects[] = $entity;
+
+		foreach ($entityObjects as $entity) {
+			$isItemTable[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
+			$entityTable[$entity->getId()] = (array)$entity;
+		}
+
+		$ShowTree                = array();
+		$ShowTree['parentIds']   = $parentIds;
+		$ShowTree['childIds']    = $childIds;
+		$ShowTree['entityId']    = $entityId;
+		$ShowTree['entityTable'] = $entityTable;
+		$ShowTree['isItem']      = $isItemTable;
+		$template->setVariable('ShowTree', $ShowTree);
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'debug');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$template->title($module->translate('Gallery Debug'));
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/debug/templates/ShowTree.tpl',
+			),
+		);
 	}
-
-	if (!empty($parentIds) || !empty($childIds)) {
-	    /* Load everything at once */
-	    list ($ret, $entityObjects) = GalleryCoreApi::loadEntitiesById(
-		array_merge($parentIds, $childIds), 'GalleryEntity');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	$entityObjects[] = $entity;
-
-	foreach ($entityObjects as $entity) {
-	    $isItemTable[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
-	    $entityTable[$entity->getId()] = (array)$entity;
-	}
-
-	$ShowTree = array();
-	$ShowTree['parentIds'] = $parentIds;
-	$ShowTree['childIds'] = $childIds;
-	$ShowTree['entityId'] = $entityId;
-	$ShowTree['entityTable'] = $entityTable;
-	$ShowTree['isItem'] = $isItemTable;
-	$template->setVariable('ShowTree', $ShowTree);
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'debug');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Gallery Debug'));
-	return array(null, array('body' => 'modules/debug/templates/ShowTree.tpl'));
-    }
 }
-?>

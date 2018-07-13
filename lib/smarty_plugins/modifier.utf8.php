@@ -28,6 +28,5 @@
  * -------------------------------------------------------------
  */
 function smarty_modifier_utf8($string) {
-    return GalleryCoreApi::convertToUtf8($string);
+	return GalleryCoreApi::convertToUtf8($string);
 }
-?>

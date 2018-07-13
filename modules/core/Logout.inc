@@ -26,70 +26,75 @@
  * @version $Revision: 17580 $
  */
 class LogoutController extends GalleryController {
-
-    /**
-     * @see GalleryController::isAllowedInMaintenance
-     */
-    function isAllowedInMaintenance() {
-	return true;
-    }
-
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	global $gallery;
-
-	$event = GalleryCoreApi::newEvent('Gallery::Logout');
-	$activeUser = $gallery->getActiveUser();
-	$event->setEntity($activeUser);
-	list ($ret, $eventResults) = GalleryCoreApi::postEvent($event);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$results = array();
-	foreach ($eventResults as $key => $value) {
-	    if (!empty($value['delegate'])) {
-		$results['delegate'] = $value['delegate'];
-	    }
-	}
-
-	$session =& $gallery->getSession();
-	$ret = $session->reset();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$gallery->setActiveUser($guestUser);
-
-	if (!isset($results['status'])) {
-	    $results['status'] = array();
-	}
-	if (!isset($results['error'])) {
-	    $results['error'] = array();
-	}
-
-	/*
-	 * Force return to core.ShowItem, as we don't know if the guest user has necessary
-	 * permissions for the return page
+	/**
+	 * @see GalleryController::isAllowedInMaintenance
 	 */
-	if (!isset($results['return'])
-		&& !isset($results['redirect'])
-		&& !isset($results['delegate'])) {
-	    $results['redirect']['view'] = GALLERY_DEFAULT_VIEW;
+	public function isAllowedInMaintenance() {
+		return true;
 	}
 
-	return array(null, $results);
-    }
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		global $gallery;
+
+		$event      = GalleryCoreApi::newEvent('Gallery::Logout');
+		$activeUser = $gallery->getActiveUser();
+		$event->setEntity($activeUser);
+		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$results = array();
+
+		foreach ($eventResults as $key => $value) {
+			if (!empty($value['delegate'])) {
+				$results['delegate'] = $value['delegate'];
+			}
+		}
+
+		$session =& $gallery->getSession();
+		$ret     = $session->reset();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousId, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$gallery->setActiveUser($guestUser);
+
+		if (!isset($results['status'])) {
+			$results['status'] = array();
+		}
+
+		if (!isset($results['error'])) {
+			$results['error'] = array();
+		}
+
+		/*
+		 * Force return to core.ShowItem, as we don't know if the guest user has necessary
+		 * permissions for the return page
+		 */
+		if (!isset($results['return'])
+			&& !isset($results['redirect'])
+			&& !isset($results['delegate'])
+		) {
+			$results['redirect']['view'] = GALLERY_DEFAULT_VIEW;
+		}
+
+		return array(null, $results);
+	}
 }
-?>

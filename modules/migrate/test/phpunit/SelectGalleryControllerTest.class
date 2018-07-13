@@ -26,60 +26,76 @@
  * @version $Revision: 17580 $
  */
 class SelectGalleryControllerTest extends GalleryControllerTestCase {
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'migrate.SelectGallery');
+	}
 
-    function SelectGalleryControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'migrate.SelectGallery');
-    }
+	/**
+	 * Test what the controller does when you enter a bad albums path
+	 */
+	public function testBadAlbumsPath() {
+		GalleryUtilities::putRequestVariable('form[albumsPath]', dirname(__FILE__));
+		GalleryUtilities::putRequestVariable('form[action][select]', 1);
 
-    /**
-     * Test what the controller does when you enter a bad albums path
-     */
-    function testBadAlbumsPath() {
-	GalleryUtilities::putRequestVariable('form[albumsPath]', dirname(__FILE__));
-	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'migrate.SelectGallery',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][albumsPath][invalid]'),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.SelectGallery'),
-				  'status' => array(),
-				  'error' => array('form[error][albumsPath][invalid]')),
-			    $results);
-    }
+	/**
+	 * Test what the controller does when you enter a valid albums path
+	 */
+	public function testGoodAlbumsPath() {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+		$slash    = $platform->getDirectorySeparator();
 
-    /**
-     * Test what the controller does when you enter a valid albums path
-     */
-    function testGoodAlbumsPath() {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+		$albumsPath = dirname(__FILE__) . '/../data/albums';
+		GalleryUtilities::putRequestVariable('form[albumsPath]', $albumsPath);
+		GalleryUtilities::putRequestVariable('form[action][select]', 1);
 
-	$albumsPath = dirname(__FILE__) . '/../data/albums';
-	GalleryUtilities::putRequestVariable('form[albumsPath]', $albumsPath);
-	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'       => 'core.SiteAdmin',
+					'subView'    => 'migrate.ChooseObjects',
+					'albumsPath' => $albumsPath . $slash,
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.ChooseObjects',
-						      'albumsPath' => $albumsPath . $slash),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+	/**
+	 * Test what the controller does when you enter a missing albums path
+	 */
+	public function testMissingAlbumsPath() {
+		GalleryUtilities::putRequestVariable('form[albumsPath]', '');
+		GalleryUtilities::putRequestVariable('form[action][select]', 1);
 
-    /**
-     * Test what the controller does when you enter a missing albums path
-     */
-    function testMissingAlbumsPath() {
-	GalleryUtilities::putRequestVariable('form[albumsPath]', '');
-	GalleryUtilities::putRequestVariable('form[action][select]', 1);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.SelectGallery'),
-				  'status' => array(),
-				  'error' => array('form[error][albumsPath][missing]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'migrate.SelectGallery',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][albumsPath][missing]'),
+			),
+			$results
+		);
+	}
 }
-?>

@@ -24,62 +24,77 @@
  * @version $Revision: 20951 $
  */
 class RemoteModule extends GalleryModule {
-
-    function RemoteModule() {
-	global $gallery;
-	$this->setId('remote');
-	$this->setName($gallery->i18n('Remote'));
-	$this->setDescription($gallery->i18n('Implementation for the remote control protocol'));
-	$this->setVersion('1.0.18');
-	$this->_templateVersion = 1;
-	$this->setGroup('interfaces', $gallery->i18n('Remote Interfaces'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
-	if ($ret) {
-	    return $ret;
+	public function __construct() {
+		global $gallery;
+		$this->setId('remote');
+		$this->setName($gallery->i18n('Remote'));
+		$this->setDescription($gallery->i18n('Implementation for the remote control protocol'));
+		$this->setVersion('1.0.18');
+		$this->_templateVersion = 1;
+		$this->setGroup('interfaces', $gallery->i18n('Remote Interfaces'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 53));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
-	foreach (array('showItemAdd' => 1) as $key => $value) {
-	    if (!isset($params[$key])) {
-		$ret = $this->setParameter($key, $value);
+
+	/**
+	 * @see GalleryModule::upgrade
+	 */
+	public function upgrade($currentVersion) {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
+
 		if ($ret) {
-		    return $ret;
+			return $ret;
 		}
-	    }
+
+		foreach (array(
+			'showItemAdd' => 1,
+		) as $key => $value) {
+			if (!isset($params[$key])) {
+				$ret = $this->setParameter($key, $value);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		return null;
 	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		// Register our item add plugins
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'ItemAddPlugin',
+			'ItemAddGalleryRemote',
+			'ItemAddGalleryRemote',
+			'modules/remote/ItemAddGalleryRemote.inc',
+			'remote',
+			null
+		);
 
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	/* Register our item add plugins */
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddPlugin', 'ItemAddGalleryRemote', 'ItemAddGalleryRemote',
-	    'modules/remote/ItemAddGalleryRemote.inc', 'remote', null);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Remote'),
-				 'view' => 'remote.RemoteSiteAdmin')));
-    }
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Remote'),
+					'view' => 'remote.RemoteSiteAdmin',
+				),
+			),
+		);
+	}
 }
-?>

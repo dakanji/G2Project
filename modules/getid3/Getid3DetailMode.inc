@@ -26,28 +26,27 @@
  * @version $Revision: 17580 $
  */
 class Getid3DetailModeController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest() {
+		global $gallery;
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest() {
-	global $gallery;
+		$mode = GalleryUtilities::getRequestVariables('mode');
 
-	$mode = GalleryUtilities::getRequestVariables('mode');
-	if ($mode != 'summary' && $mode != 'detailed') {
-	    $mode = 'summary';
+		if ($mode != 'summary' && $mode != 'detailed') {
+			$mode = 'summary';
+		}
+
+		// Store the new mode in the session
+		$session =& $gallery->getSession();
+		$session->put('getid3.module.LoadGetid3Info.mode', $mode);
+
+		$results['return']           = 1;
+		$results['redirect']['view'] = 'core.ShowItem';
+		$results['status']           = array();
+		$results['error']            = array();
+
+		return array(null, $results);
 	}
-
-	/* Store the new mode in the session */
-	$session =& $gallery->getSession();
-	$session->put('getid3.module.LoadGetid3Info.mode', $mode);
-
-	$results['return'] = 1;
-	$results['redirect']['view'] = 'core.ShowItem';
-	$results['status'] = array();
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
 }
-?>

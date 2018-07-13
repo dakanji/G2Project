@@ -26,294 +26,402 @@
  * @version $Revision: 17580 $
  */
 class ItemReorderControllerTest extends GalleryControllerTestCase {
-
-    function ItemReorderControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'core.ItemReorder');
-    }
-
-    function setUp() {
-	global $gallery;
-
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core.ItemReorder');
 	}
 
-	list ($ret, $this->_parentAlbum) =
-	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId(), array(
+			'orderBy' => 'orderWeight',
+		));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_parentAlbum);
+
+		$ret = GalleryCoreApi::addUserPermission(
+			$this->_parentAlbum->getId(),
+			$gallery->getActiveUserId(),
+			'core.all'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		for ($i = 0; $i < 5; $i++) {
+			list($ret, $this->_child[$i]) = $this->_createRandomDataItem($this->_parentAlbum->getId());
+
+			if ($ret) {
+				return $ret;
+			}
+
+			$ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i * 1000);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
 	}
 
-	$this->_markForCleanup($this->_parentAlbum);
+	public function testCancel() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 
-	$ret = GalleryCoreApi::addUserPermission($this->_parentAlbum->getId(),
-						       $gallery->getActiveUserId(),
-						       'core.all');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'return' => true,
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
 
-	for ($i = 0; $i < 5; $i++) {
-	    list ($ret, $this->_child[$i]) =
-		$this->_createRandomDataItem($this->_parentAlbum->getId());
-	    if ($ret) {
-		return $ret;
-	    }
+	public function testReorderItemsBefore() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[1]->getId());
+		GalleryUtilities::putRequestVariable('form[placement]', 'before');
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-	    $ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i * 1000);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+					'itemId'  => $this->_parentAlbum->getId(),
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-    function testCancel() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('return' => true),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testReorderItemsBefore() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[1]->getId());
-	GalleryUtilities::putRequestVariable('form[placement]', 'before');
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder',
-						      'itemId' => $this->_parentAlbum->getId()),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-	if ($ret) {
-	    return $ret;
+		$this->assertEquals(
+			array(
+				$this->_child[0]->getId(),
+				$this->_child[2]->getId(),
+				$this->_child[3]->getId(),
+				$this->_child[1]->getId(),
+				$this->_child[4]->getId(),
+			),
+			$childIds
+		);
 	}
 
-	$this->assertEquals(array($this->_child[0]->getId(),
-				  $this->_child[2]->getId(),
-				  $this->_child[3]->getId(),
-				  $this->_child[1]->getId(),
-				  $this->_child[4]->getId()),
-			    $childIds);
-    }
+	public function testReorderItemsBefore2() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
+		GalleryUtilities::putRequestVariable('form[placement]', 'before');
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[0]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-    function testReorderItemsBefore2() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
-	GalleryUtilities::putRequestVariable('form[placement]', 'before');
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[0]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+					'itemId'  => $this->_parentAlbum->getId(),
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder',
-						      'itemId' => $this->_parentAlbum->getId()),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				$this->_child[3]->getId(),
+				$this->_child[0]->getId(),
+				$this->_child[1]->getId(),
+				$this->_child[2]->getId(),
+				$this->_child[4]->getId(),
+			),
+			$childIds
+		);
 	}
 
-	$this->assertEquals(array($this->_child[3]->getId(),
-				  $this->_child[0]->getId(),
-				  $this->_child[1]->getId(),
-				  $this->_child[2]->getId(),
-				  $this->_child[4]->getId()),
-			    $childIds);
-    }
+	public function testReorderItemsAfter() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
+		GalleryUtilities::putRequestVariable('form[placement]', 'after');
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[0]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-    function testReorderItemsAfter() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
-	GalleryUtilities::putRequestVariable('form[placement]', 'after');
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[0]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+					'itemId'  => $this->_parentAlbum->getId(),
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder',
-						      'itemId' => $this->_parentAlbum->getId()),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				$this->_child[0]->getId(),
+				$this->_child[3]->getId(),
+				$this->_child[1]->getId(),
+				$this->_child[2]->getId(),
+				$this->_child[4]->getId(),
+			),
+			$childIds
+		);
 	}
 
-	$this->assertEquals(array($this->_child[0]->getId(),
-				  $this->_child[3]->getId(),
-				  $this->_child[1]->getId(),
-				  $this->_child[2]->getId(),
-				  $this->_child[4]->getId()),
-			    $childIds);
-    }
+	public function testReorderItemsAfter2() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[0]->getId());
+		GalleryUtilities::putRequestVariable('form[placement]', 'after');
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-    function testReorderItemsAfter2() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[0]->getId());
-	GalleryUtilities::putRequestVariable('form[placement]', 'after');
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+					'itemId'  => $this->_parentAlbum->getId(),
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder',
-						      'itemId' => $this->_parentAlbum->getId()),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				$this->_child[1]->getId(),
+				$this->_child[2]->getId(),
+				$this->_child[3]->getId(),
+				$this->_child[4]->getId(),
+				$this->_child[0]->getId(),
+			),
+			$childIds
+		);
 	}
 
-	$this->assertEquals(array($this->_child[1]->getId(),
-				  $this->_child[2]->getId(),
-				  $this->_child[3]->getId(),
-				  $this->_child[4]->getId(),
-				  $this->_child[0]->getId()),
-			    $childIds);
-    }
+	public function testReorderItemsWithoutPermissions() {
+		global $gallery;
 
-    function testReorderItemsWithoutPermissions() {
-	global $gallery;
+		$ret = GalleryCoreApi::removeItemPermissions($this->_parentAlbum->getId());
 
-	$ret = GalleryCoreApi::removeItemPermissions($this->_parentAlbum->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_parentAlbum->getId(), $gallery->getActiveUserId(), 'core.view');
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::addUserPermission(
+			$this->_parentAlbum->getId(),
+			$gallery->getActiveUserId(),
+			'core.view'
+		);
 
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
-	GalleryUtilities::putRequestVariable('form[afterId]', $this->_child[0]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+		if ($ret) {
+			return $ret;
+		}
 
-	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
-    }
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
+		GalleryUtilities::putRequestVariable('form[afterId]', $this->_child[0]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-    function testReorderItemsMissingSelection() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder'),
-				  'status' => array(),
-				  'error' => array('form[error][selectedId][missing]')),
-			    $results);
-    }
-
-    function testReorderItemsMissingTarget() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder'),
-				  'status' => array(),
-				  'error' => array('form[error][targetId][missing]')),
-			    $results);
-    }
-
-    function testReorderItemsWithBogusId() {
-	GalleryUtilities::putRequestVariable('itemId', 12345678);
-
-	$results = $this->handleRequest(ERROR_MISSING_OBJECT);
-    }
-
-    function testReorderItemsForceRebalance() {
-	/* Pack 'em in tight */
-	for ($i = 0; $i < 5; $i++) {
-	    $ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i);
-	    if ($ret) {
-		return $ret;
-	    }
+		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[1]->getId());
-	GalleryUtilities::putRequestVariable('form[placement]', 'after');
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[3]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+	public function testReorderItemsMissingSelection() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder',
-						      'itemId' => $this->_parentAlbum->getId()),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][selectedId][missing]'),
+			),
+			$results
+		);
 	}
 
-	$this->assertEquals(array($this->_child[0]->getId(),
-				  $this->_child[2]->getId(),
-				  $this->_child[3]->getId(),
-				  $this->_child[1]->getId(),
-				  $this->_child[4]->getId()),
-			    $childIds);
-    }
+	public function testReorderItemsMissingTarget() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
 
-    function testReorderItemsForceRebalance2() {
-	/* Pack 'em in tight */
-	for ($i = 0; $i < 5; $i++) {
-	    $ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i);
-	    if ($ret) {
-		return $ret;
-	    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][targetId][missing]'),
+			),
+			$results
+		);
 	}
 
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[4]->getId());
-	GalleryUtilities::putRequestVariable('form[placement]', 'before');
-	GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[1]->getId());
-	GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+	public function testReorderItemsWithBogusId() {
+		GalleryUtilities::putRequestVariable('itemId', 12345678);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemReorder',
-						      'itemId' => $this->_parentAlbum->getId()),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
-	$this->assertEquals(array($this->_child[0]->getId(),
-				  $this->_child[4]->getId(),
-				  $this->_child[1]->getId(),
-				  $this->_child[2]->getId(),
-				  $this->_child[3]->getId()),
-			    $childIds);
-    }
+	public function testReorderItemsForceRebalance() {
+		// Pack 'em in tight
+		for ($i = 0; $i < 5; $i++) {
+			$ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[1]->getId());
+		GalleryUtilities::putRequestVariable('form[placement]', 'after');
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[3]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+					'itemId'  => $this->_parentAlbum->getId(),
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				$this->_child[0]->getId(),
+				$this->_child[2]->getId(),
+				$this->_child[3]->getId(),
+				$this->_child[1]->getId(),
+				$this->_child[4]->getId(),
+			),
+			$childIds
+		);
+	}
+
+	public function testReorderItemsForceRebalance2() {
+		// Pack 'em in tight
+		for ($i = 0; $i < 5; $i++) {
+			$ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
+		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[4]->getId());
+		GalleryUtilities::putRequestVariable('form[placement]', 'before');
+		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[1]->getId());
+		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.ItemAdmin',
+					'subView' => 'core.ItemReorder',
+					'itemId'  => $this->_parentAlbum->getId(),
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				$this->_child[0]->getId(),
+				$this->_child[4]->getId(),
+				$this->_child[1]->getId(),
+				$this->_child[2]->getId(),
+				$this->_child[3]->getId(),
+			),
+			$childIds
+		);
+	}
 }
-?>

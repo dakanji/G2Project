@@ -26,95 +26,113 @@
  * @version $Revision: 17580 $
  */
 class SelectPicasaExportPathControllerTest extends GalleryControllerTestCase {
+	public $_platform;
 
-    var $_platform;
-
-    function SelectPicasaExportPathControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'picasa.SelectPicasaExportPath');
-    }
-
-    function setUp() {
-	global $gallery;
-
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'picasa.SelectPicasaExportPath');
 	}
-	$this->_platform = new UnitTestPlatform();
-    }
 
-    function tearDown() {
-	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+	public function setUp() {
+		global $gallery;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_platform = new UnitTestPlatform();
 	}
-    }
 
-    /**
-     * Test what the controller does when you enter a bad Picasa export path
-     */
-    function testBadpicasaXmlPath() {
-	global $gallery;
+	public function tearDown() {
+		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
 
-	/* Activate the mock platform */
-	$gallery->setPlatform($this->_platform);
-	$this->_platform->setReply('getDirectorySeparator', array(), '/');
-	$this->_platform->setReply('file_exists', array('/index.xml'), true);
-	$this->_platform->setReply('is_readable', array('/index.xml'), false);
+		$ret = parent::tearDown();
 
-	GalleryUtilities::putRequestVariable('form[picasaXmlPath]', '/');
-	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-		'subView' => 'picasa.SelectPicasaExportPath'),
-		'status' => array(),
-		'error' => array('form[error][picasaXmlPath][invalid]')),
-	    $results);
-    }
+	/**
+	 * Test what the controller does when you enter a bad Picasa export path
+	 */
+	public function testBadpicasaXmlPath() {
+		global $gallery;
 
-    /**
-     * Test what the controller does when you enter a valid Picasa export path
-     */
-    function testGoodPicasaXmlPath() {
-	global $gallery;
-	/* Activate the mock platform */
-	$gallery->setPlatform($this->_platform);
-	$this->_platform->setReply('getDirectorySeparator', array(), '/');
-	$this->_platform->setReply('file_exists', array('/index.xml'), true);
-	$this->_platform->setReply('is_readable', array('/index.xml'), true);
+		// Activate the mock platform
+		$gallery->setPlatform($this->_platform);
+		$this->_platform->setReply('getDirectorySeparator', array(), '/');
+		$this->_platform->setReply('file_exists', array('/index.xml'), true);
+		$this->_platform->setReply('is_readable', array('/index.xml'), false);
 
-	$picasaXmlPath = '/';
+		GalleryUtilities::putRequestVariable('form[picasaXmlPath]', '/');
+		GalleryUtilities::putRequestVariable('form[action][select]', 1);
 
-	GalleryUtilities::putRequestVariable('form[picasaXmlPath]', $picasaXmlPath);
-	GalleryUtilities::putRequestVariable('form[destinationAlbumId]', 0);
-	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'picasa.SelectPicasaExportPath',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][picasaXmlPath][invalid]'),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-		'subView' => 'picasa.ConfirmPicasaImport',
-		'picasaXmlPath' => $picasaXmlPath,
-		'destinationAlbumId' => '0'),
-		'status' => array(),
-		'error' => array()),
-	    $results);
-    }
+	/**
+	 * Test what the controller does when you enter a valid Picasa export path
+	 */
+	public function testGoodPicasaXmlPath() {
+		global $gallery;
+		// Activate the mock platform
+		$gallery->setPlatform($this->_platform);
+		$this->_platform->setReply('getDirectorySeparator', array(), '/');
+		$this->_platform->setReply('file_exists', array('/index.xml'), true);
+		$this->_platform->setReply('is_readable', array('/index.xml'), true);
 
-    /**
-     * Test what the controller does when you enter a missing Picasa export path
-     */
-    function testMissingpicasaXmlPath() {
-	GalleryUtilities::putRequestVariable('form[picasaXmlPath]', '');
-	GalleryUtilities::putRequestVariable('form[action][select]', 1);
+		$picasaXmlPath = '/';
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-		'subView' => 'picasa.SelectPicasaExportPath'),
-		'status' => array(),
-		'error' => array('form[error][picasaXmlPath][missing]')),
-	    $results);
-    }
+		GalleryUtilities::putRequestVariable('form[picasaXmlPath]', $picasaXmlPath);
+		GalleryUtilities::putRequestVariable('form[destinationAlbumId]', 0);
+		GalleryUtilities::putRequestVariable('form[action][select]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'               => 'core.SiteAdmin',
+					'subView'            => 'picasa.ConfirmPicasaImport',
+					'picasaXmlPath'      => $picasaXmlPath,
+					'destinationAlbumId' => '0',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
+
+	/**
+	 * Test what the controller does when you enter a missing Picasa export path
+	 */
+	public function testMissingpicasaXmlPath() {
+		GalleryUtilities::putRequestVariable('form[picasaXmlPath]', '');
+		GalleryUtilities::putRequestVariable('form[action][select]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'picasa.SelectPicasaExportPath',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][picasaXmlPath][missing]'),
+			),
+			$results
+		);
+	}
 }
-?>

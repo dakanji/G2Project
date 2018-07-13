@@ -2,13 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
-    <title> <?php print _('Welcome to the Gallery Installer') ?> </title>
+    <title> <?php echo _('Welcome to the Gallery Installer') ?> </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="install.css"/>
   </head>
 
   <body<?php if (isset($translator)
-	     && $translator->isRightToLeft()) print ' style="direction:rtl"' ?>>
+		 && $translator->isRightToLeft()) {
+	echo ' style="direction:rtl"';
+} ?>>
     <div id="box">
 <?php endif; ?>
 
@@ -28,10 +30,10 @@
  ?>
 <?php if (isset($templateData['MainPage']['showStatusBlock'])): ?>
   <table id="progressBarTable" class="boxTable" cellspacing="0">
-    <?php include(dirname(__FILE__) . '/Header.html'); ?>
+    <?php include dirname(__FILE__) . '/Header.html'; ?>
     <tr>
       <td id="navbar">
-        <?php include(dirname(__FILE__) . '/NavBar.html'); ?>
+        <?php include dirname(__FILE__) . '/NavBar.html'; ?>
       </td>
       <td class="main">
         <div id="MainPageStatus_statusBlock">
@@ -86,10 +88,10 @@
 
 <?php if (isset($templateData['MainPage']['showBodyAndFooter'])): ?>
   <table id="regularTable" class="boxTable" cellspacing="0">
-    <?php include(dirname(__FILE__) . '/Header.html'); ?>
+    <?php include dirname(__FILE__) . '/Header.html'; ?>
     <tr>
       <td id="navbar">
-        <?php include(dirname(__FILE__) . '/NavBar.html'); ?>
+        <?php include dirname(__FILE__) . '/NavBar.html'; ?>
       </td>
 
       <td class="main">
@@ -97,14 +99,14 @@
         <tr>
           <?php if ($templateData['percentComplete'] != 0): ?>
             <td class="progressMade"
-                style="width:<?php print $templateData['percentComplete'] ?>%">&nbsp;</td>
+                style="width:<?php echo $templateData['percentComplete'] ?>%">&nbsp;</td>
           <?php endif; ?>
 
           <?php if ($templateData['percentComplete'] != 100): ?>
             <td class="progressToGo"
-                style="width:<?php print (100 - $templateData['percentComplete']) . '%' .
-                        (($templateData['percentComplete'] == 0) ? '' : ';border-left:none')
-                        ?>">&nbsp;</td>
+                style="width:<?php echo(100 - $templateData['percentComplete']) . '%' .
+						(($templateData['percentComplete'] == 0) ? '' : ';border-left:none')
+						?>">&nbsp;</td>
           <?php endif; ?>
         </tr>
       </table>
@@ -114,8 +116,10 @@
         <div class="error">
           <h2>
             <?php foreach ($templateData['errors'] as $error): ?>
-              <?php print $error ?>
-              <?php if (count($templateData['errors']) > 2) print "<br/>\n" ?>
+              <?php echo $error ?>
+              <?php if (count($templateData['errors']) > 2) {
+							echo "<br/>\n";
+						} ?>
             <?php endforeach; ?>
           </h2>
         </div>
@@ -125,19 +129,19 @@
         <div class="warning">
           <h2>
             <?php foreach ($templateData['warnings'] as $warning): ?>
-              <?php print $warning ?> <br/>
+              <?php echo $warning ?> <br/>
             <?php endforeach; ?>
           </h2>
         </div>
       <?php endif; ?>
 
-      <?php include(dirname(__FILE__) . '/' . $templateData['bodyFile']); ?>
+      <?php include dirname(__FILE__) . '/' . $templateData['bodyFile']; ?>
 
       <?php if ($currentStep->isComplete() && !$currentStep->isLastStep()): ?>
         <div class="go">
           <?php if ($currentStep->isRedoable()): ?>
           <a href="<?php generateUrl('index.php?step=' . $stepNumber . '&amp;doOver=1') ?>" class="btn redo"><i></i><span><span></span><i></i>
-            <?php print _('Redo this step'); ?></span></a>
+            <?php echo _('Redo this step'); ?></span></a>
           <?php endif; ?>
           <?php $nextStep = $stepNumber + 1 ?>
           <a href="<?php generateUrl('index.php?step=' . $nextStep) ?>" class="btn continue"><i></i><span><span></span><i></i>
@@ -149,7 +153,7 @@
   </table>
     </div>
     <div id="footer">
-      <?php print _('Gallery: <strong>your photos</strong> on <strong>your website</strong>') ?>
+      <?php echo _('Gallery: <strong>your photos</strong> on <strong>your website</strong>') ?>
       &raquo; <a target="_blank" href="http://gallery.sourceforge.net/">gallery.sourceforge.net</a>
     </div>
   </body>

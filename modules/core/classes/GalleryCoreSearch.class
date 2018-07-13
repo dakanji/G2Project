@@ -28,80 +28,101 @@ GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.c
  * @version $Revision: 17580 $
  */
 class GalleryCoreSearch extends GallerySearchInterface_1_0 {
-    /**
-     * @see GallerySearchInterface_1_0.getSearchModuleInfo
-     */
-    function getSearchModuleInfo() {
-	global $gallery;
+	/**
+	 * @see GallerySearchInterface_1_0.getSearchModuleInfo
+	 */
+	public function getSearchModuleInfo() {
+		global $gallery;
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$info = array(
+			'name'        => $module->translate('Gallery Core'),
+			'description' => $module->translate('Gallery Core Module'),
+			'options'     => array(
+				'descriptions' => array(
+					'description' => $module->translate('Search descriptions'),
+					'enabled'     => 1,
+				),
+				'keywords' => array(
+					'description' => $module->translate('Search keywords'),
+					'enabled'     => 1,
+				),
+				'summaries' => array(
+					'description' => $module->translate('Search summaries'),
+					'enabled'     => 1,
+				),
+				'titles' => array(
+					'description' => $module->translate('Search titles'),
+					'enabled'     => 1,
+				),
+			),
+		);
+
+		return array(null, $info);
 	}
 
-	$info = array('name' => $module->translate('Gallery Core'),
-		      'description' => $module->translate('Gallery Core Module'),
-		      'options' => array(
-			  'descriptions' => array(
-			      'description' => $module->translate('Search descriptions'),
-			      'enabled' => 1),
-			  'keywords' => array(
-			      'description' => $module->translate('Search keywords'),
-			      'enabled' => 1),
-			  'summaries' => array(
-			      'description' => $module->translate('Search summaries'),
-			      'enabled' => 1),
-			  'titles' => array('description' => $module->translate('Search titles'),
-					    'enabled' => 1)));
-	    return array(null, $info);
-    }
+	/**
+	 * @see GallerySearchInterface_1_0.search
+	 */
+	public function search($options, $criteria, $offset = 0, $count = -1) {
+		global $gallery;
 
-    /**
-     * @see GallerySearchInterface_1_0.search
-     */
-    function search($options, $criteria, $offset=0, $count=-1) {
-	global $gallery;
+		$whereList    = array();
+		$whereData    = array();
+		$columnNumber = 0;
 
-	$whereList = array();
-	$whereData = array();
-	$columnNumber = 0;
-	foreach (array('descriptions' => '[GalleryItem::description]',
-		       'keywords' => '[GalleryItem::keywords]',
-		       'summaries' => '[GalleryItem::summary]',
-		       'titles' => '[GalleryItem::title]')
-		 as $key => $column) {
+		foreach (array(
+			'descriptions' => '[GalleryItem::description]',
+			'keywords'     => '[GalleryItem::keywords]',
+			'summaries'    => '[GalleryItem::summary]',
+			'titles'       => '[GalleryItem::title]',
+		) as $key => $column) {
+			if (isset($options[$key])) {
+				$whereList[]        = "$column LIKE ?";
+				$whereData[]        = '%' . $criteria . '%';
+				$selectMap[$column] = $columnNumber++;
+				$selectList[]       = $column;
+			}
+		}
 
-	    if (isset($options[$key])) {
-		$whereList[] = "$column LIKE ?";
-		$whereData[] = '%' . $criteria . '%';
-		$selectMap[$column] = $columnNumber++;;
-		$selectList[] = $column;
-	    }
-	}
+		// Always select back title and summary
+		foreach (array('[GalleryItem::title]', '[GalleryItem::summary]') as $column) {
+			if (!isset($selectMap[$column])) {
+				$selectMap[$column] = $columnNumber++;
+				$selectList[]       = $column;
+			}
+		}
 
-	/* Always select back title and summary */
-	foreach (array('[GalleryItem::title]', '[GalleryItem::summary]') as $column) {
-	    if (!isset($selectMap[$column])) {
-		$selectMap[$column] = $columnNumber++;
-		$selectList[] = $column;
-	    }
-	}
+		$storage =& $gallery->getStorage();
 
-	$storage =& $gallery->getStorage();
+		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
+			'core.view',
+			$gallery->getActiveUserId()
+		);
 
-	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
-	    'core.view', $gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (empty($aclIds)) {
-	    return array(null,
-			 array('start' => 0, 'end' => '0',
-			       'count' => 0, 'results' => array()));
-	}
-	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	$countQuery = sprintf('
+		if (empty($aclIds)) {
+			return array(
+				null,
+				array(
+					'start'   => 0,
+					'end'     => '0',
+					'count'   => 0,
+					'results' => array(),
+				),
+			);
+		}
+		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+
+		$countQuery = sprintf('
 	SELECT
 	  COUNT([GalleryItem::id])
 	FROM
@@ -114,13 +135,13 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	', $aclMarkers);
 
-	$query = sprintf('
+		$query = sprintf('
 	SELECT
 	  [GalleryItem::id],
 	  [GalleryUser::fullName],
 	  [GalleryUser::userName],
 	  [GalleryEntity::modificationTimestamp], ' .
-	    implode(', ', $selectList) . '
+		implode(', ', $selectList) . '
 	FROM
 	  [GalleryItem], [GalleryAccessSubscriberMap], [GalleryEntity], [GalleryUser]
 	WHERE
@@ -137,63 +158,86 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	  [GalleryEntity::modificationTimestamp] DESC, [GalleryItem::id] DESC
 	', $aclMarkers);
 
-	$data = $whereData;
-	$data = array_merge($data, $aclIds);
+		$data = $whereData;
+		$data = array_merge($data, $aclIds);
 
-	/* Find the total */
-	list ($ret, $results) = $gallery->search($countQuery, $data);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$result = $results->nextResult();
-	$numRows = (int)$result[0];
+		// Find the total
+		list($ret, $results) = $gallery->search($countQuery, $data);
 
-	/* Get the results that we're interested in */
-	list ($ret, $results) = $gallery->search(
-	    $query, $data, array('limit' => array('offset' => $offset, 'count' => $count)));
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$text['description'] = $module->translate('Description');
-	$text['keywords'] = $module->translate('Keywords');
-	$text['summary'] = $module->translate('Summary');
-	$text['title'] = $module->translate('Title');
-	$text['owner'] = $module->translate('Owner');
-
-	$searchResults = array();
-	while ($result = $results->nextResult()) {
-	    $fields = array();
-	    foreach (array('[GalleryItem::title]' => $text['title'],
-			   '[GalleryItem::summary]' => $text['summary'],
-			   '[GalleryItem::keywords]' => $text['keywords'],
-			   '[GalleryItem::description]' => $text['description'])
-		     as $columnName => $fieldText) {
-		if (isset($selectMap[$columnName])) {
-		    /*
-		     * Remember that our field columns start at column index 4
-		     * (id, date, full name, username are columns 0-3)
-		     */
-		    $fields[] = array(
-			'key' => $fieldText, 'value' => $result[$selectMap[$columnName]+4]);
+		if ($ret) {
+			return array($ret, null);
 		}
-	    }
+		$result  = $results->nextResult();
+		$numRows = (int)$result[0];
 
-	    $fields[] = array('key' => $text['owner'],
-			      'value' => !empty($result[1]) ? $result[1] : $result[2]);
-	    $searchResults[] = array('itemId' => (int)$result[0], 'fields' => $fields);
+		// Get the results that we're interested in
+		list($ret, $results) = $gallery->search(
+			$query,
+			$data,
+			array(
+				'limit' => array(
+					'offset' => $offset,
+					'count'  => $count,
+				),
+			)
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$text['description'] = $module->translate('Description');
+		$text['keywords']    = $module->translate('Keywords');
+		$text['summary']     = $module->translate('Summary');
+		$text['title']       = $module->translate('Title');
+		$text['owner']       = $module->translate('Owner');
+
+		$searchResults = array();
+
+		while ($result = $results->nextResult()) {
+			$fields = array();
+
+			foreach (array(
+				'[GalleryItem::title]'       => $text['title'],
+				'[GalleryItem::summary]'     => $text['summary'],
+				'[GalleryItem::keywords]'    => $text['keywords'],
+				'[GalleryItem::description]' => $text['description'],
+			) as $columnName => $fieldText) {
+				if (isset($selectMap[$columnName])) {
+					/*
+					 * Remember that our field columns start at column index 4
+					 * (id, date, full name, username are columns 0-3)
+					 */
+					$fields[] = array(
+						'key'   => $fieldText,
+						'value' => $result[$selectMap[$columnName] + 4],
+					);
+				}
+			}
+
+			$fields[]        = array(
+				'key'   => $text['owner'],
+				'value' => !empty($result[1]) ? $result[1] : $result[2],
+			);
+			$searchResults[] = array(
+				'itemId' => (int)$result[0],
+				'fields' => $fields,
+			);
+		}
+
+		$data = array(
+			'start'   => $numRows == 0 ? 0 : $offset + 1,
+			'end'     => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
+			'count'   => $numRows,
+			'results' => $searchResults,
+		);
+
+		return array(null, $data);
 	}
-
-	$data = array('start' => $numRows == 0 ? 0 : $offset+1,
-		      'end' => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
-		      'count' => $numRows,
-		      'results' => $searchResults);
-	return array(null, $data);
-    }
 }
-?>

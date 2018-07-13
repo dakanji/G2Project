@@ -30,187 +30,275 @@ GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
  * @version $Revision: 17580 $
  */
 class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function ThumbnailSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'thumbnail.ThumbnailSiteAdmin');
-    }
-
-    function testThumbnailSiteAdminControllerAddNoMime() {
-	GalleryUtilities::putRequestVariable('form[action][add]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('mime_error' => 1),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testThumbnailSiteAdminControllerAddNoFile() {
-	GalleryUtilities::putRequestVariable('form[action][add]', '1');
-	GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
-	GalleryUtilities::putRequestVariable('form[image]', 'new');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('file_error' => 1),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testThumbnailSiteAdminControllerAddBadMime() {
-	list ($ret, $toolkit, $outputMimeType) =
-	    GalleryCoreApi::getToolkitByOperation('image/gif', 'thumbnail');
-	if ($ret) {
-	    return $ret;
-	}
-	if (!isset($toolkit)) {
-	    echo "<b>Warning</b>: testThumbnailSiteAdminControllerAddBadMime requires an active " .
-		"graphics toolkit.. test skipped.<br/>";
-	    return;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'thumbnail.ThumbnailSiteAdmin');
 	}
 
-	GalleryUtilities::putRequestVariable('form[action][add]', '1');
-	GalleryUtilities::putRequestVariable('form[mimeType]', 'image/gif');
-	GalleryUtilities::putRequestVariable('form[image]', 'new');
-	GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
-	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
-	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
-	    GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
+	public function testThumbnailSiteAdminControllerAddNoMime() {
+		GalleryUtilities::putRequestVariable('form[action][add]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('mime_duplicate' => 1),
-				  'error' => array()),
-			    $results, 'Add core mime type');
-
-	GalleryUtilities::removeFormVariables('form');
-	GalleryUtilities::putRequestVariable('form[action][add]', '1');
-	GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
-	GalleryUtilities::putRequestVariable('form[image]', 'new');
-	GalleryUtilities::putRequestVariable('form[name][1]', 'test.gif');
-	GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
-	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
-	    GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif'));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('imagemime_error' => 1),
-				  'error' => array()),
-			    $results, 'Add non-jpeg image');
-    }
-
-    function testThumbnailSiteAdminControllerAddDelete() {
-	GalleryUtilities::putRequestVariable('form[action][add]', '1');
-	GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
-	GalleryUtilities::putRequestVariable('form[image]', 'new');
-	GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
-	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
-	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
-	    GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('add' => 1),
-				  'error' => array()),
-			    $results, 'Add new');
-
-	list ($ret, $toolkit, $outputMimeType) =
-	    GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'mime_error' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-	$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
-	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
-	if ($ret) {
-	    return $ret;
+	public function testThumbnailSiteAdminControllerAddNoFile() {
+		GalleryUtilities::putRequestVariable('form[action][add]', '1');
+		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
+		GalleryUtilities::putRequestVariable('form[image]', 'new');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'file_error' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-	$this->assert(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
-	$itemId = $mimeMap['test/fakemime'];
 
-	GalleryUtilities::removeFormVariables('form');
-	GalleryUtilities::putRequestVariable('form[action][add]', '1');
-	GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime2');
-	GalleryUtilities::putRequestVariable('form[image]', 'old');
-	GalleryUtilities::putRequestVariable('form[oldimage]', $itemId);
+	public function testThumbnailSiteAdminControllerAddBadMime() {
+		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('image/gif', 'thumbnail');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('addMime' => 1),
-				  'error' => array()),
-			    $results, 'Add mime type to existing image');
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $toolkit, $outputMimeType) =
-	    GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
-	if ($ret) {
-	    return $ret;
+		if (!isset($toolkit)) {
+			echo '<b>Warning</b>: testThumbnailSiteAdminControllerAddBadMime requires an active ' .
+			'graphics toolkit.. test skipped.<br/>';
+
+			return;
+		}
+
+		GalleryUtilities::putRequestVariable('form[action][add]', '1');
+		GalleryUtilities::putRequestVariable('form[mimeType]', 'image/gif');
+		GalleryUtilities::putRequestVariable('form[image]', 'new');
+		GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
+		GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+		GalleryUtilities::putRequestVariable(
+			'form[tmp_name][1]',
+			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
+		);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'mime_duplicate' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Add core mime type'
+		);
+
+		GalleryUtilities::removeFormVariables('form');
+		GalleryUtilities::putRequestVariable('form[action][add]', '1');
+		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
+		GalleryUtilities::putRequestVariable('form[image]', 'new');
+		GalleryUtilities::putRequestVariable('form[name][1]', 'test.gif');
+		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
+		GalleryUtilities::putRequestVariable(
+			'form[tmp_name][1]',
+			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif')
+		);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'imagemime_error' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Add non-jpeg image'
+		);
 	}
-	$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('mime_duplicate' => 1),
-				  'error' => array()),
-			    $results, 'Add duplicate mime type');
+	public function testThumbnailSiteAdminControllerAddDelete() {
+		GalleryUtilities::putRequestVariable('form[action][add]', '1');
+		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
+		GalleryUtilities::putRequestVariable('form[image]', 'new');
+		GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
+		GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+		GalleryUtilities::putRequestVariable(
+			'form[tmp_name][1]',
+			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
+		);
 
-	GalleryUtilities::removeFormVariables('form');
-	GalleryUtilities::putRequestVariable('form[action][delete]', '1');
-	GalleryUtilities::putRequestVariable('form[delete][itemId]', $itemId);
-	GalleryUtilities::putRequestVariable('form[delete][mimeType]', 'test/fakemime');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'add' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Add new'
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('deleteMime' => 1),
-				  'error' => array()),
-			    $results, 'Delete mime type entry');
+		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
 
-	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
+
+		list($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
+		$itemId = $mimeMap['test/fakemime'];
+
+		GalleryUtilities::removeFormVariables('form');
+		GalleryUtilities::putRequestVariable('form[action][add]', '1');
+		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime2');
+		GalleryUtilities::putRequestVariable('form[image]', 'old');
+		GalleryUtilities::putRequestVariable('form[oldimage]', $itemId);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'addMime' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Add mime type to existing image'
+		);
+
+		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'mime_duplicate' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Add duplicate mime type'
+		);
+
+		GalleryUtilities::removeFormVariables('form');
+		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
+		GalleryUtilities::putRequestVariable('form[delete][itemId]', $itemId);
+		GalleryUtilities::putRequestVariable('form[delete][mimeType]', 'test/fakemime');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'deleteMime' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Delete mime type entry'
+		);
+
+		list($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
+		$this->assert(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
+		$this->assertEquals($itemId, $mimeMap['test/fakemime2'], 'Wrong map id');
+
+		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!isset($toolkit), 'Toolkit should not be found');
+
+		GalleryUtilities::removeFormVariables('form');
+		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
+		GalleryUtilities::putRequestVariable('form[delete][itemId]', $itemId);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'thumbnail.ThumbnailSiteAdmin',
+				),
+				'status'   => array(
+					'delete' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Delete image'
+		);
+
+		list($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
+		$this->assert(!isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
+
+		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!isset($toolkit), 'Toolkit should not be found');
 	}
-	$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
-	$this->assert(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
-	$this->assertEquals($itemId, $mimeMap['test/fakemime2'], 'Wrong map id');
-
-	list ($ret, $toolkit, $outputMimeType) =
-	    GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($toolkit), 'Toolkit should not be found');
-
-	GalleryUtilities::removeFormVariables('form');
-	GalleryUtilities::putRequestVariable('form[action][delete]', '1');
-	GalleryUtilities::putRequestVariable('form[delete][itemId]', $itemId);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'thumbnail.ThumbnailSiteAdmin'),
-				  'status' => array('delete' => 1),
-				  'error' => array()),
-			    $results, 'Delete image');
-
-	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
-	$this->assert(!isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
-
-	list ($ret, $toolkit, $outputMimeType) =
-	    GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($toolkit), 'Toolkit should not be found');
-    }
 }
-?>

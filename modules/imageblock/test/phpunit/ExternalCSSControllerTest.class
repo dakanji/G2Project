@@ -27,92 +27,126 @@
  * @version $Revision: 17580 $
  */
 class ExternalCSSControllerTest extends GalleryControllerTestCase {
-
-    function ExternalCSSControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'imageblock.ExternalCSS');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'imageblock.ExternalCSS');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'imageblock');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'imageblock');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array(
+			'albumFrame' => 'frameA',
+			'itemFrame'  => 'frameB',
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, $value);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		// Ensure there's a image frame implementation
+		$this->_markFactoryForCleanup();
+		$this->_registerFactoryImplementationForTest(
+			'ImageFrameInterface_1_1',
+			'ExternalCSSControllerTestImageFrame',
+			'testImplId',
+			'modules/imageblock/test/phpunit/ExternalCSSControllerTest.class',
+			'testModuleId'
+		);
 	}
 
-	foreach (array('albumFrame' => 'frameA', 'itemFrame' => 'frameB') as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
+	public function testExternalCSSWithDefaultImageFrames() {
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'imageframe.CSS',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$this->assertEquals('frameA|frameB', GalleryUtilities::getRequestVariables('frames'));
 	}
 
-	/* Ensure there's a image frame implementation */
-	$this->_markFactoryForCleanup();
-	$this->_registerFactoryImplementationForTest('ImageFrameInterface_1_1',
-		'ExternalCSSControllerTestImageFrame', 'testImplId',
-		'modules/imageblock/test/phpunit/ExternalCSSControllerTest.class', 'testModuleId');
-    }
+	public function testExternalCSSWithSpecifiedImageFrames() {
+		GalleryUtilities::putRequestVariable('frames', 'frameFromRequest');
 
-    function testExternalCSSWithDefaultImageFrames() {
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'imageframe.CSS'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'imageframe.CSS',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$this->assertEquals('frameA|frameB', GalleryUtilities::getRequestVariables('frames'));
-    }
-
-    function testExternalCSSWithSpecifiedImageFrames() {
-	GalleryUtilities::putRequestVariable('frames', 'frameFromRequest');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'imageframe.CSS'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-
-	$this->assertEquals('frameFromRequest', GalleryUtilities::getRequestVariables('frames'));
-    }
-
-    function testExternalCSSWithoutImageFrameModule() {
-	$this->_unregisterFactoryImplementationForTest('ImageFrameInterface_1_1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'imageblock.ExternalCSS'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testExternalCSSWithoutDefaultImageFrames() {
-	foreach (array('albumFrame', 'itemFrame') as $key) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, '');
-	    if ($ret) {
-		return $ret;
-	    }
+		$this->assertEquals('frameFromRequest', GalleryUtilities::getRequestVariables('frames'));
 	}
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'imageblock.ExternalCSS'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+	public function testExternalCSSWithoutImageFrameModule() {
+		$this->_unregisterFactoryImplementationForTest('ImageFrameInterface_1_1');
 
-    function testExternalCSSDoesNotRequireAuthToken() {
-	$controller = new ExternalCSSController();
-	$this->assert($controller->omitAuthTokenCheck());
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'imageblock.ExternalCSS',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
+
+	public function testExternalCSSWithoutDefaultImageFrames() {
+		foreach (array('albumFrame', 'itemFrame') as $key) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, '');
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'imageblock.ExternalCSS',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
+
+	public function testExternalCSSDoesNotRequireAuthToken() {
+		$controller = new ExternalCSSController();
+		$this->assert($controller->omitAuthTokenCheck());
+	}
 }
 
 /**
  * Test ImageFrame
  */
-class ExternalCSSControllerTestImageFrame {}
-?>
+class ExternalCSSControllerTestImageFrame {
+}

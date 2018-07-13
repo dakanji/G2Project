@@ -28,147 +28,187 @@ GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
  * @version $Revision: 17580 $
  */
 class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
-
-    function CreateThumbnailOptionTest($methodName) {
-	$this->ItemAddOptionTestCase($methodName, 'core', 'CreateThumbnailOption');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core', 'CreateThumbnailOption');
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function setUp() {
+		$ret = parent::setUp();
 
-	/* Register a dummy toolkit */
-	$path = 'modules/core/test/phpunit/CreateThumbnailOptionTest.class';
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryToolkit', 'CreateThumbnailOptionTestToolkit',
-	    'CreateThumbnailOptionTestToolkit',
-	    $path, 'coreTest', null);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markToolkitForCleanup('CreateThumbnailOptionTestToolkit');
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Register operations that we can perform on our mock data items */
-	$ret = GalleryCoreApi::registerToolkitOperation('CreateThumbnailOptionTestToolkit',
-		array('test/file'), 'thumbnail',
-		array(array('type' => 'int', 'description' => 'test'),
-		      array('type' => 'int', 'description' => 'test')),
-		'test-description', '');
-	$this->_items = array();
-	list ($ret, $this->_items[0]) = $this->_createRandomDataItem($this->_album->getId(),
-								    'test/file');
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 
-	$this->_itemThumbnail = array();
-	list ($ret, $this->_itemThumbnail[0]) =
-	    $this->_createDerivative($this->_items[0], $this->_items[0]->getId(),
-				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-				     'thumbnail|200');
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
 
-	$this->_noWarnings = array();
-	$this->_noErrors = array();
-    }
+		// Register a dummy toolkit
+		$path = 'modules/core/test/phpunit/CreateThumbnailOptionTest.class';
+		$ret  = GalleryCoreApi::registerFactoryImplementation(
+			'GalleryToolkit',
+			'CreateThumbnailOptionTestToolkit',
+			'CreateThumbnailOptionTestToolkit',
+			$path,
+			'coreTest',
+			null
+		);
 
-    function testCreateThumbnail() {
-	$form['CreateThumbnailOption']['createThumbnail'] = 1;
-	list ($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-	$this->assertEquals($warnings, $this->_noWarnings);
-	$this->assertEquals($errors, $this->_noErrors);
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markToolkitForCleanup('CreateThumbnailOptionTestToolkit');
 
-	list ($ret, $isCurrent) = $this->_itemThumbnail[0]->isCacheCurrent();
-	if ($ret) {
-	    return $ret;
-	}
+		// Register operations that we can perform on our mock data items
+		$ret                         = GalleryCoreApi::registerToolkitOperation(
+			'CreateThumbnailOptionTestToolkit',
+			array('test/file'),
+			'thumbnail',
+			array(
+				array(
+					'type'        => 'int',
+					'description' => 'test',
+				),
+				array(
+					'type'        => 'int',
+					'description' => 'test',
+				),
+			),
+			'test-description',
+			''
+		);
+		$this->_items                = array();
+		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'test/file'
+		);
 
-	$this->assert($isCurrent, 'Thumbnail was not created!');
-	$this->assert(!$this->_itemThumbnail[0]->getIsBroken(), 'Thumbnail is broken!');
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Check if the derivative was saved by checking */
-	$this->assert(!$this->_itemThumbnail[0]->isModified(),
-		      'Thumbnail still modified, should be saved');
-    }
+		$this->_itemThumbnail                = array();
+		list($ret, $this->_itemThumbnail[0]) = $this->_createDerivative(
+			$this->_items[0],
+			$this->_items[0]->getId(),
+			DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+			'thumbnail|200'
+		);
 
-    function testDontCreateThumbnail() {
-	$form = array();
-	list ($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-	$this->assertEquals($warnings, $this->_noWarnings);
-	$this->assertEquals($errors, $this->_noErrors);
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $isCurrent) = $this->_itemThumbnail[0]->isCacheCurrent();
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(!$isCurrent, 'Thumbnail was created, but not requested!');
-    }
-
-    function testCreateMultipleThumbnails() {
-	$totalTestItems = 3;
-	for ($j = 1; $j < $totalTestItems; $j++) {
-	    list ($ret, $this->_items[$j]) = $this->_createRandomDataItem($this->_album->getId(),
-									  'test/file');
-	    if ($ret) {
-		return $ret;
-	    }
-	    list ($ret, $this->_itemThumbnail[$j]) =
-		$this->_createDerivative($this->_items[$j], $this->_items[$j]->getId(),
-					 DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					 'thumbnail|200');
-	    if ($ret) {
-		return $ret;
-	    }
+		$this->_noWarnings = array();
+		$this->_noErrors   = array();
 	}
 
-	$form['CreateThumbnailOption']['createThumbnail'] = 1;
-	list ($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-	$this->assertEquals($warnings, $this->_noWarnings);
-	$this->assertEquals($errors, $this->_noErrors);
+	public function testCreateThumbnail() {
+		$form['CreateThumbnailOption']['createThumbnail'] = 1;
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		$this->assertEquals($warnings, $this->_noWarnings);
+		$this->assertEquals($errors, $this->_noErrors);
 
-	for ($j = 0; $j < $totalTestItems; $j++) {
-	    list ($ret, $isCurrent) = $this->_itemThumbnail[$j]->isCacheCurrent();
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assert($isCurrent, "Thumbnail $j was not created!");
+		list($ret, $isCurrent) = $this->_itemThumbnail[0]->isCacheCurrent();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($isCurrent, 'Thumbnail was not created!');
+		$this->assert(!$this->_itemThumbnail[0]->getIsBroken(), 'Thumbnail is broken!');
+
+		// Check if the derivative was saved by checking
+		$this->assert(
+			!$this->_itemThumbnail[0]->isModified(),
+			'Thumbnail still modified, should be saved'
+		);
 	}
-    }
 
-    /* This won't do anything, but shouldn't have any errors either. */
-    function testCreateWithNoThumbnail() {
-	$form['CreateThumbnailOption']['createThumbnail'] = 1;
-	list ($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-	$this->assertEquals($warnings, $this->_noWarnings);
-	$this->assertEquals($errors, $this->_noErrors);
-    }
+	public function testDontCreateThumbnail() {
+		$form                    = array();
+		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+		$this->assertEquals($warnings, $this->_noWarnings);
+		$this->assertEquals($errors, $this->_noErrors);
 
-    /* This won't do anything, but shouldn't have any errors either. */
-    function testCreateMultipleWithNoThumbnail() {
-	$totalTestItems = 3;
-	for ($j = 1; $j < $totalTestItems; $j++) {
-	    list ($ret, $this->_items[$j]) = $this->_createRandomDataItem($this->_album->getId(),
-									 'test/file');
-	    if ($ret) {
-		return $ret;
-	    }
+		list($ret, $isCurrent) = $this->_itemThumbnail[0]->isCacheCurrent();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(!$isCurrent, 'Thumbnail was created, but not requested!');
 	}
-	$form['CreateThumbnailOption']['createThumbnail'] = 1;
-	list ($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-	$this->assertEquals($warnings, $this->_noWarnings);
-	$this->assertEquals($errors, $this->_noErrors);
-    }
+
+	public function testCreateMultipleThumbnails() {
+		$totalTestItems = 3;
+
+		for ($j = 1; $j < $totalTestItems; $j++) {
+			list($ret, $this->_items[$j]) = $this->_createRandomDataItem(
+				$this->_album->getId(),
+				'test/file'
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+			list($ret, $this->_itemThumbnail[$j]) = $this->_createDerivative(
+				$this->_items[$j],
+				$this->_items[$j]->getId(),
+				DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+				'thumbnail|200'
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		$form['CreateThumbnailOption']['createThumbnail'] = 1;
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		$this->assertEquals($warnings, $this->_noWarnings);
+		$this->assertEquals($errors, $this->_noErrors);
+
+		for ($j = 0; $j < $totalTestItems; $j++) {
+			list($ret, $isCurrent) = $this->_itemThumbnail[$j]->isCacheCurrent();
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assert($isCurrent, "Thumbnail $j was not created!");
+		}
+	}
+
+	// This won't do anything, but shouldn't have any errors either.
+	public function testCreateWithNoThumbnail() {
+		$form['CreateThumbnailOption']['createThumbnail'] = 1;
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		$this->assertEquals($warnings, $this->_noWarnings);
+		$this->assertEquals($errors, $this->_noErrors);
+	}
+
+	// This won't do anything, but shouldn't have any errors either.
+	public function testCreateMultipleWithNoThumbnail() {
+		$totalTestItems = 3;
+
+		for ($j = 1; $j < $totalTestItems; $j++) {
+			list($ret, $this->_items[$j]) = $this->_createRandomDataItem(
+				$this->_album->getId(),
+				'test/file'
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+		$form['CreateThumbnailOption']['createThumbnail'] = 1;
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		$this->assertEquals($warnings, $this->_noWarnings);
+		$this->assertEquals($errors, $this->_noErrors);
+	}
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -177,18 +217,25 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
  * Dummy test toolkit
  */
 class CreateThumbnailOptionTestToolkit extends GalleryToolkit {
-    /**
-     * @see GalleryToolkit::performOperation
-     * Dummy operation
-     */
-    function performOperation($mimeType, $operationName, $sourceFilename,
-			      $destFilename, $parameters, $context=array()) {
-	global $gallery;
-	if ($sourceFilename != $destFilename) {
-	    $platform =& $gallery->getPlatform();
-	    $platform->copy($sourceFilename, $destFilename);
+	/**
+	 * @see GalleryToolkit::performOperation
+	 * Dummy operation
+	 */
+	public function performOperation(
+		$mimeType,
+		$operationName,
+		$sourceFilename,
+		$destFilename,
+		$parameters,
+		$context = array()
+	) {
+		global $gallery;
+
+		if ($sourceFilename != $destFilename) {
+			$platform =& $gallery->getPlatform();
+			$platform->copy($sourceFilename, $destFilename);
+		}
+
+		return array(null, $mimeType, $context);
 	}
-	return array(null, $mimeType, $context);
-    }
 }
-?>

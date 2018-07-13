@@ -1,4 +1,5 @@
-<?php // $Id: _parse_propfind.php 17189 2007-11-17 08:53:36Z bharat $
+<?php
+// $Id: _parse_propfind.php 17189 2007-11-17 08:53:36Z bharat $
 /*
    +----------------------------------------------------------------------+
    | Copyright (c) 2002-2007 Christian Stocker, Hartmut Holzgraefe        |
@@ -40,139 +41,143 @@
  * @author Hartmut Holzgraefe <hholzgra@php.net>
  * @version 0.99.1dev
  */
-class _parse_propfind
-{
-    /**
-     * Success state flag
-     *
-     * @var boolean
-     * @access public
-     */
-    var $success = false;
+class _parse_propfind {
+	/**
+	 * Success state flag
+	 *
+	 * @var boolean
+	 * @access public
+	 */
+	public $success = false;
 
-    /**
-     * Found properties are collected here
-     *
-     * @var array
-     * @access public
-     */
-    var $props = array();
+	/**
+	 * Found properties are collected here
+	 *
+	 * @var array
+	 * @access public
+	 */
+	public $props = array();
 
-    /**
-     * Internal tag nesting depth counter
-     *
-     * @var int
-     * @access private
-     */
-    var $depth = 0;
+	/**
+	 * Internal tag nesting depth counter
+	 *
+	 * @var int
+	 * @access private
+	 */
+	public $depth = 0;
 
-    /**
-     * Constructor
-     *
-     * @param resource input stream file descriptor
-     * @access public
-     */
-    function _parse_propfind($handle)
-    {
-        // open input stream
-        if (!$handle) {
-            $this->success = false;
-            return;
-        }
+	/**
+	 * Constructor
+	 *
+	 * @param resource input stream file descriptor
+	 * @access public
+	 */
+	public function __construct($handle) {
+		// open input stream
+		if (!$handle) {
+			$this->success = false;
 
-        // success state flag
-        $this->success = true;
+			return;
+		}
 
-        // remember if any input was parsed
-        $had_input = false;
+		// success state flag
+		$this->success = true;
 
-        // create namespace aware XML parser
-        $parser = xml_parser_create_ns('UTF-8', ' ');
+		// remember if any input was parsed
+		$had_input = false;
 
-        // set tag & data handlers
-        xml_set_element_handler($parser, array(&$this, '_startElement'),
-            array(&$this, '_endElement'));
+		// create namespace aware XML parser
+		$parser = xml_parser_create_ns('UTF-8', ' ');
 
-        // we want a case sensitive parser
-        xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, false);
+		// set tag & data handlers
+		xml_set_element_handler(
+			$parser,
+			array(&$this, '_startElement'),
+			array(&$this, '_endElement')
+		);
 
-        // parse input
-        while ($this->success && !feof($handle)) {
-            $line = fgets($handle);
-            if (is_string($line)) {
-                $had_input = true;
-                $this->success &= xml_parse($parser, $line, false);
-            }
-        }
+		// we want a case sensitive parser
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, false);
 
-        // finish parsing
-        if ($had_input) {
-            $this->success &= xml_parse($parser, '', true);
-        }
+		// parse input
+		while ($this->success && !feof($handle)) {
+			$line = fgets($handle);
 
-        // free parser resource
-        xml_parser_free($parser);
+			if (is_string($line)) {
+				$had_input      = true;
+				$this->success &= xml_parse($parser, $line, false);
+			}
+		}
 
-        // close input stream
-        fclose($handle);
+		// finish parsing
+		if ($had_input) {
+			$this->success &= xml_parse($parser, '', true);
+		}
 
-        // if no input was parsed it was a request
-        if (empty($this->props)) {
-            $this->props = 'allprop';
-        }
-    }
+		// free parser resource
+		xml_parser_free($parser);
 
-    /**
-     * Start tag handler
-     *
-     * @access private
-     * @param resource parser
-     * @param string tag name
-     * @param array tag attributes
-     * @return void
-     */
-    function _startElement($parser, $name, $attrs)
-    {
-        // name space handling
-        if (strstr($name, ' ')) {
-            list ($ns, $name) = explode(' ', $name);
-            if (empty($ns)) {
-                $this->success = false;
-            }
-        }
+		// close input stream
+		fclose($handle);
 
-        // special tags at level 1: <allprop> & <propname>
-        if ($this->depth == 1) {
-            if ($name == 'allprop' || $name == 'propname') {
-                $this->props = $name;
-            }
-        }
+		// if no input was parsed it was a request
+		if (empty($this->props)) {
+			$this->props = 'allprop';
+		}
+	}
 
-        // requested properties are found at level 2
-        if ($this->depth == 2) {
-            $prop = array('name' => $name);
-            if ($ns) {
-                $prop['ns'] = $ns;
-            }
-            $this->props[] = $prop;
-        }
+	/**
+	 * Start tag handler
+	 *
+	 * @access private
+	 * @param resource parser
+	 * @param string tag name
+	 * @param array tag attributes
+	 * @return void
+	 */
+	public function _startElement($parser, $name, $attrs) {
+		// name space handling
+		if (strstr($name, ' ')) {
+			list($ns, $name) = explode(' ', $name);
 
-        // increment depth count
-        $this->depth++;
-    }
+			if (empty($ns)) {
+				$this->success = false;
+			}
+		}
 
-    /**
-     * End tag handler
-     *
-     * @access private
-     * @param resource parser
-     * @param string tag name
-     * @return void
-     */
-    function _endElement($parser, $name)
-    {
-        // here we only need to decrement the depth count
-        $this->depth--;
-    }
+		// special tags at level 1: <allprop> & <propname>
+		if ($this->depth == 1) {
+			if ($name == 'allprop' || $name == 'propname') {
+				$this->props = $name;
+			}
+		}
+
+		// requested properties are found at level 2
+		if ($this->depth == 2) {
+			$prop = array(
+				'name' => $name,
+			);
+
+			if ($ns) {
+				$prop['ns'] = $ns;
+			}
+			$this->props[] = $prop;
+		}
+
+		// increment depth count
+		$this->depth++;
+	}
+
+	/**
+	 * End tag handler
+	 *
+	 * @access private
+	 * @param resource parser
+	 * @param string tag name
+	 * @return void
+	 */
+	public function _endElement($parser, $name) {
+		// here we only need to decrement the depth count
+		$this->depth--;
+	}
 }
-?>

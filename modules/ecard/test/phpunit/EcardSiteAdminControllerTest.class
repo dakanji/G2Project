@@ -27,66 +27,71 @@
  * @version $Revision: 17580 $
  */
 class EcardSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function EcardSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'ecard.AdminEcard');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'ecard.AdminEcard');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'ecard');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'ecard');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-    }
 
-    function testEcardSiteAdminControllerReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	public function testEcardSiteAdminControllerReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'ecard.AdminEcard'),
+		$results = $this->handleRequest();
+		$this->assertEquals(
+		array('redirect' => array('view' => 'core.SiteAdmin',
+							  'subView' => 'ecard.AdminEcard', ),
 				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testEcardSiteAdminControllerSave() {
-	GalleryUtilities::putRequestVariable('form[from]', 'nobody@nobody.org');
-	GalleryUtilities::putRequestVariable('form[subject]', 'An eCard has been sent to you');
-	GalleryUtilities::putRequestVariable('form[bcc]', 'nobody2@nobody.org');
-	GalleryUtilities::putRequestVariable('form[header]', "Hi %toName% (%to%)!\r\n"
-					     . '%fromName% (%from%) has sent you an eCard.');
-	GalleryUtilities::putRequestVariable('form[footer]', 'Sent via G2 Ecard tester');
-	GalleryUtilities::putRequestVariable('form[format]', 'html');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'ecard.AdminEcard'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	foreach (array('from' => 'nobody@nobody.org',
-		       'subject' => 'An eCard has been sent to you',
-		       'bcc' => 'nobody2@nobody.org',
-		       'header' =>
-			    "Hi %toName% (%to%)!\r\n%fromName% (%from%) has sent you an eCard.",
-		       'footer' => 'Sent via G2 Ecard tester',
-		       'format' => 'html')
-		 as $key => $expectedValue) {
-	    list ($ret, $value) =
-		GalleryCoreApi::getPluginParameter('module', 'ecard', $key);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assertEquals($expectedValue, $value, $key);
+				  'error' => array(), ),
+				$results
+	);
 	}
-    }
+
+	public function testEcardSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[from]', 'nobody@nobody.org');
+		GalleryUtilities::putRequestVariable('form[subject]', 'An eCard has been sent to you');
+		GalleryUtilities::putRequestVariable('form[bcc]', 'nobody2@nobody.org');
+		GalleryUtilities::putRequestVariable('form[header]', "Hi %toName% (%to%)!\r\n"
+						 . '%fromName% (%from%) has sent you an eCard.');
+		GalleryUtilities::putRequestVariable('form[footer]', 'Sent via G2 Ecard tester');
+		GalleryUtilities::putRequestVariable('form[format]', 'html');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+		array('redirect' => array('view' => 'core.SiteAdmin',
+							  'subView' => 'ecard.AdminEcard', ),
+				  'status' => array('saved' => 1),
+				  'error' => array(), ),
+				$results
+	);
+
+		foreach (array('from' => 'nobody@nobody.org',
+			   'subject' => 'An eCard has been sent to you',
+			   'bcc' => 'nobody2@nobody.org',
+			   'header' =>
+				"Hi %toName% (%to%)!\r\n%fromName% (%from%) has sent you an eCard.",
+			   'footer' => 'Sent via G2 Ecard tester',
+			   'format' => 'html', )
+		 as $key => $expectedValue) {
+			list($ret, $value) =
+		GalleryCoreApi::getPluginParameter('module', 'ecard', $key);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals($expectedValue, $value, $key);
+		}
+	}
 }
-?>

@@ -28,80 +28,88 @@ GalleryCoreApi::requireOnce('modules/publishxp/DownloadRegistryFile.inc');
  * @version $Revision: 17580 $
  */
 class DownloadRegistryFileTest extends GalleryTestCase {
-    function DownloadRegistryFileTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'default.language', 'en_US');
+
+		if ($ret) {
+			return $ret;
+		}
+		$gallery->setActiveLanguageCode('en_US');
+
+		if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+			unset($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		}
+
+		$this->view = new DownloadRegistryFileView();
 	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'default.language', 'en_US');
-	if ($ret) {
-	    return $ret;
+
+	public function testGetCharsetFromRequestDefault() {
+		$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default');
+
+		$this->_setActiveLanguageCode('en_US');
+		$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default 2');
+
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
+		$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
+
+		$this->_setActiveLanguageCode('ru_RU');
+		$this->assertEquals(
+			'CP1251',
+			$this->view->_getCharsetFromRequest(),
+			'session override'
+		);
 	}
-	$gallery->setActiveLanguageCode('en_US');
-	if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-	    unset($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+	public function testGetCharsetFromRequestComparesToSiteDefaultLocale() {
+		// Ensure it uses the plugin param and not getDefaultLanguageCode()
+		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'language.useBrowserPref', '1');
+
+		if ($ret) {
+			return $ret;
+		}
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
+		$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
 	}
-	
-	$this->view = new DownloadRegistryFileView();
-    }
 
-    function testGetCharsetFromRequestDefault() {
-	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default');
-	
-	$this->_setActiveLanguageCode('en_US');
-	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default 2');
+	public function testGetCharsetFromRequestChinese() {
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh';
+		$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'default');
 
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
-	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-cn';
+		$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 1');
 
-	$this->_setActiveLanguageCode('ru_RU');
-	$this->assertEquals('CP1251', $this->view->_getCharsetFromRequest(),
-			    'session override');
-    }
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-tw';
+		$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 1');
 
-    function testGetCharsetFromRequestComparesToSiteDefaultLocale() {
-	/* Ensure it uses the plugin param and not getDefaultLanguageCode() */
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'language.useBrowserPref', '1');
-	if ($ret) {
-	    return $ret;
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-hans_HK';
+		$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 2');
+
+		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-Hant';
+		$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
 	}
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
-	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
-    }
 
-    function testGetCharsetFromRequestChinese() {
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh';
-	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'default');
+	public function _setActiveLanguageCode($languageCode) {
+		global $gallery;
+		$ret = $gallery->setActiveLanguageCode($languageCode);
 
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-cn';
-	$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 1');
-
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-tw';
-	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 1');
-
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-hans_HK';
-	$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 2');
-
-	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-Hant';
-	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
-    }
-
-    function _setActiveLanguageCode($languageCode) {
-	global $gallery;
-	$ret = $gallery->setActiveLanguageCode($languageCode);
-	if ($ret) {
-	    return $ret;    
+		if ($ret) {
+			return $ret;
+		}
 	}
-    }
 }
-?>

@@ -29,41 +29,47 @@ GalleryCoreApi::requireOnce('modules/mime/classes/MimeHelper.class');
  * @version $Revision: 17580 $
  */
 class MimeHelperTest extends GalleryTestCase {
-    function MimeHelperTest($methodname) {
-	$this->GalleryTestCase($methodname);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodname) {
+		parent::__construct($methodname);
 	}
 
-	$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
-	if ($ret) {
-	    return $ret;
-	}
-    }
+	public function setUp() {
+		$ret = parent::setUp();
 
-    function tearDown() {
-	$ret = GalleryCoreApi::removeMimeType(array('mimeType' =>'test/test'));
-	if ($ret) {
-	    $this->failWithStatus($ret);
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
+
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
+	public function tearDown() {
+		$ret = GalleryCoreApi::removeMimeType(array(
+			'mimeType' => 'test/test',
+		));
 
-    function testMimeTypeMap() {
-	list ($ret, $typeMap) = MimeHelper::getMimeTypeMap();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
-	$this->assertEquals(array('xxx'), $typeMap['ext']['test/test'], 'Extensions');
-	$this->assert(!$typeMap['viewable']['test/test'], 'Viewable');
-    }
+
+	public function testMimeTypeMap() {
+		list($ret, $typeMap) = MimeHelper::getMimeTypeMap();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array('xxx'), $typeMap['ext']['test/test'], 'Extensions');
+		$this->assert(!$typeMap['viewable']['test/test'], 'Viewable');
+	}
 }
-?>

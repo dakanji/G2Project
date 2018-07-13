@@ -27,30 +27,39 @@
  * @version $Revision: 17580 $
  */
 class FotokastenCartPluginTest extends GalleryTestCase {
-
-    function FotokastenCartPluginTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function testFulfillCart() {
-	global $gallery;
-
-	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
-	GalleryCoreApi::requireOnce(
-	    'modules/fotokasten/classes/FotokastenCartPlugin.class');
-	$cartPlugin = new FotokastenCartPlugin();
-	$cartItemIds = array(123 => 1, 456 => 2, 789 => 1);
-
-	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
-	$this->assertEquals(array('controller' => 'fotokasten.PrintPhotos', 'return' => 1),
-			    $urlParams);
 
-	$session =& $gallery->getSession();
-	$printCart = $session->get('fotokasten.cart');
-	$this->assertEquals($cartItemIds, $printCart, 'cart');
-    }
+	public function testFulfillCart() {
+		global $gallery;
+
+		GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+		GalleryCoreApi::requireOnce(
+			'modules/fotokasten/classes/FotokastenCartPlugin.class'
+		);
+		$cartPlugin  = new FotokastenCartPlugin();
+		$cartItemIds = array(
+			123 => 1,
+			456 => 2,
+			789 => 1,
+		);
+
+		list($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'controller' => 'fotokasten.PrintPhotos',
+				'return'     => 1,
+			),
+			$urlParams
+		);
+
+		$session   =& $gallery->getSession();
+		$printCart = $session->get('fotokasten.cart');
+		$this->assertEquals($cartItemIds, $printCart, 'cart');
+	}
 }
-?>

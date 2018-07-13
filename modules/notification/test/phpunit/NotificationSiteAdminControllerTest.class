@@ -29,552 +29,1042 @@ GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHandler_1_
  * @version $Revision: 17580 $
  */
 class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function NotificationSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'notification.NotificationSiteAdmin');
-    }
-
-    function setUp() {
-	global $gallery;
-
-	parent::setUp();
-
-	$this->_unregisterFactoryImplementationForTest('NotificationEvent_1_0');
-	$this->_unregisterFactoryImplementationForTest('NotificationHandler_1_0');
-
-	$ret = $this->_registerFactoryImplementationForTest('NotificationEvent_1_0', 
-	    'NotificationEventTest', 'Test:Event',
-	    'modules/notification/test/phpunit/NotificationHelperTest.class', 
-	    'notification', array());
-	if ($ret) {
-	    return $ret;
-	}
-	
-	$ret = $this->_registerFactoryImplementationForTest('NotificationEvent_1_0', 
-	    'NotificationEventTest2', 'Test:Event2',
-	    'modules/notification/test/phpunit/NotificationHelperTest.class', 
-	    'notification', array());
-	if ($ret) {
-	    return $ret;
-	}
-	
-	/* Test Handler definition */
-	$ret = $this->_registerFactoryImplementationForTest(
-	    'NotificationHandler_1_0', 'NotificationMethodTest', 'Test:EventHandler',
-	    'modules/notification/test/phpunit/NotificationSiteAdminControllerTest.class', 
-	    'notification', array());
-	if ($ret) {
-	    return $ret;
-	}
-	
-	$ret = $this->_registerFactoryImplementationForTest(
-	    'NotificationHandler_1_0', 'NotificationMethodTestNew', 'Test:NewHandler',
-	    'modules/notification/test/phpunit/NotificationSiteAdminControllerTest.class', 
-	    'notification', array('Gallery::ViewableTreeChange',
-		  'Gallery::RemovePermission',
-		  'GalleryEntity::save',
-		  'GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'notification.NotificationSiteAdmin');
 	}
 
-	list ($ret, $pluginParms) = 
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'notification');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+
+		parent::setUp();
+
+		$this->_unregisterFactoryImplementationForTest('NotificationEvent_1_0');
+		$this->_unregisterFactoryImplementationForTest('NotificationHandler_1_0');
+
+		$ret = $this->_registerFactoryImplementationForTest(
+			'NotificationEvent_1_0',
+			'NotificationEventTest',
+			'Test:Event',
+			'modules/notification/test/phpunit/NotificationHelperTest.class',
+			'notification',
+			array()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_registerFactoryImplementationForTest(
+
+			'NotificationEvent_1_0',
+			'NotificationEventTest2',
+			'Test:Event2',
+			'modules/notification/test/phpunit/NotificationHelperTest.class',
+			'notification',
+			array()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Test Handler definition
+		$ret = $this->_registerFactoryImplementationForTest(
+			'NotificationHandler_1_0',
+			'NotificationMethodTest',
+			'Test:EventHandler',
+			'modules/notification/test/phpunit/NotificationSiteAdminControllerTest.class',
+			'notification',
+			array()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_registerFactoryImplementationForTest(
+			'NotificationHandler_1_0',
+			'NotificationMethodTestNew',
+			'Test:NewHandler',
+			'modules/notification/test/phpunit/NotificationSiteAdminControllerTest.class',
+			'notification',
+			array(
+				'Gallery::ViewableTreeChange',
+				'Gallery::RemovePermission',
+				'GalleryEntity::save',
+				'GalleryEntity::delete',
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $pluginParms) = GalleryCoreApi::fetchAllPluginParameters('module', 'notification');
+
+		if ($ret) {
+			return $ret;
+		}
+		$cacheKey                   = 'GalleryPluginHelper::fetchAllParameters(module, notification, 0)';
+		$enabledMap                 = array(
+			'Test:TestEvent' => array(
+				'Test:EventHandler' => array(),
+			),
+		);
+		$pluginParms['_enabledMap'] = serialize($enabledMap);
+		GalleryDataCache::put($cacheKey, $pluginParms);
+
+		list($ret, $this->_hintLockId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'notification',
+			'id.eventMapLock'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_storageSet = true;
+		$gallery->_storage = new UnitTestStorage();
+
+		$storage =& $gallery->getStorage();
+		$storage->setReply(
+			'getMapEntry',
+			array(
+				'GalleryUserGroupMap',
+				array('userId'),
+				array(
+					'userId'  => 6,
+					'groupId' => 3,
+				),
+				array(
+					'limit' => array(
+						'count' => 1,
+					),
+				),
+			),
+			array(null, new UnitTestStorageSearchResults(array(true)))
+		);
+
+		$this->_saveLockSystem = $gallery->_lockSystem;
+		$gallery->_lockSystem  = null;
 	}
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, notification, 0)";
-	$enabledMap = array('Test:TestEvent' => 
-			array('Test:EventHandler' => array()));
-	$pluginParms['_enabledMap'] = serialize($enabledMap);
-	GalleryDataCache::put($cacheKey, $pluginParms);
 
-	list ($ret, $this->_hintLockId) = GalleryCoreApi::getPluginParameter('module', 
-								 'notification', 'id.eventMapLock');
-	if ($ret) {
-	    return $ret;
+	public function tearDown() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
+
+		$gallery->_lockSystem =& $this->_saveLockSystem;
+
+		if (!empty($this->_storageSet)) {
+			$this->assert($storage->isComplete(), $storage->getRemaining());
+		}
+
+		parent::tearDown();
 	}
 
-	$this->_storageSet = true;
-	$gallery->_storage = new UnitTestStorage();
+	public function testAddHandler() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	$storage =& $gallery->getStorage();
-	$storage->setReply('getMapEntry', 
-			   array('GalleryUserGroupMap', array('userId'), 
-				 array('userId' => 6, 'groupId' => 3), 
-				 array('limit' => array('count' => 1))), 
-			   array(null, new UnitTestStorageSearchResults(array(true))));
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
 
-	$this->_saveLockSystem = $gallery->_lockSystem;
-	$gallery->_lockSystem = null;
-    }
+		$enabledMap = array(
+			'Test:TestEvent' => array(
+				'Test:EventHandler' => array(),
+			),
+			'Test:Event' => array(
+				'Test:EventHandler' => array(
+					'public'  => true,
+					'enabled' => true,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($enabledMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-    function tearDown() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => '',
+				'notificationName' => 'Test:Event',
+				'description'      => 'An Event Description',
+				'handler'          => 'Test:EventHandler',
+				'public'           => 'on',
+				'enabled'          => 'on',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$gallery->_lockSystem =& $this->_saveLockSystem;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	if (!empty($this->_storageSet)) {
-	    $this->assert($storage->isComplete(), $storage->getRemaining());
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
 	}
 
-	parent::tearDown();
-    }
+	public function testAddHandlerNoHandlerSpecified() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-    function testAddHandler() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => '',
+				'notificationName' => 'Test:Event',
+				'description'      => 'An Event Description',
+				'handler'          => '',
+				'currentHandler'   => '',
+				'userAvailable'    => 'on',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+				'currentHandler'   => '',
+			)
+		);
 
-	$enabledMap = 
-	    array('Test:TestEvent' => array('Test:EventHandler' => array()),
-		  'Test:Event' => array('Test:EventHandler' => 
-					array('public' => true, 'enabled' => true)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($enabledMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$results = $this->handleRequest();
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => '', 'notificationName' => 'Test:Event',
-			       'description' => 'An Event Description', 
-			       'handler' => 'Test:EventHandler', 
-			       'public' => 'on', 'enabled' => 'on'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'              => 'core.SiteAdmin',
+					'subView'           => 'notification.NotificationSiteAdmin',
+					'form[displayRows]' => 1,
+				),
+				'status'   => array(),
+				'error'    => array('form[error][notificationMap][0][noEventHandler]'),
+			),
+			$results,
+			'Unexpected results array'
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+	public function testDeleteHandler() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => 'a:0:{}',
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-    function testAddHandlerNoHandlerSpecified() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => '',
+				'handler'          => 'Test:EventHandler',
+				'currentHandler'   => 'Test:EventHandler',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => '', 'notificationName' => 'Test:Event',
-			       'description' => 'An Event Description', 
-			       'handler' => '', 'currentHandler' => '',
-			       'userAvailable' => 'on'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => '', 'currentHandler' => ''));
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 
-	$results = $this->handleRequest();
+	public function testUpdateEvent() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin',
-						'form[displayRows]' => 1),
-			       'status' => array(), 
-			       'error' => array('form[error][notificationMap][0][noEventHandler]')),
-			    $results, 'Unexpected results array');
-    }
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$expectedMap = array(
+			'Test:Event2' => array(
+				'Test:EventHandler' => array(
+					'public'  => false,
+					'enabled' => false,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($expectedMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-    function testDeleteHandler() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:Event2',
+				'description'      => 'An Event Description',
+				'currentHandler'   => 'Test:EventHandler',
+				'handler'          => 'Test:EventHandler',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => 'a:0:{}'),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent', 
-			       'notificationName' => '', 
-			       'handler' => 'Test:EventHandler', 
-			       'currentHandler' => 'Test:EventHandler'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+	public function testUpdateEventNoEvent() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
 
-    function testUpdateEvent() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$expectedMap = array('Test:Event2' => array('Test:EventHandler' => 
-			   array('public' => false, 'enabled' => false)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($expectedMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:NewEvent',
+				'description'      => 'An Event Description',
+				'handler'          => '',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			       'notificationName' => 'Test:Event2',
-			       'description' => 'An Event Description',
-			       'currentHandler' => 'Test:EventHandler',
-			       'handler' => 'Test:EventHandler'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'              => 'core.SiteAdmin',
+					'subView'           => 'notification.NotificationSiteAdmin',
+					'form[displayRows]' => 1,
+				),
+				'status'   => array(),
+				'error'    => array('form[error][notificationMap][0][noEventHandler]'),
+			),
+			$results,
+			'Unexpected results array'
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+	public function testUpdateHandler() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$expectedMap = array(
+			'Test:TestEvent' => array(
+				'Test:NewHandler' => array(
+					'public'  => false,
+					'enabled' => false,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($expectedMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-    function testUpdateEventNoEvent() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:TestEvent',
+				'description'      => 'An Event Description',
+				'currentHandler'   => 'Test:EventHandler',
+				'handler'          => 'Test:NewHandler',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			       'notificationName' => 'Test:NewEvent',
-			       'description' => 'An Event Description', 
-			       'handler' => ''));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+	public function testUpdateVisibilitySetOn() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin',
-						'form[displayRows]' => 1),
-				  'status' => array(), 
-			    'error' => array('form[error][notificationMap][0][noEventHandler]')),
-			    $results,'Unexpected results array');
-    }
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$expectedMap = array(
+			'Test:TestEvent' => array(
+				'Test:EventHandler' => array(
+					'public'  => true,
+					'enabled' => false,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($expectedMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-    function testUpdateHandler() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:TestEvent',
+				'description'      => 'An Event Description',
+				'currentHandler'   => 'Test:EventHandler',
+				'handler'          => 'Test:EventHandler',
+				'public'           => 'on',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$expectedMap = array('Test:TestEvent' => array('Test:NewHandler' => 
-			   array('public' => false, 'enabled' => false)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($expectedMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			        'notificationName' => 'Test:TestEvent',
-			       'description' => 'An Event Description',
-			       'currentHandler' => 'Test:EventHandler',
-			       'handler' => 'Test:NewHandler'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+	public function testUpdateVisibilitySetOff() {
+		global $gallery;
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, notification, 0)';
+		$parms    = GalleryDataCache::get($cacheKey);
+		$enabled  = unserialize($parms['_enabledMap']);
+		$enabled['Test:TestEvent']['Test:EventHandler']['public'] = true;
+		$parms['_enabledMap']                                     = serialize($enabled);
+		GalleryDataCache::put($cacheKey, $parms);
 
-    function testUpdateVisibilitySetOn() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$expectedMap = array(
+			'Test:TestEvent' => array(
+				'Test:EventHandler' => array(
+					'public'  => false,
+					'enabled' => false,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($expectedMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$expectedMap = array('Test:TestEvent' => array('Test:EventHandler' => 
-			   array('public' => true, 'enabled' => false)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($expectedMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:TestEvent',
+				'description'      => 'An Event Description',
+				'currentHandler'   => 'Test:EventHandler',
+				'handler'          => 'Test:EventHandler',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			       'notificationName' => 'Test:TestEvent',
-			       'description' => 'An Event Description', 
-			       'currentHandler' => 'Test:EventHandler', 
-			       'handler' => 'Test:EventHandler', 'public' => 'on'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+	public function testUpdateEnabledSetOn() {
+		global $gallery;
 
-    function testUpdateVisibilitySetOff() {
-	global $gallery;
+		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, notification, 0)';
+		$parms    = GalleryDataCache::get($cacheKey);
+		$enabled  = unserialize($parms['_enabledMap']);
+		$enabled['Test:TestEvent']['Test:EventHandler']['public']  = true;
+		$enabled['Test:TestEvent']['Test:EventHandler']['enabled'] = true;
+		$parms['_enabledMap']                                      = serialize($enabled);
+		GalleryDataCache::put($cacheKey, $parms);
 
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, notification, 0)";
-	$parms = GalleryDataCache::get($cacheKey);
-	$enabled = unserialize($parms['_enabledMap']);
-	$enabled['Test:TestEvent']['Test:EventHandler']['public'] = true;
-	$parms['_enabledMap'] = serialize($enabled);
-	GalleryDataCache::put($cacheKey, $parms);
-	
-	$storage =& $gallery->getStorage();
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$expectedMap = array('Test:TestEvent' => array('Test:EventHandler' => 
-			   array('public' => false, 'enabled' => false)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($expectedMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$storage =& $gallery->getStorage();
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$expectedMap = array(
+			'Test:TestEvent' => array(
+				'Test:EventHandler' => array(
+					'public'  => true,
+					'enabled' => true,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($expectedMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			       'notificationName' => 'Test:TestEvent',
-			       'description' => 'An Event Description',
-			       'currentHandler' => 'Test:EventHandler',
-			       'handler' => 'Test:EventHandler'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:TestEvent',
+				'description'      => 'An Event Description',
+				'currentHandler'   => 'Test:EventHandler',
+				'public'           => 'on',
+				'handler'          => 'Test:EventHandler',
+				'enabled'          => 'on',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 
-    function testUpdateEnabledSetOn() {
-	global $gallery;
+	public function testUpdateEnabledSetOff() {
+		global $gallery;
 
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, notification, 0)";
-	$parms = GalleryDataCache::get($cacheKey);
-	$enabled = unserialize($parms['_enabledMap']);
-	$enabled['Test:TestEvent']['Test:EventHandler']['public'] = true;
-	$enabled['Test:TestEvent']['Test:EventHandler']['enabled'] = true;
-	$parms['_enabledMap'] = serialize($enabled);
-	GalleryDataCache::put($cacheKey, $parms);
+		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, notification, 0)';
+		$parms    = GalleryDataCache::get($cacheKey);
+		$enabled  = unserialize($parms['_enabledMap']);
+		$enabled['Test:TestEvent']['Test:EventHandler']['public']  = true;
+		$enabled['Test:TestEvent']['Test:EventHandler']['enabled'] = true;
+		$parms['_enabledMap']                                      = serialize($enabled);
+		GalleryDataCache::put($cacheKey, $parms);
 
-	$storage =& $gallery->getStorage();
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$expectedMap = array('Test:TestEvent' => array('Test:EventHandler' => 
-			   array('public' => true, 'enabled' => true)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($expectedMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
+		$storage =& $gallery->getStorage();
+		$storage->setReply(
+			'acquireWriteLock',
+			array(array($this->_hintLockId), 10),
+			array(
+				null,
+				array(
+					'lockId' => 42,
+					'type'   => LOCK_WRITE,
+					'ids'    => array(
+						$this->_hintLockId => true,
+					),
+				),
+			)
+		);
+		$expectedMap = array(
+			'Test:TestEvent' => array(
+				'Test:EventHandler' => array(
+					'public'  => false,
+					'enabled' => false,
+				),
+			),
+		);
+		$storage->setReply(
+			'updateMapEntry',
+			array(
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'notification',
+					'itemId'        => 0,
+					'parameterName' => '_enabledMap',
+				),
+				array(
+					'parameterValue' => serialize($expectedMap),
+				),
+				null,
+			),
+			null
+		);
+		$storage->setReply('isTransactional', array(), false);
+		$storage->setReply('releaseLocks', array(array(42)), null);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			       'notificationName' => 'Test:TestEvent',
-			       'description' => 'An Event Description',
-			       'currentHandler' => 'Test:EventHandler', 'public' => 'on', 
-			       'handler' => 'Test:EventHandler', 'enabled' => 'on'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
+		GalleryUtilities::putRequestVariable('form[action][save]', 'save');
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][0]',
+			array(
+				'currentName'      => 'Test:TestEvent',
+				'notificationName' => 'Test:TestEvent',
+				'description'      => 'An Event Description',
+				'currentHandler'   => 'Test:EventHandler',
+				'handler'          => 'Test:EventHandler',
+			)
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[notificationMap][1]',
+			array(
+				'currentName'      => '',
+				'notificationName' => '',
+				'description'      => '',
+				'handler'          => '',
+			)
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'notification.NotificationSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results,
+			'Unexpected results array'
+		);
 
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
-
-    function testUpdateEnabledSetOff() {
-	global $gallery;
-
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, notification, 0)";
-	$parms = GalleryDataCache::get($cacheKey);
-	$enabled = unserialize($parms['_enabledMap']);
-	$enabled['Test:TestEvent']['Test:EventHandler']['public'] = true;
-	$enabled['Test:TestEvent']['Test:EventHandler']['enabled'] = true;
-	$parms['_enabledMap'] = serialize($enabled);
-	GalleryDataCache::put($cacheKey, $parms);
-
-	$storage =& $gallery->getStorage();
-	$storage->setReply('acquireWriteLock', array(array($this->_hintLockId), 10), 
-			array(null,
-			      array('lockId' => 42, 'type' => LOCK_WRITE, 
-				    'ids' => array($this->_hintLockId => true))));
-	$expectedMap = array('Test:TestEvent' => array('Test:EventHandler' => 
-			   array('public' => false, 'enabled' => false)));
-	$storage->setReply('updateMapEntry', 
-			   array('GalleryPluginParameterMap', 
-				 array('pluginType' => 'module', 'pluginId' => 'notification', 
-				       'itemId' => 0, 'parameterName' => '_enabledMap'),
-				 array('parameterValue' => serialize($expectedMap)),
-				 null), 
-			   null);
-	$storage->setReply('isTransactional', array(), false);
-	$storage->setReply('releaseLocks', array(array(42)), null);
-
-	GalleryUtilities::putRequestVariable('form[action][save]', 'save');
-	GalleryUtilities::putRequestVariable('form[notificationMap][0]',
-			 array('currentName' => 'Test:TestEvent',
-			       'notificationName' => 'Test:TestEvent',
-			       'description' => 'An Event Description',
-			       'currentHandler' => 'Test:EventHandler',
-			       'handler' => 'Test:EventHandler'));
-	GalleryUtilities::putRequestVariable('form[notificationMap][1]',
-			 array('currentName' => '', 'notificationName' => '', 'description' => '', 
-			       'handler' => ''));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin', 
-						'subView' => 'notification.NotificationSiteAdmin'),
-				  'status' => array('saved' => 1), 'error' => array()), $results,
-			    'Unexpected results array');
-
-	$this->assert(empty($_GET['g2_form']['notificationMap'][0]['errorMsg']), 
-		      'Error message returned');
-    }
+		$this->assert(
+			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
+			'Error message returned'
+		);
+	}
 }
 
 class NotificationEventTest {
-    function getDescription() {
-	global $gallery;
-	return $this->_translateText('notification', 
-				     $gallery->i18n('Test Event Description'));
-    }
-    function getPermission() {
-	return 'core.edit';
-    }
+	public function getDescription() {
+		global $gallery;
+
+		return $this->_translateText(
+			'notification',
+			$gallery->i18n('Test Event Description')
+		);
+	}
+
+	public function getPermission() {
+		return 'core.edit';
+	}
 }
 
 class NotificationEventTest2 {
-    function getDescription() {
-	global $gallery;
-	return $this->_translateText('notification', 
-				     $gallery->i18n('Test Event Description'));
-    }
+	public function getDescription() {
+		global $gallery;
 
-    function getPermission() {
-	return null;
-    }
+		return $this->_translateText(
+			'notification',
+			$gallery->i18n('Test Event Description')
+		);
+	}
+
+	public function getPermission() {
+		return null;
+	}
 }
 
 class NotificationMethodTest extends NotificationHandler_1_0 {
-    function getDescription() {
-	global $gallery;
-	return $this->_translateText('notification', 
-				     $gallery->i18n('Test Notification Test Class Description'));
-    }
+	public function getDescription() {
+		global $gallery;
 
-    /**
-     * @see NotificationHandler_1_0::handleEvent
-     */
-    function handleNotification($subscribers, $notification) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
+		return $this->_translateText(
+			'notification',
+			$gallery->i18n('Test Notification Test Class Description')
+		);
+	}
+
+	/**
+	 * @see NotificationHandler_1_0::handleEvent
+	 */
+	public function handleNotification($subscribers, $notification) {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 }
 
 class NotificationMethodTestNew extends NotificationMethodTest {
-    /* just extend NotificationMethodTest so it looks different for factory registration */ 
+	// just extend NotificationMethodTest so it looks different for factory registration
 }
-
-?>

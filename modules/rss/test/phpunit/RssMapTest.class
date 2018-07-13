@@ -29,112 +29,131 @@ GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
  * @version $Revision: 17580 $
  */
 class RssMapTest extends GalleryTestCase {
+	public $_feedsToDelete;
 
-    var $_feedsToDelete;
-
-    function RssMapTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$this->_feedsToDelete = array();
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* create an album */
-	list ($ret, $this->_root) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_root);
-
-	/* create a test feed */
-	$this->_name = 'test'.rand();
-	$params = array('itemId' => $this->_root->getId());
-	$ret = RssMapHelper::createFeed($this->_name, $params);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_feedsToDelete[] = $this->_name;
-    }
-
-    function tearDown() {
-	if (!empty($this->_feedsToDelete)) {
-	    foreach ($this->_feedsToDelete as $name) {
-		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $ret;
+			return $ret;
 		}
-	    }
+
+		$this->_feedsToDelete = array();
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'rss');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// create an album
+		list($ret, $this->_root) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_root);
+
+		// create a test feed
+		$this->_name = 'test' . mt_rand();
+		$params      = array(
+			'itemId' => $this->_root->getId(),
+		);
+		$ret         = RssMapHelper::createFeed($this->_name, $params);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_feedsToDelete[] = $this->_name;
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
+	public function tearDown() {
+		if (!empty($this->_feedsToDelete)) {
+			foreach ($this->_feedsToDelete as $name) {
+				$ret = RssMapHelper::deleteFeed($name);
 
-    function testCollision() {
-	$params = array('itemId' => $this->_root);
-	$ret = RssMapHelper::createFeed($this->_name, $params);
-	/* we expect an error */
-	if (!$ret) {
-	    return $this->assert(false, 'Expected an error');
-	}
-	$this->assert($ret->getErrorCode() & ERROR_COLLISION,
-	    'No collision reported, but expected one');
-    }
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
 
-    function testDelete() {
-	$ret = RssMapHelper::deleteFeed($this->_name);
-	if ($ret) {
-	    return $ret;
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	list ($ret, $feed) = RssMapHelper::fetchFeed($this->_name);
-	/* we expect an error */
-	if (!$ret) {
-	    return $this->assert(false, 'Expected an error');
-	}
-	$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT,
-	    'No missing object reported, but expected it to be missing');
-    }
-
-    function testFetchFeedsForId() {
-	global $gallery;
-
-	list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem($this->_root->getId());
-	if ($ret) {
-	    return $ret;
+	public function testCollision() {
+		$params = array(
+			'itemId' => $this->_root,
+		);
+		$ret    = RssMapHelper::createFeed($this->_name, $params);
+		// we expect an error
+		if (!$ret) {
+			return $this->assert(false, 'Expected an error');
+		}
+		$this->assert(
+			$ret->getErrorCode() & ERROR_COLLISION,
+			'No collision reported, but expected one'
+		);
 	}
 
-	$this->assertEquals($feeds, array(array(
-	    'name' => $this->_name,
-	    'itemId' => $this->_root->getId(),
-	    'ownerId' => $gallery->getActiveUserId(),
-	    'params' => array(
-		'itemId' => $this->_root->getId()))));
-    }
+	public function testDelete() {
+		$ret = RssMapHelper::deleteFeed($this->_name);
 
-    function testFetchFeedNames() {
-	global $gallery;
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $names) = RssMapHelper::fetchFeedNames();
-	if ($ret) {
-	    return $ret;
+		list($ret, $feed) = RssMapHelper::fetchFeed($this->_name);
+		// we expect an error
+		if (!$ret) {
+			return $this->assert(false, 'Expected an error');
+		}
+		$this->assert(
+			$ret->getErrorCode() & ERROR_MISSING_OBJECT,
+			'No missing object reported, but expected it to be missing'
+		);
 	}
 
-	$this->assert(in_array($this->_name, $names));
-    }
+	public function testFetchFeedsForId() {
+		global $gallery;
+
+		list($ret, $feeds) = RssMapHelper::fetchFeedsForItem($this->_root->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($feeds, array(
+			array(
+				'name'    => $this->_name,
+				'itemId'  => $this->_root->getId(),
+				'ownerId' => $gallery->getActiveUserId(),
+				'params'  => array(
+					'itemId' => $this->_root->getId(),
+				),
+			),
+		));
+	}
+
+	public function testFetchFeedNames() {
+		global $gallery;
+
+		list($ret, $names) = RssMapHelper::fetchFeedNames();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(in_array($this->_name, $names));
+	}
 }
-?>

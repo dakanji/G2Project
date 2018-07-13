@@ -27,104 +27,148 @@
  * @version $Revision: 17580 $
  */
 class FotokastenSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function FotokastenSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'fotokasten.FotokastenSiteAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'fotokasten.FotokastenSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'fotokasten');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'fotokasten');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-    }
 
-    function testFotokastenSiteAdminControllerReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	public function testFotokastenSiteAdminControllerReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						'subView' => 'fotokasten.FotokastenSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testFotokastenSiteAdminControllerSave() {
-	GalleryUtilities::putRequestVariable('form[affiliateId]', '1234');
-	GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'abcde12345');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						'subView' => 'fotokasten.FotokastenSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $params) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'fotokasten.FotokastenSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-	$this->assertEquals('1234', $params['affiliateId'], 'affiliateId');
-	$this->assertEquals('abcde12345', $params['affiliateIdPass'], 'affiliateIdPass');
-    }
 
-    function testFotokastenSiteAdminControllerUseGalleryId() {
-	GalleryUtilities::putRequestVariable('form[affiliateId]', 'anything');
-	GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'anything');
-	GalleryUtilities::putRequestVariable('form[action][useGalleryId]', '1');
+	public function testFotokastenSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[affiliateId]', '1234');
+		GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'abcde12345');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						'subView' => 'fotokasten.FotokastenSiteAdmin'),
-				  'status' => array('usingGalleryId' => 1),
-				  'error' => array()),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'fotokasten.FotokastenSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	list ($ret, $params) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
-	if ($ret) {
-	    return $ret;
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('1234', $params['affiliateId'], 'affiliateId');
+		$this->assertEquals('abcde12345', $params['affiliateIdPass'], 'affiliateIdPass');
 	}
-	$this->assertEquals(
-	    FOTOKASTEN_GALLERY_AFFILIATE_ID, $params['affiliateId'], 'affiliateId');
-	$this->assertEquals(
-	    FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD, $params['affiliateIdPass'], 'affiliateIdPass');
-    }
 
-    function testFotokastenSiteAdminControllerSaveBadValues() {
-	GalleryUtilities::putRequestVariable('form[affiliateId]', '123x');
-	GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'abc</(de12345');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testFotokastenSiteAdminControllerUseGalleryId() {
+		GalleryUtilities::putRequestVariable('form[affiliateId]', 'anything');
+		GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'anything');
+		GalleryUtilities::putRequestVariable('form[action][useGalleryId]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						'subView' => 'fotokasten.FotokastenSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][affiliateId]',
-						   'form[error][affiliateIdPass]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'fotokasten.FotokastenSiteAdmin',
+				),
+				'status'   => array(
+					'usingGalleryId' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-    function testFotokastenSiteAdminControllerSaveEmptyValues() {
-	GalleryUtilities::putRequestVariable('form[affiliateId]', '');
-	GalleryUtilities::putRequestVariable('form[affiliateIdPass]', '');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						'subView' => 'fotokasten.FotokastenSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][affiliateId]',
-						   'form[error][affiliateIdPass]')),
-			    $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			FOTOKASTEN_GALLERY_AFFILIATE_ID,
+			$params['affiliateId'],
+			'affiliateId'
+		);
+		$this->assertEquals(
+			FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD,
+			$params['affiliateIdPass'],
+			'affiliateIdPass'
+		);
+	}
+
+	public function testFotokastenSiteAdminControllerSaveBadValues() {
+		GalleryUtilities::putRequestVariable('form[affiliateId]', '123x');
+		GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'abc</(de12345');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'fotokasten.FotokastenSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(
+					'form[error][affiliateId]',
+					'form[error][affiliateIdPass]',
+				),
+			),
+			$results
+		);
+	}
+
+	public function testFotokastenSiteAdminControllerSaveEmptyValues() {
+		GalleryUtilities::putRequestVariable('form[affiliateId]', '');
+		GalleryUtilities::putRequestVariable('form[affiliateIdPass]', '');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'fotokasten.FotokastenSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(
+					'form[error][affiliateId]',
+					'form[error][affiliateIdPass]',
+				),
+			),
+			$results
+		);
+	}
 }
-?>

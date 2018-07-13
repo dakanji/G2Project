@@ -30,36 +30,34 @@
  * @abstract
  */
 class GalleryValidationPlugin {
+	/**
+	 * Perform validation for this request.
+	 *
+	 * @param array $form the form values
+	 * @param array $options (optional) validation options
+	 *        'level' => HIGH or MEDIUM or LOW (defaults to HIGH)
+	 *        'key' => (string) unique identifier for this validation request (for MEDIUM)
+	 *        'pass' => (boolean) false to increment failure count (for MEDIUM/LOW)
+	 * @return array GalleryStatus a status code
+	 *               array of error keys
+	 *               boolean true/false should we continue processing this request?
+	 */
+	public function performValidation(&$form, $options = array()) {
+		return array(null, array(), true);
+	}
 
-    /**
-     * Perform validation for this request.
-     *
-     * @param array $form the form values
-     * @param array $options (optional) validation options
-     *        'level' => HIGH or MEDIUM or LOW (defaults to HIGH)
-     *        'key' => (string) unique identifier for this validation request (for MEDIUM)
-     *        'pass' => (boolean) false to increment failure count (for MEDIUM/LOW)
-     * @return array GalleryStatus a status code
-     *               array of error keys
-     *               boolean true/false should we continue processing this request?
-     */
-    function performValidation(&$form, $options=array()) {
-	return array(null, array(), true);
-    }
-
-    /**
-     * Prepare template for validation.
-     *
-     * @param array $form the form values
-     * @param array $options (optional) validation options
-     *        'level' => HIGH or MEDIUM or LOW (defaults to HIGH)
-     *        'key' => (string) unique identifier for this validation request (for MEDIUM)
-     * @return array GalleryStatus a status code
-     *               string the path to a template file to include or null
-     *               string localization domain for the template file or null
-     */
-    function loadTemplate(&$form, $options=array()) {
-	return array(null, null, null);
-    }
+	/**
+	 * Prepare template for validation.
+	 *
+	 * @param array $form the form values
+	 * @param array $options (optional) validation options
+	 *        'level' => HIGH or MEDIUM or LOW (defaults to HIGH)
+	 *        'key' => (string) unique identifier for this validation request (for MEDIUM)
+	 * @return array GalleryStatus a status code
+	 *               string the path to a template file to include or null
+	 *               string localization domain for the template file or null
+	 */
+	public function loadTemplate(&$form, $options = array()) {
+		return array(null, null, null);
+	}
 }
-?>

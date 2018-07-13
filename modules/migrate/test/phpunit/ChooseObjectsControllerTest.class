@@ -26,75 +26,99 @@
  * @version $Revision: 17580 $
  */
 class ChooseObjectsControllerTest extends GalleryControllerTestCase {
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'migrate.ChooseObjects');
+	}
 
-    function ChooseObjectsControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'migrate.ChooseObjects');
-    }
+	public function testImportNothingSelected() {
+		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('form[action][import]', 1);
+		GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+		GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
+		GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
 
-    function testImportNothingSelected() {
-	GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
-	GalleryUtilities::putRequestVariable('form[action][import]', 1);
-	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
-	GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
-	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'migrate.ChooseObjects',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][nothingSelected]'),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.ChooseObjects'),
-				  'status' => array(),
-				  'error' => array('form[error][nothingSelected]')),
-			    $results);
-    }
+	public function testImportValidSelections1() {
+		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('form[migrateUser][12345:6789]', 1);
+		GalleryUtilities::putRequestVariable('form[action][import]', 1);
+		GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
+		GalleryUtilities::putRequestVariable('form[set][summary]', 'caption');
+		GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
 
-    function testImportValidSelections1() {
-	GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
-	GalleryUtilities::putRequestVariable('form[migrateUser][12345:6789]', 1);
-	GalleryUtilities::putRequestVariable('form[action][import]', 1);
-	GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
-	GalleryUtilities::putRequestVariable('form[set][summary]', 'caption');
-	GalleryUtilities::putRequestVariable('form[set][description]', 'blank');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'migrate.ConfirmImport',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.ConfirmImport'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+	public function testImportValidSelections2() {
+		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('form[sourceAlbums][0]', 'album01');
+		GalleryUtilities::putRequestVariable('form[action][import]', 1);
+		GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
+		GalleryUtilities::putRequestVariable('form[set][summary]', 'filename');
+		GalleryUtilities::putRequestVariable('form[set][description]', 'custom');
+		GalleryUtilities::putRequestVariable('form[customfield][description]', 'Description');
 
-    function testImportValidSelections2() {
-	GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
-	GalleryUtilities::putRequestVariable('form[sourceAlbums][0]', 'album01');
-	GalleryUtilities::putRequestVariable('form[action][import]', 1);
-	GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
-	GalleryUtilities::putRequestVariable('form[set][summary]', 'filename');
-	GalleryUtilities::putRequestVariable('form[set][description]', 'custom');
-	GalleryUtilities::putRequestVariable('form[customfield][description]', 'Description');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'migrate.ConfirmImport',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.ConfirmImport'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+	public function testMissingCustomField() {
+		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('form[sourceAlbums][0]', 'album01');
+		GalleryUtilities::putRequestVariable('form[action][import]', 1);
+		GalleryUtilities::putRequestVariable('form[set][title]', 'custom');
+		GalleryUtilities::putRequestVariable('form[set][summary]', 'custom');
+		GalleryUtilities::putRequestVariable('form[set][description]', 'custom');
 
-    function testMissingCustomField() {
-	GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
-	GalleryUtilities::putRequestVariable('form[sourceAlbums][0]', 'album01');
-	GalleryUtilities::putRequestVariable('form[action][import]', 1);
-	GalleryUtilities::putRequestVariable('form[set][title]', 'custom');
-	GalleryUtilities::putRequestVariable('form[set][summary]', 'custom');
-	GalleryUtilities::putRequestVariable('form[set][description]', 'custom');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'migrate.ChooseObjects'),
-				  'status' => array(),
-				  'error' => array('form[error][emptyCustomField][title]',
-						   'form[error][emptyCustomField][summary]',
-						   'form[error][emptyCustomField][description]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'migrate.ChooseObjects',
+				),
+				'status'   => array(),
+				'error'    => array(
+					'form[error][emptyCustomField][title]',
+					'form[error][emptyCustomField][summary]',
+					'form[error][emptyCustomField][description]',
+				),
+			),
+			$results
+		);
+	}
 }
-?>

@@ -27,44 +27,48 @@
  * @version $Revision: 17580 $
  */
 class ColorPackTest extends GalleryTestCase {
-
-    function ColorPackTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_colorpack) =
-	    GalleryCoreApi::newFactoryInstance('ColorPackInterface_1_0', 'ColorPackImpl');
-	if ($ret) {
-	    return $ret;
-	}
-	if (!isset($this->_colorpack)) {
-	    print 'Missing ColorPackImpl';
-	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-	}
-    }
+	public function setUp() {
+		$ret = parent::setUp();
 
-    function testColorPackList() {
-	list ($ret, $list) = $this->_colorpack->getColorPacks();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(isset($list['']) && isset($list['blue']), 'Should have "" and "blue" keys');
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testColorPackSelect() {
-	$template = new ColorPackDummyGalleryTemplate();
-	$ret = $this->_colorpack->selectColorPack($template, 'blue');
-	if ($ret) {
-	    return $ret;
+		list($ret, $this->_colorpack) = GalleryCoreApi::newFactoryInstance('ColorPackInterface_1_0', 'ColorPackImpl');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!isset($this->_colorpack)) {
+			echo 'Missing ColorPackImpl';
+
+			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+		}
 	}
-	$this->assertEquals(array('modules/colorpack/packs/blue/color.css'), $template->style);
-    }
+
+	public function testColorPackList() {
+		list($ret, $list) = $this->_colorpack->getColorPacks();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(isset($list['']) && isset($list['blue']), 'Should have "" and "blue" keys');
+	}
+
+	public function testColorPackSelect() {
+		$template = new ColorPackDummyGalleryTemplate();
+		$ret      = $this->_colorpack->selectColorPack($template, 'blue');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array('modules/colorpack/packs/blue/color.css'), $template->style);
+	}
 }
 
 /**
@@ -72,9 +76,9 @@ class ColorPackTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class ColorPackDummyGalleryTemplate {
-    var $style = array();
-    function style($tpl) {
-	$this->style[] = $tpl;
-    }
+	public $style = array();
+
+	public function style($tpl) {
+		$this->style[] = $tpl;
+	}
 }
-?>

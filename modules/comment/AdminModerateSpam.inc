@@ -29,55 +29,66 @@ GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class'
  * @version $Revision: 17784 $
  */
 class AdminModerateSpamController extends GalleryController {
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	list ($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = $error = array();
-	if (isset($form['action']['deleteAllSpam'])) {
-	    $batchSize = 100;
-	    while (true) {
-		/** @todo use a progress bar here */
-		list ($ret, $comments, $count) = GalleryCommentHelper::fetchAllComments(
-		    $rootId, $batchSize, null, ORDER_ASCENDING, COMMENT_PUBLISH_STATUS_SPAM);
 		if ($ret) {
-		    return array($ret, null);
-		}
-
-		foreach ($comments as $comment) {
-		    $ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
-		    if ($ret) {
 			return array($ret, null);
-		    }
 		}
 
-		if ($count <= $batchSize) {
-		    break;
-		}
-	    }
+		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
 
-	    $status['allSpamDeleted'] = 1;
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$status = $error = array();
+
+		if (isset($form['action']['deleteAllSpam'])) {
+			$batchSize = 100;
+
+			while (true) {
+				/** @todo use a progress bar here */
+				list($ret, $comments, $count) = GalleryCommentHelper::fetchAllComments(
+					$rootId,
+					$batchSize,
+					null,
+					ORDER_ASCENDING,
+					COMMENT_PUBLISH_STATUS_SPAM
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				foreach ($comments as $comment) {
+					$ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+
+				if ($count <= $batchSize) {
+					break;
+				}
+			}
+
+			$status['allSpamDeleted'] = 1;
+		}
+
+		// Figure out where to redirect upon success
+		$method                      = empty($error) ? 'redirect' : 'delegate';
+		$results[$method]['view']    = 'core.SiteAdmin';
+		$results[$method]['subView'] = 'comment.AdminModerateSpam';
+		$results['status']           = $status;
+		$results['error']            = $error;
+
+		return array(null, $results);
 	}
-
-	/* Figure out where to redirect upon success */
-	$method = empty($error) ? 'redirect' : 'delegate';
-	$results[$method]['view'] = 'core.SiteAdmin';
-	$results[$method]['subView'] = 'comment.AdminModerateSpam';
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
@@ -88,148 +99,202 @@ class AdminModerateSpamController extends GalleryController {
  * @version $Revision: 17784 $
  */
 class AdminModerateSpamView extends GalleryView {
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	list ($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $showCount) =
-	    GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.show');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$page = GalleryUtilities::getRequestVariables('page');
-	if (empty($page)) {
-	    $page = 1;
-	}
-
-	list ($ret, $comments, $count) = GalleryCommentHelper::fetchAllComments(
-	    $rootId, $showCount, ($page - 1) * $showCount, ORDER_DESCENDING,
-	    array(COMMENT_PUBLISH_STATUS_SPAM, COMMENT_PUBLISH_STATUS_UNPUBLISHED));
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$commenters = $itemIds = $can = $itemData = array();
-	foreach ($comments as $i => $comment) {
-	    /* Get the commenter ids */
-	    $commenters[$comments[$i]->getCommenterId()] = 1;
-	    $itemIds[$comments[$i]->getParentId()] = 1;
-
-	    /* Extract the member data */
-	    $comments[$i] = (array)$comments[$i];
-	    $comments[$i]['randomId'] = $comments[$i]['id'] . '-' . rand();
-	}
-
-	if (!empty($commenters)) {
-	    list ($ret, $commentersList) =
-		GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $commenters = array();
-	    foreach ($commentersList as $commenter) {
-		$commenters[$commenter->getId()] = (array)$commenter;
-	    }
-	}
-
-	if (!empty($itemIds)) {
-	    $itemIds = array_keys($itemIds);
-	    $ret = GalleryCoreApi::studyPermissions($itemIds);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach ($itemList as $it) {
-		$items[$it->getId()] = (array)$it;
-	    }
-
-	    /* get peer thumbnails and resizes */
-	    list ($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($itemIds);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-
-	foreach ($comments as $comment) {
-	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    foreach (array('delete' => 'comment.delete',
-			   'edit' => 'comment.edit',
-			   'markNotSpam' => 'comment.edit') as $canFlag => $permission) {
-		$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
-	    }
-
-	    if (!isset($itemData[$comment['parentId']])) {
-		$it = $items[$comment['parentId']];
-		if (!empty($derivatives[$comment['parentId']])) {
-		    foreach ($derivatives[$comment['parentId']] as $derivative) {
-			$type = $derivative->getDerivativeType();
-			if (empty($it['resize']) && $type == DERIVATIVE_TYPE_IMAGE_RESIZE) {
-			    $it['resize'] = (array)$derivative;
-			} else if ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
-			    $it['thumb'] = (array)$derivative;
-			}
-		    }
+		if ($ret) {
+			return array($ret, null);
 		}
-		$itemData[$comment['parentId']] = $it;
-	    }
+
+		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $showCount) = GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.show');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$page = GalleryUtilities::getRequestVariables('page');
+
+		if (empty($page)) {
+			$page = 1;
+		}
+
+		list($ret, $comments, $count) = GalleryCommentHelper::fetchAllComments(
+			$rootId,
+			$showCount,
+			($page - 1) * $showCount,
+			ORDER_DESCENDING,
+			array(COMMENT_PUBLISH_STATUS_SPAM, COMMENT_PUBLISH_STATUS_UNPUBLISHED)
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$commenters = $itemIds = $can = $itemData = array();
+
+		foreach ($comments as $i => $comment) {
+			// Get the commenter ids
+			$commenters[$comments[$i]->getCommenterId()] = 1;
+			$itemIds[$comments[$i]->getParentId()]       = 1;
+
+			// Extract the member data
+			$comments[$i]             = (array)$comments[$i];
+			$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . mt_rand();
+		}
+
+		if (!empty($commenters)) {
+			list($ret, $commentersList) = GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$commenters = array();
+
+			foreach ($commentersList as $commenter) {
+				$commenters[$commenter->getId()] = (array)$commenter;
+			}
+		}
+
+		if (!empty($itemIds)) {
+			$itemIds = array_keys($itemIds);
+			$ret     = GalleryCoreApi::studyPermissions($itemIds);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach ($itemList as $it) {
+				$items[$it->getId()] = (array)$it;
+			}
+
+			// get peer thumbnails and resizes
+			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($itemIds);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		foreach ($comments as $comment) {
+			list($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach (array(
+				'delete'      => 'comment.delete',
+				'edit'        => 'comment.edit',
+				'markNotSpam' => 'comment.edit',
+			) as $canFlag => $permission) {
+				$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
+			}
+
+			if (!isset($itemData[$comment['parentId']])) {
+				$it = $items[$comment['parentId']];
+
+				if (!empty($derivatives[$comment['parentId']])) {
+					foreach ($derivatives[$comment['parentId']] as $derivative) {
+						$type = $derivative->getDerivativeType();
+
+						if (empty($it['resize']) && $type == DERIVATIVE_TYPE_IMAGE_RESIZE) {
+							$it['resize'] = (array)$derivative;
+						} elseif ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
+							$it['thumb'] = (array)$derivative;
+						}
+					}
+				}
+				$itemData[$comment['parentId']] = $it;
+			}
+		}
+
+		$navigator = array(
+			'page'      => $page,
+			'pageCount' => ceil($count / $showCount),
+		);
+		$urlParams = array(
+			'view'    => 'core.SiteAdmin',
+			'subView' => 'comment.AdminModerateSpam',
+		);
+
+		if ($page > 1) {
+			$navigator['first'] = array(
+				'urlParams' => array_merge($urlParams, array(
+					'itemId' => $rootId,
+					'page'   => 1,
+				)),
+			);
+			$navigator['back']  = array(
+				'urlParams' => array_merge($urlParams, array(
+					'itemId' => $rootId,
+					'page'   => $page - 1,
+				)),
+			);
+		}
+
+		if ($page < $navigator['pageCount']) {
+			$navigator['next'] = array(
+				'urlParams' => array_merge($urlParams, array(
+					'itemId' => $rootId,
+					'page'   => $page + 1,
+				)),
+			);
+			$navigator['last'] = array(
+				'urlParams' => array_merge(
+					$urlParams,
+					array(
+						'itemId' => $rootId,
+						'page'   => $navigator['pageCount'],
+					)
+				),
+			);
+		}
+
+		$template->setVariable('controller', 'comment.AdminModerateSpam');
+		$template->setVariable('AdminModerateSpam', array(
+			'comments'   => $comments,
+			'commenters' => $commenters,
+			'can'        => $can,
+			'itemData'   => $itemData,
+			'navigator'  => $navigator,
+			'total'      => $count,
+		));
+		$template->style('modules/comment/comment.css');
+		$template->javascript('lib/yui/utilities.js');
+		$template->javascript('lib/yui/container-min.js');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/comment/templates/AdminModerateSpam.tpl',
+			),
+		);
 	}
 
-	$navigator = array('page' => $page, 'pageCount' => ceil($count/$showCount));
-	$urlParams = array('view' => 'core.SiteAdmin', 'subView' => 'comment.AdminModerateSpam');
-	if ($page > 1) {
-	    $navigator['first'] = array('urlParams' =>
-		array_merge($urlParams, array('itemId' => $rootId, 'page' => 1)));
-	    $navigator['back'] = array('urlParams' =>
-		array_merge($urlParams, array('itemId' => $rootId, 'page' => $page - 1)));
-	}
-	if ($page < $navigator['pageCount']) {
-	    $navigator['next'] = array('urlParams' =>
-		array_merge($urlParams, array('itemId' => $rootId, 'page' => $page + 1)));
-	    $navigator['last'] = array('urlParams' => array_merge($urlParams,
-		array('itemId' => $rootId, 'page' => $navigator['pageCount'])));
-	}
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
-	$template->setVariable('controller', 'comment.AdminModerateSpam');
-	$template->setVariable('AdminModerateSpam', array(
-	    'comments' => $comments,
-	    'commenters' => $commenters,
-	    'can' => $can,
-	    'itemData' => $itemData,
-	    'navigator' => $navigator,
-	    'total' => $count));
-	$template->style('modules/comment/comment.css');
-	$template->javascript('lib/yui/utilities.js');
-	$template->javascript('lib/yui/container-min.js');
-	return array(null, array('body' => 'modules/comment/templates/AdminModerateSpam.tpl'));
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
 
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
-	if ($ret) {
-	    return array($ret, null);
+		return array(null, $module->translate('moderate spam'));
 	}
-
-	return array(null, $module->translate('moderate spam'));
-    }
 }
-?>

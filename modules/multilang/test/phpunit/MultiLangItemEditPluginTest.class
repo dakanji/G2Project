@@ -28,161 +28,204 @@ GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
  * @version $Revision: 17580 $
  */
 class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
-
-    function MultiLangItemEditPluginTest($methodName) {
-	$this->ItemEditPluginTestCase($methodName, 'multilang', 'MultiLangItemEdit');
-    }
-
-    function setUp() {
-	global $gallery;
-
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'multilang', 'MultiLangItemEdit');
 	}
 
-	$this->_registerTestEventListener('GalleryEntity::delete', new MultiLangModule());
+	public function setUp() {
+		global $gallery;
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
-	    array('title' => 'title', 'summary' => 'summary', 'description' => 'description',
-		  'onLoadHandlers' => '|MultiLang|'));
-	if ($ret) {
-	    return $ret;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_registerTestEventListener('GalleryEntity::delete', new MultiLangModule());
+
+		list($ret, $this->_album) = $this->_createRandomAlbum(
+			$this->_getRootId(),
+			array(
+				'title'          => 'title',
+				'summary'        => 'summary',
+				'description'    => 'description',
+				'onLoadHandlers' => '|MultiLang|',
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_album);
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'multilang',
+			'languages',
+			'de_DE|he_IL|zh_CN'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$session             =& $gallery->getSession();
+		$this->_saveLanguage = $session->get('core.language');
 	}
 
-	$this->_markForCleanup($this->_album);
+	public function tearDown() {
+		global $gallery;
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
-	if ($ret) {
-	    return $ret;
+		$session =& $gallery->getSession();
+
+		if (empty($this->_saveLanguage)) {
+			$session->remove('core.language');
+		} else {
+			$session->put('core.language', $this->_saveLanguage);
+		}
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	$ret = GalleryCoreApi::setPluginParameter('module', 'multilang',
-						  'languages', 'de_DE|he_IL|zh_CN');
-	if ($ret) {
-	    return $ret;
+	public function testReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+		$results = $this->handleRequest($this->album, $this->_album);
+		$this->assertEquals(array(array(), null), $results);
 	}
 
-	$session =& $gallery->getSession();
-	$this->_saveLanguage = $session->get('core.language');
-    }
+	public function testSaveAndDelete() {
+		global $gallery;
 
-    function tearDown() {
-	global $gallery;
+		GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
+		GalleryUtilities::putRequestVariable('form[title]', 'cn title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'cn summary');
+		GalleryUtilities::putRequestVariable('form[description]', '');
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
-	$session =& $gallery->getSession();
-	if (empty($this->_saveLanguage)) {
-	    $session->remove('core.language');
-	} else {
-	    $session->put('core.language', $this->_saveLanguage);
+		list($ret, $this->_subAlbum) = $this->_createRandomAlbum(
+			$this->_album->getId(),
+			array(
+				'title'          => 'title',
+				'summary'        => 'summary',
+				'description'    => 'description',
+				'onLoadHandlers' => '|MultiLang|',
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$results = $this->handleRequest($this->_subAlbum, $this->_subAlbum);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
+
+		$gallery->setActiveLanguageCode('en_US');
+		list($ret, $album) = $this->_subAlbum->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('title', $album->getTitle());
+		$this->assertEquals('summary', $album->getSummary());
+		$this->assertEquals('description', $album->getDescription());
+
+		$gallery->setActiveLanguageCode('zh_CN');
+		list($ret, $album) = $this->_subAlbum->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('cn title', $album->getTitle());
+		$this->assertEquals('cn summary', $album->getSummary());
+		$this->assertEquals('', $album->getDescription(), 'cn description');
+
+		$ret = GalleryCoreApi::deleteEntityById($this->_subAlbum->getId(), 'GalleryAlbumItem');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $data) = MultiLangHelper::getItemData($this->_subAlbum->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(array(), $data, 'MultiLang data for test item not deleted!');
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
+	public function testMissingRootTitle() {
+		$rootAlbumId = $this->_getRootId();
+		$ret         = GalleryCoreApi::setPluginParameter(
+			'module',
+			'core',
+			'id.rootAlbum',
+			$this->_album->getId()
+		);
 
-    function testReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-	$results = $this->handleRequest($this->album, $this->_album);
-	$this->assertEquals(array(array(), null), $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		$results = $this->handleRequest($this->_album, $this->_album);
+		$this->assertEquals(
+			array(array('form[error][title][missingRootTitle]'), null),
+			$results
+		);
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'core',
+			'id.rootAlbum',
+			$rootAlbumId
+		);
 
-    function testSaveAndDelete() {
-	global $gallery;
-
-	GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
-	GalleryUtilities::putRequestVariable('form[title]', 'cn title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'cn summary');
-	GalleryUtilities::putRequestVariable('form[description]', '');
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	list ($ret, $this->_subAlbum) = $this->_createRandomAlbum($this->_album->getId(),
-	    array('title' => 'title', 'summary' => 'summary', 'description' => 'description',
-		  'onLoadHandlers' => '|MultiLang|'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$results = $this->handleRequest($this->_subAlbum, $this->_subAlbum);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-
-	$gallery->setActiveLanguageCode('en_US');
-	list ($ret, $album) = $this->_subAlbum->refresh();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('title', $album->getTitle());
-	$this->assertEquals('summary', $album->getSummary());
-	$this->assertEquals('description', $album->getDescription());
-
-	$gallery->setActiveLanguageCode('zh_CN');
-	list ($ret, $album) = $this->_subAlbum->refresh();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('cn title', $album->getTitle());
-	$this->assertEquals('cn summary', $album->getSummary());
-	$this->assertEquals('', $album->getDescription(), 'cn description');
-
-	$ret = GalleryCoreApi::deleteEntityById($this->_subAlbum->getId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	list ($ret, $data) = MultiLangHelper::getItemData($this->_subAlbum->getId());
-	if ($ret) {
-	    return ($ret);
-	}
-	$this->assertEquals(array(), $data, 'MultiLang data for test item not deleted!');
-    }
+	public function testMaliciousMarkup() {
+		global $gallery;
+		$ret = $this->_setMarkupType('html', true);
 
-    function testMissingRootTitle() {
-	$rootAlbumId = $this->_getRootId();
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'core', 'id.rootAlbum', $this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	$results = $this->handleRequest($this->_album, $this->_album);
-	$this->assertEquals(array(array('form[error][title][missingRootTitle]'), null),
-			    $results);
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'core', 'id.rootAlbum', $rootAlbumId);
-	if ($ret) {
-	    return $ret;
-	}
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testMaliciousMarkup() {
-	global $gallery;
-	$ret = $this->_setMarkupType('html', true);
-	if ($ret) {
-	    return $ret;
+		GalleryUtilities::putRequestVariable('form[language]', 'de_DE');
+		GalleryUtilities::putRequestVariable('form[title]', '<script>bad</script> title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'summary <blink>fun</blink>');
+		GalleryUtilities::putRequestVariable('form[description]', '<applet class="bad"/>desc');
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+		$results = $this->handleRequest($this->_album, $this->_album);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
+
+		$gallery->setActiveLanguageCode('de_DE');
+		list($ret, $album) = $this->_album->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(' title', $album->getTitle());
+		$this->assertEquals('summary fun', $album->getSummary());
+		$this->assertEquals('desc', $album->getDescription());
 	}
-
-	GalleryUtilities::putRequestVariable('form[language]', 'de_DE');
-	GalleryUtilities::putRequestVariable('form[title]', '<script>bad</script> title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'summary <blink>fun</blink>');
-	GalleryUtilities::putRequestVariable('form[description]', '<applet class="bad"/>desc');
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	$results = $this->handleRequest($this->_album, $this->_album);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-
-	$gallery->setActiveLanguageCode('de_DE');
-	list ($ret, $album) = $this->_album->refresh();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(' title', $album->getTitle());
-	$this->assertEquals('summary fun', $album->getSummary());
-	$this->assertEquals('desc', $album->getDescription());
-    }
 }
-?>

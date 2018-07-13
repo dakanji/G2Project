@@ -17,7 +17,7 @@
 	<arg name="ignore" value="*/Iconv/Resources/charset/*"/>
 
 	<!-- Load WordPress Standards ... Edit path below -->
-	<config name="installed_paths" value="/path/to/git/repo/G2Project-main/wpcs" />
+	<config name="installed_paths" value="/Applications/MAMP/htdocs/G2Project-main/wpcs" />
 	<autoload>phpcsWPCSLoader.php</autoload>
 	
 	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->

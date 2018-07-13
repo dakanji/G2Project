@@ -26,96 +26,113 @@
  * @version $Revision: 17580 $
  */
 class ConfirmDeleteController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		list($ret, $canView) = GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	list ($ret, $canView) =
-	    GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$canView) {
+			// Avoid information disclosure, act as if the item didn't exist.
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		}
+		// Make sure we have permission to edit this item
+		$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$status = array();
+
+		if (isset($form['action']['delete'])) {
+			GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
+			list($ret) = WatermarkHelper::deleteWatermarkImageById($form['watermarkId'], true);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$status['delete'] = 1;
+		} // else $form['action']['cancel']
+
+		$results['redirect'] = isset($form['fromAdmin']) ? array(
+			'view'    => 'core.SiteAdmin',
+			'subView' => 'watermark.WatermarkSiteAdmin',
+		) : array(
+			'view'    => 'core.UserAdmin',
+			'subView' => 'watermark.UserWatermarks',
+		);
+		$results['status']   = $status;
+		$results['error']    = array();
+
+		return array(null, $results);
 	}
-	if (!$canView) {
-	    /* Avoid information disclosure, act as if the item didn't exist. */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
-	/* Make sure we have permission to edit this item */
-	$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = array();
-	if (isset($form['action']['delete'])) {
-	    GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-
-	    list ($ret) = WatermarkHelper::deleteWatermarkImageById($form['watermarkId'], true);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $status['delete'] = 1;
-	} /* else $form['action']['cancel'] */
-
-	$results['redirect'] = isset($form['fromAdmin'])
-	    ? array('view' => 'core.SiteAdmin', 'subView' => 'watermark.WatermarkSiteAdmin')
-	    : array('view' => 'core.UserAdmin', 'subView' => 'watermark.UserWatermarks');
-	$results['status'] = $status;
-	$results['error'] = array();
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Confirm delete of a watermark
  */
 class ConfirmDeleteView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-	if ($form['formName'] != 'ConfirmDelete') {
-	    $form['formName'] = 'ConfirmDelete';
-	    list ($form['watermarkId'], $form['fromAdmin']) =
-		GalleryUtilities::getRequestVariables('watermarkId', 'fromAdmin');
-	}
+		if ($form['formName'] != 'ConfirmDelete') {
+			$form['formName']                              = 'ConfirmDelete';
+			list($form['watermarkId'], $form['fromAdmin']) = GalleryUtilities::getRequestVariables('watermarkId', 'fromAdmin');
+		}
 
-	list ($ret, $item) =
-	    GalleryCoreApi::loadEntitiesById($form['watermarkId'], 'WatermarkImage');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $canView) =
-	    GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!$canView) {
-	    /* Avoid information disclosure, act as if the item didn't exist. */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
+		list($ret, $item) = GalleryCoreApi::loadEntitiesById($form['watermarkId'], 'WatermarkImage');
 
-	/* Make sure we have permission to edit this item */
-	$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $canView) = GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$canView) {
+			// Avoid information disclosure, act as if the item didn't exist.
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		}
+
+		// Make sure we have permission to edit this item
+		$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $itemIds) = WatermarkHelper::fetchWatermarkedItemIds($item);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$template->setVariable(
+			'ConfirmDelete',
+			array(
+				'item'  => (array)$item,
+				'count' => count($itemIds),
+			)
+		);
+		$template->setVariable('controller', 'watermark.ConfirmDelete');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/watermark/templates/ConfirmDelete.tpl',
+			),
+		);
 	}
-
-	list ($ret, $itemIds) = WatermarkHelper::fetchWatermarkedItemIds($item);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->setVariable('ConfirmDelete',
-			       array('item' => (array)$item,
-				     'count' => count($itemIds)));
-	$template->setVariable('controller', 'watermark.ConfirmDelete');
-
-	return array(null, array('body' => 'modules/watermark/templates/ConfirmDelete.tpl'));
-    }
 }
-?>

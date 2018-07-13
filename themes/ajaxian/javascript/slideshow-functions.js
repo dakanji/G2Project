@@ -21,7 +21,7 @@
 
 /* play/pause state of slideshow */
 var slideshowState;
-var PAUSED = 0;
+var PAUSED  = 0;
 var PLAYING = 1;
 /* After an image load, should the slideshow continue? */
 var returnToPlaying;
@@ -43,122 +43,119 @@ var CONTROLS_HIDDEN_DEPTH = -35;
 addEvent(window, 'load', slideShow, false);
 
 function slideShow() {
-    if (!document.getElementById) {
-	return;
-    }
-    var playpause = document.getElementById('controls-play');
-    if (!playpause) {
-	return;
-    }
+	if (!document.getElementById) {
+		return;
+	}
+	var playpause = document.getElementById('controls-play');
+	if (!playpause) {
+		return;
+	}
 
-    /* Set up controls */
-    addEvent(playpause, 'click', togglePlayPause, false);
-    addEvent(document.getElementById('controls-left'), 'click', skipLeft, false);
-    addEvent(document.getElementById('controls-right'), 'click', skipRight, false);
+	/* Set up controls */
+	addEvent(playpause, 'click', togglePlayPause, false);
+	addEvent(document.getElementById('controls-left'), 'click', skipLeft, false);
+	addEvent(document.getElementById('controls-right'), 'click', skipRight, false);
 
-    /* Add animation to controls and thumbs */
-    addEvent(document.getElementById('slideshow-controls'), 'mousemove', showControls, false);
-    addEvent(document.getElementById('slideshow-controls'), 'mouseout', hideControlBar, false);
+	/* Add animation to controls and thumbs */
+	addEvent(document.getElementById('slideshow-controls'), 'mousemove', showControls, false);
+	addEvent(document.getElementById('slideshow-controls'), 'mouseout', hideControlBar, false);
 
-    /* Load in controls and thumbs */
-    showControls();
+	/* Load in controls and thumbs */
+	showControls();
 
-    /* Set initial state */
-    pause();
-    returnToPlaying = false;
+	/* Set initial state */
+	pause();
+	returnToPlaying = false;
 }
 
 function advanceSlideShow() {
-    if (slideshowState == PLAYING) {
-	switchImages(currentImageIndex + 1);
-    }
+	if (slideshowState == PLAYING) {
+		switchImages(currentImageIndex + 1);
+	}
 }
 
 function play() {
-    slideshowState = PLAYING;
-    resetInterval();
-    returnToPlaying = true;
-    /* Swap Images */
-    var theImage =
-	document.getElementById('controls-play').getElementsByTagName('img')[0];
-    theImage.src = theImage.src.replace(/play/, 'pause');
+	slideshowState = PLAYING;
+	resetInterval();
+	returnToPlaying = true;
+	/* Swap Images */
+	var theImage = document.getElementById('controls-play').getElementsByTagName('img')[0];
+	theImage.src = theImage.src.replace(/play/, 'pause');
 }
 
 function pause() {
-    slideshowState = PAUSED;
-    clearInterval(slideShowInterval);
-    returnToPlaying = false;
-    /* Swap Images */
-    var theImage =
-	document.getElementById('controls-play').getElementsByTagName('img')[0];
-    theImage.src = theImage.src.replace(/pause/, 'play');
+	slideshowState = PAUSED;
+	clearInterval(slideShowInterval);
+	returnToPlaying = false;
+	/* Swap Images */
+	var theImage = document.getElementById('controls-play').getElementsByTagName('img')[0];
+	theImage.src = theImage.src.replace(/pause/, 'play');
 }
 
 function resetInterval() {
-    clearInterval(slideShowInterval);	/* Just in case... */
-    slideShowInterval =
-	setInterval("advanceSlideShow()", SECONDS_BETWEEN_IMAGES * 1000);
+	clearInterval(slideShowInterval);	/* Just in case... */
+	slideShowInterval = setInterval("advanceSlideShow()", SECONDS_BETWEEN_IMAGES * 1000);
 }
 
 function skipLeft() {
-    switchImages(currentImageIndex - 1);
-    resetInterval();
+	switchImages(currentImageIndex - 1);
+	resetInterval();
 }
 
 function skipRight() {
-    switchImages(currentImageIndex + 1);
-    resetInterval();
+	switchImages(currentImageIndex + 1);
+	resetInterval();
 }
 
 function togglePlayPause() {
-    if (slideshowState == PAUSED) {
-	play();
-    } else {
-	pause();
-    }
+	if (slideshowState == PAUSED) {
+		play();
+	} else {
+		pause();
+	}
 }
 
 function showControls() {
-    controls = document.getElementById('control-buttons');
-    clearInterval(showControlsInterval);
-    clearInterval(hideControlsInterval);
-    controls.state = 'showing';
-    if (controls.state != 'shown') {
-	showControlsInterval = setInterval('animateControlShow()', 15);
-    }
+	controls = document.getElementById('control-buttons');
+	clearInterval(showControlsInterval);
+	clearInterval(hideControlsInterval);
+	controls.state = 'showing';
+	if (controls.state != 'shown') {
+		showControlsInterval = setInterval('animateControlShow()', 15);
+	}
 }
 
 function hideControlBar() {
-    clearInterval(hideControlsInterval);
-    /*
-     * Pass an anonymous function to setTimeout that is only executed after
-     * 1500 milliseconds has passed. Mousing over the controls' action area
-     * within this time will reset the timeout.
-     */
-    hideControlsInterval = setTimeout(function() {
-	if (controls.state == 'shown' || controls.state == 'showing') {
-	  hideControlsInterval = setInterval('animateControlHide()', 50);
-	}
-    }, 1500);
+	clearInterval(hideControlsInterval);
+	/*
+	 * Pass an anonymous function to setTimeout that is only executed after
+	 * 1500 milliseconds has passed. Mousing over the controls' action area
+	 * within this time will reset the timeout.
+	 */
+	hideControlsInterval = setTimeout(function () {
+		if (controls.state == 'shown' || controls.state == 'showing') {
+			hideControlsInterval = setInterval('animateControlHide()', 50);
+		}
+	}, 1500);
 }
 
 function animateControlShow() {
-    var pos = parseInt(getElementStyle(controls.id, 'top'));
-    if (pos < 0) {
-	controls.style.top = (pos + 3) + 'px';
-    } else {
-	clearInterval(showControlsInterval);
-	controls.state = 'shown';
-    }
+	var pos = parseInt(getElementStyle(controls.id, 'top'));
+	if (pos < 0) {
+		controls.style.top = (pos + 3) + 'px';
+	} else {
+		clearInterval(showControlsInterval);
+		controls.state = 'shown';
+	}
 }
 
 function animateControlHide() {
-    var pos = parseInt(getElementStyle(controls.id, 'top'));
-    if (pos > CONTROLS_HIDDEN_DEPTH) {
-	controls.style.top = (pos - 3) + 'px';
-    } else {
-	clearInterval(hideControlsInterval);
-	controls.state = 'hidden';
-    }
+	var pos = parseInt(getElementStyle(controls.id, 'top'));
+	if (pos > CONTROLS_HIDDEN_DEPTH) {
+		controls.style.top = (pos - 3) + 'px';
+	} else {
+		clearInterval(hideControlsInterval);
+		controls.state = 'hidden';
+	}
 }
 

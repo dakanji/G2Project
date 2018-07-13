@@ -27,25 +27,34 @@
  * @static
  */
 class MimeHelper {
-    /**
-     * Return mime types and applicable file extensions
-     *
-     * @return array GalleryStatus a status code
-     *               array('ext' => array(string mime type => array of string extensions)
-     *                     'viewable' => array(string mime type => boolean is viewable))
-     */
-    function getMimeTypeMap() {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryMimeTypeMap',
-	    array('mimeType', 'extension', 'viewable'), array(),
-	    array('orderBy' => array('mimeType' => ORDER_ASCENDING)));
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * Return mime types and applicable file extensions
+	 *
+	 * @return array GalleryStatus a status code
+	 *               array('ext' => array(string mime type => array of string extensions)
+	 *                     'viewable' => array(string mime type => boolean is viewable))
+	 */
+	public function getMimeTypeMap() {
+		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
+			'GalleryMimeTypeMap',
+			array('mimeType', 'extension', 'viewable'),
+			array(),
+			array(
+				'orderBy' => array(
+					'mimeType' => ORDER_ASCENDING,
+				),
+			)
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		while ($result = $searchResults->nextResult()) {
+			$MimeTypeMap['ext'][$result[0]][]    = $result[1];
+			$MimeTypeMap['viewable'][$result[0]] = $result[2];
+		}
+
+		return array(null, $MimeTypeMap);
 	}
-	while ($result = $searchResults->nextResult()) {
-	    $MimeTypeMap['ext'][$result[0]][] = $result[1];
-	    $MimeTypeMap['viewable'][$result[0]] = $result[2];
-	}
-	return array(null, $MimeTypeMap);
-    }
 }
-?>

@@ -28,96 +28,113 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class')
  * @version $Revision: 17580 $
  */
 class RewriteUrlGeneratorTest extends GalleryTestCase {
-
-    function RewriteUrlGeneratorTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rewrite',
+			'shortUrls',
+			serialize(array(
+				'php.Unit' => array(
+					'pattern' => 'p/%test%',
+				),
+			))
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$_SERVER['HTTP_HOST']    = 'example.com';
+		$_SERVER['REQUEST_URI']  = '/gallery2/phpunit_test.php?foo=1&bar=2';
+		$_SERVER['SERVER_PORT']  = 80;
+		$_SERVER['QUERY_STRING'] = '';
+
+		$this->_urlGenerator = new RewriteUrlGenerator();
+		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryDataCache::reset();
 	}
 
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'shortUrls',
-	    serialize(array('php.Unit' => array('pattern' => 'p/%test%'))));
-	if ($ret) {
-	    return $ret;
+	public function testGetCurrentUrl() {
+		$expected = 'http://example.com/gallery2/phpunit_test.php?foo=1&bar=2';
+		$this->assertEquals($expected, $this->_urlGenerator->getCurrentUrl());
+		$this->assertEquals(false, $this->_urlGenerator->_error, 'error');
 	}
 
-	$_SERVER['HTTP_HOST'] = 'example.com';
-	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
-	$_SERVER['SERVER_PORT'] = 80;
-	$_SERVER['QUERY_STRING'] = '';
-
-	$this->_urlGenerator = new RewriteUrlGenerator();
-	$ret = $this->_urlGenerator->init('phpunit_test.php');
-	if ($ret) {
-	    return $ret;
+	public function testGetCurrentUrlDir() {
+		$expected = 'http://example.com/gallery2/';
+		$this->assertEquals($expected, $this->_urlGenerator->getCurrentUrlDir());
+		$this->assertEquals(false, $this->_urlGenerator->_error, 'error');
 	}
 
-	GalleryDataCache::reset();
-    }
+	public function testInit() {
+		$urlGenerator = new RewriteUrlGenerator();
+		$ret          = $urlGenerator->init('phpunit_test.php');
 
-    function testGetCurrentUrl() {
-	$expected = 'http://example.com/gallery2/phpunit_test.php?foo=1&bar=2';
-	$this->assertEquals($expected, $this->_urlGenerator->getCurrentUrl());
-	$this->assertEquals(false, $this->_urlGenerator->_error, 'error');
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testGetCurrentUrlDir() {
-	$expected = 'http://example.com/gallery2/';
-	$this->assertEquals($expected, $this->_urlGenerator->getCurrentUrlDir());
-	$this->assertEquals(false, $this->_urlGenerator->_error, 'error');
-    }
-
-    function testInit() {
-	$urlGenerator = new RewriteUrlGenerator();
-	$ret = $urlGenerator->init('phpunit_test.php');
-	if ($ret) {
-	    return $ret;
+		$this->assert(!$urlGenerator->_error);
+		$this->assertEquals(
+			array(
+				'php.Unit' => array(
+					'pattern' => 'p/%test%',
+				),
+			),
+			$urlGenerator->_shortUrls
+		);
 	}
 
-	$this->assert(!$urlGenerator->_error);
-	$this->assertEquals(array('php.Unit' => array('pattern' => 'p/%test%')),
-			    $urlGenerator->_shortUrls);
-    }
+	public function testParseShortUrl1() {
+		$params            = $options = $functions = array();
+		$url               = 't/%phpunit%';
+		$params['phpunit'] = 'test';
 
-    function testParseShortUrl1() {
-	$params = $options = $functions = array();
-	$url = 't/%phpunit%';
-	$params['phpunit'] = 'test';
+		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
+		$this->assert($ret, 'status');
+		$this->assertEquals('t/test', $url, 'url');
+		$this->assertEquals(array(), $params, 'params');
+	}
 
-	$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
-	$this->assert($ret, 'status');
-	$this->assertEquals('t/test', $url, 'url');
-	$this->assertEquals(array(), $params, 'params');
-    }
+	public function testParseShortUrl2() {
+		$params = $options = $functions = array();
+		$url    = 't/%phpunit%';
 
-    function testParseShortUrl2() {
-	$params = $options = $functions = array();
-	$url = 't/%phpunit%';
+		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
+		$this->assert(!$ret, 'status');
+	}
 
-	$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
-	$this->assert(!$ret, 'status');
-    }
+	public function testParseShortUrlNoUrlEncode() {
+		$params               = $options = $functions = array();
+		$url                  = 't/%phpunit%';
+		$params['phpunit']    = 'The Quick!Brown#Fox';
+		$options['urlEncode'] = false;
 
-    function testParseShortUrlNoUrlEncode() {
-	$params = $options = $functions = array();
-	$url = 't/%phpunit%';
-	$params['phpunit'] = 'The Quick!Brown#Fox';
-	$options['urlEncode'] = false;
-
-	$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
-	$this->assert($ret, 'status');
-	$this->assertEquals('t/The Quick!Brown#Fox', $url, 'url');
-	$this->assertEquals(array(), $params, 'params');
-    }
+		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
+		$this->assert($ret, 'status');
+		$this->assertEquals('t/The Quick!Brown#Fox', $url, 'url');
+		$this->assertEquals(array(), $params, 'params');
+	}
 }
-?>

@@ -26,239 +26,340 @@
  * @version $Revision: 17778 $
  */
 class ZipCartAdminControllerTest extends GalleryControllerTestCase {
-
-    function ZipCartAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'zipcart.ZipCartAdmin');
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'zipcart.ZipCartAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'zipcart');
-	if ($ret) {
-		return $ret;
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'zipcart');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_platform = new UnitTestPlatform();
+		$gallery->setPlatform($this->_platform);
 	}
 
-	$this->_platform = new UnitTestPlatform();
-	$gallery->setPlatform($this->_platform);
-    }
+	public function tearDown() {
+		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$ret = parent::tearDown();
 
-    function tearDown() {
-	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
-    }
 
-    function testReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+	public function testReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-    function testCancel() {
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+	public function testCancel() {
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminPlugins',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-    function testSaveMissingPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '');
+	public function testSaveMissingPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][missing]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][missing]'),
+			),
+			$results
+		);
+	}
 
-    function testTestMissingPath() {
-	GalleryUtilities::putRequestVariable('form[action][test]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '');
+	public function testTestMissingPath() {
+		GalleryUtilities::putRequestVariable('form[action][test]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][missing]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][missing]'),
+			),
+			$results
+		);
+	}
 
-    function testSaveBadPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/invalidPath/zip');
+	public function testSaveBadPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/invalidPath/zip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/invalidPath/zip'), false);
-	$this->_platform->setReply('is_executable', array('/invalidPath/zip'), false);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/invalidPath/zip'), false);
+		$this->_platform->setReply('is_executable', array('/invalidPath/zip'), false);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][badPath]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][badPath]'),
+			),
+			$results
+		);
+	}
 
-    function testTestBadPath() {
-	GalleryUtilities::putRequestVariable('form[action][test]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/invalidPath/zip');
+	public function testTestBadPath() {
+		GalleryUtilities::putRequestVariable('form[action][test]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/invalidPath/zip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/invalidPath/zip'), false);
-	$this->_platform->setReply('is_executable', array('/invalidPath/zip'), false);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/invalidPath/zip'), false);
+		$this->_platform->setReply('is_executable', array('/invalidPath/zip'), false);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][badPath]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][badPath]'),
+			),
+			$results
+		);
+	}
 
-    function testSaveGoodPath() {
-	global $gallery;
+	public function testSaveGoodPath() {
+		global $gallery;
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/zip');
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/zip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/zip'), false);
-	$this->_platform->setReply('is_executable', array('/validPath/zip'), true);
-	$this->_platform->setReply(
-	    'tempnam', array($gallery->getConfig('data.gallery.tmp'), 'zip_'), 'tempfile');
-	$this->_platform->setReply('copy', array(
-					     sprintf('%s%s%s', dirname(dirname(dirname(__FILE__))),
-						     DIRECTORY_SEPARATOR, 'ZipCartAdmin.inc'),
-					   'tempfile'), true);
-	$this->_platform->setReply(
-	    'exec', array(array(array('/validPath/zip', 'tempfile.zip', 'tempfile'))),
-	    array(true, array(), array()));
-	$this->_platform->setReply('file_exists', array('tempfile.zip'), true);
-	$this->_platform->setReply('unlink', array('tempfile.zip'), true);
-	$this->_platform->setReply('unlink', array('tempfile'), true);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/zip'), false);
+		$this->_platform->setReply('is_executable', array('/validPath/zip'), true);
+		$this->_platform->setReply(
+			'tempnam',
+			array($gallery->getConfig('data.gallery.tmp'), 'zip_'),
+			'tempfile'
+		);
+		$this->_platform->setReply('copy', array(
+			sprintf(
+				'%s%s%s',
+				dirname(dirname(dirname(__FILE__))),
+				DIRECTORY_SEPARATOR,
+				'ZipCartAdmin.inc'
+			),
+			'tempfile',
+		), true);
+		$this->_platform->setReply(
+			'exec',
+			array(array(array('/validPath/zip', 'tempfile.zip', 'tempfile'))),
+			array(true, array(), array())
+		);
+		$this->_platform->setReply('file_exists', array('tempfile.zip'), true);
+		$this->_platform->setReply('unlink', array('tempfile.zip'), true);
+		$this->_platform->setReply('unlink', array('tempfile'), true);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	$this->assertEquals(array(null, '/validPath/zip'),
-			    GalleryCoreApi::getPluginParameter('module', 'zipcart', 'path'));
-    }
+		$this->assertEquals(
+			array(null, '/validPath/zip'),
+			GalleryCoreApi::getPluginParameter('module', 'zipcart', 'path')
+		);
+	}
 
-    function testTestGoodPath() {
-	global $gallery;
+	public function testTestGoodPath() {
+		global $gallery;
 
-	GalleryUtilities::putRequestVariable('form[action][test]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/zip');
+		GalleryUtilities::putRequestVariable('form[action][test]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/zip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/zip'), false);
-	$this->_platform->setReply('is_executable', array('/validPath/zip'), true);
-	$this->_platform->setReply(
-	    'tempnam', array($gallery->getConfig('data.gallery.tmp'), 'zip_'), 'tempfile');
-	$this->_platform->setReply('copy', array(
-					     sprintf('%s%s%s', dirname(dirname(dirname(__FILE__))),
-						     DIRECTORY_SEPARATOR, 'ZipCartAdmin.inc'),
-					   'tempfile'), true);
-	$this->_platform->setReply(
-	    'exec', array(array(array('/validPath/zip', 'tempfile.zip', 'tempfile'))),
-	    array(true, array(), array()));
-	$this->_platform->setReply('file_exists', array('tempfile.zip'), true);
-	$this->_platform->setReply('unlink', array('tempfile.zip'), true);
-	$this->_platform->setReply('unlink', array('tempfile'), true);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/zip'), false);
+		$this->_platform->setReply('is_executable', array('/validPath/zip'), true);
+		$this->_platform->setReply(
+			'tempnam',
+			array($gallery->getConfig('data.gallery.tmp'), 'zip_'),
+			'tempfile'
+		);
+		$this->_platform->setReply('copy', array(
+			sprintf(
+				'%s%s%s',
+				dirname(dirname(dirname(__FILE__))),
+				DIRECTORY_SEPARATOR,
+				'ZipCartAdmin.inc'
+			),
+			'tempfile',
+		), true);
+		$this->_platform->setReply(
+			'exec',
+			array(array(array('/validPath/zip', 'tempfile.zip', 'tempfile'))),
+			array(true, array(), array())
+		);
+		$this->_platform->setReply('file_exists', array('tempfile.zip'), true);
+		$this->_platform->setReply('unlink', array('tempfile.zip'), true);
+		$this->_platform->setReply('unlink', array('tempfile'), true);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-				  $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+	}
 
-    function testTestGoodPathOutsideOfOpenBasedir() {
-	global $gallery;
+	public function testTestGoodPathOutsideOfOpenBasedir() {
+		global $gallery;
 
-	GalleryUtilities::putRequestVariable('form[action][test]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/zip');
+		GalleryUtilities::putRequestVariable('form[action][test]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/zip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/zip'), true);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/zip'), true);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][badPath]')),
-				  $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][badPath]'),
+			),
+			$results
+		);
+	}
 
-    function testTestWrongBinary() {
-	global $gallery;
+	public function testTestWrongBinary() {
+		global $gallery;
 
-	/* Oops, user entered unzip instead of zip */
-	GalleryUtilities::putRequestVariable('form[action][test]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/unzip');
+		// Oops, user entered unzip instead of zip
+		GalleryUtilities::putRequestVariable('form[action][test]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/unzip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/unzip'), false);
-	$this->_platform->setReply('is_executable', array('/validPath/unzip'), true);
-	$this->_platform->setReply(
-	    'tempnam', array($gallery->getConfig('data.gallery.tmp'), 'zip_'), 'tempfile');
-	$this->_platform->setReply('copy', array(
-					     sprintf('%s%s%s', dirname(dirname(dirname(__FILE__))),
-						     DIRECTORY_SEPARATOR, 'ZipCartAdmin.inc'),
-					   'tempfile'), true);
-	$this->_platform->setReply(
-	    'exec', array(array(array('/validPath/unzip', 'tempfile.zip', 'tempfile'))),
-	    array(false, array(), array()));
-	$this->_platform->setReply('unlink', array('tempfile.zip'), true);
-	$this->_platform->setReply('unlink', array('tempfile'), true);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/unzip'), false);
+		$this->_platform->setReply('is_executable', array('/validPath/unzip'), true);
+		$this->_platform->setReply(
+			'tempnam',
+			array($gallery->getConfig('data.gallery.tmp'), 'zip_'),
+			'tempfile'
+		);
+		$this->_platform->setReply('copy', array(
+			sprintf(
+				'%s%s%s',
+				dirname(dirname(dirname(__FILE__))),
+				DIRECTORY_SEPARATOR,
+				'ZipCartAdmin.inc'
+			),
+			'tempfile',
+		), true);
+		$this->_platform->setReply(
+			'exec',
+			array(array(array('/validPath/unzip', 'tempfile.zip', 'tempfile'))),
+			array(false, array(), array())
+		);
+		$this->_platform->setReply('unlink', array('tempfile.zip'), true);
+		$this->_platform->setReply('unlink', array('tempfile'), true);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][badZip]')),
-				  $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][badZip]'),
+			),
+			$results
+		);
+	}
 
-    function testTestWrongBinaryOutsideOfOpenBasedir() {
-	global $gallery;
+	public function testTestWrongBinaryOutsideOfOpenBasedir() {
+		global $gallery;
 
-	/* Oops, user entered unzip instead of zip */
-	GalleryUtilities::putRequestVariable('form[action][test]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/unzip');
+		// Oops, user entered unzip instead of zip
+		GalleryUtilities::putRequestVariable('form[action][test]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/unzip');
 
-	/* Set up our mock platform exactly as we expect the calls will come in */
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/unzip'), true);
+		// Set up our mock platform exactly as we expect the calls will come in
+		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/validPath/unzip'), true);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'zipcart.ZipCartAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][path][badPath]')),
-				  $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'zipcart.ZipCartAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][path][badPath]'),
+			),
+			$results
+		);
+	}
 }
-?>

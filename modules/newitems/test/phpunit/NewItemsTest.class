@@ -27,76 +27,96 @@
  * @version $Revision: 17580 $
  */
 class NewItemsTest extends GalleryTestCase {
-
-    function NewItemsTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'newitems');
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'newitems', 'days.new', '1');
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'newitems', 'days.updated', '1');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'newitems');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter('module', 'newitems', 'days.new', '1');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter('module', 'newitems', 'days.updated', '1');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_album) = $this->_createRandomAlbum(
+			$this->_getRootId(),
+			array(
+				'orderBy'        => 'NewItems|title',
+				'orderDirection' => ORDER_DESCENDING,
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
+
+		for ($i = 1; $i <= 3; $i++) {
+			$fields = array(
+				'title' => 'title ' . $i,
+			);
+
+			if ($i != 2) {
+				$fields['creationTimestamp'] = time() - 108000;
+			}
+			list($ret, $this->_items[$i]) = $this->_createRandomDataItem(
+				$this->_album->getId(),
+				'test/file',
+				$fields
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
-		array('orderBy' => 'NewItems|title', 'orderDirection' => ORDER_DESCENDING));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function testGetItemSummaries() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'newitems');
 
-	for ($i = 1; $i <= 3; $i++) {
-	    $fields = array('title' => 'title ' . $i);
-	    if ($i != 2) {
-		$fields['creationTimestamp'] = time() - 108000;
-	    }
-	    list ($ret, $this->_items[$i]) = $this->_createRandomDataItem($this->_album->getId(),
-									  'test/file', $fields);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testGetItemSummaries() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'newitems');
-	if ($ret) {
-	    return $ret;
+		$unused              = null;
+		list($ret, $content) = $module->getItemSummaries($this->_items, array(), $unused);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(3, count($content), 'item count');
+		$this->assert(strpos($content[$this->_items[1]->getId()], 'giUpdated'), '1=Updated');
+		$this->assert(strpos($content[$this->_items[2]->getId()], 'giNew'), '2=New');
+		$this->assert(strpos($content[$this->_items[3]->getId()], 'giUpdated'), '3=Updated');
 	}
 
-	$unused = null;
-	list ($ret, $content) = $module->getItemSummaries($this->_items, array(), $unused);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(3, count($content), 'item count');
-	$this->assert(strpos($content[$this->_items[1]->getId()], 'giUpdated'), '1=Updated');
-	$this->assert(strpos($content[$this->_items[2]->getId()], 'giNew'), '2=New');
-	$this->assert(strpos($content[$this->_items[3]->getId()], 'giUpdated'), '3=Updated');
-    }
+	public function testSortOrder() {
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 
-    function testSortOrder() {
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->assertEquals(
-	    array($this->_items[2]->getId(), $this->_items[3]->getId(), $this->_items[1]->getId()),
-	    $childIds, 'order of child ids');
-    }
+		$this->assertEquals(
+			array($this->_items[2]->getId(), $this->_items[3]->getId(), $this->_items[1]->getId()),
+			$childIds,
+			'order of child ids'
+		);
+	}
 }
-?>

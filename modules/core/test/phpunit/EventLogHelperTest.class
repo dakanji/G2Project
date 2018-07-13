@@ -26,121 +26,150 @@
  * @version $Revision: 17580 $
  */
 class EventLogHelperTest extends GalleryTestCase {
-
-    function EventLogHelperTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$gallery->_storage = new UnitTestStorage();
-	$this->_storage =& $gallery->getStorage();
-	$gallery->_phpVm = new EventLogHelperTestPhpVm();
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
 
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$this->_location = $urlGenerator->getCurrentUrl();
+		if ($ret) {
+			return $ret;
+		}
 
-	$_SERVER['HTTP_REFERER'] = 'REFERER';
-    }
+		$gallery->_storage = new UnitTestStorage();
+		$this->_storage    =& $gallery->getStorage();
+		$gallery->_phpVm   = new EventLogHelperTestPhpVm();
 
-    function tearDown() {
-	$this->assert($this->_storage->isComplete(), $this->_storage->getRemaining());
+		$urlGenerator    =& $gallery->getUrlGenerator();
+		$this->_location = $urlGenerator->getCurrentUrl();
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
-
-    function testAddEventLogEntryRowExists() {
-	global $gallery;
-
-	/* getUniqueId returns 3007, which mod 1000 == 7 */
-	$this->_storage->setReply(
-	    'getUniqueId', array(DATABASE_SEQUENCE_EVENT_LOG), array(null, 3007));
-	$this->_storage->setReply(
-	    'updateMapEntry',
-	    array('EventLogMap',
-		  array('id' => 7),
-		  array('userId' => $gallery->getActiveUserId(),
-			'type' => 'TYPE',
-			'summary' => 'SUMMARY',
-			'details' => 'DETAILS',
-			'location' => $this->_location,
-			'client' => GalleryUtilities::getRemoteHostAddress(),
-			'timestamp' => 12345,
-			'referer' => 'REFERER'),
-		  true),
-	    null);
-	$this->_storage->setReply(
-	    'getAffectedRows',
-	    array(true),
-	    array(null, 1));
-
-	$ret = GalleryCoreApi::addEventLogEntry('TYPE', 'SUMMARY', 'DETAILS');
-	if ($ret) {
-	    return $ret;
+		$_SERVER['HTTP_REFERER'] = 'REFERER';
 	}
 
-	/* tearDown will assert that the test storage is complete, meaning everything worked */
-    }
+	public function tearDown() {
+		$this->assert($this->_storage->isComplete(), $this->_storage->getRemaining());
 
-    function testAddEventLogEntryNewRow() {
-	global $gallery;
+		$ret = parent::tearDown();
 
-	/* getUniqueId returns 3007, which mod 1000 == 7 */
-	$this->_storage->setReply(
-	    'getUniqueId', array(DATABASE_SEQUENCE_EVENT_LOG), array(null, 3007));
-	$this->_storage->setReply(
-	    'updateMapEntry',
-	    array('EventLogMap',
-		  array('id' => 7),
-		  array('userId' => $gallery->getActiveUserId(),
-			'type' => 'TYPE',
-			'summary' => 'SUMMARY',
-			'details' => 'DETAILS',
-			'location' => $this->_location,
-			'client' => GalleryUtilities::getRemoteHostAddress(),
-			'timestamp' => 12345,
-			'referer' => 'REFERER'),
-		  true),
-	    null);
-	$this->_storage->setReply(
-	    'getAffectedRows',
-	    array(true),
-	    array(null, 0));
-	$this->_storage->setReply(
-	    'addMapEntry',
-	    array('EventLogMap',
-		  array('id' => 7,
-			'userId' => $gallery->getActiveUserId(),
-			'type' => 'TYPE',
-			'summary' => 'SUMMARY',
-			'details' => 'DETAILS',
-			'location' => $this->_location,
-			'client' => GalleryUtilities::getRemoteHostAddress(),
-			'timestamp' => 12345,
-			'referer' => 'REFERER'),
-		  true),
-	    null);
-
-	$ret = GalleryCoreApi::addEventLogEntry('TYPE', 'SUMMARY', 'DETAILS');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	/* tearDown will assert that the test storage is complete, meaning everything worked */
-    }
+	public function testAddEventLogEntryRowExists() {
+		global $gallery;
+
+		// getUniqueId returns 3007, which mod 1000 == 7
+		$this->_storage->setReply(
+			'getUniqueId',
+			array(DATABASE_SEQUENCE_EVENT_LOG),
+			array(null, 3007)
+		);
+		$this->_storage->setReply(
+			'updateMapEntry',
+			array(
+				'EventLogMap',
+				array(
+					'id' => 7,
+				),
+				array(
+					'userId'    => $gallery->getActiveUserId(),
+					'type'      => 'TYPE',
+					'summary'   => 'SUMMARY',
+					'details'   => 'DETAILS',
+					'location'  => $this->_location,
+					'client'    => GalleryUtilities::getRemoteHostAddress(),
+					'timestamp' => 12345,
+					'referer'   => 'REFERER',
+				),
+				true,
+			),
+			null
+		);
+		$this->_storage->setReply(
+			'getAffectedRows',
+			array(true),
+			array(null, 1)
+		);
+
+		$ret = GalleryCoreApi::addEventLogEntry('TYPE', 'SUMMARY', 'DETAILS');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// tearDown will assert that the test storage is complete, meaning everything worked
+	}
+
+	public function testAddEventLogEntryNewRow() {
+		global $gallery;
+
+		// getUniqueId returns 3007, which mod 1000 == 7
+		$this->_storage->setReply(
+			'getUniqueId',
+			array(DATABASE_SEQUENCE_EVENT_LOG),
+			array(null, 3007)
+		);
+		$this->_storage->setReply(
+			'updateMapEntry',
+			array(
+				'EventLogMap',
+				array(
+					'id' => 7,
+				),
+				array(
+					'userId'    => $gallery->getActiveUserId(),
+					'type'      => 'TYPE',
+					'summary'   => 'SUMMARY',
+					'details'   => 'DETAILS',
+					'location'  => $this->_location,
+					'client'    => GalleryUtilities::getRemoteHostAddress(),
+					'timestamp' => 12345,
+					'referer'   => 'REFERER',
+				),
+				true,
+			),
+			null
+		);
+		$this->_storage->setReply(
+			'getAffectedRows',
+			array(true),
+			array(null, 0)
+		);
+		$this->_storage->setReply(
+			'addMapEntry',
+			array(
+				'EventLogMap',
+				array(
+					'id'        => 7,
+					'userId'    => $gallery->getActiveUserId(),
+					'type'      => 'TYPE',
+					'summary'   => 'SUMMARY',
+					'details'   => 'DETAILS',
+					'location'  => $this->_location,
+					'client'    => GalleryUtilities::getRemoteHostAddress(),
+					'timestamp' => 12345,
+					'referer'   => 'REFERER',
+				),
+				true,
+			),
+			null
+		);
+
+		$ret = GalleryCoreApi::addEventLogEntry('TYPE', 'SUMMARY', 'DETAILS');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// tearDown will assert that the test storage is complete, meaning everything worked
+	}
 }
 
 class EventLogHelperTestPhpVm {
-    function time() {
-	return 12345;
-    }
+	public function time() {
+		return 12345;
+	}
 }
-?>

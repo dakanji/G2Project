@@ -28,92 +28,96 @@ GalleryCoreApi::requireOnce('modules/httpauth/classes/ServerAuthPlugin.class');
  * @version $Revision: 17580 $
  */
 class ServerAuthPluginTest extends GalleryTestCase {
-
-    function ServerAuthPluginTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	/* Create test user */
-	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_user);
-	$_SERVER['AUTH_TYPE'] = 'Test';
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
 
-	$this->_plugin = new ServerAuthPlugin();
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_saveSession = $gallery->_session;
-	$gallery->_session = new ServerAuthPluginTestSession();
-    }
+		// Create test user
+		list($ret, $this->_user) = $this->_createRandomUser();
 
-    function tearDown() {
-	global $gallery;
-	$gallery->_session = $this->_saveSession;
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_user);
+		$_SERVER['AUTH_TYPE'] = 'Test';
 
-	$ret = GalleryCoreApi::removeAllMapEntries('FailedLoginsMap');
-	if ($ret) {
-	    $this->failWithStatus($ret);
-	}
+		$this->_plugin = new ServerAuthPlugin();
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
-
-    function testValidUser() {
-	global $gallery;
-	$session =& $gallery->getSession();
-
-	$_SERVER['REMOTE_USER'] = $this->_user->getUserName();
-
-	list ($ret, $user) = $this->_plugin->getUser();
-	if ($ret) {
-	    return ($ret);
+		$this->_saveSession = $gallery->_session;
+		$gallery->_session  = new ServerAuthPluginTestSession();
 	}
 
-	$this->assertEquals($this->_user, $user);
-	$this->assert($session->regenerateWasCalled(), 'Session has not been regenerated!');
-    }
+	public function tearDown() {
+		global $gallery;
+		$gallery->_session = $this->_saveSession;
 
-    function testInvalidUser() {
-	$_SERVER['REMOTE_USER'] = 'bogusUser-' . rand();
+		$ret = GalleryCoreApi::removeAllMapEntries('FailedLoginsMap');
 
-	list ($ret, $user) = $this->_plugin->getUser();
-	if ($ret) {
-	    return ($ret);
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	$this->assertEquals(null, $user);
-    }
+	public function testValidUser() {
+		global $gallery;
+		$session =& $gallery->getSession();
+
+		$_SERVER['REMOTE_USER'] = $this->_user->getUserName();
+
+		list($ret, $user) = $this->_plugin->getUser();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_user, $user);
+		$this->assert($session->regenerateWasCalled(), 'Session has not been regenerated!');
+	}
+
+	public function testInvalidUser() {
+		$_SERVER['REMOTE_USER'] = 'bogusUser-' . mt_rand();
+
+		list($ret, $user) = $this->_plugin->getUser();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(null, $user);
+	}
 }
 
 /**
  * Mock Session
  */
 class ServerAuthPluginTestSession {
-    function ServerAuthPluginTestSession() {
-	$this->_regenerateWasCalled = false;
-    }
+	public function __construct() {
+		$this->_regenerateWasCalled = false;
+	}
 
-    function getUserId() {
-	return null;
-    }
+	public function getUserId() {
+		return null;
+	}
 
-    function regenerate() {
-	$this->_regenerateWasCalled = true;
-    }
+	public function regenerate() {
+		$this->_regenerateWasCalled = true;
+	}
 
-    function regenerateWasCalled() {
-	return $this->_regenerateWasCalled;
-    }
+	public function regenerateWasCalled() {
+		return $this->_regenerateWasCalled;
+	}
 }
-?>

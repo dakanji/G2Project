@@ -28,140 +28,203 @@ GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
  * @version $Revision: 17580 $
  */
 class PanoramaHelperTest extends GalleryTestCase {
-
-    function PanoramaHelperTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_item) = $this->_createRandomDataItem(
-	    $this->_getRootId(), 'image/test',
-	    array('renderer' => 'PanoramaRenderer', 'mimeType' => 'image/gif'),
-	    __FILE__, 'GalleryPhotoItem');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_item) = $this->_createRandomDataItem(
+			$this->_getRootId(),
+			'image/test',
+			array(
+				'renderer' => 'PanoramaRenderer',
+				'mimeType' => 'image/gif',
+			),
+			__FILE__,
+			'GalleryPhotoItem'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_item);
 	}
 
-	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
-	if ($ret) {
-	    return $ret;
+	public function testFetchViewableImagesViewableFullSizeNoPreferred() {
+		global $gallery;
+
+		$ret = GalleryCoreApi::addUserPermission(
+			$this->_item->getId(),
+			$gallery->getActiveUserId(),
+			'core.viewSource'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $resize) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_RESIZE
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// We only get the original back
+		$this->assertEquals(
+			array(
+				$this->_item->getId() => $this->_item,
+			),
+			$results
+		);
 	}
 
-	$this->_markForCleanup($this->_item);
-    }
+	public function testFetchViewableImagesViewableFullSizeWithPreferred() {
+		global $gallery;
 
-    function testFetchViewableImagesViewableFullSizeNoPreferred() {
-	global $gallery;
+		$ret = GalleryCoreApi::addUserPermission(
+			$this->_item->getId(),
+			$gallery->getActiveUserId(),
+			'core.viewSource'
+		);
 
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_item->getId(), $gallery->getActiveUserId(), 'core.viewSource');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $preferred) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_PREFERRED
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $resize) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_RESIZE
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Preferred trumps the original
+		$this->assertEquals(
+			array(
+				$this->_item->getId() => $preferred,
+			),
+			$results
+		);
 	}
 
-	list ($ret, $resize) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret) {
-	    return $ret;
+	public function testFetchViewableImagesResized() {
+		global $gallery;
+
+		$ret = GalleryCoreApi::addUserPermission(
+			$this->_item->getId(),
+			$gallery->getActiveUserId(),
+			'core.viewResizes'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $preferred) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_PREFERRED
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $resize) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_RESIZE
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				$this->_item->getId() => $resize,
+			),
+			$results
+		);
 	}
 
-	list ($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
-	if ($ret) {
-	    return $ret;
+	public function testFetchViewableImagesNothing() {
+		global $gallery;
+
+		list($ret, $preferred) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_PREFERRED
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $resize) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_RESIZE
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(), $results);
 	}
-
-	/* We only get the original back */
-	$this->assertEquals(array($this->_item->getId() => $this->_item),
-			    $results);
-    }
-
-    function testFetchViewableImagesViewableFullSizeWithPreferred() {
-	global $gallery;
-
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_item->getId(), $gallery->getActiveUserId(), 'core.viewSource');
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $preferred) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $resize) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Preferred trumps the original */
-	$this->assertEquals(array($this->_item->getId() => $preferred),
-			    $results);
-    }
-
-    function testFetchViewableImagesResized() {
-	global $gallery;
-
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_item->getId(), $gallery->getActiveUserId(), 'core.viewResizes');
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $preferred) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $resize) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array($this->_item->getId() => $resize),
-			    $results);
-    }
-
-    function testFetchViewableImagesNothing() {
-	global $gallery;
-
-	list ($ret, $preferred) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $resize) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $results) = PanoramaHelper::fetchViewableImages(array($this->_item));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array(), $results);
-    }
 }
-?>

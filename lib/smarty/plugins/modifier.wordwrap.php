@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty wordwrap modifier plugin
  *
@@ -21,9 +20,6 @@
  * @param boolean
  * @return string
  */
-function smarty_modifier_wordwrap($string,$length=80,$break="\n",$cut=false)
-{
-    return wordwrap($string,$length,$break,$cut);
+function smarty_modifier_wordwrap($string, $length = 80, $break = "\n", $cut = false) {
+	return wordwrap($string, $length, $break, $cut);
 }
-
-?>

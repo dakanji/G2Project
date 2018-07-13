@@ -29,30 +29,34 @@
  * @version $Revision: 17580 $
  */
 class ItemAddPublishXp extends ItemAddPlugin {
+	/**
+	 * @see ItemAddPlugin::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form, $item) {
+		$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 
-    /**
-     * @see ItemAddPlugin::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item) {
-	$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
+		$isWindowsVista = strpos($httpUserAgent, 'Windows NT 6') !== false;
+		$template->setVariable(
+			'ItemAddPublishXp',
+			array(
+				'isUsingWindowsVista' => (int)$isWindowsVista,
+				'isUsingOtherWindows' => (int)!$isWindowsVista,
+			)
+		);
 
-	$isWindowsVista = strpos($httpUserAgent, 'Windows NT 6') !== false;
-	$template->setVariable('ItemAddPublishXp',
-			       array('isUsingWindowsVista' => (int)$isWindowsVista,
-				     'isUsingOtherWindows' => (int)!$isWindowsVista));
-
-	return array(null, 'modules/publishxp/templates/ItemAddPublishXp.tpl', 'modules_publishxp');
-    }
-
-    /**
-     * @see ItemAddPlugin::getTitle
-     */
-    function getTitle() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret) {
-	    return array($ret, null);
+		return array(null, 'modules/publishxp/templates/ItemAddPublishXp.tpl', 'modules_publishxp');
 	}
-	return array(null, $module->translate('Windows Publishing Wizard'));
-    }
+
+	/**
+	 * @see ItemAddPlugin::getTitle
+	 */
+	public function getTitle() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('Windows Publishing Wizard'));
+	}
 }
-?>

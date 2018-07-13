@@ -27,57 +27,76 @@
  * @version $Revision: 17580 $
  */
 class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function AlbumSelectSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'albumselect.AlbumSelectSiteAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'albumselect.AlbumSelectSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'albumselect');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'albumselect');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-    }
 
-    function testAlbumSelectSiteAdminControllerReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	public function testAlbumSelectSiteAdminControllerReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.SiteAdmin',
-				      'subView' => 'albumselect.AlbumSelectSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testAlbumSelectSiteAdminControllerSave() {
-	GalleryUtilities::putRequestVariable('form[sort]', 'manual');
-	GalleryUtilities::putRequestVariable('form[treeIcons]', '1');
-	GalleryUtilities::putRequestVariable('form[treeCloseSameLevel]', '1');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						  'subView' => 'albumselect.AlbumSelectSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	foreach (array('sort' => 'manual', 'treeLines' => '0',
-		       'treeIcons' => '1', 'treeCookies' => '0', 'treeExpandCollapse' => '0',
-		       'treeCloseSameLevel' => '1') as $key => $expectedValue) {
-	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'albumselect', $key);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assertEquals($expectedValue, $value, $key);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'albumselect.AlbumSelectSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-    }
+
+	public function testAlbumSelectSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[sort]', 'manual');
+		GalleryUtilities::putRequestVariable('form[treeIcons]', '1');
+		GalleryUtilities::putRequestVariable('form[treeCloseSameLevel]', '1');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'albumselect.AlbumSelectSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		foreach (array(
+			'sort'               => 'manual',
+			'treeLines'          => '0',
+			'treeIcons'          => '1',
+			'treeCookies'        => '0',
+			'treeExpandCollapse' => '0',
+			'treeCloseSameLevel' => '1',
+		) as $key => $expectedValue) {
+			list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'albumselect', $key);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals($expectedValue, $value, $key);
+		}
+	}
 }
-?>

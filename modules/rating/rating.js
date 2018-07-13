@@ -17,77 +17,82 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 function rateItem(itemId, rating, url) {
-    url = url.replace('__AUTHTOKEN__', galleryAuthToken);
-    YAHOO.util.Connect.asyncRequest(
-	'GET', url, {success: handleRatingResponse, failure: null, scope: null}, null);
+	url = url.replace('__AUTHTOKEN__', galleryAuthToken);
+	YAHOO.util.Connect.asyncRequest(
+		'GET',
+		url,
+		{success: handleRatingResponse, failure: null, scope: null},
+		null
+	);
 }
 
 function handleRatingResponse(http) {
-    var results = http.responseText.split("\n");
-    updateItemRating(results);
+	var results = http.responseText.split("\n");
+	updateItemRating(results);
 }
 
 function updateItemRating(results) {
-    var itemId = results[0];
-    var rating = results[1];
-    var votes = results[2];
-    var userRating = results[3];
-    galleryAuthToken = results[4];
+	var itemId       = results[0];
+	var rating       = results[1];
+	var votes        = results[2];
+	var userRating   = results[3];
+	galleryAuthToken = results[4];
 
-    updateElementDisplay('rating.rating.' + itemId, rating);
-    updateElementDisplay('rating.votes.' + itemId, votes);
-    updateElementDisplay('rating.userRating.' + itemId, userRating);
-    updateAveragePercent(itemId, rating * 100 / 5);
+	updateElementDisplay('rating.rating.' + itemId, rating);
+	updateElementDisplay('rating.votes.' + itemId, votes);
+	updateElementDisplay('rating.userRating.' + itemId, userRating);
+	updateAveragePercent(itemId, rating * 100 / 5);
 
-    resetStarDisplay(itemId);
+	resetStarDisplay(itemId);
 }
 
 function resetStarDisplay(itemId) {
-    var userRating = document.getElementById('rating.userRating.' + itemId).innerHTML;
-    updateStarDisplay(itemId, userRating);
+	var userRating = document.getElementById('rating.userRating.' + itemId).innerHTML;
+	updateStarDisplay(itemId, userRating);
 }
 
 function updateAveragePercent(itemId, averagePercent) {
-    var e = document.getElementById('rating.averagePercent.' + itemId);
-    e.style.width = averagePercent + "%";
+	var e         = document.getElementById('rating.averagePercent.' + itemId);
+	e.style.width = averagePercent + "%";
 }
 
 function updateStarDisplay(itemId, userRating) {
-    var rating = document.getElementById('rating.rating.' + itemId).innerHTML;
-    for (i=1; i<=5; i++) {
-	var star = document.getElementById('rating.star.' + itemId + '.' + i);
-	if (userRating != 'N/A') {
-	    if ((rating >= i) && (userRating >= i)) {
-		star.className='giRatingFullUserYes';
-	    } else if ((rating >= i) && (userRating < i)) {
-		star.className='giRatingFullUserNo';
-	    } else if ((rating < i) && (userRating >= i)) {
-		if (i - rating < 1) {
-		    star.className='giRatingHalfUserYes';
+	var rating = document.getElementById('rating.rating.' + itemId).innerHTML;
+	for (i = 1; i <= 5; i++) {
+		var star = document.getElementById('rating.star.' + itemId + '.' + i);
+		if (userRating != 'N/A') {
+			if ((rating >= i) && (userRating >= i)) {
+				star.className = 'giRatingFullUserYes';
+			} else if ((rating >= i) && (userRating < i)) {
+				star.className = 'giRatingFullUserNo';
+			} else if ((rating < i) && (userRating >= i)) {
+				if (i - rating < 1) {
+					star.className = 'giRatingHalfUserYes';
+				} else {
+					star.className = 'giRatingEmptyUserYes';
+				}
+			} else if ((rating < i) && (userRating < i)) {
+				if (i - rating < 1) {
+					star.className = 'giRatingHalfUserNo';
+				} else {
+					star.className = 'giRatingEmpty';
+				}
+			}
 		} else {
-		    star.className='giRatingEmptyUserYes';
+			if (rating >= i) {
+				star.className = 'giRatingFullUserNo';
+			} else if (i - rating < 1) {
+				star.className = 'giRatingHalfUserNo';
+			} else {
+				star.className = 'giRatingEmpty';
+			}
 		}
-	    } else if ((rating < i) && (userRating < i)) {
-		if (i - rating < 1) {
-		    star.className='giRatingHalfUserNo';
-		} else {
-		    star.className='giRatingEmpty';
-		}
-	    }
-	} else {
-	    if (rating >= i) {
-		star.className='giRatingFullUserNo';
-	    } else if (i - rating < 1) {
-		star.className='giRatingHalfUserNo';
-	    } else {
-		star.className='giRatingEmpty';
-	    }
 	}
-    }
 }
 
 function updateElementDisplay(id, str) {
-    document.getElementById(id).replaceChild(
-	    document.createTextNode(str),
-	    document.getElementById(id).childNodes[0]);
+	document.getElementById(id).replaceChild(
+		document.createTextNode(str),
+		document.getElementById(id).childNodes[0]
+	);
 }

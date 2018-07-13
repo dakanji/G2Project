@@ -28,55 +28,63 @@ GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
  * @version $Revision: 17580 $
  */
 class FlashVideoOptionTest extends ItemAddOptionTestCase {
-
-    function FlashVideoOptionTest($methodName) {
-	$this->ItemAddOptionTestCase($methodName, 'flashvideo', 'FlashVideoOption');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'flashvideo', 'FlashVideoOption');
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function setUp() {
+		$ret = parent::setUp();
 
-	$this->_items = array();
-	list ($ret, $this->_items[0]) = $this->_createRandomDataItem(
-		$this->_album->getId(), 'video/mpeg');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $this->_items[1]) = $this->_createRandomDataItem(
-		$this->_album->getId(), 'video/x-flv');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
+
+		$this->_items                = array();
+		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'video/mpeg'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $this->_items[1]) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'video/x-flv'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_noWarnings = array();
+		$this->_noErrors   = array();
 	}
 
-	$this->_noWarnings = array();
-	$this->_noErrors = array();
-    }
+	public function testAddItems() {
+		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
-    function testAddItems() {
-	$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-	$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		list($ret, $item) = $this->_items[0]->refresh();
 
-	list ($ret, $item) = $this->_items[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		// For Oracle, null is replaced with '' when loading data from the database
+		$this->assert(in_array($item->getRenderer(), array(null, '')), 'mpeg renderer');
+
+		list($ret, $item) = $this->_items[1]->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('FlashVideoRenderer', $item->getRenderer(), 'flv renderer');
 	}
-	/* For Oracle, null is replaced with '' when loading data from the database */
-	$this->assert(in_array($item->getRenderer(), array(null, '')), 'mpeg renderer');
-
-	list ($ret, $item) = $this->_items[1]->refresh();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('FlashVideoRenderer', $item->getRenderer(), 'flv renderer');
-    }
 }
-?>

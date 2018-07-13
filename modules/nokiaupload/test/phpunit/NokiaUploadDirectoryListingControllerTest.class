@@ -27,100 +27,127 @@
  * @version $Revision: 17580 $
  */
 class NokiaUploadDirectoryListingControllerTest extends GalleryControllerTestCase {
-
-    function NokiaUploadDirectoryListingControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'nokiaupload.DirectoryListing');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-	global $gallery;
-
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
-								array('title' => 'dirlist test'));
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'nokiaupload.DirectoryListing');
 	}
 
-	$this->_markForCleanup($this->_album);
+	public function setUp() {
+		$ret = parent::setUp();
 
-	list ($ret, $this->_group) = $this->_createRandomGroup();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		global $gallery;
+
+		list($ret, $this->_album) = $this->_createRandomAlbum(
+		$this->_getRootId(),
+								array('title' => 'dirlist test')
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_album);
+
+		list($ret, $this->_group) = $this->_createRandomGroup();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_group);
+
+		$ret = GalleryCoreApi::addGroupPermission(
+			  $this->_album->getId(),
+		$this->_group->getId(),
+		'core.addDataItem'
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $this->_user) = $this->_createRandomUser();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_user);
+
+		$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'albumselect');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'nokiaupload');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::setPluginParameter(
+			  'module',
+		'nokiaupload',
+		'id.mobileGroup',
+		$this->_group->getId()
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter(
+			  'module',
+		'nokiaupload',
+		'id.uploadAlbum',
+		$this->_album->getId()
+	);
+
+		if ($ret) {
+			return $ret;
+		}
+		$_SERVER['HTTP_USER_AGENT'] = 'Nokia6630/1.0 (2.39.129) Series60/2.6 Profile/MIDP-2.0';
 	}
 
-	$this->_markForCleanup($this->_group);
+	public function testDirectoryListingController() {
+		global $gallery;
 
-	$ret = GalleryCoreApi::addGroupPermission(
-			  $this->_album->getId(), $this->_group->getId(), 'core.addDataItem');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_user);
-	
-	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
-	if ($ret) {
-	    return $ret;
-	}
+		// Login our test user
+		$gallery->setActiveUser($this->_user);
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'albumselect');
-	if ($ret) {
-	    return $ret;
-	}
+		$session =& $gallery->getSession();
+		$session->remove('permissionCache');
+		$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.addAlbumItem');
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'nokiaupload');
-	if ($ret) {
-	    return $ret;
-	}
+		if (!$ret) {
+			return $this->assert(false, 'expected test user to not have addAlbum access in root');
+		}
 
-	$ret = GalleryCoreApi::setPluginParameter(
-			  'module', 'nokiaupload', 'id.mobileGroup', $this->_group->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::setPluginParameter(
-			  'module', 'nokiaupload', 'id.uploadAlbum', $this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$_SERVER['HTTP_USER_AGENT'] = 'Nokia6630/1.0 (2.39.129) Series60/2.6 Profile/MIDP-2.0';
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+		array('view' => 'nokiaupload.DirectoryListing'),
+				$results['delegate'],
+		'delegate'
+	);
+		$this->assertEquals(array(), $results['error'], 'error');
+		$this->assertEquals(NOKIAUPLOAD_ERR_NOERR, $results['status']['success'], 'success');
+		$this->assert(!empty($results['status']['albums']), 'album list');
 
-    function testDirectoryListingController() {
-	global $gallery;
-
-	// Login our test user
-	$gallery->setActiveUser($this->_user);
-
-	$session =& $gallery->getSession();
-	$session->remove('permissionCache');
-	$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.addAlbumItem');
-	if (!$ret) {
-	    return $this->assert(false, 'expected test user to not have addAlbum access in root');
-	}
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'nokiaupload.DirectoryListing'),
-			    $results['delegate'], 'delegate');
-	$this->assertEquals(array(), $results['error'], 'error');
-	$this->assertEquals(NOKIAUPLOAD_ERR_NOERR, $results['status']['success'], 'success');
-	$this->assert(!empty($results['status']['albums']), 'album list');
-	foreach ($results['status']['albums'] as $item) { //in_array needle can't be array in php41
-	    if ($item == array('id' => $this->_album->getId(),
+		foreach ($results['status']['albums'] as $item) { //in_array needle can't be array in php41
+			if ($item == array('id' => $this->_album->getId(),
 			'parentid' => $this->_album->getParentId(),
-			'name' => GalleryUtilities::HtmlEntityDecode($this->_album->getTitle()))) {
-		$foundIt = 1;
-		break;
-	    }
+			'name' => GalleryUtilities::HtmlEntityDecode($this->_album->getTitle()), )) {
+				$foundIt = 1;
+
+				break;
+			}
+		}
+		$this->assert(isset($foundIt), 'upload album');
 	}
-	$this->assert(isset($foundIt), 'upload album');
-    }
 }
-?>

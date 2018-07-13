@@ -28,67 +28,107 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
  * @version $Revision: 17580 $
  */
 class ThumbnailToolkit extends GalleryToolkit {
-
-    /**
-     * @see GalleryToolkit::getProperty
-     */
-    function getProperty($mimeType, $propertyName, $sourceFilename) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
-
-    /**
-     * @see GalleryToolkit::performOperation
-     */
-    function performOperation($mimeType, $operationName, $sourceFilename,
-			      $destFilename, $parameters, $context=array()) {
-	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	list ($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	if (!isset($mimeTypeMap[$mimeType]) || $operationName != 'thumbnail') {
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
-					       "$operationName $mimeType"), null, null);
-	}
-	list ($ret, $thumbImage) =
-	    GalleryCoreApi::loadEntitiesById($mimeTypeMap[$mimeType], 'ThumbnailImage');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	list ($ret, $thumbPath) = $thumbImage->fetchPath();
-	if ($ret) {
-	    return array($ret, null, null);
+	/**
+	 * @see GalleryToolkit::getProperty
+	 */
+	public function getProperty($mimeType, $propertyName, $sourceFilename) {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
-	$mimeType = 'image/jpeg';
-	$success = $platform->copy($thumbPath, $destFilename);
-	if (!$success) {
-	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-			 "Failed copying $thumbPath -> $destFilename"), null, null);
-	}
-	$context['width'] = $thumbImage->getWidth();
-	$context['height'] = $thumbImage->getHeight();
+	/**
+	 * @see GalleryToolkit::performOperation
+	 */
+	public function performOperation(
+		$mimeType,
+		$operationName,
+		$sourceFilename,
+		$destFilename,
+		$parameters,
+		$context = array()
+	) {
+		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-	/* Now get toolkit to resize image to thumbnail size */
-	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'thumbnail');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	if (!isset($toolkit) || get_class($toolkit) == get_class($this)) {
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
-					       "thumbnail $mimeType"), null, null);
-	}
-	list ($ret, $mimeType, $context) =
-	    $toolkit->performOperation($mimeType, 'thumbnail', $destFilename, $destFilename,
-				       $parameters, $context);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
+		list($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
 
-	return array(null, $mimeType, $context);
-    }
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		if (!isset($mimeTypeMap[$mimeType]) || $operationName != 'thumbnail') {
+			return array(
+				GalleryCoreApi::error(
+					ERROR_UNSUPPORTED_OPERATION,
+					__FILE__,
+					__LINE__,
+					"$operationName $mimeType"
+				),
+				null,
+				null,
+			);
+		}
+		list($ret, $thumbImage) = GalleryCoreApi::loadEntitiesById($mimeTypeMap[$mimeType], 'ThumbnailImage');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		list($ret, $thumbPath) = $thumbImage->fetchPath();
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$mimeType = 'image/jpeg';
+		$success  = $platform->copy($thumbPath, $destFilename);
+
+		if (!$success) {
+			return array(
+				GalleryCoreApi::error(
+					ERROR_PLATFORM_FAILURE,
+					__FILE__,
+					__LINE__,
+					"Failed copying $thumbPath -> $destFilename"
+				),
+				null,
+				null,
+			);
+		}
+		$context['width']  = $thumbImage->getWidth();
+		$context['height'] = $thumbImage->getHeight();
+
+		// Now get toolkit to resize image to thumbnail size
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'thumbnail');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		if (!isset($toolkit) || get_class($toolkit) == get_class($this)) {
+			return array(
+				GalleryCoreApi::error(
+					ERROR_UNSUPPORTED_OPERATION,
+					__FILE__,
+					__LINE__,
+					"thumbnail $mimeType"
+				),
+				null,
+				null,
+			);
+		}
+		list($ret, $mimeType, $context) = $toolkit->performOperation(
+			$mimeType,
+			'thumbnail',
+			$destFilename,
+			$destFilename,
+			$parameters,
+			$context
+		);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		return array(null, $mimeType, $context);
+	}
 }
-?>

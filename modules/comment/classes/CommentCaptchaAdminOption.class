@@ -26,18 +26,21 @@
  * @version $Revision: 17580 $
  */
 class CommentCaptchaAdminOption extends CaptchaAdminOption {
-    /**
-     * @see CaptchaAdminOption::getOptionData
-     */
-    function getOptionData() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
-	if ($ret) {
-	    return array($ret, null, null, null);
+	/**
+	 * @see CaptchaAdminOption::getOptionData
+	 */
+	public function getOptionData() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
+
+		if ($ret) {
+			return array($ret, null, null, null);
+		}
+		// Note: we use validation.level for all plugins, but config is via captcha module
+		return array(
+			null,
+			$module->translate('Guest Comments'),
+			array('module', 'comment', 'validation.level'),
+			array('HIGH', 'OFF'),
+		);
 	}
-	/* Note: we use validation.level for all plugins, but config is via captcha module */
-	return array(null, $module->translate('Guest Comments'),
-		     array('module', 'comment', 'validation.level'),
-		     array('HIGH', 'OFF'));
-    }
 }
-?>

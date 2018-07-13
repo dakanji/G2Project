@@ -27,134 +27,147 @@
  * @version $Revision: 17580 $
  */
 class ZipCartDownloadTest extends GalleryTestCase {
-
-    function ZipCartDownloadTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_view) = GalleryView::loadView('zipcart.Download');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_view) = GalleryView::loadView('zipcart.Download');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$gallery->_phpVm = new ZipCartDownloadPhpVm($this);
+		$gallery->setConfig('data.gallery.tmp', '/data/tmp/');
 	}
 
-	$gallery->_phpVm = new ZipCartDownloadPhpVm($this);
-	$gallery->setConfig('data.gallery.tmp', '/data/tmp/');
-    }
+	public function testDownloadIE() {
+		global $gallery;
+		$platform = new UnitTestPlatform();
+		$platform->setReply('is_readable', array('/data/tmp/test.zip'), true);
+		$platform->setReply('filesize', array('/data/tmp/test.zip'), 123);
+		$platform->setReply('fopen', array('/data/tmp/test.zip', 'rb', 0), 'testfd');
+		$platform->setReply('fread', array('testfd', 65535), 'zipdata');
+		$platform->setReply('fread', array('testfd', 65535), '');
+		$platform->setReply('fclose', array('testfd'), true);
+		$platform->setReply('unlink', array('/data/tmp/test.zip'), true);
+		$platform->setReply('unlink', array('/data/tmp/test'), true);
+		$gallery->setPlatform($platform);
 
-    function testDownloadIE() {
-	global $gallery;
-	$platform = new UnitTestPlatform();
-	$platform->setReply('is_readable', array('/data/tmp/test.zip'), true);
-	$platform->setReply('filesize', array('/data/tmp/test.zip'), 123);
-	$platform->setReply('fopen', array('/data/tmp/test.zip', 'rb', 0), 'testfd');
-	$platform->setReply('fread', array('testfd', 65535), 'zipdata');
-	$platform->setReply('fread', array('testfd', 65535), '');
-	$platform->setReply('fclose', array('testfd'), true);
-	$platform->setReply('unlink', array('/data/tmp/test.zip'), true);
-	$platform->setReply('unlink', array('/data/tmp/test'), true);
-	$gallery->setPlatform($platform);
+		GalleryUtilities::putRequestVariable('file', 'test');
+		$_SERVER['HTTP_USER_AGENT'] = 'This is MSIE 6 browser';
 
-	GalleryUtilities::putRequestVariable('file', 'test');
-	$_SERVER['HTTP_USER_AGENT'] = 'This is MSIE 6 browser';
+		set_error_handler('ZipCartDownloadTest_error_handler');
+		ob_start();
+		$ret = $this->_view->renderImmediate(array(), array());
 
-	set_error_handler('ZipCartDownloadTest_error_handler');
-	ob_start();
-	$ret = $this->_view->renderImmediate(array(), array());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertEquals(
+			array(
+				'Content-Type: application/zip',
+				'Content-Disposition: inline; filename="G2cart.zip"',
+				'Content-Length: 123',
+			),
+			$this->_header,
+			'header'
+		);
+		$this->assertEquals('zipdata', $output, 'output');
 	}
-	$output = ob_get_contents();
-	ob_end_clean();
 
-	$this->assertEquals(
-	    array('Content-Type: application/zip',
-		  'Content-Disposition: inline; filename="G2cart.zip"',
-		  'Content-Length: 123'), $this->_header, 'header');
-	$this->assertEquals('zipdata', $output, 'output');
-    }
+	public function testDownloadMultipart() {
+		global $gallery;
+		$platform = new UnitTestPlatform();
+		$platform->setReply('is_readable', array('/data/tmp/test.zip'), true);
+		$platform->setReply('filesize', array('/data/tmp/test.zip'), 123);
+		$platform->setReply('fopen', array('/data/tmp/test.zip', 'rb', 0), 'testfd');
+		$platform->setReply('fread', array('testfd', 65535), 'zipdata');
+		$platform->setReply('fread', array('testfd', 65535), '');
+		$platform->setReply('fclose', array('testfd'), true);
+		$platform->setReply('unlink', array('/data/tmp/test.zip'), true);
+		$platform->setReply('unlink', array('/data/tmp/test'), true);
+		$gallery->setPlatform($platform);
 
-    function testDownloadMultipart() {
-	global $gallery;
-	$platform = new UnitTestPlatform();
-	$platform->setReply('is_readable', array('/data/tmp/test.zip'), true);
-	$platform->setReply('filesize', array('/data/tmp/test.zip'), 123);
-	$platform->setReply('fopen', array('/data/tmp/test.zip', 'rb', 0), 'testfd');
-	$platform->setReply('fread', array('testfd', 65535), 'zipdata');
-	$platform->setReply('fread', array('testfd', 65535), '');
-	$platform->setReply('fclose', array('testfd'), true);
-	$platform->setReply('unlink', array('/data/tmp/test.zip'), true);
-	$platform->setReply('unlink', array('/data/tmp/test'), true);
-	$gallery->setPlatform($platform);
+		GalleryUtilities::putRequestVariable('file', 'test');
+		$_SERVER['HTTP_USER_AGENT'] = 'This is some Gecko browser';
 
-	GalleryUtilities::putRequestVariable('file', 'test');
-	$_SERVER['HTTP_USER_AGENT'] = 'This is some Gecko browser';
+		set_error_handler('ZipCartDownloadTest_error_handler');
+		ob_start();
+		$ret = $this->_view->renderImmediate(array(), array());
 
-	set_error_handler('ZipCartDownloadTest_error_handler');
-	ob_start();
-	$ret = $this->_view->renderImmediate(array(), array());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertEquals(
+			array('Content-Type: multipart/mixed; boundary=G2ZipCart'),
+			$this->_header,
+			'header'
+		);
+		$this->assertEquals("--G2ZipCart\nContent-Type: application/zip\nContent-Disposition: " .
+		"inline; filename=\"G2cart.zip\"\nContent-Length: 123\n\nzipdata\n--G2ZipCart\n" .
+		"Content-Type: text/html\nPragma: No-cache\n\n<html><body onload=\"location" .
+		".reload()\"></body></html>\n\n--G2ZipCart--\n", $output, 'output');
 	}
-	$output = ob_get_contents();
-	ob_end_clean();
 
-	$this->assertEquals(
-	    array('Content-Type: multipart/mixed; boundary=G2ZipCart'), $this->_header, 'header');
-	$this->assertEquals("--G2ZipCart\nContent-Type: application/zip\nContent-Disposition: " .
-	    "inline; filename=\"G2cart.zip\"\nContent-Length: 123\n\nzipdata\n--G2ZipCart\n" .
-	    "Content-Type: text/html\nPragma: No-cache\n\n<html><body onload=\"location" .
-	    ".reload()\"></body></html>\n\n--G2ZipCart--\n", $output, 'output');
-    }
+	public function testCartRedirect() {
+		global $gallery;
+		$platform = new UnitTestPlatform();
+		$platform->setReply('is_readable', array('/data/tmp/test.zip'), false);
+		$gallery->setPlatform($platform);
 
-    function testCartRedirect() {
-	global $gallery;
-	$platform = new UnitTestPlatform();
-	$platform->setReply('is_readable', array('/data/tmp/test.zip'), false);
-	$gallery->setPlatform($platform);
+		GalleryUtilities::putRequestVariable('file', 'test');
 
-	GalleryUtilities::putRequestVariable('file', 'test');
+		ob_start();
+		$ret = $this->_view->renderImmediate(array(), array());
 
-	ob_start();
-	$ret = $this->_view->renderImmediate(array(), array());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertEquals(1, count($this->_header), 'header lines');
+		$this->assertEquals('Location:', substr($this->_header[0], 0, 9), 'header');
+		$this->assertEquals('', $output, 'output');
 	}
-	$output = ob_get_contents();
-	ob_end_clean();
 
-	$this->assertEquals(1, count($this->_header), 'header lines');
-	$this->assertEquals('Location:', substr($this->_header[0], 0, 9), 'header');
-	$this->assertEquals('', $output, 'output');
-    }
+	public function testBadFile() {
+		global $gallery;
+		$platform = new UnitTestPlatform();
+		$platform->setReply('is_readable', array('/data/tmp/passwd.zip'), false);
+		$gallery->setPlatform($platform);
 
-    function testBadFile() {
-	global $gallery;
-	$platform = new UnitTestPlatform();
-	$platform->setReply('is_readable', array('/data/tmp/passwd.zip'), false);
-	$gallery->setPlatform($platform);
+		// Verify a malicious file param can't get out of the tmp dir
+		GalleryUtilities::putRequestVariable('file', '../../etc/passwd');
 
-	/* Verify a malicious file param can't get out of the tmp dir */
-	GalleryUtilities::putRequestVariable('file', '../../etc/passwd');
+		ob_start();
+		$ret = $this->_view->renderImmediate(array(), array());
 
-	ob_start();
-	$ret = $this->_view->renderImmediate(array(), array());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertEquals(1, count($this->_header), 'header lines');
+		$this->assertEquals('Location:', substr($this->_header[0], 0, 9), 'header');
+		$this->assertEquals('', $output, 'output');
 	}
-	$output = ob_get_contents();
-	ob_end_clean();
-
-	$this->assertEquals(1, count($this->_header), 'header lines');
-	$this->assertEquals('Location:', substr($this->_header[0], 0, 9), 'header');
-	$this->assertEquals('', $output, 'output');
-    }
 }
 
 /**
@@ -163,28 +176,27 @@ class ZipCartDownloadTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class ZipCartDownloadPhpVm extends GalleryPhpVm {
-    function ZipCartDownloadPhpVm(&$test) {
-	$this->_test =& $test;
-    }
+	public function __construct(&$test) {
+		$this->_test =& $test;
+	}
 
-    function header($string) {
-	$this->_test->_header[] = $string;
-    }
+	public function header($string) {
+		$this->_test->_header[] = $string;
+	}
 
-    function ini_set($varname, $newvalue) {
-    }
+	public function ini_set($varname, $newvalue) {
+	}
 }
 
 function ZipCartDownloadTest_error_handler($errorNumber, $errorString, $file, $line, $context) {
-    if ($errorNumber == 2048) {
-    	return; /* E_STRICT */
-    }
+	if ($errorNumber == 2048) {
+		return; // E_STRICT
+	}
 
-    if (error_reporting() == 0 && strpos($errorString, 'apacheSetenvBroken') !== false) {
-	return;
-    }
+	if (error_reporting() == 0 && strpos($errorString, 'apacheSetenvBroken') !== false) {
+		return;
+	}
 
-    /* Else call our default error_handler */
-    return PHPUnit_error_handler($errorNumber, $errorString, $file, $line, $context);
+	// Else call our default error_handler
+	return PHPUnit_error_handler($errorNumber, $errorString, $file, $line, $context);
 }
-?>

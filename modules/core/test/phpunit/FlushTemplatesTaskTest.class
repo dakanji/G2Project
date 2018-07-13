@@ -28,104 +28,118 @@ GalleryCoreApi::requireOnce('modules/core/classes/FlushTemplatesTask.class');
  * @version $Revision: 17580 $
  */
 class FlushTemplatesTaskTest extends GalleryTestCase {
-
-    function FlushTemplatesTaskTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function testRunSuccess() {
-	global $gallery;
-
-	list ($ret, $dirPerms) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$gallery->setConfig('data.smarty.templates_c', '/templates_c');
-	$mockPlatform = new FlushTemplatesTaskTestPlatform(array());
-	$gallery->setPlatform($mockPlatform);
-	$task = new FlushTemplatesTask();
+	public function testRunSuccess() {
+		global $gallery;
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
+		list($ret, $dirPerms) = GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$gallery->setConfig('data.smarty.templates_c', '/templates_c');
+		$mockPlatform = new FlushTemplatesTaskTestPlatform(array());
+		$gallery->setPlatform($mockPlatform);
+		$task = new FlushTemplatesTask();
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $success, $details) = $task->run();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($success, 'should have succeeded');
+		$this->assertEquals(
+			array($module->translate('Template cache deleted successfully')),
+			$details
+		);
+		$this->assertEquals(
+			array(
+				'file_exists(/templates_c)',
+				'recursiveRmdir(/templates_c)',
+			),
+			$mockPlatform->getCalls()
+		);
 	}
 
-	list ($ret, $success, $details) = $task->run();
-	if ($ret) {
-	    return $ret;
+	public function testRunFail() {
+		global $gallery;
+
+		$gallery->setConfig('data.smarty.templates_c', '/templates_c');
+		$mockPlatform = new FlushTemplatesTaskTestPlatform(array('recursiveRmdir(/templates_c)'));
+		$gallery->setPlatform($mockPlatform);
+		$task = new FlushTemplatesTask();
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $success, $details) = $task->run();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$expected = $module->translate(array(
+			'text' => 'Unable to delete directory: %s',
+			'arg1' => '/templates_c',
+		));
+
+		$this->assert(!$success, 'should have failed');
+		$this->assertEquals(array($expected), $details);
+		$this->assertEquals(
+			array(
+				'file_exists(/templates_c)',
+				'recursiveRmdir(/templates_c)',
+			),
+			$mockPlatform->getCalls()
+		);
 	}
-
-	$this->assert($success, 'should have succeeded');
-	$this->assertEquals(
-	    array($module->translate('Template cache deleted successfully')), $details);
-	$this->assertEquals(array('file_exists(/templates_c)',
-				  'recursiveRmdir(/templates_c)'),
-			    $mockPlatform->getCalls());
-    }
-
-    function testRunFail() {
-	global $gallery;
-
-	$gallery->setConfig('data.smarty.templates_c', '/templates_c');
-	$mockPlatform = new FlushTemplatesTaskTestPlatform(array('recursiveRmdir(/templates_c)'));
-	$gallery->setPlatform($mockPlatform);
-	$task = new FlushTemplatesTask();
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $success, $details) = $task->run();
-	if ($ret) {
-	    return $ret;
-	}
-
-	$expected = $module->translate(array('text' => 'Unable to delete directory: %s',
-					     'arg1' => '/templates_c'));
-
-	$this->assert(!$success, 'should have failed');
-	$this->assertEquals(array($expected), $details);
-	$this->assertEquals(array('file_exists(/templates_c)',
-				  'recursiveRmdir(/templates_c)'),
-			    $mockPlatform->getCalls());
-    }
 }
 
 class FlushTemplatesTaskTestPlatform {
-    function FlushTemplatesTaskTestPlatform($failedCalls) {
-	GalleryUtilities::putRequestVariable('calls', array());
-	$this->_failedCalls = $failedCalls;
-    }
+	public function __construct($failedCalls) {
+		GalleryUtilities::putRequestVariable('calls', array());
+		$this->_failedCalls = $failedCalls;
+	}
 
-    function _addCall($call) {
-	$calls = GalleryUtilities::getRequestVariables('calls');
-	$calls[] = $call;
-	GalleryUtilities::putRequestVariable('calls', $calls);
+	public function _addCall($call) {
+		$calls   = GalleryUtilities::getRequestVariables('calls');
+		$calls[] = $call;
+		GalleryUtilities::putRequestVariable('calls', $calls);
 
-	return !in_array($call, $this->_failedCalls);
-    }
+		return !in_array($call, $this->_failedCalls);
+	}
 
-    function getCalls() {
-	return GalleryUtilities::getRequestVariables('calls');
-    }
+	public function getCalls() {
+		return GalleryUtilities::getRequestVariables('calls');
+	}
 
-    function file_exists($dir) {
-	return $this->_addCall("file_exists($dir)");
-    }
+	public function file_exists($dir) {
+		return $this->_addCall("file_exists($dir)");
+	}
 
-    function mkdir($dir, $stringPerms='123') {
-	return $this->_addCall("mkdir($dir,$stringPerms)");
-    }
+	public function mkdir($dir, $stringPerms = '123') {
+		return $this->_addCall("mkdir($dir,$stringPerms)");
+	}
 
-    function recursiveRmdir($dir) {
-	return $this->_addCall("recursiveRmdir($dir)");
-    }
+	public function recursiveRmdir($dir) {
+		return $this->_addCall("recursiveRmdir($dir)");
+	}
 
-    function realpath($path) {
-	return $path;
-    }
+	public function realpath($path) {
+		return $path;
+	}
 }
-?>

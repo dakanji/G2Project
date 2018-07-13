@@ -28,85 +28,104 @@ GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
  * @version $Revision: 17580 $
  */
 class CaptchaHelperTest extends GalleryTestCase {
-    function CaptchaHelperTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
+	public function __construct($methodName) {
+		parent::__construct($methodName);
+	}
 
-    function testTestRequiredGdFunctionsAllPresent() {
-	global $gallery;
+	public function testTestRequiredGdFunctionsAllPresent() {
+		global $gallery;
 
-	$phpVm = new CaptchaHelperTestPhpVm();
-	$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
-	$phpVm->setFunctionExists('ImageColorAllocate', true);
-	$phpVm->setFunctionExists('ImageString', true);
-	$phpVm->setFunctionExists('ImageJPEG', true);
-	$phpVm->setFunctionExists('ImageDestroy', true);
-	$phpVm->setFunctionExists('imagesx', true);
-	$gallery->_phpVm = $phpVm;
+		$phpVm = new CaptchaHelperTestPhpVm();
+		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
+		$phpVm->setFunctionExists('ImageColorAllocate', true);
+		$phpVm->setFunctionExists('ImageString', true);
+		$phpVm->setFunctionExists('ImageJPEG', true);
+		$phpVm->setFunctionExists('ImageDestroy', true);
+		$phpVm->setFunctionExists('imagesx', true);
+		$gallery->_phpVm = $phpVm;
 
-	$report = CaptchaHelper::testRequiredGdFunctions();
-	$this->assertEquals(array('success' => array('ImageCreateFromJPEG',
-						     'ImageColorAllocate',
-						     'ImageString',
-						     'ImageJPEG',
-						     'ImageDestroy',
-						     'imagesx'),
-				  'fail' => array()),
-			    $report);
-    }
+		$report = CaptchaHelper::testRequiredGdFunctions();
+		$this->assertEquals(
+			array(
+				'success' => array(
+					'ImageCreateFromJPEG',
+					'ImageColorAllocate',
+					'ImageString',
+					'ImageJPEG',
+					'ImageDestroy',
+					'imagesx',
+				),
+				'fail'    => array(),
+			),
+			$report
+		);
+	}
 
-    function testTestRequiredGdFunctionsSomeMissing() {
-	global $gallery;
+	public function testTestRequiredGdFunctionsSomeMissing() {
+		global $gallery;
 
-	$phpVm = new CaptchaHelperTestPhpVm();
-	$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
-	$phpVm->setFunctionExists('ImageColorAllocate', true);
-	$phpVm->setFunctionExists('ImageString', false);
-	$phpVm->setFunctionExists('ImageJPEG', true);
-	$phpVm->setFunctionExists('ImageDestroy', true);
-	$phpVm->setFunctionExists('imagesx', false);
-	$gallery->_phpVm = $phpVm;
+		$phpVm = new CaptchaHelperTestPhpVm();
+		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
+		$phpVm->setFunctionExists('ImageColorAllocate', true);
+		$phpVm->setFunctionExists('ImageString', false);
+		$phpVm->setFunctionExists('ImageJPEG', true);
+		$phpVm->setFunctionExists('ImageDestroy', true);
+		$phpVm->setFunctionExists('imagesx', false);
+		$gallery->_phpVm = $phpVm;
 
-	$report = CaptchaHelper::testRequiredGdFunctions();
-	$this->assertEquals(array('success' => array('ImageCreateFromJPEG',
-						     'ImageColorAllocate',
-						     'ImageJPEG',
-						     'ImageDestroy'),
-				  'fail' => array('ImageString',
-						  'imagesx')),
-			    $report);
-    }
+		$report = CaptchaHelper::testRequiredGdFunctions();
+		$this->assertEquals(
+			array(
+				'success' => array(
+					'ImageCreateFromJPEG',
+					'ImageColorAllocate',
+					'ImageJPEG',
+					'ImageDestroy',
+				),
+				'fail' => array(
+					'ImageString',
+					'imagesx',
+				),
+			),
+			$report
+		);
+	}
 
-    function testTestRequiredGdFunctionsAllMissing() {
-	global $gallery;
-	$phpVm = new CaptchaHelperTestPhpVm();
-	$phpVm->setFunctionExists('ImageCreateFromJPEG', false);
-	$phpVm->setFunctionExists('ImageColorAllocate', false);
-	$phpVm->setFunctionExists('ImageString', false);
-	$phpVm->setFunctionExists('ImageJPEG', false);
-	$phpVm->setFunctionExists('ImageDestroy', false);
-	$phpVm->setFunctionExists('imagesx', false);
-	$gallery->_phpVm = $phpVm;
+	public function testTestRequiredGdFunctionsAllMissing() {
+		global $gallery;
+		$phpVm = new CaptchaHelperTestPhpVm();
+		$phpVm->setFunctionExists('ImageCreateFromJPEG', false);
+		$phpVm->setFunctionExists('ImageColorAllocate', false);
+		$phpVm->setFunctionExists('ImageString', false);
+		$phpVm->setFunctionExists('ImageJPEG', false);
+		$phpVm->setFunctionExists('ImageDestroy', false);
+		$phpVm->setFunctionExists('imagesx', false);
+		$gallery->_phpVm = $phpVm;
 
-	$report = CaptchaHelper::testRequiredGdFunctions();
-	$this->assertEquals(array('success' => array(),
-				  'fail' => array('ImageCreateFromJPEG',
-						  'ImageColorAllocate',
-						  'ImageString',
-						  'ImageJPEG',
-						  'ImageDestroy',
-						  'imagesx')),
-			    $report);
-    }
+		$report = CaptchaHelper::testRequiredGdFunctions();
+		$this->assertEquals(
+			array(
+				'success' => array(),
+				'fail'    => array(
+					'ImageCreateFromJPEG',
+					'ImageColorAllocate',
+					'ImageString',
+					'ImageJPEG',
+					'ImageDestroy',
+					'imagesx',
+				),
+			),
+			$report
+		);
+	}
 }
 
 class CaptchaHelperTestPhpVm {
-    function setFunctionExists($functionName, $bool) {
-	$this->_function_exists[$functionName] = $bool;
-    }
+	public function setFunctionExists($functionName, $bool) {
+		$this->_function_exists[$functionName] = $bool;
+	}
 
-    function function_exists($functionName) {
-	return $this->_function_exists[$functionName];
-    }
+	public function function_exists($functionName) {
+		return $this->_function_exists[$functionName];
+	}
 }
-?>

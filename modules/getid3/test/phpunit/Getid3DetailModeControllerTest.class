@@ -26,69 +26,88 @@
  * @version $Revision: 17580 $
  */
 class Getid3DetailModeControllerTest extends GalleryControllerTestCase {
-
-    function Getid3DetailModeControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'getid3:Getid3DetailMode');
-    }
-
-    function testSwitchToSummary() {
-	global $gallery;
-	GalleryUtilities::putRequestVariable('mode', 'summary');
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('return' => 1,
-				  'redirect' => array('view' => 'core.ShowItem'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-
-	/* Verify that we're in the right mode now */
-	$session =& $gallery->getSession();
-	if (!$session->exists('getid3.module.LoadGetid3Info.mode')) {
-	    $this->fail('Missing session value');
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'getid3:Getid3DetailMode');
 	}
-	$this->assertEquals('summary', $session->get('getid3.module.LoadGetid3Info.mode'));
-    }
 
-    function testSwitchToDetailed() {
-	global $gallery;
-	GalleryUtilities::putRequestVariable('mode', 'detailed');
+	public function testSwitchToSummary() {
+		global $gallery;
+		GalleryUtilities::putRequestVariable('mode', 'summary');
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('return' => 1,
-				  'redirect' => array('view' => 'core.ShowItem'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'return'   => 1,
+				'redirect' => array(
+					'view' => 'core.ShowItem',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	/* Verify that we're in the right mode now */
-	$session =& $gallery->getSession();
-	if (!$session->exists('getid3.module.LoadGetid3Info.mode')) {
-	    $this->fail('Missing session value');
+		// Verify that we're in the right mode now
+		$session =& $gallery->getSession();
+
+		if (!$session->exists('getid3.module.LoadGetid3Info.mode')) {
+			$this->fail('Missing session value');
+		}
+		$this->assertEquals('summary', $session->get('getid3.module.LoadGetid3Info.mode'));
 	}
-	$this->assertEquals('detailed', $session->get('getid3.module.LoadGetid3Info.mode'));
-    }
 
-    function testSwitchToBogus() {
-	global $gallery;
-	GalleryUtilities::putRequestVariable('mode', 'BoGuS');
+	public function testSwitchToDetailed() {
+		global $gallery;
+		GalleryUtilities::putRequestVariable('mode', 'detailed');
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('return' => 1,
-				  'redirect' => array('view' => 'core.ShowItem'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'return'   => 1,
+				'redirect' => array(
+					'view' => 'core.ShowItem',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	/* Verify that we're in the right mode now */
-	$session =& $gallery->getSession();
-	if (!$session->exists('getid3.module.LoadGetid3Info.mode')) {
-	    $this->fail('Missing session value');
+		// Verify that we're in the right mode now
+		$session =& $gallery->getSession();
+
+		if (!$session->exists('getid3.module.LoadGetid3Info.mode')) {
+			$this->fail('Missing session value');
+		}
+		$this->assertEquals('detailed', $session->get('getid3.module.LoadGetid3Info.mode'));
 	}
-	$this->assertEquals('summary', $session->get('getid3.module.LoadGetid3Info.mode'));
-    }
+
+	public function testSwitchToBogus() {
+		global $gallery;
+		GalleryUtilities::putRequestVariable('mode', 'BoGuS');
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'return'   => 1,
+				'redirect' => array(
+					'view' => 'core.ShowItem',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		// Verify that we're in the right mode now
+		$session =& $gallery->getSession();
+
+		if (!$session->exists('getid3.module.LoadGetid3Info.mode')) {
+			$this->fail('Missing session value');
+		}
+		$this->assertEquals('summary', $session->get('getid3.module.LoadGetid3Info.mode'));
+	}
 }
-?>

@@ -26,192 +26,238 @@
  * @version $Revision: 17580 $
  */
 class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
+	public $paramNames;
 
-    var $paramNames;
-
-    function AdminSelfRegistrationControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'register.AdminSelfRegistration');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'register.AdminSelfRegistration');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'register');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'register');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'emailusers', '0');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Create a pending user..
+		list($ret, $pendingUser) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPendingUser');
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = $pendingUser->create('testuser_' . mt_rand(1000, 1000000));
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = $pendingUser->save();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_pendingUser =& $pendingUser;
 	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'emailusers', '0');
-	if ($ret) {
-	    return $ret;
+
+	public function tearDown() {
+		if (isset($this->_pendingUser)) {
+			$ret = GalleryCoreApi::deleteEntityById($this->_pendingUser->getId(), 'GalleryEntity');
+
+			if ($ret) {
+				$this->failWithStatus($ret);
+			}
+		}
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	/* Create a pending user.. */
-	list ($ret, $pendingUser) =
-	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPendingUser');
-	if ($ret) {
-	    return $ret;
+	public function testAdminSelfRegistrationControllerSave() {
+		GalleryUtilities::putRequestVariable('form[confirmation]', 'email');
+		GalleryUtilities::putRequestVariable('form[from]', 'tester@nobody.org');
+		GalleryUtilities::putRequestVariable('form[subject]', 'Testmail');
+		GalleryUtilities::putRequestVariable('form[adminsubject]', 'Testmail');
+		GalleryUtilities::putRequestVariable('form[usersubject]', 'Testmail');
+		GalleryUtilities::putRequestVariable('form[emailusers]', 'on');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'register.AdminSelfRegistration',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		GalleryDataCache::reset();
+
+		$valueMap = array(
+			'confirmation' => 'email',
+			'from'         => 'tester@nobody.org',
+			'subject'      => 'Testmail',
+			'adminsubject' => 'Testmail',
+			'usersubject'  => 'Testmail',
+			'emailadmins'  => '0',
+			'emailusers'   => '1',
+		);
+
+		foreach ($valueMap as $key => $expectedValue) {
+			list($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'register', $key);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals($expectedValue, $realValue, "value mismatch for $key");
+		}
 	}
-	$ret = $pendingUser->create('testuser_' . rand(1000, 1000000));
-	if ($ret) {
-	    return $ret;
+
+	public function testAdminSelfRegistrationControllerActivate() {
+		GalleryUtilities::putRequestVariable('form[userId]', $this->_pendingUser->getId());
+		GalleryUtilities::putRequestVariable('form[action][activate]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'register.AdminSelfRegistration',
+				),
+				'status'   => array(
+					'activated' => $this->_pendingUser->getUserName(),
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$ret = $this->_verifyMissing($this->_pendingUser->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$username           = $this->_pendingUser->getUserName();
+		$this->_pendingUser = null;
+
+		list($ret, $user) = GalleryCoreApi::fetchUserByUsername($username);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_pendingUser = $user;
 	}
-	$ret = $pendingUser->save();
-	if ($ret) {
-	    return $ret;
+
+	public function testAdminSelfRegistrationControllerActivateMissingUser() {
+		GalleryUtilities::putRequestVariable('form[userId]', 99999999 /* very unlikely id */);
+		GalleryUtilities::putRequestVariable('form[action][activate]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'register.AdminSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
 
-	$this->_pendingUser =& $pendingUser;
-    }
+	public function testAdminSelfRegistrationControllerDelete() {
+		GalleryUtilities::putRequestVariable('form[userId]', $this->_pendingUser->getId());
+		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
 
-    function tearDown() {
-	if (isset($this->_pendingUser)) {
-	    $ret = GalleryCoreApi::deleteEntityById($this->_pendingUser->getId(), 'GalleryEntity');
-	    if ($ret) {
-		$this->failWithStatus($ret);
-	    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'register.AdminSelfRegistration',
+				),
+				'status'   => array(
+					'deleted' => $this->_pendingUser->getUserName(),
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$ret = $this->_verifyMissing($this->_pendingUser->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_pendingUser = null;
 	}
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
+
+	public function testAdminSelfRegistrationControllerDeleteMissingUser() {
+		GalleryUtilities::putRequestVariable('form[userId]', 99999999 /* very unlikely id */);
+		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'register.AdminSelfRegistration',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-    }
 
-    function testAdminSelfRegistrationControllerSave() {
-	GalleryUtilities::putRequestVariable('form[confirmation]', 'email');
-	GalleryUtilities::putRequestVariable('form[from]', 'tester@nobody.org');
-	GalleryUtilities::putRequestVariable('form[subject]', 'Testmail');
-	GalleryUtilities::putRequestVariable('form[adminsubject]', 'Testmail');
-	GalleryUtilities::putRequestVariable('form[usersubject]', 'Testmail');
-	GalleryUtilities::putRequestVariable('form[emailusers]', 'on');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testHelperMethods() {
+		GalleryCoreApi::requireOnce(
+			'modules/register/classes/GalleryPendingUserHelper.class'
+		);
+		list($ret, $count) = GalleryPendingUserHelper::fetchUserCount();
 
-	$results = $this->handleRequest();
-	$this->assertEquals(
-		array(	'redirect' => array('view' => 'core.SiteAdmin',
-					    'subView' => 'register.AdminSelfRegistration'),
-			'status' => array('saved' => 1),
-			'error' => array()),
-		$results);
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert($count > 0, 'User count');
+		list($ret, $count) = GalleryPendingUserHelper::fetchUserCount('testuser');
 
-	GalleryDataCache::reset();
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert($count > 0, 'User count with filter');
 
-	$valueMap = array('confirmation'=>'email',
-		'from' => 'tester@nobody.org',
-		'subject' => 'Testmail',
-		'adminsubject' => 'Testmail',
-		'usersubject' => 'Testmail',
-		'emailadmins' => '0',
-		'emailusers' => '1',
-	);
-	foreach ($valueMap as $key => $expectedValue) {
-	    list ($ret, $realValue) =
-		GalleryCoreApi::getPluginParameter('module', 'register', $key);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assertEquals($expectedValue, $realValue, "value mismatch for $key");
+		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!empty($data), 'User data');
+
+		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0, 'testuser');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!empty($data), 'User data with filter');
 	}
-    }
-
-    function testAdminSelfRegistrationControllerActivate() {
-	GalleryUtilities::putRequestVariable('form[userId]', $this->_pendingUser->getId());
-	GalleryUtilities::putRequestVariable('form[action][activate]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-		array(	'redirect' => array('view' => 'core.SiteAdmin',
-					    'subView' => 'register.AdminSelfRegistration'),
-			'status' => array('activated' => $this->_pendingUser->getUserName()),
-			'error' => array()),
-		$results);
-
-	$ret = $this->_verifyMissing($this->_pendingUser->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$username = $this->_pendingUser->getUserName();
-	$this->_pendingUser = null;
-
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($username);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_pendingUser = $user;
-    }
-
-    function testAdminSelfRegistrationControllerActivateMissingUser() {
-	GalleryUtilities::putRequestVariable('form[userId]', 99999999 /* very unlikely id */);
-	GalleryUtilities::putRequestVariable('form[action][activate]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.SiteAdmin',
-				      'subView' => 'register.AdminSelfRegistration'),
-		  'status' => array(),
-		  'error' => array()),
-	    $results);
-    }
-
-    function testAdminSelfRegistrationControllerDelete() {
-	GalleryUtilities::putRequestVariable('form[userId]', $this->_pendingUser->getId());
-	GalleryUtilities::putRequestVariable('form[action][delete]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-		array(	'redirect' => array('view' => 'core.SiteAdmin',
-					    'subView' => 'register.AdminSelfRegistration'),
-			'status' => array('deleted' => $this->_pendingUser->getUserName()),
-			'error' => array()),
-		$results);
-
-	$ret = $this->_verifyMissing($this->_pendingUser->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_pendingUser = null;
-    }
-
-    function testAdminSelfRegistrationControllerDeleteMissingUser() {
-	GalleryUtilities::putRequestVariable('form[userId]', 99999999 /* very unlikely id */);
-	GalleryUtilities::putRequestVariable('form[action][delete]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.SiteAdmin',
-				      'subView' => 'register.AdminSelfRegistration'),
-		  'status' => array(),
-		  'error' => array()),
-	    $results);
-    }
-
-    function testHelperMethods() {
-	GalleryCoreApi::requireOnce(
-	    'modules/register/classes/GalleryPendingUserHelper.class');
-	list ($ret, $count) = GalleryPendingUserHelper::fetchUserCount();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($count > 0, 'User count');
-	list ($ret, $count) = GalleryPendingUserHelper::fetchUserCount('testuser');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($count > 0, 'User count with filter');
-
-	list ($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!empty($data), 'User data');
-
-	list ($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0, 'testuser');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!empty($data), 'User data with filter');
-    }
 }
-?>

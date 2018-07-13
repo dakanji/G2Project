@@ -27,78 +27,94 @@
  * @version $Revision: 17580 $
  */
 class UserAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function UserAlbumSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'useralbum.UserAlbumSiteAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'useralbum.UserAlbumSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'useralbum');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'useralbum');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Create random album to test assignment
+		list($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_parentAlbum);
 	}
 
-	/* Create random album to test assignment */
-	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
+	public function testUserAlbumSiteAdminControllerReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'useralbum.UserAlbumSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
 
-	$this->_markForCleanup($this->_parentAlbum);
-    }
+	public function testUserAlbumSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+		GalleryUtilities::putRequestVariable('form[create]', 'immediate');
+		GalleryUtilities::putRequestVariable('form[view]', 'allusers');
+		GalleryUtilities::putRequestVariable('form[fullSize]', '0');
+		GalleryUtilities::putRequestVariable('form[targetLocation]', $this->_getRootId());
+		GalleryUtilities::putRequestVariable('form[homeLink]', 'on');
 
-    function testUserAlbumSiteAdminControllerReset() {
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'useralbum.UserAlbumSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
 
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+		// Verify the information in the DB
+		list($ret, $verifyParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'useralbum.UserAlbumSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testUserAlbumSiteAdminControllerSave() {
-
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-	GalleryUtilities::putRequestVariable('form[create]', 'immediate');
-	GalleryUtilities::putRequestVariable('form[view]', 'allusers');
-	GalleryUtilities::putRequestVariable('form[fullSize]', '0');
-	GalleryUtilities::putRequestVariable('form[targetLocation]', $this->_getRootId());
-	GalleryUtilities::putRequestVariable('form[homeLink]', 'on');
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'useralbum.UserAlbumSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	/* Verify the information in the DB */
-	list ($ret, $verifyParams) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
-	foreach ($verifyParams as $key => $value) {
-	    if ($key[0] == '_') {
-		unset($verifyParams[$key]);
-	    }
+		foreach ($verifyParams as $key => $value) {
+			if ($key[0] == '_') {
+				unset($verifyParams[$key]);
+			}
+		}
+		$this->assertEquals(
+			array(
+				'create'         => 'immediate',
+				'view'           => 'allusers',
+				'fullSize'       => '0',
+				'targetLocation' => $this->_getRootId(),
+				'loginRedirect'  => '0',
+				'homeLink'       => '1',
+			),
+			$verifyParams,
+			'Verify DB Data'
+		);
 	}
-	$this->assertEquals(array('create' => 'immediate',
-				  'view' => 'allusers',
-				  'fullSize' => '0',
-				  'targetLocation' => $this->_getRootId(),
-				  'loginRedirect' => '0',
-				  'homeLink' => '1',
-				  ),
-			    $verifyParams,
-			    'Verify DB Data');
-    }
 }
-?>

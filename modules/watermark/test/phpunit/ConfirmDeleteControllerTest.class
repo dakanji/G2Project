@@ -28,146 +28,194 @@ GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
  * @version $Revision: 17580 $
  */
 class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
-
-    function ConfirmDeleteControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'watermark.ConfirmDelete');
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'watermark.ConfirmDelete');
 	}
 
-	$this->_registerTestEventListener('GalleryEntity::delete', new WatermarkModule());
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
 
-	list ($ret, $this->_user) = $this->_createUser();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_user);
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_saveUser = $gallery->getActiveUser();
-	$gallery->setActiveUser($this->_user);
+		$this->_registerTestEventListener('GalleryEntity::delete', new WatermarkModule());
 
-	/* Create a watermark (it'll be created as our active user) */
-	$watermark = new WatermarkImage();
-	$ret = $watermark->create(__FILE__, 'test/file', 'phpunit_' . rand() . '.gif');
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = $watermark->save();
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addGroupPermission($watermark->getId(), $id, 'core.all');
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $watermark->getId(), $this->_user->getId(), 'core.all');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_watermark = $watermark;
+		list($ret, $this->_user) = $this->_createUser();
 
-	/* Create watermarked item */
-	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_item);
-	list ($ret, $this->_derivative) = $this->_createDerivative(
-	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, '', 'test/file',
-	    array('postFilterOperations' =>
-		      'composite|plugins_data/modules/watermark/' .
-		      $watermark->getFileName() . ',...'));
-	if ($ret) {
-	    return $ret;
-	}
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_user);
 
-    function testUserCancel() {
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-	GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+		$this->_saveUser = $gallery->getActiveUser();
+		$gallery->setActiveUser($this->_user);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
-						      'subView' => 'watermark.UserWatermarks'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		// Create a watermark (it'll be created as our active user)
+		$watermark = new WatermarkImage();
+		$ret       = $watermark->create(__FILE__, 'test/file', 'phpunit_' . mt_rand() . '.gif');
 
-    function testAdminCancel() {
-	global $gallery;
-	$gallery->setActiveUser($this->_saveUser);
+		if ($ret) {
+			return $ret;
+		}
+		$ret = $watermark->save();
 
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-	GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
-	GalleryUtilities::putRequestVariable('form[fromAdmin]', 1);
+		if ($ret) {
+			return $ret;
+		}
+		list($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'watermark.WatermarkSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::addGroupPermission($watermark->getId(), $id, 'core.all');
 
-    function testUserDelete() {
-	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-	GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::addUserPermission(
+			$watermark->getId(),
+			$this->_user->getId(),
+			'core.all'
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
-						      'subView' => 'watermark.UserWatermarks'),
-				  'status' => array('delete' => 1),
-				  'error' => array()),
-			    $results);
+		if ($ret) {
+			return $ret;
+		}
+		$this->_watermark = $watermark;
 
-	$ret = $this->_verifyMissing($this->_watermark->getId());
-	if ($ret) {
-	    return $ret;
+		// Create watermarked item
+		list($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_item);
+		list($ret, $this->_derivative) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+			'',
+			'test/file',
+			array(
+				'postFilterOperations' => 'composite|plugins_data/modules/watermark/' .
+											  $watermark->getFileName() . ',...',
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	list ($ret, $derivative) = $this->_derivative->refresh();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
-    }
+	public function testUserCancel() {
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 
-    function testAdminDelete() {
-	global $gallery;
-	$gallery->setActiveUser($this->_saveUser);
-
-	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-	GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
-	GalleryUtilities::putRequestVariable('form[fromAdmin]', 1);
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'watermark.WatermarkSiteAdmin'),
-				  'status' => array('delete' => 1),
-				  'error' => array()),
-			    $results);
-
-	$ret = $this->_verifyMissing($this->_watermark->getId());
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'watermark.UserWatermarks',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
 
-	list ($ret, $derivative) = $this->_derivative->refresh();
-	if ($ret) {
-	    return $ret;
+	public function testAdminCancel() {
+		global $gallery;
+		$gallery->setActiveUser($this->_saveUser);
+
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+		GalleryUtilities::putRequestVariable('form[fromAdmin]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'watermark.WatermarkSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-	$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
-    }
+
+	public function testUserDelete() {
+		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'watermark.UserWatermarks',
+				),
+				'status'   => array(
+					'delete' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$ret = $this->_verifyMissing($this->_watermark->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $derivative) = $this->_derivative->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
+	}
+
+	public function testAdminDelete() {
+		global $gallery;
+		$gallery->setActiveUser($this->_saveUser);
+
+		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+		GalleryUtilities::putRequestVariable('form[fromAdmin]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'watermark.WatermarkSiteAdmin',
+				),
+				'status'   => array(
+					'delete' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		$ret = $this->_verifyMissing($this->_watermark->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $derivative) = $this->_derivative->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
+	}
 }
-?>

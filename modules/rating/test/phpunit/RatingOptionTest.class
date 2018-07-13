@@ -26,104 +26,150 @@
  * @version $Revision: 17580 $
  */
 class RatingOptionTest extends ItemEditOptionTestCase {
-
-    function RatingOptionTest($methodName) {
-	$this->ItemEditOptionTestCase($methodName, 'rating', 'RatingItemEdit');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'rating', 'RatingItemEdit');
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function setUp() {
+		$ret = parent::setUp();
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'rating');
-	if ($ret) {
-	    return $ret;
-	}
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testEnableRatingForAlbum() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
-		$this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 
-	$form['action']['save'] = 'Save';
-	$form['rating']['enabled'] = 'on';
-	$result = $this->_handleRequestAfterEdit($form, $this->_album);
-	$this->assertEquals(array(array(), array()), $result, 'Save failed.');
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
 
-	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled',
-		$this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(1, (int)$enabled, 'Rating not enabled.');
-    }
+		$ret = $this->_markPluginParametersForCleanup('module', 'rating');
 
-    function testDisableRatingForAlbum() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 1,
-		$this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$form['action']['save'] = 'Save';
-	$result = $this->_handleRequestAfterEdit($form, $this->_album);
-	$this->assertEquals(array(array(), array()), $result, 'Save failed.');
+	public function testEnableRatingForAlbum() {
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			0,
+			$this->_album->getId()
+		);
 
-	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled',
-		$this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(0, (int)$enabled, 'Rating enabled.');
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testEnableInDescendents() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
-		$this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$form['rating']['enabled'] = 1;
-	$form['changeInDescendents']['rating'] = 1;
+		$form['action']['save']    = 'Save';
+		$form['rating']['enabled'] = 'on';
+		$result                    = $this->_handleRequestAfterEdit($form, $this->_album);
+		$this->assertEquals(array(array(), array()), $result, 'Save failed.');
 
-	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
-		$this->_childAlbum->getId());
-	if ($ret) {
-	    return $ret;
+		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			$this->_album->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(1, (int)$enabled, 'Rating not enabled.');
 	}
 
-	list ($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
-	$this->assertEquals(array(), $error);
-	$this->assertEquals(array(), $warning);
+	public function testDisableRatingForAlbum() {
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			1,
+			$this->_album->getId()
+		);
 
-	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter(
-	    'module', 'rating', 'enabled', $this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(1, (int)$enabled, 'Parent album');
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter(
-	    'module', 'rating', 'enabled', $this->_childAlbum->getId());
-	if ($ret) {
-	    return $ret;
+		$form['action']['save'] = 'Save';
+		$result                 = $this->_handleRequestAfterEdit($form, $this->_album);
+		$this->assertEquals(array(array(), array()), $result, 'Save failed.');
+
+		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			$this->_album->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(0, (int)$enabled, 'Rating enabled.');
 	}
-	$this->assertEquals(1, (int)$enabled, 'Child album');
-    }
+
+	public function testEnableInDescendents() {
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			0,
+			$this->_album->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$form['rating']['enabled']             = 1;
+		$form['changeInDescendents']['rating'] = 1;
+
+		list($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			0,
+			$this->_childAlbum->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		$this->assertEquals(array(), $error);
+		$this->assertEquals(array(), $warning);
+
+		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			$this->_album->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(1, (int)$enabled, 'Parent album');
+
+		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rating',
+			'enabled',
+			$this->_childAlbum->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(1, (int)$enabled, 'Child album');
+	}
 }
-?>

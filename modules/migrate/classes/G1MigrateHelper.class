@@ -27,62 +27,66 @@
  * @static
  */
 class G1MigrateHelper {
+	/**
+	 * Count number of mappings in migration table
+	 *
+	 * @return array GalleryStatus a status code
+	 *               int count
+	 */
+	public function fetchMapCount() {
+		global $gallery;
 
-    /**
-     * Count number of mappings in migration table
-     *
-     * @return array GalleryStatus a status code
-     *               int count
-     */
-    function fetchMapCount() {
-	global $gallery;
+		$query = 'SELECT COUNT(*) FROM [G1MigrateMap]';
 
-	$query = 'SELECT COUNT(*) FROM [G1MigrateMap]';
+		list($ret, $searchResults) = $gallery->search($query, array(), array());
 
-	list ($ret, $searchResults) = $gallery->search($query, array(), array());
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$count = 0;
+
+		if ($result = $searchResults->nextResult()) {
+			$count = (int)$result[0];
+		}
+
+		return array(null, $count);
 	}
 
-	$count = 0;
-	if ($result = $searchResults->nextResult()) {
-	    $count = (int)$result[0];
-	}
-	return array(null, $count);
-    }
+	/**
+	 * Get mapping for given G1 album/item
+	 *
+	 * @param string $g1album G1 album name
+	 * @param string $g1item (optional) G1 item name
+	 * @return array GalleryStatus a status code
+	 *               int id of G2 item or null if not found
+	 */
+	public function fetchMapping($g1album, $g1item = null) {
+		global $gallery;
 
-    /**
-     * Get mapping for given G1 album/item
-     *
-     * @param string $g1album G1 album name
-     * @param string $g1item (optional) G1 item name
-     * @return array GalleryStatus a status code
-     *               int id of G2 item or null if not found
-     */
-    function fetchMapping($g1album, $g1item=null) {
-	global $gallery;
-
-	$query = 'SELECT [G1MigrateMap::itemId] FROM [G1MigrateMap]
+		$query = 'SELECT [G1MigrateMap::itemId] FROM [G1MigrateMap]
 		  WHERE [G1MigrateMap::g1album]=? AND [G1MigrateMap::g1item]';
-	$data = array($g1album);
+		$data  = array($g1album);
 
-	if (isset($g1item)) {
-	    $query .= '=?';
-	    $data[] = $g1item;
-	} else {
-	    $query .= ' IS NULL';
-	}
+		if (isset($g1item)) {
+			$query .= '=?';
+			$data[] = $g1item;
+		} else {
+			$query .= ' IS NULL';
+		}
 
-	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
-	    return array($ret, null);
-	}
+		list($ret, $searchResults) = $gallery->search($query, $data);
 
-	$id = null;
-	if ($result = $searchResults->nextResult()) {
-	    $id = (int)$result[0];
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$id = null;
+
+		if ($result = $searchResults->nextResult()) {
+			$id = (int)$result[0];
+		}
+
+		return array(null, $id);
 	}
-	return array(null, $id);
-    }
 }
-?>

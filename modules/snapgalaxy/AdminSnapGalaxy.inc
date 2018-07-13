@@ -28,78 +28,98 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 class AdminSnapGalaxyController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest(&$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest(&$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = $error = array();
-	if (isset($form['action']['save'])) {
-	    if (empty($form['snapgalaxyPartnerId'])
-		    || !preg_match('/^[A-Za-z0-9_\-]+$/', $form['snapgalaxyPartnerId'])) {
-		$error[] = 'form[error][snapgalaxyPartnerId][invalid]';
-	    }
-	    if (empty($error)) {
-		foreach (array('snapgalaxyPartnerId') as $key) {
-		    $ret = GalleryCoreApi::setPluginParameter(
-			'module', 'snapgalaxy', $key, trim($form[$key]));
-		    if ($ret) {
+		if ($ret) {
 			return array($ret, null);
-		    }
 		}
 
-		$redirect = array('view' => 'core.SiteAdmin');
-		$redirect['subView'] = 'snapgalaxy.AdminSnapGalaxy';
-		$status['saved'] = 1;
-	    }
-	} else if (isset($form['action']['reset'])) {
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'snapgalaxy.AdminSnapGalaxy';
-	}
+		$status = $error = array();
 
-	$results = array('status' => $status, 'error' => $error);
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'snapgalaxy.AdminSnapGalaxy';
+		if (isset($form['action']['save'])) {
+			if (empty($form['snapgalaxyPartnerId'])
+				|| !preg_match('/^[A-Za-z0-9_\-]+$/', $form['snapgalaxyPartnerId'])
+			) {
+				$error[] = 'form[error][snapgalaxyPartnerId][invalid]';
+			}
+
+			if (empty($error)) {
+				foreach (array('snapgalaxyPartnerId') as $key) {
+					$ret = GalleryCoreApi::setPluginParameter(
+						'module',
+						'snapgalaxy',
+						$key,
+						trim($form[$key])
+					);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+
+				$redirect            = array(
+					'view' => 'core.SiteAdmin',
+				);
+				$redirect['subView'] = 'snapgalaxy.AdminSnapGalaxy';
+				$status['saved']     = 1;
+			}
+		} elseif (isset($form['action']['reset'])) {
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'snapgalaxy.AdminSnapGalaxy';
+		}
+
+		$results = array(
+			'status' => $status,
+			'error'  => $error,
+		);
+
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
+		} else {
+			$results['delegate']['view']    = 'core.SiteAdmin';
+			$results['delegate']['subView'] = 'snapgalaxy.AdminSnapGalaxy';
+		}
+
+		return array(null, $results);
 	}
-	return array(null, $results);
-    }
 }
 
 /**
  * Settings for SnapGalaxy
  */
 class AdminSnapGalaxyView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['formName'] != 'AdminSnapGalaxy') {
-	    foreach (array('snapgalaxyPartnerId') as $key) {
-		list ($ret, $form[$key]) =
-		    GalleryCoreApi::getPluginParameter('module', 'snapgalaxy', $key);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
-	    $form['formName'] = 'AdminSnapGalaxy';
-	}
 
-	$template->setVariable('controller', 'snapgalaxy.AdminSnapGalaxy');
-	return array(null, array('body' => 'modules/snapgalaxy/templates/AdminSnapGalaxy.tpl'));
-    }
+		if ($form['formName'] != 'AdminSnapGalaxy') {
+			foreach (array('snapgalaxyPartnerId') as $key) {
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'snapgalaxy', $key);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+			$form['formName'] = 'AdminSnapGalaxy';
+		}
+
+		$template->setVariable('controller', 'snapgalaxy.AdminSnapGalaxy');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/snapgalaxy/templates/AdminSnapGalaxy.tpl',
+			),
+		);
+	}
 }
-?>

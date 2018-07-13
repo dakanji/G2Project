@@ -28,55 +28,57 @@ GalleryCoreApi::requireOnce('modules/core/classes/OptimizeDatabaseTask.class');
  * @version $Revision: 17580 $
  */
 class OptimizeDatabaseTaskTest extends GalleryTestCase {
-
-    function OptimizeDatabaseTaskTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-
-	$this->_task = new OptimizeDatabaseTask();
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-    }
-
-    function testRun() {
-	global $gallery;
-
-	$gallery->_storage = new OptimizeDatabaseTaskTestStorage();
-	$mockStorage =& $gallery->_storage;
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $success, $details) = $this->_task->run();
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+
+		$this->_task = new OptimizeDatabaseTask();
+		$ret         = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$this->assert($success);
-	$this->assertEquals(array($module->translate('Database optimized successfully')), $details);
-	$this->assert($mockStorage->optimizeWasCalled());
-    }
+	public function testRun() {
+		global $gallery;
+
+		$gallery->_storage = new OptimizeDatabaseTaskTestStorage();
+		$mockStorage       =& $gallery->_storage;
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $success, $details) = $this->_task->run();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($success);
+		$this->assertEquals(array($module->translate('Database optimized successfully')), $details);
+		$this->assert($mockStorage->optimizeWasCalled());
+	}
 }
 
 class OptimizeDatabaseTaskTestStorage {
-    function OptimizeDatabaseTaskTestStorage() {
-	$this->_optimizeWasCalled = false;
-    }
+	public function __construct() {
+		$this->_optimizeWasCalled = false;
+	}
 
-    function optimize() {
-	$this->_optimizeWasCalled = true;
-	return null;
-    }
+	public function optimize() {
+		$this->_optimizeWasCalled = true;
 
-    function optimizeWasCalled() {
-	return $this->_optimizeWasCalled;
-    }
+		return null;
+	}
+
+	public function optimizeWasCalled() {
+		return $this->_optimizeWasCalled;
+	}
 }
-?>

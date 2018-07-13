@@ -26,128 +26,134 @@
  * @version $Revision: 17580 $
  */
 class AdminEditGroupController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$results = $status = $error = array();
-	$groupId = GalleryUtilities::getRequestVariables('groupId');
-	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if (isset($form['action']['cancel'])) {
-
-	    /* Redirect back to the AdminGroups view */
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminGroups';
-
-	} else if (isset($form['action']['undo'])) {
-
-	    /* Redirect back to the same view to reset the form */
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminEditGroup';
-	    $redirect['groupId'] = $groupId;
-
-	} else if (isset($form['action']['save'])) {
-
-	    if (empty($form['groupName'])) {
-		$error[] = 'form[error][groupName][missing]';
-	    } else {
-		list ($ret, $tmpGroup) = GalleryCoreApi::fetchGroupByGroupname($form['groupName']);
-		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
-		}
-
-		if (!empty($tmpGroup) && $tmpGroup->getId() != $groupId) {
-		    $error[] = 'form[error][groupName][exists]';
-		}
-	    }
-
-	    if (empty($error)) {
-		/* Save our changes */
-		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($groupId);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
 
-		/* Refresh our object, now that it's locked */
-		list ($ret, $group) = $group->refresh();
+		$results           = $status = $error = array();
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
 
-		/* Enact the change */
-		$group->setGroupName($form['groupName']);
-		$ret = $group->save();
-		if ($ret) {
-		    return array($ret, null);
+		if (isset($form['action']['cancel'])) {
+			// Redirect back to the AdminGroups view
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'core.AdminGroups';
+		} elseif (isset($form['action']['undo'])) {
+			// Redirect back to the same view to reset the form
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'core.AdminEditGroup';
+			$redirect['groupId'] = $groupId;
+		} elseif (isset($form['action']['save'])) {
+			if (empty($form['groupName'])) {
+				$error[] = 'form[error][groupName][missing]';
+			} else {
+				list($ret, $tmpGroup) = GalleryCoreApi::fetchGroupByGroupname($form['groupName']);
+
+				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+					return array($ret, null);
+				}
+
+				if (!empty($tmpGroup) && $tmpGroup->getId() != $groupId) {
+					$error[] = 'form[error][groupName][exists]';
+				}
+			}
+
+			if (empty($error)) {
+				// Save our changes
+				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($groupId);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				// Refresh our object, now that it's locked
+				list($ret, $group) = $group->refresh();
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				// Enact the change
+				$group->setGroupName($form['groupName']);
+				$ret = $group->save();
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				$ret = GalleryCoreApi::releaseLocks($lockId);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				// Request a redirect to the confirmation screen
+				$redirect['view']        = 'core.SiteAdmin';
+				$redirect['subView']     = 'core.AdminGroups';
+				$status['modifiedGroup'] = $group->getGroupName();
+			}
 		}
 
-		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret) {
-		    return array($ret, null);
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
+		} else {
+			$results['delegate']['view']    = 'core.SiteAdmin';
+			$results['delegate']['subView'] = 'core.AdminEditGroup';
 		}
+		$results['status'] = $status;
+		$results['error']  = $error;
 
-		/* Request a redirect to the confirmation screen */
-		$redirect['view'] = 'core.SiteAdmin';
-		$redirect['subView'] = 'core.AdminGroups';
-		$status['modifiedGroup'] = $group->getGroupName();
-	    }
+		return array(null, $results);
 	}
-
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'core.AdminEditGroup';
-	}
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * This view will show options available to groups
  */
 class AdminEditGroupView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'AdminEditGroup') {
+			// First time around initialize our form
+			$form['groupName'] = $group->getGroupName();
+			$form['formName']  = 'AdminEditGroup';
+		}
+
+		$AdminEditGroup          = array();
+		$AdminEditGroup['group'] = (array)$group;
+		$template->setVariable('AdminEditGroup', $AdminEditGroup);
+		$template->setVariable('controller', 'core.AdminEditGroup');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminEditGroup.tpl',
+			),
+		);
 	}
-
-	$groupId = GalleryUtilities::getRequestVariables('groupId');
-	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['formName'] != 'AdminEditGroup') {
-	    /* First time around initialize our form */
-	    $form['groupName'] = $group->getGroupName();
-	    $form['formName'] = 'AdminEditGroup';
-	}
-
-	$AdminEditGroup = array();
-	$AdminEditGroup['group'] = (array)$group;
-	$template->setVariable('AdminEditGroup', $AdminEditGroup);
-	$template->setVariable('controller', 'core.AdminEditGroup');
-
-	return array(null, array('body' => 'modules/core/templates/AdminEditGroup.tpl'));
-    }
 }
-?>

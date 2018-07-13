@@ -25,62 +25,62 @@
  * @version $Revision: 17580 $
  */
 class QuotasCallbacks {
+	/**
+	 * Load the data for the user's quota and used space into the template.
+	 * LoadQuotas: This will return various data about the user's usage and quota.
+	 *             Data includes current size of usage, any user/group quotas and
+	 *            their associated size, and a percent value of used/unused space.
+	 *
+	 * @return GalleryStatus a status code
+	 */
+	public function callback($params, &$smarty, $callback, $userId = null) {
+		global $gallery;
 
-    /**
-     * Load the data for the user's quota and used space into the template.
-     * LoadQuotas: This will return various data about the user's usage and quota.
-     *             Data includes current size of usage, any user/group quotas and
-     *            their associated size, and a percent value of used/unused space.
-     *
-     * @return GalleryStatus a status code
-     */
-    function callback($params, &$smarty, $callback, $userId=null) {
-	global $gallery;
+		$blocks =& $smarty->_tpl_vars['block'];
+		$block  =& $blocks['quotas']['LoadQuotas'];
 
-	$blocks =& $smarty->_tpl_vars['block'];
-	$block =& $blocks['quotas']['LoadQuotas'];
+		switch ($callback) {
+			case 'LoadQuotas':
+				GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+				// The user's quota, if any
+				list($ret, $block['quotaExists'], $block['quotaValue']) = GalleryQuotasHelper::getUserDiskQuota($userId);
 
-	switch($callback) {
-	case 'LoadQuotas':
+				if ($ret) {
+					return $ret;
+				}
 
-	    GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
-	    /* The user's quota, if any */
-	    list ($ret, $block['quotaExists'], $block['quotaValue']) =
-		GalleryQuotasHelper::getUserDiskQuota($userId);
-	    if ($ret) {
-		return $ret;
-	    }
+				$userQuotaValueKB = $block['quotaValue'];
 
-	    $userQuotaValueKB = $block['quotaValue'];
+				list($ret, $block['quotaValue'], $block['quotaValueUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($block['quotaValue']);
 
-	    list ($ret, $block['quotaValue'], $block['quotaValueUnit']) =
-		GalleryQuotasHelper::humanReadableFromKilobytes($block['quotaValue']);
-	    if ($ret) {
-		return $ret;
-	    }
+				if ($ret) {
+					return $ret;
+				}
 
-	    /* The user's current usage */
-	    list ($ret, $block['currentUsage']) = GalleryQuotasHelper::getUserDiskUsage($userId);
-	    if ($ret) {
-		return $ret;
-	    }
+				// The user's current usage
+				list($ret, $block['currentUsage']) = GalleryQuotasHelper::getUserDiskUsage($userId);
 
-	    if ($block['quotaExists']) {
-		$block['currentUsagePercent'] =
-		    (int) round(($block['currentUsage'] / $userQuotaValueKB) * 100);
-		if ($block['currentUsagePercent'] > 100) {
-		    $block['currentUsagePercent'] = 100;
+				if ($ret) {
+					return $ret;
+				}
+
+				if ($block['quotaExists']) {
+					$block['currentUsagePercent'] = (int)round(($block['currentUsage'] / $userQuotaValueKB) * 100);
+
+					if ($block['currentUsagePercent'] > 100) {
+						$block['currentUsagePercent'] = 100;
+					}
+					$block['currentUnusedPercent'] = 100 - $block['currentUsagePercent'];
+				}
+				list($ret, $block['currentUsage'], $block['currentUsageUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($block['currentUsage']);
+
+				if ($ret) {
+					return $ret;
+				}
+
+				return null;
 		}
-		$block['currentUnusedPercent'] = 100 - $block['currentUsagePercent'];
-	    }
-	    list ($ret, $block['currentUsage'], $block['currentUsageUnit']) =
-		GalleryQuotasHelper::humanReadableFromKilobytes($block['currentUsage']);
-	    if ($ret) {
-		return $ret;
-	    }
-	    return null;
+
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

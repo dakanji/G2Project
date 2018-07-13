@@ -24,42 +24,45 @@
  * @version $Revision: 17580 $
  */
 class CartCallbacks {
+	public function callback($params, &$smarty, $callback, $userId = null) {
+		global $gallery;
 
-    function callback($params, &$smarty, $callback, $userId=null) {
-	global $gallery;
+		switch ($callback) {
+			case 'LoadCart':
+				// The cart contents' count
+				GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
+				list($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 
-	switch($callback) {
-	case 'LoadCart':
-	    /* The cart contents' count */
-	    GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
-	    list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
-	    if ($ret) {
-		return $ret;
-	    }
+				if ($ret) {
+					return $ret;
+				}
 
-	    $unique = array_keys($cartItemIds);
-	    $total = 0;
-	    foreach ($cartItemIds as $itemId => $count) {
-		$total += $count;
-	    }
+				$unique = array_keys($cartItemIds);
+				$total  = 0;
 
-	    $block =& $smarty->_tpl_vars['block'];
-	    $block['cart']['ShowCart']['unique'] = $unique;
-	    $block['cart']['ShowCart']['total'] = $total;
+				foreach ($cartItemIds as $itemId => $count) {
+					$total += $count;
+				}
 
-	    $urlParams = array('view' => 'cart.ViewCart');
-	    $itemId = GalleryUtilities::getRequestVariables('itemId');
-	    if (!empty($itemId)) {
-		$urlParams['itemId'] = $itemId;
-	    }
+				$block                               =& $smarty->_tpl_vars['block'];
+				$block['cart']['ShowCart']['unique'] = $unique;
+				$block['cart']['ShowCart']['total']  = $total;
 
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $block['cart']['ShowCart']['url'] = $urlGenerator->generateUrl($urlParams, array());
+				$urlParams = array(
+					'view' => 'cart.ViewCart',
+				);
+				$itemId    = GalleryUtilities::getRequestVariables('itemId');
 
-	    return null;
+				if (!empty($itemId)) {
+					$urlParams['itemId'] = $itemId;
+				}
+
+				$urlGenerator                     =& $gallery->getUrlGenerator();
+				$block['cart']['ShowCart']['url'] = $urlGenerator->generateUrl($urlParams, array());
+
+				return null;
+		}
+
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

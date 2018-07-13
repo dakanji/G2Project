@@ -27,70 +27,77 @@
  * @static
  */
 class NewItemsHelper {
-
-    /**
-     * Count number of albums with NewItems sort
-     *
-     * @return array GalleryStatus a status code
-     *               int count
-     */
-    function fetchAlbumCount() {
-	global $gallery;
-	$query = 'SELECT COUNT([GalleryAlbumItem::id]) FROM [GalleryAlbumItem] ' .
+	/**
+	 * Count number of albums with NewItems sort
+	 *
+	 * @return array GalleryStatus a status code
+	 *               int count
+	 */
+	public function fetchAlbumCount() {
+		global $gallery;
+		$query = 'SELECT COUNT([GalleryAlbumItem::id]) FROM [GalleryAlbumItem] ' .
 		 'WHERE [GalleryAlbumItem::orderBy] LIKE \'%NewItems%\'';
 
-	list ($ret, $results) = $gallery->search($query);
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $results) = $gallery->search($query);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$count = 0;
+
+		if ($result = $results->nextResult()) {
+			$count = (int)$result[0];
+		}
+
+		return array(null, $count);
 	}
 
-	$count = 0;
-	if ($result = $results->nextResult()) {
-	    $count = (int)$result[0];
-	}
-	return array(null, $count);
-    }
-
-    /**
-     * Remove NewItems sort from all albums
-     *
-     * @return GalleryStatus a status code
-     */
-    function resetNewItemSorts() {
-	global $gallery;
-	$query = 'SELECT [GalleryAlbumItem::id] FROM [GalleryAlbumItem] ' .
+	/**
+	 * Remove NewItems sort from all albums
+	 *
+	 * @return GalleryStatus a status code
+	 */
+	public function resetNewItemSorts() {
+		global $gallery;
+		$query = 'SELECT [GalleryAlbumItem::id] FROM [GalleryAlbumItem] ' .
 		 'WHERE [GalleryAlbumItem::orderBy] LIKE \'%NewItems%\'';
 
-	list ($ret, $results) = $gallery->search($query);
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $results) = $gallery->search($query);
 
-	for ($i = 0; $result = $results->nextResult();) {
-	    if ($i++ % 10 == 0) {
-		$gallery->guaranteeTimeLimit(5);
-	    }
-	    $itemId = (int)$result[0];
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
-	    if ($ret) {
-		return $ret;
-	    }
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $item->setOrderBy('');
-	    $item->setOrderDirection('');
-	    $ret = $item->save();
-	    if ($ret) {
-		return $ret;
-	    }
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return $ret;
-	    }
+		if ($ret) {
+			return $ret;
+		}
+
+		for ($i = 0; $result = $results->nextResult();) {
+			if ($i++ % 10 == 0) {
+				$gallery->guaranteeTimeLimit(5);
+			}
+			$itemId             = (int)$result[0];
+			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
+
+			if ($ret) {
+				return $ret;
+			}
+			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
+
+			if ($ret) {
+				return $ret;
+			}
+			$item->setOrderBy('');
+			$item->setOrderDirection('');
+			$ret = $item->save();
+
+			if ($ret) {
+				return $ret;
+			}
+			$ret = GalleryCoreApi::releaseLocks($lockId);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		return null;
 	}
-	return null;
-    }
 }
-?>

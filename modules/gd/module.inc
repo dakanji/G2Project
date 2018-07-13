@@ -28,166 +28,192 @@
  * @version $Revision: 20951 $
  */
 class GdModule extends GalleryModule {
+	public function __construct() {
+		global $gallery;
 
-    function GdModule() {
-	global $gallery;
-
-	$this->setId('gd');
-	$this->setName($gallery->i18n('Gd'));
-	$this->setDescription($gallery->i18n('Gd Graphics Toolkit'));
-	$this->setVersion('1.1.6');
-	$this->_templateVersion = 1;
-	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion) {
-	if (!isset($currentVersion)) {
-	    /* Initial install */
-	    $ret = $this->setParameter('jpegQuality', '75');
-	    if ($ret) {
-		return $ret;
-	    }
+		$this->setId('gd');
+		$this->setName($gallery->i18n('Gd'));
+		$this->setDescription($gallery->i18n('Gd Graphics Toolkit'));
+		$this->setVersion('1.1.6');
+		$this->_templateVersion = 1;
+		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	/* Register our graphics class with the factory */
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryToolkit', 'GdToolkit', 'Gd',
-	    'modules/gd/classes/GdToolkit.class', 'gd', null);
-	if ($ret) {
-	    return $ret;
-	}
-
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::activate
-     */
-    function activate($postActivationEvent=true) {
-	/* Load any classes we require */
-	GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
-
-	/* Find out what operations and properties we have available to us */
-	list ($ret, $results) =
-	    GdToolkitHelper::getOperationsAndProperties();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Gd');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if (!$priority) {
-	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $priority = min($priority + 1, 40);
-	}
-
-	foreach ($results['operations'] as $operation => $info) {
-	    $outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : null;
-	    $ret = GalleryCoreApi::registerToolkitOperation('Gd',
-							    $info['mimeTypes'],
-							    $operation,
-							    $info['params'],
-							    $info['description'],
-							    $outputMimeType, $priority);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-
-	foreach ($results['properties'] as $property => $info) {
-	    $ret = GalleryCoreApi::registerToolkitProperty('Gd',
-							   $info['mimeTypes'],
-							   $property,
-							   $info['type'],
-							   $info['description']);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-
-	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $redirect);
-    }
-
-    /**
-     * @see GalleryModule::needsConfiguration
-     */
-    function needsConfiguration() {
-	/* This module requires all fields to be filled out before it can be activated. */
-	list ($ret, $value) = $this->getParameter('jpegQuality');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (empty($value)) {
-	    return array(null, true);
-	}
-
-	/*
-	 * It also will stay requiring configuration if we don't have a
-	 * GD version with which we can work with.
+	/**
+	 * @see GalleryModule::upgrade
 	 */
-	GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+	public function upgrade($currentVersion) {
+		if (!isset($currentVersion)) {
+			// Initial install
+			$ret = $this->setParameter('jpegQuality', '75');
 
-	list ($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!$isSupported) {
-	    return array(null, true);
-	}
+			if ($ret) {
+				return $ret;
+			}
+		}
 
-	return array(null, false);
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {
-	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret) {
-	    return array($ret, false);
+		return null;
 	}
 
-	return array(null, !$needsConfiguration);
-    }
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		// Register our graphics class with the factory
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'GalleryToolkit',
+			'GdToolkit',
+			'Gd',
+			'modules/gd/classes/GdToolkit.class',
+			'gd',
+			null
+		);
 
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Gd'),
-				 'view' => 'gd.AdminGd')));
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    /**
-     * @see GalleryModule::getConfigurationView
-     */
-    function getConfigurationView() {
-	return 'gd.AdminGd';
-    }
+		return null;
+	}
+
+	/**
+	 * @see GalleryModule::activate
+	 */
+	public function activate($postActivationEvent = true) {
+		// Load any classes we require
+		GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+
+		// Find out what operations and properties we have available to us
+		list($ret, $results) = GdToolkitHelper::getOperationsAndProperties();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Gd');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$priority) {
+			list($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$priority = min($priority + 1, 40);
+		}
+
+		foreach ($results['operations'] as $operation => $info) {
+			$outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : null;
+			$ret            = GalleryCoreApi::registerToolkitOperation(
+				'Gd',
+				$info['mimeTypes'],
+				$operation,
+				$info['params'],
+				$info['description'],
+				$outputMimeType,
+				$priority
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		foreach ($results['properties'] as $property => $info) {
+			$ret = GalleryCoreApi::registerToolkitProperty(
+				'Gd',
+				$info['mimeTypes'],
+				$property,
+				$info['type'],
+				$info['description']
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		list($ret, $redirect) = parent::activate($postActivationEvent);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $redirect);
+	}
+
+	/**
+	 * @see GalleryModule::needsConfiguration
+	 */
+	public function needsConfiguration() {
+		// This module requires all fields to be filled out before it can be activated.
+		list($ret, $value) = $this->getParameter('jpegQuality');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (empty($value)) {
+			return array(null, true);
+		}
+
+		/*
+		 * It also will stay requiring configuration if we don't have a
+		 * GD version with which we can work with.
+		 */
+		GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+
+		list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$isSupported) {
+			return array(null, true);
+		}
+
+		return array(null, false);
+	}
+
+	/**
+	 * @see GalleryModule::autoConfigure
+	 */
+	public function autoConfigure() {
+		list($ret, $needsConfiguration) = $this->needsConfiguration();
+
+		if ($ret) {
+			return array($ret, false);
+		}
+
+		return array(null, !$needsConfiguration);
+	}
+
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Gd'),
+					'view' => 'gd.AdminGd',
+				),
+			),
+		);
+	}
+
+	/**
+	 * @see GalleryModule::getConfigurationView
+	 */
+	public function getConfigurationView() {
+		return 'gd.AdminGd';
+	}
 }
-?>

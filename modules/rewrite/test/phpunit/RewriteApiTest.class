@@ -29,340 +29,437 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
  * @version $Revision: 17580 $
  */
 class RewriteApiTest extends GalleryTestCase {
-
-    function RewriteApiTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Set up our mock parser
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rewrite',
+			'parserId',
+			'rewriteapimock'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Make sure we use the mock parser
+		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+		list($ret, $parser) = RewriteHelper::getRewriteParser(true);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('rewriteapimock', $parser->getParserId(), 'parserId');
+
+		// Load the api class
+		list($ret, $this->_rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Set gallery in embedded mode
+		GalleryDataCache::put('G2_EMBED', 1, true);
 	}
 
-	/* Set up our mock parser */
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
-						  'parserId', 'rewriteapimock');
-	if ($ret) {
-	    return $ret;
+	public function tearDown() {
+		global $gallery;
+
+		GalleryDataCache::remove('G2_EMBED');
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	/* Make sure we use the mock parser */
-	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
-	list ($ret, $parser) = RewriteHelper::getRewriteParser(true);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('rewriteapimock', $parser->getParserId(), 'parserId');
+	public function testIsCompatibleWithApi() {
+		$currentVersion = $this->_rewriteApi->getApiVersion();
 
-	/* Load the api class */
-	list ($ret, $this->_rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($currentVersion);
 
-	/* Set gallery in embedded mode */
-	GalleryDataCache::put('G2_EMBED', 1, true);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert($isCompatible, 'same version');
 
-    function tearDown() {
-	global $gallery;
+		$compatibleVersion        = array($currentVersion[0], 0);
+		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($compatibleVersion);
 
-	GalleryDataCache::remove('G2_EMBED');
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert($isCompatible, 'should be compatible, requiring same or lower minor version');
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
+		$incompatibleVersion      = array(--$currentVersion[0], 0);
+		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($incompatibleVersion);
 
-    function testIsCompatibleWithApi() {
-	$currentVersion = $this->_rewriteApi->getApiVersion();
-
-	list ($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($currentVersion);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($isCompatible, 'same version');
-
-	$compatibleVersion = array($currentVersion[0], 0);
-	list ($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($compatibleVersion);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($isCompatible, 'should be compatible, requiring same or lower minor version');
-
-	$incompatibleVersion = array(--$currentVersion[0], 0);
-	list ($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($incompatibleVersion);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!$isCompatible, 'should be incompatible, requiring lower major version');
-    }
-
-    function testGetParserId() {
-	$this->assertEquals('rewriteapimock', $this->_rewriteApi->getParserId());
-    }
-
-    function testGetParserType() {
-	$this->assertEquals('mock', $this->_rewriteApi->getParserType());
-    }
-
-    function testNeedsEmbedConfig1() {
-	list ($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!$isCompatible, 'should be incompatible, requiring lower major version');
 	}
 
-	$this->assertEquals(true, $needsConfiguration);
-    }
-
-    function testNeedsEmbedConfig2() {
-	GalleryDataCache::remove('G2_EMBED');
-	list ($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
-	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $ret;
+	public function testGetParserId() {
+		$this->assertEquals('rewriteapimock', $this->_rewriteApi->getParserId());
 	}
 
-	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
-    }
-
-    function testFetchEmbedConfig1() {
-	list ($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
-	if ($ret) {
-	    return $ret;
+	public function testGetParserType() {
+		$this->assertEquals('mock', $this->_rewriteApi->getParserType());
 	}
 
-	$this->assertEquals(array('phpunit' => 'test'), $params);
-    }
+	public function testNeedsEmbedConfig1() {
+		list($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
 
-    function testFetchEmbedConfig2() {
-	GalleryDataCache::remove('G2_EMBED');
-	list ($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
-	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(true, $needsConfiguration);
 	}
 
-	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
-    }
+	public function testNeedsEmbedConfig2() {
+		GalleryDataCache::remove('G2_EMBED');
+		list($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
 
-    function testSaveEmbedConfig1() {
-	list ($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array('phpunit' => 1));
-	if ($ret) {
-	    return $ret;
+		if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
+			return $ret;
+		}
+
+		$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
 	}
 
-	$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
-	$this->assertEquals(null, $errstr, 'errstr');
+	public function testFetchEmbedConfig1() {
+		list($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
 
-	list ($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array('phpunit' => 0));
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(
+			'phpunit' => 'test',
+		), $params);
 	}
 
-	$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code, 'code');
-	$this->assertEquals('Bad pattern', $errstr, 'errstr');
-    }
+	public function testFetchEmbedConfig2() {
+		GalleryDataCache::remove('G2_EMBED');
+		list($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
 
-    function testSaveEmbedConfig2() {
-	GalleryDataCache::remove('G2_EMBED');
-	list ($ret, $params) = $this->_rewriteApi->saveEmbedConfig(array());
-	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $ret;
+		if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
+			return $ret;
+		}
+
+		$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
 	}
 
-	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
-    }
+	public function testSaveEmbedConfig1() {
+		list($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array(
+			'phpunit' => 1,
+		));
 
-    function testFetchActiveRulesForModule() {
-	list ($ret, $expectedRules, $moduleId) =
-	    $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
+		$this->assertEquals(null, $errstr, 'errstr');
+
+		list($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array(
+			'phpunit' => 0,
+		));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code, 'code');
+		$this->assertEquals('Bad pattern', $errstr, 'errstr');
 	}
 
-	/* Execute the method under test */
-	list ($ret, $activeRules) = $this->_rewriteApi->fetchActiveRulesForModule($moduleId);
-	if ($ret) {
-	    return $ret;
+	public function testSaveEmbedConfig2() {
+		GalleryDataCache::remove('G2_EMBED');
+		list($ret, $params) = $this->_rewriteApi->saveEmbedConfig(array());
+
+		if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
+			return $ret;
+		}
+
+		$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
 	}
 
-	/* Verify the results */
-	$this->assertEquals(array_keys($expectedRules[$moduleId]), $activeRules, 'active rules');
-    }
+	public function testFetchActiveRulesForModule() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
 
-    function testFetchActiveRulesForModuleUsesHistory() {
-	list ($ret, $expectedRules, $moduleId) =
-	    $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, false, true);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		// Execute the method under test
+		list($ret, $activeRules) = $this->_rewriteApi->fetchActiveRulesForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assertEquals(array_keys($expectedRules[$moduleId]), $activeRules, 'active rules');
 	}
 
-	/* Execute the method under test */
-	list ($ret, $activeRules) = $this->_rewriteApi->fetchActiveRulesForModule($moduleId);
-	if ($ret) {
-	    return $ret;
+	public function testFetchActiveRulesForModuleUsesHistory() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, false, true);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Execute the method under test
+		list($ret, $activeRules) = $this->_rewriteApi->fetchActiveRulesForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assertEquals(array('rule2', 'rule0'), $activeRules, 'active rules');
 	}
 
-	/* Verify the results */
-	$this->assertEquals(array('rule2', 'rule0'), $activeRules, 'active rules');
-    }
+	public function testActivateRewriteRulesForModule() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule();
 
-    function testActivateRewriteRulesForModule() {
-	list ($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		// Execute the method under test
+		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assert($success, 'should have succeeded');
+
+		$expectedRules[$moduleId]['rule1'] = array(
+			'pattern' => 'abc',
+		);
+		$expectedRules[$moduleId]['rule2'] = array(
+			'pattern' => '123',
+		);
+		$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
 	}
 
-	/* Execute the method under test */
-	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
-	if ($ret) {
-	    return $ret;
+	public function testActivateRewriteRulesForModuleOnlySpecificRule() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Execute the method under test
+		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId, array('rule2'));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assert($success, 'should have succeeded');
+		$expectedRules[$moduleId]['rule2'] = array(
+			'pattern' => '123',
+		);
+
+		$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
 	}
 
-	/* Verify the results */
-	$this->assert($success, 'should have succeeded');
+	public function testActivateRewriteRulesForModuleReturnsFalseWhenNotConfigured() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_INVALID_PATTERN);
 
-	$expectedRules[$moduleId]['rule1'] = array('pattern' => 'abc');
-	$expectedRules[$moduleId]['rule2'] = array('pattern' => '123');
-	$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testActivateRewriteRulesForModuleOnlySpecificRule() {
-	list ($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule();
-	if ($ret) {
-	    return $ret;
+		// Execute the method under test
+		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assert(!$success, 'should have failed');
 	}
 
-	/* Execute the method under test */
-	list ($ret, $success) =
-		$this->_rewriteApi->activateRewriteRulesForModule($moduleId, array('rule2'));
-	if ($ret) {
-	    return $ret;
+	public function testActivateRewriteRulesForModuleUsesPatternHistory() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Execute the method under test
+		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assert($success, 'should have succeeded');
+
+		$expectedRules[$moduleId]['rule1'] = array(
+			'pattern' => 'existing pattern for r1',
+		);
+		$expectedRules[$moduleId]['rule2'] = array(
+			'pattern' => 'old pattern for r2',
+		);
+		$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
+
+		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'rule0' => array(
+					'pattern' => 'foo',
+				),
+			),
+			$history,
+			'history for rule1 should have been removed'
+		);
 	}
 
-	/* Verify the results */
-	$this->assert($success, 'should have succeeded');
-	$expectedRules[$moduleId]['rule2'] = array('pattern' => '123');
+	public function testActivateRewriteRulesForModuleIgnoresExistingPatternsAndPatternHistoryOnRequest() {
+		list($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
 
-	$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testActivateRewriteRulesForModuleReturnsFalseWhenNotConfigured() {
-	list ($ret, $expectedRules, $moduleId) =
-		$this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_INVALID_PATTERN);
-	if ($ret) {
-	    return $ret;
+		// Execute the method under test
+		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule(
+			$moduleId,
+			null,
+			true
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify the results
+		$this->assert($success, 'should have succeeded');
+
+		$expectedRules[$moduleId]['rule1'] = array(
+			'pattern' => 'abc',
+		);
+		$expectedRules[$moduleId]['rule2'] = array(
+			'pattern' => '123',
+		);
+		$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
+
+		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'rule0' => array(
+					'pattern' => 'foo',
+				),
+			),
+			$history,
+			'history for rule1 should have been removed'
+		);
 	}
 
-	/* Execute the method under test */
-	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
-	if ($ret) {
-	    return $ret;
+	public function _prepareActivateRewriteRulesForModule(
+		$returnCode = REWRITE_STATUS_OK,
+		$hasActiveRulesForModule = false,
+		$hasHistory = false
+	) {
+		$module   = new RewriteApiMockModule();
+		$moduleId = $module->getId();
+
+		$activeRules = array(
+			'a' => array(
+				'r1' => array(
+					'pattern' => 'abc',
+				),
+				'r2' => array(
+					'pattern' => '123',
+				),
+			),
+			'b' => array(
+				'r1' => array(
+					'pattern' => '.*',
+				),
+			),
+		);
+
+		if ($hasActiveRulesForModule) {
+			$activeRules[$moduleId]['rule1'] = array(
+				'pattern' => 'existing pattern for r1',
+			);
+		}
+
+		$expectedRules             = $activeRules;
+		$activeRules['returnCode'] = $returnCode;
+
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'rewrite',
+			'activeRules',
+			serialize($activeRules)
+		);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$_SERVER['saveActiveRules'] = null;
+
+		if ($hasHistory) {
+			// Create a pattern history for that module
+			$ret = RewriteHelper::setHistoryForModule(
+				$moduleId,
+				array(
+					'rule2' => array(
+						'pattern' => 'old pattern for r2',
+					),
+					'rule0' => array(
+						'pattern' => 'foo',
+					),
+				)
+			);
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+		}
+
+		return array(null, $expectedRules, $moduleId);
 	}
-
-	/* Verify the results */
-	$this->assert(!$success, 'should have failed');
-    }
-
-    function testActivateRewriteRulesForModuleUsesPatternHistory() {
-	list ($ret, $expectedRules, $moduleId) =
-		$this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Execute the method under test */
-	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Verify the results */
-	$this->assert($success, 'should have succeeded');
-
-	$expectedRules[$moduleId]['rule1'] = array('pattern' => 'existing pattern for r1');
-	$expectedRules[$moduleId]['rule2'] = array('pattern' => 'old pattern for r2');
-	$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
-
-	list ($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array('rule0' => array('pattern' => 'foo')), $history,
-			    'history for rule1 should have been removed');
-    }
-
-    function testActivateRewriteRulesForModuleIgnoresExistingPatternsAndPatternHistoryOnRequest() {
-	list ($ret, $expectedRules, $moduleId) =
-		$this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Execute the method under test */
-	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId,
-							null, true);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Verify the results */
-	$this->assert($success, 'should have succeeded');
-
-	$expectedRules[$moduleId]['rule1'] = array('pattern' => 'abc');
-	$expectedRules[$moduleId]['rule2'] = array('pattern' => '123');
-	$this->assertEquals($expectedRules, $_SERVER['saveActiveRules'], 'saved rules');
-
-	list ($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array('rule0' => array('pattern' => 'foo')), $history,
-			    'history for rule1 should have been removed');
-    }
-
-    function _prepareActivateRewriteRulesForModule($returnCode=REWRITE_STATUS_OK,
-    						   $hasActiveRulesForModule=false,
-    						   $hasHistory=false) {
-	$module = new RewriteApiMockModule();
-	$moduleId = $module->getId();
-
-	$activeRules = array('a' => array('r1' => array('pattern' => 'abc'),
-					  'r2' => array('pattern' => '123')),
-			     'b' => array('r1' => array('pattern' => '.*')));
-	if ($hasActiveRulesForModule) {
-	    $activeRules[$moduleId]['rule1'] = array('pattern' => 'existing pattern for r1');
-	}
-
-	$expectedRules = $activeRules;
-	$activeRules['returnCode'] = $returnCode;
-
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'rewrite', 'activeRules', serialize($activeRules));
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$_SERVER['saveActiveRules'] = null;
-
-	if ($hasHistory) {
-	    /* Create a pattern history for that module */
-	    $ret = RewriteHelper::setHistoryForModule(
-		$moduleId, array('rule2' => array('pattern' => 'old pattern for r2'),
-				 'rule0' => array('pattern' => 'foo')));
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	}
-
-	return array(null, $expectedRules, $moduleId);
-    }
 }
 
 /**
@@ -370,33 +467,39 @@ class RewriteApiTest extends GalleryTestCase {
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
 class RewriteApiMockParser extends RewriteParser {
-    function RewriteApiMockParser() {
-	$this->_setParserId('rewriteapimock');
-	$this->_setParserType('mock');
-    }
-
-    function needsEmbedConfig() {
-	return array(null, true);
-    }
-
-    function fetchEmbedConfig() {
-	return array(null, array('phpunit' => 'test'));
-    }
-
-    function saveEmbedConfig($params) {
-	if ($params['phpunit']) {
-	    return array(null, REWRITE_STATUS_OK, null);
+	public function __construct() {
+		$this->_setParserId('rewriteapimock');
+		$this->_setParserType('mock');
 	}
 
-	return array(null, REWRITE_STATUS_INVALID_PATTERN, 'Bad pattern');
-    }
+	public function needsEmbedConfig() {
+		return array(null, true);
+	}
 
-    function saveActiveRules($activeRules) {
-	$returnCode = $activeRules['returnCode'];
-	unset($activeRules['returnCode']);
-	$_SERVER['saveActiveRules'] = $activeRules;
-	return array(null, $returnCode, null);
-    }
+	public function fetchEmbedConfig() {
+		return array(
+			null,
+			array(
+				'phpunit' => 'test',
+			),
+		);
+	}
+
+	public function saveEmbedConfig($params) {
+		if ($params['phpunit']) {
+			return array(null, REWRITE_STATUS_OK, null);
+		}
+
+		return array(null, REWRITE_STATUS_INVALID_PATTERN, 'Bad pattern');
+	}
+
+	public function saveActiveRules($activeRules) {
+		$returnCode = $activeRules['returnCode'];
+		unset($activeRules['returnCode']);
+		$_SERVER['saveActiveRules'] = $activeRules;
+
+		return array(null, $returnCode, null);
+	}
 }
 
 /**
@@ -406,15 +509,20 @@ class RewriteApiMockParser extends RewriteParser {
  * @subpackage PHPUnit
  */
 class RewriteApiMockModule extends GalleryModule {
-    function RewriteApiMockModule() {
-	$this->setId('rewriteapimock');
-	$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-	$this->setRequiredModuleApi(GalleryModule::getApiVersion());
-    }
+	public function __construct() {
+		$this->setId('rewriteapimock');
+		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getApiVersion());
+	}
 
-    function getRewriteRules() {
-	return array('rule1' => array('pattern' => 'abc'),
-		     'rule2' => array('pattern' => '123'));
-    }
+	public function getRewriteRules() {
+		return array(
+			'rule1' => array(
+				'pattern' => 'abc',
+			),
+			'rule2' => array(
+				'pattern' => '123',
+			),
+		);
+	}
 }
-?>

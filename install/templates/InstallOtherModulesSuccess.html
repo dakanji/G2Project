@@ -1,10 +1,10 @@
     <?php if (!empty($templateData['stackTrace'])): ?>
     <div class="stack_trace">
-      <?php print implode('<br/>', $templateData['stackTrace']) ?>
+      <?php echo implode('<br/>', $templateData['stackTrace']) ?>
     </div><br/>
     <?php endif; ?>
 
-    <h1><?php print _('Install Plugins') ?></h1>
+    <h1><?php echo _('Install Plugins') ?></h1>
 
     <?php if (isset($templateData['needsConfiguration'])): ?>
     <ul class="warning">
@@ -13,7 +13,7 @@
     <?php endforeach; ?>
     </ul>
     <p>
-      <?php print _("After finishing this installation, login as Admin and browse to Site Admin. Go to the <i>Modules</i> view and configure the above listed modules."); ?>
+      <?php echo _("After finishing this installation, login as Admin and browse to Site Admin. Go to the <i>Modules</i> view and configure the above listed modules."); ?>
     </p>
     <?php endif; ?>
 
@@ -27,7 +27,7 @@
 
     <?php if ($templateData['anyInstallable']): ?>
     <div class="go">
-	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())) ?>" class="btn continue"><i></i><span><span></span><i></i><?php print _('Activate More Modules'); ?></span></a>
+	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())) ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Activate More Modules'); ?></span></a>
       <?php $nextStep = $stepNumber + 1 ?>
 	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $nextStep)) ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
     </div>
@@ -35,7 +35,7 @@
 
     <?php if (!empty($templateData['debug'])): ?>
     <div class="debug">
-      <h3> <?php print _("Debug Output") ?> </h3>
-      <pre><?php print $templateData['debug'] ?></pre>
+      <h3> <?php echo _("Debug Output") ?> </h3>
+      <pre><?php echo $templateData['debug'] ?></pre>
     </div>
     <?php endif; ?>

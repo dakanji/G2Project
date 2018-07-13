@@ -28,44 +28,52 @@ GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class
  * @version $Revision: 17580 $
  */
 class NewItemsSortOrder extends GallerySortInterface_1_2 {
+	/**
+	 * @see GallerySortInterface_1_2::getSortInfo
+	 */
+	public function getSortInfo() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'newitems');
 
-    /**
-     * @see GallerySortInterface_1_2::getSortInfo
-     */
-    function getSortInfo() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'newitems');
-	if ($ret) {
-	    return array($ret, null, null);
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		return array(null, $module->translate('New Items First'), true);
 	}
 
-	return array(null, $module->translate('New Items First'), true);
-    }
+	/**
+	 * @see GallerySortInterface_1_2::getSortOrder
+	 */
+	public function getSortOrder($direction) {
+		global $gallery;
+		$storage =& $gallery->getStorage();
 
-    /**
-     * @see GallerySortInterface_1_2::getSortOrder
-     */
-    function getSortOrder($direction) {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		list($ret, $newTime) = GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
 
-	list ($ret, $newTime) =
-	    GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
-	if ($ret) {
-	    return array($ret, null, null, null, null);
-	}
-	$newTime = time() - $newTime * 86400;
-	list ($ret, $case) = $storage->getFunctionSql('CASE',
-	    array("[GalleryEntity::creationTimestamp] > $newTime", '0', '1'));
-	if ($ret) {
-	    return array($ret, null, null, null, null);
-	}
-	list ($ret, $as) = $storage->getFunctionSql('AS', array());
-	if ($ret) {
-	    return array($ret, null, null, null, null);
-	}
+		if ($ret) {
+			return array($ret, null, null, null, null);
+		}
+		$newTime          = time() - $newTime * 86400;
+		list($ret, $case) = $storage->getFunctionSql(
+			'CASE',
+			array("[GalleryEntity::creationTimestamp] > $newTime", '0', '1')
+		);
 
-	return array(null, '%1%', "$case $as newFirst", null,
-		     'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]');
-    }
+		if ($ret) {
+			return array($ret, null, null, null, null);
+		}
+		list($ret, $as) = $storage->getFunctionSql('AS', array());
+
+		if ($ret) {
+			return array($ret, null, null, null, null);
+		}
+
+		return array(
+			null,
+			'%1%',
+			"$case $as newFirst",
+			null,
+			'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]',
+		);
+	}
 }
-?>

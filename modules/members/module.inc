@@ -25,50 +25,58 @@
  * @version $Revision: 18172 $
  */
 class MembersModule extends GalleryModule {
+	public function __construct() {
+		global $gallery;
 
-    function MembersModule() {
-	global $gallery;
-
-	$this->setId('members');
-	$this->setName($gallery->i18n('Members'));
-	$this->setDescription($gallery->i18n('Members List and Profiles'));
-	$this->setVersion('1.0.8');
-	$this->_templateVersion = 1;
-	$this->setGroup('gallery', $gallery->i18n('Gallery'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion) {
-	if (!isset($currentVersion)) {
-	    list ($ret, $viewSelectedGroupId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    foreach (array('canViewMembersModule' => $viewSelectedGroupId,
-			   'canViewEmailAddress' => 0) as $key => $value) {
-		$ret = $this->setParameter($key, $value);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
+		$this->setId('members');
+		$this->setName($gallery->i18n('Members'));
+		$this->setDescription($gallery->i18n('Members List and Profiles'));
+		$this->setVersion('1.0.8');
+		$this->_templateVersion = 1;
+		$this->setGroup('gallery', $gallery->i18n('Gallery'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 27));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryModule::upgrade
+	 */
+	public function upgrade($currentVersion) {
+		if (!isset($currentVersion)) {
+			list($ret, $viewSelectedGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null, array(array('name' => $this->translate('Members'),
-				       'view' => 'members.AdminMembers')));
-    }
+			if ($ret) {
+				return $ret;
+			}
+
+			foreach (array(
+				'canViewMembersModule' => $viewSelectedGroupId,
+				'canViewEmailAddress'  => 0,
+			) as $key => $value) {
+				$ret = $this->setParameter($key, $value);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Members'),
+					'view' => 'members.AdminMembers',
+				),
+			),
+		);
+	}
 }
-?>

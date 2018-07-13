@@ -27,62 +27,82 @@
  * @version $Revision: 17580 $
  */
 class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function IconsSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'icons.IconsSiteAdmin');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'icons.IconsSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'icons');
-	if ($ret) {
-	    return $ret;
+	public function setUp() {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'icons');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-    }
 
-    function testIconsSiteAdminControllerReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+	public function testIconsSiteAdminControllerReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'icons.IconsSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
-
-    function testIconsSiteAdminControllerSave() {
-	GalleryUtilities::putRequestVariable('form[iconpack]', 'testpack');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'icons.IconsSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $iconpack) =
-		GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'icons.IconsSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array(),
+			),
+			$results
+		);
 	}
-	$this->assertEquals('testpack', $iconpack, 'iconpack');
-    }
 
-    function testIconsSiteAdminControllerSaveNoIconPack() {
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	public function testIconsSiteAdminControllerSave() {
+		GalleryUtilities::putRequestVariable('form[iconpack]', 'testpack');
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'icons.IconsSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][iconpack][missing]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'icons.IconsSiteAdmin',
+				),
+				'status'   => array(
+					'saved' => 1,
+				),
+				'error'    => array(),
+			),
+			$results
+		);
+
+		list($ret, $iconpack) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('testpack', $iconpack, 'iconpack');
+	}
+
+	public function testIconsSiteAdminControllerSaveNoIconPack() {
+		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'icons.IconsSiteAdmin',
+				),
+				'status'   => array(),
+				'error'    => array('form[error][iconpack][missing]'),
+			),
+			$results
+		);
+	}
 }
-?>

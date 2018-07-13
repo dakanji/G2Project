@@ -29,249 +29,285 @@ GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.clas
  * @version $Revision: 17580 $
  */
 class PermalinksTest extends GalleryTestCase {
+	public $_aliasNamesToDelete;
 
-    var $_aliasNamesToDelete;
-
-    function PermalinksTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$this->_aliasNamesToDelete = array();
+	public function setUp() {
+		global $gallery;
+		$ret = parent::setUp();
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'permalinks');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_aliasNamesToDelete = array();
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'permalinks');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
+
+		list($ret, $this->_item) = $this->_createRandomDataItem(
+			$this->_album->getId(),
+			'image/test',
+			array(),
+			__FILE__,
+			'GalleryPhotoItem'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_item->setMimeType('image/gif');
+
+		$ret = PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_aliasNamesToDelete[] = 'testAlias';
+
+		$ret = PermalinksMapHelper::createAlias('testAlias1', $this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_aliasNamesToDelete[] = 'testAlias1';
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+	public function tearDown() {
+		foreach ($this->_aliasNamesToDelete as $name) {
+			$ret = PermalinksMapHelper::deleteAlias($name);
 
-	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
-		'image/test', array(), __FILE__, 'GalleryPhotoItem');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_item->setMimeType('image/gif');
+			if ($ret) {
+				$this->failWithStatus($ret);
+			}
+		}
 
-	$ret =
-	    PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
-	if ($ret) {
-	    return $ret;
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$this->_aliasNamesToDelete[] = 'testAlias';
+	public function testFetchItemIdForAlias() {
+		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias');
 
-	$ret =
-	    PermalinksMapHelper::createAlias('testAlias1', $this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_item->getId(), (int)$destId);
+
+		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias1');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_album->getId(), (int)$destId);
 	}
 
-	$this->_aliasNamesToDelete[] = 'testAlias1';
-    }
+	public function testFetchAliasesForItem() {
+		list($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_item->getId());
 
-    function tearDown() {
-	foreach ($this->_aliasNamesToDelete as $name) {
-	    $ret = PermalinksMapHelper::deleteAlias($name);
-	    if ($ret) {
-		$this->failWithStatus($ret);
-	    }
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array('testAlias'), $aliases);
+
+		list($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array('testAlias1'), $aliases);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   return $ret;
-	}
-    }
+	public function testCollision() {
+		$ret = PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
 
-    function testFetchItemIdForAlias() {
-	list ($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals($this->_item->getId(), (int) $destId);
-
-	list ($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias1');
-	if ($ret) {
-	    return $ret;
+		// we expect an error
+		if (!$ret) {
+			return $this->assert(false, 'Expected an error');
+		}
+		$this->assert(
+			$ret->getErrorCode() & ERROR_COLLISION,
+			'No collision reported, but expected one'
+		);
 	}
 
-	$this->assertEquals($this->_album->getId(), (int) $destId);
-    }
+	public function testDeleteAlias() {
+		// delete
+		$ret = PermalinksMapHelper::deleteAlias('testAlias');
 
-    function testFetchAliasesForItem() {
-	list ($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_item->getId());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = PermalinksMapHelper::deleteAlias('testAlias1');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// test fetching by alias
+		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(empty($destId));
+
+		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias1');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(empty($destId));
+
+		// test fetching by item
+		list($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_item->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(), $aliases);
+
+		list($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(), $aliases);
 	}
 
-	$this->assertEquals(array('testAlias'), $aliases);
+	public function testListener() {
+		// The event listener is deactivated during unit tests, register it
+		GalleryCoreApi::registerEventListener('GalleryEntity::delete', new PermalinksModule());
+		GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule());
 
-	list ($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
+		GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
+
+		// create album, this creates a permalink
+		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $item) = $this->_createRandomDataItem(
+			$album->getId(),
+			'image/test',
+			array(),
+			__FILE__,
+			'GalleryPhotoItem'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$item->setMimeType('image/gif');
+
+		$ret = PermalinksMapHelper::createAlias('testAlias2', $item->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// test autogenerated alias for album
+		list($ret, $aliasesAlbum) = PermalinksMapHelper::fetchAliasesForItem($album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
+
+		// Delete album: deletes sub-item and aliases
+		$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// test
+		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias2');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(empty($destId), "1. Destid not empty ($destId)");
+
+		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias($aliasesAlbum[0]);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(empty($destId), "2. Destid not empty ($destId)");
 	}
 
-	$this->assertEquals(array('testAlias1'), $aliases);
-    }
+	public function testListenerCollision() {
+		// The event listener is deactivated during unit tests, register it
+		GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule());
 
+		GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
 
-    function testCollision() {
-	$ret = PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
+		// create album, this creates a permalink
+		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 
-	/* we expect an error */
-	if (!$ret) {
-	    return $this->assert(false, 'Expected an error');
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($album);
+
+		$this->_aliasNamesToDelete[] = $album->pathComponent;
+
+		// test autogenerated alias for album
+		list($ret, $aliasesAlbum) = PermalinksMapHelper::fetchAliasesForItem($album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
+
+		// create another album with the same name, this creates a permalink
+		list($ret, $album1) = $this->_createRandomAlbum($album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// test the alias still points to the first album
+		list($ret, $aliasesAlbum) = PermalinksMapHelper::fetchAliasesForItem($album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
 	}
-	$this->assert($ret->getErrorCode() & ERROR_COLLISION,
-	    'No collision reported, but expected one');
-    }
-
-    function testDeleteAlias() {
-	/* delete */
-	$ret = PermalinksMapHelper::deleteAlias('testAlias');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = PermalinksMapHelper::deleteAlias('testAlias1');
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* test fetching by alias */
-	list ($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(empty($destId));
-
-	list ($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias1');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(empty($destId));
-
-	/* test fetching by item */
-	list ($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_item->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array(), $aliases);
-
-	list ($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array(), $aliases);
-    }
-
-    function testListener() {
-	/* The event listener is deactivated during unit tests, register it */
-	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new PermalinksModule());
-	GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule());
-
-	GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
-
-	/* create album, this creates a permalink */
-	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $item) = $this->_createRandomDataItem(
-	    $album->getId(), 'image/test', array(), __FILE__, 'GalleryPhotoItem');
-	if ($ret) {
-	    return $ret;
-	}
-	$item->setMimeType('image/gif');
-
-	$ret = PermalinksMapHelper::createAlias('testAlias2', $item->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* test autogenerated alias for album */
-	list ($ret, $aliasesAlbum) = PermalinksMapHelper::fetchAliasesForItem($album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
-
-	/* Delete album: deletes sub-item and aliases */
-	$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* test */
-	list ($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias2');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(empty($destId), "1. Destid not empty ($destId)");
-
-	list ($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias($aliasesAlbum[0]);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(empty($destId), "2. Destid not empty ($destId)");
-    }
-
-    function testListenerCollision() {
-	/* The event listener is deactivated during unit tests, register it */
-	GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule());
-
-	GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
-
-	/* create album, this creates a permalink */
-	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($album);
-
-	$this->_aliasNamesToDelete[] = $album->pathComponent;
-
-	/* test autogenerated alias for album */
-	list ($ret, $aliasesAlbum) = PermalinksMapHelper::fetchAliasesForItem($album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
-
-	/* create another album with the same name, this creates a permalink */
-	list ($ret, $album1) = $this->_createRandomAlbum($album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* test the alias still points to the first album */
-	list ($ret, $aliasesAlbum) = PermalinksMapHelper::fetchAliasesForItem($album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
-    }
 }
-?>

@@ -28,711 +28,807 @@ GalleryCoreApi::requireOnce('modules/httpauth/classes/HttpAuthHelper.class');
  * @version $Revision: 17580 $
  */
 class HttpAuthHelperTest extends GalleryTestCase {
-
-    function HttpAuthHelperTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
 
-	/* Mock activate the rewrite module */
-	$moduleStatus = array('rewrite' => array('active' => true));
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
+	public function setUp() {
+		$ret = parent::setUp();
 
-	/* Mock preGallery rewrite parser.  Mock activate HTTP auth rewrite rules. */
-	$this->_parserType =& HttpAuthHelperTestRewriteApi::_getParserType();
-	$this->_parserType = 'preGallery';
-	$this->_activeRules =& HttpAuthHelperTestRewriteApi::_fetchActiveRulesForModule('httpauth');
-	$this->_activeRules = array('authorization');
-	$this->_markFactoryForCleanup();
-	$this->_registerFactoryImplementationForTest(
-	    'RewriteApi', 'HttpAuthHelperTestRewriteApi', 'HttpAuthHelperTestRewriteApi',
-	    'modules/httpauth/test/phpunit/HttpAuthHelperTest.class', 'test');
+		if ($ret) {
+			return $ret;
+		}
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
 
-	/* Define HTTP auth works request */
-	$this->_httpAuthWorksRequest = 'GET ' . $urlGenerator->generateUrl(
-		array('view' => 'httpauth.HttpAuthWorks'),
-		array('forceServerRelativeUrl' => true,
-		      'htmlEntities' => false)) . " HTTP/1.0\r\n"
-	    . 'Host: ' . $urlGenerator->getHostName() . "\r\n"
-	    . 'Authorization: Basic ' . base64_encode('USERNAME:PASSWORD') . "\r\n"
-	    . "\r\n";
+		// Mock activate the rewrite module
+		$moduleStatus = array(
+			'rewrite' => array(
+				'active' => true,
+			),
+		);
+		GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
 
-	/* Define success and failure responses */
-	$this->_accessAuthorizationResponse = implode("\r\n", array(
-		'HTTP/1.1 200 OK',
-		'Date: Mon, 24 Nov 2003 05:40:03 GMT',
-		'Server: Apache/1.3.28 (Unix)',
-		'Content-Length: 26',
-		'Connection: close',
-		'Content-Type: text/html',
-		'',
-		''))
-		.  "Basic\nUSERNAME\nPASSWORD";
-	$this->_missingAuthorizationResponse = implode("\r\n", array(
-		'HTTP/1.1 200 OK',
-		'Date: Mon, 24 Nov 2003 05:40:03 GMT',
-		'Server: Apache/1.3.28 (Unix)',
-		'Content-Length: 26',
-		'Connection: close',
-		'Content-Type: text/html',
-		'',
-		''))
+		// Mock preGallery rewrite parser.  Mock activate HTTP auth rewrite rules.
+		$this->_parserType  =& HttpAuthHelperTestRewriteApi::_getParserType();
+		$this->_parserType  = 'preGallery';
+		$this->_activeRules =& HttpAuthHelperTestRewriteApi::_fetchActiveRulesForModule('httpauth');
+		$this->_activeRules = array('authorization');
+		$this->_markFactoryForCleanup();
+		$this->_registerFactoryImplementationForTest(
+			'RewriteApi',
+			'HttpAuthHelperTestRewriteApi',
+			'HttpAuthHelperTestRewriteApi',
+			'modules/httpauth/test/phpunit/HttpAuthHelperTest.class',
+			'test'
+		);
+
+		// Define HTTP auth works request
+		$this->_httpAuthWorksRequest = 'GET ' . $urlGenerator->generateUrl(
+			array(
+				'view' => 'httpauth.HttpAuthWorks',
+			),
+			array(
+				'forceServerRelativeUrl' => true,
+				'htmlEntities'           => false,
+			)
+		) . " HTTP/1.0\r\n"
+		. 'Host: ' . $urlGenerator->getHostName() . "\r\n"
+		. 'Authorization: Basic ' . base64_encode('USERNAME:PASSWORD') . "\r\n"
+		. "\r\n";
+
+		// Define success and failure responses
+		$this->_accessAuthorizationResponse  = implode("\r\n", array(
+			'HTTP/1.1 200 OK',
+			'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+			'Server: Apache/1.3.28 (Unix)',
+			'Content-Length: 26',
+			'Connection: close',
+			'Content-Type: text/html',
+			'',
+			'',
+		))
+		. "Basic\nUSERNAME\nPASSWORD";
+		$this->_missingAuthorizationResponse = implode("\r\n", array(
+			'HTTP/1.1 200 OK',
+			'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+			'Server: Apache/1.3.28 (Unix)',
+			'Content-Length: 26',
+			'Connection: close',
+			'Content-Type: text/html',
+			'',
+			'',
+		))
 		. "\n\n\n\n";
 
-	/* Use HttpAuthHelperTestPlatform */
-	$this->_platform = new HttpAuthHelperTestPlatform();
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_accessAuthorizationResponse;
-	$gallery->setPlatform($this->_platform);
+		// Use HttpAuthHelperTestPlatform
+		$this->_platform                                          = new HttpAuthHelperTestPlatform();
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_accessAuthorizationResponse;
+		$gallery->setPlatform($this->_platform);
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'httpauth');
-	if ($ret) {
-	    return $ret;
-	}
+		$ret = $this->_markPluginParametersForCleanup('module', 'httpauth');
 
-	/* Configure plugin */
-	foreach (array('httpAuthPlugin' => true, 'regexAuthPlugin' => true,
-		       'authtypePattern' => '//', 'usernameReplace' => '$2',
-		       'usernamePattern' => '/^(.+\\\\)?([^\\\\@]+)(@.+)?$/',
-		       'serverAuthPlugin' => false, 'useGlobally' => true,
-		       'authName' => 'TEST_AUTH_NAME') as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	/* Create test user */
-	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_user);
-
-	list ($ret, $this->_authInterface) =
-		GalleryCoreApi::newFactoryInstance('HttpAuthInterface_1_0');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(isset($this->_authInterface), 'Could not instantiate auth interface.');
-
-	/* Use HttpAuthModuleTestPhpVm */
-	$this->_phpVm = new HttpAuthHelperTestPhpVm();
-	$gallery->_phpVm =& $this->_phpVm;
-
-	/* Clear response headers */
-	$this->_headers =& GalleryUtilities::_getResponseHeaders();
-	$this->_headers = array();
-
-	$this->_saveSession = $gallery->_session;
-
-	$_SERVER['AUTH_TYPE'] = $_SERVER['PHP_AUTH_USER'] = $_SERVER['PHP_AUTH_PW'] = null;
-	GalleryUtilities::removeRequestVariable('authorization');
-	$_SERVER['HTTP_AUTHORIZATION'] = null;
-    }
-
-    function tearDown() {
-	global $gallery;
-	GalleryDataCache::reset();
-	$gallery->_session = $this->_saveSession;
-
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-
-	if (!empty($this->_resetFactory)) {    
-	    /* After the plugin parameters have been reset, reset the factory as well */
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
-	    if ($ret) {
-		$this->failWithStatus($ret);
-	    } else {
-		$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId('httpauth');
 		if ($ret) {
-		    $this->failWithStatus($ret);
+			return $ret;
 		}
-		$ret = $module->performFactoryRegistrations();
+
+		// Configure plugin
+		foreach (array(
+			'httpAuthPlugin'   => true,
+			'regexAuthPlugin'  => true,
+			'authtypePattern'  => '//',
+			'usernameReplace'  => '$2',
+			'usernamePattern'  => '/^(.+\\\\)?([^\\\\@]+)(@.+)?$/',
+			'serverAuthPlugin' => false,
+			'useGlobally'      => true,
+			'authName'         => 'TEST_AUTH_NAME',
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', $key, $value);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		// Create test user
+		list($ret, $this->_user) = $this->_createRandomUser();
+
 		if ($ret) {
-		    $this->failWithStatus($ret);
+			return $ret;
 		}
-	    }
+		$this->_markForCleanup($this->_user);
 
-	    $storage =& $gallery->getStorage();
-	    $ret = $storage->commitTransaction();
-	    if ($ret) {
-		$this->failWithStatus($ret);
-	    }
-	}
-    }
+		list($ret, $this->_authInterface) = GalleryCoreApi::newFactoryInstance('HttpAuthInterface_1_0');
 
-    function testCheckConfiguration() {
-	list ($ret, $code) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(isset($this->_authInterface), 'Could not instantiate auth interface.');
 
-	$this->assertEquals(0, $code, 'unexpected error code');
-    }
+		// Use HttpAuthModuleTestPhpVm
+		$this->_phpVm    = new HttpAuthHelperTestPhpVm();
+		$gallery->_phpVm =& $this->_phpVm;
 
-    function testCheckConfigurationRewriteModuleDisabled() {
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_missingAuthorizationResponse;
-	$moduleStatus = array();
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
+		// Clear response headers
+		$this->_headers =& GalleryUtilities::_getResponseHeaders();
+		$this->_headers = array();
 
-	list ($ret, $code) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return $ret;
+		$this->_saveSession = $gallery->_session;
+
+		$_SERVER['AUTH_TYPE'] = $_SERVER['PHP_AUTH_USER'] = $_SERVER['PHP_AUTH_PW'] = null;
+		GalleryUtilities::removeRequestVariable('authorization');
+		$_SERVER['HTTP_AUTHORIZATION'] = null;
 	}
 
-	$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION
-			    | HTTPAUTH_STATUS_REWRITE_MODULE_DISABLED, $code);
-    }
+	public function tearDown() {
+		global $gallery;
+		GalleryDataCache::reset();
+		$gallery->_session = $this->_saveSession;
 
-    function testCheckConfigurationBadRewriteParser() {
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_missingAuthorizationResponse;
-	$this->_parserType = 'bogus';
+		$ret = parent::tearDown();
 
-	list ($ret, $code) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+
+		if (!empty($this->_resetFactory)) {
+			// After the plugin parameters have been reset, reset the factory as well
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
+
+			if ($ret) {
+				$this->failWithStatus($ret);
+			} else {
+				$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId('httpauth');
+
+				if ($ret) {
+					$this->failWithStatus($ret);
+				}
+				$ret = $module->performFactoryRegistrations();
+
+				if ($ret) {
+					$this->failWithStatus($ret);
+				}
+			}
+
+			$storage =& $gallery->getStorage();
+			$ret     = $storage->commitTransaction();
+
+			if ($ret) {
+				$this->failWithStatus($ret);
+			}
+		}
 	}
 
-	$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION
-			    | HTTPAUTH_STATUS_BAD_REWRITE_PARSER, $code);
-    }
+	public function testCheckConfiguration() {
+		list($ret, $code) = HttpAuthHelper::checkConfiguration();
 
-    function testCheckConfigurationAuthorizationRuleDisabled() {
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_missingAuthorizationResponse;
-	$this->_activeRules = array();
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $code) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return $ret;
+		$this->assertEquals(0, $code, 'unexpected error code');
 	}
 
-	$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION
-			    | HTTPAUTH_STATUS_AUTHORIZATION_RULE_DISABLED, $code);
-    }
+	public function testCheckConfigurationRewriteModuleDisabled() {
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_missingAuthorizationResponse;
+		$moduleStatus                                             = array();
+		GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
 
-    function testCheckConfigurationErrorUnknown() {
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_missingAuthorizationResponse;
+		list($ret, $code) = HttpAuthHelper::checkConfiguration();
 
-	list ($ret, $code) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION | HTTPAUTH_STATUS_REWRITE_MODULE_DISABLED, $code);
 	}
 
-	$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION
-			    | HTTPAUTH_STATUS_ERROR_UNKNOWN, $code);
-    }
+	public function testCheckConfigurationBadRewriteParser() {
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_missingAuthorizationResponse;
+		$this->_parserType                                        = 'bogus';
 
-    function testCheckConfigurationHttpAuthWorksIgnoresCauses() {
-	$moduleStatus = array();
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
-	$this->_parserType = 'bogus';
-	$this->_activeRules = array();
+		list($ret, $code) = HttpAuthHelper::checkConfiguration();
 
-	list ($ret, $code) = HttpAuthHelper::checkConfiguration();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION | HTTPAUTH_STATUS_BAD_REWRITE_PARSER, $code);
 	}
 
-	$this->assert(!$code);
-    }
+	public function testCheckConfigurationAuthorizationRuleDisabled() {
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_missingAuthorizationResponse;
+		$this->_activeRules                                       = array();
 
-    function testCheckHttpAuth() {
-	list ($ret, $success) = HttpAuthHelper::checkHttpAuth();
-	if ($ret) {
-	    return $ret;
+		list($ret, $code) = HttpAuthHelper::checkConfiguration();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION | HTTPAUTH_STATUS_AUTHORIZATION_RULE_DISABLED, $code);
 	}
 
-	$this->assert($success);
-    }
+	public function testCheckConfigurationErrorUnknown() {
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_missingAuthorizationResponse;
 
-    function testCheckHttpAuthMissingAuthorization() {
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_missingAuthorizationResponse;
+		list($ret, $code) = HttpAuthHelper::checkConfiguration();
 
-	list ($ret, $success) = HttpAuthHelper::checkHttpAuth();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(HTTPAUTH_STATUS_MISSING_AUTHORIZATION | HTTPAUTH_STATUS_ERROR_UNKNOWN, $code);
 	}
 
-	$this->assert(!$success);
-    }
+	public function testCheckConfigurationHttpAuthWorksIgnoresCauses() {
+		$moduleStatus = array();
+		GalleryDataCache::put('GalleryPluginHelper::fetchPluginList(module)', $moduleStatus);
+		$this->_parserType  = 'bogus';
+		$this->_activeRules = array();
 
-    function testCheckHttpAuthPluginDisabled() {
-	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
-	    $this->_missingAuthorizationResponse;
-	$ret = GalleryCoreApi::removePluginParameter('module', 'httpauth', 'httpAuthPlugin');
-	if ($ret) {
-	    return $ret;
+		list($ret, $code) = HttpAuthHelper::checkConfiguration();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(!$code);
 	}
 
-	list ($ret, $success) = HttpAuthHelper::checkHttpAuth();
-	if ($ret) {
-	    return $ret;
+	public function testCheckHttpAuth() {
+		list($ret, $success) = HttpAuthHelper::checkHttpAuth();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($success);
 	}
 
-	$this->assert($success);
-    }
+	public function testCheckHttpAuthMissingAuthorization() {
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_missingAuthorizationResponse;
 
-    function testGetHttpAuth() {
-	$_SERVER['AUTH_TYPE'] = 'AUTHTYPE';
-	$_SERVER['PHP_AUTH_USER'] = 'USERNAME';
-	$_SERVER['PHP_AUTH_PW'] = 'PASSWORD';
+		list($ret, $success) = HttpAuthHelper::checkHttpAuth();
 
-	list ($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
-	$this->assertEquals('AUTHTYPE', $authtype);
-	$this->assertEquals('USERNAME', $username);
-	$this->assertEquals('PASSWORD', $password);
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testGetHttpAuthFromRequestVariable() {
-	GalleryUtilities::putRequestVariable(
-	    'authorization', 'AUTHTYPE ' . base64_encode('USERNAME:PASSWORD'));
-
-	$_SERVER['HTTP_AUTHORIZATION'] = 'OTHER ' . base64_encode('NOUSER:NOPASS');
-
-	list ($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
-	$this->assertEquals('AUTHTYPE', $authtype);
-	$this->assertEquals('USERNAME', $username);
-	$this->assertEquals('PASSWORD', $password);
-    }
-
-    function testGetHttpAuthFromHttpAuthorizationHeader() {
-	$_SERVER['HTTP_AUTHORIZATION'] = 'AUTHTYPE ' . base64_encode('USERNAME:PASSWORD');
-
-	list ($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
-	$this->assertEquals('AUTHTYPE', $authtype);
-	$this->assertEquals('USERNAME', $username);
-	$this->assertEquals('PASSWORD', $password);
-    }
-
-    function testGetHttpAuthWithoutAuthTypeDefaultsToBasic() {
-	$_SERVER['PHP_AUTH_USER'] = 'USERNAME';
-	$_SERVER['PHP_AUTH_PW'] = 'PASSWORD';
-
-	list ($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
-	$this->assertEquals('Basic', $authtype);
-	$this->assertEquals('USERNAME', $username);
-	$this->assertEquals('PASSWORD', $password);
-    }
-
-    function testGetHttpAuthWithoutAuthAndUserDoesNotDefault() {
-	$_SERVER['PHP_AUTH_USER'] = '';
-	$_SERVER['PHP_AUTH_PW'] = 'PASSWORD';
-
-	list ($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
-	$this->assertEquals(null, $authtype, 'auth type');
-	$this->assertEquals('', $username, 'user name');
-	$this->assertEquals('PASSWORD', $password, 'password');
-    }
-
-    function testGetUser() {
-	list ($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
-	if ($ret) {
-	    return $ret;
+		$this->assert(!$success);
 	}
 
-	$this->assertEquals($this->_user, $user);
-    }
+	public function testCheckHttpAuthPluginDisabled() {
+		$this->_platform->_messages[$this->_httpAuthWorksRequest] = $this->_missingAuthorizationResponse;
+		$ret = GalleryCoreApi::removePluginParameter('module', 'httpauth', 'httpAuthPlugin');
 
-    function testGetUserInvalidUser() {
-	list ($ret, $user) = HttpAuthHelper::getUser('Test', 'bogusUser-' . rand());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $success) = HttpAuthHelper::checkHttpAuth();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($success);
 	}
 
-	$this->assertEquals(null, $user);
-    }
+	public function testGetHttpAuth() {
+		$_SERVER['AUTH_TYPE']     = 'AUTHTYPE';
+		$_SERVER['PHP_AUTH_USER'] = 'USERNAME';
+		$_SERVER['PHP_AUTH_PW']   = 'PASSWORD';
 
-    function testGetUserDisabledUser() {
-	$ret = $this->_disableUserName($this->_user->getUserName());
-	if ($ret) {
-	    return $ret;
+		list($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
+		$this->assertEquals('AUTHTYPE', $authtype);
+		$this->assertEquals('USERNAME', $username);
+		$this->assertEquals('PASSWORD', $password);
 	}
 
-	list ($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
-	if ($ret) {
-	    return $ret;
+	public function testGetHttpAuthFromRequestVariable() {
+		GalleryUtilities::putRequestVariable(
+			'authorization',
+			'AUTHTYPE ' . base64_encode('USERNAME:PASSWORD')
+		);
+
+		$_SERVER['HTTP_AUTHORIZATION'] = 'OTHER ' . base64_encode('NOUSER:NOPASS');
+
+		list($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
+		$this->assertEquals('AUTHTYPE', $authtype);
+		$this->assertEquals('USERNAME', $username);
+		$this->assertEquals('PASSWORD', $password);
 	}
 
-	$this->assertEquals(null, $user);
-    }
+	public function testGetHttpAuthFromHttpAuthorizationHeader() {
+		$_SERVER['HTTP_AUTHORIZATION'] = 'AUTHTYPE ' . base64_encode('USERNAME:PASSWORD');
 
-    function testGetUserAuthtypePattern() {
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'httpauth', 'regexAuthPlugin', true);
-	if ($ret) {
-	    return $ret;
+		list($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
+		$this->assertEquals('AUTHTYPE', $authtype);
+		$this->assertEquals('USERNAME', $username);
+		$this->assertEquals('PASSWORD', $password);
 	}
 
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'httpauth', 'authtypePattern', '/^Bogus$/');
-	if ($ret) {
-	    return $ret;
+	public function testGetHttpAuthWithoutAuthTypeDefaultsToBasic() {
+		$_SERVER['PHP_AUTH_USER'] = 'USERNAME';
+		$_SERVER['PHP_AUTH_PW']   = 'PASSWORD';
+
+		list($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
+		$this->assertEquals('Basic', $authtype);
+		$this->assertEquals('USERNAME', $username);
+		$this->assertEquals('PASSWORD', $password);
 	}
 
-	list ($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
-	if ($ret) {
-	    return $ret;
+	public function testGetHttpAuthWithoutAuthAndUserDoesNotDefault() {
+		$_SERVER['PHP_AUTH_USER'] = '';
+		$_SERVER['PHP_AUTH_PW']   = 'PASSWORD';
+
+		list($authtype, $username, $password) = HttpAuthHelper::getHttpAuth();
+		$this->assertEquals(null, $authtype, 'auth type');
+		$this->assertEquals('', $username, 'user name');
+		$this->assertEquals('PASSWORD', $password, 'password');
 	}
 
-	$this->assertEquals(null, $user);
-    }
+	public function testGetUser() {
+		list($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
 
-    function testGetUserUsernamePattern() {
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'httpauth', 'usernamePattern', '/^bogusUser-' . rand() . '$/');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_user, $user);
 	}
 
-	list ($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
-	if ($ret) {
-	    return $ret;
+	public function testGetUserInvalidUser() {
+		list($ret, $user) = HttpAuthHelper::getUser('Test', 'bogusUser-' . mt_rand());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(null, $user);
 	}
 
-	$this->assertEquals(null, $user);
-    }
+	public function testGetUserDisabledUser() {
+		$ret = $this->_disableUserName($this->_user->getUserName());
 
-    function testGetUserUsernameReplace() {
-	list ($ret, $user) =
-	    HttpAuthHelper::getUser('Test', $this->_user->getUserName() . '@REALM.TLD');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(null, $user);
 	}
 
-	$this->assertEquals($this->_user, $user);
-    }
+	public function testGetUserAuthtypePattern() {
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'httpauth',
+			'regexAuthPlugin',
+			true
+		);
 
-    function testGetUserIgnoresUseGloballyFlag() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'httpauth',
+			'authtypePattern',
+			'/^Bogus$/'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(null, $user);
 	}
 
-	list ($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($this->_user, $user);
-    }
+	public function testGetUserUsernamePattern() {
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'httpauth',
+			'usernamePattern',
+			'/^bogusUser-' . mt_rand() . '$/'
+		);
 
-    function testAddHttpAuthToUrl() {
-	$url = 'http://www.example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
-	$this->assertEquals('http://FAKEUSER:FAKEPASS@www.example.com/gallery2/' .
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(null, $user);
+	}
+
+	public function testGetUserUsernameReplace() {
+		list($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName() . '@REALM.TLD');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($this->_user, $user);
+	}
+
+	public function testGetUserIgnoresUseGloballyFlag() {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $user) = HttpAuthHelper::getUser('Test', $this->_user->getUserName());
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals($this->_user, $user);
+	}
+
+	public function testAddHttpAuthToUrl() {
+		$url = 'http://www.example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
+		$this->assertEquals(
+			'http://FAKEUSER:FAKEPASS@www.example.com/gallery2/' .
 				'main.php?foo=bar&amp;view=baz#some',
-			    HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
-			    'URL with all components');
+			HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
+			'URL with all components'
+		);
 
-	$url = 'webdav://www.example.com/gallery2/main.php?foo=bar&view=baz#some';
-	$this->assertEquals('webdav://FAKEUSER:FAKEPASS@www.example.com/gallery2/' .
+		$url = 'webdav://www.example.com/gallery2/main.php?foo=bar&view=baz#some';
+		$this->assertEquals(
+			'webdav://FAKEUSER:FAKEPASS@www.example.com/gallery2/' .
 				'main.php?foo=bar&view=baz#some',
-			    HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
-			    'non-standard protocol, no HTML entities');
+			HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
+			'non-standard protocol, no HTML entities'
+		);
 
-	$url = 'https://www.example.com/gallery2/main.php';
-	$this->assertEquals('https://FAKEUSER:FAKEPASS@www.example.com/gallery2/main.php',
-			    HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
-			    'no query string, anchor');
+		$url = 'https://www.example.com/gallery2/main.php';
+		$this->assertEquals(
+			'https://FAKEUSER:FAKEPASS@www.example.com/gallery2/main.php',
+			HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
+			'no query string, anchor'
+		);
 
-	$url = 'http://OLDUSER:OLDPASS@example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
-	$this->assertEquals('http://FAKEUSER:FAKEPASS@example.com/gallery2/' .
+		$url = 'http://OLDUSER:OLDPASS@example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
+		$this->assertEquals(
+			'http://FAKEUSER:FAKEPASS@example.com/gallery2/' .
 				'main.php?foo=bar&amp;view=baz#some',
-			    HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
-			    'URL with existing user:pass');	
-    }
-
-    function testStripHttpAuthFromUrl() {
-	$url = 'http://OLDUSER:OLDPASS@example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
-	$this->assertEquals('http://example.com/gallery2/main.php?foo=bar&amp;view=baz#some',
-			    HttpAuthHelper::stripHttpAuthFromUrl($url),
-			    'URL with user:pass');
-
-	$url = 'http://www.example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
-	$this->assertEquals('http://www.example.com/gallery2/main.php?foo=bar&amp;view=baz#some',
-			    HttpAuthHelper::stripHttpAuthFromUrl($url),
-			    'URL without user:pass');
-
-	$url = 'webdav://OLDUSER:OLDPASS@example.com/gallery2/main.php?foo=bar&view=baz';
-	$this->assertEquals('webdav://example.com/gallery2/main.php?foo=bar&view=baz',
-			    HttpAuthHelper::stripHttpAuthFromUrl($url),
-			    'URL without HTML entities, anchor, other protocol');
-    }
-
-    function testGetConfiguration() {
-	list ($ret, $authPluginEnabled, $serverPluginEnabled, $usedGlobally) = 
-		$this->_authInterface->getConfiguration();
-	if ($ret) {
-	    return $ret;
+			HttpAuthHelper::addHttpAuthToUrl($url, 'FAKEUSER', 'FAKEPASS'),
+			'URL with existing user:pass'
+		);
 	}
 
-	$this->assertEquals(array(true, false, true),
-			    array($authPluginEnabled, $serverPluginEnabled, $usedGlobally));
-    }
+	public function testStripHttpAuthFromUrl() {
+		$url = 'http://OLDUSER:OLDPASS@example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
+		$this->assertEquals(
+			'http://example.com/gallery2/main.php?foo=bar&amp;view=baz#some',
+			HttpAuthHelper::stripHttpAuthFromUrl($url),
+			'URL with user:pass'
+		);
 
-    function testSetConfiguration() {
-	$this->_resetFactory = true;
-	$ret = $this->_authInterface->setConfiguration(false, true, false);
-	if ($ret) {
-	    return $ret;
+		$url = 'http://www.example.com/gallery2/main.php?foo=bar&amp;view=baz#some';
+		$this->assertEquals(
+			'http://www.example.com/gallery2/main.php?foo=bar&amp;view=baz#some',
+			HttpAuthHelper::stripHttpAuthFromUrl($url),
+			'URL without user:pass'
+		);
+
+		$url = 'webdav://OLDUSER:OLDPASS@example.com/gallery2/main.php?foo=bar&view=baz';
+		$this->assertEquals(
+			'webdav://example.com/gallery2/main.php?foo=bar&view=baz',
+			HttpAuthHelper::stripHttpAuthFromUrl($url),
+			'URL without HTML entities, anchor, other protocol'
+		);
 	}
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
-	if ($ret) {
-	    return $ret;
+	public function testGetConfiguration() {
+		list($ret, $authPluginEnabled, $serverPluginEnabled, $usedGlobally) = $this->_authInterface->getConfiguration();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(true, false, true),
+			array($authPluginEnabled, $serverPluginEnabled, $usedGlobally)
+		);
 	}
 
-	$this->assert(!(bool)$params['httpAuthPlugin'], 'wrong httpAuthPlugin value');
-	$this->assert((bool)$params['serverAuthPlugin'], 'wrong serverAuthPlugin value');
-	$this->assert(!(bool)$params['useGlobally'], 'wrong useGlobally value');
-	list ($ret, $authPlugins) =
-		GalleryCoreApi::getAllFactoryImplementationIds('GalleryAuthPlugin');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($authPlugins['HttpAuthPlugin']), 'HttpAuthPlugin still registerd');
-	$this->assert(isset($authPlugins['ServerAuthPlugin']), 'ServerAuthPlugin not registered');
-    }
+	public function testSetConfiguration() {
+		$this->_resetFactory = true;
+		$ret                 = $this->_authInterface->setConfiguration(false, true, false);
 
-    function testSetConfigurationDefaults() {
-	$this->_resetFactory = true;
-	$ret = $this->_authInterface->setConfiguration(true);
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
 
-	$this->assert((bool)$params['httpAuthPlugin'], 'wrong httpAuthPlugin value');
-	$this->assert(!(bool)$params['serverAuthPlugin'], 'wrong serverAuthPlugin value');
-	$this->assert(!(bool)$params['useGlobally'], 'wrong useGlobally value');
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testRequestAuthentication() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
-	if ($ret) {
-	    return $ret;
+		$this->assert(!(bool)$params['httpAuthPlugin'], 'wrong httpAuthPlugin value');
+		$this->assert((bool)$params['serverAuthPlugin'], 'wrong serverAuthPlugin value');
+		$this->assert(!(bool)$params['useGlobally'], 'wrong useGlobally value');
+		list($ret, $authPlugins) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryAuthPlugin');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assert(!isset($authPlugins['HttpAuthPlugin']), 'HttpAuthPlugin still registerd');
+		$this->assert(isset($authPlugins['ServerAuthPlugin']), 'ServerAuthPlugin not registered');
 	}
 
-	$ret = $this->_authInterface->requestAuthentication();
-	if ($ret) {
-	    return $ret;
+	public function testSetConfigurationDefaults() {
+		$this->_resetFactory = true;
+		$ret                 = $this->_authInterface->setConfiguration(true);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert((bool)$params['httpAuthPlugin'], 'wrong httpAuthPlugin value');
+		$this->assert(!(bool)$params['serverAuthPlugin'], 'wrong serverAuthPlugin value');
+		$this->assert(!(bool)$params['useGlobally'], 'wrong useGlobally value');
 	}
 
-	$this->assertEquals(array('status' => 'HTTP/1.0 401 Unauthorized',
-		'www-authenticate' => "WWW-Authenticate: Basic realm='TEST_AUTH_NAME'"),
-			    $this->_headers);
-    }
+	public function testRequestAuthentication() {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
 
-    function testRequestAuthenticationDoNotIgnoreUseGloballyFlag() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_authInterface->requestAuthentication();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				'status'           => 'HTTP/1.0 401 Unauthorized',
+				'www-authenticate' => "WWW-Authenticate: Basic realm='TEST_AUTH_NAME'",
+			),
+			$this->_headers
+		);
 	}
 
-	$ret = HttpAuthHelper::requestAuthentication(false);
-	if ($ret) {
-	    return $ret;
+	public function testRequestAuthenticationDoNotIgnoreUseGloballyFlag() {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = HttpAuthHelper::requestAuthentication(false);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(), $this->_headers);
 	}
 
-	$this->assertEquals(array(), $this->_headers);
-    }
+	public function testRequestAuthenticationIgnoredIfHttpAuthNotEnabled() {
+		foreach (array(
+			'httpAuthPlugin'   => false,
+			'serverAuthPlugin' => true,
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', $key, $value);
 
-    function testRequestAuthenticationIgnoredIfHttpAuthNotEnabled() {
-	foreach (array('httpAuthPlugin' => false, 'serverAuthPlugin' => true) as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		$ret = HttpAuthHelper::requestAuthentication();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(), $this->_headers);
 	}
 
-	$ret = HttpAuthHelper::requestAuthentication();
-	if ($ret) {
-	    return $ret;
+	public function testRequestAuthenticationAlsoSentWhenAlreadyLoggedIn() {
+		$this->_becomeGuestUser();
+
+		$ret = HttpAuthHelper::requestAuthentication();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				'status'           => 'HTTP/1.0 401 Unauthorized',
+				'www-authenticate' => "WWW-Authenticate: Basic realm='TEST_AUTH_NAME'",
+			),
+			$this->_headers
+		);
 	}
 
-	$this->assertEquals(array(), $this->_headers);
-    }
+	public function testRegenerateSessionIfNecessary() {
+		global $gallery;
+		$gallery->_session = new HttpAuthHelperTestSession();
 
-    function testRequestAuthenticationAlsoSentWhenAlreadyLoggedIn() {
-	$this->_becomeGuestUser();
+		$ret = HttpAuthHelper::regenerateSessionIfNecessary($this->_user);
 
-	$ret = HttpAuthHelper::requestAuthentication();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($gallery->_session->regenerateWasCalled());
 	}
 
-	$this->assertEquals(array('status' => 'HTTP/1.0 401 Unauthorized',
-		'www-authenticate' => "WWW-Authenticate: Basic realm='TEST_AUTH_NAME'"),
-			    $this->_headers);
-    }
+	public function testRegenerateSessionIfNecessarySameUserAsFromSession() {
+		global $gallery;
+		$gallery->_session = new HttpAuthHelperTestSession($this->_user->getId());
 
-    function testRegenerateSessionIfNecessary() {
-	global $gallery;
-	$gallery->_session = new HttpAuthHelperTestSession();
+		$ret = HttpAuthHelper::regenerateSessionIfNecessary($this->_user);
 
-	$ret = HttpAuthHelper::regenerateSessionIfNecessary($this->_user);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(!$gallery->_session->regenerateWasCalled());
 	}
 
-	$this->assert($gallery->_session->regenerateWasCalled());
-    }
+	public function testRegenerateSessionIfNecessaryOtherUserThanFromSession() {
+		global $gallery;
+		$gallery->_session = new HttpAuthHelperTestSession('OTHER_USER');
 
-    function testRegenerateSessionIfNecessarySameUserAsFromSession() {
-	global $gallery;
-	$gallery->_session = new HttpAuthHelperTestSession($this->_user->getId());
+		$ret = HttpAuthHelper::regenerateSessionIfNecessary($this->_user);
 
-	$ret = HttpAuthHelper::regenerateSessionIfNecessary($this->_user);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert($gallery->_session->regenerateWasCalled());
 	}
 
-	$this->assert(!$gallery->_session->regenerateWasCalled());
-    }
+	public function testRegenerateSessionIfNecessaryNoAuthenticatedUser() {
+		global $gallery;
+		$gallery->_session = new HttpAuthHelperTestSession($this->_user->getId());
 
-    function testRegenerateSessionIfNecessaryOtherUserThanFromSession() {
-	global $gallery;
-	$gallery->_session = new HttpAuthHelperTestSession('OTHER_USER');
+		$ret = HttpAuthHelper::regenerateSessionIfNecessary(null);
 
-	$ret = HttpAuthHelper::regenerateSessionIfNecessary($this->_user);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assert(!$gallery->_session->regenerateWasCalled());
 	}
-
-	$this->assert($gallery->_session->regenerateWasCalled());
-    }
-
-    function testRegenerateSessionIfNecessaryNoAuthenticatedUser() {
-	global $gallery;
-	$gallery->_session = new HttpAuthHelperTestSession($this->_user->getId());
-
-	$ret = HttpAuthHelper::regenerateSessionIfNecessary(null);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(!$gallery->_session->regenerateWasCalled());
-    }
 }
 
 class HttpAuthHelperTestRewriteApi {
-    var $foo;
+	public $foo;
 
-    function &_fetchActiveRulesForModule($moduleId) {
-	static $activeRules;
-	return $activeRules;
-    }
+	public function &_fetchActiveRulesForModule($moduleId) {
+		static $activeRules;
 
-    function &_getParserType() {
-	static $parserType;
-	return $parserType;
-    }
+		return $activeRules;
+	}
 
-    function isCompatibleWithApi($version) {
-	return array(null, true);
-    }
+	public function &_getParserType() {
+		static $parserType;
 
-    function fetchActiveRulesForModule($moduleId) {
-	return array(null, HttpAuthHelperTestRewriteApi::_fetchActiveRulesForModule($moduleId));
-    }
+		return $parserType;
+	}
 
-    function getParserType() {
-	return HttpAuthHelperTestRewriteApi::_getParserType();
-    }
+	public function isCompatibleWithApi($version) {
+		return array(null, true);
+	}
+
+	public function fetchActiveRulesForModule($moduleId) {
+		return array(null, HttpAuthHelperTestRewriteApi::_fetchActiveRulesForModule($moduleId));
+	}
+
+	public function getParserType() {
+		return HttpAuthHelperTestRewriteApi::_getParserType();
+	}
 }
 
 class HttpAuthHelperTestPlatform extends GalleryPlatform {
-    var $_messages;
-    var $_buffer;
+	public $_messages;
+	public $_buffer;
 
-    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
-	return 'test';
-    }
-
-    function feof($handle) {
-	return empty($this->_buffer);
-    }
-
-    function fgets($handle, $length) {
-	if (empty($this->_buffer)) {
-	    return null;
+	public function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+		return 'test';
 	}
 
-	if (strpos($this->_buffer, "\n") < $length) {
-	    $length = strpos($this->_buffer, "\n") + 1;
+	public function feof($handle) {
+		return empty($this->_buffer);
 	}
 
-	return $this->fread($handle, $length);
-    }
+	public function fgets($handle, $length) {
+		if (empty($this->_buffer)) {
+			return null;
+		}
 
-    function fread($handle, $length) {
-	if (empty($this->_buffer)) {
-	    return null;
+		if (strpos($this->_buffer, "\n") < $length) {
+			$length = strpos($this->_buffer, "\n") + 1;
+		}
+
+		return $this->fread($handle, $length);
 	}
 
-	$buffer = substr($this->_buffer, 0, $length);
-	$this->_buffer = substr($this->_buffer, $length);
-	return $buffer;
-    }
+	public function fread($handle, $length) {
+		if (empty($this->_buffer)) {
+			return null;
+		}
 
-    function fwrite($handle, $string, $length=0) {
-	if (isset($this->_messages[$string])) {
-	    $this->_buffer = $this->_messages[$string];
-	    return strlen($string);
-	} else {
-	    print "unexpected fwrite: $string ";
+		$buffer        = substr($this->_buffer, 0, $length);
+		$this->_buffer = substr($this->_buffer, $length);
+
+		return $buffer;
 	}
-    }
 
-    function fflush($handle) {
-	return true;
-    }
+	public function fwrite($handle, $string, $length = 0) {
+		if (isset($this->_messages[$string])) {
+			$this->_buffer = $this->_messages[$string];
 
-    function fclose($handle) {
-	return true;
-    }
+			return strlen($string);
+		}
+		echo "unexpected fwrite: $string ";
+	}
+
+	public function fflush($handle) {
+		return true;
+	}
+
+	public function fclose($handle) {
+		return true;
+	}
 }
 
 class HttpAuthHelperTestPhpVm extends GalleryPhpVm {
-    function header($header, $replace=null) {
-	/* Avoid modifying actual header information */
-    }
+	public function header($header, $replace = null) {
+		// Avoid modifying actual header information
+	}
 }
 
 class HttpAuthHelperTestSession {
-    function HttpAuthHelperTestSession($userId=null) {
-	$this->_userId = $userId;
-	$this->_regenerateWasCalled = false;
-    }
+	public function __construct($userId = null) {
+		$this->_userId              = $userId;
+		$this->_regenerateWasCalled = false;
+	}
 
-    function getUserId() {
-	return $this->_userId;
-    }
+	public function getUserId() {
+		return $this->_userId;
+	}
 
-    function regenerate() {
-	$this->_regenerateWasCalled = true;
-    }
+	public function regenerate() {
+		$this->_regenerateWasCalled = true;
+	}
 
-    function regenerateWasCalled() {
-	return $this->_regenerateWasCalled;
-    }
+	public function regenerateWasCalled() {
+		return $this->_regenerateWasCalled;
+	}
 }
-?>

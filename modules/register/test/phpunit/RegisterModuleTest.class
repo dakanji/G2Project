@@ -26,58 +26,77 @@
  * @version $Revision: 17580 $
  */
 class RegisterModuleTest extends GalleryTestCase {
-
-    function RewriteModuleTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function RewriteModuleTest($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'register');
-	if ($ret) {
-	    return $ret;
-	}
-    }
+	public function setUp() {
+		$ret = parent::setUp();
 
-    function testSystemLinks() {
-	global $gallery;
-	$label = $this->_module->translate('Register');
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $links) = $this->_module->getSystemLinks();
-	if ($ret) {
-	    return $ret;
-	}
-	/* None for non-guest */
-	$this->assertEquals(array(), $links, 'admin');
+		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'register');
 
-	$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
-	list ($ret, $links) = $this->_module->getSystemLinks();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
 	}
-	$this->assertEquals(
-		array('Register' => array('text' => $label,
-			'params' => array('view' => 'core.UserAdmin',
-					  'subView' => 'register.UserSelfRegistration',
-					  'return' => 1))),
-		$links, 'alternate guest');
 
-	$gallery->setConfig('anonymousUserId', null);
-	$this->_becomeGuestUser();
-	list ($ret, $links) = $this->_module->getSystemLinks();
-	if ($ret) {
-	    return $ret;
+	public function testSystemLinks() {
+		global $gallery;
+		$label = $this->_module->translate('Register');
+
+		list($ret, $links) = $this->_module->getSystemLinks();
+
+		if ($ret) {
+			return $ret;
+		}
+		// None for non-guest
+		$this->assertEquals(array(), $links, 'admin');
+
+		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
+		list($ret, $links) = $this->_module->getSystemLinks();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'Register' => array(
+					'text'   => $label,
+					'params' => array(
+						'view'    => 'core.UserAdmin',
+						'subView' => 'register.UserSelfRegistration',
+						'return'  => 1,
+					),
+				),
+			),
+			$links,
+			'alternate guest'
+		);
+
+		$gallery->setConfig('anonymousUserId', null);
+		$this->_becomeGuestUser();
+		list($ret, $links) = $this->_module->getSystemLinks();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'Register' => array(
+					'text'   => $label,
+					'params' => array(
+						'view'    => 'core.UserAdmin',
+						'subView' => 'register.UserSelfRegistration',
+						'return'  => 1,
+					),
+				),
+			),
+			$links,
+			'guest'
+		);
 	}
-	$this->assertEquals(
-		array('Register' => array('text' => $label,
-			'params' => array('view' => 'core.UserAdmin',
-					  'subView' => 'register.UserSelfRegistration',
-					  'return' => 1))),
-		$links, 'guest');
-    }
 }
-?>

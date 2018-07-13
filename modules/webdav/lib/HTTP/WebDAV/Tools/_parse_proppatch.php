@@ -1,4 +1,5 @@
-<?php // $Id: _parse_proppatch.php 17189 2007-11-17 08:53:36Z bharat $
+<?php
+// $Id: _parse_proppatch.php 17189 2007-11-17 08:53:36Z bharat $
 /*
    +----------------------------------------------------------------------+
    | Copyright (c) 2002-2007 Christian Stocker, Hartmut Holzgraefe        |
@@ -40,191 +41,199 @@
  * @author Hartmut Holzgraefe <hholzgra@php.net>
  * @version 0.99.1dev
  */
-class _parse_proppatch
-{
-    /**
-     * Success state flag
-     *
-     * @var boolean
-     * @access public
-     */
-    var $success = false;
+class _parse_proppatch {
+	/**
+	 * Success state flag
+	 *
+	 * @var boolean
+	 * @access public
+	 */
+	public $success = false;
 
-    /**
-     * Found properties are collected here
-     *
-     * @var array
-     * @access public
-     */
-    var $props = array();
+	/**
+	 * Found properties are collected here
+	 *
+	 * @var array
+	 * @access public
+	 */
+	public $props = array();
 
-    /**
-     * Internal tag nesting depth counter
-     *
-     * @var int
-     * @access private
-     */
-    var $depth = 0;
+	/**
+	 * Internal tag nesting depth counter
+	 *
+	 * @var int
+	 * @access private
+	 */
+	public $depth = 0;
 
-    /**
-     *
-     *
-     * @var
-     * @access
-     */
-    var $mode;
+	/**
+	 *
+	 *
+	 * @var
+	 * @access
+	 */
+	public $mode;
 
-    /**
-     *
-     *
-     * @var
-     * @access
-     */
-    var $current;
+	/**
+	 *
+	 *
+	 * @var
+	 * @access
+	 */
+	public $current;
 
-    /**
-     * Constructor
-     *
-     * @param resource input stream file descriptor
-     * @access public
-     */
-    function _parse_proppatch($handle)
-    {
-        // open input stream
-        if (!$handle) {
-            $this->success = false;
-            return;
-        }
+	/**
+	 * Constructor
+	 *
+	 * @param resource input stream file descriptor
+	 * @access public
+	 */
+	public function __construct($handle) {
+		// open input stream
+		if (!$handle) {
+			$this->success = false;
 
-        // success state flag
-        $this->success = true;
+			return;
+		}
 
-        // remember if any input was parsed
-        $had_input = false;
+		// success state flag
+		$this->success = true;
 
-        // create namespace aware XML parser
-        $parser = xml_parser_create_ns('UTF-8', ' ');
+		// remember if any input was parsed
+		$had_input = false;
 
-        // set tag & data handlers
-        xml_set_element_handler($parser, array(&$this, '_startElement'),
-            array(&$this, '_endElement'));
+		// create namespace aware XML parser
+		$parser = xml_parser_create_ns('UTF-8', ' ');
 
-        xml_set_character_data_handler($parser, array(&$this, '_data'));
+		// set tag & data handlers
+		xml_set_element_handler(
+			$parser,
+			array(&$this, '_startElement'),
+			array(&$this, '_endElement')
+		);
 
-        // we want a case sensitive parser
-        xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, false);
+		xml_set_character_data_handler($parser, array(&$this, '_data'));
 
-        // parse input
-        while ($this->success && !feof($handle)) {
-            $line = fgets($handle);
-            if (is_string($line)) {
-                $had_input = true;
-                $this->success &= xml_parse($parser, $line, false);
-            }
-        }
+		// we want a case sensitive parser
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, false);
 
-        // finish parsing
-        if ($had_input) {
-            $this->success &= xml_parse($parser, '', true);
-        }
+		// parse input
+		while ($this->success && !feof($handle)) {
+			$line = fgets($handle);
 
-        // free parser resource
-        xml_parser_free($parser);
+			if (is_string($line)) {
+				$had_input      = true;
+				$this->success &= xml_parse($parser, $line, false);
+			}
+		}
 
-        // close input stream
-        fclose($handle);
-    }
+		// finish parsing
+		if ($had_input) {
+			$this->success &= xml_parse($parser, '', true);
+		}
 
-    /**
-     * Start tag handler
-     *
-     * @access private
-     * @param resource parser
-     * @param string tag name
-     * @param array tag attributes
-     * @return void
-     */
-    function _startElement($parser, $name, $attrs)
-    {
-        // name space hanndling
-        if (strstr($name, ' ')) {
-            list ($ns, $name) = explode(' ', $name);
-            if (empty($ns)) {
-                $this->success = false;
-            }
-        }
+		// free parser resource
+		xml_parser_free($parser);
 
-        if ($this->depth == 1) {
-            $this->mode = $name;
-        }
+		// close input stream
+		fclose($handle);
+	}
 
-        if ($this->depth == 3) {
-            $prop = array('name' => $name);
-            $this->current = array('name' => $name,
-                'ns' => $ns,
-                'status' => '200 OK');
-            if ($this->mode == 'set') {
-                $this->current['value'] = ''; // set default value
-            }
-        }
+	/**
+	 * Start tag handler
+	 *
+	 * @access private
+	 * @param resource parser
+	 * @param string tag name
+	 * @param array tag attributes
+	 * @return void
+	 */
+	public function _startElement($parser, $name, $attrs) {
+		// name space hanndling
+		if (strstr($name, ' ')) {
+			list($ns, $name) = explode(' ', $name);
 
-        if ($this->depth >= 4) {
-            $this->current['value'] .= "<$name";
-            foreach ($attr as $key => $value) {
-                $this->current['value'] .= ' ' . $key . '="'
-                    . str_replace('"', '&quot;', $value) . '"';
-            }
-            $this->current['value'] .= '>';
-        }
+			if (empty($ns)) {
+				$this->success = false;
+			}
+		}
 
-        // incremennt depth count
-        $this->depth++;
-    }
+		if ($this->depth == 1) {
+			$this->mode = $name;
+		}
 
-    /**
-     * End tag handler
-     *
-     * @access private
-     * @param resource parser
-     * @param string tag name
-     * @return void
-     */
-    function _endElement($parser, $name)
-    {
-        if (strstr($name, ' ')) {
-            list($ns, $name) = explode(' ', $name);
-            if (empty($ns)) {
-                $this->success = false;
-            }
-        }
+		if ($this->depth == 3) {
+			$prop          = array(
+				'name' => $name,
+			);
+			$this->current = array(
+				'name'   => $name,
+				'ns'     => $ns,
+				'status' => '200 OK',
+			);
 
-        // decrement the depth count
-        $this->depth--;
+			if ($this->mode == 'set') {
+				$this->current['value'] = ''; // set default value
+			}
+		}
 
-        if ($this->depth >= 4) {
-            $this->current['value'] .= "</$name>";
-        }
+		if ($this->depth >= 4) {
+			$this->current['value'] .= "<$name";
 
-        if ($this->depth == 3) {
-            if (isset($this->current)) {
-                $this->props[] = $this->current;
-                unset($this->current);
-            }
-        }
-    }
+			foreach ($attr as $key => $value) {
+				$this->current['value'] .= ' ' . $key . '="'
+					. str_replace('"', '&quot;', $value) . '"';
+			}
+			$this->current['value'] .= '>';
+		}
 
-    /**
-     * Character data handler
-     *
-     * @access private
-     * @param resource parser
-     * @param string data
-     * @return void
-     */
-    function _data($parser, $data) {
-        if (isset($this->current)) {
-            $this->current['value'] .= $data;
-        }
-    }
+		// incremennt depth count
+		$this->depth++;
+	}
+
+	/**
+	 * End tag handler
+	 *
+	 * @access private
+	 * @param resource parser
+	 * @param string tag name
+	 * @return void
+	 */
+	public function _endElement($parser, $name) {
+		if (strstr($name, ' ')) {
+			list($ns, $name) = explode(' ', $name);
+
+			if (empty($ns)) {
+				$this->success = false;
+			}
+		}
+
+		// decrement the depth count
+		$this->depth--;
+
+		if ($this->depth >= 4) {
+			$this->current['value'] .= "</$name>";
+		}
+
+		if ($this->depth == 3) {
+			if (isset($this->current)) {
+				$this->props[] = $this->current;
+				unset($this->current);
+			}
+		}
+	}
+
+	/**
+	 * Character data handler
+	 *
+	 * @access private
+	 * @param resource parser
+	 * @param string data
+	 * @return void
+	 */
+	public function _data($parser, $data) {
+		if (isset($this->current)) {
+			$this->current['value'] .= $data;
+		}
+	}
 }
-?>

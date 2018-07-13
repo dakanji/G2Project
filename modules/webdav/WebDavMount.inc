@@ -26,39 +26,47 @@
  * @version $Revision: 17580 $
  */
 class WebDavMountView extends GalleryView {
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $canView) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!$canView) {
-	    /* Avoid information disclosure, act as if the item didn't exist. */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		list($ret, $item) = $this->getItem();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $canView) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (!$canView) {
+			// Avoid information disclosure, act as if the item didn't exist.
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		}
+
+		$template->setVariable('item', (array)$item);
+		$template->setVariable('isView', true);
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/webdav/templates/WebDavMount.tpl',
+			),
+		);
 	}
 
-    	$template->setVariable('item', (array)$item);
-	$template->setVariable('isView', true);
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'webdav');
 
-	return array(null, array('body' => 'modules/webdav/templates/WebDavMount.tpl'));
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
 
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'webdav');
-	if ($ret) {
-	    return array($ret, null);
+		return array(null, $module->translate('Mount with WebDAV'));
 	}
-
-	return array(null, $module->translate('Mount with WebDAV'));
-    }
 }
-?>

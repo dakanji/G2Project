@@ -29,126 +29,158 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 class AdminDigibugController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest(&$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest(&$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Provide compatibility with 2.1 and 2.2 */
-	$apiVersion = GalleryCoreApi::getApiVersion();
-	$adminPlugins = 'core.Admin'
-	    . ($apiVersion[0] > 7 || $apiVersion[1] >= 7 ? 'Plugins' : 'Modules');
-
-	$status = $error = array();
-	if (isset($form['action']['save'])) {
-	    if ($form['digibugIdChoice'] == 'owner') {
-		if (empty($form['digibugCustomerId'])
-			|| !preg_match('/^\d+$/', trim($form['digibugCustomerId']))) {
-		    $error[] = 'form[error][digibugCustomerId][invalid]';
-		}
-		if (empty($form['digibugPricelistId'])
-			|| !preg_match('/^\d+$/', trim($form['digibugPricelistId']))) {
-		    $error[] = 'form[error][digibugPricelistId][invalid]';
-		}
-	    }
-	    if (empty($error)) {
-		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'digibug');
 		if ($ret) {
-		    return array($ret, null);
-		}
-		list ($ret, $isActive) = $module->isActive();
-		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
 
-		if ($form['digibugIdChoice'] == 'gallery') {
-		    foreach (array('digibugIdChoice' => 'gallery', 'digibugCustomerId' => '3153',
-				   'digibugPricelistId' => '8491') as $key => $value) {
-			$ret = $module->setParameter($key, $value);
-			if ($ret) {
-			    return array($ret, null);
+		// Provide compatibility with 2.1 and 2.2
+		$apiVersion   = GalleryCoreApi::getApiVersion();
+		$adminPlugins = 'core.Admin'
+		. ($apiVersion[0] > 7 || $apiVersion[1] >= 7 ? 'Plugins' : 'Modules');
+
+		$status = $error = array();
+
+		if (isset($form['action']['save'])) {
+			if ($form['digibugIdChoice'] == 'owner') {
+				if (empty($form['digibugCustomerId'])
+					|| !preg_match('/^\d+$/', trim($form['digibugCustomerId']))
+				) {
+					$error[] = 'form[error][digibugCustomerId][invalid]';
+				}
+
+				if (empty($form['digibugPricelistId'])
+					|| !preg_match('/^\d+$/', trim($form['digibugPricelistId']))
+				) {
+					$error[] = 'form[error][digibugPricelistId][invalid]';
+				}
 			}
-		    }
-		} else {
-		    foreach (array('digibugIdChoice', 'digibugCustomerId', 'digibugPricelistId')
-			     as $key) {
-			$ret = $module->setParameter($key, trim($form[$key]));
-			if ($ret) {
-			    return array($ret, null);
+
+			if (empty($error)) {
+				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'digibug');
+
+				if ($ret) {
+					return array($ret, null);
+				}
+				list($ret, $isActive) = $module->isActive();
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				if ($form['digibugIdChoice'] == 'gallery') {
+					foreach (array(
+						'digibugIdChoice'    => 'gallery',
+						'digibugCustomerId'  => '3153',
+						'digibugPricelistId' => '8491',
+					) as $key => $value) {
+						$ret = $module->setParameter($key, $value);
+
+						if ($ret) {
+							return array($ret, null);
+						}
+					}
+				} else {
+					foreach (array(
+						'digibugIdChoice',
+						'digibugCustomerId',
+						'digibugPricelistId',
+					) as $key) {
+						$ret = $module->setParameter($key, trim($form[$key]));
+
+						if ($ret) {
+							return array($ret, null);
+						}
+					}
+				}
+
+				$redirect = array(
+					'view' => 'core.SiteAdmin',
+				);
+
+				if ($isActive) {
+					$redirect['subView'] = 'digibug.AdminDigibug';
+					$status['saved']     = 1;
+				} else {
+					$redirect['subView']  = $adminPlugins;
+					$status['configured'] = 'digibug';
+				}
 			}
-		    }
+		} elseif (isset($form['action']['reset'])) {
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'digibug.AdminDigibug';
+		} elseif (isset($form['action']['cancel'])) {
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = $adminPlugins;
 		}
 
-		$redirect = array('view' => 'core.SiteAdmin');
-		if ($isActive) {
-		    $redirect['subView'] = 'digibug.AdminDigibug';
-		    $status['saved'] = 1;
+		$results = array(
+			'status' => $status,
+			'error'  => $error,
+		);
+
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
 		} else {
-		    $redirect['subView'] = $adminPlugins;
-		    $status['configured'] = 'digibug';
+			$results['delegate']['view']    = 'core.SiteAdmin';
+			$results['delegate']['subView'] = 'digibug.AdminDigibug';
 		}
-	    }
-	} else if (isset($form['action']['reset'])) {
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'digibug.AdminDigibug';
-	} else if (isset($form['action']['cancel'])) {
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = $adminPlugins;
-	}
 
-	$results = array('status' => $status, 'error' => $error);
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'digibug.AdminDigibug';
+		return array(null, $results);
 	}
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Settings for Digibug
  */
 class AdminDigibugView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'digibug');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $isActive) = $module->isActive();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['formName'] != 'AdminDigibug') {
-	    foreach (array('digibugIdChoice', 'digibugCustomerId', 'digibugPricelistId') as $key) {
-		list ($ret, $form[$key]) = $module->getParameter($key);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
-	    $form['formName'] = 'AdminDigibug';
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'digibug');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $isActive) = $module->isActive();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'AdminDigibug') {
+			foreach (array('digibugIdChoice', 'digibugCustomerId', 'digibugPricelistId') as $key) {
+				list($ret, $form[$key]) = $module->getParameter($key);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+			$form['formName'] = 'AdminDigibug';
+		}
+		$template->style('modules/digibug/digibug.css');
+		$template->setVariable('AdminDigibug', array(
+			'isConfigure' => !$isActive,
+		));
+		$template->setVariable('controller', 'digibug.AdminDigibug');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/digibug/templates/AdminDigibug.tpl',
+			),
+		);
 	}
-	$template->style('modules/digibug/digibug.css');
-	$template->setVariable('AdminDigibug', array('isConfigure' => !$isActive));
-	$template->setVariable('controller', 'digibug.AdminDigibug');
-	return array(null, array('body' => 'modules/digibug/templates/AdminDigibug.tpl'));
-    }
 }
-?>
