@@ -1,7 +1,9 @@
 <?php
 
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
@@ -21,7 +23,7 @@ if (!defined('ADODB_DIR')) {
 // Notice that PostgreSQL has no sql query cache
 class perf_postgres extends adodb_perf {
 	public $tablesSQL = "select a.relname as tablename,(a.relpages+CASE WHEN b.relpages is null THEN 0 ELSE b.relpages END+CASE WHEN c.relpages is null THEN 0 ELSE c.relpages END)*8 as size_in_K,a.relfilenode as \"OID\"  from pg_class a left join pg_class b
-		on b.relname = 'pg_toast_'||trim(a.relfilenode) 
+		on b.relname = 'pg_toast_'||trim(a.relfilenode)
 		left join pg_class c on c.relname = 'pg_toast_'||trim(a.relfilenode)||'_index'
 		where a.relname in (select tablename from pg_tables where tablename not like 'pg_%')";
 
@@ -111,7 +113,7 @@ class perf_postgres extends adodb_perf {
 	);
 
 	public function __construct(&$conn) {
-		$this->conn =& $conn;
+		$this->conn = $conn;
 	}
 
 	public $optimizeTableLow  = 'VACUUM %s';

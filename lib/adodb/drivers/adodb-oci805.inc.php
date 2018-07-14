@@ -1,6 +1,8 @@
 <?php
 /**
- * @version V4.98 13 Feb 2008 (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+ * @version   v5.20.12  30-Mar-2018
+ * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+ * @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
  * Released under both BSD license and Lesser GPL library license.
  * Whenever there is any discrepancy between the two licenses,
  * the BSD license will take precedence.
@@ -23,11 +25,7 @@ class ADODB_oci805 extends ADODB_oci8 {
 	public $databaseType = 'oci805';
 	public $connectSID   = true;
 
-	public function __construct() {
-		parent::__construct();
-	}
-
-	public function &SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
+	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
 		// seems that oracle only supports 1 hint comment in 8i
 		if (strpos($sql, '/*+') !== false) {
 			$sql = str_replace('/*+ ', '/*+FIRST_ROWS ', $sql);

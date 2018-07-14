@@ -1,6 +1,8 @@
 <?php
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
@@ -44,10 +46,6 @@ class ADODB_ado_mssql extends ADODB_ado {
 
 	//var $_inTransaction = 1; // always open recordsets, so no transaction problems.
 
-	public function __construct() {
-		parent::__construct();
-	}
-
 	public function _insertid() {
 		return $this->GetOne('select SCOPE_IDENTITY()');
 	}
@@ -77,7 +75,7 @@ class ADODB_ado_mssql extends ADODB_ado {
 		return str_replace("\0", "\\\\000", $s);
 	}
 
-	public function MetaColumns($table) {
+	public function MetaColumns($table, $normalize = true) {
 		$table = strtoupper($table);
 		$arr   = array();
 		$dbc   = $this->_connectionID;

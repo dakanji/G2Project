@@ -1,6 +1,8 @@
 <?php
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
@@ -83,7 +85,7 @@ class perf_mysql extends adodb_perf {
 	);
 
 	public function __construct(&$conn) {
-		$this->conn =& $conn;
+		$this->conn = $conn;
 	}
 
 	public function Explain($sql, $partial=false) {
@@ -297,7 +299,7 @@ break;
 			$savem = $this->conn->SetFetchMode(false);
 		}
 
-		$rs = $this->conn->Execute('show innodb status');
+		$rs = $this->conn->Execute('show engine innodb status');
 
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
@@ -380,6 +382,5 @@ break;
 
 		return $conn->Execute($sql) !== false;
 	}
-
 	// end hack
 }

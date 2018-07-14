@@ -1,14 +1,18 @@
 <?php
 
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
 
-  MySQL code that supports transactions. For MySQL 3.23 or later.
-  Code from James Poon <jpoon88@yahoo.com>
+  This driver only supports the original MySQL driver in transactional mode. It
+  is deprected in PHP version 5.5 and removed in PHP version 7. It is deprecated
+  as of ADOdb version 5.20.0. Use the mysqli driver instead, which supports both
+  transactional and non-transactional updates
 
   Requires mysql client. Works on Windows and Unix.
 */
@@ -79,10 +83,10 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$this->Execute('COMMIT');
+		$ok = $this->Execute('COMMIT');
 		$this->Execute('SET AUTOCOMMIT=1');
 
-		return true;
+		return $ok ? true : false;
 	}
 
 	public function RollbackTrans() {
@@ -93,13 +97,13 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$this->Execute('ROLLBACK');
+		$ok = $this->Execute('ROLLBACK');
 		$this->Execute('SET AUTOCOMMIT=1');
 
-		return true;
+		return $ok ? true : false;
 	}
 
-	public function RowLock($tables, $where = '', $flds = '1 as adodb_ignore') {
+	public function RowLock($tables, $where = '', $col = '1 as adodbignore') {
 		if ($this->transCnt == 0) {
 			$this->BeginTrans();
 		}
@@ -107,7 +111,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($where) {
 			$where = ' where ' . $where;
 		}
-		$rs =& $this->Execute("select $flds from $tables $where for update");
+		$rs = $this->Execute("select $col from $tables $where for update");
 
 		return !empty($rs);
 	}
@@ -142,7 +146,7 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 		}
 
 		$this->adodbFetchMode = $mode;
-		$this->ADORecordSet($queryID);
+		parent::__construct($queryID);
 	}
 
 	public function MoveNext() {
@@ -159,37 +163,7 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 
 		return false;
 	}
-}
-
-class ADORecordSet_ext_mysqlt extends ADORecordSet_mysqlt {
-	public function __construct($queryID, $mode = false) {
-		if ($mode === false) {
-			global $ADODB_FETCH_MODE;
-			$mode = $ADODB_FETCH_MODE;
-		}
-
-		switch ($mode) {
-			case ADODB_FETCH_NUM:
-				$this->fetchMode = MYSQL_NUM;
-
-				break;
-
-			case ADODB_FETCH_ASSOC:
-				$this->fetchMode = MYSQL_ASSOC;
-
-				break;
-
-			case ADODB_FETCH_DEFAULT:
-			case ADODB_FETCH_BOTH:
-			default:
-				$this->fetchMode = MYSQL_BOTH;
-
-				break;
-		}
-		$this->adodbFetchMode = $mode;
-		$this->ADORecordSet($queryID);
-	}
-
+}class ADORecordSet_ext_mysqlt extends ADORecordSet_mysqlt {
 	public function MoveNext() {
 		return adodb_movenext($this);
 	}
