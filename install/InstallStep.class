@@ -25,11 +25,8 @@
  */
 class InstallStep {
 	public $_stepNumber;
-
 	public $_isComplete;
-
 	public $_isInError;
-
 	public $_isLastStep;
 
 	public function isComplete() {

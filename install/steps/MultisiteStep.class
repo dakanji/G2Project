@@ -24,9 +24,7 @@
  */
 class MultisiteStep extends InstallStep {
 	public $_isMultisite;
-
 	public $_configPath;
-
 	public $_baseUri;
 
 	public function stepName() {
@@ -71,11 +69,10 @@ class MultisiteStep extends InstallStep {
 				return false;
 			}
 			$this->_configPath = rtrim(
-
 				$this->sanitize($_POST['configPath']),
 				' ' . DIRECTORY_SEPARATOR
 			);
-			$this->_baseUri = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
+			$this->_baseUri    = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
 
 			if (substr($this->_baseUri, -4) != '.php'
 				&& substr($this->_baseUri, -1) != '/'
@@ -111,7 +108,7 @@ class MultisiteStep extends InstallStep {
 				$templateData['error']['dir']['codebase'] = 1;
 			} elseif (!is_readable($this->_configPath)) {
 				$templateData['error']['dir']['inaccessible'] = 1;
-			} elseif (!MultisiteStep::populateMultisiteDirectory($this->_configPath)) {
+			} elseif (!self::populateMultisiteDirectory($this->_configPath)) {
 				$templateData['error']['dir']['creation_error'] = 1;
 			}
 

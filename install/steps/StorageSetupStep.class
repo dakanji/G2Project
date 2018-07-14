@@ -24,7 +24,7 @@
  */
 class StorageSetupStep extends InstallStep {
 	public function stepName() {
-		return _('Storage Setup');
+		return 'Storage Setup';
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -72,7 +72,7 @@ class StorageSetupStep extends InstallStep {
 						&& is_readable($parentDir) && is_writeable($parentDir)
 					) {
 						$dir = $parentDir . DIRECTORY_SEPARATOR
-						. basename($dir) . DIRECTORY_SEPARATOR;
+						 . basename($dir) . DIRECTORY_SEPARATOR;
 						// Create the storage folder with restrictive permissions
 						if (@mkdir($dir)) {
 							chmod($dir, 0700);
@@ -287,8 +287,8 @@ class StorageSetupStep extends InstallStep {
 		// Read the web page into a buffer
 		$ok = fwrite($fd, sprintf(
 			"GET %s HTTP/1.0\r\n" .
-				  "Host: %s\r\n" .
-				  "\r\n",
+			  "Host: %s\r\n" .
+			  "\r\n",
 			$get,
 			$components['host']
 		));

@@ -333,9 +333,7 @@ function getGalleryDirUrl() {
 	return getBaseUrl() . $urlPath;
 }
 
-/**
- * Mini url generator for the installer
- */
+// Mini url generator for the installer
 function generateUrl($uri, $print = true) {
 	if (!strncmp($uri, 'index.php', 9)) {
 		// Cookieless browsing: If session.use_trans_sid is on then it will add the session id.

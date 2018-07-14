@@ -65,7 +65,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		if ($ret) {
 			$gallery->debug(sprintf('Error: Unable to initialize our Gallery data, this is the ' .
-					'error stack trace: %s', $ret->getAsText()));
+				'error stack trace: %s', $ret->getAsText()));
 			$templateData['errors'][]     = _('Unable to initialize our Gallery data');
 			$templateData['stackTrace'][] = $ret->getAsHtml();
 		}
@@ -108,7 +108,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 			if ($ret) {
 				$gallery->debug(sprintf('Error: Unable to communicate with the database, this ' .
-					'is the error stack trace; %s', $ret->getAsText()));
+				'is the error stack trace; %s', $ret->getAsText()));
 				$templateData['errors'][]     = _('Unable to communicate with the database');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -121,7 +121,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 			if ($ret) {
 				$gallery->debug(sprintf('Error: Unable to load the core module, this ' .
-					'is the error stack trace; %s', $ret->getAsText()));
+				'is the error stack trace; %s', $ret->getAsText()));
 				$templateData['errors'][]     = _('Unable to load the core module');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
