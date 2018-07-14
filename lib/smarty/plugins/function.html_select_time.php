@@ -143,7 +143,6 @@ function smarty_function_html_select_time($params, &$smarty) {
 		$html_result .= '>' . "\n";
 
 		$html_result .= smarty_function_html_options(
-
 			array(
 				'output'       => $minutes,
 				'values'       => $minutes,
@@ -180,7 +179,6 @@ function smarty_function_html_select_time($params, &$smarty) {
 		$html_result .= '>' . "\n";
 
 		$html_result .= smarty_function_html_options(
-
 			array(
 				'output'       => $seconds,
 				'values'       => $seconds,
@@ -211,7 +209,6 @@ function smarty_function_html_select_time($params, &$smarty) {
 		$html_result .= '>' . "\n";
 
 		$html_result .= smarty_function_html_options(
-
 			array(
 				'output'       => array('AM', 'PM'),
 				'values'       => array('am', 'pm'),

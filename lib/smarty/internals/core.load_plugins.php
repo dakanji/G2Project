@@ -37,8 +37,8 @@ function smarty_core_load_plugins($params, &$smarty) {
 					$_plugin[3] = true;
 
 					if (!isset($_plugin[4])) {
-						$_plugin[4] = true;
-					} // cacheable
+						$_plugin[4] = true; // cacheable
+					}
 				}
 			}
 

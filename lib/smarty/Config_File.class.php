@@ -17,15 +17,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * @link http://smarty.php.net/
- * @version 2.6.20
+ * For questions, help, comments, discussion, etc., please join the
+ * Smarty mailing list. Send a blank e-mail to
+ * smarty-discussion-subscribe@googlegroups.com
+ *
+ * @link http://www.smarty.net/
+ * @version 2.6.25-dev
  * @copyright Copyright: 2001-2005 New Digital Group, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
  */
 
-// $Id: Config_File.class.php 2702 2007-03-08 19:11:22Z mohrt $
+// $Id$
 
 /**
  * Config file reading class
@@ -365,7 +369,6 @@ class Config_File {
 			if (!$this->read_hidden) {
 				return;
 			}
-
 			$var_name = substr($var_name, 1);
 		}
 
@@ -399,6 +402,5 @@ class Config_File {
 	public function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING) {
 		trigger_error("Config_File error: $error_msg", $error_type);
 	}
-
 	// #@-
 }
