@@ -19,6 +19,7 @@
  */
 /**
  * Bootstrap code that we're going to need no matter what we do
+ *
  * @package Gallery
  */
 
@@ -34,6 +35,8 @@ require_once dirname(__FILE__) . '/modules/core/classes/Gallery.class';
 
 require_once dirname(__FILE__) . '/modules/core/classes/GalleryDataCache.class';
 
+require_once dirname(__FILE__) . '/lib/composer/vendor/autoload.php';
+
 /*
  * Set up our Gallery global.  This global should be the only one that Gallery requires.
  * Everything else should be inside it so that we do not pollute the namespace
@@ -46,7 +49,10 @@ $GLOBALS['gallery'] =& $gallery;
 if (!defined('GALLERY_CONFIG_DIR')) {
 	define('GALLERY_CONFIG_DIR', dirname(__FILE__));
 }
-@require GALLERY_CONFIG_DIR . '/config.php';
+
+if (file_exists(GALLERY_CONFIG_DIR . '/config.php')) {
+	include GALLERY_CONFIG_DIR . '/config.php';
+}
 
 /*
  * Disable session.use_trans_sid to mitigate performance-penalty
