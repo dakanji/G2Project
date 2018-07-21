@@ -23,12 +23,13 @@
  *
  * This module provides support for Migrating the Gallery
  *
+ * Also Extends GalleryEventListener
+ *
  * @package Migrate
  * @author Bharat Mediratta <bharat@menalto.com>
  * @version $Revision: 20951 $
  */
-class MigrateModule extends GalleryModule // and GalleryEventListener
-{
+class MigrateModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 
@@ -49,7 +50,7 @@ class MigrateModule extends GalleryModule // and GalleryEventListener
 	 * We pushed all this code into its own file since we need it very rarely so it doesn't
 	 * make sense to load it every single time.
 	 */
-	public function upgrade($currentVersion, $statusMonitor) {
+	public function upgrade($currentVersion, $statusMonitor = null) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
@@ -59,34 +60,33 @@ class MigrateModule extends GalleryModule // and GalleryEventListener
 		}
 
 		switch ($currentVersion) {
-	case '1.0.4':
-		// Added index
-		$ret = $storage->configureStore($this->getId(), array('G1MigrateMap:1.0'));
+			case '1.0.4':
+				// Added index
+				$ret = $storage->configureStore($this->getId(), array('G1MigrateMap:1.0'));
 
-		if ($ret) {
-			return $ret;
+				if ($ret) {
+					return $ret;
+				}
+
+				// Fall Through
+			case '1.0.5':
+			case '1.0.6':
+			case '1.0.7':
+				// .mo file migration
+			case '1.0.8':
+			case '1.0.9':
+				// Refactored to new event registration from core API 7.34
+			case '1.0.10':
+			case '1.0.11':
+			case '1.0.12':
+			case '1.0.13':
+			case 'end of upgrade path':
+				/*
+				 * Leave this bogus case at the end of the legitimate case statements so that we
+				 * always properly terminate our upgrade path with a break.
+				 */
+				break;
 		}
-
-		// Fall Through
-	case '1.0.5':
-	case '1.0.6':
-	case '1.0.7':
-		// .mo file migration
-	case '1.0.8':
-	case '1.0.9':
-		// Refactored to new event registration from core API 7.34
-	case '1.0.10':
-	case '1.0.11':
-	case '1.0.12':
-	case '1.0.13':
-
-	case 'end of upgrade path':
-		/*
-		 * Leave this bogus case at the end of the legitimate case statements so that we
-		 * always properly terminate our upgrade path with a break.
-		 */
-		break;
-	}
 
 		return null;
 	}
@@ -96,13 +96,13 @@ class MigrateModule extends GalleryModule // and GalleryEventListener
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEventListener',
-		'MigrateModule',
-		'MigrateModule',
-		'modules/migrate/module.inc',
-		'migrate',
-		array('GalleryEntity::delete')
-	);
+			'GalleryEventListener',
+			'MigrateModule',
+			'MigrateModule',
+			'modules/migrate/module.inc',
+			'migrate',
+			array('GalleryEntity::delete')
+		);
 
 		if ($ret) {
 			return $ret;
@@ -117,9 +117,11 @@ class MigrateModule extends GalleryModule // and GalleryEventListener
 
 		if (GalleryUtilities::isA($item, 'GalleryItem')) {
 			$ret = GalleryCoreApi::removeMapEntry(
-			'G1MigrateMap',
-						  array('itemId' => $item->getId())
-		);
+				'G1MigrateMap',
+				array(
+					'itemId' => $item->getId(),
+				)
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -135,9 +137,15 @@ class MigrateModule extends GalleryModule // and GalleryEventListener
 	public function getSiteAdminViews() {
 		global $gallery;
 
-		return array(null,
-			 array(array('name' => $this->translate('Gallery 1'),
-				 'view' => 'migrate.SelectGallery', )), );
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Gallery 1'),
+					'view' => 'migrate.SelectGallery',
+				),
+			),
+		);
 	}
 
 	/**
@@ -146,24 +154,36 @@ class MigrateModule extends GalleryModule // and GalleryEventListener
 	public function getRewriteRules() {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$url = $urlGenerator->generateUrl(array('view' => 'core.SiteAdmin',
-						'subView' => 'migrate.SelectGallery', ));
+		$url          = $urlGenerator->generateUrl(array(
+			'view'    => 'core.SiteAdmin',
+			'subView' => 'migrate.SelectGallery',
+		));
 
 		return array(
-		array('comment' => $this->translate('G1-&gt;G2 Mapping'),
-		  'pattern' => '%path%',
-		  'parser' => 'preGallery',
-		  'keywords' => array('path' => array('pattern' => '([^?]+)',
-							  'help' => $this->translate('G1 path'), )),
-		  'queryString' => array('controller' => 'migrate.Redirect'),
-		  'locked' => 1,
-		  'help' =>$this->translate(
-			  array('text' => 'G1 URL redirect. Use only if G2 is installed where G1 used '
-			  . 'to be and you have run a G1 import with the URL redirect option '
-			  . 'selected. Otherwise follow instructions in %sMigrate Site Admin%s.',
-				'arg1' => '<a href="' . $url . '">', 'arg2' => '</a>', )
-		  ),
-		),
-	);
+			array(
+				'comment'     => $this->translate('G1-&gt;G2 Mapping'),
+				'pattern'     => '%path%',
+				'parser'      => 'preGallery',
+				'keywords'    => array(
+					'path' => array(
+						'pattern' => '([^?]+)',
+						'help'    => $this->translate('G1 path'),
+					),
+				),
+				'queryString' => array(
+					'controller' => 'migrate.Redirect',
+				),
+				'locked'      => 1,
+				'help'        => $this->translate(
+					array(
+						'text' => 'G1 URL redirect. Use only if G2 is installed where G1 used '
+						. 'to be and you have run a G1 import with the URL redirect option '
+						. 'selected. Otherwise follow instructions in %sMigrate Site Admin%s.',
+						'arg1' => '<a href="' . $url . '">',
+						'arg2' => '</a>',
+					)
+				),
+			),
+		);
 	}
 }

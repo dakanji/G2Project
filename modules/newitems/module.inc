@@ -45,7 +45,7 @@ class NewItemsModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		if (!isset($currentVersion)) {
 			foreach (array(
 				'days.new'     => '7',

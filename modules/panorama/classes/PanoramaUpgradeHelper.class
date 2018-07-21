@@ -38,17 +38,17 @@ class PanoramaUpgradeHelper {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function revertEntities() {
+	public static function revertEntities() {
 		global $gallery;
 
 		$query                     = '
-	  SELECT
-	    [GalleryEntity::id], [GalleryEntity::entityType]
-	  FROM
-	    [GalleryEntity]
-	  WHERE
-	    [GalleryEntity::entityType] IN (\'PanoramaPhotoItem\', \'PanoramaDerivativeImage\')
-	';
+		SELECT
+		[GalleryEntity::id], [GalleryEntity::entityType]
+		FROM
+		[GalleryEntity]
+		WHERE
+		[GalleryEntity::entityType] IN (\'PanoramaPhotoItem\', \'PanoramaDerivativeImage\')
+		';
 		list($ret, $searchResults) = $gallery->search($query, array());
 
 		if ($ret) {
@@ -78,16 +78,16 @@ class PanoramaUpgradeHelper {
 		while ($photos) {
 			$ids     = array_splice($photos, 0, 500);
 			$markers = GalleryUtilities::makeMarkers($ids);
-			$query   = "UPDATE [GalleryItem] SET [::renderer] = 'PanoramaRenderer' " .
-			"WHERE [GalleryItem::id] IN ($markers)";
+			$query   = "UPDATE [GalleryItem] SET [::renderer] = 'PanoramaRenderer' "
+			. "WHERE [GalleryItem::id] IN ($markers)";
 			$ret     = $storage->execute($query, $ids);
 
 			if ($ret) {
 				return $ret;
 			}
 
-			$query = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryPhotoItem' " .
-			"WHERE [GalleryEntity::id] IN ($markers)";
+			$query = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryPhotoItem' "
+			. "WHERE [GalleryEntity::id] IN ($markers)";
 			$ret   = $storage->execute($query, $ids);
 
 			if ($ret) {
@@ -99,8 +99,8 @@ class PanoramaUpgradeHelper {
 		while ($derivatives) {
 			$ids     = array_splice($derivatives, 0, 500);
 			$markers = GalleryUtilities::makeMarkers($ids);
-			$query   = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryDerivativeImage' " .
-			"WHERE [GalleryEntity::id] IN ($markers)";
+			$query   = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryDerivativeImage' "
+			. "WHERE [GalleryEntity::id] IN ($markers)";
 			$ret     = $storage->execute($query, $ids);
 
 			if ($ret) {

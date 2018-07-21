@@ -194,7 +194,9 @@ class ADODB_ldap extends ADOConnection {
 		$this->database = $db;
 
 		return true;
-	} // SelectDB
+	}
+
+	// SelectDB
 
 	public function ServerInfo() {
 		if (!empty($this->version)) {

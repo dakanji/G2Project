@@ -36,7 +36,7 @@ class RatingHelper {
 	 *               array  double  latest average rating
 	 *                      int     count of total ratings
 	 */
-	public function fetchRatings($itemIds, $userId) {
+	public static function fetchRatings($itemIds, $userId) {
 		global $gallery;
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
@@ -146,7 +146,7 @@ class RatingHelper {
 	 *               array  double  new avg rating for itemId
 	 *                      int     total votes for itemId
 	 */
-	public function rateItem($itemId, $rating, $userId) {
+	public static function rateItem($itemId, $rating, $userId) {
 		global $gallery;
 
 		// Make sure the user isn't a search engine crawler
@@ -238,14 +238,14 @@ class RatingHelper {
 			return array($ret, null);
 		}
 		$query                     = '
-	    SELECT
-	    ' . $avg . ',
-	    COUNT([RatingMap::rating])
+		SELECT
+		' . $avg . ',
+		COUNT([RatingMap::rating])
 		FROM
 		[RatingMap]
 		WHERE
 		[RatingMap::itemId] = ?
-	';
+		';
 		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
 
 		if ($ret) {

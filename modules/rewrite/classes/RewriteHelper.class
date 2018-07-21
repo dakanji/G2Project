@@ -42,7 +42,7 @@ class RewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               RewritePlugin a loaded parser
 	 */
-	public function getRewriteParser($new = false) {
+	public static function getRewriteParser($new = false) {
 		global $gallery;
 		static $rewriteParser;
 		$platform =& $gallery->getPlatform();
@@ -88,7 +88,12 @@ class RewriteHelper {
 	 *               array string module (on error)
 	 *                     int rule id (on error)
 	 */
-	public function parseActiveRules(&$activeRules, $rewriteParser, $upgradeModule = null, $flags = null) {
+	public static function parseActiveRules(
+		&$activeRules,
+		$rewriteParser,
+		$upgradeModule = null,
+		$flags = null
+	) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -324,7 +329,7 @@ class RewriteHelper {
 	 *               int rewrite status code (REWRITE_STATUS_OK on success)
 	 * @access private
 	 */
-	public function _parseRule(&$regexRules, $rule, $activeRule) {
+	public static function _parseRule(&$regexRules, $rule, $activeRule) {
 		$regexRule                = array();
 		$regexRule['keywords']    = array();
 		$regexRule['queryString'] = $rule['queryString'];
@@ -381,7 +386,7 @@ class RewriteHelper {
 	 * @return int rewrite status code (REWRITE_STATUS_OK on success)
 	 * @access private
 	 */
-	public function _parseKeywords(&$regexRule, &$pattern, $keywords) {
+	public static function _parseKeywords(&$regexRule, &$pattern, $keywords) {
 		preg_match_all('/\%([^%]+)\%/', $pattern, $matches);
 
 		foreach ($matches[1] as $keyword) {
@@ -411,7 +416,7 @@ class RewriteHelper {
 	 *             considered to be respectively less than, equal to, or greater than the second
 	 * @access private
 	 */
-	public function _sortRules($a, $b) {
+	public static function _sortRules($a, $b) {
 		// Flags: rules which don't allow subrequests come last
 		if (in_array('L', $a['flags']) xor in_array('L', $b['flags'])) {
 			if (in_array('L', $b['flags'])) {
@@ -467,7 +472,7 @@ class RewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               array (mixed ruleId => array ('pattern' => string pattern))
 	 */
-	public function getHistoryForModule($moduleId) {
+	public static function getHistoryForModule($moduleId) {
 		list($ret, $history) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'rewrite',
@@ -488,7 +493,7 @@ class RewriteHelper {
 	 * @param array $history array (mixed ruleId => array ('pattern' => string pattern))
 	 * @return GalleryStatus a status code
 	 */
-	public function setHistoryForModule($moduleId, $history) {
+	public static function setHistoryForModule($moduleId, $history) {
 		if (!empty($history)) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',

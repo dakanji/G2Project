@@ -31,8 +31,10 @@ if (!defined('ADODB_SAPDB')) {
 		public $concat_operator = '||';
 		public $sysDate         = 'DATE';
 		public $sysTimeStamp    = 'TIMESTAMP';
-		public $fmtDate         = "'Y-m-d'";   /// used by DBDate() as the default date format used by the database
-		public $fmtTimeStamp    = "'Y-m-d H:i:s'"; /// used by DBTimeStamp as the default timestamp fmt.
+		// used by DBDate() as the default date format used by the database
+		public $fmtDate         = "'Y-m-d'";
+		// used by DBTimeStamp as the default timestamp fmt.
+		public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 		public $hasInsertId     = true;
 		public $_bindInputArray = true;
 
@@ -164,18 +166,19 @@ if (!defined('ADODB_SAPDB')) {
 		public function _insertid($table, $column) {
 			return empty($table) ? false : $this->GetOne("SELECT $table.CURRVAL FROM DUAL");
 		}
+
 		/*
-		SelectLimit implementation problems:
-
-		 The following will return random 10 rows as order by performed after "WHERE rowno<10"
-		 which is not ideal...
-
-			  select * from table where rowno < 10 order by 1
-
-		  This means that we have to use the adoconnection base class SelectLimit when
-		  there is an "order by".
-
-		See http://listserv.sap.com/pipermail/sapdb.general/2002-January/010405.html
+		 * SelectLimit implementation problems:
+		 *
+		 * The following will return random 10 rows as order by performed after "WHERE rowno<10"
+		 * which is not ideal...
+		 *
+		 *	  select * from table where rowno < 10 order by 1
+		 *
+		 * This means that we have to use the adoconnection base class SelectLimit when
+		 *  there is an "order by".
+		 *
+		 * See http://listserv.sap.com/pipermail/sapdb.general/2002-January/010405.html
 		 */
 	}
 

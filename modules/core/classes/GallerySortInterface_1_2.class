@@ -67,7 +67,7 @@ class GallerySortInterface_1_2 {
 	 *               array of orderDirection => localized name for direction
 	 * @static
 	 */
-	public function getAllSortOrders($includeDefault = true) {
+	public static function getAllSortOrders($includeDefault = true) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {

@@ -33,7 +33,7 @@ class RewriteSimpleHelper {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function loadItemIdFromPath() {
+	public static function loadItemIdFromPath() {
 		list($path, $itemId) = GalleryUtilities::getRequestVariables('path', 'itemId');
 
 		if (!empty($path) && empty($itemId)) {
@@ -60,7 +60,7 @@ class RewriteSimpleHelper {
 	 * @param GalleryEntity $entity loaded entity with item id = $params['itemId'], or null
 	 * @return boolean true on success
 	 */
-	public function parsePath(&$url, &$params, &$entity) {
+	public static function parsePath(&$url, &$params, &$entity) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -103,7 +103,7 @@ class RewriteSimpleHelper {
 	/**
 	 * @see RewriteSimpleHelper::parsePath
 	 */
-	public function parsePage(&$url, &$params, &$entity) {
+	public static function parsePage(&$url, &$params, &$entity) {
 		$page = isset($params['page']) ? $params['page'] : '';
 		$url  = str_replace('%page%', $page, $url);
 		unset($params['page']);
@@ -114,7 +114,7 @@ class RewriteSimpleHelper {
 	/**
 	 * @see RewriteSimpleHelper::parsePath
 	 */
-	public function parseLanguage(&$url, &$params, &$entity) {
+	public static function parseLanguage(&$url, &$params, &$entity) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -146,7 +146,7 @@ class RewriteSimpleHelper {
 	/**
 	 * @see RewriteSimpleHelper::parsePath
 	 */
-	public function parseSerialNumber(&$url, &$params, &$entity) {
+	public static function parseSerialNumber(&$url, &$params, &$entity) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -162,7 +162,7 @@ class RewriteSimpleHelper {
 	/**
 	 * @see RewriteSimpleHelper::parsePath
 	 */
-	public function parseFileName(&$url, &$params, &$entity) {
+	public static function parseFileName(&$url, &$params, &$entity) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 

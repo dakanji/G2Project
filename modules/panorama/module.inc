@@ -20,12 +20,12 @@
 
 /**
  * View wide images in a java applet viewer.
- * Metamorphose applet Copyright (C) 2000 Rüdiger Appel
+ * Metamorphose applet Copyright (C) 2000 Rodiger Appel
  * @see http://www.3quarks.com/Applets/Metamorphose/
  *
  * @package Panorama
  * @author Alan Harder <alan.harder@sun.com>
- * @author Java applet: Rüdiger Appel
+ * @author Java applet: Rodiger Appel
  * @version $Revision: 18172 $
  */
 class PanoramaModule extends GalleryModule {
@@ -45,7 +45,7 @@ class PanoramaModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		if (!isset($currentVersion)) {
 			// Initial install
 			foreach (array(
@@ -124,7 +124,7 @@ class PanoramaModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::getItemLinks
 	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		$links = array();
 
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');

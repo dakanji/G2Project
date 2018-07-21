@@ -34,10 +34,13 @@ class GalleryMembersHelper {
 	 * @return array GalleryStatus a status code,
 	 *               int ItemCount a users total item count
 	 */
-	public function fetchUserItemCount($userId) {
+	public static function fetchUserItemCount($userId) {
 		global $gallery;
 
-		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
+		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
+			'core.view',
+			$gallery->getActiveUserId()
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -49,17 +52,17 @@ class GalleryMembersHelper {
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		$query = sprintf('
-	SELECT
-	  COUNT([GalleryItem::id])
-	FROM
-	  [GalleryItem], [GalleryAccessSubscriberMap]
-	WHERE
-	  [GalleryItem::ownerId] = ?
-	  AND
-	  [GalleryAccessSubscriberMap::itemId] = [GalleryItem::id]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	', $aclMarkers);
+		SELECT
+		COUNT([GalleryItem::id])
+		FROM
+		[GalleryItem], [GalleryAccessSubscriberMap]
+		WHERE
+		[GalleryItem::ownerId] = ?
+		AND
+		[GalleryAccessSubscriberMap::itemId] = [GalleryItem::id]
+		AND
+		[GalleryAccessSubscriberMap::accessListId] IN (%s)
+		', $aclMarkers);
 
 		$data = array_merge(array((int)$userId), $aclIds);
 
@@ -85,7 +88,7 @@ class GalleryMembersHelper {
 	 * @return array GalleryStatus a status code,
 	 *               array (GalleryItem, GalleryItem, ...)
 	 */
-	public function fetchLastUserItems($userId, $offset, $count, $orderDirection = ORDER_DESCENDING) {
+	public static function fetchLastUserItems($userId, $offset, $count, $orderDirection = ORDER_DESCENDING) {
 		global $gallery;
 
 		switch ($orderDirection) {
@@ -115,21 +118,21 @@ class GalleryMembersHelper {
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		$query = sprintf('
-	SELECT
-	  [GalleryItem::id], [GalleryEntity::creationTimestamp]
-	FROM
-	  [GalleryItem], [GalleryEntity], [GalleryAccessSubscriberMap]
-	WHERE
-	  [GalleryItem::id] = [GalleryEntity::id]
-	  AND
-	  [GalleryItem::ownerId] = ?
-	  AND
-	  [GalleryAccessSubscriberMap::itemId] = [GalleryItem::id]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	ORDER BY
-	  [GalleryEntity::creationTimestamp] ' . $direction . '
-	', $aclMarkers);
+		SELECT
+		[GalleryItem::id], [GalleryEntity::creationTimestamp]
+		FROM
+		[GalleryItem], [GalleryEntity], [GalleryAccessSubscriberMap]
+		WHERE
+		[GalleryItem::id] = [GalleryEntity::id]
+		AND
+		[GalleryItem::ownerId] = ?
+		AND
+		[GalleryAccessSubscriberMap::itemId] = [GalleryItem::id]
+		AND
+		[GalleryAccessSubscriberMap::accessListId] IN (%s)
+		ORDER BY
+		[GalleryEntity::creationTimestamp] ' . $direction . '
+		', $aclMarkers);
 
 		$data   = array();
 		$data[] = (int)$userId;
@@ -175,8 +178,12 @@ class GalleryMembersHelper {
 	 * @return array GalleryStatus a status code,
 	 *               boolean canViewMembersModule permission
 	 */
-	public function canViewMembersModule($userId) {
-		list($ret, $viewSelectedGroupId) = GalleryCoreApi::getPluginParameter('module', 'members', 'canViewMembersModule');
+	public static function canViewMembersModule($userId) {
+		list($ret, $viewSelectedGroupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'members',
+			'canViewMembersModule'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -198,16 +205,24 @@ class GalleryMembersHelper {
 	 * @return array GalleryStatus a status code,
 	 *               boolean canViewProfileEmail permission
 	 */
-	public function canViewProfileEmail($userId) {
+	public static function canViewProfileEmail($userId) {
 		$result = false;
 		// Can the user view email addresses in the member profile?
-		list($ret, $resultOne) = GalleryCoreApi::getPluginParameter('module', 'members', 'canViewEmailAddress');
+		list($ret, $resultOne) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'members',
+			'canViewEmailAddress'
+		);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+		list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.adminGroup'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -238,7 +253,7 @@ class GalleryMembersHelper {
 	 * @return array GalleryStatus a status code,
 	 *               int daysSinceCreation number in days
 	 */
-	public function daysSinceCreation($userId) {
+	public static function daysSinceCreation($userId) {
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -262,8 +277,12 @@ class GalleryMembersHelper {
 	 * @return array GalleryStatus
 	 *               int how many members are registered
 	 */
-	public function getMembersCount() {
-		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
+	public static function getMembersCount() {
+		list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.allUserGroup'
+		);
 
 		if ($ret) {
 			return array($ret, null);

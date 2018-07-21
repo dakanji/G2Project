@@ -29,7 +29,7 @@ class ModRewriteHelper {
 	/**
 	 * @see RewriteParser::saveActiveRules
 	 */
-	public function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
+	public static function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
 		list($ret, $code) = ModRewriteHelper::checkFile();
 
 		if ($ret) {
@@ -138,7 +138,7 @@ class ModRewriteHelper {
 	/**
 	 * @see RewriteParser::saveAccessList
 	 */
-	public function saveAccessList($accessList, $allowEmptyReferer) {
+	public static function saveAccessList($accessList, $allowEmptyReferer) {
 		list($ret, $code) = ModRewriteHelper::checkFile();
 
 		if ($ret) {
@@ -196,7 +196,7 @@ class ModRewriteHelper {
 	/**
 	 * @see RewriteParser::needsConfiguration
 	 */
-	public function needsConfiguration() {
+	public static function needsConfiguration() {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -268,7 +268,7 @@ class ModRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               string the Gallery .htaccess section
 	 */
-	public function getHtaccessContent($regexRules, $embedded = false) {
+	public static function getHtaccessContent($regexRules, $embedded = false) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -402,7 +402,7 @@ class ModRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               string .htaccess file path
 	 */
-	public function getHtaccessPath($embedded = false) {
+	public static function getHtaccessPath($embedded = false) {
 		if ($embedded) {
 			list($ret, $path) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -426,7 +426,7 @@ class ModRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               int rewrite status code (REWRITE_STATUS_OK on success)
 	 */
-	public function checkFile($embedded = false) {
+	public static function checkFile($embedded = false) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -472,7 +472,7 @@ class ModRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               int rewrite status code
 	 */
-	public function writeFile($regexRules, $embedded = false) {
+	public static function writeFile($regexRules, $embedded = false) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -541,7 +541,7 @@ class ModRewriteHelper {
 	 *               int rewrite status code
 	 *               int rewrite true status code
 	 */
-	public function checkModRewrite() {
+	public static function checkModRewrite() {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -652,7 +652,7 @@ class ModRewriteHelper {
 	/**
 	 * @see RewriteParser::loadTestResultsTemplate
 	 */
-	public function loadTestResultsTemplate(&$template, &$form) {
+	public static function loadTestResultsTemplate(&$template, &$form) {
 		global $gallery;
 		$urlGenerator      =& $gallery->getUrlGenerator();
 		$baseUrlComponents = parse_url($urlGenerator->getCurrentUrlDir(true));
@@ -758,7 +758,7 @@ class ModRewriteHelper {
 	/**
 	 * @see RewriteParser::loadAdminParserTemplate
 	 */
-	public function loadAdminRewriteTemplate(&$template, &$form) {
+	public static function loadAdminRewriteTemplate(&$template, &$form) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$AdminParser  = array();
@@ -802,7 +802,7 @@ class ModRewriteHelper {
 	 * @param ModRewriteParser $parser
 	 * @param boolean $saveActiveRules true if we want to write the .htaccess
 	 */
-	public function saveEmbedConfig($param, $parser, $saveActiveRules) {
+	public static function saveEmbedConfig($param, $parser, $saveActiveRules) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 

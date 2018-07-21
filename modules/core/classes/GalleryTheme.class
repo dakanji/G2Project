@@ -70,7 +70,7 @@ class GalleryTheme extends GalleryPlugin {
 	 *
 	 * @return array major number, minor number
 	 */
-	public function getApiVersion() {
+	public static function getApiVersion() {
 		return array(2, 6);
 	}
 

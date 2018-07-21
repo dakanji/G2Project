@@ -497,7 +497,6 @@ class ADODB2_postgres extends ADODB_DataDict {
 	[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
 	*/
 
-
 	/*
 	CREATE [ UNIQUE ] INDEX index_name ON table
 	[ USING acc_method ] ( column [ ops_name ] [, ...] )

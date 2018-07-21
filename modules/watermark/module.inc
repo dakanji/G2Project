@@ -21,12 +21,13 @@
 /**
  * This module provides support for adding watermarks to images
  *
+ * Also Extends GalleryEventListener
+ *
  * @package Watermark
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 20951 $
  */
-class WatermarkModule extends GalleryModule // and GalleryEventListener
-{
+class WatermarkModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 
@@ -45,10 +46,10 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
-		$platform =& $gallery->getPlatform();
-		$slash = $platform->getDirectorySeparator();
+		$platform     =& $gallery->getPlatform();
+		$slash        = $platform->getDirectorySeparator();
 		$watermarkDir = $gallery->getConfig('data.gallery.plugins_data')
 		. 'modules/watermark' . $slash;
 
@@ -66,7 +67,7 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 						ERROR_PLATFORM_FAILURE,
 						__FILE__,
 						__LINE__,
-						 "Unable to create directory: $watermarkDir"
+						"Unable to create directory: $watermarkDir"
 					);
 				}
 
@@ -74,7 +75,7 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 
 			case '0.3':
 				$storage =& $gallery->getStorage();
-				$ret = $storage->configureStore(
+				$ret     = $storage->configureStore(
 					$this->getId(),
 					array('WatermarkImage:1.0')
 				);
@@ -124,14 +125,14 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 
 				// Update all derivatives that use watermarks
 				$query = "
-	    			SELECT
-					  [GalleryDerivative::id]
-					FROM
-					  [GalleryDerivative]
-					WHERE
-					  [GalleryDerivative::postFilterOperations]
-					LIKE '%composite|watermark%'
-				";
+			SELECT
+			[GalleryDerivative::id]
+			FROM
+			[GalleryDerivative]
+			WHERE
+			[GalleryDerivative::postFilterOperations]
+			LIKE '%composite|watermark%'
+			";
 
 				// Do them 50 at a time to improve locking efficiency
 				while (true) {
@@ -231,7 +232,6 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 			case '1.1.5':
 			case '1.1.6':
 			case '1.1.7':
-
 			case 'end of upgrade path':
 				/*
 				 * Leave this bogus case at the end of legit case statements so that we
@@ -258,10 +258,10 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 		}
 
 		foreach (array(
-			'allowUserWatermarks' => 1,
+			'allowUserWatermarks'   => 1,
 			'forceDefaultWatermark' => 0,
-			'hotlinkWatermarkId' => '',
-			'defaultWatermarkId' => '',
+			'hotlinkWatermarkId'    => '',
+			'defaultWatermarkId'    => '',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
@@ -283,7 +283,7 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		// Delete all watermarks and remove uses of them
-		$query = 'SELECT [WatermarkImage::id] FROM [WatermarkImage]';
+		$query                     = 'SELECT [WatermarkImage::id] FROM [WatermarkImage]';
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -405,7 +405,8 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 		if ($isOn && !$isAnonymous && !$user->isLocked()) {
 			$views[] = array(
 				'name' => $this->translate('Watermarks'),
-				'view' => 'watermark.UserWatermarks', );
+				'view' => 'watermark.UserWatermarks',
+			);
 		}
 
 		return array(null, $views);
@@ -425,8 +426,7 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 				GalleryCoreApi::requireOnce(
 					'modules/watermark/classes/WatermarkHelper.class'
 				);
-				list($ret, $watermarkIds) =
-				WatermarkHelper::fetchWatermarkIdsByOwnerId(
+				list($ret, $watermarkIds) = WatermarkHelper::fetchWatermarkIdsByOwnerId(
 					$entity->getId()
 				);
 
@@ -460,7 +460,7 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 			if ($gallery->getDebug()) {
 				$gallery->debug(
 					'WatermarkModule::getRewriteRules ingoring error: '
-					. $ret->getAsText()
+							. $ret->getAsText()
 				);
 			}
 			$oldRewriteVersion = false;
@@ -469,28 +469,29 @@ class WatermarkModule extends GalleryModule // and GalleryEventListener
 		}
 
 		$rules = array();
-		$rule = array(
-		'comment' => $this->translate('Watermark hotlinked images'),
-		'restrict' => array(
-			GalleryUtilities::prefixFormVariable('view') => 'core.DownloadItem',
-			GalleryUtilities::prefixFormVariable('itemId') => '([0-9]+)', ),
-			'queryString' => array(
-				'view' => 'watermark.DownloadItem',
+		$rule  = array(
+			'comment'       => $this->translate('Watermark hotlinked images'),
+			'restrict'      => array(
+				GalleryUtilities::prefixFormVariable('view') => 'core.DownloadItem',
+				GalleryUtilities::prefixFormVariable('itemId') => '([0-9]+)',
+			),
+			'queryString'   => array(
+				'view'   => 'watermark.DownloadItem',
 				'itemId' => '%1',
 			),
-		'flags' => array('L'),
-		'exemptReferer' => 1,
-		'help' => $this->translate(
-			'Apply watermark to images downloaded from outside your Gallery. Select '
-			. 'which watermark to use in Watermark Site Admin.'
-		),
-	);
+			'flags'         => array('L'),
+			'exemptReferer' => 1,
+			'help'          => $this->translate(
+				'Apply watermark to images downloaded from outside your Gallery. Select '
+				. 'which watermark to use in Watermark Site Admin.'
+			),
+		);
 
 		if ($oldRewriteVersion) {
 			// Add a pseudo pattern as it was mandatory until rewrite module v1.1.8.
 			$rule['pattern'] = '.';
-			$rule['locked'] = true;
-			$rule['parser'] = 'preGallery';
+			$rule['locked']  = true;
+			$rule['parser']  = 'preGallery';
 		}
 		$rules[0] = $rule;
 

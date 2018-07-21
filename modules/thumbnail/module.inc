@@ -47,7 +47,7 @@ class ThumbnailModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
 		$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
 

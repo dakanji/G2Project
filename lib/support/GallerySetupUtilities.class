@@ -62,7 +62,7 @@ class GallerySetupUtilities {
 	 *
 	 * @static
 	 */
-	public function regenerateSession() {
+	public static function regenerateSession() {
 		// 1. Generate a new session id
 		$newSessionId = md5(uniqid(substr(mt_rand() . serialize($_REQUEST), 0, 114)));
 		$sessionData  = array();
@@ -94,7 +94,7 @@ class GallerySetupUtilities {
 	 *
 	 * @static
 	 */
-	public function areCookiesSupported() {
+	public static function areCookiesSupported() {
 		static $areCookiesSupported;
 
 		// Remember the state since we might unset $_COOKIE
@@ -111,7 +111,7 @@ class GallerySetupUtilities {
 	 * @return int the number of attempts or false if there was an error
 	 * @static
 	 */
-	public function getLoginAttempts() {
+	public static function getLoginAttempts() {
 		// Init if needed (like from lib/support; upgrader already init'ed)
 		global $gallery;
 
@@ -154,7 +154,7 @@ class GallerySetupUtilities {
 	 * @return true on success, false on error
 	 * @static
 	 */
-	public function setLoginAttempts($attempts) {
+	public static function setLoginAttempts($attempts) {
 		// Init if needed (like from lib/support; upgrader already init'ed)
 		global $gallery;
 
@@ -207,7 +207,7 @@ class GallerySetupUtilities {
 	 *
 	 * @static
 	 */
-	public function authenticateThisSession($resetLoginAttempts = true) {
+	public static function authenticateThisSession($resetLoginAttempts = true) {
 		$_SESSION['authenticated'] = true;
 
 		if ($resetLoginAttempts) {
@@ -222,7 +222,7 @@ class GallerySetupUtilities {
 	 * @return true if this session is authenticated
 	 * @static
 	 */
-	public function isSessionAuthenticated() {
+	public static function isSessionAuthenticated() {
 		return !empty($_SESSION['authenticated']);
 	}
 
@@ -231,7 +231,7 @@ class GallerySetupUtilities {
 	 *
 	 * @static
 	 */
-	public function redirectBackToSelf() {
+	public static function redirectBackToSelf() {
 		include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryUrlGenerator.class';
 		$urlGenerator = new GalleryUrlGenerator();
 		$url          = $urlGenerator->getCurrentUrl();
@@ -257,7 +257,7 @@ class GallerySetupUtilities {
 	 * @return string the path to the config dir
 	 * @static
 	 */
-	public function getConfigDir() {
+	public static function getConfigDir() {
 		if (defined('GALLERY_CONFIG_DIR')) {
 			return GALLERY_CONFIG_DIR;
 		}
@@ -271,7 +271,7 @@ class GallerySetupUtilities {
 	 * @return array the config values from config.php
 	 * @static
 	 */
-	public function getGalleryConfig() {
+	public static function getGalleryConfig() {
 		$gallery = new GallerySetupUtilitiesStub();
 
 		// Load config.php
@@ -291,7 +291,7 @@ class GallerySetupUtilities {
 	 * @return string the authentication key
 	 * @static
 	 */
-	public function getAuthenticationKey() {
+	public static function getAuthenticationKey() {
 		return isset($_SESSION['authKey']) ? $_SESSION['authKey'] : null;
 	}
 
@@ -300,7 +300,7 @@ class GallerySetupUtilities {
 	 * @param string $key the authentication key
 	 * @static
 	 */
-	public function setAuthenticationKey($key) {
+	public static function setAuthenticationKey($key) {
 		$_SESSION['authKey'] = $key;
 	}
 
@@ -309,7 +309,7 @@ class GallerySetupUtilities {
 	 * @param string a random value
 	 * @static
 	 */
-	public function generateAuthenticationKey() {
+	public static function generateAuthenticationKey() {
 		for ($len = 64, $rand = '';
 		 strlen($rand) < $len;
 		 $rand .= chr(!mt_rand(0, 2) ? mt_rand(48, 57) : (!mt_rand(0, 1) ? mt_rand(65, 90) : mt_rand(97, 122)))) {
@@ -325,7 +325,7 @@ class GallerySetupUtilities {
 	 * @param string $name the file's name
 	 * @param string $contents the file's contents
 	 */
-	public function generateTextFileForDownload($name, $contents) {
+	public static function generateTextFileForDownload($name, $contents) {
 		header('Content-Type: text/plain');
 		header('Content-Length: ' . strlen($contents));
 		header("Content-Description: Download $name to your computer.");
@@ -343,7 +343,7 @@ class GallerySetupUtilities {
 	 *
 	 * @static
 	 */
-	public function startSession() {
+	public static function startSession() {
 		// Set our own session name
 		if (@ini_get('session.auto_start')) {
 			session_unset();
@@ -430,7 +430,7 @@ class GallerySetupUtilities {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function notifySiteAdministrator() {
+	public static function notifySiteAdministrator() {
 		global $gallery;
 
 		/*

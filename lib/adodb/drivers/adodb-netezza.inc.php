@@ -51,7 +51,6 @@ class ADODB_netezza extends ADODB_postgres64 {
 	public $autoRollback    = true; // apparently pgsql does not autorollback properly before 4.3.4
 	// http://bugs.php.net/bug.php?id=25404
 
-
 	public function __construct() {
 	}
 

@@ -3,31 +3,45 @@
 /// getID3() by James Heinrich <info@getid3.org>               //
 //  available at http://getid3.sourceforge.net                 //
 //            or http://www.getid3.org                         //
+//          also https://github.com/JamesHeinrich/getID3       //
 /////////////////////////////////////////////////////////////////
 // See readme.txt for more details                             //
 /////////////////////////////////////////////////////////////////
 //                                                             //
 // module.archive.gzip.php                                     //
-// written by Mike Mozolin <teddybearØmail*ru>                 //
 // module for analyzing GZIP files                             //
 // dependencies: NONE                                          //
 //                                                            ///
 /////////////////////////////////////////////////////////////////
+//                                                             //
+// Module originally written by                                //
+//      Mike Mozolin <teddybearÃ˜mail*ru>                       //
+//                                                             //
+/////////////////////////////////////////////////////////////////
 
-class getid3_gzip {
+
+class getid3_gzip extends getid3_handler {
 	// public: Optional file list - disable for speed.
-	public $option_gzip_parse_contents = true; // decode gzipped files, if possible, and parse recursively (.tar.gz for example)
+	public $option_gzip_parse_contents = false; // decode gzipped files, if possible, and parse recursively (.tar.gz for example)
 
-	public function __construct(&$fd, &$ThisFileInfo) {
-		$ThisFileInfo['fileformat'] = 'gzip';
+	public function Analyze() {
+		$info = &$this->getid3->info;
+
+		$info['fileformat'] = 'gzip';
 
 		$start_length  = 10;
 		$unpack_header = 'a1id1/a1id2/a1cmethod/a1flags/a4mtime/a1xflags/a1os';
 		//+---+---+---+---+---+---+---+---+---+---+
 		//|ID1|ID2|CM |FLG|     MTIME     |XFL|OS |
 		//+---+---+---+---+---+---+---+---+---+---+
-		@fseek($fd, 0);
-		$buffer = @fread($fd, $ThisFileInfo['filesize']);
+
+		if ($info['php_memory_limit'] && ($info['filesize'] > $info['php_memory_limit'])) {
+			$info['error'][] = 'File is too large (' . number_format($info['filesize']) . ' bytes) to read into memory (limit: ' . number_format($info['php_memory_limit'] / 1048576) . 'MB)';
+
+			return false;
+		}
+		$this->fseek(0);
+		$buffer = $this->fread($info['filesize']);
 
 		$arr_members = explode("\x1F\x8B\x08", $buffer);
 
@@ -45,9 +59,9 @@ class getid3_gzip {
 
 				if (!$this->get_os_type(ord($attr['os']))) {
 					// Merge member with previous if wrong OS type
-					$arr_members[$i - 1] .= $buf;
-					$arr_members[$i]      = '';
-					$is_wrong_members     = true;
+					$arr_members[($i - 1)] .= $buf;
+					$arr_members[$i]        = '';
+					$is_wrong_members       = true;
 
 					continue;
 				}
@@ -58,7 +72,7 @@ class getid3_gzip {
 			}
 		}
 
-		$ThisFileInfo['gzip']['files'] = array();
+		$info['gzip']['files'] = array();
 
 		$fpointer = 0;
 		$idx      = 0;
@@ -67,30 +81,30 @@ class getid3_gzip {
 			if (strlen($arr_members[$i]) == 0) {
 				continue;
 			}
-			$thisThisFileInfo = &$ThisFileInfo['gzip']['member_header'][++$idx];
+			$thisInfo = &$info['gzip']['member_header'][++$idx];
 
 			$buff = "\x1F\x8B\x08" . $arr_members[$i];
 
-			$attr                               = unpack($unpack_header, substr($buff, 0, $start_length));
-			$thisThisFileInfo['filemtime']      = getid3_lib::LittleEndian2Int($attr['mtime']);
-			$thisThisFileInfo['raw']['id1']     = ord($attr['cmethod']);
-			$thisThisFileInfo['raw']['id2']     = ord($attr['cmethod']);
-			$thisThisFileInfo['raw']['cmethod'] = ord($attr['cmethod']);
-			$thisThisFileInfo['raw']['os']      = ord($attr['os']);
-			$thisThisFileInfo['raw']['xflags']  = ord($attr['xflags']);
-			$thisThisFileInfo['raw']['flags']   = ord($attr['flags']);
+			$attr                       = unpack($unpack_header, substr($buff, 0, $start_length));
+			$thisInfo['filemtime']      = getid3_lib::LittleEndian2Int($attr['mtime']);
+			$thisInfo['raw']['id1']     = ord($attr['cmethod']);
+			$thisInfo['raw']['id2']     = ord($attr['cmethod']);
+			$thisInfo['raw']['cmethod'] = ord($attr['cmethod']);
+			$thisInfo['raw']['os']      = ord($attr['os']);
+			$thisInfo['raw']['xflags']  = ord($attr['xflags']);
+			$thisInfo['raw']['flags']   = ord($attr['flags']);
 
-			$thisThisFileInfo['flags']['crc16']    = (bool)($thisThisFileInfo['raw']['flags'] & 0x02);
-			$thisThisFileInfo['flags']['extra']    = (bool)($thisThisFileInfo['raw']['flags'] & 0x04);
-			$thisThisFileInfo['flags']['filename'] = (bool)($thisThisFileInfo['raw']['flags'] & 0x08);
-			$thisThisFileInfo['flags']['comment']  = (bool)($thisThisFileInfo['raw']['flags'] & 0x10);
+			$thisInfo['flags']['crc16']    = (bool)($thisInfo['raw']['flags'] & 0x02);
+			$thisInfo['flags']['extra']    = (bool)($thisInfo['raw']['flags'] & 0x04);
+			$thisInfo['flags']['filename'] = (bool)($thisInfo['raw']['flags'] & 0x08);
+			$thisInfo['flags']['comment']  = (bool)($thisInfo['raw']['flags'] & 0x10);
 
-			$thisThisFileInfo['compression'] = $this->get_xflag_type($thisThisFileInfo['raw']['xflags']);
+			$thisInfo['compression'] = $this->get_xflag_type($thisInfo['raw']['xflags']);
 
-			$thisThisFileInfo['os'] = $this->get_os_type($thisThisFileInfo['raw']['os']);
+			$thisInfo['os'] = $this->get_os_type($thisInfo['raw']['os']);
 
-			if (!$thisThisFileInfo['os']) {
-				$ThisFileInfo['error'][] = 'Read error on gzip file';
+			if (!$thisInfo['os']) {
+				$info['error'][] = 'Read error on gzip file';
 
 				return false;
 			}
@@ -101,12 +115,12 @@ class getid3_gzip {
 			//+---+---+=================================+
 			//| XLEN  |...XLEN bytes of "extra field"...|
 			//+---+---+=================================+
-			if ($thisThisFileInfo['flags']['extra']) {
+			if ($thisInfo['flags']['extra']) {
 				$w_xlen    = substr($buff, $fpointer, 2);
 				$xlen      = getid3_lib::LittleEndian2Int($w_xlen);
 				$fpointer += 2;
 
-				$thisThisFileInfo['raw']['xfield'] = substr($buff, $fpointer, $xlen);
+				$thisInfo['raw']['xfield'] = substr($buff, $fpointer, $xlen);
 				// Extra SubFields
 				//+---+---+---+---+==================================+
 				//|SI1|SI2|  LEN  |... LEN bytes of subfield data ...|
@@ -137,16 +151,18 @@ class getid3_gzip {
 			//|...original file name, zero-terminated...|
 			//+=========================================+
 			// GZIP files may have only one file, with no filename, so assume original filename is current filename without .gz
-			$thisThisFileInfo['filename'] = preg_replace('/\.gz$/i', '', $ThisFileInfo['filename']);
+			$thisInfo['filename'] = preg_replace('#\\.gz$#i', '', $info['filename']);
 
-			if ($thisThisFileInfo['flags']['filename']) {
+			if ($thisInfo['flags']['filename']) {
+				$thisInfo['filename'] = '';
+
 				while (true) {
 					if (ord($buff[$fpointer]) == 0) {
 						$fpointer++;
 
 						break;
 					}
-					$thisThisFileInfo['filename'] .= $buff[$fpointer];
+					$thisInfo['filename'] .= $buff[$fpointer];
 					$fpointer++;
 				}
 			}
@@ -154,14 +170,14 @@ class getid3_gzip {
 			//+===================================+
 			//|...file comment, zero-terminated...|
 			//+===================================+
-			if ($thisThisFileInfo['flags']['comment']) {
+			if ($thisInfo['flags']['comment']) {
 				while (true) {
 					if (ord($buff[$fpointer]) == 0) {
 						$fpointer++;
 
 						break;
 					}
-					$thisThisFileInfo['comment'] .= $buff[$fpointer];
+					$thisInfo['comment'] .= $buff[$fpointer];
 					$fpointer++;
 				}
 			}
@@ -169,21 +185,21 @@ class getid3_gzip {
 			//+---+---+
 			//| CRC16 |
 			//+---+---+
-			if ($thisThisFileInfo['flags']['crc16']) {
-				$w_crc                     = substr($buff, $fpointer, 2);
-				$thisThisFileInfo['crc16'] = getid3_lib::LittleEndian2Int($w_crc);
-				$fpointer                 += 2;
+			if ($thisInfo['flags']['crc16']) {
+				$w_crc             = substr($buff, $fpointer, 2);
+				$thisInfo['crc16'] = getid3_lib::LittleEndian2Int($w_crc);
+				$fpointer         += 2;
 			}
 			// bit 0 - FLG.FTEXT
-			//if ($thisThisFileInfo['raw']['flags'] & 0x01) {
+			//if ($thisInfo['raw']['flags'] & 0x01) {
 			//	Ignored...
 			//}
 			// bits 5, 6, 7 - reserved
 
-			$thisThisFileInfo['crc32']    = getid3_lib::LittleEndian2Int(substr($buff, strlen($buff) - 8, 4));
-			$thisThisFileInfo['filesize'] = getid3_lib::LittleEndian2Int(substr($buff, strlen($buff) - 4));
+			$thisInfo['crc32']    = getid3_lib::LittleEndian2Int(substr($buff, strlen($buff) - 8, 4));
+			$thisInfo['filesize'] = getid3_lib::LittleEndian2Int(substr($buff, strlen($buff) - 4));
 
-			$ThisFileInfo['gzip']['files'] = getid3_lib::array_merge_clobber($ThisFileInfo['gzip']['files'], getid3_lib::CreateDeepArray($thisThisFileInfo['filename'], '/', $thisThisFileInfo['filesize']));
+			$info['gzip']['files'] = getid3_lib::array_merge_clobber($info['gzip']['files'], getid3_lib::CreateDeepArray($thisInfo['filename'], '/', $thisInfo['filesize']));
 
 			if ($this->option_gzip_parse_contents) {
 				// Try to inflate GZip
@@ -198,30 +214,42 @@ class getid3_gzip {
 					$inflated = gzinflate($cdata);
 
 					// Calculate CRC32 for inflated content
-					$thisThisFileInfo['crc32_valid'] = (bool)(sprintf('%u', crc32($inflated)) == $thisThisFileInfo['crc32']);
+					$thisInfo['crc32_valid'] = (bool)(sprintf('%u', crc32($inflated)) == $thisInfo['crc32']);
 
 					// determine format
 					$formattest        = substr($inflated, 0, 32774);
-					$newgetID3         = new getID3();
-					$determined_format = $newgetID3->GetFileFormat($formattest);
-					unset($newgetID3);
+					$getid3_temp       = new getID3();
+					$determined_format = $getid3_temp->GetFileFormat($formattest);
+					unset($getid3_temp);
 
 					// file format is determined
-					switch (@$determined_format['module']) {
+					$determined_format['module'] = (isset($determined_format['module']) ? $determined_format['module'] : '');
+
+					switch ($determined_format['module']) {
 						case 'tar':
 							// view TAR-file info
-							if (file_exists(GETID3_INCLUDEPATH . $determined_format['include']) && @include_once GETID3_INCLUDEPATH . $determined_format['include']) {
-								//getid3_tar::read_tar($inflated, $ThisFileInfo['gzip']['member_header'][$idx]);
-								//read_tar function is gone!  local fix:
-								if (($temp_file_name = tempnam('*', 'getID3')) && ($tmp = fopen($temp_file_name, 'wb'))) {
-									fwrite($tmp, $inflated);
-									fclose($tmp);
+							if (file_exists(GETID3_INCLUDEPATH . $determined_format['include']) && include_once GETID3_INCLUDEPATH . $determined_format['include']) {
+								if (($temp_tar_filename = tempnam(GETID3_TEMP_DIR, 'getID3')) === false) {
+									// can't find anywhere to create a temp file, abort
+									$info['error'][] = 'Unable to create temp file to parse TAR inside GZIP file';
 
-									if ($temp_fp = fopen($temp_file_name, 'rb')) {
-										new getid3_tar($temp_fp, $ThisFileInfo['gzip']['member_header'][$idx]);
-										fclose($temp_fp);
-										unlink($temp_file_name);
-									}
+									break;
+								}
+
+								if ($fp_temp_tar = fopen($temp_tar_filename, 'w+b')) {
+									fwrite($fp_temp_tar, $inflated);
+									fclose($fp_temp_tar);
+									$getid3_temp = new getID3();
+									$getid3_temp->openfile($temp_tar_filename);
+									$getid3_tar = new getid3_tar($getid3_temp);
+									$getid3_tar->Analyze();
+									$info['gzip']['member_header'][$idx]['tar'] = $getid3_temp->info['tar'];
+									unset($getid3_temp, $getid3_tar);
+									unlink($temp_tar_filename);
+								} else {
+									$info['error'][] = 'Unable to fopen() temp file to parse TAR inside GZIP file';
+
+									break;
 								}
 							}
 
@@ -259,7 +287,7 @@ class getid3_gzip {
 			'255' => 'unknown',
 		);
 
-		return @$os_type[$key];
+		return isset($os_type[$key]) ? $os_type[$key] : '';
 	}
 
 	// Converts the eXtra FLags
@@ -270,6 +298,6 @@ class getid3_gzip {
 			'4' => 'fastest algorithm',
 		);
 
-		return @$xflag_type[$key];
+		return isset($xflag_type[$key]) ? $xflag_type[$key] : '';
 	}
 }

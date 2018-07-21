@@ -27,20 +27,22 @@ define('HTTPAUTH_STATUS_ERROR_UNKNOWN', 0x80000000);
 
 /**
  * HTTP auth helper class.
+ *
+ * Extends HttpAuthInterface_1_0
+ *
  * @package HttpAuth
  * @subpackage Classes
  * @author Jack Bates <ms419@freezone.co.uk>
  * @version $Revision: 17580 $
  * @static
  */
-class HttpAuthHelper // extends HttpAuthInterface_1_0
-{
+class HttpAuthHelper {
 	/**
 	 * Check this module's configuration.
 	 * @return array GalleryStatus a status code
 	 *               int HTTP auth status code
 	 */
-	public function checkConfiguration() {
+	public static function checkConfiguration() {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -115,7 +117,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 * @return array GalleryStatus a status code
 	 *               boolean true if Gallery can access HTTP usernames and passwords
 	 */
-	public function checkHttpAuth() {
+	public static function checkHttpAuth() {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -138,14 +140,20 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 		 * auth-types.
 		 */
 		list($status, $headers, $body) = GalleryCoreApi::requestWebPage(
-		$urlGenerator->generateUrl(
-		array('view' => 'httpauth.HttpAuthWorks'),
-		array('forceFullUrl' => true,
-			  'htmlEntities' => false, )
-	),
-		'GET',
-		array('Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'))
-	);
+			$urlGenerator->generateUrl(
+				array(
+					'view' => 'httpauth.HttpAuthWorks',
+				),
+				array(
+					'forceFullUrl' => true,
+					'htmlEntities' => false,
+				)
+			),
+			'GET',
+			array(
+				'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+			)
+		);
 
 		return array(null, trim($body) == "Basic\nUSERNAME\nPASSWORD");
 	}
@@ -157,7 +165,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 *               string HTTP username
 	 *               string HTTP password
 	 */
-	public function getHttpAuth() {
+	public static function getHttpAuth() {
 		$authtype = GalleryUtilities::getServerVar('AUTH_TYPE');
 		$username = GalleryUtilities::getServerVar('PHP_AUTH_USER');
 		$password = GalleryUtilities::getServerVar('PHP_AUTH_PW');
@@ -193,7 +201,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 * @return array GalleryStatus a status code
 	 *               GalleryUser the active user or null
 	 */
-	public function getUser($authtype, $username) {
+	public static function getUser($authtype, $username) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
 
 		if ($ret) {
@@ -211,8 +219,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 				return array(null, null);
 			}
 
-			$username =
-		preg_replace($params['usernamePattern'], $params['usernameReplace'], $username);
+			$username = preg_replace($params['usernamePattern'], $params['usernameReplace'], $username);
 		}
 
 		if (empty($username)) {
@@ -245,7 +252,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 * @param GalleryUser $authenticatedUser user authenticated for this request
 	 * @return GalleryStatus a status code
 	 */
-	public function regenerateSessionIfNecessary($authenticatedUser) {
+	public static function regenerateSessionIfNecessary($authenticatedUser) {
 		global $gallery;
 		$session =& $gallery->getSession();
 
@@ -269,8 +276,8 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 * @param string $username
 	 * @param string $password
 	 */
-	public function addHttpAuthToUrl($url, $username, $password) {
-		$components = parse_url($url);
+	public static function addHttpAuthToUrl($url, $username, $password) {
+		$components         = parse_url($url);
 		$components['user'] = $username;
 		$components['pass'] = $password;
 
@@ -281,7 +288,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 * Removes user:pass from the given URL.
 	 * @param string $url An absolute URL
 	 */
-	public function stripHttpAuthFromUrl($url) {
+	public static function stripHttpAuthFromUrl($url) {
 		$components = parse_url($url);
 		unset($components['user']);
 		unset($components['pass']);
@@ -292,30 +299,40 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	/**
 	 * @see HttpAuthInterface_1_0::getConfiguration
 	 */
-	public function getConfiguration() {
+	public static function getConfiguration() {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
 
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
 
-		return array(null, !empty($params['httpAuthPlugin']), !empty($params['serverAuthPlugin']),
-			 !empty($params['useGlobally']), );
+		return array(
+			null,
+			!empty($params['httpAuthPlugin']),
+			!empty($params['serverAuthPlugin']),
+			!empty($params['useGlobally']),
+		);
 	}
 
 	/**
 	 * @see HttpAuthInterface_1_0::setConfiguration
 	 */
-	public function setConfiguration($enableHttpAuth, $enableServerAuth=false, $useGlobally=false) {
+	public static function setConfiguration(
+		$enableHttpAuth,
+		$enableServerAuth = false,
+		$useGlobally = false
+	) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		foreach (array('httpAuthPlugin' => $enableHttpAuth,
-			   'serverAuthPlugin' => $enableServerAuth,
-			   'useGlobally' => $useGlobally, ) as $key => $value) {
+		foreach (array(
+			'httpAuthPlugin'   => $enableHttpAuth,
+			'serverAuthPlugin' => $enableServerAuth,
+			'useGlobally'      => $useGlobally,
+		) as $key => $value) {
 			$ret = $module->setParameter($key, $value);
 
 			if ($ret) {
@@ -340,7 +357,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	/**
 	 * @see HttpAuthInterface_1_0::requestAuthentication
 	 */
-	public function requestAuthentication($ignoreUseGloballyFlag=true) {
+	public static function requestAuthentication($ignoreUseGloballyFlag = true) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'httpauth');
 
 		if ($ret) {
@@ -357,9 +374,9 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 401 Unauthorized', false);
 		GalleryUtilities::setResponseHeader(
-		"WWW-Authenticate: Basic realm='$params[authName]'",
-						false
-	);
+			"WWW-Authenticate: Basic realm='$params[authName]'",
+			false
+		);
 
 		return null;
 	}
@@ -369,7 +386,7 @@ class HttpAuthHelper // extends HttpAuthInterface_1_0
 	 * @param array $components URL components in the format of parse_url
 	 * @access private
 	 */
-	public function _buildUrl($components) {
+	public static function _buildUrl($components) {
 		$url = '';
 
 		if (!empty($components['scheme']) && !empty($components['host'])) {

@@ -22,6 +22,7 @@ GalleryCoreApi::requireOnce('modules/comment/module.inc');
 
 /**
  * Utility functions useful in managing GalleryComments
+ * Implements GalleryEventListener
  *
  * @package Comment
  * @subpackage Classes
@@ -29,8 +30,7 @@ GalleryCoreApi::requireOnce('modules/comment/module.inc');
  * @version $Revision: 17990 $
  * @static
  */
-class GalleryCommentHelper // implements GalleryEventListener
-{
+class GalleryCommentHelper {
 	/**
 	 * Return the comments associated with the given item
 	 *
@@ -42,11 +42,11 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 * @return array GalleryStatus a status code,
 	 *               array (entityId => GalleryComment, ...)
 	 */
-	public function fetchComments(
+	public static function fetchComments(
 		$itemId,
-		$count=null,
-		$orderDirection=ORDER_ASCENDING,
-			   $publishStatus=COMMENT_PUBLISH_STATUS_PUBLISHED
+		$count = null,
+		$orderDirection = ORDER_ASCENDING,
+		$publishStatus = COMMENT_PUBLISH_STATUS_PUBLISHED
 	) {
 		global $gallery;
 
@@ -65,7 +65,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$data = array((int)$itemId);
+		$data  = array((int)$itemId);
 		$query = '
 	SELECT
 	  [GalleryComment::id]
@@ -84,7 +84,7 @@ class GalleryCommentHelper // implements GalleryEventListener
             ';
 			$data[] = $publishStatus;
 		}
-		$query .= '
+		$query                    .= '
 	ORDER BY
 	  [GalleryComment::date] ' . $direction . '
 	';
@@ -137,12 +137,12 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 *               array (entityId => GalleryComment, ...)
 	 *               int total number of comments available
 	 */
-	public function fetchAllComments(
+	public static function fetchAllComments(
 		$itemId,
-		$count=null,
-		$offset=null,
-		$orderDirection=ORDER_ASCENDING,
-		$publishStatus=COMMENT_PUBLISH_STATUS_PUBLISHED
+		$count = null,
+		$offset = null,
+		$orderDirection = ORDER_ASCENDING,
+		$publishStatus = COMMENT_PUBLISH_STATUS_PUBLISHED
 	) {
 		global $gallery;
 
@@ -204,7 +204,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 
 		if ($publishStatus !== null) {
 			$statusMarkers = GalleryUtilities::makeMarkers(count($publishStatus));
-			$queryBase .= '
+			$queryBase    .= '
 	 AND
 	   [GalleryComment::publishStatus] IN (' . $statusMarkers . ')';
 		}
@@ -216,13 +216,13 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 AND
 	   [GalleryComment::id] = [GalleryChildEntity::id]
 	';
-		$query = '
+		$query      = '
 	SELECT
 	  [GalleryComment::id] ' . $queryBase . '
 	ORDER BY
 	  [GalleryComment::date] ' . $direction . '
 	';
-		$data = array((int)$itemId, $sequence);
+		$data       = array((int)$itemId, $sequence);
 
 		if ($publishStatus !== null) {
 			if (!is_array($publishStatus)) {
@@ -238,7 +238,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 			$data,
 			array(
 				'limit' => array(
-					'count' => (int)$count,
+					'count'  => (int)$count,
 					'offset' => (int)$offset,
 				),
 			)
@@ -270,7 +270,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 		if (!$count && !$offset) {
 			$totalCount = count($allIds);
 		} else {
-			$query = '
+			$query                     = '
 	    SELECT
 	      COUNT([GalleryComment::id]) ' . $queryBase;
 			list($ret, $searchResults) = $gallery->search($query, $data);
@@ -296,11 +296,11 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 * @return array GalleryStatus a status code
 	 *               int a count
 	 */
-	public function fetchCommentCounts($itemIds) {
+	public static function fetchCommentCounts($itemIds) {
 		global $gallery;
 
 		$markers = GalleryUtilities::makeMarkers(sizeof($itemIds));
-		$query = '
+		$query   = '
 	SELECT
 	  [GalleryChildEntity::parentId],
 	  COUNT([GalleryComment::id])
@@ -316,8 +316,8 @@ class GalleryCommentHelper // implements GalleryEventListener
 	  [GalleryChildEntity::parentId]
 	';
 
-		$data = $itemIds;
-		$data[] = COMMENT_PUBLISH_STATUS_PUBLISHED;
+		$data                      = $itemIds;
+		$data[]                    = COMMENT_PUBLISH_STATUS_PUBLISHED;
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -340,11 +340,11 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 * @return array GalleryStatus a status code,
 	 *               int latest comment time
 	 */
-	public function getLatestCommentTime($hostAddress) {
+	public static function getLatestCommentTime($hostAddress) {
 		global $gallery;
 
-		$data = array($hostAddress);
-		$query = '
+		$data                      = array($hostAddress);
+		$query                     = '
 	SELECT
 	  [GalleryComment::date]
 	FROM
@@ -355,10 +355,14 @@ class GalleryCommentHelper // implements GalleryEventListener
 	  [GalleryComment::date] DESC
         ';
 		list($ret, $searchResults) = $gallery->search(
-		$query,
-		$data,
-		array('limit' => array('count' => 1))
-	);
+			$query,
+			$data,
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -383,7 +387,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 * @return array GalleryStatus a status code
 	 *               array values used for the AddComment page (itemId, host, validation plugins)
 	 */
-	public function getAddComment(&$item, &$form) {
+	public static function getAddComment(&$item, &$form) {
 		// Make sure we have permission to add a comment
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
@@ -402,9 +406,9 @@ class GalleryCommentHelper // implements GalleryEventListener
 
 		if ($form['formName'] != 'AddComment') {
 			$form['formName'] = 'AddComment';
-			$form['subject'] = '';
-			$form['comment'] = '';
-			$form['author'] = '';
+			$form['subject']  = '';
+			$form['comment']  = '';
+			$form['author']   = '';
 		} else {
 			foreach (array('subject', 'comment', 'author') as $key) {
 				if (empty($form[$key])) {
@@ -414,7 +418,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 		}
 
 		// Check if we should use validation plugins for new comments
-		$plugins = array();
+		$plugins                          = array();
 		list($ret, $useValidationPlugins) = GalleryCommentHelper::useValidationPlugins();
 
 		if ($ret) {
@@ -432,8 +436,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 
 			// Let each plugin load its template data
 			foreach (array_keys($allPluginIds) as $pluginId) {
-				list($ret, $plugin) =
-			GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
+				list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
 
 				if ($ret) {
 					return array($ret, null);
@@ -450,9 +453,11 @@ class GalleryCommentHelper // implements GalleryEventListener
 			}
 		}
 
-		$AddComment = array('itemId' => $item->getId(),
-		'host' => GalleryUtilities::getRemoteHostAddress(),
-		'plugins' => $plugins, );
+		$AddComment = array(
+			'itemId'  => $item->getId(),
+			'host'    => GalleryUtilities::getRemoteHostAddress(),
+			'plugins' => $plugins,
+		);
 
 		return array(null, $AddComment);
 	}
@@ -463,9 +468,8 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 * @return array GalleryStatus a status code
 	 *               boolean true to use validation plugins
 	 */
-	public function useValidationPlugins() {
-		list($ret, $level) =
-		GalleryCoreApi::getPluginParameter('module', 'comment', 'validation.level');
+	public static function useValidationPlugins() {
+		list($ret, $level) = GalleryCoreApi::getPluginParameter('module', 'comment', 'validation.level');
 
 		if ($ret) {
 			return array($ret, null);
@@ -499,15 +503,15 @@ class GalleryCommentHelper // implements GalleryEventListener
 		global $gallery;
 
 		switch ($event->getEventName()) {
-	case 'GalleryEntity::delete':
-		$entity = $event->getEntity();
+			case 'GalleryEntity::delete':
+				$entity = $event->getEntity();
 
-		if (!GalleryUtilities::isA($entity, 'GalleryUser')) {
-			return array(null, null);
-		}
+				if (!GalleryUtilities::isA($entity, 'GalleryUser')) {
+					return array(null, null);
+				}
 
-		// Delete all comments owned by this user
-		$query = '
+				// Delete all comments owned by this user
+				$query = '
 	    SELECT
 	      [GalleryComment::id]
 	    FROM
@@ -516,52 +520,52 @@ class GalleryCommentHelper // implements GalleryEventListener
 	      [GalleryComment::commenterId] = ?
 	    ';
 
-		list($ret, $searchResults) = $gallery->search($query, array((int)$entity->getId()));
-
-		if ($ret) {
-			return array($ret, null);
-		}
-
-		while ($result = $searchResults->nextResult()) {
-			$ret = GalleryCoreApi::deleteEntityById((int)$result[0], 'GalleryComment');
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		break;
-
-	case 'GalleryEntity::save':
-		if (!GalleryCommentHelper::getAkismetSaveListenerSwitch()) {
-			break;
-		}
-		$comment =& $event->getEntity();
-
-		if (GalleryUtilities::isA($comment, 'GalleryComment')) {
-			list($ret, $akismetActive) = GalleryCoreApi::getPluginParameter(
-				'module',
-				'comment',
-				'akismet.active'
-			);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			if ($akismetActive) {
-				GalleryCoreApi::requireOnce('modules/comment/classes/AkismetApi.class');
-				$akismet = new AkismetApi();
-				$ret = $this->checkWithAkismet($comment, $akismet);
+				list($ret, $searchResults) = $gallery->search($query, array((int)$entity->getId()));
 
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
-		}
 
-		break;
-	}
+				while ($result = $searchResults->nextResult()) {
+					$ret = GalleryCoreApi::deleteEntityById((int)$result[0], 'GalleryComment');
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+
+				break;
+
+			case 'GalleryEntity::save':
+				if (!GalleryCommentHelper::getAkismetSaveListenerSwitch()) {
+					break;
+				}
+				$comment =& $event->getEntity();
+
+				if (GalleryUtilities::isA($comment, 'GalleryComment')) {
+					list($ret, $akismetActive) = GalleryCoreApi::getPluginParameter(
+						'module',
+						'comment',
+						'akismet.active'
+					);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					if ($akismetActive) {
+						GalleryCoreApi::requireOnce('modules/comment/classes/AkismetApi.class');
+						$akismet = new AkismetApi();
+						$ret     = $this->checkWithAkismet($comment, $akismet);
+
+						if ($ret) {
+							return array($ret, null);
+						}
+					}
+				}
+
+				break;
+		}
 
 		return array(null, null);
 	}
@@ -575,7 +579,7 @@ class GalleryCommentHelper // implements GalleryEventListener
 	 * @param $enabled bool true to enable the listener, false to disable it
 	 * @static
 	 */
-	public function setAkismetSaveListenerSwitch($enabled) {
+	public static function setAkismetSaveListenerSwitch($enabled) {
 		$switch =& GalleryCommentHelper::getAkismetSaveListenerSwitch();
 		$switch = $enabled;
 	}

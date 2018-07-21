@@ -21,20 +21,21 @@
 /**
  * Pick which page of a multi-page file to use for the thumbnail.
  *
+ * Also Extends GalleryEventListener
+ *
  * @package ThumbPage
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 18172 $
  */
-class ThumbPageModule extends GalleryModule // and GalleryEventListener
-{
+class ThumbPageModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 
 		$this->setId('thumbpage');
 		$this->setName($gallery->i18n('Thumbnail Page'));
 		$this->setDescription(
-		$gallery->i18n('Select page/frame from a multipage file or movie for the thumbnail')
-	);
+			$gallery->i18n('Select page/frame from a multipage file or movie for the thumbnail')
+		);
 		$this->setVersion('1.0.8');
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
@@ -91,7 +92,7 @@ class ThumbPageModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::activate
 	 */
-	public function activate($postActivationEvent=true) {
+	public function activate($postActivationEvent = true) {
 		list($ret, $page) = $this->_getSupportedMultiPageTypes();
 
 		if ($ret) {
@@ -108,7 +109,7 @@ class ThumbPageModule extends GalleryModule // and GalleryEventListener
 			return array(
 				null,
 				array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'thumbpage.CantActivate',
 				),
 			);
@@ -241,8 +242,9 @@ class ThumbPageModule extends GalleryModule // and GalleryEventListener
 		 */
 		$data = $event->getData();
 
-		if ($event->getEventName() == 'Gallery::DeactivatePlugin' &&
-		$data['pluginType'] == 'module' && $data['pluginId'] != 'thumbpage') {
+		if ($event->getEventName() == 'Gallery::DeactivatePlugin'
+			&& $data['pluginType'] == 'module' && $data['pluginId'] != 'thumbpage'
+		) {
 			list($ret, $isActive) = $this->isActive();
 
 			if ($ret) {

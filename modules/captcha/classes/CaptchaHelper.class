@@ -30,7 +30,7 @@ class CaptchaHelper {
 	 * Verify the existence of the GD functions that we require to draw a captcha.
 	 * @return array ('fail' => array(func, func, ...), 'success' => array(func, func, ...))
 	 */
-	public function testRequiredGdFunctions() {
+	public static function testRequiredGdFunctions() {
 		global $gallery;
 		$phpVm = $gallery->getPhpVm();
 
@@ -61,7 +61,7 @@ class CaptchaHelper {
 	/**
 	 * Generate a new captcha code and put it into the session.
 	 */
-	public function generateCaptchaSessionKey() {
+	public static function generateCaptchaSessionKey() {
 		global $gallery;
 
 		// These letters are relatively unambiguous when made hard to read

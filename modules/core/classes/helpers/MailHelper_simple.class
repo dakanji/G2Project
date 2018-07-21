@@ -30,7 +30,7 @@ class MailHelper_simple {
 	/**
 	 * @see GalleryCoreApi::sendTemplatedEmail
 	 */
-	public function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers = '') {
+	public static function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers = '') {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');

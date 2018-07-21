@@ -693,12 +693,17 @@ class SystemChecksStep extends UpgradeStep {
 		foreach (array('', 'versions.dat', 'albums') as $path) {
 			$path = $storagePath . $path;
 
+<<<<<<< HEAD
 			if (!$platform->file_exists($path) || !$platform->is_readable($path)
 				|| !$platform->is_writeable($path)
 			) {
 				return array($path);
 			}
 		}
+=======
+    static function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
+	$base = realpath(dirname(__FILE__) . '/../..') . '/';
+>>>>>>> 44f3f49... PHP 7 Compatibility
 
 		// Check up to 400 other files
 		$tested      = 0;

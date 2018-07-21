@@ -62,7 +62,7 @@ class ImageUploadHelper {
 	 *
 	 * @return array ('success', 'rsurl', 'sessionidparam', 'sessionid', 'capabilities')
 	 */
-	public function doLogin() {
+	public static function doLogin() {
 		global $gallery;
 		$gallery->debug('### LoginHelper ###');
 
@@ -181,7 +181,7 @@ class ImageUploadHelper {
 	 *
 	 * @return array remote storage capabilities
 	 */
-	public function getRSCapabilities() {
+	public static function getRSCapabilities() {
 		global $gallery;
 		$gallery->debug('### RemoteStorageCapabilitiesHelper ###');
 		$gallery->debug('Active userId is ' . $gallery->getActiveUserId());
@@ -237,7 +237,7 @@ class ImageUploadHelper {
 	 *
 	 * @return array ('success', 'id')
 	 */
-	public function createNewDirectory() {
+	public static function createNewDirectory() {
 		global $gallery;
 		$gallery->debug('### NewDirectoryHelper ###');
 
@@ -388,7 +388,7 @@ class ImageUploadHelper {
 	 *
 	 * @return array ('success', 'spaceleft')
 	 */
-	public function doUpload() {
+	public static function doUpload() {
 		global $gallery;
 		$gallery->debug('### UploadHelper ###');
 
@@ -497,7 +497,7 @@ class ImageUploadHelper {
 	 *
 	 * @return array ('success', 'albums' => array (array('id', 'parentid', 'name'), ..))
 	 */
-	public function getDirectoryListing() {
+	public static function getDirectoryListing() {
 		global $gallery;
 		$gallery->debug('### DirectoryListingHelper ###');
 		$gallery->debug('Active userId is ' . $gallery->getActiveUserId());
@@ -559,7 +559,7 @@ class ImageUploadHelper {
 	 * @return GalleryStatus a status code
 	 *         int id of the Mobile user group
 	 */
-	public function createMobileUserGroup($name) {
+	public static function createMobileUserGroup($name) {
 		list($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 
 		if ($ret) {
@@ -602,7 +602,7 @@ class ImageUploadHelper {
 	 * @return GalleryStatus a status code
 	 *         int id of the upload album
 	 */
-	public function createUploadAlbum($title, $parentId) {
+	public static function createUploadAlbum($title, $parentId) {
 		global $gallery;
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
 
@@ -697,7 +697,7 @@ class ImageUploadHelper {
 	 * @param int $groupId id of mobile users group
 	 * @return GalleryStatus a status code
 	 */
-	public function setAlbumPermissions($albumId, $groupId) {
+	public static function setAlbumPermissions($albumId, $groupId) {
 		// Few ids that we will need
 		list($ret, $everybodyId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
@@ -750,7 +750,7 @@ class ImageUploadHelper {
 	 * Write the contents of _POST and _GET to debug log.
 	 * @param string $message optional message
 	 */
-	public function logRequest($message = '') {
+	public static function logRequest($message = '') {
 		global $gallery;
 
 		if ($gallery->getDebug()) {

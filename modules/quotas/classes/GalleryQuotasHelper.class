@@ -34,21 +34,21 @@ class GalleryQuotasHelper {
 	 * @return array GalleryStatus a status code
 	 *               integer user's disk usage in bytes
 	 */
-	public function getUserDiskUsage($userId, $excludeIds = array()) {
+	public static function getUserDiskUsage($userId, $excludeIds = array()) {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
 
 		$query = '
-	SELECT
-	  SUM([GalleryDataItem::size]/1024)
-	FROM
-	  [GalleryItem], [GalleryDataItem]
-	WHERE
-	  [GalleryItem::id] = [GalleryDataItem::id]
-	  AND
-	  [GalleryItem::ownerId] = ?
-	';
+		SELECT
+		SUM([GalleryDataItem::size]/1024)
+		FROM
+		[GalleryItem], [GalleryDataItem]
+		WHERE
+		[GalleryItem::id] = [GalleryDataItem::id]
+		AND
+		[GalleryItem::ownerId] = ?
+		';
 
 		$data = array((int)$userId);
 
@@ -56,7 +56,7 @@ class GalleryQuotasHelper {
 			$data          = array_merge($data, $excludeIds);
 			$itemIdMarkers = GalleryUtilities::makeMarkers(count($excludeIds));
 			$query        .= '  AND
-			 [GalleryItem::id] NOT IN (' . $itemIdMarkers . ')';
+			[GalleryItem::id] NOT IN (' . $itemIdMarkers . ')';
 		}
 
 		list($ret, $searchResults) = $gallery->search($query, $data);
@@ -87,7 +87,7 @@ class GalleryQuotasHelper {
 	 *               bool does a quota exists for this user
 	 *               integer user's disk quota in Kilobytes
 	 */
-	public function getUserDiskQuota($userId) {
+	public static function getUserDiskQuota($userId) {
 		global $gallery;
 		$userDiskQuota                               = null;
 		list($ret, $userQuotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($userId);
@@ -127,7 +127,7 @@ class GalleryQuotasHelper {
 	 *               array('quota' => integer user's disk quota in Kilobytes,
 	 *                     'name' => string group's name)
 	 */
-	public function fetchHighestGroupQuota($userId) {
+	public static function fetchHighestGroupQuota($userId) {
 		global $gallery;
 
 		list($ret, $groupQuotaIds) = GalleryCoreApi::fetchGroupsForUser($userId);
@@ -140,17 +140,17 @@ class GalleryQuotasHelper {
 		$groupQuotaIdMarkers = GalleryUtilities::makeMarkers(count($groupQuotaIds));
 
 		$query = '
-	SELECT
-	  [GalleryQuotasMap::quotaSize], [GalleryGroup::groupName]
-	FROM
-	  [GalleryQuotasMap], [GalleryGroup]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] IN (' . $groupQuotaIdMarkers . ')
-	  AND
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
-	ORDER BY
-	  [GalleryQuotasMap::quotaSize] DESC
-	';
+		SELECT
+		[GalleryQuotasMap::quotaSize], [GalleryGroup::groupName]
+		FROM
+		[GalleryQuotasMap], [GalleryGroup]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] IN (' . $groupQuotaIdMarkers . ')
+		AND
+		[GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
+		ORDER BY
+		[GalleryQuotasMap::quotaSize] DESC
+		';
 
 		$data             = $groupQuotaIds;
 		$options          = array();
@@ -188,7 +188,7 @@ class GalleryQuotasHelper {
 	 *               string user's quota in human readable format
 	 *               string the unit of measurement for the user's quota (ie: KB, MB, GB)
 	 */
-	public function humanReadableFromKilobytes($kilobytes) {
+	public static function humanReadableFromKilobytes($kilobytes) {
 		global $gallery;
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 
@@ -217,22 +217,22 @@ class GalleryQuotasHelper {
 	 *               array(groupId => array('quota' => group's disk quota,
 	 *                                      'name' => group's groupname))
 	 */
-	public function fetchQuotaGroupIdList($count, $offset = 0) {
+	public static function fetchQuotaGroupIdList($count, $offset = 0) {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
 
 		$query = '
-	SELECT
-	  [GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
-	  [GalleryGroup::groupName]
-	FROM
-	  [GalleryQuotasMap], [GalleryGroup]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
-	ORDER BY
-	  [GalleryQuotasMap::userOrGroupId] ASC
-	';
+		SELECT
+		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
+		[GalleryGroup::groupName]
+		FROM
+		[GalleryQuotasMap], [GalleryGroup]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
+		ORDER BY
+		[GalleryQuotasMap::userOrGroupId] ASC
+		';
 
 		$data             = $options = array();
 		$options['limit'] = array(
@@ -266,18 +266,18 @@ class GalleryQuotasHelper {
 	 * @return array GalleryStatus a status code
 	 *               integer the number of groups that have quotas assigned
 	 */
-	public function fetchQuotaGroupCount() {
+	public static function fetchQuotaGroupCount() {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
 		$query = '
-	SELECT
-	  COUNT([GalleryQuotasMap::userOrGroupId])
-	FROM
-	  [GalleryQuotasMap], [GalleryGroup]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
-	';
+		SELECT
+		COUNT([GalleryQuotasMap::userOrGroupId])
+		FROM
+		[GalleryQuotasMap], [GalleryGroup]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
+		';
 
 		list($ret, $searchResults) = $gallery->search($query);
 
@@ -299,20 +299,20 @@ class GalleryQuotasHelper {
 	 *               array(groupId => array('quota' => user's disk quota,
 	 *                                      'name' => user's username))
 	 */
-	public function fetchQuotaUserIdList($count, $offset = 0) {
+	public static function fetchQuotaUserIdList($count, $offset = 0) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
 		$query = '
-	SELECT
-	  [GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize], [GalleryUser::userName]
-	FROM
-	  [GalleryQuotasMap], [GalleryUser]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
-	ORDER BY
-	  [GalleryQuotasMap::userOrGroupId] ASC
-	';
+		SELECT
+		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize], [GalleryUser::userName]
+		FROM
+		[GalleryQuotasMap], [GalleryUser]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
+		ORDER BY
+		[GalleryQuotasMap::userOrGroupId] ASC
+		';
 
 		$data             = $options = array();
 		$options['limit'] = array(
@@ -345,18 +345,18 @@ class GalleryQuotasHelper {
 	 * @return array GalleryStatus a status code
 	 *               integer the number of users that have quotas assigned
 	 */
-	public function fetchQuotaUserCount() {
+	public static function fetchQuotaUserCount() {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
 		$query = '
-	SELECT
-	  COUNT([GalleryQuotasMap::userOrGroupId])
-	FROM
-	  [GalleryQuotasMap], [GalleryUser]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
-	';
+		SELECT
+		COUNT([GalleryQuotasMap::userOrGroupId])
+		FROM
+		[GalleryQuotasMap], [GalleryUser]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
+		';
 
 		list($ret, $searchResults) = $gallery->search($query);
 
@@ -380,20 +380,20 @@ class GalleryQuotasHelper {
 	 *                     'quota' => group's disk quota,
 	 *                     'name' => group's groupname)
 	 */
-	public function fetchGroupQuota($groupId) {
+	public static function fetchGroupQuota($groupId) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 		$query   = '
-	SELECT
-	  [GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
-	  [GalleryGroup::groupName]
-	FROM
-	  [GalleryQuotasMap], [GalleryGroup]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] = ?
-	  AND
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
-	';
+		SELECT
+		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
+		[GalleryGroup::groupName]
+		FROM
+		[GalleryQuotasMap], [GalleryGroup]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] = ?
+		AND
+		[GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
+		';
 
 		$data = array((int)$groupId);
 
@@ -430,20 +430,20 @@ class GalleryQuotasHelper {
 	 *                     'quota' => user's disk quota,
 	 *                     'name' => user's username)
 	 */
-	public function fetchUserQuota($userId) {
+	public static function fetchUserQuota($userId) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
 		$query = '
-	SELECT
-	  [GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize], [GalleryUser::userName]
-	FROM
-	  [GalleryQuotasMap], [GalleryUser]
-	WHERE
-	  [GalleryQuotasMap::userOrGroupId] = ?
-	  AND
-	  [GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
-	';
+		SELECT
+		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize], [GalleryUser::userName]
+		FROM
+		[GalleryQuotasMap], [GalleryUser]
+		WHERE
+		[GalleryQuotasMap::userOrGroupId] = ?
+		AND
+		[GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
+		';
 
 		$data = array((int)$userId);
 

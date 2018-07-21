@@ -30,7 +30,7 @@ class GalleryFileSystemEntityHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchItemIdByPath
 	 */
-	public function fetchItemIdByPath($path) {
+	public static function fetchItemIdByPath($path) {
 		global $gallery;
 
 		if (empty($path)) {
@@ -64,7 +64,7 @@ class GalleryFileSystemEntityHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchChildIdByPathComponent
 	 */
-	public function fetchChildIdByPathComponent($parentId, $pathComponent) {
+	public static function fetchChildIdByPathComponent($parentId, $pathComponent) {
 		global $gallery;
 
 		if (empty($parentId) || empty($pathComponent)) {

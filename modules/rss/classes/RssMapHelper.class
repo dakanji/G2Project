@@ -37,7 +37,7 @@ class RssMapHelper {
 	 *                        'ownerId' => owner of the feed
 	 *                        'params' => feed definition
 	 */
-	public function fetchFeedsForItem($itemId = null) {
+	public static function fetchFeedsForItem($itemId = null) {
 		global $gallery;
 
 		if (isset($itemId)) {
@@ -54,11 +54,11 @@ class RssMapHelper {
 			}
 		} else {
 			$query = '
-	    SELECT
-	      [RssMap::feedName], [RssMap::itemId], [RssMap::ownerId], [RssMap::params]
-	    FROM
-	      [RssMap]
-	    ';
+			SELECT
+			[RssMap::feedName], [RssMap::itemId], [RssMap::ownerId], [RssMap::params]
+			FROM
+			[RssMap]
+			';
 
 			list($ret, $searchResults) = $gallery->search($query);
 
@@ -114,15 +114,10 @@ class RssMapHelper {
 	 * @return array GalleryStatus a status code
 	 *         array of feed names
 	 */
-	public function fetchFeedNames($limit = 0) {
+	public static function fetchFeedNames($limit = 0) {
 		global $gallery;
 
-		$query = '
-	SELECT
-	  [RssMap::feedName]
-	FROM
-	  [RssMap]
-	';
+		$query = 'SELECT [RssMap::feedName] FROM [RssMap]';
 
 		$params = array();
 
@@ -153,7 +148,7 @@ class RssMapHelper {
 	 * @param string $feedName
 	 * @return GalleryStatus a status code
 	 */
-	public function fetchFeed($feedName) {
+	public static function fetchFeed($feedName) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'RssMap',
 			array('params'),
@@ -204,7 +199,7 @@ class RssMapHelper {
 	 * @param array $params parameters
 	 * @return GalleryStatus a status code
 	 */
-	public function createFeed($feedName, $params) {
+	public static function createFeed($feedName, $params) {
 		global $gallery;
 
 		// first, check for collision
@@ -243,7 +238,7 @@ class RssMapHelper {
 	 * @param array $params parameters
 	 * @return GalleryStatus a status code
 	 */
-	public function updateFeed($feedName, $params) {
+	public static function updateFeed($feedName, $params) {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'RssMap',
 			array(
@@ -269,7 +264,7 @@ class RssMapHelper {
 	 * @param string $feedName
 	 * @return GalleryStatus a status code
 	 */
-	public function deleteFeed($feedName) {
+	public static function deleteFeed($feedName) {
 		$ret = GalleryCoreApi::removeMapEntry('RssMap', array(
 			'feedName' => $feedName,
 		));
@@ -291,7 +286,7 @@ class RssMapHelper {
 	 * @return array GalleryStatus a status code
 	 *               boolean true if allowed
 	 */
-	public function canConfigureFeed($item, $params, $userId, $assert = false) {
+	public static function canConfigureFeed($item, $params, $userId, $assert = false) {
 		static $isAdmin;
 
 		if (!isset($isAdmin[$userId])) {

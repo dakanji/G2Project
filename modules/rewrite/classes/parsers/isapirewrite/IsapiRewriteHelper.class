@@ -29,7 +29,7 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::saveActiveRules
 	 */
-	public function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
+	public static function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
 		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
@@ -117,7 +117,7 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::saveAccessList
 	 */
-	public function saveAccessList($accessList, $allowEmptyReferer) {
+	public static function saveAccessList($accessList, $allowEmptyReferer) {
 		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
@@ -167,7 +167,7 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::needsConfiguration
 	 */
-	public function needsConfiguration($parser) {
+	public static function needsConfiguration($parser) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -237,7 +237,7 @@ class IsapiRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               string the gallery .htaccess section
 	 */
-	public function getHttpdiniContent($regexRules, $embedded = false) {
+	public static function getHttpdiniContent($regexRules, $embedded = false) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -482,7 +482,7 @@ class IsapiRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               string httpd.ini file path
 	 */
-	public function getHttpdiniPath() {
+	public static function getHttpdiniPath() {
 		list($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'isapirewrite.httpdini');
 
 		if ($ret) {
@@ -497,7 +497,7 @@ class IsapiRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               int rewrite status code (REWRITE_STATUS_OK on success)
 	 */
-	public function checkFile() {
+	public static function checkFile() {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -535,7 +535,7 @@ class IsapiRewriteHelper {
 	 *               int rewrite status code (REWRITE_STATUS_OK on success)
 	 *               int true rewrite status code (REWRITE_STATUS_OK on success)
 	 */
-	public function checkIsapiRewrite() {
+	public static function checkIsapiRewrite() {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -576,7 +576,7 @@ class IsapiRewriteHelper {
 	 * @return array GalleryStatus a status code
 	 *               int rewrite status code
 	 */
-	public function writeFile($regexRules) {
+	public static function writeFile($regexRules) {
 		global $gallery;
 		$platform  =& $gallery->getPlatform();
 		$galleryId = preg_quote(GALLERY_CONFIG_DIR, '/');
@@ -648,7 +648,7 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::loadTestResultsTemplate
 	 */
-	public function loadTestResultsTemplate(&$template, &$form) {
+	public static function loadTestResultsTemplate(&$template, &$form) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -693,7 +693,7 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::loadAdminParserTemplate
 	 */
-	public function loadAdminRewriteTemplate(&$template, &$form) {
+	public static function loadAdminRewriteTemplate(&$template, &$form) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$AdminParser  = array();
@@ -737,7 +737,7 @@ class IsapiRewriteHelper {
 	 * @param IsapiRewriteParser $parser
 	 * @param boolean $saveActiveRules true if we want to write the httpd.ini
 	 */
-	public function saveEmbedConfig($param, $parser, $saveActiveRules) {
+	public static function saveEmbedConfig($param, $parser, $saveActiveRules) {
 		$code = REWRITE_STATUS_OK;
 
 		if (empty($param['embeddedLocation'])) {

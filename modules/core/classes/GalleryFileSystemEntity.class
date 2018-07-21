@@ -68,7 +68,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	 *        Defaults to false.
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId, $pathComponent, $isDirectory = false) {
+	public function create($parentId = null, $pathComponent = null, $isDirectory = false) {
 		if (empty($pathComponent)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
@@ -122,14 +122,17 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	/**
 	 * @see GalleryEntity::createLink
 	 */
-	public function createLink($entity, $parentId) {
+	public function createLink($entity, $parentId = null) {
 		$ret = parent::createLink($entity, $parentId);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $pathComponent) = GalleryCoreApi::getLegalPathComponent($entity->getPathComponent(), $parentId);
+		list($ret, $pathComponent) = GalleryCoreApi::getLegalPathComponent(
+			$entity->getPathComponent(),
+			$parentId
+		);
 
 		if ($ret) {
 			return $ret;

@@ -30,7 +30,7 @@ class GalleryUserGroupHelper_medium {
 	/**
 	 * @see GalleryCoreApi::addUserToGroup
 	 */
-	public function addUserToGroup($userId, $groupId) {
+	public static function addUserToGroup($userId, $groupId) {
 		global $gallery;
 
 		if (empty($userId) || empty($groupId)) {
@@ -82,7 +82,7 @@ class GalleryUserGroupHelper_medium {
 	/**
 	 * @see GalleryCoreApi::removeUserFromGroup
 	 */
-	public function removeUserFromGroup($userId, $groupId) {
+	public static function removeUserFromGroup($userId, $groupId) {
 		global $gallery;
 
 		if (empty($userId) || empty($groupId)) {
@@ -123,7 +123,7 @@ class GalleryUserGroupHelper_medium {
 	/**
 	 * @see GalleryCoreApi::removeUserFromAllGroups
 	 */
-	public function removeUserFromAllGroups($userId) {
+	public static function removeUserFromAllGroups($userId) {
 		global $gallery;
 
 		if (empty($userId)) {
@@ -158,7 +158,7 @@ class GalleryUserGroupHelper_medium {
 	/**
 	 * @see GalleryCoreApi::removeAllUsersFromGroup
 	 */
-	public function removeAllUsersFromGroup($groupId) {
+	public static function removeAllUsersFromGroup($groupId) {
 		global $gallery;
 
 		if (empty($groupId)) {
@@ -208,7 +208,7 @@ class GalleryUserGroupHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchUsersForGroup
 	 */
-	public function fetchUsersForGroup($groupId, $count = null, $offset = null, $substring = null) {
+	public static function fetchUsersForGroup($groupId, $count = null, $offset = null, $substring = null) {
 		global $gallery;
 
 		$data   = array();

@@ -290,7 +290,7 @@ class NotificationModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::getItemLinks
 	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		$links = array();
 
 		list($ret, $showView) = $this->_showWatch($userId);
@@ -318,7 +318,7 @@ class NotificationModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion, $statusMonitor) {
+	public function upgrade($currentVersion, $statusMonitor = null) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 

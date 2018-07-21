@@ -768,7 +768,7 @@ class ModuleTestModule extends GalleryModule {
 		$this->_activate = true;
 	}
 
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
 		if (!isset($currentVersion)) {

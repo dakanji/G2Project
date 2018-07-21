@@ -398,6 +398,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 
 		return true;
 	}
+
 	// }}}
 }
 

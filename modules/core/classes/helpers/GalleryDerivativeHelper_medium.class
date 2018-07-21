@@ -30,7 +30,7 @@ class GalleryDerivativeHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchResizesByItemIds
 	 */
-	public function fetchResizesByItemIds($ids) {
+	public static function fetchResizesByItemIds($ids) {
 		if (!is_array($ids)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
@@ -58,7 +58,7 @@ class GalleryDerivativeHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchPreferredsByItemIds
 	 */
-	public function fetchPreferredsByItemIds($ids) {
+	public static function fetchPreferredsByItemIds($ids) {
 		if (!is_array($ids)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}

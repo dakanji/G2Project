@@ -6,7 +6,7 @@
 	Exifer
 	Extracts EXIF information from digital photos.
 
-	Copyright © 2003 Jake Olefsky
+	Copyright (c) 2003 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
 
@@ -575,6 +575,10 @@ function parseNikon($block, &$result) {
 				$data = substr($block, hexdec($value) + hexdec($offset) + 2, $bytesofdata);
 			}
 			$formated_data = formatNikonData($type, $tag, $intel, $model, $data);
+
+			if ($tag == '0002' && $formated_data >= 0x10000) {
+				$formated_data = floor($formated_data / 0x10000);
+			}
 
 			if ($result['VerboseOutput'] == 1) {
 				$result['SubIFD']['MakerNote'][$tag_name] = $formated_data;

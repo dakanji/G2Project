@@ -44,7 +44,7 @@ class DynamicAlbumModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 
 		if ($ret) {
@@ -128,7 +128,7 @@ class DynamicAlbumModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::getItemLinks
 	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions) {
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		$links              = array();
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 

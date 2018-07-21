@@ -52,39 +52,39 @@ class Getid3Helper {
 	 * @param int $viewMode
 	 * @return GalleryStatus a status code
 	 */
-	public function setDefaultProperties($viewMode) {
+	public static function setDefaultProperties($viewMode) {
 		switch ($viewMode) {
 			case GETID3_SUMMARY:
-				// This is an initial install; make sure that we have some reasonable defaults
-				$properties[] = 'Artist';
-				$properties[] = 'Album';
-				$properties[] = 'Track';
-				$properties[] = 'Title';
-				$properties[] = 'DateTime';
+			// This is an initial install; make sure that we have some reasonable defaults
+			$properties[] = 'Artist';
+			$properties[] = 'Album';
+			$properties[] = 'Track';
+			$properties[] = 'Title';
+			$properties[] = 'DateTime';
 
-				break;
+			break;
 
 			case GETID3_DETAILED:
-				$properties[] = 'Artist';
-				$properties[] = 'Album';
-				$properties[] = 'Track';
-				$properties[] = 'Title';
-				$properties[] = 'Genre';
-				$properties[] = 'Year';
-				$properties[] = 'DateTime';
-				$properties[] = 'AudioBitRate';
-				$properties[] = 'AudioBitRateMode';
-				$properties[] = 'AudioChannels';
-				$properties[] = 'AudioCodec';
-				$properties[] = 'ChannelMode';
-				$properties[] = 'VideoBitRate';
-				$properties[] = 'VideoBitRateMode';
-				$properties[] = 'VideoCodec';
+			$properties[] = 'Artist';
+			$properties[] = 'Album';
+			$properties[] = 'Track';
+			$properties[] = 'Title';
+			$properties[] = 'Genre';
+			$properties[] = 'Year';
+			$properties[] = 'DateTime';
+			$properties[] = 'AudioBitRate';
+			$properties[] = 'AudioBitRateMode';
+			$properties[] = 'AudioChannels';
+			$properties[] = 'AudioCodec';
+			$properties[] = 'ChannelMode';
+			$properties[] = 'VideoBitRate';
+			$properties[] = 'VideoBitRateMode';
+			$properties[] = 'VideoCodec';
 
-				break;
+			break;
 
 			default:
-				return GalleryStatus::error(ERROR_BAD_PARAMETER);
+			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
 		$ret = Getid3Helper::setProperties($viewMode, $properties);
@@ -104,7 +104,7 @@ class Getid3Helper {
 	 *        as returned by getid3()
 	 * @access private
 	 */
-	public function _fetchRawGetid3Data($path, &$rawGetid3Data) {
+	public static function _fetchRawGetid3Data($path, &$rawGetid3Data) {
 		global $gallery;
 		GalleryCoreApi::requireOnce('modules/getid3/lib/getid3/getid3.inc');
 
@@ -116,11 +116,11 @@ class Getid3Helper {
 			return;
 		}
 
-		$getID3        = new getID3();
+		$getID3 = new getID3();
 		$rawGetid3Data = $getID3->analyze($path);
 	}
 
-	public function getId3ArchiveRecurse($results, $fileArray, $nameprefix = '') {
+	public static function getId3ArchiveRecurse($results, $fileArray, $nameprefix='') {
 		foreach (array_keys($fileArray) as $filename) {
 			// Only prepend a non-empty nameprefix and '/' to filename
 			if ($nameprefix == '') {
@@ -137,10 +137,7 @@ class Getid3Helper {
 				);
 			} else {
 				if (($nameprefix == '') || ($filename != 0) || ($fileArray[$filename] != 0)) {
-					$results[] = array(
-						'name' => $prefixedname,
-						'size' => $fileArray[$filename],
-					);
+					$results[] = array('name' => $prefixedname, 'size' => $fileArray[$filename]);
 				}
 			}
 		}
@@ -148,57 +145,46 @@ class Getid3Helper {
 		return $results;
 	}
 
-	public function getId3ArchiveTar($fileDetails) {
+	public static function getId3ArchiveTar($fileDetails) {
 		$results = array();
 
 		foreach (array_keys($fileDetails) as $filename) {
 			if (is_array($fileDetails[$filename])) {
-				$results[] = array(
-					'name' => $filename,
-					'size' => $fileDetails[$filename]['size'],
-				);
+				$results[] = array('name' => $filename,
+					'size' => $fileDetails[$filename]['size'], );
 			}
 		}
 
 		return $results;
 	}
 
-	public function getId3ArchiveData($path, $viewMode) {
+	public static function getId3ArchiveData($path, $viewMode) {
 		Getid3Helper::_fetchRawGetid3Data($path, $rawGetid3Data);
 		$fileArray = null;
 
 		if (isset($rawGetid3Data['zip']['files'])) {
 			// We must recurse through files array
-			return array(
-				null,
-				Getid3Helper::getId3ArchiveRecurse(array(), $rawGetid3Data['zip']['files']),
-			);
+			return array(null,
+				Getid3Helper::getId3ArchiveRecurse(array(), $rawGetid3Data['zip']['files']), );
 		}
 
 		if (isset($rawGetid3Data['iso']['files'])) {
 			// Recurse through files like zip
-			return array(
-				null,
-				Getid3Helper::getId3ArchiveRecurse(array(), $rawGetid3Data['iso']['files']),
-			);
+			return array(null,
+				Getid3Helper::getId3ArchiveRecurse(array(), $rawGetid3Data['iso']['files']), );
 		}
 
 		if (isset($rawGetid3Data['tar']['file_details'])) {
 			// getid3's tar output allows us to simply look, and not have to recurse
-			return array(
-				null,
-				Getid3Helper::getId3ArchiveTar($rawGetid3Data['tar']['file_details']),
-			);
+			return array(null,
+				Getid3Helper::getId3ArchiveTar($rawGetid3Data['tar']['file_details']), );
 		}
 
 		if (isset($rawGetid3Data['gzip']['member_header']['1']['tar']['file_details'])) {
 			// tar-gzip is like tar, just buried a little deeper
-			return array(
-				null,
-				Getid3Helper::getId3ArchiveTar(
+			return array(null, Getid3Helper::getId3ArchiveTar(
 					$rawGetid3Data['gzip']['member_header']['1']['tar']['file_details']
-				),
-			);
+				));
 		}
 		// File probably isn't an archive
 		return array(null, null);
@@ -212,10 +198,10 @@ class Getid3Helper {
 	 * @return array GalleryStatus a status code
 	 *               array title/value pairs
 	 */
-	public function getId3Data($path, $viewMode) {
+	public static function getId3Data($path, $viewMode) {
 		Getid3Helper::_fetchRawGetid3Data($path, $rawGetid3Data);
 		$getid3Keys = Getid3Helper::getGetid3Keys();
-		$results    = array();
+		$results = array();
 
 		list($ret, $properties) = Getid3Helper::getProperties($viewMode);
 
@@ -235,16 +221,13 @@ class Getid3Helper {
 
 			for ($i = 1; $i < count($getid3Keys[$property]); $i++) {
 				$value = Getid3Helper::_getValue(
-					$rawGetid3Data,
-					explode('.', $getid3Keys[$property][$i])
-				);
+							$rawGetid3Data,
+							explode('.', $getid3Keys[$property][$i])
+						);
 
 				if (isset($value)) {
-					$value     = Getid3Helper::postProcessValue($property, $value);
-					$results[] = array(
-						'title' => $title,
-						'value' => $value,
-					);
+					$value = Getid3Helper::postProcessValue($property, $value);
+					$results[] = array('title' => $title, 'value' => $value);
 
 					break;
 				}
@@ -261,83 +244,70 @@ class Getid3Helper {
 	 * @param string $value time string
 	 * @return int an unix timestamp, null if not parsed
 	 */
-	public function getTimeDowMDHMSY($value) {
+	public static function getTimeDowMDHMSY($value) {
 		// Match "WED DEC 21 19:19:17 2005" format produced by a Canon SD400
 		if (preg_match('#(\w+)\ +(\w+)\ +(\d+)\ +(\d+):(\d+):(\d+)\ +(\d+)#', $value, $m)) {
 			$month = 0;
 
 			switch ($m[2]) {
-				case 'JAN':
-					$month = 1;
+							case 'JAN': $month =  1;
 
-					break;
+break;
 
-				case 'FEB':
-					$month = 2;
+							case 'FEB': $month =  2;
 
-					break;
+break;
 
-				case 'MAR':
-					$month = 3;
+							case 'MAR': $month =  3;
 
-					break;
+break;
 
-				case 'APR':
-					$month = 4;
+							case 'APR': $month =  4;
 
-					break;
+break;
 
-				case 'MAY':
-					$month = 5;
+							case 'MAY': $month =  5;
 
-					break;
+break;
 
-				case 'JUN':
-					$month = 6;
+							case 'JUN': $month =  6;
 
-					break;
+break;
 
-				case 'JUL':
-					$month = 7;
+							case 'JUL': $month =  7;
 
-					break;
+break;
 
-				case 'AUG':
-					$month = 8;
+							case 'AUG': $month =  8;
 
-					break;
+break;
 
-				case 'SEP':
-					$month = 9;
+							case 'SEP': $month =  9;
 
-					break;
+break;
 
-				case 'OCT':
-					$month = 10;
+							case 'OCT': $month = 10;
 
-					break;
+break;
 
-				case 'NOV':
-					$month = 11;
+							case 'NOV': $month = 11;
 
-					break;
+break;
 
-				case 'DEC':
-					$month = 12;
+							case 'DEC': $month = 12;
 
-					break;
+break;
 
-				default:
-					return null;
-			}
+							default: return null;
+						}
 			$time = mktime(
-				(int)$m[4],
-				(int)$m[5],
-				(int)$m[6],
-				$month,
-				(int)$m[3],
-				(int)$m[7]
-			);
+							(int)$m[4],
+							(int)$m[5],
+							(int)$m[6],
+						$month,
+							(int)$m[3],
+							(int)$m[7]
+						);
 
 			return $time;
 		}
@@ -351,20 +321,20 @@ class Getid3Helper {
 	 * @param string $value time string
 	 * @return int an unix timestamp, null if not parsed
 	 */
-	public function getTimeYMDHMS($value) {
+	public static function getTimeYMDHMS($value) {
 		/*
 		 * Match "2000:05:28 21:18:18" format produced by a
 		 *  TOSHIBA DIGITAL CAMERA PDRM70 VERSION 1.07
 		 */
 		if (preg_match('#(\d+):(\d+):(\d+)\ +(\d+):(\d+):(\d+)#', $value, $m)) {
 			$time = mktime(
-				(int)$m[4],
-				(int)$m[5],
-				(int)$m[6],
-				(int)$m[2],
-				(int)$m[3],
-				(int)$m[1]
-			);
+							(int)$m[4],
+							(int)$m[5],
+							(int)$m[6],
+						(int)$m[2],
+							(int)$m[3],
+							(int)$m[1]
+						);
 
 			return $time;
 		}
@@ -378,13 +348,13 @@ class Getid3Helper {
 	 * @param string $value time string
 	 * @return int an unix timestamp, null if not parsed
 	 */
-	public function getTimeInt($value) {
+	public static function getTimeInt($value) {
 		if (preg_match('/^\d+$/', $value)) {
 			$time = intval($value);
 			// Adjust time by time zone offset
 			// Get difference to UTC in seconds, then add to time
 			$utcdiff = date('Z', $time);
-			$time    = $time + $utcdiff;
+			$time = $time + $utcdiff;
 
 			return $time;
 		}
@@ -401,7 +371,7 @@ class Getid3Helper {
 	 * @return string the result (eg. "1/400 sec")
 	 * @todo (donw) Implement postProcessValue
 	 */
-	public function postProcessValue($property, $value) {
+	public static function postProcessValue($property, $value) {
 		global $gallery;
 
 		if (!is_numeric($value)) {
@@ -409,39 +379,40 @@ class Getid3Helper {
 		}
 
 		switch ($property) {
-			case 'DateTime':
-				// If it is already a timestamp, as a string
-				$tmp = Getid3Helper::getTimeInt($value);
-
-				if (isset($tmp)) {
-					$time = $tmp;
-				} else {
-					$tmp = Getid3Helper::getTimeDowMDHMSY($value);
-
-					if (isset($tmp)) {
-						$time = $tmp;
-					} else {
-						$tmp = Getid3Helper::getTimeYMDHMS($value);
+						case 'DateTime':
+						// If it is already a timestamp, as a string
+						$tmp = Getid3Helper::getTimeInt($value);
 
 						if (isset($tmp)) {
 							$time = $tmp;
 						} else {
-							// If we couldn't turn it into a timestamp, just use the original value
-							return $value;
+							$tmp = Getid3Helper::getTimeDowMDHMSY($value);
+
+							if (isset($tmp)) {
+								$time = $tmp;
+							} else {
+								$tmp = Getid3Helper::getTimeYMDHMS($value);
+
+								if (isset($tmp)) {
+									$time = $tmp;
+								} else {
+									// If we couldn't turn it into a timestamp, just use the original value
+									return $value;
+								}
+							}
 						}
+
+						list($ret, $format) =
+						GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
+
+						if ($ret || empty($format)) {
+							$format = '$x $X';
+						}
+						$platform =& $gallery->getPlatform();
+						$value = $platform->strftime($format, $time);
+
+						break;
 					}
-				}
-
-				list($ret, $format) = GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
-
-				if ($ret || empty($format)) {
-					$format = '$x $X';
-				}
-				$platform =& $gallery->getPlatform();
-				$value    = $platform->strftime($format, $time);
-
-				break;
-		}
 
 		return $value;
 	}
@@ -452,16 +423,16 @@ class Getid3Helper {
 	 * @param string $path the path to the file
 	 * @return int an unix timestamp
 	 */
-	public function getOriginationTimestamp($path) {
+	public static function getOriginationTimestamp($path) {
 		$rawGetid3Data = array();
 		Getid3Helper::_fetchRawGetid3Data($path, $rawGetid3Data);
 
-		foreach (array(
-			'riff.AVI .hdrl.IDIT.0.data',
-			'riff.AVI .INFO.IDIT.0.data',
-			'quicktime.moov.subatoms.0.creation_time_unix',
-			'quicktime.moov.subatoms.0.subatoms.1.subatoms.0.subatoms.0.creation_time_unix',
-		) as $tag) {
+		foreach (
+						array('riff.AVI .hdrl.IDIT.0.data',
+						'riff.AVI .INFO.IDIT.0.data',
+						'quicktime.moov.subatoms.0.creation_time_unix',
+						'quicktime.moov.subatoms.0.subatoms.1.subatoms.0.subatoms.0.creation_time_unix', )
+						as $tag) {
 			$value = Getid3Helper::_getValue($rawGetid3Data, explode('.', $tag));
 
 			if (isset($value)) {
@@ -506,7 +477,7 @@ class Getid3Helper {
 	 *               string value
 	 * @access private
 	 */
-	public function _getValue(&$source, $keyPath) {
+	public static function _getValue(&$source, $keyPath) {
 		$key = array_shift($keyPath);
 
 		if (!isset($source[$key])) {
@@ -527,19 +498,13 @@ class Getid3Helper {
 	 * @return array GalleryStatus a status code
 	 *               array logical exif property names
 	 */
-	public function getProperties($viewMode) {
+	public static function getProperties($viewMode) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
-			'Getid3PropsMap',
-			array('property', 'sequence'),
-			array(
-				'viewMode' => $viewMode,
-			),
-			array(
-				'orderBy' => array(
-					'sequence' => ORDER_ASCENDING,
-				),
-			)
-		);
+							'Getid3PropsMap',
+						array('property', 'sequence'),
+							array('viewMode' => $viewMode),
+						array('orderBy' => array('sequence' => ORDER_ASCENDING))
+						);
 
 		if ($ret) {
 			return array($ret, null);
@@ -561,11 +526,9 @@ class Getid3Helper {
 	 * @param array $properties logical property key/value pairs
 	 * @return GalleryStatus a status code
 	 */
-	public function setProperties($viewMode, $properties) {
+	public static function setProperties($viewMode, $properties) {
 		// Remove all old map entries
-		$ret = GalleryCoreApi::removeMapEntry('Getid3PropsMap', array(
-			'viewMode' => $viewMode,
-		));
+		$ret = GalleryCoreApi::removeMapEntry('Getid3PropsMap', array('viewMode' => $viewMode));
 
 		if ($ret) {
 			return $ret;
@@ -573,13 +536,11 @@ class Getid3Helper {
 
 		for ($i = 0; $i < sizeof($properties); $i++) {
 			$ret = GalleryCoreApi::addMapEntry(
-				'Getid3PropsMap',
-				array(
-					'property' => $properties[$i],
-					'viewMode' => $viewMode,
-					'sequence' => $i,
-				)
-			);
+								'Getid3PropsMap',
+							array('property' => $properties[$i],
+							'viewMode' => $viewMode,
+							'sequence' => $i, )
+							);
 
 			if ($ret) {
 				return $ret;
@@ -604,7 +565,7 @@ class Getid3Helper {
 	 *
 	 * @return array getID3() keys
 	 */
-	public function getGetid3Keys() {
+	public static function getGetid3Keys() {
 		global $gallery;
 		static $data;
 
@@ -613,145 +574,121 @@ class Getid3Helper {
 		}
 
 		// Must haves
-		$data['Album']            = array(
-			$gallery->i18n('Album'),
-			'tags.vorbiscomment.album.0',
-			'tags.id3v1.album.0',
-			'id3v1.album',
-			'id3v1.comments.album.0',
-			'tags_html.id3v1.album.0',
-		);
-		$data['Artist']           = array(
-			$gallery->i18n('Artist'),
-			'tags.vorbiscomment.artist.0',
-			'comments.artist.0',
-			'tags.id3v1.artist.0',
-			'id3v1.artist',
-			'id3v1.comments.artist.0',
-			'tags_html.id3v1.artist.0',
-		);
-		$data['AudioBitRate']     = array(
-			$gallery->i18n('Audio Bit Rate'),
-			'audio.bitrate',
-			'audio.streams.0.bitrate',
-			'mpeg.audio.bitrate',
-			'bitrate',
-		);
-		$data['AudioBitRateMode'] = array(
-			$gallery->i18n('Audio Bit Rate Mode'),
-			'audio.bitrate_mode',
-			'audio.streams.0.bitrate_mode',
-			'mpeg.audio.bitrate_mode',
-		);
-		$data['AudioChannels']    = array(
-			$gallery->i18n('Audio Channels'),
-			'audio.channels',
-			'audio.streams.0.channels',
-			'mpeg.audio.channels',
-		);
-		$data['AudioCodec']       = array(
-			$gallery->i18n('Audio Codec'),
-			'audio.codec',
-		);
+		$data['Album'] =
+						array($gallery->i18n('Album'),
+						'tags.vorbiscomment.album.0',
+						'tags.id3v1.album.0',
+						'id3v1.album',
+						'id3v1.comments.album.0',
+						'tags_html.id3v1.album.0', );
+		$data['Artist'] =
+						array($gallery->i18n('Artist'),
+						'tags.vorbiscomment.artist.0',
+						'comments.artist.0',
+						'tags.id3v1.artist.0',
+						'id3v1.artist',
+						'id3v1.comments.artist.0',
+						'tags_html.id3v1.artist.0', );
+		$data['AudioBitRate'] =
+						array($gallery->i18n('Audio Bit Rate'),
+						'audio.bitrate',
+						'audio.streams.0.bitrate',
+						'mpeg.audio.bitrate',
+						'bitrate', );
+		$data['AudioBitRateMode'] =
+						array($gallery->i18n('Audio Bit Rate Mode'),
+						'audio.bitrate_mode',
+						'audio.streams.0.bitrate_mode',
+						'mpeg.audio.bitrate_mode', );
+		$data['AudioChannels'] =
+						array($gallery->i18n('Audio Channels'),
+						'audio.channels',
+						'audio.streams.0.channels',
+						'mpeg.audio.channels', );
+		$data['AudioCodec'] =
+						array($gallery->i18n('Audio Codec'),
+						'audio.codec', );
 
-		$data['ChannelMode']      = array(
-			$gallery->i18n('Channel Mode'),
-			'mpeg.audio.channelmode',
-			'audio.channelmode',
-			'audio.streams.0.channelmode',
-		);
-		$data['AudioSampleRate']  = array(
-			$gallery->i18n('Audio Sample Rate'),
-			'audio.sample_rate',
-		);
-		$data['Copyright']        = array(
-			$gallery->i18n('Copyright'),
-			'comments.copyright',
-			'tags.quicktime.copyright',
-		);
-		$data['DateTime']         = array(
-			$gallery->i18n('Date/Time'),
-			'riff.AVI .hdrl.IDIT.0.data',
-			'riff.AVI .INFO.IDIT.0.data',
-			'quicktime.moov.subatoms.0.creation_time_unix',
-			'quicktime.moov.subatoms.0.subatoms.1.subatoms.0.subatoms.0.creation_time_unix',
-		);
-		$data['Genre']            = array(
-			$gallery->i18n('Genre'),
-			'tags.vorbiscomment.genre.0',
-			'comments.genre.0',
-			'tags.id3v1.genre.0',
-			'id3v1.genre',
-			'id3v1.comments.genre',
-			'tags_html.id3v1.genre.0',
-		);
-		$data['PlaytimeSeconds']  = array(
-			$gallery->i18n('Playtime (Seconds)'),
-			'playtime_seconds',
-		);
-		$data['PlaytimeString']   = array(
-			$gallery->i18n('Playtime'),
-			'playtime_string',
-		);
-		$data['Title']            = array(
-			$gallery->i18n('Title'),
-			'tags.vorbiscomment.title.0',
-			'comments.title.0',
-			'tags.id3v1.title.0',
-			'id3v1.title',
-			'id3v1.comments.title.0',
-			'tags_html.id3v1.title.0',
-			'comments.title.0',
-			'tags.quicktime.title',
-		);
-		$data['Track']            = array(
-			$gallery->i18n('Track'),
-			'tags.id3v1.track.0',
-			'id3v1.track',
-			'id3v1.comments.track.0',
-			'tags_html.id3v1.track.0',
-		);
-		$data['VideoBitRate']     = array(
-			$gallery->i18n('Video Bit Rate'),
-			'video.bitrate',
-		);
-		$data['VideoBitRateMode'] = array(
-			$gallery->i18n('Video Bit Rate Mode'),
-			'video.bitrate_mode',
-		);
-		$data['VideoCodec']       = array(
-			$gallery->i18n('Video Codec'),
-			'video.codec',
-			'quicktime.video.codec',
-			'riff.video.0.codec',
-		);
-		$data['VideoDataFormat']  = array(
-			$gallery->i18n('Video Data Format'),
-			'video.dataformat',
-		);
-		$data['VideoFrameRate']   = array(
-			$gallery->i18n('Video Frame Rate'),
-			'video.frame_rate',
-		);
-		$data['VideoResolutionX'] = array(
-			$gallery->i18n('Video Resolution X'),
-			'video.resolution_x',
-		);
-		$data['VideoResolutionY'] = array(
-			$gallery->i18n('Video Resolution Y'),
-			'video.resolution_y',
-		);
-		$data['VideoSoftware']    = array(
-			$gallery->i18n('Video Software'),
-			'riff.AVI .INFO.ISFT.0.data',
-		);
-		$data['Year']             = array(
-			$gallery->i18n('Year'),
-			'tags.id3v1.year.0',
-			'id3v1.year',
-			'id3v1.comments.year.0',
-			'tags_html.id3v1.year.0',
-		);
+		$data['ChannelMode'] =
+						array($gallery->i18n('Channel Mode'),
+						'mpeg.audio.channelmode',
+						'audio.channelmode',
+						'audio.streams.0.channelmode', );
+		$data['AudioSampleRate'] =
+						array($gallery->i18n('Audio Sample Rate'),
+						'audio.sample_rate', );
+		$data['Copyright'] =
+						array($gallery->i18n('Copyright'),
+						'comments.copyright',
+						'tags.quicktime.copyright', );
+		$data['DateTime'] =
+						array($gallery->i18n('Date/Time'),
+						'riff.AVI .hdrl.IDIT.0.data',
+						'riff.AVI .INFO.IDIT.0.data',
+						'quicktime.moov.subatoms.0.creation_time_unix',
+						'quicktime.moov.subatoms.0.subatoms.1.subatoms.0.subatoms.0.creation_time_unix', );
+		$data['Genre'] =
+						array($gallery->i18n('Genre'),
+						'tags.vorbiscomment.genre.0',
+						'comments.genre.0',
+						'tags.id3v1.genre.0',
+						'id3v1.genre',
+						'id3v1.comments.genre',
+						'tags_html.id3v1.genre.0', );
+		$data['PlaytimeSeconds'] =
+						array($gallery->i18n('Playtime (Seconds)'),
+						'playtime_seconds', );
+		$data['PlaytimeString'] =
+						array($gallery->i18n('Playtime'),
+						'playtime_string', );
+		$data['Title'] =
+						array($gallery->i18n('Title'),
+						'tags.vorbiscomment.title.0',
+						'comments.title.0',
+						'tags.id3v1.title.0',
+						'id3v1.title',
+						'id3v1.comments.title.0',
+						'tags_html.id3v1.title.0',
+						'comments.title.0',
+						'tags.quicktime.title', );
+		$data['Track'] =
+						array($gallery->i18n('Track'),
+						'tags.id3v1.track.0',
+						'id3v1.track',
+						'id3v1.comments.track.0',
+						'tags_html.id3v1.track.0', );
+		$data['VideoBitRate'] =
+						array($gallery->i18n('Video Bit Rate'),
+						'video.bitrate', );
+		$data['VideoBitRateMode'] =
+						array($gallery->i18n('Video Bit Rate Mode'),
+						'video.bitrate_mode', );
+		$data['VideoCodec'] =
+						array($gallery->i18n('Video Codec'),
+						'video.codec',
+						'quicktime.video.codec',
+						'riff.video.0.codec', );
+		$data['VideoDataFormat'] =
+						array($gallery->i18n('Video Data Format'),
+						'video.dataformat', );
+		$data['VideoFrameRate'] =
+						array($gallery->i18n('Video Frame Rate'),
+						'video.frame_rate', );
+		$data['VideoResolutionX'] =
+						array($gallery->i18n('Video Resolution X'),
+						'video.resolution_x', );
+		$data['VideoResolutionY'] =
+						array($gallery->i18n('Video Resolution Y'),
+						'video.resolution_y', );
+		$data['VideoSoftware'] =
+						array($gallery->i18n('Video Software'),
+						'riff.AVI .INFO.ISFT.0.data', );
+		$data['Year'] =
+						array($gallery->i18n('Year'),
+						'tags.id3v1.year.0',
+						'id3v1.year',
+						'id3v1.comments.year.0',
+						'tags_html.id3v1.year.0', );
 
 		return $data;
 	}

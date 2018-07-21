@@ -24,13 +24,15 @@
  * This module provides the ability to hide items and allow them to be viewed only
  * by directly accessing the correct URL.
  *
+ * Also extends GalleryEventListener
+ *
+ *
  * @package Hidden
  * @author Alan Harder <alan.harder@sun.com>
  * @author Jess Martin <jmartin@cs.unc.edu>
  * @version $Revision: 17588 $
  */
-class HiddenModule extends GalleryModule // and GalleryEventListener
-{
+class HiddenModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 
@@ -48,7 +50,7 @@ class HiddenModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion, $statusMonitor) {
+	public function upgrade($currentVersion, $statusMonitor = null) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
@@ -88,52 +90,52 @@ class HiddenModule extends GalleryModule // and GalleryEventListener
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEventListener',
-		'HiddenModule',
-		'HiddenModule',
-		'modules/hidden/module.inc',
-		'hidden',
-		array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete')
-	);
+			'GalleryEventListener',
+			'HiddenModule',
+			'HiddenModule',
+			'modules/hidden/module.inc',
+			'hidden',
+			array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete')
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryOnLoadHandler',
-		'HiddenModule',
-		'Hidden',
-		'modules/hidden/module.inc',
-		'hidden',
-		null
-	);
+			'GalleryOnLoadHandler',
+			'HiddenModule',
+			'Hidden',
+			'modules/hidden/module.inc',
+			'hidden',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'ItemEditOption',
-		'HiddenItemOption',
-		'HiddenItemOption',
-		'modules/hidden/HiddenItemOption.inc',
-		'hidden',
-		array('ItemEditItem')
-	);
+			'ItemEditOption',
+			'HiddenItemOption',
+			'HiddenItemOption',
+			'modules/hidden/HiddenItemOption.inc',
+			'hidden',
+			array('ItemEditItem')
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'HiddenInterface_1_0',
-		'HiddenHelper',
-		'Hidden',
-		'modules/hidden/classes/HiddenHelper.class',
-		'hidden',
-		null
-	);
+			'HiddenInterface_1_0',
+			'HiddenHelper',
+			'Hidden',
+			'modules/hidden/classes/HiddenHelper.class',
+			'hidden',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
@@ -167,8 +169,7 @@ class HiddenModule extends GalleryModule // and GalleryEventListener
 		}
 
 		while (!empty($itemIds)) {
-			list($ret, $items) =
-		GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100), 'GalleryEntity');
+			list($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100), 'GalleryEntity');
 
 			if ($ret) {
 				return $ret;
@@ -206,7 +207,8 @@ class HiddenModule extends GalleryModule // and GalleryEventListener
 			}
 
 			if (!isset($permissions['core.view']) && (isset($permissions['core.viewResizes'])
-			|| isset($permissions['core.viewSource']))) {
+				|| isset($permissions['core.viewSource']))
+			) {
 				GalleryCoreApi::addPermissionToSession($itemId);
 
 				// Use a blunt instrument to clear the permission cache.
@@ -226,124 +228,126 @@ class HiddenModule extends GalleryModule // and GalleryEventListener
 		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 
 		switch ($event->getEventName()) {
-	case 'GalleryEntity::save':
-		$item = $event->getEntity();
+			case 'GalleryEntity::save':
+				$item = $event->getEntity();
 
-		if (GalleryUtilities::isA($item, 'GalleryItem')
-			&& !$item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
-			&& $item->isModified('parentId')
-			&& !$item->hasOnLoadHandler('Hidden')) {
-			$ret = HiddenHelper::handleMoveItem($item);
+				if (GalleryUtilities::isA($item, 'GalleryItem')
+					&& !$item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
+					&& $item->isModified('parentId')
+					&& !$item->hasOnLoadHandler('Hidden')
+				) {
+					$ret = HiddenHelper::handleMoveItem($item);
 
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		break;
-
-	case 'GalleryEntity::delete':
-		$item = $event->getEntity();
-
-		if (GalleryUtilities::isA($item, 'GalleryItem')) {
-			$ret = GalleryCoreApi::removeMapEntry(
-			'ItemHiddenMap',
-							  array('itemId' => $item->getId())
-		);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-		}
-
-		break;
-
-	case 'Gallery::ViewableTreeChange':
-		/*
-		 * This code gets triggered when the core.view permission was added to an item. Hiding
-		 * an item requires that the 'core.view' permission is removed.  If the permission
-		 * change involves adding the 'core.view' we need to check that the item was not hidden,
-		 * and it was then undo it. If the permission change was also 'applied to children'
-		 * then we need to do the same check for all the descendents.
-		 */
-		$data = $event->getData();
-
-		if (!empty($data['permission'])
-			&& in_array($data['permission'], array('core.view', 'core.viewAll', 'core.all'))
-			&& $data['changeType'] == 'add') {
-			$itemId = $data['itemId'];
-			$ids = array($itemId);
-
-			if ($data['applyToChildren']) {
-				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
-
-				if ($ret) {
-					return array($ret, null);
-				}
-				list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds(
-			$item,
-				null,
-				null,
-				$data['permission']
-			);
-
-				if ($ret) {
-					return array($ret, null);
+					if ($ret) {
+						return array($ret, null);
+					}
 				}
 
-				$ids = array_merge($ids, $childIds);
-			}
-			$query = 'SELECT [::itemId] FROM [ItemHiddenMap] 
+				break;
+
+			case 'GalleryEntity::delete':
+				$item = $event->getEntity();
+
+				if (GalleryUtilities::isA($item, 'GalleryItem')) {
+					$ret = GalleryCoreApi::removeMapEntry(
+						'ItemHiddenMap',
+						array(
+							'itemId' => $item->getId(),
+						)
+					);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+
+				break;
+
+			case 'Gallery::ViewableTreeChange':
+				/*
+				 * This code gets triggered when the core.view permission was added to an item. Hiding
+				 * an item requires that the 'core.view' permission is removed.  If the permission
+				 * change involves adding the 'core.view' we need to check that the item was not hidden,
+				 * and it was then undo it. If the permission change was also 'applied to children'
+				 * then we need to do the same check for all the descendents.
+				 */
+				$data = $event->getData();
+
+				if (!empty($data['permission'])
+					&& in_array($data['permission'], array('core.view', 'core.viewAll', 'core.all'))
+					&& $data['changeType'] == 'add'
+				) {
+					$itemId = $data['itemId'];
+					$ids    = array($itemId);
+
+					if ($data['applyToChildren']) {
+						list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+
+						if ($ret) {
+							return array($ret, null);
+						}
+						list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds(
+							$item,
+							null,
+							null,
+							$data['permission']
+						);
+
+						if ($ret) {
+							return array($ret, null);
+						}
+
+						$ids = array_merge($ids, $childIds);
+					}
+					$query                     = 'SELECT [::itemId] FROM [ItemHiddenMap]
 			   WHERE [ItemHiddenMap::itemId] IN ('
-			 . GalleryUtilities::makeMarkers(count($ids)) . ')';
-			list($ret, $searchResults) = $gallery->search($query, $ids);
-
-			if ($ret) {
-				return array($ret, null);
-			}
-
-			if ($searchResults->resultCount() > 0) {
-				$gallery->guaranteeTimeLimit(60);
-				list($ret, $anonymousUserId) =
-			GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-
-				if ($ret) {
-					return array($ret, null);
-				}
-				list($ret, $everybodyGroup) =
-			GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-
-				if ($ret) {
-					return array($ret, null);
-				}
-
-				while ($result = $searchResults->nextResult()) {
-					$id = $result[0];
-					// Remove public view permission
-					$ret = GalleryCoreApi::removeUserPermission(
-				$id,
-				$anonymousUserId,
-				'core.view'
-			);
+					 . GalleryUtilities::makeMarkers(count($ids)) . ')';
+					list($ret, $searchResults) = $gallery->search($query, $ids);
 
 					if ($ret) {
 						return array($ret, null);
 					}
-					$ret = GalleryCoreApi::removeGroupPermission(
-				$id,
-				$everybodyGroup,
-				'core.view'
-			);
 
-					if ($ret) {
-						return array($ret, null);
+					if ($searchResults->resultCount() > 0) {
+						$gallery->guaranteeTimeLimit(60);
+						list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+
+						if ($ret) {
+							return array($ret, null);
+						}
+						list($ret, $everybodyGroup) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+
+						if ($ret) {
+							return array($ret, null);
+						}
+
+						while ($result = $searchResults->nextResult()) {
+							$id = $result[0];
+							// Remove public view permission
+							$ret = GalleryCoreApi::removeUserPermission(
+								$id,
+								$anonymousUserId,
+								'core.view'
+							);
+
+							if ($ret) {
+								return array($ret, null);
+							}
+							$ret = GalleryCoreApi::removeGroupPermission(
+								$id,
+								$everybodyGroup,
+								'core.view'
+							);
+
+							if ($ret) {
+								return array($ret, null);
+							}
+						}
 					}
 				}
-			}
+
+				break;
 		}
-
-		break;
-	}
 
 		return array(null, null);
 	}

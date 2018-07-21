@@ -313,8 +313,6 @@ class ADODB2_oci8 extends ADODB_DataDict {
 		or CHECK (expr)
 	*/
 
-
-
 	public function _IndexSQL($idxname, $tabname, $flds, $idxoptions) {
 		$sql = array();
 

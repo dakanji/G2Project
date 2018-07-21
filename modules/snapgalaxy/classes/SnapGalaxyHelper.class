@@ -33,7 +33,7 @@ class SnapGalaxyHelper {
 	 * @return array GalleryStatus a status code
 	 *               string the url to the snapgalaxy.com cart
 	 */
-	public function printPhotos($cartItemIds, $returnUrl) {
+	public static function printPhotos($cartItemIds, $returnUrl) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$session      =& $gallery->getSession();

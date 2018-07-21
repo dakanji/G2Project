@@ -1320,7 +1320,9 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 					//if (!is_numeric($t)) echo "<p>--- Error in type matching $t -----</p>";
 					return 'N';
 			}
-		} // function
+		}
+
+		// function
 	} // rs class
 }class ADORecordSet_array_mysqli extends ADORecordSet_array {
 	public function __construct($id = -1, $mode = false) {
@@ -1416,5 +1418,7 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 				//if (!is_numeric($t)) echo "<p>--- Error in type matching $t -----</p>";
 				return 'N';
 		}
-	} // function
+	}
+
+	// function
 }

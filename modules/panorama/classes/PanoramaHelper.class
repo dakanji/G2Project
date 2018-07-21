@@ -34,7 +34,7 @@ class PanoramaHelper {
 	 * @return array GalleryStatus a status code
 	 *               array of given-itemId=>GalleryDataItem-for-display
 	 */
-	public function fetchViewableImages($items) {
+	public static function fetchViewableImages($items) {
 		global $gallery;
 
 		foreach ($items as $item) {

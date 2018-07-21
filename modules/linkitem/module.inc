@@ -19,12 +19,13 @@
  */
 
 /**
+ * Also Extends GalleryEventListener
+ *
  * @package LinkItem
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 18172 $
  */
-class LinkItemModule extends GalleryModule // and GalleryEventListener
-{
+class LinkItemModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 		$this->setId('linkitem');
@@ -41,7 +42,7 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash = $platform->getDirectorySeparator();
@@ -51,11 +52,11 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 
 		if (!$success) {
 			return GalleryCoreApi::error(
-			ERROR_PLATFORM_FAILURE,
-			__FILE__,
-			__LINE__,
-					 "Unable to create directory: $imageDir"
-		);
+				ERROR_PLATFORM_FAILURE,
+				__FILE__,
+				__LINE__,
+				"Unable to create directory: $imageDir"
+			);
 		}
 
 		$imageFile = "$imageDir${slash}arrow.png";
@@ -63,11 +64,11 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 		if (!$platform->is_file($imageFile) &&
 		!$platform->copy(dirname(__FILE__) . "${slash}images${slash}arrow.png", $imageFile)) {
 			return GalleryCoreApi::error(
-			ERROR_PLATFORM_FAILURE,
-			__FILE__,
-			__LINE__,
-					 "Unable to copy arrow.png to $imageDir"
-		);
+				ERROR_PLATFORM_FAILURE,
+				__FILE__,
+				__LINE__,
+				"Unable to copy arrow.png to $imageDir"
+			);
 		}
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.4', '<=')) {
@@ -86,7 +87,7 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 		}
 
 		foreach (array('arrowWatermark' => 1, 'urlSnapshot' => 0, 'snapshotExec' => 'khtml2png')
-		 as $key => $value) {
+		as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -104,65 +105,65 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEntity',
-		'GalleryLinkItem',
-		'GalleryLinkItem',
-		'modules/linkitem/classes/GalleryLinkItem.class',
-		'linkitem',
-		null
-	);
+			'GalleryEntity',
+			'GalleryLinkItem',
+			'GalleryLinkItem',
+			'modules/linkitem/classes/GalleryLinkItem.class',
+			'linkitem',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'ItemAddPlugin',
-		'ItemAddLinkItem',
-		'ItemAddLinkItem',
-		'modules/linkitem/ItemAddLinkItem.inc',
-		'linkitem',
-		null
-	);
+			'ItemAddPlugin',
+			'ItemAddLinkItem',
+			'ItemAddLinkItem',
+			'modules/linkitem/ItemAddLinkItem.inc',
+			'linkitem',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'ItemEditOption',
-		'LinkItemOption',
-		'LinkItemOption',
-		'modules/linkitem/LinkItemOption.inc',
-		'linkitem',
-		array('ItemEditItem')
-	);
+			'ItemEditOption',
+			'LinkItemOption',
+			'LinkItemOption',
+			'modules/linkitem/LinkItemOption.inc',
+			'linkitem',
+			array('ItemEditItem')
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryToolkit',
-		'LinkItemToolkit',
-		'LinkItemToolkit',
-		'modules/linkitem/classes/LinkItemToolkit.class',
-		'linkitem',
-		null
-	);
+			'GalleryToolkit',
+			'LinkItemToolkit',
+			'LinkItemToolkit',
+			'modules/linkitem/classes/LinkItemToolkit.class',
+			'linkitem',
+			null
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEventListener',
-		'LinkItemModule',
-		'LinkItemModule',
-		'modules/linkitem/module.inc',
-		'linkitem',
-		array('GalleryEntity::delete')
-	);
+			'GalleryEventListener',
+			'LinkItemModule',
+			'LinkItemModule',
+			'modules/linkitem/module.inc',
+			'linkitem',
+			array('GalleryEntity::delete')
+		);
 
 		if ($ret) {
 			return $ret;
@@ -185,13 +186,13 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 		global $gallery;
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
-		'LinkItemToolkit',
-		array('gallery/linkitem'),
-		'convert-to-image/jpeg',
-		array(),
-		$gallery->i18n('Get image for linkitem thumbnail'),
-		'image/jpeg'
-	);
+			'LinkItemToolkit',
+			array('gallery/linkitem'),
+			'convert-to-image/jpeg',
+			array(),
+			$gallery->i18n('Get image for linkitem thumbnail'),
+			'image/jpeg'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -211,8 +212,8 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 	 */
 	public function getSiteAdminViews() {
 		return array(null,
-			 array(array('name' => $this->translate('Link Items'),
-				 'view' => 'linkitem.LinkItemSiteAdmin', )), );
+		array(array('name' => $this->translate('Link Items'),
+		'view' => 'linkitem.LinkItemSiteAdmin', )), );
 	}
 
 	/**
@@ -225,13 +226,13 @@ class LinkItemModule extends GalleryModule // and GalleryEventListener
 		if (GalleryUtilities::isA($entity, 'GalleryAlbumItem')) {
 			global $gallery;
 			$query = '
-	      SELECT
-		[GalleryLinkItem::id]
-	      FROM
-		[GalleryLinkItem]
-	      WHERE
-		[GalleryLinkItem::link] = ?
-	    ';
+			SELECT
+			[GalleryLinkItem::id]
+			FROM
+			[GalleryLinkItem]
+			WHERE
+			[GalleryLinkItem::link] = ?
+			';
 			list($ret, $searchResults) = $gallery->search($query, array((string)$entity->getId()));
 
 			if ($ret) {

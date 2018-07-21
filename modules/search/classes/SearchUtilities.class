@@ -33,7 +33,7 @@ class SearchUtilities {
 	 * @param string $string the input string
 	 * @return string a sanitized string
 	 */
-	public function sanitizeSearchCriteria($string) {
+	public static function sanitizeSearchCriteria($string) {
 		// Quote the '%' char
 		$string = str_replace('%', '%%', $string);
 

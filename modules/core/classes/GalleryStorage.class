@@ -207,7 +207,7 @@ class GalleryStorage {
 		global $gallery;
 
 		$this->_traceStart();
-		$db =& ADONewConnection($this->getAdoDbType());
+		$db = ADONewConnection($this->getAdoDbType());
 		$this->_traceStop();
 
 		if (empty($db)) {
@@ -1646,7 +1646,7 @@ class GallerySearchResults {
 	 * @return array the next result or false if EOF
 	 */
 	public function nextResult() {
-		$row =& $this->_recordSet->FetchRow();
+		$row = $this->_recordSet->FetchRow();
 
 		if (!empty($row) && !empty($this->_fieldNames) && !empty($this->_mapInfo)) {
 			// Normalize fetched values

@@ -51,8 +51,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			'shortUrls'         => serialize(array()),
 			'activeRules'       => serialize(array()),
 			'allowEmptyReferer' => '0',
-		)
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 
 			if ($ret) {

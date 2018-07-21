@@ -47,7 +47,7 @@ class ExifModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
 		if (!isset($currentVersion)) {

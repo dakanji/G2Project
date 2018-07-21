@@ -30,7 +30,7 @@ class GalleryMimeTypeHelper_simple {
 	/**
 	 * @see GalleryCoreApi::getMimeType
 	 */
-	public function getMimeType($filename, $requestMimeType = null) {
+	public static function getMimeType($filename, $requestMimeType = null) {
 		$extension            = GalleryUtilities::getFileExtension($filename);
 		list($ret, $mimetype) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
 
@@ -60,7 +60,7 @@ class GalleryMimeTypeHelper_simple {
 	/**
 	 * @see GalleryCoreApi::convertExtensionToMime
 	 */
-	public function convertExtensionToMime($extension) {
+	public static function convertExtensionToMime($extension) {
 		list($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 
 		if ($ret) {
@@ -78,7 +78,7 @@ class GalleryMimeTypeHelper_simple {
 	/**
 	 * @see GalleryCoreApi::convertMimeToExtensions
 	 */
-	public function convertMimeToExtensions($mimeType) {
+	public static function convertMimeToExtensions($mimeType) {
 		list($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 
 		if ($ret) {
@@ -96,7 +96,7 @@ class GalleryMimeTypeHelper_simple {
 	/**
 	 * @see GalleryCoreApi::isViewableMimeType
 	 */
-	public function isViewableMimeType($mimeType) {
+	public static function isViewableMimeType($mimeType) {
 		list($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 
 		if ($ret) {
@@ -118,7 +118,7 @@ class GalleryMimeTypeHelper_simple {
 	 *                                                                 'viewable' => boolean)))
 	 * @access private
 	 */
-	public function &_getMimeData() {
+	public static function &_getMimeData() {
 		$mimeData =& GalleryMimeTypeHelper_simple::_getSingleton();
 
 		if (empty($mimeData)) {
@@ -187,7 +187,7 @@ class GalleryMimeTypeHelper_simple {
 	 * @staticvar array $mimeData
 	 * @access private
 	 */
-	public function &_getSingleton() {
+	public static function &_getSingleton() {
 		static $mimeData = array();
 
 		return $mimeData;
@@ -197,7 +197,7 @@ class GalleryMimeTypeHelper_simple {
 	 * Clear cached mime type data
 	 * @access private
 	 */
-	public function _deleteCache() {
+	public static function _deleteCache() {
 		GalleryDataCache::removeFromDisk(array(
 			'type'   => 'module',
 			'id'     => '_all',

@@ -34,7 +34,7 @@ class FfmpegToolkitHelper {
 	 * @return GalleryStatus a status code
 	 *         array('operations' => ..., 'properties' => ...)
 	 */
-	public function getOperationsAndProperties() {
+	public static function getOperationsAndProperties() {
 		global $gallery;
 
 		list($ret, $ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
@@ -48,7 +48,7 @@ class FfmpegToolkitHelper {
 		}
 
 		list($ret, $tests, $mimeTypes, $supportsOffset,
-		  $mimeTypesEncoder, $encoderAudioCodecs, $version) = FfmpegToolkitHelper::testBinary($ffmpegPath);
+		$mimeTypesEncoder, $encoderAudioCodecs, $version) = FfmpegToolkitHelper::testBinary($ffmpegPath);
 
 		if ($ret) {
 			return array($ret, null);
@@ -201,7 +201,7 @@ class FfmpegToolkitHelper {
 	 *         array of strings listing available audio codecs for encoding
 	 *         string containing the ffmpeg version
 	 */
-	public function testBinary($ffmpegPath) {
+	public static function testBinary($ffmpegPath) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -224,7 +224,7 @@ class FfmpegToolkitHelper {
 		} else {
 			return array(
 				GalleryCoreApi::error(ERROR_BAD_PATH, null, null, '"' . $ffmpegPath
-								 . '" is not specified in open_basedir.'),
+				. '" is not specified in open_basedir.'),
 				null,
 				null,
 				null,
@@ -311,7 +311,9 @@ class FfmpegToolkitHelper {
 				/** @todo: Support mimeTypesEncoder and encoderAudioCodecs */
 				foreach (explode(' ', $regs[1]) as $type) {
 					if (isset($relevantTypes[$type])) {
-						list($ret, $mime) = GalleryCoreApi::convertExtensionToMime($relevantTypes[$type]);
+						list($ret, $mime) = GalleryCoreApi::convertExtensionToMime(
+							$relevantTypes[$type]
+						);
 
 						if ($ret) {
 							return array($ret, null, null, null, null, null, null);

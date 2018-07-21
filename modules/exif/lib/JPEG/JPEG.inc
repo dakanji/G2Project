@@ -1128,7 +1128,6 @@ class JPEG // extends PEAR
 		return true;
 	}
 
-
 	public function _parseMarkerJFIF() {
 		if (!isset($this->_markers)) {
 			$this->_readJPEG();
@@ -1283,7 +1282,6 @@ class JPEG // extends PEAR
 		return true;
 	}
 
-
 	public function _parseMarkerExif() {
 		if (!isset($this->_markers)) {
 			$this->_readJPEG();
@@ -1354,7 +1352,6 @@ class JPEG // extends PEAR
 
 		return true;
 	}
-
 
 	public function _readIFD(&$data, $base, $offset, $isBigEndian, $mode) {
 		$EXIFTags = $this->_exifTagNames($mode);
@@ -1613,7 +1610,6 @@ class JPEG // extends PEAR
 		return $nextOffset;
 	}
 
-
 	public function & _createMarkerExif() {
 		$data = null;
 		$count = count($this->_markers);
@@ -1660,7 +1656,6 @@ class JPEG // extends PEAR
 
 		return $data;
 	}
-
 
 	public function _writeIFD(&$data, $pos, $offsetBase, &$entries, $isBigEndian, $hasNext) {
 		$tiffData = null;
@@ -1717,7 +1712,6 @@ class JPEG // extends PEAR
 
 		return $dataPos;
 	}
-
 
 	public function & _getIFDEntries($isBigEndian, $mode) {
 		$EXIFNames = $this->_exifTagNames($mode);
@@ -2078,7 +2072,6 @@ class JPEG // extends PEAR
 		return $ifdEntries;
 	}
 
-
 	public function _parseMarkerAdobe() {
 		if (!isset($this->_markers)) {
 			$this->_readJPEG();
@@ -2310,7 +2303,6 @@ class JPEG // extends PEAR
 		return $pos;
 	}
 
-
 	public function & _createMarkerAdobe() {
 		if (isset($this->_info['iptc'])) {
 			if (!isset($this->_info['adobe'])) {
@@ -2349,7 +2341,6 @@ class JPEG // extends PEAR
 		return $data;
 	}
 
-
 	public function _write8BIM(&$data, $pos, $type, $header, &$value) {
 		$signature = "8BIM";
 
@@ -2375,7 +2366,6 @@ class JPEG // extends PEAR
 
 		return $pos;
 	}
-
 
 	public function & _writeIPTC() {
 		$data = " ";
@@ -2409,7 +2399,6 @@ class JPEG // extends PEAR
 
 		return $data;
 	}
-
 
 	public function _writeIPTCEntry(&$data, $pos, $type, &$value) {
 		$pos = $this->_putShort($data, $pos, 0x1C02);
@@ -2591,7 +2580,6 @@ class JPEG // extends PEAR
 
 		return $tags;
 	}
-
 
 	public function _exifTagTypes($mode) {
 		$tags = array();
@@ -2966,7 +2954,6 @@ class JPEG // extends PEAR
 		return $pos + 4;
 	}
 
-
 	public function & _getNullString(&$data, $pos) {
 		$str = '';
 		$max = strlen($data);
@@ -3003,7 +2990,6 @@ class JPEG // extends PEAR
 		return $ret;
 	}
 
-
 	public function _putString(&$data, $pos, &$str) {
 		$len = strlen($str);
 
@@ -3013,7 +2999,6 @@ class JPEG // extends PEAR
 
 		return $pos + $len;
 	}
-
 
 	public function _hexDump(&$data, $start = 0, $length = -1) {
 		if (($length == -1) || (($length + $start) > strlen($data))) {

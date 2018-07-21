@@ -118,7 +118,6 @@ class ADODB_sybase extends ADOConnection {
 	/*	Returns: the last error message from previous database operation
 		Note: This function is NOT available for Microsoft SQL Server.	*/
 
-
 	public function ErrorMsg() {
 		if ($this->_logsql) {
 			return $this->_errorMsg;

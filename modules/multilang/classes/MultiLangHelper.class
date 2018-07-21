@@ -34,7 +34,7 @@ class MultiLangHelper {
 	 * @return array GalleryStatus a status code
 	 *               array (language => array data, ..)
 	 */
-	public function getItemData($itemId) {
+	public static function getItemData($itemId) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'MultiLangItemMap',
 			array('language', 'title', 'summary', 'description'),
@@ -197,7 +197,7 @@ class MultiLangHelper {
 	 * @param GalleryItem $item
 	 * @return GalleryStatus a status code
 	 */
-	public function onLoad(&$item) {
+	public static function onLoad(&$item) {
 		global $gallery;
 		list($ret, $language) = $gallery->getActiveLanguageCode();
 

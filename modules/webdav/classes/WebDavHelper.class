@@ -50,7 +50,7 @@ class WebDavHelper {
 	 * @return array GalleryStatus a status code
 	 *               int WebDAV status code
 	 */
-	public function checkConfiguration() {
+	public static function checkConfiguration() {
 		global $gallery;
 		$phpVm = $gallery->getPhpVm();
 		$urlGenerator =& $gallery->getUrlGenerator();
@@ -207,7 +207,7 @@ class WebDavHelper {
 	 * @param string $requestMethod
 	 * @return boolean true if Gallery handles the request method
 	 */
-	public function checkRequestMethod($requestMethod) {
+	public static function checkRequestMethod($requestMethod) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -233,7 +233,7 @@ class WebDavHelper {
 	 * @param string $url
 	 * @return boolean true if OPTIONS responses include the DAV headers
 	 */
-	public function checkDavHeaders($url) {
+	public static function checkDavHeaders($url) {
 		list($status, $headers, $body) = GalleryCoreApi::requestWebPage($url, 'OPTIONS');
 
 		if (!preg_match('/^HTTP\/[0-9]\.[0-9] 200/', $status)) {
@@ -263,7 +263,7 @@ class WebDavHelper {
 	 *               'script' (optional) => string JavaScript to be used as onclick,
 	 *               'attrs' => array() string additional link tag attributes)
 	 */
-	public function getMountLink($itemId) {
+	public static function getMountLink($itemId) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -317,7 +317,7 @@ class WebDavHelper {
 	 * @return array GalleryStatus a status code,
 	 *               int the id of the parent item
 	 */
-	public function getParentItemIdByPath($path) {
+	public static function getParentItemIdByPath($path) {
 		$parentPath = dirname($path);
 
 		// dirname('foo') is '.' and \ for dirname ('/foo') on Windows
@@ -348,7 +348,7 @@ class WebDavHelper {
 	 * @return array GalleryStatus a status code
 	 *               GalleryEntity the mirror entity
 	 */
-	public function mirrorEntity($sourceEntity, $mirrorEntity) {
+	public static function mirrorEntity($sourceEntity, $mirrorEntity) {
 		$className = $mirrorClassName = $mirrorEntity->getClassName();
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity($className);
 
@@ -397,7 +397,7 @@ class WebDavHelper {
 	 *
 	 * @return WebDavServer instance
 	 */
-	public function &getWebDavServer() {
+	public static function &getWebDavServer() {
 		static $webDavServer;
 
 		if (!isset($webDavServer)) {
@@ -433,7 +433,7 @@ class WebDavHelper {
 	 * @return array GalleryStatus a status code
 	 *               array active WebDAV locks (scope, type, depth, owner, expires, token, path)
 	 */
-	public function getLocks($path, $getDescendentsLocks=false) {
+	public static function getLocks($path, $getDescendentsLocks=false) {
 		global $gallery;
 
 		// We haven't done any database calls yet, so GallerySqlFragment isn't defined
@@ -516,7 +516,7 @@ class WebDavHelper {
 	 * Get active locks at specified path or any descendant path.
 	 * @see WebDavHelper::getLocks
 	 */
-	public function getDescendentsLocks($path) {
+	public static function getDescendentsLocks($path) {
 		return WebDavHelper::getLocks($path, true);
 	}
 
@@ -526,7 +526,7 @@ class WebDavHelper {
 	 * @param string $path
 	 * @return boolean no active locks or the request matches the active lock
 	 */
-	public function checkLocks($path) {
+	public static function checkLocks($path) {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 
 		list($ret, $locks) = WebDavHelper::getLocks($path);
@@ -546,7 +546,7 @@ class WebDavHelper {
 	 * OPTIONS handler.
 	 * @see HTTP_WebDAV_Server::options
 	 */
-	public function options() {
+	public static function options() {
 		// TODO: COPY not implemented
 		GalleryUtilities::setResponseHeader(
 		'Allow: OPTIONS,PROPFIND,PROPPATCH,MKCOL,GET,HEAD,DELETE,PUT,MOVE,LOCK,UNLOCK'
@@ -567,7 +567,7 @@ class WebDavHelper {
 	 *               int maximum depth of descendant paths
 	 * @see HTTP_WebDAV_Server::propfind_request_helper
 	 */
-	public function propfindRequestHelper() {
+	public static function propfindRequestHelper() {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 
 		if (!$webDavServer->propfind_request_helper($webDavOptions)) {
@@ -588,7 +588,7 @@ class WebDavHelper {
 	 * @param array $namespaces namespaces for WebDAV response (URI => prefix)
 	 * @see HTTP_WebDAV_Server::propfind_response_helper
 	 */
-	public function propfindResponseHelper($webDavOptions, $files, $namespaces) {
+	public static function propfindResponseHelper($webDavOptions, $files, $namespaces) {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 		$webDavOptions['namespaces'] = $namespaces;
 		$webDavServer->propfind_response_helper($webDavOptions, $files);
@@ -598,7 +598,7 @@ class WebDavHelper {
 	 * PROPFIND handler.
 	 * @return GalleryStatus status code
 	 */
-	public function propfind() {
+	public static function propfind() {
 		// Prepare data-structure from PROPFIND request
 		list($ret, $webDavOptions, $depth) = WebDavHelper::propfindRequestHelper();
 
@@ -668,7 +668,7 @@ class WebDavHelper {
 	 * @return GalleryStatus a status code
 	 * @access private
 	 */
-	public function _propfindFiles($item, $path, $depth, &$files) {
+	public static function _propfindFiles($item, $path, $depth, &$files) {
 		// Verify that the provided object implements the required methods
 		foreach (array('creationTimestamp', 'title', 'modificationTimestamp',
 		'pathComponent', ) as $memberName) {
@@ -829,7 +829,7 @@ class WebDavHelper {
 	 *               array properties to set (ns => namespace, name => name, val => value)
 	 * @see HTTP_WebDAV_Server::proppatch_request_helper
 	 */
-	public function proppatchRequestHelper() {
+	public static function proppatchRequestHelper() {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 
 		if (!$webDavServer->proppatch_request_helper($webDavOptions)) {
@@ -854,7 +854,7 @@ class WebDavHelper {
 	 * status => status)
 	 * @see HTTP_WebDAV_Server::proppatch_response_helper
 	 */
-	public function proppatchResponseHelper($webDavOptions, $path, $props, $namespaces) {
+	public static function proppatchResponseHelper($webDavOptions, $path, $props, $namespaces) {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 		$webDavOptions['path'] = $path;
 		$webDavOptions['props'] = $props;
@@ -866,7 +866,7 @@ class WebDavHelper {
 	 * PROPPATCH handler.
 	 * @return GalleryStatus a status code
 	 */
-	public function proppatch() {
+	public static function proppatch() {
 		$path = GalleryUtilities::getRequestVariables('path');
 		$path = trim($path, '/');
 
@@ -955,7 +955,7 @@ class WebDavHelper {
 	 * @param GalleryItem reference $item
 	 * @return GalleryStatus a status code
 	 */
-	public function _setItemProps(&$item, &$props) {
+	public static function _setItemProps(&$item, &$props) {
 		if (!method_exists($item, 'getClassName')) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
@@ -1017,7 +1017,7 @@ class WebDavHelper {
 	 *               array error strings
 	 * @see ItemAddAlbumController::handleRequest
 	 */
-	public function mkcolValidateHelper($parentId, $pathComponent) {
+	public static function mkcolValidateHelper($parentId, $pathComponent) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -1056,7 +1056,7 @@ class WebDavHelper {
 	 * @return GalleryStatus a status code
 	 * @see ItemAddAlbumController::handleRequest
 	 */
-	public function mkcolHelper($parentId, $pathComponent, $title, $summary, $description, $keywords) {
+	public static function mkcolHelper($parentId, $pathComponent, $title, $summary, $description, $keywords) {
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentId);
 
 		if ($ret) {
@@ -1095,7 +1095,7 @@ class WebDavHelper {
 	 * MKCOL handler.
 	 * @return GalleryStatus a status code
 	 */
-	public function mkcol() {
+	public static function mkcol() {
 		// Body parsing not yet supported
 		if (GalleryUtilities::getServerVar('CONTENT_LENGTH')) {
 			/*
@@ -1195,7 +1195,7 @@ class WebDavHelper {
 	 *               int number of items deleted
 	 * @see ItemDeleteController::handleRequest
 	 */
-	public function deleteHelper($itemIds) {
+	public static function deleteHelper($itemIds) {
 		if (!is_array($itemIds)) {
 			$itemIds = array($itemIds);
 		}
@@ -1261,7 +1261,7 @@ class WebDavHelper {
 	 * DELETE handler.
 	 * @return GalleryStatus a status code
 	 */
-	public function delete() {
+	public static function delete() {
 		// RFC2518 9.2 last paragraph
 		if (GalleryUtilities::getServerVar('HTTP_DEPTH') != null
 		&& GalleryUtilities::getServerVar('HTTP_DEPTH') != 'infinity') {
@@ -1334,7 +1334,7 @@ class WebDavHelper {
 	 *               string request content type
 	 * @see HTTP_WebDAV_Server::put_request_helper
 	 */
-	public function putRequestHelper() {
+	public static function putRequestHelper() {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 
 		if (!$webDavServer->put_request_helper($webDavOptions)) {
@@ -1356,7 +1356,7 @@ class WebDavHelper {
 	 * @param resource $stream destination file handle
 	 * @see HTTP_WebDAV_Server::put_response_helper
 	 */
-	public function putResponseHelper($webDavOptions, $stream) {
+	public static function putResponseHelper($webDavOptions, $stream) {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 		$webDavOptions['new'] = false;
 		$webDavServer->put_response_helper($webDavOptions, $stream);
@@ -1375,7 +1375,7 @@ class WebDavHelper {
 	 *               string destination path
 	 * @see HTTP_WebDAV_Server::copymove_request_helper
 	 */
-	public function copyMoveRequestHelper() {
+	public static function copyMoveRequestHelper() {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$webDavServer =& WebDavHelper::getWebDavServer();
@@ -1434,7 +1434,7 @@ class WebDavHelper {
 	 *               array error strings
 	 * @see ItemMoveController::handleRequest
 	 */
-	public function moveValidateHelper($items, $newParent) {
+	public static function moveValidateHelper($items, $newParent) {
 		if (!is_array($items)) {
 			$items = array($items);
 		}
@@ -1530,7 +1530,7 @@ class WebDavHelper {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function move() {
+	public static function move() {
 		$path = GalleryUtilities::getRequestVariables('path');
 		$path = trim($path, '/');
 
@@ -1831,7 +1831,7 @@ class WebDavHelper {
 	 * @see HTTP_WebDAV_Server::lock_request_helper
 	 * @todo Simplify function signature
 	 */
-	public function lockRequestHelper() {
+	public static function lockRequestHelper() {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 
 		if (!$webDavServer->lock_request_helper($webDavOptions)) {
@@ -1872,7 +1872,7 @@ class WebDavHelper {
 	 * @see HTTP_WebDAV_Server::lock_response_helper
 	 * @todo Simplify function signature
 	 */
-	public function lockResponseHelper(
+	public static function lockResponseHelper(
 		$webDavOptions,
 		$locks,
 		$status,
@@ -1902,7 +1902,7 @@ class WebDavHelper {
 	 * @return GalleryStatus a status code
 	 * @todo Make corresponding Gallery locks persist between requests
 	 */
-	public function lock() {
+	public static function lock() {
 		global $gallery;
 
 		$path = GalleryUtilities::getRequestVariables('path');
@@ -2116,7 +2116,7 @@ class WebDavHelper {
 	 *               string token of WebDAV lock to clear
 	 * @see HTTP_WebDAV_Server::unlock_request_helper
 	 */
-	public function unlockRequestHelper() {
+	public static function unlockRequestHelper() {
 		$webDavServer =& WebDavHelper::getWebDavServer();
 
 		if (!$webDavServer->unlock_request_helper($webDavOptions)) {
@@ -2131,7 +2131,7 @@ class WebDavHelper {
 	 * UNLOCK handler.
 	 * @return GalleryStatus a status code
 	 */
-	public function unlock() {
+	public static function unlock() {
 		global $gallery;
 
 		// Prepare data-structure from UNLOCK request
@@ -2200,7 +2200,7 @@ class WebDavServer extends HTTP_WebDAV_Server {
 	/**
 	 * @see HTTP_WebDAV_Server::getHref
 	 */
-	public function getHref($path) {
+	public static function getHref($path) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -2215,7 +2215,7 @@ class WebDavServer extends HTTP_WebDAV_Server {
 	/**
 	 * @see HTTP_WebDAV_Server::openRequestBody
 	 */
-	public function openRequestBody() {
+	public static function openRequestBody() {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -2225,14 +2225,14 @@ class WebDavServer extends HTTP_WebDAV_Server {
 	/**
 	 * @see HTTP_WebDAV_Server::setResponseHeader
 	 */
-	public function setResponseHeader($header, $replace=true) {
+	public static function setResponseHeader($header, $replace=true) {
 		GalleryUtilities::setResponseHeader($header, $replace);
 	}
 
 	/**
 	 * @see HTTP_WebDAV_Server::setResponseStatus
 	 */
-	public function setResponseStatus($status, $replace=true) {
+	public static function setResponseStatus($status, $replace=true) {
 		GalleryUtilities::setResponseHeader("HTTP/1.0 $status", $replace);
 	}
 }

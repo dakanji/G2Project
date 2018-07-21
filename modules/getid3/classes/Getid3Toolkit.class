@@ -41,7 +41,7 @@ class Getid3Toolkit extends GalleryToolkit {
 				break;
 
 			default:
-				return array(GalleryStatus::error(ERROR_UNIMPLEMENTED), null);
+				return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 		}
 
 		return array(null, $results);

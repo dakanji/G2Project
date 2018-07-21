@@ -34,7 +34,7 @@ class Picasa2DataParser {
 	 * @param string $path the picasa export path
 	 * @return boolean true if the picasa path is valid, false otherwise
 	 */
-	public function isValidPicasaXmlPath($path) {
+	public static function isValidPicasaXmlPath($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -53,7 +53,7 @@ class Picasa2DataParser {
 	 * @param string $picasaXmlPath the picasa export path
 	 * @return array a status code and an album/image array
 	 */
-	public function getRawXmlFromPicasaPath($picasaXmlPath) {
+	public static function getRawXmlFromPicasaPath($picasaXmlPath) {
 		global $gallery;
 
 		$picasaXmlFile = $picasaXmlPath . 'index.xml';
@@ -97,7 +97,7 @@ class Picasa2DataParser {
 	 *  @return array GalleryStatus a status code
 	 *                array a nested php array containing xml data.
 	 */
-	public function getXmlArray($rawXml) {
+	public static function getXmlArray($rawXml) {
 		if (!function_exists('xml_parser_create')) {
 			return array(
 				GalleryCoreApi::error(
@@ -229,7 +229,7 @@ class Picasa2DataParser {
 	 * @param string $picasaXmlArray the picasa export path
 	 * @return array a status code and an album/image array
 	 */
-	public function getAlbumFromArray($picasaXmlArray) {
+	public static function getAlbumFromArray($picasaXmlArray) {
 		$imageArray = $picasaXmlArray;
 
 		if (isset($imageArray['album']['albumName'])) {
@@ -279,7 +279,7 @@ class Picasa2DataParser {
 	 * @param string $picasaXmlPath the picasa export path
 	 * @return array a status code and an album/image array
 	 */
-	public function getAlbum($picasaXmlPath) {
+	public static function getAlbum($picasaXmlPath) {
 		list($ret, $rawXml) = Picasa2DataParser::getRawXmlFromPicasaPath($picasaXmlPath);
 
 		if ($ret) {

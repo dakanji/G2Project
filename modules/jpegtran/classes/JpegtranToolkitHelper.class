@@ -35,7 +35,7 @@ class JpegtranToolkitHelper {
 	 *               array('operations' => ...)
 	 * @static
 	 */
-	public function getOperations() {
+	public static function getOperations() {
 		global $gallery;
 
 		// Detect and test the binary
@@ -111,7 +111,7 @@ class JpegtranToolkitHelper {
 	 *
 	 * @static
 	 */
-	public function testBinary($jpegtranPath) {
+	public static function testBinary($jpegtranPath) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();

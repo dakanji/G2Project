@@ -238,7 +238,6 @@ class ADODB_pdo extends ADOConnection {
 
 	// ------------------------------------------------------------------------------
 
-
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
 		$save                     = $this->_driver->fetchMode;
 		$this->_driver->fetchMode = $this->fetchMode;

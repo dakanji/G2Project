@@ -102,7 +102,8 @@ class DB {
 	 *
 	 * @return object a newly created DB object, or a DB error code on
 	 * error
-	 */public function factory($type) {
+	 */
+	public function factory($type) {
 		include_once ADODB_DIR . "/drivers/adodb-$type.inc.php";
 		$obj = NewADOConnection($type);
 
@@ -140,25 +141,25 @@ class DB {
 		}
 
 		switch ($dsninfo['phptype']) {
-		case 'pgsql':
-			$type = 'postgres7';
+			case 'pgsql':
+				$type = 'postgres7';
 
-			break;
+				break;
 
-		case 'ifx':
-			$type = 'informix9';
+			case 'ifx':
+				$type = 'informix9';
 
-			break;
+				break;
 
-		default:
-			$type = $dsninfo['phptype'];
+			default:
+				$type = $dsninfo['phptype'];
 
-			break;
-	}
+				break;
+		}
 
 		if (is_array($options) && isset($options['debug'])
-		&& $options['debug'] >= 2
-	) {
+			&& $options['debug'] >= 2
+		) {
 			// expose php errors with sufficient debug level
 			@include_once "adodb-$type.inc.php";
 		} else {
@@ -176,37 +177,37 @@ class DB {
 		if (is_array($options)) {
 			foreach ($options as $k => $v) {
 				switch (strtolower($k)) {
-				case 'persist':
-				case 'persistent':
-					$persist = $v;
+					case 'persist':
+					case 'persistent':
+						$persist = $v;
 
-					break;
-				// ibase
-				case 'dialect':
-					$obj->dialect = $v;
+						break;
+					// ibase
+					case 'dialect':
+						$obj->dialect = $v;
 
-					break;
+						break;
 
-				case 'charset':
-					$obj->charset = $v;
+					case 'charset':
+						$obj->charset = $v;
 
-					break;
+						break;
 
-				case 'buffers':
-					$obj->buffers = $v;
+					case 'buffers':
+						$obj->buffers = $v;
 
-					break;
-				// ado
-				case 'charpage':
-					$obj->charPage = $v;
+						break;
+					// ado
+					case 'charpage':
+						$obj->charPage = $v;
 
-					break;
-				// mysql
-				case 'clientflags':
-					$obj->clientFlags = $v;
+						break;
+					// mysql
+					case 'clientflags':
+						$obj->clientFlags = $v;
 
-					break;
-			}
+						break;
+				}
 			}
 		} else {
 			$persist = false;
@@ -254,7 +255,7 @@ class DB {
 		$class = strtolower(get_class($value));
 
 		return $class == 'pear_error' || is_subclass_of($value, 'pear_error') ||
-	$class == 'db_error' || is_subclass_of($value, 'db_error');
+		$class == 'db_error' || is_subclass_of($value, 'db_error');
 	}
 
 	/**
@@ -312,14 +313,14 @@ class DB {
 		}
 
 		$parsed = array(
-		'phptype'  => false,
-		'dbsyntax' => false,
-		'protocol' => false,
-		'hostspec' => false,
-		'database' => false,
-		'username' => false,
-		'password' => false,
-	);
+			'phptype'  => false,
+			'dbsyntax' => false,
+			'protocol' => false,
+			'hostspec' => false,
+			'database' => false,
+			'username' => false,
+			'password' => false,
+		);
 
 		// Find phptype and dbsyntax
 		if (($pos = strpos($dsn, '://')) !== false) {

@@ -40,7 +40,7 @@ class UploadAppletModule extends GalleryModule {
 	/**
 	 * @see GalleryPlugin::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');

@@ -77,8 +77,10 @@ if (ADODB_PHPVER >= 0x4300) {
 	// docs say 4.2.0, but testing shows only since 4.3.0 does it work!
 	ini_set('mssql.datetimeconvert', 0);
 } else {
-	global $ADODB_mssql_mths;       // array, months must be upper-case
+	global $ADODB_mssql_mths;
+
 	$ADODB_mssql_date_order = 'mdy';
+	// array, months must be upper-case
 	$ADODB_mssql_mths       = array(
 		'JAN' => 1,
 		'FEB' => 2,
@@ -98,7 +100,8 @@ if (ADODB_PHPVER >= 0x4300) {
 class ADODB_mssqlnative extends ADOConnection {
 	public $databaseType      = 'mssqlnative';
 	public $dataProvider      = 'mssqlnative';
-	public $replaceQuote      = "''"; // string to use to replace quotes
+	// string to use to replace quotes
+	public $replaceQuote      = "''";
 	public $fmtDate           = "'Y-m-d'";
 	public $fmtTimeStamp      = "'Y-m-d\TH:i:s'";
 	public $hasInsertID       = true;
@@ -124,7 +127,8 @@ class ADODB_mssqlnative extends ADOConnection {
 		join sys.tables st on st.name=o.name
 		join sys.columns sc on sc.object_id = st.object_id and sc.name=c.name
 		where o.name='%s'";
-	public $hasTop            = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
+	// support mssql SELECT TOP 10 * FROM TABLE
+	public $hasTop            = 'top';
 	public $hasGenID          = true;
 	public $sysDate           = 'convert(datetime,convert(char,GetDate(),102),102)';
 	public $sysTimeStamp      = 'GetDate()';
@@ -133,8 +137,10 @@ class ADODB_mssqlnative extends ADOConnection {
 	public $uniqueSort        = true;
 	public $leftOuter         = '*=';
 	public $rightOuter        = '=*';
-	public $ansiOuter         = true; // for mssql7 or later
-	public $identitySQL       = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
+	// for mssql7 or later
+	public $ansiOuter         = true;
+	// 'select SCOPE_IDENTITY'; # for mssql 2000
+	public $identitySQL       = 'select SCOPE_IDENTITY()';
 	public $uniqueOrderBy     = true;
 	public $_bindInputArray   = true;
 	public $_dropSeqSQL       = 'drop table %s';
@@ -194,21 +200,27 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		$arrServerInfo      = sqlsrv_server_info($this->_connectionID);
 		$ADODB_FETCH_MODE   = $savem;
-		$arr['description'] = $arrServerInfo['SQLServerName'] . ' connected to ' . $arrServerInfo['CurrentDatabase'];
-		$arr['version']     = $arrServerInfo['SQLServerVersion'];//ADOConnection::_findvers($arr['description']);
+		$arr['description'] = $arrServerInfo['SQLServerName'] . ' connected to '
+		. $arrServerInfo['CurrentDatabase'];
+		//ADOConnection::_findvers($arr['description']);
+		$arr['version']     = $arrServerInfo['SQLServerVersion'];
+
 		return $arr;
 	}
 
 	public function IfNull($field, $ifNull) {
-		return " ISNULL($field, $ifNull) "; // if MS SQL Server
+		// if MS SQL Server
+		return " ISNULL($field, $ifNull) ";
 	}
 
 	public function _insertid() {
-		// SCOPE_IDENTITY()
-		// Returns the last IDENTITY value inserted into an IDENTITY column in
-		// the same scope. A scope is a module -- a stored procedure, trigger,
-		// function, or batch. Thus, two statements are in the same scope if
-		// they are in the same stored procedure, function, or batch.
+		/*
+		 * SCOPE_IDENTITY()
+		 * Returns the last IDENTITY value inserted into an IDENTITY column in
+		 * the same scope. A scope is a module -- a stored procedure, trigger,
+		 * function, or batch. Thus, two statements are in the same scope if
+		 * they are in the same stored procedure, function, or batch.
+		 */
 		return $this->lastInsertID;
 	}
 
@@ -509,17 +521,18 @@ class ADODB_mssqlnative extends ADOConnection {
 	}
 
 	/*
-		Usage:
-
-		$this->BeginTrans();
-		$this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id'); # lock row 33 for both tables
-
-		# some operation on both tables table1 and table2
-
-		$this->CommitTrans();
-
-		See http://www.swynk.com/friends/achigrik/SQL70Locks.asp
-	*/
+	 * Usage:
+	 *
+	 * $this->BeginTrans();
+	 * $this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id');
+	 * # lock row 33 for both tables
+	 *
+	 * # some operation on both tables table1 and table2
+	 *
+	 * $this->CommitTrans();
+	 *
+	 * See http://www.swynk.com/friends/achigrik/SQL70Locks.asp
+	 */
 	public function RowLock($tables, $where, $col = '1 as adodbignore') {
 		if ($col == '1 as adodbignore') {
 			$col = 'top 1 null as ignore';
@@ -533,8 +546,10 @@ class ADODB_mssqlnative extends ADOConnection {
 	}
 
 	public function SelectDB($dbName) {
+		// obsolete, retained for compat with older adodb versions
+		$this->databaseName = $dbName;
 		$this->database     = $dbName;
-		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
+
 		if ($this->_connectionID) {
 			$rs = $this->Execute('USE ' . $dbName);
 
@@ -652,17 +667,17 @@ class ADODB_mssqlnative extends ADOConnection {
 	}
 
 	/*
-		Unfortunately, it appears that mssql cannot handle varbinary > 255 chars
-		So all your blobs must be of type "image".
-
-		Remember to set in php.ini the following...
-
-		; Valid range 0 - 2147483647. Default = 4096.
-		mssql.textlimit = 0 ; zero to pass through
-
-		; Valid range 0 - 2147483647. Default = 4096.
-		mssql.textsize = 0 ; zero to pass through
-	*/
+	 * Unfortunately, it appears that mssql cannot handle varbinary > 255 chars
+	 * So all your blobs must be of type "image".
+	 *
+	 * Remember to set in php.ini the following...
+	 *
+	 * ; Valid range 0 - 2147483647. Default = 4096.
+	 * mssql.textlimit = 0 ; zero to pass through
+	 *
+	 * ; Valid range 0 - 2147483647. Default = 4096.
+	 * mssql.textsize = 0 ; zero to pass through
+	 */
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
 		if (strtoupper($blobtype) == 'CLOB') {
 			$sql = "UPDATE $table SET $column='" . $val . "' WHERE $where";
@@ -1005,9 +1020,15 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
 		// KMN # if ($this->connection->debug) ADOConnection::outp("(before) ADODB_COUNTRECS: {$ADODB_COUNTRECS} _numOfRows: {$this->_numOfRows} _numOfFields: {$this->_numOfFields}");
-		/*$retRowsAff = sqlsrv_rows_affected($this->_queryID);//"If you need to determine the number of rows a query will return before retrieving the actual results, appending a SELECT COUNT ... query would let you get that information, and then a call to next_result would move you to the "real" results."
-		ADOConnection::outp("rowsaff: ".serialize($retRowsAff));
-		$this->_numOfRows = ($ADODB_COUNTRECS)? $retRowsAff:-1;*/
+		/*
+		 * $retRowsAff = sqlsrv_rows_affected($this->_queryID);
+		 * "If you need to determine the number of rows a query will return
+		 *    before retrieving the actual results,
+		 *    appending a SELECT COUNT ... query would let you get that information,
+		 *    and then a call to next_result would move you to the "real" results."
+		 * ADOConnection::outp("rowsaff: ".serialize($retRowsAff));
+		 * $this->_numOfRows = ($ADODB_COUNTRECS)? $retRowsAff:-1;
+		 */
 		$this->_numOfRows   = -1;//not supported
 		$fieldmeta          = sqlsrv_field_metadata($this->_queryID);
 		$this->_numOfFields = ($fieldmeta) ? count($fieldmeta) : -1;
@@ -1024,7 +1045,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		}
 	}
 
-	//Contributed by "Sven Axelsson" <sven.axelsson@bokochwebb.se>
+	// Contributed by "Sven Axelsson" <sven.axelsson@bokochwebb.se>
 	// get next resultset - requires PHP 4.0.5 or later
 	public function NextRecordSet() {
 		if (!sqlsrv_next_result($this->_queryID)) {
@@ -1056,12 +1077,17 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
 
-	/*	Returns: an object containing field information.
-		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
-		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
-		fetchField() is retrieved.
-		Designed By jcortinap#jc.com.mx
-	*/
+	/*
+	 * Returns: an object containing field information.
+	 *
+	 * Get column information in the Recordset object.
+	 * fetchField() can be used in order to obtain information about
+	 *    fields in a certain query result.
+	 * If the field offset isn't specified, the next field not yet retrieved
+	 *    by fetchField() is retrieved.
+	 *
+	 * Designed By jcortinap#jc.com.mx
+	 */
 	public function _FetchField($fieldOffset = -1) {
 		$_typeConversion = array(
 			-155 => 'datetimeoffset',
@@ -1356,25 +1382,26 @@ class ADORecordSet_array_mssqlnative extends ADORecordSet_array {
 }
 
 /*
-Code Example 1:
-
-select	object_name(constid) as constraint_name,
-		object_name(fkeyid) as table_name,
-		col_name(fkeyid, fkey) as column_name,
-	object_name(rkeyid) as referenced_table_name,
-	col_name(rkeyid, rkey) as referenced_column_name
-from sysforeignkeys
-where object_name(fkeyid) = x
-order by constraint_name, table_name, referenced_table_name,  keyno
-
-Code Example 2:
-select	constraint_name,
-	column_name,
-	ordinal_position
-from information_schema.key_column_usage
-where constraint_catalog = db_name()
-and table_name = x
-order by constraint_name, ordinal_position
-
-http://www.databasejournal.com/scripts/article.php/1440551
-*/
+ * Code Example 1:
+ *
+ * select object_name(constid) as constraint_name,
+ *    object_name(fkeyid) as table_name,
+ *    col_name(fkeyid, fkey) as column_name,
+ *    object_name(rkeyid) as referenced_table_name,
+ *    col_name(rkeyid, rkey) as referenced_column_name
+ * from sysforeignkeys
+ * where object_name(fkeyid) = x
+ * order by constraint_name, table_name, referenced_table_name,  keyno
+ *
+ * Code Example 2:
+ *
+ * select constraint_name,
+ *    column_name,
+ *    ordinal_position
+ * from information_schema.key_column_usage
+ * where constraint_catalog = db_name()
+ * and table_name = x
+ * order by constraint_name, ordinal_position
+ *
+ * http://www.databasejournal.com/scripts/article.php/1440551
+ */

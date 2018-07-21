@@ -45,7 +45,7 @@ class CustomFieldModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {

@@ -804,7 +804,6 @@ class adodb_perf {
 	//
 	//                                    HIGH LEVEL UI FUNCTIONS
 
-
 	public function UI($pollsecs = 5) {
 		global $ADODB_LOG_CONN;
 
@@ -1309,5 +1308,6 @@ class adodb_perf {
 
 		return true;
 	}
+
 	// end hack
 }

@@ -24,20 +24,21 @@
  * This module provides support creating aliases to images and albums
  * in a flat namespace
  *
+ * Also Extends GalleryEventListener
+ *
  * @package Permalinks
  * @author Pierre-Luc Paour <gallery@paour.com>
  * @version $Revision: 18172 $
  */
-class PermalinksModule extends GalleryModule // and GalleryEventListener
-{
+class PermalinksModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 
 		$this->setId('permalinks');
 		$this->setName($gallery->i18n('Permalinks'));
 		$this->setDescription(
-		$gallery->i18n('Create simpler permanent aliases to your items space')
-	);
+			$gallery->i18n('Create simpler permanent aliases to your items space')
+		);
 		$this->setVersion('1.0.12');
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
@@ -49,14 +50,16 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'permalinks');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		foreach (array('autoPermalink' => 0) as $key => $value) {
+		foreach (array(
+			'autoPermalink' => 0,
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -72,7 +75,7 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::activate
 	 */
-	public function activate($postActivationEvent=true) {
+	public function activate($postActivationEvent = true) {
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
@@ -80,7 +83,7 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 		}
 
 		// Automatically activate the rewrite rules, if the rewrite module is active
-		$success = false;
+		$success                = false;
 		list($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
 
 		if ($ret) {
@@ -96,8 +99,13 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 		}
 
 		if (!$success) {
-			return array(null, array('view' => 'core.SiteAdmin',
-					 'subView' => 'permalinks.ActivationWarning', ));
+			return array(
+				null,
+				array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'permalinks.ActivationWarning',
+				),
+			);
 		}
 
 		return array(null, array());
@@ -108,26 +116,26 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-	   'ItemEditOption',
-		'PermalinksOption',
-		'PermalinksOption',
-	   'modules/permalinks/PermalinksOption.inc',
-		'permalinks',
-		array('ItemEditItem')
-	);
+			'ItemEditOption',
+			'PermalinksOption',
+			'PermalinksOption',
+			'modules/permalinks/PermalinksOption.inc',
+			'permalinks',
+			array('ItemEditItem')
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEventListener',
-		'PermalinksModule',
-		'PermalinksModule',
-		'modules/permalinks/module.inc',
-		'permalinks',
-		array('Gallery::DeactivatePlugin', 'GalleryEntity::delete', 'GalleryEntity::save')
-	);
+			'GalleryEventListener',
+			'PermalinksModule',
+			'PermalinksModule',
+			'modules/permalinks/module.inc',
+			'permalinks',
+			array('Gallery::DeactivatePlugin', 'GalleryEntity::delete', 'GalleryEntity::save')
+		);
 
 		if ($ret) {
 			return $ret;
@@ -140,9 +148,15 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {
-		return array(null,
-			 array(array('name' => $this->translate('Permalinks'),
-				 'view' => 'permalinks.PermalinksSiteAdmin', )), );
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Permalinks'),
+					'view' => 'permalinks.PermalinksSiteAdmin',
+				),
+			),
+		);
 	}
 
 	/**
@@ -174,8 +188,9 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 					}
 				}
 			}
-		} elseif ($event->getEventName() == 'Gallery::DeactivatePlugin' &&
-		   $data['pluginId'] == 'rewrite' && $data['pluginType'] == 'module') {
+		} elseif ($event->getEventName() == 'Gallery::DeactivatePlugin'
+			&& $data['pluginId'] == 'rewrite' && $data['pluginType'] == 'module'
+		) {
 			list($ret, $isActive) = $this->isActive();
 
 			if ($ret) {
@@ -191,8 +206,11 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 				}
 			}
 		} elseif ($event->getEventName() == 'GalleryEntity::save') {
-			list($ret, $autoPermalink) =
-		GalleryCoreApi::getPluginParameter('module', 'permalinks', 'autoPermalink');
+			list($ret, $autoPermalink) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'permalinks',
+				'autoPermalink'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -201,16 +219,17 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 			if ($autoPermalink) {
 				$album = $event->getEntity();
 
-				if (GalleryUtilities::isA($album, 'GalleryAlbumItem') &&
-			$album->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
+				if (GalleryUtilities::isA($album, 'GalleryAlbumItem')
+					&& $album->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
+				) {
 					GalleryCoreApi::requireOnce(
-			'modules/permalinks/classes/PermalinksMapHelper.class'
-			);
+						'modules/permalinks/classes/PermalinksMapHelper.class'
+					);
 
 					$ret = PermalinksMapHelper::createAlias(
-				$album->getPathComponent(),
-								$album->getId()
-			);
+						$album->getPathComponent(),
+						$album->getId()
+					);
 
 					if ($ret) {
 						if (!($ret->getErrorCode() & ERROR_COLLISION)) {
@@ -231,16 +250,23 @@ class PermalinksModule extends GalleryModule // and GalleryEventListener
 	 */
 	public function getRewriteRules() {
 		return array(
-		array('comment' => $this->translate('Permalinks'),
-		'match' => array('controller' => 'permalinks.Redirect'),
-		'pattern' => 'f/%filename%',
-		'keywords' => array(
-		'filename' => array(
-			'pattern' => '([^?]+)',
-			'help' => $this->translate('Name you have defined as an alias to your item'), ), ),
-		'help' => $this->translate('Enable this rule to allow Permalinks you define to ' .
-					   'work. Disabling this rule will break your Permalinks.'),
-		),
-	);
+			array(
+				'comment'  => $this->translate('Permalinks'),
+				'match'    => array(
+					'controller' => 'permalinks.Redirect',
+				),
+				'pattern'  => 'f/%filename%',
+				'keywords' => array(
+					'filename' => array(
+						'pattern' => '([^?]+)',
+						'help'    => $this->translate(
+							'Name you have defined as an alias to your item'
+						),
+					),
+				),
+				'help'     => $this->translate('Enable this rule to allow Permalinks you define to '
+				. 'work. Disabling this rule will break your Permalinks.'),
+			),
+		);
 	}
 }

@@ -34,7 +34,7 @@ class EcardHelper {
 	 * @return array GalleryStatus a status code
 	 *               GalleryItem an item
 	 */
-	public function getSmallestSize($itemId) {
+	public static function getSmallestSize($itemId) {
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
 
 		if ($ret) {
@@ -110,7 +110,7 @@ class EcardHelper {
 	 * @param array $array the submitted form
 	 * @return string output string
 	 */
-	public function replaceKeywords($str, $array) {
+	public static function replaceKeywords($str, $array) {
 		$result = $str;
 
 		foreach (array(

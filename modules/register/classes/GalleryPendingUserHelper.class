@@ -34,13 +34,13 @@ class GalleryPendingUserHelper {
 	 * @return array GalleryStatus a status code
 	 *               GalleryPendingUser a pending user
 	 */
-	public function fetchPendingUserByUserName($userName) {
+	public static function fetchPendingUserByUserName($userName) {
 		global $gallery;
 
 		$query                     = '
-	SELECT [GalleryPendingUser::id] FROM [GalleryPendingUser]
-	WHERE [GalleryPendingUser::userName] = ?
-	';
+		SELECT [GalleryPendingUser::id] FROM [GalleryPendingUser]
+		WHERE [GalleryPendingUser::userName] = ?
+		';
 		list($ret, $searchResults) = $gallery->search($query, array($userName));
 
 		if ($ret) {
@@ -68,12 +68,12 @@ class GalleryPendingUserHelper {
 	 * @return array GalleryStatus a status code
 	 *               int number of pending users
 	 */
-	public function fetchUserCount($substring = null) {
+	public static function fetchUserCount($substring = null) {
 		global $gallery;
 		$data  = array();
 		$query = '
-	SELECT COUNT([GalleryPendingUser::id]) FROM [GalleryPendingUser]
-	';
+		SELECT COUNT([GalleryPendingUser::id]) FROM [GalleryPendingUser]
+		';
 
 		if (!empty($substring)) {
 			$query .= ' WHERE [GalleryPendingUser::userName] LIKE ?';
@@ -103,16 +103,16 @@ class GalleryPendingUserHelper {
 	 * @return array GalleryStatus a status code
 	 *               array (id => array('userName'=>name, 'fullName'=>name, 'email'=>email), ...)
 	 */
-	public function fetchUserData($count = null, $offset = null, $substring = null) {
+	public static function fetchUserData($count = null, $offset = null, $substring = null) {
 		global $gallery;
 		$data  = array();
 		$query = '
-	SELECT [GalleryPendingUser::id], [GalleryPendingUser::userName],
-	       [GalleryPendingUser::fullName], [GalleryPendingUser::email],
-	       [GalleryEntity::creationTimestamp]
-	FROM [GalleryPendingUser], [GalleryEntity]
-	WHERE [GalleryPendingUser::id]=[GalleryEntity::id]
-	';
+		SELECT [GalleryPendingUser::id], [GalleryPendingUser::userName],
+		[GalleryPendingUser::fullName], [GalleryPendingUser::email],
+		[GalleryEntity::creationTimestamp]
+		FROM [GalleryPendingUser], [GalleryEntity]
+		WHERE [GalleryPendingUser::id]=[GalleryEntity::id]
+		';
 
 		if (!empty($substring)) {
 			$query .= ' AND [GalleryPendingUser::userName] LIKE ?';
@@ -162,7 +162,7 @@ class GalleryPendingUserHelper {
 	 *                                        locale for the email.
 	 * @return GalleryStatus a status code
 	 */
-	public function sendConfirmationEmail(
+	public static function sendConfirmationEmail(
 		&$pendingUser,
 		$tplFile = 'ConfirmationEmail.tpl',
 		$subjectParam = 'subject',
@@ -260,7 +260,7 @@ class GalleryPendingUserHelper {
 	 * @param GalleryPendingUser $pendingUser
 	 * @return GalleryStatus a status code
 	 */
-	public function sendAdminEmail(&$pendingUser) {
+	public static function sendAdminEmail(&$pendingUser) {
 		global $gallery;
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'register');
@@ -379,7 +379,7 @@ class GalleryPendingUserHelper {
 	 * @param boolean $delete if true delete the GalleryPendingUser
 	 * @return GalleryStatus a status code
 	 */
-	public function createGalleryUser(&$pendingUser, $delete = true) {
+	public static function createGalleryUser(&$pendingUser, $delete = true) {
 		list($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 
 		if ($ret) {

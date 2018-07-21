@@ -30,7 +30,7 @@ class GalleryItemAttributesHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchItemOrderWeight
 	 */
-	public function fetchOrderWeight($itemId) {
+	public static function fetchOrderWeight($itemId) {
 		list($ret, $orderWeights) = GalleryItemAttributesHelper_medium::fetchOrderWeights(array($itemId));
 
 		if ($ret) {
@@ -47,7 +47,7 @@ class GalleryItemAttributesHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchItemOrderWeights
 	 */
-	public function fetchOrderWeights($itemIds) {
+	public static function fetchOrderWeights($itemIds) {
 		global $gallery;
 
 		foreach ($itemIds as $idx => $id) {

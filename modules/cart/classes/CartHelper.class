@@ -33,7 +33,7 @@ class CartHelper {
 	 * @return array GalleryStatus a status code
 	 *               array (itemId => count, itemId => count, ..)
 	 */
-	public function fetchCartItemCounts() {
+	public static function fetchCartItemCounts() {
 		global $gallery;
 		$session =& $gallery->getSession();
 
@@ -100,7 +100,7 @@ class CartHelper {
 	 * @param array $cartItemIds (itemId => count, itemId => count, ..)
 	 * @return GalleryStatus a status code
 	 */
-	public function setCartItemCounts($cartItemIds) {
+	public static function setCartItemCounts($cartItemIds) {
 		global $gallery;
 		$session =& $gallery->getSession();
 

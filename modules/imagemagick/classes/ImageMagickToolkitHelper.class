@@ -34,7 +34,7 @@ class ImageMagickToolkitHelper {
 	 * @return GalleryStatus a status code
 	 *         array('operations' => ..., 'properties' => ...)
 	 */
-	public function getOperationsAndProperties() {
+	public static function getOperationsAndProperties() {
 		global $gallery;
 
 		list($ret, $mimeTypes) = ImageMagickToolkitHelper::discoverMimeTypes();
@@ -278,7 +278,7 @@ class ImageMagickToolkitHelper {
 	 * @return array GalleryStatus
 	 *               array commands
 	 */
-	public function getCommand($cmd, $imageMagickPath = null) {
+	public static function getCommand($cmd, $imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -323,7 +323,7 @@ class ImageMagickToolkitHelper {
 	 * @return array GalleryStatus
 	 *         array supported mime-types
 	 */
-	public function discoverMimeTypes($imageMagickPath = null) {
+	public static function discoverMimeTypes($imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
@@ -471,7 +471,7 @@ class ImageMagickToolkitHelper {
 	 *            'message' => string: the error message, in case of
 	 *                 IMAGEMAGIC_TEST_ERROR)
 	 */
-	public function testBinaries($imageMagickPath) {
+	public static function testBinaries($imageMagickPath) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
@@ -725,7 +725,7 @@ class ImageMagickToolkitHelper {
 	 * @return array GalleryStatus
 	 *               string name of the binary
 	 */
-	public function discoverBinary($imageMagickPath = null) {
+	public static function discoverBinary($imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -776,7 +776,7 @@ class ImageMagickToolkitHelper {
 	 *                    or http://nvd.nist.gov/nvd.cfm?cvename=CVE-2006-3744
 	 *                    or http://nvd.nist.gov/nvd.cfm?cvename=CVE-2005-1739
 	 */
-	public function discoverVersion($imageMagickPath = null) {
+	public static function discoverVersion($imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -813,7 +813,7 @@ class ImageMagickToolkitHelper {
 	 * @return array GalleryStatus
 	 *               string name of the binary (defaults to composite)
 	 */
-	public function discoverCompositeCmd($imageMagickPath = null) {
+	public static function discoverCompositeCmd($imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -864,7 +864,7 @@ class ImageMagickToolkitHelper {
 	 * @return array GalleryStatus
 	 *               array the needed parameters
 	 */
-	public function discoverRemoveMetaDataSwitch($imageMagickPath = null) {
+	public static function discoverRemoveMetaDataSwitch($imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
@@ -919,7 +919,7 @@ class ImageMagickToolkitHelper {
 	 * @return array GalleryStatus
 	 *               boolean true if CMYK is supported
 	 */
-	public function discoverColorspaceSupport($imageMagickPath = null) {
+	public static function discoverColorspaceSupport($imageMagickPath = null) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
@@ -987,7 +987,7 @@ class ImageMagickToolkitHelper {
 	 *
 	 * @return GalleryStatus
 	 */
-	public function savePlatformParameters($imageMagickPath = null) {
+	public static function savePlatformParameters($imageMagickPath = null) {
 		// Find out if we are GraphicsMagick, using "gm" as a binary
 		list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
 

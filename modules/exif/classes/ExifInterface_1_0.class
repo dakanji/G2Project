@@ -38,7 +38,7 @@ class ExifInterface_1_0 {
 	 * @return array GalleryStatus a status code,
 	 *               array( id => array(property=>value,...) )
 	 */
-	public function getMetaData($itemIds, $properties = array()) {
+	public static function getMetaData($itemIds, $properties = array()) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 }

@@ -395,7 +395,7 @@ class PluginCallbackView extends GalleryView {
 	 *               array(moduleId => state, ...)
 	 * @static
 	 */
-	public function getPluginStates() {
+	public static function getPluginStates() {
 		$states = array();
 
 		foreach (array('module', 'theme') as $type) {
@@ -433,7 +433,7 @@ class PluginCallbackView extends GalleryView {
 	 *               string a state
 	 * @static
 	 */
-	public function getPluginState($type, $plugin, $status) {
+	public static function getPluginState($type, $plugin, $status) {
 		if ($type == 'module' && $plugin->getId() == 'core') {
 			return array(null, 'active');
 		}

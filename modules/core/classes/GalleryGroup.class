@@ -73,7 +73,7 @@ class GalleryGroup extends GalleryEntity {
 	 * @param int $groupType the type of group
 	 * @return GalleryStatus a status code
 	 */
-	public function create($groupName, $groupType = GROUP_NORMAL) {
+	public function create($groupName = null, $groupType = GROUP_NORMAL, $x1 = null) {
 		global $gallery;
 
 		// Check to see if we have a collision

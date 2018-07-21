@@ -42,7 +42,7 @@ class IconsModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'icons');
 
 		if ($ret) {

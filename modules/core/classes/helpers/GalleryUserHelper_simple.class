@@ -30,7 +30,7 @@ class GalleryUserHelper_simple {
 	/**
 	 * @see GalleryCoreApi::assertHasItemPermission
 	 */
-	public function assertHasItemPermission($itemId, $permission) {
+	public static function assertHasItemPermission($itemId, $permission) {
 		global $gallery;
 
 		list($ret, $hasPermission) = GalleryUserHelper_simple::hasItemPermission($itemId, $permission);
@@ -59,7 +59,7 @@ class GalleryUserHelper_simple {
 	/**
 	 * @see GalleryCoreApi::hasItemPermission
 	 */
-	public function hasItemPermission($itemId, $permission, $userId = null, $sessionPermissions = true) {
+	public static function hasItemPermission($itemId, $permission, $userId = null, $sessionPermissions = true) {
 		global $gallery;
 
 		if (!isset($userId)) {

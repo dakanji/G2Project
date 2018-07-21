@@ -56,7 +56,7 @@ class SystemChecksStep extends InstallStep {
 	public function processRequest() {
 		// Target PHP Version
 		$prefPHP = 'Use PHP Version 7.2.x for the best performance.';
-		
+
 		// Zend test
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');

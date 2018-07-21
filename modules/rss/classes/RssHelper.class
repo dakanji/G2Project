@@ -48,7 +48,7 @@ class RssHelper {
 	 * @param int $id Id of the album from where the photoitems shall be retrieved.
 	 * @return GalleryStatus
 	 */
-	public function getFeed(&$generator, $id, $param) {
+	public static function getFeed(&$generator, $id, $param) {
 		global $gallery;
 
 		// get gallery entity by id
@@ -279,7 +279,7 @@ class RssHelper {
 	 * @param array $param feed parameters
 	 * @return GalleryStatus
 	 */
-	public function addItem(&$generator, $item, $param) {
+	public static function addItem(&$generator, $item, $param) {
 		if (GalleryUtilities::isA($item, 'GalleryDataItem')
 			|| GalleryUtilities::isA($item, 'GalleryAlbumItem')
 		) {
@@ -301,7 +301,7 @@ class RssHelper {
 	 * @param array $param feed parameters
 	 * @return GalleryStatus
 	 */
-	public function addPhotoOrAlbum(&$generator, $item, $param) {
+	public static function addPhotoOrAlbum(&$generator, $item, $param) {
 		global $gallery;
 
 		// generate url to the images
@@ -448,7 +448,7 @@ class RssHelper {
 	 * @param array $param feed parameters
 	 * @return GalleryStatus
 	 */
-	public function addComment(&$generator, $item, $param) {
+	public static function addComment(&$generator, $item, $param) {
 		global $gallery;
 
 		// generate url to the images
@@ -494,7 +494,7 @@ class RssHelper {
 	 * @return array GalleryStatus
 	 *               array  creationTimeStamp => GalleryItem
 	 */
-	public function getPhotoFeed($entity, $newOnly, $random) {
+	public static function getPhotoFeed($entity, $newOnly, $random) {
 		// retrieve subitems' ids
 		list($ret, $subIds) = GalleryCoreApi::fetchChildItemIds($entity);
 
@@ -542,7 +542,7 @@ class RssHelper {
 	 *
 	 * copied and modified from GalleryItemHelper_simple
 	 */
-	public function fetchAlbumTree(
+	public static function fetchAlbumTree(
 		$itemId,
 		$limit,
 		$newOnly,
@@ -699,7 +699,7 @@ class RssHelper {
 	 * @return array GalleryStatus
 	 *               array of feedType => translation
 	 */
-	public function getFeedTypeTranslation() {
+	public static function getFeedTypeTranslation() {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rss');
 
 		if ($ret) {

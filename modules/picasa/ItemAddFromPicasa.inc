@@ -104,7 +104,11 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 						@$platform->unlink($base);
 						$error[] = 'form[error][picasaZipPath][invalid]';
 					} else {
-						list($ret, $importStatus) = $this->performImport($picasaXmlPath, $item->getId(), $form);
+						list($ret, $importStatus) = $this->performImport(
+							$picasaXmlPath,
+							$item->getId(),
+							$form
+						);
 
 						if ($ret) {
 							@$platform->recursiveRmdir($tmpDir);
@@ -113,8 +117,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 							return array($ret, null, null);
 						}
 
-						foreach ($importStatus['pictureImportSuccess']
-						as $pictureName => $pictureId) {
+						foreach ($importStatus['pictureImportSuccess'] as $pictureName => $pictureId) {
 							$status['addedFiles'][] = array(
 								'fileName' => $pictureName,
 								'id'       => $pictureId,
@@ -241,7 +244,10 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 
 		// If everything is good so far, we create a new instance to be our new album
 		if (!empty($desiredname) && $platform->isLegalPathComponent($desiredname)) {
-			list($ret, $newAlbumInstance) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
+			list($ret, $newAlbumInstance) = GalleryCoreApi::newFactoryInstance(
+				'GalleryEntity',
+				'GalleryAlbumItem'
+			);
 
 			if ($ret) {
 				return array($ret, null);

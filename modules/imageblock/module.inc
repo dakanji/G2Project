@@ -30,7 +30,11 @@ class ImageBlockModule extends GalleryModule {
 		global $gallery;
 		$this->setId('imageblock');
 		$this->setName($gallery->i18n('Image Block'));
-		$this->setDescription($gallery->i18n('Random, Most Recent or Most Viewed Photo or Album'));
+		$this->setDescription(
+			$gallery->i18n(
+				'Random, Most Recent or Most Viewed Photo or Album'
+			)
+		);
 		$this->setVersion('1.1.9');
 		$this->_templateVersion = 1;
 		$this->setGroup('blocks', $gallery->i18n('Blocks'));
@@ -42,7 +46,7 @@ class ImageBlockModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::activate
 	 */
-	public function activate($postActivationEvent=true) {
+	public function activate($postActivationEvent = true) {
 		/**
 		 * Our cache is probably out of date. Flush it.
 		 * @todo What about the ImageBlockDisabledMap which is out of date as well?
@@ -65,7 +69,7 @@ class ImageBlockModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
@@ -83,8 +87,11 @@ class ImageBlockModule extends GalleryModule {
 			return $ret;
 		}
 
-		foreach (array('show' => 'heading|title|date|views', 'albumFrame' => '', 'itemFrame' => '')
-		as $key => $value) {
+		foreach (array(
+			'show'       => 'heading|title|date|views',
+			'albumFrame' => '',
+			'itemFrame'  => '',
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -138,26 +145,26 @@ class ImageBlockModule extends GalleryModule {
 	 */
 	public function performFactoryRegistrations() {
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-		'GalleryEventListener',
-		'ImageBlockHelper',
-		'ImageBlockHelper',
-		'modules/imageblock/classes/ImageBlockHelper.class',
-		'imageblock',
-		array('Gallery::ViewableTreeChange', 'GalleryEntity::delete', 'GalleryEntity::save')
-	);
+			'GalleryEventListener',
+			'ImageBlockHelper',
+			'ImageBlockHelper',
+			'modules/imageblock/classes/ImageBlockHelper.class',
+			'imageblock',
+			array('Gallery::ViewableTreeChange', 'GalleryEntity::delete', 'GalleryEntity::save')
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
-	   'ItemEditOption',
-		'ImageBlockOption',
-		'ImageBlockOption',
-	   'modules/imageblock/ImageBlockOption.inc',
-		'imageblock',
-		array('ItemEditAlbum')
-	);
+			'ItemEditOption',
+			'ImageBlockOption',
+			'ImageBlockOption',
+			'modules/imageblock/ImageBlockOption.inc',
+			'imageblock',
+			array('ItemEditAlbum')
+		);
 
 		if ($ret) {
 			return $ret;
@@ -170,8 +177,14 @@ class ImageBlockModule extends GalleryModule {
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {
-		return array(null,
-			 array(array('name' => $this->translate('Image Block'),
-				 'view' => 'imageblock.ImageBlockSiteAdmin', )), );
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Image Block'),
+					'view' => 'imageblock.ImageBlockSiteAdmin',
+				),
+			),
+		);
 	}
 }

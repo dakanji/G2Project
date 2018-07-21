@@ -24,12 +24,13 @@
  * This module creates thumbnails with a 1x1 aspect ratio; it relies on some other toolkit
  * being active to perform the actual image manipulation (dimensions, crop, thumbnail)
  *
+ * Also Extends GalleryEventListener
+ *
  * @package SquareThumb
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 18172 $
  */
-class SquareThumbModule extends GalleryModule // and GalleryEventListener
-{
+class SquareThumbModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 
@@ -49,7 +50,7 @@ class SquareThumbModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'squarethumb');
 
 		if ($ret) {
@@ -57,7 +58,7 @@ class SquareThumbModule extends GalleryModule // and GalleryEventListener
 		}
 
 		foreach (array('mode' => 'crop', 'color' => '000000')
-		 as $key => $value) {
+		as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -229,7 +230,7 @@ class SquareThumbModule extends GalleryModule // and GalleryEventListener
 		foreach (array_intersect(
 			array_keys(array_merge($crop, $composite)),
 			array_keys($thumbnail)
-		) as $mimeType) {
+			) as $mimeType) {
 			list($ret, $properties) = GalleryCoreApi::getToolkitProperties($mimeType);
 
 			if ($ret) {
@@ -263,8 +264,7 @@ class SquareThumbModule extends GalleryModule // and GalleryEventListener
 
 		if ($event->getEventName() == 'Gallery::DeactivatePlugin'
 			&& $data['pluginId'] != 'squarethumb'
-			&& $data['pluginType'] == 'module'
-		) {
+			&& $data['pluginType'] == 'module') {
 			list($ret, $isActive) = $this->isActive();
 
 			if ($ret) {

@@ -991,7 +991,8 @@ class GallerySession {
 					// Get a new sessionId + session meta data (later)
 					$this->_sessionId = '';
 				}
-			} else { // There's no session with this sessionId in the database
+			} else {
+				// There's no session with this sessionId in the database
 				$this->_sessionId = '';
 			}
 
@@ -1163,8 +1164,8 @@ class GallerySession {
 
 		// Only delete in small chunks, else we may lock the whole Gallery for too long
 		$where  = '
-	WHERE [GallerySessionMap::creationTimestamp] < ?
-	   OR [GallerySessionMap::modificationTimestamp] < ?';
+		WHERE [GallerySessionMap::creationTimestamp] < ?
+		OR [GallerySessionMap::modificationTimestamp] < ?';
 		$data[] = (int)$lifetimeCutoff;
 		$data[] = (int)$inactiveCutoff;
 
@@ -1177,7 +1178,7 @@ class GallerySession {
 			}
 			// Delete all sessions of guest users that are older than a week
 			$where .= ' OR
-		([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)';
+			([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)';
 			$data[] = (int)$anonymousUserId;
 			$data[] = (int)$lastWeek;
 		}
@@ -1189,9 +1190,9 @@ class GallerySession {
 			 * using DELETE ... LIMIT 500
 			 */
 			$query               = '
-	    DELETE FROM [GallerySessionMap]
-	    ' . $where . '
-	    LIMIT ' . (int)$this->_expirationLimit;
+			DELETE FROM [GallerySessionMap]
+			' . $where . '
+			LIMIT ' . (int)$this->_expirationLimit;
 			list($ret, $results) = $storage->execute($query, $data);
 
 			if ($ret) {
@@ -1203,8 +1204,8 @@ class GallerySession {
 			 * ADOdb can't implement the LIMIT clause in subqueries DB independently!
 			 */
 			$query                    = '
-	    SELECT [GallerySessionMap::id]
-	    FROM [GallerySessionMap]' . $where;
+			SELECT [GallerySessionMap::id]
+			FROM [GallerySessionMap]' . $where;
 			$option['limit']['count'] = $this->_expirationLimit;
 			list($ret, $results)      = $gallery->search($query, $data, $option);
 
@@ -1221,8 +1222,8 @@ class GallerySession {
 				// Delete the selected sessions
 				$query               = sprintf(
 					'
-		DELETE FROM [GallerySessionMap]
-		WHERE [GallerySessionMap::id] IN (%s)',
+					DELETE FROM [GallerySessionMap]
+					WHERE [GallerySessionMap::id] IN (%s)',
 					GalleryUtilities::makeMarkers(count($ids))
 				);
 				list($ret, $results) = $storage->execute($query, $ids);
@@ -1366,7 +1367,7 @@ class GallerySession {
 	 * @return array
 	 * @static
 	 */
-	public function getRemoteIdentifier() {
+	public static function getRemoteIdentifier() {
 		$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 
 		return array(
@@ -1415,7 +1416,7 @@ class GallerySession {
 	 *
 	 * @return int a score
 	 */
-	public function compareIdentifiers($a, $b) {
+	public static function compareIdentifiers($a, $b) {
 		$score = 0;
 
 		if (is_array($a) && is_array($b)) {
@@ -1594,11 +1595,12 @@ class GallerySession {
 
 /**
  * Get the active user from the session's user id.
+ *
+ * Extends GalleryAuthPlugin
  * @package GalleryCore
  * @subpackage Classes
  */
-class SessionAuthPlugin // extends GalleryAuthPlugin
-{
+class SessionAuthPlugin {
 	/**
 	 * @see GalleryAuthPlugin::getUser
 	 */

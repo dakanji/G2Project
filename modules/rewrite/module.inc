@@ -46,7 +46,7 @@ class RewriteModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		GalleryCoreApi::requireOnce('modules/rewrite/RewriteModuleExtras.inc');
 		$ret = RewriteModuleExtras::upgrade($this, $currentVersion);
 

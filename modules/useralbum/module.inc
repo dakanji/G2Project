@@ -21,12 +21,13 @@
 /**
  * Create a private top level album for new users.
  *
+ * Also Extends GalleryEventListener
+ *
  * @package UserAlbum
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 18172 $
  */
-class UserAlbumModule extends GalleryModule // and GalleryEventListener
-{
+class UserAlbumModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
 		$this->setId('useralbum');
@@ -63,7 +64,7 @@ class UserAlbumModule extends GalleryModule // and GalleryEventListener
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'useralbum'
@@ -83,12 +84,12 @@ class UserAlbumModule extends GalleryModule // and GalleryEventListener
 		}
 
 		foreach (array(
-			'view' => 'everybody',
-			'fullSize' => '1',
+			'view'           => 'everybody',
+			'fullSize'       => '1',
 			'targetLocation' => $rootId,
-			'loginRedirect' => 0,
-			'homeLink' => 0,
-			'create' => 'access',
+			'loginRedirect'  => 0,
+			'homeLink'       => 0,
+			'create'         => 'access',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
@@ -110,11 +111,11 @@ class UserAlbumModule extends GalleryModule // and GalleryEventListener
 			null,
 			array(
 				array(
-				'name' => $this->translate('User Albums'),
-				'view' => 'useralbum.UserAlbumSiteAdmin',
+					'name' => $this->translate('User Albums'),
+					'view' => 'useralbum.UserAlbumSiteAdmin',
+				),
 			),
-		),
-	);
+		);
 	}
 
 	/**
@@ -142,13 +143,12 @@ class UserAlbumModule extends GalleryModule // and GalleryEventListener
 			}
 
 			if (!$isAnonymous) {
-				list($ret, $albumId) =
-			GalleryCoreApi::getPluginParameter(
-				'module',
-				'useralbum',
-				'albumId',
-				$gallery->getActiveUserId()
-			);
+				list($ret, $albumId) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'useralbum',
+					'albumId',
+					$gallery->getActiveUserId()
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -156,13 +156,11 @@ class UserAlbumModule extends GalleryModule // and GalleryEventListener
 
 				if (!empty($albumId) || $params['create'] == 'access') {
 					$links['YourAlbum'] = array(
-						'text' => $this->translate('Your Album'),
-						'params' => empty($albumId)
-						? array(
+						'text'   => $this->translate('Your Album'),
+						'params' => empty($albumId) ? array(
 							'controller' => 'useralbum.UserAlbum',
-						)
-						: array(
-							'view' => 'core.ShowItem',
+						) : array(
+							'view'   => 'core.ShowItem',
 							'itemId' => $albumId,
 						),
 					);
@@ -273,11 +271,13 @@ class UserAlbumModule extends GalleryModule // and GalleryEventListener
 
 				if (!empty($loginRedirect)) {
 					// Return a redirect to the user album..
-					$result = array('controller' => 'useralbum.UserAlbum');
+					$result = array(
+						'controller' => 'useralbum.UserAlbum',
+					);
 				}
 
 				break;
-			}
+		}
 
 		return array(null, $result);
 	}

@@ -28,6 +28,11 @@ GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenInterface_1_0.class');
  * @version $Revision: 17580 $
  */
 class HiddenHelper extends HiddenInterface_1_0 {
+	public static $_notEmpty = true;
+	public static $progressBar;
+	public static $coreParams;
+	public static $passwordInterface;
+
 	/**
 	 * Hides an item.
 	 *
@@ -45,7 +50,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * @param int $passwordAncestor used in recursive calls
 	 * @return GalleryStatus a status code
 	 */
-	public function hideItem(
+	public static function hideItem(
 		&$item,
 		$useProgressBar = false,
 		$hideId = null,
@@ -65,8 +70,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			$gallery->guaranteeTimeLimit(60);
 		}
 
-		static $coreParams;
-
 		if (!isset($coreParams)) {
 			list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
@@ -74,7 +77,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				return $ret;
 			}
 		}
-		static $passwordInterface;
 
 		if (!isset($passwordInterface)) {
 			list($ret, $passwordInterface) = GalleryCoreApi::newFactoryInstance('PasswordInterface_1_0');
@@ -89,8 +91,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		}
 
 		// Init/update progress bar if needed
-		static $progressBar;
-
 		if (!isset($progressBar)) {
 			$progressBar = false;
 		}
@@ -149,7 +149,10 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		// Remove session based permission for a hidden ancestor
 		if (!isset($hiddenAncestor)) {
-			list($ret, $hiddenAncestor, $passwordAncestor) = HiddenHelper::_checkAncestors($item, $passwordInterface);
+			list($ret, $hiddenAncestor, $passwordAncestor) = HiddenHelper::_checkAncestors(
+				$item,
+				$passwordInterface
+			);
 
 			if ($ret) {
 				return $ret;
@@ -187,9 +190,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-				$ret = GalleryCoreApi::addMapEntry('ItemHiddenMap', array(
-					'itemId' => $itemId,
-				));
+				$ret = GalleryCoreApi::addMapEntry(
+					'ItemHiddenMap',
+					array(
+						'itemId' => $itemId,
+					)
+				);
 
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockId);
@@ -289,7 +295,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * @param int $passwordAncestor used in recursive calls
 	 * @return GalleryStatus a status code
 	 */
-	public function unHideItem(
+	public static function unHideItem(
 		&$item,
 		$useProgressBar = false,
 		$hideId = null,
@@ -308,10 +314,10 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			$gallery->guaranteeTimeLimit(60);
 		}
 
-		static $passwordInterface;
-
 		if (!isset($passwordInterface)) {
-			list($ret, $passwordInterface) = GalleryCoreApi::newFactoryInstance('PasswordInterface_1_0');
+			list($ret, $passwordInterface) = GalleryCoreApi::newFactoryInstance(
+				'PasswordInterface_1_0'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -323,8 +329,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		}
 
 		// Init/update progress bar if needed
-		static $progressBar;
-
 		if (!isset($progressBar)) {
 			$progressBar = false;
 		}
@@ -382,9 +386,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		// Remove onLoadHandler and remove from ItemHiddenMap
 		if ($itemId == $hideId) {
-			$ret = GalleryCoreApi::removeMapEntry('ItemHiddenMap', array(
-				'itemId' => $itemId,
-			));
+			$ret = GalleryCoreApi::removeMapEntry(
+				'ItemHiddenMap',
+				array(
+					'itemId' => $itemId,
+				)
+			);
 
 			if ($ret) {
 				return $ret;
@@ -417,7 +424,10 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		// Check for a hidden ancestor
 		if (!isset($hiddenAncestor)) {
-			list($ret, $hiddenAncestor, $passwordAncestor) = HiddenHelper::_checkAncestors($item, $passwordInterface);
+			list($ret, $hiddenAncestor, $passwordAncestor) = HiddenHelper::_checkAncestors(
+				$item,
+				$passwordInterface
+			);
 
 			if ($ret) {
 				return $ret;
@@ -439,10 +449,11 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			}
 		} else {
 			// Restore public view permission
-			static $coreParams;
-
 			if (!isset($coreParams)) {
-				list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+				list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters(
+					'module',
+					'core'
+				);
 
 				if ($ret) {
 					return $ret;
@@ -518,7 +529,10 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			}
 
 			if (!empty($childIds)) {
-				list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+				list($ret, $childItems) = GalleryCoreApi::loadEntitiesById(
+					$childIds,
+					'GalleryItem'
+				);
 
 				if ($ret) {
 					return $ret;
@@ -549,7 +563,11 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			}
 
 			if ($progressBar) {
-				$templateAdapter->updateProgressBar($progressBar['title'], $progressBar['text'], 1);
+				$templateAdapter->updateProgressBar(
+					$progressBar['title'],
+					$progressBar['text'],
+					1
+				);
 				$progressBar = false;
 			}
 		}
@@ -567,7 +585,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 *               mixed id of nearest password protected ancestor or false
 	 * @access private
 	 */
-	public function _checkAncestors($item, $passwordInterface) {
+	public static function _checkAncestors($item, $passwordInterface) {
 		list($ret, $ancestors) = GalleryCoreApi::fetchParents($item);
 
 		if ($ret) {
@@ -602,7 +620,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * @param GalleryItem $item item that has moved
 	 * @return GalleryStatus a status code
 	 */
-	public function handleMoveItem($item) {
+	public static function handleMoveItem($item) {
 		global $gallery;
 		$oldParentId         = $item->getOriginalValue('parentId');
 		$newParentId         = $item->getParentId();
@@ -653,11 +671,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	/**
 	 * @see HiddenInterface_1_0::isHidden
 	 */
-	public function isHidden($item) {
+	public static function isHidden($item) {
 		return array(null, $item->hasOnLoadHandler('Hidden'));
-	}
-
-	public function __construct() {
-		$this->_notEmpty = true;
 	}
 }

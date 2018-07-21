@@ -2018,6 +2018,7 @@ class Smarty {
 
 		return $function;
 	}
+
 	// #@-
 }
 

@@ -88,7 +88,7 @@ class GalleryModule extends GalleryPlugin {
 	 *
 	 * @return array major number, minor number
 	 */
-	public function getApiVersion() {
+	public static function getApiVersion() {
 		return array(3, 9);
 	}
 
@@ -590,11 +590,19 @@ class GalleryModule extends GalleryPlugin {
 	 * @param array $permissions id => array(permission => 1, ...) of item permissions
 	 * @param int $userId id of user viewing links
 	 * @return array GalleryStatus a status code
-	 *               array(itemId => array(array('text' => 'localized text',
-	 *                                           'params' => array(key => value, key => value))
-	 *                                     ...))
+	 *               array(
+	 *                   itemId => array(
+	 *                       array(
+	 *                           'text' => 'localized text',
+	 *                           'params' => array(
+	 *                               key => value,
+	 *                               key => value,
+	 *                           )
+	 *                       )
+	 *                   )
+	 *               )
 	 */
-	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		return array(null, array());
 	}
 

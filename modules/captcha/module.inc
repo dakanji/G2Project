@@ -76,7 +76,7 @@ class CaptchaModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		switch ($currentVersion) {
 			case '':
 				// Set some reasonable defaults

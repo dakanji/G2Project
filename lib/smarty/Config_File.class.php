@@ -402,5 +402,6 @@ class Config_File {
 	public function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING) {
 		trigger_error("Config_File error: $error_msg", $error_type);
 	}
+
 	// #@-
 }

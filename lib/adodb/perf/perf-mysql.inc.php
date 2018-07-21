@@ -382,5 +382,6 @@ break;
 
 		return $conn->Execute($sql) !== false;
 	}
+
 	// end hack
 }

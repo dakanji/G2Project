@@ -136,7 +136,12 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	 * @param int $parentId (optional) Id of the parent entity or null. Defaults to null.
 	 * @return GalleryStatus a status code
 	 */
-	public function create($inputFileName, $mimeType, $targetName = null, $parentId = null) {
+	public function createThumbnailImage(
+		$inputFileName,
+		$mimeType,
+		$targetName = null,
+		$parentId = null
+	) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 		global $gallery;
 		$platform =& $gallery->getPlatform();
@@ -147,12 +152,21 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		}
 
 		if (!$platform->file_exists($inputFileName)) {
-			return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, $inputFileName);
+			return GalleryCoreApi::error(
+				ERROR_BAD_PATH,
+				__FILE__,
+				__LINE__,
+				$inputFileName
+			);
 		}
 
 		$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
 
-		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
+		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'thumbnail',
+			'id.container'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -247,7 +261,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	/**
 	 * @see GalleryEntity::save
 	 */
-	public function save($postEvent = true) {
+	public function save($postEvent = true, $setAclId = null) {
 		return parent::save($postEvent, 0);
 	}
 

@@ -31,7 +31,7 @@ class GalleryCharsetHelper_simple {
 	 * Detect the standard charset for this system
 	 * @return string an encoding (eg. "UTF-8" or "Windows-1252")
 	 */
-	public function detectSystemCharset() {
+	public static function detectSystemCharset() {
 		static $cacheKey = 'GalleryCharsetHelper_simple::detectSystemCharset';
 
 		if (GalleryDataCache::containsKey($cacheKey)) {
@@ -130,7 +130,7 @@ class GalleryCharsetHelper_simple {
 	/**
 	 * @see GalleryCoreApi::convertToUtf8
 	 */
-	public function convertToUtf8($string, $sourceEncoding = null) {
+	public static function convertToUtf8($string, $sourceEncoding = null) {
 		global $gallery;
 		$phpVm = $gallery->getPhpVm();
 
@@ -180,7 +180,7 @@ class GalleryCharsetHelper_simple {
 	 *          INCOMPLETE. That is, we only convert the characters that are in our
 	 *          charset tables from GalleryCharsetHelper_medium.
 	 */
-	public function convertFromUtf8($string, $targetEncoding = null) {
+	public static function convertFromUtf8($string, $targetEncoding = null) {
 		global $gallery;
 		$phpVm = $gallery->getPhpVm();
 
@@ -237,7 +237,7 @@ class GalleryCharsetHelper_simple {
 	/**
 	 * @see GalleryCoreApi::utf8Substring
 	 */
-	public function utf8Substring($string, $start, $length) {
+	public static function utf8Substring($string, $start, $length) {
 		static $hasMbSubstr;
 
 		if (!isset($hasMbSubstr)) {
@@ -257,7 +257,7 @@ class GalleryCharsetHelper_simple {
 	/**
 	 * @see GalleryCoreApi::utf8Strcut
 	 */
-	public function utf8Strcut($string, $start, $length) {
+	public static function utf8Strcut($string, $start, $length) {
 		static $hasMbStrCut;
 
 		if (!isset($hasMbStrCut)) {
