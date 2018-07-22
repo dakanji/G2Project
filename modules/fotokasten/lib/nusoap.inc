@@ -1922,6 +1922,8 @@ class soap_server extends nusoap_base {
 	 * @access   private
 	 */
 	public function parse_request($data = '') {
+		global $gallery;
+
 		$this->debug('entering parseRequest() on ' . date('H:i Y-m-d'));
 		$dump = '';
 		// get headers
@@ -2000,7 +2002,7 @@ class soap_server extends nusoap_base {
 				$this->debug("calling '$this->methodname' with params");
 
 				if (! function_exists('call_user_func_array')) {
-					$this->debug('calling method using eval()');
+					$this->debug('calling method using $gallery->runEval()');
 					$funcCall = $this->methodname . '(';
 
 					foreach ($request_data as $param) {
@@ -2008,7 +2010,7 @@ class soap_server extends nusoap_base {
 					}
 					$funcCall = substr($funcCall, 0, -1) . ')';
 					$this->debug('function call:<br>' . $funcCall);
-					@eval("\$method_response = $funcCall;");
+					@$gallery->runEval("\$method_response = $funcCall;");
 				} else {
 					$this->debug('calling method using call_user_func_array()');
 					$method_response = call_user_func_array("$this->methodname", $request_data);
@@ -4038,6 +4040,8 @@ class nusoapclient extends nusoap_base {
 	 * @access   public
 	 */
 	public function getProxy() {
+		global $gallery;
+
 		foreach ($this->operations as $operation => $opData) {
 			if ($operation != '') {
 				// create param string
@@ -4060,7 +4064,7 @@ class nusoapclient extends nusoap_base {
 			}';
 		//print "proxy class:<pre>$evalStr</pre>";
 		// eval the class
-		eval($evalStr);
+		$gallery->runEval($evalStr);
 		// instantiate proxy object
 		$proxy = new soap_proxy('');
 		// transfer current wsdl data to the proxy thereby avoiding parsing the wsdl twice

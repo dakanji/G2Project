@@ -23,6 +23,8 @@
  * @return string|null
  */
 function smarty_function_math($params, &$smarty) {
+	global $gallery;
+	
 	static $_allowed_funcs = array(
 		'int'   => true,
 		'abs'   => true,
@@ -107,7 +109,7 @@ function smarty_function_math($params, &$smarty) {
 		}
 	}
 	$smarty_math_result = null;
-	eval('$smarty_math_result = ' . $equation . ';');
+	$gallery->runEval('$smarty_math_result = ' . $equation . ';');
 
 	if (empty($params[ 'format' ])) {
 		if (empty($params[ 'assign' ])) {

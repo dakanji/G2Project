@@ -2000,7 +2000,8 @@ class Smarty {
 	 * wrapper for eval() retaining $this
 	 */
 	public function _eval($code, $params = null) {
-		return eval($code);
+		global $gallery;
+		return $gallery->runEval($code);
 	}
 
 	/**

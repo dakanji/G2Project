@@ -118,7 +118,7 @@ function find($dir) {
  * Grab all translatable strings in a file into $strings array
  */
 function extractStrings($filename) {
-	global $strings;
+	global $strings, $gallery;
 	$strings["\n/* $filename */"] = array();
 	$startSize                    = count($strings);
 	$localStrings                 = array();
@@ -186,7 +186,7 @@ function extractStrings($filename) {
 						$ignore = $parenCount;
 					}
 				}
-				$param = eval('return ' . $buf . ';');
+				$param = $gallery->runEval('return ' . $buf . ';');
 
 				if (is_string($param)) {
 					// Escape double quotes and newlines
@@ -285,7 +285,7 @@ function extractStrings($filename) {
 			}
 
 			// Hint for translators
-			$translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches) ? eval('return ' . $matches[1] . ';') : '';
+			$translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches) ? $gallery->runEval('return ' . $matches[1] . ';') : '';
 
 			// c-format hint for xgettext
 			$cFormatHint = preg_match('/\sc[Ff]ormat=(true|false)/s', $string, $matches) ? '/* xgettext:' . ($matches[1] == 'false' ? 'no-' : '') . "c-format */\n" : '';

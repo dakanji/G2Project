@@ -1314,11 +1314,13 @@ class GalleryTemplateAdapter {
 				 * Unlikely this will ever be used.. but do update it if exact form of
 				 * translate() calls (with text+arg1+arg2) in this function ever change.
 				 */
-				eval('class GalleryTemplateAdapterFallbackCoreModule {
-		    function translate($x) {
-			return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
-		    }
-		}');
+				$gallery->runEval(
+					'class GalleryTemplateAdapterFallbackCoreModule {
+						function translate($x) {
+							return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
+						}
+					}'
+				);
 				$coreModule = new GalleryTemplateAdapterFallbackCoreModule();
 			}
 		}

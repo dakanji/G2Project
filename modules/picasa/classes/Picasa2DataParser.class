@@ -98,6 +98,8 @@ class Picasa2DataParser {
 	 *                array a nested php array containing xml data.
 	 */
 	public static function getXmlArray($rawXml) {
+		global $gallery;
+
 		if (!function_exists('xml_parser_create')) {
 			return array(
 				GalleryCoreApi::error(
@@ -190,20 +192,20 @@ class Picasa2DataParser {
 				} else {
 					$phpStmtMain = $phpStmt . '[$xTag]' . $add . ' = trim($xmlElem[\'value\']);';
 				}
-				eval($phpStmtMain);
+				$gallery->runEval($phpStmtMain);
 			}
 
 			if (array_key_exists('attributes', $xmlElem)) {
 				if (isset($xmlElem['value'])) {
 					$phpStmtMain = $phpStmt . '[$xTag]' . $add .
 					'[\'content\'] = $xmlElem[\'value\'];';
-					eval($phpStmtMain);
+					$gallery->runEval($phpStmtMain);
 				}
 
 				foreach ($xmlElem['attributes'] as $key => $value) {
 					$phpStmtAtt = $phpStmt . '[$xTag]' . $add .
 					'[\'attributes\'][$key] = $value;';
-					eval($phpStmtAtt);
+					$gallery->runEval($phpStmtAtt);
 				}
 			}
 		}

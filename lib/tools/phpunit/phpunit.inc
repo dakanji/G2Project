@@ -335,16 +335,12 @@ class TestCase extends Assert // implements Test
 	}
 
 	public function runTest() {
-		if (phpversion() >= '4') {
-			global $PHPUnit_testRunning;
-			eval('$PHPUnit_testRunning[0] = & $this;');
-			// Saved ref to current TestCase, so that the error handler
-			// can access it.  This code won't even parse in PHP3, so we
-			// hide it in an eval.
+		global $PHPUnit_testRunning, $gallery;
+		$gallery->runEval('$PHPUnit_testRunning[0] = & $this;');
+		// Saved ref to current TestCase, so that the error handler can access it.
 
-			$old_handler = set_error_handler("PHPUnit_error_handler");
-			// errors will now be handled by our error handler
-		}
+		$old_handler = set_error_handler("PHPUnit_error_handler");
+		// errors will now be handled by our error handler
 
 		$name = $this->name();
 

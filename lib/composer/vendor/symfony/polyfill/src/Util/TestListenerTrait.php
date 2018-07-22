@@ -19,6 +19,8 @@ class TestListenerTrait {
 	public static $enabledPolyfills;
 
 	public function startTestSuite($mainSuite) {
+		global $gallery;
+		
 		if (null !== self::$enabledPolyfills) {
 			return;
 		}
@@ -67,7 +69,7 @@ class TestListenerTrait {
 					$defLine = sprintf("throw new \\{$SkippedTestError}('Internal function not found: %s')", $f['name']);
 				}
 
-				eval(<<<EOPHP
+				$gallery->runEval(<<<EOPHP
 namespace {$testNamespace};
 
 use Symfony\Polyfill\Util\TestListenerTrait;
