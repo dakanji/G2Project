@@ -29,7 +29,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 	/**
 	 * @see ItemAddPlugin::handleRequest
 	 */
-	public function handleRequest($form, &$item) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 		GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
 		GalleryCoreApi::requireOnce('modules/picasa/classes/PicasaImportHelper.class');

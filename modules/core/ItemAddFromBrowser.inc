@@ -29,7 +29,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	/**
 	 * @see ItemAddPlugin::handleRequest
 	 */
-	public function handleRequest($form, &$item) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 
 		$status             = array();

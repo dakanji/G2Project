@@ -723,7 +723,9 @@ class ItemAddView extends GalleryView {
 		}
 
 		// Get all the add plugins
-		list($ret, $allPluginIds) = GalleryCoreApi::getAllFactoryImplementationIds('ItemAddPlugin');
+		list($ret, $allPluginIds) = GalleryCoreApi::getAllFactoryImplementationIds(
+			'ItemAddPlugin'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -732,7 +734,10 @@ class ItemAddView extends GalleryView {
 		$pluginInstances = array();
 
 		foreach (array_keys($allPluginIds) as $pluginId) {
-			list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById('ItemAddPlugin', $pluginId);
+			list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById(
+				'ItemAddPlugin',
+				$pluginId
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -904,7 +909,7 @@ class ItemAddPlugin {
 	 *                                   array(array('fileName' => '...', 'id' => ##,
 	 *                                               'warnings' => array of strings), ...)
 	 */
-	public function handleRequest($form, &$item, &$addController) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
