@@ -34,12 +34,32 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 class JpegtranToolkit extends GalleryToolkit {
 
     /**
+     * Round to the nearest smaller multiple of MCU
+     * @param float $value
+     * @param float $mcu
+     * @return float rounded rounded value
+     **/
+    function round_mcu($value, $mcu=16){
+	
+	$result = round($value);
+	$modulo = $result % $mcu;
+	if ($modulo != 0) {
+	    /* Move to nearest smaller MCU */
+	    $result = $result - $modulo;
+	    if ($result < 0) {
+		$result = 0;
+	    }
+	}
+	return $result;
+    }
+
+    /**
      * @see GalleryToolkit::performOperation()
      */
     function performOperation($mimeType, $operationName, $sourceFilename,
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
-
+ 
 	if (!in_array($mimeType, array('image/jpeg', 'image/pjpeg'))) {
 	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
 	}
@@ -102,8 +122,8 @@ class JpegtranToolkit extends GalleryToolkit {
 	    }
 
 	    /* Source dimensions are required to convert from percentages to pixels  */
-	    $pixelX = round($parameters[0] / 100 * $width);
-	    $pixelY = round($parameters[1] / 100 * $height);
+	    $pixelX = $this->round_mcu($parameters[0] / 100 * $width);
+	    $pixelY = $this->round_mcu($parameters[1] / 100 * $height);
 	    $width = round($parameters[2] / 100 * $width);
 	    $height = round($parameters[3] / 100 * $height);
 
