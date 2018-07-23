@@ -18,7 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 if (!defined('G2_SUPPORT')) {
-	return;
+	define('G2_SUPPORT_FILE', true);
+
+	include_once dirname(__FILE__) . '/lib/support/defaultloc.inc';
 }
 
 /**

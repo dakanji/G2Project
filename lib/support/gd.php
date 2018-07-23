@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * This script is useful to gather information about a specific PHP
  * environment. The output is an array that can be appended to the
@@ -31,8 +32,11 @@
  * @author Ernesto Baschny <ernst@baschny.de>
  */
 if (!defined('G2_SUPPORT')) {
-	return;
+	define('G2_SUPPORT_FILE', true);
+
+	include_once dirname(__FILE__) . '/lib/support/defaultloc.inc';
 }
+
 
 /*
  * Gets a lot of information about our GD installation and return it as a
@@ -220,23 +224,23 @@ function getGdLibraryInfo() {
 $gdInfo = getGdLibraryInfo();
 
 ?>
-<html>
-  <head>
+<html lang="en">
+<head>
 	<title>Gallery Support | GD Library Info</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css"/>
-  </head>
-  <body>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
+</head>
+<body>
 	<div id="content">
-	  <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; GD Library Info
-	  </div>
+		<div id="title">
+			<a href="../../">Gallery</a> &raquo;
+			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; GD Library Info
+		</div>
 		<?php if ($gdInfo == '') : ?>
-	  <h2>No GD library found.</h2>
+			<h2>No GD library found.</h2>
 		<?php else : ?>
-	  <h2>This information might be useful for the GD module developers:</h2>
-	  <pre style="padding-left: 20px"><?php echo $gdInfo; ?></pre>
+			<h2>This information might be useful for the GD module developers:</h2>
+			<pre style="padding-left: 20px"><?php echo $gdInfo; ?></pre>
 		<?php endif; ?>
 	</div>
-  </body>
+</body>
 </html>

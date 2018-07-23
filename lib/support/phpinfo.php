@@ -1,6 +1,8 @@
 <?php
 if (!defined('G2_SUPPORT')) {
-	return;
+	define('G2_SUPPORT_FILE', true);
+
+	include_once dirname(__FILE__) . '/lib/support/defaultloc.inc';
 }
 ob_start();
 phpinfo();
@@ -16,60 +18,61 @@ $phpinfo = preg_replace_callback(
 );
 
 ?>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 	<title> Gallery Support | PHP Info</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
 	<style type="text/css">
-	  pre {
-	margin: 0px;
-	font-family: monospace;
-	  }
-	  table {
-	border-collapse: collapse;
-	margin-left: 20px;
-	width: 760 px;
-	  }
-	  td, th {
-	border: 1px solid #000000;
-	font-size: .9em;
-	vertical-align: baseline;
-	  }
-	  .p {
-	text-align: left;
-	  }
-	  .e {
-	background-color: #ccccff;
-	font-weight: bold;
-	color: #000000;
-	  }
-	  .h {
-	background-color: #9999cc;
-	font-weight: bold;
-	color: #000000;
-	  }
-	  .v {
-	background-color: #cccccc;
-	color: #000000;
-	  }
-	  i {
-	color: #666666;
-	background-color: #cccccc;
-	  }
-	  hr {
-	background-color: #cccccc;
-	height: 1px;
-	  }
+		pre {
+			margin: 0px;
+			font-family: monospace;
+		}
+		table {
+			border-collapse: collapse;
+			margin-left: 20px;
+			width: 760 px;
+		}
+		td, th {
+			border: 1px solid #000000;
+			font-size: .9em;
+			vertical-align: baseline;
+		}
+		.p {
+			text-align: left;
+		}
+		.e {
+			background-color: #ccccff;
+			font-weight: bold;
+			color: #000000;
+		}
+		.h {
+			background-color: #9999cc;
+			font-weight: bold;
+			color: #000000;
+		}
+		.v {
+			background-color: #cccccc;
+			color: #000000;
+		}
+		i {
+			color: #666666;
+			background-color: #cccccc;
+		}
+		hr {
+			background-color: #cccccc;
+			height: 1px;
+		}
 	</style>
-  </head>
+</head>
 
-  <body>
+<body>
 	<div id="content">
-	  <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; PHP Info
-	  </div>
+		<div id="title">
+			<a href="../../">Gallery</a> &raquo;
+			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; PHP Info
+		</div>
 		<?php echo $phpinfo; ?>
 	</div>
-  </body>
+</body>
 </html>
