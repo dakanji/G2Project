@@ -275,7 +275,7 @@ class WebDavView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		$requestMethod = GalleryUtilities::strToLower(
 			GalleryUtilities::getServerVar('REQUEST_METHOD')
 		);

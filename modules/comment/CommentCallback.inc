@@ -42,7 +42,7 @@ class CommentCallbackView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
 		$result                    = array();

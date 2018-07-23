@@ -38,7 +38,7 @@ class HttpAuthWorksView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		echo implode("\n", HttpAuthHelper::getHttpAuth());
 	}
 }

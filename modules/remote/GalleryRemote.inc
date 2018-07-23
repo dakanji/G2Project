@@ -1427,7 +1427,7 @@ class GalleryRemoteView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		if (!headers_sent()) {
 			header('Content-type: text/plain; charset=UTF-8');
 		}

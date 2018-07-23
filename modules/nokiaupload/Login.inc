@@ -73,7 +73,7 @@ class LoginView extends GalleryView {
 	 * API defines the output very specifically so we can't allow any global templating to be used.
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 		$gallery->debug("##### LoginView #####\n\$status = ");
 		$gallery->debug_r($status);

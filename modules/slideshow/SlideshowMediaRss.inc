@@ -46,7 +46,7 @@ class SlideshowMediaRssView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 		$phpVm = $gallery->getPhpVm();
 

@@ -51,7 +51,7 @@ class ExternalView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 		global $gallery;
 

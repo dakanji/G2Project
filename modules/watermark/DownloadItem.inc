@@ -51,7 +51,7 @@ class DownloadItemView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 
 		if (empty($itemId)) {
