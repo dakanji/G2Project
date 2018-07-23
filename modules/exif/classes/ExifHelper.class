@@ -198,7 +198,7 @@ class ExifHelper {
 	 * @param array $rawExifData reference to an array where to store the results
 	 *        as returned by read_exif_data_raw() from exifer
 	 */
-	public function _fetchRawExifData($path, &$rawExifData) {
+	public static function _fetchRawExifData($path, &$rawExifData) {
 		global $gallery;
 		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
@@ -420,7 +420,7 @@ class ExifHelper {
 	 * Parse date string into unix timestamp.
 	 * @access private
 	 */
-	public function _parseDate($value) {
+	public static function _parseDate($value) {
 		// Ignore "blank" value
 		if ($value == '0000:00:00 00:00:00') {
 			return null;
