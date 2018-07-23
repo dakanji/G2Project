@@ -200,7 +200,7 @@ class CaptchaAdminOption {
 	 *               array of string optionId => CaptchaAdminOption instance
 	 * @static
 	 */
-	public function getAllOptions() {
+	public static function getAllOptions() {
 		$testOptions = CaptchaAdminOption::testOptions();
 
 		if (isset($testOptions)) {
@@ -233,7 +233,7 @@ class CaptchaAdminOption {
 	 * @return null or array of string optionId => CaptchaAdminOption test instance
 	 * @static
 	 */
-	public function testOptions($options = null) {
+	public static function testOptions($options = null) {
 		static $testOptions = null;
 
 		if (isset($options)) {
@@ -251,7 +251,7 @@ class CaptchaAdminOption {
 	 *               array(pluginType, pluginId, parameterName) to configure
 	 *               array of string choices (any of HIGH, MEDIUM, LOW, OFF)
 	 */
-	public function getOptionData() {
+	public static function getOptionData() {
 		return array(
 			GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
 			null,
