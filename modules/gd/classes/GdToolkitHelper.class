@@ -49,7 +49,7 @@ class GdToolkitHelper {
 			return array($ret, null);
 		}
 
-		if (! $isSupported) {
+		if (!$isSupported) {
 			return array(
 				null,
 				array(
@@ -80,7 +80,9 @@ class GdToolkitHelper {
 
 			if (!empty($convertToJpegMimeTypes)) {
 				$operations['convert-to-image/jpeg']['params']         = array();
-				$operations['convert-to-image/jpeg']['description']    = $gallery->i18n('Convert to a JPEG');
+				$operations['convert-to-image/jpeg']['description']    = $gallery->i18n(
+					'Convert to a JPEG'
+				);
 				$operations['convert-to-image/jpeg']['mimeTypes']      = $mimeTypes;
 				$operations['convert-to-image/jpeg']['outputMimeType'] = 'image/jpeg';
 			}
@@ -97,9 +99,13 @@ class GdToolkitHelper {
 			);
 			$operations['scale']['params'][]    = array(
 				'type'        => 'int',
-				'description' => $gallery->i18n('(optional) target height, defaults to same as width'),
+				'description' => $gallery->i18n(
+					'(optional) target height, defaults to same as width'
+				),
 			);
-			$operations['scale']['description'] = $gallery->i18n('Scale the image to the target size, maintain aspect ratio');
+			$operations['scale']['description'] = $gallery->i18n(
+				'Scale the image to the target size, maintain aspect ratio'
+			);
 			$operations['scale']['mimeTypes']   = $mimeTypes;
 		}
 
@@ -126,7 +132,9 @@ class GdToolkitHelper {
 					'cFormat' => false,
 				)),
 			);
-			$operations['resize']['description'] = $gallery->i18n('Resize the image to the target dimensions');
+			$operations['resize']['description'] = $gallery->i18n(
+				'Resize the image to the target dimensions'
+			);
 			$operations['resize']['mimeTypes']   = $mimeTypes;
 		}
 
@@ -192,7 +200,9 @@ class GdToolkitHelper {
 				'type'        => 'int',
 				'description' => $gallery->i18n('alignment y %'),
 			);
-			$operations['composite']['description'] = $gallery->i18n('Overlay source image with a second one');
+			$operations['composite']['description'] = $gallery->i18n(
+				'Overlay source image with a second one'
+			);
 			$operations['composite']['mimeTypes']   = $mimeTypes;
 		}
 
@@ -207,7 +217,9 @@ class GdToolkitHelper {
 						'description' => $gallery->i18n('target size in kb'),
 					),
 				),
-				'description' => $gallery->i18n('Reduce image quality to reach target file size'),
+				'description' => $gallery->i18n(
+					'Reduce image quality to reach target file size'
+				),
 				'mimeTypes'   => $qualityMimeTypes,
 			);
 		}
@@ -216,8 +228,11 @@ class GdToolkitHelper {
 
 		// Dimensions
 		$properties['dimensions']['type']        = 'int,int';
-		$properties['dimensions']['description'] = $gallery->i18n('Get the width and height of the image');
-		$mimeTypes[]                             = 'application/x-shockwave-flash'; // Supported by php getimagesize
+		$properties['dimensions']['description'] = $gallery->i18n(
+			'Get the width and height of the image'
+		);
+		// Supported by php getimagesize
+		$mimeTypes[]                             = 'application/x-shockwave-flash';
 		$properties['dimensions']['mimeTypes']   = $mimeTypes;
 
 		return array(
@@ -349,7 +364,7 @@ class GdToolkitHelper {
 			}
 		}
 
-		if (preg_match('/^>?2\.0/', $gdVersion)) {
+		if (preg_match('/^>?2\.[0-9]/', $gdVersion)) {
 			return array(null, true);
 		}
 		// 1.6, 1.8, ... is too old
