@@ -35,7 +35,7 @@ class GdModule extends GalleryModule {
 	$this->setId('gd');
 	$this->setName($gallery->i18n('Gd'));
 	$this->setDescription($gallery->i18n('Gd Graphics Toolkit'));
-	$this->setVersion('1.1.6');
+	$this->setVersion('1.1.7');
 	$this->_templateVersion = 1;
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
