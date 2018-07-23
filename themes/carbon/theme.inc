@@ -382,7 +382,7 @@ class CarbonTheme extends GalleryTheme {
 	/**
 	 * @see GalleryPlugin::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		if (isset($currentVersion) && version_compare($currentVersion, '1.1.2', '<')) {
 			// Rename albumBlocks2 and photoBlocks2
 			foreach (array(
