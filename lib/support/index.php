@@ -124,6 +124,12 @@ function generateUrl($uri, $print = true) {
 	account when the "forgot password" feature cannot be used due to invalid/missing
 	email address or other email problems.
 	  </p>
+	  <h2>
+        <a href="<?php generateUrl('index.php?missingObjectFix') ?>">Fix Missing Object Errors</a>
+      </h2>
+      <p class="description">
+        Fix Missing Object Error Messages.
+      </p>
 	</div>
   </body>
 </html>

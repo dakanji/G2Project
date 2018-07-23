@@ -382,7 +382,12 @@ class GalleryItemHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchAlbumTree
 	 */
-	public static function fetchAlbumTree($itemId = null, $depth = null, $userId = null) {
+	public static function fetchAlbumTree(
+		$itemId = null,
+		$depth = null,
+		$userId = null,
+		$IgnorePerms = null
+	) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
