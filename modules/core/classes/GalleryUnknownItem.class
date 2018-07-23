@@ -50,7 +50,13 @@ class GalleryUnknownItem extends GalleryDataItem {
 	 *        of copy (default is false).
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId, $inputFileName, $mimeType, $targetName = null, $symlink = false) {
+	public function createDataItem(
+		$parentId,
+		$inputFileName,
+		$mimeType,
+		$targetName = null,
+		$symlink = false
+	) {
 		// Create our data item
 		$ret = parent::create($parentId, $inputFileName, $mimeType, $targetName, $symlink);
 

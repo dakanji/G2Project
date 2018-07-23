@@ -108,7 +108,7 @@ class GalleryMovieItem extends GalleryDataItem {
 	 *        of copy (default is false).
 	 * @return GalleryStatus a status code
 	 */
-	public function create(
+	public function createDataItem(
 		$parentId,
 		$videoFileName,
 		$mimeType,
