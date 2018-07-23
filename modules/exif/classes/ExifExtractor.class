@@ -52,7 +52,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 			if ($ret) {
 				return array($ret, null);
 			}
-			// Only look at JPEG/raw DataItems..
+			// Only look at JPEG/RAW DataItems..
 			if (!GalleryUtilities::isA($item, 'GalleryDataItem')
 				|| !preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())
 			) {
@@ -94,19 +94,6 @@ class ExifExtractor extends ExifInterface_1_0 {
 						break;
 					}
 				}
-
-				//fdbg ('clear');
-				// Получение загловка из ADOBE XMP
-				$command = 'exiftool -g -json -struct -xmp:all "' . $path . '"';
-				exec($command, $output, $return_var);
-				$metadata = implode('', $output);
-				$metadata = json_decode($metadata);
-				$title    = $metadata[0]->{'XMP'}->{'Title'};
-				//fdbg ($title);
-
-				//fdbg ('clear');
-				//fdbg ($data[$itemId]['IPTC/ObjectName']['value']);
-				$data[$itemId]['IPTC/ObjectName']['value'] = $title;
 			}
 		}
 
