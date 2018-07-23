@@ -109,7 +109,7 @@ class LinkItemSiteAdminView extends GalleryView {
 			'LinkItemSiteAdmin',
 			array(
 				'snapshotParams' => LinkItemToolkit::getSnapshotParams(),
-				'paramsPath'     => dirname(__FILE__)
+				'paramsPath'     => __DIR__
 						. $platform->getDirectorySeparator() . 'params.txt',
 			)
 		);

@@ -23,7 +23,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  * @version $Revision: 20968 $
  */
-require_once dirname(__FILE__) . '/modules/core/classes/GalleryUtilities.class';
+require_once __DIR__ . '/modules/core/classes/GalleryUtilities.class';
 
 function GalleryInitFirstPass($params = array()) {
 	global $gallery;
@@ -41,7 +41,7 @@ function GalleryInitFirstPass($params = array()) {
 	assert_options(ASSERT_BAIL, 1);
 
 	// Load all the core Gallery classes
-	$galleryBase = dirname(__FILE__) . '/';
+	$galleryBase = __DIR__ . '/';
 
 	/*
 	 * Conditional class loading confuses APC resulting in

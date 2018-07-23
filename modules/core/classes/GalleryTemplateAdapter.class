@@ -1047,7 +1047,7 @@ class GalleryTemplateAdapter {
 			 * Use this combo of dirname and '..' in g2Dir to avoid creating paths in the unit
 			 * test that won't be Windows compatible.
 			 */
-			$g2Dir = dirname(dirname(__FILE__)) . '/../../';
+			$g2Dir = dirname(__DIR__) . '/../../';
 			$base  = 'themes/' . $this->_theme->getId() . '/';
 
 			if (($dirname = dirname($params['url'])) == '.') {

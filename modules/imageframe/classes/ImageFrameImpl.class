@@ -49,7 +49,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 		$frames = array(
 			'solid' => $module->translate('Solid'),
 		);
-		$dir    = dirname(__FILE__) . '/../frames';
+		$dir    = __DIR__ . '/../frames';
 
 		if ($platform->is_dir($dir) && $platform->is_readable($dir)
 			&& $fd = $platform->opendir($dir)
@@ -125,7 +125,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 			if (isset($simpleFrames[$frameId])) {
 				$data['data'][$frameId] = $simpleFrames[$frameId];
 			} else {
-				$dir      = dirname(__FILE__) . "/../frames/$frameId";
+				$dir      = __DIR__ . "/../frames/$frameId";
 				$frameinc = "$dir/frame.inc";
 
 				if ($platform->is_dir($dir) && $platform->file_exists($frameinc)) {

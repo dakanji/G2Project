@@ -126,7 +126,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 		$title            = '_test_exif_' . mt_rand();
-		$path             = dirname(__FILE__) . '/../data/CanonS30.small.jpg';
+		$path             = __DIR__ . '/../data/CanonS30.small.jpg';
 		list($ret, $item) = GalleryCoreApi::addItemToAlbum(
 			$path,
 			$title,

@@ -23,10 +23,10 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 	exit(1);
 }
 
-require_once dirname(__FILE__) . '/XmlParser.inc';
-require_once dirname(__FILE__) . '/../../smarty/Smarty.class.php';
+require_once __DIR__ . '/XmlParser.inc';
+require_once __DIR__ . '/../../smarty/Smarty.class.php';
 
-$tmpdir = dirname(__FILE__) . '/tmp_maps_' . rand(1, 30000);
+$tmpdir = __DIR__ . '/tmp_maps_' . rand(1, 30000);
 if (file_exists($tmpdir)) {
 	print "Tmp dir already exists: $tmpdir\n";
 	exit(1);
@@ -42,7 +42,7 @@ $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
 $smarty->use_sub_dirs    = false;
-$smarty->template_dir    = dirname(__FILE__);
+$smarty->template_dir    = __DIR__;
 
 $xmlFile = 'Maps.xml';
 

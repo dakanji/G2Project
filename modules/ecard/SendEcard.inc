@@ -198,7 +198,7 @@ class SendEcardController extends GalleryController {
 			$platform =& $gallery->getPlatform();
 
 			$messagePlain = $platform->file_get_contents(
-				dirname(__FILE__) . '/templates/Message.txt'
+				__DIR__ . '/templates/Message.txt'
 			);
 			$messagePlain = EcardHelper::replaceKeywords($messagePlain, $dataPlain);
 			$mime->setTXTBody($messagePlain);
@@ -208,7 +208,7 @@ class SendEcardController extends GalleryController {
 				$mime->addAttachment($path, $resize->getMimeType(), $filename);
 			} else {
 				$messageHtml = $platform->file_get_contents(
-					dirname(__FILE__) . '/templates/Message.html'
+					__DIR__ . '/templates/Message.html'
 				);
 				$messageHtml = EcardHelper::replaceKeywords($messageHtml, $data);
 				$mime->setHTMLBody($messageHtml);

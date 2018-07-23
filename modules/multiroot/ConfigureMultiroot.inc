@@ -110,7 +110,7 @@ class ConfigureMultirootView extends GalleryView {
 
 		if (isset($form['generate']['go'])) {
 			$platform                =& $gallery->getPlatform();
-			$multiroot['basePath']   = dirname(dirname(dirname(__FILE__))) . $platform->getDirectorySeparator();
+			$multiroot['basePath']   = dirname(dirname(__DIR__)) . $platform->getDirectorySeparator();
 			$multiroot['baseUriDir'] = substr($multiroot['baseUri'], 0, strrpos($multiroot['baseUri'], '/') + 1);
 
 			if (strpos($form['viewUri'], '/') === false) {

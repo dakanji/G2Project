@@ -351,7 +351,7 @@ class ThumbnailModuleExtras {
 							if (!$platform->file_exists($path)) {
 								// Ignore failure
 								$platform->copy(
-									dirname(dirname(__FILE__)) . '/core/data/broken-image.gif',
+									dirname(__DIR__) . '/core/data/broken-image.gif',
 									$path
 								);
 								$gallery->debug($message . ' Using image placeholder instead.');
@@ -479,7 +479,7 @@ class ThumbnailModuleExtras {
 							$mime,
 							null,
 							$mimeImage,
-							dirname(__FILE__) . '/images/' . $mimeImage,
+							__DIR__ . '/images/' . $mimeImage,
 							'image/jpeg',
 							array(
 								'width'  => 400,

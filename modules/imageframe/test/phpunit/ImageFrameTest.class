@@ -151,8 +151,8 @@ class ImageFrameTest extends GalleryTestCase {
 		 */
 		$this->_resetIFCounter();
 
-		$template1 = new GalleryTemplate(dirname(dirname(__FILE__)), true, true);
-		$template2 = new GalleryTemplate(dirname(dirname(__FILE__)), true, true);
+		$template1 = new GalleryTemplate(dirname(__DIR__), true, true);
+		$template2 = new GalleryTemplate(dirname(__DIR__), true, true);
 
 		// Verify these are separate instances
 		$template1->setVariable('foo', 'bar');

@@ -36,7 +36,7 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 		$platform =& $gallery->getPlatform();
 
 		$colorpacks = array();
-		$dir        = dirname(dirname(__FILE__)) . '/packs';
+		$dir        = dirname(__DIR__) . '/packs';
 
 		if ($platform->is_dir($dir) && $platform->is_readable($dir)
 			&& $fd = $platform->opendir($dir)

@@ -61,7 +61,7 @@ class CaptchaImageView extends GalleryView {
 		}
 
 		// Load the default background, black&white static
-		$image  = @imagecreatefromjpeg(dirname(__FILE__) . '/data/code_bg.jpg');
+		$image  = @imagecreatefromjpeg(__DIR__ . '/data/code_bg.jpg');
 		$width  = imagesx($image);
 		$height = imagesy($image);
 

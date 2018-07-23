@@ -59,7 +59,7 @@ if (!empty($_GET['run'])) {
 
 	switch ($action) {
 		case 'frame':
-			include dirname(__FILE__) . '/runframe.tpl';
+			include __DIR__ . '/runframe.tpl';
 
 			exit;
 
@@ -277,7 +277,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 		// Add repository tools tests.
 		$suiteArray += loadTests(
 			'repositorytools',
-			dirname(__FILE__) . '/../repository/test/phpunit',
+			__DIR__ . '/../repository/test/phpunit',
 			$filter
 		);
 
@@ -652,7 +652,7 @@ print $gallery->getDebugBuffer();
 print "</pre>";
  */
 
-require dirname(__FILE__) . '/index.tpl';
+require __DIR__ . '/index.tpl';
 
 // Compact any ACLs that were created during this test run
 if ($testSuite->countTestCases() > 0) {

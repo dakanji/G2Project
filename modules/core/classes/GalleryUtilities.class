@@ -448,7 +448,7 @@ class GalleryUtilities {
 	public static function convertPathToUrl($path, $options = array()) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
-		$dirbase  = $platform->realpath(dirname(__FILE__) . '/../../..') . '/';
+		$dirbase  = $platform->realpath(__DIR__ . '/../../..') . '/';
 
 		/*
 		 * Factor the Gallery code base out of the path, accounting for differences in directory
@@ -1284,7 +1284,7 @@ class GalleryUtilities {
 		 * Be careful not to reference $gallery here; this method is called from the installer.
 		 * Look in (modules|themes)/.../MANIFEST and top level MANIFEST.
 		 */
-		$base = realpath(dirname(__FILE__) . '/../../..') . '/';
+		$base = realpath(__DIR__ . '/../../..') . '/';
 		$list = array();
 
 		if (file_exists($base . 'MANIFEST')) {

@@ -73,7 +73,7 @@ class CSSView extends GalleryView {
 				$platform =& $gallery->getPlatform();
 
 				foreach ($frameList as $frameId) {
-					$inc = dirname(__FILE__) . "/frames/$frameId/frame.inc";
+					$inc = __DIR__ . "/frames/$frameId/frame.inc";
 
 					if ($platform->file_exists($inc) && ($stat = $platform->stat($inc))
 						&& $stat[9] > $when
@@ -103,7 +103,7 @@ class CSSView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_imageframe');
 
 		$ret = $imageframe->init($template, $frameList);

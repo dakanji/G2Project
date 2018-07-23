@@ -464,7 +464,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		$rand         = mt_rand();
 		$randomName   = 'phpunit_' . $rand . '.php';
 		$expectedName = 'phpunit_' . $rand . '_php';
-		$tempFile     = dirname(dirname(__FILE__)) . '/data/SiteAdminControllerMaliciousFile.php';
+		$tempFile     = dirname(__DIR__) . '/data/SiteAdminControllerMaliciousFile.php';
 
 		GalleryUtilities::putRequestVariable('form[action][add]', '1');
 		GalleryUtilities::putRequestVariable('form[name][1]', $randomName);

@@ -376,7 +376,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 class JpegtranToolkitTestPlatform {
 	public function __construct(&$test, $jpegtranPath) {
 		$this->_test         =& $test;
-		$this->_testFile     = dirname(dirname(dirname(__FILE__))) . '/data/test.jpg';
+		$this->_testFile     = dirname(dirname(__DIR__)) . '/data/test.jpg';
 		$this->_jpegtranPath = $jpegtranPath;
 		$this->_chdirCount   = 0;
 	}

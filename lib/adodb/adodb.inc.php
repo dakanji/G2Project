@@ -62,7 +62,7 @@ if (!defined('_ADODB_LAYER')) {
 	 * This constant was formerly called $ADODB_RootPath
 	 */
 	if (!defined('ADODB_DIR')) {
-		define('ADODB_DIR', dirname(__FILE__));
+		define('ADODB_DIR', __DIR__);
 	}
 
 	//==============================================================================================

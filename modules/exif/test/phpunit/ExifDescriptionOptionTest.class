@@ -64,7 +64,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 				'summary'     => 'original summary 0',
 				'description' => 'original description 0',
 			),
-			dirname(__FILE__) . '/../data/descr.jpg'
+			__DIR__ . '/../data/descr.jpg'
 		);
 
 		if ($ret) {
@@ -79,7 +79,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 				'description' => 'original description',
 				'keywords'    => 'original keyword 0; original keyword 1',
 			),
-			dirname(__FILE__) . '/../data/exif-iptc-xmp-ps.jpg'
+			__DIR__ . '/../data/exif-iptc-xmp-ps.jpg'
 		);
 
 		if ($ret) {
@@ -126,7 +126,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 					'summary'     => "original summary $j",
 					'description' => "original description $j",
 				),
-				dirname(__FILE__) . '/../data/descr.jpg'
+				__DIR__ . '/../data/descr.jpg'
 			);
 
 			if ($ret) {
@@ -196,7 +196,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 					'summary'     => "original summary $j",
 					'description' => "original description $j",
 				),
-				dirname(__FILE__) . '/../data/descr.jpg'
+				__DIR__ . '/../data/descr.jpg'
 			);
 
 			if ($ret) {
@@ -314,7 +314,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(),
-			dirname(__FILE__) . '/../data/descr.jpg'
+			__DIR__ . '/../data/descr.jpg'
 		);
 
 		if ($ret) {
@@ -356,7 +356,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(),
-			dirname(__FILE__) . '/../data/iptc-exifer.jpg'
+			__DIR__ . '/../data/iptc-exifer.jpg'
 		);
 
 		if ($ret) {
@@ -385,7 +385,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(),
-			dirname(__FILE__) . '/../data/descr.jpg'
+			__DIR__ . '/../data/descr.jpg'
 		);
 
 		if ($ret) {
@@ -456,7 +456,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(),
-			dirname(__FILE__) . '/../data/descr.jpg'
+			__DIR__ . '/../data/descr.jpg'
 		);
 
 		if ($ret) {
@@ -514,7 +514,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(),
-			dirname(__FILE__) . '/../data/descr.jpg'
+			__DIR__ . '/../data/descr.jpg'
 		);
 
 		if ($ret) {

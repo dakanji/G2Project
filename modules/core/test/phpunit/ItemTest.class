@@ -1748,7 +1748,7 @@ class ItemTest extends GalleryTestCase {
 
 		$ret = $photo->create(
 		$this->_album->getId(),
-				  dirname(__FILE__) . '/../data/test1.gif',
+				  __DIR__ . '/../data/test1.gif',
 				  'image/gif',
 				  'test image'
 	);
@@ -2214,7 +2214,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
-		dirname(__FILE__) . '/../data/test1.jpg',
+		__DIR__ . '/../data/test1.jpg',
 		'itemName',
 		'title',
 		'caption',

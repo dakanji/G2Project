@@ -442,7 +442,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Verify we get a non empty item summary for the item
 		$permissions[$itemId]['rating.view'] = 1;
-		$template                            = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
+		$template                            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content)                 = $module->getItemSummaries(
 			array($this->_item),
 			$permissions,
@@ -460,7 +460,7 @@ class RatingHelperTest extends GalleryTestCase {
 		// Get the item summary again, but without having the permissions
 		unset($content);
 		unset($template);
-		$template            = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
+		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			array(

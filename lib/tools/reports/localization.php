@@ -21,7 +21,7 @@
 // Authors: Jens Tkotz, Bharat Mediratta
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
-require_once dirname(__FILE__) . '/../../support/security.inc';
+require_once __DIR__ . '/../../support/security.inc';
 ini_set('magic_quotes_runtime', false);
 set_time_limit(0);
 
@@ -38,7 +38,7 @@ $pow       = 10 ** $precision;
 $poFiles                                               = findPoFiles('../../..');
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 
-require dirname(__FILE__) . '/localization/main_' . $type . '.inc';
+require __DIR__ . '/localization/main_' . $type . '.inc';
 
 exit;
 

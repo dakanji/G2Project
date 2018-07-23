@@ -34,7 +34,7 @@ class SelectGalleryControllerTest extends GalleryControllerTestCase {
 	 * Test what the controller does when you enter a bad albums path
 	 */
 	public function testBadAlbumsPath() {
-		GalleryUtilities::putRequestVariable('form[albumsPath]', dirname(__FILE__));
+		GalleryUtilities::putRequestVariable('form[albumsPath]', __DIR__);
 		GalleryUtilities::putRequestVariable('form[action][select]', 1);
 
 		$results = $this->handleRequest();
@@ -59,7 +59,7 @@ class SelectGalleryControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
-		$albumsPath = dirname(__FILE__) . '/../data/albums';
+		$albumsPath = __DIR__ . '/../data/albums';
 		GalleryUtilities::putRequestVariable('form[albumsPath]', $albumsPath);
 		GalleryUtilities::putRequestVariable('form[action][select]', 1);
 

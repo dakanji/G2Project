@@ -43,7 +43,7 @@
  */
 @ini_set('magic_quotes_runtime', 0);
 
-$g2Base = dirname(dirname(__FILE__)) . '/';
+$g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'upgrade/UpgradeStep.class';
 
@@ -87,7 +87,7 @@ foreach ($stepOrder as $stepName) {
 
 GallerySetupUtilities::startSession();
 
-require_once dirname(__FILE__) . '/../init.inc';
+require_once __DIR__ . '/../init.inc';
 // Check if config.php is ok
 $storageConfig = @$gallery->getConfig('storage.config');
 
@@ -116,7 +116,7 @@ if (!empty($storageConfig)) {
 		}
 		$translator->init($_SESSION['language'], true);
 		// Select domain for translation
-		bindtextdomain('gallery2_upgrade', dirname(dirname(__FILE__)) . '/locale');
+		bindtextdomain('gallery2_upgrade', dirname(__DIR__) . '/locale');
 		textdomain('gallery2_upgrade');
 
 		if (function_exists('bind_textdomain_codeset')) {
@@ -185,7 +185,7 @@ for ($i = 0; $i < $stepNumber; $i++) {
 if (!$error) {
 	$currentStep =& $steps[$stepNumber];
 } else {
-	include_once dirname(__FILE__) . '/steps/RedirectToInstallerStep.class';
+	include_once __DIR__ . '/steps/RedirectToInstallerStep.class';
 	$currentStep = new RedirectToInstallerStep();
 }
 

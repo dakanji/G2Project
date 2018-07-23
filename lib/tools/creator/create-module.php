@@ -48,7 +48,7 @@ if (function_exists('posix_getlogin')) {
 	}
 }
 
-require_once dirname(__FILE__) . '/../../../lib/smarty/Smarty.class.php';
+require_once __DIR__ . '/../../../lib/smarty/Smarty.class.php';
 
 if (!empty($_ENV['TMP'])) {
 	$tmpdir = $_ENV['TMP'];
@@ -74,7 +74,7 @@ $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
 $smarty->use_sub_dirs    = false;
-$smarty->template_dir    = dirname(__FILE__);
+$smarty->template_dir    = __DIR__;
 
 // Gather any info we need from the user
 if (!empty($author)) {
@@ -117,17 +117,17 @@ if (file_exists($modulePath)) {
 
 // Create module.inc
 $fd = safe_fopen("$modulePath/module.inc");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/module.inc.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/module.inc.tpl'));
 fclose($fd);
 
 // Create our sample view and template
 $fd = safe_fopen("$modulePath/$ucModuleId.inc");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/MyPage.inc.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.inc.tpl'));
 fclose($fd);
 
 mkdir("$modulePath/templates");
 $fd = safe_fopen("$modulePath/templates/$ucModuleId.tpl");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/MyPage.tpl.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.tpl.tpl'));
 fclose($fd);
 
 // Create our map
@@ -136,20 +136,20 @@ mkdir($modulePath . '/classes/GalleryStorage');
 
 $smarty->assign('makefileType', 'classes');
 $fd = safe_fopen("$modulePath/classes/GNUmakefile");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/GNUmakefile.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
 fclose($fd);
 
 $smarty->assign('makefileType', 'GalleryStorage');
 $fd = safe_fopen("$modulePath/classes/GalleryStorage/GNUmakefile");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/GNUmakefile.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
 fclose($fd);
 
 $fd = safe_fopen("$modulePath/classes/Maps.xml");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/map.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/map.tpl'));
 fclose($fd);
 
 $fd = safe_fopen($modulePath . '/classes/' . $ucModuleId . 'Helper.class');
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/MyPageHelper.class.tpl'));
+fwrite($fd, $smarty->fetch(__DIR__ . '/MyPageHelper.class.tpl'));
 fclose($fd);
 
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";

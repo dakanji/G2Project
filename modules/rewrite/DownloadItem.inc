@@ -119,7 +119,7 @@ class DownloadItemView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_rewrite');
 		$template->setVariable('item', (array)$item);
 		$template->setVariable('image', (array)$image);

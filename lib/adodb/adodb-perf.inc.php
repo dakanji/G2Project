@@ -19,7 +19,7 @@
 */
 
 if (!defined('ADODB_DIR')) {
-	include_once dirname(__FILE__) . '/adodb.inc.php';
+	include_once __DIR__ . '/adodb.inc.php';
 }
 
 require_once ADODB_DIR . '/tohtml.inc.php';

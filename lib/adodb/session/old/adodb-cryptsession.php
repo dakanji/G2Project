@@ -63,7 +63,7 @@ session bugs in earlier versions of PHP.
 require_once 'crypt.inc.php';
 
 if (!defined('_ADODB_LAYER')) {
-	include dirname(__FILE__) . '/adodb.inc.php';
+	include __DIR__ . '/adodb.inc.php';
 }
 
  // if database time and system time is difference is greater than this, then give warning

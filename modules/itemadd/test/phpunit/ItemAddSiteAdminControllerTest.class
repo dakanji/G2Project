@@ -119,7 +119,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fromweb]', 'on');
 		GalleryUtilities::putRequestVariable('form[fromserver]', 'admin');
 
-		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', dirname(__FILE__));
+		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', __DIR__);
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 
 		$ret = $this->_setUploadDirs(array(
@@ -156,12 +156,12 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(dirname(__FILE__), $params['uploadLocalServer.dir.3'], 'new dir');
+		$this->assertEquals(__DIR__, $params['uploadLocalServer.dir.3'], 'new dir');
 		$this->assert(!isset($params['uploadLocalServer.dir.4']), 'end of list');
 
 		$valueMap['uploadLocalServer.dir.1'] = 'a';
 		$valueMap['uploadLocalServer.dir.2'] = 'b';
-		$valueMap['uploadLocalServer.dir.3'] = dirname(__FILE__);
+		$valueMap['uploadLocalServer.dir.3'] = __DIR__;
 
 		foreach ($valueMap as $key => $expectedValue) {
 			$this->assertEquals($expectedValue, $params[$key], "value mismatch for $key");
@@ -353,7 +353,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$platform->chdir(dirname(__FILE__));
+		$platform->chdir(__DIR__);
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', '.');
 		GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
@@ -385,7 +385,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 		$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 		$this->assertEquals(
-			$platform->realpath(dirname(__FILE__)),
+			$platform->realpath(__DIR__),
 			$param['uploadLocalServer.dir.2'],
 			'new dir'
 		);

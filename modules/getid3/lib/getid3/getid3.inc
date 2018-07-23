@@ -16,7 +16,7 @@ if (!defined('GETID3_OS_ISWINDOWS')) {
 }
 // Get base path of getID3() - ONCE
 if (!defined('GETID3_INCLUDEPATH')) {
-	define('GETID3_INCLUDEPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+	define('GETID3_INCLUDEPATH', __DIR__ . DIRECTORY_SEPARATOR);
 }
 // Workaround Bug #39923 (https://bugs.php.net/bug.php?id=39923)
 if (!defined('IMG_JPG') && defined('IMAGETYPE_JPEG')) {

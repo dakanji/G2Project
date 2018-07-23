@@ -37,7 +37,7 @@ class StatusTemplate {
 			$templateData['MainPage']['showStatusBlock'] = 1;
 		}
 
-		include dirname(__FILE__) . '/templates/MainPage.html';
+		include __DIR__ . '/templates/MainPage.html';
 	}
 
 	/**
@@ -56,7 +56,7 @@ class StatusTemplate {
 			'percentComplete' => GalleryUtilities::roundToString($percentComplete, 2),
 		);
 
-		include dirname(__FILE__) . '/templates/MainPage.html';
+		include __DIR__ . '/templates/MainPage.html';
 		flush();
 
 		return null;
@@ -76,7 +76,7 @@ class StatusTemplate {
 
 		$templateData['MainPage']['showBodyAndFooter'] = 1;
 
-		include dirname(__FILE__) . '/templates/MainPage.html';
+		include __DIR__ . '/templates/MainPage.html';
 	}
 
 	/**
@@ -86,7 +86,7 @@ class StatusTemplate {
 		$templateData                                = array();
 		$templateData['MainPage']['hideStatusBlock'] = 1;
 
-		include dirname(__FILE__) . '/templates/MainPage.html';
+		include __DIR__ . '/templates/MainPage.html';
 	}
 
 	/**

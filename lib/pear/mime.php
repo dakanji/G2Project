@@ -40,7 +40,7 @@
 //@G2 - skip PEAR.php/change error handling, skip classes already defined (if embedded)
 //require_once('PEAR.php');
 if (!class_exists('Mail_mimePart')) {
-	include_once dirname(__FILE__) . '/mimePart.php';
+	include_once __DIR__ . '/mimePart.php';
 }
 
 if (class_exists('Mail_mime')) {

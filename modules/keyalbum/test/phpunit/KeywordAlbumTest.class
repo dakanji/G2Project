@@ -85,7 +85,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 	}
 
 	public function testLoadThemeAndSettingsForAlbum() {

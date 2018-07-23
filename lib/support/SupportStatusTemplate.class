@@ -46,7 +46,7 @@ class SupportStatusTemplate {
 			$templateData['showStatusBlock'] = 1;
 		}
 
-		include dirname(__FILE__) . '/templates/SupportStatus.html';
+		include __DIR__ . '/templates/SupportStatus.html';
 	}
 
 	/**
@@ -65,7 +65,7 @@ class SupportStatusTemplate {
 			'percentComplete' => GalleryUtilities::roundToString($percentComplete, 2),
 		);
 
-		include dirname(__FILE__) . '/templates/SupportStatus.html';
+		include __DIR__ . '/templates/SupportStatus.html';
 		flush();
 
 		return null;
@@ -79,7 +79,7 @@ class SupportStatusTemplate {
 		$templateData['showBodyAndFooter'] = 1;
 		$templateData['title']             = $this->_title;
 
-		include dirname(__FILE__) . '/templates/SupportStatus.html';
+		include __DIR__ . '/templates/SupportStatus.html';
 	}
 
 	/**
@@ -89,7 +89,7 @@ class SupportStatusTemplate {
 		$templateData                    = array();
 		$templateData['hideStatusBlock'] = 1;
 
-		include dirname(__FILE__) . '/templates/SupportStatus.html';
+		include __DIR__ . '/templates/SupportStatus.html';
 	}
 
 	/**
@@ -102,6 +102,6 @@ class SupportStatusTemplate {
 		$templateData['title']             = $this->_title;
 		$templateData['showBodyAndFooter'] = 1;
 
-		include dirname(__FILE__) . '/templates/SupportStatus.html';
+		include __DIR__ . '/templates/SupportStatus.html';
 	}
 }

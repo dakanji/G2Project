@@ -165,7 +165,7 @@ class DatabaseSetupStep extends InstallStep {
 
 			if (empty($templateData['errors']) && empty($templateData['error'])) {
 				// Load up ADOdb
-				include_once dirname(__FILE__) . '/../../lib/adodb/adodb.inc.php';
+				include_once __DIR__ . '/../../lib/adodb/adodb.inc.php';
 
 				$this->_captureStart();
 				$this->_db =& ADONewConnection($this->_config['type']);
@@ -462,10 +462,10 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		// Load the Test SQL code
-		include_once dirname(__FILE__) .
+		include_once __DIR__ .
 		 '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class';
 		// GalleryPlatform is not available at this point
-		$schemaTpl = dirname(__FILE__) . '/../../modules/core/classes/GalleryStorage/schema.tpl';
+		$schemaTpl = __DIR__ . '/../../modules/core/classes/GalleryStorage/schema.tpl';
 
 		if (!($sqlData = file($schemaTpl))) {
 			return array(false, sprintf('Could not open schema file: "%s".', $schemaTpl));
@@ -568,7 +568,7 @@ class DatabaseSetupStep extends InstallStep {
 		// Load platform level to use the CoreModule and read data from versions.dat
 		$this->_loadG2Api(2);
 
-		include_once dirname(__FILE__) . '/../../modules/core/module.inc';
+		include_once __DIR__ . '/../../modules/core/module.inc';
 		$coreModule   = new CoreModule();
 		$instVersions = $coreModule->getInstalledVersions();
 
@@ -647,9 +647,9 @@ class DatabaseSetupStep extends InstallStep {
 			$initiated = 1;
 
 			// Include basic G2 classes to use G2 API to get the core version etc.
-			include_once dirname(__FILE__) . '/../../modules/core/classes/Gallery.class';
+			include_once __DIR__ . '/../../modules/core/classes/Gallery.class';
 
-			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryDataCache.class';
+			include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
 			$GLOBALS['gallery'] = new Gallery();
 			$GLOBALS['gallery']->init();
 			/*
@@ -676,17 +676,17 @@ class DatabaseSetupStep extends InstallStep {
 			// Platform level requested, platform level not already loaded
 			$initiated = $platformLevel;
 
-			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryCoreApi.class';
+			include_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
 
-			include_once dirname(__FILE__) .
+			include_once __DIR__ .
 			 '/../../modules/core/classes/GalleryCapabilities.class';
 
-			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryPlatform.class';
+			include_once __DIR__ . '/../../modules/core/classes/GalleryPlatform.class';
 			$gallery->setPlatform(new GalleryPlatform());
 			// Configure G2 such that getInstalledVersions() can be called
 			$gallery->initTranslator(true);
 
-			include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryModule.class';
+			include_once __DIR__ . '/../../modules/core/classes/GalleryModule.class';
 		}
 
 		if ($level == $firstPassLevel && $initiated < $firstPassLevel) {
@@ -698,7 +698,7 @@ class DatabaseSetupStep extends InstallStep {
 			$gallery->setDebug(false);
 			$gallery->setProfile(false);
 			// Init paths etc., used for the clean DB function
-			include_once dirname(__FILE__) . '/../../init.inc';
+			include_once __DIR__ . '/../../init.inc';
 
 			if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
 				define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');

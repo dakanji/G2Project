@@ -737,7 +737,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	 */
 	public function getBrokenDerivativePath() {
 		// Default to the broken-image.gif
-		return dirname(__FILE__) . '/../data/broken-image.gif';
+		return __DIR__ . '/../data/broken-image.gif';
 	}
 
 	/**

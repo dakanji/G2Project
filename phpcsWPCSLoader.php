@@ -1,2 +1,2 @@
 <?php
-require_once dirname(__FILE__) . '/wpcs/WordPress/PHPCSAliases.php';
+require_once __DIR__ . '/wpcs/WordPress/PHPCSAliases.php';

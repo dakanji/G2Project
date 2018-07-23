@@ -90,7 +90,7 @@ class StorageSetupStep extends InstallStep {
 					$templateData['error']['missing_dir'] = 1;
 				} elseif (substr($dir, 0, -1) === $_SESSION['configPath']
 					|| ($galleryStub->getConfig('isMultisite')
-					&& substr($dir, 0, -1) === dirname(dirname(dirname(__FILE__))))
+					&& substr($dir, 0, -1) === dirname(dirname(__DIR__)))
 				) {
 					$templateData['error']['in_gallery_dir'] = 1;
 				} elseif (!is_readable($dir)) {
@@ -200,7 +200,7 @@ class StorageSetupStep extends InstallStep {
 		$galleryUrl = getGalleryDirUrl();
 		// Get the relative path of the g2data folder to the gallery dir.
 		$storagePath = realpath($dir);
-		$galleryPath = realpath(dirname(dirname(dirname(__FILE__))));
+		$galleryPath = realpath(dirname(dirname(__DIR__)));
 
 		if (strpos($storagePath, $galleryPath) === 0) {
 			// The g2data folder is within the gallery folder.

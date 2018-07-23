@@ -235,7 +235,7 @@ class PrintPhotosView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_shutterfly');
 		$template->setVariable('PrintPhotos', array(
 			'returnUrl' => $returnUrl,

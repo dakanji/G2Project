@@ -247,7 +247,7 @@ class ErrorPageView extends GalleryView {
 		if (!$failsafe) {
 			$dummyForm = array();
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-			$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+			$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 			$view->setError($error);
 			list($ret, $results) = $view->loadTemplate($template, $dummyForm);
 

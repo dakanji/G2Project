@@ -87,7 +87,7 @@ class AdminPluginsView extends GalleryView {
 			}
 
 			$platform =& $gallery->getPlatform();
-			$g2Dir    = dirname(dirname(dirname(__FILE__))) . '/';
+			$g2Dir    = dirname(dirname(__DIR__)) . '/';
 			GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
 
 			foreach ($pluginStatus[$type] as $pluginId => $status) {
@@ -164,7 +164,7 @@ class AdminPluginsView extends GalleryView {
 		}
 
 		// Only the codebase install can delete plugins, not multisites
-		$AdminPlugins['canDeletePlugins'] = GALLERY_CONFIG_DIR == dirname(dirname(dirname(__FILE__)));
+		$AdminPlugins['canDeletePlugins'] = GALLERY_CONFIG_DIR == dirname(dirname(__DIR__));
 
 		$template->setVariable('AdminPlugins', $AdminPlugins);
 		$template->setVariable('controller', 'core.AdminPlugins');

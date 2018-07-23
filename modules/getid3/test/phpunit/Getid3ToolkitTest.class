@@ -47,7 +47,7 @@ class Getid3ToolkitTest extends GalleryTestCase {
 		list($ret, $results) = $this->_toolkit->getProperty(
 			'video/x-msvideo',
 			'originationTimestamp',
-			dirname(__FILE__) . '/../data/test_small.avi'
+			__DIR__ . '/../data/test_small.avi'
 		);
 
 		if ($ret) {
@@ -62,7 +62,7 @@ class Getid3ToolkitTest extends GalleryTestCase {
 		list($ret, $results) = $this->_toolkit->getProperty(
 			'video/quicktime',
 			'originationTimestamp',
-			dirname(__FILE__) . '/../data/newday.mov'
+			__DIR__ . '/../data/newday.mov'
 		);
 
 		if ($ret) {

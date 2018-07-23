@@ -379,7 +379,7 @@ class FactoryTest extends GalleryTestCase {
 	}
 
 	public function testRegisterFactoryImplementationForRequest() {
-		$handlerPath = dirname(__FILE__);
+		$handlerPath = __DIR__;
 		$ret         = GalleryCoreApi::registerFactoryImplementationForRequest(
 			'GalleryEventListener',
 			'TestErrorHandler',
@@ -443,7 +443,7 @@ class FactoryTest extends GalleryTestCase {
 	}
 
 	public function testRegisterFactoryImplementationForRequestDeleteCache() {
-		$handlerPath = dirname(__FILE__);
+		$handlerPath = __DIR__;
 		$ret         = GalleryCoreApi::registerFactoryImplementationForRequest(
 			'GalleryEventListener',
 			'TestErrorHandler',

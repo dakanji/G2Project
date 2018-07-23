@@ -86,7 +86,7 @@ class PhotoTest extends GalleryTestCase {
 
 		$ret = $photo->create(
 			$this->_getRootId(),
-			dirname(__FILE__) . '/../data/test1.jpg',
+			__DIR__ . '/../data/test1.jpg',
 			'image/jpeg'
 		);
 
@@ -177,7 +177,7 @@ class PhotoTest extends GalleryTestCase {
 
 		$ret = $photo->create(
 			$this->_getRootId(),
-			dirname(__FILE__) . '/../data/test1.gif',
+			__DIR__ . '/../data/test1.gif',
 			'image/test'
 		);
 

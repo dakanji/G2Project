@@ -92,7 +92,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 			'test/fakemime',
 			null,
 			'unittest.jpg',
-			dirname(__FILE__) . '/../../images/G2video.jpg',
+			__DIR__ . '/../../images/G2video.jpg',
 			'image/jpeg'
 		);
 
@@ -136,8 +136,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			'test/badmime',
 			'thumbnail',
-			dirname(__FILE__) . '/x',
-			dirname(__FILE__) . '/y',
+			__DIR__ . '/x',
+			__DIR__ . '/y',
 			array(150)
 		);
 
@@ -154,8 +154,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			'test/fakemime',
 			'bad-operation',
-			dirname(__FILE__) . '/x',
-			dirname(__FILE__) . '/y',
+			__DIR__ . '/x',
+			__DIR__ . '/y',
 			array(150)
 		);
 
@@ -175,7 +175,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			'test/fakemime',
 			'thumbnail',
-			dirname(__FILE__) . '/x',
+			__DIR__ . '/x',
 			$gallery->getConfig('data.gallery.base') . '/unittest.jpg',
 			array(150)
 		);
@@ -195,7 +195,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			'test/fakemime',
 			'thumbnail',
-			dirname(__FILE__) . '/x',
+			__DIR__ . '/x',
 			$gallery->getConfig('data.gallery.base') . '/unittest.jpg',
 			array(150)
 		);
@@ -215,7 +215,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$fileName                = realpath(dirname(__FILE__) . '/../../images/G2video.jpg');
+		$fileName                = realpath(__DIR__ . '/../../images/G2video.jpg');
 		list($ret, $jpegImageId) = ThumbnailHelper::addItem(
 			'image/jpeg',
 			null,
@@ -278,7 +278,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			'test/fakemime',
 			'thumbnail',
-			dirname(__FILE__) . '/x',
+			__DIR__ . '/x',
 			$gallery->getConfig('data.gallery.base') . '/unittest.jpg',
 			array(150)
 		);

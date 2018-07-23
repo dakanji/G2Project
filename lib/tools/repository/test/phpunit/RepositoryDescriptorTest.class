@@ -290,7 +290,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	public function testGetFileMetaData() {
 		global $gallery;
 
-		$testDataDir = dirname(dirname(__FILE__)) . '/data/';
+		$testDataDir = dirname(__DIR__) . '/data/';
 		$data        = array();
 		$descriptor  = new RepositoryDescriptor();
 		$utils       = new RepositoryDescriptorTestUtilities();
@@ -309,7 +309,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 		$gallery->setPlatform($platform);
 
-		$descriptor->getFileMetaData(dirname(dirname(__FILE__)) . '/data/', $data);
+		$descriptor->getFileMetaData(dirname(__DIR__) . '/data/', $data);
 
 		$this->assertEquals($this->_canonicalFileMetaData, $data);
 	}

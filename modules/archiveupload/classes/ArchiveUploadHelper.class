@@ -59,7 +59,7 @@ class ArchiveUploadHelper {
 		}
 
 		list($success, $results, $error) = $platform->exec(array(
-			array($unzipPath, '-v', dirname(dirname(__FILE__)) . '/data/test.zip'),
+			array($unzipPath, '-v', dirname(__DIR__) . '/data/test.zip'),
 		));
 		$valid                           = false;
 

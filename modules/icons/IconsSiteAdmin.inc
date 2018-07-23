@@ -115,7 +115,7 @@ class IconsSiteAdminView extends GalleryView {
 				}
 
 				$css    = $platform->file(
-					sprintf('%s/iconpacks/%s/icons.css', dirname(__FILE__), $dir)
+					sprintf('%s/iconpacks/%s/icons.css', __DIR__, $dir)
 				);
 				$map    = array();
 				$active = array();

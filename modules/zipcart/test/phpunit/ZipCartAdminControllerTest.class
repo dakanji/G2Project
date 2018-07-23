@@ -188,7 +188,7 @@ class ZipCartAdminControllerTest extends GalleryControllerTestCase {
 		$this->_platform->setReply('copy', array(
 			sprintf(
 				'%s%s%s',
-				dirname(dirname(dirname(__FILE__))),
+				dirname(dirname(__DIR__)),
 				DIRECTORY_SEPARATOR,
 				'ZipCartAdmin.inc'
 			),
@@ -241,7 +241,7 @@ class ZipCartAdminControllerTest extends GalleryControllerTestCase {
 		$this->_platform->setReply('copy', array(
 			sprintf(
 				'%s%s%s',
-				dirname(dirname(dirname(__FILE__))),
+				dirname(dirname(__DIR__)),
 				DIRECTORY_SEPARATOR,
 				'ZipCartAdmin.inc'
 			),
@@ -311,7 +311,7 @@ class ZipCartAdminControllerTest extends GalleryControllerTestCase {
 		$this->_platform->setReply('copy', array(
 			sprintf(
 				'%s%s%s',
-				dirname(dirname(dirname(__FILE__))),
+				dirname(dirname(__DIR__)),
 				DIRECTORY_SEPARATOR,
 				'ZipCartAdmin.inc'
 			),

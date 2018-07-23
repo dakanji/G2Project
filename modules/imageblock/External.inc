@@ -92,7 +92,7 @@ class ExternalView extends GalleryView {
 		if (isset($this->_template)) {
 			$template =& $this->_template;
 		} else {
-			$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+			$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		}
 
 		$ret = ImageBlockHelper::loadImageBlocks($template, $params);

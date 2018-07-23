@@ -113,7 +113,7 @@ class Db2Storage extends GalleryStorage {
 			 * 2) Register the Jar file (use ODBC delimiters, see
 			 *    http://gallery.menalto.com/node/37648?from=850#comment-172690)
 			 */
-			$sql = "{CALL SQLJ.INSTALL_JAR('file:" . dirname(__FILE__) . $slash .
+			$sql = "{CALL SQLJ.INSTALL_JAR('file:" . __DIR__ . $slash .
 			"g2_db2.jar',  'g2_db2_jar')}";
 			$this->_traceStart();
 			$recordSet = $tmpDb->Execute($sql);
@@ -130,7 +130,7 @@ class Db2Storage extends GalleryStorage {
 				}
 			} else {
 				// 3) Create/Catalog the UDFs
-				$ret = $this->_executeSqlFile(dirname(__FILE__) . $slash . 'Db2CreateUdfs.sql');
+				$ret = $this->_executeSqlFile(__DIR__ . $slash . 'Db2CreateUdfs.sql');
 
 				if ($ret) {
 					return $ret;

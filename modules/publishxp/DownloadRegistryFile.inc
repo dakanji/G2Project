@@ -79,7 +79,7 @@ class DownloadRegistryFileView extends GalleryView {
 		header('Content-Disposition: filename=install_registry.reg');
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(__FILE__) . '/../..');
+		$template = new GalleryTemplate(__DIR__ . '/../..');
 		$template->setVariable('l10Domain', 'modules_publishxp');
 
 		$vistaVersion                         = GalleryUtilities::getRequestVariables('vistaVersion');

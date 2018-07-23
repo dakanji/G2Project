@@ -19,7 +19,7 @@
  */
 
 if (!defined('G2_SUPPORT')) {
-	include_once dirname(__FILE__) . '/lib/support/defaultloc.inc';
+	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
 
 
@@ -31,7 +31,7 @@ define('CMD_CHMOD_GALLERY_DIR', 'chmodGalleryDir');
 define('CMD_CHMOD_STORAGE_DIR', 'chmodStorageDir');
 define('CMD_CHMOD_LOCALE_DIR', 'chmodLocaleDir');
 // For get/post input sanitation
-require_once dirname(__FILE__) . '/../../modules/core/classes/GalleryUtilities.class';
+require_once __DIR__ . '/../../modules/core/classes/GalleryUtilities.class';
 
 $DEFAULT_FOLDER_PERMISSIONS = PermissionBits::fromString('555');
 $DEFAULT_FILE_PERMISSIONS   = PermissionBits::fromString('444');

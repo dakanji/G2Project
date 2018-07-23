@@ -221,7 +221,7 @@ class RedirectView extends GalleryView {
 		header('Content-type: text/plain');
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_migrate');
 		$template->display('gallery:modules/migrate/templates/Htaccess.tpl');
 

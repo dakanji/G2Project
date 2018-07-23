@@ -43,7 +43,7 @@
  */
 @ini_set('magic_quotes_runtime', 0);
 
-$g2Base = dirname(dirname(__FILE__)) . '/';
+$g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'install/GalleryStub.class';
 
@@ -105,7 +105,7 @@ if (function_exists('dgettext')) {
 	$translator = new GalleryTranslator();
 	$translator->init($_SESSION['language'], true);
 	unset($gallery);
-	bindtextdomain('gallery2_install', dirname(dirname(__FILE__)) . '/locale');
+	bindtextdomain('gallery2_install', dirname(__DIR__) . '/locale');
 	textdomain('gallery2_install');
 
 	if (function_exists('bind_textdomain_codeset')) {

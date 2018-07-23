@@ -3337,7 +3337,7 @@ class GalleryCoreApi {
 	 */
 	public static function getPluginBaseDirs() {
 		return array(
-			'base' => dirname(dirname(dirname(dirname(__FILE__)))) . '/',
+			'base' => dirname(dirname(dirname(__DIR__))) . '/',
 		);
 	}
 
@@ -3357,7 +3357,7 @@ class GalleryCoreApi {
 	 * @return string plugin base directory
 	 */
 	public static function getPluginBaseDir($pluginType, $pluginId, $clearCache = false) {
-		return dirname(dirname(dirname(dirname(__FILE__)))) . '/';
+		return dirname(dirname(dirname(__DIR__))) . '/';
 	}
 
 	/**
@@ -3403,7 +3403,7 @@ class GalleryCoreApi {
 				return;
 			}
 
-			include_once dirname(__FILE__) . '/../../../' . $file;
+			include_once __DIR__ . '/../../../' . $file;
 		}
 	}
 
@@ -3901,7 +3901,7 @@ class GalleryCoreApi {
 		static $codeBaseDirectory;
 
 		if (!isset($codeBaseDirectory)) {
-			$codeBaseDirectory = dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR;
+			$codeBaseDirectory = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR;
 		}
 
 		return ($relativePath == null) ? $codeBaseDirectory : $codeBaseDirectory . $relativePath;

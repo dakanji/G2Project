@@ -307,7 +307,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[migrateUser][1057837154_228147420]', 1);
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
@@ -355,7 +355,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[migrateUser][1111214688_22997786]', 1);
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
@@ -405,7 +405,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[migrateUser][1054014347_1233740678]', 1);
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
@@ -465,7 +465,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album03]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album02]', 1);
@@ -1030,7 +1030,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album04]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
@@ -1170,7 +1170,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		// Verify that controller accepts urlencoded album names:
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album%30%33]', 1);
@@ -1343,7 +1343,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album05]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
@@ -1561,7 +1561,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album01]', 1);
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
@@ -1654,7 +1654,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][no_NO]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
@@ -1808,7 +1808,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][fr_FR]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');
@@ -1960,7 +1960,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][KOI-8]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'KOI8-R');
@@ -2172,7 +2172,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][KOI-8]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'KOI8-R');
@@ -2434,7 +2434,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$slash = $this->_slash;
 		GalleryUtilities::putRequestVariable(
 			'albumsPath',
-			dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
+			__DIR__ . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash
 		);
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][album03]', 1);
 		GalleryUtilities::putRequestVariable('form[sourceEncoding]', 'ISO-8859-1');

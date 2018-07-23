@@ -44,7 +44,7 @@ class Gallery1DataParserTest extends GalleryControllerTestCase {
 
 		$platform         =& $gallery->getPlatform();
 		$slash            = $this->_slash = $platform->getDirectorySeparator();
-		$this->_albumsDir = dirname(__FILE__) . $slash . '..' . $slash . 'data' .
+		$this->_albumsDir = __DIR__ . $slash . '..' . $slash . 'data' .
 		$slash . 'albums' . $slash;
 	}
 

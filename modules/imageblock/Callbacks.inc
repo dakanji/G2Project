@@ -73,7 +73,7 @@ class ImageBlockCallbacks {
 				 * ImageBlockHelper expects a GalleryTemplate, but Smarty callbacks don't provide
 				 * one, so create a temporary wrapper.
 				 */
-				$template          = new GalleryTemplate(dirname(__FILE__), false);
+				$template          = new GalleryTemplate(__DIR__, false);
 				$template->_smarty =& $smarty;
 
 				// Remove null parameters

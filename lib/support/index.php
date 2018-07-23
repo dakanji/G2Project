@@ -1,7 +1,7 @@
 <?php
 define('G2_SUPPORT_URL_FRAGMENT', '');
 
-require_once dirname(__FILE__) . '/security.inc';
+require_once __DIR__ . '/security.inc';
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 		if ($_SERVER['QUERY_STRING'] == $script
 			|| strncmp($_SERVER['QUERY_STRING'], $script . '&', strlen($script) + 1) == 0
 		) {
-			include dirname(__FILE__) . '/' . $script . '.php';
+			include __DIR__ . '/' . $script . '.php';
 			$results = ob_get_contents();
 			ob_end_clean();
 			echo $results;

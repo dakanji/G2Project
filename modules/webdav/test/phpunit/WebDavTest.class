@@ -1034,7 +1034,7 @@ class WebDavTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$filePath = dirname(__FILE__) . '/../../../core/test/data/test1.gif';
+		$filePath = __DIR__ . '/../../../core/test/data/test1.gif';
 		$fileSize = $this->_platform->filesize($filePath);
 
 		$pathComponent = basename($filePath);
@@ -1175,7 +1175,7 @@ class WebDavTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$filePath = dirname(__FILE__) . '/../../../core/test/data/test1.gif';
+		$filePath = __DIR__ . '/../../../core/test/data/test1.gif';
 		$fileSize = $this->_platform->filesize($filePath);
 
 		$pathComponent = basename($filePath);
@@ -1234,7 +1234,7 @@ class WebDavTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('path', $path);
 
-		$filePath = dirname(__FILE__) . '/../../../core/test/data/test1.gif';
+		$filePath = __DIR__ . '/../../../core/test/data/test1.gif';
 		$fileSize = $this->_platform->filesize($filePath);
 
 		$originalItemId        = $this->_item->getId();
@@ -1292,7 +1292,7 @@ class WebDavTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('path', $path);
 
-		$filePath = dirname(__FILE__) . '/../../../core/test/data/test1.gif';
+		$filePath = __DIR__ . '/../../../core/test/data/test1.gif';
 		$fileSize = $this->_platform->filesize($filePath);
 
 		$originalItemId        = $this->_item->getId();
@@ -1347,7 +1347,7 @@ class WebDavTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('path', $path);
 
-		$filePath = dirname(__FILE__) . '/../../../core/test/data/test1.gif';
+		$filePath = __DIR__ . '/../../../core/test/data/test1.gif';
 		$fileSize = $this->_platform->filesize($filePath);
 
 		$originalItemId        = $linkedEntity->getId();
@@ -2133,7 +2133,7 @@ class WebDavTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$filePath = dirname(__FILE__) . '/../../../core/test/data/test1.gif';
+		$filePath = __DIR__ . '/../../../core/test/data/test1.gif';
 		$fileSize = $this->_platform->filesize($filePath);
 
 		$pathComponent = 'The!Quick$Brown#Fox.gif';

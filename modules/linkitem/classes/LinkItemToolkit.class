@@ -62,7 +62,7 @@ class LinkItemToolkit extends GalleryToolkit {
 
 		if (!$urlSnapshot) {
 			if (!$platform->copy(
-				dirname(dirname(__FILE__)) . '/images/link.jpg',
+				dirname(__DIR__) . '/images/link.jpg',
 				$destFilename
 			)
 			) {
@@ -138,7 +138,7 @@ class LinkItemToolkit extends GalleryToolkit {
 	public static function getSnapshotParams() {
 		global $gallery;
 		$platform  =& $gallery->getPlatform();
-		$paramFile = dirname(dirname(__FILE__)) . $platform->getDirectorySeparator() . 'params.txt';
+		$paramFile = dirname(__DIR__) . $platform->getDirectorySeparator() . 'params.txt';
 
 		if ($platform->file_exists($paramFile)) {
 			$lines = $platform->file($paramFile);

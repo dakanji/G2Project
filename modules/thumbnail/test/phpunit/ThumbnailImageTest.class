@@ -71,7 +71,7 @@ class ThumbnailImageTest extends GalleryTestCase {
 			null,
 			$this->_item->getId(),
 			'G2audio.jpg',
-			dirname(__FILE__) . '/../../images/' . 'G2audio.jpg',
+			__DIR__ . '/../../images/' . 'G2audio.jpg',
 			'image/jpeg',
 			array(
 				'width'  => 400,
@@ -150,7 +150,7 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$filename                = dirname(__FILE__) . '/../../images/G2audio.jpg';
+		$filename                = __DIR__ . '/../../images/G2audio.jpg';
 		list($ret, $thumbnailId) = ThumbnailHelper::addItem(
 			null,
 			$rootAlbumId,

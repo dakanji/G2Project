@@ -21,7 +21,7 @@
  * @G2 - skip if already defined elsewhere (when embedded)
  */
 if (!class_exists('XML_HTMLSax3')) {
-	include_once dirname(__FILE__) . '/HTMLSax3.php';
+	include_once __DIR__ . '/HTMLSax3.php';
 }
 
 if (class_exists('HTML_Safe')) {

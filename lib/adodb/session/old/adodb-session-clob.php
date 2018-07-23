@@ -89,7 +89,7 @@ To force non-persistent connections, call adodb_session_open first before sessio
 */
 
 if (!defined('_ADODB_LAYER')) {
-	include dirname(__FILE__) . '/adodb.inc.php';
+	include __DIR__ . '/adodb.inc.php';
 }
 
 if (!defined('ADODB_SESSION')) {

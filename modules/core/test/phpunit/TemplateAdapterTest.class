@@ -328,7 +328,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		global $gallery;
 		$this->_setupAdapterWithMocks();
 
-		$base         = dirname(dirname(dirname(__FILE__))) . '/../../';
+		$base         = dirname(dirname(__DIR__)) . '/../../';
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply('file_exists', array($base . 'themes/mock/local/foo.css'), 1);
 		$mockPlatform->setReply('is_readable', array($base . 'themes/mock/local/foo.css'), 1);
@@ -352,7 +352,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		global $gallery;
 		$this->_setupAdapterWithMocks();
 
-		$base         = dirname(dirname(dirname(__FILE__))) . '/../../';
+		$base         = dirname(dirname(__DIR__)) . '/../../';
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply(
 			'file_exists',

@@ -23,7 +23,7 @@
  */
 $gallerySetErrorHandler = false;
 
-require dirname(__FILE__) . '/bootstrap.inc';
+require __DIR__ . '/bootstrap.inc';
 
 /*
  * If they don't have a setup password, we assume that the config.php is empty and this is an
@@ -37,7 +37,7 @@ if (!@$gallery->getConfig('setup.password')) {
 }
 
 if ($gallery->isEmbedded()) {
-	include_once dirname(__FILE__) . '/init.inc';
+	include_once __DIR__ . '/init.inc';
 } else {
 	// If this is a request for a public data file, give it to the user immediately
 	$unsanitizedView = isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view']) ? $_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view'] : null;
@@ -86,7 +86,7 @@ if ($gallery->isEmbedded()) {
 	}
 
 	// Otherwise, proceed with our regular process
-	include_once dirname(__FILE__) . '/init.inc';
+	include_once __DIR__ . '/init.inc';
 	$ret = GalleryInitFirstPass();
 
 	if ($ret) {
@@ -530,7 +530,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		} else {
 			if (!isset($template)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-				$template = new GalleryTemplate(dirname(__FILE__));
+				$template = new GalleryTemplate(__DIR__);
 			}
 			list($ret, $results, $theme) = $view->doLoadTemplate($template);
 

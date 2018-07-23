@@ -384,7 +384,7 @@ class ModRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(__FILE__) . '/../../../templates', true, false);
+		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 		$template->setVariable('Htaccess', $Htaccess);
 		$template->setVariable('l10Domain', 'modules_rewrite');
 		list($ret, $content) = $template->fetch('Htaccess.tpl');
@@ -729,11 +729,11 @@ class ModRewriteHelper {
 
 		// Get the custom line and file instructions
 		if ($TestResults['gallery']['modRewrite'] == REWRITE_STATUS_APACHE_UNABLE_TO_TEST) {
-			$TestResults['gallery']['customFile1'] = dirname(dirname(dirname(dirname(__FILE__)))) .
+			$TestResults['gallery']['customFile1'] = dirname(dirname(dirname(__DIR__))) .
 			'/data/mod_rewrite/custom/.htaccess';
 			$TestResults['gallery']['customLine1'] = 'RewriteBase ' .
 			$baseUrlComponents['path'] . 'modules/rewrite/data/mod_rewrite/custom/';
-			$TestResults['gallery']['customFile2'] = dirname(dirname(dirname(dirname(__FILE__)))) .
+			$TestResults['gallery']['customFile2'] = dirname(dirname(dirname(__DIR__))) .
 			'/data/mod_rewrite_no_options/custom/.htaccess';
 			$TestResults['gallery']['customLine2'] = 'RewriteBase ' .
 			$baseUrlComponents['path'] . 'modules/rewrite/data/mod_rewrite_no_options/custom/';

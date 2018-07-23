@@ -84,7 +84,7 @@ function makeManifest($filterPath = '') {
 	if (empty($SRCDIR)) {
 		// Current working directory must be gallery2 folder
 		if (!file_exists('modules') && !file_exists('themes')) {
-			$baseDir = dirname(dirname(dirname(dirname(__FILE__)))) . '/';
+			$baseDir = dirname(dirname(dirname(__DIR__))) . '/';
 			chdir($baseDir);
 		} else {
 			$baseDir = getcwd();

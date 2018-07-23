@@ -6,7 +6,7 @@
 	Exifer 1.5
 	Extracts EXIF information from digital photos.
 
-	Copyright © 2005 Jake Olefsky
+	Copyright ï¿½ 2005 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
 
@@ -1244,30 +1244,30 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 		$capmake = strtoupper($make);
 
 		if (strpos($capmake, 'NIKON') !== false) {
-			include_once dirname(__FILE__) . '/makers/nikon.inc';
+			include_once __DIR__ . '/makers/nikon.inc';
 			parseNikon($data, $result);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'OLYMPUS') !== false) {
-			include_once dirname(__FILE__) . '/makers/olympus.inc';
+			include_once __DIR__ . '/makers/olympus.inc';
 			parseOlympus($data, $result, $seek, $globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'Canon') !== false) {
-			include_once dirname(__FILE__) . '/makers/canon.inc';
+			include_once __DIR__ . '/makers/canon.inc';
 			parseCanon($data, $result, $seek, $globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'FUJIFILM') !== false) {
-			include_once dirname(__FILE__) . '/makers/fujifilm.inc';
+			include_once __DIR__ . '/makers/fujifilm.inc';
 			parseFujifilm($data, $result);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'SANYO') !== false) {
-			include_once dirname(__FILE__) . '/makers/sanyo.inc';
+			include_once __DIR__ . '/makers/sanyo.inc';
 			parseSanyo($data, $result, $seek, $globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else {
 			$result[$ifd_name]['KnownMaker'] = 0;
 		}
 	} elseif ($tag_name == 'GPSInfoOffset') {
-		include_once dirname(__FILE__) . '/makers/gps.inc';
+		include_once __DIR__ . '/makers/gps.inc';
 		$formated_data                = formatData($type, $tag, $intel, $data);
 		$result[$ifd_name]['GPSInfo'] = $formated_data;
 		parseGPS($data, $result, $formated_data, $seek, $globalOffset);

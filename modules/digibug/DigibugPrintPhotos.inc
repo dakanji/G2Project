@@ -241,7 +241,7 @@ class DigibugPrintPhotosView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_digibug');
 		$template->setVariable('DigibugPrintPhotos', array(
 			'returnUrl' => $returnUrl,

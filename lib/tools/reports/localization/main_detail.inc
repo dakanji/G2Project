@@ -17,7 +17,7 @@
 		<?php
 		foreach ($reportData as $locale => $localeData) {
 			?>
-			<?php include dirname(__FILE__) . '/row_header_detail.inc'; ?>
+			<?php include __DIR__ . '/row_header_detail.inc'; ?>
 			<?php $index++; ?>
 		<tr>
 		  <td rowspan="<?php echo sizeof($localeData['plugins']); ?>" class="dark">
@@ -33,7 +33,7 @@
 			<?php $keys = array_keys($localeData['plugins']); ?>
 			<?php $plugin = $keys[0]; ?>
 			<?php $pluginData = $localeData['plugins'][$plugin]; ?>
-			<?php include dirname(__FILE__) . '/plugin_rowdata.inc'; ?>
+			<?php include __DIR__ . '/plugin_rowdata.inc'; ?>
 		</tr>
 
 			<?php
@@ -43,7 +43,7 @@
 				<?php $keys = array_keys($localeData['plugins']); ?>
 				<?php $plugin = $keys[$i]; ?>
 				<?php $pluginData = $localeData['plugins'][$plugin]; ?>
-				<?php include dirname(__FILE__) . '/plugin_rowdata.inc'; ?>
+				<?php include __DIR__ . '/plugin_rowdata.inc'; ?>
 		</tr>
 				<?php
 			} ?>

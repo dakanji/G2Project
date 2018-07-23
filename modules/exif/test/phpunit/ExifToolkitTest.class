@@ -47,7 +47,7 @@ class ExifToolkitTest extends GalleryTestCase {
 		list($ret, $results) = $this->_toolkit->getProperty(
 			'image/jpeg',
 			'originationTimestamp',
-			dirname(__FILE__) . '/../data/CanonS30.small.jpg'
+			__DIR__ . '/../data/CanonS30.small.jpg'
 		);
 
 		if ($ret) {

@@ -2,7 +2,7 @@
 if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
 
-	include_once dirname(__FILE__) . '/lib/support/defaultloc.inc';
+	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
 ob_start();
 phpinfo();

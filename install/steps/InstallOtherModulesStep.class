@@ -232,7 +232,7 @@ class InstallOtherModulesStep extends InstallStep {
 	}
 
 	public function _init(&$templateData) {
-		include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryDataCache.class';
+		include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
 		$cacheKey = 'Installer::installOtherModulesStepInitialized';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
@@ -247,9 +247,9 @@ class InstallOtherModulesStep extends InstallStep {
 				define('GALLERY_CONFIG_DIR', $_SESSION['configPath']);
 			}
 
-			include_once dirname(__FILE__) . '/../../bootstrap.inc';
+			include_once __DIR__ . '/../../bootstrap.inc';
 
-			include_once dirname(__FILE__) . '/../../init.inc';
+			include_once __DIR__ . '/../../init.inc';
 			$ret = GalleryInitFirstPass(array(
 				'debug'          => 'buffered',
 				'noDatabase'     => true,

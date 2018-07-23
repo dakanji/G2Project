@@ -31,7 +31,7 @@ class ChooseObjectsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testImportNothingSelected() {
-		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('albumsPath', __DIR__ . '/../data/albums/');
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
 		GalleryUtilities::putRequestVariable('form[set][summary]', 'blank');
@@ -52,7 +52,7 @@ class ChooseObjectsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testImportValidSelections1() {
-		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('albumsPath', __DIR__ . '/../data/albums/');
 		GalleryUtilities::putRequestVariable('form[migrateUser][12345:6789]', 1);
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 'filename');
@@ -74,7 +74,7 @@ class ChooseObjectsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testImportValidSelections2() {
-		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('albumsPath', __DIR__ . '/../data/albums/');
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][0]', 'album01');
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
@@ -97,7 +97,7 @@ class ChooseObjectsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testMissingCustomField() {
-		GalleryUtilities::putRequestVariable('albumsPath', dirname(__FILE__) . '/../data/albums/');
+		GalleryUtilities::putRequestVariable('albumsPath', __DIR__ . '/../data/albums/');
 		GalleryUtilities::putRequestVariable('form[sourceAlbums][0]', 'album01');
 		GalleryUtilities::putRequestVariable('form[action][import]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 'custom');

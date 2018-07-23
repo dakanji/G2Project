@@ -12,7 +12,7 @@
 
 */
 
-@define('HORDE_BASE', dirname(dirname(dirname(__FILE__))) . '/horde');
+@define('HORDE_BASE', dirname(dirname(__DIR__)) . '/horde');
 
 if (!is_dir(HORDE_BASE)) {
 	trigger_error(sprintf('Directory not found: \'%s\'', HORDE_BASE), E_USER_ERROR);

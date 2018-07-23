@@ -50,7 +50,7 @@ if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
 	define('RANDOM_COMPAT_READ_BUFFER', 8);
 }
 
-$RandomCompatDIR = dirname(__FILE__);
+$RandomCompatDIR = __DIR__;
 
 require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'byte_safe_strings.php';
 require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'cast_to_int.php';

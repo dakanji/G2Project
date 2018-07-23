@@ -20,7 +20,7 @@
 			<?php
 			if (!($index % 20)) {
 				?>
-				<?php include dirname(__FILE__) . '/row_header_summary.inc'; ?>
+				<?php include __DIR__ . '/row_header_summary.inc'; ?>
 				<?php
 			} ?>
 			<?php $index++; ?>

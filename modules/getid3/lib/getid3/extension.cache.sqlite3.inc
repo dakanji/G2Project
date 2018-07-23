@@ -97,10 +97,10 @@ class getID3_cached_sqlite3 extends getID3 {
 	 */
 	public function __construct($table = 'getid3_cache', $hide = false) {
 		$this->table = $table; // Set table
-		$file        = dirname(__FILE__) . '/' . basename(__FILE__, 'php') . 'sqlite';
+		$file        = __DIR__ . '/' . basename(__FILE__, 'php') . 'sqlite';
 
 		if ($hide) {
-			$file = dirname(__FILE__) . '/.ht.' . basename(__FILE__, 'php') . 'sqlite';
+			$file = __DIR__ . '/.ht.' . basename(__FILE__, 'php') . 'sqlite';
 		}
 		$this->db = new SQLite3($file);
 		$db       = $this->db;

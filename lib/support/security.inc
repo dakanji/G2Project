@@ -29,7 +29,7 @@ if (!defined('G2_SUPPORT_URL_FRAGMENT')) {
 	exit;
 }
 
-require_once dirname(__FILE__) . '/GallerySetupUtilities.class';
+require_once __DIR__ . '/GallerySetupUtilities.class';
 
 GallerySetupUtilities::startSession();
 
@@ -53,7 +53,7 @@ if (empty($config)) {
 } elseif (empty($config['setup.password'])) {
 	render('missingSetupPassword', $options);
 } elseif (!GallerySetupUtilities::isSessionAuthenticated()) {
-	$baseDir             = defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR : dirname(dirname(dirname(__FILE__)));
+	$baseDir             = defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR : dirname(dirname(__DIR__));
 	$authFile            = $baseDir . '/login.txt';
 	$options['attempts'] = GallerySetupUtilities::getLoginAttempts();
 	$options['error']    = ($options['attempts'] === false);

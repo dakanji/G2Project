@@ -246,10 +246,10 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		$this->_platform->setReply(
 			'realpath',
 			array(
-				dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'core' .
+				dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'core' .
 											DIRECTORY_SEPARATOR . 'classes/../../..',
 			),
-			realpath(dirname(dirname(dirname(dirname(dirname(__FILE__)))))),
+			realpath(dirname(dirname(dirname(dirname(__DIR__))))),
 			true // optional
 		);
 

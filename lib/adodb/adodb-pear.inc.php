@@ -45,7 +45,7 @@
 	free
  */
 
-define('ADODB_PEAR', dirname(__FILE__));
+define('ADODB_PEAR', __DIR__);
 
 require_once 'PEAR.php';
 

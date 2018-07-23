@@ -85,7 +85,7 @@ class FfmpegModule extends GalleryModule {
 
 		if (!$platform->is_file($imageFile)
 			&& !$platform->copy(
-				dirname(__FILE__) . "${slash}images${slash}filmreel.png",
+				__DIR__ . "${slash}images${slash}filmreel.png",
 				$imageFile
 			)
 		) {

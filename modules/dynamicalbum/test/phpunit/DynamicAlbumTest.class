@@ -115,7 +115,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 		$this->_class    = array(
 			'date'   => 'UpdatesAlbum',
 			'views'  => 'PopularAlbum',
@@ -219,7 +219,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$template              = new GalleryTemplate(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+			$template              = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 			$theme                 =& $template->getVariableByReference('theme');
 			$theme['actingUserId'] = $gallery->getActiveUserId();
 
@@ -256,7 +256,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		) as $key => $view) {
 			GalleryUtilities::putRequestVariable('show', $type[$key]);
 
-			$template              = new GalleryTemplate(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+			$template              = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 			$theme                 =& $template->getVariableByReference('theme');
 			$theme['actingUserId'] = $gallery->getActiveUserId();
 

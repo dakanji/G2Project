@@ -110,7 +110,7 @@ function RepositoryToolsMain() {
 			);
 		}
 		$methodName     = GalleryUtilities::getRequestVariables('action');
-		$controllerPath = sprintf('%s/%s.inc', dirname(__FILE__), $controllerName);
+		$controllerPath = sprintf('%s/%s.inc', __DIR__, $controllerName);
 	}
 
 	// Configure our url Generator for repository mode.
@@ -127,7 +127,7 @@ function RepositoryToolsMain() {
 	if (!$isSiteAdmin || !$platform->file_exists($controllerPath)) {
 		// Set default controller.
 		$controllerName = 'MainPage';
-		$controllerPath = sprintf('%s/%s.inc', dirname(__FILE__), $controllerName);
+		$controllerPath = sprintf('%s/%s.inc', __DIR__, $controllerName);
 		$methodName     = 'showAvailableActions';
 	}
 

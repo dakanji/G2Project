@@ -374,7 +374,7 @@ class GalleryTemplate {
 		$smarty->error_reporting = error_reporting();
 
 		// We have our own plugins
-		$smarty->plugins_dir[] = dirname(__FILE__) . '/../../../lib/smarty_plugins';
+		$smarty->plugins_dir[] = __DIR__ . '/../../../lib/smarty_plugins';
 
 		if ($gallery->getDebug()) {
 			$smarty->debugging = true;

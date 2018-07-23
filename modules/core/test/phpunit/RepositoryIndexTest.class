@@ -48,7 +48,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_testStorage =& $gallery->_storage;
 
 		// Prepare test index.
-		include dirname(__FILE__) . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
+		include __DIR__ . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
 		$this->_sampleIndex = $sampleIndex;
 
 		$this->_index            = new GalleryRepositoryIndex('test');

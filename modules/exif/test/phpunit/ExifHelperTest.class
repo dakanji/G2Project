@@ -127,7 +127,7 @@ class ExifHelperTest extends GalleryTestCase {
 	 */
 	public function testGetExifData() {
 		list($ret, $exifData) = ExifHelper::getExifData(
-			dirname(__FILE__) . '/../data/CanonS30.small.jpg',
+			__DIR__ . '/../data/CanonS30.small.jpg',
 			EXIF_SUMMARY
 		);
 
@@ -177,7 +177,7 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $exifData) = ExifHelper::getExifData(
-			dirname(__FILE__) . '/../data/exif-embedded-script.jpg',
+			__DIR__ . '/../data/exif-embedded-script.jpg',
 			EXIF_SUMMARY
 		);
 
@@ -206,7 +206,7 @@ class ExifHelperTest extends GalleryTestCase {
 	 * to only XMP data, which is not distinguishable in current Adobe products).
 	 */
 	public function testGetRawIptcDataAdobe() {
-		list($ret, $iptcObj) = ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/exif-iptc-xmp-ps.jpg');
+		list($ret, $iptcObj) = ExifHelper::getIptcObject(__DIR__ . '/../data/exif-iptc-xmp-ps.jpg');
 
 		if ($ret) {
 			return $ret;
@@ -313,7 +313,7 @@ class ExifHelperTest extends GalleryTestCase {
 	 * problems with some PHP software, so let's make sure, we are doing things right.
 	 */
 	public function testGetRawIptcDataExifer() {
-		list($ret, $iptcObj) = ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/iptc-exifer.jpg');
+		list($ret, $iptcObj) = ExifHelper::getIptcObject(__DIR__ . '/../data/iptc-exifer.jpg');
 
 		if ($ret) {
 			return $ret;
@@ -347,7 +347,7 @@ class ExifHelperTest extends GalleryTestCase {
 	 * which does not know about XMP data.
 	 */
 	public function testGetRawIptcDataIrfanView() {
-		list($ret, $iptcObj) = ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/iptc-irfanview.jpg');
+		list($ret, $iptcObj) = ExifHelper::getIptcObject(__DIR__ . '/../data/iptc-irfanview.jpg');
 
 		if ($ret) {
 			return $ret;
@@ -428,7 +428,7 @@ class ExifHelperTest extends GalleryTestCase {
 	 * converted to UTF-8.
 	 */
 	public function testGetRawIptcDataISO_8859_1() {
-		list($ret, $iptcObj) = ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/iptc-iso-8859-1.jpg');
+		list($ret, $iptcObj) = ExifHelper::getIptcObject(__DIR__ . '/../data/iptc-iso-8859-1.jpg');
 
 		if ($ret) {
 			return $ret;
@@ -455,7 +455,7 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $exifData) = ExifHelper::getExifData(
-			dirname(__FILE__) . '/../data/iptc-embedded-script.jpg',
+			__DIR__ . '/../data/iptc-embedded-script.jpg',
 			EXIF_SUMMARY
 		);
 

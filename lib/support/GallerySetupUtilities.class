@@ -21,11 +21,11 @@ define('G2_SUPPORT_MAX_LOGIN_ATTEMPTS', 7);
 define('G2_SUPPORT_MAX_SESSION_LIFETIME', 2 * 60 * 60);
 define('G2_SETUP_SESSION_NAME', 'G2SETUPSID');
 
-require_once dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GalleryUtilities.class';
+require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryUtilities.class';
 
-require_once dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GalleryDataCache.class';
+require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryDataCache.class';
 
-require_once dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GallerySession.class';
+require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GallerySession.class';
 
 /**
  * Stub equivalent of Gallery.class that we use to extract data from config.php
@@ -120,7 +120,7 @@ class GallerySetupUtilities {
 			 * Don't include embed.php in the global scope because it will initiate actions before
 			 * we are ready for them (eg: redirect us to the installer if we have no config.php)
 			 */
-			include_once dirname(__FILE__) . '/../../embed.php';
+			include_once __DIR__ . '/../../embed.php';
 			$ret = GalleryEmbed::init(array(
 				'fullInit' => false,
 			));
@@ -163,7 +163,7 @@ class GallerySetupUtilities {
 			 * Don't include embed.php in the global scope because it will initiate actions before
 			 * we are ready for them (eg: redirect us to the installer if we have no config.php)
 			 */
-			include_once dirname(__FILE__) . '/../../embed.php';
+			include_once __DIR__ . '/../../embed.php';
 			$ret = GalleryEmbed::init(array(
 				'fullInit' => false,
 			));
@@ -232,7 +232,7 @@ class GallerySetupUtilities {
 	 * @static
 	 */
 	public static function redirectBackToSelf() {
-		include_once dirname(__FILE__) . '/../../modules/core/classes/GalleryUrlGenerator.class';
+		include_once __DIR__ . '/../../modules/core/classes/GalleryUrlGenerator.class';
 		$urlGenerator = new GalleryUrlGenerator();
 		$url          = $urlGenerator->getCurrentUrl();
 
@@ -262,7 +262,7 @@ class GallerySetupUtilities {
 			return GALLERY_CONFIG_DIR;
 		}
 
-		return dirname(dirname(dirname(__FILE__)));
+		return dirname(dirname(__DIR__));
 	}
 
 	/**
@@ -437,7 +437,7 @@ class GallerySetupUtilities {
 		 * Don't include embed.php in the global scope because it will initiate actions before we
 		 * are ready for them (eg: it will redirect us to the installer if we have no config.php)
 		 */
-		include_once dirname(__FILE__) . '/../../embed.php';
+		include_once __DIR__ . '/../../embed.php';
 
 		$ret = GalleryEmbed::init(array(
 			'fullInit' => false,

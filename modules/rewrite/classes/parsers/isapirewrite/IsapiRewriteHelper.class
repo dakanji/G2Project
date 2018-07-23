@@ -465,7 +465,7 @@ class IsapiRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$template = new GalleryTemplate(dirname(__FILE__) . '/../../../templates', true, false);
+		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 		$template->setVariable('Httpdini', $Httpdini);
 		$template->setVariable('l10Domain', 'modules_rewrite');
 		list($ret, $content) = $template->fetch('Httpdini.tpl');

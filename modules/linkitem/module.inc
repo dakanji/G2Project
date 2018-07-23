@@ -62,7 +62,7 @@ class LinkItemModule extends GalleryModule {
 		$imageFile = "$imageDir${slash}arrow.png";
 
 		if (!$platform->is_file($imageFile) &&
-		!$platform->copy(dirname(__FILE__) . "${slash}images${slash}arrow.png", $imageFile)) {
+		!$platform->copy(__DIR__ . "${slash}images${slash}arrow.png", $imageFile)) {
 			return GalleryCoreApi::error(
 				ERROR_PLATFORM_FAILURE,
 				__FILE__,

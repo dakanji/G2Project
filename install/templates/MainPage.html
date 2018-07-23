@@ -30,10 +30,10 @@
  ?>
 <?php if (isset($templateData['MainPage']['showStatusBlock'])): ?>
   <table id="progressBarTable" class="boxTable" cellspacing="0">
-    <?php include dirname(__FILE__) . '/Header.html'; ?>
+    <?php include __DIR__ . '/Header.html'; ?>
     <tr>
       <td id="navbar">
-        <?php include dirname(__FILE__) . '/NavBar.html'; ?>
+        <?php include __DIR__ . '/NavBar.html'; ?>
       </td>
       <td class="main">
         <div id="MainPageStatus_statusBlock">
@@ -88,10 +88,10 @@
 
 <?php if (isset($templateData['MainPage']['showBodyAndFooter'])): ?>
   <table id="regularTable" class="boxTable" cellspacing="0">
-    <?php include dirname(__FILE__) . '/Header.html'; ?>
+    <?php include __DIR__ . '/Header.html'; ?>
     <tr>
       <td id="navbar">
-        <?php include dirname(__FILE__) . '/NavBar.html'; ?>
+        <?php include __DIR__ . '/NavBar.html'; ?>
       </td>
 
       <td class="main">
@@ -135,7 +135,7 @@
         </div>
       <?php endif; ?>
 
-      <?php include dirname(__FILE__) . '/' . $templateData['bodyFile']; ?>
+      <?php include __DIR__ . '/' . $templateData['bodyFile']; ?>
 
       <?php if ($currentStep->isComplete() && !$currentStep->isLastStep()): ?>
         <div class="go">

@@ -674,7 +674,7 @@ class getid3_lib {
 
 		if (empty($tempdir)) {
 			// yes this is ugly, feel free to suggest a better way
-			include_once dirname(__FILE__) . '/getid3.php';
+			include_once __DIR__ . '/getid3.php';
 			$getid3_temp = new getID3();
 			$tempdir     = $getid3_temp->tempdir;
 			unset($getid3_temp);
@@ -1270,7 +1270,7 @@ class getid3_lib {
 			}
 
 			// yes this is ugly, feel free to suggest a better way
-			if (include_once dirname(__FILE__) . '/getid3.php') {
+			if (include_once __DIR__ . '/getid3.php') {
 				if ($getid3_temp = new getID3()) {
 					if ($getid3_temp_tempdir = $getid3_temp->tempdir) {
 						$tempdir = $getid3_temp_tempdir;

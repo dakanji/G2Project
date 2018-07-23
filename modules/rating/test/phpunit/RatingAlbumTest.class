@@ -71,7 +71,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
+		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'rating');
 

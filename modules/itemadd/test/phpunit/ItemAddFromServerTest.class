@@ -63,7 +63,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			return $ret;
 		}
 
-		$this->_baseDir = dirname(dirname(__FILE__));
+		$this->_baseDir = dirname(__DIR__);
 		$ret            = GalleryCoreApi::setPluginParameter(
 			'module',
 			'itemadd',
@@ -712,8 +712,8 @@ class ItemAddFromServerTestPlatform extends GalleryPlatform {
 		$this->_delegate         = $delegate;
 		$dirSep                  = $this->_dirSep = $delegate->getDirectorySeparator();
 		$this->_symlinkSupported = $symlinkSupported;
-		$this->_baseDir          = dirname(dirname(__FILE__)) . "{$dirSep}data{$dirSep}";
-		$this->_baseDirRecursive = dirname(dirname(__FILE__)) .
+		$this->_baseDir          = dirname(__DIR__) . "{$dirSep}data{$dirSep}";
+		$this->_baseDirRecursive = dirname(__DIR__) .
 		"{$dirSep}..{$dirSep}data{$dirSep}localUploadDir{$dirSep}";
 	}
 

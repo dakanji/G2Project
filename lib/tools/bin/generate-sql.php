@@ -23,7 +23,7 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 	exit(1);
 }
 
-require_once dirname(__FILE__) . '/XmlParser.inc';
+require_once __DIR__ . '/XmlParser.inc';
 
 $output = '';
 foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) {

@@ -408,14 +408,14 @@ class SystemChecksStep extends InstallStep {
 				$templateData['check'][] = array(
 					'title'  => 'Theme Available',
 					'error'  => true,
-					'notice' => sprintf('Error: There must be at least one theme in the %s folder!', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'themes'),
+					'notice' => sprintf('Error: There must be at least one theme in the %s folder!', dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'themes'),
 				);
 				$failCount++;
 			}
 			// skip showing 'success' for this one
 
 			// Now check the MANIFEST files
-			$isSvnInstall = file_exists(dirname(__FILE__) . '/.svn');
+			$isSvnInstall = file_exists(__DIR__ . '/.svn');
 			$manifest     = self::CheckManifest($template, $setTimeLimitAvailable);
 
 			if (!isset($manifest)) {
@@ -436,7 +436,7 @@ class SystemChecksStep extends InstallStep {
 			} else {
 				ob_start();
 
-				include dirname(__FILE__) . '/../templates/ManifestSystemCheck.html';
+				include __DIR__ . '/../templates/ManifestSystemCheck.html';
 				$notice = ob_get_contents();
 				ob_end_clean();
 
@@ -477,7 +477,7 @@ class SystemChecksStep extends InstallStep {
 
 	/** Verify that there is at least one themes/.../theme.inc file. */
 	public function AssertThemeIsAvailable() {
-		$themesFolder = dirname(dirname(dirname(__FILE__))) . '/themes/';
+		$themesFolder = dirname(dirname(__DIR__)) . '/themes/';
 
 		if (!file_exists($themesFolder)) {
 			return false;
@@ -505,7 +505,7 @@ class SystemChecksStep extends InstallStep {
 	}
 
 	public function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
-		$base = realpath(dirname(__FILE__) . '/../..') . '/';
+		$base = realpath(__DIR__ . '/../..') . '/';
 
 		if ($useSetTimeLimit) {
 			set_time_limit(180);
