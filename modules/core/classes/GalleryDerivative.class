@@ -210,7 +210,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	 * @param int $parentId the id of the parent GalleryItem
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId) {
+	public function create($parentId = null, $x1 = null, $x2 = null) {
 		$ret = parent::create($parentId);
 
 		if ($ret) {
