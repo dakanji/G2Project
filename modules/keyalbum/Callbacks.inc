@@ -1,108 +1,108 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2008 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 /**
- * @package KeyAlbum
- * @author Alan Harder <alan.harder@sun.com>
- * @version $Revision: 17580 $
- */
+* @package KeyAlbum
+* @author Alan Harder <alan.harder@sun.com>
+* @version $Revision: 17580 $
+*/
 class KeyAlbumCallbacks {
 	public function callback($params, &$smarty, $callback, $userId) {
 		switch ($callback) {
 			case 'LoadKeywords':
-				$onlyPublic              = (bool)$params['onlyPublic'];
-				$sizeLimit               = (int)$params['sizeLimit'];
-				$param                   = 'allKeywords' . ($onlyPublic ? '.public' : '')
-				. ($sizeLimit ? '.' . $sizeLimit : '');
-				$includeFrequency        = (bool)$params['includeFrequency'];
-				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param . '.time');
+			$onlyPublic              = (bool)$params['onlyPublic'];
+			$sizeLimit               = (int)$params['sizeLimit'];
+			$param                   = 'allKeywords' . ($onlyPublic ? '.public' : '')
+			. ($sizeLimit ? '.' . $sizeLimit : '');
+			$includeFrequency        = (bool)$params['includeFrequency'];
+			list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param . '.time');
+
+			if ($ret) {
+				return $ret;
+			}
+			// Cache keyword list for one day
+			if (time() - $lastUpdated > 3600 * 24) {
+				$ret = KeyAlbumCallbacks::_findAllKeywords(
+					$param,
+					$onlyPublic,
+					$sizeLimit,
+					$params['maxCloudFontEnlargement'],
+					$includeFrequency
+				);
 
 				if ($ret) {
 					return $ret;
 				}
-				// Cache keyword list for one day
-				if (time() - $lastUpdated > 3600 * 24) {
-					$ret = KeyAlbumCallbacks::_findAllKeywords(
-						$param,
-						$onlyPublic,
-						$sizeLimit,
-						$params['maxCloudFontEnlargement'],
-						$includeFrequency
-					);
+			}
+			list($ret, $keywords) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param);
 
-					if ($ret) {
-						return $ret;
-					}
-				}
-				list($ret, $keywords) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param);
+			if ($ret) {
+				return $ret;
+			}
 
-				if ($ret) {
-					return $ret;
-				}
+			$block                         =& $smarty->_tpl_vars['block'];
+			$block['keyalbum']['keywords'] = !empty($keywords) ? unserialize($keywords) : array();
 
-				$block                         =& $smarty->_tpl_vars['block'];
-				$block['keyalbum']['keywords'] = !empty($keywords) ? unserialize($keywords) : array();
-
-				return null;
+			return null;
 
 			case 'SplitKeywords':
-				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
 
-				if ($ret) {
-					return $ret;
-				}
-				list($ret, $split) = $module->getParameter('split');
+			if ($ret) {
+				return $ret;
+			}
+			list($ret, $split) = $module->getParameter('split');
 
-				if ($ret) {
-					return $ret;
-				}
+			if ($ret) {
+				return $ret;
+			}
 
-				$block                         =& $smarty->_tpl_vars['block'];
-				$block['keyalbum']['keywords'] = $module->splitKeywords($params['keywords'], $split);
+			$block                         =& $smarty->_tpl_vars['block'];
+			$block['keyalbum']['keywords'] = $module->splitKeywords($params['keywords'], $split);
 
-				return null;
+			return null;
 		}
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
 
 	/**
-	 * Get all unique keywords and store in a module parameter.
-	 * @param string $param save result to this plugin paramter
-	 * @param boolean $onlyPublic true to only get keywords from public items
-	 * @param int $sizeLimit max number of keywords (least common are dropped; 0 = no limit)
-	 * @param int $maxWeight max value for font enlargement in keyword cloud
-	 * @param boolean $includeFrequency false to only get distinct keywords, but not consider their
-	 *        frequency (cloud requires frequency)
-	 * @return GalleryStatus a status code
-	 * @static
-	 */
+	* Get all unique keywords and store in a module parameter.
+	* @param string $param save result to this plugin paramter
+	* @param boolean $onlyPublic true to only get keywords from public items
+	* @param int $sizeLimit max number of keywords (least common are dropped; 0 = no limit)
+	* @param int $maxWeight max value for font enlargement in keyword cloud
+	* @param boolean $includeFrequency false to only get distinct keywords, but not consider their
+	*        frequency (cloud requires frequency)
+	* @return GalleryStatus a status code
+	* @static
+	*/
 	public function _findAllKeywords($param, $onlyPublic, $sizeLimit, $maxWeight, $includeFrequency) {
 		global $gallery;
 
 		$query    = '
-	SELECT ' . ($includeFrequency ? '' : 'DISTINCT') . '
-	  [GalleryItem::keywords]
-	FROM
-	  [GalleryItem]
-	';
+		SELECT ' . ($includeFrequency ? '' : 'DISTINCT') . '
+		[GalleryItem::keywords]
+		FROM
+		[GalleryItem]
+		';
 		$keywords = $aclIds = array();
 
 		if ($onlyPublic) {
@@ -122,11 +122,11 @@ class KeyAlbumCallbacks {
 				$query .= ' WHERE [GalleryItem::id] IS NULL';
 			} else {
 				$query .= ' INNER JOIN [GalleryAccessSubscriberMap]
-		  ON [GalleryItem::id] = [GalleryAccessSubscriberMap::itemId]
-		WHERE
-		  [GalleryAccessSubscriberMap::accessListId] IN ('
+				ON [GalleryItem::id] = [GalleryAccessSubscriberMap::itemId]
+				WHERE
+				[GalleryAccessSubscriberMap::accessListId] IN ('
 				. GalleryUtilities::makeMarkers(count($aclIds)) . ')
-		';
+				';
 			}
 		}
 		list($ret, $searchResults) = $gallery->search($query, $aclIds);
@@ -169,8 +169,14 @@ class KeyAlbumCallbacks {
 
 		if ($sizeLimit > 0 && count($keywords) > $sizeLimit) {
 			// Sort by frequency and drop least common
-			uasort($keywords, create_function('$a,$b', '$c = $a[\'count\']; $d = $b[\'count\']; '
-							. 'return $c > $d ? -1 : ($c == $d ? 0 : 1);'));
+			uasort(
+				$keywords,
+				function($a, $b) {
+					$c = $a[count];
+					$d = $b[count];
+					return $c > $d ? -1 : ($c == $d ? 0 : 1);
+				}
+			);
 
 			// Avoid renumbering of numeric keys from array_splice
 			for ($newKeywords = array(), reset($keywords), $i = 0; $i < $sizeLimit; $i++) {
@@ -183,11 +189,11 @@ class KeyAlbumCallbacks {
 		$keywords = array_values($keywords);
 
 		/*
-		 * Compute weights, used for font enlargement in keyword cloud.  The adjustment shifts the
-		 * whole range from [x>=1, maxWeight] to [1, maxWeight - minWeight].  In case all
-		 * frequencies are very close together, this makes the resulting font-size rather normal
-		 * than large.
-		 */
+		* Compute weights, used for font enlargement in keyword cloud.  The adjustment shifts the
+		* whole range from [x>=1, maxWeight] to [1, maxWeight - minWeight].  In case all
+		* frequencies are very close together, this makes the resulting font-size rather normal
+		* than large.
+		*/
 		$adjustment = $maxWeight ** ((float)$minCount / $maxCount) - 1.0;
 
 		foreach ($keywords as $i => $keyword) {

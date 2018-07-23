@@ -257,10 +257,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		 * array, no matter what order we use to construct form[localServerFiles].
 		 * rsort keeps this item at the end anyway, so we get the expected results.
 		 */
-		$sortAddedFilesFunc = create_function(
-			'$a, $b',
-			'return strcmp($b[\'fileName\'], $a[\'fileName\']);'
-		);
+		 $sortAddedFilesFunc = function($a, $b) {
+ 			return strcmp($b['fileName'], $a['fileName']);
+ 		};
 
 		if ($symlinkSupported) {
 			$gallery->setPlatform($this->_symlinkAllowedPlatform);

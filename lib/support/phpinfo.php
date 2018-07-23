@@ -13,7 +13,9 @@ preg_match('#<body>(.*)</body>#ims', $phpinfo, $matches);
 $phpinfo = $matches[1];
 $phpinfo = preg_replace_callback(
 	'#(<td class="v">)(.*?)(</td>)#ims',
-	create_function('$matches', 'return $matches[1] . wordwrap($matches[2], 10, "<wbr>", true) . $matches[3];'),
+	function($matches) {
+		return $matches[1] . wordwrap($matches[2], 10, "<wbr>", true) . $matches[3];
+	},
 	$phpinfo
 );
 
