@@ -51,7 +51,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 	/**
 	 * @see ItemAddPlugin::handleRequest
 	 */
-	public function handleRequest($form, &$item, &$addController) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 		$this->_platform        =& $gallery->getPlatform();
 		$this->_dirSep          = $this->_platform->getDirectorySeparator();

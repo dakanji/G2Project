@@ -51,7 +51,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	/**
 	 * @see ItemAddPlugin::handleRequest
 	 */
-	public function handleRequest($form, &$item, &$addController) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$storage         =& $gallery->getStorage();
