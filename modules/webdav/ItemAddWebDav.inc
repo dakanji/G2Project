@@ -158,7 +158,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 			return array($ret, null, null);
 		}
 
-		WebDavServer::setResponseStatus('201 Created');
+		WebDavServer::getInstance()->setResponseStatus('201 Created');
 
 		return array(
 			null,

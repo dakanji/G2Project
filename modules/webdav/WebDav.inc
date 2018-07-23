@@ -107,8 +107,10 @@ class WebDavController extends GalleryController {
 
 		// Special case to suppress Mac '._' and '.DS_Store files.  Ignore but return success.
 		if (!strncmp($pathComponent, '._', 2) || $pathComponent == '.DS_Store') {
-			WebDavServer::setResponseStatus('200 OK');
-			$handle = WebDavServer::openRequestBody();
+			WebDavServer::getInstance()->setResponseStatus(
+				'200 OK'
+			);
+			$handle = WebDavServer::getInstance()->openRequestBody();
 
 			while (!feof($handle)) {
 				fgets($handle);
@@ -190,7 +192,9 @@ class WebDavController extends GalleryController {
 					 * appropriately scoped parent collection MUST fail with a 409
 					 * (Conflict).
 					 */
-					WebDavServer::setResponseStatus('409 Conflict');
+					WebDavServer::getInstance()->setResponseStatus(
+						'409 Conflict'
+					);
 				}
 
 				return array($ret, null);
