@@ -44,8 +44,9 @@ class CaptchaImageView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$code    = $session->get('captcha.key');
 
@@ -58,9 +59,6 @@ class CaptchaImageView extends GalleryView {
 				$session->start();
 			}
 		}
-
-		header('Content-type: image/jpeg');
-		header('Pragma: No-cache');
 
 		// Load the default background, black&white static
 		$image  = @imagecreatefromjpeg(dirname(__FILE__) . '/data/code_bg.jpg');
@@ -88,7 +86,12 @@ class CaptchaImageView extends GalleryView {
 		// Draw the code into the image, diagonally with some random displacement
 		for ($i = 0; $i < strlen($code); $i++) {
 			// Pick a random 25-50% lightness color for this letter
-			$color = imagecolorallocate($image, mt_rand(60, 120), mt_rand(60, 120), mt_rand(60, 120));
+			$color = imagecolorallocate(
+				$image,
+				mt_rand(60, 120),
+				mt_rand(60, 120),
+				mt_rand(60, 120)
+			);
 			imagestring(
 				$image,
 				5,
@@ -101,6 +104,8 @@ class CaptchaImageView extends GalleryView {
 
 		// Output the image and reclaim the memory it used
 		// Use low quality jpeg compression to make the image less OCR-able
+		header('Content-type: image/jpeg');
+		header('Pragma: No-cache');
 		imagejpeg($image, '', 50);
 		imagedestroy($image);
 

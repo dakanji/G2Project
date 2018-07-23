@@ -633,12 +633,13 @@ class GalleryDataCache {
 		 * Since we add all new data to the head of the list, the odds are good
 		 * that we should find our answer in the first iteration of this loop.
 		 */
-		for ($i = 0; $i < sizeof($permissions); $i++) {
-			if (isset($permissions[$i][$permission][$id])) {
-				return true;
+		if (!empty($permissions)){
+			for ($i = 0; $i < sizeof($permissions); $i++) {
+				if (isset($permissions[$i][$permission][$id])) {
+					return true;
+				}
 			}
 		}
-
 		return false;
 	}
 

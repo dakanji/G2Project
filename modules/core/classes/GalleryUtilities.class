@@ -803,14 +803,17 @@ class GalleryUtilities {
 	 * @param string $string the input string with UTF-8 entities
 	 * @return string the UTF-8 string
 	 */
-	public static function unicodeEntitiesToUtf8($string) {
-		$string = preg_replace(
-			'/&#([xa-f\d]+);/mei',
-			"GalleryUtilities::unicodeValueToUtf8Value('\\1')",
-			$string
-		);
-
-		return $string;
+	public static function unicodeEntitiesToUtf8($inString) {
+		$outString = preg_replace_callback(
+			'/&#([xa-f\d]+);/mi',
+	        function($matches) {
+	            foreach($matches as $match) {
+	                return "GalleryUtilities::unicodeValueToUtf8Value('\\1')";
+	            }
+	        },
+			$inString
+	    );
+		return $outString;
 	}
 
 	/**

@@ -64,7 +64,7 @@ class GalleryView {
 	 * @param array $error any error information from a delegating controller
 	 * @return GalleryStatus a status code
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		return null;
 	}
 

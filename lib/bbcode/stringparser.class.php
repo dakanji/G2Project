@@ -291,7 +291,7 @@ class StringParser {
 		$this->_stack = array();
 
 		if (is_object($this->_root)) {
-			StringParser_Node::destroyNode($this->_root);
+			StringParser_Node::getInstance()->destroyNode($this->_root);
 		}
 		unset($this->_root);
 		$this->_root     = new StringParser_Node_Root();
@@ -382,7 +382,7 @@ class StringParser {
 			return $root;
 		}
 
-		$res = StringParser_Node::destroyNode($this->_root);
+		$res = StringParser_Node::getInstance()->destroyNode($this->_root);
 
 		if (!$res) {
 			$this->_parsing = false;
@@ -970,6 +970,12 @@ class StringParser_Node {
 	public $occurredAt = -1;
 
 	/**
+	*
+	* @var Singleton
+	*/
+	private static $instance;
+
+	/**
 	 * Constructor
 	 *
 	 * Currently, the constructor only allocates a new ID for the node and
@@ -984,6 +990,18 @@ class StringParser_Node {
 		$this->_id        = $GLOBALS['__STRINGPARSER_NODE_ID']++;
 		$this->occurredAt = $occurredAt;
 	}
+
+	/**
+	 * Singleton Pattern
+	 *
+	 * See https://stackoverflow.com/a/3312860
+	 */
+	public static function getInstance() {
+      if (is_null(self::$instance)) {
+        self::$instance = new self();
+      }
+      return self::$instance;
+    }
 
 	/**
 	 * Type of the node
@@ -1288,7 +1306,7 @@ class StringParser_Node {
 		}
 
 		if ($destroy) {
-			return StringParser_Node::destroyNode($object);
+			return StringParser_Node::getInstance()->destroyNode($object);
 			unset($object);
 		}
 

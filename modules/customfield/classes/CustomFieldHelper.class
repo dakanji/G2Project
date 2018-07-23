@@ -321,7 +321,8 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 	public static function saveFieldValues(&$item, $fields) {
 		$albumItemCheck    = GalleryUtilities::isA($item, 'GalleryAlbumItem');
 		$photoItemCheck    = GalleryUtilities::isA($item, 'GalleryPhotoItem');
-		$set               = $albumItemCheck ? 1 : $photoItemCheck ? 2 : 0);
+		$photoItemCheckRes = $photoItemCheck ? 2 : 0;
+		$set               = $albumItemCheck ? 1 : $photoItemCheckRes;
 		$containerId       = ($set == 1) ? $item->getId() : $item->getParentId();
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',

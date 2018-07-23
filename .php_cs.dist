@@ -3,7 +3,7 @@
 $finder = PhpCsFixer\Finder::create()
 	->name('/.+\.(php|inc|class|css|js|xaml|xml|html)$/')
 	->exclude('*/Iconv/Resources/charset/*')
-    ->in(__DIR__ . '/lib/support')
+    ->in(__DIR__)
 ;
 
 return PhpCsFixer\Config::create()
