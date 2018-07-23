@@ -57,7 +57,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		$result                   = array();
-		list($ret, $beforeStates) = $this->getPluginStates();
+		list($ret, $beforeStates) = self::getPluginStates();
 
 		if ($ret) {
 			$result['status'] = 'error';
@@ -95,7 +95,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		if (!$ret) {
-			list($ret, $afterStates) = $this->getPluginStates();
+			list($ret, $afterStates) = self::getPluginStates();
 
 			if ($ret) {
 				$result['status'] = 'error';
@@ -412,7 +412,11 @@ class PluginCallbackView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($ret, $states[$type][$pluginId]) = $this->getPluginState($type, $plugin, $status);
+				list($ret, $states[$type][$pluginId]) = self::getPluginState(
+					$type,
+					$plugin,
+					$status
+				);
 
 				if ($ret) {
 					return array($ret, null);
