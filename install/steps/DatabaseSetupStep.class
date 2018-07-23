@@ -168,7 +168,7 @@ class DatabaseSetupStep extends InstallStep {
 				include_once __DIR__ . '/../../lib/adodb/adodb.inc.php';
 
 				$this->_captureStart();
-				$this->_db =& ADONewConnection($this->_config['type']);
+				$this->_db = ADONewConnection($this->_config['type']);
 				$this->_captureEnd();
 
 				if (empty($this->_db)) {
