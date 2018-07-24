@@ -39,7 +39,7 @@ class GdToolkitTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
 
-		include dirname(__FILE__) . '/GdFunctionMatrix.inc';
+		include __DIR__ . '/GdFunctionMatrix.inc';
 		$this->_gdEnvironments = $gdEnvironments;
 	}
 

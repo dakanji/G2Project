@@ -88,7 +88,7 @@ class RepositoryObject {
 	 */
 	public function init() {
 		$this->_utilities = new GalleryRepositoryUtilities();
-		$this->_template  = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
+		$this->_template  = new GalleryTemplate(__DIR__ . '/../../../..');
 		$this->_template->setVariable('l10Domain', 'lib_repository');
 	}
 

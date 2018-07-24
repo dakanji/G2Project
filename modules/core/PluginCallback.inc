@@ -45,7 +45,7 @@ class PluginCallbackView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 		$session =& $gallery->getSession();
 		$storage =& $gallery->getStorage();
@@ -57,7 +57,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		$result                   = array();
-		list($ret, $beforeStates) = $this->getPluginStates();
+		list($ret, $beforeStates) = self::getPluginStates();
 
 		if ($ret) {
 			$result['status'] = 'error';
@@ -95,7 +95,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		if (!$ret) {
-			list($ret, $afterStates) = $this->getPluginStates();
+			list($ret, $afterStates) = self::getPluginStates();
 
 			if ($ret) {
 				$result['status'] = 'error';
@@ -395,7 +395,7 @@ class PluginCallbackView extends GalleryView {
 	 *               array(moduleId => state, ...)
 	 * @static
 	 */
-	public function getPluginStates() {
+	public static function getPluginStates() {
 		$states = array();
 
 		foreach (array('module', 'theme') as $type) {
@@ -412,7 +412,11 @@ class PluginCallbackView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($ret, $states[$type][$pluginId]) = $this->getPluginState($type, $plugin, $status);
+				list($ret, $states[$type][$pluginId]) = self::getPluginState(
+					$type,
+					$plugin,
+					$status
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -433,7 +437,7 @@ class PluginCallbackView extends GalleryView {
 	 *               string a state
 	 * @static
 	 */
-	public function getPluginState($type, $plugin, $status) {
+	public static function getPluginState($type, $plugin, $status) {
 		if ($type == 'module' && $plugin->getId() == 'core') {
 			return array(null, 'active');
 		}

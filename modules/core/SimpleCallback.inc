@@ -45,7 +45,7 @@ class SimpleCallbackView extends GalleryView {
 	/**
 	 * @see GalleryView::renderImmediate
 	 */
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		list($command, $prefix)  = GalleryUtilities::getRequestVariables('command', 'prefix');
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 

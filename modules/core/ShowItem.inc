@@ -116,7 +116,7 @@ class ShowItemView extends GalleryView {
 	/**
 	 * @see GalleryView::getItem
 	 */
-	public function getItem($getOriginalSpecified = false) {
+	public static function getItem($getOriginalSpecified = false) {
 		static $originalSpecified;
 		list($ret, $item, $wasSpecified) = parent::getItem();
 

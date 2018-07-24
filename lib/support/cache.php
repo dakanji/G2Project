@@ -1,6 +1,8 @@
 <?php
 if (!defined('G2_SUPPORT')) {
-	return;
+	define('G2_SUPPORT_FILE', true);
+
+	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
 
 function getCaches() {
@@ -157,7 +159,7 @@ $status = array();
 $caches = getCaches();
 
 if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
-	include_once dirname(__FILE__) . '/../../embed.php';
+	include_once __DIR__ . '/../../embed.php';
 	$ret = GalleryEmbed::init(array(
 		'fullInit' => false,
 	));
@@ -190,10 +192,10 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	$_COOKIE['g2cache'] = join(',', $remember);
 }
 ?>
-<html>
+<html lang="en">
   <head>
 	<title>Gallery Support | Cache Maintenance</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
   </head>
   <body>
 	<div id="content">
@@ -228,10 +230,10 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 				<?php
 			endif;
 			?>
-			 />
-			<?php echo $info[3]; ?> <br/>
+			>
+			<?php echo $info[3]; ?> <br>
 		<?php endforeach; ?>
-	  <input type="submit" name="clear" value="Clear Cache"/>
+	  <input type="submit" name="clear" value="Clear Cache">
 	</p>
 	  </form>
 	</div>

@@ -72,7 +72,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
 
-		$baseDir = dirname(__FILE__) . '/../data/';
+		$baseDir = __DIR__ . '/../data/';
 		$files   = array('test1.gif', 'test1.jpg', 'test2.gif', 'test[3].gif');
 		$i       = 0;
 
@@ -370,7 +370,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			1 => 'test1.gif',
 			2 => 'test2.gif',
 		);
-		$fullPath = dirname(__FILE__) . '/../data/' . $files[2];
+		$fullPath = __DIR__ . '/../data/' . $files[2];
 
 		GalleryUtilities::putRequestVariable('form[name][1]', $files[1]);
 		GalleryUtilities::putRequestVariable('form[tmp_name][1]', '');

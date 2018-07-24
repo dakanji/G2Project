@@ -19,7 +19,7 @@
  */
 
 // Don't use GalleryCoreApi::requireOnce here; index.php uses this file without GalleryCoreApi
-require_once dirname(__FILE__) . '/GalleryUtilities.class';
+require_once __DIR__ . '/GalleryUtilities.class';
 
 if (!defined('GALLERY_MAIN_PHP')) {
 	define('GALLERY_MAIN_PHP', 'main.php');
@@ -139,7 +139,7 @@ class GalleryUrlGenerator {
 	 * @return string the current URL path component plus query parameters
 	 * @static
 	 */
-	public function getCurrentRequestUri() {
+	public static function getCurrentRequestUri() {
 		$cacheKey = 'GalleryUrlGenerator::currentRequestUri';
 
 		if (GalleryDataCache::containsKey($cacheKey)) {
@@ -180,7 +180,7 @@ class GalleryUrlGenerator {
 	 * @return string the new URL (&amp; separates added params)
 	 * @static
 	 */
-	public function appendParamsToUrl(
+	public static function appendParamsToUrl(
 		$url,
 		$params,
 		$addPrefix = true,
@@ -225,7 +225,7 @@ class GalleryUrlGenerator {
 	 * @static
 	 * @access private
 	 */
-	public function _flattenParamsArray($nestedParams, &$flatParams, $keyBase = null) {
+	public static function _flattenParamsArray($nestedParams, &$flatParams, $keyBase = null) {
 		foreach ($nestedParams as $key => $value) {
 			$key = empty($keyBase) ? $key : $keyBase . '[' . $key . ']';
 
@@ -1006,20 +1006,7 @@ class GalleryUrlGenerator {
 
 			if (!$check && empty($this->_localUrlMapDirty)) {
 				$this->_localUrlMapDirty = true;
-				/*
-				 * Would do array(&$this, '_saveLocalUrlMap') but this triggers a bug in PHP 5.1.x
-				 * with array comparison (@see Gallery::addShutdownAction).  In PHP 5.3 that
-				 * approach doesn't work so drop the reference and call into our convenience
-				 * function instead.
-				 */
-				if (version_compare(PHP_VERSION, '5.3', '>=')) {
-					$gallery->addShutdownAction(array($this, '_saveLocalUrlMapPhp5'), array());
-				} else {
-					$gallery->addShutdownAction(
-						array('GalleryUrlGenerator', '_saveLocalUrlMap'),
-						array(&$this)
-					);
-				}
+				$gallery->addShutdownAction(array($this, '_saveLocalUrlMapXtra'), array());
 			}
 		}
 
@@ -1044,9 +1031,9 @@ class GalleryUrlGenerator {
 	}
 
 	/**
-	 * Compatibility function for PHP 5.3.  See comment in GalleryUrlGenerator::_getLocalPath.
+	 * Convenience function.
 	 */
-	public function _saveLocalUrlMapPhp5() {
+	public function _saveLocalUrlMapXtra() {
 		GalleryUrlGenerator::_saveLocalUrlMap($this);
 	}
 }

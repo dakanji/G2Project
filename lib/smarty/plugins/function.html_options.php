@@ -72,9 +72,8 @@ function smarty_function_html_options($params, &$smarty) {
 	}
 
 	if (!isset($options) && !isset($values)) {
-		return '';
-	} // raise error here?
-
+		return ''; // raise error here?
+	}
 	$_html_result = '';
 
 	if (isset($options)) {

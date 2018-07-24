@@ -65,7 +65,7 @@ class GalleryTranslator {
 	 * @return boolean
 	 * @static
 	 */
-	public function canTranslate() {
+	public static function canTranslate() {
 		return function_exists('dgettext');
 	}
 
@@ -96,7 +96,7 @@ class GalleryTranslator {
 	 *                     ...)
 	 * @static
 	 */
-	public function getLanguageData() {
+	public static function getLanguageData() {
 		static $supportedLanguages = array();
 		static $defaultCountry     = array();
 
@@ -376,7 +376,7 @@ class GalleryTranslator {
 	 *               string language code
 	 * @static
 	 */
-	public function getDefaultLanguageCode() {
+	public static function getDefaultLanguageCode() {
 		list($ret, $useBrowserPref) = GalleryCoreApi::getPluginParameter('module', 'core', 'language.useBrowserPref');
 
 		if ($ret) {
@@ -418,7 +418,7 @@ class GalleryTranslator {
 	 *                array data about this language code (description,right-to-left?))
 	 * @static
 	 */
-	public function getSupportedLanguageCode($languageCode, $fallback = true) {
+	public static function getSupportedLanguageCode($languageCode, $fallback = true) {
 		static $supportedLanguages;
 		static $defaultCountry;
 
@@ -454,7 +454,7 @@ class GalleryTranslator {
 	 * @return null or a language code in the <language>_<COUNTRY> format, eg: en_US
 	 * @static
 	 */
-	public function getLanguageCodeFromRequest() {
+	public static function getLanguageCodeFromRequest() {
 		// Take the first thing the browser accepts that we can use
 		$httpAcceptLanguage = GalleryUtilities::getServerVar('HTTP_ACCEPT_LANGUAGE');
 

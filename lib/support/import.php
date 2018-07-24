@@ -18,14 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 if (!defined('G2_SUPPORT')) {
-	return;
+	define('G2_SUPPORT_FILE', true);
+
+	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
 
 /**
  * Gallery Database Import
  * @package Support
  */
-$g2Base = dirname(dirname(dirname(__FILE__))) . '/';
+$g2Base = dirname(dirname(__DIR__)) . '/';
 
 require_once $g2Base . 'modules/core/classes/GalleryCoreApi.class';
 
@@ -41,7 +43,7 @@ $template = new SupportStatusTemplate('Database Import');
 
 $configFilePath = (defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR . '/' : $g2Base) . 'config.php';
 
-require_once dirname(__FILE__) . '/../../embed.php';
+require_once __DIR__ . '/../../embed.php';
 
 $templateData             = array();
 $templateData['bodyFile'] = 'ImportRequest.html';

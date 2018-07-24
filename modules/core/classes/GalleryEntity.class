@@ -158,7 +158,7 @@ class GalleryEntity extends GalleryPersistent {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function create() {
+	public function create($x1 = null, $x2 = null, $x3 = null) {
 		global $gallery;
 
 		// Create a new instance of this entity in the persistent store
@@ -220,7 +220,7 @@ class GalleryEntity extends GalleryPersistent {
 	 * @return array GalleryStatus a status code
 	 *               GalleryItem the linked item
 	 */
-	public function createLink($entity) {
+	public function createLink($entity, $x1 = null) {
 		global $gallery;
 
 		if (get_class($this) != get_class($entity)) {

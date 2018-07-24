@@ -41,7 +41,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$this->_repository->_utilities = new UnitTestRepositoryUtilities();
 
 		// Prepare test index.
-		include dirname(__FILE__) . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
+		include __DIR__ . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
 		$this->_repository->_index            = new GalleryRepositoryIndex('test');
 		$this->_repository->_index->_index    = $sampleIndex;
 		$this->_repository->_index->_isLoaded = true;
@@ -49,7 +49,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$this->_repository->_source = 'test';
 
 		// Prepare sample descriptor
-		include dirname(__FILE__)
+		include __DIR__
 		. '/../../../../lib/tools/repository/test/data/SampleDescriptors.inc';
 		$this->_descriptor = $sampleModuleDescriptor;
 

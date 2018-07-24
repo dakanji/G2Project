@@ -48,7 +48,7 @@ class RepositoryTest extends GalleryTestCase {
 		$this->_testStorage =& $gallery->_storage;
 
 		// Prepare test index.
-		include dirname(__FILE__) . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
+		include __DIR__ . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
 		$this->_sampleIndex      = $sampleIndex;
 		$this->_index            = new GalleryRepositoryIndex('test');
 		$this->_index->_index    = $this->_sampleIndex;
@@ -2012,10 +2012,10 @@ class RepositoryTest extends GalleryTestCase {
 	public function testDownloadAndUnpack() {
 		global $gallery;
 
-		$testCachePath      = dirname(__FILE__) . '/../data/';
-		$testPackagePath    = dirname(__FILE__) . '/../data/test/RepositoryTest.package';
+		$testCachePath      = __DIR__ . '/../data/';
+		$testPackagePath    = __DIR__ . '/../data/test/RepositoryTest.package';
 		$testPackageUrl     = 'repositoryUrl/test/RepositoryTest.package';
-		$testDescriptorPath = dirname(__FILE__) . '/../data/test/RepositoryTest.descriptor';
+		$testDescriptorPath = __DIR__ . '/../data/test/RepositoryTest.descriptor';
 		$testDescriptorUrl  = 'repositoryUrl/test/RepositoryTest.descriptor';
 		$gallery->setConfig('repository.cache', $testCachePath);
 		$gallery->setConfig('repository.url', 'repositoryUrl/');

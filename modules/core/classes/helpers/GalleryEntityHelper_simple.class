@@ -30,7 +30,7 @@ class GalleryEntityHelper_simple {
 	/**
 	 * @see GalleryCoreApi::loadEntitiesById
 	 */
-	public function loadEntitiesById($ids, $requiredEntityType = null) {
+	public static function loadEntitiesById($ids, $requiredEntityType = null) {
 		global $gallery;
 		$gallery->guaranteeTimeLimit(5);
 
@@ -170,7 +170,7 @@ class GalleryEntityHelper_simple {
 	/**
 	 * @see GalleryCoreApi::loadEntityByExternalId
 	 */
-	public function loadEntityByExternalId($externalId, $entityType) {
+	public static function loadEntityByExternalId($externalId, $entityType) {
 		global $gallery;
 
 		list($ret, $results) = GalleryCoreApi::getMapEntry(

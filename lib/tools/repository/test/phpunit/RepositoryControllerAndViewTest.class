@@ -40,7 +40,7 @@ class RepositoryControllerTest extends GalleryTestCase {
 	 */
 	public function testShowView() {
 		global $gallery;
-		$gallery->setConfig('repository.templates', dirname(__FILE__) . '/../data/');
+		$gallery->setConfig('repository.templates', __DIR__ . '/../data/');
 
 		$controller = new RepositoryController();
 		$ret        = $controller->showView('testShowViewTemplate', '');

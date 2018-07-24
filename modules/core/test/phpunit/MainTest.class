@@ -791,7 +791,7 @@ class MainTest_FakeTemplate extends GalleryTemplate {
 }
 
 class MainTestImmediateView extends GalleryView {
-	public function renderImmediate($status, $error) {
+	public function renderImmediate($status = null, $error = null) {
 		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 	}
 

@@ -361,7 +361,7 @@ class GalleryTemplate {
 	 * @static
 	 * @access private
 	 */
-	public function _getSmarty($trimWhitespace) {
+	public static function _getSmarty($trimWhitespace) {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
@@ -374,7 +374,7 @@ class GalleryTemplate {
 		$smarty->error_reporting = error_reporting();
 
 		// We have our own plugins
-		$smarty->plugins_dir[] = dirname(__FILE__) . '/../../../lib/smarty_plugins';
+		$smarty->plugins_dir[] = __DIR__ . '/../../../lib/smarty_plugins';
 
 		if ($gallery->getDebug()) {
 			$smarty->debugging = true;
@@ -427,7 +427,7 @@ class GalleryTemplate {
 	 * @return boolean false if the compiled templates should be used without any checking
 	 * @static
 	 */
-	public function shouldDoCompileCheck() {
+	public static function shouldDoCompileCheck() {
 		$cacheKey = 'GalleryTemplate::compileCheck';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
@@ -458,7 +458,7 @@ class GalleryTemplate {
 	 * @return string processed tpl content ready for compilation
 	 * @static
 	 */
-	public function preFilter($source, &$smarty) {
+	public static function preFilter($source, &$smarty) {
 		return preg_replace('/^\s+/m', '', $source);
 	}
 
@@ -493,7 +493,7 @@ class GalleryTemplate {
 	 *
 	 * @see function _getActualTemplatePath
 	 */
-	public function resourceGetTemplate($templateName, &$templateSource, &$smarty) {
+	public static function resourceGetTemplate($templateName, &$templateSource, &$smarty) {
 		$templatePath = GalleryTemplate::_getActualTemplatePath($templateName, $smarty);
 
 		$success = false;
@@ -523,7 +523,7 @@ class GalleryTemplate {
 	 *
 	 * @see function _getActualTemplatePath
 	 */
-	public function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
+	public static function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -553,7 +553,7 @@ class GalleryTemplate {
 	 * @static
 	 * @access private
 	 */
-	public function _getActualTemplatePath($templateName, &$smarty) {
+	public static function _getActualTemplatePath($templateName, &$smarty) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -628,7 +628,7 @@ class GalleryTemplate {
 	 * @static
 	 * @access private
 	 */
-	public function _getThemeId() {
+	public static function _getThemeId() {
 		$view               = new GalleryView();
 		list($ret, $itemId) = $view->getItem();
 

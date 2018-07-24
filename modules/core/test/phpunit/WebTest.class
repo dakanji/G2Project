@@ -928,7 +928,7 @@ class WebTestPlatform {
 	public function file_exists($path) {
 		switch (realpath($path)) {
 			case __FILE__:
-			case realpath(dirname(__FILE__) . '/../../classes/GalleryAlbumItem.class'):
+			case realpath(__DIR__ . '/../../classes/GalleryAlbumItem.class'):
 				return true;
 
 			default:

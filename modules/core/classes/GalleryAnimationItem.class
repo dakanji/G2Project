@@ -90,8 +90,15 @@ class GalleryAnimationItem extends GalleryDataItem {
 	 *        of copy (default is false).
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId, $animationFileName, $mimeType, $targetName = null, $symlink = false) {
+	public function createDataItem(
+		$parentId,
+		$animationFileName,
+		$mimeType,
+		$targetName = null,
+		$symlink = false
+	) {
 		global $gallery;
+		
 		$platform =& $gallery->getPlatform();
 
 		// Validate the input filename

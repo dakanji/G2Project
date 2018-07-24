@@ -1,7 +1,9 @@
 <?php
 
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
@@ -88,7 +90,7 @@ class perf_mssql extends adodb_perf {
 			$this->sql1 = 'sql1';
 			//$this->explain = false;
 		}
-		$this->conn =& $conn;
+		$this->conn = $conn;
 	}
 
 	public function Explain($sql, $partial = false) {
@@ -116,16 +118,16 @@ class perf_mssql extends adodb_perf {
 
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$rs               =& $this->conn->Execute($sql);
+		$rs               = $this->conn->Execute($sql);
 		//adodb_printr($rs);
 		$ADODB_FETCH_MODE = $save;
 
-		if ($rs) {
+		if ($rs && !$rs->EOF) {
 			$rs->MoveNext();
 			$s .= '<table bgcolor=white border=0 cellpadding="1" callspacing=0><tr><td nowrap align=center> Rows<td nowrap align=center> IO<td nowrap align=center> CPU<td align=left> &nbsp; &nbsp; Plan</tr>';
 
 			while (!$rs->EOF) {
-				$s .= '<tr><td>' . round($rs->fields[8], 1) . '<td>' . round($rs->fields[9], 3) . '<td align=right>' . round($rs->fields[10], 3) . '<td nowrap><pre>' . htmlspecialchars($rs->fields[0]) . "</td></pre></tr>\n"; //# NOTE CORRUPT </td></pre> tag is intentional!!!!
+				$s .= '<tr><td>' . round($rs->fields[8], 1) . '<td>' . round($rs->fields[9], 3) . '<td align=right>' . round($rs->fields[10], 3) . '<td nowrap><pre>' . htmlspecialchars($rs->fields[0]) . "</td></pre></tr>\n"; // NOTE CORRUPT </td></pre> tag is intentional!!!!
 				$rs->MoveNext();
 			}
 			$s .= '</table>';

@@ -57,7 +57,9 @@ class ItemEditController extends GalleryController {
 		$preferred = empty($preferredTable) ? null : array_shift($preferredTable);
 
 		// Load the thumbnail
-		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
+		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array($item->getId())
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -65,14 +67,21 @@ class ItemEditController extends GalleryController {
 		$thumbnail = empty($thumbnails) ? null : array_shift($thumbnails);
 
 		// Get all the edit options
-		list($ret, $optionInstances) = ItemEditOption::getAllOptions($editPlugin, $item, $thumbnail);
+		list($ret, $optionInstances) = ItemEditOption::getAllOptions(
+			$editPlugin,
+			$item,
+			$thumbnail
+		);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
 		// Load the correct edit plugin
-		list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById('ItemEditPlugin', $editPlugin);
+		list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById(
+			'ItemEditPlugin',
+			$editPlugin
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -83,7 +92,11 @@ class ItemEditController extends GalleryController {
 		}
 
 		$status = array();
-		list($ret, $error, $status['editMessage'], $requiresProgressBar) = $plugin->handleRequest($form, $item, $preferred);
+		list($ret, $error, $status['editMessage'], $requiresProgressBar) = $plugin->handleRequest(
+			$form,
+			$item,
+			$preferred
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -105,7 +118,11 @@ class ItemEditController extends GalleryController {
 				if ($requiresProgressBar || $option->requiresProgressBar($form)) {
 					$progressBarOptions[] = $option;
 				} else {
-					list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterEdit($form, $item, $preferred);
+					list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterEdit(
+						$form,
+						$item,
+						$preferred
+					);
 
 					if ($ret) {
 						return array($ret, null);
@@ -148,8 +165,16 @@ class ItemEditController extends GalleryController {
 		return array(null, $results);
 	}
 
-	public function runProgressBarOptions($options, $form, $item, $preferred, $status, $editPlugin) {
+	public function runProgressBarOptions(
+		$options,
+		$form,
+		$item,
+		$preferred,
+		$status,
+		$editPlugin
+	) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		$error = array();
@@ -157,7 +182,11 @@ class ItemEditController extends GalleryController {
 		foreach ($options as $option) {
 			$gallery->guaranteeTimeLimit(60);
 
-			list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterEdit($form, $item, $preferred);
+			list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterEdit(
+				$form,
+				$item,
+				$preferred
+			);
 
 			if ($ret) {
 				return $ret;
@@ -265,7 +294,10 @@ class ItemEditView extends GalleryView {
 		$pluginInstances = array();
 
 		foreach (array_keys($allPluginIds) as $pluginId) {
-			list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById('ItemEditPlugin', $pluginId);
+			list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById(
+				'ItemEditPlugin',
+				$pluginId
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -516,8 +548,11 @@ class ItemEditOption {
 	 *               array ItemEditOption instances
 	 * @static
 	 */
-	public function getAllOptions($editPlugin, $item, $thumbnail) {
-		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIdsWithHint('ItemEditOption', $editPlugin);
+	public static function getAllOptions($editPlugin, $item, $thumbnail) {
+		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIdsWithHint(
+			'ItemEditOption',
+			$editPlugin
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -526,7 +561,10 @@ class ItemEditOption {
 		$optionInstances = array();
 
 		foreach (array_keys($allOptionIds) as $optionId) {
-			list($ret, $option) = GalleryCoreApi::newFactoryInstanceById('ItemEditOption', $optionId);
+			list($ret, $option) = GalleryCoreApi::newFactoryInstanceById(
+				'ItemEditOption',
+				$optionId
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -557,7 +595,7 @@ class ItemEditOption {
 	 *               string the path to a template file to include
 	 *               string localization domain for the template file
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
@@ -572,7 +610,7 @@ class ItemEditOption {
 	 *               array error messages
 	 *               array localized warning messages
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
@@ -584,7 +622,7 @@ class ItemEditOption {
 	 * @return array GalleryStatus a status code
 	 *               boolean true or false
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		return array(null, false);
 	}
 
@@ -594,7 +632,7 @@ class ItemEditOption {
 	 * @param array $form the state of the current form
 	 * @return boolean
 	 */
-	public function requiresProgressBar($form) {
+	public static function requiresProgressBar($form) {
 		return false;
 	}
 }

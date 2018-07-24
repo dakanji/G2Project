@@ -71,7 +71,7 @@ class SystemChecksStep extends UpgradeStep {
 				function_exists('set_time_limit')
 			);
 			$removeList    = array();
-			$base          = dirname(dirname(dirname(__FILE__))) . '/';
+			$base          = dirname(dirname(__DIR__)) . '/';
 
 			foreach ($manifest['shouldRemove'] as $file) {
 				$removeList[$file] = is_dir($base . $file);
@@ -84,7 +84,7 @@ class SystemChecksStep extends UpgradeStep {
 			header('Content-Type: application/data');
 			header('Content-Disposition: attachment; filename=' . $fileName);
 
-			include dirname(__FILE__) . '/../templates/ManifestCleanupScript.html';
+			include __DIR__ . '/../templates/ManifestCleanupScript.html';
 
 			return false;
 		}
@@ -526,7 +526,7 @@ class SystemChecksStep extends UpgradeStep {
 				'notice'  => _('Test skipped due to other errors.'),
 			);
 		} else {
-			$isSvnInstall = file_exists(dirname(__FILE__) . '/.svn');
+			$isSvnInstall = file_exists(__DIR__ . '/.svn');
 			$manifest     = SystemChecksStep::CheckManifest($template, $setTimeLimitAvailable);
 
 			if (!isset($manifest)) {
@@ -693,12 +693,17 @@ class SystemChecksStep extends UpgradeStep {
 		foreach (array('', 'versions.dat', 'albums') as $path) {
 			$path = $storagePath . $path;
 
+<<<<<<< HEAD
 			if (!$platform->file_exists($path) || !$platform->is_readable($path)
 				|| !$platform->is_writeable($path)
 			) {
 				return array($path);
 			}
 		}
+=======
+    static function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
+	$base = realpath(__DIR__ . '/../..') . '/';
+>>>>>>> 44f3f49... PHP 7 Compatibility
 
 		// Check up to 400 other files
 		$tested      = 0;
@@ -756,7 +761,7 @@ class SystemChecksStep extends UpgradeStep {
 	}
 
 	public function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
-		$base = realpath(dirname(__FILE__) . '/../..') . '/';
+		$base = realpath(__DIR__ . '/../..') . '/';
 
 		if ($useSetTimeLimit) {
 			set_time_limit(180);
@@ -847,7 +852,7 @@ class SystemChecksStep extends UpgradeStep {
 	public function renderFileList($files, $blockId, $heading, $notice = null) {
 		ob_start();
 
-		include dirname(__FILE__) . '/../templates/SystemCheckFileList.html';
+		include __DIR__ . '/../templates/SystemCheckFileList.html';
 		$html = ob_get_contents();
 		ob_end_clean();
 

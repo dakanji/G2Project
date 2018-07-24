@@ -57,7 +57,7 @@ class GalleryChildEntity extends GalleryEntity {
 	 * @param int $parentId the id of the GalleryItem parent
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId) {
+	public function create($parentId = null, $x1 = null, $x2 = null) {
 		global $gallery;
 
 		if (empty($parentId)) {
@@ -79,7 +79,7 @@ class GalleryChildEntity extends GalleryEntity {
 	/**
 	 * @see GalleryEntity::createLink
 	 */
-	public function createLink($entity, $parentId) {
+	public function createLink($entity, $parentId = null) {
 		global $gallery;
 
 		$ret = parent::createLink($entity);

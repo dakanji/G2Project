@@ -45,7 +45,7 @@ class GdModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::upgrade
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		if (!isset($currentVersion)) {
 			// Initial install
 			$ret = $this->setParameter('jpegQuality', '75');

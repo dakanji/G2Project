@@ -43,7 +43,7 @@
  */
 @ini_set('magic_quotes_runtime', 0);
 
-$g2Base = dirname(dirname(__FILE__)) . '/';
+$g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'install/GalleryStub.class';
 
@@ -105,7 +105,7 @@ if (function_exists('dgettext')) {
 	$translator = new GalleryTranslator();
 	$translator->init($_SESSION['language'], true);
 	unset($gallery);
-	bindtextdomain('gallery2_install', dirname(dirname(__FILE__)) . '/locale');
+	bindtextdomain('gallery2_install', dirname(__DIR__) . '/locale');
 	textdomain('gallery2_install');
 
 	if (function_exists('bind_textdomain_codeset')) {
@@ -333,9 +333,7 @@ function getGalleryDirUrl() {
 	return getBaseUrl() . $urlPath;
 }
 
-/**
- * Mini url generator for the installer
- */
+// Mini url generator for the installer
 function generateUrl($uri, $print = true) {
 	if (!strncmp($uri, 'index.php', 9)) {
 		// Cookieless browsing: If session.use_trans_sid is on then it will add the session id.

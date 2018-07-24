@@ -138,7 +138,6 @@ function smarty_function_mailto($params, &$smarty) {
 		return $_ret;
 	}
 
-
 	if ($encode == 'hex') {
 		preg_match('!^(.*)(\?.*)$!', $address, $match);
 

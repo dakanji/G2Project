@@ -1,6 +1,8 @@
 <?php
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
@@ -93,8 +95,8 @@ class ADODB_ado extends ADOConnection {
 				$argHostname .= ';Trusted_Connection=Yes';
 			}
 		} elseif ($argProvider == 'access') {
-			$argProvider = 'Microsoft.Jet.OLEDB.4.0';
-		} // Microsoft Jet Provider
+			$argProvider = 'Microsoft.Jet.OLEDB.4.0'; // Microsoft Jet Provider
+		}
 
 		if ($argProvider) {
 			$dbc->Provider = $argProvider;
@@ -127,48 +129,48 @@ class ADODB_ado extends ADOConnection {
 	}
 
 	/*
-		adSchemaCatalogs	= 1,
-		adSchemaCharacterSets	= 2,
-		adSchemaCollations	= 3,
-		adSchemaColumns	= 4,
-		adSchemaCheckConstraints	= 5,
-		adSchemaConstraintColumnUsage	= 6,
-		adSchemaConstraintTableUsage	= 7,
-		adSchemaKeyColumnUsage	= 8,
-		adSchemaReferentialContraints	= 9,
-		adSchemaTableConstraints	= 10,
-		adSchemaColumnsDomainUsage	= 11,
-		adSchemaIndexes	= 12,
-		adSchemaColumnPrivileges	= 13,
-		adSchemaTablePrivileges	= 14,
-		adSchemaUsagePrivileges	= 15,
-		adSchemaProcedures	= 16,
-		adSchemaSchemata	= 17,
-		adSchemaSQLLanguages	= 18,
-		adSchemaStatistics	= 19,
-		adSchemaTables	= 20,
-		adSchemaTranslations	= 21,
-		adSchemaProviderTypes	= 22,
-		adSchemaViews	= 23,
-		adSchemaViewColumnUsage	= 24,
-		adSchemaViewTableUsage	= 25,
-		adSchemaProcedureParameters	= 26,
-		adSchemaForeignKeys	= 27,
-		adSchemaPrimaryKeys	= 28,
-		adSchemaProcedureColumns	= 29,
-		adSchemaDBInfoKeywords	= 30,
-		adSchemaDBInfoLiterals	= 31,
-		adSchemaCubes	= 32,
-		adSchemaDimensions	= 33,
-		adSchemaHierarchies	= 34,
-		adSchemaLevels	= 35,
-		adSchemaMeasures	= 36,
-		adSchemaProperties	= 37,
-		adSchemaMembers	= 38
+	adSchemaCatalogs	= 1,
+	adSchemaCharacterSets	= 2,
+	adSchemaCollations	= 3,
+	adSchemaColumns	= 4,
+	adSchemaCheckConstraints	= 5,
+	adSchemaConstraintColumnUsage	= 6,
+	adSchemaConstraintTableUsage	= 7,
+	adSchemaKeyColumnUsage	= 8,
+	adSchemaReferentialContraints	= 9,
+	adSchemaTableConstraints	= 10,
+	adSchemaColumnsDomainUsage	= 11,
+	adSchemaIndexes	= 12,
+	adSchemaColumnPrivileges	= 13,
+	adSchemaTablePrivileges	= 14,
+	adSchemaUsagePrivileges	= 15,
+	adSchemaProcedures	= 16,
+	adSchemaSchemata	= 17,
+	adSchemaSQLLanguages	= 18,
+	adSchemaStatistics	= 19,
+	adSchemaTables	= 20,
+	adSchemaTranslations	= 21,
+	adSchemaProviderTypes	= 22,
+	adSchemaViews	= 23,
+	adSchemaViewColumnUsage	= 24,
+	adSchemaViewTableUsage	= 25,
+	adSchemaProcedureParameters	= 26,
+	adSchemaForeignKeys	= 27,
+	adSchemaPrimaryKeys	= 28,
+	adSchemaProcedureColumns	= 29,
+	adSchemaDBInfoKeywords	= 30,
+	adSchemaDBInfoLiterals	= 31,
+	adSchemaCubes	= 32,
+	adSchemaDimensions	= 33,
+	adSchemaHierarchies	= 34,
+	adSchemaLevels	= 35,
+	adSchemaMeasures	= 36,
+	adSchemaProperties	= 37,
+	adSchemaMembers	= 38
 
 	*/
 
-	public function &MetaTables() {
+	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		$arr = array();
 		$dbc = $this->_connectionID;
 
@@ -191,7 +193,7 @@ class ADODB_ado extends ADOConnection {
 		return $arr;
 	}
 
-	public function &MetaColumns($table) {
+	public function MetaColumns($table, $normalize = true) {
 		$table = strtoupper($table);
 		$arr   = array();
 		$dbc   = $this->_connectionID;
@@ -220,7 +222,7 @@ class ADODB_ado extends ADOConnection {
 	}
 
 	// returns queryID or false
-	public function &_query($sql, $inputarr = false) {
+	public function _query($sql, $inputarr = false) {
 		$dbc   = $this->_connectionID;
 		$false = false;
 
@@ -235,11 +237,29 @@ class ADODB_ado extends ADOConnection {
 			$oCmd->CommandText      = $sql;
 			$oCmd->CommandType      = 1;
 
+			// Map by http://msdn.microsoft.com/library/default.asp?url=/library/en-us/ado270/htm/mdmthcreateparam.asp
+			// Check issue http://bugs.php.net/bug.php?id=40664 !!!
 			foreach ($inputarr as $val) {
+				$type = gettype($val);
+				$len  = strlen($val);
+
+				if ($type == 'boolean') {
+					$this->adoParameterType = 11;
+				} elseif ($type == 'integer') {
+					$this->adoParameterType = 3;
+				} elseif ($type == 'double') {
+					$this->adoParameterType = 5;
+				} elseif ($type == 'string') {
+					$this->adoParameterType = 202;
+				} elseif (($val === null) || (!defined($val))) {
+					$len = 1;
+				} else {
+					$this->adoParameterType = 130;
+				}
+
 				// name, type, direction 1 = input, len,
-				$this->adoParameterType = 130;
-				$p                      = $oCmd->CreateParameter('name', $this->adoParameterType, 1, strlen($val), $val);
-				//print $p->Type.' '.$p->value;
+				$p = $oCmd->CreateParameter('name', $this->adoParameterType, 1, $len, $val);
+
 				$oCmd->Parameters->Append($p);
 			}
 			$p  = false;
@@ -281,15 +301,13 @@ class ADODB_ado extends ADOConnection {
 			if (!$this->_thisTransactions) {
 				return false;
 			}
+			$o                       = $this->_connectionID->Properties('Transaction DDL');
+			$this->_thisTransactions = $o ? true : false;
+
+			if (!$o) {
+				return false;
+			}
 		}
-
-		$o                       = $this->_connectionID->Properties('Transaction DDL');
-		$this->_thisTransactions = $o ? true : false;
-
-		if (!$o) {
-			return false;
-		}
-
 		@$this->_connectionID->BeginTrans();
 		$this->transCnt += 1;
 
@@ -393,7 +411,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	}
 
 	// returns the field object
-	public function &FetchField($fieldOffset = -1) {
+	public function FetchField($fieldOffset = -1) {
 		$off = $fieldOffset + 1; // offsets begin at 1
 
 		$o             = new ADOFieldObject();
@@ -449,86 +467,86 @@ class ADORecordSet_ado extends ADORecordSet {
 	}
 
 	/*
-		OLEDB types
+	OLEDB types
 
-		 enum DBTYPEENUM
-		{	DBTYPE_EMPTY	= 0,
-		DBTYPE_NULL	= 1,
-		DBTYPE_I2	= 2,
-		DBTYPE_I4	= 3,
-		DBTYPE_R4	= 4,
-		DBTYPE_R8	= 5,
-		DBTYPE_CY	= 6,
-		DBTYPE_DATE	= 7,
-		DBTYPE_BSTR	= 8,
-		DBTYPE_IDISPATCH	= 9,
-		DBTYPE_ERROR	= 10,
-		DBTYPE_BOOL	= 11,
-		DBTYPE_VARIANT	= 12,
-		DBTYPE_IUNKNOWN	= 13,
-		DBTYPE_DECIMAL	= 14,
-		DBTYPE_UI1	= 17,
-		DBTYPE_ARRAY	= 0x2000,
-		DBTYPE_BYREF	= 0x4000,
-		DBTYPE_I1	= 16,
-		DBTYPE_UI2	= 18,
-		DBTYPE_UI4	= 19,
-		DBTYPE_I8	= 20,
-		DBTYPE_UI8	= 21,
-		DBTYPE_GUID	= 72,
-		DBTYPE_VECTOR	= 0x1000,
-		DBTYPE_RESERVED	= 0x8000,
-		DBTYPE_BYTES	= 128,
-		DBTYPE_STR	= 129,
-		DBTYPE_WSTR	= 130,
-		DBTYPE_NUMERIC	= 131,
-		DBTYPE_UDT	= 132,
-		DBTYPE_DBDATE	= 133,
-		DBTYPE_DBTIME	= 134,
-		DBTYPE_DBTIMESTAMP	= 135
+	 enum DBTYPEENUM
+	{	DBTYPE_EMPTY	= 0,
+	DBTYPE_NULL	= 1,
+	DBTYPE_I2	= 2,
+	DBTYPE_I4	= 3,
+	DBTYPE_R4	= 4,
+	DBTYPE_R8	= 5,
+	DBTYPE_CY	= 6,
+	DBTYPE_DATE	= 7,
+	DBTYPE_BSTR	= 8,
+	DBTYPE_IDISPATCH	= 9,
+	DBTYPE_ERROR	= 10,
+	DBTYPE_BOOL	= 11,
+	DBTYPE_VARIANT	= 12,
+	DBTYPE_IUNKNOWN	= 13,
+	DBTYPE_DECIMAL	= 14,
+	DBTYPE_UI1	= 17,
+	DBTYPE_ARRAY	= 0x2000,
+	DBTYPE_BYREF	= 0x4000,
+	DBTYPE_I1	= 16,
+	DBTYPE_UI2	= 18,
+	DBTYPE_UI4	= 19,
+	DBTYPE_I8	= 20,
+	DBTYPE_UI8	= 21,
+	DBTYPE_GUID	= 72,
+	DBTYPE_VECTOR	= 0x1000,
+	DBTYPE_RESERVED	= 0x8000,
+	DBTYPE_BYTES	= 128,
+	DBTYPE_STR	= 129,
+	DBTYPE_WSTR	= 130,
+	DBTYPE_NUMERIC	= 131,
+	DBTYPE_UDT	= 132,
+	DBTYPE_DBDATE	= 133,
+	DBTYPE_DBTIME	= 134,
+	DBTYPE_DBTIMESTAMP	= 135
 
-		ADO Types
+	ADO Types
 
-		adEmpty	= 0,
-		adTinyInt	= 16,
-		adSmallInt	= 2,
-		adInteger	= 3,
-		adBigInt	= 20,
-		adUnsignedTinyInt	= 17,
-		adUnsignedSmallInt	= 18,
-		adUnsignedInt	= 19,
-		adUnsignedBigInt	= 21,
-		adSingle	= 4,
-		adDouble	= 5,
-		adCurrency	= 6,
-		adDecimal	= 14,
-		adNumeric	= 131,
-		adBoolean	= 11,
-		adError	= 10,
-		adUserDefined	= 132,
-		adVariant	= 12,
-		adIDispatch	= 9,
-		adIUnknown	= 13,
-		adGUID	= 72,
-		adDate	= 7,
-		adDBDate	= 133,
-		adDBTime	= 134,
-		adDBTimeStamp	= 135,
-		adBSTR	= 8,
-		adChar	= 129,
-		adVarChar	= 200,
-		adLongVarChar	= 201,
-		adWChar	= 130,
-		adVarWChar	= 202,
-		adLongVarWChar	= 203,
-		adBinary	= 128,
-		adVarBinary	= 204,
-		adLongVarBinary	= 205,
-		adChapter	= 136,
-		adFileTime	= 64,
-		adDBFileTime	= 137,
-		adPropVariant	= 138,
-		adVarNumeric	= 139
+	   adEmpty	= 0,
+	adTinyInt	= 16,
+	adSmallInt	= 2,
+	adInteger	= 3,
+	adBigInt	= 20,
+	adUnsignedTinyInt	= 17,
+	adUnsignedSmallInt	= 18,
+	adUnsignedInt	= 19,
+	adUnsignedBigInt	= 21,
+	adSingle	= 4,
+	adDouble	= 5,
+	adCurrency	= 6,
+	adDecimal	= 14,
+	adNumeric	= 131,
+	adBoolean	= 11,
+	adError	= 10,
+	adUserDefined	= 132,
+	adVariant	= 12,
+	adIDispatch	= 9,
+	adIUnknown	= 13,
+	adGUID	= 72,
+	adDate	= 7,
+	adDBDate	= 133,
+	adDBTime	= 134,
+	adDBTimeStamp	= 135,
+	adBSTR	= 8,
+	adChar	= 129,
+	adVarChar	= 200,
+	adLongVarChar	= 201,
+	adWChar	= 130,
+	adVarWChar	= 202,
+	adLongVarWChar	= 203,
+	adBinary	= 128,
+	adVarBinary	= 204,
+	adLongVarBinary	= 205,
+	adChapter	= 136,
+	adFileTime	= 64,
+	adDBFileTime	= 137,
+	adPropVariant	= 138,
+	adVarNumeric	= 139
 	*/
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
@@ -620,8 +638,9 @@ class ADORecordSet_ado extends ADORecordSet {
 		$f = reset($this->_flds);
 
 		if ($this->hideErrors) {
-			$olde = error_reporting(E_ERROR | E_CORE_ERROR);
-		}// sometimes $f->value be null
+			$olde = error_reporting(E_ERROR | E_CORE_ERROR);// sometimes $f->value be null
+		}
+
 		for ($i = 0,$max = $this->_numOfFields; $i < $max; $i++) {
 			//echo "<p>",$t,' ';var_dump($f->value); echo '</p>';
 			switch ($t) {
@@ -713,7 +732,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		@$rs->MoveNext(); // @ needed for some versions of PHP!
 
 		if ($this->fetchMode & ADODB_FETCH_ASSOC) {
-			$this->fields = &$this->GetRowAssoc(ADODB_ASSOC_CASE);
+			$this->fields = $this->GetRowAssoc();
 		}
 
 		return true;

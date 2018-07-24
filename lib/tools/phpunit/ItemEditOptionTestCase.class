@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryView.class';
+require_once __DIR__ . '/../../../modules/core/classes/GalleryView.class';
 
-require_once dirname(__FILE__) . '/../../../modules/core/classes/GalleryController.class';
+require_once __DIR__ . '/../../../modules/core/classes/GalleryController.class';
 
-require_once dirname(__FILE__) . '/../../../modules/core/ItemEdit.inc';
+require_once __DIR__ . '/../../../modules/core/ItemEdit.inc';
 
 /**
  * An ItemEditOption specific version of GalleryTestCase

@@ -45,7 +45,7 @@ class PlatformTest extends GalleryTestCase {
 		}
 
 		$this->_platform   =& $gallery->getPlatform();
-		$this->_sourceFile = dirname(__FILE__) . '/../data/test1.gif';
+		$this->_sourceFile = __DIR__ . '/../data/test1.gif';
 		$this->_destFile   = $gallery->getConfig('data.gallery.tmp') . 'test.dat';
 	}
 
@@ -119,7 +119,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testIsDir() {
-		$this->assert($this->_platform->is_dir(dirname(__FILE__)));
+		$this->assert($this->_platform->is_dir(__DIR__));
 		$this->assert(!$this->_platform->is_dir(__FILE__));
 	}
 
@@ -174,13 +174,13 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testOpendir() {
-		$dir = $this->_platform->opendir(dirname(__FILE__));
+		$dir = $this->_platform->opendir(__DIR__);
 		$this->assert($dir);
 		$this->_platform->closedir($dir);
 	}
 
 	public function testReaddir() {
-		$dir   = $this->_platform->opendir(dirname(__FILE__));
+		$dir   = $this->_platform->opendir(__DIR__);
 		$files = array();
 
 		while ($filename = $this->_platform->readdir($dir)) {
@@ -670,7 +670,7 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testGetDirectorySeparator() {
 		$file          = __FILE__;
-		$realSeparator = $file[strlen(dirname(__FILE__))];
+		$realSeparator = $file[strlen(__DIR__)];
 		$this->assertEquals($realSeparator, $this->_platform->getDirectorySeparator());
 	}
 
@@ -694,16 +694,16 @@ class PlatformTest extends GalleryTestCase {
 
 		$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'this file');
 
-		$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__), $this);
+		$gallery->_phpVm = new PlatformTestPhpVm(__DIR__, $this);
 		$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'simple case');
 
 		// Bad paths are still checked even though no realpath
 		$this->assert(
-			!$this->_platform->isRestrictedByOpenBaseDir(dirname(__FILE__) . '/bogus/path'),
+			!$this->_platform->isRestrictedByOpenBaseDir(__DIR__ . '/bogus/path'),
 			'bogus path "inside" valid dir'
 		);
 		$this->assert(
-			$this->_platform->isRestrictedByOpenBaseDir(dirname(__FILE__) . '/../bogus/path'),
+			$this->_platform->isRestrictedByOpenBaseDir(__DIR__ . '/../bogus/path'),
 			'bogus path using .. to get outside valid dir'
 		);
 		$gallery->_phpVm = new PlatformTestPhpVm('', $this);
@@ -848,7 +848,7 @@ class PlatformTest extends GalleryTestCase {
 		// Open_basedir with .
 		$gallery->_phpVm = new PlatformTestPhpVm('.', $this);
 		$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(
-			dirname(__FILE__) . '/../../../../lib/tools/phpunit/index.php'
+			__DIR__ . '/../../../../lib/tools/phpunit/index.php'
 		), 'dot basedir');
 
 		// Open_basedir with trailing slash
@@ -1110,7 +1110,7 @@ class PlatformTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__), $this);
+		$gallery->_phpVm = new PlatformTestPhpVm(__DIR__, $this);
 		$platform        = new UnixPlatform();
 		$result          = $platform->mail(
 			'foo@example.com',

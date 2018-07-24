@@ -19,6 +19,7 @@
  */
 /**
  * Bootstrap code that we're going to need no matter what we do
+ *
  * @package Gallery
  */
 
@@ -30,9 +31,11 @@ if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
 	define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
 }
 
-require_once dirname(__FILE__) . '/modules/core/classes/Gallery.class';
+require_once __DIR__ . '/modules/core/classes/Gallery.class';
 
-require_once dirname(__FILE__) . '/modules/core/classes/GalleryDataCache.class';
+require_once __DIR__ . '/modules/core/classes/GalleryDataCache.class';
+
+require_once __DIR__ . '/lib/composer/vendor/autoload.php';
 
 /*
  * Set up our Gallery global.  This global should be the only one that Gallery requires.
@@ -44,9 +47,12 @@ $gallery->init();
 $GLOBALS['gallery'] =& $gallery;
 
 if (!defined('GALLERY_CONFIG_DIR')) {
-	define('GALLERY_CONFIG_DIR', dirname(__FILE__));
+	define('GALLERY_CONFIG_DIR', __DIR__);
 }
-@require GALLERY_CONFIG_DIR . '/config.php';
+
+if (file_exists(GALLERY_CONFIG_DIR . '/config.php')) {
+	include GALLERY_CONFIG_DIR . '/config.php';
+}
 
 /*
  * Disable session.use_trans_sid to mitigate performance-penalty

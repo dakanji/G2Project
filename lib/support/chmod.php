@@ -19,8 +19,9 @@
  */
 
 if (!defined('G2_SUPPORT')) {
-	return;
+	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
+
 
 // Commands
 define('CMD_CHMOD_MODULES_AND_THEMES_DIR', 'chmodModulesAndThemesDir');
@@ -30,13 +31,13 @@ define('CMD_CHMOD_GALLERY_DIR', 'chmodGalleryDir');
 define('CMD_CHMOD_STORAGE_DIR', 'chmodStorageDir');
 define('CMD_CHMOD_LOCALE_DIR', 'chmodLocaleDir');
 // For get/post input sanitation
-require_once dirname(__FILE__) . '/../../modules/core/classes/GalleryUtilities.class';
+require_once __DIR__ . '/../../modules/core/classes/GalleryUtilities.class';
 
 $DEFAULT_FOLDER_PERMISSIONS = PermissionBits::fromString('555');
-$DEFAULT_FILE_PERMISSIONS = PermissionBits::fromString('444');
+$DEFAULT_FILE_PERMISSIONS   = PermissionBits::fromString('444');
 
 $status = array();
-$ret = null;
+$ret    = null;
 
 // The permission bit sets that we accept / handle.
 $permissionBitSets = getPermissionSets();
@@ -69,31 +70,29 @@ $permissions = (string)getRequestVariable('permissions');
 
 if (empty($permissions)) {
 	$permissions = $DEFAULT_FOLDER_PERMISSIONS->getAsString() .
-			   $DEFAULT_FILE_PERMISSIONS->getAsString();
+	$DEFAULT_FILE_PERMISSIONS->getAsString();
 }
 
 if (strlen($permissions) != 6) {
-	$status['error'][] =
-	"Unknown permissions '$permissions'! Aborting action and resetting permissions.";
+	$status['error'][] = "Unknown permissions '$permissions'! Aborting action and resetting permissions.";
 }
 
 if (empty($status['error'])) {
 	$folderPermissions = PermissionBits::fromString(substr($permissions, 0, 3));
-	$filePermissions = PermissionBits::fromString(substr($permissions, 3, 3));
+	$filePermissions   = PermissionBits::fromString(substr($permissions, 3, 3));
 
 	if (!$folderPermissions->isValid()) {
-		$status['error'][] =
-		'Invalid folder permissions! Aborting action and resetting permissions.';
+		$status['error'][] = 'Invalid folder permissions! Aborting action and resetting permissions.';
 		$folderPermissions = $DEFAULT_FOLDER_PERMISSIONS;
 	}
 
 	if (!$filePermissions->isValid()) {
 		$status['error'][] = 'Invalid file permissions! Aborting action and resetting permissions.';
-		$filePermissions = $DEFAULT_FILE_PERMISSIONS;
+		$filePermissions   = $DEFAULT_FILE_PERMISSIONS;
 	}
 } else {
 	$folderPermissions = $DEFAULT_FOLDER_PERMISSIONS;
-	$filePermissions = $DEFAULT_FILE_PERMISSIONS;
+	$filePermissions   = $DEFAULT_FILE_PERMISSIONS;
 }
 
 // Main program section
@@ -104,121 +103,119 @@ if (empty($status['error'])) {
 	$command = trim(getRequestVariable('command'));
 
 	switch ($command) {
-	case CMD_ADVANCED:
-		// Advanced Options, allow chmod of any folder / file
-		$ret = chmodRecursively(
-			$path,
-			$folderPermissions->getAsInt(),
-			 $filePermissions->getAsInt(),
-			time() - 60
-		);
+		case CMD_ADVANCED:
+			// Advanced Options, allow chmod of any folder or file
+			$ret = chmodRecursively(
+				$path,
+				$folderPermissions->getAsInt(),
+				$filePermissions->getAsInt(),
+				time() - 60
+			);
 
-	if (!empty($ret)) {
-		$status['error'][] = "Failed to change the filesystem permissions "
-		. "of '$path'.";
-	} else {
-		$status['message'] = "Successfully changed the filesystem permissions "
-		. "of '$path'.";
-	}
+			if (!empty($ret)) {
+				$status['error'][] = "Failed to change the filesystem permissions of '$path'.";
+			} else {
+				$status['message'] = "Successfully changed the filesystem permissions of '$path'.";
+			}
 
-		break;
+			break;
 
-	case CMD_CHMOD_MODULES_AND_THEMES_DIR:
-		// Chmod the modules/ and themes/ dir writeable or read-only (not recursively)
-		$mode = getRequestVariable('mode');
+		case CMD_CHMOD_MODULES_AND_THEMES_DIR:
+			// Chmod the modules/ and themes/ dir writeable or read-only (not recursively)
+			$mode = getRequestVariable('mode');
 
-		if (!in_array($mode, array('open', 'secure'))) {
-			$status['error'][] = "Unknown mode '$mode'. Please try again.";
-		} else {
-			$ret = chmodModulesAndThemesDir($mode == 'open');
+			if (!in_array($mode, array('open', 'secure'))) {
+				$status['error'][] = "Unknown mode '$mode'. Please try again.";
+			} else {
+				$ret = chmodModulesAndThemesDir($mode == 'open');
+
+				if (!empty($ret)) {
+					$status['error'][] = 'Failed to change the filesystem permissions '
+					. 'of the modules/ and themes/ folder.';
+				} else {
+					$status['message'] = 'Successfully changed the filesystem permissions '
+					. 'of the modules/ and the themes/ folder.';
+				}
+			}
+
+			break;
+
+		case CMD_CHMOD_PLUGIN_DIR:
+			// Chmod a _specific_ plugin (theme or module) writeable or read-only (recursively)
+			$mode = getRequestVariable('mode');
+
+			// Check the given plugin path against a white list
+			$pluginPath = getRequestVariable('pluginId');
+
+			if (!isset($plugins[$pluginPath])) {
+				$status['error'][] = "Unknown plugin path '$pluginPath'.";
+			} elseif (!in_array($mode, array('open', 'secure'))) {
+				$status['error'][] = "Unknown mode '$mode'. Please try again.";
+			} else {
+				$ret = chmodPluginDir($pluginPath, $mode == 'open');
+
+				if (!empty($ret)) {
+					$status['error'][] = 'Failed to change the filesystem permissions '
+					. "of the '$pluginPath' folder.";
+				} else {
+					$status['message'] = 'Successfully changed the filesystem permissions '
+					. "of the '$pluginPath' folder.";
+				}
+			}
+
+			break;
+
+		case CMD_CHMOD_GALLERY_DIR:
+			// Chmod the whole gallery2 dir writeable or read-only
+			$mode = getRequestVariable('mode');
+
+			if (!in_array($mode, array('open', 'secure'))) {
+				$status['error'][] = "Unknown mode '$mode'. Please try again.";
+			} else {
+				$ret = chmodGalleryDirRecursively($mode == 'open');
+
+				if (!empty($ret)) {
+					$status['error'][] = 'Failed to change the filesystem permissions '
+					. 'of the Gallery folder.';
+				} else {
+					$status['message'] = 'Successfully changed the filesystem permissions '
+					. 'of the Gallery folder.';
+				}
+			}
+
+			break;
+
+		case CMD_CHMOD_STORAGE_DIR:
+			// Chmod the entire storage dir writeable
+			$ret = chmodStorageDirRecursively();
 
 			if (!empty($ret)) {
 				$status['error'][] = 'Failed to change the filesystem permissions '
-			. 'of the modules/ and themes/ folder.';
+				. 'of the storage folder.';
 			} else {
 				$status['message'] = 'Successfully changed the filesystem permissions '
-			. 'of the modules/ and the themes/ folder.';
+				. 'of the storage folder.';
 			}
-		}
 
-		break;
+			break;
 
-	case CMD_CHMOD_PLUGIN_DIR:
-		// Chmod a _specific_ plugin (theme or module) writeable or read-only (recursively)
-		$mode = getRequestVariable('mode');
-
-		// Check the given plugin path against a white list
-		$pluginPath = getRequestVariable('pluginId');
-
-		if (!isset($plugins[$pluginPath])) {
-			$status['error'][] = "Unknown plugin path '$pluginPath'.";
-		} elseif (!in_array($mode, array('open', 'secure'))) {
-			$status['error'][] = "Unknown mode '$mode'. Please try again.";
-		} else {
-			$ret = chmodPluginDir($pluginPath, $mode == 'open');
-
-			if (!empty($ret)) {
-				$status['error'][] = "Failed to change the filesystem permissions "
-			. "of the '$pluginPath' folder.";
-			} else {
-				$status['message'] = "Successfully changed the filesystem permissions "
-			. "of the '$pluginPath' folder.";
-			}
-		}
-
-		break;
-
-	case CMD_CHMOD_GALLERY_DIR:
-		// Chmod the whole gallery2 dir writeable or read-only
-		$mode = getRequestVariable('mode');
-
-		if (!in_array($mode, array('open', 'secure'))) {
-			$status['error'][] = "Unknown mode '$mode'. Please try again.";
-		} else {
-			$ret = chmodGalleryDirRecursively($mode == 'open');
+		case CMD_CHMOD_LOCALE_DIR:
+			// Chmod the entire locale dir writeable
+			$ret = chmodLocaleDirRecursively();
 
 			if (!empty($ret)) {
 				$status['error'][] = 'Failed to change the filesystem permissions '
-			. 'of the Gallery folder.';
+				. 'of the locale folder.';
 			} else {
 				$status['message'] = 'Successfully changed the filesystem permissions '
-			. 'of the Gallery folder.';
+				. 'of the locale folder.';
 			}
-		}
 
-		break;
+			break;
 
-	case CMD_CHMOD_STORAGE_DIR:
-		// Chmod the entire storage dir writeable
-	$ret = chmodStorageDirRecursively();
-
-	if (!empty($ret)) {
-		$status['error'][] = 'Failed to change the filesystem permissions '
-		. 'of the storage folder.';
-	} else {
-		$status['message'] = 'Successfully changed the filesystem permissions '
-		. 'of the storage folder.';
-	}
-
-		break;
-
-	case CMD_CHMOD_LOCALE_DIR:
-		// Chmod the entire locale dir writeable
-	$ret = chmodLocaleDirRecursively();
-
-	if (!empty($ret)) {
-		$status['error'][] = 'Failed to change the filesystem permissions '
-		. 'of the locale folder.';
-	} else {
-		$status['message'] = 'Successfully changed the filesystem permissions '
-		. 'of the locale folder.';
-	}
-
-		break;
-
-	default:
-	   // Just redisplay the page.
-	   break;
+		default:
+			// Just redisplay the page.
+			break;
 	}
 }
 printStatus($status);
@@ -239,7 +236,7 @@ printFooter();
  */
 function chmodRecursively($filename, $folderPermissions, $filePermissions, $start) {
 	$filename = rtrim($filename, '\\/');
-	$error = 0;
+	$error    = 0;
 	// Try to prevent timeouts
 	if (time() - $start > 55) {
 		if (function_exists('apache_reset_timeout')) {
@@ -255,7 +252,7 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 	 * files anyway and then change the permissions for folders with a second call.
 	 */
 	if (!@chmod($filename, $filePermissions)) {
-		error("[ERROR]", $filename);
+		error('[ERROR]', $filename);
 		$error = 1;
 	}
 
@@ -263,10 +260,10 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 		// For folders, we change the permissions to the right ones with a second chmod call.
 		if (!$error) {
 			if (!@chmod($filename, $folderPermissions)) {
-				error("[ERROR]", $filename);
+				error('[ERROR]', $filename);
 				$error = 1;
 			} else {
-				status("[OK]", $filename);
+				status('[OK]', $filename);
 			}
 		}
 		/*
@@ -279,17 +276,17 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 					continue;
 				}
 				$fullpath = "$filename/$child";
-				$ret = chmodRecursively(
-			$fullpath,
-			$folderPermissions,
+				$ret      = chmodRecursively(
+					$fullpath,
+					$folderPermissions,
 					$filePermissions,
-			$start
-		);
-				$error |= $ret;
+					$start
+				);
+				$error   |= $ret;
 			}
 			closedir($fd);
 		} else {
-			error("Cannot open directory", $filename);
+			error('Cannot open directory', $filename);
 
 			return 1;
 		}
@@ -311,12 +308,18 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 function getPermissionSets() {
 	$permissionSets = array();
 
-	$permissionSets[] = array(PermissionBits::fromString("777"),
-					  PermissionBits::fromString("666"), );
-	$permissionSets[] = array(PermissionBits::fromString("555"),
-					  PermissionBits::fromString("444"), );
-	$permissionSets[] = array(PermissionBits::fromString("755"),
-					  PermissionBits::fromString("644"), );
+	$permissionSets[] = array(
+		PermissionBits::fromString('777'),
+		PermissionBits::fromString('666'),
+	);
+	$permissionSets[] = array(
+		PermissionBits::fromString('555'),
+		PermissionBits::fromString('444'),
+	);
+	$permissionSets[] = array(
+		PermissionBits::fromString('755'),
+		PermissionBits::fromString('644'),
+	);
 
 	return $permissionSets;
 }
@@ -379,26 +382,26 @@ class PermissionBits {
 	public function getDescription() {
 		switch (intval($this->_bits, 8)) {
 			case 0777:
-		return 'Read + Write + Execute for Everyone';
+				return 'Read + Write + Execute for Everyone';
 
-		case 0555:
-		return 'Read + Execute for Everyone';
+			case 0555:
+				return 'Read + Execute for Everyone';
 
-		case 0666:
-		return 'Read And Write for Everyone';
+			case 0666:
+				return 'Read And Write for Everyone';
 
-		case 0444:
-		return 'Read Only for Everyone, Including Owner';
+			case 0444:
+				return 'Read Only for Everyone, Including Owner';
 
-		case 0755:
-		return 'Read + Execute for Everyone, Plus Write for Owner';
+			case 0755:
+				return 'Read + Execute for Everyone, Plus Write for Owner';
 
-		case 0644:
-		return 'Read And Write for Owner, Read for Everyone Else';
+			case 0644:
+				return 'Read And Write for Owner, Read for Everyone Else';
 
-		default:
-			// No description available
-			return null;
+			default:
+				// No description available
+				return null;
 		}
 	}
 
@@ -419,21 +422,22 @@ class PermissionBits {
 
 // Functions which control the HTML output of the page.
 $errorBoxOpen = 0;
+
 function status($msg, $obj) {
 	openErrorBox();
-	printf("$msg&nbsp;<b>%s</b><br/>", wordwrap($obj, 85, "<br/>&nbsp;&nbsp;&nbsp;", true));
+	printf("$msg&nbsp;<b>%s</b><br>", wordwrap($obj, 85, '<br>&nbsp;&nbsp;&nbsp;', true));
 }
 
 function error($msg, $obj) {
 	openErrorBox();
 	echo '<span class="error">';
-	printf("$msg&nbsp;<b>%s</b><br/>", wordwrap($obj, 85, "<br/>&nbsp;&nbsp;&nbsp;", true));
+	printf("$msg&nbsp;<b>%s</b><br>", wordwrap($obj, 85, '<br>&nbsp;&nbsp;&nbsp;', true));
 	echo '</span>';
 }
 
 function isModulesOrThemesDirWriteable() {
 	return is_writeable(GallerySetupUtilities::getConfigDir() . '/modules/') &&
-		is_writeable(GallerySetupUtilities::getConfigDir() . '/themes/');
+	is_writeable(GallerySetupUtilities::getConfigDir() . '/themes/');
 }
 
 /**
@@ -443,13 +447,13 @@ function isModulesOrThemesDirWriteable() {
  */
 function chmodModulesAndThemesDir($makeItWriteable) {
 	$mode = $makeItWriteable ? 0777 : 0555;
-	$ret = null;
+	$ret  = null;
 
 	foreach (array('/modules/', '/themes/') as $dir) {
 		if (file_exists(GallerySetupUtilities::getConfigDir() . $dir)) {
 			// Try to chmod all dirs, even if one fails
 			if (!@chmod(GallerySetupUtilities::getConfigDir() . $dir, $mode)) {
-				error("[ERROR]", GallerySetupUtilities::getConfigDir() . $dir);
+				error('[ERROR]', GallerySetupUtilities::getConfigDir() . $dir);
 				$ret = 1;
 			}
 		}
@@ -470,13 +474,13 @@ function isGalleryDirWriteable() {
 function chmodGalleryDirRecursively($makeItWriteable) {
 	// This is just a wrapper function for the general chmod recursively function
 	$folderMode = $makeItWriteable ? 0777 : 0555;
-	$fileMode = $makeItWriteable ? 0666 : 0444;
+	$fileMode   = $makeItWriteable ? 0666 : 0444;
 
 	return chmodRecursively(
 		GallerySetupUtilities::getConfigDir(),
 		$folderMode,
 		$fileMode,
-				time() - 60
+		time() - 60
 	);
 }
 
@@ -484,12 +488,12 @@ function chmodGalleryDirRecursively($makeItWriteable) {
 function chmodPluginDir($pluginPath, $makeItWriteable) {
 	// This is just a wrapper function for the general chmod recursively function
 	$folderMode = $makeItWriteable ? 0777 : 0555;
-	$fileMode = $makeItWriteable ? 0666 : 0444;
+	$fileMode   = $makeItWriteable ? 0666 : 0444;
 
 	return chmodRecursively(
 		GallerySetupUtilities::getConfigDir() . $pluginPath,
 		$folderMode,
-				$fileMode,
+		$fileMode,
 		time() - 60
 	);
 }
@@ -556,237 +560,258 @@ function getRequestVariable($varName) {
 	return null;
 }
 
-/*
- * Uses JavaScript to print the status / error message at the top of the page
- * even if the page has already been printed.
- */
+	/*
+	 * Uses JavaScript to print the status / error message at the top of the page
+	 * even if the page has already been printed.
+	 */
 function printStatus($status) {
 	if (!empty($status['error'])) {
 		printf(
-		'<script type="text/javascript">printErrorMessage(\'%s\');</script>',
-		   str_replace(
-			array("\\", "'"),
-			array("\\\\", "\\'"),
-					  implode('<br/>', $status['error'])
-		   )
-	);
+			'<script type="text/javascript">printErrorMessage(\'%s\');</script>',
+			str_replace(
+				array('\\', "'"),
+				array('\\\\', "\\'"),
+				implode('<br>', $status['error'])
+			)
+		);
 	}
 
 	if (!empty($status['message'])) {
 		printf(
-		'<script type="text/javascript">printStatusMessage(\'%s\');</script>',
-		   str_replace(array("\\", "'"), array("\\\\", "\\'"), $status['message'])
-	);
+			'<script type="text/javascript">printStatusMessage(\'%s\');</script>',
+			str_replace(array('\\', "'"), array('\\\\', "\\'"), $status['message'])
+		);
 	}
 }
 
-// HTML - The Page layout / GUI
+	// HTML - The Page layout / GUI
 
-/**
- * Prints the whole page including form but without the footer.
- * Call this function, then call chmodRecursively() which will output some HTML,
- * and finally call printFooter();
- */
+	/**
+	 * Prints the whole page including form but without the footer.
+	 * Call this function, then call chmodRecursively() which will output some HTML,
+	 * and finally call printFooter();
+	 */
 function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermissions, $permissionBitSets) {
 	global $baseUrl; ?>
-<html>
-  <head>
-    <title>Gallery Support - Change Filesystem Permissions</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>support.css"/>
-    <style type="text/css">
-    </style>
-    <script type="text/javascript">
-      var plugins = new Array();
-      <?php foreach ($plugins as $pluginId => $isOpenForEdit) {
-		echo "plugins['$pluginId'] = $isOpenForEdit;
-        ";
-	} ?>
+		<html lang="en">
+		<head>
+			<title>Gallery Support - Change Filesystem Permissions</title>
+			<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
+			<style type="text/css">
+			</style>
+			<script type="text/javascript">
+			var plugins = new Array();
+		<?php
+		foreach ($plugins as $pluginId => $isOpenForEdit) {
+			echo "plugins['$pluginId'] = $isOpenForEdit;
+				";
+		} ?>
 
-      function setEditOrSecure(pluginId, formObj) {
-        if (pluginId == -1) {
-	  formObj.mode.value='';
-	  formObj.open.disabled = true;
-	  formObj.secure.disabled = true;
-        } else if (plugins[pluginId]) {
-	  formObj.mode.value='secure';
-	  formObj.open.disabled = true;
-	  formObj.secure.disabled = false;
-        } else {
-	  formObj.mode.value='open';
-	  formObj.open.disabled = false;
-	  formObj.secure.disabled = true;
-        }
-      }
+			function setEditOrSecure(pluginId, formObj) {
+				if (pluginId == -1) {
+					formObj.mode.value='';
+					formObj.open.disabled = true;
+					formObj.secure.disabled = true;
+				} else if (plugins[pluginId]) {
+					formObj.mode.value='secure';
+					formObj.open.disabled = true;
+					formObj.secure.disabled = false;
+				} else {
+					formObj.mode.value='open';
+					formObj.open.disabled = false;
+					formObj.secure.disabled = true;
+				}
+			}
 
-      function printStatusMessage(message) {
-        var statusElement = document.getElementById('status');
-        statusElement.innerHTML = message + "<a href=\"#details\">[details]</a>";
-        statusElement.style.display = 'block';
-      }
+			function printStatusMessage(message) {
+				var statusElement = document.getElementById('status');
+				statusElement.innerHTML = message + "<a href=\"#details\">[details]</a>";
+				statusElement.style.display = 'block';
+			}
 
-      function printErrorMessage(message) {
-        var errorElement = document.getElementById('error');
-        errorElement.innerHTML = message +
-          "<br/>Note: Please look at the <a href=\"#details\">[details]</a>. " +
-          "You might be able to change the filesystem permissions of the failed directories " +
-          "successfully yourself with an FTP program or a command line shell."
-        errorElement.style.display = 'block';
-      }
-    </script>
-  </head>
+			function printErrorMessage(message) {
+				var errorElement = document.getElementById('error');
+				errorElement.innerHTML = message +
+				"<br>Note: Please look at the <a href=\"#details\">[details]</a>. " +
+				"You might be able to change the filesystem permissions of the failed directories " +
+				"successfully yourself with an FTP program or a command line shell."
+				errorElement.style.display = 'block';
+			}
+			</script>
+		</head>
 
-  <body>
-    <div id="content">
-      <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php') ?>">Support</a> &raquo;
-	Change Filesystem Permissions
-      </div>
-      <h2>
-        This tool lets you change the filesystem permissions of files and folders owned
-        by the webserver.
-      </h2>
-      <p>
-        All files and folders in your Gallery storage folder are owned by the
-        webserver. If you installed Gallery2 by unpacking a .zip or .tar.gz file, then the
-        gallery2 folder is probably owned by you which means that you can edit the files
-        directly.  However, if you used the preinstaller then your gallery2 directory is
-        also owned by the webserver. For more information, see the <b><a
-        href="http://codex.gallery2.org/Gallery2:Security">Gallery Security Guide</a>.</b>
-      </p>
+		<body>
+			<div id="content">
+				<div id="title">
+					<a href="../../">Gallery</a> &raquo;
+					<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo;
+					Change Filesystem Permissions
+				</div>
+				<h2>
+					This tool lets you change the filesystem permissions of files and folders owned
+					by the webserver.
+				</h2>
+				<p>
+					All files and folders in your Gallery storage folder are owned by the
+					webserver. If you installed Gallery2 by unpacking a .zip or .tar.gz file, then the
+					gallery2 folder is probably owned by you which means that you can edit the files
+					directly.  However, if you used the preinstaller then your gallery2 directory is
+					also owned by the webserver. For more information, see the <b><a
+						href="http://codex.gallery2.org/Gallery2:Security">Gallery Security Guide</a>.</b>
+					</p>
 
-      <!-- Identifyable placeholders such that we can insert our messages during runtime via JS. -->
-      <div id="error" class="error" style="display: none;">
-        &nbsp;
-      </div>
+					<!-- Identifyable placeholders such that we can insert our messages during runtime via JS. -->
+					<div id="error" class="error" style="display: none;">
+						&nbsp;
+					</div>
 
-      <div id="status" class="success" style="display: none;">
-        &nbsp;
-      </div>
+					<div id="status" class="success" style="display: none;">
+						&nbsp;
+					</div>
 
-      <hr class="faint"/>
+					<hr class="faint">
 
-      <?php if (!isModulesOrThemesDirWriteable()): ?>
-      <h2>
-	<a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
-	 . '&amp;mode=open') ?>">Make modules &amp; themes directories writeable</a>
-      </h2>
-      <p class="description">
-	Useful when adding a new module or theme.  This makes your modules and
-	themes folders writeable. It only works if you have installed Gallery with the
-	pre-installer. Usually you can change the filesystem permissions with your FTP
-	program or command line shell.
-      </p>
-      <?php else: ?>
-      <h2>
-	<a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
-	 . '&amp;mode=secure') ?>">Make modules &amp; themes directories read-only</a>
-      </h2>
-      <p class="description">
-	Useful when you're not going to be making changes by hand. This makes your
-	modules and themes folders writeable. Only works if you have installed Gallery
-	with the pre-installer. Usually you can change the filesystem permissions with
-	your FTP program or command line shell.
-      </p>
-      <?php endif; ?>
+				<?php if (!isModulesOrThemesDirWriteable()) : ?>
+						<h2>
+							<a href="
+							<?php
+							generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
+							. '&amp;mode=open')
+							?>
+							">Make modules &amp; themes directories writeable</a>
+						</h2>
+						<p class="description">
+							Useful when adding a new module or theme.  This makes your modules and
+							themes folders writeable. It only works if you have installed Gallery with the
+							pre-installer. Usually you can change the filesystem permissions with your FTP
+							program or command line shell.
+						</p>
+				<?php else : ?>
+						<h2>
+							<a href="
+							<?php
+							generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
+							. '&amp;mode=secure')
+							?>
+							">Make modules &amp; themes directories read-only</a>
+						</h2>
+						<p class="description">
+							Useful when you're not going to be making changes by hand. This makes your
+							modules and themes folders writeable. Only works if you have installed Gallery
+							with the pre-installer. Usually you can change the filesystem permissions with
+							your FTP program or command line shell.
+						</p>
+				<?php endif; ?>
 
-      <hr class="faint"/>
+					<hr class="faint">
 
-      <?php startForm('index.php?chmod&amp;command=' . CMD_CHMOD_PLUGIN_DIR, 'pluginForm'); ?>
-	<h2 id="themeOrModule">
-	  Make a specific theme or module editable
-	</h2>
-	<p class="description">
-	  If you want to edit a page template file of a specific module or theme and your
-	  Gallery was originally installed with the pre-installer, you might have to make
-	  the corresponding plugin folder writeable first.
-	</p>
-	<p class="description">
-	  <select name="pluginId"
-	    onchange="setEditOrSecure(this.options[this.selectedIndex].value, this.form)">
-	    <option value="-1">&laquo; select a module or theme &raquo;</option>
-	    <?php foreach ($plugins as $pluginId => $writeable): ?>
-	    <option value="<?php echo $pluginId ?>"> <?php echo $pluginId ?> </option>
-	    <?php endforeach; ?>
-	  </select>
-	  &nbsp;&nbsp;
-	  <input type="hidden" name="mode" value="open"/>
-	  <input type="submit" disabled="disabled" name="open" value="Make it open (read/write)"/> |
-	  <input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)"/>
-	</p>
-      </form>
+					<?php startForm('index.php?chmod&amp;command=' . CMD_CHMOD_PLUGIN_DIR, 'pluginForm'); ?>
+					<h2 id="themeOrModule">
+						Make a specific theme or module editable
+					</h2>
+					<p class="description">
+						If you want to edit a page template file of a specific module or theme and your
+						Gallery was originally installed with the pre-installer, you might have to make
+						the corresponding plugin folder writeable first.
+					</p>
+					<p class="description">
+						<select name="pluginId"
+						onchange="setEditOrSecure(this.options[this.selectedIndex].value, this.form)">
+						<option value="-1">&laquo; select a module or theme &raquo;</option>
+						<?php foreach ($plugins as $pluginId => $writeable) : ?>
+							<option value="<?php echo $pluginId; ?>"> <?php echo $pluginId; ?> </option>
+						<?php endforeach; ?>
+					</select>
+					&nbsp;&nbsp;
+					<input type="hidden" name="mode" value="open">
+					<input type="submit" disabled="disabled" name="open" value="Make it open (read/write)"> |
+					<input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)">
+				</p>
+			</form>
 
-      <hr class="faint"/>
+			<hr class="faint">
 
-      <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_STORAGE_DIR)
-	  ?>">Make the data folder read/write</a></h2>
-      <p class="description">
-        For some reason, your Gallery data folder might no longer be writeable by Gallery itself
-        and if that happens, Gallery will usually show a ERROR_PLATFORM_FAILURE. In that case the
-        problem might be solved by the above action. If the problem persists, you will have to talk
-        to your webhost to get data folder writeable again.
-      </p>
+			<h2><a href="
+			<?php
+			generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_STORAGE_DIR)
+			?>
+			">Make the data folder read/write</a></h2>
+			<p class="description">
+				For some reason, your Gallery data folder might no longer be writeable by Gallery itself
+				and if that happens, Gallery will usually show a ERROR_PLATFORM_FAILURE. In that case the
+				problem might be solved by the above action. If the problem persists, you will have to talk
+				to your webhost to get data folder writeable again.
+			</p>
 
-      <hr class="faint"/>
+			<hr class="faint">
 
-      <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_LOCALE_DIR)
-	  ?>">Make the locale folder read/write</a></h2>
-      <p class="description">
-        If you're localizing Gallery, you may see warnings when you compile up your localization
-        since you may not have permissions to copy the the new localized version into your
-        g2data/locale folder.  Making the locale folder read/write should solve this problem.
-      </p>
+			<h2><a href="
+			<?php
+			generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_LOCALE_DIR)
+			?>
+			">Make the locale folder read/write</a></h2>
+			<p class="description">
+				If you're localizing Gallery, you may see warnings when you compile up your localization
+				since you may not have permissions to copy the the new localized version into your
+				g2data/locale folder.  Making the locale folder read/write should solve this problem.
+			</p>
 
-      <hr class="faint"/>
+			<hr class="faint">
 
-      <?php if (isGalleryDirWriteable()): ?>
-      <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_GALLERY_DIR)
-	  ?>&amp;mode=open">Make everything read/write</a></h2>
-      <p class="description">
-        If your Gallery has been installed with the pre-installer, you might have to make the
-        whole Gallery directory structure read/write before you can upgrade or delete your
-        installation.
-      </p>
-      <?php else: ?>
-      <h2><a href="<?php generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_GALLERY_DIR)
-	  ?>&amp;mode=secure">Make everything read-only</a></h2>
-      <p class="description">
-        If your Gallery has been installed with the pre-installer you may want to change
-        all your files back to read-only for a small amount of additional security.
-      </p>
-      <?php endif; ?>
+			<?php if (isGalleryDirWriteable()) : ?>
+				<h2><a href="
+				<?php
+				generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_GALLERY_DIR)
+				?>
+				&amp;mode=open">Make everything read/write</a></h2>
+				<p class="description">
+					If your Gallery has been installed with the pre-installer, you might have to make the
+					whole Gallery directory structure read/write before you can upgrade or delete your
+					installation.
+				</p>
+			<?php else : ?>
+				<h2><a href="
+				<?php
+				generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_GALLERY_DIR)
+				?>
+				&amp;mode=secure">Make everything read-only</a></h2>
+				<p class="description">
+					If your Gallery has been installed with the pre-installer you may want to change
+					all your files back to read-only for a small amount of additional security.
+				</p>
+			<?php endif; ?>
 
-      <hr class="faint"/>
+			<hr class="faint">
 
-      <h2>Advanced: Choose the path and the permissions manually</h2>
-      <?php startForm('index.php?chmod&amp;command=' . CMD_ADVANCED); ?>
-	<p class="description">
-	  <b> Path to change: </b>
-	  <input type="text" name="path" size="50" value="<?php echo $path; ?>"/>
-          <br/>
-	  <span class="subtext">
-	    Gallery folder: <i><?php echo GallerySetupUtilities::getConfigDir(); ?></i> <br/>
-            Gallery data folder: <i><?php echo getGalleryStoragePath(); ?></i> <br/>
-	  </span>
-          <br/>
-          <b> New permissions: </b>
-	  <?php
-	   foreach ($permissionBitSets as $permissionBitSet):
-		   $checked = $permissionBitSet[1]->equals($filePermissions) ? 'checked="checked"' : '';
-	$value = $permissionBitSet[0]->getAsString() . $permissionBitSet[1]->getAsString(); ?>
-	  <br/>
-	  <input id="set_<?php echo $value?>" type="radio" name="permissions" value="<?php echo $value ?>" <?php echo $checked ?>>
-	    <label for="set_<?php echo $value?>">
-	      <span class="hasToolTip" title="Files: <?php echo $permissionBitSet[1]->getAsString(); ?>, Folders: <?php echo $permissionBitSet[0]->getAsString(); ?>"> <?php echo $permissionBitSet[1]->getDescription() ?></span>
-	    </label>
-	  </input>
-	  <?php endforeach; ?>
-	  <br/><br/>
+			<h2>Advanced: Choose the path and the permissions manually</h2>
+			<?php startForm('index.php?chmod&amp;command=' . CMD_ADVANCED); ?>
+			<p class="description">
+				<b> Path to change: </b>
+				<input type="text" name="path" size="50" value="<?php echo $path; ?>">
+				<br>
+				<span class="subtext">
+					Gallery folder: <i><?php echo GallerySetupUtilities::getConfigDir(); ?></i> <br>
+					Gallery data folder: <i><?php echo getGalleryStoragePath(); ?></i> <br>
+				</span>
+				<br>
+				<b> New permissions: </b>
+				<?php
+				foreach ($permissionBitSets as $permissionBitSet) :
+					$checked = $permissionBitSet[1]->equals($filePermissions) ? 'checked="checked"' : '';
+	$value   = $permissionBitSet[0]->getAsString() . $permissionBitSet[1]->getAsString(); ?>
+					<br>
+					<input id="set_<?php echo $value; ?>" type="radio" name="permissions" value="<?php echo $value; ?>" <?php echo $checked; ?>>
+					<label for="set_<?php echo $value; ?>">
+						<span class="hasToolTip" title="Files: <?php echo $permissionBitSet[1]->getAsString(); ?>, Folders: <?php echo $permissionBitSet[0]->getAsString(); ?>"> <?php echo $permissionBitSet[1]->getDescription(); ?></span>
+					</label>
+				</input>
+				<?php endforeach; ?>
+			<br><br>
 
-          <input type="submit" value="Change the Permissions now!"/>
-        </p>
-      </form>
-<?php
+			<input type="submit" value="Change the Permissions now!">
+		</p>
+	</form>
+	<?php
 } // end function printPageWithoutFooter()
 
 function openErrorBox() {
@@ -796,10 +821,10 @@ function openErrorBox() {
 		return;
 	}
 	$errorBoxOpen = 1; ?>
-      <a name="details"></a>
-      <div id="details" class="results">
-        <h2>Details:</h2>
-<?php
+	<a name="details"></a>
+	<div id="details" class="results">
+		<h2>Details:</h2>
+		<?php
 } // end function openErrorBox() {
 
 function closeErrorBox() {
@@ -808,15 +833,15 @@ function closeErrorBox() {
 	if (!$errorBoxOpen) {
 		return;
 	} ?>
-      </div>
-<?php
+		</div>
+	<?php
 } // end function closeErrorBox()
 
 function printFooter() {
 	closeErrorBox(); ?>
-    </div>
-  </body>
+	</div>
+</body>
 </html>
-<?php
+	<?php
 } // end function printFooter()
 ?>

@@ -61,7 +61,7 @@ class GalleryCapabilities {
 	 * @param string $key
 	 * @param mixed $value (null to remove the value)
 	 */
-	public function set($key, $value) {
+	public static function set($key, $value) {
 		global $gallery;
 		$gallery->setConfig($key, $value);
 	}

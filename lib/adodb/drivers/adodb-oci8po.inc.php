@@ -1,6 +1,8 @@
 <?php
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim. All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim. All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
@@ -35,7 +37,7 @@ class ADODB_oci8po extends ADODB_oci8 {
 		// oci8po does not support adodb extension: adodb_movenext()
 	}
 
-	public function Param($name) {
+	public function Param($name, $type = 'C') {
 		return '?';
 	}
 
@@ -50,8 +52,27 @@ class ADODB_oci8po extends ADODB_oci8 {
 		return ADODB_oci8::Prepare($sql, $cursor);
 	}
 
+	public function Execute($sql, $inputarr = false) {
+		return ADOConnection::Execute($sql, $inputarr);
+	}
+
+	/**
+	 * The optimizations performed by ADODB_oci8::SelectLimit() are not
+	 * compatible with the oci8po driver, so we rely on the slower method
+	 * from the base class.
+	 * We can't properly handle prepared statements either due to preprocessing
+	 * of query parameters, so we treat them as regular SQL statements.
+	 */
+	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
+		if (is_array($sql)) {
+			//          $sql = $sql[0];
+		}
+
+		return ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+	}
+
 	// emulate handling of parameters ? ?, replacing with :bind0 :bind1
-	public function _query($sql, $inputarr) {
+	public function _query($sql, $inputarr = false) {
 		if (is_array($inputarr)) {
 			$i = 0;
 
@@ -60,12 +81,27 @@ class ADODB_oci8po extends ADODB_oci8 {
 					$arr['bind' . $i++] = $v;
 				}
 			} else {
-				$sqlarr = explode('?', $sql);
-				$sql    = $sqlarr[0];
+				// Need to identify if the ? is inside a quoted string, and if
+				// so not use it as a bind variable
+				preg_match_all('/".*\??"|\'.*\?.*?\'/', $sql, $matches);
 
-				foreach ($inputarr as $k => $v) {
-					$sql .= ":$k" . $sqlarr[++$i];
+				foreach ($matches[0] as $qmMatch) {
+					$qmReplace = str_replace('?', '-QUESTIONMARK-', $qmMatch);
+					$sql       = str_replace($qmMatch, $qmReplace, $sql);
 				}
+
+				// Replace parameters if any were found
+				$sqlarr = explode('?', $sql);
+
+				if (count($sqlarr) > 1) {
+					$sql = $sqlarr[0];
+
+					foreach ($inputarr as $k => $v) {
+						$sql .= ":$k" . $sqlarr[++$i];
+					}
+				}
+
+				$sql = str_replace('-QUESTIONMARK-', '?', $sql);
 			}
 		}
 
@@ -102,15 +138,18 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 	}
 
 	// lowercase field names...
-	public function &_FetchField($fieldOffset = -1) {
-		$fld             = new ADOFieldObject();
-		$fieldOffset    += 1;
-		$fld->name       = strtolower(OCIcolumnname($this->_queryID, $fieldOffset));
+	public function _FetchField($fieldOffset = -1) {
+		$fld          = new ADOFieldObject();
+		$fieldOffset += 1;
+		$fld->name    = OCIcolumnname($this->_queryID, $fieldOffset);
+
+		if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER) {
+			$fld->name = strtolower($fld->name);
+		}
 		$fld->type       = OCIcolumntype($this->_queryID, $fieldOffset);
 		$fld->max_length = OCIcolumnsize($this->_queryID, $fieldOffset);
 
 		if ($fld->type == 'NUMBER') {
-			//$p = OCIColumnPrecision($this->_queryID, $fieldOffset);
 			$sc = OCIColumnScale($this->_queryID, $fieldOffset);
 
 			if ($sc == 0) {
@@ -121,29 +160,15 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 		return $fld;
 	}
 
-	/*
-	function MoveNext()
-	{
-		if (@OCIfetchinto($this->_queryID,$this->fields,$this->fetchMode)) {
-			$this->_currentRow += 1;
-			return true;
-		}
-		if (!$this->EOF) {
-			$this->_currentRow += 1;
-			$this->EOF = true;
-		}
-		return false;
-	}*/
-
 	// 10% speedup to move MoveNext to child class
 	public function MoveNext() {
-		if (@OCIfetchinto($this->_queryID, $this->fields, $this->fetchMode)) {
-			global $ADODB_ANSI_PADDING_OFF;
-			$this->_currentRow++;
+		$ret = @oci_fetch_array($this->_queryID, $this->fetchMode);
 
-			if ($this->fetchMode & OCI_ASSOC) {
-				$this->_updatefields();
-			}
+		if ($ret !== false) {
+			global $ADODB_ANSI_PADDING_OFF;
+			$this->fields = $ret;
+			$this->_currentRow++;
+			$this->_updatefields();
 
 			if (!empty($ADODB_ANSI_PADDING_OFF)) {
 				foreach ($this->fields as $k => $v) {
@@ -165,7 +190,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 	}
 
 	// Optimize SelectLimit() by using OCIFetch() instead of OCIFetchInto()
-	public function &GetArrayLimit($nrows, $offset = -1) {
+	public function GetArrayLimit($nrows, $offset = -1) {
 		if ($offset <= 0) {
 			$arr = $this->GetArray($nrows);
 
@@ -179,16 +204,15 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 				return $arr;
 			}
 		}
+		$ret = @oci_fetch_array($this->_queryID, $this->fetchMode);
 
-		if (!@OCIfetchinto($this->_queryID, $this->fields, $this->fetchMode)) {
+		if ($ret === false) {
 			$arr = array();
 
 			return $arr;
 		}
-
-		if ($this->fetchMode & OCI_ASSOC) {
-			$this->_updatefields();
-		}
+		$this->fields = $ret;
+		$this->_updatefields();
 		$results = array();
 		$cnt     = 0;
 
@@ -200,38 +224,14 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 		return $results;
 	}
 
-	// Create associative array
-	public function _updatefields() {
-		if (ADODB_ASSOC_CASE == 2) {
-			return;
-		} // native
-
-		$arr       = array();
-		$lowercase = (ADODB_ASSOC_CASE == 0);
-
-		foreach ($this->fields as $k => $v) {
-			if (is_integer($k)) {
-				$arr[$k] = $v;
-			} else {
-				if ($lowercase) {
-					$arr[strtolower($k)] = $v;
-				} else {
-					$arr[strtoupper($k)] = $v;
-				}
-			}
-		}
-		$this->fields = $arr;
-	}
-
 	public function _fetch() {
-		$ret = @OCIfetchinto($this->_queryID, $this->fields, $this->fetchMode);
+		global $ADODB_ANSI_PADDING_OFF;
+
+		$ret = @oci_fetch_array($this->_queryID, $this->fetchMode);
 
 		if ($ret) {
-			global $ADODB_ANSI_PADDING_OFF;
-
-			if ($this->fetchMode & OCI_ASSOC) {
-				$this->_updatefields();
-			}
+			$this->fields = $ret;
+			$this->_updatefields();
 
 			if (!empty($ADODB_ANSI_PADDING_OFF)) {
 				foreach ($this->fields as $k => $v) {
@@ -242,6 +242,6 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 			}
 		}
 
-		return $ret;
+		return $ret !== false;
 	}
 }

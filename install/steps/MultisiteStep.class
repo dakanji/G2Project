@@ -24,9 +24,7 @@
  */
 class MultisiteStep extends InstallStep {
 	public $_isMultisite;
-
 	public $_configPath;
-
 	public $_baseUri;
 
 	public function stepName() {
@@ -47,7 +45,7 @@ class MultisiteStep extends InstallStep {
 		}
 
 		if (isset($_POST['isMultisite'])) {
-			$baseDir = dirname(dirname(dirname(__FILE__)));
+			$baseDir = dirname(dirname(__DIR__));
 
 			include_once $baseDir . '/modules/core/classes/GalleryUrlGenerator.class';
 
@@ -71,11 +69,10 @@ class MultisiteStep extends InstallStep {
 				return false;
 			}
 			$this->_configPath = rtrim(
-
 				$this->sanitize($_POST['configPath']),
 				' ' . DIRECTORY_SEPARATOR
 			);
-			$this->_baseUri = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
+			$this->_baseUri    = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
 
 			if (substr($this->_baseUri, -4) != '.php'
 				&& substr($this->_baseUri, -1) != '/'
@@ -96,7 +93,7 @@ class MultisiteStep extends InstallStep {
 			$this->_baseUri     = '';
 		}
 
-		$galleryDir = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
+		$galleryDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR;
 
 		if (isset($_POST['isMultisite']) && $_POST['isMultisite'] == '1') {
 			$this->_isMultisite = true;
@@ -111,7 +108,7 @@ class MultisiteStep extends InstallStep {
 				$templateData['error']['dir']['codebase'] = 1;
 			} elseif (!is_readable($this->_configPath)) {
 				$templateData['error']['dir']['inaccessible'] = 1;
-			} elseif (!MultisiteStep::populateMultisiteDirectory($this->_configPath)) {
+			} elseif (!self::populateMultisiteDirectory($this->_configPath)) {
 				$templateData['error']['dir']['creation_error'] = 1;
 			}
 
@@ -150,26 +147,26 @@ class MultisiteStep extends InstallStep {
 
 	public function populateMultisiteDirectory($dir) {
 		umask(0022);
-		$galleryDir = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
+		$galleryDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR;
 
 		if (!$out = @fopen("$dir/main.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__FILE__));\nrequire('" .
+		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
 			 $galleryDir . "main.php');\n?>\n");
 		fclose($out);
 
 		if (!$out = @fopen("$dir/embed.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__FILE__));\nrequire('" .
+		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
 			 $galleryDir . "embed.php');\n?>\n");
 		fclose($out);
 
 		if (!$out = @fopen("$dir/index.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__FILE__));\nrequire('" .
+		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
 			 $galleryDir . "index.php');\n?>\n");
 		fclose($out);
 
@@ -180,7 +177,7 @@ class MultisiteStep extends InstallStep {
 		if (!$out = @fopen("$dir/upgrade/index.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(__FILE__)));\nrequire('" .
+		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__DIR__));\nrequire('" .
 			 $galleryDir . 'upgrade' . DIRECTORY_SEPARATOR . "index.php');\n?>\n");
 		fclose($out);
 		// lib/support/index.php is optional; ignore errors
@@ -188,7 +185,7 @@ class MultisiteStep extends InstallStep {
 			&& (is_dir("$dir/lib/support") || mkdir("$dir/lib/support", 0755))
 			&& $out = @fopen("$dir/lib/support/index.php", 'w')
 		) {
-			fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(dirname(__FILE__)" .
+			fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(__DIR__" .
 			")));\nrequire('" . $galleryDir . 'lib' . DIRECTORY_SEPARATOR . 'support' .
 			DIRECTORY_SEPARATOR . "index.php');\n?>\n");
 			fclose($out);

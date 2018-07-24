@@ -681,7 +681,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		$ret = $photo->create(
 			$this->_album->getId(),
-			dirname(__FILE__) . '/../data/test1.gif',
+			__DIR__ . '/../data/test1.gif',
 			'image/gif',
 			'test image'
 		);

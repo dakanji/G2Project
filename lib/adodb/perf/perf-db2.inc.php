@@ -1,6 +1,8 @@
 <?php
 /*
-V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
+@version   v5.20.12  30-Mar-2018
+@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
+@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
@@ -34,9 +36,9 @@ class perf_db2 extends adodb_perf {
 		'Ratios',
 		'data cache hit ratio' => array(
 			'RATIO',
-			"SELECT 
-				case when sum(POOL_DATA_L_READS+POOL_INDEX_L_READS)=0 then 0 
-				else 100*(1-sum(POOL_DATA_P_READS+POOL_INDEX_P_READS)/sum(POOL_DATA_L_READS+POOL_INDEX_L_READS)) end 
+			"SELECT
+				case when sum(POOL_DATA_L_READS+POOL_INDEX_L_READS)=0 then 0
+				else 100*(1-sum(POOL_DATA_P_READS+POOL_INDEX_P_READS)/sum(POOL_DATA_L_READS+POOL_INDEX_L_READS)) end
 				FROM TABLE(SNAPSHOT_APPL('',-2)) as t",
 			'=WarnCacheRatio',
 		),
@@ -68,7 +70,7 @@ class perf_db2 extends adodb_perf {
 	);
 
 	public function __construct(&$conn) {
-		$this->conn =& $conn;
+		$this->conn = $conn;
 	}
 
 	public function Explain($sql, $partial = false) {
@@ -110,9 +112,15 @@ class perf_db2 extends adodb_perf {
 		return $s;
 	}
 
-	public function Tables() {
+	/**
+	 *  Gets a list of tables
+	 *
+	 * @param int $throwaway discarded variable to match the parent method
+	 * @return string The formatted table list
+	 */
+	public function Tables($throwaway = 0) {
 		$rs = $this->conn->Execute("select tabschema,tabname,card as rows,
-			npages pages_used,fpages pages_allocated, tbspace tablespace  
+			npages pages_used,fpages pages_allocated, tbspace tablespace
 			from syscat.tables where tabschema not in ('SYSCAT','SYSIBM','SYSSTAT') order by 1,2");
 
 		return rs2html($rs, false, false, false, false);

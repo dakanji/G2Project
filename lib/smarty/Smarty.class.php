@@ -20,17 +20,17 @@
  *
  * For questions, help, comments, discussion, etc., please join the
  * Smarty mailing list. Send a blank e-mail to
- * smarty-general-subscribe@lists.php.net
+ * smarty-discussion-subscribe@googlegroups.com
  *
- * @link http://smarty.php.net/
+ * @link http://www.smarty.net/
  * @copyright 2001-2005 New Digital Group, Inc.
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.6.20
+ * @version 2.6.31-dev
  */
 
-// $Id: Smarty.class.php 2722 2007-06-18 14:29:00Z danilo $
+// $Id$
 
 /**
  * DIR_SEP isn't used anymore, but third party apps might
@@ -45,7 +45,7 @@ if (!defined('DIR_SEP')) {
  * application has not already defined it.
  */
 if (!defined('SMARTY_DIR')) {
-	define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+	define('SMARTY_DIR', __DIR__ . DIRECTORY_SEPARATOR);
 }
 
 if (!defined('SMARTY_CORE_DIR')) {
@@ -105,7 +105,7 @@ class Smarty {
 	/**
 	 * When set, smarty does uses this value as error_reporting-level.
 	 *
-	 * @var boolean
+	 * @var integer
 	 */
 	public $error_reporting;
 
@@ -225,8 +225,8 @@ class Smarty {
 	 * @var array
 	 */
 	public $security_settings = array(
-		'PHP_HANDLING'    => false,
-		'IF_FUNCS'        => array(
+		'PHP_HANDLING'        => false,
+		'IF_FUNCS'            => array(
 			'array',
 			'list',
 			'isset',
@@ -239,10 +239,11 @@ class Smarty {
 			'false',
 			'null',
 		),
-		'INCLUDE_ANY'     => false,
-		'PHP_TAGS'        => false,
-		'MODIFIER_FUNCS'  => array('count'),
-		'ALLOW_CONSTANTS' => false,
+		'INCLUDE_ANY'         => false,
+		'PHP_TAGS'            => false,
+		'MODIFIER_FUNCS'      => array('count'),
+		'ALLOW_CONSTANTS'     => false,
+		'ALLOW_SUPER_GLOBALS' => true,
 	);
 
 	/**
@@ -475,7 +476,7 @@ class Smarty {
 	 *
 	 * @var string
 	 */
-	public $_version = '2.6.20';
+	public $_version = '2.6.31';
 
 	/**
 	 * current template inclusion depth
@@ -573,6 +574,12 @@ class Smarty {
 	 */
 	public $_cache_including = false;
 
+	/**
+	 * plugin filepath cache
+	 *
+	 * @var array
+	 */
+	public $_filepaths_cache = array();
 	// #@-
 
 	/**
@@ -801,7 +808,15 @@ class Smarty {
 		if (count($functions) == 4) {
 			$this->_plugins['resource'][$type] = array($functions, false);
 		} elseif (count($functions) == 5) {
-			$this->_plugins['resource'][$type] = array(array(array(&$functions[0], $functions[1]), array(&$functions[0], $functions[2]), array(&$functions[0], $functions[3]), array(&$functions[0], $functions[4])), false);
+			$this->_plugins['resource'][$type] = array(
+				array(
+					array(&$functions[0], $functions[1]),
+					array(&$functions[0], $functions[2]),
+					array(&$functions[0], $functions[3]),
+					array(&$functions[0], $functions[4]),
+				),
+				false,
+			);
 		} else {
 			$this->trigger_error("malformed function-list for '$type' in register_resource");
 		}
@@ -1078,7 +1093,8 @@ class Smarty {
 	 * @param integer $error_type
 	 */
 	public function trigger_error($error_msg, $error_type = E_USER_WARNING) {
-		trigger_error("Smarty error: $error_msg", $error_type);
+		$msg = htmlentities($error_msg);
+		trigger_error("Smarty error: $msg", $error_type);
 	}
 
 	/**
@@ -1590,7 +1606,7 @@ class Smarty {
 						$params['source_content'] = $this->_read_file($_resource_name);
 					}
 					$params['resource_timestamp'] = filemtime($_resource_name);
-					$_return                      = is_file($_resource_name);
+					$_return                      = is_file($_resource_name) && is_readable($_resource_name);
 
 					break;
 
@@ -1765,7 +1781,7 @@ class Smarty {
 	 * @return string
 	 */
 	public function _read_file($filename) {
-		if (file_exists($filename) && ($fd = @fopen($filename, 'rb'))) {
+		if (file_exists($filename) && is_readable($filename) && ($fd = @fopen($filename, 'rb'))) {
 			$contents = '';
 
 			while (!feof($fd)) {
@@ -1984,7 +2000,8 @@ class Smarty {
 	 * wrapper for eval() retaining $this
 	 */
 	public function _eval($code, $params = null) {
-		return eval($code);
+		global $gallery;
+		return $gallery->runEval($code);
 	}
 
 	/**

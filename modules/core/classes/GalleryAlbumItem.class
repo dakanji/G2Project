@@ -82,7 +82,7 @@ class GalleryAlbumItem extends GalleryItem {
 	 * @param int $parentId the id of the parent of this object
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId, $albumName) {
+	public function create($parentId = null, $albumName = null, $x1 = false) {
 		global $gallery;
 
 		if (empty($albumName) || empty($parentId)) {
@@ -282,7 +282,7 @@ class GalleryAlbumItem extends GalleryItem {
 	/**
 	 * @see GalleryItem::save()
 	 */
-	public function save($postEvent = true) {
+	public function save($postEvent = true, $x1 = null) {
 		global $gallery;
 		$session =& $gallery->getSession();
 

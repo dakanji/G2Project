@@ -30,7 +30,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
 		$this->_shouldHalt = false;
-		$this->_baseDir    = realpath(dirname(__FILE__) . '/../../..');
+		$this->_baseDir    = realpath(__DIR__ . '/../../..');
 		$this->_checkTime  = time();
 	}
 

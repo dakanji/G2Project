@@ -46,7 +46,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		// Load our environments
-		include dirname(__FILE__) . '/ImEnvironments.inc';
+		include __DIR__ . '/ImEnvironments.inc';
 		$this->_environments = $imEnvironment;
 	}
 

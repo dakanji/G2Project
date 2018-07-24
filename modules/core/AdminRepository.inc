@@ -326,7 +326,7 @@ class AdminRepositoryView extends GalleryView {
 			uasort($AdminRepository['browseData'], array($this, 'pluginSort'));
 		}
 
-		$AdminRepository['basePath']  = dirname(dirname(dirname(__FILE__)));
+		$AdminRepository['basePath']  = dirname(dirname(__DIR__));
 		$AdminRepository['writeable'] = array(
 			'modules' => $platform->is_writeable($AdminRepository['basePath'] . '/modules'),
 			'themes'  => $platform->is_writeable($AdminRepository['basePath'] . '/themes'),

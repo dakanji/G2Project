@@ -30,7 +30,7 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
 
-		include dirname(__FILE__) . '/Php43IllegalFunctions.inc';
+		include __DIR__ . '/Php43IllegalFunctions.inc';
 		$this->_illegalRegexp = $illegalFunctionsRegexp . 'i';
 
 		$this->_exceptions['file_put_contents']['GalleryPlatform.class']           = 1;

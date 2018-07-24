@@ -145,7 +145,7 @@ class ErrorPageView extends GalleryView {
 	 *                 not be considered an error.
 	 * @static
 	 */
-	public function errorHandler($error, $g2Data = null, $initOk = null) {
+	public static function errorHandler($error, $g2Data = null, $initOk = null) {
 		global $gallery;
 		$failsafe = false;
 
@@ -247,7 +247,7 @@ class ErrorPageView extends GalleryView {
 		if (!$failsafe) {
 			$dummyForm = array();
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-			$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
+			$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 			$view->setError($error);
 			list($ret, $results) = $view->loadTemplate($template, $dummyForm);
 

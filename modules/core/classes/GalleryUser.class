@@ -122,7 +122,7 @@ class GalleryUser extends GalleryEntity {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function create($userName) {
+	public function create($userName = null, $x1 = null, $x2 = null) {
 		global $gallery;
 
 		$query = '
@@ -221,7 +221,7 @@ class GalleryUser extends GalleryEntity {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function save($postEvent = true) {
+	public function save($postEvent = true, $x1 = null) {
 		$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 
 		$ret = parent::save($postEvent);

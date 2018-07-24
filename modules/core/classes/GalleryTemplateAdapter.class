@@ -574,13 +574,14 @@ class GalleryTemplateAdapter {
 			);
 
 			if ($phpVm->function_exists('gzencode')) {
+				$gzippedContents = $phpVm->gzencode($contents, 9, FORCE_GZIP);
 				GalleryDataCache::putToDisk(
 					array(
 						'type'   => 'module',
 						'itemId' => 'CombinedJavascript_gzip_' . $key,
 						'id'     => '_all',
 					),
-					$phpVm->gzencode($contents, 9, FORCE_GZIP)
+					$gzippedContents
 				);
 			}
 		}
@@ -1046,7 +1047,7 @@ class GalleryTemplateAdapter {
 			 * Use this combo of dirname and '..' in g2Dir to avoid creating paths in the unit
 			 * test that won't be Windows compatible.
 			 */
-			$g2Dir = dirname(dirname(__FILE__)) . '/../../';
+			$g2Dir = dirname(__DIR__) . '/../../';
 			$base  = 'themes/' . $this->_theme->getId() . '/';
 
 			if (($dirname = dirname($params['url'])) == '.') {
@@ -1314,11 +1315,13 @@ class GalleryTemplateAdapter {
 				 * Unlikely this will ever be used.. but do update it if exact form of
 				 * translate() calls (with text+arg1+arg2) in this function ever change.
 				 */
-				eval('class GalleryTemplateAdapterFallbackCoreModule {
-		    function translate($x) {
-			return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
-		    }
-		}');
+				$gallery->runEval(
+					'class GalleryTemplateAdapterFallbackCoreModule {
+						function translate($x) {
+							return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
+						}
+					}'
+				);
 				$coreModule = new GalleryTemplateAdapterFallbackCoreModule();
 			}
 		}

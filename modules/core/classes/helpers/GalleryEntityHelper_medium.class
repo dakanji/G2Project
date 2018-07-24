@@ -30,7 +30,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::deleteEntityById
 	 */
-	public function deleteEntityById($id, $requiredEntityType = null) {
+	public static function deleteEntityById($id, $requiredEntityType = null) {
 		if (empty($id)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
@@ -149,7 +149,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchEntitiesLinkedTo
 	 */
-	public function fetchEntitiesLinkedTo($targetId) {
+	public static function fetchEntitiesLinkedTo($targetId) {
 		global $gallery;
 
 		$query                     = '
@@ -181,7 +181,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::removeOnLoadHandlers
 	 */
-	public function removeOnLoadHandlers($handlerIds) {
+	public static function removeOnLoadHandlers($handlerIds) {
 		global $gallery;
 
 		$query = 'SELECT [GalleryEntity::id] FROM [GalleryEntity]
@@ -234,7 +234,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::updateModificationTimestamp
 	 */
-	public function updateModificationTimestamp($entityId) {
+	public static function updateModificationTimestamp($entityId) {
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($entityId);
 
 		if ($ret) {
@@ -267,7 +267,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::deleteFastDownloadFileById
 	 */
-	public function deleteFastDownloadFileById($entityId) {
+	public static function deleteFastDownloadFileById($entityId) {
 		global $gallery;
 
 		$fastDownloadFilePath = GalleryDataCache::getCachePath(
@@ -286,7 +286,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::createFastDownloadFile
 	 */
-	public function createFastDownloadFile($entity, $runEvenInUnitTest = false) {
+	public static function createFastDownloadFile($entity, $runEvenInUnitTest = false) {
 		global $gallery;
 
 		// Disable this for unit tests, for now
@@ -401,7 +401,7 @@ class GalleryEntityHelper_medium {
 	/**
 	 * @see GalleryCoreApi::getExternalAccessMemberList
 	 */
-	public function getExternalAccessMemberList($entityName) {
+	public static function getExternalAccessMemberList($entityName) {
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity($entityName);
 
 		if ($ret) {

@@ -30,7 +30,7 @@ class GalleryItemHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchThemeId
 	 */
-	public function fetchThemeId($item) {
+	public static function fetchThemeId($item) {
 		global $gallery;
 
 		// Find the right theme for this item
@@ -65,7 +65,7 @@ class GalleryItemHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchChildCounts
 	 */
-	public function fetchChildCounts($itemIds, $userId = null) {
+	public static function fetchChildCounts($itemIds, $userId = null) {
 		global $gallery;
 
 		if (!isset($userId)) {
@@ -141,7 +141,7 @@ class GalleryItemHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchDescendentCounts
 	 */
-	public function fetchDescendentCounts($itemIds, $userId = null) {
+	public static function fetchDescendentCounts($itemIds, $userId = null) {
 		global $gallery;
 
 		if (!isset($userId)) {
@@ -222,7 +222,7 @@ class GalleryItemHelper_simple {
 	 * @return array GalleryStatus a status code
 	 *               array(id => ##, id => ##)
 	 */
-	public function fetchUncachedDescendentCounts($itemIds, $userId) {
+	public static function fetchUncachedDescendentCounts($itemIds, $userId) {
 		global $gallery;
 
 		if (!isset($userId)) {
@@ -316,7 +316,7 @@ class GalleryItemHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchItemIdCount
 	 */
-	public function fetchItemIdCount($itemType, $permission = 'core.view', $userId = null) {
+	public static function fetchItemIdCount($itemType, $permission = 'core.view', $userId = null) {
 		global $gallery;
 
 		if (!isset($userId)) {
@@ -382,7 +382,12 @@ class GalleryItemHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchAlbumTree
 	 */
-	public function fetchAlbumTree($itemId = null, $depth = null, $userId = null) {
+	public static function fetchAlbumTree(
+		$itemId = null,
+		$depth = null,
+		$userId = null,
+		$IgnorePerms = null
+	) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 

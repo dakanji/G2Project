@@ -485,7 +485,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * Sort the added files list by filename because we can't guarantee
 		 * the file order across platforms.
 		 */
-		$sortAddedFilesFunc = create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+		$sortAddedFilesFunc = function($a, $b) {
+			return strcmp($a['fileName'], $b['fileName']);
+		};
 		usort($addedItems, $sortAddedFilesFunc);
 
 		$itemNames = array();
@@ -611,7 +613,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * Sort the added files list by filename because we can't guarantee
 		 * the file order across platforms.
 		 */
-		$sortAddedFilesFunc = create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+		 $sortAddedFilesFunc = function($a, $b) {
+ 			return strcmp($a['fileName'], $b['fileName']);
+ 		};
 		usort($addedItems, $sortAddedFilesFunc);
 
 		$itemNames = array();
@@ -713,7 +717,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * Sort the added files list by filename because we can't guarantee
 		 * the file order across platforms.
 		 */
-		$sortAddedFilesFunc = create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+		 $sortAddedFilesFunc = function($a, $b) {
+ 			return strcmp($a['fileName'], $b['fileName']);
+ 		};
 		usort($addedItems, $sortAddedFilesFunc);
 
 		$isUnix = strncasecmp(PHP_OS, 'win', 3);
@@ -1007,7 +1013,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
  * ItemAddPlugin that doesn't fail, nor complete
  */
 class ItemAddControllerTestPluginContinue {
-	public function handleRequest($form, &$item) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
@@ -1020,7 +1026,7 @@ class ItemAddControllerTestPluginContinue {
  * ItemAddPlugin that always completes
  */
 class ItemAddControllerTestPluginSuccess {
-	public function handleRequest($form, &$item) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
@@ -1055,7 +1061,7 @@ class ItemAddControllerTestPluginSuccess {
  * ItemAddPlugin to test backwards compatibility with the WebDAV module.
  */
 class ItemAddControllerTestAddPluginWebDav {
-	public function handleRequest($form, &$item) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		// Pretend we just added item(s) that are already there
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 
@@ -1086,7 +1092,7 @@ class ItemAddControllerTestAddPluginWebDav {
  * ItemAddPlugin that always fails
  */
 class ItemAddControllerTestPluginFail {
-	public function handleRequest($form, &$item) {
+	public function handleRequest($form, &$item, &$addController = null) {
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}

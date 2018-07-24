@@ -320,7 +320,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 				)
 			);
 
-			$ItemEditPhotoThumbnail['editThumbnail']['appletCodeBase']      = GalleryUtilities::convertPathToUrl(dirname(__FILE__)) . '/plugins';
+			$ItemEditPhotoThumbnail['editThumbnail']['appletCodeBase']      = GalleryUtilities::convertPathToUrl(__DIR__) . '/plugins';
 			$ItemEditPhotoThumbnail['editThumbnail']['appletJarFile']       = 'ImageCrop.jar';
 			$ItemEditPhotoThumbnail['editThumbnail']['imageUrl']            = $url;
 			$ItemEditPhotoThumbnail['editThumbnail']['imageWidth']          = $source->getWidth();

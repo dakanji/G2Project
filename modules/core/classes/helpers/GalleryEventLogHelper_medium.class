@@ -31,7 +31,7 @@ class GalleryEventLogHelper_medium {
 	/**
 	 * @see GalleryCoreApi::addEventLogEntry
 	 */
-	public function addEventLogEntry($type, $summary, $details) {
+	public static function addEventLogEntry($type, $summary, $details) {
 		global $gallery;
 		$phpVm        = $gallery->getPhpVm();
 		$storage      =& $gallery->getStorage();

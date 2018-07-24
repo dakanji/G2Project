@@ -30,7 +30,7 @@ class GalleryPermissionHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchAccessListIds
 	 */
-	public function fetchAccessListIds($permission, $userId, $sessionPermissions = true) {
+	public static function fetchAccessListIds($permission, $userId, $sessionPermissions = true) {
 		$permission = is_array($permission) ? $permission : array($permission);
 		$aclIds     = false;
 
@@ -59,7 +59,7 @@ class GalleryPermissionHelper_simple {
 	 * Like GalleryCoreApi::fetchAccessListIds but only processes a single permission id
 	 * @access private
 	 */
-	public function _fetchAccessListIds($permission, $userId, $sessionPermissions = true) {
+	public static function _fetchAccessListIds($permission, $userId, $sessionPermissions = true) {
 		global $gallery;
 
 		$sessionPermissions = (int)$sessionPermissions;
@@ -139,14 +139,14 @@ class GalleryPermissionHelper_simple {
 	 * Clear all cached access list ids
 	 * @access private
 	 */
-	public function _clearCachedAccessListIds() {
+	public static function _clearCachedAccessListIds() {
 		GalleryDataCache::removeByPattern('GalleryPermissionHelper::fetchAccessListIds');
 	}
 
 	/**
 	 * @see GalleryCoreApi::convertPermissionIdsToBits
 	 */
-	public function convertIdsToBits($permissionIds) {
+	public static function convertIdsToBits($permissionIds) {
 		global $gallery;
 
 		if (!is_array($permissionIds)) {
@@ -191,7 +191,7 @@ class GalleryPermissionHelper_simple {
 	 *                      ...)
 	 * @access protected
 	 */
-	public function _fetchAllPermissions() {
+	public static function _fetchAllPermissions() {
 		global $gallery;
 
 		$cacheKey = 'GalleryPermissionHelper::_allPermissions';
@@ -244,7 +244,7 @@ class GalleryPermissionHelper_simple {
 	/**
 	 * @see GalleryCoreApi::studyPermissions
 	 */
-	public function studyPermissions($itemIds, $userId = null, $sessionPermissions = true) {
+	public static function studyPermissions($itemIds, $userId = null, $sessionPermissions = true) {
 		list($ret, $permissionsTable) = GalleryCoreApi::fetchPermissionsForItems($itemIds, $userId, $sessionPermissions);
 
 		if ($ret) {
@@ -257,7 +257,7 @@ class GalleryPermissionHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchPermissionsForItems
 	 */
-	public function fetchPermissionsForItems($itemIds, $userId = null, $sessionPermissions = true) {
+	public static function fetchPermissionsForItems($itemIds, $userId = null, $sessionPermissions = true) {
 		global $gallery;
 
 		if (!is_array($itemIds) || empty($itemIds)) {
@@ -396,7 +396,7 @@ class GalleryPermissionHelper_simple {
 	/**
 	 * @see GalleryCoreApi::convertPermissionBitsToIds
 	 */
-	public function convertBitsToIds($permissionBits, $compress = false) {
+	public static function convertBitsToIds($permissionBits, $compress = false) {
 		global $gallery;
 
 		if (empty($permissionBits)) {
@@ -501,7 +501,7 @@ class GalleryPermissionHelper_simple {
 	/**
 	 * @see GalleryCoreApi::getPermissions
 	 */
-	public function getPermissions($itemId, $userId = null, $sessionPermissions = true) {
+	public static function getPermissions($itemId, $userId = null, $sessionPermissions = true) {
 		global $gallery;
 
 		if (!isset($userId)) {
@@ -540,7 +540,7 @@ class GalleryPermissionHelper_simple {
 	/**
 	 * @see GalleryCoreApi::addPermissionToSession
 	 */
-	public function addPermissionToSession($entityId) {
+	public static function addPermissionToSession($entityId) {
 		global $gallery;
 		$session =& $gallery->getSession();
 

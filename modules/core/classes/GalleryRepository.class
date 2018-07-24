@@ -65,7 +65,10 @@ class GalleryRepository {
 	 *               int error count (repositories that failed to load for some reason)
 	 * @static
 	 */
-	public function getRepositories($sources = array(), $repositoryClassName = 'GalleryRepository') {
+	public static function getRepositories(
+		$sources = array(),
+		$repositoryClassName = 'GalleryRepository'
+	) {
 		$cacheKey = 'GalleryRepository::getRepositories(' . join('|', $sources) .
 		",$repositoryClassName)";
 
@@ -108,7 +111,10 @@ class GalleryRepository {
 	 *
 	 * @static
 	 */
-	public function clearRepositoryCache($sources = array(), $repositoryClassName = 'GalleryRepository') {
+	public static function clearRepositoryCache(
+		$sources = array(),
+		$repositoryClassName = 'GalleryRepository'
+	) {
 		$cacheKey = 'GalleryRepository::getRepositories(' . join('|', $sources) .
 		",$repositoryClassName)";
 		GalleryDataCache::remove($cacheKey);
@@ -326,10 +332,18 @@ class GalleryRepository {
 	 * @return array GalleryStatus a status code
 	 *           array plugin list
 	 */
-	public function getRepositoryPluginList($pluginType, $showAllPlugins = false, $coreApis = null) {
+	public function getRepositoryPluginList(
+		$pluginType,
+		$showAllPlugins = false,
+		$coreApis = null
+	) {
 		global $gallery;
 
-		list($ret, $repositoryPluginList) = $this->_index->getPlugins($pluginType, $showAllPlugins, $coreApis);
+		list($ret, $repositoryPluginList) = $this->_index->getPlugins(
+			$pluginType,
+			$showAllPlugins,
+			$coreApis
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -368,7 +382,11 @@ class GalleryRepository {
 				 * an 'upgrade' action. Maybe we can show some additional info, such as
 				 * '3 languages updated' or 'base data upgrade available'.
 				 */
-				list($ret, $upgradeInfo) = $this->getPluginUpgradeInfo($pluginType, $pluginId, false);
+				list($ret, $upgradeInfo) = $this->getPluginUpgradeInfo(
+					$pluginType,
+					$pluginId,
+					false
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -1043,7 +1061,7 @@ class GalleryRepository {
 	 * @static
 	 * @public
 	 */
-	public function translateRepositoryName($source) {
+	public static function translateRepositoryName($source) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {

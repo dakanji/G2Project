@@ -2,7 +2,7 @@
 // __construct
 $finder = PhpCsFixer\Finder::create()
 	->name('/.+\.(php|inc|class|css|js|xaml|xml|html)$/')
-	->exclude('*/Iconv/Resources/charset/')
+	->exclude('*/Iconv/Resources/charset/*')
     ->in(__DIR__)
 ;
 
@@ -106,7 +106,6 @@ return PhpCsFixer\Config::create()
 				'srand' => 'mt_srand',
 			),
 		),
-		'self_accessor' => false,
 		'single_line_comment_style' => true,
 		'standardize_not_equals' => true,
 		'trailing_comma_in_multiline_array' => true,

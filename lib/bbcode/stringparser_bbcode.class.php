@@ -30,7 +30,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once dirname(__FILE__) . '/stringparser.class.php';
+require_once __DIR__ . '/stringparser.class.php';
 
 define('BBCODE_CLOSETAG_FORBIDDEN', -1);
 define('BBCODE_CLOSETAG_OPTIONAL', 0);

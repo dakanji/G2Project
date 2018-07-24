@@ -79,7 +79,7 @@ function smarty_function_config_load($params, &$smarty) {
 			'get_source'         => false,
 		);
 		$_compile = $smarty->_fetch_resource_info($_params) &&
-				$_params['resource_timestamp'] > filemtime($_compile_file);
+			$_params['resource_timestamp'] > filemtime($_compile_file);
 	} else {
 		$_compile = false;
 	}

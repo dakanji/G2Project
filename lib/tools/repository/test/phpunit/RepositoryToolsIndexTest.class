@@ -56,7 +56,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		 * second array contains files and their contents which will be
 		 * used by fread().
 		 */
-		include dirname(__FILE__) . '/../data/SampleDescriptors.inc';
+		include __DIR__ . '/../data/SampleDescriptors.inc';
 		$gallery->setPlatform(new RepositoryToolsIndexTestPlatform(array(
 			'module.descriptor',
 			'module2.descriptor',
@@ -85,7 +85,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		);
 
 		// Verify that the index is valid.
-		include dirname(__FILE__) . '/../data/SampleIndex.inc';
+		include __DIR__ . '/../data/SampleIndex.inc';
 		$this->assertEquals($sampleIndex, $index->_index, 'Generated index differs from expected.');
 		$this->assert(
 			md5(serialize($sampleIndex)) == $index->_indexHash,
@@ -130,7 +130,7 @@ class RepositoryToolsIndexTestPlatform {
 		}
 
 		// Get $sampleIndex from a separate file.
-		include dirname(__FILE__) . '/../data/SampleIndex.inc';
+		include __DIR__ . '/../data/SampleIndex.inc';
 		$this->_writtenData['repositorydir/index'] = serialize($sampleIndex);
 	}
 

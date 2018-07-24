@@ -683,7 +683,7 @@ class GalleryPlugin {
 	 * @return GalleryStatus a status code
 	 * @access protected
 	 */
-	public function upgrade($currentVersion) {
+	public function upgrade($currentVersion, $x1 = null) {
 		return null;
 	}
 

@@ -30,7 +30,7 @@ class GalleryEventHelper_simple {
 	/**
 	 * @see GalleryCoreApi::newEvent
 	 */
-	public function newEvent($eventName) {
+	public static function newEvent($eventName) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEvent.class');
 		$event = new GalleryEvent();
 		$event->setEventName($eventName);
@@ -41,7 +41,7 @@ class GalleryEventHelper_simple {
 	/**
 	 * @see GalleryCoreApi::postEvent
 	 */
-	public function postEvent($event) {
+	public static function postEvent($event) {
 		list($ret, $eventListeners) = GalleryCoreApi::getAllFactoryImplementationIdsWithHint(
 			'GalleryEventListener',
 			$event->getEventName()
@@ -148,7 +148,7 @@ class GalleryEventHelper_simple {
 	 * @access private
 	 * @todo Remove on next major API bump
 	 */
-	public function &_getEventListeners() {
+	public static function &_getEventListeners() {
 		static $allListeners = array();
 
 		return $allListeners;
@@ -158,7 +158,7 @@ class GalleryEventHelper_simple {
 	 * @see GalleryCoreApi::registerEventListener
 	 * @todo Remove on next major API bump
 	 */
-	public function registerEventListener($eventName, &$eventListener, $disableForTests = false) {
+	public static function registerEventListener($eventName, &$eventListener, $disableForTests = false) {
 		if ($disableForTests && class_exists('GalleryTestCase')) {
 			return;
 		}

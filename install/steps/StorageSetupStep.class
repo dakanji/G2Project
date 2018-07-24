@@ -24,7 +24,7 @@
  */
 class StorageSetupStep extends InstallStep {
 	public function stepName() {
-		return _('Storage Setup');
+		return 'Storage Setup';
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -72,7 +72,7 @@ class StorageSetupStep extends InstallStep {
 						&& is_readable($parentDir) && is_writeable($parentDir)
 					) {
 						$dir = $parentDir . DIRECTORY_SEPARATOR
-						. basename($dir) . DIRECTORY_SEPARATOR;
+						 . basename($dir) . DIRECTORY_SEPARATOR;
 						// Create the storage folder with restrictive permissions
 						if (@mkdir($dir)) {
 							chmod($dir, 0700);
@@ -90,7 +90,7 @@ class StorageSetupStep extends InstallStep {
 					$templateData['error']['missing_dir'] = 1;
 				} elseif (substr($dir, 0, -1) === $_SESSION['configPath']
 					|| ($galleryStub->getConfig('isMultisite')
-					&& substr($dir, 0, -1) === dirname(dirname(dirname(__FILE__))))
+					&& substr($dir, 0, -1) === dirname(dirname(__DIR__)))
 				) {
 					$templateData['error']['in_gallery_dir'] = 1;
 				} elseif (!is_readable($dir)) {
@@ -200,7 +200,7 @@ class StorageSetupStep extends InstallStep {
 		$galleryUrl = getGalleryDirUrl();
 		// Get the relative path of the g2data folder to the gallery dir.
 		$storagePath = realpath($dir);
-		$galleryPath = realpath(dirname(dirname(dirname(__FILE__))));
+		$galleryPath = realpath(dirname(dirname(__DIR__)));
 
 		if (strpos($storagePath, $galleryPath) === 0) {
 			// The g2data folder is within the gallery folder.
@@ -287,8 +287,8 @@ class StorageSetupStep extends InstallStep {
 		// Read the web page into a buffer
 		$ok = fwrite($fd, sprintf(
 			"GET %s HTTP/1.0\r\n" .
-				  "Host: %s\r\n" .
-				  "\r\n",
+			  "Host: %s\r\n" .
+			  "\r\n",
 			$get,
 			$components['host']
 		));

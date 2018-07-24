@@ -34,7 +34,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @param string $currentVersion the current installed version
 	 */
-	public function upgrade($module, $currentVersion, $statusMonitor) {
+	public static function upgrade($module, $currentVersion, $statusMonitor) {
 		global $gallery;
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
@@ -64,7 +64,7 @@ class CoreModuleExtras {
 			}
 		}
 		$gallery->debug('Old version: ' . $currentVersion
-			. '   New version: ' . $module->getVersion());
+		. '   New version: ' . $module->getVersion());
 		$currentExactVersion = $currentVersion;
 		// Enable upgrade from any patch release of earlier versions
 		$currentVersion = preg_replace('/^(1\.[0-3]\.0)\.\d+$/', '$1.x', $currentVersion);
@@ -302,7 +302,7 @@ class CoreModuleExtras {
 
 				if ($ret) {
 					$gallery->debug(sprintf('Error: Failed to load %s theme, this is the error ' .
-						'stack trace; %s', $defaultThemeId, $ret->getAsText()));
+					'stack trace; %s', $defaultThemeId, $ret->getAsText()));
 
 					return $ret;
 				}
@@ -319,7 +319,7 @@ class CoreModuleExtras {
 
 				if ($ret) {
 					$gallery->debug(sprintf('Error: Failed to installOrUpgrade %s theme, this is ' .
-						'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
+					'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
 
 					return $ret;
 				}
@@ -336,7 +336,7 @@ class CoreModuleExtras {
 
 				if ($ret) {
 					$gallery->debug(sprintf('Error: Failed to activate %s theme, this is ' .
-						'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
+					'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
 
 					return $ret;
 				}
@@ -413,7 +413,7 @@ class CoreModuleExtras {
 					if ($ret) {
 						$gallery->debug(sprintf(
 							'Error: Failed to register a permission, ' .
-										'this is the error stack trace: %s',
+							'this is the error stack trace: %s',
 							$ret->getAsText()
 						));
 
@@ -443,7 +443,7 @@ class CoreModuleExtras {
 					if ($ret) {
 						$gallery->debug(sprintf(
 							'Error: %s returned an error, ' .
-							   'this is the error stack trace: %s',
+							'this is the error stack trace: %s',
 							$func,
 							$ret->getAsText()
 						));
@@ -467,7 +467,7 @@ class CoreModuleExtras {
 
 				if ($ret) {
 					$gallery->debug(sprintf('Error: Failed to initialize MIME types, this is ' .
-							'the error stack trace: %s', $ret->getAsText()));
+					'the error stack trace: %s', $ret->getAsText()));
 
 					return $ret;
 				}
@@ -492,17 +492,17 @@ class CoreModuleExtras {
 				 * our own separate namespace
 				 */
 				$query = '
-	    UPDATE
-	       [GalleryPluginParameterMap]
-	    SET
-	       [::parameterName] = ?
-	    WHERE
-	       [GalleryPluginParameterMap::parameterName] = ?
-	       AND
-	       [GalleryPluginParameterMap::pluginType] = \'module\'
-	       AND
-	       [GalleryPluginParameterMap::itemId] = 0
-	    ';
+				UPDATE
+				[GalleryPluginParameterMap]
+				SET
+				[::parameterName] = ?
+				WHERE
+				[GalleryPluginParameterMap::parameterName] = ?
+				AND
+				[GalleryPluginParameterMap::pluginType] = \'module\'
+				AND
+				[GalleryPluginParameterMap::itemId] = 0
+				';
 				$ret   = $storage->execute($query, array('_version', 'version'));
 
 				if ($ret) {
@@ -535,11 +535,11 @@ class CoreModuleExtras {
 
 				// Copy viewedSinceTimestamp to originationTimestamp as both default to time()
 				$query = '
-	    UPDATE
-	      [GalleryItem]
-	    SET
-	      [::originationTimestamp] = [::viewedSinceTimestamp]
-	    ';
+				UPDATE
+				[GalleryItem]
+				SET
+				[::originationTimestamp] = [::viewedSinceTimestamp]
+				';
 				$ret   = $storage->execute($query, array());
 
 				if ($ret) {
@@ -665,95 +665,95 @@ class CoreModuleExtras {
 				 * from the permissions table.  Repeat.
 				 */
 				$totalRowsQuery = '
-	    SELECT
-	      COUNT(DISTINCT [GalleryPermissionMap::itemId])
-	    FROM
-	      [GalleryPermissionMap]
-	    ';
+				SELECT
+				COUNT(DISTINCT [GalleryPermissionMap::itemId])
+				FROM
+				[GalleryPermissionMap]
+				';
 
 				$findItemIdQuery = '
-	    SELECT
-	      [GalleryPermissionMap::itemId], COUNT(*) AS C
-	    FROM
-	      [GalleryPermissionMap]
-	    GROUP BY
-	      [GalleryPermissionMap::itemId]
-	    ORDER BY
-	      C DESC
-	    ';
+				SELECT
+				[GalleryPermissionMap::itemId], COUNT(*) AS C
+				FROM
+				[GalleryPermissionMap]
+				GROUP BY
+				[GalleryPermissionMap::itemId]
+				ORDER BY
+				C DESC
+				';
 
 				$permissionRowCountQuery = '
-	    SELECT
-	      COUNT(*)
-	    FROM
-	      [GalleryPermissionMap]
-	    WHERE
-	      [GalleryPermissionMap::itemId] = ?
-	    ';
+				SELECT
+				COUNT(*)
+				FROM
+				[GalleryPermissionMap]
+				WHERE
+				[GalleryPermissionMap::itemId] = ?
+				';
 
 				// Updated this query for core 1.0.11 to write to userOrGroupId column
 				$createAclQuery = '
-	    INSERT INTO
-	      [GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
-	    SELECT
-	      ?,
-	      [GalleryPermissionMap::userId] + [GalleryPermissionMap::groupId],
-	      [GalleryPermissionMap::permission]
-	    FROM
-	      [GalleryPermissionMap]
-	    WHERE
-	      [GalleryPermissionMap::itemId] = ?
-	    ';
+				INSERT INTO
+				[GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
+				SELECT
+				?,
+				[GalleryPermissionMap::userId] + [GalleryPermissionMap::groupId],
+				[GalleryPermissionMap::permission]
+				FROM
+				[GalleryPermissionMap]
+				WHERE
+				[GalleryPermissionMap::itemId] = ?
+				';
 
 				$findPossibleDupesQuery = '
-	    SELECT
-	      [GalleryPermissionMap=2::itemId], COUNT(*)
-	    FROM
-	      [GalleryPermissionMap=1], [GalleryPermissionMap=2]
-	    WHERE
-	      [GalleryPermissionMap=1::itemId] = ?
-	      AND
-	      [GalleryPermissionMap=1::userId] = [GalleryPermissionMap=2::userId]
-	      AND
-	      [GalleryPermissionMap=1::groupId] = [GalleryPermissionMap=2::groupId]
-	      AND
-	      [GalleryPermissionMap=1::permission] = [GalleryPermissionMap=2::permission]
-	    GROUP BY
-	      [GalleryPermissionMap=2::itemId]
-	    HAVING
-	      COUNT(*) = ?
-	    ';
+				SELECT
+				[GalleryPermissionMap=2::itemId], COUNT(*)
+				FROM
+				[GalleryPermissionMap=1], [GalleryPermissionMap=2]
+				WHERE
+				[GalleryPermissionMap=1::itemId] = ?
+				AND
+				[GalleryPermissionMap=1::userId] = [GalleryPermissionMap=2::userId]
+				AND
+				[GalleryPermissionMap=1::groupId] = [GalleryPermissionMap=2::groupId]
+				AND
+				[GalleryPermissionMap=1::permission] = [GalleryPermissionMap=2::permission]
+				GROUP BY
+				[GalleryPermissionMap=2::itemId]
+				HAVING
+				COUNT(*) = ?
+				';
 
 				$refineDupesQuery = '
-	    SELECT
-	      [GalleryPermissionMap::itemId], COUNT(*)
-	    FROM
-	      [GalleryPermissionMap]
-	    WHERE
-	      [GalleryPermissionMap::itemId] IN (%s)
-	    GROUP BY
-	      [GalleryPermissionMap::itemId]
-	    HAVING
-	      COUNT(*) = ?
-	    ';
+				SELECT
+				[GalleryPermissionMap::itemId], COUNT(*)
+				FROM
+				[GalleryPermissionMap]
+				WHERE
+				[GalleryPermissionMap::itemId] IN (%s)
+				GROUP BY
+				[GalleryPermissionMap::itemId]
+				HAVING
+				COUNT(*) = ?
+				';
 
 				$assignAclQuery = '
-	    INSERT INTO
-	      [GalleryAccessSubscriberMap] ([::itemId], [::accessListId])
-	    SELECT DISTINCT
-	      [GalleryPermissionMap::itemId], ?
-	    FROM
-	      [GalleryPermissionMap]
-	    WHERE
-	      [GalleryPermissionMap::itemId] IN (%s)
-	    ';
+				INSERT INTO
+				[GalleryAccessSubscriberMap] ([::itemId], [::accessListId])
+				SELECT DISTINCT
+				[GalleryPermissionMap::itemId], ?
+				FROM
+				[GalleryPermissionMap]
+				WHERE
+				[GalleryPermissionMap::itemId] IN (%s)
+				';
 
 				$deleteOldPermsQuery = '
-	    DELETE FROM
-	      [GalleryPermissionMap]
-	    WHERE
-	      [GalleryPermissionMap::itemId] IN (%s)
-	    ';
+				DELETE FROM
+				[GalleryPermissionMap]
+				WHERE
+				[GalleryPermissionMap::itemId] IN (%s)
+				';
 
 				// Determine how many items we are going to process for our status message
 				list($ret, $results) = $gallery->search($totalRowsQuery, array(), array(
@@ -1188,11 +1188,12 @@ class CoreModuleExtras {
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                     = 'SELECT [GalleryDerivative::id]
-		      FROM [GalleryDerivative], [GalleryEntity]
-		      WHERE [GalleryDerivative::isBroken] IS NULL
-		      AND [GalleryDerivative::id] = [GalleryEntity::id]
-		      AND [GalleryEntity::entityType] = \'GalleryDerviativeImage\'';
+				$query                     = '
+				SELECT [GalleryDerivative::id]
+				FROM [GalleryDerivative], [GalleryEntity]
+				WHERE [GalleryDerivative::isBroken] IS NULL
+				AND [GalleryDerivative::id] = [GalleryEntity::id]
+				AND [GalleryEntity::entityType] = \'GalleryDerviativeImage\'';
 				list($ret, $searchResults) = $gallery->search($query);
 
 				if ($ret) {
@@ -1253,7 +1254,7 @@ class CoreModuleExtras {
 								$module->translate(
 									array(
 										'text' => 'Detecting broken derivatives, loading '
-																			. '(%d derivatives checked, %d remaining)',
+										. '(%d derivatives checked, %d remaining)',
 										'arg1' => $itemsProcessed,
 										'arg2' => sizeof($derivativeIds),
 									)
@@ -1294,7 +1295,7 @@ class CoreModuleExtras {
 									$module->translate(
 										array(
 											'text' => 'Detecting broken derivatives (%d derivatives '
-																					. 'checked, %d remaining)',
+											. 'checked, %d remaining)',
 											'arg1' => $itemsProcessed,
 											'arg2' => $totalDerivatives - $itemsProcessed,
 										)
@@ -1364,7 +1365,7 @@ class CoreModuleExtras {
 								$module->translate(
 									array(
 										'text' => 'Detecting broken derivatives, saving '
-																			. '(%d derivatives checked, %d remaining)',
+										. '(%d derivatives checked, %d remaining)',
 										'arg1' => $itemsProcessed,
 										'arg2' => $totalDerivatives - $itemsProcessed,
 									)
@@ -1432,7 +1433,7 @@ class CoreModuleExtras {
 						 * derivatives
 						 */
 					} while (!empty($derivativeIds) || !empty($brokenDerivatives) ||
-					 !empty($derivatives));
+					!empty($derivatives));
 				}
 
 				// Fall Through
@@ -1451,13 +1452,13 @@ class CoreModuleExtras {
 				}
 
 				$query = '
-	    UPDATE
-	      [GalleryPluginParameterMap]
-	    SET
-	      [::pluginType] = \'theme\'
-	    WHERE
-	      [GalleryPluginParameterMap::pluginType] = \'layout\'
-	    ';
+				UPDATE
+				[GalleryPluginParameterMap]
+				SET
+				[::pluginType] = \'theme\'
+				WHERE
+				[GalleryPluginParameterMap::pluginType] = \'layout\'
+				';
 				$ret   = $storage->execute($query);
 
 				if ($ret) {
@@ -1466,11 +1467,11 @@ class CoreModuleExtras {
 
 				// After this refactor we only support the matrix theme
 				$query = '
-	    UPDATE
-	      [GalleryAlbumItem]
-	    SET
-	      [::theme] = \'matrix\'
-	    ';
+				UPDATE
+				[GalleryAlbumItem]
+				SET
+				[::theme] = \'matrix\'
+				';
 				$ret   = $storage->execute($query);
 
 				if ($ret) {
@@ -1478,13 +1479,13 @@ class CoreModuleExtras {
 				}
 
 				$query = '
-	    UPDATE
-	      [GalleryPluginMap]
-	    SET
-	      [::pluginType] = \'theme\'
-	    WHERE
-	      [GalleryPluginMap::pluginType] = \'layout\'
-	    ';
+				UPDATE
+				[GalleryPluginMap]
+				SET
+				[::pluginType] = \'theme\'
+				WHERE
+				[GalleryPluginMap::pluginType] = \'layout\'
+				';
 				$ret   = $storage->execute($query);
 
 				if ($ret) {
@@ -1587,11 +1588,11 @@ class CoreModuleExtras {
 					return $ret;
 				}
 				$query = '
-	    UPDATE
-	      [GalleryAlbumItem]
-	    SET
-	      [::theme] = NULL
-	    ';
+				UPDATE
+				[GalleryAlbumItem]
+				SET
+				[::theme] = NULL
+				';
 				$ret   = $storage->execute($query);
 
 				if ($ret) {
@@ -1773,11 +1774,11 @@ class CoreModuleExtras {
 				// If coming from 0.9.5 or earlier then GalleryAccessMap already has userOrGroupId
 				if (version_compare($currentVersion, '0.9.5', '>')) {
 					$query = '
-		UPDATE
-		  [GalleryAccessMap]
-		SET
-		  [::userOrGroupId] = [::userId] + [::groupId]
-		';
+					UPDATE
+					[GalleryAccessMap]
+					SET
+					[::userOrGroupId] = [::userId] + [::groupId]
+					';
 					$ret   = $storage->execute($query, array());
 
 					if ($ret) {
@@ -1797,11 +1798,11 @@ class CoreModuleExtras {
 					return $ret;
 				}
 				$query = '
-	    UPDATE
-	      [GalleryPermissionSetMap]
-	    SET
-	      [::flags] = ' . $flagModifier . '
-	    ';
+				UPDATE
+				[GalleryPermissionSetMap]
+				SET
+				[::flags] = ' . $flagModifier . '
+				';
 				$ret   = $storage->execute($query, array(3));
 
 				if ($ret) {
@@ -1887,8 +1888,9 @@ class CoreModuleExtras {
 				 * cache/entity/.  Delete the old files in cache/derivative/.
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                     = 'SELECT [GalleryDerivativeImage::id]
-		      FROM [GalleryDerivativeImage]';
+				$query                     = '
+				SELECT [GalleryDerivativeImage::id]
+				FROM [GalleryDerivativeImage]';
 				list($ret, $searchResults) = $gallery->search($query);
 
 				if ($ret) {
@@ -2184,10 +2186,30 @@ class CoreModuleExtras {
 						'FileSystemEntity_3406',
 						array('pathComponent'),
 					);
-					$indexChanges[] = array('Item', 'keywords', 'Item_99070', array('keywords'));
-					$indexChanges[] = array('Item', 'ownerId', 'Item_21573', array('ownerId'));
-					$indexChanges[] = array('Item', 'summary', 'Item_54147', array('summary'));
-					$indexChanges[] = array('Item', 'title', 'Item_90059', array('title'));
+					$indexChanges[] = array(
+						'Item',
+						'keywords',
+						'Item_99070',
+						array('keywords'),
+					);
+					$indexChanges[] = array(
+						'Item',
+						'ownerId',
+						'Item_21573',
+						array('ownerId'),
+					);
+					$indexChanges[] = array(
+						'Item',
+						'summary',
+						'Item_54147',
+						array('summary'),
+					);
+					$indexChanges[] = array(
+						'Item',
+						'title',
+						'Item_90059',
+						array('title'),
+					);
 					$indexChanges[] = array(
 						'ItemAttributesMap',
 						'parentSequence',
@@ -2266,9 +2288,9 @@ class CoreModuleExtras {
 						$indexColumns = $storage->_columnPrefix . $indexColumns;
 						$query        = sprintf(
 							'
-		    ALTER TABLE `%s%s`
-		    DROP INDEX `%s%s`,
-		    ADD INDEX `%s%s`(`%s`);',
+							ALTER TABLE `%s%s`
+							DROP INDEX `%s%s`,
+							ADD INDEX `%s%s`(`%s`);',
 							$storage->_tablePrefix,
 							$change[0],
 							$storage->_columnPrefix,
@@ -2311,9 +2333,9 @@ class CoreModuleExtras {
 				 */
 				$query = sprintf(
 					'
-	    UPDATE %sSchema
-	    SET %smajor=1, %sminor=3
-	    WHERE %sname=\'AccessMap\' AND %smajor=1 AND %sminor=2',
+					UPDATE %sSchema
+					SET %smajor=1, %sminor=3
+					WHERE %sname=\'AccessMap\' AND %smajor=1 AND %sminor=2',
 					$storage->_tablePrefix,
 					$storage->_columnPrefix,
 					$storage->_columnPrefix,
@@ -2406,7 +2428,7 @@ class CoreModuleExtras {
 					'session.lifetime'          => array(25 * 365 * 86400, 21 * 86400),
 					'session.inactivityTimeout' => array(14 * 86400, 7 * 86400),
 				) as
-					 $key => $oldAndNew) {
+				$key => $oldAndNew) {
 					if ($params[$key] == $oldAndNew[0]) {
 						$ret = $module->setParameter($key, $oldAndNew[1]);
 
@@ -2469,13 +2491,13 @@ class CoreModuleExtras {
 				 */
 				$gallery->guaranteeTimeLimit(60);
 				$query                     = '
-	      SELECT
-		[GalleryEntity::id], [GalleryEntity::entityType]
-	      FROM
-		[GalleryEntity]
-	      WHERE
-		[GalleryEntity::entityType] IN (\'PanoramaPhotoItem\', \'PanoramaDerivativeImage\')
-	    ';
+				SELECT
+				[GalleryEntity::id], [GalleryEntity::entityType]
+				FROM
+				[GalleryEntity]
+				WHERE
+				[GalleryEntity::entityType] IN (\'PanoramaPhotoItem\', \'PanoramaDerivativeImage\')
+				';
 				list($ret, $searchResults) = $gallery->search($query, array());
 
 				if ($ret) {
@@ -2537,8 +2559,8 @@ class CoreModuleExtras {
 					}
 					$ids     = array_splice($derivatives, 0, 500);
 					$markers = GalleryUtilities::makeMarkers($ids);
-					$query   = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryDerivativeImage' " .
-					"WHERE [GalleryEntity::id] IN ($markers)";
+					$query   = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryDerivativeImage' "
+					. "WHERE [GalleryEntity::id] IN ($markers)";
 					$ret     = $storage->execute($query, $ids);
 
 					if ($ret) {
@@ -2578,17 +2600,17 @@ class CoreModuleExtras {
 				// Remove useless rows in AccessSubscriberMap
 				$gallery->guaranteeTimeLimit(60);
 				$query                     = '
-	      SELECT
-		[GalleryAccessSubscriberMap::itemId]
-	      FROM
-		[GalleryAccessSubscriberMap], [GalleryEntity]
-	      WHERE
-		[GalleryAccessSubscriberMap::accessListId] = 0
-	      AND
-		[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
-	      AND
-		[GalleryEntity::entityType] IN (?,?,?,?)
-	    ';
+				SELECT
+				[GalleryAccessSubscriberMap::itemId]
+				FROM
+				[GalleryAccessSubscriberMap], [GalleryEntity]
+				WHERE
+				[GalleryAccessSubscriberMap::accessListId] = 0
+				AND
+				[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
+				AND
+				[GalleryEntity::entityType] IN (?,?,?,?)
+				';
 				list($ret, $searchResults) = $gallery->search(
 					$query,
 					array('GalleryDerivativeImage', 'GalleryUser', 'GalleryGroup', 'GalleryComment')
@@ -3035,9 +3057,10 @@ class CoreModuleExtras {
 				// Store Entities.inc and Maps.inc definitions in the Schema table.
 				$gallery->guaranteeTimeLimit(30);
 				// Remove _maps & _entities parameters from GalleryPluginParameterMap. See r16620
-				$query = 'DELETE FROM [GalleryPluginParameterMap]
-		       WHERE [::parameterName] in (\'_maps\', \'_entities\')
-			 AND [::pluginType] = \'module\'';
+				$query = '
+				DELETE FROM [GalleryPluginParameterMap]
+				WHERE [::parameterName] in (\'_maps\', \'_entities\')
+				AND [::pluginType] = \'module\'';
 				$ret   = $storage->execute($query);
 
 				if ($ret) {
@@ -3334,21 +3357,24 @@ class CoreModuleExtras {
 					 * This item was added to config.php before config.php upgrades were supported.  Add
 					 * it only if not already present.
 					 */
-					$add[] = '/*
- * Allow a particular IP address to access the session (it still must know the
- * session id) even though it doesn\'t match the address/user agent that created
- * the session.  Put the address of validator.w3.org (\'128.30.52.13\') here to allow
- * validation of non-public Gallery pages from the links at the bottom of the page.
- */
-$gallery->setConfig(\'allowSessionAccess\', false);
-';
+					$add[] = '
+					/*
+					 * Allow a particular IP address to access the session (it still must know the
+					 * session id) even though it doesn\'t match the address/user agent that created
+					 * the session.  Put the address of validator.w3.org (\'128.30.52.13\') here
+					 * to allow validation of non-public Gallery pages from the links
+					 * at the bottom of the page.
+					 */
+					$gallery->setConfig(\'allowSessionAccess\', false);
+					';
 				}
 
-				$add[] = '/*
- * URL of Gallery codebase; required only for multisite install.
- */
-$gallery->setConfig(\'galleryBaseUrl\', \'\');
-';
+				$add[] = '
+				/*
+				 * URL of Gallery codebase; required only for multisite install.
+				 */
+				$gallery->setConfig(\'galleryBaseUrl\', \'\');
+				';
 
 				$configChanges[] = array(
 					'remove' => array('{/\*[^/]*\*/\s*\$gallery->setConfig\(\'galleryId\',.*?;\s*}s'),
@@ -3366,18 +3392,18 @@ $gallery->setConfig(\'galleryBaseUrl\', \'\');
 				$cookieId         = substr(md5(mt_rand()), 0, 6);
 
 				$add[]           = '
-/*
- * Set the name for Gallery session cookies.  The name of the session cookie is
- * a concatenation of \'GALLERYSID_\' and cookieId, which is randomly generated
- * at Gallery installation time.  You can change cookieId at any time, but if
- * you change it be aware of two things:
- * 1. Users have to login again after the change.  They lose their old session.
- * 2. If multiple Gallery installs are running on the same domain (in different paths or
- *    different subdomains) choose cookieId such that it is different for all Gallery
- *    installs on the same domain.
- */
-$gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
-';
+				/*
+				* Set the name for Gallery session cookies.  The name of the session cookie is
+				* a concatenation of \'GALLERYSID_\' and cookieId, which is randomly generated
+				* at Gallery installation time.  You can change cookieId at any time, but if
+				* you change it be aware of two things:
+				* 1. Users have to login again after the change.  They lose their old session.
+				* 2. If multiple Gallery installs are running on the same domain
+				*    (in different paths or different subdomains) choose cookieId
+				*    such that it is different for all Gallery installs on the same domain.
+				*/
+				$gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
+				';
 				$configChanges[] = array(
 					'remove' => array(),
 					'add'    => $add,
@@ -3420,18 +3446,18 @@ $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
 					'edit'   => array(),
 					'add'    => array(
 						'
-/*
- * Maintenance mode.  You can disable access to the site for anyone but
- * site administrators by setting this this flag.  Set value below to:
- *  true (without quotes) - to use a basic notification page; themed
- *    view with admin login link when codebase is up to date, but a
- *    plain unstyled page when codebase has been updated but upgrader
- *    has not yet been run.
- *  url (with quotes) - provide a URL where requests are redirected in
- *    either case described above.  Example: \'/maintenance.html\'
- */
-$gallery->setConfig(\'mode.maintenance\', false);
-	',
+				/*
+				* Maintenance mode.  You can disable access to the site for anyone but
+				* site administrators by setting this this flag.  Set value below to:
+				*  true (without quotes) - to use a basic notification page; themed
+				*    view with admin login link when codebase is up to date, but a
+				*    plain unstyled page when codebase has been updated but upgrader
+				*    has not yet been run.
+				*  url (with quotes) - provide a URL where requests are redirected in
+				*    either case described above.  Example: \'/maintenance.html\'
+				*/
+				$gallery->setConfig(\'mode.maintenance\', false);
+				',
 					),
 				);
 
@@ -3451,18 +3477,20 @@ $gallery->setConfig(\'mode.maintenance\', false);
 					'edit'   => array(),
 					'add'    => array(
 						'
-/*
- * This setting can be used to override Gallery\'s auto-detection of the domain-name,
- * protocol (http/https), URL path, and of the file & query string.
- * Most users can leave this empty.  If the server is misconfigured or for very special
- * setups, this setting can be quite handy.
- * Examples (the positions of the slashes (\'/\') are important):
- *   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
- *   override the host + path: $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
- *   override the protocol + host + path + file:
- *           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
- */
-$gallery->setConfig(\'baseUri\', \'\');',
+				/*
+				* This setting can be used to override Gallery\'s auto-detection of the domain-name,
+				* protocol (http/https), URL path, and of the file & query string.
+				* Most users can leave this empty.
+				* If the server is misconfigured or for very special
+				* setups, this setting can be quite handy.
+				* Examples (the positions of the slashes (\'/\') are important):
+				*   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
+				*   override the host + path:
+				* $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
+				*   override the protocol + host + path + file:
+				*           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
+				*/
+				$gallery->setConfig(\'baseUri\', \'\');',
 					),
 				);
 
@@ -3473,22 +3501,23 @@ $gallery->setConfig(\'baseUri\', \'\');',
 				 * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
 				 * Escape the backslashes and quotes two times since we feed preg_replace with it.
 				 */
-				$edit = array();
-																		$tmp                 = strtr(
-																			$gallery->getConfig('data.gallery.base'),
-																			array(
-																				'\\' => '\\\\\\\\',
-																				"'"  => "\\\\'",
-																			)
-																		);
-																		$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
-																		$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \'' . $tmp . '\');';
-																		$configChanges[]     = array(
-																			'remove' => array(),
-																			'add'    => array(),
-																			'edit'   => array($edit),
-																		);
-																		// Fall Through
+				$edit                = array();
+				$tmp                 = strtr(
+					$gallery->getConfig('data.gallery.base'),
+					array(
+						'\\' => '\\\\\\\\',
+						"'"  => "\\\\'",
+					)
+				);
+				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
+				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
+				. $tmp . '\');';
+				$configChanges[]     = array(
+					'remove' => array(),
+					'add'    => array(),
+					'edit'   => array($edit),
+				);
+				// Fall Through
 			case '1.0.16':
 			case '1.0.17':
 			case '1.0.18':
@@ -3544,13 +3573,13 @@ $gallery->setConfig(\'baseUri\', \'\');',
 				$edit                = array();
 				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
- * Prevent direct access to config.php.
- */
-if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
-    exit;
-}
+			* Prevent direct access to config.php.
+			*/
+			if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
+			exit;
+			}
 
-';
+			';
 				$configChanges[]     = array(
 					'remove' => array(),
 					'add'    => array(),
@@ -3562,19 +3591,21 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 			case '1.1.29':
 			case '1.1.30':
 				// Reposition display_errors from the end to the beginning of the config file.
-				$remove              = array('{/\*[^/]*\*/\s*\@?ini_set\(\'display_errors\',.*?;\s*}s');
+				$remove              = array(
+					'{/\*[^/]*\*/\s*\@?ini_set\(\'display_errors\',.*?;\s*}s',
+				);
 				$edit                = array();
 				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
- * When display_errors is enabled, PHP errors are printed to the output.
- * For production web sites, you\'re strongly encouraged to turn this feature off,
- * and use error logging instead.
- * During development, you should set the value to 1 to ensure that you notice PHP
- * warnings and notices that are not covered in unit tests (e.g. template issues).
- */
-@ini_set(\'display_errors\', 0);
+			* When display_errors is enabled, PHP errors are printed to the output.
+			* For production web sites, you\'re strongly encouraged to turn this feature off,
+			* and use error logging instead.
+			* During development, you should set the value to 1 to ensure that you notice PHP
+			* warnings and notices that are not covered in unit tests (e.g. template issues).
+			*/
+			@ini_set(\'display_errors\', 0);
 
-';
+			';
 				$configChanges[]     = array(
 					'remove' => $remove,
 					'add'    => array(),
@@ -3659,7 +3690,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param string $currentVersion current core version
 	 * @return boolean true if change is required
 	 */
-	public function isConfigUpgradeRequired($currentVersion) {
+	public static function isConfigUpgradeRequired($currentVersion) {
 		$configChanges = CoreModuleExtras::_prepareConfigUpgrade($currentVersion);
 
 		return !empty($configChanges);
@@ -3671,7 +3702,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param string $currentVersion current core version
 	 * @return GalleryStatus a status code
 	 */
-	public function performConfigUpgrade($currentVersion) {
+	public static function performConfigUpgrade($currentVersion) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -3749,7 +3780,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createAllUsersGroup($module) {
+	public static function _createAllUsersGroup($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.allUserGroup');
@@ -3793,7 +3824,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createSiteAdminsGroup($module) {
+	public static function _createSiteAdminsGroup($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.adminGroup');
@@ -3837,7 +3868,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createEverybodyGroup($module) {
+	public static function _createEverybodyGroup($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.everybodyGroup');
@@ -3881,7 +3912,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createAnonymousUser($module) {
+	public static function _createAnonymousUser($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.anonymousUser');
@@ -3940,7 +3971,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createAdminUser($module) {
+	public static function _createAdminUser($module) {
 		global $gallery;
 
 		// Don't create if there is already a user in the admin group
@@ -4008,7 +4039,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createRootAlbumItem($module) {
+	public static function _createRootAlbumItem($module) {
 		global $gallery;
 
 		// Do we already have a root?
@@ -4078,7 +4109,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public function _createAccessListCompacterLock($module) {
+	public static function _createAccessListCompacterLock($module) {
 		global $gallery;
 
 		// Do we already have a root?
@@ -4109,57 +4140,254 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	/**
 	 * @see GalleryModule::performFactoryRegistrations
 	 */
-	public function performFactoryRegistrations($module) {
+	public static function performFactoryRegistrations($module) {
 		// Register all our factory implementations
-		$regs[] = array('GalleryEntity', 'GalleryEntity', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryChildEntity', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryAlbumItem', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryUser', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryGroup', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryDerivative', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryDerivativeImage', 'class', null);
-		$regs[] = array('GalleryDerivative', 'GalleryDerivativeImage', 'class', array('*'));
-		$regs[] = array('GalleryEntity', 'GalleryMovieItem', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryAnimationItem', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryPhotoItem', 'class', null);
-		$regs[] = array('GalleryEntity', 'GalleryUnknownItem', 'class', null);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryEntity',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryChildEntity',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryAlbumItem',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryUser',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryGroup',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryDerivative',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryDerivativeImage',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryDerivative',
+			'GalleryDerivativeImage',
+			'class',
+			array('*'),
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryMovieItem',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryAnimationItem',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryPhotoItem',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GalleryEntity',
+			'GalleryUnknownItem',
+			'class',
+			null,
+		);
 		$regs[] = array(
 			'GalleryItem',
 			'GalleryPhotoItem',
 			'class',
 			array('image/*', 'application/photoshop'),
+
 		);
-		$regs[] = array('GalleryItem', 'GalleryMovieItem', 'class', array('video/*'));
+		$regs[] = array(
+			'GalleryItem',
+			'GalleryMovieItem',
+			'class',
+			array('video/*'),
+		);
 		$regs[] = array(
 			'GalleryItem',
 			'GalleryAnimationItem',
 			'class',
 			array('application/x-director', 'application/x-shockwave-flash'),
+
 		);
-		$regs[] = array('GalleryItem', 'GalleryUnknownItem', 'class', array('*'));
-		$regs[] = array('GalleryDynamicAlbum', 'GalleryDynamicAlbum', 'class', null);
-		$regs[] = array('GallerySearchInterface_1_0', 'GalleryCoreSearch', 'class', null);
-		$regs[] = array('ItemEditPlugin', 'ItemEditItem', 'inc', null, 1);
-		$regs[] = array('ItemEditPlugin', 'ItemEditAnimation', 'inc', null, 2);
-		$regs[] = array('ItemEditPlugin', 'ItemEditMovie', 'inc', null, 2);
-		$regs[] = array('ItemEditPlugin', 'ItemEditAlbum', 'inc', null, 2);
-		$regs[] = array('ItemEditPlugin', 'ItemEditTheme', 'inc', null, 3);
-		$regs[] = array('ItemEditPlugin', 'ItemEditPhoto', 'inc', null, 2);
-		$regs[] = array('ItemEditPlugin', 'ItemEditRotateAndScalePhoto', 'inc', null, 3);
-		$regs[] = array('ItemEditPlugin', 'ItemEditPhotoThumbnail', 'inc', null, 4);
-		$regs[] = array('ItemAddPlugin', 'ItemAddFromBrowser', 'inc', null, 2);
-		$regs[] = array('ItemAddOption', 'CreateThumbnailOption', 'inc', null, 8);
-		$regs[] = array('MaintenanceTask', 'OptimizeDatabaseTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'DatabaseBackupTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'FlushTemplatesTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'FlushDatabaseCacheTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'BuildDerivativesTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'ResetViewCountsTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'SystemInfoTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'SetOriginationTimestampTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'DeleteSessionsTask', 'class', null);
-		$regs[] = array('MaintenanceTask', 'ConvertDatabaseToUtf8Task', 'class', null);
-		$regs[] = array('CaptchaAdminOption', 'CoreCaptchaAdminOption', 'class', null);
+		$regs[] = array(
+			'GalleryItem',
+			'GalleryUnknownItem',
+			'class',
+			array('*'),
+		);
+		$regs[] = array(
+			'GalleryDynamicAlbum',
+			'GalleryDynamicAlbum',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'GallerySearchInterface_1_0',
+			'GalleryCoreSearch',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditItem',
+			'inc',
+			null,
+			1,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditAnimation',
+			'inc',
+			null,
+			2,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditMovie',
+			'inc',
+			null,
+			2,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditAlbum',
+			'inc',
+			null,
+			2,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditTheme',
+			'inc',
+			null,
+			3,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditPhoto',
+			'inc',
+			null,
+			2,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditRotateAndScalePhoto',
+			'inc',
+			null,
+			3,
+		);
+		$regs[] = array(
+			'ItemEditPlugin',
+			'ItemEditPhotoThumbnail',
+			'inc',
+			null,
+			4,
+		);
+		$regs[] = array(
+			'ItemAddPlugin',
+			'ItemAddFromBrowser',
+			'inc',
+			null,
+			2,
+		);
+		$regs[] = array(
+			'ItemAddOption',
+			'CreateThumbnailOption',
+			'inc',
+			null,
+			8,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'OptimizeDatabaseTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'DatabaseBackupTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'FlushTemplatesTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'FlushDatabaseCacheTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'BuildDerivativesTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'ResetViewCountsTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'SystemInfoTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'SetOriginationTimestampTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'DeleteSessionsTask',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'MaintenanceTask',
+			'ConvertDatabaseToUtf8Task',
+			'class',
+			null,
+		);
+		$regs[] = array(
+			'CaptchaAdminOption',
+			'CoreCaptchaAdminOption',
+			'class',
+			null,
+		);
 
 		/*
 		 * Unlike other modules, the core module doesn't get deactivated so its factory
@@ -4177,7 +4405,8 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 				$entry[0],
 				$entry[1],
 				$entry[1],
-				$entry[2] == 'class' ? 'modules/core/classes/' . $entry[1] . '.class' : 'modules/core/' . $entry[1] . '.inc',
+				$entry[2] == 'class' ? 'modules/core/classes/' . $entry[1]
+				. '.class' : 'modules/core/' . $entry[1] . '.inc',
 				'core',
 				$entry[3],
 				isset($entry[4]) ? $entry[4] : 4
@@ -4250,7 +4479,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 	 *               bool true if any conversions took place
 	 * @access public
 	 */
-	public function convertCharacterSetToUtf8($module, $statusMonitor) {
+	public static function convertCharacterSetToUtf8($module, $statusMonitor) {
 		global $gallery;
 		$storage   =& $gallery->getStorage();
 		$converted = false;
@@ -4397,7 +4626,7 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 			} // End if MySql version > 4.1.0
 		} // End if MySQL
 
-		return array(null, $converted);
+			return array(null, $converted);
 	}
 
 	/**

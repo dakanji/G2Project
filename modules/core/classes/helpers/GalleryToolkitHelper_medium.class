@@ -34,7 +34,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::registerToolkitOperation
 	 */
-	public function registerOperation(
+	public static function registerOperation(
 		$toolkitId,
 		$mimeTypes,
 		$operationName,
@@ -92,8 +92,8 @@ class GalleryToolkitHelper_medium {
 					__FILE__,
 					__LINE__,
 					sprintf(
-						'CRC mismatch: %s != %s, or Mime type ' .
-							'mismatch: %s != %s',
+						'CRC mismatch: %s != %s, or Mime type '
+						. 'mismatch: %s != %s',
 						$result[0],
 						$crc,
 						$result[1],
@@ -165,7 +165,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::registerToolkitProperty
 	 */
-	public function registerProperty($toolkitId, $mimeTypes, $propertyName, $type, $description) {
+	public static function registerProperty($toolkitId, $mimeTypes, $propertyName, $type, $description) {
 		global $gallery;
 
 		// Check to see if the property name exists, but with a different unique id.
@@ -238,7 +238,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::unregisterToolkitOperation
 	 */
-	public function unregisterOperation($toolkitId, $operationName, $mimeTypes = array()) {
+	public static function unregisterOperation($toolkitId, $operationName, $mimeTypes = array()) {
 		$entry = array(
 			'toolkitId'     => $toolkitId,
 			'operationName' => $operationName,
@@ -262,7 +262,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::unregisterToolkit
 	 */
-	public function unregisterToolkit($toolkitId) {
+	public static function unregisterToolkit($toolkitId) {
 		global $gallery;
 
 		// Remove our toolkit/operation mappings
@@ -279,17 +279,17 @@ class GalleryToolkitHelper_medium {
 
 		// Find and remove any unused operations
 		$query                     = '
-	SELECT DISTINCT
-	  [GalleryToolkitOperationMap::name]
-	FROM
-	  [GalleryToolkitOperationMap]
-	LEFT JOIN
-	  [GalleryToolkitOperationMimeTypeMap]
-	ON
-	  [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
-	WHERE
-	  [GalleryToolkitOperationMimeTypeMap::toolkitId] IS NULL
-	';
+		SELECT DISTINCT
+		[GalleryToolkitOperationMap::name]
+		FROM
+		[GalleryToolkitOperationMap]
+		LEFT JOIN
+		[GalleryToolkitOperationMimeTypeMap]
+		ON
+		[GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
+		WHERE
+		[GalleryToolkitOperationMimeTypeMap::toolkitId] IS NULL
+		';
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -334,17 +334,17 @@ class GalleryToolkitHelper_medium {
 
 		// Find and remove any unused properties
 		$query                     = '
-	SELECT DISTINCT
-	  [GalleryToolkitPropertyMap::name]
-	FROM
-	  [GalleryToolkitPropertyMap]
-	LEFT JOIN
-	  [GalleryToolkitPropertyMimeTypeMap]
-	ON
-	  [GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
-	WHERE
-	  [GalleryToolkitPropertyMimeTypeMap::toolkitId] IS NULL
-	';
+		SELECT DISTINCT
+		[GalleryToolkitPropertyMap::name]
+		FROM
+		[GalleryToolkitPropertyMap]
+		LEFT JOIN
+		[GalleryToolkitPropertyMimeTypeMap]
+		ON
+		[GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
+		WHERE
+		[GalleryToolkitPropertyMimeTypeMap::toolkitId] IS NULL
+		';
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -379,7 +379,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::unregisterToolkitsByModuleId
 	 */
-	public function unregisterToolkitsByModuleId($moduleId) {
+	public static function unregisterToolkitsByModuleId($moduleId) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryFactoryMap',
 			array('implId'),
@@ -413,7 +413,7 @@ class GalleryToolkitHelper_medium {
 	 * @see GalleryCoreApi::getToolkitOperations
 	 * @todo use priorities for choosing the correct toolkit
 	 */
-	public function getOperations($mimeType) {
+	public static function getOperations($mimeType) {
 		global $gallery;
 
 		$cacheKey = "GalleryToolkitHelper::getOperations($mimeType)";
@@ -422,28 +422,28 @@ class GalleryToolkitHelper_medium {
 			$data = array();
 		} elseif (!GalleryDataCache::containsKey($cacheKey)) {
 			$query = '
-	    SELECT DISTINCT
-	      [GalleryToolkitOperationMap::name],
-	      [GalleryToolkitOperationMap::outputMimeType],
-	      [GalleryToolkitOperationMap::description],
-	      [GalleryToolkitOperationParameterMap::type],
-	      [GalleryToolkitOperationParameterMap::description],
-	      [GalleryToolkitOperationParameterMap::position]
-	    FROM
-	      [GalleryToolkitOperationMap],
-	      [GalleryToolkitOperationMimeTypeMap],
-	      [GalleryToolkitOperationParameterMap]
-	    WHERE
-	      [GalleryToolkitOperationMap::name] =
-		  [GalleryToolkitOperationParameterMap::operationName]
-	      AND
-	      [GalleryToolkitOperationMap::name] =
-		  [GalleryToolkitOperationMimeTypeMap::operationName]
-	      AND
-	      [GalleryToolkitOperationMimeTypeMap::mimeType] = ?
-	    ORDER BY
-	      [GalleryToolkitOperationParameterMap::position] ASC
-	    ';
+			SELECT DISTINCT
+			[GalleryToolkitOperationMap::name],
+			[GalleryToolkitOperationMap::outputMimeType],
+			[GalleryToolkitOperationMap::description],
+			[GalleryToolkitOperationParameterMap::type],
+			[GalleryToolkitOperationParameterMap::description],
+			[GalleryToolkitOperationParameterMap::position]
+			FROM
+			[GalleryToolkitOperationMap],
+			[GalleryToolkitOperationMimeTypeMap],
+			[GalleryToolkitOperationParameterMap]
+			WHERE
+			[GalleryToolkitOperationMap::name] =
+			[GalleryToolkitOperationParameterMap::operationName]
+			AND
+			[GalleryToolkitOperationMap::name] =
+			[GalleryToolkitOperationMimeTypeMap::operationName]
+			AND
+			[GalleryToolkitOperationMimeTypeMap::mimeType] = ?
+			ORDER BY
+			[GalleryToolkitOperationParameterMap::position] ASC
+			';
 
 			list($ret, $searchResults) = $gallery->search($query, array($mimeType));
 
@@ -482,7 +482,7 @@ class GalleryToolkitHelper_medium {
 	 * @see GalleryCoreApi::getToolkitProperties
 	 * @todo use priorities for choosing the correct toolkit
 	 */
-	public function getProperties($mimeType) {
+	public static function getProperties($mimeType) {
 		global $gallery;
 
 		$cacheKey = "GalleryToolkitHelper::getProperties($mimeType)";
@@ -491,17 +491,17 @@ class GalleryToolkitHelper_medium {
 			$data = array();
 		} elseif (!GalleryDataCache::containsKey($cacheKey)) {
 			$query = '
-	    SELECT
-	      [GalleryToolkitPropertyMap::name],
-	      [GalleryToolkitPropertyMap::type],
-	      [GalleryToolkitPropertyMap::description]
-	    FROM
-	      [GalleryToolkitPropertyMap], [GalleryToolkitPropertyMimeTypeMap]
-	    WHERE
-	      [GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
-	      AND
-	      [GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
-	    ';
+			SELECT
+			[GalleryToolkitPropertyMap::name],
+			[GalleryToolkitPropertyMap::type],
+			[GalleryToolkitPropertyMap::description]
+			FROM
+			[GalleryToolkitPropertyMap], [GalleryToolkitPropertyMimeTypeMap]
+			WHERE
+			[GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
+			AND
+			[GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
+			';
 
 			list($ret, $searchResults) = $gallery->search($query, array($mimeType));
 
@@ -529,7 +529,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::getToolkitOperationMimeTypes
 	 */
-	public function getOperationMimeTypes($operationName) {
+	public static function getOperationMimeTypes($operationName) {
 		global $gallery;
 
 		$cacheKey = "GalleryToolkitHelper::getOperationMimeTypes($operationName)";
@@ -571,24 +571,24 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::getRedundantToolkitPriorities
 	 */
-	public function getRedundantPriorities() {
+	public static function getRedundantPriorities() {
 		global $gallery;
 
 		$cacheKey = 'GalleryToolkitHelper::getRedundantPriorities()';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
 			$query               = '
-	    SELECT
-	      [GalleryToolkitOperationMimeTypeMap::operationName],
-	      [GalleryToolkitOperationMimeTypeMap::mimeType],
-	      [GalleryToolkitOperationMimeTypeMap::toolkitId],
-	      [GalleryToolkitOperationMimeTypeMap::priority]
-	    FROM
-	      [GalleryToolkitOperationMimeTypeMap]
-	    WHERE
-	      [GalleryToolkitOperationMimeTypeMap::priority] >= 20
-	      AND [GalleryToolkitOperationMimeTypeMap::priority] <= 40
-	    ';
+			SELECT
+			[GalleryToolkitOperationMimeTypeMap::operationName],
+			[GalleryToolkitOperationMimeTypeMap::mimeType],
+			[GalleryToolkitOperationMimeTypeMap::toolkitId],
+			[GalleryToolkitOperationMimeTypeMap::priority]
+			FROM
+			[GalleryToolkitOperationMimeTypeMap]
+			WHERE
+			[GalleryToolkitOperationMimeTypeMap::priority] >= 20
+			AND [GalleryToolkitOperationMimeTypeMap::priority] <= 40
+			';
 			list($ret, $results) = $gallery->search($query);
 
 			if ($ret) {
@@ -619,7 +619,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::isSupportedOperationSequence
 	 */
-	public function isSupportedOperationSequence($mimeType, $ops) {
+	public static function isSupportedOperationSequence($mimeType, $ops) {
 		$isSupported = true;
 
 		foreach (explode(';', $ops) as $operation) {
@@ -649,7 +649,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::makeSupportedViewableOperationSequence
 	 */
-	public function makeSupportedViewableOperationSequence(
+	public static function makeSupportedViewableOperationSequence(
 		$mimeType,
 		$ops,
 		$prependConversion = true
@@ -673,7 +673,7 @@ class GalleryToolkitHelper_medium {
 				$ops,
 			) as $tmpOps) {
 				// Remove trailing ';' on empty $ops
-				$tmpOps                            = preg_replace('/;$/', '', $tmpOps);
+				$tmpOps                                   = preg_replace('/;$/', '', $tmpOps);
 				list($ret, $isSupported, $outputMimeType) = GalleryToolkitHelper_medium::isSupportedOperationSequence(
 					$mimeType,
 					$tmpOps
@@ -708,7 +708,7 @@ class GalleryToolkitHelper_medium {
 				$ops . ';convert-to-image/x-portable-pixmap;convert-to-image/jpeg',
 			) as $tmpOps) {
 				// Remove leading ';' on empty $ops
-				$tmpOps                               = preg_replace('/^;/', '', $tmpOps);
+				$tmpOps                                      = preg_replace('/^;/', '', $tmpOps);
 				list($ret, $isSupported, $tmpOutputMimeType) = GalleryToolkitHelper_medium::isSupportedOperationSequence(
 					$mimeType,
 					$tmpOps
@@ -719,7 +719,7 @@ class GalleryToolkitHelper_medium {
 				}
 
 				if ($isSupported) {
-					$ops     = $tmpOps;
+					$ops            = $tmpOps;
 					$outputMimeType = $tmpOutputMimeType;
 
 					break;
@@ -734,7 +734,7 @@ class GalleryToolkitHelper_medium {
 	/**
 	 * @see GalleryCoreApi::estimateDerivativeDimensions
 	 */
-	public function estimateDerivativeDimensions(&$derivative, $source) {
+	public static function estimateDerivativeDimensions(&$derivative, $source) {
 		if (preg_match(
 			'/^(thumbnail|scale|resize)\|/',
 			$derivative->getDerivativeOperations(),

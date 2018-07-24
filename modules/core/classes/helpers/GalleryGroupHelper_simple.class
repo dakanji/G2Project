@@ -30,7 +30,7 @@ class GalleryGroupHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchGroupNames
 	 */
-	public function fetchGroupNames($count = null, $offset = null, $substring = null) {
+	public static function fetchGroupNames($count = null, $offset = null, $substring = null) {
 		global $gallery;
 
 		$data  = array();
@@ -82,7 +82,7 @@ class GalleryGroupHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchGroupCount
 	 */
-	public function fetchGroupCount($substring = null) {
+	public static function fetchGroupCount($substring = null) {
 		global $gallery;
 
 		$data  = array();
@@ -116,7 +116,7 @@ class GalleryGroupHelper_simple {
 	/**
 	 * @see GalleryCoreApi::fetchGroupByGroupName
 	 */
-	public function fetchGroupByGroupName($groupName = null) {
+	public static function fetchGroupByGroupName($groupName = null) {
 		global $gallery;
 
 		$query                     = '

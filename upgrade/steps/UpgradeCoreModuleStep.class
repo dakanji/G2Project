@@ -45,9 +45,9 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 			}
 		}
 
-		include_once dirname(__FILE__) . '/../../modules/core/module.inc';
+		include_once __DIR__ . '/../../modules/core/module.inc';
 
-		include_once dirname(__FILE__) . '/../../modules/core/CoreModuleExtras.inc';
+		include_once __DIR__ . '/../../modules/core/CoreModuleExtras.inc';
 		$core     = new CoreModule();
 		$versions = $core->getInstalledVersions();
 
@@ -154,7 +154,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 	public function _addSystemInformationToDebugLog($versions) {
 		global $gallery;
 		$storage       =& $gallery->getStorage();
-		$isSvnInstall  = file_exists(dirname(dirname(dirname(__FILE__))) . '/.svn');
+		$isSvnInstall  = file_exists(dirname(dirname(__DIR__)) . '/.svn');
 		$fileIntegrity = isset($_SESSION['fileintegrity']) ? $_SESSION['fileintegrity'] : 'Unknown';
 
 		$gallery->debug("\n

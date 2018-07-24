@@ -460,7 +460,7 @@ class ItemEditThemeTestPlatform {
 	}
 
 	public function opendir($path) {
-		if ($path == dirname(__FILE__) . '/../../../../themes/') {
+		if ($path == __DIR__ . '/../../../../themes/') {
 			return 'TEST_VALID_RESOURCE';
 		}
 
@@ -516,7 +516,7 @@ class ItemEditThemeTestPlatform {
 	}
 
 	public function file_exists($path) {
-		$base = dirname(__FILE__) . '/../../../../themes/';
+		$base = __DIR__ . '/../../../../themes/';
 
 		switch ($path) {
 			case $base . 'ItemEditThemeControllerTest/theme.inc':
@@ -528,7 +528,7 @@ class ItemEditThemeTestPlatform {
 	}
 
 	public function is_dir($path) {
-		$base = dirname(__FILE__) . '/../../../../themes/';
+		$base = __DIR__ . '/../../../../themes/';
 
 		switch ($path) {
 			case $base . 'ItemEditThemeControllerTest':
