@@ -98,7 +98,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 		$symlink = false
 	) {
 		global $gallery;
-		
+
 		$platform =& $gallery->getPlatform();
 
 		// Validate the input filename
@@ -145,6 +145,10 @@ class GalleryPhotoItem extends GalleryDataItem {
 		}
 
 		return null;
+	}
+
+	public function getCanContainChildren() {
+		return false;
 	}
 
 	/**

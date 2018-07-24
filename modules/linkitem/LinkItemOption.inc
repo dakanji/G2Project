@@ -29,7 +29,7 @@ class LinkItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		return array(
 			null,
 			GalleryUtilities::isA($item, 'GalleryLinkItem') && !is_numeric($item->getLink()),
@@ -39,7 +39,7 @@ class LinkItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		if (!isset($form['LinkItemOption'])) {
 			$form['LinkItemOption']['link'] = $item->getLink();
 		}
@@ -50,7 +50,7 @@ class LinkItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		$error = $warning = array();
 
 		if (empty($form['LinkItemOption']['link'])) {

@@ -29,14 +29,14 @@ class CustomThumbnailOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		return array(null, GalleryUtilities::isA($item, 'GalleryItem'));
 	}
 
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
 		// Is this item already using a custom thumbnail..
@@ -86,7 +86,7 @@ class CustomThumbnailOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
 		$error = $warning = array();

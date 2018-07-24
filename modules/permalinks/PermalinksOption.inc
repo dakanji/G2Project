@@ -31,7 +31,7 @@ class PermalinksOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		$warning = $error = array();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'permalinks');
@@ -76,7 +76,7 @@ class PermalinksOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		list($ret, $aliases) = PermalinksMapHelper::fetchAliasesForItem($item->getId());
 
 		if ($ret) {
@@ -97,7 +97,7 @@ class PermalinksOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 		if ($ret) {

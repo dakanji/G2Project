@@ -29,7 +29,7 @@ class RatingItemEdit extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		global $gallery;
 
 		if (isset($form['changeInDescendents']['rating'])) {
@@ -63,7 +63,7 @@ class RatingItemEdit extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		if (empty($form['error'])) {
 			list($ret, $form['rating']['enabled']) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled', $item->getId());
 
@@ -78,7 +78,7 @@ class RatingItemEdit extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		return array(null, true);
 	}
 }

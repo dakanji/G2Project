@@ -632,7 +632,7 @@ class ItemEditOption {
 	 * @param array $form the state of the current form
 	 * @return boolean
 	 */
-	public function requiresProgressBar($form) {
+	public static function requiresProgressBar($form) {
 		return false;
 	}
 }

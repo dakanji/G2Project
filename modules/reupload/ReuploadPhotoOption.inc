@@ -29,7 +29,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -170,7 +170,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'reupload');
 
 		if ($ret) {
@@ -236,7 +236,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		return array(null, GalleryUtilities::isA($item, 'GalleryPhotoItem'));
 	}
 
@@ -247,7 +247,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 	 *               bool true if linked
 	 * @access private
 	 */
-	public function _hasLinkedEntity($item) {
+	public static function _hasLinkedEntity($item) {
 		$hasLink = $item->isLinked();
 
 		if (!$hasLink) {

@@ -38,7 +38,7 @@ class SizeLimitOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		/*
 		 * Get the parameters for this album;
 		 * we are assuming that both $height and $width are either in or out...
@@ -87,7 +87,7 @@ class SizeLimitOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		global $gallery;
 
 		$error       = $warning = array();
@@ -284,7 +284,7 @@ class SizeLimitOption extends ItemEditOption {
 	 *               array errors, array warnings
 	 * @access private
 	 */
-	public function _applyToDescendents($form, $album) {
+	public static function _applyToDescendents($form, $album) {
 		global $gallery;
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$errors          = $warnings = array();
@@ -411,7 +411,7 @@ class SizeLimitOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::requiresProgressBar
 	 */
-	public function requiresProgressBar($form) {
+	public static function requiresProgressBar($form) {
 		return isset($form['SizeLimitOption']['applyToDescendents']);
 	}
 }
