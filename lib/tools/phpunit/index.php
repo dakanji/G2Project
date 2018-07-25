@@ -151,44 +151,44 @@ function PhpUnitOutputInterceptor($message) {
 	return $message;
 }
 
-@ini_set('output_buffering', 0);
-ob_start('PhpUnitOutputInterceptor', 256);
+	@ini_set('output_buffering', 0);
+	ob_start('PhpUnitOutputInterceptor', 256);
 
-require_once 'phpunit.inc';
+	require_once 'phpunit.inc';
 
-require_once 'GalleryTestCase.class';
+	require_once 'GalleryTestCase.class';
 
-require_once 'GalleryImmediateViewTestCase.class';
+	require_once 'GalleryImmediateViewTestCase.class';
 
-require_once 'GalleryControllerTestCase.class';
+	require_once 'GalleryControllerTestCase.class';
 
-require_once 'GalleryViewTestCase.class';
+	require_once 'GalleryViewTestCase.class';
 
-require_once 'ItemAddPluginTestCase.class';
+	require_once 'ItemAddPluginTestCase.class';
 
-require_once 'ItemEditPluginTestCase.class';
+	require_once 'ItemEditPluginTestCase.class';
 
-require_once 'ItemEditOptionTestCase.class';
+	require_once 'ItemEditOptionTestCase.class';
 
-require_once 'CodeAuditTestCase.class';
+	require_once 'CodeAuditTestCase.class';
 
-require_once 'MockObject.class';
+	require_once 'MockObject.class';
 
-require_once 'UnitTestPlatform.class';
+	require_once 'UnitTestPlatform.class';
 
-require_once 'UnitTestStorage.class';
+	require_once 'UnitTestStorage.class';
 
-require_once 'UnitTestPhpVm.class';
+	require_once 'UnitTestPhpVm.class';
 
-require_once 'UnitTestUrlGenerator.class';
+	require_once 'UnitTestUrlGenerator.class';
 
-require_once 'MockTemplateAdapter.class';
+	require_once 'MockTemplateAdapter.class';
 
-require_once 'UnitTestTemplate.class';
+	require_once 'UnitTestTemplate.class';
 
-require_once 'UnitTestRepository.class';
+	require_once 'UnitTestRepository.class';
 
-require_once 'UnitTestRepositoryUtilities.class';
+	require_once 'UnitTestRepositoryUtilities.class';
 
 function PhpUnitGalleryMain(&$testSuite, $filter) {
 	$ret = GalleryInitFirstPass();
@@ -493,7 +493,7 @@ class GalleryTestResult extends TestResult {
 				$failure  = $this->_testsFailed++ ? '' : '<h2>Failure Details</h2><ol>';
 				$failure .= '<li><a href="?filter=' .
 				urlencode('^' . $test->getModuleId() . '.' . $test->classname() . '.' .
-				  $test->name() . '$') .
+				$test->name() . '$') .
 				'" name="fail' . $this->fRunTests . '">' . $test->classname() . '.' .
 				$test->name() . "</a></li><ul>\n";
 
@@ -627,11 +627,10 @@ if ($ret && ($ret->getErrorCode() & ERROR_PERMISSION_DENIED)) {
 
 // Check that our dev environment is correct
 $incorrectDevEnv       = array();
-$desiredErrorReporting = E_ALL & ~2048;  // E_STRICT == 2048, but that constant isn't in PHP4
+$desiredErrorReporting = E_ALL & ~E_STRICT;
+
 foreach (array(
 	'error_reporting'                => array($desiredErrorReporting),
-	'short_open_tag'                 => array('off', 0),
-	'magic_quotes_gpc'               => array('on', 1),
 	'allow_call_time_pass_reference' => array('off', 0),
 	'register_globals'               => array('off', 0),
 	'display_errors'                 => array('on', 1),
@@ -645,11 +644,11 @@ foreach (array(
 	}
 }
 
+// Uncomment below to see debug output before tests run
 /*
- * Uncomment this to see debug output before tests run
-print "<pre>";
-print $gallery->getDebugBuffer();
-print "</pre>";
+ * print "<pre>";
+ * print $gallery->getDebugBuffer();
+ * print "</pre>";
  */
 
 require __DIR__ . '/index.tpl';

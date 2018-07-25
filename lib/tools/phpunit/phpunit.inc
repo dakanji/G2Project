@@ -38,11 +38,11 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
-interface Test {
-  function run(&$aTestResult);
-  function countTestCases();
-}
-*/
+ * interface Test {
+ *    function run(&$aTestResult);
+ *    function countTestCases();
+ * }
+ */
 
 function trace($msg) {
 	return;
@@ -71,17 +71,6 @@ if (phpversion() >= '4') {
 		}
 
 		/*
-		 * http://us4.php.net/file_exists#47860
-		 * Older php versions generate stat warnings whenever a file_exists or
-		 * other filesystem function stats a file that doesn't exist.  The functions
-		 * still work correctly.  Allow unit tests to ignore these warnings.
-		 */
-		if (version_compare(phpversion(), '4.3.3') <= 0 &&
-		preg_match('{stat failed for.*\(errno=0 -}', $errstr)) {
-			return;
-		}
-
-		/*
 		 * Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
 		 * file_exists. Ignore these errors.
 		 */
@@ -97,14 +86,10 @@ if (phpversion() >= '4') {
 			}
 		}
 
-		$message = "<B>PHP ERROR:</B> " . $errstr;
+		$message = '<B>PHP ERROR:</B> ' . $errstr;
 
 		if (function_exists('debug_backtrace')) {
 			$traceSource = debug_backtrace();
-
-			if (phpversion() < '5') {
-				array_shift($traceSource);
-			}
 
 			foreach ($traceSource as $traceEntry) {
 				// Trace with call_user_func may miss file/line in an entry
@@ -115,12 +100,12 @@ if (phpversion() >= '4') {
 				} elseif (isset($traceEntry['function'])) {
 					$buf .= " ($traceEntry[function]) ";
 				}
-				$buf .= ' <B>at line</B> ' . (isset($traceEntry['line']) ? $traceEntry['line'] : '??');
+				$buf    .= ' <B>at line</B> ' . (isset($traceEntry['line']) ? $traceEntry['line'] : '??');
 				$trace[] = $buf;
 			}
 			$message .= join('<BR>', $trace);
 		} else {
-			$message .=" <B>in</B> " . $errfile . " <B>at line</B> " . $errline;
+			$message .= ' <B>in</B> ' . $errfile . ' <B>at line</B> ' . $errline;
 		}
 		$PHPUnit_testRunning[0]->fail($message);
 	}
@@ -133,7 +118,7 @@ class PHPUnitException {
 
 	public function __construct($message, $type = 'FAILURE') {
 		$this->message = $message;
-		$this->type = $type;
+		$this->type    = $type;
 	}
 
 	public function getMessage() {
@@ -146,146 +131,125 @@ class PHPUnitException {
 }
 
 class Assert {
-	public function __construct($boolean, $message=0) {
+	public function __construct($boolean, $message = 0) {
 		if (! $boolean) {
 			$this->fail($message);
 		}
 	}
 
-	public function assertEquals($expected, $actual, $message=0) {
+	public function assertEquals($expected, $actual, $message = 0) {
 		if (gettype($expected) != gettype($actual)) {
-			$this->failNotEquals($expected, $actual, "expected", $message);
+			$this->failNotEquals($expected, $actual, 'expected', $message);
 
 			return;
 		}
 
-		if (phpversion() < '4') {
-			if (is_object($expected) or is_object($actual)
-		  or is_array($expected) or is_array($actual)) {
-				$this->error("INVALID TEST: cannot compare arrays or objects in PHP3");
-
-				return;
-			}
-		}
-
-		if (phpversion() >= '4' && is_object($expected)) {
+		if (is_object($expected)) {
 			if (get_class($expected) != get_class($actual)) {
-				$this->failNotEquals($expected, $actual, "expected", $message);
+				$this->failNotEquals($expected, $actual, 'expected', $message);
 
 				return;
 			}
 
-			if (method_exists($expected, "equals")) {
+			if (method_exists($expected, 'equals')) {
 				if (! $expected->equals($actual)) {
-					$this->failNotEquals($expected, $actual, "expected", $message);
+					$this->failNotEquals($expected, $actual, 'expected', $message);
 				}
 
-				return;		// no further tests after equals()
+				return;     // no further tests after equals()
 			}
 		}
 
-		if (phpversion() >= '4.0.4') {
-			if (is_null($expected) != is_null($actual)) {
-				$this->failNotEquals($expected, $actual, "expected", $message);
+		if (is_null($expected) != is_null($actual)) {
+			$this->failNotEquals($expected, $actual, 'expected', $message);
 
-				return;
-			}
+			return;
 		}
 
 		if ($expected != $actual) {
-			$this->failNotEquals($expected, $actual, "expected", $message);
+			$this->failNotEquals($expected, $actual, 'expected', $message);
 		}
 	}
 
-	public function assertRegexp($regexp, $actual, $message=false) {
+	public function assertRegexp($regexp, $actual, $message = false) {
 		if (! preg_match($regexp, $actual)) {
-			$this->failNotEquals($regexp, $actual, "pattern", $message);
+			$this->failNotEquals($regexp, $actual, 'pattern', $message);
 		}
 	}
 
 	public function assertEqualsMultilineStrings(
-	$string0,
-	$string1,
-  $message=""
-  ) {
+		$string0,
+		$string1,
+		$message = ''
+	) {
 		$lines0 = explode("\n", $string0);
 		$lines1 = explode("\n", $string1);
 
 		if (sizeof($lines0) != sizeof($lines1)) {
 			$this->failNotEquals(
-		sizeof($lines0) . " line(s)",
-						   sizeof($lines1) . " line(s)",
-		"expected",
-		$message
-	  );
+				sizeof($lines0) . ' line(s)',
+				sizeof($lines1) . ' line(s)',
+				'expected',
+				$message
+			);
 		}
 
-		for ($i=0; $i< sizeof($lines0); $i++) {
+		for ($i = 0; $i < sizeof($lines0); $i++) {
 			$this->assertEquals(
-		trim($lines0[$i]),
-						  trim($lines1[$i]),
-						  "line " . ($i+1) . " of multiline strings differ. " . $message
-	  );
+				trim($lines0[$i]),
+				trim($lines1[$i]),
+				'line ' . ($i + 1) . ' of multiline strings differ. ' . $message
+			);
 		}
 	}
 
-	public function _formatValue($value, $class="") {
-		if (phpversion() >= '4.0.0') {
-			if (is_object($value)) {
-				if (method_exists($value, "toString")) {
-					$translateValue = htmlspecialchars($value->toString());
-				} else {
-					$translateValue = htmlspecialchars(serialize($value));
-				}
-			} elseif (is_array($value)) {
-				if (phpversion() >= '4.2.0') {
-					$translateValue = '<pre>' . htmlspecialchars(var_export($value, 1)) . '</pre>';
-				} else {
-					$translateValue = htmlspecialchars(serialize($value));
-				}
+	public function _formatValue($value, $class = '') {
+		if (is_object($value)) {
+			if (method_exists($value, 'toString')) {
+				$translateValue = htmlspecialchars($value->toString());
 			} else {
-				$translateValue = htmlspecialchars($value);
+				$translateValue = htmlspecialchars(serialize($value));
 			}
+		} elseif (is_array($value)) {
+			$translateValue = '<pre>' . htmlspecialchars(var_export($value, 1)) . '</pre>';
 		} else {
-			$translateValue = $value;
+			$translateValue = htmlspecialchars($value);
 		}
-		$htmlValue = "<code class=\"$class\">" . $translateValue . "</code>";
+		$htmlValue = "<code class=\"$class\">" . $translateValue . '</code>';
 
-		if (phpversion() >= '4.0.0') {
-			if (is_bool($value)) {
-				$htmlValue = $value ? "<i>true</i>" : "<i>false</i>";
-			} elseif (phpversion() >= '4.0.4' && is_null($value)) {
-				$htmlValue = "<i>null</i>";
-			}
-			$htmlValue .= "&nbsp;&nbsp;&nbsp;<span class=\"typeinfo\">";
-			$htmlValue .= "type:" . gettype($value);
-			$htmlValue .= is_object($value) ? ", class:" . get_class($value) : "";
-			$htmlValue .= "</span>";
+		if (is_bool($value)) {
+			$htmlValue = $value ? '<i>true</i>' : '<i>false</i>';
+		} elseif (is_null($value)) {
+			$htmlValue = '<i>null</i>';
 		}
+		$htmlValue .= '&nbsp;&nbsp;&nbsp;<span class="typeinfo">';
+		$htmlValue .= 'type:' . gettype($value);
+		$htmlValue .= is_object($value) ? ', class:' . get_class($value) : '';
+		$htmlValue .= '</span>';
 
 		return $htmlValue;
 	}
 
-	public function failNotEquals($expected, $actual, $expected_label, $message=0) {
+	public function failNotEquals($expected, $actual, $expected_label, $message = 0) {
 		// Private function for reporting failure to match.
 		$str = $message ? ($message . ' <br>') : '';
 		//$str .= "($expected_label/actual)<br>";
 		$str .= sprintf(
-		"%s<br>%s",
-			$this->_formatValue($expected, "expected"),
-			$this->_formatValue($actual, "actual")
-	);
+			'%s<br>%s',
+			$this->_formatValue($expected, 'expected'),
+			$this->_formatValue($actual, 'actual')
+		);
 		$this->fail($str);
 	}
 }
 
-class TestCase extends Assert // implements Test
-{
+// implements Test
+class TestCase extends Assert {
 	/* Defines context for running tests.  Specific context -- such as
-	 instance variables, global variables, global state -- is defined
-	 by creating a subclass that specializes the setUp() and
-	 tearDown() methods.  A specific test is defined by a subclass
-	 that specializes the runTest() method. */
+	instance variables, global variables, global state -- is defined
+	by creating a subclass that specializes the setUp() and
+	tearDown() methods.  A specific test is defined by a subclass
+	that specializes the runTest() method. */
 	public $fName;
 	public $fClassName;
 	public $fModuleId;
@@ -293,7 +257,7 @@ class TestCase extends Assert // implements Test
 	public $fExceptions = array();
 	public $fTiming;
 	public $fLifeCycle = array();
-	public $fSkipped = false;
+	public $fSkipped   = false;
 
 	public function __construct($name) {
 		$this->fName = $name;
@@ -309,12 +273,12 @@ class TestCase extends Assert // implements Test
 
 	public function run(&$testResult, $ranges) {
 		/* Run this single test, by calling the run() method of the
-		   TestResult object which will in turn call the runBare() method
-		   of this object.  That complication allows the TestResult object
-		   to do various kinds of progress reporting as it invokes each
-		   test.  Create/obtain a TestResult object if none was passed in.
-		   Note that if a TestResult object was passed in, it must be by
-		   reference. */
+		TestResult object which will in turn call the runBare() method
+		of this object.  That complication allows the TestResult object
+		to do various kinds of progress reporting as it invokes each
+		test.  Create/obtain a TestResult object if none was passed in.
+		Note that if a TestResult object was passed in, it must be by
+		reference. */
 		$this->fResult = $testResult;
 		$testResult->run($this, $ranges);
 		$this->fResult = 0;
@@ -339,7 +303,7 @@ class TestCase extends Assert // implements Test
 		$gallery->runEval('$PHPUnit_testRunning[0] = & $this;');
 		// Saved ref to current TestCase, so that the error handler can access it.
 
-		$old_handler = set_error_handler("PHPUnit_error_handler");
+		$old_handler = set_error_handler('PHPUnit_error_handler');
 		// errors will now be handled by our error handler
 
 		$name = $this->name();
@@ -355,41 +319,39 @@ class TestCase extends Assert // implements Test
 			}
 		}
 
-		if (phpversion() >= '4') {
-			// Remove PHPUnit_error_handler AND any handlers added by test
-			while (true) {
-				// Call set/restore just to see what the current error handler is:
-				$old_handler = set_error_handler('PHPUnit_error_handler');
-				restore_error_handler();
-				// Remove current error handler:
-				restore_error_handler();
-				// If we just removed PHPUnit_error_handler then previous state is restored.
-				// If all error handlers are gone then test must have called restore_error_handler
-				// (preferably they don't do that).
-				if ($old_handler == 'PHPUnit_error_handler' || empty($old_handler)) {
-					break;
-				}
+		// Remove PHPUnit_error_handler AND any handlers added by test
+		while (true) {
+			// Call set/restore just to see what the current error handler is:
+			$old_handler = set_error_handler('PHPUnit_error_handler');
+			restore_error_handler();
+			// Remove current error handler:
+			restore_error_handler();
+			// If we just removed PHPUnit_error_handler then previous state is restored.
+			// If all error handlers are gone then test must have called restore_error_handler
+			// (preferably they don't do that).
+			if ($old_handler == 'PHPUnit_error_handler' || empty($old_handler)) {
+				break;
 			}
-			// Original code:
-			//if (isset($old_handler)) {
-			//    set_error_handler($old_handler); // revert to prior error handler
-			//} else {
-			//    restore_error_handler();
-			//}
-			$PHPUnit_testRunning = null;
 		}
+		// Original code:
+		//if (isset($old_handler)) {
+		//    set_error_handler($old_handler); // revert to prior error handler
+		//} else {
+		//    restore_error_handler();
+		//}
+		$PHPUnit_testRunning = null;
 	}
 
-	public function setUp() // expect override
-	{
+	// expect override
+	public function setUp() {
 		//print("TestCase::setUp()<br>\n");
 		$this->fLifeCycle['setUp'] = 1;
 
 		return null;
 	}
 
-	public function tearDown() // possible override
-	{
+	public function tearDown() {
+		// possible override
 		//print("TestCase::tearDown()<br>\n");
 		$this->fLifeCycle['tearDown'] = 1;
 
@@ -398,24 +360,24 @@ class TestCase extends Assert // implements Test
 
 	////////////////////////////////////////////////////////////////
 
-	public function _createResult() // protected
-	{
+	// protected
+	public function _createResult() {
 		// override this to use specialized subclass of TestResult
 		return new TestResult();
 	}
 
-	public function fail($message=0) {
+	public function fail($message = 0) {
 		//printf("TestCase::fail(%s)<br>\n", ($message) ? $message : '');
 		/* JUnit throws AssertionFailedError here.  We just record the
-		   failure and carry on */
+		failure and carry on */
 		$this->fExceptions[] = new PHPUnitException($message, 'FAILURE');
 	}
 
 	public function error($message) {
 		/* report error that requires correction in the test script
-		   itself, or (heaven forbid) in this testing infrastructure */
+		itself, or (heaven forbid) in this testing infrastructure */
 		$this->fExceptions[] = new PHPUnitException($message, 'ERROR');
-		$this->fResult->stop();	// [does not work]
+		$this->fResult->stop(); // [does not work]
 	}
 
 	public function failed() {
@@ -444,7 +406,7 @@ class TestCase extends Assert // implements Test
 
 	public function elapsed() {
 		list($startMicro, $startSecs) = explode(' ', $this->fTiming['start']);
-		list($stopMicro, $stopSecs) = explode(' ', $this->fTiming['stop']);
+		list($stopMicro, $stopSecs)   = explode(' ', $this->fTiming['stop']);
 
 		return ($stopSecs - $startSecs) + ($stopMicro - $startMicro);
 	}
@@ -468,7 +430,7 @@ class TestCase extends Assert // implements Test
 	public function runBare() {
 		global $gallery;
 		$this->fTiming['start'] = microtime();
-		$ret = $this->setUp();
+		$ret                    = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
@@ -488,16 +450,15 @@ class TestCase extends Assert // implements Test
 	}
 }
 
-
-class TestSuite // implements Test
-{
+// implements Test
+class TestSuite {
 	/* Compose a set of Tests (instances of TestCase or TestSuite), and
-	 run them all. */
+	run them all. */
 	public $fTests = array();
 	public $fClassname;
 	public $fModuleId;
 
-	public function __construct($classname=false, $moduleid=false, $filter=null) {
+	public function __construct($classname = false, $moduleid = false, $filter = null) {
 		// Find all methods of the given class whose name starts with
 		// "test" and add them to the test suite.
 
@@ -517,8 +478,8 @@ class TestSuite // implements Test
 			return;
 		}
 		$this->fClassname = $classname;
-		$this->fModuleId = $moduleid;
-		$this->fFilter = $filter;
+		$this->fModuleId  = $moduleid;
+		$this->fFilter    = $filter;
 
 
 		// PHP4 ONLY - introspection, submitted by Dylan Kuhn
@@ -531,11 +492,11 @@ class TestSuite // implements Test
 
 				if (strcasecmp($method, $classname) == 0 || is_subclass_of($test, $method)) {
 					// Ignore the given method name since it is a constructor:
-		  // it's the name of our test class or it is the name of a
-		  // superclass of our test class.  (This code smells funny.
-		  // Anyone got a better way?)
+					// it's the name of our test class or it is the name of a
+					// superclass of our test class.  (This code smells funny.
+					// Anyone got a better way?)
 
-		  //print "skipping $method<br>";
+					//print "skipping $method<br>";
 				} else {
 					if (substr($this->fFilter, 0, 2) == '!(' & substr($this->fFilter, -1, 1) == ')') {
 						$newFilter = substr($this->fFilter, 1);
@@ -562,7 +523,7 @@ class TestSuite // implements Test
 
 	public function run(&$testResult, $ranges) {
 		/* Run all TestCases and TestSuites comprising this TestSuite,
-		   accumulating results in the given TestResult object. */
+		accumulating results in the given TestResult object. */
 		reset($this->fTests);
 
 		while (list($na, $test) = each($this->fTests)) {
@@ -575,7 +536,7 @@ class TestSuite // implements Test
 
 	public function countTestCases() {
 		/* Number of TestCases comprising this TestSuite (including those
-		   in any constituent TestSuites) */
+		in any constituent TestSuites) */
 		$count = 0;
 		reset($this->fTests);
 
@@ -590,15 +551,15 @@ class TestSuite // implements Test
 
 class TestFailure {
 	/* Record failure of a single TestCase, associating it with the
-	 exception that occurred */
+	exception that occurred */
 	public $fFailedTestName;
 	public $fFailedClassName;
 	public $fException;
 
 	public function __construct(&$test, &$exception) {
 		$this->fFailedClassName = $test->classname();
-		$this->fFailedTestName = $test->name();
-		$this->fException = $exception;
+		$this->fFailedTestName  = $test->name();
+		$this->fException       = $exception;
 	}
 
 	public function getExceptions() {
@@ -622,19 +583,19 @@ class TestFailure {
 
 class TestResult {
 	// Collect the results of running a set of TestCases.
-	public $fFailures = array();
-	public $fErrors = array();
-	public $fRunTests = 0;
+	public $fFailures       = array();
+	public $fErrors         = array();
+	public $fRunTests       = 0;
 	public $fUnskippedTests = 0;
-	public $fStop = false;
+	public $fStop           = false;
 
 	public function __construct() {
 	}
 
-	public function _endTest(&$test) // protected
-	{
+	public function _endTest(&$test) {
+		// protected
 		/* specialize this for end-of-test action, such as progress
-	 reports  */
+		reports  */
 	}
 
 	public function addError($test, $exception) {
@@ -651,7 +612,7 @@ class TestResult {
 
 	public function run(&$test, $ranges) {
 		// Run a single TestCase in the context of this TestResult
-		$count = ++$this->fRunTests;
+		$count    = ++$this->fRunTests;
 		$skipFlag = true;
 
 		foreach ($ranges as $tempRange) {
@@ -694,8 +655,8 @@ class TestResult {
 		return $this->fStop;
 	}
 
-	public function _startTest($test) // protected
-	{
+	public function _startTest($test) {
+		// protected
 		// specialize this for start-of-test actions
 	}
 
@@ -726,15 +687,15 @@ class TextTestResult extends TestResult {
 
 	public function report() {
 		// report result of test run
-		$nRun = $this->countTests();
+		$nRun      = $this->countTests();
 		$nFailures = $this->failureCount();
-		$nErrors = $this->errorCount();
-		printf("<p>%s test%s run<br>", $nRun, ($nRun == 1) ? '' : 's');
+		$nErrors   = $this->errorCount();
+		printf('<p>%s test%s run<br>', $nRun, ($nRun == 1) ? '' : 's');
 		printf("%s failure%s<br>\n", $nFailures, ($nFailures == 1) ? '' : 's');
 		printf("%s error%s.<br>\n", $nErrors, ($nErrors == 1) ? '' : 's');
 
 		if ($nFailures > 0) {
-			echo "<h2>Failures</h2>";
+			echo '<h2>Failures</h2>';
 			echo "\n<ol>\n";
 			$failures = $this->getFailures();
 
@@ -748,13 +709,13 @@ class TextTestResult extends TestResult {
 				while (list($na, $exception) = each($exceptions)) {
 					printf("<li>%s</li>\n", $exception->getMessage());
 				}
-				echo "</ul>";
+				echo '</ul>';
 			}
 			echo "</ol>\n";
 		}
 
 		if ($nErrors > 0) {
-			echo "<h2>Errors</h2>";
+			echo '<h2>Errors</h2>';
 			echo "\n<ol>\n";
 			reset($this->fErrors);
 
@@ -765,7 +726,7 @@ class TextTestResult extends TestResult {
 				$exception = $error->getException();
 				echo "\n<ul>";
 				printf("<li>%s</li>\n", $exception->getMessage());
-				echo "</ul>";
+				echo '</ul>';
 			}
 			echo "</ol>\n";
 		}
@@ -773,17 +734,15 @@ class TextTestResult extends TestResult {
 
 	public function _startTest($test) {
 		if (phpversion() > '4') {
-			printf("%s - %s ", get_class($test), $test->name());
+			printf('%s - %s ', get_class($test), $test->name());
 		} else {
-			printf("%s ", $test->name());
+			printf('%s ', $test->name());
 		}
 		flush();
 	}
 
 	public function _endTest($test) {
-		$outcome = $test->failed()
-	   ? "<font color=\"red\">FAIL</font>"
-	   : "<font color=\"green\">ok</font>";
+		$outcome = $test->failed() ? '<font color="red">FAIL</font>' : '<font color="green">ok</font>';
 		printf("$outcome<br>\n");
 		flush();
 	}
@@ -798,39 +757,39 @@ class PrettyTestResult extends TestResult {
 	// Specialize TestResult to produce text/html report
 	public function __construct() {
 		parent::__construct();  // call superclass constructor
-		echo "<h2>Test Results</h2>";
+		echo '<h2>Test Results</h2>';
 
-		echo "<TABLE CELLSPACING=\"1\" CELLPADDING=\"1\" BORDER=\"0\" WIDTH=\"90%\" ALIGN=\"CENTER\" class=\"details\">";
-		echo "<TR><TH>#</TH><TH>Module</TH><TH>Class</TH><TH>Function</TH><TH>Success?</TH><TH>Time</TH></TR>";
+		echo '<TABLE CELLSPACING="1" CELLPADDING="1" BORDER="0" WIDTH="90%" ALIGN="CENTER" class="details">';
+		echo '<TR><TH>#</TH><TH>Module</TH><TH>Class</TH><TH>Function</TH><TH>Success?</TH><TH>Time</TH></TR>';
 	}
 
 	public function report() {
-		echo "</TABLE>";
+		echo '</TABLE>';
 		// report result of test run
-		$nRun = $this->countTests();
+		$nRun      = $this->countTests();
 		$nFailures = $this->countFailures();
-		echo "<h2>Summary</h2>";
+		echo '<h2>Summary</h2>';
 
-		printf("<p>%2.4f seconds elapsed</p>", $this->_totalElapsed);
-		printf("<p>%s test%s run</p>", $nRun, ($nRun == 1) ? '' : 's');
+		printf('<p>%2.4f seconds elapsed</p>', $this->_totalElapsed);
+		printf('<p>%s test%s run</p>', $nRun, ($nRun == 1) ? '' : 's');
 		printf("<p>%s failure%s.</p>\n", $nFailures, ($nFailures == 1) ? '' : 's');
 
 		if ($nFailures == 0) {
 			return;
 		}
 
-		$failures = $this->getFailures();
+		$failures  = $this->getFailures();
 		$newFilter = array();
 
 		foreach ($failures as $failure) {
 			$newFilter[$failure->getClassName() . '.' . $failure->getTestName()] = 1;
 		}
 		printf(
-		'<input type="button" onClick="javascript:reRun(\'%s\');" value="Re-run broken tests">',
-	   '(' . join('|', array_keys($newFilter)) . ')$'
-	);
+			'<input type="button" onClick="javascript:reRun(\'%s\');" value="Re-run broken tests">',
+			'(' . join('|', array_keys($newFilter)) . ')$'
+		);
 
-		echo "<h2>Failure Details</h2>";
+		echo '<h2>Failure Details</h2>';
 		echo "\n<ol>\n";
 		reset($failures);
 
@@ -839,12 +798,12 @@ class PrettyTestResult extends TestResult {
 			printf("\n<li>%s</li>\n", $failedTestName);
 
 			$exceptions = $failure->getExceptions();
-			echo "<ul>";
+			echo '<ul>';
 
 			while (list($na, $exception) = each($exceptions)) {
 				printf("\n<li>%s</li>\n", $exception->getMessage());
 			}
-			echo "</ul>";
+			echo '</ul>';
 		}
 		echo "</ol>\n";
 	}
@@ -860,15 +819,13 @@ class PrettyTestResult extends TestResult {
 	}
 
 	public function _endTest($test) {
-		$outcome = $test->failed()
-	   ? " class=\"Failure\">FAIL"
-	   : " class=\"Pass\">OK";
+		$outcome = $test->failed() ? ' class="Failure">FAIL' : ' class="Pass">OK';
 
 		if ($test->wasSkipped()) {
 			$outcome = ' class="Skipped">SKIP';
 			$elapsed = '0.0000';
 		} else {
-			$elapsed = sprintf("%2.4f", $test->elapsed());
+			$elapsed              = sprintf('%2.4f', $test->elapsed());
 			$this->_totalElapsed += $elapsed;
 		}
 		printf("<TD$outcome</TD><TD>$elapsed</TD></TR>");
