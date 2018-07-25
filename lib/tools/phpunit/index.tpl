@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Gallery Unit Tests</title>
@@ -21,11 +21,41 @@
 	function skip(i) {
 	}
 	function updateProgressBar(title, description, percentComplete, timeRemaining, memoryInfo) {
-		/* Dummy updateProgressBar method in case some unit tests actually writes the script to call (ItemAddFromServerTest) */
+		/**
+		* Dummy updateProgressBar method
+		* in case some unit tests actually writes the script to call (ItemAddFromServerTest)
+		*/
 	}
 	</script>
 </head>
 <body>
+	<?php
+	/*
+	* Returns the exact bytes value from a php.ini setting
+	* Copied from PHP.net's manual entry for ini_get()
+	* Applied fix from https://stackoverflow.com/a/45648879/891636
+	*/
+	function getBytes($val) {
+		$val  = substr(trim($val), 0, -1);
+		$last = substr($val, -1);
+
+		switch ($last) {
+			case 'g':
+			case 'G':
+				$val *= 1024;
+				// Fall Through
+			case 'm':
+			case 'M':
+				$val *= 1024;
+				// Fall Through
+			case 'k':
+			case 'K':
+				$val *= 1024;
+		}
+
+		return $val;
+	}
+	?>
 	<?php if (!isset($compactView)): ?>
 		<div id="status" style="position: absolute; right: 0; top: 0; background: white; display: none">
 			<div class="header">
@@ -35,10 +65,12 @@
 				</div>
 			</div>
 			<div class="body">
+				<?php $memLim = ini_get('memory_limit'); ?>
+				<?php $memLimVal = getBytes($memLim); ?>
 				Pass: <span id="pass_count">&nbsp;</span>, Fail <span id="fail_count">&nbsp;</span>, Skip: <span id="skip_count">&nbsp;</span>, Total: <span id="total_count">&nbsp;</span> <br/>
 				Elapsed time: <span id="elapsed_time">&nbsp;</span> <br/>
 				Estimated time remaining: <span id="estimated_time_remaining">&nbsp;</span> <br/>
-				Memory Usage: <span id="used_memory">&nbsp;</span> (<?php print (0 < ini_get('memory_limit')) ? ini_get('memory_limit') + "allowed": "Unlimited"; ?>)
+				Memory Usage: <span id="used_memory">&nbsp;</span> (<?php print (0 < $memLimVal) ? $memLim . " allowed" : "Unlimited"; ?>)
 			</div>
 			<div id="show_more" class="header toggle">
 				<img src="add.png" onclick="showMoreStatus()">
@@ -391,12 +423,12 @@
 
 			<input type="button" onclick="reRun();" value="Re-run broken tests"
 			id="runBrokenButton" style="display:none"/>
-			</div>
+		</div>
 
-			<?php
+		<?php
 			$result = new GalleryTestResult();
 			$testSuite->run($result, $range);
 			$result->report();
-			?>
-			</body>
-			</html>
+		?>
+	</body>
+</html>

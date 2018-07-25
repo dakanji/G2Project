@@ -426,10 +426,12 @@ class GalleryTestResult extends TestResult {
 			}
 		}
 
+		$ourUName = php_uname();
+
 		$webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
 		$php       = 'PHP ' . phpversion();
 		$database  = $storage->getAdoDbType() . ' ' . $storage->getVersion();
-		$OS        = array_shift(explode(' ', php_uname()));
+		$OS        = array_shift(explode(' ', $ourUName));
 		$locking   = $params['lock.system'];
 		$language  = $translator->_languageCode;
 		$owner     = 'NAME_PLACEHOLDER';
@@ -463,7 +465,7 @@ class GalleryTestResult extends TestResult {
 		flush();
 	}
 
-	public function _endTest($test) {
+	public function _endTest(&$test) {
 		$failure    = $extra = '';
 		$usedMemory = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
 

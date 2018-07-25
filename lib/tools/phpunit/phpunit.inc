@@ -382,8 +382,7 @@ class TestCase extends Assert {
 
 	public function failed() {
 		reset($this->fExceptions);
-
-		while (list($key, $exception) = each($this->fExceptions)) {
+		foreach($this->fExceptions as $key => $exception) {
 			if ($exception->type == 'FAILURE') {
 				return true;
 			}
@@ -394,8 +393,7 @@ class TestCase extends Assert {
 
 	public function errored() {
 		reset($this->fExceptions);
-
-		while (list($key, $exception) = each($this->fExceptions)) {
+		foreach($this->fExceptions as $key => $exception) {
 			if ($exception->type == 'ERROR') {
 				return true;
 			}
@@ -486,7 +484,7 @@ class TestSuite {
 
 		$names = get_class_methods($classname);
 
-		while (list($key, $method) = each($names)) {
+		foreach($names as $key => $method) {
 			if (preg_match('/^test/', $method)) {
 				$test = new $classname($method);
 
@@ -526,7 +524,7 @@ class TestSuite {
 		accumulating results in the given TestResult object. */
 		reset($this->fTests);
 
-		while (list($na, $test) = each($this->fTests)) {
+		foreach($this->fTests as $na => $test) {
 			if ($testResult->shouldStop()) {
 				break;
 			}
@@ -540,7 +538,7 @@ class TestSuite {
 		$count = 0;
 		reset($this->fTests);
 
-		while (list($na, $test_case) = each($this->fTests)) {
+		foreach($this->fTests as $na => $test_case) {
 			$count += $test_case->countTestCases();
 		}
 
@@ -635,7 +633,7 @@ class TestResult {
 		$exceptions = $test->getExceptions();
 		reset($exceptions);
 
-		while (list($key, $exception) = each($exceptions)) {
+		foreach($exceptions as $key => $exception) {
 			if ($exception->type == 'ERROR') {
 				$this->addError($test, $exception);
 			} elseif ($exception->type == 'FAILURE') {
@@ -699,14 +697,14 @@ class TextTestResult extends TestResult {
 			echo "\n<ol>\n";
 			$failures = $this->getFailures();
 
-			while (list($i, $failure) = each($failures)) {
+			foreach($failures as $i => $failure) {
 				$failedTestName = $failure->getTestName();
 				printf("<li>%s</li>\n", $failedTestName);
 
 				$exceptions = $failure->getExceptions();
 				echo "\n<ul>";
 
-				while (list($na, $exception) = each($exceptions)) {
+				foreach($exceptions as $na => $exception) {
 					printf("<li>%s</li>\n", $exception->getMessage());
 				}
 				echo '</ul>';
@@ -719,7 +717,7 @@ class TextTestResult extends TestResult {
 			echo "\n<ol>\n";
 			reset($this->fErrors);
 
-			while (list($i, $error) = each($this->fErrors)) {
+			foreach($this->fErrors as $i => $error) {
 				$erroredTestName = $error->getTestName();
 				printf("<li>%s</li>\n", $failedTestName);
 
@@ -741,7 +739,7 @@ class TextTestResult extends TestResult {
 		flush();
 	}
 
-	public function _endTest($test) {
+	public function _endTest(&$test) {
 		$outcome = $test->failed() ? '<font color="red">FAIL</font>' : '<font color="green">ok</font>';
 		printf("$outcome<br>\n");
 		flush();
@@ -793,14 +791,14 @@ class PrettyTestResult extends TestResult {
 		echo "\n<ol>\n";
 		reset($failures);
 
-		while (list($i, $failure) = each($failures)) {
+		foreach($failures as $i => $failure) {
 			$failedTestName = $failure->getTestName();
 			printf("\n<li>%s</li>\n", $failedTestName);
 
 			$exceptions = $failure->getExceptions();
 			echo '<ul>';
 
-			while (list($na, $exception) = each($exceptions)) {
+			foreach($exceptions as $na => $exception) {
 				printf("\n<li>%s</li>\n", $exception->getMessage());
 			}
 			echo '</ul>';
@@ -818,7 +816,7 @@ class PrettyTestResult extends TestResult {
 		flush();
 	}
 
-	public function _endTest($test) {
+	public function _endTest(&$test) {
 		$outcome = $test->failed() ? ' class="Failure">FAIL' : ' class="Pass">OK';
 
 		if ($test->wasSkipped()) {
