@@ -121,7 +121,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setPlatform(new UnitTestPlatform());
 		$platform =& $gallery->getPlatform();
 
-		list($languageData)   = GalleryTranslator::getLanguageData();
+		list($languageData)   = GalleryTranslator::getInstance()->getLanguageData();
 		$expected['en']['US'] = $languageData['en']['US'];
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
@@ -138,7 +138,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setPlatform(new UnitTestPlatform());
 		$platform =& $gallery->getPlatform();
 
-		list($languageData)   = GalleryTranslator::getLanguageData();
+		list($languageData)   = GalleryTranslator::getInstance()->getLanguageData();
 		$expected['en']['US'] = $languageData['en']['US'];
 		$expected['en']['GB'] = $languageData['en']['GB'];
 		$expected['pt']['BR'] = $languageData['pt']['BR'];
@@ -159,7 +159,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setPlatform(new UnitTestPlatform());
 		$platform =& $gallery->getPlatform();
 
-		list($languageData)   = GalleryTranslator::getLanguageData();
+		list($languageData)   = GalleryTranslator::getInstance()->getLanguageData();
 		$expected['en']['US'] = $languageData['en']['US'];
 		$expected['pt']['BR'] = $languageData['pt']['BR'];
 		$expected['pt']['PT'] = $languageData['pt']['PT'];

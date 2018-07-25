@@ -569,7 +569,7 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator        = new GalleryTranslator();
+			$this->_translator        = GalleryTranslator::getInstance();
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {
@@ -1063,5 +1063,5 @@ class Gallery {
 		unlink($tempfile);
 
 		return $data;
-	}	
+	}
 }

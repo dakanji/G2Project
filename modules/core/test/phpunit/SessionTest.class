@@ -1563,7 +1563,10 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$session->setUserId($this->_anonymousUserId);
-		list($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+		list(
+			$ret,
+			$detectedLanguageCode
+		) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -1621,7 +1624,10 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$session->setUserId($this->_anonymousUserId);
-		list($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+		list(
+			$ret,
+			$detectedLanguageCode
+		) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -2301,7 +2307,10 @@ class SessionTest extends GalleryTestCase {
 		$session->put('embed.id.externalUser', 6);
 		$session->put('core.authToken', '1234567890AB');
 		$session->put('secure', true);
-		list($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+		list(
+			$ret,
+			$detectedLanguageCode
+		) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;

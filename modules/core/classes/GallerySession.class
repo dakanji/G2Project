@@ -829,7 +829,10 @@ class GallerySession {
 			unset($sessionDataCopy['embed.id.externalUser']);
 			unset($sessionDataCopy['core.authToken']);
 			unset($sessionDataCopy['secure']);
-			list($ret, $detectedLanguageCode) = GalleryTranslator::getDefaultLanguageCode();
+			list(
+				$ret,
+				$detectedLanguageCode
+			) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
 
 			if ($ret) {
 				return array($ret, null);

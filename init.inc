@@ -172,7 +172,7 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (isset($params['activeLanguage']) || !empty($language)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
-		list($language) = GalleryTranslator::getSupportedLanguageCode(
+		list($language) = GalleryTranslator::getInstance()->getSupportedLanguageCode(
 			empty($language) ? $params['activeLanguage'] : $language
 		);
 		$gallery->setActiveLanguageCode($language);
