@@ -638,7 +638,7 @@ class AdminCoreControllerTestUnixPlatform extends UnixPlatform {
 		$this->_succeed = $succeed;
 	}
 
-	public function mail() {
+	public function mail($to = null, $subject = null, $body = null, $headers = null) {
 		return $this->_succeed;
 	}
 }
@@ -647,7 +647,7 @@ class AdminCoreControllerTestWinNtPlatform extends WinNtPlatform {
 		$this->_succeed = $succeed;
 	}
 
-	public function mail() {
+	public function mail($to = null, $subject = null, $body = null, $headers = null) {
 		return $this->_succeed;
 	}
 }

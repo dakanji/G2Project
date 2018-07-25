@@ -533,12 +533,12 @@ class GalleryPlatform {
 	 * Get size information about an image.
 	 * @param string $filename the image file name
 	 * @return array with 4 elements.  Index 0 contains the width of the image in pixels.  Index 1
-	 *         contains the height.  Index 2 is a flag indicating the type of the image: 1 = GIF, 2
-	 *         = JPG, 3 = PNG, 4 = SWF, 5 = PSD, 6 = BMP, 7 = TIFF(intel byte order), 8 =
-	 *         TIFF(motorola byte order), 9 = JPC, 10 = JP2, 11 = JPX, 12 = JB2, 13 = SWC, 14 = IFF.
-	 *         These values correspond to the IMAGETYPE constants that were added in PHP 4.3.  Index
-	 *         3 is a text string with the correct height="yyy" width="xxx" string that can be used
-	 *         directly in an IMG tag.
+	 *     contains the height.  Index 2 is a flag indicating the type of the image: 1 = GIF, 2
+	 *     = JPG, 3 = PNG, 4 = SWF, 5 = PSD, 6 = BMP, 7 = TIFF(intel byte order), 8 =
+	 *     TIFF(motorola byte order), 9 = JPC, 10 = JP2, 11 = JPX, 12 = JB2, 13 = SWC, 14 = IFF.
+	 *     These values correspond to the IMAGETYPE constants that were added in PHP 4.3.  Index
+	 *     3 is a text string with the correct height="yyy" width="xxx" string that can be used
+	 *     directly in an IMG tag.
 	 */
 	public function getimagesize($filename) {
 		global $gallery;
@@ -1076,8 +1076,13 @@ class GalleryPlatform {
 	 * @param string $headers (optional) additional headers (\r\n separated)
 	 * @return boolean true on success
 	 */
-	public function mail($to, $subject, $body, $headers = null) {
+	//public function mail($to, $subject, $body, $headers = null) {
+	public function mail($to = null, $subject = null, $body = null, $headers = null) {
 		global $gallery;
+
+		if (is_null($to) || is_null($subject) || is_null($body)) {
+			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+		}
 
 		if ($gallery->getDebug()) {
 			$gallery->debug("mail($to, $subject, $body, $headers)");
@@ -1197,12 +1202,20 @@ class GalleryPlatform {
 			// To avoid looping if getPluginParameter calls platform functions
 			GalleryDataCache::put($cacheKey, array($this->_filePerms, $this->_dirPerms));
 
-			list($ret, $filePerms) = GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
+			list($ret, $filePerms) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'permissions.file')
+				;
 
 			if (!$ret && !empty($filePerms)) {
 				$this->_filePerms = octdec($filePerms);
 			}
-			list($ret, $dirPerms) = GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
+			list($ret, $dirPerms) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'permissions.directory'
+			);
 
 			if (!$ret && !empty($dirPerms)) {
 				$this->_dirPerms = octdec($dirPerms);
