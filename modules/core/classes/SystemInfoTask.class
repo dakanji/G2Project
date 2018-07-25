@@ -157,7 +157,7 @@ class SystemInfoTask extends MaintenanceTask {
 			$core->translate('Operating system') . ' = ' . php_uname(),
 			$core->translate('Default theme') . ' = ' . $params['default.theme'],
 			$core->translate('gettext') . ' = ' .
-			(GalleryTranslator::canTranslate() ? $core->translate('enabled') : $core->translate('disabled')),
+			(GalleryTranslator::getInstance()->canTranslate() ? $core->translate('enabled') : $core->translate('disabled')),
 			$core->translate('Locale') . ' = ' . $locale,
 			$core->translate('Browser') . ' = ' . GalleryUtilities::getServerVar('HTTP_USER_AGENT'),
 		);

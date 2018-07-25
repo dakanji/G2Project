@@ -567,7 +567,9 @@ class GalleryEmbed {
 		}
 
 		if (isset($args['language'])) {
-			list($languageCode) = GalleryTranslator::getSupportedLanguageCode($args['language']);
+			list($languageCode) = GalleryTranslator::getInstance()->getSupportedLanguageCode(
+				$args['language']
+			);
 			$user->setLanguage($languageCode);
 		}
 
