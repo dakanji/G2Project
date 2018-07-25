@@ -70,7 +70,7 @@ class MainTest extends GalleryTestCase {
 			$this->failWithStatus($ret);
 		} else {
 			// Init a new translator so that we reset our locale
-			$translator = new GalleryTranslator();
+			$translator = GalleryTranslator::getInstance();
 			$translator->init($languageCode);
 		}
 		GalleryUtilities::removeRequestVariable('view');
