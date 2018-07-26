@@ -65,7 +65,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	 * @param string $outputDir directory to write the descriptor to
 	 * @return GalleryStatus a status code
 	 */
-	public function init($outputDir) {
+	public function init($outputDir = null, , $x1 = null) {
 		parent::init();
 
 		// Set output path.

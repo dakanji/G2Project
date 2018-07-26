@@ -189,7 +189,7 @@ class ItemEditCaptionsView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
 		list($page, $selectedId, $albumPage) = GalleryUtilities::getRequestVariables('page', 'selectedId', 'albumPage');

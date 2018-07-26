@@ -76,7 +76,7 @@ class GalleryView {
 	 * @return array GalleryStatus a status code
 	 *               array ('body' => string template or 'redirect' => array)
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		return array(null, null);
 	}
 

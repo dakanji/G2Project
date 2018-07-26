@@ -409,7 +409,7 @@ class TestThemeId2Theme extends GalleryTheme {
 		return $map;
 	}
 
-	public function setParameter($key, $value) {
+	public function setParameter($key, $value, $itemId = 0) {
 		$map       =& $this->getMap();
 		$map[$key] = $value;
 

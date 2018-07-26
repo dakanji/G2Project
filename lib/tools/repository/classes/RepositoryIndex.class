@@ -50,7 +50,7 @@ class RepositoryIndex extends RepositoryObject {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function init($repositoryDir) {
+	public function init($repositoryDir = null, $x1 = null) {
 		parent::init();
 
 		$ret = $this->setOutputDir($repositoryDir);

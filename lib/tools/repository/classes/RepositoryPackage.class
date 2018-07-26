@@ -44,7 +44,7 @@ class RepositoryPackage extends RepositoryObject {
 	 * @param string $outputDir output directory
 	 * @return GalleryStatus a status code
 	 */
-	public function init($descriptor, $outputDir) {
+	public function init($descriptor = null, $outputDir = null) {
 		parent::init();
 
 		$ret = $this->setOutputDir($outputDir);

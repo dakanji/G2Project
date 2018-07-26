@@ -217,7 +217,7 @@ class GalleryTemplate {
 	 * @return array GalleryStatus the status of the call
 	 *         string the HTML content
 	 */
-	public function fetch($templateName) {
+	public function fetch($templateName = null) {
 		$this->_smarty->template_dir = $this->_templateDir;
 
 		list($ret, $this->_smarty->compile_dir) = $this->_initCompiledTemplateDir();
