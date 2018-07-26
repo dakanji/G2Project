@@ -427,11 +427,12 @@ class GalleryTestResult extends TestResult {
 		}
 
 		$ourUName = php_uname();
+		$explodedUName = explode(' ', $ourUName);
 
 		$webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
 		$php       = 'PHP ' . phpversion();
 		$database  = $storage->getAdoDbType() . ' ' . $storage->getVersion();
-		$OS        = array_shift(explode(' ', $ourUName));
+		$OS        = array_shift($explodedUName);
 		$locking   = $params['lock.system'];
 		$language  = $translator->_languageCode;
 		$owner     = 'NAME_PLACEHOLDER';

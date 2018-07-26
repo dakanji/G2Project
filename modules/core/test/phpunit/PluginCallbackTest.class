@@ -894,7 +894,7 @@ class PluginCallbackWithFakeHandler extends PluginCallbackView {
 		$this->_replies[$call][] = $reply;
 	}
 
-	public function getPluginStates() {
+	public static function getPluginStates() {
 		return array_shift($this->_replies['getPluginStates']);
 	}
 

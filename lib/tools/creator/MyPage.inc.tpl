@@ -83,7 +83,7 @@ class {$viewName}View extends GalleryView {ldelim}
     /**
      * @see GalleryView::loadTemplate
      */
-    function loadTemplate(&$template, &$form) {ldelim}
+    function loadTemplate(&$template = null, &$form = null) {ldelim}
 	/* Load our item */
 	list ($ret, $item) = $this->getItem();
 	if ($ret) {ldelim}

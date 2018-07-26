@@ -154,7 +154,7 @@ class UserChangePasswordView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
 		// Load the form with user data the first time around.

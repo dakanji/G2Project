@@ -238,7 +238,7 @@ class ItemMoveSingleView extends GalleryView {
 	 * @todo Scalability - Don't load all album-items into memory. Need a way to load the items
 	 *       incrementally, e.g. with an AJAX-powered tree widget.
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
 		// itemId is the album where we want to move items from

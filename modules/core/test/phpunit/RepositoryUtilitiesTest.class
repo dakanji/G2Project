@@ -547,7 +547,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$this->assertEquals('someVersion', $version);
 	}
 
-	public function testDownloadFileWithoutGzinflate() {
+	public function testDownloadFileWithoutGzinflate($data = null, $length = null) {
 		global $gallery;
 		$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(false);
 		$utilities       = new GalleryRepositoryUtilities();
@@ -585,8 +585,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$this->assert($platform->isComplete(), $platform->getRemaining());
 	}
 
-	public function testDownloadFileWithGzinflate() {
+	public function testDownloadFileWithGzinflate($data = null, $length = null) {
 		global $gallery;
+		
 		$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(true);
 		$utilities       = new GalleryRepositoryUtilities();
 
@@ -1383,7 +1384,7 @@ class RepositoryUtilitiesTestPhpVm extends GalleryPhpVm {
 		return function_exists($func);
 	}
 
-	public function gzinflate($data) {
+	public function gzinflate($data = null, $length = null) {
 		return "uncompressed-$data";
 	}
 }

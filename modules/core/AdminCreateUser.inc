@@ -125,7 +125,7 @@ class AdminCreateUserView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();

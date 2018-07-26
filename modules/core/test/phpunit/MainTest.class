@@ -759,7 +759,7 @@ class FooView extends GalleryView {
  * Fake view that returns a bogus body template path so that it seems like a real view.
  */
 class MainTest_FakeView extends GalleryView {
-	public function loadTemplate() {
+	public function loadTemplate(&$template = null, &$form = null) {
 		return array(
 			null,
 			array(
@@ -785,7 +785,7 @@ class MainTest_FakeTemplate extends GalleryTemplate {
 		parent::__construct('.');
 	}
 
-	public function fetch() {
+	public function fetch($templateName = null) {
 		return array(null, '');
 	}
 }

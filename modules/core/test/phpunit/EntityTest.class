@@ -636,7 +636,7 @@ class EntityTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class EntityTestEntity extends GalleryEntity {
-	public function create() {
+	public function create($x1 = null, $x2 = null, $x3 = null) {
 		$ret = parent::create();
 
 		if ($ret) {

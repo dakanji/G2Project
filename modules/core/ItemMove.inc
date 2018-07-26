@@ -285,7 +285,7 @@ class ItemMoveView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
 		// itemId is the album where we want to move items from

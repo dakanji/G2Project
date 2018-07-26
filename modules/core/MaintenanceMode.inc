@@ -29,7 +29,7 @@ class MaintenanceModeView extends GalleryView {
 	/**
 	 * @see GalleryView::loadTemplate
 	 */
-	public function loadTemplate(&$template, &$form) {
+	public function loadTemplate(&$template = null, &$form = null) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
