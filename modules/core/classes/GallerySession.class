@@ -366,7 +366,7 @@ class GallerySession {
 	public function save($useNonTransactionalConnection = false) {
 		global $gallery;
 		$phpVm   = $gallery->getPhpVm();
-		$dieRoll = $phpVm->getRand(1, 100);
+		$dieRoll = $phpVm->rand(1, 100);
 
 		if (!empty($this->_sessionId)
 			&& ($this->_isPersistentSessionAllowedForRequest() || $this->_forceSaveSession)
@@ -832,7 +832,7 @@ class GallerySession {
 			list(
 				$ret,
 				$detectedLanguageCode
-			) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
+			) = GalleryTranslator::getSingleton()->getDefaultLanguageCode();
 
 			if ($ret) {
 				return array($ret, null);

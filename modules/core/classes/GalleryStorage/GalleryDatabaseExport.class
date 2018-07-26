@@ -877,7 +877,7 @@ class GalleryDatabaseExport {
 
 			$storeConfig  = $gallery->getConfig('storage.config');
 			$databaseName = $storage->getType() == 'sqlite' ? basename($storeConfig['database']) : $storeConfig['database'];
-			$rnd          = substr($phpVm->md5($phpVm->getRand()), 0, 5);
+			$rnd          = substr($phpVm->md5($phpVm->rand()), 0, 5);
 			$fileName     = $dirName . $databaseName . '_' . $rnd . '_' . $phpVm->date('Y_m_d_Hi')
 			. '.xml';
 		}

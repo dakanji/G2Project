@@ -801,8 +801,8 @@ class PermissionTest extends GalleryTestCase {
 	 * @access private
 	 */
 	public function _sortPermissions($a, $b) {
-		list($aKey) = each($a);
-		list($bKey) = each($b);
+		$aKey = array_keys($a)[0];
+		$bKey = array_keys($b)[0];
 
 		if ($aKey == $bKey) {
 			return strcmp($a['permission'], $b['permission']);

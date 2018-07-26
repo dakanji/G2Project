@@ -210,7 +210,7 @@ class GalleryPhpVm {
 	 * @param int $min (optional)
 	 * @param int $max (optional)
 	 */
-	public function getRand($min = null, $max = null) {
+	public function rand($min = null, $max = null) {
 		if (isset($min) && isset($max)) {
 			return mt_rand($min, $max);
 		}

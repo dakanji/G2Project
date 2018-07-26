@@ -61,10 +61,10 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 		list($ret, $error, $status, $needsProgressBar) = $this->_plugin->handleRequest($form, $item, $preferred);
 
 		if (isset($errorCode)) {
-			$expectedErrorCode = implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode));
+			$expectedErrorCode = implode(' | ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode));
 
 			if ($ret) {
-				$actualErrorCode = implode(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()));
+				$actualErrorCode = implode(' | ', GalleryStatus::getSingleton()->getErrorCodeConstants($ret->getErrorCode()));
 			} else {
 				$actualErrorCode = 'SUCCESS';
 			}

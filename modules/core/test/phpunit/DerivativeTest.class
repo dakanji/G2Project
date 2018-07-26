@@ -272,7 +272,9 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $secondThumb, $rebuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($secondThumb->getId());
+		list($ret, $secondThumb, $rebuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
+			$secondThumb->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -481,12 +483,17 @@ class DerivativeTest extends GalleryTestCase {
 
 		// Use a degenerate platform to make it fail when it tries to copy the broken image
 		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
-			$gallery->setPlatform(new DerivativeTestWinNtPlatform());
+			$DerivativeTestWinNtPlatform = new DerivativeTestWinNtPlatform();
+			$gallery->setPlatform($DerivativeTestWinNtPlatform);
 		} else {
-			$gallery->setPlatform(new DerivativeTestUnixPlatform());
+			$DerivativeTestUnixPlatform = new DerivativeTestUnixPlatform();
+			$gallery->setPlatform($DerivativeTestUnixPlatform);
 		}
 		// Do the call
-		list($ret, $derivativeRet, $rebuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($derivative->getId(), true);
+		list($ret, $derivativeRet, $rebuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
+			$derivative->getId(),
+			true
+		);
 		// Ret should be ERROR_PLATFORM_FAILURE
 		$gallery->setPlatform($platform);
 		$this->assert(
@@ -535,7 +542,12 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		// Get the thumbnails
-		list($ret, $ids) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_root->getId(), $item->getId()));
+		list($ret, $ids) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array(
+				$this->_root->getId(),
+				$item->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -592,7 +604,10 @@ class DerivativeTest extends GalleryTestCase {
 
 		// Fetch resizes
 		list($ret, $ids) = GalleryCoreApi::fetchDerivativesBySourceIds(
-			array($this->_root->getId(), $item->getId()),
+			array(
+				$this->_root->getId(),
+				$item->getId(),
+			),
 			DERIVATIVE_TYPE_IMAGE_RESIZE
 		);
 
@@ -1240,12 +1255,12 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * Test toolkit
  */
 class DerivativeTestToolkit extends GalleryToolkit {
-	public function clearPerformedOperations() {
+	public static function clearPerformedOperations() {
 		$ops =& DerivativeTestToolkit::getPerformedOperations();
 		array_splice($ops, 0, sizeof($ops));
 	}
 
-	public function &getPerformedOperations() {
+	public static function &getPerformedOperations() {
 		static $operations;
 
 		if (!isset($operations)) {

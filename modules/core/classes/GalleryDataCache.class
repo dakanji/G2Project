@@ -827,7 +827,7 @@ class GalleryDataCache {
 		}
 
 		// Clear expired data only 5% of the time.
-		$dieRoll = $phpVm->getRand(1, 100);
+		$dieRoll = $phpVm->rand(1, 100);
 
 		if ($dieRoll <= 5) {
 			$ret = GalleryDataCache::_cleanPageDataCache();

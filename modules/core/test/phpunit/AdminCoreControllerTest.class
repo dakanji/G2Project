@@ -72,7 +72,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		);
 
 		// The AdminCore controller uses the url generator to check the cookie path
-		$gallery->setUrlGenerator(new AdminCoreControllerTestUrlGenerator());
+		$AdminCoreControllerTestUrlGenerator = new AdminCoreControllerTestUrlGenerator();
+		$gallery->setUrlGenerator($AdminCoreControllerTestUrlGenerator);
 	}
 
 	public function _setFormFromValues($valueMap) {
@@ -536,9 +537,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 
 		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
-			$gallery->setPlatform(new AdminCoreControllerTestWinNtPlatform(true));
+			$WinPlatform = new AdminCoreControllerTestWinNtPlatform(true);
+			$gallery->setPlatform($WinPlatform);
 		} else {
-			$gallery->setPlatform(new AdminCoreControllerTestUnixPlatform(true));
+			$UnixPlatform = new AdminCoreControllerTestUnixPlatform(true);
+			$gallery->setPlatform($UnixPlatform);
 		}
 
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'nobody@nowhere.com');
@@ -566,9 +569,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 
 		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
-			$gallery->setPlatform(new AdminCoreControllerTestWinNtPlatform(false));
+			$WinPlatform = new AdminCoreControllerTestWinNtPlatform(true);
+			$gallery->setPlatform($WinPlatform);
 		} else {
-			$gallery->setPlatform(new AdminCoreControllerTestUnixPlatform(false));
+			$UnixPlatform = new AdminCoreControllerTestUnixPlatform(true);
+			$gallery->setPlatform($UnixPlatform);
 		}
 
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'nobody@nowhere.com');

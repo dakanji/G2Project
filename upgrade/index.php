@@ -112,7 +112,7 @@ if (!empty($storageConfig)) {
 		unset($translator);
 	} else {
 		if (empty($_SESSION['language'])) {
-			$_SESSION['language'] = GalleryTranslator::getInstance()->getLanguageCodeFromRequest();
+			$_SESSION['language'] = GalleryTranslator::getSingleton()->getLanguageCodeFromRequest();
 		}
 		$translator->init($_SESSION['language'], true);
 		// Select domain for translation

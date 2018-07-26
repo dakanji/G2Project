@@ -69,8 +69,8 @@ class GalleryViewTestCase extends GalleryTestCase {
 					$this->fail(
 						sprintf(
 							'Expected error code (%s) but received (%s)',
-							implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-							implode(' | ', GalleryStatus::getErrorCodeConstants(
+							implode(' | ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode)),
+							implode(' | ', GalleryStatus::getSingleton()->getErrorCodeConstants(
 								$ret->getErrorCode()
 							))
 						)
@@ -79,7 +79,7 @@ class GalleryViewTestCase extends GalleryTestCase {
 			} else {
 				$this->fail(sprintf(
 					'Expected error code (%s) but test was successful',
-					implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode))
+					implode(' | ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode))
 				));
 			}
 		} elseif ($ret) {

@@ -385,7 +385,9 @@ class CoreModuleTest extends GalleryTestCase {
 
 	public function testGetInstalledVersionsNoCacheOrVersionFile() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
@@ -425,7 +427,9 @@ class CoreModuleTest extends GalleryTestCase {
 
 	public function testGetInstalledVersions2LinesReturned() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
@@ -455,7 +459,9 @@ class CoreModuleTest extends GalleryTestCase {
 
 	public function testGetInstalledVersionsSetsMaintenanceModeFromFile() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
@@ -486,7 +492,9 @@ class CoreModuleTest extends GalleryTestCase {
 
 	public function testGetInstalledVersionsSetsMaintenanceModeFromFileWithAbsoluteUrl() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');

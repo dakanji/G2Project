@@ -1566,7 +1566,7 @@ class SessionTest extends GalleryTestCase {
 		list(
 			$ret,
 			$detectedLanguageCode
-		) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
+		) = GalleryTranslator::getSingleton()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -1627,7 +1627,7 @@ class SessionTest extends GalleryTestCase {
 		list(
 			$ret,
 			$detectedLanguageCode
-		) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
+		) = GalleryTranslator::getSingleton()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -2310,7 +2310,7 @@ class SessionTest extends GalleryTestCase {
 		list(
 			$ret,
 			$detectedLanguageCode
-		) = GalleryTranslator::getInstance()->getDefaultLanguageCode();
+		) = GalleryTranslator::getSingleton()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;

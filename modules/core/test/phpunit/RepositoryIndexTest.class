@@ -692,7 +692,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$utilities                = new UnitTestRepositoryUtilities();
 			$this->_index->_utilities =& $utilities;
 
-			$pluginApi = $pluginType == 'module' ? GalleryModule::getApiVersion() : GalleryTheme::getApiVersion();
+			$pluginApi = $pluginType == 'module' ? GalleryModule::getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
 			$utilities->setReply(
 				'isPluginCompatible',
 				array($pluginType, $coreApi, $pluginApi, null),
@@ -753,7 +753,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$testTheme = new RepositoryIndexTestTheme();
-		$themeApi  = GalleryTheme::getApiVersion();
+		$themeApi  = GalleryTheme::getSingleton()->getApiVersion();
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
@@ -896,7 +896,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$testTheme = new RepositoryIndexTestTheme();
-		$themeApi  = GalleryTheme::getApiVersion();
+		$themeApi  = GalleryTheme::getSingleton()->getApiVersion();
 		$themeApi[1]--;
 		$testTheme->_themeApi = $themeApi;
 
@@ -963,7 +963,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$testTheme = new RepositoryIndexTestTheme();
-		$themeApi  = GalleryTheme::getApiVersion();
+		$themeApi  = GalleryTheme::getSingleton()->getApiVersion();
 
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
@@ -1084,6 +1084,6 @@ class RepositoryIndexTestTheme {
 	}
 
 	public function getRequiredThemeApi() {
-		return empty($this->_themeApi) ? GalleryTheme::getApiVersion() : $this->_themeApi;
+		return empty($this->_themeApi) ? GalleryTheme::getSingleton()->getApiVersion() : $this->_themeApi;
 	}
 }

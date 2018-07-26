@@ -363,7 +363,7 @@ class AdminThemesView extends GalleryView {
 			);
 			$themeApiCompatible = GalleryUtilities::isCompatibleWithApi(
 				$theme->getRequiredThemeApi(),
-				GalleryTheme::getApiVersion()
+				GalleryTheme::getSingleton()->getApiVersion()
 			);
 
 			if ($coreApiCompatible && $themeApiCompatible) {
@@ -442,10 +442,22 @@ class AdminThemesView extends GalleryView {
 				}
 			} else {
 				$entry['state']                    = 'incompatible';
-				$entry['api']['required']['theme'] = join('.', $theme->getRequiredThemeApi());
-				$entry['api']['required']['core']  = join('.', $theme->getRequiredCoreApi());
-				$entry['api']['provided']['theme'] = join('.', GalleryTheme::getApiVersion());
-				$entry['api']['provided']['core']  = join('.', GalleryCoreApi::getApiVersion());
+				$entry['api']['required']['theme'] = join(
+					'.',
+					$theme->getRequiredThemeApi()
+				);
+				$entry['api']['required']['core']  = join(
+					'.',
+					$theme->getRequiredCoreApi()
+				);
+				$entry['api']['provided']['theme'] = join(
+					'.',
+					GalleryTheme::getSingleton()->getApiVersion()
+				);
+				$entry['api']['provided']['core']  = join(
+					'.',
+					GalleryCoreApi::getApiVersion()
+				);
 			}
 
 			$entry['description']      = $theme->getDescription();

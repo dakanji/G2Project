@@ -362,7 +362,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
-			$lTest = ($newLocale = GalleryTranslator::getInstance()->_setlocale(LC_ALL, $locale));
+			$lTest = ($newLocale = GalleryTranslator::getSingleton()->_setlocale(LC_ALL, $locale));
 			if ($lTest !== false) {
 				break;
 			}

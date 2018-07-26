@@ -43,14 +43,16 @@ class AdminCreateUserController extends GalleryController {
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'core.AdminUsers';
 		} elseif (isset($form['action']['create'])) {
-			/*
-			 * If all the right fields are in place then go ahead and
-			 * create the user.
-			 */
-			if (!empty($form['userName']) && !empty($form['email'])
-				&& !empty($form['password1']) && $form['password1'] == $form['password2']
+			// If all the right fields are in place, go ahead and create user.
+			if (!empty($form['userName'])
+				&& !empty($form['email'])
+				&& !empty($form['password1'])
+				&& $form['password1'] == $form['password2']
 			) {
-				list($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+				list($ret, $user) = GalleryCoreApi::newFactoryInstance(
+					'GalleryEntity',
+					'GalleryUser'
+				);
 
 				if ($ret) {
 					return array($ret, null);

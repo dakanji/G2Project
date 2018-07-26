@@ -217,27 +217,34 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals('bletch', $this->_album->getOrderDirection());
 
 		// Verify derivative preferences
-		list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($this->_album->getId());
+		list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem(
+			$this->_album->getId()
+		);
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertEquals(
 			array(
+				array(
+					'order'                => 0,
+					'derivativeType'       => 1,
+					'derivativeOperations' => 'thumbnail|123',
+				),
 				array(
 					'order'                => 0,
 					'derivativeType'       => 2,
 					'derivativeOperations' => 'scale|234,234',
 				),
 				array(
-					'order'                => 0,
+					'order'                => 1,
 					'derivativeType'       => 2,
 					'derivativeOperations' => 'scale|345,543',
 				),
 				array(
-					'order'                => 0,
+					'order'                => 2,
 					'derivativeType'       => 2,
-					'derivativeOperations' => 'scale|456,456',
+					'derivativeOperations' => 'scale|456,80%',
 				),
 			),
 			$preferences
@@ -571,11 +578,13 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			'child 2'
 		);
 
-		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array(
-			$child[0]->getId(),
-			$child[1]->getId(),
-			$child[2]->getId(),
-		));
+		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(
+			array(
+				$child[0]->getId(),
+				$child[1]->getId(),
+				$child[2]->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;

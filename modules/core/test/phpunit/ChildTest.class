@@ -398,7 +398,13 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array($this->_child[1]->getId(), $this->_child[0]->getId()), $childIds);
+		$this->assertEquals(
+			array(
+				$this->_child[1]->getId(),
+				$this->_child[0]->getId(),
+			),
+			$childIds
+		);
 	}
 
 	public function testFetchLinkableChildItemIdsWithPermission() {
@@ -410,7 +416,11 @@ class ChildTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array($this->_child[1]->getId()), $childIds);
+		$this->assertEquals(
+			array($this->_child[1]->getId()),
+			$childIds,
+			'Inital'
+		);
 
 		// Verify 2 references to GalleryEntity table don't produce bad sql (2 joins)
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($this->_root->getId()));

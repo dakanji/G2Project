@@ -45,10 +45,11 @@ class ControllerTest extends GalleryTestCase {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPluginHelper_medium.class'
 		);
+		$ControllerTestModule = new ControllerTestModule();
 		GalleryPluginHelper_medium::setPluginInstance(
 			'module',
 			'controllertest',
-			new ControllerTestModule()
+			$ControllerTestModule
 		);
 		$session->remove('core.authToken');
 		$this->_originalIsPersistentSession = $session->isPersistent();

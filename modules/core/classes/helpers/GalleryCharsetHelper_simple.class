@@ -162,9 +162,13 @@ class GalleryCharsetHelper_simple {
 		$charset =& GalleryCharsetHelper_medium::getCharsetTable($sourceEncoding);
 
 		if (isset($charset)) {
-			return preg_replace(
-				'/([\x80-\xFF])/se',
-				'$charset[ord(\'$1\')]',
+			return preg_replace_callback(
+				'/([\x80-\xFF])/s',
+				function($matches) use ($charset) {
+					foreach($matches as $match) {
+						return $charset[ord($match)];
+					}
+				},
 				$string
 			);
 		}

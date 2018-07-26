@@ -129,7 +129,8 @@ class FileSystemTest extends GalleryTestCase {
 	public function testFetchPath() {
 		global $gallery;
 		$originalPlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new FileSystemTestPlatform('/'));
+		$FileSystemTestPlatform = new FileSystemTestPlatform('/');
+		$gallery->setPlatform($FileSystemTestPlatform);
 		$originalAlbumsDir = $gallery->getConfig('data.gallery.albums');
 		$gallery->setConfig('data.gallery.albums', '');
 
@@ -148,7 +149,8 @@ class FileSystemTest extends GalleryTestCase {
 			$path
 		);
 
-		$gallery->setPlatform(new FileSystemTestPlatform('\\'));
+		$FileSystemTestPlatform = new FileSystemTestPlatform('\\');
+		$gallery->setPlatform($FileSystemTestPlatform);
 
 		list($ret, $path) = $this->_albums[1]->fetchPath();
 
@@ -286,7 +288,8 @@ class FileSystemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$gallery->setPlatform(new FileSystemTestPlatformForRename('\\'));
+		$FileSystemTestPlatformForRename = new FileSystemTestPlatformForRename('\\');
+		$gallery->setPlatform($FileSystemTestPlatformForRename);
 
 		// Execute the move command, success expected
 		$ret = $this->_albums[2]->move($this->_albums[0]->getId());
@@ -298,7 +301,8 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		// Now change the mock platform to a unix like system
-		$gallery->setPlatform(new FileSystemTestPlatformForRename('/'));
+		$FileSystemTestPlatformForRename = new FileSystemTestPlatformForRename('/');
+		$gallery->setPlatform($FileSystemTestPlatformForRename);
 		// And move again album 1 (back, but all virtual move command), success expected
 		$ret = $this->_albums[2]->move($this->_albums[1]->getId());
 

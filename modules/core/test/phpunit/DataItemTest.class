@@ -71,8 +71,9 @@ class DataItemTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			$entity[$i] = new GalleryDataItem();
-			$ret        = $entity[$i]->create(
-				$this->_album->getId(),
+			$entityAlbumID = $this->_album->getId();
+			$ret = $entity[$i]->create(
+				$entityAlbumID,
 				__FILE__,
 				'text/plain',
 				'valid_path.txt'
@@ -90,9 +91,10 @@ class DataItemTest extends GalleryTestCase {
 
 			if ($i > 0) {
 				$expectedPathComponent = sprintf('valid_path_%03d.txt', $i);
+				$actualPathComponent = $entity[$i]->getPathComponent();
 				$this->assertEquals(
 					$expectedPathComponent,
-					$entity[$i]->getPathComponent(),
+					$actualPathComponent,
 					'path component mismatch'
 				);
 
@@ -136,7 +138,12 @@ class DataItemTest extends GalleryTestCase {
 		}
 
 		$orig = new GalleryDataItem();
-		$ret  = $orig->create($this->_album->getId(), __FILE__, 'text/plain', 'valid_path.txt');
+		$ret  = $orig->create(
+			$this->_album->getId(),
+			__FILE__,
+			'text/plain',
+			'valid_path.txt'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -149,7 +156,12 @@ class DataItemTest extends GalleryTestCase {
 		}
 
 		$new = new GalleryDataItem();
-		$ret = $new->create($subAlbum->getId(), __FILE__, 'text/plain', 'valid_path.txt');
+		$ret = $new->create(
+			$subAlbum->getId(),
+			__FILE__,
+			'text/plain',
+			'valid_path.txt'
+		);
 
 		if ($ret) {
 			return $ret;

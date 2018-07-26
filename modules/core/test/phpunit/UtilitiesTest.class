@@ -1898,7 +1898,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
-			$nTest = ($newLocale = GalleryTranslator::getInstance()->_setlocale(LC_ALL, $locale));
+			$nTest = ($newLocale = GalleryTranslator::getSingleton()->_setlocale(LC_ALL, $locale));
 			if ($nTest !== false) {
 				break;
 			}
@@ -1921,7 +1921,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
-			$nTest = ($newLocale = GalleryTranslator::getInstance()->_setlocale(LC_ALL, $locale));
+			$nTest = ($newLocale = GalleryTranslator::getSingleton()->_setlocale(LC_ALL, $locale));
 			if ($nTest !== false) {
 				break;
 			}

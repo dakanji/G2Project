@@ -200,7 +200,7 @@ class CoreModuleExtras {
 				list($ret, $defaultLanguage) = $gallery->getActiveLanguageCode();
 
 				if ($ret) {
-					$defaultLanguage = GalleryTranslator::getInstance()->getLanguageCodeFromRequest();
+					$defaultLanguage = GalleryTranslator::getSingleton()->getLanguageCodeFromRequest();
 				}
 
 				foreach (array(

@@ -58,6 +58,19 @@ class GalleryStatus {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton($errorCode = null, $errorMessage = null) {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new GalleryStatus($errorCode, $errorMessage);
+ 		}
+
+ 		return $singleton;
+ 	}
+
+	/**
 	 * Set the stack trace
 	 * @param array $trace (array, array)
 	 */
