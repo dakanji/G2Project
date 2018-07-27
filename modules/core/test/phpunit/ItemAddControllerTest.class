@@ -949,6 +949,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * controller which was a bad hack.  To keep this hack working, ItemAddController needs
 		 * to handle ItemAddWebDav add-plugin requests in a special way, not delegating to the
 		 * progress-bar view.
+		 *
+		 * With PHP 7, we now use a singleton and break support for older versions of webdav
 		 */
 
 		// Don't test with the real plugin instance
@@ -971,7 +973,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		ob_start();
 		// Do a static call, that's how WebDAV invokes / invoked the controller.
-		list($ret, $results) = ItemAddController::handleRequest(array());
+		list($ret, $results) = ItemAddController::getSingleton()->handleRequest(array());
 		$output              = ob_get_contents();
 		ob_end_clean();
 

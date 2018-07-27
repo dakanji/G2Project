@@ -164,7 +164,7 @@ class PlatformTest extends GalleryTestCase {
 		$lines = $this->_platform->file(__FILE__);
 
 		// --> Target Line <--
-		$this->assertEquals('/* --> Target Line <-- */', trim($lines[__LINE__ - 2]));
+		$this->assertEquals('// --> Target Line <--', trim($lines[__LINE__ - 2]));
 	}
 
 	public function testFopen() {

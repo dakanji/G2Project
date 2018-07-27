@@ -1873,7 +1873,7 @@ class RepositoryTest extends GalleryTestCase {
 	}
 
 	public function testComparePluginListEntries() {
-		$repository = new GalleryRepository();
+		$repository = GalleryRepository::getSingleton();
 
 		$testCase = array(
 			'plugin1Id' => array(
@@ -1890,7 +1890,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 		);
 
-		uasort($testCase, array('GalleryRepository', 'comparePluginListEntries'));
+		uasort($testCase, array($repository, 'comparePluginListEntries'));
 		$this->assertEquals(
 			array(
 				'plugin3Id' => array(
@@ -1914,7 +1914,7 @@ class RepositoryTest extends GalleryTestCase {
 	public function testCreatePluginDirectory() {
 		global $gallery;
 
-		$repository       = new GalleryRepository();
+		$repository = GalleryRepository::getSingleton();
 		$originalPlatform =& $gallery->getPlatform();
 		$slash            = $originalPlatform->getDirectorySeparator();
 
@@ -2400,7 +2400,11 @@ class RepositoryTest extends GalleryTestCase {
 	}
 
 	public function testGetRepositoriesAndClearCache() {
-		list($ret, $repositories, $repositoryErrors) = GalleryRepository::getRepositories(
+		list(
+			$ret,
+			$repositories,
+			$repositoryErrors
+		) = GalleryRepository::getSingleton()->getRepositories(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
@@ -2430,7 +2434,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		$this->assertEquals(1, $cachedErrorCount, 'Cached error count didn\'t match');
 
-		GalleryRepository::clearRepositoryCache(
+		GalleryRepository::getSingleton()->clearRepositoryCache(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
@@ -2762,7 +2766,9 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testDownloadAndUnpackPackages() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		$testData = array(
@@ -2854,7 +2860,9 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testDownloadAndUnpackPackagesLockedFiles() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		$testData = array(
@@ -2952,7 +2960,9 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testDownloadAndUnpackPackagesNoDescriptors() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		$testData = array(
@@ -3039,7 +3049,9 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testDownloadAndUnpackPackagesFailed() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		$files = array(
@@ -3080,7 +3092,9 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testRemoveObsoleteFiles() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		$repository             = new GalleryRepository();

@@ -354,7 +354,7 @@
 					skipCount += skip;
 					skipCountEl.innerHTML = skipCount;
 				}
-				usedMemoryEl.innerHTML = usedMemory;
+				usedMemoryEl.innerHTML = Math.round(usedMemory / (1024 * 1024)) + 'M';
 
 				var completedCount = passCount + failCount + skipCount;
 				var elapsed = (new Date().getTime() / 1000) - startTime;

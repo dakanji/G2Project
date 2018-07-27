@@ -702,7 +702,12 @@ class PermissionTest extends GalleryTestCase {
 			usort($compressedPerms, array('PermissionTest', '_sortPermissions'));
 			usort($uncompressedPerms, array('PermissionTest', '_sortPermissions'));
 
-			$type = $i < count($this->_albums) ? 'Album ' . $i : 'Item ' . $i - count($this->_albums);
+			$albumCount = count($this->_albums);
+			if($i < $albumCount) {
+				$type =  'Album ' . strval($i);
+			} else {
+				$type =  'Item ' . strval($i - $albumCount);
+			}
 			$this->assertEquals(
 				$expectedCompressed,
 				$compressedPerms,

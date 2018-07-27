@@ -36,7 +36,9 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		}
 
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$this->_repository             = new GalleryRepository();
 		$this->_repository->_utilities = new UnitTestRepositoryUtilities();
 

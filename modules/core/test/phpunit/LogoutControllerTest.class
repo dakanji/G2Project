@@ -104,9 +104,10 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testLogoutEventDelegate() {
+		$LogoutControllerTestEventListener = new LogoutControllerTestEventListener();
 		$ret = GalleryCoreApi::registerEventListener(
 			'Gallery::Logout',
-			new LogoutControllerTestEventListener()
+			$LogoutControllerTestEventListener
 		);
 
 		if ($ret) {

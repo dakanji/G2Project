@@ -57,17 +57,24 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		 * used by fread().
 		 */
 		include __DIR__ . '/../data/SampleDescriptors.inc';
-		$gallery->setPlatform(new RepositoryToolsIndexTestPlatform(array(
-			'module.descriptor',
-			'module2.descriptor',
-			false,
-			'theme.descriptor',
-			false,
-		), array(
-			'repositorydir/modules/module.descriptor' => serialize($sampleModuleDescriptor),
-			'repositorydir/themes/theme.descriptor'    => serialize($sampleThemeDescriptor),
-			'repositorydir/modules/module2.descriptor' => serialize($sampleModule2Descriptor),
-		)));
+		$serializeModuleDescriptor = serialize($sampleModuleDescriptor);
+		$serializeThemeDescriptor = serialize($sampleThemeDescriptor);
+		$serializeModule2Descriptor = serialize($sampleModule2Descriptor);
+		$RepositoryToolsIndexTestPlatform = new RepositoryToolsIndexTestPlatform(
+			array(
+				'module.descriptor',
+				'module2.descriptor',
+				false,
+				'theme.descriptor',
+				false,
+			),
+			array(
+				'repositorydir/modules/module.descriptor' => $serializeModuleDescriptor,
+				'repositorydir/themes/theme.descriptor'    => $serializeThemeDescriptor,
+				'repositorydir/modules/module2.descriptor' => $serializeModule2Descriptor,
+			)
+		);
+		$gallery->setPlatform($RepositoryToolsIndexTestPlatform);
 
 		// Generate the index.
 		list($ret, $pluginsInIndex) = $index->generate();

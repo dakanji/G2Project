@@ -118,7 +118,9 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	public function testGetSupportedLanguageEnglishOnly() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		list($languageData)   = GalleryTranslator::getSingleton()->getLanguageData();
@@ -135,7 +137,9 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	public function testGetSupportedLanguageEnglishFilterd() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		list($languageData)   = GalleryTranslator::getSingleton()->getLanguageData();
@@ -156,7 +160,9 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	public function testGetSupportedLanguageHasExceptionForChineseDefaultCountry() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		list($languageData)   = GalleryTranslator::getSingleton()->getLanguageData();

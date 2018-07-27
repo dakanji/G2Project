@@ -46,6 +46,20 @@ class ItemAddController extends GalleryController {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new ItemAddController();
+ 		}
+
+ 		return $singleton;
+ 	}
+
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -54,18 +68,7 @@ class ItemAddController extends GalleryController {
 
 		$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
 
-		/**
-		 * Special case for backwards-compatibility with the webdav module
-		 * @todo Remove on next major API change
-		 */
-		if ($addPluginId == 'ItemAddWebDav') {
-			// WebDAV used to do a static ::handleRequest() call. We need an instance.
-			$controller = new ItemAddController();
-		} else {
-			$controller = $this;
-		}
-
-		list($ret, $item) = $controller->getItem();
+		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
 			return array($ret, null);
@@ -101,7 +104,7 @@ class ItemAddController extends GalleryController {
 		if ($addPluginId == 'ItemAddWebDav') {
 			// Don't output any HTML (progress-bar)
 			ob_start();
-			$ret = $controller->handleRequestWithProgressBar($form, $item, $addPlugin);
+			$ret = $this->handleRequestWithProgressBar($form, $item, $addPlugin);
 			ob_end_clean();
 
 			if ($ret) {

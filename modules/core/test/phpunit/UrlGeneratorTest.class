@@ -1559,7 +1559,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 		$platform->setReply(
 			'file_exists',
@@ -2612,7 +2613,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$gallery->setConfig('data.gallery.cache', '/cache/');
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), false);
 		$platform->setReply(

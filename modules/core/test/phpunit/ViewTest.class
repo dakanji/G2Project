@@ -39,7 +39,13 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		GalleryPluginHelper_medium::setPluginInstance('module', 'viewtest', new ViewTestModule());
+
+		$ViewTestModule = new ViewTestModule();
+		GalleryPluginHelper_medium::setPluginInstance(
+			'module',
+			'viewtest',
+			$ViewTestModule
+		);
 	}
 
 	public function testLoadViewSuccess() {
@@ -497,15 +503,18 @@ class ViewTest extends GalleryTestCase {
 	public function _prepareForLoadThemeAndParameters($forDataItem = false, $themeId = null) {
 		global $gallery;
 
+		$ViewTestThemeId1Theme = new ViewTestThemeId1Theme();
 		GalleryPluginHelper_medium::setPluginInstance(
 			'theme',
 			'Viewtestthemeid1',
-			new ViewTestThemeId1Theme()
+			$ViewTestThemeId1Theme
 		);
+
+		$ViewTestThemeId2Theme = new ViewTestThemeId2Theme();
 		GalleryPluginHelper_medium::setPluginInstance(
 			'theme',
 			'viewtestthemeid2',
-			new ViewTestThemeId2Theme()
+			$ViewTestThemeId2Theme
 		);
 
 		list($ret, $album) = $this->_createRandomAlbum(

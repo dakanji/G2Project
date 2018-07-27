@@ -665,7 +665,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'states'  => array(),
 				'deleted' => array(),
 			),
-			PluginCallbackView::calculateStateChanges(
+			PluginCallbackView::getSingleton()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -692,7 +692,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'states'  => array(),
 				'deleted' => array(),
 			),
-			PluginCallbackView::calculateStateChanges(
+			PluginCallbackView::getSingleton()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -728,7 +728,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				),
 				'deleted' => array(),
 			),
-			PluginCallbackView::calculateStateChanges(
+			PluginCallbackView::getSingleton()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -761,7 +761,7 @@ class PluginCallbackTest extends GalleryTestCase {
 					),
 				),
 			),
-			PluginCallbackView::calculateStateChanges(
+			PluginCallbackView::getSingleton()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
