@@ -632,33 +632,44 @@ class AlbumTest extends GalleryTestCase {
 
 	public function testGuaranteeAlbumHasThumbnail2() {
 		// Album has no thumbnail, 1 child
-		list($ret, $child) = $this->_createRandomDataItem($this->_parentAlbum->getId(), 'test/file');
+		list($ret, $child) = $this->_createRandomDataItem(
+			$this->_parentAlbum->getId(),
+			'test/file'
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($this->_parentAlbum->getId());
+		list($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail(
+			$this->_parentAlbum->getId()
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		// Result: success
-		$this->assertEquals(true, $success);
+		$this->assert(true, $success, 'success');
 
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_parentAlbum->getId()));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array(
+				$this->_parentAlbum->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		// The album's derivative is sourced to the child
-		$this->assert(!empty($thumbTable));
-
 		if (!empty($thumbTable)) {
 			$thumb = $thumbTable[$this->_parentAlbum->getId()];
-			$this->assertEquals($child->getId(), $thumb->getDerivativeSourceId());
+			$this->assertEquals(
+				$child->getId(),
+				$thumb->getDerivativeSourceId(),
+				'Derivative to Child'
+			);
 		}
 	}
 
@@ -671,7 +682,10 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// Create a thumbnail sourced from the parent album
-		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', '*');
+		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
+			'GalleryDerivative',
+			'*'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -708,10 +722,12 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// Result: success
-		$this->assertEquals(true, $success, 'guarantee');
+		$this->assert(true, $success, 'guarantee');
 
 		// Reload the thumbnail and examine it
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($subAlbum->getId()));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array($subAlbum->getId())
+		);
 
 		if ($ret) {
 			return $ret;

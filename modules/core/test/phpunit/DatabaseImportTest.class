@@ -44,7 +44,8 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$this->_xmlParser = new GalleryXmlProcessor($this);
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage      = new UnitTestStorage();
 		$storage                =& $gallery->getStorage();
 		$storage->_tablePrefix  = 'g2_';

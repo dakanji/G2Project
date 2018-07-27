@@ -50,7 +50,7 @@ $sampleIndex = array(
 				'id'                => 'testTheme',
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryTheme::getApiVersion(),
+				'requiredPluginApi' => GalleryTheme::getSingleton()->getApiVersion(),
 				'stringsRevision'   => '22222',
 				'buildTimestamp'    => '11111',
 			),

@@ -48,7 +48,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
 		GalleryDataCache::put($cacheKey, array('testTheme'));
 
-		$gallery->_translator = new AdminLanguagesViewTestTranslator();
+		$gallery->_translator  = AdminLanguagesViewTestTranslator::getSingleton();
 
 		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
@@ -73,7 +73,8 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		);
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
 	}
@@ -383,6 +384,19 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 }
 
 class AdminLanguagesViewTestTranslator extends GalleryTranslator {
+	/**
+	 * Load Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new AdminLanguagesViewTestTranslator();
+ 		}
+
+ 		return $singleton;
+ 	}
+
 	public function getLanguageData() {
 		$supportedLanguages = array();
 		$defaultCountry     = array();

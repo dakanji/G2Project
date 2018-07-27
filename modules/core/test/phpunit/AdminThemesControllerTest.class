@@ -39,7 +39,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_testTheme =& AdminThemesControllerTestTheme::getSingleton();
+		$this->_testTheme = AdminThemesControllerTestTheme::getSingleton();
 		$this->_testTheme->resetCalls();
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
@@ -72,7 +72,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		$map =& TestThemeId2Theme::getMap();
+		$map =& TestThemeId2Theme::getSingleton()->getMap();
 		$this->assertEquals(2, (int)$map['rows']);
 		$this->assertEquals(4, (int)$map['columns']);
 	}
@@ -399,6 +399,19 @@ class TestThemeId1Theme extends GalleryTheme {
  * Test Theme that successfully validates settings
  */
 class TestThemeId2Theme extends GalleryTheme {
+	/**
+	 * Load Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new TestThemeId2Theme();
+ 		}
+
+ 		return $singleton;
+ 	}
+
 	public function &getMap() {
 		static $map;
 
@@ -465,7 +478,7 @@ class TestThemeId2Theme extends GalleryTheme {
  * Test theme
  */
 class AdminThemesControllerTestTheme {
-	public function &getSingleton() {
+	public static function getSingleton() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -514,34 +527,34 @@ class AdminThemesControllerTestTheme {
 	}
 
 	public function _setCalled($function) {
-		$singleton                      = &$this->getSingleton();
+		$singleton                      = $this->getSingleton();
 		$singleton->_callMap[$function] = 1;
 	}
 
 	public function wasCalled($function) {
-		$singleton = &$this->getSingleton();
+		$singleton = $this->getSingleton();
 
 		return isset($singleton->_callMap[$function]);
 	}
 
 	public function resetCalls() {
-		$singleton           = &$this->getSingleton();
+		$singleton           = $this->getSingleton();
 		$singleton->_callMap = array();
 	}
 
 	public function _set($key, $val) {
-		$singleton       = &$this->getSingleton();
+		$singleton       = $this->getSingleton();
 		$singleton->$key = $val;
 	}
 
 	public function isActive() {
-		$singleton = &$this->getSingleton();
+		$singleton = $this->getSingleton();
 
 		return array(null, $singleton->_isActive);
 	}
 
 	public function isAdvancedSettings() {
-		$singleton = &$this->getSingleton();
+		$singleton = $this->getSingleton();
 
 		return $singleton->_isAdvancedSettings;
 	}

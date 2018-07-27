@@ -1,38 +1,38 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2008 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
- * This is a MaintenanceTask that will ensure the data files for all derivatives
- * (thumbnails, etc) have been built.
- *
- * @package GalleryCore
- * @subpackage Classes
- * @author Alan Harder <alan.harder@sun.com>
- * @version $Revision: 17669 $
- */
+* This is a MaintenanceTask that will ensure the data files for all derivatives
+* (thumbnails, etc) have been built.
+*
+* @package GalleryCore
+* @subpackage Classes
+* @author Alan Harder <alan.harder@sun.com>
+* @version $Revision: 17669 $
+*/
 class BuildDerivativesTask extends MaintenanceTask {
 	/**
-	 * @see MaintenanceTask::getInfo
-	 */
+	* @see MaintenanceTask::getInfo
+	*/
 	public function getInfo() {
 		global $gallery;
 
@@ -41,14 +41,14 @@ class BuildDerivativesTask extends MaintenanceTask {
 			'title'       => $gallery->i18n('Build all thumbnails/resizes'),
 			'description' => $gallery->i18n(
 				'Ensure data files for all derivatives (thumbnails, etc) have been ' .
-				 'built and rebuild broken ones.'
+				'built and rebuild broken ones.'
 			),
 		);
 	}
 
 	/**
-	 * @see MaintenanceTask::run
-	 */
+	* @see MaintenanceTask::run
+	*/
 	public function run() {
 		global $gallery;
 		$templateAdapter =& $gallery->getTemplateAdapter();
@@ -67,12 +67,12 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 		// Check all existing derivatives
 		$query = '
-	SELECT
-	  [DerivativeImage::id]
-	FROM
-	  [DerivativeImage]
-	ORDER BY [DerivativeImage::id] DESC
-	';
+		SELECT
+		[DerivativeImage::id]
+		FROM
+		[DerivativeImage]
+		ORDER BY [DerivativeImage::id] DESC
+		';
 		$gallery->guaranteeTimeLimit(120);
 		list($ret, $derivatives) = $gallery->search($query);
 
@@ -81,9 +81,9 @@ class BuildDerivativesTask extends MaintenanceTask {
 		}
 
 		/*
-		 * With MSSQL if the next query gets any results it will generate a warning which
-		 * causes us to error out.  Turn off warnings to avoid this.
-		 */
+		* With MSSQL if the next query gets any results it will generate a warning which
+		* causes us to error out.  Turn off warnings to avoid this.
+		*/
 		$storage =& $gallery->getStorage();
 
 		if (GalleryUtilities::isA($storage, 'MSSqlStorage')) {
@@ -96,19 +96,19 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 		// Also attempt to add derivatives to items without them (no toolkit when item added)
 		$query = '
-	SELECT
-	  [GalleryDataItem::id]
-	FROM
-	  [GalleryDataItem]
-	  LEFT JOIN [GalleryChildEntity] ON [GalleryDataItem::id] = [GalleryChildEntity::parentId]
-	  LEFT JOIN [GalleryDerivative] ON [GalleryChildEntity::id] = [GalleryDerivative::id]
-	GROUP BY
-	  [GalleryDataItem::id]
-	HAVING
-	  COUNT([GalleryDerivative::derivativeType]) = 0
-        ORDER BY
-          [GalleryDataItem::id] DESC
-	';
+		SELECT
+		[GalleryDataItem::id]
+		FROM
+		[GalleryDataItem]
+		LEFT JOIN [GalleryChildEntity] ON [GalleryDataItem::id] = [GalleryChildEntity::parentId]
+		LEFT JOIN [GalleryDerivative] ON [GalleryChildEntity::id] = [GalleryDerivative::id]
+		GROUP BY
+		[GalleryDataItem::id]
+		HAVING
+		COUNT([GalleryDerivative::derivativeType]) = 0
+		ORDER BY
+		[GalleryDataItem::id] DESC
+		';
 		$gallery->guaranteeTimeLimit(120);
 		list($ret, $items) = $gallery->search($query);
 
@@ -274,8 +274,8 @@ class BuildDerivativesTask extends MaintenanceTask {
 	}
 
 	/**
-	 * @see MaintenanceTask::requiresProgressBar
-	 */
+	* @see MaintenanceTask::requiresProgressBar
+	*/
 	public function requiresProgressBar() {
 		return true;
 	}

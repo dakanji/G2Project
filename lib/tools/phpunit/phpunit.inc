@@ -38,11 +38,11 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
- * interface Test {
- *    function run(&$aTestResult);
- *    function countTestCases();
- * }
- */
+* interface Test {
+*    function run(&$aTestResult);
+*    function countTestCases();
+* }
+*/
 
 function trace($msg) {
 	return;
@@ -50,66 +50,58 @@ function trace($msg) {
 	flush();
 }
 
-if (phpversion() >= '4') {
-	function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
-		global $PHPUnit_testRunning;
 
-		if ($errno == 2048) {
-			/*
-			 * We're ignoring E_STRICT for now because of PHP 5's retarded inability
-			 * to allow us to use standard PHP4 constructs like 'var'.
-			 */
-			return;
-		}
+function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
+	global $PHPUnit_testRunning;
 
-		if (!(error_reporting() & 8192) && $errno == 8192) {
-			/*
-			 * We're ignoring E_DEPRECATED to avoid the "Assigning the return value of new by
-			 * reference" deprecation warning.
-			 */
-			return;
-		}
-
+	if (!(error_reporting() & E_DEPRECATED) && $errno == E_DEPRECATED) {
 		/*
-		 * Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
-		 * file_exists. Ignore these errors.
-		 */
-		if (error_reporting() == 0 && DIRECTORY_SEPARATOR == '\\') {
-			global $gallery;
-
-			if (isset($gallery)) {
-				$templateDir = $gallery->getConfig('data.smarty.templates_c');
-
-				if (strpos($errstr, 'unlink(' . $templateDir) !== false) {
-					return;
-				}
-			}
-		}
-
-		$message = '<B>PHP ERROR:</B> ' . $errstr;
-
-		if (function_exists('debug_backtrace')) {
-			$traceSource = debug_backtrace();
-
-			foreach ($traceSource as $traceEntry) {
-				// Trace with call_user_func may miss file/line in an entry
-				$buf = ' <B>in</B> ' . (isset($traceEntry['file']) ? $traceEntry['file'] : '??');
-
-				if (isset($traceEntry['class']) && isset($traceEntry['function'])) {
-					$buf .= " ($traceEntry[class]::$traceEntry[function]) ";
-				} elseif (isset($traceEntry['function'])) {
-					$buf .= " ($traceEntry[function]) ";
-				}
-				$buf    .= ' <B>at line</B> ' . (isset($traceEntry['line']) ? $traceEntry['line'] : '??');
-				$trace[] = $buf;
-			}
-			$message .= join('<BR>', $trace);
-		} else {
-			$message .= ' <B>in</B> ' . $errfile . ' <B>at line</B> ' . $errline;
-		}
-		$PHPUnit_testRunning[0]->fail($message);
+		* We're ignoring E_DEPRECATED to avoid the "Assigning the return value of new by
+		* reference" deprecation warning.
+		*/
+		return;
 	}
+
+	/*
+	* Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
+	* file_exists. Ignore these errors.
+	*/
+	if (error_reporting() == 0 && DIRECTORY_SEPARATOR == '\\') {
+		global $gallery;
+
+		if (isset($gallery)) {
+			$templateDir = $gallery->getConfig('data.smarty.templates_c');
+
+			if (strpos($errstr, 'unlink(' . $templateDir) !== false) {
+				return;
+			}
+		}
+	}
+
+	$message = '<B>PHP ERROR:</B> ' . $errstr;
+
+	if (function_exists('debug_backtrace')) {
+		$traceSource = debug_backtrace();
+
+		foreach ($traceSource as $traceEntry) {
+			// Trace with call_user_func may miss file/line in an entry
+			$buf = ' <B>in</B> ' . (isset($traceEntry['file']) ? $traceEntry['file'] : '??');
+
+			if (isset($traceEntry['class']) && isset($traceEntry['function'])) {
+				$buf .= " ($traceEntry[class]::$traceEntry[function]) ";
+			} elseif (isset($traceEntry['function'])) {
+				$buf .= " ($traceEntry[function]) ";
+			}
+			$buf    .= ' <B>at line</B> ' . (isset($traceEntry['line']) ? $traceEntry['line'] : '??');
+			$trace[] = $buf;
+		}
+		$message .= join('<BR>', $trace);
+	} else {
+		$message .= ' <B>in</B> ' . $errfile . ' <B>at line</B> ' . $errline;
+	}
+	$PHPUnit_testRunning->fail($message);
 }
+
 
 class PHPUnitException {
 	// Emulate a Java exception, sort of...
@@ -135,6 +127,68 @@ class Assert {
 		if (! $boolean) {
 			$this->fail($message);
 		}
+	}
+
+	/**
+	* Asserts that a condition is true or false.
+	*
+	* @param  boolean
+	* @param  string
+	* @access public
+	*/
+	public function assert($condition, $message = '') {
+		$ret = 'null';
+		if (!empty($message)) {
+			$string = trim($message) . ' ';
+		}
+		if ($condition === 'true') {
+			$message = sprintf('%sexpected TRUE, actual FALSE', $string);
+			$ret = $this->_assertHelperTrue($condition, $message);
+		} elseif ($condition === 'false') {
+			$message = sprintf('%sexpected FALSE, actual TRUE', $string);
+			$ret = $this->_assertHelperFalse($condition, $message);
+		}
+		if ($ret != 'null') {
+			$this->fail($ret);
+		}
+	}
+
+	/**
+	* Helps assert that a condition is true.
+	*
+	* @param  boolean
+	* @param  string
+	* @access private
+	*/
+	private function _assertHelperTrue($condition, $message = '') {
+		$message = sprintf(
+			'%sexpected TRUE, actual FALSE',
+			!empty($message) ? $message . ' ' : ''
+		);
+
+		if (!$condition) {
+			return $message;
+		}
+		return 'null';
+	}
+
+	/**
+	* Helps assert that a condition is false.
+	*
+	* @param  boolean
+	* @param  string
+	* @access private
+	*/
+	private function _assertHelperFalse($condition, $message = '') {
+		$message = sprintf(
+			'%sexpected FALSE, actual TRUE',
+			!empty($message) ? $message . ' ' : ''
+		);
+
+		if (!$condition) {
+			return $message;
+		}
+		return 'null';
 	}
 
 	public function assertEquals($expected, $actual, $message = 0) {
@@ -299,16 +353,15 @@ class TestCase extends Assert {
 	}
 
 	public function runTest() {
-		global $PHPUnit_testRunning, $gallery;
-		$gallery->runEval('$PHPUnit_testRunning[0] = & $this;');
 		// Saved ref to current TestCase, so that the error handler can access it.
+		$GLOBALS['PHPUnit_testRunning'] =& $this;
 
 		$old_handler = set_error_handler('PHPUnit_error_handler');
 		// errors will now be handled by our error handler
 
 		$name = $this->name();
 
-		if (phpversion() >= '4' && ! method_exists($this, $name)) {
+		if (!method_exists($this, $name)) {
 			$this->error("Method '$name' does not exist");
 		} else {
 			$ret = $this->$name();

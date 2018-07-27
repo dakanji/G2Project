@@ -333,7 +333,7 @@ class Gallery {
 	 */
 	public function setPlatform(&$platform) {
 		unset($this->_platform);
-		$this->_platform =& $platform;
+		$this->_platform = $platform;
 	}
 
 	/**
@@ -569,7 +569,7 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator        = GalleryTranslator::getInstance();
+			$this->_translator        = GalleryTranslator::getSingleton();
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {

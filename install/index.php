@@ -97,12 +97,12 @@ require_once $g2Base . 'modules/core/classes/GalleryTranslator.class';
 
 if (empty($_SESSION['language'])) {
 	// Select language based on preferences sent from browser
-	$_SESSION['language'] = GalleryTranslator::getInstance()->getLanguageCodeFromRequest();
+	$_SESSION['language'] = GalleryTranslator::getSingleton()->getLanguageCodeFromRequest();
 }
 
 if (function_exists('dgettext')) {
 	$gallery    = new GalleryStub();
-	$translator = new GalleryTranslator();
+	$translator = GalleryTranslator::getSingleton();
 	$translator->init($_SESSION['language'], true);
 	unset($gallery);
 	bindtextdomain('gallery2_install', dirname(__DIR__) . '/locale');

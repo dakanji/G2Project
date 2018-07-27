@@ -79,7 +79,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
 

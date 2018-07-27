@@ -71,8 +71,8 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 					false,
 					sprintf(
 						'Expected error code (%s) but received (%s)',
-						implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-						implode(' | ', $ret ? '' : GalleryStatus::getErrorCodeConstants(
+						implode(' | ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode)),
+						implode(' | ', $ret ? '' : GalleryStatus::getSingleton()->getErrorCodeConstants(
 							$ret->getErrorCode()
 						))
 					)

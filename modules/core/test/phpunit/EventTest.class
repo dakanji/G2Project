@@ -38,6 +38,7 @@ class EventTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$EventTestPlatform = new EventTestPlatform();
 		$gallery->setPlatform(new EventTestPlatform());
 		$this->_platform =& $gallery->getPlatform();
 
@@ -98,7 +99,8 @@ class EventTest extends GalleryTestCase {
 		GalleryCoreApi::registerEventListener($eventName, $listener);
 
 		$event                   = GalleryCoreApi::newEvent($eventName);
-		$event->setEntity($bogus = 'bogus entity');
+		$bogus = 'bogus entity';
+		$event->setEntity($bogus);
 		$event->setData('some data');
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
 
@@ -117,7 +119,8 @@ class EventTest extends GalleryTestCase {
 		GalleryCoreApi::registerEventListener($eventName, $listener);
 
 		$event                   = GalleryCoreApi::newEvent($eventName);
-		$event->setEntity($bogus = 'bogus entity');
+		$bogus = 'bogus entity';
+		$event->setEntity($bogus);
 		$event->setData('send result');
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
 

@@ -428,13 +428,21 @@ class GalleryTestCase extends TestCase {
 
 	public function assert($boolean, $message = null) {
 		global $gallery;
-		$message = $gallery->getDebugBuffer() . $message;
+/*
+		if(is_array($message)) {
+			$message = implode(' ', $message);
+		}
+*/		$message = $gallery->getDebugBuffer() . $message;
 		parent::assert($boolean, $message);
 	}
 
 	public function assertEquals($expected, $actual, $message = null) {
 		global $gallery;
-		$message = $gallery->getDebugBuffer() . $message;
+/*
+		if(is_array($message)) {
+			$message = implode(' ', $message);
+		}
+*/		$message = $gallery->getDebugBuffer() . $message;
 		$err     = $this->DeepCompare($expected, $actual);
 
 		if ($err) {
@@ -558,10 +566,6 @@ class GalleryTestCase extends TestCase {
 
 		if ($ret) {
 			return array($ret, null);
-		}
-
-		if (get_magic_quotes_gpc()) {
-			$inputFile = addslashes($inputFile);
 		}
 
 		$ret = $item->create(
@@ -1261,7 +1265,9 @@ class GalleryTestCase extends TestCase {
 
 		if (isset($registry['hints'][$classType])) {
 			foreach ($registry['hints'][$classType] as $hint => $implementation) {
-				list($implementationId, $ignore) = each($implementation);
+				//list($implementationId, $ignore) = each($implementation);
+				$implementationId = array_keys($implementation)[0];
+				$ignore = array_values($implementation)[0];
 
 				if ($implementationId == $implId) {
 					unset($registry['hints'][$classType][$hint][$implId]);
@@ -1290,7 +1296,7 @@ class GalleryTestCase extends TestCase {
 		if (!$ret) {
 			$this->fail(sprintf(
 				'Failed to get error %s%s',
-				join(', ', GalleryStatus::getErrorCodeConstants($errorCode)),
+				join(', ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode)),
 				$message ? '<br/>' . $message : ''
 			));
 
@@ -1302,8 +1308,8 @@ class GalleryTestCase extends TestCase {
 		) {
 			$this->fail(sprintf(
 				'Expected error %s, received %s<br>%s%s',
-				join(', ', GalleryStatus::getErrorCodeConstants($errorCode)),
-				join(', ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode())),
+				join(', ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode)),
+				join(', ', GalleryStatus::getSingleton()->getErrorCodeConstants($ret->getErrorCode())),
 				$ret->getAsHtml(),
 				$message ? '<br/>' . $message : ''
 			));

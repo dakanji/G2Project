@@ -165,7 +165,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 
 		$this->_installedModuleVersion = GalleryModule::getApiVersion();
 		$this->_installedCoreVersion   = GalleryCoreApi::getApiVersion();
-		$this->_installedThemeVersion  = GalleryTheme::getApiVersion();
+		$this->_installedThemeVersion  = GalleryTheme::getSingleton()->getApiVersion();
 
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 

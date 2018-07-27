@@ -803,7 +803,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 		$this->assertEquals('{"status":"error"}', $results);
 		$this->assert(!empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assert(MockGalleryStatus::wasPutInSession(), 'Error not put into the session');
+		$this->assert(MockGalleryStatus::getSingleton()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -828,7 +828,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 		$this->assertEquals('{"status":"error"}', $results);
 		$this->assert(!empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assert(MockGalleryStatus::wasPutInSession(), 'Error not put into the session');
+		$this->assert(MockGalleryStatus::getSingleton()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -855,7 +855,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals('{"status":"error"}', $results);
 		$this->assert(!empty($mockStorage->checkPointed), 'Checkpoint did not occur');
 		$this->assert(!empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assert(MockGalleryStatus::wasPutInSession(), 'Error not put into the session');
+		$this->assert(MockGalleryStatus::getSingleton()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 }
@@ -865,6 +865,19 @@ class MockGalleryStatus {
 		// Put something in here so that empty($this) won't return true
 		$this->something = 1;
 	}
+
+	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new MockGalleryStatus();
+ 		}
+
+ 		return $singleton;
+ 	}
 
 	public function putInSession() {
 		$_GET['putInSession'] = 1;

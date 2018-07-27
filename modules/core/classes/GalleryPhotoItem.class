@@ -90,7 +90,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 	 *        of copy (default is false).
 	 * @return GalleryStatus a status code
 	 */
-	public function createDataItem(
+	public function create(
 		$parentId,
 		$imageFileName,
 		$mimeType,

@@ -36,29 +36,34 @@ class GalleryTheme extends GalleryPlugin {
 	* @var array
 	* @access private
 	*/
-	public $_requiredThemeApi;
+	private $_requiredThemeApi;
 
 	/**
 	* Which of the standard theme settings this theme supports.
 	* @var array
 	* @access private
 	*/
-	public $_standardSettings = array();
+	private $_standardSettings = array();
 
 	/**
 	* Is the page we're rendering cacheable?
 	* @var boolean
 	* @access private
 	*/
-	public $_cacheablePage = false;
+	private $_cacheablePage = false;
 
 	/**
-	* Constructor to prevent PHP Notices in upgrader and AdminThemes.inc when old themes with a
-	* theme.inc are still in the themes folder.  The old themes call $this->GalleryTheme() in their
-	* constructor.
-	*/
-	public function __construct() {
-	}
+	 * Load as Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new GalleryTheme();
+ 		}
+
+ 		return $singleton;
+ 	}
 
 	/**
 	* Return the major and minor version of the GalleryTheme API.
@@ -70,7 +75,7 @@ class GalleryTheme extends GalleryPlugin {
 	*
 	* @return array major number, minor number
 	*/
-	public static function getApiVersion() {
+	public function getApiVersion() {
 		return array(2, 6);
 	}
 

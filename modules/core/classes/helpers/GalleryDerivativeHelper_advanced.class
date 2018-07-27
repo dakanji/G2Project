@@ -732,6 +732,7 @@ class GalleryDerivativeHelper_advanced {
 
 			// Our merge is complete, so convert our operations back into a string
 			$results = '';
+			$resultsArray = array();
 
 			for ($i = 0; $i < sizeof($operations1); $i++) {
 				$op = $operations1[$i]['op'];
@@ -739,10 +740,10 @@ class GalleryDerivativeHelper_advanced {
 				if (!empty($operations1[$i]['args'])) {
 					$op .= '|' . join(',', $operations1[$i]['args']);
 				}
-				$results[] = $op;
+				$resultsArray[] = $op;
 			}
 
-			if (!empty($results)) {
+			if (!empty($resultsArray)) {
 				$results = join(';', $results);
 			}
 		}

@@ -57,7 +57,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function _setupUpdateUtilitiesResponses(&$utilities, $index, $case, $pluginType = 'module') {
 		$coreApi   = GalleryCoreApi::getApiVersion();
-		$pluginApi = $pluginType == 'module' ? GalleryModule::getApiVersion() : GalleryTheme::getApiVersion();
+		$pluginApi = $pluginType == 'module' ? GalleryModule::getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
 		$pluginId  = 'test' . ucfirst($pluginType);
 
 		$header              = $index["{$pluginType}s"][$pluginId]['header'];
@@ -1503,7 +1503,7 @@ class RepositoryTest extends GalleryTestCase {
 		$coreApiString   = join('.', $coreApi);
 		$moduleApi       = GalleryModule::getApiVersion();
 		$moduleApiString = join('.', $moduleApi);
-		$themeApi        = GalleryTheme::getApiVersion();
+		$themeApi        = GalleryTheme::getSingleton()->getApiVersion();
 		$themeApiString  = join('.', $themeApi);
 
 		switch ($testCase) {

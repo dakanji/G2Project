@@ -382,7 +382,7 @@ class GdFunctionality {
 	 *
 	 * @return GalleryStatus
 	 */
-	public function imageJpeg($res, $filename, $quality) {
+	public function imageJpeg($res, $filename, $quality = 75) {
 		if (!function_exists('imageJpeg')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}

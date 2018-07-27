@@ -95,7 +95,7 @@ class SystemInfoTask extends MaintenanceTask {
 			'text' => 'API = Core %s, Module %s, Theme %s, Embed %s',
 			'arg1' => implode('.', GalleryCoreApi::getApiVersion()),
 			'arg2' => implode('.', GalleryModule::getApiVersion()),
-			'arg3' => implode('.', GalleryTheme::getApiVersion()),
+			'arg3' => implode('.', GalleryTheme::getSingleton()->getApiVersion()),
 			'arg4' => implode('.', GalleryEmbed::getApiVersion()),
 		));
 
@@ -157,7 +157,7 @@ class SystemInfoTask extends MaintenanceTask {
 			$core->translate('Operating system') . ' = ' . php_uname(),
 			$core->translate('Default theme') . ' = ' . $params['default.theme'],
 			$core->translate('gettext') . ' = ' .
-			(GalleryTranslator::getInstance()->canTranslate() ? $core->translate('enabled') : $core->translate('disabled')),
+			(GalleryTranslator::getSingleton()->canTranslate() ? $core->translate('enabled') : $core->translate('disabled')),
 			$core->translate('Locale') . ' = ' . $locale,
 			$core->translate('Browser') . ' = ' . GalleryUtilities::getServerVar('HTTP_USER_AGENT'),
 		);

@@ -110,7 +110,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 				'id'                => 'testTheme',
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryTheme::getApiVersion(),
+				'requiredPluginApi' => GalleryTheme::getSingleton()->getApiVersion(),
 			),
 		), $pluginInfo, 'Plugin information incorrect.');
 	}

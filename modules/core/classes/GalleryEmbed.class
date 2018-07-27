@@ -567,7 +567,7 @@ class GalleryEmbed {
 		}
 
 		if (isset($args['language'])) {
-			list($languageCode) = GalleryTranslator::getInstance()->getSupportedLanguageCode(
+			list($languageCode) = GalleryTranslator::getSingleton()->getSupportedLanguageCode(
 				$args['language']
 			);
 			$user->setLanguage($languageCode);
@@ -1235,7 +1235,7 @@ class GalleryEmbed {
 			$head = $template->getVariable('head');
 
 			if (!empty($head['tpl'])) {
-				list($tpl)            = each($head['tpl']);
+				$tpl = array_keys($head['tpl'])[0];
 				list($ret, $headHtml) = $template->fetch("gallery:$tpl");
 
 				if ($ret) {

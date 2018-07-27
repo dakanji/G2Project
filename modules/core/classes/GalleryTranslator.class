@@ -56,28 +56,22 @@ class GalleryTranslator {
 	 */
 	public $_isRightToLeft;
 
-	/**
-	*
-	* @var Singleton
-	*/
-	private static $instance;
-
-	private function __construct() {
+	protected function __construct() {
 		$this->_boundDomains = array();
 	}
 
 	/**
-	* Singleton Pattern
-	*
-	* See https://stackoverflow.com/a/3312860
-	* @static
-	*/
-	public static function getInstance() {
-		if (is_null(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+	 * Load Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new GalleryTranslator();
+ 		}
+
+ 		return $singleton;
+ 	}
 
 	/**
 	 * Can we translate?

@@ -47,7 +47,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryDataCache::reset();
 	}
 
-	public function _createUser($fields = Array) {
+	public function _createUser($fields = Array()) {
 		list($ret, $user) = $this->_createRandomUser($this->_tag . '-' . count($this->_userNames));
 
 		if ($ret) {

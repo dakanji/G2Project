@@ -38,7 +38,8 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$this->_platform =& $gallery->getPlatform();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');

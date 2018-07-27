@@ -46,20 +46,19 @@ class DatabaseExportTest extends GalleryTestCase {
 		list($ret, $info) = GalleryCoreApi::loadPlugin('theme', 'matrix');
 
 		if ($ret) {
-			echo $ret->getAsHtml();
+			list($ret, $info) = GalleryCoreApi::loadPlugin('theme', 'carbon');
 
-			return $ret;
-		}
-		list($ret, $info) = GalleryCoreApi::loadPlugin('theme', 'carbon');
+			if ($ret) {
+				echo $ret->getAsHtml();
 
-		if ($ret) {
-			echo $ret->getAsHtml();
-
-			return $ret;
+				return $ret;
+			}
 		}
 
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage     = new UnitTestStorage();
 		$storage               =& $gallery->getStorage();
 		$storage->_tablePrefix = 'g2_';
@@ -70,6 +69,7 @@ class DatabaseExportTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 		$phpVm    = $gallery->getPhpVm();
