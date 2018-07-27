@@ -115,7 +115,11 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			return $ret;
 		}
 
-		list($ret, $repositories, $repositoryInitErrorCount) = GalleryRepository::getRepositories();
+		list(
+			$ret,
+			$repositories,
+			$repositoryInitErrorCount
+		) = GalleryRepository::getSingleton()->getRepositories();
 
 		if ($ret) {
 			return $ret;
@@ -468,7 +472,11 @@ class AdminLanguageManagerView extends GalleryView {
 			'themes'  => $platform->is_writeable($AdminLanguages['basePath'] . '/themes'),
 		);
 
-		list($ret, $repositories, $repositoryInitErrorCount) = GalleryRepository::getRepositories();
+		list(
+			$ret,
+			$repositories,
+			$repositoryInitErrorCount
+		) = GalleryRepository::getSingleton()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);

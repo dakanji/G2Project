@@ -808,7 +808,7 @@ class GalleryUtilities {
 			'/&#([xa-f\d]+);/mi',
 	        function($matches) {
 	            foreach($matches as $match) {
-	                return "GalleryUtilities::unicodeValueToUtf8Value('\\1')";
+	                return GalleryUtilities::unicodeValueToUtf8Value($match);
 	            }
 	        },
 			$inString

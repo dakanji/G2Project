@@ -72,6 +72,19 @@ class GalleryTemplateAdapter {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new GalleryTemplateAdapter();
+ 		}
+
+ 		return $singleton;
+ 	}
+
+	/**
 	 * Set the theme
 	 * @param GalleryTheme $theme
 	 */
@@ -739,8 +752,13 @@ class GalleryTemplateAdapter {
 			}
 		}
 
-		return 'gbAdminLink ' . GalleryTemplateAdapter::_safeCssName($linkId) .
-		(isset($fallbackLinkId) ? ' ' . GalleryTemplateAdapter::_safeCssName($fallbackLinkId) : '');
+		$tLinkId = GalleryTemplateAdapter::getSingleton()->_safeCssName($linkId);
+		if (isset($fallbackLinkId)) {
+			$fLinkId = GalleryTemplateAdapter::getSingleton()->_safeCssName($linkId);
+		} else {
+			$fLinkId = ' ';
+		}
+		return trim('gbAdminLink ' . $tLinkId . $fLinkId);
 	}
 
 	/**
@@ -778,9 +796,19 @@ class GalleryTemplateAdapter {
 					'urlParams' => $link['params'],
 				));
 			}
-			$tag    = '<a href="' . $urlGenerator->generateUrl($link['params'], $link['options']) . '"'
-			. (isset($link['script']) ? ' onclick="' . $link['script'] . ';return false"' : '')
-			. (isset($link['attrs']) ? ' ' . $link['attrs'] : '');
+
+			$linkURL = $urlGenerator->generateUrl($link['params'], $link['options']);
+			if(isset($link['script'])) {
+				$linkScript = ' onclick="' . $link['script'] . ';return false"';
+			} else {
+				$linkScript = '';
+			}
+			if(isset($link['attrs'])) {
+				$linkAttrs = $link['attrs'];
+			} else {
+				$linkAttrs = '';
+			}
+			$tag    = '<a href="' . $linkURL . '"' . $linkScript . ' ' . $linkAttrs;
 			$endTag = '</a>';
 		}
 

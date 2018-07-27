@@ -487,7 +487,7 @@ class GalleryPlugin {
 
 		/** @todo Change scanPlugin to be called as a static function or helper function */
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
-		list($ret, $repositories) = GalleryRepository::getRepositories();
+		list($ret, $repositories) = GalleryRepository::getSingleton()->getRepositories();
 
 		if ($ret) {
 			return $ret;

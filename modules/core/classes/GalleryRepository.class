@@ -51,6 +51,19 @@ class GalleryRepository {
 	public $_source;
 
 	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new GalleryRepository();
+ 		}
+
+ 		return $singleton;
+ 	}
+
+	/**
 	 * Return a set of all the repositories that are currently active.  The error count indicates
 	 * the number of repositories that failed to initialize for some reason (perhaps from a
 	 * malformed local copy of the index).  The fix for this is to download a new version of the
@@ -63,7 +76,6 @@ class GalleryRepository {
 	 * @return array GalleryStatus a status code
 	 *               array repository name => GalleryRepository the repository
 	 *               int error count (repositories that failed to load for some reason)
-	 * @static
 	 */
 	public static function getRepositories(
 		$sources = array(),
@@ -74,7 +86,11 @@ class GalleryRepository {
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
 			if (empty($sources)) {
-				list($ret, $sources) = GalleryCoreApi::getPluginParameter('module', 'core', 'core.repositories');
+				list($ret, $sources) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'core',
+					'core.repositories'
+				);
 
 				if ($ret) {
 					return array($ret, null, null);
@@ -212,7 +228,10 @@ class GalleryRepository {
 		);
 
 		// Get installed packages meta data.
-		list($ret, $installedPackages) = $this->_utilities->getPluginPackages($pluginType, $pluginId);
+		list($ret, $installedPackages) = $this->_utilities->getPluginPackages(
+			$pluginType,
+			$pluginId
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -265,7 +284,10 @@ class GalleryRepository {
 		$upgradeInfo['base']['locked']         = $locked;
 
 		// Check if any languages have been updated.
-		list($ret, $languages) = $this->_index->getAvailableLanguagesInPlugin($pluginType, $pluginId);
+		list($ret, $languages) = $this->_index->getAvailableLanguagesInPlugin(
+			$pluginType,
+			$pluginId
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -276,7 +298,9 @@ class GalleryRepository {
 
 		if ($forBasePackageUpgrade || $upgradeInfo['base']['relation'] == 'equal') {
 			foreach ($languages as $language => $revision) {
-				list($ret, $languageDescription) = GalleryCoreApi::getLanguageDescription($language);
+				list($ret, $languageDescription) = GalleryCoreApi::getLanguageDescription(
+					$language
+				);
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
@@ -621,7 +645,11 @@ class GalleryRepository {
 				$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
 
 				foreach ($packages as $package => $value) {
-					list($ret, $packageUrl) = $this->_index->getPackageUrl($pluginType, $pluginId, $package);
+					list($ret, $packageUrl) = $this->_index->getPackageUrl(
+						$pluginType,
+						$pluginId,
+						$package
+					);
 
 					if ($ret) {
 						echo $ret->getAsHtml();
@@ -741,7 +769,12 @@ class GalleryRepository {
 	 *        boolean a flag indicating the plugin should be re-activated
 	 *        array string status messages indicating problems encounterd
 	 */
-	public function downloadPackagesForPlugin($pluginType, $pluginId, $pluginDownloadData, &$callback) {
+	public function downloadPackagesForPlugin(
+		$pluginType,
+		$pluginId,
+		$pluginDownloadData,
+		&$callback
+	) {
 		global $gallery;
 
 		$status             = array();
@@ -1147,7 +1180,10 @@ class GalleryRepository {
 
 		$utilities = $this->_utilities;
 
-		list($ret, $aggregateFile) = $utilities->downloadAggregatePackages($this->_source, $filesToDownload);
+		list($ret, $aggregateFile) = $utilities->downloadAggregatePackages(
+			$this->_source,
+			$filesToDownload
+		);
 
 		if ($ret) {
 			return array($ret, null, null);

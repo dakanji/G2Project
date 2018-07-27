@@ -121,7 +121,10 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				GalleryUtilities::putRequestVariable('pluginId', $pluginId);
 				GalleryUtilities::putRequestVariable('pluginType', $pluginType);
 			} else {
-				list($ret, $repositories) = GalleryRepository::getRepositories();
+				list(
+					$ret,
+					$repositories
+				) = GalleryRepository::getSingleton()->getRepositories();
 
 				if ($ret) {
 					return array(null, $ret);
@@ -175,7 +178,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 		}
 
 		// Init repository.
-		list($ret, $repositories) = GalleryRepository::getRepositories();
+		list($ret, $repositories) = GalleryRepository::getSingleton()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);
@@ -245,7 +248,10 @@ class AdminRepositoryDownloadView extends GalleryView {
 			$upgradeData['languages']                  = $condensedData;
 			$upgradeData['languageCount']              = count($upgradeData['languages']);
 			$upgradeData['repository']                 = $source;
-			list($ret, $upgradeData['repositoryName']) = GalleryRepository::translateRepositoryName($source);
+			list(
+				$ret,
+				$upgradeData['repositoryName']
+			) = GalleryRepository::getSingleton()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);

@@ -131,7 +131,10 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testSetMaintenanceModeTrue() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
@@ -175,7 +178,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testSetMaintenanceModeFalse() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		$gallery->setConfig('mode.maintenance', true);
@@ -218,7 +223,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testSetMaintenanceModeUrl() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
@@ -261,7 +268,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testSetMaintenanceModeEqual() {
 		global $gallery;
-		$gallery->setPlatform(new UnitTestPlatform());
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 
 		$current = $gallery->getConfig('mode.maintenance');
 		$ret     = GalleryCoreApi::setMaintenanceMode($current);

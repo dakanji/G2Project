@@ -61,8 +61,9 @@ class UserHelperTest extends GalleryTestCase {
 
 		$gallery->_session = new UserHelperTestSession();
 
+		$UserHelperTestMockUser = new UserHelperTestMockUser();
 		$event = GalleryCoreApi::newEvent('Gallery::Login');
-		$event->setEntity(new UserHelperTestMockUser());
+		$event->setEntity($UserHelperTestMockUser);
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
 
 		if ($ret) {

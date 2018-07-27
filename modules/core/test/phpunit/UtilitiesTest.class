@@ -43,7 +43,8 @@ class UtilitiesTest extends GalleryTestCase {
 
 		$this->_mkdir        = array();
 		$this->_savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new UtilitiesTestPlatform($this));
+		$UtilitiesTestPlatform = new UtilitiesTestPlatform($this);
+		$gallery->setPlatform($UtilitiesTestPlatform);
 
 		foreach (array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR') as $key) {
 			unset($_SERVER[$key]);
@@ -860,7 +861,8 @@ class UtilitiesTest extends GalleryTestCase {
 			array('/link', '/bar')
 		), 'symlink path');
 
-		$gallery->setPlatform(new UtilitiesTestWinPlatform());
+		$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
+		$gallery->setPlatform($UtilitiesTestWinPlatform);
 		$this->assert(GalleryUtilities::isPathInList(
 			'c:\foo\bar',
 			array('d:\\', 'C:\Foo')
@@ -1232,62 +1234,79 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function testUnicodeValueToUtf8Value() {
+		$testData = GalleryUtilities::unicodeValueToUtf8Value('2835');
 		$this->assertEquals(
 			"\xe0\xac\x93",
-			GalleryUtilities::unicodeValueToUtf8Value('2835'),
+			$testData,
 			'decimal'
 		);
+		$testData = GalleryUtilities::unicodeValueToUtf8Value('x0B13');
 		$this->assertEquals(
 			"\xe0\xac\x93",
-			GalleryUtilities::unicodeValueToUtf8Value('x0B13'),
+			$testData,
 			'hex'
 		);
+		$testData = GalleryUtilities::unicodeValueToUtf8Value('241');
 		$this->assertEquals(
 			"\xc3\xb1",
-			GalleryUtilities::unicodeValueToUtf8Value('241'),
+			$testData,
 			'decimal'
 		);
+		$testData = GalleryUtilities::unicodeValueToUtf8Value('xF1');
 		$this->assertEquals(
 			"\xc3\xb1",
-			GalleryUtilities::unicodeValueToUtf8Value('xF1'),
+			$testData,
 			'hex'
 		);
 
 		// Test 2^15 boundary
+		$testData = GalleryUtilities::unicodeValueToUtf8Value('x7FFF');
 		$this->assertEquals(
 			"\xe7\xbf\xbf",
-			GalleryUtilities::unicodeValueToUtf8Value('x7FFF'),
+			$testData,
 			'2^15 - 1'
 		);
-
+		$testData = GalleryUtilities::unicodeValueToUtf8Value('x8000');
 		$this->assertEquals(
 			"\xe8\x80\x80",
-			GalleryUtilities::unicodeValueToUtf8Value('x8000'),
+			$testData,
 			'2^15'
 		);
 	}
 
 	public function testUnicodeEntitiesToUtf8() {
+		$testData = GalleryUtilities::unicodeEntitiesToUtf8(
+			'foo &#2835; bar'
+		);
 		$this->assertEquals(
 			"foo \xe0\xac\x93 bar",
-			GalleryUtilities::unicodeEntitiesToUtf8('foo &#2835; bar')
+			$testData
 		);
 
+		$testData = GalleryUtilities::unicodeEntitiesToUtf8(
+			'accentu&#233;s. &#231;&#224; donne'
+		);
 		$this->assertEquals(
 			"accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne",
-			GalleryUtilities::unicodeEntitiesToUtf8('accentu&#233;s. &#231;&#224; donne')
+			$testData
 		);
 	}
 
 	public function testUtf8ToUnicodeEntities() {
+		$testData = GalleryUtilities::utf8ToUnicodeEntities(
+			"foo \xe0\xac\x93 bar"
+		);
 		$this->assertEquals(
 			'foo &#2835; bar',
-			GalleryUtilities::utf8ToUnicodeEntities("foo \xe0\xac\x93 bar")
+			$testData
 		);
 
+		$testData = GalleryUtilities::utf8ToUnicodeEntities(
+			"accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne"
+		);
 		$this->assertEquals(
 			'accentu&#233;s. &#231;&#224; donne',
-			GalleryUtilities::utf8ToUnicodeEntities("accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne")
+			$testData
 		);
 	}
 
@@ -1299,9 +1318,10 @@ class UtilitiesTest extends GalleryTestCase {
 		$utf8 = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
 		 "\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
 		 "\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
+		$testData = GalleryUtilities::utf8Substring($utf8, 0, 4);
 		$this->assertEquals(
 			"\xd0\xa0\xd1\x83\xd1\x81\xd1\x81",
-			GalleryUtilities::utf8Substring($utf8, 0, 4),
+			$testData,
 			'4 chars (ru), standard version'
 		);
 	}
@@ -1314,18 +1334,34 @@ class UtilitiesTest extends GalleryTestCase {
 			$backupValue = GalleryDataCache::get($key);
 		}
 		GalleryDataCache::remove($key);
-		$this->assert(!GalleryDataCache::containsKey($key), 'Could not remove a GDC var');
-		$this->assert(!GalleryUtilities::isEmbedded(), 'Should be not embedded');
+		$this->assert(
+			!GalleryDataCache::containsKey($key),
+			'Could not remove a GDC var'
+		);
+		$this->assert(
+			!GalleryUtilities::isEmbedded(),
+			'Should be not embedded'
+		);
+
 		GalleryDataCache::put($key, 1, true);
-		$this->assert(GalleryDataCache::containsKey($key), 'Could not set a GDC var');
-		$this->assert(GalleryUtilities::isEmbedded(), 'Should be embedded now');
+		$this->assert(
+			GalleryDataCache::containsKey($key),
+			'Could not set a GDC var'
+		);
+		$this->assert(
+			GalleryUtilities::isEmbedded(),
+			'Should be embedded now'
+		);
 
 		// Restore
 		if ($backupValue) {
 			GalleryDataCache::put($key, $backupValue, true);
 		} else {
 			GalleryDataCache::remove($key);
-			$this->assert(!GalleryDataCache::containsKey($key), 'Could not remove a GDC var');
+			$this->assert(
+				!GalleryDataCache::containsKey($key),
+				'Could not remove a GDC var'
+			);
 		}
 	}
 

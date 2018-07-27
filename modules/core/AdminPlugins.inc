@@ -147,7 +147,11 @@ class AdminPluginsView extends GalleryView {
 			return array($ret, null);
 		}
 
-		list($ret, $repositories, $repositoryInitErrorCount) = GalleryRepository::getRepositories();
+		list(
+			$ret,
+			$repositories,
+			$repositoryInitErrorCount
+		) = GalleryRepository::getSingleton()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);

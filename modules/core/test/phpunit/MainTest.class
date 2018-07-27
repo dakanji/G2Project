@@ -707,7 +707,7 @@ class MainTest extends GalleryTestCase {
 		), $g2Data, 'returned data');
 		$this->assert(
 			$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
-			'wrong Cache-Control header: ' . $_REQUEST['header']
+			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
 		);
 	}
 
@@ -735,7 +735,7 @@ class MainTest extends GalleryTestCase {
 		), $g2Data, 'returned data');
 		$this->assert(
 			!$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
-			'wrong Cache-Control header: ' . $_REQUEST['header']
+			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
 		);
 	}
 }

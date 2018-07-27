@@ -369,7 +369,10 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		$increment       = 1.0 / ($indexWeight * count($repositories) + count($pluginStatus['module']) + count($pluginStatus['theme']));
 
 		foreach ($repositories as $source => $repository) {
-			list($ret, $message) = GalleryRepository::translateRepositoryName($source);
+			list(
+				$ret,
+				$message
+			) = GalleryRepository::getSingleton()->translateRepositoryName($source);
 
 			if ($ret) {
 				return $ret;

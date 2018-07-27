@@ -41,6 +41,19 @@ class GalleryTestCase extends TestCase {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton($methodName = null) {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new GalleryTestCase($methodName);
+ 		}
+
+ 		return $singleton;
+ 	}
+
+	/**
 	 * Get the entity counter listener which contains the types and number of elements deleted.
 	 * Usage: $counter =& GalleryTestCase::getEntityCounter();
 	 * @return EntityCounterEventListener
@@ -428,21 +441,13 @@ class GalleryTestCase extends TestCase {
 
 	public function assert($boolean, $message = null) {
 		global $gallery;
-/*
-		if(is_array($message)) {
-			$message = implode(' ', $message);
-		}
-*/		$message = $gallery->getDebugBuffer() . $message;
+		$message = $gallery->getDebugBuffer() . $message;
 		parent::assert($boolean, $message);
 	}
 
 	public function assertEquals($expected, $actual, $message = null) {
 		global $gallery;
-/*
-		if(is_array($message)) {
-			$message = implode(' ', $message);
-		}
-*/		$message = $gallery->getDebugBuffer() . $message;
+		$message = $gallery->getDebugBuffer() . $message;
 		$err     = $this->DeepCompare($expected, $actual);
 
 		if ($err) {
@@ -954,12 +959,16 @@ class GalleryTestCase extends TestCase {
 	}
 
 	/**
-	 * @static
+	 * Compare iteratively
 	 */
 	public function DeepCompare($obj1, $obj2, $context = null) {
 		if (gettype($obj1) !== gettype($obj2)) {
-			return "[$context] $obj1 type (" . gettype($obj1)
-			. ") !== $obj2 type (" . gettype($obj2) . ')';
+			$retval  = "[$context] $obj1 type (";
+			$retval .= gettype($obj1);
+			$retval .= ") !== $obj2 type (";
+			$retval .= gettype($obj2) . ')';
+			
+			return $retval;
 		}
 
 		if (is_object($obj1)) {
@@ -991,7 +1000,7 @@ class GalleryTestCase extends TestCase {
 					return "[$context] $key1 !== $key2";
 				}
 
-				$err = GalleryTestCase::DeepCompare($obj1[$key1], $obj2[$key2], "$context $key1");
+				$err = $this->DeepCompare($obj1[$key1], $obj2[$key2], "$context $key1");
 
 				if (isset($err)) {
 					return $err;

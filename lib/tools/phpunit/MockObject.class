@@ -93,7 +93,10 @@ class MockObject {
 		);
 		printf(
 			'<b>Mismatch At</b>: %s<br/>',
-			htmlspecialchars(GalleryTestCase::DeepCompare($request, $expected[1]))
+			htmlspecialchars(GalleryTestCase::getSingleton()->DeepCompare(
+				$request,
+				$expected[1]
+			))
 		);
 
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');

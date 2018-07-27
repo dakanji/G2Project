@@ -39,7 +39,7 @@ class EventTest extends GalleryTestCase {
 		}
 
 		$EventTestPlatform = new EventTestPlatform();
-		$gallery->setPlatform(new EventTestPlatform());
+		$gallery->setPlatform($EventTestPlatform);
 		$this->_platform =& $gallery->getPlatform();
 
 		// Register a new module

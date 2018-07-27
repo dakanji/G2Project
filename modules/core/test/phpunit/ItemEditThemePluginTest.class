@@ -72,12 +72,14 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		$this->_markForCleanup($this->_album);
 
-		$gallery->setPlatform(new ItemEditThemeTestPlatform($gallery->getPlatform()));
+		$Platform = $gallery->getPlatform();
+		$ItemEditThemeTestPlatform = new ItemEditThemeTestPlatform($Platform);
+		$gallery->setPlatform($ItemEditThemeTestPlatform);
 
 		$this->_preferred = null;
 
 		// Reset test theme
-		ItemEditThemeControllerTestTheme::reset();
+		ItemEditThemeControllerTestTheme::getSingleton()->reset();
 	}
 
 	public function _setTheme(&$item, $themeId) {
@@ -128,7 +130,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(rows, 3)',
 				'setParameter(columns, 4)',
 			),
-			ItemEditThemeControllerTestTheme::getMap()
+			ItemEditThemeControllerTestTheme::getSingleton()->getMap()
 		);
 	}
 
@@ -170,7 +172,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(rows, 3)',
 				sprintf('removeParameter(columns, %d)', $this->_album->getId()),
 			),
-			ItemEditThemeControllerTestTheme::getMap()
+			ItemEditThemeControllerTestTheme::getSingleton()->getMap()
 		);
 	}
 
@@ -199,7 +201,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(columns, 4)',
 				'setParameter(columns, 4)',
 			),
-			ItemEditThemeControllerTestTheme::getMap()
+			ItemEditThemeControllerTestTheme::getSingleton()->getMap()
 		);
 	}
 
@@ -225,7 +227,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(rows, 3)',
 				'setParameter(columns, 4)',
 			),
-			ItemEditThemeControllerTestTheme::getMap()
+			ItemEditThemeControllerTestTheme::getSingleton()->getMap()
 		);
 	}
 
@@ -344,6 +346,21 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
  * Test theme
  */
 class ItemEditThemeControllerTestTheme {
+
+	/**
+	 * Load as Singleton
+	 */
+	 public static function getSingleton() {
+ 		static $singleton;
+
+ 		if (!isset($singleton)) {
+ 			$singleton = new ItemEditThemeControllerTestTheme();
+ 		}
+
+ 		return $singleton;
+ 	}
+
+
 	public function getId() {
 		return 'ItemEditThemeControllerTest';
 	}
@@ -442,7 +459,7 @@ class ItemEditThemeControllerTestTheme {
 	}
 
 	public function reset() {
-		$map =& ItemEditThemeControllerTestTheme::getMap();
+		$map =& $this->getMap();
 		$map = array();
 	}
 
