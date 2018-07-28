@@ -59,11 +59,13 @@ h6 {
   background:#ff6666;
   font-weight:bold;
   color:black;
+  text-align:center;
 }
 
 .Failure a {
   color:black;
 }
+
 
 .Unknown {
   background:#ffff00;
@@ -75,13 +77,16 @@ h6 {
   background:#66CC66;
   font-weight:bold;
   color:black;
+  text-align:center;
 }
 
 .Skipped {
   background:#FF9933;
   font-weight:bold;
   color:black;
+  text-align:center;
 }
+
 
 .Properties {
   text-align:right;

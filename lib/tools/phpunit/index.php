@@ -467,7 +467,8 @@ class GalleryTestResult extends TestResult {
 	}
 
 	public function _endTest(&$test) {
-		$failure    = $extra = '';
+		$failure = '';
+		$extra   = '';
 		$usedMemory = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
 
 		if ($test->wasSkipped()) {

@@ -82,10 +82,16 @@ class GalleryAlbumItem extends GalleryItem {
 	 * @param int $parentId the id of the parent of this object
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId = null, $albumName = null, $x1 = false) {
+	public function create(
+		$parentId = null,
+		$albumName = null,
+		$x3 = false,
+		$x4 = null,
+		$x5 = false
+	) {
 		global $gallery;
 
-		if (empty($albumName) || empty($parentId)) {
+		if (is_null($albumName) || is_null($parentId)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 

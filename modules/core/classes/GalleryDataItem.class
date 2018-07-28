@@ -114,18 +114,18 @@ class GalleryDataItem extends GalleryItem {
 	 * @return GalleryStatus a status code
 	 */
 	public function create(
-		$parentId,
-		$inputFileName,
-		$mimeType,
-		$targetName = null,
-		$symlink = false
+		$parentId = null,
+		$inputFileName = null,
+		$symlink = false,
+		$x4 = null,
+		$x5 = false
 	) {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
 
-		// Validate the input file
-		if (empty($inputFileName)) {
+		// Validate input
+		if (is_null($inputFileName)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 

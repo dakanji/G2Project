@@ -70,7 +70,7 @@
 				Pass: <span id="pass_count">&nbsp;</span>, Fail <span id="fail_count">&nbsp;</span>, Skip: <span id="skip_count">&nbsp;</span>, Total: <span id="total_count">&nbsp;</span> <br/>
 				Elapsed time: <span id="elapsed_time">&nbsp;</span> <br/>
 				Estimated time remaining: <span id="estimated_time_remaining">&nbsp;</span> <br/>
-				Memory Usage: <span id="used_memory">&nbsp;</span> (<?php print (0 < $memLimVal) ? $memLim . " allowed" : "Unlimited"; ?>)
+				Memory Usage: <span id="used_memory">&nbsp;</span> (<?php echo (0 < $memLimVal) ? $memLim . " allowed" : "Unlimited"; ?>)
 			</div>
 			<div id="show_more" class="header toggle">
 				<img src="add.png" onclick="showMoreStatus()">
@@ -118,9 +118,9 @@
 				</tr>
 				<?php foreach (array_keys($incorrectDevEnv) as $key): ?>
 					<tr>
-						<td> <?php print $key ?> </td>
-						<td> <?php print wordwrap($incorrectDevEnv[$key][1], 45, "<br>", true) ?> </td>
-						<td> <?php print join(' <b>or</b> ', $incorrectDevEnv[$key][0]) ?> </td>
+						<td> <?php echo $key ?> </td>
+						<td> <?php echo wordwrap($incorrectDevEnv[$key][1], 45, "<br>", true) ?> </td>
+						<td> <?php echo join(' <b>or</b> ', $incorrectDevEnv[$key][0]) ?> </td>
 					</tr>
 				<?php endforeach; ?>
 			</table>
@@ -215,13 +215,13 @@
 		<?php foreach ($moduleStatusList as $moduleId => $moduleStatus): ?>
 			<tr>
 				<td style="width: 100px">
-					<?php print $moduleId ?>
+					<?php echo $moduleId ?>
 				</td>
 				<td style="width: 100px">
-					<?php print !empty($moduleStatus['active']) ? "active" : "not active" ?>
+					<?php echo !empty($moduleStatus['active']) ? "active" : "not active" ?>
 				</td>
 				<td style="width: 100px">
-					<?php print !empty($moduleStatus['available']) ? "installed" : "not available" ?>
+					<?php echo !empty($moduleStatus['available']) ? "installed" : "not available" ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
@@ -231,7 +231,7 @@
 
 <?php if ($priorRuns): ?>
 	<h2>
-		<span onclick="toggle('prior_runs')" class="fakelink">Prior Runs (<?php print count($priorRuns)?>)</span>
+		<span onclick="toggle('prior_runs')" class="fakelink">Prior Runs (<?php echo count($priorRuns)?>)</span>
 	</h2>
 	<div id="prior_runs" style="display: none">
 		<table cellspacing="1" cellpadding="1" border="0"	width="800" class="details">
@@ -243,13 +243,13 @@
 			<?php foreach ($priorRuns as $run): ?>
 				<tr>
 					<td style="width: 100px">
-						<a href="index.php?run=frame:<?php print $run['key']?>"><?php print $run['date'] ?></a>
+						<a href="index.php?run=frame:<?php echo $run['key']?>"><?php echo $run['date'] ?></a>
 					</td>
 					<td style="width: 100px">
-						<?php print $run['size'] ?> bytes
+						<?php echo $run['size'] ?> bytes
 					</td>
 					<td style="width: 100px">
-						<a href="index.php?run=delete:<?php print $run['key']?>">delete</a>
+						<a href="index.php?run=delete:<?php echo $run['key']?>">delete</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -267,17 +267,17 @@
 <h2>Test Results</h2>
 
 <table cellspacing="1" cellpadding="1" border="0" width="90%" align="CENTER" class="details">
-	<tr><th>#</th><th>Module</th><th>Class</th><th>Function</th><th>Success?</th><th>Time</th></tr>
+	<tr><th>#</th><th>Module</th><th>Class</th><th>Function</th><th>Status</th><th>Time</th></tr>
 	<?php $i = 0;
 	foreach ($testSuite->fTests as $testClass):
 	foreach ($testClass->fTests as $test): $i++;
 	if (isset($testOneByOne) && $testOneByOne != $i) continue; ?>
-	<tr id="testRow<?php print $i ?>">
-		<td><?php print $i ?></td>
-		<td><?php print $test->getModuleId() ?></td>
-		<td><?php print $test->classname() ?></td>
-		<td><?php print $test->name() ?></td>
-		<td><a href="#fail<?php print $i ?>" style="display:none">FAIL</a>&nbsp;</td><td>&nbsp;</td>
+	<tr id="testRow<?php echo $i ?>">
+		<td><?php echo $i ?></td>
+		<td><?php echo $test->getModuleId() ?></td>
+		<td><?php echo $test->classname() ?></td>
+		<td><?php echo $test->name() ?></td>
+		<td><a href="#fail<?php echo $i ?>" style="display:none">FAIL</a>&nbsp;</td><td>&nbsp;</td>
 	</tr><?php endforeach; endforeach; $totalTests = $i;?>
 </table>
 
@@ -408,7 +408,7 @@
 
 			var startTime = new Date().getTime() / 1000;
 			var passCount = failCount = skipCount = 0;
-			var totalCount = <?php print $totalTests; ?>;
+			var totalCount = <?php echo $totalTests; ?>;
 			var passCountEl = document.getElementById('pass_count');
 			var failCountEl = document.getElementById('fail_count');
 			var skipCountEl = document.getElementById('skip_count');

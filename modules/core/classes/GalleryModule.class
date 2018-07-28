@@ -69,6 +69,19 @@ class GalleryModule extends GalleryPlugin {
 	public $_templateVersion;
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function getSingleton() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Return the major and minor version of the GalleryModule API.
 	 *
 	 * This follows the same rules as the core API.
@@ -88,7 +101,7 @@ class GalleryModule extends GalleryPlugin {
 	 *
 	 * @return array major number, minor number
 	 */
-	public static function getApiVersion() {
+	public function getApiVersion() {
 		return array(3, 9);
 	}
 

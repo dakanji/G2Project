@@ -566,9 +566,18 @@ class PluginCallbackTest extends GalleryTestCase {
 	}
 
 	public function testGetPluginStateActive() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getRequiredCoreApi', GalleryCoreApi::getApiVersion());
-		$this->_testPlugin->setResult('getRequiredModuleApi', GalleryModule::getApiVersion());
+		$this->_testPlugin->setResult(
+			'getId',
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			GalleryCoreApi::getApiVersion()
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			 GalleryModule::getSingleton()->getApiVersion()
+		);
 		$this->assertEquals(
 			'active',
 			$this->_getPluginState('module', array(
@@ -578,9 +587,18 @@ class PluginCallbackTest extends GalleryTestCase {
 	}
 
 	public function testGetPluginStateIncompatibleCoreApi() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getRequiredCoreApi', array(0, 0));
-		$this->_testPlugin->setResult('getRequiredModuleApi', GalleryModule::getApiVersion());
+		$this->_testPlugin->setResult(
+			'getId', 
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			array(0, 0)
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			 GalleryModule::getSingleton()->getApiVersion()
+		);
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState('module', array(
@@ -590,9 +608,18 @@ class PluginCallbackTest extends GalleryTestCase {
 	}
 
 	public function testGetPluginStateIncompatibleModuleApi() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getRequiredCoreApi', GalleryCoreApi::getApiVersion());
-		$this->_testPlugin->setResult('getRequiredModuleApi', array(0, 0));
+		$this->_testPlugin->setResult(
+			'getId',
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			GalleryCoreApi::getApiVersion()
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			array(0, 0)
+		);
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState('module', array(
@@ -602,61 +629,127 @@ class PluginCallbackTest extends GalleryTestCase {
 	}
 
 	public function testGetPluginStateUninstalled() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getVersion', '1.0');
-		$this->_testPlugin->setResult('getRequiredCoreApi', GalleryCoreApi::getApiVersion());
-		$this->_testPlugin->setResult('getRequiredModuleApi', GalleryModule::getApiVersion());
-		$this->assertEquals('uninstalled', $this->_getPluginState(
-			'module',
-			array(
-				'active'  => 0,
-				'version' => null,
+		$this->_testPlugin->setResult(
+			'getId',
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getVersion',
+			'1.0'
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			GalleryCoreApi::getApiVersion()
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			 GalleryModule::getSingleton()->getApiVersion()
+		);
+		$this->assertEquals(
+			'uninstalled',
+			$this->_getPluginState(
+				'module',
+				array(
+					'active'  => 0,
+					'version' => null,
+				)
 			)
-		));
+		);
 	}
 
 	public function testGetPluginStateUnupgraded() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getVersion', '2.0');
-		$this->_testPlugin->setResult('getRequiredCoreApi', GalleryCoreApi::getApiVersion());
-		$this->_testPlugin->setResult('getRequiredModuleApi', GalleryModule::getApiVersion());
-		$this->assertEquals('unupgraded', $this->_getPluginState(
-			'module',
-			array(
-				'active'  => 0,
-				'version' => '1.0',
+		$this->_testPlugin->setResult(
+			'getId',
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getVersion',
+			'2.0'
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			GalleryCoreApi::getApiVersion()
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			 GalleryModule::getSingleton()->getApiVersion()
+		);
+		$this->assertEquals(
+			'unupgraded',
+			$this->_getPluginState(
+				'module',
+				array(
+					'active'  => 0,
+					'version' => '1.0',
+				)
 			)
-		));
+		);
 	}
 
 	public function testGetPluginStateUnconfigured() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getVersion', '1.0');
-		$this->_testPlugin->setResult('needsConfiguration', array(null, true));
-		$this->_testPlugin->setResult('getRequiredCoreApi', GalleryCoreApi::getApiVersion());
-		$this->_testPlugin->setResult('getRequiredModuleApi', GalleryModule::getApiVersion());
-		$this->assertEquals('unconfigured', $this->_getPluginState(
-			'module',
-			array(
-				'active'  => 0,
-				'version' => '1.0',
+		$this->_testPlugin->setResult(
+			'getId',
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getVersion',
+			'1.0'
+		);
+		$this->_testPlugin->setResult(
+			'needsConfiguration',
+			array(null, true)
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			GalleryCoreApi::getApiVersion()
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			 GalleryModule::getSingleton()->getApiVersion()
+		);
+		$this->assertEquals(
+			'unconfigured',
+			$this->_getPluginState(
+				'module',
+				array(
+					'active'  => 0,
+					'version' => '1.0',
+				)
 			)
-		));
+		);
 	}
 
 	public function testGetPluginStateInactive() {
-		$this->_testPlugin->setResult('getId', 'anything');
-		$this->_testPlugin->setResult('getVersion', '1.0');
-		$this->_testPlugin->setResult('needsConfiguration', array(null, false));
-		$this->_testPlugin->setResult('getRequiredCoreApi', GalleryCoreApi::getApiVersion());
-		$this->_testPlugin->setResult('getRequiredModuleApi', GalleryModule::getApiVersion());
-		$this->assertEquals('inactive', $this->_getPluginState(
-			'module',
-			array(
-				'active'  => 0,
-				'version' => '1.0',
+		$this->_testPlugin->setResult(
+			'getId',
+			'anything'
+		);
+		$this->_testPlugin->setResult(
+			'getVersion',
+			'1.0'
+		);
+		$this->_testPlugin->setResult(
+			'needsConfiguration',
+			array(null, false)
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredCoreApi',
+			GalleryCoreApi::getApiVersion()
+		);
+		$this->_testPlugin->setResult(
+			'getRequiredModuleApi',
+			 GalleryModule::getSingleton()->getApiVersion()
+		);
+		$this->assertEquals(
+			'inactive',
+			$this->_getPluginState(
+				'module',
+				array(
+					'active'  => 0,
+					'version' => '1.0',
+				)
 			)
-		));
+		);
 	}
 
 	public function testCalculateStateChangesNoChange() {

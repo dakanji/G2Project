@@ -867,10 +867,10 @@ class PrettyTestResult extends TestResult {
 	}
 
 	public function _endTest(&$test) {
-		$outcome = $test->failed() ? ' class="Failure">FAIL' : ' class="Pass">OK';
+		$outcome = $test->failed() ? ' class="Failure">FAILED' : ' class="Pass">PASSED';
 
 		if ($test->wasSkipped()) {
-			$outcome = ' class="Skipped">SKIP';
+			$outcome = ' class="Skipped">SKIPPED';
 			$elapsed = '0.0000';
 		} else {
 			$elapsed              = sprintf('%2.4f', $test->elapsed());

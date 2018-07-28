@@ -46,6 +46,19 @@ class CoreModule extends GalleryModule {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function getSingleton() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new CoreModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {

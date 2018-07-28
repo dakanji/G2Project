@@ -163,7 +163,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 			'warnings' => array(),
 		);
 
-		$this->_installedModuleVersion = GalleryModule::getApiVersion();
+		$this->_installedModuleVersion = GalleryModule::getSingleton()->getApiVersion();
 		$this->_installedCoreVersion   = GalleryCoreApi::getApiVersion();
 		$this->_installedThemeVersion  = GalleryTheme::getSingleton()->getApiVersion();
 

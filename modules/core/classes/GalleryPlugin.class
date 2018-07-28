@@ -71,6 +71,19 @@ class GalleryPlugin {
 	public $_l10Domain;
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function getSingleton() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryPlugin();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Localize the given content.
 	 *
 	 * Gallery uses GNU gettext for internationalization (i18n) and localization (l10n) of

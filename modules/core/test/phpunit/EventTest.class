@@ -348,7 +348,7 @@ class EventTestModule extends GalleryModule {
 		$this->setVersion('1.0.0');
 		$this->setGroup('mock', 'Mock');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getSingleton()->getApiVersion());
 	}
 
 	public function performFactoryRegistrations() {

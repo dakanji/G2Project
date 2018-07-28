@@ -465,7 +465,7 @@ class PluginCallbackView extends GalleryView {
 			case 'module':
 				$pluginApiCompatible = GalleryUtilities::isCompatibleWithApi(
 					$plugin->getRequiredModuleApi(),
-					GalleryModule::getApiVersion()
+					GalleryModule::getSingleton()->getApiVersion()
 				);
 
 				break;

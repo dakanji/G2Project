@@ -68,7 +68,13 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	 *        Defaults to false.
 	 * @return GalleryStatus a status code
 	 */
-	public function create($parentId = null, $pathComponent = null, $isDirectory = false) {
+	public function create(
+		$parentId = null,
+		$pathComponent = null,
+		$isDirectory = false,
+		$x4 = null,
+		$x5 = false
+	) {
 		if (empty($pathComponent)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
