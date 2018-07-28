@@ -91,7 +91,7 @@
 		that the Gallery code is functioning properly.  It'll help us
 		identify bugs in the code when we add new features, port to new
 		systems, or add support for new database back ends.  All the
-		tests should pass with a green box that says <b>OK</b> in it).
+		tests should pass with a green box that says <b>PASSED</b> in it).
 	</div>
 
 	<?php if (!$isSiteAdmin): ?>
@@ -277,7 +277,7 @@
 		<td><?php echo $test->getModuleId() ?></td>
 		<td><?php echo $test->classname() ?></td>
 		<td><?php echo $test->name() ?></td>
-		<td><a href="#fail<?php echo $i ?>" style="display:none">FAIL</a>&nbsp;</td><td>&nbsp;</td>
+		<td><a href="#fail<?php echo $i ?>" style="display:none">FAILED</a>&nbsp;</td><td>&nbsp;</td>
 	</tr><?php endforeach; endforeach; $totalTests = $i;?>
 </table>
 

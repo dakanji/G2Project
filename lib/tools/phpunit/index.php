@@ -467,8 +467,8 @@ class GalleryTestResult extends TestResult {
 	}
 
 	public function _endTest(&$test) {
-		$failure = '';
-		$extra   = '';
+		$failure    = '';
+		$extra      = '';
 		$usedMemory = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
 
 		if ($test->wasSkipped()) {
@@ -478,7 +478,7 @@ class GalleryTestResult extends TestResult {
 				return;
 			}
 			$class   = 'Skipped';
-			$text    = 'r.cells[4].lastChild.nodeValue="SKIP";';
+			$text    = 'r.cells[4].lastChild.nodeValue="SKIPPED";';
 			$extra   = 'r.className="skip";';
 			$elapsed = '0.0000';
 			$cmd     = "updateStats(0, 0, 1, $usedMemory)";
@@ -508,7 +508,7 @@ class GalleryTestResult extends TestResult {
 				$cmd      = "updateStats(0, 1, 0, $usedMemory)";
 			} else {
 				$class = 'Pass';
-				$text  = 'r.cells[4].lastChild.nodeValue="OK";';
+				$text  = 'r.cells[4].lastChild.nodeValue="PASSED";';
 				global $testOneByOne;
 
 				if (isset($testOneByOne)) {

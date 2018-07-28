@@ -258,17 +258,17 @@ class GalleryMovieItem extends GalleryDataItem {
 					case 'video/quicktime':
 						return sprintf(
 							'<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
-			 codebase="http://www.apple.com/qtactivex/qtplugin.cab"
-			 width="%s" height="%s" id="%s"%s>
-			   <param name="src" value="%s"/>
-			   <param name="controller" value="true"/>
-			   <param name="autoplay" value="true"/>
-			   <param name="loop" value="false"/>
-			   <embed src="%s" width="%s" height="%s" type="%s"
-				  pluginspage="http://www.apple.com/quicktime/download/"
-				  controller="true" autoplay="true" loop="false"/>
-			   <noembed>%s</noembed>
-		 </object>',
+								codebase="http://www.apple.com/qtactivex/qtplugin.cab"
+								width="%s" height="%s" id="%s"%s>
+								<param name="src" value="%s"/>
+								<param name="controller" value="true"/>
+								<param name="autoplay" value="true"/>
+								<param name="loop" value="false"/>
+								<embed src="%s" width="%s" height="%s" type="%s"
+								pluginspage="http://www.apple.com/quicktime/download/"
+								controller="true" autoplay="true" loop="false"/>
+								<noembed>%s</noembed>
+							</object>',
 							$width,
 							$height + 16,
 							!empty($params['id']) ? $params['id'] : 'movie',
@@ -285,8 +285,9 @@ class GalleryMovieItem extends GalleryDataItem {
 					case 'video/mp4':
 					case 'video/x-msvideo':
 					case 'video/x-ms-wmv':
-							$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
-							// Fall Through
+						$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
+						
+						// Fall Through
 					case 'video/x-ms-asf':
 					case 'video/x-ms-asx':
 						if (!isset($classId)) {
@@ -295,16 +296,16 @@ class GalleryMovieItem extends GalleryDataItem {
 
 						return sprintf(
 							'<object classid="%s" width="%s" height="%s" id="%s"%s>
-			   <param name="ShowDisplay" value="0"/>
-			   <param name="ShowControls" value="1"/>
-			   <param name="AutoStart" value="1"/>
-			   <param name="AutoRewind" value="-1"/>
-			   <param name="Volume" value="0"/>
-			   <param name="FileName" value="%s"/>
-			   <embed src="%s" width="%s" height="%s" type="%s"
-				  controller="true" autoplay="true" loop="false"/>
-			   <noembed>%s</noembed>
-		 </object>',
+								<param name="ShowDisplay" value="0"/>
+								<param name="ShowControls" value="1"/>
+								<param name="AutoStart" value="1"/>
+								<param name="AutoRewind" value="-1"/>
+								<param name="Volume" value="0"/>
+								<param name="FileName" value="%s"/>
+								<embed src="%s" width="%s" height="%s" type="%s"
+								controller="true" autoplay="true" loop="false"/>
+								<noembed>%s</noembed>
+							</object>',
 							$classId,
 							$width,
 							$height + 50,

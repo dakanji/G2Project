@@ -311,9 +311,7 @@ class GalleryRepositoryUtilities {
 			 * is typically called from controller code.
 			 */
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-			$providedPluginApi = $pluginType == 'module'
-			? GalleryModule::getSingleton()->getApiVersion() 
-			: GalleryTheme::getSingleton()->getApiVersion();
+			$providedPluginApi = $pluginType == 'module' ? GalleryModule::getSingleton()->getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
 		} else {
 			$providedCoreApi[0]   = (int)$providedApis['core'][0];
 			$providedCoreApi[1]   = (int)$providedApis['core'][1];

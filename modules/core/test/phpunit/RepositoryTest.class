@@ -57,9 +57,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function _setupUpdateUtilitiesResponses(&$utilities, $index, $case, $pluginType = 'module') {
 		$coreApi   = GalleryCoreApi::getApiVersion();
-		$pluginApi = $pluginType == 'module'
-		? GalleryModule::getSingleton()->getApiVersion()
-		: GalleryTheme::getSingleton()->getApiVersion();
+		$pluginApi = $pluginType == 'module' ? GalleryModule::getSingleton()->getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
 		$pluginId  = 'test' . ucfirst($pluginType);
 
 		$header              = $index["{$pluginType}s"][$pluginId]['header'];
@@ -1255,7 +1253,7 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$coreApi   = GalleryCoreApi::getApiVersion();
-		$moduleApi = GalleryModule::getApiVersion();
+		$moduleApi = GalleryModule::getSingleton()->getApiVersion();
 
 		for ($i = 0; $i < 8; $i++) {
 			$case = $this->_getUpgradeTestCase($i);
@@ -1503,7 +1501,7 @@ class RepositoryTest extends GalleryTestCase {
 
 		$coreApi         = GalleryCoreApi::getApiVersion();
 		$coreApiString   = join('.', $coreApi);
-		$moduleApi       = GalleryModule::getApiVersion();
+		$moduleApi       = GalleryModule::getSingleton()->getApiVersion();
 		$moduleApiString = join('.', $moduleApi);
 		$themeApi        = GalleryTheme::getSingleton()->getApiVersion();
 		$themeApiString  = join('.', $themeApi);
@@ -2466,7 +2464,12 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		$utilities->setReply(
 			'isPluginCompatible',
-			array('module', GalleryCoreApi::getApiVersion(), GalleryModule::getApiVersion(), null),
+			array(
+				'module',
+				GalleryCoreApi::getApiVersion(),
+				GalleryModule::getSingleton()->getApiVersion(),
+				null
+			),
 			true
 		);
 		$utilities->setReply(
@@ -2729,7 +2732,7 @@ class RepositoryTest extends GalleryTestCase {
 				'id'                => $pluginData['id'],
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryModule::getApiVersion(),
+				'requiredPluginApi' => GalleryModule::getSingleton()->getApiVersion(),
 				'stringsRevision'   => $pluginData['revision'],
 				'buildTimestamp'    => $pluginData['build'],
 			),

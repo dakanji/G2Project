@@ -808,11 +808,12 @@ class GalleryTemplateAdapter {
 			}
 
 			if (isset($link['attrs'])) {
-				$linkAttrs = $link['attrs'];
+				$linkAttrs = ' ' . $link['attrs'];
 			} else {
-				$linkAttrs = '';
+				$linkAttrs = ' ';
 			}
-			$tag    = '<a href="' . $linkURL . '"' . $linkScript . ' ' . $linkAttrs;
+
+			$tag    = '<a href="' . $linkURL . '"' . $linkScript . $linkAttrs;
 			$endTag = '</a>';
 		}
 

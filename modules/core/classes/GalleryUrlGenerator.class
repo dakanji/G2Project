@@ -191,7 +191,8 @@ class GalleryUrlGenerator {
 			return $url;
 		}
 
-		$args = $flatParams = array();
+		$args       = array();
+		$flatParams = array();
 		GalleryUrlGenerator::_flattenParamsArray($params, $flatParams);
 
 		foreach ($flatParams as $key => $value) {
@@ -208,8 +209,10 @@ class GalleryUrlGenerator {
 
 		// Prefix appended params with ? if the URL doesn't already have a query string
 		$amp = $htmlEntities ? '&amp;' : '&';
+		$flattened = implode($amp, $args);
+		$queryTag = (strpos($url, '?') === false) ? '?' : $amp;
 
-		return $url . ((strpos($url, '?') === false) ? '?' : $amp) . implode($amp, $args);
+		return $url . $queryTag . $flattened;
 	}
 
 	/**
@@ -245,9 +248,11 @@ class GalleryUrlGenerator {
 	 * @static
 	 * @deprecated
 	 */
-	public function getGalleryId() {
+	public static function getGalleryId() {
 		return '';
 	}
+
+	// Object Methods
 
 	/**
 	 * Split a URI string into file, path, host and protocol substrings and normalize them.
@@ -258,7 +263,6 @@ class GalleryUrlGenerator {
 	 * @param string $uri URI
 	 * @return array $protocol, $host, $path, $file (incl. query string)
 	 * @access private
-	 * @static
 	 */
 	public function _parseUri($uri) {
 		/*
@@ -303,8 +307,6 @@ class GalleryUrlGenerator {
 
 		return array($protocol, $host, $path, $file);
 	}
-
-	// Object Methods
 
 	/**
 	 * Configure the GalleryUrlGenerator with all the data it needs.

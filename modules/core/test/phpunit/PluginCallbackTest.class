@@ -576,7 +576,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			 GalleryModule::getSingleton()->getApiVersion()
+			GalleryModule::getSingleton()->getApiVersion()
 		);
 		$this->assertEquals(
 			'active',
@@ -588,7 +588,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	public function testGetPluginStateIncompatibleCoreApi() {
 		$this->_testPlugin->setResult(
-			'getId', 
+			'getId',
 			'anything'
 		);
 		$this->_testPlugin->setResult(
@@ -597,7 +597,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			 GalleryModule::getSingleton()->getApiVersion()
+			GalleryModule::getSingleton()->getApiVersion()
 		);
 		$this->assertEquals(
 			'incompatible',
@@ -643,7 +643,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			 GalleryModule::getSingleton()->getApiVersion()
+			GalleryModule::getSingleton()->getApiVersion()
 		);
 		$this->assertEquals(
 			'uninstalled',
@@ -672,7 +672,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			 GalleryModule::getSingleton()->getApiVersion()
+			GalleryModule::getSingleton()->getApiVersion()
 		);
 		$this->assertEquals(
 			'unupgraded',
@@ -705,7 +705,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			 GalleryModule::getSingleton()->getApiVersion()
+			GalleryModule::getSingleton()->getApiVersion()
 		);
 		$this->assertEquals(
 			'unconfigured',
@@ -738,7 +738,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			 GalleryModule::getSingleton()->getApiVersion()
+			GalleryModule::getSingleton()->getApiVersion()
 		);
 		$this->assertEquals(
 			'inactive',
