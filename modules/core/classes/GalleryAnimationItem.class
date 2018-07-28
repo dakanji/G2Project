@@ -91,9 +91,9 @@ class GalleryAnimationItem extends GalleryDataItem {
 	 * @return GalleryStatus a status code
 	 */
 	public function create(
-		$parentId,
-		$animationFileName,
-		$mimeType,
+		$parentId = null,
+		$animationFileName = null,
+		$mimeType = false,
 		$targetName = null,
 		$symlink = false
 	) {

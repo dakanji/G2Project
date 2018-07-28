@@ -7,7 +7,7 @@ $sampleIndex = array(
 				'id'                => 'testModule',
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryModule::getApiVersion(),
+				'requiredPluginApi' => GalleryModule::getSingleton()->getApiVersion(),
 				'stringsRevision'   => '22222',
 				'buildTimestamp'    => '44444',
 			),

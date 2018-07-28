@@ -694,7 +694,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$utilities                = new UnitTestRepositoryUtilities();
 			$this->_index->_utilities =& $utilities;
 
-			$pluginApi = $pluginType == 'module' ? GalleryModule::getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
+			$pluginApi = $pluginType == 'module'
+			? GalleryModule::getSingleton()->getApiVersion()
+			: GalleryTheme::getSingleton()->getApiVersion();
 			$utilities->setReply(
 				'isPluginCompatible',
 				array($pluginType, $coreApi, $pluginApi, null),

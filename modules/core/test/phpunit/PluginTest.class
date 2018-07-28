@@ -79,7 +79,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredModuleApi(GalleryModule::getApiVersion());
+		$plugin->setRequiredModuleApi(GalleryModule::getSingleton()->getApiVersion());
 		$this->assert(
 			GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should be compatible'
@@ -90,7 +90,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$version = GalleryModule::getApiVersion();
+		$version = GalleryModule::getSingleton()->getApiVersion();
 		$plugin->setRequiredModuleApi(array($version[0], $version[1] + 1));
 		$this->assert(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -230,7 +230,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredModuleApi(GalleryModule::getApiVersion());
+		$plugin->setRequiredModuleApi(GalleryModule::getSingleton()->getApiVersion());
 
 		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
 
@@ -238,7 +238,9 @@ class PluginTest extends GalleryTestCase {
 		$testRepository->setReply(
 			'scanPlugin',
 			array('module', 'plugintest'),
-			GalleryCoreApi::error(ERROR_PLATFORM_FAILURE | ERROR_BAD_PLUGIN | ERROR_BAD_PARAMETER)
+			GalleryCoreApi::error(
+				ERROR_PLATFORM_FAILURE | ERROR_BAD_PLUGIN | ERROR_BAD_PARAMETER
+			)
 		);
 		GalleryDataCache::put($cacheKey, array(
 			array(
@@ -266,7 +268,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredModuleApi(GalleryModule::getApiVersion());
+		$plugin->setRequiredModuleApi(GalleryModule::getSingleton()->getApiVersion());
 
 		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
 

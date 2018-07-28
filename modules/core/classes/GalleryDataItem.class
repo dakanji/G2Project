@@ -116,16 +116,16 @@ class GalleryDataItem extends GalleryItem {
 	public function create(
 		$parentId = null,
 		$inputFileName = null,
-		$symlink = false,
-		$x4 = null,
-		$x5 = false
+		$mimeType = false,
+		$targetName = null,
+		$symlink = false
 	) {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
 
 		// Validate input
-		if (is_null($inputFileName)) {
+		if (is_null($parentId) || is_null($inputFileName) || !$mimeType) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
