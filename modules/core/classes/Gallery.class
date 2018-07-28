@@ -1052,12 +1052,12 @@ class Gallery {
 	 * Replacement function for PHP Eval
 	 */
 	public function runEval($code) {
-
 		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
 		file_put_contents($tempfile, $code);
 
 		ob_start();
-		require $tempfile;
+
+		include $tempfile;
 		$data = ob_get_contents();
 		ob_end_clean();
 		unlink($tempfile);

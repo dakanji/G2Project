@@ -869,15 +869,15 @@ class MockGalleryStatus {
 	/**
 	 * Load as Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new MockGalleryStatus();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new MockGalleryStatus();
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	public function putInSession() {
 		$_GET['putInSession'] = 1;

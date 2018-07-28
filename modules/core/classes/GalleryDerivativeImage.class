@@ -1,81 +1,81 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDerivative.class');
 
 /**
-* A GalleryDerivative for images.
-* eg. for thumbnails and resizes.
-*
-* @g2 <class-name>GalleryDerivativeImage</class-name>
-* @g2 <parent-class-name>GalleryDerivative</parent-class-name>
-* @g2 <schema>
-* @g2   <schema-major>1</schema-major>
-* @g2   <schema-minor>0</schema-minor>
-* @g2 </schema>
-* @g2 <requires-id/>
-*
-* @package GalleryCore
-* @subpackage Classes
-* @author Bharat Mediratta <bharat@menalto.com>
-* @version $Revision: 17580 $
-*/
+ * A GalleryDerivative for images.
+ * eg. for thumbnails and resizes.
+ *
+ * @g2 <class-name>GalleryDerivativeImage</class-name>
+ * @g2 <parent-class-name>GalleryDerivative</parent-class-name>
+ * @g2 <schema>
+ * @g2   <schema-major>1</schema-major>
+ * @g2   <schema-minor>0</schema-minor>
+ * @g2 </schema>
+ * @g2 <requires-id/>
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
 class GalleryDerivativeImage extends GalleryDerivative {
 	/**
-	* The width of the image.
-	* @var int
-	*
-	* @g2 <member>
-	* @g2   <member-name>width</member-name>
-	* @g2   <member-type>INTEGER</member-type>
-	* @g2   <member-external-access>READ</member-external-access>
-	* @g2 </member>
-	*/
+	 * The width of the image.
+	 * @var int
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>width</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <member-external-access>READ</member-external-access>
+	 * @g2 </member>
+	 */
 	public $width;
 
 	/**
-	* The height of the image.
-	* @var int
-	*
-	* @g2 <member>
-	* @g2   <member-name>height</member-name>
-	* @g2   <member-type>INTEGER</member-type>
-	* @g2   <member-external-access>READ</member-external-access>
-	* @g2 </member>
-	*/
+	 * The height of the image.
+	 * @var int
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>height</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <member-external-access>READ</member-external-access>
+	 * @g2 </member>
+	 */
 	public $height;
 
 	/**
-	* @see GalleryDerivative::canBeViewedInline
-	*/
+	 * @see GalleryDerivative::canBeViewedInline
+	 */
 	public function canBeViewedInline() {
 		return true;
 	}
 
 	/**
-	* Create a new GalleryDerivativeImage
-	*
-	* @param int $parentId the id of the parent GalleryItem
-	* @param int $derivativeType the type of derivative image
-	* @return GalleryStatus a status code
-	*/
+	 * Create a new GalleryDerivativeImage
+	 *
+	 * @param int $parentId the id of the parent GalleryItem
+	 * @param int $derivativeType the type of derivative image
+	 * @return GalleryStatus a status code
+	 */
 	public function create($parentId = null, $derivativeType = null, $x1 = null) {
 		global $gallery;
 
@@ -84,15 +84,16 @@ class GalleryDerivativeImage extends GalleryDerivative {
 				ERROR_BAD_PARAMETER,
 				__FILE__,
 				__LINE__,
-				"Null parameter passed to GalleryDerivativeImage create function"
+				'Null parameter passed to GalleryDerivativeImage create function'
 			);
 		}
 
 		$parentId = (int)$parentId;
 
 		if ($derivativeType != DERIVATIVE_TYPE_IMAGE_THUMBNAIL
-		&& $derivativeType != DERIVATIVE_TYPE_IMAGE_RESIZE
-		&& $derivativeType != DERIVATIVE_TYPE_IMAGE_PREFERRED) {
+			&& $derivativeType != DERIVATIVE_TYPE_IMAGE_RESIZE
+			&& $derivativeType != DERIVATIVE_TYPE_IMAGE_PREFERRED
+		) {
 			return GalleryCoreApi::error(
 				ERROR_BAD_PARAMETER,
 				__FILE__,
@@ -103,7 +104,8 @@ class GalleryDerivativeImage extends GalleryDerivative {
 
 		// We can't have more than one THUMBNAIL or PREFERRED
 		if ($derivativeType == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
-		|| $derivativeType == DERIVATIVE_TYPE_IMAGE_PREFERRED) {
+			|| $derivativeType == DERIVATIVE_TYPE_IMAGE_PREFERRED
+		) {
 			$query = '
 			SELECT
 			COUNT([GalleryChildEntity::id])
@@ -133,78 +135,78 @@ class GalleryDerivativeImage extends GalleryDerivative {
 						($derivativeType == DERIVATIVE_TYPE_IMAGE_PREFERRED ? 'preferreds' : 'thumbnails'),
 						$derivativeType,
 						$result[0]
-						)
-					);
-				}
+					)
+				);
 			}
-
-			$ret = parent::create($parentId);
-
-			if ($ret) {
-				return $ret;
-			}
-
-			// Save our derivative type
-			$this->setDerivativeType($derivativeType);
-			$this->setWidth(0);
-			$this->setHeight(0);
-
-			return null;
 		}
 
-		/**
-		* Rebuild the cache.
-		* Break apart the derivative commands and feed them into the appropriate graphics toolkits
-		* to perform the transformation necessary to create this derivative from its source.
-		*
-		* @return GalleryStatus a status code
-		*/
-		public function rebuildCache() {
-			global $gallery;
+		$ret = parent::create($parentId);
 
-			// Figure out our target path
-			list($ret, $destPath) = $this->fetchPath();
-
-			if ($ret) {
-				return $ret;
-			}
-
-			$ret = parent::rebuildCache();
-
-			if ($ret) {
-				return $ret;
-			}
-
-			// Update our dimensions
-			$mimeType            = $this->getMimeType();
-			list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
-
-			if ($ret) {
-				return $ret;
-			}
-
-			if (isset($toolkit)) {
-				list($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $destPath);
-
-				if ($ret) {
-					return $ret;
-				}
-
-				$this->setWidth($dimensions[0]);
-				$this->setHeight($dimensions[1]);
-			}
-
-			return null;
+		if ($ret) {
+			return $ret;
 		}
 
-		/**
-		* @see GalleryDerivative::render
-		*/
-		public function render($format, $item, $params) {
-			global $gallery;
+		// Save our derivative type
+		$this->setDerivativeType($derivativeType);
+		$this->setWidth(0);
+		$this->setHeight(0);
 
-			switch ($format) {
-				case 'HTML':
+		return null;
+	}
+
+	/**
+	 * Rebuild the cache.
+	 * Break apart the derivative commands and feed them into the appropriate graphics toolkits
+	 * to perform the transformation necessary to create this derivative from its source.
+	 *
+	 * @return GalleryStatus a status code
+	 */
+	public function rebuildCache() {
+		global $gallery;
+
+		// Figure out our target path
+		list($ret, $destPath) = $this->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = parent::rebuildCache();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Update our dimensions
+		$mimeType            = $this->getMimeType();
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (isset($toolkit)) {
+			list($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $destPath);
+
+			if ($ret) {
+				return $ret;
+			}
+
+			$this->setWidth($dimensions[0]);
+			$this->setHeight($dimensions[1]);
+		}
+
+		return null;
+	}
+
+	/**
+	 * @see GalleryDerivative::render
+	 */
+	public function render($format, $item, $params) {
+		global $gallery;
+
+		switch ($format) {
+			case 'HTML':
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$src          = $urlGenerator->generateUrl(
 					array(
@@ -248,31 +250,31 @@ class GalleryDerivativeImage extends GalleryDerivative {
 
 				return $html . '/>';
 
-				default:
+			default:
 				return null;
-			}
-		}
-
-		/**
-		* @see GalleryEntity::getClassName
-		*/
-		public function getClassName() {
-			return 'GalleryDerivativeImage';
-		}
-
-		public function getWidth() {
-			return $this->width;
-		}
-
-		public function setWidth($width) {
-			$this->width = $width;
-		}
-
-		public function getHeight() {
-			return $this->height;
-		}
-
-		public function setHeight($height) {
-			$this->height = $height;
 		}
 	}
+
+	/**
+	 * @see GalleryEntity::getClassName
+	 */
+	public function getClassName() {
+		return 'GalleryDerivativeImage';
+	}
+
+	public function getWidth() {
+		return $this->width;
+	}
+
+	public function setWidth($width) {
+		$this->width = $width;
+	}
+
+	public function getHeight() {
+		return $this->height;
+	}
+
+	public function setHeight($height) {
+		$this->height = $height;
+	}
+}

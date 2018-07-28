@@ -43,15 +43,15 @@ class GalleryTestCase extends TestCase {
 	/**
 	 * Load as Singleton
 	 */
-	 public static function getSingleton($methodName = null) {
- 		static $singleton;
+	public static function getSingleton($methodName = null) {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new GalleryTestCase($methodName);
- 		}
+		if (!isset($singleton)) {
+			$singleton = new GalleryTestCase($methodName);
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	/**
 	 * Get the entity counter listener which contains the types and number of elements deleted.
@@ -967,7 +967,7 @@ class GalleryTestCase extends TestCase {
 			$retval .= gettype($obj1);
 			$retval .= ") !== $obj2 type (";
 			$retval .= gettype($obj2) . ')';
-			
+
 			return $retval;
 		}
 
@@ -1276,7 +1276,7 @@ class GalleryTestCase extends TestCase {
 			foreach ($registry['hints'][$classType] as $hint => $implementation) {
 				//list($implementationId, $ignore) = each($implementation);
 				$implementationId = array_keys($implementation)[0];
-				$ignore = array_values($implementation)[0];
+				$ignore           = array_values($implementation)[0];
 
 				if ($implementationId == $implId) {
 					unset($registry['hints'][$classType][$hint][$implId]);

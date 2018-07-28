@@ -98,7 +98,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 		$symlink = false
 	) {
 		global $gallery;
-		
+
 		$platform =& $gallery->getPlatform();
 
 		// Validate the input filename

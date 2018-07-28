@@ -615,6 +615,7 @@ class ToolkitTest extends GalleryTestCase {
 
 		foreach (array('de_DE', 'german') as $locale) {
 			$nTest = ($newLocale = GalleryTranslator::getSingleton()->_setlocale(LC_ALL, $locale));
+
 			if ($nTest !== false) {
 				break;
 			}

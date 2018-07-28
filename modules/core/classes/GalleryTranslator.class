@@ -63,15 +63,15 @@ class GalleryTranslator {
 	/**
 	 * Load Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new GalleryTranslator();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new GalleryTranslator();
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	/**
 	 * Can we translate?

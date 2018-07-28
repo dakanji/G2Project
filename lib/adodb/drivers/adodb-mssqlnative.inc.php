@@ -81,7 +81,7 @@ if (ADODB_PHPVER >= 0x4300) {
 
 	$ADODB_mssql_date_order = 'mdy';
 	// array, months must be upper-case
-	$ADODB_mssql_mths       = array(
+	$ADODB_mssql_mths = array(
 		'JAN' => 1,
 		'FEB' => 2,
 		'MAR' => 3,
@@ -98,20 +98,20 @@ if (ADODB_PHPVER >= 0x4300) {
 }
 
 class ADODB_mssqlnative extends ADOConnection {
-	public $databaseType      = 'mssqlnative';
-	public $dataProvider      = 'mssqlnative';
+	public $databaseType = 'mssqlnative';
+	public $dataProvider = 'mssqlnative';
 	// string to use to replace quotes
-	public $replaceQuote      = "''";
-	public $fmtDate           = "'Y-m-d'";
-	public $fmtTimeStamp      = "'Y-m-d\TH:i:s'";
-	public $hasInsertID       = true;
-	public $substr            = 'substring';
-	public $length            = 'len';
-	public $hasAffectedRows   = true;
-	public $poorAffectedRows  = false;
-	public $metaDatabasesSQL  = "select name from sys.sysdatabases where name <> 'master'";
-	public $metaTablesSQL     = "select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE','dtproperties'))";
-	public $metaColumnsSQL    = "select c.name,
+	public $replaceQuote     = "''";
+	public $fmtDate          = "'Y-m-d'";
+	public $fmtTimeStamp     = "'Y-m-d\TH:i:s'";
+	public $hasInsertID      = true;
+	public $substr           = 'substring';
+	public $length           = 'len';
+	public $hasAffectedRows  = true;
+	public $poorAffectedRows = false;
+	public $metaDatabasesSQL = "select name from sys.sysdatabases where name <> 'master'";
+	public $metaTablesSQL    = "select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE','dtproperties'))";
+	public $metaColumnsSQL   = "select c.name,
 		t.name as type,
 		c.length,
 		c.xprec as precision,
@@ -128,17 +128,17 @@ class ADODB_mssqlnative extends ADOConnection {
 		join sys.columns sc on sc.object_id = st.object_id and sc.name=c.name
 		where o.name='%s'";
 	// support mssql SELECT TOP 10 * FROM TABLE
-	public $hasTop            = 'top';
-	public $hasGenID          = true;
-	public $sysDate           = 'convert(datetime,convert(char,GetDate(),102),102)';
-	public $sysTimeStamp      = 'GetDate()';
-	public $maxParameterLen   = 4000;
-	public $arrayClass        = 'ADORecordSet_array_mssqlnative';
-	public $uniqueSort        = true;
-	public $leftOuter         = '*=';
-	public $rightOuter        = '=*';
+	public $hasTop          = 'top';
+	public $hasGenID        = true;
+	public $sysDate         = 'convert(datetime,convert(char,GetDate(),102),102)';
+	public $sysTimeStamp    = 'GetDate()';
+	public $maxParameterLen = 4000;
+	public $arrayClass      = 'ADORecordSet_array_mssqlnative';
+	public $uniqueSort      = true;
+	public $leftOuter       = '*=';
+	public $rightOuter      = '=*';
 	// for mssql7 or later
-	public $ansiOuter         = true;
+	public $ansiOuter = true;
 	// 'select SCOPE_IDENTITY'; # for mssql 2000
 	public $identitySQL       = 'select SCOPE_IDENTITY()';
 	public $uniqueOrderBy     = true;
@@ -203,7 +203,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		$arr['description'] = $arrServerInfo['SQLServerName'] . ' connected to '
 		. $arrServerInfo['CurrentDatabase'];
 		//ADOConnection::_findvers($arr['description']);
-		$arr['version']     = $arrServerInfo['SQLServerVersion'];
+		$arr['version'] = $arrServerInfo['SQLServerVersion'];
 
 		return $arr;
 	}

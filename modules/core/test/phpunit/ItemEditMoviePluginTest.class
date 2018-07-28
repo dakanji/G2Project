@@ -42,7 +42,7 @@ class ItemEditMoviePluginTest extends ItemEditPluginTestCase {
 		// Cache this data to lighten the load on our dummy toolkit
 		GalleryCoreApi::fetchPluginStatus('module');
 
-		$Platform = $gallery->getPlatform();
+		$Platform                        = $gallery->getPlatform();
 		$ItemEditMoviePluginTestPlatform = new ItemEditMoviePluginTestPlatform($Platform);
 		$gallery->setPlatform($ItemEditMoviePluginTestPlatform);
 

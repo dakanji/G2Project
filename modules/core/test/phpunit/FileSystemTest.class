@@ -128,7 +128,7 @@ class FileSystemTest extends GalleryTestCase {
 
 	public function testFetchPath() {
 		global $gallery;
-		$originalPlatform =& $gallery->getPlatform();
+		$originalPlatform       =& $gallery->getPlatform();
 		$FileSystemTestPlatform = new FileSystemTestPlatform('/');
 		$gallery->setPlatform($FileSystemTestPlatform);
 		$originalAlbumsDir = $gallery->getConfig('data.gallery.albums');

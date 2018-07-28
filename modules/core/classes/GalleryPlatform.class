@@ -1205,8 +1205,8 @@ class GalleryPlatform {
 			list($ret, $filePerms) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'core',
-				'permissions.file')
-				;
+				'permissions.file'
+			);
 
 			if (!$ret && !empty($filePerms)) {
 				$this->_filePerms = octdec($filePerms);

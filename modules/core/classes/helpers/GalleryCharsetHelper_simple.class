@@ -164,8 +164,8 @@ class GalleryCharsetHelper_simple {
 		if (isset($charset)) {
 			return preg_replace_callback(
 				'/([\x80-\xFF])/s',
-				function($matches) use ($charset) {
-					foreach($matches as $match) {
+				function ($matches) use ($charset) {
+					foreach ($matches as $match) {
 						return $charset[ord($match)];
 					}
 				},

@@ -413,7 +413,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index->_isLoaded = false;
 
 		$serializedIndex = serialize($this->_sampleIndex);
-		$ret = $this->_index->unserializeIndex($serializedIndex);
+		$ret             = $this->_index->unserializeIndex($serializedIndex);
 
 		if ($ret) {
 			return $ret;
@@ -429,7 +429,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		// Cheat by serializing false, which is the value returned when unserialize fails
 		$serializedIndex = serialize(false);
-		$ret = $this->_index->unserializeIndex($serializedIndex);
+		$ret             = $this->_index->unserializeIndex($serializedIndex);
 
 		if (!$ret) {
 			return $this->assert(false, 'Should have returned ERROR_BAD_PARAMETER');

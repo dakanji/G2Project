@@ -28,19 +28,18 @@
  * @version $Revision: 17580 $
  */
 class PluginCallbackView extends GalleryView {
-
 	/**
 	 * Load as Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new PluginCallbackView();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new PluginCallbackView();
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	/**
 	 * @see GalleryView::isImmediate

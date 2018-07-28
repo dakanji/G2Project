@@ -2103,7 +2103,7 @@ class GalleryCoreApi {
 	 * @param int $itemId (optional) id of album for root of tree
 	 * @param int $depth (optional) max depth of tree
 	 * @param int $userId (optional) items visible to this user id, instead of current user
-     * @param bool $IgnorePerms (optional) ignore user permissions
+	 * @param bool $IgnorePerms (optional) ignore user permissions
 	 * @return array GalleryStatus a status code
 	 *               array (albumId => array(albumId => array, ..), ..)
 	 */

@@ -238,7 +238,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		);
 	}
 
-	public function _createUser($fields = Array()) {
+	public function _createUser($fields = array()) {
 		global $gallery;
 
 		list($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');

@@ -70,9 +70,9 @@ class DataItemTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		for ($i = 0; $i < 3; $i++) {
-			$entity[$i] = new GalleryDataItem();
+			$entity[$i]    = new GalleryDataItem();
 			$entityAlbumID = $this->_album->getId();
-			$ret = $entity[$i]->create(
+			$ret           = $entity[$i]->create(
 				$entityAlbumID,
 				__FILE__,
 				'text/plain',
@@ -91,7 +91,7 @@ class DataItemTest extends GalleryTestCase {
 
 			if ($i > 0) {
 				$expectedPathComponent = sprintf('valid_path_%03d.txt', $i);
-				$actualPathComponent = $entity[$i]->getPathComponent();
+				$actualPathComponent   = $entity[$i]->getPathComponent();
 				$this->assertEquals(
 					$expectedPathComponent,
 					$actualPathComponent,

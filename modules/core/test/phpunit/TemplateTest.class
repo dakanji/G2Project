@@ -365,7 +365,7 @@ class TemplateTest extends GalleryTestCase {
 	public function _createAlbumWithNonDefaultTheme($themeId) {
 		if (class_exists($themeId . 'theme')) {
 			$themeClassName = $themeId . 'theme';
-			$themeClass = new $themeClassName();
+			$themeClass     = new $themeClassName();
 			GalleryPluginHelper_medium::setPluginInstance(
 				'theme',
 				$themeId,

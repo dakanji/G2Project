@@ -57,9 +57,9 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		 * used by fread().
 		 */
 		include __DIR__ . '/../data/SampleDescriptors.inc';
-		$serializeModuleDescriptor = serialize($sampleModuleDescriptor);
-		$serializeThemeDescriptor = serialize($sampleThemeDescriptor);
-		$serializeModule2Descriptor = serialize($sampleModule2Descriptor);
+		$serializeModuleDescriptor        = serialize($sampleModuleDescriptor);
+		$serializeThemeDescriptor         = serialize($sampleThemeDescriptor);
+		$serializeModule2Descriptor       = serialize($sampleModule2Descriptor);
 		$RepositoryToolsIndexTestPlatform = new RepositoryToolsIndexTestPlatform(
 			array(
 				'module.descriptor',

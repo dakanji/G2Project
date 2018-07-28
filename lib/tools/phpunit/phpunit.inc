@@ -38,11 +38,11 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
-* interface Test {
-*    function run(&$aTestResult);
-*    function countTestCases();
-* }
-*/
+ * interface Test {
+ *    function run(&$aTestResult);
+ *    function countTestCases();
+ * }
+ */
 
 function trace($msg) {
 	return;
@@ -50,22 +50,13 @@ function trace($msg) {
 	flush();
 }
 
-
 function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 	global $PHPUnit_testRunning;
 
-	if (!(error_reporting() & E_DEPRECATED) && $errno == E_DEPRECATED) {
-		/*
-		* We're ignoring E_DEPRECATED to avoid the "Assigning the return value of new by
-		* reference" deprecation warning.
-		*/
-		return;
-	}
-
 	/*
-	* Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
-	* file_exists. Ignore these errors.
-	*/
+	 * Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
+	 * file_exists. Ignore these errors.
+	 */
 	if (error_reporting() == 0 && DIRECTORY_SEPARATOR == '\\') {
 		global $gallery;
 
@@ -102,7 +93,6 @@ function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 	$PHPUnit_testRunning->fail($message);
 }
 
-
 class PHPUnitException {
 	// Emulate a Java exception, sort of...
 	public $message;
@@ -130,36 +120,39 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a condition is true or false.
-	*
-	* @param  boolean
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a condition is true or false.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access public
+	 */
 	public function assert($condition, $message = '') {
 		$ret = 'null';
+
 		if (!empty($message)) {
 			$string = trim($message) . ' ';
 		}
+
 		if ($condition === 'true') {
 			$message = sprintf('%sexpected TRUE, actual FALSE', $string);
-			$ret = $this->_assertHelperTrue($condition, $message);
+			$ret     = $this->_assertHelperTrue($condition, $message);
 		} elseif ($condition === 'false') {
 			$message = sprintf('%sexpected FALSE, actual TRUE', $string);
-			$ret = $this->_assertHelperFalse($condition, $message);
+			$ret     = $this->_assertHelperFalse($condition, $message);
 		}
+
 		if ($ret != 'null') {
 			$this->fail($ret);
 		}
 	}
 
 	/**
-	* Helps assert that a condition is true.
-	*
-	* @param  boolean
-	* @param  string
-	* @access private
-	*/
+	 * Helps assert that a condition is true.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access private
+	 */
 	private function _assertHelperTrue($condition, $message = '') {
 		$message = sprintf(
 			'%sexpected TRUE, actual FALSE',
@@ -169,16 +162,17 @@ class Assert {
 		if (!$condition) {
 			return $message;
 		}
+
 		return 'null';
 	}
 
 	/**
-	* Helps assert that a condition is false.
-	*
-	* @param  boolean
-	* @param  string
-	* @access private
-	*/
+	 * Helps assert that a condition is false.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access private
+	 */
 	private function _assertHelperFalse($condition, $message = '') {
 		$message = sprintf(
 			'%sexpected FALSE, actual TRUE',
@@ -188,6 +182,7 @@ class Assert {
 		if (!$condition) {
 			return $message;
 		}
+
 		return 'null';
 	}
 
@@ -435,7 +430,8 @@ class TestCase extends Assert {
 
 	public function failed() {
 		reset($this->fExceptions);
-		foreach($this->fExceptions as $key => $exception) {
+
+		foreach ($this->fExceptions as $key => $exception) {
 			if ($exception->type == 'FAILURE') {
 				return true;
 			}
@@ -446,7 +442,8 @@ class TestCase extends Assert {
 
 	public function errored() {
 		reset($this->fExceptions);
-		foreach($this->fExceptions as $key => $exception) {
+
+		foreach ($this->fExceptions as $key => $exception) {
 			if ($exception->type == 'ERROR') {
 				return true;
 			}
@@ -537,7 +534,7 @@ class TestSuite {
 
 		$names = get_class_methods($classname);
 
-		foreach($names as $key => $method) {
+		foreach ($names as $key => $method) {
 			if (preg_match('/^test/', $method)) {
 				$test = new $classname($method);
 
@@ -577,7 +574,7 @@ class TestSuite {
 		accumulating results in the given TestResult object. */
 		reset($this->fTests);
 
-		foreach($this->fTests as $na => $test) {
+		foreach ($this->fTests as $na => $test) {
 			if ($testResult->shouldStop()) {
 				break;
 			}
@@ -591,7 +588,7 @@ class TestSuite {
 		$count = 0;
 		reset($this->fTests);
 
-		foreach($this->fTests as $na => $test_case) {
+		foreach ($this->fTests as $na => $test_case) {
 			$count += $test_case->countTestCases();
 		}
 
@@ -686,7 +683,7 @@ class TestResult {
 		$exceptions = $test->getExceptions();
 		reset($exceptions);
 
-		foreach($exceptions as $key => $exception) {
+		foreach ($exceptions as $key => $exception) {
 			if ($exception->type == 'ERROR') {
 				$this->addError($test, $exception);
 			} elseif ($exception->type == 'FAILURE') {
@@ -750,14 +747,14 @@ class TextTestResult extends TestResult {
 			echo "\n<ol>\n";
 			$failures = $this->getFailures();
 
-			foreach($failures as $i => $failure) {
+			foreach ($failures as $i => $failure) {
 				$failedTestName = $failure->getTestName();
 				printf("<li>%s</li>\n", $failedTestName);
 
 				$exceptions = $failure->getExceptions();
 				echo "\n<ul>";
 
-				foreach($exceptions as $na => $exception) {
+				foreach ($exceptions as $na => $exception) {
 					printf("<li>%s</li>\n", $exception->getMessage());
 				}
 				echo '</ul>';
@@ -770,7 +767,7 @@ class TextTestResult extends TestResult {
 			echo "\n<ol>\n";
 			reset($this->fErrors);
 
-			foreach($this->fErrors as $i => $error) {
+			foreach ($this->fErrors as $i => $error) {
 				$erroredTestName = $error->getTestName();
 				printf("<li>%s</li>\n", $failedTestName);
 
@@ -844,14 +841,14 @@ class PrettyTestResult extends TestResult {
 		echo "\n<ol>\n";
 		reset($failures);
 
-		foreach($failures as $i => $failure) {
+		foreach ($failures as $i => $failure) {
 			$failedTestName = $failure->getTestName();
 			printf("\n<li>%s</li>\n", $failedTestName);
 
 			$exceptions = $failure->getExceptions();
 			echo '<ul>';
 
-			foreach($exceptions as $na => $exception) {
+			foreach ($exceptions as $na => $exception) {
 				printf("\n<li>%s</li>\n", $exception->getMessage());
 			}
 			echo '</ul>';

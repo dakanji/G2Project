@@ -1,35 +1,35 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 /**
-* Helper class for GalleryChildEntities
-* @package GalleryCore
-* @subpackage Helpers
-* @author Ernesto Baschny <ernst@baschny.de>
-* @version $Revision: 17580 $
-* @static
-*/
+ * Helper class for GalleryChildEntities
+ * @package GalleryCore
+ * @subpackage Helpers
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision: 17580 $
+ * @static
+ */
 class GalleryChildEntityHelper_simple {
 	/**
-	* @see GalleryCoreApi::fetchChildItemIdsWithPermission
-	*/
+	 * @see GalleryCoreApi::fetchChildItemIdsWithPermission
+	 */
 	public static function fetchChildItemIdsWithPermission($itemId, $permissionId) {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
@@ -59,8 +59,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchLinkableChildItemIdsWithPermission
-	*/
+	 * @see GalleryCoreApi::fetchLinkableChildItemIdsWithPermission
+	 */
 	public static function fetchLinkableChildItemIdsWithPermission($itemId, $permissionId) {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
@@ -90,8 +90,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchChildItemIds
-	*/
+	 * @see GalleryCoreApi::fetchChildItemIds
+	 */
 	public static function fetchChildItemIds(
 		$item,
 		$offset = null,
@@ -116,8 +116,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchChildDataItemIds
-	*/
+	 * @see GalleryCoreApi::fetchChildDataItemIds
+	 */
 	public static function fetchChildDataItemIds(
 		$item,
 		$offset = null,
@@ -142,8 +142,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchChildAlbumItemIds
-	*/
+	 * @see GalleryCoreApi::fetchChildAlbumItemIds
+	 */
 	public static function fetchChildAlbumItemIds(
 		$item,
 		$offset = null,
@@ -168,8 +168,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchChildItemIdsIgnorePermissions
-	*/
+	 * @see GalleryCoreApi::fetchChildItemIdsIgnorePermissions
+	 */
 	public static function fetchChildItemIdsIgnorePermissions(
 		$item,
 		$offset = null,
@@ -193,20 +193,20 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* Helper function for getting child ids
-	*
-	* @param GalleryItem $item
-	* @param int $offset an offset into the child item list (null for no offset)
-	* @param int $count a count of how many child items to return (null for unlimited)
-	* @param string $class a class to restrict children to (eg. 'GalleryAlbumItem')
-	* @param string|array $requiredPermission a single required permission-id (can be null)
-	*                                         or an array or permission-ids
-	* @param boolean $linkableOnly whether to restrict to linkable items only
-	* @param int $userId the userid we're doing this for (defaults to active user id)
-	* @return array GalleryStatus a status code
-	*               array of item ids
-	* @access private
-	*/
+	 * Helper function for getting child ids
+	 *
+	 * @param GalleryItem $item
+	 * @param int $offset an offset into the child item list (null for no offset)
+	 * @param int $count a count of how many child items to return (null for unlimited)
+	 * @param string $class a class to restrict children to (eg. 'GalleryAlbumItem')
+	 * @param string|array $requiredPermission a single required permission-id (can be null)
+	 *                                         or an array or permission-ids
+	 * @param boolean $linkableOnly whether to restrict to linkable items only
+	 * @param int $userId the userid we're doing this for (defaults to active user id)
+	 * @return array GalleryStatus a status code
+	 *               array of item ids
+	 * @access private
+	 */
 	public static function _fetchChildItemIds(
 		$item,
 		$offset,
@@ -219,7 +219,7 @@ class GalleryChildEntityHelper_simple {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ids = array();
+		$ids     = array();
 
 		if (!GalleryUtilities::isA($item, 'GalleryItem')) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
@@ -272,8 +272,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::buildItemQuery
-	*/
+	 * @see GalleryCoreApi::buildItemQuery
+	 */
 	public static function buildItemQuery(
 		$baseTable,
 		$baseIdColumn,
@@ -351,8 +351,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchParents
-	*/
+	 * @see GalleryCoreApi::fetchParents
+	 */
 	public static function fetchParents($item, $permission = null, $filterBreadcrumb = false) {
 		global $gallery;
 
@@ -405,17 +405,17 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* Helper function for getting descendent ids.
-	*
-	* @param GalleryItem $item
-	* @param int $offset an offset into the child item list (null for no offset)
-	* @param int $count a count of how many child items to return (null for unlimited)
-	* @param string $class a class to restrict children to (eg. 'GalleryAlbumItem')
-	* @param string $requiredPermission a required permission (defaults to 'core.view')
-	* @return array GalleryStatus a status code
-	*               array of ids
-	* @access private
-	*/
+	 * Helper function for getting descendent ids.
+	 *
+	 * @param GalleryItem $item
+	 * @param int $offset an offset into the child item list (null for no offset)
+	 * @param int $count a count of how many child items to return (null for unlimited)
+	 * @param string $class a class to restrict children to (eg. 'GalleryAlbumItem')
+	 * @param string $requiredPermission a required permission (defaults to 'core.view')
+	 * @return array GalleryStatus a status code
+	 *               array of ids
+	 * @access private
+	 */
 	public static function _fetchDescendentItemIds($item, $offset, $count, $class, $requiredPermission) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
@@ -505,8 +505,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchDescendentItemIds
-	*/
+	 * @see GalleryCoreApi::fetchDescendentItemIds
+	 */
 	public static function fetchDescendentItemIds($item, $offset, $count, $requiredPermission) {
 		list($ret, $ids) = GalleryChildEntityHelper_simple::_fetchDescendentItemIds(
 			$item,
@@ -524,8 +524,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchDescendentAlbumItemIds
-	*/
+	 * @see GalleryCoreApi::fetchDescendentAlbumItemIds
+	 */
 	public static function fetchDescendentAlbumItemIds($item, $offset, $count, $requiredPermission) {
 		list($ret, $ids) = GalleryChildEntityHelper_simple::_fetchDescendentItemIds(
 			$item,
@@ -543,31 +543,31 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/**
-	* If we want to sort, which storage info we need?
-	*
-	* This will return the ORDER BY clause to sort the items and a
-	* condition that we need to add to the fetching query. To join with
-	* a new table, the [GalleryChildEntity::id] will contain the current
-	* ID. Eventually another table mentioned in the condition will have to
-	* be included too, the calling function has to decide that (using
-	* GalleryStorage::extractClasses())
-	*
-	* @param string $orderBy orderBy (null/empty to use site default for both parameters)
-	* @param string $orderDirection orderDirection
-	* @return array GalleryStatus a status code
-	*               string order by clause, string select clause,
-	*               string a row matching condition,
-	*               string optional join clause
-	* @access private
-	*/
+	 * If we want to sort, which storage info we need?
+	 *
+	 * This will return the ORDER BY clause to sort the items and a
+	 * condition that we need to add to the fetching query. To join with
+	 * a new table, the [GalleryChildEntity::id] will contain the current
+	 * ID. Eventually another table mentioned in the condition will have to
+	 * be included too, the calling function has to decide that (using
+	 * GalleryStorage::extractClasses())
+	 *
+	 * @param string $orderBy orderBy (null/empty to use site default for both parameters)
+	 * @param string $orderDirection orderDirection
+	 * @return array GalleryStatus a status code
+	 *               string order by clause, string select clause,
+	 *               string a row matching condition,
+	 *               string optional join clause
+	 * @access private
+	 */
 	public static function _getOrderInfo($orderBy, $orderDirection) {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
 		/*
-		* Don't simply plug getOrderBy into the SQL clause, or we could open
-		* the door for SQL injection.
-		*/
+		 * Don't simply plug getOrderBy into the SQL clause, or we could open
+		 * the door for SQL injection.
+		 */
 		$usingDefaults = false;
 
 		if (empty($orderBy)) {
@@ -597,26 +597,26 @@ class GalleryChildEntityHelper_simple {
 
 			switch ($orderType) {
 				case 'id':
-				// We always add a sort by id, see buildItemQuery
-				break;
+					// We always add a sort by id, see buildItemQuery
+					break;
 
 				case 'title':
-				$column = '[GalleryItem::title]';
-				$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
+					$column = '[GalleryItem::title]';
+					$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
 
-				break;
+					break;
 
 				case 'summary':
-				$column = '[GalleryItem::summary]';
-				$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
+					$column = '[GalleryItem::summary]';
+					$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
 
-				break;
+					break;
 
 				case 'creationTimestamp':
-				$column = '[GalleryEntity::creationTimestamp]';
-				$join[] = 'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]';
+					$column = '[GalleryEntity::creationTimestamp]';
+					$join[] = 'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]';
 
-				break;
+					break;
 
 				case 'modificationTimestamp':
 					$column = '[GalleryEntity::modificationTimestamp]';
@@ -624,33 +624,33 @@ class GalleryChildEntityHelper_simple {
 
 					break;
 
-					case 'description':
+				case 'description':
 					$column = '[GalleryItem::description]';
 					$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
 
 					break;
 
-					case 'keywords':
+				case 'keywords':
 					$column = '[GalleryItem::keywords]';
 					$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
 
 					break;
 
-					case 'pathComponent':
+				case 'pathComponent':
 					$column = '[GalleryFileSystemEntity::pathComponent]';
 					$join[] = 'INNER JOIN [GalleryFileSystemEntity] ON '
 					. '[BASE::ID] = [GalleryFileSystemEntity::id]';
 
 					break;
 
-					case 'viewCount':
+				case 'viewCount':
 					$column = '[GalleryItemAttributesMap::viewCount]';
 					$join[] = 'INNER JOIN [GalleryItemAttributesMap] ON '
 					. '[BASE::ID] = [GalleryItemAttributesMap::itemId]';
 
 					break;
 
-					case 'viewedFirst':
+				case 'viewedFirst':
 					$order[]  = '[GalleryItemAttributesMap::viewCount] DESC';
 					$select[] = '[GalleryItemAttributesMap::viewCount]';
 					$join[]   = 'INNER JOIN [GalleryItemAttributesMap] ON '
@@ -658,7 +658,7 @@ class GalleryChildEntityHelper_simple {
 
 					break;
 
-					case 'orderWeight':
+				case 'orderWeight':
 					$order[]  = '[GalleryItemAttributesMap::orderWeight]';
 					$select[] = '[GalleryItemAttributesMap::orderWeight]';
 					$join[]   = 'INNER JOIN [GalleryItemAttributesMap] ON '
@@ -666,13 +666,13 @@ class GalleryChildEntityHelper_simple {
 
 					break;
 
-					case 'originationTimestamp':
+				case 'originationTimestamp':
 					$column = '[GalleryItem::originationTimestamp]';
 					$join[] = 'INNER JOIN [GalleryItem] ON [BASE::ID] = [GalleryItem::id]';
 
 					break;
 
-					case 'random':
+				case 'random':
 					list($ret, $order[]) = $storage->getFunctionSql('RAND', array());
 
 					if ($ret) {
@@ -681,7 +681,7 @@ class GalleryChildEntityHelper_simple {
 
 					break;
 
-					case 'albumsFirst':
+				case 'albumsFirst':
 					list($ret, $case) = $storage->getFunctionSql(
 						'CASE',
 						array('[GalleryAlbumItem=1::id] IS NULL', '1', '0')
@@ -701,7 +701,7 @@ class GalleryChildEntityHelper_simple {
 
 					break;
 
-					default:
+				default:
 					list($ret, $sort) = GalleryCoreApi::newFactoryInstanceById('GallerySortInterface_1_2', $orderType);
 
 					if ($ret) {
@@ -739,14 +739,14 @@ class GalleryChildEntityHelper_simple {
 					}
 
 					return GalleryChildEntityHelper_simple::_getOrderInfo(null, null);
-				}
-
-				if (isset($column)) {
-					$order[]  = $column . $direction;
-					$select[] = $column;
-				}
 			}
 
-			return array(null, $select, $join, $condition, $order);
+			if (isset($column)) {
+				$order[]  = $column . $direction;
+				$select[] = $column;
+			}
 		}
+
+		return array(null, $select, $join, $condition, $order);
 	}
+}

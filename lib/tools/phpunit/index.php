@@ -426,7 +426,7 @@ class GalleryTestResult extends TestResult {
 			}
 		}
 
-		$ourUName = php_uname();
+		$ourUName      = php_uname();
 		$explodedUName = explode(' ', $ourUName);
 
 		$webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');

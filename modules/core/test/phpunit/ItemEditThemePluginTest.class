@@ -72,7 +72,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		$this->_markForCleanup($this->_album);
 
-		$Platform = $gallery->getPlatform();
+		$Platform                  = $gallery->getPlatform();
 		$ItemEditThemeTestPlatform = new ItemEditThemeTestPlatform($Platform);
 		$gallery->setPlatform($ItemEditThemeTestPlatform);
 
@@ -346,20 +346,18 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
  * Test theme
  */
 class ItemEditThemeControllerTestTheme {
-
 	/**
 	 * Load as Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new ItemEditThemeControllerTestTheme();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new ItemEditThemeControllerTestTheme();
+		}
 
- 		return $singleton;
- 	}
-
+		return $singleton;
+	}
 
 	public function getId() {
 		return 'ItemEditThemeControllerTest';

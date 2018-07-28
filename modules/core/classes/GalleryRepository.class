@@ -53,15 +53,15 @@ class GalleryRepository {
 	/**
 	 * Load as Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new GalleryRepository();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new GalleryRepository();
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	/**
 	 * Return a set of all the repositories that are currently active.  The error count indicates

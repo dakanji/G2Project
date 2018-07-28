@@ -24,7 +24,7 @@
  */
 function smarty_function_math($params, &$smarty) {
 	global $gallery;
-	
+
 	static $_allowed_funcs = array(
 		'int'   => true,
 		'abs'   => true,

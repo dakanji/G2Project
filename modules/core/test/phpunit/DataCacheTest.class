@@ -1096,15 +1096,15 @@ class DataCacheTestPlatform {
 	/**
 	 * Load Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new DataCacheTestPlatform();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new DataCacheTestPlatform();
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	public function __construct() {
 		$this->reset();

@@ -205,7 +205,7 @@ class RepositoryDescriptor extends RepositoryObject {
 					return $ret;
 				}
 
-				$stringsRevision = $this->_data['header']['stringsRevision'];
+				$stringsRevision                                           = $this->_data['header']['stringsRevision'];
 				$this->_data['languages'][$stringsRevision][$languageCode] = $revision;
 			}
 		}

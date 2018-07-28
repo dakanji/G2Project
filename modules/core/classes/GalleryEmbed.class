@@ -1235,7 +1235,7 @@ class GalleryEmbed {
 			$head = $template->getVariable('head');
 
 			if (!empty($head['tpl'])) {
-				$tpl = array_keys($head['tpl'])[0];
+				$tpl                  = array_keys($head['tpl'])[0];
 				list($ret, $headHtml) = $template->fetch("gallery:$tpl");
 
 				if ($ret) {

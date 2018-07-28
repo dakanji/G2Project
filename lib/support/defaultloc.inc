@@ -16,11 +16,11 @@ $file     = $fileInfo['filename'] . '.' . $fileInfo['extension'];
 // Get original URL string
 $oldURL = $_SERVER['REQUEST_URI'];
 // Replace script filename with "index.php" and use a placeholder to represent "?" for later
-$newURL = str_replace($file, 'index.php{{{={{={X}=}}=}}}' . $fileInfo['filename'], $oldURL);
+$newURL = str_replace($file, 'index.php{{={placeholder}=}}' . $fileInfo['filename'], $oldURL);
 // Replace any "?" in the string with "&"
 $newURL = str_replace('?', '&', $newURL);
 // Change placeholder to "?" to finalise the URL
-$newURL = str_replace('{{{={{={X}=}}=}}}', '?', $newURL);
+$newURL = str_replace('{{={placeholder}=}}', '?', $newURL);
 
 
 /**
@@ -38,16 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	foreach ($_POST as $k => $v) {
 		$str .= '<input type="hidden" name="' . $k . '" value="' . $v . '">';
 	}
-	$str     .= '</form>';
-	$str     .= '<script type="text/javascript">';
-	$str     .= '	var rebounce_now = function () {';
-		$str .= '		var frm = document.getElementById("g2_support_rebounce_form");';
-		$str .= '		frm.submit();';
-		$str .= '	}';
-		$str .= '	window.onload = rebounce_now;';
-		$str .= '</script>';
-		$str .= '</body></html>';
-		echo $str;
+	$str .= '</form>';
+	$str .= '<script type="text/javascript">';
+	$str .= '    var rebounce_now = function () {';
+	$str .= '        var frm = document.getElementById("g2_support_rebounce_form");';
+	$str .= '        frm.submit();';
+	$str .= '    }';
+	$str .= '    window.onload = rebounce_now;';
+	$str .= '</script>';
+	$str .= '</body></html>';
+	echo $str;
 } else {
 	header('Location: ' . $newURL);
 }

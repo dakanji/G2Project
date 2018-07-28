@@ -320,7 +320,7 @@ class Mail_mimePart {
 		$escape = '=';
 		$output = '';
 
-		foreach($lines as $line) {
+		foreach ($lines as $line) {
 			$linlen  = strlen($line);
 			$newline = '';
 

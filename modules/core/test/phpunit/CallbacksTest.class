@@ -51,11 +51,11 @@ class CallbacksTest extends GalleryTestCase {
 		}
 		$LanguageSelector = $this->_smarty->_tpl_vars['block']['core']['LanguageSelector'];
 
-		$language = array_keys($supportedLanguages)[0];
+		$language    = array_keys($supportedLanguages)[0];
 		$countryList = array_values($supportedLanguages)[0];
-		$country = array_keys($countryList)[0];
+		$country     = array_keys($countryList)[0];
 		$countryData = array_values($countryList)[0];
-		
+
 		$this->assertEquals(
 			$countryData['description'],
 			$LanguageSelector['list'][$language . '_' . $country]

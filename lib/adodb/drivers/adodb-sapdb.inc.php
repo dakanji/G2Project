@@ -32,7 +32,7 @@ if (!defined('ADODB_SAPDB')) {
 		public $sysDate         = 'DATE';
 		public $sysTimeStamp    = 'TIMESTAMP';
 		// used by DBDate() as the default date format used by the database
-		public $fmtDate         = "'Y-m-d'";
+		public $fmtDate = "'Y-m-d'";
 		// used by DBTimeStamp as the default timestamp fmt.
 		public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 		public $hasInsertId     = true;

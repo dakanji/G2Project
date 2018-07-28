@@ -800,19 +800,19 @@ class GalleryUtilities {
 
 	/**
 	 * Unescape embedded UTF-8 entities in the given string.
-	 * @param string $string the input string with UTF-8 entities
 	 * @return string the UTF-8 string
 	 */
 	public static function unicodeEntitiesToUtf8($inString) {
 		$outString = preg_replace_callback(
 			'/&#([xa-f\d]+);/mi',
-	        function($matches) {
-	            foreach($matches as $match) {
-	                return GalleryUtilities::unicodeValueToUtf8Value($match);
-	            }
-	        },
+			function ($matches) {
+				foreach ($matches as $match) {
+					return GalleryUtilities::unicodeValueToUtf8Value($match);
+				}
+			},
 			$inString
-	    );
+		);
+
 		return $outString;
 	}
 

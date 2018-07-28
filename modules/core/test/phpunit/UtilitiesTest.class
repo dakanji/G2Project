@@ -41,8 +41,8 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->_saveCookie           = isset($_COOKIE) ? $_COOKIE : null;
 		$this->_saveServerHttpCookie = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : null;
 
-		$this->_mkdir        = array();
-		$this->_savePlatform =& $gallery->getPlatform();
+		$this->_mkdir          = array();
+		$this->_savePlatform   =& $gallery->getPlatform();
 		$UtilitiesTestPlatform = new UtilitiesTestPlatform($this);
 		$gallery->setPlatform($UtilitiesTestPlatform);
 
@@ -1315,7 +1315,7 @@ class UtilitiesTest extends GalleryTestCase {
 	 */
 	public function testUtf8Substring() {
 		// Russian
-		$utf8 = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
+		$utf8     = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
 		 "\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
 		 "\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
 		$testData = GalleryUtilities::utf8Substring($utf8, 0, 4);
@@ -1935,6 +1935,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 		foreach (array('de_DE', 'german') as $locale) {
 			$nTest = ($newLocale = GalleryTranslator::getSingleton()->_setlocale(LC_ALL, $locale));
+
 			if ($nTest !== false) {
 				break;
 			}
@@ -1958,6 +1959,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 		foreach (array('de_DE', 'german') as $locale) {
 			$nTest = ($newLocale = GalleryTranslator::getSingleton()->_setlocale(LC_ALL, $locale));
+
 			if ($nTest !== false) {
 				break;
 			}

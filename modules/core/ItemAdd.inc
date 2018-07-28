@@ -48,16 +48,15 @@ class ItemAddController extends GalleryController {
 	/**
 	 * Load as Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new ItemAddController();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new ItemAddController();
+		}
 
- 		return $singleton;
- 	}
-
+		return $singleton;
+	}
 
 	/**
 	 * @see GalleryController::handleRequest

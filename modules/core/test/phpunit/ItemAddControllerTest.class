@@ -485,7 +485,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * Sort the added files list by filename because we can't guarantee
 		 * the file order across platforms.
 		 */
-		$sortAddedFilesFunc = function($a, $b) {
+		$sortAddedFilesFunc = function ($a, $b) {
 			return strcmp($a['fileName'], $b['fileName']);
 		};
 		usort($addedItems, $sortAddedFilesFunc);
@@ -613,9 +613,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * Sort the added files list by filename because we can't guarantee
 		 * the file order across platforms.
 		 */
-		 $sortAddedFilesFunc = function($a, $b) {
- 			return strcmp($a['fileName'], $b['fileName']);
- 		};
+		$sortAddedFilesFunc = function ($a, $b) {
+			return strcmp($a['fileName'], $b['fileName']);
+		};
 		usort($addedItems, $sortAddedFilesFunc);
 
 		$itemNames = array();
@@ -717,9 +717,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * Sort the added files list by filename because we can't guarantee
 		 * the file order across platforms.
 		 */
-		 $sortAddedFilesFunc = function($a, $b) {
- 			return strcmp($a['fileName'], $b['fileName']);
- 		};
+		$sortAddedFilesFunc = function ($a, $b) {
+			return strcmp($a['fileName'], $b['fileName']);
+		};
 		usort($addedItems, $sortAddedFilesFunc);
 
 		$isUnix = strncasecmp(PHP_OS, 'win', 3);

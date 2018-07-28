@@ -82,12 +82,13 @@ class IndexDotPhpTest extends GalleryTestCase {
 				// Check if the G2 cookie is present
 				$headers['Set-Cookie'] = is_array($headers['Set-Cookie']) ? $headers['Set-Cookie'] : array($headers['Set-Cookie']);
 				$grep                  = preg_grep(
-					'/' . SESSION_ID_PARAMETER . '/', $headers['Set-Cookie']
+					'/' . SESSION_ID_PARAMETER . '/',
+					$headers['Set-Cookie']
 				);
 				$this->assert(
 					!empty($grep),
 					"G2 cookie not present in HTTP headers: $url." .
-					'The complete cookie headers are: ' . implode(', ',$headers['Set-Cookie'])
+					'The complete cookie headers are: ' . implode(', ', $headers['Set-Cookie'])
 				);
 			}
 		}

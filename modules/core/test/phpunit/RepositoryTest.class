@@ -1914,7 +1914,7 @@ class RepositoryTest extends GalleryTestCase {
 	public function testCreatePluginDirectory() {
 		global $gallery;
 
-		$repository = GalleryRepository::getSingleton();
+		$repository       = GalleryRepository::getSingleton();
 		$originalPlatform =& $gallery->getPlatform();
 		$slash            = $originalPlatform->getDirectorySeparator();
 

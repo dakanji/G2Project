@@ -2001,6 +2001,7 @@ class Smarty {
 	 */
 	public function _eval($code, $params = null) {
 		global $gallery;
+
 		return $gallery->runEval($code);
 	}
 

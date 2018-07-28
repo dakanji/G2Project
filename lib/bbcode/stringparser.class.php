@@ -988,15 +988,15 @@ class StringParser_Node {
 	/**
 	 * Load Singleton
 	 */
-	 public static function getSingleton() {
- 		static $singleton;
+	public static function getSingleton() {
+		static $singleton;
 
- 		if (!isset($singleton)) {
- 			$singleton = new StringParser_Node();
- 		}
+		if (!isset($singleton)) {
+			$singleton = new StringParser_Node();
+		}
 
- 		return $singleton;
- 	}
+		return $singleton;
+	}
 
 	/**
 	 * Type of the node

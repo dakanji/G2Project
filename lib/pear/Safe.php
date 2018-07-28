@@ -459,21 +459,19 @@ class HTML_Safe {
 
 				$tempval = preg_replace_callback(
 					'/&#(\d+);?/m',
-					function($matches) {
+					function ($matches) {
 						foreach ($matches as $match) {
 							return chr($match);
 						}
-
 					},
 					$value
 				);
 				$tempval = preg_replace_callback(
 					'/&#x([0-9a-f]+);?/mi',
-					function($matches) {
+					function ($matches) {
 						foreach ($matches as $match) {
 							return chr(hexdec($match));
 						}
-
 					},
 					$tempval
 				);

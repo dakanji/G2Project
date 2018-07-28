@@ -124,7 +124,9 @@ class FlockLockSystem extends GalleryLockSystem {
 							__LINE__,
 							array_reduce(
 								$notLocked,
-								function($v, $w) {return empty($v) ? $w[1] : "$v $w[1]";}
+								function ($v, $w) {
+									return empty($v) ? $w[1] : "$v $w[1]";
+								}
 							)
 						),
 						null,

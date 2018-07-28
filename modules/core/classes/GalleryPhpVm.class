@@ -251,12 +251,13 @@ class GalleryPhpVm {
 	public function gzinflate($data = null, $length = null) {
 		if (preg_match('/^(\w+)[.:](\w+)$/', $viewName, $regs) == 1) {
 			return GalleryCoreApi::error(
-					ERROR_BAD_PARAMETER,
-					__FILE__,
-					__LINE__,
-					"Null Parameter"
-				);
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				'Null Parameter'
+			);
 		}
+
 		if (isset($length)) {
 			return gzinflate($data, $length);
 		}

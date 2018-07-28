@@ -245,13 +245,13 @@ class AdminRepositoryDownloadView extends GalleryView {
 					}
 				}
 			}
-			$upgradeData['languages']                  = $condensedData;
-			$upgradeData['languageCount']              = count($upgradeData['languages']);
-			$upgradeData['repository']                 = $source;
+			$upgradeData['languages']     = $condensedData;
+			$upgradeData['languageCount'] = count($upgradeData['languages']);
+			$upgradeData['repository']    = $source;
 			list(
 				$ret,
 				$upgradeData['repositoryName']
-			) = GalleryRepository::getSingleton()->translateRepositoryName($source);
+			)                             = GalleryRepository::getSingleton()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);
