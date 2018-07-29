@@ -800,7 +800,7 @@ class GalleryView {
 	 * error handler.  Missing object is treated like permission denied to avoid information
 	 * disclosure by trying URLs with different ids.
 	 * @param GalleryStatus $ret or null
-	 * @return array for return from $this->loadTemplate or null
+	 * @return array for return from GalleryView::loadTemplate or null
 	 * @access protected
 	 */
 	public function _permissionCheck($ret) {
