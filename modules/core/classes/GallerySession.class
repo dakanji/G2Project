@@ -883,7 +883,7 @@ class GallerySession {
 				}
 			} elseif (!empty($view)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-				list($ret, $view) = GalleryView::loadView($view);
+				list($ret, $view) = GalleryView::getSingleton()->loadView($view);
 
 				if (!$ret && !$view->shouldSaveSession()) {
 					$flag = false;

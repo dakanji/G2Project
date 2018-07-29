@@ -996,11 +996,24 @@ class PluginCallbackMockStorage {
 }
 
 class PluginCallbackWithFakeHandler extends PluginCallbackView {
+	/**
+	 * Load as Singleton
+	 */
+	public static function getSingleton() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new PluginCallbackWithFakeHandler();
+		}
+
+		return $singleton;
+	}
+
 	public function setReply($call, $reply) {
 		$this->_replies[$call][] = $reply;
 	}
 
-	public static function getPluginStates() {
+	public function getPluginStates() {
 		return array_shift($this->_replies['getPluginStates']);
 	}
 

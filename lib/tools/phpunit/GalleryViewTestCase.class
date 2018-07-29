@@ -44,7 +44,7 @@ class GalleryViewTestCase extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		list($ret, $this->_view) = GalleryView::loadView($viewName);
+		list($ret, $this->_view) = GalleryView::getSingleton()->loadView($viewName);
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml());

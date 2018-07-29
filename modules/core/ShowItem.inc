@@ -60,6 +60,19 @@ class ShowItemController extends GalleryController {
  */
 class ShowItemView extends GalleryView {
 	/**
+	 * Load as Singleton
+	 */
+	public static function getSingleton() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ShowItemView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -116,7 +129,7 @@ class ShowItemView extends GalleryView {
 	/**
 	 * @see GalleryView::getItem
 	 */
-	public static function getItem($getOriginalSpecified = false) {
+	public function getItem($getOriginalSpecified = false) {
 		static $originalSpecified;
 		list($ret, $item, $wasSpecified) = parent::getItem();
 

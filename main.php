@@ -372,7 +372,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		GalleryUtilities::putRequestVariable('view', $viewName);
 	}
 
-	list($ret, $view) = GalleryView::loadView($viewName);
+	list($ret, $view) = GalleryView::getSingleton()->loadView($viewName);
 
 	if ($ret) {
 		return array($ret, null);

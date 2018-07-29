@@ -1209,7 +1209,7 @@ class GalleryEmbed {
 
 		// Default theme variables
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		$ret = GalleryView::setStandardTemplateVariables($template);
+		$ret = GalleryView::getSingleton()->setStandardTemplateVariables($template);
 
 		if ($ret) {
 			return array($ret, null, null);

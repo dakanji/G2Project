@@ -70,7 +70,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		$result                   = array();
-		list($ret, $beforeStates) = self::getPluginStates();
+		list($ret, $beforeStates) = $this->getPluginStates();
 
 		if ($ret) {
 			$result['status'] = 'error';
@@ -108,7 +108,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		if (!$ret) {
-			list($ret, $afterStates) = self::getPluginStates();
+			list($ret, $afterStates) = $this->getPluginStates();
 
 			if ($ret) {
 				$result['status'] = 'error';
@@ -176,7 +176,10 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		$result                      = array();
-		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables('pluginType', 'pluginId');
+		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables(
+			'pluginType',
+			'pluginId'
+		);
 
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
 
@@ -408,7 +411,7 @@ class PluginCallbackView extends GalleryView {
 	 *               array(moduleId => state, ...)
 	 * @static
 	 */
-	public static function getPluginStates() {
+	public function getPluginStates() {
 		$states = array();
 
 		foreach (array('module', 'theme') as $type) {
@@ -425,7 +428,7 @@ class PluginCallbackView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($ret, $states[$type][$pluginId]) = self::getPluginState(
+				list($ret, $states[$type][$pluginId]) = $this->getPluginState(
 					$type,
 					$plugin,
 					$status
@@ -450,7 +453,7 @@ class PluginCallbackView extends GalleryView {
 	 *               string a state
 	 * @static
 	 */
-	public static function getPluginState($type, $plugin, $status) {
+	public function getPluginState($type, $plugin, $status) {
 		if ($type == 'module' && $plugin->getId() == 'core') {
 			return array(null, 'active');
 		}

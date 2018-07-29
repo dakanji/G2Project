@@ -50,7 +50,7 @@ class ShowItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $this->_view) = GalleryView::loadView('core.ShowItem');
+		list($ret, $this->_view) = GalleryView::getSingleton()->loadView('core.ShowItem');
 
 		if ($ret) {
 			return $ret;
@@ -215,7 +215,7 @@ class ShowItemTest extends GalleryTestCase {
 		}
 
 		// Execute the test.
-		list($ret, $view) = GalleryView::loadView('core.ShowItem');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItem');
 
 		if ($ret) {
 			return $ret;

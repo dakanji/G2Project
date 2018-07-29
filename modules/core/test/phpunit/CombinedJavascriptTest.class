@@ -269,7 +269,9 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		 * test. (Verify all header() calls, including those from loadView())
 		 */
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		list($ret, $this->_view) = GalleryView::loadView('core.CombinedJavascript');
+		list($ret, $this->_view) = GalleryView::getSingleton()->loadView(
+			'core.CombinedJavascript'
+		);
 
 		if ($ret) {
 			return $ret;

@@ -43,7 +43,7 @@ class GalleryTestCase extends TestCase {
 	/**
 	 * Load as Singleton
 	 */
-	public static function getSingleton($methodName = null) {
+	public static function getSingleton($methodName = 'TestCase') {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -963,9 +963,14 @@ class GalleryTestCase extends TestCase {
 	 */
 	public function DeepCompare($obj1, $obj2, $context = null) {
 		if (gettype($obj1) !== gettype($obj2)) {
-			$retval  = "[$context] $obj1 type (";
+			if (is_null($context)) {
+				$contextString = $context;
+			} else {
+				$contextString = '[$context]';
+			}
+			$retval  = "$contextString obj1 type (";
 			$retval .= gettype($obj1);
-			$retval .= ") !== $obj2 type (";
+			$retval .= ') !== obj2 type (';
 			$retval .= gettype($obj2) . ')';
 
 			return $retval;

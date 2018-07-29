@@ -31,6 +31,19 @@
  */
 class GalleryView {
 	/**
+	 * Load as Singleton
+	 */
+	public static function getSingleton() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * The localization domain for this view.
 	 * @var string
 	 * @access private
@@ -135,7 +148,7 @@ class GalleryView {
 	 *               GalleryView a view
 	 * @static
 	 */
-	public static function loadView($viewName) {
+	public function loadView($viewName) {
 		global $gallery;
 
 		// Continue to support old style : separator for a while
@@ -272,7 +285,7 @@ class GalleryView {
 
 		// --------------------------------------------------
 		// Standard user info available for every view
-		$ret = GalleryView::setStandardTemplateVariables($template);
+		$ret = $this->setStandardTemplateVariables($template);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -391,7 +404,7 @@ class GalleryView {
 	 *               GalleryItem an item
 	 *               boolean true if item was specified, false if default was used
 	 */
-	public static function getItem($checkPermissions = true) {
+	public function getItem($checkPermissions = true) {
 		global $gallery;
 		$itemId       = (int)GalleryUtilities::getRequestVariables('itemId');
 		$wasSpecified = true;
@@ -536,7 +549,7 @@ class GalleryView {
 				}
 			}
 
-			list($ret, $theme) = GalleryView::_loadTheme($themeId);
+			list($ret, $theme) = $this->_loadTheme($themeId);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -745,7 +758,7 @@ class GalleryView {
 	 * @return GalleryStatus
 	 * @static
 	 */
-	public static function setStandardTemplateVariables(&$template) {
+	public function setStandardTemplateVariables(&$template) {
 		global $gallery;
 		$session =& $gallery->getSession();
 
@@ -787,7 +800,7 @@ class GalleryView {
 	 * error handler.  Missing object is treated like permission denied to avoid information
 	 * disclosure by trying URLs with different ids.
 	 * @param GalleryStatus $ret or null
-	 * @return array for return from GalleryView::loadTemplate or null
+	 * @return array for return from $this->loadTemplate or null
 	 * @access protected
 	 */
 	public function _permissionCheck($ret) {

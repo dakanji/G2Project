@@ -49,7 +49,7 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	public function testLoadViewSuccess() {
-		list($ret, $view) = GalleryView::loadView('core.ShowItem');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItem');
 
 		if ($ret) {
 			return $ret;
@@ -57,7 +57,7 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	public function testLoadViewFail() {
-		list($ret, $view) = GalleryView::loadView('viewtest.SomeRandomView');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('viewtest.SomeRandomView');
 
 		if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			// this is what we expect
@@ -71,7 +71,7 @@ class ViewTest extends GalleryTestCase {
 		 * We can load the config view even though the module is deactivated
 		 * because we're an admin.
 		 */
-		list($ret, $view) = GalleryView::loadView('viewtest.ViewTestConfig');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('viewtest.ViewTestConfig');
 
 		if ($ret) {
 			return $ret;
@@ -81,7 +81,7 @@ class ViewTest extends GalleryTestCase {
 	public function testGetItem() {
 		global $gallery;
 
-		list($ret, $view) = GalleryView::loadView('core.ShowItemError');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItemError');
 
 		if ($ret) {
 			return $ret;
@@ -115,7 +115,7 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals($this->_getRootId(), $item->getId(), 'root album by default');
 
 		// ShowItem view returns wasSpecified==true even when root album selected by default
-		list($ret, $view) = GalleryView::loadView('core.ShowItem');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItem');
 
 		if ($ret) {
 			return $ret;
@@ -144,7 +144,7 @@ class ViewTest extends GalleryTestCase {
 	public function testGetItemOnlyReturnsItems() {
 		global $gallery;
 
-		list($ret, $view) = GalleryView::loadView('core.ShowItemError');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItemError');
 
 		if ($ret) {
 			return $ret;
@@ -160,7 +160,7 @@ class ViewTest extends GalleryTestCase {
 	public function testGetItemRequiresViewPermission() {
 		global $gallery;
 
-		list($ret, $view) = GalleryView::loadView('core.ShowItemError');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItemError');
 
 		if ($ret) {
 			return $ret;
@@ -542,7 +542,7 @@ class ViewTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
 
-		list($ret, $view) = GalleryView::loadView('core.ShowItem');
+		list($ret, $view) = GalleryView::getSingleton()->loadView('core.ShowItem');
 
 		if ($ret) {
 			return array($ret, null, null);

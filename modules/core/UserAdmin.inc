@@ -107,7 +107,7 @@ class UserAdminView extends GalleryView {
 		$UserAdmin['isSiteAdmin']    = $isSiteAdmin;
 
 		if (!empty($subViewName)) {
-			list($ret, $subView) = GalleryView::loadView($subViewName);
+			list($ret, $subView) = GalleryView::getSingleton()->loadView($subViewName);
 
 			if ($ret) {
 				return array($ret, null);
@@ -157,7 +157,7 @@ class UserAdminView extends GalleryView {
 		if (empty($subViewName)) {
 			$subViewName = 'core.ItemEdit';
 		}
-		list($ret, $subView) = GalleryView::loadView($subViewName);
+		list($ret, $subView) = GalleryView::getSingleton()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);
