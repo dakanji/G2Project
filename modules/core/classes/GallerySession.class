@@ -832,7 +832,7 @@ class GallerySession {
 			list(
 				$ret,
 				$detectedLanguageCode
-			) = GalleryTranslator::getSingleton()->getDefaultLanguageCode();
+			) = GalleryTranslator::doStatic()->getDefaultLanguageCode();
 
 			if ($ret) {
 				return array($ret, null);
@@ -883,7 +883,7 @@ class GallerySession {
 				}
 			} elseif (!empty($view)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-				list($ret, $view) = GalleryView::getSingleton()->loadView($view);
+				list($ret, $view) = GalleryView::doStatic()->loadView($view);
 
 				if (!$ret && !$view->shouldSaveSession()) {
 					$flag = false;

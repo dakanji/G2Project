@@ -124,7 +124,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				list(
 					$ret,
 					$repositories
-				) = GalleryRepository::getSingleton()->getRepositories();
+				) = GalleryRepository::doStatic()->getRepositories();
 
 				if ($ret) {
 					return array(null, $ret);
@@ -178,7 +178,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 		}
 
 		// Init repository.
-		list($ret, $repositories) = GalleryRepository::getSingleton()->getRepositories();
+		list($ret, $repositories) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);
@@ -251,7 +251,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			list(
 				$ret,
 				$upgradeData['repositoryName']
-			)                             = GalleryRepository::getSingleton()->translateRepositoryName($source);
+			)                             = GalleryRepository::doStatic()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);

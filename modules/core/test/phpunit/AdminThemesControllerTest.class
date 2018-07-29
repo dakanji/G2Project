@@ -39,7 +39,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_testTheme = AdminThemesControllerTestTheme::getSingleton();
+		$this->_testTheme = AdminThemesControllerTestTheme::doStatic();
 		$this->_testTheme->resetCalls();
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
@@ -72,7 +72,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		$map =& TestThemeId2Theme::getSingleton()->getMap();
+		$map =& TestThemeId2Theme::doStatic()->getMap();
 		$this->assertEquals(2, (int)$map['rows']);
 		$this->assertEquals(4, (int)$map['columns']);
 	}
@@ -402,7 +402,7 @@ class TestThemeId2Theme extends GalleryTheme {
 	/**
 	 * Load Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -478,7 +478,7 @@ class TestThemeId2Theme extends GalleryTheme {
  * Test theme
  */
 class AdminThemesControllerTestTheme {
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -527,34 +527,34 @@ class AdminThemesControllerTestTheme {
 	}
 
 	public function _setCalled($function) {
-		$singleton                      = $this->getSingleton();
+		$singleton                      = $this->doStatic();
 		$singleton->_callMap[$function] = 1;
 	}
 
 	public function wasCalled($function) {
-		$singleton = $this->getSingleton();
+		$singleton = $this->doStatic();
 
 		return isset($singleton->_callMap[$function]);
 	}
 
 	public function resetCalls() {
-		$singleton           = $this->getSingleton();
+		$singleton           = $this->doStatic();
 		$singleton->_callMap = array();
 	}
 
 	public function _set($key, $val) {
-		$singleton       = $this->getSingleton();
+		$singleton       = $this->doStatic();
 		$singleton->$key = $val;
 	}
 
 	public function isActive() {
-		$singleton = $this->getSingleton();
+		$singleton = $this->doStatic();
 
 		return array(null, $singleton->_isActive);
 	}
 
 	public function isAdvancedSettings() {
-		$singleton = $this->getSingleton();
+		$singleton = $this->doStatic();
 
 		return $singleton->_isAdvancedSettings;
 	}

@@ -569,7 +569,7 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator        = GalleryTranslator::getSingleton();
+			$this->_translator        = GalleryTranslator::doStatic();
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {

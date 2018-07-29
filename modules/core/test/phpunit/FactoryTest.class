@@ -504,13 +504,13 @@ class FactoryTestModule extends GalleryModule {
 	public function __construct() {
 		$this->setId('factoryTest');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::getSingleton()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
 	}
 }
 class FactoryTestModule2 extends GalleryModule {
 	public function __construct() {
 		$this->setId('factoryTest2');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::getSingleton()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
 	}
 }

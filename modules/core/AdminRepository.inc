@@ -41,7 +41,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			return array(null, $this->_repositories);
 		}
 
-		return GalleryRepository::getSingleton()->getRepositories();
+		return GalleryRepository::doStatic()->getRepositories();
 	}
 
 	/**
@@ -97,7 +97,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			}
 
 			// Remove the default repositories from the data cache
-			GalleryRepository::getSingleton()->clearRepositoryCache();
+			GalleryRepository::doStatic()->clearRepositoryCache();
 			list($ret, $repositories) = $this->_getRepositories();
 
 			if ($ret) {
@@ -194,7 +194,7 @@ class AdminRepositoryView extends GalleryView {
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::getSingleton()->getRepositories();
+		) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);
@@ -292,7 +292,7 @@ class AdminRepositoryView extends GalleryView {
 			list(
 				$ret,
 				$message
-			) = GalleryRepository::getSingleton()->translateRepositoryName($source);
+			) = GalleryRepository::doStatic()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);

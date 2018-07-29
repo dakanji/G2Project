@@ -567,7 +567,7 @@ class GalleryEmbed {
 		}
 
 		if (isset($args['language'])) {
-			list($languageCode) = GalleryTranslator::getSingleton()->getSupportedLanguageCode(
+			list($languageCode) = GalleryTranslator::doStatic()->getSupportedLanguageCode(
 				$args['language']
 			);
 			$user->setLanguage($languageCode);
@@ -1209,7 +1209,7 @@ class GalleryEmbed {
 
 		// Default theme variables
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		$ret = GalleryView::getSingleton()->setStandardTemplateVariables($template);
+		$ret = GalleryView::doStatic()->setStandardTemplateVariables($template);
 
 		if ($ret) {
 			return array($ret, null, null);

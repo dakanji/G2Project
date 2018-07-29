@@ -37,7 +37,7 @@ class SiteAdminTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $this->_view) = GalleryView::getSingleton()->loadView('core.SiteAdmin');
+		list($ret, $this->_view) = GalleryView::doStatic()->loadView('core.SiteAdmin');
 
 		if ($ret) {
 			return $ret;

@@ -31,7 +31,7 @@ class PluginCallbackView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -468,7 +468,7 @@ class PluginCallbackView extends GalleryView {
 			case 'module':
 				$pluginApiCompatible = GalleryUtilities::isCompatibleWithApi(
 					$plugin->getRequiredModuleApi(),
-					GalleryModule::getSingleton()->getApiVersion()
+					GalleryModule::doStatic()->getApiVersion()
 				);
 
 				break;
@@ -476,7 +476,7 @@ class PluginCallbackView extends GalleryView {
 			case 'theme':
 				$pluginApiCompatible = GalleryUtilities::isCompatibleWithApi(
 					$plugin->getRequiredThemeApi(),
-					GalleryTheme::getSingleton()->getApiVersion()
+					GalleryTheme::doStatic()->getApiVersion()
 				);
 
 				break;

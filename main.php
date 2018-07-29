@@ -481,7 +481,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		if ($view->isImmediate() || $viewName == 'core.ProgressBar') {
 			/*
 			 * Session: Find out whether we need to send a cookie & get a new sessionId and save it
-			 * (make sure there's a sessionId before starting to render, but only if we need a
+			 * (make sure there is a sessionId before starting to render, but only if we need a
 			 * session)
 			 */
 			$session =& $gallery->getSession();
@@ -577,7 +577,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				@ini_set('output_buffering', '0');
 
 				/**
-				 * Try to prevent Apache's mod_deflate from gzipping the output since that
+				 * Try to prevent Apache's mod_deflate from gzipping output since that
 				 * can interfere with streamed output.
 				 */
 				if (function_exists('apache_setenv')
@@ -613,8 +613,8 @@ function _GalleryMain($embedded = false, $template = null) {
 				}
 
 				/*
-				 * Session: Find out whether we need to send a cookie & need a new session (only if
-				 * we don't have one yet)
+				 * Session: Find out whether we need to send a cookie & need a new session
+				 * (only if we do not have one yet)
 				 */
 				$session =& $gallery->getSession();
 				$ret     = $session->start();
@@ -726,8 +726,10 @@ function _GalleryMain_doRedirect(
 
 	if ($ret) {
 		if ($ignoreErrors) {
-			$gallery->debug("_GalleryMain_doRedirect: Failed to start the session, error stack:\n"
-			. $ret->getAsHtml);
+			$gallery->debug(
+				"_GalleryMain_doRedirect: Failed to start the session, error stack:\n"
+				. $ret->getAsHtml
+			);
 		} else {
 			return array($ret, null);
 		}
@@ -736,8 +738,8 @@ function _GalleryMain_doRedirect(
 	$session->doNotUseTempId();
 
 	/*
-	 * UserLogin returnUrls don't have a sessionId in the URL to replace, make sure there's a
-	 * sessionId in the redirectUrl for users that don't use cookies
+	 * UserLogin returnUrls do not have a sessionId in the URL to replace, make sure there is a
+	 * sessionId in the redirectUrl for users that do not use cookies
 	 */
 	if (!$session->isUsingCookies() && $session->isPersistent()
 		&& strpos($redirectUrl, $session->getKey()) === false
@@ -752,8 +754,8 @@ function _GalleryMain_doRedirect(
 
 	if ($gallery->getDebug() == false || $gallery->getDebug() == 'logged') {
 		/*
-		 * The URL generator makes HTML 4.01 compliant URLs using &amp; but we don't want those in
-		 * our Location: header
+		 * The URL generator makes HTML 4.01 compliant URLs using &amp;
+		 * but we do not want those in our Location: header
 		 */
 		$redirectUrl = str_replace('&amp;', '&', $redirectUrl);
 		$redirectUrl = rtrim($redirectUrl, '&? ');
@@ -761,11 +763,12 @@ function _GalleryMain_doRedirect(
 		$redirectUrl = $urlGenerator->makeAbsoluteUrl($redirectUrl);
 
 		/*
-		 * IIS 3.0 - 5.0 webservers will ignore all other headers if the location header is set.  It
-		 * will simply not send other headers, eg. the set-cookie header, which is important for us
-		 * in the login and logout requests / redirects.  See:
-		 * http://support.microsoft.com/kb/q176113/ Our solution: detect IIS version and append
-		 * GALLERYSID to the Location URL if necessary
+		 * IIS 3.0 - 5.0 webservers will ignore all other headers if the location header is set.
+		 * It will simply not send other headers, eg. the set-cookie header,
+		 * which is important for us in the login and logout requests / redirects.
+		 *
+		 * See: http://support.microsoft.com/kb/q176113/
+		 * Our solution: detect IIS version and append GALLERYSID to the Location URL if necessary
 		 */
 		if (in_array($controller, array('core.Logout', 'core.UserLogin', 'publishxp.Login'))) {
 			// Check if it's IIS and if the version is < 6.0

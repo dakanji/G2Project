@@ -1310,7 +1310,7 @@ class GalleryTestCase extends TestCase {
 		if (!$ret) {
 			$this->fail(sprintf(
 				'Failed to get error %s%s',
-				join(', ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode)),
+				join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
 				$message ? '<br/>' . $message : ''
 			));
 
@@ -1322,8 +1322,8 @@ class GalleryTestCase extends TestCase {
 		) {
 			$this->fail(sprintf(
 				'Expected error %s, received %s<br>%s%s',
-				join(', ', GalleryStatus::getSingleton()->getErrorCodeConstants($errorCode)),
-				join(', ', GalleryStatus::getSingleton()->getErrorCodeConstants($ret->getErrorCode())),
+				join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
+				join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode())),
 				$ret->getAsHtml(),
 				$message ? '<br/>' . $message : ''
 			));

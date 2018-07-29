@@ -291,7 +291,7 @@ class StringParser {
 		$this->_stack = array();
 
 		if (is_object($this->_root)) {
-			StringParser_Node::getSingleton()->destroyNode($this->_root);
+			StringParser_Node::doStatic()->destroyNode($this->_root);
 		}
 		unset($this->_root);
 		$this->_root     = new StringParser_Node_Root();
@@ -382,7 +382,7 @@ class StringParser {
 			return $root;
 		}
 
-		$res = StringParser_Node::getSingleton()->destroyNode($this->_root);
+		$res = StringParser_Node::doStatic()->destroyNode($this->_root);
 
 		if (!$res) {
 			$this->_parsing = false;
@@ -988,7 +988,7 @@ class StringParser_Node {
 	/**
 	 * Load Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -1301,7 +1301,7 @@ class StringParser_Node {
 		}
 
 		if ($destroy) {
-			return StringParser_Node::getSingleton()->destroyNode($object);
+			return $this->destroyNode($object);
 			unset($object);
 		}
 

@@ -694,7 +694,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$utilities                = new UnitTestRepositoryUtilities();
 			$this->_index->_utilities =& $utilities;
 
-			$pluginApi = $pluginType == 'module' ? GalleryModule::getSingleton()->getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
+			$pluginApi = $pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion();
 			$utilities->setReply(
 				'isPluginCompatible',
 				array($pluginType, $coreApi, $pluginApi, null),
@@ -755,7 +755,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$testTheme = new RepositoryIndexTestTheme();
-		$themeApi  = GalleryTheme::getSingleton()->getApiVersion();
+		$themeApi  = GalleryTheme::doStatic()->getApiVersion();
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
@@ -898,7 +898,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$testTheme = new RepositoryIndexTestTheme();
-		$themeApi  = GalleryTheme::getSingleton()->getApiVersion();
+		$themeApi  = GalleryTheme::doStatic()->getApiVersion();
 		$themeApi[1]--;
 		$testTheme->_themeApi = $themeApi;
 
@@ -965,7 +965,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$testTheme = new RepositoryIndexTestTheme();
-		$themeApi  = GalleryTheme::getSingleton()->getApiVersion();
+		$themeApi  = GalleryTheme::doStatic()->getApiVersion();
 
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
@@ -1074,7 +1074,7 @@ class RepositoryIndexTestModule {
 	}
 
 	public function getRequiredModuleApi() {
-		return GalleryModule::getSingleton()->getApiVersion();
+		return GalleryModule::doStatic()->getApiVersion();
 	}
 }
 
@@ -1086,6 +1086,6 @@ class RepositoryIndexTestTheme {
 	}
 
 	public function getRequiredThemeApi() {
-		return empty($this->_themeApi) ? GalleryTheme::getSingleton()->getApiVersion() : $this->_themeApi;
+		return empty($this->_themeApi) ? GalleryTheme::doStatic()->getApiVersion() : $this->_themeApi;
 	}
 }

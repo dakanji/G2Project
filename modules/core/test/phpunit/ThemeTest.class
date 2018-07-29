@@ -51,7 +51,7 @@ class ThemeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_theme->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->_theme->setRequiredThemeApi(GalleryTheme::getSingleton()->getApiVersion());
+		$this->_theme->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
@@ -627,7 +627,7 @@ class ThemeTestTheme extends GalleryTheme {
 		$this->setDescription('Unit test theme');
 		$this->setVersion('0.9.0');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredThemeApi(GalleryTheme::getSingleton()->getApiVersion());
+		$this->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
 		$this->_preloadedBlocks = array();
 	}
 

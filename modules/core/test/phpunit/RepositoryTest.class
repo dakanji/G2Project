@@ -57,7 +57,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function _setupUpdateUtilitiesResponses(&$utilities, $index, $case, $pluginType = 'module') {
 		$coreApi   = GalleryCoreApi::getApiVersion();
-		$pluginApi = $pluginType == 'module' ? GalleryModule::getSingleton()->getApiVersion() : GalleryTheme::getSingleton()->getApiVersion();
+		$pluginApi = $pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion();
 		$pluginId  = 'test' . ucfirst($pluginType);
 
 		$header              = $index["{$pluginType}s"][$pluginId]['header'];
@@ -1253,7 +1253,7 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$coreApi   = GalleryCoreApi::getApiVersion();
-		$moduleApi = GalleryModule::getSingleton()->getApiVersion();
+		$moduleApi = GalleryModule::doStatic()->getApiVersion();
 
 		for ($i = 0; $i < 8; $i++) {
 			$case = $this->_getUpgradeTestCase($i);
@@ -1501,9 +1501,9 @@ class RepositoryTest extends GalleryTestCase {
 
 		$coreApi         = GalleryCoreApi::getApiVersion();
 		$coreApiString   = join('.', $coreApi);
-		$moduleApi       = GalleryModule::getSingleton()->getApiVersion();
+		$moduleApi       = GalleryModule::doStatic()->getApiVersion();
 		$moduleApiString = join('.', $moduleApi);
-		$themeApi        = GalleryTheme::getSingleton()->getApiVersion();
+		$themeApi        = GalleryTheme::doStatic()->getApiVersion();
 		$themeApiString  = join('.', $themeApi);
 
 		switch ($testCase) {
@@ -1873,7 +1873,7 @@ class RepositoryTest extends GalleryTestCase {
 	}
 
 	public function testComparePluginListEntries() {
-		$repository = GalleryRepository::getSingleton();
+		$repository = GalleryRepository::doStatic();
 
 		$testCase = array(
 			'plugin1Id' => array(
@@ -1914,7 +1914,7 @@ class RepositoryTest extends GalleryTestCase {
 	public function testCreatePluginDirectory() {
 		global $gallery;
 
-		$repository       = GalleryRepository::getSingleton();
+		$repository       = GalleryRepository::doStatic();
 		$originalPlatform =& $gallery->getPlatform();
 		$slash            = $originalPlatform->getDirectorySeparator();
 
@@ -2404,7 +2404,7 @@ class RepositoryTest extends GalleryTestCase {
 			$ret,
 			$repositories,
 			$repositoryErrors
-		) = GalleryRepository::getSingleton()->getRepositories(
+		) = GalleryRepository::doStatic()->getRepositories(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
@@ -2434,7 +2434,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		$this->assertEquals(1, $cachedErrorCount, 'Cached error count didn\'t match');
 
-		GalleryRepository::getSingleton()->clearRepositoryCache(
+		GalleryRepository::doStatic()->clearRepositoryCache(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
@@ -2467,7 +2467,7 @@ class RepositoryTest extends GalleryTestCase {
 			array(
 				'module',
 				GalleryCoreApi::getApiVersion(),
-				GalleryModule::getSingleton()->getApiVersion(),
+				GalleryModule::doStatic()->getApiVersion(),
 				null
 			),
 			true
@@ -2732,7 +2732,7 @@ class RepositoryTest extends GalleryTestCase {
 				'id'                => $pluginData['id'],
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryModule::getSingleton()->getApiVersion(),
+				'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
 				'stringsRevision'   => $pluginData['revision'],
 				'buildTimestamp'    => $pluginData['build'],
 			),

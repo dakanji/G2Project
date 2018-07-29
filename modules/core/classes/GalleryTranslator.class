@@ -63,7 +63,7 @@ class GalleryTranslator {
 	/**
 	 * Load Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {

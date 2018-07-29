@@ -218,7 +218,7 @@ class GalleryPluginHelper_simple {
 								$pluginType,
 								join(
 									'/',
-									$pluginType == 'module' ? GalleryModule::getSingleton()->getApiVersion() : GalleryTheme::getSingleton()->getApiVersion()
+									$pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion()
 								)
 							)
 						),
@@ -248,12 +248,12 @@ class GalleryPluginHelper_simple {
 		(($pluginType == 'module' &&
 		  GalleryUtilities::isCompatibleWithApi(
 			  $plugin->getRequiredModuleApi(),
-			  GalleryModule::getSingleton()->getApiVersion()
+			  GalleryModule::doStatic()->getApiVersion()
 		  )) ||
 		 ($pluginType == 'theme' &&
 		  GalleryUtilities::isCompatibleWithApi(
 			  $plugin->getRequiredThemeApi(),
-			  GalleryTheme::getSingleton()->getApiVersion()
+			  GalleryTheme::doStatic()->getApiVersion()
 		  )));
 	}
 

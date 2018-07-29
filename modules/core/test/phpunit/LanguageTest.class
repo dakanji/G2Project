@@ -123,7 +123,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
-		list($languageData)   = GalleryTranslator::getSingleton()->getLanguageData();
+		list($languageData)   = GalleryTranslator::doStatic()->getLanguageData();
 		$expected['en']['US'] = $languageData['en']['US'];
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
@@ -142,7 +142,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
-		list($languageData)   = GalleryTranslator::getSingleton()->getLanguageData();
+		list($languageData)   = GalleryTranslator::doStatic()->getLanguageData();
 		$expected['en']['US'] = $languageData['en']['US'];
 		$expected['en']['GB'] = $languageData['en']['GB'];
 		$expected['pt']['BR'] = $languageData['pt']['BR'];
@@ -165,7 +165,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
-		list($languageData)   = GalleryTranslator::getSingleton()->getLanguageData();
+		list($languageData)   = GalleryTranslator::doStatic()->getLanguageData();
 		$expected['en']['US'] = $languageData['en']['US'];
 		$expected['pt']['BR'] = $languageData['pt']['BR'];
 		$expected['pt']['PT'] = $languageData['pt']['PT'];

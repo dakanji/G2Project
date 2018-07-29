@@ -85,7 +85,7 @@ class RepositoryCallbackView extends GalleryView {
 			}
 
 			// Remove the default repositories from the data cache
-			GalleryRepository::getSingleton()->clearRepositoryCache();
+			GalleryRepository::doStatic()->clearRepositoryCache();
 		}
 
 		return null;

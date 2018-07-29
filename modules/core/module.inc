@@ -48,7 +48,7 @@ class CoreModule extends GalleryModule {
 	/**
 	 * Load as Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {

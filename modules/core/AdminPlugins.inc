@@ -121,7 +121,7 @@ class AdminPluginsView extends GalleryView {
 
 				if ($entry['state'] == 'incompatible') {
 					$entry['api']['required']['plugin'] = join('.', $type == 'theme' ? $plugin->getRequiredThemeApi() : $plugin->getRequiredModuleApi());
-					$entry['api']['provided']['plugin'] = join('.', GalleryModule::getSingleton()->getApiVersion());
+					$entry['api']['provided']['plugin'] = join('.', GalleryModule::doStatic()->getApiVersion());
 					$entry['api']['required']['core']   = join('.', $plugin->getRequiredCoreApi());
 					$entry['api']['provided']['core']   = join('.', GalleryCoreApi::getApiVersion());
 				}
@@ -151,7 +151,7 @@ class AdminPluginsView extends GalleryView {
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::getSingleton()->getRepositories();
+		) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);

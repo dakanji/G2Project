@@ -33,12 +33,12 @@ class StatusTest extends GalleryTestCase {
 	}
 
 	public function testGetErrorCodeConstantsNoSpecificError() {
-		$codes = GalleryStatus::getSingleton()->getErrorCodeConstants(GALLERY_ERROR);
+		$codes = GalleryStatus::doStatic()->getErrorCodeConstants(GALLERY_ERROR);
 		$this->assertEquals(array('GALLERY_ERROR'), $codes);
 	}
 
 	public function testGetErrorCodeConstantsTwoErrors() {
-		$codes    = GalleryStatus::getSingleton()->getErrorCodeConstants(ERROR_COLLISION | ERROR_LOCK_IN_USE);
+		$codes    = GalleryStatus::doStatic()->getErrorCodeConstants(ERROR_COLLISION | ERROR_LOCK_IN_USE);
 		$expected = array('ERROR_COLLISION', 'ERROR_LOCK_IN_USE');
 		$this->assertEquals(sort($expected), sort($codes));
 	}

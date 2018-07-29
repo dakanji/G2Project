@@ -119,7 +119,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::getSingleton()->getRepositories();
+		) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
 			return $ret;
@@ -476,7 +476,7 @@ class AdminLanguageManagerView extends GalleryView {
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::getSingleton()->getRepositories();
+		) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);

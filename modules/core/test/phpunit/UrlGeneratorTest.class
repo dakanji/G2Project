@@ -1462,7 +1462,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 
 		$currentView      = 'core.SiteAdmin';
-		list($ret, $view) = GalleryView::getSingleton()->loadView($currentView);
+		list($ret, $view) = GalleryView::doStatic()->loadView($currentView);
 
 		if ($ret) {
 			return $this->failWithStatus($ret);
@@ -1489,7 +1489,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 
 		$currentView      = 'core.MaintenanceMode';
-		list($ret, $view) = GalleryView::getSingleton()->loadView($currentView);
+		list($ret, $view) = GalleryView::doStatic()->loadView($currentView);
 
 		if ($ret) {
 			return $this->failWithStatus($ret);
@@ -1532,7 +1532,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		// Change the current view and generate a 3rd URL
 		$currentView      = 'core.SiteAdmin';
-		list($ret, $view) = GalleryView::getSingleton()->loadView($currentView);
+		list($ret, $view) = GalleryView::doStatic()->loadView($currentView);
 
 		if ($ret) {
 			return $this->failWithStatus($ret);

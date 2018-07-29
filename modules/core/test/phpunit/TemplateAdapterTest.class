@@ -52,7 +52,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$test   = array(
 			'urlParams' => array(),
 		);
-		$result = GalleryTemplateAdapter::getSingleton()->linkId($test);
+		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
 		$this->assertEquals('gbAdminLink gbLink', $result);
 	}
 
@@ -62,7 +62,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'view' => 'core.:ItemAdmin',
 			),
 		);
-		$result = GalleryTemplateAdapter::getSingleton()->linkId($test);
+		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
 		$this->assertEquals('gbAdminLink gbLink-core_ItemAdmin', $result);
 	}
 
@@ -72,7 +72,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'view' => '.;-_monkey',
 			),
 		);
-		$result = GalleryTemplateAdapter::getSingleton()->linkId($test);
+		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
 		$this->assertEquals('gbAdminLink gbLink-monkey', $result);
 	}
 
@@ -84,7 +84,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'subView'    => 'core.Ninja',
 			),
 		);
-		$result = GalleryTemplateAdapter::getSingleton()->linkId($test);
+		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
 		$this->assertEquals('gbAdminLink gbLink-core_Monkey-core_Pirate-core_Ninja', $result);
 	}
 
@@ -92,7 +92,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$test   = array(
 			'view' => 'core.Pirate',
 		);
-		$result = GalleryTemplateAdapter::getSingleton()->linkId($test);
+		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
 		$this->assertEquals('gbAdminLink gbLink-core_Pirate', $result);
 	}
 
@@ -105,25 +105,25 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'subView'    => 'core.Ninja',
 			),
 		);
-		$result = GalleryTemplateAdapter::getSingleton()->linkId($test);
+		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
 		$this->assertEquals('gbAdminLink gbLink-core_Monkey-core_Pirate-core_Ninja', $result);
 	}
 
 	public function testSafeCssName1() {
 		$string = 'core.ItemAdmin';
-		$result = GalleryTemplateAdapter::getSingleton()->_safeCssName($string);
+		$result = GalleryTemplateAdapter::doStatic()->_safeCssName($string);
 		$this->assertEquals('core_ItemAdmin', $result);
 	}
 
 	public function testSafeCssName2() {
 		$string = 'core..ItemAdmin';
-		$result = GalleryTemplateAdapter::getSingleton()->_safeCssName($string);
+		$result = GalleryTemplateAdapter::doStatic()->_safeCssName($string);
 		$this->assertEquals('core_ItemAdmin', $result);
 	}
 
 	public function testSafeCssName3() {
 		$string = '.;-_monkey';
-		$result = GalleryTemplateAdapter::getSingleton()->_safeCssName($string);
+		$result = GalleryTemplateAdapter::doStatic()->_safeCssName($string);
 		$this->assertEquals('-monkey', $result);
 	}
 
@@ -214,7 +214,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 			'l10Domain' => 'modules_foo',
 		);
 		$this->_setupAdapterWithMocks();
-		$result = GalleryTemplateAdapter::getSingleton()->changeInDescendents($test, $this->_mockSmarty);
+		$result = GalleryTemplateAdapter::doStatic()->changeInDescendents($test, $this->_mockSmarty);
 		$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents" ' .
 		'name="g2_form[changeInDescendents][pirate]"/> <label ' .
 		'for="pirate_ChangeInDescendents"> ninja</label>', $result);

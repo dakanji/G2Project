@@ -38,7 +38,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		}
 
 		$this->_tag              = 'SmplCb-' . mt_rand(0, 999999);
-		list($ret, $this->_view) = GalleryView::getSingleton()->loadView('core.SimpleCallback');
+		list($ret, $this->_view) = GalleryView::doStatic()->loadView('core.SimpleCallback');
 
 		if ($ret) {
 			return $ret;

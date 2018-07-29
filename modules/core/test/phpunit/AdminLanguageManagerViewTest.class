@@ -48,7 +48,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
 		GalleryDataCache::put($cacheKey, array('testTheme'));
 
-		$gallery->_translator = AdminLanguagesViewTestTranslator::getSingleton();
+		$gallery->_translator = AdminLanguagesViewTestTranslator::doStatic();
 
 		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
@@ -153,7 +153,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::getSingleton()->getRepositories();
+		list($ret, $repositories)     = GalleryRepository::doStatic()->getRepositories();
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages($repositories['test'], $enableAllFlags);
 
 		if ($ret) {
@@ -243,7 +243,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::getSingleton()->getRepositories();
+		list($ret, $repositories)     = GalleryRepository::doStatic()->getRepositories();
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages($repositories['test'], $enableAllFlags);
 
 		if ($ret) {
@@ -333,7 +333,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::getSingleton()->getRepositories();
+		list($ret, $repositories)     = GalleryRepository::doStatic()->getRepositories();
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages(
 			$repositories['test'],
 			$enableAllFlags
@@ -387,7 +387,7 @@ class AdminLanguagesViewTestTranslator extends GalleryTranslator {
 	/**
 	 * Load Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {

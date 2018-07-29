@@ -260,7 +260,7 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
-		$DataCacheTestPlatform = DataCacheTestPlatform::getSingleton();
+		$DataCacheTestPlatform = DataCacheTestPlatform::doStatic();
 		$gallery->setPlatform($DataCacheTestPlatform);
 
 		$testdata = "testdata c:\foo\bar";
@@ -270,9 +270,9 @@ class DataCacheTest extends GalleryTestCase {
 		), $testdata);
 		$this->assertEquals(
 			'|' . serialize($testdata),
-			DataCacheTestPlatform::getSingleton()->getFileContents('/data/cache/entity/0/0/1.inc')
+			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/0/1.inc')
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::putToDisk(
 			array(
@@ -284,9 +284,9 @@ class DataCacheTest extends GalleryTestCase {
 		);
 		$this->assertEquals(
 			'required-class|' . serialize($testdata),
-			DataCacheTestPlatform::getSingleton()->getFileContents('/data/cache/entity/0/0/1.inc')
+			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/0/1.inc')
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::putToDisk(
 			array(
@@ -298,9 +298,9 @@ class DataCacheTest extends GalleryTestCase {
 		);
 		$this->assertEquals(
 			'required-class1,required-class2|' . serialize($testdata),
-			DataCacheTestPlatform::getSingleton()->getFileContents('/data/cache/entity/0/0/1.inc')
+			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/0/1.inc')
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::putToDisk(array(
 			'type'   => 'entity',
@@ -308,9 +308,9 @@ class DataCacheTest extends GalleryTestCase {
 		), $testdata);
 		$this->assertEquals(
 			'|' . serialize($testdata),
-			DataCacheTestPlatform::getSingleton()->getFileContents('/data/cache/entity/0/2/21.inc')
+			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/2/21.inc')
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		$testdata = '|test#with\'funky"chars? \\*&%$[]}{ end';
 		GalleryDataCache::putToDisk(array(
@@ -319,9 +319,9 @@ class DataCacheTest extends GalleryTestCase {
 		), $testdata);
 		$this->assertEquals(
 			'|' . serialize($testdata),
-			DataCacheTestPlatform::getSingleton()->getFileContents('/data/cache/entity/7/2/721.inc')
+			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/7/2/721.inc')
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 	}
 
 	public function testRemoveFromDisk() {
@@ -350,10 +350,10 @@ class DataCacheTest extends GalleryTestCase {
 			'itemId' => 1,
 		));
 		$this->assert(
-			DataCacheTestPlatform::getSingleton()->wasFileDeleted('/data/cache/entity/0/0/1.inc'),
+			DataCacheTestPlatform::doStatic()->wasFileDeleted('/data/cache/entity/0/0/1.inc'),
 			'file was not deleted'
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::removeFromDisk(array(
 			'type'   => 'module',
@@ -361,20 +361,20 @@ class DataCacheTest extends GalleryTestCase {
 			'itemId' => 1,
 		));
 		$this->assert(
-			DataCacheTestPlatform::getSingleton()->wasFileDeleted('/data/cache/module/core/0/0/1.inc'),
+			DataCacheTestPlatform::doStatic()->wasFileDeleted('/data/cache/module/core/0/0/1.inc'),
 			'file was not deleted'
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::removeFromDisk(array(
 			'type' => 'module',
 			'id'   => 'core',
 		));
 		$this->assert(
-			DataCacheTestPlatform::getSingleton()->wasDirDeleted('/data/cache/module/core'),
+			DataCacheTestPlatform::doStatic()->wasDirDeleted('/data/cache/module/core'),
 			'dir was not deleted'
 		);
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::removeFromDisk(array(
 			'type'   => 'module',
@@ -384,11 +384,11 @@ class DataCacheTest extends GalleryTestCase {
 		foreach (array_keys($modulePluginStatus) as $moduleId) {
 			$targetFile = '/data/cache/module/' . $moduleId . '/0/0/1.inc';
 			$this->assert(
-				DataCacheTestPlatform::getSingleton()->wasFileDeleted($targetFile),
+				DataCacheTestPlatform::doStatic()->wasFileDeleted($targetFile),
 				"$targetFile was not deleted"
 			);
 		}
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 
 		GalleryDataCache::removeFromDisk(array(
 			'type'   => 'theme',
@@ -398,11 +398,11 @@ class DataCacheTest extends GalleryTestCase {
 		foreach (array_keys($themePluginStatus) as $themeId) {
 			$targetFile = '/data/cache/theme/' . $themeId . '/0/0/1.inc';
 			$this->assert(
-				DataCacheTestPlatform::getSingleton()->wasFileDeleted($targetFile),
+				DataCacheTestPlatform::doStatic()->wasFileDeleted($targetFile),
 				"$targetFile was not deleted"
 			);
 		}
-		DataCacheTestPlatform::getSingleton()->reset();
+		DataCacheTestPlatform::doStatic()->reset();
 	}
 
 	public function testGetFromDisk() {
@@ -1096,7 +1096,7 @@ class DataCacheTestPlatform {
 	/**
 	 * Load Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {

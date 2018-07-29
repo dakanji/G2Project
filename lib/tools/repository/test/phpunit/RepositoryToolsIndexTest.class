@@ -110,14 +110,14 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 				'id'                => 'testModule',
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryModule::getSingleton()->getApiVersion(),
+				'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
 			),
 			1 => array(
 				'type'              => 'themes',
 				'id'                => 'testTheme',
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryTheme::getSingleton()->getApiVersion(),
+				'requiredPluginApi' => GalleryTheme::doStatic()->getApiVersion(),
 			),
 		), $pluginInfo, 'Plugin information incorrect.');
 	}

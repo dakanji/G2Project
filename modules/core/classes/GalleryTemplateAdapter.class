@@ -74,7 +74,7 @@ class GalleryTemplateAdapter {
 	/**
 	 * Load as Singleton
 	 */
-	public static function getSingleton() {
+	public static function doStatic() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -752,10 +752,10 @@ class GalleryTemplateAdapter {
 			}
 		}
 
-		$tLinkId = GalleryTemplateAdapter::getSingleton()->_safeCssName($linkId);
+		$tLinkId = GalleryTemplateAdapter::doStatic()->_safeCssName($linkId);
 
 		if (isset($fallbackLinkId)) {
-			$fLinkId = GalleryTemplateAdapter::getSingleton()->_safeCssName($linkId);
+			$fLinkId = GalleryTemplateAdapter::doStatic()->_safeCssName($linkId);
 		} else {
 			$fLinkId = ' ';
 		}

@@ -363,7 +363,7 @@ class AdminThemesView extends GalleryView {
 			);
 			$themeApiCompatible = GalleryUtilities::isCompatibleWithApi(
 				$theme->getRequiredThemeApi(),
-				GalleryTheme::getSingleton()->getApiVersion()
+				GalleryTheme::doStatic()->getApiVersion()
 			);
 
 			if ($coreApiCompatible && $themeApiCompatible) {
@@ -452,7 +452,7 @@ class AdminThemesView extends GalleryView {
 				);
 				$entry['api']['provided']['theme'] = join(
 					'.',
-					GalleryTheme::getSingleton()->getApiVersion()
+					GalleryTheme::doStatic()->getApiVersion()
 				);
 				$entry['api']['provided']['core']  = join(
 					'.',
