@@ -43,7 +43,7 @@ class GalleryTestCase extends TestCase {
 	/**
 	 * Load as Singleton
 	 */
-	public static function getSingleton($methodName = 'TestCase') {
+	public static function doStatic($methodName = 'TestCase') {
 		static $singleton;
 
 		if (!isset($singleton)) {

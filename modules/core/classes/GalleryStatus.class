@@ -60,7 +60,7 @@ class GalleryStatus {
 	/**
 	 * Load as Singleton
 	 */
-	public static function getSingleton($errorCode = null, $errorMessage = null) {
+	public static function doStatic($errorCode = null, $errorMessage = null) {
 		static $singleton;
 
 		if (!isset($singleton)) {
