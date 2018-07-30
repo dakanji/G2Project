@@ -40,7 +40,6 @@ class UserRecoverPasswordAdminController extends GalleryController {
 		if (isset($form['action']['recover'])) {
 			$authFile     = GALLERY_CONFIG_DIR . '/authFile.txt';
 			$authFromFile = $platform->is_readable($authFile) ? trim($platform->file_get_contents($authFile)) : '';
-			die($session->get('core.UserRecoverPasswordAdminAuthKey') . ' != ' . $authFromFile);
 
 			if ($session->get('core.UserRecoverPasswordAdminAuthKey') != $authFromFile) {
 				$error[] = 'form[error][authString][incorrect]';
