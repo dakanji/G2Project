@@ -38,8 +38,9 @@ class UserRecoverPasswordAdminController extends GalleryController {
 		$status = $error = $results = array();
 
 		if (isset($form['action']['recover'])) {
-			$authFile     = GALLERY_CONFIG_DIR . '/login.txt';
+			$authFile     = GALLERY_CONFIG_DIR . '/authFile.txt';
 			$authFromFile = $platform->is_readable($authFile) ? trim($platform->file_get_contents($authFile)) : '';
+			die($session->get('core.UserRecoverPasswordAdminAuthKey') . ' != ' . $authFromFile);
 
 			if ($session->get('core.UserRecoverPasswordAdminAuthKey') != $authFromFile) {
 				$error[] = 'form[error][authString][incorrect]';
@@ -151,8 +152,9 @@ class UserRecoverPasswordAdminView extends GalleryView {
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
 
-		$status   = $error = array();
-		$authFile = GALLERY_CONFIG_DIR . '/login.txt';
+		$status = array();
+		$error  = array();
+		$authFile = GALLERY_CONFIG_DIR . '/authFile.txt';
 
 		if ($form['formName'] != 'UserRecoverPasswordAdmin') {
 			$form['formName'] = 'UserRecoverPasswordAdmin';
@@ -197,7 +199,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 	}
 
 	/**
-	 * Generate the authorization string used for login.txt
+	 * Generate the authorization string used for authFile.txt
 	 * @access private
 	 */
 	public function _generateAuthString() {

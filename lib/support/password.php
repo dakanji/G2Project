@@ -214,7 +214,7 @@ function validate() {
 		GallerySetupUtilities::setAuthenticationKey($key);
 	}
 
-	$authFile   = GALLERY_CONFIG_DIR . '/login.txt';
+	$authFile   = GALLERY_CONFIG_DIR . '/authFile.txt';
 	$authError  = null;
 	$authString = GallerySetupUtilities::getAuthenticationKey();
 
@@ -302,7 +302,7 @@ GalleryEmbed::done();
 				</p>
 				<blockquote>
 					<fieldset>
-						Please create a file called "login.txt" in <br> <?php echo GALLERY_CONFIG_DIR; ?> <br> with the following content:<br>
+						Please create a file called "authFile.txt" in <br> <?php echo GALLERY_CONFIG_DIR; ?> <br> with the following content:<br>
 						<h1><?php echo $authString; ?></h1>
 						Click the "Authenticate" button to proceed once you are done.
 						<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST">

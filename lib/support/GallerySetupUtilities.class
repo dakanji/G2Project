@@ -78,7 +78,7 @@ class GallerySetupUtilities {
 		// Create the new session with the old data, send cookie
 		session_id($newSessionId);
 		$sessionName = session_name();
-		// Make sure we don't use invalid data at a later point
+		// Make sure we do not use invalid data at a later point
 		foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 			unset($superGlobal[$sessionName]);
 		}

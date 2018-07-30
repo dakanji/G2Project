@@ -8,18 +8,18 @@
 	<?php if (!empty($templateData['authFileErrors']['missing'])): ?>
 	  <?php printf(
 	_('<b>Error:</b> could not locate %s.  Please place it in your %s directory.'),
-					  '<b>login.txt</b>',
+					  '<b>authFile.txt</b>',
 	'<tt>' . dirname($templateData['authFile']) . '</tt>'
 ) ?>
 	<?php elseif (!empty($templateData['authFileErrors']['unreadable'])): ?>
 	  <?php printf(
 						_('<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the file.'),
-					  '<b>login.txt</b>'
+					  '<b>authFile.txt</b>'
 					  ) ?>
 	<?php elseif (!empty($templateData['authFileErrors']['mismatch'])): ?>
 	  <?php printf(
 						_('<b>Error:</b> your %s key does not match correctly.  Please use the new authentication string from below and try again.'),
-					  '<b>login.txt</b>'
+					  '<b>authFile.txt</b>'
 					  ) ?>
 	<?php endif; ?>
       </div>
@@ -54,7 +54,7 @@
       <p>
         <?php printf(
 						_('In order to proceed with the upgrade process, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we\'re going to ask that you create a new text file called %s in the %s directory on your webserver (that\'s the same directory where %s is located). It must contain the following randomly generated characters:'),
-					 '<strong>login.txt</strong>',
+					 '<strong>authFile.txt</strong>',
 					 '<tt>' . dirname($templateData['authFile']) . '</tt>',
 					 'main.php'
 					  ) ?>

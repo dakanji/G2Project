@@ -4,7 +4,7 @@
  *}
 {capture name="loginDescriptionDownload"}
     <div class="giDescription">
-      {g->text text="In order to proceed with the password reset, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we're going to ask that you create a new text file called %s in your gallery2 directory. It must contain the following randomly generated characters:" arg1="<strong>login.txt</strong>"}
+      {g->text text="In order to proceed with the password reset, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we're going to ask that you create a new text file called %s in your gallery2 directory. It must contain the following randomly generated characters:" arg1="<strong>authFile.txt</strong>"}
     </div>
     <h2>
       {g->text text="%s" arg1=$UserRecoverPasswordAdmin.authString}
@@ -13,7 +13,7 @@
       {capture name="downloadUrl"}
       <a href="{g->url arg1="view=core.UserRecoverPasswordDownload" forceDirect=true}">
       {/capture}
-      {g->text text="As a convenience to you, we've prepared a %scorrect version of login.txt%s for you.  Download that and copy it into your install directory and you're all set." arg1=$smarty.capture.downloadUrl arg2="</a>"}
+      {g->text text="As a convenience to you, we've prepared a %scorrect version of authFile.txt%s for you.  Download that and copy it into your install directory and you're all set." arg1=$smarty.capture.downloadUrl arg2="</a>"}
      </div>
      <div class="giDescription">
        {g->text text="Once you've uploaded the file, click refresh to continue."}
@@ -106,7 +106,7 @@
       {g->text text="AuthFile Unreadable"}
     </h2>
     <h2>
-      {g->text text="Your %s file is not readable. Please give Gallery read permissions on the file." arg1="<strong>login.txt</strong>"}
+      {g->text text="Your %s file is not readable. Please give Gallery read permissions on the file." arg1="<strong>authFile.txt</strong>"}
     </h2>
   </div>
   {/if}

@@ -60,8 +60,8 @@ class UserRecoverPasswordDownloadView extends GalleryView {
 
 		header('Content-Type: text/plain');
 		header('Content-Length: ' . strlen($authString));
-		header('Content-Description: Download login.txt to your computer.');
-		header('Content-Disposition: attachment; filename="login.txt"');
+		header('Content-Description: Download authFile.txt to your computer.');
+		header('Content-Disposition: attachment; filename="authFile.txt"');
 		echo $authString;
 
 		return null;

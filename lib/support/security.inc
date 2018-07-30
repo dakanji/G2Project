@@ -54,7 +54,7 @@ if (empty($config)) {
 	render('missingSetupPassword', $options);
 } elseif (!GallerySetupUtilities::isSessionAuthenticated()) {
 	$baseDir             = defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR : dirname(dirname(__DIR__));
-	$authFile            = $baseDir . '/login.txt';
+	$authFile            = $baseDir . '/authFile.txt';
 	$options['attempts'] = GallerySetupUtilities::getLoginAttempts();
 	$options['error']    = ($options['attempts'] === false);
 	$options['authFile'] = sprintf(
@@ -215,25 +215,25 @@ function render($renderType, $options = array()) {
 				To prevent somebody from hacking your website, we now
 				require you to complete a stricter authentication
 				process.  You must create a text file called
-				<strong>login.txt</strong> in the gallery2 directory on your
+				<strong>authFile.txt</strong> in the gallery2 directory on your
 				webserver (that's the same directory where main.php is
 				located) and put specific text in it.  If you used the preinstaller
 				to install Gallery, then you may have to use it again to set your directory
-				permissions so that you can create the login.txt file.
+				permissions so that you can create the authFile.txt file.
 			</p>
 			<div class="info">
-				Create this file: <b><?php echo $options['baseDir']; ?>login.txt</b> <br>
+				Create this file: <b><?php echo $options['baseDir']; ?>authFile.txt</b> <br>
 				Put this in the file: <b><?php echo $options['key']; ?></b>
 			</div>
 			<?php if (!empty($options['authFileErrors'])) : ?>
 				<div class="error">
 					<?php if (!empty($options['authFileErrors']['missing'])) : ?>
-						The login.txt file does not exist.
+						The authFile.txt file does not exist.
 					<?php elseif (!empty($options['authFileErrors']['unreadable'])) : ?>
-						The login.txt file exists, but is not readable by the webserver.
-						<br> Try: <b>chmod 644 login.txt</b>
+						The authFile.txt file exists, but is not readable by the webserver.
+						<br> Try: <b>chmod 644 authFile.txt</b>
 					<?php elseif (!empty($options['authFileErrors']['mismatch'])) : ?>
-						The password in your login.txt file does not match the key above!
+						The password in your authFile.txt file does not match the key above!
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>

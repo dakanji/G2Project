@@ -272,7 +272,7 @@ class UserRecoverPasswordController extends GalleryController {
 	}
 
 	/**
-	 * Generate the authorization string used for login.txt
+	 * Generate the authorization string used for authFile.txt
 	 * @access private
 	 */
 	public function _generateAuthString() {

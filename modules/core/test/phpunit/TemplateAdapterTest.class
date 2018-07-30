@@ -540,8 +540,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" '
-											. 'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY'
-											. '|forceDirect:1|forceFullUrl:1"></script>',
+				. 'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY'
+				. '|forceDirect:1|forceFullUrl:1"></script>',
 			),
 			$output
 		);

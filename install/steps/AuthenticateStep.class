@@ -36,12 +36,15 @@ class AuthenticateStep extends InstallStep {
 	}
 
 	public function stepName() {
-		return _('Authenticate');
+		return 'Authenticate';
 	}
 
 	public function processRequest() {
 		if (!empty($_GET['downloadLogin'])) {
-			GallerySetupUtilities::generateTextFileForDownload('login.txt', $this->_uniqueKey);
+			GallerySetupUtilities::generateTextFileForDownload(
+				'authFile.txt',
+				$this->_uniqueKey
+			);
 
 			return false;
 		}
@@ -55,23 +58,23 @@ class AuthenticateStep extends InstallStep {
 		if (!$this->isComplete()) {
 			// Authenticate
 			$authenticated = false;
-			$authFile      = __DIR__ . '/../../login.txt';
+			$authFile      = __DIR__ . '/../../authFile.txt';
 
 			if (!file_exists($authFile)) {
 				if (!$this->_firstTime) {
-					$templateData['errors'][] = sprintf(_('<b>Error:</b> could not locate <b>login.txt</b>. ' . 'Please place it in your <tt>%s/</tt> directory.'), basename($authenticationDir));
+					$templateData['errors'][] = sprintf(_('<b>Error:</b> could not locate <b>authFile.txt</b>. ' . 'Please place it in your <tt>%s/</tt> directory.'), basename($authenticationDir));
 				}
 			} elseif (!is_readable($authFile)) {
-				$templateData['errors'][] = _('<b>Error:</b> your <b>login.txt</b> file is not readable. ' . 'Please give Gallery read permissions on the file.');
+				$templateData['errors'][] = _('<b>Error:</b> your <b>authFile.txt</b> file is not readable. ' . 'Please give Gallery read permissions on the file.');
 			} else {
-				$fileAuth = trim(join('', file($authFile)));
+				$fileAuthKey = trim(join('', file($authFile)));
 
-				if ($fileAuth == $this->_uniqueKey) {
-					// Authenticate, but don'treset the login attempts because we have no db
+				if ($fileAuthKey == $this->_uniqueKey) {
+					// Authenticate, but do not reset the login attempts as we have no db
 					GallerySetupUtilities::authenticateThisSession(false);
 					$this->setComplete(true);
 				} else {
-					$templateData['errors'][] = _('<b>Error:</b> your <b>login.txt</b> key does not match correctly. ' . 'Please download a new authentication string from below and try again.');
+					$templateData['errors'][] = '<b>Error:</b> authFile.txt key does not match. Please download a new authentication string from below and try again.';
 				}
 			}
 		}
@@ -84,11 +87,6 @@ class AuthenticateStep extends InstallStep {
 			$templateData['bodyFile'] = 'AuthenticateSuccessful.html';
 		} else {
 			$templateData['bodyFile'] = 'AuthenticateRequest.html';
-		}
-
-		// Remove login.txt file
-		if (file_exists($authFile)) {
-			unlink($authFile);
 		}
 	}
 
