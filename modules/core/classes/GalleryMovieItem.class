@@ -286,7 +286,7 @@ class GalleryMovieItem extends GalleryDataItem {
 					case 'video/x-msvideo':
 					case 'video/x-ms-wmv':
 						$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
-						
+
 						// Fall Through
 					case 'video/x-ms-asf':
 					case 'video/x-ms-asx':

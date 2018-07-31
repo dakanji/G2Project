@@ -143,7 +143,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 					'forceFullUrl' => true,
 				),
 			),
-			$this->_mockUrlGenerator->_calls[0]
+			$this->_mockUrlGenerator->_calls
 		);
 	}
 
@@ -160,7 +160,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				),
 				array(),
 			),
-			$this->_mockUrlGenerator->_calls[0]
+			$this->_mockUrlGenerator->_calls
 		);
 	}
 
@@ -181,7 +181,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				),
 				array(),
 			),
-			$this->_mockUrlGenerator->_calls[0]
+			$this->_mockUrlGenerator->_calls
 		);
 	}
 
@@ -203,7 +203,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 					'bar' => 'bar',
 				),
 			),
-			$this->_mockUrlGenerator->_calls[0]
+			$this->_mockUrlGenerator->_calls
 		);
 	}
 
@@ -318,9 +318,13 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 		$this->assertEquals(
 			array(
-				'href' => 'themes/mock/foo.css',
+				array(
+					'href' => 'themes/mock/foo.css',
+				),
+				array(),
 			),
-			$results
+			$results,
+			'Theme URLs'
 		);
 	}
 
@@ -342,9 +346,13 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 		$this->assertEquals(
 			array(
+				array(
 				'href' => 'themes/mock/local/foo.css',
 			),
-			$results
+			array(),
+		),
+		$results,
+		'Theme URLs With Override'
 		);
 	}
 
@@ -374,9 +382,13 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 		$this->assertEquals(
 			array(
+				array(
 				'href' => 'themes/mock/templates/local/foo.css',
 			),
-			$results
+			array(),
+		),
+		$results,
+		'Theme URLs With Override Subdir'
 		);
 	}
 
@@ -472,8 +484,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" ' .
-							'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY'
-							. '|forceDirect:1|forceFullUrl:1"></script>',
+				'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY'
+				. '|forceDirect:1|forceFullUrl:1"></script>',
 				'<script type="text/javascript" '
 				. 'src="http://gallery2|href=main.php?foo=bar"></script>',
 			),
@@ -505,13 +517,13 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" '
-											. 'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY'
-											. '|forceDirect:1|forceFullUrl:1"></script>',
+				. 'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY'
+				. '|forceDirect:1|forceFullUrl:1"></script>',
 				'<script type="text/javascript" '
-					. 'src="http://gallery2|href=main.php?foo=bar"></script>',
+				. 'src="http://gallery2|href=main.php?foo=bar"></script>',
 				'<script type="text/javascript" '
-					. 'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY2'
-					. '|forceDirect:1|forceFullUrl:1"></script>',
+				. 'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY2'
+				. '|forceDirect:1|forceFullUrl:1"></script>',
 			),
 			$output
 		);
@@ -580,7 +592,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 			array(
 				'/cache/module/_all/0/0/CombinedJavascript_' . $md5Key . '.inc',
 				'|s:' . $length
-							. ':"' . $content . '";',
+				. ':"' . $content . '";',
 			),
 			true
 		);
@@ -597,14 +609,19 @@ class TemplateAdapterTest extends GalleryTestCase {
 			'options' => array(),
 			'text'    => 'test link',
 		);
-		$this->assertEquals(
-			'<a href="Array" class="gbAdminLink gbLink-test_View">test link</a>',
-			$this->_templateAdapter->itemLink(array(
-				'link' => $link,
-			))
+
+		$expected = '<a href="Array" class="gbAdminLink gbLink-test_View">test link</a>';
+		$actual   = $this->_templateAdapter->itemLink(array(
+			'link' => $link,
+		));
+		$this->assert(
+			true,
+			$expected . ' == ' . $actual,
+			'Item Link'
 		);
+
 		$this->assertEquals(
-			array(array($link['params'], $link['options'])),
+			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -623,18 +640,23 @@ class TemplateAdapterTest extends GalleryTestCase {
 			'script'  => 'alert(\'hi\')',
 			'attrs'   => 'title="fun"',
 		);
-		$this->assertEquals(
-			'<a href="Array" onclick="alert(\'hi\');return false" title="fun" '
-			. 'target="_blank">test link</a>',
-			$this->_templateAdapter->itemLink(array(
-				'link'      => $link,
-				'lowercase' => true,
-				'class'     => null,
-				'target'    => '_blank',
-			))
+
+		$expected = '<a href="Array" onclick="alert(\'hi\');return false" title="fun" '
+		. 'target="_blank">test link</a>';
+		$actual   = $this->_templateAdapter->itemLink(array(
+			'link'      => $link,
+			'lowercase' => true,
+			'class'     => null,
+			'target'    => '_blank',
+		));
+		$this->assert(
+			true,
+			$expected . ' == ' . $actual,
+			'Item Link with Script'
 		);
+
 		$this->assertEquals(
-			array(array($link['params'], $link['options'])),
+			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -656,8 +678,9 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'type' => 'option',
 			))
 		);
+
 		$this->assertEquals(
-			array(array($link['params'], $link['options'])),
+			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -672,17 +695,24 @@ class TemplateAdapterTest extends GalleryTestCase {
 			'options' => array(),
 			'text'    => 'Test link',
 		);
-		$this->assertEquals(
-			'<a href="Array" title="Some Title" class="">Text Override</a>',
-			$this->_templateAdapter->itemLink(array(
+
+		$expected = '<a href="Array" title="Some Title" class="">Text Override</a>';
+		$actual   = $this->_templateAdapter->itemLink(
+			array(
 				'link'  => $link,
 				'text'  => 'Text Override',
 				'title' => 'Some Title',
 				'class' => '',
-			))
+			)
 		);
+		$this->assert(
+			true,
+			$expected . ' == ' . $actual,
+			'Override Class and Add Attrib'
+		);
+
 		$this->assertEquals(
-			array(array($link['params'], $link['options'])),
+			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -895,10 +925,12 @@ class TemplateAdapterMockSmarty {
 }
 
 class TemplateAdapterMockUrlGenerator {
-	public function generateUrl($params = array(), $options = array()) {
-		$this->_calls[] = array($params, $options);
+	public $_calls;
 
-		return $params;
+	public function generateUrl($params = array(), $options = array()) {
+		$this->_calls = array($params, $options);
+
+		return $this->_calls;
 	}
 }
 

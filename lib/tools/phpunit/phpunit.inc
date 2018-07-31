@@ -201,7 +201,7 @@ class Assert {
 			}
 
 			if (method_exists($expected, 'equals')) {
-				if (! $expected->equals($actual)) {
+				if (!$expected->equals($actual)) {
 					$this->failNotEquals($expected, $actual, 'expected', $message);
 				}
 

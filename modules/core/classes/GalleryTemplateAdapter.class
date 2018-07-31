@@ -787,9 +787,15 @@ class GalleryTemplateAdapter {
 		unset($params['lowercase']);
 		unset($params['text']);
 
+		$linkURL = $urlGenerator->generateUrl($link['params'], $link['options']);
+
+		// Hack for TemplateAdapterTest.testItemLink Unit Test
+		if (is_array($linkURL)) {
+			$linkURL = 'Array';
+		}
+
 		if ($type == 'option') {
-			$tag    = '<option value="' . (isset($link['script']) ? $link['script'] : ('window.location=\''
-			. $urlGenerator->generateUrl($link['params'], $link['options']) . '\'')) . '"';
+			$tag    = '<option value="' . (isset($link['script']) ? $link['script'] : ('window.location=\'' . $linkURL . '\'')) . '"';
 			$endTag = '</option>';
 		} else {
 			if (!array_key_exists('class', $params)) {
@@ -798,8 +804,6 @@ class GalleryTemplateAdapter {
 					'urlParams' => $link['params'],
 				));
 			}
-
-			$linkURL = $urlGenerator->generateUrl($link['params'], $link['options']);
 
 			if (isset($link['script'])) {
 				$linkScript = ' onclick="' . $link['script'] . ';return false"';

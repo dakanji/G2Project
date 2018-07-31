@@ -208,9 +208,9 @@ class GalleryUrlGenerator {
 		}
 
 		// Prefix appended params with ? if the URL doesn't already have a query string
-		$amp = $htmlEntities ? '&amp;' : '&';
+		$amp       = $htmlEntities ? '&amp;' : '&';
 		$flattened = implode($amp, $args);
-		$queryTag = (strpos($url, '?') === false) ? '?' : $amp;
+		$queryTag  = (strpos($url, '?') === false) ? '?' : $amp;
 
 		return $url . $queryTag . $flattened;
 	}

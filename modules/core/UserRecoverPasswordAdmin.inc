@@ -151,8 +151,8 @@ class UserRecoverPasswordAdminView extends GalleryView {
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
 
-		$status = array();
-		$error  = array();
+		$status   = array();
+		$error    = array();
 		$authFile = GALLERY_CONFIG_DIR . '/authFile.txt';
 
 		if ($form['formName'] != 'UserRecoverPasswordAdmin') {

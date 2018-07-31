@@ -2468,7 +2468,7 @@ class RepositoryTest extends GalleryTestCase {
 				'module',
 				GalleryCoreApi::getApiVersion(),
 				GalleryModule::doStatic()->getApiVersion(),
-				null
+				null,
 			),
 			true
 		);
