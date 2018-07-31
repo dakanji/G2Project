@@ -29,6 +29,19 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
  */
 class AdminPluginsView extends GalleryView {
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminPluginsView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -97,6 +110,9 @@ class AdminPluginsView extends GalleryView {
 					return array($ret, null);
 				}
 
+				$test1    = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
+				$test2    = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
+
 				$entry                     = array();
 				$entry['type']             = $type;
 				$entry['name']             = $plugin->translate($plugin->getName());
@@ -104,10 +120,13 @@ class AdminPluginsView extends GalleryView {
 				$entry['description']      = $plugin->translate($plugin->getDescription());
 				$entry['version']          = $plugin->getVersion();
 				$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
-				$entry['deletable']        = ($platform->is_writeable("$g2Dir{$type}s/$pluginId") &&
-				$platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc")) ? 1 : 0;
+				$entry['deletable']        = ($test1 && $test2) ? 1 : 0;
 
-				list($ret, $entry['state']) = PluginCallbackView::getPluginState($type, $plugin, $status);
+				list($ret, $entry['state']) = PluginCallbackView::doStatic()->getPluginState(
+					$type,
+					$plugin,
+					$status
+				);
 
 				if ($ret) {
 					return array($ret, null);
