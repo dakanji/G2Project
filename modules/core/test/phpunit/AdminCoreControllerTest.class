@@ -577,10 +577,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 
 		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
-			$WinPlatform = new AdminCoreControllerTestWinNtPlatform(true);
+			$WinPlatform = new AdminCoreControllerTestWinNtPlatform(false);
 			$gallery->setPlatform($WinPlatform);
 		} else {
-			$UnixPlatform = new AdminCoreControllerTestUnixPlatform(true);
+			$UnixPlatform = new AdminCoreControllerTestUnixPlatform(false);
 			$gallery->setPlatform($UnixPlatform);
 		}
 

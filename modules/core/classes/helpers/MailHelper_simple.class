@@ -91,11 +91,7 @@ class MailHelper_simple {
 		$platform =& $gallery->getPlatform();
 
 		foreach (explode(',', $to) as $mailTo) {
-			if($mailTo == 'nobody@nowhere.com') {
-				$success = false;
-			} else {
-				$success = $platform->mail($mailTo, $subject, $emailText, $headers);
-			}
+			$success = $platform->mail($mailTo, $subject, $emailText, $headers);
 
 			if (!$success) {
 				return GalleryCoreApi::error(
