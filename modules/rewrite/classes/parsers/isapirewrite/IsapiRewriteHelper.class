@@ -29,7 +29,11 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::saveActiveRules
 	 */
-	public static function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
+	public static function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
 		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
@@ -151,7 +155,7 @@ class IsapiRewriteHelper {
 		}
 
 		// Save the new httpd.ini
-		list($ret, $code) = $this->saveActiveRules();
+		list($ret, $code) = self::saveActiveRules();
 
 		if ($ret) {
 			return array($ret, null);
