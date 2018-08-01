@@ -31,7 +31,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		parent::__construct($methodName, 'comment.ShowAllComments');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

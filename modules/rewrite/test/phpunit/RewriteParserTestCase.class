@@ -26,7 +26,7 @@
  * @version $Revision: 20940 $
  */
 class RewriteParserTestCase extends GalleryTestCase {
-	public function setUp($rewriteParserName) {
+	public function setUp($rewriteParserName = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
@@ -651,7 +651,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 		return parent::feof($handle);
 	}
 
-	public function fgets($handle, $length) {
+	public function fgets($handle, $length = 0) {
 		if ($handle == 'phpunit') {
 			if (empty($this->_readBuffer)) {
 				return null;
@@ -713,7 +713,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 		return parent::is_writeable($file);
 	}
 
-	public function file($file) {
+	public function file($file, $use_include_path = false) {
 		if (strpos($file, '.htaccess') !== false || strpos($file, '\httpd.ini') !== false) {
 			return $passCodeAudit = array();
 		}

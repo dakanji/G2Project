@@ -125,7 +125,7 @@ class GalleryTestCase extends TestCase {
 		return $ret;
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		GalleryDataCache::setFileCachingEnabled(false);

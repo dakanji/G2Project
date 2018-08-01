@@ -32,7 +32,7 @@ class PathInfoHelperTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
@@ -172,7 +172,7 @@ class PathInfoHelperMockPlatform extends GalleryPlatform {
 		return parent::feof($handle);
 	}
 
-	public function fgets($handle, $length) {
+	public function fgets($handle, $length = 0) {
 		if ($handle == 'phpunit') {
 			if (empty($this->_readBuffer)) {
 				return null;

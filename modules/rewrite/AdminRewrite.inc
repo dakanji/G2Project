@@ -29,7 +29,7 @@ class AdminRewriteController extends GalleryController {
 	/**
 	 * @see GalleryController::handleRequest
 	 */
-	public function handleRequest(&$form) {
+	public function handleRequest($form) {
 		$error = $status = $seenPatterns = $seenConditions = array();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();

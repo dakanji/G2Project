@@ -35,7 +35,7 @@ class ExifExtractorTest extends GalleryTestCase {
 	/**
 	 * Create an album for testing
 	 */
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

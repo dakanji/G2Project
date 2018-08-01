@@ -32,7 +32,7 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$this->_task = new OptimizeDatabaseTask();

@@ -30,7 +30,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'core.ItemAdd');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$session =& $gallery->getSession();
 

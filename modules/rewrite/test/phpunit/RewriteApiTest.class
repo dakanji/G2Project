@@ -33,7 +33,7 @@ class RewriteApiTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
@@ -493,7 +493,7 @@ class RewriteApiMockParser extends RewriteParser {
 		return array(null, REWRITE_STATUS_INVALID_PATTERN, 'Bad pattern');
 	}
 
-	public function saveActiveRules($activeRules) {
+	public function saveActiveRules($activeRules = null, $upgradeModule = null) {
 		$returnCode = $activeRules['returnCode'];
 		unset($activeRules['returnCode']);
 		$_SERVER['saveActiveRules'] = $activeRules;

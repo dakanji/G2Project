@@ -30,7 +30,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		parent::__construct($methodName, 'core.CombinedJavascript');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

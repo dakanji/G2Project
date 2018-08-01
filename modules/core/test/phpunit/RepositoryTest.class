@@ -35,7 +35,7 @@ class RepositoryTest extends GalleryTestCase {
 	public $_index;
 	public $_sampleIndex;
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

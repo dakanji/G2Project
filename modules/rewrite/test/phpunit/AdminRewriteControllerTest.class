@@ -31,7 +31,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'rewrite.AdminRewrite');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

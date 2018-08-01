@@ -158,7 +158,7 @@ class GalleryComment extends GalleryChildEntity {
 	/**
 	 * @see GalleryEntity::create
 	 */
-	public function create($parentId) {
+	public function create($parentId = null, $x1 = null, $x2 = null) {
 		$ret = parent::create($parentId);
 
 		if ($ret) {

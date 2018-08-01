@@ -30,7 +30,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'core.UserPreferences');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

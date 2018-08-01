@@ -30,7 +30,7 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'jpegtran.AdminJpegtran');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

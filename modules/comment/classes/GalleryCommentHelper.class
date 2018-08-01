@@ -604,7 +604,7 @@ class GalleryCommentHelper {
 	 * @param AkismetApi $akismet an instance of AkismetApi
 	 * @return GalleryStatus a status code
 	 */
-	public function checkWithAkismet(&$comment, $akismet) {
+	public function checkWithAkismet(&$comment = null, $akismet = null) {
 		$logError = false;
 
 		if ($comment->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {

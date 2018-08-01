@@ -30,7 +30,7 @@ class SwitchDetailModeController extends GalleryController {
 	/**
 	 * @see GalleryController::handleRequest
 	 */
-	public function handleRequest() {
+	public function handleRequest($form) {
 		global $gallery;
 
 		$mode = GalleryUtilities::getRequestVariables('mode');

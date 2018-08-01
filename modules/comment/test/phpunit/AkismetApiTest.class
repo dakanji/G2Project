@@ -34,7 +34,7 @@ class AkismetApiTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();
@@ -426,7 +426,7 @@ class AkismetApiTest_AkismetApiWithMockRequest extends AkismetApi {
 		$_REQUEST['mock'][$function][serialize($args)] = $reply;
 	}
 
-	public function _request($type, $comment, $includeBrowserSpecificDetails) {
+	public function _request($type, &$comment, $includeBrowserSpecificDetails) {
 		return $_REQUEST['mock']['_request']
 		[serialize(array($type, $comment, $includeBrowserSpecificDetails))];
 	}

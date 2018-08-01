@@ -33,7 +33,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	// We're creating a tree of test items owned by the user
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

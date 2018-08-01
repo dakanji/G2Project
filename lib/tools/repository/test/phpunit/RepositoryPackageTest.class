@@ -43,7 +43,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 	/**
 	 * Prepare a RepositoryPackage for testing.
 	 */
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

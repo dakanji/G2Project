@@ -40,7 +40,7 @@ class PermissionTest extends GalleryTestCase {
 	/**
 	 * Create nested albums that only have core.canChangePermissions that we can use for testing.
 	 */
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

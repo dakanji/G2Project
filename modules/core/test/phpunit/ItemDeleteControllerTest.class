@@ -30,7 +30,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'core.ItemDelete');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

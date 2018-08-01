@@ -391,7 +391,7 @@ class TestCase extends Assert {
 	}
 
 	// expect override
-	public function setUp() {
+	public function setUp($x1 = null) {
 		//print("TestCase::setUp()<br>\n");
 		$this->fLifeCycle['setUp'] = 1;
 

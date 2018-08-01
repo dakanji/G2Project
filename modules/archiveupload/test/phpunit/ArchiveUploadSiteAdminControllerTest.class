@@ -30,7 +30,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'archiveupload.ArchiveUploadSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

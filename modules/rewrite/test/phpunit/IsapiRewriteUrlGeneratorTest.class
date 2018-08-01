@@ -33,10 +33,10 @@ GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTes
  */
 class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	public function __construct($methodName) {
-		$this->GalleryTestCase($methodName);
+		parent::__construct($methodName, null);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

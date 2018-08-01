@@ -33,10 +33,10 @@ GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteParserTestCase.
  */
 class IsapiRewriteParserTest extends RewriteParserTestCase {
 	public function __construct($methodName) {
-		$this->GalleryTestCase($methodName);
+		parent::__construct($methodName, null);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp('IsapiRewriteParser');
 

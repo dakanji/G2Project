@@ -50,7 +50,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$this->_environments = $imEnvironment;
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

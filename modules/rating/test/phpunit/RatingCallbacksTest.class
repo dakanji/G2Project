@@ -36,7 +36,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 	/**
 	 * Create an album for testing
 	 */
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$session =& $gallery->getSession();
 		$ret     = parent::setUp();

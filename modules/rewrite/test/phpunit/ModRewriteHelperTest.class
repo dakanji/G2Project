@@ -35,7 +35,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
@@ -449,7 +449,7 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 		return parent::feof($handle);
 	}
 
-	public function fgets($handle, $length) {
+	public function fgets($handle, $length = 0) {
 		if ($handle == 'phpunit') {
 			if (empty($this->_readBuffer)) {
 				return null;
@@ -520,7 +520,7 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 		return parent::is_writeable($file);
 	}
 
-	public function file($file) {
+	public function file($file, $use_include_path = false) {
 		if (strpos($file, '.htaccess') !== false) {
 			return $passCodeAudit = array();
 		}

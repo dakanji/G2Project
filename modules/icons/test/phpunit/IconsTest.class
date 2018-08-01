@@ -30,10 +30,10 @@ GalleryCoreApi::requireOnce('modules/icons/classes/IconsImpl.class');
  */
 class IconsTest extends GalleryControllerTestCase {
 	public function __construct($methodName) {
-		$this->GalleryTestCase($methodName);
+		parent::__construct($methodName, null);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

@@ -34,7 +34,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		parent::__construct($methodName, 'exif', 'ExifDescriptionOption');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

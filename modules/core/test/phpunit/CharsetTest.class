@@ -29,7 +29,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryCharsetHelper_m
  * @version $Revision: 17580 $
  */
 class CharsetTest extends GalleryTestCase {
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

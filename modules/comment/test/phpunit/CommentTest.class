@@ -31,7 +31,7 @@ class CommentTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
@@ -756,7 +756,7 @@ class CommentTest_GalleryCommentHelper_MockCheckWithAkismet extends GalleryComme
 		return !empty($this->_calls[$function]);
 	}
 
-	public function checkWithAkismet() {
+	public function checkWithAkismet(&$comment = null, $akismet = null) {
 		$this->_calls['checkWithAkismet'] = true;
 
 		return null;

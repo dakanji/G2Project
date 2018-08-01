@@ -43,7 +43,7 @@ class GdToolkitTest extends GalleryTestCase {
 		$this->_gdEnvironments = $gdEnvironments;
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

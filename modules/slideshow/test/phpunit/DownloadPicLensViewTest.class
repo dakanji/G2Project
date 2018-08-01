@@ -30,7 +30,7 @@ class DownloadPicLensViewTest extends GalleryImmediateViewTestCase {
 		parent::__construct($methodName, 'slideshow.DownloadPicLens');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

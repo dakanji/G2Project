@@ -30,7 +30,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'ffmpeg.AdminFfmpeg');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

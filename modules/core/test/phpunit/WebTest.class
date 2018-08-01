@@ -33,7 +33,7 @@ class WebTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
@@ -865,7 +865,7 @@ class WebTestPlatform {
 		return empty($this->_readBuffer[$handle]);
 	}
 
-	public function fgets($handle, $length) {
+	public function fgets($handle, $length = 0) {
 		if (empty($this->_readBuffer[$handle])) {
 			return null;
 		}

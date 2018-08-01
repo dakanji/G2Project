@@ -29,7 +29,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medi
  * @version $Revision: 17608 $
  */
 class UserHelperTest extends GalleryTestCase {
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
