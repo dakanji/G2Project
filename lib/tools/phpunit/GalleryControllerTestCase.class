@@ -66,10 +66,18 @@ class GalleryControllerTestCase extends GalleryTestCase {
 					$this->fail(
 						sprintf(
 							'Expected error code (%s) but received (%s)',
-							implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
-							implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants(
-								$ret->getErrorCode()
-							))
+							implode(
+								' | ',
+								GalleryStatus::doStatic()->getErrorCodeConstants(
+									$errorCode
+								)
+							),
+							implode(
+								' | ',
+								GalleryStatus::doStatic()->getErrorCodeConstants(
+									$ret->getErrorCode()
+								)
+							)
 						)
 					);
 				}

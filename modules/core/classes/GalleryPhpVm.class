@@ -237,7 +237,13 @@ class GalleryPhpVm {
 	 * @param string $additionalParameters additional parameters (optional)
 	 * @return boolean true if the mail was successfully accepted for delivery
 	 */
-	public function mail($to, $subject, $message, $additionalHeaders = null, $additionalParameters = null) {
+	public function mail(
+		$to,
+		$subject,
+		$message,
+		$additionalHeaders = null,
+		$additionalParameters = null
+	) {
 		return mail($to, $subject, $message, $additionalHeaders, $additionalParameters);
 	}
 

@@ -568,7 +568,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		//Skip This Test?
-		$skipThis = true;
+		$skipThis = false;
 
 		if ($skipThis == true) {
 			$this->skip();
