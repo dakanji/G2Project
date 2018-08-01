@@ -333,7 +333,7 @@ class SlideshowModule extends GalleryModule {
 			 */
 			$template =& $event->getEntity();
 
-			list($ret, $item, $ignored) = GalleryView::getItem();
+			list($ret, $item, $ignored) = GalleryView::doStatic()->getItem();
 
 			if ($ret) {
 				return array($ret, null);
