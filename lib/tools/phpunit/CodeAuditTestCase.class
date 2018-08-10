@@ -39,13 +39,13 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($this->_baseDir . '/.svn/entries')) {
-			$this->assertFalse('Test skipped: .svn/entries not found');
+			$this->skip();
 
 			return;
 		}
 
 		if (!function_exists('xml_parser_create')) {
-			$this->assertFalse('Test skipped: PHP does not have XML support');
+			$this->skip();
 
 			return;
 		}
@@ -53,7 +53,9 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$this->_scanDir($this->_baseDir);
 
 		if ($this->_shouldHalt) {
-			$this->assertFalse('Halted prematurely');
+			$this->skip();
+
+			return;
 		}
 
 		$this->finishScan($this->_shouldHalt);

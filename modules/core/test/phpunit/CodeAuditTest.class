@@ -488,12 +488,18 @@ class CodeAuditTest extends CodeAuditTestCase {
 		// Check result of longLineCount
 		if (!$this->_shouldHalt) {
 			if (count($this->_longLineFiles)) {
-				$this->assertFalse('Found too many lines longer than 100 characters (' .
-				  count($this->_longLineFiles) . ')');
+				$this->assertFalse(
+					'Found too many lines longer than 100 characters ('
+					. count($this->_longLineFiles) . ')',
+					'Long Lines'
+				);
 
 				foreach ($this->_longLineFiles as $entry) {
 					list($fileName, $lineNr) = $entry;
-					$this->assertFalse("File: $fileName , line number: $lineNr");
+					$this->assertFalse(
+						"File: $fileName ,
+						line number: $lineNr"
+					);
 				}
 			}
 		}
