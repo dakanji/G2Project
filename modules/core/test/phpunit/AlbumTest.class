@@ -93,7 +93,10 @@ class AlbumTest extends GalleryTestCase {
 	public function testLoadRootAlbum() {
 		global $gallery;
 
-		list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($this->_parentAlbum->getId(), 'GalleryAlbumItem');
+		list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById(
+			$this->_parentAlbum->getId(),
+			'GalleryAlbumItem'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -277,27 +280,27 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				$this->_getRootId(),
-				$this->_parentAlbum->getId(),
+				(string)$this->_getRootId(),
+				(string)$this->_parentAlbum->getId(),
 			),
 			$parentSequence[0],
 			'(before) sequence 0'
 		);
 		$this->assertEquals(
 			array(
-				$this->_getRootId(),
-				$this->_parentAlbum->getId(),
-				$album[0]->getId(),
+				(string)$this->_getRootId(),
+				(string)$this->_parentAlbum->getId(),
+				(string)$album[0]->getId(),
 			),
 			$parentSequence[1],
 			'(before) sequence 1'
 		);
 		$this->assertEquals(
 			array(
-				$this->_getRootId(),
-				$this->_parentAlbum->getId(),
-				$album[0]->getId(),
-				$album[1]->getId(),
+				(string)$this->_getRootId(),
+				(string)$this->_parentAlbum->getId(),
+				(string)$album[0]->getId(),
+				(string)$album[1]->getId(),
 			),
 			$parentSequence[2],
 			'(before) sequence 2'
@@ -390,8 +393,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				$this->_getRootId(),
-				$this->_parentAlbum->getId(),
+				(string)$this->_getRootId(),
+				(string)$this->_parentAlbum->getId(),
 			),
 			$parentSequence[0],
 			'(after) sequence 0'
@@ -399,8 +402,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				$this->_getRootId(),
-				$this->_parentAlbum->getId(),
+				(string)$this->_getRootId(),
+				(string)$this->_parentAlbum->getId(),
 			),
 			$parentSequence[1],
 			'(after) sequence 1'
@@ -408,9 +411,9 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				$this->_getRootId(),
-				$this->_parentAlbum->getId(),
-				$album[1]->getId(),
+				(string)$this->_getRootId(),
+				(string)$this->_parentAlbum->getId(),
+				(string)$album[1]->getId(),
 			),
 			$parentSequence[2],
 			'(after) sequence 2'
