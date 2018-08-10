@@ -478,7 +478,7 @@ class ItemAttributesTest extends GalleryTestCase {
 	 * Fetch the min/max child weight.
 	 */
 	public function textFetchExtremeChildWeight() {
-		$this->assert(false);
+		$this->assertTrue(false);
 
 		for ($i = 0; $i < sizeof($this->_items); $i++) {
 			$ret = GalleryCoreApi::setItemOrderWeight($this->_items[$i]->getId(), 100 + $i);

@@ -49,7 +49,7 @@ class EventLogHelperTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$this->assert($this->_storage->isComplete(), $this->_storage->getRemaining());
+		$this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
 
 		$ret = parent::tearDown();
 

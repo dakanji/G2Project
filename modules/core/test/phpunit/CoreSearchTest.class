@@ -46,7 +46,7 @@ class CoreSearchTest extends GalleryTestCase {
 		}
 
 		if (empty($moduleStatusList['search']['active'])) {
-			return $this->assert(false, 'Search module not installed');
+			return $this->assertFalse('Search module not installed');
 		}
 
 		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
@@ -117,7 +117,7 @@ class CoreSearchTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assert(isset($this->_coreSearch), 'Missing GalleryCoreSearch instance');
+			$this->assertTrue(isset($this->_coreSearch), 'Missing GalleryCoreSearch instance');
 		}
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -140,17 +140,17 @@ class CoreSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(isset($info['name']), 'name missing');
-		$this->assert(isset($info['description']), 'description missing');
-		$this->assert(isset($info['options']), 'options missing');
-		$this->assert(is_array($info['options']), 'options not an array');
+		$this->assertTrue(isset($info['name']), 'name missing');
+		$this->assertTrue(isset($info['description']), 'description missing');
+		$this->assertTrue(isset($info['options']), 'options missing');
+		$this->assertTrue(is_array($info['options']), 'options not an array');
 
 		foreach (array('descriptions', 'keywords', 'summaries', 'titles') as $option) {
-			$this->assert(
+			$this->assertTrue(
 				isset($info['options'][$option]['description']),
 				"options:$option description missing"
 			);
-			$this->assert(
+			$this->assertTrue(
 				!empty($info['options'][$option]['enabled']),
 				"options:$option not enabled"
 			);

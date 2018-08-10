@@ -116,7 +116,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(false, $result);
+		$this->assertFalse($result);
 	}
 
 	public function testSave2() {
@@ -166,7 +166,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(true, $result);
+		$this->assertTrue($result);
 	}
 
 	public function testBack() {

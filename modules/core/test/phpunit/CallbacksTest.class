@@ -208,7 +208,7 @@ class CallbacksTest extends GalleryTestCase {
 	}
 
 	public function _assertPeers($returnCount, $allCount, $thisIndex, $indexList, $msg) {
-		$this->assert(
+		$this->assertTrue(
 			isset($this->_smarty->_tpl_vars['block']['core']['LoadPeers']),
 			$msg . ': set'
 		);
@@ -389,6 +389,6 @@ class CallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_array($this->_smarty->_tpl_vars['block']['core']['ValidationPlugins']));
+		$this->assertTrue(is_array($this->_smarty->_tpl_vars['block']['core']['ValidationPlugins']));
 	}
 }

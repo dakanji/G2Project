@@ -29,7 +29,7 @@
  *
  * In tearDown() or at the end of the test, call:
  *
- *  $this->assert($repository->isComplete(), $repository->getRemaining());
+ *  $this->assertTrue($repository->isComplete(), $repository->getRemaining());
  *
  * This check verifies that all expected calls were received.
  *

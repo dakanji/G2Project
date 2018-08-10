@@ -128,7 +128,7 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 					break;
 
 				case COMMENT_PUBLISH_STATUS_SPAM:
-					$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT);
+					$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT);
 
 					break;
 			}

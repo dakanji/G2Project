@@ -161,7 +161,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 		for ($i = 0; $i < sizeof($exifData); $i++) {
 			$title = $exifData[$i]['title'];
-			$this->assert(!isset($seen[$title]), "$title is duplicated");
+			$this->assertTrue(!isset($seen[$title]), "$title is duplicated");
 			$seen[$title] = 1;
 		}
 	}
@@ -196,9 +196,9 @@ class ExifHelperTest extends GalleryTestCase {
 		// There are a bajillion keys.  Do a quick sanity check
 		$exifKeys = ExifHelper::getExifKeys();
 		$this->assertEquals(199, sizeof($exifKeys));
-		$this->assert(isset($exifKeys['ImageType']));
-		$this->assert(isset($exifKeys['IPTC/Keywords']));
-		$this->assert(isset($exifKeys['GPS/Latitude']));
+		$this->assertTrue(isset($exifKeys['ImageType']));
+		$this->assertTrue(isset($exifKeys['IPTC/Keywords']));
+		$this->assertTrue(isset($exifKeys['GPS/Latitude']));
 	}
 
 	/**
@@ -211,14 +211,14 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($iptcObj));
+		$this->assertTrue(isset($iptcObj));
 
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Keywords'));
 		$dataArray = explode('; ', $data);
 		$this->assertEquals(3, count($dataArray), 'keyword count');
-		$this->assert(in_array('keyword0', $dataArray), 'IPTC/Keywords keyword0 missing');
-		$this->assert(in_array('keyword1', $dataArray), 'IPTC/Keywords keyword1 missing');
-		$this->assert(in_array('keyword2', $dataArray), 'IPTC/Keywords keyword2 missing');
+		$this->assertTrue(in_array('keyword0', $dataArray), 'IPTC/Keywords keyword0 missing');
+		$this->assertTrue(in_array('keyword1', $dataArray), 'IPTC/Keywords keyword1 missing');
+		$this->assertTrue(in_array('keyword2', $dataArray), 'IPTC/Keywords keyword2 missing');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Caption'));
 		$this->assertEquals('Caption, Beschreibung', $data, 'IPTC/Caption mismatch');
@@ -247,8 +247,8 @@ class ExifHelperTest extends GalleryTestCase {
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'SupplementalCategories'));
 		$dataArray = explode('; ', $data);
 		$this->assertEquals(2, count($dataArray));
-		$this->assert(in_array('c2', $dataArray), 'IPTC/SupplementalCategories c2 missing');
-		$this->assert(in_array('c3', $dataArray), 'IPTC/SupplementalCategories c3 missing');
+		$this->assertTrue(in_array('c2', $dataArray), 'IPTC/SupplementalCategories c2 missing');
+		$this->assertTrue(in_array('c3', $dataArray), 'IPTC/SupplementalCategories c3 missing');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Byline'));
 		$this->assertEquals('Byline, Autor', $data, 'IPTC/Byline mismatch');
@@ -318,15 +318,15 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($iptcObj));
+		$this->assertTrue(isset($iptcObj));
 
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Keywords'));
 		$dataArray = explode('; ', $data);
 		$this->assertEquals(4, count($dataArray), 'keyword count');
-		$this->assert(in_array('keyword0', $dataArray), 'IPTC/Keywords keyword0 missing');
-		$this->assert(in_array('keyword1', $dataArray), 'IPTC/Keywords keyword1 missing');
-		$this->assert(in_array('keyword2', $dataArray), 'IPTC/Keywords keyword2 missing');
-		$this->assert(in_array('keyword3', $dataArray), 'IPTC/Keywords keyword3 missing');
+		$this->assertTrue(in_array('keyword0', $dataArray), 'IPTC/Keywords keyword0 missing');
+		$this->assertTrue(in_array('keyword1', $dataArray), 'IPTC/Keywords keyword1 missing');
+		$this->assertTrue(in_array('keyword2', $dataArray), 'IPTC/Keywords keyword2 missing');
+		$this->assertTrue(in_array('keyword3', $dataArray), 'IPTC/Keywords keyword3 missing');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CopyrightNotice'));
 		$this->assertEquals('copyright notice', $data, 'IPTC/CopyrightNotice mismatch');
@@ -352,16 +352,16 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($iptcObj));
+		$this->assertTrue(isset($iptcObj));
 
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Keywords'));
 		$dataArray = explode('; ', $data);
 		$this->assertEquals(5, count($dataArray), 'keyword count');
-		$this->assert(in_array('keyword0', $dataArray), 'IPTC/Keywords keyword0 missing');
-		$this->assert(in_array('keyword1', $dataArray), 'IPTC/Keywords keyword1 missing');
-		$this->assert(in_array('keyword2', $dataArray), 'IPTC/Keywords keyword2 missing');
-		$this->assert(in_array('keyword3', $dataArray), 'IPTC/Keywords keyword3 missing');
-		$this->assert(in_array('keyword4', $dataArray), 'IPTC/Keywords keyword4 missing');
+		$this->assertTrue(in_array('keyword0', $dataArray), 'IPTC/Keywords keyword0 missing');
+		$this->assertTrue(in_array('keyword1', $dataArray), 'IPTC/Keywords keyword1 missing');
+		$this->assertTrue(in_array('keyword2', $dataArray), 'IPTC/Keywords keyword2 missing');
+		$this->assertTrue(in_array('keyword3', $dataArray), 'IPTC/Keywords keyword3 missing');
+		$this->assertTrue(in_array('keyword4', $dataArray), 'IPTC/Keywords keyword4 missing');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Caption'));
 		$this->assertEquals('Caption: IPTC/Caption', $data, 'IPTC/Caption mismatch');
@@ -396,15 +396,15 @@ class ExifHelperTest extends GalleryTestCase {
 		$dataArray = explode('; ', $data);
 		$this->assertEquals(3, count($dataArray), 'SupplementalCategories count');
 		// IPTC limits this to 3, PS to 2 chars. IrfanView doesn't respect that, can we read it?
-		$this->assert(
+		$this->assertTrue(
 			in_array('Supplemental categories', $dataArray),
 			'IPTC/SupplementalCategories 0 missing'
 		);
-		$this->assert(
+		$this->assertTrue(
 			in_array('IPTC/SupplementalCategories 1', $dataArray),
 			'IPTC/SupplementalCategories 1 missing'
 		);
-		$this->assert(
+		$this->assertTrue(
 			in_array('IPTC/SupplementalCategories 2', $dataArray),
 			'IPTC/SupplementalCategories 2 missing'
 		);
@@ -433,7 +433,7 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($iptcObj));
+		$this->assertTrue(isset($iptcObj));
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Caption'), 'ISO-8859-1');
 		$this->assertEquals(
@@ -579,8 +579,8 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		// Make sure they are gone.
-		$this->assert(!in_array('IPTC/Caption', $properties), 'Caption not gone');
-		$this->assert(!in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
+		$this->assertTrue(!in_array('IPTC/Caption', $properties), 'Caption not gone');
+		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
 
 		// Add them back with the function to test.
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_SUMMARY);
@@ -596,8 +596,8 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		// Make sure they are back again.
-		$this->assert(in_array('IPTC/Caption', $properties), 'Caption not back');
-		$this->assert(in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not back');
+		$this->assertTrue(in_array('IPTC/Caption', $properties), 'Caption not back');
+		$this->assertTrue(in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not back');
 	}
 
 	/**
@@ -627,9 +627,9 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		// Make sure they are gone.
-		$this->assert(!in_array('IPTC/Caption', $properties), 'Caption not gone');
-		$this->assert(!in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
-		$this->assert(!in_array('IPTC/Keywords', $properties), 'Keywords not gone');
+		$this->assertTrue(!in_array('IPTC/Caption', $properties), 'Caption not gone');
+		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
+		$this->assertTrue(!in_array('IPTC/Keywords', $properties), 'Keywords not gone');
 
 		// Add them back with the function to test.
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_DETAILED);
@@ -645,8 +645,8 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		// Make sure they are back again.
-		$this->assert(in_array('IPTC/Caption', $properties), 'Caption not back');
-		$this->assert(in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not back');
-		$this->assert(in_array('IPTC/Keywords', $properties), 'Keywords not back');
+		$this->assertTrue(in_array('IPTC/Caption', $properties), 'Caption not back');
+		$this->assertTrue(in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not back');
+		$this->assertTrue(in_array('IPTC/Keywords', $properties), 'Keywords not back');
 	}
 }

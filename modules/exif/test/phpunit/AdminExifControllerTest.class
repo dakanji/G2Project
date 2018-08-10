@@ -126,9 +126,9 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert(in_array('SubjectLocation', $properties));
-		$this->assert(in_array('Sharpness', $properties));
-		$this->assert(in_array('IPTC/Keywords', $properties));
+		$this->assertTrue(in_array('SubjectLocation', $properties));
+		$this->assertTrue(in_array('Sharpness', $properties));
+		$this->assertTrue(in_array('IPTC/Keywords', $properties));
 	}
 
 	public function testRemoveFromSummary() {
@@ -161,9 +161,9 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert(!in_array('Make', $properties));
-		$this->assert(!in_array('ISO', $properties));
-		$this->assert(!in_array('IPTC/CopyrightNotice', $properties));
+		$this->assertTrue(!in_array('Make', $properties));
+		$this->assertTrue(!in_array('ISO', $properties));
+		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties));
 	}
 
 	public function testRemoveFromSummaryMissing() {
@@ -373,9 +373,9 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert(in_array('SubjectLocation', $properties));
-		$this->assert(in_array('Sharpness', $properties));
-		$this->assert(in_array('IPTC/Keywords', $properties));
+		$this->assertTrue(in_array('SubjectLocation', $properties));
+		$this->assertTrue(in_array('Sharpness', $properties));
+		$this->assertTrue(in_array('IPTC/Keywords', $properties));
 	}
 
 	public function testRemoveFromDetailed() {
@@ -408,9 +408,9 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert(!in_array('Make', $properties));
-		$this->assert(!in_array('ISO', $properties));
-		$this->assert(!in_array('IPTC/CopyrightNotice', $properties));
+		$this->assertTrue(!in_array('Make', $properties));
+		$this->assertTrue(!in_array('ISO', $properties));
+		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties));
 	}
 
 	public function testRemoveFromDetailedMissing() {

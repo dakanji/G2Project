@@ -205,7 +205,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert($inGroup, 'User should still be in the group');
+		$this->assertTrue($inGroup, 'User should still be in the group');
 	}
 
 	public function testAddUser() {

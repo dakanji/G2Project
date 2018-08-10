@@ -85,11 +85,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$expected['rewriteparsermock'][0] = 'bogus1';
-		$this->assert(true, REWRITE_STATUS_OK == $code, 'OK Status');
-		$this->assert(true, null == $errno, 'Null Err No');
-		$this->assert(true, $expected == unserialize($activeRules), 'activeRules');
-		$this->assert(true, !empty($this->_fileContent), 'fileContent');
-		$this->assert(true, !empty($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assertTrue(true, REWRITE_STATUS_OK == $code, 'OK Status');
+		$this->assertTrue(true, null == $errno, 'Null Err No');
+		$this->assertTrue(true, $expected == unserialize($activeRules), 'activeRules');
+		$this->assertTrue(true, !empty($this->_fileContent), 'fileContent');
+		$this->assertTrue(true, !empty($this->_embeddedFileContent), 'embeddedFileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -124,8 +124,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_BAD_KEYWORD, $code);
 		$this->assertEquals(array('rewriteparsermock', 0), $errno);
 		$this->assertEquals($expected, unserialize($activeRules));
-		$this->assert(!isset($this->_fileContent), 'fileContent');
-		$this->assert(!isset($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
+		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -162,8 +162,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code);
 		$this->assertEquals($accessList, unserialize($savedList));
 		$this->assertEquals('1', $allowEmptyReferer);
-		$this->assert(!empty($this->_fileContent), 'fileContent');
-		$this->assert(!isset($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assertTrue(!empty($this->_fileContent), 'fileContent');
+		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
 	}
 
 	public function testSaveAccessListEmbedded() {
@@ -199,8 +199,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code);
 		$this->assertEquals($accessList, unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
-		$this->assert(!empty($this->_fileContent), 'fileContent');
-		$this->assert(!empty($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assertTrue(!empty($this->_fileContent), 'fileContent');
+		$this->assertTrue(!empty($this->_embeddedFileContent), 'embeddedFileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -237,8 +237,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
 		$this->assertEquals(array('phpunit.test'), unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
-		$this->assert(!isset($this->_fileContent), 'fileContent');
-		$this->assert(!isset($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
+		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
 
 		$this->_platform->_isWriteable = true;
 	}
@@ -276,8 +276,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
 		$this->assertEquals(array('phpunit.test'), unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
-		$this->assert(!isset($this->_fileContent), 'fileContent');
-		$this->assert(!isset($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
+		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -291,7 +291,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$status, 'pass');
+		$this->assertTrue(!$status, 'pass');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -422,7 +422,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			'saved' => 1,
 		), $status);
 		$this->assertEquals(array(), $error);
-		$this->assert(!empty($this->_fileContent), 'file');
+		$this->assertTrue(!empty($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -465,7 +465,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			'saved' => 1,
 		), $status);
 		$this->assertEquals(array(), $error);
-		$this->assert(!empty($this->_fileContent), 'file');
+		$this->assertTrue(!empty($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -507,7 +507,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('/embedded/', $embeddedLocation);
 		$this->assertEquals(array(), $status);
 		$this->assertEquals(array('form[error][15]'), $error);
-		$this->assert(!isset($this->_fileContent), 'file');
+		$this->assertTrue(!isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 		$this->_platform->_isWriteable = true;
@@ -547,7 +547,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('/embedded/', $embeddedLocation);
 		$this->assertEquals(array(), $status);
 		$this->assertEquals(array('form[error][5]'), $error);
-		$this->assert(!isset($this->_fileContent), 'file');
+		$this->assertTrue(!isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -559,7 +559,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assert(!$status, 'status');
+		$this->assertTrue(!$status, 'status');
 	}
 
 	public function testNeedsEmbedConfig2() {
@@ -580,7 +580,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assert($status, 'status');
+		$this->assertTrue($status, 'status');
 	}
 
 	public function testFetchEmbedConfig() {
@@ -629,7 +629,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
-		$this->assert(!empty($errstr), 'errstr');
+		$this->assertTrue(!empty($errstr), 'errstr');
 		$this->_platform->_isWriteable = true;
 	}
 
@@ -644,7 +644,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_EMPTY_VALUE, $code);
-		$this->assert(!empty($errstr), 'errstr');
+		$this->assertTrue(!empty($errstr), 'errstr');
 		$this->_platform->_isWriteable = true;
 	}
 }

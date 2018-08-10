@@ -113,7 +113,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert(count($list) >= 2, 'count');
+		$this->assertTrue(count($list) >= 2, 'count');
 		$this->assertEquals(27, $list['TestToolkitPriority'], 'TestToolkitPriority');
 		$this->assertEquals(30, $list['TestToolkitPriority2'], 'TestToolkitPriority2');
 	}

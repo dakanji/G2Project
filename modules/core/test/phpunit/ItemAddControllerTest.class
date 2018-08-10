@@ -147,7 +147,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expectedUrl = $urlGenerator->generateUrl($requiredUrlParameters);
-		$this->assert(
+		$this->assertTrue(
 			strpos($completeProgressBarDump[0], $expectedUrl) !== false,
 			'incorrect continueUrl: ' . $completeProgressBarDump[0]
 		);
@@ -522,8 +522,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
-		$this->assert(in_array($item->getId(), $childIds), 'normal item has been deleted');
+		$this->assertTrue(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
+		$this->assertTrue(in_array($item->getId(), $childIds), 'normal item has been deleted');
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
 
@@ -532,7 +532,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 		$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
 		$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
-		$this->assert($item->getParentId() != $this->_album->getId(), 'should be in subalbum');
+		$this->assertTrue($item->getParentId() != $this->_album->getId(), 'should be in subalbum');
 	}
 
 	public function testHandleRequestWithProgressBarWithArchiveExtractNoAddAlbumPermission() {
@@ -649,8 +649,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
-		$this->assert(in_array($item->getId(), $childIds), 'normal item has been deleted');
+		$this->assertTrue(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
+		$this->assertTrue(in_array($item->getId(), $childIds), 'normal item has been deleted');
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
 

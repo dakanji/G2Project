@@ -235,7 +235,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($platform->is_dir($path), "directory '$path'");
+		$this->assertTrue($platform->is_dir($path), "directory '$path'");
 		$this->assertEquals(
 			trim($name),
 			basename($path),
@@ -293,7 +293,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($platform->is_dir($path), "directory '$path'");
+		$this->assertTrue($platform->is_dir($path), "directory '$path'");
 		$this->assertEquals(
 			trim($name),
 			basename($path),

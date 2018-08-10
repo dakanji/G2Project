@@ -103,7 +103,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				return $ret;
 			}
 
-			$this->assert(isset($this->_comment[$i]), 'Missing comment instance');
+			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
 			$this->_comment[$i]->create($itemId);
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -266,7 +266,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testShowAllCommentsAddsNoCacheWithoutCoreViewPermission() {
@@ -334,7 +334,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testShowAllCommentsDoesNotAddNoCacheWithViewPermission() {
@@ -383,6 +383,6 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 
 		$head = $template->getVariable('head');
 		$this->assertEquals(array(), $head['meta']);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 }

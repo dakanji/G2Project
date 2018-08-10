@@ -39,13 +39,13 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($this->_baseDir . '/.svn/entries')) {
-			$this->assert(false, 'Test skipped: .svn/entries not found');
+			$this->assertFalse('Test skipped: .svn/entries not found');
 
 			return;
 		}
 
 		if (!function_exists('xml_parser_create')) {
-			$this->assert(false, 'Test skipped: PHP does not have XML support');
+			$this->assertFalse('Test skipped: PHP does not have XML support');
 
 			return;
 		}
@@ -53,7 +53,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$this->_scanDir($this->_baseDir);
 
 		if ($this->_shouldHalt) {
-			$this->assert(false, 'Halted prematurely');
+			$this->assertFalse('Halted prematurely');
 		}
 
 		$this->finishScan($this->_shouldHalt);
@@ -116,7 +116,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
-			$this->assert(false, 'Unable to parse .svn/entries for dir: ' . $dirPath);
+			$this->assertFalse('Unable to parse .svn/entries for dir: ' . $dirPath);
 
 			return array();
 		}
@@ -157,7 +157,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 					break;
 
 				default:
-					$this->assert(false, 'Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]);
+					$this->assertFalse('Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]);
 			}
 		}
 
@@ -223,7 +223,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 					break;
 
 				default:
-					$this->assert(false, 'Unable to parse ' . $matches[2][$i]);
+					$this->assertFalse('Unable to parse ' . $matches[2][$i]);
 			}
 		}
 

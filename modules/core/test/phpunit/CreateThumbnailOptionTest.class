@@ -118,11 +118,11 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->assert($isCurrent, 'Thumbnail was not created!');
-		$this->assert(!$this->_itemThumbnail[0]->getIsBroken(), 'Thumbnail is broken!');
+		$this->assertTrue($isCurrent, 'Thumbnail was not created!');
+		$this->assertTrue(!$this->_itemThumbnail[0]->getIsBroken(), 'Thumbnail is broken!');
 
 		// Check if the derivative was saved by checking
-		$this->assert(
+		$this->assertTrue(
 			!$this->_itemThumbnail[0]->isModified(),
 			'Thumbnail still modified, should be saved'
 		);
@@ -140,7 +140,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->assert(!$isCurrent, 'Thumbnail was created, but not requested!');
+		$this->assertTrue(!$isCurrent, 'Thumbnail was created, but not requested!');
 	}
 
 	public function testCreateMultipleThumbnails() {
@@ -178,7 +178,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert($isCurrent, "Thumbnail $j was not created!");
+			$this->assertTrue($isCurrent, "Thumbnail $j was not created!");
 		}
 	}
 

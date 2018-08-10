@@ -73,13 +73,13 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 			return $ret;
 		} else {
 			// Check to make sure we got back everything we want
-			$this->assert(isset($error) && is_array($error), 'plugin error results missing');
+			$this->assertTrue(isset($error) && is_array($error), 'plugin error results missing');
 
 			/*
 			 * This doesn't appear to test much, but it will cause us to examine $status so if
 			 * it's not set then we'll trigger a PHP warning which will fail the test
 			 */
-			$this->assert(isset($status) || $status == null, 'plugin status result missing');
+			$this->assertTrue(isset($status) || $status == null, 'plugin status result missing');
 		}
 
 		return array($error, $status);

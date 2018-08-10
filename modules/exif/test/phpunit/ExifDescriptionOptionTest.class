@@ -435,7 +435,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->assert(
+		$this->assertTrue(
 			$originalSerial != $this->_items[0]->getSerialNumber(),
 			"Item serial should have changed ($originalSerial)"
 		);

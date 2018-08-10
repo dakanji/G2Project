@@ -388,7 +388,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			$descriptor->checkIntegrity()
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	/**
@@ -494,7 +494,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			),
 			$descriptor->checkIntegrity()
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }
 

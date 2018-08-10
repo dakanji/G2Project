@@ -150,7 +150,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 		$packagePath = $this->_package->getOutputDir() . $this->_package->getOutputFile();
 		$this->assertEquals($expectedPackagePath, $packagePath, 'Package written to wrong path []');
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testCreateAllPackages() {
@@ -222,7 +222,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		$this->assertEquals($this->_expectedPackageData['package1'] + $this->_expectedPackageData['package2'], $templateVariables, 'package data');
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetPackageFileName() {

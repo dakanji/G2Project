@@ -64,9 +64,9 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('rotate', $results[0]['name'], 'first test should be rotate');
-		$this->assertEquals(true, $results[0]['success'], 'rotate should succeed');
+		$this->assertTrue($results[0]['success'], 'rotate should succeed');
 		$this->assertEquals('crop', $results[1]['name'], 'second test should be crop');
-		$this->assertEquals(true, $results[1]['success'], 'crop should succeed');
+		$this->assertTrue($results[1]['success'], 'crop should succeed');
 	}
 
 	public function testRotateOnlyBinary() {
@@ -78,16 +78,16 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('rotate', $results[0]['name'], 'first test should be rotate');
-		$this->assertEquals(true, $results[0]['success'], 'rotate should succeed');
+		$this->assertTrue($results[0]['success'], 'rotate should succeed');
 		$this->assertEquals('crop', $results[1]['name'], 'second test should be crop');
-		$this->assertEquals(false, $results[1]['success'], 'crop should fail');
+		$this->assertFalse($results[1]['success'], 'crop should fail');
 	}
 
 	public function testTestBinaryBadPath() {
 		list($ret, $results) = JpegtranToolkitHelper::testBinary('/invalidPath/jpegtran');
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_BAD_PATH, 'expect ERROR_BAD_PATH');
+			$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PATH, 'expect ERROR_BAD_PATH');
 		} else {
 			$this->fail('test binary should return an error');
 		}
@@ -102,9 +102,9 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('rotate', $results[0]['name'], 'first test should be rotate');
-		$this->assertEquals(false, $results[0]['success'], 'rotate should fail');
+		$this->assertFalse($results[0]['success'], 'rotate should fail');
 		$this->assertEquals('crop', $results[1]['name'], 'second test should be crop');
-		$this->assertEquals(false, $results[1]['success'], 'crop should fail');
+		$this->assertFalse($results[1]['success'], 'crop should fail');
 	}
 
 	public function testGetOperations() {
@@ -318,7 +318,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION,
 				'expect ERROR_UNSUPPORTED_OPERATION'
 			);
@@ -339,7 +339,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION,
 				'expect ERROR_UNSUPPORTED_OPERATION'
 			);

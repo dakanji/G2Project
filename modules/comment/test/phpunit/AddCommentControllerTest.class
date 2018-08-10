@@ -124,12 +124,12 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, count($comments));
 
 		if (count($comments) == 1) {
-			$this->assert(GalleryUtilities::isA($comments[0], 'GalleryComment'));
+			$this->assertTrue(GalleryUtilities::isA($comments[0], 'GalleryComment'));
 			$this->assertEquals('this is a comment', $comments[0]->getComment());
 			$this->assertEquals('this is a subject', $comments[0]->getSubject());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost());
-			$this->assert($comments[0]->getDate() >= $this->_startTime &&
+			$this->assertTrue($comments[0]->getDate() >= $this->_startTime &&
 			  $comments[0]->getDate() <= time(), 'date');
 		}
 	}
@@ -274,13 +274,13 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, count($comments));
 
 		if (count($comments) == 1) {
-			$this->assert(GalleryUtilities::isA($comments[0], 'GalleryComment'));
+			$this->assertTrue(GalleryUtilities::isA($comments[0], 'GalleryComment'));
 			$this->assertEquals('this is a comment', $comments[0]->getComment());
 			$this->assertEquals('this is a subject', $comments[0]->getSubject());
 			$this->assertEquals('this is an author', $comments[0]->getAuthor());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost());
-			$this->assert($comments[0]->getDate() >= $this->_startTime &&
+			$this->assertTrue($comments[0]->getDate() >= $this->_startTime &&
 			  $comments[0]->getDate() <= time(), 'date');
 		}
 	}
@@ -377,7 +377,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($counts[$this->_item->getId()]));
+		$this->assertTrue(empty($counts[$this->_item->getId()]));
 	}
 
 	public function testPreviewEmptyComment() {
@@ -408,7 +408,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($counts[$this->_item->getId()]));
+		$this->assertTrue(empty($counts[$this->_item->getId()]));
 	}
 
 	public function testAddMaliciousComment() {
@@ -614,7 +614,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'user 1'
 			);
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost(), 'host 1');
-			$this->assert($comments[0]->getDate() >= $this->_startTime
+			$this->assertTrue($comments[0]->getDate() >= $this->_startTime
 			  && $comments[0]->getDate() <= time(), 'time 1');
 		}
 	}
@@ -757,12 +757,12 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, count($comments));
 
 		if (count($comments) == 1) {
-			$this->assert(GalleryUtilities::isA($comments[0], 'GalleryComment'));
+			$this->assertTrue(GalleryUtilities::isA($comments[0], 'GalleryComment'));
 			$this->assertEquals('test', $comments[0]->getComment());
 			$this->assertEquals('test', $comments[0]->getSubject());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost());
-			$this->assert($comments[0]->getDate() >= $this->_startTime &&
+			$this->assertTrue($comments[0]->getDate() >= $this->_startTime &&
 			  $comments[0]->getDate() <= time(), 'date');
 		}
 	}

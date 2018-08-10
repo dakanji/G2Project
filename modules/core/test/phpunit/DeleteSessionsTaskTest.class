@@ -117,7 +117,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals(
 			array(
 				$this->_core->translate(array(

@@ -187,8 +187,8 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($plugins[$module->getId()]), 'missing PluginMap entry');
-		$this->assert(
+		$this->assertTrue(isset($plugins[$module->getId()]), 'missing PluginMap entry');
+		$this->assertTrue(
 			empty($plugins[$module->getId()]['active']),
 			'wrong PluginMap value for active'
 		);
@@ -199,7 +199,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(array_key_exists('moduletest.one', $ids), 'Permission was not added');
+		$this->assertTrue(array_key_exists('moduletest.one', $ids), 'Permission was not added');
 
 		// Remove all permissions
 		$ret = GalleryCoreApi::removeItemPermissions($this->_rootAlbum->getId());
@@ -252,15 +252,15 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($isActive, 'Is active');
+		$this->assertTrue($isActive, 'Is active');
 
 		list($ret, $plugins) = GalleryCoreApi::fetchPluginList('module');
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($plugins[$module->getId()]), 'missing PluginMap entry (2)');
-		$this->assert(
+		$this->assertTrue(isset($plugins[$module->getId()]), 'missing PluginMap entry (2)');
+		$this->assertTrue(
 			!empty($plugins[$module->getId()]['active']),
 			'wrong PluginMap value for active'
 		);
@@ -323,8 +323,8 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($plugins[$module->getId()]), 'missing PluginMap entry (3)');
-		$this->assert(
+		$this->assertTrue(isset($plugins[$module->getId()]), 'missing PluginMap entry (3)');
+		$this->assertTrue(
 			empty($plugins[$module->getId()]['active']),
 			'wrong PluginMap value for active (3)'
 		);
@@ -343,7 +343,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(array_key_exists('moduletest.two', $ids), 'Permission was not added');
+		$this->assertTrue(array_key_exists('moduletest.two', $ids), 'Permission was not added');
 
 		// Uninstall the module
 		$ret = $module->uninstall();
@@ -351,7 +351,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			!empty($this->_removedDir),
 			'plugins_data/modules/moduletest directory not removed in uninstall'
 		);
@@ -361,7 +361,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($plugins[$module->getId()]), 'PluginMap entry still set');
+		$this->assertTrue(!isset($plugins[$module->getId()]), 'PluginMap entry still set');
 
 		// Flush cached permissions
 		GalleryDataCache::reset();
@@ -383,7 +383,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		foreach ($ids as $id) {
-			$this->assert(
+			$this->assertTrue(
 				$id != 'moduletest.one' && $id != 'moduletest.two',
 				'Permission was not removed'
 			);
@@ -396,7 +396,7 @@ class ModuleTest extends GalleryTestCase {
 			return $ret;
 		}
 		// For Oracle, null is replaced with '' when loading data from the database
-		$this->assert(
+		$this->assertTrue(
 			in_array($album->getOnLoadHandlers(), array(null, '')),
 			'album onLoadHandlers'
 		);
@@ -443,7 +443,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 	}
 
 	public function testActivateBadModuleApiActivate() {
@@ -468,14 +468,14 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isActive, 'is active');
+		$this->assertTrue(!$isActive, 'is active');
 	}
 
 	public function testInstallBadCoreApi() {
@@ -494,7 +494,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 	}
 
 	public function testActivateBadCoreApiActivate() {
@@ -519,14 +519,14 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isActive, 'is active');
+		$this->assertTrue(!$isActive, 'is active');
 	}
 
 	public function testPermissionsCleanup() {
@@ -567,7 +567,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($bits == 0, 'no bits');
+		$this->assertTrue($bits == 0, 'no bits');
 
 		// If above leaves a row with g_permission=0 it will foul up this call:
 		$ret = GalleryCoreApi::addUserPermission(
@@ -584,7 +584,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($bits > 0, 'bits');
+		$this->assertTrue($bits > 0, 'bits');
 	}
 
 	public function testInstallOrUpgradeSetsNewModuleVersion() {
@@ -647,7 +647,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($isActive, 'Is active');
+		$this->assertTrue($isActive, 'Is active');
 
 		list($ret, $handler) = GalleryCoreApi::newFactoryInstanceById(
 			'GalleryOnLoadHandler',
@@ -657,7 +657,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($handler), 'Precondition failed: No factory implementation registered');
+		$this->assertTrue(isset($handler), 'Precondition failed: No factory implementation registered');
 
 		// Register our event listener to observe the test
 		$testEventListener = new ModuleTestEventListener();

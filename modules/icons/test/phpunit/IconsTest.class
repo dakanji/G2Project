@@ -70,7 +70,7 @@ class IconsTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert(
+		$this->assertTrue(
 			isset($list['paularmstrongdesigns']),
 			'paularmstrongdesigns iconpack not found'
 		);
@@ -82,8 +82,8 @@ class IconsTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($iconpack), 'Icon pack was not set');
-		$this->assert(
+		$this->assertTrue(isset($iconpack), 'Icon pack was not set');
+		$this->assertTrue(
 			GalleryUtilities::isA($iconpack, 'IconsImpl'),
 			'The factory instance was not an IconsImpl'
 		);

@@ -1,30 +1,30 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2008 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 /**
- * Test DataCache functionality
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- * @version $Revision: 17580 $
- */
+* Test DataCache functionality
+* @package GalleryCore
+* @subpackage PHPUnit
+* @author Bharat Mediratta <bharat@menalto.com>
+* @version $Revision: 17580 $
+*/
 class DataCacheTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
@@ -90,24 +90,24 @@ class DataCacheTest extends GalleryTestCase {
 		$key   = 'test-key';
 		$value = 'test-value';
 		GalleryDataCache::put($key, $value);
-		$this->assert(GalleryDataCache::containsKey($key));
+		$this->assertTrue(GalleryDataCache::containsKey($key));
 	}
 
 	public function testReset() {
 		$key   = 'test-key';
 		$value = 'test-value';
 		GalleryDataCache::put($key, $value);
-		$this->assert(GalleryDataCache::containsKey($key), 'Could not put a var to GDC');
+		$this->assertTrue(GalleryDataCache::containsKey($key), 'Could not put a var to GDC');
 		// Add a protected var
 		$pKey   = 'prot-test-key';
 		$pValue = 'prot-test-value';
 		GalleryDataCache::put($pKey, $pValue, true);
-		$this->assert(GalleryDataCache::containsKey($pKey), 'Could not put a protected var to GDC');
+		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Could not put a protected var to GDC');
 		GalleryDataCache::reset();
-		$this->assert(!GalleryDataCache::containsKey($key), 'Could not reset GDC');
-		$this->assert(GalleryDataCache::containsKey($pKey), 'Reset GDC deleted a protected var');
+		$this->assertTrue(!GalleryDataCache::containsKey($key), 'Could not reset GDC');
+		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Reset GDC deleted a protected var');
 		GalleryDataCache::reset(true);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($pKey),
 			'Reset(true) did not delete protected vars'
 		);
@@ -122,10 +122,10 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::removeByPattern('foo\(2, ');
 		GalleryDataCache::removeByPattern('bar');
 
-		$this->assert(GalleryDataCache::containsKey('foo(1, 2, 3, 4)', 'baz'));
-		$this->assert(!GalleryDataCache::containsKey('foo(2, 3, 4)', 'baz'));
-		$this->assert(!GalleryDataCache::containsKey('bar(3, 4)', 'baz'));
-		$this->assert(!GalleryDataCache::containsKey('bar(4)', 'baz'));
+		$this->assertTrue(GalleryDataCache::containsKey('foo(1, 2, 3, 4)', 'baz'));
+		$this->assertTrue(!GalleryDataCache::containsKey('foo(2, 3, 4)', 'baz'));
+		$this->assertTrue(!GalleryDataCache::containsKey('bar(3, 4)', 'baz'));
+		$this->assertTrue(!GalleryDataCache::containsKey('bar(4)', 'baz'));
 	}
 
 	public function testGetCacheTuple() {
@@ -311,7 +311,6 @@ class DataCacheTest extends GalleryTestCase {
 			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/2/21.inc')
 		);
 		DataCacheTestPlatform::doStatic()->reset();
-
 		$testdata = '|test#with\'funky"chars? \\*&%$[]}{ end';
 		GalleryDataCache::putToDisk(array(
 			'type'   => 'entity',
@@ -349,7 +348,7 @@ class DataCacheTest extends GalleryTestCase {
 			'type'   => 'entity',
 			'itemId' => 1,
 		));
-		$this->assert(
+		$this->assertTrue(
 			DataCacheTestPlatform::doStatic()->wasFileDeleted('/data/cache/entity/0/0/1.inc'),
 			'file was not deleted'
 		);
@@ -360,7 +359,7 @@ class DataCacheTest extends GalleryTestCase {
 			'id'     => 'core',
 			'itemId' => 1,
 		));
-		$this->assert(
+		$this->assertTrue(
 			DataCacheTestPlatform::doStatic()->wasFileDeleted('/data/cache/module/core/0/0/1.inc'),
 			'file was not deleted'
 		);
@@ -370,7 +369,7 @@ class DataCacheTest extends GalleryTestCase {
 			'type' => 'module',
 			'id'   => 'core',
 		));
-		$this->assert(
+		$this->assertTrue(
 			DataCacheTestPlatform::doStatic()->wasDirDeleted('/data/cache/module/core'),
 			'dir was not deleted'
 		);
@@ -383,7 +382,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		foreach (array_keys($modulePluginStatus) as $moduleId) {
 			$targetFile = '/data/cache/module/' . $moduleId . '/0/0/1.inc';
-			$this->assert(
+			$this->assertTrue(
 				DataCacheTestPlatform::doStatic()->wasFileDeleted($targetFile),
 				"$targetFile was not deleted"
 			);
@@ -397,7 +396,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		foreach (array_keys($themePluginStatus) as $themeId) {
 			$targetFile = '/data/cache/theme/' . $themeId . '/0/0/1.inc';
-			$this->assert(
+			$this->assertTrue(
 				DataCacheTestPlatform::doStatic()->wasFileDeleted($targetFile),
 				"$targetFile was not deleted"
 			);
@@ -415,13 +414,13 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setPlatform($DataCacheTestPlatform_testGetFromDisk);
 
 		/*
-		 * GalleryDataCache::getFromDisk uses include() and we don't have a
-		 * platform wrapper for that.  We can't easily wrap that function
-		 * because we want to take advantage of the fact that include() shares
-		 * the lexical scope of the calling function, and wrapping it would
-		 * change that scope.  But we can at least partially exercise the
-		 * function and make sure it doesn't throw any errors.
-		 */
+		* GalleryDataCache::getFromDisk uses include() and we don't have a
+		* platform wrapper for that.  We can't easily wrap that function
+		* because we want to take advantage of the fact that include() shares
+		* the lexical scope of the calling function, and wrapping it would
+		* change that scope.  But we can at least partially exercise the
+		* function and make sure it doesn't throw any errors.
+		*/
 		GalleryDataCache::getFromDisk(array(
 			'type'   => 'entity',
 			'itemId' => 1,
@@ -469,8 +468,8 @@ class DataCacheTest extends GalleryTestCase {
 		$readBack =& GalleryDataCache::getFromDisk($cacheParams);
 		$this->assertEquals($data, $readBack, 'two required classes');
 		GalleryDataCache::removeFromDisk($cacheParams);
-		$this->assert(class_exists('DataCacheTest_class1'), 'class1 should exist');
-		$this->assert(class_exists('DataCacheTest_class2'), 'class2 should exist');
+		$this->assertTrue(class_exists('DataCacheTest_class1'), 'class1 should exist');
+		$this->assertTrue(class_exists('DataCacheTest_class2'), 'class2 should exist');
 	}
 
 	public function testCachePermission() {
@@ -478,38 +477,38 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::remove('GalleryDataCache::cachePermissions::newEntries');
 
 		GalleryDataCache::cachePermissions(array('1', '2'), 'test.TestPermission');
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should have permission test.TestPermission'
 		);
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::hasPermission('2', 'test.TestPermission'),
 			'2 should have permission test.TestPermission'
 		);
-		$this->assert(
-			! GalleryDataCache::hasPermission('3', 'test.TestPermission'),
+		$this->assertTrue(
+			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
 			'3 shouldn\'t have permission test.TestPermission'
 		);
-		$this->assert(
-			! GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
+		$this->assertTrue(
+			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
 			'1 shouldn\'t have permission test.OtherPermission'
 		);
 
 		GalleryDataCache::cachePermissions(array('3'), 'test.OtherPermission');
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should still have permission test.TestPermission'
 		);
-		$this->assert(
-			! GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
+		$this->assertTrue(
+			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
 			'1 still shouldn\'t have permission test.OtherPermission'
 		);
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::hasPermission('3', 'test.OtherPermission'),
 			'3 should now have permission test.OtherPermission'
 		);
-		$this->assert(
-			! GalleryDataCache::hasPermission('3', 'test.TestPermission'),
+		$this->assertTrue(
+			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
 			'3 shouldn\'t have permission test.TestPermission'
 		);
 	}
@@ -590,7 +589,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $shouldCache);
+		$this->assertFalse($shouldCache);
 	}
 
 	public function testShouldCacheReadNoCache1() {
@@ -604,7 +603,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $shouldCache);
+		$this->assertFalse($shouldCache);
 	}
 
 	public function testShouldCacheReadNoCache2() {
@@ -618,7 +617,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $shouldCache);
+		$this->assertFalse($shouldCache);
 	}
 
 	public function testShouldCacheReadUserOk() {
@@ -642,7 +641,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(true, $shouldCache);
+		$this->assertTrue($shouldCache);
 	}
 
 	public function testShouldCacheReadGuestOk() {
@@ -667,7 +666,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(true, $shouldCache);
+		$this->assertTrue($shouldCache);
 	}
 
 	public function testShouldCacheReadUserNotOk() {
@@ -704,7 +703,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $shouldCache);
+		$this->assertFalse($shouldCache);
 	}
 
 	public function testShouldCacheNone() {
@@ -731,7 +730,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $shouldCache);
+		$this->assertFalse($shouldCache);
 	}
 
 	public function testGetExtraPageCacheKey() {
@@ -827,7 +826,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $shouldCache);
+		$this->assertFalse($shouldCache);
 
 		$session->remove('theme.guestPreviewMode');
 	}
@@ -998,13 +997,13 @@ class DataCacheTest extends GalleryTestCase {
 
 		// Verify the number of rows that should be valid.
 		$query               = '
-	SELECT
-	  *
-	FROM
-	  [GalleryCacheMap]
-	WHERE
-	  [GalleryCacheMap::value] IS NOT NULL
-	';
+		SELECT
+		*
+		FROM
+		[GalleryCacheMap]
+		WHERE
+		[GalleryCacheMap::value] IS NOT NULL
+		';
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -1041,7 +1040,7 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::removeFromDisk(array(
 			'type' => 'local-url-map',
 		));
-		$this->assert(
+		$this->assertTrue(
 			$platform->wasFileDeleted('/data/cache/theme/_all/localUrlMap.txt'),
 			'The persisted copy of the local url map was not deleted from disk'
 		);
@@ -1051,8 +1050,8 @@ class DataCacheTest extends GalleryTestCase {
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 
 /**
- * Mock VM
- */
+* Mock VM
+*/
 class DataCacheTestMockVm extends GalleryPhpVm {
 	public function setTime($time) {
 		$this->_time = $time;
@@ -1075,11 +1074,11 @@ class DataCacheTestMockVm extends GalleryPhpVm {
 }
 
 /**
- * Mock platform
- *
- * @package GalleryCore
- * @subpackage PHPUnit
- */
+* Mock platform
+*
+* @package GalleryCore
+* @subpackage PHPUnit
+*/
 class DataCacheTestPlatform_testGetFromDisk {
 	public function file_exists($path) {
 		return false;
@@ -1087,15 +1086,15 @@ class DataCacheTestPlatform_testGetFromDisk {
 }
 
 /**
- * Mock platform
- *
- * @package GalleryCore
- * @subpackage PHPUnit
- */
+* Mock platform
+*
+* @package GalleryCore
+* @subpackage PHPUnit
+*/
 class DataCacheTestPlatform {
 	/**
-	 * Load Singleton
-	 */
+	* Load Singleton
+	*/
 	public static function doStatic() {
 		static $singleton;
 

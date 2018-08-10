@@ -74,7 +74,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
 		$gallery->_session         = $this->_originalSession;
 
-		$this->assert($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
+		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -162,7 +162,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			return $ret;
 		}
 
-		$this->assert($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -248,7 +248,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			return $ret;
 		}
 
-		$this->assert($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -334,7 +334,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			return $ret;
 		}
 
-		$this->assert($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -421,8 +421,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			return $ret;
 		}
 
-		$this->assert($repository->isComplete(), $repository->getRemaining());
-		$this->assert(empty($_REQUEST['called']), 'No actions should have been taken');
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue(empty($_REQUEST['called']), 'No actions should have been taken');
 
 		$session =& $gallery->getSession();
 		$status  = $session->getStatus();
@@ -529,8 +529,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$status = $session->getStatus();
-		$this->assert($repository->isComplete(), $repository->getRemaining());
-		$this->assert(empty($_REQUEST['called']), 'Nothing should have gotten called');
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue(empty($_REQUEST['called']), 'Nothing should have gotten called');
 		$expected = array(
 			'error' => array(
 				'failedToDownload' => array(
@@ -636,7 +636,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		// Even though one language failed, the base got updated so we should reactivate it
-		$this->assert($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -729,7 +729,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			$gallery->_templateAdapter->getProgressBarDump()
 		);
 
-		$this->assert($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 	}
 
 	public function testUpdatePluginStatusIgnoresPluginScanErrors() {
@@ -810,8 +810,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			$gallery->_templateAdapter->getProgressBarDump()
 		);
 
-		$this->assert($repository->isComplete(), $repository->getRemaining());
-		$this->assert($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
+		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
 		$session                      =& $gallery->getSession();
 		$expectedStatus['scanPlugin'] = array('module2');

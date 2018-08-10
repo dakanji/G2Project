@@ -191,10 +191,10 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		ob_end_clean();
 
 		// Should be empty
-		$this->assert(empty($results[0]), 'Results not empty.');
+		$this->assertTrue(empty($results[0]), 'Results not empty.');
 
 		// Nothing should be returned past first line
-		$this->assert(!isset($results[1]));
+		$this->assertTrue(!isset($results[1]));
 	}
 
 	public function testRatingPermissions() {

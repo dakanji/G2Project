@@ -147,7 +147,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		);
 
 		// Verify that we have a detailed error message
-		$this->assert(GalleryUtilities::hasRequestVariable('form[errorMessage]'));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable('form[errorMessage]'));
 
 		$errorMessage = GalleryUtilities::getRequestVariables('form[errorMessage]');
 		$this->assertEquals('You must enter a number greater than 0', $errorMessage['rows']);
@@ -278,7 +278,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 		$themeId = $this->_album->getTheme();
-		$this->assert(empty($themeId));
+		$this->assertTrue(empty($themeId));
 	}
 
 	public function testChooseBogusTheme() {

@@ -426,7 +426,7 @@ class GdToolkitTest extends GalleryTestCase {
 			array('BOGUS')
 		);
 
-		$this->assert($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
+		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 		$this->assertEquals(
 			0,
 			$gd->_undestroyedResourceCounter,
@@ -464,7 +464,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			// Test a property that doesn't exist
 			list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'BOGUS', 'BOGUS');
-			$this->assert($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
+			$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 			$this->assertEquals(
 				0,
 				$this->_gdFunctionality->_undestroyedResourceCounter,
@@ -475,62 +475,62 @@ class GdToolkitTest extends GalleryTestCase {
 
 	public function testMergeOperations() {
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('resize', array(1, 2), 'resize', array(3, 4));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'resize', array(3, 4));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'thumbnail', array(3, 4));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('scale', array(1, 2), 'thumbnail', array(3, 4));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(90));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-90));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(180));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-180));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(180));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(90));
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2), 'thumbnail', array(3, 4));
-		$this->assert(!$success);
+		$this->assertTrue(!$success);
 	}
 
 	public function testDiscoverMimeTypes() {
@@ -773,12 +773,12 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
-		$this->assert($hasTransparency, 'has transparency');
+		$this->assertTrue($hasTransparency, 'has transparency');
 
 		// After some operation, the resource has no transparent color index anymore...
 		$gd->imagecolortransparent($res, -1);
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
-		$this->assert(!$hasTransparency, 'has transparency 2');
+		$this->assertTrue(!$hasTransparency, 'has transparency 2');
 
 		// Call the method under test through the save wrapper
 		$ret = $this->_toolkit->_saveImageResourceToFile(

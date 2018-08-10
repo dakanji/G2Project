@@ -82,7 +82,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(GalleryUtilities::isA(
+		$this->assertTrue(GalleryUtilities::isA(
 			$tasks['MaintenanceHelperTestTask'],
 			'MaintenanceHelperTestTask'
 		));
@@ -103,9 +103,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('MaintenanceHelperTestTask');
-		$this->assert($info['runId'] > 0, 'run id 1');
+		$this->assertTrue($info['runId'] > 0, 'run id 1');
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 1');
-		$this->assertEquals(true, $info['success'], 'success 1');
+		$this->assertTrue($info['success'], 'success 1');
 		$this->assertEquals(array('some details'), $info['details'], 'details 1');
 		$lastRunId = $info['runId'];
 
@@ -123,9 +123,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('MaintenanceHelperTestTask');
-		$this->assert($info['runId'] > $lastRunId, 'run id 2');
+		$this->assertTrue($info['runId'] > $lastRunId, 'run id 2');
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 2');
-		$this->assertEquals(false, $info['success'], 'success 2');
+		$this->assertFalse($info['success'], 'success 2');
 		$this->assertEquals(array('different details'), $info['details'], 'details 2');
 	}
 
@@ -173,7 +173,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeFalse() {
@@ -218,7 +218,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeUrl() {
@@ -263,7 +263,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeEqual() {

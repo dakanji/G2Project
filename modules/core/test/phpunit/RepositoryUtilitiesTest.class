@@ -124,7 +124,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert($relation == $case['relation'], sprintf(
+			$this->assertTrue($relation == $case['relation'], sprintf(
 				"Relation('%s':'%s', '%s':'%s') should be '%s', not '%s'.",
 				$case['version1'],
 				$case['build1'],
@@ -212,7 +212,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			}
 			$this->assertEquals($bytes, $result, "Unexpected file data returned for $bytes bytes.");
 		}
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetLanguageDescription() {
@@ -582,7 +582,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			array(true, 'data'),
 			$utilities->downloadFile('http://example.com/repository/index')
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testDownloadFileWithGzinflate($data = null, $length = null) {
@@ -621,7 +621,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			array(true, 'uncompressed-data'),
 			$utilities->downloadFile('http://example.com/repository/index')
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testDownloadFileWithGzinflateButIgnoringCompression() {
@@ -659,7 +659,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			array(true, 'data'),
 			$utilities->downloadFile('http://example.com/repository/index', true)
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testUpdatePackageMetaData() {
@@ -778,7 +778,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array(), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testPreVerifyPackageModuleAlreadyInstalledAndWriteable() {
@@ -801,7 +801,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array(), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testPreVerifyPackageModuleNotOverwriteable() {
@@ -824,7 +824,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array("$modules/m1/f1", "$modules/m1/d2/f2"), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function _getDescriptorForPreVerifyPackageTests() {
@@ -873,7 +873,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array(), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testPreVerifyPackageMissingOneFile() {
@@ -898,7 +898,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array(), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testPreVerifyPackageModuleContainsFileInPlaceOfADirectory() {
@@ -923,7 +923,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array("$modules/m1/d2/f2"), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testPreVerifyPackageNonWriteableModuleDir() {
@@ -942,7 +942,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$errors   = $utilties->preVerifyPackage('module', 'm1', 'p1', $testDescriptor);
 		$this->assertEquals(array("$modules/m1/"), $errors);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testVerifyPackageIntegrity() {
@@ -1002,7 +1002,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function _setSplitPackagesResponses($file, $rawData, $error = array()) {
@@ -1121,7 +1121,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testSplitAggregatePackageInvalidInput() {
@@ -1155,7 +1155,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 		$this->assertErrorEquals(ERROR_UNSUPPORTED_FILE_TYPE, $ret);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testSplitAggregatePackageUnexpectedGzipFile() {
@@ -1196,8 +1196,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$this->assertErrorEquals(ERROR_UNSUPPORTED_FILE_TYPE, $ret);
 
-		$this->assert($phpVm->isComplete(), $phpVm->getRemaining());
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($phpVm->isComplete(), $phpVm->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function _setDownloadHeaders($handle, $failed = null) {
@@ -1319,8 +1319,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert($phpVm->isComplete(), $phpVm->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($phpVm->isComplete(), $phpVm->getRemaining());
 	}
 
 	public function testDownloadAggregatePackagesFailedDownload() {
@@ -1351,8 +1351,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 		$this->assertErrorEquals(ERROR_BAD_PATH, $ret);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert($phpVm->isComplete(), $phpVm->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($phpVm->isComplete(), $phpVm->getRemaining());
 	}
 
 	public function testDownloadAggregatePackagesTempDirectoryMissing() {
@@ -1379,7 +1379,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 		$this->assertErrorEquals(ERROR_PLATFORM_FAILURE, $ret);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }
 

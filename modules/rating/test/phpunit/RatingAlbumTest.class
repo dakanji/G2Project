@@ -106,10 +106,10 @@ class RatingAlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-		$this->assert(is_array($params), 'theme settings');
-		$this->assert(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
-		$this->assert(!isset($item->parent), 'item parent');
+		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
+		$this->assertTrue(is_array($params), 'theme settings');
+		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
+		$this->assertTrue(!isset($item->parent), 'item parent');
 		$this->assertEquals('test desc', $item->getDescription(), 'description');
 	}
 
@@ -129,11 +129,11 @@ class RatingAlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-		$this->assert(is_array($params), 'theme settings');
-		$this->assert(GalleryUtilities::isA($item, 'GalleryDataItem'), 'item');
-		$this->assert(isset($item->parent), 'item parent');
-		$this->assert(GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'), 'parent type');
+		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
+		$this->assertTrue(is_array($params), 'theme settings');
+		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDataItem'), 'item');
+		$this->assertTrue(isset($item->parent), 'item parent');
+		$this->assertTrue(GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'), 'parent type');
 		$this->assertEquals(
 			array('RatingAlbumView', 'getChildIds'),
 			$item->parent->getChildrenFunction,
@@ -162,9 +162,9 @@ class RatingAlbumTest extends GalleryTestCase {
 			$theme['pageUrl'],
 			'page url'
 		);
-		$this->assert(in_array($this->_items[1]->getId(), $theme['allChildIds']), 'item 1');
-		$this->assert(!in_array($this->_items[2]->getId(), $theme['allChildIds']), 'item 2');
-		$this->assert(!in_array($this->_items[3]->getId(), $theme['allChildIds']), 'item 3');
+		$this->assertTrue(in_array($this->_items[1]->getId(), $theme['allChildIds']), 'item 1');
+		$this->assertTrue(!in_array($this->_items[2]->getId(), $theme['allChildIds']), 'item 2');
+		$this->assertTrue(!in_array($this->_items[3]->getId(), $theme['allChildIds']), 'item 3');
 	}
 
 	public function testLoadTemplateForItem() {
@@ -216,7 +216,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form = array());
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'wrong error code');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'wrong error code');
 
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;

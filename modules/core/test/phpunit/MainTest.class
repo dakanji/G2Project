@@ -242,7 +242,7 @@ class MainTest extends GalleryTestCase {
 		}
 		$sessionId  = $session->getId();
 		$sessionKey = $session->getKey();
-		$this->assert(
+		$this->assertTrue(
 			!empty($sessionId) && !empty($sessionKey),
 			'Initial session assertion failed'
 		);
@@ -322,7 +322,7 @@ class MainTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(false, $session->isUsingCookies(), 'isUsingCookies');
+		$this->assertFalse($session->isUsingCookies(), 'isUsingCookies');
 		$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'SESSION_TEMP_ID');
 
 		// Execute the function under test - also checks trailing ? & and spaces are trimmed
@@ -358,7 +358,7 @@ class MainTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(false, $session->isUsingCookies(), 'isUsingCookies');
+		$this->assertFalse($session->isUsingCookies(), 'isUsingCookies');
 		$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'SESSION_TEMP_ID');
 
 		// Execute the function under test
@@ -401,7 +401,7 @@ class MainTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false, 'auth token check not executed');
+			$this->assertFalse('auth token check not executed');
 		}
 	}
 
@@ -423,7 +423,7 @@ class MainTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false, 'auth token check not executed');
+			$this->assertFalse('auth token check not executed');
 		}
 	}
 
@@ -445,7 +445,7 @@ class MainTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false, 'unexpected result');
+			$this->assertFalse('unexpected result');
 		}
 	}
 
@@ -606,11 +606,11 @@ class MainTest extends GalleryTestCase {
 		list($ret, $g2Data) = _GalleryMain();
 
 		if ($ret) {
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_PERMISSION_DENIED,
 				'expect ERROR_PERMISSION_DENIED'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_MISSING_OBJECT,
 				'expect ERROR_MISSING_OBJECT'
 			);
@@ -637,11 +637,11 @@ class MainTest extends GalleryTestCase {
 		list($ret, $g2Data) = _GalleryMain();
 
 		if ($ret) {
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_PERMISSION_DENIED,
 				'expect ERROR_PERMISSION_DENIED'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_MISSING_OBJECT,
 				'expect ERROR_MISSING_OBJECT'
 			);
@@ -705,7 +705,7 @@ class MainTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'isDone' => true,
 		), $g2Data, 'returned data');
-		$this->assert(
+		$this->assertTrue(
 			$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
 		);
@@ -733,7 +733,7 @@ class MainTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'isDone' => true,
 		), $g2Data, 'returned data');
-		$this->assert(
+		$this->assertTrue(
 			!$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
 		);

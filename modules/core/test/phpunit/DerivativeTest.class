@@ -215,14 +215,14 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($rebuilt, 'cache was rebuilt');
+		$this->assertTrue($rebuilt, 'cache was rebuilt');
 
 		list($ret, $current) = $derivative->isCacheCurrent();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($current, 'cache is current');
+		$this->assertTrue($current, 'cache is current');
 
 		$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(
 			array($derivative->getDerivativeSourceId())
@@ -237,7 +237,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$current, 'cache is no longer current');
+		$this->assertTrue(!$current, 'cache is no longer current');
 	}
 
 	public function testRebuildThumbnailOfSmallerThumbnail() {
@@ -279,7 +279,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($rebuilt, 'thumb was rebuilt');
+		$this->assertTrue($rebuilt, 'thumb was rebuilt');
 
 		/*
 		 * We're expecting that we performed testRebuildThumbnailOfSmallerThumbnail-1 on the first
@@ -372,7 +372,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($rebuilt, 'cache was not rebuilt');
+		$this->assertTrue($rebuilt, 'cache was not rebuilt');
 
 		// Verify that it is considered as current (because it is broken
 		list($ret, $current) = $derivative->isCacheCurrent();
@@ -380,7 +380,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($current, 'cache is not current');
+		$this->assertTrue($current, 'cache is not current');
 
 		// Check if the derivative is marked as broken
 		$this->assertEquals(1, $derivative->getIsBroken(), 'Cache is not marked as broken');
@@ -434,7 +434,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$rebuilt, 'cache was rebuilt but it was not forced to');
+		$this->assertTrue(!$rebuilt, 'cache was rebuilt but it was not forced to');
 
 		// And try to fix the derivative item
 		list($ret, $derivative, $rebuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($derivative->getId(), true);
@@ -442,7 +442,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($rebuilt, 'cache was not rebuilt (2)');
+		$this->assertTrue($rebuilt, 'cache was not rebuilt (2)');
 
 		// Verify that it is  current
 		list($ret, $current) = $derivative->isCacheCurrent();
@@ -450,10 +450,10 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($current, 'cache is not current after fix');
+		$this->assertTrue($current, 'cache is not current after fix');
 
 		// Check if the derivative is not marked as broken
-		$this->assert(!$derivative->getIsBroken(), 'Derivative is still broken');
+		$this->assertTrue(!$derivative->getIsBroken(), 'Derivative is still broken');
 
 		/*
 		 * Check if the derivative is marked as broken even if it failed to set the broken image
@@ -496,22 +496,22 @@ class DerivativeTest extends GalleryTestCase {
 		);
 		// Ret should be ERROR_PLATFORM_FAILURE
 		$gallery->setPlatform($platform);
-		$this->assert(
+		$this->assertTrue(
 			isset($ret) && (ERROR_PLATFORM_FAILURE & $ret->getErrorCode()),
 			'we expect a platform failure'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!isset($$derivativeRet),
 			'GalleryDerivativeHelper_advanced::rebuildCache() did not return null'
 		);
-		$this->assert(!$rebuilt, 'it should have failed and not rebuilt the derivative cache');
+		$this->assertTrue(!$rebuilt, 'it should have failed and not rebuilt the derivative cache');
 		// Refresh the derivative to get the state from the db
 		list($ret, $derivative) = $derivative->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($derivative->getIsBroken(), 'derivative is not marked as broken');
+		$this->assertTrue($derivative->getIsBroken(), 'derivative is not marked as broken');
 	}
 
 	public function testFetchDerivativesByItemIds() {
@@ -1000,7 +1000,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($rebuilt, 'thumb was rebuilt');
+		$this->assertTrue($rebuilt, 'thumb was rebuilt');
 
 		/*
 		 * We're expecting that we build the preferred (source-to-preferred), then we build the
@@ -1078,7 +1078,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($rebuilt, 'thumb was rebuilt');
+		$this->assertTrue($rebuilt, 'thumb was rebuilt');
 		$ops =& DerivativeTestToolkit::getPerformedOperations();
 		$this->assertEquals(array(), $ops, 'no operations');
 
@@ -1098,7 +1098,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($platform->file_exists($destPath)) {
 			$this->assertEquals($expectedSize, $platform->filesize($destPath), 'file size');
 		} else {
-			$this->assert(false, 'dest file missing');
+			$this->assertFalse('dest file missing');
 		}
 	}
 
@@ -1114,7 +1114,7 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($derivative->hasNoOperations());
+		$this->assertTrue($derivative->hasNoOperations());
 	}
 
 	public function testRemoveDerivativeOperation() {

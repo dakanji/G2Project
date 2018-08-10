@@ -74,9 +74,9 @@ class DatabaseExportTest extends GalleryTestCase {
 		$storage  =& $gallery->getStorage();
 		$phpVm    = $gallery->getPhpVm();
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert($storage->isComplete(), $storage->getRemaining());
-		$this->assert($phpVm->isComplete(), $phpVm->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
+		$this->assertTrue($phpVm->isComplete(), $phpVm->getRemaining());
 
 		$ret = parent::tearDown();
 
@@ -303,7 +303,7 @@ class DatabaseExportTest extends GalleryTestCase {
 				'arg1' => 'TestTable2',
 			)
 		);
-		$this->assert(count($warnings) > 0, 'Warnings were not issued');
+		$this->assertTrue(count($warnings) > 0, 'Warnings were not issued');
 		$this->assertEquals($expected, $warnings[0], 'The message was not equal');
 	}
 
@@ -557,7 +557,7 @@ class DatabaseExportTest extends GalleryTestCase {
 				'arg1' => 'TestTable',
 			)
 		);
-		$this->assert(count($warnings) > 0, 'Warnings were not issued');
+		$this->assertTrue(count($warnings) > 0, 'Warnings were not issued');
 		$this->assertEquals($expectedMsg, $warnings[0], 'The message was not equal');
 
 		return null;

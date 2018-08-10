@@ -186,7 +186,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 		if ($this->_lineEnding == "\n" && strpos($buffer, "\r\n") !== false) {
 			$this->_errorCount++;
-			$this->assert(false, sprintf('%s has Windows line endings', $fileName));
+			$this->assertFalse(sprintf('%s has Windows line endings', $fileName));
 		}
 
 		if (substr($fileName, -4) == '.tpl' || substr($fileName, -3) == '.po') {
@@ -206,7 +206,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 				foreach ($calls as $call) {
 					$params = $this->getFunctionParameters($call);
-					$this->assert(
+					$this->assertTrue(
 						count($params) == 2,
 						sprintf(
 							'File %s: %s() call without entityType parameter',
@@ -230,7 +230,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 			if (preg_match('/^\s*return (.*)/', $lines[$i])) {
 				if (!isset($currentFunction)) {
 					$this->_errorCount++;
-					$this->assert(false, "Return outside of a function on line $i in $fileName");
+					$this->assertFalse("Return outside of a function on line $i in $fileName");
 				}
 				$return = '';
 				$j      = $i;
@@ -402,7 +402,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 					' --> ' . $returnCount[$function][$i][1]
 				);
 			}
-			$this->assert(false, sprintf(
+			$this->assertFalse(sprintf(
 				'Mismatched returns in %s %s()<pre>%s</pre>',
 				$fileName,
 				$function,
@@ -419,7 +419,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 			&& !preg_match($this->_phpEndFile, $buffer)
 		) {
 			$this->_errorCount++;
-			$this->assert(false, $fileName . ' does not end with ?&gt;');
+			$this->assertFalse($fileName . ' does not end with ?&gt;');
 		}
 
 		if (!empty($longLineTable)
@@ -451,18 +451,17 @@ class CodeAuditTest extends CodeAuditTestCase {
 			$expected = $this->_preamble[$i];
 
 			if (strcmp($expected, $lines[$i])) {
-				$this->assert(
-					false,
-					"Preamble mismatch in $fileName on line " . ($i + 1) . ':<br/>' .
-					"Expected: [$expected]<br/>" .
-					"Received: [$lines[$i]]<br/>"
+				$this->assertFalse(
+					"Preamble mismatch in $fileName on line " . ($i + 1) . ':<br/>'
+					. "Expected: [$expected]<br/>"
+					. "Received: [$lines[$i]]<br/>"
 				);
 				$errorReported = true;
 			}
 		}
 
 		if (!$errorReported) {
-			$this->assert(false, "Unknown preamble mismatch in $fileName");
+			$this->assertFalse("Unknown preamble mismatch in $fileName");
 		}
 	}
 
@@ -489,12 +488,12 @@ class CodeAuditTest extends CodeAuditTestCase {
 		// Check result of longLineCount
 		if (!$this->_shouldHalt) {
 			if (count($this->_longLineFiles)) {
-				$this->assert(false, 'Found too many lines longer than 100 characters (' .
+				$this->assertFalse('Found too many lines longer than 100 characters (' .
 				  count($this->_longLineFiles) . ')');
 
 				foreach ($this->_longLineFiles as $entry) {
 					list($fileName, $lineNr) = $entry;
-					$this->assert(false, "File: $fileName , line number: $lineNr");
+					$this->assertFalse("File: $fileName , line number: $lineNr");
 				}
 			}
 		}

@@ -148,7 +148,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assert(false, 'The user was not actually deleted');
+			$this->assertFalse('The user was not actually deleted');
 		}
 	}
 
@@ -262,7 +262,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assert(false, 'The user was deleted');
+				$this->assertFalse('The user was deleted');
 			} else {
 				return $ret;
 			}
@@ -311,7 +311,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assert(false, 'The user was deleted');
+				$this->assertFalse('The user was deleted');
 			} else {
 				return $ret;
 			}
@@ -372,7 +372,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assert(false, 'The user was deleted');
+				$this->assertFalse('The user was deleted');
 			} else {
 				return $ret;
 			}
@@ -460,7 +460,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$ret = $this->_verifyMissing($item->getId());
 
 		if ($ret) {
-			$this->assert(false, 'The item was not actually deleted/there was an error');
+			$this->assertFalse('The item was not actually deleted/there was an error');
 		}
 	}
 
@@ -536,7 +536,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assert(false, 'The item was deleted');
+				$this->assertFalse('The item was deleted');
 			}
 
 			return $ret;
@@ -552,7 +552,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($groupIds[$siteAdminGroupId]), 'The new ownerId of the item is wrong.');
+		$this->assertTrue(isset($groupIds[$siteAdminGroupId]), 'The new ownerId of the item is wrong.');
 		// The teardown method takes care of the item deletion
 	}
 
@@ -636,13 +636,13 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assert(false, 'The item was deleted');
+				$this->assertFalse('The item was deleted');
 			}
 
 			return $ret;
 		}
 		// Verify the new owner of the item
-		$this->assert(
+		$this->assertTrue(
 			$item->getOwnerId() == $newOwner->getId(),
 			'The new owner of the item is wrong.'
 		);
@@ -655,7 +655,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			isset($userPermissions[$item->getId()]['core.addAlbumItem']),
 			'Not all permissions were transfered correctly.'
 		);
@@ -675,7 +675,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(count($groupIds) == 0, 'Not all group memberships were removed');
+		$this->assertTrue(count($groupIds) == 0, 'Not all group memberships were removed');
 
 		// Verify all permission maps for this user are gone
 		$query                     = '
@@ -699,7 +699,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$ret = $this->_verifyMissing($userId);
 
 		if ($ret) {
-			$this->assert(false, 'The user was not actually deleted/there was an error');
+			$this->assertFalse('The user was not actually deleted/there was an error');
 		}
 
 		return null;

@@ -82,7 +82,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
 			'/legal/path/templateThatHasNoLocal.tpl',
@@ -114,7 +114,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/template.tpl',
@@ -146,7 +146,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/local/template.tpl',
@@ -182,7 +182,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
 			$this->_baseDirOverride . '/block/local/template.tpl',
@@ -210,7 +210,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(98765, $templateTimestamp, 'no override');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -253,7 +253,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(12345, $templateTimestamp, 'override');
 	}
 
@@ -290,14 +290,14 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-		$this->assert($success, "Didn't return success");
+		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(12345, $templateTimestamp, 'static');
 	}
 
 	public function testSmartyCompileCheckByPluginParam() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$template = new GalleryTemplate('/legal/path');
-		$this->assertEquals(false, $template->_smarty->compile_check);
+		$this->assertFalse($template->_smarty->compile_check);
 
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -312,25 +312,25 @@ class TemplateTest extends GalleryTestCase {
 		}
 
 		$template = new GalleryTemplate('/legal/path');
-		$this->assertEquals(true, $template->_smarty->compile_check);
+		$this->assertTrue($template->_smarty->compile_check);
 	}
 
 	public function testSmartyCompileCheckEnabledIfNoCacheRequested() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$_SERVER['HTTP_PRAGMA'] = 'no-cache';
 		$template               = new GalleryTemplate('/legal/path');
-		$this->assertEquals(true, $template->_smarty->compile_check);
+		$this->assertTrue($template->_smarty->compile_check);
 	}
 
 	public function testSmartyCompileCheckUsesCache() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$template = new GalleryTemplate('/legal/path');
-		$this->assertEquals(false, $template->_smarty->compile_check);
+		$this->assertFalse($template->_smarty->compile_check);
 
 		$_SERVER['HTTP_PRAGMA'] = 'no-cache';
 
 		$newTemplate = new GalleryTemplate('/legal/path');
-		$this->assertEquals(false, $newTemplate->_smarty->compile_check);
+		$this->assertFalse($newTemplate->_smarty->compile_check);
 	}
 
 	public function testStyle() {

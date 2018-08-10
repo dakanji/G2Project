@@ -230,7 +230,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			$this->_files[$dst]['operation'],
 			$this->_currentEnvironment['path'] . " $operation " . implode(' ', $params)
 		);
-		$this->assert($this->_chmodWasCalled, 'chmod not called');
+		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 
 		return null;
 	}
@@ -444,7 +444,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				array('BOGUS')
 			);
 
-			$this->assert($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
+			$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 		}
 	}
 
@@ -958,7 +958,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'BOGUS',
 				'BOGUS'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_UNIMPLEMENTED,
 				'bad op ' . $this->_envName()
 			);
@@ -972,7 +972,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'crop',
 			array(3, 4, 5, 6)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
@@ -982,7 +982,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'resize',
 			array(3, 4)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
@@ -992,7 +992,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'resize',
 			array(3, 4)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
@@ -1002,7 +1002,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
@@ -1012,7 +1012,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
@@ -1022,7 +1022,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(90)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
@@ -1032,7 +1032,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(-90)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
@@ -1042,7 +1042,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(180)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
@@ -1052,7 +1052,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(-180)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
@@ -1062,7 +1062,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(180)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
@@ -1072,7 +1072,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(90)
 		);
-		$this->assert($success);
+		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
@@ -1082,7 +1082,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
-		$this->assert(!$success);
+		$this->assertTrue(!$success);
 	}
 
 	public function testDiscoverMimeTypes() {
@@ -1331,7 +1331,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		}
 
 		list($ret, $results) = ImageMagickToolkitHelper::testBinaries('/bogusPath');
-		$this->assert($ret->getErrorCode() & ERROR_BAD_PATH);
+		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PATH);
 	}
 }
 

@@ -228,7 +228,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		}
 
 		if (empty($resizeTable[$this->_item->getId()])) {
-			$this->assert(false, 'no resizes!');
+			$this->assertFalse('no resizes!');
 		} else {
 			$resizeTable = $resizeTable[$this->_item->getId()];
 			$this->assertEquals(3, count($resizeTable), 'resize count');
@@ -413,7 +413,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($resizeTable[$itemId], 'no derivative');
+		$this->assertTrue($resizeTable[$itemId], 'no derivative');
 		$preferredId = $resizeTable[$itemId][0]->getId();
 		// check that the derivatives are from the preferred source, not from the original
 		$this->assertEquals(4, sizeof($resizeTable[$itemId]));

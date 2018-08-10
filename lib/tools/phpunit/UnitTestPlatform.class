@@ -34,7 +34,7 @@
  *
  * In tearDown() call:
  *
- *  $this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+ *  $this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
  *
  * The check in tearDown() verifies that all expected calls were received.
  *

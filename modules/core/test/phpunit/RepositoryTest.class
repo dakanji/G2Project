@@ -1345,7 +1345,7 @@ class RepositoryTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert($utilities->isComplete(), $utilities->getRemaining());
+			$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 			$this->assertEquals(
 				$case['expectedPackages'],
 				$packages,
@@ -1786,7 +1786,7 @@ class RepositoryTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assert($utilities->isComplete(), $utilities->getRemaining());
+			$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 			$this->assertEquals(
 				$case['expectedPluginList'],
 				$pluginList,
@@ -1848,7 +1848,7 @@ class RepositoryTest extends GalleryTestCase {
 		if (!isset($pluginList['testTheme']['groupLabel'])) {
 			$this->fail('Group label not set');
 		} else {
-			$this->assert(
+			$this->assertTrue(
 				$repository->_utilities->isComplete(),
 				$repository->_utilities->getRemaining()
 			);
@@ -1929,7 +1929,7 @@ class RepositoryTest extends GalleryTestCase {
 		$platform->setReply('is_dir', array('/cache/themes'), true);
 		$gallery->setPlatform($platform);
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
-		$this->assert($isSetUp, $message);
+		$this->assertTrue($isSetUp, $message);
 
 		// guaranteeDirExists($dir) depends on the cache.
 		GalleryDataCache::setMemoryCachingEnabled(true);
@@ -1957,9 +1957,9 @@ class RepositoryTest extends GalleryTestCase {
 			'fuzzy' => '{\d+}',
 		), true);
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
-		$this->assert($isSetUp, $message);
+		$this->assertTrue($isSetUp, $message);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetDownloadFileList() {
@@ -2073,7 +2073,7 @@ class RepositoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($descriptor), 'Descriptor should be empty after package download.');
+		$this->assertTrue(empty($descriptor), 'Descriptor should be empty after package download.');
 
 		// Test downloading a descriptor.
 		list($ret, $descriptor) = $repository->downloadAndUnpack(
@@ -2096,8 +2096,8 @@ class RepositoryTest extends GalleryTestCase {
 			'Invalid descriptor returned.'
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert(
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -2148,7 +2148,7 @@ class RepositoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2195,7 +2195,7 @@ class RepositoryTest extends GalleryTestCase {
 			$this->_testStorage->getAddedMapData()
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testScanPluginWithNoPoDir() {
@@ -2228,7 +2228,7 @@ class RepositoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2259,7 +2259,7 @@ class RepositoryTest extends GalleryTestCase {
 			$this->_testStorage->getAddedMapData()
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testScanLockedPlugin() {
@@ -2306,7 +2306,7 @@ class RepositoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2353,7 +2353,7 @@ class RepositoryTest extends GalleryTestCase {
 			$this->_testStorage->getAddedMapData()
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testScanPluginWithNoManifest() {
@@ -2396,7 +2396,7 @@ class RepositoryTest extends GalleryTestCase {
 			$this->_testStorage->getAddedMapData()
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetRepositoriesAndClearCache() {
@@ -2438,7 +2438,7 @@ class RepositoryTest extends GalleryTestCase {
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
-		$this->assert(!GalleryDataCache::containsKey($cacheKey), 'key should be deleted');
+		$this->assertTrue(!GalleryDataCache::containsKey($cacheKey), 'key should be deleted');
 	}
 
 	public function _prepareForGetPluginUpgradeInfo($isNewer = false) {
@@ -2520,7 +2520,7 @@ class RepositoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -2553,7 +2553,7 @@ class RepositoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -2856,8 +2856,8 @@ class RepositoryTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert(
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -2956,8 +2956,8 @@ class RepositoryTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert(
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -3045,8 +3045,8 @@ class RepositoryTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert(
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -3088,8 +3088,8 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		$this->assertErrorEquals(ERROR_PLATFORM_FAILURE, $ret);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
-		$this->assert(
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue(
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
@@ -3135,7 +3135,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		$repository->removeObsoleteFiles('module', 'RepositoryTest');
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }
 

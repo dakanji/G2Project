@@ -191,7 +191,7 @@ class EventTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($listener->_factory !== null, 'null factory');
+		$this->assertTrue($listener->_factory !== null, 'null factory');
 	}
 
 	public function testEmbeddedEntityIsAReference() {

@@ -166,7 +166,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			$params['default.newAlbumsUseDefaults'],
 			'newAlbumsUseDefaults'
 		);
-		$this->assert(!isset($params['default.doesNotExist']), 'parameter not whitelisted');
+		$this->assertTrue(!isset($params['default.doesNotExist']), 'parameter not whitelisted');
 	}
 
 	public function testSaveDefaultsValidatesDefaultTheme() {

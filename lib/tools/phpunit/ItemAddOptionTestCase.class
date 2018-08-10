@@ -59,8 +59,7 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 
 		if (isset($errorCode)) {
 			if (($ret->getErrorCode() & $errorCode) != $errorCode) {
-				$this->assert(
-					false,
+				$this->assertFalse(
 					sprintf(
 						'Expected error code (%s) but received (%s)',
 						implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
@@ -74,10 +73,10 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 			return $ret;
 		} else {
 			// Check to make sure we got back everything we want
-			$this->assert(isset($errors) && is_array($errors), 'option error results missing');
+			$this->assertTrue(isset($errors) && is_array($errors), 'option error results missing');
 
 			// Check to make sure we got back everything we want
-			$this->assert(
+			$this->assertTrue(
 				isset($warnings) && is_array($warnings),
 				'option warning results missing'
 			);

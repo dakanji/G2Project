@@ -405,7 +405,7 @@ class CoreModuleTest extends GalleryTestCase {
 			$versions,
 			'Returned non zero versions'
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetInstalledVersions() {

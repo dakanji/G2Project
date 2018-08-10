@@ -72,7 +72,7 @@ class CommentTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assert(isset($this->_comment[$i]), 'Missing comment instance');
+			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
 			$this->_comment[$i]->create($this->_item->getId());
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -158,7 +158,7 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($comment), 'Missing comment instance');
+		$this->assertTrue(isset($comment), 'Missing comment instance');
 		$comment->create($item2->getId());
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost('127.0.0.1');
@@ -255,7 +255,7 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			isset($content[$itemId]) && !empty($content[$itemId]),
 			'did not get item summary'
 		);
@@ -273,7 +273,7 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($content[$itemId]), 'got an item summary');
+		$this->assertTrue(!isset($content[$itemId]), 'got an item summary');
 	}
 
 	public function testCreateModifyAndDeleteComment() {
@@ -285,7 +285,7 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($comment), 'Missing comment instance');
+		$this->assertTrue(isset($comment), 'Missing comment instance');
 		$comment->create($this->_item->getId());
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost('127.0.0.1');
@@ -344,7 +344,7 @@ class CommentTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assert(isset($myComment[$i]), 'Missing comment instance');
+			$this->assertTrue(isset($myComment[$i]), 'Missing comment instance');
 			$myComment[$i]->create($this->_item->getId());
 			$myComment[$i]->setCommenterId($user->getId());
 			$myComment[$i]->setHost('127.0.0.1');
@@ -555,7 +555,7 @@ class CommentTest extends GalleryTestCase {
 		$event->setEntity(new GalleryComment());
 		$helper->handleEvent($event);
 
-		$this->assert($helper->wasCalled('checkWithAkismet'));
+		$this->assertTrue($helper->wasCalled('checkWithAkismet'));
 	}
 
 	public function testSaveCommentDoesntCheckWithAkismetWhenAkismetIsInactive() {
@@ -571,7 +571,7 @@ class CommentTest extends GalleryTestCase {
 		$event->setEntity(new GalleryComment());
 		$helper->handleEvent($event);
 
-		$this->assert(!$helper->wasCalled('checkWithAkismet'));
+		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'));
 	}
 
 	public function testSaveCommentDoesntCheckWithAkismetWhenListenerIsDisabled() {
@@ -589,7 +589,7 @@ class CommentTest extends GalleryTestCase {
 		$event->setEntity(new GalleryComment());
 		$helper->handleEvent($event);
 
-		$this->assert(!$helper->wasCalled('checkWithAkismet'));
+		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'));
 
 		GalleryCommentHelper::setAkismetSaveListenerSwitch(true);
 	}
@@ -606,7 +606,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('checkComment'));
+		$this->assertTrue($akismet->wasCalled('checkComment'));
 		$this->assertEquals(COMMENT_PUBLISH_STATUS_SPAM, $comment->getPublishStatus());
 	}
 
@@ -622,7 +622,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('checkComment'));
+		$this->assertTrue($akismet->wasCalled('checkComment'));
 		$this->assertEquals(COMMENT_PUBLISH_STATUS_UNPUBLISHED, $comment->getPublishStatus());
 	}
 
@@ -638,7 +638,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('checkComment'));
+		$this->assertTrue($akismet->wasCalled('checkComment'));
 		$this->assertEquals(COMMENT_PUBLISH_STATUS_PUBLISHED, $comment->getPublishStatus());
 	}
 
@@ -654,7 +654,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('submitSpam'));
+		$this->assertTrue($akismet->wasCalled('submitSpam'));
 	}
 
 	public function testCheckWithAkismet_MarkedAsHam() {
@@ -669,7 +669,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('submitHam'));
+		$this->assertTrue($akismet->wasCalled('submitHam'));
 	}
 
 	public function testCheckWithAkismet_MarkedAsHam_AkismetError() {
@@ -684,7 +684,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('submitHam'));
+		$this->assertTrue($akismet->wasCalled('submitHam'));
 	}
 
 	public function testCheckWithAkismet_MarkedAsSpam_AkismetError() {
@@ -699,7 +699,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($akismet->wasCalled('submitSpam'));
+		$this->assertTrue($akismet->wasCalled('submitSpam'));
 	}
 
 	public function testGetLatestCommentTime() {

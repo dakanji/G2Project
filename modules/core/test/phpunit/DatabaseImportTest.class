@@ -56,8 +56,8 @@ class DatabaseImportTest extends GalleryTestCase {
 		global $gallery;
 		$this->_xmlParser->release();
 
-		$this->assert($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
-		$this->assert($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
+		$this->assertTrue($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
+		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
 		return parent::tearDown();
 	}

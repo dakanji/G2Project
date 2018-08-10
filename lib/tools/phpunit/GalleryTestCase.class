@@ -120,7 +120,7 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		// Fail with as much debug info as we can muster.
-		$this->assert(false, $ret->getAsHtml() . $gallery->getDebugBuffer());
+		$this->assertFalse($ret->getAsHtml() . $gallery->getDebugBuffer());
 
 		return $ret;
 	}
@@ -142,7 +142,7 @@ class GalleryTestCase extends TestCase {
 				break;
 
 			default:
-				$this->assert(false, 'Unknown platform in GalleryTestCase::setUp -- did you ' .
+				$this->assertFalse('Unknown platform in GalleryTestCase::setUp -- did you ' .
 					  ' change the platform before calling parent::setUp in your test case?');
 		}
 
@@ -247,7 +247,7 @@ class GalleryTestCase extends TestCase {
 
 		if (!empty($lockIds)) {
 			GalleryCoreApi::releaseAllLocks();
-			$this->assert(0, 'There are unreleased locks!');
+			$this->assertTrue(0, 'There are unreleased locks!');
 		}
 
 		$gallery->_lockSystem      = array_shift($this->_saveVars);
@@ -353,7 +353,7 @@ class GalleryTestCase extends TestCase {
 		GalleryDataCache::setMemoryCachingEnabled(true);
 
 		$counter =& GalleryTestCase::getEntityCounter();
-		$this->assert(
+		$this->assertTrue(
 			$counter->getCount() == 0,
 			sprintf(
 				'%d entities were created and not deleted <br/>' .
@@ -363,9 +363,9 @@ class GalleryTestCase extends TestCase {
 		);
 
 		if (is_object($session)) {
-			$this->assert(true, $this->_saveSID == $session->getId(), 'Session ID changed by test');
+			$this->assertTrue(true, $this->_saveSID == $session->getId(), 'Session ID changed by test');
 		} else {
-			$this->assert(false, 'Session is not an object anymore!');
+			$this->assertFalse('Session is not an object anymore!');
 		}
 
 		$eventListeners =& GalleryEventHelper_simple::_getEventListeners();
@@ -439,13 +439,19 @@ class GalleryTestCase extends TestCase {
 		return null;
 	}
 
-	public function assert($boolean, $message = null) {
+	public function assertTrue($condition, $message = null) {
 		global $gallery;
 		$message = $gallery->getDebugBuffer() . $message;
-		parent::assert($boolean, $message);
+		parent::assertTrue($condition, $message);
 	}
 
-	public function assertEquals($expected, $actual, $message = null) {
+	public function assertFalse($condition, $message = null) {
+		global $gallery;
+		$message = $gallery->getDebugBuffer() . $message;
+		parent::assertFalse($condition, $message);
+	}
+
+	public function assertEquals($expected, $actual, $message = null, $delta = 0) {
 		global $gallery;
 		$message = $gallery->getDebugBuffer() . $message;
 
@@ -969,16 +975,20 @@ class GalleryTestCase extends TestCase {
 	 * Compare iteratively
 	 */
 	public function DeepCompare($obj1, $obj2, $context = null) {
-		if (gettype($obj1) !== gettype($obj2)) {
+		$obj1Type = gettype($obj1);
+		$obj2Type = gettype($obj2);
+		if ($obj1Type !== $obj2Type) {
 			if (is_null($context)) {
 				$contextString = $context;
 			} else {
-				$contextString = '[$context]';
+				$contextString = 'Array[' . trim($context) . '] :: ';
 			}
-			$retval  = "$contextString obj1 type (";
-			$retval .= gettype($obj1);
-			$retval .= ') !== obj2 type (';
-			$retval .= gettype($obj2) . ')';
+			$retval  = $contextString;
+			$retval .= " Expected Type (";
+			$retval .= $obj1Type;
+			$retval .= ') !== Actual Type (';
+			$retval .= $obj2Type;
+			$retval .= ')';
 
 			return $retval;
 		}
@@ -1012,7 +1022,13 @@ class GalleryTestCase extends TestCase {
 					return "[$context] $key1 !== $key2";
 				}
 
-				$err = $this->DeepCompare($obj1[$key1], $obj2[$key2], "$context $key1");
+				if (!is_null($context)) {
+					$prefixString = $context . '][';
+				} else {
+					$prefixString = null;
+				}
+
+				$err = $this->DeepCompare($obj1[$key1], $obj2[$key2], $prefixString . $key1);
 
 				if (isset($err)) {
 					return $err;
@@ -1088,7 +1104,7 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 
-		$this->assert($session->isPersistent(), 'test for authToken assumes persistent session');
+		$this->assertTrue($session->isPersistent(), 'test for authToken assumes persistent session');
 
 		$authToken = array(
 			'authToken' => $session->getAuthToken(),
@@ -1346,7 +1362,7 @@ class GalleryTestCase extends TestCase {
 	 * @param array $eventData (optional) default is null. should match the expected event data
 	 */
 	public function assertEventFired($eventName, $eventEntity = null, $eventData = null) {
-		$this->assert(
+		$this->assertTrue(
 			!empty($_SERVER['NullEventListener'][$eventName]),
 			$eventName . ' did not fire'
 		);
@@ -1382,7 +1398,7 @@ class GalleryTestCase extends TestCase {
 	 * @param string $eventName
 	 */
 	public function assertEventNotFired($eventName) {
-		$this->assert(
+		$this->assertTrue(
 			empty($_SERVER['NullEventListener'][$eventName]),
 			$eventName . ' was fired unexpectedly'
 		);

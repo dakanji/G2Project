@@ -79,7 +79,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		}
 		$this->_markForCleanup($user);
 
-		$this->assert($user->isCorrectPassword('password'), 'check password');
+		$this->assertTrue($user->isCorrectPassword('password'), 'check password');
 	}
 
 	public function testCreateEntityPassword() {
@@ -115,7 +115,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		}
 		$this->_markForCleanup($user);
 
-		$this->assert($user->isCorrectPassword('pass&word'), 'check password');
+		$this->assertTrue($user->isCorrectPassword('pass&word'), 'check password');
 	}
 
 	public function testMissingInputs() {

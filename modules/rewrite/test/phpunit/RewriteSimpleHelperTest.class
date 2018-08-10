@@ -80,7 +80,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		);
 		$ret    = RewriteSimpleHelper::parsePath($url, $params, $entity);
 
-		$this->assert($ret, 'status');
+		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v' . $testItemPath . '.html', $url, 'url');
 		$this->assertEquals(array(
 			'view' => 'core.ShowItem',
@@ -120,7 +120,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		);
 		$ret    = RewriteSimpleHelper::parseFileName($url, $params, $entity);
 
-		$this->assert($ret, 'status');
+		$this->assertTrue($ret, 'status');
 		$this->assertEquals('d/' . $testItemName, $url, 'url');
 		$this->assertEquals(
 			array(
@@ -165,7 +165,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		);
 		$ret    = RewriteSimpleHelper::parseSerialNumber($url, $params, $entity);
 
-		$this->assert($ret, 'status');
+		$this->assertTrue($ret, 'status');
 		$this->assertEquals('d/' . $testSerialNumber, $url, 'url');
 		$this->assertEquals(
 			array(
@@ -205,7 +205,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		);
 		$ret    = RewriteSimpleHelper::parseLanguage($url, $params, $entity);
 
-		$this->assert($ret, 'status');
+		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v/' . $language, $url, 'url');
 		$this->assertEquals(array(
 			'view' => 'core.ShowItem',

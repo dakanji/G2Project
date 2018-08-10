@@ -75,7 +75,7 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		$this->assert($mockPicLensHelper->isComplete(), $mockPicLensHelper->getRemaining());
+		$this->assertTrue($mockPicLensHelper->isComplete(), $mockPicLensHelper->getRemaining());
 	}
 
 	public function testInstallFailed() {
@@ -103,7 +103,7 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		$this->assert($mockPicLensHelper->isComplete(), $mockPicLensHelper->getRemaining());
+		$this->assertTrue($mockPicLensHelper->isComplete(), $mockPicLensHelper->getRemaining());
 	}
 
 	public function testUninstall() {
@@ -145,7 +145,7 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals(null, $actual);
-		$this->assert($mockPicLensHelper->isComplete(), $mockPicLensHelper->getRemaining());
+		$this->assertTrue($mockPicLensHelper->isComplete(), $mockPicLensHelper->getRemaining());
 	}
 }
 

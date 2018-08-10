@@ -62,7 +62,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			// this is what we expect
 		} else {
-			$this->assert(false, 'The view of a deactivated module should not load.');
+			$this->assertFalse('The view of a deactivated module should not load.');
 		}
 	}
 
@@ -101,7 +101,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($wasSpecified, 'itemId specified');
+		$this->assertTrue($wasSpecified, 'itemId specified');
 		$this->assertEquals($album->getId(), $item->getId(), 'itemId');
 
 		GalleryUtilities::removeRequestVariable('itemId');
@@ -111,7 +111,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$wasSpecified, 'not specified');
+		$this->assertTrue(!$wasSpecified, 'not specified');
 		$this->assertEquals($this->_getRootId(), $item->getId(), 'root album by default');
 
 		// ShowItem view returns wasSpecified==true even when root album selected by default
@@ -126,7 +126,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($wasSpecified, 'ShowItem specified');
+		$this->assertTrue($wasSpecified, 'ShowItem specified');
 		$this->assertEquals($this->_getRootId(), $item->getId(), 'ShowItem root album by default');
 
 		// Override default album
@@ -153,8 +153,8 @@ class ViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $gallery->getActiveUserId());
 
 		list($ret, $item, $wasSpecified) = $view->getItem();
-		$this->assert($ret, 'getItem() should return an error if the itemId is the id of a user.');
-		$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'ERROR_MISSING_OBJECT');
+		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
+		$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'ERROR_MISSING_OBJECT');
 	}
 
 	public function testGetItemRequiresViewPermission() {
@@ -199,7 +199,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($wasSpecified, 'no permissions check, itemId specified');
+		$this->assertTrue($wasSpecified, 'no permissions check, itemId specified');
 		$this->assertEquals($album->getId(), $item->getId(), 'no permission check, itemId');
 
 		// Prepare test with permission
@@ -218,7 +218,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($wasSpecified, 'with permissions, itemId specified');
+		$this->assertTrue($wasSpecified, 'with permissions, itemId specified');
 		$this->assertEquals($album->getId(), $item->getId(), 'with permission, itemId');
 	}
 
@@ -633,7 +633,7 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testDoLoadTemplateDoesNotAddNoIndexDirectiveForNonAdminView() {
@@ -683,7 +683,7 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testDoLoadTemplateDoesNotAddNoCacheForPublicView() {
@@ -727,7 +727,7 @@ class ViewTest extends GalleryTestCase {
 
 		$head = $template->getVariable('head');
 		$this->assertEquals(array(), $head['meta']);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testDoLoadTemplateAddsNoCacheForPrivateView() {
@@ -799,7 +799,7 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testLoadViewWithoutAutoCacheControlDoesNotAdd() {
@@ -847,7 +847,7 @@ class ViewTest extends GalleryTestCase {
 
 		$head = $template->getVariable('head');
 		$this->assertEquals(array(), $head['meta']);
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testPermissionCheckForGuest() {

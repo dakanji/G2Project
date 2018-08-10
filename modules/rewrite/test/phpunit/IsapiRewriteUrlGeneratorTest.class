@@ -109,7 +109,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assert(!$this->_urlGenerator->_error, 'init error in non-embedded');
+		$this->assertTrue(!$this->_urlGenerator->_error, 'init error in non-embedded');
 
 		GalleryDataCache::put('G2_EMBED', true, true);
 		$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
@@ -118,7 +118,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assert($this->_urlGenerator->_error, 'no init error when embedded');
+		$this->assertTrue($this->_urlGenerator->_error, 'no init error when embedded');
 	}
 
 	public function testDisablesShortUrlsInStandaloneModeWhenNotConfigured() {
@@ -139,7 +139,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assert($this->_urlGenerator->_error, 'no init error in standalone mode');
+		$this->assertTrue($this->_urlGenerator->_error, 'no init error in standalone mode');
 
 		GalleryDataCache::put('G2_EMBED', true, true);
 		$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
@@ -148,6 +148,6 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assert(!$this->_urlGenerator->_error, 'init error when embedded');
+		$this->assertTrue(!$this->_urlGenerator->_error, 'init error when embedded');
 	}
 }

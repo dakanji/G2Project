@@ -382,7 +382,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			$ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
 			'success?'
 		);
@@ -403,14 +403,14 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 		list($ret, $isActive) = $this->_theme->isActive();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isActive, 'is active');
+		$this->assertTrue(!$isActive, 'is active');
 	}
 
 	public function testInstallBadCoreApi() {
@@ -422,7 +422,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 	}
 
 	public function testActivateBadCoreApiActivate() {
@@ -440,14 +440,14 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
-		$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 		list($ret, $isActive) = $this->_theme->isActive();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isActive, 'is active');
+		$this->assertTrue(!$isActive, 'is active');
 	}
 
 	public function testDeactivateDefaultTheme() {
@@ -504,7 +504,7 @@ class ThemeTest extends GalleryTestCase {
 			list($success, $block[$i]) = $this->_theme->packSetting('block-list', '[["core.ThemeTestBlock' . $i . '"]]');
 
 			if (!$success) {
-				return $this->assert(false, 'block-list error');
+				return $this->assertFalse('block-list error');
 			}
 		}
 		list($ret, $results) = $this->_theme->loadTemplate(

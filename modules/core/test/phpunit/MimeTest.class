@@ -196,19 +196,19 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($isViewable, 'jpeg');
+		$this->assertTrue($isViewable, 'jpeg');
 
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isViewable, 'test');
+		$this->assertTrue(!$isViewable, 'test');
 	}
 
 	public function testAddMimeType() {
 		$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', 1);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_COLLISION);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_COLLISION);
 
 		$ret = GalleryCoreApi::addMimeType('zzz', 'test/test', 1);
 

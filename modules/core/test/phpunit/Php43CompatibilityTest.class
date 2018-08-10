@@ -101,8 +101,7 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 						$line = str_replace('$platform->' . $keyword, '', $lines[$i]);
 
 						if (strpos($line, $keyword) !== false) {
-							$this->assert(
-								false,
+							$this->assertFalse(
 								sprintf(
 									'%s contains illegal keyword <b>%s</b> ' .
 									'on line <b>%d</b>',

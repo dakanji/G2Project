@@ -116,7 +116,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		foreach ($files as $file) {
 			$this->assertEquals($file, $results[1]['addedFiles'][$i]['fileName']);
-			$this->assert(isset($results[1]['addedFiles'][$i]['id']));
+			$this->assertTrue(isset($results[1]['addedFiles'][$i]['id']));
 			$ids[] = $results[1]['addedFiles'][$i]['id'];
 			$i++;
 		}
@@ -144,7 +144,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
+			$this->assertTrue(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
 			$seenWeights[$orderWeight] = 1;
 		}
 
@@ -198,7 +198,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		// We don't know the ids, but we can verify everything else
 		$this->assertEquals(basename(__FILE__), $results[1]['addedFiles'][0]['fileName']);
-		$this->assert(isset($results[1]['addedFiles'][0]['id']), 'Id is not set');
+		$this->assertTrue(isset($results[1]['addedFiles'][0]['id']), 'Id is not set');
 
 		// Verify item attributes
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
@@ -247,7 +247,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		// We don't know the ids, but we can verify everything else
 		$this->assertEquals(basename(__FILE__), $results[1]['addedFiles'][0]['fileName']);
-		$this->assert(isset($results[1]['addedFiles'][0]['id']), 'Id is not set');
+		$this->assertTrue(isset($results[1]['addedFiles'][0]['id']), 'Id is not set');
 
 		// Verify item attributes
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
@@ -287,7 +287,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		// We don't know the ids, but we can verify everything else
 		$this->assertEquals(" $name ", $results[1]['addedFiles'][0]['fileName'], 'added file');
-		$this->assert(isset($results[1]['addedFiles'][0]['id']), 'Id is not set');
+		$this->assertTrue(isset($results[1]['addedFiles'][0]['id']), 'Id is not set');
 
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
 
@@ -308,7 +308,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($platform->is_file($path), "file '$path'");
+		$this->assertTrue($platform->is_file($path), "file '$path'");
 		$this->assertEquals(
 			trim($name),
 			basename($path),
@@ -346,7 +346,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][0]['warnings'][0],
 			'Warning'
 		);
-		$this->assert(!isset($results[1]['addedFiles'][0]['id']), 'id');
+		$this->assertTrue(!isset($results[1]['addedFiles'][0]['id']), 'id');
 
 		$this->assertEquals($files[2][0], $results[1]['addedFiles'][1]['fileName'], 'Filename');
 		$this->assertEquals(
@@ -357,7 +357,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][1]['warnings'][0],
 			'Warning'
 		);
-		$this->assert(!isset($results[1]['addedFiles'][1]['id']), 'id');
+		$this->assertTrue(!isset($results[1]['addedFiles'][1]['id']), 'id');
 	}
 
 	// One file upload fails and one succeeds
@@ -402,11 +402,11 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][0]['warnings'][0],
 			'Warning 1'
 		);
-		$this->assert(!isset($results[1]['addedFiles'][0]['id']), 'id');
+		$this->assertTrue(!isset($results[1]['addedFiles'][0]['id']), 'id');
 
 		$this->assertEquals($files[2], $results[1]['addedFiles'][1]['fileName'], 'Filename');
-		$this->assert(empty($results[1]['addedFiles'][1]['warnings'][0]), 'Warning 2');
-		$this->assert(!empty($results[1]['addedFiles'][1]['id']), 'id');
+		$this->assertTrue(empty($results[1]['addedFiles'][1]['warnings'][0]), 'Warning 2');
+		$this->assertTrue(!empty($results[1]['addedFiles'][1]['id']), 'id');
 	}
 
 	public function testMaliciousMarkup() {
@@ -437,7 +437,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		$this->assertEquals(array(), $results[0]);
 
 		if (!isset($results[1]['addedFiles'][0]['id'])) {
-			$this->assert(false, 'Id is not set');
+			$this->assertFalse('Id is not set');
 		} else {
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById(
 				$results[1]['addedFiles'][0]['id'],

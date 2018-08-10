@@ -108,10 +108,10 @@ class KeywordAlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-		$this->assert(is_array($params), 'theme settings');
-		$this->assert(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
-		$this->assert(!isset($item->parent), 'item parent');
+		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
+		$this->assertTrue(is_array($params), 'theme settings');
+		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
+		$this->assertTrue(!isset($item->parent), 'item parent');
 		$this->assertEquals('desc', $item->getDescription(), 'description');
 	}
 
@@ -125,11 +125,11 @@ class KeywordAlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-		$this->assert(is_array($params), 'theme settings');
-		$this->assert(GalleryUtilities::isA($item, 'GalleryDataItem'), 'item');
-		$this->assert(isset($item->parent), 'item parent');
-		$this->assert(GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'), 'parent type');
+		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
+		$this->assertTrue(is_array($params), 'theme settings');
+		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDataItem'), 'item');
+		$this->assertTrue(isset($item->parent), 'item parent');
+		$this->assertTrue(GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'), 'parent type');
 		$this->assertEquals(
 			array('KeywordAlbumView', 'getChildIds'),
 			$item->parent->getChildrenFunction,
@@ -159,8 +159,8 @@ class KeywordAlbumTest extends GalleryTestCase {
 			$theme['pageUrl'],
 			'page url'
 		);
-		$this->assert(in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
-		$this->assert(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
+		$this->assertTrue(in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
+		$this->assertTrue(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
 	}
 
 	public function testLoadTemplateForAlbumMultiKeyword() {
@@ -185,8 +185,8 @@ class KeywordAlbumTest extends GalleryTestCase {
 			$theme['pageUrl'],
 			'page url'
 		);
-		$this->assert(!in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
-		$this->assert(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
+		$this->assertTrue(!in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
+		$this->assertTrue(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
 	}
 
 	public function testLoadTemplateForItem() {
@@ -242,7 +242,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form = array());
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'wrong error code');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'wrong error code');
 
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;

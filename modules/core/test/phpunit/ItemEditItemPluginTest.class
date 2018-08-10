@@ -175,7 +175,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 				$thumbTable[$this->_item[0]->getId()]->getDerivativeOperations()
 			);
 		} else {
-			$this->assert(false, 'thumbnail missing');
+			$this->assertFalse('thumbnail missing');
 		}
 	}
 
@@ -313,7 +313,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Make sure that the file was moved
 		$platform =& $gallery->getPlatform();
-		$this->assert($platform->file_exists($newPath));
+		$this->assertTrue($platform->file_exists($newPath));
 	}
 
 	public function testMissingRootTitle() {
@@ -378,7 +378,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		// For Oracle, null is replaced with '' when loading data from the database
-		$this->assert(in_array($rootAlbum->getPathComponent(), array(null, '')));
+		$this->assertTrue(in_array($rootAlbum->getPathComponent(), array(null, '')));
 	}
 
 	public function testMissingRootTitle2() {
@@ -472,7 +472,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals($targetPath, $newPath);
 
 		// Make sure that the dir was actually moved
-		$this->assert($platform->file_exists($targetPath));
+		$this->assertTrue($platform->file_exists($targetPath));
 	}
 
 	public function testInvalidSerialNumber() {
@@ -528,7 +528,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals($originalPath, $newPath);
 
 		// Make sure that the file wasn't moved
-		$this->assert($platform->file_exists($originalPath), 'File should not have been moved');
+		$this->assertTrue($platform->file_exists($originalPath), 'File should not have been moved');
 	}
 
 	public function testMoveAlbumWithInvalidSerialNumber() {
@@ -568,7 +568,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals($originalPath, $newPath);
 
 		// Make sure that the file wasn't moved
-		$this->assert($platform->file_exists($originalPath), 'Album should not have been moved');
+		$this->assertTrue($platform->file_exists($originalPath), 'Album should not have been moved');
 	}
 
 	public function testEditOriginationTimestamp() {
@@ -618,7 +618,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 				$thumbTable[$this->_item[1]->getId()]->getDerivativeOperations()
 			);
 		} else {
-			$this->assert(false, 'We should have a thumbnail');
+			$this->assertFalse('We should have a thumbnail');
 		}
 	}
 
@@ -635,7 +635,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($thumbTable), 'We shouldn\'t have a thumbnail');
+		$this->assertTrue(empty($thumbTable), 'We shouldn\'t have a thumbnail');
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
@@ -661,7 +661,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 				$thumbTable[$this->_album[0]->getId()]->getDerivativeOperations()
 			);
 		} else {
-			$this->assert(false, 'We should have a thumbnail');
+			$this->assertFalse('We should have a thumbnail');
 		}
 	}
 
@@ -672,7 +672,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
+		$this->assertTrue(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
 
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -692,7 +692,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			!isset($thumbTable[$this->_item[0]->getId()]),
 			'We should not have a thumbnail'
 		);
@@ -705,7 +705,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
+		$this->assertTrue(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
 
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -725,7 +725,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			!isset($thumbTable[$this->_item[0]->getId()]),
 			'We should not have a thumbnail'
 		);

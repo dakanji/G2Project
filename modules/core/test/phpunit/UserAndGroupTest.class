@@ -134,7 +134,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 			return $ret;
 		}
-		$this->assert($inGroup, 'failed to add the user to a group');
+		$this->assertTrue($inGroup, 'failed to add the user to a group');
 
 		// Add a permission to the user
 		$ret = GalleryCoreApi::addUserPermission(
@@ -163,7 +163,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 			return $ret;
 		}
-		$this->assert($hasPermission, 'failed to add a permission to the user');
+		$this->assertTrue($hasPermission, 'failed to add a permission to the user');
 
 		$this->_activeUserBackup = $gallery->getActiveUser();
 		$gallery->setActiveUser($user);
@@ -194,7 +194,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::deleteEntityById($userId, 'GalleryUser');
 
 		if ($ret) {
-			$this->assert(false, 'The user could not be deleted.');
+			$this->assertFalse('The user could not be deleted.');
 			GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
 				'userId' => $userId,
 			));
@@ -210,7 +210,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = $this->_verifyMissing($userId);
 
 		if ($ret) {
-			$this->assert(false, 'The user was not actually deleted');
+			$this->assertFalse('The user was not actually deleted');
 		}
 
 		// Verify the item still exists and new owner is a site admin
@@ -218,7 +218,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		if ($ret) {
 			if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assert(false, 'An item was deleted that still should exist.');
+				$this->assertFalse('An item was deleted that still should exist.');
 			} else {
 				GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
 					'userId' => $userId,
@@ -246,7 +246,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			isset($groupIds[$this->_siteAdminGroupId]),
 			'The new ownerId of the item is wrong.'
 		);
@@ -443,7 +443,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::deleteEntityById($userId, 'GalleryUser');
 
 		if ($ret) {
-			$this->assert(false, 'The user could not be deleted.');
+			$this->assertFalse('The user could not be deleted.');
 
 			return $ret;
 		}
@@ -451,7 +451,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = $this->_verifyMissing($userId);
 
 		if ($ret) {
-			$this->assert(false, 'The user was not actually deleted');
+			$this->assertFalse('The user was not actually deleted');
 		}
 
 		// Verify owner was remapped to our other admin
@@ -484,7 +484,7 @@ class UserAndGroupTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assert(
+			$this->assertTrue(
 				$ret && ($ret->getErrorCode() & ERROR_BAD_PARAMETER),
 				"$paramName: expect an error"
 			);
@@ -496,7 +496,7 @@ class UserAndGroupTest extends GalleryTestCase {
 				return $ret;
 			}
 			$groupName = $entity->getGroupName();
-			$this->assert(!empty($groupName), "$paramName: group name should not be empty");
+			$this->assertTrue(!empty($groupName), "$paramName: group name should not be empty");
 		}
 	}
 
@@ -578,7 +578,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(in_array($user->getUserName(), $names));
+		$this->assertTrue(in_array($user->getUserName(), $names));
 
 		// Delete it
 		$ret = $this->_deleteAndVerifyEntity($user->getId());
@@ -841,7 +841,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			if ($item->getId() != $this->_album->getId()
 				&& $item->getId() != $subSubItemWithDeletePermissionDifferentOwner3->getId()
 			) {
-				$this->assert($item->getOwnerId() == $user1->getId(), 'owner Id is wrong');
+				$this->assertTrue($item->getOwnerId() == $user1->getId(), 'owner Id is wrong');
 			}
 			// Verify the site admin has the needed permissions
 			$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.viewResizes');
@@ -879,7 +879,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 			if ($ret) {
 				if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-					$this->assert(false, "Wrongly deleted item ($id)");
+					$this->assertFalse("Wrongly deleted item ($id)");
 				}
 
 				return $ret;
@@ -888,7 +888,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			if ($item->getId() != $this->_album->getId()
 				&& $item->getId() != $subSubItemWithDeletePermissionDifferentOwner3->getId()
 			) {
-				$this->assert(
+				$this->assertTrue(
 					$item->getOwnerId() == $user1->getId(),
 					'The ownerId for an item was changed'
 				);
@@ -1289,8 +1289,8 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Create it again
 		list($ret, $duplicateGroup) = $this->_createRandomGroup($groupTag);
-		$this->assert($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
-		$this->assert(!isset($duplicateGroup));
+		$this->assertTrue($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
+		$this->assertTrue(!isset($duplicateGroup));
 
 		// Delete it
 		$ret = $this->_deleteAndVerifyEntity($group->getId());
@@ -1327,8 +1327,8 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Create it again
 		list($ret, $duplicateUser) = $this->_createRandomUser($userTag);
-		$this->assert($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
-		$this->assert(!isset($duplicateUser));
+		$this->assertTrue($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
+		$this->assertTrue(!isset($duplicateUser));
 
 		// Delete it
 		$ret = $this->_deleteAndVerifyEntity($user->getId());
@@ -1430,7 +1430,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($inGroup);
+		$this->assertTrue($inGroup);
 
 		// Remove user from group
 		$ret = GalleryCoreApi::removeUserFromGroup($user->getId(), $group->getId());
@@ -1445,7 +1445,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$inGroup);
+		$this->assertTrue(!$inGroup);
 
 		// Delete user
 		$ret = $this->_deleteAndVerifyEntity($user->getId());
@@ -1482,7 +1482,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(in_array($group->getGroupName(), $names));
+		$this->assertTrue(in_array($group->getGroupName(), $names));
 
 		// Delete it
 		$ret = $this->_deleteAndVerifyEntity($group->getId());
@@ -1589,7 +1589,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($hasPermission, 'activeUser should have core.view on root');
+		$this->assertTrue($hasPermission, 'activeUser should have core.view on root');
 
 		$userId = $gallery->getActiveUserId();
 		// Get id of anonymous id
@@ -1627,21 +1627,21 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($hasPermission, 'default user should have core.view on item');
+		$this->assertTrue($hasPermission, 'default user should have core.view on item');
 
 		list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view', $userId);
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($hasPermission, 'userId should have core.view on item');
+		$this->assertTrue($hasPermission, 'userId should have core.view on item');
 
 		list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view', $anonymousUserId);
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$hasPermission, 'guest user shouldn\'t have core.view on item');
+		$this->assertTrue(!$hasPermission, 'guest user shouldn\'t have core.view on item');
 	}
 
 	public function testAddDuplicateUserToGroup() {
@@ -1703,14 +1703,14 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($user), 'factory error');
+		$this->assertTrue(!empty($user), 'factory error');
 
 		$user->changePassword('password');
-		$this->assert($user->isCorrectPassword('password'), 'password');
+		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 		$user->changePassword('Ab1#+$_ ;]\?.,');
-		$this->assert($user->isCorrectPassword('Ab1#+$_ ;]\?.,'), 'Ab1#+$_ ;]\?.,');
+		$this->assertTrue($user->isCorrectPassword('Ab1#+$_ ;]\?.,'), 'Ab1#+$_ ;]\?.,');
 		$user->changePassword('pass&word>');
-		$this->assert($user->isCorrectPassword('pass&word>'), 'pass&word>');
+		$this->assertTrue($user->isCorrectPassword('pass&word>'), 'pass&word>');
 	}
 
 	public function testCheckUserPasswordSimpleMd5Legacy() {
@@ -1719,11 +1719,11 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($user), 'factory error');
+		$this->assertTrue(!empty($user), 'factory error');
 
 		// We still support old style simple md5 (G1 thru 1.4.0, G2 thru alpha-4)
 		$user->setHashedPassword(md5('password'));
-		$this->assert($user->isCorrectPassword('password'), 'password');
+		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 	}
 
 	public function testCheckUserPasswordEntitiesLegacy() {
@@ -1732,7 +1732,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($user), 'factory error');
+		$this->assertTrue(!empty($user), 'factory error');
 
 		/*
 		 * 2.0 was released with installer not entitizing password prior to hashing, while
@@ -1745,8 +1745,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		$password = $entityPassword = 'pass<word"';
 		GalleryUtilities::sanitizeInputValues($entityPassword, false);
 		$user->changePassword($entityPassword);
-		$this->assert($user->isCorrectPassword($entityPassword), 'check password entitized');
-		$this->assert($user->isCorrectPassword($password), 'check password original');
+		$this->assertTrue($user->isCorrectPassword($entityPassword), 'check password entitized');
+		$this->assertTrue($user->isCorrectPassword($password), 'check password original');
 	}
 
 	public function testCheckUserPasswordPhpassFallback() {
@@ -1755,14 +1755,14 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($user), 'factory error');
+		$this->assertTrue(!empty($user), 'factory error');
 
 		set_error_handler('UserAndGroupTest_error_handler');
 
 		// First test with a precomputed hash (12 iterations, also checks file includes)
 		$user->setHashedPassword('$P$FFfHBaR3tCn6NGNEMqrhZZ/1Bi6JQ81');
-		$this->assert(!$user->isCorrectPassword('wrong password'), 'wrong password');
-		$this->assert($user->isCorrectPassword('password'), 'password');
+		$this->assertTrue(!$user->isCorrectPassword('wrong password'), 'wrong password');
+		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 
 		/*
 		 * Verify that the number of iterations of a stored password is independent of the
@@ -1771,15 +1771,15 @@ class UserAndGroupTest extends GalleryTestCase {
 		if (class_exists('PasswordHash')) {
 			$hashGenerator1 = new PasswordHash(8, true);
 			$user->setHashedPassword($hashGenerator1->HashPassword('password'));
-			$this->assert($user->isCorrectPassword('password'), 'password, 8 iterations');
-			$this->assert(
+			$this->assertTrue($user->isCorrectPassword('password'), 'password, 8 iterations');
+			$this->assertTrue(
 				!$user->isCorrectPassword('wrong password'),
 				'wrong password, 8 iterations'
 			);
 
 			$hashGenerator1 = new PasswordHash(13, true);
 			$user->setHashedPassword($hashGenerator1->HashPassword('password'));
-			$this->assert($user->isCorrectPassword('password'), 'password, 13 iterations');
+			$this->assertTrue($user->isCorrectPassword('password'), 'password, 13 iterations');
 		} else {
 			$this->fail('class PasswordHash should be defined at this point');
 		}

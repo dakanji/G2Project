@@ -34,7 +34,7 @@
  *
  * In tearDown() call:
  *
- *  $this->assert($this->_storage->isComplete(), $this->_storage->getRemaining());
+ *  $this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
  *
  * The check in tearDown() verifies that all expected calls were received.
  *

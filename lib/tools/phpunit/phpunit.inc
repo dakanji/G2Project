@@ -38,11 +38,11 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
- * interface Test {
- *    function run(&$aTestResult);
- *    function countTestCases();
- * }
- */
+* interface Test {
+*    function run(&$aTestResult);
+*    function countTestCases();
+* }
+*/
 
 function trace($msg) {
 	return;
@@ -54,9 +54,9 @@ function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 	global $PHPUnit_testRunning;
 
 	/*
-	 * Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
-	 * file_exists. Ignore these errors.
-	 */
+	* Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
+	* file_exists. Ignore these errors.
+	*/
 	if (error_reporting() == 0 && DIRECTORY_SEPARATOR == '\\') {
 		global $gallery;
 
@@ -112,21 +112,483 @@ class PHPUnitException {
 	}
 }
 
+
+/**
+* A set of assert methods.
+*
+* @category   Testing
+* @package    PHPUnit
+* @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
+* @copyright  2002-2007 Sebastian Bergmann <sb@sebastian-bergmann.de>
+* @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+* @version    Release: @package_version@
+* @link       http://pear.php.net/package/PHPUnit
+* @since      Class available since Release 1.0.0
+*/
 class Assert {
+	/**
+	* @var    boolean
+	* @access private
+	*/
+	public $_looselyTyped = FALSE;
+
+	/**
+	* construct.
+	*
+	* @param  boolean $boolean
+	* @param  mixed $message
+	* @access public
+	*/
 	public function __construct($boolean, $message = 0) {
-		if (! $boolean) {
+		if (!$boolean) {
 			$this->fail($message);
 		}
 	}
 
 	/**
-	 * Asserts that a condition is true or false.
-	 *
-	 * @param  boolean
-	 * @param  string
-	 * @access public
-	 */
-	public function assert($condition, $message = '') {
+	* Asserts that a haystack contains a needle.
+	*
+	* @param  mixed
+	* @param  mixed
+	* @param  string
+	* @access public
+	* @since  Method available since Release 1.1.0
+	*/
+	public function assertContains($needle, $haystack, $message = null) {
+		if (is_string($needle) && is_string($haystack)) {
+			$this->assertTrue(strpos($haystack, $needle) !== FALSE, $message);
+		}
+
+		else if (is_array($haystack) && !is_object($needle)) {
+			$this->assertTrue(in_array($needle, $haystack), $message);
+		}
+
+		else {
+			$this->fail('Unsupported parameter passed to assertContains().');
+		}
+	}
+
+	/**
+	* Asserts that a haystack does not contain a needle.
+	*
+	* @param  mixed
+	* @param  mixed
+	* @param  string
+	* @access public
+	* @since  Method available since Release 1.1.0
+	*/
+	public function assertNotContains($needle, $haystack, $message = null) {
+		if (is_string($needle) && is_string($haystack)) {
+			$this->assertFalse(strpos($haystack, $needle) !== FALSE, $message);
+		}
+
+		else if (is_array($haystack) && !is_object($needle)) {
+			$this->assertFalse(in_array($needle, $haystack), $message);
+		}
+
+		else {
+			$this->fail('Unsupported parameter passed to assertNotContains().');
+		}
+	}
+
+	/**
+	* Asserts that two variables are equal.
+	*
+	* @param  mixed
+	* @param  mixed
+	* @param  string
+	* @param  mixed
+	* @access public
+	*/
+	public function assertEquals($expected, $actual, $message = null, $delta = 0) {
+		if ((is_array($actual)  && is_array($expected))
+			|| (is_object($actual) && is_object($expected))
+		) {
+			if (is_array($actual) && is_array($expected)) {
+				$actualForSort   = $actual;
+				$expectedForSort = $expected;
+				$actual   = $this->recursive_ksort($actualForSort);
+				$expected = $this->recursive_ksort($expectedForSort);
+			}
+
+			if ($this->_looselyTyped) {
+				$actual   = $this->_convertToString($actual);
+				$expected = $this->_convertToString($expected);
+			}
+
+			$serializedActual   = serialize($actual);
+			$serializedExpected = serialize($expected);
+/*
+*			$message = sprintf(
+*				'%sEXPECTED: %s <br>ACTUAL: %s',
+*				!empty($message) ? $message . ' <br>' : '<br>',
+*				$serializedExpected,
+*				$serializedActual
+*			);
+*/
+			if ($serializedActual !== $serializedExpected) {
+				return $this->failNotEquals($expected, $actual, $message);
+				//return $this->fail($message);
+			}
+		} elseif (is_numeric($actual) && is_numeric($expected)) {
+			$message = sprintf(
+				'%sexpected %s%s, <br>ACTUAL: %s',
+				!empty($message) ? $message . ' <br>' : '<br>',
+				$expected,
+				($delta != 0) ? ('+/- ' . $delta) : '',
+				$actual
+			);
+
+			if (!($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
+				return $this->fail($message);
+			}
+		} else {
+			$message = sprintf(
+				'%sEXPECTED: %s <br>ACTUAL: %s',
+				!empty($message) ? $message . ' <br>' : '<br>',
+				$expected,
+				$actual
+			);
+
+			if ($actual !== $expected) {
+				return $this->fail($message);
+			}
+		}
+	}
+
+	/**
+	* Asserts that two variables are not equal.
+	*
+	* @param  mixed
+	* @param  mixed
+	* @param  string
+	* @param  mixed
+	* @access public
+	*/
+	public function assertNotEquals($expected, $actual, $message = null, $delta = 0) {
+		if ((is_array($actual)  && is_array($expected))
+			|| (is_object($actual) && is_object($expected))
+		) {
+			if (is_array($actual) && is_array($expected)) {
+				$actualForSort   = $actual;
+				$expectedForSort = $expected;
+				$actual   = $this->recursive_ksort($actualForSort);
+				$expected = $this->recursive_ksort($expectedForSort);
+			}
+
+			if ($this->_looselyTyped) {
+				$actual   = $this->_convertToString($actual);
+				$expected = $this->_convertToString($expected);
+			}
+
+			$serializedActual   = serialize($actual);
+			$serializedExpected = serialize($expected);
+/*
+*			$message = sprintf(
+*				'%sEXPECTED: %s <br>ACTUAL: %s',
+*				!empty($message) ? $message . ' <br>' : '<br>',
+*				$serializedExpected,
+*				$serializedActual
+*			);
+*/
+			if ($serializedActual == $serializedExpected) {
+				return $this->failNotEquals($expected, $actual, $message);
+				//return $this->fail($message);
+			}
+		} elseif (is_numeric($actual) && is_numeric($expected)) {
+			$message = sprintf(
+				'%sexpected %s %s <br>ACTUAL: %s',
+
+				!empty($message) ? $message . ' <br>' : '<br>',
+				$expected,
+				($delta != 0) ? ('+/- ' . $delta) : '',
+				$actual
+			);
+
+			if (($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
+				return $this->fail($message);
+			}
+		} else {
+			$message = sprintf(
+				'%sEXPECTED: %s <br>ACTUAL: %s',
+				!empty($message) ? $message . ' <br>' : '<br>',
+				$expected,
+				$actual
+			);
+
+			if ($actual == $expected) {
+				return $this->fail($message);
+			}
+		}
+	}
+
+	/**
+	* Asserts that a variable is not NULL.
+	*
+	* @param  mixed
+	* @param  string
+	* @access public
+	*/
+	public function assertNotNull($actual, $message = null) {
+		$message = sprintf(
+			'%sEXPECTED: NOT NULL <br>ACTUAL: NULL',
+
+			!empty($message) ? $message . ' <br>' : '<br>'
+		);
+
+		if (is_null($actual)) {
+			return $this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a variable is NULL.
+	*
+	* @param  mixed
+	* @param  string
+	* @access public
+	*/
+	public function assertNull($actual, $message = null) {
+		$message = sprintf(
+			'%sEXPECTED: NULL <br>ACTUAL: NOT NULL',
+
+			!empty($message) ? $message . ' <br>' : '<br>'
+		);
+
+		if (!is_null($actual)) {
+			return $this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a condition is true.
+	*
+	* @param  boolean
+	* @param  string
+	* @access public
+	*/
+	public function assertTrue($condition, $message = null) {
+		$message = sprintf(
+			'%sEXPECTED: TRUE <br>ACTUAL: FALSE',
+
+			!empty($message) ? $message . ' <br>' : '<br>'
+		);
+
+		if (!$condition) {
+			return $this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a condition is false.
+	*
+	* @param  boolean
+	* @param  string
+	* @access public
+	*/
+	public function assertFalse($condition, $message = null) {
+		$message = sprintf(
+			'%sEXPECTED: FALSE <br>ACTUAL: TRUE',
+			!empty($message) ? $message . ' <br>' : '<br>'
+		);
+
+		if ($condition) {
+			return $this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a string matches a given regular expression.
+	*
+	* @param  string
+	* @param  string
+	* @param  string
+	* @access public
+	*/
+	public function assertRegExp($pattern, $string, $message = null) {
+		$message = sprintf(
+			'%s"%s" does not match pattern "%s"',
+
+			!empty($message) ? $message . ' <br>' : '<br>',
+			$string,
+			$pattern
+		);
+
+		if (!preg_match($pattern, $string)) {
+			return $this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a string does not match a given regular expression.
+	*
+	* @param  string
+	* @param  string
+	* @param  string
+	* @access public
+	* @since  Method available since Release 1.1.0
+	*/
+	public function assertNotRegExp($pattern, $string, $message = null) {
+		$message = sprintf(
+			'%s"%s" matches pattern "%s"',
+
+			!empty($message) ? $message . ' <br>' : '<br>',
+			$string,
+			$pattern
+		);
+
+		if (preg_match($pattern, $string)) {
+			return $this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a variable is of a given type.
+	*
+	* @param  string          $expected
+	* @param  mixed           $actual
+	* @param  optional string $message
+	* @access public
+	*/
+	public function assertType($expected, $actual, $message = null) {
+		return $this->assertEquals(
+			$expected,
+			gettype($actual),
+			$message
+		);
+	}
+
+	/**
+	* Converts a value to a string.
+	*
+	* @param  mixed   $value
+	* @access private
+	*/
+	protected function _convertToString($value) {
+		foreach ($value as $k => $v) {
+			if (is_array($v)) {
+				$value[$k] = $this->_convertToString($value[$k]);
+			} else {
+				settype($value[$k], 'string');
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	* @param  boolean $looselyTyped
+	* @access public
+	*/
+	public function setLooselyTyped($looselyTyped) {
+		if (is_bool($looselyTyped)) {
+			$this->_looselyTyped = $looselyTyped;
+		}
+	}
+
+	/**
+	* Recursively 'ksorts' an array.
+	*
+	* @param  array $fixArray
+	* @access protected
+	*/
+	protected function recursive_ksort($fixArray) {
+		$sortedArray = $fixArray;
+		ksort($sortedArray);
+
+		foreach ($sortedArray as $key => $value) {
+			if (is_array($value)) {
+				$targetArray       = $sortedArray[$key];
+				$sortedArray[$key] = $this->recursive_ksort($targetArray);
+			}
+		}
+
+		return $sortedArray;
+	}
+
+	public function assertEqualsMultilineStrings(
+		$string0,
+		$string1,
+		$message = null
+	) {
+		$lines0 = explode("\n", $string0);
+		$lines1 = explode("\n", $string1);
+
+		if (sizeof($lines0) != sizeof($lines1)) {
+			$this->failNotEquals(
+				sizeof($lines0) . ' line(s)',
+				sizeof($lines1) . ' line(s)',
+				'expected',
+				$message
+			);
+		}
+
+		for ($i = 0; $i < sizeof($lines0); $i++) {
+			$this->assertEquals(
+				trim($lines0[$i]),
+				trim($lines1[$i]),
+				'line ' . ($i + 1) . ' of multiline strings differ. ' . $message
+			);
+		}
+	}
+
+	public function _formatValue($value, $class = '') {
+		if (is_object($value)) {
+			if (method_exists($value, 'toString')) {
+				$translateValue = htmlspecialchars($value->toString());
+			} else {
+				$translateValue = htmlspecialchars(serialize($value));
+			}
+		} elseif (is_array($value)) {
+			$translateValue = '<pre>' . htmlspecialchars(var_export($value, 1)) . '</pre>';
+		} else {
+			$translateValue = htmlspecialchars($value);
+		}
+		$htmlValue = "<code class=\"$class\">" . $translateValue . '</code>';
+
+		if (is_bool($value)) {
+			$htmlValue = $value ? '<i>true</i>' : '<i>false</i>';
+		} elseif (is_null($value)) {
+			$htmlValue = '<i>null</i>';
+		}
+		$htmlValue .= '&nbsp;&nbsp;&nbsp;<span class="typeinfo">';
+		$htmlValue .= 'type:' . gettype($value);
+		$htmlValue .= is_object($value) ? ', class:' . get_class($value) : '';
+		$htmlValue .= '</span>';
+
+		return $htmlValue;
+	}
+
+	public function failNotEquals($expected, $actual, $message = null) {
+		// Private function for reporting failure to match.
+		$str = $message ? ($message . ' <br>') : '';
+		//$str .= "($expected_label/actual)<br>";
+		$str .= sprintf(
+			'EXPECTED:<br>%s<br><br>ACTUAL:<br>%s',
+			$this->_formatValue($expected, 'expected'),
+			$this->_formatValue($actual, 'actual')
+		);
+		return $this->fail($str);
+	}
+
+
+}
+
+class Assert_X {
+	public function __construct($boolean, $message = 0) {
+		if (!$boolean) {
+			$this->fail($message);
+		}
+	}
+
+	/**
+	* Asserts that a condition is true or false.
+	*
+	* @param  boolean
+	* @param  string
+	* @access public
+	*/
+	public function assert($condition, $message = null) {
 		$ret = 'null';
 
 		if (!empty($message)) {
@@ -147,13 +609,13 @@ class Assert {
 	}
 
 	/**
-	 * Helps assert that a condition is true.
-	 *
-	 * @param  boolean
-	 * @param  string
-	 * @access private
-	 */
-	private function _assertHelperTrue($condition, $message = '') {
+	* Helps assert that a condition is true.
+	*
+	* @param  boolean
+	* @param  string
+	* @access private
+	*/
+	private function _assertHelperTrue($condition, $message = null) {
 		$message = sprintf(
 			'%sexpected TRUE, actual FALSE',
 			!empty($message) ? $message . ' ' : ''
@@ -167,13 +629,13 @@ class Assert {
 	}
 
 	/**
-	 * Helps assert that a condition is false.
-	 *
-	 * @param  boolean
-	 * @param  string
-	 * @access private
-	 */
-	private function _assertHelperFalse($condition, $message = '') {
+	* Helps assert that a condition is false.
+	*
+	* @param  boolean
+	* @param  string
+	* @access private
+	*/
+	private function _assertHelperFalse($condition, $message = null) {
 		$message = sprintf(
 			'%sexpected FALSE, actual TRUE',
 			!empty($message) ? $message . ' ' : ''
@@ -250,7 +712,7 @@ class Assert {
 	public function assertEqualsMultilineStrings(
 		$string0,
 		$string1,
-		$message = ''
+		$message = null
 	) {
 		$lines0 = explode("\n", $string0);
 		$lines1 = explode("\n", $string1);
@@ -430,7 +892,7 @@ class TestCase extends Assert {
 	////////////////////////////////////////////////////////////////
 
 	// protected
-	public function _createResult() {
+	protected function _createResult() {
 		// override this to use specialized subclass of TestResult
 		return new TestResult();
 	}
@@ -517,7 +979,10 @@ class TestCase extends Assert {
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
 		}
-		parent::__construct(!empty($this->fLifeCycle['tearDown']), 'TestSuite tearDown() method did not call parent::tearDown()');
+		parent::__construct(
+			!empty($this->fLifeCycle['tearDown']),
+			'TestSuite tearDown() method did not call parent::tearDown()'
+		);
 		$this->fTiming['stop'] = microtime();
 	}
 }

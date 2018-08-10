@@ -116,7 +116,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			$this->failWithStatus($ret);
 		}
 
-		$this->assert($this->_storage->isComplete(), $this->_storage->getRemaining());
+		$this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
 
 		$ret = parent::tearDown();
 

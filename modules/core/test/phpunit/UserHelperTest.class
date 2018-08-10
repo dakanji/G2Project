@@ -83,7 +83,7 @@ class UserHelperTest extends GalleryTestCase {
 			$this->_storage->_operations
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			$gallery->_session->regenerateWasCalled(),
 			'Regenerate session was not called!'
 		);
@@ -233,7 +233,7 @@ class UserHelperTest extends GalleryTestCase {
 			$this->_storage->_operations
 		);
 
-		$this->assertEquals(false, $disabled);
+		$this->assertFalse($disabled);
 	}
 
 	public function testIsDisabledUsernameBelowCutoff() {
@@ -258,7 +258,7 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-		$this->assertEquals(false, $disabled, 'should not be disabled');
+		$this->assertFalse($disabled, 'should not be disabled');
 	}
 
 	public function testIsDisabledUsernameAboveCutoffAndRecent() {
@@ -284,7 +284,7 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-		$this->assertEquals(true, $disabled, 'should be disabled');
+		$this->assertTrue($disabled, 'should be disabled');
 	}
 
 	public function testIsDisabledUsernameWayAboveCutoffAndTooRecent() {
@@ -310,7 +310,7 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-		$this->assertEquals(true, $disabled, 'should be disabled');
+		$this->assertTrue($disabled, 'should be disabled');
 	}
 
 	public function testIsDisabledUsernameAboveCutoffButNotRecent() {
@@ -336,7 +336,7 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-		$this->assertEquals(false, $disabled, 'should not be disabled');
+		$this->assertFalse($disabled, 'should not be disabled');
 	}
 
 	public function testFetchLanguageCodeForUser() {

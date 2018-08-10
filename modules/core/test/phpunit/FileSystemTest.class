@@ -518,7 +518,7 @@ class FileSystemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(true, $isCollision);
+		$this->assertTrue($isCollision);
 	}
 
 	public function testCheckPathCollisionCaseSensitivity() {
@@ -556,7 +556,7 @@ class FileSystemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(true, $isCollision);
+		$this->assertTrue($isCollision);
 	}
 }
 

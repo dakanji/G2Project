@@ -75,7 +75,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($controller));
+		$this->assertTrue(isset($controller));
 	}
 
 	public function testLoadControllerFail() {
@@ -84,7 +84,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			// this is what we expect
 		} else {
-			$this->assert(false, 'The controller of a deactivated module should not load.');
+			$this->assertFalse('The controller of a deactivated module should not load.');
 		}
 	}
 
@@ -98,7 +98,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($controller));
+		$this->assertTrue(isset($controller));
 	}
 
 	public function testAssertIsGenuineRequestDefaultsToFalse() {
@@ -109,7 +109,7 @@ class ControllerTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false, 'should throw an error by default');
+			$this->assertFalse('should throw an error by default');
 		}
 	}
 
@@ -122,7 +122,7 @@ class ControllerTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false);
+			$this->assertTrue(false);
 		}
 	}
 
@@ -156,7 +156,7 @@ class ControllerTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false, 'invalid auth token was accepted');
+			$this->assertFalse('invalid auth token was accepted');
 		}
 	}
 
@@ -204,7 +204,7 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testOmitAuthTokenCheckDefaultsToFalse() {
 		$controller = new GalleryController();
-		$this->assert(!$controller->omitAuthTokenCheck(), 'should default to false');
+		$this->assertTrue(!$controller->omitAuthTokenCheck(), 'should default to false');
 	}
 
 	public function testGetItemOnlyReturnsItems() {
@@ -214,10 +214,10 @@ class ControllerTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $gallery->getActiveUserId());
 
 		list($ret, $item) = $controller->getItem();
-		$this->assert($ret, 'getItem() should return an error if the itemId is the id of a user.');
+		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'ERROR_MISSING_OBJECT');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'ERROR_MISSING_OBJECT');
 		}
 	}
 
@@ -284,10 +284,10 @@ class ControllerTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('itemId');
 
 		list($ret, $item) = $controller->getItem();
-		$this->assert($ret, 'getItem() should return an error if the itemId is the id of a user.');
+		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_VALUE, 'ERROR_MISSING_OBJECT');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_VALUE, 'ERROR_MISSING_OBJECT');
 		}
 	}
 

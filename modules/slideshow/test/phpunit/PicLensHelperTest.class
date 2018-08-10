@@ -46,7 +46,7 @@ class PicLensHelperTest extends GalleryTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		$this->assert($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
+		$this->assertTrue($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
 
 		return parent::tearDown();
 	}

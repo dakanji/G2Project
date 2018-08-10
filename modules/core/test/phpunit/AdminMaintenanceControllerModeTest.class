@@ -92,7 +92,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeOnUrl() {
@@ -131,7 +131,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$results,
 			'The url was not properly'
 		);
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeOff() {
@@ -171,7 +171,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeEqual() {
@@ -199,6 +199,6 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$results,
 			'The maintenance  mode was set'
 		);
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 }

@@ -97,7 +97,7 @@ class SessionAuthPluginTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(!isset($user));
+		$this->assertTrue(!isset($user));
 	}
 
 	public function testSessionAuthLoadInvalidEntity() {

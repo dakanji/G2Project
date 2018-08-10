@@ -48,7 +48,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 		}
 
 		if (!isset($this->_plugin)) {
-			return $this->assert(false, "Unable to create ItemAddPlugin, type $pluginName");
+			return $this->assertFalse("Unable to create ItemAddPlugin, type $pluginName");
 		}
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
@@ -67,8 +67,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 
 		if (isset($errorCode)) {
 			if ($ret && ($ret->getErrorCode() & $errorCode) != $errorCode) {
-				$this->assert(
-					false,
+				$this->assertFalse(
 					sprintf(
 						'Expected error code (%s) but received (%s)',
 						implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
@@ -84,13 +83,13 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 			return array($error, $status);
 		} else {
 			// Check to make sure we got back everything we want
-			$this->assert(isset($error) && is_array($error), 'plugin error results missing');
+			$this->assertTrue(isset($error) && is_array($error), 'plugin error results missing');
 
 			/*
 			 * This doesn't appear to test much, but it will cause us to examine $status so if
 			 * it's not set then we'll trigger a PHP warning which will fail the test
 			 */
-			$this->assert(isset($status) || $status == null, 'plugin status result missing');
+			$this->assertTrue(isset($status) || $status == null, 'plugin status result missing');
 		}
 
 		return array($error, $status);

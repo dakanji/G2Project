@@ -145,7 +145,7 @@ class EmbedTest extends GalleryTestCase {
 
 		list($title, $css, $javascript, $meta) = GalleryEmbed::parseHead($headHtml);
 		$this->assertEquals($title, $refTitle, 'the title does not match the reference title');
-		$this->assert(is_array($css), '$css should be an array!');
+		$this->assertTrue(is_array($css), '$css should be an array!');
 
 		if (is_array($css)) {
 			$this->assertEquals(count($css), count($refCss), 'array size of $css is incorrect!');
@@ -158,7 +158,7 @@ class EmbedTest extends GalleryTestCase {
 				);
 			}
 		}
-		$this->assert(is_array($javascript), '$javascript should be an array!');
+		$this->assertTrue(is_array($javascript), '$javascript should be an array!');
 
 		if (is_array($javascript)) {
 			$this->assertEquals(
@@ -210,11 +210,11 @@ class EmbedTest extends GalleryTestCase {
 			'First init call failed.'
 		);
 		// And check if init first pass has been called, but not init second pass
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in first init.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in first init.'
 		);
@@ -239,11 +239,11 @@ class EmbedTest extends GalleryTestCase {
 			'Second init call called initFirstPass again.'
 		);
 		// And check if init first pass has been called, but not init second pass
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in second init.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in second init.'
 		);
@@ -268,21 +268,21 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		// Both, init first pass and second pass should have been called
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in first call.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has not been called in first call.'
 		);
 		// Reset for next try
 		GalleryDataCache::reset();
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GDC reset did not delete GalleryEmbed:initSecondPass key.'
 		);
@@ -296,21 +296,21 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		// Verify
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in second call.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in second call.'
 		);
 		// Reset for next try
 		GalleryDataCache::reset();
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GDC reset did not delete GalleryEmbed:initSecondPass key.'
 		);
@@ -323,11 +323,11 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		// Verify
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in third call.'
 		);
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has not been called in third call.'
 		);
@@ -336,17 +336,17 @@ class EmbedTest extends GalleryTestCase {
 	public function testIsCompatibleWithEmbedApi() {
 		$apiVersion = GalleryEmbed::getApiVersion();
 		$this->assertEquals(2, count($apiVersion));
-		$this->assert(is_int($apiVersion[0]), 'major');
-		$this->assert(is_int($apiVersion[1]), 'minor');
-		$this->assert(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'same version');
+		$this->assertTrue(is_int($apiVersion[0]), 'major');
+		$this->assertTrue(is_int($apiVersion[1]), 'minor');
+		$this->assertTrue(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'same version');
 		$apiVersion[1] += 7;
-		$this->assert(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API too old');
+		$this->assertTrue(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API too old');
 		$apiVersion[1] -= 9;
-		$this->assert(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API is newer');
+		$this->assertTrue(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API is newer');
 		$apiVersion[0] += 1;
-		$this->assert(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too old');
+		$this->assertTrue(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too old');
 		$apiVersion[0] -= 2;
-		$this->assert(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
+		$this->assertTrue(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
 	}
 
 	// Test the session doesn't change if the activeUserId equals the session's external id
@@ -437,7 +437,7 @@ class EmbedTest extends GalleryTestCase {
 			$session->get('core.language'),
 			'core.language should not have changed'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$sessionId != $session->getId(),
 			'session id did not change with new user'
 		);
@@ -483,7 +483,7 @@ class EmbedTest extends GalleryTestCase {
 			$session->get('core.language'),
 			'core.language should not have changed (guest)'
 		);
-		$this->assert($sessionId != $session->getId(), 'session id should have changed');
+		$this->assertTrue($sessionId != $session->getId(), 'session id should have changed');
 		$this->assertEventFired('Gallery::Logout', $users[0]);
 		$this->assertEventNotFired('Gallery::Login');
 	}
@@ -613,7 +613,7 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		$lastActivityTimestamp = $session->get('session.siteAdminActivityTimestamp');
-		$this->assert($phpVm->time() - $lastActivityTimestamp < 1000, 'time out reset');
+		$this->assertTrue($phpVm->time() - $lastActivityTimestamp < 1000, 'time out reset');
 	}
 
 	// Check that timeout is not reset after non-administrator login
@@ -636,7 +636,7 @@ class EmbedTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(is_null($session->get('session.siteAdminActivityTimestamp')), 'timestamp');
+		$this->assertTrue(is_null($session->get('session.siteAdminActivityTimestamp')), 'timestamp');
 	}
 
 	// Regression test for bug 2030470
@@ -684,7 +684,7 @@ class EmbedTest extends GalleryTestCase {
 		$ret            = GalleryEmbed::init(array(
 			'apiVersion' => $apiVersion,
 		));
-		$this->assert(
+		$this->assertTrue(
 			!empty($ret) && $ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH,
 			'API too old'
 		);
@@ -697,7 +697,7 @@ class EmbedTest extends GalleryTestCase {
 		$ret            = GalleryEmbed::init(array(
 			'apiVersion' => $apiVersion,
 		));
-		$this->assert(
+		$this->assertTrue(
 			!empty($ret) && $ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH,
 			'(major) API too old'
 		);
@@ -770,7 +770,7 @@ class EmbedTest extends GalleryTestCase {
 		if (empty($blockHtml)) {
 			$this->fail('Missing block HTML');
 		} else {
-			$this->assert(
+			$this->assertTrue(
 				strpos($blockHtml, $user->getUserName()) !== false,
 				'Unexpected HTML data: ' . $blockHtml
 			);
@@ -793,7 +793,7 @@ class EmbedTest extends GalleryTestCase {
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testGetEmbedPathByHttpRequestInvalidRequest() {
@@ -809,7 +809,7 @@ class EmbedTest extends GalleryTestCase {
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testGetEmbedPathByHttpRequestNoServerAddr() {
@@ -831,7 +831,7 @@ class EmbedTest extends GalleryTestCase {
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testGetEmbedPathByHttpRequestNoServerAddrG2NotInstalled() {
@@ -854,7 +854,7 @@ class EmbedTest extends GalleryTestCase {
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testEmbeddedLogin() {
@@ -903,7 +903,7 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEventFired('Gallery::Logout', $users[0]);
-		$this->assert($sessionId != $session->getId(), 'Session Id should have changed');
+		$this->assertTrue($sessionId != $session->getId(), 'Session Id should have changed');
 	}
 
 	public function testCreateUserWithClearTextPassword() {
@@ -926,8 +926,8 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($user);
-		$this->assert($user->isCorrectPassword('secret'), 'correct password');
-		$this->assert(!$user->isCorrectPassword('123456'), 'incorrect password');
+		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
+		$this->assertTrue(!$user->isCorrectPassword('123456'), 'incorrect password');
 	}
 
 	public function testUpdateUserWithClearTextPassword() {
@@ -953,8 +953,8 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($user->isCorrectPassword('secret'), 'correct password');
-		$this->assert(!$user->isCorrectPassword('123456'), 'incorrect password');
+		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
+		$this->assertTrue(!$user->isCorrectPassword('123456'), 'incorrect password');
 	}
 
 	public function testUpdateUserWithMd5PasswordHash() {
@@ -984,8 +984,8 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($user->isCorrectPassword('secret'), 'correct password');
-		$this->assert(!$user->isCorrectPassword('123456'), 'incorrect password');
+		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
+		$this->assertTrue(!$user->isCorrectPassword('123456'), 'incorrect password');
 	}
 
 	public function testUpdateUserWithPhpassPasswordHash() {

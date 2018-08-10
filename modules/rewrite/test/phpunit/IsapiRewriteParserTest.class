@@ -93,7 +93,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code);
 		$this->assertEquals($accessList, unserialize($savedList));
 		$this->assertEquals('1', $allowEmptyReferer);
-		$this->assert(!empty($this->_fileContent), 'fileContent');
+		$this->assertTrue(!empty($this->_fileContent), 'fileContent');
 	}
 
 	public function testSaveAccessListEmbedded() {
@@ -129,7 +129,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code);
 		$this->assertEquals($accessList, unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
-		$this->assert(!empty($this->_fileContent), 'fileContent');
+		$this->assertTrue(!empty($this->_fileContent), 'fileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -167,7 +167,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code);
 		$this->assertEquals(array('phpunit.test'), unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
-		$this->assert(!isset($this->_fileContent), 'fileContent');
+		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
 
 		$this->_platform->_isWriteable = true;
 	}
@@ -206,7 +206,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code);
 		$this->assertEquals(array('phpunit.test'), unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
-		$this->assert(!isset($this->_fileContent), 'fileContent');
+		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -225,7 +225,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assert(!$status, 'forced');
+		$this->assertTrue(!$status, 'forced');
 	}
 
 	public function testNeedsConfigurationEmbedded() {
@@ -237,7 +237,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$status, 'pass');
+		$this->assertTrue(!$status, 'pass');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -333,7 +333,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 			'saved' => 1,
 		), $status);
 		$this->assertEquals(array(), $error);
-		$this->assert(!empty($this->_fileContent), 'file');
+		$this->assertTrue(!empty($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -376,7 +376,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 			'saved' => 1,
 		), $status);
 		$this->assertEquals(array(), $error);
-		$this->assert(!empty($this->_fileContent), 'file');
+		$this->assertTrue(!empty($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 		$this->_platform->_isWriteable = true;
@@ -419,7 +419,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('/embedded/', $embeddedLocation);
 		$this->assertEquals(array(), $status);
 		$this->assertEquals(array('form[error][34]'), $error);
-		$this->assert(!isset($this->_fileContent), 'file');
+		$this->assertTrue(!isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 		$this->_platform->_isWriteable = true;
@@ -459,7 +459,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('/embedded/', $embeddedLocation);
 		$this->assertEquals(array(), $status);
 		$this->assertEquals(array('form[error][5]'), $error);
-		$this->assert(!isset($this->_fileContent), 'file');
+		$this->assertTrue(!isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -471,7 +471,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assert(!$status, 'status');
+		$this->assertTrue(!$status, 'status');
 	}
 
 	public function testNeedsEmbedConfig2() {
@@ -492,7 +492,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assert($status, 'status');
+		$this->assertTrue($status, 'status');
 	}
 
 	public function testFetchEmbedConfig() {
@@ -538,7 +538,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code);
-		$this->assert(!empty($errstr), 'errstr');
+		$this->assertTrue(!empty($errstr), 'errstr');
 		$this->_platform->_isWriteable = true;
 	}
 
@@ -553,7 +553,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_EMPTY_VALUE, $code);
-		$this->assert(!empty($errstr), 'errstr');
+		$this->assertTrue(!empty($errstr), 'errstr');
 		$this->_platform->_isWriteable = true;
 	}
 

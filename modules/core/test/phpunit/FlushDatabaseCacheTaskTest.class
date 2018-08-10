@@ -62,7 +62,7 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 				)
 			);
 		}
-		$this->assert($success, 'should have succeeded');
+		$this->assertTrue($success, 'should have succeeded');
 		$this->assertEquals($details, $expected);
 		$this->assertEquals(
 			array(
@@ -115,7 +115,7 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 				'arg1' => '/cache/module',
 			)
 		);
-		$this->assert(!$success, 'should have failed');
+		$this->assertTrue(!$success, 'should have failed');
 		$this->assertEquals($expected, $details);
 		$this->assertEquals(
 			array(

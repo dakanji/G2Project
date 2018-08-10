@@ -502,7 +502,7 @@ class AlbumTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.delete');
 
 		if (!$ret) {
-			$this->assert(false, 'Guest should not have core.delete on root album');
+			$this->assertFalse('Guest should not have core.delete on root album');
 
 			return;
 		}
@@ -627,7 +627,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// Result: failure
-		$this->assertEquals(false, $success);
+		$this->assertFalse($success);
 	}
 
 	public function testGuaranteeAlbumHasThumbnail2() {
@@ -650,7 +650,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// Result: success
-		$this->assert(true, $success, 'success');
+		$this->assertTrue(true, $success, 'success');
 
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
 			array(
@@ -722,7 +722,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// Result: success
-		$this->assert(true, $success, 'guarantee');
+		$this->assertTrue(true, $success, 'guarantee');
 
 		// Reload the thumbnail and examine it
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -734,7 +734,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// The album's derivative is sourced to the child
-		$this->assert(!empty($thumbTable), 'thumb');
+		$this->assertTrue(!empty($thumbTable), 'thumb');
 
 		if (!empty($thumbTable)) {
 			$thumb = $thumbTable[$subAlbum->getId()];
@@ -799,8 +799,8 @@ class AlbumTest extends GalleryTestCase {
 					'full path mismatch'
 				);
 
-				$this->assert($platform->file_exists($entityPath), "$entityPath does not exist");
-				$this->assert($platform->is_dir($entityPath), "$entityPath is not a directory");
+				$this->assertTrue($platform->file_exists($entityPath), "$entityPath does not exist");
+				$this->assertTrue($platform->is_dir($entityPath), "$entityPath is not a directory");
 			}
 		}
 
@@ -884,8 +884,8 @@ class AlbumTest extends GalleryTestCase {
 		$slash    = $platform->getDirectorySeparator();
 		$this->assertEquals($basePath . 'test_001' . $slash, $newPath, 'full path mismatch');
 
-		$this->assert($platform->file_exists($newPath), "$newPath does not exist");
-		$this->assert($platform->is_dir($newPath), "$newPath is not a file");
+		$this->assertTrue($platform->file_exists($newPath), "$newPath does not exist");
+		$this->assertTrue($platform->is_dir($newPath), "$newPath is not a file");
 
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
@@ -1380,7 +1380,7 @@ class AlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($guestId != $user->getId(), 'Default guest userid was used');
+		$this->assertTrue($guestId != $user->getId(), 'Default guest userid was used');
 		$ret = GalleryCoreApi::assertHasItemPermission($album->getId(), 'core.all');
 		$this->assertErrorEquals(ERROR_PERMISSION_DENIED, $ret);
 
@@ -1420,7 +1420,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($hasPermission, 'core.all not set');
+		$this->assertTrue($hasPermission, 'core.all not set');
 
 		$gallery->setActiveUser($savedUser);
 	}
@@ -1456,7 +1456,7 @@ class AlbumTest extends GalleryTestCase {
 		 * that the whitespace will get trimmed on both sides.
 		 */
 		$platform =& $gallery->getPlatform();
-		$this->assert($platform->file_exists($path), 'Path doesn\'t exist');
+		$this->assertTrue($platform->file_exists($path), 'Path doesn\'t exist');
 	}
 
 	public function testCreateAlbumEntitizesAngleBracketsButIgnoresXssPayload() {
@@ -1532,7 +1532,7 @@ class AlbumTest extends GalleryTestCase {
 		 * that the whitespace will get trimmed on both sides.
 		 */
 		$platform =& $gallery->getPlatform();
-		$this->assert($platform->file_exists($path), 'Path doesn\'t exist');
+		$this->assertTrue($platform->file_exists($path), 'Path doesn\'t exist');
 
 		$this->assertEquals(trim($newAlbumName), basename($path));
 		$this->assertEquals(trim($newAlbumName), $album->getPathComponent());

@@ -612,21 +612,21 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function testIsA() {
-		$this->assert(GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryTestCase'));
-		$this->assert(GalleryUtilities::isA(new UtilitiesTest('x'), 'UtilitiesTest'));
-		$this->assert(!GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryEntity'));
+		$this->assertTrue(GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryTestCase'));
+		$this->assertTrue(GalleryUtilities::isA(new UtilitiesTest('x'), 'UtilitiesTest'));
+		$this->assertTrue(!GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryEntity'));
 	}
 
 	public function testIsExactlyA() {
-		$this->assert(GalleryUtilities::isExactlyA(
+		$this->assertTrue(GalleryUtilities::isExactlyA(
 			new UtilitiesTest('x'),
 			'UtilitiesTest'
 		), 'exact');
-		$this->assert(!GalleryUtilities::isExactlyA(
+		$this->assertTrue(!GalleryUtilities::isExactlyA(
 			new UtilitiesTest('x'),
 			'GalleryTestCase'
 		), 'parent class');
-		$this->assert(!GalleryUtilities::isExactlyA(
+		$this->assertTrue(!GalleryUtilities::isExactlyA(
 			new UtilitiesTest('x'),
 			'GalleryEntity'
 		), 'other class');
@@ -636,48 +636,48 @@ class UtilitiesTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isExactlyA($album, 'GalleryAlbumItem'), 'album');
-		$this->assert(!GalleryUtilities::isExactlyA($album, 'GalleryItem'), 'item');
+		$this->assertTrue(GalleryUtilities::isExactlyA($album, 'GalleryAlbumItem'), 'album');
+		$this->assertTrue(!GalleryUtilities::isExactlyA($album, 'GalleryItem'), 'item');
 	}
 
 	public function testHasRequestVariable() {
 		$key = 'TESTKEY';
-		$this->assert(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
-		$this->assert(GalleryUtilities::hasRequestVariable($key));
-		$this->assert(!GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key, false));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE', false);
-		$this->assert(GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key, false));
 	}
 
 	public function testHasRequestVariable2() {
 		$key = 'foo[TEST][KEY]';
-		$this->assert(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
-		$this->assert(GalleryUtilities::hasRequestVariable($key));
-		$this->assert(!GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key, false));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE', false);
-		$this->assert(GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key, false));
 	}
 
 	public function testRemoveRequestVariable() {
 		$key = 'TESTKEY';
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
-		$this->assert(GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::removeRequestVariable($key);
-		$this->assert(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE', false);
-		$this->assert(GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key, false));
 		GalleryUtilities::removeRequestVariable($key, false);
-		$this->assert(!GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key, false));
 	}
 
 	public function testRemoveRequestVariable2() {
 		$key = 'foo[TEST][KEY]';
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
-		$this->assert(GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::removeRequestVariable($key);
-		$this->assert(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
 	}
 
 	public function testRemoveFormVariables() {
@@ -802,7 +802,7 @@ class UtilitiesTest extends GalleryTestCase {
 						($a == 192 && $b == 168));
 
 						if ($shouldBeTrusted != $trusted) {
-							$this->assert(false, sprintf(
+							$this->assertFalse(sprintf(
 								"$addr %s be trusted.  IMPORTANT! " .
 								'Save and report this *exact* error message!',
 								$shouldBeTrusted ? 'should' : 'should not'
@@ -814,56 +814,56 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		// Sanity check some known RFC1918 addresses
-		$this->assert(GalleryUtilities::isTrustedProxy('10.1.2.3'), '10/8 failed');
-		$this->assert(GalleryUtilities::isTrustedProxy('172.16.254.253'), '172.16/12 failed 1');
-		$this->assert(GalleryUtilities::isTrustedProxy('172.31.254.253'), '172.16/12 failed 2');
-		$this->assert(!GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
-		$this->assert(GalleryUtilities::isTrustedProxy('192.168.1.2'), '192.168/16 failed');
+		$this->assertTrue(GalleryUtilities::isTrustedProxy('10.1.2.3'), '10/8 failed');
+		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.16.254.253'), '172.16/12 failed 1');
+		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.31.254.253'), '172.16/12 failed 2');
+		$this->assertTrue(!GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
+		$this->assertTrue(GalleryUtilities::isTrustedProxy('192.168.1.2'), '192.168/16 failed');
 	}
 
 	public function testIsPathInList() {
 		global $gallery;
 
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'/foo',
 			array('/foo', '/bar')
 		), 'test 1');
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'/foo/',
 			array('/bar', '/foo')
 		), 'test 2');
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'/foo',
 			array('/foo/', '/bar/')
 		), 'test 3');
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'/foo/bar',
 			array('/foo', '/bar')
 		), 'test 4');
-		$this->assert(!GalleryUtilities::isPathInList(
+		$this->assertTrue(!GalleryUtilities::isPathInList(
 			'/foobar',
 			array('/foo', '/bar')
 		), 'test 5');
-		$this->assert(!GalleryUtilities::isPathInList(
+		$this->assertTrue(!GalleryUtilities::isPathInList(
 			'/fo',
 			array('/foo', '/bar')
 		), 'test 6');
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'/link/foo',
 			array('/foo', '/bar')
 		), 'symlink in');
-		$this->assert(!GalleryUtilities::isPathInList(
+		$this->assertTrue(!GalleryUtilities::isPathInList(
 			'/foo/link',
 			array('/foo', '/bar')
 		), 'symlink out');
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'/foo/bar',
 			array('/link', '/bar')
 		), 'symlink path');
 
 		$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
 		$gallery->setPlatform($UtilitiesTestWinPlatform);
-		$this->assert(GalleryUtilities::isPathInList(
+		$this->assertTrue(GalleryUtilities::isPathInList(
 			'c:\foo\bar',
 			array('d:\\', 'C:\Foo')
 		), 'test 7');
@@ -997,20 +997,20 @@ class UtilitiesTest extends GalleryTestCase {
 		$albums[6]->setParentId(4);
 
 		$tree = GalleryUtilities::createAlbumTree($albums);
-		$this->assert($tree[0]['depth'] == 0);
-		$this->assert($tree[0]['data']['id'] == 0);
-		$this->assert($tree[1]['depth'] == 0);
-		$this->assert($tree[1]['data']['id'] == 1);
-		$this->assert($tree[2]['depth'] == 1);
-		$this->assert($tree[2]['data']['id'] == 3);
-		$this->assert($tree[3]['depth'] == 1);
-		$this->assert($tree[3]['data']['id'] == 4);
-		$this->assert($tree[4]['depth'] == 2);
-		$this->assert($tree[4]['data']['id'] == 6);
-		$this->assert($tree[5]['depth'] == 1);
-		$this->assert($tree[5]['data']['id'] == 5);
-		$this->assert($tree[6]['depth'] == 0);
-		$this->assert($tree[6]['data']['id'] == 2);
+		$this->assertTrue($tree[0]['depth'] == 0);
+		$this->assertTrue($tree[0]['data']['id'] == 0);
+		$this->assertTrue($tree[1]['depth'] == 0);
+		$this->assertTrue($tree[1]['data']['id'] == 1);
+		$this->assertTrue($tree[2]['depth'] == 1);
+		$this->assertTrue($tree[2]['data']['id'] == 3);
+		$this->assertTrue($tree[3]['depth'] == 1);
+		$this->assertTrue($tree[3]['data']['id'] == 4);
+		$this->assertTrue($tree[4]['depth'] == 2);
+		$this->assertTrue($tree[4]['data']['id'] == 6);
+		$this->assertTrue($tree[5]['depth'] == 1);
+		$this->assertTrue($tree[5]['data']['id'] == 5);
+		$this->assertTrue($tree[6]['depth'] == 0);
+		$this->assertTrue($tree[6]['data']['id'] == 2);
 	}
 
 	public function testGetFile() {
@@ -1070,42 +1070,42 @@ class UtilitiesTest extends GalleryTestCase {
 		// Test the format of current datetime
 		$date      = GalleryUtilities::getHttpDate();
 		$isCorrect = preg_match($regexp, $date);
-		$this->assert($isCorrect, 'date-string ' . $date . ' is not RFC 2616 conformant');
+		$this->assertTrue($isCorrect, 'date-string ' . $date . ' is not RFC 2616 conformant');
 	}
 
 	public function testIsCompatibleWithApi() {
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 8)),
 			'same'
 		);
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 9)),
 			'minor bigger'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::isCompatibleWithApi(array(1, 8), array(0, 8)),
 			'major bigger'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 7)),
 			'minor smaller'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::isCompatibleWithApi(array(2, 0), array(1, 0)),
 			'major smaller'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::isCompatibleWithApi(array(2, 3), array(1, 2)),
 			'both smaller'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::isCompatibleWithApi(array(1, 2), array(2, 3)),
 			'both bigger'
 		);
-		$this->assert(!GalleryUtilities::isCompatibleWithApi(1, 2), 'input error 1');
-		$this->assert(!GalleryUtilities::isCompatibleWithApi(array(1), array(2)), 'input error 2');
-		$this->assert(!GalleryUtilities::isCompatibleWithApi(array(2), array(2)), 'input error 3');
-		$this->assert(
+		$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(1, 2), 'input error 1');
+		$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(array(1), array(2)), 'input error 2');
+		$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(array(2), array(2)), 'input error 3');
+		$this->assertTrue(
 			!GalleryUtilities::isCompatibleWithApi(array('1', '2'), array('1', 2)),
 			'input error 4'
 		);
@@ -1115,43 +1115,43 @@ class UtilitiesTest extends GalleryTestCase {
 		$iniVal = ini_get('define_syslog_variables');
 
 		$oldval = ini_set('define_syslog_variables', '');
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'Blank should be false'
 		);
 
 		$oldval = ini_set('define_syslog_variables', 'off');
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'Off should be false'
 		);
 
 		$oldval = ini_set('define_syslog_variables', '0');
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'0 should be false'
 		);
 
 		$oldval = ini_set('define_syslog_variables', false);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'false should be false'
 		);
 
 		$oldval = ini_set('define_syslog_variables', 'on');
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'On should be true'
 		);
 
 		$oldval = ini_set('define_syslog_variables', '1');
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'1 should be true'
 		);
 
 		$oldval = ini_set('define_syslog_variables', true);
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::getPhpIniBool('define_syslog_variables'),
 			'true should be true'
 		);
@@ -1334,21 +1334,21 @@ class UtilitiesTest extends GalleryTestCase {
 			$backupValue = GalleryDataCache::get($key);
 		}
 		GalleryDataCache::remove($key);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryDataCache::containsKey($key),
 			'Could not remove a GDC var'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!GalleryUtilities::isEmbedded(),
 			'Should be not embedded'
 		);
 
 		GalleryDataCache::put($key, 1, true);
-		$this->assert(
+		$this->assertTrue(
 			GalleryDataCache::containsKey($key),
 			'Could not set a GDC var'
 		);
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::isEmbedded(),
 			'Should be embedded now'
 		);
@@ -1358,7 +1358,7 @@ class UtilitiesTest extends GalleryTestCase {
 			GalleryDataCache::put($key, $backupValue, true);
 		} else {
 			GalleryDataCache::remove($key);
-			$this->assert(
+			$this->assertTrue(
 				!GalleryDataCache::containsKey($key),
 				'Could not remove a GDC var'
 			);
@@ -1473,8 +1473,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');
 		$_SERVER['HTTP_COOKIE'] = 'foo=bar';
 		GalleryUtilities::fixCookieVars();
-		$this->assertEquals(
-			false,
+		$this->assertFalse(
 			isset($_COOKIE['foo']),
 			'fixCookieVars should not run a second time!'
 		);
@@ -1544,7 +1543,7 @@ class UtilitiesTest extends GalleryTestCase {
 				GalleryUtilities::fixCookieVars(true);
 				// Check if the actual response matches the expected response
 				$kind = $urlEncoded ? 'urlencoded' : 'true';
-				$this->assertEquals(true, isset($_COOKIE[$key1]), $kind .
+				$this->assertTrue(isset($_COOKIE[$key1]), $kind .
 					' quoted-string cookie 1 not set for delimiter "' . $sep . '"');
 
 				if (isset($_COOKIE[$key1])) {
@@ -1554,7 +1553,7 @@ class UtilitiesTest extends GalleryTestCase {
 				}
 
 
-				$this->assertEquals(true, isset($_COOKIE[$key6]), $kind . 'quoted-string cookie ' .
+				$this->assertTrue(isset($_COOKIE[$key6]), $kind . 'quoted-string cookie ' .
 					'6 not set for delimiter "' . $sep . '"');
 
 				if (isset($_COOKIE[$key6])) {
@@ -1564,10 +1563,10 @@ class UtilitiesTest extends GalleryTestCase {
 				}
 
 				$kind = $urlEncoded ? 'urlencoded' : 'non-urlencoded';
-				$this->assertEquals(false, isset($_COOKIE[$key5]), $kind . ' illegal name cookie ' .
+				$this->assertFalse(isset($_COOKIE[$key5]), $kind . ' illegal name cookie ' .
 					'5  was set for delimiter "' . $sep . '"');
 
-				$this->assertEquals(true, isset($_COOKIE[$key4]), $kind . ' token cookie 4 not ' .
+				$this->assertTrue(isset($_COOKIE[$key4]), $kind . ' token cookie 4 not ' .
 					'set for delimiter "' . $sep . '"');
 
 				if (isset($_COOKIE[$key4])) {
@@ -1575,13 +1574,13 @@ class UtilitiesTest extends GalleryTestCase {
 					'incorrect for delimiter "' . $sep . '"');
 				}
 
-				$this->assertEquals(false, isset($_COOKIE[$key3]), $kind . ' empty cookie value ' .
+				$this->assertFalse(isset($_COOKIE[$key3]), $kind . ' empty cookie value ' .
 					'was set for delimiter "' . $sep . '"');
-				$this->assertEquals(false, isset($_COOKIE[$key2]), $kind . ' $Version cookie was ' .
+				$this->assertFalse(isset($_COOKIE[$key2]), $kind . ' $Version cookie was ' .
 					'set for delimiter "' . $sep . '"');
 
 				// Check if the array-cookie is still there
-				$this->assertEquals(true, isset($_COOKIE['foobar']), $kind . 'array cookie not ' .
+				$this->assertTrue(isset($_COOKIE['foobar']), $kind . 'array cookie not ' .
 					'set for separator "' . $sep . '"');
 
 				if (isset($_COOKIE['foobar'])) {
@@ -1818,7 +1817,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 			foreach ($tests as $tC) {
 				$_COOKIE = array();
-				$this->assert(!count($_COOKIE), 'Could not reset superglobal $_COOKIE');
+				$this->assertTrue(!count($_COOKIE), 'Could not reset superglobal $_COOKIE');
 				// Execute the test
 				$fixedCookies = array();
 
@@ -1846,7 +1845,7 @@ class UtilitiesTest extends GalleryTestCase {
 							$eR['key'] . ' for test case: ' . $debugInfo
 						);
 					} else {
-						$this->assert(false, $addSlashesInfo . 'key ' . $eR['key'] .
+						$this->assertFalse($addSlashesInfo . 'key ' . $eR['key'] .
 						' missing for test case: ' . $debugInfo);
 					}
 				}
@@ -1856,7 +1855,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 	public function testGuaranteeDirExists() {
 		list($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
-		$this->assert($success, 'guaranteeDirExists');
+		$this->assertTrue($success, 'guaranteeDirExists');
 		$this->assertEquals(array('/test/one', '/test/one/two'), $created);
 	}
 
@@ -1872,12 +1871,12 @@ class UtilitiesTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.cache', '/testcache/');
 
 		list($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
-		$this->assert($success, 'guaranteeDirExists');
+		$this->assertTrue($success, 'guaranteeDirExists');
 		$this->assertEquals(array('/test/one', '/test/one/two'), $created);
 
-		$this->assert(isset($this->_mkdir['/test/one']) &&
+		$this->assertTrue(isset($this->_mkdir['/test/one']) &&
 			  $this->_mkdir['/test/one'] != '', 'mkdir with perms');
-		$this->assert(
+		$this->assertTrue(
 			isset($this->_mkdir['/testcache/module/core/0/0']) &&
 			  $this->_mkdir['/testcache/module/core/0/0'] == '',
 			'mkdir for cache, but without specific perms'
@@ -1896,7 +1895,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.cache', '/testcache/');
 
 		list($success, $created) = GalleryUtilities::guaranteeDirExists('/testcache/module/core/0/0');
-		$this->assert($success, 'guaranteeDirExists');
+		$this->assertTrue($success, 'guaranteeDirExists');
 		$this->assertEquals(array(), $created);
 
 		$this->assertEquals(
@@ -1923,7 +1922,7 @@ class UtilitiesTest extends GalleryTestCase {
 		// Assume we don't have r+w permission for the root directory '/'.
 		list($success, $created) = GalleryUtilities::guaranteeDirExists('/noread/permission');
 		// Basically we verify that the function finishes / that there is no infinite loop.
-		$this->assert(!$success, 'guaranteeDirExists');
+		$this->assertTrue(!$success, 'guaranteeDirExists');
 		$this->assertEquals(array(), $created);
 	}
 
@@ -1942,7 +1941,7 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		if (empty($newLocale)) {
-			return $this->assert(false, 'Unable to select German locale');
+			return $this->assertFalse('Unable to select German locale');
 		}
 
 		$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal german');
@@ -1966,7 +1965,7 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		if (empty($newLocale)) {
-			return $this->assert(false, 'Unable to select German locale');
+			return $this->assertFalse('Unable to select German locale');
 		}
 
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast german');
@@ -2261,7 +2260,7 @@ class UtilitiesTest extends GalleryTestCase {
 			'curator@my.museum',
 			'short@a.bc',
 		) as $valid) {
-			$this->assert(GalleryUtilities::isValidEmailString($valid), $valid);
+			$this->assertTrue(GalleryUtilities::isValidEmailString($valid), $valid);
 		}
 
 		foreach (array(
@@ -2274,7 +2273,7 @@ class UtilitiesTest extends GalleryTestCase {
 			'test@tld-is.tooLong',
 			'two@ats@fun.com',
 		) as $invalid) {
-			$this->assert(!GalleryUtilities::isValidEmailString($invalid), $invalid);
+			$this->assertTrue(!GalleryUtilities::isValidEmailString($invalid), $invalid);
 		}
 	}
 }

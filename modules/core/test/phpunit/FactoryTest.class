@@ -139,7 +139,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_object($instance));
+		$this->assertTrue(is_object($instance));
 	}
 
 	/**
@@ -153,7 +153,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(!isset($instance));
+		$this->assertTrue(!isset($instance));
 	}
 
 	/**
@@ -166,7 +166,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_object($instance));
+		$this->assertTrue(is_object($instance));
 	}
 
 	/**
@@ -180,7 +180,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(!isset($instance));
+		$this->assertTrue(!isset($instance));
 	}
 
 	/**
@@ -193,7 +193,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_object($instance));
+		$this->assertTrue(is_object($instance));
 	}
 
 	/**
@@ -206,7 +206,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_object($instance));
+		$this->assertTrue(is_object($instance));
 	}
 
 	/**
@@ -222,7 +222,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_object($instance));
+		$this->assertTrue(is_object($instance));
 	}
 
 	/**
@@ -235,7 +235,7 @@ class FactoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_object($instance));
+		$this->assertTrue(is_object($instance));
 	}
 
 	/**
@@ -402,7 +402,7 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		if (!empty($registry['implementations']['GalleryEventListener']['TestErrorHandler'])) {
-			$this->assert(
+			$this->assertTrue(
 				$handlerPath,
 				$registry['implementations']['GalleryEventListener']['TestErrorHandler'],
 				'TestErrorHandler implementation was set, but has an unexpected value'
@@ -412,7 +412,7 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		if (!empty($registry['ids']['GalleryEventListener']['TestErrorHandler'])) {
-			$this->assert(
+			$this->assertTrue(
 				'TestErrorHandler',
 				$registry['ids']['GalleryEventListener']['TestErrorHandler'],
 				'TestErrorHandler id was set, but has an unexpected value'
@@ -422,7 +422,7 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		if (!empty($registry['pluginIds']['GalleryEventListener']['TestErrorHandler'])) {
-			$this->assert(
+			$this->assertTrue(
 				'FactoryTestModule',
 				$registry['pluginIds']['GalleryEventListener']['TestErrorHandler'],
 				'TestErrorHandler plugin id was set, but has an unexpected value'
@@ -434,7 +434,7 @@ class FactoryTest extends GalleryTestCase {
 		$errorListeners = $registry['hints']['GalleryEventListener']['gallery::error'];
 
 		if (!empty($errorListeners['TestErrorHandler'])) {
-			$this->assert(
+			$this->assertTrue(
 				$handlerPath,
 				$errorListeners['TestErrorHandler'],
 				'TestErrorHandler gallery::error was set, but has unexpected value'
@@ -468,18 +468,18 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		$result = empty($registry['implementations']['GalleryEventListener']['TestErrorHandler']);
-		$this->assert($result, 'TestErrorHandler implementation is set');
+		$this->assertTrue($result, 'TestErrorHandler implementation is set');
 
 		$result = empty($registry['ids']['GalleryEventListener']['TestErrorHandler']);
-		$this->assert($result, 'TestErrorHandler id is set');
+		$this->assertTrue($result, 'TestErrorHandler id is set');
 
 		$result = empty($registry['pluginIds']['GalleryEventListener']['TestErrorHandler']);
-		$this->assert($result, 'TestErrorHandler implementation is still set');
+		$this->assertTrue($result, 'TestErrorHandler implementation is still set');
 
 		$result = empty(
 			$registry['hints']['GalleryEventListener']['gallery::error']['TestErrorHandler']
 		);
-		$this->assert($result, 'TestErrorHandler error listener is still set');
+		$this->assertTrue($result, 'TestErrorHandler error listener is still set');
 	}
 }
 

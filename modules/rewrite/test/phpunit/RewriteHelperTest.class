@@ -75,7 +75,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			true,
 			'rewritehelpermock' == $this->_parser->getParserId(),
 			'parserId'
@@ -143,7 +143,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(true, 'rewritehelpermock' == $parser->getParserId(), 'parserId');
+		$this->assertTrue(true, 'rewritehelpermock' == $parser->getParserId(), 'parserId');
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
 
@@ -157,14 +157,14 @@ class RewriteHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(true, 'rewritehelpermock' == $parser->getParserId(), 'static');
+		$this->assertTrue(true, 'rewritehelpermock' == $parser->getParserId(), 'static');
 
 		list($ret, $parser) = RewriteHelper::getRewriteParser(true);
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
 			return $ret;
 		}
-		$this->assert(ERROR_MISSING_VALUE & $ret->getErrorCode());
+		$this->assertTrue(ERROR_MISSING_VALUE & $ret->getErrorCode());
 	}
 
 	public function testParseActiveRules() {
@@ -589,11 +589,11 @@ class RewriteHelperTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assert(true, $test[1] == $code, 'code ' . $key);
-			$this->assert(true, $test[2] == $regexRules, 'regex rules ' . $key);
-			$this->assert(true, $test[3] == $shortUrls, 'short urls ' . $key);
-			$this->assert(true, $test[4] == $errno, 'errno ' . $key);
-			$this->assert(true, $test[5] == $test[0], 'active rules ' . $key);
+			$this->assertTrue(true, $test[1] == $code, 'code ' . $key);
+			$this->assertTrue(true, $test[2] == $regexRules, 'regex rules ' . $key);
+			$this->assertTrue(true, $test[3] == $shortUrls, 'short urls ' . $key);
+			$this->assertTrue(true, $test[4] == $errno, 'errno ' . $key);
+			$this->assertTrue(true, $test[5] == $test[0], 'active rules ' . $key);
 		}
 	}
 
@@ -613,11 +613,11 @@ class RewriteHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(true, REWRITE_STATUS_BAD_KEYWORD == $code, 'code');
-		$this->assert(true, null == $regexRules, 'regex rules');
-		$this->assert(true, null == $shortUrls, 'short urls');
+		$this->assertTrue(true, REWRITE_STATUS_BAD_KEYWORD == $code, 'code');
+		$this->assertTrue(true, null == $regexRules, 'regex rules');
+		$this->assertTrue(true, null == $shortUrls, 'short urls');
 		$this->assertEquals(array('rewritehelpermock', 0), $errno, 'errno');
-		$this->assert(true, $expectedActiveRules == $activeRules, 'active rules');
+		$this->assertTrue(true, $expectedActiveRules == $activeRules, 'active rules');
 	}
 
 	public function testParseBadParser() {
@@ -854,13 +854,13 @@ class RewriteHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(true, REWRITE_STATUS_OK == $code, 'code');
+		$this->assertTrue(true, REWRITE_STATUS_OK == $code, 'code');
 
 		foreach ($expectedRegexRules as $key => $expectedRegexRule) {
 			$this->assertEquals($expectedRegexRule, $regexRules[$key], 'regex rules');
 		}
-		$this->assert(true, $expectedShortUrls == $shortUrls, 'short urls');
-		$this->assert(true, null == $errno, 'errno');
+		$this->assertTrue(true, $expectedShortUrls == $shortUrls, 'short urls');
+		$this->assertTrue(true, null == $errno, 'errno');
 		$this->assertEquals($expectedActiveRules, $activeRules, 'active rules');
 	}
 

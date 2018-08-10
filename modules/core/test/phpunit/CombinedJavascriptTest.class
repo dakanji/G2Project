@@ -49,9 +49,9 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		$this->assert($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
-		$this->assert($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
-		$this->assert($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
+		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
+		$this->assertTrue($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
+		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
 		return parent::tearDown();
 	}

@@ -88,7 +88,7 @@ class GalleryViewTestCase extends GalleryTestCase {
 			return array();
 		} else {
 			// Check to make sure we got back everything we want
-			$this->assert(
+			$this->assertTrue(
 				isset($results['body']) || isset($results['redirect']),
 				'view results neither specify a body nor a redirect'
 			);

@@ -73,7 +73,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(array(200, 240, 3.1), $results, 'dimensions-and-duration mismatch');
 
 		list($ret, $results) = $this->_toolkit->getProperty('video/x-msvideo', 'BOGUS', 'BOGUS');
-		$this->assert($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
+		$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 	}
 
 	public function testGetOperationsAndProperties() {
@@ -198,7 +198,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-		$this->assertEquals(true, $supportsOffset, 'offset');
+		$this->assertTrue($supportsOffset, 'offset');
 
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
 	}
@@ -466,7 +466,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-		$this->assertEquals(false, $supportsOffset, 'offset');
+		$this->assertFalse($supportsOffset, 'offset');
 
 		sort($mimeTypes);
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
@@ -506,7 +506,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($results, 'image/jpeg');
-		$this->assert($this->_chmodWasCalled, 'chmod not called');
+		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 	}
 
 	public function testPerformOperationWithOffset() {
@@ -541,7 +541,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 		$this->assertEquals($results, 'image/jpeg', 'mime after convert');
 		$this->assertEquals(array(), $context, 'no offset');
-		$this->assert($this->_chmodWasCalled, 'chmod not called');
+		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 	}
 
 	public function testPerformSetAudioChannels() {
@@ -596,7 +596,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($results, 'video/x-flv');
-		$this->assert($this->_chmodWasCalled, 'chmod not called');
+		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 	}
 }
 

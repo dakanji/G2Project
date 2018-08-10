@@ -34,7 +34,7 @@
  *
  * In tearDown() call:
  *
- *  $this->assert($this->_phpVm->isComplete(), $this->_phpVm->getRemaining());
+ *  $this->assertTrue($this->_phpVm->isComplete(), $this->_phpVm->getRemaining());
  *
  * The check in tearDown() verifies that all expected calls were received.
  *

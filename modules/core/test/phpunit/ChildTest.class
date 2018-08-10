@@ -730,7 +730,7 @@ class ChildTest extends GalleryTestCase {
 		 * we just need to make sure that all *our* items are indeed in the list
 		 */
 		foreach ($itemIds as $itemId) {
-			$this->assert(in_array($itemId, $childIds), 'descendent ' . $itemId);
+			$this->assertTrue(in_array($itemId, $childIds), 'descendent ' . $itemId);
 		}
 	}
 

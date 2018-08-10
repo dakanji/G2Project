@@ -110,8 +110,8 @@ class DataItemTest extends GalleryTestCase {
 					'full path mismatch'
 				);
 
-				$this->assert($platform->file_exists($entityPath), "$entityPath does not exist");
-				$this->assert($platform->is_file($entityPath), "$entityPath is not a directory");
+				$this->assertTrue($platform->file_exists($entityPath), "$entityPath does not exist");
+				$this->assertTrue($platform->is_file($entityPath), "$entityPath is not a directory");
 			}
 		}
 
@@ -200,8 +200,8 @@ class DataItemTest extends GalleryTestCase {
 		$this->assertEquals($basePath . 'valid_path_001.txt', $newPath, 'full path mismatch');
 
 		$platform =& $gallery->getPlatform();
-		$this->assert($platform->file_exists($newPath), "$newPath does not exist");
-		$this->assert($platform->is_file($newPath), "$newPath is not a file");
+		$this->assertTrue($platform->file_exists($newPath), "$newPath does not exist");
+		$this->assertTrue($platform->is_file($newPath), "$newPath is not a file");
 
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
@@ -268,7 +268,7 @@ class DataItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(is_link($entityPath));
+		$this->assertTrue(is_link($entityPath));
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -317,7 +317,7 @@ class DataItemTest extends GalleryTestCase {
 				'itemId' => $item->getId(),
 			)
 		);
-		$this->assert($platform->file_exists($path), 'fast-download file should exist');
+		$this->assertTrue($platform->file_exists($path), 'fast-download file should exist');
 		// Rescan
 		$ret = $item->rescan();
 
@@ -326,6 +326,6 @@ class DataItemTest extends GalleryTestCase {
 		}
 		// Verify results
 		$this->assertEquals($platform->filesize(__FILE__), $item->getSize(), 'updated size');
-		$this->assert(!$platform->file_exists($path), 'fast-download file should be removed');
+		$this->assertTrue(!$platform->file_exists($path), 'fast-download file should be removed');
 	}
 }

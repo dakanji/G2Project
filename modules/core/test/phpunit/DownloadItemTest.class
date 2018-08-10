@@ -71,7 +71,7 @@ class DownloadItemTest extends GalleryTestCase {
 
 	public function testNoItemId() {
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expected error');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expected error');
 	}
 
 	public function testMaliciousFilename() {
@@ -81,7 +81,7 @@ class DownloadItemTest extends GalleryTestCase {
 		list($ret, $output) = $this->_download();
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error 1');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error 1');
 
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;
@@ -113,7 +113,7 @@ class DownloadItemTest extends GalleryTestCase {
 		list($ret, $output) = $this->_download();
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expected error 2');
+			$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expected error 2');
 
 			if (!($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
 				return $ret;
@@ -146,7 +146,7 @@ class DownloadItemTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
 
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
@@ -159,7 +159,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assert(!$ret, 'expected success');
+		$this->assertTrue(!$ret, 'expected success');
 	}
 
 	public function testPreferredPermission() {
@@ -194,7 +194,7 @@ class DownloadItemTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $derivative->getId());
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
 
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
@@ -207,7 +207,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assert(!$ret, 'expected success');
+		$this->assertTrue(!$ret, 'expected success');
 	}
 
 	public function testResizePermission() {
@@ -242,7 +242,7 @@ class DownloadItemTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $derivative->getId());
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
 
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
@@ -255,7 +255,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assert(!$ret, 'expected success');
+		$this->assertTrue(!$ret, 'expected success');
 	}
 
 	public function testThumbnailPermission() {
@@ -290,7 +290,7 @@ class DownloadItemTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $derivative->getId());
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
 
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
@@ -303,7 +303,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assert(!$ret, 'expected success');
+		$this->assertTrue(!$ret, 'expected success');
 	}
 
 	public function testPrintService() {
@@ -315,7 +315,7 @@ class DownloadItemTest extends GalleryTestCase {
 		// Still need core.view
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error 1');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error 1');
 
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
@@ -329,11 +329,11 @@ class DownloadItemTest extends GalleryTestCase {
 
 		$session->put('core.isPrintService', array(2, 5));
 		list($ret, $output) = $this->_download();
-		$this->assert($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error 2');
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error 2');
 
 		$session->put('core.isPrintService', array(2, $this->_item->getId(), 5));
 		list($ret, $output) = $this->_download();
-		$this->assert(!$ret, 'expected success');
+		$this->assertTrue(!$ret, 'expected success');
 	}
 
 	public function testDownloadBogusEntityFailsWithErrorMissingObject() {
@@ -343,7 +343,7 @@ class DownloadItemTest extends GalleryTestCase {
 		list($ret, $output) = $this->_download();
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
 
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;
@@ -385,7 +385,7 @@ class DownloadItemTest extends GalleryTestCase {
 			 * We don't know what permission to check for arbitrary entities. Avoid information
 			 * disclosure by treating such bogus requests as if the entity didn't exist.
 			 */
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
 
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;

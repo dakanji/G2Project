@@ -182,7 +182,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
 		$results = $this->_runCallback();
 
-		$this->assert(strstr($results, __DIR__), 'Missing result');
+		$this->assertTrue(strstr($results, __DIR__), 'Missing result');
 	}
 
 	public function testLookupDirectoriesWithPattern() {
@@ -190,8 +190,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__DIR__)) . '/c');
 		$results = $this->_runCallback();
 
-		$this->assert(strstr($results, 'classes'), 'Missing classes in: ' . $results);
-		$this->assert(!strstr($results, 'templates'), 'Should not have templates in: ' . $results);
+		$this->assertTrue(strstr($results, 'classes'), 'Missing classes in: ' . $results);
+		$this->assertTrue(!strstr($results, 'templates'), 'Should not have templates in: ' . $results);
 	}
 
 	public function testLookupDirectoriesWithEntity() {
@@ -212,7 +212,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$results = $this->_runCallback();
 
 		$this->assertEquals('/php&lt;unit/test', $results, 'results');
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testLookupDirectoriesWithUmlauts() {
@@ -240,7 +240,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$results = $this->_runCallback();
 
 		$this->assertEquals($prefix . '/t' . $umlautUtf8 . 'st', $results, 'results');
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testLookupDirectoriesAsNonSiteAdmin() {
@@ -273,7 +273,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', __DIR__);
 		$results = $this->_runCallback();
 
-		$this->assert(strstr($results, __FILE__), 'Missing result');
+		$this->assertTrue(strstr($results, __FILE__), 'Missing result');
 	}
 
 	public function testLookupFilesWithPattern() {
@@ -281,8 +281,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', __DIR__ . '/Si');
 		$results = $this->_runCallback();
 
-		$this->assert(strstr($results, __FILE__), 'Missing result in: ' . $results);
-		$this->assert(
+		$this->assertTrue(strstr($results, __FILE__), 'Missing result in: ' . $results);
+		$this->assertTrue(
 			!strstr($results, 'CoreModuleTest'),
 			'Should not have CoreModuleTest in: ' . $results
 		);
@@ -310,7 +310,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		// Dirs listed first, results entitized
 		$this->assertEquals("/php&amp;unit/dir\n/php&amp;unit/test", $results, 'results');
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testLookupFilesWithUmlauts() {
@@ -342,7 +342,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		// Dirs listed first, results in UTF-8
 		$this->assertEquals("$prefix/dir\n$prefix/t" . $umlautUtf8 . 'st', $results, 'results');
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testLookupFilesAsNonSiteAdmin() {

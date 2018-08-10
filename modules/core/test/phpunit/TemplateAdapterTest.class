@@ -492,8 +492,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 			$output
 		);
 
-		$this->assert($gallery->_phpVm->isComplete());
-		$this->assert($gallery->_platform->isComplete());
+		$this->assertTrue($gallery->_phpVm->isComplete());
+		$this->assertTrue($gallery->_platform->isComplete());
 	}
 
 	public function testCombineJavascriptFilesWithDynamic() {
@@ -528,8 +528,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 			$output
 		);
 
-		$this->assert($gallery->_phpVm->isComplete());
-		$this->assert($gallery->_platform->isComplete());
+		$this->assertTrue($gallery->_phpVm->isComplete());
+		$this->assertTrue($gallery->_platform->isComplete());
 	}
 
 	public function testCombineJavascriptFilesUseYuiUtilities() {
@@ -558,8 +558,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 			$output
 		);
 
-		$this->assert($gallery->_phpVm->isComplete());
-		$this->assert($gallery->_platform->isComplete());
+		$this->assertTrue($gallery->_phpVm->isComplete());
+		$this->assertTrue($gallery->_platform->isComplete());
 	}
 
 	public function _buildPlatformResponses($filename, $md5Key, $content) {
@@ -614,7 +614,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$actual   = $this->_templateAdapter->itemLink(array(
 			'link' => $link,
 		));
-		$this->assert(
+		$this->assertTrue(
 			true,
 			$expected . ' == ' . $actual,
 			'Item Link'
@@ -649,7 +649,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 			'class'     => null,
 			'target'    => '_blank',
 		));
-		$this->assert(
+		$this->assertTrue(
 			true,
 			$expected . ' == ' . $actual,
 			'Item Link with Script'
@@ -705,7 +705,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'class' => '',
 			)
 		);
-		$this->assert(
+		$this->assertTrue(
 			true,
 			$expected . ' == ' . $actual,
 			'Override Class and Add Attrib'

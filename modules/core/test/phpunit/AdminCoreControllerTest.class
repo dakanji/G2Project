@@ -602,14 +602,14 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'status keys'
 		);
 		$this->assertEquals(1, $results['status']['saved'], 'saved');
-		$this->assert(
+		$this->assertTrue(
 			strpos(
 				$results['status']['emailTestError'],
 				'Could not send mail to nobody@nowhere.com'
 			) !== false,
 			'emailTestError: ' . $results['status']['emailTestError']
 		);
-		$this->assert(
+		$this->assertTrue(
 			strpos($results['status']['emailTestDebug'], 'file_exists') !== false,
 			'emailTestDebug: ' . $results['status']['emailTestDebug']
 		);

@@ -81,7 +81,7 @@ class PhpDocAuditTest extends CodeAuditTestCase {
 						}
 					}
 					$mismatches = join(', ', array_keys($packages));
-					$this->assert(false, sprintf(
+					$this->assertFalse(sprintf(
 						'%s: %d @package mismatches (%s) (probably should be: %s)',
 						$plugin,
 						$matchCount,

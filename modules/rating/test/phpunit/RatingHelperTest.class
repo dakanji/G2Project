@@ -112,8 +112,8 @@ class RatingHelperTest extends GalleryTestCase {
 	public function testRateItem() {
 		global $gallery;
 		$session =& $gallery->getSession();
-		$this->assertEquals(true, $session->isPersistent(), 'is persistent');
-		$this->assert(!empty($session->_sessionId), 'session id');
+		$this->assertTrue($session->isPersistent(), 'is persistent');
+		$this->assertTrue(!empty($session->_sessionId), 'session id');
 
 		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
@@ -135,8 +135,8 @@ class RatingHelperTest extends GalleryTestCase {
 	public function testRateItemAsGoogleBot() {
 		global $gallery;
 		$session =& $gallery->getSession();
-		$this->assertEquals(true, $session->isPersistent(), 'is persistent');
-		$this->assert(!empty($session->_sessionId), 'session id');
+		$this->assertTrue($session->isPersistent(), 'is persistent');
+		$this->assertTrue(!empty($session->_sessionId), 'session id');
 		$testRating = mt_rand(1, 5);
 
 		$_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
@@ -166,7 +166,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 		// It should create a new persistent session
 		$this->_becomeGuestUser();
-		$this->assertEquals(false, $gallery->_session->isPersistent(), 'not persistent');
+		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		list($ret, $guestId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
@@ -182,7 +182,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(true, $gallery->_session->isPersistent(), 'is persistent');
+		$this->assertTrue($gallery->_session->isPersistent(), 'is persistent');
 		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $anonymousUserId);
 
 		if ($ret) {
@@ -198,10 +198,10 @@ class RatingHelperTest extends GalleryTestCase {
 		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem(-1, $testRating, $this->_users[0]->getId());
 		// This *should* fail.
-		$this->assert($ret, 'expected error');
+		$this->assertTrue($ret, 'expected error');
 
 		if ($ret) {
-			$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'Wrong error status');
+			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'Wrong error status');
 		}
 	}
 
@@ -251,11 +251,11 @@ class RatingHelperTest extends GalleryTestCase {
 		);
 
 		// Test substitution of commas as decimal separator
-		$this->assert(
+		$this->assertTrue(
 			!strpos($RatingData[$this->_item->getId()]['rating'], ','),
 			'Comma found in rating: ' . $RatingData[$this->_item->getId()]['rating']
 		);
-		$this->assert(
+		$this->assertTrue(
 			!strpos($RatingData[$this->_item->getId()]['averagePercent'], ','),
 			'Comma found in averagePercent: ' .
 			$RatingData[$this->_item->getId()]['averagePercent']
@@ -265,8 +265,8 @@ class RatingHelperTest extends GalleryTestCase {
 	public function testFetchRatingsForGuestWithoutPersistentSession() {
 		global $gallery;
 		$session =& $gallery->getSession();
-		$this->assertEquals(true, $session->isPersistent(), 'is persistent');
-		$this->assert(!empty($session->_sessionId), 'session id');
+		$this->assertTrue($session->isPersistent(), 'is persistent');
+		$this->assertTrue(!empty($session->_sessionId), 'session id');
 
 		list($ret, $guestId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
@@ -295,7 +295,7 @@ class RatingHelperTest extends GalleryTestCase {
 				}
 				// It should create a new persistent session
 				$this->_becomeGuestUser();
-				$this->assertEquals(false, $gallery->_session->isPersistent(), 'not persistent');
+				$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 			}
 
 			$testRating             = mt_rand(1, 5);
@@ -352,7 +352,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 		// It should create a new persistent session
 		$this->_becomeGuestUser();
-		$this->assertEquals(false, $gallery->_session->isPersistent(), 'not persistent');
+		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
@@ -367,8 +367,8 @@ class RatingHelperTest extends GalleryTestCase {
 			(double)$RatingData[$this->_item->getId()]['rating'],
 			'Average rating test failed.'
 		);
-		$this->assert(!isset($RatingData['userRating']), 'no user rating');
-		$this->assertEquals(false, $gallery->_session->isPersistent(), 'not persistent');
+		$this->assertTrue(!isset($RatingData['userRating']), 'no user rating');
+		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		// Fetch as another guest with a persistent session that hasn't rated yet
 		$session = new GallerySession();
@@ -378,7 +378,7 @@ class RatingHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 		$gallery->_session = $session;
-		$this->assertEquals(true, $gallery->_session->isPersistent(), 'persistent');
+		$this->assertTrue($gallery->_session->isPersistent(), 'persistent');
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$anonymousUserId
@@ -387,7 +387,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($RatingData['userRating']), 'no user rating');
+		$this->assertTrue(!isset($RatingData['userRating']), 'no user rating');
 	}
 
 	public function testFetchRatingsForUser() {
@@ -452,7 +452,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			isset($content[$itemId]) && !empty($content[$itemId]),
 			'Did not get item summary'
 		);
@@ -472,7 +472,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($content[$itemId]), 'Got an item summary');
+		$this->assertTrue(!isset($content[$itemId]), 'Got an item summary');
 	}
 
 	public function testSortOrder() {

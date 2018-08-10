@@ -315,7 +315,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		// Make sure the test suit actually unsets previous request vars
 		$form = GalleryUtilities::getFormVariables('form');
-		$this->assert(
+		$this->assertTrue(
 			!isset($form['currentPassword']),
 			'precondition failed, password was specified'
 		);

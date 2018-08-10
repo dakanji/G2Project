@@ -68,7 +68,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		if (!preg_match('/^# \$Id(: [^\$]*|)\$/', $line)) {
 			$line = preg_replace("/\n.*/", '', $buffer);
-			$this->assert(false, $path . ': first line should be "# $" ."Id$" but was: ' . $line);
+			$this->assertFalse($path . ': first line should be "# $" ."Id$" but was: ' . $line);
 			$this->_errorCount++;
 		}
 
@@ -77,13 +77,13 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 		$msgIdPos = strpos($buffer, 'msgid');
 
 		if ($fuzzyPos !== false && $msgIdPos !== false && $fuzzyPos < $msgIdPos) {
-			$this->assert(false, $path . ': first msgid is marked fuzzy!');
+			$this->assertFalse($path . ': first msgid is marked fuzzy!');
 			$this->_errorCount++;
 		}
 
 		// Make sure charset header specifies UTF-8
 		if (strpos($buffer, 'Content-Type: text/plain; charset=UTF-8') === false) {
-			$this->assert(false, $path . ': does not specify UTF-8 charset');
+			$this->assertFalse($path . ': does not specify UTF-8 charset');
 			$this->_errorCount++;
 		}
 
@@ -110,7 +110,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 			foreach ($tokens[0] as $token) {
 				if (strpos($match[2], $token) === false) {
-					$this->assert(false, $path . ': improper translation of ' . $token . ' token');
+					$this->assertFalse($path . ': improper translation of ' . $token . ' token');
 					$this->_errorCount++;
 				}
 			}
@@ -153,7 +153,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 					$domain          = basename(dirname($poDir));
 					$mismatches      = join(', ', array_merge(array_keys($wrongFormat), array_keys($hash)));
 					$probablyCorrect = empty($probablyCorrect) ? "Gallery: $domain" : $probablyCorrect;
-					$this->assert(false, sprintf(
+					$this->assertFalse(sprintf(
 						'%s: %d mismatches (%s) (probably should be: %s)',
 						$poDir,
 						count($wrongFormat),
@@ -171,7 +171,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 		}
 
 		if (isset($script)) {
-			$this->assert(false, sprintf(
+			$this->assertFalse(sprintf(
 				"Fix script:\n<pre>#!/bin/sh\n%s</pre>",
 				join("\n", $script)
 			));

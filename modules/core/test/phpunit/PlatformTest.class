@@ -66,14 +66,14 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testCopy() {
-		$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile));
-		$this->assert($this->_platform->unlink($this->_destFile));
+		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile));
+		$this->assertTrue($this->_platform->unlink($this->_destFile));
 	}
 
 	public function testSymlink() {
 		if ($this->_platform->isSymlinkSupported()) {
-			$this->assert($this->_platform->symlink($this->_sourceFile, $this->_destFile));
-			$this->assert($this->_platform->unlink($this->_destFile));
+			$this->assertTrue($this->_platform->symlink($this->_sourceFile, $this->_destFile));
+			$this->assertTrue($this->_platform->unlink($this->_destFile));
 		}
 	}
 
@@ -86,70 +86,70 @@ class PlatformTest extends GalleryTestCase {
 
 			foreach (array('platformTest', 'srcDir') as $subDir) {
 				$sourceDir .= "$subDir/";
-				$this->assert(
+				$this->assertTrue(
 					mkdir($sourceDir, 0777),
 					'Failed to create test directory: ' . $subDir
 				);
 			}
 
 			$symlink = $dataBase . 'platformTest/data';
-			$this->assert(symlink($sourceDir, $symlink), 'Failed to create test symlink');
+			$this->assertTrue(symlink($sourceDir, $symlink), 'Failed to create test symlink');
 			$tempName = $platform->tempnam($symlink . '/', 'test');
 
 			$this->assertEquals($symlink, dirname($tempName), 'Directories don\'t match');
-			$this->assert(unlink($tempName), 'Failed to delete temporary file');
-			$this->assert(unlink($symlink), 'Failed to delete symlink');
-			$this->assert(rmdir($sourceDir), 'Failed to delete test source directory');
-			$this->assert(rmdir(dirname($sourceDir)), 'Failed to delete test directory');
+			$this->assertTrue(unlink($tempName), 'Failed to delete temporary file');
+			$this->assertTrue(unlink($symlink), 'Failed to delete symlink');
+			$this->assertTrue(rmdir($sourceDir), 'Failed to delete test source directory');
+			$this->assertTrue(rmdir(dirname($sourceDir)), 'Failed to delete test directory');
 		}
 	}
 
 	public function testMoveUploadedFile() {
 		// XXX: How do we test this?  We don't have an uploaded file :-(
-		$this->assert(!$this->_platform->move_uploaded_file($this->_sourceFile, $this->_destFile));
+		$this->assertTrue(!$this->_platform->move_uploaded_file($this->_sourceFile, $this->_destFile));
 	}
 
 	public function testFileExists() {
-		$this->assert($this->_platform->file_exists($this->_sourceFile));
-		$this->assert(!$this->_platform->file_exists($this->_destFile));
+		$this->assertTrue($this->_platform->file_exists($this->_sourceFile));
+		$this->assertTrue(!$this->_platform->file_exists($this->_destFile));
 	}
 
 	public function testIsLink() {
-		$this->assert(!$this->_platform->is_link($this->_sourceFile));
+		$this->assertTrue(!$this->_platform->is_link($this->_sourceFile));
 	}
 
 	public function testIsDir() {
-		$this->assert($this->_platform->is_dir(__DIR__));
-		$this->assert(!$this->_platform->is_dir(__FILE__));
+		$this->assertTrue($this->_platform->is_dir(__DIR__));
+		$this->assertTrue(!$this->_platform->is_dir(__FILE__));
 	}
 
 	public function testIsFile() {
-		$this->assert($this->_platform->is_file(__FILE__));
-		$this->assert(!$this->_platform->is_file('bogus-file-name'));
+		$this->assertTrue($this->_platform->is_file(__FILE__));
+		$this->assertTrue(!$this->_platform->is_file('bogus-file-name'));
 	}
 
 	public function testIsWriteable() {
 		// On Win32, all files are writeable so the next assertion isn't that useful!
-		// $this->assert(!$this->_platform->is_writeable(__FILE__));
+		// $this->assertTrue(!$this->_platform->is_writeable(__FILE__));
 
-		$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile));
-		$this->assert($this->_platform->is_writeable($this->_destFile));
-		$this->assert($this->_platform->unlink($this->_destFile));
+		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile));
+		$this->assertTrue($this->_platform->is_writeable($this->_destFile));
+		$this->assertTrue($this->_platform->unlink($this->_destFile));
 	}
 
 	public function testIsReadable() {
-		$this->assert($this->_platform->is_readable($this->_sourceFile));
+		$this->assertTrue($this->_platform->is_readable($this->_sourceFile));
 	}
 
 	public function testIsUploadedFile() {
-		$this->assert(!$this->_platform->is_uploaded_file($this->_sourceFile));
+		$this->assertTrue(!$this->_platform->is_uploaded_file($this->_sourceFile));
 	}
 
 	public function testIsExecutable() {
 		if (GalleryUtilities::isA($this->_platform, 'WinNtPlatform')) {
-			$this->assert($this->_platform->is_executable($this->_sourceFile));
+			$this->assertTrue($this->_platform->is_executable($this->_sourceFile));
 		} else {
-			$this->assert(!$this->_platform->is_executable($this->_sourceFile));
+			$this->assertTrue(!$this->_platform->is_executable($this->_sourceFile));
 		}
 	}
 
@@ -169,13 +169,13 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testFopen() {
 		$fd = $this->_platform->fopen($this->_sourceFile, 'r');
-		$this->assert($fd);
+		$this->assertTrue($fd);
 		fclose($fd);
 	}
 
 	public function testOpendir() {
 		$dir = $this->_platform->opendir(__DIR__);
-		$this->assert($dir);
+		$this->assertTrue($dir);
 		$this->_platform->closedir($dir);
 	}
 
@@ -192,50 +192,50 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testRename() {
-		$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile));
-		$this->assert($this->_platform->rename(
+		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile));
+		$this->assertTrue($this->_platform->rename(
 			$this->_destFile,
 			$this->_destFile . '-new'
 		));
-		$this->assert($this->_platform->unlink($this->_destFile . '-new'));
+		$this->assertTrue($this->_platform->unlink($this->_destFile . '-new'));
 	}
 
 	public function testStat() {
-		$this->assert($this->_platform->stat($this->_sourceFile));
+		$this->assertTrue($this->_platform->stat($this->_sourceFile));
 	}
 
 	public function testUnlink() {
-		$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile));
-		$this->assert($this->_platform->unlink($this->_destFile));
+		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile));
+		$this->assertTrue($this->_platform->unlink($this->_destFile));
 	}
 
 	public function testRmdir() {
-		$this->assert($this->_platform->mkdir($this->_destFile));
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1'));
+		$this->assertTrue($this->_platform->mkdir($this->_destFile));
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1'));
 
 		// XXX: this generates a PHP error that I can't seem to turn off.
-		// $this->assert(!$this->_platform->rmdir($this->_destFile));
+		// $this->assertTrue(!$this->_platform->rmdir($this->_destFile));
 
-		$this->assert($this->_platform->rmdir($this->_destFile . '/1'));
-		$this->assert($this->_platform->rmdir($this->_destFile));
+		$this->assertTrue($this->_platform->rmdir($this->_destFile . '/1'));
+		$this->assertTrue($this->_platform->rmdir($this->_destFile));
 	}
 
 	public function testRecursiveRmdir() {
-		$this->assert($this->_platform->mkdir($this->_destFile));
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1'));
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1/2'));
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1/2/3'));
-		$this->assert($this->_platform->recursiveRmdir($this->_destFile), 'remove');
+		$this->assertTrue($this->_platform->mkdir($this->_destFile));
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1'));
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1/2'));
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1/2/3'));
+		$this->assertTrue($this->_platform->recursiveRmdir($this->_destFile), 'remove');
 	}
 
 	public function testMkdir() {
-		$this->assert($this->_platform->mkdir($this->_destFile), 'mkdir');
-		$this->assert($this->_platform->recursiveRmdir($this->_destFile));
+		$this->assertTrue($this->_platform->mkdir($this->_destFile), 'mkdir');
+		$this->assertTrue($this->_platform->recursiveRmdir($this->_destFile));
 	}
 
 	public function testIsLegalPathComponent() {
-		$this->assert($this->_platform->isLegalPathComponent('TheQuickBrownFox'));
-		$this->assert(!$this->_platform->isLegalPathComponent('The!QuickBrownFox'));
+		$this->assertTrue($this->_platform->isLegalPathComponent('TheQuickBrownFox'));
+		$this->assertTrue(!$this->_platform->isLegalPathComponent('The!QuickBrownFox'));
 	}
 
 	public function testLegalizePathComponent() {
@@ -267,8 +267,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testPathComponentLegalCharactersConserved() {
-		$this->assertEquals(
-			true,
+		$this->assertTrue(
 			$this->_platform->isLegalPathComponent('TheQuickBrownFox')
 		);
 		$this->assertEquals(
@@ -278,8 +277,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testPathComponentIllegalCharactersToUnderscores() {
-		$this->assertEquals(
-			false,
+		$this->assertFalse(
 			$this->_platform->isLegalPathComponent('The Quick!Brown#Fox')
 		);
 		$this->assertEquals(
@@ -289,8 +287,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testPathComponentDotInFileBaseToUnderscore() {
-		$this->assertEquals(
-			false,
+		$this->assertFalse(
 			$this->_platform->isLegalPathComponent('test.php.jpg')
 		);
 		$this->assertEquals(
@@ -311,8 +308,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testPathComponentDotUnrecognizedExtensionToUnderscore() {
-		$this->assertEquals(
-			false,
+		$this->assertFalse(
 			$this->_platform->isLegalPathComponent('test.foo')
 		);
 		$this->assertEquals(
@@ -322,8 +318,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testPathComponentDotPhpExtensionToUnderscore() {
-		$this->assertEquals(
-			false,
+		$this->assertFalse(
 			$this->_platform->isLegalPathComponent('test.php')
 		);
 		$this->assertEquals(
@@ -333,8 +328,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testPathComponentDotUnderscoreToUnderscoreUnderscore() {
-		$this->assertEquals(
-			false,
+		$this->assertFalse(
 			$this->_platform->isLegalPathComponent('._test')
 		);
 		$this->assertEquals(
@@ -356,14 +350,14 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testIsLegalPathComponentForAllowedExtension() {
-		$this->assert($this->_platform->isLegalPathComponent('test.xxx'));
-		$this->assert($this->_platform->isLegalPathComponent('test.XxX'), 'mixed case');
+		$this->assertTrue($this->_platform->isLegalPathComponent('test.xxx'));
+		$this->assertTrue($this->_platform->isLegalPathComponent('test.XxX'), 'mixed case');
 	}
 
 	public function testIsLegalPathComponentForBlacklistedExtension() {
 		$this->_platform->_blacklistedFileExtensions[] = 'xxx';
-		$this->assert(!$this->_platform->isLegalPathComponent('test.xxx'));
-		$this->assert(!$this->_platform->isLegalPathComponent('test.XXX'), 'upper case');
+		$this->assertTrue(!$this->_platform->isLegalPathComponent('test.xxx'));
+		$this->assertTrue(!$this->_platform->isLegalPathComponent('test.XXX'), 'upper case');
 	}
 
 	/**
@@ -374,7 +368,7 @@ class PlatformTest extends GalleryTestCase {
 	 */
 	public function testExec() {
 		$results = $this->_platform->exec(array(array('/bogus/path')));
-		$this->assertEquals(false, $results[0]);
+		$this->assertFalse($results[0]);
 	}
 
 	/**
@@ -391,8 +385,8 @@ class PlatformTest extends GalleryTestCase {
 			} else {
 				$gallery->setConfig('data.gallery.tmp', $tmpDir);
 				list($success, $output, $stderr) = $this->_platform->exec(array(array('ls', '/bogus/path')));
-				$this->assertEquals(false, $success, 'expected exec to return error');
-				$this->assert(!empty($stderr), 'expected some stderr output to be returned');
+				$this->assertFalse($success, 'expected exec to return error');
+				$this->assertTrue(!empty($stderr), 'expected some stderr output to be returned');
 				$this->_platform->rmdir($tmpDir);
 			}
 		}
@@ -423,7 +417,7 @@ class PlatformTest extends GalleryTestCase {
 			$this->_platform->resetPlatform();
 			$this->_permissionTest(0664, 2, array('copy', 'symlink', 'atomicWrite'));
 
-			$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
+			$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '612');
 
 			if ($ret) {
@@ -432,7 +426,7 @@ class PlatformTest extends GalleryTestCase {
 			$this->_platform->resetPlatform();
 			$this->_permissionTest(0612, 3, array('chmod'));
 
-			$this->assert($this->_platform->mkdir($this->_destFile), 'mkdir');
+			$this->assertTrue($this->_platform->mkdir($this->_destFile), 'mkdir');
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'core',
@@ -466,13 +460,13 @@ class PlatformTest extends GalleryTestCase {
 						array(array('echo', 'test', '>', $this->_destFile))
 					);
 					$debug   = $gallery->stopRecordingDebugSnippet();
-					$this->assert($results[0], "exec $testNumber $debug");
+					$this->assertTrue($results[0], "exec $testNumber $debug");
 					$stat = $this->_platform->stat($this->_destFile);
 
 					break;
 
 				case 'copy':
-					$this->assert(
+					$this->assertTrue(
 						$this->_platform->copy($this->_sourceFile, $this->_destFile),
 						"copy $testNumber"
 					);
@@ -482,11 +476,11 @@ class PlatformTest extends GalleryTestCase {
 
 				case 'symlink':
 					if (!$this->_platform->isSymlinkSupported()) {
-						$this->assert(false, 'symlink not supported');
+						$this->assertFalse('symlink not supported');
 
 						continue 2;
 					}
-					$this->assert(
+					$this->assertTrue(
 						$this->_platform->symlink($this->_sourceFile, $this->_destFile),
 						"symlink $testNumber"
 					);
@@ -495,7 +489,7 @@ class PlatformTest extends GalleryTestCase {
 					break;
 
 				case 'atomicWrite':
-					$this->assert(
+					$this->assertTrue(
 						$this->_platform->atomicWrite($this->_destFile, 'test'),
 						"atomicWrite $testNumber"
 					);
@@ -504,16 +498,16 @@ class PlatformTest extends GalleryTestCase {
 					break;
 
 				case 'chmod':
-					$this->assert($this->_platform->chmod($this->_destFile), "chmod $testNumber");
+					$this->assertTrue($this->_platform->chmod($this->_destFile), "chmod $testNumber");
 					$this->_platform->clearstatcache(); // is_dir call in chmod() cached old perm
 					$stat = $this->_platform->stat($this->_destFile);
 			}
 
-			$this->assert(!empty($stat), "$test stat $testNumber $debug");
+			$this->assertTrue(!empty($stat), "$test stat $testNumber $debug");
 
 			if ($test == 'symlink') {
 				// On some systems symlinks always have 777 permissions
-				$this->assert(
+				$this->assertTrue(
 					($stat[2] & 0777) == $expectedPermissions ||
 					($stat[2] & 0777) == 0777,
 					"$test permissions $testNumber (" . decoct($expectedPermissions) .
@@ -528,9 +522,9 @@ class PlatformTest extends GalleryTestCase {
 			}
 
 			if ($testNumber == 4) {
-				$this->assert($this->_platform->rmdir($this->_destFile), "$test rmdir $testNumber");
+				$this->assertTrue($this->_platform->rmdir($this->_destFile), "$test rmdir $testNumber");
 			} else {
-				$this->assert(
+				$this->assertTrue(
 					$this->_platform->unlink($this->_destFile),
 					"$test unlink $testNumber"
 				);
@@ -540,15 +534,15 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function _setupChmodTest() {
-		$this->assert($this->_platform->mkdir($this->_destFile), 'mkdir');
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1'), 'mkdir/1');
-		$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile . '/1/2'), 'cp');
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1/3'), 'mkdir/1/3');
-		$this->assert(
+		$this->assertTrue($this->_platform->mkdir($this->_destFile), 'mkdir');
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1'), 'mkdir/1');
+		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile . '/1/2'), 'cp');
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1/3'), 'mkdir/1/3');
+		$this->assertTrue(
 			$this->_platform->copy($this->_sourceFile, $this->_destFile . '/1/3/4'),
 			'cp2'
 		);
-		$this->assert($this->_platform->mkdir($this->_destFile . '/1/5'), 'mkdir/1/5');
+		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1/5'), 'mkdir/1/5');
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
@@ -578,7 +572,7 @@ class PlatformTest extends GalleryTestCase {
 		}
 
 		$this->_platform->resetPlatform();
-		$this->assert($this->_platform->recursiveChmod($this->_destFile), 'set perms');
+		$this->assertTrue($this->_platform->recursiveChmod($this->_destFile), 'set perms');
 		$this->_platform->clearstatcache();
 		$expected  = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '734';
 		$expected2 = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '652';
@@ -597,7 +591,7 @@ class PlatformTest extends GalleryTestCase {
 		$stat = $this->_platform->stat($this->_destFile . '/1/5');
 		$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm5');
 
-		$this->assert($this->_platform->recursiveRmdir($this->_destFile), 'remove');
+		$this->assertTrue($this->_platform->recursiveRmdir($this->_destFile), 'remove');
 		$this->_platform->resetPlatform();
 	}
 
@@ -613,7 +607,7 @@ class PlatformTest extends GalleryTestCase {
 		$fileStat = decoct($fileStat[2]);
 		$this->_platform->resetPlatform();
 
-		$this->assert($this->_platform->recursiveChmod($this->_destFile, 0711, -1), 'set perms');
+		$this->assertTrue($this->_platform->recursiveChmod($this->_destFile, 0711, -1), 'set perms');
 		$this->_platform->clearstatcache();
 		$expected = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '711';
 
@@ -630,7 +624,7 @@ class PlatformTest extends GalleryTestCase {
 		$stat = $this->_platform->stat($this->_destFile . '/1/5');
 		$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm5');
 
-		$this->assert($this->_platform->recursiveRmdir($this->_destFile), 'remove');
+		$this->assertTrue($this->_platform->recursiveRmdir($this->_destFile), 'remove');
 		$this->_platform->resetPlatform();
 	}
 
@@ -646,7 +640,7 @@ class PlatformTest extends GalleryTestCase {
 		$dirStat = decoct($dirStat[2]);
 		$this->_platform->resetPlatform();
 
-		$this->assert($this->_platform->recursiveChmod($this->_destFile, -1, 0640), 'set perms');
+		$this->assertTrue($this->_platform->recursiveChmod($this->_destFile, -1, 0640), 'set perms');
 		$this->_platform->clearstatcache();
 		$expected  = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '640';
 		$expected2 = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '666' : '640';
@@ -664,7 +658,7 @@ class PlatformTest extends GalleryTestCase {
 		$stat = $this->_platform->stat($this->_destFile . '/1/5');
 		$this->assertEquals($dirStat, decoct($stat[2]), 'dir5 should be unchanged');
 
-		$this->assert($this->_platform->recursiveRmdir($this->_destFile), 'remove');
+		$this->assertTrue($this->_platform->recursiveRmdir($this->_destFile), 'remove');
 		$this->_platform->resetPlatform();
 	}
 
@@ -692,22 +686,22 @@ class PlatformTest extends GalleryTestCase {
 		global $gallery;
 		$isWin = GalleryUtilities::isA($this->_platform, 'WinNtPlatform');
 
-		$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'this file');
+		$this->assertTrue(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'this file');
 
 		$gallery->_phpVm = new PlatformTestPhpVm(__DIR__, $this);
-		$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'simple case');
+		$this->assertTrue(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'simple case');
 
 		// Bad paths are still checked even though no realpath
-		$this->assert(
+		$this->assertTrue(
 			!$this->_platform->isRestrictedByOpenBaseDir(__DIR__ . '/bogus/path'),
 			'bogus path "inside" valid dir'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_platform->isRestrictedByOpenBaseDir(__DIR__ . '/../bogus/path'),
 			'bogus path using .. to get outside valid dir'
 		);
 		$gallery->_phpVm = new PlatformTestPhpVm('', $this);
-		$this->assert(
+		$this->assertTrue(
 			!$this->_platform->isRestrictedByOpenBaseDir('/bogus/path'),
 			'bogus path with no restriction'
 		);
@@ -728,11 +722,11 @@ class PlatformTest extends GalleryTestCase {
 		));
 
 		$gallery->_phpVm = new PlatformTestPhpVm($isWin ? 'C:\\Test;D:\\Fun\\' : '/test:/fun/', $this);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir($isWin ? 'C:\\Test\\file' : '/test/file'),
 			'first path'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir($isWin ? 'D:\\Fun\\file' : '/fun/file'),
 			'second path'
 		);
@@ -754,33 +748,33 @@ class PlatformTest extends GalleryTestCase {
 			));
 
 			$gallery->_phpVm = new PlatformTestPhpVm('/test/real', $this);
-			$this->assert(
+			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/test/link/file'),
 				'path with symlink, open_basedir has realpath'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/test/real/linktoetc/passwd'),
 				'symlink to outside, open_basedir has realpath'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/test/link/bogus/path'),
 				'invalid path with symlink, open_basedir has realpath'
 			);
 
 			$gallery->_phpVm = new PlatformTestPhpVm('/test/link', $this);
-			$this->assert(
+			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/test/real/file'),
 				'realpath given, open_basedir has symlink'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/test/link/linktoetc/passwd'),
 				'symlink to outside, open_basedir has symlink'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/test/link/bogus/path'),
 				'invalid path with symlink, open_basedir has symlink'
 			);
-			$this->assert(
+			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/test/real/bogus/path'),
 				'invalid path, open_basedir has symlink'
 			);
@@ -797,18 +791,18 @@ class PlatformTest extends GalleryTestCase {
 		));
 
 		$gallery->_phpVm = new PlatformTestPhpVm('/tes', $this);
-		$this->assert(!$platform->isRestrictedByOpenBaseDir('/testfile'), 'file with prefix');
-		$this->assert(!$platform->isRestrictedByOpenBaseDir('/test/file'), 'dir with prefix');
-		$this->assert(
+		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/testfile'), 'file with prefix');
+		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/test/file'), 'dir with prefix');
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir('/tes/bad/path'),
 			'given path can be invalid and match a prefix'
 		);
 		// though it would be restricted if /tes was a real dir? odd..
-		$this->assert($platform->isRestrictedByOpenBaseDir('/toast/file'), 'not match prefix');
+		$this->assertTrue($platform->isRestrictedByOpenBaseDir('/toast/file'), 'not match prefix');
 
 		if (!$isWin) {
 			// Symlink expansion with prefix (realpath of given path must match prefix)
-			$this->assert(
+			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/link/file'),
 				'link, realpath has prefix'
 			);
@@ -825,21 +819,21 @@ class PlatformTest extends GalleryTestCase {
 				'/test/fun'  => '/test/fun',
 			));
 			$gallery->_phpVm = new PlatformTestPhpVm('/lin', $this);
-			$this->assert(!$platform->isRestrictedByOpenBaseDir('/linnen'), 'nonlink with prefix');
-			$this->assert($platform->isRestrictedByOpenBaseDir('/linkfile'), 'link with prefix');
-			$this->assert($platform->isRestrictedByOpenBaseDir('/link/file'), 'dir with prefix');
-			$this->assert($platform->isRestrictedByOpenBaseDir('/lonk/file'), 'not match prefix');
+			$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/linnen'), 'nonlink with prefix');
+			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/linkfile'), 'link with prefix');
+			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/link/file'), 'dir with prefix');
+			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/lonk/file'), 'not match prefix');
 
 			$gallery->_phpVm = new PlatformTestPhpVm('/link/fu', $this);
-			$this->assert(
+			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/test/fun'),
 				'realpath given, open_basedir has prefix with link parent'
 			);
-			$this->assert(
+			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/link/fun'),
 				'valid link path given, open_basedir has prefix with link parent'
 			);
-			$this->assert(
+			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/link/fubar'),
 				'invalid link path given, open_basedir has prefix with link parent'
 			);
@@ -847,7 +841,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// Open_basedir with .
 		$gallery->_phpVm = new PlatformTestPhpVm('.', $this);
-		$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(
+		$this->assertTrue(!$this->_platform->isRestrictedByOpenBaseDir(
 			__DIR__ . '/../../../../lib/tools/phpunit/index.php'
 		), 'dot basedir');
 
@@ -858,8 +852,8 @@ class PlatformTest extends GalleryTestCase {
 			"${s}testing"  => "${s}testing",
 		));
 		$gallery->_phpVm = new PlatformTestPhpVm("${s}test${s}", $this);
-		$this->assert(!$platform->isRestrictedByOpenBaseDir("${s}test"), 'no trailing slash');
-		$this->assert(
+		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir("${s}test"), 'no trailing slash');
+		$this->assertTrue(
 			$platform->isRestrictedByOpenBaseDir("${s}testing"),
 			'should not match basedir with trailing slash'
 		);
@@ -869,40 +863,40 @@ class PlatformTest extends GalleryTestCase {
 			"${s}test" => "${s}test",
 		));
 		$gallery->_phpVm = new PlatformTestPhpVm("${s}test", $this);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir("${s}test${s}bogus"),
 			'valid bogus path'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir("${s}test${s}bogus${s}..${s}path"),
 			'single dotdot'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$platform->isRestrictedByOpenBaseDir("${s}test${s}bogus${s}..${s}..${s}path"),
 			'multiple dotdots'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$platform->isRestrictedByOpenBaseDir("${s}test${s}.."),
 			'dotdot at end'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir("${s}.${s}test${s}bogus"),
 			'dot in valid bogus path'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir("${s}.${s}test${s}.${s}bogus"),
 			'two dots in valid bogus path'
 		);
 		$platform->setCwd("${s}test");
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir('bogus'),
 			'valid relative path'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$platform->isRestrictedByOpenBaseDir("..${s}bogus"),
 			'invalid relative path'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir("bogus${s}path${s}..${s}..${s}test"),
 			'valid relative path with two dotdots'
 		);
@@ -917,8 +911,8 @@ class PlatformTest extends GalleryTestCase {
 			'/test/file' => '/test/file',
 			'/'          => '/',
 		));
-		$this->assert(!$platform->isRestrictedByOpenBaseDir('/'), '/ should be allowed');
-		$this->assert(
+		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/'), '/ should be allowed');
+		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir('/test/file'),
 			'/test/file should be allowed'
 		);
@@ -935,7 +929,7 @@ class PlatformTest extends GalleryTestCase {
 			$errstr,
 			30
 		);
-		$this->assert($fd, 'File descriptor should not be null/false');
+		$this->assertTrue($fd, 'File descriptor should not be null/false');
 		@$this->_platform->fclose($fd);
 	}
 
@@ -957,7 +951,7 @@ class PlatformTest extends GalleryTestCase {
 			$errstr,
 			30
 		);
-		$this->assertEquals(false, $fd);
+		$this->assertFalse($fd);
 	}
 
 	/**
@@ -965,19 +959,19 @@ class PlatformTest extends GalleryTestCase {
 	 */
 	public function testOpenWriteAndClose() {
 		$fd = $this->_platform->fopen($this->_destFile, 'wb');
-		$this->assert($fd, 'File descriptor should not be null');
+		$this->assertTrue($fd, 'File descriptor should not be null');
 
 		$buf          = 'this is a test';
 		$bytesWritten = $this->_platform->fwrite($fd, $buf, strlen($buf));
 		$this->assertEquals(strlen($buf), $bytesWritten);
 
-		$this->assert($this->_platform->fclose($fd), 'fclose');
-		$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
+		$this->assertTrue($this->_platform->fclose($fd), 'fclose');
+		$this->assertTrue($this->_platform->unlink($this->_destFile), 'unlink');
 	}
 
 	public function testOpenAndReadTillEof() {
 		$fd = $this->_platform->fopen($this->_sourceFile, 'rb');
-		$this->assert($fd, 'File descriptor should not be null');
+		$this->assertTrue($fd, 'File descriptor should not be null');
 
 		$buf = '';
 
@@ -985,8 +979,8 @@ class PlatformTest extends GalleryTestCase {
 			$buf .= $this->_platform->fread($fd, 512);
 		}
 
-		$this->assert(1083, strlen($buf));
-		$this->assert($this->_platform->fclose($fd));
+		$this->assertTrue(1083, strlen($buf));
+		$this->assertTrue($this->_platform->fclose($fd));
 	}
 
 	public function testOpenMissingFile() {
@@ -995,7 +989,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// And suppress warnings when we call fopen
 		$fd = @$this->_platform->fopen(sprintf('%s_BOGUS_BOGUS', __FILE__), 'rb');
-		$this->assertEquals(false, $fd);
+		$this->assertFalse($fd);
 	}
 
 	public function testAtomicWrite() {
@@ -1005,7 +999,7 @@ class PlatformTest extends GalleryTestCase {
 		 * test-framework (yet)
 		 */
 		$testData1 = "this is a test\nmultiline\ntest";
-		$this->assert(
+		$this->assertTrue(
 			$this->_platform->atomicWrite($this->_destFile, $testData1, 'wb'),
 			'write 1 failed'
 		);
@@ -1014,13 +1008,13 @@ class PlatformTest extends GalleryTestCase {
 
 		// Now write another text to the same file and see if it's ok
 		$testData2 = "this is a test\nmultiline\ntest\nmore\ntext";
-		$this->assert(
+		$this->assertTrue(
 			$this->_platform->atomicWrite($this->_destFile, $testData2, 'wb'),
 			'write 2 failed'
 		);
 		$output = implode('', $this->_platform->file($this->_destFile));
 		$this->assertEquals($testData2, $output);
-		$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
+		$this->assertTrue($this->_platform->unlink($this->_destFile), 'unlink');
 	}
 
 	public function testSplitPath() {
@@ -1059,10 +1053,10 @@ class PlatformTest extends GalleryTestCase {
 		global $gallery;
 		$tmpdir = $gallery->getConfig('data.gallery.tmp');
 		$oldCwd = $this->_platform->getcwd();
-		$this->assert($oldCwd);
+		$this->assertTrue($oldCwd);
 
 		// Change working directory to g2data/tmp
-		$this->assert($this->_platform->chdir($tmpdir));
+		$this->assertTrue($this->_platform->chdir($tmpdir));
 		$newCwd = $this->_platform->getcwd();
 		$this->assertEquals(realpath($tmpdir), $newCwd);
 
@@ -1086,14 +1080,14 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testFileGetAndPutContents() {
 		$fileContents = $this->_platform->file_get_contents($this->_sourceFile);
-		$this->assert(is_string($fileContents), 'contents not a string');
-		$this->assert(false !== strpos($fileContents, 'GIF89'), 'invalid contents');
-		$this->assert(1083, strlen($fileContents));
+		$this->assertTrue(is_string($fileContents), 'contents not a string');
+		$this->assertTrue(false !== strpos($fileContents, 'GIF89'), 'invalid contents');
+		$this->assertTrue(1083, strlen($fileContents));
 
 		$success = $this->_platform->file_put_contents($this->_destFile, $fileContents);
-		$this->assert($success, 'file_put_contents error');
+		$this->assertTrue($success, 'file_put_contents error');
 		$this->assertEquals(1083, $this->_platform->filesize($this->_destFile));
-		$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
+		$this->assertTrue($this->_platform->unlink($this->_destFile), 'unlink');
 	}
 
 	public function testMailUsesUnixLineEndings() {
@@ -1118,7 +1112,7 @@ class PlatformTest extends GalleryTestCase {
 			"body line1\nline2\r\nline3\r\n",
 			"header line1\nline2\r\nline3\r\n"
 		);
-		$this->assert($result);
+		$this->assertTrue($result);
 		$this->assertEquals("body line1\nline2\nline3\n", $this->_mail['body']);
 		$this->assertEquals("header line1\nline2\nline3\n", $this->_mail['headers']);
 	}

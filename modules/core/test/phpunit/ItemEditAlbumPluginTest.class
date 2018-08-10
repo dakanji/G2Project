@@ -594,13 +594,13 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			$childId = $child[$i]->getId();
 
 			if (!isset($resizes[$childId])) {
-				$this->assert(false, "Missing resizes for child $i");
+				$this->assertFalse("Missing resizes for child $i");
 
 				continue;
 			}
 
 			if (count($resizes[$childId]) < 3) {
-				$this->assert(false, 'Only ' . count($resizes[$childId]) . " resizes for child $i");
+				$this->assertFalse('Only ' . count($resizes[$childId]) . " resizes for child $i");
 
 				continue;
 			}
@@ -623,7 +623,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		if (empty($resizes[$child[2]->getId()])) {
-			$this->assert(false, 'Missing resizes for child 2');
+			$this->assertFalse('Missing resizes for child 2');
 		} else {
 			$this->assertEquals(
 				'scale|987',
@@ -765,7 +765,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		$this->assert(isset($resizes[$photo->getId()]), 'Missing resizes for new photo');
+		$this->assertTrue(isset($resizes[$photo->getId()]), 'Missing resizes for new photo');
 
 		if (isset($resizes[$photo->getId()])) {
 			$resizes = $resizes[$photo->getId()];

@@ -94,7 +94,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		// Verify that the index is valid.
 		include __DIR__ . '/../data/SampleIndex.inc';
 		$this->assertEquals($sampleIndex, $index->_index, 'Generated index differs from expected.');
-		$this->assert(
+		$this->assertTrue(
 			md5(serialize($sampleIndex)) == $index->_indexHash,
 			'Generated hash differs from expected.'
 		);

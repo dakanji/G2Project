@@ -166,14 +166,14 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
 		foreach ($data as $keyword) {
 			$found[$keyword['name']] = true;
-			$this->assert(
+			$this->assertTrue(
 				isset($keyword['weight']) && $keyword['weight'] >= 0 && $keyword['weight'] <= 3,
 				'bad/missing weight: ' . print_r($keyword, true)
 			);
 		}
-		$this->assert(isset($found['testkeyword12345']), 'album keyword');
-		$this->assert(isset($found['testkeyword54321']), 'item keyword 1');
-		$this->assert(isset($found['testkeyword99999']), 'item keyword 2');
+		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
+		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 	}
 
 	public function testLoadKeywordsPublic() {
@@ -198,9 +198,9 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		foreach ($data as $keyword) {
 			$found[$keyword['name']] = true;
 		}
-		$this->assert(isset($found['testkeyword12345']), 'album keyword');
-		$this->assert(!isset($found['testkeyword54321']), 'item not public!');
-		$this->assert(!isset($found['testkeyword99999']), 'item not public!');
+		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+		$this->assertTrue(!isset($found['testkeyword54321']), 'item not public!');
+		$this->assertTrue(!isset($found['testkeyword99999']), 'item not public!');
 	}
 
 	public function testLoadKeywordsSizeLimit() {
@@ -326,9 +326,9 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			$found[$keyword['name']]  = true;
 			$weight[$keyword['name']] = isset($keyword['weight']) ? $keyword['weight'] : false;
 		}
-		$this->assert(isset($found['testkeyword12345']), 'album keyword');
-		$this->assert(isset($found['testkeyword54321']), 'item keyword 1');
-		$this->assert(isset($found['testkeyword99999']), 'item keyword 2');
+		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
+		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 
 		$this->assertEquals('1', $weight['testkeyword12345'], 'weight of singular keyword');
 		$this->assertEquals('5.18', $weight['testkeyword54321'], 'weight of triple keyword');
@@ -391,9 +391,9 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			$found[$keyword['name']]  = true;
 			$weight[$keyword['name']] = isset($keyword['weight']) ? $keyword['weight'] : false;
 		}
-		$this->assert(isset($found['testkeyword12345']), 'album keyword');
-		$this->assert(isset($found['testkeyword54321']), 'item keyword 1');
-		$this->assert(isset($found['testkeyword99999']), 'item keyword 2');
+		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
+		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 
 		$this->assertEquals('1', $weight['testkeyword12345'], 'weight of singular keyword');
 		$this->assertEquals('1.59', $weight['testkeyword54321'], 'weight of triple keyword');

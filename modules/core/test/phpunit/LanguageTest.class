@@ -132,7 +132,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		$this->assertEquals($expected, $supportedLanguages);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetSupportedLanguageEnglishFilterd() {
@@ -155,7 +155,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		$this->assertEquals($expected, $supportedLanguages);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetSupportedLanguageHasExceptionForChineseDefaultCountry() {
@@ -186,6 +186,6 @@ class LanguageTest extends GalleryControllerTestCase {
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		$this->assertEquals($expected, $supportedLanguages);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }

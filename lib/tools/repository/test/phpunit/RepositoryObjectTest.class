@@ -49,18 +49,18 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$gallery->setPlatform($platform);
 
 		$ret = $object->setOutputDir('invalidDirectory');
-		$this->assert($ret, 'Output directory set to non-existent directory.');
+		$this->assertTrue($ret, 'Output directory set to non-existent directory.');
 
 		$ret = $object->setOutputDir('validDirectory');
-		$this->assert(!$ret, 'Error returned on a valid directory.');
+		$this->assertTrue(!$ret, 'Error returned on a valid directory.');
 
 		// Output directory should always end with a directory separator.
-		$this->assert(
+		$this->assertTrue(
 			preg_match('/\/$/', $object->getOutputDir()),
 			'Directory separator not appended to output directory path.'
 		);
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testWriteToDisk() {
@@ -98,7 +98,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$object->wasFileWritten(), 'Existing file overwritten.');
+		$this->assertTrue(!$object->wasFileWritten(), 'Existing file overwritten.');
 
 		// Test overwriting an existing file with a template variable contents.
 		$object->setTemplate(new RepositoryTestTemplate('', $templateVariableContents));
@@ -107,7 +107,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($object->wasFileWritten(), 'Existing file not overwritten.');
+		$this->assertTrue($object->wasFileWritten(), 'Existing file not overwritten.');
 
 		// Test overwriting an existing file with a processed template.
 		$object->setTemplate(new RepositoryTestTemplate($processedTemplateContents));
@@ -117,9 +117,9 @@ class RepositoryObjectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($object->wasFileWritten(), 'Existing file not overwritten.');
+		$this->assertTrue($object->wasFileWritten(), 'Existing file not overwritten.');
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testFilterManifestForBasePackage() {

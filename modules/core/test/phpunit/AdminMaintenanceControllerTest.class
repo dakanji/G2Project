@@ -135,9 +135,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert($info['runId'] > 0);
-		$this->assert($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assert($info['success']);
+		$this->assertTrue($info['runId'] > 0);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
 	}
 
@@ -194,9 +194,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert($info['runId'] > 0);
-		$this->assert($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assert($info['success']);
+		$this->assertTrue($info['runId'] > 0);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
 	}
 
@@ -254,9 +254,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert($info['runId'] > 0);
-		$this->assert($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assert(!$info['success']);
+		$this->assertTrue($info['runId'] > 0);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+		$this->assertTrue(!$info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
 
@@ -300,7 +300,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assert(false, 'The task should have failed');
+			$this->assertFalse('The task should have failed');
 		}
 
 		// Assert that we saw what we expected
@@ -312,10 +312,10 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert($info['runId'] > 0);
-		$this->assert($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assert(!$info['success']);
-		$this->assert(strstr($info['details'], 'ERROR_UNKNOWN'));
+		$this->assertTrue($info['runId'] > 0);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+		$this->assertTrue(!$info['success']);
+		$this->assertTrue(strstr($info['details'], 'ERROR_UNKNOWN'));
 	}
 
 	public function testRunTaskFail() {
@@ -346,9 +346,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assert($info['runId'] > 0);
-		$this->assert($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assert(!$info['success']);
+		$this->assertTrue($info['runId'] > 0);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+		$this->assertTrue(!$info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
 }

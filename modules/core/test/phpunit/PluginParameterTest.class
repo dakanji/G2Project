@@ -1,30 +1,30 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2008 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 /**
- * Test plugin parameters
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- * @version $Revision: 17580 $
- */
+* Test plugin parameters
+* @package GalleryCore
+* @subpackage PHPUnit
+* @author Bharat Mediratta <bharat@menalto.com>
+* @version $Revision: 17580 $
+*/
 class PluginParameterTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
@@ -102,11 +102,11 @@ class PluginParameterTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			$ret = GalleryCoreApi::setPluginParameter(
-			'module',
-			'unitTestModule',
-							  $key,
-			"${value}-$i"
-		);
+				'module',
+				'unitTestModule',
+				$key,
+				"${value}-$i"
+			);
 
 			if ($ret) {
 				return $ret;
@@ -130,11 +130,11 @@ class PluginParameterTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			$ret = GalleryCoreApi::setPluginParameter(
-			'module',
-			'unitTestModule',
-							  "${key}-$i",
-			"${value}-$i"
-		);
+				'module',
+				'unitTestModule',
+				"${key}-$i",
+				"${value}-$i"
+			);
 
 			if ($ret) {
 				return $ret;
@@ -160,12 +160,12 @@ class PluginParameterTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			$ret = GalleryCoreApi::setPluginParameter(
-			'module',
-			'unitTestModule',
-							  $key,
-			"${value}-$i",
-			$i
-		);
+				'module',
+				'unitTestModule',
+				$key,
+				"${value}-$i",
+				$i
+			);
 
 			if ($ret) {
 				return $ret;
@@ -174,7 +174,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			list($ret, $newValue) =
-		GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, $i);
+			GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, $i);
 
 			if ($ret) {
 				return $ret;
@@ -192,12 +192,12 @@ class PluginParameterTest extends GalleryTestCase {
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
-		'module',
-		'unitTestModule',
-						  'foo',
-		'bar',
-		$album->getId()
-	);
+			'module',
+			'unitTestModule',
+			'foo',
+			'bar',
+			$album->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -225,12 +225,12 @@ class PluginParameterTest extends GalleryTestCase {
 		foreach ($beforeArray as $item => $val) {
 			// Set test parameters
 			$ret = GalleryCoreApi::setPluginParameter(
-			'module',
-			'unitTestModule',
-							  'foo1',
-			$val,
-			$item
-		);
+				'module',
+				'unitTestModule',
+				'foo1',
+				$val,
+				$item
+			);
 
 			if ($ret) {
 				return $ret;
@@ -248,11 +248,11 @@ class PluginParameterTest extends GalleryTestCase {
 
 		// Remove all 'foo1' => 'bar' pairs
 		$ret = GalleryCoreApi::removePluginParameterByValue(
-		'module',
-		'unitTestModule',
-								'foo1',
-		'bar'
-	);
+			'module',
+			'unitTestModule',
+			'foo1',
+			'bar'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -275,9 +275,11 @@ class PluginParameterTest extends GalleryTestCase {
 	public function testAddPluginParameterFieldTypes() {
 		global $gallery;
 		$gallery->_storage = new PluginParameterTestMockStorage($this);
+
 		// Prevent a db query by mocking up some GDC data
 		$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, foo, 2)";
 		GalleryDataCache::put($cacheKey, array('none' => ''));
+
 		// the API should cast it to type string
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 99, 2);
 		GalleryDataCache::put($cacheKey, array('none' => ''));
@@ -287,9 +289,11 @@ class PluginParameterTest extends GalleryTestCase {
 	public function testUpdatePluginParameterFieldTypes() {
 		global $gallery;
 		$gallery->_storage = new PluginParameterTestMockStorage($this);
+
 		// Prevent a db query by mocking up some GDC data
 		$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, foo, 3)";
 		GalleryDataCache::put($cacheKey, array('bar' => 'old value'));
+
 		// the API should cast it to type string
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 55, 3);
 		GalleryDataCache::put($cacheKey, array('bar' => 'old value'));
@@ -304,22 +308,28 @@ class PluginParameterTestMockStorage {
 		$this->_testCase =& $testCase;
 	}
 
+	public function isTransactional() {
+		return true;
+	}
+
 	public function addMapEntry($map, $entry) {
 		$tc =& $this->_testCase;
+
 		// Make sure all fields but the itemId are of type string
-		foreach (array('pluginType' => 'module',
-			   'pluginId' => 'foo',
-			   'itemId' => 2,
-			   'parameterName' => 'bar',
-			   'parameterValue' => '99', )
-		 as $field => $value) {
-			$tc->assert(!empty($entry[$field]), "check if field $field is specified");
+		foreach (array(
+			'pluginType' => 'module',
+			'pluginId' => 'foo',
+			'itemId' => 2,
+			'parameterName' => 'bar',
+			'parameterValue' => '99',
+		) as $field => $value) {
+			$tc->assertTrue(!empty($entry[$field]), "check if field $field is specified");
 			// assertEquals checks with === (including type)
 			$tc->assertEquals(
-			$value,
-			$entry[$field],
-					   "type / value '$value' for field $field"
-		);
+				$value,
+				$entry[$field],
+				"type / value '$value' for field $field"
+			);
 		}
 		$tc->assertEquals('GalleryPluginParameterMap', $map, "map name");
 
@@ -329,20 +339,21 @@ class PluginParameterTestMockStorage {
 	public function updateMapEntry($map, $match, $change) {
 		$tc =& $this->_testCase;
 
-		foreach (array('pluginType' => 'module',
-			   'pluginId' => 'foo',
-			   'itemId' => 3,
-			   'parameterName' => 'bar', )
-		 as $field => $value) {
-			$tc->assert(!empty($match[$field]), "check if field $field is specified");
+		foreach (array(
+			'pluginType' => 'module',
+			'pluginId' => 'foo',
+			'itemId' => 3,
+			'parameterName' => 'bar',
+		) as $field => $value) {
+			$tc->assertTrue(!empty($match[$field]), "check if field $field is specified");
 			$tc->assertEquals(
-			$value,
-			$match[$field],
-					   "type/value '$value' for field $field"
-		);
+				$value,
+				$match[$field],
+				"type/value '$value' for field $field"
+			);
 		}
 		$tc->assertEquals('GalleryPluginParameterMap', $map, 'map name');
-		$tc->assert(!empty($change['parameterValue']), 'parameterValue must be set');
+		$tc->assertTrue(!empty($change['parameterValue']), 'parameterValue must be set');
 		$tc->assertEquals('55', $change['parameterValue'], 'type of parameterValue');
 
 		return null;

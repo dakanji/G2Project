@@ -58,7 +58,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($success, 'should have succeeded');
+		$this->assertTrue($success, 'should have succeeded');
 		$this->assertEquals(
 			array($module->translate('Template cache deleted successfully')),
 			$details
@@ -97,7 +97,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 			'arg1' => '/templates_c',
 		));
 
-		$this->assert(!$success, 'should have failed');
+		$this->assertTrue(!$success, 'should have failed');
 		$this->assertEquals(array($expected), $details);
 		$this->assertEquals(
 			array(

@@ -53,7 +53,7 @@ class AkismetApiTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 
 		return parent::tearDown();
 	}

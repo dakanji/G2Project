@@ -256,7 +256,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($user->isCorrectPassword($password), 'check password');
+		$this->assertTrue($user->isCorrectPassword($password), 'check password');
 	}
 
 	public function testTrailingSpace() {
@@ -338,7 +338,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(true, $user->isLocked());
+		$this->assertTrue($user->isLocked());
 
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -371,7 +371,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(false, $user->isLocked());
+		$this->assertFalse($user->isLocked());
 	}
 
 	public function testResetFailedLoginAttempts() {

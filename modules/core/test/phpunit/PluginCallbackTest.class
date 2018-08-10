@@ -55,7 +55,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	public function tearDown() {
 		$this->_testPlugin->reset();
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryPluginPackageMap',
@@ -63,7 +63,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'pluginId' => 'PluginCallbackControllerTest',
 			)
 		);
-		$this->assert(!$ret);
+		$this->assertTrue(!$ret);
 
 		$ret = parent::tearDown();
 
@@ -96,15 +96,15 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
 		);
@@ -122,11 +122,11 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
 		);
@@ -144,11 +144,11 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
@@ -174,15 +174,15 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
 		);
@@ -201,15 +201,15 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
 		);
@@ -227,11 +227,11 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-		$this->assert(
+		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
 		);
@@ -252,7 +252,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('activate'), 'activate not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
 	/**
@@ -269,7 +269,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('activate'), 'activate not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
 	/**
@@ -295,7 +295,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'foo' => 'bar',
 			),
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('activate'), 'activate not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
 	/**
@@ -320,7 +320,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'foo' => 'bar',
 			),
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('activate'), 'activate not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
 	/**
@@ -337,7 +337,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'invalid',
 		), $result);
-		$this->assert(!$this->_testPlugin->wasCalled('activate'), 'activate was called');
+		$this->assertTrue(!$this->_testPlugin->wasCalled('activate'), 'activate was called');
 	}
 
 	// Deactivate a module that is active (should succeed)
@@ -352,7 +352,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('deactivate'), 'deactivate not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate not called');
 	}
 
 	// Deactivate a theme that is active (should succeed)
@@ -379,7 +379,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('deactivate'), 'deactivate not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate not called');
 	}
 
 	// Deactivate the default theme -- should redirect to an error page
@@ -418,7 +418,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'invalid',
 		), $result);
-		$this->assert(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
+		$this->assertTrue(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 	}
 
 	// Deactivate a theme that is inactive (should succeed silently)
@@ -432,7 +432,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'invalid',
 		), $result);
-		$this->assert(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
+		$this->assertTrue(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 	}
 
 	public function testUninstallActiveModule() {
@@ -446,8 +446,8 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
-		$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
+		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
+		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
 	}
 
 	public function testUninstallInactiveModule() {
@@ -460,7 +460,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
+		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
 	}
 
 	// Uninstall a theme that is inactive
@@ -475,7 +475,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
 	}
 
 	public function testDeleteActiveModule() {
@@ -525,8 +525,8 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'success',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('deactivate'), 'deactivate was not called');
-		$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate was not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
 	}
 
 	public function testDeleteModuleFailsToRmdir() {
@@ -546,7 +546,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals(array(
 			'status' => 'fail',
 		), $result);
-		$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
+		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
 	}
 
 	public function _getPluginState($type, $status) {
@@ -895,8 +895,8 @@ class PluginCallbackTest extends GalleryTestCase {
 		ob_end_clean();
 
 		$this->assertEquals('{"status":"error"}', $results);
-		$this->assert(!empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assert(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
+		$this->assertTrue(!empty($mockStorage->rolledBack), 'Rollback did not occur');
+		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -920,8 +920,8 @@ class PluginCallbackTest extends GalleryTestCase {
 		ob_end_clean();
 
 		$this->assertEquals('{"status":"error"}', $results);
-		$this->assert(!empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assert(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
+		$this->assertTrue(!empty($mockStorage->rolledBack), 'Rollback did not occur');
+		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -946,9 +946,9 @@ class PluginCallbackTest extends GalleryTestCase {
 		ob_end_clean();
 
 		$this->assertEquals('{"status":"error"}', $results);
-		$this->assert(!empty($mockStorage->checkPointed), 'Checkpoint did not occur');
-		$this->assert(!empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assert(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
+		$this->assertTrue(!empty($mockStorage->checkPointed), 'Checkpoint did not occur');
+		$this->assertTrue(!empty($mockStorage->rolledBack), 'Rollback did not occur');
+		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 }

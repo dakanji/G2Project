@@ -282,9 +282,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$this->assertEquals($this->_sampleIndex, $this->_index->_index);
-		$this->assert($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
+		$this->assertTrue($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
 
 		// Verify that the timestamp has been put into the database.
 		$timestampWritten = false;
@@ -305,10 +305,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 			$updateTimestamp = $addedData['parameterValue'];
 		}
-		$this->assert($timestampWritten, 'Timestamp in database not updated.');
-		$this->assert($updateTimestamp > time() - 60, 'Timestamp too old.');
+		$this->assertTrue($timestampWritten, 'Timestamp in database not updated.');
+		$this->assertTrue($updateTimestamp > time() - 60, 'Timestamp too old.');
 
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetMetaData() {
@@ -348,7 +348,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 		$gallery->setPlatform($platform);
 
-		$this->assert(false === $this->_index->existsInCache());
+		$this->assertTrue(false === $this->_index->existsInCache());
 	}
 
 	public function testLoad() {
@@ -371,7 +371,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($this->_sampleIndex, $this->_index->_index);
-		$this->assert($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
+		$this->assertTrue($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
 	}
 
 	public function testLoadMalformedIndex() {
@@ -394,9 +394,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$ret = $index->load();
 
 		if (!$ret) {
-			$this->assert(false, 'Should return an error');
+			$this->assertFalse('Should return an error');
 		}
-		$this->assert(
+		$this->assertTrue(
 			$ret->getErrorCode() & ERROR_BAD_PARAMETER,
 			'Should return ERROR_BAD_PARMETER'
 		);
@@ -404,8 +404,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'modules' => array(),
 			'themes'  => array(),
 		), $index->_index);
-		$this->assert(!$index->_isLoaded, 'GalleryRepositoryIndex::isLoaded is set.');
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue(!$index->_isLoaded, 'GalleryRepositoryIndex::isLoaded is set.');
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testUnserializeIndex() {
@@ -420,7 +420,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($this->_sampleIndex, $this->_index->_index);
-		$this->assert($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
+		$this->assertTrue($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
 	}
 
 	public function testUnserializeMalformedIndex() {
@@ -432,9 +432,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$ret             = $this->_index->unserializeIndex($serializedIndex);
 
 		if (!$ret) {
-			return $this->assert(false, 'Should have returned ERROR_BAD_PARAMETER');
+			return $this->assertFalse('Should have returned ERROR_BAD_PARAMETER');
 		}
-		$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER);
+		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
 		$this->assertEquals(
 			array(
 				'modules' => array(),
@@ -731,7 +731,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				$case['expectedPlugins'][$pluginType][$pluginId]['isCompatible'] = $case['isCompatible'];
 			}
 
-			$this->assert($utilities->isComplete(), "Case $i " . $utilities->getRemaining());
+			$this->assertTrue($utilities->isComplete(), "Case $i " . $utilities->getRemaining());
 			$this->assertEquals($case['expectedPlugins'], $plugins, "Case $i");
 		}
 	}
@@ -782,7 +782,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
@@ -853,7 +853,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
@@ -930,7 +930,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($utilities->isComplete(), $utilities->getRemaining());
+		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 		$expected = array(
 			'module' => array(
 				'testModule' => array(

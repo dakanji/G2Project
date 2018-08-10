@@ -47,7 +47,7 @@ class CommentSearchTest extends GalleryTestCase {
 		}
 
 		if (empty($moduleStatusList['search']['active'])) {
-			return $this->assert(false, 'Search module not installed');
+			return $this->assertFalse('Search module not installed');
 		}
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'comment');
@@ -89,7 +89,7 @@ class CommentSearchTest extends GalleryTestCase {
 					return $ret;
 				}
 
-				$this->assert(isset($this->_comment[$j][$i]), 'Missing comment instance');
+				$this->assertTrue(isset($this->_comment[$j][$i]), 'Missing comment instance');
 				$this->_comment[$j][$i]->create($this->_item[$j]->getId());
 				$this->_comment[$j][$i]->setCommenterId($gallery->getActiveUserId());
 				$this->_comment[$j][$i]->setHost('127.0.0.1');
@@ -199,7 +199,7 @@ class CommentSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(isset($this->_commentSearch), 'Missing GalleryCommentSearch instance');
+		$this->assertTrue(isset($this->_commentSearch), 'Missing GalleryCommentSearch instance');
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
@@ -217,15 +217,15 @@ class CommentSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(isset($info['name']), 'name missing');
-		$this->assert(isset($info['description']), 'description missing');
-		$this->assert(isset($info['options']), 'options missing');
-		$this->assert(is_array($info['options']), 'options not an array');
-		$this->assert(
+		$this->assertTrue(isset($info['name']), 'name missing');
+		$this->assertTrue(isset($info['description']), 'description missing');
+		$this->assertTrue(isset($info['options']), 'options missing');
+		$this->assertTrue(is_array($info['options']), 'options not an array');
+		$this->assertTrue(
 			isset($info['options']['comments']['description']),
 			'options:comments description missing'
 		);
-		$this->assert(
+		$this->assertTrue(
 			!empty($info['options']['comments']['enabled']),
 			'options:comments not enabled'
 		);
