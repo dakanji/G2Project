@@ -151,9 +151,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-
-		$mockUrlGenerator       = new AdminMaintenanceControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
+		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
+		$gallery->_urlGenerator    =& $mockUrlGenerator;
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -164,11 +163,16 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Run Progress Bar - Main'
 		);
 
 		// Assert that we have 1 callback in the queue
-		$this->assertEquals(1, $mockAdapter->getCallbackCount());
+		$this->assertEquals(
+			1,
+			$mockAdapter->getCallbackCount(),
+			'Run Progress Bar - One Callback in Queue'
+		);
 
 		// Run the tasks
 		$ret = $mockAdapter->runCallbacks();
@@ -180,12 +184,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		// Assert that we saw what we expected
 		$this->assertEquals(
 			array(
-				0,
-				50,
-				100,
+				'0',
+				'50',
+				'100',
 				'complete:view=core.SiteAdmin,subView=core.AdminMaintenance',
 			),
-			$mockAdapter->getProgressBarDump()
+			$mockAdapter->getProgressBarDump(),
+			'Run Progress Bar - Correct Display'
 		);
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('AdminMaintenanceControllerTestTaskProgressBar');
@@ -211,9 +216,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-
-		$mockUrlGenerator       = new AdminMaintenanceControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
+		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
+		$gallery->_urlGenerator    =& $mockUrlGenerator;
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -224,11 +228,16 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Progress Bar Fail - Main'
 		);
 
 		// Assert that we have 1 callback in the queue
-		$this->assertEquals(1, $mockAdapter->getCallbackCount());
+		$this->assertEquals(
+			1,
+			$mockAdapter->getCallbackCount(),
+			'Progress Bar Fail - One Callback in Queue'
+		);
 
 		// Run the tasks
 		$ret = $mockAdapter->runCallbacks();
@@ -240,15 +249,18 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		// Assert that we saw what we expected
 		$this->assertEquals(
 			array(
-				0,
-				50,
-				100,
+				'0',
+				'50',
+				'100',
 				'complete:view=core.SiteAdmin,subView=core.AdminMaintenance',
 			),
-			$mockAdapter->getProgressBarDump()
+			$mockAdapter->getProgressBarDump(),
+			'Progress Bar Fail - Correct Display'
 		);
 
-		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('AdminMaintenanceControllerTestTaskProgressBar');
+		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun(
+			'AdminMaintenanceControllerTestTaskProgressBar'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -271,9 +283,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-
-		$mockUrlGenerator       = new AdminMaintenanceControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
+		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
+		$gallery->_urlGenerator    =& $mockUrlGenerator;
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -284,11 +295,16 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Progress Bar Error - Main'
 		);
 
 		// Assert that we have 1 callback in the queue
-		$this->assertEquals(1, $mockAdapter->getCallbackCount());
+		$this->assertEquals(
+			1,
+			$mockAdapter->getCallbackCount(),
+			'Progress Bar Error - One Callback in Queue'
+		);
 
 		// Run the tasks
 		$ret = $mockAdapter->runCallbacks();
@@ -304,7 +320,11 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		// Assert that we saw what we expected
-		$this->assertEquals(array(0, 50, 'error'), $mockAdapter->getProgressBarDump());
+		$this->assertEquals(
+			array('0', '50', 'error'),
+			$mockAdapter->getProgressBarDump()
+
+		);
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('AdminMaintenanceControllerTestTaskProgressBar');
 
