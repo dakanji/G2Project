@@ -522,11 +522,11 @@ class SystemChecksStep extends InstallStep {
 			set_time_limit(180);
 		}
 
-		$missing      = array(); 
-		$modified     = array(); 
+		$missing      = array();
+		$modified     = array();
 		$shouldRemove = array();
-		$stepSize = max((int)(count($manifest) / 22), 1);
-		$i        = 0;
+		$stepSize     = max((int)(count($manifest) / 22), 1);
+		$i            = 0;
 
 		foreach ($manifest as $file => $info) {
 			$i++;

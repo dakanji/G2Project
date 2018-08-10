@@ -347,12 +347,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-				'href' => 'themes/mock/local/foo.css',
+					'href' => 'themes/mock/local/foo.css',
+				),
+				array(),
 			),
-			array(),
-		),
-		$results,
-		'Theme URLs With Override'
+			$results,
+			'Theme URLs With Override'
 		);
 	}
 
@@ -383,12 +383,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-				'href' => 'themes/mock/templates/local/foo.css',
+					'href' => 'themes/mock/templates/local/foo.css',
+				),
+				array(),
 			),
-			array(),
-		),
-		$results,
-		'Theme URLs With Override Subdir'
+			$results,
+			'Theme URLs With Override Subdir'
 		);
 	}
 
