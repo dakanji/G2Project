@@ -63,7 +63,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessList() {
 		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
+		$ourParser        = $this->_parser;
+		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -98,7 +99,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code) = $this->_parser->saveAccessList($accessList, false);
+		$ourParser        = $this->_parser;
+		list($ret, $code) = $ourParser->saveAccessList($accessList, false, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -135,7 +137,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListCantWrite() {
 		$this->_platform->_isWriteable = false;
 		$accessList                    = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code)              = $this->_parser->saveAccessList($accessList, true);
+		$ourParser                     = $this->_parser;
+		list($ret, $code)              = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -173,7 +176,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->_platform->_isWriteable = false;
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
+		$ourParser        = $this->_parser;
+		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -555,7 +559,10 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveBadTestCondition() {
 		$testRules['rewriteparsermock'][4] = array();
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($testRules);
+		list($ret, $code, $errno)          = $this->_parser->saveActiveRules(
+			$this->_parser,
+			$testRules
+		);
 
 		if ($ret) {
 			return $ret;
@@ -583,7 +590,10 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$testRules['rewriteparsermock'][0] = array(
 			'pattern' => '%foo',
 		);
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($testRules);
+		list($ret, $code, $errno)          = $this->_parser->saveActiveRules(
+			$this->_parser,
+			$testRules
+		);
 
 		if ($ret) {
 			return $ret;

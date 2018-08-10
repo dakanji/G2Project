@@ -186,11 +186,30 @@ class Assert {
 		return 'null';
 	}
 
+	protected function recursive_ksort($fixArray) {
+		$sortedArray = $fixArray;
+		ksort($sortedArray);
+
+		foreach ($sortedArray as $key => $value) {
+			if (is_array($value)) {
+				$targetArray       = $sortedArray[$key];
+				$sortedArray[$key] = $this->recursive_ksort($targetArray);
+			}
+		}
+
+		return $sortedArray;
+	}
+
 	public function assertEquals($expected, $actual, $message = 0) {
 		if (gettype($expected) != gettype($actual)) {
 			$this->failNotEquals($expected, $actual, 'expected', $message);
 
 			return;
+		}
+
+		if (is_array($actual) && is_array($expected)) {
+			$actual   = $this->recursive_ksort($actual);
+			$expected = $this->recursive_ksort($expected);
 		}
 
 		if (is_object($expected)) {
@@ -214,10 +233,12 @@ class Assert {
 
 			return;
 		}
+		$itemsAreEqual = ($expected === $actual);
 
-		if ($expected != $actual) {
-			$this->failNotEquals($expected, $actual, 'expected', $message);
+		if ($itemsAreEqual) {
+			return;
 		}
+		$this->failNotEquals($expected, $actual, 'expected', $message);
 	}
 
 	public function assertRegexp($regexp, $actual, $message = false) {
@@ -483,7 +504,10 @@ class TestCase extends Assert {
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
 		}
-		parent::__construct(!empty($this->fLifeCycle['setUp']), 'TestSuite setUp() method did not call parent::setUp()');
+		parent::__construct(
+			!empty($this->fLifeCycle['setUp']),
+			'TestSuite setUp() method did not call parent::setUp()'
+		);
 
 		if (!($this->errored() || $this->failed())) {
 			$this->runTest();

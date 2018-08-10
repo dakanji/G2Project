@@ -493,7 +493,18 @@ class RewriteApiMockParser extends RewriteParser {
 		return array(null, REWRITE_STATUS_INVALID_PATTERN, 'Bad pattern');
 	}
 
-	public function saveActiveRules($activeRules = null, $upgradeModule = null) {
+	/**
+	 * @see RewriteParser::saveActiveRules
+	 */
+	public function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
+
 		$returnCode = $activeRules['returnCode'];
 		unset($activeRules['returnCode']);
 		$_SERVER['saveActiveRules'] = $activeRules;

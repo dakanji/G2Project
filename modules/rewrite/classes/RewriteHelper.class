@@ -97,6 +97,10 @@ class RewriteHelper {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
+		if (!is_array($activeRules)) {
+			$activeRules = (array)$activeRules;
+		}
+
 		// Get access list information
 		list($ret, $accessList) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -151,7 +155,7 @@ class RewriteHelper {
 
 			if (!isset($module) || !GalleryCoreApi::isPluginCompatibleWithApis($module)) {
 				// Remove rules for modules that are incompatible or unavailable
-				$ret = RewriteHelper::setHistoryForModule($moduleId, $activeRules[$moduleId]);
+				$ret = self::setHistoryForModule($moduleId, $activeRules[$moduleId]);
 
 				if ($ret) {
 					return array($ret, null, null, null, null);
@@ -299,7 +303,7 @@ class RewriteHelper {
 				$rules[$ruleId]['flags'] = array_unique($rules[$ruleId]['flags']);
 
 				// Parse the rule
-				list($ret, $code) = RewriteHelper::_parseRule(
+				list($ret, $code) = self::_parseRule(
 					$regexRules,
 					$rules[$ruleId],
 					$activeRule
@@ -346,7 +350,7 @@ class RewriteHelper {
 			$regexRule['conditions'] = array();
 
 			foreach ($rule['conditions'] as $condition) {
-				$code = RewriteHelper::_parseKeywords(
+				$code = self::_parseKeywords(
 					$regexRule,
 					$condition['pattern'],
 					$rule['keywords']
@@ -362,7 +366,7 @@ class RewriteHelper {
 
 		if (!empty($activeRule['pattern'])) {
 			$regexRule['pattern'] = preg_quote($activeRule['pattern']);
-			$code                 = RewriteHelper::_parseKeywords(
+			$code                 = self::_parseKeywords(
 				$regexRule,
 				$regexRule['pattern'],
 				$rule['keywords']

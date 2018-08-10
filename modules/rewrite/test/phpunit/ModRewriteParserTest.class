@@ -64,7 +64,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$testRules['rewriteparsermock'][0] = 'bogus1';
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($testRules);
+		list($ret, $code, $errno)          = $this->_parser->saveActiveRules(
+			$this->_parser,
+			$testRules,
+			null
+		);
 
 		if ($ret) {
 			return $ret;
@@ -81,11 +85,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$expected['rewriteparsermock'][0] = 'bogus1';
-		$this->assertEquals(REWRITE_STATUS_OK, $code);
-		$this->assertEquals(null, $errno);
-		$this->assertEquals($expected, unserialize($activeRules));
-		$this->assert(!empty($this->_fileContent), 'fileContent');
-		$this->assert(!empty($this->_embeddedFileContent), 'embeddedFileContent');
+		$this->assert(true, REWRITE_STATUS_OK == $code, 'OK Status');
+		$this->assert(true, null == $errno, 'Null Err No');
+		$this->assert(true, $expected == unserialize($activeRules), 'activeRules');
+		$this->assert(true, !empty($this->_fileContent), 'fileContent');
+		$this->assert(true, !empty($this->_embeddedFileContent), 'embeddedFileContent');
 
 		GalleryDataCache::remove('G2_EMBED');
 	}
@@ -95,7 +99,10 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$testRules['rewriteparsermock'][0] = array(
 			'pattern' => 'p/%bogus%',
 		);
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($testRules);
+		list($ret, $code, $errno)          = $this->_parser->saveActiveRules(
+			$this->_parser,
+			$testRules
+		);
 
 		if ($ret) {
 			return $ret;
@@ -115,7 +122,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			'pattern' => 'bogus',
 		);
 		$this->assertEquals(REWRITE_STATUS_BAD_KEYWORD, $code);
-		$this->assertEquals(array('rewriteparsermock', '0'), $errno);
+		$this->assertEquals(array('rewriteparsermock', 0), $errno);
 		$this->assertEquals($expected, unserialize($activeRules));
 		$this->assert(!isset($this->_fileContent), 'fileContent');
 		$this->assert(!isset($this->_embeddedFileContent), 'embeddedFileContent');
@@ -125,7 +132,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessList() {
 		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
+		$ourParser        = $this->_parser;
+		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -161,7 +169,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code) = $this->_parser->saveAccessList($accessList, false);
+		$ourParser        = $this->_parser;
+		list($ret, $code) = $ourParser->saveAccessList($accessList, false, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);

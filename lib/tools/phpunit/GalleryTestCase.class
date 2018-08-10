@@ -363,7 +363,7 @@ class GalleryTestCase extends TestCase {
 		);
 
 		if (is_object($session)) {
-			$this->assertEquals($this->_saveSID, $session->getId(), 'Session ID changed by test');
+			$this->assert(true, $this->_saveSID == $session->getId(), 'Session ID changed by test');
 		} else {
 			$this->assert(false, 'Session is not an object anymore!');
 		}
@@ -448,7 +448,14 @@ class GalleryTestCase extends TestCase {
 	public function assertEquals($expected, $actual, $message = null) {
 		global $gallery;
 		$message = $gallery->getDebugBuffer() . $message;
-		$err     = $this->DeepCompare($expected, $actual);
+
+		if (is_array($actual) && is_array($expected)) {
+			$actual   = $this->recursive_ksort($actual);
+			$expected = $this->recursive_ksort($expected);
+		}
+
+
+		$err = $this->DeepCompare($expected, $actual);
 
 		if ($err) {
 			$message .= sprintf('&nbsp;<br/><b>Mismatch At</b>: %s', htmlspecialchars($err));

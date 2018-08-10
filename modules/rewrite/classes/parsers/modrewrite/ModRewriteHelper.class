@@ -30,7 +30,7 @@ class ModRewriteHelper {
 	 * @see RewriteParser::saveActiveRules
 	 */
 	public static function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
-		list($ret, $code) = ModRewriteHelper::checkFile();
+		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -41,7 +41,7 @@ class ModRewriteHelper {
 		}
 
 		if (GalleryUtilities::isEmbedded()) {
-			list($ret, $code) = ModRewriteHelper::checkFile(true);
+			list($ret, $code) = self::checkFile(true);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -74,7 +74,12 @@ class ModRewriteHelper {
 		);
 
 		if (!empty($activeRules)) {
-			list($ret, $code, $regexRules, $shortUrls, $errorId) = RewriteHelper::parseActiveRules($activeRules, $parser, $upgradeModule, $flags);
+			list($ret, $code, $regexRules, $shortUrls, $errorId) = RewriteHelper::parseActiveRules(
+				$activeRules,
+				$parser,
+				$upgradeModule,
+				$flags
+			);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -86,7 +91,7 @@ class ModRewriteHelper {
 		}
 
 		// Write the standalone .htaccess
-		list($ret, $code) = ModRewriteHelper::writeFile($regexRules);
+		list($ret, $code) = self::writeFile($regexRules);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -98,7 +103,7 @@ class ModRewriteHelper {
 
 		// Write the embedded .htaccess
 		if (GalleryUtilities::isEmbedded()) {
-			list($ret, $code) = ModRewriteHelper::writeFile($regexRules, true);
+			list($ret, $code) = self::writeFile($regexRules, true);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -138,8 +143,8 @@ class ModRewriteHelper {
 	/**
 	 * @see RewriteParser::saveAccessList
 	 */
-	public static function saveAccessList($accessList, $allowEmptyReferer) {
-		list($ret, $code) = ModRewriteHelper::checkFile();
+	public static function saveAccessList($accessList, $allowEmptyReferer, $parser = null) {
+		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
 			return array($ret, null);
@@ -150,7 +155,7 @@ class ModRewriteHelper {
 		}
 
 		if (GalleryUtilities::isEmbedded()) {
-			list($ret, $code) = ModRewriteHelper::checkFile(true);
+			list($ret, $code) = self::checkFile(true);
 
 			if ($ret) {
 				return array($ret, null);
@@ -184,7 +189,7 @@ class ModRewriteHelper {
 		}
 
 		// Save the new .htaccess
-		list($ret, $code) = $this->saveActiveRules();
+		list($ret, $code) = self::saveActiveRules($parser);
 
 		if ($ret) {
 			return array($ret, null);
@@ -226,7 +231,7 @@ class ModRewriteHelper {
 			return array($ret, null);
 		}
 
-		list($ret, $code) = ModRewriteHelper::checkModRewrite();
+		list($ret, $code) = self::checkModRewrite();
 
 		if ($ret) {
 			return array($ret, null);
@@ -236,7 +241,7 @@ class ModRewriteHelper {
 			return array(null, true);
 		}
 
-		list($ret, $code) = ModRewriteHelper::checkFile();
+		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
 			return array($ret, null);
@@ -247,7 +252,7 @@ class ModRewriteHelper {
 		}
 
 		if (GalleryUtilities::isEmbedded()) {
-			list($ret, $code) = ModRewriteHelper::checkFile(true);
+			list($ret, $code) = self::checkFile(true);
 
 			if ($ret) {
 				return array($ret, null);
@@ -430,7 +435,7 @@ class ModRewriteHelper {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
-		list($ret, $file) = ModRewriteHelper::getHtaccessPath($embedded);
+		list($ret, $file) = self::getHtaccessPath($embedded);
 
 		if ($ret) {
 			return array($ret, null);
@@ -476,7 +481,7 @@ class ModRewriteHelper {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
-		list($ret, $file) = ModRewriteHelper::getHtaccessPath($embedded);
+		list($ret, $file) = self::getHtaccessPath($embedded);
 
 		if ($ret) {
 			return array($ret, null);
@@ -485,7 +490,7 @@ class ModRewriteHelper {
 		$htaccess = '#{gallerySection}';
 
 		if (!empty($regexRules)) {
-			list($ret, $htaccess) = ModRewriteHelper::getHtaccessContent($regexRules, $embedded);
+			list($ret, $htaccess) = self::getHtaccessContent($regexRules, $embedded);
 
 			if ($ret) {
 				return array($ret, null);
@@ -659,7 +664,7 @@ class ModRewriteHelper {
 		$TestResults       = array();
 
 		// Check Gallery .htaccess
-		list($ret, $TestResults['gallery']['htaccess']) = ModRewriteHelper::checkFile();
+		list($ret, $TestResults['gallery']['htaccess']) = self::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -667,7 +672,7 @@ class ModRewriteHelper {
 
 		// Check mod_rewrite
 		list($ret, $TestResults['gallery']['modRewrite'],
-		$TestResults['gallery']['trueModRewrite']) = ModRewriteHelper::checkModRewrite();
+		$TestResults['gallery']['trueModRewrite']) = self::checkModRewrite();
 
 		if ($ret) {
 			return $ret;
@@ -676,7 +681,7 @@ class ModRewriteHelper {
 		// Check embedded .htaccess
 		if (GalleryUtilities::isEmbedded()) {
 			$TestResults['embedded']                         = array();
-			list($ret, $TestResults['embedded']['htaccess']) = ModRewriteHelper::checkFile(true);
+			list($ret, $TestResults['embedded']['htaccess']) = self::checkFile(true);
 
 			if ($ret) {
 				return $ret;
@@ -685,7 +690,7 @@ class ModRewriteHelper {
 
 		// Get extra information if the .htaccess test fails
 		if ($TestResults['gallery']['htaccess'] != REWRITE_STATUS_OK) {
-			list($ret, $TestResults['gallery']['htaccessPath']) = ModRewriteHelper::getHtaccessPath();
+			list($ret, $TestResults['gallery']['htaccessPath']) = self::getHtaccessPath();
 
 			if ($ret) {
 				return $ret;
@@ -695,7 +700,7 @@ class ModRewriteHelper {
 		if (isset($TestResults['embedded']['htaccess'])
 			&& $TestResults['embedded']['htaccess'] != REWRITE_STATUS_OK
 		) {
-			list($ret, $TestResults['embedded']['htaccessPath']) = ModRewriteHelper::getHtaccessPath(true);
+			list($ret, $TestResults['embedded']['htaccessPath']) = self::getHtaccessPath(true);
 
 			if ($ret) {
 				return $ret;
@@ -846,7 +851,7 @@ class ModRewriteHelper {
 		}
 
 		if ($saveActiveRules) {
-			list($ret, $code) = $parser->saveActiveRules();
+			list($ret, $code) = $parser->saveActiveRules($parser);
 
 			if ($ret) {
 				return array($ret, null);

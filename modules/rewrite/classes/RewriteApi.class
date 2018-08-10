@@ -256,7 +256,11 @@ class RewriteApi {
 			}
 		}
 
-		list($ret, $code, $errorId) = $this->_parser->saveActiveRules($activeRules, $module);
+		list($ret, $code, $errorId) = $this->_parser->saveActiveRules(
+			$this->_parser,
+			$activeRules,
+			$module
+		);
 
 		if ($ret) {
 			return array($ret, null);

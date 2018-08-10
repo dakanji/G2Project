@@ -152,7 +152,7 @@ class RewriteModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($history), 'empty history (activate)');
+		$this->assert(true, empty($history), 'empty history (activate)');
 
 		// Make sure the history rule was activated
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
@@ -418,7 +418,18 @@ class RewriteModuleMockParser extends RewriteParser {
 		$this->_setParserType('mock');
 	}
 
-	public function saveActiveRules($activeRules = null, $rewriteModule = null) {
+	/**
+	 * @see RewriteParser::saveActiveRules
+	 */
+	public function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
+
 		if (is_null($activeRules)) {
 			list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -439,7 +450,7 @@ class RewriteModuleMockParser extends RewriteParser {
 			list($ret, $code, $regexRules, $shortUrls, $errorId) = RewriteHelper::parseActiveRules(
 				$activeRules,
 				$this,
-				$rewriteModule
+				$upgradeModule
 			);
 
 			if ($ret) {

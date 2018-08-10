@@ -39,7 +39,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	public $_testModule;
 
 	public function setUp($x1 = null) {
-		$ret = parent::setUp();
+		$ret = parent::setUp($x1);
 
 		if ($ret) {
 			return $ret;

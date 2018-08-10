@@ -43,8 +43,8 @@ class GalleryControllerTestCase extends GalleryTestCase {
 		}
 	}
 
-	public function setUp($x1 = null) {
-		$ret = parent::setUp();
+	public function setUp($setup = null) {
+		$ret = parent::setUp($setup);
 
 		if ($ret) {
 			return $ret;

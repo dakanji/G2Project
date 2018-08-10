@@ -46,7 +46,15 @@ class IsapiRewriteParser extends RewriteParser {
 	/**
 	 * @see RewriteParser::saveActiveRules
 	 */
-	public function saveActiveRules($activeRules = null, $upgradeModule = null) {
+	public function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
+
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class'
 		);
@@ -57,12 +65,12 @@ class IsapiRewriteParser extends RewriteParser {
 	/**
 	 * @see RewriteParser::saveAccessList
 	 */
-	public function saveAccessList($accessList, $allowEmptyReferer) {
+	public function saveAccessList($accessList, $allowEmptyReferer, $parser = null) {
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class'
 		);
 
-		return IsapiRewriteHelper::saveAccessList($accessList, $allowEmptyReferer);
+		return IsapiRewriteHelper::saveAccessList($accessList, $allowEmptyReferer, $parser);
 	}
 
 	/**

@@ -41,7 +41,14 @@ class PathInfoParser extends RewriteParser {
 	/**
 	 * @see RewriteParser::saveActiveRules
 	 */
-	public function saveActiveRules($activeRules = null, $upgradeModule = null) {
+	public function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/pathinfo/PathInfoHelper.class'
 		);

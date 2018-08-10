@@ -157,13 +157,13 @@ class RewriteModuleExtras {
 			case '1.0.4':
 				// Get the custom rules and save it to a plugin param (RewriteMap depricated)
 				$query = '
-		SELECT
-		    [RewriteMap::module], [RewriteMap::ruleId], [RewriteMap::pattern]
-		FROM
-		    [RewriteMap]
-		ORDER BY
-		    [RewriteMap::module] ASC, [RewriteMap::ruleId] ASC
-	    ';
+			SELECT
+			[RewriteMap::module], [RewriteMap::ruleId], [RewriteMap::pattern]
+			FROM
+			[RewriteMap]
+			ORDER BY
+			[RewriteMap::module] ASC, [RewriteMap::ruleId] ASC
+			';
 
 				/*
 				 * If this is an upgrade from beta 2 we dont have a RewriteMap.  Previous to 0.9.3 rules
@@ -428,7 +428,7 @@ class RewriteModuleExtras {
 	/**
 	 * @see GalleryModule::handleEvent
 	 */
-	public function handleDeactivatePlugin($module, $pluginId) {
+	public static function handleDeactivatePlugin($module, $pluginId) {
 		list($ret, $activeRules) = $module->getParameter('activeRules');
 
 		if ($ret) {
@@ -466,7 +466,7 @@ class RewriteModuleExtras {
 	/**
 	 * @see GalleryModule::handleEvent
 	 */
-	public function handleUninstallPlugin($module, $pluginId) {
+	public static function handleUninstallPlugin($module, $pluginId) {
 		$ret = RewriteHelper::setHistoryForModule($pluginId, array());
 
 		if ($ret) {
@@ -479,7 +479,7 @@ class RewriteModuleExtras {
 	/**
 	 * @see GalleryModule::handleEvent
 	 */
-	public function handleActivatePlugin($module, $pluginId) {
+	public static function handleActivatePlugin($module, $pluginId) {
 		// Get saved patterns
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $pluginId);
 

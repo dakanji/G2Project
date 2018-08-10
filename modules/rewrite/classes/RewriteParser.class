@@ -54,6 +54,19 @@ class RewriteParser {
 	public $_type;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new RewriteParser();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Saves the active rewrite rules.  This needs to be implemented by the specific plugin.  It
 	 * needs to save two rewrite params, activeRules and shortUrls.  activeRules is just a
 	 * serialized array of the given activeRules and shortUrls is returned by
@@ -66,7 +79,15 @@ class RewriteParser {
 	 *               array string module (on error)
 	 *                     int rule id (on error)
 	 */
-	public function saveActiveRules($activeRules = null, $upgradeModule = null) {
+	public function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
+
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 

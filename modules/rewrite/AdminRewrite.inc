@@ -112,7 +112,10 @@ class AdminRewriteController extends GalleryController {
 
 			// Save the active rules
 			if (empty($error)) {
-				list($ret, $code, $errorId) = $rewriteParser->saveActiveRules($activeRules);
+				list($ret, $code, $errorId) = $rewriteParser->saveActiveRules(
+					$rewriteParser,
+					$activeRules
+				);
 
 				if ($ret) {
 					return array($ret, null);

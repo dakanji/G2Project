@@ -29,7 +29,14 @@ class PathInfoHelper {
 	/**
 	 * @see RewriteParser::saveActiveRules
 	 */
-	public static function saveActiveRules($parser, $activeRules = null, $upgradeModule = null) {
+	public static function saveActiveRules(
+		$parser = null,
+		$activeRules = null,
+		$upgradeModule = null
+	) {
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
 		// By default we use the rules we've already got
 		if (is_null($activeRules)) {
 			list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(

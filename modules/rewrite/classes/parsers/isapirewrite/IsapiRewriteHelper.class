@@ -34,7 +34,10 @@ class IsapiRewriteHelper {
 		$activeRules = null,
 		$upgradeModule = null
 	) {
-		list($ret, $code) = IsapiRewriteHelper::checkFile();
+		if (is_null($parser)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+		}
+		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -66,12 +69,18 @@ class IsapiRewriteHelper {
 		);
 
 		if (!empty($activeRules)) {
-			list($ret, $code, $regexRules, $shortUrls, $errorId) = RewriteHelper::parseActiveRules(
-				$activeRules,
-				$parser,
-				$upgradeModule,
-				$flags
-			);
+			list(
+				$ret,
+				$code,
+				$regexRules,
+				$shortUrls,
+				$errorId
+				) = RewriteHelper::parseActiveRules(
+					$activeRules,
+					$parser,
+					$upgradeModule,
+					$flags
+				);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -82,7 +91,7 @@ class IsapiRewriteHelper {
 			}
 		}
 
-		list($ret, $code) = IsapiRewriteHelper::writeFile($regexRules);
+		list($ret, $code) = self::writeFile($regexRules);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -121,8 +130,8 @@ class IsapiRewriteHelper {
 	/**
 	 * @see RewriteParser::saveAccessList
 	 */
-	public static function saveAccessList($accessList, $allowEmptyReferer) {
-		list($ret, $code) = IsapiRewriteHelper::checkFile();
+	public static function saveAccessList($accessList, $allowEmptyReferer, $parser = null) {
+		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
 			return array($ret, null);
@@ -155,7 +164,7 @@ class IsapiRewriteHelper {
 		}
 
 		// Save the new httpd.ini
-		list($ret, $code) = self::saveActiveRules();
+		list($ret, $code) = self::saveActiveRules($parser);
 
 		if ($ret) {
 			return array($ret, null);
@@ -201,7 +210,7 @@ class IsapiRewriteHelper {
 			return array($ret, null);
 		}
 
-		list($ret, $code) = IsapiRewriteHelper::checkIsapiRewrite();
+		list($ret, $code) = self::checkIsapiRewrite();
 
 		if ($ret) {
 			return array($ret, null);
@@ -211,7 +220,7 @@ class IsapiRewriteHelper {
 			return array(null, true);
 		}
 
-		list($ret, $code) = IsapiRewriteHelper::checkFile();
+		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
 			return array($ret, null);
@@ -487,7 +496,11 @@ class IsapiRewriteHelper {
 	 *               string httpd.ini file path
 	 */
 	public static function getHttpdiniPath() {
-		list($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'isapirewrite.httpdini');
+		list($ret, $path) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rewrite',
+			'isapirewrite.httpdini'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -505,7 +518,7 @@ class IsapiRewriteHelper {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
-		list($ret, $file) = IsapiRewriteHelper::getHttpdiniPath();
+		list($ret, $file) = self::getHttpdiniPath();
 
 		if ($ret) {
 			return array($ret, null);
@@ -585,7 +598,7 @@ class IsapiRewriteHelper {
 		$platform  =& $gallery->getPlatform();
 		$galleryId = preg_quote(GALLERY_CONFIG_DIR, '/');
 
-		list($ret, $file) = IsapiRewriteHelper::getHttpdiniPath();
+		list($ret, $file) = self::getHttpdiniPath();
 
 		if ($ret) {
 			return array($ret, null);
@@ -594,14 +607,14 @@ class IsapiRewriteHelper {
 		$htaccess = '#{gallerySection}';
 
 		if (!empty($regexRules)) {
-			list($ret, $htaccess) = IsapiRewriteHelper::getHttpdiniContent($regexRules);
+			list($ret, $htaccess) = self::getHttpdiniContent($regexRules);
 
 			if ($ret) {
 				return array($ret, null);
 			}
 
 			if (GalleryUtilities::isEmbedded()) {
-				list($ret, $embedded) = IsapiRewriteHelper::getHttpdiniContent($regexRules, true);
+				list($ret, $embedded) = self::getHttpdiniContent($regexRules, true);
 
 				if ($ret) {
 					return array($ret, null);
@@ -656,13 +669,17 @@ class IsapiRewriteHelper {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		list($ret, $TestResults['isapiInfo'], $TestResults['trueIsapiInfo']) = IsapiRewriteHelper::checkIsapiRewrite();
+		list(
+			$ret,
+			$TestResults['isapiInfo'],
+			$TestResults['trueIsapiInfo']
+			) = self::checkIsapiRewrite();
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $TestResults['httpdini']) = IsapiRewriteHelper::checkFile();
+		list($ret, $TestResults['httpdini']) = self::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -673,7 +690,7 @@ class IsapiRewriteHelper {
 				'href' => 'modules/rewrite/data/isapi_rewrite/Rewrite.txt',
 			));
 
-			list($ret, $TestResults['contents']) = IsapiRewriteHelper::getHttpdiniContent(array());
+			list($ret, $TestResults['contents']) = self::getHttpdiniContent(array());
 
 			if ($ret) {
 				return $ret;
@@ -767,7 +784,7 @@ class IsapiRewriteHelper {
 			}
 
 			if ($saveActiveRules) {
-				list($ret, $code) = $parser->saveActiveRules();
+				list($ret, $code) = $parser->saveActiveRules($parser);
 
 				if ($ret) {
 					return array($ret, null);

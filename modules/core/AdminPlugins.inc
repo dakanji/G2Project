@@ -110,8 +110,8 @@ class AdminPluginsView extends GalleryView {
 					return array($ret, null);
 				}
 
-				$test1    = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
-				$test2    = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
+				$test1 = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
+				$test2 = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
 
 				$entry                     = array();
 				$entry['type']             = $type;
