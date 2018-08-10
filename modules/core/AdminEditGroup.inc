@@ -37,7 +37,7 @@ class AdminEditGroupController extends GalleryController {
 		}
 
 		$results           = $status = $error = array();
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId           = (int)GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {

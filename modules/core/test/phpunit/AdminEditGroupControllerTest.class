@@ -76,7 +76,8 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Undo Edit Group'
 		);
 
 		$this->_deleteGroup($group);
