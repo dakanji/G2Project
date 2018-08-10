@@ -38,7 +38,7 @@ class AdminEditUserController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId           = (int)GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {

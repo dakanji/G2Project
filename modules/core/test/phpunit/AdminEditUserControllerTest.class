@@ -87,7 +87,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Undo Edit User'
 		);
 	}
 
