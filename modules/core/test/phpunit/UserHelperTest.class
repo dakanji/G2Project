@@ -233,7 +233,7 @@ class UserHelperTest extends GalleryTestCase {
 			$this->_storage->_operations
 		);
 
-		$this->assertFalse($disabled);
+		$this->assertFalse($disabled, 'Disable username no rows');
 	}
 
 	public function testIsDisabledUsernameBelowCutoff() {

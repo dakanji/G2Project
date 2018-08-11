@@ -48,7 +48,10 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 		}
 
 		if (!isset($this->_plugin)) {
-			return $this->assertFalse("Unable to create ItemAddPlugin, type $pluginName");
+			return $this->assertFalse(
+				true,
+				'Unable to create ItemAddPlugin, type ' . $pluginName
+			);
 		}
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
@@ -68,12 +71,19 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 		if (isset($errorCode)) {
 			if ($ret && ($ret->getErrorCode() & $errorCode) != $errorCode) {
 				$this->assertFalse(
+					true,
 					sprintf(
 						'Expected error code (%s) but received (%s)',
-						implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
-						implode(' | ', $ret ? '' : GalleryStatus::doStatic()->getErrorCodeConstants(
-							$ret->getErrorCode()
-						))
+						implode(
+							' | ',
+							GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)
+						),
+						implode(
+							' | ',
+							$ret ? '' : GalleryStatus::doStatic()->getErrorCodeConstants(
+								$ret->getErrorCode()
+							)
+						)
 					)
 				);
 			}

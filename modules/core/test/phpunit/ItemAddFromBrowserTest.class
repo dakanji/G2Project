@@ -437,7 +437,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		$this->assertEquals(array(), $results[0]);
 
 		if (!isset($results[1]['addedFiles'][0]['id'])) {
-			$this->assertFalse('Id is not set');
+			$this->assertFalse(true, 'Id is not set');
 		} else {
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById(
 				$results[1]['addedFiles'][0]['id'],

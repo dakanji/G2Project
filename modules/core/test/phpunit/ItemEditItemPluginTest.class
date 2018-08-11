@@ -175,7 +175,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 				$thumbTable[$this->_item[0]->getId()]->getDerivativeOperations()
 			);
 		} else {
-			$this->assertFalse('thumbnail missing');
+			$this->assertFalse(true, 'thumbnail missing');
 		}
 	}
 
@@ -618,7 +618,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 				$thumbTable[$this->_item[1]->getId()]->getDerivativeOperations()
 			);
 		} else {
-			$this->assertFalse('We should have a thumbnail');
+			$this->assertTrue(false, 'We should have a thumbnail');
 		}
 	}
 
@@ -661,7 +661,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 				$thumbTable[$this->_album[0]->getId()]->getDerivativeOperations()
 			);
 		} else {
-			$this->assertFalse('We should have a thumbnail');
+			$this->assertTrue(false, 'We should have a thumbnail');
 		}
 	}
 

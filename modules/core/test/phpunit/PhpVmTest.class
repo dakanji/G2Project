@@ -147,7 +147,10 @@ class PhpVmTest extends GalleryTestCase {
 				'no G2 SessionId with a correct SID found in the cookie header'
 			);
 		} else {
-			$this->assertFalse('no cookie header found in http response for url: ' . $url);
+			$this->assertFalse(
+				true,
+				'no cookie header found in http response for url: ' . $url
+			);
 		}
 	}
 

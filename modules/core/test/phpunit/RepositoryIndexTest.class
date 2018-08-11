@@ -394,7 +394,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$ret = $index->load();
 
 		if (!$ret) {
-			$this->assertFalse('Should return an error');
+			$this->assertFalse(true, 'Load Malformed Index');
 		}
 		$this->assertTrue(
 			$ret->getErrorCode() & ERROR_BAD_PARAMETER,
@@ -432,7 +432,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$ret             = $this->_index->unserializeIndex($serializedIndex);
 
 		if (!$ret) {
-			return $this->assertFalse('Should have returned ERROR_BAD_PARAMETER');
+			return $this->assertFalse(true, 'Unserialize Malformed Index');
 		}
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
 		$this->assertEquals(

@@ -1251,10 +1251,10 @@ class StorageTest extends GalleryTestCase {
 				for ($i = 0; $i < strlen($result); $i++) {
 					$bytes .= ' ' . ord($result[$i]);
 				}
-				$this->assertFalse('Result bytes:' . $bytes);
+				$this->assertFalse(true, 'Result bytes:' . $bytes);
 			}
 		} else {
-			$this->assertFalse('SELECT failed, got nothing back!');
+			$this->assertFalse(true, 'SELECT failed, got nothing back!');
 		}
 
 		// Cleanup

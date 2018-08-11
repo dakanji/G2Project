@@ -622,7 +622,7 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		if (empty($newLocale)) {
-			return $this->assertFalse('Unable to select German locale');
+			return $this->assertFalse(true, 'Unable to select German locale');
 		}
 
 		$toolkit = new GalleryToolkit();

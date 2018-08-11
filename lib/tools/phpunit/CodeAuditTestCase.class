@@ -118,7 +118,10 @@ class CodeAuditTestCase extends GalleryTestCase {
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
-			$this->assertFalse('Unable to parse .svn/entries for dir: ' . $dirPath);
+			$this->assertFalse(
+				true,
+				'Unable to parse .svn/entries for dir: ' . $dirPath
+			);
 
 			return array();
 		}
@@ -159,7 +162,10 @@ class CodeAuditTestCase extends GalleryTestCase {
 					break;
 
 				default:
-					$this->assertFalse('Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]);
+					$this->assertFalse(
+						true,
+						'Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]
+					);
 			}
 		}
 
@@ -225,7 +231,10 @@ class CodeAuditTestCase extends GalleryTestCase {
 					break;
 
 				default:
-					$this->assertFalse('Unable to parse ' . $matches[2][$i]);
+					$this->assertFalse(
+						true,
+						'Unable to parse ' . $matches[2][$i]
+					);
 			}
 		}
 

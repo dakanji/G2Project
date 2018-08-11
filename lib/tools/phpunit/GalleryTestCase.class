@@ -120,7 +120,10 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		// Fail with as much debug info as we can muster.
-		$this->assertFalse($ret->getAsHtml() . $gallery->getDebugBuffer());
+		$this->assertFalse(
+			true,
+			$ret->getAsHtml() . $gallery->getDebugBuffer()
+		);
 
 		return $ret;
 	}
@@ -142,8 +145,11 @@ class GalleryTestCase extends TestCase {
 				break;
 
 			default:
-				$this->assertFalse('Unknown platform in GalleryTestCase::setUp -- did you ' .
-					  ' change the platform before calling parent::setUp in your test case?');
+				$this->assertFalse(
+					true,
+					'Unknown platform in GalleryTestCase::setUp -- did you '
+					. ' change the platform before calling parent::setUp in your test case?'
+				);
 		}
 
 		$storage =& $gallery->getStorage();
@@ -363,9 +369,9 @@ class GalleryTestCase extends TestCase {
 		);
 
 		if (is_object($session)) {
-			$this->assertTrue(true, $this->_saveSID == $session->getId(), 'Session ID changed by test');
+			$this->assertTrue($this->_saveSID == $session->getId(), 'Session ID changed by test');
 		} else {
-			$this->assertFalse('Session is not an object anymore!');
+			$this->assertFalse(true, 'Session is not an object anymore!');
 		}
 
 		$eventListeners =& GalleryEventHelper_simple::_getEventListeners();

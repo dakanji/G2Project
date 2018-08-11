@@ -1,30 +1,30 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2008 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 /**
- * Test utilities functionality.
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- * @version $Revision: 17580 $
- */
+* Test utilities functionality.
+* @package GalleryCore
+* @subpackage PHPUnit
+* @author Bharat Mediratta <bharat@menalto.com>
+* @version $Revision: 17580 $
+*/
 class UtilitiesTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
@@ -217,9 +217,9 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Test the error condition where we have a value in _POST and we put the same value back via
-	 * putRequestVariable -- make sure that the new value overwrites the old
-	 */
+	* Test the error condition where we have a value in _POST and we put the same value back via
+	* putRequestVariable -- make sure that the new value overwrites the old
+	*/
 	public function testGetFormVariables3() {
 		$_POST[GalleryUtilities::prefixFormVariable('utilitiestest')]['list']['filter'] = 'x';
 		GalleryUtilities::putRequestVariable('utilitiestest[list][filter]', 'y');
@@ -467,7 +467,7 @@ class UtilitiesTest extends GalleryTestCase {
 			"\x47\x32\xce\x93\xce\xb2\xc3\x80" => "G2\xce\x93\xce\xb2\xc3\x80",
 			'apo\'strophe quo"tes'             => 'apo\'strophe quo&quot;tes',
 		) as
-		 $raw => $cooked) {
+		$raw => $cooked) {
 			if (get_magic_quotes_gpc()) {
 				// Simulate magic_quotes_gpc
 				$raw = addslashes($raw);
@@ -775,9 +775,9 @@ class UtilitiesTest extends GalleryTestCase {
 	// Right now we only trust RFC1918 addresses
 	public function testIsTrustedProxy() {
 		/*
-		 * Hard to verify this completely because it takes too long to test 2^32 addresses.  Try the
-		 * approach of testing 15^4 (50625) addresses at random instead.
-		 */
+		* Hard to verify this completely because it takes too long to test 2^32 addresses.  Try the
+		* approach of testing 15^4 (50625) addresses at random instead.
+		*/
 		for ($i = 0; $i < 15; $i++) {
 			$aa[] = mt_rand(0, 255);
 			$ba[] = mt_rand(0, 255);
@@ -802,1631 +802,1652 @@ class UtilitiesTest extends GalleryTestCase {
 						($a == 192 && $b == 168));
 
 						if ($shouldBeTrusted != $trusted) {
-							$this->assertFalse(sprintf(
-								"$addr %s be trusted.  IMPORTANT! " .
-								'Save and report this *exact* error message!',
-								$shouldBeTrusted ? 'should' : 'should not'
-							));
+							$this->assertFalse(
+								true,
+								sprintf(
+									"$addr %s be trusted.  IMPORTANT! " .
+									'Save and report this *exact* error message!',
+									$shouldBeTrusted ? 'should' : 'should not'
+								));
+							}
+						}
+					}
+				}
+			}
+
+			// Sanity check some known RFC1918 addresses
+			$this->assertTrue(GalleryUtilities::isTrustedProxy('10.1.2.3'), '10/8 failed');
+			$this->assertTrue(GalleryUtilities::isTrustedProxy('172.16.254.253'), '172.16/12 failed 1');
+			$this->assertTrue(GalleryUtilities::isTrustedProxy('172.31.254.253'), '172.16/12 failed 2');
+			$this->assertTrue(!GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
+			$this->assertTrue(GalleryUtilities::isTrustedProxy('192.168.1.2'), '192.168/16 failed');
+		}
+
+		public function testIsPathInList() {
+			global $gallery;
+
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'/foo',
+				array('/foo', '/bar')
+			), 'test 1');
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'/foo/',
+				array('/bar', '/foo')
+			), 'test 2');
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'/foo',
+				array('/foo/', '/bar/')
+			), 'test 3');
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'/foo/bar',
+				array('/foo', '/bar')
+			), 'test 4');
+			$this->assertTrue(!GalleryUtilities::isPathInList(
+				'/foobar',
+				array('/foo', '/bar')
+			), 'test 5');
+			$this->assertTrue(!GalleryUtilities::isPathInList(
+				'/fo',
+				array('/foo', '/bar')
+			), 'test 6');
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'/link/foo',
+				array('/foo', '/bar')
+			), 'symlink in');
+			$this->assertTrue(!GalleryUtilities::isPathInList(
+				'/foo/link',
+				array('/foo', '/bar')
+			), 'symlink out');
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'/foo/bar',
+				array('/link', '/bar')
+			), 'symlink path');
+
+			$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
+			$gallery->setPlatform($UtilitiesTestWinPlatform);
+			$this->assertTrue(GalleryUtilities::isPathInList(
+				'c:\foo\bar',
+				array('d:\\', 'C:\Foo')
+			), 'test 7');
+		}
+
+		public function testProcessingPaths() {
+			GalleryUtilities::putRequestVariable('test', __FILE__);
+			$this->assertEquals(__FILE__, GalleryUtilities::getRequestVariables('test'));
+		}
+
+		public function testEntitySubstr() {
+			$this->assertEquals(
+				array(6, 'abcdef'),
+				GalleryUtilities::entitySubstr('abcdef', 0),
+				1
+			);
+			$this->assertEquals(
+				array(3, 'def'),
+				GalleryUtilities::entitySubstr('abcdef', 3),
+				2
+			);
+			$this->assertEquals(
+				array(0, ''),
+				GalleryUtilities::entitySubstr('abcdef', 6),
+				3
+			);
+			$this->assertEquals(
+				array(0, false),
+				GalleryUtilities::entitySubstr('abcdef', 7),
+				4
+			);
+			$this->assertEquals(
+				array(6, 'abcdef'),
+				GalleryUtilities::entitySubstr('abcdef', -6),
+				5
+			);
+			$this->assertEquals(
+				array(2, 'ef'),
+				GalleryUtilities::entitySubstr('abcdef', -2),
+				6
+			);
+			$this->assertEquals(
+				array(0, ''),
+				GalleryUtilities::entitySubstr('abcdef', 0, -6),
+				7
+			);
+			$this->assertEquals(
+				array(1, 'a'),
+				GalleryUtilities::entitySubstr('abcdef', 0, -5),
+				8
+			);
+			$this->assertEquals(
+				array(5, 'abcde'),
+				GalleryUtilities::entitySubstr('abcdef', 0, -1),
+				9
+			);
+			$this->assertEquals(
+				array(0, ''),
+				GalleryUtilities::entitySubstr('abcdef', 0, 0),
+				10
+			);
+			$this->assertEquals(
+				array(4, 'bcde'),
+				GalleryUtilities::entitySubstr('abcdef', -5, -1),
+				11
+			);
+			$this->assertEquals(
+				array(3, 'cde'),
+				GalleryUtilities::entitySubstr('abcdef', -4, -1),
+				12
+			);
+			$this->assertEquals(
+				array(2, 'de'),
+				GalleryUtilities::entitySubstr('abcdef', -3, -1),
+				13
+			);
+			$this->assertEquals(
+				array(1, 'e'),
+				GalleryUtilities::entitySubstr('abcdef', -2, -1),
+				14
+			);
+			$this->assertEquals(
+				array(4, 'bcde'),
+				GalleryUtilities::entitySubstr('abcdef', 1, 4),
+				15
+			);
+			$this->assertEquals(
+				array(7, '&amp;abcdef'),
+				GalleryUtilities::entitySubstr('&amp;abcdef', -7),
+				16
+			);
+			$this->assertEquals(
+				array(7, 'abc&amp;def'),
+				GalleryUtilities::entitySubstr('abc&amp;def', -7),
+				17
+			);
+			$this->assertEquals(
+				array(6, 'abcdef'),
+				GalleryUtilities::entitySubstr('&amp;abcdef', -6),
+				18
+			);
+			$this->assertEquals(
+				array(2, 'a&amp;'),
+				GalleryUtilities::entitySubstr('&amp;a&amp;bcdef', 1, 2),
+				19
+			);
+			$this->assertEquals(
+				array(3, 'abc'),
+				GalleryUtilities::entitySubstr('&amp;abcdef', 1, 3),
+				20
+			);
+		}
+
+		public function testCreateAlbumTree() {
+			// Make up some bogus albums that we can use to simulate our tree
+			for ($i = 0; $i < 7; $i++) {
+				list($ret, $albums[$i]) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
+
+				if ($ret) {
+					return $ret;
+				}
+				$albums[$i]->setId($i);
+			}
+
+			$albums[0]->setParentId(null);
+			$albums[1]->setParentId(0);
+			$albums[2]->setParentId(0);
+			$albums[3]->setParentId(1);
+			$albums[4]->setParentId(1);
+			$albums[5]->setParentId(1);
+			$albums[6]->setParentId(4);
+
+			$tree = GalleryUtilities::createAlbumTree($albums);
+			$this->assertTrue($tree[0]['depth'] == 0);
+			$this->assertTrue($tree[0]['data']['id'] == 0);
+			$this->assertTrue($tree[1]['depth'] == 0);
+			$this->assertTrue($tree[1]['data']['id'] == 1);
+			$this->assertTrue($tree[2]['depth'] == 1);
+			$this->assertTrue($tree[2]['data']['id'] == 3);
+			$this->assertTrue($tree[3]['depth'] == 1);
+			$this->assertTrue($tree[3]['data']['id'] == 4);
+			$this->assertTrue($tree[4]['depth'] == 2);
+			$this->assertTrue($tree[4]['data']['id'] == 6);
+			$this->assertTrue($tree[5]['depth'] == 1);
+			$this->assertTrue($tree[5]['data']['id'] == 5);
+			$this->assertTrue($tree[6]['depth'] == 0);
+			$this->assertTrue($tree[6]['data']['id'] == 2);
+		}
+
+		public function testGetFile() {
+			global $gallery;
+			$platform =& $gallery->getPlatform();
+
+			$_FILES[GalleryUtilities::prefixFormVariable('userfile')] = array(
+				'name'     => 'testfile.txt',
+				'type'     => 'text/plain',
+				'tmp_name' => __FILE__,
+				'error'    => 0,
+				'size'     => $platform->filesize(__FILE__),
+			);
+
+			$file = GalleryUtilities::getFile('userfile');
+			$this->assertEquals(
+				array(
+					'name'     => 'testfile.txt',
+					'type'     => 'text/plain',
+					'tmp_name' => __FILE__,
+					'error'    => 0,
+					'size'     => $platform->filesize(__FILE__),
+				),
+				$file
+			);
+
+			$_FILES['testfile'] = array(
+				'name'     => 'testfile.txt',
+				'type'     => 'text/plain',
+				'tmp_name' => __FILE__,
+				'error'    => 0,
+				'size'     => $platform->filesize(__FILE__),
+			);
+
+			$file = GalleryUtilities::getFile('testfile', false);
+			$this->assertEquals(
+				array(
+					'name'     => 'testfile.txt',
+					'type'     => 'text/plain',
+					'tmp_name' => __FILE__,
+					'error'    => 0,
+					'size'     => $platform->filesize(__FILE__),
+				),
+				$file
+			);
+		}
+
+		public function testGetHttpDate() {
+			$regexp  = '/(Mon|Tue|Wed|Thu|Fri|Sat|Sun), ';
+			$regexp .= '\d\d (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d\d\d\d ';
+			$regexp .= '\d\d:\d\d:\d\d GMT/';
+
+			// Test a known date
+			$date = GalleryUtilities::getHttpDate(1092648357);
+			$this->assertEquals('Mon, 16 Aug 2004 09:25:57 GMT', $date);
+
+			// Test the format of current datetime
+			$date      = GalleryUtilities::getHttpDate();
+			$isCorrect = preg_match($regexp, $date);
+			$this->assertTrue($isCorrect, 'date-string ' . $date . ' is not RFC 2616 conformant');
+		}
+
+		public function testIsCompatibleWithApi() {
+			$this->assertTrue(
+				GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 8)),
+				'same'
+			);
+			$this->assertTrue(
+				GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 9)),
+				'minor bigger'
+			);
+			$this->assertTrue(
+				!GalleryUtilities::isCompatibleWithApi(array(1, 8), array(0, 8)),
+				'major bigger'
+			);
+			$this->assertTrue(
+				!GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 7)),
+				'minor smaller'
+			);
+			$this->assertTrue(
+				!GalleryUtilities::isCompatibleWithApi(array(2, 0), array(1, 0)),
+				'major smaller'
+			);
+			$this->assertTrue(
+				!GalleryUtilities::isCompatibleWithApi(array(2, 3), array(1, 2)),
+				'both smaller'
+			);
+			$this->assertTrue(
+				!GalleryUtilities::isCompatibleWithApi(array(1, 2), array(2, 3)),
+				'both bigger'
+			);
+			$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(1, 2), 'input error 1');
+			$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(array(1), array(2)), 'input error 2');
+			$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(array(2), array(2)), 'input error 3');
+			$this->assertTrue(
+				!GalleryUtilities::isCompatibleWithApi(array('1', '2'), array('1', 2)),
+				'input error 4'
+			);
+		}
+
+		public function testGetPhpIniBool() {
+			$iniVal = ini_get('define_syslog_variables');
+
+			$oldval = ini_set('define_syslog_variables', '');
+			$this->assertTrue(
+				!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'Blank should be false'
+			);
+
+			$oldval = ini_set('define_syslog_variables', 'off');
+			$this->assertTrue(
+				!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'Off should be false'
+			);
+
+			$oldval = ini_set('define_syslog_variables', '0');
+			$this->assertTrue(
+				!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'0 should be false'
+			);
+
+			$oldval = ini_set('define_syslog_variables', false);
+			$this->assertTrue(
+				!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'false should be false'
+			);
+
+			$oldval = ini_set('define_syslog_variables', 'on');
+			$this->assertTrue(
+				GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'On should be true'
+			);
+
+			$oldval = ini_set('define_syslog_variables', '1');
+			$this->assertTrue(
+				GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'1 should be true'
+			);
+
+			$oldval = ini_set('define_syslog_variables', true);
+			$this->assertTrue(
+				GalleryUtilities::getPhpIniBool('define_syslog_variables'),
+				'true should be true'
+			);
+
+			$oldval = ini_set('define_syslog_variables', $iniVal);
+		}
+
+		public function testIdentifySearchEngineCrawlerFromRequest() {
+			$data['google'][] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
+			$data['google'][] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
+			$data['google'][] = 'Mediapartners-Google/2.1 (+http://www.googlebot.com/bot.html)';
+			$data['google'][] = 'gsa-crawler (Enterprise; GID-01083; search-admin@example.com)';
+
+			$data['yahoo'][] = 'YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; '
+			. 'http://help.yahoo.com/help/us/shop/merchant/)';
+			$data['yahoo'][] = 'YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; '
+			. 'http://search.yahoo.com/yahooseeker.html)';
+			$data['yahoo'][] = 'YahooSeeker/1.1 (compatible; Mozilla 4.0; MSIE 5.5; '
+			. 'http://help.yahoo.com/help/us/shop/merchant/)';
+			$data['yahoo'][] = 'Mozilla/5.0 (compatible; Yahoo! Slurp; '
+			. 'http://help.yahoo.com/help/us/ysearch/slurp)';
+
+			$data['yandex'][] = 'Yandex/1.01.001 (compatible; Win16; I)';
+			$data['yandex'][] = 'Yandex/1.01.001 (compatible; Win16; P)';
+
+			$data['stackrambler'][] = 'StackRambler/2.0 (MSIE incompatible)';
+
+			$data['askjeeves'][] = 'Mozilla/2.0 (compatible; Ask Jeeves)';
+			$data['askjeeves'][] = 'Mozilla/2.0 (compatible; Ask Jeeves/Teoma)';
+
+			$data['microsoft'][] = 'msnbot/0.3 (+http://search.msn.com/msnbot.htm)';
+			$data['microsoft'][] = 'msnbot/0.11 (+http://search.msn.com/msnbot.htm)';
+
+			$data['convera'][] = 'ConveraCrawler/0.9d (+http://www.authoritativeweb.com/crawl)';
+
+			$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) '
+			. 'Gecko/20041001 Firefox/0.10.1';
+			$data['null'][] = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) '
+			. 'Gecko/20041107 Firefox/1.0';
+			$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de-DE; rv:1.7.5) '
+			. 'Gecko/20041108 Firefox/1.0';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
+			. 'SV1; MSN 9.0;MSN 9.1; MSNbMSNI; MSNmen-us; MSNcIA; MPLUS)';
+			$data['null'][] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.5) '
+			. 'Gecko/20041107 Firefox/1.0';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; MSIECrawler)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
+			. 'SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
+			. 'SV1; .NET CLR 1.0.3705)';
+			$data['null'][] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) '
+			. 'AppleWebKit/125.5.5 (KHTML, like Gecko) Safari/125.12';
+			$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.5) '
+			. 'Gecko/20041107 Firefox/1.0';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)';
+			$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) '
+			. 'Gecko/20041107 Firefox/1.0';
+			$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
+			. 'SV1; .NET CLR 1.1.4322)';
+
+			foreach ($data as $key => $userAgents) {
+				foreach ($userAgents as $userAgent) {
+					if ($key == 'null') {
+						$key = null;
+					}
+
+					$_SERVER['HTTP_USER_AGENT'] = $userAgent;
+					$this->assertEquals(
+						$key,
+						GalleryUtilities::identifySearchEngine($userAgent),
+						$userAgent
+					);
+				}
+			}
+		}
+
+		public function testUnicodeValueToUtf8Value() {
+			$testData = GalleryUtilities::unicodeValueToUtf8Value('2835');
+			$this->assertEquals(
+				"\xe0\xac\x93",
+				$testData,
+				'decimal'
+			);
+			$testData = GalleryUtilities::unicodeValueToUtf8Value('x0B13');
+			$this->assertEquals(
+				"\xe0\xac\x93",
+				$testData,
+				'hex'
+			);
+			$testData = GalleryUtilities::unicodeValueToUtf8Value('241');
+			$this->assertEquals(
+				"\xc3\xb1",
+				$testData,
+				'decimal'
+			);
+			$testData = GalleryUtilities::unicodeValueToUtf8Value('xF1');
+			$this->assertEquals(
+				"\xc3\xb1",
+				$testData,
+				'hex'
+			);
+
+			// Test 2^15 boundary
+			$testData = GalleryUtilities::unicodeValueToUtf8Value('x7FFF');
+			$this->assertEquals(
+				"\xe7\xbf\xbf",
+				$testData,
+				'2^15 - 1'
+			);
+			$testData = GalleryUtilities::unicodeValueToUtf8Value('x8000');
+			$this->assertEquals(
+				"\xe8\x80\x80",
+				$testData,
+				'2^15'
+			);
+		}
+
+		public function testUnicodeEntitiesToUtf8() {
+			$testData = GalleryUtilities::unicodeEntitiesToUtf8(
+				'foo &#2835; bar'
+			);
+			$this->assertEquals(
+				"foo \xe0\xac\x93 bar",
+				$testData
+			);
+
+			$testData = GalleryUtilities::unicodeEntitiesToUtf8(
+				'accentu&#233;s. &#231;&#224; donne'
+			);
+			$this->assertEquals(
+				"accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne",
+				$testData
+			);
+		}
+
+		public function testUtf8ToUnicodeEntities() {
+			$testData = GalleryUtilities::utf8ToUnicodeEntities(
+				"foo \xe0\xac\x93 bar"
+			);
+			$this->assertEquals(
+				'foo &#2835; bar',
+				$testData
+			);
+
+			$testData = GalleryUtilities::utf8ToUnicodeEntities(
+				"accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne"
+			);
+			$this->assertEquals(
+				'accentu&#233;s. &#231;&#224; donne',
+				$testData
+			);
+		}
+
+		/**
+		* @todo Remove this test on next core API bump
+		*/
+		public function testUtf8Substring() {
+			// Russian
+			$utf8     = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
+			"\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
+			"\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
+			$testData = GalleryUtilities::utf8Substring($utf8, 0, 4);
+			$this->assertEquals(
+				"\xd0\xa0\xd1\x83\xd1\x81\xd1\x81",
+				$testData,
+				'4 chars (ru), standard version'
+			);
+		}
+
+		public function testIsEmbedded() {
+			$key         = 'G2_EMBED';
+			$backupValue = null;
+
+			if (GalleryDataCache::containsKey($key)) {
+				$backupValue = GalleryDataCache::get($key);
+			}
+			GalleryDataCache::remove($key);
+			$this->assertTrue(
+				!GalleryDataCache::containsKey($key),
+				'Could not remove a GDC var'
+			);
+			$this->assertTrue(
+				!GalleryUtilities::isEmbedded(),
+				'Should be not embedded'
+			);
+
+			GalleryDataCache::put($key, 1, true);
+			$this->assertTrue(
+				GalleryDataCache::containsKey($key),
+				'Could not set a GDC var'
+			);
+			$this->assertTrue(
+				GalleryUtilities::isEmbedded(),
+				'Should be embedded now'
+			);
+
+			// Restore
+			if ($backupValue) {
+				GalleryDataCache::put($key, $backupValue, true);
+			} else {
+				GalleryDataCache::remove($key);
+				$this->assertTrue(
+					!GalleryDataCache::containsKey($key),
+					'Could not remove a GDC var'
+				);
+			}
+		}
+
+		public function testGetServerVar() {
+			// Normal
+			$_SERVER['foo'] = 'foo';
+			$this->assertEquals('foo', GalleryUtilities::getServerVar('foo'));
+
+			// Missing
+			unset($_SERVER['foo']);
+			$this->assertEquals(null, GalleryUtilities::getServerVar('foo'));
+
+			// Malicious value
+			$_SERVER['foo'] = '<script>bar</script>';
+			$this->assertEquals(
+				'&lt;script&gt;bar&lt;/script&gt;',
+				GalleryUtilities::getServerVar('foo')
+			);
+		}
+
+		public function testGetCookieVar() {
+			// Normal
+			$key                     = 'foo' . mt_rand(1, 9999);
+			$_COOKIE[$key]           = 'foo';
+			$_SERVER['HTTP_COOKIE'] .= !empty($this->_saveServerHttpCookie) ? ' ; ' : '';
+			$_SERVER['HTTP_COOKIE'] .= $key . '=foo';
+			GalleryUtilities::fixCookieVars(false, true);
+			$this->assertEquals('foo', GalleryUtilities::getCookieVar($key));
+
+			// Missing
+			unset($_COOKIE[$key]);
+			$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
+			GalleryUtilities::fixCookieVars(false, true);
+			$this->assertEquals(null, GalleryUtilities::getCookieVar($key));
+
+			// Malicious value
+			$val                     = '<script>bar</script>';
+			$_COOKIE[$key]           = $val;
+			$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
+			$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
+			$_SERVER['HTTP_COOKIE'] .= $key . '=' . urlencode($val);
+			GalleryUtilities::fixCookieVars(false, true);
+			$this->assertEquals(
+				'&lt;script&gt;bar&lt;/script&gt;',
+				GalleryUtilities::getCookieVar($key)
+			);
+
+			// COOKIE has a wrong value, should be fixed automatically
+			GalleryUtilities::fixCookieVars(false, true);
+			$rand                   = mt_rand(1, 9999);
+			$val1                   = 'bar' . $rand;
+			$val2                   = 'bar' . ($rand + 3000);
+			$_COOKIE[$key]          = $val2;
+			$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
+			$delimiter              = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
+			$_SERVER['HTTP_COOKIE'] = $key . '=' . $val1 . ' ; ' . $key . '=' . $val2 . $delimiter .
+			$_SERVER['HTTP_COOKIE'];
+			$this->assertEquals($val1, GalleryUtilities::getCookieVar($key), 'combined getCookieVar, fixCookieVars test');
+		}
+
+		// Test if we correctly fix the superglobal $_COOKIE
+		public function testFixCookieVars() {
+			// Only 1 cookie with the same NAME
+			$key                     = 'foo' . mt_rand(1, 9999);
+			$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
+			$_SERVER['HTTP_COOKIE'] .= "$key=foo";
+			// Execute our fix
+			GalleryUtilities::fixCookieVars(true);
+			$this->assertEquals(
+				'foo',
+				GalleryUtilities::getCookieVar($key),
+				'single cookie, getCookieVars'
+			);
+			$this->assertEquals(
+				'foo',
+				$_COOKIE[$key],
+				'single cookie, superglobal _COOKIE'
+			);
+
+			// Two cookies with the same name, different paths
+			$key  = 'foo' . mt_rand(1, 9999);
+			$rand = mt_rand(1, 9999);
+			$val1 = 'bar' . $rand;
+			$val2 = 'bar' . ($rand + 3000);
+			// Define cookie with $val1 to be the one with higher precedence (more specific path)
+			$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
+			$_COOKIE                 = $this->_saveCookie;
+			$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
+			$_SERVER['HTTP_COOKIE'] .= "$key=" . urlencode($val1) . '; $key=' . urlencode($val2);
+			// Set $_COOKIE as php would, with the wrong cookie value for our key
+			$_COOKIE[$key] = $val2;
+			// Execute our fix
+			GalleryUtilities::fixCookieVars(true);
+			$this->assertEquals(
+				$val1,
+				GalleryUtilities::getCookieVar($key),
+				'multiple cookies, getCookieVar'
+			);
+			$this->assertEquals(
+				$val1,
+				$_COOKIE[$key],
+				'multiple cookies, superglobal _COOKIE'
+			);
+
+			// Performance check.  It shouldn't be executed when it was already executed.
+			$_COOKIE                = array();
+			$_SERVER['HTTP_COOKIE'] = '';
+			GalleryUtilities::fixCookieVars(true);
+			$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');
+			$_SERVER['HTTP_COOKIE'] = 'foo=bar';
+			GalleryUtilities::fixCookieVars();
+			$this->assertFalse(
+				isset($_COOKIE['foo']),
+				'fixCookieVars should not run a second time!'
+			);
+
+			/*
+			* Even if we can't live with that case, test what happens if $_SERVER['HTTP_COOKIE']
+			* does not exist
+			*/
+			$_COOKIE = $this->_saveCookie;
+			unset($_SERVER['HTTP_COOKIE']);
+			GalleryUtilities::fixCookieVars(true);
+			$this->assertEquals(
+				$_COOKIE,
+				$this->_saveCookie,
+				'HTTP_COOKIE unset test: $_COOKIE was modified!'
+			);
+
+			/*
+			* Check if $_SERVER['HTTP_COOKIE'] is set (more as a feedback once we know that there are
+			* still login/auth problems)
+			*/
+			$this->assertEquals(
+				empty($this->_saveCookie),
+				empty($this->_saveServerHttpCookie),
+				'HTTP_COOKIE not set although $_COOKIE is nonempty!'
+			);
+
+			/*
+			* Check for quoted-string cookies (don't urlencode cookie values, eg. by using header()
+			* instead of setCookie())
+			*/
+			$key1 = 'foo1';
+			$val1 = '" sdsd , wsdsds ;  wewew"';
+			$key2 = '$Version';
+			$val2 = '1';
+			$key3 = 'foo2';
+			$key4 = 'foo4';
+			$val4 = 'bar';
+			$key5 = 'dontfix[key';
+			$val5 = 'bar2';
+			$key6 = 'foo5';
+			$val6 = '"iui7 asa9a,. \\" a; \\asas, bla"';
+			// Use one time commas as delimiters, the other time semicolons
+			foreach (array(',', ';') as $sep) {
+				/*
+				* Check for quoted-string cookies (don't urlencode cookie values, eg. by using header()
+				* instead of setCookie()).  And check for ordinary cookies (Netscape standard) where
+				* values are assumed to be urlencoded.
+				*/
+				foreach (array(true, false) as $urlEncoded) {
+					if ($urlEncoded) {
+						$_SERVER['HTTP_COOKIE'] = $key1 . '=' . urlencode($val1) . $sep . $key2 . '=' .
+						urlencode($val2) . $sep . $key3 . $sep . $key4 . '=' . urlencode($val4) .
+						$sep . $key5 . '=' . urlencode($val5) . $sep . $key6 . '= ' .
+						urlencode($val6);
+					} else {
+						$_SERVER['HTTP_COOKIE'] = $key1 . '=' . $val1 . $sep . $key2 . '=' .
+						$val2 . $sep . $key3 . $sep . $key4 . '=' . $val4
+						. $sep . $key5 . '=' . $val5 . $sep . $key6 . '= ' . $val6;
+					}
+
+					$_COOKIE           = array();
+					$_COOKIE['foobar'] = array(
+						'foo' => 'bar',
+					);
+					// Execute the fix
+					GalleryUtilities::fixCookieVars(true);
+					// Check if the actual response matches the expected response
+					$kind = $urlEncoded ? 'urlencoded' : 'true';
+					$this->assertTrue(
+						isset($_COOKIE[$key1]),
+						$kind . ' quoted-string cookie 1 not set for delimiter "' . $sep . '"'
+					);
+
+					if (isset($_COOKIE[$key1])) {
+						$check = get_magic_quotes_gpc() ? addslashes($val1) : $val1;
+						$this->assertEquals(
+							$check,
+							$_COOKIE[$key1],
+							$kind . ' quoted-string cookie 1 incorrect for delimiter "' . $sep . '"'
+						);
+					}
+
+
+					$this->assertTrue(
+						isset($_COOKIE[$key6]),
+						$kind . 'quoted-string cookie 6 not set for delimiter "' . $sep . '"'
+					);
+
+					if (isset($_COOKIE[$key6])) {
+						$check = get_magic_quotes_gpc() ? addslashes($val6) : $val6;
+						$this->assertEquals($check, $_COOKIE[$key6], $kind . 'quoted-string cookie ' .
+						'6 incorrect for delimiter "' . $sep . '"');
+					}
+
+					$kind = $urlEncoded ? 'urlencoded' : 'non-urlencoded';
+					$this->assertFalse(
+						isset($_COOKIE[$key5]),
+						$kind . ' illegal name cookie 5  was set for delimiter "' . $sep . '"'
+					);
+
+					$this->assertTrue(
+						isset($_COOKIE[$key4]),
+						$kind . ' token cookie 4 not set for delimiter "' . $sep . '"'
+					);
+
+					if (isset($_COOKIE[$key4])) {
+						$this->assertEquals(
+							$val4, $_COOKIE[$key4],
+							$kind . ' token cookie 4 incorrect for delimiter "' . $sep . '"'
+						);
+					}
+
+					$this->assertFalse(
+						isset($_COOKIE[$key3]),
+						$kind . ' empty cookie value was set for delimiter "' . $sep . '"'
+					);
+					$this->assertFalse(
+						isset($_COOKIE[$key2]),
+						$kind . ' $Version cookie was set for delimiter "' . $sep . '"'
+					);
+
+					// Check if the array-cookie is still there
+					$this->assertTrue(isset($_COOKIE['foobar']), $kind . 'array cookie not ' .
+					'set for separator "' . $sep . '"');
+
+					if (isset($_COOKIE['foobar'])) {
+						$this->assertEquals(array(
+							'foo' => 'bar',
+						), $_COOKIE['foobar'], $kind .
+						' array cookie value changed for delimiter "' . $sep . '"');
+					}
+				}
+			}
+		}
+
+		// Check some edge cases of _registerCookieAttr
+		public function testRegisterCookieAttr() {
+			global $gallery;
+
+			// Test cases
+			$tests = array();
+			// 1. add one, successfully
+			$tests[] = array(
+				'add' => array('foo=bar'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 2. add something, unsuccessfully
+			$tests[] = array(
+				'add' => array('fo[o=bar'),
+				'er'  => array(),
+			);
+			// 3. add key with the same key, no change expected
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 4. add key with another name, successfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+					array(
+						'key' => 'foo2',
+						'val' => 'bar2',
+					),
+				),
+			);
+			// 5. add attr without value, unsuccessfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 6. add something that would be a problem when it was not urlencoded, successfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'fo%26o2=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+					array(
+						'key' => 'fo&o2',
+						'val' => 'bar2',
+					),
+				),
+			);
+			// 7. try zero length key, unsuccessfully
+			$tests[] = array(
+				'add' => array('foo=bar', '=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 8. try key with [ (arrays, ...), unsuccessfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'fo[o2=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			$tests[] = array(
+				'add' => array('foo=bar', '[foo2=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2[=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 9. try key with ], unsuccessfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'fo]o2=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2]=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 10. try key with [], unsuccessfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'f[o]o2=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 11. this would be a valid array cookie, but we don't touch them
+			$tests[] = array(
+				'add' => array('foo=bar', 'fo[o2]=>bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 12. try binary unsafe key, successfully, check new key string
+			$tests[] = array(
+				'add' => array('foo=bar', 'fo o2=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+					array(
+						'key' => 'fo_o2',
+						'val' => 'bar2',
+					),
+				),
+			);
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2.=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+					array(
+						'key' => 'foo2_',
+						'val' => 'bar2',
+					),
+				),
+			);
+			// 13. try key with leading $ sign, unsuccessfully
+			$tests[] = array(
+				'add' => array('foo=bar', '$foo2=bar2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+				),
+			);
+			// 14. try a value that changed with urldecode, successfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2=ba%26r2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+					array(
+						'key' => 'foo2',
+						'val' => 'ba&r2',
+					),
+				),
+			);
+			// 15. try a value that changes with addslashes, successfully
+			$tests[] = array(
+				'add' => array('foo=bar', 'foo2=ba"r2'),
+				'er'  => array(
+					array(
+						'key' => 'foo',
+						'val' => 'bar',
+					),
+					array(
+						'key' => 'foo2',
+						'val' => 'ba"r2',
+					),
+				),
+			);
+
+			// Foreach test case (tC), run the test
+			foreach (array(true, false) as $addSlashes) {
+				if ($addSlashes) {
+					$gallery->_phpVm = new UtilitiesTestAddSlashesPhpVm();
+					$addSlashesInfo  = 'addslashes, ';
+				} else {
+					$gallery->_phpVm = new UtilitiesTestDoNotAddSlashesPhpVm();
+					$addSlashesInfo  = 'do not addslashes, ';
+				}
+
+				foreach ($tests as $tC) {
+					$_COOKIE = array();
+					$this->assertTrue(!count($_COOKIE), 'Could not reset superglobal $_COOKIE');
+					// Execute the test
+					$fixedCookies = array();
+
+					foreach ($tC['add'] as $attr) {
+						GalleryUtilities::_registerCookieAttr($attr, $fixedCookies);
+					}
+					// Test the result
+					ob_start();
+					var_dump($tC);
+					$debugInfo = ob_get_contents();
+					ob_end_clean();
+
+					$this->assertEquals(count($tC['er']), count($_COOKIE), $addSlashesInfo .
+					'number of registerd keys ' .
+					'do not match for test case: ' . $debugInfo);
+
+					foreach ($tC['er'] as $eR) {
+						if (isset($_COOKIE[$eR['key']])) {
+							// Check value
+							$expectedValue = $addSlashes ? addslashes($eR['val']) : $eR['val'];
+							$this->assertEquals(
+								$expectedValue,
+								$_COOKIE[$eR['key']],
+								$addSlashesInfo . 'value does not match for key ' .
+								$eR['key'] . ' for test case: ' . $debugInfo
+							);
+						} else {
+							$this->assertFalse(
+								true,
+								$addSlashesInfo . 'key ' . $eR['key']
+								. ' missing for test case: ' . $debugInfo);
 						}
 					}
 				}
 			}
 		}
 
-		// Sanity check some known RFC1918 addresses
-		$this->assertTrue(GalleryUtilities::isTrustedProxy('10.1.2.3'), '10/8 failed');
-		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.16.254.253'), '172.16/12 failed 1');
-		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.31.254.253'), '172.16/12 failed 2');
-		$this->assertTrue(!GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
-		$this->assertTrue(GalleryUtilities::isTrustedProxy('192.168.1.2'), '192.168/16 failed');
-	}
+		public function testGuaranteeDirExists() {
+			list($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
+			$this->assertTrue($success, 'guaranteeDirExists');
+			$this->assertEquals(array('/test/one', '/test/one/two'), $created);
+		}
 
-	public function testIsPathInList() {
-		global $gallery;
+		public function testGuaranteeDirExistsLoop() {
+			global $gallery;
 
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo',
-			array('/foo', '/bar')
-		), 'test 1');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo/',
-			array('/bar', '/foo')
-		), 'test 2');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo',
-			array('/foo/', '/bar/')
-		), 'test 3');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo/bar',
-			array('/foo', '/bar')
-		), 'test 4');
-		$this->assertTrue(!GalleryUtilities::isPathInList(
-			'/foobar',
-			array('/foo', '/bar')
-		), 'test 5');
-		$this->assertTrue(!GalleryUtilities::isPathInList(
-			'/fo',
-			array('/foo', '/bar')
-		), 'test 6');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/link/foo',
-			array('/foo', '/bar')
-		), 'symlink in');
-		$this->assertTrue(!GalleryUtilities::isPathInList(
-			'/foo/link',
-			array('/foo', '/bar')
-		), 'symlink out');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo/bar',
-			array('/link', '/bar')
-		), 'symlink path');
+			/*
+			* Ensure no infinite loop if getPluginParameter call from guaranteeDirExists results in
+			* another guaranteeDirExists call (from GalleryDataCache)
+			*/
+			GalleryDataCache::setFileCachingEnabled(true);
+			GalleryDataCache::reset();
+			$gallery->setConfig('data.gallery.cache', '/testcache/');
 
-		$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
-		$gallery->setPlatform($UtilitiesTestWinPlatform);
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'c:\foo\bar',
-			array('d:\\', 'C:\Foo')
-		), 'test 7');
-	}
+			list($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
+			$this->assertTrue($success, 'guaranteeDirExists');
+			$this->assertEquals(array('/test/one', '/test/one/two'), $created);
 
-	public function testProcessingPaths() {
-		GalleryUtilities::putRequestVariable('test', __FILE__);
-		$this->assertEquals(__FILE__, GalleryUtilities::getRequestVariables('test'));
-	}
+			$this->assertTrue(isset($this->_mkdir['/test/one']) &&
+			$this->_mkdir['/test/one'] != '', 'mkdir with perms');
+			$this->assertTrue(
+				isset($this->_mkdir['/testcache/module/core/0/0']) &&
+				$this->_mkdir['/testcache/module/core/0/0'] == '',
+				'mkdir for cache, but without specific perms'
+			);
+		}
 
-	public function testEntitySubstr() {
-		$this->assertEquals(
-			array(6, 'abcdef'),
-			GalleryUtilities::entitySubstr('abcdef', 0),
-			1
-		);
-		$this->assertEquals(
-			array(3, 'def'),
-			GalleryUtilities::entitySubstr('abcdef', 3),
-			2
-		);
-		$this->assertEquals(
-			array(0, ''),
-			GalleryUtilities::entitySubstr('abcdef', 6),
-			3
-		);
-		$this->assertEquals(
-			array(0, false),
-			GalleryUtilities::entitySubstr('abcdef', 7),
-			4
-		);
-		$this->assertEquals(
-			array(6, 'abcdef'),
-			GalleryUtilities::entitySubstr('abcdef', -6),
-			5
-		);
-		$this->assertEquals(
-			array(2, 'ef'),
-			GalleryUtilities::entitySubstr('abcdef', -2),
-			6
-		);
-		$this->assertEquals(
-			array(0, ''),
-			GalleryUtilities::entitySubstr('abcdef', 0, -6),
-			7
-		);
-		$this->assertEquals(
-			array(1, 'a'),
-			GalleryUtilities::entitySubstr('abcdef', 0, -5),
-			8
-		);
-		$this->assertEquals(
-			array(5, 'abcde'),
-			GalleryUtilities::entitySubstr('abcdef', 0, -1),
-			9
-		);
-		$this->assertEquals(
-			array(0, ''),
-			GalleryUtilities::entitySubstr('abcdef', 0, 0),
-			10
-		);
-		$this->assertEquals(
-			array(4, 'bcde'),
-			GalleryUtilities::entitySubstr('abcdef', -5, -1),
-			11
-		);
-		$this->assertEquals(
-			array(3, 'cde'),
-			GalleryUtilities::entitySubstr('abcdef', -4, -1),
-			12
-		);
-		$this->assertEquals(
-			array(2, 'de'),
-			GalleryUtilities::entitySubstr('abcdef', -3, -1),
-			13
-		);
-		$this->assertEquals(
-			array(1, 'e'),
-			GalleryUtilities::entitySubstr('abcdef', -2, -1),
-			14
-		);
-		$this->assertEquals(
-			array(4, 'bcde'),
-			GalleryUtilities::entitySubstr('abcdef', 1, 4),
-			15
-		);
-		$this->assertEquals(
-			array(7, '&amp;abcdef'),
-			GalleryUtilities::entitySubstr('&amp;abcdef', -7),
-			16
-		);
-		$this->assertEquals(
-			array(7, 'abc&amp;def'),
-			GalleryUtilities::entitySubstr('abc&amp;def', -7),
-			17
-		);
-		$this->assertEquals(
-			array(6, 'abcdef'),
-			GalleryUtilities::entitySubstr('&amp;abcdef', -6),
-			18
-		);
-		$this->assertEquals(
-			array(2, 'a&amp;'),
-			GalleryUtilities::entitySubstr('&amp;a&amp;bcdef', 1, 2),
-			19
-		);
-		$this->assertEquals(
-			array(3, 'abc'),
-			GalleryUtilities::entitySubstr('&amp;abcdef', 1, 3),
-			20
-		);
-	}
+		public function testGuaranteeDirExistsLoop2() {
+			global $gallery;
 
-	public function testCreateAlbumTree() {
-		// Make up some bogus albums that we can use to simulate our tree
-		for ($i = 0; $i < 7; $i++) {
-			list($ret, $albums[$i]) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
+			/*
+			* Ensure mkdir of same dir isn't performed twice if guaranteeDirExists is called and the
+			* nested call from getPluginParameter actually creates the original dir that was requested
+			*/
+			GalleryDataCache::setFileCachingEnabled(true);
+			GalleryDataCache::reset();
+			$gallery->setConfig('data.gallery.cache', '/testcache/');
+
+			list($success, $created) = GalleryUtilities::guaranteeDirExists('/testcache/module/core/0/0');
+			$this->assertTrue($success, 'guaranteeDirExists');
+			$this->assertEquals(array(), $created);
+
+			$this->assertEquals(
+				array(
+					'/testcache/module/core/0/0' => '',
+				),
+				$this->_mkdir,
+				'mkdir for cache, but without specific perms'
+			);
+		}
+
+		/*
+		* For a given path /a/b/c/d, file_exists() returns false for /a/b/c/d and /a/b/c and true for
+		* /a/b if we don't have read+execute permission on /a/b.
+		* In case we don't have r+w for the root directory /, we are in an infinite loop unless we
+		* check the result of dirname($dir).
+		* Another common case: open_basedir.
+		* Also note that __DIR__ returns the filename without path if any parent folder
+		* is missing the read permission.
+		*/
+		public function testGuaranteeDirExistsLoop3() {
+			global $gallery;
+
+			// Assume we don't have r+w permission for the root directory '/'.
+			list($success, $created) = GalleryUtilities::guaranteeDirExists('/noread/permission');
+			// Basically we verify that the function finishes / that there is no infinite loop.
+			$this->assertTrue(!$success, 'guaranteeDirExists');
+			$this->assertEquals(array(), $created);
+		}
+
+		public function testRoundToString() {
+			$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal');
+			$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal');
+
+			$currentLocale = setlocale(LC_ALL, '0');
+
+			foreach (array('de_DE', 'german') as $locale) {
+				$nTest = ($newLocale = GalleryTranslator::doStatic()->_setlocale(LC_ALL, $locale));
+
+				if ($nTest !== false) {
+					break;
+				}
+			}
+
+			if (empty($newLocale)) {
+				return $this->assertFalse(true, 'Unable to select German locale');
+			}
+
+			$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal german');
+			$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal german');
+
+			setlocale(LC_ALL, $currentLocale);
+		}
+
+		public function testCastToFloat() {
+			$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast');
+			$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string');
+
+			$currentLocale = setlocale(LC_ALL, '0');
+
+			foreach (array('de_DE', 'german') as $locale) {
+				$nTest = ($newLocale = GalleryTranslator::doStatic()->_setlocale(LC_ALL, $locale));
+
+				if ($nTest !== false) {
+					break;
+				}
+			}
+
+			if (empty($newLocale)) {
+				return $this->assertFalse(true, 'Unable to select German locale');
+			}
+
+			$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast german');
+			$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string german');
+
+			setlocale(LC_ALL, $currentLocale);
+		}
+
+		public function testGetPseudoFileName() {
+			global $gallery;
+			$gallery->setPlatform($this->_savePlatform);
+
+			list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 
 			if ($ret) {
 				return $ret;
 			}
-			$albums[$i]->setId($i);
-		}
+			$this->_markForCleanup($album);
 
-		$albums[0]->setParentId(null);
-		$albums[1]->setParentId(0);
-		$albums[2]->setParentId(0);
-		$albums[3]->setParentId(1);
-		$albums[4]->setParentId(1);
-		$albums[5]->setParentId(1);
-		$albums[6]->setParentId(4);
+			$ret = GalleryCoreApi::addMimeType('phpunit_movie', 'test/movie', false);
 
-		$tree = GalleryUtilities::createAlbumTree($albums);
-		$this->assertTrue($tree[0]['depth'] == 0);
-		$this->assertTrue($tree[0]['data']['id'] == 0);
-		$this->assertTrue($tree[1]['depth'] == 0);
-		$this->assertTrue($tree[1]['data']['id'] == 1);
-		$this->assertTrue($tree[2]['depth'] == 1);
-		$this->assertTrue($tree[2]['data']['id'] == 3);
-		$this->assertTrue($tree[3]['depth'] == 1);
-		$this->assertTrue($tree[3]['data']['id'] == 4);
-		$this->assertTrue($tree[4]['depth'] == 2);
-		$this->assertTrue($tree[4]['data']['id'] == 6);
-		$this->assertTrue($tree[5]['depth'] == 1);
-		$this->assertTrue($tree[5]['data']['id'] == 5);
-		$this->assertTrue($tree[6]['depth'] == 0);
-		$this->assertTrue($tree[6]['data']['id'] == 2);
-	}
+			if ($ret) {
+				return $ret;
+			}
 
-	public function testGetFile() {
-		global $gallery;
-		$platform =& $gallery->getPlatform();
+			list($ret, $item) = $this->_createRandomDataItem(
+				$album->getId(),
+				'test/movie',
+				array(
+					'pathComponent' => 'testitem.phpunit_movie',
+				)
+			);
 
-		$_FILES[GalleryUtilities::prefixFormVariable('userfile')] = array(
-			'name'     => 'testfile.txt',
-			'type'     => 'text/plain',
-			'tmp_name' => __FILE__,
-			'error'    => 0,
-			'size'     => $platform->filesize(__FILE__),
-		);
+			if ($ret) {
+				GalleryCoreApi::removeMimeType(array(
+					'extension' => 'phpunit_movie',
+				));
 
-		$file = GalleryUtilities::getFile('userfile');
-		$this->assertEquals(
-			array(
-				'name'     => 'testfile.txt',
-				'type'     => 'text/plain',
-				'tmp_name' => __FILE__,
-				'error'    => 0,
-				'size'     => $platform->filesize(__FILE__),
-			),
-			$file
-		);
+				return $ret;
+			}
 
-		$_FILES['testfile'] = array(
-			'name'     => 'testfile.txt',
-			'type'     => 'text/plain',
-			'tmp_name' => __FILE__,
-			'error'    => 0,
-			'size'     => $platform->filesize(__FILE__),
-		);
+			list($ret, $clip) = $this->_createDerivative(
+				$item,
+				$item->getId(),
+				DERIVATIVE_TYPE_IMAGE_PREFERRED,
+				'movieclip|5,10',
+				'test/movie'
+			);
 
-		$file = GalleryUtilities::getFile('testfile', false);
-		$this->assertEquals(
-			array(
-				'name'     => 'testfile.txt',
-				'type'     => 'text/plain',
-				'tmp_name' => __FILE__,
-				'error'    => 0,
-				'size'     => $platform->filesize(__FILE__),
-			),
-			$file
-		);
-	}
+			if ($ret) {
+				GalleryCoreApi::removeMimeType(array(
+					'extension' => 'phpunit_movie',
+				));
 
-	public function testGetHttpDate() {
-		$regexp  = '/(Mon|Tue|Wed|Thu|Fri|Sat|Sun), ';
-		$regexp .= '\d\d (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d\d\d\d ';
-		$regexp .= '\d\d:\d\d:\d\d GMT/';
+				return $ret;
+			}
 
-		// Test a known date
-		$date = GalleryUtilities::getHttpDate(1092648357);
-		$this->assertEquals('Mon, 16 Aug 2004 09:25:57 GMT', $date);
+			$ret = GalleryCoreApi::addMimeType('phpunit_image', 'test/image', true);
 
-		// Test the format of current datetime
-		$date      = GalleryUtilities::getHttpDate();
-		$isCorrect = preg_match($regexp, $date);
-		$this->assertTrue($isCorrect, 'date-string ' . $date . ' is not RFC 2616 conformant');
-	}
+			if ($ret) {
+				GalleryCoreApi::removeMimeType(array(
+					'extension' => 'phpunit_movie',
+				));
 
-	public function testIsCompatibleWithApi() {
-		$this->assertTrue(
-			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 8)),
-			'same'
-		);
-		$this->assertTrue(
-			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 9)),
-			'minor bigger'
-		);
-		$this->assertTrue(
-			!GalleryUtilities::isCompatibleWithApi(array(1, 8), array(0, 8)),
-			'major bigger'
-		);
-		$this->assertTrue(
-			!GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 7)),
-			'minor smaller'
-		);
-		$this->assertTrue(
-			!GalleryUtilities::isCompatibleWithApi(array(2, 0), array(1, 0)),
-			'major smaller'
-		);
-		$this->assertTrue(
-			!GalleryUtilities::isCompatibleWithApi(array(2, 3), array(1, 2)),
-			'both smaller'
-		);
-		$this->assertTrue(
-			!GalleryUtilities::isCompatibleWithApi(array(1, 2), array(2, 3)),
-			'both bigger'
-		);
-		$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(1, 2), 'input error 1');
-		$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(array(1), array(2)), 'input error 2');
-		$this->assertTrue(!GalleryUtilities::isCompatibleWithApi(array(2), array(2)), 'input error 3');
-		$this->assertTrue(
-			!GalleryUtilities::isCompatibleWithApi(array('1', '2'), array('1', 2)),
-			'input error 4'
-		);
-	}
+				return $ret;
+			}
 
-	public function testGetPhpIniBool() {
-		$iniVal = ini_get('define_syslog_variables');
+			list($ret, $thumb) = $this->_createDerivative(
+				$item,
+				$item->getId(),
+				DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+				'convert-to-test/image;thumbnail|150',
+				'test/image'
+			);
 
-		$oldval = ini_set('define_syslog_variables', '');
-		$this->assertTrue(
-			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'Blank should be false'
-		);
-
-		$oldval = ini_set('define_syslog_variables', 'off');
-		$this->assertTrue(
-			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'Off should be false'
-		);
-
-		$oldval = ini_set('define_syslog_variables', '0');
-		$this->assertTrue(
-			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'0 should be false'
-		);
-
-		$oldval = ini_set('define_syslog_variables', false);
-		$this->assertTrue(
-			!GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'false should be false'
-		);
-
-		$oldval = ini_set('define_syslog_variables', 'on');
-		$this->assertTrue(
-			GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'On should be true'
-		);
-
-		$oldval = ini_set('define_syslog_variables', '1');
-		$this->assertTrue(
-			GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'1 should be true'
-		);
-
-		$oldval = ini_set('define_syslog_variables', true);
-		$this->assertTrue(
-			GalleryUtilities::getPhpIniBool('define_syslog_variables'),
-			'true should be true'
-		);
-
-		$oldval = ini_set('define_syslog_variables', $iniVal);
-	}
-
-	public function testIdentifySearchEngineCrawlerFromRequest() {
-		$data['google'][] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
-		$data['google'][] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
-		$data['google'][] = 'Mediapartners-Google/2.1 (+http://www.googlebot.com/bot.html)';
-		$data['google'][] = 'gsa-crawler (Enterprise; GID-01083; search-admin@example.com)';
-
-		$data['yahoo'][] = 'YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; '
-		. 'http://help.yahoo.com/help/us/shop/merchant/)';
-		$data['yahoo'][] = 'YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; '
-		. 'http://search.yahoo.com/yahooseeker.html)';
-		$data['yahoo'][] = 'YahooSeeker/1.1 (compatible; Mozilla 4.0; MSIE 5.5; '
-		. 'http://help.yahoo.com/help/us/shop/merchant/)';
-		$data['yahoo'][] = 'Mozilla/5.0 (compatible; Yahoo! Slurp; '
-		. 'http://help.yahoo.com/help/us/ysearch/slurp)';
-
-		$data['yandex'][] = 'Yandex/1.01.001 (compatible; Win16; I)';
-		$data['yandex'][] = 'Yandex/1.01.001 (compatible; Win16; P)';
-
-		$data['stackrambler'][] = 'StackRambler/2.0 (MSIE incompatible)';
-
-		$data['askjeeves'][] = 'Mozilla/2.0 (compatible; Ask Jeeves)';
-		$data['askjeeves'][] = 'Mozilla/2.0 (compatible; Ask Jeeves/Teoma)';
-
-		$data['microsoft'][] = 'msnbot/0.3 (+http://search.msn.com/msnbot.htm)';
-		$data['microsoft'][] = 'msnbot/0.11 (+http://search.msn.com/msnbot.htm)';
-
-		$data['convera'][] = 'ConveraCrawler/0.9d (+http://www.authoritativeweb.com/crawl)';
-
-		$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) '
-		. 'Gecko/20041001 Firefox/0.10.1';
-		$data['null'][] = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.5) '
-		. 'Gecko/20041107 Firefox/1.0';
-		$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de-DE; rv:1.7.5) '
-		. 'Gecko/20041108 Firefox/1.0';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
-		. 'SV1; MSN 9.0;MSN 9.1; MSNbMSNI; MSNmen-us; MSNcIA; MPLUS)';
-		$data['null'][] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.5) '
-		. 'Gecko/20041107 Firefox/1.0';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; MSIECrawler)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
-		. 'SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
-		. 'SV1; .NET CLR 1.0.3705)';
-		$data['null'][] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) '
-		. 'AppleWebKit/125.5.5 (KHTML, like Gecko) Safari/125.12';
-		$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.5) '
-		. 'Gecko/20041107 Firefox/1.0';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)';
-		$data['null'][] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) '
-		. 'Gecko/20041107 Firefox/1.0';
-		$data['null'][] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; '
-		. 'SV1; .NET CLR 1.1.4322)';
-
-		foreach ($data as $key => $userAgents) {
-			foreach ($userAgents as $userAgent) {
-				if ($key == 'null') {
-					$key = null;
-				}
-
-				$_SERVER['HTTP_USER_AGENT'] = $userAgent;
-				$this->assertEquals(
-					$key,
-					GalleryUtilities::identifySearchEngine($userAgent),
-					$userAgent
+			if ($ret) {
+				GalleryCoreApi::removeMimeType(
+					array(
+						'extension' => array('phpunit_movie', 'phpunit_image'),
+					)
 				);
+
+				return $ret;
+			}
+
+			list($ret, $highlight) = $this->_createDerivative(
+				$album,
+				$thumb->getId(),
+				DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+				'thumbnail|200',
+				'test/image'
+			);
+
+			if ($ret) {
+				GalleryCoreApi::removeMimeType(
+					array(
+						'extension' => array('phpunit_movie', 'phpunit_image'),
+					)
+				);
+
+				return $ret;
+			}
+
+			// Item gives its own name
+			list($ret, $result) = GalleryUtilities::getPseudoFileName($item);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals('testitem.phpunit_movie', $result);
+
+			// Derivative with same mime type as parent
+			list($ret, $result) = GalleryUtilities::getPseudoFileName($clip);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals('testitem.phpunit_movie', $result);
+
+			// Derivative with different mime type from parent
+			list($ret, $result) = GalleryUtilities::getPseudoFileName($thumb);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals('testitem.phpunit_image', $result);
+
+			// Derivative with non-item parent
+			list($ret, $result) = GalleryUtilities::getPseudoFileName($highlight);
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals($album->getPathComponent() . '.phpunit_image', $result);
+
+			// Entity that is not a FileSystemEntity or Derivative
+			list($ret, $result) = GalleryUtilities::getPseudoFileName($gallery->getActiveUser());
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals('unknown', $result);
+
+			// Cleanup
+			$ret = GalleryCoreApi::removeMimeType(
+				array(
+					'extension' => array('phpunit_movie', 'phpunit_image'),
+				)
+			);
+
+			if ($ret) {
+				return $ret;
 			}
 		}
-	}
 
-	public function testUnicodeValueToUtf8Value() {
-		$testData = GalleryUtilities::unicodeValueToUtf8Value('2835');
-		$this->assertEquals(
-			"\xe0\xac\x93",
-			$testData,
-			'decimal'
-		);
-		$testData = GalleryUtilities::unicodeValueToUtf8Value('x0B13');
-		$this->assertEquals(
-			"\xe0\xac\x93",
-			$testData,
-			'hex'
-		);
-		$testData = GalleryUtilities::unicodeValueToUtf8Value('241');
-		$this->assertEquals(
-			"\xc3\xb1",
-			$testData,
-			'decimal'
-		);
-		$testData = GalleryUtilities::unicodeValueToUtf8Value('xF1');
-		$this->assertEquals(
-			"\xc3\xb1",
-			$testData,
-			'hex'
-		);
+		public function testHtmlSafe() {
+			$this->assertEquals('script src ', GalleryUtilities::htmlSafe(
+				'script src <script src="http://evil.com/bad.js">'
+			));
+			$this->assertEquals('script type ', GalleryUtilities::htmlSafe(
+				'script type <script type="text/javascript">alert("bad");</script>'
+			));
+			$this->assertEquals('applet ', GalleryUtilities::htmlSafe(
+				'applet <applet code="http://evil.com/bad.class"></applet>'
+			));
+			$this->assertEquals('object ', GalleryUtilities::htmlSafe(
+				'object <object codetype="application/java" classid="java:bad.class"></object>'
+			));
+			$this->assertEquals('embed ', GalleryUtilities::htmlSafe(
+				'embed <embed src="http://evil.com/bad.mov" width=400 height=300>'
+			));
+			$this->assertEquals('base ', GalleryUtilities::htmlSafe(
+				'base <base href="http://evil.com/bad.html">'
+			));
+			$this->assertEquals('title ', GalleryUtilities::htmlSafe(
+				'title <title>bad title</title>'
+			));
+			$this->assertEquals('link ', GalleryUtilities::htmlSafe(
+				'link <link rel="Next" href="http://evil.com/bad.php">'
+			));
+			$this->assertEquals('meta ', GalleryUtilities::htmlSafe(
+				'meta <meta http-equiv="refresh" content="2; url=http://evil.com/">'
+			));
+			$this->assertEquals('style ', GalleryUtilities::htmlSafe(
+				'style <style type="test/css">body { color: red; }</style>'
+			));
+			$this->assertEquals('<a href="test">12</a>8 <br />', GalleryUtilities::htmlSafe(
+				'<a href="test" onmouseover="alert(1)">12</a>8 <br />'
+			));
+			$this->assertEquals('<a>12</a>b<br />', GalleryUtilities::htmlSafe(
+				'<a href="javascript:alert(1)">12</a>b<br/>'
+			));
+			$this->assertEquals('test ', GalleryUtilities::htmlSafe(
+				'test <body onload=alert("xss")>'
+			));
 
-		// Test 2^15 boundary
-		$testData = GalleryUtilities::unicodeValueToUtf8Value('x7FFF');
-		$this->assertEquals(
-			"\xe7\xbf\xbf",
-			$testData,
-			'2^15 - 1'
-		);
-		$testData = GalleryUtilities::unicodeValueToUtf8Value('x8000');
-		$this->assertEquals(
-			"\xe8\x80\x80",
-			$testData,
-			'2^15'
-		);
-	}
+			// HTML_Safe does some normalizing of other tags
+			$this->assertEquals('br<br />is<br />ok', GalleryUtilities::htmlSafe('br<br>is<br/>ok'));
+			$this->assertEquals('img <img src="a.png" />', GalleryUtilities::htmlSafe(
+				'img <img src="a.png">'
+			));
 
-	public function testUnicodeEntitiesToUtf8() {
-		$testData = GalleryUtilities::unicodeEntitiesToUtf8(
-			'foo &#2835; bar'
-		);
-		$this->assertEquals(
-			"foo \xe0\xac\x93 bar",
-			$testData
-		);
-
-		$testData = GalleryUtilities::unicodeEntitiesToUtf8(
-			'accentu&#233;s. &#231;&#224; donne'
-		);
-		$this->assertEquals(
-			"accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne",
-			$testData
-		);
-	}
-
-	public function testUtf8ToUnicodeEntities() {
-		$testData = GalleryUtilities::utf8ToUnicodeEntities(
-			"foo \xe0\xac\x93 bar"
-		);
-		$this->assertEquals(
-			'foo &#2835; bar',
-			$testData
-		);
-
-		$testData = GalleryUtilities::utf8ToUnicodeEntities(
-			"accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne"
-		);
-		$this->assertEquals(
-			'accentu&#233;s. &#231;&#224; donne',
-			$testData
-		);
-	}
-
-	/**
-	 * @todo Remove this test on next core API bump
-	 */
-	public function testUtf8Substring() {
-		// Russian
-		$utf8     = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
-		 "\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
-		 "\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
-		$testData = GalleryUtilities::utf8Substring($utf8, 0, 4);
-		$this->assertEquals(
-			"\xd0\xa0\xd1\x83\xd1\x81\xd1\x81",
-			$testData,
-			'4 chars (ru), standard version'
-		);
-	}
-
-	public function testIsEmbedded() {
-		$key         = 'G2_EMBED';
-		$backupValue = null;
-
-		if (GalleryDataCache::containsKey($key)) {
-			$backupValue = GalleryDataCache::get($key);
+			// Unclosed tags are closed, unmatched close is stripped
+			$this->assertEquals('<tt><b>closed</b>  <i>open</i></tt>', GalleryUtilities::htmlSafe(
+				'<tt><b>closed</b> </td> <i>open'
+			));
 		}
-		GalleryDataCache::remove($key);
-		$this->assertTrue(
-			!GalleryDataCache::containsKey($key),
-			'Could not remove a GDC var'
-		);
-		$this->assertTrue(
-			!GalleryUtilities::isEmbedded(),
-			'Should be not embedded'
-		);
 
-		GalleryDataCache::put($key, 1, true);
-		$this->assertTrue(
-			GalleryDataCache::containsKey($key),
-			'Could not set a GDC var'
-		);
-		$this->assertTrue(
-			GalleryUtilities::isEmbedded(),
-			'Should be embedded now'
-		);
-
-		// Restore
-		if ($backupValue) {
-			GalleryDataCache::put($key, $backupValue, true);
-		} else {
-			GalleryDataCache::remove($key);
-			$this->assertTrue(
-				!GalleryDataCache::containsKey($key),
-				'Could not remove a GDC var'
-			);
-		}
-	}
-
-	public function testGetServerVar() {
-		// Normal
-		$_SERVER['foo'] = 'foo';
-		$this->assertEquals('foo', GalleryUtilities::getServerVar('foo'));
-
-		// Missing
-		unset($_SERVER['foo']);
-		$this->assertEquals(null, GalleryUtilities::getServerVar('foo'));
-
-		// Malicious value
-		$_SERVER['foo'] = '<script>bar</script>';
-		$this->assertEquals(
-			'&lt;script&gt;bar&lt;/script&gt;',
-			GalleryUtilities::getServerVar('foo')
-		);
-	}
-
-	public function testGetCookieVar() {
-		// Normal
-		$key                     = 'foo' . mt_rand(1, 9999);
-		$_COOKIE[$key]           = 'foo';
-		$_SERVER['HTTP_COOKIE'] .= !empty($this->_saveServerHttpCookie) ? ' ; ' : '';
-		$_SERVER['HTTP_COOKIE'] .= $key . '=foo';
-		GalleryUtilities::fixCookieVars(false, true);
-		$this->assertEquals('foo', GalleryUtilities::getCookieVar($key));
-
-		// Missing
-		unset($_COOKIE[$key]);
-		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
-		GalleryUtilities::fixCookieVars(false, true);
-		$this->assertEquals(null, GalleryUtilities::getCookieVar($key));
-
-		// Malicious value
-		$val                     = '<script>bar</script>';
-		$_COOKIE[$key]           = $val;
-		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
-		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
-		$_SERVER['HTTP_COOKIE'] .= $key . '=' . urlencode($val);
-		GalleryUtilities::fixCookieVars(false, true);
-		$this->assertEquals(
-			'&lt;script&gt;bar&lt;/script&gt;',
-			GalleryUtilities::getCookieVar($key)
-		);
-
-		// COOKIE has a wrong value, should be fixed automatically
-		GalleryUtilities::fixCookieVars(false, true);
-		$rand                   = mt_rand(1, 9999);
-		$val1                   = 'bar' . $rand;
-		$val2                   = 'bar' . ($rand + 3000);
-		$_COOKIE[$key]          = $val2;
-		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
-		$delimiter              = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
-		$_SERVER['HTTP_COOKIE'] = $key . '=' . $val1 . ' ; ' . $key . '=' . $val2 . $delimiter .
-		$_SERVER['HTTP_COOKIE'];
-		$this->assertEquals($val1, GalleryUtilities::getCookieVar($key), 'combined getCookieVar, fixCookieVars test');
-	}
-
-	// Test if we correctly fix the superglobal $_COOKIE
-	public function testFixCookieVars() {
-		// Only 1 cookie with the same NAME
-		$key                     = 'foo' . mt_rand(1, 9999);
-		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
-		$_SERVER['HTTP_COOKIE'] .= "$key=foo";
-		// Execute our fix
-		GalleryUtilities::fixCookieVars(true);
-		$this->assertEquals(
-			'foo',
-			GalleryUtilities::getCookieVar($key),
-			'single cookie, getCookieVars'
-		);
-		$this->assertEquals(
-			'foo',
-			$_COOKIE[$key],
-			'single cookie, superglobal _COOKIE'
-		);
-
-		// Two cookies with the same name, different paths
-		$key  = 'foo' . mt_rand(1, 9999);
-		$rand = mt_rand(1, 9999);
-		$val1 = 'bar' . $rand;
-		$val2 = 'bar' . ($rand + 3000);
-		// Define cookie with $val1 to be the one with higher precedence (more specific path)
-		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
-		$_COOKIE                 = $this->_saveCookie;
-		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
-		$_SERVER['HTTP_COOKIE'] .= "$key=" . urlencode($val1) . '; $key=' . urlencode($val2);
-		// Set $_COOKIE as php would, with the wrong cookie value for our key
-		$_COOKIE[$key] = $val2;
-		// Execute our fix
-		GalleryUtilities::fixCookieVars(true);
-		$this->assertEquals(
-			$val1,
-			GalleryUtilities::getCookieVar($key),
-			'multiple cookies, getCookieVar'
-		);
-		$this->assertEquals(
-			$val1,
-			$_COOKIE[$key],
-			'multiple cookies, superglobal _COOKIE'
-		);
-
-		// Performance check.  It shouldn't be executed when it was already executed.
-		$_COOKIE                = array();
-		$_SERVER['HTTP_COOKIE'] = '';
-		GalleryUtilities::fixCookieVars(true);
-		$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');
-		$_SERVER['HTTP_COOKIE'] = 'foo=bar';
-		GalleryUtilities::fixCookieVars();
-		$this->assertFalse(
-			isset($_COOKIE['foo']),
-			'fixCookieVars should not run a second time!'
-		);
-
-		/*
-		 * Even if we can't live with that case, test what happens if $_SERVER['HTTP_COOKIE']
-		 * does not exist
-		 */
-		$_COOKIE = $this->_saveCookie;
-		unset($_SERVER['HTTP_COOKIE']);
-		GalleryUtilities::fixCookieVars(true);
-		$this->assertEquals(
-			$_COOKIE,
-			$this->_saveCookie,
-			'HTTP_COOKIE unset test: $_COOKIE was modified!'
-		);
-
-		/*
-		 * Check if $_SERVER['HTTP_COOKIE'] is set (more as a feedback once we know that there are
-		 * still login/auth problems)
-		 */
-		$this->assertEquals(
-			empty($this->_saveCookie),
-			empty($this->_saveServerHttpCookie),
-			'HTTP_COOKIE not set although $_COOKIE is nonempty!'
-		);
-
-		/*
-		 * Check for quoted-string cookies (don't urlencode cookie values, eg. by using header()
-		 * instead of setCookie())
-		 */
-		$key1 = 'foo1';
-		$val1 = '" sdsd , wsdsds ;  wewew"';
-		$key2 = '$Version';
-		$val2 = '1';
-		$key3 = 'foo2';
-		$key4 = 'foo4';
-		$val4 = 'bar';
-		$key5 = 'dontfix[key';
-		$val5 = 'bar2';
-		$key6 = 'foo5';
-		$val6 = '"iui7 asa9a,. \\" a; \\asas, bla"';
-		// Use one time commas as delimiters, the other time semicolons
-		foreach (array(',', ';') as $sep) {
+		public function testHtmlSafeWithDecode() {
 			/*
-			 * Check for quoted-string cookies (don't urlencode cookie values, eg. by using header()
-			 * instead of setCookie()).  And check for ordinary cookies (Netscape standard) where
-			 * values are assumed to be urlencoded.
-			 */
-			foreach (array(true, false) as $urlEncoded) {
-				if ($urlEncoded) {
-					$_SERVER['HTTP_COOKIE'] = $key1 . '=' . urlencode($val1) . $sep . $key2 . '=' .
-					urlencode($val2) . $sep . $key3 . $sep . $key4 . '=' . urlencode($val4) .
-					$sep . $key5 . '=' . urlencode($val5) . $sep . $key6 . '= ' .
-					urlencode($val6);
-				} else {
-					$_SERVER['HTTP_COOKIE'] = $key1 . '=' . $val1 . $sep . $key2 . '=' .
-					$val2 . $sep . $key3 . $sep . $key4 . '=' . $val4
-					. $sep . $key5 . '=' . $val5 . $sep . $key6 . '= ' . $val6;
-				}
-
-				$_COOKIE           = array();
-				$_COOKIE['foobar'] = array(
-					'foo' => 'bar',
-				);
-				// Execute the fix
-				GalleryUtilities::fixCookieVars(true);
-				// Check if the actual response matches the expected response
-				$kind = $urlEncoded ? 'urlencoded' : 'true';
-				$this->assertTrue(isset($_COOKIE[$key1]), $kind .
-					' quoted-string cookie 1 not set for delimiter "' . $sep . '"');
-
-				if (isset($_COOKIE[$key1])) {
-					$check = get_magic_quotes_gpc() ? addslashes($val1) : $val1;
-					$this->assertEquals($check, $_COOKIE[$key1], $kind . ' quoted-string cookie ' .
-					'1 incorrect for delimiter "' . $sep . '"');
-				}
-
-
-				$this->assertTrue(isset($_COOKIE[$key6]), $kind . 'quoted-string cookie ' .
-					'6 not set for delimiter "' . $sep . '"');
-
-				if (isset($_COOKIE[$key6])) {
-					$check = get_magic_quotes_gpc() ? addslashes($val6) : $val6;
-					$this->assertEquals($check, $_COOKIE[$key6], $kind . 'quoted-string cookie ' .
-					'6 incorrect for delimiter "' . $sep . '"');
-				}
-
-				$kind = $urlEncoded ? 'urlencoded' : 'non-urlencoded';
-				$this->assertFalse(isset($_COOKIE[$key5]), $kind . ' illegal name cookie ' .
-					'5  was set for delimiter "' . $sep . '"');
-
-				$this->assertTrue(isset($_COOKIE[$key4]), $kind . ' token cookie 4 not ' .
-					'set for delimiter "' . $sep . '"');
-
-				if (isset($_COOKIE[$key4])) {
-					$this->assertEquals($val4, $_COOKIE[$key4], $kind . ' token cookie 4 ' .
-					'incorrect for delimiter "' . $sep . '"');
-				}
-
-				$this->assertFalse(isset($_COOKIE[$key3]), $kind . ' empty cookie value ' .
-					'was set for delimiter "' . $sep . '"');
-				$this->assertFalse(isset($_COOKIE[$key2]), $kind . ' $Version cookie was ' .
-					'set for delimiter "' . $sep . '"');
-
-				// Check if the array-cookie is still there
-				$this->assertTrue(isset($_COOKIE['foobar']), $kind . 'array cookie not ' .
-					'set for separator "' . $sep . '"');
-
-				if (isset($_COOKIE['foobar'])) {
-					$this->assertEquals(array(
-						'foo' => 'bar',
-					), $_COOKIE['foobar'], $kind .
-					' array cookie value changed for delimiter "' . $sep . '"');
-				}
-			}
-		}
-	}
-
-	// Check some edge cases of _registerCookieAttr
-	public function testRegisterCookieAttr() {
-		global $gallery;
-
-		// Test cases
-		$tests = array();
-		// 1. add one, successfully
-		$tests[] = array(
-			'add' => array('foo=bar'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 2. add something, unsuccessfully
-		$tests[] = array(
-			'add' => array('fo[o=bar'),
-			'er'  => array(),
-		);
-		// 3. add key with the same key, no change expected
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 4. add key with another name, successfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-				array(
-					'key' => 'foo2',
-					'val' => 'bar2',
-				),
-			),
-		);
-		// 5. add attr without value, unsuccessfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 6. add something that would be a problem when it was not urlencoded, successfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'fo%26o2=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-				array(
-					'key' => 'fo&o2',
-					'val' => 'bar2',
-				),
-			),
-		);
-		// 7. try zero length key, unsuccessfully
-		$tests[] = array(
-			'add' => array('foo=bar', '=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 8. try key with [ (arrays, ...), unsuccessfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'fo[o2=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		$tests[] = array(
-			'add' => array('foo=bar', '[foo2=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2[=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 9. try key with ], unsuccessfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'fo]o2=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2]=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 10. try key with [], unsuccessfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'f[o]o2=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 11. this would be a valid array cookie, but we don't touch them
-		$tests[] = array(
-			'add' => array('foo=bar', 'fo[o2]=>bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 12. try binary unsafe key, successfully, check new key string
-		$tests[] = array(
-			'add' => array('foo=bar', 'fo o2=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-				array(
-					'key' => 'fo_o2',
-					'val' => 'bar2',
-				),
-			),
-		);
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2.=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-				array(
-					'key' => 'foo2_',
-					'val' => 'bar2',
-				),
-			),
-		);
-		// 13. try key with leading $ sign, unsuccessfully
-		$tests[] = array(
-			'add' => array('foo=bar', '$foo2=bar2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-			),
-		);
-		// 14. try a value that changed with urldecode, successfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2=ba%26r2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-				array(
-					'key' => 'foo2',
-					'val' => 'ba&r2',
-				),
-			),
-		);
-		// 15. try a value that changes with addslashes, successfully
-		$tests[] = array(
-			'add' => array('foo=bar', 'foo2=ba"r2'),
-			'er'  => array(
-				array(
-					'key' => 'foo',
-					'val' => 'bar',
-				),
-				array(
-					'key' => 'foo2',
-					'val' => 'ba"r2',
-				),
-			),
-		);
-
-		// Foreach test case (tC), run the test
-		foreach (array(true, false) as $addSlashes) {
-			if ($addSlashes) {
-				$gallery->_phpVm = new UtilitiesTestAddSlashesPhpVm();
-				$addSlashesInfo  = 'addslashes, ';
-			} else {
-				$gallery->_phpVm = new UtilitiesTestDoNotAddSlashesPhpVm();
-				$addSlashesInfo  = 'do not addslashes, ';
-			}
-
-			foreach ($tests as $tC) {
-				$_COOKIE = array();
-				$this->assertTrue(!count($_COOKIE), 'Could not reset superglobal $_COOKIE');
-				// Execute the test
-				$fixedCookies = array();
-
-				foreach ($tC['add'] as $attr) {
-					GalleryUtilities::_registerCookieAttr($attr, $fixedCookies);
-				}
-				// Test the result
-				ob_start();
-				var_dump($tC);
-				$debugInfo = ob_get_contents();
-				ob_end_clean();
-
-				$this->assertEquals(count($tC['er']), count($_COOKIE), $addSlashesInfo .
-					'number of registerd keys ' .
-					'do not match for test case: ' . $debugInfo);
-
-				foreach ($tC['er'] as $eR) {
-					if (isset($_COOKIE[$eR['key']])) {
-						// Check value
-						$expectedValue = $addSlashes ? addslashes($eR['val']) : $eR['val'];
-						$this->assertEquals(
-							$expectedValue,
-							$_COOKIE[$eR['key']],
-							$addSlashesInfo . 'value does not match for key ' .
-							$eR['key'] . ' for test case: ' . $debugInfo
-						);
-					} else {
-						$this->assertFalse($addSlashesInfo . 'key ' . $eR['key'] .
-						' missing for test case: ' . $debugInfo);
-					}
-				}
-			}
-		}
-	}
-
-	public function testGuaranteeDirExists() {
-		list($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
-		$this->assertTrue($success, 'guaranteeDirExists');
-		$this->assertEquals(array('/test/one', '/test/one/two'), $created);
-	}
-
-	public function testGuaranteeDirExistsLoop() {
-		global $gallery;
-
-		/*
-		 * Ensure no infinite loop if getPluginParameter call from guaranteeDirExists results in
-		 * another guaranteeDirExists call (from GalleryDataCache)
-		 */
-		GalleryDataCache::setFileCachingEnabled(true);
-		GalleryDataCache::reset();
-		$gallery->setConfig('data.gallery.cache', '/testcache/');
-
-		list($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
-		$this->assertTrue($success, 'guaranteeDirExists');
-		$this->assertEquals(array('/test/one', '/test/one/two'), $created);
-
-		$this->assertTrue(isset($this->_mkdir['/test/one']) &&
-			  $this->_mkdir['/test/one'] != '', 'mkdir with perms');
-		$this->assertTrue(
-			isset($this->_mkdir['/testcache/module/core/0/0']) &&
-			  $this->_mkdir['/testcache/module/core/0/0'] == '',
-			'mkdir for cache, but without specific perms'
-		);
-	}
-
-	public function testGuaranteeDirExistsLoop2() {
-		global $gallery;
-
-		/*
-		 * Ensure mkdir of same dir isn't performed twice if guaranteeDirExists is called and the
-		 * nested call from getPluginParameter actually creates the original dir that was requested
-		 */
-		GalleryDataCache::setFileCachingEnabled(true);
-		GalleryDataCache::reset();
-		$gallery->setConfig('data.gallery.cache', '/testcache/');
-
-		list($success, $created) = GalleryUtilities::guaranteeDirExists('/testcache/module/core/0/0');
-		$this->assertTrue($success, 'guaranteeDirExists');
-		$this->assertEquals(array(), $created);
-
-		$this->assertEquals(
-			array(
-				'/testcache/module/core/0/0' => '',
-			),
-			$this->_mkdir,
-			'mkdir for cache, but without specific perms'
-		);
-	}
-
-	/*
-	 * For a given path /a/b/c/d, file_exists() returns false for /a/b/c/d and /a/b/c and true for
-	 * /a/b if we don't have read+execute permission on /a/b.
-	 * In case we don't have r+w for the root directory /, we are in an infinite loop unless we
-	 * check the result of dirname($dir).
-	 * Another common case: open_basedir.
-	 * Also note that __DIR__ returns the filename without path if any parent folder
-	 * is missing the read permission.
-	 */
-	public function testGuaranteeDirExistsLoop3() {
-		global $gallery;
-
-		// Assume we don't have r+w permission for the root directory '/'.
-		list($success, $created) = GalleryUtilities::guaranteeDirExists('/noread/permission');
-		// Basically we verify that the function finishes / that there is no infinite loop.
-		$this->assertTrue(!$success, 'guaranteeDirExists');
-		$this->assertEquals(array(), $created);
-	}
-
-	public function testRoundToString() {
-		$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal');
-		$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal');
-
-		$currentLocale = setlocale(LC_ALL, '0');
-
-		foreach (array('de_DE', 'german') as $locale) {
-			$nTest = ($newLocale = GalleryTranslator::doStatic()->_setlocale(LC_ALL, $locale));
-
-			if ($nTest !== false) {
-				break;
-			}
-		}
-
-		if (empty($newLocale)) {
-			return $this->assertFalse('Unable to select German locale');
-		}
-
-		$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal german');
-		$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal german');
-
-		setlocale(LC_ALL, $currentLocale);
-	}
-
-	public function testCastToFloat() {
-		$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast');
-		$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string');
-
-		$currentLocale = setlocale(LC_ALL, '0');
-
-		foreach (array('de_DE', 'german') as $locale) {
-			$nTest = ($newLocale = GalleryTranslator::doStatic()->_setlocale(LC_ALL, $locale));
-
-			if ($nTest !== false) {
-				break;
-			}
-		}
-
-		if (empty($newLocale)) {
-			return $this->assertFalse('Unable to select German locale');
-		}
-
-		$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast german');
-		$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string german');
-
-		setlocale(LC_ALL, $currentLocale);
-	}
-
-	public function testGetPseudoFileName() {
-		global $gallery;
-		$gallery->setPlatform($this->_savePlatform);
-
-		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-
-		if ($ret) {
-			return $ret;
-		}
-		$this->_markForCleanup($album);
-
-		$ret = GalleryCoreApi::addMimeType('phpunit_movie', 'test/movie', false);
-
-		if ($ret) {
-			return $ret;
-		}
-
-		list($ret, $item) = $this->_createRandomDataItem(
-			$album->getId(),
-			'test/movie',
-			array(
-				'pathComponent' => 'testitem.phpunit_movie',
-			)
-		);
-
-		if ($ret) {
-			GalleryCoreApi::removeMimeType(array(
-				'extension' => 'phpunit_movie',
-			));
-
-			return $ret;
-		}
-
-		list($ret, $clip) = $this->_createDerivative(
-			$item,
-			$item->getId(),
-			DERIVATIVE_TYPE_IMAGE_PREFERRED,
-			'movieclip|5,10',
-			'test/movie'
-		);
-
-		if ($ret) {
-			GalleryCoreApi::removeMimeType(array(
-				'extension' => 'phpunit_movie',
-			));
-
-			return $ret;
-		}
-
-		$ret = GalleryCoreApi::addMimeType('phpunit_image', 'test/image', true);
-
-		if ($ret) {
-			GalleryCoreApi::removeMimeType(array(
-				'extension' => 'phpunit_movie',
-			));
-
-			return $ret;
-		}
-
-		list($ret, $thumb) = $this->_createDerivative(
-			$item,
-			$item->getId(),
-			DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-			'convert-to-test/image;thumbnail|150',
-			'test/image'
-		);
-
-		if ($ret) {
-			GalleryCoreApi::removeMimeType(
-				array(
-					'extension' => array('phpunit_movie', 'phpunit_image'),
-				)
+			* I don't fully understand why htmlSafe does this particular transform, so I'm
+			* documenting it here in case it changes.
+			*/
+			$this->assertEquals(
+				'December &amp;lt;#952&gt;',
+				GalleryUtilities::htmlSafe('December <#952>', true)
 			);
-
-			return $ret;
 		}
 
-		list($ret, $highlight) = $this->_createDerivative(
-			$album,
-			$thumb->getId(),
-			DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-			'thumbnail|200',
-			'test/image'
-		);
+		public function testHtmlSafeUtf7() {
+			/*
+			* HTML_Safe 0.9.9beta strips "invalid UTF-7": a+b-c -> ac
+			* We removed UTF-7 handling to avoid this
+			*/
+			$this->assertEquals('a+b-c', GalleryUtilities::htmlSafe('a+b-c'));
+		}
 
-		if ($ret) {
-			GalleryCoreApi::removeMimeType(
-				array(
-					'extension' => array('phpunit_movie', 'phpunit_image'),
-				)
+		public function testStrToLower() {
+			// For tr_TR as locale, I translates to y with an accent when using PHP's strtolower
+			$this->assertEquals(
+				'abcdefghijklmnopqrstuvwxyz0123456789=)(/&%',
+				GalleryUtilities::strToLower('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%')
 			);
-
-			return $ret;
 		}
 
-		// Item gives its own name
-		list($ret, $result) = GalleryUtilities::getPseudoFileName($item);
-
-		if ($ret) {
-			return $ret;
+		public function testStrToUpper() {
+			// For tr_TR as locale, i translates to Y with an accent when using PHP's strtoupper
+			$this->assertEquals(
+				'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%',
+				GalleryUtilities::strToUpper('abcdefghijklmnopqrstuvwxyz0123456789=)(/&%')
+			);
 		}
-		$this->assertEquals('testitem.phpunit_movie', $result);
 
-		// Derivative with same mime type as parent
-		list($ret, $result) = GalleryUtilities::getPseudoFileName($clip);
+		public function testIsSafeHttpHeader() {
+			$test   = array();
+			$test[] = array(true, chr(9));
+			// Carriage return
+			$test[] = array(false, chr(13));
+			$test[] = array(true, '%2500');
+			// An arbitrary level of url encoding of the line feed (newline) character
+			$test[] = array(false, urlencode(urlencode(urlencode(urlencode(chr(10))))));
+			$test[] = array(true, '');
+			$test[] = array(false, 'X-Foo: test' . chr(10) . 'bar');
+			$test[] = array(false, chr(13) . chr(10));
+			$test[] = array(false, '%0d');
+			$test[] = array(false, '%0D');
+			$i      = 0;
 
-		if ($ret) {
-			return $ret;
+			foreach ($test as $testCase) {
+				$i++;
+				list($expected, $header) = $testCase;
+				$this->assertEquals($expected, GalleryUtilities::isSafeHttpHeader($header), "Case $i");
+			}
 		}
-		$this->assertEquals('testitem.phpunit_movie', $result);
 
-		// Derivative with different mime type from parent
-		list($ret, $result) = GalleryUtilities::getPseudoFileName($thumb);
+		/**
+		* The readManifest() code doesn't use GalleryPlatform and is hard to test.  So this test is
+		* useful for when we're refactoring this code.  Delete /tmp/manifest.txt and run the test
+		* once and it'll capture the current manifest.  Subsequent runs will compare it against that
+		* golden version, so you can refactor the manifest code till you're happy.  But don't leave
+		* this test uncommented as otherwise it will break on the next manifest update.
+		* function testReadManifest() {
+		* $actual = GalleryUtilities::readManifest();
+		* $cmpFile = '/tmp/manifest.txt';
+		* if (!file_exists($cmpFile)) {
+		* $fd = fopen($cmpFile, 'wb');
+		* fwrite($fd, $actual);
+		* fclose($fd);
+		* $expected = $actual;
+		* } else {
+		* $expected = unserialize(file_get_contents($cmpFile));
+		* }
+		*
+		* $this->assertEquals(serialize($expected), serialize($actual));
+		* }
+		*/
+		public function testIsValidEmailString() {
+			foreach (array(
+				'blah@blah.com',
+				'aqy-BMZ+09_test@ary_BNZ-059.test-2B.Test',
+				'user@mydomain.travel',
+				'curator@my.museum',
+				'short@a.bc',
+			) as $valid) {
+				$this->assertTrue(GalleryUtilities::isValidEmailString($valid), $valid);
+			}
 
-		if ($ret) {
-			return $ret;
-		}
-		$this->assertEquals('testitem.phpunit_image', $result);
-
-		// Derivative with non-item parent
-		list($ret, $result) = GalleryUtilities::getPseudoFileName($highlight);
-
-		if ($ret) {
-			return $ret;
-		}
-		$this->assertEquals($album->getPathComponent() . '.phpunit_image', $result);
-
-		// Entity that is not a FileSystemEntity or Derivative
-		list($ret, $result) = GalleryUtilities::getPseudoFileName($gallery->getActiveUser());
-
-		if ($ret) {
-			return $ret;
-		}
-		$this->assertEquals('unknown', $result);
-
-		// Cleanup
-		$ret = GalleryCoreApi::removeMimeType(
-			array(
-				'extension' => array('phpunit_movie', 'phpunit_image'),
-			)
-		);
-
-		if ($ret) {
-			return $ret;
-		}
-	}
-
-	public function testHtmlSafe() {
-		$this->assertEquals('script src ', GalleryUtilities::htmlSafe(
-			'script src <script src="http://evil.com/bad.js">'
-		));
-		$this->assertEquals('script type ', GalleryUtilities::htmlSafe(
-			'script type <script type="text/javascript">alert("bad");</script>'
-		));
-		$this->assertEquals('applet ', GalleryUtilities::htmlSafe(
-			'applet <applet code="http://evil.com/bad.class"></applet>'
-		));
-		$this->assertEquals('object ', GalleryUtilities::htmlSafe(
-			'object <object codetype="application/java" classid="java:bad.class"></object>'
-		));
-		$this->assertEquals('embed ', GalleryUtilities::htmlSafe(
-			'embed <embed src="http://evil.com/bad.mov" width=400 height=300>'
-		));
-		$this->assertEquals('base ', GalleryUtilities::htmlSafe(
-			'base <base href="http://evil.com/bad.html">'
-		));
-		$this->assertEquals('title ', GalleryUtilities::htmlSafe(
-			'title <title>bad title</title>'
-		));
-		$this->assertEquals('link ', GalleryUtilities::htmlSafe(
-			'link <link rel="Next" href="http://evil.com/bad.php">'
-		));
-		$this->assertEquals('meta ', GalleryUtilities::htmlSafe(
-			'meta <meta http-equiv="refresh" content="2; url=http://evil.com/">'
-		));
-		$this->assertEquals('style ', GalleryUtilities::htmlSafe(
-			'style <style type="test/css">body { color: red; }</style>'
-		));
-		$this->assertEquals('<a href="test">12</a>8 <br />', GalleryUtilities::htmlSafe(
-			'<a href="test" onmouseover="alert(1)">12</a>8 <br />'
-		));
-		$this->assertEquals('<a>12</a>b<br />', GalleryUtilities::htmlSafe(
-			'<a href="javascript:alert(1)">12</a>b<br/>'
-		));
-		$this->assertEquals('test ', GalleryUtilities::htmlSafe(
-			'test <body onload=alert("xss")>'
-		));
-
-		// HTML_Safe does some normalizing of other tags
-		$this->assertEquals('br<br />is<br />ok', GalleryUtilities::htmlSafe('br<br>is<br/>ok'));
-		$this->assertEquals('img <img src="a.png" />', GalleryUtilities::htmlSafe(
-			'img <img src="a.png">'
-		));
-
-		// Unclosed tags are closed, unmatched close is stripped
-		$this->assertEquals('<tt><b>closed</b>  <i>open</i></tt>', GalleryUtilities::htmlSafe(
-			'<tt><b>closed</b> </td> <i>open'
-		));
-	}
-
-	public function testHtmlSafeWithDecode() {
-		/*
-		 * I don't fully understand why htmlSafe does this particular transform, so I'm
-		 * documenting it here in case it changes.
-		 */
-		$this->assertEquals(
-			'December &amp;lt;#952&gt;',
-			GalleryUtilities::htmlSafe('December <#952>', true)
-		);
-	}
-
-	public function testHtmlSafeUtf7() {
-		/*
-		 * HTML_Safe 0.9.9beta strips "invalid UTF-7": a+b-c -> ac
-		 * We removed UTF-7 handling to avoid this
-		 */
-		$this->assertEquals('a+b-c', GalleryUtilities::htmlSafe('a+b-c'));
-	}
-
-	public function testStrToLower() {
-		// For tr_TR as locale, I translates to y with an accent when using PHP's strtolower
-		$this->assertEquals(
-			'abcdefghijklmnopqrstuvwxyz0123456789=)(/&%',
-			GalleryUtilities::strToLower('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%')
-		);
-	}
-
-	public function testStrToUpper() {
-		// For tr_TR as locale, i translates to Y with an accent when using PHP's strtoupper
-		$this->assertEquals(
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%',
-			GalleryUtilities::strToUpper('abcdefghijklmnopqrstuvwxyz0123456789=)(/&%')
-		);
-	}
-
-	public function testIsSafeHttpHeader() {
-		$test   = array();
-		$test[] = array(true, chr(9));
-		// Carriage return
-		$test[] = array(false, chr(13));
-		$test[] = array(true, '%2500');
-		// An arbitrary level of url encoding of the line feed (newline) character
-		$test[] = array(false, urlencode(urlencode(urlencode(urlencode(chr(10))))));
-		$test[] = array(true, '');
-		$test[] = array(false, 'X-Foo: test' . chr(10) . 'bar');
-		$test[] = array(false, chr(13) . chr(10));
-		$test[] = array(false, '%0d');
-		$test[] = array(false, '%0D');
-		$i      = 0;
-
-		foreach ($test as $testCase) {
-			$i++;
-			list($expected, $header) = $testCase;
-			$this->assertEquals($expected, GalleryUtilities::isSafeHttpHeader($header), "Case $i");
+			foreach (array(
+				'no-at.com',
+				'no-dot@com',
+				'bad-&-char@test.com',
+				'sp ace@fun.com',
+				'test@sp ace.com',
+				'test@bad+char.com',
+				'test@tld-is.tooLong',
+				'two@ats@fun.com',
+			) as $invalid) {
+				$this->assertTrue(!GalleryUtilities::isValidEmailString($invalid), $invalid);
+			}
 		}
 	}
 
-	/**
-	 * The readManifest() code doesn't use GalleryPlatform and is hard to test.  So this test is
-	 * useful for when we're refactoring this code.  Delete /tmp/manifest.txt and run the test
-	 * once and it'll capture the current manifest.  Subsequent runs will compare it against that
-	 * golden version, so you can refactor the manifest code till you're happy.  But don't leave
-	 * this test uncommented as otherwise it will break on the next manifest update.
-	 * function testReadManifest() {
-	 * $actual = GalleryUtilities::readManifest();
-	 * $cmpFile = '/tmp/manifest.txt';
-	 * if (!file_exists($cmpFile)) {
-	 * $fd = fopen($cmpFile, 'wb');
-	 * fwrite($fd, $actual);
-	 * fclose($fd);
-	 * $expected = $actual;
-	 * } else {
-	 * $expected = unserialize(file_get_contents($cmpFile));
-	 * }
-	 *
-	 * $this->assertEquals(serialize($expected), serialize($actual));
-	 * }
-	 */
-	public function testIsValidEmailString() {
-		foreach (array(
-			'blah@blah.com',
-			'aqy-BMZ+09_test@ary_BNZ-059.test-2B.Test',
-			'user@mydomain.travel',
-			'curator@my.museum',
-			'short@a.bc',
-		) as $valid) {
-			$this->assertTrue(GalleryUtilities::isValidEmailString($valid), $valid);
+	class UtilitiesTestPlatform {
+		public function __construct(&$testCase) {
+			$this->_testCase =& $testCase;
 		}
 
-		foreach (array(
-			'no-at.com',
-			'no-dot@com',
-			'bad-&-char@test.com',
-			'sp ace@fun.com',
-			'test@sp ace.com',
-			'test@bad+char.com',
-			'test@tld-is.tooLong',
-			'two@ats@fun.com',
-		) as $invalid) {
-			$this->assertTrue(!GalleryUtilities::isValidEmailString($invalid), $invalid);
-		}
-	}
-}
-
-class UtilitiesTestPlatform {
-	public function __construct(&$testCase) {
-		$this->_testCase =& $testCase;
-	}
-
-	public function realpath($file) {
-		// These are used in testIsPathInList
-		switch ($file) {
-			case '/foo':
-			case '/foo/':
-			case '/bar':
-			case '/bar/':
-			case '/foo/bar':
-			case '/foobar':
-			case '/fo':
+		public function realpath($file) {
+			// These are used in testIsPathInList
+			switch ($file) {
+				case '/foo':
+				case '/foo/':
+				case '/bar':
+				case '/bar/':
+				case '/foo/bar':
+				case '/foobar':
+				case '/fo':
 				return $file;
 
-			case '/link/foo':
+				case '/link/foo':
 				return '/bar/foo';
 
-			case '/foo/link':
+				case '/foo/link':
 				return '/bad/path';
 
-			case '/link':
+				case '/link':
 				return '/foo';
+			}
+
+			$path = realpath($file);
+
+			// Stick with Unix slashes for the purpose of our tests
+			return str_replace('\\', '/', $path);
 		}
 
-		$path = realpath($file);
+		public function getDirectorySeparator() {
+			return '/';
+		}
 
-		// Stick with Unix slashes for the purpose of our tests
-		return str_replace('\\', '/', $path);
-	}
+		public function file_exists($path) {
+			if (isset($this->_testCase->_mkdir[$path])) {
+				return true;
+			}
 
-	public function getDirectorySeparator() {
-		return '/';
-	}
+			switch ($path) {
+				case '/test':
+				case '/testcache/module/core/0':
+				return true;
 
-	public function file_exists($path) {
-		if (isset($this->_testCase->_mkdir[$path])) {
+				case '/test/one':
+				case '/test/one/two':
+				case '/noread/permission':
+				case '/noread':
+				case '/':
+				return false;
+			}
+
+			switch (realpath($path)) {
+				case __FILE__:
+				case realpath(__DIR__ . '/../../classes/GalleryAlbumItem.class'):
+				return true;
+
+				default:
+				return false;
+			}
+		}
+
+		public function filesize($file) {
+			return filesize($file);
+		}
+
+		public function mkdir($dir, $stringPerms = '') {
+			if (isset($this->_testCase->_mkdir[$dir])) {
+				return false;
+			}
+			$this->_testCase->_mkdir[$dir] = $stringPerms;
+
 			return true;
 		}
 
-		switch ($path) {
-			case '/test':
-			case '/testcache/module/core/0':
+		public function is_dir($dir) {
+			if (isset($this->_testCase->_mkdir[$dir])) {
+				return true;
+			}
+
+			switch ($dir) {
+				case '/test':
+				case '/testcache/module/core/0':
 				return true;
 
-			case '/test/one':
-			case '/test/one/two':
-			case '/noread/permission':
-			case '/noread':
-			case '/':
+				default:
 				return false;
+			}
 		}
 
-		switch (realpath($path)) {
-			case __FILE__:
-			case realpath(__DIR__ . '/../../classes/GalleryAlbumItem.class'):
-				return true;
-
-			default:
-				return false;
+		public function atomicWrite($filename, $data) {
+			return true;
 		}
 	}
 
-	public function filesize($file) {
-		return filesize($file);
-	}
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+	class UtilitiesTestWinPlatform extends WinNtPlatform {
+		public function realpath($file) {
+			// These are used in testIsPathInList
+			switch ($file) {
+				case 'c:\foo\bar':
+				case 'C:\Foo':
+				case 'd:\\':
+				return $file;
+			}
 
-	public function mkdir($dir, $stringPerms = '') {
-		if (isset($this->_testCase->_mkdir[$dir])) {
 			return false;
 		}
-		$this->_testCase->_mkdir[$dir] = $stringPerms;
 
-		return true;
+		public function getDirectorySeparator() {
+			return '\\';
+		}
 	}
 
-	public function is_dir($dir) {
-		if (isset($this->_testCase->_mkdir[$dir])) {
+	/**
+	* Used by UtilitiesTest::testRegisterCookieAttr
+	*/
+	class UtilitiesTestAddSlashesPhpVm extends GalleryPhpVm {
+		public function get_magic_quotes_gpc() {
 			return true;
 		}
+	}
 
-		switch ($dir) {
-			case '/test':
-			case '/testcache/module/core/0':
-				return true;
-
-			default:
-				return false;
+	class UtilitiesTestDoNotAddSlashesPhpVm extends GalleryPhpVm {
+		public function get_magic_quotes_gpc() {
+			return false;
 		}
 	}
 
-	public function atomicWrite($filename, $data) {
-		return true;
-	}
-}
-
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
-class UtilitiesTestWinPlatform extends WinNtPlatform {
-	public function realpath($file) {
-		// These are used in testIsPathInList
-		switch ($file) {
-			case 'c:\foo\bar':
-			case 'C:\Foo':
-			case 'd:\\':
-				return $file;
+	class UtilitiesTestSetResponseHeaderPhpVm extends GalleryPhpVm {
+		public function __construct() {
+			$this->getHeaderCalls(true);
 		}
 
-		return false;
-	}
+		public function &getHeaderCalls($reset = false) {
+			static $headerCalls = array();
 
-	public function getDirectorySeparator() {
-		return '\\';
-	}
-}
+			if ($reset) {
+				$headerCalls = array();
+			}
 
-/**
- * Used by UtilitiesTest::testRegisterCookieAttr
- */
-class UtilitiesTestAddSlashesPhpVm extends GalleryPhpVm {
-	public function get_magic_quotes_gpc() {
-		return true;
-	}
-}
-
-class UtilitiesTestDoNotAddSlashesPhpVm extends GalleryPhpVm {
-	public function get_magic_quotes_gpc() {
-		return false;
-	}
-}
-
-class UtilitiesTestSetResponseHeaderPhpVm extends GalleryPhpVm {
-	public function __construct() {
-		$this->getHeaderCalls(true);
-	}
-
-	public function &getHeaderCalls($reset = false) {
-		static $headerCalls = array();
-
-		if ($reset) {
-			$headerCalls = array();
+			return $headerCalls;
 		}
 
-		return $headerCalls;
+		public function header($header, $replace = null) {
+			$headerCalls   =& $this->getHeaderCalls();
+			$headerCalls[] = array($header, $replace);
+		}
 	}
-
-	public function header($header, $replace = null) {
-		$headerCalls   =& $this->getHeaderCalls();
-		$headerCalls[] = array($header, $replace);
-	}
-}

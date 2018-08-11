@@ -370,7 +370,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		}
 
 		if (empty($newLocale)) {
-			return $this->assertFalse('Unable to select German locale');
+			return $this->assertFalse(true, 'Unable to select German locale');
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][crop]', 1);

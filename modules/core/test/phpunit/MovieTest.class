@@ -125,7 +125,7 @@ class MovieTest extends GalleryTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assertFalse('Expected a storage failure');
+			$this->assertTrue(false, 'Storage failure');
 		}
 
 		// Nothing was changed

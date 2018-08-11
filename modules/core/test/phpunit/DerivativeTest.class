@@ -1098,7 +1098,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($platform->file_exists($destPath)) {
 			$this->assertEquals($expectedSize, $platform->filesize($destPath), 'file size');
 		} else {
-			$this->assertFalse('dest file missing');
+			$this->assertFalse(true, 'dest file missing');
 		}
 	}
 

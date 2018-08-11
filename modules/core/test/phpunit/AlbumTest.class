@@ -505,7 +505,7 @@ class AlbumTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.delete');
 
 		if (!$ret) {
-			$this->assertFalse('Guest should not have core.delete on root album');
+			$this->assertFalse(true, 'Guest has core.delete on root album');
 
 			return;
 		}
@@ -630,7 +630,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// Result: failure
-		$this->assertFalse($success);
+		$this->assertFalse($success, 'Did not Fail');
 	}
 
 	public function testGuaranteeAlbumHasThumbnail2() {

@@ -62,7 +62,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			// this is what we expect
 		} else {
-			$this->assertFalse('The view of a deactivated module should not load.');
+			$this->assertTrue(false, 'The view of a deactivated module should not load.');
 		}
 	}
 

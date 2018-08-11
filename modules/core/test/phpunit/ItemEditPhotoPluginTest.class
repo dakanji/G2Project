@@ -228,7 +228,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		}
 
 		if (empty($resizeTable[$this->_item->getId()])) {
-			$this->assertFalse('no resizes!');
+			$this->assertFalse(true, 'no resizes!');
 		} else {
 			$resizeTable = $resizeTable[$this->_item->getId()];
 			$this->assertEquals(3, count($resizeTable), 'resize count');

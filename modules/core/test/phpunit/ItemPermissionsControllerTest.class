@@ -442,7 +442,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($permissions as $permission) {
 			if (isset($permission['groupId']) && $permission['groupId'] == $this->_group->getId()) {
-				$this->assertFalse('invalid group permission found');
+				$this->assertFalse(true, 'invalid group permission found');
 			}
 		}
 	}
@@ -496,8 +496,10 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			foreach ($permissions as $permission) {
 				if (isset($permission['groupId'])
 				&& $permission['groupId'] == $this->_group->getId()) {
-					$this->assertFalse('invalid group permission found: ' .
-					serialize($permission));
+					$this->assertFalse(
+						true,
+						'invalid group permission found: ' . serialize($permission)
+					);
 				}
 			}
 		}
@@ -758,7 +760,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		foreach ($permissions as $permission) {
 			if (isset($permission['userId'])
 			&& $permission['userId'] == $this->_user->getId()) {
-				$this->assertFalse('invalid user permission found');
+				$this->assertFalse(true, 'invalid user permission found');
 			}
 		}
 	}
@@ -813,6 +815,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 				if (isset($permission['userId'])
 				&& $permission['userId'] == $this->_user->getId()) {
 					$this->assertFalse(
+						true, 
 						'invalid user permission found: ' . serialize($permission)
 					);
 				}

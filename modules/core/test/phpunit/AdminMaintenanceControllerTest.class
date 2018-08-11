@@ -316,7 +316,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assertFalse('The task should have failed');
+			$this->assertFalse(true, 'The task did not fail');
 		}
 
 		// Assert that we saw what we expected

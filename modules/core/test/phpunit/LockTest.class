@@ -333,7 +333,7 @@ class LockTest extends GalleryTestCase {
 		$ret       = GalleryCoreApi::releaseLocks($lockIds);
 
 		if ($ret) {
-			$this->assertFalse($lockSystem);
+			$this->assertFalse(true, $lockSystem);
 
 			return $ret;
 		}
@@ -350,7 +350,7 @@ class LockTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::releaseLocks(array());
 
 		if ($ret) {
-			$this->assertFalse($lockSystem);
+			$this->assertFalse(true, $lockSystem);
 
 			return $ret;
 		}

@@ -1381,7 +1381,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		if (!isset($derivativeTable[$newItem->getId()])) {
-			return $this->assertFalse('Missing item derivative');
+			return $this->assertFalse(true, 'Missing item derivative');
 		}
 		$derivs = $derivativeTable[$newItem->getId()];
 
@@ -1915,7 +1915,7 @@ class ItemTest extends GalleryTestCase {
 					$this->assertEquals(567, $preferreds[$itemId]->getHeight(), 'height');
 				}
 			} else {
-				$this->assertFalse('missing preferred for ' . $mimeType);
+				$this->assertFalse(true, 'missing preferred for ' . $mimeType);
 			}
 		}
 

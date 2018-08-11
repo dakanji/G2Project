@@ -1259,7 +1259,7 @@ class SessionTest extends GalleryTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assertFalse('save should return an error if userId is not set');
+			$this->assertFalse(true, 'Save without userId');
 		}
 	}
 
@@ -1807,7 +1807,7 @@ class SessionTest extends GalleryTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assertFalse('should have returned a ERROR_COLLISION, but got no error at all');
+			$this->assertFalse(true, 'Acquire New Persistent Session On Collision');
 		}
 	}
 

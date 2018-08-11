@@ -297,7 +297,7 @@ class TemplateTest extends GalleryTestCase {
 	public function testSmartyCompileCheckByPluginParam() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$template = new GalleryTemplate('/legal/path');
-		$this->assertFalse($template->_smarty->compile_check);
+		$this->assertFalse($template->_smarty->compile_check, 'SmartyCompileCheckByPluginParam 1');
 
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -312,25 +312,28 @@ class TemplateTest extends GalleryTestCase {
 		}
 
 		$template = new GalleryTemplate('/legal/path');
-		$this->assertTrue($template->_smarty->compile_check);
+		$this->assertTrue($template->_smarty->compile_check, 'SmartyCompileCheckByPluginParam 2');
 	}
 
 	public function testSmartyCompileCheckEnabledIfNoCacheRequested() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$_SERVER['HTTP_PRAGMA'] = 'no-cache';
 		$template               = new GalleryTemplate('/legal/path');
-		$this->assertTrue($template->_smarty->compile_check);
+		$this->assertTrue(
+			$template->_smarty->compile_check,
+			'SmartyCompileCheckEnabledIfNoCacheRequested'
+		);
 	}
 
 	public function testSmartyCompileCheckUsesCache() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$template = new GalleryTemplate('/legal/path');
-		$this->assertFalse($template->_smarty->compile_check);
+		$this->assertFalse($template->_smarty->compile_check, 'SmartyCompileCheckUsesCache 1');
 
 		$_SERVER['HTTP_PRAGMA'] = 'no-cache';
 
 		$newTemplate = new GalleryTemplate('/legal/path');
-		$this->assertFalse($newTemplate->_smarty->compile_check);
+		$this->assertFalse($newTemplate->_smarty->compile_check, 'SmartyCompileCheckUsesCache 2');
 	}
 
 	public function testStyle() {

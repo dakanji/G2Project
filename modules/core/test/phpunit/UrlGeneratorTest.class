@@ -1393,7 +1393,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$ret               = $this->_urlGenerator->initNavigation();
 
 			if ($ret) {
-				$this->assertFalse("Normal returnUrl '$url' not accepted");
+				$this->assertFalse(true, "Normal returnUrl '$url' not accepted");
 
 				return $ret;
 			}
@@ -1414,7 +1414,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$ret = $this->_urlGenerator->initNavigation();
 
 		if ($ret) {
-			$this->assertFalse("Normal URL '$goodUrl' not accepted");
+			$this->assertFalse(true, "Normal URL '$goodUrl' not accepted");
 
 			return $ret;
 		}
@@ -1795,11 +1795,9 @@ class UrlGeneratorTest extends GalleryTestCase {
 					intval($downloadItemRequest);
 					// Check the result
 					if ($isEmbedded && !$cookiePathConfigured && $downloadItemRequest) {
-						$this->assertTrue($result, 'wrong result for test case: ' .
-						$debugInfo);
+						$this->assertTrue($result, "wrong result for test case: $debugInfo");
 					} else {
-						$this->assertFalse($result, 'wrong result for test case: ' .
-						$debugInfo);
+						$this->assertFalse($result, "wrong result for test case: $debugInfo");
 					}
 				}
 			}

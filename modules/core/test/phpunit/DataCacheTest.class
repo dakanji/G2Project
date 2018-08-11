@@ -589,7 +589,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($shouldCache);
+		$this->assertFalse($shouldCache, 'Should Cache');
 	}
 
 	public function testShouldCacheReadNoCache1() {
@@ -603,7 +603,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($shouldCache);
+		$this->assertFalse($shouldCache, 'Should Cache');
 	}
 
 	public function testShouldCacheReadNoCache2() {
@@ -617,7 +617,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($shouldCache);
+		$this->assertFalse($shouldCache, 'Should Cache');
 	}
 
 	public function testShouldCacheReadUserOk() {
@@ -641,7 +641,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue($shouldCache);
+		$this->assertTrue($shouldCache, 'Should Cache');
 	}
 
 	public function testShouldCacheReadGuestOk() {
@@ -666,7 +666,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue($shouldCache);
+		$this->assertTrue($shouldCache, 'Should Cache');
 	}
 
 	public function testShouldCacheReadUserNotOk() {
@@ -703,7 +703,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($shouldCache);
+		$this->assertFalse($shouldCache, 'Should Cache');
 	}
 
 	public function testShouldCacheNone() {
@@ -730,7 +730,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($shouldCache);
+		$this->assertFalse($shouldCache, 'Should Cache');
 	}
 
 	public function testGetExtraPageCacheKey() {
@@ -826,7 +826,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($shouldCache);
+		$this->assertFalse($shouldCache, 'Should Cache');
 
 		$session->remove('theme.guestPreviewMode');
 	}

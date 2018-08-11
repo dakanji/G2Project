@@ -79,12 +79,14 @@ class ControllerTest extends GalleryTestCase {
 	}
 
 	public function testLoadControllerFail() {
-		list($ret, $controller) = GalleryController::loadController('controllertest.SomeRandomController');
+		list($ret, $controller) = GalleryController::loadController(
+			'controllertest.SomeRandomController'
+		);
 
 		if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			// this is what we expect
 		} else {
-			$this->assertFalse('The controller of a deactivated module should not load.');
+			$this->assertFalse(true, 'Controller of deactivated module loaded.');
 		}
 	}
 
@@ -109,7 +111,7 @@ class ControllerTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assertFalse('should throw an error by default');
+			$this->assertTrue(false, 'Throw error by default');
 		}
 	}
 
@@ -156,7 +158,7 @@ class ControllerTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assertFalse('invalid auth token was accepted');
+			$this->assertFalse(true, 'Accept invalid auth token');
 		}
 	}
 

@@ -47,7 +47,7 @@ class CommentSearchTest extends GalleryTestCase {
 		}
 
 		if (empty($moduleStatusList['search']['active'])) {
-			return $this->assertFalse('Search module not installed');
+			return $this->skip();
 		}
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'comment');

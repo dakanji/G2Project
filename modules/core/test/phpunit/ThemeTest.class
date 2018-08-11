@@ -504,7 +504,7 @@ class ThemeTest extends GalleryTestCase {
 			list($success, $block[$i]) = $this->_theme->packSetting('block-list', '[["core.ThemeTestBlock' . $i . '"]]');
 
 			if (!$success) {
-				return $this->assertFalse('block-list error');
+				return $this->assertFalse(true, 'block-list error');
 			}
 		}
 		list($ret, $results) = $this->_theme->loadTemplate(
@@ -580,19 +580,19 @@ class ThemeTest extends GalleryTestCase {
 		$randomHtml = str_repeat($randomHtml, 160000 / strlen($randomHtml));
 		$html       = '
 	    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
-    	
+
 	    <html lang="de-DE" xmlns="...">
-	    
+
 	    <head>
 	    ' . $randomHtml . 'for head
 	    </head>
-	    
+
 	    <body some="foo">
 	    ' . $randomHtml . 'for body
 	    </body>
-	    
+
 	    </html>
-	    
+
     	';
 		$extraHtml  = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',

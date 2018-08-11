@@ -278,7 +278,8 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testPathComponentIllegalCharactersToUnderscores() {
 		$this->assertFalse(
-			$this->_platform->isLegalPathComponent('The Quick!Brown#Fox')
+			$this->_platform->isLegalPathComponent('The Quick!Brown#Fox'),
+			'The Quick!Brown@Fox is legal path component'
 		);
 		$this->assertEquals(
 			'The Quick_Brown#Fox',
@@ -288,7 +289,8 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testPathComponentDotInFileBaseToUnderscore() {
 		$this->assertFalse(
-			$this->_platform->isLegalPathComponent('test.php.jpg')
+			$this->_platform->isLegalPathComponent('test.php.jpg'),
+			'test.php.jpg is legal pathcomponent'
 		);
 		$this->assertEquals(
 			'test_php.jpg',
@@ -309,7 +311,8 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testPathComponentDotUnrecognizedExtensionToUnderscore() {
 		$this->assertFalse(
-			$this->_platform->isLegalPathComponent('test.foo')
+			$this->_platform->isLegalPathComponent('test.foo'),
+			'test.foo is legal pathcomponent'
 		);
 		$this->assertEquals(
 			'test_foo',
@@ -319,7 +322,8 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testPathComponentDotPhpExtensionToUnderscore() {
 		$this->assertFalse(
-			$this->_platform->isLegalPathComponent('test.php')
+			$this->_platform->isLegalPathComponent('test.php'),
+			'test.php is legal pathcomponent'
 		);
 		$this->assertEquals(
 			'test_php',
@@ -329,7 +333,8 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testPathComponentDotUnderscoreToUnderscoreUnderscore() {
 		$this->assertFalse(
-			$this->_platform->isLegalPathComponent('._test')
+			$this->_platform->isLegalPathComponent('._test'),
+			'._test is legal pathcomponent'
 		);
 		$this->assertEquals(
 			'__test',
@@ -368,7 +373,7 @@ class PlatformTest extends GalleryTestCase {
 	 */
 	public function testExec() {
 		$results = $this->_platform->exec(array(array('/bogus/path')));
-		$this->assertFalse($results[0]);
+		$this->assertFalse($results[0], 'Execute Bogus Path');
 	}
 
 	/**
@@ -476,7 +481,7 @@ class PlatformTest extends GalleryTestCase {
 
 				case 'symlink':
 					if (!$this->_platform->isSymlinkSupported()) {
-						$this->assertFalse('symlink not supported');
+						$this->assertTrue(false, 'symlink supported');
 
 						continue 2;
 					}
@@ -951,7 +956,7 @@ class PlatformTest extends GalleryTestCase {
 			$errstr,
 			30
 		);
-		$this->assertFalse($fd);
+		$this->assertFalse($fd, 'open socket to bogus web server');
 	}
 
 	/**
@@ -989,7 +994,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// And suppress warnings when we call fopen
 		$fd = @$this->_platform->fopen(sprintf('%s_BOGUS_BOGUS', __FILE__), 'rb');
-		$this->assertFalse($fd);
+		$this->assertFalse($fd, 'Open Missing File');
 	}
 
 	public function testAtomicWrite() {

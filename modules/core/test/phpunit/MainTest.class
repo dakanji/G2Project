@@ -401,7 +401,7 @@ class MainTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assertFalse('auth token check not executed');
+			$this->assertFalse(true, 'auth token check not executed');
 		}
 	}
 
@@ -423,7 +423,7 @@ class MainTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assertFalse('auth token check not executed');
+			$this->assertFalse(true, 'auth token check not executed');
 		}
 	}
 
@@ -445,7 +445,7 @@ class MainTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assertFalse('unexpected result');
+			$this->assertFalse(true, 'unexpected result');
 		}
 	}
 

@@ -1,32 +1,32 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2008 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataCache.class');
 
 /**
- * AdminDeleteUser controller tests
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- * @version $Revision: 17580 $
- */
+* AdminDeleteUser controller tests
+* @package GalleryCore
+* @subpackage PHPUnit
+* @author Bharat Mediratta <bharat@menalto.com>
+* @version $Revision: 17580 $
+*/
 class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName, 'core.AdminDeleteUser');
@@ -107,8 +107,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Create and delete a user, no items created/deleted
-	 */
+	* Create and delete a user, no items created/deleted
+	*/
 	public function testDeleteUser() {
 
 		// Create a user that we can delete
@@ -148,13 +148,13 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 				return $ret;
 			}
 		} else {
-			$this->assertFalse('The user was not actually deleted');
+			$this->assertFalse(true, 'The user was actually deleted');
 		}
 	}
 
 	/**
-	 * Try to delete the active user (this will fail silently)
-	 */
+	* Try to delete the active user (this will fail silently)
+	*/
 	public function testDeleteActiveUser() {
 		global $gallery;
 
@@ -177,8 +177,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Try to delete the anonymous user (this will fail silently)
-	 */
+	* Try to delete the anonymous user (this will fail silently)
+	*/
 	public function testDeleteAnonymousUser() {
 		global $gallery;
 
@@ -209,8 +209,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Try to delete a user and assign items to nonexistent userName
-	 */
+	* Try to delete a user and assign items to nonexistent userName
+	*/
 	public function testDeleteUserAndAssignItemsToNonexistentUser() {
 		global $gallery;
 
@@ -262,7 +262,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assertFalse('The user was deleted');
+				$this->assertFalse(true, 'The user was deleted');
 			} else {
 				return $ret;
 			}
@@ -271,8 +271,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Try to delete a user and assign items to nonexistent userName
-	 */
+	* Try to delete a user and assign items to nonexistent userName
+	*/
 	public function testDeleteUserAndAssignItemsToSameUser() {
 		global $gallery;
 
@@ -311,7 +311,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assertFalse('The user was deleted');
+				$this->assertFalse(true, 'The user was deleted');
 			} else {
 				return $ret;
 			}
@@ -320,8 +320,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Try to delete a user and assign items to anonymous user
-	 */
+	* Try to delete a user and assign items to anonymous user
+	*/
 	public function testDeleteUserAndAssignItemsToAnonymousUser() {
 		global $gallery;
 
@@ -372,7 +372,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assertFalse('The user was deleted');
+				$this->assertFalse(true, 'The user was deleted');
 			} else {
 				return $ret;
 			}
@@ -381,8 +381,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Create a user, add 1 item, delete the user and the item
-	 */
+	* Create a user, add 1 item, delete the user and the item
+	*/
 	public function testDeleteUserDeleteItemWithDirectPermission() {
 		global $gallery;
 
@@ -460,15 +460,15 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$ret = $this->_verifyMissing($item->getId());
 
 		if ($ret) {
-			$this->assertFalse('The item was not actually deleted/there was an error');
+			$this->assertFalse(true, 'The item was not deleted and/or there was an error');
 		}
 	}
 
 	/**
-	 * Create a user, add 1 item, delete the user
-	 * The user doesn't have the permission to delete the item
-	 * The item should have a new owner, Site Admin
-	 */
+	* Create a user, add 1 item, delete the user
+	* The user doesn't have the permission to delete the item
+	* The item should have a new owner, Site Admin
+	*/
 	public function testDeleteUserDeleteItemWithoutPermission() {
 		global $gallery;
 
@@ -536,7 +536,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assertFalse('The item was deleted');
+				$this->assertFalse(true, 'The item was deleted');
 			}
 
 			return $ret;
@@ -557,9 +557,9 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Create a user, add 1 subalbum, add another user, delete the user
-	 * with variant "assign all items to a new owner"
-	 */
+	* Create a user, add 1 subalbum, add another user, delete the user
+	* with variant "assign all items to a new owner"
+	*/
 	public function testDeleteUserNewOwnerForItem() {
 		global $gallery;
 
@@ -636,7 +636,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$this->assertFalse('The item was deleted');
+				$this->assertFalse(true, 'The item was deleted');
 			}
 
 			return $ret;
@@ -663,9 +663,9 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * All Delete requests have in common that the user,
-	 * all his permissions and his group mappings should be gone
-	 */
+	* All Delete requests have in common that the user,
+	* all his permissions and his group mappings should be gone
+	*/
 	public function _verifyMissingAll($userId) {
 		global $gallery;
 
@@ -679,13 +679,13 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Verify all permission maps for this user are gone
 		$query                     = '
-	SELECT
-	  COUNT([GalleryAccessMap::accessListId])
-	FROM
-	  [GalleryAccessMap]
-	WHERE
-	  [GalleryAccessMap::userOrGroupId] = ?
-	';
+		SELECT
+		COUNT([GalleryAccessMap::accessListId])
+		FROM
+		[GalleryAccessMap]
+		WHERE
+		[GalleryAccessMap::userOrGroupId] = ?
+		';
 		list($ret, $searchResults) = $gallery->search($query, array($userId));
 
 		if ($ret) {
@@ -699,7 +699,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$ret = $this->_verifyMissing($userId);
 
 		if ($ret) {
-			$this->assertFalse('The user was not actually deleted/there was an error');
+			$this->assertFalse(true, 'The user was not deleted and/or there was an error');
 		}
 
 		return null;

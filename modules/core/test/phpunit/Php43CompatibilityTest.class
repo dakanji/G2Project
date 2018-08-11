@@ -102,6 +102,7 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 
 						if (strpos($line, $keyword) !== false) {
 							$this->assertFalse(
+								true,
 								sprintf(
 									'%s contains illegal keyword <b>%s</b> ' .
 									'on line <b>%d</b>',

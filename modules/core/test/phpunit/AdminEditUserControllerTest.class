@@ -339,7 +339,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue($user->isLocked());
+		$this->assertTrue($user->isLocked(), 'Check User  is Locked 1');
 
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -372,7 +372,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($user->isLocked());
+		$this->assertFalse($user->isLocked(), 'Check User  is Locked 2');
 	}
 
 	public function testResetFailedLoginAttempts() {

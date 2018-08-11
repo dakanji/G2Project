@@ -102,7 +102,7 @@ class PluginTest extends GalleryTestCase {
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin('wrong_value', 'Anything');
 
 		if (!$ret) {
-			return $this->assertFalse('Should have been an error');
+			return $this->assertFalse(true, 'Load Bad Plugin Type');
 		}
 
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
