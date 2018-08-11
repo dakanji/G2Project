@@ -131,12 +131,12 @@ class GdToolkitTest extends GalleryTestCase {
 						return $ret;
 					}
 					$this->assertEquals(
-						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
 						array(
-							'x'        => '100',
-							'y'        => '100',
+							'x'        => 100,
+							'y'        => 100,
 							'mimeType' => $mimeType,
-						)
+						),
+						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
 					$this->assertEquals(
 						0,
@@ -158,12 +158,12 @@ class GdToolkitTest extends GalleryTestCase {
 						return $ret;
 					}
 					$this->assertEquals(
-						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
 						array(
-							'x'        => '450',
-							'y'        => '300',
+							'x'        => 450,
+							'y'        => 300,
 							'mimeType' => $mimeType,
-						)
+						),
+						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
 					$this->assertEquals(
 						0,
@@ -185,12 +185,12 @@ class GdToolkitTest extends GalleryTestCase {
 						return $ret;
 					}
 					$this->assertEquals(
-						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
 						array(
-							'x'        => '900',
-							'y'        => '500',
+							'x'        => 900,
+							'y'        => 500,
 							'mimeType' => $mimeType,
-						)
+						),
+						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
 					$this->assertEquals(
 						0,
@@ -212,13 +212,13 @@ class GdToolkitTest extends GalleryTestCase {
 						return $ret;
 					}
 					$this->assertEquals(
-						$this->_gdFunctionality->getOutputFileData('/valid/cropped.ext'),
 						array(
-							'x'        => '154',
-							'y'        => '156',
+							'x'        => 154.0,
+							'y'        => 156.0,
 							'mimeType' => $mimeType,
-							'copy'     => array('300x300.ext', 0, 0, 74, 71, 154, 156),
+							'copy'     => array('300x300.ext', 0, 0, 74.0, 71.0, 154.0, 156.0),
 						),
+						$this->_gdFunctionality->getOutputFileData('/valid/cropped.ext'),
 						'crop dimensions mismatch'
 					);
 					$this->assertEquals(
@@ -246,12 +246,12 @@ class GdToolkitTest extends GalleryTestCase {
 						return $ret;
 					}
 					$this->assertEquals(
-						$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
 						array(
-							'x'        => '200',
-							'y'        => '300',
+							'x'        => 200,
+							'y'        => 300,
 							'mimeType' => $mimeType,
 						),
+						$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
 						'rotate'
 					);
 					$this->assertEquals(
@@ -283,8 +283,8 @@ class GdToolkitTest extends GalleryTestCase {
 					}
 
 					$expected = array(
-						'x'        => '400',
-						'y'        => '400',
+						'x'        => 400,
+						'y'        => 400,
 						'mimeType' => 'image/jpeg',
 					);
 
@@ -332,21 +332,14 @@ class GdToolkitTest extends GalleryTestCase {
 					);
 
 					if ($mimeType == 'image/png' || $mimeType == 'image/gif') {
-						$expected['copy'] = array('/valid/50x50.ext', '250', '0', '0', '0', '50', '50');
+						$expected['copy'] = array('/valid/50x50.ext', 250, 0, 0, 0, 50, 50);
 					} else {
 						$expected['copy']    = array('', 0, 0, 0, 0, 300, 300);
 						$expected['history'] = array(
-							'copy' => array(
-								'/valid/50x50.ext',
-								'250',
-								'0',
-								'0',
-								'0',
-								'50',
-								'50',
-							),
+							'copy' => array('/valid/50x50.ext', 250, 0, 0, 0, 50, 50),
 						);
 					}
+					
 					$this->assertEquals(
 						$expected,
 						$this->_gdFunctionality->getOutputFileData('/valid/composited.ext'),
@@ -400,12 +393,12 @@ class GdToolkitTest extends GalleryTestCase {
 						return $ret;
 					}
 					$this->assertEquals(
-						$this->_gdFunctionality->getOutputFileData('/valid/compressed.jpg'),
 						array(
-							'x'        => '0',
-							'y'        => '0',
+							'x'        => 0,
+							'y'        => 0,
 							'mimeType' => $mimeType,
 						),
+						$this->_gdFunctionality->getOutputFileData('/valid/compressed.jpg'),
 						"compress a $mimeType"
 					);
 					$this->assertEquals(

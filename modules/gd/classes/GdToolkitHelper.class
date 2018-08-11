@@ -40,10 +40,10 @@ class GdToolkitHelper {
 		global $gallery;
 
 		if (!isset($gd)) {
-			$gd = GdToolkitHelper::getGdFunctionality();
+			$gd = self::getGdFunctionality();
 		}
 
-		list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported(null, $gd);
+		list($ret, $isSupported) = self::isGdVersionSupported(null, $gd);
 
 		if ($ret) {
 			return array($ret, null);
@@ -59,7 +59,7 @@ class GdToolkitHelper {
 			);
 		}
 
-		list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes($gd);
+		list($ret, $mimeTypes) = self::discoverMimeTypes($gd);
 
 		if ($ret) {
 			return array($ret, null);
@@ -67,7 +67,7 @@ class GdToolkitHelper {
 
 		// -------------------- Operations --------------------
 
-		if (GdToolkitHelper::isOperationSupported('convert-to-image/jpeg', $gd)) {
+		if (self::isOperationSupported('convert-to-image/jpeg', $gd)) {
 			$convertToJpegMimeTypes = array_intersect(
 				array(
 					'image/gif',
@@ -88,7 +88,7 @@ class GdToolkitHelper {
 			}
 		}
 
-		if (GdToolkitHelper::isOperationSupported('scale', $gd)) {
+		if (self::isOperationSupported('scale', $gd)) {
 			// Scale
 			$operations['scale']['params'][]    = array(
 				'type'        => 'int',
@@ -109,14 +109,14 @@ class GdToolkitHelper {
 			$operations['scale']['mimeTypes']   = $mimeTypes;
 		}
 
-		if (GdToolkitHelper::isOperationSupported('thumbnail', $gd)
+		if (self::isOperationSupported('thumbnail', $gd)
 			&& isset($operations['scale'])
 		) {
 			// Thumbnail is an alias for scale
 			$operations['thumbnail'] = $operations['scale'];
 		}
 
-		if (GdToolkitHelper::isOperationSupported('resize', $gd)) {
+		if (self::isOperationSupported('resize', $gd)) {
 			// Resize
 			$operations['resize']['params'][]    = array(
 				'type'        => 'int',
@@ -138,7 +138,7 @@ class GdToolkitHelper {
 			$operations['resize']['mimeTypes']   = $mimeTypes;
 		}
 
-		if (GdToolkitHelper::isOperationSupported('rotate', $gd)) {
+		if (self::isOperationSupported('rotate', $gd)) {
 			// Rotate
 			$operations['rotate']['params'][]    = array(
 				'type'        => 'int',
@@ -148,7 +148,7 @@ class GdToolkitHelper {
 			$operations['rotate']['mimeTypes']   = $mimeTypes;
 		}
 
-		if (GdToolkitHelper::isOperationSupported('crop', $gd)) {
+		if (self::isOperationSupported('crop', $gd)) {
 			// Crop
 			$operations['crop']['params'][]    = array(
 				'type'        => 'float',
@@ -170,7 +170,7 @@ class GdToolkitHelper {
 			$operations['crop']['mimeTypes']   = $mimeTypes;
 		}
 
-		if (GdToolkitHelper::isOperationSupported('composite', $gd)) {
+		if (self::isOperationSupported('composite', $gd)) {
 			// Composite
 			$operations['composite']['params'][]    = array(
 				'type'        => 'string',
@@ -250,7 +250,7 @@ class GdToolkitHelper {
 	 */
 	public static function isOperationSupported($operation, $gd = null) {
 		if (!isset($gd)) {
-			$gd = GdToolkitHelper::getGdFunctionality();
+			$gd = self::getGdFunctionality();
 		}
 
 		switch ($operation) {
@@ -311,7 +311,7 @@ class GdToolkitHelper {
 		 * dummy GdFunctionality instances.
 		 */
 		if (!isset($gd)) {
-			$gd = GdToolkitHelper::getGdFunctionality();
+			$gd = self::getGdFunctionality();
 		}
 
 		if ($gd->functionExists('gd_info')) {
@@ -355,9 +355,9 @@ class GdToolkitHelper {
 		if (!isset($gdVersion)) {
 			// Find out current GD version
 			if (!isset($gd)) {
-				$gd = GdToolkitHelper::getGdFunctionality();
+				$gd = self::getGdFunctionality();
 			}
-			list($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion($gd);
+			list($ret, $gdVersion) = self::discoverGdVersion($gd);
 
 			if ($ret) {
 				return array($ret, false);
@@ -381,7 +381,7 @@ class GdToolkitHelper {
 	 */
 	public static function isBundled($gd = null) {
 		if (!isset($gd)) {
-			$gd = GdToolkitHelper::getGdFunctionality();
+			$gd = self::getGdFunctionality();
 		}
 
 		if ($gd->functionExists('imageLayerEffect')
@@ -401,7 +401,7 @@ class GdToolkitHelper {
 	 */
 	public static function discoverMimeTypes($gd = null) {
 		if (!isset($gd)) {
-			$gd = GdToolkitHelper::getGdFunctionality();
+			$gd = self::getGdFunctionality();
 		}
 
 		if (!$gd->functionExists('imageTypes')) {
@@ -459,9 +459,9 @@ class GdToolkitHelper {
 	 */
 	public static function hasImageCreateTrueColor($gd = null) {
 		if (!isset($gd)) {
-			$gd = GdToolkitHelper::getGdFunctionality();
+			$gd = self::getGdFunctionality();
 		}
-		list($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion($gd);
+		list($ret, $gdVersion) = self::discoverGdVersion($gd);
 
 		if ($ret) {
 			return array($ret, false);
