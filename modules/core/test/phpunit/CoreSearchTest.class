@@ -46,10 +46,14 @@ class CoreSearchTest extends GalleryTestCase {
 		}
 
 		if (empty($moduleStatusList['search']['active'])) {
-			return $this->assertFalse('Search module not installed');
+			$this->skip();
 		}
 
-		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
+		list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.allUserGroup'
+		);
 
 		if ($ret) {
 			return $ret;
