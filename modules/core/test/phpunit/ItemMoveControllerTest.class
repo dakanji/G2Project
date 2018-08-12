@@ -453,6 +453,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+		$results = GalleryUtilities::strArrToIntArr($results);
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -464,7 +465,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Move Next Page Out Of Range'
 		);
 	}
 
