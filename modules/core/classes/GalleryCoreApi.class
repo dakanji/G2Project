@@ -353,7 +353,12 @@ class GalleryCoreApi {
 	 * @return array GalleryStatus a status code
 	 *               string a value
 	 */
-	public static function getPluginParameter($pluginType, $pluginId, $parameterName, $itemId = 0) {
+	public static function getPluginParameter(
+		$pluginType,
+		$pluginId,
+		$parameterName,
+		$itemId = 0
+	) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPluginHelper_simple.class'
 		);
@@ -3676,7 +3681,11 @@ class GalleryCoreApi {
 		$id = $gallery->getConfig('anonymousUserId');
 
 		if (empty($id)) {
-			list($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+			list($ret, $id) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'id.anonymousUser'
+			);
 
 			if ($ret) {
 				return array($ret, null);

@@ -66,7 +66,12 @@ class ItemAttributesTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.everybodyGroup'
+		);
+		$everybodyGroupId = (int)$everybodyGroupId;
 
 		if ($ret) {
 			return $ret;
@@ -82,7 +87,10 @@ class ItemAttributesTest extends GalleryTestCase {
 			return $ret;
 		}
 		// Verify the permissions
-		list($ret, $compressedPerms) = GalleryCoreApi::fetchAllPermissionsForItem($this->_album->getId(), true);
+		list($ret, $compressedPerms) = GalleryCoreApi::fetchAllPermissionsForItem(
+			$this->_album->getId(),
+			true
+		);
 
 		if ($ret) {
 			return $ret;
@@ -135,7 +143,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(999, $viewCount);
+		$this->assertTrue(999 == $viewCount, 'Set View Count');
 	}
 
 	/**
@@ -669,10 +677,12 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		// Verify our counts
-		list($ret, $counts) = GalleryCoreApi::fetchItemizedDescendentCounts(array(
-			$this->_album->getId(),
-			$album->getId(),
-		));
+		list($ret, $counts) = GalleryCoreApi::fetchItemizedDescendentCounts(
+			array(
+				$this->_album->getId(),
+				$album->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;

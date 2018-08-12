@@ -189,7 +189,12 @@ class GalleryItemAttributesHelper_simple {
 		$result = $searchResults->nextResult();
 		// DB2 doesn't trim when storing data in a varchar column
 		$parentSequence = preg_split('/\//', trim($result[0]), -1, PREG_SPLIT_NO_EMPTY);
-		$result         = is_array($parentSequence) ? $parentSequence : array();
+
+		if (is_array($parentSequence)){
+			$result = GalleryUtilities::strArrToIntArr($parentSequence);
+		} else {
+			$result = array();
+		}
 
 		if ($filterBreadcrumb && $filter && ($i = array_search($filter, $result))) {
 			array_splice($result, 0, $i);
