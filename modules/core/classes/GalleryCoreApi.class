@@ -668,7 +668,9 @@ class GalleryCoreApi {
 	 *                              ERROR_PERMISSION_DENIED if not.
 	 */
 	public static function assertHasItemPermission($itemId, $permission) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_simple.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_simple.class'
+		);
 
 		return GalleryUserHelper_simple::assertHasItemPermission($itemId, $permission);
 	}
@@ -684,7 +686,9 @@ class GalleryCoreApi {
 	 *               boolean true if yes
 	 */
 	public static function hasItemPermission($itemId, $permission, $userId = null, $sessionPermissions = true) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_simple.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_simple.class'
+		);
 
 		return GalleryUserHelper_simple::hasItemPermission(
 			$itemId,
@@ -706,7 +710,9 @@ class GalleryCoreApi {
 	 *               array (username, username, ...)
 	 */
 	public static function fetchUsernames($count = null, $offset = null, $substring = null) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_medium.class'
+		);
 
 		return GalleryUserHelper_medium::fetchUsernames($count, $offset, $substring);
 	}
@@ -719,7 +725,9 @@ class GalleryCoreApi {
 	 *               int number of users
 	 */
 	public static function fetchUserCount($substring = null, $groupId = null) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_medium.class'
+		);
 
 		return GalleryUserHelper_medium::fetchUserCount($substring, $groupId);
 	}
@@ -732,7 +740,9 @@ class GalleryCoreApi {
 	 *               GalleryUser a user
 	 */
 	public static function fetchUserByUserName($userName = null) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_medium.class'
+		);
 
 		return GalleryUserHelper_medium::fetchUserByUserName($userName);
 	}
@@ -744,7 +754,9 @@ class GalleryCoreApi {
 	 *                              ERROR_PERMISSION_DENIED if not.
 	 */
 	public static function assertUserIsSiteAdministrator() {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_medium.class'
+		);
 
 		return GalleryUserHelper_medium::assertSiteAdministrator();
 	}
@@ -757,7 +769,9 @@ class GalleryCoreApi {
 	 * @return array GalleryStatus a status code
 	 */
 	public static function deleteUserItems($userId) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryUserHelper_medium.class'
+		);
 
 		return GalleryUserHelper_medium::deleteUserItems($userId);
 	}
@@ -773,7 +787,9 @@ class GalleryCoreApi {
 	 *               array (groupname, groupname, ...)
 	 */
 	public static function fetchGroupNames($count = null, $offset = null, $substring = null) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryGroupHelper_simple.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryGroupHelper_simple.class'
+		);
 
 		return GalleryGroupHelper_simple::fetchGroupNames($count, $offset, $substring);
 	}
@@ -786,7 +802,9 @@ class GalleryCoreApi {
 	 *               int group count
 	 */
 	public static function fetchGroupCount($substring = null) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryGroupHelper_simple.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryGroupHelper_simple.class'
+		);
 
 		return GalleryGroupHelper_simple::fetchGroupCount($substring);
 	}
@@ -799,7 +817,9 @@ class GalleryCoreApi {
 	 *               GalleryGroup a group
 	 */
 	public static function fetchGroupByGroupName($groupName = null) {
-		GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryGroupHelper_simple.class');
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryGroupHelper_simple.class'
+		);
 
 		return GalleryGroupHelper_simple::fetchGroupByGroupName($groupName);
 	}
@@ -844,7 +864,11 @@ class GalleryCoreApi {
 	 * @return array GalleryStatus a status code
 	 *               array (id => array(array(permission.id => 1, ...), ...)
 	 */
-	public static function fetchPermissionsForItems($itemIds, $userId = null, $sessionPermissions = true) {
+	public static function fetchPermissionsForItems(
+		$itemIds,
+		$userId = null,
+		$sessionPermissions = true
+	) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPermissionHelper_simple.class'
 		);
@@ -865,7 +889,11 @@ class GalleryCoreApi {
 	 * @return array GalleryStatus a status code
 	 *               array (perm1, perm2)
 	 */
-	public static function getPermissions($itemId, $userId = null, $sessionPermissions = true) {
+	public static function getPermissions(
+		$itemId,
+		$userId = null,
+		$sessionPermissions = true
+	) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPermissionHelper_simple.class'
 		);
@@ -888,7 +916,11 @@ class GalleryCoreApi {
 	 * @deprecated Use fetchPermissionsForItems instead.
 	 * @return GalleryStatus a status code
 	 */
-	public static function studyPermissions($itemIds, $userId = null, $sessionPermissions = true) {
+	public static function studyPermissions(
+		$itemIds,
+		$userId = null,
+		$sessionPermissions = true
+	) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPermissionHelper_simple.class'
 		);
@@ -909,7 +941,12 @@ class GalleryCoreApi {
 	 * @param boolean $applyToChildren (optional) whether or not this call applies to child items
 	 * @return GalleryStatus a status code
 	 */
-	public static function addUserPermission($itemId, $userId, $permission, $applyToChildren = false) {
+	public static function addUserPermission(
+		$itemId,
+		$userId,
+		$permission,
+		$applyToChildren = false
+	) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class'
 		);

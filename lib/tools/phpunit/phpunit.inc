@@ -204,6 +204,11 @@ class Assert {
 		if ((is_array($actual)  && is_array($expected))
 			|| (is_object($actual) && is_object($expected))
 		) {
+			if (is_object($actual) && is_object($expected)) {
+				$actual   = (array)$actual;
+				$expected = (array)$expected;
+			}
+			
 			if (is_array($actual) && is_array($expected)) {
 				$actualForSort   = $actual;
 				$expectedForSort = $expected;
