@@ -78,7 +78,8 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Delete Item'
 		);
 
 		// Make sure the item is actually gone

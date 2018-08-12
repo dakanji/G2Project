@@ -140,7 +140,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 				'status'   => array(),
 				'error'    => array(),
 			),
-			$results
+			$results,
+			'Delete Next Page Out Of Range'
 		);
 	}
 
