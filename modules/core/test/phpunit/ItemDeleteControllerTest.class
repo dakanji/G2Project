@@ -62,9 +62,12 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('itemId', $album->getParentId());
-		GalleryUtilities::putRequestVariable('form[selectedIds]', array(
-			$album->getId() => 1,
-		));
+		GalleryUtilities::putRequestVariable(
+			'form[selectedIds]',
+			array(
+				$album->getId() => 1,
+			)
+		);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -125,6 +128,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+		$results = GalleryUtilities::strArrToIntArr($results);
 		$this->assertEquals(
 			array(
 				'delegate' => array(

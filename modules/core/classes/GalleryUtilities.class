@@ -1818,7 +1818,11 @@ class GalleryUtilities {
 					if (is_array($value)) {
 						$intArray[$key] = self::strArrToIntArr($value);
 					} else {
-						$intArray[$key] = (int)$value;
+						if (is_numeric($value)) {
+							$intArray[$key] = (int)$value;
+						} else {
+							$intArray[$key] = $value;
+						}
 					}
 				}
 			} else {
@@ -1826,7 +1830,11 @@ class GalleryUtilities {
 					if (is_array($strArray[$i])) {
 						$intArray[$i] = self::strArrToIntArr($strArray[$i]);
 					} else {
-						$intArray[$i] = (int)$strArray[$i];
+						if (is_numeric($strArray[$i])) {
+							$intArray[$i] = (int)$strArray[$i];
+						} else {
+							$intArray[$i] = $strArray[$i];
+						}
 					}
 				}
 			}
