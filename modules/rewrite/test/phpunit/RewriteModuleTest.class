@@ -152,7 +152,7 @@ class RewriteModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(true, empty($history), 'empty history (activate)');
+		$this->assertTrue(empty($history), 'empty history (activate)');
 
 		// Make sure the history rule was activated
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
