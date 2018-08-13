@@ -74,12 +74,15 @@ class UnitTestRepositoryUtilities extends MockObject {
 		$requiredPluginApi,
 		$providedApis = null
 	) {
-		return $this->_makeReply('isPluginCompatible', array(
-			$pluginType,
-			$requiredCoreApi,
-			$requiredPluginApi,
-			$providedApis,
-		));
+		return $this->_makeReply(
+			'isPluginCompatible',
+			array(
+				$pluginType,
+				$requiredCoreApi,
+				$requiredPluginApi,
+				$providedApis,
+			)
+		);
 	}
 
 	public function getProvidedApis($pluginType, $providedApis = null) {
