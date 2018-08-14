@@ -71,7 +71,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			'core',
 			'id.everybodyGroup'
 		);
-		$everybodyGroupId = (int)$everybodyGroupId;
+		$everybodyGroupId             = (int)$everybodyGroupId;
 
 		if ($ret) {
 			return $ret;

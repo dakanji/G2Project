@@ -1,30 +1,30 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 /**
-* ItemPermissions controller tests
-* @package GalleryCore
-* @subpackage PHPUnit
-* @author Bharat Mediratta <bharat@menalto.com>
-* @version $Revision: 17580 $
-*/
+ * ItemPermissions controller tests
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
 class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName, 'core.ItemPermissions');
@@ -223,9 +223,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	public function testAddGroupPermissionCascade() {
 		global $gallery;
 		/*
-		* Create a 3rd album with a different permission on it so that we can
-		* test cascading in a heterogeneous environment.
-		*/
+		 * Create a 3rd album with a different permission on it so that we can
+		 * test cascading in a heterogeneous environment.
+		 */
 		list($ret, $differentPermissionChildAlbum) =
 		$this->_createRandomAlbum($this->_albumParent->getId());
 
@@ -552,9 +552,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	public function testAddUserPermissionCascade() {
 		global $gallery;
 		/*
-		* Create a 3rd album with a different permission on it so that we can
-		* test cascading in a heterogeneous environment.
-		*/
+		 * Create a 3rd album with a different permission on it so that we can
+		 * test cascading in a heterogeneous environment.
+		 */
 		list($ret, $differentPermissionChildAlbum) =
 		$this->_createRandomAlbum($this->_albumParent->getId());
 
@@ -815,7 +815,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 				if (isset($permission['userId'])
 				&& $permission['userId'] == $this->_user->getId()) {
 					$this->assertFalse(
-						true, 
+						true,
 						'invalid user permission found: ' . serialize($permission)
 					);
 				}

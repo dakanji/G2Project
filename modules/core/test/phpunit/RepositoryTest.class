@@ -1228,8 +1228,10 @@ class RepositoryTest extends GalleryTestCase {
 							),
 						),
 					),
-					'requiredModuleApi'   => array(9999, 9999),  // This better be incompatible!
-					'expectedPackages'    => array(// the module is incompatible, but the theme is ok
+					// This better be incompatible!
+					'requiredModuleApi'   => array(9999, 9999),
+					// the module is incompatible, but the theme is ok
+					'expectedPackages'    => array(
 						'theme' => array(
 							'testTheme' => array(
 								'lang-en_US' => 1,
@@ -1249,9 +1251,6 @@ class RepositoryTest extends GalleryTestCase {
 	 */
 	public function testUpgrade() {
 		global $gallery;
-		
-		// DA Note: Skipping this until can fix
-		$this->skip();
 
 		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
 		$supportedLanguages = array();
@@ -1273,7 +1272,8 @@ class RepositoryTest extends GalleryTestCase {
 		$moduleApi = GalleryModule::doStatic()->getApiVersion();
 
 		for ($i = 0; $i < 8; $i++) {
-			$case = $this->_getUpgradeTestCase($i);
+			$caseNumber = $i + 1;
+			$case       = $this->_getUpgradeTestCase($i);
 
 			$utilities              = new UnitTestRepositoryUtilities();
 			$repository             = new GalleryRepository();
@@ -1283,7 +1283,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			if (isset($case['requiredCoreApi'])) {
 				$rIndex['modules']['testModule']['header']['requiredCoreApi'] = $case['requiredCoreApi'];
-				$rIndex['themes']['testTheme']['header']['requiredCoreApi'] = $case['requiredCoreApi'];
+				$rIndex['themes']['testTheme']['header']['requiredCoreApi']   = $case['requiredCoreApi'];
 			}
 
 			if (isset($case['requiredModuleApi'])) {
@@ -1304,7 +1304,6 @@ class RepositoryTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$caseNumber = $i + 1;
 			$this->assertEquals(
 				$case['expectedUpgradeInfo'],
 				$upgradeInfo,
@@ -2432,26 +2431,33 @@ class RepositoryTest extends GalleryTestCase {
 				'works' => new RepositoryTest_GalleryRepository(),
 			),
 			$repositories,
-			'Returned repositories didn\'t match'
+			'Returned repositories did not match'
 		);
-		$this->assertEquals(1, $repositoryErrors, 'Returned error count didn\'t match');
+		$this->assertEquals(1, $repositoryErrors, 'Returned error count did not match');
 
-		$cacheKey                                    = 'GalleryRepository::getRepositories(works|broken,RepositoryTest_GalleryRepository)';
+		$cacheTag = 'GalleryRepository::getRepositories';
+		$cacheKey = $cacheTag . '(works|broken,RepositoryTest_GalleryRepository)';
+
 		list($cachedRepositories, $cachedErrorCount) = GalleryDataCache::get($cacheKey);
+
 		$this->assertEquals(
 			array(
 				'works' => new RepositoryTest_GalleryRepository(),
 			),
 			$cachedRepositories,
-			'Cached repositories didn\'t match'
+			'Cached repositories did not match'
 		);
-		$this->assertEquals(1, $cachedErrorCount, 'Cached error count didn\'t match');
+		$this->assertEquals(
+			1,
+			$cachedErrorCount,
+			'Cached error count did not match'
+		);
 
 		GalleryRepository::doStatic()->clearRepositoryCache(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
-		$this->assertTrue(!GalleryDataCache::containsKey($cacheKey), 'key should be deleted');
+		$this->assertFalse(GalleryDataCache::containsKey($cacheKey), 'key should be deleted');
 	}
 
 	public function _prepareForGetPluginUpgradeInfo($isNewer = false) {
@@ -2608,8 +2614,13 @@ class RepositoryTest extends GalleryTestCase {
 		foreach ($testData as $pluginType => $pluginFiles) {
 			foreach ($pluginFiles as $pluginId => $files) {
 				foreach ($files as $file => $fileData) {
-					$data     = $file == 'descriptor' ? serialize($fileData['data']) : $fileData['data'];
-					$path     = sprintf(
+					if ($file == 'descriptor') {
+						$data = serialize($fileData['data']);
+					} else {
+						$data = $fileData['data'];
+					}
+
+					$path = sprintf(
 						'%ss/%s-%s-%s-%s',
 						$pluginType,
 						$pluginId,
@@ -2617,6 +2628,7 @@ class RepositoryTest extends GalleryTestCase {
 						$fileData['build'],
 						$file
 					);
+
 					$pathes[] = $path;
 				}
 			}
@@ -2638,7 +2650,7 @@ class RepositoryTest extends GalleryTestCase {
 					if ($file == 'descriptor') {
 						$packages[$pluginType][$pluginId]['descriptor'] = $fileData['data'];
 					} else {
-						$path                                        = sprintf(
+						$path = sprintf(
 							'%ss/%s-%s-%s-%s',
 							$pluginType,
 							$pluginId,
@@ -2646,6 +2658,7 @@ class RepositoryTest extends GalleryTestCase {
 							$fileData['build'],
 							$file
 						);
+
 						$packages[$pluginType][$pluginId]['files'][] = array('base', $path);
 					}
 				}
@@ -2843,7 +2856,10 @@ class RepositoryTest extends GalleryTestCase {
 			'current' => 1,
 			'total'   => 10,
 		);
-		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
+		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses(
+			$testData,
+			$expectedCallback
+		);
 
 		$mockAdapter                = new MockTemplateAdapter();
 		$callback                   = array(
@@ -2863,11 +2879,11 @@ class RepositoryTest extends GalleryTestCase {
 
 		$this->assertEquals(2, $count, 'Unexpected number of files');
 		$this->assertEquals(array(), $status, 'Unexpected status messages');
-		$this->assertEquals(3, $callback['current'], 'Callback didn\'t match');
+		$this->assertEquals(3, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.1', '0.2', '0.3'),
 			$mockAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
@@ -2963,11 +2979,11 @@ class RepositoryTest extends GalleryTestCase {
 			),
 		);
 		$this->assertEquals($expected, $status, 'Unexpected status messages');
-		$this->assertEquals(3, $callback['current'], 'Callback didn\'t match');
+		$this->assertEquals(3, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.1', '0.2', '0.3'),
 			$mockAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
@@ -3052,11 +3068,11 @@ class RepositoryTest extends GalleryTestCase {
 
 		$this->assertEquals(1, $count, 'Unexpected number of files');
 		$this->assertEquals($expected, $status, 'Unexpected status messages');
-		$this->assertEquals(4, $callback['current'], 'Callback didn\'t match');
+		$this->assertEquals(4, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.1', '0.2', '0.3', '0.4'),
 			$mockAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(

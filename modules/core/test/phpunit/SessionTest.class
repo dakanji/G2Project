@@ -1197,7 +1197,7 @@ class SessionTest extends GalleryTestCase {
 
 		// Verify loadedSession etc was set
 		$this->assertTrue($session->_isSessionSaved, 'is session saved');
-		$this->assertTrue( $session->isPersistent(), 'is persistent');
+		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse($session->_isPersistentSessionNew, 'existing persistent session');
 	}
 

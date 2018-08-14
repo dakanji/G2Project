@@ -223,6 +223,7 @@ class GalleryRepository {
 	 */
 	public function getPluginUpgradeInfo($pluginType, $pluginId, $forBasePackageUpgrade = true) {
 		global $gallery;
+
 		$upgradeInfo = array(
 			'upgradeable' => false,
 		);
@@ -243,6 +244,7 @@ class GalleryRepository {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$repositoryDataVersion               = $header['version'];
 		$repositoryDataBuild                 = $header['buildTimestamp'];
 		$upgradeInfo['base']['newVersion']   = $repositoryDataVersion;
@@ -279,6 +281,7 @@ class GalleryRepository {
 		if ($upgradeInfo['base']['relation'] == 'older') {
 			$upgradeInfo['upgradeable'] = $upgradeInfo['base']['isCompatible'];
 		}
+
 		$upgradeInfo['base']['currentVersion'] = $dataVersion;
 		$upgradeInfo['base']['currentBuild']   = $dataBuild;
 		$upgradeInfo['base']['locked']         = $locked;
@@ -321,7 +324,11 @@ class GalleryRepository {
 					$locked       = 0;
 				}
 
-				$relation                            = $this->_utilities->compareRevisions($currentBuild, $revision);
+				$relation = $this->_utilities->compareRevisions(
+					$currentBuild,
+					$revision
+				);
+
 				$upgradeInfo['languages'][$language] = array(
 					'name'         => $languageDescription,
 					'currentBuild' => $currentBuild,

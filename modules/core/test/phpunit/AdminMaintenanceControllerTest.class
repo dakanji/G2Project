@@ -323,7 +323,6 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('0', '50', 'error'),
 			$mockAdapter->getProgressBarDump()
-
 		);
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('AdminMaintenanceControllerTestTaskProgressBar');

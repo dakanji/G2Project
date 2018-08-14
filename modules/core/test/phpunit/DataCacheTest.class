@@ -1,30 +1,30 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 /**
-* Test DataCache functionality
-* @package GalleryCore
-* @subpackage PHPUnit
-* @author Bharat Mediratta <bharat@menalto.com>
-* @version $Revision: 17580 $
-*/
+ * Test DataCache functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
 class DataCacheTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
@@ -414,13 +414,13 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setPlatform($DataCacheTestPlatform_testGetFromDisk);
 
 		/*
-		* GalleryDataCache::getFromDisk uses include() and we don't have a
-		* platform wrapper for that.  We can't easily wrap that function
-		* because we want to take advantage of the fact that include() shares
-		* the lexical scope of the calling function, and wrapping it would
-		* change that scope.  But we can at least partially exercise the
-		* function and make sure it doesn't throw any errors.
-		*/
+		 * GalleryDataCache::getFromDisk uses include() and we don't have a
+		 * platform wrapper for that.  We can't easily wrap that function
+		 * because we want to take advantage of the fact that include() shares
+		 * the lexical scope of the calling function, and wrapping it would
+		 * change that scope.  But we can at least partially exercise the
+		 * function and make sure it doesn't throw any errors.
+		 */
 		GalleryDataCache::getFromDisk(array(
 			'type'   => 'entity',
 			'itemId' => 1,
@@ -1050,8 +1050,8 @@ class DataCacheTest extends GalleryTestCase {
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 
 /**
-* Mock VM
-*/
+ * Mock VM
+ */
 class DataCacheTestMockVm extends GalleryPhpVm {
 	public function setTime($time) {
 		$this->_time = $time;
@@ -1074,11 +1074,11 @@ class DataCacheTestMockVm extends GalleryPhpVm {
 }
 
 /**
-* Mock platform
-*
-* @package GalleryCore
-* @subpackage PHPUnit
-*/
+ * Mock platform
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
 class DataCacheTestPlatform_testGetFromDisk {
 	public function file_exists($path) {
 		return false;
@@ -1086,15 +1086,15 @@ class DataCacheTestPlatform_testGetFromDisk {
 }
 
 /**
-* Mock platform
-*
-* @package GalleryCore
-* @subpackage PHPUnit
-*/
+ * Mock platform
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
 class DataCacheTestPlatform {
 	/**
-	* Load Singleton
-	*/
+	 * Load Singleton
+	 */
 	public static function doStatic() {
 		static $singleton;
 

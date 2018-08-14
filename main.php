@@ -394,7 +394,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			}
 
 			$viewName         = 'core.MaintenanceMode';
-			list($ret, $view) = GalleryView::loadView($viewName);
+			list($ret, $view) = GalleryView::doStatic()->loadView($viewName);
 
 			if ($ret) {
 				return array($ret, null);

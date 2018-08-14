@@ -1,35 +1,35 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 /**
-* The central registry for all permissions in the system
-* @package GalleryCore
-* @subpackage Helpers
-* @author Bharat Mediratta <bharat@menalto.com>
-* @version $Revision: 17588 $
-* @static
-*/
+ * The central registry for all permissions in the system
+ * @package GalleryCore
+ * @subpackage Helpers
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17588 $
+ * @static
+ */
 class GalleryPermissionHelper_simple {
 	/**
-	* @see GalleryCoreApi::fetchAccessListIds
-	*/
+	 * @see GalleryCoreApi::fetchAccessListIds
+	 */
 	public static function fetchAccessListIds($permission, $userId, $sessionPermissions = true) {
 		$permission = is_array($permission) ? $permission : array($permission);
 		$aclIds     = false;
@@ -56,9 +56,9 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* Like GalleryCoreApi::fetchAccessListIds but only processes a single permission id
-	* @access private
-	*/
+	 * Like GalleryCoreApi::fetchAccessListIds but only processes a single permission id
+	 * @access private
+	 */
 	public static function _fetchAccessListIds($permission, $userId, $sessionPermissions = true) {
 		global $gallery;
 
@@ -136,16 +136,16 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* Clear all cached access list ids
-	* @access private
-	*/
+	 * Clear all cached access list ids
+	 * @access private
+	 */
 	public static function _clearCachedAccessListIds() {
 		GalleryDataCache::removeByPattern('GalleryPermissionHelper::fetchAccessListIds');
 	}
 
 	/**
-	* @see GalleryCoreApi::convertPermissionIdsToBits
-	*/
+	 * @see GalleryCoreApi::convertPermissionIdsToBits
+	 */
 	public static function convertIdsToBits($permissionIds) {
 		global $gallery;
 
@@ -180,17 +180,17 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* Return a list of all available permissions
-	*
-	* @return array GalleryStatus a status code
-	*               array ('permission' => array('module' => ...,
-	*                                            'permission' => ...,
-	*                                            'description' => ...,
-	*                                            'bits' => ...,
-	*                                            'flags' => ...)
-	*                      ...)
-	* @access protected
-	*/
+	 * Return a list of all available permissions
+	 *
+	 * @return array GalleryStatus a status code
+	 *               array ('permission' => array('module' => ...,
+	 *                                            'permission' => ...,
+	 *                                            'description' => ...,
+	 *                                            'bits' => ...,
+	 *                                            'flags' => ...)
+	 *                      ...)
+	 * @access protected
+	 */
 	public static function _fetchAllPermissions() {
 		global $gallery;
 
@@ -208,9 +208,9 @@ class GalleryPermissionHelper_simple {
 			}
 
 			/*
-			* Remember that the permission description stored in the database is an
-			* internationalized value that must be localized before it can be returned.
-			*/
+			 * Remember that the permission description stored in the database is an
+			 * internationalized value that must be localized before it can be returned.
+			 */
 			$translator =& $gallery->getTranslator();
 			$storage    =& $gallery->getStorage();
 
@@ -220,7 +220,8 @@ class GalleryPermissionHelper_simple {
 				}
 
 				list($ret, $description) = $translator->translateDomain(
-					'modules_' . $result[0], $result[2]
+					'modules_' . $result[0],
+					$result[2]
 				);
 
 				if ($ret) {
@@ -244,8 +245,8 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::studyPermissions
-	*/
+	 * @see GalleryCoreApi::studyPermissions
+	 */
 	public static function studyPermissions(
 		$itemIds,
 		$userId = null,
@@ -265,8 +266,8 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchPermissionsForItems
-	*/
+	 * @see GalleryCoreApi::fetchPermissionsForItems
+	 */
 	public static function fetchPermissionsForItems(
 		$itemIds,
 		$userId = null,
@@ -408,8 +409,8 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::convertPermissionBitsToIds
-	*/
+	 * @see GalleryCoreApi::convertPermissionBitsToIds
+	 */
 	public static function convertBitsToIds($permissionBits, $compress = false) {
 		global $gallery;
 
@@ -441,10 +442,10 @@ class GalleryPermissionHelper_simple {
 
 			if ($compress) {
 				/*
-				* We want to return the least number of permissions, so first process
-				* all composites, then process all individual permissions.  Remove the
-				* bits we've processed as we go.
-				*/
+				 * We want to return the least number of permissions, so first process
+				 * all composites, then process all individual permissions.  Remove the
+				 * bits we've processed as we go.
+				 */
 				foreach ($allPermissions as $id => $permission) {
 					if (($permission['flags'] & GALLERY_PERMISSION_COMPOSITE) > 0) {
 						if (($permission['bits'] & $permissionBits) == $permission['bits']) {
@@ -464,9 +465,9 @@ class GalleryPermissionHelper_simple {
 				}
 
 				/*
-				* If they have an all access bit, then remove all other composites
-				* for brevity.
-				*/
+				 * If they have an all access bit, then remove all other composites
+				 * for brevity.
+				 */
 				if (isset($allAccess)) {
 					$results = $allAccess;
 				} else {
@@ -505,16 +506,16 @@ class GalleryPermissionHelper_simple {
 		}
 
 		/*
-		* We might have a left over value in $permissionBits here if it contains some bits
-		* used by permissions that are no longer in the system.  That shouldn't happen if
-		* modules clean up after themselves properly.
-		*/
+		 * We might have a left over value in $permissionBits here if it contains some bits
+		 * used by permissions that are no longer in the system.  That shouldn't happen if
+		 * modules clean up after themselves properly.
+		 */
 		return array(null, $results);
 	}
 
 	/**
-	* @see GalleryCoreApi::getPermissions
-	*/
+	 * @see GalleryCoreApi::getPermissions
+	 */
 	public static function getPermissions($itemId, $userId = null, $sessionPermissions = true) {
 		global $gallery;
 
@@ -552,8 +553,8 @@ class GalleryPermissionHelper_simple {
 	}
 
 	/**
-	* @see GalleryCoreApi::addPermissionToSession
-	*/
+	 * @see GalleryCoreApi::addPermissionToSession
+	 */
 	public static function addPermissionToSession($entityId) {
 		global $gallery;
 		$session =& $gallery->getSession();

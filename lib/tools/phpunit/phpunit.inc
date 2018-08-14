@@ -38,11 +38,11 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
-* interface Test {
-*    function run(&$aTestResult);
-*    function countTestCases();
-* }
-*/
+ * interface Test {
+ *    function run(&$aTestResult);
+ *    function countTestCases();
+ * }
+ */
 
 function trace($msg) {
 	return;
@@ -54,9 +54,9 @@ function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 	global $PHPUnit_testRunning;
 
 	/*
-	* Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
-	* file_exists. Ignore these errors.
-	*/
+	 * Smarty smarty_core_write_file does @unlink() on Windows platforms without doing a
+	 * file_exists. Ignore these errors.
+	 */
 	if (error_reporting() == 0 && DIRECTORY_SEPARATOR == '\\') {
 		global $gallery;
 
@@ -114,31 +114,30 @@ class PHPUnitException {
 
 
 /**
-* A set of assert methods.
-*
-* @category   Testing
-* @package    PHPUnit
-* @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
-* @copyright  2002-2007 Sebastian Bergmann <sb@sebastian-bergmann.de>
-* @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
-* @version    Release: @package_version@
-* @link       http://pear.php.net/package/PHPUnit
-* @since      Class available since Release 1.0.0
-*/
+ * A set of assert methods.
+ *
+ * @category   Testing
+ * @package    PHPUnit
+ * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2002-2007 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/PHPUnit
+ * @since      Class available since Release 1.0.0
+ */
 class Assert {
 	/**
-	* @var    boolean
-	* @access private
-	*/
-	public $_looselyTyped = FALSE;
+	 * @var    boolean
+	 * @access private
+	 */
+	public $_looselyTyped = false;
 
 	/**
-	* construct.
-	*
-	* @param  boolean $boolean
-	* @param  mixed $message
-	* @access public
-	*/
+	 * construct.
+	 *
+	 * @param  boolean $boolean
+	 * @access public
+	 */
 	public function __construct($boolean, $message = 0) {
 		if (!$boolean) {
 			$this->fail($message);
@@ -146,74 +145,66 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a haystack contains a needle.
-	*
-	* @param  mixed
-	* @param  mixed
-	* @param  string
-	* @access public
-	* @since  Method available since Release 1.1.0
-	*/
+	 * Asserts that a haystack contains a needle.
+	 *
+	 * @param  mixed
+	 * @param  mixed
+	 * @param  string
+	 * @access public
+	 * @since  Method available since Release 1.1.0
+	 */
 	public function assertContains($needle, $haystack, $message = null) {
 		if (is_string($needle) && is_string($haystack)) {
-			$this->assertTrue(strpos($haystack, $needle) !== FALSE, $message);
-		}
-
-		else if (is_array($haystack) && !is_object($needle)) {
+			$this->assertTrue(strpos($haystack, $needle) !== false, $message);
+		} elseif (is_array($haystack) && !is_object($needle)) {
 			$this->assertTrue(in_array($needle, $haystack), $message);
-		}
-
-		else {
+		} else {
 			$this->fail('Unsupported parameter passed to assertContains().');
 		}
 	}
 
 	/**
-	* Asserts that a haystack does not contain a needle.
-	*
-	* @param  mixed
-	* @param  mixed
-	* @param  string
-	* @access public
-	* @since  Method available since Release 1.1.0
-	*/
+	 * Asserts that a haystack does not contain a needle.
+	 *
+	 * @param  mixed
+	 * @param  mixed
+	 * @param  string
+	 * @access public
+	 * @since  Method available since Release 1.1.0
+	 */
 	public function assertNotContains($needle, $haystack, $message = null) {
 		if (is_string($needle) && is_string($haystack)) {
-			$this->assertFalse(strpos($haystack, $needle) !== FALSE, $message);
-		}
-
-		else if (is_array($haystack) && !is_object($needle)) {
+			$this->assertFalse(strpos($haystack, $needle) !== false, $message);
+		} elseif (is_array($haystack) && !is_object($needle)) {
 			$this->assertFalse(in_array($needle, $haystack), $message);
-		}
-
-		else {
+		} else {
 			$this->fail('Unsupported parameter passed to assertNotContains().');
 		}
 	}
 
 	/**
-	* Asserts that two variables are equal.
-	*
-	* @param  mixed
-	* @param  mixed
-	* @param  string
-	* @param  mixed
-	* @access public
-	*/
+	 * Asserts that two variables are equal.
+	 *
+	 * @param  mixed
+	 * @param  mixed
+	 * @param  string
+	 * @param  mixed
+	 * @access public
+	 */
 	public function assertEquals($expected, $actual, $message = null, $delta = 0) {
-		if ((is_array($actual)  && is_array($expected))
+		if ((is_array($actual) && is_array($expected))
 			|| (is_object($actual) && is_object($expected))
 		) {
 			if (is_object($actual) && is_object($expected)) {
 				$actual   = (array)$actual;
 				$expected = (array)$expected;
 			}
-			
+
 			if (is_array($actual) && is_array($expected)) {
 				$actualForSort   = $actual;
 				$expectedForSort = $expected;
-				$actual   = $this->recursive_ksort($actualForSort);
-				$expected = $this->recursive_ksort($expectedForSort);
+				$actual          = $this->recursive_ksort($actualForSort);
+				$expected        = $this->recursive_ksort($expectedForSort);
 			}
 
 			if ($this->_looselyTyped) {
@@ -223,14 +214,14 @@ class Assert {
 
 			$serializedActual   = serialize($actual);
 			$serializedExpected = serialize($expected);
-/*
-*			$message = sprintf(
-*				'%sEXPECTED: %s <br>ACTUAL: %s',
-*				!empty($message) ? $message . ' <br>' : '<br>',
-*				$serializedExpected,
-*				$serializedActual
-*			);
-*/
+			/*
+			 *			$message = sprintf(
+			 *				'%sEXPECTED: %s <br>ACTUAL: %s',
+			 *				!empty($message) ? $message . ' <br>' : '<br>',
+			 *				$serializedExpected,
+			 *				$serializedActual
+			 *			);
+			 */
 			if ($serializedActual !== $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
 				//return $this->fail($message);
@@ -262,23 +253,23 @@ class Assert {
 	}
 
 	/**
-	* Asserts that two variables are not equal.
-	*
-	* @param  mixed
-	* @param  mixed
-	* @param  string
-	* @param  mixed
-	* @access public
-	*/
+	 * Asserts that two variables are not equal.
+	 *
+	 * @param  mixed
+	 * @param  mixed
+	 * @param  string
+	 * @param  mixed
+	 * @access public
+	 */
 	public function assertNotEquals($expected, $actual, $message = null, $delta = 0) {
-		if ((is_array($actual)  && is_array($expected))
+		if ((is_array($actual) && is_array($expected))
 			|| (is_object($actual) && is_object($expected))
 		) {
 			if (is_array($actual) && is_array($expected)) {
 				$actualForSort   = $actual;
 				$expectedForSort = $expected;
-				$actual   = $this->recursive_ksort($actualForSort);
-				$expected = $this->recursive_ksort($expectedForSort);
+				$actual          = $this->recursive_ksort($actualForSort);
+				$expected        = $this->recursive_ksort($expectedForSort);
 			}
 
 			if ($this->_looselyTyped) {
@@ -288,14 +279,14 @@ class Assert {
 
 			$serializedActual   = serialize($actual);
 			$serializedExpected = serialize($expected);
-/*
-*			$message = sprintf(
-*				'%sEXPECTED: %s <br>ACTUAL: %s',
-*				!empty($message) ? $message . ' <br>' : '<br>',
-*				$serializedExpected,
-*				$serializedActual
-*			);
-*/
+			/*
+			 *			$message = sprintf(
+			 *				'%sEXPECTED: %s <br>ACTUAL: %s',
+			 *				!empty($message) ? $message . ' <br>' : '<br>',
+			 *				$serializedExpected,
+			 *				$serializedActual
+			 *			);
+			 */
 			if ($serializedActual == $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
 				//return $this->fail($message);
@@ -303,7 +294,6 @@ class Assert {
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
 			$message = sprintf(
 				'%sexpected %s %s <br>ACTUAL: %s',
-
 				!empty($message) ? $message . ' <br>' : '<br>',
 				$expected,
 				($delta != 0) ? ('+/- ' . $delta) : '',
@@ -328,16 +318,15 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a variable is not NULL.
-	*
-	* @param  mixed
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a variable is not NULL.
+	 *
+	 * @param  mixed
+	 * @param  string
+	 * @access public
+	 */
 	public function assertNotNull($actual, $message = null) {
 		$message = sprintf(
 			'%sEXPECTED: NOT NULL <br>ACTUAL: NULL',
-
 			!empty($message) ? $message . ' <br>' : '<br>'
 		);
 
@@ -347,16 +336,15 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a variable is NULL.
-	*
-	* @param  mixed
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a variable is NULL.
+	 *
+	 * @param  mixed
+	 * @param  string
+	 * @access public
+	 */
 	public function assertNull($actual, $message = null) {
 		$message = sprintf(
 			'%sEXPECTED: NULL <br>ACTUAL: NOT NULL',
-
 			!empty($message) ? $message . ' <br>' : '<br>'
 		);
 
@@ -366,16 +354,15 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a condition is true.
-	*
-	* @param  boolean
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a condition is true.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access public
+	 */
 	public function assertTrue($condition, $message = null) {
 		$message = sprintf(
 			'%sEXPECTED: TRUE <br>ACTUAL: FALSE',
-
 			!empty($message) ? $message . ' <br>' : '<br>'
 		);
 
@@ -385,12 +372,12 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a condition is false.
-	*
-	* @param  boolean
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a condition is false.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access public
+	 */
 	public function assertFalse($condition, $message = null) {
 		$message = sprintf(
 			'%sEXPECTED: FALSE <br>ACTUAL: TRUE',
@@ -403,17 +390,16 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a string matches a given regular expression.
-	*
-	* @param  string
-	* @param  string
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a string matches a given regular expression.
+	 *
+	 * @param  string
+	 * @param  string
+	 * @param  string
+	 * @access public
+	 */
 	public function assertRegExp($pattern, $string, $message = null) {
 		$message = sprintf(
 			'%s"%s" does not match pattern "%s"',
-
 			!empty($message) ? $message . ' <br>' : '<br>',
 			$string,
 			$pattern
@@ -425,18 +411,17 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a string does not match a given regular expression.
-	*
-	* @param  string
-	* @param  string
-	* @param  string
-	* @access public
-	* @since  Method available since Release 1.1.0
-	*/
+	 * Asserts that a string does not match a given regular expression.
+	 *
+	 * @param  string
+	 * @param  string
+	 * @param  string
+	 * @access public
+	 * @since  Method available since Release 1.1.0
+	 */
 	public function assertNotRegExp($pattern, $string, $message = null) {
 		$message = sprintf(
 			'%s"%s" matches pattern "%s"',
-
 			!empty($message) ? $message . ' <br>' : '<br>',
 			$string,
 			$pattern
@@ -448,13 +433,12 @@ class Assert {
 	}
 
 	/**
-	* Asserts that a variable is of a given type.
-	*
-	* @param  string          $expected
-	* @param  mixed           $actual
-	* @param  optional string $message
-	* @access public
-	*/
+	 * Asserts that a variable is of a given type.
+	 *
+	 * @param  string          $expected
+	 * @param  optional string $message
+	 * @access public
+	 */
 	public function assertType($expected, $actual, $message = null) {
 		return $this->assertEquals(
 			$expected,
@@ -464,11 +448,10 @@ class Assert {
 	}
 
 	/**
-	* Converts a value to a string.
-	*
-	* @param  mixed   $value
-	* @access private
-	*/
+	 * Converts a value to a string.
+	 *
+	 * @access private
+	 */
 	protected function _convertToString($value) {
 		foreach ($value as $k => $v) {
 			if (is_array($v)) {
@@ -482,9 +465,9 @@ class Assert {
 	}
 
 	/**
-	* @param  boolean $looselyTyped
-	* @access public
-	*/
+	 * @param  boolean $looselyTyped
+	 * @access public
+	 */
 	public function setLooselyTyped($looselyTyped) {
 		if (is_bool($looselyTyped)) {
 			$this->_looselyTyped = $looselyTyped;
@@ -492,11 +475,11 @@ class Assert {
 	}
 
 	/**
-	* Recursively 'ksorts' an array.
-	*
-	* @param  array $fixArray
-	* @access protected
-	*/
+	 * Recursively 'ksorts' an array.
+	 *
+	 * @param  array $fixArray
+	 * @access protected
+	 */
 	protected function recursive_ksort($fixArray) {
 		$sortedArray = $fixArray;
 		ksort($sortedArray);
@@ -573,10 +556,9 @@ class Assert {
 			$this->_formatValue($expected, 'expected'),
 			$this->_formatValue($actual, 'actual')
 		);
+
 		return $this->fail($str);
 	}
-
-
 }
 
 class Assert_X {
@@ -587,12 +569,12 @@ class Assert_X {
 	}
 
 	/**
-	* Asserts that a condition is true or false.
-	*
-	* @param  boolean
-	* @param  string
-	* @access public
-	*/
+	 * Asserts that a condition is true or false.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access public
+	 */
 	public function assert($condition, $message = null) {
 		$ret = 'null';
 
@@ -614,12 +596,12 @@ class Assert_X {
 	}
 
 	/**
-	* Helps assert that a condition is true.
-	*
-	* @param  boolean
-	* @param  string
-	* @access private
-	*/
+	 * Helps assert that a condition is true.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access private
+	 */
 	private function _assertHelperTrue($condition, $message = null) {
 		$message = sprintf(
 			'%sexpected TRUE, actual FALSE',
@@ -634,12 +616,12 @@ class Assert_X {
 	}
 
 	/**
-	* Helps assert that a condition is false.
-	*
-	* @param  boolean
-	* @param  string
-	* @access private
-	*/
+	 * Helps assert that a condition is false.
+	 *
+	 * @param  boolean
+	 * @param  string
+	 * @access private
+	 */
 	private function _assertHelperFalse($condition, $message = null) {
 		$message = sprintf(
 			'%sexpected FALSE, actual TRUE',
@@ -1291,8 +1273,7 @@ class TextTestResult extends TestResult {
 }
 
 // PrettyTestResult created by BJG 17/11/01
-// beacuse the standard test result provided looks
-// rubbish.
+// beacuse the standard test result provided looks rubbish.
 class PrettyTestResult extends TestResult {
 	public $_totalElapsed = 0;
 

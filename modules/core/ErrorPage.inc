@@ -237,7 +237,7 @@ class ErrorPageView extends GalleryView {
 		if (!$failsafe) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
 			$templateAdapter->setTheme($theme);
-			list($ret, $view) = GalleryView::loadView('core.ErrorPage');
+			list($ret, $view) = GalleryView::doStatic()->loadView('core.ErrorPage');
 
 			if ($ret) {
 				$failsafe = true;

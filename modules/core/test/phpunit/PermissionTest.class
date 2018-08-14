@@ -1701,11 +1701,11 @@ class PermissionTest extends GalleryTestCase {
 		$true     = true;
 		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$true)";
 		GalleryDataCache::put($cacheKey, array(
-			'core.foo' => 1,
+			'core.foo' => true,
 		));
 		$cacheKey = "GalleryPermissionHelper::getPermissions(55,$userId2,$true)";
 		GalleryDataCache::put($cacheKey, array(
-			'core.bar' => 1,
+			'core.bar' => true,
 		));
 
 		list($ret, $hasItemPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.changePermissions', $userId);
@@ -1743,7 +1743,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'core.changePermissions' => 1,
+				'core.changePermissions' => true,
 			),
 			$permissions,
 			'active user should have core.changePermissions'
@@ -1802,8 +1802,8 @@ class PermissionTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'core.changePermissions' => 1,
-				'core.delete'            => 1,
+				'core.changePermissions' => true,
+				'core.delete'            => true,
 			),
 			$permissions,
 			'album 1'
@@ -1821,8 +1821,8 @@ class PermissionTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'core.changePermissions' => 1,
-				'core.delete'            => 1,
+				'core.changePermissions' => true,
+				'core.delete'            => true,
 			),
 			$permissions,
 			'album 3'
@@ -1894,8 +1894,8 @@ class PermissionTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				$this->_albums[0]->getId() => array(
-					'core.changePermissions' => 1,
-					'core.view'              => 1,
+					'core.changePermissions' => true,
+					'core.view'              => true,
 				),
 			),
 			$permissions,
@@ -1926,7 +1926,7 @@ class PermissionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(array(
-			'core.changePermissions' => 1,
+			'core.changePermissions' => true,
 		), $permissions, 'album 1');
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_albums[1]->getId());
 
@@ -1934,7 +1934,7 @@ class PermissionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(array(
-			'core.view' => 1,
+			'core.view' => true,
 		), $permissions, 'album 2');
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_albums[2]->getId());
 
@@ -1942,7 +1942,7 @@ class PermissionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(array(
-			'core.changePermissions' => 1,
+			'core.changePermissions' => true,
 		), $permissions, 'album 3');
 	}
 

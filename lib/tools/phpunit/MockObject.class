@@ -62,8 +62,8 @@ class MockObject {
 
 	public function getRemaining() {
 		return 'Error count: ' . $_GET[$this->_className]['errorCount']
-		. "\nRemaining requests: " .
-		print_r($_GET[$this->_className]['replies'], true);
+		. "\nRemaining requests: "
+		. print_r($_GET[$this->_className]['replies'], true);
 	}
 
 	public function _makeReply($function, $request) {
@@ -80,11 +80,25 @@ class MockObject {
 		}
 
 		$_GET[$this->_className]['errorCount']++;
-		printf("Unhandled reply<br/>\n");
+		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
+
+		$outHTML  = '<br/><br/>';
+		$outHTML .= '----------------------------------------------------------';
+		$outHTML .= '<br/>';
+		$outHTML .= '&nbsp;&nbsp;&nbsp;';
+		$outHTML .= 'NB: Likely Related to Class of Next Failing Test';
+		$outHTML .= '<br/>';
+		$outHTML .= '----------------------------------------------------------';
+		$outHTML .= '<br/>';
+		$outHTML .= $ret->getAsHtml();
+		echo $outHTML;
+
 		printf(
-			"Received:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
-			$function,
-			print_r($request, true)
+			'<br/><b>Mismatch At</b>: %s<br/>',
+			htmlspecialchars(GalleryTestCase::doStatic()->DeepCompare(
+				$request,
+				$expected[1]
+			))
 		);
 		printf(
 			"Expected:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
@@ -92,15 +106,10 @@ class MockObject {
 			print_r($expected[1], true)
 		);
 		printf(
-			'<b>Mismatch At</b>: %s<br/>',
-			htmlspecialchars(GalleryTestCase::doStatic()->DeepCompare(
-				$request,
-				$expected[1]
-			))
+			"Received:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
+			$function,
+			print_r($request, true)
 		);
-
-		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
-		echo $ret->getAsHtml();
 	}
 
 	public function getCalled($function) {

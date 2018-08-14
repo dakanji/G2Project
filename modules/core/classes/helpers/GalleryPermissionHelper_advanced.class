@@ -1,37 +1,37 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 
 /**
-* The central registry for all permissions in the system
-* @package GalleryCore
-* @subpackage Helpers
-* @author Bharat Mediratta <bharat@menalto.com>
-* @version $Revision: 17580 $
-* @static
-*/
+ * The central registry for all permissions in the system
+ * @package GalleryCore
+ * @subpackage Helpers
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ * @static
+ */
 class GalleryPermissionHelper_advanced {
 	/**
-	* @see GalleryCoreApi::addUserPermission
-	*/
+	 * @see GalleryCoreApi::addUserPermission
+	 */
 	public static function addUserPermission(
 		$itemId,
 		$userId,
@@ -68,8 +68,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::addGroupPermission
-	*/
+	 * @see GalleryCoreApi::addGroupPermission
+	 */
 	public static function addGroupPermission(
 		$itemId,
 		$groupId,
@@ -104,16 +104,16 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Post Gallery::ViewableTreeChange event for change of group permissions.
-	*
-	* @param int $groupId
-	* @param mixed $itemId item id or array of ids
-	* @param string $permission the permission id
-	* @param boolean $applyToChildren whether or not this call applies to child items
-	* @param string $changeType the type of change ('add' or 'remove')
-	* @return GalleryStatus a status code
-	* @access private
-	*/
+	 * Post Gallery::ViewableTreeChange event for change of group permissions.
+	 *
+	 * @param int $groupId
+	 * @param mixed $itemId item id or array of ids
+	 * @param string $permission the permission id
+	 * @param boolean $applyToChildren whether or not this call applies to child items
+	 * @param string $changeType the type of change ('add' or 'remove')
+	 * @return GalleryStatus a status code
+	 * @access private
+	 */
 	public static function _postGroupEvent($groupId, $itemId, $permission, $applyToChildren, $changeType) {
 		$userId            = null;
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
@@ -123,7 +123,8 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		if ($group->getGroupType() != GROUP_ALL_USERS
-		&& $group->getGroupType() != GROUP_EVERYBODY) {
+			&& $group->getGroupType() != GROUP_EVERYBODY
+		) {
 			list($ret, $userData) = GalleryCoreApi::fetchUsersForGroup($groupId);
 
 			if ($ret) {
@@ -150,8 +151,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::addEntityPermission
-	*/
+	 * @see GalleryCoreApi::addEntityPermission
+	 */
 	public static function addEntityPermission(
 		$itemId,
 		$entityId,
@@ -174,8 +175,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::removeUserPermission
-	*/
+	 * @see GalleryCoreApi::removeUserPermission
+	 */
 	public static function removeUserPermission(
 		$itemId,
 		$userId,
@@ -216,8 +217,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::removeGroupPermission
-	*/
+	 * @see GalleryCoreApi::removeGroupPermission
+	 */
 	public static function removeGroupPermission(
 		$itemId,
 		$groupId,
@@ -256,8 +257,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::removeEntityPermission
-	*/
+	 * @see GalleryCoreApi::removeEntityPermission
+	 */
 	public static function removeEntityPermission(
 		$itemId,
 		$entityId,
@@ -280,17 +281,17 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Make the appropriate permission change.
-	*
-	* @param string $changeType the type of change ('add' or 'remove')
-	* @param int $itemId the id of the GalleryItem
-	* @param int $entityId the id of the GalleryEntity (usually GalleryUser or GalleryGroup)
-	* @param int $permission the permission id
-	* @param bool $applyToChildren whether or not this call applies to child items
-	* @param array $removeEventIds (optional) base event data for Gallery::RemovePermission event
-	* @return GalleryStatus a status code
-	* @access private
-	*/
+	 * Make the appropriate permission change.
+	 *
+	 * @param string $changeType the type of change ('add' or 'remove')
+	 * @param int $itemId the id of the GalleryItem
+	 * @param int $entityId the id of the GalleryEntity (usually GalleryUser or GalleryGroup)
+	 * @param int $permission the permission id
+	 * @param bool $applyToChildren whether or not this call applies to child items
+	 * @param array $removeEventIds (optional) base event data for Gallery::RemovePermission event
+	 * @return GalleryStatus a status code
+	 * @access private
+	 */
 	public static function _changePermission(
 		$changeType,
 		$itemId,
@@ -302,7 +303,8 @@ class GalleryPermissionHelper_advanced {
 		global $gallery;
 
 		if (empty($itemId) || empty($entityId) || empty($permission)
-		|| ($changeType != 'add' && $changeType != 'remove')) {
+			|| ($changeType != 'add' && $changeType != 'remove')
+		) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 		$itemId   = (int)$itemId;
@@ -324,9 +326,9 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		* We can always change the given item, whether or not it has core.changePermission but
-		* we can only propagate the change downwards to items that have core.changePermission.
-		*/
+		 * We can always change the given item, whether or not it has core.changePermission but
+		 * we can only propagate the change downwards to items that have core.changePermission.
+		 */
 		$data = array();
 
 		if ($applyToChildren) {
@@ -414,12 +416,12 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		* Now we're getting back a series of acl id => item id pairs from the database, each of
-		* which we need to convert.  When we see an acl id we haven't seen before, create a new
-		* ACL for it with our permission change applied, and put that item id in a queue to
-		* be moved to that new acl.  We could probably do this more efficiently with subselects
-		* (can't use them until we raise the MySQL bar to 4.x) or temporary tables.
-		*/
+		 * Now we're getting back a series of acl id => item id pairs from the database, each of
+		 * which we need to convert.  When we see an acl id we haven't seen before, create a new
+		 * ACL for it with our permission change applied, and put that item id in a queue to
+		 * be moved to that new acl.  We could probably do this more efficiently with subselects
+		 * (can't use them until we raise the MySQL bar to 4.x) or temporary tables.
+		 */
 		$oldToNewAclMapping = $itemsToBeRemapped = $removeEventData = array();
 
 		while ($result = $searchResults->nextResult()) {
@@ -608,8 +610,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::removeItemPermissions
-	*/
+	 * @see GalleryCoreApi::removeItemPermissions
+	 */
 	public static function removeItemPermissions($itemId) {
 		global $gallery;
 
@@ -643,13 +645,13 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		* For the RemovePermission event we have the choice between specifying the permission bits
-		* that were removed and specifying the new permission bits. In this case, we cannot
-		* specify the removed permission bits, because these bits are different for each user /
-		* group and the RemovePermission event only allows to specify multiple item => bits pairs
-		* and not multiple item => (user => bits) pairs. This is by design, more detail is not
-		* needed and would just make the RemovePermission event slower.
-		*/
+		 * For the RemovePermission event we have the choice between specifying the permission bits
+		 * that were removed and specifying the new permission bits. In this case, we cannot
+		 * specify the removed permission bits, because these bits are different for each user /
+		 * group and the RemovePermission event only allows to specify multiple item => bits pairs
+		 * and not multiple item => (user => bits) pairs. This is by design, more detail is not
+		 * needed and would just make the RemovePermission event slower.
+		 */
 		// Get the bits for the new permisions. Get it with the API call rather than just using 0
 		list($ret, $zeroBits) = GalleryCoreApi::convertPermissionIdsToBits(array());
 
@@ -677,8 +679,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchAllPermissionsForItem
-	*/
+	 * @see GalleryCoreApi::fetchAllPermissionsForItem
+	 */
 	public static function fetchAllPermissionsForItem($itemId, $compress = false) {
 		global $gallery;
 
@@ -740,14 +742,14 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Return a permissions for the given item
-	*
-	* @param int $itemId GalleryItem id
-	* @param int $userOrGroupId user id or group id
-	* @return array GalleryStatus a status code
-	*               int permissions or null if not found
-	* @access private
-	*/
+	 * Return a permissions for the given item
+	 *
+	 * @param int $itemId GalleryItem id
+	 * @param int $userOrGroupId user id or group id
+	 * @return array GalleryStatus a status code
+	 *               int permissions or null if not found
+	 * @access private
+	 */
 	public static function _fetchPermissionBitsForItem($itemId, $userOrGroupId) {
 		global $gallery;
 
@@ -789,8 +791,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::fetchAccessListId
-	*/
+	 * @see GalleryCoreApi::fetchAccessListId
+	 */
 	public static function fetchAccessListId($itemId) {
 		global $gallery;
 
@@ -820,13 +822,13 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Create a duplicate access list.
-	*
-	* @param int $oldAccessListId the id of the source access list
-	* @return array GalleryStatus a status code,
-	*               int AccessListId the new access list's id
-	* @access private
-	*/
+	 * Create a duplicate access list.
+	 *
+	 * @param int $oldAccessListId the id of the source access list
+	 * @return array GalleryStatus a status code,
+	 *               int AccessListId the new access list's id
+	 * @access private
+	 */
 	public static function _copyAccessList($oldAccessListId) {
 		global $gallery;
 
@@ -851,9 +853,9 @@ class GalleryPermissionHelper_advanced {
 			}
 
 			/*
-			* TODO: Replace this with an INSERT INTO..SELECT FROM when we stop supporting
-			* MySQL 3.x since it can't handle subselects from the same table.
-			*/
+			 * TODO: Replace this with an INSERT INTO..SELECT FROM when we stop supporting
+			 * MySQL 3.x since it can't handle subselects from the same table.
+			 */
 			while ($result = $searchResults->nextResult()) {
 				$ret = GalleryCoreApi::addMapEntry(
 					'GalleryAccessMap',
@@ -874,8 +876,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::copyPermissions
-	*/
+	 * @see GalleryCoreApi::copyPermissions
+	 */
 	public static function copyPermissions($toId, $fromId) {
 		global $gallery;
 
@@ -923,8 +925,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::hasPermission
-	*/
+	 * @see GalleryCoreApi::hasPermission
+	 */
 	public static function hasPermission($itemId, $entityIds, $permissions) {
 		global $gallery;
 
@@ -988,8 +990,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::registerPermission
-	*/
+	 * @see GalleryCoreApi::registerPermission
+	 */
 	public static function registerPermission(
 		$module,
 		$permissionId,
@@ -1023,9 +1025,9 @@ class GalleryPermissionHelper_advanced {
 
 		if ($flags & GALLERY_PERMISSION_ALL_ACCESS) {
 			/*
-			* This is a special case where we want to grant all possible
-			* permissions.  Convert it to a composite with all bits lit.
-			*/
+			 * This is a special case where we want to grant all possible
+			 * permissions.  Convert it to a composite with all bits lit.
+			 */
 			$bits   = 0x7FFFFFFF;
 			$flags |= GALLERY_PERMISSION_COMPOSITE;
 		} elseif ($flags & GALLERY_PERMISSION_COMPOSITE) {
@@ -1075,8 +1077,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::getPermissionIds
-	*/
+	 * @see GalleryCoreApi::getPermissionIds
+	 */
 	public static function getPermissionIds($flags = 0) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPermissionHelper_simple.class'
@@ -1099,8 +1101,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::getSubPermissions
-	*/
+	 * @see GalleryCoreApi::getSubPermissions
+	 */
 	public static function getSubPermissions($permissionId) {
 		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array($permissionId));
 
@@ -1118,8 +1120,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::unregisterModulePermissions
-	*/
+	 * @see GalleryCoreApi::unregisterModulePermissions
+	 */
 	public static function unregisterModulePermissions($moduleId) {
 		if (empty($moduleId)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
@@ -1165,12 +1167,12 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Return an unused permission bit that we can use for our purposes
-	*
-	* @return array GalleryStatus a status code
-	*               int location of a bit (1, 2, 3, etc)
-	* @access private
-	*/
+	 * Return an unused permission bit that we can use for our purposes
+	 *
+	 * @return array GalleryStatus a status code
+	 *               int location of a bit (1, 2, 3, etc)
+	 * @access private
+	 */
 	public static function _newPermissionBit() {
 		list($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
 
@@ -1182,12 +1184,12 @@ class GalleryPermissionHelper_advanced {
 
 		foreach ($allPermissions as $permission) {
 			/*
-			* Should we exclude composites from the scan?  We have to exclude
-			* the "all access" composite, since that covers all the bits.
-			* If we exclude composites then we may run afoul of a problem
-			* where a permission bit is removed but it's still part of a
-			* different permission's composite.
-			*/
+			 * Should we exclude composites from the scan?  We have to exclude
+			 * the "all access" composite, since that covers all the bits.
+			 * If we exclude composites then we may run afoul of a problem
+			 * where a permission bit is removed but it's still part of a
+			 * different permission's composite.
+			 */
 			if ($permission['flags'] & GALLERY_PERMISSION_ALL_ACCESS) {
 				continue;
 			}
@@ -1196,9 +1198,9 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		* Bitset now has all the bits that we're using.  Scan it for an
-		* available bit.
-		*/
+		 * Bitset now has all the bits that we're using.  Scan it for an
+		 * available bit.
+		 */
 		$newBit = 0;
 
 		for ($i = 0; $i < 31; $i++) {
@@ -1219,12 +1221,12 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Add a permission to the database and to our permission cache.
-	*
-	* @param array $data the specific permission data
-	* @return GalleryStatus a status code
-	* @access private
-	*/
+	 * Add a permission to the database and to our permission cache.
+	 *
+	 * @param array $data the specific permission data
+	 * @return GalleryStatus a status code
+	 * @access private
+	 */
 	public static function _setPermission($data) {
 		$cacheKey = 'GalleryPermissionHelper::_allPermissions';
 
@@ -1250,12 +1252,12 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* Remove the given permissions from all items.  Useful when we remove a
-	* permission from the system.
-	*
-	* @param array $permissionIds permission ids
-	* @return GalleryStatus a status code
-	*/
+	 * Remove the given permissions from all items.  Useful when we remove a
+	 * permission from the system.
+	 *
+	 * @param array $permissionIds permission ids
+	 * @return GalleryStatus a status code
+	 */
 	public static function _removePermissionsFromAllItems($permissionIds) {
 		global $gallery;
 
@@ -1309,25 +1311,25 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		* TODO: What if view type permissions are removed? Then we need RemovePermission and
-		* ViewableTreeChange events here.
-		* In practice, these permissions cannot be removed, therefore this has low priority.
-		*/
+		 * TODO: What if view type permissions are removed? Then we need RemovePermission and
+		 * ViewableTreeChange events here.
+		 * In practice, these permissions cannot be removed, therefore this has low priority.
+		 */
 
 		return null;
 	}
 
 	/**
-	* Acquire a read or write lock on our access list compacter semaphore.  While we
-	* have this read lock, the access list can't be compacted.  While we have a write
-	* lock, we're in the process of compacting so nobody else should be touching the
-	* access map.
-	*
-	* @param string $type 'read' or 'write'
-	* @return array GalleryStatus a status code
-	*         int lock id
-	* @access private
-	*/
+	 * Acquire a read or write lock on our access list compacter semaphore.  While we
+	 * have this read lock, the access list can't be compacted.  While we have a write
+	 * lock, we're in the process of compacting so nobody else should be touching the
+	 * access map.
+	 *
+	 * @param string $type 'read' or 'write'
+	 * @return array GalleryStatus a status code
+	 *         int lock id
+	 * @access private
+	 */
 	public static function _getAccessListCompacterLock($type) {
 		list($ret, $semaphoreId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.accessListCompacterLock');
 
@@ -1338,41 +1340,41 @@ class GalleryPermissionHelper_advanced {
 
 		switch ($type) {
 			case 'read':
-			if (GalleryCoreApi::isReadLocked($semaphoreId)) {
-				$lockId = null;
-			} else {
-				list($ret, $lockId) = GalleryCoreApi::acquireReadLock($semaphoreId);
+				if (GalleryCoreApi::isReadLocked($semaphoreId)) {
+					$lockId = null;
+				} else {
+					list($ret, $lockId) = GalleryCoreApi::acquireReadLock($semaphoreId);
 
-				if ($ret) {
-					return array($ret, null);
+					if ($ret) {
+						return array($ret, null);
+					}
 				}
-			}
 
-			break;
+				break;
 
 			case 'write':
-			if (GalleryCoreApi::isReadLocked($semaphoreId)) {
-				$lockId = null;
-			} else {
-				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($semaphoreId);
+				if (GalleryCoreApi::isReadLocked($semaphoreId)) {
+					$lockId = null;
+				} else {
+					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($semaphoreId);
 
-				if ($ret) {
-					return array($ret, null);
+					if ($ret) {
+						return array($ret, null);
+					}
 				}
-			}
 
-			break;
+				break;
 
 			default:
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		return array(null, $lockId);
 	}
 
 	/**
-	* @see GalleryCoreApi::maybeCompactAccessLists
-	*/
+	 * @see GalleryCoreApi::maybeCompactAccessLists
+	 */
 	public static function maybeCompactAccessLists() {
 		// We use a high tech genetic algorithm to make our decision
 		if (mt_rand(1, 100) <= 50) {
@@ -1387,8 +1389,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/**
-	* @see GalleryCoreApi::compactAccessLists
-	*/
+	 * @see GalleryCoreApi::compactAccessLists
+	 */
 	public static function compactAccessLists() {
 		global $gallery;
 		$storage =& $gallery->getStorage();

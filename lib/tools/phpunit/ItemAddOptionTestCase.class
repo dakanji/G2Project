@@ -60,7 +60,7 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 		if (isset($errorCode)) {
 			if (($ret->getErrorCode() & $errorCode) != $errorCode) {
 				$this->assertFalse(
-					true, 
+					true,
 					sprintf(
 						'Expected error code (%s) but received (%s)',
 						implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),

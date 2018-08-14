@@ -147,7 +147,7 @@ class KeywordAlbumView extends GalleryView {
 			}
 		} else {
 			// Item in dynamic album; use core.ShowItem to check permission, increment view count
-			list($ret, $showItem) = GalleryView::loadView('core.ShowItem');
+			list($ret, $showItem) = GalleryView::doStatic()->loadView('core.ShowItem');
 
 			if ($ret) {
 				return array($ret, null);

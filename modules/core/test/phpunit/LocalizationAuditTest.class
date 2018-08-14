@@ -1,30 +1,30 @@
 <?php
 /*
-* Gallery - a web based photo album viewer and editor
-* Copyright (C) 2000-2008 Bharat Mediratta
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or (at
-* your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2008 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 /**
-* Lint check our localizations
-* @package GalleryCore
-* @subpackage PHPUnit
-* @author Bharat Mediratta <bharat@menalto.com>
-* @version $Revision: 17580 $
-*/
+ * Lint check our localizations
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17580 $
+ */
 class LocalizationAuditTest extends CodeAuditTestCase {
 	public $_idMap = array();
 
@@ -34,8 +34,8 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	}
 
 	/**
-	* @see CodeAuditTestCase::shouldCheckFile
-	*/
+	 * @see CodeAuditTestCase::shouldCheckFile
+	 */
 	public function shouldCheckFile($fileName) {
 		if (substr($fileName, -3) == '.po') {
 			return true;
@@ -45,14 +45,14 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	}
 
 	/**
-	* @see CodeAuditTestCase::checkFile
-	*
-	* 1. Check for a sane Project-Id-Version field
-	* 2. Check first msgid doesn't have #,fuzzy before it
-	* 3. Check that the first line is "Id" svn keyword
-	* 4. Check charset header is UTF-8
-	* 5. Make sure translator hints and __TOKEN__ things aren't translated
-	*/
+	 * @see CodeAuditTestCase::checkFile
+	 *
+	 * 1. Check for a sane Project-Id-Version field
+	 * 2. Check first msgid doesn't have #,fuzzy before it
+	 * 3. Check that the first line is "Id" svn keyword
+	 * 4. Check charset header is UTF-8
+	 * 5. Make sure translator hints and __TOKEN__ things aren't translated
+	 */
 	public function checkFile($fileName, $buffer) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
@@ -128,9 +128,9 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	}
 
 	/**
-	* @see CodeAuditTestCase::finishScan
-	* Collate our Project-Id-Version info and make sure they're consistent in every localization.
-	*/
+	 * @see CodeAuditTestCase::finishScan
+	 * Collate our Project-Id-Version info and make sure they're consistent in every localization.
+	 */
 	public function finishScan($halted) {
 		if (!$halted) {
 			foreach ($this->_idMap as $dir => $dirMap) {
@@ -167,26 +167,26 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 							count($wrongFormat),
 							$mismatches,
 							$probablyCorrect
-							)
-						);
-
-						$script[] = sprintf(
-							'perl -pi.bak -e \'s/(Project-Id-Version:).*(..")/$1%s$2/\' %s/*.po',
-							$probablyCorrect,
-							$poDir
-						);
-					}
-				}
-			}
-
-			if (isset($script)) {
-				$this->assertFalse(
-					true,
-					sprintf(
-						"Fix script:\n<pre>#!/bin/sh\n%s</pre>",
-						join("\n", $script)
 						)
+					);
+
+					$script[] = sprintf(
+						'perl -pi.bak -e \'s/(Project-Id-Version:).*(..")/$1%s$2/\' %s/*.po',
+						$probablyCorrect,
+						$poDir
 					);
 				}
 			}
 		}
+
+		if (isset($script)) {
+			$this->assertFalse(
+				true,
+				sprintf(
+					"Fix script:\n<pre>#!/bin/sh\n%s</pre>",
+					join("\n", $script)
+				)
+			);
+		}
+	}
+}

@@ -214,7 +214,7 @@ class GalleryItemHelper_simple {
 			}
 		}
 		$counts = GalleryUtilities::strArrToIntArr($counts);
-		
+
 		return array(null, $counts);
 	}
 

@@ -130,7 +130,7 @@ class ItemAdminView extends GalleryView {
 			$subViewName = 'core.ItemEdit';
 		}
 
-		list($ret, $subView) = GalleryView::loadView($subViewName);
+		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);
@@ -220,7 +220,7 @@ class ItemAdminView extends GalleryView {
 			$subViewName = 'core.ItemEdit';
 		}
 
-		list($ret, $subView) = GalleryView::loadView($subViewName);
+		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);

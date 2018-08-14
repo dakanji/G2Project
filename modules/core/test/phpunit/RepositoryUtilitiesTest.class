@@ -418,9 +418,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	public function testGetProvidedApis() {
 		$utilities = new GalleryRepositoryUtilities();
 
-		// DA Note: Skipping this until can fix
-		$this->skip();
-
 		$coreApi   = implode('.', GalleryCoreApi::getApiVersion());
 		$moduleApi = implode('.', GalleryModule::doStatic()->getApiVersion());
 		$themeApi  = implode('.', GalleryTheme::doStatic()->getApiVersion());
@@ -465,17 +462,36 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 		);
 
+		$i = 0;
+
 		foreach ($testCases as $case) {
-			$providedApis = is_null($case['providedApis']) ? null : array(
-				'core'   => explode('.', $case['providedApis']['core']),
-				'module' => explode('.', $case['providedApis']['module']),
-				'theme'  => explode('.', $case['providedApis']['theme']),
+			$i++;
+
+			if (is_null($case['providedApis'])) {
+				$providedApis = null;
+			} else {
+				$providedApis = array(
+					'core'   => explode('.', $case['providedApis']['core']),
+					'module' => explode('.', $case['providedApis']['module']),
+					'theme'  => explode('.', $case['providedApis']['theme']),
+				);
+			}
+
+			list($providedCoreApi, $providedPluginApi) = $utilities->getProvidedApis(
+				$case['pluginType'],
+				$providedApis
 			);
 
-			list($providedCoreApi, $providedPluginApi) = $utilities->getProvidedApis($case['pluginType'], $providedApis);
-
-			$this->assertEquals(explode('.', $case['expectedCoreApi']), $providedCoreApi);
-			$this->assertEquals(explode('.', $case['expectedPluginApi']), $providedPluginApi);
+			$this->assertEquals(
+				explode('.', $case['expectedCoreApi']),
+				$providedCoreApi,
+				'expectedCoreApi ' . $i
+			);
+			$this->assertEquals(
+				explode('.', $case['expectedPluginApi']),
+				$providedPluginApi,
+				'expectedPluginApi ' . $i
+			);
 		}
 	}
 

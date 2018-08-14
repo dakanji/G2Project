@@ -44,14 +44,21 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$storage =& $gallery->getStorage();
+		$storage    =& $gallery->getStorage();
+		$serverInfo = isset($storage->_serverInfo) ? $storage->_serverInfo : null;
 
 		$this->_db                             = $storage->_db;
 		$this->_nonTransactionalDb             = $storage->_nonTransactionalDb;
-		$this->_serverInfo                     = isset($storage->_serverInfo) ? $storage->_serverInfo : null;
+		$this->_serverInfo                     = $serverInfo;
 		$this->_isEmptyAllowedForNotNullColumn = $storage->_isEmptyAllowedForNotNullColumn;
-		$storage->_db                          = new StorageTestDB($this, '_results');
-		$storage->_nonTransactionalDb          = new StorageTestDB($this, '_resultsNonTransactional');
+		$storage->_db                          = new StorageTestDB(
+			$this,
+			'_results'
+		);
+		$storage->_nonTransactionalDb          = new StorageTestDB(
+			$this,
+			'_resultsNonTransactional'
+		);
 
 		$map = array(
 			'GalleryTestMap' => array(
@@ -180,11 +187,10 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		$this->assertEquals(
-			'SELECT ' . $storage->_tablePrefix . 'Test_table.' . $storage->_columnPrefix .
-			'Test_column FROM ' . $storage->_tablePrefix . 'Test_table',
-			$storage->_translateQuery(
-				'SELECT [Test_table::Test_column] FROM [Test_table]'
-			)
+			'SELECT ' . $storage->_tablePrefix . 'Test_table.' . $storage->_columnPrefix
+			. 'Test_column FROM ' . $storage->_tablePrefix . 'Test_table',
+			$storage->_translateQuery('SELECT [Test_table::Test_column] FROM [Test_table]'),
+			'TranslateQuery'
 		);
 	}
 
@@ -238,7 +244,8 @@ class StorageTest extends GalleryTestCase {
 					array(0, 1),
 				),
 			),
-			$this->_results
+			$this->_results,
+			'AddMap'
 		);
 	}
 
@@ -292,8 +299,7 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'INSERT INTO %1$sTest2Map (%2$sfield3, %2$sfield4, '
-								. '%2$sfield5) VALUES (?,?,?)',
+						'INSERT INTO %1$sTest2Map (%2$sfield3, %2$sfield4, %2$sfield5) VALUES (?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
@@ -359,8 +365,7 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'UPDATE %1$sTest2Map SET %2$sfield3=? WHERE '
-								. '%2$sfield3 IN (?,?)',
+						'UPDATE %1$sTest2Map SET %2$sfield3=? WHERE %2$sfield3 IN (?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
@@ -397,15 +402,15 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'UPDATE %1$sTest2Map SET %2$sfield5=? WHERE '
-								. '%2$sfield5 IS NULL',
+						'UPDATE %1$sTest2Map SET %2$sfield5=? WHERE %2$sfield5 IS NULL',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
 					array('testType'),
 				),
 			),
-			$this->_results
+			$this->_results,
+			'UpdateMapValueIsNull'
 		);
 	}
 
@@ -417,9 +422,12 @@ class StorageTest extends GalleryTestCase {
 		 * Make sure that when a value is NULL that we use IS NULL and not = ? in
 		 * the generated SQL
 		 */
-		$ret = $storage->removeMapEntry('GalleryTest2Map', array(
-			'field5' => null,
-		));
+		$ret = $storage->removeMapEntry(
+			'GalleryTest2Map',
+			array(
+				'field5' => null,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -436,7 +444,8 @@ class StorageTest extends GalleryTestCase {
 					array(),
 				),
 			),
-			$this->_results
+			$this->_results,
+			'RemoveMapValueIsNull'
 		);
 	}
 
@@ -583,19 +592,20 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$results = GalleryUtilities::strArrToIntArr($this->_results);
 		$this->assertEquals(
 			array(
 				array(
 					sprintf(
-						'SELECT %2$sfield4, %2$sfield3, %2$sfield5 ' .
-						'FROM %1$sTest2Map WHERE %2$sfield3=?',
+						'SELECT %2$sfield4, %2$sfield3, %2$sfield5 '
+						. 'FROM %1$sTest2Map WHERE %2$sfield3=?',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
 					array(40),
 				),
 			),
-			$this->_results,
+			$results,
 			'generated query'
 		);
 
@@ -620,19 +630,19 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$results = GalleryUtilities::strArrToIntArr($this->_results);
 		$this->assertEquals(
 			array(
 				array(
 					sprintf(
-						'SELECT %2$sfield4 FROM %1$sTest2Map ' .
-						'WHERE %2$sfield3 IN (?,?,?)',
+						'SELECT %2$sfield4 FROM %1$sTest2Map WHERE %2$sfield3 IN (?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
 					array(38, 40, 42),
 				),
 			),
-			$this->_results
+			$results
 		);
 	}
 
@@ -692,6 +702,7 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$results = GalleryUtilities::strArrToIntArr($this->_results);
 		$this->assertEquals(
 			array(
 				array(
@@ -705,7 +716,8 @@ class StorageTest extends GalleryTestCase {
 					array(38, 40, 42),
 				),
 			),
-			$this->_results
+			$results,
+			'GetMapEntriesLimited'
 		);
 	}
 
@@ -731,20 +743,22 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$results = GalleryUtilities::strArrToIntArr($this->_results);
 		$this->assertEquals(
 			array(
 				array(
 					sprintf(
-						'SELECT %2$sfield4 FROM %1$sTest2Map ' .
-						'WHERE %2$sfield3 IN (?,?,?) ' .
-						'ORDER BY %2$sfield4 DESC, %2$sfield3 ASC',
+						'SELECT %2$sfield4 FROM %1$sTest2Map '
+						. 'WHERE %2$sfield3 IN (?,?,?) '
+						. 'ORDER BY %2$sfield4 DESC, %2$sfield3 ASC',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
 					array(38, 40, 42),
 				),
 			),
-			$this->_results
+			$results,
+			'GetMapEntriesOrdered'
 		);
 	}
 
@@ -766,19 +780,20 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$results = GalleryUtilities::strArrToIntArr($this->_results);
 		$this->assertEquals(
 			array(
 				array(
 					sprintf(
-						'UPDATE %1$sTest2Map SET %2$sfield4=? ' .
-						'WHERE %2$sfield3 IN (?,?,?)',
+						'UPDATE %1$sTest2Map SET %2$sfield4=? WHERE %2$sfield3 IN (?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
 					array(54, 38, 40, 42),
 				),
 			),
-			$this->_results
+			$results,
+			'GetMapEntriesOrdered'
 		);
 	}
 
@@ -804,8 +819,7 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'UPDATE %1$sTestMap SET %2$sfield1=? ' .
-						'WHERE %2$sfield2 IN (?,?,?)',
+						'UPDATE %1$sTestMap SET %2$sfield1=? WHERE %2$sfield2 IN (?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
@@ -847,9 +861,9 @@ class StorageTest extends GalleryTestCase {
 				),
 				array(
 					sprintf(
-						'INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, ' .
-						'%2$sisLinkable, %2$sserialNumber, %2$sentityType) ' .
-						'VALUES (?,?,?,?,?)',
+						'INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, '
+						. '%2$sisLinkable, %2$sserialNumber, %2$sentityType) '
+						. 'VALUES (?,?,?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
@@ -885,9 +899,9 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, ' .
-						'%2$sisLinkable, %2$sserialNumber, %2$sentityType, ' .
-						'%2$sonLoadHandlers) VALUES (?,?,?,?,?,?)',
+						'INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, '
+						. '%2$sisLinkable, %2$sserialNumber, %2$sentityType, '
+						. '%2$sonLoadHandlers) VALUES (?,?,?,?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
@@ -932,17 +946,21 @@ class StorageTest extends GalleryTestCase {
 		) as $type) {
 			$memberData['type'] = $type;
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue('', $memberData)),
+
+			$this->assertFalse(
+				is_null($storage->_normalizeValue('', $memberData)),
 				"empty string for $type"
 			);
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue('0', $memberData)),
+			$this->assertFalse(
+				is_null($storage->_normalizeValue('0', $memberData)),
 				"0 string for $type"
 			);
-			$this->assertTrue(!is_null($storage->_normalizeValue(null, $memberData)), "null for $type");
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue(false, $memberData)),
+			$this->assertFalse(
+				is_null($storage->_normalizeValue(null, $memberData)),
+				"null for $type"
+			);
+			$this->assertFalse(
+				is_null($storage->_normalizeValue(false, $memberData)),
 				"boolean false for $type"
 			);
 		}
@@ -978,15 +996,19 @@ class StorageTest extends GalleryTestCase {
 		) as $type) {
 			$memberData['type'] = $type;
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue('', $memberData)),
+
+			$this->assertFalse(
+				is_null($storage->_normalizeValue('', $memberData)),
 				"empty string for $type"
 			);
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue('0', $memberData)),
+			$this->assertFalse(
+				is_null($storage->_normalizeValue('0', $memberData)),
 				"0 string for $type"
 			);
-			$this->assertTrue(!is_null($storage->_normalizeValue(null, $memberData)), "null for $type");
+			$this->assertFalse(
+				is_null($storage->_normalizeValue(null, $memberData)),
+				"null for $type"
+			);
 		}
 	}
 
@@ -1009,16 +1031,17 @@ class StorageTest extends GalleryTestCase {
 		) as $type) {
 			$memberData['type'] = $type;
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue('', $memberData)),
+
+			$this->assertFalse(
+				is_null($storage->_normalizeValue('', $memberData)),
 				"empty string for $type"
 			);
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue('0', $memberData)),
+			$this->assertFalse(
+				is_null($storage->_normalizeValue('0', $memberData)),
 				"0 string for $type"
 			);
-			$this->assertTrue(
-				!is_null($storage->_normalizeValue(null, $memberData)),
+			$this->assertFalse(
+				is_null($storage->_normalizeValue(null, $memberData)),
 				"null for $type"
 			);
 		}
@@ -1192,6 +1215,7 @@ class StorageTest extends GalleryTestCase {
 	public function testEncodeDecodeBlob() {
 		global $gallery;
 		$storage =& $gallery->getStorage();
+
 		// Use a real SQL connection for this test
 		$storage->_db = $this->_db;
 
@@ -1258,9 +1282,12 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		// Cleanup
-		$ret = GalleryCoreApi::removeMapEntry('GalleryCacheMap', array(
-			'type' => 'test',
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryCacheMap',
+			array(
+				'type' => 'test',
+			)
+		);
 
 		if ($ret) {
 			return $ret;

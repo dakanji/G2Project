@@ -684,7 +684,12 @@ class GalleryStorage {
 	 *                non transactional database connection for this operation.  Default is false.
 	 * @return GalleryStatus a status code
 	 */
-	public function updateMapEntry($mapName, $match, $change, $useNonTransactionalConnection = false) {
+	public function updateMapEntry(
+		$mapName,
+		$match,
+		$change,
+		$useNonTransactionalConnection = false
+	) {
 		if ($useNonTransactionalConnection && $this->isTransactional()) {
 			$extras         =& $this->_getExtras();
 			list($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
@@ -715,7 +720,12 @@ class GalleryStorage {
 			return $ret;
 		}
 		list($tableName, $unused) = $this->_translateTableName($mapName);
-		$data                     = $set = $where = $wheredata = array();
+
+		$data      = array();
+		$set       = array();
+		$where     = array();
+		$wheredata = array();
+
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (array_key_exists($memberName, $match)) {

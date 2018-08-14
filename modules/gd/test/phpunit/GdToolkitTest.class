@@ -339,7 +339,7 @@ class GdToolkitTest extends GalleryTestCase {
 							'copy' => array('/valid/50x50.ext', 250, 0, 0, 0, 50, 50),
 						);
 					}
-					
+
 					$this->assertEquals(
 						$expected,
 						$this->_gdFunctionality->getOutputFileData('/valid/composited.ext'),

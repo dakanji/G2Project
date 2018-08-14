@@ -669,7 +669,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	public function testRecreateResizesForSmallPhoto() {
 		global $gallery;
 
-		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
+		$album              = $this->_album;
+		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($album->getId());
 
 		if ($ret) {
 			return $ret;
@@ -679,7 +680,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		 * Set the album preferences such that we have one resize that's smaller than the
 		 * original, and one that's larger.  We know that the image we're using is 62x75
 		 */
-		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->_album->getId());
+		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($album->getId());
 
 		if ($ret) {
 			return $ret;
@@ -692,7 +693,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$ret = $photo->create(
-			$this->_album->getId(),
+			$album->getId(),
 			__DIR__ . '/../data/test1.gif',
 			'image/gif',
 			'test image'
@@ -702,7 +703,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		$ret = GalleryCoreApi::addExistingItemToAlbum($photo, $this->_album->getId());
+		$ret = GalleryCoreApi::addExistingItemToAlbum($photo, $album->getId());
 
 		if ($ret) {
 			return $ret;
@@ -733,16 +734,13 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[resizes][1][height]', 100);
 		GalleryUtilities::putRequestVariable('form[recreateResizes]', 1);
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][recreateResizes]', 1);
-		GalleryUtilities::putRequestVariable(
-			'form[serialNumber]',
-			$this->_album->getSerialNumber()
-		);
+		GalleryUtilities::putRequestVariable('form[serialNumber]', $album->getSerialNumber());
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		// Perform the request and verify that we succeeded
-		$results = $this->handleRequest($this->_album, $this->_preferred);
+		$results = $this->handleRequest($album, $this->_preferred);
 		$this->assertEquals(
 			array(
 				array(),
@@ -752,7 +750,11 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		);
 
 		// Assert that we have 1 callback in the queue
-		$this->assertEquals(1, $mockAdapter->getCallbackCount());
+		$this->assertEquals(
+			1,
+			$mockAdapter->getCallbackCount(),
+			'One callback in the queue'
+		);
 
 		// Run the tasks
 		$ret = $mockAdapter->runCallbacks();
@@ -761,18 +763,29 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
+		// Get Photo ID
+		$photoID = $photo->getId();
+
 		// Now verify that we didn't upsample our resizes
-		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($photo->getId()));
+		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($photoID));
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$this->assertTrue(isset($resizes[$photo->getId()]), 'Missing resizes for new photo');
+		$resizesPhotoID = array_key_exists($photoID, $resizes);
+		$this->assertTrue(
+			$resizesPhotoID,
+			'Missing resizes for new photo'
+		);
 
-		if (isset($resizes[$photo->getId()])) {
-			$resizes = $resizes[$photo->getId()];
-			$this->assertEquals(1, sizeof($resizes), 'There should only be one resize');
+		if ($resizesPhotoID) {
+			$resizes = $resizes[$photoID];
+			$this->assertEquals(
+				1,
+				sizeof($resizes),
+				'There should only be one resize'
+			);
 			$this->assertEquals(
 				'scale|50,50',
 				$resizes[0]->getDerivativeOperations(),

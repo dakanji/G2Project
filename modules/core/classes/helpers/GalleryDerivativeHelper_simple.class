@@ -122,26 +122,26 @@ class GalleryDerivativeHelper_simple {
 			$idMarkers = GalleryUtilities::makeMarkers(sizeof($itemIds));
 			$data      = $itemIds;
 			$query     = '
-	    SELECT
-	      [GalleryDerivative::id], [GalleryChildEntity::parentId]
-	    FROM
-	      [GalleryDerivative], [GalleryChildEntity]
-	    WHERE
-	      [GalleryDerivative::id] = [GalleryChildEntity::id]
-	      AND
-	      [GalleryChildEntity::parentId] IN (' . $idMarkers . ')
-	    ';
+			SELECT
+			[GalleryDerivative::id], [GalleryChildEntity::parentId]
+			FROM
+			[GalleryDerivative], [GalleryChildEntity]
+			WHERE
+			[GalleryDerivative::id] = [GalleryChildEntity::id]
+			AND
+			[GalleryChildEntity::parentId] IN (' . $idMarkers . ')
+			';
 		} else {
 			$idMarkers = GalleryUtilities::makeMarkers(sizeof($sourceIds));
 			$data      = $sourceIds;
 			$query     = '
-	    SELECT
-	      [GalleryDerivative::id], [GalleryDerivative::derivativeSourceId]
-	    FROM
-	      [GalleryDerivative]
-	    WHERE
-	      [GalleryDerivative::derivativeSourceId] IN (' . $idMarkers . ')
-	    ';
+			SELECT
+			[GalleryDerivative::id], [GalleryDerivative::derivativeSourceId]
+			FROM
+			[GalleryDerivative]
+			WHERE
+			[GalleryDerivative::derivativeSourceId] IN (' . $idMarkers . ')
+			';
 		}
 
 		foreach ($data as $idx => $id) {
@@ -150,10 +150,7 @@ class GalleryDerivativeHelper_simple {
 
 		if (!empty($types)) {
 			$typeMarkers = GalleryUtilities::makeMarkers(sizeof($types));
-			$query      .= '
-	      AND
-	      [GalleryDerivative::derivativeType] IN (' . $typeMarkers . ')
-	    ';
+			$query      .= 'AND [GalleryDerivative::derivativeType] IN (' . $typeMarkers . ')';
 			$data        = array_merge($data, $types);
 		}
 
@@ -183,7 +180,10 @@ class GalleryDerivativeHelper_simple {
 			sort($derivativeIds, SORT_NUMERIC);
 
 			// Load all the derivative images
-			list($ret, $derivativeEntities) = GalleryCoreApi::loadEntitiesById($derivativeIds, 'GalleryDerivative');
+			list($ret, $derivativeEntities) = GalleryCoreApi::loadEntitiesById(
+				$derivativeIds,
+				'GalleryDerivative'
+			);
 
 			if ($ret) {
 				return array($ret, null);

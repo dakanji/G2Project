@@ -280,27 +280,27 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				(string)$this->_getRootId(),
-				(string)$this->_parentAlbum->getId(),
+				$this->_getRootId(),
+				$this->_parentAlbum->getId(),
 			),
 			$parentSequence[0],
 			'(before) sequence 0'
 		);
 		$this->assertEquals(
 			array(
-				(string)$this->_getRootId(),
-				(string)$this->_parentAlbum->getId(),
-				(string)$album[0]->getId(),
+				$this->_getRootId(),
+				$this->_parentAlbum->getId(),
+				$album[0]->getId(),
 			),
 			$parentSequence[1],
 			'(before) sequence 1'
 		);
 		$this->assertEquals(
 			array(
-				(string)$this->_getRootId(),
-				(string)$this->_parentAlbum->getId(),
-				(string)$album[0]->getId(),
-				(string)$album[1]->getId(),
+				$this->_getRootId(),
+				$this->_parentAlbum->getId(),
+				$album[0]->getId(),
+				$album[1]->getId(),
 			),
 			$parentSequence[2],
 			'(before) sequence 2'
@@ -393,8 +393,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				(string)$this->_getRootId(),
-				(string)$this->_parentAlbum->getId(),
+				$this->_getRootId(),
+				$this->_parentAlbum->getId(),
 			),
 			$parentSequence[0],
 			'(after) sequence 0'
@@ -402,8 +402,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				(string)$this->_getRootId(),
-				(string)$this->_parentAlbum->getId(),
+				$this->_getRootId(),
+				$this->_parentAlbum->getId(),
 			),
 			$parentSequence[1],
 			'(after) sequence 1'
@@ -411,9 +411,9 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				(string)$this->_getRootId(),
-				(string)$this->_parentAlbum->getId(),
-				(string)$album[1]->getId(),
+				$this->_getRootId(),
+				$this->_parentAlbum->getId(),
+				$album[1]->getId(),
 			),
 			$parentSequence[2],
 			'(after) sequence 2'

@@ -343,7 +343,7 @@ class TemplateTest extends GalleryTestCase {
 		$head = $template->getVariable('head');
 		$this->assertEquals(
 			array(
-				'<link rel="stylesheet" type="text/css" href="/path/to/foo.css"/>' => 1,
+				'<link rel="stylesheet" type="text/css" href="/path/to/foo.css"/>' => true,
 			),
 			$head['link']
 		);
@@ -359,7 +359,7 @@ class TemplateTest extends GalleryTestCase {
 		$head = $template->getVariable('head');
 		$this->assertEquals(
 			array(
-				'<link attr1="value1" attr2="value2"/>' => 1,
+				'<link attr1="value1" attr2="value2"/>' => true,
 			),
 			$head['link']
 		);
