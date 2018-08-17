@@ -44,21 +44,18 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$storage    =& $gallery->getStorage();
-		$serverInfo = isset($storage->_serverInfo) ? $storage->_serverInfo : null;
+		$storage =& $gallery->getStorage();
 
-		$this->_db                             = $storage->_db;
-		$this->_nonTransactionalDb             = $storage->_nonTransactionalDb;
-		$this->_serverInfo                     = $serverInfo;
 		$this->_isEmptyAllowedForNotNullColumn = $storage->_isEmptyAllowedForNotNullColumn;
-		$storage->_db                          = new StorageTestDB(
-			$this,
-			'_results'
-		);
-		$storage->_nonTransactionalDb          = new StorageTestDB(
-			$this,
-			'_resultsNonTransactional'
-		);
+
+		$serverInfo        = isset($storage->_serverInfo) ? $storage->_serverInfo : null;
+		$this->_serverInfo = $serverInfo;
+
+		$this->_db    = $storage->_db;
+		$storage->_db = new StorageTestDB($this, '_results');
+
+		$this->_nonTransactionalDb    = $storage->_nonTransactionalDb;
+		$storage->_nonTransactionalDb = new StorageTestDB($this, '_resultsNonTransactional');
 
 		$map = array(
 			'GalleryTestMap' => array(
@@ -88,6 +85,10 @@ class StorageTest extends GalleryTestCase {
 					'type' => STORAGE_TYPE_INTEGER,
 					'size' => STORAGE_SIZE_MEDIUM,
 				),
+				'field6' => array(
+					'type'    => STORAGE_TYPE_STRING,
+					'size' => STORAGE_SIZE_MEDIUM,
+				),
 			),
 		);
 		// Note: keep this cache key in sync with GalleryStorage::describeMap()
@@ -95,19 +96,19 @@ class StorageTest extends GalleryTestCase {
 
 		$entity = array(
 			'GalleryChildEntity' => array(
+				'parent'  => 'GalleryEntity',
+				'module'  => 'core',
+				'linked'  => array(),
 				'members' => array(
 					'parentId' => array(
 						'type'    => STORAGE_TYPE_INTEGER,
 						'notNull' => 1,
 					),
 				),
-				'parent'  => 'GalleryEntity',
-				'module'  => 'core',
-				'linked'  => array(),
 			),
 			'GalleryEntity' => array(
 				'members' => array(
-					'id' => array(
+					'id'                    => array(
 						'type'            => STORAGE_TYPE_INTEGER | STORAGE_TYPE_ID,
 						'notNull'         => 1,
 						'external-access' => EXTERNAL_ACCESS_READ,
@@ -387,10 +388,10 @@ class StorageTest extends GalleryTestCase {
 		$ret = $storage->updateMapEntry(
 			'GalleryTest2Map',
 			array(
-				'field5' => null,
+				'field6' => null,
 			),
 			array(
-				'field5' => 'testType',
+				'field6' => 'testType',
 			)
 		);
 
@@ -402,7 +403,7 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'UPDATE %1$sTest2Map SET %2$sfield5=? WHERE %2$sfield5 IS NULL',
+						'UPDATE %1$sTest2Map SET %2$sfield6=? WHERE %2$sfield6 IS NULL',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
@@ -410,7 +411,7 @@ class StorageTest extends GalleryTestCase {
 				),
 			),
 			$this->_results,
-			'UpdateMapValueIsNull'
+			'Update Null Map Value'
 		);
 	}
 
@@ -1598,10 +1599,17 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$doesSupportTruncate = !($storage->getType() == 'sqlite' || $storage->getType() == 'db2');
-		$expectedQuery       = ($storage->isTransactional() || !$doesSupportTruncate) ? sprintf('DELETE FROM %sTest2Map', $storage->_tablePrefix) : sprintf('TRUNCATE TABLE %sTest2Map', $storage->_tablePrefix);
+
+		if ($storage->isTransactional() || !$doesSupportTruncate) {
+			$expectedQuery = sprintf('DELETE FROM %sTest2Map', $storage->_tablePrefix);
+		} else {
+			$expectedQuery = sprintf('TRUNCATE TABLE %sTest2Map', $storage->_tablePrefix);
+		}
+
 		$this->assertEquals(
 			array(array($expectedQuery, array())),
-			$this->_results
+			$this->_results,
+			'RemoveAllMapEntriesTransactional'
 		);
 	}
 
@@ -1618,7 +1626,8 @@ class StorageTest extends GalleryTestCase {
 		$expectedQuery = ($storage->getType() == 'sqlite' || $storage->getType() == 'db2') ? sprintf('DELETE FROM %sTest2Map', $storage->_tablePrefix) : sprintf('TRUNCATE TABLE %sTest2Map', $storage->_tablePrefix);
 		$this->assertEquals(
 			array(array($expectedQuery, array())),
-			$this->_getNonTransactionalResults()
+			$this->_getNonTransactionalResults(),
+			'RemoveAllMapEntriesNonTransactional'
 		);
 	}
 
@@ -1680,7 +1689,7 @@ class StorageTestDB {
 		$this->_recordSets = $recordSets;
 	}
 
-	public function execute($query, $data = false) {
+	public function execute($query, $data = array()) {
 		$this->_results[] = array($query, $data);
 
 		return empty($this->_recordSets) ? false : array_shift($this->_recordSets);

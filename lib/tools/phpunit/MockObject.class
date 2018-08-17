@@ -81,17 +81,7 @@ class MockObject {
 
 		$_GET[$this->_className]['errorCount']++;
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
-
-		$outHTML  = '<br/><br/>';
-		$outHTML .= '----------------------------------------------------------';
-		$outHTML .= '<br/>';
-		$outHTML .= '&nbsp;&nbsp;&nbsp;';
-		$outHTML .= 'NB: Maybe Related to Class of Next Failing Test';
-		$outHTML .= '<br/>';
-		$outHTML .= '----------------------------------------------------------';
-		$outHTML .= '<br/>';
-		$outHTML .= $ret->getAsHtml();
-		echo $outHTML;
+		echo '<br/><br/>' . $ret->getAsHtml();
 
 		printf(
 			'<br/><b>Mismatch At</b>: %s<br/>',
