@@ -82,10 +82,17 @@ class GalleryControllerTestCase extends GalleryTestCase {
 					);
 				}
 			} else {
-				$this->fail(sprintf(
-					'Expected error code (%s) but test was successful',
-					implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode))
-				));
+				$this->fail(
+					sprintf(
+						'Expected error code (%s) but test was successful',
+						implode(
+							' | ',
+							GalleryStatus::doStatic()->getErrorCodeConstants(
+								$errorCode
+							)
+						)
+					)
+				);
 			}
 		} elseif ($ret) {
 			$this->fail($ret->getAsHtml());
@@ -93,11 +100,16 @@ class GalleryControllerTestCase extends GalleryTestCase {
 			return array();
 		} else {
 			// Check to make sure we got back everything we want
-			$this->assertTrue(isset($results['status']), 'controller results missing status');
-			$this->assertTrue(isset($results['error']), 'controller results missing error');
 			$this->assertTrue(
-				isset($results['redirect']) || isset($results['delegate']) ||
-				  isset($results['return']),
+				isset($results['status']),
+				'controller results missing status'
+			);
+			$this->assertTrue(
+				isset($results['error']),
+				'controller results missing error'
+			);
+			$this->assertTrue(
+				isset($results['redirect']) || isset($results['delegate']) || isset($results['return']),
 				'controller results needs one of (redirect, delegate)'
 			);
 		}
