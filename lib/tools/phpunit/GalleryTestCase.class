@@ -729,6 +729,7 @@ class GalleryTestCase extends TestCase {
 		$user->setFullName(isset($userTag) ? 'User ' . $userTag : 'User');
 		$user->changePassword($password);
 		$user->setEmail('user-' . $userTag . '@example.com');
+		$user->setLocked(false);
 
 		$ret = $user->save();
 

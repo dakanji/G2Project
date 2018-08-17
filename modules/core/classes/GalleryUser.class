@@ -126,13 +126,13 @@ class GalleryUser extends GalleryEntity {
 		global $gallery;
 
 		$query = '
-	SELECT
-	  [GalleryUser::id]
-	FROM
-	  [GalleryUser]
-	WHERE
-	  [GalleryUser::userName] = ?
-	';
+		SELECT
+		[GalleryUser::id]
+		FROM
+		[GalleryUser]
+		WHERE
+		[GalleryUser::userName] = ?
+		';
 
 		// Check to see if we have a collision
 		list($ret, $results) = $gallery->search(

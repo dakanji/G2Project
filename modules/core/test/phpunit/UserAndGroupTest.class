@@ -37,7 +37,11 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $this->_siteAdminGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+		list($ret, $this->_siteAdminGroupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.adminGroup'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -145,20 +149,29 @@ class UserAndGroupTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-				'userId' => $userId,
-			));
+			GalleryCoreApi::removeMapEntry(
+				'GalleryUserGroupMap',
+				array(
+					'userId' => $userId,
+				)
+			);
 			$this->_markForCleanup($user);
 
 			return $ret;
 		}
 		// Verify the user has the permission
-		list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($this->_getRootId(), 'core.addDataItem');
+		list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission(
+			$this->_getRootId(),
+			'core.addDataItem'
+		);
 
 		if ($ret) {
-			GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-				'userId' => $userId,
-			));
+			GalleryCoreApi::removeMapEntry(
+				'GalleryUserGroupMap',
+				array(
+					'userId' => $userId,
+				)
+			);
 			$this->_markForCleanup($user);
 
 			return $ret;
@@ -172,9 +185,12 @@ class UserAndGroupTest extends GalleryTestCase {
 		list($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 
 		if ($ret) {
-			GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-				'userId' => $user->getId,
-			));
+			GalleryCoreApi::removeMapEntry(
+				'GalleryUserGroupMap',
+				array(
+					'userId' => $user->getId,
+				)
+			);
 			GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array(
@@ -201,9 +217,12 @@ class UserAndGroupTest extends GalleryTestCase {
 					'userId' => $userId,
 				)
 			);
-			GalleryCoreApi::removeMapEntry('GalleryAccessMap', array(
-				'userOrGroupId' => $userId,
-			));
+			GalleryCoreApi::removeMapEntry(
+				'GalleryAccessMap',
+				array(
+					'userOrGroupId' => $userId,
+				)
+			);
 
 			return $ret;
 		}
@@ -223,9 +242,12 @@ class UserAndGroupTest extends GalleryTestCase {
 			if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 				$this->assertFalse(true, 'An item was deleted that still should exist.');
 			} else {
-				GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-					'userId' => $userId,
-				));
+				GalleryCoreApi::removeMapEntry(
+					'GalleryUserGroupMap',
+					array(
+						'userId' => $userId,
+					)
+				);
 				GalleryCoreApi::removeMapEntry(
 					'GalleryAccessMap',
 					array(
@@ -240,12 +262,18 @@ class UserAndGroupTest extends GalleryTestCase {
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($item->getOwnerId());
 
 		if ($ret) {
-			GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-				'userId' => $userId,
-			));
-			GalleryCoreApi::removeMapEntry('GalleryAccessMap', array(
-				'userOrGroupId' => $userId,
-			));
+			GalleryCoreApi::removeMapEntry(
+				'GalleryUserGroupMap',
+				array(
+					'userId' => $userId,
+				)
+			);
+			GalleryCoreApi::removeMapEntry(
+				'GalleryAccessMap',
+				array(
+					'userOrGroupId' => $userId,
+				)
+			);
 
 			return $ret;
 		}
@@ -258,20 +286,29 @@ class UserAndGroupTest extends GalleryTestCase {
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 
 		if ($ret) {
-			GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-				'userId' => $userId,
-			));
-			GalleryCoreApi::removeMapEntry('GalleryAccessMap', array(
-				'userOrGroupId' => $userId,
-			));
+			GalleryCoreApi::removeMapEntry(
+				'GalleryUserGroupMap',
+				array(
+					'userId' => $userId,
+				)
+			);
+			GalleryCoreApi::removeMapEntry(
+				'GalleryAccessMap',
+				array(
+					'userOrGroupId' => $userId,
+				)
+			);
 
 			return $ret;
 		}
 		$this->assertEquals(0, count($groupIds), 'There are still some group maps.');
 		// Make sure there are no mappings left (garbage)
-		$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-			'userId' => $userId,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryUserGroupMap',
+			array(
+				'userId' => $userId,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -279,7 +316,10 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Verify all permission maps for this user are gone
 		$checkItemIds            = array($item->getId(), $this->_getRootId());
-		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($checkItemIds, $userId);
+		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
+			$checkItemIds,
+			$userId
+		);
 
 		if ($ret) {
 			return $ret;
@@ -316,15 +356,27 @@ class UserAndGroupTest extends GalleryTestCase {
 		$gallery->setActiveUser($user);
 
 		$ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
-		$this->assertEquals(ERROR_BAD_PARAMETER | GALLERY_ERROR, $ret->getErrorCode());
+		$this->assertEquals(
+			ERROR_BAD_PARAMETER | GALLERY_ERROR,
+			$ret->getErrorCode(),
+			'Delete Self Error'
+		);
 	}
 
 	// Verify we can't delete the anonymous user
 	public function testDeleteAnonymousUser() {
-		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.anonymousUser'
+		);
 
 		$ret = GalleryCoreApi::deleteEntityById($anonymousUserId, 'GalleryUser');
-		$this->assertEquals(ERROR_BAD_PARAMETER | GALLERY_ERROR, $ret->getErrorCode());
+		$this->assertEquals(
+			ERROR_BAD_PARAMETER | GALLERY_ERROR,
+			$ret->getErrorCode(),
+			'Delete Anonymous User Error'
+		);
 	}
 
 	/**
@@ -360,7 +412,11 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Attempt to delete user
 		$ret = GalleryCoreApi::deleteEntityById($userId, 'GalleryUser');
-		$this->assertEquals(ERROR_BAD_PARAMETER | GALLERY_ERROR, $ret->getErrorCode());
+		$this->assertEquals(
+			ERROR_BAD_PARAMETER | GALLERY_ERROR,
+			$ret->getErrorCode(),
+			'Delete Last Admin Error'
+		);
 	}
 
 	/**
@@ -446,10 +502,11 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::deleteEntityById($userId, 'GalleryUser');
 
 		if ($ret) {
-			$this->assertFalse(true, 'The user could not be deleted.');
+			$this->assertTrue(false, 'The user could not be deleted.');
 
 			return $ret;
 		}
+
 		GalleryDataCache::reset();
 		$ret = $this->_verifyMissing($userId);
 
