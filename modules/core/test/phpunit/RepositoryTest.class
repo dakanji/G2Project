@@ -106,8 +106,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function _getUpgradeTestCase($testCase) {
 		switch ($testCase) {
-			case 0:
-				// case 1
+			case 1:
 				$case = array(
 					'installed'           => array(
 						'testModule' => array(
@@ -227,8 +226,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 1:
-				// case 2
+			case 2:
 				$case = array(
 					'installed'           => array(
 						'testModule' => array(
@@ -348,8 +346,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 2:
-				// case 3
+			case 3:
 				$case = array(
 					'installed' => array(
 						'testModule' => array(
@@ -480,8 +477,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 3:
-				// case 4
+			case 4:
 				$case = array(
 					'installed'           => array(
 						'testModule' => array(
@@ -641,8 +637,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 4:
-				// case 5
+			case 5:
 				$case = array(
 					'installed'           => array(
 						'testModule' => array(
@@ -762,8 +757,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 5:
-				// case 6
+			case 6:
 				$case = array(
 					'installed' => array(
 						'testModule' => array(
@@ -925,8 +919,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 6:
-				// case 7
+			case 7:
 				$case = array(
 					'installed'           => array(
 						'testModule' => array(
@@ -1062,8 +1055,9 @@ class RepositoryTest extends GalleryTestCase {
 								'locked'       => 1,
 							),
 							/**
-							 * this language is not considered "locked" because it doesn't exist in the
-							 * original install.  This is not optimal.
+							 * this language is not considered "locked"
+							 * because it does not exist in the original install
+							 * This is not optimal.
 							 *
 							 * @TODO: lock missing languages when the base package is locked.
 							 */
@@ -1082,8 +1076,7 @@ class RepositoryTest extends GalleryTestCase {
 
 				break;
 
-			case 7:
-				// case 8
+			case 8:
 				$case = array(
 					'installed'           => array(
 						'testModule' => array(
@@ -1271,30 +1264,37 @@ class RepositoryTest extends GalleryTestCase {
 		$coreApi   = GalleryCoreApi::getApiVersion();
 		$moduleApi = GalleryModule::doStatic()->getApiVersion();
 
-		for ($i = 0; $i < 8; $i++) {
-			$caseNumber = $i + 1;
-			$case       = $this->_getUpgradeTestCase($i);
+		for ($caseNumber = 1; $caseNumber < 9; $caseNumber++) {
+			$utilities  = new UnitTestRepositoryUtilities();
+			$repository = new GalleryRepository();
 
-			$utilities              = new UnitTestRepositoryUtilities();
-			$repository             = new GalleryRepository();
 			$repository->_utilities =& $utilities;
 			$repository->_index     = $this->_index;
-			$rIndex                 = $repository->_index->_index;
+
+			$case = $this->_getUpgradeTestCase($caseNumber);
+
+			// Temp shorten $repository->_index->_index for readability
+			$rHeaderM = $repository->_index->_index['modules']['testModule']['header'];
+			$rHeaderT = $repository->_index->_index['themes']['testTheme']['header'];
 
 			if (isset($case['requiredCoreApi'])) {
-				$rIndex['modules']['testModule']['header']['requiredCoreApi'] = $case['requiredCoreApi'];
-				$rIndex['themes']['testTheme']['header']['requiredCoreApi']   = $case['requiredCoreApi'];
+				$rHeaderM['requiredCoreApi'] = $case['requiredCoreApi'];
+				$rHeaderT['requiredCoreApi'] = $case['requiredCoreApi'];
 			}
 
 			if (isset($case['requiredModuleApi'])) {
-				$rIndex['modules']['testModule']['header']['requiredPluginApi'] = $case['requiredModuleApi'];
+				$rHeaderM['requiredPluginApi'] = $case['requiredModuleApi'];
 			}
 
 			if (isset($case['requiredThemeApi'])) {
-				$rIndex['themes']['testTheme']['header']['requiredPluginApi'] = $case['requiredThemeApi'];
+				$rHeaderT['requiredPluginApi'] = $case['requiredThemeApi'];
 			}
 
-			$this->_setupUpdateUtilitiesResponses($utilities, $rIndex, $case);
+			// Restore $repository->_index->_index
+			$repository->_index->_index['modules']['testModule']['header'] = $rHeaderM;
+			$repository->_index->_index['themes']['testTheme']['header']   = $rHeaderT;
+
+			$this->_setupUpdateUtilitiesResponses($utilities, $repository->_index->_index, $case);
 
 			$repository->_index->_utilities =& $utilities;
 
@@ -1376,17 +1376,25 @@ class RepositoryTest extends GalleryTestCase {
 		$installedCoreVersion = $core->getVersion();
 
 		// Assign arbitrary repository API versions.
-		$repositoryModuleApiVersion                                            = '1.2';
-		$repositoryThemeApiVersion                                             = '3.4';
-		$repositoryCoreApiVersion                                              = '5.6';
-		$this->_index->_index['modules']['core']['header']['themeApiVersion']  = explode('.', $repositoryThemeApiVersion);
-		$this->_index->_index['modules']['core']['header']['moduleApiVersion'] = explode('.', $repositoryModuleApiVersion);
-		$this->_index->_index['modules']['core']['header']['coreApiVersion']   = explode('.', $repositoryCoreApiVersion);
+		$repositoryModuleApiVersion  = '1.2';
+		$repositoryThemeApiVersion   = '3.4';
+		$repositoryCoreApiVersion    = '5.6';
+
+		// Temp shorten $this->_index->_index['modules']['core']['header'] for readability
+		$rHeaderC = $this->_index->_index['modules']['core']['header'];
+
+		$rHeaderC['themeApiVersion']  = explode('.', $repositoryThemeApiVersion);
+		$rHeaderC['moduleApiVersion'] = explode('.', $repositoryModuleApiVersion);
+		$rHeaderC['coreApiVersion']   = explode('.', $repositoryCoreApiVersion);
 
 		$testCases = array(
 			array(
 				// Simulate a newer repository core version than the one currently installed.
-				'repositoryCoreVersion' => $this->calculateVersion($installedCoreVersion, '0.1.0', '+'),
+				'repositoryCoreVersion' => $this->calculateVersion(
+					$installedCoreVersion,
+					'0.1.0',
+					'+'
+				),
 				'expectedRelation'      => 'newer',
 				'expectedApiVersions'   => array(
 					'core'   => $repositoryCoreApiVersion,
@@ -1395,14 +1403,16 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 			array(
-
 				// Simulate an older repository core version than the one currently installed.
-				'repositoryCoreVersion' => $this->calculateVersion($installedCoreVersion, '0.1.0', '-'),
+				'repositoryCoreVersion' => $this->calculateVersion(
+					$installedCoreVersion,
+					'0.1.0',
+					'-'
+				),
 				'expectedRelation'      => 'older',
 				'expectedApiVersions'   => array(),
 			),
 			array(
-
 				// Simulate an identical repository core version as the one currently installed.
 				'repositoryCoreVersion' => $installedCoreVersion,
 				'expectedRelation'      => 'equal',
@@ -1411,7 +1421,10 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		foreach ($testCases as $case) {
-			$this->_index->_index['modules']['core']['header']['version'] = $case['repositoryCoreVersion'];
+			$rHeaderC['version'] = $case['repositoryCoreVersion'];
+
+			// Restore $this->_index->_index['modules']['core']['header']
+			$this->_index->_index['modules']['core']['header'] = $rHeaderC;
 
 			$utilities = new UnitTestRepositoryUtilities();
 			$utilities->setReply(
@@ -1434,7 +1447,11 @@ class RepositoryTest extends GalleryTestCase {
 				$isAvailable,
 				"Expected relation: {$case['expectedRelation']}, $isAvailable"
 			);
-			$this->assertEquals($case['expectedApiVersions'], $apiVersions);
+			$this->assertEquals(
+				$case['expectedApiVersions'],
+				$apiVersions,
+				'API Versions'
+			);
 		}
 		$this->_index->_index = $this->_sampleIndex;
 	}
