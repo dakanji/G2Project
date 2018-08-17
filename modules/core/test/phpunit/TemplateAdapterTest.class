@@ -129,10 +129,13 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testForceFullUrlOn() {
 		$this->_setupAdapterWithMocks();
-		$this->_templateAdapter->url(array(
-			'arg1'         => 'foo=bar',
-			'forceFullUrl' => 'anything',
-		), $this->_mockSmarty);
+		$this->_templateAdapter->url(
+			array(
+				'arg1'         => 'foo=bar',
+				'forceFullUrl' => 'anything',
+			),
+			$this->_mockSmarty
+		);
 
 		$this->assertEquals(
 			array(
@@ -140,7 +143,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 					'foo' => 'bar',
 				),
 				array(
-					'forceFullUrl' => true,
+					'forceFullUrl' => 'anything',
 				),
 			),
 			$this->_mockUrlGenerator->_calls
