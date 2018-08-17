@@ -27,6 +27,8 @@ require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryDataCache
 
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GallerySession.class';
 
+require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryPlatform.class';
+
 /**
  * Stub equivalent of Gallery.class that we use to extract data from config.php
  */
@@ -121,16 +123,22 @@ class GallerySetupUtilities {
 			 * we are ready for them (eg: redirect us to the installer if we have no config.php)
 			 */
 			include_once __DIR__ . '/../../embed.php';
-			$ret = GalleryEmbed::init(array(
-				'fullInit' => false,
-			));
+			$ret = GalleryEmbed::init(
+				array(
+					'fullInit' => false,
+				)
+			);
 
 			if ($ret) {
 				return false;
 			}
 		}
 
-		list($ret, $attempts) = GalleryCoreApi::getPluginParameter('module', 'core', 'setup.login.attempts');
+		list($ret, $attempts) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'setup.login.attempts'
+		);
 
 		if ($ret) {
 			return false;
@@ -474,7 +482,7 @@ class GallerySetupUtilities {
 
 		// Note: we don't have localization for lib support yet, so this is not internationalized
 		if (!empty($toList)) {
-			$ret = GalleryCoreApi::sendTemplatedEmail(
+			$ret = GalleryPlatform::doStatic()->sendEmail(
 				'lib/support/templates/FailedPasswordEmail.tpl',
 				array(),
 				'',

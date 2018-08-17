@@ -74,7 +74,7 @@ class MailHelperTest extends GalleryTestCase {
 		);
 
 		// Test that the from header is empty
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -98,7 +98,7 @@ class MailHelperTest extends GalleryTestCase {
 
 	public function testSendTemplatedEmailFromAddressSetByFunctionInput() {
 		// Test that the from header is retrieved from function input
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			'mailhelpertest1@test.com',
@@ -127,7 +127,7 @@ class MailHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -159,7 +159,7 @@ class MailHelperTest extends GalleryTestCase {
 		$from = 'mailhelpertest2@test.com';
 
 		// Test that the from header is preferred from the function over the core.smtp.from field
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			'mailhelpertest3_function_input@test.com',
@@ -184,7 +184,7 @@ class MailHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -205,7 +205,7 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailExtendedCharactersInSubject() {
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -231,7 +231,7 @@ class MailHelperTest extends GalleryTestCase {
 
 		$multiTo = 'test1@example.com,test2@example.com,test3@example.com,test4@example.com';
 
-		$ret = GalleryCoreApi::sendTemplatedEmail(
+		$ret = GalleryPlatform::doStatic()->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,

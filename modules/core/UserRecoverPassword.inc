@@ -71,7 +71,9 @@ class UserRecoverPasswordController extends GalleryController {
 					$pluginInstances = $this->_pluginInstances;
 				} else {
 					// Get all the validation plugins
-					list($ret, $pluginInstances) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
+					list($ret, $pluginInstances) = GalleryCoreApi::getAllFactoryImplementationIds(
+						'GalleryValidationPlugin'
+					);
 
 					if ($ret) {
 						return array($ret, null);
@@ -228,7 +230,7 @@ class UserRecoverPasswordController extends GalleryController {
 						}
 
 						// Send the user email based on our confirmation template
-						$ret = GalleryCoreApi::sendTemplatedEmail(
+						$ret = GalleryPlatform::doStatic()->sendEmail(
 							'modules/core/templates/UserRecoverPasswordEmail.tpl',
 							$tplData,
 							'',

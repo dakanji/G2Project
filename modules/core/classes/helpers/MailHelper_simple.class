@@ -28,7 +28,7 @@
  */
 class MailHelper_simple {
 	/**
-	 * @see GalleryCoreApi::sendTemplatedEmail
+	 * @see GalleryPlatform::sendEmail
 	 */
 	public static function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers = '') {
 		global $gallery;

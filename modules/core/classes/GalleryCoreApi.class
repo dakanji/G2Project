@@ -3619,11 +3619,9 @@ class GalleryCoreApi {
 		$subject,
 		$headers = ''
 	) {
-		GalleryCoreApi::requireOnce(
-			'modules/core/classes/helpers/MailHelper_simple.class'
-		);
+		global $gallery;
 
-		return MailHelper_simple::sendTemplatedEmail(
+		return GalleryPlatform::doStatic()->sendEmail(
 			$file,
 			$data,
 			$from,
