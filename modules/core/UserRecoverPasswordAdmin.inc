@@ -47,7 +47,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 			}
 
 			if ($session->get('core.UserRecoverPasswordAdminAuthKey') != $authFromFile) {
-				if (empty($form['testMode'])) {
+				if (empty($form['skipAuth'])) {
 					$error[] = 'form[error][authString][incorrect]';
 				}
 			}

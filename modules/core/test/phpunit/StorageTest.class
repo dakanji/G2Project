@@ -289,6 +289,7 @@ class StorageTest extends GalleryTestCase {
 				'field3' => str_repeat('x', 200),
 				'field4' => 'test',
 				'field5' => 1,
+				'field6' => 'anotherTest',
 			)
 		);
 
@@ -300,11 +301,11 @@ class StorageTest extends GalleryTestCase {
 			array(
 				array(
 					sprintf(
-						'INSERT INTO %1$sTest2Map (%2$sfield3, %2$sfield4, %2$sfield5) VALUES (?,?,?)',
+						'INSERT INTO %1$sTest2Map (%2$sfield3, %2$sfield4, %2$sfield5, %2$sfield6) VALUES (?,?,?,?)',
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					),
-					array(str_repeat('x', 128), 'test', 1),
+					array(str_repeat('x', 128), 'test', 1, 'anotherTest'),
 				),
 			),
 			$this->_results
@@ -531,6 +532,7 @@ class StorageTest extends GalleryTestCase {
 				'field3' => array(str_repeat('x', 200), str_repeat('y', 200)),
 				'field4' => array('test1', 'test2'),
 				'field5' => array(1, 2),
+				'field6' => array('anotherTest1', 'anotherTest2'),
 			)
 		);
 
@@ -546,6 +548,7 @@ class StorageTest extends GalleryTestCase {
 					$storage->_columnPrefix . 'field3',
 					$storage->_columnPrefix . 'field4',
 					$storage->_columnPrefix . 'field5',
+					$storage->_columnPrefix . 'field6',
 				),
 				2,
 			)
@@ -563,9 +566,11 @@ class StorageTest extends GalleryTestCase {
 						str_repeat('x', 128),
 						'test1',
 						1,
+						'anotherTest1',
 						str_repeat('y', 128),
 						'test2',
 						2,
+						'anotherTest2',
 					),
 				),
 			),
@@ -1391,7 +1396,10 @@ class StorageTest extends GalleryTestCase {
 		foreach ($optimizeStatements as $statement) {
 			foreach (array('Entity', 'AccessMap') as $tableName) {
 				$mockedResults[]   = new StorageTestRecordSet();
-				$expectedQueries[] = array(sprintf($statement, $storage->_tablePrefix . $tableName), false);
+				$expectedQueries[] = array(
+					sprintf($statement, $storage->_tablePrefix . $tableName),
+					array(),
+				);
 			}
 		}
 		array_unshift($mockedResults, $tablesRecordSet);
@@ -1426,7 +1434,10 @@ class StorageTest extends GalleryTestCase {
 		foreach ($optimizeStatements as $statement) {
 			foreach (array('Entity', 'Item') as $tableName) {
 				$mockedResults[]   = new StorageTestRecordSet();
-				$expectedQueries[] = array(sprintf($statement, $storage->_tablePrefix . $tableName), false);
+				$expectedQueries[] = array(
+					sprintf($statement, $storage->_tablePrefix . $tableName),
+					array(),
+				);
 			}
 		}
 		array_unshift($mockedResults, $tablesRecordSet);
