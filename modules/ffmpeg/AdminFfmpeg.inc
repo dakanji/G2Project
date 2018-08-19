@@ -31,7 +31,7 @@ class AdminFfmpegController extends GalleryController {
 	/**
 	 * @see GalleryController::handleRequest
 	 */
-	public function handleRequest(&$form) {
+	public function handleRequest($form) {
 		global $gallery;
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
