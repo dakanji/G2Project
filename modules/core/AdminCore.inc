@@ -193,9 +193,10 @@ class AdminCoreController extends GalleryController {
 		}
 
 		if (isset($form['action']['emailTest']) && empty($error)) {
+			$platform = $gallery->getPlatform();
 			$gallery->startRecordingDebugSnippet();
 			ob_start();
-			$ret    = GalleryPlatform::doStatic()->sendEmail(
+			$ret    = $platform->sendEmail(
 				'modules/core/templates/EmailTest.tpl',
 				array(),
 				null,

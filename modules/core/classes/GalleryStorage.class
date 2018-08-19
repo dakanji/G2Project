@@ -529,7 +529,7 @@ class GalleryStorage {
 	/**
 	 * Add a new entry to a map
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $entry an associative array of data about the entry
 	 * @param boolean $useNonTransactionalConnection (optional) set to true if we should use a new
 	 *                non transactional database connection for this operation.  Default is false.
@@ -544,7 +544,7 @@ class GalleryStorage {
 	/**
 	 * Remove entries from a map
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $entry an associative array of data about the entries to match
 	 * @return GalleryStatus a status code
 	 */
@@ -557,7 +557,7 @@ class GalleryStorage {
 	/**
 	 * Remove ALL entries from a map.  Use with caution!
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param bool $useNonTransactionalConnection (optional) set to true if we should do this
 	 *             operation outside of a transaction (which will let some databases use the
 	 *             TRUNCATE statement).
@@ -572,7 +572,7 @@ class GalleryStorage {
 	/**
 	 * Get entries in a map that match a criteria and return selected fields
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $select the columns to return
 	 * @param array $match the entries to match
 	 * @param array $optional optional arguments (eg. limit, orderBy)
@@ -677,7 +677,7 @@ class GalleryStorage {
 	/**
 	 * Update entries in a map
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $match the entries to match
 	 * @param array $change the values to change
 	 * @param boolean $useNonTransactionalConnection (optional) set to true if we should use a new
@@ -2013,7 +2013,7 @@ class MySqlStorage extends GalleryStorage {
 	 * @see GalleryStorage::getUniqueId
 	 */
 	public function getUniqueId($sequence = DATABASE_SEQUENCE_ID) {
-		// Make sure we're using a non-transactional connection to avoid duplicating sequence ids
+		// Make sure we are using a non-transactional connection to avoid duplicating sequence ids
 		$extras         =& $this->_getExtras();
 		list($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
 

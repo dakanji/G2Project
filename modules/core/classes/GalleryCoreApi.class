@@ -3621,7 +3621,8 @@ class GalleryCoreApi {
 	) {
 		global $gallery;
 
-		return GalleryPlatform::doStatic()->sendEmail(
+		$platform = $gallery->getPlatform();
+		return $platform->sendEmail(
 			$file,
 			$data,
 			$from,
@@ -3662,7 +3663,7 @@ class GalleryCoreApi {
 	/**
 	 * Update entries in a map
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $match the entries to match
 	 * @param array $change the values to change
 	 * @param boolean $useNonTransactionalConnection (optional) set to true if we should use a new
@@ -3694,7 +3695,7 @@ class GalleryCoreApi {
 	/**
 	 * Get entries in a map that match a criteria and return selected fields
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $select the columns to return
 	 * @param array $match the entries to match
 	 * @param array $optional optional arguments (eg. limit, orderBy)
@@ -3723,7 +3724,7 @@ class GalleryCoreApi {
 	/**
 	 * Remove entries from a map
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $data an associative array of data about the entries to match
 	 * @return GalleryStatus a status code
 	 */
@@ -3747,7 +3748,7 @@ class GalleryCoreApi {
 	/**
 	 * Add a new entry to a map
 	 *
-	 * @param string $mapName the map we're working on
+	 * @param string $mapName the map we are working on
 	 * @param array $data an associative array of the entry data
 	 * @param boolean $useNonTransactionalConnection (optional) set to true if we should use a new
 	 *                non transactional database connection for this operation.  Default is false.

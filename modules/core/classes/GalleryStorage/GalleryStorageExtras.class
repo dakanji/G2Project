@@ -339,7 +339,7 @@ class GalleryStorageExtras {
 			 * Iterate through the data table and make an UPDATE statement for
 			 * each table that requires one.  Make sure that we do the table
 			 * that has the serial number in it first, as we use the serial
-			 * number to make sure that we're not hitting a concurrency issue.
+			 * number to make sure that we are not hitting a concurrency issue.
 			 */
 			list($serialNumberTable) = $this->_gs->_translateTableName('GalleryEntity');
 
@@ -373,7 +373,7 @@ class GalleryStorageExtras {
 			}
 
 			/*
-			 * Now apply each UPDATE statement in turn.  Make sure that we're
+			 * Now apply each UPDATE statement in turn.  Make sure that we are
 			 * only affecting one row each time.
 			 */
 			foreach ($queryList as $queryAndData) {
@@ -531,7 +531,7 @@ class GalleryStorageExtras {
 	 * @see GalleryStorage::getUniqueId
 	 */
 	public function _getUniqueIdWithConnection($dbConn, $sequence) {
-		// In case we're embedded in an app that sets adodb hasGenID to false (xaraya/postnuke)
+		// In case we are embedded in an app that sets adodb hasGenID to false (xaraya/postnuke)
 		if (isset($dbConn->hasGenID) && !$dbConn->hasGenID) {
 			$dbConn->hasGenID = $setGenID = true;
 		}
@@ -1160,7 +1160,7 @@ class GalleryStorageExtras {
 	 * and inserts them into the map similar to the following:
 	 * INSERT INTO ... (PARM1, PARM2) VALUES (p1val1, p2val1), (p1val2, p2val2) ...
 	 *
-	 * @param array $mapInfo map we're working on
+	 * @param array $mapInfo map we are working on
 	 * @param string $tableName the translated table name
 	 * @param array $entry an associative array of data about the entry
 	 *              each data element is an array of values
@@ -2523,7 +2523,7 @@ class GalleryStorageExtras {
 		 * Some databases (notably MySQL on Win32) don't support mixed case
 		 * table names.  So, when we get the meta table list back, it's lower
 		 * case.  Force all metatable listings to lower case and then expect
-		 * them to be lowercase so that we're consistent.
+		 * them to be lowercase so that we are consistent.
 		 */
 		foreach ($metatables as $key => $tableName) {
 			$metatables[$key] = GalleryUtilities::strToLower($tableName);

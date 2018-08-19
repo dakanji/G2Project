@@ -230,7 +230,8 @@ class UserRecoverPasswordController extends GalleryController {
 						}
 
 						// Send the user email based on our confirmation template
-						$ret = GalleryPlatform::doStatic()->sendEmail(
+						$platform = $gallery->getPlatform();
+						$ret = $platform->sendEmail(
 							'modules/core/templates/UserRecoverPasswordEmail.tpl',
 							$tplData,
 							'',

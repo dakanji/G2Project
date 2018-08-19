@@ -58,6 +58,8 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailEmptyFromHeader() {
+		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.from', '');
 
 		if ($ret) {
@@ -74,7 +76,8 @@ class MailHelperTest extends GalleryTestCase {
 		);
 
 		// Test that the from header is empty
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -97,8 +100,11 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailFromAddressSetByFunctionInput() {
+		global $gallery;
+
 		// Test that the from header is retrieved from function input
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			'mailhelpertest1@test.com',
@@ -115,6 +121,8 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailFromAddressSetByCoreSmtpParameter() {
+		global $gallery;
+
 		// Test that the from header is retrieved from the core.smtp.from field
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
@@ -127,7 +135,8 @@ class MailHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -144,6 +153,8 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailFunctionInputOverridesCoreSmtpParameter() {
+		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
@@ -159,7 +170,8 @@ class MailHelperTest extends GalleryTestCase {
 		$from = 'mailhelpertest2@test.com';
 
 		// Test that the from header is preferred from the function over the core.smtp.from field
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			'mailhelpertest3_function_input@test.com',
@@ -179,12 +191,16 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailWithContentType() {
+		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.from', '');
 
 		if ($ret) {
 			return $ret;
 		}
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -205,7 +221,10 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailExtendedCharactersInSubject() {
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+		global $gallery;
+
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -222,6 +241,8 @@ class MailHelperTest extends GalleryTestCase {
 	}
 
 	public function testSendTemplatedEmailMultiRecipient() {
+		global $gallery;
+
 		$this->_emailData = array(
 			'to'      => 'mailhelpertest@test.com',
 			'subject' => 'MailHelperTest subject',
@@ -231,7 +252,8 @@ class MailHelperTest extends GalleryTestCase {
 
 		$multiTo = 'test1@example.com,test2@example.com,test3@example.com,test4@example.com';
 
-		$ret = GalleryPlatform::doStatic()->sendEmail(
+		$platform = $gallery->getPlatform();
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -329,5 +351,23 @@ class MailHelperDummyPlatform {
 
 	public function flock($handle, $operation, &$wouldblock) {
 		return $this->_platform->flock($handle, $operation, $wouldblock);
+	}
+
+	public function sendEmail(
+		$file,
+		$body,
+		$from,
+		$to,
+		$subject,
+		$headers = null
+	) {
+		return $this->_platform->sendEmail(
+			$file,
+			$body,
+			$from,
+			$to,
+			$subject,
+			$headers
+		);
 	}
 }
