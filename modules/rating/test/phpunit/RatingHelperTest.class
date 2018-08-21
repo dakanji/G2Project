@@ -257,8 +257,8 @@ class RatingHelperTest extends GalleryTestCase {
 		);
 		$this->assertTrue(
 			!strpos($RatingData[$this->_item->getId()]['averagePercent'], ','),
-			'Comma found in averagePercent: ' .
-			$RatingData[$this->_item->getId()]['averagePercent']
+			'Comma found in averagePercent: '
+			. $RatingData[$this->_item->getId()]['averagePercent']
 		);
 	}
 

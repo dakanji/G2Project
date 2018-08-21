@@ -148,7 +148,8 @@ class RatingAlbumTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('limit', '3.45');
 
-		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form = array());
+		$form = array();
+		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
 			return $ret;
@@ -178,7 +179,8 @@ class RatingAlbumTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('limit', '3');
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[2]->getId());
 
-		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form = array());
+		$form = array();
+		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
 			return $ret;
@@ -213,7 +215,9 @@ class RatingAlbumTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[1]->getId());
 
 		// ShowItem handling used to redirect to root album; now returns permission error
-		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form = array());
+
+		$form = array();
+		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
 			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'wrong error code');
@@ -229,7 +233,8 @@ class RatingAlbumTest extends GalleryTestCase {
 	public function testLimitTooLow() {
 		GalleryUtilities::putRequestVariable('limit', '1.5');
 
-		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form = array());
+		$form = array();
+		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
 			return $ret;
