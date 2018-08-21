@@ -39,7 +39,8 @@ class PicLensHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->setConfig('data.gallery.plugins_data', '/');
 	}
 

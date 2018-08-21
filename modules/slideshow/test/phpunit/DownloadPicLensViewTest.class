@@ -39,7 +39,8 @@ class DownloadPicLensViewTest extends GalleryImmediateViewTestCase {
 			return $ret;
 		}
 
-		$gallery->setPlatform(new UnitTestPlatform());
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->setConfig('data.gallery.plugins_data', '/');
 		$gallery->setConfig('apacheSetenvBroken', 0);
