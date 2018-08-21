@@ -61,7 +61,7 @@ class ShowAllCommentsView extends GalleryView {
 			$page = 1;
 		}
 
-		list($ret, $comments, $count) = GalleryCommentHelper::fetchAllComments(
+		list($ret, $comments, $count) = GalleryCommentHelper::doStatic()->fetchAllComments(
 			$item->getId(),
 			$showCount,
 			($page - 1) * $showCount,

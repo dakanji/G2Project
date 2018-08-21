@@ -82,7 +82,8 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 			COMMENT_PUBLISH_STATUS_SPAM,
 		) as $publishStatus) {
 			$comments[$publishStatus] = new GalleryComment();
-			$ret                      = $comments[$publishStatus]->create($this->_album->getId());
+
+			$ret = $comments[$publishStatus]->create($this->_album->getId());
 
 			if ($ret) {
 				return $ret;
@@ -123,7 +124,7 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 			switch ($publishStatus) {
 				case COMMENT_PUBLISH_STATUS_UNPUBLISHED:
 				case COMMENT_PUBLISH_STATUS_PUBLISHED:
-					$this->assertEquals(null, $ret);
+					$this->assertEquals(null, $ret, 'Deleted Non Spam Comment');
 
 					break;
 

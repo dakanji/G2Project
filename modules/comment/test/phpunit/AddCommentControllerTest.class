@@ -115,7 +115,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Grab the comment and take a look at it
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -265,7 +265,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Grab the comment and take a look at it
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -372,7 +372,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Verify that there are no comments
-		list($ret, $counts) = GalleryCommentHelper::fetchCommentCounts(array($this->_item->getId()));
+		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -403,7 +403,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Verify that there are no comments
-		list($ret, $counts) = GalleryCommentHelper::fetchCommentCounts(array($this->_item->getId()));
+		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -475,7 +475,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Grab the comment and take a look at it
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -579,7 +579,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Grab the comment and take a look at it
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -748,7 +748,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Grab the comment and take a look at it
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -793,7 +793,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 		$this->assertEquals(null, $results, 'controller results');
 
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -807,7 +807,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
  */
 class CommentTestPhpVm {
 	public function time() {
-		list($ret, $commentTime) = GalleryCommentHelper::getLatestCommentTime(
+		list($ret, $commentTime) = GalleryCommentHelper::doStatic()->getLatestCommentTime(
 			GalleryUtilities::getRemoteHostAddress()
 		);
 

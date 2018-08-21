@@ -95,52 +95,59 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 		$countQuery = '
-	SELECT
-	  COUNT([GalleryChildEntity::id])
-	FROM
-	  [GalleryChildEntity], [GalleryComment], [GalleryAccessSubscriberMap]
-	WHERE
-	  [GalleryChildEntity::id] = [GalleryComment::id]
-	  AND
-	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
-	  AND
-	  ([GalleryComment::subject] LIKE ?
-	   OR
-	   [GalleryComment::comment] LIKE ?)
-          AND
-          [GalleryComment::publishStatus] = ?
-	';
+		SELECT
+			COUNT([GalleryChildEntity::id])
+		FROM
+			[GalleryChildEntity],
+			[GalleryComment],
+			[GalleryAccessSubscriberMap]
+		WHERE
+			[GalleryChildEntity::id] = [GalleryComment::id]
+			AND
+				[GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
+			AND
+				[GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+			AND
+				([GalleryComment::subject] LIKE ?
+				OR
+					[GalleryComment::comment] LIKE ?)
+			AND
+			[GalleryComment::publishStatus] = ?
+		';
 
 		$query = '
-	SELECT
-	  [GalleryChildEntity::id],
-	  [GalleryComment::subject],
-	  [GalleryComment::comment],
-	  [GalleryComment::date],
-	  [GalleryUser::fullName],
-	  [GalleryUser::userName],
-	  [GalleryChildEntity::parentId],
-	  [GalleryComment::author]
-	FROM
-	  [GalleryChildEntity], [GalleryComment], [GalleryAccessSubscriberMap], [GalleryUser]
-	WHERE
-	  [GalleryChildEntity::id] = [GalleryComment::id]
-	  AND
-	  [GalleryUser::id] = [GalleryComment::commenterId]
-	  AND
-	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
-	  AND
-	  ([GalleryComment::subject] LIKE ?
-	   OR
-	   [GalleryComment::comment] LIKE ?)
-          AND
-          [GalleryComment::publishStatus] = ?
-	ORDER BY
-	  [GalleryComment::date] DESC, [GalleryChildEntity::id] DESC';
+		SELECT
+			[GalleryChildEntity::id],
+			[GalleryComment::subject],
+			[GalleryComment::comment],
+			[GalleryComment::date],
+			[GalleryUser::fullName],
+			[GalleryUser::userName],
+			[GalleryChildEntity::parentId],
+			[GalleryComment::author]
+		FROM
+			[GalleryChildEntity],
+			[GalleryComment],
+			[GalleryAccessSubscriberMap],
+			[GalleryUser]
+		WHERE
+			[GalleryChildEntity::id] = [GalleryComment::id]
+			AND
+				[GalleryUser::id] = [GalleryComment::commenterId]
+			AND
+				[GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
+			AND
+				[GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+			AND
+				([GalleryComment::subject] LIKE ?
+				OR
+					[GalleryComment::comment] LIKE ?)
+			AND
+				[GalleryComment::publishStatus] = ?
+		ORDER BY
+			[GalleryComment::date] DESC,
+			[GalleryChildEntity::id] DESC
+		';
 
 		$data   = $aclIds;
 		$data[] = '%' . $criteria . '%';

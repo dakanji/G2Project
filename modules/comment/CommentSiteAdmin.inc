@@ -174,7 +174,7 @@ class CommentSiteAdminController extends GalleryController {
 		 * Disable the Akismet GalleryEntity::save listener so that if Akismet reports a message
 		 * as spam and we change its publish status, we don't report it back to Akismet.
 		 */
-		GalleryCommentHelper::setAkismetSaveListenerSwitch(false);
+		GalleryCommentHelper::doStatic()->setAkismetSaveListenerSwitch(false);
 
 		$checkingCommentMessage = $module->translate('Checking all comments with Akismet');
 		$checkedCount           = 0;
@@ -184,7 +184,7 @@ class CommentSiteAdminController extends GalleryController {
 		while (true) {
 			$batchSize = 100;
 			/** @todo Should we include UNPUBLISHED comments here as well? */
-			list($ret, $comments, $total) = GalleryCommentHelper::fetchAllComments(
+			list($ret, $comments, $total) = GalleryCommentHelper::doStatic()->fetchAllComments(
 				$rootId,
 				$batchSize,
 				$checkedCount,
@@ -256,7 +256,7 @@ class CommentSiteAdminController extends GalleryController {
 
 		$templateAdapter->updateProgressBar($module->translate('Done checking comments'), '', 1);
 
-		GalleryCommentHelper::setAkismetSaveListenerSwitch(true);
+		GalleryCommentHelper::doStatic()->setAkismetSaveListenerSwitch(true);
 
 		$status['checked'] = array(
 			'total'     => $total,

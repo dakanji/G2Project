@@ -33,6 +33,7 @@ class CommentTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -66,7 +67,10 @@ class CommentTest extends GalleryTestCase {
 
 		// Create 5 comments.  The 4th one is unpublished, the 5th is spam.
 		for ($i = 0; $i < 5; $i++) {
-			list($ret, $this->_comment[$i]) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
+			list($ret, $this->_comment[$i]) = GalleryCoreApi::newFactoryInstance(
+				'GalleryEntity',
+				'GalleryComment'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -95,20 +99,29 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testFetchComments() {
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId(), 2, ORDER_ASCENDING);
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments(
+			$this->_item->getId(),
+			2,
+			ORDER_ASCENDING
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			$this->_comment[0],
-			$this->_comment[1],
-		), $comments);
+		$this->assertEquals(
+			array(
+				$this->_comment[0],
+				$this->_comment[1],
+			),
+			$comments
+		);
 	}
 
 	public function testFetchCommentCounts() {
-		list($ret, $counts) = GalleryCommentHelper::fetchCommentCounts(array($this->_item->getId()));
+		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(
+			array($this->_item->getId())
+		);
 
 		if ($ret) {
 			return $ret;
@@ -138,7 +151,11 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.everybodyGroup'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -153,7 +170,10 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $comment) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
+		list($ret, $comment) = GalleryCoreApi::newFactoryInstance(
+			'GalleryEntity',
+			'GalleryComment'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -170,7 +190,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments(
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments(
 			$this->_album->getId(),
 			3,
 			null,
@@ -184,7 +204,9 @@ class CommentTest extends GalleryTestCase {
 
 		$this->_becomeGuestUser();
 
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments($this->_album->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments(
+			$this->_album->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -195,7 +217,7 @@ class CommentTest extends GalleryTestCase {
 			'guest'
 		);
 
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments(
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments(
 			$this->_album->getId(),
 			5,
 			null,
@@ -218,7 +240,12 @@ class CommentTest extends GalleryTestCase {
 			'all publish status types'
 		);
 
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments($this->_album->getId(), 2, 2, ORDER_DESCENDING);
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments(
+			$this->_album->getId(),
+			2,
+			2,
+			ORDER_DESCENDING
+		);
 
 		if ($ret) {
 			return $ret;
@@ -227,7 +254,7 @@ class CommentTest extends GalleryTestCase {
 
 		// This multiroot setting used to break query
 		$gallery->setConfig('breadcrumbRootId', $this->_album->getId());
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments($this->_album->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments($this->_album->getId());
 
 		if ($ret) {
 			return $ret;
@@ -338,7 +365,10 @@ class CommentTest extends GalleryTestCase {
 
 		// Create a few comments
 		for ($i = 0; $i < 3; $i++) {
-			list($ret, $myComment[$i]) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
+			list($ret, $myComment[$i]) = GalleryCoreApi::newFactoryInstance(
+				'GalleryEntity',
+				'GalleryComment'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -358,7 +388,7 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		// Assert that everything is as expected before executing the test
-		list($ret, $comments) = GalleryCommentHelper::fetchComments(
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments(
 			$this->_item->getId(),
 			null,
 			ORDER_ASCENDING,
@@ -410,7 +440,9 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		// Verify that all comments by this user are gone
-		list($ret, $comments) = GalleryCommentHelper::fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments(
+			$this->_item->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -427,7 +459,7 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testFetchCommentsWithPublishStatus() {
-		list($ret, $comments) = GalleryCommentHelper::fetchComments(
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments(
 			$this->_item->getId(),
 			2,
 			ORDER_ASCENDING,
@@ -442,7 +474,7 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testFetchAllCommentsWithPublishStatus() {
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments(
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments(
 			$this->_album->getId(),
 			3,
 			null,
@@ -457,7 +489,7 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testFetchAllCommentsWithPublishStatuses() {
-		list($ret, $comments) = GalleryCommentHelper::fetchAllComments(
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchAllComments(
 			$this->_item->getId(),
 			null,
 			null,
@@ -487,7 +519,10 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $comment) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
+		list($ret, $comment) = GalleryCoreApi::newFactoryInstance(
+			'GalleryEntity',
+			'GalleryComment'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -522,7 +557,10 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $comment) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
+		list($ret, $comment) = GalleryCoreApi::newFactoryInstance(
+			'GalleryEntity',
+			'GalleryComment'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -543,7 +581,12 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testSaveCommentChecksWithAkismetWhenAkismetActive() {
-		list($ret, $akismetActive) = GalleryCoreApi::setPluginParameter('module', 'comment', 'akismet.active', 1);
+		list($ret, $akismetActive) = GalleryCoreApi::setPluginParameter(
+			'module',
+			'comment',
+			'akismet.active',
+			1
+		);
 
 		if ($ret) {
 			return $ret;
@@ -552,14 +595,23 @@ class CommentTest extends GalleryTestCase {
 		$helper = new CommentTest_GalleryCommentHelper_MockCheckWithAkismet();
 		$event  = new GalleryEvent();
 		$event->setEventName('GalleryEntity::save');
-		$event->setEntity(new GalleryComment());
+		$GalleryComment = new GalleryComment();
+		$event->setEntity($GalleryComment);
 		$helper->handleEvent($event);
 
-		$this->assertTrue($helper->wasCalled('checkWithAkismet'));
+		$this->assertTrue(
+			$helper->wasCalled('checkWithAkismet'), '
+			SaveCommentChecksWithAkismetWhenAkismetActiveCalledAkismet'
+		);
 	}
 
 	public function testSaveCommentDoesntCheckWithAkismetWhenAkismetIsInactive() {
-		list($ret, $akismetActive) = GalleryCoreApi::setPluginParameter('module', 'comment', 'akismet.active', 0);
+		list($ret, $akismetActive) = GalleryCoreApi::setPluginParameter(
+			'module',
+			'comment',
+			'akismet.active',
+			0
+		);
 
 		if ($ret) {
 			return $ret;
@@ -568,10 +620,11 @@ class CommentTest extends GalleryTestCase {
 		$helper = new CommentTest_GalleryCommentHelper_MockCheckWithAkismet();
 		$event  = new GalleryEvent();
 		$event->setEventName('GalleryEntity::save');
-		$event->setEntity(new GalleryComment());
+		$GalleryComment = new GalleryComment();
+		$event->setEntity($GalleryComment);
 		$helper->handleEvent($event);
 
-		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'));
+		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'), 'Called Akismet');
 	}
 
 	public function testSaveCommentDoesntCheckWithAkismetWhenListenerIsDisabled() {
@@ -581,17 +634,18 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		GalleryCommentHelper::setAkismetSaveListenerSwitch(false);
+		GalleryCommentHelper::doStatic()->setAkismetSaveListenerSwitch(false);
 
 		$helper = new CommentTest_GalleryCommentHelper_MockCheckWithAkismet();
 		$event  = new GalleryEvent();
 		$event->setEventName('GalleryEntity::save');
-		$event->setEntity(new GalleryComment());
+		$GalleryComment = new GalleryComment();
+		$event->setEntity($GalleryComment);
 		$helper->handleEvent($event);
 
 		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'));
 
-		GalleryCommentHelper::setAkismetSaveListenerSwitch(true);
+		GalleryCommentHelper::doStatic()->setAkismetSaveListenerSwitch(true);
 	}
 
 	public function testCheckWithAkismet_NewSpamComment() {
@@ -600,7 +654,7 @@ class CommentTest extends GalleryTestCase {
 		$comment->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('checkComment', array(null, true));
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -616,7 +670,7 @@ class CommentTest extends GalleryTestCase {
 		$comment->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('checkComment', array(GalleryCoreApi::error(ERROR_UNKNOWN), false));
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -632,7 +686,7 @@ class CommentTest extends GalleryTestCase {
 		$comment->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('checkComment', array(null, false));
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -644,11 +698,13 @@ class CommentTest extends GalleryTestCase {
 
 	public function testCheckWithAkismet_MarkedAsSpam() {
 		$comment = new GalleryComment();
+
 		$comment->_persistentStatus['originalValue']['publishStatus'] = COMMENT_PUBLISH_STATUS_PUBLISHED;
+
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_SPAM);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('submitSpam', null);
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -663,7 +719,7 @@ class CommentTest extends GalleryTestCase {
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('submitHam', null);
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -678,7 +734,7 @@ class CommentTest extends GalleryTestCase {
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('submitHam', GalleryCoreApi::error(ERROR_UNKNOWN));
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -693,7 +749,7 @@ class CommentTest extends GalleryTestCase {
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_SPAM);
 		$akismet = new CommentTest_MockAkismetApi();
 		$akismet->setReturnFor('submitSpam', GalleryCoreApi::error(ERROR_UNKNOWN));
-		$ret = GalleryCommentHelper::checkWithAkismet($comment, $akismet);
+		$ret = GalleryCommentHelper::doStatic()->checkWithAkismet($comment, $akismet);
 
 		if ($ret) {
 			return $ret;
@@ -703,14 +759,18 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testGetLatestCommentTime() {
-		list($ret, $commentTime) = GalleryCommentHelper::getLatestCommentTime('301.302.303.304');
+		list($ret, $commentTime) = GalleryCommentHelper::doStatic()->getLatestCommentTime(
+			'301.302.303.304'
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 		$this->assertEquals(0, $commentTime, 'No comments');
 
-		list($ret, $commentTime) = GalleryCommentHelper::getLatestCommentTime('127.0.0.1');
+		list($ret, $commentTime) = GalleryCommentHelper::doStatic()->getLatestCommentTime(
+			'127.0.0.1'
+		);
 
 		if ($ret) {
 			return $ret;

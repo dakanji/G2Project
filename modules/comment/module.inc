@@ -373,7 +373,7 @@ class CommentModule extends GalleryModule {
 		}
 
 		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-		list($ret, $commentCounts) = GalleryCommentHelper::fetchCommentCounts($ids);
+		list($ret, $commentCounts) = GalleryCommentHelper::doStatic()->fetchCommentCounts($ids);
 
 		if ($ret) {
 			return array($ret, null);
