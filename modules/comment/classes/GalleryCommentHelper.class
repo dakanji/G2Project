@@ -659,7 +659,7 @@ class GalleryCommentHelper {
 		} else {
 			$oldStatus = $comment->getOriginalValue('publishStatus');
 
-			if ($oldStatus && $comment->isModified('publishStatus')) {
+			if ($comment->isModified('publishStatus')) {
 				if ($oldStatus == COMMENT_PUBLISH_STATUS_SPAM) {
 					$ret = $akismet->submitHam($comment);
 

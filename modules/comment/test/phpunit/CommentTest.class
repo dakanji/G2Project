@@ -710,7 +710,7 @@ class CommentTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue($akismet->wasCalled('submitSpam'));
+		$this->assertTrue($akismet->wasCalled('submitSpam'), 'Submit Spam was Called');
 	}
 
 	public function testCheckWithAkismet_MarkedAsHam() {
