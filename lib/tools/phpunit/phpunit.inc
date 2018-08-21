@@ -976,8 +976,7 @@ class TestCase extends Assert {
 
 // implements Test
 class TestSuite {
-	/* Compose a set of Tests (instances of TestCase or TestSuite), and
-	run them all. */
+	// Compose a set of Tests (instances of TestCase or TestSuite) and run them all.
 	public $fTests = array();
 	public $fClassname;
 	public $fModuleId;
@@ -986,29 +985,13 @@ class TestSuite {
 		// Find all methods of the given class whose name starts with
 		// "test" and add them to the test suite.
 
-		// PHP3: We are just _barely_ able to do this with PHP's limited
-		// introspection...  Note that PHP seems to store method names in
-		// lower case, and we have to avoid the constructor function for
-		// the TestCase class superclass.  Names of subclasses of TestCase
-		// must not start with "Test" since such a class will have a
-		// constructor method name also starting with "test" and we can't
-		// distinquish such a construtor from the real test method names.
-		// So don't name any TestCase subclasses as "Test..."!
-
-		// PHP4:  Never mind all that.  We can now ignore constructor
-		// methods, so a test class may be named "Test...".
-
 		if (empty($classname)) {
 			return;
 		}
 		$this->fClassname = $classname;
 		$this->fModuleId  = $moduleid;
 		$this->fFilter    = $filter;
-
-
-		// PHP4 ONLY - introspection, submitted by Dylan Kuhn
-
-		$names = get_class_methods($classname);
+		$names            = get_class_methods($classname);
 
 		foreach ($names as $key => $method) {
 			if (preg_match('/^test/', $method)) {
@@ -1016,21 +999,26 @@ class TestSuite {
 
 				if (strcasecmp($method, $classname) == 0 || is_subclass_of($test, $method)) {
 					// Ignore the given method name since it is a constructor:
-					// it's the name of our test class or it is the name of a
-					// superclass of our test class.  (This code smells funny.
-					// Anyone got a better way?)
+					//   it is the name of our test class
+					//   or the name of a superclass of our test class.
+					// (This code smells funny. Anyone got a better way?)
 
-					//print "skipping $method<br>";
 				} else {
-					if (substr($this->fFilter, 0, 2) == '!(' & substr($this->fFilter, -1, 1) == ')') {
+					if (substr($this->fFilter, 0, 2) == '!('
+						& substr($this->fFilter, -1, 1) == ')'
+					) {
 						$newFilter = substr($this->fFilter, 1);
 
-						if (!isset($this->fFilter) || !preg_match("/{$newFilter}/i", "$moduleid.$classname.$method")) {
+						if (!isset($this->fFilter)
+							|| !preg_match("/{$newFilter}/i", "$moduleid.$classname.$method")
+						) {
 							$test->setModuleId($this->fModuleId);
 							$this->addTest($test);
 						}
 					} else {
-						if (!isset($this->fFilter) || preg_match("/{$this->fFilter}/i", "$moduleid.$classname.$method")) {
+						if (!isset($this->fFilter)
+							|| preg_match("/{$this->fFilter}/i", "$moduleid.$classname.$method")
+						) {
 							$test->setModuleId($this->fModuleId);
 							$this->addTest($test);
 						}
