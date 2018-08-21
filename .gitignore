@@ -12,25 +12,21 @@ Thumbs.db
 ##############
 **/.svn
 
-# Git README #
-##############
-README.mediawiki
-
 # style guide #
 ##############
 .php_cs.cache
 wpcs
 
-# misc #
+# installed G2 #
 ##############
 g2data
 config.php
+.htaccess
+authFile.txt
+login.txt
 
-# IDE Stuff #
+# IDE stuff #
 ##############
 .idea
 build
-
 attic
-composer.*
-vendor
