@@ -58,7 +58,6 @@ class GalleryDynamicAlbum extends GalleryItem {
 				__LINE__,
 				'Missing title parameter'
 			);
-
 		}
 
 		$this->setId(null);

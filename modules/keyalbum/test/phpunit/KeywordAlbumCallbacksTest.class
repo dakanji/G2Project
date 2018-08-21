@@ -631,6 +631,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
 
 		$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
+
 		foreach (array(
 			''                    => array(),
 			'test'                => array(

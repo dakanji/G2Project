@@ -3622,6 +3622,7 @@ class GalleryCoreApi {
 		global $gallery;
 
 		$platform = $gallery->getPlatform();
+
 		return $platform->sendEmail(
 			$file,
 			$data,

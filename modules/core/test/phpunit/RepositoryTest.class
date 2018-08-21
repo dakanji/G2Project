@@ -1376,14 +1376,16 @@ class RepositoryTest extends GalleryTestCase {
 		$installedCoreVersion = $core->getVersion();
 
 		// Assign arbitrary repository API versions.
-		$repositoryModuleApiVersion  = '1.2';
-		$repositoryThemeApiVersion   = '3.4';
-		$repositoryCoreApiVersion    = '5.6';
+		$repositoryModuleApiVersion = '1.2';
+		$repositoryThemeApiVersion  = '3.4';
+		$repositoryCoreApiVersion   = '5.6';
 
 		// Temp shorten $this->_index->_index['modules']['core']['header'] for readability
 		// First need to add ['core']['header'] to $this->_index->_index['modules']
 		$this->_index->_index['modules']['core']           = array();
 		$this->_index->_index['modules']['core']['header'] = array();
+
+		// Shorten now
 		$rHeaderC = $this->_index->_index['modules']['core']['header'];
 
 		$rHeaderC['themeApiVersion']  = explode('.', $repositoryThemeApiVersion);

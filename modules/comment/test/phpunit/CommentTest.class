@@ -600,8 +600,8 @@ class CommentTest extends GalleryTestCase {
 		$helper->handleEvent($event);
 
 		$this->assertTrue(
-			$helper->wasCalled('checkWithAkismet'), '
-			SaveCommentChecksWithAkismetWhenAkismetActiveCalledAkismet'
+			$helper->wasCalled('checkWithAkismet'),
+			'SaveCommentChecksWithAkismetWhenAkismetActiveCalledAkismet'
 		);
 	}
 

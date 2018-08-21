@@ -653,8 +653,9 @@ class RewriteHelperTest extends GalleryTestCase {
 			'pattern' => 'phpunit2',
 		);
 		$expectedActiveRules                 = $activeRules;
-		$expectedShortUrls                   = array();
-		$expectedShortUrls[]                 = array(
+
+		$expectedShortUrls   = array();
+		$expectedShortUrls[] = array(
 			'match'     => array(
 				'view' => 'php.Unit',
 			),
@@ -664,15 +665,16 @@ class RewriteHelperTest extends GalleryTestCase {
 			),
 			'onLoad'    => array('bogus', 'BogusFile', 'BogusFunction2'),
 		);
-		$expectedShortUrls[]                 = array(
+		$expectedShortUrls[] = array(
 			'match'   => array(
 				'view' => 'php.Unit',
 			),
 			'pattern' => 'phpunit2',
 		);
-		$expectedRegexRules                  = array();
-		$expectedRegexRules[]                = array(
-			'pattern'     => 'phpunit2',
+
+		$expectedRegexRules   = array();
+		$expectedRegexRules[] = array(
+			'pattern'     => 'phpunit1',
 			'keywords'    => array(null),
 			'queryString' => array(
 				'view' => 'php.Unit',
@@ -680,8 +682,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-		$expectedRegexRules[]                = array(
-			'pattern'     => 'phpunit1',
+		$expectedRegexRules[] = array(
+			'pattern'     => 'phpunit2',
 			'keywords'    => array(null),
 			'queryString' => array(
 				'view' => 'php.Unit',

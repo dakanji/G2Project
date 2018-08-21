@@ -144,7 +144,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('keyword', 'test&key');
 
-		$form = array();
+		$form               = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
@@ -172,7 +172,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		// Query for items with both testkey and fun keywords
 		GalleryUtilities::putRequestVariable('keyword', 'test&key,fun');
 
-		$form = array();
+		$form               = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
@@ -202,7 +202,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('keyword', 'testkey');
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
-		$form = array();
+		$form               = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
@@ -242,7 +242,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('keyword', 'testkey');
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
-		$form = array();
+		$form               = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {

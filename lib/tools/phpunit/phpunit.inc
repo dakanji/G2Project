@@ -1002,10 +1002,8 @@ class TestSuite {
 					//   it is the name of our test class
 					//   or the name of a superclass of our test class.
 					// (This code smells funny. Anyone got a better way?)
-
 				} else {
-					if (substr($this->fFilter, 0, 2) == '!('
-						& substr($this->fFilter, -1, 1) == ')'
+					if (substr($this->fFilter, 0, 2) == '!(' & substr($this->fFilter, -1, 1) == ')'
 					) {
 						$newFilter = substr($this->fFilter, 1);
 

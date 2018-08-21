@@ -24,11 +24,17 @@ if (!defined('_ADODB_ACCESS')) {
 	define('_ADODB_ACCESS', 1);
 
 	class ADODB_access extends ADODB_odbc {
-		public $databaseType    = 'access';
-		public $hasTop          = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
-		public $fmtDate         = '#Y-m-d#';
-		public $fmtTimeStamp    = '#Y-m-d h:i:sA#'; // note not comma
-		public $_bindInputArray = false; // strangely enough, setting to true does not work reliably
+		public $databaseType = 'access';
+
+		// support mssql SELECT TOP 10 * FROM TABLE
+		public $hasTop  = 'top';
+		public $fmtDate = '#Y-m-d#';
+
+		// note not comma
+		public $fmtTimeStamp = '#Y-m-d h:i:sA#';
+
+		// strangely enough, setting to true does not work reliably
+		public $_bindInputArray = false;
 		public $sysDate         = "FORMAT(NOW,'yyyy-mm-dd')";
 		public $sysTimeStamp    = 'NOW';
 		public $hasTransactions = false;
@@ -50,34 +56,10 @@ if (!defined('_ADODB_ACCESS')) {
 		}
 
 		public function IfNull($field, $ifNull) {
-			return " IIF(IsNull($field), $ifNull, $field) "; // if Access
+			// if Access
+			return " IIF(IsNull($field), $ifNull, $field) ";
 		}
-
-		/*
-		 * function MetaTables() {
-		 * global $ADODB_FETCH_MODE;
-		 *
-		 * $savem = $ADODB_FETCH_MODE;
-		 * $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		 * $qid = odbc_tables($this->_connectionID);
-		 * $rs = new ADORecordSet_odbc($qid);
-		 * $ADODB_FETCH_MODE = $savem;
-		 * if (!$rs) return false;
-		 *
-		 * $rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
-		 *
-		 * $arr = $rs->GetArray();
-		 * //print_pre($arr);
-		 * $arr2 = array();
-		 * for ($i=0; $i < sizeof($arr); $i++) {
-		 * 	if ($arr[$i][2] && $arr[$i][3] != 'SYSTEM TABLE')
-		 * 		$arr2[] = $arr[$i][2];
-		 * }
-		 * return $arr2;
-		 * }
-		 */
 	}
-
 
 	class ADORecordSet_access extends ADORecordSet_odbc {
 		public $databaseType = 'access';
@@ -85,5 +67,5 @@ if (!defined('_ADODB_ACCESS')) {
 		public function __construct($id, $mode = false) {
 			return parent::__construct($id, $mode);
 		}
-	}// class
+	}
 }

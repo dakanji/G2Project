@@ -154,15 +154,18 @@ class UserRecoverPasswordController extends GalleryController {
 					 * Do not update the auth string.
 					 * We will silently fail to thwart phishing attempts.
 					 */
-					// Create a special Flag for UnitTests
+					// Create a special flag for UnitTests
 					$unitTest = 0;
-					if (isset($form['unitTest'])) {
+
+					if (isset($form['unitTest'])
+						&& (strpos($form['userName'], 'testuser-') !== false)
+					) {
 						$unitTest = $form['unitTest'];
 					}
 
 					if (!empty($lastRequest)) {
 						if (($lastRequest - (7 * 24 * 60 * 60) + (20 * 60)) < time()) {
-							$ret = GalleryCoreApi::updateMapEntry(
+							$ret             = GalleryCoreApi::updateMapEntry(
 								'GalleryRecoverPasswordMap',
 								array(
 									'userName' => $user->getUserName(),
@@ -238,23 +241,23 @@ class UserRecoverPasswordController extends GalleryController {
 
 						if ($unitTest == 1) {
 							$mailData = array(
-					 			'to'      => $user->getEmail(),
-					 			'subject' => $module->translate('Password Recovery'),
-					 			'body'    => $tplData,
-					 			'headers' => null,
-					 		);
-					 		$mailData = serialize($mailData);
+								'to'      => $user->getEmail(),
+								'subject' => $module->translate('Password Recovery'),
+								'body'    => $tplData,
+								'headers' => null,
+							);
+							$mailData = serialize($mailData);
 
-					 		$session =& $gallery->getSession();
-					 		$session->put(
+							$session =& $gallery->getSession();
+							$session->put(
 								'RecoverDummyPlatform.mail',
 								$mailData
 							);
 						} else {
 							// Send the user email based on our confirmation template
 							$platform = $gallery->getPlatform();
-							$ret = $platform->sendEmail(
-							'	modules/core/templates/UserRecoverPasswordEmail.tpl',
+							$ret      = $platform->sendEmail(
+								'modules/core/templates/UserRecoverPasswordEmail.tpl',
 								$tplData,
 								'',
 								$user->getEmail(),

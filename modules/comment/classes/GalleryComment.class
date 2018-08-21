@@ -240,12 +240,4 @@ class GalleryComment extends GalleryChildEntity {
 	public function getPublishStatus() {
 		return $this->publishStatus;
 	}
-/*
-	public function isModified($member = null) {
-		if (isset($this->$member)) {
-			return GalleryPersistent::isModified($member);
-		}
-		return false;
-	}
-*/
 }
