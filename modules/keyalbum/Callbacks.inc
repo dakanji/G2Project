@@ -27,16 +27,22 @@ class KeyAlbumCallbacks {
 	public function callback($params, &$smarty, $callback, $userId) {
 		switch ($callback) {
 			case 'LoadKeywords':
-				$onlyPublic              = (bool)$params['onlyPublic'];
-				$sizeLimit               = (int)$params['sizeLimit'];
-				$param                   = 'allKeywords' . ($onlyPublic ? '.public' : '')
+				$onlyPublic = (bool)$params['onlyPublic'];
+				$sizeLimit  = (int)$params['sizeLimit'];
+				$param      = 'allKeywords' . ($onlyPublic ? '.public' : '')
 				. ($sizeLimit ? '.' . $sizeLimit : '');
+
 				$includeFrequency        = (bool)$params['includeFrequency'];
-				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param . '.time');
+				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'keyalbum',
+					$param . '.time'
+				);
 
 				if ($ret) {
 					return $ret;
 				}
+
 				// Cache keyword list for one day
 				if (time() - $lastUpdated > 3600 * 24) {
 					$ret = KeyAlbumCallbacks::_findAllKeywords(
@@ -51,14 +57,23 @@ class KeyAlbumCallbacks {
 						return $ret;
 					}
 				}
-				list($ret, $keywords) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param);
+				list($ret, $keywords) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'keyalbum',
+					$param
+				);
 
 				if ($ret) {
 					return $ret;
 				}
 
-				$block                         =& $smarty->_tpl_vars['block'];
-				$block['keyalbum']['keywords'] = !empty($keywords) ? unserialize($keywords) : array();
+				$block =& $smarty->_tpl_vars['block'];
+
+				if (empty($keywords)) {
+					$block['keyalbum']['keywords'] = array();
+				} else {
+					$block['keyalbum']['keywords'] = unserialize($keywords);
+				}
 
 				return null;
 
@@ -74,8 +89,12 @@ class KeyAlbumCallbacks {
 					return $ret;
 				}
 
-				$block                         =& $smarty->_tpl_vars['block'];
-				$block['keyalbum']['keywords'] = $module->splitKeywords($params['keywords'], $split);
+				$block =& $smarty->_tpl_vars['block'];
+
+				$block['keyalbum']['keywords'] = $module->splitKeywords(
+					$params['keywords'],
+					$split
+				);
 
 				return null;
 		}
@@ -172,8 +191,8 @@ class KeyAlbumCallbacks {
 			uasort(
 				$keywords,
 				function ($a, $b) {
-					$c = $a[count];
-					$d = $b[count];
+					$c = $a['count'];
+					$d = $b['count'];
 
 					return $c > $d ? -1 : ($c == $d ? 0 : 1);
 				}

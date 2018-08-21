@@ -407,11 +407,13 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$aclCacheKey                                   = "GalleryPermissionHelper::fetchAccessListIds(core.view,$guestId,1)";
-		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
-		$block                                         =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 
-		$queries           = array(
+		$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view,$guestId,1)";
+
+		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
+
+		$block   =& $this->_smarty->_tpl_vars['block']['keyalbum'];
+		$queries = array(
 			array(
 				'/SELECT DISTINCT\s+\[GalleryItem::keywords\]\s+FROM\s+\[GalleryItem\]\s*$/',
 				array(
@@ -444,16 +446,20 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			),
 			array(
 				'/SELECT DISTINCT\s+\[GalleryItem::keywords\]\s+FROM\s+\[GalleryItem\]\s+'
-						  . 'INNER JOIN \[GalleryAccessSubscriberMap.*IN \(\?,\?\)\s*$/s',
+				. 'INNER JOIN \[GalleryAccessSubscriberMap.*IN \(\?,\?\)\s*$/s',
 				array(array('one, two'), array('three two')),
 			),
 			array(
 				'/SELECT DISTINCT\s+\[GalleryItem::keywords\]\s+FROM\s+\[GalleryItem\]\s+'
-						  . 'WHERE \[GalleryItem::id\] IS NULL\s*$/',
+				. 'WHERE \[GalleryItem::id\] IS NULL\s*$/',
 				array(),
 			),
 		);
-		$gallery->_storage = new KeywordAlbumCallbacksTestStorage($gallery->_storage, $queries);
+
+		$gallery->_storage = new KeywordAlbumCallbacksTestStorage(
+			$gallery->_storage,
+			$queries
+		);
 
 		$expected = array(
 			array(
@@ -610,16 +616,21 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assertEquals(array(
-				'keywords' => $expected[$i],
-			), $block, "output $i");
+
+			$this->assertEquals(
+				array(
+					'keywords' => $expected[$i],
+				),
+				$block,
+				"output $i"
+			);
 		}
 	}
 
 	public function testSplitKeywords() {
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
-		$block                                         =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 
+		$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 		foreach (array(
 			''                    => array(),
 			'test'                => array(
@@ -652,9 +663,13 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assertEquals(array(
-				'keywords' => $split,
-			), $block, $keywords);
+			$this->assertEquals(
+				array(
+					'keywords' => $split,
+				),
+				$block,
+				$keywords
+			);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', 'split', ',;');
@@ -694,9 +709,13 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assertEquals(array(
-				'keywords' => $split,
-			), $block, "phase 2: $keywords");
+			$this->assertEquals(
+				array(
+					'keywords' => $split,
+				),
+				$block,
+				"phase 2: $keywords"
+			);
 		}
 	}
 

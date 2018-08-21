@@ -42,8 +42,24 @@ class GalleryDynamicAlbum extends GalleryItem {
 	 * @param string $title localized title
 	 * @param array $itemTypeNameData itemTypeName data, eg. array(Photo, photo), array(Foto, foto)
 	 */
-	public function create($title, $itemTypeNameData = null) {
+	public function create(
+		$title = null,
+		$itemTypeNameData = null,
+		$x3 = false,
+		$x4 = null,
+		$x5 = false
+	) {
 		global $gallery;
+
+		if (is_null($title)) {
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				'Missing title parameter'
+			);
+
+		}
 
 		$this->setId(null);
 		$this->setParentId(null);
@@ -112,7 +128,7 @@ class GalleryDynamicAlbum extends GalleryItem {
 	/**
 	 * @see GalleryEntity::save
 	 */
-	public function save($postEvent = true) {
+	public function save($postEvent = true, $x2 = null) {
 		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
 	}
 
