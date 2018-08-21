@@ -78,14 +78,21 @@ class ExifExtractor extends ExifInterface_1_0 {
 				}
 
 				for ($i = 1; $i < count($keyData); $i++) {
-					$value = ExifHelper::getExifValue($rawExifData, explode('.', $keyData[$i]));
+					$value = ExifHelper::getExifValue(
+						$rawExifData,
+						explode('.', $keyData[$i])
+					);
 
 					if (!isset($value)) {
-						$value = ExifHelper::getIptcValue($iptcObj, explode('.', $keyData[$i]));
+						$value = ExifHelper::getIptcValue(
+							$iptcObj,
+							explode('.', $keyData[$i])
+						);
 					}
 
 					if (isset($value)) {
-						$value                    = ExifHelper::postProcessValue($property, $value);
+						$value = ExifHelper::postProcessValue($property, $value);
+
 						$data[$itemId][$property] = array(
 							'title' => $keyData[0],
 							'value' => $value,

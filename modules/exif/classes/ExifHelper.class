@@ -141,7 +141,7 @@ class ExifHelper {
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
-		$ret = ExifHelper::setProperties($viewMode, $properties);
+		$ret = self::setProperties($viewMode, $properties);
 
 		if ($ret) {
 			return $ret;
@@ -158,7 +158,7 @@ class ExifHelper {
 	 * @return GalleryStatus a status code
 	 */
 	public static function addDefaultIptcProperties($viewMode) {
-		list($ret, $properties) = ExifHelper::getProperties($viewMode);
+		list($ret, $properties) = self::getProperties($viewMode);
 
 		if ($ret) {
 			return $ret;
@@ -182,7 +182,7 @@ class ExifHelper {
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
-		$ret = ExifHelper::setProperties($viewMode, $properties);
+		$ret = self::setProperties($viewMode, $properties);
 
 		if ($ret) {
 			return $ret;
@@ -271,17 +271,17 @@ class ExifHelper {
 	 */
 	public static function getExifData($path, $viewMode) {
 		$rawExifData = array();
-		ExifHelper::_fetchRawExifData($path, $rawExifData);
-		list($ret, $iptcObj) = ExifHelper::getIptcObject($path);
+		self::_fetchRawExifData($path, $rawExifData);
+		list($ret, $iptcObj) = self::getIptcObject($path);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		$exifKeys = ExifHelper::getExifKeys();
+		$exifKeys = self::getExifKeys();
 
 		$results                = array();
-		list($ret, $properties) = ExifHelper::getProperties($viewMode);
+		list($ret, $properties) = self::getProperties($viewMode);
 
 		if ($ret) {
 			return array($ret, null);
@@ -292,14 +292,14 @@ class ExifHelper {
 
 			for ($i = 1; $i < sizeof($exifKeys[$property]); $i++) {
 				$keyPath = explode('.', $exifKeys[$property][$i]);
-				$value   = ExifHelper::getExifValue($rawExifData, $keyPath);
+				$value   = self::getExifValue($rawExifData, $keyPath);
 
 				if (!isset($value)) {
-					$value = ExifHelper::getIptcValue($iptcObj, $keyPath);
+					$value = self::getIptcValue($iptcObj, $keyPath);
 				}
 
 				if (isset($value)) {
-					$value = ExifHelper::postProcessValue($property, $value);
+					$value = self::postProcessValue($property, $value);
 				}
 
 				if (isset($value)) {
@@ -341,7 +341,7 @@ class ExifHelper {
 				break;
 
 			case 'DateTime':
-				$value = ExifHelper::_parseDate($value);
+				$value = self::_parseDate($value);
 
 				if (isset($value)) {
 					// Convert to localized string
@@ -361,15 +361,16 @@ class ExifHelper {
 			case 'FocalPlaneXResolution':
 			case 'FocalPlaneYResolution':
 				/*
-				 * Round to two decimal places, sprintf must be feeded with non-localized floating
-				 * numbers (dot as decimal separator). sprintf('%.2f', '21.3725') returns a localized
-				 * decimal separator, but it does not accept '21,3725' as argument. Weird, but it's
-				 * like that.
+				 * Round to two decimal places, sprintf must be fed with non-localized
+				 *   floating numbers (dot as decimal separator).
+				 * sprintf('%.2f', '21.3725') returns a localized decimal separator
+				 *   but does not accept '21,3725' as argument.
+				 * Weird, but it is like that.
 				 */
 				$value = preg_replace_callback(
 					'/(\d*)[\.,](\d{3,})/',
 					function ($m) {
-						return sprintf('%.2f', $m[1] . $m[2]);
+						return sprintf('%.2f', $m[1] . '.' . $m[2]);
 					},
 					$value
 				);
@@ -392,7 +393,7 @@ class ExifHelper {
 	 */
 	public static function getOriginationTimestamp($path) {
 		$rawExifData = array();
-		ExifHelper::_fetchRawExifData($path, $rawExifData);
+		self::_fetchRawExifData($path, $rawExifData);
 		/*
 		 * The method name indicates, that we want the earliest date available for the img.
 		 * As of specs and practice with raw camera images and Adobe manipulated ones it seems,
@@ -405,10 +406,10 @@ class ExifHelper {
 			'SubIFD.DateTimeDigitized',
 			'IFD0.DateTime',
 		) as $tag) {
-			$value = ExifHelper::getExifValue($rawExifData, explode('.', $tag));
+			$value = self::getExifValue($rawExifData, explode('.', $tag));
 
 			if (isset($value)) {
-				$value = ExifHelper::_parseDate($value);
+				$value = self::_parseDate($value);
 
 				if (isset($value)) {
 					return $value;
@@ -489,7 +490,7 @@ class ExifHelper {
 			return str_replace("\0", '', $source[$key]);
 		}
 
-		return ExifHelper::getExifValue($source[$key], $keyPath);
+		return self::getExifValue($source[$key], $keyPath);
 	}
 
 	/**

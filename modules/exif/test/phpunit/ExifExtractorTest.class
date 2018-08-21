@@ -90,7 +90,10 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret || !isset($module)) {
 			return $ret;
 		}
-		list($ret, $exif) = GalleryCoreApi::newFactoryInstance('ExifInterface_1_0', 'ExifExtractor');
+		list($ret, $exif) = GalleryCoreApi::newFactoryInstance(
+			'ExifInterface_1_0',
+			'ExifExtractor'
+		);
 
 		if ($ret || !isset($exif)) {
 			return $ret;
