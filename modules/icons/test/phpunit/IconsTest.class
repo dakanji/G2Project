@@ -28,9 +28,9 @@ GalleryCoreApi::requireOnce('modules/icons/classes/IconsImpl.class');
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 17580 $
  */
-class IconsTest extends GalleryControllerTestCase {
+class IconsTest extends GalleryTestCase {
 	public function __construct($methodName) {
-		parent::__construct($methodName, null);
+		parent::__construct($methodName);
 	}
 
 	public function setUp($x1 = null) {
