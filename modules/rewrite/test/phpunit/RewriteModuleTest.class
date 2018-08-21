@@ -164,7 +164,11 @@ class RewriteModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals($this->_activeRules, unserialize($activeRules), 'rules (activate)');
+		$this->assertEquals(
+			$this->_activeRules,
+			unserialize($activeRules),
+			'rules (activate)'
+		);
 
 		// Deactivate the module
 		list($ret, $redirect) = $this->_module->deactivate();
@@ -196,7 +200,7 @@ class RewriteModuleTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(
-			array('phpunit/dummy/%itemId%.html'),
+			'phpunit/dummy/%itemId%.html',
 			unserialize($history),
 			'saved history'
 		);
