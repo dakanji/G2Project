@@ -73,7 +73,9 @@ class ImageMagickModule extends GalleryModule {
 			GalleryCoreApi::requireOnce(
 				'modules/imagemagick/classes/ImageMagickToolkitHelper.class'
 			);
-			list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion($params['path']);
+			list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion(
+				$params['path']
+			);
 
 			if (!$ret && !$vulnerable) {
 				$ret = $this->setParameter('versionOk', '1');
@@ -152,7 +154,8 @@ class ImageMagickModule extends GalleryModule {
 
 		foreach ($results['operations'] as $operation => $info) {
 			$outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : '';
-			$ret            = GalleryCoreApi::registerToolkitOperation(
+
+			$ret = GalleryCoreApi::registerToolkitOperation(
 				'ImageMagick',
 				$info['mimeTypes'],
 				$operation,
@@ -231,7 +234,12 @@ class ImageMagickModule extends GalleryModule {
 			return array(null, true);
 		}
 		// This module requires all fields to be filled out before it can be activated.
-		foreach (array('path', 'jpegQuality', 'cmykSupport', 'versionOk') as $key) {
+		foreach (array(
+			'path',
+			'jpegQuality',
+			'cmykSupport',
+			'versionOk',
+		) as $key) {
 			list($ret, $value) = $this->getParameter($key);
 
 			if ($ret) {
@@ -347,14 +355,21 @@ class ImageMagickModule extends GalleryModule {
 
 			if ($failCount == 0) {
 				// We have a winner
-				$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
+				$ret = GalleryCoreApi::setPluginParameter(
+					'module',
+					'imagemagick',
+					'path',
+					$path
+				);
 
 				if ($ret) {
 					return array($ret, false);
 				}
 
 				// Force admin to visit site admin to view warning for vulnerable version
-				list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion($path);
+				list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion(
+					$path
+				);
 
 				if (!$ret && !$vulnerable) {
 					$ret = GalleryCoreApi::setPluginParameter(

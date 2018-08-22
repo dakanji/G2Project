@@ -47,7 +47,7 @@ class ImageMagickToolkitHelper {
 
 		/*
 		 * Provide some mime type conversions.  G2 will use convert-to-image/jpeg for
-		 * types that aren't viewable inline (TIFF, SVG, PDF, etc)..
+		 * types that are not viewable inline (TIFF, SVG, PDF, etc)..
 		 */
 		foreach (array(
 			'image/jpeg',
@@ -80,10 +80,14 @@ class ImageMagickToolkitHelper {
 				),
 				array(
 					'type'        => 'int',
-					'description' => $gallery->i18n('(optional) target height, defaults to same as width'),
+					'description' => $gallery->i18n(
+						'(optional) target height, defaults to same as width'
+					),
 				),
 			),
-			'description' => $gallery->i18n('Scale the image to the target size, maintain aspect ratio'),
+			'description' => $gallery->i18n(
+				'Scale the image to the target size, maintain aspect ratio'
+			),
 			'mimeTypes'   => $mimeTypes,
 		);
 
@@ -230,10 +234,13 @@ class ImageMagickToolkitHelper {
 		$properties['dimensions'] = array(
 			'type'        => 'int,int',
 			'description' => $gallery->i18n('Get the width and height of the image'),
-			'mimeTypes'   => array_merge($mimeTypes, array(
-				'image/x-portable-pixmap',
-				'application/x-shockwave-flash',
-			)),
+			'mimeTypes'   => array_merge(
+				$mimeTypes,
+				array(
+					'image/x-portable-pixmap',
+					'application/x-shockwave-flash',
+				)
+			),
 		); // Supported by php getimagesize
 
 		if (!empty($multiPageMimeTypes)) {
@@ -283,12 +290,20 @@ class ImageMagickToolkitHelper {
 		$platform =& $gallery->getPlatform();
 
 		if ($imageMagickPath == null) {
-			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
+			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'imagemagick',
+				'path'
+			);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-			list($ret, $binary) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'binary');
+			list($ret, $binary) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'imagemagick',
+				'binary'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -330,7 +345,11 @@ class ImageMagickToolkitHelper {
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
 
 		if (empty($imageMagickPath)) {
-			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
+			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'imagemagick',
+				'path'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -843,8 +862,8 @@ class ImageMagickToolkitHelper {
 		$binaries = array('combine', 'composite');
 
 		foreach ($binaries as $binary) {
-			$binaryPath = $imageMagickPath . $binary .
-			(GalleryUtilities::isA($platform, 'WinNtPlatform') ? '.exe' : '');
+			$binaryPath  = $imageMagickPath . $binary;
+			$binaryPath .= (GalleryUtilities::isA($platform, 'WinNtPlatform') ? '.exe' : '');
 
 			if ($platform->file_exists($binaryPath) && $platform->is_executable($binaryPath)) {
 				return array(null, $binary);
@@ -870,7 +889,10 @@ class ImageMagickToolkitHelper {
 		$slash    = $platform->getDirectorySeparator();
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
 
-		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand('convert', $imageMagickPath);
+		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand(
+			'convert',
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -925,12 +947,19 @@ class ImageMagickToolkitHelper {
 		$slash    = $platform->getDirectorySeparator();
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
 
-		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand('convert', $imageMagickPath);
+		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand(
+			'convert',
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return array($ret, null);
 		}
-		list($ret, $identifyCmd) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
+
+		list($ret, $identifyCmd) = ImageMagickToolkitHelper::getCommand(
+			'identify',
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -953,22 +982,47 @@ class ImageMagickToolkitHelper {
 		}
 
 		$cmykSupport             = false;
-		list($success, $results) = $platform->exec(array(
-			array_merge($identifyCmd, array('-format', '%r', $dataPath . 'cmyk.jpg')),
-		));
+		list($success, $results) = $platform->exec(
+			array(
+				array_merge(
+					$identifyCmd,
+					array(
+						'-format',
+						'%r',
+						$dataPath . 'cmyk.jpg',
+					)
+				),
+			)
+		);
 
 		if ($success && count($results) && strpos($results[0], 'CMYK') !== false) {
-			list($success) = $platform->exec(array(
-				array_merge(
-					$convertCmd,
-					array('-colorspace', 'RGB', $dataPath . 'cmyk.jpg', $tmpFilename)
-				),
-			));
+			list($success) = $platform->exec(
+				array(
+					array_merge(
+						$convertCmd,
+						array(
+							'-colorspace',
+							'RGB',
+							$dataPath . 'cmyk.jpg',
+							$tmpFilename,
+						)
+					),
+				)
+			);
 
 			if ($success) {
-				list($success, $results) = $platform->exec(array(
-					array_merge($identifyCmd, array('-format', '%r', $tmpFilename)),
-				));
+				list($success, $results) = $platform->exec(
+					array(
+						array_merge(
+							$identifyCmd,
+							array(
+								'-format',
+								'%r',
+								$tmpFilename,
+							)
+						),
+					)
+				);
 
 				if ($success && count($results) && strpos($results[0], 'RGB') !== false) {
 					// We successfully identified a CMYK jpeg and converted it to RGB
@@ -994,14 +1048,21 @@ class ImageMagickToolkitHelper {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'binary', $binary);
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'imagemagick',
+			'binary',
+			$binary
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		// Find out what composite cmd to use
-		list($ret, $compositeCmd) = ImageMagickToolkitHelper::discoverCompositeCmd($imageMagickPath);
+		list($ret, $compositeCmd) = ImageMagickToolkitHelper::discoverCompositeCmd(
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return $ret;
@@ -1018,7 +1079,9 @@ class ImageMagickToolkitHelper {
 		}
 
 		// Find out how to remove meta data from jpegs
-		list($ret, $removeMetaDataSwitch) = ImageMagickToolkitHelper::discoverRemoveMetaDataSwitch($imageMagickPath);
+		list($ret, $removeMetaDataSwitch) = ImageMagickToolkitHelper::discoverRemoveMetaDataSwitch(
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return $ret;
