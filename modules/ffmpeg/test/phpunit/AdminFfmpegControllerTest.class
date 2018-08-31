@@ -44,7 +44,10 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		list($ret, $this->_movie) = $this->_createRandomDataItem($this->_getRootId(), 'video/mpeg');
+		list($ret, $this->_movie) = $this->_createRandomDataItem(
+			$this->_getRootId(),
+			'video/mpeg'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -362,12 +365,21 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function _saveThumbnailOps() {
 		global $gallery;
-		$query                     = '
-	SELECT [GalleryDerivative::id], [GalleryDerivative::derivativeOperations]
-	FROM [GalleryDerivative], [GalleryChildEntity], [GalleryEntity]
-	WHERE [GalleryDerivative::id] = [GalleryChildEntity::id]
-	  AND [GalleryChildEntity::parentId] = [GalleryEntity::id]
-	  AND [GalleryEntity::entityType] = \'GalleryMovieItem\'';
+		$query = '
+		SELECT
+			[GalleryDerivative::id],
+			[GalleryDerivative::derivativeOperations]
+		FROM
+			[GalleryDerivative],
+			[GalleryChildEntity],
+			[GalleryEntity]
+		WHERE
+			[GalleryDerivative::id] = [GalleryChildEntity::id]
+			AND
+				[GalleryChildEntity::parentId] = [GalleryEntity::id]
+			AND
+				[GalleryEntity::entityType] = \'GalleryMovieItem\'';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -391,7 +403,10 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById(array_keys($this->_thumbnailOps), 'GalleryDerivative');
+		list($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById(
+			array_keys($this->_thumbnailOps),
+			'GalleryDerivative'
+		);
 
 		if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
@@ -437,7 +452,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/notExecutablePath/ffmpeg':
 			case '/incompletePath/':
 			case '/incompletePath/ffmpeg':
-				return true;
+			return true;
 		}
 
 		return false;
@@ -448,7 +463,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/validPath/':
 			case '/validPathBadBinary/':
 			case '/incompletePath/':
-				return true;
+			return true;
 		}
 
 		return false;
@@ -460,7 +475,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/validPathBadBinary/ffmpeg':
 			case '/notExecutablePath/ffmpeg':
 			case '/incompletePath/ffmpeg':
-				return true;
+			return true;
 		}
 
 		return false;
@@ -471,7 +486,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/validPath/ffmpeg':
 			case '/validPathBadBinary/ffmpeg':
 			case '/incompletePath/ffmpeg':
-				return true;
+			return true;
 		}
 
 		return false;
@@ -489,10 +504,10 @@ class AdminFfmpegControllerTestPlatform {
 		switch ($args[0][0]) {
 			case '/validPath/ffmpeg':
 			case '/incompletePath/ffmpeg':
-				return array(1, array('Input audio/video file formats: mpeg'), array());
+			return array(1, array('Input audio/video file formats: mpeg'), array());
 
 			default:
-				return array(0, array(), array());
+			return array(0, array(), array());
 		}
 	}
 }

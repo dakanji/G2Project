@@ -54,7 +54,11 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testGetProperties() {
-		list($ret, $results) = $this->_toolkit->getProperty('video/x-msvideo', 'dimensions', 'testGetProperties1.avi');
+		list($ret, $results) = $this->_toolkit->getProperty(
+			'video/x-msvideo',
+			'dimensions',
+			'testGetProperties1.avi'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -148,7 +152,9 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testBinaries() {
-		list($ret, $results, $mimeTypes, $supportsOffset) = FfmpegToolkitHelper::testBinary('/validPath/ffmpeg');
+		list($ret, $results, $mimeTypes, $supportsOffset) = FfmpegToolkitHelper::testBinary(
+			'/validPath/ffmpeg'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -162,30 +168,31 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			'video/x-flv',
 			'video/x-ms-wmv',
 		);
-		$output[]          = 'Output audio/video file formats: mpeg vcd vob mpegts crc image ' .
+
+		$output[] = 'Output audio/video file formats: mpeg vcd vob mpegts crc image ' .
 		'imagepipe mp2 ac3 h263 m4v h264 mpeg1video mjpeg s16le s16be u16le u16be ' .
 		's8 u8 mulaw alaw rawvideo null rm asf asf_stream avi wav swf au gif mpjpeg ' .
 		'dv flv yuv4mpegpipe ffm audio_device rtp';
-		$output[]          = 'Input audio/video file formats: mpeg mpegts image imagepipe mp3 ' .
+		$output[] = 'Input audio/video file formats: mpeg mpegts image imagepipe mp3 ' .
 		'ac3 h263 m4v h264 mpegvideo mjpeg s16le s16be u16le u16be s8 u8 mulaw ' .
 		'alaw rawvideo rm asf avi wav swf au gif mov dv 4xm flv yuv4mpegpipe ffm ' .
 		'video4linux audio_device rtsp redir sdp rtp';
-		$output[]          = 'Output image formats: pbm pgm ppm pam pgmyuv yuv png jpeg gif';
-		$output[]          = 'Input image formats: pnm pam pgmyuv yuv png jpeg gif';
-		$output[]          = 'Codecs:';
-		$output[]          = '  Encoders: ac3 mp2 mpeg1video h263 h263p flv rv10 mpeg4 msmpeg4v1 ' .
+		$output[] = 'Output image formats: pbm pgm ppm pam pgmyuv yuv png jpeg gif';
+		$output[] = 'Input image formats: pnm pam pgmyuv yuv png jpeg gif';
+		$output[] = 'Codecs:';
+		$output[] = '  Encoders: ac3 mp2 mpeg1video h263 h263p flv rv10 mpeg4 msmpeg4v1 ' .
 		'msmpeg4v2 msmpeg4 wmv1 wmv2 mjpeg ljpeg huffyuv asv1 ffv1 rawvideo pcm_s16le ' .
 		'pcm_s16be pcm_u16le pcm_u16be pcm_s8 pcm_u8 pcm_alaw pcm_mulaw adpcm_ima_qt ' .
 		'adpcm_ima_wav adpcm_ms adpcm_4xm';
-		$output[]          = '  Decoders: rawvideo h263 mpeg4 msmpeg4v1 msmpeg4v2 msmpeg4 wmv1 wmv2 ' .
+		$output[] = '  Decoders: rawvideo h263 mpeg4 msmpeg4v1 msmpeg4v2 msmpeg4 wmv1 wmv2 ' .
 		'h263i flv rv10 svq1 svq3 wmav1 wmav2 indeo3 mpegvideo dvvideo dvaudio mjpeg ' .
 		'mjpegb mp2 mp3 mace3 mace6 huffyuv ffv1 cyuv h264 vp3 asv1 vcr1 cljr 4xm mdec ' .
 		'ac3 real_144 real_288 pcm_s16le pcm_s16be pcm_u16le pcm_u16be pcm_s8 pcm_u8 ' .
 		'pcm_alaw pcm_mulaw adpcm_ima_qt adpcm_ima_wav adpcm_ms adpcm_4xm';
-		$output[]          = 'Supported file protocols: file: pipe: udp: rtp: tcp: http:';
-		$output[]          = 'Frame size, frame rate abbreviations: ntsc pal film ntsc-film sqcif ' .
+		$output[] = 'Supported file protocols: file: pipe: udp: rtp: tcp: http:';
+		$output[] = 'Frame size, frame rate abbreviations: ntsc pal film ntsc-film sqcif ' .
 		'qcif cif 4cif';
-		$output[]          = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
+		$output[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 		'epzs(default) x1';
 
 		$this->assertEquals(
@@ -473,7 +480,9 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testBogusBinary() {
-		list($ret, $results, $mimeTypes, $supportsOffset) = FfmpegToolkitHelper::testBinary('/validPath/bogusBinary');
+		list($ret, $results, $mimeTypes, $supportsOffset) = FfmpegToolkitHelper::testBinary(
+			'/validPath/bogusBinary'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -609,7 +618,11 @@ class FfmpegToolkitTest extends GalleryTestCase {
 class FfmpegToolkitTestPlatform {
 	public function init(&$test) {
 		$this->_test                   =& $test;
-		list($ret, $this->_ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
+		list($ret, $this->_ffmpegPath) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'ffmpeg',
+			'path'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -623,7 +636,9 @@ class FfmpegToolkitTestPlatform {
 		$stderr  = array();
 
 		switch (serialize($cmd)) {
-			case serialize(array(array($this->_ffmpegPath, '-i', 'testGetProperties1.avi', '-vstats'))):
+			case serialize(array(
+				array($this->_ffmpegPath, '-i', 'testGetProperties1.avi', '-vstats'),
+			)):
 			case serialize(array(array($this->_ffmpegPath, '-i', 'BOGUS', '-vstats'))):
 				$stderr[] = "Input #0, mov, from '../data/Sample.mov':";
 				$stderr[] = '  Duration: 00:00:03.1, bitrate: 193 kb/s';
