@@ -24,7 +24,7 @@
  */
 class FinishedStep extends UpgradeStep {
 	public function stepName() {
-		return _('Finish Upgrade');
+		return 'Finish Upgrade';
 	}
 
 	public function loadTemplateData(&$templateData) {

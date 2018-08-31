@@ -129,7 +129,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$this->resetL10Domain();
 
 				$template->renderStatusMessage(
-					_('Upgrading themes'),
+					'Upgrading themes',
 					$theme->getName(),
 					$currentTheme / $totalThemes
 				);
@@ -158,7 +158,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			$ret = $storage->commitTransaction();
 
 			if ($ret) {
-				$templateData['errors'][]    = _('Unable to commit database transaction');
+				$templateData['errors'][]    = 'Unable to commit database transaction';
 				$templateData['stackTrace'] .= $ret->getAsHtml();
 			}
 		}
@@ -319,7 +319,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]    = sprintf(_('Unable to load the %s theme'), $themeId);
+					$templateData['errors'][]    = sprintf('Unable to load the %s theme', $themeId);
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				} else {
 					$pluginIsCompatible['theme'][$themeId] = GalleryCoreApi::isPluginCompatibleWithApis($themePlugin);
@@ -353,7 +353,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 
 			ksort($themes);
-			$groupLabel['themes'] = _('Themes');
+			$groupLabel['themes'] = 'Themes';
 			$groupType['themes']  = 'theme';
 
 			foreach (array_keys($themes) as $themeId) {
@@ -408,9 +408,9 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$this->resetL10Domain();
 
 					if ($type == 'theme') {
-						$templateData['errors'][] = sprintf(_('Unable to deactivate the %s theme'), $pluginId);
+						$templateData['errors'][] = sprintf('Unable to deactivate the %s theme', $pluginId);
 					} else {
-						$templateData['errors'][] = sprintf(_('Unable to deactivate the %s module'), $pluginId);
+						$templateData['errors'][] = sprintf('Unable to deactivate the %s module', $pluginId);
 					}
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				}
