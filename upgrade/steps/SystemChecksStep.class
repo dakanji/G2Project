@@ -120,11 +120,11 @@ class SystemChecksStep extends UpgradeStep {
 				'warning' => true,
 				'notice'  => sprintf('Warning: Gallery  2 has a desirable mimimum requirement of PHP Version 7.1.x but you have PHP Version %s installed. Gallery 2 will function with your version of PHP but may be slower and require additional server resources. %s', PHP_VERSION, $prefPHP),
 			);
-		} elseif (version_compare(PHP_VERSION, '7.2.99', '>')) {
+		} elseif (version_compare(PHP_VERSION, '7.3.99', '>')) {
 			$templateData['check'][] = array(
-				'title'   => 'PHP Version &gt;= v7.3.0',
+				'title'   => 'PHP Version &gt;= v7.4.0',
 				'warning' => true,
-				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.3.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
+				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.4.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
 			);
 		} else {
 			$templateData['check'][] = array(
@@ -432,7 +432,7 @@ class SystemChecksStep extends UpgradeStep {
 					$gallery->getConfig('data.gallery.base'),
 					$gallery->getConfig('data.gallery.base')
 				);
-				
+
 				$heading = sprintf('Inaccessible or missing  files (%d)', count($storageFiles));
 				$message = $this->renderFileList($storageFiles, 'storagefiles', $heading, $notice);
 				$templateData['check'][] = array(
@@ -627,17 +627,12 @@ class SystemChecksStep extends UpgradeStep {
 		foreach (array('', 'versions.dat', 'albums') as $path) {
 			$path = $storagePath . $path;
 
-<<<<<<< HEAD
 			if (!$platform->file_exists($path) || !$platform->is_readable($path)
 				|| !$platform->is_writeable($path)
 			) {
 				return array($path);
 			}
 		}
-=======
-    static function CheckManifest(&$statusMonitor, $useSetTimeLimit) {
-	$base = realpath(__DIR__ . '/../..') . '/';
->>>>>>> 44f3f49... PHP 7 Compatibility
 
 		// Check up to 400 other files
 		$tested      = 0;
@@ -896,7 +891,7 @@ class SystemChecksStep extends UpgradeStep {
 		if (!$ret) {
 			return array(
 				false,
-				'Failed to create a database test sequence. ' 
+				'Failed to create a database test sequence. '
 				. 'Check the returned error message and README.html '
 				. 'for missing privileges and clean up the database.' . "\n" . $snippet,
 			);

@@ -101,11 +101,11 @@ class SystemChecksStep extends InstallStep {
 				'warning' => true,
 				'notice'  => sprintf('Warning: Gallery  2 has a desirable mimimum requirement of PHP Version 7.1.x but you have PHP Version %s installed. Gallery 2 will function with your version of PHP but may be slower and require additional server resources. %s', PHP_VERSION, $prefPHP),
 			);
-		} elseif (version_compare(PHP_VERSION, '7.2.99', '>')) {
+		} elseif (version_compare(PHP_VERSION, '7.3.99', '>')) {
 			$templateData['check'][] = array(
-				'title'   => 'PHP Version &gt;= v7.3.0',
+				'title'   => 'PHP Version &gt;= v7.4.0',
 				'warning' => true,
-				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.3.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
+				'notice'  => sprintf('Warning: Gallery 2 has NOT been tested on PHP Version 7.4.0 or newer but you have PHP Version %s installed. Gallery 2 MAY still function with your version of PHP. %s', PHP_VERSION, $prefPHP),
 			);
 		} else {
 			$templateData['check'][] = array(
