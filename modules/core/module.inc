@@ -30,7 +30,7 @@ class CoreModule extends GalleryModule {
 
 		$this->setId('core');
 		$this->setName($gallery->i18n('Core'));
-		$this->setGalleryVersion('2.3.2');
+		$this->setGalleryVersion('2.3.3');
 
 		// Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too!
 		$this->setVersion('1.3.0.2');
@@ -41,7 +41,7 @@ class CoreModule extends GalleryModule {
 		$this->setCallbacks(
 			'getItemLinks|getSystemLinks|getItemAdminViews|getSiteAdminViews|getUserAdminViews'
 		);
-		$this->setRequiredCoreApi(array(7, 53));
+		$this->setRequiredCoreApi(array(7, 55));
 		$this->setRequiredModuleApi(array(3, 8));
 	}
 

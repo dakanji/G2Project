@@ -3238,7 +3238,7 @@ class CoreModuleExtras {
 			case '1.2.37':
 				// R2.3
 			case '1.3.0':
-				// R2.3.1 R2.3.2
+				// R2.3.1 R2.3.2 R2.3.3
 			case '1.3.0.x':
 			case 'end of upgrade path':
 				/*
