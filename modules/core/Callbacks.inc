@@ -128,9 +128,10 @@ class CoreCallbacks {
 				}
 
 				if (isset($peerItemIndex)) {
-					$windowSize        = isset($params['windowSize']) ? ($params['windowSize'] - 1) : 6;
-					$addEnds           = isset($params['addEnds']) ? $params['addEnds'] : true;
-					$peerLast          = count($peerIds) - 1;
+					$windowSize = isset($params['windowSize']) ? ($params['windowSize'] - 1) : 6;
+					$addEnds    = isset($params['addEnds']) ? $params['addEnds'] : true;
+					$peerLast   = count($peerIds) - 1;
+
 					$peerNeighborStart = max($peerItemIndex - (int)($windowSize / 2), 0);
 					$peerNeighborEnd   = min($peerItemIndex + (int)(($windowSize + 1) / 2), $peerLast);
 					// If the window is pinned to one end, expand it to the entire windowSize

@@ -115,7 +115,9 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Grab the comment and take a look at it
-		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($this->_item->getId());
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments(
+			$this->_item->getId()
+		);
 
 		if ($ret) {
 			return $ret;

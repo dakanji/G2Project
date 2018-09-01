@@ -359,7 +359,11 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 *           array string status messages indicating problems encounterd
 	 *           int count of packages installed
 	 */
-	public function _downloadAndInstallLanguagePackages($sourceFiles, $repositories, &$callback) {
+	public function _downloadAndInstallLanguagePackages(
+		$sourceFiles,
+		$repositories,
+		&$callback
+	) {
 		$status = array();
 		$count  = 0;
 
@@ -375,7 +379,10 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 				}
 			}
 
-			list($ret, $downloadStatus, $fileCount) = $repository->downloadAndUnpackPackages($filesToDownload, $callback);
+			list($ret, $downloadStatus, $fileCount) = $repository->downloadAndUnpackPackages(
+				$filesToDownload,
+				$callback
+			);
 
 			if ($ret) {
 				return array($ret, null, null);
