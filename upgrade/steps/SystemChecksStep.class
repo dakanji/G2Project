@@ -54,6 +54,10 @@ class SystemChecksStep extends UpgradeStep {
 	}
 
 	public function processRequest() {
+		// Target PHP Version
+		$prefPHP = 'Use PHP Version 7.3.x for the best performance.';
+
+		// Zend test
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');
 			header('Content-Length: 8');
@@ -71,17 +75,20 @@ class SystemChecksStep extends UpgradeStep {
 				$statusMonitor,
 				function_exists('set_time_limit')
 			);
-			$removeList    = array();
-			$base          = dirname(dirname(__DIR__)) . '/';
+
+			$removeList = array();
+			$base       = dirname(dirname(__DIR__)) . '/';
 
 			foreach ($manifest['shouldRemove'] as $file) {
 				$removeList[$file] = is_dir($base . $file);
 			}
+
 			// Reverse sort it by key so that directories are last
 			krsort($removeList);
 
 			$isWindows = !strncasecmp(PHP_OS, 'win', 3);
 			$fileName  = $isWindows ? 'cleanup.bat' : 'cleanup.sh';
+			
 			header('Content-Type: application/data');
 			header('Content-Disposition: attachment; filename=' . $fileName);
 
