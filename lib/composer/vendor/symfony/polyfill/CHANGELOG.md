@@ -1,3 +1,17 @@
+* v1.10.0
+
+ * added polyfill for `idn_to_ascii()` and `idn_to_utf8()`
+ * added polyfill for intl's `MessageFormatter`
+ * prevented DoS via long passwords when using `hash_pbkdf2()` polyfill
+ * duplicated `mb_ord()`, `mb_chr()` and `mb_scrub()` polyfills in the `php72` one
+
+* v1.9.0
+
+ * added polyfill for `hrtime()`
+ * added polyfills for `array_key_first()` and `array_key_last()`
+ * fixed infinite loop in `iconv()` polyfill when using translit mode
+ * fixed converting to title case with mbstring polyfill
+
 * v1.8.0
 
  * added PHP 7.3 polyfill

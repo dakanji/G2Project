@@ -9,22 +9,25 @@
  * file that was distributed with this source code.
  */
 
-class RecursiveCallbackFilterIterator extends CallbackFilterIterator implements RecursiveIterator {
+class RecursiveCallbackFilterIterator extends CallbackFilterIterator implements RecursiveIterator
+{
+    private $iterator;
+    private $callback;
 
-	private $iterator;
-	private $callback;
+    public function __construct(RecursiveIterator $iterator, $callback)
+    {
+        $this->iterator = $iterator;
+        $this->callback = $callback;
+        parent::__construct($iterator, $callback);
+    }
 
-	public function __construct(RecursiveIterator $iterator, $callback) {
-		$this->iterator = $iterator;
-		$this->callback = $callback;
-		parent::__construct($iterator, $callback);
-	}
+    public function hasChildren()
+    {
+        return $this->iterator->hasChildren();
+    }
 
-	public function hasChildren() {
-		return $this->iterator->hasChildren();
-	}
-
-	public function getChildren() {
-		return new static($this->iterator->getChildren(), $this->callback);
-	}
+    public function getChildren()
+    {
+        return new static($this->iterator->getChildren(), $this->callback);
+    }
 }

@@ -1,5 +1,5 @@
 <?php
 
-class DivisionByZeroError extends Error {
-
+class DivisionByZeroError extends Error
+{
 }

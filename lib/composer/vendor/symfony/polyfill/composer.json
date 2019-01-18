@@ -18,7 +18,7 @@
     "require": {
         "php": ">=5.3.3",
         "ircmaxell/password-compat": "~1.0",
-        "paragonie/random_compat": "~1.0|~2.0",
+        "paragonie/random_compat": "~1.0|~2.0|~9.99",
         "symfony/intl": "~2.3|~3.0|~4.0"
     },
     "require-dev": {
@@ -37,6 +37,8 @@
         "symfony/polyfill-iconv": "self.version",
         "symfony/polyfill-intl-grapheme": "self.version",
         "symfony/polyfill-intl-icu": "self.version",
+        "symfony/polyfill-intl-messageformatter": "self.version",
+        "symfony/polyfill-intl-idn": "self.version",
         "symfony/polyfill-intl-normalizer": "self.version",
         "symfony/polyfill-mbstring": "self.version",
         "symfony/polyfill-util": "self.version",
@@ -56,11 +58,14 @@
             "src/Php73/bootstrap.php",
             "src/Iconv/bootstrap.php",
             "src/Intl/Grapheme/bootstrap.php",
+            "src/Intl/Idn/bootstrap.php",
             "src/Intl/Icu/bootstrap.php",
+            "src/Intl/MessageFormatter/bootstrap.php",
             "src/Intl/Normalizer/bootstrap.php",
             "src/Mbstring/bootstrap.php"
         ],
         "classmap": [
+            "src/Intl/MessageFormatter/Resources/stubs",
             "src/Intl/Normalizer/Resources/stubs",
             "src/Php70/Resources/stubs",
             "src/Php54/Resources/stubs"
@@ -69,7 +74,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.8-dev"
+            "dev-master": "1.10-dev"
         }
     }
 }
