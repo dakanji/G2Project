@@ -1,8 +1,8 @@
-	<h1><?php echo _('Welcome'); ?></h1>
+	<h1><?php echo 'Welcome'; ?></h1>
 	<p>
 		<?php
 		printf(
-			_('Upgrading Gallery 2 requires %d steps. This upgrade tool will guide you through these steps and provide assistance along the way if additional steps are required. Please read the %sHelp File%s before proceeding.'),
+			'Upgrading Gallery 2 requires %d steps. This upgrade tool will guide you through these steps and provide assistance along the way if additional steps are required. Please read the %sHelp File%s before proceeding.',
 			$templateData['totalSteps'],
 			'<a href="' . generateUrl('../README.html', false) . '" target="_blank">',
 			'</a>'
@@ -11,7 +11,7 @@
 	</p>
 	<?php if ($templateData['mode.maintenance'] === false) : /* Available, but off */ ?>
 	<p>
-		<?php echo _('If you have a busy site, consider putting your Gallery in maintenance mode. This gives visitors a message that the site is temporarily offline, rather than showing everybody this upgrade page. Edit your config.php file to activate maintenance mode.'); ?>
+		<?php echo 'If you have a busy site, consider putting your Gallery in maintenance mode. This gives visitors a message that the site is temporarily offline, rather than showing everybody this upgrade page. Edit your config.php file to activate maintenance mode.'; ?>
 	</p>
 	<?php endif; ?>
 	<?php
@@ -20,7 +20,7 @@
 	if (isset($translator)) :
 		?>
 	<form method="post" action="<?php generateUrl('index.php'); ?>"><p>
-		  <?php echo _('Select Language:'); ?>
+		  <?php echo 'Select Language:'; ?>
 	  <input type="hidden" name="step" value="<?php echo $stepNumber; ?>"/>
 	  <select name="language" onchange="this.form.submit()" style="direction:ltr">
 		<?php
@@ -35,6 +35,6 @@
 		}
 		?>
 	  </select>
-	  <noscript><input type="submit" value="<?php echo _('Go'); ?>"/></noscript>
+	  <noscript><input type="submit" value="<?php echo 'Go'; ?>"/></noscript>
 	</p></form>
 	<?php endif; ?>

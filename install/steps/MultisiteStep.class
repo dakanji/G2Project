@@ -28,7 +28,7 @@ class MultisiteStep extends InstallStep {
 	public $_baseUri;
 
 	public function stepName() {
-		return _('Installation Type');
+		return 'Installation Type';
 	}
 
 	public function isRedoable() {

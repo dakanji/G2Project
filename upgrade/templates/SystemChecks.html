@@ -13,7 +13,7 @@
 	  // ]]>
 	</script>
 
-	<h1><?php echo _('System Checks'); ?></h1>
+	<h1><?php echo 'System Checks'; ?></h1>
 
 	<div class="systemChecks">
 	<table>
@@ -25,11 +25,11 @@
 
 	<td style="float: right">
 		<?php if (isset($check['success'])) : ?>
-		<h2 class="success"> <?php echo _('Success'); ?> </h2>
+		<h2 class="success"> <?php echo 'Success'; ?> </h2>
 		<?php elseif (isset($check['warning'])) : ?>
-		<h2 class="warning"> <?php echo _('Warning'); ?> </h2>
+		<h2 class="warning"> <?php echo 'Warning'; ?> </h2>
 		<?php else : ?>
-		<h2 class="error"> <?php echo _('Failed'); ?> </h2>
+		<h2 class="error"> <?php echo 'Failed'; ?> </h2>
 		<?php endif; ?>
 	</td>
 	  </tr>
@@ -45,7 +45,7 @@
 	</table>
 
 	<?php if (! empty($templateData['suggestedHtaccess'])) : ?>
-	<p> <?php echo _('If you are using Apache, create a file named .htaccess in the main Gallery directory with the following content:'); ?> </p>
+	<p> <?php echo 'If you are using Apache, create a file named .htaccess in the main Gallery directory with the following content:'; ?> </p>
 	<div class="example">
 	  <pre><?php echo $templateData['suggestedHtaccess']; ?></pre>
 	</div>

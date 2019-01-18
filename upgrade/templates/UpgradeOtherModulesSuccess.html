@@ -1,9 +1,9 @@
-	<h1><?php echo _('Upgrade Plugins'); ?></h1>
+	<h1><?php echo 'Upgrade Plugins'; ?></h1>
 
 	<?php if (isset($templateData['upgradedModule'])) : ?>
 	<ul class="success">
 		<?php foreach ($templateData['upgradedModule'] as $moduleId => $moduleName) : ?>
-	  <li><?php printf(_('Upgraded the %s module successfully'), "<i>$moduleName</i>"); ?></li>
+	  <li><?php printf('Upgraded the %s module successfully', "<i>$moduleName</i>"); ?></li>
 		<?php endforeach; ?>
 	</ul>
 	<?php endif; ?>
@@ -11,7 +11,7 @@
 	<?php if (isset($templateData['upgradedTheme'])) : ?>
 	<ul class="success">
 		<?php foreach ($templateData['upgradedTheme'] as $themeId => $themeName) : ?>
-	  <li><?php printf(_('Upgraded the %s theme successfully'), "<i>$themeName</i>"); ?></li>
+	  <li><?php printf('Upgraded the %s theme successfully', "<i>$themeName</i>"); ?></li>
 		<?php endforeach; ?>
 	</ul>
 	<?php endif; ?>
@@ -26,7 +26,7 @@
 
 	<?php if (!empty($templateData['stackTrace'])) : ?>
 	<h2>
-		<?php echo _('Stack Trace:'); ?>
+		<?php echo 'Stack Trace:'; ?>
 	</h2>
 	<div class="stack_trace">
 		<?php echo $templateData['stackTrace']; ?>
@@ -35,7 +35,7 @@
 
 	<?php if (!empty($templateData['debug'])) : ?>
 	<h2>
-		<?php echo _('Debug Output:'); ?>
+		<?php echo 'Debug Output:'; ?>
 	</h2>
 	<div class="debug">
 	  <pre>
@@ -46,8 +46,8 @@
 
 	<?php if ($templateData['anyUpgradeable']) : ?>
 	<div class="go">
-	  <a href="<?php generateUrl('index.php?step=' . $currentStep->getStepNumber()); ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Upgrade More Plugins'); ?></span></a>
+	  <a href="<?php generateUrl('index.php?step=' . $currentStep->getStepNumber()); ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo 'Upgrade More Plugins'; ?></span></a>
 		<?php $nextStep = $stepNumber + 1; ?>
-	  <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
+	  <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf('Continue to Step %d&raquo;', $nextStep); ?></span></a>
 	</div>
 	<?php endif; ?>

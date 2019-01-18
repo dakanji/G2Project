@@ -17,12 +17,12 @@
   <span id="ManifestSystemCheck_missing_toggle" onclick="BlockToggle('ManifestSystemCheck_missing', 'ManifestSystemCheck_missing_toggle_indicator')">
     <span id="ManifestSystemCheck_missing_toggle_indicator" class="showHideToggle">+</span>
     <b>
-      <?php printf(_("Missing files (%d)"), count($manifest['missing'])) ?>
+      <?php printf("Missing files (%d)", count($manifest['missing'])) ?>
     </b>
   </span>
   <?php if ($isSvnInstall): ?>
   <br/>
-  <?php echo _("Note: You're running Gallery from SVN, so recently removed files may appear here.  It might be safe to ignore these."); ?>
+  <?php echo "Note: You're running Gallery from SVN, so recently removed files may appear here.  It might be safe to ignore these."; ?>
   <?php endif; ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($manifest['missing'])?>" class="manifestBlock" id="ManifestSystemCheck_missing" style="display: none"><?php foreach ($manifest['missing'] as $fileName): ?><?php echo "$fileName\n" ?><?php endforeach; ?></textarea>
   <?php endif; ?>
@@ -35,12 +35,12 @@
   <span id="ManifestSystemCheck_modified_toggle" onclick="BlockToggle('ManifestSystemCheck_modified', 'ManifestSystemCheck_modified_toggle_indicator')">
     <span id="ManifestSystemCheck_modified_toggle_indicator" class="showHideToggle">+</span>
     <b>
-      <?php printf(_("Modified files (%d)"), count($manifest['modified'])) ?>
+      <?php printf("Modified files (%d)", count($manifest['modified'])) ?>
     </b>
   </span>
   <?php if ($isSvnInstall): ?>
   <br/>
-  <?php echo _("Note: You're running Gallery from SVN, so some modified files are to be expected.  You can probably ignore these, but to be safe you should make sure that you do 'svn update' before continuing."); ?>
+  <?php echo "Note: You're running Gallery from SVN, so some modified files are to be expected.  You can probably ignore these, but to be safe you should make sure that you do 'svn update' before continuing."; ?>
   <?php endif; ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($manifest['modified'])?>" class="manifestBlock" id="ManifestSystemCheck_modified" style="display: none"><?php foreach ($manifest['modified'] as $fileName): ?><?php echo "$fileName\n" ?><?php endforeach; ?></textarea>
   <?php endif; ?>
@@ -53,10 +53,10 @@
   <span id="ManifestSystemCheck_shouldRemove_toggle" onclick="BlockToggle('ManifestSystemCheck_shouldRemove', 'ManifestSystemCheck_shouldRemove_toggle_indicator')">
     <span id="ManifestSystemCheck_shouldRemove_toggle_indicator" class="showHideToggle">+</span>
     <b>
-      <?php printf(_("Old files (%d)"), count($manifest['shouldRemove'])) ?>
+      <?php printf("Old files (%d)", count($manifest['shouldRemove'])) ?>
     </b>
   </span>
   <br/>
-  <?php echo _("These files are no longer part of Gallery. They probably won't cause any problems but it is a good idea to remove them to keep your install clean."); ?>
+  <?php echo "These files are no longer part of Gallery. They probably won't cause any problems but it is a good idea to remove them to keep your install clean."; ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($manifest['shouldRemove'])?>" class="manifestBlock" id="ManifestSystemCheck_shouldRemove" style="display: none"><?php foreach ($manifest['shouldRemove'] as $fileName): ?><?php echo "$fileName\n" ?><?php endforeach; ?></textarea>
   <?php endif; ?>

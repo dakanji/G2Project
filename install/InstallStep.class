@@ -54,7 +54,7 @@ class InstallStep {
 	}
 
 	public function stepName() {
-		return _('Unknown');
+		return 'Unknown';
 	}
 
 	public function setStepNumber($stepNumber) {

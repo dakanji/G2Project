@@ -9,17 +9,17 @@
 	<?php if (isset($templateData['error'])) : ?>
 	<div class="error">
 	  <h2>
-		<?php echo _('Errors occurred. Please see messages below.'); ?>
+		<?php echo 'Errors occurred. Please see messages below.'; ?>
 	  </h2>
 	</div>
 	<?php endif; ?>
 
-	<h1><?php echo _('Storage Setup'); ?></h1>
+	<h1><?php echo 'Storage Setup'; ?></h1>
 
 	<p>
 		<?php
 		printf(
-			_('Gallery needs a directory to store your images. The directory we chose for you will work, but its location or current name does not provide maximum security. Either select a new directory outside of the %sdocument root%s directory or add a random string to the end of the directory name (e.g. %s).'),
+			'Gallery needs a directory to store your images. The directory we chose for you will work, but its location or current name does not provide maximum security. Either select a new directory outside of the %sdocument root%s directory or add a random string to the end of the directory name (e.g. %s).',
 			'<a href="http://codex.gallery2.org/index.php/Gallery2:Security#What_does_web-accessible_mean_.2F_what_is_the_document_root.3F" target="_blank">',
 			'</a>',
 			$templateData['suggested_obfuscated_g2data_name']
@@ -31,7 +31,7 @@
 	<div class="warning" style="padding-top: 0.8em; padding-bottom: 0.9em">
 		<?php
 		printf(
-			_('For maximum security you should pick a directory that is not %sweb accessible%s. If this is not possible, specify a randomized name for this directory.'),
+			'For maximum security you should pick a directory that is not %sweb accessible%s. If this is not possible, specify a randomized name for this directory.',
 			'<a href="http://codex.gallery2.org/index.php/Gallery2:Security#What_does_web-accessible_mean_.2F_what_is_the_document_root.3F" target="_blank">',
 			'</a>'
 		);
@@ -42,47 +42,47 @@
 		) :
 			?>
 	  <p>
-			<?php echo _('If you choose a randomized name or prefer to stick with the specified directory, please confirm your choice.'); ?>
+			<?php echo 'If you choose a randomized name or prefer to stick with the specified directory, please confirm your choice.'; ?>
 	  </p>
-			<?php echo _('Yes, please omit the security check:'); ?>
+			<?php echo 'Yes, please omit the security check:'; ?>
 	  <input type="checkbox" name="i_acknowledge_the_risk"/>
 		<?php endif; ?>
 	</div>
 
 	<?php if (isset($templateData['isMultisite']) && $templateData['isMultisite']) : ?>
 	<p class="warning">
-		<?php echo _('This is a multisite installation. Remember that each multisite requires its own storage directory.'); ?>
+		<?php echo 'This is a multisite installation. Remember that each multisite requires its own storage directory.'; ?>
 	</p>
 	<?php endif; ?>
 
 	<p>
-		<?php echo _("If you're using a modern browser, we'll try to autocomplete any path you enter here.  So if you're having trouble finding the right path to your g2data directory, try experimenting with paths in the text box below and see what completions it provides for you."); ?>
+		<?php echo "If you're using a modern browser, we'll try to autocomplete any path you enter here.  So if you're having trouble finding the right path to your g2data directory, try experimenting with paths in the text box below and see what completions it provides for you."; ?>
 	</p>
 
 	<?php if (isset($templateData['error'])) : ?>
 	  <div class="error">
 		<?php if (isset($templateData['error']['missing_value'])) : ?>
-			<?php echo _('You must enter a directory'); ?>
+			<?php echo 'You must enter a directory'; ?>
 		<?php endif; ?>
 		<?php if (isset($templateData['error']['missing_dir'])) : ?>
-			<?php echo _('The directory you entered does not exist'); ?>
+			<?php echo 'The directory you entered does not exist'; ?>
 		<?php endif; ?>
 		<?php if (isset($templateData['error']['in_gallery_dir'])) : ?>
-			<?php echo _('Do not use the installation directory for storage'); ?>
+			<?php echo 'Do not use the installation directory for storage'; ?>
 		<?php endif; ?>
 		<?php if (isset($templateData['error']['inaccessible_dir'])) : ?>
-			<?php echo _('The directory you entered is not accessible.  Change the permissions so that the webserver can read this directory.'); ?>
+			<?php echo 'The directory you entered is not accessible.  Change the permissions so that the webserver can read this directory.'; ?>
 		<?php endif; ?>
 		<?php if (isset($templateData['error']['readonly_dir'])) : ?>
-			<?php echo _('The directory you entered is read only'); ?>
+			<?php echo 'The directory you entered is read only'; ?>
 		<?php endif; ?>
 		<?php if (isset($templateData['error']['creation_error'])) : ?>
-			<?php echo _('There was an error creating the directory structure within the storage directory.'); ?>
+			<?php echo 'There was an error creating the directory structure within the storage directory.'; ?>
 		<?php endif; ?>
 		<?php if (isset($templateData['error']['web_accessible_dir'])) : ?>
 			<?php
 			printf(
-				_('Your storage directory is %sweb accessible%s.'),
+				'Your storage directory is %sweb accessible%s.',
 				'<a href="http://codex.gallery2.org/index.php/Gallery2:Security#What_does_web-accessible_mean_.2F_what_is_the_document_root.3F" target="_blank">',
 				'</a>'
 			);
@@ -91,7 +91,7 @@
 		<?php if (isset($templateData['error']['possibly_web_accessible_dir'])) : ?>
 			<?php
 			printf(
-				_('Unable to verify that the storage directory is not %sweb accessible%s.'),
+				'Unable to verify that the storage directory is not %sweb accessible%s.',
 				'<a href="http://codex.gallery2.org/index.php/Gallery2:Security#What_does_web-accessible_mean_.2F_what_is_the_document_root.3F" target="_blank">',
 				'</a>'
 			);
@@ -100,7 +100,7 @@
 	  </div>
 	<?php endif; ?>
 
-	<span class="label"><?php echo _('Directory path:'); ?></span>
+	<span class="label"><?php echo 'Directory path:'; ?></span>
 	<input id="dir" name="dir" type="text" size="50"
 	   value="<?php echo $templateData['dir']; ?>" autocomplete="off"/>
 	<input type="hidden" name="action" value="save"/>
@@ -125,22 +125,22 @@
   </form>
 
 	<p>
-		<?php echo _('Your webserver needs to be able to write to this directory. To get it working, you can follow these examples.'); ?>
+		<?php echo 'Your webserver needs to be able to write to this directory. To get it working, you can follow these examples.'; ?>
 	  <br/>
 	  <i>
-	<?php echo _("Note: these are only examples!  You may find that they don't work quite right on your system."); ?>
+	<?php echo "Note: these are only examples!  You may find that they don't work quite right on your system."; ?>
 	  </i>
 	</p>
 
 	<?php if ($templateData['OS'] == 'unix') : ?>
 	<div class="example">
-	  <h2> <?php echo _('Unix (with shell access)'); ?> </h2>
+	  <h2> <?php echo 'Unix (with shell access)'; ?> </h2>
 	  <pre> $ <b>mkdir <?php echo $templateData['dir']; ?></b><br/> $ <b>chmod 777 <?php echo $templateData['dir']; ?></b></pre>
 	</div>
 
 	<div class="example">
-	  <h2> <?php echo _('Unix (with ftp access)'); ?> </h2>
-	  <i> <?php echo _('Note that ftp servers and clients vary so these instructions may not work for you. Consult the manual for your FTP client or talk to a system administrator for help with this if you have problems.'); ?> </i> <br/>
+	  <h2> <?php echo 'Unix (with ftp access)'; ?> </h2>
+	  <i> <?php echo 'Note that ftp servers and clients vary so these instructions may not work for you. Consult the manual for your FTP client or talk to a system administrator for help with this if you have problems.'; ?> </i> <br/>
 	  <pre> ftp&gt; <b>cd <?php echo dirname($templateData['dir']); ?></b><br/> ftp&gt; <b>mkdir <?php echo basename($templateData['dir']); ?></b><br/> ftp&gt; <b>chmod 777 <?php echo basename($templateData['dir']); ?></b></pre>
 	</div>
 
@@ -153,26 +153,26 @@
 
 	<?php if (isset($templateData['error']['missing_dir'])) : ?>
 	<p>
-		<?php echo _('In some web hosting environments, the paths that you see in the shell or via FTP are not the same paths that PHP sees.  In order to find out the real path to your data directory, you can try creating a PHP script called <b>dir.php</b> containing the following code in it and put it into your data directory.'); ?>
+		<?php echo 'In some web hosting environments, the paths that you see in the shell or via FTP are not the same paths that PHP sees.  In order to find out the real path to your data directory, you can try creating a PHP script called <b>dir.php</b> containing the following code in it and put it into your data directory.'; ?>
 	</p>
 	<div class="example">
 	  <pre> &lt;?php print system("pwd"); ?&gt; </pre>
 	</div>
 	<p>
-		<?php printf(_('then figure out the URL to dir.php and open it in your web browser (eg, %s).  This will tell you the exact path to enter here.'), '<b>http://your.server.com/g2data/dir.php</b>'); ?>
+		<?php printf('then figure out the URL to dir.php and open it in your web browser (eg, %s).  This will tell you the exact path to enter here.'), '<b>http://your.server.com/g2data/dir.php</b>'; ?>
 	</p>
 	<p>
-		<?php echo _('<b>Note</b>: This requires that your data directory is web accessible, which we don\'t recommend because it circumvents our image firewall.  Once you figure out the path this way, we recommend that you move your data directory outside of your web accessible area and then update the path here accordingly.'); ?>
+		<?php echo '<b>Note</b>: This requires that your data directory is web accessible, which we don\'t recommend because it circumvents our image firewall.  Once you figure out the path this way, we recommend that you move your data directory outside of your web accessible area and then update the path here accordingly.'; ?>
 	</p>
 	<p>
-		<?php echo _('<b>Note</b>: Don\'t forget to delete dir.php when you\'re done!'); ?>
+		<?php echo '<b>Note</b>: Don\'t forget to delete dir.php when you\'re done!'; ?>
 	</p>
 	<?php endif; ?>
 
 	<div class="warning">
-		<?php printf(_('For information on how to secure your Gallery storage directory, please read the %sSecurity Guide%s.'), '<a href="http://codex.gallery2.org/index.php/Gallery2:Security" target="_blank">', '</a>'); ?>
+		<?php printf('For information on how to secure your Gallery storage directory, please read the %sSecurity Guide%s.'), '<a href="http://codex.gallery2.org/index.php/Gallery2:Security" target="_blank">', '</a>'; ?>
 	</div>
 
 	<div class="go">
-	  <a href="javascript:document.forms[0].submit()" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Save'); ?></span></a>
+	  <a href="javascript:document.forms[0].submit()" class="btn continue"><i></i><span><span></span><i></i><?php echo 'Save'; ?></span></a>
 	</div>

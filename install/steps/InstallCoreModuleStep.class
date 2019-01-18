@@ -24,7 +24,7 @@
  */
 class InstallCoreModuleStep extends InstallStep {
 	public function stepName() {
-		return _('Install Gallery Core');
+		return 'Install Gallery Core';
 	}
 
 	public function processRequest() {
@@ -37,7 +37,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		$template = new StatusTemplate();
 		$template->renderHeader(true);
-		$template->renderStatusMessage(_('Installing the core module'), null, 0);
+		$template->renderStatusMessage('Installing the core module', null, 0);
 
 		$templateData = array();
 
@@ -66,7 +66,7 @@ class InstallCoreModuleStep extends InstallStep {
 		if ($ret) {
 			$gallery->debug(sprintf('Error: Unable to initialize our Gallery data, this is the ' .
 				'error stack trace: %s', $ret->getAsText()));
-			$templateData['errors'][]     = _('Unable to initialize our Gallery data');
+			$templateData['errors'][]     = 'Unable to initialize our Gallery data';
 			$templateData['stackTrace'][] = $ret->getAsHtml();
 		}
 
@@ -93,7 +93,7 @@ class InstallCoreModuleStep extends InstallStep {
 			}
 		}
 
-		$template->renderStatusMessage(_('Installing the core module'), null, 0.05);
+		$template->renderStatusMessage('Installing the core module', null, 0.05);
 		$gallery->guaranteeTimeLimit(180);
 
 		if (empty($templateData['errors'])) {
@@ -109,7 +109,7 @@ class InstallCoreModuleStep extends InstallStep {
 			if ($ret) {
 				$gallery->debug(sprintf('Error: Unable to communicate with the database, this ' .
 				'is the error stack trace; %s', $ret->getAsText()));
-				$templateData['errors'][]     = _('Unable to communicate with the database');
+				$templateData['errors'][]     = 'Unable to communicate with the database';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
 		}
@@ -122,12 +122,12 @@ class InstallCoreModuleStep extends InstallStep {
 			if ($ret) {
 				$gallery->debug(sprintf('Error: Unable to load the core module, this ' .
 				'is the error stack trace; %s', $ret->getAsText()));
-				$templateData['errors'][]     = _('Unable to load the core module');
+				$templateData['errors'][]     = 'Unable to load the core module';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
 		}
 
-		$template->renderStatusMessage(_('Installing the core module'), null, 0.1);
+		$template->renderStatusMessage('Installing the core module', null, 0.1);
 		$gallery->guaranteeTimeLimit(180);
 
 		$freshInstall = $galleryStub->getConfig('freshInstall');
@@ -161,13 +161,13 @@ class InstallCoreModuleStep extends InstallStep {
 					$this->resetL10Domain();
 					$gallery->debug(sprintf('Error: Unable to install the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
-					$templateData['errors'][]     = _('Unable to install the core module');
+					$templateData['errors'][]     = 'Unable to install the core module';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
 					$gallery->debug('Core module installed successfully');
 				}
 
-				$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
+				$template->renderStatusMessage('Installing the core module', '', 0.8);
 				$gallery->guaranteeTimeLimit(180);
 
 				$gallery->debug('Activate core module');
@@ -177,13 +177,13 @@ class InstallCoreModuleStep extends InstallStep {
 				if ($ret) {
 					$gallery->debug(sprintf('Error: Unable to activate the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
-					$templateData['errors'][]     = _('Unable to activate the core module');
+					$templateData['errors'][]     = 'Unable to activate the core module';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
 					$gallery->debug('Core module activated successfully');
 				}
 
-				$template->renderStatusMessage(_('Installing the core module'), '', 0.9);
+				$template->renderStatusMessage('Installing the core module', '', 0.9);
 				$gallery->guaranteeTimeLimit(180);
 
 				$gallery->debug('Commit transaction');
@@ -192,7 +192,7 @@ class InstallCoreModuleStep extends InstallStep {
 				if ($ret) {
 					$gallery->debug(sprintf('Error: Unable to commit database transaction, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
-					$templateData['errors'][]     = _('Unable to commit database transaction');
+					$templateData['errors'][]     = 'Unable to commit database transaction';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
 					$gallery->debug('Committed transaction successfully');
@@ -208,7 +208,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 				if (empty($versions['core']) || $versions['core'] != $core->getVersion()) {
 					$gallery->debug('Error: Core module is only partially installed');
-					$templateData['errors'][] = _('Core module is only partially installed.');
+					$templateData['errors'][] = 'Core module is only partially installed.';
 				} else {
 					$gallery->debug('Core module version is ok');
 				}
@@ -216,7 +216,7 @@ class InstallCoreModuleStep extends InstallStep {
 		}
 
 		$this->resetL10Domain();
-		$template->renderStatusMessage(_('Installing the core module'), '', 1.0);
+		$template->renderStatusMessage('Installing the core module', '', 1.0);
 		$gallery->guaranteeTimeLimit(120);
 
 		$gallery->debug('Finish install core module step');

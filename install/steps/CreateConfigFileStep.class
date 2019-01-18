@@ -30,7 +30,7 @@ class CreateConfigFileStep extends InstallStep {
 	}
 
 	public function stepName() {
-		return _('Create Config File');
+		return 'Create Config File';
 	}
 
 	public function processRequest() {
@@ -107,7 +107,7 @@ class CreateConfigFileStep extends InstallStep {
 				if (!$this->_firstTime) {
 					if (!file_exists($configFilePath)) {
 						$templateData['error'] = sprintf(
-							_('The config.php file does not exist in your %s directory'),
+							'The config.php file does not exist in your %s directory',
 							$configDir
 						);
 					} else {

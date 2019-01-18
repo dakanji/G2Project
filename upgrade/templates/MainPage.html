@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
-	<title> <?php echo _('Welcome to the Gallery Upgrader'); ?> </title>
+	<title> <?php echo 'Welcome to the Gallery Upgrader'; ?> </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" type="text/css" href="<?php generateUrl('upgrade.css'); ?>"/>
   </head>
@@ -122,7 +122,7 @@
 		<?php endif; ?>
 		  </tr>
 		</table>
-			<p id="progressStatus"><?php printf(_('Upgrade %d%% complete'), $templateData['percentComplete']); ?></p>
+			<p id="progressStatus"><?php printf('Upgrade %d%% complete', $templateData['percentComplete']); ?></p>
 
 		<?php if (!empty($templateData['errors'])) : ?>
 		<div class="error">
@@ -152,10 +152,10 @@
 		<?php if ($currentStep->isComplete() && !$currentStep->isLastStep()) : ?>
 		<div class="go">
 			<?php if ($currentStep->isRedoable()) : ?>
-		  <a href="<?php generateUrl('index.php?step=' . $stepNumber . '&amp;doOver=1'); ?>" class="btn redo"><i></i><span><span></span><i></i><?php echo _('Redo this step'); ?></span></a>
+		  <a href="<?php generateUrl('index.php?step=' . $stepNumber . '&amp;doOver=1'); ?>" class="btn redo"><i></i><span><span></span><i></i><?php echo 'Redo this step'; ?></span></a>
 			<?php endif; ?>
 			<?php $nextStep = $stepNumber + 1; ?>
-		  <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
+		  <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf('Continue to Step %d&raquo;', $nextStep); ?></span></a>
 		</div>
 		<?php endif; ?>
 	  </td>
@@ -163,7 +163,7 @@
 	  </table>
 	</div>
 	<div id="footer">
-	  <?php echo _('Gallery: <strong>your photos</strong> on <strong>your website</strong>'); ?>
+	  <?php echo 'Gallery: <strong>your photos</strong> on <strong>your website</strong>'; ?>
 	  &raquo; <a target="_blank" href="http://gallery.sourceforge.net/">gallery.sourceforge.net</a>
 	</div>
   </body>

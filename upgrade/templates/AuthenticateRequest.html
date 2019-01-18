@@ -7,35 +7,35 @@
       <div class="error">
 	<?php if (!empty($templateData['authFileErrors']['missing'])): ?>
 	  <?php printf(
-	_('<b>Error:</b> could not locate %s.  Please place it in your %s directory.'),
+	'<b>Error:</b> could not locate %s.  Please place it in your %s directory.',
 					  '<b>authFile.txt</b>',
 	'<tt>' . dirname($templateData['authFile']) . '</tt>'
 ) ?>
 	<?php elseif (!empty($templateData['authFileErrors']['unreadable'])): ?>
 	  <?php printf(
-						_('<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the file.'),
+						'<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the file.',
 					  '<b>authFile.txt</b>'
 					  ) ?>
 	<?php elseif (!empty($templateData['authFileErrors']['mismatch'])): ?>
 	  <?php printf(
-						_('<b>Error:</b> your %s key does not match correctly.  Please use the new authentication string from below and try again.'),
+						'<b>Error:</b> your %s key does not match correctly.  Please use the new authentication string from below and try again.',
 					  '<b>authFile.txt</b>'
 					  ) ?>
 	<?php endif; ?>
       </div>
       <?php endif; ?>
 
-    <h1><?php echo _('Authenticate') ?></h1>
+    <h1><?php echo 'Authenticate' ?></h1>
 
     <form method="post" action="">
     <?php if ($templateData['renderType'] == 'password'): ?>
       <p>
-	<?php echo _("In order to proceed with the upgrade process, we have to verify that you are who you claim.  When you performed the install, you entered a password which went into your config.php.  Type that in now.  Refer to your config.php if you've forgotten what you entered."); ?>
+	<?php echo "In order to proceed with the upgrade process, we have to verify that you are who you claim.  When you performed the install, you entered a password which went into your config.php.  Type that in now.  Refer to your config.php if you've forgotten what you entered."; ?>
       </p>
       <table>
 	<tr>
 	  <td style="text-align: left;">
-	    <?php echo _('Password:') ?>
+	    <?php echo 'Password:' ?>
 	  </td>
 	  <td style="text-align: left;">
 	    <input name="password" type="password" />
@@ -46,14 +46,14 @@
       </table>
       <?php else: ?>
       <p>
-	<span class="error"><?php echo _('You have exceeded the maximum attempts to login by entering a password.') ?></span>
+	<span class="error"><?php echo 'You have exceeded the maximum attempts to login by entering a password.' ?></span>
       </p>
       <p>
-        <?php echo _('To prevent somebody from hacking your website, we now require you to complete a stricter authentication process.') ?>
+        <?php echo 'To prevent somebody from hacking your website, we now require you to complete a stricter authentication process.' ?>
       </p>
       <p>
         <?php printf(
-						_('In order to proceed with the upgrade process, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we\'re going to ask that you create a new text file called %s in the %s directory on your webserver (that\'s the same directory where %s is located). It must contain the following randomly generated characters:'),
+						'In order to proceed with the upgrade process, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we\'re going to ask that you create a new text file called %s in the %s directory on your webserver (that\'s the same directory where %s is located). It must contain the following randomly generated characters:',
 					 '<strong>authFile.txt</strong>',
 					 '<tt>' . dirname($templateData['authFile']) . '</tt>',
 					 'main.php'
@@ -62,11 +62,11 @@
       <p class="bold"><?php echo $templateData['authKey']; ?></p>
 
       <p>
-        <?php echo _("Once you've uploaded the file, click below to continue."); ?>
+        <?php echo "Once you've uploaded the file, click below to continue."; ?>
       </p>
       <?php endif; ?>
     </form>
 
     <div class="go">
-	  <a href="javascript:document.forms[0].submit()" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Authenticate Me') ?></span></a>
+	  <a href="javascript:document.forms[0].submit()" class="btn continue"><i></i><span><span></span><i></i><?php echo 'Authenticate Me' ?></span></a>
     </div>

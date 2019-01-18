@@ -1,9 +1,9 @@
-	<h1 class="error"><?php echo _('An error occurred while upgrading Gallery Core Module'); ?></h1>
+	<h1 class="error"><?php echo 'An error occurred while upgrading Gallery Core Module'; ?></h1>
 
 	<p>
 		<?php
 		printf(
-			_("Something went wrong when we tried to upgrade the core module.  In the boxes below you can find some debug information.  Report this in the %sGallery Forums%s and we'll help you diagnose the problem."),
+			"Something went wrong when we tried to upgrade the core module.  In the boxes below you can find some debug information.  Report this in the %sGallery Forums%s and we'll help you diagnose the problem.",
 			'<a href="http://gallery.sourceforge.net/forums.php">',
 			'</a>'
 		)
@@ -11,7 +11,7 @@
 	</p>
 
 	<h2>
-		<?php echo _('Stack Trace:'); ?>
+		<?php echo 'Stack Trace:'; ?>
 	</h2>
 	<div class="stack_trace">
 		<?php echo $templateData['stackTrace']; ?>
@@ -20,7 +20,7 @@
 	<br />
 
 	<h2>
-		<?php echo _('Debug Output:'); ?>
+		<?php echo 'Debug Output:'; ?>
 	</h2>
 	<div class="debug">
 	  <pre>

@@ -24,7 +24,7 @@
  */
 class InstallOtherModulesStep extends InstallStep {
 	public function stepName() {
-		return _('Install Plugins');
+		return 'Install Plugins';
 	}
 
 	public function processRequest() {
@@ -42,7 +42,7 @@ class InstallOtherModulesStep extends InstallStep {
 		$ret = $this->_selectAdminUser();
 
 		if ($ret) {
-			$templateData['errors'][]     = _('Unable to initialize our Gallery session');
+			$templateData['errors'][]     = 'Unable to initialize our Gallery session';
 			$templateData['stackTrace'][] = $ret->getAsHtml();
 			unset($_REQUEST['module']);
 		}
@@ -62,7 +62,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = sprintf(_('Unable to load the %s module'), $moduleId);
+					$templateData['errors'][]     = sprintf('Unable to load the %s module', $moduleId);
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -73,7 +73,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$gallery->guaranteeTimeLimit(120);
 
 				$template->renderStatusMessage(
-					_('Installing modules'),
+					'Installing modules',
 					$module->getName(),
 					$currentModule / $totalModules
 				);
@@ -82,7 +82,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = sprintf(_('Unable to install the %s module'), $module->getName());
+					$templateData['errors'][]     = sprintf('Unable to install the %s module', $module->getName());
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -94,7 +94,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = _('Unable to commit database transaction');
+					$templateData['errors'][]     = 'Unable to commit database transaction';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				}
 
@@ -102,7 +102,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = sprintf(_('Unable to activate the %s module'), $module->getName());
+					$templateData['errors'][]     = sprintf('Unable to activate the %s module', $module->getName());
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -120,7 +120,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$this->resetL10Domain();
 
 				if ($ret) {
-					$templateData['errors'][]     = sprintf(_('Unable to activate the %s module'), $module->getName());
+					$templateData['errors'][]     = sprintf('Unable to activate the %s module', $module->getName());
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -138,7 +138,7 @@ class InstallOtherModulesStep extends InstallStep {
 			$ret = $storage->commitTransaction();
 
 			if ($ret) {
-				$templateData['errors'][]     = _('Unable to commit database transaction');
+				$templateData['errors'][]     = 'Unable to commit database transaction';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
 		}
@@ -167,7 +167,7 @@ class InstallOtherModulesStep extends InstallStep {
 			list($ret, $moduleList) = GalleryCoreApi::fetchPluginStatus('module', true);
 
 			if ($ret) {
-				$templateData['errors'][]     = _('Unable to get the module list');
+				$templateData['errors'][]     = 'Unable to get the module list';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
 		}
@@ -178,7 +178,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['warnings'][]   = sprintf(_('Unable to load the %s module'), $moduleId);
+					$templateData['warnings'][]   = sprintf('Unable to load the %s module', $moduleId);
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
 					$modulePlugin->setName($modulePlugin->translate($modulePlugin->getName()));
@@ -202,7 +202,7 @@ class InstallOtherModulesStep extends InstallStep {
 				if (empty($group)) {
 					$group = array(
 						'group'      => 'others',
-						'groupLabel' => _('Other'),
+						'groupLabel' => 'Other',
 					);
 				}
 				$groupedModules[$group['group']][$moduleId] =& $module;
@@ -257,7 +257,7 @@ class InstallOtherModulesStep extends InstallStep {
 			));
 
 			if ($ret) {
-				$templateData['errors'][]     = _('Unable to initialize our Gallery data');
+				$templateData['errors'][]     = 'Unable to initialize our Gallery data';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
 
@@ -265,7 +265,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$ret = $this->_selectAdminUser();
 
 				if ($ret) {
-					$templateData['errors'][]     = _('Unable to initialize our Gallery session');
+					$templateData['errors'][]     = 'Unable to initialize our Gallery session';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				}
 			}
