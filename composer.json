@@ -1,0 +1,20 @@
+{
+    "name": "dayo/g2project-main",
+    "description": "Community Update of Gallery2 - A web based photo album viewer and editor",
+    "type": "project",
+    "license": "GPL v2",
+    "authors": [
+        {
+            "name": "dakanji",
+            "email": "dakanji@users.noreply.github.com"
+        }
+    ],
+    "config": {
+    	"vendor-dir": "lib/composer/vendor"
+    },
+    "require": {
+        "symfony/polyfill": "^1.10",
+        "ircmaxell/password-compat": "^1.0",
+        "paragonie/random_compat": "^9.99"
+    }
+}
