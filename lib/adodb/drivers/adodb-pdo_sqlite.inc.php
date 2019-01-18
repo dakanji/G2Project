@@ -41,7 +41,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	public function ServerInfo() {
 		$parent = $this->pdoDriver;
 		@($ver  = array_pop($parent->GetCol('SELECT sqlite_version()')));
-		@($enc  = array_pop($parent->GetCol('PRAGMA encoding')));
+		@($enc = array_pop($parent->GetCol('PRAGMA encoding')));
 
 		$arr['version']     = $ver;
 		$arr['description'] = 'SQLite ';

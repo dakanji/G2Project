@@ -88,7 +88,7 @@ class SystemChecksStep extends UpgradeStep {
 
 			$isWindows = !strncasecmp(PHP_OS, 'win', 3);
 			$fileName  = $isWindows ? 'cleanup.bat' : 'cleanup.sh';
-			
+
 			header('Content-Type: application/data');
 			header('Content-Disposition: attachment; filename=' . $fileName);
 
@@ -442,6 +442,7 @@ class SystemChecksStep extends UpgradeStep {
 
 				$heading = sprintf('Inaccessible or missing  files (%d)', count($storageFiles));
 				$message = $this->renderFileList($storageFiles, 'storagefiles', $heading, $notice);
+
 				$templateData['check'][] = array(
 					'title'  => $title,
 					'error'  => true,

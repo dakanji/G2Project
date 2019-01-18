@@ -556,7 +556,6 @@ if (!defined('_ADODB_LAYER')) {
 		 * @param    string  $parameter  The name of the parameter to set
 		 * @param    string  $value      The value of the parameter
 		 *
-		 * @return null
 		 *
 		 * @example, for mssqlnative driver ('CharacterSet','UTF-8')
 		 */

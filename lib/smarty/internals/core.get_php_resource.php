@@ -9,7 +9,6 @@
  * Retrieves PHP script resource
  *
  * sets $php_resource to the returned resource
- * @param  $php_resource
  * @return boolean
  */
 function smarty_core_get_php_resource(&$params, &$smarty) {

@@ -19,7 +19,7 @@
 	</p>
 	<?php else : ?>
 	<p>
-	  <?php echo _('The installed version is older than the new version. You should run the upgrader and not the installer!'); ?>
+		<?php echo _('The installed version is older than the new version. You should run the upgrader and not the installer!'); ?>
 	</p>
 	<?php endif; ?>
 
@@ -61,7 +61,7 @@
 	</div>
 		<?php else : ?>
 	<p>
-	  <?php printf(_('You should go now to the upgrader.  Enter the URL in your browser for %s/upgrade/index.php%s in your %s directory.'), '<tt>', '</tt>', '<tt>' . $templateData['galleryDir'] . '</tt>'); ?>
+			<?php printf(_('You should go now to the upgrader.  Enter the URL in your browser for %s/upgrade/index.php%s in your %s directory.'), '<tt>', '</tt>', '<tt>' . $templateData['galleryDir'] . '</tt>'); ?>
 	</p>
 		<?php endif; ?>
 	<?php endif; ?>

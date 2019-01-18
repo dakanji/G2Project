@@ -147,8 +147,8 @@ class Config_File {
 	/**
 	 * Retrieves config info based on the key.
 	 *
-	 * @param $file_name string config key (filename/section/var)
-	 * @return string|array same as get()
+     * @param $config_key string config key (filename/section/var)
+     * @return string|array same as get()
 	 * @uses get() retrieves information from config file and returns it
 	 */
 	public function &get_key($config_key) {

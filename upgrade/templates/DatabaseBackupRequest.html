@@ -29,45 +29,45 @@
 
 		<?php elseif (!strncmp($templateData['storeConfig']['type'], 'postgres', 8)) : ?>
 	  <h3> <?php echo _('PostgreSQL'); ?> </h3>
-	  <?php
-		printf(
-			'pg_dump -h %s --format=t %s > %s.sql',
-			$templateData['storeConfig']['hostname'],
-			$templateData['storeConfig']['database'],
-			$templateData['storeConfig']['database']
-		)
-		?>
+			<?php
+			printf(
+				'pg_dump -h %s --format=t %s > %s.sql',
+				$templateData['storeConfig']['hostname'],
+				$templateData['storeConfig']['database'],
+				$templateData['storeConfig']['database']
+			)
+			?>
 
 		<?php elseif ($templateData['storeConfig']['type'] == 'oci8po') : ?>
 	  <h3> <?php echo _('Oracle'); ?> </h3>
-	  <?php
-		printf(
-			'exp %s@%s file=%s.dmp full=yes',
-			$templateData['storeConfig']['username'],
-			$templateData['storeConfig']['database'],
-			$templateData['storeConfig']['database']
-		)
-		?>
+			<?php
+			printf(
+				'exp %s@%s file=%s.dmp full=yes',
+				$templateData['storeConfig']['username'],
+				$templateData['storeConfig']['database'],
+				$templateData['storeConfig']['database']
+			)
+			?>
 
 		<?php elseif (strstr($templateData['storeConfig']['type'], 'db2')) : ?>
 	  <h3> <?php echo _('IBM DB2'); ?> </h3>
-	  <?php
-		printf(
-			'db2 "backup database %s"',
-			$templateData['storeConfig']['database']
-		)
-		?>
+			<?php
+			printf(
+				'db2 "backup database %s"',
+				$templateData['storeConfig']['database']
+			)
+			?>
 
 		<?php elseif (strstr($templateData['storeConfig']['type'], 'mssql')) : ?>
 	  <h3> <?php echo _('Microsoft SQL Server'); ?> </h3>
-	  <?php
-		printf(
-			'sqlcmd -S %s\SQLEXPRESS -e -Q "backup database %s to disk = \'%s.bkp\'"',
-			$templateData['storeConfig']['hostname'],
-			$templateData['storeConfig']['database'],
-			$templateData['storeConfig']['database']
-		)
-		?>
+			<?php
+			printf(
+				'sqlcmd -S %s\SQLEXPRESS -e -Q "backup database %s to disk = \'%s.bkp\'"',
+				$templateData['storeConfig']['hostname'],
+				$templateData['storeConfig']['database'],
+				$templateData['storeConfig']['database']
+			)
+			?>
 		<?php endif; ?>
 	</div>
 	   </li>
@@ -89,14 +89,14 @@
 			<?php echo _('Skip Database Backup'); ?></span></a>
 		<?php else : ?>
 	   <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i>
-		 <?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
+			<?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
 		<?php endif; ?>
 	<?php else : ?>
 	<h2>
-	  <?php echo _('Stack Trace:'); ?>
+		<?php echo _('Stack Trace:'); ?>
 	</h2>
 	<div class="stack_trace">
-	  <?php echo $templateData['stackTrace']; ?>
+		<?php echo $templateData['stackTrace']; ?>
 	</div>
 
 	<br />

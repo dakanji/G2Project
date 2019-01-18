@@ -86,7 +86,7 @@ class CommentCallbackView extends GalleryView {
 
 	/**
 	 * Delete the comment with the given id.
-	 * @param $id int the id
+	 * @param $commentId int the id
 	 */
 	public function deleteComment($commentId) {
 		if (empty($commentId)) {

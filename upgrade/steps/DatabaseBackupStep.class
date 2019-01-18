@@ -152,7 +152,7 @@ class DatabaseBackupStep extends UpgradeStep {
 						[::name] FROM [GallerySchema]
 					WHERE 
 						[::type] in (\'map\',  \'entity\')';
-				
+
 				list($ret, $results) = $storage->search($query, array(), array(
 					'limit' => array(
 						'count' => 1,

@@ -113,7 +113,6 @@ class GalleryImportElement extends GalleryXmlHandler {
 	/**
 	 * Undo the effects of calling GalleryDatabaseExport::_encodeHtmlspecialchars($value). If the
 	 * exported field is contained in a CDATA block, then we need to do the decoding ourselves.
-	 * @param $string $valueToConvert String to escape the html special characters.
 	 * @return string The decoded string.
 	 * @todo Move this routine to GalleryUtilities as a common function.
 	 */

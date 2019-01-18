@@ -744,7 +744,7 @@ class GalleryUrlGenerator {
 			// When embedded, file can be empty
 			$this->_hasRequestUriShortUrlPrefix = empty($this->_file[0])
 			|| ($pos                            = strpos($requestUri, $this->_file[0])) === false
-			|| (($qPos                          = strpos($requestUri, '?')) !== false && $pos >= $qPos);
+			|| (($qPos = strpos($requestUri, '?')) !== false && $pos >= $qPos);
 		}
 
 		if ($forceServerRelativeUrl || $this->_hasRequestUriShortUrlPrefix

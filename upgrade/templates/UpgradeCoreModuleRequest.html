@@ -59,18 +59,18 @@
 	<input type="hidden" name="confirm" value="1"/>
 	  </form>
 
-	  <?php echo _('Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may interfere with the upgrade process.'); ?>
+		<?php echo _('Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may interfere with the upgrade process.'); ?>
 	</p>
 
 	<div class="go">
-	<?php
-	if (!$templateData['isConfigUpgradeRequired']
-		|| $templateData['isConfigWriteable']
-	) :
-		?>
+		<?php
+		if (!$templateData['isConfigUpgradeRequired']
+			|| $templateData['isConfigWriteable']
+		) :
+			?>
 	  <a href="javascript:document.forms[0].submit()" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Begin Upgrade'); ?></span></a>
-	<?php else : ?>
+		<?php else : ?>
 	  <a href="<?php generateUrl('index.php?step=' . $stepNumber); ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Recheck config.php'); ?></span></a>
-	<?php endif; ?>
+		<?php endif; ?>
 	</div>
 	<?php endif; ?>

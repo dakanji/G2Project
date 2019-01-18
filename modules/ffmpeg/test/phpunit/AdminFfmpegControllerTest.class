@@ -452,7 +452,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/notExecutablePath/ffmpeg':
 			case '/incompletePath/':
 			case '/incompletePath/ffmpeg':
-			return true;
+				return true;
 		}
 
 		return false;
@@ -463,7 +463,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/validPath/':
 			case '/validPathBadBinary/':
 			case '/incompletePath/':
-			return true;
+				return true;
 		}
 
 		return false;
@@ -475,7 +475,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/validPathBadBinary/ffmpeg':
 			case '/notExecutablePath/ffmpeg':
 			case '/incompletePath/ffmpeg':
-			return true;
+				return true;
 		}
 
 		return false;
@@ -486,7 +486,7 @@ class AdminFfmpegControllerTestPlatform {
 			case '/validPath/ffmpeg':
 			case '/validPathBadBinary/ffmpeg':
 			case '/incompletePath/ffmpeg':
-			return true;
+				return true;
 		}
 
 		return false;
@@ -504,10 +504,10 @@ class AdminFfmpegControllerTestPlatform {
 		switch ($args[0][0]) {
 			case '/validPath/ffmpeg':
 			case '/incompletePath/ffmpeg':
-			return array(1, array('Input audio/video file formats: mpeg'), array());
+				return array(1, array('Input audio/video file formats: mpeg'), array());
 
 			default:
-			return array(0, array(), array());
+				return array(0, array(), array());
 		}
 	}
 }

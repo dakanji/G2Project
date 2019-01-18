@@ -38,7 +38,7 @@ $ADODB_Last_PEAR_Error = false;
    * @param $errno     the native error number from the database
    * @param $errmsg    the native error msg from the database
    * @param $p1        $fn specific parameter - see below
-   * @param $P2        $fn specific parameter - see below
+   * @param $p2        $fn specific parameter - see below
    */
 function ADODB_Error_PEAR($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 = false) {
 	global $ADODB_Last_PEAR_Error;

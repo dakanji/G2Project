@@ -73,7 +73,7 @@ class ADODB_Exception extends Exception {
  * @param $errno     the native error number from the database
  * @param $errmsg    the native error msg from the database
  * @param $p1        $fn specific parameter - see below
- * @param $P2        $fn specific parameter - see below
+ * @param $p2        $fn specific parameter - see below
  */
 function adodb_throw($dbms, $fn, $errno, $errmsg, $p1, $p2, $thisConnection) {
 	global $ADODB_EXCEPTION;
