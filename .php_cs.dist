@@ -2,7 +2,7 @@
 // __construct
 $finder = PhpCsFixer\Finder::create()
 	->name('/.+\.(php|inc|class|css|js|xaml|xml|html)$/')
-	->exclude('*/Iconv/Resources/charset/*')
+	->exclude(array('*/Iconv/Resources/charset/*','*/wpcs/*'))
     ->in(__DIR__)
 ;
 

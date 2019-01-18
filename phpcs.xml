@@ -14,7 +14,7 @@
 	<!-- ARGS -->
 	<arg name="tab-width" value="4"/>
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
-	<arg name="ignore" value="*/Iconv/Resources/charset/*"/>
+	<arg name="ignore" value="*/Iconv/Resources/charset/*,*/wpcs/*"/>
 
 	<!-- Load WordPress Standards ... Edit path below -->
 	<config name="installed_paths" value="/Applications/MAMP/htdocs/G2Project-main/wpcs" />
