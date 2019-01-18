@@ -17,7 +17,7 @@
 	<arg name="ignore" value="*/lib/composer/*,*/composer_vendor/*,*/wpcs/*"/>
 
 	<!-- Load WordPress Standards ... Edit path below -->
-	<config name="installed_paths" value="/Applications/MAMP/htdocs/G2Project-main/wpcs" />
+	<config name="installed_paths" value="wpcs" />
 	<autoload>phpcsWPCSLoader.php</autoload>
 	
 	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
