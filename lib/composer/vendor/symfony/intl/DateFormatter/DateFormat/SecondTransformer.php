@@ -18,29 +18,33 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class SecondTransformer extends Transformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		$secondOfMinute = (int)$dateTime->format('s');
+class SecondTransformer extends Transformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        $secondOfMinute = (int) $dateTime->format('s');
 
-		return $this->padLeft($secondOfMinute, $length);
-	}
+        return $this->padLeft($secondOfMinute, $length);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return 1 === $length ? '\d{1,2}' : '\d{' . $length . '}';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return 1 === $length ? '\d{1,2}' : '\d{'.$length.'}';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array(
-			'second' => (int)$matched,
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array(
+            'second' => (int) $matched,
+        );
+    }
 }

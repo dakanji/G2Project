@@ -20,60 +20,65 @@ use Symfony\Component\Intl\Data\Bundle\Writer\BundleWriterInterface;
  *
  * @internal
  */
-class GeneratorConfig {
+class GeneratorConfig
+{
+    private $sourceDir;
+    private $icuVersion;
 
-	private $sourceDir;
-	private $icuVersion;
+    /**
+     * @var BundleWriterInterface[]
+     */
+    private $bundleWriters = array();
 
-	/**
-	 * @var BundleWriterInterface[]
-	 */
-	private $bundleWriters = array();
+    /**
+     * @param string $sourceDir
+     * @param string $icuVersion
+     */
+    public function __construct($sourceDir, $icuVersion)
+    {
+        $this->sourceDir = $sourceDir;
+        $this->icuVersion = $icuVersion;
+    }
 
-	/**
-	 * @param string $sourceDir
-	 * @param string $icuVersion
-	 */
-	public function __construct($sourceDir, $icuVersion) {
-		$this->sourceDir  = $sourceDir;
-		$this->icuVersion = $icuVersion;
-	}
+    /**
+     * Adds a writer to be used during the data conversion.
+     *
+     * @param string                $targetDir The output directory
+     * @param BundleWriterInterface $writer    The writer instance
+     */
+    public function addBundleWriter($targetDir, BundleWriterInterface $writer)
+    {
+        $this->bundleWriters[$targetDir] = $writer;
+    }
 
-	/**
-	 * Adds a writer to be used during the data conversion.
-	 *
-	 * @param string                $targetDir The output directory
-	 * @param BundleWriterInterface $writer    The writer instance
-	 */
-	public function addBundleWriter($targetDir, BundleWriterInterface $writer) {
-		$this->bundleWriters[$targetDir] = $writer;
-	}
+    /**
+     * Returns the writers indexed by their output directories.
+     *
+     * @return BundleWriterInterface[]
+     */
+    public function getBundleWriters()
+    {
+        return $this->bundleWriters;
+    }
 
-	/**
-	 * Returns the writers indexed by their output directories.
-	 *
-	 * @return BundleWriterInterface[]
-	 */
-	public function getBundleWriters() {
-		return $this->bundleWriters;
-	}
+    /**
+     * Returns the directory where the source versions of the resource bundles
+     * are stored.
+     *
+     * @return string An absolute path to a directory
+     */
+    public function getSourceDir()
+    {
+        return $this->sourceDir;
+    }
 
-	/**
-	 * Returns the directory where the source versions of the resource bundles
-	 * are stored.
-	 *
-	 * @return string An absolute path to a directory
-	 */
-	public function getSourceDir() {
-		return $this->sourceDir;
-	}
-
-	/**
-	 * Returns the ICU version of the bundles being converted.
-	 *
-	 * @return string The ICU version string
-	 */
-	public function getIcuVersion() {
-		return $this->icuVersion;
-	}
+    /**
+     * Returns the ICU version of the bundles being converted.
+     *
+     * @return string The ICU version string
+     */
+    public function getIcuVersion()
+    {
+        return $this->icuVersion;
+    }
 }

@@ -23,53 +23,57 @@ use Symfony\Component\Intl\Exception\MissingResourceException;
  *
  * @internal
  */
-class RegionBundle extends RegionDataProvider implements RegionBundleInterface {
+class RegionBundle extends RegionDataProvider implements RegionBundleInterface
+{
+    private $localeProvider;
 
-	private $localeProvider;
+    /**
+     * Creates a new region bundle.
+     *
+     * @param string                     $path
+     * @param BundleEntryReaderInterface $reader
+     * @param LocaleDataProvider         $localeProvider
+     */
+    public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider)
+    {
+        parent::__construct($path, $reader);
 
-	/**
-	 * Creates a new region bundle.
-	 *
-	 * @param string                     $path
-	 * @param BundleEntryReaderInterface $reader
-	 * @param LocaleDataProvider         $localeProvider
-	 */
-	public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider) {
-		parent::__construct($path, $reader);
+        $this->localeProvider = $localeProvider;
+    }
 
-		$this->localeProvider = $localeProvider;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCountryName($country, $displayLocale = null)
+    {
+        try {
+            return $this->getName($country, $displayLocale);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCountryName($country, $displayLocale = null) {
-		try {
-			return $this->getName($country, $displayLocale);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCountryNames($displayLocale = null)
+    {
+        try {
+            return $this->getNames($displayLocale);
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCountryNames($displayLocale = null) {
-		try {
-			return $this->getNames($displayLocale);
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLocales() {
-		try {
-			return $this->localeProvider->getLocales();
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocales()
+    {
+        try {
+            return $this->localeProvider->getLocales();
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 }

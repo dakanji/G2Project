@@ -23,86 +23,93 @@ use Symfony\Component\Intl\Exception\MissingResourceException;
  *
  * @internal
  */
-class CurrencyBundle extends CurrencyDataProvider implements CurrencyBundleInterface {
+class CurrencyBundle extends CurrencyDataProvider implements CurrencyBundleInterface
+{
+    private $localeProvider;
 
-	private $localeProvider;
+    /**
+     * Creates a new currency bundle.
+     *
+     * @param string                     $path
+     * @param BundleEntryReaderInterface $reader
+     * @param LocaleDataProvider         $localeProvider
+     */
+    public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider)
+    {
+        parent::__construct($path, $reader);
 
-	/**
-	 * Creates a new currency bundle.
-	 *
-	 * @param string                     $path
-	 * @param BundleEntryReaderInterface $reader
-	 * @param LocaleDataProvider         $localeProvider
-	 */
-	public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider) {
-		parent::__construct($path, $reader);
+        $this->localeProvider = $localeProvider;
+    }
 
-		$this->localeProvider = $localeProvider;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrencySymbol($currency, $displayLocale = null)
+    {
+        try {
+            return $this->getSymbol($currency, $displayLocale);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCurrencySymbol($currency, $displayLocale = null) {
-		try {
-			return $this->getSymbol($currency, $displayLocale);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrencyName($currency, $displayLocale = null)
+    {
+        try {
+            return $this->getName($currency, $displayLocale);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCurrencyName($currency, $displayLocale = null) {
-		try {
-			return $this->getName($currency, $displayLocale);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrencyNames($displayLocale = null)
+    {
+        try {
+            return $this->getNames($displayLocale);
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCurrencyNames($displayLocale = null) {
-		try {
-			return $this->getNames($displayLocale);
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getFractionDigits($currency)
+    {
+        try {
+            return parent::getFractionDigits($currency);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getFractionDigits($currency) {
-		try {
-			return parent::getFractionDigits($currency);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoundingIncrement($currency)
+    {
+        try {
+            return parent::getRoundingIncrement($currency);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getRoundingIncrement($currency) {
-		try {
-			return parent::getRoundingIncrement($currency);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLocales() {
-		try {
-			return $this->localeProvider->getLocales();
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocales()
+    {
+        try {
+            return $this->localeProvider->getLocales();
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 }

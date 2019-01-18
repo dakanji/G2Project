@@ -14,43 +14,24 @@ namespace Symfony\Component\Intl\Tests\Data\Provider\Json;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
 use Symfony\Component\Intl\Data\Bundle\Reader\JsonBundleReader;
 use Symfony\Component\Intl\Intl;
-use Symfony\Component\Intl\Tests\Data\Provider\AbstractLocaleDataProviderTest;/**
+use Symfony\Component\Intl\Tests\Data\Provider\AbstractLocaleDataProviderTest;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @group intl-data
  */
-class JsonLocaleDataProviderTest extends AbstractLocaleDataProviderTest {
-	protected function getDataDirectory() {
-		return Intl::getDataDirectory();
-	}
+class JsonLocaleDataProviderTest extends AbstractLocaleDataProviderTest
+{
+    protected function getDataDirectory()
+    {
+        return Intl::getDataDirectory();
+    }
 
-	/**
-	 * @return BundleReaderInterface
-	 */
-	protected function createBundleReader() {
-		return new JsonBundleReader();
-	}
+    /**
+     * @return BundleReaderInterface
+     */
+    protected function createBundleReader()
+    {
+        return new JsonBundleReader();
+    }
 }

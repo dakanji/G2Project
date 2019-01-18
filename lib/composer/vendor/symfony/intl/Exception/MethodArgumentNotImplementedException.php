@@ -14,13 +14,15 @@ namespace Symfony\Component\Intl\Exception;
 /**
  * @author Eriksen Costa <eriksen.costa@infranology.com.br>
  */
-class MethodArgumentNotImplementedException extends NotImplementedException {
-	/**
-		 * @param string $methodName The method name that raised the exception
-		 * @param string $argName    The argument name that is not implemented
-		 */
-	public function __construct($methodName, $argName) {
-		$message = sprintf('The %s() method\'s argument $%s behavior is not implemented.', $methodName, $argName);
-		parent::__construct($message);
-	}
+class MethodArgumentNotImplementedException extends NotImplementedException
+{
+    /**
+     * @param string $methodName The method name that raised the exception
+     * @param string $argName    The argument name that is not implemented
+     */
+    public function __construct($methodName, $argName)
+    {
+        $message = sprintf('The %s() method\'s argument $%s behavior is not implemented.', $methodName, $argName);
+        parent::__construct($message);
+    }
 }

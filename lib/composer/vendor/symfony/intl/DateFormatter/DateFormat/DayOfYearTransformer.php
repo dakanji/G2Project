@@ -18,27 +18,31 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class DayOfYearTransformer extends Transformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		$dayOfYear = $dateTime->format('z') + 1;
+class DayOfYearTransformer extends Transformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        $dayOfYear = $dateTime->format('z') + 1;
 
-		return $this->padLeft($dayOfYear, $length);
-	}
+        return $this->padLeft($dayOfYear, $length);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return '\d{' . $length . '}';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return '\d{'.$length.'}';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array();
+    }
 }

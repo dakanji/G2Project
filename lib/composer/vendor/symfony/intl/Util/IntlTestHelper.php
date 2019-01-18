@@ -25,80 +25,86 @@ use Symfony\Component\Intl\Intl;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class IntlTestHelper {
-	/**
-		 * Should be called before tests that work fine with the stub implementation.
-		 */
-	public static function requireIntl(TestCase $testCase, $minimumIcuVersion = null) {
-		if (null === $minimumIcuVersion) {
-			$minimumIcuVersion = Intl::getIcuStubVersion();
-		}
+class IntlTestHelper
+{
+    /**
+     * Should be called before tests that work fine with the stub implementation.
+     */
+    public static function requireIntl(TestCase $testCase, $minimumIcuVersion = null)
+    {
+        if (null === $minimumIcuVersion) {
+            $minimumIcuVersion = Intl::getIcuStubVersion();
+        }
 
-		// We only run tests if the version is *one specific version*.
-		// This condition is satisfied if
-		//
-		//   * the intl extension is loaded with version Intl::getIcuStubVersion()
-		//   * the intl extension is not loaded
+        // We only run tests if the version is *one specific version*.
+        // This condition is satisfied if
+        //
+        //   * the intl extension is loaded with version Intl::getIcuStubVersion()
+        //   * the intl extension is not loaded
 
-		if (($minimumIcuVersion || defined('HHVM_VERSION_ID')) && IcuVersion::compare(Intl::getIcuVersion(), $minimumIcuVersion, '<', 1)) {
-			$testCase->markTestSkipped('ICU version ' . $minimumIcuVersion . ' is required.');
-		}
+        if (($minimumIcuVersion || \defined('HHVM_VERSION_ID')) && IcuVersion::compare(Intl::getIcuVersion(), $minimumIcuVersion, '<', 1)) {
+            $testCase->markTestSkipped('ICU version '.$minimumIcuVersion.' is required.');
+        }
 
-		// Normalize the default locale in case this is not done explicitly
-		// in the test
-		\Locale::setDefault('en');
+        // Normalize the default locale in case this is not done explicitly
+        // in the test
+        \Locale::setDefault('en');
 
-		// Consequently, tests will
-		//
-		//   * run only for one ICU version (see Intl::getIcuStubVersion())
-		//     there is no need to add control structures to your tests that
-		//     change the test depending on the ICU version.
-		//
-		// Tests should only rely on functionality that is implemented in the
-		// stub classes.
-	}
+        // Consequently, tests will
+        //
+        //   * run only for one ICU version (see Intl::getIcuStubVersion())
+        //     there is no need to add control structures to your tests that
+        //     change the test depending on the ICU version.
+        //
+        // Tests should only rely on functionality that is implemented in the
+        // stub classes.
+    }
 
-	/**
-	 * Should be called before tests that require a feature-complete intl
-	 * implementation.
-	 */
-	public static function requireFullIntl(TestCase $testCase, $minimumIcuVersion = null) {
-		// We only run tests if the intl extension is loaded...
-		if (!Intl::isExtensionLoaded()) {
-			$testCase->markTestSkipped('Extension intl is required.');
-		}
+    /**
+     * Should be called before tests that require a feature-complete intl
+     * implementation.
+     */
+    public static function requireFullIntl(TestCase $testCase, $minimumIcuVersion = null)
+    {
+        // We only run tests if the intl extension is loaded...
+        if (!Intl::isExtensionLoaded()) {
+            $testCase->markTestSkipped('Extension intl is required.');
+        }
 
-		self::requireIntl($testCase, $minimumIcuVersion);
+        self::requireIntl($testCase, $minimumIcuVersion);
 
-		// Consequently, tests will
-		//
-		//   * run only for one ICU version (see Intl::getIcuStubVersion())
-		//     there is no need to add control structures to your tests that
-		//     change the test depending on the ICU version.
-		//   * always use the C intl classes
-	}
+        // Consequently, tests will
+        //
+        //   * run only for one ICU version (see Intl::getIcuStubVersion())
+        //     there is no need to add control structures to your tests that
+        //     change the test depending on the ICU version.
+        //   * always use the C intl classes
+    }
 
-	/**
-	 * Skips the test unless the current system has a 32bit architecture.
-	 */
-	public static function require32Bit(TestCase $testCase) {
-		if (4 !== PHP_INT_SIZE) {
-			$testCase->markTestSkipped('PHP 32 bit is required.');
-		}
-	}
+    /**
+     * Skips the test unless the current system has a 32bit architecture.
+     */
+    public static function require32Bit(TestCase $testCase)
+    {
+        if (4 !== PHP_INT_SIZE) {
+            $testCase->markTestSkipped('PHP 32 bit is required.');
+        }
+    }
 
-	/**
-	 * Skips the test unless the current system has a 64bit architecture.
-	 */
-	public static function require64Bit(TestCase $testCase) {
-		if (8 !== PHP_INT_SIZE) {
-			$testCase->markTestSkipped('PHP 64 bit is required.');
-		}
-	}
+    /**
+     * Skips the test unless the current system has a 64bit architecture.
+     */
+    public static function require64Bit(TestCase $testCase)
+    {
+        if (8 !== PHP_INT_SIZE) {
+            $testCase->markTestSkipped('PHP 64 bit is required.');
+        }
+    }
 
-	/**
-	 * Must not be instantiated.
-	 */
-	private function __construct() {
-	}
+    /**
+     * Must not be instantiated.
+     */
+    private function __construct()
+    {
+    }
 }

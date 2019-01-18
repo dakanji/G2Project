@@ -18,23 +18,25 @@ namespace Symfony\Component\Intl\Data\Bundle\Writer;
  *
  * @internal
  */
-class JsonBundleWriter implements BundleWriterInterface {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function write($path, $locale, $data) {
-		if ($data instanceof \Traversable) {
-			$data = iterator_to_array($data);
-		}
+class JsonBundleWriter implements BundleWriterInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function write($path, $locale, $data)
+    {
+        if ($data instanceof \Traversable) {
+            $data = iterator_to_array($data);
+        }
 
-		array_walk_recursive($data, function (&$value) {
-			if ($value instanceof \Traversable) {
-				$value = iterator_to_array($value);
-			}
-		});
+        array_walk_recursive($data, function (&$value) {
+            if ($value instanceof \Traversable) {
+                $value = iterator_to_array($value);
+            }
+        });
 
-		$contents = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n";
+        $contents = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)."\n";
 
-		file_put_contents($path . '/' . $locale . '.json', $contents);
-	}
+        file_put_contents($path.'/'.$locale.'.json', $contents);
+    }
 }

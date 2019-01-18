@@ -12,44 +12,25 @@
 namespace Symfony\Component\Intl\Tests\Collator\Verification;
 
 use Symfony\Component\Intl\Tests\Collator\AbstractCollatorTest;
-use Symfony\Component\Intl\Util\IntlTestHelper;/**
+use Symfony\Component\Intl\Util\IntlTestHelper;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
  * Verifies that {@link AbstractCollatorTest} matches the behavior of the
  * {@link \Collator} class in a specific version of ICU.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class CollatorTest extends AbstractCollatorTest {
-	protected function setUp() {
-		IntlTestHelper::requireFullIntl($this, false);
+class CollatorTest extends AbstractCollatorTest
+{
+    protected function setUp()
+    {
+        IntlTestHelper::requireFullIntl($this, false);
 
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	protected function getCollator($locale) {
-		return new \Collator($locale);
-	}
+    protected function getCollator($locale)
+    {
+        return new \Collator($locale);
+    }
 }

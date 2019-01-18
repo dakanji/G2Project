@@ -16,6 +16,6 @@ namespace Symfony\Component\Intl\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class OutOfBoundsException extends \OutOfBoundsException implements ExceptionInterface {
-
+class OutOfBoundsException extends \OutOfBoundsException implements ExceptionInterface
+{
 }

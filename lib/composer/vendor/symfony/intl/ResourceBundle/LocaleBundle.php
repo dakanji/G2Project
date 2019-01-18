@@ -21,37 +21,41 @@ use Symfony\Component\Intl\Exception\MissingResourceException;
  *
  * @internal
  */
-class LocaleBundle extends LocaleDataProvider implements LocaleBundleInterface {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function getLocales() {
-		try {
-			return parent::getLocales();
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+class LocaleBundle extends LocaleDataProvider implements LocaleBundleInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocales()
+    {
+        try {
+            return parent::getLocales();
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLocaleName($locale, $displayLocale = null) {
-		try {
-			return $this->getName($locale, $displayLocale);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocaleName($locale, $displayLocale = null)
+    {
+        try {
+            return $this->getName($locale, $displayLocale);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLocaleNames($displayLocale = null) {
-		try {
-			return $this->getNames($displayLocale);
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocaleNames($displayLocale = null)
+    {
+        try {
+            return $this->getNames($displayLocale);
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 }

@@ -18,6 +18,6 @@ use Symfony\Component\Intl\NumberFormatter\NumberFormatter as IntlNumberFormatte
  *
  * @see IntlNumberFormatter
  */
-class NumberFormatter extends IntlNumberFormatter {
-
+class NumberFormatter extends IntlNumberFormatter
+{
 }

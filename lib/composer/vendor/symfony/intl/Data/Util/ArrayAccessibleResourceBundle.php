@@ -23,49 +23,59 @@ use Symfony\Component\Intl\Exception\BadMethodCallException;
  *
  * @internal
  */
-class ArrayAccessibleResourceBundle implements \ArrayAccess, \IteratorAggregate, \Countable {
+class ArrayAccessibleResourceBundle implements \ArrayAccess, \IteratorAggregate, \Countable
+{
+    private $bundleImpl;
 
-	private $bundleImpl;
+    public function __construct(\ResourceBundle $bundleImpl)
+    {
+        $this->bundleImpl = $bundleImpl;
+    }
 
-	public function __construct(\ResourceBundle $bundleImpl) {
-		$this->bundleImpl = $bundleImpl;
-	}
+    public function get($offset)
+    {
+        $value = $this->bundleImpl->get($offset);
 
-	public function get($offset) {
-		$value = $this->bundleImpl->get($offset);
+        return $value instanceof \ResourceBundle ? new static($value) : $value;
+    }
 
-		return $value instanceof \ResourceBundle ? new static($value) : $value;
-	}
+    public function offsetExists($offset)
+    {
+        return null !== $this->bundleImpl->get($offset);
+    }
 
-	public function offsetExists($offset) {
-		return null !== $this->bundleImpl->get($offset);
-	}
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
 
-	public function offsetGet($offset) {
-		return $this->get($offset);
-	}
+    public function offsetSet($offset, $value)
+    {
+        throw new BadMethodCallException('Resource bundles cannot be modified.');
+    }
 
-	public function offsetSet($offset, $value) {
-		throw new BadMethodCallException('Resource bundles cannot be modified.');
-	}
+    public function offsetUnset($offset)
+    {
+        throw new BadMethodCallException('Resource bundles cannot be modified.');
+    }
 
-	public function offsetUnset($offset) {
-		throw new BadMethodCallException('Resource bundles cannot be modified.');
-	}
+    public function getIterator()
+    {
+        return $this->bundleImpl;
+    }
 
-	public function getIterator() {
-		return $this->bundleImpl;
-	}
+    public function count()
+    {
+        return $this->bundleImpl->count();
+    }
 
-	public function count() {
-		return $this->bundleImpl->count();
-	}
+    public function getErrorCode()
+    {
+        return $this->bundleImpl->getErrorCode();
+    }
 
-	public function getErrorCode() {
-		return $this->bundleImpl->getErrorCode();
-	}
-
-	public function getErrorMessage() {
-		return $this->bundleImpl->getErrorMessage();
-	}
+    public function getErrorMessage()
+    {
+        return $this->bundleImpl->getErrorMessage();
+    }
 }

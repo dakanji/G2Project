@@ -18,27 +18,31 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class DayTransformer extends Transformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		return $this->padLeft($dateTime->format('j'), $length);
-	}
+class DayTransformer extends Transformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        return $this->padLeft($dateTime->format('j'), $length);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return 1 === $length ? '\d{1,2}' : '\d{' . $length . '}';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return 1 === $length ? '\d{1,2}' : '\d{'.$length.'}';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array(
-			'day' => (int)$matched,
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array(
+            'day' => (int) $matched,
+        );
+    }
 }

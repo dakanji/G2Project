@@ -16,6 +16,6 @@ namespace Symfony\Component\Intl\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RuntimeException extends \RuntimeException implements ExceptionInterface {
-
+class RuntimeException extends \RuntimeException implements ExceptionInterface
+{
 }

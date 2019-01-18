@@ -16,6 +16,6 @@ use Symfony\Component\Intl\Collator\Collator as IntlCollator;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class Collator extends IntlCollator {
-
+class Collator extends IntlCollator
+{
 }

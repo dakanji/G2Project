@@ -18,34 +18,36 @@ namespace Symfony\Component\Intl\Data\Bundle\Writer;
  *
  * @internal
  */
-class PhpBundleWriter implements BundleWriterInterface {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function write($path, $locale, $data) {
-		$template = <<<'TEMPLATE'
+class PhpBundleWriter implements BundleWriterInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function write($path, $locale, $data)
+    {
+        $template = <<<'TEMPLATE'
 <?php
 
 return %s;
 
 TEMPLATE;
 
-		if ($data instanceof \Traversable) {
-			$data = iterator_to_array($data);
-		}
+        if ($data instanceof \Traversable) {
+            $data = iterator_to_array($data);
+        }
 
-		array_walk_recursive($data, function (&$value) {
-			if ($value instanceof \Traversable) {
-				$value = iterator_to_array($value);
-			}
-		});
+        array_walk_recursive($data, function (&$value) {
+            if ($value instanceof \Traversable) {
+                $value = iterator_to_array($value);
+            }
+        });
 
-		$data = var_export($data, true);
-		$data = preg_replace('/array \(/', 'array(', $data);
-		$data = preg_replace('/\n {1,10}array\(/', 'array(', $data);
-		$data = preg_replace('/  /', '    ', $data);
-		$data = sprintf($template, $data);
+        $data = var_export($data, true);
+        $data = preg_replace('/array \(/', 'array(', $data);
+        $data = preg_replace('/\n {1,10}array\(/', 'array(', $data);
+        $data = preg_replace('/  /', '    ', $data);
+        $data = sprintf($template, $data);
 
-		file_put_contents($path . '/' . $locale . '.php', $data);
-	}
+        file_put_contents($path.'/'.$locale.'.php', $data);
+    }
 }

@@ -18,27 +18,31 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class AmPmTransformer extends Transformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		return $dateTime->format('A');
-	}
+class AmPmTransformer extends Transformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        return $dateTime->format('A');
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return 'AM|PM';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return 'AM|PM';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array(
-			'marker' => $matched,
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array(
+            'marker' => $matched,
+        );
+    }
 }

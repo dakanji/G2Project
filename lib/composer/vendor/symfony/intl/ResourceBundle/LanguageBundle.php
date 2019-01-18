@@ -24,87 +24,93 @@ use Symfony\Component\Intl\Exception\MissingResourceException;
  *
  * @internal
  */
-class LanguageBundle extends LanguageDataProvider implements LanguageBundleInterface {
+class LanguageBundle extends LanguageDataProvider implements LanguageBundleInterface
+{
+    private $localeProvider;
+    private $scriptProvider;
 
-	private $localeProvider;
-	private $scriptProvider;
+    /**
+     * Creates a new language bundle.
+     *
+     * @param string                     $path
+     * @param BundleEntryReaderInterface $reader
+     * @param LocaleDataProvider         $localeProvider
+     * @param ScriptDataProvider         $scriptProvider
+     */
+    public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider, ScriptDataProvider $scriptProvider)
+    {
+        parent::__construct($path, $reader);
 
-	/**
-	 * Creates a new language bundle.
-	 *
-	 * @param string                     $path
-	 * @param BundleEntryReaderInterface $reader
-	 * @param LocaleDataProvider         $localeProvider
-	 * @param ScriptDataProvider         $scriptProvider
-	 */
-	public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider, ScriptDataProvider $scriptProvider) {
-		parent::__construct($path, $reader);
+        $this->localeProvider = $localeProvider;
+        $this->scriptProvider = $scriptProvider;
+    }
 
-		$this->localeProvider = $localeProvider;
-		$this->scriptProvider = $scriptProvider;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLanguageName($language, $region = null, $displayLocale = null)
+    {
+        // Some languages are translated together with their region,
+        // i.e. "en_GB" is translated as "British English"
+        if (null !== $region) {
+            try {
+                return $this->getName($language.'_'.$region, $displayLocale);
+            } catch (MissingResourceException $e) {
+            }
+        }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLanguageName($language, $region = null, $displayLocale = null) {
-		// Some languages are translated together with their region,
-		// i.e. "en_GB" is translated as "British English"
-		if (null !== $region) {
-			try {
-				return $this->getName($language . '_' . $region, $displayLocale);
-			} catch (MissingResourceException $e) {
-			}
-		}
+        try {
+            return $this->getName($language, $displayLocale);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-		try {
-			return $this->getName($language, $displayLocale);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLanguageNames($displayLocale = null)
+    {
+        try {
+            return $this->getNames($displayLocale);
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLanguageNames($displayLocale = null) {
-		try {
-			return $this->getNames($displayLocale);
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getScriptName($script, $language = null, $displayLocale = null)
+    {
+        try {
+            return $this->scriptProvider->getName($script, $displayLocale);
+        } catch (MissingResourceException $e) {
+            return;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getScriptName($script, $language = null, $displayLocale = null) {
-		try {
-			return $this->scriptProvider->getName($script, $displayLocale);
-		} catch (MissingResourceException $e) {
-			return;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getScriptNames($displayLocale = null)
+    {
+        try {
+            return $this->scriptProvider->getNames($displayLocale);
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getScriptNames($displayLocale = null) {
-		try {
-			return $this->scriptProvider->getNames($displayLocale);
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLocales() {
-		try {
-			return $this->localeProvider->getLocales();
-		} catch (MissingResourceException $e) {
-			return array();
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocales()
+    {
+        try {
+            return $this->localeProvider->getLocales();
+        } catch (MissingResourceException $e) {
+            return array();
+        }
+    }
 }

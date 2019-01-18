@@ -18,6 +18,6 @@ use Symfony\Component\Intl\Locale\Locale as IntlLocale;
  *
  * @see IntlLocale
  */
-class Locale extends IntlLocale {
-
+class Locale extends IntlLocale
+{
 }

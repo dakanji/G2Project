@@ -18,6 +18,6 @@ use Symfony\Component\Intl\DateFormatter\IntlDateFormatter as BaseIntlDateFormat
  *
  * @see BaseIntlDateFormatter
  */
-class IntlDateFormatter extends BaseIntlDateFormatter {
-
+class IntlDateFormatter extends BaseIntlDateFormatter
+{
 }

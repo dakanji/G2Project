@@ -10,5 +10,5 @@
  */
 
 return array(
-	'Foo' => 'Bar',
+    'Foo' => 'Bar',
 );

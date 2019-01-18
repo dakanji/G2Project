@@ -18,13 +18,14 @@ namespace Symfony\Component\Intl\Data\Bundle\Compiler;
  *
  * @internal
  */
-interface BundleCompilerInterface {
-	/**
-	 * Compiles a resource bundle at the given source to the given target
-	 * directory.
-	 *
-	 * @param string $sourcePath
-	 * @param string $targetDir
-	 */
-	public function compile($sourcePath, $targetDir);
+interface BundleCompilerInterface
+{
+    /**
+     * Compiles a resource bundle at the given source to the given target
+     * directory.
+     *
+     * @param string $sourcePath
+     * @param string $targetDir
+     */
+    public function compile($sourcePath, $targetDir);
 }

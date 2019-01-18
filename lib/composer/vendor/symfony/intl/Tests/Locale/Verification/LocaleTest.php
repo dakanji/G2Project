@@ -12,46 +12,27 @@
 namespace Symfony\Component\Intl\Tests\Locale\Verification;
 
 use Symfony\Component\Intl\Tests\Locale\AbstractLocaleTest;
-use Symfony\Component\Intl\Util\IntlTestHelper;/**
+use Symfony\Component\Intl\Util\IntlTestHelper;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
  * Verifies that {@link AbstractLocaleTest} matches the behavior of the
  * {@link Locale} class with a specific version of ICU.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class LocaleTest extends AbstractLocaleTest {
-	protected function setUp() {
-		IntlTestHelper::requireFullIntl($this, false);
+class LocaleTest extends AbstractLocaleTest
+{
+    protected function setUp()
+    {
+        IntlTestHelper::requireFullIntl($this, false);
 
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	protected function call($methodName) {
-		$args = array_slice(func_get_args(), 1);
+    protected function call($methodName)
+    {
+        $args = \array_slice(\func_get_args(), 1);
 
-		return call_user_func_array(array( 'Locale', $methodName ), $args);
-	}
+        return \call_user_func_array(array('Locale', $methodName), $args);
+    }
 }

@@ -16,6 +16,6 @@ namespace Symfony\Component\Intl\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class MissingResourceException extends RuntimeException {
-
+class MissingResourceException extends RuntimeException
+{
 }

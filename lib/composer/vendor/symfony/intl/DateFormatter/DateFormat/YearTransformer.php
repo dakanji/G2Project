@@ -18,31 +18,35 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class YearTransformer extends Transformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		if (2 === $length) {
-			return $dateTime->format('y');
-		}
+class YearTransformer extends Transformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        if (2 === $length) {
+            return $dateTime->format('y');
+        }
 
-		return $this->padLeft($dateTime->format('Y'), $length);
-	}
+        return $this->padLeft($dateTime->format('Y'), $length);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return 2 === $length ? '\d{2}' : '\d{4}';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return 2 === $length ? '\d{2}' : '\d{4}';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array(
-			'year' => (int)$matched,
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array(
+            'year' => (int) $matched,
+        );
+    }
 }

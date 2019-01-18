@@ -18,44 +18,49 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class Hour2401Transformer extends HourTransformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		$hourOfDay = $dateTime->format('G');
-		$hourOfDay = ('0' == $hourOfDay) ? '24' : $hourOfDay;
+class Hour2401Transformer extends HourTransformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        $hourOfDay = $dateTime->format('G');
+        $hourOfDay = ('0' == $hourOfDay) ? '24' : $hourOfDay;
 
-		return $this->padLeft($hourOfDay, $length);
-	}
+        return $this->padLeft($hourOfDay, $length);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function normalizeHour($hour, $marker = null) {
-		if ((null === $marker && 24 === $hour) || 'AM' == $marker) {
-			$hour = 0;
-		} elseif ('PM' == $marker) {
-			$hour = 12;
-		}
+    /**
+     * {@inheritdoc}
+     */
+    public function normalizeHour($hour, $marker = null)
+    {
+        if ((null === $marker && 24 === $hour) || 'AM' == $marker) {
+            $hour = 0;
+        } elseif ('PM' == $marker) {
+            $hour = 12;
+        }
 
-		return $hour;
-	}
+        return $hour;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return '\d{1,2}';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return '\d{1,2}';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array(
-			'hour'         => (int)$matched,
-			'hourInstance' => $this,
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array(
+            'hour' => (int) $matched,
+            'hourInstance' => $this,
+        );
+    }
 }

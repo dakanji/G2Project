@@ -16,11 +16,12 @@ namespace Symfony\Component\Intl\ResourceBundle;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-interface ResourceBundleInterface {
-	/**
-		 * Returns the list of locales that this bundle supports.
-		 *
-		 * @return string[] A list of locale codes
-		 */
-	public function getLocales();
+interface ResourceBundleInterface
+{
+    /**
+     * Returns the list of locales that this bundle supports.
+     *
+     * @return string[] A list of locale codes
+     */
+    public function getLocales();
 }

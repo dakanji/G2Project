@@ -18,29 +18,33 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
  *
  * @internal
  */
-class MinuteTransformer extends Transformer {
-	/**
-		 * {@inheritdoc}
-		 */
-	public function format(\DateTime $dateTime, $length) {
-		$minuteOfHour = (int)$dateTime->format('i');
+class MinuteTransformer extends Transformer
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function format(\DateTime $dateTime, $length)
+    {
+        $minuteOfHour = (int) $dateTime->format('i');
 
-		return $this->padLeft($minuteOfHour, $length);
-	}
+        return $this->padLeft($minuteOfHour, $length);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getReverseMatchingRegExp($length) {
-		return 1 === $length ? '\d{1,2}' : '\d{' . $length . '}';
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getReverseMatchingRegExp($length)
+    {
+        return 1 === $length ? '\d{1,2}' : '\d{'.$length.'}';
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function extractDateOptions($matched, $length) {
-		return array(
-			'minute' => (int)$matched,
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function extractDateOptions($matched, $length)
+    {
+        return array(
+            'minute' => (int) $matched,
+        );
+    }
 }

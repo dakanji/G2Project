@@ -20,48 +20,42 @@ use Symfony\Component\Intl\Exception\RuntimeException;
  *
  * @internal
  */
-class GenrbCompiler implements BundleCompilerInterface {
+class GenrbCompiler implements BundleCompilerInterface
+{
+    private $genrb;
 
-	private $genrb;
+    /**
+     * Creates a new compiler based on the "genrb" executable.
+     *
+     * @param string $genrb   Optional. The path to the "genrb" executable
+     * @param string $envVars Optional. Environment variables to be loaded when running "genrb".
+     *
+     * @throws RuntimeException if the "genrb" cannot be found
+     */
+    public function __construct($genrb = 'genrb', $envVars = '')
+    {
+        exec('which '.$genrb, $output, $status);
 
-	/**
-	 * Creates a new compiler based on the "genrb" executable.
-	 *
-	 * @param string $genrb   Optional. The path to the "genrb" executable
-	 * @param string $envVars Optional. Environment variables to be loaded when running "genrb".
-	 *
-	 * @throws RuntimeException if the "genrb" cannot be found
-	 */
-	public function __construct($genrb = 'genrb', $envVars = '') {
-		exec('which ' . $genrb, $output, $status);
+        if (0 !== $status) {
+            throw new RuntimeException(sprintf('The command "%s" is not installed', $genrb));
+        }
 
-		if (0 !== $status) {
-			throw new RuntimeException(sprintf(
-				'The command "%s" is not installed',
-				$genrb
-			));
-		}
+        $this->genrb = ($envVars ? $envVars.' ' : '').$genrb;
+    }
 
-		$this->genrb = ($envVars ? $envVars . ' ' : '') . $genrb;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function compile($sourcePath, $targetDir)
+    {
+        if (is_dir($sourcePath)) {
+            $sourcePath .= '/*.txt';
+        }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function compile($sourcePath, $targetDir) {
-		if (is_dir($sourcePath)) {
-			$sourcePath .= '/*.txt';
-		}
+        exec($this->genrb.' --quiet -e UTF-8 -d '.$targetDir.' '.$sourcePath, $output, $status);
 
-		exec($this->genrb . ' --quiet -e UTF-8 -d ' . $targetDir . ' ' . $sourcePath, $output, $status);
-
-		if (0 !== $status) {
-			throw new RuntimeException(sprintf(
-				'genrb failed with status %d while compiling %s to %s.',
-				$status,
-				$sourcePath,
-				$targetDir
-			));
-		}
-	}
+        if (0 !== $status) {
+            throw new RuntimeException(sprintf('genrb failed with status %d while compiling %s to %s.', $status, $sourcePath, $targetDir));
+        }
+    }
 }
