@@ -481,7 +481,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		if ($view->isImmediate() || $viewName == 'core.ProgressBar') {
 			/*
 			 * Session: Find out whether we need to send a cookie & get a new sessionId and save it
-			 * (make sure there i's a sessionId before starting to render, but only if we need a
+			 * (make sure there is a sessionId before starting to render, but only if we need a
 			 * session)
 			 */
 			$session =& $gallery->getSession();
