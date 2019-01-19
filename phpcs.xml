@@ -14,11 +14,10 @@
 	<!-- ARGS -->
 	<arg name="tab-width" value="4"/>
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
-	<arg name="ignore" value="*/lib/composer/*,*/composer_vendor/*,*/wpcs/*"/>
+	<arg name="ignore" value="*/lib/composer/*,*/composer_vendor/*"/>
 
-	<!-- Load WordPress Standards ... Edit path below -->
-	<config name="installed_paths" value="wpcs" />
-	<autoload>phpcsWPCSLoader.php</autoload>
+	<!-- Load WordPress Standards -->
+	<config name="installed_paths" value="composer_vendor/wp-coding-standards/wpcs"/>
 	
 	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
 	<rule ref="PSR2">
@@ -35,7 +34,7 @@
 	<!-- APPLY ADDITIONAL SELECTED GENERIC RULES -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<rule ref="Generic.Formatting.NoSpaceAfterCast"/>
-	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
 	<rule ref="Generic.NamingConventions.ConstructorName"/>
 	<rule ref="Generic.PHP.DisallowAlternativePHPTags"/>
 	<rule ref="Generic.Classes.OpeningBraceSameLine"/>
@@ -43,14 +42,14 @@
 	<rule ref="Generic.PHP.Syntax"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
-			<property name="allowMultiline" value="true" />
+			<property name="allowMultiline" value="true"/>
 		</properties>
 	</rule>
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="ignoreComments" value="true" />
-			<property name="lineLimit" value="100" />
-			<property name="absoluteLineLimit" value="120" />
+			<property name="ignoreComments" value="true"/>
+			<property name="lineLimit" value="100"/>
+			<property name="absoluteLineLimit" value="120"/>
 		</properties>
 	</rule>
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
@@ -62,13 +61,13 @@
 		<properties>
 			<property name="exact" value="false"/>
 			<property name="indent" value="4"/>
-			<property name="tabIndent" value="true" />
+			<property name="tabIndent" value="true"/>
 			<property name="ignoreIndentationTokens" type="array" value="T_HEREDOC, T_NOWDOC, T_INLINE_HTML"/>
 		</properties>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
 		<properties>
-			<property name="ignoreNewlines" value="true" />
+			<property name="ignoreNewlines" value="true"/>
 		</properties>
 	</rule>
 
@@ -79,6 +78,7 @@
 	<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
 	<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
 	<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+	<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
 	<rule ref="Squiz.Classes.SelfMemberReference">
 		<exclude name="Squiz.Classes.SelfMemberReference.NotUsed"/>
 	</rule>
@@ -96,9 +96,9 @@
 	</rule>
 	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
 		<properties>
-			<property name="spacing" value="1" />
-			<property name="spacingBeforeFirst" value="0" />
-			<property name="spacingAfterLast" value="0" />
+			<property name="spacing" value="1"/>
+			<property name="spacingBeforeFirst" value="0"/>
+			<property name="spacingAfterLast" value="0"/>
 		</properties>
 	</rule>
 	<rule ref="Squiz.Strings.ConcatenationSpacing">
@@ -121,7 +121,6 @@
 	<rule ref="WordPress.Arrays.CommaAfterArrayItem"/>	
 	<rule ref="WordPress.Arrays.ArrayIndentation"/>	
 	<rule ref="WordPress.WhiteSpace.PrecisionAlignment"/>
-	<rule ref="WordPress.WhiteSpace.SemicolonSpacing"/>
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
 			<property name="maxColumn" value="50"/>

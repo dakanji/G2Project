@@ -16,22 +16,20 @@ Thumbs.db
 .gitignore
 
 # github README #
-##############
+#################
 README.mediawiki
 
 # style guide #
-##############
+###############
 .php_cs.cache
 .php_cs.dist
 .editorconfig
 LICENSE.md
 phpcs.xml
-phpcsWPCSLoader.php
 README.md
-wpcs
 
 # installed G2 #
-##############
+################
 g2data
 config.php
 .htaccess
@@ -39,7 +37,18 @@ authFile.txt
 login.txt
 
 # IDE stuff #
-##############
+#############
 .idea
 build
 attic
+
+# Misc Others #
+###############
+.gitattributes
+.gitignore
+LICENSE.md
+README.md
+composer_vendor
+composer.json
+composer.lock
+dev_scripts
