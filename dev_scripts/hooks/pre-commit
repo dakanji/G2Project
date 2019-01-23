@@ -1,0 +1,96 @@
+#!/bin/sh
+
+PHP_CBF_BIN=dev_vendor/bin/phpcbf
+PHP_CBF_CONFIG=phpcs.xml
+
+PHP_FIX_BIN=dev_vendor/bin/php-cs-fixer
+PHP_FIX_CONFIG=.php_cs.dist
+
+PROJECT=$(php -r "echo dirname(dirname(dirname(realpath('$0'))));")
+STAGED_PHP_FILES=$(git diff-index --name-only --cached --diff-filter=ACMRT HEAD -- | egrep '\.php$|\.inc$|\.class$')
+STAGED_FIX_FILES=$(git diff-index --name-only --cached --diff-filter=ACMRT HEAD -- | egrep '\.php$|\.inc$|\.class$|\.css$|\.js$|\.xml$|\.xaml$|\.html$')
+
+# Determine if file list present
+if [ "$#" -eq 1 ]
+then
+	oIFS=$IFS
+	IFS='
+	'
+	FILE_LIST="$1"
+	IFS=$oIFS
+fi
+PHP_FILES=${FILE_LIST:-$STAGED_PHP_FILES}
+ALL_FILES=${FILE_LIST:-$STAGED_FIX_FILES}
+
+# Skip checks if relevant files are not present
+if [ "$ALL_FILES" != "" ]; then
+	# Skip lint if PHP files are not present
+	if [ "$PHP_FILES" != "" ]; then
+		echo ""
+		echo "Running PHP Lint ..."
+		echo ""
+		for PHP_FILE in $PHP_FILES
+		do
+			php -l -d display_errors=0 $PROJECT/$PHP_FILE
+			if [ $? != 0 ]
+			then
+				echo ""
+				echo "PHP Syntax Errors Found ... Aborting"
+				git reset HEAD $PROJECT/$PHP_FILE
+				echo ""
+				echo "Please Fix Errors and Repeat Commit"
+				exit 1
+			fi
+		done
+	fi
+
+	# Check if PHP-CS-FIXER and PHPCBF are set up correctly
+	if [ ! -x $PHP_FIX_BIN ]; then
+		echo ""
+		echo ""
+		echo "PHP-CS-FIXER not Found or not Executable ... Aborting"
+		echo ""
+		exit 1
+	else
+		if [ ! -x $PHP_CBF_BIN ]; then
+			echo ""
+			echo ""
+    		echo "PHPCBF not Found or not Executable ... Aborting"
+			echo ""
+			exit 1
+		else
+			# Execute PHPCBF & PHP-CS-FIXER
+			echo ""
+			echo ""
+			echo "Fixing Coding Style ..."
+			echo ""
+			for TARGET_FILE in $ALL_FILES
+			do
+				# Unstage target file
+				RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
+
+				# Apply coding style to target file
+				RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG $PROJECT/$TARGET_FILE)
+				RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
+
+				# Stage target file if appropriate
+				FILE_CHANGES=$(git diff $PROJECT/$TARGET_FILE)
+				if [ "$FILE_CHANGES" != "" ]; then
+					git add $PROJECT/$TARGET_FILE
+				fi
+			done
+
+			# Check for staged changes but not committed
+			CACHED_CHANGES=$(git diff --cached)
+			if [ "$CACHED_CHANGES" == "" ]; then
+				echo ""
+				echo "NOTE: Commit Emptied After Style Fix ... Aborting"
+				echo ""
+				exit 1
+			fi
+			echo ""
+			echo "Coding Style Fixed"
+			echo ""
+		fi
+	fi
+fi

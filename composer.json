@@ -13,7 +13,7 @@
         "issues": "https://github.com/dakanji/G2Project-main/issues"
     },
     "config": {
-    	"vendor-dir": "composer_vendor"
+    	"vendor-dir": "dev_vendor"
     },
     "require": {
     	"php": ">=5.3.3"
@@ -30,10 +30,7 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "chmod +x ./dev_scripts/symlink.sh && ./dev_scripts/symlink.sh"
-        ],
-        "post-install-cmd": [
-            "chmod +x ./dev_scripts/symlink.sh && ./dev_scripts/symlink.sh"
+            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/symlink.sh && ./dev_scripts/symlink.sh"
         ]
-    }    
+    }
 }
