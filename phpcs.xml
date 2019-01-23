@@ -14,10 +14,10 @@
 	<!-- ARGS -->
 	<arg name="tab-width" value="4"/>
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html"/>
-	<arg name="ignore" value="*/lib/composer/*,*/composer_vendor/*"/>
+	<arg name="ignore" value="*/lib/composer/*,*/dev_vendor/*"/>
 
 	<!-- Load WordPress Standards -->
-	<config name="installed_paths" value="composer_vendor/wp-coding-standards/wpcs"/>
+	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs"/>
 	
 	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
 	<rule ref="PSR2">
