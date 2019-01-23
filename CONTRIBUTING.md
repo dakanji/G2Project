@@ -32,8 +32,11 @@ composer update
 ```
 
 This will install various composer libraries into a "dev_vendor" folder.
-You can start coding and every commit you make will be automatically checked for php errors and also amemded to match the code style as required. 
+You can start coding and every commit you make will be automatically checked for php errors and also amemded to match the code style as required using a Git pre-commit hook.
 
+If you use Sourcetree as your Git Client, note that it installs with the option to use the embedded git version enabled by default as of Sourcetree v2.7.6, this git version is Git v2.8.x which DOES NOT include the pre-commit hook facility.
+Modern Macs ship with at least Git v2.9.x which includes this facility. Please go to **Preferences -> Git** and select "Use System Git" to activate the project pre-commit hook. In Sourcetree for Windows, please go to **Tools -> Options -> Git** select "Use System Git" if you have Git v2.9.x or above installed. There is also a function to update the version of Git which is embedded in the installation of Sourcetree for Windows.
+ 
 Remember to sign the <a href="https://www.clahub.com/agreements/dakanji/G2Project-main">Contributor License Agreement</a> before making pull requests.
 
 Thank you once again
