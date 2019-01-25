@@ -39,21 +39,26 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	 * @return GalleryStatus a status code
 	 */
 	public function showAvailablePlugins() {
-		list($ret, $plugins) = $this->getAvailablePluginList(array(
-			'package' => array(
-				'controller' => 'PackagePlugin',
-				'action'     => 'packagePlugin',
-			),
-		));
+		list($ret, $plugins) = $this->getAvailablePluginList(
+			array(
+				'package' => array(
+					'controller' => 'PackagePlugin',
+					'action'     => 'packagePlugin',
+				),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$ret = $this->showView('PackagePlugin', array(
-			'formVariablePrefix' => GALLERY_FORM_VARIABLE_PREFIX,
-			'plugins'            => $plugins,
-		));
+		$ret = $this->showView(
+			'PackagePlugin',
+			array(
+				'formVariablePrefix' => GALLERY_FORM_VARIABLE_PREFIX,
+				'plugins'            => $plugins,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -89,9 +94,12 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			return $ret;
 		}
 
-		$ret = $this->showView('PackageResults', array(
-			'results' => array($pluginInfo),
-		));
+		$ret = $this->showView(
+			'PackageResults',
+			array(
+				'results' => array($pluginInfo),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -136,9 +144,12 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				$packagedPluginList[] = $pluginInfo;
 			}
 		}
-		$this->showView('PackageResults', array(
-			'results' => $packagedPluginList,
-		));
+		$this->showView(
+			'PackageResults',
+			array(
+				'results' => $packagedPluginList,
+			)
+		);
 
 		return null;
 	}

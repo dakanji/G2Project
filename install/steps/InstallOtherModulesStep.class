@@ -250,11 +250,13 @@ class InstallOtherModulesStep extends InstallStep {
 			include_once __DIR__ . '/../../bootstrap.inc';
 
 			include_once __DIR__ . '/../../init.inc';
-			$ret = GalleryInitFirstPass(array(
-				'debug'          => 'buffered',
-				'noDatabase'     => true,
-				'activeLanguage' => $_SESSION['language'],
-			));
+			$ret = GalleryInitFirstPass(
+				array(
+					'debug'          => 'buffered',
+					'noDatabase'     => true,
+					'activeLanguage' => $_SESSION['language'],
+				)
+			);
 
 			if ($ret) {
 				$templateData['errors'][]     = 'Unable to initialize our Gallery data';

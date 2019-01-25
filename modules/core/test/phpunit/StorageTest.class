@@ -224,10 +224,13 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = $storage->addMapEntry('GalleryTestMap', array(
-			'field1' => 0,
-			'field2' => 1,
-		));
+		$ret = $storage->addMapEntry(
+			'GalleryTestMap',
+			array(
+				'field1' => 0,
+				'field2' => 1,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -254,10 +257,14 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = $storage->addMapEntry('GalleryTestMap', array(
-			'field1' => 0,
-			'field2' => 1,
-		), true);
+		$ret = $storage->addMapEntry(
+			'GalleryTestMap',
+			array(
+				'field1' => 0,
+				'field2' => 1,
+			),
+			true
+		);
 
 		if ($ret) {
 			return $ret;
@@ -455,10 +462,13 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = $storage->addMapEntry('GalleryTestMap', array(
-			'field1' => array(1, 2, 3),
-			'field2' => array(4, 5, 6),
-		));
+		$ret = $storage->addMapEntry(
+			'GalleryTestMap',
+			array(
+				'field1' => array(1, 2, 3),
+				'field2' => array(4, 5, 6),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -1385,10 +1395,12 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		// Result for loadTableVersions
-		$tablesRecordSet    = new StorageTestRecordSet(array(
-			array('Entity', 1, 0),
-			array('AccessMap', 1, 6),
-		));
+		$tablesRecordSet    = new StorageTestRecordSet(
+			array(
+				array('Entity', 1, 0),
+				array('AccessMap', 1, 6),
+			)
+		);
 		$optimizeStatements = $storage->_getOptimizeStatements();
 		// Results for optimize statements
 		$expectedQueries = array();
@@ -1422,11 +1434,13 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		// Result for loadTableVersions
-		$tablesRecordSet    = new StorageTestRecordSet(array(
-			array('Entity', 1, 0),
-			array('AccessMap', 1, 6),
-			array('Item', 2, 0),
-		));
+		$tablesRecordSet    = new StorageTestRecordSet(
+			array(
+				array('Entity', 1, 0),
+				array('AccessMap', 1, 6),
+				array('Item', 2, 0),
+			)
+		);
 		$optimizeStatements = $storage->_getOptimizeStatements();
 		// Results for optimize statements
 		$expectedQueries = array();

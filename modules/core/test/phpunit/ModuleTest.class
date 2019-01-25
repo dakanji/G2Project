@@ -139,10 +139,12 @@ class ModuleTest extends GalleryTestCase {
 			'theme',
 			'bogusTheme',
 			'albumBlocks',
-			serialize(array(
-				array('bogusModule.someBlock', array()),
-				array('moduletest.missingBlock', array()),
-			)),
+			serialize(
+				array(
+					array('bogusModule.someBlock', array()),
+					array('moduletest.missingBlock', array()),
+				)
+			),
 			42
 		);
 

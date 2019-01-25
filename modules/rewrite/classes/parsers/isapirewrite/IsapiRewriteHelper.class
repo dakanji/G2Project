@@ -194,11 +194,13 @@ class IsapiRewriteHelper {
 			return array(null, true);
 		}
 
-		$baseUrlComponents = parse_url(preg_replace(
-			'{(install|upgrade)/index\.php.*}',
-			'',
-			$urlGenerator->getCurrentUrlDir(true)
-		));
+		$baseUrlComponents = parse_url(
+			preg_replace(
+				'{(install|upgrade)/index\.php.*}',
+				'',
+				$urlGenerator->getCurrentUrlDir(true)
+			)
+		);
 		$ret               = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
@@ -641,8 +643,12 @@ class IsapiRewriteHelper {
 				$newHtaccess = str_replace('#{gallerySection}', $htaccess . "\r\n", $newHtaccess);
 			} else {
 				if (strpos($oldHtaccess, '[ISAPI_Rewrite]') !== false) {
-					$newHtaccess = str_replace('[ISAPI_Rewrite]', "[ISAPI_Rewrite]\r\n" .
-					$htaccess, $newHtaccess);
+					$newHtaccess = str_replace(
+						'[ISAPI_Rewrite]',
+						"[ISAPI_Rewrite]\r\n" .
+						$htaccess,
+						$newHtaccess
+					);
 				} else {
 					$newHtaccess = $newHtaccess . "[ISAPI_Rewrite]\r\n" . $htaccess . "\r\n";
 				}
@@ -686,9 +692,11 @@ class IsapiRewriteHelper {
 		}
 
 		if ($TestResults['isapiInfo'] != REWRITE_STATUS_OK) {
-			$TestResults['hrefTest'] = $urlGenerator->generateUrl(array(
-				'href' => 'modules/rewrite/data/isapi_rewrite/Rewrite.txt',
-			));
+			$TestResults['hrefTest'] = $urlGenerator->generateUrl(
+				array(
+					'href' => 'modules/rewrite/data/isapi_rewrite/Rewrite.txt',
+				)
+			);
 
 			list($ret, $TestResults['contents']) = self::getHttpdiniContent(array());
 

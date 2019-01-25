@@ -162,9 +162,12 @@ class SlideshowModule extends GalleryModule {
 				'forJavascript' => true,
 				'forceFullUrl'  => true,
 			);
-			$jsUrlParamsDirect = array_merge($jsUrlParams, array(
-				'forceDirect' => true,
-			));
+			$jsUrlParamsDirect = array_merge(
+				$jsUrlParams,
+				array(
+					'forceDirect' => true,
+				)
+			);
 
 			if (isset($wantsDetailedLinks[$itemId])) {
 				/*
@@ -360,17 +363,19 @@ class SlideshowModule extends GalleryModule {
 					)
 				);
 
-				$template->javascript($urlGenerator->generateUrl(
-					array(
-						'view' => 'slideshow.DownloadPicLens',
-						'file' => 'js',
-						'v'    => $picLensVersion,
-					),
-					array(
-						'forceDirect'  => true,
-						'forceFullUrl' => true,
+				$template->javascript(
+					$urlGenerator->generateUrl(
+						array(
+							'view' => 'slideshow.DownloadPicLens',
+							'file' => 'js',
+							'v'    => $picLensVersion,
+						),
+						array(
+							'forceDirect'  => true,
+							'forceFullUrl' => true,
+						)
 					)
-				));
+				);
 			}
 		}
 

@@ -8,9 +8,11 @@ if (!defined('G2_SUPPORT')) {
 // Connect to Gallery2
 function connect() {
 	include_once '../../embed.php';
-	$ret = GalleryEmbed::init(array(
-		'fullInit' => true,
-	));
+	$ret = GalleryEmbed::init(
+		array(
+			'fullInit' => true,
+		)
+	);
 
 	if (isset($ret)) {
 		return '<div class=\"error center\">Could not load Gallery2 API Framework.</center><br>' . $ret->getAsHtml() . '</div>';

@@ -150,12 +150,14 @@ class RepositoryDescriptor extends RepositoryObject {
 
 		// Don't force the _pluginDir, so that tests can override it
 		if (!isset($this->_pluginDir)) {
-			$this->_pluginDir = $platform->realpath(sprintf(
-				'%s%ss/%s/',
-				GalleryCoreApi::getCodeBasePath(),
-				$pluginType,
-				$this->_pluginId
-			));
+			$this->_pluginDir = $platform->realpath(
+				sprintf(
+					'%s%ss/%s/',
+					GalleryCoreApi::getCodeBasePath(),
+					$pluginType,
+					$this->_pluginId
+				)
+			);
 
 			if (!in_array(substr($this->_pluginDir, -1), array('/', '\\'))) {
 				$this->_pluginDir .= '/';
@@ -210,12 +212,14 @@ class RepositoryDescriptor extends RepositoryObject {
 			}
 		}
 
-		$this->setOutputFile(sprintf(
-			'%s-%s-%s.descriptor',
-			$this->_pluginId,
-			$this->_pluginVersion,
-			$this->getBuildTimestamp()
-		));
+		$this->setOutputFile(
+			sprintf(
+				'%s-%s-%s.descriptor',
+				$this->_pluginId,
+				$this->_pluginVersion,
+				$this->getBuildTimestamp()
+			)
+		);
 
 		// Put data into template.
 		$this->_template->setVariable('contents', serialize($this->_data));

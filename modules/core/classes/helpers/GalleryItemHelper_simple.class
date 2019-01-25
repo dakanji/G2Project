@@ -102,7 +102,8 @@ class GalleryItemHelper_simple {
 		if (!empty($aclIds)) {
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			$query = sprintf('
+			$query = sprintf(
+				'
 	    SELECT
 	      [GalleryChildEntity::parentId],
 	      COUNT([GalleryChildEntity::id])
@@ -116,7 +117,10 @@ class GalleryItemHelper_simple {
 	      [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	    GROUP BY
 	      [GalleryChildEntity::parentId]
-	    ', $parentIdMarkers, $aclMarkers);
+	    ',
+				$parentIdMarkers,
+				$aclMarkers
+			);
 
 			$data = array_merge($missing, $aclIds);
 
@@ -275,7 +279,8 @@ class GalleryItemHelper_simple {
 			return array($ret, null);
 		}
 
-		$query = sprintf('
+		$query = sprintf(
+			'
 	SELECT
 	  [GalleryItemAttributesMap=1::itemId],
 	  COUNT([GalleryItemAttributesMap=2::itemId])
@@ -293,7 +298,11 @@ class GalleryItemHelper_simple {
 	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	GROUP BY
 	  [GalleryItemAttributesMap=1::itemId]
-	', $itemMarkers, $like, $aclMarkers);
+	',
+			$itemMarkers,
+			$like,
+			$aclMarkers
+		);
 
 		$data                      = array_merge($itemIds, $aclIds);
 		list($ret, $searchResults) = $gallery->search($query, $data);
@@ -345,7 +354,8 @@ class GalleryItemHelper_simple {
 			if (!empty($aclIds)) {
 				$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-				$query = sprintf('
+				$query = sprintf(
+					'
 		SELECT
 		  COUNT([GalleryItem::id])
 		FROM
@@ -358,7 +368,9 @@ class GalleryItemHelper_simple {
 		  [GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
 		  AND
 		  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-		', $aclMarkers);
+		',
+					$aclMarkers
+				);
 				$data  = array_merge(array($itemType), $aclIds);
 
 				list($ret, $searchResults) = $gallery->search($query, $data);
@@ -431,7 +443,8 @@ class GalleryItemHelper_simple {
 		$parentSequence[] = $itemId;
 		$parentSequence   = implode('/', $parentSequence);
 
-		$query = sprintf('
+		$query = sprintf(
+			'
 	SELECT
 	  [GalleryAlbumItem::id],
 	  [GalleryItemAttributesMap::parentSequence],
@@ -449,7 +462,10 @@ class GalleryItemHelper_simple {
 	ORDER BY
 	  [GalleryItemAttributesMap::parentSequence],
 	  [GalleryItemAttributesMap::orderWeight]
-	', $parentSequence, $aclMarkers);
+	',
+			$parentSequence,
+			$aclMarkers
+		);
 
 		$data = $aclIds;
 

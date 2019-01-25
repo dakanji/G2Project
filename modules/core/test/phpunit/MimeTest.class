@@ -55,25 +55,31 @@ class MimeTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$ret = GalleryCoreApi::removeMimeType(array(
-			'mimeType' => 'test/test',
-		));
+		$ret = GalleryCoreApi::removeMimeType(
+			array(
+				'mimeType' => 'test/test',
+			)
+		);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
 
-		$ret = GalleryCoreApi::removeMimeType(array(
-			'extension' => 'mimetest',
-		));
+		$ret = GalleryCoreApi::removeMimeType(
+			array(
+				'extension' => 'mimetest',
+			)
+		);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
 
-		$ret = GalleryCoreApi::removeMimeType(array(
-			'mimeType' => 'test/test3',
-		));
+		$ret = GalleryCoreApi::removeMimeType(
+			array(
+				'mimeType' => 'test/test3',
+			)
+		);
 
 		if ($ret) {
 			$this->failWithStatus($ret);

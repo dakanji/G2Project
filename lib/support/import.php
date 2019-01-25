@@ -49,9 +49,11 @@ $templateData             = array();
 $templateData['bodyFile'] = 'ImportRequest.html';
 $renderFullPage           = true;
 
-$ret = GalleryEmbed::init(array(
-	'fullInit' => false,
-));
+$ret = GalleryEmbed::init(
+	array(
+		'fullInit' => false,
+	)
+);
 
 if ($ret) {
 	$templateData['errors'][] = $ret->getAsHtml();

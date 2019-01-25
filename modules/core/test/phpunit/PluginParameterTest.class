@@ -280,15 +280,21 @@ class PluginParameterTest extends GalleryTestCase {
 
 		// Prevent a db query by mocking up some GDC data
 		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, foo, 2)';
-		GalleryDataCache::put($cacheKey, array(
-			'none' => '',
-		));
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'none' => '',
+			)
+		);
 
 		// the API should cast it to type string
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 99, 2);
-		GalleryDataCache::put($cacheKey, array(
-			'none' => '',
-		));
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'none' => '',
+			)
+		);
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '99', 2);
 	}
 
@@ -298,15 +304,21 @@ class PluginParameterTest extends GalleryTestCase {
 
 		// Prevent a db query by mocking up some GDC data
 		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, foo, 3)';
-		GalleryDataCache::put($cacheKey, array(
-			'bar' => 'old value',
-		));
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'bar' => 'old value',
+			)
+		);
 
 		// the API should cast it to type string
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 55, 3);
-		GalleryDataCache::put($cacheKey, array(
-			'bar' => 'old value',
-		));
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'bar' => 'old value',
+			)
+		);
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '55', 3);
 	}
 }

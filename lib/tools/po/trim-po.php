@@ -125,13 +125,19 @@ function checkStringForHtml($string, $type, $path) {
 	}
 
 	if (preg_match($ltRegExpPattern, $string)) {
-		fwrite(stdErr(), "\nWarning: Translation contains < (should be &lt;) in $type "
-			   . "\"$string\" in file $path\n");
+		fwrite(
+			stdErr(),
+			"\nWarning: Translation contains < (should be &lt;) in $type "
+			. "\"$string\" in file $path\n"
+		);
 	}
 
 	if (preg_match($gtRegExpPattern, $string)) {
-		fwrite(stdErr(), "\nWarning: Translation contains > (should be &gt;) in $type "
-			   . "\"$string\" in file $path\n");
+		fwrite(
+			stdErr(),
+			"\nWarning: Translation contains > (should be &gt;) in $type "
+			. "\"$string\" in file $path\n"
+		);
 	}
 
 	if (strpos($string, '&') !== false) {
@@ -141,8 +147,11 @@ function checkStringForHtml($string, $type, $path) {
 
 		foreach ($ampStrings as $ampString) {
 			if (!preg_match('/^[A-Za-z0-9#]{2,9};/', $ampString)) {
-				fwrite(stdErr(), "\nWarning: Translation contains & (should be &amp;) in $type "
-				   . "\"$string\" in file $path\n");
+				fwrite(
+					stdErr(),
+					"\nWarning: Translation contains & (should be &amp;) in $type "
+					. "\"$string\" in file $path\n"
+				);
 			}
 		}
 	}

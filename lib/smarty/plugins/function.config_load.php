@@ -113,10 +113,13 @@ function smarty_function_config_load($params, &$smarty) {
 		if (function_exists('var_export')) {
 			$_output = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; ?>';
 		} else {
-			$_output = '<?php $_config_vars = unserialize(\'' . strtr(serialize($_config_vars), array(
-				'\'' => '\\\'',
-				'\\' => '\\\\',
-			)) . '\'); ?>';
+			$_output = '<?php $_config_vars = unserialize(\'' . strtr(
+				serialize($_config_vars),
+				array(
+					'\'' => '\\\'',
+					'\\' => '\\\\',
+				)
+			) . '\'); ?>';
 		}
 		$_params = (array(
 			'compile_path'       => $_compile_file,

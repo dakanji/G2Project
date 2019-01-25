@@ -596,10 +596,12 @@ function _GalleryMain($embedded = false, $template = null) {
 			} else {
 				$event = GalleryCoreApi::newEvent('Gallery::BeforeDisplay');
 				$event->setEntity($template);
-				$event->setData(array(
-					'templatePath' => $templatePath,
-					'view'         => $view,
-				));
+				$event->setData(
+					array(
+						'templatePath' => $templatePath,
+						'view'         => $view,
+					)
+				);
 				list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {

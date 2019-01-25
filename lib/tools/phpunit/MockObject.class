@@ -85,10 +85,12 @@ class MockObject {
 
 		printf(
 			'<br/><b>Mismatch At</b>: %s<br/>',
-			htmlspecialchars(GalleryTestCase::doStatic()->DeepCompare(
-				$request,
-				$expected[1]
-			))
+			htmlspecialchars(
+				GalleryTestCase::doStatic()->DeepCompare(
+					$request,
+					$expected[1]
+				)
+			)
 		);
 		printf(
 			"Expected:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",

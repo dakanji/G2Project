@@ -51,13 +51,15 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId'          => $userId,
-			'itemId'          => $itemId,
-			'permission'      => $permission,
-			'applyToChildren' => $applyToChildren,
-			'changeType'      => 'add',
-		));
+		$event->setData(
+			array(
+				'userId'          => $userId,
+				'itemId'          => $itemId,
+				'permission'      => $permission,
+				'applyToChildren' => $applyToChildren,
+				'changeType'      => 'add',
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -134,13 +136,15 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId'          => $userId,
-			'itemId'          => $itemId,
-			'permission'      => $permission,
-			'applyToChildren' => $applyToChildren,
-			'changeType'      => $changeType,
-		));
+		$event->setData(
+			array(
+				'userId'          => $userId,
+				'itemId'          => $itemId,
+				'permission'      => $permission,
+				'applyToChildren' => $applyToChildren,
+				'changeType'      => $changeType,
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -200,13 +204,15 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId'          => $userId,
-			'itemId'          => $itemId,
-			'permission'      => $permission,
-			'applyToChildren' => $applyToChildren,
-			'changeType'      => 'remove',
-		));
+		$event->setData(
+			array(
+				'userId'          => $userId,
+				'itemId'          => $itemId,
+				'permission'      => $permission,
+				'applyToChildren' => $applyToChildren,
+				'changeType'      => 'remove',
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -350,7 +356,8 @@ class GalleryPermissionHelper_advanced {
 			}
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			$query                     = sprintf('
+			$query                     = sprintf(
+				'
 			SELECT
 			[GalleryAccessSubscriberMap::accessListId],
 			[GalleryItemAttributesMap::itemId]
@@ -365,7 +372,9 @@ class GalleryPermissionHelper_advanced {
 			([GalleryItemAttributesMap::parentSequence] LIKE ?
 			AND
 			[GalleryAccessSubscriberMap::accessListId] IN (%s)))
-			', $aclMarkers);
+			',
+				$aclMarkers
+			);
 			$data[]                    = $itemId;
 			$data[]                    = "$parentSequence/%";
 			$data                      = array_merge($data, $aclIds);
@@ -634,10 +643,12 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId' => null,
-			'itemId' => $itemId,
-		));
+		$event->setData(
+			array(
+				'userId' => null,
+				'itemId' => $itemId,
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -973,11 +984,15 @@ class GalleryPermissionHelper_advanced {
 		$data[] = $storage->convertIntToBits($bits);
 		$data[] = $storage->convertIntToBits($bits);
 
-		list($ret, $searchResults) = $gallery->search($query, $data, array(
-			'limit' => array(
-				'count' => 1,
-			),
-		));
+		list($ret, $searchResults) = $gallery->search(
+			$query,
+			$data,
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -1302,9 +1317,12 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		// Now remove any rows left with g_permission = 0
-		$ret = GalleryCoreApi::removeMapEntry('GalleryAccessMap', array(
-			'permission' => 0,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryAccessMap',
+			array(
+				'permission' => 0,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

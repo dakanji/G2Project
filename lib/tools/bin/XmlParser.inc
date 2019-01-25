@@ -39,11 +39,13 @@ class XmlParser {
 		}
 
 		if (!xml_parse($this->_xmlObject, $data, 1)) {
-			die(sprintf(
-				'XML error: %s at line %d',
-				xml_error_string(xml_get_error_code($this->_xmlObject)),
-				xml_get_current_line_number($this->_xmlObject)
-			));
+			die(
+				sprintf(
+					'XML error: %s at line %d',
+					xml_error_string(xml_get_error_code($this->_xmlObject)),
+					xml_get_current_line_number($this->_xmlObject)
+				)
+			);
 			xml_parser_free($this->_xmlObject);
 		}
 

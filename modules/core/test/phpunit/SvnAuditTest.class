@@ -160,8 +160,11 @@ class SvnAuditTest extends CodeAuditTestCase {
 					$this->assertFalse(true, "svn property $key missing for $fileName");
 					$this->_errorCount++;
 				} elseif (!preg_match('{^' . $valueMatch . '$}', $props[$key])) {
-					$this->assertFalse(true, "svn property $key = " . $props[$key]
-					. " for $fileName expected to match $valueMatch");
+					$this->assertFalse(
+						true,
+						"svn property $key = " . $props[$key]
+						. " for $fileName expected to match $valueMatch"
+					);
 					$this->_errorCount++;
 				}
 			}

@@ -233,14 +233,17 @@ class ShowAllCommentsView extends GalleryView {
 			);
 		}
 
-		$template->setVariable('ShowAllComments', array(
-			'comments'   => $comments,
-			'commenters' => $commenters,
-			'can'        => $can,
-			'item'       => (array)$item,
-			'itemData'   => $itemData,
-			'navigator'  => $navigator,
-		));
+		$template->setVariable(
+			'ShowAllComments',
+			array(
+				'comments'   => $comments,
+				'commenters' => $commenters,
+				'can'        => $can,
+				'item'       => (array)$item,
+				'itemData'   => $itemData,
+				'navigator'  => $navigator,
+			)
+		);
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

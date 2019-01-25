@@ -63,9 +63,12 @@ class MapTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array(
-			'name' => $name,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryToolkitOperationMap',
+			array(
+				'name' => $name,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -121,9 +124,12 @@ class MapTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array(
-			'name' => $name,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryToolkitOperationMap',
+			array(
+				'name' => $name,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

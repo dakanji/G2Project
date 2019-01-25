@@ -269,8 +269,11 @@ class GalleryFactoryHelper_medium {
 	 */
 	public static function _array_unshift_key_value(&$array, $key, $value) {
 		unset($array[$key]);
-		$array = array_merge(array(
-			$key => $value,
-		), $array);
+		$array = array_merge(
+			array(
+				$key => $value,
+			),
+			$array
+		);
 	}
 }

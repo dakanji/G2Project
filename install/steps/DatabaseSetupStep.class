@@ -667,8 +667,11 @@ class DatabaseSetupStep extends InstallStep {
 				$galleryStub->getConfig('plugins.dirname')
 			);
 			$GLOBALS['gallery']->setConfig('data.gallery.version', $configPath . 'versions.dat');
-			$GLOBALS['gallery']->setConfig('data.gallery.locale', $configPath . 'locale'
-				   . DIRECTORY_SEPARATOR);
+			$GLOBALS['gallery']->setConfig(
+				'data.gallery.locale',
+				$configPath . 'locale'
+				. DIRECTORY_SEPARATOR
+			);
 		}
 		global $gallery;
 
@@ -703,9 +706,11 @@ class DatabaseSetupStep extends InstallStep {
 			if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
 				define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
 			}
-			$ret     = GalleryInitFirstPass(array(
-				'noDatabase' => true,
-			));
+			$ret     = GalleryInitFirstPass(
+				array(
+					'noDatabase' => true,
+				)
+			);
 			$success = !$ret;
 
 			GalleryDataCache::setFileCachingEnabled(false);

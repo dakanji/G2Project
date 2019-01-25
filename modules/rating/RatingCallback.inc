@@ -81,12 +81,14 @@ class RatingCallbackView extends GalleryView {
 				if ($ret) {
 					return $ret;
 				}
-				$results['votesString'] = $module->translate(array(
-					'one'   => '%d vote',
-					'many'  => '%d votes',
-					'count' => $results['votes'],
-					'arg1'  => $results['votes'],
-				));
+				$results['votesString'] = $module->translate(
+					array(
+						'one'   => '%d vote',
+						'many'  => '%d votes',
+						'count' => $results['votes'],
+						'arg1'  => $results['votes'],
+					)
+				);
 
 				$session =& $gallery->getSession();
 				echo $results['itemId'] . "\n"

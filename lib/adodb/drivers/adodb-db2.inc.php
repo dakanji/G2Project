@@ -284,8 +284,10 @@ class ADODB_db2 extends ADOConnection {
 	}
 
 	public function ServerInfo() {
-		$row = $this->GetRow('SELECT service_level, fixpack_num FROM TABLE(sysproc.env_get_inst_info())
-			as INSTANCEINFO');
+		$row = $this->GetRow(
+			'SELECT service_level, fixpack_num FROM TABLE(sysproc.env_get_inst_info())
+			as INSTANCEINFO'
+		);
 
 
 		if ($row) {
@@ -614,7 +616,7 @@ class ADODB_db2 extends ADOConnection {
 	#define SQL_UNICODE_LONGVARCHAR                 (-97)
 	*/
 	public function DB2Types($t) {
-		switch ((integer)$t) {
+		switch ((int)$t) {
 			case 1:
 			case 12:
 			case 0:

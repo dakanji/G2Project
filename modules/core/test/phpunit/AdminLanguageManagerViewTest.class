@@ -100,52 +100,56 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$storage =& $gallery->getStorage();
 
 		foreach (array(array('module', 'testModule', 1), array('theme', 'testTheme', 1)) as $case) {
-			$this->_testRepository->setReply('getPluginUpgradeInfo', $case, array(
-				null,
+			$this->_testRepository->setReply(
+				'getPluginUpgradeInfo',
+				$case,
 				array(
-					'base'        => array(
-						'newVersion'     => '1.0.0',
-						'newBuild'       => '44444',
-						'currentVersion' => '1.0.0',
-						'currentBuild'   => '11111',
-						'relation'       => 'older',
-						'locked'         => 0,
-						'isCompatible'   => true,
+					null,
+					array(
+						'base'        => array(
+							'newVersion'     => '1.0.0',
+							'newBuild'       => '44444',
+							'currentVersion' => '1.0.0',
+							'currentBuild'   => '11111',
+							'relation'       => 'older',
+							'locked'         => 0,
+							'isCompatible'   => true,
+						),
+						'upgradeable' => false,
+						'complete'    => 0,
+						'languages'   => array(
+							'en_US' => array(
+								'name'         => 'en_US',
+								'currentBuild' => '00001',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
+							'hu_HU' => array(
+								'name'         => 'hu_HU',
+								'currentBuild' => '22222',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
+							'zh_CN' => array(
+								'name'         => 'zh_CN',
+								'currentBuild' => '22222',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
+							'zh_TW' => array(
+								'name'         => 'zh_TW',
+								'currentBuild' => '22222',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
+						),
 					),
-					'upgradeable' => false,
-					'complete'    => 0,
-					'languages'   => array(
-						'en_US' => array(
-							'name'         => 'en_US',
-							'currentBuild' => '00001',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
-						),
-						'hu_HU' => array(
-							'name'         => 'hu_HU',
-							'currentBuild' => '22222',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
-						),
-						'zh_CN' => array(
-							'name'         => 'zh_CN',
-							'currentBuild' => '22222',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
-						),
-						'zh_TW' => array(
-							'name'         => 'zh_TW',
-							'currentBuild' => '22222',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
-						),
-					),
-				),
-			));
+				)
+			);
 		}
 
 		$enableAllFlags               = array(
@@ -204,38 +208,42 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$storage =& $gallery->getStorage();
 
 		foreach (array(array('module', 'testModule', 1), array('theme', 'testTheme', 1)) as $case) {
-			$this->_testRepository->setReply('getPluginUpgradeInfo', $case, array(
-				null,
+			$this->_testRepository->setReply(
+				'getPluginUpgradeInfo',
+				$case,
 				array(
-					'base'        => array(
-						'newVersion'     => '1.0.0',
-						'newBuild'       => '44444',
-						'currentVersion' => '1.0.0',
-						'currentBuild'   => '11111',
-						'relation'       => 'older',
-						'locked'         => 0,
-						'isCompatible'   => false,
-					),
-					'upgradeable' => false,
-					'complete'    => 0,
-					'languages'   => array(
-						'en_US' => array(
-							'name'         => 'en_US',
-							'currentBuild' => '00001',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
+					null,
+					array(
+						'base'        => array(
+							'newVersion'     => '1.0.0',
+							'newBuild'       => '44444',
+							'currentVersion' => '1.0.0',
+							'currentBuild'   => '11111',
+							'relation'       => 'older',
+							'locked'         => 0,
+							'isCompatible'   => false,
 						),
-						'hu_HU' => array(
-							'name'         => 'hu_HU',
-							'currentBuild' => '22222',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
+						'upgradeable' => false,
+						'complete'    => 0,
+						'languages'   => array(
+							'en_US' => array(
+								'name'         => 'en_US',
+								'currentBuild' => '00001',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
+							'hu_HU' => array(
+								'name'         => 'hu_HU',
+								'currentBuild' => '22222',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
 						),
 					),
-				),
-			));
+				)
+			);
 		}
 
 		$enableAllFlags               = array(
@@ -294,38 +302,42 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$storage =& $gallery->getStorage();
 
 		foreach (array(array('module', 'testModule', 1), array('theme', 'testTheme', 1)) as $case) {
-			$this->_testRepository->setReply('getPluginUpgradeInfo', $case, array(
-				null,
+			$this->_testRepository->setReply(
+				'getPluginUpgradeInfo',
+				$case,
 				array(
-					'base'        => array(
-						'newVersion'     => '1.0.0',
-						'newBuild'       => '44444',
-						'currentVersion' => '1.0.0',
-						'currentBuild'   => '11111',
-						'relation'       => 'older',
-						'locked'         => 0,
-						'isCompatible'   => true,
-					),
-					'upgradeable' => false,
-					'complete'    => 0,
-					'languages'   => array(
-						'en_US' => array(
-							'name'         => 'en_US',
-							'currentBuild' => '00001',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
+					null,
+					array(
+						'base'        => array(
+							'newVersion'     => '1.0.0',
+							'newBuild'       => '44444',
+							'currentVersion' => '1.0.0',
+							'currentBuild'   => '11111',
+							'relation'       => 'older',
+							'locked'         => 0,
+							'isCompatible'   => true,
 						),
-						'hu_HU' => array(
-							'name'         => 'hu_HU',
-							'currentBuild' => '22222',
-							'newBuild'     => '33333',
-							'relation'     => 'older',
-							'locked'       => 0,
+						'upgradeable' => false,
+						'complete'    => 0,
+						'languages'   => array(
+							'en_US' => array(
+								'name'         => 'en_US',
+								'currentBuild' => '00001',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
+							'hu_HU' => array(
+								'name'         => 'hu_HU',
+								'currentBuild' => '22222',
+								'newBuild'     => '33333',
+								'relation'     => 'older',
+								'locked'       => 0,
+							),
 						),
 					),
-				),
-			));
+				)
+			);
 		}
 
 		$enableAllFlags               = array(

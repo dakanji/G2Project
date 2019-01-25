@@ -573,10 +573,12 @@ class GalleryView {
 
 		$event = GalleryCoreApi::newEvent('Gallery::LoadThemeAndParameters');
 		$event->setEntity($item);
-		$event->setData(array(
-			'viewType' => $this->getViewType(),
-			'viewName' => $gallery->getCurrentView(),
-		));
+		$event->setData(
+			array(
+				'viewType' => $this->getViewType(),
+				'viewName' => $gallery->getCurrentView(),
+			)
+		);
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -604,12 +606,14 @@ class GalleryView {
 				// Handle bad event results gracefully by ignoring it.
 				if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
 					global $gallery;
-					$gallery->debug(sprintf(
-						'Error: The theme [%s] specified by a [%s] event '
-						. 'handler could not be loaded',
-						$themeId,
-						'Gallery::LoadThemeAndParameters'
-					));
+					$gallery->debug(
+						sprintf(
+							'Error: The theme [%s] specified by a [%s] event '
+							. 'handler could not be loaded',
+							$themeId,
+							'Gallery::LoadThemeAndParameters'
+						)
+					);
 					$theme = $params = null;
 				} else {
 					return array($ret, null, null);

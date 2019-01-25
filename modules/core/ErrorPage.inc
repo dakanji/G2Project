@@ -151,9 +151,11 @@ class ErrorPageView extends GalleryView {
 
 		// Post Gallery::Error event
 		$event = GalleryCoreApi::newEvent('Gallery::Error');
-		$event->setData(array(
-			'error' => $error,
-		));
+		$event->setData(
+			array(
+				'error' => $error,
+			)
+		);
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {

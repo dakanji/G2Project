@@ -381,12 +381,18 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$session =& $gallery->getSession();
-		$session->putStatus(array(
-			'i' => 'a',
-		));
-		$this->assertEquals(array(
-			'i' => 'a',
-		), $session->getStatus(), 'status 0');
+		$session->putStatus(
+			array(
+				'i' => 'a',
+			)
+		);
+		$this->assertEquals(
+			array(
+				'i' => 'a',
+			),
+			$session->getStatus(),
+			'status 0'
+		);
 		$session->setUserId($this->_anonymousUserId);
 
 		$ret = $gallery->_session->start();
@@ -426,9 +432,11 @@ class SessionTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent 2');
 
-		$session->putStatus(array(
-			'j' => 'b',
-		));
+		$session->putStatus(
+			array(
+				'j' => 'b',
+			)
+		);
 
 		$ret = $session->save();
 
@@ -447,9 +455,13 @@ class SessionTest extends GalleryTestCase {
 		}
 		$session =& $gallery->getSession();
 
-		$this->assertEquals(array(
-			'j' => 'b',
-		), $session->getStatus(), 'status');
+		$this->assertEquals(
+			array(
+				'j' => 'b',
+			),
+			$session->getStatus(),
+			'status'
+		);
 	}
 
 	// Test session hijack
@@ -1297,12 +1309,17 @@ class SessionTest extends GalleryTestCase {
 		$gallery->_session->_sessionId = $newSid;
 		$this->assertFalse($gallery->_session->_forceSaveSession, 'force save');
 
-		$gallery->_session->putStatus(array(
-			'i' => 'a',
-		));
-		$this->assertEquals(array(
-			'i' => 'a',
-		), $gallery->_session->getStatus());
+		$gallery->_session->putStatus(
+			array(
+				'i' => 'a',
+			)
+		);
+		$this->assertEquals(
+			array(
+				'i' => 'a',
+			),
+			$gallery->_session->getStatus()
+		);
 		$gallery->_session->put('foo', 'bar');
 
 		$ret = $gallery->_session->save();
@@ -2291,14 +2308,20 @@ class SessionTest extends GalleryTestCase {
 
 		// Anonymous user with default / ignored data
 		$session->_isPersistent = false;
-		$session->put('core.lastViewed', array(
-			'1' => 1,
-			'2' => 2,
-		));
+		$session->put(
+			'core.lastViewed',
+			array(
+				'1' => 1,
+				'2' => 2,
+			)
+		);
 		$session->put('permissionCache', array('blabla'));
-		$session->put('core.navigation', array(
-			'foo' => 'bar',
-		));
+		$session->put(
+			'core.navigation',
+			array(
+				'foo' => 'bar',
+			)
+		);
 		$session->_isUsingCookies = true;
 		$session->put('embed.id.externalUser', 6);
 		$session->put('core.authToken', '1234567890AB');
@@ -2641,8 +2664,11 @@ class SessionTest extends GalleryTestCase {
 			);
 			$unixTimestamp = strtotime($match[1]);
 			$year          = 365 * 24 * 3600;
-			$this->assertTrue($unixTimestamp >= ($before - $year)
-			&& $unixTimestamp <= ($after - $year), 'Expiration timestamp value');
+			$this->assertTrue(
+				$unixTimestamp >= ($before - $year)
+				&& $unixTimestamp <= ($after - $year),
+				'Expiration timestamp value'
+			);
 
 			// Cookie path should be set
 			list($ret, $expected) = $urlGenerator->getCookiePath();
@@ -2938,10 +2964,16 @@ class SessionTest extends GalleryTestCase {
 		$this->assertTrue(!$session->isPersistent(), 'not persistent after loading');
 		$this->assertTrue(empty($session->_userId), 'user id');
 		$this->assertTrue(!empty($session->_remoteIdentifier), 'remoteId');
-		$this->assertTrue($session->getCreationTime() >= $before &&
-			  $session->getCreationTime() <= $after, 'creation time');
-		$this->assertTrue($session->getModificationTime() >= $before &&
-			  $session->getModificationTime() <= $after, 'creation time');
+		$this->assertTrue(
+			$session->getCreationTime() >= $before &&
+			$session->getCreationTime() <= $after,
+			'creation time'
+		);
+		$this->assertTrue(
+			$session->getModificationTime() >= $before &&
+			$session->getModificationTime() <= $after,
+			'creation time'
+		);
 		$this->assertTrue(empty($session->_sessionData), 'data');
 		$this->assertFalse($session->isUsingCookies(), 'isUsingCookies');
 		$this->assertTrue(empty($session->_sessionId), 'session id');
@@ -3713,14 +3745,16 @@ class SessionTest extends GalleryTestCase {
 		$session_sessionData['foo'] = 'bar';
 
 		$this->assertEquals(
-			serialize(array(
-				$session->_sessionId,
-				$session->_userId,
-				serialize($session->_remoteIdentifier),
-				$session->_creationTime,
-				$session->_modificationTime,
-				serialize($session->_sessionData),
-			)),
+			serialize(
+				array(
+					$session->_sessionId,
+					$session->_userId,
+					serialize($session->_remoteIdentifier),
+					$session->_creationTime,
+					$session->_modificationTime,
+					serialize($session->_sessionData),
+				)
+			),
 			$session->_getSerializedSession()
 		);
 	}

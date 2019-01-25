@@ -201,39 +201,47 @@ class AdminPerformanceView extends GalleryView {
 		$expirationTimeLists = array();
 
 		foreach (array(15, 30, 45) as $minutes) {
-			$expirationTimeList[$minutes * 60] = $module->translate(array(
-				'one'   => '%d minute',
-				'many'  => '%d minutes',
-				'count' => $minutes,
-				'arg1'  => $minutes,
-			));
+			$expirationTimeList[$minutes * 60] = $module->translate(
+				array(
+					'one'   => '%d minute',
+					'many'  => '%d minutes',
+					'count' => $minutes,
+					'arg1'  => $minutes,
+				)
+			);
 		}
 
 		foreach (array(1, 6, 12) as $hours) {
-			$expirationTimeList[$hours * 3600] = $module->translate(array(
-				'one'   => '%d hour',
-				'many'  => '%d hours',
-				'count' => $hours,
-				'arg1'  => $hours,
-			));
+			$expirationTimeList[$hours * 3600] = $module->translate(
+				array(
+					'one'   => '%d hour',
+					'many'  => '%d hours',
+					'count' => $hours,
+					'arg1'  => $hours,
+				)
+			);
 		}
 
 		foreach (array(1, 2, 3, 4, 5, 6) as $days) {
-			$expirationTimeList[$days * 86400] = $module->translate(array(
-				'one'   => '%d day',
-				'many'  => '%d days',
-				'count' => $days,
-				'arg1'  => $days,
-			));
+			$expirationTimeList[$days * 86400] = $module->translate(
+				array(
+					'one'   => '%d day',
+					'many'  => '%d days',
+					'count' => $days,
+					'arg1'  => $days,
+				)
+			);
 		}
 
 		foreach (array(1, 2, 3) as $weeks) {
-			$expirationTimeList[$weeks * 7 * 86400] = $module->translate(array(
-				'one'   => '%d week',
-				'many'  => '%d weeks',
-				'count' => $weeks,
-				'arg1'  => $weeks,
-			));
+			$expirationTimeList[$weeks * 7 * 86400] = $module->translate(
+				array(
+					'one'   => '%d week',
+					'many'  => '%d weeks',
+					'count' => $weeks,
+					'arg1'  => $weeks,
+				)
+			);
 		}
 
 		$AdminPerformance                       = array();

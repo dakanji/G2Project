@@ -66,10 +66,12 @@ class GalleryUserGroupHelper_medium {
 		GalleryDataCache::remove("GalleryUserGroupHelper::isUserInGroup($userId,$groupId)");
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId' => $userId,
-			'itemId' => null,
-		));
+		$event->setData(
+			array(
+				'userId' => $userId,
+				'itemId' => null,
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -107,10 +109,12 @@ class GalleryUserGroupHelper_medium {
 		GalleryDataCache::remove("GalleryUserGroupHelper::isUserInGroup($userId,$groupId)");
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId' => $userId,
-			'itemId' => null,
-		));
+		$event->setData(
+			array(
+				'userId' => $userId,
+				'itemId' => null,
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -133,19 +137,24 @@ class GalleryUserGroupHelper_medium {
 		$userId = (int)$userId;
 
 		// Remove this relationship from our groups table.
-		$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-			'userId' => $userId,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryUserGroupMap',
+			array(
+				'userId' => $userId,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId' => $userId,
-			'itemId' => null,
-		));
+		$event->setData(
+			array(
+				'userId' => $userId,
+				'itemId' => null,
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -168,9 +177,12 @@ class GalleryUserGroupHelper_medium {
 		$groupId = (int)$groupId;
 
 		// Remove this relationship from our groups table.
-		$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array(
-			'groupId' => $groupId,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryUserGroupMap',
+			array(
+				'groupId' => $groupId,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -191,10 +203,12 @@ class GalleryUserGroupHelper_medium {
 				return $ret;
 			}
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-			$event->setData(array(
-				'userId' => array_keys($userData),
-				'itemId' => null,
-			));
+			$event->setData(
+				array(
+					'userId' => array_keys($userData),
+					'itemId' => null,
+				)
+			);
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {

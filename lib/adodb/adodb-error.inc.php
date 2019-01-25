@@ -128,7 +128,7 @@ function adodb_error($provider, $dbType, $errno) {
 
 function adodb_error_pg($errormsg) {
 	if (is_numeric($errormsg)) {
-		return (integer)$errormsg;
+		return (int)$errormsg;
 	}
 	// Postgres has no lock-wait timeout.  The best we could do would be to set a statement timeout.
 	static $error_regexps = array(

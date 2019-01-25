@@ -39,8 +39,10 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 		return array(
 			'l10Domain'   => 'modules_rewrite',
 			'title'       => $gallery->i18n('Check short style URLs for filesystem conflicts'),
-			'description' => $gallery->i18n('This will go through all your Gallery items and check if the short ' .
-				   'style URL links to an existing file or directory on your webserver.'),
+			'description' => $gallery->i18n(
+				'This will go through all your Gallery items and check if the short ' .
+				'style URL links to an existing file or directory on your webserver.'
+			),
 		);
 	}
 
@@ -63,8 +65,10 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 		$message = $module->translate('Processing...');
 		$templateAdapter->updateProgressBar('', $message, '');
 
-		list($ret, $results) = $gallery->search('SELECT [Item::id] FROM [Item] ' .
-				 'ORDER BY [Item::id]');
+		list($ret, $results) = $gallery->search(
+			'SELECT [Item::id] FROM [Item] ' .
+			'ORDER BY [Item::id]'
+		);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -81,9 +85,12 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 				'itemId' => (int)$result[0],
 			);
 			$path   = substr(
-				$urlGenerator->generateUrl($params, array(
-					'forceFullUrl' => true,
-				)),
+				$urlGenerator->generateUrl(
+					$params,
+					array(
+						'forceFullUrl' => true,
+					)
+				),
 				strlen($urlGenerator->getCurrentUrlDir()) - 1
 			);
 
@@ -125,11 +132,13 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 			}
 		}
 
-		$status[0] = $module->translate(array(
-			'text' => 'Checked %d items and found %d conflicts',
-			'arg1' => $total,
-			'arg2' => $badPath,
-		));
+		$status[0] = $module->translate(
+			array(
+				'text' => 'Checked %d items and found %d conflicts',
+				'arg1' => $total,
+				'arg2' => $badPath,
+			)
+		);
 
 		return array(null, true, $status);
 	}

@@ -163,8 +163,10 @@ class GalleryModule extends GalleryPlugin {
 		if ($installedVersion != $this->getVersion()) {
 			if ($gallery->getDebug()) {
 				if (!$bootstrap) {
-					$gallery->debug('Old version: ' . $installedVersion
-					. '   New version: ' . $this->getVersion());
+					$gallery->debug(
+						'Old version: ' . $installedVersion
+						. '   New version: ' . $this->getVersion()
+					);
 				}
 				$gallery->debug(sprintf('Configure store for %s module', $this->getId()));
 			}
@@ -174,11 +176,13 @@ class GalleryModule extends GalleryPlugin {
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
-					$gallery->debug(sprintf(
-						'Error: Failed to configure the persistent store, ' .
-						'this is the error stack trace: %s',
-						$ret->getAsText()
-					));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to configure the persistent store, ' .
+							'this is the error stack trace: %s',
+							$ret->getAsText()
+						)
+					);
 				}
 
 				return $ret;
@@ -198,22 +202,26 @@ class GalleryModule extends GalleryPlugin {
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
-					$gallery->debug(sprintf(
-						'Error: Failed to upgrade the %s module, this ' .
-						'is the error stack trace: %s',
-						$this->getId(),
-						$ret->getAsText()
-					));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to upgrade the %s module, this ' .
+							'is the error stack trace: %s',
+							$this->getId(),
+							$ret->getAsText()
+						)
+					);
 				}
 
 				return $ret;
 			}
 
 			if ($gallery->getDebug()) {
-				$gallery->debug(sprintf(
-					'Update module paramater for the %s module',
-					$this->getId()
-				));
+				$gallery->debug(
+					sprintf(
+						'Update module paramater for the %s module',
+						$this->getId()
+					)
+				);
 			}
 
 			/*
@@ -233,12 +241,14 @@ class GalleryModule extends GalleryPlugin {
 
 				if ($ret) {
 					if ($gallery->getDebug()) {
-						$gallery->debug(sprintf(
-							'Error: Failed to update the module parameter %s, '
-							. 'this is the error stack trace: %s',
-							$key,
-							$ret->getAsText()
-						));
+						$gallery->debug(
+							sprintf(
+								'Error: Failed to update the module parameter %s, '
+								. 'this is the error stack trace: %s',
+								$key,
+								$ret->getAsText()
+							)
+						);
 					}
 
 					return $ret;
@@ -252,11 +262,13 @@ class GalleryModule extends GalleryPlugin {
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
-					$gallery->debug(sprintf(
-						'Error: Failed to clean up the persistent store, ' .
-						'this is the error stack trace: %s',
-						$ret->getAsText()
-					));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to clean up the persistent store, ' .
+							'this is the error stack trace: %s',
+							$ret->getAsText()
+						)
+					);
 				}
 
 				return $ret;
@@ -275,8 +287,13 @@ class GalleryModule extends GalleryPlugin {
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
-					$gallery->debug(sprintf('Error: Failed to reactivate the module, this' .
-						' is the error stack trace: %s', $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to reactivate the module, this' .
+							' is the error stack trace: %s',
+							$ret->getAsText()
+						)
+					);
 				}
 
 				return $ret;
@@ -313,10 +330,12 @@ class GalleryModule extends GalleryPlugin {
 		}
 
 		if ($gallery->getDebug()) {
-			$gallery->debug(sprintf(
-				'Successfully finished installOrUpgrade %s module',
-				$this->getId()
-			));
+			$gallery->debug(
+				sprintf(
+					'Successfully finished installOrUpgrade %s module',
+					$this->getId()
+				)
+			);
 		}
 
 		return null;

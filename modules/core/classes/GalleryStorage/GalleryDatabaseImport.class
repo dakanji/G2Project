@@ -175,8 +175,10 @@ class GalleryDatabaseImport extends GalleryImportElement {
 		}
 
 		if (!function_exists('xml_parse')) {
-			$errors['errors'][] = $coreModule->translate('Unable to find the XML parser.  The PHP'
-			. ' XML parsing extension must be loaded.  Terminating database import.');
+			$errors['errors'][] = $coreModule->translate(
+				'Unable to find the XML parser.  The PHP'
+				. ' XML parsing extension must be loaded.  Terminating database import.'
+			);
 		} else {
 			if ($platform->file_exists($fileName)) {
 				$handle = $platform->fopen($fileName, 'r');
@@ -211,23 +213,29 @@ class GalleryDatabaseImport extends GalleryImportElement {
 					}
 
 					if (!$platform->fclose($handle)) {
-						$errors['errors'][] = $coreModule->translate(array(
-							'text' => 'Unable to close import file: '
-									   . '%s',
-							'arg1' => $fileName,
-						));
+						$errors['errors'][] = $coreModule->translate(
+							array(
+								'text' => 'Unable to close import file: '
+										   . '%s',
+								'arg1' => $fileName,
+							)
+						);
 					}
 				} else {
-					$errors['errors'][] = $coreModule->translate(array(
-						'text' => 'Unable to open import file: %s',
-						'arg1' => $fileName,
-					));
+					$errors['errors'][] = $coreModule->translate(
+						array(
+							'text' => 'Unable to open import file: %s',
+							'arg1' => $fileName,
+						)
+					);
 				}
 			} else {
-				$errors['errors'][] = $coreModule->translate(array(
-					'text' => 'Import file doesn\'t exist: %s',
-					'arg1' => $fileName,
-				));
+				$errors['errors'][] = $coreModule->translate(
+					array(
+						'text' => 'Import file doesn\'t exist: %s',
+						'arg1' => $fileName,
+					)
+				);
 			}
 		}
 
@@ -272,10 +280,12 @@ class GalleryDatabaseImport extends GalleryImportElement {
 		}
 
 		if (!empty($version) && empty($pluginStatus[$versions[1]]['available'])) {
-			$errors['warnings'][] = $coreModule->translate(array(
-				'text' => 'Plugin %s is not currently available.',
-				'arg1' => $versions[1],
-			));
+			$errors['warnings'][] = $coreModule->translate(
+				array(
+					'text' => 'Plugin %s is not currently available.',
+					'arg1' => $versions[1],
+				)
+			);
 
 			return;
 		}
@@ -291,21 +301,25 @@ class GalleryDatabaseImport extends GalleryImportElement {
 		$availableVersion = $plugin->getVersion();
 
 		if ($availableVersion < $versions[4]) {
-			$errors['errors'][] = $coreModule->translate(array(
-				'text' => 'The available version of plugin "%s" may '
-				 . 'not be compatible with the imported version.',
-				'arg1' => $versions[1],
-			));
+			$errors['errors'][] = $coreModule->translate(
+				array(
+					'text' => 'The available version of plugin "%s" may '
+					 . 'not be compatible with the imported version.',
+					'arg1' => $versions[1],
+				)
+			);
 		}
 
 		$importVersion = array_map('intval', explode('.', $versions[2]));
 
 		if (!GalleryUtilities::isCompatibleWithApi($importVersion, $this->_installedCoreVersion)) {
-			$errors['warnings'][] = $coreModule->translate(array(
-				'text' => 'The currently installed core API version '
-					  . 'required by "%s" may not be compatible with the imported version.',
-				'arg1' => $versions[1],
-			));
+			$errors['warnings'][] = $coreModule->translate(
+				array(
+					'text' => 'The currently installed core API version '
+						  . 'required by "%s" may not be compatible with the imported version.',
+					'arg1' => $versions[1],
+				)
+			);
 		}
 
 		$importVersion = array_map('intval', explode('.', $versions[3]));
@@ -316,11 +330,13 @@ class GalleryDatabaseImport extends GalleryImportElement {
 				$this->_installedModuleVersion
 			)
 			) {
-				$errors['warnings'][] = $coreModule->translate(array(
-					'text' => 'The installed module API version'
-					. ' required by "%s" may not be compatible with the imported version.',
-					'arg1' => $versions[1],
-				));
+				$errors['warnings'][] = $coreModule->translate(
+					array(
+						'text' => 'The installed module API version'
+						. ' required by "%s" may not be compatible with the imported version.',
+						'arg1' => $versions[1],
+					)
+				);
 			}
 		} else {
 			if (!GalleryUtilities::isCompatibleWithApi(
@@ -328,11 +344,13 @@ class GalleryDatabaseImport extends GalleryImportElement {
 				$this->_installedThemeVersion
 			)
 			) {
-				$errors['warnings'][] = $coreModule->translate(array(
-					'text' => 'The installed theme API version '
-					. 'required by "%s" is not compatible with the imported version.',
-					'arg1' => $versions[1],
-				));
+				$errors['warnings'][] = $coreModule->translate(
+					array(
+						'text' => 'The installed theme API version '
+						. 'required by "%s" is not compatible with the imported version.',
+						'arg1' => $versions[1],
+					)
+				);
 			}
 		}
 	}

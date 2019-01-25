@@ -73,10 +73,12 @@ class ImageMagickToolkitHelper {
 			'params'      => array(
 				array(
 					'type'        => 'int',
-					'description' => $gallery->i18n(array(
-						'text'    => 'target width (# pixels or #% of full size)',
-						'cFormat' => false,
-					)),
+					'description' => $gallery->i18n(
+						array(
+							'text'    => 'target width (# pixels or #% of full size)',
+							'cFormat' => false,
+						)
+					),
 				),
 				array(
 					'type'        => 'int',
@@ -99,17 +101,21 @@ class ImageMagickToolkitHelper {
 			'params'      => array(
 				array(
 					'type'        => 'int',
-					'description' => $gallery->i18n(array(
-						'text'    => 'target width (# pixels or #% of full size)',
-						'cFormat' => false,
-					)),
+					'description' => $gallery->i18n(
+						array(
+							'text'    => 'target width (# pixels or #% of full size)',
+							'cFormat' => false,
+						)
+					),
 				),
 				array(
 					'type'        => 'int',
-					'description' => $gallery->i18n(array(
-						'text'    => 'target height (# pixels or #% of full size)',
-						'cFormat' => false,
-					)),
+					'description' => $gallery->i18n(
+						array(
+							'text'    => 'target height (# pixels or #% of full size)',
+							'cFormat' => false,
+						)
+					),
 				),
 			),
 			'description' => $gallery->i18n('Resize the image to the target dimensions'),
@@ -768,8 +774,13 @@ class ImageMagickToolkitHelper {
 			|| !@$platform->is_dir($imageMagickPath)
 		) {
 			return array(
-				GalleryCoreApi::error(ERROR_BAD_PATH, null, null, '"' . $imageMagickPath
-				. '" is not a directory or is not specified in open_basedir.'),
+				GalleryCoreApi::error(
+					ERROR_BAD_PATH,
+					null,
+					null,
+					'"' . $imageMagickPath
+					. '" is not a directory or is not specified in open_basedir.'
+				),
 				null,
 			);
 		}

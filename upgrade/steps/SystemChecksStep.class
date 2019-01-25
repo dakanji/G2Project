@@ -533,15 +533,22 @@ class SystemChecksStep extends UpgradeStep {
 				}
 
 				if (!empty($manifest['shouldRemove'])) {
-					$notice   = sprintf('These files are no longer part of Gallery. They probably' .
-					' would not cause any problems but it is a good idea to remove them to keep ' .
-					'your install clean.  Gallery cannot remove these files for you, but you ' .
-					'can download and run %sthis script%s in your gallery2 directory to ' .
-					'delete them for you.', sprintf(
-						'<a href="%s">',
-						generateUrl('index.php?step=' . $currentStep->getStepNumber()
-						. '&amp;downloadCleanupScript=1', false)
-					), '</a>');
+					$notice   = sprintf(
+						'These files are no longer part of Gallery. They probably' .
+						' would not cause any problems but it is a good idea to remove them to keep ' .
+						'your install clean.  Gallery cannot remove these files for you, but you ' .
+						'can download and run %sthis script%s in your gallery2 directory to ' .
+						'delete them for you.',
+						sprintf(
+							'<a href="%s">',
+							generateUrl(
+								'index.php?step=' . $currentStep->getStepNumber()
+								. '&amp;downloadCleanupScript=1',
+								false
+							)
+						),
+						'</a>'
+					);
 					$heading  = sprintf('Old files (%d)', count($manifest['shouldRemove']));
 					$message .= $this->renderFileList(
 						$manifest['shouldRemove'],

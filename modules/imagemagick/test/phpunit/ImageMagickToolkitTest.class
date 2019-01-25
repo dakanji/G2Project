@@ -1145,136 +1145,143 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$environment['mimeTypes']
 			);
 
-			$this->assertEquals(array_merge($canConvert, array(
-				'scale' => array(
-					'params'      => array(
-						array(
-							'type'        => 'int',
-							'description' => 'target width (# pixels or #% of full size)',
+			$this->assertEquals(
+				array_merge(
+					$canConvert,
+					array(
+						'scale' => array(
+							'params'      => array(
+								array(
+									'type' => 'int',
+									'description' => 'target width (# pixels or #% of full size)',
+								),
+								array(
+									'type' => 'int',
+									'description' => '(optional) target height, defaults to same as width',
+								),
+							),
+							'description' => 'Scale the image to the target size, maintain aspect ratio',
+							'mimeTypes'   => $environment['mimeTypes'],
 						),
-						array(
-							'type'        => 'int',
-							'description' => '(optional) target height, defaults to same as width',
+						'thumbnail' => array(
+							'params'      => array(
+								array(
+									'type' => 'int',
+									'description' => 'target width (# pixels or #% of full size)',
+								),
+								array(
+									'type' => 'int',
+									'description' => '(optional) target height, defaults to same as width',
+								),
+							),
+							'description' => 'Scale the image to the target size, maintain aspect ratio',
+							'mimeTypes'   => $environment['mimeTypes'],
 						),
-					),
-					'description' => 'Scale the image to the target size, maintain aspect ratio',
-					'mimeTypes'   => $environment['mimeTypes'],
+						'resize' => array(
+							'params'      => array(
+								array(
+									'type' => 'int',
+									'description' => 'target width (# pixels or #% of full size)',
+								),
+								array(
+									'type' => 'int',
+									'description' => 'target height (# pixels or #% of full size)',
+								),
+							),
+							'description' => 'Resize the image to the target dimensions',
+							'mimeTypes'   => $environment['mimeTypes'],
+						),
+						'rotate' => array(
+							'params'      => array(
+								array(
+									'type' => 'int',
+									'description' => 'rotation degrees',
+								),
+							),
+							'description' => 'Rotate the image',
+							'mimeTypes'   => $environment['mimeTypes'],
+						),
+						'crop' => array(
+							'params'      => array(
+								array(
+									'type' => 'float',
+									'description' => 'left edge %',
+								),
+								array(
+									'type' => 'float',
+									'description' => 'top edge %',
+								),
+								array(
+									'type' => 'float',
+									'description' => 'width %',
+								),
+								array(
+									'type' => 'float',
+									'description' => 'height %',
+								),
+							),
+							'description' => 'Crop the image',
+							'mimeTypes'   => $environment['mimeTypes'],
+						),
+						'composite' => array(
+							'params'      => array(
+								array(
+									'type' => 'string',
+									'description' => 'overlay path',
+								),
+								array(
+									'type' => 'string',
+									'description' => 'overlay mime type',
+								),
+								array(
+									'type' => 'int',
+									'description' => 'overlay width',
+								),
+								array(
+									'type' => 'int',
+									'description' => 'overlay height',
+								),
+								array(
+									'type' => 'string',
+									'description' => 'alignment type',
+								),
+								array(
+									'type' => 'int',
+									'description' => 'alignment x %',
+								),
+								array(
+									'type' => 'int',
+									'description' => 'alignment y %',
+								),
+							),
+							'description' => 'Overlay source image with a second one',
+							'mimeTypes'   => $environment['mimeTypes'],
+						),
+						'select-page' => array(
+							'params'      => array(
+								array(
+									'type' => 'int',
+									'description' => 'page number',
+								),
+							),
+							'description' => 'Select a single page from a multi-page file',
+							'mimeTypes'   => $canPage,
+						),
+						'compress' => array(
+							'params'      => array(
+								array(
+									'type' => 'int',
+									'description' => 'target size in kb',
+								),
+							),
+							'description' => 'Reduce image quality to reach target file size',
+							'mimeTypes'   => $qualityMimeTypes,
+						),
+					)
 				),
-				'thumbnail' => array(
-					'params'      => array(
-						array(
-							'type'        => 'int',
-							'description' => 'target width (# pixels or #% of full size)',
-						),
-						array(
-							'type'        => 'int',
-							'description' => '(optional) target height, defaults to same as width',
-						),
-					),
-					'description' => 'Scale the image to the target size, maintain aspect ratio',
-					'mimeTypes'   => $environment['mimeTypes'],
-				),
-				'resize' => array(
-					'params'      => array(
-						array(
-							'type'        => 'int',
-							'description' => 'target width (# pixels or #% of full size)',
-						),
-						array(
-							'type'        => 'int',
-							'description' => 'target height (# pixels or #% of full size)',
-						),
-					),
-					'description' => 'Resize the image to the target dimensions',
-					'mimeTypes'   => $environment['mimeTypes'],
-				),
-				'rotate' => array(
-					'params'      => array(
-						array(
-							'type'        => 'int',
-							'description' => 'rotation degrees',
-						),
-					),
-					'description' => 'Rotate the image',
-					'mimeTypes'   => $environment['mimeTypes'],
-				),
-				'crop' => array(
-					'params'      => array(
-						array(
-							'type'        => 'float',
-							'description' => 'left edge %',
-						),
-						array(
-							'type'        => 'float',
-							'description' => 'top edge %',
-						),
-						array(
-							'type'        => 'float',
-							'description' => 'width %',
-						),
-						array(
-							'type'        => 'float',
-							'description' => 'height %',
-						),
-					),
-					'description' => 'Crop the image',
-					'mimeTypes'   => $environment['mimeTypes'],
-				),
-				'composite' => array(
-					'params'      => array(
-						array(
-							'type'        => 'string',
-							'description' => 'overlay path',
-						),
-						array(
-							'type'        => 'string',
-							'description' => 'overlay mime type',
-						),
-						array(
-							'type'        => 'int',
-							'description' => 'overlay width',
-						),
-						array(
-							'type'        => 'int',
-							'description' => 'overlay height',
-						),
-						array(
-							'type'        => 'string',
-							'description' => 'alignment type',
-						),
-						array(
-							'type'        => 'int',
-							'description' => 'alignment x %',
-						),
-						array(
-							'type'        => 'int',
-							'description' => 'alignment y %',
-						),
-					),
-					'description' => 'Overlay source image with a second one',
-					'mimeTypes'   => $environment['mimeTypes'],
-				),
-				'select-page' => array(
-					'params'      => array(
-						array(
-							'type'        => 'int',
-							'description' => 'page number',
-						),
-					),
-					'description' => 'Select a single page from a multi-page file',
-					'mimeTypes'   => $canPage,
-				),
-				'compress' => array(
-					'params'      => array(
-						array(
-							'type'        => 'int',
-							'description' => 'target size in kb',
-						),
-					),
-					'description' => 'Reduce image quality to reach target file size',
-					'mimeTypes'   => $qualityMimeTypes,
-				),
-			)), $results['operations'], $this->_envName());
+				$results['operations'],
+				$this->_envName()
+			);
 
 			$properties = array(
 				'dimensions' => array(

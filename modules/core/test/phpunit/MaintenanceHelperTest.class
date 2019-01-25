@@ -82,10 +82,12 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(GalleryUtilities::isA(
-			$tasks['MaintenanceHelperTestTask'],
-			'MaintenanceHelperTestTask'
-		));
+		$this->assertTrue(
+			GalleryUtilities::isA(
+				$tasks['MaintenanceHelperTestTask'],
+				'MaintenanceHelperTestTask'
+			)
+		);
 	}
 
 	public function testAddAndFetchLastRun() {

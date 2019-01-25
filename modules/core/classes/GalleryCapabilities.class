@@ -52,7 +52,7 @@ class GalleryCapabilities {
 	public function can($key) {
 		global $gallery;
 
-		return (boolean)$gallery->getConfig($key);
+		return (bool)$gallery->getConfig($key);
 	}
 
 	/**

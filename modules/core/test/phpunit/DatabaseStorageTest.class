@@ -135,11 +135,14 @@ class DatabaseStorageTest extends GalleryTestCase {
 
 	public function testParseSqlTemplate4() {
 		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_nothing');
-		$this->assertEquals(array(
-			'table'  => array(),
-			'alter'  => array(),
-			'remove' => array(),
-			'test'   => array(),
-		), $results);
+		$this->assertEquals(
+			array(
+				'table'  => array(),
+				'alter'  => array(),
+				'remove' => array(),
+				'test'   => array(),
+			),
+			$results
+		);
 	}
 }

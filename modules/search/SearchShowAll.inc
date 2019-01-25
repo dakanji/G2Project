@@ -188,15 +188,18 @@ class SearchShowAllView extends GalleryView {
 		}
 
 		// Render the HTML body
-		$template->setVariable('SearchShowAll', array(
-			'controller' => 'search.SearchShowAll',
-			'maxPages'   => $maxPages,
-			'moduleInfo' => $moduleInfo,
-			'moduleId'   => $moduleId,
-			'results'    => $results,
-			'thumbnails' => $thumbnails,
-			'items'      => $items,
-		));
+		$template->setVariable(
+			'SearchShowAll',
+			array(
+				'controller' => 'search.SearchShowAll',
+				'maxPages'   => $maxPages,
+				'moduleInfo' => $moduleInfo,
+				'moduleId'   => $moduleId,
+				'results'    => $results,
+				'thumbnails' => $thumbnails,
+				'items'      => $items,
+			)
+		);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 

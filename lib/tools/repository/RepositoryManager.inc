@@ -56,20 +56,24 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 		$upgradeablePlugins = array();
 
 		foreach ($data['pluginInfo'] as $indexId => $plugin) {
-			$data['pluginInfo'][$indexId]['actions']['remove'] = $urlGenerator->generateUrl(array(
-				'controller' => 'RepositoryManager',
-				'action'     => 'removePlugin',
-				'pluginId'   => $plugin['id'],
-				'pluginType' => $plugin['type'],
-			));
+			$data['pluginInfo'][$indexId]['actions']['remove'] = $urlGenerator->generateUrl(
+				array(
+					'controller' => 'RepositoryManager',
+					'action'     => 'removePlugin',
+					'pluginId'   => $plugin['id'],
+					'pluginType' => $plugin['type'],
+				)
+			);
 		}
 
 		if (count($upgradeablePlugins) > 0) {
-			$data['upgradeRepositoryLink'] = $urlGenerator->generateUrl(array(
-				'controller' => 'PackagePlugin',
-				'action'     => 'packagePlugins',
-				'filter'     => sprintf('/%s/', implode('|', $upgradeablePlugins)),
-			));
+			$data['upgradeRepositoryLink'] = $urlGenerator->generateUrl(
+				array(
+					'controller' => 'PackagePlugin',
+					'action'     => 'packagePlugins',
+					'filter'     => sprintf('/%s/', implode('|', $upgradeablePlugins)),
+				)
+			);
 		}
 
 		$ret = $this->showView('RepositoryManager', $data);
@@ -118,9 +122,12 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 			}
 		}
 
-		$this->showView('PackageRemovalResults', array(
-			'files' => $removedFiles,
-		));
+		$this->showView(
+			'PackageRemovalResults',
+			array(
+				'files' => $removedFiles,
+			)
+		);
 
 		return null;
 	}

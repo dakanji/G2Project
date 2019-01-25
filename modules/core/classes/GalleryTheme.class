@@ -666,20 +666,24 @@ class GalleryTheme extends GalleryPlugin {
 
 		if ($installedVersion != $this->getVersion()) {
 			if ($gallery->getDebug()) {
-				$gallery->debug('Old version: ' . $installedVersion
-				. '   New version: ' . $this->getVersion());
+				$gallery->debug(
+					'Old version: ' . $installedVersion
+					. '   New version: ' . $this->getVersion()
+				);
 			}
 
 			$ret = $this->upgrade($installedVersion);
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
-					$gallery->debug(sprintf(
-						'Error: Failed to upgrade the %s theme, this '
-						. 'is the error stack trace: %s',
-						$this->getId(),
-						$ret->getAsText()
-					));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to upgrade the %s theme, this '
+							. 'is the error stack trace: %s',
+							$this->getId(),
+							$ret->getAsText()
+						)
+					);
 				}
 
 				return $ret;
@@ -711,8 +715,13 @@ class GalleryTheme extends GalleryPlugin {
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
-					$gallery->debug(sprintf('Error: Failed to reactivate the theme, this'
-					. ' is the error stack trace: %s', $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to reactivate the theme, this'
+							. ' is the error stack trace: %s',
+							$ret->getAsText()
+						)
+					);
 				}
 
 				return $ret;
@@ -1746,13 +1755,16 @@ class GalleryTheme extends GalleryPlugin {
 					 * generateUrl(array('href'=>$path)); need full url to avoid any distortion.
 					 * (that later call will actually shorten the URL again if appropriate)
 					 */
-					$url = $urlGenerator->generateUrl(array(
-						'view' => 'core.ItemDeleteJs',
-						'lang' => $lang,
-					), array(
-						'forceDirect'  => true,
-						'forceFullUrl' => true,
-					));
+					$url = $urlGenerator->generateUrl(
+						array(
+							'view' => 'core.ItemDeleteJs',
+							'lang' => $lang,
+						),
+						array(
+							'forceDirect'  => true,
+							'forceFullUrl' => true,
+						)
+					);
 					$template->javascript($url);
 
 					break;

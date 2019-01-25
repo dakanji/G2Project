@@ -434,10 +434,12 @@ class ItemEditView extends GalleryView {
 
 		return array(
 			null,
-			$core->translate(array(
-				'text' => 'edit %s',
-				'arg1' => $itemTypeNames[1],
-			)),
+			$core->translate(
+				array(
+					'text' => 'edit %s',
+					'arg1' => $itemTypeNames[1],
+				)
+			),
 		);
 	}
 }

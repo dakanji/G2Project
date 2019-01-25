@@ -59,9 +59,11 @@ class ModRewriteHelperTest extends GalleryTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'modrewrite.status'           => serialize(array(
-				'needOptions' => true,
-			)),
+			'modrewrite.status'           => serialize(
+				array(
+					'needOptions' => true,
+				)
+			),
 			'modrewrite.galleryLocation'  => '/gallery2/',
 			'modrewrite.embeddedHtaccess' => '/phpunit/embedded',
 			'modrewrite.embeddedLocation' => '/embedded/',
@@ -327,10 +329,12 @@ class ModRewriteHelperTest extends GalleryTestCase {
 			'module',
 			'rewrite',
 			'modrewrite.status',
-			serialize(array(
-				'needOptions' => true,
-				'forced'      => 1,
-			))
+			serialize(
+				array(
+					'needOptions' => true,
+					'forced'      => 1,
+				)
+			)
 		);
 
 		if ($ret) {

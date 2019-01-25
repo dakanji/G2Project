@@ -249,9 +249,11 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'descriptorDownloadFailure' => true,
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'descriptorDownloadFailure' => true,
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',
@@ -297,9 +299,11 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'outputDirectoryNonExistent' => true,
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'outputDirectoryNonExistent' => true,
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',
@@ -334,11 +338,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'descriptorPreVerifyFailureResponse' => array(
-				'lang-en_GB' => array('en_GB-package'),
-			),
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'descriptorPreVerifyFailureResponse' => array(
+					'lang-en_GB' => array('en_GB-package'),
+				),
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',
@@ -384,11 +390,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'downloadPackageFailure' => array(
-				'base' => true,
-			),
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'downloadPackageFailure' => array(
+					'base' => true,
+				),
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',
@@ -436,11 +444,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'downloadPackageOtherFailure' => array(
-				'base' => true,
-			),
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'downloadPackageOtherFailure' => array(
+					'base' => true,
+				),
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',
@@ -475,11 +485,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'downloadPackageFailure' => array(
-				'lang-en_GB' => true,
-			),
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'downloadPackageFailure' => array(
+					'lang-en_GB' => true,
+				),
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',
@@ -526,11 +538,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
-		$this->_setRepositoryResponses(array(
-			'downloadPackageOtherFailure' => array(
-				'lang-en_GB' => true,
-			),
-		));
+		$this->_setRepositoryResponses(
+			array(
+				'downloadPackageOtherFailure' => array(
+					'lang-en_GB' => true,
+				),
+			)
+		);
 
 		$downloadData = array(
 			'name'  => 'Test Module',

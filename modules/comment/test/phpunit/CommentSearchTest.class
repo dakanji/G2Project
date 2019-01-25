@@ -232,9 +232,12 @@ class CommentSearchTest extends GalleryTestCase {
 	}
 
 	public function testSearchAll() {
-		list($ret, $results) = $this->_commentSearch->search(array(
-			'comments' => 1,
-		), $this->_randomKey);
+		list($ret, $results) = $this->_commentSearch->search(
+			array(
+				'comments' => 1,
+			),
+			$this->_randomKey
+		);
 
 		if ($ret) {
 			return $ret;

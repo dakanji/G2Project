@@ -257,10 +257,13 @@ class GalleryItemAttributesHelper_advanced {
 		$newParentSequence = join('/', $newParentSequence) . '/';
 
 		$storage               =& $gallery->getStorage();
-		list($ret, $substring) = $storage->getFunctionSql('SUBSTRING', array(
-			'[GalleryItemAttributesMap::parentSequence]',
-			strlen($oldParentSequence) + 1,
-		));
+		list($ret, $substring) = $storage->getFunctionSql(
+			'SUBSTRING',
+			array(
+				'[GalleryItemAttributesMap::parentSequence]',
+				strlen($oldParentSequence) + 1,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

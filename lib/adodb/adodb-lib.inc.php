@@ -1290,7 +1290,7 @@ function _adodb_column_sql(&$zthis, $action, $type, $fname, $fnameq, $arrFields,
 			$val = $arrFields[$fname];
 
 			if (!is_numeric($val)) {
-				$val = (integer)$val;
+				$val = (int)$val;
 			}
 
 			break;

@@ -77,10 +77,14 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$albumTitle = $this->_parentAlbum->getTitle();
 		GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
-		$albumTitle   = smarty_modifier_escape(GalleryUtilities::markup(
-			$albumTitle,
-			'strip'
-		), 'javascript', 'UTF-8');
+		$albumTitle   = smarty_modifier_escape(
+			GalleryUtilities::markup(
+				$albumTitle,
+				'strip'
+			),
+			'javascript',
+			'UTF-8'
+		);
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$url          = $urlGenerator->generateUrl(
 			array(
@@ -256,13 +260,15 @@ class CoreModuleTest extends GalleryTestCase {
 		);
 
 
-		list($ret, $this->_user1) = $this->_createUser(array(
-			'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-			'email'          => 'test2@email.com',
-			'fullName'       => 'Test User 2',
-			'language'       => 'te',
-			'locked'         => 0,
-		));
+		list($ret, $this->_user1) = $this->_createUser(
+			array(
+				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+				'email'          => 'test2@email.com',
+				'fullName'       => 'Test User 2',
+				'language'       => 'te',
+				'locked'         => 0,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -300,13 +306,15 @@ class CoreModuleTest extends GalleryTestCase {
 			'Normal User'
 		);
 
-		list($ret, $this->_user2) = $this->_createUser(array(
-			'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-			'email'          => 'test2@email.com',
-			'fullName'       => 'Test User 2',
-			'language'       => 'te',
-			'locked'         => 1,
-		));
+		list($ret, $this->_user2) = $this->_createUser(
+			array(
+				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+				'email'          => 'test2@email.com',
+				'fullName'       => 'Test User 2',
+				'language'       => 'te',
+				'locked'         => 1,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

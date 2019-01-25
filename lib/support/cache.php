@@ -160,9 +160,11 @@ $caches = getCaches();
 
 if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	include_once __DIR__ . '/../../embed.php';
-	$ret = GalleryEmbed::init(array(
-		'fullInit' => false,
-	));
+	$ret = GalleryEmbed::init(
+		array(
+			'fullInit' => false,
+		)
+	);
 
 	if ($ret) {
 		// Try to swallow the error, but define a session to make ::done() pass.

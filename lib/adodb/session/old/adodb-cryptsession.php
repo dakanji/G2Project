@@ -210,8 +210,11 @@ if (!defined('ADODB_SESSION')) {
 		);
 
 		if (!$rs) {
-			ADOConnection::outp('
--- Session Replace: ' . $ADODB_SESS_CONN->ErrorMsg() . '</p>', false);
+			ADOConnection::outp(
+				'
+-- Session Replace: ' . $ADODB_SESS_CONN->ErrorMsg() . '</p>',
+				false
+			);
 		} else {
 			// bug in access driver (could be odbc?) means that info is not commited
 			// properly unless select statement executed in Win2000
@@ -323,8 +326,10 @@ if (!defined('ADODB_SESSION')) {
 				error_log($msg);
 
 				if ($ADODB_SESS_DEBUG) {
-					ADOConnection::outp("
--- $msg</p>");
+					ADOConnection::outp(
+						"
+-- $msg</p>"
+					);
 				}
 			}
 		}

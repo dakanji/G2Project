@@ -26,7 +26,7 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 require_once __DIR__ . '/XmlParser.inc';
 
 $output = '';
-foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) {
+foreach (array( 'mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite' ) as $db) {
 	$output  .= '## ' . $db . "\n";
 	$xmlFiles = glob('tmp/dbxml/*.xml');
 	if (empty($xmlFiles)) {
@@ -35,7 +35,7 @@ foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) 
 
 	sort($xmlFiles);
 	foreach ($xmlFiles as $xmlFile) {
-		$p    =& new XmlParser();
+		$p    = new XmlParser();
 		$root = $p->parse($xmlFile);
 
 		$generatorClass = "${db}Generator";

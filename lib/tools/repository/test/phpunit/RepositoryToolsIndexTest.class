@@ -104,22 +104,26 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			0 => array(
-				'type'              => 'modules',
-				'id'                => 'testModule',
-				'version'           => '1.0.0',
-				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
+		$this->assertEquals(
+			array(
+				0 => array(
+					'type'              => 'modules',
+					'id'                => 'testModule',
+					'version'           => '1.0.0',
+					'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
+					'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
+				),
+				1 => array(
+					'type'              => 'themes',
+					'id'                => 'testTheme',
+					'version'           => '1.0.0',
+					'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
+					'requiredPluginApi' => GalleryTheme::doStatic()->getApiVersion(),
+				),
 			),
-			1 => array(
-				'type'              => 'themes',
-				'id'                => 'testTheme',
-				'version'           => '1.0.0',
-				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
-				'requiredPluginApi' => GalleryTheme::doStatic()->getApiVersion(),
-			),
-		), $pluginInfo, 'Plugin information incorrect.');
+			$pluginInfo,
+			'Plugin information incorrect.'
+		);
 	}
 }
 

@@ -102,8 +102,10 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 		$shortUrl = $this->_getShortUrl($variables);
 
 		if (!empty($shortUrl['onLoad'])) {
-			GalleryCoreApi::requireOnce('modules/' . $shortUrl['onLoad'][0]
-			. '/classes/' . $shortUrl['onLoad'][1] . '.class');
+			GalleryCoreApi::requireOnce(
+				'modules/' . $shortUrl['onLoad'][0]
+				. '/classes/' . $shortUrl['onLoad'][1] . '.class'
+			);
 			$ret = call_user_func(array($shortUrl['onLoad'][1], $shortUrl['onLoad'][2]));
 
 			if ($ret) {
@@ -181,8 +183,10 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 
 		foreach ($regs[1] as $arg) {
 			if (isset($functions[$arg])) {
-				GalleryCoreApi::requireOnce('modules/' . $functions[$arg][0]
-				. '/classes/' . $functions[$arg][1] . '.class');
+				GalleryCoreApi::requireOnce(
+					'modules/' . $functions[$arg][0]
+					. '/classes/' . $functions[$arg][1] . '.class'
+				);
 
 				$ret = call_user_func_array(
 					array($functions[$arg][1], $functions[$arg][2]),

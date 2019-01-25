@@ -119,8 +119,10 @@ class ModRewriteParser extends RewriteParser {
 					break;
 
 				case REWRITE_STATUS_HTACCESS_MISSING:
-					$message = $rewriteModule->translate('Cannot write to the .htaccess file, ' .
-					'please create it.');
+					$message = $rewriteModule->translate(
+						'Cannot write to the .htaccess file, ' .
+						'please create it.'
+					);
 
 					break;
 
@@ -135,8 +137,10 @@ class ModRewriteParser extends RewriteParser {
 					break;
 
 				case REWRITE_STATUS_EMBED_HTACCESS_MISSING:
-					$message = $rewriteModule->translate('Cannot write to the embedded .htaccess ' .
-					'file, please create it.');
+					$message = $rewriteModule->translate(
+						'Cannot write to the embedded .htaccess ' .
+						'file, please create it.'
+					);
 
 					break;
 
@@ -176,10 +180,12 @@ class ModRewriteParser extends RewriteParser {
 				'module',
 				'rewrite',
 				'modrewrite.status',
-				serialize(array(
-					'needOptions' => false,
-					'forced'      => 1,
-				))
+				serialize(
+					array(
+						'needOptions' => false,
+						'forced'      => 1,
+					)
+				)
 			);
 
 			if ($ret) {
@@ -192,10 +198,12 @@ class ModRewriteParser extends RewriteParser {
 				'module',
 				'rewrite',
 				'modrewrite.status',
-				serialize(array(
-					'needOptions' => true,
-					'forced'      => 1,
-				))
+				serialize(
+					array(
+						'needOptions' => true,
+						'forced'      => 1,
+					)
+				)
 			);
 
 			if ($ret) {

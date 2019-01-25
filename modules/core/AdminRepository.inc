@@ -298,9 +298,12 @@ class AdminRepositoryView extends GalleryView {
 				return array($ret, null);
 			}
 
-			$AdminRepository['indexMetaData'][$source] = array_merge(array(
-				'name' => $message,
-			), $indexMetaData);
+			$AdminRepository['indexMetaData'][$source] = array_merge(
+				array(
+					'name' => $message,
+				),
+				$indexMetaData
+			);
 
 			list($ret, $tmp) = $repository->getAllUpgradeablePackages();
 

@@ -552,11 +552,13 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		// Verify the thumbnail and resizes on our children
-		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array(
-			$child[0]->getId(),
-			$child[1]->getId(),
-			$child[2]->getId(),
-		));
+		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array(
+				$child[0]->getId(),
+				$child[1]->getId(),
+				$child[2]->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -953,9 +955,13 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			$child2->getId() => array($resize2),
-		), $resizes, 'item resize');
+		$this->assertEquals(
+			array(
+				$child2->getId() => array($resize2),
+			),
+			$resizes,
+			'item resize'
+		);
 
 		// Verify subalbum unaffected
 		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($grandchild->getId()));
@@ -963,9 +969,13 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			$grandchild->getId() => array($resize3),
-		), $resizes, 'grandchild');
+		$this->assertEquals(
+			array(
+				$grandchild->getId() => array($resize3),
+			),
+			$resizes,
+			'grandchild'
+		);
 	}
 
 	/**

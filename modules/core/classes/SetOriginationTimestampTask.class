@@ -67,8 +67,10 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 			''
 		);
 
-		list($ret, $results) = $gallery->search('SELECT [GalleryDataItem::id] FROM [GalleryDataItem] ' .
-				 'ORDER BY [GalleryDataItem::id]');
+		list($ret, $results) = $gallery->search(
+			'SELECT [GalleryDataItem::id] FROM [GalleryDataItem] ' .
+			'ORDER BY [GalleryDataItem::id]'
+		);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -166,11 +168,13 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 			null,
 			true,
 			array(
-				$module->translate(array(
-					'text' => 'Updated %d of %d items',
-					'arg1' => $updated,
-					'arg2' => $total,
-				)),
+				$module->translate(
+					array(
+						'text' => 'Updated %d of %d items',
+						'arg1' => $updated,
+						'arg2' => $total,
+					)
+				),
 			),
 		);
 	}

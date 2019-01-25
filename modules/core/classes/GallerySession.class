@@ -280,7 +280,7 @@ class GallerySession {
 
 		// Initialize the secure flag if HTTPS
 		if ($this->_isPersistent) {
-			$isSecure = (boolean)$this->get('secure');
+			$isSecure = (bool)$this->get('secure');
 			$isHttps  = $this->_isHttps();
 
 			if ($isSecure !== $isHttps) {
@@ -1385,14 +1385,16 @@ class GallerySession {
 	 * @access private
 	 */
 	public function _getSerializedSession() {
-		return serialize(array(
-			$this->_sessionId,
-			$this->_userId,
-			serialize($this->_remoteIdentifier),
-			$this->_creationTime,
-			$this->_modificationTime,
-			serialize($this->_sessionData),
-		));
+		return serialize(
+			array(
+				$this->_sessionId,
+				$this->_userId,
+				serialize($this->_remoteIdentifier),
+				$this->_creationTime,
+				$this->_modificationTime,
+				serialize($this->_sessionData),
+			)
+		);
 	}
 
 	/**

@@ -122,7 +122,8 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		$countQuery = sprintf('
+		$countQuery = sprintf(
+			'
 	SELECT
 	  COUNT([GalleryItem::id])
 	FROM
@@ -133,15 +134,18 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	  [GalleryItem::id] = [GalleryAccessSubscriberMap::itemId]
 	  AND
 	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	', $aclMarkers);
+	',
+			$aclMarkers
+		);
 
-		$query = sprintf('
+		$query = sprintf(
+			'
 	SELECT
 	  [GalleryItem::id],
 	  [GalleryUser::fullName],
 	  [GalleryUser::userName],
 	  [GalleryEntity::modificationTimestamp], ' .
-		implode(', ', $selectList) . '
+			implode(', ', $selectList) . '
 	FROM
 	  [GalleryItem], [GalleryAccessSubscriberMap], [GalleryEntity], [GalleryUser]
 	WHERE
@@ -156,7 +160,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	ORDER BY
 	  [GalleryEntity::modificationTimestamp] DESC, [GalleryItem::id] DESC
-	', $aclMarkers);
+	',
+			$aclMarkers
+		);
 
 		$data = $whereData;
 		$data = array_merge($data, $aclIds);

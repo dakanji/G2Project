@@ -91,9 +91,11 @@ class UserHelperTest extends GalleryTestCase {
 
 	public function testGalleryFailedLoginEventFirstFailure() {
 		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-		$event->setData(array(
-			'userName' => 'MockUser',
-		));
+		$event->setData(
+			array(
+				'userName' => 'MockUser',
+			)
+		);
 		$this->_phpVm->_time = 'NOW';
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
 
@@ -139,9 +141,11 @@ class UserHelperTest extends GalleryTestCase {
 	public function testGalleryFailedLoginEventSecondFailure() {
 		global $gallery;
 		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-		$event->setData(array(
-			'userName' => 'MockUser',
-		));
+		$event->setData(
+			array(
+				'userName' => 'MockUser',
+			)
+		);
 		$this->_storage->_count       = 1;
 		$this->_storage->_lastAttempt = 1;  // way in the past
 		$this->_phpVm->_time          = 'NOW';
@@ -185,9 +189,11 @@ class UserHelperTest extends GalleryTestCase {
 	public function testGalleryFailedLoginEventFailuresWhenDisabledAreIgnored() {
 		global $gallery;
 		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-		$event->setData(array(
-			'userName' => 'MockUser',
-		));
+		$event->setData(
+			array(
+				'userName' => 'MockUser',
+			)
+		);
 		$this->_storage->_count       = 100;
 		$this->_storage->_lastAttempt = time();
 		$this->_phpVm->_time          = time();

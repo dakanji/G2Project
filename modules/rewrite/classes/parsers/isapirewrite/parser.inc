@@ -100,12 +100,15 @@ class IsapiRewriteParser extends RewriteParser {
 				 * ISAPI_Rewrite supports only certain test strings:
 				 * http://www.isapirewrite.com/docs/#RewriteCond
 				 */
-				if (!in_array($condition['test'], array(
-					'REQUEST_URI',
-					'QUERY_STRING',
-					'REQUEST_METHOD',
-					'VERSION',
-				))
+				if (!in_array(
+					$condition['test'],
+					array(
+						'REQUEST_URI',
+						'QUERY_STRING',
+						'REQUEST_METHOD',
+						'VERSION',
+					)
+				)
 					&& strncmp($condition['test'], 'HTTP:', 5) !== 0
 				) {
 					return false;
@@ -153,8 +156,10 @@ class IsapiRewriteParser extends RewriteParser {
 					break;
 
 				case REWRITE_STATUS_HTTPDINI_MISSING:
-					$message = $rewriteModule->translate('Cannot write to httpd.ini file, please ' .
-					'create it.');
+					$message = $rewriteModule->translate(
+						'Cannot write to httpd.ini file, please ' .
+						'create it.'
+					);
 
 					break;
 

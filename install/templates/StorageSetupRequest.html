@@ -111,13 +111,15 @@
 		function(e, data) { autoCompleteAttach(data[0], data[1]); },
 		['dir', '
 		<?php
-		generateUrl(sprintf(
-			'%s?step=%s&%s=%s',
-			INDEX_PHP,
-			$currentStep->getStepNumber(),
-			session_name(),
-			session_id()
-		))
+		generateUrl(
+			sprintf(
+				'%s?step=%s&%s=%s',
+				INDEX_PHP,
+				$currentStep->getStepNumber(),
+				session_name(),
+				session_id()
+			)
+		)
 		?>
 		  &doAutoComplete=1&path=__VALUE__']);
 	// ]]>

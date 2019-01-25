@@ -92,10 +92,12 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$expected = $module->translate(array(
-			'text' => 'Unable to delete directory: %s',
-			'arg1' => '/templates_c',
-		));
+		$expected = $module->translate(
+			array(
+				'text' => 'Unable to delete directory: %s',
+				'arg1' => '/templates_c',
+			)
+		);
 
 		$this->assertTrue(!$success, 'should have failed');
 		$this->assertEquals(array($expected), $details);

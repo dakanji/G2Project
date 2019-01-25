@@ -319,10 +319,12 @@ class ItemMoveSingleView extends GalleryView {
 
 		return array(
 			null,
-			$core->translate(array(
-				'text' => 'move %s',
-				'arg1' => $itemTypeNames[1],
-			)),
+			$core->translate(
+				array(
+					'text' => 'move %s',
+					'arg1' => $itemTypeNames[1],
+				)
+			),
 		);
 	}
 }

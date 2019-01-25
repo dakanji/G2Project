@@ -53,10 +53,12 @@ class RatingAlbumView extends GalleryView {
 		}
 		list($limit, $itemId) = GalleryUtilities::getRequestVariables('limit', 'itemId');
 		$item->create(
-			$module->translate(array(
-				'text' => 'Rating Album: %s',
-				'arg1' => $limit,
-			)),
+			$module->translate(
+				array(
+					'text' => 'Rating Album: %s',
+					'arg1' => $limit,
+				)
+			),
 			array(
 				array('Rating Album', 'rating album'),
 				array($module->translate('Rating Album'), $module->translate('rating album')),

@@ -125,8 +125,13 @@ class JpegtranToolkitHelper {
 			|| !@$platform->is_file($jpegtranPath)
 		) {
 			return array(
-				GalleryCoreApi::error(ERROR_BAD_PATH, null, null, '"' . $jpegtranPath
-								. '" is not a file or is not specified in open_basedir.'),
+				GalleryCoreApi::error(
+					ERROR_BAD_PATH,
+					null,
+					null,
+					'"' . $jpegtranPath
+					. '" is not a file or is not specified in open_basedir.'
+				),
 				null,
 			);
 		}

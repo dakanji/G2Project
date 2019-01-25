@@ -335,7 +335,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 		}
 
 		public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputArr = false, $secs2cache = 0) {
-			$nrows = (integer)$nrows;
+			$nrows = (int)$nrows;
 
 			if ($offset <= 0) {
 				// could also use " OPTIMIZE FOR $nrows ROWS "

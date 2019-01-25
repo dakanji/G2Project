@@ -137,10 +137,12 @@ class PathInfoHelper {
 			'module',
 			'rewrite',
 			'pathinfo.parser',
-			serialize(array(
-				'static'  => $static,
-				'dynamic' => $dynamic,
-			))
+			serialize(
+				array(
+					'static'  => $static,
+					'dynamic' => $dynamic,
+				)
+			)
 		);
 
 		if ($ret) {
@@ -208,9 +210,11 @@ class PathInfoHelper {
 		}
 
 		if ($TestResults['pathInfo'] != REWRITE_STATUS_OK) {
-			$TestResults['hrefTest'] = $urlGenerator->generateUrl(array(
-				'href' => 'modules/rewrite/data/path_info/index.php/test/path/info',
-			));
+			$TestResults['hrefTest'] = $urlGenerator->generateUrl(
+				array(
+					'href' => 'modules/rewrite/data/path_info/index.php/test/path/info',
+				)
+			);
 			$TestResults['action']   = 1;
 			$TestResults['refresh']  = 1;
 		}

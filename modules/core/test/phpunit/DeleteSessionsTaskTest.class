@@ -120,10 +120,12 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 		$this->assertTrue($success);
 		$this->assertEquals(
 			array(
-				$this->_core->translate(array(
-					'text' => 'Deleted %d sessions.',
-					'arg1' => 1500,
-				)),
+				$this->_core->translate(
+					array(
+						'text' => 'Deleted %d sessions.',
+						'arg1' => 1500,
+					)
+				),
 			),
 			$details
 		);

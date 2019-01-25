@@ -80,9 +80,12 @@ class AkismetApi {
 	public function verifyApiKey($apiKey) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$baseUrl      = $urlGenerator->generateUrl(array(), array(
-			'forceFullUrl' => 1,
-		));
+		$baseUrl      = $urlGenerator->generateUrl(
+			array(),
+			array(
+				'forceFullUrl' => 1,
+			)
+		);
 
 		$url = 'http://rest.akismet.com/1.1/verify-key';
 
@@ -152,9 +155,12 @@ class AkismetApi {
 	public function _request($type, &$comment, $includeBrowserSpecificDetails) {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
-		$baseUrl      = $urlGenerator->generateUrl(array(), array(
-			'forceFullUrl' => true,
-		));
+		$baseUrl      = $urlGenerator->generateUrl(
+			array(),
+			array(
+				'forceFullUrl' => true,
+			)
+		);
 
 		list($ret, $apiKey) = GalleryCoreApi::getPluginParameter('module', 'comment', 'akismet.apiKey');
 

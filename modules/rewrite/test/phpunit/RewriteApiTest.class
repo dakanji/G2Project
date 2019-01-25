@@ -154,9 +154,12 @@ class RewriteApiTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'phpunit' => 'test',
-		), $params);
+		$this->assertEquals(
+			array(
+				'phpunit' => 'test',
+			),
+			$params
+		);
 	}
 
 	public function testFetchEmbedConfig2() {
@@ -171,9 +174,11 @@ class RewriteApiTest extends GalleryTestCase {
 	}
 
 	public function testSaveEmbedConfig1() {
-		list($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array(
-			'phpunit' => 1,
-		));
+		list($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(
+			array(
+				'phpunit' => 1,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -182,9 +187,11 @@ class RewriteApiTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
 		$this->assertEquals(null, $errstr, 'errstr');
 
-		list($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array(
-			'phpunit' => 0,
-		));
+		list($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(
+			array(
+				'phpunit' => 0,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

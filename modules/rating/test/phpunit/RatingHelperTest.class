@@ -246,7 +246,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			$average,
-			(double)$RatingData[$this->_item->getId()]['rating'],
+			(float)$RatingData[$this->_item->getId()]['rating'],
 			'Average rating test failed.'
 		);
 
@@ -334,7 +334,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			$average,
-			(double)$RatingData[$this->_item->getId()]['rating'],
+			(float)$RatingData[$this->_item->getId()]['rating'],
 			'average for guest that has rated'
 		);
 		$this->assertEquals(
@@ -364,7 +364,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			$average,
-			(double)$RatingData[$this->_item->getId()]['rating'],
+			(float)$RatingData[$this->_item->getId()]['rating'],
 			'Average rating test failed.'
 		);
 		$this->assertTrue(!isset($RatingData['userRating']), 'no user rating');

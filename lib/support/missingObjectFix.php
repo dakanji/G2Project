@@ -69,9 +69,11 @@ GalleryEmbed::done();
 //----------------------------------------------------------------------
 function g2Connect() {
 	include_once '../../embed.php';
-	$ret = GalleryEmbed::init(array(
-		'fullInit' => true,
-	));
+	$ret = GalleryEmbed::init(
+		array(
+			'fullInit' => true,
+		)
+	);
 
 	if ($ret) {
 		return '<div class="error center"><h2>Could not activate Gallery2 API.</h2></div><div class="error left">' . $ret->getAsHtml() . '</div>';

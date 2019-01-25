@@ -924,9 +924,12 @@ class GalleryUrlGenerator {
 			true
 		);
 
-		return $this->generateUrl($params, array(
-			'forceServerRelativeUrl' => 1,
-		));
+		return $this->generateUrl(
+			$params,
+			array(
+				'forceServerRelativeUrl' => 1,
+			)
+		);
 	}
 
 	/**
@@ -988,9 +991,11 @@ class GalleryUrlGenerator {
 		global $gallery;
 
 		if (!isset($this->_localUrlMap)) {
-			$this->_localUrlMap = GalleryDataCache::getFromDisk(array(
-				'type' => 'local-url-map',
-			));
+			$this->_localUrlMap = GalleryDataCache::getFromDisk(
+				array(
+					'type' => 'local-url-map',
+				)
+			);
 
 			if (!isset($this->_localUrlMap)) {
 				$this->_localUrlMap = array();

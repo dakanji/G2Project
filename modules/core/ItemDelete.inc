@@ -294,7 +294,7 @@ class ItemDeleteView extends GalleryView {
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$ItemDelete                         = array();
-		$ItemDelete['canCancel']            = (boolean)GalleryUtilities::getRequestVariables('return');
+		$ItemDelete['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemDelete['peers']                = $peers;
 		$ItemDelete['peerTypes']            = $peerTypes;
 		$ItemDelete['peerDescendentCounts'] = $peerDescendentCounts;

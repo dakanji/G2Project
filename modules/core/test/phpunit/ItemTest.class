@@ -279,10 +279,13 @@ class ItemTest extends GalleryTestCase {
 				$instance->setHeight(100);
 			}
 			// We need to be able to render what we can view inline
-			$html     = $instance->render('HTML', array(
-				'fallback' => 'ERROR',
-				'class'    => 'test',
-			));
+			$html     = $instance->render(
+				'HTML',
+				array(
+					'fallback' => 'ERROR',
+					'class'    => 'test',
+				)
+			);
 			$inlineOk = ($html != 'ERROR' && $html != null);
 			$this->assertEquals(
 				$inlineOk,
@@ -1155,10 +1158,12 @@ class ItemTest extends GalleryTestCase {
 		 * At this point, $album[1]'s thumbnail should match $album[0]'s preference,
 		 * and $album[0]'s thumbnail should match $this->_album's preference
 		 */
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array(
-			$album[0]->getId(),
-			$album[1]->getId(),
-		));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array(
+				$album[0]->getId(),
+				$album[1]->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -1762,10 +1767,12 @@ class ItemTest extends GalleryTestCase {
 			'Wrong original parent sequence'
 		);
 
-		list($ret, $locks[]) = GalleryCoreApi::acquireReadLock(array(
-			$this->_album->getId(),
-			$album->getId(),
-		));
+		list($ret, $locks[]) = GalleryCoreApi::acquireReadLock(
+			array(
+				$this->_album->getId(),
+				$album->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -2424,8 +2431,11 @@ class ItemTest extends GalleryTestCase {
 
 		$this->assertTrue(!empty($thumbTable[$newItem->getId()]), 'missing thumbnail');
 		$operation = $thumbTable[$newItem->getId()]->getDerivativeOperations();
-		$this->assertTrue(($operation == 'thumbnail|[0]' ||
-		$operation == 'thumbnail|[1]'), 'Wrong operation');
+		$this->assertTrue(
+			($operation == 'thumbnail|[0]' ||
+			$operation == 'thumbnail|[1]'),
+			'Wrong operation'
+		);
 	}
 
 	public function testDeleteRenderer() {

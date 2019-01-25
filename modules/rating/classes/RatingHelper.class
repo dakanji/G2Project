@@ -260,9 +260,12 @@ class RatingHelper {
 			$averageRating = round($result[0], 3) * 1000;
 			$voteCount     = $result[1];
 
-			$ret = GalleryCoreApi::removeMapEntry('RatingCacheMap', array(
-				'itemId' => $itemId,
-			));
+			$ret = GalleryCoreApi::removeMapEntry(
+				'RatingCacheMap',
+				array(
+					'itemId' => $itemId,
+				)
+			);
 
 			if ($ret) {
 				return array($ret, null);

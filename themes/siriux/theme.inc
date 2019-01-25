@@ -39,13 +39,17 @@ class SiriuxTheme extends GalleryTheme {
 			array(
 				'perPage'        => 9,
 				'contentWidth'   => 700,
-				'albumBlocks'    => serialize(array(
-					array('comment.ViewComments', array()),
-				)),
-				'photoBlocks'    => serialize(array(
-					array('exif.ExifInfo', array()),
-					array('comment.ViewComments', array()),
-				)),
+				'albumBlocks'    => serialize(
+					array(
+						array('comment.ViewComments', array()),
+					)
+				),
+				'photoBlocks'    => serialize(
+					array(
+						array('exif.ExifInfo', array()),
+						array('comment.ViewComments', array()),
+					)
+				),
 				'contentWidth'   => 700,
 				'groupByYear'    => 0,
 				'enableImageMap' => 1,

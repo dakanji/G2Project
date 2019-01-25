@@ -264,10 +264,13 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setPlatform($DataCacheTestPlatform);
 
 		$testdata = "testdata c:\foo\bar";
-		GalleryDataCache::putToDisk(array(
-			'type'   => 'entity',
-			'itemId' => 1,
-		), $testdata);
+		GalleryDataCache::putToDisk(
+			array(
+				'type'   => 'entity',
+				'itemId' => 1,
+			),
+			$testdata
+		);
 		$this->assertEquals(
 			'|' . serialize($testdata),
 			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/0/1.inc')
@@ -302,20 +305,26 @@ class DataCacheTest extends GalleryTestCase {
 		);
 		DataCacheTestPlatform::doStatic()->reset();
 
-		GalleryDataCache::putToDisk(array(
-			'type'   => 'entity',
-			'itemId' => 21,
-		), $testdata);
+		GalleryDataCache::putToDisk(
+			array(
+				'type'   => 'entity',
+				'itemId' => 21,
+			),
+			$testdata
+		);
 		$this->assertEquals(
 			'|' . serialize($testdata),
 			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/0/2/21.inc')
 		);
 		DataCacheTestPlatform::doStatic()->reset();
 		$testdata = '|test#with\'funky"chars? \\*&%$[]}{ end';
-		GalleryDataCache::putToDisk(array(
-			'type'   => 'entity',
-			'itemId' => 721,
-		), $testdata);
+		GalleryDataCache::putToDisk(
+			array(
+				'type'   => 'entity',
+				'itemId' => 721,
+			),
+			$testdata
+		);
 		$this->assertEquals(
 			'|' . serialize($testdata),
 			DataCacheTestPlatform::doStatic()->getFileContents('/data/cache/entity/7/2/721.inc')
@@ -344,41 +353,49 @@ class DataCacheTest extends GalleryTestCase {
 		$DataCacheTestPlatform = new DataCacheTestPlatform();
 		$gallery->setPlatform($DataCacheTestPlatform);
 
-		GalleryDataCache::removeFromDisk(array(
-			'type'   => 'entity',
-			'itemId' => 1,
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type'   => 'entity',
+				'itemId' => 1,
+			)
+		);
 		$this->assertTrue(
 			DataCacheTestPlatform::doStatic()->wasFileDeleted('/data/cache/entity/0/0/1.inc'),
 			'file was not deleted'
 		);
 		DataCacheTestPlatform::doStatic()->reset();
 
-		GalleryDataCache::removeFromDisk(array(
-			'type'   => 'module',
-			'id'     => 'core',
-			'itemId' => 1,
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type'   => 'module',
+				'id'     => 'core',
+				'itemId' => 1,
+			)
+		);
 		$this->assertTrue(
 			DataCacheTestPlatform::doStatic()->wasFileDeleted('/data/cache/module/core/0/0/1.inc'),
 			'file was not deleted'
 		);
 		DataCacheTestPlatform::doStatic()->reset();
 
-		GalleryDataCache::removeFromDisk(array(
-			'type' => 'module',
-			'id'   => 'core',
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type' => 'module',
+				'id'   => 'core',
+			)
+		);
 		$this->assertTrue(
 			DataCacheTestPlatform::doStatic()->wasDirDeleted('/data/cache/module/core'),
 			'dir was not deleted'
 		);
 		DataCacheTestPlatform::doStatic()->reset();
 
-		GalleryDataCache::removeFromDisk(array(
-			'type'   => 'module',
-			'itemId' => 1,
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type'   => 'module',
+				'itemId' => 1,
+			)
+		);
 
 		foreach (array_keys($modulePluginStatus) as $moduleId) {
 			$targetFile = '/data/cache/module/' . $moduleId . '/0/0/1.inc';
@@ -389,10 +406,12 @@ class DataCacheTest extends GalleryTestCase {
 		}
 		DataCacheTestPlatform::doStatic()->reset();
 
-		GalleryDataCache::removeFromDisk(array(
-			'type'   => 'theme',
-			'itemId' => 1,
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type'   => 'theme',
+				'itemId' => 1,
+			)
+		);
 
 		foreach (array_keys($themePluginStatus) as $themeId) {
 			$targetFile = '/data/cache/theme/' . $themeId . '/0/0/1.inc';
@@ -421,15 +440,19 @@ class DataCacheTest extends GalleryTestCase {
 		 * change that scope.  But we can at least partially exercise the
 		 * function and make sure it doesn't throw any errors.
 		 */
-		GalleryDataCache::getFromDisk(array(
-			'type'   => 'entity',
-			'itemId' => 1,
-		));
-		GalleryDataCache::getFromDisk(array(
-			'type'   => 'module',
-			'id'     => 'core',
-			'itemId' => 1,
-		));
+		GalleryDataCache::getFromDisk(
+			array(
+				'type'   => 'entity',
+				'itemId' => 1,
+			)
+		);
+		GalleryDataCache::getFromDisk(
+			array(
+				'type'   => 'module',
+				'id'     => 'core',
+				'itemId' => 1,
+			)
+		);
 	}
 
 	public function testPutAndGetFromDisk() {
@@ -1027,9 +1050,12 @@ class DataCacheTest extends GalleryTestCase {
 			'modules/testmodule/test.js' => 'modules/testmodule/local/test.js',
 		);
 
-		GalleryDataCache::putToDisk(array(
-			'type' => 'local-url-map',
-		), $testdata);
+		GalleryDataCache::putToDisk(
+			array(
+				'type' => 'local-url-map',
+			),
+			$testdata
+		);
 
 		$this->assertEquals(
 			'|' . serialize($testdata),
@@ -1037,9 +1063,11 @@ class DataCacheTest extends GalleryTestCase {
 			'The local url map was persisted to disk improperly'
 		);
 
-		GalleryDataCache::removeFromDisk(array(
-			'type' => 'local-url-map',
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type' => 'local-url-map',
+			)
+		);
 		$this->assertTrue(
 			$platform->wasFileDeleted('/data/cache/theme/_all/localUrlMap.txt'),
 			'The persisted copy of the local url map was not deleted from disk'

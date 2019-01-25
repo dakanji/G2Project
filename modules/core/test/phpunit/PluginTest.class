@@ -242,12 +242,15 @@ class PluginTest extends GalleryTestCase {
 				ERROR_PLATFORM_FAILURE | ERROR_BAD_PLUGIN | ERROR_BAD_PARAMETER
 			)
 		);
-		GalleryDataCache::put($cacheKey, array(
+		GalleryDataCache::put(
+			$cacheKey,
 			array(
-				'released' => $testRepository,
-			),
-			0,
-		));
+				array(
+					'released' => $testRepository,
+				),
+				0,
+			)
+		);
 
 		$ret = $plugin->installOrUpgrade();
 
@@ -278,12 +281,15 @@ class PluginTest extends GalleryTestCase {
 			array('module', 'plugintest'),
 			GalleryCoreApi::error(ERROR_STORAGE_FAILURE)
 		);
-		GalleryDataCache::put($cacheKey, array(
+		GalleryDataCache::put(
+			$cacheKey,
 			array(
-				'released' => $testRepository,
-			),
-			0,
-		));
+				array(
+					'released' => $testRepository,
+				),
+				0,
+			)
+		);
 
 		$ret = $plugin->installOrUpgrade();
 

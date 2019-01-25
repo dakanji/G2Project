@@ -76,7 +76,7 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 
 			$fd = fopen($filename, 'rb');
 
-			$integer_chunks = (integer)filesize($filename) / $chunk_size;
+			$integer_chunks = (int)filesize($filename) / $chunk_size;
 			$modulus        = filesize($filename) % $chunk_size;
 
 			if ($modulus != 0) {
@@ -104,7 +104,7 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 		public function load_blobvar_from_var($blobVarName, &$varName) {
 			$chunk_size = 1000;
 
-			$integer_chunks = (integer)strlen($varName) / $chunk_size;
+			$integer_chunks = (int)strlen($varName) / $chunk_size;
 			$modulus        = strlen($varName) % $chunk_size;
 
 			if ($modulus != 0) {

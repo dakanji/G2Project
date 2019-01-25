@@ -1296,9 +1296,12 @@ class GalleryTestCase extends TestCase {
 	 */
 	public function _array_unshift_key_value(&$array, $key, $value) {
 		unset($array[$key]);
-		$array = array_merge(array(
-			$key => $value,
-		), $array);
+		$array = array_merge(
+			array(
+				$key => $value,
+			),
+			$array
+		);
 	}
 
 	/**
@@ -1380,11 +1383,13 @@ class GalleryTestCase extends TestCase {
 	 */
 	public function assertErrorEquals($errorCode, $ret, $exactMatch = false, $message = null) {
 		if (!$ret) {
-			$this->fail(sprintf(
-				'Failed to get error %s%s',
-				join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
-				$message ? '<br/>' . $message : ''
-			));
+			$this->fail(
+				sprintf(
+					'Failed to get error %s%s',
+					join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
+					$message ? '<br/>' . $message : ''
+				)
+			);
 
 			return;
 		}
@@ -1392,13 +1397,15 @@ class GalleryTestCase extends TestCase {
 		if (!($ret->getErrorCode() & $errorCode)
 			|| ($exactMatch && $ret->getErrorCode() != ($errorCode | GALLERY_ERROR))
 		) {
-			$this->fail(sprintf(
-				'Expected error %s, received %s<br>%s%s',
-				join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
-				join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode())),
-				$ret->getAsHtml(),
-				$message ? '<br/>' . $message : ''
-			));
+			$this->fail(
+				sprintf(
+					'Expected error %s, received %s<br>%s%s',
+					join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
+					join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode())),
+					$ret->getAsHtml(),
+					$message ? '<br/>' . $message : ''
+				)
+			);
 
 			return;
 		}

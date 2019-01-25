@@ -1513,14 +1513,18 @@ class GalleryStorageExtras {
 			if ($canStoreTableInfo) {
 				if (isset($mapInfo[$rawTableName])) {
 					$type = 'map';
-					$info = serialize(array(
-						$rawTableName => $mapInfo[$rawTableName],
-					));
+					$info = serialize(
+						array(
+							$rawTableName => $mapInfo[$rawTableName],
+						)
+					);
 				} elseif (isset($entityInfo[$rawTableName])) {
 					$type = 'entity';
-					$info = serialize(array(
-						$rawTableName => $entityInfo[$rawTableName],
-					));
+					$info = serialize(
+						array(
+							$rawTableName => $entityInfo[$rawTableName],
+						)
+					);
 				} else {
 					if (!in_array($tableNameInSchema, array('Schema', 'Lock'))) {
 						return GalleryCoreApi::error(
@@ -1741,15 +1745,19 @@ class GalleryStorageExtras {
 
 			if (isset($mapInfo[$tableName])) {
 				$query .= '[::info] = ?, [::type] = ?,';
-				$data[] = serialize(array(
-					$tableName => $mapInfo[$tableName],
-				));
+				$data[] = serialize(
+					array(
+						$tableName => $mapInfo[$tableName],
+					)
+				);
 				$data[] = 'map';
 			} elseif (isset($entityInfo[$tableName])) {
 				$query .= '[::info] = ?, [::type] = ?,';
-				$data[] = serialize(array(
-					$tableName => $entityInfo[$tableName],
-				));
+				$data[] = serialize(
+					array(
+						$tableName => $entityInfo[$tableName],
+					)
+				);
 				$data[] = 'entity';
 			} else {
 				// Some tables don't have a map description (i.e. Lock).

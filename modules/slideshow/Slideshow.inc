@@ -81,10 +81,14 @@ class SlideshowView extends GalleryView {
 		}
 
 		if (!empty($Slideshow['item']['title'])) {
-			$template->title($module->translate(array(
-				'text' => 'Slideshow for %s',
-				'arg1' => $Slideshow['item']['title'],
-			)));
+			$template->title(
+				$module->translate(
+					array(
+						'text' => 'Slideshow for %s',
+						'arg1' => $Slideshow['item']['title'],
+					)
+				)
+			);
 		} else {
 			$template->title($module->translate('Slideshow'));
 		}
@@ -98,26 +102,31 @@ class SlideshowView extends GalleryView {
 		if ($picLensVersion) {
 			$Slideshow['piclensVersion'] = $picLensVersion;
 
-			$template->javascript($urlGenerator->generateUrl(
-				array(
-					'view' => 'slideshow.DownloadPicLens',
-					'file' => 'js',
-					'v'    => $picLensVersion,
-				),
-				array(
-					'forceDirect'  => true,
-					'forceFullUrl' => true,
+			$template->javascript(
+				$urlGenerator->generateUrl(
+					array(
+						'view' => 'slideshow.DownloadPicLens',
+						'file' => 'js',
+						'v'    => $picLensVersion,
+					),
+					array(
+						'forceDirect'  => true,
+						'forceFullUrl' => true,
+					)
 				)
-			));
+			);
 
 			$jsUrlParams                = array(
 				'forJavascript' => true,
 				'forceFullUrl'  => true,
 				'htmlEntities'  => false,
 			);
-			$jsUrlParamsDirect          = array_merge($jsUrlParams, array(
-				'forceDirect' => true,
-			));
+			$jsUrlParamsDirect          = array_merge(
+				$jsUrlParams,
+				array(
+					'forceDirect' => true,
+				)
+			);
 			$Slideshow['piclensSwfUrl'] = $urlGenerator->generateUrl(
 				array(
 					'view' => 'slideshow.DownloadPicLens',
@@ -176,12 +185,14 @@ class SlideshowView extends GalleryView {
 
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('modules/slideshow/data/lytebox.js');
-		$template->link(array(
-			'rel'   => 'stylesheet',
-			'href'  => 'modules/slideshow/data/lytebox.css',
-			'type'  => 'text/css',
-			'media' => 'screen',
-		));
+		$template->link(
+			array(
+				'rel'   => 'stylesheet',
+				'href'  => 'modules/slideshow/data/lytebox.css',
+				'type'  => 'text/css',
+				'media' => 'screen',
+			)
+		);
 
 		return array(
 			null,

@@ -44,9 +44,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'modrewrite.status'           => serialize(array(
-				'needOptions' => true,
-			)),
+			'modrewrite.status'           => serialize(
+				array(
+					'needOptions' => true,
+				)
+			),
 			'modrewrite.galleryLocation'  => '/gallery2/',
 			'modrewrite.embeddedHtaccess' => '/phpunit/embedded',
 			'modrewrite.embeddedLocation' => '/embedded/',
@@ -316,13 +318,19 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'needOptions' => false,
-			'forced'      => 1,
-		), unserialize($forced));
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'needOptions' => false,
+				'forced'      => 1,
+			),
+			unserialize($forced)
+		);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 	}
 
@@ -346,13 +354,19 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'needOptions' => true,
-			'forced'      => 1,
-		), unserialize($forced));
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'needOptions' => true,
+				'forced'      => 1,
+			),
+			unserialize($forced)
+		);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 	}
 
@@ -375,12 +389,18 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'needOptions' => true,
-		), unserialize($forced));
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'needOptions' => true,
+			),
+			unserialize($forced)
+		);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 	}
 
@@ -418,9 +438,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals('/phpunit/test', $embeddedHtaccess);
 		$this->assertEquals('/test/', $embeddedLocation);
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 		$this->assertTrue(!empty($this->_fileContent), 'file');
 
@@ -461,9 +484,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals('/phpunit/test', $embeddedHtaccess);
 		$this->assertEquals('/', $embeddedLocation);
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 		$this->assertTrue(!empty($this->_fileContent), 'file');
 

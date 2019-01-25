@@ -351,10 +351,12 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testLink() {
 		$template = new GalleryTemplate('');
-		$template->link(array(
-			'attr1' => 'value1',
-			'attr2' => 'value2',
-		));
+		$template->link(
+			array(
+				'attr1' => 'value1',
+				'attr2' => 'value2',
+			)
+		);
 
 		$head = $template->getVariable('head');
 		$this->assertEquals(

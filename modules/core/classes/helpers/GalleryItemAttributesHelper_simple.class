@@ -62,10 +62,14 @@ class GalleryItemAttributesHelper_simple {
 				}
 
 				if (!$phpVm->headers_sent()) {
-					GalleryUtilities::setResponseHeader('Last-Modified: '
-					. GalleryUtilities::getHttpDate($phpVm->time()));
-					GalleryUtilities::setResponseHeader('Expires: '
-					. GalleryUtilities::getHttpDate(time() - 3600 * 24 * 7));
+					GalleryUtilities::setResponseHeader(
+						'Last-Modified: '
+						. GalleryUtilities::getHttpDate($phpVm->time())
+					);
+					GalleryUtilities::setResponseHeader(
+						'Expires: '
+						. GalleryUtilities::getHttpDate(time() - 3600 * 24 * 7)
+					);
 				}
 			}
 

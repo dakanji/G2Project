@@ -477,9 +477,12 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$gallery->_phpVm = new UserLoginTestPhpVm($this);
 
 		$expectedUrl = 'http://otherSite.com';
-		$gallery->setConfig('loginRedirect', array(
-			'href' => $expectedUrl,
-		));
+		$gallery->setConfig(
+			'loginRedirect',
+			array(
+				'href' => $expectedUrl,
+			)
+		);
 		$this->_becomeGuestUser();
 
 		$this->_loadTemplate();
@@ -498,9 +501,12 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$gallery->_phpVm = new UserLoginTestPhpVm($this);
 		$urlGenerator    =& $gallery->getUrlGenerator();
 
-		$gallery->setConfig('loginRedirect', array(
-			'href' => '/',
-		));
+		$gallery->setConfig(
+			'loginRedirect',
+			array(
+				'href' => '/',
+			)
+		);
 		$this->_becomeGuestUser();
 
 		$this->_loadTemplate();
@@ -519,9 +525,12 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$gallery->_phpVm = new UserLoginTestPhpVm($this);
 
 		$expectedUrl = 'http://otherSite.com';
-		$gallery->setConfig('loginRedirect', array(
-			'href' => $expectedUrl,
-		));
+		$gallery->setConfig(
+			'loginRedirect',
+			array(
+				'href' => $expectedUrl,
+			)
+		);
 
 		list($ret, $results) = $this->_loadTemplate();
 

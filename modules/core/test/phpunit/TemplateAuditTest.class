@@ -172,8 +172,11 @@ class TemplateAuditTest extends CodeAuditTestCase {
 			}
 
 			if (preg_match('/<\/form>/', $lines[$i], $matches)) {
-				$this->assertTrue($hasHiddenFormVars, "$fileName: Form (line $formStartLine) is " .
-							'missing hidden form vars');
+				$this->assertTrue(
+					$hasHiddenFormVars,
+					"$fileName: Form (line $formStartLine) is " .
+					'missing hidden form vars'
+				);
 				$inHtmlForm = $hasHiddenFormVars = false;
 			}
 		}

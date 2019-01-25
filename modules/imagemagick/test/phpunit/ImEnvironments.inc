@@ -119,31 +119,34 @@ $imEnvironment[] = array(
 		'xtp',
 	),
 	'removeMetaDataSwitch' => array(),
-	'operations'           => array_merge($_commonOperations, array(
-		'thumbnail' => array(
-			'convert' => array(
-				'-size',
-				'%width%x%height%',
-				'-geometry',
-				'%width%x%height%',
-				'%src%',
-				'%dst%',
+	'operations'           => array_merge(
+		$_commonOperations,
+		array(
+			'thumbnail' => array(
+				'convert' => array(
+					'-size',
+					'%width%x%height%',
+					'-geometry',
+					'%width%x%height%',
+					'%src%',
+					'%dst%',
+				),
 			),
-		),
-		'scale' => array(
-			'convert' => array(
-				'-size',
-				'%width%x%height%',
-				'-geometry',
-				'%width%x%height%',
-				'%src%',
-				'%dst%',
+			'scale' => array(
+				'convert' => array(
+					'-size',
+					'%width%x%height%',
+					'-geometry',
+					'%width%x%height%',
+					'%src%',
+					'%dst%',
+				),
 			),
-		),
-		'composite' => array(
-			'combine' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
-		),
-	)),
+			'composite' => array(
+				'combine' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
+			),
+		)
+	),
 	'identify'             => array(
 		''                    => 'Version: @(#)ImageMagick 4.2.9 99/09/01 cristy@mystic.es.dupont.com
 Copyright: Copyright 1999 E. I. du Pont de Nemours and Company
@@ -311,11 +314,14 @@ $imEnvironment[] = array(
 		'montage',
 	),
 	'removeMetaDataSwitch' => array('+profile', '*'),
-	'operations'           => array_merge($_commonOperations, array(
-		'convert-to-image/jpeg' => array(
-			'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
-		),
-	)),
+	'operations'           => array_merge(
+		$_commonOperations,
+		array(
+			'convert-to-image/jpeg' => array(
+				'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
+			),
+		)
+	),
 	'identify'             => array(
 		''                    => 'Version: ImageMagick 6.0.7 09/11/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
@@ -419,22 +425,25 @@ $imEnvironment[] = array(
 		'montage',
 	),
 	'removeMetaDataSwitch' => array('-strip'),
-	'operations'           => array_merge($_commonOperations, array(
-		'thumbnail' => array(
-			'convert' => array(
-				'-size',
-				'%width%x%height%',
-				'-geometry',
-				'%width%x%height%',
-				'-strip',
-				'%src%',
-				'%dst%',
+	'operations'           => array_merge(
+		$_commonOperations,
+		array(
+			'thumbnail' => array(
+				'convert' => array(
+					'-size',
+					'%width%x%height%',
+					'-geometry',
+					'%width%x%height%',
+					'-strip',
+					'%src%',
+					'%dst%',
+				),
 			),
-		),
-		'convert-to-image/jpeg' => array(
-			'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
-		),
-	)),
+			'convert-to-image/jpeg' => array(
+				'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
+			),
+		)
+	),
 	'identify'             => array(
 		''                    => 'Version: ImageMagick 6.1.3 11/01/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC

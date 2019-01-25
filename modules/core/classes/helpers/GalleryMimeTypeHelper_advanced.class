@@ -264,11 +264,15 @@ class GalleryMimeTypeHelper_advanced {
 	WHERE
 	    [GalleryMimeTypeMap::extension] = ?
 	';
-		list($ret, $results) = $gallery->search($query, array($extension), array(
-			'limit' => array(
-				'count' => 1,
-			),
-		));
+		list($ret, $results) = $gallery->search(
+			$query,
+			array($extension),
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
+		);
 
 		if ($ret) {
 			return $ret;

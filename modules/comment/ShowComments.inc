@@ -119,12 +119,15 @@ class ShowCommentsView extends GalleryView {
 			$can[$canFlag] = isset($permissions[$permission]);
 		}
 
-		$template->setVariable('ShowComments', array(
-			'comments'   => $comments,
-			'commenters' => $commenters,
-			'can'        => $can,
-			'item'       => (array)$item,
-		));
+		$template->setVariable(
+			'ShowComments',
+			array(
+				'comments'   => $comments,
+				'commenters' => $commenters,
+				'can'        => $can,
+				'item'       => (array)$item,
+			)
+		);
 
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

@@ -226,11 +226,13 @@ class PermissionSetTest extends GalleryTestCase {
 	}
 
 	public function testConvertBitsToIdsWithoutCompress() {
-		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array(
-			'test.test1',
-			'test.test2',
-			'test.test5',
-		));
+		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(
+			array(
+				'test.test1',
+				'test.test2',
+				'test.test5',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -275,11 +277,13 @@ class PermissionSetTest extends GalleryTestCase {
 	}
 
 	public function testConvertBitsToIdsWithCompress() {
-		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array(
-			'test.test1',
-			'test.test2',
-			'test.test5',
-		));
+		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(
+			array(
+				'test.test1',
+				'test.test2',
+				'test.test5',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -309,12 +313,14 @@ class PermissionSetTest extends GalleryTestCase {
 	}
 
 	public function testConvertBitsToIdsWithCompressAndAllAccess() {
-		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array(
-			'test.test1',
-			'test.test2',
-			'test.test5',
-			'core.all',
-		));
+		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(
+			array(
+				'test.test1',
+				'test.test2',
+				'test.test5',
+				'core.all',
+			)
+		);
 
 		if ($ret) {
 			return $ret;

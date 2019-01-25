@@ -47,29 +47,35 @@ class CarbonTheme extends GalleryTheme {
 				'colorpack'            => '',
 				'showMicroThumbs'      => 1,
 				'dynamicLinks'         => 'browse',
-				'sidebarBlocks'        => serialize(array(
+				'sidebarBlocks'        => serialize(
 					array(
-						'search.SearchBlock',
 						array(
-							'showAdvancedLink' => true,
+							'search.SearchBlock',
+							array(
+								'showAdvancedLink' => true,
+							),
 						),
-					),
+						array(
+							'core.ItemLinks',
+							array(
+								'useDropdown' => false,
+							),
+						),
+						array('core.PeerList', array()),
+						array('imageblock.ImageBlock', array()),
+					)
+				),
+				'albumBlocks'          => serialize(
 					array(
-						'core.ItemLinks',
-						array(
-							'useDropdown' => false,
-						),
-					),
-					array('core.PeerList', array()),
-					array('imageblock.ImageBlock', array()),
-				)),
-				'albumBlocks'          => serialize(array(
-					array('comment.ViewComments', array()),
-				)),
-				'photoBlocks'          => serialize(array(
-					array('exif.ExifInfo', array()),
-					array('comment.ViewComments', array()),
-				)),
+						array('comment.ViewComments', array()),
+					)
+				),
+				'photoBlocks'          => serialize(
+					array(
+						array('exif.ExifInfo', array()),
+						array('comment.ViewComments', array()),
+					)
+				),
 				'navigatorPhotoTop'    => 1,
 				'navigatorPhotoBottom' => 1,
 				'photoProperties'      => 1,

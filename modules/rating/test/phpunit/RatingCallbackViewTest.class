@@ -103,12 +103,14 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		$this->assertEquals($rating, (int)$results[3]);
 
 		// Vote count
-		$votesString = $this->_module->translate(array(
-			'one'   => '%d vote',
-			'many'  => '%d votes',
-			'count' => 1,
-			'arg1'  => 1,
-		));
+		$votesString = $this->_module->translate(
+			array(
+				'one'   => '%d vote',
+				'many'  => '%d votes',
+				'count' => 1,
+				'arg1'  => 1,
+			)
+		);
 		$this->assertEquals($votesString, $results[2]);
 	}
 
@@ -140,12 +142,14 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		$this->assertEquals($rating, (int)$results[3], 'Seed user rating is incorrect.');
 
 		// Vote count
-		$votesString = $this->_module->translate(array(
-			'one'   => '%d vote',
-			'many'  => '%d votes',
-			'count' => 1,
-			'arg1'  => 1,
-		));
+		$votesString = $this->_module->translate(
+			array(
+				'one'   => '%d vote',
+				'many'  => '%d votes',
+				'count' => 1,
+				'arg1'  => 1,
+			)
+		);
 		$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
 
 		// Remove all permissions
@@ -225,12 +229,14 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		$this->assertEquals($rating, (int)$results[3], 'Seed user rating is incorrect.');
 
 		// Vote count
-		$votesString = $this->_module->translate(array(
-			'one'   => '%d vote',
-			'many'  => '%d votes',
-			'count' => 1,
-			'arg1'  => 1,
-		));
+		$votesString = $this->_module->translate(
+			array(
+				'one'   => '%d vote',
+				'many'  => '%d votes',
+				'count' => 1,
+				'arg1'  => 1,
+			)
+		);
 		$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
 
 		// Remove all permissions
@@ -294,12 +300,14 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		$this->assertEquals($newRating, (int)$results[3], 'User rating is incorrect.');
 
 		// Vote count (should be same since duplicate user votes ignored)
-		$votesString = $this->_module->translate(array(
-			'one'   => '%d vote',
-			'many'  => '%d votes',
-			'count' => 1,
-			'arg1'  => 1,
-		));
+		$votesString = $this->_module->translate(
+			array(
+				'one'   => '%d vote',
+				'many'  => '%d votes',
+				'count' => 1,
+				'arg1'  => 1,
+			)
+		);
 		$this->assertEquals($votesString, $results[2], 'Vote count is incorrect.');
 	}
 }

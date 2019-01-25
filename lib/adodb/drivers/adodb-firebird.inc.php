@@ -56,8 +56,8 @@ class ADODB_firebird extends ADODB_ibase {
 	// 		SELECT col1, col2 FROM table ROWS 5 -- get 5 rows
 	//		SELECT col1, col2 FROM TABLE ORDER BY col1 ROWS 3 TO 7 -- first 5 skip 2
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs = 0) {
-		$nrows  = (integer)$nrows;
-		$offset = (integer)$offset;
+		$nrows  = (int)$nrows;
+		$offset = (int)$offset;
 		$str    = 'SELECT ';
 
 		if ($nrows >= 0) {

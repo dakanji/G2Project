@@ -344,7 +344,7 @@ class ADODB_ibase extends ADOConnection {
 		}
 
 		if ($rs && !$rs->EOF) {
-			$this->genID = (integer)reset($rs->fields);
+			$this->genID = (int)reset($rs->fields);
 		} else {
 			$this->genID = 0; // false
 		}
@@ -366,7 +366,7 @@ class ADODB_ibase extends ADOConnection {
 
 	public function ErrorNo() {
 		if (preg_match('/error code = ([\-0-9]*)/i', $this->_errorMsg, $arr)) {
-			return (integer)$arr[1];
+			return (int)$arr[1];
 		}
 
 		return 0;

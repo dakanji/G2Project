@@ -323,9 +323,13 @@ class ViewTest extends GalleryTestCase {
 			$this->fail('No item instance returned');
 		}
 
-		$this->assertEquals(array(
-			'testParam' => 'per album value',
-		), $params, 'theme params');
+		$this->assertEquals(
+			array(
+				'testParam' => 'per album value',
+			),
+			$params,
+			'theme params'
+		);
 	}
 
 	public function testLoadThemeAndParametersForDataItem() {
@@ -353,9 +357,13 @@ class ViewTest extends GalleryTestCase {
 			$this->fail('No item instance returned');
 		}
 
-		$this->assertEquals(array(
-			'testParam' => 'per album value',
-		), $params, 'theme params');
+		$this->assertEquals(
+			array(
+				'testParam' => 'per album value',
+			),
+			$params,
+			'theme params'
+		);
 	}
 
 	public function testLoadThemeAndParametersOverrideByEventListener() {
@@ -386,9 +394,13 @@ class ViewTest extends GalleryTestCase {
 			$this->fail('No item instance returned');
 		}
 
-		$this->assertEquals(array(
-			'testParam' => 'per album value',
-		), $params, 'theme params');
+		$this->assertEquals(
+			array(
+				'testParam' => 'per album value',
+			),
+			$params,
+			'theme params'
+		);
 	}
 
 	public function testLoadThemeAndParametersOverrideByEventListenerIncludingParams() {
@@ -458,9 +470,13 @@ class ViewTest extends GalleryTestCase {
 			$this->fail('No item instance returned');
 		}
 
-		$this->assertEquals(array(
-			'testParam' => 'per album value',
-		), $params, 'theme params');
+		$this->assertEquals(
+			array(
+				'testParam' => 'per album value',
+			),
+			$params,
+			'theme params'
+		);
 	}
 
 	public function testLoadThemeAndParametersOverrideByEventListenerWithBogusTheme() {
@@ -495,9 +511,13 @@ class ViewTest extends GalleryTestCase {
 			$this->fail('No item instance returned');
 		}
 
-		$this->assertEquals(array(
-			'testParam' => 'per album value',
-		), $params, 'theme params');
+		$this->assertEquals(
+			array(
+				'testParam' => 'per album value',
+			),
+			$params,
+			'theme params'
+		);
 	}
 
 	public function _prepareForLoadThemeAndParameters($forDataItem = false, $themeId = null) {
@@ -651,9 +671,12 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		// Config view is Module View with no itemId defined
 		$view                        = new ViewTestConfigView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
@@ -691,9 +714,14 @@ class ViewTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		// Optional md5 call if authToken needs to be created and placed in session
-		$gallery->_phpVm->setReply('md5', array(
-			'fuzzy' => '{.*}',
-		), '12345', true);
+		$gallery->_phpVm->setReply(
+			'md5',
+			array(
+				'fuzzy' => '{.*}',
+			),
+			'12345',
+			true
+		);
 
 		list($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 
@@ -715,9 +743,12 @@ class ViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
 
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		$view                        = new ViewTestItemView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
@@ -744,9 +775,14 @@ class ViewTest extends GalleryTestCase {
 			true
 		);
 		// Optional md5 call if authToken needs to be created and placed in session
-		$gallery->_phpVm->setReply('md5', array(
-			'fuzzy' => '{.*}',
-		), '12345', true);
+		$gallery->_phpVm->setReply(
+			'md5',
+			array(
+				'fuzzy' => '{.*}',
+			),
+			'12345',
+			true
+		);
 
 		list($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 
@@ -768,9 +804,12 @@ class ViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
 
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		$view                        = new ViewTestItemView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
@@ -807,9 +846,14 @@ class ViewTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		// Optional md5 call if authToken needs to be created and placed in session
-		$gallery->_phpVm->setReply('md5', array(
-			'fuzzy' => '{.*}',
-		), '12345', true);
+		$gallery->_phpVm->setReply(
+			'md5',
+			array(
+				'fuzzy' => '{.*}',
+			),
+			'12345',
+			true
+		);
 
 		list($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 
@@ -834,9 +878,12 @@ class ViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
 
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		// This view overrides default cache control functionality
 		$view                        = new ViewTestNoAutoCacheControlItemView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
@@ -864,13 +911,17 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			'redirect' => array(
-				'view'    => 'core.UserAdmin',
-				'subView' => 'core.UserLogin',
-				'return'  => true,
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'core.UserLogin',
+					'return'  => true,
+				),
 			),
-		), $results, 'Unexpected result');
+			$results,
+			'Unexpected result'
+		);
 	}
 
 	public function testPermissionCheckForRegisteredUser() {
@@ -935,13 +986,17 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			'redirect' => array(
-				'view'    => 'core.UserAdmin',
-				'subView' => 'core.UserLogin',
-				'return'  => true,
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'core.UserLogin',
+					'return'  => true,
+				),
 			),
-		), $results, 'Unexpected result');
+			$results,
+			'Unexpected result'
+		);
 	}
 
 	public function testPermissionCheckErrorMissingObjectForRegisteredUser() {

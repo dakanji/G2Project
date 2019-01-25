@@ -129,10 +129,12 @@ class DeleteSessionsTask extends MaintenanceTask {
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
 
 		$result = array(
-			$module->translate(array(
-				'text' => 'Deleted %d sessions.',
-				'arg1' => (int)$total,
-			)),
+			$module->translate(
+				array(
+					'text' => 'Deleted %d sessions.',
+					'arg1' => (int)$total,
+				)
+			),
 		);
 
 		return array(null, true, $result);

@@ -106,14 +106,16 @@ class ThemeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				true,
-				serialize(array(
+				serialize(
 					array(
-						'module.BlockName',
 						array(
-							'param1' => 'value1',
+							'module.BlockName',
+							array(
+								'param1' => 'value1',
+							),
 						),
-					),
-				)),
+					)
+				),
 			),
 			$this->_theme->packSetting('block-list', '[["module.BlockName",{"param1":"value1"}]]')
 		);
@@ -123,22 +125,24 @@ class ThemeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				true,
-				serialize(array(
+				serialize(
 					array(
-						'module.BlockName',
 						array(
-							'param1' => 'value1',
+							'module.BlockName',
+							array(
+								'param1' => 'value1',
+							),
 						),
-					),
-					array('module2.Block2', array()),
-					array(
-						'module.BlockName',
+						array('module2.Block2', array()),
 						array(
-							'param1' => 'value1',
-							'param2' => 'value2',
+							'module.BlockName',
+							array(
+								'param1' => 'value1',
+								'param2' => 'value2',
+							),
 						),
-					),
-				)),
+					)
+				),
 			),
 			$this->_theme->packSetting(
 				'block-list',
@@ -153,15 +157,17 @@ class ThemeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				true,
-				serialize(array(
+				serialize(
 					array(
-						'module.BlockName',
 						array(
-							'param1' => false,
-							'param2' => true,
+							'module.BlockName',
+							array(
+								'param1' => false,
+								'param2' => true,
+							),
 						),
-					),
-				)),
+					)
+				),
 			),
 			$this->_theme->packSetting(
 				'block-list',
@@ -174,15 +180,17 @@ class ThemeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				true,
-				serialize(array(
+				serialize(
 					array(
-						'a.B',
 						array(
-							'x' => 'y',
+							'a.B',
+							array(
+								'x' => 'y',
+							),
 						),
-					),
-					array('b.c', array()),
-				)),
+						array('b.c', array()),
+					)
+				),
 			),
 			$this->_theme->packSetting('block-list', '[["a.B",{"x":"y"}],    ["b.c"]]')
 		);
@@ -212,14 +220,16 @@ class ThemeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				true,
-				serialize(array(
+				serialize(
 					array(
-						'a.B',
 						array(
-							'x' => 'foo "bar" baz',
+							'a.B',
+							array(
+								'x' => 'foo "bar" baz',
+							),
 						),
-					),
-				)),
+					)
+				),
 			),
 			$this->_theme->packSetting('block-list', '[["a.B",{"x":"foo \"bar\" baz"}]]')
 		);
@@ -302,14 +312,16 @@ class ThemeTest extends GalleryTestCase {
 			array(true, '[["a.B",{"foo":"bar"}]]'),
 			$this->_theme->unpackSetting(
 				'block-list',
-				serialize(array(
+				serialize(
 					array(
-						'a.B',
 						array(
-							'foo' => 'bar',
+							'a.B',
+							array(
+								'foo' => 'bar',
+							),
 						),
-					),
-				))
+					)
+				)
 			)
 		);
 	}
@@ -319,15 +331,17 @@ class ThemeTest extends GalleryTestCase {
 			array(true, '[["a.B",{"foo":"bar"}],["c.D",{}]]'),
 			$this->_theme->unpackSetting(
 				'block-list',
-				serialize(array(
+				serialize(
 					array(
-						'a.B',
 						array(
-							'foo' => 'bar',
+							'a.B',
+							array(
+								'foo' => 'bar',
+							),
 						),
-					),
-					array('c.D'),
-				))
+						array('c.D'),
+					)
+				)
 			)
 		);
 	}
@@ -337,15 +351,17 @@ class ThemeTest extends GalleryTestCase {
 			array(true, '[["a.B",{"foo":true,"bar":false}]]'),
 			$this->_theme->unpackSetting(
 				'block-list',
-				serialize(array(
+				serialize(
 					array(
-						'a.B',
 						array(
-							'foo' => true,
-							'bar' => false,
+							'a.B',
+							array(
+								'foo' => true,
+								'bar' => false,
+							),
 						),
-					),
-				))
+					)
+				)
 			)
 		);
 	}
@@ -367,9 +383,14 @@ class ThemeTest extends GalleryTestCase {
 	public function testUnpackSettingBlockListMalformed2() {
 		$this->assertEquals(
 			array(false, ''),
-			$this->_theme->unpackSetting('block-list', serialize(array(
-				'x' => 'y',
-			)))
+			$this->_theme->unpackSetting(
+				'block-list',
+				serialize(
+					array(
+						'x' => 'y',
+					)
+				)
+			)
 		);
 	}
 
@@ -468,9 +489,12 @@ class ThemeTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'href' => 'upgrade/',
-		), $redirect);
+		$this->assertEquals(
+			array(
+				'href' => 'upgrade/',
+			),
+			$redirect
+		);
 	}
 
 	public function testVariableReferenceAcrossLoadCommonTemplateData() {

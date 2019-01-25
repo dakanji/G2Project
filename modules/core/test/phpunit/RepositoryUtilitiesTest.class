@@ -124,15 +124,18 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assertTrue($relation == $case['relation'], sprintf(
-				"Relation('%s':'%s', '%s':'%s') should be '%s', not '%s'.",
-				$case['version1'],
-				$case['build1'],
-				$case['version2'],
-				$case['build2'],
-				$case['relation'],
-				$relation
-			));
+			$this->assertTrue(
+				$relation == $case['relation'],
+				sprintf(
+					"Relation('%s':'%s', '%s':'%s') should be '%s', not '%s'.",
+					$case['version1'],
+					$case['build1'],
+					$case['version2'],
+					$case['build2'],
+					$case['relation'],
+					$relation
+				)
+			);
 		}
 	}
 
@@ -276,13 +279,17 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			$path     = GalleryCoreApi::getCodeBasePath($case['pluginType'] . 's/');
 			$platform->setReply('opendir', array($path), 'fh');
 			$platform->setReply('readdir', array('fh'), 'testModule');
-			$platform->setReply('is_file', array(
-				sprintf(
-					'%stestModule/%s.inc',
-					$path,
-					$case['pluginType']
+			$platform->setReply(
+				'is_file',
+				array(
+					sprintf(
+						'%stestModule/%s.inc',
+						$path,
+						$case['pluginType']
+					),
 				),
-			), true);
+				true
+			);
 			$platform->setReply('readdir', array('fh'), false);
 			$platform->setReply('closedir', array('fh'), true);
 
@@ -1391,9 +1398,12 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'modules/testModule-lang-en_GB-11111-22222.package' => '0123456789',
 		);
 
-		$this->_setAggregrateDownloadResponses($files, array(
-			'tempDir' => 1,
-		));
+		$this->_setAggregrateDownloadResponses(
+			$files,
+			array(
+				'tempDir' => 1,
+			)
+		);
 
 		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));

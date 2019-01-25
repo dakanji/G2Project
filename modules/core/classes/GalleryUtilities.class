@@ -465,9 +465,12 @@ class GalleryUtilities {
 		// Prepend the Gallery base URL
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		return $urlGenerator->generateUrl(array(
-			'href' => $relativePath,
-		), $options);
+		return $urlGenerator->generateUrl(
+			array(
+				'href' => $relativePath,
+			),
+			$options
+		);
 	}
 
 	/**
@@ -1053,9 +1056,12 @@ class GalleryUtilities {
 	 * @return boolean
 	 */
 	public static function isTrustedProxy($addr) {
-		return (boolean)preg_match('/^((10\.\d{1,3}\.\d{1,3}\.\d{1,3})|'
-		. '(172\.(1[6-9]|2[0-9]|3[0-1])\.\d{1,3}\.\d{1,3})|'
-		. '(192\.168\.\d{1,3}\.\d{1,3}))$/', $addr);
+		return (bool)preg_match(
+			'/^((10\.\d{1,3}\.\d{1,3}\.\d{1,3})|'
+			. '(172\.(1[6-9]|2[0-9]|3[0-1])\.\d{1,3}\.\d{1,3})|'
+			. '(192\.168\.\d{1,3}\.\d{1,3}))$/',
+			$addr
+		);
 	}
 
 	/**

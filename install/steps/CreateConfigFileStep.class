@@ -112,9 +112,9 @@ class CreateConfigFileStep extends InstallStep {
 						);
 					} else {
 						$templateData['error'] = sprintf(
-							_('The config.php file exists but is not writeable.  If your server ' .
+							'The config.php file exists but is not writeable.  If your server ' .
 							'is Windows, you may have to disable file sharing for config.php ' .
-							'and set its permissions manually.'),
+							'and set its permissions manually.',
 							$configDir
 						);
 					}
@@ -129,7 +129,7 @@ class CreateConfigFileStep extends InstallStep {
 					$templateData['configFileWritten'] = $writeConfigFile;
 					$templateData['bodyFile']          = 'VersionCheckFailed.html';
 				} else {
-					// It's a fresh install or the installed version matches the codebase version
+					// It is a fresh install or the installed version matches the codebase version
 					$this->setComplete(true);
 					$templateData['bodyFile'] = 'CreateConfigFileSuccess.html';
 				}

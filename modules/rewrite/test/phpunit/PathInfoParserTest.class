@@ -66,9 +66,12 @@ class PathInfoParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals('1', $forced);
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 	}
 
@@ -92,9 +95,12 @@ class PathInfoParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals('0', $forced);
-		$this->assertEquals(array(
-			'saved' => 1,
-		), $status);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
 		$this->assertEquals(array(), $error);
 	}
 

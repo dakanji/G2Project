@@ -447,11 +447,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 			// Update the resizes
 			foreach ($childItems as $child) {
 				if (!(++$ind % $step)) {
-					$message = $module->translate(array(
-						'text' => 'Processing image %d of %d',
-						'arg1' => $ind,
-						'arg2' => $total,
-					));
+					$message = $module->translate(
+						array(
+							'text' => 'Processing image %d of %d',
+							'arg1' => $ind,
+							'arg2' => $total,
+						)
+					);
 					$templateAdapter->updateProgressBar($heading, $message, $ind / $total);
 				}
 
@@ -698,11 +700,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 			foreach ($childItems as $child) {
 				if (!(++$ind % $step) || $ind == $total) {
-					$message = $module->translate(array(
-						'text' => 'Processing image %d of %d',
-						'arg1' => $ind,
-						'arg2' => $total,
-					));
+					$message = $module->translate(
+						array(
+							'text' => 'Processing image %d of %d',
+							'arg1' => $ind,
+							'arg2' => $total,
+						)
+					);
 					$templateAdapter->updateProgressBar($heading, $message, $ind / $total);
 				}
 

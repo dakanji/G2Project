@@ -354,10 +354,12 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		if ($this->getParentId()) {
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-			$event->setData(array(
-				'userId' => null,
-				'itemId' => $this->getParentId(),
-			));
+			$event->setData(
+				array(
+					'userId' => null,
+					'itemId' => $this->getParentId(),
+				)
+			);
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -389,10 +391,12 @@ class GalleryItem extends GalleryFileSystemEntity {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-		$event->setData(array(
-			'userId' => null,
-			'itemId' => empty($parentId) ? $this->getParentId() : array($parentId, $this->getParentId()),
-		));
+		$event->setData(
+			array(
+				'userId' => null,
+				'itemId' => empty($parentId) ? $this->getParentId() : array($parentId, $this->getParentId()),
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -468,10 +472,12 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 			if ($this->getParentId()) {
 				$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
-				$event->setData(array(
-					'userId' => null,
-					'itemId' => $this->getParentId(),
-				));
+				$event->setData(
+					array(
+						'userId' => null,
+						'itemId' => $this->getParentId(),
+					)
+				);
 				list($ret) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {

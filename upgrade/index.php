@@ -95,10 +95,12 @@ if (!empty($storageConfig)) {
 	// We want to avoid using the cache
 	GalleryDataCache::setFileCachingEnabled(false);
 
-	$ret = GalleryInitFirstPass(array(
-		'debug'      => 'buffered',
-		'noDatabase' => 1,
-	));
+	$ret = GalleryInitFirstPass(
+		array(
+			'debug'      => 'buffered',
+			'noDatabase' => 1,
+		)
+	);
 
 	if ($ret) {
 		echo $ret->getAsHtml();

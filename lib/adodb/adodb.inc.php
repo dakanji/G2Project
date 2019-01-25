@@ -228,7 +228,7 @@ if (!defined('_ADODB_LAYER')) {
 
 		// Initialize random number generator for randomizing cache flushes
 		// -- note Since PHP 4.2.0, the seed  becomes optional and defaults to a random value if omitted.
-		mt_srand(((double)microtime()) * 1000000);
+		mt_srand(((float)microtime()) * 1000000);
 
 		/**
 		 * ADODB version as a string.
@@ -1791,7 +1791,7 @@ if (!defined('_ADODB_LAYER')) {
 				return false;
 			}
 
-			$midrow = (integer)($total / 2);
+			$midrow = (int)($total / 2);
 			$rs     = $this->SelectLimit("select $field from $table $where order by 1", 1, $midrow);
 
 			if ($rs && !$rs->EOF) {
@@ -5176,7 +5176,7 @@ if (!defined('_ADODB_LAYER')) {
 							break;
 
 						case 'debug':
-							$obj->debug = (integer)$v;
+							$obj->debug = (int)$v;
 
 							break;
 						// ibase
@@ -5186,7 +5186,7 @@ if (!defined('_ADODB_LAYER')) {
 							break;
 
 						case 'dialect':
-							$obj->dialect = (integer)$v;
+							$obj->dialect = (int)$v;
 
 							break;
 

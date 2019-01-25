@@ -788,44 +788,50 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 	 */
 	public function mergeOperations($operation1, $args1, $operation2, $args2) {
 		switch (serialize(array($operation1, $args1, $operation2, $args2))) {
-			case serialize(array(
-				'rotate',
+			case serialize(
 				array(
-					0 => '90',
-				),
-				'rotate',
-				array(
-					0 => '90',
-				),
-			)):
+					'rotate',
+					array(
+						0 => '90',
+					),
+					'rotate',
+					array(
+						0 => '90',
+					),
+				)
+			):
 				return array(true, 'rotate', array('180'));
 
 			break;
 
-			case serialize(array(
-				'rotate',
+			case serialize(
 				array(
-					0 => '90',
-				),
-				'rotate',
-				array(
-					0 => '-90',
-				),
-			)):
+					'rotate',
+					array(
+						0 => '90',
+					),
+					'rotate',
+					array(
+						0 => '-90',
+					),
+				)
+			):
 				return array(true, null, null);
 
 			break;
 
-			case serialize(array(
-				'rotate',
+			case serialize(
 				array(
-					0 => '90',
-				),
-				'rotate',
-				array(
-					0 => '180',
-				),
-			)):
+					'rotate',
+					array(
+						0 => '90',
+					),
+					'rotate',
+					array(
+						0 => '180',
+					),
+				)
+			):
 				return array(true, 'rotate', array('-90'));
 
 			break;

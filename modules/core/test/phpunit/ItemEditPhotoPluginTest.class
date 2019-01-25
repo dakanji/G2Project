@@ -344,8 +344,12 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			$this->assertEquals(3, sizeof($resizeTable[$this->_item->getId()]));
 
 			for ($i = 0; $i < 3; $i++) {
-				$this->assertEquals($itemId, $resizeTable[$itemId][$i]->
-				getDerivativeSourceId(), 'Derivative Source id');
+				$this->assertEquals(
+					$itemId,
+					$resizeTable[$itemId][$i]->
+					getDerivativeSourceId(),
+					'Derivative Source id'
+				);
 				$expectedOperations  = ($i < 2) ? ('scale|' . 100 * ($i + 1) . ',' . 100 * ($i + 1)) : 'scale|300,600';
 				$expectedOperations .= ';convert-to-image/jpeg';
 				$this->assertEquals(
@@ -419,8 +423,12 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals(4, sizeof($resizeTable[$itemId]));
 
 		for ($i = 1; $i < 4; $i++) {
-			$this->assertEquals($preferredId, $resizeTable[$itemId][$i]->
-			getDerivativeSourceId(), 'Derivative Source id');
+			$this->assertEquals(
+				$preferredId,
+				$resizeTable[$itemId][$i]->
+				getDerivativeSourceId(),
+				'Derivative Source id'
+			);
 			$this->assertEquals(
 				'scale|' . 100 * $i . ',' . 100 * $i . ';convert-to-image/jpeg',
 				$resizeTable[$itemId][$i]->

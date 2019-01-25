@@ -194,9 +194,13 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 
 			// Execute the method under test
 			$callback = new ExifCallbacks();
-			$ret      = $callback->callback(array(
-				'itemId' => $item->getId(),
-			), $smarty, 'LoadExifInfo');
+			$ret      = $callback->callback(
+				array(
+					'itemId' => $item->getId(),
+				),
+				$smarty,
+				'LoadExifInfo'
+			);
 
 			if ($ret) {
 				return $ret;

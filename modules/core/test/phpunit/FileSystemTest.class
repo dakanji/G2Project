@@ -223,11 +223,13 @@ class FileSystemTest extends GalleryTestCase {
 	}
 
 	public function testMoveCollision() {
-		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array(
-			$this->_albums[0]->getId(),
-			$this->_albums[1]->getId(),
-			$this->_albums[2]->getId(),
-		));
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(
+			array(
+				$this->_albums[0]->getId(),
+				$this->_albums[1]->getId(),
+				$this->_albums[2]->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -279,11 +281,13 @@ class FileSystemTest extends GalleryTestCase {
 		// Use a windows alike mock platfrom
 		$originalPlatform =& $gallery->getPlatform();
 		// Acquire the write locks
-		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array(
-			$this->_albums[0]->getId(),
-			$this->_albums[1]->getId(),
-			$this->_albums[2]->getId(),
-		));
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(
+			array(
+				$this->_albums[0]->getId(),
+				$this->_albums[1]->getId(),
+				$this->_albums[2]->getId(),
+			)
+		);
 
 		if ($ret) {
 			return $ret;

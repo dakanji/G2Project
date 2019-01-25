@@ -110,14 +110,17 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success);
-		$this->assertEquals(array(
-			$module->translate(
-				array(
-					'text' => 'Checked %d items',
-					'arg1' => 0,
-				)
+		$this->assertEquals(
+			array(
+				$module->translate(
+					array(
+						'text' => 'Checked %d items',
+						'arg1' => 0,
+					)
+				),
 			),
-		), $details);
+			$details
+		);
 		$searches = $mockStorage->getSearches();
 		$this->assertEquals(2, count($searches), 'query count');
 		$this->assertTrue($searches[0] > 0, 'query 1 should have at least one result');

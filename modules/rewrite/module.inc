@@ -32,9 +32,11 @@ class RewriteModule extends GalleryModule {
 		global $gallery;
 		$this->setId('rewrite');
 		$this->setName($gallery->i18n('URL Rewrite'));
-		$this->setDescription($gallery->i18n(
-			'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'
-		));
+		$this->setDescription(
+			$gallery->i18n(
+				'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'
+			)
+		);
 		$this->setVersion('1.1.19'); // Update RewriteModuleExtras::upgrade too!
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
@@ -417,8 +419,10 @@ class RewriteModule extends GalleryModule {
 				'forceDirect' => true,
 			),
 			'flags'         => array('L'),
-			'help'          => $this->translate('Blocks use of images in other sites (HTML creates broken'
-			. ' image), but allows linking to images.'),
+			'help'          => $this->translate(
+				'Blocks use of images in other sites (HTML creates broken'
+				. ' image), but allows linking to images.'
+			),
 		);
 
 		return $rules;

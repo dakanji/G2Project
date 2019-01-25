@@ -54,10 +54,12 @@ if (isset($advance) || isset($deep)) {
 // Connect to Gallery2
 function connect() {
 	include_once '../../embed.php';
-	$ret = GalleryEmbed::init(array(
-		'fullInit'   => false,
-		'noDatabase' => true,
-	));
+	$ret = GalleryEmbed::init(
+		array(
+			'fullInit'   => false,
+			'noDatabase' => true,
+		)
+	);
 
 	if ($ret) {
 		return '<div class=\"error center\">Error: Could not connect to Gallery.</div><div class=\"error\">' . $ret->getAsHtml() . '</div>';

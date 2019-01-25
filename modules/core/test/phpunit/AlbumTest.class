@@ -954,9 +954,12 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals('AlbumTestTheme', $child1->getTheme());
 		$this->assertEquals('b', $child1->getOrderBy());
 		$this->assertEquals('c', $child1->getOrderDirection());
-		$this->assertEquals(array(
-			'testParam' => 'testValue',
-		), $params);
+		$this->assertEquals(
+			array(
+				'testParam' => 'testValue',
+			),
+			$params
+		);
 
 		// Now set the default theme to AlbumTestTheme
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -1008,9 +1011,12 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals('', $child2->getTheme());
 		$this->assertEquals('d', $child2->getOrderBy());
 		$this->assertEquals('e', $child2->getOrderDirection());
-		$this->assertEquals(array(
-			'testParam' => 'testValue2',
-		), $params);
+		$this->assertEquals(
+			array(
+				'testParam' => 'testValue2',
+			),
+			$params
+		);
 
 		// Now switch to using the defaults
 		$ret = GalleryCoreApi::setPluginParameter(

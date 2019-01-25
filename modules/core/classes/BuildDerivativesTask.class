@@ -183,24 +183,30 @@ class BuildDerivativesTask extends MaintenanceTask {
 		}
 
 		$result = array(
-			$module->translate(array(
-				'text' => 'Checked %d items',
-				'arg1' => $total,
-			)),
+			$module->translate(
+				array(
+					'text' => 'Checked %d items',
+					'arg1' => $total,
+				)
+			),
 		);
 
 		if ($built) {
-			$result[] = $module->translate(array(
-				'text' => '%d items built',
-				'arg1' => $built,
-			));
+			$result[] = $module->translate(
+				array(
+					'text' => '%d items built',
+					'arg1' => $built,
+				)
+			);
 		}
 
 		if ($broken) {
-			$result[] = $module->translate(array(
-				'text' => '%d items failed',
-				'arg1' => $broken,
-			));
+			$result[] = $module->translate(
+				array(
+					'text' => '%d items failed',
+					'arg1' => $broken,
+				)
+			);
 		}
 
 		return array(null, true, $result);

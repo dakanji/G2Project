@@ -102,9 +102,12 @@ class SwitchDetailModeView extends GalleryView {
 		$template->setVariable('l10Domain', 'modules_exif');
 		$template->setVariable('ajax', true);
 		$template->setVariable('item', (array)$item);
-		$template->setVariable('theme', array(
-			'actingUserId' => $gallery->getActiveUserId(),
-		));
+		$template->setVariable(
+			'theme',
+			array(
+				'actingUserId' => $gallery->getActiveUserId(),
+			)
+		);
 
 		$ret = $template->display('gallery:modules/exif/templates/blocks/ExifInfo.tpl');
 

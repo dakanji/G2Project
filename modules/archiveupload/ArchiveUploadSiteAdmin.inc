@@ -195,9 +195,12 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 			}
 
 			if (isset($test)) {
-				$template->setVariable('ArchiveUploadSiteAdmin', array(
-					'tests' => array($test),
-				));
+				$template->setVariable(
+					'ArchiveUploadSiteAdmin',
+					array(
+						'tests' => array($test),
+					)
+				);
 			}
 		}
 

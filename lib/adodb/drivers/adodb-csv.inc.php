@@ -99,7 +99,7 @@ if (! defined('_ADODB_CSV_LAYER')) {
 
 			if ($at === false) {
 				$this->_errorMsg = $err;
-				$this->_errorNo  = (integer)$err;
+				$this->_errorNo  = (int)$err;
 			} else {
 				$this->_errorMsg = substr($err, $at + 4, 1024);
 				$this->_errorNo  = -9999;
@@ -163,7 +163,7 @@ if (! defined('_ADODB_CSV_LAYER')) {
 
 			if ($at === false) {
 				$this->_errorMsg = $err;
-				$this->_errorNo  = (integer)$err;
+				$this->_errorNo  = (int)$err;
 			} else {
 				$this->_errorMsg = substr($err, $at + 4, 1024);
 				$this->_errorNo  = -9999;

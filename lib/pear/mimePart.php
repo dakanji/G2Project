@@ -221,7 +221,7 @@ class Mail_mimePart {
 		$encoded =& $this->_encoded;
 
 		if (!empty($this->_subparts)) {
-			mt_srand((double)microtime() * 1000000);
+			mt_srand((float)microtime() * 1000000);
 			$boundary                        = '=_' . md5(mt_rand() . microtime());
 			$this->_headers['Content-Type'] .= ';' . MAIL_MIMEPART_CRLF . "\t" . 'boundary="' . $boundary . '"';
 

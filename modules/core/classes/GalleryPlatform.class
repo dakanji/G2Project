@@ -739,8 +739,10 @@ class GalleryPlatform {
 			list($ret, $tmp) = GalleryCoreApi::convertExtensionToMime($extension);
 
 			if ($ret && $gallery->getDebug()) {
-				$gallery->debug('Error: convertExtensionToMime in ' .
-				'GalleryPlatform::legalizePathComponent');
+				$gallery->debug(
+					'Error: convertExtensionToMime in ' .
+					'GalleryPlatform::legalizePathComponent'
+				);
 			}
 
 			if (!empty($extension) && ($ret || $tmp == 'application/unknown'

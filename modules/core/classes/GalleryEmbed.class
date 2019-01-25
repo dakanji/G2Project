@@ -1325,8 +1325,10 @@ class GalleryEmbed {
 					$phpVm->header('X-G2-EMBED-PATH: ' . GALLERY_CONFIG_DIR . '/embed.php');
 				} else {
 					// Fallback if G2 isn't installed yet
-					$phpVm->header('X-G2-EMBED-PATH: '
-					. GalleryCoreApi::getCodeBasePath('embed.php'));
+					$phpVm->header(
+						'X-G2-EMBED-PATH: '
+						. GalleryCoreApi::getCodeBasePath('embed.php')
+					);
 				}
 			}
 		}

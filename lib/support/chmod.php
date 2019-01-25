@@ -675,8 +675,10 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 						<h2>
 							<a href="
 							<?php
-							generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
-							. '&amp;mode=open')
+							generateUrl(
+								'index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
+								. '&amp;mode=open'
+							)
 							?>
 							">Make modules &amp; themes directories writeable</a>
 						</h2>
@@ -690,8 +692,10 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 						<h2>
 							<a href="
 							<?php
-							generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
-							. '&amp;mode=secure')
+							generateUrl(
+								'index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
+								. '&amp;mode=secure'
+							)
 							?>
 							">Make modules &amp; themes directories read-only</a>
 						</h2>

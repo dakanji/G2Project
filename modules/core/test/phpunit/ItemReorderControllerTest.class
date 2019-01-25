@@ -39,9 +39,12 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		list($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId(), array(
-			'orderBy' => 'orderWeight',
-		));
+		list($ret, $this->_parentAlbum) = $this->_createRandomAlbum(
+			$this->_getRootId(),
+			array(
+				'orderBy' => 'orderWeight',
+			)
+		);
 
 		if ($ret) {
 			return $ret;

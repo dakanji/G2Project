@@ -82,9 +82,13 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v' . $testItemPath . '.html', $url, 'url');
-		$this->assertEquals(array(
-			'view' => 'core.ShowItem',
-		), $params, 'params');
+		$this->assertEquals(
+			array(
+				'view' => 'core.ShowItem',
+			),
+			$params,
+			'params'
+		);
 	}
 
 	public function testParseFileName() {
@@ -207,9 +211,13 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v/' . $language, $url, 'url');
-		$this->assertEquals(array(
-			'view' => 'core.ShowItem',
-		), $params, 'params');
+		$this->assertEquals(
+			array(
+				'view' => 'core.ShowItem',
+			),
+			$params,
+			'params'
+		);
 	}
 
 	public function testLoadItemIdFromPath() {

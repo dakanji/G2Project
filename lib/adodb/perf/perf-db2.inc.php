@@ -119,9 +119,11 @@ class perf_db2 extends adodb_perf {
 	 * @return string The formatted table list
 	 */
 	public function Tables($throwaway = 0) {
-		$rs = $this->conn->Execute("select tabschema,tabname,card as rows,
+		$rs = $this->conn->Execute(
+			"select tabschema,tabname,card as rows,
 			npages pages_used,fpages pages_allocated, tbspace tablespace
-			from syscat.tables where tabschema not in ('SYSCAT','SYSIBM','SYSSTAT') order by 1,2");
+			from syscat.tables where tabschema not in ('SYSCAT','SYSIBM','SYSSTAT') order by 1,2"
+		);
 
 		return rs2html($rs, false, false, false, false);
 	}

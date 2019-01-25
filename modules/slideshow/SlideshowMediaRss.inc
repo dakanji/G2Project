@@ -93,12 +93,15 @@ class SlideshowMediaRssView extends GalleryView {
 			$phpVm->header('Content-Type: text/xml; charset=UTF-8');
 		}
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$template->setVariable('SlideshowMediaRss', array(
-			'items'      => $items,
-			'itemId'     => $itemId,
-			'prevOffset' => $prevOffset,
-			'nextOffset' => $nextOffset,
-		));
+		$template->setVariable(
+			'SlideshowMediaRss',
+			array(
+				'items'      => $items,
+				'itemId'     => $itemId,
+				'prevOffset' => $prevOffset,
+				'nextOffset' => $nextOffset,
+			)
+		);
 
 		return $template->display('modules/slideshow/templates/SlideshowMediaRss.tpl');
 	}

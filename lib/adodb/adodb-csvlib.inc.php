@@ -147,7 +147,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 				$rs->EOF          = true;
 				$rs->_numOfFields = 0;
 				$rs->sql          = urldecode($meta[2]);
-				$rs->affectedrows = (integer)$meta[3];
+				$rs->affectedrows = (int)$meta[3];
 				$rs->insertid     = $meta[4];
 
 				return $rs;
@@ -162,7 +162,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 			// +0 sec after timeout, give processes 100% chance of timing out
 			if (sizeof($meta) > 1) {
 				if ($timeout > 0) {
-					$tdiff = (integer)($meta[1] + $timeout - time());
+					$tdiff = (int)($meta[1] + $timeout - time());
 
 					if ($tdiff <= 2) {
 						switch ($tdiff) {

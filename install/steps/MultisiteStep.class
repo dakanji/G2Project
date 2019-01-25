@@ -152,22 +152,31 @@ class MultisiteStep extends InstallStep {
 		if (!$out = @fopen("$dir/main.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
-			 $galleryDir . "main.php');\n?>\n");
+		fwrite(
+			$out,
+			"<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
+			$galleryDir . "main.php');\n?>\n"
+		);
 		fclose($out);
 
 		if (!$out = @fopen("$dir/embed.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
-			 $galleryDir . "embed.php');\n?>\n");
+		fwrite(
+			$out,
+			"<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
+			$galleryDir . "embed.php');\n?>\n"
+		);
 		fclose($out);
 
 		if (!$out = @fopen("$dir/index.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
-			 $galleryDir . "index.php');\n?>\n");
+		fwrite(
+			$out,
+			"<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
+			$galleryDir . "index.php');\n?>\n"
+		);
 		fclose($out);
 
 		if (!is_dir("$dir/upgrade") && !mkdir("$dir/upgrade", 0755)) {
@@ -177,17 +186,23 @@ class MultisiteStep extends InstallStep {
 		if (!$out = @fopen("$dir/upgrade/index.php", 'w')) {
 			return false;
 		}
-		fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__DIR__));\nrequire('" .
-			 $galleryDir . 'upgrade' . DIRECTORY_SEPARATOR . "index.php');\n?>\n");
+		fwrite(
+			$out,
+			"<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__DIR__));\nrequire('" .
+			$galleryDir . 'upgrade' . DIRECTORY_SEPARATOR . "index.php');\n?>\n"
+		);
 		fclose($out);
 		// lib/support/index.php is optional; ignore errors
 		if ((is_dir("$dir/lib") || mkdir("$dir/lib", 0755))
 			&& (is_dir("$dir/lib/support") || mkdir("$dir/lib/support", 0755))
 			&& $out = @fopen("$dir/lib/support/index.php", 'w')
 		) {
-			fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(__DIR__" .
-			")));\nrequire('" . $galleryDir . 'lib' . DIRECTORY_SEPARATOR . 'support' .
-			DIRECTORY_SEPARATOR . "index.php');\n?>\n");
+			fwrite(
+				$out,
+				"<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(__DIR__" .
+				")));\nrequire('" . $galleryDir . 'lib' . DIRECTORY_SEPARATOR . 'support' .
+				DIRECTORY_SEPARATOR . "index.php');\n?>\n"
+			);
 			fclose($out);
 		}
 

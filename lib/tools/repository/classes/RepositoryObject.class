@@ -106,10 +106,15 @@ class RepositoryObject {
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->is_dir($outputDir)) {
-			return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
-				'Output directory [%s] does not exist.',
-				$outputDir
-			));
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				sprintf(
+					'Output directory [%s] does not exist.',
+					$outputDir
+				)
+			);
 		}
 
 		$this->_outputDir = $platform->realpath($outputDir) . '/';

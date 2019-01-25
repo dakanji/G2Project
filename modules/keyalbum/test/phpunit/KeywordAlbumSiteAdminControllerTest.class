@@ -199,8 +199,10 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 class KeyAlbumTestTheme extends GalleryTheme {
 	public function __construct() {
 		$this->setId('keyalbumTest');
-		$this->setStandardSettings(array(
-			'perPage' => 9,
-		));
+		$this->setStandardSettings(
+			array(
+				'perPage' => 9,
+			)
+		);
 	}
 }

@@ -31,10 +31,13 @@ function rs2xmlrpcval(&$adodbrs) {
 	$body   = rs2xmlrpcval_body($adodbrs);
 
 	// put it all together and build final xmlrpc struct
-	$xmlrpcrs = new xmlrpcval(array(
-		'header' => $header,
-		'body'   => $body,
-	), 'struct');
+	$xmlrpcrs = new xmlrpcval(
+		array(
+			'header' => $header,
+			'body'   => $body,
+		),
+		'struct'
+	);
 
 	return $xmlrpcrs;
 }
@@ -83,12 +86,15 @@ function rs2xmlrpcval_header($adodbrs) {
 	$sql         = new xmlrpcval($adodbrs->sql);
 	$fieldinfo   = new xmlrpcval($fieldstruct, 'array');
 
-	$header = new xmlrpcval(array(
-		'fieldcount'  => $fieldcount,
-		'recordcount' => $recordcount,
-		'sql'         => $sql,
-		'fieldinfo'   => $fieldinfo,
-	), 'struct');
+	$header = new xmlrpcval(
+		array(
+			'fieldcount'  => $fieldcount,
+			'recordcount' => $recordcount,
+			'sql'         => $sql,
+			'fieldinfo'   => $fieldinfo,
+		),
+		'struct'
+	);
 
 	return $header;
 }

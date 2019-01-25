@@ -125,8 +125,10 @@ class Db2Storage extends GalleryStorage {
 				 * already there before trying to install them again.
 				 */
 				if ($gallery->getDebug()) {
-					$gallery->debug('Failed to install g2_db2.jar .. continuing ' .
-					'under the assumption that this is an upgrade');
+					$gallery->debug(
+						'Failed to install g2_db2.jar .. continuing ' .
+						'under the assumption that this is an upgrade'
+					);
 				}
 			} else {
 				// 3) Create/Catalog the UDFs

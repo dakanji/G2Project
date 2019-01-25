@@ -204,9 +204,11 @@ class GalleryPlugin {
 
 		// Flush the cache
 		$this->_flushPluginCache();
-		GalleryDataCache::removeFromDisk(array(
-			'type' => 'local-url-map',
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type' => 'local-url-map',
+			)
+		);
 
 		$templateCacheDir = $gallery->getConfig('data.smarty.templates_c');
 
@@ -221,10 +223,12 @@ class GalleryPlugin {
 			}
 
 			$event = GalleryCoreApi::newEvent('Gallery::ActivatePlugin');
-			$event->setData(array(
-				'pluginType' => $this->getPluginType(),
-				'pluginId'   => $this->getId(),
-			));
+			$event->setData(
+				array(
+					'pluginType' => $this->getPluginType(),
+					'pluginId'   => $this->getId(),
+				)
+			);
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -233,10 +237,12 @@ class GalleryPlugin {
 		}
 
 		if ($gallery->getDebug()) {
-			$gallery->debug(sprintf(
-				'GalleryPlugin::activate %s plugin successfully activated',
-				$pluginId
-			));
+			$gallery->debug(
+				sprintf(
+					'GalleryPlugin::activate %s plugin successfully activated',
+					$pluginId
+				)
+			);
 		}
 
 		return array(null, array());
@@ -311,18 +317,25 @@ class GalleryPlugin {
 
 		if (!$isActive) {
 			if ($gallery->getDebug()) {
-				$gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, plugin is ' .
-					'not active, nothing to do', $this->getId()));
+				$gallery->debug(
+					sprintf(
+						'GalleryPlugin::reactivate %s plugin, plugin is ' .
+						'not active, nothing to do',
+						$this->getId()
+					)
+				);
 			}
 
 			return array(null, null);
 		}
 
 		if ($gallery->getDebug()) {
-			$gallery->debug(sprintf(
-				'GalleryPlugin::reactivate %s plugin, deactivate',
-				$this->getId()
-			));
+			$gallery->debug(
+				sprintf(
+					'GalleryPlugin::reactivate %s plugin, deactivate',
+					$this->getId()
+				)
+			);
 		}
 
 		list($ret, $redirect) = $this->deactivate(false);
@@ -336,10 +349,12 @@ class GalleryPlugin {
 		}
 
 		if ($gallery->getDebug()) {
-			$gallery->debug(sprintf(
-				'GalleryPlugin::reactivate %s plugin, activate again',
-				$this->getId()
-			));
+			$gallery->debug(
+				sprintf(
+					'GalleryPlugin::reactivate %s plugin, activate again',
+					$this->getId()
+				)
+			);
 		}
 
 		list($ret, $redirect) = $this->activate(false);
@@ -356,8 +371,13 @@ class GalleryPlugin {
 		}
 
 		if ($gallery->getDebug()) {
-			$gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, successfully ' .
-					'reactivated', $this->getId()));
+			$gallery->debug(
+				sprintf(
+					'GalleryPlugin::reactivate %s plugin, successfully ' .
+					'reactivated',
+					$this->getId()
+				)
+			);
 		}
 
 		return array(null, array());
@@ -371,10 +391,12 @@ class GalleryPlugin {
 	 */
 	public function _postDeactivationEvent() {
 		$event = GalleryCoreApi::newEvent('Gallery::DeactivatePlugin');
-		$event->setData(array(
-			'pluginType' => $this->getPluginType(),
-			'pluginId'   => $this->getId(),
-		));
+		$event->setData(
+			array(
+				'pluginType' => $this->getPluginType(),
+				'pluginId'   => $this->getId(),
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -420,10 +442,12 @@ class GalleryPlugin {
 		$this->_flushPluginCache();
 
 		$event = GalleryCoreApi::newEvent('Gallery::UninstallPlugin');
-		$event->setData(array(
-			'pluginType' => $this->getPluginType(),
-			'pluginId'   => $this->getId(),
-		));
+		$event->setData(
+			array(
+				'pluginType' => $this->getPluginType(),
+				'pluginId'   => $this->getId(),
+			)
+		);
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -538,11 +562,13 @@ class GalleryPlugin {
 		// Flush the cache
 		$pluginType = $this->getPluginType();
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
-		GalleryDataCache::removeFromDisk(array(
-			'type'   => $pluginType,
-			'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-			'id'     => '_all',
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type'   => $pluginType,
+				'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
+				'id'     => '_all',
+			)
+		);
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
 	}
 

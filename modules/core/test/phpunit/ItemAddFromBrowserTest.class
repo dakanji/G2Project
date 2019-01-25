@@ -339,10 +339,12 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		$this->assertEquals($files[1][0], $results[1]['addedFiles'][0]['fileName'], 'Filename');
 		$this->assertEquals(
-			$this->_translate(array(
-				'text' => 'Input file %s exceeds maximum permitted file size',
-				'arg1' => 'test1.gif',
-			)),
+			$this->_translate(
+				array(
+					'text' => 'Input file %s exceeds maximum permitted file size',
+					'arg1' => 'test1.gif',
+				)
+			),
 			$results[1]['addedFiles'][0]['warnings'][0],
 			'Warning'
 		);
@@ -350,10 +352,12 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		$this->assertEquals($files[2][0], $results[1]['addedFiles'][1]['fileName'], 'Filename');
 		$this->assertEquals(
-			$this->_translate(array(
-				'text' => 'Input file %s exceeds file size specified in the form',
-				'arg1' => 'test2.gif',
-			)),
+			$this->_translate(
+				array(
+					'text' => 'Input file %s exceeds file size specified in the form',
+					'arg1' => 'test2.gif',
+				)
+			),
 			$results[1]['addedFiles'][1]['warnings'][0],
 			'Warning'
 		);
@@ -395,10 +399,12 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		$this->assertEquals($files[1], $results[1]['addedFiles'][0]['fileName'], 'Filename');
 		$this->assertEquals(
-			$this->_translate(array(
-				'text' => 'Input file %s exceeds maximum permitted file size',
-				'arg1' => 'test1.gif',
-			)),
+			$this->_translate(
+				array(
+					'text' => 'Input file %s exceeds maximum permitted file size',
+					'arg1' => 'test1.gif',
+				)
+			),
 			$results[1]['addedFiles'][0]['warnings'][0],
 			'Warning 1'
 		);

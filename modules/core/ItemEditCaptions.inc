@@ -291,7 +291,7 @@ class ItemEditCaptionsView extends GalleryView {
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$ItemEditCaptions              = array();
-		$ItemEditCaptions['canCancel'] = (boolean)GalleryUtilities::getRequestVariables('return');
+		$ItemEditCaptions['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemEditCaptions['page']      = $page;
 		$ItemEditCaptions['numPages']  = $numPages;
 

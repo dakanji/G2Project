@@ -253,12 +253,14 @@ class CodeAuditTest extends CodeAuditTestCase {
 			) {
 				foreach (array_unique($matches[1]) as $item) {
 					$this->_errorCount++;
-					$this->fail(sprintf(
-						'%s gets %s by value instead of by reference on line %d',
-						$fileName,
-						$item,
-						$i + 1
-					));
+					$this->fail(
+						sprintf(
+							'%s gets %s by value instead of by reference on line %d',
+							$fileName,
+							$item,
+							$i + 1
+						)
+					);
 				}
 			}
 
@@ -283,13 +285,15 @@ class CodeAuditTest extends CodeAuditTestCase {
 					}
 
 					$this->_errorCount++;
-					$this->fail(sprintf(
-						'%s uses the %s superglobal instead of ' .
-						'its helper on line %d',
-						$fileName,
-						$item,
-						$i + 1
-					));
+					$this->fail(
+						sprintf(
+							'%s uses the %s superglobal instead of ' .
+							'its helper on line %d',
+							$fileName,
+							$item,
+							$i + 1
+						)
+					);
 				}
 			}
 

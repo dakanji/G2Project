@@ -1976,20 +1976,32 @@ class RepositoryTest extends GalleryTestCase {
 		// dirname('/cache/') returns \ on Windows.
 		$platform->setReply('file_exists', array($slash), true);
 		$platform->setReply('is_dir', array($slash), true);
-		$platform->setReply('mkdir', array(
-			'/cache/',
-			'fuzzy' => '{\d+}',
-		), true);
+		$platform->setReply(
+			'mkdir',
+			array(
+				'/cache/',
+				'fuzzy' => '{\d+}',
+			),
+			true
+		);
 		$platform->setReply('is_dir', array('/cache/modules'), false);
-		$platform->setReply('mkdir', array(
-			'/cache/modules',
-			'fuzzy' => '{\d+}',
-		), true);
+		$platform->setReply(
+			'mkdir',
+			array(
+				'/cache/modules',
+				'fuzzy' => '{\d+}',
+			),
+			true
+		);
 		$platform->setReply('is_dir', array('/cache/themes'), false);
-		$platform->setReply('mkdir', array(
-			'/cache/themes',
-			'fuzzy' => '{\d+}',
-		), true);
+		$platform->setReply(
+			'mkdir',
+			array(
+				'/cache/themes',
+				'fuzzy' => '{\d+}',
+			),
+			true
+		);
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
 		$this->assertTrue($isSetUp, $message);
 
@@ -2746,12 +2758,16 @@ class RepositoryTest extends GalleryTestCase {
 								$file
 							);
 							$utilities->setReply('unpackPackage', array($path, $outputDir), null);
-							$utilities->setReply('verifyPackageIntegrity', array(
-								$pluginType,
-								$pluginId,
-								'base',
-								$descriptor,
-							), null);
+							$utilities->setReply(
+								'verifyPackageIntegrity',
+								array(
+									$pluginType,
+									$pluginId,
+									'base',
+									$descriptor,
+								),
+								null
+							);
 							$utilities->setReply(
 								'updatePackageMetaData',
 								array(
@@ -2830,13 +2846,15 @@ class RepositoryTest extends GalleryTestCase {
 					'descriptor' => array(
 						'revision' => '1.0.0',
 						'build'    => '44444',
-						'data'     => $this->_buildDescriptor(array(
-							'id'       => 'testModule',
-							'type'     => 'module',
-							'name'     => 'Test Module',
-							'revision' => '1.0.0',
-							'build'    => '44444',
-						)),
+						'data'     => $this->_buildDescriptor(
+							array(
+								'id'       => 'testModule',
+								'type'     => 'module',
+								'name'     => 'Test Module',
+								'revision' => '1.0.0',
+								'build'    => '44444',
+							)
+						),
 					),
 					'base.package' => array(
 						'revision' => '1.0.0',
@@ -2850,13 +2868,15 @@ class RepositoryTest extends GalleryTestCase {
 					'descriptor' => array(
 						'revision' => '1.0.0',
 						'build'    => '11111',
-						'data'     => $this->_buildDescriptor(array(
-							'id'       => 'testTheme',
-							'type'     => 'theme',
-							'name'     => 'Test Theme',
-							'revision' => '1.0.0',
-							'build'    => '11111',
-						)),
+						'data'     => $this->_buildDescriptor(
+							array(
+								'id'       => 'testTheme',
+								'type'     => 'theme',
+								'name'     => 'Test Theme',
+								'revision' => '1.0.0',
+								'build'    => '11111',
+							)
+						),
 					),
 					'base.package' => array(
 						'revision' => '1.0.0',
@@ -2927,13 +2947,15 @@ class RepositoryTest extends GalleryTestCase {
 					'descriptor' => array(
 						'revision' => '1.0.0',
 						'build'    => '44444',
-						'data'     => $this->_buildDescriptor(array(
-							'id'       => 'testModule',
-							'type'     => 'module',
-							'name'     => 'Test Module',
-							'revision' => '1.0.0',
-							'build'    => '44444',
-						)),
+						'data'     => $this->_buildDescriptor(
+							array(
+								'id'       => 'testModule',
+								'type'     => 'module',
+								'name'     => 'Test Module',
+								'revision' => '1.0.0',
+								'build'    => '44444',
+							)
+						),
 					),
 					'base.package' => array(
 						'revision' => '1.0.0',
@@ -2948,13 +2970,15 @@ class RepositoryTest extends GalleryTestCase {
 					'descriptor' => array(
 						'revision' => '1.0.0',
 						'build'    => '11111',
-						'data'     => $this->_buildDescriptor(array(
-							'id'       => 'testTheme',
-							'type'     => 'theme',
-							'name'     => 'Test Theme',
-							'revision' => '1.0.0',
-							'build'    => '11111',
-						)),
+						'data'     => $this->_buildDescriptor(
+							array(
+								'id'       => 'testTheme',
+								'type'     => 'theme',
+								'name'     => 'Test Theme',
+								'revision' => '1.0.0',
+								'build'    => '11111',
+							)
+						),
 					),
 					'base.package' => array(
 						'revision' => '1.0.0',
@@ -3036,13 +3060,15 @@ class RepositoryTest extends GalleryTestCase {
 					'descriptor' => array(
 						'revision' => '1.0.0',
 						'build'    => '11111',
-						'data'     => $this->_buildDescriptor(array(
-							'id'       => 'testTheme',
-							'type'     => 'theme',
-							'name'     => 'Test Theme',
-							'revision' => '1.0.0',
-							'build'    => '11111',
-						)),
+						'data'     => $this->_buildDescriptor(
+							array(
+								'id'       => 'testTheme',
+								'type'     => 'theme',
+								'name'     => 'Test Theme',
+								'revision' => '1.0.0',
+								'build'    => '11111',
+							)
+						),
 					),
 					'base.package' => array(
 						'revision' => '1.0.0',
@@ -3120,10 +3146,14 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
 
-		$repository->_utilities->setReply('downloadAggregatePackages', array(
-			'test',
-			array_keys($files),
-		), array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null));
+		$repository->_utilities->setReply(
+			'downloadAggregatePackages',
+			array(
+				'test',
+				array_keys($files),
+			),
+			array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null)
+		);
 
 		$mockAdapter = new MockTemplateAdapter();
 		$callback    = array(

@@ -498,9 +498,13 @@ class MainTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'isDone' => true,
-		), $g2Data, 'returned data');
+		$this->assertEquals(
+			array(
+				'isDone' => true,
+			),
+			$g2Data,
+			'returned data'
+		);
 		$this->assertEquals(
 			array(
 				'location' => "Location: $expectedUrl",
@@ -555,9 +559,13 @@ class MainTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'isDone' => true,
-		), $g2Data, 'returned data');
+		$this->assertEquals(
+			array(
+				'isDone' => true,
+			),
+			$g2Data,
+			'returned data'
+		);
 		$this->assertEquals(
 			array(
 				'location' => "Location: $expectedUrl",
@@ -702,9 +710,13 @@ class MainTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			'isDone' => true,
-		), $g2Data, 'returned data');
+		$this->assertEquals(
+			array(
+				'isDone' => true,
+			),
+			$g2Data,
+			'returned data'
+		);
 		$this->assertTrue(
 			$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
@@ -730,9 +742,13 @@ class MainTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			'isDone' => true,
-		), $g2Data, 'returned data');
+		$this->assertEquals(
+			array(
+				'isDone' => true,
+			),
+			$g2Data,
+			'returned data'
+		);
 		$this->assertTrue(
 			!$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])

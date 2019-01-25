@@ -58,14 +58,21 @@ class InstallCoreModuleStep extends InstallStep {
 		$gallery->guaranteeTimeLimit(120);
 
 		$gallery->debug('Init first pass');
-		$ret = GalleryInitFirstPass(array(
-			'noDatabase'     => true,
-			'activeLanguage' => $_SESSION['language'],
-		));
+		$ret = GalleryInitFirstPass(
+			array(
+				'noDatabase'     => true,
+				'activeLanguage' => $_SESSION['language'],
+			)
+		);
 
 		if ($ret) {
-			$gallery->debug(sprintf('Error: Unable to initialize our Gallery data, this is the ' .
-				'error stack trace: %s', $ret->getAsText()));
+			$gallery->debug(
+				sprintf(
+					'Error: Unable to initialize our Gallery data, this is the ' .
+					'error stack trace: %s',
+					$ret->getAsText()
+				)
+			);
 			$templateData['errors'][]     = 'Unable to initialize our Gallery data';
 			$templateData['stackTrace'][] = $ret->getAsHtml();
 		}
@@ -107,8 +114,13 @@ class InstallCoreModuleStep extends InstallStep {
 			list($ret, $isInstalled) = $storage->isInstalled();
 
 			if ($ret) {
-				$gallery->debug(sprintf('Error: Unable to communicate with the database, this ' .
-				'is the error stack trace; %s', $ret->getAsText()));
+				$gallery->debug(
+					sprintf(
+						'Error: Unable to communicate with the database, this ' .
+						'is the error stack trace; %s',
+						$ret->getAsText()
+					)
+				);
 				$templateData['errors'][]     = 'Unable to communicate with the database';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -120,8 +132,13 @@ class InstallCoreModuleStep extends InstallStep {
 			$this->resetL10Domain();
 
 			if ($ret) {
-				$gallery->debug(sprintf('Error: Unable to load the core module, this ' .
-				'is the error stack trace; %s', $ret->getAsText()));
+				$gallery->debug(
+					sprintf(
+						'Error: Unable to load the core module, this ' .
+						'is the error stack trace; %s',
+						$ret->getAsText()
+					)
+				);
 				$templateData['errors'][]     = 'Unable to load the core module';
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -159,8 +176,13 @@ class InstallCoreModuleStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$gallery->debug(sprintf('Error: Unable to install the core module, this ' .
-					'is the error stack trace; %s', $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Unable to install the core module, this ' .
+							'is the error stack trace; %s',
+							$ret->getAsText()
+						)
+					);
 					$templateData['errors'][]     = 'Unable to install the core module';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -175,8 +197,13 @@ class InstallCoreModuleStep extends InstallStep {
 				$this->resetL10Domain();
 
 				if ($ret) {
-					$gallery->debug(sprintf('Error: Unable to activate the core module, this ' .
-					'is the error stack trace; %s', $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Unable to activate the core module, this ' .
+							'is the error stack trace; %s',
+							$ret->getAsText()
+						)
+					);
 					$templateData['errors'][]     = 'Unable to activate the core module';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -190,8 +217,13 @@ class InstallCoreModuleStep extends InstallStep {
 				$ret = $storage->commitTransaction();
 
 				if ($ret) {
-					$gallery->debug(sprintf('Error: Unable to commit database transaction, this ' .
-					'is the error stack trace; %s', $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Unable to commit database transaction, this ' .
+							'is the error stack trace; %s',
+							$ret->getAsText()
+						)
+					);
 					$templateData['errors'][]     = 'Unable to commit database transaction';
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -239,10 +271,12 @@ class InstallCoreModuleStep extends InstallStep {
 	public function _createDebugLogHeader() {
 		global $gallery;
 
-		$gallery->debug("\n\n
+		$gallery->debug(
+			"\n\n
 --------------------------------------------------------
         Prepare installation of the core module
---------------------------------------------------------\n\n");
+--------------------------------------------------------\n\n"
+		);
 	}
 
 	// Adds some system information to the log
@@ -254,7 +288,8 @@ class InstallCoreModuleStep extends InstallStep {
 		$isSvnInstall = $galleryStub->getConfig('systemchecks.issvninstall');
 		$isSvnInstall = empty($isSvnInstall) ? 'No' : 'Yes';
 
-		$gallery->debug("\n
+		$gallery->debug(
+			"\n
 --------------------------------------------------------
 System and Gallery information:
 --------------------------------------------------------
@@ -270,6 +305,7 @@ System and Gallery information:
     Operating system:\t" . php_uname() . "
     Browser:\t " . GalleryUtilities::getServerVar('HTTP_USER_AGENT') . "
 --------------------------------------------------------\n\n
-");
+"
+		);
 	}
 }

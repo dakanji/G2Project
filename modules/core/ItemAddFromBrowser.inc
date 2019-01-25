@@ -133,35 +133,43 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 					switch ($form['error'][$i]) {
 						case UPLOAD_ERR_INI_SIZE:
-							$warning = $module->translate(array(
-								'text' => 'Input file %s exceeds maximum permitted file size',
-								'arg1' => $form['name'][$i],
-							));
+							$warning = $module->translate(
+								array(
+									'text' => 'Input file %s exceeds maximum permitted file size',
+									'arg1' => $form['name'][$i],
+								)
+							);
 
 							break;
 
 						case UPLOAD_ERR_FORM_SIZE:
-							$warning = $module->translate(array(
-								'text' => 'Input file %s exceeds file size specified in the form',
-								'arg1' => $form['name'][$i],
-							));
+							$warning = $module->translate(
+								array(
+									'text' => 'Input file %s exceeds file size specified in the form',
+									'arg1' => $form['name'][$i],
+								)
+							);
 
 							break;
 
 						case UPLOAD_ERR_PARTIAL:
-							$warning = $module->translate(array(
-								'text' => 'Input file %s was only partially uploaded',
-								'arg1' => $form['name'][$i],
-							));
+							$warning = $module->translate(
+								array(
+									'text' => 'Input file %s was only partially uploaded',
+									'arg1' => $form['name'][$i],
+								)
+							);
 
 							break;
 
 						default:
-							$warning = $module->translate(array(
-								'text' => 'Input file %s was not uploaded. Error %d',
-								'arg1' => $form['name'][$i],
-								'arg2' => $form['error'][$i],
-							));
+							$warning = $module->translate(
+								array(
+									'text' => 'Input file %s was not uploaded. Error %d',
+									'arg1' => $form['name'][$i],
+									'arg2' => $form['error'][$i],
+								)
+							);
 					}
 					$status['addedFiles'][] = array(
 						'fileName' => $form['name'][$i],
@@ -214,19 +222,23 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		foreach (array('totalUploadSize', 'maxFileSize') as $key) {
 			if ($$key >= 1024 * 1024) {
-				$$key = $module->translate(array(
-					'one'   => '%d megabyte',
-					'many'  => '%d megabytes',
-					'count' => (int)($$key / (1024 * 1024)),
-					'arg1'  => (int)($$key / (1024 * 1024)),
-				));
+				$$key = $module->translate(
+					array(
+						'one'   => '%d megabyte',
+						'many'  => '%d megabytes',
+						'count' => (int)($$key / (1024 * 1024)),
+						'arg1'  => (int)($$key / (1024 * 1024)),
+					)
+				);
 			} elseif ($$key >= 1024) {
-				$$key = $module->translate(array(
-					'one'   => '%d kilobytes',
-					'many'  => '%d kilobytes',
-					'count' => (int)($$key / (1024)),
-					'arg1'  => (int)($$key / (1024)),
-				));
+				$$key = $module->translate(
+					array(
+						'one'   => '%d kilobytes',
+						'many'  => '%d kilobytes',
+						'count' => (int)($$key / (1024)),
+						'arg1'  => (int)($$key / (1024)),
+					)
+				);
 			}
 		}
 

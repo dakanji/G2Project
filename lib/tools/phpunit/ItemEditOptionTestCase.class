@@ -82,14 +82,16 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 
 		if (isset($errorCode)) {
 			if (!$ret || ($ret->getErrorCode() & $errorCode) != $errorCode) {
-				$this->fail(sprintf(
-					'Expected error code (%s) but received (%s)',
-					implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
-					$ret ? implode(
-						' | ',
-						GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode())
-					) : 'success'
-				));
+				$this->fail(
+					sprintf(
+						'Expected error code (%s) but received (%s)',
+						implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
+						$ret ? implode(
+							' | ',
+							GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode())
+						) : 'success'
+					)
+				);
 			}
 		} elseif ($ret) {
 			return $ret;

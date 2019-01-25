@@ -225,10 +225,15 @@ class GalleryRepositoryIndex {
 		$indexPath = $this->getRepositoryCacheDir() . 'index.repository';
 
 		if (false === ($index = $platform->file_get_contents($indexPath))) {
-			return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__, sprintf(
-				'Error reading index [%s]',
-				$indexPath
-			));
+			return GalleryCoreApi::error(
+				ERROR_PLATFORM_FAILURE,
+				__FILE__,
+				__LINE__,
+				sprintf(
+					'Error reading index [%s]',
+					$indexPath
+				)
+			);
 		}
 
 		$ret = $this->unserializeIndex($index);

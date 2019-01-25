@@ -50,11 +50,13 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 			'module',
 			'rewrite',
 			'shortUrls',
-			serialize(array(
-				'php.Unit' => array(
-					'pattern' => 'p/%test%',
-				),
-			))
+			serialize(
+				array(
+					'php.Unit' => array(
+						'pattern' => 'p/%test%',
+					),
+				)
+			)
 		);
 
 		if ($ret) {

@@ -54,10 +54,12 @@ class GalleryEntityHelper_simple {
 			if (GalleryDataCache::containsKey($cacheKey)) {
 				$cached[$id] = GalleryDataCache::get($cacheKey);
 			} else {
-				$data =& GalleryDataCache::getFromDisk(array(
-					'type'   => 'entity',
-					'itemId' => $id,
-				));
+				$data =& GalleryDataCache::getFromDisk(
+					array(
+						'type'   => 'entity',
+						'itemId' => $id,
+					)
+				);
 
 				if (isset($data)) {
 					$cached[$id] =& $data;

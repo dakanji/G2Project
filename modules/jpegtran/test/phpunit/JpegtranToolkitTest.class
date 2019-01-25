@@ -210,10 +210,14 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'width'  => 60,
-			'height' => 323,
-		), $context, 'context');
+		$this->assertEquals(
+			array(
+				'width'  => 60,
+				'height' => 323,
+			),
+			$context,
+			'context'
+		);
 		$this->assertEquals('image/jpeg', $mimeType, 'output mimetype != input mimetype');
 	}
 
@@ -235,10 +239,14 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'width'  => 120,
-			'height' => 20,
-		), $context, 'context');
+		$this->assertEquals(
+			array(
+				'width'  => 120,
+				'height' => 20,
+			),
+			$context,
+			'context'
+		);
 		$this->assertEquals('image/jpeg', $mimeType, 'output mimetype != input mimetype');
 	}
 
@@ -279,10 +287,14 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			'width'  => 50,
-			'height' => 200,
-		), $context, 'context');
+		$this->assertEquals(
+			array(
+				'width'  => 50,
+				'height' => 200,
+			),
+			$context,
+			'context'
+		);
 		$this->assertEquals('image/pjpeg', $mimeType, 'output mimetype != input mimetype');
 	}
 
@@ -398,19 +410,21 @@ class JpegtranToolkitTestPlatform {
 		$stderr  = array();
 
 		switch (serialize($cmd)) {
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_jpegtranPath,
-					'-verbose',
-					'-copy',
-					'all',
-					'-rotate',
-					'90',
-					'-outfile',
-					'TEMPFILE',
-					$this->_testFile,
-				),
-			)):
+					array(
+						$this->_jpegtranPath,
+						'-verbose',
+						'-copy',
+						'all',
+						'-rotate',
+						'90',
+						'-outfile',
+						'TEMPFILE',
+						$this->_testFile,
+					),
+				)
+			):
 				// The test command
 				$stderr['normal'] = array(
 					"Independent JPEG Group's JPEGTRAN, version 7  27-Mar-1998",
@@ -452,31 +466,35 @@ class JpegtranToolkitTestPlatform {
 
 				return array(1, array(), $stderr[$this->_envId]);
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_jpegtranPath,
-					'-verbose',
-					'-copy',
-					'all',
-					'-crop',
-					'20x20+5+5',
-					'-outfile',
-					'TEMPFILE',
-					$this->_testFile,
-				),
-			)):
+					array(
+						$this->_jpegtranPath,
+						'-verbose',
+						'-copy',
+						'all',
+						'-crop',
+						'20x20+5+5',
+						'-outfile',
+						'TEMPFILE',
+						$this->_testFile,
+					),
+				)
+			):
 				// Test command for crop
 				return array(in_array($this->_envId, array('nonStandard', 'normal')), array(), array());
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_jpegtranPath,
-					'-verbose',
-					'-outfile',
-					'TEMPFILE',
-					'SOURCE',
-				),
-			)):
+					array(
+						$this->_jpegtranPath,
+						'-verbose',
+						'-outfile',
+						'TEMPFILE',
+						'SOURCE',
+					),
+				)
+			):
 				// The null operation to determine the dimensions for crop
 				return array(
 					in_array($this->_envId, array('nonStandard', 'normal')),
@@ -484,35 +502,39 @@ class JpegtranToolkitTestPlatform {
 					array('Start Of Frame 0xc0: width=100, height=800, components=3'),
 				);
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_jpegtranPath,
-					'-verbose',
-					'-copy',
-					'all',
-					'-crop',
-					'60x323+10+160',
-					'-outfile',
-					'TEMPFILE',
-					'SOURCE',
-				),
-			)):
+					array(
+						$this->_jpegtranPath,
+						'-verbose',
+						'-copy',
+						'all',
+						'-crop',
+						'60x323+10+160',
+						'-outfile',
+						'TEMPFILE',
+						'SOURCE',
+					),
+				)
+			):
 				// The crop operation that depends on the above "get dimensions" operation
 				return array(in_array($this->_envId, array('nonStandard', 'normal')), array(), array());
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_jpegtranPath,
-					'-verbose',
-					'-copy',
-					'all',
-					'-rotate',
-					'270',
-					'-outfile',
-					'TEMPFILE',
-					'SOURCE',
-				),
-			)):
+					array(
+						$this->_jpegtranPath,
+						'-verbose',
+						'-copy',
+						'all',
+						'-rotate',
+						'270',
+						'-outfile',
+						'TEMPFILE',
+						'SOURCE',
+					),
+				)
+			):
 				return array(
 					in_array(
 						$this->_envId,
@@ -522,19 +544,21 @@ class JpegtranToolkitTestPlatform {
 					array(),
 				);
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_jpegtranPath,
-					'-verbose',
-					'-copy',
-					'all',
-					'-crop',
-					'120x20+20+10',
-					'-outfile',
-					'TEMPFILE',
-					'SOURCE',
-				),
-			)):
+					array(
+						$this->_jpegtranPath,
+						'-verbose',
+						'-copy',
+						'all',
+						'-crop',
+						'120x20+20+10',
+						'-outfile',
+						'TEMPFILE',
+						'SOURCE',
+					),
+				)
+			):
 				// Crop operation that uses PHP's getImagesize() to get the dimensions
 				return array($this->_envId == 'hasGetImageSize', array(), array());
 		}

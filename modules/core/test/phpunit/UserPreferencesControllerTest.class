@@ -40,13 +40,15 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		$session                 =& $gallery->getSession();
 		$this->_currentLanguage  = $session->get('core.language');
-		list($ret, $this->_user) = $this->_createUser(array(
-			'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-			'email'          => 'test@email.com',
-			'fullName'       => 'Test User',
-			'language'       => 'te',
-			'locked'         => 0,
-		));
+		list($ret, $this->_user) = $this->_createUser(
+			array(
+				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+				'email'          => 'test@email.com',
+				'fullName'       => 'Test User',
+				'language'       => 'te',
+				'locked'         => 0,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -498,13 +500,15 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	public function testLockedUserPreferences() {
 		global $gallery;
 
-		list($ret, $this->_user2) = $this->_createUser(array(
-			'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-			'email'          => 'test2@email.com',
-			'fullName'       => 'Test User 2',
-			'language'       => 'te',
-			'locked'         => 1,
-		));
+		list($ret, $this->_user2) = $this->_createUser(
+			array(
+				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+				'email'          => 'test2@email.com',
+				'fullName'       => 'Test User 2',
+				'language'       => 'te',
+				'locked'         => 1,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

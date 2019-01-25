@@ -215,11 +215,13 @@ class ModRewriteHelper {
 			return array(null, true);
 		}
 
-		$baseUrlComponents = parse_url(preg_replace(
-			'{(install|upgrade)/index\.php.*}',
-			'',
-			$urlGenerator->getCurrentUrlDir(true)
-		));
+		$baseUrlComponents = parse_url(
+			preg_replace(
+				'{(install|upgrade)/index\.php.*}',
+				'',
+				$urlGenerator->getCurrentUrlDir(true)
+			)
+		);
 		$ret               = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
@@ -599,9 +601,11 @@ class ModRewriteHelper {
 				'module',
 				'rewrite',
 				'modrewrite.status',
-				serialize(array(
-					'needOptions' => false,
-				))
+				serialize(
+					array(
+						'needOptions' => false,
+					)
+				)
 			);
 
 			if ($ret) {
@@ -623,9 +627,11 @@ class ModRewriteHelper {
 				'module',
 				'rewrite',
 				'modrewrite.status',
-				serialize(array(
-					'needOptions' => true,
-				))
+				serialize(
+					array(
+						'needOptions' => true,
+					)
+				)
 			);
 
 			if ($ret) {

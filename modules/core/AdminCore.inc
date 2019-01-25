@@ -300,39 +300,47 @@ class AdminCoreView extends GalleryView {
 		$sessionTimeList = array();
 
 		foreach (array(15, 30, 45) as $minutes) {
-			$sessionTimeList[$minutes * 60] = $module->translate(array(
-				'one'   => '%d minute',
-				'many'  => '%d minutes',
-				'count' => $minutes,
-				'arg1'  => $minutes,
-			));
+			$sessionTimeList[$minutes * 60] = $module->translate(
+				array(
+					'one'   => '%d minute',
+					'many'  => '%d minutes',
+					'count' => $minutes,
+					'arg1'  => $minutes,
+				)
+			);
 		}
 
 		foreach (array(1, 6, 12) as $hours) {
-			$sessionTimeList[$hours * 3600] = $module->translate(array(
-				'one'   => '%d hour',
-				'many'  => '%d hours',
-				'count' => $hours,
-				'arg1'  => $hours,
-			));
+			$sessionTimeList[$hours * 3600] = $module->translate(
+				array(
+					'one'   => '%d hour',
+					'many'  => '%d hours',
+					'count' => $hours,
+					'arg1'  => $hours,
+				)
+			);
 		}
 
 		foreach (array(1, 2, 3, 4, 5, 6) as $days) {
-			$sessionTimeList[$days * 86400] = $module->translate(array(
-				'one'   => '%d day',
-				'many'  => '%d days',
-				'count' => $days,
-				'arg1'  => $days,
-			));
+			$sessionTimeList[$days * 86400] = $module->translate(
+				array(
+					'one'   => '%d day',
+					'many'  => '%d days',
+					'count' => $days,
+					'arg1'  => $days,
+				)
+			);
 		}
 
 		foreach (array(1, 2, 3) as $weeks) {
-			$sessionTimeList[$weeks * 7 * 86400] = $module->translate(array(
-				'one'   => '%d week',
-				'many'  => '%d weeks',
-				'count' => $weeks,
-				'arg1'  => $weeks,
-			));
+			$sessionTimeList[$weeks * 7 * 86400] = $module->translate(
+				array(
+					'one'   => '%d week',
+					'many'  => '%d weeks',
+					'count' => $weeks,
+					'arg1'  => $weeks,
+				)
+			);
 		}
 		$sessionTimeList[25 * 365 * 86400] = $module->translate('forever');
 

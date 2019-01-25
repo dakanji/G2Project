@@ -341,10 +341,13 @@ class Smarty_Compiler extends Smarty {
 						// remove trailing whitespaces from the last text_block
 						$text_blocks[$j] = rtrim($text_blocks[$j]);
 					}
-					$text_blocks[$j] = "<?php echo '" . strtr($text_blocks[$j], array(
-						"'"  => "\'",
-						'\\' => '\\\\',
-					)) . "'; ?>";
+					$text_blocks[$j] = "<?php echo '" . strtr(
+						$text_blocks[$j],
+						array(
+							"'"  => "\'",
+							'\\' => '\\\\',
+						)
+					) . "'; ?>";
 
 					if ($compiled_tags[$j] == '{/strip}') {
 						$compiled_tags[$j] = "\n"; /* slurped by php, but necessary
@@ -412,10 +415,13 @@ class Smarty_Compiler extends Smarty {
 
 		// put header at the top of the compiled template
 		$template_header  = '<?php /* Smarty version ' . $this->_version . ', created on ' . strftime('%Y-%m-%d %H:%M:%S') . "\n";
-		$template_header .= '         compiled from ' . strtr(urlencode($resource_name), array(
-			'%2F' => '/',
-			'%3A' => ':',
-		)) . " */ ?>\n";
+		$template_header .= '         compiled from ' . strtr(
+			urlencode($resource_name),
+			array(
+				'%2F' => '/',
+				'%3A' => ':',
+			)
+		) . " */ ?>\n";
 
 		// Emit code to load needed plugins.
 		$this->_plugins_code = '';
@@ -425,10 +431,13 @@ class Smarty_Compiler extends Smarty {
 
 			foreach ($this->_plugin_info as $plugin_type => $plugins) {
 				foreach ($plugins as $plugin_name => $plugin_info) {
-					$_plugins_params .= "array('$plugin_type', '$plugin_name', '" . strtr($plugin_info[0], array(
-						"'"  => "\\'",
-						'\\' => '\\\\',
-					)) . "', $plugin_info[1], ";
+					$_plugins_params .= "array('$plugin_type', '$plugin_name', '" . strtr(
+						$plugin_info[0],
+						array(
+							"'"  => "\\'",
+							'\\' => '\\\\',
+						)
+					) . "', $plugin_info[1], ";
 					$_plugins_params .= $plugin_info[2] ? 'true),' : 'false),';
 				}
 			}
@@ -462,10 +471,14 @@ class Smarty_Compiler extends Smarty {
 		}
 
 		// Split tag into two three parts: command, command modifiers and the arguments.
-		if (! preg_match('~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
+		if (! preg_match(
+			'~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
 				. '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
-                    ~xs', $template_tag, $match)
+                    ~xs',
+			$template_tag,
+			$match
+		)
 		) {
 			$this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
 		}
@@ -617,10 +630,13 @@ class Smarty_Compiler extends Smarty {
 						return '';
 
 					case 3: // literal
-						return "<?php echo '" . strtr($block[2], array(
-							"'"  => "\'",
-							'\\' => '\\\\',
-						)) . "'; ?>" . $this->_additional_newline;
+						return "<?php echo '" . strtr(
+							$block[2],
+							array(
+								"'"  => "\'",
+								'\\' => '\\\\',
+							)
+						) . "'; ?>" . $this->_additional_newline;
 
 					case 4: // php
 						if ($this->security && !$this->security_settings['PHP_TAGS']) {
@@ -1351,13 +1367,17 @@ class Smarty_Compiler extends Smarty {
 	public function _compile_if_tag($tag_args, $elseif = false) {
 
 		// Tokenize args for 'if' tag.
-		preg_match_all('~(?>
+		preg_match_all(
+			'~(?>
                 ' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)? | # valid object call
                 ' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?    | # var or quoted string
                 \-?0[xX][0-9a-fA-F]+|\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@    | # valid non-word token
                 \b\w+\b                                                        | # valid word token
                 \S+                                                           # anything else
-                )~x', $tag_args, $match);
+                )~x',
+			$tag_args,
+			$match
+		);
 
 		$tokens = $match[0];
 
@@ -1646,10 +1666,14 @@ class Smarty_Compiler extends Smarty {
 	public function _parse_attrs($tag_args) {
 
 		// Tokenize tag attributes.
-		preg_match_all('~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . ' | (?>[^"\'=\s]+)
+		preg_match_all(
+			'~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . ' | (?>[^"\'=\s]+)
                          )+ |
                          [=]
-                        ~x', $tag_args, $match);
+                        ~x',
+			$tag_args,
+			$match
+		);
 		$tokens = $match[0];
 
 		$attrs = array();
@@ -1800,10 +1824,15 @@ class Smarty_Compiler extends Smarty {
 			return $this->_parse_section_prop($val);
 		} elseif (!in_array($val, $this->_permitted_tokens) && !is_numeric($val)) {
 			// literal string
-			return $this->_expand_quoted_text('"' . strtr($val, array(
-				'\\' => '\\\\',
-				'"'  => '\\"',
-			)) . '"');
+			return $this->_expand_quoted_text(
+				'"' . strtr(
+					$val,
+					array(
+						'\\' => '\\\\',
+						'"'  => '\\"',
+					)
+				) . '"'
+			);
 		}
 
 		return $val;
@@ -2439,10 +2468,13 @@ class Smarty_Compiler extends Smarty {
 	 * @return string
 	 */
 	public function _quote_replace($string) {
-		return strtr($string, array(
-			'\\' => '\\\\',
-			'$'  => '\\$',
-		));
+		return strtr(
+			$string,
+			array(
+				'\\' => '\\\\',
+				'$'  => '\\$',
+			)
+		);
 	}
 
 	/**

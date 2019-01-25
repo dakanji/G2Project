@@ -260,11 +260,16 @@ class AdminFfmpegController extends GalleryController {
 
 	public function _removeWatermark(&$thumbnail) {
 		$operations = $thumbnail->getDerivativeOperations();
-		$thumbnail->setDerivativeOperations(rtrim(preg_replace(
-			'#(^|;)(composite\|[^;]*filmreel.png.*?(;|$))+#',
-			'$1',
-			$operations
-		), ';'));
+		$thumbnail->setDerivativeOperations(
+			rtrim(
+				preg_replace(
+					'#(^|;)(composite\|[^;]*filmreel.png.*?(;|$))+#',
+					'$1',
+					$operations
+				),
+				';'
+			)
+		);
 	}
 }
 

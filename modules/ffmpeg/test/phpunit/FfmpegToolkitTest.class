@@ -532,9 +532,13 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($results, 'video/avi', 'mime after offset');
-		$this->assertEquals(array(
-			'ffmpeg.offset' => '1.2',
-		), $context, 'offset');
+		$this->assertEquals(
+			array(
+				'ffmpeg.offset' => '1.2',
+			),
+			$context,
+			'offset'
+		);
 
 		list($ret, $results, $context) = $this->_toolkit->performOperation(
 			'video/avi',
@@ -567,9 +571,13 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($results, 'video/avi', 'mime after audiochannels');
-		$this->assertEquals(array(
-			'audioChannels' => '2',
-		), $context, 'AudioChannels');
+		$this->assertEquals(
+			array(
+				'audioChannels' => '2',
+			),
+			$context,
+			'AudioChannels'
+		);
 	}
 
 	public function testPerformSetAudioRate() {
@@ -586,9 +594,13 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($results, 'video/avi', 'mime after audiorate');
-		$this->assertEquals(array(
-			'sampleRate' => '11025',
-		), $context, 'audiorate');
+		$this->assertEquals(
+			array(
+				'sampleRate' => '11025',
+			),
+			$context,
+			'audiorate'
+		);
 	}
 
 	public function testPerformConvertFlv() {
@@ -636,9 +648,11 @@ class FfmpegToolkitTestPlatform {
 		$stderr  = array();
 
 		switch (serialize($cmd)) {
-			case serialize(array(
-				array($this->_ffmpegPath, '-i', 'testGetProperties1.avi', '-vstats'),
-			)):
+			case serialize(
+				array(
+					array($this->_ffmpegPath, '-i', 'testGetProperties1.avi', '-vstats'),
+				)
+			):
 			case serialize(array(array($this->_ffmpegPath, '-i', 'BOGUS', '-vstats'))):
 				$stderr[] = "Input #0, mov, from '../data/Sample.mov':";
 				$stderr[] = '  Duration: 00:00:03.1, bitrate: 193 kb/s';
@@ -894,19 +908,21 @@ class FfmpegToolkitTestPlatform {
 
 				return array(1, $results, $stderr);
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_ffmpegPath,
-					'-i',
-					'testPerformOperation1.avi',
-					'-f',
-					'mjpeg',
-					'-t',
-					'0.001',
-					'-y',
-					'TEMPFILE',
-				),
-			)):
+					array(
+						$this->_ffmpegPath,
+						'-i',
+						'testPerformOperation1.avi',
+						'-f',
+						'mjpeg',
+						'-t',
+						'0.001',
+						'-y',
+						'TEMPFILE',
+					),
+				)
+			):
 				$stderr[] = 'Input #0, avi, from \'testPerformOperation1.avi\':';
 				$stderr[] = '  Duration: 00:00:04.0, bitrate: 329 kb/s';
 				$stderr[] = '  Stream #0.0: Video: mjpeg, 160x120, 15.00 fps';
@@ -920,21 +936,23 @@ class FfmpegToolkitTestPlatform {
 
 				return array(1, $results, $stderr);
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_ffmpegPath,
-					'-i',
-					'testPerformOperation2.avi',
-					'-ss',
-					'1.2',
-					'-f',
-					'mjpeg',
-					'-t',
-					'0.001',
-					'-y',
-					'TEMPFILE',
-				),
-			)):
+					array(
+						$this->_ffmpegPath,
+						'-i',
+						'testPerformOperation2.avi',
+						'-ss',
+						'1.2',
+						'-f',
+						'mjpeg',
+						'-t',
+						'0.001',
+						'-y',
+						'TEMPFILE',
+					),
+				)
+			):
 				$stderr[] = 'Input #0, avi, from \'testPerformOperation2.avi\':';
 				$stderr[] = '  Duration: 00:00:04.0, bitrate: 329 kb/s';
 				$stderr[] = '  Stream #0.0: Video: mjpeg, 160x120, 15.00 fps';
@@ -948,15 +966,17 @@ class FfmpegToolkitTestPlatform {
 
 				return array(1, $results, $stderr);
 
-			case serialize(array(
+			case serialize(
 				array(
-					$this->_ffmpegPath,
-					'-i',
-					'testPerformOperation1.avi',
-					'-y',
-					'TEMPFILE.flv',
-				),
-			)):
+					array(
+						$this->_ffmpegPath,
+						'-i',
+						'testPerformOperation1.avi',
+						'-y',
+						'TEMPFILE.flv',
+					),
+				)
+			):
 				$stderr[] = 'Input #0, avi, from \'testPerformOperation2.avi\':';
 				$stderr[] = '  Duration: 00:00:04.0, bitrate: 329 kb/s';
 				$stderr[] = '  Stream #0.0: Video: mjpeg, 160x120, 15.00 fps';

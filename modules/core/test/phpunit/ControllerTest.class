@@ -298,30 +298,38 @@ class ControllerTest extends GalleryTestCase {
 
 		$this->_becomeGuestUser();
 		list($ret, $results) = $galleryController->permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
-		$this->assertEquals(array(
-			'redirect' => array(
-				'view'    => 'core.UserAdmin',
-				'subView' => 'core.UserLogin',
-				'return'  => true,
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'core.UserLogin',
+					'return'  => true,
+				),
+				'status'   => array(),
+				'error'    => array(),
 			),
-			'status'   => array(),
-			'error'    => array(),
-		), $results, 'Unexpected result');
+			$results,
+			'Unexpected result'
+		);
 	}
 
 	public function testPermissionCheckAuthTimeoutExpired() {
 		$galleryController = new GalleryController();
 
 		list($ret, $results) = $galleryController->permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
-		$this->assertEquals(array(
-			'redirect' => array(
-				'view'    => 'core.UserAdmin',
-				'subView' => 'core.UserLogin',
-				'return'  => true,
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'core.UserLogin',
+					'return'  => true,
+				),
+				'status'   => array(),
+				'error'    => array(),
 			),
-			'status'   => array(),
-			'error'    => array(),
-		), $results, 'Unexpected result');
+			$results,
+			'Unexpected result'
+		);
 	}
 }
 

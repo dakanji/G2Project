@@ -83,13 +83,16 @@ class WebHelper_simple {
 			$headerLines[] = "$headerKey: $headerValue";
 		}
 
-		$ok = $platform->fwrite($fd, sprintf(
-			"%s %s HTTP/1.0\r\n%s\r\n\r\n%s",
-			$requestMethod,
-			$urlComponents['uri'],
-			implode("\r\n", $headerLines),
-			$postDataRaw
-		));
+		$ok = $platform->fwrite(
+			$fd,
+			sprintf(
+				"%s %s HTTP/1.0\r\n%s\r\n\r\n%s",
+				$requestMethod,
+				$urlComponents['uri'],
+				implode("\r\n", $headerLines),
+				$postDataRaw
+			)
+		);
 
 		if (!$ok) {
 			// Zero bytes written or false was returned
@@ -288,13 +291,16 @@ class WebHelper_simple {
 			$headerLines[] = $key . ': ' . $value;
 		}
 
-		$success = $platform->fwrite($handle, sprintf(
-			"%s %s HTTP/1.0\r\n%s\r\n\r\n%s",
-			$requestMethod,
-			$urlComponents['uri'],
-			implode("\r\n", $headerLines),
-			$requestBody
-		));
+		$success = $platform->fwrite(
+			$handle,
+			sprintf(
+				"%s %s HTTP/1.0\r\n%s\r\n\r\n%s",
+				$requestMethod,
+				$urlComponents['uri'],
+				implode("\r\n", $headerLines),
+				$requestBody
+			)
+		);
 
 		if (!$success) {
 			// Zero bytes written or false was returned

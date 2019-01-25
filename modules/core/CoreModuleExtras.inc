@@ -63,8 +63,10 @@ class CoreModuleExtras {
 				$currentVersion = '0';
 			}
 		}
-		$gallery->debug('Old version: ' . $currentVersion
-		. '   New version: ' . $module->getVersion());
+		$gallery->debug(
+			'Old version: ' . $currentVersion
+			. '   New version: ' . $module->getVersion()
+		);
 		$currentExactVersion = $currentVersion;
 		// Enable upgrade from any patch release of earlier versions
 		$currentVersion = preg_replace('/^(1\.[0-3]\.0)\.\d+$/', '$1.x', $currentVersion);
@@ -223,30 +225,36 @@ class CoreModuleExtras {
 					'format.time'               => '%X',
 					'format.datetime'           => '%c',
 					'repository.updateTime'     => '0',
-					'acceleration'              => serialize(array(
-						'guest' => array(
-							'type' => 'none',
-						),
-						'user' => array(
-							'type' => 'none',
-						),
-					)),
+					'acceleration'              => serialize(
+						array(
+							'guest' => array(
+								'type' => 'none',
+							),
+							'user' => array(
+								'type' => 'none',
+							),
+						)
+					),
 					'smarty.compile_check'      => '0',
 					'validation.level'          => 'MEDIUM',
-					'core.repositories'         => serialize(array(
-						'released' => 1,
-					)),
+					'core.repositories'         => serialize(
+						array(
+							'released' => 1,
+						)
+					),
 				) as $key => $value) {
 					if (!isset($param[$key])) {
 						$ret = $module->setParameter($key, (string)$value);
 
 						if ($ret) {
-							$gallery->debug(sprintf(
-								'Error: Failed to set core module parameter %s, ' .
-								'this is the error stack trace: %s',
-								$key,
-								$ret->getAsText()
-							));
+							$gallery->debug(
+								sprintf(
+									'Error: Failed to set core module parameter %s, ' .
+									'this is the error stack trace: %s',
+									$key,
+									$ret->getAsText()
+								)
+							);
 
 							return $ret;
 						}
@@ -270,8 +278,13 @@ class CoreModuleExtras {
 				$defaultThemeId = 'matrix';
 
 				if (empty($themeList[$defaultThemeId]['available'])) {
-					$gallery->debug(sprintf('Warning: %s theme is not available. Trying to fall ' .
-					'back to another theme.', $defaultThemeId));
+					$gallery->debug(
+						sprintf(
+							'Warning: %s theme is not available. Trying to fall ' .
+							'back to another theme.',
+							$defaultThemeId
+						)
+					);
 					$defaultThemeId = null;
 
 					foreach ($themeList as $themeId => $themeInfo) {
@@ -301,8 +314,14 @@ class CoreModuleExtras {
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $defaultThemeId);
 
 				if ($ret) {
-					$gallery->debug(sprintf('Error: Failed to load %s theme, this is the error ' .
-					'stack trace; %s', $defaultThemeId, $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to load %s theme, this is the error ' .
+							'stack trace; %s',
+							$defaultThemeId,
+							$ret->getAsText()
+						)
+					);
 
 					return $ret;
 				}
@@ -318,8 +337,14 @@ class CoreModuleExtras {
 				$ret = $theme->installOrUpgrade();
 
 				if ($ret) {
-					$gallery->debug(sprintf('Error: Failed to installOrUpgrade %s theme, this is ' .
-					'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to installOrUpgrade %s theme, this is ' .
+							'the error stack trace; %s',
+							$defaultThemeId,
+							$ret->getAsText()
+						)
+					);
 
 					return $ret;
 				}
@@ -335,8 +360,14 @@ class CoreModuleExtras {
 				list($ret, $ignored) = $theme->activate(false);
 
 				if ($ret) {
-					$gallery->debug(sprintf('Error: Failed to activate %s theme, this is ' .
-					'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to activate %s theme, this is ' .
+							'the error stack trace; %s',
+							$defaultThemeId,
+							$ret->getAsText()
+						)
+					);
 
 					return $ret;
 				}
@@ -411,11 +442,13 @@ class CoreModuleExtras {
 					);
 
 					if ($ret) {
-						$gallery->debug(sprintf(
-							'Error: Failed to register a permission, ' .
-							'this is the error stack trace: %s',
-							$ret->getAsText()
-						));
+						$gallery->debug(
+							sprintf(
+								'Error: Failed to register a permission, ' .
+								'this is the error stack trace: %s',
+								$ret->getAsText()
+							)
+						);
 
 						return $ret;
 					}
@@ -441,12 +474,14 @@ class CoreModuleExtras {
 					$ret = call_user_func(array('CoreModuleExtras', $func), $module);
 
 					if ($ret) {
-						$gallery->debug(sprintf(
-							'Error: %s returned an error, ' .
-							'this is the error stack trace: %s',
-							$func,
-							$ret->getAsText()
-						));
+						$gallery->debug(
+							sprintf(
+								'Error: %s returned an error, ' .
+								'this is the error stack trace: %s',
+								$func,
+								$ret->getAsText()
+							)
+						);
 
 						return $ret;
 					}
@@ -466,8 +501,13 @@ class CoreModuleExtras {
 				$ret = GalleryMimeTypeHelper_advanced::initializeMimeTypes();
 
 				if ($ret) {
-					$gallery->debug(sprintf('Error: Failed to initialize MIME types, this is ' .
-					'the error stack trace: %s', $ret->getAsText()));
+					$gallery->debug(
+						sprintf(
+							'Error: Failed to initialize MIME types, this is ' .
+							'the error stack trace: %s',
+							$ret->getAsText()
+						)
+					);
 
 					return $ret;
 				}
@@ -756,11 +796,15 @@ class CoreModuleExtras {
 				';
 
 				// Determine how many items we are going to process for our status message
-				list($ret, $results) = $gallery->search($totalRowsQuery, array(), array(
-					'limit' => array(
-						'count' => 1,
-					),
-				));
+				list($ret, $results) = $gallery->search(
+					$totalRowsQuery,
+					array(),
+					array(
+						'limit' => array(
+							'count' => 1,
+						),
+					)
+				);
 
 				if ($ret) {
 					return $ret;
@@ -892,11 +936,13 @@ class CoreModuleExtras {
 						$itemsProcessed += $count;
 
 						$ret = $statusMonitor->renderStatusMessage(
-							$module->translate(array(
-								'text' => 'Upgrading permissions (%d items complete, %d remaining)',
-								'arg1' => $itemsProcessed,
-								'arg2' => $totalPermissionItems - $itemsProcessed,
-							)),
+							$module->translate(
+								array(
+									'text' => 'Upgrading permissions (%d items complete, %d remaining)',
+									'arg1' => $itemsProcessed,
+									'arg2' => $totalPermissionItems - $itemsProcessed,
+								)
+							),
 							'',
 							$itemsProcessed / $totalPermissionItems
 						);
@@ -1391,14 +1437,16 @@ class CoreModuleExtras {
 
 								if ($itemsSaved % $saveProgressStepSize == 0) {
 									$ret = $statusMonitor->renderStatusMessage(
-										$module->translate(array(
-											'text' => 'Detecting broken derivatives, saving item '
-											. '%d of %d (%d derivatives complete, %d remaining)',
-											'arg1' => $itemsSaved,
-											'arg2' => sizeof($brokenDerivatives),
-											'arg3' => $itemsProcessed,
-											'arg4' => $totalDerivatives - $itemsProcessed,
-										)),
+										$module->translate(
+											array(
+												'text' => 'Detecting broken derivatives, saving item '
+												. '%d of %d (%d derivatives complete, %d remaining)',
+												'arg1' => $itemsSaved,
+												'arg2' => sizeof($brokenDerivatives),
+												'arg3' => $itemsProcessed,
+												'arg4' => $totalDerivatives - $itemsProcessed,
+											)
+										),
 										'',
 										$itemsProcessed / $totalDerivatives
 									);
@@ -1995,14 +2043,16 @@ class CoreModuleExtras {
 				// Fall Through
 			case '1.0.19':
 				// Add page level caching and the GalleryCache map
-				$acceleration = serialize(array(
-					'guest' => array(
-						'type' => 'none',
-					),
-					'user' => array(
-						'type' => 'none',
-					),
-				));
+				$acceleration = serialize(
+					array(
+						'guest' => array(
+							'type' => 'none',
+						),
+						'user' => array(
+							'type' => 'none',
+						),
+					)
+				);
 				$ret          = GalleryCoreApi::setPluginParameter(
 					'module',
 					'core',
@@ -2036,10 +2086,12 @@ class CoreModuleExtras {
 					$iteration     = 1;
 					// Show a progress bar while removing the files
 					$ret = $statusMonitor->renderStatusMessage(
-						$module->translate(array(
-							'text' => 'Deleting old session files (iteration %d)',
-							'arg1' => $iteration,
-						)),
+						$module->translate(
+							array(
+								'text' => 'Deleting old session files (iteration %d)',
+								'arg1' => $iteration,
+							)
+						),
 						'',
 						0
 					);
@@ -2093,10 +2145,12 @@ class CoreModuleExtras {
 					$platform->closedir($dir);
 					$platform->rmdir($sessionsDir);
 					$ret = $statusMonitor->renderStatusMessage(
-						$module->translate(array(
-							'text' => 'Deleting old session files (iteration %d)',
-							'arg1' => $iteration,
-						)),
+						$module->translate(
+							array(
+								'text' => 'Deleting old session files (iteration %d)',
+								'arg1' => $iteration,
+							)
+						),
 						'',
 						1
 					);
@@ -2721,9 +2775,14 @@ class CoreModuleExtras {
 				// Fall Through
 			case '1.1.16':
 				// Initialize multiple repositories
-				$ret = $module->setParameter('core.repositories', serialize(array(
-					'released' => 1,
-				)));
+				$ret = $module->setParameter(
+					'core.repositories',
+					serialize(
+						array(
+							'released' => 1,
+						)
+					)
+				);
 
 				if ($ret) {
 					return $ret;

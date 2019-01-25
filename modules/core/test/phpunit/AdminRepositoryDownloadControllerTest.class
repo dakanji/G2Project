@@ -153,16 +153,18 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			),
 			array(
 				null,
-				new UnitTestStorageSearchResults(array(
-					array(0, '12345', '11111', 'base'),
-					array(0, '12345', '11111', 'lang-en_GB'),
-					array(0, '12345', '11111', 'lang-es'),
-					array(0, '12345', '11111', 'lang-es_MX'),
-					array(0, '12345', '11111', 'lang-es_AR'),
-					array(0, '12345', '11111', 'lang-hu'),
-					array(0, '12345', '11111', 'lang-pt_BR'),
-					array(0, '12345', '11111', 'lang-pt_PT'),
-				)),
+				new UnitTestStorageSearchResults(
+					array(
+						array(0, '12345', '11111', 'base'),
+						array(0, '12345', '11111', 'lang-en_GB'),
+						array(0, '12345', '11111', 'lang-es'),
+						array(0, '12345', '11111', 'lang-es_MX'),
+						array(0, '12345', '11111', 'lang-es_AR'),
+						array(0, '12345', '11111', 'lang-hu'),
+						array(0, '12345', '11111', 'lang-pt_BR'),
+						array(0, '12345', '11111', 'lang-pt_PT'),
+					)
+				),
 			)
 		);
 

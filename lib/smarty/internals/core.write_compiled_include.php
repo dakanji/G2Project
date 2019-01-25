@@ -28,10 +28,13 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 
 	// convert the matched php-code to functions
 	$_include_compiled  = '<?php /* Smarty version ' . $smarty->_version . ', created on ' . strftime('%Y-%m-%d %H:%M:%S') . "\n";
-	$_include_compiled .= '         compiled from ' . strtr(urlencode($params['resource_name']), array(
-		'%2F' => '/',
-		'%3A' => ':',
-	)) . " */\n\n";
+	$_include_compiled .= '         compiled from ' . strtr(
+		urlencode($params['resource_name']),
+		array(
+			'%2F' => '/',
+			'%3A' => ':',
+		)
+	) . " */\n\n";
 
 	$_compile_path = $params['include_file_path'];
 
@@ -41,7 +44,7 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 	$_include_compiled .= $params['plugins_code'];
 	$_include_compiled .= '<?php';
 
-	$this_varname = ((double)phpversion() >= 5.0) ? '_smarty' : 'this';
+	$this_varname = ((float)phpversion() >= 5.0) ? '_smarty' : 'this';
 
 	for ($_i = 0, $_for_max = count($_match_source); $_i < $_for_max; $_i++) {
 		$_match =& $_match_source[$_i];

@@ -191,10 +191,14 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
-				$title                   = smarty_modifier_escape(GalleryUtilities::markup(
-					$item->getTitle(),
-					'strip'
-				), 'javascript', 'UTF-8');
+				$title                   = smarty_modifier_escape(
+					GalleryUtilities::markup(
+						$item->getTitle(),
+						'strip'
+					),
+					'javascript',
+					'UTF-8'
+				);
 				list($thisItemId, $page) = GalleryUtilities::getRequestVariables('itemId', 'page');
 				// If no page item defined, we will navigate to the parent of the deleted item
 				if (empty($thisItemId)) {
@@ -599,10 +603,14 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
-				$title = smarty_modifier_escape(GalleryUtilities::markup(
-					$item->getTitle(),
-					'strip'
-				), 'javascript', 'UTF-8');
+				$title = smarty_modifier_escape(
+					GalleryUtilities::markup(
+						$item->getTitle(),
+						'strip'
+					),
+					'javascript',
+					'UTF-8'
+				);
 				// This is ItemAdmin view, hence page item is the one we are deleting
 				$thisItemId   = $itemId;
 				$urlGenerator =& $gallery->getUrlGenerator();

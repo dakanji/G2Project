@@ -312,9 +312,12 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Use invalid inputs
 		GalleryUtilities::putRequestVariable('itemId', $this->_getRootId());
-		GalleryUtilities::putRequestVariable('form[selectedIds]', array(
-			$this->_getRootId() => 1,
-		));
+		GalleryUtilities::putRequestVariable(
+			'form[selectedIds]',
+			array(
+				$this->_getRootId() => 1,
+			)
+		);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		// Perform the request and verify that we failed

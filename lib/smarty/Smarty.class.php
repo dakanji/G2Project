@@ -1352,11 +1352,14 @@ class Smarty {
 	 */
 	public function config_load($file, $section = null, $scope = 'global') {
 		include_once $this->_get_plugin_filepath('function', 'config_load');
-		smarty_function_config_load(array(
-			'file'    => $file,
-			'section' => $section,
-			'scope'   => $scope,
-		), $this);
+		smarty_function_config_load(
+			array(
+				'file'    => $file,
+				'section' => $section,
+				'scope'   => $scope,
+			),
+			$this
+		);
 	}
 
 	/**
@@ -1471,10 +1474,16 @@ class Smarty {
 			// if a _cache_serial was set, we also have to write an include-file:
 			if ($this->_cache_include_info) {
 				include_once SMARTY_CORE_DIR . 'core.write_compiled_include.php';
-				smarty_core_write_compiled_include(array_merge($this->_cache_include_info, array(
-					'compiled_content' => $_compiled_content,
-					'resource_name'    => $resource_name,
-				)), $this);
+				smarty_core_write_compiled_include(
+					array_merge(
+						$this->_cache_include_info,
+						array(
+							'compiled_content' => $_compiled_content,
+							'resource_name'    => $resource_name,
+						)
+					),
+					$this
+				);
 			}
 
 			$_params = array(

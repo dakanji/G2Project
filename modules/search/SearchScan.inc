@@ -239,14 +239,17 @@ class SearchScanView extends GalleryView {
 		$slideshowAvailable = !empty($ids);
 
 		// Render the HTML body
-		$template->setVariable('SearchScan', array(
-			'controller'         => 'search.SearchScan',
-			'modules'            => $modules,
-			'searchResults'      => $searchResults,
-			'thumbnails'         => $thumbnails,
-			'items'              => $items,
-			'slideshowAvailable' => $slideshowAvailable,
-		));
+		$template->setVariable(
+			'SearchScan',
+			array(
+				'controller'         => 'search.SearchScan',
+				'modules'            => $modules,
+				'searchResults'      => $searchResults,
+				'thumbnails'         => $thumbnails,
+				'items'              => $items,
+				'slideshowAvailable' => $slideshowAvailable,
+			)
+		);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 

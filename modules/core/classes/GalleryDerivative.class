@@ -695,10 +695,12 @@ class GalleryDerivative extends GalleryChildEntity {
 	public function fetchPath() {
 		global $gallery;
 
-		$cacheFile = GalleryDataCache::getCachePath(array(
-			'type'   => 'derivative',
-			'itemId' => $this->getId(),
-		));
+		$cacheFile = GalleryDataCache::getCachePath(
+			array(
+				'type'   => 'derivative',
+				'itemId' => $this->getId(),
+			)
+		);
 
 		return array(null, $cacheFile);
 	}

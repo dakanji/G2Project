@@ -353,11 +353,13 @@ class GalleryDataCache {
 			}
 
 			foreach (array_keys($pluginStatus) as $pluginId) {
-				GalleryDataCache::removeFromDisk(array(
-					'type'   => $pathInfo['type'],
-					'id'     => $pluginId,
-					'itemId' => $pathInfo['itemId'],
-				));
+				GalleryDataCache::removeFromDisk(
+					array(
+						'type'   => $pathInfo['type'],
+						'id'     => $pluginId,
+						'itemId' => $pathInfo['itemId'],
+					)
+				);
 			}
 		}
 	}
@@ -848,9 +850,12 @@ class GalleryDataCache {
 	 * @return GalleryStatus a status code
 	 */
 	public static function removePageData($itemIds) {
-		$ret = GalleryCoreApi::removeMapEntry('GalleryCacheMap', array(
-			'itemId' => $itemIds,
-		));
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryCacheMap',
+			array(
+				'itemId' => $itemIds,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

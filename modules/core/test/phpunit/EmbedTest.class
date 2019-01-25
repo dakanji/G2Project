@@ -193,10 +193,12 @@ class EmbedTest extends GalleryTestCase {
 		$firstCacheKey  = 'GalleryEmbed::initFirstPass';
 		$secondCacheKey = 'GalleryEmbed::initSecondPass';
 		// Init a first time
-		$ret = GalleryEmbed::init(array(
-			'embedUri' => '/cms/index.php?mod=g2',
-			'g2Uri'    => '/',
-		));
+		$ret = GalleryEmbed::init(
+			array(
+				'embedUri' => '/cms/index.php?mod=g2',
+				'g2Uri'    => '/',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -222,10 +224,12 @@ class EmbedTest extends GalleryTestCase {
 		 * Now do what you shouldn't do, call init a second time. It shouldn't call initFirstPass
 		 * again, i.e. the generated urls should be the same as before.
 		 */
-		$ret = GalleryEmbed::init(array(
-			'embedUri' => '/cms2nd/index.php?mod=g2',
-			'g2Uri'    => '/',
-		));
+		$ret = GalleryEmbed::init(
+			array(
+				'embedUri' => '/cms2nd/index.php?mod=g2',
+				'g2Uri'    => '/',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -288,9 +292,11 @@ class EmbedTest extends GalleryTestCase {
 		);
 
 		// we set fullInit = false, only InitFirstPass should be called
-		$ret = GalleryEmbed::init(array(
-			'fullInit' => false,
-		));
+		$ret = GalleryEmbed::init(
+			array(
+				'fullInit' => false,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -315,9 +321,11 @@ class EmbedTest extends GalleryTestCase {
 			'GDC reset did not delete GalleryEmbed:initSecondPass key.'
 		);
 		// we set fullInit = true, both should be called
-		$ret = GalleryEmbed::init(array(
-			'fullInit' => true,
-		));
+		$ret = GalleryEmbed::init(
+			array(
+				'fullInit' => true,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -673,17 +681,21 @@ class EmbedTest extends GalleryTestCase {
 	public function testCheckApiVersionOnInit() {
 		$apiVersion     = GalleryEmbed::getApiVersion();
 		$apiVersion[1] -= 2;
-		$ret            = GalleryEmbed::init(array(
-			'apiVersion' => $apiVersion,
-		));
+		$ret            = GalleryEmbed::init(
+			array(
+				'apiVersion' => $apiVersion,
+			)
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 		$apiVersion[1] += 7;
-		$ret            = GalleryEmbed::init(array(
-			'apiVersion' => $apiVersion,
-		));
+		$ret            = GalleryEmbed::init(
+			array(
+				'apiVersion' => $apiVersion,
+			)
+		);
 		$this->assertTrue(
 			!empty($ret) && $ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH,
 			'API too old'
@@ -694,9 +706,11 @@ class EmbedTest extends GalleryTestCase {
 		}
 		$apiVersion[1] -= 8;
 		$apiVersion[0] -= 1;
-		$ret            = GalleryEmbed::init(array(
-			'apiVersion' => $apiVersion,
-		));
+		$ret            = GalleryEmbed::init(
+			array(
+				'apiVersion' => $apiVersion,
+			)
+		);
 		$this->assertTrue(
 			!empty($ret) && $ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH,
 			'(major) API too old'
@@ -729,9 +743,12 @@ class EmbedTest extends GalleryTestCase {
 	}
 
 	public function testSetThemeForRequest() {
-		$ret = GalleryEmbed::setThemeForRequest('foobar', array(
-			'foo' => 'bar',
-		));
+		$ret = GalleryEmbed::setThemeForRequest(
+			'foobar',
+			array(
+				'foo' => 'bar',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -895,9 +912,11 @@ class EmbedTest extends GalleryTestCase {
 		$session->put('embed.id.externalUser', $activeUserIds[0]);
 		$sessionId = $_COOKIE[SESSION_ID_PARAMETER] = $session->getId();
 
-		$ret = GalleryEmbed::logout(array(
-			'embedUri' => '/cms/index.php',
-		));
+		$ret = GalleryEmbed::logout(
+			array(
+				'embedUri' => '/cms/index.php',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -939,9 +958,12 @@ class EmbedTest extends GalleryTestCase {
 		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
-		$ret = GalleryEmbed::updateUser($externalUserId, array(
-			'password' => 'secret',
-		));
+		$ret = GalleryEmbed::updateUser(
+			$externalUserId,
+			array(
+				'password' => 'secret',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -1027,9 +1049,12 @@ class EmbedTest extends GalleryTestCase {
 		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
-		$ret = GalleryEmbed::updateUser($externalUserId, array(
-			'hashedpassword' => 'secret',
-		));
+		$ret = GalleryEmbed::updateUser(
+			$externalUserId,
+			array(
+				'hashedpassword' => 'secret',
+			)
+		);
 		$this->assertErrorEquals(ERROR_BAD_PARAMETER, $ret);
 	}
 

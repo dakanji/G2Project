@@ -240,13 +240,15 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
-		$event->setData(array(
-			'userId'         => $gallery->getActiveUserId(),
-			'groupId'        => $adminGroupId,
-			'itemIdsAndBits' => array(
-				$this->_item[0]->getId() => $bits,
-			),
-		));
+		$event->setData(
+			array(
+				'userId'         => $gallery->getActiveUserId(),
+				'groupId'        => $adminGroupId,
+				'itemIdsAndBits' => array(
+					$this->_item[0]->getId() => $bits,
+				),
+			)
+		);
 
 		$buf      = array();
 		$platform = new FastDownloadTestRemovePermissionPlatform($buf);
@@ -337,15 +339,17 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
-		$event->setData(array(
-			'userId'         => $userId,
-			'groupId'        => $groupId,
-			'itemIdsAndBits' => array(
-				$this->_item[0]->getId() => $bits,
-				$this->_item[1]->getId() => $bits2,
-			),
-			'format'         => $format,
-		));
+		$event->setData(
+			array(
+				'userId'         => $userId,
+				'groupId'        => $groupId,
+				'itemIdsAndBits' => array(
+					$this->_item[0]->getId() => $bits,
+					$this->_item[1]->getId() => $bits2,
+				),
+				'format'         => $format,
+			)
+		);
 
 		$buf      = array();
 		$platform = new FastDownloadTestRemovePermissionPlatform($buf);

@@ -119,11 +119,13 @@ class DownloadItemView extends GalleryView {
 			}
 		}
 
-		$ret = $this->_sendFile(array(
-			'derivativePath' => $path,
-			'mimeType'       => $item->getMimeType(),
-			'pseudoFileName' => $pseudoFileName,
-		));
+		$ret = $this->_sendFile(
+			array(
+				'derivativePath' => $path,
+				'mimeType'       => $item->getMimeType(),
+				'pseudoFileName' => $pseudoFileName,
+			)
+		);
 
 		if ($ret) {
 			return $ret;

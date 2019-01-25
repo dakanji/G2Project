@@ -31,8 +31,10 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 }
 
 if (!function_exists('token_get_all')) {
-	errorExit("PHP tokenizer required.\n"
-		. "Must use a PHP binary that is NOT built with --disable-tokenizer\n");
+	errorExit(
+		"PHP tokenizer required.\n"
+		. "Must use a PHP binary that is NOT built with --disable-tokenizer\n"
+	);
 }
 
 $exts      = '(class|php|inc|css|html|tpl)';
@@ -190,11 +192,14 @@ function extractStrings($filename) {
 
 				if (is_string($param)) {
 					// Escape double quotes and newlines
-					$text   = strtr($param, array(
-						'"'    => '\"',
-						"\r\n" => '\n',
-						"\n"   => '\n',
-					));
+					$text   = strtr(
+						$param,
+						array(
+							'"'    => '\"',
+							"\r\n" => '\n',
+							"\n"   => '\n',
+						)
+					);
 					$string = 'gettext("' . $text . '")';
 
 					if (!isset($strings[$string])) {
@@ -292,19 +297,28 @@ function extractStrings($filename) {
 
 			// Pick gettext() or ngettext() and escape newlines
 			if (isset($text)) {
-				$string = 'gettext("' . strtr($text, array(
-					"\r\n" => '\n',
-					"\n"   => '\n',
-				)) . '")';
+				$string = 'gettext("' . strtr(
+					$text,
+					array(
+						"\r\n" => '\n',
+						"\n"   => '\n',
+					)
+				) . '")';
 			} elseif (isset($one) && isset($many)) {
-				$string = 'ngettext("' . strtr($one, array(
-					"\r\n" => '\n',
-					"\n"   => '\n',
-				)) . '", "'
-				. strtr($many, array(
-					"\r\n" => '\n',
-					"\n"   => '\n',
-				)) . '")';
+				$string = 'ngettext("' . strtr(
+					$one,
+					array(
+						"\r\n" => '\n',
+						"\n"   => '\n',
+					)
+				) . '", "'
+				. strtr(
+					$many,
+					array(
+						"\r\n" => '\n',
+						"\n"   => '\n',
+					)
+				) . '")';
 			} else {
 				// Parse error
 				$string = str_replace("\n", '\n> ', $string);

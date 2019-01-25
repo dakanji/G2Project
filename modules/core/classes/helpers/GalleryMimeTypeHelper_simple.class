@@ -167,11 +167,11 @@ class GalleryMimeTypeHelper_simple {
 					if (!isset($mimeData['by-mimetype'][$result[1]])) {
 						$mimeData['by-mimetype'][$result[1]] = array(
 							'exts'     => array($result[0]),
-							'viewable' => (boolean)$result[2],
+							'viewable' => (bool)$result[2],
 						);
 					} else {
 						$mimeData['by-mimetype'][$result[1]]['exts'][]    = $result[0];
-						$mimeData['by-mimetype'][$result[1]]['viewable'] |= (boolean)$result[2];
+						$mimeData['by-mimetype'][$result[1]]['viewable'] |= (bool)$result[2];
 					}
 				}
 				GalleryDataCache::putToDisk($cacheParams, $mimeData);
@@ -198,11 +198,13 @@ class GalleryMimeTypeHelper_simple {
 	 * @access private
 	 */
 	public static function _deleteCache() {
-		GalleryDataCache::removeFromDisk(array(
-			'type'   => 'module',
-			'id'     => '_all',
-			'itemId' => 'GalleryMimeTypeHelper_mimeData',
-		));
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type'   => 'module',
+				'id'     => '_all',
+				'itemId' => 'GalleryMimeTypeHelper_mimeData',
+			)
+		);
 		$mimeData =& GalleryMimeTypeHelper_simple::_getSingleton();
 		$mimeData = array();
 	}

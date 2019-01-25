@@ -462,7 +462,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		if ($this->_currentRow > $row) {
 			return false;
 		}
-		@$rs->Move((integer)$row - $this->_currentRow - 1); //adBookmarkFirst
+		@$rs->Move((int)$row - $this->_currentRow - 1); //adBookmarkFirst
 		return true;
 	}
 

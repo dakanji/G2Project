@@ -38,9 +38,12 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		// Create a little tree of mixed items/entities
-		list($ret, $this->_root) = $this->_createRandomAlbum($this->_getRootId(), array(
-			'orderBy' => 'orderWeight',
-		));
+		list($ret, $this->_root) = $this->_createRandomAlbum(
+			$this->_getRootId(),
+			array(
+				'orderBy' => 'orderWeight',
+			)
+		);
 
 		if ($ret) {
 			return $ret;
@@ -229,11 +232,15 @@ class ChildTest extends GalleryTestCase {
 				sort($childIds);
 			}
 
-			$this->assertEquals(array(
-				$child[$data[0]]->getId(),
-				$child[$data[1]]->getId(),
-				$child[$data[2]]->getId(),
-			), $childIds, $orderBy);
+			$this->assertEquals(
+				array(
+					$child[$data[0]]->getId(),
+					$child[$data[1]]->getId(),
+					$child[$data[2]]->getId(),
+				),
+				$childIds,
+				$orderBy
+			);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);

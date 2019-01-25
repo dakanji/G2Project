@@ -60,18 +60,22 @@ class DownloadPicLensView extends GalleryView {
 
 		switch ($file) {
 			case 'js':
-				return $this->_sendFile(array(
-					'path'           => "${codeDir}piclens.js",
-					'mimeType'       => 'application/x-javascript',
-					'pseudoFileName' => 'piclens.js',
-				));
+				return $this->_sendFile(
+					array(
+						'path'           => "${codeDir}piclens.js",
+						'mimeType'       => 'application/x-javascript',
+						'pseudoFileName' => 'piclens.js',
+					)
+				);
 
 			case 'swf':
-				return $this->_sendFile(array(
-					'path'           => "${codeDir}PicLensLite.swf",
-					'mimeType'       => 'application/x-shockwave-flash',
-					'pseudoFileName' => 'PicLensLite.swf',
-				));
+				return $this->_sendFile(
+					array(
+						'path'           => "${codeDir}PicLensLite.swf",
+						'mimeType'       => 'application/x-shockwave-flash',
+						'pseudoFileName' => 'PicLensLite.swf',
+					)
+				);
 
 			default:
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);

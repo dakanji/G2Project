@@ -170,9 +170,11 @@ class UserLoginController extends GalleryController {
 			if (!empty($error)) {
 				if (!empty($form['username'])) {
 					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-					$event->setData(array(
-						'userName' => $form['username'],
-					));
+					$event->setData(
+						array(
+							'userName' => $form['username'],
+						)
+					);
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {

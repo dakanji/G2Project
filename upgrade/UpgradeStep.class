@@ -121,7 +121,9 @@ class UpgradeStep {
 			$_SESSION['debugLogFile'] = $dataBase . '/upgrade_' . $tag . '.log';
 		}
 		$gallery->setDebugLogFile($_SESSION['debugLogFile']);
-		$gallery->debug("\n\n--------------------------------------------------------\n\t$header\n"
-		. "--------------------------------------------------------\n\n");
+		$gallery->debug(
+			"\n\n--------------------------------------------------------\n\t$header\n"
+			. "--------------------------------------------------------\n\n"
+		);
 	}
 }

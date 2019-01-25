@@ -47,12 +47,15 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
-		GalleryDataCache::put($cacheKey, array(
+		GalleryDataCache::put(
+			$cacheKey,
 			array(
-				'test' => $this->_testRepository,
-			),
-			0,
-		));
+				array(
+					'test' => $this->_testRepository,
+				),
+				0,
+			)
+		);
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
@@ -114,20 +117,23 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$storage =& $gallery->getStorage();
 
 		$newValue = ($this->_useBrowserPref) ? 0 : 1;
-		GalleryUtilities::putRequestVariable('form', array(
-			'save'           => 'Save',
-			'language'       => array(
-				'useBrowserPref' => $newValue,
-			),
-			'languageAction' => array(
-				'af' => 'reset',
-				'ar' => 'reset',
-				'ca' => 'reset',
-				'cs' => 'reset',
-				'da' => 'reset',
-				'es' => 'reset',
-			),
-		));
+		GalleryUtilities::putRequestVariable(
+			'form',
+			array(
+				'save'           => 'Save',
+				'language'       => array(
+					'useBrowserPref' => $newValue,
+				),
+				'languageAction' => array(
+					'af' => 'reset',
+					'ar' => 'reset',
+					'ca' => 'reset',
+					'cs' => 'reset',
+					'da' => 'reset',
+					'es' => 'reset',
+				),
+			)
+		);
 
 		$storage->setReply(
 			'updateMapEntry',
@@ -170,39 +176,46 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$newValue = ($this->_defaultLanguage == 'en_GB') ? 'en_US' : 'en_GB';
-		GalleryUtilities::putRequestVariable('form', array(
-			'save'           => 'Save',
-			'default'        => array(
-				'language' => $newValue,
-			),
-			'language'       => array(
-				'useBrowserPref' => $this->_useBrowserPref,
-			),
-			'languageAction' => array(
-				'af' => 'reset',
-				'ar' => 'reset',
-				'ca' => 'reset',
-				'cs' => 'reset',
-				'da' => 'reset',
-				'es' => 'reset',
-			),
-		));
+		GalleryUtilities::putRequestVariable(
+			'form',
+			array(
+				'save'           => 'Save',
+				'default'        => array(
+					'language' => $newValue,
+				),
+				'language'       => array(
+					'useBrowserPref' => $this->_useBrowserPref,
+				),
+				'languageAction' => array(
+					'af' => 'reset',
+					'ar' => 'reset',
+					'ca' => 'reset',
+					'cs' => 'reset',
+					'da' => 'reset',
+					'es' => 'reset',
+				),
+			)
+		);
 
 
 		$storage =& $gallery->getStorage();
-		$storage->setReply('updateMapEntry', array(
-			'GalleryPluginParameterMap',
+		$storage->setReply(
+			'updateMapEntry',
 			array(
-				'pluginType'    => 'module',
-				'pluginId'      => 'core',
-				'itemId'        => 0,
-				'parameterName' => 'default.language',
+				'GalleryPluginParameterMap',
+				array(
+					'pluginType'    => 'module',
+					'pluginId'      => 'core',
+					'itemId'        => 0,
+					'parameterName' => 'default.language',
+				),
+				array(
+					'parameterValue' => $newValue,
+				),
+				null,
 			),
-			array(
-				'parameterValue' => $newValue,
-			),
-			null,
-		), null);
+			null
+		);
 
 		$results = $this->handleRequest();
 
@@ -404,16 +417,19 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		GalleryUtilities::putRequestVariable('form', array(
-			'formName'       => 'adminLanguages',
-			'default'        => array(
-				'language' => $defaultLanguage,
-			),
-			'save'           => 'Save',
-			'languageAction' => array(
-				'af' => 'download',
-			),
-		));
+		GalleryUtilities::putRequestVariable(
+			'form',
+			array(
+				'formName'       => 'adminLanguages',
+				'default'        => array(
+					'language' => $defaultLanguage,
+				),
+				'save'           => 'Save',
+				'languageAction' => array(
+					'af' => 'download',
+				),
+			)
+		);
 
 		$results = $this->handleRequest();
 

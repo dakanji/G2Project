@@ -50,8 +50,13 @@ class RepositoryControllerTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(
-			in_array(realpath($gallery->getConfig('repository.templates')
-				. 'testShowViewTemplate.tpl'), get_included_files()),
+			in_array(
+				realpath(
+					$gallery->getConfig('repository.templates')
+					. 'testShowViewTemplate.tpl'
+				),
+				get_included_files()
+			),
 			'Template not included.'
 		);
 	}

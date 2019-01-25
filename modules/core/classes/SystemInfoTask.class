@@ -91,13 +91,15 @@ class SystemInfoTask extends MaintenanceTask {
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEmbed.class');
-		$api = $core->translate(array(
-			'text' => 'API = Core %s, Module %s, Theme %s, Embed %s',
-			'arg1' => implode('.', GalleryCoreApi::getApiVersion()),
-			'arg2' => implode('.', GalleryModule::doStatic()->getApiVersion()),
-			'arg3' => implode('.', GalleryTheme::doStatic()->getApiVersion()),
-			'arg4' => implode('.', GalleryEmbed::getApiVersion()),
-		));
+		$api = $core->translate(
+			array(
+				'text' => 'API = Core %s, Module %s, Theme %s, Embed %s',
+				'arg1' => implode('.', GalleryCoreApi::getApiVersion()),
+				'arg2' => implode('.', GalleryModule::doStatic()->getApiVersion()),
+				'arg3' => implode('.', GalleryTheme::doStatic()->getApiVersion()),
+				'arg4' => implode('.', GalleryEmbed::getApiVersion()),
+			)
+		);
 
 		list($ret, $list) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryToolkit');
 

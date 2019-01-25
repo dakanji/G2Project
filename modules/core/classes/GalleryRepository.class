@@ -615,8 +615,10 @@ class GalleryRepository {
 			if (!@$platform->is_dir($cacheDirectory) && !@$platform->mkdir($cacheDirectory)) {
 				return array(
 					false,
-					$gallery->i18n('Couldn\'t create cache subdirectory. '
-										 . 'Make sure the web server has write permissions in it.'),
+					$gallery->i18n(
+						'Couldn\'t create cache subdirectory. '
+						. 'Make sure the web server has write permissions in it.'
+					),
 				);
 			}
 		}
@@ -794,14 +796,18 @@ class GalleryRepository {
 		$packageUrls = $pluginDownloadData['files'];
 		$pluginName  = $pluginDownloadData['name'];
 
-		$preparingText   = $module->translate(array(
-			'text' => 'Preparing %s',
-			'arg1' => $pluginName,
-		));
-		$downloadingText = $module->translate(array(
-			'text' => 'Downloading %s',
-			'arg1' => $pluginName,
-		));
+		$preparingText   = $module->translate(
+			array(
+				'text' => 'Preparing %s',
+				'arg1' => $pluginName,
+			)
+		);
+		$downloadingText = $module->translate(
+			array(
+				'text' => 'Downloading %s',
+				'arg1' => $pluginName,
+			)
+		);
 
 		$percentage = ++$callback['current'] / $callback['total'];
 		call_user_func($callback['method'], $callback['title'], $preparingText, $percentage);

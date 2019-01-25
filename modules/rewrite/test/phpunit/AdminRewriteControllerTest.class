@@ -272,18 +272,22 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[rules][adminrewritemock][4][active]', true);
 
 		$results = $this->handleRequest();
-		$this->assertEquals(array(
-			'delegate' => array(
-				'view'    => 'core.SiteAdmin',
-				'subView' => 'rewrite.AdminRewrite',
-				'mode'    => 'rules',
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'rewrite.AdminRewrite',
+					'mode'    => 'rules',
+				),
+				'error'    => array(
+					'form[error][conditions][dupe][adminrewritemock][3]',
+					'form[error][conditions][dupe][adminrewritemock][4]',
+				),
+				'status'   => array(),
 			),
-			'error'    => array(
-				'form[error][conditions][dupe][adminrewritemock][3]',
-				'form[error][conditions][dupe][adminrewritemock][4]',
-			),
-			'status'   => array(),
-		), $results, 'handleRequest');
+			$results,
+			'handleRequest'
+		);
 
 		list($ret, $value) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -359,18 +363,22 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][1][pattern]', 'dupe/');
 
 		$results = $this->handleRequest();
-		$this->assertEquals(array(
-			'delegate' => array(
-				'view'    => 'core.SiteAdmin',
-				'subView' => 'rewrite.AdminRewrite',
-				'mode'    => 'rules',
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'rewrite.AdminRewrite',
+					'mode'    => 'rules',
+				),
+				'error'    => array(
+					'form[error][pattern][dupe][rewrite][0]',
+					'form[error][pattern][dupe][rewrite][1]',
+				),
+				'status'   => array(),
 			),
-			'error'    => array(
-				'form[error][pattern][dupe][rewrite][0]',
-				'form[error][pattern][dupe][rewrite][1]',
-			),
-			'status'   => array(),
-		), $results, 'handleRequest');
+			$results,
+			'handleRequest'
+		);
 
 		list($ret, $value) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -499,17 +507,21 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
-		$this->assertEquals(array(
-			'redirect' => array(
-				'view'    => 'core.SiteAdmin',
-				'subView' => 'rewrite.AdminRewrite',
-				'mode'    => 'rules',
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'rewrite.AdminRewrite',
+					'mode'    => 'rules',
+				),
+				'error'    => array(),
+				'status'   => array(
+					'saved' => 1,
+				),
 			),
-			'error'    => array(),
-			'status'   => array(
-				'saved' => 1,
-			),
-		), $results, 'handleRequest');
+			$results,
+			'handleRequest'
+		);
 
 		list($ret, $value) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -544,20 +556,24 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
+		$this->assertEquals(
 			array(
-				'match'   => array(
-					'view' => 'phpunit.Test',
+				array(
+					'match'   => array(
+						'view' => 'phpunit.Test',
+					),
+					'pattern' => 'phpunit/0/',
 				),
-				'pattern' => 'phpunit/0/',
-			),
-			array(
-				'match'   => array(
-					'view' => 'phpunit.Test',
+				array(
+					'match'   => array(
+						'view' => 'phpunit.Test',
+					),
+					'pattern' => 'phpunit/1/',
 				),
-				'pattern' => 'phpunit/1/',
 			),
-		), unserialize($value), 'shortUrls');
+			unserialize($value),
+			'shortUrls'
+		);
 	}
 
 	public function testSaveAccessList1() {

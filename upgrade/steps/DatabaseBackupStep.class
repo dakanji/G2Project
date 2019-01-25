@@ -153,11 +153,15 @@ class DatabaseBackupStep extends UpgradeStep {
 					WHERE 
 						[::type] in (\'map\',  \'entity\')';
 
-				list($ret, $results) = $storage->search($query, array(), array(
-					'limit' => array(
-						'count' => 1,
-					),
-				));
+				list($ret, $results) = $storage->search(
+					$query,
+					array(),
+					array(
+						'limit' => array(
+							'count' => 1,
+						),
+					)
+				);
 
 				if ($ret) {
 					$templateData['warnings'][] = 'Unable to determine if automated backup is available.';

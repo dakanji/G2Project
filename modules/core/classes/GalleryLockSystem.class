@@ -77,9 +77,11 @@ class GalleryLockSystem {
 
 			if (count($foundIds) == count($lock['ids'])) {
 				// Release this entire lock
-				$ret = $this->_releaseLocksNow(array(
-					$lockId => $lock,
-				));
+				$ret = $this->_releaseLocksNow(
+					array(
+						$lockId => $lock,
+					)
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -136,9 +138,11 @@ class GalleryLockSystem {
 				$ids             = array_diff($ids, $foundIds);
 			} elseif (count($foundIds) == count($lock['ids'])) {
 				// Release this entire read lock
-				$ret = $this->_releaseLocksNow(array(
-					$lockId => $lock,
-				));
+				$ret = $this->_releaseLocksNow(
+					array(
+						$lockId => $lock,
+					)
+				);
 
 				if ($ret) {
 					return array($ret, null);

@@ -233,9 +233,12 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		$template = new UnitTestTemplate();
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -301,9 +304,12 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$template = new UnitTestTemplate();
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -369,9 +375,12 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$template = new UnitTestTemplate();
-		$template->setVariable('head', array(
-			'meta' => array(),
-		));
+		$template->setVariable(
+			'head',
+			array(
+				'meta' => array(),
+			)
+		);
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 

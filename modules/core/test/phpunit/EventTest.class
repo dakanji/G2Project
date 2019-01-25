@@ -98,7 +98,7 @@ class EventTest extends GalleryTestCase {
 		$listener = new EventTestEventListener($this);
 		GalleryCoreApi::registerEventListener($eventName, $listener);
 
-		$event                   = GalleryCoreApi::newEvent($eventName);
+		$event = GalleryCoreApi::newEvent($eventName);
 		$bogus = 'bogus entity';
 		$event->setEntity($bogus);
 		$event->setData('some data');
@@ -118,7 +118,7 @@ class EventTest extends GalleryTestCase {
 		$listener = new EventTestEventListener($this);
 		GalleryCoreApi::registerEventListener($eventName, $listener);
 
-		$event                   = GalleryCoreApi::newEvent($eventName);
+		$event = GalleryCoreApi::newEvent($eventName);
 		$bogus = 'bogus entity';
 		$event->setEntity($bogus);
 		$event->setData('send result');

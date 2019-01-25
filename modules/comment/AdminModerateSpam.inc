@@ -233,25 +233,34 @@ class AdminModerateSpamView extends GalleryView {
 
 		if ($page > 1) {
 			$navigator['first'] = array(
-				'urlParams' => array_merge($urlParams, array(
-					'itemId' => $rootId,
-					'page'   => 1,
-				)),
+				'urlParams' => array_merge(
+					$urlParams,
+					array(
+						'itemId' => $rootId,
+						'page'   => 1,
+					)
+				),
 			);
 			$navigator['back']  = array(
-				'urlParams' => array_merge($urlParams, array(
-					'itemId' => $rootId,
-					'page'   => $page - 1,
-				)),
+				'urlParams' => array_merge(
+					$urlParams,
+					array(
+						'itemId' => $rootId,
+						'page'   => $page - 1,
+					)
+				),
 			);
 		}
 
 		if ($page < $navigator['pageCount']) {
 			$navigator['next'] = array(
-				'urlParams' => array_merge($urlParams, array(
-					'itemId' => $rootId,
-					'page'   => $page + 1,
-				)),
+				'urlParams' => array_merge(
+					$urlParams,
+					array(
+						'itemId' => $rootId,
+						'page'   => $page + 1,
+					)
+				),
 			);
 			$navigator['last'] = array(
 				'urlParams' => array_merge(
@@ -265,14 +274,17 @@ class AdminModerateSpamView extends GalleryView {
 		}
 
 		$template->setVariable('controller', 'comment.AdminModerateSpam');
-		$template->setVariable('AdminModerateSpam', array(
-			'comments'   => $comments,
-			'commenters' => $commenters,
-			'can'        => $can,
-			'itemData'   => $itemData,
-			'navigator'  => $navigator,
-			'total'      => $count,
-		));
+		$template->setVariable(
+			'AdminModerateSpam',
+			array(
+				'comments'   => $comments,
+				'commenters' => $commenters,
+				'can'        => $can,
+				'itemData'   => $itemData,
+				'navigator'  => $navigator,
+				'total'      => $count,
+			)
+		);
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

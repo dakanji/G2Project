@@ -435,10 +435,12 @@ class ItemMoveView extends GalleryView {
 			}
 
 			// Merge them together to get the master list of ids
-			$albumIds['allIds'] = array_unique(array_merge(
-				$albumIds['addDataItem'],
-				$albumIds['addAlbumItem']
-			));
+			$albumIds['allIds'] = array_unique(
+				array_merge(
+					$albumIds['addDataItem'],
+					$albumIds['addAlbumItem']
+				)
+			);
 
 			// Load all the album entities
 			list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds'], 'GalleryAlbumItem');
@@ -453,7 +455,7 @@ class ItemMoveView extends GalleryView {
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$ItemMove                         = array();
-		$ItemMove['canCancel']            = (boolean)GalleryUtilities::getRequestVariables('return');
+		$ItemMove['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemMove['albumIds']             = $albumIds;
 		$ItemMove['peers']                = $peers;
 		$ItemMove['peerTypes']            = $peerTypes;

@@ -553,9 +553,13 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		asort($ids);
-		$this->assertEquals(array(
-			$this->_root->getId() => $derivative1,
-		), $ids, 'thumbnails');
+		$this->assertEquals(
+			array(
+				$this->_root->getId() => $derivative1,
+			),
+			$ids,
+			'thumbnails'
+		);
 	}
 
 	public function testFetchDerivativesBySourceIds() {
@@ -614,9 +618,13 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(
-			$item->getId() => array($derivative2),
-		), $ids, 'resizes');
+		$this->assertEquals(
+			array(
+				$item->getId() => array($derivative2),
+			),
+			$ids,
+			'resizes'
+		);
 	}
 
 	public function testAdjustDependentDerivatives() {
@@ -926,13 +934,16 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($source, $itemA);
-		$this->assertEquals(array(
-			'rotate|90',
-			'crop|25,49,33,25',
-			'thumbnail|75',
-			'test|A3',
-			'watermark|A3',
-		), $operations);
+		$this->assertEquals(
+			array(
+				'rotate|90',
+				'crop|25,49,33,25',
+				'thumbnail|75',
+				'test|A3',
+				'watermark|A3',
+			),
+			$operations
+		);
 
 		list($ret, $source, $operations) = $A4->fetchFinalOperations();
 

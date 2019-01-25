@@ -131,8 +131,11 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals('this is a subject', $comments[0]->getSubject());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost());
-			$this->assertTrue($comments[0]->getDate() >= $this->_startTime &&
-			  $comments[0]->getDate() <= time(), 'date');
+			$this->assertTrue(
+				$comments[0]->getDate() >= $this->_startTime &&
+				$comments[0]->getDate() <= time(),
+				'date'
+			);
 		}
 	}
 
@@ -282,8 +285,11 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals('this is an author', $comments[0]->getAuthor());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost());
-			$this->assertTrue($comments[0]->getDate() >= $this->_startTime &&
-			  $comments[0]->getDate() <= time(), 'date');
+			$this->assertTrue(
+				$comments[0]->getDate() >= $this->_startTime &&
+				$comments[0]->getDate() <= time(),
+				'date'
+			);
 		}
 	}
 
@@ -616,8 +622,11 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'user 1'
 			);
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost(), 'host 1');
-			$this->assertTrue($comments[0]->getDate() >= $this->_startTime
-			  && $comments[0]->getDate() <= time(), 'time 1');
+			$this->assertTrue(
+				$comments[0]->getDate() >= $this->_startTime
+				&& $comments[0]->getDate() <= time(),
+				'time 1'
+			);
 		}
 	}
 
@@ -764,8 +773,11 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals('test', $comments[0]->getSubject());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost());
-			$this->assertTrue($comments[0]->getDate() >= $this->_startTime &&
-			  $comments[0]->getDate() <= time(), 'date');
+			$this->assertTrue(
+				$comments[0]->getDate() >= $this->_startTime &&
+				$comments[0]->getDate() <= time(),
+				'date'
+			);
 		}
 	}
 

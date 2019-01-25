@@ -37,9 +37,11 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		list($ret, $this->_user[0]) = $this->_createUser(array(
-			'fullName' => 'full name',
-		));
+		list($ret, $this->_user[0]) = $this->_createUser(
+			array(
+				'fullName' => 'full name',
+			)
+		);
 
 		if ($ret) {
 			return $ret;

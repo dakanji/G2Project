@@ -104,10 +104,13 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function testArrayInput() {
-		GalleryUtilities::putRequestVariable('test[a]', array(
-			'goodvalue' => 'foo bar',
-			'badvalue'  => '<a href="javascript:alert(\'hi\')">yo</a>',
-		));
+		GalleryUtilities::putRequestVariable(
+			'test[a]',
+			array(
+				'goodvalue' => 'foo bar',
+				'badvalue'  => '<a href="javascript:alert(\'hi\')">yo</a>',
+			)
+		);
 		$this->assertEquals(
 			array(
 				'goodvalue' => 'foo bar',
@@ -453,8 +456,11 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testSanitizeInputValue1() {
 		$rawInput = '<ScRiPt foo=bar>blah</SCRIPT> test test <IFRAME> <b> foo </b> </IFRAME>';
 		GalleryUtilities::sanitizeInputValues($rawInput);
-		$this->assertEquals('&lt;ScRiPt foo=bar&gt;blah&lt;/SCRIPT&gt; test test &lt;IFRAME&gt; '
-		. '&lt;b&gt; foo &lt;/b&gt; &lt;/IFRAME&gt;', $rawInput);
+		$this->assertEquals(
+			'&lt;ScRiPt foo=bar&gt;blah&lt;/SCRIPT&gt; test test &lt;IFRAME&gt; '
+			. '&lt;b&gt; foo &lt;/b&gt; &lt;/IFRAME&gt;',
+			$rawInput
+		);
 	}
 
 	// We don't convert UTF-8 to entities (we used to)
@@ -551,9 +557,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			'http://example.com/gallery2/modules/core/test/phpunit/UtilitiesTest.class',
-			GalleryUtilities::convertPathToUrl($file, array(
-				'forceFullUrl' => true,
-			)),
+			GalleryUtilities::convertPathToUrl(
+				$file,
+				array(
+					'forceFullUrl' => true,
+				)
+			),
 			'test forceFullUrl'
 		);
 
@@ -622,18 +631,27 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function testIsExactlyA() {
-		$this->assertTrue(GalleryUtilities::isExactlyA(
-			new UtilitiesTest('x'),
-			'UtilitiesTest'
-		), 'exact');
-		$this->assertTrue(!GalleryUtilities::isExactlyA(
-			new UtilitiesTest('x'),
-			'GalleryTestCase'
-		), 'parent class');
-		$this->assertTrue(!GalleryUtilities::isExactlyA(
-			new UtilitiesTest('x'),
-			'GalleryEntity'
-		), 'other class');
+		$this->assertTrue(
+			GalleryUtilities::isExactlyA(
+				new UtilitiesTest('x'),
+				'UtilitiesTest'
+			),
+			'exact'
+		);
+		$this->assertTrue(
+			!GalleryUtilities::isExactlyA(
+				new UtilitiesTest('x'),
+				'GalleryTestCase'
+			),
+			'parent class'
+		);
+		$this->assertTrue(
+			!GalleryUtilities::isExactlyA(
+				new UtilitiesTest('x'),
+				'GalleryEntity'
+			),
+			'other class'
+		);
 		// Test a class name with I in it; as strcasecmp is affected by locale
 		list($ret, $album) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
 
@@ -831,49 +849,79 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testIsPathInList() {
 		global $gallery;
 
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo',
-			array('/foo', '/bar')
-		), 'test 1');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo/',
-			array('/bar', '/foo')
-		), 'test 2');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo',
-			array('/foo/', '/bar/')
-		), 'test 3');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo/bar',
-			array('/foo', '/bar')
-		), 'test 4');
-		$this->assertTrue(!GalleryUtilities::isPathInList(
-			'/foobar',
-			array('/foo', '/bar')
-		), 'test 5');
-		$this->assertTrue(!GalleryUtilities::isPathInList(
-			'/fo',
-			array('/foo', '/bar')
-		), 'test 6');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/link/foo',
-			array('/foo', '/bar')
-		), 'symlink in');
-		$this->assertTrue(!GalleryUtilities::isPathInList(
-			'/foo/link',
-			array('/foo', '/bar')
-		), 'symlink out');
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'/foo/bar',
-			array('/link', '/bar')
-		), 'symlink path');
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'/foo',
+				array('/foo', '/bar')
+			),
+			'test 1'
+		);
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'/foo/',
+				array('/bar', '/foo')
+			),
+			'test 2'
+		);
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'/foo',
+				array('/foo/', '/bar/')
+			),
+			'test 3'
+		);
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'/foo/bar',
+				array('/foo', '/bar')
+			),
+			'test 4'
+		);
+		$this->assertTrue(
+			!GalleryUtilities::isPathInList(
+				'/foobar',
+				array('/foo', '/bar')
+			),
+			'test 5'
+		);
+		$this->assertTrue(
+			!GalleryUtilities::isPathInList(
+				'/fo',
+				array('/foo', '/bar')
+			),
+			'test 6'
+		);
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'/link/foo',
+				array('/foo', '/bar')
+			),
+			'symlink in'
+		);
+		$this->assertTrue(
+			!GalleryUtilities::isPathInList(
+				'/foo/link',
+				array('/foo', '/bar')
+			),
+			'symlink out'
+		);
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'/foo/bar',
+				array('/link', '/bar')
+			),
+			'symlink path'
+		);
 
 		$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
 		$gallery->setPlatform($UtilitiesTestWinPlatform);
-		$this->assertTrue(GalleryUtilities::isPathInList(
-			'c:\foo\bar',
-			array('d:\\', 'C:\Foo')
-		), 'test 7');
+		$this->assertTrue(
+			GalleryUtilities::isPathInList(
+				'c:\foo\bar',
+				array('d:\\', 'C:\Foo')
+			),
+			'test 7'
+		);
 	}
 
 	public function testProcessingPaths() {
@@ -1537,8 +1585,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 				if (isset($_COOKIE[$key6])) {
 					$check = get_magic_quotes_gpc() ? addslashes($val6) : $val6;
-					$this->assertEquals($check, $_COOKIE[$key6], $kind . 'quoted-string cookie ' .
-						'6 incorrect for delimiter "' . $sep . '"');
+					$this->assertEquals(
+						$check,
+						$_COOKIE[$key6],
+						$kind . 'quoted-string cookie ' .
+						'6 incorrect for delimiter "' . $sep . '"'
+					);
 				}
 
 				$kind = $urlEncoded ? 'urlencoded' : 'non-urlencoded';
@@ -1570,14 +1622,21 @@ class UtilitiesTest extends GalleryTestCase {
 				);
 
 				// Check if the array-cookie is still there
-				$this->assertTrue(isset($_COOKIE['foobar']), $kind . 'array cookie not ' .
-					'set for separator "' . $sep . '"');
+				$this->assertTrue(
+					isset($_COOKIE['foobar']),
+					$kind . 'array cookie not ' .
+					'set for separator "' . $sep . '"'
+				);
 
 				if (isset($_COOKIE['foobar'])) {
-					$this->assertEquals(array(
-						'foo' => 'bar',
-					), $_COOKIE['foobar'], $kind .
-						' array cookie value changed for delimiter "' . $sep . '"');
+					$this->assertEquals(
+						array(
+							'foo' => 'bar',
+						),
+						$_COOKIE['foobar'],
+						$kind .
+						' array cookie value changed for delimiter "' . $sep . '"'
+					);
 				}
 			}
 		}
@@ -1820,9 +1879,13 @@ class UtilitiesTest extends GalleryTestCase {
 				$debugInfo = ob_get_contents();
 				ob_end_clean();
 
-				$this->assertEquals(count($tC['er']), count($_COOKIE), $addSlashesInfo .
+				$this->assertEquals(
+					count($tC['er']),
+					count($_COOKIE),
+					$addSlashesInfo .
 					'number of registerd keys ' .
-					'do not match for test case: ' . $debugInfo);
+					'do not match for test case: ' . $debugInfo
+				);
 
 				foreach ($tC['er'] as $eR) {
 					if (isset($_COOKIE[$eR['key']])) {
@@ -1867,8 +1930,11 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertTrue($success, 'guaranteeDirExists');
 		$this->assertEquals(array('/test/one', '/test/one/two'), $created);
 
-		$this->assertTrue(isset($this->_mkdir['/test/one']) &&
-			$this->_mkdir['/test/one'] != '', 'mkdir with perms');
+		$this->assertTrue(
+			isset($this->_mkdir['/test/one']) &&
+			$this->_mkdir['/test/one'] != '',
+			'mkdir with perms'
+		);
 		$this->assertTrue(
 			isset($this->_mkdir['/testcache/module/core/0/0']) &&
 				$this->_mkdir['/testcache/module/core/0/0'] == '',
@@ -1993,9 +2059,11 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			GalleryCoreApi::removeMimeType(array(
-				'extension' => 'phpunit_movie',
-			));
+			GalleryCoreApi::removeMimeType(
+				array(
+					'extension' => 'phpunit_movie',
+				)
+			);
 
 			return $ret;
 		}
@@ -2009,9 +2077,11 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			GalleryCoreApi::removeMimeType(array(
-				'extension' => 'phpunit_movie',
-			));
+			GalleryCoreApi::removeMimeType(
+				array(
+					'extension' => 'phpunit_movie',
+				)
+			);
 
 			return $ret;
 		}
@@ -2019,9 +2089,11 @@ class UtilitiesTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addMimeType('phpunit_image', 'test/image', true);
 
 		if ($ret) {
-			GalleryCoreApi::removeMimeType(array(
-				'extension' => 'phpunit_movie',
-			));
+			GalleryCoreApi::removeMimeType(
+				array(
+					'extension' => 'phpunit_movie',
+				)
+			);
 
 			return $ret;
 		}
@@ -2115,56 +2187,101 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function testHtmlSafe() {
-		$this->assertEquals('script src ', GalleryUtilities::htmlSafe(
-			'script src <script src="http://evil.com/bad.js">'
-		));
-		$this->assertEquals('script type ', GalleryUtilities::htmlSafe(
-			'script type <script type="text/javascript">alert("bad");</script>'
-		));
-		$this->assertEquals('applet ', GalleryUtilities::htmlSafe(
-			'applet <applet code="http://evil.com/bad.class"></applet>'
-		));
-		$this->assertEquals('object ', GalleryUtilities::htmlSafe(
-			'object <object codetype="application/java" classid="java:bad.class"></object>'
-		));
-		$this->assertEquals('embed ', GalleryUtilities::htmlSafe(
-			'embed <embed src="http://evil.com/bad.mov" width=400 height=300>'
-		));
-		$this->assertEquals('base ', GalleryUtilities::htmlSafe(
-			'base <base href="http://evil.com/bad.html">'
-		));
-		$this->assertEquals('title ', GalleryUtilities::htmlSafe(
-			'title <title>bad title</title>'
-		));
-		$this->assertEquals('link ', GalleryUtilities::htmlSafe(
-			'link <link rel="Next" href="http://evil.com/bad.php">'
-		));
-		$this->assertEquals('meta ', GalleryUtilities::htmlSafe(
-			'meta <meta http-equiv="refresh" content="2; url=http://evil.com/">'
-		));
-		$this->assertEquals('style ', GalleryUtilities::htmlSafe(
-			'style <style type="test/css">body { color: red; }</style>'
-		));
-		$this->assertEquals('<a href="test">12</a>8 <br />', GalleryUtilities::htmlSafe(
-			'<a href="test" onmouseover="alert(1)">12</a>8 <br />'
-		));
-		$this->assertEquals('<a>12</a>b<br />', GalleryUtilities::htmlSafe(
-			'<a href="javascript:alert(1)">12</a>b<br/>'
-		));
-		$this->assertEquals('test ', GalleryUtilities::htmlSafe(
-			'test <body onload=alert("xss")>'
-		));
+		$this->assertEquals(
+			'script src ',
+			GalleryUtilities::htmlSafe(
+				'script src <script src="http://evil.com/bad.js">'
+			)
+		);
+		$this->assertEquals(
+			'script type ',
+			GalleryUtilities::htmlSafe(
+				'script type <script type="text/javascript">alert("bad");</script>'
+			)
+		);
+		$this->assertEquals(
+			'applet ',
+			GalleryUtilities::htmlSafe(
+				'applet <applet code="http://evil.com/bad.class"></applet>'
+			)
+		);
+		$this->assertEquals(
+			'object ',
+			GalleryUtilities::htmlSafe(
+				'object <object codetype="application/java" classid="java:bad.class"></object>'
+			)
+		);
+		$this->assertEquals(
+			'embed ',
+			GalleryUtilities::htmlSafe(
+				'embed <embed src="http://evil.com/bad.mov" width=400 height=300>'
+			)
+		);
+		$this->assertEquals(
+			'base ',
+			GalleryUtilities::htmlSafe(
+				'base <base href="http://evil.com/bad.html">'
+			)
+		);
+		$this->assertEquals(
+			'title ',
+			GalleryUtilities::htmlSafe(
+				'title <title>bad title</title>'
+			)
+		);
+		$this->assertEquals(
+			'link ',
+			GalleryUtilities::htmlSafe(
+				'link <link rel="Next" href="http://evil.com/bad.php">'
+			)
+		);
+		$this->assertEquals(
+			'meta ',
+			GalleryUtilities::htmlSafe(
+				'meta <meta http-equiv="refresh" content="2; url=http://evil.com/">'
+			)
+		);
+		$this->assertEquals(
+			'style ',
+			GalleryUtilities::htmlSafe(
+				'style <style type="test/css">body { color: red; }</style>'
+			)
+		);
+		$this->assertEquals(
+			'<a href="test">12</a>8 <br />',
+			GalleryUtilities::htmlSafe(
+				'<a href="test" onmouseover="alert(1)">12</a>8 <br />'
+			)
+		);
+		$this->assertEquals(
+			'<a>12</a>b<br />',
+			GalleryUtilities::htmlSafe(
+				'<a href="javascript:alert(1)">12</a>b<br/>'
+			)
+		);
+		$this->assertEquals(
+			'test ',
+			GalleryUtilities::htmlSafe(
+				'test <body onload=alert("xss")>'
+			)
+		);
 
 		// HTML_Safe does some normalizing of other tags
 		$this->assertEquals('br<br />is<br />ok', GalleryUtilities::htmlSafe('br<br>is<br/>ok'));
-		$this->assertEquals('img <img src="a.png" />', GalleryUtilities::htmlSafe(
-			'img <img src="a.png">'
-		));
+		$this->assertEquals(
+			'img <img src="a.png" />',
+			GalleryUtilities::htmlSafe(
+				'img <img src="a.png">'
+			)
+		);
 
 		// Unclosed tags are closed, unmatched close is stripped
-		$this->assertEquals('<tt><b>closed</b>  <i>open</i></tt>', GalleryUtilities::htmlSafe(
-			'<tt><b>closed</b> </td> <i>open'
-		));
+		$this->assertEquals(
+			'<tt><b>closed</b>  <i>open</i></tt>',
+			GalleryUtilities::htmlSafe(
+				'<tt><b>closed</b> </td> <i>open'
+			)
+		);
 	}
 
 	public function testHtmlSafeWithDecode() {

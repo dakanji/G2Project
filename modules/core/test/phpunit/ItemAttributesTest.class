@@ -773,9 +773,12 @@ class ItemAttributesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(
-			$this->_album->getId() => 2,
-		), $counts);
+		$this->assertEquals(
+			array(
+				$this->_album->getId() => 2,
+			),
+			$counts
+		);
 
 		if (isset($this->_saveSessionPerms)) {
 			$session->put(GALLERY_PERMISSION_SESSION_KEY, $this->_saveSessionPerms);

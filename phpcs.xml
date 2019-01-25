@@ -34,6 +34,7 @@
 	<!-- APPLY ADDITIONAL SELECTED GENERIC RULES -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+	<rule ref="Generic.PHP.LowerCaseType"/>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
 	<rule ref="Generic.NamingConventions.ConstructorName"/>
 	<rule ref="Generic.PHP.DisallowAlternativePHPTags"/>
@@ -67,6 +68,7 @@
 	</rule>
 	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
 		<properties>
+			<property name="spacing" value="0"/>
 			<property name="ignoreNewlines" value="true"/>
 		</properties>
 	</rule>
@@ -94,6 +96,13 @@
 		<exclude name="Squiz.PHP.EmbeddedPhp.OpenTagIndent"/>
 		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingAfter"/>
 	</rule>
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="equalsSpacing" value="1"/>
+			<property name="requiredSpacesAfterOpen" value="0"/>
+			<property name="requiredSpacesBeforeClose" value="0"/>
+		</properties>
+	</rule>
 	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
 		<properties>
 			<property name="spacing" value="1"/>
@@ -115,12 +124,20 @@
 	<rule ref="PEAR.Formatting.MultiLineAssignment"/>
 	<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
 	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
+	<rule ref="PEAR.Functions.FunctionCallSignature">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="0"/>
+			<property name="requiredSpacesBeforeClose" value="0"/>
+			<property name="allowMultipleArguments" value="false"/>
+		</properties>
+	</rule>
 
 	<!-- APPLY ADDITIONAL SELECTED WORDPRESS RULES -->
 	<rule ref="WordPress.WhiteSpace.DisallowInlineTabs"/>
 	<rule ref="WordPress.Arrays.CommaAfterArrayItem"/>	
 	<rule ref="WordPress.Arrays.ArrayIndentation"/>	
 	<rule ref="WordPress.WhiteSpace.PrecisionAlignment"/>
+	<rule ref="WordPress.PHP.TypeCasts"/>
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
 			<property name="maxColumn" value="50"/>
@@ -133,4 +150,7 @@
 			<property name="allow_single_item_single_line_associative_arrays" value="false"/>
 		</properties>
 	</rule>
+	
+	<!-- APPLY ADDITIONAL SELECTED PSR12 RULES -->
+	<rule ref="PSR12.Keywords.ShortFormTypeKeywords"/>
 </ruleset>

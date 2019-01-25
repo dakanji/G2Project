@@ -471,18 +471,22 @@ class Services_JSON {
 	 * @access   private
 	 */
 	public function reduce_string($str) {
-		$str = preg_replace(array(
+		$str = preg_replace(
+			array(
 
-			// eliminate single line comments in '// ...' form
-			'#^\s*//(.+)$#m',
+				// eliminate single line comments in '// ...' form
+				'#^\s*//(.+)$#m',
 
-			// eliminate multi-line comments in '/* ... */' form, at start of string
-			'#^\s*/\*(.+)\*/#Us',
+				// eliminate multi-line comments in '/* ... */' form, at start of string
+				'#^\s*/\*(.+)\*/#Us',
 
-			// eliminate multi-line comments in '/* ... */' form, at end of string
-			'#/\*(.+)\*/\s*$#Us',
+				// eliminate multi-line comments in '/* ... */' form, at end of string
+				'#/\*(.+)\*/\s*$#Us',
 
-		), '', $str);
+			),
+			'',
+			$str
+		);
 
 		// eliminate extraneous space
 		return trim($str);
@@ -524,7 +528,7 @@ class Services_JSON {
 					// return (float)$str;
 
 					// Return float or int, as appropriate
-					return ((float)$str == (integer)$str) ? (integer)$str : (float)$str;
+					return ((float)$str == (int)$str) ? (int)$str : (float)$str;
 				}
 
 				if (preg_match('/^("|\').*(\1)$/s', $str, $m) && $m[1] == $m[2]) {
@@ -656,11 +660,14 @@ class Services_JSON {
 						}
 					}
 
-					array_push($stk, array(
-						'what'  => SERVICES_JSON_SLICE,
-						'where' => 0,
-						'delim' => false,
-					));
+					array_push(
+						$stk,
+						array(
+							'what'  => SERVICES_JSON_SLICE,
+							'where' => 0,
+							'delim' => false,
+						)
+					);
 
 					$chrs = substr($str, 1, -1);
 					$chrs = $this->reduce_string($chrs);
@@ -685,11 +692,14 @@ class Services_JSON {
 							// found a comma that is not inside a string, array, etc.,
 							// OR we've reached the end of the character list
 							$slice = substr($chrs, $top['where'], ($c - $top['where']));
-							array_push($stk, array(
-								'what'  => SERVICES_JSON_SLICE,
-								'where' => ($c + 1),
-								'delim' => false,
-							));
+							array_push(
+								$stk,
+								array(
+									'what'  => SERVICES_JSON_SLICE,
+									'where' => ($c + 1),
+									'delim' => false,
+								)
+							);
 							//print("Found split at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 
 							if (reset($stk) == SERVICES_JSON_IN_ARR) {
@@ -726,11 +736,14 @@ class Services_JSON {
 							}
 						} elseif ((($chrs[$c] == '"') || ($chrs[$c] == "'")) && ($top['what'] != SERVICES_JSON_IN_STR)) {
 							// found a quote, and we are not inside a string
-							array_push($stk, array(
-								'what'  => SERVICES_JSON_IN_STR,
-								'where' => $c,
-								'delim' => $chrs[$c],
-							));
+							array_push(
+								$stk,
+								array(
+									'what'  => SERVICES_JSON_IN_STR,
+									'where' => $c,
+									'delim' => $chrs[$c],
+								)
+							);
 						//print("Found start of string at {$c}\n");
 						} elseif (($chrs[$c] == $top['delim'])
 							&& ($top['what'] == SERVICES_JSON_IN_STR)
@@ -744,11 +757,14 @@ class Services_JSON {
 							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
 						) {
 							// found a left-bracket, and we are in an array, object, or slice
-							array_push($stk, array(
-								'what'  => SERVICES_JSON_IN_ARR,
-								'where' => $c,
-								'delim' => false,
-							));
+							array_push(
+								$stk,
+								array(
+									'what'  => SERVICES_JSON_IN_ARR,
+									'where' => $c,
+									'delim' => false,
+								)
+							);
 						//print("Found start of array at {$c}\n");
 						} elseif (($chrs[$c] == ']') && ($top['what'] == SERVICES_JSON_IN_ARR)) {
 							// found a right-bracket, and we're in an array
@@ -758,11 +774,14 @@ class Services_JSON {
 							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
 						) {
 							// found a left-brace, and we are in an array, object, or slice
-							array_push($stk, array(
-								'what'  => SERVICES_JSON_IN_OBJ,
-								'where' => $c,
-								'delim' => false,
-							));
+							array_push(
+								$stk,
+								array(
+									'what'  => SERVICES_JSON_IN_OBJ,
+									'where' => $c,
+									'delim' => false,
+								)
+							);
 						//print("Found start of object at {$c}\n");
 						} elseif (($chrs[$c] == '}') && ($top['what'] == SERVICES_JSON_IN_OBJ)) {
 							// found a right-brace, and we're in an object
@@ -772,11 +791,14 @@ class Services_JSON {
 							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
 						) {
 							// found a comment start, and we are in an array, object, or slice
-							array_push($stk, array(
-								'what'  => SERVICES_JSON_IN_CMT,
-								'where' => $c,
-								'delim' => false,
-							));
+							array_push(
+								$stk,
+								array(
+									'what'  => SERVICES_JSON_IN_CMT,
+									'where' => $c,
+									'delim' => false,
+								)
+							);
 							$c++;
 						//print("Found start of comment at {$c}\n");
 						} elseif (($substr_chrs_c_2 == '*/') && ($top['what'] == SERVICES_JSON_IN_CMT)) {

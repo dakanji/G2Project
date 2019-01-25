@@ -156,11 +156,13 @@ class GalleryTemplate {
 	 * @param string $path stylesheet path relative to gallery2 dir
 	 */
 	public function style($path) {
-		$this->link(array(
-			'rel'  => 'stylesheet',
-			'type' => 'text/css',
-			'href' => $path,
-		));
+		$this->link(
+			array(
+				'rel'  => 'stylesheet',
+				'type' => 'text/css',
+				'href' => $path,
+			)
+		);
 	}
 
 	/**
@@ -184,9 +186,11 @@ class GalleryTemplate {
 
 		foreach ($attributes as $key => $value) {
 			if ($key == 'href') {
-				$value = $urlGenerator->generateUrl(array(
-					'href' => $value,
-				));
+				$value = $urlGenerator->generateUrl(
+					array(
+						'href' => $value,
+					)
+				);
 			}
 			$linkHtml .= " $key=\"$value\"";
 		}
@@ -568,8 +572,10 @@ class GalleryTemplate {
 
 				if ($ret) {
 					/** @todo Log this as soon as we have an event log */
-					$gallery->debug('_getThemeId failed with the following error: '
-					. $ret->getAsHtml());
+					$gallery->debug(
+						'_getThemeId failed with the following error: '
+						. $ret->getAsHtml()
+					);
 				}
 			} else {
 				$themeId = $theme['themeId'];
@@ -597,8 +603,10 @@ class GalleryTemplate {
 					}
 				} else {
 					/** @todo Log this as soon as we have an event log */
-					$gallery->debug('loadPlugin failed with the following error: '
-					. $ret->getAsHtml());
+					$gallery->debug(
+						'loadPlugin failed with the following error: '
+						. $ret->getAsHtml()
+					);
 				}
 			}
 		}

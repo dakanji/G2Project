@@ -152,9 +152,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testForceFullUrlOff() {
 		$this->_setupAdapterWithMocks();
-		$this->_templateAdapter->url(array(
-			'arg1' => 'foo=bar',
-		), $this->_mockSmarty);
+		$this->_templateAdapter->url(
+			array(
+				'arg1' => 'foo=bar',
+			),
+			$this->_mockSmarty
+		);
 
 		$this->assertEquals(
 			array(
@@ -169,12 +172,15 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testUrlParamsAndArgs() {
 		$this->_setupAdapterWithMocks();
-		$this->_templateAdapter->url(array(
-			'params' => array(
-				'view' => 'fun.View',
+		$this->_templateAdapter->url(
+			array(
+				'params' => array(
+					'view' => 'fun.View',
+				),
+				'arg1'   => 'foo=bar',
 			),
-			'arg1'   => 'foo=bar',
-		), $this->_mockSmarty);
+			$this->_mockSmarty
+		);
 
 		$this->assertEquals(
 			array(
@@ -190,13 +196,16 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testUrlOptionsAndBulkOptions() {
 		$this->_setupAdapterWithMocks();
-		$this->_templateAdapter->url(array(
-			'options' => array(
-				'foo' => 'foo',
-				'bar' => 'bar',
+		$this->_templateAdapter->url(
+			array(
+				'options' => array(
+					'foo' => 'foo',
+					'bar' => 'bar',
+				),
+				'foo'     => 'bar',
 			),
-			'foo'     => 'bar',
-		), $this->_mockSmarty);
+			$this->_mockSmarty
+		);
 
 		$this->assertEquals(
 			array(
@@ -218,9 +227,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 		$this->_setupAdapterWithMocks();
 		$result = GalleryTemplateAdapter::doStatic()->changeInDescendents($test, $this->_mockSmarty);
-		$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents" ' .
-		'name="g2_form[changeInDescendents][pirate]"/> <label ' .
-		'for="pirate_ChangeInDescendents"> ninja</label>', $result);
+		$this->assertEquals(
+			'<input type="checkbox" id="pirate_ChangeInDescendents" ' .
+			'name="g2_form[changeInDescendents][pirate]"/> <label ' .
+			'for="pirate_ChangeInDescendents"> ninja</label>',
+			$result
+		);
 	}
 
 	// Make sure viewL10domain doesn't get ignored
@@ -614,9 +626,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$expected = '<a href="Array" class="gbAdminLink gbLink-test_View">test link</a>';
-		$actual   = $this->_templateAdapter->itemLink(array(
-			'link' => $link,
-		));
+		$actual   = $this->_templateAdapter->itemLink(
+			array(
+				'link' => $link,
+			)
+		);
 		$this->assertTrue(
 			true,
 			$expected . ' == ' . $actual,
@@ -646,12 +660,14 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$expected = '<a href="Array" onclick="alert(\'hi\');return false" title="fun" '
 		. 'target="_blank">test link</a>';
-		$actual   = $this->_templateAdapter->itemLink(array(
-			'link'      => $link,
-			'lowercase' => true,
-			'class'     => null,
-			'target'    => '_blank',
-		));
+		$actual   = $this->_templateAdapter->itemLink(
+			array(
+				'link'      => $link,
+				'lowercase' => true,
+				'class'     => null,
+				'target'    => '_blank',
+			)
+		);
 		$this->assertTrue(
 			true,
 			$expected . ' == ' . $actual,
@@ -676,10 +692,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 		$this->assertEquals(
 			'<option value="window.location=\'Array\'">Test link</option>',
-			$this->_templateAdapter->itemLink(array(
-				'link' => $link,
-				'type' => 'option',
-			))
+			$this->_templateAdapter->itemLink(
+				array(
+					'link' => $link,
+					'type' => 'option',
+				)
+			)
 		);
 
 		$this->assertEquals(
@@ -842,14 +860,19 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$template->meta('test1', 'value 1');
 		$template->meta('test2', 'value 2', true);
 		$template->style('/test.css');
-		$template->link(array(
-			'attr1' => 'value1',
-			'attr2' => 'value2',
-		));
+		$template->link(
+			array(
+				'attr1' => 'value1',
+				'attr2' => 'value2',
+			)
+		);
 		$template->javascript('http://test.com/test.js?foo');
-		$template->setVariable('theme', array(
-			'pageType' => 'album',
-		));
+		$template->setVariable(
+			'theme',
+			array(
+				'pageType' => 'album',
+			)
+		);
 
 		$expected = array(
 			'',
@@ -876,15 +899,20 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$template->meta('test1', 'value 1');
 		$template->meta('test2', 'value 2', true);
 		$template->style('/test.css');
-		$template->link(array(
-			'attr1' => 'value1',
-			'attr2' => 'value2',
-		));
+		$template->link(
+			array(
+				'attr1' => 'value1',
+				'attr2' => 'value2',
+			)
+		);
 		$template->javascript('http://test.com/test.js?foo');
 		$template->javascript('http://test.com/test2.js?foo');
-		$template->setVariable('theme', array(
-			'pageType' => 'error',
-		));
+		$template->setVariable(
+			'theme',
+			array(
+				'pageType' => 'error',
+			)
+		);
 
 		$expected = array(
 			'',

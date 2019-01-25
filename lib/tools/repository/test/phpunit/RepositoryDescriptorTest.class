@@ -418,9 +418,13 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$base     = $descriptor->getPluginDir();
 		$platform->setReply('is_readable', array($base . 'MANIFEST'), true);
-		$platform->setReply('stat', array($base . 'MANIFEST'), array(
-			9 => 1000000,
-		));
+		$platform->setReply(
+			'stat',
+			array($base . 'MANIFEST'),
+			array(
+				9 => 1000000,
+			)
+		);
 
 		// file.1 has a bad crc
 		$platform->setReply('file_exists', array($base . 'file.1'), true);
@@ -429,10 +433,14 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		// file.2 is newer than the MANIFEST, and has the wrong size
 		$platform->setReply('file_exists', array($base . 'file.2'), true);
 		$platform->setReply('file_get_contents', array($base . 'file.2'), 'file.2');
-		$platform->setReply('stat', array($base . 'file.2'), array(
-			7 => 1,
-			9 => 2000000,
-		));
+		$platform->setReply(
+			'stat',
+			array($base . 'file.2'),
+			array(
+				7 => 1,
+				9 => 2000000,
+			)
+		);
 
 		// strings.raw is missing
 		$platform->setReply('file_exists', array($base . 'po/strings.raw'), false);
@@ -440,10 +448,14 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		// the rest of the files are older than the MANIFEST and have the right file size
 		$platform->setReply('file_exists', array($base . 'po/aa.po'), true);
 		$platform->setReply('file_get_contents', array($base . 'po/aa.po'), 'aa.po');
-		$platform->setReply('stat', array($base . 'po/aa.po'), array(
-			7 => 11111,
-			9 => 1,
-		));
+		$platform->setReply(
+			'stat',
+			array($base . 'po/aa.po'),
+			array(
+				7 => 11111,
+				9 => 1,
+			)
+		);
 		$platform->setReply('file_exists', array($base . 'po/aa.mo'), true);
 		$platform->setReply('file_get_contents', array($base . 'po/aa.mo'), 'aa.mo');
 		$platform->setReply(

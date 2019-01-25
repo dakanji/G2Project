@@ -436,7 +436,7 @@ class ADODB_odbc extends ADOConnection {
 	#define SQL_UNICODE_LONGVARCHAR                 (-97)
 	*/
 	public function ODBCTypes($t) {
-		switch ((integer)$t) {
+		switch ((int)$t) {
 			case 1:
 			case 12:
 			case 0:

@@ -301,10 +301,12 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 	}
 
 	public function TopRecentWaits() {
-		$rs = $this->conn->Execute("select * from (
+		$rs = $this->conn->Execute(
+			"select * from (
 		select event, round(100*time_waited/(select sum(time_waited) from v\$system_event where wait_class <> 'Idle'),1) \"% Wait\",
     total_waits,time_waited, average_wait,wait_class from v\$system_event where wait_class <> 'Idle' order by 2 desc
-	) where rownum <=5");
+	) where rownum <=5"
+		);
 
 		$ret = rs2html($rs, false, false, false, false);
 
@@ -314,7 +316,8 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 	public function TopHistoricalWaits() {
 		$days = 2;
 
-		$rs = $this->conn->Execute("select * from (   SELECT
+		$rs = $this->conn->Execute(
+			"select * from (   SELECT
          b.wait_class,B.NAME,
         round(sum(wait_time+TIME_WAITED)/1000000) waitsecs,
         parsing_schema_name,
@@ -325,7 +328,8 @@ FROM    V\$ACTIVE_SESSION_HISTORY A
 WHERE   A.SAMPLE_TIME BETWEEN sysdate-$days and sysdate
        and parsing_schema_name not in ('SYS','SYSMAN','DBSNMP','SYSTEM')
 GROUP BY b.wait_class,parsing_schema_name,C.SQL_TEXT, B.NAME,A.sql_id
-order by 3 desc) where rownum <=10");
+order by 3 desc) where rownum <=10"
+		);
 
 		$ret = rs2html($rs, false, false, false, false);
 
@@ -348,8 +352,10 @@ order by 3 desc) where rownum <=10");
 	}
 
 	public function RMAN() {
-		$rs = $this->conn->Execute('select * from (select start_time, end_time, operation, status, mbytes_processed, output_device_type
-			from V$RMAN_STATUS order by start_time desc) where rownum <=10');
+		$rs = $this->conn->Execute(
+			'select * from (select start_time, end_time, operation, status, mbytes_processed, output_device_type
+			from V$RMAN_STATUS order by start_time desc) where rownum <=10'
+		);
 
 		$ret = rs2html($rs, false, false, false, false);
 
@@ -410,7 +416,8 @@ order by 3 desc) where rownum <=10");
 			return $t . 'Oracle 9i or later required';
 		}
 
-		$rs = $this->conn->Execute('select a.MB,
+		$rs = $this->conn->Execute(
+			'select a.MB,
 			case when a.targ = 1 then \'<<= Current \'
 			when a.targ < 1  or a.pct <= b.pct then null
 			else
@@ -424,7 +431,8 @@ order by 3 desc) where rownum <=10");
               pga_target_factor targ,estd_pga_cache_hit_percentage pct,rownum as r
               from v$pga_target_advice) b on
       a.r = b.r+1 where
-          b.pct < 100');
+          b.pct < 100'
+		);
 
 		if (!$rs) {
 			return $t . 'Only in 9i or later';
@@ -508,13 +516,15 @@ CREATE TABLE PLAN_TABLE (
 
 			return $s;
 		}
-		$rs = $this->conn->Execute("
+		$rs = $this->conn->Execute(
+			"
 		select
   '<pre>'||lpad('--', (level-1)*2,'-') || trim(operation) || ' ' || trim(options)||'</pre>'  as Operation,
   object_name,COST,CARDINALITY,bytes
 		FROM plan_table
 START WITH id = 0  and STATEMENT_ID='$id'
-CONNECT BY prior id=parent_id and statement_id='$id'");
+CONNECT BY prior id=parent_id and statement_id='$id'"
+		);
 
 		$s .= rs2html($rs, false, false, false, false);
 		$this->conn->RollbackTrans();
@@ -529,7 +539,8 @@ CONNECT BY prior id=parent_id and statement_id='$id'");
 			return 'Oracle 9i or later required';
 		}
 
-		$rs = $this->conn->Execute("
+		$rs = $this->conn->Execute(
+			"
 select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 	case when b.size_factor=1 then
    		'&lt;&lt;= Current'
@@ -541,7 +552,8 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
    from (select size_for_estimate,size_factor,estd_physical_read_factor,rownum  r,name from v\$db_cache_advice order by name,1) a ,
    (select size_for_estimate,size_factor,estd_physical_read_factor,rownum r,name from v\$db_cache_advice order by name,1) b
    where a.r = b.r-1 and a.name = b.name
-  ");
+  "
+		);
 
 		if (!$rs) {
 			return false;

@@ -86,8 +86,10 @@ class GalleryTranslatorHelper_medium {
 		$platform =& $gallery->getPlatform();
 
 		$gallery->guaranteeTimeLimit(30);  // the glob may take a long time
-		$moFiles = $platform->glob($gallery->getConfig('data.gallery.locale')
-				   . "*/LC_MESSAGES/${pluginType}s_$pluginId.mo");
+		$moFiles = $platform->glob(
+			$gallery->getConfig('data.gallery.locale')
+			. "*/LC_MESSAGES/${pluginType}s_$pluginId.mo"
+		);
 		$success = true;
 
 		if (!empty($moFiles)) {

@@ -81,8 +81,10 @@ class MarkupTest extends GalleryTestCase {
 	}
 
 	public function testHtmlSpecialChars() {
-		$results = $this->_bbcode->parse('&lt;script language=&quot;javascript&quot;' .
-					 '&gt;evil!&lt;/script&gt;');
+		$results = $this->_bbcode->parse(
+			'&lt;script language=&quot;javascript&quot;' .
+			'&gt;evil!&lt;/script&gt;'
+		);
 		$this->assertEquals(
 			'&lt;script language=&quot;javascript&quot;&gt;evil!&lt;/script&gt;',
 			$results
@@ -96,8 +98,11 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testStripLastLineBreak() {
 		$results = $this->_bbcode->parse("[list][*]one\ntwo\n[*]three[*]four\n[/list]");
-		$this->assertEquals("<ul><li>one<br />\ntwo<br /></li>\n<li>three</li>" .
-				"\n<li>four<br /></li>\n</ul>", $results);
+		$this->assertEquals(
+			"<ul><li>one<br />\ntwo<br /></li>\n<li>three</li>" .
+			"\n<li>four<br /></li>\n</ul>",
+			$results
+		);
 	}
 
 	public function testImageUrl() {
@@ -140,8 +145,11 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testUrl2() {
 		$results = $this->_bbcode->parse('[url=http://example.com/a.html]content[/url]');
-		$this->assertEquals('<a href="http://example.com/a.html" rel="nofollow">' .
-				'content</a>', $results);
+		$this->assertEquals(
+			'<a href="http://example.com/a.html" rel="nofollow">' .
+			'content</a>',
+			$results
+		);
 	}
 
 	public function testUrl3() {
@@ -155,8 +163,11 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testUrl4() {
 		$results = $this->_bbcode->parse('[url=https://example.com/secure.html]content[/url]');
-		$this->assertEquals('<a href="https://example.com/secure.html" rel="nofollow">' .
-				'content</a>', $results);
+		$this->assertEquals(
+			'<a href="https://example.com/secure.html" rel="nofollow">' .
+			'content</a>',
+			$results
+		);
 	}
 
 	public function testUrl5() {
@@ -196,10 +207,15 @@ class MarkupTest extends GalleryTestCase {
 	 * in earlier bbcode implementations.
 	 */
 	public function testHeavyNesting() {
-		$results = $this->_bbcode->parse('[url=http://a.cc/blah.jpg\[url]\]\[[\]' .
-					 '[/url][/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]');
-		$this->assertEquals('<a href="http://a.cc/blah.jpg\[url" rel="nofollow">\]\[[\]</a>' .
-				'[/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]', $results);
+		$results = $this->_bbcode->parse(
+			'[url=http://a.cc/blah.jpg\[url]\]\[[\]' .
+			'[/url][/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]'
+		);
+		$this->assertEquals(
+			'<a href="http://a.cc/blah.jpg\[url" rel="nofollow">\]\[[\]</a>' .
+			'[/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]',
+			$results
+		);
 	}
 
 	public function testJavascript() {
@@ -208,10 +224,15 @@ class MarkupTest extends GalleryTestCase {
 	}
 
 	public function testUnicodeCharacters() {
-		$results = $this->_bbcode->parse('[url=https://example.com/secure.html]' .
-					 "Elemente hinzuf\xfcgen[/url] Seitenverh\xe4ltnis");
-		$this->assertEquals('<a href="https://example.com/secure.html" rel="nofollow">' .
-				"Elemente hinzuf\xfcgen</a> Seitenverh\xe4ltnis", $results);
+		$results = $this->_bbcode->parse(
+			'[url=https://example.com/secure.html]' .
+			"Elemente hinzuf\xfcgen[/url] Seitenverh\xe4ltnis"
+		);
+		$this->assertEquals(
+			'<a href="https://example.com/secure.html" rel="nofollow">' .
+			"Elemente hinzuf\xfcgen</a> Seitenverh\xe4ltnis",
+			$results
+		);
 	}
 
 	public function testNonBbcodeMarkers() {

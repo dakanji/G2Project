@@ -124,21 +124,27 @@ class UnitTestRepositoryUtilities extends MockObject {
 	}
 
 	public function preVerifyPackage($pluginType, $pluginId, $packageName, $descriptor) {
-		return $this->_makeReply('preVerifyPackage', array(
-			$pluginType,
-			$pluginId,
-			$packageName,
-			$descriptor,
-		));
+		return $this->_makeReply(
+			'preVerifyPackage',
+			array(
+				$pluginType,
+				$pluginId,
+				$packageName,
+				$descriptor,
+			)
+		);
 	}
 
 	public function verifyPackageIntegrity($pluginType, $pluginId, $packageName, $descriptor) {
-		return $this->_makeReply('verifyPackageIntegrity', array(
-			$pluginType,
-			$pluginId,
-			$packageName,
-			$descriptor,
-		));
+		return $this->_makeReply(
+			'verifyPackageIntegrity',
+			array(
+				$pluginType,
+				$pluginId,
+				$packageName,
+				$descriptor,
+			)
+		);
 	}
 
 	public function downloadAggregatePackages($source, $filesToDownload) {

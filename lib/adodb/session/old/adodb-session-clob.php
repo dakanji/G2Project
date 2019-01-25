@@ -210,8 +210,11 @@ if (!defined('ADODB_SESSION')) {
 		}
 
 		if (!$ok) {
-			ADOConnection::outp('
--- Session: connection failed</p>', false);
+			ADOConnection::outp(
+				'
+-- Session: connection failed</p>',
+				false
+			);
 		}
 	}
 
@@ -348,8 +351,11 @@ if (!defined('ADODB_SESSION')) {
 		}
 
 		if (!$rs) {
-			ADOConnection::outp('
--- Session Replace: ' . nl2br($err) . '</p>', false);
+			ADOConnection::outp(
+				'
+-- Session Replace: ' . nl2br($err) . '</p>',
+				false
+			);
 		} else {
 			// bug in access driver (could be odbc?) means that info is not commited
 			// properly unless select statement executed in Win2000
@@ -421,8 +427,10 @@ if (!defined('ADODB_SESSION')) {
 			$ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE expiry < " . time());
 
 			if ($ADODB_SESS_DEBUG) {
-				ADOConnection::outp("
--- <b>Garbage Collection</b>: $qry</p>");
+				ADOConnection::outp(
+					"
+-- <b>Garbage Collection</b>: $qry</p>"
+				);
 			}
 		}
 		// suggested by Cameron, "GaM3R" <gamr@outworld.cx>
@@ -467,8 +475,10 @@ if (!defined('ADODB_SESSION')) {
 				error_log($msg);
 
 				if ($ADODB_SESS_DEBUG) {
-					ADOConnection::outp("
--- $msg</p>");
+					ADOConnection::outp(
+						"
+-- $msg</p>"
+					);
 				}
 			}
 		}
@@ -493,6 +503,9 @@ if (0) {
 	session_start();
 	session_register('AVAR');
 	$_SESSION['AVAR'] += 1;
-	ADOConnection::outp("
--- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>", false);
+	ADOConnection::outp(
+		"
+-- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>",
+		false
+	);
 }

@@ -137,14 +137,16 @@ class GdToolkit extends GalleryToolkit {
 		global $gallery;
 
 		if ($gallery->getDebug()) {
-			$gallery->debug(sprintf(
-				'GdToolkit::performOperation(%s,%s,%s,%s,%s)',
-				$mimeType,
-				$operationName,
-				$sourceFilename,
-				$destFilename,
-				join('|', $parameters)
-			));
+			$gallery->debug(
+				sprintf(
+					'GdToolkit::performOperation(%s,%s,%s,%s,%s)',
+					$mimeType,
+					$operationName,
+					$sourceFilename,
+					$destFilename,
+					join('|', $parameters)
+				)
+			);
 		}
 
 		$outputMimeType        = $mimeType;

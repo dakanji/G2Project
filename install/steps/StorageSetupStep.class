@@ -285,13 +285,16 @@ class StorageSetupStep extends InstallStep {
 		$get = $components['path'];
 
 		// Read the web page into a buffer
-		$ok = fwrite($fd, sprintf(
-			"GET %s HTTP/1.0\r\n" .
-			  "Host: %s\r\n" .
-			  "\r\n",
-			$get,
-			$components['host']
-		));
+		$ok = fwrite(
+			$fd,
+			sprintf(
+				"GET %s HTTP/1.0\r\n" .
+				"Host: %s\r\n" .
+				"\r\n",
+				$get,
+				$components['host']
+			)
+		);
 
 		if (!$ok) {
 			// Zero bytes written or false was returned
