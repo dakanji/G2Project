@@ -16,7 +16,7 @@ You will need to have Git and Composer installed on your development machine.
 If you wish to contribute to this project, fork the project here on Github and on your computer, clone the fork using your favourite Git agent or manually:
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/G2Project-PREFIX G2Project-PREFIX
+git clone https://github.com/YOUR_GITHUB_USERNAME/G2Project-SUFIX G2Project-SUFIX
 ```
 
 
