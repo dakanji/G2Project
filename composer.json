@@ -2,7 +2,7 @@
     "name": "dayo/g2project-main",
     "description": "Community Update of Gallery2 - A web based photo album viewer and editor",
     "type": "project",
-    "license": "GPL v2",
+    "license": "GPL-2.0",
     "authors": [
         {
             "name": "Contributors",
@@ -30,7 +30,7 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/symlink.sh && ./dev_scripts/symlink.sh"
+            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
         ]
     }
 }
