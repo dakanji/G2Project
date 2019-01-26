@@ -39,7 +39,7 @@ class ItemDeleteSingleController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -47,7 +47,7 @@ class ItemDeleteSingleController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.delete');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Get the parent *before* we delete the item
@@ -57,7 +57,7 @@ class ItemDeleteSingleController extends GalleryController {
 		list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// The view shouldn't let us try to delete the root album, either
@@ -76,13 +76,13 @@ class ItemDeleteSingleController extends GalleryController {
 		$ret = GalleryCoreApi::deleteEntityById($itemId, 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $unused) = GalleryCoreApi::guaranteeAlbumHasThumbnail($parentId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		/**
@@ -100,6 +100,6 @@ class ItemDeleteSingleController extends GalleryController {
 		$result['status']   = array();
 		$result['error']    = array();
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 }

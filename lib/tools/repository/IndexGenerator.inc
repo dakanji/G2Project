@@ -64,7 +64,7 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 			'browseRepositoryLink' => $urlGenerator->generateUrl(
 				array(
 					'controller' => 'RepositoryManager',
-					'action'     => 'browse',
+					'action' => 'browse',
 				)
 			),
 		);

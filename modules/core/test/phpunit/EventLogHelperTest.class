@@ -64,8 +64,8 @@ class EventLogHelperTest extends GalleryTestCase {
 		// getUniqueId returns 3007, which mod 1000 == 7
 		$this->_storage->setReply(
 			'getUniqueId',
-			array(DATABASE_SEQUENCE_EVENT_LOG),
-			array(null, 3007)
+			array( DATABASE_SEQUENCE_EVENT_LOG ),
+			array( null, 3007 )
 		);
 		$this->_storage->setReply(
 			'updateMapEntry',
@@ -75,14 +75,14 @@ class EventLogHelperTest extends GalleryTestCase {
 					'id' => 7,
 				),
 				array(
-					'userId'    => $gallery->getActiveUserId(),
-					'type'      => 'TYPE',
-					'summary'   => 'SUMMARY',
-					'details'   => 'DETAILS',
-					'location'  => $this->_location,
-					'client'    => GalleryUtilities::getRemoteHostAddress(),
+					'userId' => $gallery->getActiveUserId(),
+					'type' => 'TYPE',
+					'summary' => 'SUMMARY',
+					'details' => 'DETAILS',
+					'location' => $this->_location,
+					'client' => GalleryUtilities::getRemoteHostAddress(),
 					'timestamp' => 12345,
-					'referer'   => 'REFERER',
+					'referer' => 'REFERER',
 				),
 				true,
 			),
@@ -90,8 +90,8 @@ class EventLogHelperTest extends GalleryTestCase {
 		);
 		$this->_storage->setReply(
 			'getAffectedRows',
-			array(true),
-			array(null, 1)
+			array( true ),
+			array( null, 1 )
 		);
 
 		$ret = GalleryCoreApi::addEventLogEntry('TYPE', 'SUMMARY', 'DETAILS');
@@ -109,8 +109,8 @@ class EventLogHelperTest extends GalleryTestCase {
 		// getUniqueId returns 3007, which mod 1000 == 7
 		$this->_storage->setReply(
 			'getUniqueId',
-			array(DATABASE_SEQUENCE_EVENT_LOG),
-			array(null, 3007)
+			array( DATABASE_SEQUENCE_EVENT_LOG ),
+			array( null, 3007 )
 		);
 		$this->_storage->setReply(
 			'updateMapEntry',
@@ -120,14 +120,14 @@ class EventLogHelperTest extends GalleryTestCase {
 					'id' => 7,
 				),
 				array(
-					'userId'    => $gallery->getActiveUserId(),
-					'type'      => 'TYPE',
-					'summary'   => 'SUMMARY',
-					'details'   => 'DETAILS',
-					'location'  => $this->_location,
-					'client'    => GalleryUtilities::getRemoteHostAddress(),
+					'userId' => $gallery->getActiveUserId(),
+					'type' => 'TYPE',
+					'summary' => 'SUMMARY',
+					'details' => 'DETAILS',
+					'location' => $this->_location,
+					'client' => GalleryUtilities::getRemoteHostAddress(),
 					'timestamp' => 12345,
-					'referer'   => 'REFERER',
+					'referer' => 'REFERER',
 				),
 				true,
 			),
@@ -135,23 +135,23 @@ class EventLogHelperTest extends GalleryTestCase {
 		);
 		$this->_storage->setReply(
 			'getAffectedRows',
-			array(true),
-			array(null, 0)
+			array( true ),
+			array( null, 0 )
 		);
 		$this->_storage->setReply(
 			'addMapEntry',
 			array(
 				'EventLogMap',
 				array(
-					'id'        => 7,
-					'userId'    => $gallery->getActiveUserId(),
-					'type'      => 'TYPE',
-					'summary'   => 'SUMMARY',
-					'details'   => 'DETAILS',
-					'location'  => $this->_location,
-					'client'    => GalleryUtilities::getRemoteHostAddress(),
+					'id' => 7,
+					'userId' => $gallery->getActiveUserId(),
+					'type' => 'TYPE',
+					'summary' => 'SUMMARY',
+					'details' => 'DETAILS',
+					'location' => $this->_location,
+					'client' => GalleryUtilities::getRemoteHostAddress(),
 					'timestamp' => 12345,
-					'referer'   => 'REFERER',
+					'referer' => 'REFERER',
 				),
 				true,
 			),

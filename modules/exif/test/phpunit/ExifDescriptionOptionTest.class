@@ -61,7 +61,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(
-				'summary'     => 'original summary 0',
+				'summary' => 'original summary 0',
 				'description' => 'original description 0',
 			),
 			__DIR__ . '/../data/descr.jpg'
@@ -103,7 +103,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		list($ret, $item) = $this->_items[0]->refresh();
 
@@ -123,7 +123,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 				$this->_album->getId(),
 				'image/jpeg',
 				array(
-					'summary'     => "original summary $j",
+					'summary' => "original summary $j",
 					'description' => "original description $j",
 				),
 				__DIR__ . '/../data/descr.jpg'
@@ -146,7 +146,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
 			list($ret, $item) = $this->_items[$j]->refresh();
@@ -167,7 +167,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		list($ret, $item) = $this->_items[1]->refresh();
 
@@ -193,7 +193,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 				$this->_album->getId(),
 				'image/jpeg',
 				array(
-					'summary'     => "original summary $j",
+					'summary' => "original summary $j",
 					'description' => "original description $j",
 				),
 				__DIR__ . '/../data/descr.jpg'
@@ -211,7 +211,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
 			list($ret, $item) = $this->_items[$j]->refresh();
@@ -241,7 +241,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		list($ret, $item) = $this->_items[1]->refresh();
 
@@ -278,11 +278,11 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ExifDescriptionOptionTestToolkit',
-			array('image/jpeg'),
+			array( 'image/jpeg' ),
 			'rotate',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 			),
@@ -298,7 +298,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		// Register property for dimensions
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'ExifDescriptionOptionTestToolkit',
-			array('image/test'),
+			array( 'image/test' ),
 			'dimensions',
 			'int,int',
 			'Get the dimensions'
@@ -340,10 +340,10 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		// Verify that we do *not* have a preferred
-		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_items[0]->getId()));
+		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $this->_items[0]->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -377,7 +377,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 	}
 
 	public function testRotateOptionOnOverwriteOriginal() {
@@ -418,10 +418,10 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		// Verify that we don't have a preferred
-		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_items[0]->getId()));
+		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $this->_items[0]->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -486,10 +486,10 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		// Verify that we have a preferred
-		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_items[0]->getId()));
+		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $this->_items[0]->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -539,10 +539,10 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
-		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
+		$this->assertEquals(array( $this->_noErrors, $this->_noWarnings ), $result);
 
 		// Verify that we don't have a preferred
-		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_items[0]->getId()));
+		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $this->_items[0]->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -581,7 +581,7 @@ class ExifDescriptionOptionTestToolkit extends GalleryToolkit {
 
 		// Fail unless test sets flag
 		if (!isset($_REQUEST['exifDescriptionTestToolkit'])) {
-			return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
+			return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null );
 		}
 
 		$platform =& $gallery->getPlatform();
@@ -599,7 +599,7 @@ class ExifDescriptionOptionTestToolkit extends GalleryToolkit {
 		// Turn On the Flag
 		$gallery->setConfig('rotated', 1);
 
-		return array(null, 'image/test', $context);
+		return array( null, 'image/test', $context );
 	}
 
 	public function getProperty($mimeType, $propertyName, $sourceFilename) {
@@ -615,6 +615,6 @@ class ExifDescriptionOptionTestToolkit extends GalleryToolkit {
 			);
 		}
 
-		return array(null, array(10, 10));
+		return array( null, array( 10, 10 ) );
 	}
 }

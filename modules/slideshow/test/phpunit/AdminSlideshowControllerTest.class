@@ -57,14 +57,14 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 	public function testInstallSuccess() {
 		GalleryUtilities::putRequestVariable('form[action][install]', 1);
 		$mockPicLensHelper = new AdminSlideshowControllerTest_MockPicLensHelper();
-		$mockPicLensHelper->setReply('install', array(), array(null, 'TEST_VERSION'));
+		$mockPicLensHelper->setReply('install', array(), array( null, 'TEST_VERSION' ));
 		$this->_controller->_setPicLensHelper($mockPicLensHelper);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
 				'error' => array(),
@@ -84,7 +84,7 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 		$mockPicLensHelper->setReply(
 			'install',
 			array(),
-			array(GalleryCoreApi::error(ERROR_UNKNOWN), null)
+			array( GalleryCoreApi::error(ERROR_UNKNOWN), null )
 		);
 		$this->_controller->_setPicLensHelper($mockPicLensHelper);
 
@@ -92,7 +92,7 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
 				'error' => array(),
@@ -127,7 +127,7 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
 				'error' => array(),

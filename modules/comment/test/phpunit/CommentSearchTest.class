@@ -265,15 +265,15 @@ class CommentSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[3]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $subject,
+								'key' => $subject,
 								'value' => $this->_comment[3][1]->getSubject(),
 							),
 							array(
-								'key'   => $comment,
+								'key' => $comment,
 								'value' => $this->_comment[3][1]->getComment(),
 							),
 							array(
-								'key'   => $commenter,
+								'key' => $commenter,
 								'value' => $authorCheckValue,
 							),
 						),
@@ -282,15 +282,15 @@ class CommentSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[3]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $subject,
+								'key' => $subject,
 								'value' => $this->_comment[3][0]->getSubject(),
 							),
 							array(
-								'key'   => $comment,
+								'key' => $comment,
 								'value' => $this->_comment[3][0]->getComment(),
 							),
 							array(
-								'key'   => $commenter,
+								'key' => $commenter,
 								'value' => $userName,
 							),
 						),
@@ -299,15 +299,15 @@ class CommentSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $subject,
+								'key' => $subject,
 								'value' => $this->_comment[2][1]->getSubject(),
 							),
 							array(
-								'key'   => $comment,
+								'key' => $comment,
 								'value' => $this->_comment[2][1]->getComment(),
 							),
 							array(
-								'key'   => $commenter,
+								'key' => $commenter,
 								'value' => $userName,
 							),
 						),
@@ -316,15 +316,15 @@ class CommentSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $subject,
+								'key' => $subject,
 								'value' => $this->_comment[2][0]->getSubject(),
 							),
 							array(
-								'key'   => $comment,
+								'key' => $comment,
 								'value' => $this->_comment[2][0]->getComment(),
 							),
 							array(
-								'key'   => $commenter,
+								'key' => $commenter,
 								'value' => $userName,
 							),
 						),
@@ -369,15 +369,15 @@ class CommentSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[3]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $subject,
+								'key' => $subject,
 								'value' => $this->_comment[3][0]->getSubject(),
 							),
 							array(
-								'key'   => $comment,
+								'key' => $comment,
 								'value' => $this->_comment[3][0]->getComment(),
 							),
 							array(
-								'key'   => $commenter,
+								'key' => $commenter,
 								'value' => $userName,
 							),
 						),
@@ -386,15 +386,15 @@ class CommentSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $subject,
+								'key' => $subject,
 								'value' => $this->_comment[2][1]->getSubject(),
 							),
 							array(
-								'key'   => $comment,
+								'key' => $comment,
 								'value' => $this->_comment[2][1]->getComment(),
 							),
 							array(
-								'key'   => $commenter,
+								'key' => $commenter,
 								'value' => $userName,
 							),
 						),

@@ -189,24 +189,24 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($album->getId()));
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array( $album->getId() ));
 
 		if ($ret) {
 			return $ret;
 		}
 
 		foreach (array(
-			'title'     => array(ORDER_ASCENDING, 2, 3, 1),
-			'summary'   => array(ORDER_DESCENDING, 2, 1, 3),
-			'description' => array(ORDER_ASCENDING, 3, 2, 1),
-			'keywords'  => array(ORDER_DESCENDING, 3, 1, 2),
-			'originationTimestamp' => array(ORDER_ASCENDING, 1, 3, 2),
-			'creationTimestamp' => array(ORDER_DESCENDING, 3, 2, 1),
-			'viewCount' => array(ORDER_DESCENDING, 2, 3, 1), // Tie break by Id
-			'pathComponent' => array(ORDER_ASCENDING, '?'),
-			'random'    => array(ORDER_ASCENDING, '?'),
-			'viewedFirst|summary' => array(ORDER_ASCENDING, 3, 2, 1),
-			'albumsFirst|description' => array(ORDER_DESCENDING, 2, 1, 3),
+			'title'     => array( ORDER_ASCENDING, 2, 3, 1 ),
+			'summary'   => array( ORDER_DESCENDING, 2, 1, 3 ),
+			'description' => array( ORDER_ASCENDING, 3, 2, 1 ),
+			'keywords'  => array( ORDER_DESCENDING, 3, 1, 2 ),
+			'originationTimestamp' => array( ORDER_ASCENDING, 1, 3, 2 ),
+			'creationTimestamp' => array( ORDER_DESCENDING, 3, 2, 1 ),
+			'viewCount' => array( ORDER_DESCENDING, 2, 3, 1 ), // Tie break by Id
+			'pathComponent' => array( ORDER_ASCENDING, '?' ),
+			'random'    => array( ORDER_ASCENDING, '?' ),
+			'viewedFirst|summary' => array( ORDER_ASCENDING, 3, 2, 1 ),
+			'albumsFirst|description' => array( ORDER_DESCENDING, 2, 1, 3 ),
 		) as $orderBy => $data) {
 			$album->setOrderBy($orderBy);
 			$album->setOrderDirection(array_shift($data));
@@ -228,7 +228,7 @@ class ChildTest extends GalleryTestCase {
 
 			if (count($data) < 3) {
 				// Don't know exact order to expect, just make sure all 3 items are there
-				$data = array(1, 2, 3);
+				$data = array( 1, 2, 3 );
 				sort($childIds);
 			}
 
@@ -291,7 +291,7 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array($this->_child[0]->getId()), $childIds, 'root children');
+		$this->assertEquals(array( $this->_child[0]->getId() ), $childIds, 'root children');
 	}
 
 	public function testFetchChildDataItemIds() {
@@ -301,7 +301,7 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array($this->_child[1]->getId()), $childIds, 'root children');
+		$this->assertEquals(array( $this->_child[1]->getId() ), $childIds, 'root children');
 	}
 
 	public function testFetchChildAlbumItemIds() {
@@ -312,7 +312,7 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array($this->_child[0]->getId(), $this->_child[2]->getId()),
+			array( $this->_child[0]->getId(), $this->_child[2]->getId() ),
 			$childIds,
 			'root sub-albums'
 		);
@@ -321,7 +321,7 @@ class ChildTest extends GalleryTestCase {
 	public function testFetchChildItemIdsWithPermission() {
 		global $gallery;
 
-		$permission = array('core.view', 'core.all', 'core.edit');
+		$permission = array( 'core.view', 'core.all', 'core.edit' );
 
 		for ($i = 0; $i < 3; $i++) {
 			$ret = GalleryCoreApi::removeItemPermissions($this->_child[$i]->getId());
@@ -347,7 +347,7 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array($this->_child[1]->getId(), $this->_child[2]->getId()),
+			array( $this->_child[1]->getId(), $this->_child[2]->getId() ),
 			$childIds,
 			'editable children'
 		);
@@ -359,13 +359,13 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array($this->_child[1]->getId()), $childIds, 'match all bits failed');
+		$this->assertEquals(array( $this->_child[1]->getId() ), $childIds, 'match all bits failed');
 	}
 
 	public function testFetchChildItemIdsWithPermissionArray() {
 		global $gallery;
 
-		$permission = array('core.view', 'core.all', 'core.edit');
+		$permission = array( 'core.view', 'core.all', 'core.edit' );
 
 		for ($i = 0; $i < 3; $i++) {
 			$ret = GalleryCoreApi::removeItemPermissions($this->_child[$i]->getId());
@@ -398,7 +398,7 @@ class ChildTest extends GalleryTestCase {
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 			$this->_root->getId(),
-			array('core.edit', 'core.view')
+			array( 'core.edit', 'core.view' )
 		);
 
 		if ($ret) {
@@ -424,13 +424,13 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(
-			array($this->_child[1]->getId()),
+			array( $this->_child[1]->getId() ),
 			$childIds,
 			'Inital'
 		);
 
 		// Verify 2 references to GalleryEntity table don't produce bad sql (2 joins)
-		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($this->_root->getId()));
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array( $this->_root->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -457,7 +457,7 @@ class ChildTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array($this->_child[1]->getId()), $childIds, 'with sort');
+		$this->assertEquals(array( $this->_child[1]->getId() ), $childIds, 'with sort');
 	}
 
 	public function testChildItemIdsIgnorePermission() {
@@ -518,7 +518,7 @@ class ChildTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_root->getId(),
 			array(
-				'orderBy'        => 'albumsFirst|creationTimestamp',
+				'orderBy' => 'albumsFirst|creationTimestamp',
 				'orderDirection' => ORDER_DESCENDING,
 			)
 		);
@@ -594,7 +594,7 @@ class ChildTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_root->getId(),
 			array(
-				'orderBy'        => 'albumsFirst|ChildTestSortOrder',
+				'orderBy' => 'albumsFirst|ChildTestSortOrder',
 				'orderDirection' => ORDER_DESCENDING,
 			)
 		);
@@ -617,7 +617,7 @@ class ChildTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_root->getId(),
 			array(
-				'orderBy'        => 'albumsFirst|creationTimestamp',
+				'orderBy' => 'albumsFirst|creationTimestamp',
 				'orderDirection' => ORDER_ASCENDING,
 			)
 		);
@@ -653,7 +653,7 @@ class ChildTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_root->getId(),
 			array(
-				'orderBy'        => 'ChildTestSortOrder2',
+				'orderBy' => 'ChildTestSortOrder2',
 				'orderDirection' => ORDER_ASCENDING,
 			)
 		);
@@ -846,7 +846,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class
  */
 class ChildTestSortOrder extends GallerySortInterface_1_2 {
 	public function getSortInfo() {
-		return array(null, 'ChildTestSort', false);
+		return array( null, 'ChildTestSort', false );
 	}
 
 	public function getSortOrder($direction) {
@@ -866,7 +866,7 @@ class ChildTestSortOrder extends GallerySortInterface_1_2 {
  */
 class ChildTestSortOrder2 extends GallerySortInterface_1_2 {
 	public function getSortInfo() {
-		return array(null, 'ChildTestSort2', false);
+		return array( null, 'ChildTestSort2', false );
 	}
 
 	public function getSortOrder($direction) {

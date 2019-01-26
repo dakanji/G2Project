@@ -46,7 +46,7 @@ class GdToolkitHelper {
 		list($ret, $isSupported) = self::isGdVersionSupported(null, $gd);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!$isSupported) {
@@ -62,7 +62,7 @@ class GdToolkitHelper {
 		list($ret, $mimeTypes) = self::discoverMimeTypes($gd);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// -------------------- Operations --------------------
@@ -94,7 +94,7 @@ class GdToolkitHelper {
 				'type' => 'int',
 				'description' => $gallery->i18n(
 					array(
-						'text'    => 'target width (# pixels or #% of full size)',
+						'text' => 'target width (# pixels or #% of full size)',
 						'cFormat' => false,
 					)
 				),
@@ -124,7 +124,7 @@ class GdToolkitHelper {
 				'type' => 'int',
 				'description' => $gallery->i18n(
 					array(
-						'text'    => 'target width (# pixels or #% of full size)',
+						'text' => 'target width (# pixels or #% of full size)',
 						'cFormat' => false,
 					)
 				),
@@ -133,7 +133,7 @@ class GdToolkitHelper {
 				'type' => 'int',
 				'description' => $gallery->i18n(
 					array(
-						'text'    => 'target height (# pixels or #% of full size)',
+						'text' => 'target height (# pixels or #% of full size)',
 						'cFormat' => false,
 					)
 				),
@@ -213,20 +213,20 @@ class GdToolkitHelper {
 		}
 
 		// Compress
-		$qualityMimeTypes = array_intersect(array('image/jpeg'), $mimeTypes);
+		$qualityMimeTypes = array_intersect(array( 'image/jpeg' ), $mimeTypes);
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
-				'params'      => array(
+				'params' => array(
 					array(
-						'type'        => 'int',
+						'type' => 'int',
 						'description' => $gallery->i18n('target size in kb'),
 					),
 				),
 				'description' => $gallery->i18n(
 					'Reduce image quality to reach target file size'
 				),
-				'mimeTypes'   => $qualityMimeTypes,
+				'mimeTypes' => $qualityMimeTypes,
 			);
 		}
 
@@ -324,7 +324,7 @@ class GdToolkitHelper {
 			list($ret, $gdInfo) = $gd->gd_info();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$matchString = $gdInfo['GD Version'];
 			$matcher     = '/([\d\.]+)(\s+or\s+higher)?/i';
@@ -332,7 +332,7 @@ class GdToolkitHelper {
 			list($ret, $matchString) = $gd->phpinfo(8);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$matcher = '/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)(\s+or\s+higher)?/i';
 		}
@@ -347,7 +347,7 @@ class GdToolkitHelper {
 			$gdVersion = sprintf('>%s', $gdVersion);
 		}
 
-		return array(null, $gdVersion);
+		return array( null, $gdVersion );
 	}
 
 	/**
@@ -366,15 +366,15 @@ class GdToolkitHelper {
 			list($ret, $gdVersion) = self::discoverGdVersion($gd);
 
 			if ($ret) {
-				return array($ret, false);
+				return array( $ret, false );
 			}
 		}
 
 		if (preg_match('/^>?2\.[0-9]/', $gdVersion)) {
-			return array(null, true);
+			return array( null, true );
 		}
 		// 1.6, 1.8, ... is too old
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -393,10 +393,10 @@ class GdToolkitHelper {
 		if ($gd->functionExists('imageLayerEffect')
 			&& $gd->functionExists('imageRotate')
 		) {
-			return array(null, true);
+			return array( null, true );
 		}
 
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -411,7 +411,7 @@ class GdToolkitHelper {
 		}
 
 		if (!$gd->functionExists('imageTypes')) {
-			return array(null, array());
+			return array( null, array() );
 		}
 
 		$mimeTypes = array();
@@ -445,10 +445,10 @@ class GdToolkitHelper {
 		}
 
 		if (count($mimeTypes) == 0) {
-			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
 		}
 
-		return array(null, $mimeTypes);
+		return array( null, $mimeTypes );
 	}
 
 	/**
@@ -470,14 +470,14 @@ class GdToolkitHelper {
 		list($ret, $gdVersion) = self::discoverGdVersion($gd);
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
 		if (preg_match('/^>?2\.0/', $gdVersion)) {
-			return array(null, true);
+			return array( null, true );
 		}
 
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**

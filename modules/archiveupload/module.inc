@@ -37,8 +37,8 @@ class ArchiveUploadModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('import', $gallery->i18n('Import'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
+		$this->setRequiredCoreApi(array( 7, 20 ));
+		$this->setRequiredModuleApi(array( 3, 6 ));
 	}
 
 	/**
@@ -93,17 +93,17 @@ class ArchiveUploadModule extends GalleryModule {
 	public function autoConfigure() {
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		list($ret, $needsConfiguration) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
 		if (!$needsConfiguration) {
-			return array(null, true);
+			return array( null, true );
 		}
 
 		GalleryCoreApi::requireOnce(
@@ -112,16 +112,16 @@ class ArchiveUploadModule extends GalleryModule {
 		$unzipPath = ArchiveUploadHelper::findUnzipBinary();
 
 		if (empty($unzipPath)) {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		$this->setParameter('unzipPath', $unzipPath);
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
-		return array(null, true);
+		return array( null, true );
 	}
 
 	/**
@@ -130,22 +130,22 @@ class ArchiveUploadModule extends GalleryModule {
 	public function needsConfiguration() {
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array(null, true);
+			return array( null, true );
 		}
 
-		foreach (array('unzipPath') as $key) {
+		foreach (array( 'unzipPath' ) as $key) {
 			list($ret, $value) = $this->getParameter($key);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (empty($value)) {
-				return array(null, true);
+				return array( null, true );
 			}
 		}
 
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -154,23 +154,23 @@ class ArchiveUploadModule extends GalleryModule {
 	public function activate($postActivationEvent = true) {
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ArchiveUpload',
-			array('application/zip'),
+			array( 'application/zip' ),
 			'extract',
 			array(),
 			'extract files from an archive'
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $redirect);
+		return array( null, $redirect );
 	}
 
 	/**

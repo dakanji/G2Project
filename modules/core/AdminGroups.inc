@@ -33,7 +33,7 @@ class AdminGroupsController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$results = $status = $error = array();
@@ -45,7 +45,7 @@ class AdminGroupsController extends GalleryController {
 
 			if ($ret) {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 		}
@@ -124,7 +124,7 @@ class AdminGroupsController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -139,7 +139,7 @@ class AdminGroupsView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load some standard form parameters
@@ -160,7 +160,7 @@ class AdminGroupsView extends GalleryView {
 		list($ret, $totalGroupCount) = GalleryCoreApi::fetchGroupCount();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$form['list']['count']    = $totalGroupCount;
@@ -171,7 +171,7 @@ class AdminGroupsView extends GalleryView {
 			list($ret, $form['list']['count']) = GalleryCoreApi::fetchGroupCount($form['list']['filter']);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -193,25 +193,25 @@ class AdminGroupsView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $allUserGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $adminGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$form['list']['groupNames'] = array();

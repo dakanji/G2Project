@@ -65,15 +65,15 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret                         = GalleryCoreApi::registerToolkitOperation(
 			'CreateThumbnailOptionTestToolkit',
-			array('test/file'),
+			array( 'test/file' ),
 			'thumbnail',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 			),
@@ -236,6 +236,6 @@ class CreateThumbnailOptionTestToolkit extends GalleryToolkit {
 			$platform->copy($sourceFilename, $destFilename);
 		}
 
-		return array(null, $mimeType, $context);
+		return array( null, $mimeType, $context );
 	}
 }

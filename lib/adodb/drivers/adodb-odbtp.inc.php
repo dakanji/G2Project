@@ -580,7 +580,7 @@ class ADODB_odbtp extends ADOConnection {
 			return $sql;
 		}
 
-		return array($sql, $stmt, false);
+		return array( $sql, $stmt, false );
 	}
 
 	public function PrepareSP($sql, $param = true) {
@@ -597,7 +597,7 @@ class ADODB_odbtp extends ADOConnection {
 			return false;
 		}
 
-		return array($sql, $stmt);
+		return array( $sql, $stmt );
 	}
 
 	/*

@@ -306,7 +306,7 @@ class ADODB_Active_Record {
 	 * foreign keys (this index name is stored in ar->foreignKey)
 	 *
 	 * this-table.id = other-table-#1.this-table_id
-	 *               = other-table-#2.this-table_id
+	 * = other-table-#2.this-table_id
 	 */
 	public function hasMany($foreignRef, $foreignKey = false) {
 		$ar              = new self($foreignRef);
@@ -959,7 +959,7 @@ class ADODB_Active_Record {
 						if (!empty($obj->$foreignName)) {
 							if (!is_array($this->$foreignName)) {
 								$foreignObj         = $this->$foreignName;
-								$this->$foreignName = array(clone $foreignObj);
+								$this->$foreignName = array( clone $foreignObj );
 							} else {
 								$foreignObj = $obj->$foreignName;
 								array_push($this->$foreignName, clone $foreignObj);
@@ -975,7 +975,7 @@ class ADODB_Active_Record {
 						if (!empty($obj->$foreignName)) {
 							if (!is_array($this->$foreignName)) {
 								$foreignObj         = $this->$foreignName;
-								$this->$foreignName = array(clone $foreignObj);
+								$this->$foreignName = array( clone $foreignObj );
 							} else {
 								$foreignObj = $obj->$foreignName;
 								array_push($this->$foreignName, clone $foreignObj);
@@ -1097,8 +1097,8 @@ class ADODB_Active_Record {
 			$extra,
 			array(
 				'foreignName' => $this->foreignName,
-				'belongsTo'   => $table->_belongsTo,
-				'hasMany'     => $table->_hasMany,
+				'belongsTo' => $table->_belongsTo,
+				'hasMany' => $table->_hasMany,
 			)
 		);
 
@@ -1125,8 +1125,8 @@ class ADODB_Active_Record {
 			$extra,
 			array(
 				'foreignName' => $this->foreignName,
-				'belongsTo'   => $table->_belongsTo,
-				'hasMany'     => $table->_hasMany,
+				'belongsTo' => $table->_belongsTo,
+				'hasMany' => $table->_hasMany,
 			)
 		);
 
@@ -1169,7 +1169,7 @@ class ADODB_Active_Record {
 		}
 
 		if (!is_array($pkey)) {
-			$pkey = array($pkey);
+			$pkey = array( $pkey );
 		}
 
 
@@ -1491,7 +1491,7 @@ function adodb_GetActiveRecordsClass(
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!
 								$foreignObj              = $masterObj->$foreignName;
-								$masterObj->$foreignName = array(clone $foreignObj);
+								$masterObj->$foreignName = array( clone $foreignObj );
 							} else {
 								// Pluck pluck!
 								$foreignObj = $obj->$foreignName;
@@ -1511,7 +1511,7 @@ function adodb_GetActiveRecordsClass(
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!
 								$foreignObj              = $masterObj->$foreignName;
-								$masterObj->$foreignName = array(clone $foreignObj);
+								$masterObj->$foreignName = array( clone $foreignObj );
 							} else {
 								// Pluck pluck!
 								$foreignObj = $obj->$foreignName;

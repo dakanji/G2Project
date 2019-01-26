@@ -28,8 +28,8 @@ function smarty_core_rmdir($params, &$smarty) {
 			if ($_entry != '.' && $_entry != '..') {
 				if (@is_dir($params['dirname'] . DIRECTORY_SEPARATOR . $_entry)) {
 					$_params = array(
-						'dirname'  => $params['dirname'] . DIRECTORY_SEPARATOR . $_entry,
-						'level'    => $params['level'] + 1,
+						'dirname' => $params['dirname'] . DIRECTORY_SEPARATOR . $_entry,
+						'level' => $params['level'] + 1,
 						'exp_time' => $params['exp_time'],
 					);
 					smarty_core_rmdir($_params, $smarty);

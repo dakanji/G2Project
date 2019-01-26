@@ -50,72 +50,72 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$this->_canonicalFileMetaData = array(
 			'files' => array(
 				'MANIFEST' => array(
-					'bytes'    => '12121',
-					'hash'     => '1908582732',
-					'packages' => array('base'),
+					'bytes' => '12121',
+					'hash' => '1908582732',
+					'packages' => array( 'base' ),
 				),
 				'file.1' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array('base'),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array( 'base' ),
 				),
 				'file.2' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array('base'),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array( 'base' ),
 				),
 				'po/strings.raw' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array('base'),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array( 'base' ),
 				),
 				'po/aa.po' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array('lang-aa'),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array( 'lang-aa' ),
 				),
 				'po/aa.mo' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array('lang-aa'),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array( 'lang-aa' ),
 				),
 				'locale/aa/LC_MESSAGES/test.mo' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array('lang-aa'),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array( 'lang-aa' ),
 				),
 				'test/phpunit/file.test' => array(
-					'bytes'      => '11111',
+					'bytes' => '11111',
 					'bytes_crlf' => '61111',
-					'hash'       => '12345',
-					'hash_crlf'  => '62345',
-					'packages'   => array(),
+					'hash' => '12345',
+					'hash_crlf' => '62345',
+					'packages' => array(),
 				),
 			),
 			'directories' => array(
 				'po' => array(
-					'packages' => array('base'),
+					'packages' => array( 'base' ),
 				),
 				'locale/aa/LC_MESSAGES' => array(
-					'packages' => array('lang-aa'),
+					'packages' => array( 'lang-aa' ),
 				),
 				'locale/aa' => array(
-					'packages' => array('lang-aa'),
+					'packages' => array( 'lang-aa' ),
 				),
 				'locale' => array(
-					'packages' => array('base'),
+					'packages' => array( 'base' ),
 				),
 				'test/phpunit' => array(
 					'packages' => array(),
@@ -131,7 +131,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 		$gallery->_translator = new RepositoryDescriptorTestTranslator();
 		$gallery->_platform   = new UnitTestPlatform();
-		$gallery->_platform->setReply('file_exists', array('/MANIFEST'), true);
+		$gallery->_platform->setReply('file_exists', array( '/MANIFEST' ), true);
 	}
 
 	public function _getDescriptorWithFakeFileMetadata() {
@@ -162,98 +162,98 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			array(
 				'header' => array(
 					'stringsRevision' => '22222',
-					'buildTimestamp'  => '14604',
+					'buildTimestamp' => '14604',
 				),
 				'descriptions' => array(
 					'en_US' => array(
-						'name'        => 'Test Module',
+						'name' => 'Test Module',
 						'description' => 'This is a test module.',
-						'groupLabel'  => 'Test Group',
+						'groupLabel' => 'Test Group',
 					),
 					'pt_BR' => array(
-						'name'        => 'pt_BR-modules_testModule-Test Module',
+						'name' => 'pt_BR-modules_testModule-Test Module',
 						'description' => 'pt_BR-modules_testModule-This is a test module.',
-						'groupLabel'  => 'pt_BR-modules_testModule-Test Group',
+						'groupLabel' => 'pt_BR-modules_testModule-Test Group',
 					),
 					'pt_PT' => array(
-						'name'        => 'pt_PT-modules_testModule-Test Module',
+						'name' => 'pt_PT-modules_testModule-Test Module',
 						'description' => 'pt_PT-modules_testModule-This is a test module.',
-						'groupLabel'  => 'pt_PT-modules_testModule-Test Group',
+						'groupLabel' => 'pt_PT-modules_testModule-Test Group',
 					),
 				),
 				'files' => array(
 					'MANIFEST' => array(
-						'bytes'    => '12121',
-						'hash'     => '1908582732',
-						'packages' => array('base'),
+						'bytes' => '12121',
+						'hash' => '1908582732',
+						'packages' => array( 'base' ),
 					),
 					'file.1' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array('base'),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array( 'base' ),
 					),
 					'file.2' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array('base'),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array( 'base' ),
 					),
 					'po/strings.raw' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array('base'),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array( 'base' ),
 					),
 					'po/aa.po' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array('lang-aa'),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array( 'lang-aa' ),
 					),
 					'po/aa.mo' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array('lang-aa'),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array( 'lang-aa' ),
 					),
 					'locale/aa/LC_MESSAGES/test.mo' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array('lang-aa'),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array( 'lang-aa' ),
 					),
 					'test/phpunit/file.test' => array(
-						'bytes'      => '11111',
+						'bytes' => '11111',
 						'bytes_crlf' => '61111',
-						'hash'       => '12345',
-						'hash_crlf'  => '62345',
-						'packages'   => array(),
+						'hash' => '12345',
+						'hash_crlf' => '62345',
+						'packages' => array(),
 					),
 				),
 				'directories' => array(
 					'locale/aa/LC_MESSAGES' => array(
-						'packages' => array('lang-aa'),
+						'packages' => array( 'lang-aa' ),
 					),
-					'locale/aa'             => array(
-						'packages' => array('lang-aa'),
+					'locale/aa' => array(
+						'packages' => array( 'lang-aa' ),
 					),
-					'po'                    => array(
-						'packages' => array('base'),
+					'po' => array(
+						'packages' => array( 'base' ),
 					),
-					'locale'                => array(
-						'packages' => array('base'),
+					'locale' => array(
+						'packages' => array( 'base' ),
 					),
-					'test'                  => array(
+					'test' => array(
 						'packages' => array(),
 					),
-					'test/phpunit'          => array(
+					'test/phpunit' => array(
 						'packages' => array(),
 					),
 				),
@@ -272,7 +272,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_platform = new UnitTestPlatform();
-		$gallery->_platform->setReply('file_exists', array('/MANIFEST'), false);
+		$gallery->_platform->setReply('file_exists', array( '/MANIFEST' ), false);
 
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
@@ -300,11 +300,11 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$manifestLines = file($testDataDir . 'MANIFEST');
-		$platform->setReply('file', array($testDataDir . 'MANIFEST', null), $manifestLines);
+		$platform->setReply('file', array( $testDataDir . 'MANIFEST', null ), $manifestLines);
 
 		$platform->setReply(
 			'file_get_contents',
-			array($testDataDir . 'MANIFEST'),
+			array( $testDataDir . 'MANIFEST' ),
 			str_repeat('x', 12121)
 		);
 		$gallery->setPlatform($platform);
@@ -323,7 +323,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array('locale', 'po'),
+			array( 'locale', 'po' ),
 			$descriptor->getDirectoriesInPackage('base')
 		);
 
@@ -332,7 +332,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		 * mkdir on them in this order.
 		 */
 		$this->assertEquals(
-			array('locale/aa', 'locale/aa/LC_MESSAGES'),
+			array( 'locale/aa', 'locale/aa/LC_MESSAGES' ),
 			$descriptor->getDirectoriesInPackage('lang-aa')
 		);
 	}
@@ -346,12 +346,12 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array('MANIFEST', 'file.1', 'file.2', 'po/strings.raw'),
+			array( 'MANIFEST', 'file.1', 'file.2', 'po/strings.raw' ),
 			$descriptor->getFilesInPackage('base')
 		);
 
 		$this->assertEquals(
-			array('locale/aa/LC_MESSAGES/test.mo', 'po/aa.mo', 'po/aa.po'),
+			array( 'locale/aa/LC_MESSAGES/test.mo', 'po/aa.mo', 'po/aa.po' ),
 			$descriptor->getFilesInPackage('lang-aa')
 		);
 	}
@@ -365,7 +365,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array('base', 'lang-aa'),
+			array( 'base', 'lang-aa' ),
 			$descriptor->getPackages()
 		);
 	}
@@ -380,11 +380,11 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		}
 
 		$platform = new UnitTestPlatform();
-		$platform->setReply('is_readable', array($descriptor->getPluginDir() . 'MANIFEST'), false);
+		$platform->setReply('is_readable', array( $descriptor->getPluginDir() . 'MANIFEST' ), false);
 		$gallery->setPlatform($platform);
 
 		$this->assertEquals(
-			array('Missing MANIFEST'),
+			array( 'Missing MANIFEST' ),
 			$descriptor->checkIntegrity()
 		);
 
@@ -417,25 +417,25 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 		$platform = new UnitTestPlatform();
 		$base     = $descriptor->getPluginDir();
-		$platform->setReply('is_readable', array($base . 'MANIFEST'), true);
+		$platform->setReply('is_readable', array( $base . 'MANIFEST' ), true);
 		$platform->setReply(
 			'stat',
-			array($base . 'MANIFEST'),
+			array( $base . 'MANIFEST' ),
 			array(
 				9 => 1000000,
 			)
 		);
 
 		// file.1 has a bad crc
-		$platform->setReply('file_exists', array($base . 'file.1'), true);
-		$platform->setReply('file_get_contents', array($base . 'file.1'), 'file.1');
+		$platform->setReply('file_exists', array( $base . 'file.1' ), true);
+		$platform->setReply('file_get_contents', array( $base . 'file.1' ), 'file.1');
 
 		// file.2 is newer than the MANIFEST, and has the wrong size
-		$platform->setReply('file_exists', array($base . 'file.2'), true);
-		$platform->setReply('file_get_contents', array($base . 'file.2'), 'file.2');
+		$platform->setReply('file_exists', array( $base . 'file.2' ), true);
+		$platform->setReply('file_get_contents', array( $base . 'file.2' ), 'file.2');
 		$platform->setReply(
 			'stat',
-			array($base . 'file.2'),
+			array( $base . 'file.2' ),
 			array(
 				7 => 1,
 				9 => 2000000,
@@ -443,52 +443,52 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 
 		// strings.raw is missing
-		$platform->setReply('file_exists', array($base . 'po/strings.raw'), false);
+		$platform->setReply('file_exists', array( $base . 'po/strings.raw' ), false);
 
 		// the rest of the files are older than the MANIFEST and have the right file size
-		$platform->setReply('file_exists', array($base . 'po/aa.po'), true);
-		$platform->setReply('file_get_contents', array($base . 'po/aa.po'), 'aa.po');
+		$platform->setReply('file_exists', array( $base . 'po/aa.po' ), true);
+		$platform->setReply('file_get_contents', array( $base . 'po/aa.po' ), 'aa.po');
 		$platform->setReply(
 			'stat',
-			array($base . 'po/aa.po'),
+			array( $base . 'po/aa.po' ),
 			array(
 				7 => 11111,
 				9 => 1,
 			)
 		);
-		$platform->setReply('file_exists', array($base . 'po/aa.mo'), true);
-		$platform->setReply('file_get_contents', array($base . 'po/aa.mo'), 'aa.mo');
+		$platform->setReply('file_exists', array( $base . 'po/aa.mo' ), true);
+		$platform->setReply('file_get_contents', array( $base . 'po/aa.mo' ), 'aa.mo');
 		$platform->setReply(
 			'stat',
-			array($base . 'po/aa.mo'),
+			array( $base . 'po/aa.mo' ),
 			array(
 				7 => 11111,
 				9 => 1,
 			)
 		);
-		$platform->setReply('file_exists', array($base . 'locale/aa/LC_MESSAGES/test.mo'), true);
+		$platform->setReply('file_exists', array( $base . 'locale/aa/LC_MESSAGES/test.mo' ), true);
 		$platform->setReply(
 			'file_get_contents',
-			array($base . 'locale/aa/LC_MESSAGES/test.mo'),
+			array( $base . 'locale/aa/LC_MESSAGES/test.mo' ),
 			'test.mo'
 		);
 		$platform->setReply(
 			'stat',
-			array($base . 'locale/aa/LC_MESSAGES/test.mo'),
+			array( $base . 'locale/aa/LC_MESSAGES/test.mo' ),
 			array(
 				7 => 11111,
 				9 => 1,
 			)
 		);
-		$platform->setReply('file_exists', array($base . 'test/phpunit/file.test'), true);
+		$platform->setReply('file_exists', array( $base . 'test/phpunit/file.test' ), true);
 		$platform->setReply(
 			'file_get_contents',
-			array($base . 'test/phpunit/file.test'),
+			array( $base . 'test/phpunit/file.test' ),
 			'file.test'
 		);
 		$platform->setReply(
 			'stat',
-			array($base . 'test/phpunit/file.test'),
+			array( $base . 'test/phpunit/file.test' ),
 			array(
 				7 => 11111,
 				9 => 1,
@@ -554,11 +554,11 @@ class RepositoryDescriptorTestPlugin {
 	}
 
 	public function getRequiredModuleApi() {
-		return array(3, 4);
+		return array( 3, 4 );
 	}
 
 	public function getRequiredCoreApi() {
-		return array(1, 2);
+		return array( 1, 2 );
 	}
 
 	public function getGroup() {
@@ -607,6 +607,6 @@ class RepositoryDescriptorTestUtilities {
 	}
 
 	public function getFileRevision($file) {
-		return array(null, $this->_matches[$file]);
+		return array( null, $this->_matches[$file] );
 	}
 }

@@ -63,7 +63,7 @@ class RepositoryCallbackView extends GalleryView {
 			 */
 			$data = array();
 
-			foreach (array('released', 'experimental', 'community') as $key) {
+			foreach (array( 'released', 'experimental', 'community' ) as $key) {
 				if ($form['repositories'][$key]) {
 					$data[$key] = 1;
 				}

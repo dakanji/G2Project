@@ -203,7 +203,7 @@ class TemplateTest extends GalleryTestCase {
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/templateThatHasNoLocal.tpl',
-			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 98765)
+			array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 98765 )
 		);
 		$success = $this->_template->resourceGetTimestamp(
 			'templateThatHasNoLocal.tpl',
@@ -246,7 +246,7 @@ class TemplateTest extends GalleryTestCase {
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/modules/core/templates/local/template.tpl',
-			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345)
+			array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 12345 )
 		);
 		$success = $this->_template->resourceGetTimestamp(
 			'modules/core/templates/template.tpl',
@@ -283,7 +283,7 @@ class TemplateTest extends GalleryTestCase {
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/modules/core/templates/local/template.tpl',
-			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345)
+			array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 12345 )
 		);
 		$success = GalleryTemplate::resourceGetTimestamp(
 			'modules/core/templates/template.tpl',
@@ -385,11 +385,11 @@ class TemplateTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$this->_markForCleanup($album);
 
-		return array(null, $album, $themeId);
+		return array( null, $album, $themeId );
 	}
 
 	public function testGetThemeIdWithViewPermission() {
@@ -588,7 +588,7 @@ class TemplateTestMockSmarty {
 
 class TemplateTestFakeTheme {
 	public function isActive() {
-		return array(null, true);
+		return array( null, true );
 	}
 
 	public function getId() {
@@ -596,13 +596,13 @@ class TemplateTestFakeTheme {
 	}
 
 	public function fetchParameters($itemId = 0) {
-		return array(null, array());
+		return array( null, array() );
 	}
 }
 
 class TemplateTestInactiveTheme {
 	public function isActive() {
-		return array(null, false);
+		return array( null, false );
 	}
 
 	public function getId() {
@@ -610,6 +610,6 @@ class TemplateTestInactiveTheme {
 	}
 
 	public function fetchParameters($itemId = 0) {
-		return array(null, array());
+		return array( null, array() );
 	}
 }

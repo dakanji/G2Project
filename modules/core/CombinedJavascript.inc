@@ -65,9 +65,9 @@ class CombinedJavascriptView extends GalleryView {
 		if (strpos(GalleryUtilities::getServerVar('HTTP_ACCEPT_ENCODING'), 'gzip') !== false) {
 			$cacheData =& GalleryDataCache::getFromDisk(
 				array(
-					'type'   => 'module',
+					'type' => 'module',
 					'itemId' => 'CombinedJavascript_gzip_' . $key,
-					'id'     => '_all',
+					'id' => '_all',
 				)
 			);
 
@@ -95,9 +95,9 @@ class CombinedJavascriptView extends GalleryView {
 		if (!isset($cacheData)) {
 			$cacheData =& GalleryDataCache::getFromDisk(
 				array(
-					'type'   => 'module',
+					'type' => 'module',
 					'itemId' => 'CombinedJavascript_' . $key,
-					'id'     => '_all',
+					'id' => '_all',
 				)
 			);
 

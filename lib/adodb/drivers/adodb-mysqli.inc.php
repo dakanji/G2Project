@@ -67,7 +67,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		public $socket           = ''; //Default to empty string to fix HHVM bug
 		public $_bindInputArray  = false;
 		public $nameQuote        = '`';       /// string to use to quote identifiers and names
-		public $optionFlags      = array(array(MYSQLI_READ_DEFAULT_GROUP, 0));
+		public $optionFlags      = array( array( MYSQLI_READ_DEFAULT_GROUP, 0 ) );
 		public $arrayClass       = 'ADORecordSet_array_mysqli';
 		public $multiQuery       = false;
 
@@ -287,7 +287,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				}
 
 				if ($this->replaceQuote[0] == '\\') {
-					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
+					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
 				}
 
 				return "'" . str_replace("'", $this->replaceQuote, $s) . "'";
@@ -437,7 +437,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 				if (!isset($indexes[$row[2]])) {
 					$indexes[$row[2]] = array(
-						'unique'  => ($row[1] == 0),
+						'unique' => ($row[1] == 0),
 						'columns' => array(),
 					);
 				}
@@ -612,9 +612,9 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				// parse index data into array
 				while ($row = $rs->FetchRow()) {
 					$procedures[$row[1]] = array(
-						'type'    => 'PROCEDURE',
+						'type' => 'PROCEDURE',
 						'catalog' => '',
-						'schema'  => '',
+						'schema' => '',
 						'remarks' => $row[7],
 					);
 				}
@@ -626,9 +626,9 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				// parse index data into array
 				while ($row = $rs->FetchRow()) {
 					$procedures[$row[1]] = array(
-						'type'    => 'FUNCTION',
+						'type' => 'FUNCTION',
 						'catalog' => '',
-						'schema'  => '',
+						'schema' => '',
 						'remarks' => $row[7],
 					);
 				}
@@ -863,7 +863,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				return $sql;
 			}
 
-			return array($sql, $stmt);
+			return array( $sql, $stmt );
 		}
 
 		// returns queryID or false
@@ -893,7 +893,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					}
 				}
 
-				$fnarr = array_merge(array($stmt, $a), $inputarr);
+				$fnarr = array_merge(array( $stmt, $a ), $inputarr);
 				$ret   = call_user_func_array('mysqli_stmt_bind_param', $fnarr);
 				$ret   = mysqli_stmt_execute($stmt);
 
@@ -1050,22 +1050,22 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		}
 
 		/*
-		1      = MYSQLI_NOT_NULL_FLAG
-		2      = MYSQLI_PRI_KEY_FLAG
-		4      = MYSQLI_UNIQUE_KEY_FLAG
-		8      = MYSQLI_MULTIPLE_KEY_FLAG
-		16     = MYSQLI_BLOB_FLAG
-		32     = MYSQLI_UNSIGNED_FLAG
-		64     = MYSQLI_ZEROFILL_FLAG
-		128    = MYSQLI_BINARY_FLAG
-		256    = MYSQLI_ENUM_FLAG
-		512    = MYSQLI_AUTO_INCREMENT_FLAG
-		1024   = MYSQLI_TIMESTAMP_FLAG
-		2048   = MYSQLI_SET_FLAG
-		32768  = MYSQLI_NUM_FLAG
-		16384  = MYSQLI_PART_KEY_FLAG
-		32768  = MYSQLI_GROUP_FLAG
-		65536  = MYSQLI_UNIQUE_FLAG
+		1 = MYSQLI_NOT_NULL_FLAG
+		2 = MYSQLI_PRI_KEY_FLAG
+		4 = MYSQLI_UNIQUE_KEY_FLAG
+		8 = MYSQLI_MULTIPLE_KEY_FLAG
+		16 = MYSQLI_BLOB_FLAG
+		32 = MYSQLI_UNSIGNED_FLAG
+		64 = MYSQLI_ZEROFILL_FLAG
+		128 = MYSQLI_BINARY_FLAG
+		256 = MYSQLI_ENUM_FLAG
+		512 = MYSQLI_AUTO_INCREMENT_FLAG
+		1024 = MYSQLI_TIMESTAMP_FLAG
+		2048 = MYSQLI_SET_FLAG
+		32768 = MYSQLI_NUM_FLAG
+		16384 = MYSQLI_PART_KEY_FLAG
+		32768 = MYSQLI_GROUP_FLAG
+		65536 = MYSQLI_UNIQUE_FLAG
 		131072 = MYSQLI_BINCMP_FLAG
 		*/
 

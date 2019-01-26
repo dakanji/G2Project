@@ -47,7 +47,7 @@ class PathInfoParser extends RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
 		}
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/pathinfo/PathInfoHelper.class'
@@ -67,10 +67,10 @@ class PathInfoParser extends RewriteParser {
 		list($ret, $code) = PathInfoHelper::checkPathInfo();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $code != REWRITE_STATUS_OK);
+		return array( null, $code != REWRITE_STATUS_OK );
 	}
 
 	/**
@@ -93,19 +93,19 @@ class PathInfoParser extends RewriteParser {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		if (isset($form['force']['test'])) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.forced', '1');
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 		}
 
 		$status['saved'] = 1;
 
-		return array(null, $error, $status);
+		return array( null, $error, $status );
 	}
 }

@@ -64,7 +64,7 @@ class GallerySmarty extends Smarty {
 			$_smarty_display
 		);
 
-		return array($this->_firstGalleryStatus, $result);
+		return array( $this->_firstGalleryStatus, $result );
 	}
 
 	/**

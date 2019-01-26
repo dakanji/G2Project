@@ -401,7 +401,7 @@ class ADODB_Session {
 
 		if (!is_null($filter)) {
 			if (!is_array($filter)) {
-				$filter = array($filter);
+				$filter = array( $filter );
 			}
 			$_filter = $filter;
 		}
@@ -444,12 +444,12 @@ class ADODB_Session {
 	public function _init() {
 		session_module_name('user');
 		session_set_save_handler(
-			array('ADODB_Session', 'open'),
-			array('ADODB_Session', 'close'),
-			array('ADODB_Session', 'read'),
-			array('ADODB_Session', 'write'),
-			array('ADODB_Session', 'destroy'),
-			array('ADODB_Session', 'gc')
+			array( 'ADODB_Session', 'open' ),
+			array( 'ADODB_Session', 'close' ),
+			array( 'ADODB_Session', 'read' ),
+			array( 'ADODB_Session', 'write' ),
+			array( 'ADODB_Session', 'destroy' ),
+			array( 'ADODB_Session', 'gc' )
 		);
 	}
 
@@ -702,7 +702,7 @@ class ADODB_Session {
 
 
 			$sql = "UPDATE $table SET expiry = " . $conn->Param('0') . ',expireref=' . $conn->Param('1') . " WHERE $binary sesskey = " . $conn->Param('2') . ' AND expiry >= ' . $conn->Param('3');
-			$rs  = $conn->Execute($sql, array($expiry, $expirevar, $key, time()));
+			$rs  = $conn->Execute($sql, array( $expiry, $expirevar, $key, time() ));
 
 			return true;
 		}
@@ -887,7 +887,7 @@ class ADODB_Session {
 					$ref = $rs->fields[0];
 					$key = $rs->fields[1];
 					$fn($ref, $key);
-					$del = $conn->Execute("DELETE FROM $table WHERE sesskey=" . $conn->Param('0'), array($key));
+					$del = $conn->Execute("DELETE FROM $table WHERE sesskey=" . $conn->Param('0'), array( $key ));
 					$rs->MoveNext();
 				}
 				$rs->Close();
@@ -901,7 +901,7 @@ class ADODB_Session {
 
 				foreach ($arr as $row) {
 					$sql2 = "DELETE FROM $table WHERE sesskey=" . $conn->Param('0');
-					$conn->Execute($sql2, array(reset($row)));
+					$conn->Execute($sql2, array( reset($row) ));
 				}
 			} else {
 				$sql = "DELETE FROM $table WHERE expiry < $time";

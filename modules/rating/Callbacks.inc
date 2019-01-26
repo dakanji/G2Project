@@ -83,7 +83,7 @@ class RatingCallbacks {
 				}
 
 				GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
-				list($ret, $RatingData) = RatingHelper::fetchRatings(array($itemId), $userId);
+				list($ret, $RatingData) = RatingHelper::fetchRatings(array( $itemId ), $userId);
 
 				if ($ret) {
 					return $ret;
@@ -99,9 +99,9 @@ class RatingCallbacks {
 				$session       =& $gallery->getSession();
 				$authToken     = $session->isPersistent() ? $session->getAuthToken() : '';
 				$RatingSummary = array(
-					'ratingValues' => array(1, 2, 3, 4, 5),
-					'firstCall'    => true,
-					'authToken'    => $authToken,
+					'ratingValues' => array( 1, 2, 3, 4, 5 ),
+					'firstCall' => true,
+					'authToken' => $authToken,
 				);
 
 				$block                         =& $smarty->_tpl_vars['block'];

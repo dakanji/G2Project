@@ -73,7 +73,7 @@ class RepositoryIndex extends RepositoryObject {
 	public function generate() {
 		global $gallery;
 
-		$pluginTypes      = array('modules', 'themes');
+		$pluginTypes      = array( 'modules', 'themes' );
 		$pluginCount      = array(
 			'themes'  => 0,
 			'modules' => 0,
@@ -144,7 +144,7 @@ class RepositoryIndex extends RepositoryObject {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					if ($relation == 'newer') {
@@ -197,7 +197,7 @@ class RepositoryIndex extends RepositoryObject {
 		$ret = $this->writeToDisk(true, true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Write index hash to disk.
@@ -207,11 +207,11 @@ class RepositoryIndex extends RepositoryObject {
 		$ret = $this->writeToDisk(true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$this->setOutputFile($indexFile);
 
-		return array(null, $pluginCount);
+		return array( null, $pluginCount );
 	}
 
 	/**
@@ -259,15 +259,15 @@ class RepositoryIndex extends RepositoryObject {
 		foreach ($this->_index as $pluginType => $plugins) {
 			foreach ($plugins as $pluginId => $pluginMetaData) {
 				$pluginInfo[] = array(
-					'type'              => $pluginType,
-					'id'                => $pluginId,
-					'version'           => $pluginMetaData['header']['version'],
-					'requiredCoreApi'   => $pluginMetaData['header']['requiredCoreApi'],
+					'type' => $pluginType,
+					'id' => $pluginId,
+					'version' => $pluginMetaData['header']['version'],
+					'requiredCoreApi' => $pluginMetaData['header']['requiredCoreApi'],
 					'requiredPluginApi' => $pluginMetaData['header']['requiredPluginApi'],
 				);
 			}
 		}
 
-		return array(null, $pluginInfo);
+		return array( null, $pluginInfo );
 	}
 }

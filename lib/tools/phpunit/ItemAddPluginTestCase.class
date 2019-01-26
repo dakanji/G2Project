@@ -90,7 +90,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 		} elseif ($ret) {
 			$this->failWithStatus($ret);
 
-			return array($error, $status);
+			return array( $error, $status );
 		} else {
 			// Check to make sure we got back everything we want
 			$this->assertTrue(isset($error) && is_array($error), 'plugin error results missing');
@@ -102,7 +102,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 			$this->assertTrue(isset($status) || $status == null, 'plugin status result missing');
 		}
 
-		return array($error, $status);
+		return array( $error, $status );
 	}
 
 	public function _translate($message) {
@@ -121,7 +121,7 @@ class ItemAddPluginTestItemAddController {
 	}
 
 	public function postprocessItems($form, &$status) {
-		$this->_calls[] = array($form, $status);
+		$this->_calls[] = array( $form, $status );
 
 		return null;
 	}

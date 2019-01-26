@@ -326,7 +326,7 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Accept-Ranges']       = 'bytes';
 		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
 		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Set-Cookie']          = array('sessionid=12345; Path=/', 'mycookie=foo; Path=/');
+		$expectedHeaders['Set-Cookie']          = array( 'sessionid=12345; Path=/', 'mycookie=foo; Path=/' );
 		$expectedHeaders['Content-Length']      = '5';
 		$expectedHeaders['Content-Type']        = 'text/html';
 		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
@@ -846,7 +846,7 @@ class WebTestPlatform {
 			}
 		}
 
-		if (in_array($handle, array('testFetchWebFile.tmp', 'testFetchHttpsWebFile.tmp'))) {
+		if (in_array($handle, array( 'testFetchWebFile.tmp', 'testFetchHttpsWebFile.tmp' ))) {
 			if (!isset($this->_testCase->_outputFile[$handle])) {
 				$this->_testCase->_outputFile[$handle] = '';
 			}
@@ -937,7 +937,7 @@ class WebTestPlatform {
 	}
 
 	public function fopen($filename, $modes) {
-		if (in_array($filename, array('testFetchWebFile.tmp', 'testFetchHttpsWebFile.tmp'))
+		if (in_array($filename, array( 'testFetchWebFile.tmp', 'testFetchHttpsWebFile.tmp' ))
 			&& $modes == 'wb'
 		) {
 			$this->_fileBuffer[$filename] = '';

@@ -166,7 +166,7 @@ if (!defined('ADODB_DB2OCI')) {
 			$sql2 .= substr($sql, $nprev);
 		}
 
-		return array($sql2, $arr2);
+		return array( $sql2, $arr2 );
 	}
 
 	class ADODB_db2oci extends ADODB_db2 {

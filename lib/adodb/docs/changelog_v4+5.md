@@ -93,8 +93,7 @@ and Marcos Pont
 Added zerofill checking support to MetaColumns for mysql and mysqli.
 CacheFlush no longer deletes all files/directories. Only *.cache files
 deleted.
-DB2 timestamp format changed to var $fmtTimeStamp =
-&quot;'Y-m-d-H:i:s'&quot;;
+DB2 timestamp format changed to var $fmtTimeStamp = &quot;'Y-m-d-H:i:s'&quot;;
 Added some code sanitization to AutoExecute in adodb-lib.inc.php.
 Due to typo, all connections in adodb-oracle.inc.php would become
 persistent, even non-persistent ones. Fixed.

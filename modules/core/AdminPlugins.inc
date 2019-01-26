@@ -50,13 +50,13 @@ class AdminPluginsView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$themeGroup = array(
 			'group' => 'theme',
@@ -68,12 +68,12 @@ class AdminPluginsView extends GalleryView {
 			$form['formName'] = 'AdminPlugins';
 		}
 
-		foreach (array('module', 'theme') as $type) {
+		foreach (array( 'module', 'theme' ) as $type) {
 			// Load the module list
 			list($ret, $pluginStatus[$type]) = GalleryCoreApi::fetchPluginStatus($type, true);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			/*
@@ -87,7 +87,7 @@ class AdminPluginsView extends GalleryView {
 					list($ret, $module) = GalleryCoreApi::loadPlugin($type, $pluginId, false, true);
 
 					if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 			}
@@ -96,7 +96,7 @@ class AdminPluginsView extends GalleryView {
 			list($ret, $pluginStatus[$type]) = GalleryCoreApi::fetchPluginStatus($type, true);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$platform =& $gallery->getPlatform();
@@ -107,7 +107,7 @@ class AdminPluginsView extends GalleryView {
 				list($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$test1 = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
@@ -129,7 +129,7 @@ class AdminPluginsView extends GalleryView {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$screenshot = "{$type}s/$pluginId/images/screenshot.png";
@@ -152,7 +152,7 @@ class AdminPluginsView extends GalleryView {
 				}
 			}
 		}
-		usort($plugins, array($this, 'pluginSort'));
+		usort($plugins, array( $this, 'pluginSort' ));
 
 		$AdminPlugins            = array();
 		$AdminPlugins['plugins'] = $plugins;
@@ -163,7 +163,7 @@ class AdminPluginsView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list(
@@ -173,7 +173,7 @@ class AdminPluginsView extends GalleryView {
 		) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminPlugins['showGetMorePluginsTip'] = 1;
@@ -212,12 +212,12 @@ class AdminPluginsView extends GalleryView {
 			 * active fifth, uninstalled last
 			 */
 			$stateOrder = array(
-				'unupgraded'   => 1,
+				'unupgraded' => 1,
 				'unconfigured' => 2,
 				'incompatible' => 3,
-				'inactive'     => 4,
-				'active'       => 5,
-				'uninstalled'  => 6,
+				'inactive' => 4,
+				'active' => 5,
+				'uninstalled' => 6,
 			);
 		}
 

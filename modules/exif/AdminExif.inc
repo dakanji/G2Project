@@ -37,7 +37,7 @@ class AdminExifController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$error = $status = array();
@@ -46,7 +46,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['available'])) {
@@ -62,7 +62,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['added']['summary'] = $count;
@@ -75,7 +75,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['available'])) {
@@ -91,7 +91,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['added']['detailed'] = $count;
@@ -104,7 +104,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['summary'])) {
@@ -122,7 +122,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $newProperties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['removed']['summary'] = $count;
@@ -135,7 +135,7 @@ class AdminExifController extends GalleryController {
 			$ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$status['restored']['summary'] = 1;
 			$redirect['view']              = 'core.SiteAdmin';
@@ -144,7 +144,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['detailed'])) {
@@ -162,7 +162,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $newProperties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['removed']['detailed'] = $count;
@@ -175,7 +175,7 @@ class AdminExifController extends GalleryController {
 			$ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$status['restored']['detailed'] = 1;
 			$redirect['view']               = 'core.SiteAdmin';
@@ -184,7 +184,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['summary'])) {
@@ -208,7 +208,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['movedUp']['summary'] = $count;
@@ -221,7 +221,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['summary'])) {
@@ -245,7 +245,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['movedDown']['summary'] = $count;
@@ -258,7 +258,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['detailed'])) {
@@ -282,7 +282,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['movedUp']['detailed'] = $count;
@@ -295,7 +295,7 @@ class AdminExifController extends GalleryController {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($form['detailed'])) {
@@ -319,7 +319,7 @@ class AdminExifController extends GalleryController {
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['movedDown']['detailed'] = $count;
@@ -334,7 +334,7 @@ class AdminExifController extends GalleryController {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'exif', 'addOption', $addOption);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$status['saved']     = 1;
 			$redirect['view']    = 'core.SiteAdmin';
@@ -350,7 +350,7 @@ class AdminExifController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -365,7 +365,7 @@ class AdminExifView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$mode = GalleryUtilities::getRequestVariables('mode');
@@ -373,7 +373,7 @@ class AdminExifView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'exif');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'AdminExif') {
@@ -383,14 +383,14 @@ class AdminExifView extends GalleryView {
 			list($ret, $addOption) = $module->getParameter('addOption');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$form['item'] = array(
-				'summary'            => $addOption & EXIF_ITEM_SUMMARY,
-				'description'        => $addOption & EXIF_ITEM_DESCRIPTION,
-				'keywords'           => $addOption & IPTC_ITEM_KEYWORDS,
-				'objectName'         => $addOption & IPTC_ITEM_TITLE,
-				'exifrotate'         => $addOption & EXIF_ITEM_ROTATE,
+				'summary' => $addOption & EXIF_ITEM_SUMMARY,
+				'description' => $addOption & EXIF_ITEM_DESCRIPTION,
+				'keywords' => $addOption & IPTC_ITEM_KEYWORDS,
+				'objectName' => $addOption & IPTC_ITEM_TITLE,
+				'exifrotate' => $addOption & EXIF_ITEM_ROTATE,
 				'exifrotatepreserve' => $addOption & EXIF_ITEM_ROTATE_PRESERVE,
 			);
 		}
@@ -403,7 +403,7 @@ class AdminExifView extends GalleryView {
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		foreach ($tmp as $property) {
@@ -415,7 +415,7 @@ class AdminExifView extends GalleryView {
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		foreach ($tmp as $property) {
@@ -438,7 +438,7 @@ class AdminExifView extends GalleryView {
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'rotate');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminExif                  = array();

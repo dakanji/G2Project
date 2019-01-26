@@ -58,10 +58,10 @@ class ItemEditPhoto extends ItemEditPlugin {
 			if (empty($error)) {
 				// Load existing resizes
 				$itemId              = $item->getId();
-				list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($itemId));
+				list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array( $itemId ));
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 				$resizes      = isset($resizes[$itemId]) ? $resizes[$itemId] : array();
 				$resizesTable = array();
@@ -74,14 +74,14 @@ class ItemEditPhoto extends ItemEditPlugin {
 				list($ret, $source) = GalleryCoreApi::fetchPreferredSource($item);
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				// Make sure that we have a toolkit before adding back the resizes
 				list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation($source->getMimeType(), 'scale');
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				if (isset($toolkit)) {
@@ -104,7 +104,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 						);
 
 						if ($ret) {
-							return array($ret, null, null, null);
+							return array( $ret, null, null, null );
 						}
 
 						if (!$newOperations || !$newOutputMimeType) {
@@ -129,7 +129,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 							list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 							if ($ret) {
-								return array($ret, null, null, null);
+								return array( $ret, null, null, null );
 							}
 						} else {
 							list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
@@ -138,7 +138,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 							);
 
 							if ($ret) {
-								return array($ret, null, null, null);
+								return array( $ret, null, null, null );
 							}
 
 							if (!isset($derivative)) {
@@ -153,7 +153,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 							$ret = $derivative->create($itemId, DERIVATIVE_TYPE_IMAGE_RESIZE);
 
 							if ($ret) {
-								return array($ret, null, null, null);
+								return array( $ret, null, null, null );
 							}
 						}
 
@@ -168,14 +168,14 @@ class ItemEditPhoto extends ItemEditPlugin {
 						$ret = $derivative->save();
 
 						if ($ret) {
-							return array($ret, null, null, null);
+							return array( $ret, null, null, null );
 						}
 
 						if (isset($lockId)) {
 							$ret = GalleryCoreApi::releaseLocks($lockId);
 
 							if ($ret) {
-								return array($ret, null, null, null);
+								return array( $ret, null, null, null );
 							}
 							$lockId = null;
 						}
@@ -185,7 +185,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 						$ret = GalleryCoreApi::deleteEntityById($resize->getId(), 'GalleryDerivative');
 
 						if ($ret) {
-							return array($ret, null, null, null);
+							return array( $ret, null, null, null );
 						}
 					}
 				}
@@ -193,13 +193,13 @@ class ItemEditPhoto extends ItemEditPlugin {
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 				$status = $module->translate('Changes saved successfully');
 			}
 		}
 
-		return array(null, $error, $status, false);
+		return array( null, $error, $status, false );
 	}
 
 	/**
@@ -213,10 +213,10 @@ class ItemEditPhoto extends ItemEditPlugin {
 			$form['formName'] = 'ItemEditPhoto';
 
 			// Load the resizes
-			list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($item->getId()));
+			list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array( $item->getId() ));
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 
 			if (!empty($resizes)) {
@@ -231,7 +231,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 						$height            = empty($matches[2]) ? $width : $matches[2];
 						$form['resizes'][] = array(
 							'active' => 1,
-							'width'  => $width,
+							'width' => $width,
 							'height' => $height,
 						);
 					}
@@ -268,13 +268,13 @@ class ItemEditPhoto extends ItemEditPlugin {
 		$ItemEditPhoto = array();
 
 		// Check to see if we have a preferred source
-		list($ret, $results) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+		list($ret, $results) = GalleryCoreApi::fetchPreferredsByItemIds(array( $item->getId() ));
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
-		$sourceMimeTypes = array($item->getMimeType());
+		$sourceMimeTypes = array( $item->getMimeType() );
 
 		if (empty($results)) {
 			$ItemEditPhoto['editPhoto']['hasPreferredSource'] = false;
@@ -293,13 +293,13 @@ class ItemEditPhoto extends ItemEditPlugin {
 		list($ret, $ItemEditPhoto['editSizes']['can']['createResizes']) = $this->_checkForOperation('resize', $sourceMimeTypes);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$template->setVariable('ItemEditPhoto', $ItemEditPhoto);
 		$template->setVariable('controller', 'core.ItemEditPhoto');
 
-		return array(null, 'modules/core/templates/ItemEditPhoto.tpl', 'modules_core');
+		return array( null, 'modules/core/templates/ItemEditPhoto.tpl', 'modules_core' );
 	}
 
 	/**
@@ -316,9 +316,9 @@ class ItemEditPhoto extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $module->translate('Photo'));
+		return array( null, $module->translate('Photo') );
 	}
 }

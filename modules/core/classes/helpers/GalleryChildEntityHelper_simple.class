@@ -34,7 +34,7 @@ class GalleryChildEntityHelper_simple {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($item->getCanContainChildren()) {
@@ -49,13 +49,13 @@ class GalleryChildEntityHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			$ids = array();
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class GalleryChildEntityHelper_simple {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($item->getCanContainChildren()) {
@@ -80,13 +80,13 @@ class GalleryChildEntityHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			$ids = array();
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -109,10 +109,10 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -135,10 +135,10 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -161,10 +161,10 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -186,10 +186,10 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -222,7 +222,7 @@ class GalleryChildEntityHelper_simple {
 		$ids     = array();
 
 		if (!GalleryUtilities::isA($item, 'GalleryItem')) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		if ($item->getCanContainChildren()) {
@@ -243,16 +243,16 @@ class GalleryChildEntityHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (empty($query)) {
-				return array(null, array());
+				return array( null, array() );
 			}
 			array_unshift($data, $item->getId());
 			$options = array(
 				'limit' => array(
-					'count'  => $count,
+					'count' => $count,
 					'offset' => $offset,
 				),
 			);
@@ -260,7 +260,7 @@ class GalleryChildEntityHelper_simple {
 			list($ret, $searchResults) = $gallery->search($query, $data, $options);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			while ($result = $searchResults->nextResult()) {
@@ -268,7 +268,7 @@ class GalleryChildEntityHelper_simple {
 			}
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -291,7 +291,7 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$join = array_flip($join);
 
@@ -306,11 +306,11 @@ class GalleryChildEntityHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 
 			if (empty($aclIds)) {
-				return array(null, null, null);
+				return array( null, null, null );
 			}
 			$idJoins['GalleryAccessSubscriberMap'] = 'itemId';
 			$where[] = '[GalleryAccessSubscriberMap::accessListId] IN ('
@@ -347,7 +347,7 @@ class GalleryChildEntityHelper_simple {
 		' . $baseQuery . $where . '
 		ORDER BY ' . $order . '[' . $baseTable . '::' . $baseIdColumn . ']';
 
-		return array(null, $query, isset($aclIds) ? $aclIds : array());
+		return array( null, $query, isset($aclIds) ? $aclIds : array() );
 	}
 
 	/**
@@ -357,27 +357,27 @@ class GalleryChildEntityHelper_simple {
 		global $gallery;
 
 		if (!GalleryUtilities::isA($item, 'GalleryItem')) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		list($ret, $parentIds) = GalleryCoreApi::fetchParentSequence($item->getId(), $filterBreadcrumb);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($parentIds)) {
-			return array(null, array());
+			return array( null, array() );
 		}
 
 		if (isset($permission)) {
 			if (!is_array($permission)) {
-				$permission = array($permission);
+				$permission = array( $permission );
 			}
 			list($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($parentIds);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach ($parentIds as $i => $id) {
@@ -391,17 +391,17 @@ class GalleryChildEntityHelper_simple {
 			}
 
 			if (empty($parentIds)) {
-				return array(null, array());
+				return array( null, array() );
 			}
 		}
 
 		list($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds, 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $parents);
+		return array( null, $parents );
 	}
 
 	/**
@@ -421,13 +421,13 @@ class GalleryChildEntityHelper_simple {
 		$storage =& $gallery->getStorage();
 
 		if (!GalleryUtilities::isA($item, 'GalleryItem')) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		list($ret, $sequence) = GalleryCoreApi::fetchParentSequence($item->getId());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$sequence = implode('/', $sequence);
 
@@ -443,12 +443,12 @@ class GalleryChildEntityHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 			if (empty($aclIds)) {
-				return array(null, array());
+				return array( null, array() );
 			}
 		}
 
@@ -492,7 +492,7 @@ class GalleryChildEntityHelper_simple {
 		list($ret, $searchResults) = $gallery->search($query, $data, $options);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$ids = array();
@@ -501,7 +501,7 @@ class GalleryChildEntityHelper_simple {
 			$ids[] = (int)$result[0];
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -517,10 +517,10 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -536,10 +536,10 @@ class GalleryChildEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -574,12 +574,12 @@ class GalleryChildEntityHelper_simple {
 			list($ret, $orderBy) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 
 			if ($ret) {
-				return array($ret, null, null, null, null);
+				return array( $ret, null, null, null, null );
 			}
 			list($ret, $orderDirection) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderDirection');
 
 			if ($ret) {
-				return array($ret, null, null, null, null);
+				return array( $ret, null, null, null, null );
 			}
 			$usingDefaults = true;
 		}
@@ -676,7 +676,7 @@ class GalleryChildEntityHelper_simple {
 					list($ret, $order[]) = $storage->getFunctionSql('RAND', array());
 
 					if ($ret) {
-						return array($ret, null, null, null, null);
+						return array( $ret, null, null, null, null );
 					}
 
 					break;
@@ -684,16 +684,16 @@ class GalleryChildEntityHelper_simple {
 				case 'albumsFirst':
 					list($ret, $case) = $storage->getFunctionSql(
 						'CASE',
-						array('[GalleryAlbumItem=1::id] IS NULL', '1', '0')
+						array( '[GalleryAlbumItem=1::id] IS NULL', '1', '0' )
 					);
 
 					if ($ret) {
-						return array($ret, null, null, null, null);
+						return array( $ret, null, null, null, null );
 					}
 					list($ret, $as) = $storage->getFunctionSql('AS', array());
 
 					if ($ret) {
-						return array($ret, null, null, null, null);
+						return array( $ret, null, null, null, null );
 					}
 					$order[]  = 2 + count($order);
 					$select[] = "$case $as albumsFirst";
@@ -705,14 +705,14 @@ class GalleryChildEntityHelper_simple {
 					list($ret, $sort) = GalleryCoreApi::newFactoryInstanceById('GallerySortInterface_1_2', $orderType);
 
 					if ($ret) {
-						return array($ret, null, null, null, null);
+						return array( $ret, null, null, null, null );
 					}
 
 					if (isset($sort)) {
 						list($ret, $orderClause, $select[], $conditionClause, $joinClause) = $sort->getSortOrder($direction);
 
 						if ($ret) {
-							return array($ret, null, null, null, null);
+							return array( $ret, null, null, null, null );
 						}
 
 						for ($i = 1; $i <= 3; $i++) {
@@ -747,6 +747,6 @@ class GalleryChildEntityHelper_simple {
 			}
 		}
 
-		return array(null, $select, $join, $condition, $order);
+		return array( null, $select, $join, $condition, $order );
 	}
 }

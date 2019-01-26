@@ -124,7 +124,7 @@ if (empty($status['error'])) {
 			// Chmod the modules/ and themes/ dir writeable or read-only (not recursively)
 			$mode = getRequestVariable('mode');
 
-			if (!in_array($mode, array('open', 'secure'))) {
+			if (!in_array($mode, array( 'open', 'secure' ))) {
 				$status['error'][] = "Unknown mode '$mode'. Please try again.";
 			} else {
 				$ret = chmodModulesAndThemesDir($mode == 'open');
@@ -149,7 +149,7 @@ if (empty($status['error'])) {
 
 			if (!isset($plugins[$pluginPath])) {
 				$status['error'][] = "Unknown plugin path '$pluginPath'.";
-			} elseif (!in_array($mode, array('open', 'secure'))) {
+			} elseif (!in_array($mode, array( 'open', 'secure' ))) {
 				$status['error'][] = "Unknown mode '$mode'. Please try again.";
 			} else {
 				$ret = chmodPluginDir($pluginPath, $mode == 'open');
@@ -169,7 +169,7 @@ if (empty($status['error'])) {
 			// Chmod the whole gallery2 dir writeable or read-only
 			$mode = getRequestVariable('mode');
 
-			if (!in_array($mode, array('open', 'secure'))) {
+			if (!in_array($mode, array( 'open', 'secure' ))) {
 				$status['error'][] = "Unknown mode '$mode'. Please try again.";
 			} else {
 				$ret = chmodGalleryDirRecursively($mode == 'open');
@@ -449,7 +449,7 @@ function chmodModulesAndThemesDir($makeItWriteable) {
 	$mode = $makeItWriteable ? 0777 : 0555;
 	$ret  = null;
 
-	foreach (array('/modules/', '/themes/') as $dir) {
+	foreach (array( '/modules/', '/themes/' ) as $dir) {
 		if (file_exists(GallerySetupUtilities::getConfigDir() . $dir)) {
 			// Try to chmod all dirs, even if one fails
 			if (!@chmod(GallerySetupUtilities::getConfigDir() . $dir, $mode)) {
@@ -520,7 +520,7 @@ function getPluginList() {
 	 */
 	$plugins = array();
 
-	foreach (array('/modules/', '/themes/') as $base) {
+	foreach (array( '/modules/', '/themes/' ) as $base) {
 		if (!file_exists(GallerySetupUtilities::getConfigDir() . $base)) {
 			continue;
 		}
@@ -551,7 +551,7 @@ function getPluginList() {
 }
 
 function getRequestVariable($varName) {
-	foreach (array($_POST, $_GET) as $requestVars) {
+	foreach (array( $_POST, $_GET ) as $requestVars) {
 		if (isset($requestVars[$varName])) {
 			return $requestVars[$varName];
 		}
@@ -569,8 +569,8 @@ function printStatus($status) {
 		printf(
 			'<script type="text/javascript">printErrorMessage(\'%s\');</script>',
 			str_replace(
-				array('\\', "'"),
-				array('\\\\', "\\'"),
+				array( '\\', "'" ),
+				array( '\\\\', "\\'" ),
 				implode('<br>', $status['error'])
 			)
 		);
@@ -579,7 +579,7 @@ function printStatus($status) {
 	if (!empty($status['message'])) {
 		printf(
 			'<script type="text/javascript">printStatusMessage(\'%s\');</script>',
-			str_replace(array('\\', "'"), array('\\\\', "\\'"), $status['message'])
+			str_replace(array( '\\', "'" ), array( '\\\\', "\\'" ), $status['message'])
 		);
 	}
 }

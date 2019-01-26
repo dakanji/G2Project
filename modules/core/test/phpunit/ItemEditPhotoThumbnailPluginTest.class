@@ -63,15 +63,15 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoThumbnailPluginTestToolkit',
-			array('test/file'),
+			array( 'test/file' ),
 			'scale',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 			),
@@ -84,11 +84,11 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoThumbnailPluginTestToolkit',
-			array('test/file'),
+			array( 'test/file' ),
 			'rotate',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 			),
@@ -101,15 +101,15 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoThumbnailPluginTestToolkit',
-			array('test/file'),
+			array( 'test/file' ),
 			'resize',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'test',
 				),
 			),
@@ -215,7 +215,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array(array(), $this->_translate('Thumbnail cropped successfully')),
+			array( array(), $this->_translate('Thumbnail cropped successfully') ),
 			$results
 		);
 
@@ -244,7 +244,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array(array(), $this->_translate('Thumbnail cropped successfully')),
+			array( array(), $this->_translate('Thumbnail cropped successfully') ),
 			$results
 		);
 
@@ -273,7 +273,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array(array(), $this->_translate('Thumbnail cropped successfully')),
+			array( array(), $this->_translate('Thumbnail cropped successfully') ),
 			$results
 		);
 
@@ -334,7 +334,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		$results = $this->handleRequest($this->_item2, $this->_derivative[2]);
 		$this->assertEquals(
-			array(array(), $this->_translate('Thumbnail reset successfully')),
+			array( array(), $this->_translate('Thumbnail reset successfully') ),
 			$results,
 			'Incorrect response from handler'
 		);
@@ -361,7 +361,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		 */
 		$currentLocale = setlocale(LC_ALL, '0');
 
-		foreach (array('de_DE', 'german') as $locale) {
+		foreach (array( 'de_DE', 'german' ) as $locale) {
 			$lTest = ($newLocale = GalleryTranslator::doStatic()->_setlocale(LC_ALL, $locale));
 
 			if ($lTest !== false) {
@@ -381,7 +381,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array(array(), $this->_translate('Thumbnail cropped successfully')),
+			array( array(), $this->_translate('Thumbnail cropped successfully') ),
 			$results
 		);
 
@@ -461,6 +461,6 @@ class ItemEditPhotoThumbnailPluginTestToolkit extends GalleryToolkit {
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
 
-		return array(null, $mimeType, $context);
+		return array( null, $mimeType, $context );
 	}
 }

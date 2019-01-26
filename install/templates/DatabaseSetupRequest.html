@@ -30,8 +30,7 @@
 		  // <![CDATA[
 		  function dbTypeChange(sel) {
 		var type = sel.options[sel.selectedIndex].value;
-		document.getElementById('dbSchema').style.display =
-		  (type == 'postgres7') ? '' : 'none';
+		document.getElementById('dbSchema').style.display = 		  (type == 'postgres7') ? '' : 'none';
 		document.getElementById('hostSettings').style.display = 
 				  (type == 'pdo_sqlite') ? 'none' : '';
 		  }

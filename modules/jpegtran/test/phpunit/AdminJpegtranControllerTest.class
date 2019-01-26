@@ -58,7 +58,7 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(
@@ -85,7 +85,7 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(),
@@ -102,7 +102,7 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
 				'status' => array(),
@@ -122,11 +122,11 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][testError]'),
+				'error' => array( 'form[error][path][testError]' ),
 			),
 			$results
 		);
@@ -142,11 +142,11 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][badPath]'),
+				'error' => array( 'form[error][path][badPath]' ),
 			),
 			$results
 		);
@@ -162,11 +162,11 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][notExecutable]'),
+				'error' => array( 'form[error][path][notExecutable]' ),
 			),
 			$results
 		);
@@ -182,7 +182,7 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(
@@ -212,11 +212,11 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][missing]'),
+				'error' => array( 'form[error][path][missing]' ),
 			),
 			$results
 		);
@@ -339,7 +339,7 @@ class AdminJpegtranControllerTestPlatform extends WinNtPlatform {
 			break;
 
 			default:
-				return array(0, array(), array());
+				return array( 0, array(), array() );
 		}
 	}
 }

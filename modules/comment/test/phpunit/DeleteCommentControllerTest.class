@@ -78,7 +78,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'   => 'comment.CommentChangeConfirmation',
+					'view' => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(
@@ -123,7 +123,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'   => 'core.ShowItem',
+					'view' => 'core.ShowItem',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(),

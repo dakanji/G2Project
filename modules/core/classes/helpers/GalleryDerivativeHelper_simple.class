@@ -36,13 +36,13 @@ class GalleryDerivativeHelper_simple {
 		list($ret, $derivative) = GalleryCoreApi::loadEntitiesById($derivativeId, 'GalleryDerivative');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $current) = $derivative->isCacheCurrent();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$isBroken = $derivative->getIsBroken();
 
@@ -50,7 +50,7 @@ class GalleryDerivativeHelper_simple {
 			list($ret, $derivative) = GalleryCoreApi::rebuildDerivativeCache($derivativeId);
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 		}
 
@@ -66,11 +66,11 @@ class GalleryDerivativeHelper_simple {
 	 */
 	public static function fetchThumbnailsByItemIds($ids) {
 		if (!is_array($ids)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		if (empty($ids)) {
-			return array(null, array());
+			return array( null, array() );
 		}
 
 		list($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
@@ -80,7 +80,7 @@ class GalleryDerivativeHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Only one thumb per item, so simplify the results
@@ -88,7 +88,7 @@ class GalleryDerivativeHelper_simple {
 			$results[$id] = $value[0];
 		}
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	/**
@@ -115,7 +115,7 @@ class GalleryDerivativeHelper_simple {
 		}
 
 		if (!is_array($types)) {
-			$types = array($types);
+			$types = array( $types );
 		}
 
 		if (!empty($itemIds)) {
@@ -157,7 +157,7 @@ class GalleryDerivativeHelper_simple {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$derivativeTable = array();
@@ -186,7 +186,7 @@ class GalleryDerivativeHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Create a table of child id -> image data
@@ -195,6 +195,6 @@ class GalleryDerivativeHelper_simple {
 			}
 		}
 
-		return array(null, $derivativeTable);
+		return array( null, $derivativeTable );
 	}
 }

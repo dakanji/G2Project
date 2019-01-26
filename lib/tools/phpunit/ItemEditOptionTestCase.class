@@ -66,10 +66,10 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 	}
 
 	public function _handleRequestAfterEdit($form, &$item, $errorCode = null) {
-		list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+		list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array( $item->getId() ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$preferred = empty($preferred) ? null : array_shift($preferred);
 
@@ -103,7 +103,7 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 			$this->assertTrue(isset($warning) && is_array($warning), 'option warning results missing');
 		}
 
-		return array($error, $warning);
+		return array( $error, $warning );
 	}
 
 	public function _translate($message) {

@@ -45,8 +45,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		foreach (array(
-			'akismet.apiKey'    => '',
-			'akismet.active'    => '0',
+			'akismet.apiKey' => '',
+			'akismet.active' => '0',
 			'comments.moderate' => '0',
 		) as $key => $value) {
 			$value = GalleryCoreApi::setPluginParameter('module', 'comment', $key, $value);
@@ -64,7 +64,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
@@ -86,7 +86,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(
@@ -98,11 +98,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		foreach (array(
-			'comments.latest'   => '1',
-			'comments.show'     => '12',
+			'comments.latest' => '1',
+			'comments.show' => '12',
 			'comments.moderate' => '1',
-			'akismet.apiKey'    => '3abX',
-			'akismet.active'    => '1',
+			'akismet.apiKey' => '3abX',
+			'akismet.active' => '1',
 		) as $key => $expectedValue) {
 			list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'comment', $key);
 
@@ -120,11 +120,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array('form[error][show]'),
+				'error' => array( 'form[error][show]' ),
 			),
 			$results
 		);
@@ -138,11 +138,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array('form[error][show]'),
+				'error' => array( 'form[error][show]' ),
 			),
 			$results
 		);
@@ -159,7 +159,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(
@@ -194,11 +194,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array('form[error][apiKey][invalid]'),
+				'error' => array( 'form[error][apiKey][invalid]' ),
 			),
 			$results
 		);
@@ -228,11 +228,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array('form[error][apiKey][invalid]'),
+				'error' => array( 'form[error][apiKey][invalid]' ),
 			),
 			$results
 		);
@@ -320,7 +320,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'checked' => array(
-					'total'     => 2,
+					'total' => 2,
 					'spamCount' => 2,
 				),
 			),
@@ -357,10 +357,10 @@ class CommentSiteAdminControllerTest_FakeAkismetApi {
 	}
 
 	public function verifyApiKey($apiKey) {
-		return array(null, $this->_legal);
+		return array( null, $this->_legal );
 	}
 
 	public function checkComment(&$comment) {
-		return array(null, true);
+		return array( null, true );
 	}
 }

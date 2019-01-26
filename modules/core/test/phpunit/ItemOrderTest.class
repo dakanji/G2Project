@@ -36,7 +36,7 @@ class ItemOrderTest extends GalleryTestCase {
 		list($ret, $this->_parentItem) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
-				'orderBy'        => $orderBy,
+				'orderBy' => $orderBy,
 				'orderDirection' => $orderDirection,
 			)
 		);
@@ -59,7 +59,7 @@ class ItemOrderTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$titles = array('ztitle', 'ytitle', 'xtitle');
+		$titles = array( 'ztitle', 'ytitle', 'xtitle' );
 
 		for ($i = 0; $i < 3; $i++) {
 			sleep(1); // So items get different timestamps

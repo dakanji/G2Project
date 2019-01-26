@@ -50,7 +50,7 @@ class WebHelper_simple {
 		if ($depth > 5) {
 			$gallery->debug('Too many levels of HTTP redirection!');
 
-			return array(false, null, null, null);
+			return array( false, null, null, null );
 		}
 
 		$urlComponents = WebHelper_simple::_parseUrlForFsockopen($url);
@@ -66,7 +66,7 @@ class WebHelper_simple {
 		if (empty($fd)) {
 			$gallery->debug("Error $errno: '$errstr' retrieving $url");
 
-			return array(false, null, null, null);
+			return array( false, null, null, null );
 		}
 
 		$requestMethod = 'GET';
@@ -77,7 +77,7 @@ class WebHelper_simple {
 			$postDataRaw   = WebHelper_simple::_encodePostData($postDataArray, $extraHeaders);
 		}
 
-		$headerLines = array('Host: ' . $urlComponents['host']);
+		$headerLines = array( 'Host: ' . $urlComponents['host'] );
 
 		foreach ($extraHeaders as $headerKey => $headerValue) {
 			$headerLines[] = "$headerKey: $headerValue";
@@ -100,7 +100,7 @@ class WebHelper_simple {
 				"fwrite call failed in fetchWebFile($url)" . ($ok === false ? ' - false' : '')
 			);
 
-			return array(false, null, null, null);
+			return array( false, null, null, null );
 		}
 		$platform->fflush($fd);
 
@@ -114,7 +114,7 @@ class WebHelper_simple {
 		if (empty($response)) {
 			$gallery->debug('Empty http response code, maybe timeout');
 
-			return array(false, null, null, null);
+			return array( false, null, null, null );
 		}
 
 		// Read the headers.
@@ -132,7 +132,7 @@ class WebHelper_simple {
 
 			if (isset($headers[$key])) {
 				if (!is_array($headers[$key])) {
-					$headers[$key] = array($headers[$key]);
+					$headers[$key] = array( $headers[$key] );
 				}
 				$headers[$key][] = trim($value);
 			} else {
@@ -152,7 +152,7 @@ class WebHelper_simple {
 				$depth + 1
 			);
 
-			return array($result[0], $result[1], $result[2], $result[3]);
+			return array( $result[0], $result[1], $result[2], $result[3] );
 		}
 
 		$success = false;
@@ -184,7 +184,7 @@ class WebHelper_simple {
 			$success = false;
 		}
 
-		return array($success, $response, $headers, $url);
+		return array( $success, $response, $headers, $url );
 	}
 
 	/**
@@ -197,7 +197,7 @@ class WebHelper_simple {
 		if ($depth > 5) {
 			$gallery->debug('Too many levels of HTTP redirection!');
 
-			return array(false, null, null, null, null);
+			return array( false, null, null, null, null );
 		}
 
 		// Convert illegal characters
@@ -215,13 +215,13 @@ class WebHelper_simple {
 			// Returning output directly from fetchWebPage confuses the CodeAudit
 			$result = WebHelper_simple::fetchWebPage($redirectUrl, $extraHeaders, $depth + 1);
 
-			return array($result[0], $result[1], $result[2], $result[3], $result[4]);
+			return array( $result[0], $result[1], $result[2], $result[3], $result[4] );
 		}
 
 		// If the HTTP response code did not begin with 2 this request was not successful
 		$success = preg_match('/^HTTP\/\d+\.\d+\s2\d{2}/', $responseStatus);
 
-		return array($success, $responseBody, $responseStatus, $responseHeaders, $url);
+		return array( $success, $responseBody, $responseStatus, $responseHeaders, $url );
 	}
 
 	/**
@@ -233,7 +233,7 @@ class WebHelper_simple {
 		// Read the web page into a buffer
 		list($responseStatus, $responseHeaders, $responseBody) = WebHelper_simple::requestWebPage($url, 'POST', $extraHeaders, $postDataRaw);
 
-		return array($responseBody, $responseStatus, $responseHeaders);
+		return array( $responseBody, $responseStatus, $responseHeaders );
 	}
 
 	/**
@@ -282,10 +282,10 @@ class WebHelper_simple {
 		if (empty($handle)) {
 			$gallery->debug("Error $errno: '$errstr' requesting $url");
 
-			return array(null, null, null);
+			return array( null, null, null );
 		}
 
-		$headerLines = array('Host: ' . $urlComponents['host']);
+		$headerLines = array( 'Host: ' . $urlComponents['host'] );
 
 		foreach ($requestHeaders as $key => $value) {
 			$headerLines[] = $key . ': ' . $value;
@@ -308,7 +308,7 @@ class WebHelper_simple {
 				"fwrite failed in requestWebPage($url)" . ($success === false ? ' - false' : '')
 			);
 
-			return array(null, null, null);
+			return array( null, null, null );
 		}
 		$platform->fflush($handle);
 
@@ -321,7 +321,7 @@ class WebHelper_simple {
 		if (empty($responseStatus)) {
 			$gallery->debug('Empty http response code, maybe timeout');
 
-			return array(null, null, null);
+			return array( null, null, null );
 		}
 
 		// Read the headers
@@ -341,7 +341,7 @@ class WebHelper_simple {
 
 			if (isset($responseHeaders[$key])) {
 				if (!is_array($responseHeaders[$key])) {
-					$responseHeaders[$key] = array($responseHeaders[$key]);
+					$responseHeaders[$key] = array( $responseHeaders[$key] );
 				}
 				$responseHeaders[$key][] = trim($value);
 			} else {
@@ -357,7 +357,7 @@ class WebHelper_simple {
 		}
 		$platform->fclose($handle);
 
-		return array($responseStatus, $responseHeaders, $responseBody);
+		return array( $responseStatus, $responseHeaders, $responseBody );
 	}
 
 	/**
@@ -407,7 +407,7 @@ class WebHelper_simple {
 		// The redirect url is supposed to be absolute, but not everybody plays by the rules
 		$components = parse_url($location);
 
-		foreach (array('scheme', 'host') as $key) {
+		foreach (array( 'scheme', 'host' ) as $key) {
 			if (empty($components[$key])) {
 				$components[$key] = $fromComponents[$key];
 

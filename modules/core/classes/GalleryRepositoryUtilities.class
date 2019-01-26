@@ -62,7 +62,7 @@ class GalleryRepositoryUtilities {
 			);
 		}
 
-		return array(null, $revision);
+		return array( null, $revision );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class GalleryRepositoryUtilities {
 		list($ret, $firstLine) = $this->getFirstBytesFromFile($file, 128);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		return $this->extractRevision($firstLine);
@@ -117,7 +117,7 @@ class GalleryRepositoryUtilities {
 			$relation = 'equal';
 		}
 
-		return array(null, $relation);
+		return array( null, $relation );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class GalleryRepositoryUtilities {
 			);
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 
 	/**
@@ -223,16 +223,16 @@ class GalleryRepositoryUtilities {
 		list($ret, $line) = $this->getFirstBytesFromFile($pluginLanguageBasePath, 128);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $revision) = $this->extractRevision($line);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $revision);
+		return array( null, $revision );
 	}
 
 	/**
@@ -247,12 +247,12 @@ class GalleryRepositoryUtilities {
 		list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$isAvailable = in_array($pluginId, $plugins);
 
-		return array(null, $isAvailable);
+		return array( null, $isAvailable );
 	}
 
 	/**
@@ -319,7 +319,7 @@ class GalleryRepositoryUtilities {
 			$providedPluginApi[1] = $pluginType == 'module' ? (int)$providedApis['module'][1] : (int)$providedApis['theme'][1];
 		}
 
-		return array($providedCoreApi, $providedPluginApi);
+		return array( $providedCoreApi, $providedPluginApi );
 	}
 
 	/**
@@ -344,15 +344,15 @@ class GalleryRepositoryUtilities {
 		}
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryPluginPackageMap',
-			array('locked', 'packageVersion', 'packageBuild', 'packageName'),
+			array( 'locked', 'packageVersion', 'packageBuild', 'packageName' ),
 			array(
 				'pluginType' => $pluginType,
-				'pluginId'   => $pluginId,
+				'pluginId' => $pluginId,
 			)
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$data = array();
@@ -365,7 +365,7 @@ class GalleryRepositoryUtilities {
 			);
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 
 	/**
@@ -393,10 +393,10 @@ class GalleryRepositoryUtilities {
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $plugin->getVersion());
+		return array( null, $plugin->getVersion() );
 	}
 
 	/**
@@ -426,14 +426,14 @@ class GalleryRepositoryUtilities {
 		list($successful, $contents, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage($url);
 
 		if (empty($contents) || !$successful) {
-			return array(false, null);
+			return array( false, null );
 		}
 
 		if ($needsInflation) {
 			$contents = $phpVm->gzinflate($contents);
 		}
 
-		return array(true, $contents);
+		return array( true, $contents );
 	}
 
 	/**
@@ -459,10 +459,10 @@ class GalleryRepositoryUtilities {
 		// Check if specified package exists in the database.
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryPluginPackageMap',
-			array('packageVersion', 'packageBuild'),
+			array( 'packageVersion', 'packageBuild' ),
 			array(
-				'pluginType'  => $pluginType,
-				'pluginId'    => $pluginId,
+				'pluginType' => $pluginType,
+				'pluginId' => $pluginId,
 				'packageName' => $packageName,
 			)
 		);
@@ -486,26 +486,26 @@ class GalleryRepositoryUtilities {
 			$ret = GalleryCoreApi::updateMapEntry(
 				'GalleryPluginPackageMap',
 				array(
-					'pluginType'  => $pluginType,
-					'pluginId'    => $pluginId,
+					'pluginType' => $pluginType,
+					'pluginId' => $pluginId,
 					'packageName' => $packageName,
 				),
 				array(
 					'packageVersion' => $packageVersion,
-					'packageBuild'   => $packageBuild,
-					'locked'         => $locked,
+					'packageBuild' => $packageBuild,
+					'locked' => $locked,
 				)
 			);
 		} else {
 			$ret = GalleryCoreApi::addMapEntry(
 				'GalleryPluginPackageMap',
 				array(
-					'pluginType'     => $pluginType,
-					'pluginId'       => $pluginId,
-					'packageName'    => $packageName,
+					'pluginType' => $pluginType,
+					'pluginId' => $pluginId,
+					'packageName' => $packageName,
 					'packageVersion' => $packageVersion,
-					'packageBuild'   => $packageBuild,
-					'locked'         => $locked,
+					'packageBuild' => $packageBuild,
+					'locked' => $locked,
 				)
 			);
 		}
@@ -544,7 +544,7 @@ class GalleryRepositoryUtilities {
 			if (!$platform->is_writeable($pluginOutputDir)
 				|| !$platform->is_dir($pluginOutputDir)
 			) {
-				return array($pluginOutputDir);
+				return array( $pluginOutputDir );
 			}
 		} else {
 			return array();
@@ -632,7 +632,7 @@ class GalleryRepositoryUtilities {
 						$errorMessage = "'$filePath' doesn't exist.";
 					} elseif (!in_array(
 						$platform->filesize($filePath),
-						array($metaData['bytes'], $metaData['bytes_crlf'])
+						array( $metaData['bytes'], $metaData['bytes_crlf'] )
 					)
 					) {
 						$errorMessage = "Size of '$filePath' did not match package descriptor.";
@@ -640,7 +640,7 @@ class GalleryRepositoryUtilities {
 						$errorMessage = "Couldn't read '$filePath'.";
 					} elseif (!in_array(
 						$checksum,
-						array($metaData['hash'], $metaData['hash_crlf'])
+						array( $metaData['hash'], $metaData['hash_crlf'] )
 					)
 					) {
 						$errorMessage = "Integrity check failed for '$filePath'.";
@@ -790,7 +790,7 @@ class GalleryRepositoryUtilities {
 			if ($isDescriptor) {
 				$packages[$pluginType][$pluginId]['descriptor'] = unserialize($contents);
 			} else {
-				$packages[$pluginType][$pluginId]['files'][] = array($packageName, $file);
+				$packages[$pluginType][$pluginId]['files'][] = array( $packageName, $file );
 			}
 
 			call_user_func(
@@ -802,7 +802,7 @@ class GalleryRepositoryUtilities {
 		}
 		$platform->fclose($handle);
 
-		return array(null, $packages);
+		return array( null, $packages );
 	}
 
 	/*
@@ -894,6 +894,6 @@ class GalleryRepositoryUtilities {
 			);
 		}
 
-		return array(null, $outputFile);
+		return array( null, $outputFile );
 	}
 }

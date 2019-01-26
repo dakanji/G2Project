@@ -38,8 +38,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		list($ret, $aclIds) =
-		GalleryCoreApi::fetchAccessListIds($permission, $gallery->getActiveUserId());
+		list($ret, $aclIds) = 		GalleryCoreApi::fetchAccessListIds($permission, $gallery->getActiveUserId());
 
 		if ($ret) {
 			return array($ret, null);
@@ -48,7 +47,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		if (empty($aclIds)) {
 			return array(null, array());
 		}
-		$aclMarkers  = GalleryUtilities::makeMarkers(count($aclIds));
+		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		$query = sprintf('
 	SELECT
@@ -172,8 +171,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			'Failed to create item type %s, falling back on unknown',
 					get_class($newItem)
 		));
-				list($ret, $newItem) =
-			GalleryCoreApi::newFactoryInstanceById('GalleryEntity', 'GalleryUnknownItem');
+				list($ret, $newItem) = 			GalleryCoreApi::newFactoryInstanceById('GalleryEntity', 'GalleryUnknownItem');
 
 				if (!isset($newItem)) {
 					return array(GalleryCoreApi::error(
@@ -231,8 +229,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		if (! GalleryUtilities::isA($item, 'GalleryDataItem')) {
 			return array(null, null);
 		}
-		list($ret, $toolkits) =
-		GalleryCoreApi::getToolkitsByProperty($item->getMimeType(), 'originationTimestamp');
+		list($ret, $toolkits) = 		GalleryCoreApi::getToolkitsByProperty($item->getMimeType(), 'originationTimestamp');
 
 		if ($ret) {
 			return array($ret, null);
@@ -247,8 +244,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 			foreach ($toolkits as $toolkit) {
 				if (isset($toolkit)) {
-					list($ret, $originationTimestamp) =
-			$toolkit->getProperty($item->getMimeType(), 'originationTimestamp', $path);
+					list($ret, $originationTimestamp) = 			$toolkit->getProperty($item->getMimeType(), 'originationTimestamp', $path);
 
 					if ($ret) {
 						return array($ret, null);
@@ -323,8 +319,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		}
 
 		if (!$isViewable && isset($operations)) {
-			list($ret, $newOperations, $outputMimeType) =
-		GalleryCoreApi::makeSupportedViewableOperationSequence(
+			list($ret, $newOperations, $outputMimeType) = 		GalleryCoreApi::makeSupportedViewableOperationSequence(
 			$mimeType,
 			$operations,
 			false
@@ -542,8 +537,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			 * Validate/update the operations to make sure that they're supported
 			 * by an active toolkit and produce a viewable mime type.
 			 */
-			list($ret, $operations, $outputMimeType) =
-		GalleryCoreApi::makeSupportedViewableOperationSequence(
+			list($ret, $operations, $outputMimeType) = 		GalleryCoreApi::makeSupportedViewableOperationSequence(
 			$mimeType,
 			$operations,
 			$type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
@@ -608,16 +602,14 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 		if ($itemHasThumbnail) {
 			// See if the album has a thumbnail.  If not, try to use this item as the thumbnail.
-			list($ret, $thumbnailTable) =
-		GalleryCoreApi::fetchThumbnailsByItemIds(array($albumId));
+			list($ret, $thumbnailTable) = 		GalleryCoreApi::fetchThumbnailsByItemIds(array($albumId));
 
 			if ($ret) {
 				return $ret;
 			}
 
 			if (empty($thumbnailTable)) {
-				list($ret, $success) =
-			GalleryCoreApi::setThumbnailFromItem($albumId, $item->getId());
+				list($ret, $success) = 			GalleryCoreApi::setThumbnailFromItem($albumId, $item->getId());
 
 				if ($ret) {
 					return $ret;
@@ -635,8 +627,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		global $gallery;
 
 		// Load the current album thumbnail.
-		list($ret, $thumbnailTable) =
-		GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId, $fromItemId));
+		list($ret, $thumbnailTable) = 		GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId, $fromItemId));
 
 		if ($ret) {
 			return array($ret, false);
@@ -796,8 +787,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				if (empty($parentId)) {
 					$parentId = $item->getId();
 				}
-				list($ret, $preferences) =
-			GalleryCoreApi::fetchDerivativePreferencesForItem($parentId);
+				list($ret, $preferences) = 			GalleryCoreApi::fetchDerivativePreferencesForItem($parentId);
 
 				if ($ret) {
 					if (!empty($lockIds)) {
@@ -831,8 +821,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				 * Validate the stored preferences to make sure that
 				 * they're supported by an active toolkit.
 				 */
-				list($ret, $isSupported, $outputMimeType) =
-			GalleryCoreApi::isSupportedOperationSequence(
+				list($ret, $isSupported, $outputMimeType) = 			GalleryCoreApi::isSupportedOperationSequence(
 			$sourceMimeType,
 				$derivativeOperations
 			);
@@ -904,8 +893,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			}
 
 			if (empty($thumbTable)) {
-				list($ret, $success) =
-			GalleryItemHelper_medium::setThumbnailFromItem($parentId, $itemId);
+				list($ret, $success) = 			GalleryItemHelper_medium::setThumbnailFromItem($parentId, $itemId);
 
 				if ($ret) {
 					return array($ret, null);
@@ -1049,8 +1037,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			}
 
 			// At the moment, we only have FastDownload files for the guest/anonymous user
-			list($ret, $anonymousUserId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+			list($ret, $anonymousUserId) = 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
 			if ($ret) {
 				return array($ret, null);
@@ -1104,8 +1091,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				}
 
 				// Load the thumbnails, resizes, and preferreds
-				list($ret, $thumbnails) =
-			GalleryCoreApi::fetchThumbnailsByItemIds($thumbnailIds);
+				list($ret, $thumbnails) = 			GalleryCoreApi::fetchThumbnailsByItemIds($thumbnailIds);
 
 				if ($ret) {
 					return array($ret, null);

@@ -53,11 +53,11 @@ class GalleryPermissionHelper_advanced {
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
-				'userId'          => $userId,
-				'itemId'          => $itemId,
-				'permission'      => $permission,
+				'userId' => $userId,
+				'itemId' => $itemId,
+				'permission' => $permission,
 				'applyToChildren' => $applyToChildren,
-				'changeType'      => 'add',
+				'changeType' => 'add',
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -138,11 +138,11 @@ class GalleryPermissionHelper_advanced {
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
-				'userId'          => $userId,
-				'itemId'          => $itemId,
-				'permission'      => $permission,
+				'userId' => $userId,
+				'itemId' => $itemId,
+				'permission' => $permission,
 				'applyToChildren' => $applyToChildren,
-				'changeType'      => $changeType,
+				'changeType' => $changeType,
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -194,7 +194,7 @@ class GalleryPermissionHelper_advanced {
 			$permission,
 			$applyToChildren,
 			array(
-				'userId'  => (int)$userId,
+				'userId' => (int)$userId,
 				'groupId' => null,
 			)
 		);
@@ -206,11 +206,11 @@ class GalleryPermissionHelper_advanced {
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
-				'userId'          => $userId,
-				'itemId'          => $itemId,
-				'permission'      => $permission,
+				'userId' => $userId,
+				'itemId' => $itemId,
+				'permission' => $permission,
 				'applyToChildren' => $applyToChildren,
-				'changeType'      => 'remove',
+				'changeType' => 'remove',
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -238,7 +238,7 @@ class GalleryPermissionHelper_advanced {
 			$permission,
 			$applyToChildren,
 			array(
-				'userId'  => null,
+				'userId' => null,
 				'groupId' => (int)$groupId,
 			)
 		);
@@ -386,7 +386,7 @@ class GalleryPermissionHelper_advanced {
 		} else {
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'GalleryAccessSubscriberMap',
-				array('accessListId', 'itemId'),
+				array( 'accessListId', 'itemId' ),
 				array(
 					'itemId' => $itemId,
 				)
@@ -401,7 +401,7 @@ class GalleryPermissionHelper_advanced {
 				$ret = GalleryCoreApi::addMapEntry(
 					'GalleryAccessSubscriberMap',
 					array(
-						'itemId'       => $itemId,
+						'itemId' => $itemId,
 						'accessListId' => 0,
 					)
 				);
@@ -412,7 +412,7 @@ class GalleryPermissionHelper_advanced {
 
 				list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 					'GalleryAccessSubscriberMap',
-					array('accessListId', 'itemId'),
+					array( 'accessListId', 'itemId' ),
 					array(
 						'itemId' => $itemId,
 					)
@@ -434,7 +434,7 @@ class GalleryPermissionHelper_advanced {
 		$oldToNewAclMapping = $itemsToBeRemapped = $removeEventData = array();
 
 		while ($result = $searchResults->nextResult()) {
-			list($oldAclId, $targetItemId) = array((int)$result[0], (int)$result[1]);
+			list($oldAclId, $targetItemId) = array( (int)$result[0], (int)$result[1] );
 
 			if (!isset($oldToNewAclMapping[$oldAclId])) {
 				// Figure out what the current bits are
@@ -477,7 +477,7 @@ class GalleryPermissionHelper_advanced {
 							$ret = GalleryCoreApi::updateMapEntry(
 								'GalleryAccessMap',
 								array(
-									'accessListId'  => $newAclId,
+									'accessListId' => $newAclId,
 									'userOrGroupId' => $entityId,
 								),
 								array(
@@ -512,7 +512,7 @@ class GalleryPermissionHelper_advanced {
 							$ret = GalleryCoreApi::removeMapEntry(
 								'GalleryAccessMap',
 								array(
-									'accessListId'  => $newAclId,
+									'accessListId' => $newAclId,
 									'userOrGroupId' => $entityId,
 								)
 							);
@@ -521,7 +521,7 @@ class GalleryPermissionHelper_advanced {
 							$ret = GalleryCoreApi::updateMapEntry(
 								'GalleryAccessMap',
 								array(
-									'accessListId'  => $newAclId,
+									'accessListId' => $newAclId,
 									'userOrGroupId' => $entityId,
 								),
 								array(
@@ -672,12 +672,12 @@ class GalleryPermissionHelper_advanced {
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
 		$event->setData(
 			array(
-				'userId'         => 0,
-				'groupId'        => 0,
+				'userId' => 0,
+				'groupId' => 0,
 				'itemIdsAndBits' => array(
 					$itemId => $zeroBits,
 				),
-				'format'         => 'newBits',
+				'format' => 'newBits',
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -696,7 +696,7 @@ class GalleryPermissionHelper_advanced {
 		global $gallery;
 
 		if (empty($itemId)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		$query = '
@@ -719,10 +719,10 @@ class GalleryPermissionHelper_advanced {
 		[GalleryAccessMap::permission] ASC
 		';
 
-		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
+		list($ret, $searchResults) = $gallery->search($query, array( (int)$itemId ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$storage =& $gallery->getStorage();
@@ -736,20 +736,20 @@ class GalleryPermissionHelper_advanced {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$idKey = !empty($result[1]) ? 'userId' : (!empty($result[2]) ? 'groupId' : 'entityId');
 
 			foreach ($permissions as $permission) {
 				$data[] = array(
-					$idKey       => (int)$result[0],
+					$idKey => (int)$result[0],
 					'permission' => $permission['id'],
 				);
 			}
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 
 	/**
@@ -765,7 +765,7 @@ class GalleryPermissionHelper_advanced {
 		global $gallery;
 
 		if (empty($itemId) || empty($userOrGroupId)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		$query = '
@@ -783,11 +783,11 @@ class GalleryPermissionHelper_advanced {
 
 		list($ret, $searchResults) = $gallery->search(
 			$query,
-			array((int)$itemId, $userOrGroupId)
+			array( (int)$itemId, $userOrGroupId )
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$storage =& $gallery->getStorage();
@@ -798,7 +798,7 @@ class GalleryPermissionHelper_advanced {
 			$permission = $storage->convertBitsToInt($result[0]);
 		}
 
-		return array(null, $permission);
+		return array( null, $permission );
 	}
 
 	/**
@@ -808,11 +808,11 @@ class GalleryPermissionHelper_advanced {
 		global $gallery;
 
 		if (empty($itemId)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryAccessSubscriberMap',
-			array('accessListId'),
+			array( 'accessListId' ),
 			array(
 				'itemId' => (int)$itemId,
 			),
@@ -824,12 +824,12 @@ class GalleryPermissionHelper_advanced {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$result = $searchResults->nextResult();
 
-		return array(null, empty($result) ? null : $result[0]);
+		return array( null, empty($result) ? null : $result[0] );
 	}
 
 	/**
@@ -847,20 +847,20 @@ class GalleryPermissionHelper_advanced {
 		list($ret, $newAccessListId) = $storage->getUniqueId();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($oldAccessListId)) {
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'GalleryAccessMap',
-				array('userOrGroupId', 'permission'),
+				array( 'userOrGroupId', 'permission' ),
 				array(
 					'accessListId' => $oldAccessListId,
 				)
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			/*
@@ -872,18 +872,18 @@ class GalleryPermissionHelper_advanced {
 					'GalleryAccessMap',
 					array(
 						'userOrGroupId' => (int)$result[0],
-						'permission'    => (int)$result[1],
-						'accessListId'  => (int)$newAccessListId,
+						'permission' => (int)$result[1],
+						'accessListId' => (int)$newAccessListId,
 					)
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 		}
 
-		return array(null, $newAccessListId);
+		return array( null, $newAccessListId );
 	}
 
 	/**
@@ -942,26 +942,26 @@ class GalleryPermissionHelper_advanced {
 		global $gallery;
 
 		if (empty($permissions) || empty($entityIds)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permissions);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$storage                   =& $gallery->getStorage();
 		list($ret, $andPermission) = $storage->getFunctionSql(
 			'BITAND',
-			array('[GalleryAccessMap::permission]', '?')
+			array( '[GalleryAccessMap::permission]', '?' )
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!is_array($entityIds)) {
-			$entityIds = array($entityIds);
+			$entityIds = array( $entityIds );
 		}
 		$entityIdMarkers = GalleryUtilities::makeMarkers(count($entityIds));
 
@@ -980,7 +980,7 @@ class GalleryPermissionHelper_advanced {
 		AND [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
 		AND (' . $andPermission . ' = ?)
 		';
-		$data   = array_merge(array((int)$itemId), $entityIds);
+		$data   = array_merge(array( (int)$itemId ), $entityIds);
 		$data[] = $storage->convertIntToBits($bits);
 		$data[] = $storage->convertIntToBits($bits);
 
@@ -995,7 +995,7 @@ class GalleryPermissionHelper_advanced {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		return array(
@@ -1101,7 +1101,7 @@ class GalleryPermissionHelper_advanced {
 		list($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$results = array();
@@ -1112,26 +1112,26 @@ class GalleryPermissionHelper_advanced {
 			}
 		}
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	/**
 	 * @see GalleryCoreApi::getSubPermissions
 	 */
 	public static function getSubPermissions($permissionId) {
-		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array($permissionId));
+		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array( $permissionId ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $ids) = GalleryCoreApi::convertPermissionBitsToIds($bits);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $ids);
+		return array( null, $ids );
 	}
 
 	/**
@@ -1192,7 +1192,7 @@ class GalleryPermissionHelper_advanced {
 		list($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$bitSet = 0;
@@ -1229,10 +1229,10 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		if ($newBit == 0) {
-			return array(GalleryCoreApi::error(ERROR_OUT_OF_SPACE), null);
+			return array( GalleryCoreApi::error(ERROR_OUT_OF_SPACE), null );
 		}
 
-		return array(null, $newBit);
+		return array( null, $newBit );
 	}
 
 	/**
@@ -1291,7 +1291,7 @@ class GalleryPermissionHelper_advanced {
 		$storage                      =& $gallery->getStorage();
 		list($ret, $andNotPermission) = $storage->getFunctionSql(
 			'BITAND',
-			array('[GalleryAccessMap::permission]', '?')
+			array( '[GalleryAccessMap::permission]', '?' )
 		);
 
 		if ($ret) {
@@ -1352,7 +1352,7 @@ class GalleryPermissionHelper_advanced {
 		list($ret, $semaphoreId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.accessListCompacterLock');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$semaphoreId = (int)$semaphoreId;
 
@@ -1364,7 +1364,7 @@ class GalleryPermissionHelper_advanced {
 					list($ret, $lockId) = GalleryCoreApi::acquireReadLock($semaphoreId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
@@ -1377,17 +1377,17 @@ class GalleryPermissionHelper_advanced {
 					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($semaphoreId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
 				break;
 
 			default:
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
-		return array(null, $lockId);
+		return array( null, $lockId );
 	}
 
 	/**
@@ -1422,12 +1422,12 @@ class GalleryPermissionHelper_advanced {
 		// Load the entire access list into memory
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryAccessMap',
-			array('accessListId', 'userOrGroupId', 'permission'),
+			array( 'accessListId', 'userOrGroupId', 'permission' ),
 			array(),
 			array(
 				'orderBy' => array(
 					'userOrGroupId' => ORDER_ASCENDING,
-					'accessListId'  => ORDER_DESCENDING,
+					'accessListId' => ORDER_DESCENDING,
 				),
 			)
 		);

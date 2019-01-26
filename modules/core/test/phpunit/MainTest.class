@@ -223,10 +223,10 @@ class MainTest extends GalleryTestCase {
 		);
 
 		// Controllers that shouldn't trigger the fix, just a few samples
-		$okControllers = array('core.ItemAdd', 'migrate.Redirect', null, 'core.ItemMove');
+		$okControllers = array( 'core.ItemAdd', 'migrate.Redirect', null, 'core.ItemMove' );
 
 		// Controllers that should trigger the fix
-		$needFixControllers = array('core.Logout', 'core.UserLogin', 'publishxp.Login');
+		$needFixControllers = array( 'core.Logout', 'core.UserLogin', 'publishxp.Login' );
 
 		$base    = 'http://www.example.com/';
 		$session =& $gallery->getSession();
@@ -486,8 +486,8 @@ class MainTest extends GalleryTestCase {
 		$expectedUrl = $urlGenerator->generateUrl(
 			$gallery->getConfig('loginRedirect'),
 			array(
-				'forceFullUrl'   => true,
-				'htmlEntities'   => false,
+				'forceFullUrl' => true,
+				'htmlEntities' => false,
 				'forceSessionId' => false,
 			)
 		);
@@ -545,8 +545,8 @@ class MainTest extends GalleryTestCase {
 		$expectedUrl = $urlGenerator->generateUrl(
 			$gallery->getConfig('loginRedirect'),
 			array(
-				'forceFullUrl'   => true,
-				'htmlEntities'   => false,
+				'forceFullUrl' => true,
+				'htmlEntities' => false,
 				'forceSessionId' => false,
 			)
 		);
@@ -673,7 +673,7 @@ class MainTest extends GalleryTestCase {
 			'MainTest_BeforeDisplayListener',
 			__FILE__,
 			'MainTest',
-			array('Gallery::BeforeDisplay')
+			array( 'Gallery::BeforeDisplay' )
 		);
 
 		if ($ret) {
@@ -789,7 +789,7 @@ class MainTest_BeforeDisplayListener {
 	public function handleEvent($event) {
 		$_GET['testEvent'] = $event;
 
-		return array(null, null);
+		return array( null, null );
 	}
 }
 
@@ -802,7 +802,7 @@ class MainTest_FakeTemplate extends GalleryTemplate {
 	}
 
 	public function fetch($templateName = null) {
-		return array(null, '');
+		return array( null, '' );
 	}
 }
 

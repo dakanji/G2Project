@@ -131,7 +131,7 @@ foreach ($root[0]['child'] as $entity) {
 			if (!empty($member['child'][$k]['name'])) {
 				switch ($member['child'][$k]['name']) {
 					case 'MEMBER-SIZE':
-						$entities[$entityName]['members'][$name]['size'] = $size                                            = 'STORAGE_SIZE_' . $member['child'][$k]['content'];
+						$entities[$entityName]['members'][$name]['size'] = $size = 'STORAGE_SIZE_' . $member['child'][$k]['content'];
 
 						break;
 

@@ -196,7 +196,7 @@ class ADODB_DataDict {
 	public $serverInfo        = array();
 	public $autoIncrement     = false;
 	public $dataProvider;
-	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME'); // for changetablesql
+	public $invalidResizeTypes4 = array( 'CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME' ); // for changetablesql
 	public $blobSize            = 100;    /// any varchar/char field this size or greater is treated as a blob
 							/// in other words, we use a text area for editting.
 
@@ -473,7 +473,7 @@ class ADODB_DataDict {
 	}
 
 	public function DropIndexSQL($idxname, $tabname = null) {
-		return array(sprintf($this->dropIndex, $this->NameQuote($idxname), $this->TableName($tabname)));
+		return array( sprintf($this->dropIndex, $this->NameQuote($idxname), $this->TableName($tabname)) );
 	}
 
 	public function SetSchema($schema) {
@@ -559,7 +559,7 @@ class ADODB_DataDict {
 			list(, $column_def) = preg_split("/[\t ]+/", $first, 2);
 		}
 
-		return array(sprintf($this->renameColumn, $tabname, $this->NameQuote($oldcolumn), $this->NameQuote($newcolumn), $column_def));
+		return array( sprintf($this->renameColumn, $tabname, $this->NameQuote($oldcolumn), $this->NameQuote($newcolumn), $column_def) );
 	}
 
 	/**
@@ -588,11 +588,11 @@ class ADODB_DataDict {
 	}
 
 	public function DropTableSQL($tabname) {
-		return array(sprintf($this->dropTable, $this->TableName($tabname)));
+		return array( sprintf($this->dropTable, $this->TableName($tabname)) );
 	}
 
 	public function RenameTableSQL($tabname, $newname) {
-		return array(sprintf($this->renameTable, $this->TableName($tabname), $this->TableName($newname)));
+		return array( sprintf($this->renameTable, $this->TableName($tabname), $this->TableName($newname)) );
 	}
 
 	/**
@@ -864,10 +864,10 @@ class ADODB_DataDict {
 					}
 				} else {
 					$idxs[$findex]         = array();
-					$idxs[$findex]['cols'] = array($fname);
+					$idxs[$findex]['cols'] = array( $fname );
 
 					if ($funiqueindex) {
-						$idxs[$findex]['opts'] = array('UNIQUE');
+						$idxs[$findex]['opts'] = array( 'UNIQUE' );
 					} else {
 						$idxs[$findex]['opts'] = array();
 					}
@@ -925,7 +925,7 @@ class ADODB_DataDict {
 			}
 		} // foreach $flds
 
-		return array($lines, $pkey, $idxs);
+		return array( $lines, $pkey, $idxs );
 	}
 
 	/**
@@ -1089,7 +1089,7 @@ class ADODB_DataDict {
 			$fprec = substr($size, $dotat + 1);
 		}
 
-		return array($fsize, $fprec);
+		return array( $fsize, $fprec );
 	}
 
 	/**

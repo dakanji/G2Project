@@ -86,7 +86,7 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 			);
 		}
 
-		return array($errors, $warnings);
+		return array( $errors, $warnings );
 	}
 
 	public function _translate($message) {

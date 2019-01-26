@@ -47,17 +47,17 @@ class GalleryUtilities {
 
 		// No dot == it's all base, no extension
 		if ($pos === false) {
-			return array($filename, '');
+			return array( $filename, '' );
 		}
 
 		$pos++;
 
 		// If it's the last char in the name, just return the base
 		if ($pos >= strlen($filename)) {
-			return array(substr($filename, 0, $pos - 1), '');
+			return array( substr($filename, 0, $pos - 1), '' );
 		}
 
-		return array(substr($filename, 0, $pos - 1), substr($filename, $pos));
+		return array( substr($filename, 0, $pos - 1), substr($filename, $pos) );
 	}
 
 	/**
@@ -438,8 +438,7 @@ class GalleryUtilities {
 	/**
 	 * Convert a filesystem path inside the Gallery directory to an absolute URL.
 	 *
-	 * ie. /path/to/gallery/themes/classic/styles/style.css =>
-	 *     http://example.com/gallery/themes/classic/styles/style.css
+	 * ie. /path/to/gallery/themes/classic/styles/style.css =>   *     http://example.com/gallery/themes/classic/styles/style.css
 	 *
 	 * @param string $path path to a file in the Gallery directory tree
 	 * @param array $options (optional) options to pass to UrlGenerator
@@ -497,7 +496,7 @@ class GalleryUtilities {
 			);
 		}
 
-		return array($width, $height);
+		return array( $width, $height );
 	}
 
 	/**
@@ -522,7 +521,7 @@ class GalleryUtilities {
 			$height = (int)$targetHeight;
 		}
 
-		return array($width, $height);
+		return array( $width, $height );
 	}
 
 	/**
@@ -592,7 +591,7 @@ class GalleryUtilities {
 		$stringLength = strlen($string);
 
 		if ($stringLength < $start) {
-			return array(0, false);
+			return array( 0, false );
 		}
 
 		if (!isset($length)) {
@@ -600,7 +599,7 @@ class GalleryUtilities {
 		}
 
 		if (!$countEntitiesAsOne && $start == 0 && $length >= $stringLength) {
-			return array(strlen($string), $string);
+			return array( strlen($string), $string );
 		}
 
 		if (preg_match_all('(&#x[A-Fa-f0-9]+;|&#[0-9]+;|&[A-Za-z0-9]+;|.|\n)', $string, $reg)) {
@@ -615,7 +614,7 @@ class GalleryUtilities {
 			if ($countEntitiesAsOne) {
 				$slice = array_slice($charArray, $cookedStart, $cookedLength);
 
-				return array(count($slice), join('', $slice));
+				return array( count($slice), join('', $slice) );
 			}
 			$cookedText   = '';
 			$actualLength = 0;
@@ -635,12 +634,12 @@ class GalleryUtilities {
 				$actualLength += $size;
 			}
 
-			return array($actualLength, $cookedText);
+			return array( $actualLength, $cookedText );
 		}
 		// How could we get here?  Our regex should match everything
 		$newString = substr($string, $start, $length);
 
-		return array(strlen($newString), $newString);
+		return array( strlen($newString), $newString );
 	}
 
 	/**
@@ -762,8 +761,8 @@ class GalleryUtilities {
 			 * UTF-8 data to ISO-8859-1)
 			 */
 			$value = str_replace(
-				array('&', '"', '<', '>'),
-				array('&amp;', '&quot;', '&lt;', '&gt;'),
+				array( '&', '"', '<', '>' ),
+				array( '&amp;', '&quot;', '&lt;', '&gt;' ),
 				$value
 			);
 
@@ -1075,7 +1074,7 @@ class GalleryUtilities {
 			$addr = $_SERVER['REMOTE_ADDR'];
 
 			if (GalleryUtilities::isTrustedProxy($addr)) {
-				foreach (array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP') as $key) {
+				foreach (array( 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP' ) as $key) {
 					if (isset($_SERVER[$key])
 						&& preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $_SERVER[$key])
 					) {
@@ -1101,7 +1100,7 @@ class GalleryUtilities {
 		$platform =& $gallery->getPlatform();
 
 		if ($platform->file_exists($dir)) {
-			return array($platform->is_dir($dir), array());
+			return array( $platform->is_dir($dir), array() );
 		}
 
 		static $cacheKey = 'GalleryUtilities::guaranteeDirExists';
@@ -1116,14 +1115,14 @@ class GalleryUtilities {
 			GalleryDataCache::put($cacheKey, $dirPerms);
 
 			if ($platform->file_exists($dir)) {
-				return array($platform->is_dir($dir), array());
+				return array( $platform->is_dir($dir), array() );
 			}
 		}
 
 		$parentDir = dirname($dir);
 
 		if ($parentDir == $dir) {
-			return array(false, array());
+			return array( false, array() );
 		}
 		list($success, $created) = GalleryUtilities::guaranteeDirExists($parentDir);
 
@@ -1135,7 +1134,7 @@ class GalleryUtilities {
 			}
 		}
 
-		return array($success, $created);
+		return array( $success, $created );
 	}
 
 	/**
@@ -1237,7 +1236,7 @@ class GalleryUtilities {
 			list($ret, $parentEntity) = GalleryCoreApi::loadEntitiesById($entity->getParentId(), 'GalleryEntity');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (GalleryUtilities::isA($parentEntity, 'GalleryFileSystemEntity')) {
@@ -1249,7 +1248,7 @@ class GalleryUtilities {
 					list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions($entity->getMimeType());
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					if (!empty($extensions)) {
@@ -1298,7 +1297,7 @@ class GalleryUtilities {
 			$list[] = 'MANIFEST';
 		}
 
-		foreach (array('modules', 'themes') as $dir) {
+		foreach (array( 'modules', 'themes' ) as $dir) {
 			$dh = opendir($base . $dir);
 
 			while (($file = readdir($dh)) !== false) {
@@ -1356,10 +1355,10 @@ class GalleryUtilities {
 					list($file, $cksum, $cksum_crlf, $size, $size_crlf) = $line;
 					$file            = trim($file);
 					$manifest[$file] = array(
-						'checksum'      => $cksum,
+						'checksum' => $cksum,
 						'checksum_crlf' => $cksum_crlf,
-						'size'          => $size,
-						'size_crlf'     => $size_crlf,
+						'size' => $size,
+						'size_crlf' => $size_crlf,
 					);
 				}
 			}

@@ -129,7 +129,7 @@ class EventTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($event, $listener->getEvent());
-		$this->assertEquals(array('result'), $result);
+		$this->assertEquals(array( 'result' ), $result);
 	}
 
 	public function testChangePermissions() {
@@ -157,7 +157,7 @@ class EventTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'userId'     => $gallery->getActiveUserId(),
+					'userId' => $gallery->getActiveUserId(),
 					'permission' => 'core.delete',
 				),
 			),
@@ -233,7 +233,7 @@ class EventTestEventListener // extends GalleryEventListener
 				$ret  = GalleryCoreApi::removeItemPermissions($item->getId());
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$ret = GalleryCoreApi::addUserPermission(
 					$item->getId(),
@@ -242,10 +242,10 @@ class EventTestEventListener // extends GalleryEventListener
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
-				return array(null, $result);
+				return array( null, $result );
 
 			// @see EventTest::testFactoryRegistrationsBeforeActivateEvent
 			case 'Gallery::ActivatePlugin':
@@ -255,13 +255,13 @@ class EventTestEventListener // extends GalleryEventListener
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
-				return array(null, $result);
+				return array( null, $result );
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 
 	public function getEvent() {

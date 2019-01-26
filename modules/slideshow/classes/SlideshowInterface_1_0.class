@@ -37,6 +37,6 @@ class SlideshowInterface_1_0 {
 	 *               array(parameter=>value)
 	 */
 	public function getLinkData($itemIds) {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
 	}
 }

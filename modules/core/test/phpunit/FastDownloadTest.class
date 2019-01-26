@@ -127,7 +127,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 		$cachePath = GalleryDataCache::getCachePath(
 			array(
-				'type'   => 'derivative-relative',
+				'type' => 'derivative-relative',
 				'itemId' => $this->_derivatives[0][0]->getId(),
 			)
 		);
@@ -226,7 +226,7 @@ class FastDownloadTest extends GalleryTestCase {
 		global $gallery;
 
 		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(
-			array('core.view', 'core.viewResizes', 'core.viewSource')
+			array( 'core.view', 'core.viewResizes', 'core.viewSource' )
 		);
 
 		if ($ret) {
@@ -242,8 +242,8 @@ class FastDownloadTest extends GalleryTestCase {
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
 		$event->setData(
 			array(
-				'userId'         => $gallery->getActiveUserId(),
-				'groupId'        => $adminGroupId,
+				'userId' => $gallery->getActiveUserId(),
+				'groupId' => $adminGroupId,
 				'itemIdsAndBits' => array(
 					$this->_item[0]->getId() => $bits,
 				),
@@ -321,10 +321,10 @@ class FastDownloadTest extends GalleryTestCase {
 
 		if (isset($format) && $format == 'newBits') {
 			$permissions  = array();
-			$permissions2 = array('core.viewSource');
+			$permissions2 = array( 'core.viewSource' );
 		} else {
-			$permissions  = array('core.view', 'core.viewResizes', 'core.viewSource');
-			$permissions2 = array('core.view', 'core.viewResizes');
+			$permissions  = array( 'core.view', 'core.viewResizes', 'core.viewSource' );
+			$permissions2 = array( 'core.view', 'core.viewResizes' );
 		}
 
 		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permissions);
@@ -341,13 +341,13 @@ class FastDownloadTest extends GalleryTestCase {
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
 		$event->setData(
 			array(
-				'userId'         => $userId,
-				'groupId'        => $groupId,
+				'userId' => $userId,
+				'groupId' => $groupId,
 				'itemIdsAndBits' => array(
 					$this->_item[0]->getId() => $bits,
 					$this->_item[1]->getId() => $bits2,
 				),
-				'format'         => $format,
+				'format' => $format,
 			)
 		);
 
@@ -376,7 +376,7 @@ class FastDownloadTest extends GalleryTestCase {
 		foreach ($ids as $id) {
 			$expected[] = GalleryDataCache::getCachePath(
 				array(
-					'type'   => 'fast-download',
+					'type' => 'fast-download',
 					'itemId' => $id,
 				)
 			);

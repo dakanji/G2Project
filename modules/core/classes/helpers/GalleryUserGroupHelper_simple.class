@@ -40,16 +40,16 @@ class GalleryUserGroupHelper_simple {
 		list($ret, $adminGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
 		list($ret, $result) = GalleryUserGroupHelper_simple::isUserInGroup($userId, $adminGroupId);
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 
 	/**
@@ -62,14 +62,14 @@ class GalleryUserGroupHelper_simple {
 		$cacheKey = "GalleryUserGroupHelper::isUserInGroup($userId,$groupId)";
 
 		if (GalleryDataCache::containsKey($cacheKey)) {
-			return array(null, GalleryDataCache::get($cacheKey));
+			return array( null, GalleryDataCache::get($cacheKey) );
 		}
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryUserGroupMap',
-			array('userId'),
+			array( 'userId' ),
 			array(
-				'userId'  => $userId,
+				'userId' => $userId,
 				'groupId' => $groupId,
 			),
 			array(
@@ -80,13 +80,13 @@ class GalleryUserGroupHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$result = $searchResults->resultCount() ? true : false;
 		GalleryDataCache::put($cacheKey, $result);
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 
 	/**
@@ -115,17 +115,17 @@ class GalleryUserGroupHelper_simple {
 	    ';
 			list($ret, $searchResults) = $gallery->search(
 				$query,
-				array((int)$userId),
+				array( (int)$userId ),
 				array(
 					'limit' => array(
-						'count'  => $count,
+						'count' => $count,
 						'offset' => $offset,
 					),
 				)
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$data = array();
@@ -137,6 +137,6 @@ class GalleryUserGroupHelper_simple {
 			GalleryDataCache::put($cacheKey, $data);
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 }

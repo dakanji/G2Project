@@ -47,7 +47,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
-				'orderBy'        => 'id',
+				'orderBy' => 'id',
 				'orderDirection' => ORDER_ASCENDING,
 			)
 		);
@@ -98,7 +98,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'groupId'    => $everybodyGroupId,
+					'groupId' => $everybodyGroupId,
 					'permission' => 'core.view',
 				),
 			),
@@ -333,7 +333,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'last-modified' => 'Last-Modified: ' . GalleryUtilities::getHttpDate($now),
-				'expires'       => 'Expires: ' . GalleryUtilities::getHttpDate($now - 3600 * 24 * 7),
+				'expires' => 'Expires: ' . GalleryUtilities::getHttpDate($now - 3600 * 24 * 7),
 			),
 			GalleryUtilities::_getResponseHeaders()
 		);
@@ -692,11 +692,11 @@ class ItemAttributesTest extends GalleryTestCase {
 			array(
 				$this->_album->getId() => array(
 					'GalleryAlbumItem' => 3,
-					'GalleryDataItem'  => 2,
+					'GalleryDataItem' => 2,
 				),
 				$album->getId() => array(
 					'GalleryAlbumItem' => 0,
-					'GalleryDataItem'  => 2,
+					'GalleryDataItem' => 2,
 				),
 			),
 			$counts
@@ -732,7 +732,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		// Verify our counts
 		list($ret, $counts) = GalleryCoreApi::fetchDescendentCounts(
-			array($this->_album->getId(), $album->getId())
+			array( $this->_album->getId(), $album->getId() )
 		);
 
 		if ($ret) {
@@ -742,7 +742,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				$this->_album->getId() => 5,
-				$album->getId()        => 2,
+				$album->getId() => 2,
 			),
 			$counts
 		);
@@ -765,9 +765,9 @@ class ItemAttributesTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$session->put(GALLERY_PERMISSION_SESSION_KEY, array($itemId));
+		$session->put(GALLERY_PERMISSION_SESSION_KEY, array( $itemId ));
 
-		list($ret, $counts) = GalleryCoreApi::fetchDescendentCounts(array($this->_album->getId()));
+		list($ret, $counts) = GalleryCoreApi::fetchDescendentCounts(array( $this->_album->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -848,7 +848,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		// Verify that the target user can't see the item (even though the active user can)
 		list($ret, $counts) = GalleryCoreApi::fetchDescendentCounts(
-			array($this->_album->getId(), $album->getId()),
+			array( $this->_album->getId(), $album->getId() ),
 			$user->getId()
 		);
 
@@ -859,7 +859,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				$this->_album->getId() => 5,
-				$album->getId()        => 2,
+				$album->getId() => 2,
 			),
 			$counts
 		);

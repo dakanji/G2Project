@@ -115,7 +115,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', $cookiePath);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		// Check if the correct value was stored
 		list($ret, $realValue) = GalleryCoreApi::getPluginParameter(
@@ -125,7 +125,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$this->assertEquals($cookiePath, $realValue, 'Could not reset cookie path');
 
@@ -134,7 +134,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$ret                 = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$gallery->setUrlGenerator($this->_urlGenerator);
 		// Let the session know of the new cookie.path value
@@ -142,30 +142,30 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$ret     = $session->init();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$session->put('foo', 1);
 		$ret = $session->start();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$gallery->_session = $session;
 
 		$params['a'] = 123;
 		$params['b'] = 'bBbB';
-		$params['c'] = serialize(array(1, 2, 3));
-		$params['d'] = array('<', 2);
+		$params['c'] = serialize(array( 1, 2, 3 ));
+		$params['d'] = array( '<', 2 );
 
 		$values[] = GalleryUtilities::prefixFormVariable('a') . '=' . urlencode('123');
 		$values[] = GalleryUtilities::prefixFormVariable('b') . '=' . urlencode('bBbB');
 		$values[] = GalleryUtilities::prefixFormVariable('c') . '=' .
-		urlencode(serialize(array(1, 2, 3)));
+		urlencode(serialize(array( 1, 2, 3 )));
 		$values[] = GalleryUtilities::prefixFormVariable(urlencode('d[0]')) . '=' . urlencode('<');
 		$values[] = GalleryUtilities::prefixFormVariable(urlencode('d[1]')) . '=' . urlencode('2');
 
-		return array(null, $params, $values);
+		return array( null, $params, $values );
 	}
 
 	public function testGenerateUrl() {
@@ -271,7 +271,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				urlencode($session->getId()),
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.DownloadItem',
+					'view' => 'core.DownloadItem',
 					'itemId' => 12345,
 				),
 				array(
@@ -286,11 +286,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 				urlencode('test.View') . '&amp;g2_param=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'  => 'test.View',
+					'view' => 'test.View',
 					'param' => 12345,
 				),
 				array(
-					'forceDirect'    => true,
+					'forceDirect' => true,
 					'forceSessionId' => false,
 				)
 			),
@@ -304,7 +304,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				'&amp;g2_param=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'  => 'test.View',
+					'view' => 'test.View',
 					'param' => 12345,
 				)
 			)
@@ -320,7 +320,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->generateUrl(
 				array(
 					'controller' => 'test.Controller',
-					'param'      => 12345,
+					'param' => 12345,
 				)
 			)
 		);
@@ -350,7 +350,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				urlencode($session->getId()),
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.DownloadItem',
+					'view' => 'core.DownloadItem',
 					'itemId' => 12345,
 				)
 			),
@@ -365,7 +365,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			'/cms/phpunit_test.php?module=gallery2&amp;g2_itemId=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.ShowItem',
+					'view' => 'core.ShowItem',
 					'itemId' => 12345,
 				)
 			),
@@ -398,7 +398,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				urlencode($session->getId()),
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.DownloadItem',
+					'view' => 'core.DownloadItem',
 					'itemId' => 12345,
 				)
 			),
@@ -428,7 +428,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				urlencode('core.DownloadItem') . '&amp;g2_itemId=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.DownloadItem',
+					'view' => 'core.DownloadItem',
 					'itemId' => 12345,
 				)
 			),
@@ -440,7 +440,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			'/cms/phpunit_test.php?module=gallery2&amp;g2_itemId=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.ShowItem',
+					'view' => 'core.ShowItem',
 					'itemId' => 12345,
 				)
 			),
@@ -664,7 +664,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		$params['a'] = 123;
 		$params['b'] = 'bBbB';
-		$params['c'] = serialize(array(1, 2, 3));
+		$params['c'] = serialize(array( 1, 2, 3 ));
 		$actual      = $this->_urlGenerator->generateUrl(
 			$params,
 			array(
@@ -687,7 +687,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testGenerateUrlForceSessionIdFalse() {
 		$params['a'] = 123;
 		$params['b'] = 'bBbB';
-		$params['c'] = serialize(array(1, 2, 3));
+		$params['c'] = serialize(array( 1, 2, 3 ));
 		$actual      = $this->_urlGenerator->generateUrl(
 			$params,
 			array(
@@ -715,7 +715,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				'&amp;g2_param=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'  => 'test.View',
+					'view' => 'test.View',
 					'param' => 12345,
 				)
 			)
@@ -726,7 +726,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				'&amp;g2_itemId=99',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.DownloadItem',
+					'view' => 'core.DownloadItem',
 					'itemId' => 99,
 				)
 			)
@@ -741,7 +741,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->generateUrl(
 				array(
 					'controller' => 'test.Controller',
-					'param'      => 12345,
+					'param' => 12345,
 				)
 			)
 		);
@@ -804,7 +804,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				urlencode('test.View') . '&amp;g2_param=12345',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'  => 'test.View',
+					'view' => 'test.View',
 					'param' => 12345,
 				)
 			)
@@ -816,7 +816,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				'&amp;g2_itemId=99',
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'   => 'core.DownloadItem',
+					'view' => 'core.DownloadItem',
 					'itemId' => 99,
 				)
 			)
@@ -832,7 +832,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->generateUrl(
 				array(
 					'controller' => 'test.Controller',
-					'param'      => 12345,
+					'param' => 12345,
 				)
 			)
 		);
@@ -1218,7 +1218,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		foreach (array(0, 1) as $i) {
+		foreach (array( 0, 1 ) as $i) {
 			$this->assertEquals(GALLERY_MAIN_PHP, $uG->_file[$i], "file[$i]");
 			$this->assertTrue(empty($uG->_path[$i]), "path[$i]");
 			$this->assertEquals('http', $uG->_protocol[$i], "protocol[$i]");
@@ -1241,7 +1241,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		foreach (array(0, 1) as $i) {
+		foreach (array( 0, 1 ) as $i) {
 			$this->assertEquals('index.php?foo=bar', $uG->_file[$i], "file[$i]");
 			$this->assertEquals('/new_path/', $uG->_path[$i], "path[$i]");
 			$this->assertEquals('https', $uG->_protocol[$i], "protocol[$i]");
@@ -1296,7 +1296,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		$params['a'] = 123;
 		$params['b'] = 'bBbB';
-		$params['c'] = serialize(array(1, 2, 3));
+		$params['c'] = serialize(array( 1, 2, 3 ));
 		$actual      = $urlGenerator->generateUrl($params);
 
 		foreach ($params as $key => $value) {
@@ -1415,7 +1415,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$goodUrls = array(
 			$this->_urlGenerator->generateUrl(
 				array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				)
 			),
@@ -1601,12 +1601,12 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 		$platform->setReply(
 			'file_exists',
-			array(GalleryCoreApi::getCodeBasePath('test/local/test1.css')),
+			array( GalleryCoreApi::getCodeBasePath('test/local/test1.css') ),
 			false
 		);
 		$platform->setReply(
 			'file_exists',
-			array(GalleryCoreApi::getCodeBasePath('test/local/test2.css')),
+			array( GalleryCoreApi::getCodeBasePath('test/local/test2.css') ),
 			true
 		);
 
@@ -1814,7 +1814,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		// Permute all involved variables, exhaustive test
-		foreach (array(true, false) as $downloadItemRequest) {
+		foreach (array( true, false ) as $downloadItemRequest) {
 			$params = array(
 				'view' => 'core.ShowItem',
 			);
@@ -1825,7 +1825,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				);
 			}
 
-			foreach (array(true, false) as $isEmbedded) {
+			foreach (array( true, false ) as $isEmbedded) {
 				GalleryDataCache::put($key, $isEmbedded, true);
 				$this->assertEquals(
 					$isEmbedded,
@@ -1833,7 +1833,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 					'Could not set isEmbedded'
 				);
 
-				foreach (array(true, false) as $cookiePathConfigured) {
+				foreach (array( true, false ) as $cookiePathConfigured) {
 					$this->_urlGenerator->_isCookiePathConfigured = $cookiePathConfigured;
 					// Execute the test
 					$result = $this->_urlGenerator->embedForceSessionId($params);
@@ -1969,7 +1969,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				),
 				array(
 					'forceServerRelativeUrl' => true,
-					'forceFullUrl'           => true,
+					'forceFullUrl' => true,
 				)
 			)
 		);
@@ -2223,7 +2223,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 
 		foreach ($tests as $test) {
-			$expected = array($test['protocol'], $test['host'], $test['path'], $test['file']);
+			$expected = array( $test['protocol'], $test['host'], $test['path'], $test['file'] );
 			$this->assertEquals(
 				$expected,
 				$this->_urlGenerator->_parseUri($test['uri']),
@@ -2233,10 +2233,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	}
 
 	public function testInitSetsIsCookiePathConfiguredIfEmbedded() {
-		foreach (array(true, false) as $embedded) {
+		foreach (array( true, false ) as $embedded) {
 			GalleryDataCache::put('G2_EMBED', $embedded, true);
 
-			foreach (array(true, false) as $isSet) {
+			foreach (array( true, false ) as $isSet) {
 				$value = $isSet ? '/' : '';
 				$ret   = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', $value);
 
@@ -2611,7 +2611,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				'test.php',
 				array(
 					'foo[bar' => '1',
-					'a[b]'    => '2',
+					'a[b]' => '2',
 				),
 				false,
 				false,
@@ -2692,19 +2692,19 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
-		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), false);
+		$platform->setReply('file_exists', array( '/cache/theme/_all/localUrlMap.txt' ), false);
 		$platform->setReply(
 			'file_exists',
-			array(GalleryCoreApi::getCodeBasePath('test/local/test.css')),
+			array( GalleryCoreApi::getCodeBasePath('test/local/test.css') ),
 			true
 		);
 		$platform->setReply(
 			'file_exists',
-			array(GalleryCoreApi::getCodeBasePath('test/local/test.js')),
+			array( GalleryCoreApi::getCodeBasePath('test/local/test.js') ),
 			false
 		);
-		$platform->setReply('file_exists', array('/cache/theme/_all'), true);
-		$platform->setReply('is_dir', array('/cache/theme/_all'), true);
+		$platform->setReply('file_exists', array( '/cache/theme/_all' ), true);
+		$platform->setReply('is_dir', array( '/cache/theme/_all' ), true);
 		$platform->setReply(
 			'atomicWrite',
 			array(
@@ -2712,7 +2712,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				'|' . serialize(
 					array(
 						'test/test.css' => 'test/local/test.css',
-						'test/test.js'  => 'test/test.js',
+						'test/test.js' => 'test/test.js',
 					)
 				),
 			),

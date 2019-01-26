@@ -108,7 +108,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -117,8 +117,8 @@ class UserHelperTest extends GalleryTestCase {
 					'add',
 					'FailedLoginsMap',
 					array(
-						'userName'    => 'MockUser',
-						'count'       => 1,
+						'userName' => 'MockUser',
+						'count' => 1,
 						'lastAttempt' => 'NOW',
 					),
 				),
@@ -160,7 +160,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -176,8 +176,8 @@ class UserHelperTest extends GalleryTestCase {
 					'add',
 					'FailedLoginsMap',
 					array(
-						'userName'    => 'MockUser',
-						'count'       => 2,
+						'userName' => 'MockUser',
+						'count' => 2,
 						'lastAttempt' => 'NOW',
 					),
 				),
@@ -208,7 +208,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -230,7 +230,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'SomeBogusUser',
 					),
@@ -256,7 +256,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -282,7 +282,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -308,7 +308,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -334,7 +334,7 @@ class UserHelperTest extends GalleryTestCase {
 				array(
 					'get',
 					'FailedLoginsMap',
-					array('count', 'lastAttempt'),
+					array( 'count', 'lastAttempt' ),
 					array(
 						'userName' => 'MockUser',
 					),
@@ -433,13 +433,13 @@ class UserHelperTestMockStorage {
 	}
 
 	public function addMapEntry($mapName, $params) {
-		$this->_operations[] = array('add', $mapName, $params);
+		$this->_operations[] = array( 'add', $mapName, $params );
 
 		return null;
 	}
 
 	public function getMapEntry($mapName, $members, $match) {
-		$this->_operations[] = array('get', $mapName, $members, $match);
+		$this->_operations[] = array( 'get', $mapName, $members, $match );
 
 		if (count($members) == 1) {
 			$results = new UserHelperTestMockStorageFakeResults($this->_count);
@@ -447,11 +447,11 @@ class UserHelperTestMockStorage {
 			$results = new UserHelperTestMockStorageFakeResults($this->_count, $this->_lastAttempt);
 		}
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	public function removeMapEntry($mapName, $data) {
-		$this->_operations[] = array('remove', $mapName, $data);
+		$this->_operations[] = array( 'remove', $mapName, $data );
 	}
 }
 
@@ -474,9 +474,9 @@ class UserHelperTestMockStorageFakeResults {
 
 	public function nextResult() {
 		if ($this->_lastAttempt) {
-			$results = array($this->_count, $this->_lastAttempt);
+			$results = array( $this->_count, $this->_lastAttempt );
 		} else {
-			$results = array($this->_count);
+			$results = array( $this->_count );
 		}
 
 		return $results;

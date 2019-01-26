@@ -203,7 +203,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		}
 
 		$groupedModules             = $groupLabel = array();
-		$moduleInstalledStatus      = $pluginIsUpgradeable = $pluginIsCompatible = $installedVersion           = $deactivatedPlugins = array();
+		$moduleInstalledStatus      = $pluginIsUpgradeable = $pluginIsCompatible = $installedVersion = $deactivatedPlugins = array();
 		$templateData['stackTrace'] = '';
 
 		if (empty($templateData['errors'])) {
@@ -292,7 +292,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				}
 			}
 
-			uksort($modules, array($this, '_sortModules'));
+			uksort($modules, array( $this, '_sortModules' ));
 
 			foreach (array_keys($modules) as $moduleId) {
 				$module =& $modules[$moduleId];
@@ -305,7 +305,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if (empty($group)) {
 					$group = array(
-						'group'      => 'others',
+						'group' => 'others',
 						'groupLabel' => 'Other',
 					);
 				}

@@ -75,15 +75,15 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'   => 'core.ShowItem',
+					'view' => 'core.ShowItem',
 					'itemId' => $album->getParentId(),
 				),
-				'status'   => array(
+				'status' => array(
 					'deleted' => array(
 						'count' => 1,
 					),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -132,13 +132,13 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemDelete',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 2,
+					'itemId' => $this->_album->getId(),
+					'page' => 2,
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results,
 			'Delete Next Page Out Of Range'
@@ -179,13 +179,13 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemDelete',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 1,
+					'itemId' => $this->_album->getId(),
+					'page' => 1,
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -227,15 +227,15 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'   => 'core.ShowItem',
+					'view' => 'core.ShowItem',
 					'itemId' => $this->_album->getId(),
 				),
-				'status'   => array(
+				'status' => array(
 					'deleted' => array(
 						'count' => 5,
 					),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -338,7 +338,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Use invalid inputs
 		GalleryUtilities::putRequestVariable('itemId', $this->_getRootId());
-		GalleryUtilities::putRequestVariable('form[selectedIds]', array($bogusId));
+		GalleryUtilities::putRequestVariable('form[selectedIds]', array( $bogusId ));
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		// Perform the request and verify that we failed

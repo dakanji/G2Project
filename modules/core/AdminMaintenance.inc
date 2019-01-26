@@ -37,7 +37,7 @@ class AdminMaintenanceController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$results = $status = $error = array();
@@ -46,7 +46,7 @@ class AdminMaintenanceController extends GalleryController {
 			list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$mode = $gallery->getConfig('mode.maintenance');
@@ -56,7 +56,7 @@ class AdminMaintenanceController extends GalleryController {
 			list($ret, $tasks) = MaintenanceHelper_simple::fetchTasks();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($tasks[$taskId])) {
@@ -66,19 +66,19 @@ class AdminMaintenanceController extends GalleryController {
 					if ($task->requiresProgressBar()) {
 						$templateAdapter =& $gallery->getTemplateAdapter();
 						$templateAdapter->registerTrailerCallback(
-							array($this, 'runTask'),
-							array($taskId, $task, true)
+							array( $this, 'runTask' ),
+							array( $taskId, $task, true )
 						);
 						$results['delegate']['view'] = 'core.ProgressBar';
 					} else {
 						list($ret, $success) = $this->runTask($taskId, $task, false);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						$status['run']       = array(
-							'taskId'  => $taskId,
+							'taskId' => $taskId,
 							'success' => $success,
 						);
 						$redirect['view']    = 'core.SiteAdmin';
@@ -105,7 +105,7 @@ class AdminMaintenanceController extends GalleryController {
 			$ret = GalleryCoreApi::setMaintenanceMode($newMode);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -116,7 +116,7 @@ class AdminMaintenanceController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$status['setMode'][$statusMsg] = 1;
@@ -134,7 +134,7 @@ class AdminMaintenanceController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	public function runTask($taskId, $task, $useProgressBar) {
@@ -151,7 +151,7 @@ class AdminMaintenanceController extends GalleryController {
 		if ($ret1 || $ret2) {
 			$ret = $ret1 ? $ret1 : $ret2;
 
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status['run']['success'] = $success;
@@ -167,7 +167,7 @@ class AdminMaintenanceController extends GalleryController {
 			$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 		}
 
-		return array(null, $success);
+		return array( null, $success );
 	}
 }
 
@@ -184,7 +184,7 @@ class AdminMaintenanceView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load some standard form parameters
@@ -195,7 +195,7 @@ class AdminMaintenanceView extends GalleryView {
 		list($ret, $tasks) = MaintenanceHelper_simple::fetchTasks();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminMaintenance = array();
@@ -204,7 +204,7 @@ class AdminMaintenanceView extends GalleryView {
 			list($ret, $info) = MaintenanceHelper_simple::fetchLastRun($taskId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$AdminMaintenance['tasks'][$taskId] = $task->getInfo();
@@ -230,7 +230,7 @@ class AdminMaintenanceView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($maintenanceMode)) {
@@ -277,7 +277,7 @@ class MaintenanceTask {
 	 *               array string output text
 	 */
 	public function run() {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
 	}
 
 	/**

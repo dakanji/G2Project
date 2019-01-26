@@ -80,7 +80,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 0);
 
 		$exporter = $storage->getDatabaseExporter();
-		list($ret, $backupFile, $warnings) = $exporter->exportToXmlFile(array($this, 'backupCallback'));
+		list($ret, $backupFile, $warnings) = $exporter->exportToXmlFile(array( $this, 'backupCallback' ));
 
 		if (!$ret) {
 			$this->setComplete(true);

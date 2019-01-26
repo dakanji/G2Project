@@ -33,7 +33,7 @@ class AdminEditGroupController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$results           = $status = $error = array();
@@ -41,7 +41,7 @@ class AdminEditGroupController extends GalleryController {
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($form['action']['cancel'])) {
@@ -60,7 +60,7 @@ class AdminEditGroupController extends GalleryController {
 				list($ret, $tmpGroup) = GalleryCoreApi::fetchGroupByGroupname($form['groupName']);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if (!empty($tmpGroup) && $tmpGroup->getId() != $groupId) {
@@ -73,14 +73,14 @@ class AdminEditGroupController extends GalleryController {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($groupId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Refresh our object, now that it's locked
 				list($ret, $group) = $group->refresh();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Enact the change
@@ -88,13 +88,13 @@ class AdminEditGroupController extends GalleryController {
 				$ret = $group->save();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Request a redirect to the confirmation screen
@@ -113,7 +113,7 @@ class AdminEditGroupController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -128,14 +128,14 @@ class AdminEditGroupView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'AdminEditGroup') {

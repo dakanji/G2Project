@@ -39,7 +39,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'TestToolkitPriority',
-			array('test/type'),
+			array( 'test/type' ),
 			'test-operation',
 			array(),
 			'test-description',
@@ -54,7 +54,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'TestToolkitPriority2',
-			array('test/type'),
+			array( 'test/type' ),
 			'test-operation',
 			array(),
 			'test-description',
@@ -76,7 +76,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 			array(
 				'return' => 0,
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminToolkitPriority',
 				),
 				'status' => array(),
@@ -96,7 +96,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 			array(
 				'return' => 0,
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminToolkitPriority',
 				),
 				'status' => array(

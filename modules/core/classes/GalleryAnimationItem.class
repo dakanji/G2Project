@@ -196,11 +196,11 @@ class GalleryAnimationItem extends GalleryDataItem {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
-				return array($core->translate('Animation'), $core->translate('animation'));
+				return array( $core->translate('Animation'), $core->translate('animation') );
 			}
 		}
 
-		return array('Animation', 'animation');
+		return array( 'Animation', 'animation' );
 	}
 
 	/**
@@ -216,8 +216,8 @@ class GalleryAnimationItem extends GalleryDataItem {
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$src          = $urlGenerator->generateUrl(
 					array(
-						'view'         => 'core.DownloadItem',
-						'itemId'       => $this->getId(),
+						'view' => 'core.DownloadItem',
+						'itemId' => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
 					array(
@@ -225,7 +225,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 					)
 				);
 
-				list($width, $height) = array($this->getWidth(), $this->getHeight());
+				list($width, $height) = array( $this->getWidth(), $this->getHeight() );
 
 				switch ($this->getMimeType()) {
 					case 'application/x-shockwave-flash':

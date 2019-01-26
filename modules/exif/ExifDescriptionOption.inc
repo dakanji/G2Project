@@ -37,10 +37,10 @@ class ExifDescriptionOption extends ItemAddOption {
 		list($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $addOption > 0);
+		return array( null, $addOption > 0 );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class ExifDescriptionOption extends ItemAddOption {
 		list($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		// Check if we need to get/process any exifdata
@@ -97,7 +97,7 @@ class ExifDescriptionOption extends ItemAddOption {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentItemIds);
 
 				if ($ret) {
-					return array($ret, null, null);
+					return array( $ret, null, null );
 				}
 
 				list($ret, $exifData) = ExifExtractor::getMetaData($currentItemIds, $needed);
@@ -105,7 +105,7 @@ class ExifDescriptionOption extends ItemAddOption {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockId);
 
-					return array($ret, null, null);
+					return array( $ret, null, null );
 				}
 
 				for ($i = 0; $i < count($currentItems); $i++) {
@@ -115,7 +115,7 @@ class ExifDescriptionOption extends ItemAddOption {
 					if ($ret) {
 						GalleryCoreApi::releaseLocks($lockId);
 
-						return array($ret, null, null);
+						return array( $ret, null, null );
 					}
 
 					/*
@@ -162,7 +162,7 @@ class ExifDescriptionOption extends ItemAddOption {
 						if ($ret) {
 							GalleryCoreApi::releaseLocks($lockId);
 
-							return array($ret, null, null);
+							return array( $ret, null, null );
 						}
 					}
 				}
@@ -170,7 +170,7 @@ class ExifDescriptionOption extends ItemAddOption {
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array($ret, null, null);
+					return array( $ret, null, null );
 				}
 
 				/*
@@ -202,11 +202,11 @@ class ExifDescriptionOption extends ItemAddOption {
 						*/
 
 						if ($orientation == 'Upsidedown') {
-							$args = array(180);
+							$args = array( 180 );
 						} elseif ($orientation == '90 deg CW') {
-							$args = array(-90);
+							$args = array( -90 );
 						} elseif ($orientation == '90 deg CCW') {
-							$args = array(90);
+							$args = array( 90 );
 						}
 
 						$operation = 'rotate';
@@ -214,10 +214,10 @@ class ExifDescriptionOption extends ItemAddOption {
 						$preserveOriginal = ($addOption & EXIF_ITEM_ROTATE_PRESERVE) ? 1 : 0;
 
 						if (!empty($args)) {
-							list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
+							list($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array( $itemId ));
 
 							if ($ret) {
-								return array($ret, null, null);
+								return array( $ret, null, null );
 							}
 							$ret = GalleryCoreApi::applyToolkitOperation(
 								$operation,
@@ -241,6 +241,6 @@ class ExifDescriptionOption extends ItemAddOption {
 			} while (!empty($itemsInBatches));
 		}
 
-		return array(null, $errors, $warnings);
+		return array( null, $errors, $warnings );
 	}
 }

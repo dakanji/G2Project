@@ -131,7 +131,7 @@ class DataItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(array($this->_album->getId(), $subAlbum->getId()));
+		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(array( $this->_album->getId(), $subAlbum->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -173,7 +173,7 @@ class DataItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(array($new->getId()));
+		list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(array( $new->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -313,7 +313,7 @@ class DataItemTest extends GalleryTestCase {
 		$this->assertEquals(123, $item->getSize(), 'size');
 		$path = GalleryDataCache::getCachePath(
 			array(
-				'type'   => 'fast-download',
+				'type' => 'fast-download',
 				'itemId' => $item->getId(),
 			)
 		);

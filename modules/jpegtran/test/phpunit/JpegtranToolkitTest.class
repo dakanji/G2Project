@@ -115,40 +115,40 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$expectedMimeTypes = array('image/jpeg', 'image/pjpeg');
+		$expectedMimeTypes = array( 'image/jpeg', 'image/pjpeg' );
 		$this->assertEquals(
 			array(
 				'rotate' => array(
-					'params'      => array(
+					'params' => array(
 						array(
-							'type'        => 'int',
+							'type' => 'int',
 							'description' => 'rotation degrees',
 						),
 					),
 					'description' => 'Rotate the image',
-					'mimeTypes'   => $expectedMimeTypes,
+					'mimeTypes' => $expectedMimeTypes,
 				),
 				'crop' => array(
-					'params'      => array(
+					'params' => array(
 						array(
-							'type'        => 'float',
+							'type' => 'float',
 							'description' => 'left edge %',
 						),
 						array(
-							'type'        => 'float',
+							'type' => 'float',
 							'description' => 'top edge %',
 						),
 						array(
-							'type'        => 'float',
+							'type' => 'float',
 							'description' => 'width %',
 						),
 						array(
-							'type'        => 'float',
+							'type' => 'float',
 							'description' => 'height %',
 						),
 					),
 					'description' => 'Crop the image',
-					'mimeTypes'   => $expectedMimeTypes,
+					'mimeTypes' => $expectedMimeTypes,
 				),
 			),
 			$results['operations'],
@@ -164,18 +164,18 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$expectedMimeTypes = array('image/jpeg', 'image/pjpeg');
+		$expectedMimeTypes = array( 'image/jpeg', 'image/pjpeg' );
 		$this->assertEquals(
 			array(
 				'rotate' => array(
-					'params'      => array(
+					'params' => array(
 						array(
-							'type'        => 'int',
+							'type' => 'int',
 							'description' => 'rotation degrees',
 						),
 					),
 					'description' => 'Rotate the image',
-					'mimeTypes'   => $expectedMimeTypes,
+					'mimeTypes' => $expectedMimeTypes,
 				),
 			),
 			$results['operations'],
@@ -191,7 +191,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$expectedMimeTypes = array('image/jpeg', 'image/pjpeg');
+		$expectedMimeTypes = array( 'image/jpeg', 'image/pjpeg' );
 		$this->assertEquals(array(), $results['operations'], 'operations');
 	}
 
@@ -202,7 +202,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
+			array( '10', '20', '60', '40.4' ),
 			array()
 		);
 
@@ -228,7 +228,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
+			array( '10', '20', '60', '40.4' ),
 			array(
 				'width' => 200,
 				'height' => 50,
@@ -257,15 +257,15 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'rotate',
 			'SOURCE',
 			'DEST',
-			array('-90'),
-			array('IGNORE')
+			array( '-90' ),
+			array( 'IGNORE' )
 		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$this->assertEquals(array('IGNORE'), $context, 'context altered');
+		$this->assertEquals(array( 'IGNORE' ), $context, 'context altered');
 		$this->assertEquals('image/pjpeg', $mimeType, 'output mimetype != input mimetype');
 	}
 
@@ -276,7 +276,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'rotate',
 			'SOURCE',
 			'DEST',
-			array('-90'),
+			array( '-90' ),
 			array(
 				'width' => 200,
 				'height' => 50,
@@ -305,8 +305,8 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
-			array('IGNORE')
+			array( '10', '20', '60', '40.4' ),
+			array( 'IGNORE' )
 		);
 
 		if ($ret) {
@@ -326,7 +326,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'SOURCE',
 			'DEST',
 			array(),
-			array('IGNORE')
+			array( 'IGNORE' )
 		);
 
 		if ($ret) {
@@ -346,8 +346,8 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'rotate',
 			'SOURCE',
 			'DEST',
-			array('-90'),
-			array('IGNORE')
+			array( '-90' ),
+			array( 'IGNORE' )
 		);
 
 		if ($ret) {
@@ -367,8 +367,8 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
-			array('IGNORE')
+			array( '10', '20', '60', '40.4' ),
+			array( 'IGNORE' )
 		);
 
 		if ($ret) {
@@ -464,7 +464,7 @@ class JpegtranToolkitTestPlatform {
 
 				$stderr['rotateOnly'] = $stderr['normal'];
 
-				return array(1, array(), $stderr[$this->_envId]);
+				return array( 1, array(), $stderr[$this->_envId] );
 
 			case serialize(
 				array(
@@ -482,7 +482,7 @@ class JpegtranToolkitTestPlatform {
 				)
 			):
 				// Test command for crop
-				return array(in_array($this->_envId, array('nonStandard', 'normal')), array(), array());
+				return array( in_array($this->_envId, array( 'nonStandard', 'normal' )), array(), array() );
 
 			case serialize(
 				array(
@@ -497,9 +497,9 @@ class JpegtranToolkitTestPlatform {
 			):
 				// The null operation to determine the dimensions for crop
 				return array(
-					in_array($this->_envId, array('nonStandard', 'normal')),
+					in_array($this->_envId, array( 'nonStandard', 'normal' )),
 					array(),
-					array('Start Of Frame 0xc0: width=100, height=800, components=3'),
+					array( 'Start Of Frame 0xc0: width=100, height=800, components=3' ),
 				);
 
 			case serialize(
@@ -518,7 +518,7 @@ class JpegtranToolkitTestPlatform {
 				)
 			):
 				// The crop operation that depends on the above "get dimensions" operation
-				return array(in_array($this->_envId, array('nonStandard', 'normal')), array(), array());
+				return array( in_array($this->_envId, array( 'nonStandard', 'normal' )), array(), array() );
 
 			case serialize(
 				array(
@@ -538,7 +538,7 @@ class JpegtranToolkitTestPlatform {
 				return array(
 					in_array(
 						$this->_envId,
-						array('nonStandard', 'normal', 'rotateOnly')
+						array( 'nonStandard', 'normal', 'rotateOnly' )
 					),
 					array(),
 					array(),
@@ -560,11 +560,11 @@ class JpegtranToolkitTestPlatform {
 				)
 			):
 				// Crop operation that uses PHP's getImagesize() to get the dimensions
-				return array($this->_envId == 'hasGetImageSize', array(), array());
+				return array( $this->_envId == 'hasGetImageSize', array(), array() );
 		}
 		printf('Unexpected command for mock toolkit<pre>%s</pre>', print_r($cmd, true));
 
-		return array(0, '', 'unprepared for exec()');
+		return array( 0, '', 'unprepared for exec()' );
 	}
 
 	public function rename($oldName, $newName) {
@@ -638,7 +638,7 @@ class JpegtranToolkitTestPlatform {
 
 	public function getimagesize($filename) {
 		if ($this->_envId == 'hasGetImageSize') {
-			$result = array(200, 50);
+			$result = array( 200, 50 );
 		} else {
 			$result = false;
 		}

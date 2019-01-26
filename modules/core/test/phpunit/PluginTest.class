@@ -32,7 +32,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('theme');
 		$version = GalleryCoreApi::getApiVersion();
-		$plugin->setRequiredCoreApi(array($version[0], $version[1] + 1));
+		$plugin->setRequiredCoreApi(array( $version[0], $version[1] + 1 ));
 		$plugin->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -44,7 +44,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('theme');
 		$version = GalleryCoreApi::getApiVersion();
-		$plugin->setRequiredCoreApi(array($version[0], 0));
+		$plugin->setRequiredCoreApi(array( $version[0], 0 ));
 		$plugin->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
 		$this->assertTrue(
 			GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -68,7 +68,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setPluginType('theme');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$version = GalleryTheme::doStatic()->getApiVersion();
-		$plugin->setRequiredThemeApi(array($version[0], $version[1] + 1));
+		$plugin->setRequiredThemeApi(array( $version[0], $version[1] + 1 ));
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should not be compatible'
@@ -91,7 +91,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$version = GalleryModule::doStatic()->getApiVersion();
-		$plugin->setRequiredModuleApi(array($version[0], $version[1] + 1));
+		$plugin->setRequiredModuleApi(array( $version[0], $version[1] + 1 ));
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should not be compatible'
@@ -124,27 +124,27 @@ class PluginTest extends GalleryTestCase {
 	public function testGetAllPluginIds() {
 		global $gallery;
 
-		foreach (array('theme', 'module') as $type) {
+		foreach (array( 'theme', 'module' ) as $type) {
 			$expectedIds = array();
 
 			// Mock platform
 			$platform = new UnitTestPlatform();
 
 			$path = GalleryCoreApi::getCodeBasePath($type . 's/');
-			$platform->setReply('opendir', array($path), 'fh');
-			$platform->setReply('readdir', array('fh'), '.');
-			$platform->setReply('readdir', array('fh'), '..');
-			$platform->setReply('readdir', array('fh'), 'CVS');
-			$platform->setReply('readdir', array('fh'), 'moo');
-			$platform->setReply('is_file', array($path . 'moo/' . $type . '.inc'), true);
-			$platform->setReply('readdir', array('fh'), 'foo');
-			$platform->setReply('is_file', array($path . 'foo/' . $type . '.inc'), false);
-			$platform->setReply('readdir', array('fh'), 'bar');
-			$platform->setReply('is_file', array($path . 'bar/' . $type . '.inc'), true);
-			$platform->setReply('readdir', array('fh'), false);
-			$platform->setReply('closedir', array('fh'), true);
+			$platform->setReply('opendir', array( $path ), 'fh');
+			$platform->setReply('readdir', array( 'fh' ), '.');
+			$platform->setReply('readdir', array( 'fh' ), '..');
+			$platform->setReply('readdir', array( 'fh' ), 'CVS');
+			$platform->setReply('readdir', array( 'fh' ), 'moo');
+			$platform->setReply('is_file', array( $path . 'moo/' . $type . '.inc' ), true);
+			$platform->setReply('readdir', array( 'fh' ), 'foo');
+			$platform->setReply('is_file', array( $path . 'foo/' . $type . '.inc' ), false);
+			$platform->setReply('readdir', array( 'fh' ), 'bar');
+			$platform->setReply('is_file', array( $path . 'bar/' . $type . '.inc' ), true);
+			$platform->setReply('readdir', array( 'fh' ), false);
+			$platform->setReply('closedir', array( 'fh' ), true);
 
-			$expectedIds += array_merge($expectedIds, array('moo', 'bar'));
+			$expectedIds += array_merge($expectedIds, array( 'moo', 'bar' ));
 
 			$gallery->setPlatform($platform);
 
@@ -183,14 +183,14 @@ class PluginTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_exists',
-			array('/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc'),
+			array( '/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc' ),
 			false
 		);
-		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), true);
-		$platform->setReply('is_dir', array('/cache/theme/_all/localUrlMap.txt'), false);
-		$platform->setReply('unlink', array('/cache/theme/_all/localUrlMap.txt'), true);
-		$platform->setReply('file_exists', array($templateDir), true);
-		$platform->setReply('recursiveRmdir', array($templateDir), false);
+		$platform->setReply('file_exists', array( '/cache/theme/_all/localUrlMap.txt' ), true);
+		$platform->setReply('is_dir', array( '/cache/theme/_all/localUrlMap.txt' ), false);
+		$platform->setReply('unlink', array( '/cache/theme/_all/localUrlMap.txt' ), true);
+		$platform->setReply('file_exists', array( $templateDir ), true);
+		$platform->setReply('recursiveRmdir', array( $templateDir ), false);
 		$gallery->setPlatform($platform);
 
 		$gallery->_storage = new UnitTestStorage();
@@ -200,8 +200,8 @@ class PluginTest extends GalleryTestCase {
 				'GalleryPluginMap',
 				array(
 					'pluginType' => 'theme',
-					'pluginId'   => 'plugintest',
-					'active'     => 1,
+					'pluginId' => 'plugintest',
+					'active' => 1,
 				),
 				null,
 			),
@@ -237,7 +237,7 @@ class PluginTest extends GalleryTestCase {
 		$testRepository = new UnitTestRepository();
 		$testRepository->setReply(
 			'scanPlugin',
-			array('module', 'plugintest'),
+			array( 'module', 'plugintest' ),
 			GalleryCoreApi::error(
 				ERROR_PLATFORM_FAILURE | ERROR_BAD_PLUGIN | ERROR_BAD_PARAMETER
 			)
@@ -278,7 +278,7 @@ class PluginTest extends GalleryTestCase {
 		$testRepository = new UnitTestRepository();
 		$testRepository->setReply(
 			'scanPlugin',
-			array('module', 'plugintest'),
+			array( 'module', 'plugintest' ),
 			GalleryCoreApi::error(ERROR_STORAGE_FAILURE)
 		);
 		GalleryDataCache::put(

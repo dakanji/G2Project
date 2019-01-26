@@ -62,7 +62,7 @@ class ADODB_ldap extends ADOConnection {
 		if (strpos($host, 'ldap://') === 0 || strpos($host, 'ldaps://') === 0) {
 			$this->_connectionID = @ldap_connect($host);
 		} else {
-			$conn_info = array($host, $this->port);
+			$conn_info = array( $host, $this->port );
 
 			if (strstr($host, ':')) {
 				$conn_info = explode(':', $host);

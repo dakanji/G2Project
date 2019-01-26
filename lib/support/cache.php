@@ -7,21 +7,21 @@ if (!defined('G2_SUPPORT')) {
 
 function getCaches() {
 	$dirs = array(
-		'cached_pages' => array(true, 'clearPageCache', array(), 'Cached HTML pages'),
-		'entity'       => array(true, 'clearG2dataDir', array('cache/entity'), 'Albums and photo data'),
-		'module'       => array(true, 'clearG2dataDir', array('cache/module'), 'Module settings'),
-		'theme'        => array(true, 'clearG2dataDir', array('cache/theme'), 'Theme settings'),
+		'cached_pages' => array( true, 'clearPageCache', array(), 'Cached HTML pages' ),
+		'entity'       => array( true, 'clearG2dataDir', array( 'cache/entity' ), 'Albums and photo data' ),
+		'module'       => array( true, 'clearG2dataDir', array( 'cache/module' ), 'Module settings' ),
+		'theme'        => array( true, 'clearG2dataDir', array( 'cache/theme' ), 'Theme settings' ),
 		'template'     => array(
 			true,
 			'clearG2dataDir',
-			array('smarty/templates_c'),
+			array( 'smarty/templates_c' ),
 			'Smarty templates',
 		),
-		'tmp'          => array(true, 'clearG2dataDir', array('tmp'), 'Temporary directory'),
+		'tmp'          => array( true, 'clearG2dataDir', array( 'tmp' ), 'Temporary directory' ),
 		'repository'   => array(
 			true,
 			'clearG2dataDir',
-			array('cache/repository'),
+			array( 'cache/repository' ),
 			'Downloadable Plugin Cache',
 		),
 		'log'          => array(
@@ -34,7 +34,7 @@ function getCaches() {
 		'derivative'   => array(
 			false,
 			'clearG2dataDir',
-			array('cache/derivative'),
+			array( 'cache/derivative' ),
 			'Thumbnails and resizes <span class="subtext important">(expensive to rebuild)</span>',
 		),
 	);
@@ -72,9 +72,9 @@ function recursiveRmdir($dirname, &$status) {
 		} else {
 			if (!@unlink($path)) {
 				if (!@is_writeable($path)) {
-					$status[] = array('error', "Permission denied removing file $path");
+					$status[] = array( 'error', "Permission denied removing file $path" );
 				} else {
-					$status[] = array('error', "Error removing $path");
+					$status[] = array( 'error', "Error removing $path" );
 				}
 			} else {
 				$count++;
@@ -84,7 +84,7 @@ function recursiveRmdir($dirname, &$status) {
 	closedir($fd);
 
 	if (!@rmdir($dirname)) {
-		$status[] = array('error', "Unable to remove directory $dirname");
+		$status[] = array( 'error', "Unable to remove directory $dirname" );
 	} else {
 		$count++;
 	}
@@ -99,14 +99,14 @@ function clearPageCache() {
 	$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
 
 	if ($ret) {
-		$status = array(array('error', 'Error deleting page cache!'));
+		$status = array( array( 'error', 'Error deleting page cache!' ) );
 	} else {
-		$status = array(array('info', 'Successfully deleted page cache'));
+		$status = array( array( 'info', 'Successfully deleted page cache' ) );
 	}
 	$ret = $storage->checkPoint();
 
 	if ($ret) {
-		$status[] = array('error', 'Error committing transaction!');
+		$status[] = array( 'error', 'Error committing transaction!' );
 	}
 
 	return $status;
@@ -115,16 +115,16 @@ function clearPageCache() {
 function clearG2DataDir($dir) {
 	global $gallery;
 	$path   = $gallery->getConfig('data.gallery.base') . $dir;
-	$status = array(array('info', "Deleting dir: $path"));
+	$status = array( array( 'info', "Deleting dir: $path" ) );
 	$count  = recursiveRmdir($path, $status);
 
 	// Commented this out because it's a little noisy
 	// $status[] = array('info', "Removed $count files and directories");
 
 	if (@mkdir($path)) {
-		$status[] = array('info', "Recreating dir: $path");
+		$status[] = array( 'info', "Recreating dir: $path" );
 	} else {
-		$status[] = array('error', "Unable to recreate dir: $path");
+		$status[] = array( 'error', "Unable to recreate dir: $path" );
 	}
 
 	return $status;
@@ -144,13 +144,13 @@ function clearInstallUpgradeLogs() {
 				if (@unlink($path . $filename)) {
 					$count++;
 				} else {
-					$status[] = array('error', "Error removing $path$filename");
+					$status[] = array( 'error', "Error removing $path$filename" );
 				}
 			}
 		}
 		closedir($fd);
 	}
-	$status[] = array('info', "Removed $count install/upgrade log files");
+	$status[] = array( 'info', "Removed $count install/upgrade log files" );
 
 	return $status;
 }
@@ -176,7 +176,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	foreach ($_REQUEST['target'] as $key => $ignored) {
 		// Make sure the dir is legit
 		if (!array_key_exists($key, $caches)) {
-			$status[] = array('error', "Ignoring illegal cache: $key");
+			$status[] = array( 'error', "Ignoring illegal cache: $key" );
 
 			continue;
 		}
@@ -189,7 +189,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	$ret = GalleryEmbed::done();
 
 	if ($ret) {
-		$status[] = array('error', 'Error completing transaction!');
+		$status[] = array( 'error', 'Error completing transaction!' );
 	}
 	$_COOKIE['g2cache'] = join(',', $remember);
 }

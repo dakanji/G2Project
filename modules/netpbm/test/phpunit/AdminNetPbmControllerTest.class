@@ -68,7 +68,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(
@@ -81,11 +81,11 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 		// Verify the settings went in properly
 		$this->assertEquals(
-			array(null, '/validPath/'),
+			array( null, '/validPath/' ),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path')
 		);
 		$this->assertEquals(
-			array(null, '12'),
+			array( null, '12' ),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
 		);
 	}
@@ -101,7 +101,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(
@@ -114,20 +114,20 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 		// Verify the settings went in properly
 		$this->assertEquals(
-			array(null, '/validPath/'),
+			array( null, '/validPath/' ),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path')
 		);
 		$this->assertEquals(
-			array(null, '/validPath/'),
+			array( null, '/validPath/' ),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jheadPath')
 		);
 		$this->assertEquals(
-			array(null, '12'),
+			array( null, '12' ),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
 		);
 		// Verify we detected which binaries to use:
 		$this->assertEquals(
-			array(null, 'pnmcomp'),
+			array( null, 'pnmcomp' ),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'pnmcomp')
 		);
 	}
@@ -139,7 +139,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(),
@@ -156,7 +156,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
 				'status' => array(),
@@ -176,11 +176,11 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][testError]'),
+				'error' => array( 'form[error][path][testError]' ),
 			),
 			$results
 		);
@@ -196,11 +196,11 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][badPath]'),
+				'error' => array( 'form[error][path][badPath]' ),
 			),
 			$results
 		);
@@ -216,11 +216,11 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(),
-				'error' => array('form[error][path][missing]'),
+				'error' => array( 'form[error][path][missing]' ),
 			),
 			$results
 		);
@@ -237,11 +237,11 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
 				'status' => array(),
-				'error' => array('form[error][jheadPath][badPath]'),
+				'error' => array( 'form[error][jheadPath][badPath]' ),
 			),
 			$results
 		);
@@ -322,10 +322,10 @@ class AdminNetPbmControllerTestPlatform {
 			case '/validPath/tifftopnm':
 			case '/validPath/pnmtotiff':
 			case '/validPath/jhead':
-				return array(1, array());
+				return array( 1, array() );
 
 			default:
-				return array(0, null);
+				return array( 0, null );
 		}
 	}
 

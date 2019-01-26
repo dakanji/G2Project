@@ -30,14 +30,14 @@ class CreateThumbnailOption extends ItemAddOption {
 	 * @see ItemAddOption::loadTemplate
 	 */
 	public function loadTemplate(&$template, &$form, $item) {
-		return array(null, 'modules/core/templates/CreateThumbnailOption.tpl', 'modules_core');
+		return array( null, 'modules/core/templates/CreateThumbnailOption.tpl', 'modules_core' );
 	}
 
 	/**
 	 * @see ItemAddOption::isAppropriate
 	 */
 	public function isAppropriate() {
-		return array(null, true);
+		return array( null, true );
 	}
 
 	/**
@@ -51,13 +51,13 @@ class CreateThumbnailOption extends ItemAddOption {
 		}
 
 		if (empty($form['CreateThumbnailOption']['createThumbnail'])) {
-			return array(null, $errors, $warnings);
+			return array( null, $errors, $warnings );
 		}
 
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		foreach ($items as $item) {
@@ -68,11 +68,11 @@ class CreateThumbnailOption extends ItemAddOption {
 				list($ret) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
 
 				if ($ret) {
-					return array($ret, null, null);
+					return array( $ret, null, null );
 				}
 			}
 		}
 
-		return array(null, $errors, $warnings);
+		return array( null, $errors, $warnings );
 	}
 }

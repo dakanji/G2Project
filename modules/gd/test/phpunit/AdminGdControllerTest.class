@@ -58,7 +58,7 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'gd.AdminGd',
 				),
 				'status' => array(
@@ -71,7 +71,7 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 
 		// Verify the settings went in properly
 		$this->assertEquals(
-			array(null, '12'),
+			array( null, '12' ),
 			GalleryCoreApi::getPluginParameter('module', 'gd', 'jpegQuality')
 		);
 	}
@@ -83,7 +83,7 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'gd.AdminGd',
 				),
 				'status' => array(),
@@ -100,7 +100,7 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
 				'status' => array(),

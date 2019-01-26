@@ -36,7 +36,7 @@
 	* Applied fix from https://stackoverflow.com/a/45648879/891636
 	*/
 	function getBytes($val) {
-		$val  = substr(trim($val), 0, -1);
+		$val = substr(trim($val), 0, -1);
 		$last = substr($val, -1);
 
 		switch ($last) {

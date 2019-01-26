@@ -298,7 +298,7 @@ class Db2Storage extends GalleryStorage {
 				);
 		}
 
-		return array(null, $sql);
+		return array( null, $sql );
 	}
 
 	/**
@@ -309,7 +309,7 @@ class Db2Storage extends GalleryStorage {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
-		list($success, $results) = $platform->exec(array(array('db2level')));
+		list($success, $results) = $platform->exec(array( array( 'db2level' ) ));
 
 		if ($success && is_array($results)) {
 			return implode("\n", $results);

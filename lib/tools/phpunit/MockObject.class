@@ -45,7 +45,7 @@ class MockObject {
 	}
 
 	public function setReply($function, $inputs, $outputs, $optional = false) {
-		$_GET[$this->_className]['replies'][] = array($function, $inputs, $outputs, $optional);
+		$_GET[$this->_className]['replies'][] = array( $function, $inputs, $outputs, $optional );
 	}
 
 	public function isComplete() {

@@ -190,15 +190,15 @@ class GalleryRepositoryIndex {
 		list($ret, $timestamp) = GalleryCoreApi::getPluginParameter('module', 'core', 'repository.updateTime');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		return array(
 			null,
 			array(
-				'timestamp'   => $timestamp,
+				'timestamp' => $timestamp,
 				'moduleCount' => count($this->_index['modules']),
-				'themeCount'  => count($this->_index['themes']),
+				'themeCount' => count($this->_index['themes']),
 			),
 		);
 	}
@@ -264,7 +264,7 @@ class GalleryRepositoryIndex {
 		if (false === ($this->_index = @unserialize($index))) {
 			$this->_index = array(
 				'modules' => array(),
-				'themes'  => array(),
+				'themes' => array(),
 			);
 
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
@@ -337,7 +337,7 @@ class GalleryRepositoryIndex {
 		list($ret, $isAvailable) = $this->_utilities->isPluginAvailable($pluginType, $pluginId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		/*
@@ -362,10 +362,10 @@ class GalleryRepositoryIndex {
 				}
 			}
 
-			return array(null, $languageData);
+			return array( null, $languageData );
 		}
 
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
@@ -407,7 +407,7 @@ class GalleryRepositoryIndex {
 		list($ret, $language) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Fall back to en_US if the description is not available in the active language.
@@ -458,7 +458,7 @@ class GalleryRepositoryIndex {
 		list($ret, $header) = $this->getPluginHeader($pluginType, $pluginId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		return array(
@@ -486,7 +486,7 @@ class GalleryRepositoryIndex {
 		list($ret, $version, $build) = $this->getPackageVersionAndBuild($pluginType, $pluginId, $package);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (preg_match('/^lang-(.*)$/', $package)) {
@@ -509,7 +509,7 @@ class GalleryRepositoryIndex {
 			);
 		}
 
-		return array(null, $packageUrl);
+		return array( null, $packageUrl );
 	}
 
 	/**
@@ -541,7 +541,7 @@ class GalleryRepositoryIndex {
 		list($ret, $header) = $this->getPluginHeader($pluginType, $pluginId);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		if (preg_match('/^lang-(.*)$/', $package, $languageCode)) {
@@ -558,7 +558,7 @@ class GalleryRepositoryIndex {
 			$build   = $header['buildTimestamp'];
 		}
 
-		return array(null, $version, $build);
+		return array( null, $version, $build );
 	}
 
 	/**
@@ -601,21 +601,21 @@ class GalleryRepositoryIndex {
 				list($ret, $isPluginAvailable) = $this->_utilities->isPluginAvailable($pluginType, $pluginId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($isPluginAvailable) {
 					list($ret, $version) = $this->_utilities->getPluginVersion($pluginType, $pluginId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 					$pluginList[$pluginType][$pluginId]['localVersion'] = $version;
 				}
 			}
 		}
 
-		return array(null, $pluginList);
+		return array( null, $pluginList );
 	}
 
 	/**
@@ -655,8 +655,7 @@ class GalleryRepositoryIndex {
 	 *
 	 * @param mixed $locales a single or an array of locale identifiers.
 	 * @return array GalleryStatus a status code
-	 *           array[$pluginType] =>
-	 *          array($pluginId => array('name' => $pluginName,
+	 *           array[$pluginType] =>   *          array($pluginId => array('name' => $pluginName,
 	 *              'files' => array('descriptor' => $descriptorUrl,
 	 *              'en_gb' => url, 'pt_BR' => url...))
 	 */
@@ -667,14 +666,14 @@ class GalleryRepositoryIndex {
 		$files = array();
 
 		if (!is_array($locales)) {
-			$locales = array($locales);
+			$locales = array( $locales );
 		}
 
-		foreach (array('module', 'theme') as $pluginType) {
+		foreach (array( 'module', 'theme' ) as $pluginType) {
 			list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach ($this->_index[$pluginType . 's'] as $pluginId => $entry) {
@@ -692,7 +691,7 @@ class GalleryRepositoryIndex {
 						list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 						$requiredCoreApi   = $plugin->getRequiredCoreApi();
 						$requiredPluginApi = $pluginType == 'module' ? $plugin->getRequiredModuleApi() : $plugin->getRequiredThemeApi();
@@ -720,19 +719,19 @@ class GalleryRepositoryIndex {
 					list($ret, $pluginName) = $this->getPluginName($pluginType, $pluginId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					list($ret, $descriptorUrl) = $this->getDescriptorUrl($pluginType, $pluginId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					list($ret, $pluginPackages) = $this->_utilities->getPluginPackages($pluginType, $pluginId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					$revision = $entry['languages'][$stringsRevision];
@@ -755,7 +754,7 @@ class GalleryRepositoryIndex {
 							list($ret, $packageUrl) = $this->getPackageUrl($pluginType, $pluginId, $packageName);
 
 							if ($ret) {
-								return array($ret, null);
+								return array( $ret, null );
 							}
 							$files[$pluginType][$pluginId]['name']                = $pluginName;
 							$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
@@ -766,6 +765,6 @@ class GalleryRepositoryIndex {
 			}
 		}
 
-		return array(null, $files);
+		return array( null, $files );
 	}
 }

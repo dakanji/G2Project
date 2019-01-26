@@ -2277,8 +2277,7 @@ class JPEG // extends PEAR
 							$aux[0] = $this->_info['iptc'][$label];
 							$this->_info['iptc'][$label] = $aux;
 						}
-						$this->_info['iptc'][$label][ count($this->_info['iptc'][$label]) ] =
-							$this->_getFixedString($data, $pos, $length);
+						$this->_info['iptc'][$label][ count($this->_info['iptc'][$label]) ] = 							$this->_getFixedString($data, $pos, $length);
 					} else {
 						$this->_info['iptc'][$label] = $this->_getFixedString($data, $pos, $length);
 					}
@@ -2415,11 +2414,11 @@ class JPEG // extends PEAR
 	 * EXIF builds upon the TIFF/JPEG specifications and extends them. TIFF/JPEG/EXIF
 	 * allow for different sections, which must be given as input to this method.
 	 *
-	 * ifd0    => Metadata for the primary image
-	 * ifd1    => Metadata for the secondary image (a thumbnail)
-	 * exif    => Camera meta data for the image
+	 * ifd0 => Metadata for the primary image
+	 * ifd1 => Metadata for the secondary image (a thumbnail)
+	 * exif => Camera meta data for the image
 	 * interop => Minmal metadata for interoperability
-	 * gps     => Metadata gained from a Global Positioning System
+	 * gps => Metadata gained from a Global Positioning System
 	 *
 	 * ifd0 and ifd1 are defined by the TIFF specifiction. They often have the very same name,
 	 * only describing a property of the primary image vs. the same property of the thumbnail.

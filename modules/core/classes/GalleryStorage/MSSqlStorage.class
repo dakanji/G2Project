@@ -99,7 +99,7 @@ class MSSqlStorage extends GalleryStorage {
 				break;
 
 			case 'BIT_OR':
-				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null);
+				return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null );
 
 			case 'UNIX_TIMESTAMP':
 				$sql = 'DATEDIFF(s,1970-01-01 00:00:00, ' . $args[0] . ')';
@@ -180,7 +180,7 @@ class MSSqlStorage extends GalleryStorage {
 				);
 		}
 
-		return array(null, $sql);
+		return array( null, $sql );
 	}
 
 	/**
@@ -212,7 +212,7 @@ class MSSqlStorage extends GalleryStorage {
 	 * @see GalleryStorage::_getOptimizeStatements
 	 */
 	public function _getOptimizeStatements() {
-		return array('UPDATE STATISTICS %s');
+		return array( 'UPDATE STATISTICS %s' );
 	}
 
 	/**

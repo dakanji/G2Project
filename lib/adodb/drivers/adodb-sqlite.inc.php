@@ -351,7 +351,7 @@ class ADODB_sqlite extends ADOConnection {
 
 			if (!isset($indexes[$row[0]])) {
 				$indexes[$row[0]] = array(
-					'unique'  => preg_match('/unique/i', $row[1]),
+					'unique' => preg_match('/unique/i', $row[1]),
 					'columns' => array(),
 				);
 			}

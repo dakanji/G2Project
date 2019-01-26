@@ -82,32 +82,32 @@ function getGdLibraryInfo() {
 		array(
 			'mimeType'  => 'image/gif',
 			'value'     => defined('IMG_GIF') ? IMG_GIF : '',
-			'functions' => array('imageCreateFromGif', 'imageGif'),
+			'functions' => array( 'imageCreateFromGif', 'imageGif' ),
 		),
 		array(
 			'mimeType'  => 'image/jpeg',
 			'value'     => defined('IMG_JPEG') ? IMG_JPEG : '',
-			'functions' => array('imageCreateFromJpeg', 'imageJpeg'),
+			'functions' => array( 'imageCreateFromJpeg', 'imageJpeg' ),
 		),
 		array(
 			'mimeType'  => 'image/png',
 			'value'     => defined('IMG_PNG') ? IMG_PNG : '',
-			'functions' => array('imageCreateFromPng', 'imagePng'),
+			'functions' => array( 'imageCreateFromPng', 'imagePng' ),
 		),
 		array(
 			'mimeType'  => 'image/vnd.wap.wbmp',
 			'value'     => defined('IMG_WBMP') ? IMG_WBMP : '',
-			'functions' => array('imageCreateFromWbmp', 'imageWbmp'),
+			'functions' => array( 'imageCreateFromWbmp', 'imageWbmp' ),
 		),
 		array(
 			'mimeType'  => 'image/x-xpixmap',
 			'value'     => defined('IMG_XPM') ? IMG_XPM : '',
-			'functions' => array('imageCreateFromXpm', 'imageXpm'),
+			'functions' => array( 'imageCreateFromXpm', 'imageXpm' ),
 		),
 		array(
 			'mimeType'  => 'image/x-xbitmap',
 			'value'     => defined('IMG_XBM') ? IMG_XBM : '',
-			'functions' => array('imageCreateFromXbm', 'imageXbm'),
+			'functions' => array( 'imageCreateFromXbm', 'imageXbm' ),
 		),
 	);
 	$mimeTypes  = array();

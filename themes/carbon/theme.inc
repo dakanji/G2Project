@@ -33,8 +33,8 @@ class CarbonTheme extends GalleryTheme {
 		$this->setName($gallery->i18n('Carbon'));
 		$this->setDescription($gallery->i18n('Gallery2 theme by mincel.com'));
 		$this->setVersion('1.2.6');
-		$this->setRequiredCoreApi(array(7, 51));
-		$this->setRequiredThemeApi(array(2, 5));
+		$this->setRequiredCoreApi(array( 7, 51 ));
+		$this->setRequiredThemeApi(array( 2, 5 ));
 		$this->setStandardSettings(
 			array(
 				'rows' => 3,
@@ -61,19 +61,19 @@ class CarbonTheme extends GalleryTheme {
 								'useDropdown' => false,
 							),
 						),
-						array('core.PeerList', array()),
-						array('imageblock.ImageBlock', array()),
+						array( 'core.PeerList', array() ),
+						array( 'imageblock.ImageBlock', array() ),
 					)
 				),
 				'albumBlocks' => serialize(
 					array(
-						array('comment.ViewComments', array()),
+						array( 'comment.ViewComments', array() ),
 					)
 				),
 				'photoBlocks' => serialize(
 					array(
-						array('exif.ExifInfo', array()),
-						array('comment.ViewComments', array()),
+						array( 'exif.ExifInfo', array() ),
+						array( 'comment.ViewComments', array() ),
 					)
 				),
 				'navigatorPhotoTop' => 1,
@@ -100,7 +100,7 @@ class CarbonTheme extends GalleryTheme {
 		list($ret, $settings, $params) = parent::getSettings($itemId);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		// Add in our custom settings
@@ -213,7 +213,7 @@ class CarbonTheme extends GalleryTheme {
 			'value' => $params['copyright'],
 		);
 
-		return array(null, $settings, $params);
+		return array( null, $settings, $params );
 	}
 
 	/**
@@ -230,7 +230,7 @@ class CarbonTheme extends GalleryTheme {
 			$error['maxMicroThumbs'] = $this->translate('You must enter a number greater than 0');
 		}
 
-		foreach (array('albumUpperBlocks', 'photoUpperBlocks') as $blockKey) {
+		foreach (array( 'albumUpperBlocks', 'photoUpperBlocks' ) as $blockKey) {
 			if (isset($standard[$blockKey])) {
 				if (!empty($settings[$blockKey])) {
 					list($success, $newValue) = $this->packSetting('block-list', $settings[$blockKey]);
@@ -271,7 +271,7 @@ class CarbonTheme extends GalleryTheme {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Add in our extra stuff
@@ -284,7 +284,7 @@ class CarbonTheme extends GalleryTheme {
 		}
 
 		// Add our header and styles
-		return array(null, 'theme.tpl');
+		return array( null, 'theme.tpl' );
 	}
 
 	/**
@@ -308,7 +308,7 @@ class CarbonTheme extends GalleryTheme {
 		$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Check for JavaScript warning flag
@@ -316,7 +316,7 @@ class CarbonTheme extends GalleryTheme {
 			$template->setVariable('jsWarning', true);
 		}
 
-		return array(null, 'theme.tpl');
+		return array( null, 'theme.tpl' );
 	}
 
 	/**
@@ -327,11 +327,11 @@ class CarbonTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array('parents', 'systemLinks')
+			array( 'parents', 'systemLinks' )
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Check for JavaScript warning flag
@@ -339,7 +339,7 @@ class CarbonTheme extends GalleryTheme {
 			$template->setVariable('jsWarning', true);
 		}
 
-		return array(null, 'theme.tpl');
+		return array( null, 'theme.tpl' );
 	}
 
 	/**
@@ -350,21 +350,21 @@ class CarbonTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array('parents', 'systemLinks')
+			array( 'parents', 'systemLinks' )
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, 'theme.tpl');
+		return array( null, 'theme.tpl' );
 	}
 
 	/**
 	 * @see GalleryTheme::showErrorPage
 	 */
 	public function showErrorPage(&$template) {
-		return array(null, 'error.tpl');
+		return array( null, 'error.tpl' );
 	}
 
 	/**
@@ -375,14 +375,14 @@ class CarbonTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array('parents', 'systemLinks')
+			array( 'parents', 'systemLinks' )
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, 'theme.tpl');
+		return array( null, 'theme.tpl' );
 	}
 
 	/**

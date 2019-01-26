@@ -45,14 +45,14 @@ class JpegtranToolkit extends GalleryToolkit {
 	) {
 		global $gallery;
 
-		if (!in_array($mimeType, array('image/jpeg', 'image/pjpeg'))) {
-			return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
+		if (!in_array($mimeType, array( 'image/jpeg', 'image/pjpeg' ))) {
+			return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null );
 		}
 
 		list($ret, $jpegtran) = GalleryCoreApi::getPluginParameter('module', 'jpegtran', 'path');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
@@ -61,7 +61,7 @@ class JpegtranToolkit extends GalleryToolkit {
 
 		if (empty($tmpFilename)) {
 			// This can happen if the $tmpDir path is bad
-			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PATH), null, null );
 		}
 
 		if (isset($context['width'])) {
@@ -108,7 +108,7 @@ class JpegtranToolkit extends GalleryToolkit {
 					$height = $tmp;
 				}
 
-				$cmd = array($jpegtran, '-verbose', '-copy', 'all', '-rotate', $rotateAmount);
+				$cmd = array( $jpegtran, '-verbose', '-copy', 'all', '-rotate', $rotateAmount );
 
 				break;
 
@@ -118,7 +118,7 @@ class JpegtranToolkit extends GalleryToolkit {
 					list($ret, $width, $height) = $this->_getImageDimensions($sourceFilename);
 
 					if ($ret) {
-						return array($ret, null, null);
+						return array( $ret, null, null );
 					}
 				}
 
@@ -140,21 +140,21 @@ class JpegtranToolkit extends GalleryToolkit {
 				break;
 
 			default:
-				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
+				return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null );
 		}
 
-		$cmd = array_merge($cmd, array('-outfile', $tmpFilename, $sourceFilename));
+		$cmd = array_merge($cmd, array( '-outfile', $tmpFilename, $sourceFilename ));
 
 		$gallery->guaranteeTimeLimit(90);
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($tmpDir);
-		list($success, $output) = $platform->exec(array($cmd));
+		list($success, $output) = $platform->exec(array( $cmd ));
 
 		if (!$success) {
 			@$platform->unlink($tmpFilename);
 			$platform->chdir($oldCwd);
 
-			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
+			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
 		}
 		$platform->chdir($oldCwd);
 
@@ -181,7 +181,7 @@ class JpegtranToolkit extends GalleryToolkit {
 			$context['height'] = $height;
 		}
 
-		return array(null, $mimeType, $context);
+		return array( null, $mimeType, $context );
 	}
 
 	/**
@@ -204,13 +204,13 @@ class JpegtranToolkit extends GalleryToolkit {
 		if (($results != false)
 			&& (($results[0] > 1) && ($results[1] > 1))
 		) {
-			return array(null, $results[0], $results[1]);
+			return array( null, $results[0], $results[1] );
 		}
 
 		list($ret, $jpegtran) = GalleryCoreApi::getPluginParameter('module', 'jpegtran', 'path');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
@@ -219,27 +219,27 @@ class JpegtranToolkit extends GalleryToolkit {
 
 		if (empty($tmpFilename)) {
 			// This can happen if the $tmpDir path is bad
-			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PATH), null, null );
 		}
 
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($tmpDir);
 
-		$cmd = array($jpegtran, '-verbose', '-outfile', $tmpFilename, $filename);
-		list($success, $ignored, $output) = $platform->exec(array($cmd));
+		$cmd = array( $jpegtran, '-verbose', '-outfile', $tmpFilename, $filename );
+		list($success, $ignored, $output) = $platform->exec(array( $cmd ));
 		@$platform->unlink($tmpFilename);
 		$platform->chdir($oldCwd);
 
 		if (!$success) {
-			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
+			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
 		}
 
 		foreach ($output as $line) {
 			if (preg_match('/width=([0-9]+), height=([0-9]+)/', $line, $regs)) {
-				return array(null, $regs[1], $regs[2]);
+				return array( null, $regs[1], $regs[2] );
 			}
 		}
 
-		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
+		return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
 	}
 }

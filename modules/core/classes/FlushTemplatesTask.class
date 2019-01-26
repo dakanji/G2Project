@@ -58,7 +58,7 @@ class FlushTemplatesTask extends MaintenanceTask {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		if ($platform->file_exists($dir)) {
@@ -85,6 +85,6 @@ class FlushTemplatesTask extends MaintenanceTask {
 			);
 		}
 
-		return array(null, $success, $details);
+		return array( null, $success, $details );
 	}
 }

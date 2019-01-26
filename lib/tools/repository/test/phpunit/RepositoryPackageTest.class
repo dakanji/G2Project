@@ -61,7 +61,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 				'random' => 'random',
 			),
 			1 => array(
-				'directories' => array('dir1', 'dir2'),
+				'directories' => array( 'dir1', 'dir2' ),
 			),
 			2 => array(
 				'files' => array(
@@ -82,7 +82,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 				'random' => 'random',
 			),
 			4 => array(
-				'directories' => array('dir2', 'dir3'),
+				'directories' => array( 'dir2', 'dir3' ),
 			),
 			5 => array(
 				'files' => array(
@@ -123,15 +123,15 @@ class RepositoryPackageTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_get_contents',
-			array('pluginDirectory/file1'),
+			array( 'pluginDirectory/file1' ),
 			'pluginDirectory/file1'
 		);
 		$platform->setReply(
 			'file_get_contents',
-			array('pluginDirectory/file2'),
+			array( 'pluginDirectory/file2' ),
 			'pluginDirectory/file2'
 		);
-		$platform->setReply('file_exists', array($expectedPackagePath), true);
+		$platform->setReply('file_exists', array( $expectedPackagePath ), true);
 		$gallery->setPlatform($platform);
 
 		// Send data to template.
@@ -161,42 +161,42 @@ class RepositoryPackageTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_get_contents',
-			array('pluginDirectory/file1'),
+			array( 'pluginDirectory/file1' ),
 			'pluginDirectory/file1'
 		);
 		$platform->setReply(
 			'file_get_contents',
-			array('pluginDirectory/file2'),
+			array( 'pluginDirectory/file2' ),
 			'pluginDirectory/file2'
 		);
 		$platform->setReply(
 			'file_exists',
-			array('someoutputdir/testplugin-1.0.0-19700411131300-package1.package'),
+			array( 'someoutputdir/testplugin-1.0.0-19700411131300-package1.package' ),
 			false
 		);
 		$platform->setReply(
 			'file_put_contents',
-			array('someoutputdir/testplugin-1.0.0-19700411131300-package1.package', ''),
+			array( 'someoutputdir/testplugin-1.0.0-19700411131300-package1.package', '' ),
 			true
 		);
 		$platform->setReply(
 			'file_get_contents',
-			array('pluginDirectory/file2'),
+			array( 'pluginDirectory/file2' ),
 			'pluginDirectory/file2'
 		);
 		$platform->setReply(
 			'file_get_contents',
-			array('pluginDirectory/file3'),
+			array( 'pluginDirectory/file3' ),
 			'pluginDirectory/file3'
 		);
 		$platform->setReply(
 			'file_exists',
-			array('someoutputdir/testplugin-1.0.0-19700411131300-package2.package'),
+			array( 'someoutputdir/testplugin-1.0.0-19700411131300-package2.package' ),
 			false
 		);
 		$platform->setReply(
 			'file_put_contents',
-			array('someoutputdir/testplugin-1.0.0-19700411131300-package2.package', ''),
+			array( 'someoutputdir/testplugin-1.0.0-19700411131300-package2.package', '' ),
 			true
 		);
 		$gallery->setPlatform($platform);
@@ -210,7 +210,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'packagesWritten' => array('package1', 'package2'),
+				'packagesWritten' => array( 'package1', 'package2' ),
 				'packagesSkipped' => array(),
 			),
 			$packagesWritten,
@@ -293,16 +293,16 @@ class RepositoryPackageTestDescriptor {
 	public $_pluginVersion;
 
 	public function __construct() {
-		$this->_packages = array('package1', 'package2');
+		$this->_packages = array( 'package1', 'package2' );
 
 		$this->_directories = array(
-			'package1' => array('dir1', 'dir2'),
-			'package2' => array('dir2', 'dir3'),
+			'package1' => array( 'dir1', 'dir2' ),
+			'package2' => array( 'dir2', 'dir3' ),
 		);
 
 		$this->_files = array(
-			'package1' => array('file1', 'file2'),
-			'package2' => array('file2', 'file3'),
+			'package1' => array( 'file1', 'file2' ),
+			'package2' => array( 'file2', 'file3' ),
 		);
 
 		$this->_pluginId              = 'testplugin';

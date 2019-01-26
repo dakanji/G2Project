@@ -82,7 +82,7 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 			$this->assertTrue(isset($status) || $status == null, 'plugin status result missing');
 		}
 
-		return array($error, $status);
+		return array( $error, $status );
 	}
 
 	public function _translate($message) {

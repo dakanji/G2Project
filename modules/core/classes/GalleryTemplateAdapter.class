@@ -198,16 +198,16 @@ class GalleryTemplateAdapter {
 		if (empty($params['format'])) {
 			if (!isset($defaultFormat)) {
 				$defaultFormat    = array(
-					'date'     => '%x',
-					'time'     => '%X',
+					'date' => '%x',
+					'time' => '%X',
 					'datetime' => '%c',
 				);
 				list($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 				if (!$ret) {
 					$defaultFormat = array(
-						'date'     => $core['format.date'],
-						'time'     => $core['format.time'],
+						'date' => $core['format.date'],
+						'time' => $core['format.time'],
 						'datetime' => $core['format.datetime'],
 					);
 				}
@@ -342,17 +342,17 @@ class GalleryTemplateAdapter {
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById($params['item']['id'], 'GalleryEntity');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$entity = null;
 		} else {
 			list($ret, $results) = GalleryCoreApi::loadEntitiesById(
-				array($params['item']['id'], $params['image']['id']),
+				array( $params['item']['id'], $params['image']['id'] ),
 				'GalleryEntity'
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			list($item, $entity) = $results;
 		}
@@ -372,7 +372,7 @@ class GalleryTemplateAdapter {
 			list($ret, $renderer) = GalleryCoreApi::newFactoryInstanceById('GalleryRenderer', $rendererClass);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			$renderer = null;
@@ -397,7 +397,7 @@ class GalleryTemplateAdapter {
 			$html = $fallback;
 		}
 
-		return array(null, $html);
+		return array( null, $html );
 	}
 
 	/**
@@ -412,7 +412,7 @@ class GalleryTemplateAdapter {
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$templateVars =& $smarty->get_template_vars();
 		$head         = $templateVars['head'];
-		$output       = array('');
+		$output       = array( '' );
 
 		// Title
 		if (isset($head['title'])) {
@@ -451,7 +451,7 @@ class GalleryTemplateAdapter {
 			$smarty->_smarty_include(
 				array(
 					'smarty_include_tpl_file' => "gallery:$path",
-					'smarty_include_vars'     => array(
+					'smarty_include_vars' => array(
 						'l10Domain' => $l10Domain,
 					),
 				)
@@ -586,9 +586,9 @@ class GalleryTemplateAdapter {
 			}
 			GalleryDataCache::putToDisk(
 				array(
-					'type'   => 'module',
+					'type' => 'module',
 					'itemId' => 'CombinedJavascript_' . $key,
-					'id'     => '_all',
+					'id' => '_all',
 				),
 				$contents
 			);
@@ -597,9 +597,9 @@ class GalleryTemplateAdapter {
 				$gzippedContents = $phpVm->gzencode($contents, 9, FORCE_GZIP);
 				GalleryDataCache::putToDisk(
 					array(
-						'type'   => 'module',
+						'type' => 'module',
 						'itemId' => 'CombinedJavascript_gzip_' . $key,
-						'id'     => '_all',
+						'id' => '_all',
 					),
 					$gzippedContents
 				);
@@ -612,7 +612,7 @@ class GalleryTemplateAdapter {
 				'key'  => $key,
 			),
 			array(
-				'forceDirect'  => true,
+				'forceDirect' => true,
 				'forceFullUrl' => true,
 			)
 		);
@@ -654,9 +654,9 @@ class GalleryTemplateAdapter {
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/AutoComplete.tpl',
-				'smarty_include_vars'     => array(
-					'element'   => $params['element'],
-					'url'       => $url,
+				'smarty_include_vars' => array(
+					'element' => $params['element'],
+					'url' => $url,
 					'callCount' => ++$this->_callCount['autoComplete'],
 				),
 			)
@@ -680,11 +680,11 @@ class GalleryTemplateAdapter {
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/Dimensions.tpl',
-				'smarty_include_vars'     => array(
-					'formVar'   => $params['formVar'],
+				'smarty_include_vars' => array(
+					'formVar' => $params['formVar'],
 					'formVarId' => strtr($params['formVar'], '[]', '__'),
-					'width'     => isset($params['width']) ? $params['width'] : null,
-					'height'    => isset($params['height']) ? $params['height'] : null,
+					'width' => isset($params['width']) ? $params['width'] : null,
+					'height' => isset($params['height']) ? $params['height'] : null,
 					'callCount' => ++$this->_callCount['dimensions'],
 				),
 			)
@@ -710,8 +710,8 @@ class GalleryTemplateAdapter {
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/DefaultButton.tpl',
-				'smarty_include_vars'     => array(
-					'name'      => $params['name'],
+				'smarty_include_vars' => array(
+					'name' => $params['name'],
 					'callCount' => ++$this->_callCount['defaultButton'],
 				),
 			)
@@ -1078,7 +1078,7 @@ class GalleryTemplateAdapter {
 	/**
 	 * Perform a theme related function.  Possible parameters are
 	 *   include => file to include inside the theme's templates/ dir
-	 *   url  => url to a file inside the themes dir
+	 *   url => url to a file inside the themes dir
 	 *
 	 * @param array $params ('include' => ..., 'url' => ...)
 	 * @param Smarty $smarty the smarty instance
@@ -1092,7 +1092,7 @@ class GalleryTemplateAdapter {
 			$smarty->_smarty_include(
 				array(
 					'smarty_include_tpl_file' => 'gallery:themes/' . $this->_theme->getId() . '/templates/' . $params['include'],
-					'smarty_include_vars'     => $params,
+					'smarty_include_vars' => $params,
 				)
 			);
 			$smarty->_tpl_vars = $save;
@@ -1180,7 +1180,7 @@ class GalleryTemplateAdapter {
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => "gallery:modules/$module/templates/blocks/$file.tpl",
-				'smarty_include_vars'     => $params,
+				'smarty_include_vars' => $params,
 			)
 		);
 		$smarty->_tpl_vars = $save;
@@ -1220,7 +1220,7 @@ class GalleryTemplateAdapter {
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => "gallery:modules/$module/templates/containers/$file.tpl",
-				'smarty_include_vars'     => array_merge(
+				'smarty_include_vars' => array_merge(
 					array(
 						'content' => $content,
 					),

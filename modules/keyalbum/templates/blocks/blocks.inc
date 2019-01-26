@@ -7,7 +7,7 @@ $blocks = array(
 				'description' => $gallery->i18n('Keywords for current item (uncheck to show all keywords)'),
 				'type' => 'boolean',
 				'default' => 'true',
-				'overrides' => array('onlyPublic', 'showCloud', 'sizeLimit'),
+				'overrides' => array( 'onlyPublic', 'showCloud', 'sizeLimit' ),
 			),
 			'onlyPublic' => array(
 				'description' => $gallery->i18n('Keywords from public items only'),

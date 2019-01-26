@@ -60,7 +60,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$message = $module->translate('Processing...');
 		$templateAdapter->updateProgressBar('', $message, '');
@@ -71,12 +71,12 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$i       = 0;
 		$badPath = 0;
-		$status  = array('');
+		$status  = array( '' );
 		$total   = $results->resultCount();
 
 		while ($result = $results->nextResult()) {
@@ -102,13 +102,13 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById((int)$result[0], 'GalleryItem');
 
 				if ($ret) {
-					return array($ret, null, null);
+					return array( $ret, null, null );
 				}
 				$params = array(
-					'view'       => 'core.ItemAdmin',
-					'subView'    => 'core.ItemEdit',
+					'view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditItem',
-					'itemId'     => (int)$result[0],
+					'itemId' => (int)$result[0],
 				);
 
 				$status[++$badPath] = $module->translate('Bad path:') .
@@ -140,7 +140,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 			)
 		);
 
-		return array(null, true, $status);
+		return array( null, true, $status );
 	}
 
 	/**

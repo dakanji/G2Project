@@ -77,7 +77,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
 				'status' => array(),
@@ -111,14 +111,14 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
 				'status' => array(
 					'statusMessage' => $core->translate(
 						'Successfully saved theme settings'
 					),
-					'saved'         => 1,
+					'saved' => 1,
 				),
 				'error' => array(),
 			),
@@ -133,7 +133,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		foreach ($params as $key => $value) {
-			if (in_array($key[0], array('_', 'a'))) {
+			if (in_array($key[0], array( '_', 'a' ))) {
 				unset($params[$key]);
 			}
 		}
@@ -180,11 +180,11 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array('form[error][split]'),
+				'error' => array( 'form[error][split]' ),
 			),
 			$results
 		);

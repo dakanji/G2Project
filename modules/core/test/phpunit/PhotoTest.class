@@ -57,7 +57,7 @@ class PhotoTest extends GalleryTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'PhotoTestToolkit',
-			array('image/test'),
+			array( 'image/test' ),
 			'colorspace',
 			'string',
 			'phototest property'
@@ -214,9 +214,9 @@ class PhotoTestToolkit extends GalleryToolkit {
 		if ($propertyName == 'colorspace' && $mimeType == 'image/test') {
 			$colorspace = (basename($sourceFilename) == basename(__FILE__)) ? 'CMYK' : 'RGB';
 
-			return array(null, array($colorspace));
+			return array( null, array( $colorspace ) );
 		}
 
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
 	}
 }

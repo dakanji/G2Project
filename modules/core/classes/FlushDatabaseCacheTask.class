@@ -56,10 +56,10 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
-		$cacheDirs = array('entity', 'theme', 'module');
+		$cacheDirs = array( 'entity', 'theme', 'module' );
 		$success   = true;
 
 		foreach ($cacheDirs as $dir) {
@@ -85,6 +85,6 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 			}
 		}
 
-		return array(null, $success, $details);
+		return array( null, $success, $details );
 	}
 }

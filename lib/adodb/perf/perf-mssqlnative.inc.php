@@ -41,12 +41,12 @@ class perf_mssqlnative extends adodb_perf {
 		),
 		'prepared sql hit ratio' => array(
 			'RATIO',
-			array('dbcc cachestats', 'Prepared', 1, 100),
+			array( 'dbcc cachestats', 'Prepared', 1, 100 ),
 			'',
 		),
 		'adhoc sql hit ratio' => array(
 			'RATIO',
-			array('dbcc cachestats', 'Adhoc', 1, 100),
+			array( 'dbcc cachestats', 'Adhoc', 1, 100 ),
 			'',
 		),
 		'IO',

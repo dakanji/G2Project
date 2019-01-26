@@ -34,7 +34,7 @@ class AdminEventLogViewerView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminEventLogViewer = array();

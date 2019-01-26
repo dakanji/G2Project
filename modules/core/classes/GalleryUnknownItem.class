@@ -80,14 +80,10 @@ class GalleryUnknownItem extends GalleryDataItem {
 
 		if (!isset($mimeMap)) {
 			$mimeMap = array(
-				':^audio/:'
-						=> array($gallery->i18n('Audio'), $gallery->i18n('audio')),
-				':^application/(zip|mac-[cb].*|x-((us|g)?tar|gzip|compress|cpio|stuffit|shar))$:'
-						=> array($gallery->i18n('Archive'), $gallery->i18n('archive')),
-				':^(text/|application/(pdf|postscript|photoshop|msword|vnd.ms-powerpoint)$):'
-						=> array($gallery->i18n('Document'), $gallery->i18n('document')),
-				':application/vnd.ms-excel:'
-						=> array($gallery->i18n('Spreadsheet'), $gallery->i18n('spreadsheet')),
+				':^audio/:' => array( $gallery->i18n('Audio'), $gallery->i18n('audio') ),
+				':^application/(zip|mac-[cb].*|x-((us|g)?tar|gzip|compress|cpio|stuffit|shar))$:' => array( $gallery->i18n('Archive'), $gallery->i18n('archive') ),
+				':^(text/|application/(pdf|postscript|photoshop|msword|vnd.ms-powerpoint)$):' => array( $gallery->i18n('Document'), $gallery->i18n('document') ),
+				':application/vnd.ms-excel:' => array( $gallery->i18n('Spreadsheet'), $gallery->i18n('spreadsheet') ),
 			);
 		}
 
@@ -103,11 +99,11 @@ class GalleryUnknownItem extends GalleryDataItem {
 
 		foreach ($mimeMap as $pattern => $result) {
 			if (preg_match($pattern, $this->mimeType)) {
-				return isset($core) ? array($core->translate($result[0]), $core->translate($result[1])) : $result;
+				return isset($core) ? array( $core->translate($result[0]), $core->translate($result[1]) ) : $result;
 			}
 		}
 
-		return isset($core) ? array($core->translate('File'), $core->translate('file')) : array('File', 'file');
+		return isset($core) ? array( $core->translate('File'), $core->translate('file') ) : array( 'File', 'file' );
 	}
 
 	/**

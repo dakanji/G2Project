@@ -78,16 +78,16 @@ class GalleryItemAttributesHelper_advanced {
 	  AND
 	  [GalleryChildEntity::parentId] = ?
 	';
-		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
+		list($ret, $searchResults) = $gallery->search($query, array( (int)$itemId ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$result = $searchResults->nextResult();
 		$weight = isset($result[0]) ? (int)$result[0] : 0;
 
-		return array(null, $weight);
+		return array( null, $weight );
 	}
 
 	/**
@@ -122,16 +122,16 @@ class GalleryItemAttributesHelper_advanced {
 	  [GalleryItemAttributesMap=2::orderWeight] ' .
 		$comparison . ' [GalleryItemAttributesMap=1::orderWeight]
 	';
-		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
+		list($ret, $searchResults) = $gallery->search($query, array( (int)$itemId ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$result = $searchResults->nextResult();
 		$weight = isset($result[0]) ? (int)$result[0] : null;
 
-		return array(null, $weight);
+		return array( null, $weight );
 	}
 
 	/**
@@ -194,9 +194,9 @@ class GalleryItemAttributesHelper_advanced {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryItemAttributesMap',
 			array(
-				'itemId'         => $itemId,
-				'viewCount'      => 0,
-				'orderWeight'    => 0,
+				'itemId' => $itemId,
+				'viewCount' => 0,
+				'orderWeight' => 0,
 				'parentSequence' => $parentSequence,
 			)
 		);
@@ -268,7 +268,7 @@ class GalleryItemAttributesHelper_advanced {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $newSequenceSql) = $storage->getFunctionSql('CONCAT', array('?', $substring));
+		list($ret, $newSequenceSql) = $storage->getFunctionSql('CONCAT', array( '?', $substring ));
 
 		if ($ret) {
 			return $ret;

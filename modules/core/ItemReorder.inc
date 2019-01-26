@@ -35,7 +35,7 @@ class ItemReorderController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -43,7 +43,7 @@ class ItemReorderController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = $error = array();
@@ -68,29 +68,29 @@ class ItemReorderController extends GalleryController {
 			if (empty($error)) {
 				$selectedId           = (int)$form['selectedId'];
 				$targetId             = (int)$form['targetId'];
-				list($ret, $entities) = GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId), 'GalleryItem');
+				list($ret, $entities) = GalleryCoreApi::loadEntitiesById(array( $selectedId, $targetId ), 'GalleryItem');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
-				list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(array($selectedId, $targetId));
+				list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(array( $selectedId, $targetId ));
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if (!isset($permissions[$selectedId]['core.view'])
 					|| !isset($permissions[$selectedId]['core.view'])
 				) {
 					// Avoid information disclosure, act as if the items didn't exist.
-					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+					return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
 				}
 
 				if ($entities[0]->getParentId() != $itemId
 					|| $entities[1]->getParentId() != $itemId
 				) {
-					return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+					return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 				}
 			}
 
@@ -102,10 +102,10 @@ class ItemReorderController extends GalleryController {
 					 * Get the current and target order weights (have to do
 					 * this after every rebalance, too)
 					 */
-					list($ret, $orderWeights) = GalleryCoreApi::fetchItemOrderWeights(array($selectedId, $targetId));
+					list($ret, $orderWeights) = GalleryCoreApi::fetchItemOrderWeights(array( $selectedId, $targetId ));
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					list($ret, $next) = GalleryCoreApi::fetchNextItemWeight(
@@ -114,7 +114,7 @@ class ItemReorderController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					if (isset($next)) {
@@ -134,14 +134,14 @@ class ItemReorderController extends GalleryController {
 
 					if ($loopCount++ > 0) {
 						// If we have to rebalance more than once then something went wrong!
-						return array(GalleryCoreApi::error(ERROR_UNKNOWN), null);
+						return array( GalleryCoreApi::error(ERROR_UNKNOWN), null );
 					}
 
 					// A delta of 0 means that we don't have room, so rebalance
 					$ret = GalleryCoreApi::rebalanceChildOrderWeights($itemId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 				$newWeight = $orderWeights[$targetId] + $delta;
@@ -149,7 +149,7 @@ class ItemReorderController extends GalleryController {
 				$ret = GalleryCoreApi::setItemOrderWeight($selectedId, $newWeight);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
@@ -157,7 +157,7 @@ class ItemReorderController extends GalleryController {
 				list($ret) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Redirect back to the same page so that we can do more reordering
@@ -179,7 +179,7 @@ class ItemReorderController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -197,7 +197,7 @@ class ItemReorderView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -216,7 +216,7 @@ class ItemReorderView extends GalleryView {
 			list($ret, $orderBy) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -227,14 +227,14 @@ class ItemReorderView extends GalleryView {
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIds($item);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Load all the peers
 			list($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds, 'GalleryItem');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Build our peers table
@@ -274,9 +274,9 @@ class ItemReorderView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $core->translate('reorder items'));
+		return array( null, $core->translate('reorder items') );
 	}
 }

@@ -29,7 +29,7 @@ require_once __DIR__ . '/XmlParser.inc';
 
 $output = '';
 
-foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) {
+foreach (array( 'mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite' ) as $db) {
 	$output  .= '## ' . $db . "\n";
 	$xmlFiles = glob('tmp/dbxml/*.xml');
 

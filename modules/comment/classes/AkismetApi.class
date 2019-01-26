@@ -42,15 +42,15 @@ class AkismetApi {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Comment is not spam - just return
 		if (!preg_match('{^HTTP/1.\d 200 OK$}', $status) || $body == 'false') {
-			return array(null, false);
+			return array( null, false );
 		}
 
-		return array(null, true);
+		return array( null, true );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class AkismetApi {
 		list($ret, $userAgent) = $this->_getUserAgent();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($body, $status, $headers) = GalleryCoreApi::postToWebPage(
@@ -107,10 +107,10 @@ class AkismetApi {
 		);
 
 		if (!preg_match('{^HTTP/1.\d 200 OK$}', $status) || $body != 'valid') {
-			return array(null, false);
+			return array( null, false );
 		}
 
-		return array(null, true);
+		return array( null, true );
 	}
 
 	/**
@@ -165,12 +165,12 @@ class AkismetApi {
 		list($ret, $apiKey) = GalleryCoreApi::getPluginParameter('module', 'comment', 'akismet.apiKey');
 
 		if ($ret) {
-			return array($ret, null, null, null);
+			return array( $ret, null, null, null );
 		}
 
 		// We can't operate without an API key
 		if (empty($apiKey)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null, 'Missing API key');
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null, 'Missing API key' );
 		}
 
 		// Generate the target URL based on the API Key and the request-type
@@ -224,7 +224,7 @@ class AkismetApi {
 		list($ret, $userAgent) = $this->_getUserAgent();
 
 		if ($ret) {
-			return array($ret, null, null, null);
+			return array( $ret, null, null, null );
 		}
 
 		// Post the request to the Akismet server
@@ -236,7 +236,7 @@ class AkismetApi {
 			)
 		);
 
-		return array(null, $body, $status, $headers);
+		return array( null, $body, $status, $headers );
 	}
 
 	/**
@@ -248,14 +248,14 @@ class AkismetApi {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$galleryVersion = $core->getGalleryVersion();
 
 		list($ret, $comment) = GalleryCoreApi::loadPlugin('module', 'comment', true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$userAgent = sprintf(
@@ -264,6 +264,6 @@ class AkismetApi {
 			$comment->getVersion()
 		);
 
-		return array(null, $userAgent);
+		return array( null, $userAgent );
 	}
 }

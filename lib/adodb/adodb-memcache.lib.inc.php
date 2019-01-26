@@ -72,7 +72,7 @@ class ADODB_Cache_MemCache {
 		$memcache = new MemCache();
 
 		if (!is_array($this->hosts)) {
-			$this->hosts = array($this->hosts);
+			$this->hosts = array( $this->hosts );
 		}
 
 		$failcnt = 0;

@@ -56,7 +56,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		// Touch this admin session to ensure that we don't delete it
@@ -64,20 +64,20 @@ class DeleteSessionsTask extends MaintenanceTask {
 		$ret = $session->save();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
 		$lifetime                    = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 0);
@@ -99,7 +99,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 		list($ret, $results) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$result = $results->nextResult();
 		$total  = $result[0];
@@ -115,7 +115,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 				$ret = $session->_expireSessions();
 
 				if ($ret) {
-					return array($ret, null, null);
+					return array( $ret, null, null );
 				}
 
 				$templateAdapter->updateProgressBar(
@@ -137,7 +137,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 			),
 		);
 
-		return array(null, true, $result);
+		return array( null, true, $result );
 	}
 
 	/**

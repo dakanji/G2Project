@@ -37,7 +37,7 @@ class AdminJpegtranController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$error = $status = array();
@@ -94,7 +94,7 @@ class AdminJpegtranController extends GalleryController {
 				if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 					$error[] = 'form[error][path][badPath]';
 				} else {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			} else {
 				$failCount = 0;
@@ -115,19 +115,19 @@ class AdminJpegtranController extends GalleryController {
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'jpegtran');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = $module->setParameter('path', $realPath);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$redirect['view'] = 'core.SiteAdmin';
 
@@ -156,7 +156,7 @@ class AdminJpegtranController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -174,13 +174,13 @@ class AdminJpegtranView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'jpegtran');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load our default values if we didn't just come from this form.
@@ -190,7 +190,7 @@ class AdminJpegtranView extends GalleryView {
 			list($ret, $form['path']) = $module->getParameter('path');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -209,7 +209,7 @@ class AdminJpegtranView extends GalleryView {
 						$testResults                      = array();
 						$form['error']['path']['badPath'] = 1;
 					} else {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				} else {
 					foreach ($testResults as $testResult) {
@@ -227,7 +227,7 @@ class AdminJpegtranView extends GalleryView {
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminJpegtran                 = array();

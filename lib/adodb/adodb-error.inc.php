@@ -134,15 +134,15 @@ function adodb_error_pg($errormsg) {
 	static $error_regexps = array(
 		'(Table does not exist\.|Relation [\"\'].*[\"\'] does not exist|sequence does not exist|class ".+" not found)$' => DB_ERROR_NOSUCHTABLE,
 		'Relation [\"\'].*[\"\'] already exists|Cannot insert a duplicate key into (a )?unique index.*|duplicate key.*violates unique constraint' => DB_ERROR_ALREADY_EXISTS,
-		'database ".+" does not exist$'       => DB_ERROR_NOSUCHDB,
-		'(divide|division) by zero$'          => DB_ERROR_DIVZERO,
+		'database ".+" does not exist$' => DB_ERROR_NOSUCHDB,
+		'(divide|division) by zero$' => DB_ERROR_DIVZERO,
 		'pg_atoi: error in .*: can\'t parse ' => DB_ERROR_INVALID_NUMBER,
 		'ttribute [\"\'].*[\"\'] not found|Relation [\"\'].*[\"\'] does not have attribute [\"\'].*[\"\']' => DB_ERROR_NOSUCHFIELD,
 		'(parser: parse|syntax) error at or near \"' => DB_ERROR_SYNTAX,
-		'referential integrity violation'     => DB_ERROR_CONSTRAINT,
-		'deadlock detected$'                  => DB_ERROR_DEADLOCK,
+		'referential integrity violation' => DB_ERROR_CONSTRAINT,
+		'deadlock detected$' => DB_ERROR_DEADLOCK,
 		'canceling statement due to statement timeout$' => DB_ERROR_STATEMENT_TIMEOUT,
-		'could not serialize access due to'   => DB_ERROR_SERIALIZATION_FAILURE,
+		'could not serialize access due to' => DB_ERROR_SERIALIZATION_FAILURE,
 	);
 	reset($error_regexps);
 

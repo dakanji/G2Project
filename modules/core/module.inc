@@ -41,8 +41,8 @@ class CoreModule extends GalleryModule {
 		$this->setCallbacks(
 			'getItemLinks|getSystemLinks|getItemAdminViews|getSiteAdminViews|getUserAdminViews'
 		);
-		$this->setRequiredCoreApi(array(7, 55));
-		$this->setRequiredModuleApi(array(3, 8));
+		$this->setRequiredCoreApi(array( 7, 55 ));
+		$this->setRequiredModuleApi(array( 3, 8 ));
 	}
 
 	/**
@@ -72,7 +72,7 @@ class CoreModule extends GalleryModule {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Fetch child counts
@@ -90,14 +90,14 @@ class CoreModule extends GalleryModule {
 		list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Fetch thumbnail ids
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$links = array();
@@ -111,19 +111,19 @@ class CoreModule extends GalleryModule {
 			list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($item->getParentId(), $userId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (isset($wantsDetailedLinks[$itemId]) && $isAlbum
 				&& isset($permissions[$itemId]['core.addDataItem'])
 			) {
 				$links[$itemId][] = array(
-					'text'   => $this->_translate('Add Items'),
+					'text' => $this->_translate('Add Items'),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemAdd',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 			}
@@ -146,10 +146,10 @@ class CoreModule extends GalleryModule {
 						$itemTypeNames[2]
 					),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemEdit',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 			}
@@ -158,24 +158,24 @@ class CoreModule extends GalleryModule {
 				&& isset($permissions[$itemId]['core.addAlbumItem'])
 			) {
 				$links[$itemId][] = array(
-					'text'   => $this->_translate('Add Album'),
+					'text' => $this->_translate('Add Album'),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemAddAlbum',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 			}
 
 			if (isset($permissions[$itemId]['core.edit'])) {
 				$links[$itemId][] = array(
-					'text'   => isset($permissions[$itemId]['core.changePermissions']) ? $this->_translate('Edit Permissions') : $this->_translate('View Permissions'),
+					'text' => isset($permissions[$itemId]['core.changePermissions']) ? $this->_translate('Edit Permissions') : $this->_translate('View Permissions'),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemPermissions',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 			}
@@ -206,8 +206,8 @@ class CoreModule extends GalleryModule {
 				}
 				$urlParams = array(
 					'controller' => 'core.ItemDeleteSingle',
-					'itemId'     => $itemId,
-					'pageId'     => $thisItemId,
+					'itemId' => $itemId,
+					'pageId' => $thisItemId,
 				);
 
 				if (!empty($page)) {
@@ -216,15 +216,15 @@ class CoreModule extends GalleryModule {
 				$url              = $urlGenerator->generateUrl($urlParams);
 				$moreUrl          = $isAlbum ? '' : $urlGenerator->generateUrl(
 					array(
-						'view'       => 'core.ItemAdmin',
-						'subView'    => 'core.ItemDelete',
-						'itemId'     => $item->getParentId(),
+						'view' => 'core.ItemAdmin',
+						'subView' => 'core.ItemDelete',
+						'itemId' => $item->getParentId(),
 						'selectedId' => $itemId,
-						'return'     => 1,
+						'return' => 1,
 					)
 				);
 				$links[$itemId][] = array(
-					'text'   => $this->_translate(
+					'text' => $this->_translate(
 						array(
 							'text' => 'Delete %s',
 							'arg1' => $itemTypeNames[0],
@@ -233,9 +233,9 @@ class CoreModule extends GalleryModule {
 					),
 					// Params are for g->linkId used by icons, or themes ignoring 'script'
 					'params' => array(
-						'view'       => 'core.ItemAdmin',
-						'subView'    => 'core.ItemDelete',
-						'itemId'     => $item->getParentId(),
+						'view' => 'core.ItemAdmin',
+						'subView' => 'core.ItemDelete',
+						'itemId' => $item->getParentId(),
 						'selectedId' => $itemId,
 					),
 					'script' => "core_confirmDelete('$url', '$moreUrl', '$title')",
@@ -258,11 +258,11 @@ class CoreModule extends GalleryModule {
 						$itemTypeNames[2]
 					),
 					'params' => array(
-						'view'       => 'core.ItemAdmin',
-						'subView'    => 'core.ItemMove',
-						'itemId'     => $item->getParentId(),
+						'view' => 'core.ItemAdmin',
+						'subView' => 'core.ItemMove',
+						'itemId' => $item->getParentId(),
 						'selectedId' => $itemId,
-						'return'     => 1,
+						'return' => 1,
 					),
 				);
 			}
@@ -274,12 +274,12 @@ class CoreModule extends GalleryModule {
 				&& $childCounts[$itemId] > 0
 			) {
 				$link                        = array(
-					'text'   => $this->_translate('Edit Captions'),
+					'text' => $this->_translate('Edit Captions'),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemEditCaptions',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 				list($thisItemId, $thisPage) = GalleryUtilities::getRequestVariables('itemId', 'page');
@@ -292,12 +292,12 @@ class CoreModule extends GalleryModule {
 
 			if (!$isRoot && isset($thumbTable[$itemId]) && isset($parentPermissions['core.edit'])) {
 				$links[$itemId][] = array(
-					'text'   => $this->_translate('Make Highlight'),
+					'text' => $this->_translate('Make Highlight'),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemMakeHighlight',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 			}
@@ -306,12 +306,12 @@ class CoreModule extends GalleryModule {
 				&& !empty($childCounts[$itemId]) && $childCounts[$itemId] > 1
 			) {
 				$links[$itemId][] = array(
-					'text'   => $this->_translate('Reorder Items'),
+					'text' => $this->_translate('Reorder Items'),
 					'params' => array(
-						'view'    => 'core.ItemAdmin',
+						'view' => 'core.ItemAdmin',
 						'subView' => 'core.ItemReorder',
-						'itemId'  => $itemId,
-						'return'  => 1,
+						'itemId' => $itemId,
+						'return' => 1,
 					),
 				);
 			}
@@ -324,10 +324,10 @@ class CoreModule extends GalleryModule {
 			) {
 				$next   = next($items);
 				$params = array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemDelete',
-					'itemId'  => $itemId,
-					'return'  => 1,
+					'itemId' => $itemId,
+					'return' => 1,
 				);
 				// First item on the page will be in the list for deletion
 				if ($next) {
@@ -335,13 +335,13 @@ class CoreModule extends GalleryModule {
 				}
 
 				$links[$itemId][] = array(
-					'text'   => $this->_translate('Delete Items'),
+					'text' => $this->_translate('Delete Items'),
 					'params' => $params,
 				);
 			}
 		}
 
-		return array(null, $links);
+		return array( null, $links );
 	}
 
 	/**
@@ -353,21 +353,21 @@ class CoreModule extends GalleryModule {
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$links               = array();
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($isAdmin) {
 			$links['SiteAdmin'] = array(
 				'text' => $this->translate('Site Admin'),
 				'params' => array(
-					'view'   => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'return' => 1,
 				),
 			);
@@ -377,39 +377,39 @@ class CoreModule extends GalleryModule {
 			list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if ($isAnonymous) {
 				$links['Login'] = array(
-					'text'   => $this->translate('Login'),
+					'text' => $this->translate('Login'),
 					'params' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserLogin',
-						'return'  => 1,
+						'return' => 1,
 					),
 				);
 			} else {
 				$user                 = $gallery->getActiveUser();
 				$links['YourAccount'] = array(
-					'text'   => $this->translate('Your Account'),
+					'text' => $this->translate('Your Account'),
 					'params' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return'  => 1,
+						'return' => 1,
 					),
 				);
 				$links['Logout']      = array(
-					'text'   => $this->translate('Logout'),
+					'text' => $this->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return'     => 1,
+						'return' => 1,
 					),
 				);
 			}
 		}
 
-		return array(null, $links);
+		return array( null, $links );
 	}
 
 	/**
@@ -458,7 +458,7 @@ class CoreModule extends GalleryModule {
 		list($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($list)) {
@@ -470,7 +470,7 @@ class CoreModule extends GalleryModule {
 			);
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 
 	/**
@@ -484,7 +484,7 @@ class CoreModule extends GalleryModule {
 			list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser($user->getId());
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (!$isAnonymous) {
@@ -506,7 +506,7 @@ class CoreModule extends GalleryModule {
 			}
 		}
 
-		return array(null, $views);
+		return array( null, $views );
 	}
 
 	/**
@@ -519,26 +519,26 @@ class CoreModule extends GalleryModule {
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$childCount = 0;
 		$isAlbum    = $item->getCanContainChildren();
 
 		if ($isAlbum) {
-			list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
+			list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array( $item->getId() ));
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
 		}
 
 		// Fetch thumbnail ids
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $item->getId() ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$hasThumb = !empty($thumbTable[$item->getId()]);
 
@@ -546,13 +546,13 @@ class CoreModule extends GalleryModule {
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
@@ -617,27 +617,27 @@ class CoreModule extends GalleryModule {
 				$url          = $urlGenerator->generateUrl(
 					array(
 						'controller' => 'core.ItemDeleteSingle',
-						'itemId'     => $itemId,
-						'pageId'     => $thisItemId,
+						'itemId' => $itemId,
+						'pageId' => $thisItemId,
 					)
 				);
 				$moreUrl      = $isAlbum ? '' : $urlGenerator->generateUrl(
 					array(
-						'view'       => 'core.ItemAdmin',
-						'subView'    => 'core.ItemDelete',
-						'itemId'     => $item->getParentId(),
+						'view' => 'core.ItemAdmin',
+						'subView' => 'core.ItemDelete',
+						'itemId' => $item->getParentId(),
 						'selectedId' => $itemId,
 					)
 				);
 				$views[]      = array(
-					'name'   => $this->_translate(
+					'name' => $this->_translate(
 						array(
 							'text' => 'Delete %s',
 							'arg1' => $itemTypeNames[0],
 						),
 						$itemTypeNames[2]
 					),
-					'view'   => 'core.ItemDeleteSingle', // just for g->linkId used by icons
+					'view' => 'core.ItemDeleteSingle', // just for g->linkId used by icons
 					'script' => "core_confirmDelete('$url', '$moreUrl', '$title');return false",
 				);
 
@@ -675,7 +675,7 @@ class CoreModule extends GalleryModule {
 			);
 		}
 
-		return array(null, $views);
+		return array( null, $views );
 	}
 
 	/**
@@ -750,7 +750,7 @@ class CoreModule extends GalleryModule {
 				 * the rest of the install should work properly.
 				 */
 				$versions = array(
-					'core'    => 0,
+					'core' => 0,
 					'gallery' => 0,
 				);
 			}

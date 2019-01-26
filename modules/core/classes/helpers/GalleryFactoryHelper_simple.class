@@ -95,7 +95,7 @@ class GalleryFactoryHelper_simple {
 				);
 
 				if ($ret) {
-					$ret = array($ret, null);
+					$ret = array( $ret, null );
 
 					return $ret;
 				}
@@ -117,7 +117,7 @@ class GalleryFactoryHelper_simple {
 			}
 		}
 
-		$ret = array(null, &$registry);
+		$ret = array( null, &$registry );
 
 		return $ret;
 	}
@@ -129,11 +129,11 @@ class GalleryFactoryHelper_simple {
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!is_array($hints)) {
-			$hints = array($hints);
+			$hints = array( $hints );
 		}
 		$hints[] = '*';
 
@@ -148,7 +148,7 @@ class GalleryFactoryHelper_simple {
 		}
 
 		if (!isset($classNames)) {
-			return array(null, null);
+			return array( null, null );
 		}
 
 		// Right now we just use the first available hint
@@ -156,10 +156,10 @@ class GalleryFactoryHelper_simple {
 		list($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $instance);
+		return array( null, $instance );
 	}
 
 	/**
@@ -171,7 +171,7 @@ class GalleryFactoryHelper_simple {
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!isset($className)) {
@@ -180,7 +180,7 @@ class GalleryFactoryHelper_simple {
 					$gallery->debug("Unimplemented: $classType");
 				}
 
-				return array(null, null);
+				return array( null, null );
 			}
 			$classNames = array_keys($registry['implementations'][$classType]);
 			$className  = $classNames[0];
@@ -191,7 +191,7 @@ class GalleryFactoryHelper_simple {
 				$gallery->debug("Unimplemented: $classType, $className");
 			}
 
-			return array(null, null);
+			return array( null, null );
 		}
 
 		if (!class_exists($className)) {
@@ -229,7 +229,7 @@ class GalleryFactoryHelper_simple {
 			}
 		}
 
-		return array(null, new $className());
+		return array( null, new $className() );
 	}
 
 	/**
@@ -239,21 +239,21 @@ class GalleryFactoryHelper_simple {
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($registry['ids'][$classType][$id])) {
-			return array(null, null);
+			return array( null, null );
 		}
 
 		$className            = $registry['ids'][$classType][$id];
 		list($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $instance);
+		return array( null, $instance );
 	}
 
 	/**
@@ -263,7 +263,7 @@ class GalleryFactoryHelper_simple {
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($registry['ids'][$classType])) {
@@ -272,6 +272,6 @@ class GalleryFactoryHelper_simple {
 			$result = array();
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 }

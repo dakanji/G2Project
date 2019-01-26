@@ -100,7 +100,7 @@ class PluginCallbackView extends GalleryView {
 				$result['redirect'] = $urlGenerator->generateUrl(
 					$result['redirect'],
 					array(
-						'htmlEntities'           => 0,
+						'htmlEntities' => 0,
 						'forceServerRelativeUrl' => 1,
 					)
 				);
@@ -141,7 +141,7 @@ class PluginCallbackView extends GalleryView {
 		$states  = array();
 		$deleted = array();
 
-		foreach (array('module', 'theme') as $type) {
+		foreach (array( 'module', 'theme' ) as $type) {
 			foreach ($beforeStates[$type] as $moduleId => $state) {
 				if (!isset($afterStates[$type][$moduleId])) {
 					$deleted[$type][$moduleId] = 1;
@@ -377,7 +377,7 @@ class PluginCallbackView extends GalleryView {
 							'GalleryPluginPackageMap',
 							array(
 								'pluginType' => $pluginType,
-								'pluginId'   => $pluginId,
+								'pluginId' => $pluginId,
 							)
 						);
 
@@ -394,7 +394,7 @@ class PluginCallbackView extends GalleryView {
 			case 'configure':
 				$result['status']   = 'redirect';
 				$result['redirect'] = array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => $plugin->getConfigurationView(),
 				);
 
@@ -414,18 +414,18 @@ class PluginCallbackView extends GalleryView {
 	public function getPluginStates() {
 		$states = array();
 
-		foreach (array('module', 'theme') as $type) {
+		foreach (array( 'module', 'theme' ) as $type) {
 			list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($type, true);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach ($pluginStatus as $pluginId => $status) {
 				list($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				list($ret, $states[$type][$pluginId]) = $this->getPluginState(
@@ -435,12 +435,12 @@ class PluginCallbackView extends GalleryView {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 		}
 
-		return array(null, $states);
+		return array( null, $states );
 	}
 
 	/**
@@ -455,7 +455,7 @@ class PluginCallbackView extends GalleryView {
 	 */
 	public function getPluginState($type, $plugin, $status) {
 		if ($type == 'module' && $plugin->getId() == 'core') {
-			return array(null, 'active');
+			return array( null, 'active' );
 		}
 
 		$coreApiCompatible = GalleryUtilities::isCompatibleWithApi(
@@ -506,7 +506,7 @@ class PluginCallbackView extends GalleryView {
 						list($ret, $needsConfig) = $plugin->needsConfiguration();
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 					} else {
 						$needsConfig = false;
@@ -525,6 +525,6 @@ class PluginCallbackView extends GalleryView {
 			$state = 'incompatible';
 		}
 
-		return array(null, $state);
+		return array( null, $state );
 	}
 }

@@ -75,10 +75,10 @@ class GalleryCommentHelper {
 				break;
 
 			default:
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
-		$data  = array((int)$itemId);
+		$data  = array( (int)$itemId );
 		$query = '
 		SELECT
 		[GalleryComment::id]
@@ -112,7 +112,7 @@ class GalleryCommentHelper {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Get all of our ids
@@ -129,11 +129,11 @@ class GalleryCommentHelper {
 			list($ret, $comments) = GalleryCoreApi::loadEntitiesById($allIds, 'GalleryComment');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
-		return array(null, $comments);
+		return array( null, $comments );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class GalleryCommentHelper {
 		list($ret, $sequence) = GalleryCoreApi::fetchParentSequence($itemId);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$sequence = implode('/', $sequence);
 
@@ -191,17 +191,17 @@ class GalleryCommentHelper {
 		$sequence .= $itemId . '/%';
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
-			array('comment.view', 'core.view'),
+			array( 'comment.view', 'core.view' ),
 			$gallery->getActiveUserId()
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		if (empty($aclIds)) {
-			return array(null, array(), 0);
+			return array( null, array(), 0 );
 		}
 
 		$queryBase = '
@@ -248,7 +248,7 @@ class GalleryCommentHelper {
 		[GalleryComment::date] ' . $direction . '
 		';
 
-		$data = array((int)$itemId, $sequence);
+		$data = array( (int)$itemId, $sequence );
 
 		if ($publishStatusCount) {
 			if (!is_array($publishStatus)) {
@@ -265,14 +265,14 @@ class GalleryCommentHelper {
 			$data,
 			array(
 				'limit' => array(
-					'count'  => (int)$count,
+					'count' => (int)$count,
 					'offset' => (int)$offset,
 				),
 			)
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		// Get all of our ids
@@ -289,7 +289,7 @@ class GalleryCommentHelper {
 			list($ret, $comments) = GalleryCoreApi::loadEntitiesById($allIds, 'GalleryComment');
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 		}
 
@@ -303,7 +303,7 @@ class GalleryCommentHelper {
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 
 			if ($result = $searchResults->nextResult()) {
@@ -313,7 +313,7 @@ class GalleryCommentHelper {
 			}
 		}
 
-		return array(null, $comments, $totalCount);
+		return array( null, $comments, $totalCount );
 	}
 
 	/**
@@ -350,7 +350,7 @@ class GalleryCommentHelper {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$data = array();
@@ -359,7 +359,7 @@ class GalleryCommentHelper {
 			$data[$result[0]] = (int)$result[1];
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 
 	/**
@@ -372,7 +372,7 @@ class GalleryCommentHelper {
 	public function getLatestCommentTime($hostAddress) {
 		global $gallery;
 
-		$data  = array($hostAddress);
+		$data  = array( $hostAddress );
 		$query = '
 		SELECT
 			[GalleryComment::date]
@@ -395,7 +395,7 @@ class GalleryCommentHelper {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$result = $searchResults->nextResult();
@@ -406,7 +406,7 @@ class GalleryCommentHelper {
 			$result = 0;
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 
 	/**
@@ -422,16 +422,16 @@ class GalleryCommentHelper {
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($permissions['core.view'])) {
 			// Avoid information disclosure, act as if the item didn't exist.
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
 		}
 
 		if (empty($permissions['comment.add'])) {
-			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+			return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 		}
 
 		if ($form['formName'] != 'AddComment') {
@@ -440,7 +440,7 @@ class GalleryCommentHelper {
 			$form['comment']  = '';
 			$form['author']   = '';
 		} else {
-			foreach (array('subject', 'comment', 'author') as $key) {
+			foreach (array( 'subject', 'comment', 'author' ) as $key) {
 				if (empty($form[$key])) {
 					$form[$key] = '';
 				}
@@ -453,7 +453,7 @@ class GalleryCommentHelper {
 		list($ret, $useValidationPlugins) = $this->useValidationPlugins();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($useValidationPlugins) {
@@ -462,7 +462,7 @@ class GalleryCommentHelper {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Let each plugin load its template data
@@ -473,12 +473,12 @@ class GalleryCommentHelper {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				list($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if (isset($data['file'])) {
@@ -493,7 +493,7 @@ class GalleryCommentHelper {
 			'plugins' => $plugins,
 		);
 
-		return array(null, $AddComment);
+		return array( null, $AddComment );
 	}
 
 	/**
@@ -506,20 +506,20 @@ class GalleryCommentHelper {
 		list($ret, $level) = GalleryCoreApi::getPluginParameter('module', 'comment', 'validation.level');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($level == 'OFF') {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $isAnonymous);
+		return array( null, $isAnonymous );
 	}
 
 	/**
@@ -541,7 +541,7 @@ class GalleryCommentHelper {
 				$entity = $event->getEntity();
 
 				if (!GalleryUtilities::isA($entity, 'GalleryUser')) {
-					return array(null, null);
+					return array( null, null );
 				}
 
 				// Delete all comments owned by this user
@@ -554,17 +554,17 @@ class GalleryCommentHelper {
 				[GalleryComment::commenterId] = ?
 			';
 
-				list($ret, $searchResults) = $gallery->search($query, array((int)$entity->getId()));
+				list($ret, $searchResults) = $gallery->search($query, array( (int)$entity->getId() ));
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				while ($result = $searchResults->nextResult()) {
 					$ret = GalleryCoreApi::deleteEntityById((int)$result[0], 'GalleryComment');
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
@@ -584,7 +584,7 @@ class GalleryCommentHelper {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					if ($akismetActive) {
@@ -593,7 +593,7 @@ class GalleryCommentHelper {
 						$ret     = $this->checkWithAkismet($comment, $akismet);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 					}
 				}
@@ -601,7 +601,7 @@ class GalleryCommentHelper {
 				break;
 		}
 
-		return array(null, null);
+		return array( null, null );
 	}
 
 	/**

@@ -43,7 +43,7 @@ class GalleryValidationPlugin {
 	 *               boolean true/false should we continue processing this request?
 	 */
 	public function performValidation(&$form, $options = array()) {
-		return array(null, array(), true);
+		return array( null, array(), true );
 	}
 
 	/**
@@ -58,6 +58,6 @@ class GalleryValidationPlugin {
 	 *               string localization domain for the template file or null
 	 */
 	public function loadTemplate(&$form, $options = array()) {
-		return array(null, null, null);
+		return array( null, null, null );
 	}
 }

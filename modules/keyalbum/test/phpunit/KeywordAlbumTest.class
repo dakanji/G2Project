@@ -131,7 +131,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$this->assertTrue(isset($item->parent), 'item parent');
 		$this->assertTrue(GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'), 'parent type');
 		$this->assertEquals(
-			array('KeywordAlbumView', 'getChildIds'),
+			array( 'KeywordAlbumView', 'getChildIds' ),
 			$item->parent->getChildrenFunction,
 			'get children function'
 		);
@@ -257,8 +257,8 @@ class KeywordAlbumTest extends GalleryTestCase {
 	}
 
 	public function testItemSummaries() {
-		$itemList    = array($this->_album, $this->_item);
-		$idList      = array($this->_album->getId(), $this->_item->getId());
+		$itemList    = array( $this->_album, $this->_item );
+		$idList      = array( $this->_album->getId(), $this->_item->getId() );
 		$permissions = array();
 		$ret         = $this->_module->setParameter('summaryLinks', 'all');
 

@@ -109,7 +109,7 @@ return PhpCsFixer\Config::create()
 		'single_line_comment_style' => true,
 		'standardize_not_equals' => true,
 		'trailing_comma_in_multiline_array' => true,
-		'trim_array_spaces' => true,
+		'trim_array_spaces' => false,
 		'whitespace_after_comma_in_array' => true,
 	))
 	->setCacheFile(__DIR__.'/.php_cs.cache')

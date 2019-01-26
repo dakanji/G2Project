@@ -47,7 +47,7 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($this->getItemId(), 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$title = GalleryUtilities::markup($item->getTitle(), 'strip');
@@ -128,9 +128,9 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 				'itemId' => $this->getItemId(),
 			),
 			array(
-				'forceFullUrl'   => true,
+				'forceFullUrl' => true,
 				'forceSessionId' => false,
-				'htmlEntities'   => false,
+				'htmlEntities' => false,
 			)
 		);
 	}

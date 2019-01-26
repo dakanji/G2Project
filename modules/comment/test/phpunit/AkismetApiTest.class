@@ -62,12 +62,12 @@ class AkismetApiTest extends GalleryTestCase {
 	public function testCheckComment_NotSpam() {
 		$this->_akismet->setReply(
 			'_request',
-			array('comment-check', $this->_comment, true),
-			array(null, 'false', 'HTTP/1.0 200 OK', 'headers')
+			array( 'comment-check', $this->_comment, true ),
+			array( null, 'false', 'HTTP/1.0 200 OK', 'headers' )
 		);
 
 		$this->assertEquals(
-			array(null, false),
+			array( null, false ),
 			$this->_akismet->checkComment($this->_comment)
 		);
 	}
@@ -75,12 +75,12 @@ class AkismetApiTest extends GalleryTestCase {
 	public function testCheckComment_Spam() {
 		$this->_akismet->setReply(
 			'_request',
-			array('comment-check', $this->_comment, true),
-			array(null, 'true', 'HTTP/1.0 200 OK', 'headers')
+			array( 'comment-check', $this->_comment, true ),
+			array( null, 'true', 'HTTP/1.0 200 OK', 'headers' )
 		);
 
 		$this->assertEquals(
-			array(null, true),
+			array( null, true ),
 			$this->_akismet->checkComment($this->_comment)
 		);
 	}
@@ -88,12 +88,12 @@ class AkismetApiTest extends GalleryTestCase {
 	public function testCheckComment_BadStatus() {
 		$this->_akismet->setReply(
 			'_request',
-			array('comment-check', $this->_comment, true),
-			array(null, 'false', 'HTTP/1.0 404 Not Found', 'headers')
+			array( 'comment-check', $this->_comment, true ),
+			array( null, 'false', 'HTTP/1.0 404 Not Found', 'headers' )
 		);
 
 		$this->assertEquals(
-			array(null, false),
+			array( null, false ),
 			$this->_akismet->checkComment($this->_comment)
 		);
 	}
@@ -102,12 +102,12 @@ class AkismetApiTest extends GalleryTestCase {
 		$this->_comment->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 		$this->_akismet->setReply(
 			'_request',
-			array('comment-check', $this->_comment, false),
-			array(null, 'false', 'HTTP/1.0 200 OK', 'headers')
+			array( 'comment-check', $this->_comment, false ),
+			array( null, 'false', 'HTTP/1.0 200 OK', 'headers' )
 		);
 
 		$this->assertEquals(
-			array(null, false),
+			array( null, false ),
 			$this->_akismet->checkComment($this->_comment)
 		);
 	}
@@ -115,8 +115,8 @@ class AkismetApiTest extends GalleryTestCase {
 	public function testSubmitSpam() {
 		$this->_akismet->setReply(
 			'_request',
-			array('submit-spam', $this->_comment, false),
-			array(null, 'body', 'HTTP/1.0 200 OK', 'headers')
+			array( 'submit-spam', $this->_comment, false ),
+			array( null, 'body', 'HTTP/1.0 200 OK', 'headers' )
 		);
 
 		$this->assertEquals(null, $this->_akismet->submitSpam($this->_comment));
@@ -125,8 +125,8 @@ class AkismetApiTest extends GalleryTestCase {
 	public function testSubmitHam() {
 		$this->_akismet->setReply(
 			'_request',
-			array('submit-ham', $this->_comment, false),
-			array(null, 'body', 'HTTP/1.0 200 OK', 'headers')
+			array( 'submit-ham', $this->_comment, false ),
+			array( null, 'body', 'HTTP/1.0 200 OK', 'headers' )
 		);
 
 		$this->assertEquals(null, $this->_akismet->submitHam($this->_comment));
@@ -148,22 +148,22 @@ class AkismetApiTest extends GalleryTestCase {
 		}
 		$request .= join('&', $tmp);
 
-		$platform->setReply('fsockopen', array($host, $port, null, null, 5), 'HANDLE');
-		$platform->setReply('fwrite', array('HANDLE', $request, null), true);
-		$platform->setReply('fflush', array('HANDLE'), true);
-		$platform->setReply('fgets', array('HANDLE', 4096), $response[0]);
-		$platform->setReply('feof', array('HANDLE'), false);
-		$platform->setReply('fgets', array('HANDLE', 4096), $response[1]);
-		$platform->setReply('feof', array('HANDLE'), false);
-		$platform->setReply('fgets', array('HANDLE', 4096), "\r\n");
-		$platform->setReply('feof', array('HANDLE'), false);
-		$platform->setReply('fread', array('HANDLE', 4096), $response[2]);
-		$platform->setReply('feof', array('HANDLE'), true);
-		$platform->setReply('fclose', array('HANDLE'), true);
+		$platform->setReply('fsockopen', array( $host, $port, null, null, 5 ), 'HANDLE');
+		$platform->setReply('fwrite', array( 'HANDLE', $request, null ), true);
+		$platform->setReply('fflush', array( 'HANDLE' ), true);
+		$platform->setReply('fgets', array( 'HANDLE', 4096 ), $response[0]);
+		$platform->setReply('feof', array( 'HANDLE' ), false);
+		$platform->setReply('fgets', array( 'HANDLE', 4096 ), $response[1]);
+		$platform->setReply('feof', array( 'HANDLE' ), false);
+		$platform->setReply('fgets', array( 'HANDLE', 4096 ), "\r\n");
+		$platform->setReply('feof', array( 'HANDLE' ), false);
+		$platform->setReply('fread', array( 'HANDLE', 4096 ), $response[2]);
+		$platform->setReply('feof', array( 'HANDLE' ), true);
+		$platform->setReply('fclose', array( 'HANDLE' ), true);
 	}
 
 	public function testVerifyApiKey_Valid() {
-		$this->_akismet->setReply('_getUserAgent', array(), array(null, 'USER_AGENT'));
+		$this->_akismet->setReply('_getUserAgent', array(), array( null, 'USER_AGENT' ));
 		$this->_setHttpRequestResponse(
 			$this->_platform,
 			'rest.akismet.com',
@@ -175,7 +175,7 @@ class AkismetApiTest extends GalleryTestCase {
 					"Content-Type: application/x-www-form-urlencoded\r\n" .
 					"Content-Length: 58\r\n",
 				array(
-					'key'  => 'GOOD_key',
+					'key' => 'GOOD_key',
 					'blog' => 'http://gallery2|forceFullUrl:1',
 				),
 			),
@@ -187,13 +187,13 @@ class AkismetApiTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(
-			array(null, true),
+			array( null, true ),
 			$this->_akismet->verifyApiKey('GOOD_key')
 		);
 	}
 
 	public function testVerifyApiKey_Invalid() {
-		$this->_akismet->setReply('_getUserAgent', array(), array(null, 'USER_AGENT'));
+		$this->_akismet->setReply('_getUserAgent', array(), array( null, 'USER_AGENT' ));
 		$this->_setHttpRequestResponse(
 			$this->_platform,
 			'rest.akismet.com',
@@ -205,7 +205,7 @@ class AkismetApiTest extends GalleryTestCase {
 							"Content-Type: application/x-www-form-urlencoded\r\n" .
 							"Content-Length: 57\r\n",
 				array(
-					'key'  => 'BAD_key',
+					'key' => 'BAD_key',
 					'blog' => 'http://gallery2|forceFullUrl:1',
 				),
 			),
@@ -217,7 +217,7 @@ class AkismetApiTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(
-			array(null, false),
+			array( null, false ),
 			$this->_akismet->verifyApiKey('BAD_key')
 		);
 	}
@@ -266,28 +266,28 @@ class AkismetApiTest extends GalleryTestCase {
 							"Content-Type: application/x-www-form-urlencoded\r\n" .
 							"Content-Length: 711\r\n",
 				array(
-					'blog'                 => 'http://gallery2|forceFullUrl:1',
-					'user_ip'              => 'USER_IP',
-					'user_agent'           => 'HTTP_USER_AGENT',
-					'comment_type'         => 'COMMENT_TYPE',
-					'comment_author'       => 'COMMENT_AUTHOR',
+					'blog' => 'http://gallery2|forceFullUrl:1',
+					'user_ip' => 'USER_IP',
+					'user_agent' => 'HTTP_USER_AGENT',
+					'comment_type' => 'COMMENT_TYPE',
+					'comment_author' => 'COMMENT_AUTHOR',
 					'comment_author_email' => '',
-					'comment_author_url'   => '',
-					'comment_content'      => 'SUBJECT+COMMENT',
-					'HTTP_ACCEPT'          => 'HTTP_ACCEPT',
-					'HTTP_ACCEPT_CHARSET'  => 'HTTP_ACCEPT_CHARSET',
+					'comment_author_url' => '',
+					'comment_content' => 'SUBJECT+COMMENT',
+					'HTTP_ACCEPT' => 'HTTP_ACCEPT',
+					'HTTP_ACCEPT_CHARSET' => 'HTTP_ACCEPT_CHARSET',
 					'HTTP_ACCEPT_ENCODING' => 'HTTP_ACCEPT_ENCODING',
 					'HTTP_ACCEPT_LANGUAGE' => 'HTTP_ACCEPT_LANGUAGE',
-					'HTTP_CONNECTION'      => 'HTTP_CONNECTION',
-					'HTTP_HOST'            => 'HTTP_HOST',
-					'HTTP_KEEP_ALIVE'      => 'HTTP_KEEP_ALIVE',
-					'HTTP_REFERER'         => 'HTTP_REFERER',
-					'HTTP_USER_AGENT'      => 'HTTP_USER_AGENT',
-					'QUERY_STRING'         => 'QUERY_STRING',
-					'REMOTE_ADDR'          => 'REMOTE_ADDR',
-					'REMOTE_HOST'          => 'REMOTE_HOST',
-					'REMOTE_PORT'          => 'REMOTE_PORT',
-					'permalink'            => ('http://gallery2|view=core.ShowItem|' .
+					'HTTP_CONNECTION' => 'HTTP_CONNECTION',
+					'HTTP_HOST' => 'HTTP_HOST',
+					'HTTP_KEEP_ALIVE' => 'HTTP_KEEP_ALIVE',
+					'HTTP_REFERER' => 'HTTP_REFERER',
+					'HTTP_USER_AGENT' => 'HTTP_USER_AGENT',
+					'QUERY_STRING' => 'QUERY_STRING',
+					'REMOTE_ADDR' => 'REMOTE_ADDR',
+					'REMOTE_HOST' => 'REMOTE_HOST',
+					'REMOTE_PORT' => 'REMOTE_PORT',
+					'permalink' => ('http://gallery2|view=core.ShowItem|' .
 							'itemId=0|htmlEntities:|forceFullUrl:1'),
 				),
 			),
@@ -356,14 +356,14 @@ class AkismetApiTest extends GalleryTestCase {
 							"Content-Type: application/x-www-form-urlencoded\r\n" .
 							"Content-Length: 296\r\n",
 				array(
-					'blog'                 => 'http://gallery2|forceFullUrl:1',
-					'user_ip'              => 'USER_IP',
-					'comment_type'         => 'COMMENT_TYPE',
-					'comment_author'       => 'COMMENT_AUTHOR',
+					'blog' => 'http://gallery2|forceFullUrl:1',
+					'user_ip' => 'USER_IP',
+					'comment_type' => 'COMMENT_TYPE',
+					'comment_author' => 'COMMENT_AUTHOR',
 					'comment_author_email' => '',
-					'comment_author_url'   => '',
-					'comment_content'      => 'SUBJECT+COMMENT',
-					'permalink'            => ('http://gallery2|view=core.ShowItem|' .
+					'comment_author_url' => '',
+					'comment_content' => 'SUBJECT+COMMENT',
+					'permalink' => ('http://gallery2|view=core.ShowItem|' .
 							'itemId=0|htmlEntities:|forceFullUrl:1'),
 				),
 			),
@@ -391,9 +391,9 @@ class AkismetApiTest extends GalleryTestCase {
 	public function testResponseHandledIndependentOfHttpVersion() {
 		$this->_akismet->setReply(
 			'_request',
-			array('submit-ham', $this->_comment, false),
+			array( 'submit-ham', $this->_comment, false ),
 			// The HTTP status 200 message should processed independently of the HTTP version
-			array(null, 'body', 'HTTP/1.0 200 OK', 'headers')
+			array( null, 'body', 'HTTP/1.0 200 OK', 'headers' )
 		);
 
 		$this->assertEquals(null, $this->_akismet->submitHam($this->_comment));
@@ -418,7 +418,7 @@ class AkismetApiTest_MockUrlGenerator {
 
 class AkismetApiTest_AkismetApiWithMockUserAgent extends AkismetApi {
 	public function _getUserAgent() {
-		return array(null, 'USER_AGENT');
+		return array( null, 'USER_AGENT' );
 	}
 }
 
@@ -429,7 +429,7 @@ class AkismetApiTest_AkismetApiWithMockRequest extends AkismetApi {
 
 	public function _request($type, &$comment, $includeBrowserSpecificDetails) {
 		return $_REQUEST['mock']['_request']
-		[serialize(array($type, $comment, $includeBrowserSpecificDetails))];
+		[serialize(array( $type, $comment, $includeBrowserSpecificDetails ))];
 	}
 
 	public function _getUserAgent() {

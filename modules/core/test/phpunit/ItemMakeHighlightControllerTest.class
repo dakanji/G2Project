@@ -58,15 +58,15 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMakeHighlightTestToolkit',
-			array('test/file'),
+			array( 'test/file' ),
 			'thumbnail',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -139,7 +139,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Verify highlight was set
-		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_subalbum->getId()));
+		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_subalbum->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -168,7 +168,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Verify highlight was set
-		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album->getId()));
+		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_album->getId() ));
 
 		if ($ret) {
 			return $ret;

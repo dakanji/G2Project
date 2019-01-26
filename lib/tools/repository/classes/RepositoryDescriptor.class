@@ -159,7 +159,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				)
 			);
 
-			if (!in_array(substr($this->_pluginDir, -1), array('/', '\\'))) {
+			if (!in_array(substr($this->_pluginDir, -1), array( '/', '\\' ))) {
 				$this->_pluginDir .= '/';
 			}
 		}
@@ -251,7 +251,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		$data['files']['MANIFEST'] = array(
 			'bytes'    => (string)strlen($manifestContents),
 			'hash'     => sprintf('%u', crc32($manifestContents)),
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		);
 
 		foreach ($manifest as $file => $fileInfo) {

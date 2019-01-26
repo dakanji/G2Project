@@ -107,12 +107,12 @@ class ExifExtractorTest extends GalleryTestCase {
 		list($ret, $photo) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPhotoItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType($imagePath);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$ret = $photo->create(
 			$parentId,
@@ -122,7 +122,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$photo->setTitle("Item #$index");
 		$photo->setSummary("Summary $index");
@@ -130,7 +130,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		$ret = $photo->save();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		// add thumbnail
 		list($ret, $thumbId) = $this->_addDerivative(
@@ -141,10 +141,10 @@ class ExifExtractorTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $photo->getId());
+		return array( null, $photo->getId() );
 	}
 
 	public function _addDerivative(
@@ -156,22 +156,22 @@ class ExifExtractorTest extends GalleryTestCase {
 		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation($photo->getMimeType(), $toolkitType);
 
 		if ($ret || !isset($toolkit)) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $photo->getEntityType());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!isset($derivative)) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
 		}
 
 		$ret = $derivative->create($photo->getId(), $derivativeType);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$derivative->setDerivativeSourceId($photo->getId());
 		$derivative->setDerivativeOperations($derivativeOperation);
@@ -179,10 +179,10 @@ class ExifExtractorTest extends GalleryTestCase {
 		$ret = $derivative->save();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $derivative->getId());
+		return array( null, $derivative->getId() );
 	}
 
 	public function testOneItemAllDataExif() {
@@ -205,7 +205,7 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testMultiItemAllData() {
 		list($ret, $data) = $this->_exif->getMetaData(
-			array($this->_photoIds[0], $this->_photoIds[2], $this->_photoIds[3])
+			array( $this->_photoIds[0], $this->_photoIds[2], $this->_photoIds[3] )
 		);
 		$this->assertTrue(!$ret && isset($data));
 		$this->assertEquals(3, count($data), 'Data size');
@@ -244,7 +244,7 @@ class ExifExtractorTest extends GalleryTestCase {
 	public function testMultiItemSomeData() {
 		list($ret, $data) = $this->_exif->getMetaData(
 			$this->_photoIds,
-			array('DateTime', 'ShutterSpeedValue', 'IPTC/Byline')
+			array( 'DateTime', 'ShutterSpeedValue', 'IPTC/Byline' )
 		);
 		$this->assertTrue(!$ret && isset($data));
 		$this->assertEquals(4, count($data), 'Data size');

@@ -332,7 +332,7 @@ class GalleryDataCache {
 
 		if (in_array(
 			$pathInfo['type'],
-			array('entity', 'module-data', 'local-url-map')
+			array( 'entity', 'module-data', 'local-url-map' )
 		)
 			|| isset($pathInfo['id'])
 		) {
@@ -355,8 +355,8 @@ class GalleryDataCache {
 			foreach (array_keys($pluginStatus) as $pluginId) {
 				GalleryDataCache::removeFromDisk(
 					array(
-						'type'   => $pathInfo['type'],
-						'id'     => $pluginId,
+						'type' => $pathInfo['type'],
+						'id' => $pluginId,
 						'itemId' => $pathInfo['itemId'],
 					)
 				);
@@ -398,9 +398,9 @@ class GalleryDataCache {
 	 * according to the digits of the id.  The first element returned is the hundreds digit,
 	 * the second element is the tens digit.
 	 *
-	 *  0..9     =>  0, 0
-	 *  10..19   =>  0, 1
-	 *  20..29   =>  0, 2
+	 *  0..9 =>  0, 0
+	 *  10..19 =>  0, 1
+	 *  20..29 =>  0, 2
 	 *   ...
 	 *  100..109 =>  1, 0
 	 *  110..119 =>  1, 1
@@ -412,14 +412,14 @@ class GalleryDataCache {
 		$id = "$id";
 
 		if ($id > 100) {
-			return array($id[0], $id[1]);
+			return array( $id[0], $id[1] );
 		}
 
 		if ($id > 10) {
-			return array('0', $id[0]);
+			return array( '0', $id[0] );
 		}
 
-		return array('0', '0');
+		return array( '0', '0' );
 	}
 
 	/**
@@ -564,7 +564,7 @@ class GalleryDataCache {
 		}
 
 		if (!is_array($ids)) {
-			$ids = array($ids);
+			$ids = array( $ids );
 		}
 
 		$permissions = $session->get('permissionCache');
@@ -672,14 +672,14 @@ class GalleryDataCache {
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$acceleration = unserialize($acceleration);
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$expiration = $acceleration[$isAnonymous ? 'guest' : 'user']['expiration'];
@@ -689,13 +689,13 @@ class GalleryDataCache {
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $extraKey) = GalleryDataCache::_getExtraPageCacheKey();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$key    = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(',', $aclIds));
@@ -708,7 +708,7 @@ class GalleryDataCache {
 		 */
 		list($ret, $results) = GalleryCoreApi::getMapEntry(
 			'GalleryCacheMap',
-			array('value'),
+			array( 'value' ),
 			array(
 				'key'  => $key,
 				'type' => $type,
@@ -719,7 +719,7 @@ class GalleryDataCache {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($results->resultCount() > 0) {
@@ -735,7 +735,7 @@ class GalleryDataCache {
 			$value = null;
 		}
 
-		return array(null, $value);
+		return array( null, $value );
 	}
 
 	/**
@@ -778,15 +778,15 @@ class GalleryDataCache {
 			$ret = GalleryCoreApi::updateMapEntry(
 				'GalleryCacheMap',
 				array(
-					'key'    => $key,
+					'key' => $key,
 					'userId' => $userId,
 					'itemId' => $itemId,
-					'type'   => $type,
+					'type' => $type,
 				),
 				array(
-					'value'     => $value,
+					'value' => $value,
 					'timestamp' => $now,
-					'isEmpty'   => 0,
+					'isEmpty' => 0,
 				)
 			);
 
@@ -801,13 +801,13 @@ class GalleryDataCache {
 				$ret = GalleryCoreApi::addMapEntry(
 					'GalleryCacheMap',
 					array(
-						'key'       => $key,
-						'value'     => $value,
-						'userId'    => $userId,
-						'type'      => $type,
-						'itemId'    => $itemId,
+						'key' => $key,
+						'value' => $value,
+						'userId' => $userId,
+						'type' => $type,
+						'itemId' => $itemId,
 						'timestamp' => $now,
-						'isEmpty'   => 0,
+						'isEmpty' => 0,
 					)
 				);
 
@@ -877,7 +877,7 @@ class GalleryDataCache {
 		global $gallery;
 
 		if (GalleryUtilities::getServerVar('REQUEST_METHOD') != 'GET') {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		$phpVm = $gallery->getPhpVm();
@@ -887,7 +887,7 @@ class GalleryDataCache {
 			GalleryUtilities::getServerVar('HTTP_CACHE_CONTROL') == 'no-cache');
 
 			if ($noCache) {
-				return array(null, false);
+				return array( null, false );
 			}
 		}
 
@@ -898,22 +898,22 @@ class GalleryDataCache {
 		$session =& $gallery->getSession();
 
 		if ($session->get('theme.guestPreviewMode')) {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$acceleration            = unserialize($acceleration);
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $acceleration[$isAnonymous ? 'guest' : 'user']['type'] == $type);
+		return array( null, $acceleration[$isAnonymous ? 'guest' : 'user']['type'] == $type );
 	}
 
 	/**
@@ -932,7 +932,7 @@ class GalleryDataCache {
 		list($ret, $languageCode) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$isEmbedded = (int)$gallery->isEmbedded();
 		$extraKey   = (int)($session->isUsingCookies()) . '-' . $languageCode . '-' . $isEmbedded;
@@ -943,7 +943,7 @@ class GalleryDataCache {
 			$extraKey .= '-exif' . $mode;
 		}
 
-		return array(null, $extraKey);
+		return array( null, $extraKey );
 	}
 
 	/**
@@ -989,9 +989,9 @@ class GalleryDataCache {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryCacheMap',
 			array(
-				'userId'    => $userIdForSql,
+				'userId' => $userIdForSql,
 				'timestamp' => new GallerySqlFragment('< ?', (int)$cutoff),
-				'isEmpty'   => 0,
+				'isEmpty' => 0,
 			),
 			array(
 				'value' => null,

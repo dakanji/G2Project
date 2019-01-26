@@ -33,7 +33,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null, null, null);
+			return array( $ret, null, null, null );
 		}
 
 		$status = null;
@@ -52,17 +52,17 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 				$error[] = 'form[error][resize][size][invalid]';
 			} else {
 				$operation = 'scale';
-				$args      = array($form['resize']['width'], $form['resize']['height']);
+				$args      = array( $form['resize']['width'], $form['resize']['height'] );
 			}
 		} elseif (isset($form['action']['rotate']['clockwise'])) {
 			$operation = 'rotate';
-			$args      = array(90);
+			$args      = array( 90 );
 		} elseif (isset($form['action']['rotate']['counterClockwise'])) {
 			$operation = 'rotate';
-			$args      = array(-90);
+			$args      = array( -90 );
 		} elseif (isset($form['action']['rotate']['flip'])) {
 			$operation = 'rotate';
-			$args      = array(180);
+			$args      = array( 180 );
 		} elseif (isset($form['action']['revertToOriginal'])) {
 			if (!empty($preferred)) {
 				/*
@@ -80,7 +80,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 						);
 
 						if ($ret) {
-							return array($ret, null, null, null);
+							return array( $ret, null, null, null );
 						}
 					} else {
 						$remainingOperations[] = $tmpOperation;
@@ -90,12 +90,12 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($preferred->getId());
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 				list($ret, $preferred) = $preferred->refresh();
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				if ($remainingOperations) {
@@ -107,13 +107,13 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 				$ret = $preferred->save();
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				if ($preferred->hasNoOperations()) {
@@ -123,13 +123,13 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 					);
 
 					if ($ret) {
-						return array($ret, null, null, null);
+						return array( $ret, null, null, null );
 					}
 
 					$ret = GalleryCoreApi::deleteEntityById($preferred->getId(), 'GalleryDerivative');
 
 					if ($ret) {
-						return array($ret, null, null, null);
+						return array( $ret, null, null, null );
 					}
 				}
 
@@ -141,7 +141,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		$preserveOriginal = isset($form['preserveOriginal']);
 
 		if ($form['serialNumber'] != $item->getSerialNumber()) {
-			return array(GalleryCoreApi::error(ERROR_OBSOLETE_DATA), null, null, null);
+			return array( GalleryCoreApi::error(ERROR_OBSOLETE_DATA), null, null, null );
 		}
 
 		// If we have a command, then apply it to the correct object.
@@ -155,7 +155,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return array($ret, null, null, null);
+				return array( $ret, null, null, null );
 			}
 
 			// Set our status message
@@ -172,7 +172,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			}
 		}
 
-		return array(null, $error, $status, false);
+		return array( null, $error, $status, false );
 	}
 
 	/**
@@ -184,7 +184,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		list($ret, $ItemEditRotateAndScalePhoto['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		if ($form['formName'] != 'ItemEditRotateAndScalePhoto') {
@@ -201,7 +201,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			list($ret, $linkedIds) = GalleryCoreApi::fetchEntitiesLinkedTo($item->getId());
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 
 			$ItemEditRotateAndScalePhoto['editPhoto']['isLinkedTo'] = !empty($linkedIds);
@@ -209,10 +209,10 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		// Check to see if we have a preferred source
-		list($ret, $results) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+		list($ret, $results) = GalleryCoreApi::fetchPreferredsByItemIds(array( $item->getId() ));
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		// Can we allow to delete the original?
@@ -220,7 +220,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'rotate');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$ItemEditRotateAndScalePhoto['editPhoto']['noToolkitSupport'] = !isset($toolkit);
 		// Get worst of rotate and resize
@@ -228,12 +228,12 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'resize');
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 			$ItemEditRotateAndScalePhoto['editPhoto']['noToolkitSupport'] = !isset($toolkit);
 		}
 
-		$sourceMimeTypes = array($mimeType);
+		$sourceMimeTypes = array( $mimeType );
 
 		if (empty($results)) {
 			$ItemEditRotateAndScalePhoto['editPhoto']['hasPreferredSource'] = false;
@@ -252,13 +252,13 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		list($ret, $ItemEditRotateAndScalePhoto['editPhoto']['can']['rotate']) = $this->_checkForOperation('rotate', $sourceMimeTypes);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $ItemEditRotateAndScalePhoto['editPhoto']['can']['resize']) = $this->_checkForOperation('scale', $sourceMimeTypes);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$template->setVariable('ItemEditRotateAndScalePhoto', $ItemEditRotateAndScalePhoto);
@@ -285,9 +285,9 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $module->translate('Modify Photo'));
+		return array( null, $module->translate('Modify Photo') );
 	}
 }

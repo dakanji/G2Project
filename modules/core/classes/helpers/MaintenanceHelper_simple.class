@@ -37,7 +37,7 @@ class MaintenanceHelper_simple {
 		list($ret, $allTaskIds) = GalleryCoreApi::getAllFactoryImplementationIds('MaintenanceTask');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$taskInstances = array();
@@ -46,13 +46,13 @@ class MaintenanceHelper_simple {
 			list($ret, $task) = GalleryCoreApi::newFactoryInstanceById('MaintenanceTask', $taskId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$taskInstances[$taskId] = $task;
 		}
 
-		return array(null, $taskInstances);
+		return array( null, $taskInstances );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class MaintenanceHelper_simple {
 	public static function fetchLastRun($taskId) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryMaintenanceMap',
-			array('runId', 'timestamp', 'success', 'details'),
+			array( 'runId', 'timestamp', 'success', 'details' ),
 			array(
 				'taskId' => $taskId,
 			),
@@ -83,7 +83,7 @@ class MaintenanceHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$result = $searchResults->nextResult();
 		$info   = null;
@@ -97,7 +97,7 @@ class MaintenanceHelper_simple {
 			);
 		}
 
-		return array(null, $info);
+		return array( null, $info );
 	}
 
 	/**
@@ -157,7 +157,7 @@ class MaintenanceHelper_simple {
 			}
 
 			$versions     = $module->getInstalledVersions();
-			$versionsData = array($versions['core'], $versions['gallery']);
+			$versionsData = array( $versions['core'], $versions['gallery'] );
 
 			if (!empty($mode)) {
 				$modeText = 'maintenance-mode';

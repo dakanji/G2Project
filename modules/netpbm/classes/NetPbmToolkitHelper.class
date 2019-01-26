@@ -41,24 +41,24 @@ class NetPbmToolkitHelper {
 		list($ret, $netPbmPath) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($netPbmPath)) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
+			return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
 		}
 
 		list($ret, $tests, $mimeTypes) = NetPbmToolkitHelper::testBinaries($netPbmPath);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($saveParameters) {
 			$ret = NetPbmToolkitHelper::saveParameters($tests);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -81,7 +81,7 @@ class NetPbmToolkitHelper {
 			'type' => 'int',
 			'description' => $gallery->i18n(
 				array(
-					'text'    => 'target width (# pixels or #% of full size)',
+					'text' => 'target width (# pixels or #% of full size)',
 					'cFormat' => false,
 				)
 			),
@@ -101,7 +101,7 @@ class NetPbmToolkitHelper {
 			'type' => 'int',
 			'description' => $gallery->i18n(
 				array(
-					'text'    => 'target width (# pixels or #% of full size)',
+					'text' => 'target width (# pixels or #% of full size)',
 					'cFormat' => false,
 				)
 			),
@@ -110,7 +110,7 @@ class NetPbmToolkitHelper {
 			'type' => 'int',
 			'description' => $gallery->i18n(
 				array(
-					'text'    => 'target height (# pixels or #% of full size)',
+					'text' => 'target height (# pixels or #% of full size)',
 					'cFormat' => false,
 				)
 			),
@@ -179,18 +179,18 @@ class NetPbmToolkitHelper {
 		$operations['composite']['mimeTypes']   = $mimeTypes;
 
 		// Compress
-		$qualityMimeTypes = array_intersect(array('image/jpeg', 'image/pjpeg'), $mimeTypes);
+		$qualityMimeTypes = array_intersect(array( 'image/jpeg', 'image/pjpeg' ), $mimeTypes);
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
-				'params'      => array(
+				'params' => array(
 					array(
-						'type'        => 'int',
+						'type' => 'int',
 						'description' => $gallery->i18n('target size in kb'),
 					),
 				),
 				'description' => $gallery->i18n('Reduce image quality to reach target file size'),
-				'mimeTypes'   => $qualityMimeTypes,
+				'mimeTypes' => $qualityMimeTypes,
 			);
 		}
 
@@ -237,7 +237,7 @@ class NetPbmToolkitHelper {
 		 * Else just hope that it's valid and use it.
 		 */
 		if (!$platform->isRestrictedByOpenBaseDir($jheadPath) && !@$platform->is_dir($jheadPath)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PATH), null, null );
 		}
 		$tests    = array();
 		$fullPath = $jheadPath . 'jhead';
@@ -250,9 +250,9 @@ class NetPbmToolkitHelper {
 			&& !$platform->file_exists($fullPath)
 		) {
 			$success = false;
-			$results = array('File does not exist');
+			$results = array( 'File does not exist' );
 		} else {
-			list($success, $results) = $platform->exec(array(array($fullPath, '-V')));
+			list($success, $results) = $platform->exec(array( array( $fullPath, '-V' ) ));
 		}
 		$tests[] = array(
 			'name'    => 'jhead',
@@ -260,7 +260,7 @@ class NetPbmToolkitHelper {
 			'message' => $results,
 		);
 
-		return array(null, $tests, array());
+		return array( null, $tests, array() );
 	}
 
 	/**
@@ -308,14 +308,14 @@ class NetPbmToolkitHelper {
 				'pnmcomp|pamcomp',
 				'exist' => 'pnmflip|pamflip',
 			), // No --version for this
-			'image/jpeg|image/pjpeg' => array('jpegtopnm', 'pnmtojpeg|ppmtojpeg'),
+			'image/jpeg|image/pjpeg' => array( 'jpegtopnm', 'pnmtojpeg|ppmtojpeg' ),
 			'image/gif' => array(
 				'giftopnm',
 				'ppmtogif',
 				'exist' => 'ppmquant|pnmquant',
 			),
-			'image/png' => array('pngtopnm', 'pnmtopng'),
-			'image/tiff' => array('tifftopnm', 'pnmtotiff|pamtotiff'),
+			'image/png' => array( 'pngtopnm', 'pnmtopng' ),
+			'image/tiff' => array( 'tifftopnm', 'pnmtotiff|pamtotiff' ),
 			'image/bmp' => array(
 				'bmptopnm|bmptoppm',
 				'ppmtobmp',
@@ -344,11 +344,11 @@ class NetPbmToolkitHelper {
 					if (!$isRestrictedPath && !$platform->file_exists($fullPath)) {
 						continue;
 					}
-					list($success, $results) = $checkExistenceOnly ? array(true, array()) : $platform->exec(array(array($fullPath, '--version')));
+					list($success, $results) = $checkExistenceOnly ? array( true, array() ) : $platform->exec(array( array( $fullPath, '--version' ) ));
 
 					if ($success) {
 						$tests[] = array(
-							'name'    => $binary,
+							'name' => $binary,
 							'success' => true,
 							'message' => $results,
 						);
@@ -358,7 +358,7 @@ class NetPbmToolkitHelper {
 
 					if (empty($test)) {
 						$test = array(
-							'name'    => $binary,
+							'name' => $binary,
 							'success' => false,
 							'message' => $results,
 						);
@@ -373,13 +373,13 @@ class NetPbmToolkitHelper {
 						list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm', true);
 
 						if ($ret) {
-							return array($ret, null, null);
+							return array( $ret, null, null );
 						}
 					}
 					$tests[] = array(
-						'name'    => str_replace('|', $module->translate(' or '), $binaries),
+						'name' => str_replace('|', $module->translate(' or '), $binaries),
 						'success' => false,
-						'message' => array($module->translate('File does not exist')),
+						'message' => array( $module->translate('File does not exist') ),
 					);
 				}
 				$failCount++;
@@ -395,7 +395,7 @@ class NetPbmToolkitHelper {
 			}
 		}
 
-		return array(null, $tests, $mimeTypes);
+		return array( null, $tests, $mimeTypes );
 	}
 
 	/**

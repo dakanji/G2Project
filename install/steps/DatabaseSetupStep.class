@@ -426,7 +426,7 @@ class DatabaseSetupStep extends InstallStep {
 		global $gallery;
 
 		if (!is_array($metatables) || empty($dbType)) {
-			return array(false, 'Unknown database type or no known tables information.');
+			return array( false, 'Unknown database type or no known tables information.' );
 		}
 
 		/*
@@ -468,7 +468,7 @@ class DatabaseSetupStep extends InstallStep {
 		$schemaTpl = __DIR__ . '/../../modules/core/classes/GalleryStorage/schema.tpl';
 
 		if (!($sqlData = file($schemaTpl))) {
-			return array(false, sprintf('Could not open schema file: "%s".', $schemaTpl));
+			return array( false, sprintf('Could not open schema file: "%s".', $schemaTpl) );
 		}
 		$moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $dbType);
 
@@ -476,7 +476,7 @@ class DatabaseSetupStep extends InstallStep {
 			list($success, $errorMessage) = $this->_executeSql($moduleSql['test']['InstallerTest'][$i], $tablePrefix);
 
 			if (!$success) {
-				return array(false, $errorMessage);
+				return array( false, $errorMessage );
 			}
 		}
 
@@ -503,7 +503,7 @@ class DatabaseSetupStep extends InstallStep {
 			);
 		}
 
-		return array(true, null);
+		return array( true, null );
 	}
 
 	/**
@@ -514,7 +514,7 @@ class DatabaseSetupStep extends InstallStep {
 	 */
 	public function _executeSql($buffer, $tablePrefix) {
 		if (empty($buffer)) {
-			return array(false, 'Missing SQL statements');
+			return array( false, 'Missing SQL statements' );
 		}
 		/*
 		 * Split the file where semicolons are followed by a blank line..
@@ -548,7 +548,7 @@ class DatabaseSetupStep extends InstallStep {
 			}
 		}
 
-		return array(true, null);
+		return array( true, null );
 	}
 
 	/**
@@ -558,7 +558,7 @@ class DatabaseSetupStep extends InstallStep {
 	 * Avoid using GalleryInitFirstPass (as this is called even for fresh installs)
 	 *
 	 * @return array ('installed' => string the storage versions.dat version,
-	 *                'codebase'  => string the codebase version)
+	 *                'codebase' => string the codebase version)
 	 */
 	public function _getVersions() {
 		global $galleryStub;

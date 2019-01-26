@@ -59,12 +59,12 @@ class ModRewriteHelperTest extends GalleryTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'modrewrite.status'           => serialize(
+			'modrewrite.status' => serialize(
 				array(
 					'needOptions' => true,
 				)
 			),
-			'modrewrite.galleryLocation'  => '/gallery2/',
+			'modrewrite.galleryLocation' => '/gallery2/',
 			'modrewrite.embeddedHtaccess' => '/phpunit/embedded',
 			'modrewrite.embeddedLocation' => '/embedded/',
 		) as $key => $value) {
@@ -246,12 +246,12 @@ class ModRewriteHelperTest extends GalleryTestCase {
 				'view' => 'core.DownloadItem',
 			),
 			'options'  => array(
-				'forceDirect'            => true,
-				'forceSessionId'         => false,
+				'forceDirect' => true,
+				'forceSessionId' => false,
 				'forceServerRelativeUrl' => true,
-				'htmlEntities'           => false,
-				'urlEncode'              => false,
-				'useAuthToken'           => false,
+				'htmlEntities' => false,
+				'urlEncode' => false,
+				'useAuthToken' => false,
 			),
 		);
 		list($ret, $htaccess) = ModRewriteHelper::getHtaccessContent($testRules, true);
@@ -332,7 +332,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 			serialize(
 				array(
 					'needOptions' => true,
-					'forced'      => 1,
+					'forced' => 1,
 				)
 			)
 		);

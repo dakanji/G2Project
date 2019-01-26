@@ -79,7 +79,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
 
 		$callback = $mockAdapter->getCallback(0);
-		$this->assertEquals(array($this->_controller, 'updatePluginStatus'), $callback[0]);
+		$this->assertEquals(array( $this->_controller, 'updatePluginStatus' ), $callback[0]);
 	}
 
 	public function testSaveRepositories() {
@@ -129,8 +129,8 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(
 			array(
-				'released'     => 1,
-				'community'    => 1,
+				'released' => 1,
+				'community' => 1,
 				'experimental' => 1,
 			),
 			unserialize($data)
@@ -141,7 +141,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
 
 		$repository = new UnitTestRepository();
-		$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
+		$repository->setReply('getAllUpgradeablePackages', array(), array( null, array() ));
 		$this->_controller->_repositories['test'] = $repository;
 
 		// Test case when no upgradeable packages exist.
@@ -149,7 +149,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminRepository',
 				),
 				'status' => array(
@@ -167,14 +167,14 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$packages = array(
 			'module' => array(
 				'testModule' => array(
-					'package1'   => 1,
+					'package1' => 1,
 					'lang-en_US' => 1,
 				),
 			),
 		);
 
 		$repository = new UnitTestRepository();
-		$repository->setReply('getAllUpgradeablePackages', array(), array(null, $packages));
+		$repository->setReply('getAllUpgradeablePackages', array(), array( null, $packages ));
 		$this->_controller->_repositories['test'] = $repository;
 
 		// Test case when some packages are upgradeable.

@@ -54,7 +54,7 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 
 		$expected = array();
 
-		foreach (array('/cache/entity', '/cache/theme', '/cache/module') as $dir) {
+		foreach (array( '/cache/entity', '/cache/theme', '/cache/module' ) as $dir) {
 			$expected[] = $module->translate(
 				array(
 					'text' => 'Successfully deleted directory: %s',

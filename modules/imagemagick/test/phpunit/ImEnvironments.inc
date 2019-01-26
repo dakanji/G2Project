@@ -67,25 +67,25 @@ $_commonOperations = array(
 		),
 	),
 	'crop' => array(
-		'convert' => array('-crop', '%width%x%height%+%x%+%y%', '%src%', '%dst%'),
+		'convert' => array( '-crop', '%width%x%height%+%x%+%y%', '%src%', '%dst%' ),
 	),
 	'rotate' => array(
-		'convert' => array('-rotate', '%angle%', '%src%', '%dst%'),
+		'convert' => array( '-rotate', '%angle%', '%src%', '%dst%' ),
 	),
 	'convert-to-image/jpeg' => array(
-		'convert' => array('%src%', '%dst%'),
+		'convert' => array( '%src%', '%dst%' ),
 	),
 	'composite' => array(
-		'composite' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
+		'composite' => array( '-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%' ),
 	),
 	'convert-to-image/png' => array(
-		'convert' => array('%src%', '%dst%'),
+		'convert' => array( '%src%', '%dst%' ),
 	),
 	'select-page' => array(
-		'convert' => array('%src%', '%dst%'),
+		'convert' => array( '%src%', '%dst%' ),
 	),
 	'compress' => array(
-		'convert' => array('%src%', '%dst%'),
+		'convert' => array( '%src%', '%dst%' ),
 	),
 );
 
@@ -143,7 +143,7 @@ $imEnvironment[] = array(
 				),
 			),
 			'composite' => array(
-				'combine' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
+				'combine' => array( '-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%' ),
 			),
 		)
 	),
@@ -221,7 +221,7 @@ $imEnvironment[] = array(
 		'montage',
 		'xtp',
 	),
-	'removeMetaDataSwitch' => array('+profile', '*'),
+	'removeMetaDataSwitch' => array( '+profile', '*' ),
 	'operations' => $_commonOperations,
 	'identify'   => array(
 		''          => 'Version: @(#)ImageMagick 5.4.2 01/01/02 Q:16 http://www.imagemagick.org
@@ -313,12 +313,12 @@ $imEnvironment[] = array(
 		'mogrify',
 		'montage',
 	),
-	'removeMetaDataSwitch' => array('+profile', '*'),
+	'removeMetaDataSwitch' => array( '+profile', '*' ),
 	'operations' => array_merge(
 		$_commonOperations,
 		array(
 			'convert-to-image/jpeg' => array(
-				'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
+				'convert' => array( '-colorspace', 'RGB', '%src%', '%dst%' ),
 			),
 		)
 	),
@@ -424,7 +424,7 @@ $imEnvironment[] = array(
 		'mogrify',
 		'montage',
 	),
-	'removeMetaDataSwitch' => array('-strip'),
+	'removeMetaDataSwitch' => array( '-strip' ),
 	'operations' => array_merge(
 		$_commonOperations,
 		array(
@@ -440,7 +440,7 @@ $imEnvironment[] = array(
 				),
 			),
 			'convert-to-image/jpeg' => array(
-				'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
+				'convert' => array( '-colorspace', 'RGB', '%src%', '%dst%' ),
 			),
 		)
 	),
@@ -548,7 +548,7 @@ $imEnvironment[] = array(
 		'mogrify',
 		'montage',
 	),
-	'removeMetaDataSwitch' => array('+profile', '*'),
+	'removeMetaDataSwitch' => array( '+profile', '*' ),
 	'operations' => $_commonOperations,
 	'identify'   => array(
 		''          => 'identify: Improper arguments supplied, please see manual.

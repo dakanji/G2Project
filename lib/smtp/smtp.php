@@ -85,7 +85,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 	}
 
 	// Connect
-	list($config['smtp.host'], $port) = array_merge(explode(':', $config['smtp.host']), array(25));
+	list($config['smtp.host'], $port) = array_merge(explode(':', $config['smtp.host']), array( 25 ));
 
 	if (!($socket = fsockopen($config['smtp.host'], $port, $errno, $errstr, 20))) {
 		return GalleryCoreApi::error(

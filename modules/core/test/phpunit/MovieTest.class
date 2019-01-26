@@ -46,14 +46,14 @@ class MovieTest extends GalleryTestCase {
 			'MovieTestToolkit',
 			$path,
 			'coreTest',
-			array('test/movie')
+			array( 'test/movie' )
 		);
 		$this->_markFactoryForCleanup();
 		$this->_markToolkitForCleanup('MovieTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'MovieTestToolkit',
-			array('test/movie'),
+			array( 'test/movie' ),
 			'dimensions-and-duration',
 			'int,int,float',
 			'test-description',
@@ -138,9 +138,9 @@ class MovieTest extends GalleryTestCase {
 class MovieTestToolkit {
 	public function getProperty($mimeType, $propertyName, $sourceFilename) {
 		if (empty($_REQUEST['toolkitError'])) {
-			return array(null, array(100, 200, 10.0));
+			return array( null, array( 100, 200, 10.0 ) );
 		}
 
-		return array(GalleryCoreApi::error($_REQUEST['toolkitError']), null);
+		return array( GalleryCoreApi::error($_REQUEST['toolkitError']), null );
 	}
 }

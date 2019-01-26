@@ -1881,7 +1881,7 @@ class adoSchema {
 		$xh = xslt_create();
 
 		// set error handler
-		xslt_set_error_handler($xh, array(&$this, 'xslt_error_handler'));
+		xslt_set_error_handler($xh, array( &$this, 'xslt_error_handler' ));
 
 		// process the schema
 		$result = xslt_process($xh, 'arg:/_xml', 'arg:/_xsl', null, $arguments);

@@ -86,7 +86,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		}
 		$platform->fclose($handle);
 
-		$dirPaths = array($dirPath);
+		$dirPaths = array( $dirPath );
 
 		while (($dirPath = array_shift($dirPaths)) !== null) {
 			$this->_timeCheck();
@@ -354,13 +354,13 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$j = $this->_getNextTokenIndex($tokens, $baseIndex, true);
 
 			if ($classMethodCallsOnly && isset($tokens[$j][0])
-				&& in_array($tokens[$j][0], array(T_DOUBLE_COLON, T_OBJECT_OPERATOR))
+				&& in_array($tokens[$j][0], array( T_DOUBLE_COLON, T_OBJECT_OPERATOR ))
 			) {
 				$k = $this->_getNextTokenIndex($tokens, $j, true);
 				// Check whether it matches $foo->bar or Foo::bar
 				if (isset($tokens[$k][0]) && in_array(
 					$tokens[$k][0],
-					array(T_STRING, T_VARIABLE)
+					array( T_STRING, T_VARIABLE )
 				)
 				) {
 					if ($tokens[$k][0] == T_STRING

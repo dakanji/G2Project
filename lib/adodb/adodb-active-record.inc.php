@@ -239,7 +239,7 @@ class ADODB_Active_Record {
 	// use when you don't want ADOdb to auto-pluralize tablename
 	public static function TableKeyHasMany($table, $tablePKey, $foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
 		if (!is_array($tablePKey)) {
-			$tablePKey = array($tablePKey);
+			$tablePKey = array( $tablePKey );
 		}
 		$ar = new self($table, $tablePKey);
 		$ar->hasMany($foreignRef, $foreignKey, $foreignClass);
@@ -278,7 +278,7 @@ class ADODB_Active_Record {
 
 	public static function TableKeyBelongsTo($table, $tablePKey, $foreignRef, $foreignKey = false, $parentKey = '', $parentClass = 'ADODB_Active_Record') {
 		if (!is_array($tablePKey)) {
-			$tablePKey = array($tablePKey);
+			$tablePKey = array( $tablePKey );
 		}
 		$ar = new self($table, $tablePKey);
 		$ar->belongsTo($foreignRef, $foreignKey, $parentKey, $parentClass);
@@ -984,7 +984,7 @@ class ADODB_Active_Record {
 		}
 
 		if (!is_array($pkey)) {
-			$pkey = array($pkey);
+			$pkey = array( $pkey );
 		}
 
 		if ($ADODB_ASSOC_CASE == 0) {

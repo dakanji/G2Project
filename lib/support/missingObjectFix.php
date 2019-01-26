@@ -124,31 +124,31 @@ function process($renderType, $args = array()) {
 					if (!$err) {
 						$tables  = array(
 							'AccessSubscriberMap' => 'itemId',
-							'AlbumItem'          => 'id',
-							'AnimationItem'      => 'id',
-							'ChildEntity'        => 'id',
-							'ChildEntity'        => 'parentId',
-							'DataItem'           => 'id',
-							'Derivative'         => 'derivativeSourceId',
+							'AlbumItem' => 'id',
+							'AnimationItem' => 'id',
+							'ChildEntity' => 'id',
+							'ChildEntity' => 'parentId',
+							'DataItem' => 'id',
+							'Derivative' => 'derivativeSourceId',
 							'DerivativePrefsMap' => 'itemId',
 							'DescendentCountsMap' => 'itemId',
-							'Entity'             => 'id',
-							'FileSystemEntity'   => 'id',
+							'Entity' => 'id',
+							'FileSystemEntity' => 'id',
 							'ImageBlockCacheMap' => 'itemId',
-							'Item'               => 'id',
-							'ItemAttributesMap'  => 'itemId',
-							'LinkItem'           => 'id',
-							'MovieItem'          => 'id',
-							'PhotoItem'          => 'id',
-							'UnknownItem'        => 'id',
-							'User'               => 'id',
+							'Item' => 'id',
+							'ItemAttributesMap' => 'itemId',
+							'LinkItem' => 'id',
+							'MovieItem' => 'id',
+							'PhotoItem' => 'id',
+							'UnknownItem' => 'id',
+							'User' => 'id',
 						);
 						$display = (count($ids)) ? '<p>Total Missing entities: <strong>' . count($ids) . '</strong></p>' : '';
 
 						foreach ($ids as $id) {
 							foreach ($tables as $table => $field) {
 								$sql = 'DELETE FROM [' . $table . '] WHERE [::' . $field . '] = ?';
-								$ret = $storage->execute($sql, array($id));
+								$ret = $storage->execute($sql, array( $id ));
 
 								if (!$ret) {
 									list($ret, $rows) = $storage->getAffectedRows();
@@ -203,10 +203,10 @@ function process($renderType, $args = array()) {
 
 					// Delete database references to missing derivatives in this batch
 					$tables   = array(
-						'ChildEntity'     => 'id',
-						'Derivative'      => 'id',
+						'ChildEntity' => 'id',
+						'Derivative' => 'id',
 						'DerivativeImage' => 'id',
-						'Entity'          => 'id',
+						'Entity' => 'id',
 					);
 					$display .= (count($missingIds)) ? '<p>Total Missing Derivatives: <strong>' . count($missingIds) . '</strong></p>' : '';
 					$status   = ($pass) ? 'Working on derivatives ' . $end . ' to ' . $start : '';
@@ -214,7 +214,7 @@ function process($renderType, $args = array()) {
 					foreach ($missingIds as $id) {
 						foreach ($tables as $table => $field) {
 							$sql = 'DELETE FROM [' . $table . '] WHERE [::' . $field . '] = ?';
-							$ret = $storage->execute($sql, array($id));
+							$ret = $storage->execute($sql, array( $id ));
 
 							if (!$ret) {
 								list($ret, $rows) = $storage->getAffectedRows();
@@ -284,7 +284,7 @@ function process($renderType, $args = array()) {
 		}
 	}
 
-	return array($headData, $bodyForm, $bodyMain);
+	return array( $headData, $bodyForm, $bodyMain );
 }
 
 function getAlbumIdsRecursive($id) {
@@ -301,7 +301,7 @@ function getAlbumIdsRecursive($id) {
 		array_push($albumIds, $id);
 	}
 
-	return array($err, $albumIds);
+	return array( $err, $albumIds );
 }
 
 function getItemIdsRecursive($id) {
@@ -346,7 +346,7 @@ function getItemIdsRecursive($id) {
 		}
 	}
 
-	return array($err, $missingIds);
+	return array( $err, $missingIds );
 }
 
 function getMissingDerivatives($id) {
@@ -389,13 +389,13 @@ function getMissingDerivatives($id) {
 		}
 	}
 
-	return array($err, $missingIds);
+	return array( $err, $missingIds );
 }
 
 function getRoot() {
 	$err = $defaultId = null;
 
-	if (GalleryUtilities::isCompatibleWithApi(array(7, 5), GalleryCoreApi::getApiVersion())) {
+	if (GalleryUtilities::isCompatibleWithApi(array( 7, 5 ), GalleryCoreApi::getApiVersion())) {
 		list($ret, $defaultId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
@@ -409,7 +409,7 @@ function getRoot() {
 		}
 	}
 
-	return array($err, $defaultId);
+	return array( $err, $defaultId );
 }
 
 function getAlbumSelector($gID) {
@@ -431,7 +431,7 @@ function getAlbumSelector($gID) {
 		$albumSelectorCode = "\n" . jsessAdd('select', $albumSelector) . "\n" . '<script type="text/javascript">window.onload=jsAlbumSelect;</script>' . "\n";
 	}
 
-	return array($err, $albumSelectorCode);
+	return array( $err, $albumSelectorCode );
 }
 
 function getAlbumTree($gID) {
@@ -454,7 +454,7 @@ function getAlbumTree($gID) {
 		}
 	}
 
-	return array($err, $albums);
+	return array( $err, $albums );
 }
 
 function statusMsg($display = false) {

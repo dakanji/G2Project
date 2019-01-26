@@ -45,7 +45,7 @@ class LogoutController extends GalleryController {
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$results = array();
@@ -60,18 +60,18 @@ class LogoutController extends GalleryController {
 		$ret     = $session->reset();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousId, 'GalleryUser');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$gallery->setActiveUser($guestUser);
@@ -95,6 +95,6 @@ class LogoutController extends GalleryController {
 			$results['redirect']['view'] = GALLERY_DEFAULT_VIEW;
 		}
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }

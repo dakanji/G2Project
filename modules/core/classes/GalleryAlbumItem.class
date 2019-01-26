@@ -468,7 +468,7 @@ class GalleryAlbumItem extends GalleryItem {
 		if ($ret) {
 			return $ret;
 		}
-		$oldChildParentSequence = array_merge($oldParentSequence, array($this->getId()));
+		$oldChildParentSequence = array_merge($oldParentSequence, array( $this->getId() ));
 
 		/*
 		 * Perform the move.  Note that *after* the move, my parent id is going to be different so
@@ -488,7 +488,7 @@ class GalleryAlbumItem extends GalleryItem {
 		}
 		$newChildParentSequence = array_merge(
 			$newParentSequence,
-			array($this->getParentId(), $this->getId())
+			array( $this->getParentId(), $this->getId() )
 		);
 
 		// Convert my children's parent sequences
@@ -514,11 +514,11 @@ class GalleryAlbumItem extends GalleryItem {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
-				return array($core->translate('Album'), $core->translate('album'));
+				return array( $core->translate('Album'), $core->translate('album') );
 			}
 		}
 
-		return array('Album', 'album');
+		return array( 'Album', 'album' );
 	}
 
 	/**

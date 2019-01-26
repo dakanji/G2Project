@@ -63,7 +63,7 @@ namespace {
 					$raw_salt_len = 16;
 					// The length required in the final serialization
 					$required_salt_len = 22;
-					$hash_format       = sprintf('$2y$%02d$', $cost);
+					$hash_format = sprintf('$2y$%02d$', $cost);
 					// The expected length of the final crypt() output
 					$resultLength = 60;
 					break;
@@ -99,7 +99,7 @@ namespace {
 					$salt_requires_encoding = true;
 				}
 			} else {
-				$buffer       = '';
+				$buffer = '';
 				$buffer_valid = false;
 				if (function_exists('mcrypt_create_iv') && !defined('PHALANGER')) {
 					$buffer = mcrypt_create_iv($raw_salt_len, MCRYPT_DEV_URANDOM);
@@ -114,11 +114,11 @@ namespace {
 					}
 				}
 				if (!$buffer_valid && @is_readable('/dev/urandom')) {
-					$f    = fopen('/dev/urandom', 'r');
+					$f = fopen('/dev/urandom', 'r');
 					$read = PasswordCompat\binary\_strlen($buffer);
 					while ($read < $raw_salt_len) {
 						$buffer .= fread($f, $raw_salt_len - $read);
-						$read    = PasswordCompat\binary\_strlen($buffer);
+						$read = PasswordCompat\binary\_strlen($buffer);
 					}
 					fclose($f);
 					if ($read >= $raw_salt_len) {
@@ -135,16 +135,16 @@ namespace {
 						}
 					}
 				}
-				$salt                   = $buffer;
+				$salt = $buffer;
 				$salt_requires_encoding = true;
 			}
 			if ($salt_requires_encoding) {
 				// encode string with the Base64 variant used by crypt
-				$base64_digits   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+				$base64_digits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 				$bcrypt64_digits = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 				$base64_string = base64_encode($salt);
-				$salt          = strtr(rtrim($base64_string, '='), $base64_digits, $bcrypt64_digits);
+				$salt = strtr(rtrim($base64_string, '='), $base64_digits, $bcrypt64_digits);
 			}
 			$salt = PasswordCompat\binary\_substr($salt, 0, $required_salt_len);
 
@@ -177,14 +177,14 @@ namespace {
 		 */
 		function password_get_info($hash) {
 			$return = array(
-				'algo'     => 0,
+				'algo' => 0,
 				'algoName' => 'unknown',
-				'options'  => array(),
+				'options' => array(),
 			);
 			if (PasswordCompat\binary\_substr($hash, 0, 4) == '$2y$' && PasswordCompat\binary\_strlen($hash) == 60) {
-				$return['algo']            = PASSWORD_BCRYPT;
-				$return['algoName']        = 'bcrypt';
-				list($cost)                = sscanf($hash, '$2y$%d$');
+				$return['algo'] = PASSWORD_BCRYPT;
+				$return['algoName'] = 'bcrypt';
+				list($cost) = sscanf($hash, '$2y$%d$');
 				$return['options']['cost'] = $cost;
 			}
 			return $return;

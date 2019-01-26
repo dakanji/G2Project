@@ -33,7 +33,7 @@ class MaintenanceModeView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$template->title($module->translate('Maintenance'));
@@ -54,9 +54,9 @@ class MaintenanceModeView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $module->translate('Maintenance'));
+		return array( null, $module->translate('Maintenance') );
 	}
 }

@@ -52,12 +52,12 @@ class SlideshowHelper {
 		list($ret, $canView) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
 
 		if ($ret) {
-			return array($ret, null, null, null, null);
+			return array( $ret, null, null, null, null );
 		}
 
 		if (!$canView) {
 			// Avoid information disclosure, act as if the item didn't exist.
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null, null);
+			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null, null );
 		}
 
 		if (!$item->getCanContainChildren()) {
@@ -66,17 +66,17 @@ class SlideshowHelper {
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
 
 			if ($ret) {
-				return array($ret, null, null, null, null);
+				return array( $ret, null, null, null, null );
 			}
 			list($ret, $canView) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
 
 			if ($ret) {
-				return array($ret, null, null, null, null);
+				return array( $ret, null, null, null, null );
 			}
 
 			if (!$canView) {
 				// Avoid information disclosure, act as if the item didn't exist.
-				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null, null);
+				return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null, null );
 			}
 		}
 
@@ -88,7 +88,7 @@ class SlideshowHelper {
 		);
 
 		if ($ret) {
-			return array($ret, null, null, null, null);
+			return array( $ret, null, null, null, null );
 		}
 
 		$itemId     = $item->getId();
@@ -99,12 +99,12 @@ class SlideshowHelper {
 		);
 
 		if ($ret) {
-			return array($ret, null, null, null, null);
+			return array( $ret, null, null, null, null );
 		}
 
 		list($ret, $items, $start) = SlideshowHelper::buildItemsSlideshow($childIds, $startId);
 
-		return array($ret, $items, $start, $prevOffset, $nextOffset);
+		return array( $ret, $items, $start, $prevOffset, $nextOffset );
 	}
 
 	/**
@@ -122,34 +122,34 @@ class SlideshowHelper {
 		global $gallery;
 
 		if (empty($childIds)) {
-			return array(null, null, null);
+			return array( null, null, null );
 		}
 
 		$items                  = array();
 		list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		list($ret, $preferredFullImages) = GalleryCoreApi::fetchPreferredsByItemIds($childIds);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		list($ret, $resizedImages) = GalleryCoreApi::fetchResizesByItemIds($childIds);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($childIds);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		if (!isset($startId)) {
@@ -229,15 +229,15 @@ class SlideshowHelper {
 
 				if ($image) {
 					$items[] = array(
-						'item'      => (array)$child,
-						'image'     => (array)$image,
+						'item' => (array)$child,
+						'image' => (array)$image,
 						'thumbnail' => (array)$thumbnails[$childId],
 					);
 				}
 			}
 		}
 
-		return array(null, $items, isset($start) ? $start : 0);
+		return array( null, $items, isset($start) ? $start : 0 );
 	}
 
 	/**
@@ -250,10 +250,10 @@ class SlideshowHelper {
 	 *               int the offset value for the next page, null for no next page
 	 */
 	public static function paginateItemSlideshow($itemId, $offset = 0) {
-		list($ret, $itemCount) = GalleryCoreApi::fetchChildCounts(array($itemId));
+		list($ret, $itemCount) = GalleryCoreApi::fetchChildCounts(array( $itemId ));
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 		$itemCount = $itemCount[$itemId];
 
@@ -268,6 +268,6 @@ class SlideshowHelper {
 			$nextOffset = null;
 		}
 
-		return array(null, $prevOffset, $nextOffset);
+		return array( null, $prevOffset, $nextOffset );
 	}
 }

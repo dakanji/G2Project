@@ -113,9 +113,9 @@ class RatingCallbacksTest extends GalleryTestCase {
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
 		$this->assertEquals(
 			array(
-				'ratingValues' => array(1, 2, 3, 4, 5),
-				'firstCall'    => true,
-				'authToken'    => $this->_authToken,
+				'ratingValues' => array( 1, 2, 3, 4, 5 ),
+				'firstCall' => true,
+				'authToken' => $this->_authToken,
 			),
 			$summary,
 			'Rating summary array does not match.'
@@ -152,9 +152,9 @@ class RatingCallbacksTest extends GalleryTestCase {
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
 		$this->assertEquals(
 			array(
-				'ratingValues' => array(1, 2, 3, 4, 5),
-				'firstCall'    => true,
-				'authToken'    => $this->_authToken,
+				'ratingValues' => array( 1, 2, 3, 4, 5 ),
+				'firstCall' => true,
+				'authToken' => $this->_authToken,
 			),
 			$summary,
 			'Rating summary array does not match.'
@@ -295,9 +295,9 @@ class RatingCallbacksTest extends GalleryTestCase {
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
 		$this->assertEquals(
 			array(
-				'ratingValues' => array(1, 2, 3, 4, 5),
-				'firstCall'    => true,
-				'authToken'    => $this->_authToken,
+				'ratingValues' => array( 1, 2, 3, 4, 5 ),
+				'firstCall' => true,
+				'authToken' => $this->_authToken,
 			),
 			$summary,
 			'Rating summary array does not match.'
@@ -362,9 +362,9 @@ class RatingCallbacksTest extends GalleryTestCase {
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
 		$this->assertEquals(
 			array(
-				'ratingValues' => array(1, 2, 3, 4, 5),
-				'firstCall'    => true,
-				'authToken'    => $this->_authToken,
+				'ratingValues' => array( 1, 2, 3, 4, 5 ),
+				'firstCall' => true,
+				'authToken' => $this->_authToken,
 			),
 			$summary,
 			'Rating summary array does not match.'

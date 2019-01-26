@@ -52,25 +52,25 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 		$data['packagePluginLink'] = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'PackagePlugin',
-				'action'     => 'showAvailablePlugins',
+				'action' => 'showAvailablePlugins',
 			)
 		);
 		$data['packageAllPlugins'] = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'PackagePlugin',
-				'action'     => 'packagePlugins',
+				'action' => 'packagePlugins',
 			)
 		);
 		$data['generateIndex']     = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'IndexGenerator',
-				'action'     => 'generate',
+				'action' => 'generate',
 			)
 		);
 		$data['browseRepository']  = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'RepositoryManager',
-				'action'     => 'browse',
+				'action' => 'browse',
 			)
 		);
 

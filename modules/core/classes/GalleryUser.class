@@ -137,7 +137,7 @@ class GalleryUser extends GalleryEntity {
 		// Check to see if we have a collision
 		list($ret, $results) = $gallery->search(
 			$query,
-			array($userName),
+			array( $userName ),
 			array(
 				'limit' => array(
 					'count' => 1,
@@ -232,7 +232,7 @@ class GalleryUser extends GalleryEntity {
 
 		if ($isNew) {
 			// Add her to the various groups
-			foreach (array('id.allUserGroup', 'id.everybodyGroup') as $groupKey) {
+			foreach (array( 'id.allUserGroup', 'id.everybodyGroup' ) as $groupKey) {
 				list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', $groupKey);
 
 				if ($ret) {
@@ -369,11 +369,11 @@ class GalleryUser extends GalleryEntity {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
-				return array($core->translate('User'), $core->translate('user'));
+				return array( $core->translate('User'), $core->translate('user') );
 			}
 		}
 
-		return array('User', 'user');
+		return array( 'User', 'user' );
 	}
 
 	/**

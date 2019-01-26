@@ -547,8 +547,7 @@ class GalleryPlatform {
 	 * @param string $filename the image file name
 	 * @return array with 4 elements.  Index 0 contains the width of the image in pixels.  Index 1
 	 *     contains the height.  Index 2 is a flag indicating the type of the image: 1 = GIF, 2
-	 *     = JPG, 3 = PNG, 4 = SWF, 5 = PSD, 6 = BMP, 7 = TIFF(intel byte order), 8 =
-	 *     TIFF(motorola byte order), 9 = JPC, 10 = JP2, 11 = JPX, 12 = JB2, 13 = SWC, 14 = IFF.
+	 * = JPG, 3 = PNG, 4 = SWF, 5 = PSD, 6 = BMP, 7 = TIFF(intel byte order), 8 =    *     TIFF(motorola byte order), 9 = JPC, 10 = JP2, 11 = JPX, 12 = JB2, 13 = SWC, 14 = IFF.
 	 *     These values correspond to the IMAGETYPE constants that were added in PHP 4.3.  Index
 	 *     3 is a text string with the correct height="yyy" width="xxx" string that can be used
 	 *     directly in an IMG tag.
@@ -1247,7 +1246,7 @@ class GalleryPlatform {
 			list($this->_filePerms, $this->_dirPerms) = GalleryDataCache::get($cacheKey);
 		} else {
 			// To avoid looping if getPluginParameter calls platform functions
-			GalleryDataCache::put($cacheKey, array($this->_filePerms, $this->_dirPerms));
+			GalleryDataCache::put($cacheKey, array( $this->_filePerms, $this->_dirPerms ));
 
 			list($ret, $filePerms) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -1267,7 +1266,7 @@ class GalleryPlatform {
 			if (!$ret && !empty($dirPerms)) {
 				$this->_dirPerms = octdec($dirPerms);
 			}
-			GalleryDataCache::put($cacheKey, array($this->_filePerms, $this->_dirPerms));
+			GalleryDataCache::put($cacheKey, array( $this->_filePerms, $this->_dirPerms ));
 		}
 		$this->_umask = 0777 - $this->_filePerms;
 	}
@@ -1428,8 +1427,8 @@ class GalleryPlatform {
 		}
 		// Call strftime and convert to UTF-8; escape % characters before sprintf
 		$newFormat = str_replace(
-			array('%', '&%%&'),
-			array('%%', '%'),
+			array( '%', '&%%&' ),
+			array( '%%', '%' ),
 			GalleryCoreApi::convertToUtf8(
 				isset($timestamp) ? strftime($newFormat, $timestamp) : strftime($newFormat)
 			)

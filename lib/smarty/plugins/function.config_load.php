@@ -74,9 +74,9 @@ function smarty_function_config_load($params, &$smarty) {
 		$_compile = true;
 	} elseif ($smarty->compile_check) {
 		$_params  = array(
-			'resource_name'      => $_file,
+			'resource_name' => $_file,
 			'resource_base_path' => $smarty->config_dir,
-			'get_source'         => false,
+			'get_source' => false,
 		);
 		$_compile = $smarty->_fetch_resource_info($_params) &&
 			$_params['resource_timestamp'] > filemtime($_compile_file);
@@ -96,7 +96,7 @@ function smarty_function_config_load($params, &$smarty) {
 		}
 
 		$_params = array(
-			'resource_name'      => $_file,
+			'resource_name' => $_file,
 			'resource_base_path' => $smarty->config_dir,
 			$_params['get_source'] = true,
 		);
@@ -122,8 +122,8 @@ function smarty_function_config_load($params, &$smarty) {
 			) . '\'); ?>';
 		}
 		$_params = (array(
-			'compile_path'       => $_compile_file,
-			'compiled_content'   => $_output,
+			'compile_path' => $_compile_file,
+			'compiled_content' => $_output,
 			'resource_timestamp' => $_params['resource_timestamp'],
 		));
 

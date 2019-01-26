@@ -35,7 +35,7 @@ class ItemMoveSingleController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -49,7 +49,7 @@ class ItemMoveSingleController extends GalleryController {
 			$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.delete');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (empty($error)) {
@@ -62,12 +62,12 @@ class ItemMoveSingleController extends GalleryController {
 				list($ret, $canView) = GalleryCoreApi::hasItemPermission($newParentId, 'core.view');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if (!$canView) {
 					// Avoid information disclosure, act as if the item didn't exist.
-					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+					return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
 				}
 
 				if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
@@ -77,7 +77,7 @@ class ItemMoveSingleController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				} elseif (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 					$ret = GalleryCoreApi::assertHasItemPermission(
@@ -86,7 +86,7 @@ class ItemMoveSingleController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				} else {
 					// The view should never let this happen
@@ -102,7 +102,7 @@ class ItemMoveSingleController extends GalleryController {
 				list($ret, $newParent) = GalleryCoreApi::loadEntitiesById($newParentId, 'GalleryAlbumItem');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 
@@ -111,7 +111,7 @@ class ItemMoveSingleController extends GalleryController {
 				list($ret, $newParentAncestorIds) = GalleryCoreApi::fetchParentSequence($newParentId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($itemId == $newParentId || in_array($itemId, $newParentAncestorIds)) {
@@ -127,7 +127,7 @@ class ItemMoveSingleController extends GalleryController {
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLockParents($newParentId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$oldParentId           = $item->getParentId();
@@ -136,15 +136,15 @@ class ItemMoveSingleController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
-				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(array($newParentId, $oldParentId));
+				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(array( $newParentId, $oldParentId ));
 
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Write lock the item we're moving
@@ -153,7 +153,7 @@ class ItemMoveSingleController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Refresh the item in case it changed before it was locked
@@ -162,7 +162,7 @@ class ItemMoveSingleController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Do the move
@@ -171,7 +171,7 @@ class ItemMoveSingleController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = $item->save();
@@ -179,7 +179,7 @@ class ItemMoveSingleController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
@@ -189,7 +189,7 @@ class ItemMoveSingleController extends GalleryController {
 					if ($ret) {
 						GalleryCoreApi::releaseLocks($lockIds);
 
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
@@ -197,14 +197,14 @@ class ItemMoveSingleController extends GalleryController {
 				$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Fix thumbnail integrity
 				list($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($oldParentId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['moved'] = 1;
@@ -225,7 +225,7 @@ class ItemMoveSingleController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -245,7 +245,7 @@ class ItemMoveSingleView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -260,22 +260,22 @@ class ItemMoveSingleView extends GalleryView {
 		} elseif (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 			$permissions = 'core.addAlbumItem';
 		} else {
-			return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_DATA_TYPE), null );
 		}
-		$permissions = array($permissions, 'core.view');
+		$permissions = array( $permissions, 'core.view' );
 
 		// Get ids of all all albums where we can add this items
 		list($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', $permissions);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load all the album entities
 		list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$albumTree = GalleryUtilities::createAlbumTree($albums);
@@ -306,13 +306,13 @@ class ItemMoveSingleView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$itemTypeNames = $item->itemTypeName(true);

@@ -62,7 +62,7 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success);
-		$this->assertEquals(array($module->translate('Database optimized successfully')), $details);
+		$this->assertEquals(array( $module->translate('Database optimized successfully') ), $details);
 		$this->assertTrue($mockStorage->optimizeWasCalled());
 	}
 }

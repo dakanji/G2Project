@@ -146,13 +146,13 @@ class GalleryChildEntity extends GalleryEntity {
 			list($ret, $parent) = GalleryCoreApi::loadEntitiesById($this->getParentId(), 'GalleryEntity');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			$parent = null;
 		}
 
-		return array(null, $parent);
+		return array( null, $parent );
 	}
 
 	/**

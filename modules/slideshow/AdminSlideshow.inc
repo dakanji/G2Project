@@ -45,7 +45,7 @@ class AdminSlideshowController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Allow our helper to be injected as a dependency for ease in testing
@@ -57,7 +57,7 @@ class AdminSlideshowController extends GalleryController {
 
 			if ($ret) {
 				if ($ret->getErrorCode() & ERROR_STORAGE_FAILURE) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				// It should be safe to swallow non storage failures.
 				$status['downloadFailed'] = 1;
@@ -71,7 +71,7 @@ class AdminSlideshowController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 
@@ -82,20 +82,20 @@ class AdminSlideshowController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} elseif (isset($form['action']['uninstall'])) {
 			$ret = $picLensHelper->uninstall();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$status['uninstalled'] = 1;
 
 			$ret = GalleryCoreApi::removePluginParameter('module', 'slideshow', 'piclens.version');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -106,7 +106,7 @@ class AdminSlideshowController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -114,7 +114,7 @@ class AdminSlideshowController extends GalleryController {
 			null,
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
 				'status' => $status,
@@ -135,7 +135,7 @@ class AdminSlideshowView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load our default values if we didn't just come from this form.
@@ -146,7 +146,7 @@ class AdminSlideshowView extends GalleryView {
 		list($ret, $current) = GalleryCoreApi::getPluginParameter('module', 'slideshow', 'piclens.version');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$picLensHelper = new PicLensHelper();
@@ -161,7 +161,7 @@ class AdminSlideshowView extends GalleryView {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			$update = version_compare($info['version'], $current, '>') ? $info['version'] : null;
@@ -170,7 +170,7 @@ class AdminSlideshowView extends GalleryView {
 		$AdminSlideshow = array(
 			'piclens' => array(
 				'current' => $current,
-				'update'  => $update,
+				'update' => $update,
 			),
 		);
 		$template->setVariable('AdminSlideshow', $AdminSlideshow);

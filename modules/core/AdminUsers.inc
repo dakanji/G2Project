@@ -35,7 +35,7 @@ class AdminUsersController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = $error = $results = array();
@@ -45,7 +45,7 @@ class AdminUsersController extends GalleryController {
 			list($ret, $user) = GalleryCoreApi::fetchUserByUserName($form['text']['userName']);
 
 			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -80,7 +80,7 @@ class AdminUsersController extends GalleryController {
 				list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($user->getId() == $anonymousUserId) {
@@ -109,7 +109,7 @@ class AdminUsersController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -126,7 +126,7 @@ class AdminUsersView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'AdminUsers') {
@@ -147,7 +147,7 @@ class AdminUsersView extends GalleryView {
 		list($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$form['list']['count']    = $totalUserCount;
@@ -158,7 +158,7 @@ class AdminUsersView extends GalleryView {
 			list($ret, $form['list']['count']) = GalleryCoreApi::fetchUserCount($form['list']['filter']);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -180,13 +180,13 @@ class AdminUsersView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$myUserId = $gallery->getActiveUserId();
@@ -195,19 +195,19 @@ class AdminUsersView extends GalleryView {
 		list($ret, $users) = GalleryCoreApi::loadEntitiesById(array_keys($userNames), 'GalleryUser');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'FailedLoginsMap',
-			array('userName', 'count'),
+			array( 'userName', 'count' ),
 			array(
 				'userName' => array_values($userNames),
 			)
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		while ($result = $searchResults->nextResult()) {

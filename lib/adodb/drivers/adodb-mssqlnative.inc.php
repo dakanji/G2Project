@@ -632,7 +632,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			return $sql;
 		}
 
-		return array($sql, $stmt);
+		return array( $sql, $stmt );
 	}
 
 	// returns concatenated string
@@ -873,8 +873,7 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		$sql = "select distinct k.column_name,ordinal_position from information_schema.key_column_usage k,
 		information_schema.table_constraints tc
-		where tc.constraint_name = k.constraint_name and tc.constraint_type =
-		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
+		where tc.constraint_name = k.constraint_name and tc.constraint_type = 		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
 
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -1133,18 +1132,18 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 
 			if ($fieldOffset != -1) {
 				$fb = array(
-					'name'          => $fa['name'],
-					'max_length'    => $fa['size'],
+					'name' => $fa['name'],
+					'max_length' => $fa['size'],
 					'column_source' => $fa['name'],
-					'type'          => $_typeConversion[$fa['type']],
+					'type' => $_typeConversion[$fa['type']],
 				);
 			} else {
 				foreach ($fa as $key => $value) {
 					$fb[] = array(
-						'name'          => $value['name'],
-						'max_length'    => $value['size'],
+						'name' => $value['name'],
+						'max_length' => $value['size'],
 						'column_source' => $value['name'],
-						'type'          => $_typeConversion[$value['type']],
+						'type' => $_typeConversion[$value['type']],
 					);
 				}
 			}

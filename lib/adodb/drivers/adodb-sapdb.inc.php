@@ -94,7 +94,7 @@ if (!defined('ADODB_SAPDB')) {
 
 			if ($primary) {
 				$indexes['SYSPRIMARYKEYINDEX'] = array(
-					'unique'  => true,   // by definition
+					'unique' => true,   // by definition
 					'columns' => $this->GetCol("SELECT columnname FROM COLUMNS WHERE tablename=$table AND mode='KEY' ORDER BY pos"),
 				);
 			}

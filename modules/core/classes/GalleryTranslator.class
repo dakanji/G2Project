@@ -273,13 +273,12 @@ class GalleryTranslator {
 			$defaultCountry['fa'] = 'IR';
 		}
 
-		return array($supportedLanguages, $defaultCountry);
+		return array( $supportedLanguages, $defaultCountry );
 	}
 
 	/**
 	 * Return the list of languages that we support.
-	 * @return array['language code']['country code'] =
-	 *              array('description', 'right-to-left'?)
+	 * @return array['language code']['country code'] =      *              array('description', 'right-to-left'?)
 	 * @deprecated Remove on next major api bump. Use GalleryCoreApi::getSupportedLanguages
 	 */
 	public function getSupportedLanguages() {
@@ -299,7 +298,7 @@ class GalleryTranslator {
 			list($ret, $languageCode) = $this->getDefaultLanguageCode();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -317,7 +316,7 @@ class GalleryTranslator {
 
 		$this->_languageCode = $languageCode;
 
-		return array(null, $languageCode);
+		return array( null, $languageCode );
 	}
 
 	/**
@@ -390,7 +389,7 @@ class GalleryTranslator {
 		list($ret, $useBrowserPref) = GalleryCoreApi::getPluginParameter('module', 'core', 'language.useBrowserPref');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($useBrowserPref) {
@@ -403,11 +402,11 @@ class GalleryTranslator {
 			list($ret, $languageCode) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
-		return array(null, $languageCode);
+		return array( null, $languageCode );
 	}
 
 	/**
@@ -447,14 +446,14 @@ class GalleryTranslator {
 		}
 
 		if (isset($supportedLanguages[$language][$country])) {
-			return array("${language}_${country}", $supportedLanguages[$language][$country]);
+			return array( "${language}_${country}", $supportedLanguages[$language][$country] );
 		}
 
 		if ($fallback) {
-			return array('en_US', $supportedLanguages['en']['US']);
+			return array( 'en_US', $supportedLanguages['en']['US'] );
 		}
 
-		return array(null, null);
+		return array( null, null );
 	}
 
 	/**
@@ -517,7 +516,7 @@ class GalleryTranslator {
 		if (!(isset($data['text'])
 			|| (isset($data['one']) && isset($data['many']) && isset($data['count'])))
 		) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		if (function_exists('dgettext') && $this->_languageCode != 'en_US') {
@@ -574,7 +573,7 @@ class GalleryTranslator {
 
 			// Catch runaways
 			if ($i > 100) {
-				return array(GalleryCoreApi::error(ERROR_UNKNOWN), null);
+				return array( GalleryCoreApi::error(ERROR_UNKNOWN), null );
 			}
 		}
 
@@ -589,7 +588,7 @@ class GalleryTranslator {
 		 */
 		// $localized = "<font size=1 color=#C33>$domain/{$this->_languageCode}:</font>$localized";
 
-		return array(null, $localized);
+		return array( null, $localized );
 	}
 
 	/**
@@ -602,7 +601,7 @@ class GalleryTranslator {
 		list($language, $country) = explode('_', $locale . '_');
 		// Don't apply default to Chinese for political correctness
 		if ($language == 'zh') {
-			return array(null, $locale);
+			return array( null, $locale );
 		}
 		list($value, $defaultCountries) = $this->getLanguageData();
 
@@ -618,7 +617,7 @@ class GalleryTranslator {
 			);
 		}
 
-		return array(null, ($country == $defaultCountries[$language]) ? $language : $locale);
+		return array( null, ($country == $defaultCountries[$language]) ? $language : $locale );
 	}
 
 	/**
@@ -649,6 +648,6 @@ class GalleryTranslator {
 			$country = $defaultCountries[$language];
 		}
 
-		return array(null, $language, $country);
+		return array( null, $language, $country );
 	}
 }

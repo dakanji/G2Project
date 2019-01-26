@@ -35,8 +35,8 @@ class RatingModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
-		$this->setRequiredCoreApi(array(7, 41));
-		$this->setRequiredModuleApi(array(3, 6));
+		$this->setRequiredCoreApi(array( 7, 41 ));
+		$this->setRequiredModuleApi(array( 3, 6 ));
 	}
 
 	/**
@@ -49,7 +49,7 @@ class RatingModule extends GalleryModule {
 			'RatingModule',
 			'modules/rating/module.inc',
 			'rating',
-			array('GalleryEntity::delete')
+			array( 'GalleryEntity::delete' )
 		);
 
 		if ($ret) {
@@ -62,7 +62,7 @@ class RatingModule extends GalleryModule {
 			'RatingItemEdit',
 			'modules/rating/RatingItemEdit.inc',
 			'rating',
-			array('ItemEditAlbum')
+			array( 'ItemEditAlbum' )
 		);
 
 		if ($ret) {
@@ -112,7 +112,7 @@ class RatingModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$enabledAlbums[$parentId] = !empty($enabled);
@@ -123,7 +123,7 @@ class RatingModule extends GalleryModule {
 		}
 
 		if (empty($numEnabledAlbums)) {
-			return array(null, array());
+			return array( null, array() );
 		}
 
 		// Load the G2 templating engine
@@ -137,7 +137,7 @@ class RatingModule extends GalleryModule {
 		$session       =& $gallery->getSession();
 		$authToken     = $session->isPersistent() ? $session->getAuthToken() : '';
 		$RatingSummary = array(
-			'ratingValues' => array(1, 2, 3, 4, 5),
+			'ratingValues' => array( 1, 2, 3, 4, 5 ),
 			'firstCall' => true,
 			'authToken' => $authToken,
 		);
@@ -150,7 +150,7 @@ class RatingModule extends GalleryModule {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Acquire the current rating for the items (populate $RatingData)
@@ -161,7 +161,7 @@ class RatingModule extends GalleryModule {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$summaries = array();
@@ -192,13 +192,13 @@ class RatingModule extends GalleryModule {
 			list($ret, $summaries[$itemId]) = $template->fetch('gallery:modules/rating/templates/RatingInterface.tpl');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$RatingSummary['firstCall'] = false;
 		}
 
-		return array(null, $summaries);
+		return array( null, $summaries );
 	}
 
 	/**
@@ -220,13 +220,13 @@ class RatingModule extends GalleryModule {
 				}
 
 				// Initial install.  Register our permissions
-				$permissions[] = array('add', $gallery->i18n('[rating] Add ratings'), 0, array());
-				$permissions[] = array('view', $gallery->i18n('[rating] View ratings'), 0, array());
+				$permissions[] = array( 'add', $gallery->i18n('[rating] Add ratings'), 0, array() );
+				$permissions[] = array( 'view', $gallery->i18n('[rating] View ratings'), 0, array() );
 				$permissions[] = array(
 					'all',
 					$gallery->i18n('[rating] All access'),
 					GALLERY_PERMISSION_COMPOSITE,
-					array('rating.add', 'rating.view'),
+					array( 'rating.add', 'rating.view' ),
 				);
 
 				foreach ($permissions as $p) {
@@ -375,7 +375,7 @@ class RatingModule extends GalleryModule {
 				'keywords' => array(
 					'limit' => array(
 						'pattern' => '([^?/]+)',
-						'help'    => $this->translate('Rating limit to use for dynamic album'),
+						'help' => $this->translate('Rating limit to use for dynamic album'),
 					),
 				),
 			),
@@ -403,7 +403,7 @@ class RatingModule extends GalleryModule {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$ret = GalleryCoreApi::removeMapEntry(
 					'RatingCacheMap',
@@ -413,12 +413,12 @@ class RatingModule extends GalleryModule {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 
 	/**

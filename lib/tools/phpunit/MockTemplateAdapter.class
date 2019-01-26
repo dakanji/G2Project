@@ -32,7 +32,7 @@ class MockTemplateAdapter {
 	}
 
 	public function registerTrailerCallback($callback, $args) {
-		$this->_callbacks[] = array($callback, $args);
+		$this->_callbacks[] = array( $callback, $args );
 	}
 
 	public function runCallbacks() {
@@ -85,7 +85,7 @@ class MockTemplateAdapter {
 
 	public function completeProgressBar($url, $doRedirect = false) {
 		$this->_progress[]          = 'complete:' . $url;
-		$this->_completeProgressBar = array($url, $doRedirect);
+		$this->_completeProgressBar = array( $url, $doRedirect );
 	}
 
 	public function getCompleteProgressBarDump() {

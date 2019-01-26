@@ -71,14 +71,14 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetDescriptorUrl() {
 		$testcases = array(
 			array(
-				'pluginType'  => 'module',
-				'pluginId'    => 'testModule',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
 				'expectedUrl' => 'modules/testModule-1.0.0-44444.descriptor',
 			),
 			array(
 
-				'pluginType'  => 'theme',
-				'pluginId'    => 'testTheme',
+				'pluginType' => 'theme',
+				'pluginId' => 'testTheme',
 				'expectedUrl' => 'themes/testTheme-1.0.0-11111.descriptor',
 			),
 		);
@@ -97,44 +97,44 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetPackageUrl() {
 		$testcases = array(
 			array(
-				'pluginType'  => 'module',
-				'pluginId'    => 'testModule',
-				'package'     => 'base',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
+				'package' => 'base',
 				'expectedUrl' => 'modules/testModule-1.0.0-44444-base.package',
 			),
 			array(
 
-				'pluginType'  => 'module',
-				'pluginId'    => 'testModule',
-				'package'     => 'test',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
+				'package' => 'test',
 				'expectedUrl' => 'modules/testModule-1.0.0-44444-test.package',
 			),
 			array(
 
-				'pluginType'  => 'module',
-				'pluginId'    => 'testModule',
-				'package'     => 'lang-en_US',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
+				'package' => 'lang-en_US',
 				'expectedUrl' => 'modules/testModule-lang-en_US-22222-33333.package',
 			),
 			array(
 
-				'pluginType'  => 'module',
-				'pluginId'    => 'testModule',
-				'package'     => 'lang-pt_BR',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
+				'package' => 'lang-pt_BR',
 				'expectedUrl' => 'modules/testModule-lang-pt_BR-22222-33333.package',
 			),
 			array(
 
-				'pluginType'  => 'theme',
-				'pluginId'    => 'testTheme',
-				'package'     => 'base',
+				'pluginType' => 'theme',
+				'pluginId' => 'testTheme',
+				'package' => 'base',
 				'expectedUrl' => 'themes/testTheme-1.0.0-11111-base.package',
 			),
 			array(
 
-				'pluginType'  => 'theme',
-				'pluginId'    => 'testTheme',
-				'package'     => 'lang-pt_BR',
+				'pluginType' => 'theme',
+				'pluginId' => 'testTheme',
+				'package' => 'lang-pt_BR',
 				'expectedUrl' => 'themes/testTheme-lang-pt_BR-22222-33333.package',
 			),
 		);
@@ -167,24 +167,24 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$testcases = array(
 			'en_US',
 			array(
-				'pluginType'   => 'module',
-				'pluginId'     => 'testModule',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
 				'expectedName' => 'Test Module',
 			),
 			array(
-				'pluginType'   => 'theme',
-				'pluginId'     => 'testTheme',
+				'pluginType' => 'theme',
+				'pluginId' => 'testTheme',
 				'expectedName' => 'Test Theme',
 			),
 			'en_GB',
 			array(
-				'pluginType'   => 'module',
-				'pluginId'     => 'testModule',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
 				'expectedName' => 'en_GB-modules_testModule-Test Module',
 			),
 			array(
-				'pluginType'   => 'theme',
-				'pluginId'     => 'testTheme',
+				'pluginType' => 'theme',
+				'pluginId' => 'testTheme',
 				'expectedName' => 'en_GB-themes_testTheme-Test Theme',
 			),
 		);
@@ -235,34 +235,34 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		$utilities->setReply(
 			'downloadFile',
-			array('http://example.com/repository/test/index', null),
-			array(true, $serializedSampleIndex)
+			array( 'http://example.com/repository/test/index', null ),
+			array( true, $serializedSampleIndex )
 		);
 		$utilities->setReply(
 			'downloadFile',
-			array('http://example.com/repository/test/index.hash', 1),
-			array(true, md5($serializedSampleIndex))
+			array( 'http://example.com/repository/test/index.hash', 1 ),
+			array( true, md5($serializedSampleIndex) )
 		);
 
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_exists',
-			array($this->_index->getRepositoryCacheDir() . 'modules'),
+			array( $this->_index->getRepositoryCacheDir() . 'modules' ),
 			true
 		);
 		$platform->setReply(
 			'is_dir',
-			array($this->_index->getRepositoryCacheDir() . 'modules'),
+			array( $this->_index->getRepositoryCacheDir() . 'modules' ),
 			true
 		);
 		$platform->setReply(
 			'file_exists',
-			array($this->_index->getRepositoryCacheDir() . 'themes'),
+			array( $this->_index->getRepositoryCacheDir() . 'themes' ),
 			true
 		);
 		$platform->setReply(
 			'is_dir',
-			array($this->_index->getRepositoryCacheDir() . 'themes'),
+			array( $this->_index->getRepositoryCacheDir() . 'themes' ),
 			true
 		);
 		$platform->setReply(
@@ -313,7 +313,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	public function testGetMetaData() {
 		$this->_testStorage->setSearchResults(
-			array(array(0, 'repository.updateTime', 'updateTime'))
+			array( array( 0, 'repository.updateTime', 'updateTime' ) )
 		);
 
 		/*
@@ -329,9 +329,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'timestamp'   => 'updateTime',
+				'timestamp' => 'updateTime',
 				'moduleCount' => 1,
-				'themeCount'  => 1,
+				'themeCount' => 1,
 			),
 			$metaData
 		);
@@ -343,7 +343,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_exists',
-			array($this->_index->getRepositoryCacheDir() . 'index.repository'),
+			array( $this->_index->getRepositoryCacheDir() . 'index.repository' ),
 			false
 		);
 		$gallery->setPlatform($platform);
@@ -360,7 +360,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_get_contents',
-			array($this->_index->getRepositoryCacheDir() . 'index.repository'),
+			array( $this->_index->getRepositoryCacheDir() . 'index.repository' ),
 			serialize($this->_sampleIndex)
 		);
 		$gallery->setPlatform($platform);
@@ -385,10 +385,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$platform  = new UnitTestPlatform();
 		$platform->setReply(
 			'file_get_contents',
-			array($indexPath),
+			array( $indexPath ),
 			serialize(false) // this will cause unserialize to return false
 		);
-		$platform->setReply('unlink', array($indexPath), true);
+		$platform->setReply('unlink', array( $indexPath ), true);
 		$gallery->setPlatform($platform);
 
 		$ret = $index->load();
@@ -403,7 +403,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'modules' => array(),
-				'themes'  => array(),
+				'themes' => array(),
 			),
 			$index->_index
 		);
@@ -441,7 +441,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'modules' => array(),
-				'themes'  => array(),
+				'themes' => array(),
 			),
 			$this->_index->_index
 		);
@@ -456,11 +456,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$testCases = array(
 			array(
 				'pluginType' => 'module',
-				'pluginId'   => 'testModule',
+				'pluginId' => 'testModule',
 			),
 			array(
 				'pluginType' => 'theme',
-				'pluginId'   => 'testTheme',
+				'pluginId' => 'testTheme',
 			),
 		);
 
@@ -495,20 +495,20 @@ class RepositoryIndexTest extends GalleryTestCase {
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
-		GalleryDataCache::put($cacheKey, array('testModule'));
+		GalleryDataCache::put($cacheKey, array( 'testModule' ));
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
-		GalleryDataCache::put($cacheKey, array('testTheme'));
+		GalleryDataCache::put($cacheKey, array( 'testTheme' ));
 
 		$testCases = array(
 			array(
 				'pluginType' => 'module',
-				'pluginId'   => 'testModule',
-				'languages'  => $this->_sampleIndex['modules']['testModule']['languages']['22222'],
+				'pluginId' => 'testModule',
+				'languages' => $this->_sampleIndex['modules']['testModule']['languages']['22222'],
 			),
 			array(
 				'pluginType' => 'theme',
-				'pluginId'   => 'testTheme',
-				'languages'  => $this->_sampleIndex['themes']['testTheme']['languages']['22222'],
+				'pluginId' => 'testTheme',
+				'languages' => $this->_sampleIndex['themes']['testTheme']['languages']['22222'],
 			),
 		);
 
@@ -532,28 +532,28 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$cacheKey,
 			array(
 				'en' => array(
-					'US' => array('US English'),
+					'US' => array( 'US English' ),
 				),
 			)
 		);
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
-		GalleryDataCache::put($cacheKey, array('testModule'));
+		GalleryDataCache::put($cacheKey, array( 'testModule' ));
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
-		GalleryDataCache::put($cacheKey, array('testTheme'));
+		GalleryDataCache::put($cacheKey, array( 'testTheme' ));
 
 		$testCases = array(
 			array(
 				'pluginType' => 'module',
-				'pluginId'   => 'testModule',
-				'languages'  => array(
+				'pluginId' => 'testModule',
+				'languages' => array(
 					'en_US' => '33333',
 				),
 			),
 			array(
 				'pluginType' => 'theme',
-				'pluginId'   => 'testTheme',
-				'languages'  => array(
+				'pluginId' => 'testTheme',
+				'languages' => array(
 					'en_US' => '33333',
 				),
 			),
@@ -576,15 +576,15 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$testCases = array(
 			array(
 				'pluginType' => 'module',
-				'pluginId'   => 'testModule',
+				'pluginId' => 'testModule',
 			),
 			array(
 				'pluginType' => 'theme',
-				'pluginId'   => 'testTheme',
+				'pluginId' => 'testTheme',
 			),
 			array(
 				'pluginType' => 'theme',
-				'pluginId'   => 'anotherTheme',
+				'pluginId' => 'anotherTheme',
 			),
 		);
 
@@ -603,19 +603,19 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		$testCases = array(
 			array(
-				'pluginType'      => 'module',
-				'pluginId'        => 'testModule',
-				'package'         => 'package1',
+				'pluginType' => 'module',
+				'pluginId' => 'testModule',
+				'package' => 'package1',
 				'expectedVersion' => $this->_sampleIndex['modules']['testModule']['header']['version'],
-				'expectedBuild'   => $this->_sampleIndex['modules']['testModule']['header']['buildTimestamp'],
+				'expectedBuild' => $this->_sampleIndex['modules']['testModule']['header']['buildTimestamp'],
 			),
 			array(
 
-				'pluginType'      => 'theme',
-				'pluginId'        => 'testTheme',
-				'package'         => 'lang-en_US',
+				'pluginType' => 'theme',
+				'pluginId' => 'testTheme',
+				'package' => 'lang-en_US',
 				'expectedVersion' => $sampleStringsRevision,
-				'expectedBuild'   => $this->_sampleIndex['themes']['testTheme']
+				'expectedBuild' => $this->_sampleIndex['themes']['testTheme']
 				['languages'][$sampleStringsRevision]['en_US'],
 			),
 		);
@@ -638,10 +638,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetPlugins() {
 		$testCases = array(
 			array(
-				'pluginType'      => 'module',
-				'showAll'         => true,
-				'isCompatible'    => true,
-				'isAvailable'     => true,
+				'pluginType' => 'module',
+				'showAll' => true,
+				'isCompatible' => true,
+				'isAvailable' => true,
 				'expectedPlugins' => array(
 					'module' => array(
 						'testModule' => $this->_sampleIndex['modules']['testModule'],
@@ -651,10 +651,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			array(
 
-				'pluginType'      => 'theme',
-				'showAll'         => false,
-				'isCompatible'    => false,
-				'isAvailable'     => true,
+				'pluginType' => 'theme',
+				'showAll' => false,
+				'isCompatible' => false,
+				'isAvailable' => true,
 				'expectedPlugins' => array(
 					'theme' => array(),
 				),
@@ -662,10 +662,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			array(
 
-				'pluginType'      => 'module',
-				'showAll'         => false,
-				'isCompatible'    => true,
-				'isAvailable'     => false,
+				'pluginType' => 'module',
+				'showAll' => false,
+				'isCompatible' => true,
+				'isAvailable' => false,
 				'expectedPlugins' => array(
 					'module' => array(
 						'testModule' => $this->_sampleIndex['modules']['testModule'],
@@ -675,10 +675,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			array(
 
-				'pluginType'      => 'theme',
-				'showAll'         => true,
-				'isCompatible'    => false,
-				'isAvailable'     => false,
+				'pluginType' => 'theme',
+				'showAll' => true,
+				'isCompatible' => false,
+				'isAvailable' => false,
 				'expectedPlugins' => array(
 					'theme' => array(
 						'testTheme' => $this->_sampleIndex['themes']['testTheme'],
@@ -703,22 +703,22 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$pluginApi = $pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion();
 			$utilities->setReply(
 				'isPluginCompatible',
-				array($pluginType, $coreApi, $pluginApi, null),
+				array( $pluginType, $coreApi, $pluginApi, null ),
 				$case['isCompatible']
 			);
 
 			if ($case['showAll'] || $case['isCompatible']) {
 				$utilities->setReply(
 					'isPluginAvailable',
-					array($pluginType, $pluginId),
-					array(null, $case['isAvailable'])
+					array( $pluginType, $pluginId ),
+					array( null, $case['isAvailable'] )
 				);
 
 				if ($case['isAvailable']) {
 					$utilities->setReply(
 						'getPluginVersion',
-						array($pluginType, $pluginId),
-						array(null, 'someVersion')
+						array( $pluginType, $pluginId ),
+						array( null, 'someVersion' )
 					);
 				}
 			}
@@ -754,7 +754,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
 				'testModule' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -767,7 +767,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
 			array(
 				'testTheme' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -792,19 +792,19 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
-					'name'  => 'en_GB-modules_testModule-Test Module',
+					'name' => 'en_GB-modules_testModule-Test Module',
 					'files' => array(
 						'descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-						'en_GB'      => 'modules/testModule-lang-en_GB-22222-33333.package',
+						'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
 					),
 				),
 			),
 			'theme' => array(
 				'testTheme' => array(
-					'name'  => 'en_GB-themes_testTheme-Test Theme',
+					'name' => 'en_GB-themes_testTheme-Test Theme',
 					'files' => array(
 						'descriptor' => 'themes/testTheme-1.0.0-11111.descriptor',
-						'en_GB'      => 'themes/testTheme-lang-en_GB-22222-22222.package',
+						'en_GB' => 'themes/testTheme-lang-en_GB-22222-22222.package',
 					),
 				),
 			),
@@ -824,7 +824,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
 				'testModule' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -838,7 +838,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
 			array(
 				'testTheme' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -853,7 +853,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
+		list($ret, $files) = $this->_index->getLanguagePackageFiles(array( 'en_GB', 'pt_BR' ));
 
 		if ($ret) {
 			return $ret;
@@ -863,21 +863,21 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
-					'name'  => 'en_GB-modules_testModule-Test Module',
+					'name' => 'en_GB-modules_testModule-Test Module',
 					'files' => array(
 						'descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-						'en_GB'      => 'modules/testModule-lang-en_GB-22222-33333.package',
-						'pt_BR'      => 'modules/testModule-lang-pt_BR-22222-33333.package',
+						'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
+						'pt_BR' => 'modules/testModule-lang-pt_BR-22222-33333.package',
 					),
 				),
 			),
 			'theme' => array(
 				'testTheme' => array(
-					'name'  => 'en_GB-themes_testTheme-Test Theme',
+					'name' => 'en_GB-themes_testTheme-Test Theme',
 					'files' => array(
 						'descriptor' => 'themes/testTheme-1.0.0-11111.descriptor',
-						'en_GB'      => 'themes/testTheme-lang-en_GB-22222-22222.package',
-						'pt_BR'      => 'themes/testTheme-lang-pt_BR-22222-33333.package',
+						'en_GB' => 'themes/testTheme-lang-en_GB-22222-22222.package',
+						'pt_BR' => 'themes/testTheme-lang-pt_BR-22222-33333.package',
 					),
 				),
 			),
@@ -897,7 +897,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
 				'testModule' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -913,7 +913,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
 			array(
 				'testTheme' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -933,7 +933,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
+		list($ret, $files) = $this->_index->getLanguagePackageFiles(array( 'en_GB', 'pt_BR' ));
 
 		if ($ret) {
 			return $ret;
@@ -943,11 +943,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
-					'name'  => 'en_GB-modules_testModule-Test Module',
+					'name' => 'en_GB-modules_testModule-Test Module',
 					'files' => array(
 						'descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-						'en_GB'      => 'modules/testModule-lang-en_GB-22222-33333.package',
-						'pt_BR'      => 'modules/testModule-lang-pt_BR-22222-33333.package',
+						'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
+						'pt_BR' => 'modules/testModule-lang-pt_BR-22222-33333.package',
 					),
 				),
 			),
@@ -967,7 +967,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
 				'testModule' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 1,
 				),
 			)
@@ -981,7 +981,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
 			array(
 				'testTheme' => array(
-					'active'    => 1,
+					'active' => 1,
 					'available' => 0,
 				),
 			)
@@ -996,7 +996,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		list($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
+		list($ret, $files) = $this->_index->getLanguagePackageFiles(array( 'en_GB', 'pt_BR' ));
 
 		if ($ret) {
 			return $ret;
@@ -1004,11 +1004,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
-					'name'  => 'en_GB-modules_testModule-Test Module',
+					'name' => 'en_GB-modules_testModule-Test Module',
 					'files' => array(
 						'descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-						'en_GB'      => 'modules/testModule-lang-en_GB-22222-33333.package',
-						'pt_BR'      => 'modules/testModule-lang-pt_BR-22222-33333.package',
+						'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
+						'pt_BR' => 'modules/testModule-lang-pt_BR-22222-33333.package',
 					),
 				),
 			),
@@ -1041,37 +1041,37 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 		$utilities->setReply(
 			'getPluginPackages',
-			array('module', 'testModule'),
-			array(null, $installedPackages)
+			array( 'module', 'testModule' ),
+			array( null, $installedPackages )
 		);
 
 		if (empty($options['noTheme'])) {
 			$installedPackages = array(
 				'base' => array(
-					'locked'  => false,
+					'locked' => false,
 					'version' => '1.0.0',
-					'build'   => '11111',
+					'build' => '11111',
 				),
 				'lang-en_GB' => array(
-					'locked'  => 0,
+					'locked' => 0,
 					'version' => '1.0.0',
-					'build'   => '11111',
+					'build' => '11111',
 				),
 				'lang-pt_PT' => array(
-					'locked'  => 1,
+					'locked' => 1,
 					'version' => '1.0.0',
-					'build'   => '11111',
+					'build' => '11111',
 				),
 				'lang-pt_BR' => array(
-					'locked'  => 0,
+					'locked' => 0,
 					'version' => '1.0.0',
-					'build'   => '11111',
+					'build' => '11111',
 				),
 			);
 			$utilities->setReply(
 				'getPluginPackages',
-				array('theme', 'testTheme'),
-				array(null, $installedPackages)
+				array( 'theme', 'testTheme' ),
+				array( null, $installedPackages )
 			);
 		}
 	}

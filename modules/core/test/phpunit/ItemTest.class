@@ -80,15 +80,15 @@ class ItemTest extends GalleryTestCase {
 		// Register jpeg thumbnail/gif scale in case there are no other toolkits active
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('test/image', 'image/jpeg', 'image/gif'),
+			array( 'test/image', 'image/jpeg', 'image/gif' ),
 			'thumbnail',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -102,15 +102,15 @@ class ItemTest extends GalleryTestCase {
 		}
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('image/gif'),
+			array( 'image/gif' ),
 			'scale',
 			array(
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type'        => 'int',
+					'type' => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -124,7 +124,7 @@ class ItemTest extends GalleryTestCase {
 		}
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'ItemTestToolkit',
-			array('image/gif', 'image/jpeg'),
+			array( 'image/gif', 'image/jpeg' ),
 			'dimensions',
 			'int,int',
 			'Get the dimensions'
@@ -137,7 +137,7 @@ class ItemTest extends GalleryTestCase {
 		// Register a conversion operation that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('test/movie', 'image/x-portable-pixmap'),
+			array( 'test/movie', 'image/x-portable-pixmap' ),
 			'convert-to-image/jpeg',
 			array(),
 			'itemtest-description',
@@ -155,7 +155,7 @@ class ItemTest extends GalleryTestCase {
 			'ItemTestMovieItem',
 			$path,
 			'coreTest',
-			array('test/movie')
+			array( 'test/movie' )
 		);
 		$this->_markFactoryModuleForCleanup('coreTest');
 
@@ -283,7 +283,7 @@ class ItemTest extends GalleryTestCase {
 				'HTML',
 				array(
 					'fallback' => 'ERROR',
-					'class'    => 'test',
+					'class' => 'test',
 				)
 			);
 			$inlineOk = ($html != 'ERROR' && $html != null);
@@ -372,7 +372,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $counts) = GalleryCoreApi::fetchChildCounts(
-			array($this->_album->getId())
+			array( $this->_album->getId() )
 		);
 
 		if ($ret) {
@@ -453,7 +453,7 @@ class ItemTest extends GalleryTestCase {
 
 		// Used to have a bug where count was cached by itemId only, not itemId+userId
 		list($ret, $counts) = GalleryCoreApi::fetchChildCounts(
-			array($this->_album->getId())
+			array( $this->_album->getId() )
 		);
 
 		if ($ret) {
@@ -585,9 +585,9 @@ class ItemTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'core.view'        => true,
+				'core.view' => true,
 				'core.addDataItem' => true,
-				'core.edit'        => true,
+				'core.edit' => true,
 			),
 			$perms,
 			'Get Permissions 2'
@@ -600,7 +600,7 @@ class ItemTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'core.view'        => true,
+				'core.view' => true,
 				'core.addDataItem' => true,
 			),
 			$perms,
@@ -741,7 +741,7 @@ class ItemTest extends GalleryTestCase {
 
 		list($ret, $ids) = GalleryCoreApi::fetchAllItemIds(
 			'GalleryAlbumItem',
-			array('core.addDataItem', 'core.view')
+			array( 'core.addDataItem', 'core.view' )
 		);
 
 		if ($ret) {
@@ -781,7 +781,7 @@ class ItemTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$user->getId(),
-			array('core.addDataItem', 'core.addAlbumItem'),
+			array( 'core.addDataItem', 'core.addAlbumItem' ),
 			false
 		);
 
@@ -898,7 +898,7 @@ class ItemTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$oldUser->getId(),
-			array('core.addDataItem'),
+			array( 'core.addDataItem' ),
 			false
 		);
 
@@ -943,7 +943,7 @@ class ItemTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addGroupPermission(
 			$album->getId(),
 			$group1->getId(),
-			array('core.changePermissions', 'core.view'),
+			array( 'core.changePermissions', 'core.view' ),
 			false
 		);
 
@@ -954,7 +954,7 @@ class ItemTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$album->getId(),
 			$oldUser->getId(),
-			array('core.addDataItem', 'core.delete'),
+			array( 'core.addDataItem', 'core.delete' ),
 			false
 		);
 
@@ -965,7 +965,7 @@ class ItemTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addGroupPermission(
 			$album->getId(),
 			$group2->getId(),
-			array('core.edit', 'core.view'),
+			array( 'core.edit', 'core.view' ),
 			false
 		);
 
@@ -976,7 +976,7 @@ class ItemTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$album->getId(),
 			$newUser->getId(),
-			array('core.addDataItem', 'core.addAlbumItem'),
+			array( 'core.addDataItem', 'core.addAlbumItem' ),
 			false
 		);
 
@@ -1060,7 +1060,7 @@ class ItemTest extends GalleryTestCase {
 			'too few/many direct permissions'
 		);
 		// Verify indirect permissions
-		foreach (array('core.edit', 'core.view') as $permission) {
+		foreach (array( 'core.edit', 'core.view' ) as $permission) {
 			$this->assertTrue(
 				isset($groupPermissions[$group2->getId()][$permission]),
 				'indirect permissions changed'
@@ -1072,7 +1072,7 @@ class ItemTest extends GalleryTestCase {
 		);
 		// Verify the old user's permissions have not been changed
 		// Verify direct permissions
-		foreach (array('core.addDataItem', 'core.delete') as $permission) {
+		foreach (array( 'core.addDataItem', 'core.delete' ) as $permission) {
 			$this->assertTrue(
 				isset($userPermissions[$oldUser->getId()][$permission]),
 				"direct permission '$permission' of old owner changed"
@@ -1083,7 +1083,7 @@ class ItemTest extends GalleryTestCase {
 			'changed direct permissions of old owner'
 		);
 		// Verify indirect permissions
-		foreach (array('core.changePermissions', 'core.view') as $permission) {
+		foreach (array( 'core.changePermissions', 'core.view' ) as $permission) {
 			$this->assertTrue(
 				isset($groupPermissions[$group1->getId()][$permission]),
 				"indirect permission '$permission' of old owner changed"
@@ -1265,7 +1265,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(!$success, 'should not be able to set thumbnail');
 
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
-			array($this->_album->getId())
+			array( $this->_album->getId() )
 		);
 
 		if ($ret) {
@@ -1389,7 +1389,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertEquals($this->_album->getId(), $newItem->getParentId(), 'parent id');
 
 		// Test the order weight
-		list($ret, $weights) = GalleryCoreApi::fetchItemOrderWeights(array($newItem->getId()));
+		list($ret, $weights) = GalleryCoreApi::fetchItemOrderWeights(array( $newItem->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -1454,7 +1454,7 @@ class ItemTest extends GalleryTestCase {
 		// Register the originationTimestamp property that we can get from our mock data items
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'ItemTestToolkit',
-			array('test/imageWithTimestamp'),
+			array( 'test/imageWithTimestamp' ),
 			'originationTimestamp',
 			'int',
 			'Get the origination timestamp'
@@ -1543,7 +1543,7 @@ class ItemTest extends GalleryTestCase {
 		 * Verify that the new item's derivatives.. note we don't expect a preferred derivative
 		 * with convert-to-image/jpeg.. we only do this for image/* mime types.
 		 */
-		list($ret, $derivativeTable) = GalleryCoreApi::fetchDerivativesByItemIds(array($newItem->getId()));
+		list($ret, $derivativeTable) = GalleryCoreApi::fetchDerivativesByItemIds(array( $newItem->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -1951,7 +1951,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		// Now verify that we didn't upsample our resizes
-		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($photo->getId()));
+		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array( $photo->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -1971,7 +1971,7 @@ class ItemTest extends GalleryTestCase {
 
 		// Now verify the photo has been made the highlight of the album..
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
-			array($this->_album->getId(), $photo->getId())
+			array( $this->_album->getId(), $photo->getId() )
 		);
 
 		if ($ret) {
@@ -2014,7 +2014,7 @@ class ItemTest extends GalleryTestCase {
 		// Register operations to convert from our test types
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('image/nonviewable'),
+			array( 'image/nonviewable' ),
 			'convert-to-image/x-portable-pixmap',
 			array(),
 			'itemtest-description',
@@ -2026,7 +2026,7 @@ class ItemTest extends GalleryTestCase {
 		}
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('test/document'),
+			array( 'test/document' ),
 			'convert-to-image/jpeg',
 			array(),
 			'itemtest-description',
@@ -2038,7 +2038,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		// Test one image type and one document type
-		foreach (array('image/nonviewable', 'test/document') as $i => $mimeType) {
+		foreach (array( 'image/nonviewable', 'test/document' ) as $i => $mimeType) {
 			list($ret, $item) = GalleryCoreApi::newItemByMimeType($mimeType);
 
 			if ($ret) {
@@ -2070,7 +2070,7 @@ class ItemTest extends GalleryTestCase {
 
 			// Make sure that we have a preferred that contains the proper convert operations
 			$itemId                 = $item->getId();
-			list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
+			list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $itemId ));
 
 			if ($ret) {
 				return $ret;
@@ -2116,7 +2116,7 @@ class ItemTest extends GalleryTestCase {
 		// Register an operation for our preferred to perform
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('image/nonviewable'),
+			array( 'image/nonviewable' ),
 			'test-operation',
 			array(),
 			'itemtest-description'
@@ -2129,7 +2129,7 @@ class ItemTest extends GalleryTestCase {
 		// Register an operation to convert from our test type
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
-			array('image/nonviewable'),
+			array( 'image/nonviewable' ),
 			'convert-to-image/x-portable-pixmap',
 			array(),
 			'itemtest-description',
@@ -2190,7 +2190,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		// Make sure that we have a preferred that contains the proper convert operations
-		list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array($photo->getId()));
+		list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $photo->getId() ));
 
 		if ($ret) {
 			return $ret;
@@ -2214,7 +2214,7 @@ class ItemTest extends GalleryTestCase {
 		// Register the dimensions property for our mock data item
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'ItemTestToolkit',
-			array('image/test'),
+			array( 'image/test' ),
 			'dimensions',
 			'int,int',
 			'Get the dimensions'
@@ -2273,7 +2273,7 @@ class ItemTest extends GalleryTestCase {
 			list($ret, $albums[$order]) = $this->_createRandomAlbum(
 				$this->_album->getId(),
 				array(
-					'orderBy'        => $order,
+					'orderBy' => $order,
 					'orderDirection' => ORDER_ASCENDING,
 				)
 			);
@@ -2314,16 +2314,16 @@ class ItemTest extends GalleryTestCase {
 
 		foreach (array(
 			array(
-				'sort'  => array('MyTestSortOrder', 'orderWeight'),
-				'order' => array(ORDER_ASCENDING, ORDER_ASCENDING),
+				'sort'  => array( 'MyTestSortOrder', 'orderWeight' ),
+				'order' => array( ORDER_ASCENDING, ORDER_ASCENDING ),
 			),
 			array(
-				'sort'  => array('MyPresort|MyTestSortOrder', 'orderWeight'),
-				'order' => array(ORDER_DESCENDING, ORDER_DESCENDING),
+				'sort'  => array( 'MyPresort|MyTestSortOrder', 'orderWeight' ),
+				'order' => array( ORDER_DESCENDING, ORDER_DESCENDING ),
 			),
 			array(
-				'sort'  => array('SomeOtherSortOrder', 'SomeOtherSortOrder'),
-				'order' => array(ORDER_ASCENDING, ORDER_ASCENDING),
+				'sort'  => array( 'SomeOtherSortOrder', 'SomeOtherSortOrder' ),
+				'order' => array( ORDER_ASCENDING, ORDER_ASCENDING ),
 			),
 		) as $index => $test) {
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -2422,7 +2422,7 @@ class ItemTest extends GalleryTestCase {
 
 		// We should have ignored the duplicate preference
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
-			array($newItem->getId())
+			array( $newItem->getId() )
 		);
 
 		if ($ret) {
@@ -2439,7 +2439,7 @@ class ItemTest extends GalleryTestCase {
 	}
 
 	public function testDeleteRenderer() {
-		foreach (array('ItemTestRendererToDelete', 'ItemTestRendererToKeep') as $rendererClass) {
+		foreach (array( 'ItemTestRendererToDelete', 'ItemTestRendererToKeep' ) as $rendererClass) {
 			list($ret, $items[]) = $this->_createRandomDataItem(
 				$this->_album->getId(),
 				'application/unknown',
@@ -2468,7 +2468,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		// For Oracle, null is replaced with '' when loading data from the database
-		$this->assertTrue(in_array($items[0]->getRenderer(), array(null, '')));
+		$this->assertTrue(in_array($items[0]->getRenderer(), array( null, '' )));
 		$this->assertEquals('ItemTestRendererToKeep', $items[1]->getRenderer());
 	}
 
@@ -2511,19 +2511,19 @@ class ItemTestToolkit extends GalleryToolkit {
 			$results = null;
 
 			if (basename($sourceFilename) == 'itemNameWts') {
-				$results = array(12345);
+				$results = array( 12345 );
 			}
 
-			return array(null, $results);
+			return array( null, $results );
 		}
 
 		if ($propertyName == 'dimensions'
-			&& in_array($mimeType, array('image/gif', 'image/jpeg'))
+			&& in_array($mimeType, array( 'image/gif', 'image/jpeg' ))
 		) {
-			return array(null, array(62, 75));
+			return array( null, array( 62, 75 ) );
 		}
 		// We'll reach this point in testSymlinkTwice, but we want to return an error
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
 	}
 }
 

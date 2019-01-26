@@ -37,11 +37,11 @@ class ExifExtractor extends ExifInterface_1_0 {
 		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
 		if (!is_array($itemIds)) {
-			$itemIds = array($itemIds);
+			$itemIds = array( $itemIds );
 		}
 
 		if (!is_array($properties)) {
-			$properties = array($properties);
+			$properties = array( $properties );
 		}
 
 		$data = array();
@@ -50,7 +50,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			// Only look at JPEG/RAW DataItems..
 			if (!GalleryUtilities::isA($item, 'GalleryDataItem')
@@ -61,7 +61,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 			list($ret, $path) = $item->fetchPath();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$data[$itemId] = array();
 			$rawExifData   = read_exif_data_raw($path, false);
@@ -69,7 +69,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 			list($ret, $iptcObj) = ExifHelper::getIptcObject($path);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach (ExifHelper::getExifKeys() as $property => $keyData) {
@@ -104,6 +104,6 @@ class ExifExtractor extends ExifInterface_1_0 {
 			}
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 }

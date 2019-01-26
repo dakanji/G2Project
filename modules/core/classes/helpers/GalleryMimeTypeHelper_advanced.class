@@ -220,8 +220,8 @@ class GalleryMimeTypeHelper_advanced {
 		foreach ($mimeTypes as $ext => $mime) {
 			$mimeTypeMap = array(
 				'extension' => $ext,
-				'mimeType'  => $mime,
-				'viewable'  => (int)isset($viewableMimeTypes[$mime]),
+				'mimeType' => $mime,
+				'viewable' => (int)isset($viewableMimeTypes[$mime]),
 			);
 			$ret         = GalleryCoreApi::addMapEntry('GalleryMimeTypeMap', $mimeTypeMap);
 
@@ -266,7 +266,7 @@ class GalleryMimeTypeHelper_advanced {
 	';
 		list($ret, $results) = $gallery->search(
 			$query,
-			array($extension),
+			array( $extension ),
 			array(
 				'limit' => array(
 					'count' => 1,
@@ -287,8 +287,8 @@ class GalleryMimeTypeHelper_advanced {
 			'GalleryMimeTypeMap',
 			array(
 				'extension' => $extension,
-				'mimeType'  => $mimeType,
-				'viewable'  => $viewable ? 1 : 0,
+				'mimeType' => $mimeType,
+				'viewable' => $viewable ? 1 : 0,
 			)
 		);
 

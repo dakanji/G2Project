@@ -21,7 +21,7 @@ $entityInfo['GalleryAlbumItem']        = array(
 );
 $entityInfo['GalleryAnimationItem']    = array(
 	'members' => array(
-		'width'  => array(
+		'width' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
@@ -32,7 +32,7 @@ $entityInfo['GalleryAnimationItem']    = array(
 	),
 	'parent'  => 'GalleryDataItem',
 	'module'  => 'core',
-	'linked'  => array('width', 'height'),
+	'linked'  => array( 'width', 'height' ),
 );
 $entityInfo['GalleryChildEntity']      = array(
 	'members' => array(
@@ -52,14 +52,14 @@ $entityInfo['GalleryDataItem']         = array(
 			'size' => STORAGE_SIZE_MEDIUM,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
-		'size'     => array(
+		'size' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
 	),
 	'parent'  => 'GalleryItem',
 	'module'  => 'core',
-	'linked'  => array('mimeType', 'size'),
+	'linked'  => array( 'mimeType', 'size' ),
 );
 $entityInfo['GalleryDerivative']       = array(
 	'members' => array(
@@ -104,7 +104,7 @@ $entityInfo['GalleryDerivative']       = array(
 );
 $entityInfo['GalleryDerivativeImage']  = array(
 	'members' => array(
-		'width'  => array(
+		'width' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
@@ -241,11 +241,11 @@ $entityInfo['GalleryItem']             = array(
 );
 $entityInfo['GalleryMovieItem']        = array(
 	'members' => array(
-		'width'    => array(
+		'width' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
-		'height'   => array(
+		'height' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
@@ -256,11 +256,11 @@ $entityInfo['GalleryMovieItem']        = array(
 	),
 	'parent'  => 'GalleryDataItem',
 	'module'  => 'core',
-	'linked'  => array('width', 'height', 'duration'),
+	'linked'  => array( 'width', 'height', 'duration' ),
 );
 $entityInfo['GalleryPhotoItem']        = array(
 	'members' => array(
-		'width'  => array(
+		'width' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
@@ -271,7 +271,7 @@ $entityInfo['GalleryPhotoItem']        = array(
 	),
 	'parent'  => 'GalleryDataItem',
 	'module'  => 'core',
-	'linked'  => array('width', 'height'),
+	'linked'  => array( 'width', 'height' ),
 );
 $entityInfo['GalleryUnknownItem']      = array(
 	'members' => array(),

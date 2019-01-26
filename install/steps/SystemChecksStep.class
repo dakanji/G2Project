@@ -61,7 +61,7 @@ class SystemChecksStep extends InstallStep {
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');
 			header('Content-Length: 8');
-			$x = array(new stdclass());
+			$x = array( new stdclass() );
 			// v-- This may cause PHP to crash!
 			$x = $x[0];
 			echo "SUCCESS\n";
@@ -407,8 +407,8 @@ class SystemChecksStep extends InstallStep {
 			// Error if no themes are available
 			if (!self::AssertThemeIsAvailable()) {
 				$templateData['check'][] = array(
-					'title'  => 'Theme Available',
-					'error'  => true,
+					'title' => 'Theme Available',
+					'error' => true,
 					'notice' => sprintf('Error: There must be at least one theme in the %s folder!', dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'themes'),
 				);
 				$failCount++;
@@ -421,9 +421,9 @@ class SystemChecksStep extends InstallStep {
 
 			if (!isset($manifest)) {
 				$templateData['check'][] = array(
-					'title'   => $title,
+					'title' => $title,
 					'warning' => true,
-					'notice'  => 'Manifest Missing or Inaccessible.',
+					'notice' => 'Manifest Missing or Inaccessible.',
 				);
 
 				$galleryStub->setConfig(
@@ -432,7 +432,7 @@ class SystemChecksStep extends InstallStep {
 				);
 			} elseif (empty($manifest['missing']) && empty($manifest['modified']) && empty($manifest['shouldRemove'])) {
 				$templateData['check'][] = array(
-					'title'   => $title,
+					'title' => $title,
 					'success' => true,
 				);
 
@@ -445,9 +445,9 @@ class SystemChecksStep extends InstallStep {
 				ob_end_clean();
 
 				$templateData['check'][] = array(
-					'title'   => $title,
+					'title' => $title,
 					'warning' => true,
-					'notice'  => $notice,
+					'notice' => $notice,
 				);
 
 				if (empty($manifest['missing']) && empty($manifest['modified'])) {

@@ -41,8 +41,8 @@ class RewriteModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 34));
-		$this->setRequiredModuleApi(array(3, 6));
+		$this->setRequiredCoreApi(array( 7, 34 ));
+		$this->setRequiredModuleApi(array( 3, 6 ));
 	}
 
 	/**
@@ -95,27 +95,27 @@ class RewriteModule extends GalleryModule {
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($ret && ($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
-			return array(null, true);
+			return array( null, true );
 		}
 
 		list($ret, $status) = $rewriteParser->needsConfiguration($this);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $status);
+		return array( null, $status );
 	}
 
 	/**
 	 * @see GalleryModule::autoConfigure
 	 */
 	public function autoConfigure() {
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -126,7 +126,7 @@ class RewriteModule extends GalleryModule {
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
@@ -136,7 +136,7 @@ class RewriteModule extends GalleryModule {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$activeRules = unserialize($activeRules);
 
@@ -162,7 +162,7 @@ class RewriteModule extends GalleryModule {
 		list($ret, $code) = $rewriteParser->saveActiveRules($activeRules);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($code != REWRITE_STATUS_OK) {
@@ -175,10 +175,10 @@ class RewriteModule extends GalleryModule {
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
@@ -212,7 +212,7 @@ class RewriteModule extends GalleryModule {
 			}
 		}
 
-		return array(null, null);
+		return array( null, null );
 	}
 
 	/**
@@ -325,22 +325,22 @@ class RewriteModule extends GalleryModule {
 			'pattern'  => 'v/%path%',
 			'keywords' => array(
 				'path' => array(
-					'pattern'  => '([^?]+)',
-					'help'     => $this->translate('Path to an item (eg, /album/image.jpg.html)'),
-					'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
+					'pattern' => '([^?]+)',
+					'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)'),
+					'function' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
 				),
 				'page' => array(
-					'pattern'  => '([0-9]*)',
-					'help'     => $this->translate('Page number in an album'),
-					'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePage'),
+					'pattern' => '([0-9]*)',
+					'help' => $this->translate('Page number in an album'),
+					'function' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePage' ),
 				),
 				'language' => array(
-					'pattern'  => '([a-z]{2}|[a-z]{2}_[A-Z]{2})',
-					'help'     => $this->translate('Current language (eg, en or de)'),
-					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseLanguage'),
+					'pattern' => '([a-z]{2}|[a-z]{2}_[A-Z]{2})',
+					'help' => $this->translate('Current language (eg, en or de)'),
+					'function' => array( 'rewrite', 'RewriteSimpleHelper', 'parseLanguage' ),
 				),
 			),
-			'onLoad'   => array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath'),
+			'onLoad'   => array( 'rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath' ),
 			'help'     => $this->translate('The general URL for viewing items.'),
 		);
 
@@ -353,16 +353,16 @@ class RewriteModule extends GalleryModule {
 			'pattern'  => 'd/%itemId%-%serialNumber%/%fileName%',
 			'keywords' => array(
 				'serialNumber' => array(
-					'pattern'  => '([0-9]+)',
-					'help'     => $this->translate(
+					'pattern' => '([0-9]+)',
+					'help' => $this->translate(
 						'Ensures browsers do not use cached version when image has changed'
 					),
-					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber'),
+					'function' => array( 'rewrite', 'RewriteSimpleHelper', 'parseSerialNumber' ),
 				),
 				'fileName' => array(
-					'pattern'  => '([^/?]+)',
-					'help'     => $this->translate('The item file name.'),
-					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseFileName'),
+					'pattern' => '([^/?]+)',
+					'help' => $this->translate('The item file name.'),
+					'function' => array( 'rewrite', 'RewriteSimpleHelper', 'parseFileName' ),
 				),
 			),
 			'help'     => $this->translate('The general URL for downloading items.'),
@@ -384,7 +384,7 @@ class RewriteModule extends GalleryModule {
 			'keywords' => array(
 				'path' => array(
 					'pattern' => '([^?]+)',
-					'ignore'  => true,
+					'ignore' => true,
 				),
 			),
 			'queryString' => array(
@@ -397,7 +397,7 @@ class RewriteModule extends GalleryModule {
 		// Rule 3: Block hotlinked items
 		$rules[3] = array(
 			'comment'  => $this->translate('Block hotlinked items'),
-			'flags'    => array('F'),
+			'flags'    => array( 'F' ),
 			'restrict' => array(
 				'view' => 'core.DownloadItem',
 			),
@@ -418,7 +418,7 @@ class RewriteModule extends GalleryModule {
 			'options'  => array(
 				'forceDirect' => true,
 			),
-			'flags'    => array('L'),
+			'flags'    => array( 'L' ),
 			'help'     => $this->translate(
 				'Blocks use of images in other sites (HTML creates broken'
 				. ' image), but allows linking to images.'

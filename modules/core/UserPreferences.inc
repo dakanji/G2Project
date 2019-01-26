@@ -35,11 +35,11 @@ class UserPreferencesController extends GalleryController {
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($isAnonymous) {
-			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+			return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 		}
 
 		$results = $status = $error = array();
@@ -61,26 +61,26 @@ class UserPreferencesController extends GalleryController {
 			list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$userId             = $gallery->getActiveUserId();
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Locked users are not allowed to edit themselves
 			if ($user->isLocked()) {
 				GalleryCoreApi::releaseLocks($lockId);
 
-				return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+				return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 			}
 
 			// email is required for non-anonymous but optional for administrators
@@ -109,7 +109,7 @@ class UserPreferencesController extends GalleryController {
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 				/*
@@ -149,7 +149,7 @@ class UserPreferencesController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockId);
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Request a redirect to the confirmation screen
@@ -161,7 +161,7 @@ class UserPreferencesController extends GalleryController {
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -174,7 +174,7 @@ class UserPreferencesController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -191,11 +191,11 @@ class UserPreferencesView extends GalleryView {
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($isAnonymous) {
-			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+			return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 		}
 
 		$user = $gallery->getActiveUser();
@@ -223,7 +223,7 @@ class UserPreferencesView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$languageList       = array();
@@ -258,9 +258,9 @@ class UserPreferencesView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $core->translate('your account'));
+		return array( null, $core->translate('your account') );
 	}
 }

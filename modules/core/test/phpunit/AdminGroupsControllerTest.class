@@ -47,7 +47,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateGroup',
 				),
 				'status' => array(),
@@ -72,7 +72,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroup',
 					'groupId' => $group->getId(),
 				),
@@ -91,11 +91,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][noGroupSpecified]'),
+				'error' => array( 'form[error][text][noGroupSpecified]' ),
 			),
 			$results
 		);
@@ -111,11 +111,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][noSuchGroup]'),
+				'error' => array( 'form[error][text][noSuchGroup]' ),
 			),
 			$results
 		);
@@ -136,7 +136,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteGroup',
 					'groupId' => $group->getId(),
 				),
@@ -155,11 +155,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][noGroupSpecified]'),
+				'error' => array( 'form[error][text][noGroupSpecified]' ),
 			),
 			$results
 		);
@@ -175,11 +175,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][noSuchGroup]'),
+				'error' => array( 'form[error][text][noSuchGroup]' ),
 			),
 			$results
 		);
@@ -206,11 +206,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][cantDeleteGroup]'),
+				'error' => array( 'form[error][text][cantDeleteGroup]' ),
 			),
 			$results
 		);
@@ -237,11 +237,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][cantDeleteGroup]'),
+				'error' => array( 'form[error][text][cantDeleteGroup]' ),
 			),
 			$results
 		);
@@ -268,11 +268,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][cantEditGroupUsers]'),
+				'error' => array( 'form[error][text][cantEditGroupUsers]' ),
 			),
 			$results
 		);
@@ -303,11 +303,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][cantDeleteGroup]'),
+				'error' => array( 'form[error][text][cantDeleteGroup]' ),
 			),
 			$results
 		);
@@ -328,7 +328,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $group->getId(),
 				),
@@ -347,11 +347,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][noGroupSpecified]'),
+				'error' => array( 'form[error][text][noGroupSpecified]' ),
 			),
 			$results
 		);
@@ -367,11 +367,11 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.SiteAdmin',
+					'view' => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array('form[error][text][noSuchGroup]'),
+				'error' => array( 'form[error][text][noSuchGroup]' ),
 			),
 			$results
 		);
@@ -383,7 +383,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		list($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!isset($group)) {
@@ -396,15 +396,15 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		$ret = $group->create('testgroup-' . mt_rand());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$ret = $group->save();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $group);
+		return array( null, $group );
 	}
 
 	public function _deleteGroup($group) {

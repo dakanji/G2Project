@@ -36,15 +36,15 @@ class ItemAdminView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
 		// Find its thumbnail
-		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $itemId ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($thumbnailTable)) {
@@ -58,7 +58,7 @@ class ItemAdminView extends GalleryView {
 		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Get a list of all the admin views for each module
@@ -78,25 +78,25 @@ class ItemAdminView extends GalleryView {
 						continue;
 					}
 
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				list($ret, $moduleViews) = $module->getItemAdminViews($item);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$subViewChoiceData = array_merge($subViewChoiceData, $moduleViews);
 			}
 		}
 
-		usort($subViewChoiceData, array($this, 'sortByName'));
+		usort($subViewChoiceData, array( $this, 'sortByName' ));
 
 		$subViewName = GalleryUtilities::getRequestVariables('subView');
 
 		if ($subViewName == 'core.ItemAdmin') {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		// Turn sub view choices into url params
@@ -133,7 +133,7 @@ class ItemAdminView extends GalleryView {
 		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Get the type of the item
@@ -143,7 +143,7 @@ class ItemAdminView extends GalleryView {
 		list($ret, $parents) = GalleryCoreApi::fetchParents($item, 'core.view', true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		for ($i = 0; $i < sizeof($parents); $i++) {
@@ -153,13 +153,13 @@ class ItemAdminView extends GalleryView {
 		list($ret, $results) = $subView->loadTemplate($template, $form);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Our sub view may have set some hints, like the encoding type
@@ -172,7 +172,7 @@ class ItemAdminView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$ItemAdmin['viewBodyFile']   = $results['body'];
@@ -223,16 +223,16 @@ class ItemAdminView extends GalleryView {
 		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $description) = $subView->getViewDescription();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $description);
+		return array( null, $description );
 	}
 
 	/**

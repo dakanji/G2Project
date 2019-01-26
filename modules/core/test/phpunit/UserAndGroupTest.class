@@ -315,7 +315,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		// Verify all permission maps for this user are gone
-		$checkItemIds            = array($item->getId(), $this->_getRootId());
+		$checkItemIds            = array( $item->getId(), $this->_getRootId() );
 		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 			$checkItemIds,
 			$userId
@@ -531,7 +531,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 	// Try to delete the all users group (this will fail)
 	public function testDeleteSpecialGroups() {
-		foreach (array('id.allUserGroup', 'id.everybodyGroup', 'id.adminGroup') as $paramName) {
+		foreach (array( 'id.allUserGroup', 'id.everybodyGroup', 'id.adminGroup' ) as $paramName) {
 			list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', $paramName);
 
 			if ($ret) {
@@ -702,7 +702,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$user1->getId(),
-			array('core.addDataItem', 'core.addAlbumItem'),
+			array( 'core.addDataItem', 'core.addAlbumItem' ),
 			false
 		);
 
@@ -881,7 +881,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			$ret = GalleryCoreApi::addUserPermission(
 				$item->getId(),
 				$user1->getId(),
-				array('core.delete'),
+				array( 'core.delete' ),
 				false
 			);
 

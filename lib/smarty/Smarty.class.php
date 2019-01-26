@@ -91,7 +91,7 @@ class Smarty {
 	 *
 	 * @var array
 	 */
-	public $plugins_dir = array('plugins');
+	public $plugins_dir = array( 'plugins' );
 
 	/**
 	 * If debugging is enabled, a debug console window will display
@@ -241,7 +241,7 @@ class Smarty {
 		),
 		'INCLUDE_ANY'  => false,
 		'PHP_TAGS'     => false,
-		'MODIFIER_FUNCS' => array('count'),
+		'MODIFIER_FUNCS' => array( 'count' ),
 		'ALLOW_CONSTANTS' => false,
 		'ALLOW_SUPER_GLOBALS' => true,
 	);
@@ -706,7 +706,7 @@ class Smarty {
 	 * @param string $function_impl the name of the PHP function to register
 	 */
 	public function register_function($function, $function_impl, $cacheable = true, $cache_attrs = null) {
-		$this->_plugins['function'][$function] = array($function_impl, null, null, false, $cacheable, $cache_attrs);
+		$this->_plugins['function'][$function] = array( $function_impl, null, null, false, $cacheable, $cache_attrs );
 	}
 
 	/**
@@ -729,7 +729,7 @@ class Smarty {
 	public function register_object($object, &$object_impl, $allowed = array(), $smarty_args = true, $block_methods = array()) {
 		settype($allowed, 'array');
 		settype($smarty_args, 'boolean');
-		$this->_reg_objects[$object] = array(&$object_impl, $allowed, $smarty_args, $block_methods);
+		$this->_reg_objects[$object] = array( &$object_impl, $allowed, $smarty_args, $block_methods );
 	}
 
 	/**
@@ -748,7 +748,7 @@ class Smarty {
 	 * @param string $block_impl PHP function to register
 	 */
 	public function register_block($block, $block_impl, $cacheable = true, $cache_attrs = null) {
-		$this->_plugins['block'][$block] = array($block_impl, null, null, false, $cacheable, $cache_attrs);
+		$this->_plugins['block'][$block] = array( $block_impl, null, null, false, $cacheable, $cache_attrs );
 	}
 
 	/**
@@ -767,7 +767,7 @@ class Smarty {
 	 * @param string $function_impl name of PHP function to register
 	 */
 	public function register_compiler_function($function, $function_impl, $cacheable = true) {
-		$this->_plugins['compiler'][$function] = array($function_impl, null, null, false, $cacheable);
+		$this->_plugins['compiler'][$function] = array( $function_impl, null, null, false, $cacheable );
 	}
 
 	/**
@@ -786,7 +786,7 @@ class Smarty {
 	 * @param string $modifier_impl name of PHP function to register
 	 */
 	public function register_modifier($modifier, $modifier_impl) {
-		$this->_plugins['modifier'][$modifier] = array($modifier_impl, null, null, false);
+		$this->_plugins['modifier'][$modifier] = array( $modifier_impl, null, null, false );
 	}
 
 	/**
@@ -806,14 +806,14 @@ class Smarty {
 	 */
 	public function register_resource($type, $functions) {
 		if (count($functions) == 4) {
-			$this->_plugins['resource'][$type] = array($functions, false);
+			$this->_plugins['resource'][$type] = array( $functions, false );
 		} elseif (count($functions) == 5) {
 			$this->_plugins['resource'][$type] = array(
 				array(
-					array(&$functions[0], $functions[1]),
-					array(&$functions[0], $functions[2]),
-					array(&$functions[0], $functions[3]),
-					array(&$functions[0], $functions[4]),
+					array( &$functions[0], $functions[1] ),
+					array( &$functions[0], $functions[2] ),
+					array( &$functions[0], $functions[3] ),
+					array( &$functions[0], $functions[4] ),
 				),
 				false,
 			);
@@ -838,8 +838,7 @@ class Smarty {
 	 * @param callback $function
 	 */
 	public function register_prefilter($function) {
-		$this->_plugins['prefilter'][$this->_get_filter_name($function)]
-			= array($function, null, null, false);
+		$this->_plugins['prefilter'][$this->_get_filter_name($function)] = array( $function, null, null, false );
 	}
 
 	/**
@@ -858,8 +857,7 @@ class Smarty {
 	 * @param callback $function
 	 */
 	public function register_postfilter($function) {
-		$this->_plugins['postfilter'][$this->_get_filter_name($function)]
-			= array($function, null, null, false);
+		$this->_plugins['postfilter'][$this->_get_filter_name($function)] = array( $function, null, null, false );
 	}
 
 	/**
@@ -878,8 +876,7 @@ class Smarty {
 	 * @param callback $function
 	 */
 	public function register_outputfilter($function) {
-		$this->_plugins['outputfilter'][$this->_get_filter_name($function)]
-			= array($function, null, null, false);
+		$this->_plugins['outputfilter'][$this->_get_filter_name($function)] = array( $function, null, null, false );
 	}
 
 	/**
@@ -901,7 +898,7 @@ class Smarty {
 		switch ($type) {
 			case 'output':
 				$_params = array(
-					'plugins' => array(array($type . 'filter', $name, null, null, false)),
+					'plugins' => array( array( $type . 'filter', $name, null, null, false ) ),
 				);
 
 				include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
@@ -942,7 +939,7 @@ class Smarty {
 		if (!empty($this->cache_handler_func)) {
 			return call_user_func_array(
 				$this->cache_handler_func,
-				array('clear', &$this, &$dummy, $tpl_file, $cache_id, $compile_id, $exp_time)
+				array( 'clear', &$this, &$dummy, $tpl_file, $cache_id, $compile_id, $exp_time )
 			);
 		}
 		$_params = array(
@@ -1022,7 +1019,7 @@ class Smarty {
 			'auto_source' => $tpl_file,
 			'auto_id'   => $compile_id,
 			'exp_time'  => $exp_time,
-			'extensions' => array('.inc', '.php'),
+			'extensions' => array( '.inc', '.php' ),
 		);
 
 		include_once SMARTY_CORE_DIR . 'core.rm_auto.php';
@@ -1168,10 +1165,10 @@ class Smarty {
 			array_push($_cache_info, $this->_cache_info);
 			$this->_cache_info = array();
 			$_params           = array(
-				'tpl_file'   => $resource_name,
-				'cache_id'   => $cache_id,
+				'tpl_file' => $resource_name,
+				'cache_id' => $cache_id,
 				'compile_id' => $compile_id,
-				'results'    => null,
+				'results' => null,
 			);
 
 			include_once SMARTY_CORE_DIR . 'core.read_cache_file.php';
@@ -1290,16 +1287,16 @@ class Smarty {
 			ob_end_clean();
 
 			foreach ((array)$this->_plugins['outputfilter'] as $_output_filter) {
-				$_smarty_results = call_user_func_array($_output_filter[0], array($_smarty_results, &$this));
+				$_smarty_results = call_user_func_array($_output_filter[0], array( $_smarty_results, &$this ));
 			}
 		}
 
 		if ($this->caching) {
 			$_params = array(
-				'tpl_file'   => $resource_name,
-				'cache_id'   => $cache_id,
+				'tpl_file' => $resource_name,
+				'cache_id' => $cache_id,
 				'compile_id' => $compile_id,
-				'results'    => $_smarty_results,
+				'results' => $_smarty_results,
 			);
 
 			include_once SMARTY_CORE_DIR . 'core.write_cache_file.php';
@@ -1390,7 +1387,7 @@ class Smarty {
 			// clear all values
 			$this->_config = array(
 				array(
-					'vars'  => array(),
+					'vars' => array(),
 					'files' => array(),
 				),
 			);
@@ -1433,7 +1430,7 @@ class Smarty {
 			// get file source and timestamp
 			$_params = array(
 				'resource_name' => $resource_name,
-				'get_source'    => false,
+				'get_source' => false,
 			);
 
 			if (!$this->_fetch_resource_info($_params)) {
@@ -1479,7 +1476,7 @@ class Smarty {
 						$this->_cache_include_info,
 						array(
 							'compiled_content' => $_compiled_content,
-							'resource_name'    => $resource_name,
+							'resource_name' => $resource_name,
 						)
 					),
 					$this
@@ -1487,7 +1484,7 @@ class Smarty {
 			}
 
 			$_params = array(
-				'compile_path'     => $compile_path,
+				'compile_path' => $compile_path,
 				'compiled_content' => $_compiled_content,
 			);
 
@@ -1552,8 +1549,8 @@ class Smarty {
 
 		if ($smarty_compiler->_cache_serial) {
 			$this->_cache_include_info = array(
-				'cache_serial'      => $smarty_compiler->_cache_serial,
-				'plugins_code'      => $smarty_compiler->_plugins_code,
+				'cache_serial' => $smarty_compiler->_cache_serial,
+				'plugins_code' => $smarty_compiler->_plugins_code,
 				'include_file_path' => $cache_include_path,
 			);
 		} else {
@@ -1625,7 +1622,7 @@ class Smarty {
 						$_source_return = isset($this->_plugins['resource'][$_resource_type]) &&
 							call_user_func_array(
 								$this->_plugins['resource'][$_resource_type][0][0],
-								array($_resource_name, &$params['source_content'], &$this)
+								array( $_resource_name, &$params['source_content'], &$this )
 							);
 					} else {
 						$_source_return = true;
@@ -1634,7 +1631,7 @@ class Smarty {
 					$_timestamp_return = isset($this->_plugins['resource'][$_resource_type]) &&
 						call_user_func_array(
 							$this->_plugins['resource'][$_resource_type][0][1],
-							array($_resource_name, &$params['resource_timestamp'], &$this)
+							array( $_resource_name, &$params['resource_timestamp'], &$this )
 						);
 
 					$_return = $_source_return && $_timestamp_return;
@@ -1651,7 +1648,7 @@ class Smarty {
 				} else {
 					$_return = call_user_func_array(
 						$this->default_template_handler_func,
-						array($_params['resource_type'], $_params['resource_name'], &$params['source_content'], &$params['resource_timestamp'], &$this)
+						array( $_params['resource_type'], $_params['resource_name'], &$params['source_content'], &$params['resource_timestamp'], &$this )
 					);
 				}
 			}

@@ -35,7 +35,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = $error = array();
@@ -81,7 +81,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
@@ -91,18 +91,18 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($isActive) {
@@ -133,7 +133,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -148,17 +148,17 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'ArchiveUploadSiteAdmin') {
 			$form['formName'] = 'ArchiveUploadSiteAdmin';
 
-			foreach (array('unzipPath', 'removeMeta') as $key) {
+			foreach (array( 'unzipPath', 'removeMeta' ) as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'archiveupload', $key);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 		}
@@ -166,12 +166,12 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$form['isConfigure'] = !$isActive;
 		$form['canExec']     = !in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')));
@@ -179,12 +179,12 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 		if (isset($form['action']['test'])) {
 			if (empty($form['error']['unzipPath'])) {
 				$test = array(
-					'name'    => 'unzip',
+					'name' => 'unzip',
 					'success' => true,
 				);
 			} elseif (isset($form['error']['unzipPath']['exec'])) {
 				$test = array(
-					'name'    => 'unzip',
+					'name' => 'unzip',
 					'success' => false,
 				);
 				list($valid, $errorType, $output) = ArchiveUploadHelper::testBinary($form['unzipPath']);
@@ -198,7 +198,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 				$template->setVariable(
 					'ArchiveUploadSiteAdmin',
 					array(
-						'tests' => array($test),
+						'tests' => array( $test ),
 					)
 				);
 			}

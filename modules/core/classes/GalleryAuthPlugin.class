@@ -38,6 +38,6 @@ class GalleryAuthPlugin {
 	 *               GalleryUser the active user or null
 	 */
 	public function getUser() {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
 	}
 }

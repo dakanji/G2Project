@@ -121,8 +121,8 @@ class ADODB2_db2 extends ADODB_DataDict {
 		 * DB2 will fatally reject changes to non character columns
 		 *
 		 */
-		$validTypes   = array('CHAR', 'VARC');
-		$invalidTypes = array('BIGI', 'BLOB', 'CLOB', 'DATE', 'DECI', 'DOUB', 'INTE', 'REAL', 'SMAL', 'TIME');
+		$validTypes   = array( 'CHAR', 'VARC' );
+		$invalidTypes = array( 'BIGI', 'BLOB', 'CLOB', 'DATE', 'DECI', 'DOUB', 'INTE', 'REAL', 'SMAL', 'TIME' );
 		// check table exists
 		$cols = $this->MetaColumns($tablename);
 
@@ -161,7 +161,7 @@ class ADODB2_db2 extends ADODB_DataDict {
 				}
 				// insert the appropriate DB2 syntax
 				if (in_array(substr($vargs[$i], 0, 4), $validTypes)) {
-					array_splice($vargs, $i, 0, array('SET', 'DATA', 'TYPE'));
+					array_splice($vargs, $i, 0, array( 'SET', 'DATA', 'TYPE' ));
 				}
 
 				// Now Look for the NOT NULL statement as this is not allowed in

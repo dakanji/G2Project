@@ -109,7 +109,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
-		$this->assertEquals(array(array(), null), $results);
+		$this->assertEquals(array( array(), null ), $results);
 	}
 
 	public function testSave() {
@@ -120,7 +120,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully saved theme settings')),
+			array( array(), $this->_translate('Successfully saved theme settings') ),
 			$results
 		);
 
@@ -142,7 +142,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array('form[error][key][rows][invalid]'), null),
+			array( array( 'form[error][key][rows][invalid]' ), null ),
 			$results
 		);
 
@@ -162,7 +162,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully saved theme settings')),
+			array( array(), $this->_translate('Successfully saved theme settings') ),
 			$results
 		);
 
@@ -188,7 +188,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully saved theme settings')),
+			array( array(), $this->_translate('Successfully saved theme settings') ),
 			$results
 		);
 		// Verify - 3 albums should be set
@@ -219,7 +219,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_grandchildAlbum, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully saved theme settings')),
+			array( array(), $this->_translate('Successfully saved theme settings') ),
 			$results
 		);
 		$this->assertEquals(
@@ -244,7 +244,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully changed theme')),
+			array( array(), $this->_translate('Successfully changed theme') ),
 			$results
 		);
 
@@ -268,7 +268,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully changed theme')),
+			array( array(), $this->_translate('Successfully changed theme') ),
 			$results
 		);
 
@@ -312,7 +312,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
-			array(array(), $this->_translate('Successfully changed theme')),
+			array( array(), $this->_translate('Successfully changed theme') ),
 			$results
 		);
 
@@ -387,7 +387,7 @@ class ItemEditThemeControllerTestTheme {
 			'value' => 3,
 		);
 
-		return array(null, $settings);
+		return array( null, $settings );
 	}
 
 	/**
@@ -415,7 +415,7 @@ class ItemEditThemeControllerTestTheme {
 	}
 
 	public function isActive() {
-		return array(null, true);
+		return array( null, true );
 	}
 
 	public function translate($text) {
@@ -486,7 +486,7 @@ class ItemEditThemeTestPlatform {
 		static $paths;
 
 		if (!isset($paths)) {
-			$paths = array('.', '..', 'ItemEditThemeControllerTest');
+			$paths = array( '.', '..', 'ItemEditThemeControllerTest' );
 		}
 
 		if ($path == 'TEST_VALID_RESOURCE') {

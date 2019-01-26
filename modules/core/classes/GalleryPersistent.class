@@ -144,7 +144,7 @@ class GalleryPersistent {
 		list($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		return array(

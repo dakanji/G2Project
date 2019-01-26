@@ -219,10 +219,10 @@ class ItemEditMoviePluginTestPlatform {
 			$stderr[] = 'Stream #0.0: Video: mjpeg, 160x120, 15.00 fps';
 			$stderr[] = 'Stream #0.1: Audio: pcm_u8, 8000 Hz, mono, 64 kb/s';
 
-			return array(1, $results, $stderr);
+			return array( 1, $results, $stderr );
 		}
 
-		return array(0, null, null);
+		return array( 0, null, null );
 	}
 
 	public function getDirectorySeparator() {

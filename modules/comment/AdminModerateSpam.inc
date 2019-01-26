@@ -36,13 +36,13 @@ class AdminModerateSpamController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = $error = array();
@@ -61,14 +61,14 @@ class AdminModerateSpamController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				foreach ($comments as $comment) {
 					$ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
@@ -87,7 +87,7 @@ class AdminModerateSpamController extends GalleryController {
 		$results['status']           = $status;
 		$results['error']            = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -106,18 +106,18 @@ class AdminModerateSpamView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $showCount) = GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.show');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$page = GalleryUtilities::getRequestVariables('page');
@@ -131,11 +131,11 @@ class AdminModerateSpamView extends GalleryView {
 			$showCount,
 			($page - 1) * $showCount,
 			ORDER_DESCENDING,
-			array(COMMENT_PUBLISH_STATUS_SPAM, COMMENT_PUBLISH_STATUS_UNPUBLISHED)
+			array( COMMENT_PUBLISH_STATUS_SPAM, COMMENT_PUBLISH_STATUS_UNPUBLISHED )
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$commenters = $itemIds = $can = $itemData = array();
@@ -154,7 +154,7 @@ class AdminModerateSpamView extends GalleryView {
 			list($ret, $commentersList) = GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$commenters = array();
@@ -169,12 +169,12 @@ class AdminModerateSpamView extends GalleryView {
 			$ret     = GalleryCoreApi::studyPermissions($itemIds);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach ($itemList as $it) {
@@ -185,7 +185,7 @@ class AdminModerateSpamView extends GalleryView {
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($itemIds);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -193,7 +193,7 @@ class AdminModerateSpamView extends GalleryView {
 			list($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach (array(
@@ -237,7 +237,7 @@ class AdminModerateSpamView extends GalleryView {
 					$urlParams,
 					array(
 						'itemId' => $rootId,
-						'page'   => 1,
+						'page' => 1,
 					)
 				),
 			);
@@ -246,7 +246,7 @@ class AdminModerateSpamView extends GalleryView {
 					$urlParams,
 					array(
 						'itemId' => $rootId,
-						'page'   => $page - 1,
+						'page' => $page - 1,
 					)
 				),
 			);
@@ -258,7 +258,7 @@ class AdminModerateSpamView extends GalleryView {
 					$urlParams,
 					array(
 						'itemId' => $rootId,
-						'page'   => $page + 1,
+						'page' => $page + 1,
 					)
 				),
 			);
@@ -267,7 +267,7 @@ class AdminModerateSpamView extends GalleryView {
 					$urlParams,
 					array(
 						'itemId' => $rootId,
-						'page'   => $navigator['pageCount'],
+						'page' => $navigator['pageCount'],
 					)
 				),
 			);
@@ -304,9 +304,9 @@ class AdminModerateSpamView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $module->translate('moderate spam'));
+		return array( null, $module->translate('moderate spam') );
 	}
 }

@@ -848,7 +848,7 @@ class StringParser {
 		}
 		$method      = array_shift($args);
 		$stack_count = count($this->_stack);
-		$method      = array(&$this->_stack[$stack_count - 1], $method);
+		$method      = array( &$this->_stack[$stack_count - 1], $method );
 
 		if (!is_callable($method)) {
 			return; // oops?

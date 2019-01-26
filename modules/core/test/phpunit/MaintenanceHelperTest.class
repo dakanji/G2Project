@@ -97,7 +97,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			'MaintenanceHelperTestTask',
 			$time,
 			true,
-			array('some details')
+			array( 'some details' )
 		);
 
 		if ($ret) {
@@ -108,7 +108,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$this->assertTrue($info['runId'] > 0, 'run id 1');
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 1');
 		$this->assertTrue($info['success'], 'success 1');
-		$this->assertEquals(array('some details'), $info['details'], 'details 1');
+		$this->assertEquals(array( 'some details' ), $info['details'], 'details 1');
 		$lastRunId = $info['runId'];
 
 		// Add a second task entry
@@ -117,7 +117,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			'MaintenanceHelperTestTask',
 			$time,
 			false,
-			array('different details')
+			array( 'different details' )
 		);
 
 		if ($ret) {
@@ -128,7 +128,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$this->assertTrue($info['runId'] > $lastRunId, 'run id 2');
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 2');
 		$this->assertFalse($info['success'], 'success 2');
-		$this->assertEquals(array('different details'), $info['details'], 'details 2');
+		$this->assertEquals(array( 'different details' ), $info['details'], 'details 2');
 	}
 
 	public function testSetMaintenanceModeTrue() {
@@ -152,17 +152,17 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), true, true);
+		$platform->setReply('file_exists', array( $versionFile ), true, true);
 		$platform->setReply(
 			'file',
-			array($versionFile, false),
+			array( $versionFile, false ),
 			array(
 				$module->getVersion() . "\n",
 				$module->getGalleryVersion() . "\n",
 			),
 			true
 		);
-		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
+		$platform->setReply('atomicWrite', array( $versionFile, $writeString ), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode(true);
 
@@ -197,17 +197,17 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), true, true);
+		$platform->setReply('file_exists', array( $versionFile ), true, true);
 		$platform->setReply(
 			'file',
-			array($versionFile, false),
+			array( $versionFile, false ),
 			array(
 				$module->getVersion() . "\n",
 				$module->getGalleryVersion() . "\n",
 			),
 			true
 		);
-		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
+		$platform->setReply('atomicWrite', array( $versionFile, $writeString ), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode(false);
 
@@ -243,16 +243,16 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), true);
+		$platform->setReply('file_exists', array( $versionFile ), true);
 		$platform->setReply(
 			'file',
-			array($versionFile, false),
+			array( $versionFile, false ),
 			array(
 				$module->getVersion() . "\n",
 				$module->getGalleryVersion() . "\n",
 			)
 		);
-		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
+		$platform->setReply('atomicWrite', array( $versionFile, $writeString ), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode('http://test.gallery.com/maintenance.html');
 
@@ -299,6 +299,6 @@ class MaintenanceHelperTestTask extends MaintenanceTask {
 	}
 
 	public function run() {
-		return array(null, false, array('fail details'));
+		return array( null, false, array( 'fail details' ) );
 	}
 }

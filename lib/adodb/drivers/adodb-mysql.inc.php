@@ -118,9 +118,9 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				// parse index data into array
 				while ($row = $rs->FetchRow()) {
 					$procedures[$row[1]] = array(
-						'type'    => 'PROCEDURE',
+						'type' => 'PROCEDURE',
 						'catalog' => '',
-						'schema'  => '',
+						'schema' => '',
 						'remarks' => $row[7],
 					);
 				}
@@ -132,9 +132,9 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				// parse index data into array
 				while ($row = $rs->FetchRow()) {
 					$procedures[$row[1]] = array(
-						'type'    => 'FUNCTION',
+						'type' => 'FUNCTION',
 						'catalog' => '',
-						'schema'  => '',
+						'schema' => '',
 						'remarks' => $row[7],
 					);
 				}
@@ -213,7 +213,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 				if (!isset($indexes[$row[2]])) {
 					$indexes[$row[2]] = array(
-						'unique'  => ($row[1] == 0),
+						'unique' => ($row[1] == 0),
 						'columns' => array(),
 					);
 				}
@@ -243,7 +243,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				}
 
 				if ($this->replaceQuote[0] == '\\') {
-					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
+					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
 				}
 
 				return "'" . str_replace("'", $this->replaceQuote, $s) . "'";

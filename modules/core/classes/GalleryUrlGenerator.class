@@ -305,7 +305,7 @@ class GalleryUrlGenerator {
 			}
 		}
 
-		return array($protocol, $host, $path, $file);
+		return array( $protocol, $host, $path, $file );
 	}
 
 	/**
@@ -355,7 +355,7 @@ class GalleryUrlGenerator {
 		}
 
 		// Set the default value for the host part, if necessary
-		foreach (array(false, true) as $forceDirect) {
+		foreach (array( false, true ) as $forceDirect) {
 			if (empty($this->_host[$forceDirect])) {
 				if (!isset($defaultHost)
 					&& !($defaultHost = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_HOST'))
@@ -368,14 +368,14 @@ class GalleryUrlGenerator {
 		}
 
 		// Set the default value for the protocol part, if necessary
-		foreach (array(false, true) as $forceDirect) {
+		foreach (array( false, true ) as $forceDirect) {
 			if (empty($this->_protocol[$forceDirect])) {
 				$this->_protocol[$forceDirect] = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';
 			}
 		}
 
 		// Set the base host (protocol + host name)  for makeUrl() (caching/performance)
-		foreach (array(false, true) as $forceDirect) {
+		foreach (array( false, true ) as $forceDirect) {
 			$this->_currentBaseHost[$forceDirect] = sprintf(
 				'%s://%s',
 				$this->_protocol[$forceDirect],
@@ -792,7 +792,7 @@ class GalleryUrlGenerator {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (empty($path)) {
@@ -806,7 +806,7 @@ class GalleryUrlGenerator {
 			$this->_cookiePath[$forceDirect] = $path;
 		}
 
-		return array(null, $this->_cookiePath[$forceDirect]);
+		return array( null, $this->_cookiePath[$forceDirect] );
 	}
 
 	/**
@@ -821,7 +821,7 @@ class GalleryUrlGenerator {
 	 * @return GalleryStatus a status code
 	 */
 	public function initNavigation() {
-		foreach (array('return', 'formUrl') as $param) {
+		foreach (array( 'return', 'formUrl' ) as $param) {
 			$url = GalleryUtilities::getRequestVariables($param);
 			$ret = $this->assertIsInternalUrl($url);
 
@@ -920,7 +920,7 @@ class GalleryUrlGenerator {
 		}
 
 		$params = GalleryUtilities::getUrlVariablesFiltered(
-			array('return', 'authorization'),
+			array( 'return', 'authorization' ),
 			true
 		);
 
@@ -954,7 +954,7 @@ class GalleryUrlGenerator {
 	 * @todo will be removed in the next API branch
 	 */
 	public function getNavigationLinks($depth = null) {
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
@@ -1013,7 +1013,7 @@ class GalleryUrlGenerator {
 
 			if (!$check && empty($this->_localUrlMapDirty)) {
 				$this->_localUrlMapDirty = true;
-				$gallery->addShutdownAction(array($this, '_saveLocalUrlMapXtra'), array());
+				$gallery->addShutdownAction(array( $this, '_saveLocalUrlMapXtra' ), array());
 			}
 		}
 

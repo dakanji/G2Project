@@ -49,14 +49,14 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		);
 		$parser['dynamic'][]         = array(
 			'pattern'  => '/\/p\/([a-z]{2})\/([^\?]+)/',
-			'keywords' => array(null, 'language', 'path'),
+			'keywords' => array( null, 'language', 'path' ),
 			'queryString' => array(
 				'view' => 'php.Dynamic',
 			),
 		);
 		$parser['dynamic'][]         = array(
 			'pattern'  => '/\/p\/([0-9]+).html/',
-			'keywords' => array(null, 'itemId'),
+			'keywords' => array( null, 'itemId' ),
 			'queryString' => array(
 				'view' => 'php.Dynamic2',
 			),
@@ -137,7 +137,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 	public function testParsePathInfo() {
 		// test = array(path info, array of expected request variables
-		$basePath = array('', '/cms', '/cms/other');
+		$basePath = array( '', '/cms', '/cms/other' );
 		$tests    = array();
 
 		// Test static path

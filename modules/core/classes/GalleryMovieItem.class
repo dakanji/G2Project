@@ -198,7 +198,7 @@ class GalleryMovieItem extends GalleryDataItem {
 					 * ERROR_TOOLKIT_FAILURE bit on every error that they generate or pass
 					 * through.
 					 */
-					$dimensions = array(0, 0, 0);
+					$dimensions = array( 0, 0, 0 );
 				} else {
 					return $ret;
 				}
@@ -222,11 +222,11 @@ class GalleryMovieItem extends GalleryDataItem {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
-				return array($core->translate('Movie'), $core->translate('movie'));
+				return array( $core->translate('Movie'), $core->translate('movie') );
 			}
 		}
 
-		return array('Movie', 'movie');
+		return array( 'Movie', 'movie' );
 	}
 
 	/**
@@ -242,17 +242,17 @@ class GalleryMovieItem extends GalleryDataItem {
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$src          = $urlGenerator->generateUrl(
 					array(
-						'view'         => 'core.DownloadItem',
-						'itemId'       => $this->getId(),
+						'view' => 'core.DownloadItem',
+						'itemId' => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
 					array(
-						'forceFullUrl'   => true,
+						'forceFullUrl' => true,
 						'forceSessionId' => true,
 					)
 				);
 
-				list($width, $height) = array($this->getWidth(), $this->getHeight());
+				list($width, $height) = array( $this->getWidth(), $this->getHeight() );
 
 				switch ($this->getMimeType()) {
 					case 'video/quicktime':

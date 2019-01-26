@@ -286,7 +286,7 @@ class ADODB_postgres64 extends ADOConnection {
 			}
 
 			if ($this->replaceQuote[0] == '\\') {
-				$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\\000"), $s);
+				$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\\000" ), $s);
 			}
 
 			return "'" . str_replace("'", $this->replaceQuote, $s) . "'";
@@ -511,8 +511,8 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		// 92=backslash, 0=null, 39=single-quote
-		$badch = array(chr(92), chr(0), chr(39)); // \  null  '
-		$fixch = array('\\\\134', '\\\\000', '\\\\047');
+		$badch = array( chr(92), chr(0), chr(39) ); // \  null  '
+		$fixch = array( '\\\\134', '\\\\000', '\\\\047' );
 
 		return adodb_str_replace($badch, $fixch, $blob);
 
@@ -781,7 +781,7 @@ class ADODB_postgres64 extends ADOConnection {
 			}
 
 			$indexes[$row[0]] = array(
-				'unique'  => ($row[1] == 't'),
+				'unique' => ($row[1] == 't'),
 				'columns' => $columns,
 			);
 		}

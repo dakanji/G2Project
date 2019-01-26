@@ -199,8 +199,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		// Fetch all permissions and compare the ones we care about
 		$count = 0;
-		list($ret, $permissions) =
-		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
+		list($ret, $permissions) = 		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
 			return $ret;
@@ -226,8 +225,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		 * Create a 3rd album with a different permission on it so that we can
 		 * test cascading in a heterogeneous environment.
 		 */
-		list($ret, $differentPermissionChildAlbum) =
-		$this->_createRandomAlbum($this->_albumParent->getId());
+		list($ret, $differentPermissionChildAlbum) = 		$this->_createRandomAlbum($this->_albumParent->getId());
 
 		if ($ret) {
 			return $ret;
@@ -279,8 +277,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		foreach (array($this->_albumParent, $this->_albumChild, $differentPermissionChildAlbum)
 		as $album) {
-			list($ret, $permissions) =
-			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
+			list($ret, $permissions) = 			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
 				return $ret;
@@ -433,8 +430,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::reset();
 
 		// Fetch all permissions and compare the ones we care about
-		list($ret, $permissions) =
-		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
+		list($ret, $permissions) = 		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
 			return $ret;
@@ -486,8 +482,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		// Fetch all permissions and compare the ones we care about
 		foreach (array($this->_albumParent, $this->_albumChild) as $album) {
-			list($ret, $permissions) =
-			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
+			list($ret, $permissions) = 			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
 				return $ret;
@@ -528,8 +523,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		// Fetch all permissions and compare the ones we care about
 		$count = 0;
-		list($ret, $permissions) =
-		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
+		list($ret, $permissions) = 		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
 			return $ret;
@@ -555,8 +549,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		 * Create a 3rd album with a different permission on it so that we can
 		 * test cascading in a heterogeneous environment.
 		 */
-		list($ret, $differentPermissionChildAlbum) =
-		$this->_createRandomAlbum($this->_albumParent->getId());
+		list($ret, $differentPermissionChildAlbum) = 		$this->_createRandomAlbum($this->_albumParent->getId());
 
 		if ($ret) {
 			return $ret;
@@ -605,8 +598,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		foreach (array($this->_albumParent, $this->_albumChild, $differentPermissionChildAlbum)
 		as $album) {
-			list($ret, $permissions) =
-			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
+			list($ret, $permissions) = 			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
 				return $ret;
@@ -750,8 +742,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::reset();
 
 		// Fetch all permissions and compare the ones we care about
-		list($ret, $permissions) =
-		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
+		list($ret, $permissions) = 		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
 			return $ret;
@@ -804,8 +795,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 		// Fetch all permissions and compare the ones we care about
 		foreach (array($this->_albumParent, $this->_albumChild) as $album) {
-			list($ret, $permissions) =
-			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
+			list($ret, $permissions) = 			GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
 				return $ret;
@@ -956,8 +946,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		list($ret, $permissions) =
-		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), true);
+		list($ret, $permissions) = 		GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), true);
 
 		if ($ret) {
 			return $ret;

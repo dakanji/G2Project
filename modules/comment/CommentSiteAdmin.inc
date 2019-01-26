@@ -44,7 +44,7 @@ class CommentSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = $error = array();
@@ -59,13 +59,13 @@ class CommentSiteAdminController extends GalleryController {
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $currentApiKey) = $module->getParameter('akismet.apiKey');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (!empty($form['apiKey']) && $form['apiKey'] != $currentApiKey) {
@@ -78,7 +78,7 @@ class CommentSiteAdminController extends GalleryController {
 					list($ret, $validApiKey) = $this->_akismet->verifyApiKey($form['apiKey']);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					if (!$validApiKey) {
@@ -91,7 +91,7 @@ class CommentSiteAdminController extends GalleryController {
 				$ret = $module->setParameter('comments.show', $form['show']);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$ret = $module->setParameter(
 					'comments.latest',
@@ -99,25 +99,25 @@ class CommentSiteAdminController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = $module->setParameter('comments.moderate', !empty($form['moderate']));
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = $module->setParameter('akismet.apiKey', $form['apiKey']);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = $module->setParameter('akismet.active', !empty($form['apiKey']) ? 1 : 0);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['saved'] = 1;
@@ -125,8 +125,8 @@ class CommentSiteAdminController extends GalleryController {
 		} elseif (isset($form['action']['checkAllWithAkismet'])) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
 			$templateAdapter->registerTrailerCallback(
-				array($this, 'checkAllWithAkismet'),
-				array(new AkismetApi())
+				array( $this, 'checkAllWithAkismet' ),
+				array( new AkismetApi() )
 			);
 			$delegate['view'] = 'core.ProgressBar';
 		}
@@ -142,7 +142,7 @@ class CommentSiteAdminController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	/**
@@ -290,13 +290,13 @@ class CommentSiteAdminView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'comment');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'CommentSiteAdmin') {

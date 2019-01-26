@@ -85,10 +85,10 @@ class RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
 		}
 
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class RewriteParser {
 	 *               int rewrite status code (REWRITE_STATUS_OK on success)
 	 */
 	public function saveAccessList($accessList, $allowEmptyReferer) {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class RewriteParser {
 	 *               boolean true if this parser needs configuration
 	 */
 	public function needsConfiguration() {
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class RewriteParser {
 			list($ret, $rewriteModule) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -204,7 +204,7 @@ class RewriteParser {
 				);
 		}
 
-		return array(null, null);
+		return array( null, null );
 	}
 
 	/**
@@ -228,7 +228,7 @@ class RewriteParser {
 	 *               array status codes
 	 */
 	public function handleTestResultsRequest($form) {
-		return array(null, array(), array());
+		return array( null, array(), array() );
 	}
 
 	/**
@@ -252,28 +252,28 @@ class RewriteParser {
 	 *               array status codes
 	 */
 	public function handleAdminParserRequest($form) {
-		return array(null, array(), array());
+		return array( null, array(), array() );
 	}
 
 	/**
 	 * @see RewriteApi::needsEmbedConfig
 	 */
 	public function needsEmbedConfig() {
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
 	 * @see RewriteApi::fetchEmbedConfig
 	 */
 	public function fetchEmbedConfig() {
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
 	 * @see RewriteApi::saveEmbedConfig
 	 */
 	public function saveEmbedConfig($params) {
-		return array(null, REWRITE_STATUS_OK, null);
+		return array( null, REWRITE_STATUS_OK, null );
 	}
 
 	// Getters and setters below

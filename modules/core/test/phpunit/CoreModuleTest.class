@@ -89,8 +89,8 @@ class CoreModuleTest extends GalleryTestCase {
 		$url          = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'core.ItemDeleteSingle',
-				'itemId'     => $albumId,
-				'pageId'     => $albumId,
+				'itemId' => $albumId,
+				'pageId' => $albumId,
 			)
 		);
 		$this->assertEquals(
@@ -110,14 +110,14 @@ class CoreModuleTest extends GalleryTestCase {
 					'view' => 'core.ItemPermissions',
 				),
 				array(
-					'name'   => $this->_module->_translate(
+					'name' => $this->_module->_translate(
 						array(
 							'text' => 'Delete %s',
 							'arg1' => $this->_module->translate('Album'),
 						),
 						'Album'
 					),
-					'view'   => 'core.ItemDeleteSingle',
+					'view' => 'core.ItemDeleteSingle',
 					'script' => 'core_confirmDelete(\'' . $url . '\', \'\', \''
 						. $albumTitle . '\');return false',
 				),
@@ -177,14 +177,14 @@ class CoreModuleTest extends GalleryTestCase {
 					'view' => 'core.ItemPermissions',
 				),
 				array(
-					'name'   => $this->_module->_translate(
+					'name' => $this->_module->_translate(
 						array(
 							'text' => 'Delete %s',
 							'arg1' => $this->_module->translate('Album'),
 						),
 						'Album'
 					),
-					'view'   => 'core.ItemDeleteSingle',
+					'view' => 'core.ItemDeleteSingle',
 					'script' => 'core_confirmDelete(\'' . $url . '\', \'\', \''
 						 . $albumTitle . '\');return false',
 				),
@@ -233,25 +233,25 @@ class CoreModuleTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'SiteAdmin' => array(
-					'text'   => $this->_module->translate('Site Admin'),
+					'text' => $this->_module->translate('Site Admin'),
 					'params' => array(
-						'view'   => 'core.SiteAdmin',
+						'view' => 'core.SiteAdmin',
 						'return' => 1,
 					),
 				),
 				'YourAccount' => array(
-					'text'   => $this->_module->translate('Your Account'),
+					'text' => $this->_module->translate('Your Account'),
 					'params' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return'  => 1,
+						'return' => 1,
 					),
 				),
 				'Logout' => array(
-					'text'   => $this->_module->translate('Logout'),
+					'text' => $this->_module->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return'     => 1,
+						'return' => 1,
 					),
 				),
 			),
@@ -287,18 +287,18 @@ class CoreModuleTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'YourAccount' => array(
-					'text'   => $this->_module->translate('Your Account'),
+					'text' => $this->_module->translate('Your Account'),
 					'params' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return'  => 1,
+						'return' => 1,
 					),
 				),
 				'Logout' => array(
-					'text'   => $this->_module->translate('Logout'),
+					'text' => $this->_module->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return'     => 1,
+						'return' => 1,
 					),
 				),
 			),
@@ -333,18 +333,18 @@ class CoreModuleTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'YourAccount' => array(
-					'text'   => $this->_module->translate('Your Account'),
+					'text' => $this->_module->translate('Your Account'),
 					'params' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return'  => 1,
+						'return' => 1,
 					),
 				),
 				'Logout' => array(
-					'text'   => $this->_module->translate('Logout'),
+					'text' => $this->_module->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return'     => 1,
+						'return' => 1,
 					),
 				),
 			),
@@ -402,7 +402,7 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), false);
+		$platform->setReply('file_exists', array( $versionFile ), false);
 
 		$versions = $this->_module->getInstalledVersions();
 		$this->assertEquals(
@@ -446,10 +446,10 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), true);
+		$platform->setReply('file_exists', array( $versionFile ), true);
 		$platform->setReply(
 			'file',
-			array($versionFile, false),
+			array( $versionFile, false ),
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion(),
@@ -478,10 +478,10 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), true);
+		$platform->setReply('file_exists', array( $versionFile ), true);
 		$platform->setReply(
 			'file',
-			array($versionFile, false),
+			array( $versionFile, false ),
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",
@@ -511,10 +511,10 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array($versionFile), true);
+		$platform->setReply('file_exists', array( $versionFile ), true);
 		$platform->setReply(
 			'file',
-			array($versionFile, false),
+			array( $versionFile, false ),
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",

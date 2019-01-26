@@ -613,7 +613,7 @@ class ADODB_odbc extends ADOConnection {
 			return $sql;
 		}
 
-		return array($sql, $stmt, false);
+		return array( $sql, $stmt, false );
 	}
 
 	// returns queryID or false
@@ -699,7 +699,7 @@ class ADODB_odbc extends ADOConnection {
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
-		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
+		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array( $val )) != false;
 	}
 
 	// returns true or false

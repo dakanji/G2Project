@@ -67,15 +67,15 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'       => 'core.ItemAdmin',
-					'subView'    => 'core.ItemEdit',
+					'view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId'     => $this->_getChildId(),
+					'itemId' => $this->_getChildId(),
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -112,15 +112,15 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'       => 'core.ItemAdmin',
-					'subView'    => 'core.ItemEdit',
+					'view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId'     => $this->_getSecondChildId(),
+					'itemId' => $this->_getSecondChildId(),
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -150,11 +150,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddAlbum',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][pathComponent][missing]'),
+				'status' => array(),
+				'error' => array( 'form[error][pathComponent][missing]' ),
 			),
 			$results
 		);
@@ -175,11 +175,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddAlbum',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][pathComponent][invalid]'),
+				'status' => array(),
+				'error' => array( 'form[error][pathComponent][invalid]' ),
 			),
 			$results
 		);
@@ -210,15 +210,15 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'       => 'core.ItemAdmin',
-					'subView'    => 'core.ItemEdit',
+					'view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId'     => $id,
+					'itemId' => $id,
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -268,15 +268,15 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'       => 'core.ItemAdmin',
-					'subView'    => 'core.ItemEdit',
+					'view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId'     => $id,
+					'itemId' => $id,
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -343,15 +343,15 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'       => 'core.ItemAdmin',
-					'subView'    => 'core.ItemEdit',
+					'view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId'     => ($id = $this->_getChildId()),
+					'itemId' => ($id = $this->_getChildId()),
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);

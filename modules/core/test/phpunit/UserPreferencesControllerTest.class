@@ -77,7 +77,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'return' => true,
@@ -95,7 +95,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(),
@@ -118,7 +118,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(
@@ -155,7 +155,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(
@@ -187,11 +187,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(),
-				'error' => array('form[error][email][missing]'),
+				'error' => array( 'form[error][email][missing]' ),
 			),
 			$results
 		);
@@ -203,7 +203,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(
@@ -216,7 +216,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testEditInvalidEmail() {
-		foreach (array('user', 'admin') as $userType) {
+		foreach (array( 'user', 'admin' ) as $userType) {
 			if ($userType == 'admin') {
 				// We have to do 'admin' last for this to work
 				$this->_addUserToAdminGroup($this->_user);
@@ -231,11 +231,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					'delegate' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
 					),
-					'status'   => array(),
-					'error'    => array('form[error][email][invalid]'),
+					'status' => array(),
+					'error' => array( 'form[error][email][invalid]' ),
 				),
 				$results,
 				'no at'
@@ -247,11 +247,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					'delegate' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
 					),
-					'status'   => array(),
-					'error'    => array('form[error][email][invalid]'),
+					'status' => array(),
+					'error' => array( 'form[error][email][invalid]' ),
 				),
 				$results,
 				'bad char'
@@ -263,11 +263,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					'delegate' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
 					),
-					'status'   => array(),
-					'error'    => array('form[error][email][invalid]'),
+					'status' => array(),
+					'error' => array( 'form[error][email][invalid]' ),
 				),
 				$results,
 				'space'
@@ -279,11 +279,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					'delegate' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
 					),
-					'status'   => array(),
-					'error'    => array('form[error][email][invalid]'),
+					'status' => array(),
+					'error' => array( 'form[error][email][invalid]' ),
 				),
 				$results,
 				'bad suffix'
@@ -295,11 +295,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					'delegate' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
 					),
-					'status'   => array(),
-					'error'    => array('form[error][email][invalid]'),
+					'status' => array(),
+					'error' => array( 'form[error][email][invalid]' ),
 				),
 				$results,
 				'no suffix'
@@ -326,7 +326,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(
@@ -370,11 +370,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(),
-				'error' => array('form[error][currentPassword][incorrect]'),
+				'error' => array( 'form[error][currentPassword][incorrect]' ),
 			),
 			$results,
 			'invalid password'
@@ -420,11 +420,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(),
-				'error' => array('form[error][currentPassword][incorrect]'),
+				'error' => array( 'form[error][currentPassword][incorrect]' ),
 			),
 			$results,
 			'invalid password'
@@ -463,11 +463,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(),
-				'error' => array('form[error][currentPassword][missing]'),
+				'error' => array( 'form[error][currentPassword][missing]' ),
 			),
 			$results,
 			'missing password'
@@ -545,7 +545,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
 				'status' => array(

@@ -43,7 +43,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			array(
 				'package' => array(
 					'controller' => 'PackagePlugin',
-					'action'     => 'packagePlugin',
+					'action' => 'packagePlugin',
 				),
 			)
 		);
@@ -56,7 +56,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			'PackagePlugin',
 			array(
 				'formVariablePrefix' => GALLERY_FORM_VARIABLE_PREFIX,
-				'plugins'            => $plugins,
+				'plugins' => $plugins,
 			)
 		);
 
@@ -97,7 +97,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		$ret = $this->showView(
 			'PackageResults',
 			array(
-				'results' => array($pluginInfo),
+				'results' => array( $pluginInfo ),
 			)
 		);
 
@@ -168,7 +168,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$outputDir .= sprintf('%ss', $pluginType);
@@ -177,13 +177,13 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		$ret        = $descriptor->init($outputDir);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$ret = $descriptor->generate($plugin);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$overwrite = GalleryUtilities::getRequestVariables('overwrite');
@@ -198,20 +198,20 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			$ret = $descriptor->writeToDisk($overwrite, true);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$package = new RepositoryPackage();
 			$ret     = $package->init($descriptor, $descriptor->getOutputDir());
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $packagesWritten) = $package->writeAllPackagesToDisk($overwrite, true);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$pluginInfo['packageInfo'] = $packagesWritten;
@@ -224,7 +224,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			$pluginInfo['errors']      = $integrityErrors;
 		}
 
-		return array(null, $pluginInfo);
+		return array( null, $pluginInfo );
 	}
 
 	/**
@@ -238,13 +238,13 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		global $gallery;
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$data         = array();
-		$pluginTypes  = array('module', 'theme');
+		$pluginTypes  = array( 'module', 'theme' );
 
 		foreach ($pluginTypes as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::fetchPluginStatus($pluginType, true);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			ksort($plugins);
@@ -255,7 +255,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				$data[$pluginId]['available'] = isset($plugin['available']) ? 'available' : 'unavailable';
 
 				$pluginUrlParameters = array(
-					'pluginId'   => $pluginId,
+					'pluginId' => $pluginId,
 					'pluginType' => $pluginType,
 				);
 
@@ -265,6 +265,6 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			}
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 }

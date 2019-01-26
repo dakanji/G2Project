@@ -122,7 +122,7 @@ class GalleryTranslatorHelper_medium {
 		}
 		$language = substr($locale, 0, 2);
 
-		foreach (array('modules', 'themes') as $pluginType) {
+		foreach (array( 'modules', 'themes' ) as $pluginType) {
 			$gallery->guaranteeTimeLimit(30);
 			$poDirs = $platform->glob("$codeBase$pluginType/*/po");
 			$gallery->guaranteeTimeLimit(60);
@@ -131,7 +131,7 @@ class GalleryTranslatorHelper_medium {
 				preg_match('{/(\w+)/po$}', $poDir, $matches);
 				$filename = $pluginType . '_' . $matches[1] . '.mo';
 
-				foreach (array($locale, $language) as $prefix) {
+				foreach (array( $locale, $language ) as $prefix) {
 					$destinationDir = $localeBase . $prefix . '/LC_MESSAGES/';
 					$sourcePath     = "$poDir/$prefix.mo";
 
@@ -197,7 +197,7 @@ class GalleryTranslatorHelper_medium {
 			$languageDescription = GalleryDataCache::get($cacheKey);
 		}
 
-		return array(null, $languageDescription);
+		return array( null, $languageDescription );
 	}
 
 	/**
@@ -222,7 +222,7 @@ class GalleryTranslatorHelper_medium {
 
 			if ($languageDirectories) {
 				foreach ($languageDirectories as $directory) {
-					if (!in_array($directory, array('..', '.'))
+					if (!in_array($directory, array( '..', '.' ))
 						&& $platform->is_dir($directory)
 					) {
 						$installedLanguages[basename($directory)] = 1;

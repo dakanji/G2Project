@@ -584,7 +584,7 @@ class ADODB_ads extends ADOConnection {
 			return $sql;
 		}
 
-		return array($sql, $stmt, false);
+		return array( $sql, $stmt, false );
 	}
 
 	// returns queryID or false
@@ -680,7 +680,7 @@ class ADODB_ads extends ADOConnection {
 			return false;
 		}
 
-		if (!ads_execute($stmtid, array($val), array(SQL_BINARY))) {
+		if (!ads_execute($stmtid, array( $val ), array( SQL_BINARY ))) {
 			if ($this->_haserrorfunctions) {
 				$this->_errorMsg  = ads_errormsg();
 				$this->_errorCode = ads_error();

@@ -274,7 +274,7 @@ if (!defined('_ADODB_LAYER')) {
 	}
 
 	function _adodb_safedate($s) {
-		return str_replace(array("'", '\\'), '', $s);
+		return str_replace(array( "'", '\\' ), '', $s);
 	}
 
 	// parse date string to prevent injection attack
@@ -592,7 +592,7 @@ if (!defined('_ADODB_LAYER')) {
 		public function ServerInfo() {
 			return array(
 				'description' => '',
-				'version'     => '',
+				'version' => '',
 			);
 		}
 
@@ -1035,7 +1035,7 @@ if (!defined('_ADODB_LAYER')) {
 
 		public function IgnoreErrors($saveErrs = false) {
 			if (!$saveErrs) {
-				$saveErrs           = array($this->raiseErrorFn, $this->_transOK);
+				$saveErrs           = array( $this->raiseErrorFn, $this->_transOK );
 				$this->raiseErrorFn = false;
 
 				return $saveErrs;
@@ -1158,7 +1158,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			if ($inputarr !== false) {
 				if (!is_array($inputarr)) {
-					$inputarr = array($inputarr);
+					$inputarr = array( $inputarr );
 				}
 
 				$element0 = reset($inputarr);
@@ -1175,7 +1175,7 @@ if (!defined('_ADODB_LAYER')) {
 
 					if (!$array_2d) {
 						// When not Bind Bulk - convert to array of arguments list
-						$inputarr = array($inputarr);
+						$inputarr = array( $inputarr );
 					} else {
 						// Bulk bind - Make sure all list of params have the same number of elements
 						$countElements = array_map('count', $inputarr);
@@ -2380,7 +2380,7 @@ if (!defined('_ADODB_LAYER')) {
 		 *   $conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 		 */
 		public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
-			return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
+			return $this->Execute("UPDATE $table SET $column=? WHERE $where", array( $val )) != false;
 		}
 
 		/**
@@ -3142,7 +3142,7 @@ if (!defined('_ADODB_LAYER')) {
 			if (!$magic_quotes) {
 				if ($this->replaceQuote[0] == '\\') {
 					// only since php 4.0.5
-					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
+					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
 					//$s = str_replace("\0","\\\0", str_replace('\\','\\\\',$s));
 				}
 
@@ -3177,7 +3177,7 @@ if (!defined('_ADODB_LAYER')) {
 			if (!$magic_quotes) {
 				if ($this->replaceQuote[0] == '\\') {
 					// only since php 4.0.5
-					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
+					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
 					//$s = str_replace("\0","\\\0", str_replace('\\','\\\\',$s));
 				}
 
@@ -3354,7 +3354,7 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		public function __call($func, $params) {
-			return call_user_func_array(array($this->rs, $func), $params);
+			return call_user_func_array(array( $this->rs, $func ), $params);
 		}
 
 		public function hasMore() {
@@ -3481,7 +3481,7 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		public function __call($func, $params) {
-			return call_user_func_array(array($this->rs, $func), $params);
+			return call_user_func_array(array( $this->rs, $func ), $params);
 		}
 
 		public function hasMore() {

@@ -113,13 +113,13 @@ class GalleryItemAttributesHelper_simple {
 	 * @see GalleryCoreApi::fetchItemViewCount
 	 */
 	public static function fetchViewCount($itemId) {
-		list($ret, $viewCounts) = GalleryItemAttributesHelper_simple::fetchViewCounts(array($itemId));
+		list($ret, $viewCounts) = GalleryItemAttributesHelper_simple::fetchViewCounts(array( $itemId ));
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $viewCounts[$itemId]);
+		return array( null, $viewCounts[$itemId] );
 	}
 
 	/**
@@ -131,18 +131,18 @@ class GalleryItemAttributesHelper_simple {
 		}
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
-			array('itemId', 'viewCount'),
+			array( 'itemId', 'viewCount' ),
 			array(
 				'itemId' => $itemIds,
 			)
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($searchResults->resultCount() != sizeof($itemIds)) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
 		}
 
 		$data = array();
@@ -151,7 +151,7 @@ class GalleryItemAttributesHelper_simple {
 			$data[$result[0]] = (int)$result[1];
 		}
 
-		return array(null, $data);
+		return array( null, $data );
 	}
 
 	/**
@@ -163,19 +163,19 @@ class GalleryItemAttributesHelper_simple {
 		if ($filterBreadcrumb && ($filter = $gallery->getConfig('breadcrumbRootId'))
 			&& $itemId == $filter
 		) {
-			return array(null, array());
+			return array( null, array() );
 		}
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
-			array('parentSequence'),
+			array( 'parentSequence' ),
 			array(
 				'itemId' => (int)$itemId,
 			)
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($searchResults->resultCount() != 1) {
@@ -204,6 +204,6 @@ class GalleryItemAttributesHelper_simple {
 			array_splice($result, 0, $i);
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 }

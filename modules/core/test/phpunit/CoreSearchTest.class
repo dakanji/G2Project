@@ -76,10 +76,10 @@ class CoreSearchTest extends GalleryTestCase {
 				$this->_parentAlbum->getId(),
 				'application/unknown',
 				array(
-					'title'       => 'Title ' . $this->_randomKey,
+					'title' => 'Title ' . $this->_randomKey,
 					'description' => 'Description ' . $this->_randomKey,
-					'summary'     => 'Summary ' . $this->_randomKey,
-					'keywords'    => 'Keywords ' . $this->_randomKey,
+					'summary' => 'Summary ' . $this->_randomKey,
+					'keywords' => 'Keywords ' . $this->_randomKey,
 				)
 			);
 
@@ -149,7 +149,7 @@ class CoreSearchTest extends GalleryTestCase {
 		$this->assertTrue(isset($info['options']), 'options missing');
 		$this->assertTrue(is_array($info['options']), 'options not an array');
 
-		foreach (array('descriptions', 'keywords', 'summaries', 'titles') as $option) {
+		foreach (array( 'descriptions', 'keywords', 'summaries', 'titles' ) as $option) {
 			$this->assertTrue(
 				isset($info['options'][$option]['description']),
 				"options:$option description missing"
@@ -171,10 +171,10 @@ class CoreSearchTest extends GalleryTestCase {
 
 		list($ret, $results) = $this->_coreSearch->search(
 			array(
-				'titles'       => 1,
-				'summaries'    => 1,
+				'titles' => 1,
+				'summaries' => 1,
 				'descriptions' => 1,
-				'keywords'     => 1,
+				'keywords' => 1,
 			),
 			$this->_randomKey
 		);
@@ -205,23 +205,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[3]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[3]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[3]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[3]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[3]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -230,23 +230,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[2]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[2]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[2]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[2]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -255,23 +255,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[1]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[1]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[1]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[1]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[1]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -292,7 +292,7 @@ class CoreSearchTest extends GalleryTestCase {
 
 		list($ret, $results) = $this->_coreSearch->search(
 			array(
-				'titles'   => 1,
+				'titles' => 1,
 				'keywords' => 1,
 			),
 			$this->_randomKey
@@ -323,19 +323,19 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[3]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[3]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[3]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[3]->getKeywords(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -344,19 +344,19 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[2]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[2]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[2]->getKeywords(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -365,19 +365,19 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[1]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[1]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[1]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[1]->getKeywords(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -398,10 +398,10 @@ class CoreSearchTest extends GalleryTestCase {
 
 		list($ret, $results) = $this->_coreSearch->search(
 			array(
-				'titles'       => 1,
-				'summaries'    => 1,
+				'titles' => 1,
+				'summaries' => 1,
 				'descriptions' => 1,
-				'keywords'     => 1,
+				'keywords' => 1,
 			),
 			$this->_randomKey,
 			1,
@@ -434,23 +434,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[2]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[2]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[2]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[2]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -459,23 +459,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[1]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[1]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[1]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[1]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[1]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -527,10 +527,10 @@ class CoreSearchTest extends GalleryTestCase {
 
 		list($ret, $results) = $this->_coreSearch->search(
 			array(
-				'titles'       => 1,
-				'summaries'    => 1,
+				'titles' => 1,
+				'summaries' => 1,
 				'descriptions' => 1,
-				'keywords'     => 1,
+				'keywords' => 1,
 			),
 			$this->_randomKey
 		);
@@ -561,23 +561,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $linkedItem->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $linkedItem->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $linkedItem->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $linkedItem->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $linkedItem->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -586,23 +586,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[3]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[3]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[3]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[3]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[3]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -611,23 +611,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[2]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[2]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[2]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[2]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[2]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),
@@ -636,23 +636,23 @@ class CoreSearchTest extends GalleryTestCase {
 						'itemId' => $this->_item[1]->getId(),
 						'fields' => array(
 							array(
-								'key'   => $title,
+								'key' => $title,
 								'value' => $this->_item[1]->getTitle(),
 							),
 							array(
-								'key'   => $summary,
+								'key' => $summary,
 								'value' => $this->_item[1]->getSummary(),
 							),
 							array(
-								'key'   => $keywords,
+								'key' => $keywords,
 								'value' => $this->_item[1]->getKeywords(),
 							),
 							array(
-								'key'   => $description,
+								'key' => $description,
 								'value' => $this->_item[1]->getDescription(),
 							),
 							array(
-								'key'   => $owner,
+								'key' => $owner,
 								'value' => $userName,
 							),
 						),

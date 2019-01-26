@@ -59,8 +59,8 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 			$data['pluginInfo'][$indexId]['actions']['remove'] = $urlGenerator->generateUrl(
 				array(
 					'controller' => 'RepositoryManager',
-					'action'     => 'removePlugin',
-					'pluginId'   => $plugin['id'],
+					'action' => 'removePlugin',
+					'pluginId' => $plugin['id'],
 					'pluginType' => $plugin['type'],
 				)
 			);
@@ -70,8 +70,8 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 			$data['upgradeRepositoryLink'] = $urlGenerator->generateUrl(
 				array(
 					'controller' => 'PackagePlugin',
-					'action'     => 'packagePlugins',
-					'filter'     => sprintf('/%s/', implode('|', $upgradeablePlugins)),
+					'action' => 'packagePlugins',
+					'filter' => sprintf('/%s/', implode('|', $upgradeablePlugins)),
 				)
 			);
 		}

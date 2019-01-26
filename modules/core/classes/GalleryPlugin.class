@@ -173,7 +173,7 @@ class GalleryPlugin {
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($pluginStatus[$pluginId]['active'])) {
@@ -181,7 +181,7 @@ class GalleryPlugin {
 				'GalleryPluginMap',
 				array(
 					'pluginType' => $pluginType,
-					'pluginId'   => $pluginId,
+					'pluginId' => $pluginId,
 				),
 				array(
 					'active' => 1,
@@ -192,14 +192,14 @@ class GalleryPlugin {
 				'GalleryPluginMap',
 				array(
 					'pluginType' => $pluginType,
-					'pluginId'   => $pluginId,
-					'active'     => 1,
+					'pluginId' => $pluginId,
+					'active' => 1,
 				)
 			);
 		}
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Flush the cache
@@ -226,13 +226,13 @@ class GalleryPlugin {
 			$event->setData(
 				array(
 					'pluginType' => $this->getPluginType(),
-					'pluginId'   => $this->getId(),
+					'pluginId' => $this->getId(),
 				)
 			);
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -245,7 +245,7 @@ class GalleryPlugin {
 			);
 		}
 
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
@@ -269,7 +269,7 @@ class GalleryPlugin {
 			'GalleryPluginMap',
 			array(
 				'pluginType' => $pluginType,
-				'pluginId'   => $pluginId,
+				'pluginId' => $pluginId,
 			),
 			array(
 				'active' => 0,
@@ -277,7 +277,7 @@ class GalleryPlugin {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$this->_flushPluginCache();
@@ -286,11 +286,11 @@ class GalleryPlugin {
 			$ret = $this->_postDeactivationEvent();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
@@ -312,7 +312,7 @@ class GalleryPlugin {
 		list($ret, $isActive) = $this->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!$isActive) {
@@ -326,7 +326,7 @@ class GalleryPlugin {
 				);
 			}
 
-			return array(null, null);
+			return array( null, null );
 		}
 
 		if ($gallery->getDebug()) {
@@ -341,11 +341,11 @@ class GalleryPlugin {
 		list($ret, $redirect) = $this->deactivate(false);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($redirect)) {
-			return array(null, $redirect);
+			return array( null, $redirect );
 		}
 
 		if ($gallery->getDebug()) {
@@ -363,11 +363,11 @@ class GalleryPlugin {
 			// Try to send the deactivation event before failing completely.
 			$this->_postDeactivationEvent();
 
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($redirect)) {
-			return array(null, $redirect);
+			return array( null, $redirect );
 		}
 
 		if ($gallery->getDebug()) {
@@ -380,7 +380,7 @@ class GalleryPlugin {
 			);
 		}
 
-		return array(null, array());
+		return array( null, array() );
 	}
 
 	/**
@@ -394,7 +394,7 @@ class GalleryPlugin {
 		$event->setData(
 			array(
 				'pluginType' => $this->getPluginType(),
-				'pluginId'   => $this->getId(),
+				'pluginId' => $this->getId(),
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -445,7 +445,7 @@ class GalleryPlugin {
 		$event->setData(
 			array(
 				'pluginType' => $this->getPluginType(),
-				'pluginId'   => $this->getId(),
+				'pluginId' => $this->getId(),
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -496,10 +496,10 @@ class GalleryPlugin {
 
 		list($ret, $searchResult) = GalleryCoreApi::getMapEntry(
 			'GalleryPluginMap',
-			array('pluginId'),
+			array( 'pluginId' ),
 			array(
 				'pluginType' => $this->getPluginType(),
-				'pluginId'   => $this->getId(),
+				'pluginId' => $this->getId(),
 			)
 		);
 
@@ -512,8 +512,8 @@ class GalleryPlugin {
 				'GalleryPluginMap',
 				array(
 					'pluginType' => $this->getPluginType(),
-					'pluginId'   => $this->getId(),
-					'active'     => 0,
+					'pluginId' => $this->getId(),
+					'active' => 0,
 				)
 			);
 
@@ -584,7 +584,7 @@ class GalleryPlugin {
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($this->getPluginType());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($pluginStatus[$this->getId()])) {
@@ -622,10 +622,10 @@ class GalleryPlugin {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $value);
+		return array( null, $value );
 	}
 
 	/**
@@ -684,7 +684,7 @@ class GalleryPlugin {
 	 *               array parameters in key => value form
 	 */
 	public function fetchParameters($itemId = null) {
-		$order = array(null);
+		$order = array( null );
 
 		if ($itemId) {
 			$order[] = $itemId;
@@ -700,12 +700,12 @@ class GalleryPlugin {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$results = array_merge($results, $params);
 		}
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	/**

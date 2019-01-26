@@ -186,7 +186,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 			array(
 				array(
 					'view' => 'fun.View',
-					'foo'  => 'bar',
+					'foo' => 'bar',
 				),
 				array(),
 			),
@@ -349,8 +349,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$base         = dirname(dirname(__DIR__)) . '/../../';
 		$mockPlatform = new UnitTestPlatform();
-		$mockPlatform->setReply('file_exists', array($base . 'themes/mock/local/foo.css'), 1);
-		$mockPlatform->setReply('is_readable', array($base . 'themes/mock/local/foo.css'), 1);
+		$mockPlatform->setReply('file_exists', array( $base . 'themes/mock/local/foo.css' ), 1);
+		$mockPlatform->setReply('is_readable', array( $base . 'themes/mock/local/foo.css' ), 1);
 		$gallery->_platform =& $mockPlatform;
 
 		$results = $this->_templateAdapter->theme(
@@ -379,12 +379,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply(
 			'file_exists',
-			array($base . 'themes/mock/templates/local/foo.css'),
+			array( $base . 'themes/mock/templates/local/foo.css' ),
 			1
 		);
 		$mockPlatform->setReply(
 			'is_readable',
-			array($base . 'themes/mock/templates/local/foo.css'),
+			array( $base . 'themes/mock/templates/local/foo.css' ),
 			1
 		);
 		$gallery->_platform =& $mockPlatform;
@@ -425,9 +425,9 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/AutoComplete.tpl',
-				'smarty_include_vars'     => array(
-					'element'   => 'giFormUsername',
-					'url'       => $expectedUrl,
+				'smarty_include_vars' => array(
+					'element' => 'giFormUsername',
+					'url' => $expectedUrl,
 					'callCount' => 1,
 				),
 			),
@@ -444,43 +444,43 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.cache', '/cache/');
 
 		$base = GalleryCoreApi::getCodeBasePath();
-		$gallery->_platform->setReply('file_exists', array($base . 'path/file1.js'), true);
+		$gallery->_platform->setReply('file_exists', array( $base . 'path/file1.js' ), true);
 		$gallery->_platform->setReply(
 			'stat',
-			array($base . 'path/file1.js'),
+			array( $base . 'path/file1.js' ),
 			array(
 				7 => 7,
 				9 => 9,
 			)
 		);
-		$gallery->_platform->setReply('file_exists', array($base . 'path/file2.txt'), true);
+		$gallery->_platform->setReply('file_exists', array( $base . 'path/file2.txt' ), true);
 		$gallery->_platform->setReply(
 			'stat',
-			array($base . 'path/file2.txt'),
+			array( $base . 'path/file2.txt' ),
 			array(
 				7 => 7,
 				9 => 9,
 			)
 		);
-		$gallery->_phpVm->setReply('md5', array('path/file1.js 7 9,path/file2.txt 7 9,'), 'MD5KEY');
+		$gallery->_phpVm->setReply('md5', array( 'path/file1.js 7 9,path/file2.txt 7 9,' ), 'MD5KEY');
 		$gallery->_platform->setReply(
 			'file_exists',
-			array('/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc'),
+			array( '/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc' ),
 			false
 		);
-		$gallery->_platform->setReply('file_get_contents', array($base . 'path/file1.js'), 'ONE');
-		$gallery->_phpVm->setReply('function_exists', array('gzencode'), true);
-		$gallery->_platform->setReply('file_get_contents', array($base . 'path/file2.txt'), 'TWO');
-		$gallery->_platform->setReply('file_exists', array('/cache/module/_all/0/0'), true);
-		$gallery->_platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
+		$gallery->_platform->setReply('file_get_contents', array( $base . 'path/file1.js' ), 'ONE');
+		$gallery->_phpVm->setReply('function_exists', array( 'gzencode' ), true);
+		$gallery->_platform->setReply('file_get_contents', array( $base . 'path/file2.txt' ), 'TWO');
+		$gallery->_platform->setReply('file_exists', array( '/cache/module/_all/0/0' ), true);
+		$gallery->_platform->setReply('is_dir', array( '/cache/module/_all/0/0' ), true);
 		$gallery->_platform->setReply(
 			'atomicWrite',
-			array('/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc', '|s:6:"ONETWO";'),
+			array( '/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc', '|s:6:"ONETWO";' ),
 			true
 		);
-		$gallery->_platform->setReply('file_exists', array('/cache/module/_all/0/0'), true);
-		$gallery->_platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
-		$gallery->_phpVm->setReply('gzencode', array('ONETWO', 9, FORCE_GZIP), 'gzencode(ONETWO)');
+		$gallery->_platform->setReply('file_exists', array( '/cache/module/_all/0/0' ), true);
+		$gallery->_platform->setReply('is_dir', array( '/cache/module/_all/0/0' ), true);
+		$gallery->_phpVm->setReply('gzencode', array( 'ONETWO', 9, FORCE_GZIP ), 'gzencode(ONETWO)');
 		$gallery->_platform->setReply(
 			'atomicWrite',
 			array(
@@ -492,7 +492,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$templateAdapter = new GalleryTemplateAdapter();
 		$templateAdapter->_combineJavascriptFiles(
-			array('path/file1.js', 'path/file2.txt', 'main.php?foo=bar'),
+			array( 'path/file1.js', 'path/file2.txt', 'main.php?foo=bar' ),
 			$output
 		);
 
@@ -524,11 +524,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$templateAdapter = new GalleryTemplateAdapter();
 		$templateAdapter->_combineJavascriptFiles(
-			array('path/file1.js', 'main.php?foo=bar', 'path/file2.txt'),
+			array( 'path/file1.js', 'main.php?foo=bar', 'path/file2.txt' ),
 			$output
 		);
 
-		$expected = array('');
+		$expected = array( '' );
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" '
@@ -559,11 +559,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$templateAdapter = new GalleryTemplateAdapter();
 		$templateAdapter->_combineJavascriptFiles(
-			array('lib/yui/yahoo-dom-event.js', 'lib/yui/utilities.js'),
+			array( 'lib/yui/yahoo-dom-event.js', 'lib/yui/utilities.js' ),
 			$output
 		);
 
-		$expected = array('');
+		$expected = array( '' );
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" '
@@ -582,25 +582,25 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$base = GalleryCoreApi::getCodeBasePath();
-		$platform->setReply('file_exists', array($base . $filename), true);
+		$platform->setReply('file_exists', array( $base . $filename ), true);
 		$platform->setReply(
 			'stat',
-			array($base . $filename),
+			array( $base . $filename ),
 			array(
 				7 => 7,
 				9 => 9,
 			)
 		);
-		$gallery->_phpVm->setReply('md5', array($filename . ' 7 9,'), $md5Key);
+		$gallery->_phpVm->setReply('md5', array( $filename . ' 7 9,' ), $md5Key);
 		$platform->setReply(
 			'file_exists',
-			array('/cache/module/_all/0/0/CombinedJavascript_' . $md5Key . '.inc'),
+			array( '/cache/module/_all/0/0/CombinedJavascript_' . $md5Key . '.inc' ),
 			false
 		);
-		$platform->setReply('file_get_contents', array($base . $filename), $content);
-		$gallery->_phpVm->setReply('function_exists', array('gzencode'), false);
-		$platform->setReply('file_exists', array('/cache/module/_all/0/0'), true);
-		$platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
+		$platform->setReply('file_get_contents', array( $base . $filename ), $content);
+		$gallery->_phpVm->setReply('function_exists', array( 'gzencode' ), false);
+		$platform->setReply('file_exists', array( '/cache/module/_all/0/0' ), true);
+		$platform->setReply('is_dir', array( '/cache/module/_all/0/0' ), true);
 		$length = strlen($content);
 		$platform->setReply(
 			'atomicWrite',
@@ -638,7 +638,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(
-			array($link['params'], $link['options']),
+			array( $link['params'], $link['options'] ),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -675,7 +675,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(
-			array($link['params'], $link['options']),
+			array( $link['params'], $link['options'] ),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -701,7 +701,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(
-			array($link['params'], $link['options']),
+			array( $link['params'], $link['options'] ),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -733,7 +733,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(
-			array($link['params'], $link['options']),
+			array( $link['params'], $link['options'] ),
 			$this->_mockUrlGenerator->_calls
 		);
 	}
@@ -760,9 +760,9 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/blocks/Missing.tpl',
-				'smarty_include_vars'     => array(
-					'type'      => 'core.Bogus',
-					'class'     => 'block-core-Missing',
+				'smarty_include_vars' => array(
+					'type' => 'core.Bogus',
+					'class' => 'block-core-Missing',
 					'l10Domain' => 'modules_core',
 				),
 			),
@@ -777,7 +777,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply(
 			'file_exists',
-			array('gallery:modules/core/templates/blocks/Bogus.tpl'),
+			array( 'gallery:modules/core/templates/blocks/Bogus.tpl' ),
 			1
 		);
 		$gallery->_platform =& $mockPlatform;
@@ -801,9 +801,9 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/blocks/Bogus.tpl',
-				'smarty_include_vars'     => array(
-					'type'      => 'core.Bogus',
-					'class'     => 'block-core-Bogus',
+				'smarty_include_vars' => array(
+					'type' => 'core.Bogus',
+					'class' => 'block-core-Bogus',
 					'l10Domain' => 'modules_core',
 				),
 			),
@@ -818,7 +818,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply(
 			'file_exists',
-			array('gallery:modules/core/templates/blocks/Bogus.tpl'),
+			array( 'gallery:modules/core/templates/blocks/Bogus.tpl' ),
 			0
 		);
 		$gallery->_platform =& $mockPlatform;
@@ -842,9 +842,9 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/blocks/Missing.tpl',
-				'smarty_include_vars'     => array(
-					'type'      => 'core.Bogus',
-					'class'     => 'block-core-Missing',
+				'smarty_include_vars' => array(
+					'type' => 'core.Bogus',
+					'class' => 'block-core-Missing',
 					'l10Domain' => 'modules_core',
 				),
 			),
@@ -959,7 +959,7 @@ class TemplateAdapterMockUrlGenerator {
 	public $_calls;
 
 	public function generateUrl($params = array(), $options = array()) {
-		$this->_calls = array($params, $options);
+		$this->_calls = array( $params, $options );
 
 		return $this->_calls;
 	}
@@ -979,6 +979,6 @@ class TemplateAdapterMockTranslator {
 			$result = sprintf('TEST %s', $params['arg1']);
 		}
 
-		return array(null, $result);
+		return array( null, $result );
 	}
 }

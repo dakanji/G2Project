@@ -46,7 +46,7 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 
 		// Save the session
 		$this->_saveSession = $gallery->_session;
-		$this->_session     = new LogoutControllerTestSession();
+		$this->_session = new LogoutControllerTestSession();
 		$gallery->_session  =& $this->_session;
 
 		// TODO: Remove the following once we can disable httpauth's event handler for tests
@@ -61,7 +61,7 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 
 		// Restore the session
 		$gallery->_session = $this->_saveSession;
-		$ret               = parent::tearDown();
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -72,8 +72,8 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 				'redirect' => array(
 					'view' => GALLERY_DEFAULT_VIEW,
 				),
@@ -91,8 +91,8 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 				'redirect' => array(
 					'view' => GALLERY_DEFAULT_VIEW,
 				),
@@ -117,8 +117,8 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 				'delegate' => array(
 					'view' => 'test.PhpUnit',
 				),

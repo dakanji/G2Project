@@ -37,114 +37,114 @@ $sampleModuleDescriptor = array(
 	),
 	'directories' => array(
 		'locale/' => array(
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'locale/en_US/' => array(
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'locale/en_US/LC_MESSAGES/' => array(
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'locale/en_GB/' => array(
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'locale/en_GB/LC_MESSAGES/' => array(
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'locale/pt_BR/' => array(
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'locale/pt_BR/LC_MESSAGES/' => array(
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'locale/pt_PT/' => array(
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'locale/pt_PT/LC_MESSAGES/' => array(
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'images/' => array(
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/' => array(
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 	),
 	'files' => array(
 		'locale/en_US/LC_MESSAGES/modules_mockmodule.mo' => array(
 			'bytes'    => 10,
 			'hash'     => 'd3601c44692bb446fae92652f1c82c7c',
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'locale/en_GB/LC_MESSAGES/modules_mockmodule.mo' => array(
 			'bytes'    => 10,
 			'hash'     => '8a4903cab930c121abc7deb6e94d44bb',
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'locale/pt_BR/LC_MESSAGES/modules_mockmodule.mo' => array(
 			'bytes'    => 10,
 			'hash'     => '59f22b5c4ff44bd73e5022694c8c808d',
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'locale/pt_PT/LC_MESSAGES/modules_mockmodule.mo' => array(
 			'bytes'    => 10,
 			'hash'     => '33e9fbf8b2c3467d9f734a81eb60b791',
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'images/image1.gif' => array(
 			'bytes'    => 10,
 			'hash'     => '5ffdb396d025097b3750d5604a42ec2d',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'images/image2.gif' => array(
 			'bytes'    => 10,
 			'hash'     => '3f9bd610f088dfcbdcc68a196b77d5d0',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/strings.raw' => array(
 			'bytes'    => 10,
 			'hash'     => 'a8fd41c1a6380ef825be57f9a47a64ec',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/GNUmakefile' => array(
 			'bytes'    => 10,
 			'hash'     => '491e08859dd235a9b3388ac9562bf585',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/en_US.po' => array(
 			'bytes'    => 10,
 			'hash'     => 'ff25f36483fbdec82e6e47774bbd6604',
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'po/en_GB.po' => array(
 			'bytes'    => 10,
 			'hash'     => 'ee5133693b26cc252cc746d0c1e5cefe',
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'po/pt_PT.po' => array(
 			'bytes'    => 10,
 			'hash'     => 'd87df5696429d4f839e95e29ca27935f',
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'po/pt_BR.po' => array(
 			'bytes'    => 10,
 			'hash'     => '874e7416c838bf5e111934194268cc76',
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'MANIFEST' => array(
 			'bytes'    => 10,
 			'hash'     => '9e6ad3fb8fd40ad331df68561eeae4d0',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'module.inc' => array(
 			'bytes'    => 10,
 			'hash'     => 'f8fae297e8cb811310113ab7e2c24bfa',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'callbacks.inc' => array(
 			'bytes'    => 10,
 			'hash'     => '1a3e2f89a8d8a19e716d50ecdd3a2c2b',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 	),
 	'languages' => array(
@@ -203,114 +203,114 @@ $sampleThemeDescriptor = array(
 	),
 	'directories' => array(
 		'locale/' => array(
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'locale/en_US/' => array(
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'locale/en_US/LC_MESSAGES/' => array(
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'locale/en_GB/' => array(
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'locale/en_GB/LC_MESSAGES/' => array(
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'locale/pt_BR/' => array(
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'locale/pt_BR/LC_MESSAGES/' => array(
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'locale/pt_PT/' => array(
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'locale/pt_PT/LC_MESSAGES/' => array(
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'images/' => array(
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/' => array(
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 	),
 	'files' => array(
 		'locale/en_US/LC_MESSAGES/themes_mocktheme.mo' => array(
 			'bytes'    => 10,
 			'hash'     => 'd3601c44692bb446fae92652f1c82c7c',
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'locale/en_GB/LC_MESSAGES/themes_mocktheme.mo' => array(
 			'bytes'    => 10,
 			'hash'     => '8a4903cab930c121abc7deb6e94d44bb',
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'locale/pt_BR/LC_MESSAGES/themes_mocktheme.mo' => array(
 			'bytes'    => 10,
 			'hash'     => '59f22b5c4ff44bd73e5022694c8c808d',
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'locale/pt_PT/LC_MESSAGES/themes_mocktheme.mo' => array(
 			'bytes'    => 10,
 			'hash'     => '33e9fbf8b2c3467d9f734a81eb60b791',
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'images/image1.gif' => array(
 			'bytes'    => 10,
 			'hash'     => '5ffdb396d025097b3750d5604a42ec2d',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'images/image2.gif' => array(
 			'bytes'    => 10,
 			'hash'     => '3f9bd610f088dfcbdcc68a196b77d5d0',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/strings.raw' => array(
 			'bytes'    => 10,
 			'hash'     => 'a8fd41c1a6380ef825be57f9a47a64ec',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/GNUmakefile' => array(
 			'bytes'    => 10,
 			'hash'     => '491e08859dd235a9b3388ac9562bf585',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'po/en_US.po' => array(
 			'bytes'    => 10,
 			'hash'     => 'ff25f36483fbdec82e6e47774bbd6604',
-			'packages' => array('lang-en_US'),
+			'packages' => array( 'lang-en_US' ),
 		),
 		'po/en_GB.po' => array(
 			'bytes'    => 10,
 			'hash'     => 'ee5133693b26cc252cc746d0c1e5cefe',
-			'packages' => array('lang-en_GB'),
+			'packages' => array( 'lang-en_GB' ),
 		),
 		'po/pt_PT.po' => array(
 			'bytes'    => 10,
 			'hash'     => 'd87df5696429d4f839e95e29ca27935f',
-			'packages' => array('lang-pt_PT'),
+			'packages' => array( 'lang-pt_PT' ),
 		),
 		'po/pt_BR.po' => array(
 			'bytes'    => 10,
 			'hash'     => '874e7416c838bf5e111934194268cc76',
-			'packages' => array('lang-pt_BR'),
+			'packages' => array( 'lang-pt_BR' ),
 		),
 		'MANIFEST' => array(
 			'bytes'    => 10,
 			'hash'     => '9e6ad3fb8fd40ad331df68561eeae4d0',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'theme.inc' => array(
 			'bytes'    => 10,
 			'hash'     => 'f8fae297e8cb811310113ab7e2c24bfa',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 		'callbacks.inc' => array(
 			'bytes'    => 10,
 			'hash'     => '1a3e2f89a8d8a19e716d50ecdd3a2c2b',
-			'packages' => array('base'),
+			'packages' => array( 'base' ),
 		),
 	),
 	'languages' => array(

@@ -67,6 +67,6 @@ class RepositoryTestTemplate {
 	}
 
 	public function fetch($template) {
-		return array(null, $this->_templateContents);
+		return array( null, $this->_templateContents );
 	}
 }

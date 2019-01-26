@@ -54,7 +54,7 @@ class ItemEditMovie extends ItemEditPlugin {
 				list($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				list($ret, $item) = $item->refresh();
@@ -62,7 +62,7 @@ class ItemEditMovie extends ItemEditPlugin {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lock);
 
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				$item->setWidth($form['width']);
@@ -73,27 +73,27 @@ class ItemEditMovie extends ItemEditPlugin {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lock);
 
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lock);
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				// Prepare our status message
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 				if ($ret) {
-					return array($ret, null, null, null);
+					return array( $ret, null, null, null );
 				}
 
 				$status = $module->translate('Changes saved successfully');
 			}
 		}
 
-		return array(null, $error, $status, false);
+		return array( null, $error, $status, false );
 	}
 
 	/**
@@ -135,9 +135,9 @@ class ItemEditMovie extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $module->translate('Movie Size'));
+		return array( null, $module->translate('Movie Size') );
 	}
 }

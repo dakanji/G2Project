@@ -35,7 +35,7 @@ class EditCommentController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -45,7 +45,7 @@ class EditCommentController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.edit');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = array();
@@ -56,12 +56,12 @@ class EditCommentController extends GalleryController {
 			list($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Make sure that the comment<->parent relationship is right
 			if ($comment->getParentId() != $itemId) {
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 			}
 
 			// Verify the input parameters
@@ -84,7 +84,7 @@ class EditCommentController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (empty($form['author']) || !$isAnonymousUser) {
@@ -105,26 +105,26 @@ class EditCommentController extends GalleryController {
 			)
 			) {
 				// UI doesn't allow this so don't bother with a clean error
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 			}
 
 			if (empty($error)) {
 				list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
-				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($comment->getId()));
+				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array( $comment->getId() ));
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				list($ret, $comment) = $comment->refresh();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($markup == 'html') {
@@ -142,13 +142,13 @@ class EditCommentController extends GalleryController {
 				$ret = $comment->save();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$status['changed']  = 1;
@@ -196,7 +196,7 @@ class EditCommentController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -215,14 +215,14 @@ class EditCommentView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Make sure we have permission to edit a comment
 		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.edit');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
@@ -231,12 +231,12 @@ class EditCommentView extends GalleryView {
 		list($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Make sure the comment is associated with the item
 		if ($comment->getParentId() != $item->getId()) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		// Associate the commenter's info
@@ -244,13 +244,13 @@ class EditCommentView extends GalleryView {
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $isAnonymousUser) = GalleryCoreApi::isAnonymousUser($comment->getCommenterId());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'EditComment') {
@@ -266,12 +266,12 @@ class EditCommentView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$EditComment['publishStatusList'] = array(
-			COMMENT_PUBLISH_STATUS_PUBLISHED   => $module->translate('Published'),
+			COMMENT_PUBLISH_STATUS_PUBLISHED => $module->translate('Published'),
 			COMMENT_PUBLISH_STATUS_UNPUBLISHED => $module->translate('Unpublished'),
-			COMMENT_PUBLISH_STATUS_SPAM        => $module->translate('Spam'),
+			COMMENT_PUBLISH_STATUS_SPAM => $module->translate('Spam'),
 		);
 
 		$EditComment['comment']        = (array)$comment;

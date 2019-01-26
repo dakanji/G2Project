@@ -893,8 +893,8 @@ echo "<hr />$i ";
 */
 
 
-$_month_table_normal = array('', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-$_month_table_leaf   = array('', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+$_month_table_normal = array( '', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
+$_month_table_leaf   = array( '', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
 function adodb_validdate($y, $m, $d) {
 	global $_month_table_normal,$_month_table_leaf;
@@ -942,8 +942,8 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 		$d -= 86400 * 10; // if 15 Oct 1582 or earlier, gregorian correction
 	}
 
-	$_month_table_normal = array('', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	$_month_table_leaf   = array('', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	$_month_table_normal = array( '', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
+	$_month_table_leaf   = array( '', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
 	$d366 = $_day_power * 366;
 	$d365 = $_day_power * 365;
@@ -1584,8 +1584,8 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 	$_hour_power = 3600;
 	$_min_power  = 60;
 
-	$_month_table_normal = array('', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	$_month_table_leaf   = array('', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	$_month_table_normal = array( '', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
+	$_month_table_leaf   = array( '', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
 	$_total_date = 0;
 

@@ -135,7 +135,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		$this->assertTrue(isset($item->parent), 'item parent');
 		$this->assertTrue(GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'), 'parent type');
 		$this->assertEquals(
-			array('RatingAlbumView', 'getChildIds'),
+			array( 'RatingAlbumView', 'getChildIds' ),
 			$item->parent->getChildrenFunction,
 			'get children function'
 		);
@@ -243,7 +243,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'  => 'rating.RatingAlbum',
+					'view' => 'rating.RatingAlbum',
 					'limit' => '2.25',
 				),
 			),

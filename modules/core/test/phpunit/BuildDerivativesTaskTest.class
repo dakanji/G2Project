@@ -138,14 +138,14 @@ class BuildDerivativesTaskTestStorage {
 		list($ret, $results) = $this->_storage->search($query, $data, $optional);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$this->_searches[] = $results->resultCount();
 		// Return no results so task doesn't actually act on any derivatives
 		$rs = new ADORecordSet(0);
 		$rs->Init();
 
-		return array(null, new GallerySearchResults($rs));
+		return array( null, new GallerySearchResults($rs) );
 	}
 
 	public function getSearches() {

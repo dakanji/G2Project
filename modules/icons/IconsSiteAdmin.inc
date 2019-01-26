@@ -33,7 +33,7 @@ class IconsSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = $error = array();
@@ -50,7 +50,7 @@ class IconsSiteAdminController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$status['saved'] = 1;
 			}
@@ -63,7 +63,7 @@ class IconsSiteAdminController extends GalleryController {
 		$results['status']           = $status;
 		$results['error']            = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -80,7 +80,7 @@ class IconsSiteAdminView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'IconsSiteAdmin') {
@@ -88,21 +88,21 @@ class IconsSiteAdminView extends GalleryView {
 			list($ret, $form['iconpack']) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		list($ret, $icons) = GalleryCoreApi::newFactoryInstance('IconsInterface_1_0');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($icons)) {
 			list($ret, $list) = $icons->getIconPacks();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$platform =& $gallery->getPlatform();
@@ -147,7 +147,7 @@ class IconsSiteAdminView extends GalleryView {
 				}
 				$packs[$dir] = array(
 					'name' => $name,
-					'map'  => $map,
+					'map' => $map,
 				);
 			}
 		}

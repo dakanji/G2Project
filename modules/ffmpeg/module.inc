@@ -38,8 +38,8 @@ class FfmpegModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 6));
+		$this->setRequiredCoreApi(array( 7, 27 ));
+		$this->setRequiredModuleApi(array( 3, 6 ));
 	}
 
 	/**
@@ -142,17 +142,17 @@ class FfmpegModule extends GalleryModule {
 
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		list($ret, $needsConfiguration) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
 		if (!$needsConfiguration) {
-			return array(null, true);
+			return array( null, true );
 		}
 
 		// Try a bunch of likely seeming paths to see if any of them work.
@@ -200,7 +200,7 @@ class FfmpegModule extends GalleryModule {
 			$paths[] = '/bin/ffmpeg';
 			$paths[] = '/sw/bin/ffmpeg';
 		} else {
-			return array(null, false);
+			return array( null, false );
 		}
 
 		// Load any classes we require
@@ -229,14 +229,14 @@ class FfmpegModule extends GalleryModule {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'ffmpeg', 'path', $path);
 
 				if ($ret) {
-					return array($ret, false);
+					return array( $ret, false );
 				}
 
-				return array(null, true);
+				return array( null, true );
 			}
 		}
 
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -250,20 +250,20 @@ class FfmpegModule extends GalleryModule {
 		list($ret, $results) = FfmpegToolkitHelper::getOperationsAndProperties();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Ffmpeg');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!$priority) {
 			list($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$priority = min($priority + 1, 40);
 		}
@@ -280,7 +280,7 @@ class FfmpegModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -294,17 +294,17 @@ class FfmpegModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $redirect);
+		return array( null, $redirect );
 	}
 
 	/**
@@ -313,22 +313,22 @@ class FfmpegModule extends GalleryModule {
 	public function needsConfiguration() {
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array(null, true);
+			return array( null, true );
 		}
 		// This module requires all fields to be filled out before it can be activated.
-		foreach (array('path') as $key) {
+		foreach (array( 'path' ) as $key) {
 			list($ret, $value) = $this->getParameter($key);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (empty($value)) {
-				return array(null, true);
+				return array( null, true );
 			}
 		}
 
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**

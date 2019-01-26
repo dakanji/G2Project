@@ -91,9 +91,9 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'rearrange.RearrangeItems',
-					'itemId'  => $this->_album->getId(),
+					'itemId' => $this->_album->getId(),
 				),
 				'status' => array(),
 				'error' => array(),
@@ -111,9 +111,9 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'rearrange.RearrangeItems',
-					'itemId'  => $this->_album->getId(),
+					'itemId' => $this->_album->getId(),
 				),
 				'status' => array(
 					'saved' => 1,
@@ -151,7 +151,7 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals(
-			array(3000, 1000, 4000, 2000, 0),
+			array( 3000, 1000, 4000, 2000, 0 ),
 			$weightList,
 			'orderWeights'
 		);

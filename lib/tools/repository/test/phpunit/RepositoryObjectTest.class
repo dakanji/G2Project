@@ -41,11 +41,11 @@ class RepositoryObjectTest extends GalleryTestCase {
 
 		$platform = new UnitTestPlatform();
 		// Test an invalid directory.
-		$platform->setReply('is_dir', array('invalidDirectory'), false);
+		$platform->setReply('is_dir', array( 'invalidDirectory' ), false);
 
 		// Test setting a valid directory.
-		$platform->setReply('is_dir', array('validDirectory'), true);
-		$platform->setReply('realpath', array('validDirectory'), 'validDirectory');
+		$platform->setReply('is_dir', array( 'validDirectory' ), true);
+		$platform->setReply('realpath', array( 'validDirectory' ), 'validDirectory');
 		$gallery->setPlatform($platform);
 
 		$ret = $object->setOutputDir('invalidDirectory');
@@ -75,19 +75,19 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$object->_outputDir = 'outputDirectory/';
 
 		$platform = new UnitTestPlatform();
-		$platform->setReply('file_exists', array($outputPath), true);
+		$platform->setReply('file_exists', array( $outputPath ), true);
 
-		$platform->setReply('file_exists', array($outputPath), false);
+		$platform->setReply('file_exists', array( $outputPath ), false);
 		$platform->setReply(
 			'file_put_contents',
-			array($outputPath, $templateVariableContents),
+			array( $outputPath, $templateVariableContents ),
 			true
 		);
 
-		$platform->setReply('file_exists', array($outputPath), false);
+		$platform->setReply('file_exists', array( $outputPath ), false);
 		$platform->setReply(
 			'file_put_contents',
-			array($outputPath, $processedTemplateContents),
+			array( $outputPath, $processedTemplateContents ),
 			true
 		);
 		$gallery->setPlatform($platform);

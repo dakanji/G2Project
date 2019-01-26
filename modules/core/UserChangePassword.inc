@@ -36,11 +36,11 @@ class UserChangePasswordController extends GalleryController {
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($isAnonymous || $user->isLocked()) {
-			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+			return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 		}
 
 		$results = $status = $error = array();
@@ -72,7 +72,7 @@ class UserChangePasswordController extends GalleryController {
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 				/*
@@ -105,13 +105,13 @@ class UserChangePasswordController extends GalleryController {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				list($ret, $user) = $user->refresh();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				GalleryUtilities::unsanitizeInputValues($form['password1'], false);
@@ -120,13 +120,13 @@ class UserChangePasswordController extends GalleryController {
 				$ret = $user->save();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Request a redirect to the confirmation screen
@@ -145,7 +145,7 @@ class UserChangePasswordController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -192,9 +192,9 @@ class UserChangePasswordView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $core->translate('change password'));
+		return array( null, $core->translate('change password') );
 	}
 }

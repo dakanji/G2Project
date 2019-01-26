@@ -35,14 +35,11 @@ class GallerySearchInterface_1_0 {
 	 * @return array array GalleryStatus a status code,
 	 *                     array('name' => '...',
 	 *                           'description' => '...',
-	 *                           'options' => array('option_key_1' =>
-	 *                                                  array('description' => 'Option 1',
+	 *                           'options' => array('option_key_1' =>    *                                                  array('description' => 'Option 1',
 	 *                                                        'enabled' => 1),
-	 *                                              'option_key_2' =>
-	 *                                                  array('description' => 'Option 2',
+	 *                                              'option_key_2' =>    *                                                  array('description' => 'Option 2',
 	 *                                                        'enabled' => 0),
-	 *                                              'option_key_3' =>
-	 *                                                  array('description' => 'Option 3',
+	 *                                              'option_key_3' =>    *                                                  array('description' => 'Option 3',
 	 *                                                        'enabled' => 1)))
 	 */
 	public function getSearchModuleInfo() {

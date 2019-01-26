@@ -48,7 +48,7 @@ class ADODB_mssqlpo extends ADODB_mssql {
 			return $sql;
 		}
 
-		return array($sql, $stmt);
+		return array( $sql, $stmt );
 	}
 
 	public function _query($sql, $inputarr = false) {

@@ -40,7 +40,7 @@ class GalleryItemHelper_simple {
 			list($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryAlbumItem');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$themeId = $parent->getTheme();
@@ -50,16 +50,16 @@ class GalleryItemHelper_simple {
 			list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		// No default?  We're screwed
 		if (empty($themeId)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
-		return array(null, $themeId);
+		return array( null, $themeId );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class GalleryItemHelper_simple {
 		}
 
 		if (empty($itemIds)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		$counts = $missing = array();
@@ -89,14 +89,14 @@ class GalleryItemHelper_simple {
 		}
 
 		if (empty($missing)) {
-			return array(null, $counts);
+			return array( null, $counts );
 		}
 		$parentIdMarkers = GalleryUtilities::makeMarkers(count($missing));
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($aclIds)) {
@@ -127,7 +127,7 @@ class GalleryItemHelper_simple {
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			while ($result = $searchResults->nextResult()) {
@@ -139,7 +139,7 @@ class GalleryItemHelper_simple {
 			}
 		}
 
-		return array(null, $counts);
+		return array( null, $counts );
 	}
 
 	/**
@@ -157,7 +157,7 @@ class GalleryItemHelper_simple {
 		}
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryDescendentCountsMap',
-			array('itemId', 'descendentCount'),
+			array( 'itemId', 'descendentCount' ),
 			array(
 				'userId' => $userId,
 				'itemId' => $itemIds,
@@ -165,7 +165,7 @@ class GalleryItemHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$counts = array();
@@ -190,7 +190,7 @@ class GalleryItemHelper_simple {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Update the cache
@@ -198,14 +198,14 @@ class GalleryItemHelper_simple {
 				$ret = GalleryCoreApi::addMapEntry(
 					'GalleryDescendentCountsMap',
 					array(
-						'userId'          => $userId,
-						'itemId'          => $itemId,
+						'userId' => $userId,
+						'itemId' => $itemId,
 						'descendentCount' => $count,
 					)
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 
@@ -219,7 +219,7 @@ class GalleryItemHelper_simple {
 		}
 		$counts = GalleryUtilities::strArrToIntArr($counts);
 
-		return array(null, $counts);
+		return array( null, $counts );
 	}
 
 	/**
@@ -243,11 +243,11 @@ class GalleryItemHelper_simple {
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId, false);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($aclIds)) {
-			return array(null, array());
+			return array( null, array() );
 		}
 
 		$aclMarkers  = GalleryUtilities::makeMarkers(count($aclIds));
@@ -264,7 +264,7 @@ class GalleryItemHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $like) = $storage->getFunctionSql(
@@ -276,7 +276,7 @@ class GalleryItemHelper_simple {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$query = sprintf(
@@ -308,7 +308,7 @@ class GalleryItemHelper_simple {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$counts = array();
@@ -323,7 +323,7 @@ class GalleryItemHelper_simple {
 			}
 		}
 
-		return array(null, $counts);
+		return array( null, $counts );
 	}
 
 	/**
@@ -337,7 +337,7 @@ class GalleryItemHelper_simple {
 		}
 
 		if (empty($itemType)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 		}
 
 		$cacheKey = "GalleryItemHelper::fetchItemIdCount($itemType, $permission, $userId)";
@@ -348,7 +348,7 @@ class GalleryItemHelper_simple {
 			list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $userId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (!empty($aclIds)) {
@@ -371,16 +371,16 @@ class GalleryItemHelper_simple {
 		',
 					$aclMarkers
 				);
-				$data  = array_merge(array($itemType), $aclIds);
+				$data  = array_merge(array( $itemType ), $aclIds);
 
 				list($ret, $searchResults) = $gallery->search($query, $data);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($searchResults->resultCount() != 1) {
-					return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
+					return array( GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null );
 				}
 
 				$result = $searchResults->nextResult();
@@ -392,7 +392,7 @@ class GalleryItemHelper_simple {
 			GalleryDataCache::put($cacheKey, $count);
 		}
 
-		return array(null, $count);
+		return array( null, $count );
 	}
 
 	/**
@@ -414,11 +414,11 @@ class GalleryItemHelper_simple {
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($aclIds)) {
-			return array(null, array());
+			return array( null, array() );
 		}
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
@@ -426,19 +426,19 @@ class GalleryItemHelper_simple {
 			list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$parentSequence[] = $itemId;
 		$parentSequence   = implode('/', $parentSequence);
@@ -472,7 +472,7 @@ class GalleryItemHelper_simple {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$tree    = array();
@@ -494,6 +494,6 @@ class GalleryItemHelper_simple {
 			$branch[$result[0]] = array();
 		}
 
-		return array(null, $tree);
+		return array( null, $tree );
 	}
 }

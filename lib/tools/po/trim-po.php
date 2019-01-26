@@ -17,7 +17,7 @@ if (preg_match('#^/cygdrive/(\w+)/(.*)$#', trim($path), $matches)) {
 $langpath = preg_replace('{(..)_..\.po$}', '$1.po', $path);
 
 if ($langpath == $path || !file_exists($langpath)) {
-	if ($langpath != $path && !in_array(basename($langpath), array('en.po', 'zh.po'))) {
+	if ($langpath != $path && !in_array(basename($langpath), array( 'en.po', 'zh.po' ))) {
 		fwrite(stdErr(), "\nWarning: $path without $langpath\n");
 	}
 	list($po, $header) = readPo($path);
@@ -113,7 +113,7 @@ function checkStringForHtml($string, $type, $path) {
 	static $ltRegExpPattern, $gtRegExpPattern;
 
 	if (empty($ltRegExpPattern)) {
-		$allowedHtmlTags = array('b', 'i', 'strong', 'tt');
+		$allowedHtmlTags = array( 'b', 'i', 'strong', 'tt' );
 
 		$openTags        = implode('>|', $allowedHtmlTags) . '>';
 		$closeTags       = '/' . implode('>|/', $allowedHtmlTags) . '>';
@@ -214,7 +214,7 @@ function readPo($path) {
 		);
 	}
 
-	return array($data, implode('', $header));
+	return array( $data, implode('', $header) );
 }
 
 function stdErr() {

@@ -169,8 +169,8 @@ class KeyAlbumCallbacks {
 			foreach ($module->splitKeywords($result[0], $split) as $rawKeyword => $keyword) {
 				if (!isset($keywords[$keyword])) {
 					$keywords[$keyword] = array(
-						'name'  => $keyword,
-						'raw'   => $rawKeyword,
+						'name' => $keyword,
+						'raw' => $rawKeyword,
 						'count' => 1,
 					);
 				} elseif (++$keywords[$keyword]['count'] > $maxCount) {
@@ -200,10 +200,10 @@ class KeyAlbumCallbacks {
 
 			// Avoid renumbering of numeric keys from array_splice
 			//for ($newKeywords = array(), reset($keywords), $i = 0; $i < $sizeLimit; $i++) {
-			//$entry                  = each($keywords);
+			//$entry = each($keywords);
 			// Used https://stackoverflow.com/a/46493221 as basis here. Not 100% sure
 			for ($newKeywords = array(), $keywords, $i = 0; $i < $sizeLimit; $i++) {
-				$entry                  = array(key($keywords), current($keywords));
+				$entry                  = array( key($keywords), current($keywords) );
 				$newKeywords[$entry[0]] = $entry[1];
 			}
 			$keywords = $newKeywords;

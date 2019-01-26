@@ -301,9 +301,9 @@ class ControllerTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
-					'return'  => true,
+					'return' => true,
 				),
 				'status' => array(),
 				'error' => array(),
@@ -320,9 +320,9 @@ class ControllerTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.UserAdmin',
+					'view' => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
-					'return'  => true,
+					'return' => true,
 				),
 				'status' => array(),
 				'error' => array(),
@@ -341,7 +341,7 @@ class ControllerTest extends GalleryTestCase {
  */
 class ControllerTestModule {
 	public function isActive() {
-		return array(null, false);
+		return array( null, false );
 	}
 
 	public function getConfigurationView() {

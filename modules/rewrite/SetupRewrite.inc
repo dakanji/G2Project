@@ -30,7 +30,7 @@ class SetupRewriteController extends GalleryController {
 	 * Rewrite parser ids
 	 * @var array
 	 */
-	public $_parserIds = array('modrewrite', 'isapirewrite', 'pathinfo');
+	public $_parserIds = array( 'modrewrite', 'isapirewrite', 'pathinfo' );
 
 	/**
 	 * @see GalleryController::handleRequest
@@ -50,36 +50,36 @@ class SetupRewriteController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($form['action']['testParser'])) {
 			list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $error, $status) = $rewriteParser->handleTestResultsRequest($form);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} elseif (isset($form['action']['adminParser'])) {
 			list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $error, $status) = $rewriteParser->handleAdminParserRequest($form);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} elseif (isset($form['action']['save']) && isset($form['parser'])) {
 			if (!in_array($form['parser'], $this->_parserIds)) {
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -90,19 +90,19 @@ class SetupRewriteController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $code) = $rewriteParser->needsConfiguration();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (!$code) {
@@ -116,7 +116,7 @@ class SetupRewriteController extends GalleryController {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -130,7 +130,7 @@ class SetupRewriteController extends GalleryController {
 		$results['error']  = $error;
 		$results['status'] = $status;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -149,19 +149,19 @@ class SetupRewriteView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Make sure the module is not yet active
 		list($ret, $rewrite) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isActive) = $rewrite->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($isActive) {
@@ -180,7 +180,7 @@ class SetupRewriteView extends GalleryView {
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($rewriteParser)) {
@@ -202,19 +202,19 @@ class SetupRewriteView extends GalleryView {
 			$ret = $rewriteParser->loadTestResultsTemplate($template, $form);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $SetupRewrite['needsConfiguration']) = $rewriteParser->needsConfiguration();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$ret = $rewriteParser->loadAdminParserTemplate($template, $form);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			$SetupRewrite['bootstrap'] = 1;

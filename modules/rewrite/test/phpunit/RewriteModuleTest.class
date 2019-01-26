@@ -128,7 +128,7 @@ class RewriteModuleTest extends GalleryTestCase {
 			'module',
 			'rewrite',
 			'history.rewritemodulemock',
-			serialize(array('phpunit/dummy/%itemId%.html'))
+			serialize(array( 'phpunit/dummy/%itemId%.html' ))
 		);
 
 		if ($ret) {
@@ -290,7 +290,7 @@ class RewriteModuleTest extends GalleryTestCase {
 			'module',
 			'rewrite',
 			'history.rewritemodulemock',
-			serialize(array('phpunit/dummy/%itemId%.html'))
+			serialize(array( 'phpunit/dummy/%itemId%.html' ))
 		);
 
 		if ($ret) {
@@ -431,7 +431,7 @@ class RewriteModuleMockParser extends RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
 		}
 
 		if (is_null($activeRules)) {
@@ -442,7 +442,7 @@ class RewriteModuleMockParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 			$activeRules = unserialize($activeRules);
 		}
@@ -458,11 +458,11 @@ class RewriteModuleMockParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array($ret, null, null);
+				return array( $ret, null, null );
 			}
 
 			if ($code != REWRITE_STATUS_OK) {
-				return array(GalleryStatus::success(), $code, $errorId);
+				return array( GalleryStatus::success(), $code, $errorId );
 			}
 		}
 
@@ -474,7 +474,7 @@ class RewriteModuleMockParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -485,10 +485,10 @@ class RewriteModuleMockParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
-		return array(null, REWRITE_STATUS_OK, null);
+		return array( null, REWRITE_STATUS_OK, null );
 	}
 }
 

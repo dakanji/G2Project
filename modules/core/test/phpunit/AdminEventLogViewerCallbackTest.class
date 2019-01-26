@@ -89,9 +89,9 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			'getMapEntry',
 			array(
 				'GalleryUserGroupMap',
-				array('userId'),
+				array( 'userId' ),
 				array(
-					'userId'  => $gallery->getActiveUserId(),
+					'userId' => $gallery->getActiveUserId(),
 					'groupId' => $adminGroupId,
 				),
 				array(
@@ -100,7 +100,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 					),
 				),
 			),
-			array(null, new UnitTestStorageSearchResults(array(array($gallery->getActiveUserId()))))
+			array( null, new UnitTestStorageSearchResults(array( array( $gallery->getActiveUserId() ) )) )
 		);
 
 		$this->_platform    = new UnitTestPlatform();
@@ -132,18 +132,18 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 		$this->_storage->setReply(
 			'search',
-			array('SELECT COUNT(*) FROM [EventLogMap]', array(), array()),
-			array(null, new UnitTestStorageSearchResults(array(array(1))))
+			array( 'SELECT COUNT(*) FROM [EventLogMap]', array(), array() ),
+			array( null, new UnitTestStorageSearchResults(array( array( 1 ) )) )
 		);
 		$this->_storage->setReply(
 			'getMapEntry',
 			array(
 				'EventLogMap',
-				array('id', 'timestamp', 'type', 'location', 'client', 'summary'),
+				array( 'id', 'timestamp', 'type', 'location', 'client', 'summary' ),
 				array(),
 				array(
 					'limit' => array(
-						'count'  => 3,
+						'count' => 3,
 						'offset' => 0,
 					),
 					'orderBy' => array(
@@ -155,15 +155,15 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 				null,
 				new UnitTestStorageSearchResults(
 					array(
-						array(1, 1234, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY'),
-						array(2, 5678, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY'),
+						array( 1, 1234, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY' ),
+						array( 2, 5678, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY' ),
 					)
 				),
 			)
 		);
 
-		$this->_platform->setReply('strftime', array('FAKE_FMT', 1234), 'DATE1');
-		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
+		$this->_platform->setReply('strftime', array( 'FAKE_FMT', 1234 ), 'DATE1');
+		$this->_platform->setReply('strftime', array( 'FAKE_FMT', 5678 ), 'DATE2');
 
 		ob_start();
 		$ret     = $this->_callback->renderImmediate(array(), array());
@@ -192,18 +192,18 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 		$this->_storage->setReply(
 			'search',
-			array('SELECT COUNT(*) FROM [EventLogMap]', array(), array()),
-			array(null, new UnitTestStorageSearchResults(array(array(1))))
+			array( 'SELECT COUNT(*) FROM [EventLogMap]', array(), array() ),
+			array( null, new UnitTestStorageSearchResults(array( array( 1 ) )) )
 		);
 		$this->_storage->setReply(
 			'getMapEntry',
 			array(
 				'EventLogMap',
-				array('id', 'timestamp', 'type', 'location', 'client', 'summary'),
+				array( 'id', 'timestamp', 'type', 'location', 'client', 'summary' ),
 				array(),
 				array(
 					'limit' => array(
-						'count'  => 10, // <-- default value
+						'count' => 10, // <-- default value
 						'offset' => 0,
 					),
 					'orderBy' => array(
@@ -215,15 +215,15 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 				null,
 				new UnitTestStorageSearchResults(
 					array(
-						array(1, 1234, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY'),
-						array(2, 5678, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY'),
+						array( 1, 1234, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY' ),
+						array( 2, 5678, 'TYPE', 'LOCATION', 'CLIENT', 'SUMMARY' ),
 					)
 				),
 			)
 		);
 
-		$this->_platform->setReply('strftime', array('FAKE_FMT', 1234), 'DATE1');
-		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
+		$this->_platform->setReply('strftime', array( 'FAKE_FMT', 1234 ), 'DATE1');
+		$this->_platform->setReply('strftime', array( 'FAKE_FMT', 5678 ), 'DATE2');
 
 		ob_start();
 		$ret     = $this->_callback->renderImmediate(array(), array());
@@ -287,7 +287,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			)
 		);
 
-		$this->_platform->setReply('strftime', array('FAKE_FMT', 'DATE_FROM_DB'), 'DATE');
+		$this->_platform->setReply('strftime', array( 'FAKE_FMT', 'DATE_FROM_DB' ), 'DATE');
 
 		ob_start();
 		$ret     = $this->_callback->renderImmediate(array(), array());
@@ -352,7 +352,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 				),
 				array(),
 			),
-			array(null, new UnitTestStorageSearchResults(array()))
+			array( null, new UnitTestStorageSearchResults(array()) )
 		);
 
 		ob_start();

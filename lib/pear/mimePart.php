@@ -58,16 +58,16 @@
  * // already. Assume $body contains plain text.
  *
  * $params['content_type'] = 'text/plain';
- * $params['encoding']     = '7bit';
+ * $params['encoding'] = '7bit';
  * $text = $email->addSubPart($body, $params);
  *
  * // Now add an attachment. Assume $attach is
  * the contents of the attachment
  *
  * $params['content_type'] = 'application/zip';
- * $params['encoding']     = 'base64';
- * $params['disposition']  = 'attachment';
- * $params['dfilename']    = 'example.zip';
+ * $params['encoding'] = 'base64';
+ * $params['disposition'] = 'attachment';
+ * $params['dfilename'] = 'example.zip';
  * $attach =& $email->addSubPart($body, $params);
  *
  * // Now build the email. Note that the encode

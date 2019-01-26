@@ -199,7 +199,7 @@ class Gallery {
 	 */
 	public function init() {
 		// Set up a shutdown function to release any hanging locks
-		register_shutdown_function(array(&$this, '_shutdown'));
+		register_shutdown_function(array( &$this, '_shutdown' ));
 	}
 
 	/**
@@ -210,10 +210,10 @@ class Gallery {
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 
 	/**
@@ -359,7 +359,7 @@ class Gallery {
 				list($ret, $which) = GalleryCoreApi::getPluginParameter('module', 'core', 'lock.system');
 
 				if ($ret) {
-					$ret = array($ret, null);
+					$ret = array( $ret, null );
 
 					return $ret;
 				}
@@ -386,13 +386,13 @@ class Gallery {
 					break;
 
 				default:
-					$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+					$ret = array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 
 					return $ret;
 			}
 		}
 
-		$ret = array(null, &$this->_lockSystem);
+		$ret = array( null, &$this->_lockSystem );
 
 		return $ret;
 	}
@@ -600,7 +600,7 @@ class Gallery {
 			$language = '';
 		}
 
-		return array(null, $language);
+		return array( null, $language );
 	}
 
 	/**
@@ -993,7 +993,7 @@ class Gallery {
 		if (!isset($this->_shutdownActions)) {
 			$this->_shutdownActions = array();
 		}
-		$action = array($callback, $parameters);
+		$action = array( $callback, $parameters );
 		// Skip duplicate actions
 		foreach ($this->_shutdownActions as $item) {
 			if ($item == $action) {

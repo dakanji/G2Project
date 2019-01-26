@@ -35,7 +35,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 
-		foreach (array('rewrite', 'core') as $moduleId) {
+		foreach (array( 'rewrite', 'core' ) as $moduleId) {
 			$ret = $this->_markPluginParametersForCleanup('module', $moduleId);
 
 			if ($ret) {
@@ -50,9 +50,9 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			),
 			'pattern'   => 'v/%path%',
 			'functions' => array(
-				'path' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
+				'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
 			),
-			'onLoad'    => array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath'),
+			'onLoad'    => array( 'rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath' ),
 		);
 		$testUrls[] = array(
 			'match'     => array(
@@ -60,8 +60,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			),
 			'pattern'   => 'd/%itemId%-%serialNumber%/%fileName%',
 			'functions' => array(
-				'serialNumber' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber'),
-				'fileName'     => array('rewrite', 'RewriteSimpleHelper', 'parseFileName'),
+				'serialNumber' => array( 'rewrite', 'RewriteSimpleHelper', 'parseSerialNumber' ),
+				'fileName' => array( 'rewrite', 'RewriteSimpleHelper', 'parseFileName' ),
 			),
 		);
 		$testUrls[] = array(
@@ -78,7 +78,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			),
 			'pattern'   => 't/%path%.test',
 			'functions' => array(
-				'path' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
+				'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
 			),
 		);
 		$testUrls[] = array(
@@ -88,7 +88,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			),
 			'pattern'   => '%path%/test.html',
 			'functions' => array(
-				'path' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
+				'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
 			),
 		);
 		$testUrls[] = array(
@@ -498,11 +498,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		if (!is_array($expectedUrl)) {
-			$expectedUrl = array($expectedUrl);
-			$params      = array($params);
+			$expectedUrl = array( $expectedUrl );
+			$params      = array( $params );
 
 			if (isset($this->_expectedUrl)) {
-				$exptectedUrl = array($this->_expectedUrl);
+				$exptectedUrl = array( $this->_expectedUrl );
 				unset($this->_expectedUrl);
 			}
 		}
@@ -746,7 +746,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$params = $this->_getTestUrlParams();
 		// forceServerRelativeUrl should have no effect, fullUrl has precedence
 		$options = array(
-			'forceFullUrl'           => true,
+			'forceFullUrl' => true,
 			'forceServerRelativeUrl' => true,
 		);
 
@@ -1214,7 +1214,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$params  = $this->_getTestUrlParams();
 		$options = array(
 			'forceSessionId' => false,
-			'forceFullUrl'   => true,
+			'forceFullUrl' => true,
 		);
 
 		$expectedUrl[0]  = 'https://cms.com/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'

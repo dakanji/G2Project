@@ -76,7 +76,7 @@ class SQLiteStorage extends GalleryStorage {
 
 			case 'BIT_OR':
 				// By default don't use BIT_OR aggregate, but OR together values in PHP.
-				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null);
+				return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null );
 
 			break;
 
@@ -165,7 +165,7 @@ class SQLiteStorage extends GalleryStorage {
 				);
 		}
 
-		return array(null, $sql);
+		return array( null, $sql );
 	}
 
 	/**
@@ -198,6 +198,6 @@ class SQLiteStorage extends GalleryStorage {
 	 * @see GalleryStorage::getOptimizeStatements
 	 */
 	public function _getOptimizeStatements() {
-		return array('VACUUM `%s`;', 'ANALYZE `%s`;');
+		return array( 'VACUUM `%s`;', 'ANALYZE `%s`;' );
 	}
 }

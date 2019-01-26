@@ -107,8 +107,8 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 
 		$storage->setReply(
 			'search',
-			array($query, $data, array()),
-			array(null, new UnitTestStorageSearchResults(array(array(1500))))
+			array( $query, $data, array() ),
+			array( null, new UnitTestStorageSearchResults(array( array( 1500 ) )) )
 		);
 
 		list($ret, $success, $details) = $this->_task->run();

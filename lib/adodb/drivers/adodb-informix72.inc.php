@@ -199,9 +199,9 @@ class ADODB_informix72 extends ADOConnection {
 
 			while ($row = $rs->FetchRow()) {
 				$procedures[$row[0]] = array(
-					'type'    => ($row[1] == 'f' ? 'FUNCTION' : 'PROCEDURE'),
+					'type' => ($row[1] == 'f' ? 'FUNCTION' : 'PROCEDURE'),
 					'catalog' => '',
-					'schema'  => '',
+					'schema' => '',
 					'remarks' => '',
 				);
 			}
@@ -326,7 +326,7 @@ class ADODB_informix72 extends ADOConnection {
 		$type   = ($blobtype == 'TEXT') ? 1 : 0;
 		$blobid = ifx_create_blob($type, 0, $val);
 
-		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array($blobid));
+		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array( $blobid ));
 	}
 
 	public function BlobDecode($blobid) {
@@ -573,5 +573,5 @@ function ifx_props($coltype, $collength) {
 			$length    = $collength;
 	}
 
-	return array($mtype, $length, $precision, $nullable);
+	return array( $mtype, $length, $precision, $nullable );
 }

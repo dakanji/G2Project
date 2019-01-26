@@ -56,51 +56,51 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 		}
 
 		if (!$platform->is_dir($destFilename)) {
-			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
 		}
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$cwd = $platform->getcwd();
 
 		if (!$platform->chdir($destFilename)) {
-			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
+			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
 		}
 		$gallery->guaranteeTimeLimit(60);
 
-		list($success) = $platform->exec(array(array($params['unzipPath'], $sourceFilename)));
+		list($success) = $platform->exec(array( array( $params['unzipPath'], $sourceFilename ) ));
 
 		if (!empty($cwd)) {
 			@$platform->chdir($cwd);
 		}
 
 		if (!$success) {
-			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
+			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
 		}
 
 		// Set permissions according to core parameter settings
 		if (!$platform->recursiveChmod($destFilename)) {
-			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
+			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
 		}
 
 		if (!$this->_pruneDirectory(
 			$destFilename,
 			// Thumbs.db is Windows, the rest are MacOSX
 			array(
-				'file' => array('Thumbs.db', '.DS_Store', '.Trashes'),
-				'dir'  => array('__MACOSX'),
+				'file' => array( 'Thumbs.db', '.DS_Store', '.Trashes' ),
+				'dir'  => array( '__MACOSX' ),
 			),
 			$params['removeMeta']
 		)
 		) {
-			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
+			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
 		}
 
-		return array(null, $mimeType, $context);
+		return array( null, $mimeType, $context );
 	}
 
 	/**

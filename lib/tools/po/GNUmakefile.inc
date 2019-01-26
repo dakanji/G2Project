@@ -28,8 +28,7 @@ $$gallery = new GallerySetupUtilitiesStub();
 echo $$gallery->getConfig('data.gallery.base'); ?>' | $(PHP) -q 2>&1)
 
 ifdef QUIET
-	MSGFMT_FLAGS =
-else
+	MSGFMT_FLAGS = else
 	MSGFMT_FLAGS = -v
 endif
 

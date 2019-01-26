@@ -39,8 +39,7 @@ class RatingSiteAdminController extends GalleryController {
 		$status = $error = array();
 
 		if (isset($form['action']['save'])) {
-			list($ret, $themeSettingsId) =
-		GalleryCoreApi::getPluginParameter('module', 'rating', 'themeSettingsId');
+			list($ret, $themeSettingsId) = 		GalleryCoreApi::getPluginParameter('module', 'rating', 'themeSettingsId');
 
 			if ($ret) {
 				return array($ret, null);
@@ -110,8 +109,7 @@ class RatingSiteAdminView extends GalleryView {
 		if ($form['formName'] != 'RatingSiteAdmin') {
 			foreach (array('allowAlbumRating', 'themeId', 'orderBy', 'orderDirection', 'minLimit',
 			   'description', ) as $key) {
-				list($ret, $form[$key]) =
-			GalleryCoreApi::getPluginParameter('module', 'rating', $key);
+				list($ret, $form[$key]) = 			GalleryCoreApi::getPluginParameter('module', 'rating', $key);
 
 				if ($ret) {
 					return array($ret, null);
@@ -140,8 +138,7 @@ class RatingSiteAdminView extends GalleryView {
 
 		// Set up sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
-		list($ret, $orderByList, $presortList, $orderDirectionList) =
-		GallerySortInterface_1_2::getAllSortOrders();
+		list($ret, $orderByList, $presortList, $orderDirectionList) = 		GallerySortInterface_1_2::getAllSortOrders();
 
 		if ($ret) {
 			return array($ret, null);
@@ -173,8 +170,7 @@ class RatingSiteAdminView extends GalleryView {
 		'themeList' => $themeList, );
 
 		// Set up theme settings
-		list($ret, $themeSettingsId) =
-		GalleryCoreApi::getPluginParameter('module', 'rating', 'themeSettingsId');
+		list($ret, $themeSettingsId) = 		GalleryCoreApi::getPluginParameter('module', 'rating', 'themeSettingsId');
 
 		if ($ret) {
 			return array($ret, null);

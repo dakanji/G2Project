@@ -37,7 +37,7 @@ class AdminImageMagickController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$error = $status = array();
@@ -63,7 +63,7 @@ class AdminImageMagickController extends GalleryController {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$error[] = 'form[error][path][badPath]';
 					} else {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				} else {
 					$failCount = 0;
@@ -85,7 +85,7 @@ class AdminImageMagickController extends GalleryController {
 				list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion($form['path']);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if (empty($form['forceSave']) && $vulnerable) {
@@ -97,7 +97,7 @@ class AdminImageMagickController extends GalleryController {
 				list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imagemagick');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = GalleryCoreApi::setPluginParameter(
@@ -108,7 +108,7 @@ class AdminImageMagickController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
@@ -118,14 +118,14 @@ class AdminImageMagickController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				// Save some platform specific ImageMagick parameters
 				$ret = ImageMagickToolkitHelper::savePlatformParameters();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				$ret = GalleryCoreApi::setPluginParameter(
@@ -136,7 +136,7 @@ class AdminImageMagickController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($params['cmykSupport'] != 'none') {
@@ -148,19 +148,19 @@ class AdminImageMagickController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imagemagick');
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				/*
 				 * If path or cmykSupport has changed and the module is active then
@@ -172,7 +172,7 @@ class AdminImageMagickController extends GalleryController {
 					list($ret) = $module->reactivate();
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 
@@ -203,7 +203,7 @@ class AdminImageMagickController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -221,16 +221,16 @@ class AdminImageMagickView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load our default values if we didn't just come from this form.
 		if ($form['formName'] != 'AdminImageMagick') {
-			foreach (array('path', 'jpegQuality', 'cmykSupport') as $key) {
+			foreach (array( 'path', 'jpegQuality', 'cmykSupport' ) as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', $key);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 			$form['formName'] = 'AdminImageMagick';
@@ -266,7 +266,7 @@ class AdminImageMagickView extends GalleryView {
 						$testResults                  = array();
 						$form['error']['path']['bad'] = 1;
 					} else {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				} else {
 					$success = true;
@@ -283,13 +283,13 @@ class AdminImageMagickView extends GalleryView {
 						list($ret, $mimeTypes) = ImageMagickToolkitHelper::discoverMimeTypes($form['path']);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion($form['path']);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						if ($vulnerable) {
@@ -306,19 +306,19 @@ class AdminImageMagickView extends GalleryView {
 			list($ret, $version) = ImageMagickToolkitHelper::discoverVersion($form['path']);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imagemagick');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminImageMagick                    = array();

@@ -60,7 +60,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 		$this->assertTrue($success, 'should have succeeded');
 		$this->assertEquals(
-			array($module->translate('Template cache deleted successfully')),
+			array( $module->translate('Template cache deleted successfully') ),
 			$details
 		);
 		$this->assertEquals(
@@ -76,7 +76,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('data.smarty.templates_c', '/templates_c');
-		$mockPlatform = new FlushTemplatesTaskTestPlatform(array('recursiveRmdir(/templates_c)'));
+		$mockPlatform = new FlushTemplatesTaskTestPlatform(array( 'recursiveRmdir(/templates_c)' ));
 		$gallery->setPlatform($mockPlatform);
 		$task = new FlushTemplatesTask();
 
@@ -100,7 +100,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 		);
 
 		$this->assertTrue(!$success, 'should have failed');
-		$this->assertEquals(array($expected), $details);
+		$this->assertEquals(array( $expected ), $details);
 		$this->assertEquals(
 			array(
 				'file_exists(/templates_c)',

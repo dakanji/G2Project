@@ -57,7 +57,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 				list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 				/*
 				 * Check the database to see if a previous request.
@@ -70,7 +70,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 
 				if ($user && !empty($requestExpires)) {
@@ -84,13 +84,13 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 						list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						list($ret, $user) = $user->refresh();
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						$user->changePassword($form['password1']);
@@ -98,13 +98,13 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 						$ret = $user->save();
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						$ret = GalleryCoreApi::releaseLocks($lockId);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						$ret = GalleryCoreApi::removeMapEntry(
@@ -115,7 +115,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 						);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						$status['passwordRecovered'] = 1;
@@ -128,7 +128,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				} else {
 					// There is no matching request for this userName and authString combo
@@ -151,7 +151,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -181,7 +181,7 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($requestExpires)) {
@@ -189,7 +189,7 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 				null,
 				array(
 					'redirect' => array(
-						'view'    => 'core.UserAdmin',
+						'view' => 'core.UserAdmin',
 						'subView' => 'core.UserRecoverPassword',
 					),
 				),

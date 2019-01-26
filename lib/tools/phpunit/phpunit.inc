@@ -1074,7 +1074,7 @@ class TestFailure {
 
 	public function getExceptions() {
 		// deprecated
-		return array($this->fException);
+		return array( $this->fException );
 	}
 
 	public function getException() {

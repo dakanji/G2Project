@@ -35,7 +35,7 @@ class AdminEditGroupUsersController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$results = $error = $status = array();
@@ -45,7 +45,7 @@ class AdminEditGroupUsersController extends GalleryController {
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (isset($form['action']['filterClear'])) {
@@ -80,13 +80,13 @@ class AdminEditGroupUsersController extends GalleryController {
 						list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						$ret = GalleryCoreApi::removeUserFromGroup($user->getId(), $groupId);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 						$removedUsers++;
 					}
@@ -108,13 +108,13 @@ class AdminEditGroupUsersController extends GalleryController {
 					if ($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 						$error[] = 'form[error][text][userName][invalid]';
 					} elseif ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					} else {
 						// Is the user already in the group?
 						list($ret, $inGroup) = GalleryCoreApi::isUserInGroup($user->getId(), $groupId);
 
 						if ($ret) {
-							return array($ret, null);
+							return array( $ret, null );
 						}
 
 						if ($inGroup) {
@@ -127,7 +127,7 @@ class AdminEditGroupUsersController extends GalleryController {
 					$ret = GalleryCoreApi::addUserToGroup($user->getId(), $groupId);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 
 					// Redirect back to the same view
@@ -148,7 +148,7 @@ class AdminEditGroupUsersController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -165,7 +165,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Set some defaults, if necessary
@@ -182,7 +182,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// First time on this page, initialize form fields
@@ -195,7 +195,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		list($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount(null, $group->getId());
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$form['list']['count']    = $totalUserCount;
@@ -227,7 +227,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$form['list']['userNames'] = array();

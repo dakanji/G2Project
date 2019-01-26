@@ -35,7 +35,7 @@ class DeleteCommentController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$itemId = $item->getId();
 
@@ -45,7 +45,7 @@ class DeleteCommentController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.delete');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = array();
@@ -56,18 +56,18 @@ class DeleteCommentController extends GalleryController {
 			list($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			// Make sure that the comment<->parent relationship is right
 			if ($comment->getParentId() != $itemId) {
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 			}
 
 			$ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$redirect['view']   = 'comment.CommentChangeConfirmation';
@@ -90,7 +90,7 @@ class DeleteCommentController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -108,7 +108,7 @@ class DeleteCommentView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
@@ -117,7 +117,7 @@ class DeleteCommentView extends GalleryView {
 		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.delete');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'DeleteComment') {
@@ -128,7 +128,7 @@ class DeleteCommentView extends GalleryView {
 		list($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Associate the commenter's info
@@ -136,7 +136,7 @@ class DeleteCommentView extends GalleryView {
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$DeleteComment              = array();

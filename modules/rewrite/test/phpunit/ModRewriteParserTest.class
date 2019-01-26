@@ -44,12 +44,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'modrewrite.status'           => serialize(
+			'modrewrite.status' => serialize(
 				array(
 					'needOptions' => true,
 				)
 			),
-			'modrewrite.galleryLocation'  => '/gallery2/',
+			'modrewrite.galleryLocation' => '/gallery2/',
 			'modrewrite.embeddedHtaccess' => '/phpunit/embedded',
 			'modrewrite.embeddedLocation' => '/embedded/',
 		) as $key => $value) {
@@ -124,7 +124,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			'pattern' => 'bogus',
 		);
 		$this->assertEquals(REWRITE_STATUS_BAD_KEYWORD, $code);
-		$this->assertEquals(array('rewriteparsermock', 0), $errno);
+		$this->assertEquals(array( 'rewriteparsermock', 0 ), $errno);
 		$this->assertEquals($expected, unserialize($activeRules));
 		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
 		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
@@ -133,12 +133,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testSaveAccessList() {
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
+		$accessList       = array( 'phpunit.test1', 'phpunit.test2' );
 		$ourParser        = $this->_parser;
 		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $savedList) = GalleryCoreApi::getPluginParameter(
@@ -148,7 +148,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
@@ -158,7 +158,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code);
@@ -170,12 +170,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
+		$accessList       = array( 'phpunit.test1', 'phpunit.test2' );
 		$ourParser        = $this->_parser;
 		list($ret, $code) = $ourParser->saveAccessList($accessList, false, $ourParser);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $savedList) = GalleryCoreApi::getPluginParameter(
@@ -185,7 +185,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
@@ -195,7 +195,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code);
@@ -209,11 +209,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListCantWrite() {
 		$this->_platform->_isWriteable = false;
-		$accessList                    = array('phpunit.test1', 'phpunit.test2');
+		$accessList                    = array( 'phpunit.test1', 'phpunit.test2' );
 		list($ret, $code)              = $this->_parser->saveAccessList($accessList, true);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $savedList) = GalleryCoreApi::getPluginParameter(
@@ -223,7 +223,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
@@ -233,11 +233,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
-		$this->assertEquals(array('phpunit.test'), unserialize($savedList));
+		$this->assertEquals(array( 'phpunit.test' ), unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
 		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
 		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
@@ -248,11 +248,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListEmbeddedCantWrite() {
 		$this->_platform->_isWriteable = false;
 		GalleryDataCache::put('G2_EMBED', 1, true);
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
+		$accessList       = array( 'phpunit.test1', 'phpunit.test2' );
 		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $savedList) = GalleryCoreApi::getPluginParameter(
@@ -262,7 +262,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
@@ -272,11 +272,11 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		);
 
 		if ($ret) {
-			return array($ret, null, null);
+			return array( $ret, null, null );
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
-		$this->assertEquals(array('phpunit.test'), unserialize($savedList));
+		$this->assertEquals(array( 'phpunit.test' ), unserialize($savedList));
 		$this->assertEquals('0', $allowEmptyReferer);
 		$this->assertTrue(!isset($this->_fileContent), 'fileContent');
 		$this->assertTrue(!isset($this->_embeddedFileContent), 'embeddedFileContent');
@@ -321,7 +321,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(
 			array(
 				'needOptions' => false,
-				'forced'      => 1,
+				'forced' => 1,
 			),
 			unserialize($forced)
 		);
@@ -357,7 +357,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(
 			array(
 				'needOptions' => true,
-				'forced'      => 1,
+				'forced' => 1,
 			),
 			unserialize($forced)
 		);
@@ -532,7 +532,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('/phpunit/embedded', $embeddedHtaccess);
 		$this->assertEquals('/embedded/', $embeddedLocation);
 		$this->assertEquals(array(), $status);
-		$this->assertEquals(array('form[error][15]'), $error);
+		$this->assertEquals(array( 'form[error][15]' ), $error);
 		$this->assertTrue(!isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
@@ -572,7 +572,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('/phpunit/embedded', $embeddedHtaccess);
 		$this->assertEquals('/embedded/', $embeddedLocation);
 		$this->assertEquals(array(), $status);
-		$this->assertEquals(array('form[error][5]'), $error);
+		$this->assertEquals(array( 'form[error][5]' ), $error);
 		$this->assertTrue(!isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');

@@ -102,7 +102,7 @@ class GalleryController {
 	 *               return-array
 	 */
 	public function handleRequest($form) {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
 	}
 
 	/**
@@ -138,12 +138,12 @@ class GalleryController {
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $module);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isActive) = $plugin->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!$isActive) {
@@ -151,10 +151,10 @@ class GalleryController {
 				$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			} else {
-				return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+				return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
 			}
 		}
 
@@ -167,7 +167,7 @@ class GalleryController {
 			$platform =& $gallery->getPlatform();
 
 			if (!$platform->file_exists($moduleBaseDir . $fileName)) {
-				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+				return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
 			}
 
 			GalleryCoreApi::requireOnce($fileName);
@@ -185,7 +185,7 @@ class GalleryController {
 			}
 		}
 
-		return array(null, new $controllerClassName());
+		return array( null, new $controllerClassName() );
 	}
 
 	/**
@@ -273,30 +273,30 @@ class GalleryController {
 		$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 
 		if (empty($itemId)) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
+			return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
 		}
 
 		// Load the item
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($checkPermissions) {
 			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			if (!$hasPermission) {
 				// Avoid information disclosure by treating this as if the item didn't exist.
-				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+				return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
 			}
 		}
 
-		return array(null, $item);
+		return array( null, $item );
 	}
 
 	/**
@@ -311,6 +311,6 @@ class GalleryController {
 			$results['status'] = $results['error'] = array();
 		}
 
-		return array($ret, $results);
+		return array( $ret, $results );
 	}
 }

@@ -242,7 +242,7 @@ class PostgreSqlStorage extends GalleryStorage {
 				);
 		}
 
-		return array(null, $sql);
+		return array( null, $sql );
 	}
 
 	/**
@@ -261,7 +261,7 @@ class PostgreSqlStorage extends GalleryStorage {
 	 * @see GalleryStorage::_getOptimizeStatements
 	 */
 	public function _getOptimizeStatements() {
-		return array('VACUUM ANALYZE VERBOSE %s');
+		return array( 'VACUUM ANALYZE VERBOSE %s' );
 	}
 
 	/**

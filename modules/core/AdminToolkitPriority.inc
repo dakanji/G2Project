@@ -33,7 +33,7 @@ class AdminToolkitPriorityController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$status = array();
@@ -42,7 +42,7 @@ class AdminToolkitPriorityController extends GalleryController {
 			list($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			foreach ($form['priority'] as $priority => $toolkit) {
@@ -58,7 +58,7 @@ class AdminToolkitPriorityController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array($ret, null);
+						return array( $ret, null );
 					}
 				}
 			}
@@ -72,7 +72,7 @@ class AdminToolkitPriorityController extends GalleryController {
 		$results['status']              = $status;
 		$results['error']               = array();
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -87,7 +87,7 @@ class AdminToolkitPriorityView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($form['formName'] != 'AdminToolkitPriority') {
@@ -97,7 +97,7 @@ class AdminToolkitPriorityView extends GalleryView {
 		list($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		asort($list);
 		// Reset all priorities to start of managed-priority window; ensure we break any ties

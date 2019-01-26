@@ -67,32 +67,32 @@ class PicLensHelperTest extends GalleryTestCase {
 		$path    = $urlInfo['path'];
 
 		$platform =& $gallery->_platform;
-		$platform->setReply('fsockopen', array($host, 80, null, null, 5), 'IN');
+		$platform->setReply('fsockopen', array( $host, 80, null, null, 5 ), 'IN');
 		$platform->setReply(
 			'fwrite',
-			array('IN', "GET $path HTTP/1.0\r\nHost: $host\r\n\r\n", null),
+			array( 'IN', "GET $path HTTP/1.0\r\nHost: $host\r\n\r\n", null ),
 			true
 		);
-		$platform->setReply('fflush', array('IN'), null);
-		$platform->setReply('fgets', array('IN', 4096), "HTTP/1.1 $responseCode\r\n");
-		$platform->setReply('feof', array('IN'), false);
-		$platform->setReply('fgets', array('IN', 4096), "\r\n");
+		$platform->setReply('fflush', array( 'IN' ), null);
+		$platform->setReply('fgets', array( 'IN', 4096 ), "HTTP/1.1 $responseCode\r\n");
+		$platform->setReply('feof', array( 'IN' ), false);
+		$platform->setReply('fgets', array( 'IN', 4096 ), "\r\n");
 
 		if ($outputFile) {
-			$platform->setReply('fopen', array($outputFile, 'wb', 0), 'OUT');
+			$platform->setReply('fopen', array( $outputFile, 'wb', 0 ), 'OUT');
 		}
-		$platform->setReply('feof', array('IN'), false);
-		$platform->setReply('fread', array('IN', 4096), $data);
+		$platform->setReply('feof', array( 'IN' ), false);
+		$platform->setReply('fread', array( 'IN', 4096 ), $data);
 
 		if ($outputFile) {
-			$platform->setReply('fwrite', array('OUT', $data, null), strlen($data));
+			$platform->setReply('fwrite', array( 'OUT', $data, null ), strlen($data));
 		}
-		$platform->setReply('feof', array('IN'), true);
+		$platform->setReply('feof', array( 'IN' ), true);
 
 		if ($outputFile) {
-			$platform->setReply('fclose', array('OUT'), true);
+			$platform->setReply('fclose', array( 'OUT' ), true);
 		}
-		$platform->setReply('fclose', array('IN'), true);
+		$platform->setReply('fclose', array( 'IN' ), true);
 	}
 
 	public function testInstall() {
@@ -115,12 +115,12 @@ class PicLensHelperTest extends GalleryTestCase {
 
 		$gallery->_platform->setReply(
 			'rename',
-			array('/modules/slideshow/piclens.js.new', '/modules/slideshow/piclens.js'),
+			array( '/modules/slideshow/piclens.js.new', '/modules/slideshow/piclens.js' ),
 			true
 		);
 		$gallery->_platform->setReply(
 			'rename',
-			array('/modules/slideshow/PicLensLite.swf.new', '/modules/slideshow/PicLensLite.swf'),
+			array( '/modules/slideshow/PicLensLite.swf.new', '/modules/slideshow/PicLensLite.swf' ),
 			true
 		);
 
@@ -190,7 +190,7 @@ class PicLensHelperTest extends GalleryTestCase {
 		// This rename fails
 		$gallery->_platform->setReply(
 			'rename',
-			array('/modules/slideshow/piclens.js.new', '/modules/slideshow/piclens.js'),
+			array( '/modules/slideshow/piclens.js.new', '/modules/slideshow/piclens.js' ),
 			false
 		);
 
@@ -221,17 +221,17 @@ class PicLensHelperTest extends GalleryTestCase {
 		// We clean up the file that got downloaded
 		$gallery->_platform->setReply(
 			'file_exists',
-			array('/modules/slideshow/piclens.js.new'),
+			array( '/modules/slideshow/piclens.js.new' ),
 			false
 		);
 		$gallery->_platform->setReply(
 			'file_exists',
-			array('/modules/slideshow/PicLensLite.swf.new'),
+			array( '/modules/slideshow/PicLensLite.swf.new' ),
 			true
 		);
 		$gallery->_platform->setReply(
 			'unlink',
-			array('/modules/slideshow/PicLensLite.swf.new'),
+			array( '/modules/slideshow/PicLensLite.swf.new' ),
 			true
 		);
 
@@ -290,22 +290,22 @@ class PicLensHelperTest extends GalleryTestCase {
 
 		$gallery->_platform->setReply(
 			'file_exists',
-			array('/modules/slideshow/piclens.js'),
+			array( '/modules/slideshow/piclens.js' ),
 			true
 		);
 		$gallery->_platform->setReply(
 			'unlink',
-			array('/modules/slideshow/piclens.js'),
+			array( '/modules/slideshow/piclens.js' ),
 			true
 		);
 		$gallery->_platform->setReply(
 			'file_exists',
-			array('/modules/slideshow/PicLensLite.swf'),
+			array( '/modules/slideshow/PicLensLite.swf' ),
 			true
 		);
 		$gallery->_platform->setReply(
 			'unlink',
-			array('/modules/slideshow/PicLensLite.swf'),
+			array( '/modules/slideshow/PicLensLite.swf' ),
 			true
 		);
 

@@ -50,7 +50,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 			'GET' => array(
 				'modules/core/classes/GalleryUtilities.class' => 1,
 				'modules/core/ShowItem.inc' => 1,
-				'main.php'                  => 1,
+				'main.php' => 1,
 				'modules/core/classes/Gallery.class' => 1,
 			),
 			'COOKIE' => array(
@@ -136,7 +136,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 		$base3 = basename($dir2);
 
 		// Skip generated Maps / Entities files
-		if ($base2 == 'classes' && in_array($base1, array('Entities.inc', 'Maps.inc'))) {
+		if ($base2 == 'classes' && in_array($base1, array( 'Entities.inc', 'Maps.inc' ))) {
 			return false;
 		}
 
@@ -201,8 +201,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 		 * which will be required after the next major core API bump.
 		 */
 		if ($checkEntityType) {
-			foreach (array('loadEntitiesById', 'deleteEntityById') as $function) {
-				$calls = $this->getFunctionCalls($buffer, array('GalleryCoreApi', $function), $fileName);
+			foreach (array( 'loadEntitiesById', 'deleteEntityById' ) as $function) {
+				$calls = $this->getFunctionCalls($buffer, array( 'GalleryCoreApi', $function ), $fileName);
 
 				foreach ($calls as $call) {
 					$params = $this->getFunctionParameters($call);
@@ -313,7 +313,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 			$line = str_replace("\t", '        ', $lines[$i]);
 
 			if (strlen($line) > 100) {
-				$longLineTable[] = array($fileName, $i + 1);
+				$longLineTable[] = array( $fileName, $i + 1 );
 			}
 		}
 
@@ -365,13 +365,13 @@ class CodeAuditTest extends CodeAuditTestCase {
 					}
 
 					$finalCount                 = "array($commaCount)";
-					$returnCount[$function][$i] = array($finalCount, $tmp);
+					$returnCount[$function][$i] = array( $finalCount, $tmp );
 				} elseif (preg_match('/^GalleryCoreApi::error\(.*\)/', $returns[$i])) {
-					$returnCount[$function][$i] = array('scalar', $returns[$i]);
+					$returnCount[$function][$i] = array( 'scalar', $returns[$i] );
 				} elseif (preg_match('/\w\s*\(.*\)/', $returns[$i])) {
-					$returnCount[$function][$i] = array('function', $returns[$i]);
+					$returnCount[$function][$i] = array( 'function', $returns[$i] );
 				} else {
-					$returnCount[$function][$i] = array('scalar', $returns[$i]);
+					$returnCount[$function][$i] = array( 'scalar', $returns[$i] );
 				}
 			}
 

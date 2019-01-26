@@ -58,26 +58,26 @@ class SlideshowView extends GalleryView {
 			list($ret, $items, $start) = SlideshowHelper::buildItemsSlideshow($itemIds, $startId);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		} else {
 			// Build slideshow for an album
 			list($ret, $item) = $this->getItem();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			list($ret, $items, $start) = SlideshowHelper::buildAlbumSlideshow($item, $startId, $offset);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'slideshow');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!empty($Slideshow['item']['title'])) {
@@ -96,7 +96,7 @@ class SlideshowView extends GalleryView {
 		list($ret, $picLensVersion) = $module->getParameter('piclens.version');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if ($picLensVersion) {
@@ -107,10 +107,10 @@ class SlideshowView extends GalleryView {
 					array(
 						'view' => 'slideshow.DownloadPicLens',
 						'file' => 'js',
-						'v'    => $picLensVersion,
+						'v' => $picLensVersion,
 					),
 					array(
-						'forceDirect'  => true,
+						'forceDirect' => true,
 						'forceFullUrl' => true,
 					)
 				)
@@ -118,8 +118,8 @@ class SlideshowView extends GalleryView {
 
 			$jsUrlParams                = array(
 				'forJavascript' => true,
-				'forceFullUrl'  => true,
-				'htmlEntities'  => false,
+				'forceFullUrl' => true,
+				'htmlEntities' => false,
 			);
 			$jsUrlParamsDirect          = array_merge(
 				$jsUrlParams,
@@ -139,7 +139,7 @@ class SlideshowView extends GalleryView {
 			if (empty($itemListString)) {
 				$Slideshow['mediaRssUrl'] = $urlGenerator->generateUrl(
 					array(
-						'view'   => 'slideshow.SlideshowMediaRss',
+						'view' => 'slideshow.SlideshowMediaRss',
 						'itemId' => $item->getId(),
 					),
 					$jsUrlParams
@@ -147,7 +147,7 @@ class SlideshowView extends GalleryView {
 			} else {
 				$Slideshow['mediaRssUrl'] = $urlGenerator->generateUrl(
 					array(
-						'view'     => 'slideshow.SlideshowMediaRss',
+						'view' => 'slideshow.SlideshowMediaRss',
 						'itemList' => $itemListString,
 					),
 					$jsUrlParams
@@ -169,7 +169,7 @@ class SlideshowView extends GalleryView {
 			if (empty($Slideshow['returnUrl'])) {
 				$Slideshow['returnUrl'] = $urlGenerator->generateUrl(
 					array(
-						'view'   => 'core.ShowItem',
+						'view' => 'core.ShowItem',
 						'itemId' => $Slideshow['startItemId'],
 					),
 					$jsUrlParams

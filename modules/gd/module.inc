@@ -38,8 +38,8 @@ class GdModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
+		$this->setRequiredCoreApi(array( 7, 20 ));
+		$this->setRequiredModuleApi(array( 3, 6 ));
 	}
 
 	/**
@@ -90,20 +90,20 @@ class GdModule extends GalleryModule {
 		list($ret, $results) = GdToolkitHelper::getOperationsAndProperties();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Gd');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!$priority) {
 			list($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			$priority = min($priority + 1, 40);
 		}
@@ -121,7 +121,7 @@ class GdModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
@@ -135,17 +135,17 @@ class GdModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
-		return array(null, $redirect);
+		return array( null, $redirect );
 	}
 
 	/**
@@ -156,11 +156,11 @@ class GdModule extends GalleryModule {
 		list($ret, $value) = $this->getParameter('jpegQuality');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (empty($value)) {
-			return array(null, true);
+			return array( null, true );
 		}
 
 		/*
@@ -172,14 +172,14 @@ class GdModule extends GalleryModule {
 		list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		if (!$isSupported) {
-			return array(null, true);
+			return array( null, true );
 		}
 
-		return array(null, false);
+		return array( null, false );
 	}
 
 	/**
@@ -189,10 +189,10 @@ class GdModule extends GalleryModule {
 		list($ret, $needsConfiguration) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array($ret, false);
+			return array( $ret, false );
 		}
 
-		return array(null, !$needsConfiguration);
+		return array( null, !$needsConfiguration );
 	}
 
 	/**

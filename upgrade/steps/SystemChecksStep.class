@@ -61,7 +61,7 @@ class SystemChecksStep extends UpgradeStep {
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');
 			header('Content-Length: 8');
-			$x = array(new stdclass());
+			$x = array( new stdclass() );
 			// v-- This may cause PHP to crash!
 			$x = $x[0];
 			echo "SUCCESS\n";
@@ -444,14 +444,14 @@ class SystemChecksStep extends UpgradeStep {
 				$message = $this->renderFileList($storageFiles, 'storagefiles', $heading, $notice);
 
 				$templateData['check'][] = array(
-					'title'  => $title,
-					'error'  => true,
+					'title' => $title,
+					'error' => true,
 					'notice' => $message,
 				);
 				$failCount++;
 			} else {
 				$templateData['check'][] = array(
-					'title'   => $title,
+					'title' => $title,
 					'success' => true,
 				);
 			}
@@ -474,16 +474,16 @@ class SystemChecksStep extends UpgradeStep {
 
 			if (!isset($manifest)) {
 				$templateData['check'][]   = array(
-					'title'   => $title,
+					'title' => $title,
 					'warning' => true,
-					'notice'  => 'Manifest missing or inaccessible.',
+					'notice' => 'Manifest missing or inaccessible.',
 				);
 				$_SESSION['fileintegrity'] = 'Manifest missing or inaccessible';
 			} elseif (empty($manifest['missing']) && empty($manifest['modified'])
 				&& empty($manifest['shouldRemove'])
 			) {
 				$templateData['check'][]   = array(
-					'title'   => $title,
+					'title' => $title,
 					'success' => true,
 				);
 				$_SESSION['fileintegrity'] = 'Ok';
@@ -559,9 +559,9 @@ class SystemChecksStep extends UpgradeStep {
 				}
 
 				$templateData['check'][]   = array(
-					'title'   => $title,
+					'title' => $title,
 					'warning' => true,
-					'notice'  => $message,
+					'notice' => $message,
 				);
 				$_SESSION['fileintegrity'] = (empty($manifest['missing']) && empty($manifest['modified'])) ? 'There are some old files' : 'There are missing/modified files!';
 			}
@@ -583,14 +583,14 @@ class SystemChecksStep extends UpgradeStep {
 				$message                 = 'Error: The configured database user does not have the required database privileges to perform the upgrade.' . '<br/>'
 					. $error;
 				$templateData['check'][] = array(
-					'title'  => $title,
-					'error'  => true,
+					'title' => $title,
+					'error' => true,
 					'notice' => $message,
 				);
 				$failCount++;
 			} else {
 				$templateData['check'][] = array(
-					'title'   => $title,
+					'title' => $title,
 					'success' => true,
 				);
 			}
@@ -639,13 +639,13 @@ class SystemChecksStep extends UpgradeStep {
 		}
 
 		// An exhaustive test would take too long, test a few dirs / files
-		foreach (array('', 'versions.dat', 'albums') as $path) {
+		foreach (array( '', 'versions.dat', 'albums' ) as $path) {
 			$path = $storagePath . $path;
 
 			if (!$platform->file_exists($path) || !$platform->is_readable($path)
 				|| !$platform->is_writeable($path)
 			) {
-				return array($path);
+				return array( $path );
 			}
 		}
 
@@ -926,7 +926,7 @@ class SystemChecksStep extends UpgradeStep {
 			);
 		}
 
-		return array(true, null);
+		return array( true, null );
 	}
 
 	/**
@@ -940,7 +940,7 @@ class SystemChecksStep extends UpgradeStep {
 		$storage =& $gallery->getStorage();
 
 		if (empty($buffer)) {
-			return array(false, 'Missing SQL statements');
+			return array( false, 'Missing SQL statements' );
 		}
 		/*
 		 * Split the file where semicolons are followed by a blank line..
@@ -978,6 +978,6 @@ class SystemChecksStep extends UpgradeStep {
 			}
 		}
 
-		return array(true, null);
+		return array( true, null );
 	}
 }

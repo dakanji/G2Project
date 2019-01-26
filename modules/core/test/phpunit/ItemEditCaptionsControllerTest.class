@@ -85,14 +85,14 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			array(
 				'return' => 1,
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 2,
+					'itemId' => $this->_album->getId(),
+					'page' => 2,
 				),
 				'status' => array(
-					'successCount'            => 3,
-					'errorCount'              => 0,
+					'successCount' => 3,
+					'errorCount' => 0,
 					$this->_items[0]->getId() => array(
 						'saved' => 1,
 					),
@@ -149,14 +149,14 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 3,
+					'itemId' => $this->_album->getId(),
+					'page' => 3,
 				),
 				'status' => array(
-					'successCount'            => 3,
-					'errorCount'              => 0,
+					'successCount' => 3,
+					'errorCount' => 0,
 					$this->_items[0]->getId() => array(
 						'saved' => 1,
 					),
@@ -213,14 +213,14 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 1,
+					'itemId' => $this->_album->getId(),
+					'page' => 1,
 				),
 				'status' => array(
-					'successCount'            => 3,
-					'errorCount'              => 0,
+					'successCount' => 3,
+					'errorCount' => 0,
 					$this->_items[0]->getId() => array(
 						'saved' => 1,
 					),
@@ -262,7 +262,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
 				),
 				'return' => 1,
@@ -337,14 +337,14 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 2,
+					'itemId' => $this->_album->getId(),
+					'page' => 2,
 				),
 				'status' => array(
-					'successCount'            => 1,
-					'errorCount'              => 2,
+					'successCount' => 1,
+					'errorCount' => 2,
 					$this->_items[0]->getId() => array(
 						'permissionDenied' => 1,
 					),
@@ -423,14 +423,14 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			array(
 				'return' => 1,
 				'redirect' => array(
-					'view'    => 'core.ItemAdmin',
+					'view' => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
-					'itemId'  => $this->_album->getId(),
-					'page'    => 1,
+					'itemId' => $this->_album->getId(),
+					'page' => 1,
 				),
 				'status' => array(
-					'successCount'            => 3,
-					'errorCount'              => 0,
+					'successCount' => 3,
+					'errorCount' => 0,
 					$this->_items[0]->getId() => array(
 						'saved' => 1,
 					),

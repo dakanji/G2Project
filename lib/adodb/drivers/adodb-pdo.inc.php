@@ -221,14 +221,14 @@ class ADODB_pdo extends ADOConnection {
 		$args = func_get_args();
 
 		if (method_exists($this->_driver, 'Concat')) {
-			return call_user_func_array(array($this->_driver, 'Concat'), $args);
+			return call_user_func_array(array( $this->_driver, 'Concat' ), $args);
 		}
 
 		if (PHP_VERSION >= 5.3) {
 			return call_user_func_array('parent::Concat', $args);
 		}
 
-		return call_user_func_array(array($this, 'parent::Concat'), $args);
+		return call_user_func_array(array( $this, 'parent::Concat' ), $args);
 	}
 
 	// returns true or false
@@ -429,7 +429,7 @@ class ADODB_pdo extends ADOConnection {
 		$this->_stmt = $this->_connectionID->prepare($sql);
 
 		if ($this->_stmt) {
-			return array($sql, $this->_stmt);
+			return array( $sql, $this->_stmt );
 		}
 
 		return false;
@@ -595,7 +595,7 @@ class ADOPDOStatement {
 
 	public function Execute($inputArr = false) {
 		$savestmt                   = $this->_connectionID->_stmt;
-		$rs                         = $this->_connectionID->Execute(array(false, $this->_stmt), $inputArr);
+		$rs                         = $this->_connectionID->Execute(array( false, $this->_stmt ), $inputArr);
 		$this->_connectionID->_stmt = $savestmt;
 
 		return $rs;

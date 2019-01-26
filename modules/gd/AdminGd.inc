@@ -35,7 +35,7 @@ class AdminGdController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$error = $status = array();
@@ -49,18 +49,18 @@ class AdminGdController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 			list($ret, $isActive) = $module->isActive();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 
 			$redirect['view'] = 'core.SiteAdmin';
@@ -88,7 +88,7 @@ class AdminGdController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array(null, $results);
+		return array( null, $results );
 	}
 }
 
@@ -103,16 +103,16 @@ class AdminGdView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		// Load our default values if we didn't just come from this form.
 		if ($form['formName'] != 'AdminGd') {
-			foreach (array('path', 'jpegQuality') as $key) {
+			foreach (array( 'path', 'jpegQuality' ) as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'gd', $key);
 
 				if ($ret) {
-					return array($ret, null);
+					return array( $ret, null );
 				}
 			}
 			$form['formName'] = 'AdminGd';
@@ -126,17 +126,17 @@ class AdminGdView extends GalleryView {
 		list($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isGdBundled) = GdToolkitHelper::isBundled();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isGdVersionSupported) = GdToolkitHelper::isGdVersionSupported($gdVersion);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		$minGdVersion = GdToolkitHelper::minGdVersion();
 
@@ -146,19 +146,19 @@ class AdminGdView extends GalleryView {
 			list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
 
 			if ($ret) {
-				return array($ret, null);
+				return array( $ret, null );
 			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$AdminGd                    = array();

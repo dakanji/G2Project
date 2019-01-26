@@ -651,8 +651,7 @@ order by constraint_name, referenced_table_name, keyno";
 
 		$sql = "select distinct k.column_name,ordinal_position from information_schema.key_column_usage k,
 		information_schema.table_constraints tc
-		where tc.constraint_name = k.constraint_name and tc.constraint_type =
-		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
+		where tc.constraint_name = k.constraint_name and tc.constraint_type = 		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
 
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -784,7 +783,7 @@ order by constraint_name, referenced_table_name, keyno";
 			$sql2 .= '@P' . ($i - 1) . $sqlarr[$i];
 		}
 
-		return array($sql, $this->qstr($sql2), $max, $sql2);
+		return array( $sql, $this->qstr($sql2), $max, $sql2 );
 	}
 
 	public function PrepareSP($sql, $param = true) {
@@ -799,7 +798,7 @@ order by constraint_name, referenced_table_name, keyno";
 			return $sql;
 		}
 
-		return array($sql, $stmt);
+		return array( $sql, $stmt );
 	}
 
 	// returns concatenated string

@@ -35,7 +35,7 @@ class GallerySortInterface_1_2 {
 	 *               boolean true for presort
 	 */
 	public function getSortInfo() {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class GallerySortInterface_1_2 {
 	 *               string optional join clause
 	 */
 	public function getSortOrder($direction) {
-		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null, null, null);
+		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null, null, null );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class GallerySortInterface_1_2 {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array($ret, null, null, null);
+			return array( $ret, null, null, null );
 		}
 
 		$orderByList = array(
@@ -102,19 +102,19 @@ class GallerySortInterface_1_2 {
 		list($ret, $implIds) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySortInterface_1_2');
 
 		if ($ret) {
-			return array($ret, null, null, null);
+			return array( $ret, null, null, null );
 		}
 
 		foreach ($implIds as $sortId => $className) {
 			list($ret, $sort) = GalleryCoreApi::newFactoryInstance('GallerySortInterface_1_2', $className);
 
 			if ($ret) {
-				return array($ret, null, null, null);
+				return array( $ret, null, null, null );
 			}
 			list($ret, $sortName, $isPresort) = $sort->getSortInfo();
 
 			if ($ret) {
-				return array($ret, null, null, null);
+				return array( $ret, null, null, null );
 			}
 
 			if ($isPresort) {
@@ -125,10 +125,10 @@ class GallerySortInterface_1_2 {
 		}
 
 		$orderDirectionList = array(
-			ORDER_ASCENDING  => $module->translate('Ascending'),
+			ORDER_ASCENDING => $module->translate('Ascending'),
 			ORDER_DESCENDING => $module->translate('Descending'),
 		);
 
-		return array(null, $orderByList, $presortList, $orderDirectionList);
+		return array( null, $orderByList, $presortList, $orderDirectionList );
 	}
 }

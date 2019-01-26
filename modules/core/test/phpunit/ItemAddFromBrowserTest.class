@@ -73,7 +73,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
 
 		$baseDir = __DIR__ . '/../data/';
-		$files   = array('test1.gif', 'test1.jpg', 'test2.gif', 'test[3].gif');
+		$files   = array( 'test1.gif', 'test1.jpg', 'test2.gif', 'test[3].gif' );
 		$i       = 0;
 
 		foreach ($files as $file) {
@@ -319,8 +319,8 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	public function testAddFromBrowserFail() {
 		GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
 		$files = array(
-			1 => array('test1.gif', UPLOAD_ERR_INI_SIZE),
-			2 => array('test2.gif', UPLOAD_ERR_FORM_SIZE),
+			1 => array( 'test1.gif', UPLOAD_ERR_INI_SIZE ),
+			2 => array( 'test2.gif', UPLOAD_ERR_FORM_SIZE ),
 		);
 
 		foreach ($files as $i => $data) {
@@ -332,7 +332,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		$results = $this->handleRequest($this->_rootAlbum);
 		$this->assertEquals(
-			array('form[error][upload][1]', 'form[error][upload][2]'),
+			array( 'form[error][upload][1]', 'form[error][upload][2]' ),
 			$results[0],
 			'Failure'
 		);

@@ -43,7 +43,7 @@ class IconsImpl extends IconsInterface_1_0 {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'icons', true);
 
 		if ($ret) {
-			return array($ret, null);
+			return array( $ret, null );
 		}
 
 		$icons = array(
@@ -65,7 +65,7 @@ class IconsImpl extends IconsInterface_1_0 {
 			}
 		}
 
-		return array(null, $icons);
+		return array( null, $icons );
 	}
 
 	/**
