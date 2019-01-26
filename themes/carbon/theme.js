@@ -94,7 +94,7 @@ function scrollRight(menuId) {
 			clearInterval(interval);
 			return;
 		} else {
-			leftPosition                              += 10;
+			leftPosition += 10;
 			document.getElementById(menuId).style.left = leftPosition + "px";
 		}
 	}
@@ -107,7 +107,7 @@ function scrollLeft(menuId) {
 			clearInterval(interval);
 			return;
 		} else {
-			leftPosition                              -= 10;
+			leftPosition -= 10;
 			document.getElementById(menuId).style.left = leftPosition + "px";
 		}
 	}
@@ -140,8 +140,8 @@ function toggleSidebar(menuId) {
 /*****************************************************************************/
 
 function popImage(img, title) {
-	picfile            = new Image();
-	picfile.src        = img;
+	picfile     = new Image();
+	picfile.src = img;
 	picfile.imageTitle = title;
 	fileCheck(100);
 }

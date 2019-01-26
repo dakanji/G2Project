@@ -242,7 +242,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 		$this->_mockSmarty->_tpl_vars['l10Domain']     = 'modules_testfail';
 		$this->_mockSmarty->_tpl_vars['viewL10domain'] = 'modules_testpass';
-		$translated                                    = $this->_templateAdapter->text(
+		$translated = $this->_templateAdapter->text(
 			array(
 				'text' => 'Test failed',
 			),
@@ -255,7 +255,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	public function testTextNotForJavaScript() {
 		$this->_setupAdapterWithMocks();
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-		$translated                                = $this->_templateAdapter->text(
+		$translated = $this->_templateAdapter->text(
 			array(
 				'text' => "Text with a single ' quote",
 			),
@@ -267,7 +267,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	public function testTextForJavaScript() {
 		$this->_setupAdapterWithMocks();
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-		$translated                                = $this->_templateAdapter->text(
+		$translated = $this->_templateAdapter->text(
 			array(
 				'text'          => "Text with a single ' quote",
 				'forJavascript' => true,
@@ -412,7 +412,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$this->_setupAdapterWithMocks();
 
-		$url                          = 'http://example.com/main.php?foo=bar';
+		$url = 'http://example.com/main.php?foo=bar';
 		$this->_mockSmarty->_tpl_vars = 1;
 		$this->_templateAdapter->autoComplete(
 			array(
@@ -747,10 +747,10 @@ class TemplateAdapterTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-		$params                                    = array(
+		$params = array(
 			'type' => 'core.Bogus',
 		);
-		$ret                                       = GalleryCoreApi::setPluginParameter('module', 'core', 'smarty.compile_check', true);
+		$ret    = GalleryCoreApi::setPluginParameter('module', 'core', 'smarty.compile_check', true);
 
 		if ($ret) {
 			return $ret;
@@ -781,17 +781,17 @@ class TemplateAdapterTest extends GalleryTestCase {
 			1
 		);
 		$gallery->_platform =& $mockPlatform;
-		$ret                = $this->_markPluginParametersForCleanup('module', 'core');
+		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-		$params                                    = array(
+		$params = array(
 			'type' => 'core.Bogus',
 		);
-		$ret                                       = GalleryCoreApi::setPluginParameter('module', 'core', 'smarty.compile_check', false);
+		$ret    = GalleryCoreApi::setPluginParameter('module', 'core', 'smarty.compile_check', false);
 
 		if ($ret) {
 			return $ret;
@@ -822,17 +822,17 @@ class TemplateAdapterTest extends GalleryTestCase {
 			0
 		);
 		$gallery->_platform =& $mockPlatform;
-		$ret                = $this->_markPluginParametersForCleanup('module', 'core');
+		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-		$params                                    = array(
+		$params = array(
 			'type' => 'core.Bogus',
 		);
-		$ret                                       = GalleryCoreApi::setPluginParameter('module', 'core', 'smarty.compile_check', false);
+		$ret    = GalleryCoreApi::setPluginParameter('module', 'core', 'smarty.compile_check', false);
 
 		if ($ret) {
 			return $ret;

@@ -40,7 +40,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->_userId              = $gallery->getActiveUserId();
+		$this->_userId = $gallery->getActiveUserId();
 		$this->_originalGuestUserId = $gallery->getConfig('anonymousUserId');
 
 		list($ret, $this->_album) = $this->_createRandomAlbum(

@@ -87,7 +87,7 @@ class GalleryPersistent {
 		}
 
 		$this->_persistentStatus['originalValue'] = array();
-		$target                                   = $this->entityType;
+		$target = $this->entityType;
 
 		while ($target) {
 			foreach (array_keys($data[$target]['members']) as $member) {

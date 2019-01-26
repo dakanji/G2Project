@@ -145,9 +145,9 @@ class SearchScanView extends GalleryView {
 			}
 		}
 
-		$items                  = array();
-		$thumbnails             = array();
-		$searchResults          = array();
+		$items         = array();
+		$thumbnails    = array();
+		$searchResults = array();
 		$searchResultThumbnails = array();
 
 		if ($form['formName'] == 'SearchScan'

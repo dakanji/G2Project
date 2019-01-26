@@ -141,7 +141,7 @@ class PhpVmTest extends GalleryTestCase {
 
 		if (isset($headers['Set-Cookie'])) {
 			$headers['Set-Cookie'] = is_array($headers['Set-Cookie']) ? $headers['Set-Cookie'] : array($headers['Set-Cookie']);
-			$grep                  = preg_grep('/' . SESSION_ID_PARAMETER . '/', $headers['Set-Cookie']);
+			$grep = preg_grep('/' . SESSION_ID_PARAMETER . '/', $headers['Set-Cookie']);
 			$this->assertTrue(
 				!empty($grep),
 				'no G2 SessionId with a correct SID found in the cookie header'

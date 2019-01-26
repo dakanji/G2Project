@@ -36,17 +36,17 @@ class ADODB_Pager {
 	public $gridAttributes = 'width=100% border=1 bgcolor=white';
 
 	// Localize text strings here
-	public $first             = '<code>|&lt;</code>';
-	public $prev              = '<code>&lt;&lt;</code>';
-	public $next              = '<code>>></code>';
-	public $last              = '<code>>|</code>';
-	public $moreLinks         = '...';
-	public $startLinks        = '...';
-	public $gridHeader        = false;
-	public $htmlSpecialChars  = true;
-	public $page              = 'Page';
+	public $first      = '<code>|&lt;</code>';
+	public $prev       = '<code>&lt;&lt;</code>';
+	public $next       = '<code>>></code>';
+	public $last       = '<code>>|</code>';
+	public $moreLinks  = '...';
+	public $startLinks = '...';
+	public $gridHeader = false;
+	public $htmlSpecialChars = true;
+	public $page = 'Page';
 	public $linkSelectedColor = 'red';
-	public $cache             = 0;  // secs to cache with CachePageExecute()
+	public $cache = 0;  // secs to cache with CachePageExecute()
 
 	//----------------------------------------------
 	// constructor
@@ -66,9 +66,9 @@ class ADODB_Pager {
 			$PHP_SELF = htmlspecialchars($_SERVER['PHP_SELF']); // htmlspecialchars() to prevent XSS attacks
 		}
 
-		$this->sql           = $sql;
-		$this->id            = $id;
-		$this->db            = $db;
+		$this->sql = $sql;
+		$this->id  = $id;
+		$this->db  = $db;
 		$this->showPageLinks = $showPageLinks;
 
 		$next_page = $id . '_next_page';

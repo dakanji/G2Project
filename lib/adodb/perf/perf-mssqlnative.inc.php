@@ -22,7 +22,7 @@ if (!defined('ADODB_DIR')) {
 
 // MSSQL has moved most performance info to Performance Monitor
 class perf_mssqlnative extends adodb_perf {
-	public $sql1           = 'cast(sql1 as text)';
+	public $sql1 = 'cast(sql1 as text)';
 	public $createTableSQL = 'CREATE TABLE adodb_logsql (
 		  created datetime NOT NULL,
 		  sql0 varchar(250) NOT NULL,
@@ -116,9 +116,9 @@ class perf_mssqlnative extends adodb_perf {
 		$sql = str_replace('?', "''", $sql);
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$rs               =& $this->conn->Execute($sql);
+		$rs =& $this->conn->Execute($sql);
 		//adodb_printr($rs);
 		$ADODB_FETCH_MODE = $save;
 
@@ -145,7 +145,7 @@ class perf_mssqlnative extends adodb_perf {
 	public function Tables($orderby = '1') {
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		//$this->conn->debug=1;
 		$s   = '<table border=1 bgcolor=white><tr><td><b>tablename</b></td><td><b>size_in_k</b></td><td><b>index size</b></td><td><b>reserved size</b></td></tr>';

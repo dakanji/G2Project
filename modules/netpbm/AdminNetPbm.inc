@@ -236,7 +236,7 @@ class AdminNetPbmView extends GalleryView {
 			} else {
 				$gallery->startRecordingDebugSnippet();
 				list($ret, $tests, $mimeTypes) = NetPbmToolkitHelper::testBinaries($form['path']);
-				$debugSnippet                  = $gallery->stopRecordingDebugSnippet();
+				$debugSnippet = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -256,7 +256,7 @@ class AdminNetPbmView extends GalleryView {
 			} else {
 				$gallery->startRecordingDebugSnippet();
 				list($ret, $jheadTests, $jheadMimeTypes) = NetPbmToolkitHelper::testJhead($form['jheadPath']);
-				$debugSnippet                           .= $gallery->stopRecordingDebugSnippet();
+				$debugSnippet .= $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -284,8 +284,8 @@ class AdminNetPbmView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminNetPbm                    = array();
-		$AdminNetPbm['tests']           = $tests;
+		$AdminNetPbm          = array();
+		$AdminNetPbm['tests'] = $tests;
 		$AdminNetPbm['mimeTypes']       = $mimeTypes;
 		$AdminNetPbm['jpegQualityList'] = $jpegQualityList;
 		$AdminNetPbm['failCount']       = $failCount;

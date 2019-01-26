@@ -60,9 +60,9 @@ class SearchShowAllView extends GalleryView {
 		// TODO: Parameterize this
 		$pageSize = 20;
 
-		$items                  = array();
-		$thumbnails             = array();
-		$results                = array();
+		$items      = array();
+		$thumbnails = array();
+		$results    = array();
 		$searchResultThumbnails = array();
 
 		if ($form['formName'] == 'SearchShowAll'

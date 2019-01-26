@@ -57,11 +57,11 @@ class IconsSiteAdminController extends GalleryController {
 		}
 
 		// Figure out where to redirect upon success
-		$method                      = empty($error) ? 'redirect' : 'delegate';
+		$method = empty($error) ? 'redirect' : 'delegate';
 		$results[$method]['view']    = 'core.SiteAdmin';
 		$results[$method]['subView'] = 'icons.IconsSiteAdmin';
-		$results['status']           = $status;
-		$results['error']            = $error;
+		$results['status'] = $status;
+		$results['error']  = $error;
 
 		return array(null, $results);
 	}
@@ -84,7 +84,7 @@ class IconsSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'IconsSiteAdmin') {
-			$form['formName']             = 'IconsSiteAdmin';
+			$form['formName'] = 'IconsSiteAdmin';
 			list($ret, $form['iconpack']) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 
 			if ($ret) {
@@ -154,8 +154,8 @@ class IconsSiteAdminView extends GalleryView {
 
 		ksort($classes);
 
-		$IconsSiteAdmin              = array();
-		$IconsSiteAdmin['packs']     = $packs;
+		$IconsSiteAdmin          = array();
+		$IconsSiteAdmin['packs'] = $packs;
 		$IconsSiteAdmin['classes']   = $classes;
 		$IconsSiteAdmin['iconpacks'] = $list;
 

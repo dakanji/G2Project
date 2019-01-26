@@ -129,7 +129,7 @@ class ItemDeleteController extends GalleryController {
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
-			$page                = GalleryUtilities::getRequestVariables('page');
+			$page = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				array('core.delete', 'core.view')
@@ -144,7 +144,7 @@ class ItemDeleteController extends GalleryController {
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = min($page + 1, $numPages);
 		} elseif (isset($form['action']['previous'])) {
-			$page                          = GalleryUtilities::getRequestVariables('page');
+			$page = GalleryUtilities::getRequestVariables('page');
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = max($page - 1, 1);
 		} elseif (isset($form['action']['cancel'])) {
@@ -206,11 +206,11 @@ class ItemDeleteView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$peers                = array();
-		$peerTypes            = array();
+		$peers     = array();
+		$peerTypes = array();
 		$peerDescendentCounts = array();
-		$numPages             = 1;
-		$selectedIds          = array();
+		$numPages    = 1;
+		$selectedIds = array();
 
 		if (!empty($peerIds)) {
 			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
@@ -293,16 +293,16 @@ class ItemDeleteView extends GalleryView {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$ItemDelete                         = array();
-		$ItemDelete['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
-		$ItemDelete['peers']                = $peers;
-		$ItemDelete['peerTypes']            = $peerTypes;
+		$ItemDelete = array();
+		$ItemDelete['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
+		$ItemDelete['peers']     = $peers;
+		$ItemDelete['peerTypes'] = $peerTypes;
 		$ItemDelete['peerDescendentCounts'] = $peerDescendentCounts;
-		$ItemDelete['page']                 = $page;
-		$ItemDelete['numPages']             = $numPages;
-		$ItemDelete['numPerPage']           = $form['numPerPage'];
-		$ItemDelete['selectedIds']          = array_keys($selectedIds);
-		$ItemDelete['selectedIdCount']      = count($selectedIds);
+		$ItemDelete['page']        = $page;
+		$ItemDelete['numPages']    = $numPages;
+		$ItemDelete['numPerPage']  = $form['numPerPage'];
+		$ItemDelete['selectedIds'] = array_keys($selectedIds);
+		$ItemDelete['selectedIdCount'] = count($selectedIds);
 
 		$template->setVariable('ItemDelete', $ItemDelete);
 		$template->setVariable('controller', 'core.ItemDelete');

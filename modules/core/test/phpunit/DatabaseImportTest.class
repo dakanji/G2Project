@@ -46,8 +46,8 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
-		$gallery->_storage      = new UnitTestStorage();
-		$storage                =& $gallery->getStorage();
+		$gallery->_storage = new UnitTestStorage();
+		$storage =& $gallery->getStorage();
 		$storage->_tablePrefix  = 'g2_';
 		$storage->_columnPrefix = 'g_';
 	}
@@ -118,7 +118,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		$installedModuleVersion[1] += 1;
 		$exportedModuleApi          = implode('.', $installedModuleVersion);
 		$installedCoreVersion[1]   += 1;
-		$exportedCoreApi            = implode('.', $installedCoreVersion);
+		$exportedCoreApi = implode('.', $installedCoreVersion);
 
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 

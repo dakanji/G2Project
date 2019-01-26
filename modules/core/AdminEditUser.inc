@@ -38,7 +38,7 @@ class AdminEditUserController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$userId           = (int)GalleryUtilities::getRequestVariables('userId');
+		$userId = (int)GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -190,7 +190,7 @@ class AdminEditUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId = GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -259,15 +259,15 @@ class AdminEditUserView extends GalleryView {
 		}
 
 		if ($searchResults->resultCount() > 0) {
-			$result           = $searchResults->nextResult();
+			$result = $searchResults->nextResult();
 			$failedLoginCount = $result[0];
 		} else {
 			$failedLoginCount = 0;
 		}
 
-		$AdminEditUser                     = array();
-		$AdminEditUser['show']             = $show;
-		$AdminEditUser['user']             = (array)$user;
+		$AdminEditUser         = array();
+		$AdminEditUser['show'] = $show;
+		$AdminEditUser['user'] = (array)$user;
 		$AdminEditUser['failedLoginCount'] = $failedLoginCount;
 
 		if (isset($languageList)) {

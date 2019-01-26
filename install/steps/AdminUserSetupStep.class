@@ -34,10 +34,10 @@ class AdminUserSetupStep extends InstallStep {
 
 		if (!isset($this->_hasBeenLoadedBefore)) {
 			$this->_hasBeenLoadedBefore = 1;
-			$this->_password            = $galleryStub->getConfig('setup.password');
-			$this->_adminName           = 'admin';
-			$this->_email               = '';
-			$this->_fullName            = 'Gallery Administrator';
+			$this->_password  = $galleryStub->getConfig('setup.password');
+			$this->_adminName = 'admin';
+			$this->_email     = '';
+			$this->_fullName  = 'Gallery Administrator';
 		}
 
 		$templateData['passwordA'] = $templateData['passwordB'] = strlen($this->_password) ? '******' : '';
@@ -53,23 +53,23 @@ class AdminUserSetupStep extends InstallStep {
 
 			if (empty($_POST['passwordA']) || ($isStars && empty($this->_password))) {
 				$templateData['error']['passwordA_missing'] = 1;
-				$templateData['passwordA']                  = '';
-				$templateData['passwordB']                  = '';
+				$templateData['passwordA'] = '';
+				$templateData['passwordB'] = '';
 			} elseif (empty($_POST['passwordB'])) {
 				$templateData['error']['passwordB_missing'] = 1;
-				$templateData['passwordA']                  = '';
-				$templateData['passwordB']                  = '';
+				$templateData['passwordA'] = '';
+				$templateData['passwordB'] = '';
 			} elseif ($_POST['passwordA'] != $_POST['passwordB']) {
 				$templateData['error']['password_mismatch'] = 1;
-				$templateData['passwordA']                  = '';
-				$templateData['passwordB']                  = '';
+				$templateData['passwordA'] = '';
+				$templateData['passwordB'] = '';
 			} else {
 				if (!$isStars) {
 					$this->_password = $this->sanitize($_POST['passwordA']);
 				}
 				$templateData['passwordA'] = '******';
 				$templateData['passwordB'] = '******';
-				$passwordOk                = true;
+				$passwordOk = true;
 			}
 
 			if ($templateData['freshInstall']) {

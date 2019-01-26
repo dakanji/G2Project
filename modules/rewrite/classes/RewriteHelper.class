@@ -111,10 +111,10 @@ class RewriteHelper {
 		if ($ret) {
 			return array($ret, null, null, null, null);
 		}
-		$accessList                                     = unserialize($accessList);
+		$accessList = unserialize($accessList);
 		$ourHostNames[$urlGenerator->getHostName()]     = true;
 		$ourHostNames[$urlGenerator->getHostName(true)] = true;
-		$accessList                                     = array_merge($accessList, array_keys($ourHostNames));
+		$accessList = array_merge($accessList, array_keys($ourHostNames));
 
 		// Get allow empty referer
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
@@ -334,7 +334,7 @@ class RewriteHelper {
 	 * @access private
 	 */
 	public static function _parseRule(&$regexRules, $rule, $activeRule) {
-		$regexRule                = array();
+		$regexRule = array();
 		$regexRule['keywords']    = array();
 		$regexRule['queryString'] = $rule['queryString'];
 		$regexRule['options']     = $rule['options'];
@@ -366,7 +366,7 @@ class RewriteHelper {
 
 		if (!empty($activeRule['pattern'])) {
 			$regexRule['pattern'] = preg_quote($activeRule['pattern']);
-			$code                 = self::_parseKeywords(
+			$code = self::_parseKeywords(
 				$regexRule,
 				$regexRule['pattern'],
 				$rule['keywords']

@@ -329,7 +329,7 @@ class NetPbmToolkitHelper {
 			$failCount = 0;
 
 			foreach ($binaryList as $i => $binaries) {
-				$test               = array();
+				$test = array();
 				$checkExistenceOnly = is_string($i);
 
 				foreach (explode('|', $binaries) as $binary) {

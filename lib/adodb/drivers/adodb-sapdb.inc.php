@@ -67,7 +67,7 @@ if (!defined('ADODB_SAPDB')) {
 			' ORDER BY INDEXNAME,COLUMNNO';
 
 			global $ADODB_FETCH_MODE;
-			$save             = $ADODB_FETCH_MODE;
+			$save = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -104,7 +104,7 @@ if (!defined('ADODB_SAPDB')) {
 
 		public function MetaColumns($table, $normalize = true) {
 			global $ADODB_FETCH_MODE;
-			$save             = $ADODB_FETCH_MODE;
+			$save = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -115,9 +115,9 @@ if (!defined('ADODB_SAPDB')) {
 			$retarr = array();
 
 			foreach ($this->GetAll("SELECT COLUMNNAME,DATATYPE,LEN,DEC,NULLABLE,MODE,\"DEFAULT\",CASE WHEN \"DEFAULT\" IS NULL THEN 0 ELSE 1 END AS HAS_DEFAULT FROM COLUMNS WHERE tablename=$table ORDER BY pos") as $column) {
-				$fld              = new ADOFieldObject();
-				$fld->name        = $column[0];
-				$fld->type        = $column[1];
+				$fld       = new ADOFieldObject();
+				$fld->name = $column[0];
+				$fld->type = $column[1];
 				$fld->max_length  = $fld->type == 'LONG' ? 2147483647 : $column[2];
 				$fld->scale       = $column[3];
 				$fld->not_null    = $column[4] == 'NO';

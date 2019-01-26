@@ -31,7 +31,7 @@ class AuthenticateStep extends UpgradeStep {
 		global $gallery;
 
 		if (!$this->isComplete()) {
-			$authFile                = GALLERY_CONFIG_DIR . '/authFile.txt';
+			$authFile = GALLERY_CONFIG_DIR . '/authFile.txt';
 			$templateData['authKey'] = GallerySetupUtilities::getAuthenticationKey();
 
 			if (empty($templateData['authKey'])) {

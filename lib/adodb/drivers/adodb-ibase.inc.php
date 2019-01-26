@@ -31,11 +31,11 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_ibase extends ADOConnection {
-	public $databaseType       = 'ibase';
-	public $dataProvider       = 'ibase';
-	public $replaceQuote       = "''"; // string to use to replace quotes
-	public $ibase_datefmt      = '%Y-%m-%d'; // For hours,mins,secs change to '%Y-%m-%d %H:%M:%S';
-	public $fmtDate            = "'Y-m-d'";
+	public $databaseType  = 'ibase';
+	public $dataProvider  = 'ibase';
+	public $replaceQuote  = "''"; // string to use to replace quotes
+	public $ibase_datefmt = '%Y-%m-%d'; // For hours,mins,secs change to '%Y-%m-%d %H:%M:%S';
+	public $fmtDate       = "'Y-m-d'";
 	public $ibase_timestampfmt = '%Y-%m-%d %H:%M:%S';
 	public $ibase_timefmt      = '%H:%M:%S';
 	public $fmtTimeStamp       = "'Y-m-d, H:i:s'";
@@ -56,7 +56,7 @@ class ADODB_ibase extends ADOConnection {
 	public $hasAffectedRows  = false;
 	public $poorAffectedRows = true;
 	public $blobEncodeType   = 'C';
-	public $role             = false;
+	public $role = false;
 
 	public function __construct() {
 		if (defined('IBASE_DEFAULT')) {
@@ -200,7 +200,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret              = false;
+		$ret = false;
 		$this->autoCommit = true;
 
 		if ($this->_transactionID) {
@@ -220,7 +220,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->_logsql) {
 			$savecrecs       = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = true; // force countrecs
-			$ret             = ADOConnection::_Execute($sql, $inputarr);
+			$ret = ADOConnection::_Execute($sql, $inputarr);
 			$ADODB_COUNTRECS = $savecrecs;
 		} else {
 			$ret = ADOConnection::_Execute($sql, $inputarr);
@@ -237,7 +237,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret              = false;
+		$ret = false;
 		$this->autoCommit = true;
 
 		if ($this->_transactionID) {
@@ -251,8 +251,8 @@ class ADODB_ibase extends ADOConnection {
 	public function MetaIndexes($table, $primary = false, $owner = false) {
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
-		$false            = false;
-		$save             = $ADODB_FETCH_MODE;
+		$false = false;
+		$save  = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -670,13 +670,13 @@ class ADODB_ibase extends ADOConnection {
 	public function MetaColumns($table, $normalize = true) {
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		$rs = $this->Execute(sprintf($this->metaColumnsSQL, strtoupper($table)));
 
 		$ADODB_FETCH_MODE = $save;
-		$false            = false;
+		$false = false;
 
 		if ($rs === false) {
 			return $false;
@@ -698,7 +698,7 @@ class ADODB_ibase extends ADOConnection {
 
 			if (isset($rs->fields[2])) {
 				$fld->has_default = true;
-				$d                = substr($rs->fields[2], strlen('default '));
+				$d = substr($rs->fields[2], strlen('default '));
 
 				switch ($fld->type) {
 					case 'smallint':
@@ -1009,7 +1009,7 @@ class ADORecordset_ibase extends ADORecordSet {
 
 		// cache types for blob decode check
 		for ($i = 0, $max = $this->_numOfFields; $i < $max; $i++) {
-			$f1                 = $this->FetchField($i);
+			$f1 = $this->FetchField($i);
 			$this->_cacheType[] = $f1->type;
 		}
 	}
@@ -1071,7 +1071,7 @@ class ADORecordset_ibase extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

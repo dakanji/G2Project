@@ -65,15 +65,15 @@ class XmlParser {
 
 	public function dataHandler($parser, $data) {
 		if (isset($data)) {
-			$outputIndex                            = count($this->_output) - 1;
+			$outputIndex = count($this->_output) - 1;
 			$this->_output[$outputIndex]['content'] = $data;
 		}
 	}
 
 	public function endHandler($parser, $name) {
 		if (count($this->_output) > 1) {
-			$data                                   = array_pop($this->_output);
-			$outputIndex                            = count($this->_output) - 1;
+			$data        = array_pop($this->_output);
+			$outputIndex = count($this->_output) - 1;
 			$this->_output[$outputIndex]['child'][] = $data;
 		}
 	}

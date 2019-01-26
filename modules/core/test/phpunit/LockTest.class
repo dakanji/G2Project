@@ -386,8 +386,8 @@ class LockTest extends GalleryTestCase {
 		}
 
 		// Temporarily clear the existing lock information to simulate another request
-		$queuedLocks                         = $gallery->_lockSystem->_releaseQueue;
-		$locks                               = $gallery->_lockSystem->_locks;
+		$queuedLocks = $gallery->_lockSystem->_releaseQueue;
+		$locks       = $gallery->_lockSystem->_locks;
 		$gallery->_lockSystem->_releaseQueue = array();
 		$gallery->_lockSystem->_locks        = array();
 
@@ -418,7 +418,7 @@ class LockTest extends GalleryTestCase {
 		// Restore lock information and force their release.
 		$gallery->_lockSystem->_releaseQueue = $queuedLocks;
 		$gallery->_lockSystem->_locks        = $locks;
-		$ret                                 = $gallery->_lockSystem->releaseQueue();
+		$ret = $gallery->_lockSystem->releaseQueue();
 
 		if ($ret) {
 			return $ret;
@@ -811,7 +811,7 @@ class LockTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$itemId             = $this->_item->getId();
+		$itemId = $this->_item->getId();
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($itemId);
 
 		if ($ret) {

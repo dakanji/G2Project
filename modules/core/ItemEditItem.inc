@@ -62,7 +62,7 @@ class ItemEditItem extends ItemEditPlugin {
 
 			if (!$isRootAlbum) {
 				if (empty($form['pathComponent']) || !is_string($form['pathComponent'])) {
-					$error[]               = 'form[error][pathComponent][missing]';
+					$error[] = 'form[error][pathComponent][missing]';
 					$form['pathComponent'] = '';
 				} elseif (!$platform->isLegalPathComponent($form['pathComponent'])) {
 					$error[] = 'form[error][pathComponent][invalid]';
@@ -338,11 +338,11 @@ class ItemEditItem extends ItemEditPlugin {
 			// First time around, load the form with item data
 			$form['formName'] = 'ItemEditItem';
 
-			$form['title']                = $item->getTitle();
-			$form['summary']              = $item->getSummary();
-			$form['keywords']             = $item->getKeywords();
-			$form['description']          = $item->getDescription();
-			$form['pathComponent']        = $item->getPathComponent();
+			$form['title']         = $item->getTitle();
+			$form['summary']       = $item->getSummary();
+			$form['keywords']      = $item->getKeywords();
+			$form['description']   = $item->getDescription();
+			$form['pathComponent'] = $item->getPathComponent();
 			$form['originationTimestamp'] = $item->getOriginationTimestamp();
 
 			$form['thumbnail']['size'] = null;
@@ -369,7 +369,7 @@ class ItemEditItem extends ItemEditPlugin {
 			return array($ret, null, null);
 		}
 
-		$can                        = array(
+		$can = array(
 			'createThumbnail' => false,
 		);
 		$can['changePathComponent'] = $can['editThumbnail'] = ($item->getId() != $rootAlbumId);

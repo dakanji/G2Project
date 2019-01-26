@@ -110,7 +110,7 @@ class MatrixTheme extends GalleryTheme {
 		}
 
 		// Add in our extra stuff
-		$theme                   =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
 		$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
 		// Add our header and styles

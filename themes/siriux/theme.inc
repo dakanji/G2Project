@@ -172,7 +172,7 @@ class SiriuxTheme extends GalleryTheme {
 		}
 
 		// Add in our extra stuff
-		$theme                   =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
 		$theme['moduleTemplate'] = $templateFile;
 
 		// Add our header and styles
@@ -195,7 +195,7 @@ class SiriuxTheme extends GalleryTheme {
 		}
 
 		// Add in our extra stuff
-		$theme                  =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
 		$theme['adminTemplate'] = $templateFile;
 
 		return array(null, 'theme.tpl');

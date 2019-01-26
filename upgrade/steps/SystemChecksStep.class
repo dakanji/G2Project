@@ -99,8 +99,8 @@ class SystemChecksStep extends UpgradeStep {
 
 		// Normal request
 		global $gallery;
-		$failCount             = 0;
-		$suggestedHtaccess     = array();
+		$failCount         = 0;
+		$suggestedHtaccess = array();
 		$setTimeLimitAvailable = false;
 
 		$template = new StatusTemplate();
@@ -197,7 +197,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		// Warning when set_time_limit() is disabled
 		if (in_array('set_time_limit', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			$timeLimit               = ini_get('max_execution_time');
+			$timeLimit = ini_get('max_execution_time');
 			$templateData['check'][] = array(
 				'title'   => 'set_time_limit() allowed',
 				'warning' => true,
@@ -279,8 +279,8 @@ class SystemChecksStep extends UpgradeStep {
 		$uploadLimit       = ini_get('upload_max_filesize');
 		$uploadValue       = substr(trim($uploadLimit), 0, -1);
 		$minimumUploadSize = 4;
-		$title             = sprintf('%s %sMb', 'Maximum Upload Size &gt;=', $minimumUploadSize);
-		$uploadLimitValue  = $this->_getBytes($uploadLimit);
+		$title = sprintf('%s %sMb', 'Maximum Upload Size &gt;=', $minimumUploadSize);
+		$uploadLimitValue = $this->_getBytes($uploadLimit);
 
 		if ($uploadLimitValue < $minimumUploadSize) {
 			$templateData['check'][] = array(
@@ -300,8 +300,8 @@ class SystemChecksStep extends UpgradeStep {
 		$postLimit       = ini_get('post_max_size');
 		$postValue       = substr(trim($postLimit), 0, -1);
 		$minimumPostSize = 4;
-		$title           = sprintf('%s %sMb', 'Maximum Post Size &gt;=', $minimumPostSize);
-		$postLimitValue  = $this->_getBytes($postLimit);
+		$title          = sprintf('%s %sMb', 'Maximum Post Size &gt;=', $minimumPostSize);
+		$postLimitValue = $this->_getBytes($postLimit);
 
 		if ($postLimitValue < $minimumPostSize) {
 			$templateData['check'][] = array(
@@ -318,10 +318,10 @@ class SystemChecksStep extends UpgradeStep {
 		}
 
 		// Warning if memory_limit is set and is too low
-		$memoryLimit             = ini_get('memory_limit');
-		$memoryValue             = substr(trim($memoryLimit), 0, -1);
-		$minimumMemoryLimit      = 16;
-		$title                   = sprintf('%s %sMb', 'Memory Limit &gt;=', $minimumMemoryLimit);
+		$memoryLimit        = ini_get('memory_limit');
+		$memoryValue        = substr(trim($memoryLimit), 0, -1);
+		$minimumMemoryLimit = 16;
+		$title = sprintf('%s %sMb', 'Memory Limit &gt;=', $minimumMemoryLimit);
 		$minimumMemoryLimitValue = 1024 * 1024;
 		$memoryLimitValue        = $this->_getBytes($memoryLimit) / (1024 * 1024);
 
@@ -580,7 +580,7 @@ class SystemChecksStep extends UpgradeStep {
 			list($ret, $error) = $this->_testPrivileges();
 
 			if ($ret === false) {
-				$message                 = 'Error: The configured database user does not have the required database privileges to perform the upgrade.' . '<br/>'
+				$message = 'Error: The configured database user does not have the required database privileges to perform the upgrade.' . '<br/>'
 					. $error;
 				$templateData['check'][] = array(
 					'title'  => $title,
@@ -831,7 +831,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		$gallery->startRecordingDebugSnippet();
 		list($ret, $metatables) = $storageExtras->_metaTables();
-		$snippet                = $gallery->stopRecordingDebugSnippet();
+		$snippet = $gallery->stopRecordingDebugSnippet();
 
 		if ($ret) {
 			$gallery->debug($ret->getAsHtml());

@@ -191,7 +191,7 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
-				$title                   = smarty_modifier_escape(
+				$title = smarty_modifier_escape(
 					GalleryUtilities::markup(
 						$item->getTitle(),
 						'strip'
@@ -213,8 +213,8 @@ class CoreModule extends GalleryModule {
 				if (!empty($page)) {
 					$urlParams['page'] = $page;
 				}
-				$url              = $urlGenerator->generateUrl($urlParams);
-				$moreUrl          = $isAlbum ? '' : $urlGenerator->generateUrl(
+				$url     = $urlGenerator->generateUrl($urlParams);
+				$moreUrl = $isAlbum ? '' : $urlGenerator->generateUrl(
 					array(
 						'view'       => 'core.ItemAdmin',
 						'subView'    => 'core.ItemDelete',
@@ -273,7 +273,7 @@ class CoreModule extends GalleryModule {
 				&& !empty($childCounts[$itemId])
 				&& $childCounts[$itemId] > 0
 			) {
-				$link                        = array(
+				$link = array(
 					'text'   => $this->_translate('Edit Captions'),
 					'params' => array(
 						'view'    => 'core.ItemAdmin',
@@ -356,7 +356,7 @@ class CoreModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$links               = array();
+		$links = array();
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -390,7 +390,7 @@ class CoreModule extends GalleryModule {
 					),
 				);
 			} else {
-				$user                 = $gallery->getActiveUser();
+				$user = $gallery->getActiveUser();
 				$links['YourAccount'] = array(
 					'text'   => $this->translate('Your Account'),
 					'params' => array(
@@ -515,7 +515,7 @@ class CoreModule extends GalleryModule {
 	public function getItemAdminViews($item) {
 		global $gallery;
 
-		$views                   = array();
+		$views = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -542,7 +542,7 @@ class CoreModule extends GalleryModule {
 		}
 		$hasThumb = !empty($thumbTable[$item->getId()]);
 
-		$parentId                      = $item->getParentId();
+		$parentId = $item->getParentId();
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 
 		if ($ret) {

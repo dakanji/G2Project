@@ -47,7 +47,7 @@ function smarty_outputfilter_trimwhitespace($source, &$smarty) {
 	// Pull out the textarea blocks
 	preg_match_all('!<textarea[^>]*?>.*?</textarea>!is', $source, $match);
 	$_textarea_blocks = $match[0];
-	$source           = preg_replace(
+	$source = preg_replace(
 		'!<textarea[^>]*?>.*?</textarea>!is',
 		'@@@SMARTY:TRIM:TEXTAREA@@@',
 		$source

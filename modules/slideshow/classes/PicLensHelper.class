@@ -81,7 +81,7 @@ class PicLensHelper {
 	 * @static
 	 */
 	public static function getLatestPicLensInfo() {
-		$url                  = 'http://gallery.menalto.com/versioncheck/piclens/release';
+		$url = 'http://gallery.menalto.com/versioncheck/piclens/release';
 		list($success, $body) = GalleryCoreApi::fetchWebPage($url);
 
 		if (!$success) {

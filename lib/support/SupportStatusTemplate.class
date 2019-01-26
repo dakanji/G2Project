@@ -38,7 +38,7 @@ class SupportStatusTemplate {
 	 * @param boolean $renderStatusBlock (optional) Flag to show status block (default: false).
 	 */
 	public function renderHeader($renderStatusBlock = false) {
-		$templateData               = array();
+		$templateData = array();
 		$templateData['showHeader'] = 1;
 		$templateData['title']      = $this->_title;
 
@@ -57,7 +57,7 @@ class SupportStatusTemplate {
 	 * @return GalleryStatus a status code
 	 */
 	public function renderStatusMessage($title, $description, $percentComplete) {
-		$templateData               = array();
+		$templateData = array();
 		$templateData['showStatus'] = 1;
 		$templateData['status']     = array(
 			'title'           => $title,
@@ -77,7 +77,7 @@ class SupportStatusTemplate {
 	 */
 	public function renderBodyAndFooter($templateData) {
 		$templateData['showBodyAndFooter'] = 1;
-		$templateData['title']             = $this->_title;
+		$templateData['title'] = $this->_title;
 
 		include __DIR__ . '/templates/SupportStatus.html';
 	}
@@ -86,7 +86,7 @@ class SupportStatusTemplate {
 	 * Hide the status block
 	 */
 	public function hideStatusBlock() {
-		$templateData                    = array();
+		$templateData = array();
 		$templateData['hideStatusBlock'] = 1;
 
 		include __DIR__ . '/templates/SupportStatus.html';
@@ -98,8 +98,8 @@ class SupportStatusTemplate {
 	 * @param array $templateData
 	 */
 	public function renderHeaderBodyAndFooter($templateData) {
-		$templateData['showHeader']        = 1;
-		$templateData['title']             = $this->_title;
+		$templateData['showHeader'] = 1;
+		$templateData['title']      = $this->_title;
 		$templateData['showBodyAndFooter'] = 1;
 
 		include __DIR__ . '/templates/SupportStatus.html';

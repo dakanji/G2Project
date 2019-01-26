@@ -235,9 +235,9 @@ class AdminRepositoryView extends GalleryView {
 					null,
 				);
 			}
-			$coreApis['core']                    = explode('.', $coreApiVersion);
-			$coreApis['module']                  = explode('.', $moduleApiVersion);
-			$coreApis['theme']                   = explode('.', $themeApiVersion);
+			$coreApis['core']   = explode('.', $coreApiVersion);
+			$coreApis['module'] = explode('.', $moduleApiVersion);
+			$coreApis['theme']  = explode('.', $themeApiVersion);
 			$AdminRepository['showIncompatible'] = 1;
 		}
 
@@ -348,7 +348,7 @@ class AdminRepositoryView extends GalleryView {
 		$template->setVariable('controller', 'core.AdminRepository');
 
 		if ($repositoryInitErrorCount) {
-			$status                                      =& $template->getVariableByReference('status');
+			$status =& $template->getVariableByReference('status');
 			$status['error']['repositoryInitErrorCount'] = $repositoryInitErrorCount;
 		}
 

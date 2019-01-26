@@ -71,7 +71,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			'core',
 			'id.everybodyGroup'
 		);
-		$everybodyGroupId             = (int)$everybodyGroupId;
+		$everybodyGroupId = (int)$everybodyGroupId;
 
 		if ($ret) {
 			return $ret;
@@ -235,7 +235,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		// Backdate our last viewed time by *almost* one day
-		$lastViewed                             =& $session->get('core.lastViewed');
+		$lastViewed =& $session->get('core.lastViewed');
 		$lastViewed[$this->_items[0]->getId()] -= 86398;
 
 		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
@@ -254,7 +254,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(1, $viewCount);
 
 		// Backdate it further over the day line
-		$lastViewed                             =& $session->get('core.lastViewed');
+		$lastViewed =& $session->get('core.lastViewed');
 		$lastViewed[$this->_items[0]->getId()] -= 4;
 
 		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
@@ -305,7 +305,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 	public function testIncrementItemViewCountGuestNoSessionIfModifiedNotSetIsNotSearchEngine() {
 		global $gallery;
-		$now               = time();
+		$now = time();
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm(false, array(), $now);
 		$gallery->_session = new ItemAttributesTestSession(false, false);
 
@@ -410,7 +410,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		);
 		$gallery->_session = new ItemAttributesTestSession();
 
-		$asdminUserId                      = $gallery->getActiveUserId();
+		$asdminUserId = $gallery->getActiveUserId();
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'foobar';
 
 		$ret = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
@@ -751,7 +751,7 @@ class ItemAttributesTest extends GalleryTestCase {
 	public function testFetchDescendentCountsSessionPermission() {
 		// Session based permissions should not apply when calculating cached descendent count
 		global $gallery;
-		$session                 =& $gallery->getSession();
+		$session =& $gallery->getSession();
 		$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$itemId = $this->_items[1]->getId();
@@ -916,8 +916,8 @@ class ItemAttributesTestSession {
 class ItemAttributesTestPhpVm extends GalleryPhpVm {
 	public function __construct($getAllHeadersExists = false, $headers = array(), $time = null) {
 		$this->_getAllHeadersExists = $getAllHeadersExists;
-		$this->_headers             = $headers;
-		$this->_time                = $time;
+		$this->_headers = $headers;
+		$this->_time    = $time;
 	}
 
 	public function getallheaders() {

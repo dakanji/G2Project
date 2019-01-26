@@ -298,7 +298,7 @@ class RewriteModuleTest extends GalleryTestCase {
 		}
 
 		$expectedRules['rewrite'][0] = 'phpunit/dummy/%itemId%.html';
-		$ret                         = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'activeRules',

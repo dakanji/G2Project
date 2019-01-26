@@ -426,7 +426,7 @@ class ADODB_db2 extends ADOConnection {
 			$this->transCnt -= 1;
 		}
 		$this->_autocommit = true;
-		$ret               = db2_commit($this->_connectionID);
+		$ret = db2_commit($this->_connectionID);
 		db2_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -441,7 +441,7 @@ class ADODB_db2 extends ADOConnection {
 			$this->transCnt -= 1;
 		}
 		$this->_autocommit = true;
-		$ret               = db2_rollback($this->_connectionID);
+		$ret = db2_rollback($this->_connectionID);
 		db2_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -456,16 +456,16 @@ class ADODB_db2 extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid              = @db2_primarykeys($this->_connectionID, '', $schema, $table);
+		$qid = @db2_primarykeys($this->_connectionID, '', $schema, $table);
 
 		if (!$qid) {
 			$ADODB_FETCH_MODE = $savem;
 
 			return false;
 		}
-		$rs               = new ADORecordSet_db2($qid);
+		$rs = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -494,9 +494,9 @@ class ADODB_db2 extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid              = @db2_foreign_keys($this->_connectionID, '', $schema, $table);
+		$qid = @db2_foreign_keys($this->_connectionID, '', $schema, $table);
 
 		if (!$qid) {
 			$ADODB_FETCH_MODE = $savem;
@@ -541,9 +541,9 @@ class ADODB_db2 extends ADOConnection {
 	public function MetaTables($ttype = false, $schema = false, $mask = false) {
 		global $ADODB_FETCH_MODE;
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid              = db2_tables($this->_connectionID);
+		$qid = db2_tables($this->_connectionID);
 
 		$rs = new ADORecordSet_db2($qid);
 
@@ -668,7 +668,7 @@ class ADODB_db2 extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		$colname = '%';
@@ -678,7 +678,7 @@ class ADODB_db2 extends ADOConnection {
 			return $false;
 		}
 
-		$rs               = new ADORecordSet_db2($qid);
+		$rs = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -720,9 +720,9 @@ class ADODB_db2 extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
-				$fld->not_null                  = !empty($rs->fields[10]);
-				$fld->scale                     = $rs->fields[8];
-				$fld->primary_key               = false;
+				$fld->not_null    = !empty($rs->fields[10]);
+				$fld->scale       = $rs->fields[8];
+				$fld->primary_key = false;
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
@@ -741,7 +741,7 @@ class ADODB_db2 extends ADOConnection {
 			return $false;
 		}
 
-		$rs               = new ADORecordSet_db2($qid);
+		$rs = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -835,7 +835,7 @@ class ADODB_db2 extends ADOConnection {
 		if ($stmtid) {
 			if (@db2_num_fields($stmtid) == 0) {
 				$this->_lastAffectedRows = db2_num_rows($stmtid);
-				$stmtid                  = true;
+				$stmtid = true;
 			} else {
 				$this->_lastAffectedRows = 0;
 			}
@@ -873,7 +873,7 @@ class ADODB_db2 extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret                 = @db2_close($this->_connectionID);
+		$ret = @db2_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;
@@ -906,9 +906,9 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($offset = -1) {
-		$o             = new ADOFieldObject();
-		$o->name       = @db2_field_name($this->_queryID, $offset);
-		$o->type       = @db2_field_type($this->_queryID, $offset);
+		$o       = new ADOFieldObject();
+		$o->name = @db2_field_name($this->_queryID, $offset);
+		$o->type = @db2_field_type($this->_queryID, $offset);
 		$o->max_length = db2_field_width($this->_queryID, $offset);
 
 		if (ADODB_ASSOC_CASE == 0) {
@@ -930,7 +930,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -959,7 +959,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 			return $rs;
 		}
-		$savem           = $this->fetchMode;
+		$savem = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
 		$this->Move($offset);
 		$this->fetchMode = $savem;

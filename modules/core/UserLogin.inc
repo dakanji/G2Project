@@ -92,7 +92,7 @@ class UserLoginController extends GalleryController {
 				$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
 
 				// Prepare for validation
-				$options                      = array(
+				$options = array(
 					'pass' => $isCorrect,
 				);
 				list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');

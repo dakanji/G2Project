@@ -142,7 +142,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 		if (empty($error) && !empty($status)) {
 			$results['redirect']['view']    = 'core.UserAdmin';
 			$results['redirect']['subView'] = 'core.UserLogin';
-			$results['return']              = 0;
+			$results['return'] = 0;
 		} else {
 			$results['delegate']['view']    = 'core.UserAdmin';
 			$results['delegate']['subView'] = 'core.UserRecoverPasswordConfirm';

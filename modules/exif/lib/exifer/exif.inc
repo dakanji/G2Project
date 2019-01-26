@@ -1268,7 +1268,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 		}
 	} elseif ($tag_name == 'GPSInfoOffset') {
 		include_once __DIR__ . '/makers/gps.inc';
-		$formated_data                = formatData($type, $tag, $intel, $data);
+		$formated_data = formatData($type, $tag, $intel, $data);
 		$result[$ifd_name]['GPSInfo'] = $formated_data;
 		parseGPS($data, $result, $formated_data, $seek, $globalOffset);
 	} else {
@@ -1324,7 +1324,7 @@ function read_exif_data_raw($path, $verbose) {
 	$result['Errors']        = 0;
 
 	if (!$in || !$seek) {   //if the path was invalid, this error will catch it
-		$result['Errors']                   = 1;
+		$result['Errors'] = 1;
 		$result['Error'][$result['Errors']] = 'The file could not be found.';
 
 		return $result;
@@ -1365,7 +1365,7 @@ function read_exif_data_raw($path, $verbose) {
 			$result['JFIF']['Size']  = hexdec($size);
 
 			if (hexdec($size) - 2 > 0) {
-				$data                   = fread($in, hexdec($size) - 2);
+				$data = fread($in, hexdec($size) - 2);
 				$result['JFIF']['Data'] = $data;
 			}
 
@@ -1378,7 +1378,7 @@ function read_exif_data_raw($path, $verbose) {
 			$result['IPTC']['Size']  = hexdec($size);
 
 			if (hexdec($size) - 2 > 0) {
-				$data                   = fread($in, hexdec($size) - 2);
+				$data = fread($in, hexdec($size) - 2);
 				$result['IPTC']['Data'] = $data;
 			}
 			$globalOffset += hexdec($size) + 2;
@@ -1387,7 +1387,7 @@ function read_exif_data_raw($path, $verbose) {
 			$result['APP2']['Size']  = hexdec($size);
 
 			if (hexdec($size) - 2 > 0) {
-				$data                   = fread($in, hexdec($size) - 2);
+				$data = fread($in, hexdec($size) - 2);
 				$result['APP2']['Data'] = $data;
 			}
 			$globalOffset += hexdec($size) + 2;
@@ -1396,7 +1396,7 @@ function read_exif_data_raw($path, $verbose) {
 			$result['COM']['Size']  = hexdec($size);
 
 			if (hexdec($size) - 2 > 0) {
-				$data                  = fread($in, hexdec($size) - 2);
+				$data = fread($in, hexdec($size) - 2);
 				$result['COM']['Data'] = $data;
 			}
 			$globalOffset += hexdec($size) + 2;
@@ -1428,13 +1428,13 @@ function read_exif_data_raw($path, $verbose) {
 	$header = fread($in, 2);
 
 	if ($header === 'II') {
-		$intel            = 1;
+		$intel = 1;
 		$result['Endien'] = 'Intel';
 	} elseif ($header === 'MM') {
-		$intel            = 0;
+		$intel = 0;
 		$result['Endien'] = 'Motorola';
 	} else {
-		$intel            = 1; //not sure what the default should be, but this seems reasonable
+		$intel = 1; //not sure what the default should be, but this seems reasonable
 		$result['Endien'] = 'Unknown';
 	}
 
@@ -1471,7 +1471,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
-	$num                   = hexdec($num);
+	$num = hexdec($num);
 	$result['IFD0NumTags'] = $num;
 
 	if ($num < 1000) { //1000 entries is too much and is probably an error.
@@ -1479,7 +1479,7 @@ function read_exif_data_raw($path, $verbose) {
 			read_entry($result, $in, $seek, $intel, 'IFD0', $globalOffset);
 		}
 	} else {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Illegal size for IFD0';
 	}
 
@@ -1504,7 +1504,7 @@ function read_exif_data_raw($path, $verbose) {
 	$v          = fseek($in, $globalOffset + $ExitOffset);
 
 	if ($v == -1) {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Couldnt Find SubIFD';
 	}
 
@@ -1514,7 +1514,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
-	$num                     = hexdec($num);
+	$num = hexdec($num);
 	$result['SubIFDNumTags'] = $num;
 
 	if ($num < 1000) { //1000 entries is too much and is probably an error.
@@ -1522,7 +1522,7 @@ function read_exif_data_raw($path, $verbose) {
 			read_entry($result, $in, $seek, $intel, 'SubIFD', $globalOffset);
 		}
 	} else {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Illegal size for SubIFD';
 	}
 
@@ -1537,7 +1537,7 @@ function read_exif_data_raw($path, $verbose) {
 	$v = fseek($in, $globalOffset + $result['IFD1Offset']);
 
 	if ($v == -1) {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Couldnt Find IFD1';
 	}
 
@@ -1547,7 +1547,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
-	$num                   = hexdec($num);
+	$num = hexdec($num);
 	$result['IFD1NumTags'] = $num;
 
 	if ($num < 1000) { //1000 entries is too much and is probably an error.
@@ -1555,7 +1555,7 @@ function read_exif_data_raw($path, $verbose) {
 			read_entry($result, $in, $seek, $intel, 'IFD1', $globalOffset);
 		}
 	} else {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Illegal size for IFD1';
 	}
 	//if verbose output is on, stick in the thumbnail raw data
@@ -1582,7 +1582,7 @@ function read_exif_data_raw($path, $verbose) {
 	$v = fseek($in, $globalOffset + $result['SubIFD']['ExifInteroperabilityOffset']);
 
 	if ($v == -1) {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Couldnt Find InteroperabilityIFD';
 	}
 
@@ -1592,7 +1592,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
-	$num                                  = hexdec($num);
+	$num = hexdec($num);
 	$result['InteroperabilityIFDNumTags'] = $num;
 
 	if ($num < 1000) { //1000 entries is too much and is probably an error.
@@ -1600,7 +1600,7 @@ function read_exif_data_raw($path, $verbose) {
 			read_entry($result, $in, $seek, $intel, 'InteroperabilityIFD', $globalOffset);
 		}
 	} else {
-		$result['Errors']                   = $result['Errors'] + 1;
+		$result['Errors'] = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Illegal size for InteroperabilityIFD';
 	}
 	fclose($in);

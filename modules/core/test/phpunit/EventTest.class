@@ -223,8 +223,8 @@ class EventTestEventListener // extends GalleryEventListener
 
 	public function handleEvent($event) {
 		$this->_event = $event;
-		$data         = $event->getData();
-		$result       = ($data == 'send result') ? 'result' : null;
+		$data   = $event->getData();
+		$result = ($data == 'send result') ? 'result' : null;
 
 		switch ($event->getEventName()) {
 			case 'GalleryEntity::save':

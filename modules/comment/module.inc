@@ -405,7 +405,7 @@ class CommentModule extends GalleryModule {
 	 * @see GalleryModule::getItemAdminViews
 	 */
 	public function getItemAdminViews($item) {
-		$views                   = array();
+		$views = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -450,16 +450,16 @@ class CommentModule extends GalleryModule {
 	public function getRewriteRules() {
 		$rules = array();
 
-		$rule            = array();
-		$rule['match']   = array(
+		$rule          = array();
+		$rule['match'] = array(
 			'view' => 'comment.AddComment',
 		);
 		$rule['pattern'] = 'c/add/%itemId%.html';
 		$rule['comment'] = $this->translate('Add Comment');
 		$rules[]         = $rule;
 
-		$rule            = array();
-		$rule['match']   = array(
+		$rule          = array();
+		$rule['match'] = array(
 			'view' => 'comment.ShowAllComments',
 		);
 		$rule['pattern'] = 'c/view/%itemId%.html';

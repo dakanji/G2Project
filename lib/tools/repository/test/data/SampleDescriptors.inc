@@ -161,7 +161,7 @@ $sampleModuleDescriptor = array(
  * Set a newer plugin build and po file versions. These are
  * the po versions that should be in the index.
  */
-$sampleModule2Descriptor                             = $sampleModuleDescriptor;
+$sampleModule2Descriptor = $sampleModuleDescriptor;
 $sampleModule2Descriptor['header']['buildTimestamp'] = '44444';
 $sampleModule2Descriptor['languages']['22222']       = array(
 	'en_US' => '33333',

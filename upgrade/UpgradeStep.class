@@ -116,8 +116,8 @@ class UpgradeStep {
 		$gallery->setDebug('logged');
 
 		if (!isset($_SESSION['debugLogFile'])) {
-			$dataBase                 = $gallery->getConfig('data.gallery.base');
-			$tag                      = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
+			$dataBase = $gallery->getConfig('data.gallery.base');
+			$tag      = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
 			$_SESSION['debugLogFile'] = $dataBase . '/upgrade_' . $tag . '.log';
 		}
 		$gallery->setDebugLogFile($_SESSION['debugLogFile']);

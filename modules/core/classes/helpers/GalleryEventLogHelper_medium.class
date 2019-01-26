@@ -91,7 +91,7 @@ class GalleryEventLogHelper_medium {
 
 		if ($affectedRows == 0) {
 			$rowData['id'] = $id;
-			$ret           = GalleryCoreApi::addMapEntry('EventLogMap', $rowData, true);
+			$ret = GalleryCoreApi::addMapEntry('EventLogMap', $rowData, true);
 
 			if ($ret) {
 				return $ret;

@@ -495,7 +495,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		global $gallery;
 
 		// Get some stats on the file before we try moving
-		$platform                 =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		list($ret, $originalPath) = $this->_item[0]->fetchPath();
 
 		if ($ret) {
@@ -535,7 +535,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		global $gallery;
 
 		// Get some stats on the file before we try moving
-		$platform                 =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		list($ret, $originalPath) = $this->_album[0]->fetchPath();
 
 		if ($ret) {

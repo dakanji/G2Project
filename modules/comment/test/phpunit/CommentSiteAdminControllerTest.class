@@ -82,7 +82,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
-		$results                     = $this->handleRequest();
+		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -155,7 +155,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
-		$results                     = $this->handleRequest();
+		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -190,7 +190,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(false);
-		$results                     = $this->handleRequest();
+		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(

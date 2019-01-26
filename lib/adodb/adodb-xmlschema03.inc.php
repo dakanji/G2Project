@@ -425,7 +425,7 @@ class dbTable extends dbObject {
 	 * @return object dbIndex object
 	 */
 	public function addIndex($attributes) {
-		$name                 = strtoupper($attributes['NAME']);
+		$name = strtoupper($attributes['NAME']);
 		$this->indexes[$name] = new dbIndex($this, $attributes);
 
 		return $this->indexes[$name];
@@ -606,8 +606,8 @@ class dbTable extends dbObject {
 				foreach ($finfo['OPTS'] as $opt) {
 					// Option has an argument.
 					if (is_array($opt)) {
-						$key                         = key($opt);
-						$value                       = $opt[key($opt)];
+						$key   = key($opt);
+						$value = $opt[key($opt)];
 						@$fldarray[$field_id][$key] .= $value;
 					// Option doesn't have arguments
 					} else {
@@ -882,7 +882,7 @@ class dbData extends dbObject {
 
 		switch ($this->currentElement) {
 			case 'ROW':
-				$this->row              = count($this->data);
+				$this->row = count($this->data);
 				$this->data[$this->row] = array();
 
 				break;
@@ -974,10 +974,10 @@ class dbData extends dbObject {
 	 * @return array Array containing index creation SQL
 	 */
 	public function create(&$xmls) {
-		$table             = $xmls->dict->TableName($this->parent->name);
+		$table = $xmls->dict->TableName($this->parent->name);
 		$table_field_count = count($this->parent->fields);
-		$tables            = $xmls->db->MetaTables();
-		$sql               = array();
+		$tables = $xmls->db->MetaTables();
+		$sql    = array();
 
 		$ukeys = $xmls->db->MetaPrimaryKeys($table);
 
@@ -1478,10 +1478,10 @@ class adoSchema {
 			ini_set('magic_quotes_runtime', 0);
 		}
 
-		$this->db            = $db;
-		$this->debug         = $this->db->debug;
-		$this->dict          = NewDataDictionary($this->db);
-		$this->sqlArray      = array();
+		$this->db       = $db;
+		$this->debug    = $this->db->debug;
+		$this->dict     = NewDataDictionary($this->db);
+		$this->sqlArray = array();
 		$this->schemaVersion = XMLS_SCHEMA_VERSION;
 		$this->executeInline(XMLS_EXECUTE_INLINE);
 		$this->continueOnError(XMLS_CONTINUE_ON_ERROR);
@@ -2243,7 +2243,7 @@ class adoSchema {
 						// this stops the creation of 'R' columns,
 						// AUTOINCREMENT is used to create auto columns
 						$details->primary_key = 0;
-						$type                 = $rs->MetaType($details);
+						$type = $rs->MetaType($details);
 
 						$schema .= str_repeat($indent, 2) . '<field name="' . htmlentities($details->name) . '" type="' . $type . '"' . $extra;
 
@@ -2425,9 +2425,9 @@ class adoSchema {
 
 			// if executeInline is enabled, and either no errors have occurred or continueOnError is enabled, execute SQL.
 			if ($this->ExecuteInline() && ($this->success == 2 || $this->ContinueOnError())) {
-				$saved           = $this->db->debug;
+				$saved = $this->db->debug;
 				$this->db->debug = $this->debug;
-				$ok              = $this->db->Execute($sql);
+				$ok = $this->db->Execute($sql);
 				$this->db->debug = $saved;
 
 				if (!$ok) {

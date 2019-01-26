@@ -275,7 +275,7 @@ class CarbonTheme extends GalleryTheme {
 		}
 
 		// Add in our extra stuff
-		$theme                   =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
 		$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
 		// Check for JavaScript warning flag

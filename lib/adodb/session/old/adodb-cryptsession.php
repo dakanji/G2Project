@@ -167,7 +167,7 @@ if (!defined('ADODB_SESSION')) {
 		if ($rs) {
 			if ($rs->EOF) {
 				$ADODB_SESS_INSERT = true;
-				$v                 = '';
+				$v = '';
 			} else {
 				// Decrypt session data
 				$v = rawurldecode($Crypt->Decrypt(reset($rs->fields), ADODB_Session_Key()));
@@ -202,7 +202,7 @@ if (!defined('ADODB_SESSION')) {
 			global $$var;
 			$arr['expireref'] = $$var;
 		}
-		$rs            = $ADODB_SESS_CONN->Replace(
+		$rs = $ADODB_SESS_CONN->Replace(
 			$ADODB_SESSION_TBL,
 			$arr,
 			'sesskey',

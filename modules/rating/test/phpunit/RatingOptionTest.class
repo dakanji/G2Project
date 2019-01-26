@@ -66,7 +66,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 
 		$form['action']['save']    = 'Save';
 		$form['rating']['enabled'] = 'on';
-		$result                    = $this->_handleRequestAfterEdit($form, $this->_album);
+		$result = $this->_handleRequestAfterEdit($form, $this->_album);
 		$this->assertEquals(array(array(), array()), $result, 'Save failed.');
 
 		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
@@ -96,7 +96,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$form['action']['save'] = 'Save';
-		$result                 = $this->_handleRequestAfterEdit($form, $this->_album);
+		$result = $this->_handleRequestAfterEdit($form, $this->_album);
 		$this->assertEquals(array(array(), array()), $result, 'Save failed.');
 
 		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
@@ -124,7 +124,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$form['rating']['enabled']             = 1;
+		$form['rating']['enabled'] = 1;
 		$form['changeInDescendents']['rating'] = 1;
 
 		list($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());

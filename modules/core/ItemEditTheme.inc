@@ -34,7 +34,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			$error = array();
 
 			if (!empty($form['theme'])) {
-				$themeId           = $form['theme'];
+				$themeId = $form['theme'];
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 				if ($ret) {

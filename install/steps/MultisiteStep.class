@@ -131,7 +131,7 @@ class MultisiteStep extends InstallStep {
 		$openBasedir = ini_get('open_basedir');
 
 		if (!empty($openBasedir)) {
-			$separator                   = strncasecmp(PHP_OS, 'win', 3) ? ':' : ';';
+			$separator = strncasecmp(PHP_OS, 'win', 3) ? ':' : ';';
 			$templateData['openBasedir'] = explode($separator, $openBasedir);
 		} else {
 			$templateData['openBasedir'] = array();

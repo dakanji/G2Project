@@ -240,8 +240,8 @@ class Auth_Container_ADOdb extends Auth_Container {
 				' WHERE ' . $this->options['usernamecol'] . ' = ' . $this->db->Quote($username);
 
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		$rset             = $this->db->Execute($query);
-		$res              = $rset->fetchRow();
+		$rset = $this->db->Execute($query);
+		$res  = $rset->fetchRow();
 
 		if (DB::isError($res)) {
 			return PEAR::raiseError($res->getMessage(), $res->getCode());

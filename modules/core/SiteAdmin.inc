@@ -58,7 +58,7 @@ class SiteAdminView extends GalleryView {
 		 * We show all site admin links to the Modules page because it will hide any links for
 		 * modules that are not active.
 		 */
-		$subView               = GalleryUtilities::getRequestVariables('subView');
+		$subView = GalleryUtilities::getRequestVariables('subView');
 		$showAllSiteAdminViews = ($subView == 'core.AdminPlugins');
 
 		if ($showAllSiteAdminViews) {
@@ -170,7 +170,7 @@ class SiteAdminView extends GalleryView {
 		$subViewGroups = $groupLabels = array();
 
 		foreach ($subViewChoices as $adminView) {
-			$group                   = $adminView['group'];
+			$group = $adminView['group'];
 			$subViewGroups[$group][] = $adminView;
 
 			if (!empty($adminView['groupLabel'])) {
@@ -194,7 +194,7 @@ class SiteAdminView extends GalleryView {
 
 				foreach ($groupLabels[$group] as $label => $count) {
 					if ($count > $tmp) {
-						$tmp                   = $count;
+						$tmp = $count;
 						$data[0]['groupLabel'] = $label;
 					}
 				}

@@ -99,7 +99,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 
 		$this->_platform->_isWriteable = false;
-		list($ret, $code)              = IsapiRewriteHelper::checkFile();
+		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -107,7 +107,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
 
 		$this->_platform->_isReadable = false;
-		list($ret, $code)             = IsapiRewriteHelper::checkFile();
+		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -115,7 +115,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
 
 		$this->_platform->_fileExists = false;
-		list($ret, $code)             = IsapiRewriteHelper::checkFile();
+		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -135,7 +135,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		unset($this->_fileContent);
 
 		$this->_platform->_isReadable = false;
-		list($ret, $code)             = IsapiRewriteHelper::writeFile(array());
+		list($ret, $code) = IsapiRewriteHelper::writeFile(array());
 
 		if ($ret) {
 			return $ret;
@@ -146,7 +146,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
-		list($ret, $code)              = IsapiRewriteHelper::writeFile(array());
+		list($ret, $code) = IsapiRewriteHelper::writeFile(array());
 
 		if ($ret) {
 			return $ret;
@@ -275,7 +275,7 @@ class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
 		);
 
 		if ($handle == 'phpunit') {
-			$respons           = GalleryUtilities::getRequestVariables('isapiRewriteTest');
+			$respons = GalleryUtilities::getRequestVariables('isapiRewriteTest');
 			$this->_readBuffer = $buffer[$respons];
 
 			return strlen($string);
@@ -317,14 +317,14 @@ class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
 			}
 
 			if ($length >= strlen(join("\n", $this->_readBuffer))) {
-				$tmp               = join("\n", $this->_readBuffer);
+				$tmp = join("\n", $this->_readBuffer);
 				$this->_readBuffer = array();
 
 				return $tmp;
 			}
 
-			$buf               = join("\n", $this->_readBuffer);
-			$tmp               = substr($buf, 0, $length);
+			$buf = join("\n", $this->_readBuffer);
+			$tmp = substr($buf, 0, $length);
 			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
 
 			return $tmp;

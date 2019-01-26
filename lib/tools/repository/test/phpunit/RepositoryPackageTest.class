@@ -136,7 +136,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		// Send data to template.
 		$this->_package->_descriptor = $testDescriptor;
-		$ret                         = $this->_package->writeSinglePackageToDisk('package1');
+		$ret = $this->_package->writeSinglePackageToDisk('package1');
 
 		if ($ret) {
 			return $ret;
@@ -305,10 +305,10 @@ class RepositoryPackageTestDescriptor {
 			'package2' => array('file2', 'file3'),
 		);
 
-		$this->_pluginId              = 'testplugin';
-		$this->_pluginVersion         = '1.0.0';
-		$this->_pluginDir             = 'pluginDirectory/';
-		$this->_pluginType            = 'module';
+		$this->_pluginId      = 'testplugin';
+		$this->_pluginVersion = '1.0.0';
+		$this->_pluginDir     = 'pluginDirectory/';
+		$this->_pluginType    = 'module';
 		$this->_pluginBuildTimestamp  = '19700411131300';
 		$this->_pluginStringsRevision = '2.2';
 	}

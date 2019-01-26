@@ -72,7 +72,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		$this->_markForCleanup($this->_album);
 
-		$Platform                  = $gallery->getPlatform();
+		$Platform = $gallery->getPlatform();
 		$ItemEditThemeTestPlatform = new ItemEditThemeTestPlatform($Platform);
 		$gallery->setPlatform($ItemEditThemeTestPlatform);
 

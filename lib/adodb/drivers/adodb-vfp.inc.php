@@ -25,13 +25,13 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 if (!defined('ADODB_VFP')) {
 	define('ADODB_VFP', 1);
 	class ADODB_vfp extends ADODB_odbc {
-		public $databaseType    = 'vfp';
-		public $fmtDate         = '{^Y-m-d}';
-		public $fmtTimeStamp    = '{^Y-m-d, h:i:sA}';
-		public $replaceQuote    = "'+chr(39)+'";
-		public $true            = '.T.';
-		public $false           = '.F.';
-		public $hasTop          = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
+		public $databaseType = 'vfp';
+		public $fmtDate      = '{^Y-m-d}';
+		public $fmtTimeStamp = '{^Y-m-d, h:i:sA}';
+		public $replaceQuote = "'+chr(39)+'";
+		public $true         = '.T.';
+		public $false        = '.F.';
+		public $hasTop       = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
 		public $_bindInputArray = false; // strangely enough, setting to true does not work reliably
 		public $sysTimeStamp    = 'datetime()';
 		public $sysDate         = 'date()';

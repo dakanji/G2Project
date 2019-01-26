@@ -135,7 +135,7 @@ class GalleryLockSystem {
 
 			if ($lock['type'] == LOCK_WRITE) {
 				$relock[$lockId] = $foundIds;
-				$ids             = array_diff($ids, $foundIds);
+				$ids = array_diff($ids, $foundIds);
 			} elseif (count($foundIds) == count($lock['ids'])) {
 				// Release this entire read lock
 				$ret = $this->_releaseLocksNow(

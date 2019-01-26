@@ -151,9 +151,9 @@ if (!defined('ADODB_ODBC_DB2')) {
 		public function MetaTables($ttype = false, $showSchema = false, $qtable = '%', $qschema = '%') {
 			global $ADODB_FETCH_MODE;
 
-			$savem            = $ADODB_FETCH_MODE;
+			$savem = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-			$qid              = odbc_tables($this->_connectionID, '', $qschema, $qtable, '');
+			$qid = odbc_tables($this->_connectionID, '', $qschema, $qtable, '');
 
 			$rs = new ADORecordSet_odbc($qid);
 
@@ -210,7 +210,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 		public function MetaIndexes($table, $primary = false, $owner = false) {
 			// save old fetch mode
 			global $ADODB_FETCH_MODE;
-			$save             = $ADODB_FETCH_MODE;
+			$save = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -237,11 +237,11 @@ if (!defined('ADODB_ODBC_DB2')) {
 			$indexes = array();
 			// parse index data into array
 			while ($row = $rs->FetchRow()) {
-				$indexes[$row[0]]            = array(
+				$indexes[$row[0]] = array(
 					'unique'  => ($row[1] == 'U' || $row[1] == 'P'),
 					'columns' => array(),
 				);
-				$cols                        = ltrim($row[2], '+');
+				$cols = ltrim($row[2], '+');
 				$indexes[$row[0]]['columns'] = explode('+', $cols);
 			}
 

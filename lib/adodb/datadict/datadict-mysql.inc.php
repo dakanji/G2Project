@@ -18,8 +18,8 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB2_mysql extends ADODB_DataDict {
-	public $databaseType       = 'mysql';
-	public $alterCol           = ' MODIFY COLUMN';
+	public $databaseType = 'mysql';
+	public $alterCol     = ' MODIFY COLUMN';
 	public $alterTableAddIndex = true;
 	public $dropTable          = 'DROP TABLE IF EXISTS %s'; // requires mysql 3.22 or later
 

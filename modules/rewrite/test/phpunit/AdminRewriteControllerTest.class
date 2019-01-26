@@ -170,7 +170,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$expected               = array();
+		$expected = array();
 		$expected['rewrite'][0] = array(
 			'pattern' => 'uv/%path%',
 		);

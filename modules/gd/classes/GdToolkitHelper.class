@@ -238,7 +238,7 @@ class GdToolkitHelper {
 			'Get the width and height of the image'
 		);
 		// Supported by php getimagesize
-		$mimeTypes[]                           = 'application/x-shockwave-flash';
+		$mimeTypes[] = 'application/x-shockwave-flash';
 		$properties['dimensions']['mimeTypes'] = $mimeTypes;
 
 		return array(

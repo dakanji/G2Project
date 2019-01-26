@@ -110,7 +110,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 
 					case 'resize_100':
 					case 'resize_200':
-						$size                  = $option == 'resize_100' ? 100 : 200;
+						$size = $option == 'resize_100' ? 100 : 200;
 						list($ret, $resizes[]) = $this->_createDerivative(
 							$item,
 							$item->getId(),

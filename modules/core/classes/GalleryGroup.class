@@ -77,7 +77,7 @@ class GalleryGroup extends GalleryEntity {
 		global $gallery;
 
 		// Check to see if we have a collision
-		$query               = '
+		$query = '
 	SELECT
 	  [GalleryGroup::id]
 	FROM

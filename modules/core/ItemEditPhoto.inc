@@ -57,7 +57,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 			if (empty($error)) {
 				// Load existing resizes
-				$itemId              = $item->getId();
+				$itemId = $item->getId();
 				list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($itemId));
 
 				if ($ret) {
@@ -67,7 +67,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 				$resizesTable = array();
 
 				foreach ($resizes as $resize) {
-					$postFilter                                       = $resize->getPostFilterOperations();
+					$postFilter = $resize->getPostFilterOperations();
 					$resizesTable[$resize->getDerivativeOperations()] = $resize;
 				}
 
@@ -227,8 +227,8 @@ class ItemEditPhoto extends ItemEditPlugin {
 						$matches
 					)
 					) {
-						$width             = $matches[1];
-						$height            = empty($matches[2]) ? $width : $matches[2];
+						$width  = $matches[1];
+						$height = empty($matches[2]) ? $width : $matches[2];
 						$form['resizes'][] = array(
 							'active' => 1,
 							'width'  => $width,

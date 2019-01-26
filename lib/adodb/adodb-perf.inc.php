@@ -77,9 +77,9 @@ function adodb_microtime() {
 function adodb_log_sql(&$connx, $sql, $inputarr) {
 	$perf_table       = adodb_perf::table();
 	$connx->fnExecute = false;
-	$a0               = microtime(true);
-	$rs               = $connx->Execute($sql, $inputarr);
-	$a1               = microtime(true);
+	$a0 = microtime(true);
+	$rs = $connx->Execute($sql, $inputarr);
+	$a1 = microtime(true);
 
 	if (!empty($connx->_logsql) && (empty($connx->_logsqlErrors) || !$rs)) {
 		global $ADODB_LOG_CONN;
@@ -98,13 +98,13 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 		}
 
 		$conn->_logsql = false; // disable logsql error simulation
-		$dbT           = $conn->databaseType;
+		$dbT = $conn->databaseType;
 
 		$time = $a1 - $a0;
 
 		if (!$rs) {
-			$errM            = $connx->ErrorMsg();
-			$errN            = $connx->ErrorNo();
+			$errM = $connx->ErrorMsg();
+			$errN = $connx->ErrorNo();
 			$conn->lastInsID = 0;
 			$tracer          = substr('ERROR: ' . htmlspecialchars($errM), 0, 250);
 		} else {
@@ -270,15 +270,15 @@ Each database parameter element in the array is itself an array consisting of:
 
 class adodb_perf {
 	public $conn;
-	public $color          = '#F0F0F0';
-	public $table          = '<table border=1 bgcolor=white>';
-	public $titles         = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
-	public $warnRatio      = 90;
-	public $tablesSQL      = false;
-	public $cliFormat      = "%32s => %s \r\n";
-	public $sql1           = 'sql1';  // used for casting sql1 to text for mssql
-	public $explain        = true;
-	public $helpurl        = '<a href="http://adodb.sourceforge.net/docs-adodb.htm#logsql">LogSQL help</a>';
+	public $color     = '#F0F0F0';
+	public $table     = '<table border=1 bgcolor=white>';
+	public $titles    = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
+	public $warnRatio = 90;
+	public $tablesSQL = false;
+	public $cliFormat = "%32s => %s \r\n";
+	public $sql1      = 'sql1';  // used for casting sql1 to text for mssql
+	public $explain   = true;
+	public $helpurl   = '<a href="http://adodb.sourceforge.net/docs-adodb.htm#logsql">LogSQL help</a>';
 	public $createTableSQL = false;
 	public $maxLength      = 2000;
 
@@ -448,10 +448,10 @@ class adodb_perf {
 		if (empty($this->_lastLoad)) {
 			sleep(1);
 			$this->_lastLoad = $info;
-			$info            = $this->_CPULoad();
+			$info = $this->_CPULoad();
 		}
 
-		$last            = $this->_lastLoad;
+		$last = $this->_lastLoad;
 		$this->_lastLoad = $info;
 
 		$d_user   = $info[0] - $last[0];
@@ -471,12 +471,12 @@ class adodb_perf {
 	}
 
 	public function Tracer($sql) {
-		$perf_table            = self::table();
-		$saveE                 = $this->conn->fnExecute;
+		$perf_table = self::table();
+		$saveE      = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		global $ADODB_FETCH_MODE;
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -522,11 +522,11 @@ class adodb_perf {
 		if (isset($_GET['sql'])) {
 			return;
 		}
-		$s                     = '<h3>Invalid SQL</h3>';
-		$saveE                 = $this->conn->fnExecute;
+		$s     = '<h3>Invalid SQL</h3>';
+		$saveE = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
-		$perf_table            = self::table();
-		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
+		$perf_table = self::table();
+		$rs         = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
 		$this->conn->fnExecute = $saveE;
 
 		if ($rs) {
@@ -542,8 +542,8 @@ class adodb_perf {
 	public function _SuspiciousSQL($numsql = 10) {
 		global $ADODB_FETCH_MODE;
 
-		$perf_table            = self::table();
-		$saveE                 = $this->conn->fnExecute;
+		$perf_table = self::table();
+		$saveE      = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		if (isset($_GET['exps']) && isset($_GET['sql'])) {
@@ -556,7 +556,7 @@ class adodb_perf {
 		}
 		$sql1 = $this->sql1;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -630,8 +630,8 @@ class adodb_perf {
 	public function _ExpensiveSQL($numsql = 10) {
 		global $ADODB_FETCH_MODE;
 
-		$perf_table            = self::table();
-		$saveE                 = $this->conn->fnExecute;
+		$perf_table = self::table();
+		$saveE      = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		if (isset($_GET['expe']) && isset($_GET['sql'])) {
@@ -643,8 +643,8 @@ class adodb_perf {
 			return;
 		}
 
-		$sql1             = $this->sql1;
-		$save             = $ADODB_FETCH_MODE;
+		$sql1 = $this->sql1;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -740,8 +740,8 @@ class adodb_perf {
 			} else {
 				$coef = false;
 			}
-			$ret              = false;
-			$save             = $ADODB_FETCH_MODE;
+			$ret  = false;
+			$save = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->conn->fetchMode !== false) {
@@ -991,7 +991,7 @@ class adodb_perf {
 
 	// Returns basic health check as HTML
 	public function HealthCheck($cli = false) {
-		$saveE                 = $this->conn->fnExecute;
+		$saveE = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		if ($cli) {
@@ -1133,7 +1133,7 @@ class adodb_perf {
 		}
 
 		if (isset($_REQUEST['BIGGER'])) {
-			$rows                       *= 2;
+			$rows *= 2;
 			$_SESSION['phplens_sqlrows'] = $rows;
 		} ?>
 

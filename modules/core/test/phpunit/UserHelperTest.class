@@ -41,8 +41,8 @@ class UserHelperTest extends GalleryTestCase {
 		$gallery->_storage      = new UserHelperTestMockStorage();
 		$this->_storage         =& $gallery->getStorage();
 		$gallery->_phpVm        = new UserHelperTestPhpVm();
-		$this->_phpVm           =& $gallery->_phpVm;
-		$this->_saveSession     = $gallery->_session;
+		$this->_phpVm       =& $gallery->_phpVm;
+		$this->_saveSession = $gallery->_session;
 	}
 
 	public function tearDown() {
@@ -62,7 +62,7 @@ class UserHelperTest extends GalleryTestCase {
 		$gallery->_session = new UserHelperTestSession();
 
 		$UserHelperTestMockUser = new UserHelperTestMockUser();
-		$event                  = GalleryCoreApi::newEvent('Gallery::Login');
+		$event = GalleryCoreApi::newEvent('Gallery::Login');
 		$event->setEntity($UserHelperTestMockUser);
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
 
@@ -128,7 +128,7 @@ class UserHelperTest extends GalleryTestCase {
 	}
 
 	public function testGalleryFailedLoginEventMissingUsername() {
-		$event               = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
 
 		if ($ret) {

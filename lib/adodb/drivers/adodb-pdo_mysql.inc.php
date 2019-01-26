@@ -75,7 +75,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		}
 
 		if ($mask) {
-			$mask                 = $this->qstr($mask);
+			$mask = $this->qstr($mask);
 			$this->metaTablesSQL .= " like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -116,7 +116,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 			$this->SelectDB($schema);
 		}
 		global $ADODB_FETCH_MODE;
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -157,10 +157,10 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 				$fld->type       = $query_array[1];
 				$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 			} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-				$fld->type       = $query_array[1];
-				$arr             = explode(',', $query_array[2]);
-				$fld->enums      = $arr;
-				$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
+				$fld->type  = $query_array[1];
+				$arr        = explode(',', $query_array[2]);
+				$fld->enums = $arr;
+				$zlen       = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 				$fld->max_length = ($zlen > 0) ? $zlen : 1;
 			} else {
 				$fld->type       = $type;
@@ -200,7 +200,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 	public function SelectDB($dbName) {
 		$this->database     = $dbName;
 		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
-		$try                = $this->Execute('use ' . $dbName);
+		$try = $this->Execute('use ' . $dbName);
 
 		return $try !== false;
 	}

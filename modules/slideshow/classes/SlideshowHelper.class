@@ -91,8 +91,8 @@ class SlideshowHelper {
 			return array($ret, null, null, null, null);
 		}
 
-		$itemId                              = $item->getId();
-		$prevOffset                          = $nextOffset = null;
+		$itemId     = $item->getId();
+		$prevOffset = $nextOffset = null;
 		list($ret, $prevOffset, $nextOffset) = SlideshowHelper::paginateItemSlideshow(
 			$itemId,
 			$offset
@@ -125,7 +125,7 @@ class SlideshowHelper {
 			return array(null, null, null);
 		}
 
-		$items                  = array();
+		$items = array();
 		list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 		if ($ret) {

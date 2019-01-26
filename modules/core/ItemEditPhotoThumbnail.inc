@@ -181,7 +181,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		global $gallery;
 
-		$ItemEditPhotoThumbnail               = array();
+		$ItemEditPhotoThumbnail = array();
 		$ItemEditPhotoThumbnail['showApplet'] = $thumbnail != null;
 
 		list($ret, $ItemEditPhotoThumbnail['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
@@ -196,7 +196,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		}
 
 		$targetThumbnailSize = 0;
-		$crop                = array();
+		$crop = array();
 
 		if (preg_match(
 			'/thumbnail\|(\d+)/',
@@ -320,15 +320,15 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 				)
 			);
 
-			$ItemEditPhotoThumbnail['editThumbnail']['appletCodeBase']      = GalleryUtilities::convertPathToUrl(__DIR__) . '/plugins';
-			$ItemEditPhotoThumbnail['editThumbnail']['appletJarFile']       = 'ImageCrop.jar';
-			$ItemEditPhotoThumbnail['editThumbnail']['imageUrl']            = $url;
-			$ItemEditPhotoThumbnail['editThumbnail']['imageWidth']          = $source->getWidth();
-			$ItemEditPhotoThumbnail['editThumbnail']['imageHeight']         = $source->getHeight();
-			$ItemEditPhotoThumbnail['editThumbnail']['cropLeft']            = $crop['left'];
-			$ItemEditPhotoThumbnail['editThumbnail']['cropTop']             = $crop['top'];
-			$ItemEditPhotoThumbnail['editThumbnail']['cropWidth']           = $crop['width'];
-			$ItemEditPhotoThumbnail['editThumbnail']['cropHeight']          = $crop['height'];
+			$ItemEditPhotoThumbnail['editThumbnail']['appletCodeBase'] = GalleryUtilities::convertPathToUrl(__DIR__) . '/plugins';
+			$ItemEditPhotoThumbnail['editThumbnail']['appletJarFile']  = 'ImageCrop.jar';
+			$ItemEditPhotoThumbnail['editThumbnail']['imageUrl']       = $url;
+			$ItemEditPhotoThumbnail['editThumbnail']['imageWidth']     = $source->getWidth();
+			$ItemEditPhotoThumbnail['editThumbnail']['imageHeight']    = $source->getHeight();
+			$ItemEditPhotoThumbnail['editThumbnail']['cropLeft']       = $crop['left'];
+			$ItemEditPhotoThumbnail['editThumbnail']['cropTop']        = $crop['top'];
+			$ItemEditPhotoThumbnail['editThumbnail']['cropWidth']      = $crop['width'];
+			$ItemEditPhotoThumbnail['editThumbnail']['cropHeight']     = $crop['height'];
 			$ItemEditPhotoThumbnail['editThumbnail']['targetThumbnailSize'] = $targetThumbnailSize;
 
 			$aspectlist         = array();
@@ -338,56 +338,56 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 				return array($ret, null, null);
 			}
 
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Photo 5x3'),
 				'width'  => 5,
 				'height' => 3,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Photo 6x4'),
 				'width'  => 6,
 				'height' => 4,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Photo 7x5'),
 				'width'  => 7,
 				'height' => 5,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Photo 10x8'),
 				'width'  => 10,
 				'height' => 8,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Fullscreen 4x3'),
 				'width'  => 4,
 				'height' => 3,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Widescreen 16x9'),
 				'width'  => 16,
 				'height' => 9,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('CinemaScope 2.35x1'),
 				'width'  => 47,
 				'height' => 20,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('Square 1x1'),
 				'width'  => 1,
 				'height' => 1,
 			);
-			$aspectRatioList[]                                          = array(
+			$aspectRatioList[] = array(
 				'label'  => $module->translate('As Image'),
 				'width'  => $item->getWidth(),
 				'height' => $item->getHeight(),
 			);
 			$ItemEditPhotoThumbnail['editThumbnail']['aspectRatioList'] = $aspectRatioList;
 
-			$orientationList                                            = array();
-			$orientationList['landscape']                               = $module->translate('Landscape');
-			$orientationList['portrait']                                = $module->translate('Portrait');
+			$orientationList = array();
+			$orientationList['landscape'] = $module->translate('Landscape');
+			$orientationList['portrait']  = $module->translate('Portrait');
 			$ItemEditPhotoThumbnail['editThumbnail']['orientationList'] = $orientationList;
 
 
@@ -396,11 +396,11 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			 * settings so that we can start out with those values selected in the dropdowns.
 			 */
 			$currentAspect = round($crop['width'] / $crop['height'], 2);
-			$i             = 0;
+			$i = 0;
 
 			// Set defaults
-			$selectedAspect                                             = 0;
-			$selectedOrientation                                        = 'portrait';
+			$selectedAspect      = 0;
+			$selectedOrientation = 'portrait';
 			$ItemEditPhotoThumbnail['editThumbnail']['cropRatioWidth']  = $aspectRatioList[0]['width'];
 			$ItemEditPhotoThumbnail['editThumbnail']['cropRatioHeight'] = $aspectRatioList[0]['height'];
 

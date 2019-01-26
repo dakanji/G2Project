@@ -431,20 +431,20 @@ class StringParser_BBCode extends StringParser {
 		switch ($status) {
 			case 0:
 				$this->_charactersSearch = array('[/', '[');
-				$this->_status           = $status;
+				$this->_status = $status;
 
 				break;
 
 			case 1:
 				$this->_charactersSearch = array(']', ' = "', '="', ' = \'', '=\'', ' = ', '=', ': ', ':', ' ');
-				$this->_status           = $status;
+				$this->_status = $status;
 
 				break;
 
 			case 2:
 				$this->_charactersSearch = array(']');
-				$this->_status           = $status;
-				$this->_savedName        = '';
+				$this->_status    = $status;
+				$this->_savedName = '';
 
 				break;
 
@@ -471,9 +471,9 @@ class StringParser_BBCode extends StringParser {
 
 			case 4:
 				$this->_charactersSearch = array(' ', ']', '="', '=\'', '=');
-				$this->_status           = $status;
-				$this->_savedName        = '';
-				$this->_savedValue       = '';
+				$this->_status     = $status;
+				$this->_savedName  = '';
+				$this->_savedValue = '';
 
 				break;
 
@@ -1384,10 +1384,10 @@ class StringParser_BBCode extends StringParser {
 		if ($this->_hasParagraphAncestor($node)) {
 			return true;
 		}
-		$dest_nodes              = array();
+		$dest_nodes = array();
 		$last_node_was_paragraph = false;
-		$prevtype                = STRINGPARSER_NODE_TEXT;
-		$paragraph               = null;
+		$prevtype  = STRINGPARSER_NODE_TEXT;
+		$paragraph = null;
 
 		while (count($node->_children)) {
 			$mynode =& $node->_children[0];
@@ -1404,10 +1404,10 @@ class StringParser_BBCode extends StringParser {
 
 				if ($sub_nodes[$i]->_type != STRINGPARSER_BBCODE_NODE_ELEMENT || $sub_nodes[$i]->getFlag('paragraph_type', 'integer', BBCODE_PARAGRAPH_ALLOW_BREAKUP) != BBCODE_PARAGRAPH_BLOCK_ELEMENT) {
 					$paragraph->appendChild($sub_nodes[$i]);
-					$dest_nodes[]            =& $paragraph;
+					$dest_nodes[] =& $paragraph;
 					$last_node_was_paragraph = true;
 				} else {
-					$dest_nodes[]            =& $sub_nodes[$i];
+					$dest_nodes[] =& $sub_nodes[$i];
 					$last_onde_was_paragraph = false;
 					unset($paragraph);
 					$paragraph = new StringParser_BBCode_Node_Paragraph();
@@ -1754,9 +1754,9 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	 * @return object
 	 */
 	public function &duplicate() {
-		$newnode                    = new StringParser_BBCode_Node_Element($this->occurredAt);
-		$newnode->_name             = $this->_name;
-		$newnode->_flags            = $this->_flags;
+		$newnode         = new StringParser_BBCode_Node_Element($this->occurredAt);
+		$newnode->_name  = $this->_name;
+		$newnode->_flags = $this->_flags;
 		$newnode->_attributes       = $this->_attributes;
 		$newnode->_hadCloseTag      = $this->_hadCloseTag;
 		$newnode->_paragraphHandled = $this->_paragraphHandled;

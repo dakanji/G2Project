@@ -313,13 +313,13 @@ class GalleryChildEntityHelper_simple {
 				return array(null, null, null);
 			}
 			$idJoins['GalleryAccessSubscriberMap'] = 'itemId';
-			$where[]                               = '[GalleryAccessSubscriberMap::accessListId] IN ('
+			$where[] = '[GalleryAccessSubscriberMap::accessListId] IN ('
 			. GalleryUtilities::makeMarkers(count($aclIds)) . ')';
 		}
 
 		if ($linkableOnly) {
 			$idJoins['GalleryEntity'] = 'id';
-			$where[]                  = '[GalleryEntity::isLinkable] = 1';
+			$where[] = '[GalleryEntity::isLinkable] = 1';
 		}
 
 		foreach ($idJoins as $table => $column) {

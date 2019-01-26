@@ -41,7 +41,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		// Bend the rules
 		$this->_saveSession = $gallery->_session;
 		$gallery->_session  = new GallerySession();
-		$ret                = $gallery->_session->initEmpty();
+		$ret = $gallery->_session->initEmpty();
 
 		if ($ret) {
 			return $ret;

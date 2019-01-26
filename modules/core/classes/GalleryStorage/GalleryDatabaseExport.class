@@ -96,7 +96,7 @@ class GalleryDatabaseExport {
 			'total'    => 100,
 		);
 
-		$storageConfig            = $gallery->getConfig('storage.config');
+		$storageConfig = $gallery->getConfig('storage.config');
 		$this->_fieldPrefixLength = strlen($storageConfig['columnPrefix']);
 
 		list($ret, $fileHandle, $filepath) = $this->_openBackupFileForWriting($fileName);
@@ -376,7 +376,7 @@ class GalleryDatabaseExport {
 		$storage  =& $gallery->getStorage();
 
 		$storageExtras =& $storage->_getExtras();
-		$sql           = $storageExtras->getModuleSql($pluginId);
+		$sql = $storageExtras->getModuleSql($pluginId);
 
 		if (count($sql['table']) == 0) {
 			$this->updateStatus();
@@ -510,7 +510,7 @@ class GalleryDatabaseExport {
 
 		list($name1, $name2, $nameInSchema) = $storage->_translateTableName($table);
 
-		$query               = 'SELECT [::createSql], [::pluginId], [::type], [::info]
+		$query = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
 		list($ret, $results) = $storage->search($query, array($nameInSchema));
@@ -669,7 +669,7 @@ class GalleryDatabaseExport {
 			 */
 			if ($rowCount > $this->_rowChunkSize) {
 				// Oops the amount of work just got bigger.
-				$dataChunks                = ceil($rowCount / $this->_rowChunkSize);
+				$dataChunks = ceil($rowCount / $this->_rowChunkSize);
 				$this->_callBack['total'] += $dataChunks;
 			}
 
@@ -681,7 +681,7 @@ class GalleryDatabaseExport {
 			}
 
 			if ($ret) {
-				$fields                   = array(
+				$fields = array(
 					'id' => array(
 						'type'    => STORAGE_TYPE_INTEGER,
 						'notNull' => 1,
@@ -748,8 +748,8 @@ class GalleryDatabaseExport {
 						'Unable to write to export file'
 					);
 				}
-				$translatedName                   = $storage->_translateColumnName($fieldName);
-				$fieldNames[]                     = $translatedName;
+				$translatedName = $storage->_translateColumnName($fieldName);
+				$fieldNames[]   = $translatedName;
 				$fieldDescriptor[$translatedName] = $definition;
 			}
 
@@ -859,7 +859,7 @@ class GalleryDatabaseExport {
 		$phpVm    = $gallery->getPhpVm();
 
 		if (empty($fileName)) {
-			$dirName               = $gallery->getConfig('data.gallery.backup');
+			$dirName = $gallery->getConfig('data.gallery.backup');
 			list($exists, $unused) = GalleryUtilities::guaranteeDirExists($dirName);
 
 			if (!$exists) {

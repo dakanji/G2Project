@@ -59,8 +59,8 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
-		$gallery->_storage     = new UnitTestStorage();
-		$storage               =& $gallery->getStorage();
+		$gallery->_storage = new UnitTestStorage();
+		$storage =& $gallery->getStorage();
 		$storage->_tablePrefix = 'g2_';
 		$gallery->_phpVm       = new UnitTestPhpVm();
 
@@ -194,7 +194,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			'progress' => 0,
 			'total'    => 100,
 		);
-		$ret                      = $this->_export->_exportSequence('testHandle', 'sequenceid');
+		$ret = $this->_export->_exportSequence('testHandle', 'sequenceid');
 
 		if ($ret) {
 			return $ret;
@@ -250,7 +250,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
 
 		$this->_export->_ignoreTables['testtable'] = 1;
-		$this->_export->_callBack                  = array(
+		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
 			'total'    => 100,

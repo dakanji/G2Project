@@ -50,7 +50,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 		$gallery->_translator = AdminLanguagesViewTestTranslator::doStatic();
 
-		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
+		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
 		GalleryDataCache::put(
 			$cacheKey,
@@ -62,7 +62,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			)
 		);
 
-		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
+		$cacheKey = 'GalleryTranslator::SupportedLanguages';
 		$supportedLanguages = array(
 			'en' => array(
 				'US' => array('US English'),
@@ -76,7 +76,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage = new UnitTestStorage();
-		$storage           =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 	}
 
 	public function tearDown() {
@@ -152,7 +152,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			);
 		}
 
-		$enableAllFlags               = array(
+		$enableAllFlags = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,
@@ -246,7 +246,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			);
 		}
 
-		$enableAllFlags               = array(
+		$enableAllFlags = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,
@@ -340,7 +340,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			);
 		}
 
-		$enableAllFlags               = array(
+		$enableAllFlags = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,
@@ -416,21 +416,21 @@ class AdminLanguagesViewTestTranslator extends GalleryTranslator {
 		// English
 		$supportedLanguages['en']['US']['description'] = 'English (US)';
 		$supportedLanguages['en']['GB']['description'] = 'English (UK)';
-		$defaultCountry['en']                          = 'US';
+		$defaultCountry['en'] = 'US';
 
 		// Hungarian
 		$supportedLanguages['hu']['HU']['description'] = 'Magyar';
-		$defaultCountry['hu']                          = 'HU';
+		$defaultCountry['hu'] = 'HU';
 
 		// Portuguese
 		$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 		$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
-		$defaultCountry['pt']                          = 'PT';
+		$defaultCountry['pt'] = 'PT';
 
 		// Chinese
 		$supportedLanguages['zh']['CN']['description'] = '&#31616;&#20307;&#20013;&#25991;';
 		$supportedLanguages['zh']['TW']['description'] = '&#32321;&#39636;&#20013;&#25991;';
-		$defaultCountry['zh']                          = 'CN';
+		$defaultCountry['zh'] = 'CN';
 
 		return array($supportedLanguages, $defaultCountry);
 	}

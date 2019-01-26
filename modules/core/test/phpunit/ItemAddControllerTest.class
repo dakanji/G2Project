@@ -974,7 +974,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		ob_start();
 		// Do a static call, that's how WebDAV invokes / invoked the controller.
 		list($ret, $results) = ItemAddController::doStatic()->handleRequest(array());
-		$output              = ob_get_contents();
+		$output = ob_get_contents();
 		ob_end_clean();
 
 		if ($ret) {
@@ -1108,7 +1108,7 @@ class ItemAddControllerTestPluginFail {
  */
 class ItemAddTestOption extends ItemAddOption {
 	public function __construct($withError = false) {
-		$this->_withError                                = $withError;
+		$this->_withError = $withError;
 		$_SERVER['ItemAddControllerTest']['optionCalls'] = array();
 	}
 

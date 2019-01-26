@@ -80,7 +80,7 @@ class SlideshowModule extends GalleryModule {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
-		$dir           = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow';
+		$dir = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow';
 		list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 		if (!$success) {
@@ -157,8 +157,8 @@ class SlideshowModule extends GalleryModule {
 		$links = array();
 
 		foreach ($items as $item) {
-			$itemId            = $item->getId();
-			$jsUrlParams       = array(
+			$itemId      = $item->getId();
+			$jsUrlParams = array(
 				'forJavascript' => true,
 				'forceFullUrl'  => true,
 			);
@@ -213,7 +213,7 @@ class SlideshowModule extends GalleryModule {
 
 				if ($showSlideshowLink) {
 					if ($picLensVersion) {
-						$script           = sprintf(
+						$script = sprintf(
 							'var p=PicLensLite;'
 							. 'p.setCallbacks({onNoPlugins:function(){location.href=\'%s\'}});'
 							. 'p.setLiteURLs({swf:\'%s\'});'
@@ -287,7 +287,7 @@ class SlideshowModule extends GalleryModule {
 	public function getRewriteRules() {
 		$rules = array();
 
-		$rule             = array();
+		$rule = array();
 		$rule['comment']  = $this->translate('View Slideshow');
 		$rule['match']    = array(
 			'view' => 'slideshow.Slideshow',

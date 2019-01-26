@@ -45,7 +45,7 @@ class ErrorPageView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-		$ErrorPage           = array(
+		$ErrorPage = array(
 			'isAdmin' => !$ret && $isAdmin,
 		);
 
@@ -97,7 +97,7 @@ class ErrorPageView extends GalleryView {
 			$ErrorPage['browser']       = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 
 			if ($gallery->isStorageInitialized()) {
-				$storage                =& $gallery->getStorage();
+				$storage =& $gallery->getStorage();
 				$ErrorPage['dbType']    = $storage->getAdoDbType();
 				$ErrorPage['dbVersion'] = @$storage->getVersion();
 
@@ -259,7 +259,7 @@ class ErrorPageView extends GalleryView {
 		}
 
 		if (!$failsafe) {
-			$t                  =& $template->getVariableByReference('theme');
+			$t =& $template->getVariableByReference('theme');
 			$t['errorTemplate'] = $results['body'];
 			$template->setVariable('l10Domain', 'modules_core');
 			list($ret, $templatePath) = $theme->showErrorPage($template);

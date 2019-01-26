@@ -679,8 +679,8 @@ class GalleryUrlGenerator {
 			&& $session && !$session->isUsingCookies())
 		) {
 			if (!empty($this->_embedSessionString) && !empty($appSession)) {
-				list($sessionKey, $sessionId)    = explode('=', $this->_embedSessionString, 2);
-				$embedSessionParams              = array();
+				list($sessionKey, $sessionId) = explode('=', $this->_embedSessionString, 2);
+				$embedSessionParams = array();
 				$embedSessionParams[$sessionKey] = $sessionId;
 			} elseif (!empty($sessionId)) {
 				$params[$session->getKey()] = $sessionId;
@@ -743,7 +743,7 @@ class GalleryUrlGenerator {
 			$requestUri = $this->getCurrentRequestUri();
 			// When embedded, file can be empty
 			$this->_hasRequestUriShortUrlPrefix = empty($this->_file[0])
-			|| ($pos                            = strpos($requestUri, $this->_file[0])) === false
+			|| ($pos   = strpos($requestUri, $this->_file[0])) === false
 			|| (($qPos = strpos($requestUri, '?')) !== false && $pos >= $qPos);
 		}
 
@@ -1006,9 +1006,9 @@ class GalleryUrlGenerator {
 		if (!$check && isset($this->_localUrlMap[$href])) {
 			$path = $this->_localUrlMap[$href];
 		} else {
-			$override                  = dirname($href) . '/local/' . basename($href);
-			$platform                  =& $gallery->getPlatform();
-			$path                      = $platform->file_exists(GalleryCoreApi::getCodeBasePath($override)) ? $override : $href;
+			$override = dirname($href) . '/local/' . basename($href);
+			$platform =& $gallery->getPlatform();
+			$path     = $platform->file_exists(GalleryCoreApi::getCodeBasePath($override)) ? $override : $href;
 			$this->_localUrlMap[$href] = $path;
 
 			if (!$check && empty($this->_localUrlMapDirty)) {

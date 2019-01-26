@@ -206,7 +206,7 @@ class Gallery {
 	 * @see GalleryStorage::search
 	 */
 	public function search($query, $data = array(), $options = array()) {
-		$storage             =& $this->getStorage();
+		$storage =& $this->getStorage();
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
@@ -297,7 +297,7 @@ class Gallery {
 
 		if (empty($this->_session)) {
 			$this->_session = new GallerySession();
-			$ret            = $this->_session->init();
+			$ret = $this->_session->init();
 
 			if ($ret) {
 				return $ret;
@@ -768,8 +768,8 @@ class Gallery {
 	 */
 	public function stopRecordingDebugSnippet() {
 		$this->_debugSnippetActive = false;
-		$tmp                       = $this->_debugSnippet;
-		$this->_debugSnippet       = '';
+		$tmp = $this->_debugSnippet;
+		$this->_debugSnippet = '';
 
 		if (isset($this->_storage) && !$this->_debug) {
 			$this->_storage->setDebug(false);

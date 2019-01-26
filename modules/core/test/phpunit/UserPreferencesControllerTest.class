@@ -38,7 +38,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$session                 =& $gallery->getSession();
+		$session =& $gallery->getSession();
 		$this->_currentLanguage  = $session->get('core.language');
 		list($ret, $this->_user) = $this->_createUser(
 			array(

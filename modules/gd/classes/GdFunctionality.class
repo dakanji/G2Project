@@ -261,7 +261,7 @@ class GdFunctionality {
 				null,
 			);
 		}
-		$res                  = @imagecreatefromgif($filename);
+		$res = @imagecreatefromgif($filename);
 		list($ret, $resource) = $this->checkResource($res, $filename);
 
 		if ($ret) {

@@ -930,7 +930,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if (!$gallery->getConfig('showSidebarBlocks') && !empty($params['sidebarBlocks'])) {
-			$extractedSidebarBlocks           = $theme['params']['sidebarBlocks'];
+			$extractedSidebarBlocks = $theme['params']['sidebarBlocks'];
 			$theme['params']['sidebarBlocks'] = array();
 		}
 
@@ -992,7 +992,7 @@ class GalleryTheme extends GalleryPlugin {
 
 			case VIEW_TYPE_SHOW_ITEM:
 				$this->_cacheablePage = true;
-				$session              =& $gallery->getSession();
+				$session =& $gallery->getSession();
 
 				// Albums page or Photo page
 				if ($item->getCanContainChildren()) {
@@ -1061,7 +1061,7 @@ class GalleryTheme extends GalleryPlugin {
 						$start = $perPage * ($page - 1);
 
 						if (isset($isDynamicAlbum)) {
-							$childIds            = array_slice($theme['allChildIds'], $start, $perPage);
+							$childIds = array_slice($theme['allChildIds'], $start, $perPage);
 							$theme['totalPages'] = ceil(count($theme['allChildIds']) / $perPage);
 						} else {
 							list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds(
@@ -1076,7 +1076,7 @@ class GalleryTheme extends GalleryPlugin {
 							}
 
 							// Load up our child count so that we can figure out the max pages
-							$itemId                 = $item->getId();
+							$itemId = $item->getId();
 							list($ret, $childCount) = GalleryCoreApi::fetchChildCounts(
 								array($itemId),
 								$theme['actingUserId']
@@ -1451,7 +1451,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (isset($load['owner'])) {
 			$userIds[$item->getOwnerId()] = true;
-			$childOwnerIds                = array();
+			$childOwnerIds = array();
 
 			foreach ($childItems as $child) {
 				$userIds[$child->getOwnerId()]       = true;
@@ -1599,7 +1599,7 @@ class GalleryTheme extends GalleryPlugin {
 			$theme['children'] = array();
 
 			foreach ($childItems as $child) {
-				$tmp                 = (array)$child;
+				$tmp = (array)$child;
 				$theme['children'][] = $tmp;
 			}
 		}
@@ -1629,7 +1629,7 @@ class GalleryTheme extends GalleryPlugin {
 				}
 			}
 			$theme['item']['viewCount'] = isset($viewCount[$itemId]) ? $viewCount[$itemId] : 0;
-			$childData[]                = 'viewCount';
+			$childData[] = 'viewCount';
 		}
 
 		/*
@@ -1678,7 +1678,7 @@ class GalleryTheme extends GalleryPlugin {
 			}
 			$theme['descendentCount']         = isset($descendentCount[$itemId]) ? $descendentCount[$itemId] : 0;
 			$theme['item']['descendentCount'] = $theme['descendentCount'];
-			$childData[]                      = 'descendentCount';
+			$childData[] = 'descendentCount';
 		}
 
 		/*
@@ -1997,7 +1997,7 @@ class GalleryTheme extends GalleryPlugin {
 			}
 
 			foreach ($navigator as $key => $id) {
-				$navigator[$key]                        = array(
+				$navigator[$key] = array(
 					'urlParams' => $theme['pageUrl'],
 					'item'      => (array)$entities[$id],
 				);
@@ -2058,8 +2058,8 @@ class GalleryTheme extends GalleryPlugin {
 			 * Figure out all possible views of this item that the user can see and get them into an
 			 * acceptable format for the template engine
 			 */
-			$imageViews              = array();
-			$can                     = array();
+			$imageViews = array();
+			$can        = array();
 			list($ret, $permissions) = GalleryCoreApi::getPermissions($itemId, $theme['actingUserId']);
 
 			if ($ret) {
@@ -2088,7 +2088,7 @@ class GalleryTheme extends GalleryPlugin {
 							}
 						}
 
-						$tmp               = (array)$resize;
+						$tmp = (array)$resize;
 						$tmp['viewInline'] = 1;
 						$imageViews[]      = $tmp;
 					}
@@ -2108,16 +2108,16 @@ class GalleryTheme extends GalleryPlugin {
 
 				// Show the preferred item, if it's there
 				if (empty($preferred)) {
-					$sourceImage               = (array)$item;
+					$sourceImage = (array)$item;
 					$sourceImage['viewInline'] = $item->canBeViewedInline();
 				} else {
-					$sourceImage               = (array)$preferred[$itemId];
+					$sourceImage = (array)$preferred[$itemId];
 					$sourceImage['viewInline'] = true;
 				}
 				$sourceImage['itemTypeName'] = $item->itemTypeName();
 				$sourceImage['isSource']     = true;
-				$imageViews[]                = $sourceImage;
-				$sourceImageViewIndex        = sizeof($imageViews) - 1;
+				$imageViews[]         = $sourceImage;
+				$sourceImageViewIndex = sizeof($imageViews) - 1;
 			}
 
 			// If all else fails, just show the thumbnail
@@ -2130,7 +2130,7 @@ class GalleryTheme extends GalleryPlugin {
 				}
 
 				if (!empty($thumbnails)) {
-					$tmp               = (array)$thumbnails[$itemId];
+					$tmp = (array)$thumbnails[$itemId];
 					$tmp['viewInline'] = true;
 					$imageViews[]      = $tmp;
 				}
@@ -2338,7 +2338,7 @@ class GalleryTheme extends GalleryPlugin {
 					if (($bodyStart = strpos($mainHtml, '>', $bodyStart)) !== false) {
 						if (($bodyEnd = strpos($mainHtml, '</body>', $bodyStart)) !== false) {
 							$results['bodyHtml'] = substr($mainHtml, ++$bodyStart, $bodyEnd - $bodyStart);
-							$mainHtml            = null;
+							$mainHtml = null;
 						}
 					}
 				}

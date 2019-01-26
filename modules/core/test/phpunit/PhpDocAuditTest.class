@@ -77,7 +77,7 @@ class PhpDocAuditTest extends CodeAuditTestCase {
 					foreach ($packages as $package => $files) {
 						if (count($files) > $max) {
 							$probablyCorrect = $package;
-							$max             = count($files);
+							$max = count($files);
 						}
 					}
 					$mismatches = join(', ', array_keys($packages));

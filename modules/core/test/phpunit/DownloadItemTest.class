@@ -358,15 +358,15 @@ class DownloadItemTest extends GalleryTestCase {
 		 * Create a GalleryEntity that has permissions associated with it directly instead of
 		 * through an association with an item (like WatermarkImage or ThumbnailImage).
 		 */
-		$entity            = new DownloadItemTestEntity();
+		$entity = new DownloadItemTestEntity();
 		$entity->className = 'DownloadItemTestEntity';
-		$ret               = $entity->create();
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
 		}
 		$entity->className = 'GalleryEntity';
-		$ret               = $entity->save();
+		$ret = $entity->save();
 
 		if ($ret) {
 			return $ret;

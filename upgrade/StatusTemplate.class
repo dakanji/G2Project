@@ -30,7 +30,7 @@ class StatusTemplate {
 		global $steps;
 		global $currentStep;
 
-		$templateData                           = array();
+		$templateData = array();
 		$templateData['MainPage']['showHeader'] = 1;
 
 		if ($renderStatusBlock) {
@@ -48,7 +48,7 @@ class StatusTemplate {
 	 * @return GalleryStatus a status code
 	 */
 	public function renderStatusMessage($title, $description, $percentComplete) {
-		$templateData                           = array();
+		$templateData = array();
 		$templateData['MainPage']['showStatus'] = 1;
 		$templateData['MainPage']['status']     = array(
 			'title'           => $title,
@@ -71,7 +71,7 @@ class StatusTemplate {
 		global $currentStep;
 		global $stepNumber;
 
-		$stepsComplete                   = $stepNumber - ($currentStep->isComplete() ? 0 : 1);
+		$stepsComplete = $stepNumber - ($currentStep->isComplete() ? 0 : 1);
 		$templateData['percentComplete'] = (int)((100 * ($stepsComplete / (sizeof($steps) - 1))) / 5) * 5;
 
 		$templateData['MainPage']['showBodyAndFooter'] = 1;
@@ -83,7 +83,7 @@ class StatusTemplate {
 	 * Hide the status block
 	 */
 	public function hideStatusBlock() {
-		$templateData                                = array();
+		$templateData = array();
 		$templateData['MainPage']['hideStatusBlock'] = 1;
 
 		include __DIR__ . '/templates/MainPage.html';

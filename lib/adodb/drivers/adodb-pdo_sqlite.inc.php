@@ -32,7 +32,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	public $random          = 'abs(random())';
 
 	public function _init($parentDriver) {
-		$this->pdoDriver               = $parentDriver;
+		$this->pdoDriver = $parentDriver;
 		$parentDriver->_bindInputArray = true;
 		$parentDriver->hasTransactions = false; // // should be set to false because of PDO SQLite driver not supporting changing autocommit mode
 		$parentDriver->hasInsertID     = true;
@@ -119,7 +119,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	}
 
 	public function SetTransactionMode($transaction_mode) {
-		$parent             = $this->pdoDriver;
+		$parent = $this->pdoDriver;
 		$parent->_transmode = strtoupper($transaction_mode);
 	}
 
@@ -177,9 +177,9 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	public function MetaColumns($tab, $normalize = true) {
 		global $ADODB_FETCH_MODE;
 
-		$parent           = $this->pdoDriver;
-		$false            = false;
-		$save             = $ADODB_FETCH_MODE;
+		$parent = $this->pdoDriver;
+		$false  = false;
+		$save   = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 		if ($parent->fetchMode !== false) {
@@ -205,10 +205,10 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 			if (sizeof($type) == 2) {
 				$size = trim($type[1], ')');
 			}
-			$fn                 = strtoupper($r['name']);
-			$fld                = new ADOFieldObject();
-			$fld->name          = $r['name'];
-			$fld->type          = $type[0];
+			$fn        = strtoupper($r['name']);
+			$fld       = new ADOFieldObject();
+			$fld->name = $r['name'];
+			$fld->type = $type[0];
 			$fld->max_length    = $size;
 			$fld->not_null      = $r['notnull'];
 			$fld->primary_key   = $r['pk'];
@@ -231,8 +231,8 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		$parent = $this->pdoDriver;
 
 		if ($mask) {
-			$save                 = $this->metaTablesSQL;
-			$mask                 = $this->qstr(strtoupper($mask));
+			$save = $this->metaTablesSQL;
+			$mask = $this->qstr(strtoupper($mask));
 			$this->metaTablesSQL .= " AND name LIKE $mask";
 		}
 

@@ -109,8 +109,8 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 		}
 
 		// Remove 'pluginId-*' files from 'repository/pluginType'.
-		$removedFiles        = array();
-		$platform            =& $gallery->getPlatform();
+		$removedFiles = array();
+		$platform     =& $gallery->getPlatform();
 		$repositoryPluginDir = $gallery->getConfig('repository.path') . $pluginType . '/';
 
 		if ($dir = $platform->opendir($repositoryPluginDir)) {

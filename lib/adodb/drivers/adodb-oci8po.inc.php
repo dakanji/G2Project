@@ -129,7 +129,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

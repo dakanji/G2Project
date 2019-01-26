@@ -304,7 +304,7 @@ class GalleryEntity extends GalleryPersistent {
 				}
 			}
 
-			$storage           =& $gallery->getStorage();
+			$storage =& $gallery->getStorage();
 			$changedEntityType = $this->isModified('entityType');
 
 			$ret = $storage->saveEntity($this);
@@ -487,7 +487,7 @@ class GalleryEntity extends GalleryPersistent {
 
 		if (!empty($onLoadHandlers)) {
 			// Determine whether we're in an upgrade process
-			$session                  =& $gallery->getSession();
+			$session =& $gallery->getSession();
 			$isDuringInstallOrUpgrade = $session->get('isInstall') || $session->get('isUpgrade');
 
 			foreach (explode('|', $onLoadHandlers) as $handlerId) {

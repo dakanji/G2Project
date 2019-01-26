@@ -235,11 +235,11 @@ class NetPbmToolkit extends GalleryToolkit {
 			case 'composite':
 				$compositeOverlayPath     = $gallery->getConfig('data.gallery.base') . $parameters[0];
 				$compositeOverlayMimeType = $parameters[1];
-				$compositeWidth           = $parameters[2];
-				$compositeHeight          = $parameters[3];
-				$compositeAlignmentType   = $parameters[4];
-				$compositeAlignX          = $parameters[5];
-				$compositeAlignY          = $parameters[6];
+				$compositeWidth         = $parameters[2];
+				$compositeHeight        = $parameters[3];
+				$compositeAlignmentType = $parameters[4];
+				$compositeAlignX        = $parameters[5];
+				$compositeAlignY        = $parameters[6];
 
 				/*
 				 * Create temporary files, composite may need to be decomposed into
@@ -775,7 +775,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			}
 
 			if (!empty($jheadPath)) {
-				$cmd                         = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+				$cmd = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
 				list($ret, $stdout, $stderr) = $this->_exec(array($cmd));
 
 				if ($ret) {

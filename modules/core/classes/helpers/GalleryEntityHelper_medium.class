@@ -152,7 +152,7 @@ class GalleryEntityHelper_medium {
 	public static function fetchEntitiesLinkedTo($targetId) {
 		global $gallery;
 
-		$query                     = '
+		$query   = '
 	SELECT
 	  [GalleryEntity::id]
 	FROM
@@ -162,7 +162,7 @@ class GalleryEntityHelper_medium {
 	ORDER BY
 	  [GalleryEntity::id] ASC
 	';
-		$storage                   =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $searchResults) = $gallery->search($query, array((int)$targetId));
 
 		if ($ret) {
@@ -199,7 +199,7 @@ class GalleryEntityHelper_medium {
 				if ($i++ % 10 == 0) {
 					$gallery->guaranteeTimeLimit(5);
 				}
-				$id                 = (int)$result[0];
+				$id = (int)$result[0];
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
 
 				if ($ret) {
@@ -276,7 +276,7 @@ class GalleryEntityHelper_medium {
 				'itemId' => $entityId,
 			)
 		);
-		$platform             =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 
 		if ($platform->file_exists($fastDownloadFilePath)) {
 			$platform->unlink($fastDownloadFilePath);
@@ -382,7 +382,7 @@ class GalleryEntityHelper_medium {
 					'itemId' => $entity->getId(),
 				)
 			);
-			$buf                  = sprintf(
+			$buf = sprintf(
 				'<?php function GalleryFastDownload() { ' .
 				'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
 				'\'%s\', \'%s\', %d);} ?>',
@@ -409,7 +409,7 @@ class GalleryEntityHelper_medium {
 		}
 
 		$memberAccessInfo = array();
-		$target           = $entityName;
+		$target = $entityName;
 
 		while ($target) {
 			foreach ($entityInfo[$target]['members'] as $memberName => $memberInfo) {

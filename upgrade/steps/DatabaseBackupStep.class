@@ -79,7 +79,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$this->_progressTitle = 'Backing up the Gallery database';
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 0);
 
-		$exporter                          = $storage->getDatabaseExporter();
+		$exporter = $storage->getDatabaseExporter();
 		list($ret, $backupFile, $warnings) = $exporter->exportToXmlFile(array($this, 'backupCallback'));
 
 		if (!$ret) {
@@ -135,7 +135,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$templateData['storeConfig'] = $gallery->getConfig('storage.config');
 
 		// Load all table versions
-		$storage                   =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $tableVersions) = $storage->getTableVersions();
 
 		if ($ret) {
@@ -165,7 +165,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 				if ($ret) {
 					$templateData['warnings'][] = 'Unable to determine if automated backup is available.';
-					$canDoBackup                = false;
+					$canDoBackup = false;
 				} else {
 					$canDoBackup = $results->resultCount() > 0;
 				}

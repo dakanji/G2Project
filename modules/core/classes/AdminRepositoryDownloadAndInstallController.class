@@ -41,9 +41,9 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	 */
 	public function performDownloadAndInstallation($installPackages, $repositories) {
 		global $gallery;
-		$session         =& $gallery->getSession();
-		$platform        =& $gallery->getPlatform();
-		$phpVm           = $gallery->getPhpVm();
+		$session  =& $gallery->getSession();
+		$platform =& $gallery->getPlatform();
+		$phpVm    = $gallery->getPhpVm();
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		/*
@@ -93,7 +93,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					$packageUrls = $pluginDownloadData['files'];
 					$pluginName  = $pluginDownloadData['name'];
 
-					$downloadStatus                                = array();
+					$downloadStatus = array();
 					list($ret, $reactivatePlugin, $downloadStatus) = $repository->downloadPackagesForPlugin(
 
 						$pluginType,
@@ -347,7 +347,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$platform        =& $gallery->getPlatform();
 
-		$status             = array();
+		$status = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {

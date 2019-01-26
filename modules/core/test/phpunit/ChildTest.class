@@ -50,7 +50,7 @@ class ChildTest extends GalleryTestCase {
 		}
 		$this->_markForCleanup($this->_root);
 
-		$rootId                           = $this->_root->getId();
+		$rootId = $this->_root->getId();
 		list($ret, $this->_rootHighlight) = $this->_createDerivative(
 			$this->_root,
 			$rootId,

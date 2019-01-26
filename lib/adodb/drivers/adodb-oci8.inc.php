@@ -94,24 +94,24 @@ BEGIN
 END;
 ";
 
-	public $_dropSeqSQL                 = 'DROP SEQUENCE %s';
-	public $hasAffectedRows             = true;
-	public $random                      = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
-	public $noNullStrings               = false;
-	public $connectSID                  = false;
-	public $_bind                       = false;
-	public $_nestedSQL                  = true;
-	public $_hasOciFetchStatement       = false;
-	public $_getarray                   = false; // currently not working
-	public $leftOuter                   = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
-	public $session_sharing_force_blob  = false; // alter session on updateblob if set to true
-	public $firstrows                   = true; // enable first rows optimization on SelectLimit()
-	public $selectOffsetAlg1            = 1000; // when to use 1st algorithm of selectlimit.
-	public $NLS_DATE_FORMAT             = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
-	public $dateformat                  = 'YYYY-MM-DD'; // DBDate format
+	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
+	public $hasAffectedRows = true;
+	public $random          = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
+	public $noNullStrings   = false;
+	public $connectSID      = false;
+	public $_bind      = false;
+	public $_nestedSQL = true;
+	public $_hasOciFetchStatement = false;
+	public $_getarray = false; // currently not working
+	public $leftOuter = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
+	public $session_sharing_force_blob = false; // alter session on updateblob if set to true
+	public $firstrows        = true; // enable first rows optimization on SelectLimit()
+	public $selectOffsetAlg1 = 1000; // when to use 1st algorithm of selectlimit.
+	public $NLS_DATE_FORMAT  = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
+	public $dateformat       = 'YYYY-MM-DD'; // DBDate format
 	public $useDBDateFormatForTextInput = false;
-	public $datetime                    = false; // MetaType('DATE') returns 'D' (datetime==false) or 'T' (datetime == true)
-	public $_refLOBs                    = array();
+	public $datetime = false; // MetaType('DATE') returns 'D' (datetime==false) or 'T' (datetime == true)
+	public $_refLOBs = array();
 
 	// var $ansiOuter = true; // if oracle9
 
@@ -130,7 +130,7 @@ END;
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -154,9 +154,9 @@ END;
 		$retarr = array();
 
 		while (!$rs->EOF) {
-			$fld             = new ADOFieldObject();
-			$fld->name       = $rs->fields[0];
-			$fld->type       = $rs->fields[1];
+			$fld       = new ADOFieldObject();
+			$fld->name = $rs->fields[0];
+			$fld->type = $rs->fields[1];
 			$fld->max_length = $rs->fields[2];
 			$fld->scale      = $rs->fields[3];
 
@@ -402,8 +402,8 @@ END;
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {
-			$save                 = $this->metaTablesSQL;
-			$mask                 = $this->qstr(strtoupper($mask));
+			$save = $this->metaTablesSQL;
+			$mask = $this->qstr(strtoupper($mask));
 			$this->metaTablesSQL .= " AND upper(table_name) like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -420,7 +420,7 @@ END;
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -528,7 +528,7 @@ END;
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret              = oci_commit($this->_connectionID);
+		$ret = oci_commit($this->_connectionID);
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -543,7 +543,7 @@ END;
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret              = oci_rollback($this->_connectionID);
+		$ret = oci_rollback($this->_connectionID);
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -767,9 +767,9 @@ END;
 				if ($offset > 0) {
 					$nrows += $offset;
 				}
-				$sql                      = 'select * from (' . $sql . ') where rownum <= :adodb_offset';
+				$sql = 'select * from (' . $sql . ') where rownum <= :adodb_offset';
 				$inputarr['adodb_offset'] = $nrows;
-				$nrows                    = -1;
+				$nrows = -1;
 			}
 			// note that $nrows = 0 still has to work ==> no rows returned
 
@@ -841,7 +841,7 @@ END;
 		}
 		$offset += 1; // in Oracle rownum starts at 1
 
-		$sql                      = "SELECT $hint $fields FROM" .
+		$sql = "SELECT $hint $fields FROM" .
 				"(SELECT rownum as adodb_rownum, $fields FROM" .
 				" ($sql) WHERE rownum <= :adodb_nrows" .
 				') WHERE adodb_rownum >= :adodb_offset';
@@ -1086,7 +1086,7 @@ END;
 		if (!$stmt) {
 			$this->_errorMsg  = false;
 			$this->_errorCode = false;
-			$arr              = @oci_error($this->_connectionID);
+			$arr = @oci_error($this->_connectionID);
 
 			if ($arr === false) {
 				return false;
@@ -1207,7 +1207,7 @@ END;
 				ADOConnection::outp("<b>Bind</b>: name = $name");
 			}
 			//we have to create a new Descriptor here
-			$numlob                          = count($this->_refLOBs);
+			$numlob = count($this->_refLOBs);
 			$this->_refLOBs[$numlob]['LOB']  = oci_new_descriptor($this->_connectionID, oci_lob_desc($type));
 			$this->_refLOBs[$numlob]['TYPE'] = $isOutput;
 
@@ -1524,9 +1524,9 @@ SELECT /*+ RULE */ distinct b.column_name
 	public function MetaForeignKeys($table, $owner = false, $upper = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$table            = $this->qstr(strtoupper($table));
+		$table = $this->qstr(strtoupper($table));
 
 		if (!$owner) {
 			$owner = $this->user;
@@ -1689,7 +1689,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 
 		if ($this->_numOfFields > 0) {
 			$this->_fieldobjs = array();
-			$max              = $this->_numOfFields;
+			$max = $this->_numOfFields;
 
 			for ($i = 0; $i < $max;
 			$i++) {
@@ -1797,7 +1797,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

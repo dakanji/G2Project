@@ -64,7 +64,7 @@ class UserPreferencesController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$userId             = $gallery->getActiveUserId();
+			$userId = $gallery->getActiveUserId();
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
 
 			if ($ret) {

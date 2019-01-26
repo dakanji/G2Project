@@ -222,7 +222,7 @@ class ModRewriteHelper {
 				$urlGenerator->getCurrentUrlDir(true)
 			)
 		);
-		$ret               = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'modrewrite.galleryLocation',
@@ -300,7 +300,7 @@ class ModRewriteHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$status                  = unserialize($status);
+		$status = unserialize($status);
 		$Htaccess['needOptions'] = $status['needOptions'];
 
 		$Htaccess['directory']   = $Htaccess['galleryDirectory'];
@@ -308,7 +308,7 @@ class ModRewriteHelper {
 		$Htaccess['baseFile']    = GALLERY_MAIN_PHP;
 
 		if ($embedded) {
-			$Htaccess['baseFile']              = $urlGenerator->_file[false];
+			$Htaccess['baseFile'] = $urlGenerator->_file[false];
 			list($ret, $Htaccess['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -320,7 +320,7 @@ class ModRewriteHelper {
 			}
 
 			$Htaccess['rewriteBase'] = $Htaccess['directory'];
-			$components              = parse_url($Htaccess['baseFile']);
+			$components = parse_url($Htaccess['baseFile']);
 
 			if (isset($components['host'])) {
 				$Htaccess['directory'] = '';
@@ -593,7 +593,7 @@ class ModRewriteHelper {
 			$target = 'custom';
 		}
 
-		$fetch                = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
+		$fetch = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -619,7 +619,7 @@ class ModRewriteHelper {
 		 * mod_rewrite needs Options +FollowSymlinks and we might need to explicitly require it in
 		 * the .htaccess file.
 		 */
-		$fetch                = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
+		$fetch = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -686,7 +686,7 @@ class ModRewriteHelper {
 
 		// Check embedded .htaccess
 		if (GalleryUtilities::isEmbedded()) {
-			$TestResults['embedded']                         = array();
+			$TestResults['embedded'] = array();
 			list($ret, $TestResults['embedded']['htaccess']) = self::checkFile(true);
 
 			if ($ret) {

@@ -512,7 +512,7 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
  * --------------------------------------------------------------------------
  */
 
-$im627                 = $imEnvironment[count($imEnvironment) - 1];
+$im627 = $imEnvironment[count($imEnvironment) - 1];
 $im627['version']      = '6.2.7';
 $im627['identify'][''] = 'Version: ImageMagick 6.2.7 11/01/05 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC';

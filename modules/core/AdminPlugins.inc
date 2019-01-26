@@ -113,10 +113,10 @@ class AdminPluginsView extends GalleryView {
 				$test1 = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
 				$test2 = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
 
-				$entry                     = array();
-				$entry['type']             = $type;
-				$entry['name']             = $plugin->translate($plugin->getName());
-				$entry['id']               = $plugin->getId();
+				$entry         = array();
+				$entry['type'] = $type;
+				$entry['name'] = $plugin->translate($plugin->getName());
+				$entry['id']   = $plugin->getId();
 				$entry['description']      = $plugin->translate($plugin->getDescription());
 				$entry['version']          = $plugin->getVersion();
 				$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
@@ -154,8 +154,8 @@ class AdminPluginsView extends GalleryView {
 		}
 		usort($plugins, array($this, 'pluginSort'));
 
-		$AdminPlugins                             = array();
-		$AdminPlugins['plugins']                  = $plugins;
+		$AdminPlugins = array();
+		$AdminPlugins['plugins'] = $plugins;
 		list($ret, $AdminPlugins['defaultTheme']) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',

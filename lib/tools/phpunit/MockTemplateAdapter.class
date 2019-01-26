@@ -25,10 +25,10 @@
  */
 class MockTemplateAdapter {
 	public function __construct($useProgressBar = true) {
-		$this->_useProgressBar      = $useProgressBar;
-		$this->_callbacks           = array();
+		$this->_useProgressBar = $useProgressBar;
+		$this->_callbacks      = array();
 		$this->_completeProgressBar = array();
-		$this->_progress            = array();
+		$this->_progress = array();
 	}
 
 	public function registerTrailerCallback($callback, $args) {

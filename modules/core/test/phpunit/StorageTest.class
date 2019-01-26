@@ -159,10 +159,10 @@ class StorageTest extends GalleryTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		$storage                                  =& $gallery->getStorage();
-		$storage->_db                             = $this->_db;
-		$storage->_nonTransactionalDb             = $this->_nonTransactionalDb;
-		$storage->_serverInfo                     = $this->_serverInfo;
+		$storage      =& $gallery->getStorage();
+		$storage->_db = $this->_db;
+		$storage->_nonTransactionalDb = $this->_nonTransactionalDb;
+		$storage->_serverInfo         = $this->_serverInfo;
 		$storage->_isEmptyAllowedForNotNullColumn = $this->_isEmptyAllowedForNotNullColumn;
 
 		$ret = parent::tearDown();
@@ -998,7 +998,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueNotNullEmptyAllowed() {
 		global $gallery;
-		$storage                                  =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		$storage->_isEmptyAllowedForNotNullColumn = true;
 
 		$memberData['notNullEmptyAllowed'] = true;
@@ -1031,11 +1031,11 @@ class StorageTest extends GalleryTestCase {
 	// Do not change empty strings to NULL
 	public function testNormalizeValueNotNullEmptyNotAllowed() {
 		global $gallery;
-		$storage                                  =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		$storage->_isEmptyAllowedForNotNullColumn = false;
 
 		$memberData['notNullEmptyAllowed'] = true;
-		$memberData['notNull']             = true;
+		$memberData['notNull'] = true;
 
 		foreach (array(
 			STORAGE_TYPE_TIMESTAMP,
@@ -1110,7 +1110,7 @@ class StorageTest extends GalleryTestCase {
 			'from string 2'
 		);
 
-		$value              = str_repeat('x', 135);
+		$value = str_repeat('x', 135);
 		$memberData['size'] = STORAGE_SIZE_MEDIUM;
 		$this->assertEquals(
 			$value,
@@ -1153,7 +1153,7 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_BIT;
-		$expected           = $storage->convertIntToBits(5);
+		$expected = $storage->convertIntToBits(5);
 		$this->assertEquals($expected, $storage->_normalizeValue(5, $memberData), 'to DB');
 		$this->assertEquals(5, $storage->_normalizeValue($expected, $memberData, true), 'from DB');
 		$this->assertEquals(null, $storage->_normalizeValue(null, $memberData, true), 'null');
@@ -1328,8 +1328,8 @@ class StorageTest extends GalleryTestCase {
 		// Get a STRING-LARGE version of that string
 		$originalStringLarge    = str_repeat($testString, 51);
 		$originalStringTooLarge = str_repeat($testString, 52);
-		$key                    = 'test' . mt_rand();
-		$itemId                 = -7;
+		$key    = 'test' . mt_rand();
+		$itemId = -7;
 
 		foreach (array($originalStringLarge, $originalStringTooLarge) as $testString) {
 			$ret = GalleryCoreApi::addMapEntry(
@@ -1668,7 +1668,7 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$query                     = "SELECT [::id], $randStatement FROM [GalleryEntity]";
+		$query = "SELECT [::id], $randStatement FROM [GalleryEntity]";
 		$options['limit']['count'] = 2;
 		list($ret, $searchResults) = $storage->search($query, array(), $options);
 

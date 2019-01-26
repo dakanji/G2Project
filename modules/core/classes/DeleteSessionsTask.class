@@ -51,7 +51,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 		global $gallery;
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$session         =& $gallery->getSession();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -72,8 +72,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
-		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
-		$lifetime                    = (int)$params['session.lifetime'];
+		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
+		$lifetime          = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -89,7 +89,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 			$phpVm->time() - (7 * 86400),
 		);
 
-		$query               = '
+		$query = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR
@@ -106,8 +106,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 		if ($total) {
 			// This limit controls the query text length, 1000 sessionIds => query size = 32kbyte
-			$stepSize                 = $session->_expirationLimit = 1000;
-			$iterations               = ceil($total / $stepSize);
+			$stepSize   = $session->_expirationLimit = 1000;
+			$iterations = ceil($total / $stepSize);
 			$option['limit']['count'] = $stepSize;
 
 			for ($i = 1; $i <= $iterations; $i++) {

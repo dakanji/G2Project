@@ -110,7 +110,7 @@ class ItemAddController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$session             =& $gallery->getSession();
+			$session =& $gallery->getSession();
 			$results['status']   = $session->getStatus();
 			$results['redirect'] = array(
 				'view'    => 'core.ItemAdmin',
@@ -151,8 +151,8 @@ class ItemAddController extends GalleryController {
 		global $gallery;
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$urlGenerator    =& $gallery->getUrlGenerator();
-		$phpVm           = $gallery->getPhpVm();
-		$session         =& $gallery->getSession();
+		$phpVm   = $gallery->getPhpVm();
+		$session =& $gallery->getSession();
 
 		$startTime = $phpVm->time();
 		// Auto-redirect if we complete the request within this period. Else show the continueURL
@@ -344,7 +344,7 @@ class ItemAddController extends GalleryController {
 
 		// Extract all archive-type items and call the ItemAddOption instances for postprocessing
 		$itemsToProcess = $itemsToProcessKeyMap = array();
-		$i              = 0;
+		$i = 0;
 
 		do {
 			$file =& $status['addedFiles'][$i];
@@ -467,7 +467,7 @@ class ItemAddController extends GalleryController {
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
 
-		$parentId                          = $archiveItem->getParentId();
+		$parentId = $archiveItem->getParentId();
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
 
 		if ($ret) {
@@ -806,7 +806,7 @@ class ItemAddView extends GalleryView {
 			);
 		}
 
-		$ItemAdd              = array();
+		$ItemAdd = array();
 		$ItemAdd['addPlugin'] = $addPlugin;
 		$ItemAdd['plugins']   = $plugins;
 		$ItemAdd['isAdmin']   = $isAdmin;

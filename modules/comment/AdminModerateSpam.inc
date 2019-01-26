@@ -81,11 +81,11 @@ class AdminModerateSpamController extends GalleryController {
 		}
 
 		// Figure out where to redirect upon success
-		$method                      = empty($error) ? 'redirect' : 'delegate';
+		$method = empty($error) ? 'redirect' : 'delegate';
 		$results[$method]['view']    = 'core.SiteAdmin';
 		$results[$method]['subView'] = 'comment.AdminModerateSpam';
-		$results['status']           = $status;
-		$results['error']            = $error;
+		$results['status'] = $status;
+		$results['error']  = $error;
 
 		return array(null, $results);
 	}
@@ -146,7 +146,7 @@ class AdminModerateSpamView extends GalleryView {
 			$itemIds[$comments[$i]->getParentId()]       = 1;
 
 			// Extract the member data
-			$comments[$i]             = (array)$comments[$i];
+			$comments[$i] = (array)$comments[$i];
 			$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . mt_rand();
 		}
 

@@ -685,7 +685,7 @@ order by
 		}
 		$s .= '<p>';
 
-		$save             = $ADODB_CACHE_MODE;
+		$save = $ADODB_CACHE_MODE;
 		$ADODB_CACHE_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -770,8 +770,8 @@ order by
 			return $s;
 		}
 
-		$s               .= '<p>';
-		$save             = $ADODB_CACHE_MODE;
+		$s   .= '<p>';
+		$save = $ADODB_CACHE_MODE;
 		$ADODB_CACHE_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {

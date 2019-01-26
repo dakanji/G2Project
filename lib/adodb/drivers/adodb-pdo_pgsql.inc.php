@@ -43,15 +43,15 @@ WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s'))
 	public $hasAffectedRows = true;
 	public $hasLimit        = false;  // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
-	public $true            = 't';        // string that represents TRUE for a database
-	public $false           = 'f';       // string that represents FALSE for a database
-	public $fmtDate         = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
-	public $fmtTimeStamp    = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
-	public $hasMoveFirst    = true;
-	public $hasGenID        = true;
-	public $_genIDSQL       = "SELECT NEXTVAL('%s')";
-	public $_genSeqSQL      = 'CREATE SEQUENCE %s START %s';
-	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
+	public $true         = 't';        // string that represents TRUE for a database
+	public $false        = 'f';       // string that represents FALSE for a database
+	public $fmtDate      = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
+	public $fmtTimeStamp = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
+	public $hasMoveFirst = true;
+	public $hasGenID     = true;
+	public $_genIDSQL    = "SELECT NEXTVAL('%s')";
+	public $_genSeqSQL   = 'CREATE SEQUENCE %s START %s';
+	public $_dropSeqSQL  = 'DROP SEQUENCE %s';
 	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
 	public $random          = 'random()';       /// random function
 	public $concat_operator = '||';
@@ -129,7 +129,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			$table = strtolower($table);
 		}
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -178,8 +178,8 @@ select viewname,'V' from pg_views where viewname like $mask";
 
 		if (!empty($this->metaDefaultsSQL)) {
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-			$sql              = sprintf($this->metaDefaultsSQL, ($table));
-			$rsdef            = $this->Execute($sql);
+			$sql   = sprintf($this->metaDefaultsSQL, ($table));
+			$rsdef = $this->Execute($sql);
 
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
@@ -208,9 +208,9 @@ select viewname,'V' from pg_views where viewname like $mask";
 		$retarr = array();
 
 		while (!$rs->EOF) {
-			$fld             = new ADOFieldObject();
-			$fld->name       = $rs->fields[0];
-			$fld->type       = $rs->fields[1];
+			$fld       = new ADOFieldObject();
+			$fld->name = $rs->fields[0];
+			$fld->type = $rs->fields[1];
 			$fld->max_length = $rs->fields[2];
 
 			if ($fld->max_length <= 0) {

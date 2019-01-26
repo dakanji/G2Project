@@ -91,14 +91,14 @@ class RatingAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams           = array(
+			$item->urlParams = array(
 				'view'        => 'rating.RatingAlbum',
 				'limit'       => $limit,
 				'highlightId' => $itemId,
 			);
 			$item->getChildrenFunction = array('RatingAlbumView', 'getChildIds');
 			$viewItem->parent          = $item;
-			$item                      = $viewItem;
+			$item = $viewItem;
 		}
 
 		if (empty($moduleParams['themeId'])) {

@@ -73,12 +73,12 @@ class RepositoryIndex extends RepositoryObject {
 	public function generate() {
 		global $gallery;
 
-		$pluginTypes      = array('modules', 'themes');
-		$pluginCount      = array(
+		$pluginTypes = array('modules', 'themes');
+		$pluginCount = array(
 			'themes'  => 0,
 			'modules' => 0,
 		);
-		$index            = array();
+		$index       = array();
 		$buildLookupTable = array();
 
 		$platform =& $gallery->getPlatform();

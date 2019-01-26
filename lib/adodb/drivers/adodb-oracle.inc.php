@@ -289,9 +289,9 @@ class ADORecordset_oracle extends ADORecordSet {
 			   fetchField() is retrieved.		*/
 
 	public function FetchField($fieldOffset = -1) {
-		$fld             = new ADOFieldObject();
-		$fld->name       = ora_columnname($this->_queryID, $fieldOffset);
-		$fld->type       = ora_columntype($this->_queryID, $fieldOffset);
+		$fld       = new ADOFieldObject();
+		$fld->name = ora_columnname($this->_queryID, $fieldOffset);
+		$fld->type = ora_columntype($this->_queryID, $fieldOffset);
 		$fld->max_length = ora_columnsize($this->_queryID, $fieldOffset);
 
 		return $fld;
@@ -303,7 +303,7 @@ class ADORecordset_oracle extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

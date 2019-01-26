@@ -256,7 +256,7 @@ class GalleryMimeTypeHelper_advanced {
 		global $gallery;
 
 		// Check to see if the extension already exists.
-		$query               = '
+		$query = '
 	SELECT
 	    [GalleryMimeTypeMap::extension]
 	FROM

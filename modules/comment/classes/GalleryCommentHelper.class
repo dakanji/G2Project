@@ -97,7 +97,7 @@ class GalleryCommentHelper {
 			';
 			$data[] = $publishStatus;
 		}
-		$query                    .= '
+		$query .= '
 		ORDER BY
 		[GalleryComment::date] ' . $direction . '
 		';
@@ -297,7 +297,7 @@ class GalleryCommentHelper {
 		if (!$count && !$offset) {
 			$totalCount = count($allIds);
 		} else {
-			$query                     = '
+			$query = '
 			SELECT
 			COUNT([GalleryComment::id]) ' . $queryBase;
 			list($ret, $searchResults) = $gallery->search($query, $data);

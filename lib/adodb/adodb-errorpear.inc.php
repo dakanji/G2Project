@@ -71,7 +71,7 @@ function ADODB_Error_PEAR($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 = false)
 			break;
 	}
 
-	$class                 = ADODB_PEAR_ERROR_CLASS;
+	$class = ADODB_PEAR_ERROR_CLASS;
 	$ADODB_Last_PEAR_Error = new $class(
 		$s,
 		$errno,

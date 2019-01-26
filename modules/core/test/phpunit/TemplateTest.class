@@ -61,7 +61,7 @@ class TemplateTest extends GalleryTestCase {
 		$this->_template   = new GalleryTemplate('/legal/path');
 		$this->_mockSmarty = new TemplateTestMockSmarty();
 
-		$tplVersion             = $module->getTemplateVersion();
+		$tplVersion = $module->getTemplateVersion();
 		$this->_baseDirOverride = '/legal/path/themes/mockTheme/templates/core_' . $tplVersion;
 
 		$this->_origPlatform =& $gallery->getPlatform();
@@ -318,7 +318,7 @@ class TemplateTest extends GalleryTestCase {
 	public function testSmartyCompileCheckEnabledIfNoCacheRequested() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
 		$_SERVER['HTTP_PRAGMA'] = 'no-cache';
-		$template               = new GalleryTemplate('/legal/path');
+		$template = new GalleryTemplate('/legal/path');
 		$this->assertTrue(
 			$template->_smarty->compile_check,
 			'SmartyCompileCheckEnabledIfNoCacheRequested'
@@ -415,7 +415,7 @@ class TemplateTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		// Execute the function under test
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -437,7 +437,7 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -471,7 +471,7 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -499,7 +499,7 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -527,7 +527,7 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {

@@ -66,11 +66,11 @@ class AdminToolkitPriorityController extends GalleryController {
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
 
-		$results['return']              = 0;
+		$results['return'] = 0;
 		$results['redirect']['view']    = 'core.SiteAdmin';
 		$results['redirect']['subView'] = 'core.AdminToolkitPriority';
-		$results['status']              = $status;
-		$results['error']               = array();
+		$results['status'] = $status;
+		$results['error']  = array();
 
 		return array(null, $results);
 	}

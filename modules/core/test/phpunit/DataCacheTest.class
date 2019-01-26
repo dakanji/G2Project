@@ -47,7 +47,7 @@ class DataCacheTest extends GalleryTestCase {
 		$acceleration['user']['type']       = 'full';
 		$acceleration['user']['expiration'] = 30;
 		$acceleration['guest']['type']      = 'none';
-		$ret                                = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -142,7 +142,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 
-		$cases                                      = array();
+		$cases = array();
 		$cases['/data/cache/module/core/0/0/1.inc'] = array(
 			'type'   => 'module',
 			'id'     => 'core',
@@ -167,7 +167,7 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 
-		$cases['/data/cache/theme/matrix']             = array(
+		$cases['/data/cache/theme/matrix'] = array(
 			'type' => 'theme',
 			'id'   => 'matrix',
 		);
@@ -647,7 +647,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$acceleration['user']['type'] = 'full';
-		$ret                          = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -672,7 +672,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration['user']['type']  = 'full';
 		$acceleration['guest']['type'] = 'full';
-		$ret                           = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -709,7 +709,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration['user']['type']  = 'none';
 		$acceleration['guest']['type'] = 'none';
-		$ret                           = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -733,7 +733,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$acceleration['user']['type'] = 'none';
-		$ret                          = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -832,7 +832,7 @@ class DataCacheTest extends GalleryTestCase {
 		$session->put('theme.guestPreviewMode', 1);
 
 		$acceleration['user']['type'] = 'full';
-		$ret                          = GalleryCoreApi::setPluginParameter(
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -1010,7 +1010,7 @@ class DataCacheTest extends GalleryTestCase {
 		$this->assertEquals(null, $result, 'Cache entry should be obsolete.');
 
 		// Verify the number of rows that we should have in the DB.
-		$query               = 'SELECT * FROM [GalleryCacheMap]';
+		$query = 'SELECT * FROM [GalleryCacheMap]';
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -1019,7 +1019,7 @@ class DataCacheTest extends GalleryTestCase {
 		$this->assertEquals(5, (int)$results->resultCount(), 'Total cache entries.');
 
 		// Verify the number of rows that should be valid.
-		$query               = '
+		$query = '
 		SELECT
 		*
 		FROM
@@ -1179,7 +1179,7 @@ class DataCacheTestPlatform {
 	}
 
 	public function atomicWrite($filename, $data) {
-		$record                        =& $this->getRecord();
+		$record =& $this->getRecord();
 		$record['contents'][$filename] = $data;
 
 		return strlen($data);
@@ -1190,12 +1190,12 @@ class DataCacheTestPlatform {
 	}
 
 	public function unlink($filename) {
-		$record                            =& $this->getRecord();
+		$record =& $this->getRecord();
 		$record['deleted-file'][$filename] = 1;
 	}
 
 	public function recursiveRmDir($dir) {
-		$record                      =& $this->getRecord();
+		$record =& $this->getRecord();
 		$record['deleted-dir'][$dir] = 1;
 	}
 

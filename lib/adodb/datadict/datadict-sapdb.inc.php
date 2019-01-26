@@ -84,18 +84,18 @@ class ADODB2_sapdb extends ADODB_DataDict {
 			$len      = $fieldobj->max_length;
 		}
 		static $maxdb_type2adodb = array(
-			'VARCHAR'   => 'C',
+			'VARCHAR' => 'C',
 			'CHARACTER' => 'C',
-			'LONG'      => 'X',     // no way to differ between 'X' and 'B' :-(
-			'DATE'      => 'D',
+			'LONG' => 'X',     // no way to differ between 'X' and 'B' :-(
+			'DATE' => 'D',
 			'TIMESTAMP' => 'T',
-			'BOOLEAN'   => 'L',
-			'INTEGER'   => 'I4',
-			'SMALLINT'  => 'I2',
-			'FLOAT'     => 'F',
-			'FIXED'     => 'N',
+			'BOOLEAN' => 'L',
+			'INTEGER' => 'I4',
+			'SMALLINT' => 'I2',
+			'FLOAT' => 'F',
+			'FIXED' => 'N',
 		);
-		$type                    = isset($maxdb_type2adodb[$t]) ? $maxdb_type2adodb[$t] : 'C';
+		$type = isset($maxdb_type2adodb[$t]) ? $maxdb_type2adodb[$t] : 'C';
 
 		// convert integer-types simulated with fixed back to integer
 		if ($t == 'FIXED' && !$fieldobj->scale && ($len == 20 || $len == 3)) {
@@ -135,16 +135,16 @@ class ADODB2_sapdb extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname            = $this->TableName($tabname);
-		$sql                = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		return array('ALTER TABLE ' . $tabname . ' ADD (' . implode(', ', $lines) . ')');
 	}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname            = $this->TableName($tabname);
-		$sql                = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		return array('ALTER TABLE ' . $tabname . ' MODIFY (' . implode(', ', $lines) . ')');

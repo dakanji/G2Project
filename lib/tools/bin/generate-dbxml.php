@@ -18,26 +18,32 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ini_set('error_reporting', 2047);
+
 if (!empty($_SERVER['SERVER_NAME'])) {
-	print "You must run this from the command line\n";
+	echo "You must run this from the command line\n";
+
 	exit(1);
 }
 
 require_once __DIR__ . '/XmlParser.inc';
+
 require_once __DIR__ . '/../../smarty/Smarty.class.php';
 
-$tmpdir = __DIR__ . '/tmp_dbxml_' . rand(1, 30000);
+$tmpdir = __DIR__ . '/tmp_dbxml_' . mt_rand(1, 30000);
+
 if (file_exists($tmpdir)) {
-	print "Tmp dir already exists: $tmpdir\n";
+	echo "Tmp dir already exists: $tmpdir\n";
+
 	exit(1);
 }
 
 if (!mkdir($tmpdir)) {
-	print "Unable to make tmp dir: $tmpdir\n";
+	echo "Unable to make tmp dir: $tmpdir\n";
+
 	exit(1);
 }
 
-$smarty                  = new Smarty();
+$smarty = new Smarty();
 $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
@@ -48,9 +54,11 @@ function generateEntityDbXml() {
 	global $smarty;
 
 	$entityXmlFiles = glob('tmp/classxml/*.xml');
+
 	if (empty($entityXmlFiles)) {
 		return;
 	}
+
 	foreach ($entityXmlFiles as $xmlFile) {
 		$p        = new XmlParser();
 		$root     = $p->parse($xmlFile);
@@ -70,6 +78,7 @@ function generateEntityDbXml() {
 		$keys       = array();
 		$indexes    = array();
 		$requiresId = false;
+
 		foreach ($membersBase as $child) {
 			switch ($child['name']) {
 				case 'MEMBER':
@@ -79,54 +88,63 @@ function generateEntityDbXml() {
 						'ucName' => ucfirst($child['child'][0]['content']),
 						'lcType' => strtolower($child['child'][1]['content']),
 					);
+
 					for ($i = 2; $i < count($child['child']); $i++) {
 						switch ($child['child'][$i]['name']) {
 							case 'MEMBER-SIZE':
 											$member['size'] = $child['child'][$i]['content'];
+
 								break;
 
 							case 'INDEXED':
-								$indexes[]                                           = array(
-									'columns' => array( $member['name'] ),
+								$indexes[] = array(
+									'columns' => array($member['name']),
 								);
 									$member[strtolower($child['child'][$i]['name'])] = 1;
+
 								break;
 
 							case 'UNIQUE':
-								$keys[]                                          = array(
-									'columns' => array( $member['name'] ),
+								$keys[] = array(
+									'columns' => array($member['name']),
 								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
+
 								break;
 
 							case 'PRIMARY':
-								$keys[]            = array(
-									'columns' => array( $member['name'] ),
+								$keys[] = array(
+									'columns' => array($member['name']),
 									'primary' => 1,
 								);
 								$member['primary'] = 1;
+
 								break;
 
 							case 'ID':
 							case 'LINKED':
 								$member[strtolower($child['child'][$i]['name'])] = 1;
+
 								break;
 
 							case 'REQUIRED':
 								$member['required'] = array();
+
 								if (isset($child['child'][$i]['attrs']['EMPTY'])) {
 									$member['required']['empty'] = $child['child'][$i]['attrs']['EMPTY'];
 								} else {
 									$member['required']['empty'] = 'disallowed';
 								}
+
 								break;
 
 							case 'DEFAULT':
 								$member['default'] = $child['child'][$i]['content'];
+
 								break;
 
 							case 'MEMBER-EXTERNAL-ACCESS':
-								/* Not relevant for storage layer */
+								// Not relevant for storage layer
 								break;
 
 							default:
@@ -139,33 +157,39 @@ function generateEntityDbXml() {
 					}
 
 					$members[] = $member;
+
 					break;
 
 				case 'KEY':
 					$key = array();
+
 					foreach ($child['child'] as $column) {
 						$key['columns'][] = $column['content'];
 					}
 					$key['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 					$keys[]         = $key;
+
 					break;
 
 				case 'INDEX':
 					$index = array();
+
 					foreach ($child['child'] as $column) {
 						$index['columns'][] = $column['content'];
 					}
 					$index['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 
 					$indexes[] = $index;
+
 					break;
 
 				case 'REQUIRES-ID':
 					$requiresId = true;
 					$keys[]     = array(
-						'columns' => array( 'id' ),
+						'columns' => array('id'),
 						'primary' => 1,
 					);
+
 					break;
 			}
 		}
@@ -189,6 +213,7 @@ function generateMapDbXml() {
 	global $smarty;
 
 	$xmlFile = '../Maps.xml';
+
 	if (!file_exists($xmlFile)) {
 		return;
 	}
@@ -203,12 +228,12 @@ function generateMapDbXml() {
 		$origMapName = $map['child'][0]['content'];
 
 		/*
-		* NOTE!  Keep this in sync with the similar block in extractClassXml.pl
-		* and generate-entities.php
-		*/
+		 * NOTE!  Keep this in sync with the similar block in extractClassXml.pl
+		 * and generate-entities.php
+		 */
 		$mapName = $origMapName;
 		$mapName = preg_replace('/^Gallery/', '', $mapName);
-		/* Shorten some table names to fit Oracle's 30 char name limit.. */
+		// Shorten some table names to fit Oracle's 30 char name limit..
 		$mapName = str_replace('Preferences', 'Prefs', $mapName);
 		$mapName = str_replace('Toolkit', 'Tk', $mapName);
 		$mapName = str_replace('TkOperation', 'TkOperatn', $mapName);
@@ -224,8 +249,10 @@ function generateMapDbXml() {
 		$keys       = array();
 		$indexes    = array();
 		$requiresId = false;
+
 		for ($j = 2; $j < count($map['child']); $j++) {
 			$child = $map['child'][$j];
+
 			switch ($child['name']) {
 				case 'MEMBER':
 					$member = array(
@@ -234,49 +261,57 @@ function generateMapDbXml() {
 						'ucName' => ucfirst($child['child'][0]['content']),
 						'lcType' => strtolower($child['child'][1]['content']),
 					);
+
 					for ($i = 2; $i < count($child['child']); $i++) {
 						switch ($child['child'][$i]['name']) {
 							case 'MEMBER-SIZE':
 											$member['size'] = $child['child'][$i]['content'];
+
 								break;
 
 							case 'INDEXED':
-								$indexes[]                                           = array(
-									'columns' => array( $member['name'] ),
+								$indexes[] = array(
+									'columns' => array($member['name']),
 								);
 									$member[strtolower($child['child'][$i]['name'])] = 1;
+
 								break;
 
 							case 'UNIQUE':
-								$keys[]                                          = array(
-									'columns' => array( $member['name'] ),
+								$keys[] = array(
+									'columns' => array($member['name']),
 								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
+
 								break;
 
 							case 'PRIMARY':
-								$keys[]            = array(
-									'columns' => array( $member['name'] ),
+								$keys[] = array(
+									'columns' => array($member['name']),
 									'primary' => 1,
 								);
 								$member['primary'] = 1;
+
 								break;
 
 							case 'REQUIRED':
 								$member['required'] = array();
+
 								if (isset($child['child'][$i]['attrs']['EMPTY'])) {
 									$member['required']['empty'] = $child['child'][$i]['attrs']['EMPTY'];
 								} else {
 									$member['required']['empty'] = 'disallowed';
 								}
+
 								break;
 
 							case 'DEFAULT':
 								$member['default'] = $child['child'][$i]['content'];
+
 								break;
 
 							case 'MEMBER-EXTERNAL-ACCESS':
-								/* Not relevant for storage layer */
+								// Not relevant for storage layer
 								break;
 
 							default:
@@ -289,25 +324,30 @@ function generateMapDbXml() {
 					}
 
 					$members[] = $member;
+
 					break;
 
 				case 'KEY':
 					$key = array();
+
 					foreach ($child['child'] as $column) {
 						$key['columns'][] = $column['content'];
 					}
 					$key['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 					$keys[]         = $key;
+
 					break;
 
 				case 'INDEX':
 					$index = array();
+
 					foreach ($child['child'] as $column) {
 						$index['columns'][] = $column['content'];
 					}
 					$index['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 
 					$indexes[] = $index;
+
 					break;
 			}
 
@@ -330,7 +370,7 @@ function generateMapDbXml() {
 generateEntityDbXml();
 generateMapDbXml();
 
-/* Clean up the cheap and easy way */
+// Clean up the cheap and easy way
 if (file_exists($tmpdir)) {
 	system("rm -rf $tmpdir");
 }

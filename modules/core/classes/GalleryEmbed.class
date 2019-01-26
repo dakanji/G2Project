@@ -244,7 +244,7 @@ class GalleryEmbed {
 			}
 
 			if ($results->resultCount()) {
-				$row                     = $results->nextResult();
+				$row = $results->nextResult();
 				list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($row[0]);
 
 				if ($ret) {
@@ -1235,7 +1235,7 @@ class GalleryEmbed {
 			$head = $template->getVariable('head');
 
 			if (!empty($head['tpl'])) {
-				$tpl                  = array_keys($head['tpl'])[0];
+				$tpl = array_keys($head['tpl'])[0];
 				list($ret, $headHtml) = $template->fetch("gallery:$tpl");
 
 				if ($ret) {

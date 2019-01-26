@@ -62,14 +62,14 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 		public $forceNewConnect  = false;
 		public $poorAffectedRows = true;
 		public $clientFlags      = 0;
-		public $substr           = 'substring';
-		public $port             = 3306; //Default to 3306 to fix HHVM bug
-		public $socket           = ''; //Default to empty string to fix HHVM bug
-		public $_bindInputArray  = false;
-		public $nameQuote        = '`';       /// string to use to quote identifiers and names
-		public $optionFlags      = array(array(MYSQLI_READ_DEFAULT_GROUP, 0));
-		public $arrayClass       = 'ADORecordSet_array_mysqli';
-		public $multiQuery       = false;
+		public $substr = 'substring';
+		public $port   = 3306; //Default to 3306 to fix HHVM bug
+		public $socket = ''; //Default to empty string to fix HHVM bug
+		public $_bindInputArray = false;
+		public $nameQuote       = '`';       /// string to use to quote identifiers and names
+		public $optionFlags     = array(array(MYSQLI_READ_DEFAULT_GROUP, 0));
+		public $arrayClass      = 'ADORecordSet_array_mysqli';
+		public $multiQuery      = false;
 
 		public function __construct() {
 			// if(!extension_loaded("mysqli"))
@@ -406,8 +406,8 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 			// save old fetch mode
 			global $ADODB_FETCH_MODE;
 
-			$false            = false;
-			$save             = $ADODB_FETCH_MODE;
+			$false = false;
+			$save  = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -589,8 +589,8 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 			// save old fetch mode
 			global $ADODB_FETCH_MODE;
 
-			$false            = false;
-			$save             = $ADODB_FETCH_MODE;
+			$false = false;
+			$save  = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -662,7 +662,7 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			if ($mask) {
-				$mask                 = $this->qstr($mask);
+				$mask = $this->qstr($mask);
 				$this->metaTablesSQL .= " AND table_name LIKE $mask";
 			}
 			$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -734,7 +734,7 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			global $ADODB_FETCH_MODE;
-			$save             = $ADODB_FETCH_MODE;
+			$save = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -769,10 +769,10 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type       = $query_array[1];
-					$arr             = explode(',', $query_array[2]);
-					$fld->enums      = $arr;
-					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
+					$fld->type  = $query_array[1];
+					$arr        = explode(',', $query_array[2]);
+					$fld->enums = $arr;
+					$zlen       = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
 					$fld->type       = $type;
@@ -1115,7 +1115,7 @@ if (! defined('_ADODB_MYSQLI_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o                                = $this->FetchField($i);
+					$o = $this->FetchField($i);
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}

@@ -43,7 +43,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$gallery->_platform = new FfmpegToolkitTestPlatform();
-		$ret                = $gallery->_platform->init($this);
+		$ret = $gallery->_platform->init($this);
 
 		if ($ret) {
 			return $ret;
@@ -629,7 +629,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
  */
 class FfmpegToolkitTestPlatform {
 	public function init(&$test) {
-		$this->_test                   =& $test;
+		$this->_test =& $test;
 		list($ret, $this->_ffmpegPath) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'ffmpeg',

@@ -37,11 +37,11 @@ class TemplateAuditTest extends CodeAuditTestCase {
 		$this->_lineEnding = $platform->getLineEnding();
 
 		$this->_revisionPattern = ' \* \$Revision(:.+)?\$';
-		$lines[]                = '\{\*';
-		$lines[]                = $this->_revisionPattern;
-		$lines[]                = ' * Read this before changing templates!  http://codex.gallery2.org/Gallery2:'
+		$lines[] = '\{\*';
+		$lines[] = $this->_revisionPattern;
+		$lines[] = ' * Read this before changing templates!  http://codex.gallery2.org/Gallery2:'
 				. 'Editing_Templates';
-		$lines[]                = ' \*}';
+		$lines[] = ' \*}';
 
 		$this->_revisionPlaceHolder = ' * REVISION PLACEHOLDER';
 		$this->_headerPattern       = join("(\r\n|\n)", $lines);
@@ -49,7 +49,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 		$this->_expectedHeaderLines = $lines;
 		array_splice($this->_expectedHeaderLines, 1, 1, $this->_revisionPlaceHolder);
 
-		$this->_exceptions           = array();
+		$this->_exceptions = array();
 		$this->_exceptions['header'] = array();
 
 		$this->_exception['hiddenFormVars'] = array(
@@ -94,7 +94,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 			$fileName,
 			strlen(dirname(dirname(dirname(dirname($fileName))))) + 1
 		);
-		$lines             = preg_split("/(\r\n|\n)/", $buffer);
+		$lines = preg_split("/(\r\n|\n)/", $buffer);
 
 		if (!in_array($truncatedFileName, $this->_exception['hiddenFormVars'])) {
 			$this->_checkHiddenFormVars($truncatedFileName, $lines);

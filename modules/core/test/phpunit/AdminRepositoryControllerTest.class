@@ -60,7 +60,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
 
-		$mockAdapter               = new MockTemplateAdapter();
+		$mockAdapter = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		$results = $this->handleRequest();
@@ -106,7 +106,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$mockAdapter               = new MockTemplateAdapter();
+		$mockAdapter = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		$results = $this->handleRequest();

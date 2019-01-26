@@ -184,8 +184,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 	// Figure out the target view/controller
 	list($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
-	$controllerName                  = is_string($controllerName) ? $controllerName : null;
-	$viewName                        = is_string($viewName) ? $viewName : null;
+	$controllerName = is_string($controllerName) ? $controllerName : null;
+	$viewName       = is_string($viewName) ? $viewName : null;
 	$gallery->debug("controller $controllerName, view $viewName");
 
 	// Check if core module needs upgrading
@@ -459,7 +459,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			$html      = unserialize($html);
 			$themeData = unserialize($themeData);
 
-			$data              = $session->replaceSessionIdInData($html);
+			$data = $session->replaceSessionIdInData($html);
 			$data['themeData'] = $session->replaceSessionIdInData($themeData);
 
 			$data['isDone'] = false;
@@ -784,7 +784,7 @@ function _GalleryMain_doRedirect(
 				 * It is IIS and it's a version with this bug, check if GALLERYSID is already in the
 				 * URL, else append it
 				 */
-				$session            =& $gallery->getSession();
+				$session =& $gallery->getSession();
 				$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '='
 				. urlencode($session->getId());
 

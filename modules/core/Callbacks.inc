@@ -90,7 +90,7 @@ class CoreCallbacks {
 				$item = $params['item'];
 
 				if (isset($item['parent']->getChildrenFunction)) {
-					$parent              = $item['parent'];
+					$parent = $item['parent'];
 					list($ret, $peerIds) = call_user_func($parent->getChildrenFunction, $userId);
 
 					if ($ret) {
@@ -169,7 +169,7 @@ class CoreCallbacks {
 					$j = 0;
 
 					foreach ($peerMap as $i => $id) {
-						$peer              = (array)$peerItems[$j++];
+						$peer = (array)$peerItems[$j++];
 						$peer['peerIndex'] = $i + 1;
 
 						if (isset($thumbTable[$id])) {

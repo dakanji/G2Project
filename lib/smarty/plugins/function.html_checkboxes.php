@@ -112,7 +112,7 @@ function smarty_function_html_checkboxes($params, &$smarty) {
 		}
 	} else {
 		foreach ($values as $_i => $_key) {
-			$_val           = isset($output[$_i]) ? $output[$_i] : '';
+			$_val = isset($output[$_i]) ? $output[$_i] : '';
 			$_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 		}
 	}

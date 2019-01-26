@@ -33,7 +33,7 @@ class TestGdFunctionality {
 	public $_gdEnvironment;
 
 	// Keep track of our resources
-	public $_resourceCounter            = 0;
+	public $_resourceCounter = 0;
 	public $_undestroyedResourceCounter = 0;
 	public $_resources;
 	public $_outputFiles;
@@ -67,7 +67,7 @@ class TestGdFunctionality {
 	public function getNewResource($filename = null) {
 		$this->_resourceCounter++;
 		$this->_undestroyedResourceCounter++;
-		$name                    = 'res #' . $this->_resourceCounter;
+		$name = 'res #' . $this->_resourceCounter;
 		$this->_resources[$name] = array(
 			'x'         => 0,
 			'y'         => 0,
@@ -92,7 +92,7 @@ class TestGdFunctionality {
 	public function copyResource($otherRes) {
 		$this->_resourceCounter++;
 		$this->_undestroyedResourceCounter++;
-		$newRes                    = 'Resource #' . $this->_resourceCounter;
+		$newRes = 'Resource #' . $this->_resourceCounter;
 		$this->_resources[$newRes] = $this->_resources[$otherRes];
 
 		return $newRes;
@@ -120,7 +120,7 @@ class TestGdFunctionality {
 			'y'        => $this->getResourceData($res, 'y'),
 			'mimeType' => $mimeType,
 		);
-		$other                         = $this->getResourceData($res, 'other');
+		$other = $this->getResourceData($res, 'other');
 
 		if (is_array($other)) {
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $other);
@@ -128,7 +128,7 @@ class TestGdFunctionality {
 		$history = $this->getResourceData($res, 'history');
 
 		if (is_array($history)) {
-			$history                       = array(
+			$history = array(
 				'history' => $history,
 			);
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $history);

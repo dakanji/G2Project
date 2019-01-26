@@ -1167,7 +1167,7 @@ class Smarty {
 			// save old cache_info, initialize cache_info
 			array_push($_cache_info, $this->_cache_info);
 			$this->_cache_info = array();
-			$_params           = array(
+			$_params = array(
 				'tpl_file'   => $resource_name,
 				'cache_id'   => $cache_id,
 				'compile_id' => $compile_id,
@@ -1519,27 +1519,27 @@ class Smarty {
 
 		$smarty_compiler = new $this->compiler_class();
 
-		$smarty_compiler->template_dir             = $this->template_dir;
-		$smarty_compiler->compile_dir              = $this->compile_dir;
-		$smarty_compiler->plugins_dir              = $this->plugins_dir;
-		$smarty_compiler->config_dir               = $this->config_dir;
-		$smarty_compiler->force_compile            = $this->force_compile;
-		$smarty_compiler->caching                  = $this->caching;
-		$smarty_compiler->php_handling             = $this->php_handling;
-		$smarty_compiler->left_delimiter           = $this->left_delimiter;
-		$smarty_compiler->right_delimiter          = $this->right_delimiter;
-		$smarty_compiler->_version                 = $this->_version;
-		$smarty_compiler->security                 = $this->security;
-		$smarty_compiler->secure_dir               = $this->secure_dir;
-		$smarty_compiler->security_settings        = $this->security_settings;
-		$smarty_compiler->trusted_dir              = $this->trusted_dir;
-		$smarty_compiler->use_sub_dirs             = $this->use_sub_dirs;
-		$smarty_compiler->_reg_objects             = &$this->_reg_objects;
-		$smarty_compiler->_plugins                 = &$this->_plugins;
-		$smarty_compiler->_tpl_vars                = &$this->_tpl_vars;
-		$smarty_compiler->default_modifiers        = $this->default_modifiers;
-		$smarty_compiler->compile_id               = $this->_compile_id;
-		$smarty_compiler->_config                  = $this->_config;
+		$smarty_compiler->template_dir    = $this->template_dir;
+		$smarty_compiler->compile_dir     = $this->compile_dir;
+		$smarty_compiler->plugins_dir     = $this->plugins_dir;
+		$smarty_compiler->config_dir      = $this->config_dir;
+		$smarty_compiler->force_compile   = $this->force_compile;
+		$smarty_compiler->caching         = $this->caching;
+		$smarty_compiler->php_handling    = $this->php_handling;
+		$smarty_compiler->left_delimiter  = $this->left_delimiter;
+		$smarty_compiler->right_delimiter = $this->right_delimiter;
+		$smarty_compiler->_version        = $this->_version;
+		$smarty_compiler->security        = $this->security;
+		$smarty_compiler->secure_dir      = $this->secure_dir;
+		$smarty_compiler->security_settings = $this->security_settings;
+		$smarty_compiler->trusted_dir       = $this->trusted_dir;
+		$smarty_compiler->use_sub_dirs      = $this->use_sub_dirs;
+		$smarty_compiler->_reg_objects      = &$this->_reg_objects;
+		$smarty_compiler->_plugins          = &$this->_plugins;
+		$smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
+		$smarty_compiler->default_modifiers = $this->default_modifiers;
+		$smarty_compiler->compile_id        = $this->_compile_id;
+		$smarty_compiler->_config = $this->_config;
 		$smarty_compiler->request_use_auto_globals = $this->request_use_auto_globals;
 
 		if (isset($cache_include_path) && isset($this->_cache_serials[$cache_include_path])) {
@@ -1615,7 +1615,7 @@ class Smarty {
 						$params['source_content'] = $this->_read_file($_resource_name);
 					}
 					$params['resource_timestamp'] = filemtime($_resource_name);
-					$_return                      = is_file($_resource_name) && is_readable($_resource_name);
+					$_return = is_file($_resource_name) && is_readable($_resource_name);
 
 					break;
 
@@ -1753,7 +1753,7 @@ class Smarty {
 	 * @return string result of modifiers
 	 */
 	public function _run_mod_handler() {
-		$_args                                    = func_get_args();
+		$_args = func_get_args();
 		list($_modifier_name, $_map_array)        = array_splice($_args, 0, 2);
 		list($_func_name, $_tpl_file, $_tpl_line) = $this->_plugins['modifier'][$_modifier_name];
 
@@ -1931,7 +1931,7 @@ class Smarty {
 			$_params = array();
 
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
-			$debug_start_time           = smarty_core_get_microtime($_params, $this);
+			$debug_start_time = smarty_core_get_microtime($_params, $this);
 			$this->_smarty_debug_info[] = array(
 				'type'     => 'template',
 				'filename' => $params['smarty_include_tpl_file'],

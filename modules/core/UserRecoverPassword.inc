@@ -165,7 +165,7 @@ class UserRecoverPasswordController extends GalleryController {
 
 					if (!empty($lastRequest)) {
 						if (($lastRequest - (7 * 24 * 60 * 60) + (20 * 60)) < time()) {
-							$ret             = GalleryCoreApi::updateMapEntry(
+							$ret = GalleryCoreApi::updateMapEntry(
 								'GalleryRecoverPasswordMap',
 								array(
 									'userName' => $user->getUserName(),

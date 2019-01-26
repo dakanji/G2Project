@@ -162,7 +162,7 @@ class AdminCreateUserView extends GalleryView {
 			}
 		}
 
-		$AdminCreateUser                 = array();
+		$AdminCreateUser = array();
 		$AdminCreateUser['languageList'] = $languageList;
 
 		$template->setVariable('AdminCreateUser', $AdminCreateUser);

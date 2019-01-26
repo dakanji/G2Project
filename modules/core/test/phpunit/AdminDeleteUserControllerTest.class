@@ -225,7 +225,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Get a username that doesn't exist
 		while (true) {
-			$name                  = 'testuser-' . mt_rand();
+			$name = 'testuser-' . mt_rand();
 			list($ret, $dummyUser) = GalleryCoreApi::fetchUserByUserName($name);
 
 			if ($ret) {
@@ -678,7 +678,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue(count($groupIds) == 0, 'Not all group memberships were removed');
 
 		// Verify all permission maps for this user are gone
-		$query                     = '
+		$query = '
 		SELECT
 		COUNT([GalleryAccessMap::accessListId])
 		FROM

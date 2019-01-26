@@ -56,7 +56,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_items                = array();
+		$this->_items = array();
 		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
 			$this->_album->getId(),
 			'image/jpeg',

@@ -38,7 +38,7 @@ class UtilitiesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_saveCookie           = isset($_COOKIE) ? $_COOKIE : null;
+		$this->_saveCookie = isset($_COOKIE) ? $_COOKIE : null;
 		$this->_saveServerHttpCookie = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : null;
 
 		$this->_mkdir          = array();
@@ -56,7 +56,7 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$_COOKIE                = $this->_saveCookie;
+		$_COOKIE = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 
 		$ret = parent::tearDown();
@@ -321,11 +321,11 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
 
-		$expectedHeaders           = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
 
@@ -339,12 +339,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
 		GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar');
 
-		$expectedHeaders           = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status'] = 'HTTP/1.0 321 Bar';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
 
@@ -359,12 +359,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo', false);
 		GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar', false);
 
-		$expectedHeaders           = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
 
@@ -378,11 +378,11 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
 
-		$expectedHeaders             = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status']   = 'HTTP/1.0 302 Found';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
@@ -397,12 +397,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
 		GalleryUtilities::setResponseHeader('Location: http://example.com/');
 
-		$expectedHeaders             = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status']   = 'HTTP/1.0 302 Found';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
@@ -418,12 +418,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo', false);
 		GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
 
-		$expectedHeaders           = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
 
@@ -437,12 +437,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Use UtilitiesTestSetResponseHeaderPhpVm
 		$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar', false);
 		GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
 
-		$expectedHeaders             = array();
+		$expectedHeaders = array();
 		$expectedHeaders['status']   = 'HTTP/1.0 321 Bar';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
@@ -541,8 +541,8 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=bar';
 		$_SERVER['HTTP_HOST']   = 'example.com';
 		$_SERVER['SERVER_PORT'] = 80;
-		$urlGenerator           = new GalleryUrlGenerator();
-		$ret                    = $urlGenerator->init('phpunit_test.php');
+		$urlGenerator = new GalleryUrlGenerator();
+		$ret          = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -585,8 +585,8 @@ class UtilitiesTest extends GalleryTestCase {
 		// Simulate Apache alias (/g2test -> this Gallery dir, not under docroot)
 		$_SERVER['DOCUMENT_ROOT'] = '/g2testroot';
 		$_SERVER['REQUEST_URI']   = '/g2test/phpunit_test.php?foo=bar';
-		$urlGenerator             = new GalleryUrlGenerator();
-		$ret                      = $urlGenerator->init('phpunit_test.php');
+		$urlGenerator = new GalleryUrlGenerator();
+		$ret          = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -743,7 +743,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['HTTP_CLIENT_IP']       = '1.2.3.4';
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = '5.6.7.8';
 		$_SERVER['REMOTE_ADDR']          = '2.2.2.2';
-		$addr                            = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('2.2.2.2', $addr, 'Remote addr is untrusted, header IPs ignored');
 	}
 
@@ -751,35 +751,35 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['HTTP_CLIENT_IP']       = '1.2.3.4';
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = '5.6.7.8';
 		$_SERVER['REMOTE_ADDR']          = '10.0.0.0';
-		$addr                            = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('5.6.7.8', $addr, 'Trusted remote addr, prefer HTTP_X_FORWARDED_FOR');
 	}
 
 	public function testGetRemoteHostAddress4() {
 		$_SERVER['HTTP_CLIENT_IP'] = '1.2.3.4';
 		$_SERVER['REMOTE_ADDR']    = '10.0.0.0';
-		$addr                      = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('1.2.3.4', $addr, 'Trusted remote addr, use HTTP_CLIENT_IP ');
 	}
 
 	public function testGetRemoteHostAddress5() {
 		$_SERVER['HTTP_CLIENT_IP'] = '1.2.3.4';
 		$_SERVER['REMOTE_ADDR']    = '10.0.0.0';
-		$addr                      = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('1.2.3.4', $addr, 'Trusted remote addr, use HTTP_CLIENT_IP ');
 	}
 
 	public function testMalformedRemoteHostAddress() {
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = '1.2';
 		$_SERVER['REMOTE_ADDR']          = '10.0.0.0';
-		$addr                            = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('10.0.0.0', $addr, 'Use remote addr if header is malformed');
 	}
 
 	public function testMalformedRemoteHostAddress2() {
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = "1.2.3.4\n<evil/>";
 		$_SERVER['REMOTE_ADDR']          = '10.0.0.0';
-		$addr                            = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('10.0.0.0', $addr, 'Use remote addr if header is malformed');
 	}
 
@@ -790,7 +790,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = '<evil/>';
 		$_SERVER['REMOTE_ADDR']          = '10.0.0.0';
-		$addr                            = GalleryUtilities::getRemoteHostAddress();
+		$addr = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('10.0.0.0', $addr, 'Ignore evil addresses, even from trusted hosts');
 	}
 
@@ -817,8 +817,8 @@ class UtilitiesTest extends GalleryTestCase {
 			foreach ($ba as $b) {
 				foreach ($ca as $c) {
 					foreach ($da as $d) {
-						$addr            = "$a.$b.$c.$d";
-						$trusted         = GalleryUtilities::isTrustedProxy($addr);
+						$addr    = "$a.$b.$c.$d";
+						$trusted = GalleryUtilities::isTrustedProxy($addr);
 						$shouldBeTrusted = (($a == 10) ||
 						($a == 172 && $b >= 16 && $b <= 31) ||
 						($a == 192 && $b == 168));
@@ -1404,8 +1404,8 @@ class UtilitiesTest extends GalleryTestCase {
 
 	public function testGetCookieVar() {
 		// Normal
-		$key                     = 'foo' . mt_rand(1, 9999);
-		$_COOKIE[$key]           = 'foo';
+		$key = 'foo' . mt_rand(1, 9999);
+		$_COOKIE[$key] = 'foo';
 		$_SERVER['HTTP_COOKIE'] .= !empty($this->_saveServerHttpCookie) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= $key . '=foo';
 		GalleryUtilities::fixCookieVars(false, true);
@@ -1418,9 +1418,9 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertEquals(null, GalleryUtilities::getCookieVar($key));
 
 		// Malicious value
-		$val                     = '<script>bar</script>';
-		$_COOKIE[$key]           = $val;
-		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
+		$val = '<script>bar</script>';
+		$_COOKIE[$key]          = $val;
+		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= $key . '=' . urlencode($val);
 		GalleryUtilities::fixCookieVars(false, true);
@@ -1431,12 +1431,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// COOKIE has a wrong value, should be fixed automatically
 		GalleryUtilities::fixCookieVars(false, true);
-		$rand                   = mt_rand(1, 9999);
-		$val1                   = 'bar' . $rand;
-		$val2                   = 'bar' . ($rand + 3000);
-		$_COOKIE[$key]          = $val2;
+		$rand          = mt_rand(1, 9999);
+		$val1          = 'bar' . $rand;
+		$val2          = 'bar' . ($rand + 3000);
+		$_COOKIE[$key] = $val2;
 		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
-		$delimiter              = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
+		$delimiter = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] = $key . '=' . $val1 . ' ; ' . $key . '=' . $val2 . $delimiter .
 			$_SERVER['HTTP_COOKIE'];
 		$this->assertEquals($val1, GalleryUtilities::getCookieVar($key), 'combined getCookieVar, fixCookieVars test');
@@ -1445,7 +1445,7 @@ class UtilitiesTest extends GalleryTestCase {
 	// Test if we correctly fix the superglobal $_COOKIE
 	public function testFixCookieVars() {
 		// Only 1 cookie with the same NAME
-		$key                     = 'foo' . mt_rand(1, 9999);
+		$key = 'foo' . mt_rand(1, 9999);
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= "$key=foo";
 		// Execute our fix
@@ -1467,8 +1467,8 @@ class UtilitiesTest extends GalleryTestCase {
 		$val1 = 'bar' . $rand;
 		$val2 = 'bar' . ($rand + 3000);
 		// Define cookie with $val1 to be the one with higher precedence (more specific path)
-		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
-		$_COOKIE                 = $this->_saveCookie;
+		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
+		$_COOKIE = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= "$key=" . urlencode($val1) . '; $key=' . urlencode($val2);
 		// Set $_COOKIE as php would, with the wrong cookie value for our key
@@ -1487,7 +1487,7 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 
 		// Performance check.  It shouldn't be executed when it was already executed.
-		$_COOKIE                = array();
+		$_COOKIE = array();
 		$_SERVER['HTTP_COOKIE'] = '';
 		GalleryUtilities::fixCookieVars(true);
 		$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');
@@ -1555,7 +1555,7 @@ class UtilitiesTest extends GalleryTestCase {
 						. $sep . $key5 . '=' . $val5 . $sep . $key6 . '= ' . $val6;
 				}
 
-				$_COOKIE           = array();
+				$_COOKIE = array();
 				$_COOKIE['foobar'] = array(
 					'foo' => 'bar',
 				);

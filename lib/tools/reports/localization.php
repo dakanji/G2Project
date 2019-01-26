@@ -35,7 +35,7 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 $precision = isset($_GET['precision']) ? (int)$_GET['precision'] : ($type == 'detail' ? 2 : 1);
 $pow       = 10 ** $precision;
 
-$poFiles                                               = findPoFiles('../../..');
+$poFiles = findPoFiles('../../..');
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 
 require __DIR__ . '/localization/main_' . $type . '.inc';
@@ -75,7 +75,7 @@ function parsePoFiles($poFiles) {
 	 * single data structure.
 	 */
 	global $pow;
-	$poData           = $seenPlugins = $maxMessageCount = array();
+	$poData = $seenPlugins = $maxMessageCount = array();
 	$mostRecentPoDate = $totalTranslated = 0;
 
 	foreach ($poFiles as $poFile) {
@@ -84,7 +84,7 @@ function parsePoFiles($poFiles) {
 		}
 		list($plugin, $locale) = array($matches[1], $matches[2]);
 		$seenPlugins[$plugin]  = 1;
-		$stat                  = stat($poFile);
+		$stat = stat($poFile);
 
 		if ($stat && $stat['mtime'] > $mostRecentPoDate) {
 			$mostRecentPoDate = $stat['mtime'];
@@ -194,8 +194,8 @@ function parsePoFiles($poFiles) {
 					}
 					$untranslated++;
 				}
-				$msgId                  = null;
-				$nextIsFuzzy            = 0;
+				$msgId       = null;
+				$nextIsFuzzy = 0;
 				$lastLineWasEmptyMsgStr = 0;
 			}
 
@@ -245,7 +245,7 @@ function parsePoFiles($poFiles) {
 			'exactPercentDone' => $exactPercentDone,
 			'name'             => $plugin,
 		);
-		$totalTranslated                    += $translated - $fuzzy;
+		$totalTranslated += $translated - $fuzzy;
 
 		foreach (array('translated', 'untranslated', 'fuzzy', 'obsolete') as $key) {
 			if (!isset($summary[$locale][$key])) {
@@ -273,7 +273,7 @@ function parsePoFiles($poFiles) {
 				$poData[$locale]['plugins'][$plugin]['missing']          = 1;
 				$poData[$locale]['plugins'][$plugin]['percentDone']      = 0;
 				$poData[$locale]['plugins'][$plugin]['exactPercentDone'] = 0;
-				$poData[$locale]['plugins'][$plugin]['name']             = $plugin;
+				$poData[$locale]['plugins'][$plugin]['name'] = $plugin;
 			} else {
 				$pluginTotal += $poData[$locale]['plugins'][$plugin]['translated'] - $poData[$locale]['plugins'][$plugin]['fuzzy'];
 			}

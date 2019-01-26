@@ -97,15 +97,15 @@ function deletePlugin(pluginType, pluginId) {
 }
 
 function copyVersionToInstalledVersion(pluginType, pluginId) {
-	versionEl                    = document.getElementById("plugin-" + pluginType + "-" + pluginId + "-version");
-	installedVersionEl           = document.getElementById(
+	versionEl          = document.getElementById("plugin-" + pluginType + "-" + pluginId + "-version");
+	installedVersionEl = document.getElementById(
 		"plugin-" + pluginType + "-" + pluginId + "-installedVersion"
 	);
 	installedVersionEl.innerHTML = versionEl.innerHTML;
 }
 
 function eraseInstalledVersion(pluginType, pluginId) {
-	installedVersionEl           = document.getElementById(
+	installedVersionEl = document.getElementById(
 		"plugin-" + pluginType + "-" + pluginId + "-installedVersion"
 	);
 	installedVersionEl.innerHTML = '';
@@ -188,10 +188,10 @@ function addMessage(pluginType, pluginId, messageText, messageType) {
 		document.getElementById(STATUS_BOX_ID).removeChild(document.getElementById(detailsId));
 	}
 
-	pluginStatus.className        = messageType;
-	pluginStatus.id               = detailsId;
+	pluginStatus.className = messageType;
+	pluginStatus.id        = detailsId;
 	pluginStatus.style.whiteSpace = "nowrap";
-	var text                      = messageText.replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]);
+	var text = messageText.replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]);
 
 	pluginStatus.appendChild(document.createTextNode(text));
 

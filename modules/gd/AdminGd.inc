@@ -161,7 +161,7 @@ class AdminGdView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminGd                    = array();
+		$AdminGd = array();
 		$AdminGd['gdVersionTooOld'] = !$isGdVersionSupported;
 		$AdminGd['minGdVersion']    = $minGdVersion;
 		$AdminGd['mimeTypes']       = $mimeTypes;

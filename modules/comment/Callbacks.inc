@@ -30,7 +30,7 @@ class CommentCallbacks {
 
 		switch ($callback) {
 			case 'LoadComments':
-				$itemId           = $params['itemId'];
+				$itemId = $params['itemId'];
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 				if ($ret) {
@@ -116,7 +116,7 @@ class CommentCallbacks {
 						$commenters[$comments[$i]->getCommenterId()] = 1;
 
 						// Extract the member data
-						$comments[$i]             = (array)$comments[$i];
+						$comments[$i] = (array)$comments[$i];
 						$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . mt_rand();
 					}
 
@@ -144,14 +144,14 @@ class CommentCallbacks {
 					$can[$canFlag] = isset($permissions[$permission]);
 				}
 
-				$LoadComments                  = array();
-				$LoadComments['comments']      = $comments;
-				$LoadComments['commenters']    = $commenters;
-				$LoadComments['can']           = $can;
-				$LoadComments['item']          = (array)$item;
+				$LoadComments = array();
+				$LoadComments['comments']   = $comments;
+				$LoadComments['commenters'] = $commenters;
+				$LoadComments['can']        = $can;
+				$LoadComments['item']       = (array)$item;
 				$LoadComments['totalComments'] = $totalComments;
 
-				$block                            =& $smarty->_tpl_vars['block'];
+				$block =& $smarty->_tpl_vars['block'];
 				$block['comment']['LoadComments'] = $LoadComments;
 
 				return null;
@@ -165,7 +165,7 @@ class CommentCallbacks {
 				}
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-				$form                   =& $smarty->_tpl_vars['form'];
+				$form =& $smarty->_tpl_vars['form'];
 				list($ret, $AddComment) = GalleryCommentHelper::doStatic()->getAddComment($item, $form);
 
 				if ($ret) {
@@ -176,7 +176,7 @@ class CommentCallbacks {
 					return $ret;
 				}
 
-				$block                          =& $smarty->_tpl_vars['block'];
+				$block =& $smarty->_tpl_vars['block'];
 				$block['comment']['AddComment'] = $AddComment;
 
 				return null;

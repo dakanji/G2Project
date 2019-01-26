@@ -62,7 +62,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$gallery->_phpVm = new AdminRepositoryDownloadAndInstallControllerTestPhpVm();
 
 		// Use our own wrapped controller so that we can override _fetchPluginStatus
-		$this->_controller           = new AdminRepositoryDownloadAndInstallControllerTestWrapper();
+		$this->_controller = new AdminRepositoryDownloadAndInstallControllerTestWrapper();
 		$this->_controller->_version = '0.1';
 		$this->_controller->_active  = true;
 
@@ -175,7 +175,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationInactiveModule() {
 		global $gallery;
-		$testModule                 = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active = 0;
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
@@ -260,7 +260,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationNotInstalledModule() {
 		global $gallery;
-		$testModule                  = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active  = 0;
 		$this->_controller->_version = 0;
 
@@ -347,7 +347,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationInUseModule() {
 		global $gallery;
-		$testModule                     = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active     = 0;
 		$gallery->_phpVm->_class_exists = true;
 
@@ -813,7 +813,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
-		$session                      =& $gallery->getSession();
+		$session =& $gallery->getSession();
 		$expectedStatus['scanPlugin'] = array('module2');
 		$this->assertEquals(
 			$expectedStatus,
@@ -960,7 +960,7 @@ class AdminRepositoryDownloadAndInstallControllerTestWrapper extends AdminReposi
 			return array($ret, null);
 		}
 
-		$testModule                           = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$pluginStatus[$testModule]['active']  = $this->_active;
 		$pluginStatus[$testModule]['version'] = $this->_version;
 

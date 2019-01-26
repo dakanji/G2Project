@@ -209,7 +209,7 @@ class AkismetApi {
 		}
 
 		// Generate a permalink to the comment using the full URL, without HTML encoding
-		$urlGenerator               =& $gallery->getUrlGenerator();
+		$urlGenerator =& $gallery->getUrlGenerator();
 		$postDataArray['permalink'] = $urlGenerator->generateUrl(
 			array(
 				'view'   => 'core.ShowItem',

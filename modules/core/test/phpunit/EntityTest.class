@@ -39,7 +39,7 @@ class EntityTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_entity = new EntityTestEntity();
-		$ret           = $this->_entity->create();
+		$ret = $this->_entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -66,7 +66,7 @@ class EntityTest extends GalleryTestCase {
 		$this->_markFactoryModuleForCleanup('coreTest');
 		$this->_savedSession = $gallery->_session;
 		$gallery->_session   = null;
-		$ret                 = $gallery->initSession();
+		$ret = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;

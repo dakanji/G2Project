@@ -182,9 +182,9 @@ if (!defined('ADODB_DB2OCI')) {
 		public function MetaTables($ttype = false, $schema = false, $mask = false) {
 			global $ADODB_FETCH_MODE;
 
-			$savem            = $ADODB_FETCH_MODE;
+			$savem = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-			$qid              = db2_tables($this->_connectionID);
+			$qid = db2_tables($this->_connectionID);
 
 			$rs = new ADORecordSet_db2($qid);
 

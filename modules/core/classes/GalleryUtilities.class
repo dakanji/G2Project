@@ -677,8 +677,8 @@ class GalleryUtilities {
 		$shift[4][2] = 6;
 		$shift[4][3] = 0;
 
-		$pos           = 0;
-		$len           = strlen($source);
+		$pos = 0;
+		$len = strlen($source);
 		$encodedString = '';
 
 		while ($pos < $len) {
@@ -1155,8 +1155,8 @@ class GalleryUtilities {
 		$map = array();
 
 		foreach ($albums as $album) {
-			$albumId                   = $album->getId();
-			$parentId                  = $album->getParentId();
+			$albumId  = $album->getId();
+			$parentId = $album->getParentId();
 			$map[$albumId]['instance'] = $album;
 
 			if (!empty($parentId)) {
@@ -1348,14 +1348,14 @@ class GalleryUtilities {
 				$line = explode("\t", $line);
 
 				if (count($line) == 2 && $line[0] == 'R') {
-					$file            = trim($line[1]);
+					$file = trim($line[1]);
 					$manifest[$file] = array(
 						'removed' => 1,
 					);
 				} else {
 					list($file, $cksum, $cksum_crlf, $size, $size_crlf) = $line;
-					$file                                               = trim($file);
-					$manifest[$file]                                    = array(
+					$file = trim($file);
+					$manifest[$file] = array(
 						'checksum'      => $cksum,
 						'checksum_crlf' => $cksum_crlf,
 						'size'          => $size,
@@ -1634,10 +1634,10 @@ class GalleryUtilities {
 					 * and not as delimiters.  Thus, we have to parse it character by character.
 					 */
 					$quotedStringOpen = false;
-					$string           = $_SERVER['HTTP_COOKIE'];
-					$len              = strlen($string);
-					$i                = 0;
-					$lastPos          = 0;
+					$string  = $_SERVER['HTTP_COOKIE'];
+					$len     = strlen($string);
+					$i       = 0;
+					$lastPos = 0;
 
 					while ($i < $len) {
 						switch ($string[$i]) {
@@ -1816,8 +1816,8 @@ class GalleryUtilities {
 	 */
 	public static function strArrToIntArr($strArray) {
 		if (is_array($strArray)) {
-			$intArray           = array();
-			$arr                = $strArray;
+			$intArray = array();
+			$arr      = $strArray;
 			$isAssociativeArray = array_keys($arr) !== range(0, count($arr) - 1);
 
 			if ($isAssociativeArray) {

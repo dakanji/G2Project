@@ -52,15 +52,15 @@ if (!function_exists('ctype_alnum')) {
  * @returns 2 dimensional array containing parsed tokens.
  */
 function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
-	$pos             = 0;
-	$intoken         = false;
-	$stmtno          = 0;
-	$endquote        = false;
-	$tokens          = array();
+	$pos      = 0;
+	$intoken  = false;
+	$stmtno   = 0;
+	$endquote = false;
+	$tokens   = array();
 	$tokens[$stmtno] = array();
-	$max             = strlen($args);
-	$quoted          = false;
-	$tokarr          = array();
+	$max    = strlen($args);
+	$quoted = false;
+	$tokarr = array();
 
 	while ($pos < $max) {
 		$ch = substr($args, $pos, 1);
@@ -72,7 +72,7 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 			case "\r":
 				if (!$quoted) {
 					if ($intoken) {
-						$intoken           = false;
+						$intoken = false;
 						$tokens[$stmtno][] = implode('', $tokarr);
 					}
 
@@ -111,8 +111,8 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 							$pos     += 1;
 							$tokarr[] = $ch2;
 						} else {
-							$quoted            = false;
-							$intoken           = false;
+							$quoted  = false;
+							$intoken = false;
 							$tokens[$stmtno][] = implode('', $tokarr);
 							$endquote          = '';
 						}
@@ -158,16 +158,16 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 				} else {
 					if ($ch == $endstmtchar) {
 						$tokens[$stmtno][] = implode('', $tokarr);
-						$stmtno           += 1;
-						$tokens[$stmtno]   = array();
-						$intoken           = false;
-						$tokarr            = array();
+						$stmtno         += 1;
+						$tokens[$stmtno] = array();
+						$intoken         = false;
+						$tokarr          = array();
 
 						break;
 					}
 					$tokens[$stmtno][] = implode('', $tokarr);
 					$tokens[$stmtno][] = $ch;
-					$intoken           = false;
+					$intoken = false;
 				}
 		}
 		$pos += 1;
@@ -182,22 +182,22 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 
 class ADODB_DataDict {
 	public $connection;
-	public $debug             = false;
-	public $dropTable         = 'DROP TABLE %s';
-	public $renameTable       = 'RENAME TABLE %s TO %s';
-	public $dropIndex         = 'DROP INDEX %s';
-	public $addCol            = ' ADD';
-	public $alterCol          = ' ALTER COLUMN';
-	public $dropCol           = ' DROP COLUMN';
-	public $renameColumn      = 'ALTER TABLE %s RENAME COLUMN %s TO %s';    // table, old-column, new-column, column-definitions (not used by default)
-	public $nameRegex         = '\w';
+	public $debug        = false;
+	public $dropTable    = 'DROP TABLE %s';
+	public $renameTable  = 'RENAME TABLE %s TO %s';
+	public $dropIndex    = 'DROP INDEX %s';
+	public $addCol       = ' ADD';
+	public $alterCol     = ' ALTER COLUMN';
+	public $dropCol      = ' DROP COLUMN';
+	public $renameColumn = 'ALTER TABLE %s RENAME COLUMN %s TO %s';    // table, old-column, new-column, column-definitions (not used by default)
+	public $nameRegex    = '\w';
 	public $nameRegexBrackets = 'a-zA-Z0-9_\(\)';
-	public $schema            = false;
-	public $serverInfo        = array();
-	public $autoIncrement     = false;
+	public $schema        = false;
+	public $serverInfo    = array();
+	public $autoIncrement = false;
 	public $dataProvider;
 	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME'); // for changetablesql
-	public $blobSize            = 100;    /// any varchar/char field this size or greater is treated as a blob
+	public $blobSize = 100;    /// any varchar/char field this size or greater is treated as a blob
 							/// in other words, we use a text area for editting.
 
 	public function GetCommentSQL($table, $col) {
@@ -242,107 +242,107 @@ class ADODB_DataDict {
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		static $typeMap = array(
-			'VARCHAR'                     => 'C',
-			'VARCHAR2'                    => 'C',
-			'CHAR'                        => 'C',
-			'C'                           => 'C',
-			'STRING'                      => 'C',
-			'NCHAR'                       => 'C',
-			'NVARCHAR'                    => 'C',
-			'VARYING'                     => 'C',
-			'BPCHAR'                      => 'C',
-			'CHARACTER'                   => 'C',
-			'INTERVAL'                    => 'C',  // Postgres
-			'MACADDR'                     => 'C', // postgres
-			'VAR_STRING'                  => 'C', // mysql
+			'VARCHAR' => 'C',
+			'VARCHAR2' => 'C',
+			'CHAR' => 'C',
+			'C'    => 'C',
+			'STRING' => 'C',
+			'NCHAR' => 'C',
+			'NVARCHAR' => 'C',
+			'VARYING' => 'C',
+			'BPCHAR' => 'C',
+			'CHARACTER' => 'C',
+			'INTERVAL' => 'C',  // Postgres
+			'MACADDR' => 'C', // postgres
+			'VAR_STRING' => 'C', // mysql
 			//
-			'LONGCHAR'                    => 'X',
-			'TEXT'                        => 'X',
-			'NTEXT'                       => 'X',
-			'M'                           => 'X',
-			'X'                           => 'X',
-			'CLOB'                        => 'X',
-			'NCLOB'                       => 'X',
-			'LVARCHAR'                    => 'X',
+			'LONGCHAR' => 'X',
+			'TEXT' => 'X',
+			'NTEXT' => 'X',
+			'M'    => 'X',
+			'X'    => 'X',
+			'CLOB' => 'X',
+			'NCLOB' => 'X',
+			'LVARCHAR' => 'X',
 
-			'BLOB'                        => 'B',
-			'IMAGE'                       => 'B',
-			'BINARY'                      => 'B',
-			'VARBINARY'                   => 'B',
-			'LONGBINARY'                  => 'B',
-			'B'                           => 'B',
+			'BLOB' => 'B',
+			'IMAGE' => 'B',
+			'BINARY' => 'B',
+			'VARBINARY' => 'B',
+			'LONGBINARY' => 'B',
+			'B'    => 'B',
 
-			'YEAR'                        => 'D', // mysql
-			'DATE'                        => 'D',
-			'D'                           => 'D',
+			'YEAR' => 'D', // mysql
+			'DATE' => 'D',
+			'D'    => 'D',
 
-			'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
+			'UNIQUEIDENTIFIER' => 'C', // MS SQL Server
 			//
-			'TIME'                        => 'T',
-			'TIMESTAMP'                   => 'T',
-			'DATETIME'                    => 'T',
-			'TIMESTAMPTZ'                 => 'T',
-			'SMALLDATETIME'               => 'T',
-			'T'                           => 'T',
+			'TIME' => 'T',
+			'TIMESTAMP' => 'T',
+			'DATETIME' => 'T',
+			'TIMESTAMPTZ' => 'T',
+			'SMALLDATETIME' => 'T',
+			'T'    => 'T',
 			'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
 			//
-			'BOOL'                        => 'L',
-			'BOOLEAN'                     => 'L',
-			'BIT'                         => 'L',
-			'L'                           => 'L',
+			'BOOL' => 'L',
+			'BOOLEAN' => 'L',
+			'BIT'  => 'L',
+			'L'    => 'L',
 
-			'COUNTER'                     => 'R',
-			'R'                           => 'R',
-			'SERIAL'                      => 'R', // ifx
-			'INT IDENTITY'                => 'R',
+			'COUNTER' => 'R',
+			'R'    => 'R',
+			'SERIAL' => 'R', // ifx
+			'INT IDENTITY' => 'R',
 
-			'INT'                         => 'I',
-			'INT2'                        => 'I',
-			'INT4'                        => 'I',
-			'INT8'                        => 'I',
-			'INTEGER'                     => 'I',
-			'INTEGER UNSIGNED'            => 'I',
-			'SHORT'                       => 'I',
-			'TINYINT'                     => 'I',
-			'SMALLINT'                    => 'I',
-			'I'                           => 'I',
+			'INT'  => 'I',
+			'INT2' => 'I',
+			'INT4' => 'I',
+			'INT8' => 'I',
+			'INTEGER' => 'I',
+			'INTEGER UNSIGNED' => 'I',
+			'SHORT' => 'I',
+			'TINYINT' => 'I',
+			'SMALLINT' => 'I',
+			'I'    => 'I',
 
-			'LONG'                        => 'N', // interbase is numeric, oci8 is blob
-			'BIGINT'                      => 'N', // this is bigger than PHP 32-bit integers
-			'DECIMAL'                     => 'N',
-			'DEC'                         => 'N',
-			'REAL'                        => 'N',
-			'DOUBLE'                      => 'N',
-			'DOUBLE PRECISION'            => 'N',
-			'SMALLFLOAT'                  => 'N',
-			'FLOAT'                       => 'N',
-			'NUMBER'                      => 'N',
-			'NUM'                         => 'N',
-			'NUMERIC'                     => 'N',
-			'MONEY'                       => 'N',
+			'LONG' => 'N', // interbase is numeric, oci8 is blob
+			'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
+			'DECIMAL' => 'N',
+			'DEC'  => 'N',
+			'REAL' => 'N',
+			'DOUBLE' => 'N',
+			'DOUBLE PRECISION' => 'N',
+			'SMALLFLOAT' => 'N',
+			'FLOAT' => 'N',
+			'NUMBER' => 'N',
+			'NUM'  => 'N',
+			'NUMERIC' => 'N',
+			'MONEY' => 'N',
 
 			// informix 9.2
-			'SQLINT'                      => 'I',
-			'SQLSERIAL'                   => 'I',
-			'SQLSMINT'                    => 'I',
-			'SQLSMFLOAT'                  => 'N',
-			'SQLFLOAT'                    => 'N',
-			'SQLMONEY'                    => 'N',
-			'SQLDECIMAL'                  => 'N',
-			'SQLDATE'                     => 'D',
-			'SQLVCHAR'                    => 'C',
-			'SQLCHAR'                     => 'C',
-			'SQLDTIME'                    => 'T',
-			'SQLINTERVAL'                 => 'N',
-			'SQLBYTES'                    => 'B',
-			'SQLTEXT'                     => 'X',
+			'SQLINT' => 'I',
+			'SQLSERIAL' => 'I',
+			'SQLSMINT' => 'I',
+			'SQLSMFLOAT' => 'N',
+			'SQLFLOAT' => 'N',
+			'SQLMONEY' => 'N',
+			'SQLDECIMAL' => 'N',
+			'SQLDATE' => 'D',
+			'SQLVCHAR' => 'C',
+			'SQLCHAR' => 'C',
+			'SQLDTIME' => 'T',
+			'SQLINTERVAL' => 'N',
+			'SQLBYTES' => 'B',
+			'SQLTEXT' => 'X',
 			// informix 10
-			'SQLINT8'                     => 'I8',
-			'SQLSERIAL8'                  => 'I8',
-			'SQLNCHAR'                    => 'C',
-			'SQLNVCHAR'                   => 'C',
-			'SQLLVARCHAR'                 => 'X',
-			'SQLBOOL'                     => 'L',
+			'SQLINT8' => 'I8',
+			'SQLSERIAL8' => 'I8',
+			'SQLNCHAR' => 'C',
+			'SQLNVCHAR' => 'C',
+			'SQLLVARCHAR' => 'X',
+			'SQLBOOL' => 'L',
 		);
 
 		if (!$this->connection->IsConnected()) {
@@ -481,8 +481,8 @@ class ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname                   = $this->TableName($tabname);
-		$sql                       = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 		// genfields can return FALSE at times
 		if ($lines == null) {
@@ -514,8 +514,8 @@ class ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname                   = $this->TableName($tabname);
-		$sql                       = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 		// genfields can return FALSE at times
 		if ($lines == null) {
@@ -555,7 +555,7 @@ class ADODB_DataDict {
 			if ($lines == null) {
 				$lines = array();
 			}
-			$first              = current($lines);
+			$first = current($lines);
 			list(, $column_def) = preg_split("/[\t ]+/", $first, 2);
 		}
 
@@ -685,9 +685,9 @@ class ADODB_DataDict {
 			}
 		}
 		$this->autoIncrement = false;
-		$lines               = array();
-		$pkey                = array();
-		$idxs                = array();
+		$lines = array();
+		$pkey  = array();
+		$idxs  = array();
 
 		foreach ($flds as $fld) {
 			$fld = _array_change_key_case($fld);
@@ -1101,7 +1101,7 @@ class ADODB_DataDict {
 	public function ChangeTableSQL($tablename, $flds, $tableoptions = false, $dropOldFlds = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 		if ($this->connection->fetchMode !== false) {
@@ -1109,9 +1109,9 @@ class ADODB_DataDict {
 		}
 
 		// check table exists
-		$save_handler                   = $this->connection->raiseErrorFn;
+		$save_handler = $this->connection->raiseErrorFn;
 		$this->connection->raiseErrorFn = '';
-		$cols                           = $this->MetaColumns($tablename);
+		$cols = $this->MetaColumns($tablename);
 		$this->connection->raiseErrorFn = $save_handler;
 
 		if (isset($savem)) {

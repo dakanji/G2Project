@@ -72,7 +72,7 @@ class DataItemTest extends GalleryTestCase {
 		for ($i = 0; $i < 3; $i++) {
 			$entity[$i]    = new GalleryDataItem();
 			$entityAlbumID = $this->_album->getId();
-			$ret           = $entity[$i]->create(
+			$ret = $entity[$i]->create(
 				$entityAlbumID,
 				__FILE__,
 				'text/plain',

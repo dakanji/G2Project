@@ -216,7 +216,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		// Can we allow to delete the original?
-		$mimeType            = $item->getMimeType();
+		$mimeType = $item->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'rotate');
 
 		if ($ret) {

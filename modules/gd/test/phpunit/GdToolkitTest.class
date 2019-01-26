@@ -229,7 +229,7 @@ class GdToolkitTest extends GalleryTestCase {
 				}
 
 				if (GdToolkitHelper::isOperationSupported('rotate', $gd)) {
-					$context                              = array(
+					$context = array(
 						'width'  => 300,
 						'height' => 200,
 					);

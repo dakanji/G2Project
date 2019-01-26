@@ -258,12 +258,12 @@ class FfmpegToolkitHelper {
 		 * @todo: Add 'adpcm_swf' => 'adpcm_swf' to relevantAudioCodecs if/when videos play
 		 *        correctly
 		 */
-		$relevantAudioCodecs               = array(
+		$relevantAudioCodecs     = array(
 			'mp3'        => 'mp3',
 			'libmp3lame' => 'mp3',
 		);
-		list($ignored, $results)           = $platform->exec(array(array($ffmpegPath, '-formats')));
-		$version                           = array();
+		list($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
+		$version = array();
 		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
 		$mimeTypes          = array();

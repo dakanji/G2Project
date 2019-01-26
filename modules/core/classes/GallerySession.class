@@ -178,7 +178,7 @@ class GallerySession {
 		global $gallery;
 
 		// Check to see if we have an existing session
-		$this->_sessionId              = '';
+		$this->_sessionId = '';
 		$this->_isSearchEngineSession  = $this->_isSessionSaved = $this->_isPersistent = false;
 		$this->_isPersistentSessionNew = false;
 
@@ -269,7 +269,7 @@ class GallerySession {
 					 * prevent hijacking
 					 */
 					$this->_sessionId = '';
-					$ret              = $this->_emptySessionData();
+					$ret = $this->_emptySessionData();
 
 					if ($ret) {
 						return $ret;
@@ -385,7 +385,7 @@ class GallerySession {
 					$ret = $this->_acquireNewPersistentSession();
 				} else {
 					$this->_modificationTime = $phpVm->time();
-					$ret                     = GalleryCoreApi::updateMapEntry(
+					$ret = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -409,7 +409,7 @@ class GallerySession {
 				// Update the session modification timestamp 5% of the time to avoid expiration.
 				if ($dieRoll <= 5) {
 					$this->_modificationTime = $phpVm->time();
-					$ret                     = GalleryCoreApi::updateMapEntry(
+					$ret = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -490,7 +490,7 @@ class GallerySession {
 
 		if (!empty($this->_sessionId)) {
 			$this->_sessionId = GalleryUtilities::strToLower($this->_sessionId);
-			$ret              = GalleryCoreApi::removeMapEntry(
+			$ret = GalleryCoreApi::removeMapEntry(
 				'GallerySessionMap',
 				array(
 					'id' => $this->_sessionId,
@@ -535,7 +535,7 @@ class GallerySession {
 		// Store the current session data
 		$localSessionData       = $this->_sessionData;
 		$localLoadedSessionData = $this->_loadedSessionData;
-		$userId                 = $this->getUserId();
+		$userId = $this->getUserId();
 
 		// Reset the session data to create a new session id
 		$ret = $this->reset();
@@ -606,7 +606,7 @@ class GallerySession {
 		if ($ret) {
 			return $ret;
 		}
-		$urlGenerator           =& $gallery->getUrlGenerator();
+		$urlGenerator =& $gallery->getUrlGenerator();
 		list($ret, $cookiePath) = $urlGenerator->getCookiePath();
 
 		if ($ret) {
@@ -726,7 +726,7 @@ class GallerySession {
 
 		// Assemble the data
 		$this->_modificationTime = $phpVm->time();
-		$data                    = array(
+		$data = array(
 			'userId'                => $this->_userId,
 			'remoteIdentifier'      => serialize($this->_remoteIdentifier),
 			'creationTimestamp'     => $this->_creationTime,
@@ -871,7 +871,7 @@ class GallerySession {
 	 */
 	public function _isPersistentSessionAllowedForRequest() {
 		if (!isset($this->_isPersistentSessionAllowedForRequest)) {
-			$flag                    = true; // Default to true
+			$flag = true; // Default to true
 			list($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 
 			if (!empty($controller)) {
@@ -970,7 +970,7 @@ class GallerySession {
 
 				if ($pSession[3] > $inactiveCutoff && $pSession[2] > $lifetimeCutoff) {
 					// A session exists and it's valid
-					$this->_userId            = (int)$pSession[0];
+					$this->_userId = (int)$pSession[0];
 					$this->_remoteIdentifier  = unserialize($pSession[1]);
 					$this->_creationTime      = (int)$pSession[2];
 					$this->_modificationTime  = (int)$pSession[3];
@@ -1029,13 +1029,13 @@ class GallerySession {
 	public function _emptySessionData() {
 		// Don't (re-)set sessionId since we can't ensure a collision-free id without DB queries
 		global $gallery;
-		$phpVm                    = $gallery->getPhpVm();
+		$phpVm = $gallery->getPhpVm();
 		$this->_sessionData       = array();
 		$this->_loadedSessionData = '';
 		$this->_creationTime      = $phpVm->time();
-		$this->_userId            = null;
-		$this->_modificationTime  = $phpVm->time();
-		$this->_remoteIdentifier  = $this->getRemoteIdentifier();
+		$this->_userId = null;
+		$this->_modificationTime = $phpVm->time();
+		$this->_remoteIdentifier = $this->getRemoteIdentifier();
 		// Don't change userId or isUsingCookies
 
 		$this->_isPersistentSessionNew = false;
@@ -1192,7 +1192,7 @@ class GallerySession {
 			 * 500 sessionIds + DELETE those sessionIds is more expensive we optimize for MySQL by
 			 * using DELETE ... LIMIT 500
 			 */
-			$query               = '
+			$query = '
 			DELETE FROM [GallerySessionMap]
 			' . $where . '
 			LIMIT ' . (int)$this->_expirationLimit;
@@ -1206,7 +1206,7 @@ class GallerySession {
 			 * For other DBMS first SELECT the sessionIds with a LIMIT clause then DELETE
 			 * ADOdb can't implement the LIMIT clause in subqueries DB independently!
 			 */
-			$query                    = '
+			$query = '
 			SELECT [GallerySessionMap::id]
 			FROM [GallerySessionMap]' . $where;
 			$option['limit']['count'] = $this->_expirationLimit;
@@ -1223,7 +1223,7 @@ class GallerySession {
 					$ids[] = $row[0];
 				}
 				// Delete the selected sessions
-				$query               = sprintf(
+				$query = sprintf(
 					'
 					DELETE FROM [GallerySessionMap]
 					WHERE [GallerySessionMap::id] IN (%s)',

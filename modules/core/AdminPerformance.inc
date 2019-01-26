@@ -38,7 +38,7 @@ class AdminPerformanceController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results                  = $status = $error = array();
+		$results = $status = $error = array();
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
@@ -244,9 +244,9 @@ class AdminPerformanceView extends GalleryView {
 			);
 		}
 
-		$AdminPerformance                       = array();
+		$AdminPerformance = array();
 		$AdminPerformance['expirationTimeList'] = $expirationTimeList;
-		$AdminPerformance['typeList']           = $typeList;
+		$AdminPerformance['typeList'] = $typeList;
 
 		$template->setVariable('AdminPerformance', $AdminPerformance);
 		$template->setVariable('controller', 'core.AdminPerformance');

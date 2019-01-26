@@ -333,7 +333,7 @@ if (!defined('ADODB_SESSION')) {
 			global $$var;
 			$arr['expireref'] = $$var;
 		}
-		$rs            = $ADODB_SESS_CONN->Replace(
+		$rs = $ADODB_SESS_CONN->Replace(
 			$ADODB_SESSION_TBL,
 			$arr,
 			'sesskey',

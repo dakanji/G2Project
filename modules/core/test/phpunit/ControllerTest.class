@@ -62,7 +62,7 @@ class ControllerTest extends GalleryTestCase {
 
 		$session->remove('core.authToken');
 		$session->_isPersistent = $this->_originalIsPersistentSession;
-		$ret                    = parent::tearDown();
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -167,7 +167,7 @@ class ControllerTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 
 		$session->_isPersistent = false;
-		$ret                    = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::assertIsGenuineRequest();
 
 		if ($ret) {
 			$this->fail('check should be omitted for non-persistent sessions');

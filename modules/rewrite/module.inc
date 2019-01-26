@@ -259,7 +259,7 @@ class RewriteModule extends GalleryModule {
 		}
 
 		$rewriteUrlGenerator = $rewriteParser->getUrlGeneratorId();
-		$ret                 = GalleryCoreApi::registerFactoryImplementation(
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryUrlGenerator',
 			$rewriteUrlGenerator,
 			$rewriteUrlGenerator,

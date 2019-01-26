@@ -41,7 +41,7 @@ class AdminEditGroupUsersController extends GalleryController {
 		$results = $error = $status = array();
 
 		// Load the group
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -178,7 +178,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		}
 
 		// Load the group
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -231,7 +231,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		}
 
 		$form['list']['userNames'] = array();
-		$canRemove                 = false;
+		$canRemove = false;
 
 		foreach ($users as $userId => $userName) {
 			$form['list']['userNames'][$userId]['userName'] = $userName;
@@ -242,11 +242,11 @@ class AdminEditGroupUsersView extends GalleryView {
 				$form['list']['userNames'][$userId]['can']['remove'] = false;
 			} else {
 				$form['list']['userNames'][$userId]['can']['remove'] = true;
-				$canRemove                                           = true;
+				$canRemove = true;
 			}
 		}
 
-		$AdminEditGroupUsers                   = array();
+		$AdminEditGroupUsers = array();
 		$AdminEditGroupUsers['totalUserCount'] = $totalUserCount;
 		$AdminEditGroupUsers['canRemove']      = $canRemove;
 		$AdminEditGroupUsers['group']          = (array)$group;

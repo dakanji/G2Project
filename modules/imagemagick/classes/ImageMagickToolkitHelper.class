@@ -445,7 +445,7 @@ class ImageMagickToolkitHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$command                 = array_merge($command, array($dataPath . $test['file']));
+			$command = array_merge($command, array($dataPath . $test['file']));
 			list($success, $results) = $platform->exec(array($command));
 
 			$successCount += $success;
@@ -547,7 +547,7 @@ class ImageMagickToolkitHelper {
 						$success = false;
 						$results = array($module->translate('File does not exist'));
 					} else {
-						$command                 = array_merge($command, array($dataPath . 'test.gif'));
+						$command = array_merge($command, array($dataPath . 'test.gif'));
 						list($success, $results) = $platform->exec(array($command));
 					}
 
@@ -619,7 +619,7 @@ class ImageMagickToolkitHelper {
 						$success = false;
 						$results = array($module->translate('File does not exist'));
 					} else {
-						$command                 = array_merge(
+						$command = array_merge(
 							$command,
 							array(
 								'-size',
@@ -688,7 +688,7 @@ class ImageMagickToolkitHelper {
 							null,
 						);
 					}
-					$command                 = array_merge(
+					$command = array_merge(
 						$command,
 						array(
 							'-geometry',
@@ -926,14 +926,14 @@ class ImageMagickToolkitHelper {
 		}
 
 		foreach (array(array('-strip'), array('+profile', '*')) as $param) {
-			$command                 = array_merge(
+			$command      = array_merge(
 				$convertCmd,
 				$param,
 				array($dataPath . 'testProfile.jpg', $tmpFilename)
 			);
-			$originalSize            = $platform->filesize($dataPath . 'testProfile.jpg');
+			$originalSize = $platform->filesize($dataPath . 'testProfile.jpg');
 			list($success, $results) = $platform->exec(array($command));
-			$size                    = $platform->filesize($tmpFilename);
+			$size = $platform->filesize($tmpFilename);
 			@$platform->unlink($tmpFilename);
 
 			if ($success) {
@@ -992,7 +992,7 @@ class ImageMagickToolkitHelper {
 			);
 		}
 
-		$cmykSupport             = false;
+		$cmykSupport = false;
 		list($success, $results) = $platform->exec(
 			array(
 				array_merge(

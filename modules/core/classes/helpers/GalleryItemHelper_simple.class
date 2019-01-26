@@ -253,7 +253,7 @@ class GalleryItemHelper_simple {
 		$aclMarkers  = GalleryUtilities::makeMarkers(count($aclIds));
 		$itemMarkers = GalleryUtilities::makeMarkers(count($itemIds));
 
-		$storage            =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $concat) = $storage->getFunctionSql(
 			'CONCAT',
 			array(
@@ -304,7 +304,7 @@ class GalleryItemHelper_simple {
 			$aclMarkers
 		);
 
-		$data                      = array_merge($itemIds, $aclIds);
+		$data = array_merge($itemIds, $aclIds);
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {

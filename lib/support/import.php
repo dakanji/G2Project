@@ -45,9 +45,9 @@ $configFilePath = (defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR . '/' : $g
 
 require_once __DIR__ . '/../../embed.php';
 
-$templateData             = array();
+$templateData = array();
 $templateData['bodyFile'] = 'ImportRequest.html';
-$renderFullPage           = true;
+$renderFullPage = true;
 
 $ret = GalleryEmbed::init(
 	array(
@@ -85,8 +85,8 @@ if ($ret) {
 
 		if ($verifiedFile != $importFile) {
 			$templateData['verifiedFile'] = $importFile;
-			$verifiedFile                 = $importFile;
-			$doImportFlag                 = verifyVersions($templateData, $importFile);
+			$verifiedFile = $importFile;
+			$doImportFlag = verifyVersions($templateData, $importFile);
 		}
 
 		if ($doImportFlag) {
@@ -94,7 +94,7 @@ if ($ret) {
 			$template->renderStatusMessage('Restoring Gallery Database', '', 0);
 
 			// Do the database import
-			$importer           = $storage->getDatabaseImporter();
+			$importer = $storage->getDatabaseImporter();
 			list($ret, $errors) = $importer->importToDb($verifiedFile, 'importProgressCallback');
 
 			if ($ret) {
@@ -118,7 +118,7 @@ if ($ret) {
 
 			$templateData['bodyFile']        = 'ImportFinished.html';
 			$templateData['hideStatusBlock'] = 1;
-			$renderFullPage                  = false;
+			$renderFullPage = false;
 		}
 	} else {
 		getBackupFiles($templateData);

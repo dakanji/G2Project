@@ -138,7 +138,7 @@ class GalleryItemHelper_advanced {
 			return array($ret, null);
 		}
 
-		$success                  = false;
+		$success = false;
 		$highlightHasLeftTheAlbum = false;
 
 		if (!empty($thumbnails)) {
@@ -442,7 +442,7 @@ class GalleryItemHelper_advanced {
 	public static function deleteSortOrder($sortOrder) {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 		SELECT
 		[GalleryAlbumItem::id]
 		FROM
@@ -531,7 +531,7 @@ class GalleryItemHelper_advanced {
 	public static function deleteRenderer($rendererClassName) {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 		SELECT
 		[GalleryItem::id]
 		FROM

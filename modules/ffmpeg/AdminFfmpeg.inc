@@ -214,7 +214,7 @@ class AdminFfmpegController extends GalleryController {
 		}
 
 		while (!empty($ids)) {
-			$idSet              = array_splice($ids, 0, 100);
+			$idSet = array_splice($ids, 0, 100);
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($idSet);
 
 			if ($ret) {
@@ -329,8 +329,8 @@ class AdminFfmpegView extends GalleryView {
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$form['error']['path']['badPath'] = 1;
-						$tests                            = $mimeTypes = $mimeTypesEncoder = array();
-						$encoderCodecs                    = $version = array();
+						$tests         = $mimeTypes = $mimeTypesEncoder = array();
+						$encoderCodecs = $version = array();
 					} else {
 						return array($ret, null);
 					}
@@ -361,8 +361,8 @@ class AdminFfmpegView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminFfmpeg                     = array();
-		$AdminFfmpeg['tests']            = $tests;
+		$AdminFfmpeg          = array();
+		$AdminFfmpeg['tests'] = $tests;
 		$AdminFfmpeg['mimeTypes']        = $mimeTypes;
 		$AdminFfmpeg['mimeTypesEncoder'] = $mimeTypesEncoder;
 		$AdminFfmpeg['encodeWarnings']   = $encodeWarnings;

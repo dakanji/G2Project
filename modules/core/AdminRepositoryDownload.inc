@@ -81,7 +81,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			// Create package list.
 			$installPackages = array();
 
-			$utils                      = new GalleryRepositoryUtilities();
+			$utils = new GalleryRepositoryUtilities();
 			list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 			if ($ret) {
@@ -91,7 +91,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			if (!empty($form['base'])) {
 				list($languages, $defaultCountry) = $translator->getLanguageData();
 				list($baseSource, $baseNewBuild)  = explode(':', $form['base']);
-				$supportedLanguages               = GalleryCoreApi::getSupportedLanguages();
+				$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 				if (empty($pluginPackages['base']['build'])
 					|| $pluginPackages['base']['build'] != $baseNewBuild
@@ -115,7 +115,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			if (empty($installPackages)) {
 				$delegate['view']    = 'core.SiteAdmin';
 				$delegate['subView'] = 'core.AdminRepositoryDownload';
-				$error[]             = 'form[error][nothingSelected]';
+				$error[] = 'form[error][nothingSelected]';
 
 				/** @todo: Do we need to put these vars back into the request? */
 				GalleryUtilities::putRequestVariable('pluginId', $pluginId);
@@ -191,7 +191,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			'pluginType' => $pluginType,
 		);
 
-		$utils                      = new GalleryRepositoryUtilities();
+		$utils = new GalleryRepositoryUtilities();
 		list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 		if ($ret) {
@@ -251,7 +251,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			list(
 				$ret,
 				$upgradeData['repositoryName']
-			)                             = GalleryRepository::doStatic()->translateRepositoryName($source);
+			) = GalleryRepository::doStatic()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);

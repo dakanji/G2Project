@@ -43,7 +43,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 	public function testIndexGeneration() {
 		global $gallery;
 
-		$index             = new RepositoryIndex();
+		$index = new RepositoryIndex();
 		$index->_outputDir = 'repositorydir/';
 		$index->setOutputFile('testindex');
 		$index->setTemplate(new RepositoryTestTemplate());

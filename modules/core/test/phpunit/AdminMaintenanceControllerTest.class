@@ -149,7 +149,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
 
-		$mockAdapter               = new MockTemplateAdapter();
+		$mockAdapter = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
@@ -214,7 +214,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('forceTaskToFail', 1);
 
-		$mockAdapter               = new MockTemplateAdapter();
+		$mockAdapter = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
@@ -281,7 +281,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('forceTaskToError', 1);
 
-		$mockAdapter               = new MockTemplateAdapter();
+		$mockAdapter = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;

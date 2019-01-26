@@ -145,7 +145,7 @@ class GalleryDerivativeHelper_advanced {
 
 			foreach ($derivatives as $derivative) {
 				foreach ($toolkits as $toolkitId => $toolkit) {
-					$currentOperations             = $derivative->getDerivativeOperations();
+					$currentOperations = $derivative->getDerivativeOperations();
 					list($success, $newOperations) = $toolkit->applyTransform($operation, $currentOperations, $reverse);
 
 					if ($success) {
@@ -536,8 +536,8 @@ class GalleryDerivativeHelper_advanced {
 	public static function addPreference($order, $itemId, $derivativeType, $derivativeOperations) {
 		if (is_array($itemId)) {
 			// Allow for adding same set of preferences to multiple items
-			$order                = array_fill(0, count($itemId), $order);
-			$derivativeType       = array_fill(0, count($itemId), $derivativeType);
+			$order          = array_fill(0, count($itemId), $order);
+			$derivativeType = array_fill(0, count($itemId), $derivativeType);
 			$derivativeOperations = array_fill(0, count($itemId), $derivativeOperations);
 		}
 		$ret = GalleryCoreApi::addMapEntry(

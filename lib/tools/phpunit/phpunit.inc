@@ -948,7 +948,7 @@ class TestCase extends Assert {
 	public function runBare() {
 		global $gallery;
 		$this->fTiming['start'] = microtime();
-		$ret                    = $this->setUp();
+		$ret = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
@@ -991,7 +991,7 @@ class TestSuite {
 		$this->fClassname = $classname;
 		$this->fModuleId  = $moduleid;
 		$this->fFilter    = $filter;
-		$names            = get_class_methods($classname);
+		$names = get_class_methods($classname);
 
 		foreach ($names as $key => $method) {
 			if (preg_match('/^test/', $method)) {
@@ -1097,7 +1097,7 @@ class TestResult {
 	public $fErrors         = array();
 	public $fRunTests       = 0;
 	public $fUnskippedTests = 0;
-	public $fStop           = false;
+	public $fStop = false;
 
 	public function __construct() {
 	}
@@ -1334,7 +1334,7 @@ class PrettyTestResult extends TestResult {
 			$outcome = ' class="Skipped">SKIPPED';
 			$elapsed = '0.0000';
 		} else {
-			$elapsed              = sprintf('%2.4f', $test->elapsed());
+			$elapsed = sprintf('%2.4f', $test->elapsed());
 			$this->_totalElapsed += $elapsed;
 		}
 		printf("<TD$outcome</TD><TD>$elapsed</TD></TR>");

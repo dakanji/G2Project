@@ -92,10 +92,10 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		}
 
 		// Mock storage returns no ids, so this just tests the queries run ok
-		$gallery->_storage         = new BuildDerivativesTaskTestStorage($gallery->getStorage());
-		$mockStorage               =& $gallery->_storage;
+		$gallery->_storage = new BuildDerivativesTaskTestStorage($gallery->getStorage());
+		$mockStorage       =& $gallery->_storage;
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-		$mockAdapter               =& $gallery->_templateAdapter;
+		$mockAdapter =& $gallery->_templateAdapter;
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 

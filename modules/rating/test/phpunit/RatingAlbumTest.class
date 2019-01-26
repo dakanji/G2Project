@@ -143,12 +143,12 @@ class RatingAlbumTest extends GalleryTestCase {
 
 	public function testLoadTemplateForAlbum() {
 		global $gallery;
-		$theme                 =& $this->_template->getVariableByReference('theme');
+		$theme =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
 
 		GalleryUtilities::putRequestVariable('limit', '3.45');
 
-		$form               = array();
+		$form = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
@@ -179,7 +179,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('limit', '3');
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[2]->getId());
 
-		$form               = array();
+		$form = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
@@ -216,7 +216,7 @@ class RatingAlbumTest extends GalleryTestCase {
 
 		// ShowItem handling used to redirect to root album; now returns permission error
 
-		$form               = array();
+		$form = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {
@@ -233,7 +233,7 @@ class RatingAlbumTest extends GalleryTestCase {
 	public function testLimitTooLow() {
 		GalleryUtilities::putRequestVariable('limit', '1.5');
 
-		$form               = array();
+		$form = array();
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
 
 		if ($ret) {

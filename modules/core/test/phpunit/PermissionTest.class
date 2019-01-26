@@ -92,7 +92,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 		$this->_markForCleanup($this->_user);
 
-		$session                 =& $gallery->getSession();
+		$session =& $gallery->getSession();
 		$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 	}
 
@@ -612,10 +612,10 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$event                                      = GalleryCoreApi::newEvent(
+		$event          = GalleryCoreApi::newEvent(
 			'Gallery::RemovePermission'
 		);
-		$itemIdsAndBits                             = array();
+		$itemIdsAndBits = array();
 		$itemIdsAndBits[$this->_albums[0]->getId()] = $viewDeltaBits;
 
 		for ($i = 1; $i < count($this->_albums); $i++) {
@@ -1628,7 +1628,7 @@ class PermissionTest extends GalleryTestCase {
 		$duplicateAclId[1] = $aclIds[0];
 
 		// Create an unused ACL
-		$storage                 =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $unusedAclId) = $storage->getUniqueId();
 
 		if ($ret) {
@@ -2092,7 +2092,7 @@ class PermissionTestEventListener extends GalleryEventListener {
 
 	public function handleEvent($event) {
 		$this->_event[] = $event;
-		$data           = $event->getData();
+		$data = $event->getData();
 
 		return array(null, 'dummy');
 	}

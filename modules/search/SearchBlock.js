@@ -6,7 +6,7 @@ function search_SearchBlock_init(prompt, error, inProgress) {
 	search_SearchBlock_promptString     = prompt;
 	search_SearchBlock_errorString      = error;
 	search_SearchBlock_inProgressString = inProgress;
-	search_SearchBlock_input            = document.getElementById('search_SearchBlock').searchCriteria;
+	search_SearchBlock_input = document.getElementById('search_SearchBlock').searchCriteria;
 
 	search_SearchBlock_input.value = prompt;
 }

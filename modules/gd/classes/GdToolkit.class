@@ -244,7 +244,7 @@ class GdToolkit extends GalleryToolkit {
 				 * PHP >= 4.3.0
 				 * $parameters[0]: rotation degrees
 				 */
-				$degrees             = 0 - $parameters[0];
+				$degrees = 0 - $parameters[0];
 				list($ret, $destRes) = $gd->imageRotate($sourceRes, $degrees, 0);
 				$this->_free($sourceRes);
 
@@ -253,7 +253,7 @@ class GdToolkit extends GalleryToolkit {
 				}
 
 				if (isset($context['width']) && ($degrees == 90 || $degrees == -90)) {
-					$tmp               = $context['width'];
+					$tmp = $context['width'];
 					$context['width']  = $context['height'];
 					$context['height'] = $tmp;
 				}
@@ -329,14 +329,14 @@ class GdToolkit extends GalleryToolkit {
 				 * $parameters[4]: alignment x %
 				 * $parameters[5]: alignment y %
 				 */
-				$cmd                      = 'composite';
+				$cmd = 'composite';
 				$compositeOverlayPath     = $parameters[0];
 				$compositeOverlayMimeType = $parameters[1];
-				$compositeWidth           = $parameters[2];
-				$compositeHeight          = $parameters[3];
-				$compositeAlignmentType   = $parameters[4];
-				$compositeAlignX          = $parameters[5];
-				$compositeAlignY          = $parameters[6];
+				$compositeWidth         = $parameters[2];
+				$compositeHeight        = $parameters[3];
+				$compositeAlignmentType = $parameters[4];
+				$compositeAlignX        = $parameters[5];
+				$compositeAlignY        = $parameters[6];
 
 				list($ret, $sourceWidth, $sourceHeight) = $this->_getImageDimensionsForResource($sourceRes);
 
@@ -430,7 +430,7 @@ class GdToolkit extends GalleryToolkit {
 				$compositeAlignY = min($compositeAlignY, $sourceHeight - $compositeHeight);
 				$compositeAlignY = max(0, $compositeAlignY);
 
-				$dataDir                = $gallery->getConfig('data.gallery.base');
+				$dataDir = $gallery->getConfig('data.gallery.base');
 				list($ret, $overlayRes) = $this->_getImageResource(
 					$compositeOverlayMimeType,
 					$dataDir . $compositeOverlayPath
@@ -632,7 +632,7 @@ class GdToolkit extends GalleryToolkit {
 	 * @access private
 	 */
 	public function _getTrueColorImageRes($width, $height, $prepareAlpha = false) {
-		$gd                                  =& $this->_getGdFunctionality();
+		$gd =& $this->_getGdFunctionality();
 		list($ret, $hasImageCreateTrueColor) = $this->_hasImageCreateTrueColor();
 
 		if ($ret) {
@@ -852,7 +852,7 @@ class GdToolkit extends GalleryToolkit {
 	 * @access private
 	 */
 	public function _getImageDimensionsForResource($res) {
-		$gd            =& $this->_getGdFunctionality();
+		$gd =& $this->_getGdFunctionality();
 		list($ret, $x) = $gd->imageSx($res);
 
 		if ($ret) {
@@ -1141,7 +1141,7 @@ class GdToolkit extends GalleryToolkit {
 
 		if ($mimeType == 'image/gif' && $res) {
 			// Don't unnecessarily dither
-			$gd                  =& $this->_getGdFunctionality();
+			$gd =& $this->_getGdFunctionality();
 			$transparentColor    = $gd->imagecolortransparent($res);
 			$canHaveTransparency = $transparentColor != -1;
 		}

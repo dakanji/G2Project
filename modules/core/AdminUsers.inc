@@ -217,7 +217,7 @@ class AdminUsersView extends GalleryView {
 		$form['list']['userNames'] = array();
 
 		foreach ($users as $user) {
-			$userId                             = $user->getId();
+			$userId = $user->getId();
 			$form['list']['userNames'][$userId] = (array)$user;
 
 			if ($userId == $anonymousUserId || $userId == $myUserId) {

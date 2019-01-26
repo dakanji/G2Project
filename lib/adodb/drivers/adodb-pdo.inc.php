@@ -97,7 +97,7 @@ class ADODB_pdo extends ADOConnection {
 	}
 
 	public function _UpdatePDO() {
-		$d                     = $this->_driver;
+		$d = $this->_driver;
 		$this->fmtDate         = $d->fmtDate;
 		$this->fmtTimeStamp    = $d->fmtTimeStamp;
 		$this->replaceQuote    = $d->replaceQuote;
@@ -133,7 +133,7 @@ class ADODB_pdo extends ADOConnection {
 
 	// returns true or false
 	public function _connect($argDSN, $argUsername, $argPassword, $argDatabasename, $persist = false) {
-		$at            = strpos($argDSN, ':');
+		$at = strpos($argDSN, ':');
 		$this->dsnType = substr($argDSN, 0, $at);
 
 		if ($argDatabasename) {
@@ -239,10 +239,10 @@ class ADODB_pdo extends ADOConnection {
 	// ------------------------------------------------------------------------------
 
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
-		$save                     = $this->_driver->fetchMode;
+		$save = $this->_driver->fetchMode;
 		$this->_driver->fetchMode = $this->fetchMode;
 		$this->_driver->debug     = $this->debug;
-		$ret                      = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+		$ret = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 		$this->_driver->fetchMode = $save;
 
 		return $ret;
@@ -594,8 +594,8 @@ class ADOPDOStatement {
 	}
 
 	public function Execute($inputArr = false) {
-		$savestmt                   = $this->_connectionID->_stmt;
-		$rs                         = $this->_connectionID->Execute(array(false, $this->_stmt), $inputArr);
+		$savestmt = $this->_connectionID->_stmt;
+		$rs       = $this->_connectionID->Execute(array(false, $this->_stmt), $inputArr);
 		$this->_connectionID->_stmt = $savestmt;
 
 		return $rs;
@@ -790,7 +790,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

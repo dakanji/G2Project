@@ -63,7 +63,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$this->_markToolkitForCleanup('CreateThumbnailOptionTestToolkit');
 
 		// Register operations that we can perform on our mock data items
-		$ret                         = GalleryCoreApi::registerToolkitOperation(
+		$ret          = GalleryCoreApi::registerToolkitOperation(
 			'CreateThumbnailOptionTestToolkit',
 			array('test/file'),
 			'thumbnail',
@@ -80,7 +80,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			'test-description',
 			''
 		);
-		$this->_items                = array();
+		$this->_items = array();
 		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
 			$this->_album->getId(),
 			'test/file'
@@ -90,7 +90,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_itemThumbnail                = array();
+		$this->_itemThumbnail = array();
 		list($ret, $this->_itemThumbnail[0]) = $this->_createDerivative(
 			$this->_items[0],
 			$this->_items[0]->getId(),
@@ -108,7 +108,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 
 	public function testCreateThumbnail() {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -129,7 +129,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 	}
 
 	public function testDontCreateThumbnail() {
-		$form                    = array();
+		$form = array();
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
@@ -168,7 +168,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -185,7 +185,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 	// This won't do anything, but shouldn't have any errors either.
 	public function testCreateWithNoThumbnail() {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}
@@ -205,7 +205,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			}
 		}
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}

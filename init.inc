@@ -128,7 +128,7 @@ function GalleryInitFirstPass($params = array()) {
 	}
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
-	$ret           = $urlGenerator->init(
+	$ret = $urlGenerator->init(
 		isset($params['baseUri']) ? $params['baseUri'] : (!empty($configBaseUri) ? $configBaseUri : null),
 		isset($params['g2Uri']) ? $params['g2Uri'] : null,
 		isset($params['embedSessionString']) ? $params['embedSessionString'] : null
@@ -264,17 +264,17 @@ function GalleryPhpErrorHandler($errorNumber, $errorString, $file, $line, $conte
 	}
 
 	$errorType = array(
-		E_ERROR           => 'Error',
-		E_WARNING         => 'Warning',
-		E_PARSE           => 'Parsing Error',
-		E_NOTICE          => 'Notice',
-		E_CORE_ERROR      => 'Core Error',
-		E_CORE_WARNING    => 'Core Warning',
-		E_COMPILE_ERROR   => 'Compile Error',
+		E_ERROR   => 'Error',
+		E_WARNING => 'Warning',
+		E_PARSE   => 'Parsing Error',
+		E_NOTICE  => 'Notice',
+		E_CORE_ERROR => 'Core Error',
+		E_CORE_WARNING => 'Core Warning',
+		E_COMPILE_ERROR => 'Compile Error',
 		E_COMPILE_WARNING => 'Compile Warning',
-		E_USER_ERROR      => 'User Error',
-		E_USER_WARNING    => 'User Warning',
-		E_USER_NOTICE     => 'User Notice',
+		E_USER_ERROR => 'User Error',
+		E_USER_WARNING => 'User Warning',
+		E_USER_NOTICE => 'User Notice',
 	// PHP5+: E_STRICT => 'Runtime Notice'
 	// PHP5.2+: E_RECOVERABLE_ERROR => 'Catchable Fatal Error'
 	);

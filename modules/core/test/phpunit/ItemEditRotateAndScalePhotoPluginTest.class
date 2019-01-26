@@ -490,7 +490,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][rotate][clockwise]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 
-		$results                          = $this->handleRequest($this->_item, $this->_derivative[0]);
+		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		list($ret, $this->_derivative[1]) = $this->_derivative[1]->refresh();
 
 		if ($ret) {

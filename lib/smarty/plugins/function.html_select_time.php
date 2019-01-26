@@ -25,9 +25,9 @@ function smarty_function_html_select_time($params, &$smarty) {
 
 	include_once $smarty->_get_plugin_filepath('function', 'html_options');
 	// Default values.
-	$prefix           = 'Time_';
-	$time             = time();
-	$display_hours    = true;
+	$prefix        = 'Time_';
+	$time          = time();
+	$display_hours = true;
 	$display_minutes  = true;
 	$display_seconds  = true;
 	$display_meridian = true;

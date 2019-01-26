@@ -246,7 +246,7 @@ class ItemTest extends GalleryTestCase {
 
 	public function testCanBeViewedInlineOthers() {
 		global $gallery;
-		$query                     = '
+		$query = '
 		SELECT [GalleryMimeTypeMap::mimeType]
 		FROM [GalleryMimeTypeMap]
 		WHERE [GalleryMimeTypeMap::mimeType] NOT LIKE \'image/%\'
@@ -2069,7 +2069,7 @@ class ItemTest extends GalleryTestCase {
 			}
 
 			// Make sure that we have a preferred that contains the proper convert operations
-			$itemId                 = $item->getId();
+			$itemId = $item->getId();
 			list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
 
 			if ($ret) {

@@ -43,10 +43,10 @@ class SwitchDetailModeController extends GalleryController {
 		$session =& $gallery->getSession();
 		$session->put('exif.module.LoadExifInfo.mode', $mode);
 
-		$results['return']           = 1;
+		$results['return'] = 1;
 		$results['redirect']['view'] = 'core.ShowItem';
-		$results['status']           = array();
-		$results['error']            = array();
+		$results['status'] = array();
+		$results['error']  = array();
 
 		return array(null, $results);
 	}

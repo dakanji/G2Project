@@ -69,7 +69,7 @@ class PluginCallbackView extends GalleryView {
 			header('Content-type: text/plain; charset=UTF-8');
 		}
 
-		$result                   = array();
+		$result = array();
 		list($ret, $beforeStates) = $this->getPluginStates();
 
 		if ($ret) {
@@ -175,7 +175,7 @@ class PluginCallbackView extends GalleryView {
 			return $ret;
 		}
 
-		$result                      = array();
+		$result = array();
 		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables(
 			'pluginType',
 			'pluginId'

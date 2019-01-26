@@ -143,15 +143,15 @@ function makeManifest($filterPath = '') {
 		foreach ($entries as $entry) {
 			list($file, $isBinary) = preg_split('/\@\@/', $entry);
 			$relativeFilePath      = $file;
-			$file                  = $baseDir . $file;
+			$file = $baseDir . $file;
 
 			if (preg_match('/deleted:(.*)/', $relativeFilePath, $matches)) {
 				$deleted[$matches[1]] = true;
 			} else {
 				$seen[$relativeFilePath] = true;
-				$fileHandle              = fopen($file, 'rb');
-				$fileSize                = filesize($file);
-				$data                    = fread($fileHandle, $fileSize);
+				$fileHandle = fopen($file, 'rb');
+				$fileSize   = filesize($file);
+				$data       = fread($fileHandle, $fileSize);
 				fclose($fileHandle);
 
 				$data_crlf = $data;
@@ -230,8 +230,8 @@ function listSvn($filterpath) {
 	exec("svn propget --non-interactive -R svn:mime-type $filterpath", $output);
 
 	foreach ($output as $line) {
-		$parts             = preg_split('/\s-\s/', $line);
-		$file              = str_replace('\\', '/', $parts[0]);
+		$parts = preg_split('/\s-\s/', $line);
+		$file  = str_replace('\\', '/', $parts[0]);
 		$binaryList[$file] = 1;
 	}
 

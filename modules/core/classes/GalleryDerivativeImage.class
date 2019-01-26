@@ -178,7 +178,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 		}
 
 		// Update our dimensions
-		$mimeType            = $this->getMimeType();
+		$mimeType = $this->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 
 		if ($ret) {

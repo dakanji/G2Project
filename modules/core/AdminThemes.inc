@@ -235,7 +235,7 @@ class AdminThemesController extends GalleryController {
 					}
 				} else {
 					foreach ($validationErrors as $validationKey => $validationMessage) {
-						$error[]                      = sprintf('form[error][key][%s][invalid]', $validationKey);
+						$error[] = sprintf('form[error][key][%s][invalid]', $validationKey);
 						$errorMessage[$validationKey] = $validationMessage;
 					}
 					GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
@@ -352,8 +352,8 @@ class AdminThemesView extends GalleryView {
 				continue;
 			}
 
-			$entry              = array();
-			$entry['name']      = $theme->translate($theme->getName());
+			$entry         = array();
+			$entry['name'] = $theme->translate($theme->getName());
 			$entry['active']    = !empty($status['active']);
 			$entry['l10Domain'] = $theme->getL10Domain();
 			$entry['action']    = array();
@@ -441,7 +441,7 @@ class AdminThemesView extends GalleryView {
 					}
 				}
 			} else {
-				$entry['state']                    = 'incompatible';
+				$entry['state'] = 'incompatible';
 				$entry['api']['required']['theme'] = join(
 					'.',
 					$theme->getRequiredThemeApi()
@@ -463,7 +463,7 @@ class AdminThemesView extends GalleryView {
 			$entry['description']      = $theme->getDescription();
 			$entry['version']          = $theme->getVersion();
 			$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
-			$themes[$id]               = $entry;
+			$themes[$id] = $entry;
 
 			if (!empty($status['active'])) {
 				$themeList[$id] = $theme->translate($theme->getName());
@@ -489,7 +489,7 @@ class AdminThemesView extends GalleryView {
 				$tmp = explode('|', $value, 2);
 
 				if (count($tmp) == 2) {
-					$value                      = $tmp[1];
+					$value = $tmp[1];
 					$form['default']['presort'] = $tmp[0];
 				} else {
 					$form['default']['presort'] = '';
@@ -520,10 +520,10 @@ class AdminThemesView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminThemes['orderByList']              = $orderByList;
-		$AdminThemes['presortList']              = $presortList;
-		$AdminThemes['orderDirectionList']       = $orderDirectionList;
-		$AdminThemes['themeList']                = $themeList;
+		$AdminThemes['orderByList']        = $orderByList;
+		$AdminThemes['presortList']        = $presortList;
+		$AdminThemes['orderDirectionList'] = $orderDirectionList;
+		$AdminThemes['themeList']          = $themeList;
 		$AdminThemes['newAlbumsUseDefaultsList'] = $newAlbumsUseDefaultsList;
 
 		// Load the config settings from the active theme
@@ -533,7 +533,7 @@ class AdminThemesView extends GalleryView {
 			if ($ret->getErrorCode() & (ERROR_PLUGIN_VERSION_MISMATCH | ERROR_BAD_PARAMETER | ERROR_BAD_PLUGIN)
 			) {
 				// The default theme isn't available. Show a warning, don't load any settings.
-				$theme                             = null;
+				$theme = null;
 				$form['error']['themeUnavailable'] = true;
 			} else {
 				return array($ret, null);

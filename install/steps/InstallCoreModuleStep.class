@@ -49,8 +49,8 @@ class InstallCoreModuleStep extends InstallStep {
 		// We want to log all debug output in our install log
 		global $gallery;
 		$gallery->setDebug('logged');
-		$tag            = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
-		$dataBase       = $gallery->getConfig('data.gallery.base');
+		$tag      = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
+		$dataBase = $gallery->getConfig('data.gallery.base');
 		$installLogPath = sprintf('%s/install_%s.log', $dataBase, $tag);
 		$gallery->setDebugLogFile($installLogPath);
 		$templateData['installLogPath'] = $installLogPath;
@@ -110,7 +110,7 @@ class InstallCoreModuleStep extends InstallStep {
 			 * that they said that it was ok to reuse existing tables in the database setup step,
 			 * which means we don't have to perform an install now.
 			 */
-			$storage                 =& $gallery->getStorage();
+			$storage =& $gallery->getStorage();
 			list($ret, $isInstalled) = $storage->isInstalled();
 
 			if ($ret) {

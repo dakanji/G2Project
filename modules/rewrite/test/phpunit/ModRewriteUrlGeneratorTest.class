@@ -105,9 +105,9 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		// ModRewrite constructs url from baseUri and QUERY_STRING
 		$_SERVER['REQUEST_URI'] = '/not/used';
-		$expectedUrl            = 'http://example.com/cms/index.php?mod=gallery2&foo=1&bar=2';
-		$this->_urlGenerator    = new $this->_urlGeneratorName();
-		$ret                    = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
+		$expectedUrl         = 'http://example.com/cms/index.php?mod=gallery2&foo=1&bar=2';
+		$this->_urlGenerator = new $this->_urlGeneratorName();
+		$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;

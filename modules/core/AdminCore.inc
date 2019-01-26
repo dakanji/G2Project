@@ -370,7 +370,7 @@ class AdminCoreView extends GalleryView {
 			'flock'    => $module->translate('File'),
 		);
 
-		$AdminCore['can']                = $can;
+		$AdminCore['can'] = $can;
 		$AdminCore['sessionTimeList']    = $sessionTimeList;
 		$AdminCore['embeddedMarkupList'] = $embeddedMarkupList;
 		$AdminCore['lockSystemList']     = $lockSystemList;

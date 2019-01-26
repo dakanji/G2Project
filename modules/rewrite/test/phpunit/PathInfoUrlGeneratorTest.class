@@ -41,7 +41,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$parser                      = array();
+		$parser = array();
 		$parser['static']['/static'] = array(
 			'queryString' => array(
 				'view' => 'php.Static',
@@ -88,8 +88,8 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	public function testGetBaseUrl() {
 		// Standard Gallery init
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=bar&bar=foo';
-		$urlGenerator           = new PathInfoUrlGenerator();
-		$ret                    = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
+		$urlGenerator = new PathInfoUrlGenerator();
+		$ret          = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
 
 		if ($ret) {
 			return $ret;
@@ -170,7 +170,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			foreach ($tests as $test) {
 				list($pathInfo, $expectedParams) = $test;
 				$_SERVER['REQUEST_URI']          = $path . '/phpunit_test.php' . $pathInfo;
-				$_SERVER['PATH_INFO']            = $path . '/phpunit_test.php' . $pathInfo;
+				$_SERVER['PATH_INFO'] = $path . '/phpunit_test.php' . $pathInfo;
 				GalleryDataCache::reset();
 				$urlGenerator = new PathInfoUrlGenerator();
 				$ret          = $urlGenerator->init($path . '/phpunit_test.php');

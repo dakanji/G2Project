@@ -150,7 +150,7 @@ class Mail_mimePart {
 					break;
 
 				case 'encoding':
-					$this->_encoding                      = $value;
+					$this->_encoding = $value;
 					$headers['Content-Transfer-Encoding'] = $value;
 
 					break;
@@ -222,7 +222,7 @@ class Mail_mimePart {
 
 		if (!empty($this->_subparts)) {
 			mt_srand((float)microtime() * 1000000);
-			$boundary                        = '=_' . md5(mt_rand() . microtime());
+			$boundary = '=_' . md5(mt_rand() . microtime());
 			$this->_headers['Content-Type'] .= ';' . MAIL_MIMEPART_CRLF . "\t" . 'boundary="' . $boundary . '"';
 
 			// Add body parts to $subparts

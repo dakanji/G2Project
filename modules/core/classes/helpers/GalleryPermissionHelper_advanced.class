@@ -117,7 +117,7 @@ class GalleryPermissionHelper_advanced {
 	 * @access private
 	 */
 	public static function _postGroupEvent($groupId, $itemId, $permission, $applyToChildren, $changeType) {
-		$userId            = null;
+		$userId = null;
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -356,7 +356,7 @@ class GalleryPermissionHelper_advanced {
 			}
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			$query                     = sprintf(
+			$query  = sprintf(
 				'
 			SELECT
 			[GalleryAccessSubscriberMap::accessListId],
@@ -375,9 +375,9 @@ class GalleryPermissionHelper_advanced {
 			',
 				$aclMarkers
 			);
-			$data[]                    = $itemId;
-			$data[]                    = "$parentSequence/%";
-			$data                      = array_merge($data, $aclIds);
+			$data[] = $itemId;
+			$data[] = "$parentSequence/%";
+			$data   = array_merge($data, $aclIds);
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -606,7 +606,7 @@ class GalleryPermissionHelper_advanced {
 		if (!empty($removeEventIds) && !empty($removeEventData)) {
 			// user/groupId 0 has a special meaning in the RemovePermission event
 			$removeEventIds['itemIdsAndBits'] = $removeEventData;
-			$event                            = GalleryCoreApi::newEvent('Gallery::RemovePermission');
+			$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
 			$event->setData($removeEventIds);
 			list($ret) = GalleryCoreApi::postEvent($event);
 
@@ -729,7 +729,7 @@ class GalleryPermissionHelper_advanced {
 		$data    = array();
 
 		while ($result = $searchResults->nextResult()) {
-			$permissions             = $storage->convertBitsToInt($result[3]);
+			$permissions = $storage->convertBitsToInt($result[3]);
 			list($ret, $permissions) = GalleryCoreApi::convertPermissionBitsToIds(
 				$permissions,
 				$compress
@@ -843,7 +843,7 @@ class GalleryPermissionHelper_advanced {
 	public static function _copyAccessList($oldAccessListId) {
 		global $gallery;
 
-		$storage                     =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $newAccessListId) = $storage->getUniqueId();
 
 		if ($ret) {
@@ -950,7 +950,7 @@ class GalleryPermissionHelper_advanced {
 			return array($ret, null);
 		}
 
-		$storage                   =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $andPermission) = $storage->getFunctionSql(
 			'BITAND',
 			array('[GalleryAccessMap::permission]', '?')
@@ -1288,7 +1288,7 @@ class GalleryPermissionHelper_advanced {
 			return $ret;
 		}
 
-		$storage                      =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
 		list($ret, $andNotPermission) = $storage->getFunctionSql(
 			'BITAND',
 			array('[GalleryAccessMap::permission]', '?')

@@ -18,32 +18,37 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ini_set('error_reporting', 2047);
+
 if (!empty($_SERVER['SERVER_NAME'])) {
-	print "You must run this from the command line\n";
+	echo "You must run this from the command line\n";
+
 	exit(1);
 }
 
 require_once __DIR__ . '/XmlParser.inc';
 
 $output = '';
-foreach (array( 'mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite' ) as $db) {
+
+foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) {
 	$output  .= '## ' . $db . "\n";
 	$xmlFiles = glob('tmp/dbxml/*.xml');
+
 	if (empty($xmlFiles)) {
 		continue;
 	}
 
 	sort($xmlFiles);
+
 	foreach ($xmlFiles as $xmlFile) {
 		$p    = new XmlParser();
 		$root = $p->parse($xmlFile);
 
 		$generatorClass = "${db}Generator";
-		$generator      = new $generatorClass;
+		$generator      = new $generatorClass();
 
-		$base            = basename($xmlFile);
-		$base            = preg_replace('/\.[^\.]*$/', '', $base);
-		$output         .= '# ' . $base . "\n";
+		$base    = basename($xmlFile);
+		$base    = preg_replace('/\.[^\.]*$/', '', $base);
+		$output .= '# ' . $base . "\n";
 		$root[0]['base'] = $base;
 		$output         .= $generator->createSql($root[0], 0, 0, null);
 	}
@@ -54,7 +59,7 @@ fwrite($fd, $output);
 fclose($fd);
 
 class BaseGenerator {
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
@@ -69,71 +74,79 @@ class BaseGenerator {
 				$output .= "'" . $parent['child'][0]['content'] . "', " . $child[0]['content'] . ', ' .
 				$child[1]['content'];
 				$output .= ");\n\n";
+
 				break;
 
 			case 'COLUMN':
-				/* column-name, column-type, column-size, not-null? */
+				// column-name, column-type, column-size, not-null?
 				$output .= ' DB_COLUMN_PREFIX' . $child[0]['content'];
 				$output .= ' ' . $this->columnDefinition($child);
+
 				break;
 
 			default:
 				$output .= "1. UNIMPLEMLENTED: $node[name]";
+
 				break;
 		}
 
 		return $output;
 	}
 
-	function getIndexCrc($columns) {
+	public function getIndexCrc($columns) {
 		$buf = '';
+
 		for ($i = 0; $i < count($columns); $i++) {
 			$buf .= $columns[$i]['content'];
 		}
 
 		/*
-		* crc32 returns different results on 32-bit vs. 64-bit systems.  e.g. crc32('groupId')
-		* returns -310277968 for 32-bit systems and 3984689328 on 64-bit systems. We don't
-		* completely understand the issue, but adding 2^32 for negative crc32 values
-		* (32-bit overflows?!) seems to do the trick. And we eschew the 64-bit unsafe modulo
-		* operation by using substr instead of % 100000.
-		* Note: We also want strictly positive values since we use the value in SQL index key
-		* names.
-		*/
+		 * crc32 returns different results on 32-bit vs. 64-bit systems.  e.g. crc32('groupId')
+		 * returns -310277968 for 32-bit systems and 3984689328 on 64-bit systems. We don't
+		 * completely understand the issue, but adding 2^32 for negative crc32 values
+		 * (32-bit overflows?!) seems to do the trick. And we eschew the 64-bit unsafe modulo
+		 * operation by using substr instead of % 100000.
+		 * Note: We also want strictly positive values since we use the value in SQL index key
+		 * names.
+		 */
 		$crc = crc32($buf);
+
 		if ($crc > 0) {
 			return $crc % 100000;
-		} else {
-			return (int)substr(crc32($buf) + pow(2, 32), -5);
 		}
+
+		return (int)substr(crc32($buf) + 2** 32, -5);
 	}
 
-	function getNotNullElement($child) {
+	public function getNotNullElement($child) {
 		for ($i = 0; $i < count($child); $i++) {
 			if ($child[$i]['name'] == 'NOT-NULL') {
 				return $child[$i];
 			}
 		}
+
 		return null;
 	}
 
-	function getDefaultElement($child) {
+	public function getDefaultElement($child) {
 		for ($i = 0; $i < count($child); $i++) {
 			if ($child[$i]['name'] == 'DEFAULT') {
 				return $child[$i]['content'];
 			}
 		}
+
 		return null;
 	}
 
-	function setColumnDefinitionMap($map) {
+	public function setColumnDefinitionMap($map) {
 		$this->_columnDefinitionMap = $map;
 	}
 
-	function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
+	public function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
 		$output = '';
 		$key    = $child[1]['content'] . '-' .
 		(!empty($child[2]['content']) ? $child[2]['content'] : '');
+
 		if (isset($this->_columnDefinitionMap[$key])) {
 			$output .= $this->_columnDefinitionMap[$key];
 		} else {
@@ -142,6 +155,7 @@ class BaseGenerator {
 
 		if ($includeDefault) {
 			$defaultValue = $this->getDefaultElement($child);
+
 			if (isset($defaultValue)) {
 				$output .= " DEFAULT '$defaultValue'";
 			}
@@ -156,7 +170,7 @@ class BaseGenerator {
 		return $output;
 	}
 
-	function generateSchemaUpdate($child) {
+	public function generateSchemaUpdate($child) {
 		$output  = "UPDATE DB_TABLE_PREFIXSchema\n";
 		$output .= sprintf(
 			"  SET DB_COLUMN_PREFIXmajor=%d, DB_COLUMN_PREFIXminor=%d\n",
@@ -170,20 +184,21 @@ class BaseGenerator {
 			$child[1]['child'][0]['content'],
 			(!empty($child[1]['child'][1]['content']) ? $child[1]['child'][1]['content'] : 0)
 		);
+
 		return $output;
 	}
 
-	function isPrimaryKey($child) {
+	public function isPrimaryKey($child) {
 		return $this->isIndex($child) && !empty($child['attrs']['PRIMARY']);
 	}
 
-	function isIndex($child) {
+	public function isIndex($child) {
 		return $child['name'] == 'INDEX';
 	}
 }
 
 class MySqlGenerator extends BaseGenerator {
-	function MySqlGenerator() {
+	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
 				'INTEGER-'       => 'int(11)',
@@ -205,12 +220,13 @@ class MySqlGenerator extends BaseGenerator {
 		);
 	}
 
-	function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
+	public function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
 		$output = parent::columnDefinition($child, $includeNotNull, false);
 
-		/* MySQL -> DEFAULT expression after NOT NULL */
+		// MySQL -> DEFAULT expression after NOT NULL
 		if ($includeDefault) {
 			$defaultValue = $this->getDefaultElement($child);
+
 			if (isset($defaultValue)) {
 				$output .= " DEFAULT '$defaultValue'";
 			}
@@ -219,44 +235,51 @@ class MySqlGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+
 		switch ($node['name']) {
 			case 'TABLE':
-				/* table-name, schema, column+, (key | index)* */
+				// table-name, schema, column+, (key | index)
 				$output .= 'CREATE TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "(\n";
+
 				for ($i = 2; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
+
 					if ($i < count($child) - 1) {
 						$output .= ',';
 					}
 					$output .= "\n";
 				}
 				$output .= ") DB_TABLE_TYPE\n";
-				/* Character set, enclosed in comments that are ignored by MySQL < 4.1.0 */
+				// Character set, enclosed in comments that are ignored by MySQL < 4.1.0
 				$output .= "/*!40100 DEFAULT CHARACTER SET utf8 */;\n\n";
 
-				/* Schema info */
+				// Schema info
 				$output .= $this->createSql($child[1], 0, 0, $node);
+
 				break;
 
 			case 'ALTER':
-				/* column+ */
+				// column+
 				for ($i = 0; $i < count($child); $i++) {
 					$output .= '  MODIFY COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
 					$output .= ' ' . $this->columnDefinition($child[$i]['child']);
+
 					if ($i < count($child) - 1) {
 						$output .= ",\n";
 					}
 				}
+
 				break;
 
 			case 'CHANGE':
-				/* table-name, schema-from, schema-to, (add, alter, remove)+ */
+				// table-name, schema-from, schema-to, (add, alter, remove)+
 				if (count($child) > 3) {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "\n";
+
 					for ($i = 3; $i < count($child); $i++) {
 						if ($i > 3) {
 							$output .= ",\n";
@@ -266,28 +289,33 @@ class MySqlGenerator extends BaseGenerator {
 					$output .= ";\n\n";
 				}
 				$output .= $this->generateSchemaUpdate($child);
+
 				break;
 
 			case 'ADD':
-				/* (column, key, index)+ */
+				// (column, key, index)+
 				for ($i = 0; $i < count($child); $i++) {
 					$c = $child[$i];
+
 					switch ($c['name']) {
 						case 'COLUMN':
-							/* column-name */
+							// column-name
 							$output .= '  ADD COLUMN DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 							$output .= ' ' . $this->columnDefinition($c['child']);
+
 							break;
 
 						case 'KEY':
 							$output .= '  ADD' . $this->createSql($c, 0, 0, null);
+
 							break;
 
 						case 'INDEX':
-							/* column-name */
+							// column-name
 							$output .= '  ADD INDEX ';
 							$nameKey = strtoupper('name_' . $this->getDbType());
 							$columns = $c['child'];
+
 							if (isset($c['attrs'][$nameKey])) {
 								$output .= $c['attrs'][$nameKey];
 							} else {
@@ -295,41 +323,50 @@ class MySqlGenerator extends BaseGenerator {
 								'_' . $this->getIndexCrc($columns);
 							}
 							$output .= '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
+
 							break;
 
 						default:
 							$output .= "3. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
+
 					if ($i < count($child) - 1) {
 						$output .= ",\n";
 					}
 				}
+
 				break;
 
 			case 'REMOVE':
 				if (!isset($parent['name'])) {
 					$output .= 'DROP TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'] . ";\n\n";
+
 					if ($node['child'][0]['content'] != 'Schema') {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
 				} elseif ($parent['name'] == 'CHANGE') {
-					/* (column-name, key, index)+ */
+					// (column-name, key, index)+
 					$i = 0;
+
 					foreach ($child as $c) {
 						if ($i++ > 0) {
 							$output .= ",\n";
 						}
+
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
 								$output .= '  DROP COLUMN DB_COLUMN_PREFIX' . $c['content'];
+
 								break;
 
 							case 'KEY':
@@ -343,18 +380,21 @@ class MySqlGenerator extends BaseGenerator {
 									 */
 									$output .= '  DROP INDEX DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 								}
+
 								break;
 
 							case 'INDEX':
-								/* column-name */
+								// column-name
 								$output .= '  DROP INDEX ';
 								$nameKey = strtoupper('name_' . $this->getDbType());
+
 								if (isset($child[0]['attrs'][$nameKey])) {
 									$output .= $child[0]['attrs'][$nameKey];
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 									'_' . $this->getIndexCrc($c['child']);
 								}
+
 								break;
 
 							default:
@@ -362,40 +402,47 @@ class MySqlGenerator extends BaseGenerator {
 						}
 					}
 				}
+
 				break;
 
 			case 'KEY':
-				/* column-name+ */
+				// column-name+
 				if (!empty($node['attrs']['PRIMARY'])) {
 					$output .= ' PRIMARY KEY(';
 				} else {
 					/*
-					* In MySQL, it would be UNIQUE [INDEX] so INDEX is optional, since UNIQUE is
-					* often called a KEY and we use <key> in our XML for UNIQUE, we just use UNIQUE
-					* without INDEX here. Don't add an index name, see our REMOVE code.
-					*/
+					 * In MySQL, it would be UNIQUE [INDEX] so INDEX is optional, since UNIQUE is
+					 * often called a KEY and we use <key> in our XML for UNIQUE, we just use UNIQUE
+					 * without INDEX here. Don't add an index name, see our REMOVE code.
+					 */
 					$output .= ' UNIQUE (';
 				}
+
 				for ($i = 0; $i < count($child); $i++) {
 					$output .= 'DB_COLUMN_PREFIX' . $child[$i]['content'];
+
 					if ($i < count($child) - 1) {
 						$output .= ', ';
 					}
 				}
 				$output .= ')';
+
 				break;
 
 			case 'INDEX':
-				/* column-name+ */
+				// column-name+
 				$crc     = $this->getIndexCrc($child);
 				$output .= ' INDEX DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '_' . $crc . '(';
+
 				for ($i = 0; $i < count($child); $i++) {
 					$output .= 'DB_COLUMN_PREFIX' . $child[$i]['content'];
+
 					if ($i < count($child) - 1) {
 						$output .= ', ';
 					}
 				}
 				$output .= ')';
+
 				break;
 
 			default:
@@ -405,13 +452,13 @@ class MySqlGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function getDbType() {
+	public function getDbType() {
 		return 'mysql';
 	}
 }
 
 class PostgresGenerator extends BaseGenerator {
-	function PostgresGenerator() {
+	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
 				'INTEGER-'       => 'INTEGER',
@@ -433,36 +480,41 @@ class PostgresGenerator extends BaseGenerator {
 		);
 	}
 
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+
 		switch ($node['name']) {
 			case 'CHANGE':
-				/* table-name, schema-from, schema-to, (add, alter, remove)+ */
+				// table-name, schema-from, schema-to, (add, alter, remove)+
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
 				$output .= $this->generateSchemaUpdate($child);
+
 				break;
 
 			case 'REMOVE':
 				if (!isset($parent['name'])) {
 					$output .= 'DROP TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'] . ";\n\n";
+
 					if ($node['child'][0]['content'] != 'Schema') {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
 				} elseif ($parent['name'] == 'CHANGE') {
-					/* (column-name, key, index)+ */
+					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
+
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
-								/* column-name */
+								// column-name
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' DROP COLUMN DB_COLUMN_PREFIX' . $c['content'];
 								$output .= ";\n\n";
+
 								break;
 
 							case 'KEY':
@@ -475,12 +527,14 @@ class PostgresGenerator extends BaseGenerator {
 									$parent['child'][0]['content'] . ' DROP CONSTRAINT DB_TABLE_PREFIX'
 									. $parent['child'][0]['content'] . "_pkey;\n\n";
 								}
+
 								break;
 
 							case 'INDEX':
-								/* column-name */
+								// column-name
 								$output .= 'DROP INDEX ';
 								$nameKey = strtoupper('name_' . $this->getDbType());
+
 								if (isset($c['attrs'][$nameKey])) {
 									$output .= $c['attrs'][$nameKey];
 								} else {
@@ -488,6 +542,7 @@ class PostgresGenerator extends BaseGenerator {
 									'_' . $this->getIndexCrc($c['child']);
 								}
 								$output .= ";\n\n";
+
 								break;
 
 							default:
@@ -495,10 +550,11 @@ class PostgresGenerator extends BaseGenerator {
 						}
 					}
 				}
+
 				break;
 
 			case 'ADD':
-				/* (column, key, index)+ */
+				// (column, key, index)+
 				foreach ($child as $c) {
 					switch ($c['name']) {
 						case 'COLUMN':
@@ -516,6 +572,7 @@ class PostgresGenerator extends BaseGenerator {
 							$output .= ";\n\n";
 
 							$defaultValue = $this->getDefaultElement($c['child']);
+
 							if (isset($defaultValue)) {
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' ALTER COLUMN DB_COLUMN_PREFIX' . $c['child'][0]['content'];
@@ -531,32 +588,38 @@ class PostgresGenerator extends BaseGenerator {
 								' ALTER DB_COLUMN_PREFIX' . $c['child'][0]['content'] .
 								" SET NOT NULL;\n\n";
 							}
+
 							break;
 
 						case 'KEY':
-							/* column-name+ */
+							// column-name+
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 							' ADD ';
+
 							if (!empty($c['attrs']['PRIMARY'])) {
 								$output .= 'PRIMARY KEY(';
 							} else {
 								$output .= 'UNIQUE KEY(';
 							}
+
 							for ($i = 0; $i < count($c['child']); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $c['child'][$i]['content'];
+
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						case 'INDEX':
-							/* column-name */
+							// column-name
 							$output .= 'CREATE INDEX ';
 							$nameKey = strtoupper('name_' . $this->getDbType());
 							$columns = $c['child'];
+
 							if (isset($c['attrs'][$nameKey])) {
 								$output .= $c['attrs'][$nameKey];
 							} else {
@@ -564,30 +627,37 @@ class PostgresGenerator extends BaseGenerator {
 								'_' . $this->getIndexCrc($columns);
 							}
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
 				}
+
 				break;
 
 			case 'TABLE':
-				/* table-name, schema, column+, (key | index)* */
+				// table-name, schema, column+, (key | index)
 				$output .= 'CREATE TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "(\n";
+
 				for ($i = 2; $i < count($child); $i++) {
 					if ($child[$i]['name'] != 'COLUMN') {
 						$output .= "\n";
+
 						break;
 					}
+
 					if ($i > 2) {
 						$output .= ",\n";
 					}
@@ -601,8 +671,10 @@ class PostgresGenerator extends BaseGenerator {
 						$crc     = $this->getIndexCrc($child[$i]['child']);
 						$output .= 'CREATE INDEX DB_TABLE_PREFIX' . $child[0]['content'] . '_' . $crc .
 						' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 						for ($j = 0; $j < count($child[$i]['child']); $j++) {
 							$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
@@ -613,8 +685,10 @@ class PostgresGenerator extends BaseGenerator {
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] .
 							' ADD PRIMARY KEY (';
 							$columns = $child[$i]['child'];
+
 							for ($j = 0; $j < count($columns); $j++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$j]['content'];
+
 								if ($j < count($columns) - 1) {
 									$output .= ', ';
 								}
@@ -624,8 +698,10 @@ class PostgresGenerator extends BaseGenerator {
 							$crc     = $this->getIndexCrc($child[$i]['child']);
 							$output .= 'CREATE UNIQUE INDEX DB_TABLE_PREFIX' . $child[0]['content'] .
 							'_' . $crc . ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 							for ($j = 0; $j < count($child[$i]['child']); $j++) {
 								$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 								if ($j < count($child[$i]['child']) - 1) {
 									$output .= ', ';
 								}
@@ -635,12 +711,13 @@ class PostgresGenerator extends BaseGenerator {
 					}
 				}
 
-				/* Schema info */
+				// Schema info
 				$output .= $this->createSql($child[1], 0, 0, $node);
+
 				break;
 
 			case 'ALTER':
-				/* column+ */
+				// column+
 				for ($i = 0; $i < count($child); $i++) {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp';
@@ -654,12 +731,14 @@ class PostgresGenerator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' RENAME DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp' .
 					' to DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
+
 					if ($this->getNotNullElement($child[$i]['child'])) {
 						$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 						' ALTER DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 						" SET NOT NULL;\n\n";
 					}
 				}
+
 				break;
 
 			default:
@@ -669,13 +748,13 @@ class PostgresGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function getDbType() {
+	public function getDbType() {
 		return 'postgres';
 	}
 }
 
 class OracleGenerator extends BaseGenerator {
-	function OracleGenerator() {
+	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
 				'INTEGER-'       => 'INTEGER',
@@ -697,59 +776,68 @@ class OracleGenerator extends BaseGenerator {
 		);
 	}
 
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+
 		switch ($node['name']) {
 			case 'CHANGE':
-				/* table-name, schema-from, schema-to, (add, alter, remove)+ */
+				// table-name, schema-from, schema-to, (add, alter, remove)+
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
 				$output .= $this->generateSchemaUpdate($child);
+
 				break;
 
 			case 'REMOVE':
 				if (!isset($parent['name'])) {
 					$output .= 'DROP TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'] . ";\n\n";
+
 					if ($node['child'][0]['content'] != 'Schema') {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
 				} elseif ($parent['name'] == 'CHANGE') {
-					/* (column-name, key, index)+ */
+					// (column-name, key, index)+
 					foreach ($child as $c) {
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
-								/* column-name */
+								// column-name
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= "\n" . '  DROP (DB_COLUMN_PREFIX' . $c['content'] . ')';
+
 								break;
 
 							case 'KEY':
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
+
 								if (isset($child[0]['attrs']['PRIMARY'])) {
 									$output .= "\n  DROP PRIMARY KEY";
 								} else {
 									$keyColumns = array();
+
 									foreach ($c['child'] as $keyColumn) {
 										$keyColumns[] = 'DB_COLUMN_PREFIX' . $keyColumn['content'];
 									}
 									$output .= "\n" . '  DROP UNIQUE (' . implode(', ', $keyColumns) . ')';
 								}
+
 								break;
 
 							case 'INDEX':
-								/* column-name */
+								// column-name
 								$output .= '  DROP INDEX ';
 								$nameKey = strtoupper('name_' . $this->getDbType());
+
 								if (isset($child[0]['attrs'][$nameKey])) {
 									$output .= $child[0]['attrs'][$nameKey];
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 									'_' . $this->getIndexCrc($c['child']);
 								}
+
 								break;
 
 							default:
@@ -758,43 +846,51 @@ class OracleGenerator extends BaseGenerator {
 						$output .= ";\n\n";
 					}
 				}
+
 				break;
 
 			case 'ADD':
-				/* (column, key, index)+ */
+				// (column, key, index)+
 				for ($k = 0; $k < count($child); $k++) {
 					$c = $child[$k];
+
 					switch ($c['name']) {
 						case 'COLUMN':
-							/* column-name */
+							// column-name
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 							$output .= "\n" . '  ADD (DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 							$output .= ' ' . $this->columnDefinition($c['child']) . ')';
+
 							break;
 
 						case 'KEY':
-							/* column-name+ */
+							// column-name+
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 							$output .= "\n  ADD ";
+
 							if (!empty($c['attrs']['PRIMARY'])) {
 								$output .= 'PRIMARY KEY(';
 							} else {
 								$output .= 'UNIQUE KEY(';
 							}
+
 							for ($i = 0; $i < count($c['child']); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $c['child'][$i]['content'];
+
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
+
 							break;
 
 						case 'INDEX':
-							/* column-name */
+							// column-name
 							$output .= 'CREATE INDEX ';
 							$nameKey = strtoupper('name_' . $this->getDbType());
 							$columns = $c['child'];
+
 							if (isset($c['attrs'][$nameKey])) {
 								$output .= $c['attrs'][$nameKey];
 							} else {
@@ -802,13 +898,16 @@ class OracleGenerator extends BaseGenerator {
 								'_' . $this->getIndexCrc($columns);
 							}
 							$output .= ' ON DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
+
 							break;
 
 						default:
@@ -816,16 +915,20 @@ class OracleGenerator extends BaseGenerator {
 					}
 					$output .= ";\n\n";
 				}
+
 				break;
 
 			case 'TABLE':
-				/* table-name, schema, column+, (key | index)* */
+				// table-name, schema, column+, (key | index)
 				$output .= 'CREATE TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "(\n";
+
 				for ($i = 2; $i < count($child); $i++) {
 					if ($child[$i]['name'] != 'COLUMN') {
 						$output .= "\n";
+
 						break;
 					}
+
 					if ($i > 2) {
 						$output .= ",\n";
 					}
@@ -835,13 +938,16 @@ class OracleGenerator extends BaseGenerator {
 				$output .= ");\n\n";
 
 				$keyColumns = array();
+
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
 					if ($child[$i]['name'] == 'INDEX') {
 						$crc     = $this->getIndexCrc($child[$i]['child']);
 						$output .= 'CREATE INDEX DB_TABLE_PREFIX' . $child[0]['content'] . '_' . $crc .
 						"\n  " . ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 						for ($j = 0; $j < count($child[$i]['child']); $j++) {
 							$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
@@ -854,14 +960,17 @@ class OracleGenerator extends BaseGenerator {
 
 				if (!empty($keys)) {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "\n";
+
 					foreach ($keys as $key) {
 						if (!empty($key['attrs']['PRIMARY'])) {
 							$output .= ' ADD PRIMARY KEY (';
 						} else {
 							$output .= ' ADD UNIQUE (';
 						}
+
 						for ($i = 0; $i < count($key['child']); $i++) {
 							$output .= 'DB_COLUMN_PREFIX' . $key['child'][$i]['content'];
+
 							if ($i < count($key['child']) - 1) {
 								$output .= ', ';
 							}
@@ -871,23 +980,26 @@ class OracleGenerator extends BaseGenerator {
 					$output .= ";\n\n";
 				}
 
-				/* Schema info */
+				// Schema info
 				$output .= $this->createSql($child[1], 0, 0, $node);
+
 				break;
 
 			case 'COLUMN':
-				/* column-name, column-type, column-size, not-null? */
+				// column-name, column-type, column-size, not-null?
 				$output .= ' DB_COLUMN_PREFIX' . $child[0]['content'];
 				$output .= ' ' . $this->columnDefinition($child, false);
+
 				if (($notNull = $this->getNotNullElement($child))
 					&& (empty($notNull['attrs']['EMPTY']) || $notNull['attrs']['EMPTY'] != 'allowed')
 				) {
 					$output .= ' NOT NULL';
 				}
+
 				break;
 
 			case 'ALTER':
-				/* column+ */
+				// column+
 				for ($i = 0; $i < count($child); $i++) {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD (DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp';
@@ -900,6 +1012,7 @@ class OracleGenerator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' RENAME COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp' .
 					' TO DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
+
 					if (($notNull = $this->getNotNullElement($child[$i]['child']))
 						&& (empty($notNull['attrs']['EMPTY'])
 						|| $notNull['attrs']['EMPTY'] != 'allowed')
@@ -909,6 +1022,7 @@ class OracleGenerator extends BaseGenerator {
 						" NOT NULL);\n\n";
 					}
 				}
+
 				break;
 
 			default:
@@ -918,7 +1032,7 @@ class OracleGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function getDbType() {
+	public function getDbType() {
 		return 'oracle';
 	}
 }
@@ -948,8 +1062,8 @@ class OracleGenerator extends BaseGenerator {
  *    <= 5 chars      + 5                        + 2                           +  1  + 5 = <= 18
  */
 class Db2Generator extends BaseGenerator {
-	function Db2Generator() {
-		/* The column size is limited to 32kbyte */
+	public function __construct() {
+		// The column size is limited to 32kbyte
 		$this->setColumnDefinitionMap(
 			array(
 				'INTEGER-'       => 'INTEGER',
@@ -971,12 +1085,13 @@ class Db2Generator extends BaseGenerator {
 		);
 	}
 
-	function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
+	public function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
 		$output = parent::columnDefinition($child, $includeNotNull, false);
 
-		/* DB2 -> Make sure DEFAULT expression doesn't have quotes for numeric */
+		// DB2 -> Make sure DEFAULT expression doesn't have quotes for numeric
 		if ($includeDefault) {
 			$defaultValue = $this->getDefaultElement($child);
+
 			if (isset($defaultValue)) {
 				if ($child[1]['content'] != 'INTEGER' && $child[1]['content'] != 'BOOLEAN') {
 					$defaultValue = "'$defaultValue'";
@@ -988,37 +1103,42 @@ class Db2Generator extends BaseGenerator {
 		return $output;
 	}
 
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+
 		switch ($node['name']) {
 			case 'CHANGE':
-				/* table-name, schema-from, schema-to, (add, alter, remove)+ */
+				// table-name, schema-from, schema-to, (add, alter, remove)+
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
 				$output .= $this->generateSchemaUpdate($child);
+
 				break;
 
 			case 'REMOVE':
 				if (!isset($parent['name'])) {
 					$output .= 'DROP TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'] . ";\n\n";
+
 					if ($node['child'][0]['content'] != 'Schema') {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
 				} elseif ($parent['name'] == 'CHANGE') {
-					/* (column-name, key, index)+ */
+					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
+
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
-								/* column-name */
+								// column-name
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' DROP COLUMN DB_COLUMN_PREFIX' . $c['content'] . ";\n\n";
 								$output .= "CALL ADMIN_CMD ('REORG TABLE DB_TABLE_PREFIX";
 								$output .= $parent['child'][0]['content'] . "');\n\n";
+
 								break;
 
 							case 'KEY':
@@ -1030,12 +1150,14 @@ class Db2Generator extends BaseGenerator {
 									$output .= 'ALTER TABLE DB_TABLE_PREFIX' .
 									$parent['child'][0]['content'] . " DROP PRIMARY KEY;\n\n";
 								}
+
 								break;
 
 							case 'INDEX':
-								/* column-name */
+								// column-name
 								$output .= 'DROP INDEX ';
 								$nameKey = strtoupper('name_' . $this->getDbType());
+
 								if (isset($c['attrs'][$nameKey])) {
 									$output .= $c['attrs'][$nameKey];
 								} else {
@@ -1045,6 +1167,7 @@ class Db2Generator extends BaseGenerator {
 									'_' . $this->getIndexCrc($c['child']);
 								}
 								$output .= ";\n\n";
+
 								break;
 
 							default:
@@ -1052,44 +1175,51 @@ class Db2Generator extends BaseGenerator {
 						}
 					}
 				}
+
 				break;
 
 			case 'ADD':
-				/* (column, key, index)+ */
+				// (column, key, index)+
 				foreach ($child as $c) {
 					switch ($c['name']) {
 						case 'COLUMN':
-							/* column-name */
+							// column-name
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 							$output .= ' ADD COLUMN DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 							$output .= ' ' . $this->columnDefinition($c['child']);
 							$output .= ";\n\n";
+
 							break;
 
 						case 'KEY':
-							/* column-name+ */
+							// column-name+
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 							' ADD ';
+
 							if (!empty($c['attrs']['PRIMARY'])) {
 								$output .= 'PRIMARY KEY(';
 							} else {
 								$output .= 'UNIQUE KEY(';
 							}
+
 							for ($i = 0; $i < count($c['child']); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $c['child'][$i]['content'];
+
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						case 'INDEX':
-							/* column-name */
+							// column-name
 							$output .= 'CREATE INDEX ';
 							$nameKey = strtoupper('name_' . $this->getDbType());
 							$columns = $c['child'];
+
 							if (isset($c['attrs'][$nameKey])) {
 								$output .= $c['attrs'][$nameKey];
 							} else {
@@ -1099,30 +1229,37 @@ class Db2Generator extends BaseGenerator {
 								'_' . $this->getIndexCrc($c['child']);
 							}
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
 				}
+
 				break;
 
 			case 'TABLE':
-				/* table-name, schema, column+, (key | index)* */
+				// table-name, schema, column+, (key | index)
 				$output .= 'CREATE TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "(\n";
+
 				for ($i = 2; $i < count($child); $i++) {
 					if ($child[$i]['name'] != 'COLUMN') {
 						$output .= "\n";
+
 						break;
 					}
+
 					if ($i > 2) {
 						$output .= ",\n";
 					}
@@ -1138,8 +1275,10 @@ class Db2Generator extends BaseGenerator {
 						substr($child[0]['content'], 0, 5) .
 						substr(md5($child[0]['content']), -2) . '_' . $crc .
 						"\n  " . ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 						for ($j = 0; $j < count($child[$i]['child']); $j++) {
 							$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
@@ -1150,8 +1289,10 @@ class Db2Generator extends BaseGenerator {
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] .
 							' ADD PRIMARY KEY (';
 							$columns = $child[$i]['child'];
+
 							for ($j = 0; $j < count($columns); $j++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$j]['content'];
+
 								if ($j < count($columns) - 1) {
 									$output .= ', ';
 								}
@@ -1163,8 +1304,10 @@ class Db2Generator extends BaseGenerator {
 							substr($child[0]['content'], 0, 5) .
 							substr(md5($child[0]['content']), -2) . '_' . $crc .
 							"  \n" . ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 							for ($j = 0; $j < count($child[$i]['child']); $j++) {
 								$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 								if ($j < count($child[$i]['child']) - 1) {
 									$output .= ', ';
 								}
@@ -1174,20 +1317,22 @@ class Db2Generator extends BaseGenerator {
 					}
 				}
 
-				/* Schema info */
+				// Schema info
 				$output .= $this->createSql($child[1], 0, 0, $node);
+
 				break;
 
 			case 'ALTER':
-				/* column+ */
+				// column+
 				for ($i = 0; $i < count($child); $i++) {
-					/* DB2's "ALTER TABLE ALTER COLUMN" is somewhat limited. Use a workaround. */
+					// DB2's "ALTER TABLE ALTER COLUMN" is somewhat limited. Use a workaround.
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp';
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
-					/* Omit the CAST when the target type is CLOB to avoid invalid SQL state. */
+					// Omit the CAST when the target type is CLOB to avoid invalid SQL state.
 					$targetType = $this->columnDefinition($child[$i]['child'], false);
 					$copyFrom   = 'DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
+
 					if (strpos($targetType, 'CLOB') === false) {
 						$copyFrom = 'CAST(' . $copyFrom . ' AS ' . $targetType . ')';
 					}
@@ -1197,12 +1342,12 @@ class Db2Generator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
 					/*
-					* DROP COLUMN puts the table into a state that requires REORG TABLE before
-					* it can be accessed again.
-					*/
+					 * DROP COLUMN puts the table into a state that requires REORG TABLE before
+					 * it can be accessed again.
+					 */
 					$output .= "CALL ADMIN_CMD ('REORG TABLE DB_TABLE_PREFIX" .
 					$parent['child'][0]['content'] . "');\n\n";
-					/* DB2 can't rename columns */
+					// DB2 can't rename columns
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
@@ -1214,12 +1359,14 @@ class Db2Generator extends BaseGenerator {
 					"Temp;\n\n";
 					$output .= "CALL ADMIN_CMD ('REORG TABLE DB_TABLE_PREFIX" .
 					$parent['child'][0]['content'] . "');\n\n";
+
 					if ($this->getNotNullElement($child[$i]['child'])) {
 						$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 						' ALTER DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 						" SET NOT NULL;\n\n";
 					}
 				}
+
 				break;
 
 			default:
@@ -1229,13 +1376,13 @@ class Db2Generator extends BaseGenerator {
 		return $output;
 	}
 
-	function getDbType() {
+	public function getDbType() {
 		return 'db2';
 	}
 }
 
 class MSSqlGenerator extends BaseGenerator {
-	function MSSqlGenerator() {
+	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
 				'INTEGER-'       => 'INT',
@@ -1257,46 +1404,51 @@ class MSSqlGenerator extends BaseGenerator {
 		);
 	}
 
-	function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
+	public function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
 		$output = parent::columnDefinition($child, $includeNotNull, $includeDefault);
 
 		if ($includeNotNull && !$this->getNotNullElement($child)) {
-			  $output .= ' NULL';
+			$output .= ' NULL';
 		}
 
 		return $output;
 	}
 
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+
 		switch ($node['name']) {
 			case 'CHANGE':
-				/* table-name, schema-from, schema-to, (add, alter, remove)+ */
+				// table-name, schema-from, schema-to, (add, alter, remove)+
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
 				$output .= $this->generateSchemaUpdate($child);
+
 				break;
 
 			case 'REMOVE':
 				if (!isset($parent['name'])) {
 					$output .= 'DROP TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'] . ";\n\n";
+
 					if ($node['child'][0]['content'] != 'Schema') {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
 				} elseif ($parent['name'] == 'CHANGE') {
-					/* (column-name, key, index)+ */
+					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
+
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
-								/* column-name */
+								// column-name
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' DROP COLUMN DB_COLUMN_PREFIX' . $c['content'];
 								$output .= ";\n\n";
+
 								break;
 
 							case 'KEY':
@@ -1309,12 +1461,14 @@ class MSSqlGenerator extends BaseGenerator {
 									$parent['child'][0]['content'] . ' DROP CONSTRAINT DB_TABLE_PREFIX'
 									. $parent['child'][0]['content'] . "_pkey;\n\n";
 								}
+
 								break;
 
 							case 'INDEX':
-								/* column-name */
+								// column-name
 								$output .= 'DROP INDEX ';
 								$nameKey = strtoupper('name_' . $this->getDbType());
+
 								if (isset($c['attrs'][$nameKey])) {
 									$output .= $c['attrs'][$nameKey];
 								} else {
@@ -1323,6 +1477,7 @@ class MSSqlGenerator extends BaseGenerator {
 									'_' . $this->getIndexCrc($c['child']);
 								}
 								$output .= ";\n\n";
+
 								break;
 
 							default:
@@ -1330,44 +1485,51 @@ class MSSqlGenerator extends BaseGenerator {
 						}
 					}
 				}
+
 				break;
 
 			case 'ADD':
-				/* (column, key, index)+ */
+				// (column, key, index)+
 				foreach ($child as $c) {
 					switch ($c['name']) {
 						case 'COLUMN':
-							/* column-name */
+							// column-name
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 							$output .= ' ADD DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 							$output .= ' ' . $this->columnDefinition($c['child']);
 							$output .= ";\n\n";
+
 							break;
 
 						case 'KEY':
-							/* column-name+ */
+							// column-name+
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 							' ADD ';
+
 							if (!empty($c['attrs']['PRIMARY'])) {
 								$output .= 'PRIMARY KEY(';
 							} else {
 								$output .= 'UNIQUE KEY(';
 							}
+
 							for ($i = 0; $i < count($c['child']); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $c['child'][$i]['content'];
+
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						case 'INDEX':
-							/* column-name */
+							// column-name
 							$output .= 'CREATE INDEX ';
 							$nameKey = strtoupper('name_' . $this->getDbType());
 							$columns = $c['child'];
+
 							if (isset($c['attrs'][$nameKey])) {
 								$output .= $c['attrs'][$nameKey];
 							} else {
@@ -1375,30 +1537,37 @@ class MSSqlGenerator extends BaseGenerator {
 								'_' . $this->getIndexCrc($columns);
 							}
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
 				}
+
 				break;
 
 			case 'TABLE':
-				/* table-name, schema, column+, (key | index)* */
+				// table-name, schema, column+, (key | index)
 				$output .= 'CREATE TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "(\n";
+
 				for ($i = 2; $i < count($child); $i++) {
 					if ($child[$i]['name'] != 'COLUMN') {
 						$output .= "\n";
+
 						break;
 					}
+
 					if ($i > 2) {
 						$output .= ",\n";
 					}
@@ -1412,8 +1581,10 @@ class MSSqlGenerator extends BaseGenerator {
 						$crc     = $this->getIndexCrc($child[$i]['child']);
 						$output .= 'CREATE INDEX DB_TABLE_PREFIX' . $child[0]['content'] . '_' . $crc .
 						' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 						for ($j = 0; $j < count($child[$i]['child']); $j++) {
 							$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
@@ -1424,8 +1595,10 @@ class MSSqlGenerator extends BaseGenerator {
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] .
 							' ADD PRIMARY KEY (';
 							$columns = $child[$i]['child'];
+
 							for ($j = 0; $j < count($columns); $j++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$j]['content'];
+
 								if ($j < count($columns) - 1) {
 									$output .= ', ';
 								}
@@ -1435,8 +1608,10 @@ class MSSqlGenerator extends BaseGenerator {
 							$crc     = $this->getIndexCrc($child[$i]['child']);
 							$output .= 'CREATE UNIQUE INDEX DB_TABLE_PREFIX' . $child[0]['content'] .
 							'_' . $crc . ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 							for ($j = 0; $j < count($child[$i]['child']); $j++) {
 								$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
 								if ($j < count($child[$i]['child']) - 1) {
 									$output .= ', ';
 								}
@@ -1446,14 +1621,15 @@ class MSSqlGenerator extends BaseGenerator {
 					}
 				}
 
-				/* Schema info */
+				// Schema info
 				$output .= $this->createSql($child[1], 0, 0, $node);
+
 				break;
 
 			case 'ALTER':
-				/* column+ */
+				// column+
 				for ($i = 0; $i < count($child); $i++) {
-					/* MSSQL can't add defaults when altering columns. Use a workaround. */
+					// MSSQL can't add defaults when altering columns. Use a workaround.
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp';
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
@@ -1463,7 +1639,7 @@ class MSSqlGenerator extends BaseGenerator {
 					$this->columnDefinition($child[$i]['child'], false) . ");\n\n";
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
-					/* MSSQL can't rename columns */
+					// MSSQL can't rename columns
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
@@ -1473,12 +1649,14 @@ class MSSqlGenerator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 					"Temp;\n\n";
+
 					if ($this->getNotNullElement($child[$i]['child'])) {
 						$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 						' ALTER COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 						' ' . $this->columnDefinition($child[$i]['child'], true, false) . ";\n\n";
 					}
 				}
+
 				break;
 
 			default:
@@ -1488,13 +1666,13 @@ class MSSqlGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function getDbType() {
+	public function getDbType() {
 		return 'mssql';
 	}
 }
 
 class SQLiteGenerator extends BaseGenerator {
-	function SQLiteGenerator() {
+	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
 				'INTEGER-'       => 'INTEGER',
@@ -1516,11 +1694,12 @@ class SQLiteGenerator extends BaseGenerator {
 		);
 	}
 
-	function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
+	public function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
 		$output = parent::columnDefinition($child, $includeNotNull, false);
 
 		if ($includeDefault) {
 			$defaultValue = $this->getDefaultElement($child);
+
 			if (isset($defaultValue)) {
 				$output .= " DEFAULT '$defaultValue'";
 			}
@@ -1529,19 +1708,23 @@ class SQLiteGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function createSql($node, $index, $lastPeerIndex, $parent) {
+	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
 
 		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+
 		switch ($node['name']) {
 			case 'TABLE':
-				/* table-name, schema, column+, (key | index)* */
+				// table-name, schema, column+, (key | index)
 				$output .= 'CREATE TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "(\n";
+
 				for ($i = 2; $i < count($child); $i++) {
 					if ($child[$i]['name'] != 'COLUMN') {
 						$output .= "\n";
+
 						break;
 					}
+
 					if ($i > 2) {
 						$output .= ",\n";
 					}
@@ -1552,10 +1735,11 @@ class SQLiteGenerator extends BaseGenerator {
 
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
 					if ($child[$i]['name'] == 'INDEX') {
-						/* column-name */
+						// column-name
 						$output .= 'CREATE INDEX ';
 						$nameKey = strtoupper('name_' . $this->getDbType());
 						$columns = $child[$i]['child'];
+
 						if (isset($child[$i]['attrs'][$nameKey])) {
 							$output .= $child[$i]['attrs'][$nameKey];
 						} else {
@@ -1563,51 +1747,58 @@ class SQLiteGenerator extends BaseGenerator {
 							. '_' . $this->getIndexCrc($columns);
 						}
 						$output .= ' ON ' . 'DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
 						for ($j = 0; $j < count($columns); $j++) {
 							$output .= 'DB_COLUMN_PREFIX' . $columns[$j]['content'];
+
 							if ($j < count($columns) - 1) {
 								$output .= ', ';
 							}
 						}
 						$output .= ')';
 						$output .= ";\n\n";
+
 						break;
-					} else {
-						$output .= 'CREATE UNIQUE INDEX DB_TABLE_PREFIX' . $child[0]['content'];
-						if (!empty($child[$i]['attrs']['PRIMARY'])) {
-							$output .= '_pkey';
-						} else {
-							$output .= '_' . $this->getIndexCrc($child[$i]['child']);
-						}
-						$output .= ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
-						for ($j = 0; $j < count($child[$i]['child']); $j++) {
-							$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
-							if ($j < count($child[$i]['child']) - 1) {
-								$output .= ', ';
-							}
-						}
-						$output .= ");\n\n";
 					}
+					$output .= 'CREATE UNIQUE INDEX DB_TABLE_PREFIX' . $child[0]['content'];
+
+					if (!empty($child[$i]['attrs']['PRIMARY'])) {
+						$output .= '_pkey';
+					} else {
+						$output .= '_' . $this->getIndexCrc($child[$i]['child']);
+					}
+					$output .= ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
+
+					for ($j = 0; $j < count($child[$i]['child']); $j++) {
+						$output .= 'DB_COLUMN_PREFIX' . $child[$i]['child'][$j]['content'];
+
+						if ($j < count($child[$i]['child']) - 1) {
+							$output .= ', ';
+						}
+					}
+					$output .= ");\n\n";
 				}
 
-				/* Schema info */
+				// Schema info
 				$output .= $this->createSql($child[1], 0, 0, $node);
+
 				break;
 
 			case 'CHANGE':
-				/* table-name, schema-from, schema-to, (add, alter, remove)+ */
+				// table-name, schema-from, schema-to, (add, alter, remove)+
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
 				$output .= $this->generateSchemaUpdate($child);
+
 				break;
 
 			case 'ADD':
-				/* (column, key, index)+ */
+				// (column, key, index)+
 				foreach ($child as $c) {
 					switch ($c['name']) {
 						case 'COLUMN':
-							/* column-name */
+							// column-name
 							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 							$output .= ' ADD DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 							$output .= ' ' . $this->columnDefinition($c['child']);
@@ -1621,26 +1812,32 @@ class SQLiteGenerator extends BaseGenerator {
 							$output .= 'CREATE UNIQUE INDEX ';
 							$columns = $c['child'];
 							$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '_';
+
 							if (!empty($c['attrs']['PRIMARY'])) {
 								$output .= 'pkey';
 							} else {
 								$output .= $this->getIndexCrc($columns);
 							}
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
+
 						case 'INDEX':
-							/* column-name */
+							// column-name
 							$output .= 'CREATE INDEX ';
 							$nameKey = strtoupper('name_' . $this->getDbType());
 							$columns = $c['child'];
+
 							if (isset($c['attrs'][$nameKey])) {
 								$output .= $c['attrs'][$nameKey];
 							} else {
@@ -1648,33 +1845,39 @@ class SQLiteGenerator extends BaseGenerator {
 								. '_' . $this->getIndexCrc($columns);
 							}
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
+
 							for ($i = 0; $i < count($columns); $i++) {
 								$output .= 'DB_COLUMN_PREFIX' . $columns[$i]['content'];
+
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
 							}
 							$output .= ')';
 							$output .= ";\n\n";
+
 							break;
 
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
 				}
+
 				break;
 
 			case 'REMOVE':
 				if (!isset($parent['name'])) {
 					$output .= 'DROP TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'] . ";\n\n";
+
 					if ($node['child'][0]['content'] != 'Schema') {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='"
 						. $node['child'][0]['content'] . "';\n\n";
 					}
 				} elseif ($parent['name'] == 'CHANGE') {
-					/* (column-name, key, index)+ */
+					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
+
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
 								/**
@@ -1684,12 +1887,13 @@ class SQLiteGenerator extends BaseGenerator {
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' DROP COLUMN DB_COLUMN_PREFIX' . $c['content'];
 								$output .= ";\n\n";
+
 								break;
 
 							case 'KEY':
 								if (empty($c['attrs']['PRIMARY'])) {
-									  $crc     = $this->getIndexCrc($c['child']);
-									  $output .= 'DROP INDEX ' . $parent['child'][0]['content'] . '_' . $crc
+									$crc     = $this->getIndexCrc($c['child']);
+									$output .= 'DROP INDEX ' . $parent['child'][0]['content'] . '_' . $crc
 									  . ";\n\n";
 								} else {
 									$output .= 'ALTER TABLE DB_TABLE_PREFIX'
@@ -1697,12 +1901,14 @@ class SQLiteGenerator extends BaseGenerator {
 									. ' DROP CONSTRAINT DB_TABLE_PREFIX'
 									. $parent['child'][0]['content'] . "_pkey;\n\n";
 								}
+
 								break;
 
 							case 'INDEX':
-								/* column-name */
+								// column-name
 								$output .= 'DROP INDEX ';
 								$nameKey = strtoupper('name_' . $this->getDbType());
+
 								if (isset($c['attrs'][$nameKey])) {
 									$output .= $c['attrs'][$nameKey];
 								} else {
@@ -1710,6 +1916,7 @@ class SQLiteGenerator extends BaseGenerator {
 									. '_' . $this->getIndexCrc($c['child']);
 								}
 								$output .= ";\n\n";
+
 								break;
 
 							default:
@@ -1717,10 +1924,11 @@ class SQLiteGenerator extends BaseGenerator {
 						}
 					}
 				}
+
 				break;
 
 			case 'ALTER':
-				 /* column+ */
+				 // column+
 				for ($i = 0; $i < count($child); $i++) {
 					/*
 					 * SQLite only supports ADD COLUMN and the workaround DROP COLUMN.
@@ -1745,6 +1953,7 @@ class SQLiteGenerator extends BaseGenerator {
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
 					$output      .= ' ' . $this->columnDefinition($child[$i]['child'], false, false);
 					$defaultValue = $this->getDefaultElement($child[$i]['child']);
+
 					if (($notNull = $this->getNotNullElement($child[$i]['child']))
 						&& (empty($notNull['attrs']['EMPTY'])
 						|| $notNull['attrs']['EMPTY'] != 'allowed')
@@ -1761,7 +1970,9 @@ class SQLiteGenerator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					   ' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . "Temp;\n\n";
 				}
+
 				break;
+
 			default:
 				$output .= parent::createSql($node, $index, $lastPeerIndex, $parent);
 		}
@@ -1769,7 +1980,7 @@ class SQLiteGenerator extends BaseGenerator {
 		return $output;
 	}
 
-	function getDbType() {
+	public function getDbType() {
 		return 'sqlite';
 	}
 }

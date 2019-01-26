@@ -65,9 +65,9 @@ class GalleryTemplateAdapter {
 	public $_progressBarStats;
 
 	public function __construct() {
-		$this->_callCount        = array();
-		$this->_theme            = null;
-		$this->_trailer          = null;
+		$this->_callCount = array();
+		$this->_theme     = null;
+		$this->_trailer   = null;
 		$this->_progressBarStats = null;
 	}
 
@@ -243,7 +243,7 @@ class GalleryTemplateAdapter {
 			 * for particular %s values.  Currently only supports a single arg.
 			 * Fallback to normal translation of given $params.
 			 */
-			$string           = sprintf($params['text'], $params['postSprintfArg1']);
+			$string = sprintf($params['text'], $params['postSprintfArg1']);
 			list($ret, $text) = $translator->translateDomain($domain, $string);
 
 			if ($ret || $text == $string) {
@@ -489,9 +489,9 @@ class GalleryTemplateAdapter {
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$filteredFiles = array();
-		$key           = '';
-		$codeBase      = GalleryCoreApi::getCodeBasePath();
-		$pattern       = '<script type="text/javascript" src="%s"></script>';
+		$key      = '';
+		$codeBase = GalleryCoreApi::getCodeBasePath();
+		$pattern  = '<script type="text/javascript" src="%s"></script>';
 
 		// Special case utilities.js is superset of yahoo-dom-event.js
 		/** @todo move this check into GalleryTemplate::javascript */
@@ -520,8 +520,8 @@ class GalleryTemplateAdapter {
 
 			if (strpos($file, '?') === false && $platform->file_exists($path)) {
 				// 7 == size, 9 == mtime, see http://php.net/stat
-				$stats           = $platform->stat($path);
-				$key            .= "$file $stats[7] $stats[9],";
+				$stats = $platform->stat($path);
+				$key  .= "$file $stats[7] $stats[9],";
 				$filteredFiles[] = $file;
 			} else {
 				if ($filteredFiles) {
@@ -531,7 +531,7 @@ class GalleryTemplateAdapter {
 						$this->_buildCombinedJavascriptFileAndGenerateUrl($filteredFiles, $key)
 					);
 					$filteredFiles = array();
-					$key           = '';
+					$key = '';
 				}
 				$output[] = sprintf(
 					$pattern,
@@ -752,7 +752,7 @@ class GalleryTemplateAdapter {
 				);
 
 				if (!$ret) {
-					$type           = $item->itemTypeName(false);
+					$type = $item->itemTypeName(false);
 					$fallbackLinkId = $linkId;
 					$linkId        .= '-' . $type[1];
 				}
@@ -1139,7 +1139,7 @@ class GalleryTemplateAdapter {
 	public function block($params, &$smarty) {
 		global $gallery;
 		list($module, $file) = explode('.', $params['type']);
-		$class               = empty($params['class']) ? '' : ' ' . $params['class'];
+		$class = empty($params['class']) ? '' : ' ' . $params['class'];
 
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 

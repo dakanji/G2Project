@@ -63,7 +63,7 @@ class AdminSlideshowController extends GalleryController {
 				$status['downloadFailed'] = 1;
 			} else {
 				$status['installed'] = $version;
-				$ret                 = GalleryCoreApi::setPluginParameter(
+				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'slideshow',
 					'piclens.version',

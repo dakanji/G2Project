@@ -122,9 +122,9 @@ function find($dir) {
 function extractStrings($filename) {
 	global $strings, $gallery;
 	$strings["\n/* $filename */"] = array();
-	$startSize                    = count($strings);
-	$localStrings                 = array();
-	$data                         = file_get_contents($filename);
+	$startSize    = count($strings);
+	$localStrings = array();
+	$data         = file_get_contents($filename);
 
 	/*
 	 * class|inc|php are module and core PHP files.

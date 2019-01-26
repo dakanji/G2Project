@@ -34,17 +34,17 @@ class ADODB_odbc extends ADOConnection {
 	public $useFetchArray   = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
 	// breaking backward-compat
 	//var $longreadlen = 8000; // default number of chars to return for a Blob/Long field
-	public $_bindInputArray                   = false;
-	public $curmode                           = SQL_CUR_USE_DRIVER; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
-	public $_genSeqSQL                        = 'create table %s (id integer)';
-	public $_autocommit                       = true;
-	public $_haserrorfunctions                = true;
+	public $_bindInputArray = false;
+	public $curmode         = SQL_CUR_USE_DRIVER; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
+	public $_genSeqSQL      = 'create table %s (id integer)';
+	public $_autocommit     = true;
+	public $_haserrorfunctions = true;
 	public $_has_stupid_odbc_fetch_api_change = true;
-	public $_lastAffectedRows                 = 0;
-	public $uCaseTables                       = true; // for meta* functions, uppercase table names
+	public $_lastAffectedRows = 0;
+	public $uCaseTables       = true; // for meta* functions, uppercase table names
 
 	public function __construct() {
-		$this->_haserrorfunctions                = ADODB_PHPVER >= 0x4050;
+		$this->_haserrorfunctions = ADODB_PHPVER >= 0x4050;
 		$this->_has_stupid_odbc_fetch_api_change = ADODB_PHPVER >= 0x4200;
 	}
 
@@ -296,7 +296,7 @@ class ADODB_odbc extends ADOConnection {
 			$this->transCnt -= 1;
 		}
 		$this->_autocommit = true;
-		$ret               = odbc_commit($this->_connectionID);
+		$ret = odbc_commit($this->_connectionID);
 		odbc_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -311,7 +311,7 @@ class ADODB_odbc extends ADOConnection {
 			$this->transCnt -= 1;
 		}
 		$this->_autocommit = true;
-		$ret               = odbc_rollback($this->_connectionID);
+		$ret = odbc_rollback($this->_connectionID);
 		odbc_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -326,16 +326,16 @@ class ADODB_odbc extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid              = @odbc_primarykeys($this->_connectionID, '', $schema, $table);
+		$qid = @odbc_primarykeys($this->_connectionID, '', $schema, $table);
 
 		if (!$qid) {
 			$ADODB_FETCH_MODE = $savem;
 
 			return false;
 		}
-		$rs               = new ADORecordSet_odbc($qid);
+		$rs = new ADORecordSet_odbc($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -360,9 +360,9 @@ class ADODB_odbc extends ADOConnection {
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		global $ADODB_FETCH_MODE;
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid              = odbc_tables($this->_connectionID);
+		$qid = odbc_tables($this->_connectionID);
 
 		$rs = new ADORecordSet_odbc($qid);
 
@@ -488,7 +488,7 @@ class ADODB_odbc extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		/*if (false) { // after testing, confirmed that the following does not work becoz of a bug
@@ -539,7 +539,7 @@ class ADODB_odbc extends ADOConnection {
 			return $false;
 		}
 
-		$rs               = new ADORecordSet_odbc($qid);
+		$rs = new ADORecordSet_odbc($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -585,8 +585,8 @@ class ADODB_odbc extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
-				$fld->not_null                  = !empty($rs->fields[10]);
-				$fld->scale                     = $rs->fields[8];
+				$fld->not_null = !empty($rs->fields[10]);
+				$fld->scale    = $rs->fields[8];
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
@@ -664,7 +664,7 @@ class ADODB_odbc extends ADOConnection {
 		if ($stmtid) {
 			if (@odbc_num_fields($stmtid) == 0) {
 				$this->_lastAffectedRows = odbc_num_rows($stmtid);
-				$stmtid                  = true;
+				$stmtid = true;
 			} else {
 				$this->_lastAffectedRows = 0;
 				odbc_binmode($stmtid, $this->binmode);
@@ -704,7 +704,7 @@ class ADODB_odbc extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret                 = @odbc_close($this->_connectionID);
+		$ret = @odbc_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;
@@ -745,9 +745,9 @@ class ADORecordSet_odbc extends ADORecordSet {
 	public function FetchField($fieldOffset = -1) {
 		$off = $fieldOffset + 1; // offsets begin at 1
 
-		$o             = new ADOFieldObject();
-		$o->name       = @odbc_field_name($this->_queryID, $off);
-		$o->type       = @odbc_field_type($this->_queryID, $off);
+		$o       = new ADOFieldObject();
+		$o->name = @odbc_field_name($this->_queryID, $off);
+		$o->type = @odbc_field_type($this->_queryID, $off);
 		$o->max_length = @odbc_field_len($this->_queryID, $off);
 
 		if (ADODB_ASSOC_CASE == 0) {
@@ -769,7 +769,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -800,7 +800,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 			return $rs;
 		}
-		$savem           = $this->fetchMode;
+		$savem = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
 		$this->Move($offset);
 		$this->fetchMode = $savem;

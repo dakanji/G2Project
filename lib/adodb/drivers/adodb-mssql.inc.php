@@ -90,15 +90,15 @@ function AutoDetect_MSSQL_Date_Order($conn) {
 }
 
 class ADODB_mssql extends ADOConnection {
-	public $databaseType     = 'mssql';
-	public $dataProvider     = 'mssql';
-	public $replaceQuote     = "''"; // string to use to replace quotes
-	public $fmtDate          = "'Y-m-d'";
-	public $fmtTimeStamp     = "'Y-m-d\TH:i:s'";
-	public $hasInsertID      = true;
-	public $substr           = 'substring';
-	public $length           = 'len';
-	public $hasAffectedRows  = true;
+	public $databaseType    = 'mssql';
+	public $dataProvider    = 'mssql';
+	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $fmtDate         = "'Y-m-d'";
+	public $fmtTimeStamp    = "'Y-m-d\TH:i:s'";
+	public $hasInsertID     = true;
+	public $substr          = 'substring';
+	public $length          = 'len';
+	public $hasAffectedRows = true;
 	public $metaDatabasesSQL = "select name from sysdatabases where name <> 'master'";
 	public $metaTablesSQL    = "select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE','dtproperties'))";
 	public $metaColumnsSQL   = // xtype==61 is datetime
@@ -106,10 +106,10 @@ class ADODB_mssql extends ADOConnection {
 		(case when c.xusertype=61 then 0 else c.xprec end),
 		(case when c.xusertype=61 then 0 else c.xscale end)
 	from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-	public $hasTop           = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
-	public $hasGenID         = true;
-	public $sysDate          = 'convert(datetime,convert(char,GetDate(),102),102)';
-	public $sysTimeStamp     = 'GetDate()';
+	public $hasTop       = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
+	public $hasGenID     = true;
+	public $sysDate      = 'convert(datetime,convert(char,GetDate(),102),102)';
+	public $sysTimeStamp = 'GetDate()';
 	public $_has_mssql_init;
 	public $maxParameterLen  = 4000;
 	public $arrayClass       = 'ADORecordSet_array_mssql';
@@ -132,7 +132,7 @@ class ADODB_mssql extends ADOConnection {
 
 
 		if ($this->fetchMode === false) {
-			$savem            = $ADODB_FETCH_MODE;
+			$savem = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		} else {
 			$savem = $this->SetFetchMode(ADODB_FETCH_NUM);
@@ -373,7 +373,7 @@ class ADODB_mssql extends ADOConnection {
 			return true;
 		}
 		$this->transCnt += 1;
-		$ok              = $this->Execute('BEGIN TRAN');
+		$ok = $this->Execute('BEGIN TRAN');
 
 		return $ok;
 	}
@@ -458,7 +458,7 @@ class ADODB_mssql extends ADOConnection {
 			$this->SelectDB($schema);
 		}
 		global $ADODB_FETCH_MODE;
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -530,7 +530,7 @@ class ADODB_mssql extends ADOConnection {
 			ORDER BY O.name, I.Name, K.keyno";
 
 		global $ADODB_FETCH_MODE;
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -565,9 +565,9 @@ class ADODB_mssql extends ADOConnection {
 	public function MetaForeignKeys($table, $owner = false, $upper = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$table            = $this->qstr(strtoupper($table));
+		$table = $this->qstr(strtoupper($table));
 
 		$sql = "select object_name(constid) as constraint_name,
 	col_name(fkeyid, fkey) as column_name,
@@ -654,9 +654,9 @@ order by constraint_name, referenced_table_name, keyno";
 		where tc.constraint_name = k.constraint_name and tc.constraint_type =
 		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$a                = $this->GetCol($sql);
+		$a = $this->GetCol($sql);
 		$ADODB_FETCH_MODE = $savem;
 
 		if ($a && sizeof($a) > 0) {
@@ -669,8 +669,8 @@ order by constraint_name, referenced_table_name, keyno";
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {
-			$save                 = $this->metaTablesSQL;
-			$mask                 = $this->qstr(($mask));
+			$save = $this->metaTablesSQL;
+			$mask = $this->qstr(($mask));
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -995,16 +995,16 @@ order by constraint_name, referenced_table_name, keyno";
 			$rez = mssql_query("sp_executesql N{$sql[1]},N$decl,$params", $this->_connectionID);
 
 			if ($getIdentity) {
-				$arr             = @mssql_fetch_row($rez);
+				$arr = @mssql_fetch_row($rez);
 				$this->lastInsID = isset($arr[0]) ? $arr[0] : false;
 				@mssql_data_seek($rez, 0);
 			}
 		} elseif (is_array($sql)) {
 			// PrepareSP()
-			$rez             = mssql_execute($sql[1]);
+			$rez = mssql_execute($sql[1]);
 			$this->lastInsID = false;
 		} else {
-			$rez             = mssql_query($sql, $this->_connectionID);
+			$rez = mssql_query($sql, $this->_connectionID);
 			$this->lastInsID = false;
 		}
 
@@ -1016,7 +1016,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if ($this->transCnt) {
 			$this->RollbackTrans();
 		}
-		$rez                 = @mssql_close($this->_connectionID);
+		$rez = @mssql_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $rez;
@@ -1085,7 +1085,7 @@ class ADORecordset_mssql extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1243,7 +1243,7 @@ class ADORecordset_mssql extends ADORecordSet {
 
 	public function _close() {
 		if ($this->_queryID) {
-			$rez            = mssql_free_result($this->_queryID);
+			$rez = mssql_free_result($this->_queryID);
 			$this->_queryID = false;
 
 			return $rez;

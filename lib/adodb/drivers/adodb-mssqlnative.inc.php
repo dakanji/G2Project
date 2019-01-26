@@ -101,13 +101,13 @@ class ADODB_mssqlnative extends ADOConnection {
 	public $databaseType = 'mssqlnative';
 	public $dataProvider = 'mssqlnative';
 	// string to use to replace quotes
-	public $replaceQuote     = "''";
-	public $fmtDate          = "'Y-m-d'";
-	public $fmtTimeStamp     = "'Y-m-d\TH:i:s'";
-	public $hasInsertID      = true;
-	public $substr           = 'substring';
-	public $length           = 'len';
-	public $hasAffectedRows  = true;
+	public $replaceQuote    = "''";
+	public $fmtDate         = "'Y-m-d'";
+	public $fmtTimeStamp    = "'Y-m-d\TH:i:s'";
+	public $hasInsertID     = true;
+	public $substr          = 'substring';
+	public $length          = 'len';
+	public $hasAffectedRows = true;
 	public $poorAffectedRows = false;
 	public $metaDatabasesSQL = "select name from sys.sysdatabases where name <> 'master'";
 	public $metaTablesSQL    = "select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE','dtproperties'))";
@@ -190,7 +190,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		if ($this->fetchMode === false) {
-			$savem            = $ADODB_FETCH_MODE;
+			$savem = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		} elseif ($this->fetchMode >= 0 && $this->fetchMode <= 2) {
 			$savem = $this->fetchMode;
@@ -298,7 +298,7 @@ class ADODB_mssqlnative extends ADOConnection {
 	 */
 	public function CreateSequence2012($seq = 'adodbseq', $start = 1) {
 		if (!$this->sequences) {
-			$sql             = 'SELECT name FROM sys.sequences';
+			$sql = 'SELECT name FROM sys.sequences';
 			$this->sequences = $this->GetCol($sql);
 		}
 		$ok = $this->Execute("CREATE SEQUENCE $seq START WITH $start INCREMENT BY 1");
@@ -355,7 +355,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		 * performance, we could maybe flag a 'nocheck' class variable
 		 */
 		if (!$this->sequences) {
-			$sql             = 'SELECT name FROM sys.sequences';
+			$sql = 'SELECT name FROM sys.sequences';
 			$this->sequences = $this->GetCol($sql);
 		}
 
@@ -592,7 +592,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		if (!function_exists('sqlsrv_connect')) {
 			return null;
 		}
-		$connectionInfo             = $this->connectionInfo;
+		$connectionInfo = $this->connectionInfo;
 		$connectionInfo['Database'] = $argDatabasename;
 		$connectionInfo['UID']      = $argUsername;
 		$connectionInfo['PWD']      = $argPassword;
@@ -732,7 +732,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		if ($this->transCnt) {
 			$this->RollbackTrans();
 		}
-		$rez                 = @sqlsrv_close($this->_connectionID);
+		$rez = @sqlsrv_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $rez;
@@ -760,7 +760,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			ORDER BY O.name, I.Name, K.keyno";
 
 		global $ADODB_FETCH_MODE;
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -795,9 +795,9 @@ class ADODB_mssqlnative extends ADOConnection {
 	public function MetaForeignKeys($table, $owner = false, $upper = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$table            = $this->qstr(strtoupper($table));
+		$table = $this->qstr(strtoupper($table));
 
 		$sql = "select object_name(constid) as constraint_name,
 				col_name(fkeyid, fkey) as column_name,
@@ -876,9 +876,9 @@ class ADODB_mssqlnative extends ADOConnection {
 		where tc.constraint_name = k.constraint_name and tc.constraint_type =
 		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
 
-		$savem            = $ADODB_FETCH_MODE;
+		$savem = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$a                = $this->GetCol($sql);
+		$a = $this->GetCol($sql);
 		$ADODB_FETCH_MODE = $savem;
 
 		if ($a && sizeof($a) > 0) {
@@ -891,8 +891,8 @@ class ADODB_mssqlnative extends ADOConnection {
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {
-			$save                 = $this->metaTablesSQL;
-			$mask                 = $this->qstr(($mask));
+			$save = $this->metaTablesSQL;
+			$mask = $this->qstr(($mask));
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -929,7 +929,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			$this->SelectDB($schema);
 		}
 		global $ADODB_FETCH_MODE;
-		$save             = $ADODB_FETCH_MODE;
+		$save = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -958,26 +958,26 @@ class ADODB_mssqlnative extends ADOConnection {
 			$fld = new ADOFieldObject();
 
 			if (array_key_exists(0, $rs->fields)) {
-				$fld->name           = $rs->fields[0];
-				$fld->type           = $rs->fields[1];
-				$fld->max_length     = $rs->fields[2];
-				$fld->precision      = $rs->fields[3];
-				$fld->scale          = $rs->fields[4];
-				$fld->not_null       = !$rs->fields[5];
-				$fld->has_default    = $rs->fields[6];
-				$fld->xtype          = $rs->fields[7];
-				$fld->type_length    = $rs->fields[8];
+				$fld->name        = $rs->fields[0];
+				$fld->type        = $rs->fields[1];
+				$fld->max_length  = $rs->fields[2];
+				$fld->precision   = $rs->fields[3];
+				$fld->scale       = $rs->fields[4];
+				$fld->not_null    = !$rs->fields[5];
+				$fld->has_default = $rs->fields[6];
+				$fld->xtype       = $rs->fields[7];
+				$fld->type_length = $rs->fields[8];
 				$fld->auto_increment = $rs->fields[9];
 			} else {
-				$fld->name           = $rs->fields['name'];
-				$fld->type           = $rs->fields['type'];
-				$fld->max_length     = $rs->fields['length'];
-				$fld->precision      = $rs->fields['precision'];
-				$fld->scale          = $rs->fields['scale'];
-				$fld->not_null       = !$rs->fields['nullable'];
-				$fld->has_default    = $rs->fields['default_value'];
-				$fld->xtype          = $rs->fields['xtype'];
-				$fld->type_length    = $rs->fields['type_length'];
+				$fld->name        = $rs->fields['name'];
+				$fld->type        = $rs->fields['type'];
+				$fld->max_length  = $rs->fields['length'];
+				$fld->precision   = $rs->fields['precision'];
+				$fld->scale       = $rs->fields['scale'];
+				$fld->not_null    = !$rs->fields['nullable'];
+				$fld->has_default = $rs->fields['default_value'];
+				$fld->xtype       = $rs->fields['xtype'];
+				$fld->type_length = $rs->fields['type_length'];
 				$fld->auto_increment = $rs->fields['is_identity'];
 			}
 
@@ -1036,7 +1036,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		// Copy the oracle method and cache the metadata at init time
 		if ($this->_numOfFields > 0) {
 			$this->_fieldobjs = array();
-			$max              = $this->_numOfFields;
+			$max = $this->_numOfFields;
 
 			for ($i = 0; $i < $max;
 			$i++) {
@@ -1069,7 +1069,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1252,7 +1252,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		is running. All associated result memory for the specified result identifier will automatically be freed.	*/
 	public function _close() {
 		if (is_object($this->_queryID)) {
-			$rez            = sqlsrv_free_stmt($this->_queryID);
+			$rez = sqlsrv_free_stmt($this->_queryID);
 			$this->_queryID = false;
 
 			return $rez;

@@ -130,7 +130,7 @@ class ItemMoveSingleController extends GalleryController {
 					return array($ret, null);
 				}
 
-				$oldParentId           = $item->getParentId();
+				$oldParentId = $item->getParentId();
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLockParents($oldParentId);
 
 				if ($ret) {
@@ -280,7 +280,7 @@ class ItemMoveSingleView extends GalleryView {
 
 		$albumTree = GalleryUtilities::createAlbumTree($albums);
 
-		$ItemMoveSingle                  = array();
+		$ItemMoveSingle = array();
 		$ItemMoveSingle['albumTree']     = $albumTree;
 		$ItemMoveSingle['itemTypeNames'] = $item->itemTypeName();
 
