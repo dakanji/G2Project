@@ -720,9 +720,9 @@ class ADODB_db2 extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
-				$fld->not_null    = !empty($rs->fields[10]);
-				$fld->scale       = $rs->fields[8];
-				$fld->primary_key = false;
+				$fld->not_null                  = !empty($rs->fields[10]);
+				$fld->scale                     = $rs->fields[8];
+				$fld->primary_key               = false;
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;

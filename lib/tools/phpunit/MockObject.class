@@ -39,7 +39,7 @@ class MockObject {
 	public function __construct() {
 		$this->_className        = get_class($this);
 		$_GET[$this->_className] = array(
-			'replies'    => array(),
+			'replies' => array(),
 			'errorCount' => 0,
 		);
 	}

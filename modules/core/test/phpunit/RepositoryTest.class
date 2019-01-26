@@ -1437,9 +1437,9 @@ class RepositoryTest extends GalleryTestCase {
 				array($case['repositoryCoreVersion'], $installedCoreVersion, null, null),
 				array(null, $case['expectedRelation'])
 			);
-			$repository             = new GalleryRepository();
-			$repository->_utilities = $utilities;
-			$repository->_index     = $this->_index;
+			$repository                     = new GalleryRepository();
+			$repository->_utilities         = $utilities;
+			$repository->_index             = $this->_index;
 			$repository->_index->_utilities = $utilities;
 
 			list($ret, $isAvailable, $apiVersions) = $repository->isCoreUpgradeAvailable();
@@ -1851,14 +1851,14 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 
 		$pluginData = array(
-			'showAll'    => 'showAll',
+			'showAll'  => 'showAll',
 			'pluginType' => 'theme',
-			'coreApis'   => array(
-				'core'   => array(1, 2),
+			'coreApis' => array(
+				'core'  => array(1, 2),
 				'module' => array(3, 4),
-				'theme'  => array(5, 6),
+				'theme' => array(5, 6),
 			),
-			'plugins'    => array(
+			'plugins'  => array(
 				'theme' => array(
 					'testTheme' => $testTheme,
 				),
@@ -1912,15 +1912,15 @@ class RepositoryTest extends GalleryTestCase {
 		$testCase = array(
 			'plugin1Id' => array(
 				'groupLabel' => 'foo',
-				'name'       => 'bar',
+				'name' => 'bar',
 			),
 			'plugin2Id' => array(
 				'groupLabel' => 'bar',
-				'name'       => 'zoo',
+				'name' => 'zoo',
 			),
 			'plugin3Id' => array(
 				'groupLabel' => 'bar',
-				'name'       => 'moo',
+				'name' => 'moo',
 			),
 		);
 
@@ -2500,14 +2500,14 @@ class RepositoryTest extends GalleryTestCase {
 		$utilities          = new UnitTestRepositoryUtilities();
 		$installedPackages  = array(
 			'base' => array(
-				'locked'  => false,
+				'locked' => false,
 				'version' => '1.1',
-				'build'   => '1',
+				'build' => '1',
 			),
 			'lang-en_GB' => array(
-				'locked'  => 0,
+				'locked' => 0,
 				'version' => '1.1',
-				'build'   => '1',
+				'build' => '1',
 			),
 		);
 		$utilities->setReply(
@@ -2535,11 +2535,11 @@ class RepositoryTest extends GalleryTestCase {
 		foreach (array('en_US', 'en_GB', 'pt_PT', 'pt_BR') as $lang) {
 			$currentBuild     = $lang == 'en_GB' ? '1' : null;
 			$languages[$lang] = array(
-				'name'         => $lang,
+				'name' => $lang,
 				'currentBuild' => $currentBuild,
-				'newBuild'     => '33333',
-				'relation'     => 'older',
-				'locked'       => 0,
+				'newBuild' => '33333',
+				'relation' => 'older',
+				'locked' => 0,
 			);
 			GalleryDataCache::put("GalleryTranslator::LanguageDescription::$lang", $lang);
 
@@ -2581,7 +2581,7 @@ class RepositoryTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'upgradeable' => true,
-				'base'        => array(
+				'base' => array(
 					'newVersion'     => '1.0.0',
 					'newBuild'       => '44444',
 					'isCompatible'   => true,
@@ -2590,8 +2590,8 @@ class RepositoryTest extends GalleryTestCase {
 					'currentBuild'   => '1',
 					'locked'         => false,
 				),
-				'languages'   => $languages,
-				'complete'    => 0,
+				'languages' => $languages,
+				'complete' => 0,
 			),
 			$info
 		);
@@ -2613,7 +2613,7 @@ class RepositoryTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'upgradeable' => false,
-				'base'        => array(
+				'base' => array(
 					'newVersion'     => '1.0.0',
 					'newBuild'       => '44444',
 					'isCompatible'   => true,
@@ -2622,8 +2622,8 @@ class RepositoryTest extends GalleryTestCase {
 					'currentBuild'   => '1',
 					'locked'         => false,
 				),
-				'languages'   => array(),
-				'complete'    => true,
+				'languages' => array(),
+				'complete' => true,
 			),
 			$info
 		);
@@ -2792,13 +2792,13 @@ class RepositoryTest extends GalleryTestCase {
 	public function _buildDescriptor($pluginData) {
 		// Leave the files empty so we don't have to generate a lot of platform calls
 		return array(
-			'header'       => array(
-				'id'                => $pluginData['id'],
-				'version'           => '1.0.0',
-				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
+			'header'    => array(
+				'id' => $pluginData['id'],
+				'version' => '1.0.0',
+				'requiredCoreApi' => GalleryCoreApi::getApiVersion(),
 				'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
-				'stringsRevision'   => $pluginData['revision'],
-				'buildTimestamp'    => $pluginData['build'],
+				'stringsRevision' => $pluginData['revision'],
+				'buildTimestamp' => $pluginData['build'],
 			),
 			'descriptions' => array(
 				'en_US' => array(
@@ -2807,7 +2807,7 @@ class RepositoryTest extends GalleryTestCase {
 					'groupLabel'  => 'Test Group',
 				),
 			),
-			'directories'  => array(
+			'directories' => array(
 				'locale/' => array(
 					'packages' => array('base'),
 				),
@@ -2824,8 +2824,8 @@ class RepositoryTest extends GalleryTestCase {
 					'packages' => array('base'),
 				),
 			),
-			'files'        => array(),
-			'languages'    => array(
+			'files'     => array(),
+			'languages' => array(
 				'22222' => array(
 					'en_US' => '33333',
 				),

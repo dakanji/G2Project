@@ -175,12 +175,12 @@ class Gallery {
 
 			// UrlGenerator parameters for redirect URL to login page. Can be overridden.
 			'loginRedirect' => array(
-				'view'    => 'core.UserAdmin',
+				'view' => 'core.UserAdmin',
 				'subView' => 'core.UserLogin',
-				'return'  => true,
+				'return' => true,
 			),
 
-			'link' => true,      // @deprecated - Allow item linking
+			'link'  => true,      // @deprecated - Allow item linking
 			// (now unused, there is a separate replica module
 
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
@@ -768,8 +768,8 @@ class Gallery {
 	 */
 	public function stopRecordingDebugSnippet() {
 		$this->_debugSnippetActive = false;
-		$tmp                 = $this->_debugSnippet;
-		$this->_debugSnippet = '';
+		$tmp                       = $this->_debugSnippet;
+		$this->_debugSnippet       = '';
 
 		if (isset($this->_storage) && !$this->_debug) {
 			$this->_storage->setDebug(false);

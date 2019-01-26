@@ -1234,7 +1234,7 @@ class CoreModuleExtras {
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query = '
+				$query                     = '
 				SELECT [GalleryDerivative::id]
 				FROM [GalleryDerivative], [GalleryEntity]
 				WHERE [GalleryDerivative::isBroken] IS NULL
@@ -1936,7 +1936,7 @@ class CoreModuleExtras {
 				 * cache/entity/.  Delete the old files in cache/derivative/.
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query = '
+				$query                     = '
 				SELECT [GalleryDerivativeImage::id]
 				FROM [GalleryDerivativeImage]';
 				list($ret, $searchResults) = $gallery->search($query);
@@ -2544,7 +2544,7 @@ class CoreModuleExtras {
 				 * classes and set the items to use the PanoramaRenderer instead
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query = '
+				$query                     = '
 				SELECT
 				[GalleryEntity::id], [GalleryEntity::entityType]
 				FROM
@@ -2653,7 +2653,7 @@ class CoreModuleExtras {
 			case '1.1.6':
 				// Remove useless rows in AccessSubscriberMap
 				$gallery->guaranteeTimeLimit(60);
-				$query = '
+				$query                     = '
 				SELECT
 				[GalleryAccessSubscriberMap::itemId]
 				FROM

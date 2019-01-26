@@ -18,22 +18,28 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ini_set('error_reporting', 2047);
+
 if (!empty($_SERVER['SERVER_NAME'])) {
-	print "You must run this from the command line\n";
+	echo "You must run this from the command line\n";
+
 	exit(1);
 }
 
 require_once __DIR__ . '/XmlParser.inc';
+
 require_once __DIR__ . '/../../smarty/Smarty.class.php';
 
-$tmpdir = __DIR__ . '/tmp_maps_' . rand(1, 30000);
+$tmpdir = __DIR__ . '/tmp_maps_' . mt_rand(1, 30000);
+
 if (file_exists($tmpdir)) {
-	print "Tmp dir already exists: $tmpdir\n";
+	echo "Tmp dir already exists: $tmpdir\n";
+
 	exit(1);
 }
 
 if (!mkdir($tmpdir)) {
-	print "Unable to make tmp dir: $tmpdir\n";
+	echo "Unable to make tmp dir: $tmpdir\n";
+
 	exit(1);
 }
 
@@ -47,7 +53,7 @@ $smarty->template_dir    = __DIR__;
 $xmlFile = 'Maps.xml';
 
 if (!file_exists($xmlFile)) {
-	print "Missing Maps.xml, can't continue.\n";
+	echo "Missing Maps.xml, can't continue.\n";
 	cleanExit(1);
 }
 
@@ -55,11 +61,13 @@ $p    = new XmlParser();
 $root = $p->parse($xmlFile);
 
 $maps = array();
+
 foreach ($root[0]['child'] as $map) {
 	$mapName = $map['child'][0]['content'];
 
 	for ($j = 2; $j < count($map['child']); $j++) {
 		$child = $map['child'][$j];
+
 		if ($child['name'] == 'MEMBER') {
 			$member = array(
 				'name' => $child['child'][0]['content'],
@@ -77,6 +85,7 @@ foreach ($root[0]['child'] as $map) {
 			for ($k = 2; $k < count($child['child']); $k++) {
 				if (!empty($child['child'][$k]['name'])) {
 					$elem = $child['child'][$k];
+
 					if ($elem['name'] == 'PRIMARY' || $elem['name'] == 'REQUIRED') {
 						if ($elem['name'] != 'REQUIRED' || empty($elem['attrs']['EMPTY'])
 							|| $elem['attrs']['EMPTY'] != 'allowed'
@@ -85,6 +94,7 @@ foreach ($root[0]['child'] as $map) {
 						} else {
 							$member['notNullEmptyAllowed'] = true;
 						}
+
 						break;
 					}
 				}
@@ -106,14 +116,16 @@ $fd = fopen('Maps.inc', 'w');
 fwrite($fd, $new);
 fclose($fd);
 
-/* Done */
+// Done
 cleanExit(0);
 
 function cleanExit($status = 0) {
-	/* Clean up the cheap and easy way */
+	// Clean up the cheap and easy way
 	global $tmpdir;
+
 	if (file_exists($tmpdir)) {
 		system("rm -rf $tmpdir");
 	}
+
 	exit($status);
 }

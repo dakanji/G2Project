@@ -152,7 +152,7 @@ class GalleryEntityHelper_medium {
 	public static function fetchEntitiesLinkedTo($targetId) {
 		global $gallery;
 
-		$query   = '
+		$query                     = '
 	SELECT
 	  [GalleryEntity::id]
 	FROM
@@ -162,7 +162,7 @@ class GalleryEntityHelper_medium {
 	ORDER BY
 	  [GalleryEntity::id] ASC
 	';
-		$storage =& $gallery->getStorage();
+		$storage                   =& $gallery->getStorage();
 		list($ret, $searchResults) = $gallery->search($query, array((int)$targetId));
 
 		if ($ret) {
@@ -272,7 +272,7 @@ class GalleryEntityHelper_medium {
 
 		$fastDownloadFilePath = GalleryDataCache::getCachePath(
 			array(
-				'type'   => 'fast-download',
+				'type' => 'fast-download',
 				'itemId' => $entityId,
 			)
 		);

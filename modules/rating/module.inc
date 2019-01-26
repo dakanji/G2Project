@@ -138,8 +138,8 @@ class RatingModule extends GalleryModule {
 		$authToken     = $session->isPersistent() ? $session->getAuthToken() : '';
 		$RatingSummary = array(
 			'ratingValues' => array(1, 2, 3, 4, 5),
-			'firstCall'    => true,
-			'authToken'    => $authToken,
+			'firstCall' => true,
+			'authToken' => $authToken,
 		);
 
 		// Check to see if album rating is allowed
@@ -296,11 +296,11 @@ class RatingModule extends GalleryModule {
 
 		foreach (array(
 			'allowAlbumRating' => 0,
-			'themeId'          => '',
-			'orderBy'          => 'RatingSortOrder',
-			'orderDirection'   => ORDER_DESCENDING,
-			'minLimit'         => 2,
-			'description'      => '',
+			'themeId'  => '',
+			'orderBy'  => 'RatingSortOrder',
+			'orderDirection' => ORDER_DESCENDING,
+			'minLimit' => 2,
+			'description' => '',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$this->setParameter($key, $value);
@@ -367,11 +367,11 @@ class RatingModule extends GalleryModule {
 	public function getRewriteRules() {
 		return array(
 			array(
-				'comment'  => $this->translate('Rating Album'),
-				'match'    => array(
+				'comment' => $this->translate('Rating Album'),
+				'match' => array(
 					'view' => 'rating.RatingAlbum',
 				),
-				'pattern'  => 'rating/%limit%',
+				'pattern' => 'rating/%limit%',
 				'keywords' => array(
 					'limit' => array(
 						'pattern' => '([^?/]+)',

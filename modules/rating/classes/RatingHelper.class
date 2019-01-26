@@ -56,13 +56,13 @@ class RatingHelper {
 		while ($result = $searchResults->nextResult()) {
 			$rating                = $result[1] / 1000;
 			$data[(int)$result[0]] = array(
-				'itemId'         => (int)$result[0],
-				'rating'         => GalleryUtilities::roundToString($rating, 3),
-				'votes'          => (int)$result[2],
+				'itemId' => (int)$result[0],
+				'rating' => GalleryUtilities::roundToString($rating, 3),
+				'votes' => (int)$result[2],
 				'averagePercent' => GalleryUtilities::roundToString(($rating * 100 / 5), 3),
-				'stars'          => (int)round($rating * 2),
-				'userRating'     => 'N/A',
-				'userStars'      => 0,
+				'stars' => (int)round($rating * 2),
+				'userRating' => 'N/A',
+				'userStars' => 0,
 			);
 
 			if ($rating == 0) {
@@ -106,9 +106,9 @@ class RatingHelper {
 			}
 
 			if ($isAnonymous) {
-				$sessionId                 = $session->getId();
-				$remoteId                  = $session->getRemoteIdentifier();
-				$searchParams['sessionId'] = $sessionId;
+				$sessionId                        = $session->getId();
+				$remoteId                         = $session->getRemoteIdentifier();
+				$searchParams['sessionId']        = $sessionId;
 				$searchParams['remoteIdentifier'] = implode(':', $remoteId);
 			}
 
@@ -237,7 +237,7 @@ class RatingHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$query = '
+		$query                     = '
 		SELECT
 		' . $avg . ',
 		COUNT([RatingMap::rating])

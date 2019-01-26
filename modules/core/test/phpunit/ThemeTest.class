@@ -573,7 +573,7 @@ class ThemeTest extends GalleryTestCase {
     	';
 		$extraHtml = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',
-			'other'             => 1,
+			'other' => 1,
 		);
 
 		$results = $this->_theme->splitHtml($html, $extraHtml);
@@ -620,7 +620,7 @@ class ThemeTest extends GalleryTestCase {
     	';
 		$extraHtml  = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',
-			'other'             => 1,
+			'other' => 1,
 		);
 
 		$results = $this->_theme->splitHtml($html, $extraHtml);

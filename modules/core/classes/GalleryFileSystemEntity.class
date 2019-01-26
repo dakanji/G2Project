@@ -166,7 +166,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			return null;
 		}
 
-		$parentId = $this->getParentId();
+		$parentId                     = $this->getParentId();
 		list($ret, $newPathComponent) = GalleryCoreApi::getLegalPathComponent($newPathComponent, $parentId, $this->getId());
 
 		if ($ret) {

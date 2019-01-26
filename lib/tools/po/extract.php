@@ -124,7 +124,7 @@ function extractStrings($filename) {
 	$strings["\n/* $filename */"] = array();
 	$startSize                    = count($strings);
 	$localStrings                 = array();
-	$data = file_get_contents($filename);
+	$data                         = file_get_contents($filename);
 
 	/*
 	 * class|inc|php are module and core PHP files.

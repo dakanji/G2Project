@@ -56,7 +56,7 @@ function connect() {
 	include_once '../../embed.php';
 	$ret = GalleryEmbed::init(
 		array(
-			'fullInit'   => false,
+			'fullInit' => false,
 			'noDatabase' => true,
 		)
 	);

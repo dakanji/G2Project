@@ -35,8 +35,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 		global $gallery;
 
 		return array(
-			'l10Domain'   => 'modules_core',
-			'title'       => $gallery->i18n('Delete user sessions'),
+			'l10Domain' => 'modules_core',
+			'title'     => $gallery->i18n('Delete user sessions'),
 			'description' => $gallery->i18n(
 				'Delete all persistent user sessions according to your current session ' .
 				 'expiration settings.'

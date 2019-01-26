@@ -38,7 +38,7 @@ class CommentChangeConfirmationView extends GalleryView {
 		$template->setVariable(
 			'CommentChangeConfirmation',
 			array(
-				'item'         => (array)$item,
+				'item' => (array)$item,
 				'itemTypeName' => $item->itemTypeName(),
 			)
 		);

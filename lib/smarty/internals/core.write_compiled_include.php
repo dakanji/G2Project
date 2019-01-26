@@ -39,7 +39,7 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 	$_compile_path = $params['include_file_path'];
 
 	$smarty->_cache_serials[$_compile_path] = $params['cache_serial'];
-	$_include_compiled .= "\$this->_cache_serials['" . $_compile_path . "'] = '" . $params['cache_serial'] . "';\n\n?>";
+	$_include_compiled                     .= "\$this->_cache_serials['" . $_compile_path . "'] = '" . $params['cache_serial'] . "';\n\n?>";
 
 	$_include_compiled .= $params['plugins_code'];
 	$_include_compiled .= '<?php';
@@ -95,8 +95,8 @@ $source
 	$_include_compiled .= "\n\n?>\n";
 
 	$_params = array(
-		'filename' => $_compile_path,
-		'contents' => $_include_compiled,
+		'filename'    => $_compile_path,
+		'contents'    => $_include_compiled,
 		'create_dirs' => true,
 	);
 

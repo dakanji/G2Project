@@ -442,14 +442,14 @@ class GalleryRepository {
 
 			list($providedCoreApiVersion, $providedPluginApiVersion) = $this->_utilities->getProvidedApis($pluginType, $coreApis);
 			$pluginList[$pluginId] = array(
-				'type'              => $pluginType,
-				'name'              => $plugin['descriptions'][$language]['name'],
-				'description'       => $plugin['descriptions'][$language]['description'],
-				'groupLabel'        => $groupLabel,
+				'type' => $pluginType,
+				'name' => $plugin['descriptions'][$language]['name'],
+				'description' => $plugin['descriptions'][$language]['description'],
+				'groupLabel' => $groupLabel,
 				'repositoryVersion' => $plugin['header']['version'],
-				'localVersion'      => $localVersion,
-				'isCompatible'      => $plugin['isCompatible'],
-				'api'               => array(
+				'localVersion' => $localVersion,
+				'isCompatible' => $plugin['isCompatible'],
+				'api'  => array(
 					'required' => array(
 						'core'   => implode('.', $plugin['header']['requiredCoreApi']),
 						'plugin' => implode('.', $plugin['header']['requiredPluginApi']),
@@ -459,9 +459,9 @@ class GalleryRepository {
 						'plugin' => implode('.', $providedPluginApiVersion),
 					),
 				),
-				'locked'            => $locked,
-				'isDowngraded'      => $isDowngraded,
-				'isUpgradeable'     => $isUpgradeable,
+				'locked' => $locked,
+				'isDowngraded' => $isDowngraded,
+				'isUpgradeable' => $isUpgradeable,
 			);
 		}
 

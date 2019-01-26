@@ -790,8 +790,8 @@ class GdToolkitTest extends GalleryTestCase {
 		$this->assertEquals(2, $gd->_resourceCounter, 'total resources used');
 		$this->assertEquals(
 			array(
-				'x'        => 200,
-				'y'        => 300,
+				'x' => 200,
+				'y' => 300,
 				'mimeType' => 'image/gif',
 			),
 			$this->_gdFunctionality->getOutputFileData('/valid/out.gif'),

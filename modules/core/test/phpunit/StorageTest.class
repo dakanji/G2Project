@@ -159,8 +159,8 @@ class StorageTest extends GalleryTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		$storage      =& $gallery->getStorage();
-		$storage->_db = $this->_db;
+		$storage                      =& $gallery->getStorage();
+		$storage->_db                 = $this->_db;
 		$storage->_nonTransactionalDb = $this->_nonTransactionalDb;
 		$storage->_serverInfo         = $this->_serverInfo;
 		$storage->_isEmptyAllowedForNotNullColumn = $this->_isEmptyAllowedForNotNullColumn;
@@ -702,7 +702,7 @@ class StorageTest extends GalleryTestCase {
 		);
 		$optional = array(
 			'limit' => array(
-				'count'  => 1,
+				'count' => 1,
 				'offset' => 2,
 			),
 		);
@@ -1249,13 +1249,13 @@ class StorageTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryCacheMap',
 			array(
-				'key'       => $key,
-				'value'     => $escapedString,
-				'userId'    => 55,
-				'itemId'    => 99,
-				'type'      => 'test',
+				'key'   => $key,
+				'value' => $escapedString,
+				'userId' => 55,
+				'itemId' => 99,
+				'type'  => 'test',
 				'timestamp' => time(),
-				'isEmpty'   => 0,
+				'isEmpty' => 0,
 			)
 		);
 
@@ -1668,7 +1668,7 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$query = "SELECT [::id], $randStatement FROM [GalleryEntity]";
+		$query                     = "SELECT [::id], $randStatement FROM [GalleryEntity]";
 		$options['limit']['count'] = 2;
 		list($ret, $searchResults) = $storage->search($query, array(), $options);
 

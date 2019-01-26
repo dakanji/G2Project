@@ -224,8 +224,8 @@ class ADODB_Active_Record {
 		$ar              = new $foreignClass($foreignRef);
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
-		$ar->foreignKey = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
-		$table          =& $this->TableInfo();
+		$ar->foreignKey               = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
+		$table                        =& $this->TableInfo();
 		$table->_hasMany[$foreignRef] = $ar;
 		// $this->$foreignRef = $this->_hasMany[$foreignRef]; // WATCHME Removed assignment by ref. to please __get()
 	}

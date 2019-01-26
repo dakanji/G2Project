@@ -719,16 +719,16 @@ class PlatformTest extends GalleryTestCase {
 		$platform = $isWin ? new PlatformTestOpenBaseDirWinNtPlatform() : new PlatformTestOpenBaseDirUnixPlatform();
 		$platform->setRealpathData(
 			array(
-				'C:\\Test'       => 'C:\\Test',
+				'C:\\Test' => 'C:\\Test',
 				'C:\\Test\\file' => 'C:\\Test\\file',
-				'D:\\Fun\\'      => 'D:\\Fun',
-				'D:\\Fun\\file'  => 'D:\\Fun\\file',
-				'/test'          => '/test',
-				'/fun/'          => '/fun',
-				'/test/file'     => '/test/file',
-				'/fun/file'      => '/fun/file',
+				'D:\\Fun\\' => 'D:\\Fun',
+				'D:\\Fun\\file' => 'D:\\Fun\\file',
+				'/test' => '/test',
+				'/fun/' => '/fun',
+				'/test/file' => '/test/file',
+				'/fun/file' => '/fun/file',
 				'c:\\TEST\\file' => 'C:\\Test\\file',
-				'/TEST/file'     => '/TEST/file',
+				'/TEST/file' => '/TEST/file',
 			)
 		);
 
@@ -796,12 +796,12 @@ class PlatformTest extends GalleryTestCase {
 		// Open_basedir entry can be a prefix and not a real dir
 		$platform->setRealpathData(
 			array(
-				'/tes'        => false,
-				'/test'       => '/test',
-				'/testfile'   => '/testfile',
-				'/test/file'  => '/test/file',
+				'/tes'  => false,
+				'/test' => '/test',
+				'/testfile' => '/testfile',
+				'/test/file' => '/test/file',
 				'/toast/file' => '/toast/file',
-				'/link/file'  => '/test/file',
+				'/link/file' => '/test/file',
 			)
 		);
 
@@ -934,7 +934,7 @@ class PlatformTest extends GalleryTestCase {
 		$platform->setRealpathData(
 			array(
 				'/test/file' => '/test/file',
-				'/'          => '/',
+				'/' => '/',
 			)
 		);
 		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/'), '/ should be allowed');
@@ -1160,11 +1160,11 @@ class PlatformTestPhpVm extends GalleryPhpVm {
 
 	public function mail($to, $subject, $body, $additionalHeaders = null, $additionalParameters = null) {
 		$this->_test->_mail = array(
-			'to'   => $to,
-			'subj' => $subject,
-			'body' => $body,
+			'to'      => $to,
+			'subj'    => $subject,
+			'body'    => $body,
 			'headers' => $additionalHeaders,
-			'params' => $additionalParameters,
+			'params'  => $additionalParameters,
 		);
 
 		return true;

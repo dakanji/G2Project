@@ -564,9 +564,9 @@ class GalleryPlugin {
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => $pluginType,
+				'type' => $pluginType,
 				'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-				'id'     => '_all',
+				'id'   => '_all',
 			)
 		);
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");

@@ -176,9 +176,9 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 			if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
 				list(, $colname, $default) = $matches;
-				$sql[] = $alter . str_replace('DEFAULT ' . $default, '', $v);
-				$sql[] = 'UPDATE ' . $tabname . ' SET ' . $colname . '=' . $default;
-				$sql[] = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET DEFAULT ' . $default;
+				$sql[]                     = $alter . str_replace('DEFAULT ' . $default, '', $v);
+				$sql[]                     = 'UPDATE ' . $tabname . ' SET ' . $colname . '=' . $default;
+				$sql[]                     = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET DEFAULT ' . $default;
 			} else {
 				$sql[] = $alter . $v;
 			}

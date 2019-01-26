@@ -240,7 +240,7 @@ class GalleryToolkitHelper_medium {
 	 */
 	public static function unregisterOperation($toolkitId, $operationName, $mimeTypes = array()) {
 		$entry = array(
-			'toolkitId'     => $toolkitId,
+			'toolkitId' => $toolkitId,
 			'operationName' => $operationName,
 		);
 
@@ -278,7 +278,7 @@ class GalleryToolkitHelper_medium {
 		}
 
 		// Find and remove any unused operations
-		$query = '
+		$query                     = '
 		SELECT DISTINCT
 		[GalleryToolkitOperationMap::name]
 		FROM
@@ -333,7 +333,7 @@ class GalleryToolkitHelper_medium {
 		}
 
 		// Find and remove any unused properties
-		$query = '
+		$query                     = '
 		SELECT DISTINCT
 		[GalleryToolkitPropertyMap::name]
 		FROM

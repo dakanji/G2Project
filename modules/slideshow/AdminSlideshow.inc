@@ -117,8 +117,8 @@ class AdminSlideshowController extends GalleryController {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
-				'status'   => $status,
-				'error'    => $error,
+				'status' => $status,
+				'error' => $error,
 			),
 		);
 	}

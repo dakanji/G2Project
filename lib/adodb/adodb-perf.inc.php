@@ -522,8 +522,8 @@ class adodb_perf {
 		if (isset($_GET['sql'])) {
 			return;
 		}
-		$s     = '<h3>Invalid SQL</h3>';
-		$saveE = $this->conn->fnExecute;
+		$s                     = '<h3>Invalid SQL</h3>';
+		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 		$perf_table            = self::table();
 		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
@@ -1133,7 +1133,7 @@ class adodb_perf {
 		}
 
 		if (isset($_REQUEST['BIGGER'])) {
-			$rows *= 2;
+			$rows                       *= 2;
 			$_SESSION['phplens_sqlrows'] = $rows;
 		} ?>
 

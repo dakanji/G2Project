@@ -165,21 +165,21 @@ class JpegtranToolkitHelper {
 		if (!$success) {
 			$message     = $module->translate('Incorrect exit status for jpegtran command.');
 			$testArray[] = array(
-				'name'    => 'rotate',
+				'name' => 'rotate',
 				'success' => false,
 				'message' => array($message),
 			);
 		} elseif (!$platform->file_exists($tmpFilename)) {
 			$message     = $module->translate('Output file was not generated.');
 			$testArray[] = array(
-				'name'    => 'rotate',
+				'name' => 'rotate',
 				'success' => false,
 				'message' => array($message),
 			);
 		} elseif (empty($stderr) || !is_array($stderr)) {
 			$message     = $module->translate('Missing version information.');
 			$testArray[] = array(
-				'name'    => 'rotate',
+				'name' => 'rotate',
 				'success' => false,
 				'message' => array($message),
 			);
@@ -219,7 +219,7 @@ class JpegtranToolkitHelper {
 		}
 
 		// Test the optional crop support (only patched versions of jpegtran can crop)
-		$command = array(
+		$command                         = array(
 			$jpegtranPath,
 			'-verbose',
 			'-copy',
@@ -235,21 +235,21 @@ class JpegtranToolkitHelper {
 		if (!$success) {
 			$message     = $module->translate('Incorrect exit status for jpegtran command.');
 			$testArray[] = array(
-				'name'    => 'crop',
+				'name' => 'crop',
 				'success' => false,
 				'message' => array($message),
 			);
 		} elseif (!$platform->file_exists($tmpFilename)) {
 			$message     = $module->translate('Output file was not generated.');
 			$testArray[] = array(
-				'name'    => 'crop',
+				'name' => 'crop',
 				'success' => false,
 				'message' => array($message),
 			);
 		} else {
 			$testArray[] = array(
-				'name'     => 'crop',
-				'success'  => true,
+				'name' => 'crop',
+				'success' => true,
 				'messages' => array(),
 			);
 		}

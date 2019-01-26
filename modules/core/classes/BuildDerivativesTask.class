@@ -37,8 +37,8 @@ class BuildDerivativesTask extends MaintenanceTask {
 		global $gallery;
 
 		return array(
-			'l10Domain'   => 'modules_core',
-			'title'       => $gallery->i18n('Build all thumbnails/resizes'),
+			'l10Domain' => 'modules_core',
+			'title'     => $gallery->i18n('Build all thumbnails/resizes'),
 			'description' => $gallery->i18n(
 				'Ensure data files for all derivatives (thumbnails, etc) have been ' .
 				'built and rebuild broken ones.'

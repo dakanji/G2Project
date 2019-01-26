@@ -201,21 +201,21 @@ class MySqlGenerator extends BaseGenerator {
 	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
-				'INTEGER-'       => 'int(11)',
+				'INTEGER-' => 'int(11)',
 				'INTEGER-MEDIUM' => 'int(11)',
-				'INTEGER-LARGE'  => 'int(11)',
-				'BIT-LARGE'      => 'int(11)',
-				'BIT-MEDIUM'     => 'int(11)',
-				'STRING-SMALL'   => 'varchar(32)',
-				'STRING-MEDIUM'  => 'varchar(128)',
-				'STRING-LARGE'   => 'varchar(255)',
-				'TEXT-SMALL'     => 'text',
-				'TEXT-'          => 'text',
-				'TEXT-MEDIUM'    => 'text',
-				'TEXT-LARGE'     => 'longtext',
-				'BOOLEAN-'       => 'int(1)',
+				'INTEGER-LARGE' => 'int(11)',
+				'BIT-LARGE' => 'int(11)',
+				'BIT-MEDIUM' => 'int(11)',
+				'STRING-SMALL' => 'varchar(32)',
+				'STRING-MEDIUM' => 'varchar(128)',
+				'STRING-LARGE' => 'varchar(255)',
+				'TEXT-SMALL' => 'text',
+				'TEXT-' => 'text',
+				'TEXT-MEDIUM' => 'text',
+				'TEXT-LARGE' => 'longtext',
+				'BOOLEAN-' => 'int(1)',
 				'BOOLEAN-MEDIUM' => 'int(1)',
-				'TIMESTAMP-'     => 'datetime',
+				'TIMESTAMP-' => 'datetime',
 			)
 		);
 	}
@@ -461,21 +461,21 @@ class PostgresGenerator extends BaseGenerator {
 	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
-				'INTEGER-'       => 'INTEGER',
+				'INTEGER-' => 'INTEGER',
 				'INTEGER-MEDIUM' => 'INTEGER',
-				'INTEGER-LARGE'  => 'INTEGER',
-				'BIT-LARGE'      => 'BIT(32)',
-				'BIT-MEDIUM'     => 'BIT(32)',
-				'STRING-SMALL'   => 'VARCHAR(32)',
-				'STRING-MEDIUM'  => 'VARCHAR(128)',
-				'STRING-LARGE'   => 'VARCHAR(255)',
-				'TEXT-SMALL'     => 'text',
-				'TEXT-'          => 'text',
-				'TEXT-MEDIUM'    => 'text',
-				'TEXT-LARGE'     => 'text',
-				'BOOLEAN-'       => 'SMALLINT',
+				'INTEGER-LARGE' => 'INTEGER',
+				'BIT-LARGE' => 'BIT(32)',
+				'BIT-MEDIUM' => 'BIT(32)',
+				'STRING-SMALL' => 'VARCHAR(32)',
+				'STRING-MEDIUM' => 'VARCHAR(128)',
+				'STRING-LARGE' => 'VARCHAR(255)',
+				'TEXT-SMALL' => 'text',
+				'TEXT-' => 'text',
+				'TEXT-MEDIUM' => 'text',
+				'TEXT-LARGE' => 'text',
+				'BOOLEAN-' => 'SMALLINT',
 				'BOOLEAN-MEDIUM' => 'SMALLINT',
-				'TIMESTAMP-'     => 'datetime',
+				'TIMESTAMP-' => 'datetime',
 			)
 		);
 	}
@@ -757,21 +757,21 @@ class OracleGenerator extends BaseGenerator {
 	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
-				'INTEGER-'       => 'INTEGER',
+				'INTEGER-' => 'INTEGER',
 				'INTEGER-MEDIUM' => 'INTEGER',
-				'INTEGER-LARGE'  => 'INTEGER',
-				'BIT-LARGE'      => 'INTEGER',
-				'BIT-MEDIUM'     => 'INTEGER',
-				'STRING-SMALL'   => 'VARCHAR2(32)',
-				'STRING-MEDIUM'  => 'VARCHAR2(128)',
-				'STRING-LARGE'   => 'VARCHAR2(255)',
-				'TEXT-SMALL'     => 'VARCHAR2(4000)',
-				'TEXT-'          => 'CLOB',
-				'TEXT-MEDIUM'    => 'CLOB',
-				'TEXT-LARGE'     => 'CLOB',
-				'BOOLEAN-'       => 'NUMBER(1)',
+				'INTEGER-LARGE' => 'INTEGER',
+				'BIT-LARGE' => 'INTEGER',
+				'BIT-MEDIUM' => 'INTEGER',
+				'STRING-SMALL' => 'VARCHAR2(32)',
+				'STRING-MEDIUM' => 'VARCHAR2(128)',
+				'STRING-LARGE' => 'VARCHAR2(255)',
+				'TEXT-SMALL' => 'VARCHAR2(4000)',
+				'TEXT-' => 'CLOB',
+				'TEXT-MEDIUM' => 'CLOB',
+				'TEXT-LARGE' => 'CLOB',
+				'BOOLEAN-' => 'NUMBER(1)',
 				'BOOLEAN-MEDIUM' => 'NUMBER(1)',
-				'TIMESTAMP-'     => 'datetime',
+				'TIMESTAMP-' => 'datetime',
 			)
 		);
 	}
@@ -1066,21 +1066,21 @@ class Db2Generator extends BaseGenerator {
 		// The column size is limited to 32kbyte
 		$this->setColumnDefinitionMap(
 			array(
-				'INTEGER-'       => 'INTEGER',
+				'INTEGER-' => 'INTEGER',
 				'INTEGER-MEDIUM' => 'INTEGER',
-				'INTEGER-LARGE'  => 'INTEGER',
-				'BIT-LARGE'      => 'VARCHAR(32) FOR BIT DATA',
-				'BIT-MEDIUM'     => 'VARCHAR(32) FOR BIT DATA',
-				'STRING-SMALL'   => 'VARCHAR(32)',
-				'STRING-MEDIUM'  => 'VARCHAR(128)',
-				'STRING-LARGE'   => 'VARCHAR(255)',
-				'TEXT-SMALL'     => 'VARCHAR(10000)',
-				'TEXT-'          => 'VARCHAR(15000)',
-				'TEXT-MEDIUM'    => 'VARCHAR(15000)',
-				'TEXT-LARGE'     => 'CLOB(2G) NOT LOGGED',
-				'BOOLEAN-'       => 'SMALLINT',
+				'INTEGER-LARGE' => 'INTEGER',
+				'BIT-LARGE' => 'VARCHAR(32) FOR BIT DATA',
+				'BIT-MEDIUM' => 'VARCHAR(32) FOR BIT DATA',
+				'STRING-SMALL' => 'VARCHAR(32)',
+				'STRING-MEDIUM' => 'VARCHAR(128)',
+				'STRING-LARGE' => 'VARCHAR(255)',
+				'TEXT-SMALL' => 'VARCHAR(10000)',
+				'TEXT-' => 'VARCHAR(15000)',
+				'TEXT-MEDIUM' => 'VARCHAR(15000)',
+				'TEXT-LARGE' => 'CLOB(2G) NOT LOGGED',
+				'BOOLEAN-' => 'SMALLINT',
 				'BOOLEAN-MEDIUM' => 'SMALLINT',
-				'TIMESTAMP-'     => 'datestamp',
+				'TIMESTAMP-' => 'datestamp',
 			)
 		);
 	}
@@ -1385,21 +1385,21 @@ class MSSqlGenerator extends BaseGenerator {
 	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
-				'INTEGER-'       => 'INT',
+				'INTEGER-' => 'INT',
 				'INTEGER-MEDIUM' => 'INT',
-				'INTEGER-LARGE'  => 'INT',
-				'BIT-LARGE'      => 'INT',
-				'BIT-MEDIUM'     => 'INT',
-				'STRING-SMALL'   => 'NVARCHAR(32)',
-				'STRING-MEDIUM'  => 'NVARCHAR(128)',
-				'STRING-LARGE'   => 'NVARCHAR(255)',
-				'TEXT-SMALL'     => 'NVARCHAR(MAX)',
-				'TEXT-'          => 'NVARCHAR(MAX)',
-				'TEXT-MEDIUM'    => 'NVARCHAR(MAX)',
-				'TEXT-LARGE'     => 'NVARCHAR(MAX)',
-				'BOOLEAN-'       => 'BIT',
+				'INTEGER-LARGE' => 'INT',
+				'BIT-LARGE' => 'INT',
+				'BIT-MEDIUM' => 'INT',
+				'STRING-SMALL' => 'NVARCHAR(32)',
+				'STRING-MEDIUM' => 'NVARCHAR(128)',
+				'STRING-LARGE' => 'NVARCHAR(255)',
+				'TEXT-SMALL' => 'NVARCHAR(MAX)',
+				'TEXT-' => 'NVARCHAR(MAX)',
+				'TEXT-MEDIUM' => 'NVARCHAR(MAX)',
+				'TEXT-LARGE' => 'NVARCHAR(MAX)',
+				'BOOLEAN-' => 'BIT',
 				'BOOLEAN-MEDIUM' => 'BIT',
-				'TIMESTAMP-'     => 'datetime',
+				'TIMESTAMP-' => 'datetime',
 			)
 		);
 	}
@@ -1675,21 +1675,21 @@ class SQLiteGenerator extends BaseGenerator {
 	public function __construct() {
 		$this->setColumnDefinitionMap(
 			array(
-				'INTEGER-'       => 'INTEGER',
+				'INTEGER-' => 'INTEGER',
 				'INTEGER-MEDIUM' => 'INTEGER',
-				'INTEGER-LARGE'  => 'INTEGER',
-				'BIT-LARGE'      => 'TEXT',
-				'BIT-MEDIUM'     => 'TEXT',
-				'STRING-SMALL'   => 'TEXT',
-				'STRING-MEDIUM'  => 'TEXT',
-				'STRING-LARGE'   => 'TEXT',
-				'TEXT-SMALL'     => 'TEXT',
-				'TEXT-'          => 'TEXT',
-				'TEXT-MEDIUM'    => 'TEXT',
-				'TEXT-LARGE'     => 'TEXT',
-				'BOOLEAN-'       => 'INTEGER',
+				'INTEGER-LARGE' => 'INTEGER',
+				'BIT-LARGE' => 'TEXT',
+				'BIT-MEDIUM' => 'TEXT',
+				'STRING-SMALL' => 'TEXT',
+				'STRING-MEDIUM' => 'TEXT',
+				'STRING-LARGE' => 'TEXT',
+				'TEXT-SMALL' => 'TEXT',
+				'TEXT-' => 'TEXT',
+				'TEXT-MEDIUM' => 'TEXT',
+				'TEXT-LARGE' => 'TEXT',
+				'BOOLEAN-' => 'INTEGER',
 				'BOOLEAN-MEDIUM' => 'INTEGER',
-				'TIMESTAMP-'     => 'INTEGER',
+				'TIMESTAMP-' => 'INTEGER',
 			)
 		);
 	}

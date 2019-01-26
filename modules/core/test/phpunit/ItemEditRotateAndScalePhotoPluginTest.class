@@ -159,7 +159,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 			'crop|10,10,30,40;thumbnail|200',
 			'test/file',
 			array(
-				'width'  => 200,
+				'width' => 200,
 				'height' => 150,
 			)
 		);
@@ -175,7 +175,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 			'scale|500',
 			'test/file',
 			array(
-				'width'  => 640,
+				'width' => 640,
 				'height' => 480,
 			)
 		);

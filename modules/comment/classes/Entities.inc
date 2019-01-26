@@ -3,13 +3,13 @@
 $entityInfo['GalleryComment'] = array(
 	'members' => array(
 		'commenterId' => array(
-			'type' => STORAGE_TYPE_INTEGER,
-			'size' => STORAGE_SIZE_LARGE,
+			'type'    => STORAGE_TYPE_INTEGER,
+			'size'    => STORAGE_SIZE_LARGE,
 			'notNull' => 1,
 		),
 		'host' => array(
-			'type' => STORAGE_TYPE_STRING,
-			'size' => STORAGE_SIZE_MEDIUM,
+			'type'    => STORAGE_TYPE_STRING,
+			'size'    => STORAGE_SIZE_MEDIUM,
 			'notNull' => 1,
 		),
 		'subject' => array(
@@ -23,7 +23,7 @@ $entityInfo['GalleryComment'] = array(
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
 		'date' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
@@ -33,7 +33,7 @@ $entityInfo['GalleryComment'] = array(
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
 		'publishStatus' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),

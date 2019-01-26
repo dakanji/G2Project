@@ -39,7 +39,7 @@
 	<rule ref="WordPress.PHP.TypeCasts" />
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
-			<property name="maxColumn" value="20" />
+			<property name="maxColumn" value="25" />
 			<property name="exact" value="true" />
 			<property name="alignMultilineItems" value="!=100" />
 		</properties>
@@ -74,7 +74,7 @@
 	</rule>
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
 		<properties>
-			<property name="maxPadding" value="20" />
+			<property name="maxPadding" value="25" />
 		</properties>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">

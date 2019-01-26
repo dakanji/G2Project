@@ -490,7 +490,7 @@ function parseNikon($block, &$result) {
 			$formated_data = formatNikonData($type, $tag, $intel, $model, $data);
 
 			if ($result['VerboseOutput'] == 1) {
-				$result['SubIFD']['MakerNote'][$tag_name] = $formated_data;
+				$result['SubIFD']['MakerNote'][$tag_name]                         = $formated_data;
 				$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['RawData'] = $data;
 				$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Type']    = $type;
 				$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Bytes']   = $bytesofdata;

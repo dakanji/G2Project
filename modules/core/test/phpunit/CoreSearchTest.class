@@ -197,9 +197,9 @@ class CoreSearchTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'start'   => 1,
-				'end'     => 3,
-				'count'   => 3,
+				'start' => 1,
+				'end'   => 3,
+				'count' => 3,
 				'results' => array(
 					array(
 						'itemId' => $this->_item[3]->getId(),
@@ -315,9 +315,9 @@ class CoreSearchTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'start'   => 1,
-				'end'     => 3,
-				'count'   => 3,
+				'start' => 1,
+				'end'   => 3,
+				'count' => 3,
 				'results' => array(
 					array(
 						'itemId' => $this->_item[3]->getId(),
@@ -426,9 +426,9 @@ class CoreSearchTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'start'   => 2,
-				'end'     => 3,
-				'count'   => 3,
+				'start' => 2,
+				'end'   => 3,
+				'count' => 3,
 				'results' => array(
 					array(
 						'itemId' => $this->_item[2]->getId(),
@@ -504,9 +504,9 @@ class CoreSearchTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'start'   => 0,
-				'end'     => 0,
-				'count'   => 0,
+				'start' => 0,
+				'end'   => 0,
+				'count' => 0,
 				'results' => array(),
 			),
 			$results
@@ -553,9 +553,9 @@ class CoreSearchTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'start'   => 1,
-				'end'     => 4,
-				'count'   => 4,
+				'start' => 1,
+				'end'   => 4,
+				'count' => 4,
 				'results' => array(
 					array(
 						'itemId' => $linkedItem->getId(),

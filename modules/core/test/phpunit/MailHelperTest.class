@@ -51,9 +51,9 @@ class MailHelperTest extends GalleryTestCase {
 		$gallery->setPlatform($this->_dummyPlatform);
 
 		$this->_emailData = array(
-			'to'   => 'mailhelpertest@test.com',
+			'to'      => 'mailhelpertest@test.com',
 			'subject' => 'MailHelperTest subject',
-			'body' => 'MailHelperTest test string',
+			'body'    => 'MailHelperTest test string',
 		);
 	}
 
@@ -244,9 +244,9 @@ class MailHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_emailData = array(
-			'to'   => 'mailhelpertest@test.com',
+			'to'      => 'mailhelpertest@test.com',
 			'subject' => 'MailHelperTest subject',
-			'body' => 'MailHelperTest test string',
+			'body'    => 'MailHelperTest test string',
 			'headers' => '',
 		);
 
@@ -286,9 +286,9 @@ class MailHelperDummyPlatform {
 		$headers = preg_replace("/Date:.*?\r\n/", "Date: ELIDED\r\n", $headers);
 
 		$_REQUEST['maildata'] = array(
-			'to'   => $to,
+			'to'      => $to,
 			'subject' => $subject,
-			'body' => trim($body),
+			'body'    => trim($body),
 			'headers' => explode("\r\n", $headers),
 		);
 

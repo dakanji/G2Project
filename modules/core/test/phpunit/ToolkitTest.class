@@ -73,11 +73,11 @@ class ToolkitTest extends GalleryTestCase {
 	public function testOperation() {
 		$params = array(
 			array(
-				'type'        => 'test-type1',
+				'type' => 'test-type1',
 				'description' => 'test-description1',
 			),
 			array(
-				'type'        => 'test-type2',
+				'type' => 'test-type2',
 				'description' => 'test-description2',
 			),
 		);
@@ -280,11 +280,11 @@ class ToolkitTest extends GalleryTestCase {
 	public function testOperationSequence() {
 		$params = array(
 			array(
-				'type'        => 'test-type1',
+				'type' => 'test-type1',
 				'description' => 'test-description1',
 			),
 			array(
-				'type'        => 'test-type2',
+				'type' => 'test-type2',
 				'description' => 'test-description2',
 			),
 		);
@@ -389,11 +389,11 @@ class ToolkitTest extends GalleryTestCase {
 	public function testGetOperationMimeTypes() {
 		$params = array(
 			array(
-				'type'        => 'test-type1',
+				'type' => 'test-type1',
 				'description' => 'test-description1',
 			),
 			array(
-				'type'        => 'test-type2',
+				'type' => 'test-type2',
 				'description' => 'test-description2',
 			),
 		);
@@ -803,7 +803,7 @@ class ToolkitTest extends GalleryTestCase {
 	public function testUnregisterToolkitsByModuleId() {
 		$params = array(
 			array(
-				'type'        => 'test-type1',
+				'type' => 'test-type1',
 				'description' => 'test-description1',
 			),
 		);

@@ -181,13 +181,13 @@ class GalleryFactoryHelper_medium {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryFactoryMap',
 			array(
-				'classType'    => $classType,
-				'className'    => $className,
-				'implId'       => $implId,
-				'implPath'     => $implPath,
+				'classType' => $classType,
+				'className' => $className,
+				'implId' => $implId,
+				'implPath' => $implPath,
 				'implModuleId' => $implModuleId,
-				'orderWeight'  => (string)$orderWeight,
-				'hints'        => serialize($hints),
+				'orderWeight' => (string)$orderWeight,
+				'hints' => serialize($hints),
 			)
 		);
 

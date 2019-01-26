@@ -88,7 +88,7 @@ class ItemPermissionsController extends GalleryController {
 
 			// Handle delete user perm actions
 			list($userId, $permissionId) = explode(',', $form['user']['delete'][$index]);
-			$ret = GalleryCoreApi::removeUserPermission(
+			$ret                         = GalleryCoreApi::removeUserPermission(
 				$itemId,
 				$userId,
 				$permissionId,

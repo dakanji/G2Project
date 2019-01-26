@@ -91,7 +91,7 @@ class GdToolkitHelper {
 		if (self::isOperationSupported('scale', $gd)) {
 			// Scale
 			$operations['scale']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n(
 					array(
 						'text'    => 'target width (# pixels or #% of full size)',
@@ -100,7 +100,7 @@ class GdToolkitHelper {
 				),
 			);
 			$operations['scale']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n(
 					'(optional) target height, defaults to same as width'
 				),
@@ -121,7 +121,7 @@ class GdToolkitHelper {
 		if (self::isOperationSupported('resize', $gd)) {
 			// Resize
 			$operations['resize']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n(
 					array(
 						'text'    => 'target width (# pixels or #% of full size)',
@@ -130,7 +130,7 @@ class GdToolkitHelper {
 				),
 			);
 			$operations['resize']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n(
 					array(
 						'text'    => 'target height (# pixels or #% of full size)',
@@ -147,7 +147,7 @@ class GdToolkitHelper {
 		if (self::isOperationSupported('rotate', $gd)) {
 			// Rotate
 			$operations['rotate']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n('rotation degrees'),
 			);
 			$operations['rotate']['description'] = $gallery->i18n('Rotate the image');
@@ -157,19 +157,19 @@ class GdToolkitHelper {
 		if (self::isOperationSupported('crop', $gd)) {
 			// Crop
 			$operations['crop']['params'][]    = array(
-				'type'        => 'float',
+				'type' => 'float',
 				'description' => $gallery->i18n('left edge %'),
 			);
 			$operations['crop']['params'][]    = array(
-				'type'        => 'float',
+				'type' => 'float',
 				'description' => $gallery->i18n('top edge %'),
 			);
 			$operations['crop']['params'][]    = array(
-				'type'        => 'float',
+				'type' => 'float',
 				'description' => $gallery->i18n('width %'),
 			);
 			$operations['crop']['params'][]    = array(
-				'type'        => 'float',
+				'type' => 'float',
 				'description' => $gallery->i18n('height %'),
 			);
 			$operations['crop']['description'] = $gallery->i18n('Crop the image');
@@ -179,31 +179,31 @@ class GdToolkitHelper {
 		if (self::isOperationSupported('composite', $gd)) {
 			// Composite
 			$operations['composite']['params'][]    = array(
-				'type'        => 'string',
+				'type' => 'string',
 				'description' => $gallery->i18n('overlay path'),
 			);
 			$operations['composite']['params'][]    = array(
-				'type'        => 'string',
+				'type' => 'string',
 				'description' => $gallery->i18n('overlay mime type'),
 			);
 			$operations['composite']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n('overlay width'),
 			);
 			$operations['composite']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n('overlay height'),
 			);
 			$operations['composite']['params'][]    = array(
-				'type'        => 'string',
+				'type' => 'string',
 				'description' => $gallery->i18n('alignment type'),
 			);
 			$operations['composite']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n('alignment x %'),
 			);
 			$operations['composite']['params'][]    = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n('alignment y %'),
 			);
 			$operations['composite']['description'] = $gallery->i18n(

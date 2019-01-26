@@ -242,107 +242,107 @@ class ADODB_DataDict {
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		static $typeMap = array(
-			'VARCHAR' => 'C',
-			'VARCHAR2' => 'C',
-			'CHAR' => 'C',
-			'C'    => 'C',
-			'STRING' => 'C',
-			'NCHAR' => 'C',
-			'NVARCHAR' => 'C',
-			'VARYING' => 'C',
-			'BPCHAR' => 'C',
+			'VARCHAR'   => 'C',
+			'VARCHAR2'  => 'C',
+			'CHAR'      => 'C',
+			'C'         => 'C',
+			'STRING'    => 'C',
+			'NCHAR'     => 'C',
+			'NVARCHAR'  => 'C',
+			'VARYING'   => 'C',
+			'BPCHAR'    => 'C',
 			'CHARACTER' => 'C',
-			'INTERVAL' => 'C',  // Postgres
-			'MACADDR' => 'C', // postgres
+			'INTERVAL'  => 'C',  // Postgres
+			'MACADDR'   => 'C', // postgres
 			'VAR_STRING' => 'C', // mysql
 			//
-			'LONGCHAR' => 'X',
-			'TEXT' => 'X',
-			'NTEXT' => 'X',
-			'M'    => 'X',
-			'X'    => 'X',
-			'CLOB' => 'X',
-			'NCLOB' => 'X',
-			'LVARCHAR' => 'X',
+			'LONGCHAR'  => 'X',
+			'TEXT'      => 'X',
+			'NTEXT'     => 'X',
+			'M'         => 'X',
+			'X'         => 'X',
+			'CLOB'      => 'X',
+			'NCLOB'     => 'X',
+			'LVARCHAR'  => 'X',
 
-			'BLOB' => 'B',
-			'IMAGE' => 'B',
-			'BINARY' => 'B',
+			'BLOB'      => 'B',
+			'IMAGE'     => 'B',
+			'BINARY'    => 'B',
 			'VARBINARY' => 'B',
 			'LONGBINARY' => 'B',
-			'B'    => 'B',
+			'B'         => 'B',
 
-			'YEAR' => 'D', // mysql
-			'DATE' => 'D',
-			'D'    => 'D',
+			'YEAR'      => 'D', // mysql
+			'DATE'      => 'D',
+			'D'         => 'D',
 
 			'UNIQUEIDENTIFIER' => 'C', // MS SQL Server
 			//
-			'TIME' => 'T',
+			'TIME'      => 'T',
 			'TIMESTAMP' => 'T',
-			'DATETIME' => 'T',
+			'DATETIME'  => 'T',
 			'TIMESTAMPTZ' => 'T',
 			'SMALLDATETIME' => 'T',
-			'T'    => 'T',
+			'T'         => 'T',
 			'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
 			//
-			'BOOL' => 'L',
-			'BOOLEAN' => 'L',
-			'BIT'  => 'L',
-			'L'    => 'L',
+			'BOOL'      => 'L',
+			'BOOLEAN'   => 'L',
+			'BIT'       => 'L',
+			'L'         => 'L',
 
-			'COUNTER' => 'R',
-			'R'    => 'R',
-			'SERIAL' => 'R', // ifx
+			'COUNTER'   => 'R',
+			'R'         => 'R',
+			'SERIAL'    => 'R', // ifx
 			'INT IDENTITY' => 'R',
 
-			'INT'  => 'I',
-			'INT2' => 'I',
-			'INT4' => 'I',
-			'INT8' => 'I',
-			'INTEGER' => 'I',
+			'INT'       => 'I',
+			'INT2'      => 'I',
+			'INT4'      => 'I',
+			'INT8'      => 'I',
+			'INTEGER'   => 'I',
 			'INTEGER UNSIGNED' => 'I',
-			'SHORT' => 'I',
-			'TINYINT' => 'I',
-			'SMALLINT' => 'I',
-			'I'    => 'I',
+			'SHORT'     => 'I',
+			'TINYINT'   => 'I',
+			'SMALLINT'  => 'I',
+			'I'         => 'I',
 
-			'LONG' => 'N', // interbase is numeric, oci8 is blob
-			'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
-			'DECIMAL' => 'N',
-			'DEC'  => 'N',
-			'REAL' => 'N',
-			'DOUBLE' => 'N',
+			'LONG'      => 'N', // interbase is numeric, oci8 is blob
+			'BIGINT'    => 'N', // this is bigger than PHP 32-bit integers
+			'DECIMAL'   => 'N',
+			'DEC'       => 'N',
+			'REAL'      => 'N',
+			'DOUBLE'    => 'N',
 			'DOUBLE PRECISION' => 'N',
 			'SMALLFLOAT' => 'N',
-			'FLOAT' => 'N',
-			'NUMBER' => 'N',
-			'NUM'  => 'N',
-			'NUMERIC' => 'N',
-			'MONEY' => 'N',
+			'FLOAT'     => 'N',
+			'NUMBER'    => 'N',
+			'NUM'       => 'N',
+			'NUMERIC'   => 'N',
+			'MONEY'     => 'N',
 
 			// informix 9.2
-			'SQLINT' => 'I',
+			'SQLINT'    => 'I',
 			'SQLSERIAL' => 'I',
-			'SQLSMINT' => 'I',
+			'SQLSMINT'  => 'I',
 			'SQLSMFLOAT' => 'N',
-			'SQLFLOAT' => 'N',
-			'SQLMONEY' => 'N',
+			'SQLFLOAT'  => 'N',
+			'SQLMONEY'  => 'N',
 			'SQLDECIMAL' => 'N',
-			'SQLDATE' => 'D',
-			'SQLVCHAR' => 'C',
-			'SQLCHAR' => 'C',
-			'SQLDTIME' => 'T',
+			'SQLDATE'   => 'D',
+			'SQLVCHAR'  => 'C',
+			'SQLCHAR'   => 'C',
+			'SQLDTIME'  => 'T',
 			'SQLINTERVAL' => 'N',
-			'SQLBYTES' => 'B',
-			'SQLTEXT' => 'X',
+			'SQLBYTES'  => 'B',
+			'SQLTEXT'   => 'X',
 			// informix 10
-			'SQLINT8' => 'I8',
+			'SQLINT8'   => 'I8',
 			'SQLSERIAL8' => 'I8',
-			'SQLNCHAR' => 'C',
+			'SQLNCHAR'  => 'C',
 			'SQLNVCHAR' => 'C',
 			'SQLLVARCHAR' => 'X',
-			'SQLBOOL' => 'L',
+			'SQLBOOL'   => 'L',
 		);
 
 		if (!$this->connection->IsConnected()) {
@@ -481,8 +481,8 @@ class ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname = $this->TableName($tabname);
-		$sql     = array();
+		$tabname                   = $this->TableName($tabname);
+		$sql                       = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 		// genfields can return FALSE at times
 		if ($lines == null) {
@@ -514,8 +514,8 @@ class ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname = $this->TableName($tabname);
-		$sql     = array();
+		$tabname                   = $this->TableName($tabname);
+		$sql                       = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 		// genfields can return FALSE at times
 		if ($lines == null) {

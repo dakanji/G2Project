@@ -139,7 +139,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 			$this->_album->getId(),
 			'test/file',
 			array(
-				'width'  => 640,
+				'width' => 640,
 				'height' => 480,
 			),
 			__FILE__,
@@ -154,7 +154,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 			$this->_album->getId(),
 			'test/file',
 			array(
-				'width'  => 640,
+				'width' => 640,
 				'height' => 480,
 			),
 			__FILE__,
@@ -172,7 +172,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 			'rotate|90',
 			'test/file',
 			array(
-				'width'  => 640,
+				'width' => 640,
 				'height' => 480,
 			)
 		);

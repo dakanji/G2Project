@@ -242,11 +242,11 @@ class SearchScanView extends GalleryView {
 		$template->setVariable(
 			'SearchScan',
 			array(
-				'controller'         => 'search.SearchScan',
-				'modules'            => $modules,
-				'searchResults'      => $searchResults,
-				'thumbnails'         => $thumbnails,
-				'items'              => $items,
+				'controller' => 'search.SearchScan',
+				'modules' => $modules,
+				'searchResults' => $searchResults,
+				'thumbnails' => $thumbnails,
+				'items' => $items,
 				'slideshowAvailable' => $slideshowAvailable,
 			)
 		);

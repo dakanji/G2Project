@@ -74,10 +74,10 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			$this->_album->getId(),
 			'image/jpeg',
 			array(
-				'title'       => 'original title',
-				'summary'     => 'original summary',
+				'title' => 'original title',
+				'summary' => 'original summary',
 				'description' => 'original description',
-				'keywords'    => 'original keyword 0; original keyword 1',
+				'keywords' => 'original keyword 0; original keyword 1',
 			),
 			__DIR__ . '/../data/exif-iptc-xmp-ps.jpg'
 		);

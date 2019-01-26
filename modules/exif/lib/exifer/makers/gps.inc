@@ -306,7 +306,7 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
-	$num = hexdec($num);
+	$num                      = hexdec($num);
 	$result['GPS']['NumTags'] = $num;
 
 	if ($num > 0) {
@@ -365,7 +365,7 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 		}
 
 		if ($result['VerboseOutput'] == 1) {
-			$result['GPS'][$tag_name] = formatGPSData($type, $tag, $intel, $data);
+			$result['GPS'][$tag_name]                         = formatGPSData($type, $tag, $intel, $data);
 			$result['GPS'][$tag_name . '_Verbose']['RawData'] = bin2hex($data);
 			$result['GPS'][$tag_name . '_Verbose']['Type']    = $type;
 			$result['GPS'][$tag_name . '_Verbose']['Bytes']   = $bytesofdata;

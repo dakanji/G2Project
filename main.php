@@ -70,7 +70,7 @@ if ($gallery->isEmbedded()) {
 
 		$path = GalleryDataCache::getCachePath(
 			array(
-				'type'   => 'fast-download',
+				'type' => 'fast-download',
 				'itemId' => $itemId,
 			)
 		);
@@ -185,7 +185,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	// Figure out the target view/controller
 	list($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
 	$controllerName                  = is_string($controllerName) ? $controllerName : null;
-	$viewName = is_string($viewName) ? $viewName : null;
+	$viewName                        = is_string($viewName) ? $viewName : null;
 	$gallery->debug("controller $controllerName, view $viewName");
 
 	// Check if core module needs upgrading
@@ -808,9 +808,9 @@ function _GalleryMain_doRedirect(
 	return array(
 		null,
 		array(
-			'isDone'      => true,
+			'isDone'   => true,
 			'redirectUrl' => $redirectUrl,
-			'template'    => $template,
+			'template' => $template,
 		),
 	);
 }

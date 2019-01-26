@@ -59,10 +59,10 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		foreach (array(
 			'jpegQuality' => 75,
-			'pnmtojpeg'   => 'ppmtojpeg',
-			'bmptopnm'    => 'bmptoppm',
-			'pnmcomp'     => 'pnmcomp',
-			'jheadPath'   => '/usr/local/bin/',
+			'pnmtojpeg' => 'ppmtojpeg',
+			'bmptopnm'  => 'bmptoppm',
+			'pnmcomp'   => 'pnmcomp',
+			'jheadPath' => '/usr/local/bin/',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'netpbm', $key, $value);
 
@@ -285,7 +285,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$context = array(
+		$context                        = array(
 			'next.toolkit'   => $this->_toolkit,
 			'next.operation' => 'thumbnail',
 		);
@@ -306,15 +306,15 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		$context['next.operation'] = null;
 		$this->assertEquals(
 			array(
-				'next.toolkit'     => null,
-				'next.operation'   => null,
-				'width'            => 103,
-				'height'           => 156,
+				'next.toolkit' => null,
+				'next.operation' => null,
+				'width' => 103,
+				'height' => 156,
 				'netpbm.transform' => array(
 					array($netPbmPath . 'pnmcut', (float)49, (float)71, (float)103, (float)156),
 				),
-				'netpbm.mime'      => 'image/png',
-				'netpbm.metadata'  => true,
+				'netpbm.mime' => 'image/png',
+				'netpbm.metadata' => true,
 			),
 			$context,
 			'context'
@@ -335,7 +335,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		$this->assertTrue(!isset($context['netpbm.transform']), 'extra stuff in context');
 
 		// Ensure if thumbnail operation gets queued it remembers not to preserve metadata
-		$context = array(
+		$context                        = array(
 			'next.toolkit'   => $this->_toolkit,
 			'next.operation' => 'crop',
 		);
@@ -356,15 +356,15 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		$context['next.operation'] = null;
 		$this->assertEquals(
 			array(
-				'next.toolkit'     => null,
-				'next.operation'   => null,
-				'width'            => 67,
-				'height'           => 100,
+				'next.toolkit' => null,
+				'next.operation' => null,
+				'width' => 67,
+				'height' => 100,
 				'netpbm.transform' => array(
 					array($netPbmPath . 'pnmscale', '--quiet', '-xysize', 100, 100),
 				),
-				'netpbm.mime'      => 'image/png',
-				'netpbm.metadata'  => false,
+				'netpbm.mime' => 'image/png',
+				'netpbm.metadata' => false,
 			),
 			$context,
 			'context2'
@@ -450,9 +450,9 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		);
 		$expectedContexts = array(
 			array(
-				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE'),
-				'width'            => 200,
-				'height'           => 300,
+				'netpbm.tmp' => array('TEMPFILE', 'TEMPFILE'),
+				'width' => 200,
+				'height' => 300,
 				'netpbm.transform' => array(
 					array(
 						$netPbmPath . 'pnmcomp',
@@ -462,13 +462,13 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						'TEMPFILE',
 					),
 				),
-				'netpbm.mime'      => 'image/png',
-				'netpbm.metadata'  => true,
+				'netpbm.mime' => 'image/png',
+				'netpbm.metadata' => true,
 			),
 			array(
-				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE'),
-				'width'            => 300,
-				'height'           => 200,
+				'netpbm.tmp' => array('TEMPFILE', 'TEMPFILE'),
+				'width' => 300,
+				'height' => 200,
 				'netpbm.transform' => array(
 					array(
 						$netPbmPath . 'pnmcomp',
@@ -479,13 +479,13 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					),
 					array($netPbmPath . 'pnmflip', '-ccw'),
 				),
-				'netpbm.mime'      => 'image/png',
-				'netpbm.metadata'  => true,
+				'netpbm.mime' => 'image/png',
+				'netpbm.metadata' => true,
 			),
 			array(
-				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE'),
-				'width'            => 640,
-				'height'           => 427,
+				'netpbm.tmp' => array('TEMPFILE', 'TEMPFILE'),
+				'width' => 640,
+				'height' => 427,
 				'netpbm.transform' => array(
 					array(
 						$netPbmPath . 'pnmcomp',
@@ -504,13 +504,13 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						480,
 					),
 				),
-				'netpbm.mime'      => 'image/png',
-				'netpbm.metadata'  => true,
+				'netpbm.mime' => 'image/png',
+				'netpbm.metadata' => true,
 			),
 			array(
-				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE', 'TEMPFILE', 'TEMPFILE'),
-				'width'            => 640,
-				'height'           => 427,
+				'netpbm.tmp' => array('TEMPFILE', 'TEMPFILE', 'TEMPFILE', 'TEMPFILE'),
+				'width' => 640,
+				'height' => 427,
 				'netpbm.transform' => array(
 					array(
 						$netPbmPath . 'pnmcomp',
@@ -536,11 +536,11 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						'TEMPFILE',
 					),
 				),
-				'netpbm.mime'      => 'image/png',
-				'netpbm.metadata'  => true,
+				'netpbm.mime' => 'image/png',
+				'netpbm.metadata' => true,
 			),
 			array(
-				'width'  => 150,
+				'width' => 150,
 				'height' => 100,
 			),
 		);

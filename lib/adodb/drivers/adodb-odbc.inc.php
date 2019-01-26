@@ -41,7 +41,7 @@ class ADODB_odbc extends ADOConnection {
 	public $_haserrorfunctions = true;
 	public $_has_stupid_odbc_fetch_api_change = true;
 	public $_lastAffectedRows                 = 0;
-	public $uCaseTables = true; // for meta* functions, uppercase table names
+	public $uCaseTables                       = true; // for meta* functions, uppercase table names
 
 	public function __construct() {
 		$this->_haserrorfunctions                = ADODB_PHPVER >= 0x4050;
@@ -585,8 +585,8 @@ class ADODB_odbc extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
-				$fld->not_null = !empty($rs->fields[10]);
-				$fld->scale    = $rs->fields[8];
+				$fld->not_null                  = !empty($rs->fields[10]);
+				$fld->scale                     = $rs->fields[8];
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;

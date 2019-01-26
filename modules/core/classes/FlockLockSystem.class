@@ -143,8 +143,8 @@ class FlockLockSystem extends GalleryLockSystem {
 
 		$this->_locks[$lockId] = array(
 			'lockId' => $lockId,
-			'type' => $lockType,
-			'ids'  => $locked,
+			'type'   => $lockType,
+			'ids'    => $locked,
 		);
 
 		return array(null, $lockId);

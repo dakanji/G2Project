@@ -139,10 +139,10 @@ class SlideshowHelperTest extends GalleryTestCase {
 			}
 
 			$info[] = array(
-				'item'      => $item,
+				'item' => $item,
 				'thumbnail' => $thumbnail,
 				'preferred' => $preferred,
-				'resizes'   => $resizes,
+				'resizes' => $resizes,
 			);
 
 			$itemIds[] = $item->getId();

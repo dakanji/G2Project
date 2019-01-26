@@ -324,8 +324,8 @@ if (!defined('ADODB_SESSION')) {
 
 		$arr = array(
 			'sesskey' => $key,
-			'expiry' => $expiry,
-			'data' => $val,
+			'expiry'  => $expiry,
+			'data'    => $val,
 		);
 
 		if ($ADODB_SESSION_EXPIRE_NOTIFY) {

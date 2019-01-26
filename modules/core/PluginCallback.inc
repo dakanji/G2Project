@@ -175,7 +175,7 @@ class PluginCallbackView extends GalleryView {
 			return $ret;
 		}
 
-		$result = array();
+		$result                      = array();
 		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables(
 			'pluginType',
 			'pluginId'

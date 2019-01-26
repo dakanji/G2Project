@@ -369,18 +369,18 @@ class ItemEditThemeControllerTestTheme {
 	public function getSettings($itemId = 0) {
 		$settings   = array();
 		$settings[] = array(
-			'key'  => 'rows',
-			'name' => 'Rows per album page',
-			'type' => 'text-field',
+			'key'   => 'rows',
+			'name'  => 'Rows per album page',
+			'type'  => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => 4,
 		);
 		$settings[] = array(
-			'key'  => 'columns',
-			'name' => 'Columns per album page',
-			'type' => 'text-field',
+			'key'   => 'columns',
+			'name'  => 'Columns per album page',
+			'type'  => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),

@@ -385,7 +385,7 @@ class GallerySession {
 					$ret = $this->_acquireNewPersistentSession();
 				} else {
 					$this->_modificationTime = $phpVm->time();
-					$ret = GalleryCoreApi::updateMapEntry(
+					$ret                     = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -409,7 +409,7 @@ class GallerySession {
 				// Update the session modification timestamp 5% of the time to avoid expiration.
 				if ($dieRoll <= 5) {
 					$this->_modificationTime = $phpVm->time();
-					$ret = GalleryCoreApi::updateMapEntry(
+					$ret                     = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -731,7 +731,7 @@ class GallerySession {
 			'remoteIdentifier' => serialize($this->_remoteIdentifier),
 			'creationTimestamp' => $this->_creationTime,
 			'modificationTimestamp' => $this->_modificationTime,
-			'data' => serialize($this->_sessionData),
+			'data'   => serialize($this->_sessionData),
 		);
 
 		// Get new sessionId, there's a 1:2^128 probability of collision (md5), try it 5 times

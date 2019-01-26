@@ -69,8 +69,8 @@ class TestGdFunctionality {
 		$this->_undestroyedResourceCounter++;
 		$name                    = 'res #' . $this->_resourceCounter;
 		$this->_resources[$name] = array(
-			'x' => 0,
-			'y' => 0,
+			'x'         => 0,
+			'y'         => 0,
 			'trueColor' => false,
 		);
 
@@ -116,11 +116,11 @@ class TestGdFunctionality {
 
 	public function saveResource($res, $filename, $mimeType) {
 		$this->_outputFiles[$filename] = array(
-			'x' => $this->getResourceData($res, 'x'),
-			'y' => $this->getResourceData($res, 'y'),
+			'x'        => $this->getResourceData($res, 'x'),
+			'y'        => $this->getResourceData($res, 'y'),
 			'mimeType' => $mimeType,
 		);
-		$other = $this->getResourceData($res, 'other');
+		$other                         = $this->getResourceData($res, 'other');
 
 		if (is_array($other)) {
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $other);
@@ -128,7 +128,7 @@ class TestGdFunctionality {
 		$history = $this->getResourceData($res, 'history');
 
 		if (is_array($history)) {
-			$history = array(
+			$history                       = array(
 				'history' => $history,
 			);
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $history);
@@ -820,9 +820,9 @@ class TestGdFunctionality {
 
 	public function imagecolorsforindex($res, $index) {
 		return array(
-			'red'  => 11,
+			'red'   => 11,
 			'green' => 22,
-			'blue' => 44,
+			'blue'  => 44,
 			'alpha' => 66,
 		);
 	}

@@ -214,14 +214,14 @@ class ItemTest extends GalleryTestCase {
 	public function testCanBeViewedInlineImages() {
 		// This list should be mime types accepted by browsers in the <img> tag
 		$mimeTypesInline = array(
-			'image/jpeg'            => true,
-			'image/pjpeg'           => true,
-			'image/png'             => true,
-			'image/gif'             => true,
-			'image/vnd.wap.wbmp'    => true,
-			'image/tiff'            => false,
-			'image/bmp'             => false,  // only IE accepts this one
-			'image/otherUnknown'    => false,
+			'image/jpeg' => true,
+			'image/pjpeg' => true,
+			'image/png' => true,
+			'image/gif' => true,
+			'image/vnd.wap.wbmp' => true,
+			'image/tiff' => false,
+			'image/bmp' => false,  // only IE accepts this one
+			'image/otherUnknown' => false,
 			'application/photoshop' => false,
 		);
 
@@ -246,7 +246,7 @@ class ItemTest extends GalleryTestCase {
 
 	public function testCanBeViewedInlineOthers() {
 		global $gallery;
-		$query = '
+		$query                     = '
 		SELECT [GalleryMimeTypeMap::mimeType]
 		FROM [GalleryMimeTypeMap]
 		WHERE [GalleryMimeTypeMap::mimeType] NOT LIKE \'image/%\'

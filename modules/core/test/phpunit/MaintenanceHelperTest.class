@@ -292,9 +292,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 class MaintenanceHelperTestTask extends MaintenanceTask {
 	public function getInfo() {
 		return array(
-			'title'       => 'MaintenanceHelperTestTask title',
+			'title'     => 'MaintenanceHelperTestTask title',
 			'description' => 'MaintenanceHelperTestTask description',
-			'l10Domain'   => 'modules_core',
+			'l10Domain' => 'modules_core',
 		);
 	}
 

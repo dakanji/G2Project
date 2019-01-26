@@ -81,8 +81,8 @@ class AdminModerateSpamController extends GalleryController {
 		}
 
 		// Figure out where to redirect upon success
-		$method                   = empty($error) ? 'redirect' : 'delegate';
-		$results[$method]['view'] = 'core.SiteAdmin';
+		$method                      = empty($error) ? 'redirect' : 'delegate';
+		$results[$method]['view']    = 'core.SiteAdmin';
 		$results[$method]['subView'] = 'comment.AdminModerateSpam';
 		$results['status']           = $status;
 		$results['error']            = $error;
@@ -197,8 +197,8 @@ class AdminModerateSpamView extends GalleryView {
 			}
 
 			foreach (array(
-				'delete'      => 'comment.delete',
-				'edit'        => 'comment.edit',
+				'delete' => 'comment.delete',
+				'edit' => 'comment.edit',
 				'markNotSpam' => 'comment.edit',
 			) as $canFlag => $permission) {
 				$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
@@ -223,11 +223,11 @@ class AdminModerateSpamView extends GalleryView {
 		}
 
 		$navigator = array(
-			'page' => $page,
+			'page'      => $page,
 			'pageCount' => ceil($count / $showCount),
 		);
 		$urlParams = array(
-			'view' => 'core.SiteAdmin',
+			'view'    => 'core.SiteAdmin',
 			'subView' => 'comment.AdminModerateSpam',
 		);
 
@@ -277,12 +277,12 @@ class AdminModerateSpamView extends GalleryView {
 		$template->setVariable(
 			'AdminModerateSpam',
 			array(
-				'comments'   => $comments,
+				'comments' => $comments,
 				'commenters' => $commenters,
-				'can'        => $can,
-				'itemData'   => $itemData,
-				'navigator'  => $navigator,
-				'total'      => $count,
+				'can'   => $can,
+				'itemData' => $itemData,
+				'navigator' => $navigator,
+				'total' => $count,
 			)
 		);
 		$template->style('modules/comment/comment.css');

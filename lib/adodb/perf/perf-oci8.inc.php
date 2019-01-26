@@ -76,12 +76,12 @@ AND    b.name = 'sorts (memory)'",
 		),
 
 		'IO',
-		'data reads' => array(
+		'data reads'   => array(
 			'IO',
 			"select value from v\$sysstat where name='physical reads'",
 		),
 
-		'data writes' => array(
+		'data writes'  => array(
 			'IO',
 			"select value from v\$sysstat where name='physical writes'",
 		),
@@ -116,7 +116,7 @@ AND    b.name = 'sorts (memory)'",
 			"select nvl(value,0)/1024.0/1024 || 'M' from v\$parameter where name = 'sga_max_size'",
 			'The sga_max_size is the maximum value to which sga_target can be set.',
 		),
-		'SGA target' => array(
+		'SGA target'   => array(
 			'DATAC',
 			"select nvl(value,0)/1024.0/1024 || 'M'  from v\$parameter where name = 'sga_target'",
 			'If sga_target is defined then data cache, shared, java and large pool size can be 0. This is because all these pools are consolidated into one sga_target.',
@@ -241,7 +241,7 @@ AND    b.name = 'sorts (memory)'",
 				'Backup',
 		'Achivelog Mode' => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
 
-		'DBID' => array('BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog'),
+		'DBID'         => array('BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog'),
 		'Archive Log Dest' => array(
 			'BACKUP',
 			"SELECT NVL(v1.value,v2.value)
@@ -258,7 +258,7 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 
 		//		'Control File Keep Time' => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'",'No of days to keep RMAN info in control file. I recommend it be set to x2 or x3 times the frequency of your full backup.'),
 		'Storage',
-		'Tablespaces' => array('TABLESPACE', "select '-' from dual", '=TableSpace'),
+		'Tablespaces'  => array('TABLESPACE', "select '-' from dual", '=TableSpace'),
 		false,
 
 	);

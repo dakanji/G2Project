@@ -1006,9 +1006,9 @@ class GalleryUrlGenerator {
 		if (!$check && isset($this->_localUrlMap[$href])) {
 			$path = $this->_localUrlMap[$href];
 		} else {
-			$override = dirname($href) . '/local/' . basename($href);
-			$platform =& $gallery->getPlatform();
-			$path     = $platform->file_exists(GalleryCoreApi::getCodeBasePath($override)) ? $override : $href;
+			$override                  = dirname($href) . '/local/' . basename($href);
+			$platform                  =& $gallery->getPlatform();
+			$path                      = $platform->file_exists(GalleryCoreApi::getCodeBasePath($override)) ? $override : $href;
 			$this->_localUrlMap[$href] = $path;
 
 			if (!$check && empty($this->_localUrlMapDirty)) {

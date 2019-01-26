@@ -137,8 +137,8 @@ class ShowAllCommentsView extends GalleryView {
 			}
 
 			foreach (array(
-				'delete'   => 'comment.delete',
-				'edit'     => 'comment.edit',
+				'delete' => 'comment.delete',
+				'edit' => 'comment.edit',
 				'markSpam' => 'comment.edit',
 			) as $canFlag => $permission) {
 				$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
@@ -195,7 +195,7 @@ class ShowAllCommentsView extends GalleryView {
 		}
 
 		$navigator = array(
-			'page' => $page,
+			'page'      => $page,
 			'pageCount' => ceil($count / $showCount),
 		);
 
@@ -236,12 +236,12 @@ class ShowAllCommentsView extends GalleryView {
 		$template->setVariable(
 			'ShowAllComments',
 			array(
-				'comments'   => $comments,
+				'comments' => $comments,
 				'commenters' => $commenters,
-				'can'        => $can,
-				'item'       => (array)$item,
-				'itemData'   => $itemData,
-				'navigator'  => $navigator,
+				'can'  => $can,
+				'item' => (array)$item,
+				'itemData' => $itemData,
+				'navigator' => $navigator,
 			)
 		);
 		$template->style('modules/comment/comment.css');

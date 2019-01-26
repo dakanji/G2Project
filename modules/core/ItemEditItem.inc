@@ -369,7 +369,7 @@ class ItemEditItem extends ItemEditPlugin {
 			return array($ret, null, null);
 		}
 
-		$can = array(
+		$can                        = array(
 			'createThumbnail' => false,
 		);
 		$can['changePathComponent'] = $can['editThumbnail'] = ($item->getId() != $rootAlbumId);
@@ -418,7 +418,7 @@ class ItemEditItem extends ItemEditPlugin {
 		}
 
 		$ItemEditItem = array(
-			'can' => $can,
+			'can'      => $can,
 			'typeName' => array_merge($item->itemTypeName(), $item->itemTypeName(false)),
 		);
 

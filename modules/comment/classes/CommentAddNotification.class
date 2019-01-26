@@ -95,8 +95,8 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 	 */
 	public function getEventSpecs() {
 		return array(
-			'eventName'      => 'GalleryEntity::save',
-			'entityType'     => 'GalleryComment',
+			'eventName' => 'GalleryEntity::save',
+			'entityType' => 'GalleryComment',
 			'persistentFlag' => STORAGE_FLAG_NEWLY_CREATED,
 		);
 	}
@@ -124,7 +124,7 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 
 		return $urlGenerator->generateUrl(
 			array(
-				'view'   => 'comment.ShowComments',
+				'view' => 'comment.ShowComments',
 				'itemId' => $this->getItemId(),
 			),
 			array(

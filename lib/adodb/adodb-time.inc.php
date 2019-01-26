@@ -1122,13 +1122,13 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 		return array(
 			'seconds' => $secs,
 			'minutes' => $min,
-			'hours' => $hour,
-			'mday' => $day,
-			'mon'  => $month,
-			'year' => $year,
-			'yday' => floor($secsInYear / $_day_power),
-			'leap' => $leaf,
-			'ndays' => $ndays,
+			'hours'   => $hour,
+			'mday'    => $day,
+			'mon'     => $month,
+			'year'    => $year,
+			'yday'    => floor($secsInYear / $_day_power),
+			'leap'    => $leaf,
+			'ndays'   => $ndays,
 		);
 	}
 

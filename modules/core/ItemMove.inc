@@ -321,7 +321,7 @@ class ItemMoveView extends GalleryView {
 		$albumIds  = $albumTree = $selectedIds = $peers = $peerDescendentCounts = array();
 		$peerTypes = array(
 			'album' => array(),
-			'data' => array(),
+			'data'  => array(),
 		);
 		$numPages  = 1;
 
@@ -454,11 +454,11 @@ class ItemMoveView extends GalleryView {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$ItemMove              = array();
-		$ItemMove['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
-		$ItemMove['albumIds']  = $albumIds;
-		$ItemMove['peers']     = $peers;
-		$ItemMove['peerTypes'] = $peerTypes;
+		$ItemMove                         = array();
+		$ItemMove['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
+		$ItemMove['albumIds']             = $albumIds;
+		$ItemMove['peers']                = $peers;
+		$ItemMove['peerTypes']            = $peerTypes;
 		$ItemMove['peerDescendentCounts'] = $peerDescendentCounts;
 		$ItemMove['albumTree']            = $albumTree;
 		$ItemMove['page']                 = $page;

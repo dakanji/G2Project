@@ -71,7 +71,7 @@ class GalleryDataCache {
 	 * @param boolean $bool
 	 */
 	public static function setMemoryCachingEnabled($bool) {
-		$cache =& GalleryDataCache::_getCache();
+		$cache                       =& GalleryDataCache::_getCache();
 		$cache['memoryCacheEnabled'] = $bool;
 	}
 
@@ -274,7 +274,7 @@ class GalleryDataCache {
 	 *
 	 */
 	public static function setFileCachingEnabled($bool) {
-		$cache =& GalleryDataCache::_getCache();
+		$cache                     =& GalleryDataCache::_getCache();
 		$cache['fileCacheEnabled'] = $bool;
 	}
 
@@ -710,11 +710,11 @@ class GalleryDataCache {
 			'GalleryCacheMap',
 			array('value'),
 			array(
-				'key'       => $key,
-				'type'      => $type,
-				'userId'    => $userId,
+				'key'  => $key,
+				'type' => $type,
+				'userId' => $userId,
 				'timestamp' => new GallerySqlFragment('>?', $cutoff),
-				'isEmpty'   => 0,
+				'isEmpty' => 0,
 			)
 		);
 
@@ -994,7 +994,7 @@ class GalleryDataCache {
 				'isEmpty'   => 0,
 			),
 			array(
-				'value'   => null,
+				'value' => null,
 				'isEmpty' => 1,
 			)
 		);

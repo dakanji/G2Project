@@ -253,7 +253,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 		while ($extraBlanks-- > 0) {
 			$form['resizes'][] = array(
 				'active' => 0,
-				'width'  => '',
+				'width' => '',
 				'height' => '',
 			);
 		}

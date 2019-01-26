@@ -37,7 +37,7 @@ $entityInfo['GalleryAnimationItem']    = array(
 $entityInfo['GalleryChildEntity']      = array(
 	'members' => array(
 		'parentId' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 		),
 	),
@@ -64,7 +64,7 @@ $entityInfo['GalleryDataItem']         = array(
 $entityInfo['GalleryDerivative']       = array(
 	'members' => array(
 		'derivativeSourceId' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
@@ -73,7 +73,7 @@ $entityInfo['GalleryDerivative']       = array(
 			'size' => STORAGE_SIZE_LARGE,
 		),
 		'derivativeOrder' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 		),
 		'derivativeSize' => array(
@@ -81,12 +81,12 @@ $entityInfo['GalleryDerivative']       = array(
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
 		'derivativeType' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 		),
 		'mimeType' => array(
-			'type' => STORAGE_TYPE_STRING,
-			'size' => STORAGE_SIZE_MEDIUM,
+			'type'    => STORAGE_TYPE_STRING,
+			'size'    => STORAGE_SIZE_MEDIUM,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
@@ -120,35 +120,35 @@ $entityInfo['GalleryDerivativeImage']  = array(
 $entityInfo['GalleryEntity']           = array(
 	'members' => array(
 		'id' => array(
-			'type' => STORAGE_TYPE_INTEGER | STORAGE_TYPE_ID,
+			'type'    => STORAGE_TYPE_INTEGER | STORAGE_TYPE_ID,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
 		'creationTimestamp' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
 		'isLinkable' => array(
-			'type' => STORAGE_TYPE_BOOLEAN,
+			'type'    => STORAGE_TYPE_BOOLEAN,
 			'notNull' => 1,
 		),
 		'linkId' => array(
 			'type' => STORAGE_TYPE_INTEGER,
 		),
 		'modificationTimestamp' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
 		'serialNumber' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
 		'entityType' => array(
-			'type' => STORAGE_TYPE_STRING,
-			'size' => STORAGE_SIZE_SMALL,
+			'type'    => STORAGE_TYPE_STRING,
+			'size'    => STORAGE_SIZE_SMALL,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
@@ -176,7 +176,7 @@ $entityInfo['GalleryFileSystemEntity'] = array(
 $entityInfo['GalleryGroup']            = array(
 	'members' => array(
 		'groupType' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 		),
 		'groupName' => array(
@@ -192,7 +192,7 @@ $entityInfo['GalleryGroup']            = array(
 $entityInfo['GalleryItem']             = array(
 	'members' => array(
 		'canContainChildren' => array(
-			'type' => STORAGE_TYPE_BOOLEAN,
+			'type'    => STORAGE_TYPE_BOOLEAN,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
@@ -207,7 +207,7 @@ $entityInfo['GalleryItem']             = array(
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
 		'ownerId' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 		),
 		'renderer' => array(
@@ -225,12 +225,12 @@ $entityInfo['GalleryItem']             = array(
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
 		'viewedSinceTimestamp' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),
 		'originationTimestamp' => array(
-			'type' => STORAGE_TYPE_INTEGER,
+			'type'    => STORAGE_TYPE_INTEGER,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_FULL,
 		),
@@ -282,8 +282,8 @@ $entityInfo['GalleryUnknownItem']      = array(
 $entityInfo['GalleryUser']             = array(
 	'members' => array(
 		'userName' => array(
-			'type' => STORAGE_TYPE_STRING,
-			'size' => STORAGE_SIZE_SMALL,
+			'type'    => STORAGE_TYPE_STRING,
+			'size'    => STORAGE_SIZE_SMALL,
 			'notNull' => 1,
 			'external-access' => EXTERNAL_ACCESS_READ,
 		),

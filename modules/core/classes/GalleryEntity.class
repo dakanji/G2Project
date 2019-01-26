@@ -432,7 +432,7 @@ class GalleryEntity extends GalleryPersistent {
 		);
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => $this->getId(),
 			)
 		);

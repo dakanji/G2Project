@@ -194,7 +194,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			'progress' => 0,
 			'total'    => 100,
 		);
-		$ret = $this->_export->_exportSequence('testHandle', 'sequenceid');
+		$ret                      = $this->_export->_exportSequence('testHandle', 'sequenceid');
 
 		if ($ret) {
 			return $ret;

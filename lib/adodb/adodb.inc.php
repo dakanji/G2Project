@@ -4755,10 +4755,10 @@ if (!defined('_ADODB_LAYER')) {
 			$this->_fieldobjects = array();
 
 			foreach ($hdr as $k => $name) {
-				$f             = new ADOFieldObject();
-				$f->name       = $name;
-				$f->type       = $this->_types[$k];
-				$f->max_length = -1;
+				$f                     = new ADOFieldObject();
+				$f->name               = $name;
+				$f->type               = $this->_types[$k];
+				$f->max_length         = -1;
 				$this->_fieldobjects[] = $f;
 			}
 			$this->fields = reset($this->_array);

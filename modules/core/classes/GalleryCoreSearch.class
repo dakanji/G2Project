@@ -41,7 +41,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$info = array(
-			'name' => $module->translate('Gallery Core'),
+			'name'    => $module->translate('Gallery Core'),
 			'description' => $module->translate('Gallery Core Module'),
 			'options' => array(
 				'descriptions' => array(
@@ -78,9 +78,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 
 		foreach (array(
 			'descriptions' => '[GalleryItem::description]',
-			'keywords'     => '[GalleryItem::keywords]',
-			'summaries'    => '[GalleryItem::summary]',
-			'titles'       => '[GalleryItem::title]',
+			'keywords'  => '[GalleryItem::keywords]',
+			'summaries' => '[GalleryItem::summary]',
+			'titles'    => '[GalleryItem::title]',
 		) as $key => $column) {
 			if (isset($options[$key])) {
 				$whereList[]        = "$column LIKE ?";
@@ -238,9 +238,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$data = array(
-			'start' => $numRows == 0 ? 0 : $offset + 1,
-			'end' => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
-			'count' => $numRows,
+			'start'   => $numRows == 0 ? 0 : $offset + 1,
+			'end'     => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
+			'count'   => $numRows,
 			'results' => $searchResults,
 		);
 

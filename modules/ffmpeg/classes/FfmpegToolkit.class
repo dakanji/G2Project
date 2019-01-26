@@ -277,7 +277,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 			case 'set-video-sameq':
 				// Doesn't change file; just remembers video setting for future operation
-				$futureOp = true;
+				$futureOp                     = true;
 				$context['ffmpeg.videosameq'] = true;
 
 				break;
@@ -374,7 +374,7 @@ class FfmpegToolkit extends GalleryToolkit {
 				$regs
 			)
 			) {
-				$successfulRun = true;
+				$successfulRun                     = true;
 				list($width, $height, $vframerate) = array($regs[1], $regs[2], $regs[3]);
 			}
 

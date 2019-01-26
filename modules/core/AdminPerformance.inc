@@ -106,7 +106,7 @@ class AdminPerformanceController extends GalleryController {
 
 			$status['saved'] = 1;
 			$redirect        = array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'core.AdminPerformance',
 			);
 		} elseif (isset($form['action']['clear'])) {
@@ -117,7 +117,7 @@ class AdminPerformanceController extends GalleryController {
 			}
 			$status['cleared'] = 1;
 			$redirect          = array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'core.AdminPerformance',
 			);
 		}
@@ -192,9 +192,9 @@ class AdminPerformanceView extends GalleryView {
 
 		// Set up our type lists
 		$typeList = array(
-			'none' => $module->translate('No acceleration'),
+			'none'    => $module->translate('No acceleration'),
 			'partial' => $module->translate('Partial acceleration'),
-			'full' => $module->translate('Full acceleration'),
+			'full'    => $module->translate('Full acceleration'),
 		);
 
 		// Set up our time lists
@@ -244,7 +244,7 @@ class AdminPerformanceView extends GalleryView {
 			);
 		}
 
-		$AdminPerformance = array();
+		$AdminPerformance                       = array();
 		$AdminPerformance['expirationTimeList'] = $expirationTimeList;
 		$AdminPerformance['typeList']           = $typeList;
 

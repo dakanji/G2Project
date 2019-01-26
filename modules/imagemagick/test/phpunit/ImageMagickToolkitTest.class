@@ -310,10 +310,10 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'output.png',
 				array('24.667', '23.5', '51.375', '52'),
 				array(
-					'width'  => '329',
+					'width' => '329',
 					'height' => '250',
-					'x'      => '158',
-					'y'      => '113',
+					'x' => '158',
+					'y' => '113',
 				)
 			);
 
@@ -364,11 +364,11 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					0,
 				),  // image alignment (unused w/ 'top-right')
 				array(
-					'image'  => $dataDir . 'image.gif',
-					'width'  => '50',
+					'image' => $dataDir . 'image.gif',
+					'width' => '50',
 					'height' => '50',
-					'x'      => '45',
-					'y'      => '0',
+					'x' => '45',
+					'y' => '0',
 				)
 			);
 
@@ -392,11 +392,11 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					151,
 				), // image alignment x, y
 				array(
-					'image'  => $dataDir . 'image.gif',
-					'width'  => '50',
+					'image' => $dataDir . 'image.gif',
+					'width' => '50',
 					'height' => '50',
-					'x'      => '0',
-					'y'      => '0',
+					'x' => '0',
+					'y' => '0',
 				)
 			);
 
@@ -726,10 +726,10 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
 			$context = array(
-				'next.toolkit'   => $this->_toolkit,
+				'next.toolkit' => $this->_toolkit,
 				'next.operation' => 'rotate',
-				'width'          => 640,
-				'height'         => 480,
+				'width' => 640,
+				'height' => 480,
 			);
 
 			list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(

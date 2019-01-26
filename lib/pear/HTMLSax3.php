@@ -162,7 +162,7 @@ class XML_HTMLSax3_StateParser {
 	 * @access protected
 	 */
 	public function __construct(& $htmlsax) {
-		$this->htmlsax = & $htmlsax;
+		$this->htmlsax                         = & $htmlsax;
 		$this->State[XML_HTMLSAX3_STATE_START] = new XML_HTMLSax3_StartingState();
 
 		$this->State[XML_HTMLSAX3_STATE_CLOSING_TAG] = new XML_HTMLSax3_ClosingTagState();

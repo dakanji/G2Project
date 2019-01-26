@@ -1514,7 +1514,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
-	$num = hexdec($num);
+	$num                     = hexdec($num);
 	$result['SubIFDNumTags'] = $num;
 
 	if ($num < 1000) { //1000 entries is too much and is probably an error.

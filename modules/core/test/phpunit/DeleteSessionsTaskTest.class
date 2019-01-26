@@ -66,7 +66,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 		$gallery->_session         = new DeleteSessionsTaskTestSession();
 		$session                   =& $gallery->getSession();
 		$gallery->_phpVm           = new UnitTestPhpVm();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm                     = $gallery->getPhpVm();
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 

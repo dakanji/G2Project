@@ -275,7 +275,7 @@ class GalleryStorageExtras {
 
 		while ($target) {
 			foreach ($memberInfo[$target]['members'] as $memberName => $memberData) {
-				$type = $memberData['type'];
+				$type                     = $memberData['type'];
 				list($tableName, $unused) = $this->_gs->_translateTableName($target);
 
 				// If the member is modified, record the new value in our table
@@ -284,7 +284,7 @@ class GalleryStorageExtras {
 
 					$entity->$memberName = $value = $this->_gs->_normalizeValue($value, $memberData);
 
-					$columnName = $this->_gs->_translateColumnName($memberName);
+					$columnName                         = $this->_gs->_translateColumnName($memberName);
 					$dataTable[$tableName][$columnName] = $value;
 				} else {
 					/*
@@ -725,8 +725,8 @@ class GalleryStorageExtras {
 			null,
 			array(
 				'lockId' => $lockId,
-				'type'   => LOCK_READ,
-				'ids'    => $lockInfo,
+				'type' => LOCK_READ,
+				'ids'  => $lockInfo,
 			),
 		);
 	}
@@ -868,8 +868,8 @@ class GalleryStorageExtras {
 			null,
 			array(
 				'lockId' => $lockId,
-				'type'   => LOCK_WRITE,
-				'ids'    => $lockInfo,
+				'type' => LOCK_WRITE,
+				'ids'  => $lockInfo,
 			),
 		);
 	}
@@ -1218,7 +1218,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 		list($tableName, $unused) = $this->_gs->_translateTableName($mapName);
-		$data = $where = array();
+		$data                     = $where = array();
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (array_key_exists($memberName, $match)) {
@@ -1336,10 +1336,10 @@ class GalleryStorageExtras {
 			$moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $this->_gs->getType());
 		} else {
 			$moduleSql = array(
-				'table'  => array(),
-				'alter'  => array(),
+				'table' => array(),
+				'alter' => array(),
 				'remove' => array(),
-				'test'   => array(),
+				'test'  => array(),
 			);
 		}
 
@@ -1358,10 +1358,10 @@ class GalleryStorageExtras {
 	 */
 	public static function parseSqlTemplate($sqlData, $dbType) {
 		$info   = array(
-			'table' => array(),
-			'alter' => array(),
+			'table'  => array(),
+			'alter'  => array(),
 			'remove' => array(),
-			'test' => array(),
+			'test'   => array(),
 		);
 		$dbname = $tablename = null;
 		$record = false;

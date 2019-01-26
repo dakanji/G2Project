@@ -31,12 +31,12 @@ class GalleryTestCase extends TestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
 		$this->_cleanup = array(
-			'entity'           => array(),
-			'factoryModuleId'  => array(),
-			'toolkitId'        => array(),
+			'entity'    => array(),
+			'factoryModuleId' => array(),
+			'toolkitId' => array(),
 			'pluginParameters' => array(),
-			'factoryRegistry'  => null,
-			'eventListeners'   => null,
+			'factoryRegistry' => null,
+			'eventListeners' => null,
 		);
 	}
 
@@ -1176,8 +1176,8 @@ class GalleryTestCase extends TestCase {
 		return GalleryCoreApi::addMapEntry(
 			'FailedLoginsMap',
 			array(
-				'userName'    => $userName,
-				'count'       => 100,
+				'userName' => $userName,
+				'count' => 100,
 				'lastAttempt' => time(),
 			)
 		);

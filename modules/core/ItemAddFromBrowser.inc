@@ -244,8 +244,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		if ($form['formName'] != 'ItemAddFromBrowser') {
 			$form['set']      = array(
-				'title'       => 'filename',
-				'summary'     => 1,
+				'title' => 'filename',
+				'summary' => 1,
 				'description' => 1,
 			);
 			$form['formName'] = 'ItemAddFromBrowser';
@@ -253,8 +253,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		$titleList = array(
 			'filename' => $module->translate('Base filename'),
-			'caption' => $module->translate('Caption'),
-			'' => $module->translate('Blank'),
+			'caption'  => $module->translate('Caption'),
+			''         => $module->translate('Blank'),
 		);
 
 		$template->setVariable(

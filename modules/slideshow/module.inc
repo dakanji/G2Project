@@ -300,13 +300,13 @@ class SlideshowModule extends GalleryModule {
 		$rule['pattern']  = 'v/%path%/slideshow.html';
 		$rule['keywords'] = array(
 			'path' => array(
-				'pattern'  => '([^?]+)',
+				'pattern' => '([^?]+)',
 				'function' => array(
 					'rewrite',
 					'RewriteSimpleHelper',
 					'parsePath',
 				),
-				'help'     => $this->translate(
+				'help' => $this->translate(
 					'Path to an item (eg, /album/image.jpg.html)'
 				),
 			),

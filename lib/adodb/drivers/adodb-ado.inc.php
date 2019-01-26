@@ -301,7 +301,7 @@ class ADODB_ado extends ADOConnection {
 			if (!$this->_thisTransactions) {
 				return false;
 			}
-			$o = $this->_connectionID->Properties('Transaction DDL');
+			$o                       = $this->_connectionID->Properties('Transaction DDL');
 			$this->_thisTransactions = $o ? true : false;
 
 			if (!$o) {

@@ -134,61 +134,61 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (isset($params['rows']) && isset($standard['rows'])) {
 			$settings[] = array(
-				'key'        => 'rows',
-				'name'       => $core->translate('Rows per album page'),
-				'type'       => 'text-field',
+				'key'   => 'rows',
+				'name'  => $core->translate('Rows per album page'),
+				'type'  => 'text-field',
 				'typeParams' => array(
 					'size' => 2,
 				),
-				'value'      => $params['rows'],
+				'value' => $params['rows'],
 			);
 		}
 
 		if (isset($params['columns']) && isset($standard['columns'])) {
 			$settings[] = array(
-				'key'        => 'columns',
-				'name'       => $core->translate('Columns per album page'),
-				'type'       => 'text-field',
+				'key'   => 'columns',
+				'name'  => $core->translate('Columns per album page'),
+				'type'  => 'text-field',
 				'typeParams' => array(
 					'size' => 2,
 				),
-				'value'      => $params['columns'],
+				'value' => $params['columns'],
 			);
 		}
 
 		if (isset($params['perPage']) && isset($standard['perPage'])) {
 			$settings[] = array(
-				'key'        => 'perPage',
-				'name'       => $core->translate('Number of items to show per page'),
-				'type'       => 'text-field',
+				'key'   => 'perPage',
+				'name'  => $core->translate('Number of items to show per page'),
+				'type'  => 'text-field',
 				'typeParams' => array(
 					'size' => 2,
 				),
-				'value'      => $params['perPage'],
+				'value' => $params['perPage'],
 			);
 		}
 
 		if (isset($params['rowHeight']) && isset($standard['rowHeight'])) {
 			$settings[] = array(
-				'key'        => 'rowHeight',
-				'name'       => $core->translate('Row height (pixels)'),
-				'type'       => 'text-field',
+				'key'   => 'rowHeight',
+				'name'  => $core->translate('Row height (pixels)'),
+				'type'  => 'text-field',
 				'typeParams' => array(
 					'size' => 3,
 				),
-				'value'      => $params['rowHeight'],
+				'value' => $params['rowHeight'],
 			);
 		}
 
 		if (isset($params['columnWidth']) && isset($standard['columnWidth'])) {
 			$settings[] = array(
-				'key'        => 'columnWidth',
-				'name'       => $core->translate('Column width (pixels)'),
-				'type'       => 'text-field',
+				'key'   => 'columnWidth',
+				'name'  => $core->translate('Column width (pixels)'),
+				'type'  => 'text-field',
 				'typeParams' => array(
 					'size' => 3,
 				),
-				'value'      => $params['columnWidth'],
+				'value' => $params['columnWidth'],
 			);
 		}
 
@@ -221,45 +221,45 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (isset($params['sidebarBlocks']) && isset($standard['sidebarBlocks'])) {
 			$settings[] = array(
-				'key'        => 'sidebarBlocks',
-				'name'       => $core->translate('Blocks to show in the sidebar'),
-				'type'       => 'block-list',
+				'key'   => 'sidebarBlocks',
+				'name'  => $core->translate('Blocks to show in the sidebar'),
+				'type'  => 'block-list',
 				'typeParams' => array(
 					'packType' => 'block-list',
 				),
-				'value'      => $params['sidebarBlocks'],
+				'value' => $params['sidebarBlocks'],
 			);
 		}
 
 		if (isset($params['albumBlocks']) && isset($standard['albumBlocks'])) {
 			$settings[] = array(
-				'key'        => 'albumBlocks',
-				'name'       => $core->translate('Blocks to show on album pages'),
-				'type'       => 'block-list',
+				'key'   => 'albumBlocks',
+				'name'  => $core->translate('Blocks to show on album pages'),
+				'type'  => 'block-list',
 				'typeParams' => array(
 					'packType' => 'block-list',
 				),
-				'value'      => $params['albumBlocks'],
+				'value' => $params['albumBlocks'],
 			);
 		}
 
 		if (isset($params['photoBlocks']) && isset($standard['photoBlocks'])) {
 			$settings[] = array(
-				'key'        => 'photoBlocks',
-				'name'       => $core->translate('Blocks to show on photo pages'),
-				'type'       => 'block-list',
+				'key'   => 'photoBlocks',
+				'name'  => $core->translate('Blocks to show on photo pages'),
+				'type'  => 'block-list',
 				'typeParams' => array(
 					'packType' => 'block-list',
 				),
-				'value'      => $params['photoBlocks'],
+				'value' => $params['photoBlocks'],
 			);
 		}
 
 		if (isset($params['dynamicLinks']) && isset($standard['dynamicLinks'])) {
 			$settings[] = array(
-				'key'     => 'dynamicLinks',
-				'name'    => $core->translate('Thumbnail links in dynamic albums'),
-				'type'    => 'single-select',
+				'key'   => 'dynamicLinks',
+				'name'  => $core->translate('Thumbnail links in dynamic albums'),
+				'type'  => 'single-select',
 				'choices' => array(
 					'browse'   => $core->translate('Browse dynamic album'),
 					'jump'     => $core->translate('Jump to original album'),
@@ -267,7 +267,7 @@ class GalleryTheme extends GalleryPlugin {
 						'Separate link to original album'
 					),
 				),
-				'value'   => $params['dynamicLinks'],
+				'value' => $params['dynamicLinks'],
 			);
 		}
 
@@ -341,11 +341,11 @@ class GalleryTheme extends GalleryPlugin {
 				return array($ret, null, null);
 			}
 			$settings[] = array(
-				'key'     => 'colorpack',
-				'name'    => $core->translate('Color Pack'),
-				'type'    => 'single-select',
+				'key'   => 'colorpack',
+				'name'  => $core->translate('Color Pack'),
+				'type'  => 'single-select',
 				'choices' => $list,
-				'value'   => $params['colorpack'],
+				'value' => $params['colorpack'],
 			);
 		}
 
@@ -874,7 +874,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (!isset($theme['pageUrl'])) {
 			$theme['pageUrl'] = array(
-				'view'   => 'core.ShowItem',
+				'view' => 'core.ShowItem',
 				'itemId' => $item->getId(),
 			);
 		}
@@ -1229,7 +1229,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (!is_array($result)) {
 			$result = array(
-				'body'      => sprintf('themes/%s/templates/%s', $this->getId(), $result),
+				'body' => sprintf('themes/%s/templates/%s', $this->getId(), $result),
 				'cacheable' => $this->_cacheablePage ? $item->getId() : false,
 			);
 		}
@@ -1678,7 +1678,7 @@ class GalleryTheme extends GalleryPlugin {
 			}
 			$theme['descendentCount']         = isset($descendentCount[$itemId]) ? $descendentCount[$itemId] : 0;
 			$theme['item']['descendentCount'] = $theme['descendentCount'];
-			$childData[] = 'descendentCount';
+			$childData[]                      = 'descendentCount';
 		}
 
 		/*
@@ -1997,7 +1997,7 @@ class GalleryTheme extends GalleryPlugin {
 			}
 
 			foreach ($navigator as $key => $id) {
-				$navigator[$key] = array(
+				$navigator[$key]                        = array(
 					'urlParams' => $theme['pageUrl'],
 					'item'      => (array)$entities[$id],
 				);
@@ -2058,8 +2058,8 @@ class GalleryTheme extends GalleryPlugin {
 			 * Figure out all possible views of this item that the user can see and get them into an
 			 * acceptable format for the template engine
 			 */
-			$imageViews = array();
-			$can        = array();
+			$imageViews              = array();
+			$can                     = array();
 			list($ret, $permissions) = GalleryCoreApi::getPermissions($itemId, $theme['actingUserId']);
 
 			if ($ret) {

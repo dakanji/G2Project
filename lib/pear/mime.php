@@ -121,10 +121,10 @@ class Mail_mime {
 			'head_encoding' => 'quoted-printable',
 			'text_encoding' => '7bit',
 			'html_encoding' => 'quoted-printable',
-			'7bit_wrap'     => 998,
-			'html_charset'  => 'ISO-8859-1',
-			'text_charset'  => 'ISO-8859-1',
-			'head_charset'  => 'ISO-8859-1',
+			'7bit_wrap' => 998,
+			'html_charset' => 'ISO-8859-1',
+			'text_charset' => 'ISO-8859-1',
+			'head_charset' => 'ISO-8859-1',
 		);
 	}
 
@@ -232,10 +232,10 @@ class Mail_mime {
 			return $filedata;
 		}
 		$this->_html_images[] = array(
-			'body' => $filedata,
-			'name' => $filename,
+			'body'   => $filedata,
+			'name'   => $filename,
 			'c_type' => $c_type,
-			'cid'  => md5(uniqid(time())),
+			'cid'    => md5(uniqid(time())),
 		);
 
 		return true;
@@ -292,11 +292,11 @@ class Mail_mime {
 		}
 
 		$this->_parts[] = array(
-			'body' => $filedata,
-			'name' => $filename,
-			'c_type' => $c_type,
+			'body'     => $filedata,
+			'name'     => $filename,
+			'c_type'   => $c_type,
 			'encoding' => $encoding,
-			'charset' => $charset,
+			'charset'  => $charset,
 			'disposition' => $disposition,
 		);
 

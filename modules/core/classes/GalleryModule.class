@@ -706,7 +706,7 @@ class GalleryModule extends GalleryPlugin {
 
 	public function setGroup($group, $groupLabel) {
 		$this->_group = array(
-			'group'      => $group,
+			'group' => $group,
 			'groupLabel' => $groupLabel,
 		);
 	}
@@ -721,13 +721,13 @@ class GalleryModule extends GalleryPlugin {
 			}
 
 			return array(
-				'group'      => 'other',
+				'group' => 'other',
 				'groupLabel' => $groupLabel,
 			);
 		}
 
 		return array(
-			'group'      => $this->_group['group'],
+			'group' => $this->_group['group'],
 			'groupLabel' => $this->translate($this->_group['groupLabel']),
 		);
 	}

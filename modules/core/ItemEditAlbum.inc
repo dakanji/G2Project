@@ -636,9 +636,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 		$templateAdapter->updateProgressBar($heading, '', 1);
 		$redirect = array(
-			'view' => 'core.ItemAdmin',
+			'view'    => 'core.ItemAdmin',
 			'subView' => 'core.ItemEdit',
-			'itemId' => $item->getId(),
+			'itemId'  => $item->getId(),
 		);
 
 		$urlGenerator =& $gallery->getUrlGenerator();
@@ -899,9 +899,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		if (!isset($form['recreateResizes'])) {
 			// Don't show "Complete" yet if there is another task
 			$redirect = array(
-				'view'    => 'core.ItemAdmin',
+				'view' => 'core.ItemAdmin',
 				'subView' => 'core.ItemEdit',
-				'itemId'  => $item->getId(),
+				'itemId' => $item->getId(),
 			);
 
 			$urlGenerator =& $gallery->getUrlGenerator();

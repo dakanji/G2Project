@@ -34,7 +34,7 @@ function rs2xmlrpcval(&$adodbrs) {
 	$xmlrpcrs = new xmlrpcval(
 		array(
 			'header' => $header,
-			'body' => $body,
+			'body'   => $body,
 		),
 		'struct'
 	);
@@ -90,7 +90,7 @@ function rs2xmlrpcval_header($adodbrs) {
 		array(
 			'fieldcount' => $fieldcount,
 			'recordcount' => $recordcount,
-			'sql' => $sql,
+			'sql'       => $sql,
 			'fieldinfo' => $fieldinfo,
 		),
 		'struct'

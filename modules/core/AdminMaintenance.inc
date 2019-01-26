@@ -87,7 +87,7 @@ class AdminMaintenanceController extends GalleryController {
 				} else {
 					$results['delegate']['view']    = 'core.SiteAdmin';
 					$results['delegate']['subView'] = 'core.AdminMaintenance';
-					$error[] = 'form[error][maintenanceModeRequired]';
+					$error[]                        = 'form[error][maintenanceModeRequired]';
 				}
 			}
 		} elseif (isset($form['action']['setMode'])) {

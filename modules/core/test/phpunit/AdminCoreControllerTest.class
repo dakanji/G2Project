@@ -50,25 +50,25 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		 * will fail with permission errors.
 		 */
 		$this->_valueMap = array(
-			'permissions.directory'  => 'x1',
-			'permissions.file'       => 'x2',
-			'exec.beNice'            => 'x2.5',
-			'exec.expectedStatus'    => 'x3',
-			'default.orderBy'        => 'x4',
+			'permissions.directory' => 'x1',
+			'permissions.file' => 'x2',
+			'exec.beNice' => 'x2.5',
+			'exec.expectedStatus' => 'x3',
+			'default.orderBy' => 'x4',
 			'default.orderDirection' => 'x5',
-			'default.theme'          => 'x7',
-			'session.lifetime'       => 'x9',
-			'misc.markup'            => 'x11',
-			'cookie.path'            => '/sub/',
-			'cookie.domain'          => '.example.com',
-			'lock.system'            => 'x13',
-			'smtp.host'              => 'smtp.example.com',
-			'smtp.username'          => 'x14',
-			'smtp.password'          => 'x15',
-			'smtp.from'              => 'gallery@example.com',
-			'format.date'            => 'x16',
-			'format.time'            => 'x17',
-			'format.datetime'        => 'x18',
+			'default.theme' => 'x7',
+			'session.lifetime' => 'x9',
+			'misc.markup' => 'x11',
+			'cookie.path' => '/sub/',
+			'cookie.domain' => '.example.com',
+			'lock.system' => 'x13',
+			'smtp.host' => 'smtp.example.com',
+			'smtp.username' => 'x14',
+			'smtp.password' => 'x15',
+			'smtp.from' => 'gallery@example.com',
+			'format.date' => 'x16',
+			'format.time' => 'x17',
+			'format.datetime' => 'x18',
 		);
 
 		// The AdminCore controller uses the url generator to check the cookie path
@@ -98,10 +98,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -142,10 +142,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -188,10 +188,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -225,10 +225,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -270,31 +270,31 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		// Some test cases
 		$tests   = array();
 		$tests[] = array(
-			'path' => '',
+			'path'  => '',
 			'saved' => 1,
-			'ep'   => '',
+			'ep'    => '',
 		);
 		$tests[] = array(
-			'path' => '/',
+			'path'  => '/',
 			'saved' => 1,
-			'ep'   => '/',
+			'ep'    => '/',
 		);
 		$tests[] = array(
-			'path' => '/sub/',
+			'path'  => '/sub/',
 			'saved' => 1,
-			'ep'   => '/sub/',
+			'ep'    => '/sub/',
 		);
 		$tests[] = array(
-			'path' => '/sub',
+			'path'  => '/sub',
 			'saved' => 1,
-			'ep'   => '/sub/',
+			'ep'    => '/sub/',
 		);
 		$tests[] = array(
-			'path' => '/sub/gallery',
+			'path'  => '/sub/gallery',
 			'saved' => 0,
 		);
 		$tests[] = array(
-			'path' => '/sub/application',
+			'path'  => '/sub/application',
 			'saved' => 0,
 		);
 
@@ -387,23 +387,23 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$tests   = array();
 		$tests[] = array(
 			'domain' => '',
-			'saved' => 1,
-			'ep' => '',
+			'saved'  => 1,
+			'ep'     => '',
 		);
 		$tests[] = array(
 			'domain' => 'example.com',
-			'saved' => 1,
-			'ep' => '.example.com',
+			'saved'  => 1,
+			'ep'     => '.example.com',
 		);
 		$tests[] = array(
 			'domain' => '.example.com',
-			'saved' => 1,
-			'ep' => '.example.com',
+			'saved'  => 1,
+			'ep'     => '.example.com',
 		);
 		$tests[] = array(
 			'domain' => '.www.example.com',
-			'saved' => 1,
-			'ep' => '.www.example.com',
+			'saved'  => 1,
+			'ep'     => '.www.example.com',
 		);
 		$tests[] = array(
 			'domain' => 'photos.example.com',
@@ -489,8 +489,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][smtp][invalidFrom]'),
+				'status' => array(),
+				'error' => array('form[error][smtp][invalidFrom]'),
 			),
 			$results
 		);
@@ -507,8 +507,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(),
-				'error'    => array('form[emailTestError][invalidTo]'),
+				'status' => array(),
+				'error' => array('form[emailTestError][invalidTo]'),
 			),
 			$results
 		);
@@ -525,8 +525,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(),
-				'error'    => array('form[emailTestError][invalidTo]'),
+				'status' => array(),
+				'error' => array('form[emailTestError][invalidTo]'),
 			),
 			$results
 		);
@@ -554,11 +554,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved'            => 1,
 					'emailTestSuccess' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -590,7 +590,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'core.AdminCore',
 			),
 			$results['redirect'],
@@ -636,8 +636,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);

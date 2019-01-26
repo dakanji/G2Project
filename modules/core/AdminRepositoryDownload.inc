@@ -81,7 +81,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			// Create package list.
 			$installPackages = array();
 
-			$utils = new GalleryRepositoryUtilities();
+			$utils                      = new GalleryRepositoryUtilities();
 			list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 			if ($ret) {
@@ -187,11 +187,11 @@ class AdminRepositoryDownloadView extends GalleryView {
 		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables('pluginType', 'pluginId');
 
 		$AdminRepositoryDownload = array(
-			'pluginId'   => $pluginId,
+			'pluginId' => $pluginId,
 			'pluginType' => $pluginType,
 		);
 
-		$utils = new GalleryRepositoryUtilities();
+		$utils                      = new GalleryRepositoryUtilities();
 		list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 		if ($ret) {

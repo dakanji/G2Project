@@ -172,7 +172,7 @@ class GalleryLockSystem {
 			}
 			$this->_locks[$lockId] = array(
 				'lockId' => $lockId,
-				'type'   => LOCK_WRITE,
+				'type' => LOCK_WRITE,
 			);
 		}
 

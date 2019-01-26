@@ -206,7 +206,7 @@ class AdminJpegtranView extends GalleryView {
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
-						$testResults = array();
+						$testResults                      = array();
 						$form['error']['path']['badPath'] = 1;
 					} else {
 						return array($ret, null);

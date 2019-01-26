@@ -543,9 +543,9 @@ class GalleryDerivativeHelper_advanced {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryDerivativePreferencesMap',
 			array(
-				'order'                => $order,
-				'itemId'               => $itemId,
-				'derivativeType'       => $derivativeType,
+				'order' => $order,
+				'itemId' => $itemId,
+				'derivativeType' => $derivativeType,
 				'derivativeOperations' => $derivativeOperations,
 			)
 		);
@@ -623,8 +623,8 @@ class GalleryDerivativeHelper_advanced {
 
 		while ($result = $searchResults->nextResult()) {
 			$data[] = array(
-				'order'                => (int)$result[0],
-				'derivativeType'       => (int)$result[1],
+				'order' => (int)$result[0],
+				'derivativeType' => (int)$result[1],
 				'derivativeOperations' => $result[2],
 			);
 		}

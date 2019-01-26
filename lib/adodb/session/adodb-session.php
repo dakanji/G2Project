@@ -715,9 +715,9 @@ class ADODB_Session {
 		}
 
 		$arr = array(
-			'sesskey' => $key,
-			'expiry' => $expiry,
-			$data => $val,
+			'sesskey'   => $key,
+			'expiry'    => $expiry,
+			$data       => $val,
 			'expireref' => '',
 		);
 

@@ -125,7 +125,7 @@ class ItemDeleteController extends GalleryController {
 			 * Can't use return url because it may be for an item we just deleted
 			 */
 			$results['redirect'] = array(
-				'view'   => 'core.ShowItem',
+				'view' => 'core.ShowItem',
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
@@ -293,10 +293,10 @@ class ItemDeleteView extends GalleryView {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$ItemDelete              = array();
-		$ItemDelete['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
-		$ItemDelete['peers']     = $peers;
-		$ItemDelete['peerTypes'] = $peerTypes;
+		$ItemDelete                         = array();
+		$ItemDelete['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
+		$ItemDelete['peers']                = $peers;
+		$ItemDelete['peerTypes']            = $peerTypes;
 		$ItemDelete['peerDescendentCounts'] = $peerDescendentCounts;
 		$ItemDelete['page']                 = $page;
 		$ItemDelete['numPages']             = $numPages;

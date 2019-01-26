@@ -144,7 +144,7 @@ class DeleteCommentView extends GalleryView {
 		$DeleteComment['commenter'] = (array)$commenter;
 		$DeleteComment['item']      = (array)$item;
 		$DeleteComment['can']       = array(
-			'edit' => false,
+			'edit'   => false,
 			'delete' => false,
 		);
 

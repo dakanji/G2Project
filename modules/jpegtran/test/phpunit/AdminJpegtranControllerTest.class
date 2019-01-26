@@ -61,10 +61,10 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -88,8 +88,8 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -105,8 +105,8 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -125,8 +125,8 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][testError]'),
+				'status' => array(),
+				'error' => array('form[error][path][testError]'),
 			),
 			$results
 		);
@@ -145,8 +145,8 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][badPath]'),
+				'status' => array(),
+				'error' => array('form[error][path][badPath]'),
 			),
 			$results
 		);
@@ -165,8 +165,8 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][notExecutable]'),
+				'status' => array(),
+				'error' => array('form[error][path][notExecutable]'),
 			),
 			$results
 		);
@@ -185,10 +185,10 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -215,8 +215,8 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'jpegtran.AdminJpegtran',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][missing]'),
+				'status' => array(),
+				'error' => array('form[error][path][missing]'),
 			),
 			$results
 		);

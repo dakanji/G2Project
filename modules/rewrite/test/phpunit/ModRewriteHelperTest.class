@@ -240,12 +240,12 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		 */
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$testRules[0]         = array(
-			'pattern'     => 'd/Test-Download-Rule',
-			'keywords'    => array(),
+			'pattern'  => 'd/Test-Download-Rule',
+			'keywords' => array(),
 			'queryString' => array(
 				'view' => 'core.DownloadItem',
 			),
-			'options'     => array(
+			'options'  => array(
 				'forceDirect'            => true,
 				'forceSessionId'         => false,
 				'forceServerRelativeUrl' => true,

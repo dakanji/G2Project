@@ -265,9 +265,9 @@ class AdminEditUserView extends GalleryView {
 			$failedLoginCount = 0;
 		}
 
-		$AdminEditUser         = array();
-		$AdminEditUser['show'] = $show;
-		$AdminEditUser['user'] = (array)$user;
+		$AdminEditUser                     = array();
+		$AdminEditUser['show']             = $show;
+		$AdminEditUser['user']             = (array)$user;
 		$AdminEditUser['failedLoginCount'] = $failedLoginCount;
 
 		if (isset($languageList)) {

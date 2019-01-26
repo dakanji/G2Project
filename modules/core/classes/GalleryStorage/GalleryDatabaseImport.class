@@ -103,8 +103,8 @@ class GalleryImportElement extends GalleryXmlHandler {
 		} else {
 			$this->_callBack['progress'] += $progress;
 			$this->_callBack['total']    += $total;
-			$complete = $this->_callBack['progress'] / $this->_callBack['total'];
-			$callback = $this->_callBack['callBack'];
+			$complete                     = $this->_callBack['progress'] / $this->_callBack['total'];
+			$callback                     = $this->_callBack['callBack'];
 			call_user_func_array($callback, array($complete));
 			$gallery->guaranteeTimeLimit(120);
 		}
@@ -825,8 +825,8 @@ class _GalleryFieldDefinitionTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
-		$colName               = GalleryUtilities::strToLower($attributes['name']);
-		$this->_translatedName = $this->_storage->_translateColumnName($colName);
+		$colName                        = GalleryUtilities::strToLower($attributes['name']);
+		$this->_translatedName          = $this->_storage->_translateColumnName($colName);
 		$this->_fieldDefinition['type'] = $attributes['type'];
 
 		if (!empty($attributes['size'])) {

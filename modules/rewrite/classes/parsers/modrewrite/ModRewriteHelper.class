@@ -686,7 +686,7 @@ class ModRewriteHelper {
 
 		// Check embedded .htaccess
 		if (GalleryUtilities::isEmbedded()) {
-			$TestResults['embedded'] = array();
+			$TestResults['embedded']                         = array();
 			list($ret, $TestResults['embedded']['htaccess']) = self::checkFile(true);
 
 			if ($ret) {

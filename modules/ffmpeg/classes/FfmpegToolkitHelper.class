@@ -413,7 +413,7 @@ class FfmpegToolkitHelper {
 			}
 		}
 		$tests[] = array(
-			'name' => 'ffmpeg',
+			'name'    => 'ffmpeg',
 			'success' => $success,
 			'results' => $results,
 		);

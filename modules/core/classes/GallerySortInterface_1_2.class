@@ -75,18 +75,18 @@ class GallerySortInterface_1_2 {
 		}
 
 		$orderByList = array(
-			'' => $module->translate('&laquo; default sort order &raquo;'),
+			''          => $module->translate('&laquo; default sort order &raquo;'),
 			'orderWeight' => $module->translate('Manual sort order'),
-			'title' => $module->translate('Title'),
-			'summary' => $module->translate('Summary'),
+			'title'     => $module->translate('Title'),
+			'summary'   => $module->translate('Summary'),
 			'originationTimestamp' => $module->translate('Origination Date'),
 			'creationTimestamp' => $module->translate('Creation Date'),
 			'modificationTimestamp' => $module->translate('Last Changed Date'),
 			'description' => $module->translate('Description'),
-			'keywords' => $module->translate('Keywords'),
+			'keywords'  => $module->translate('Keywords'),
 			'pathComponent' => $module->translate('Name'),
 			'viewCount' => $module->translate('View Count'),
-			'random' => $module->translate('Random'),
+			'random'    => $module->translate('Random'),
 		);
 
 		if (!$includeDefault) {

@@ -49,7 +49,7 @@ class ShowItemController extends GalleryController {
 			array(
 				'return' => 1,
 				'status' => array(),
-				'error'  => array(),
+				'error' => array(),
 			),
 		);
 	}

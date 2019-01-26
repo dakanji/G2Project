@@ -210,14 +210,14 @@ class ADODB_Active_Record {
 	);
 
 	public static $WeIsI = array(
-		'EQUIPMENT' => true,
+		'EQUIPMENT'   => true,
 		'INFORMATION' => true,
-		'RICE'    => true,
-		'MONEY'   => true,
-		'SPECIES' => true,
-		'SERIES'  => true,
-		'FISH'    => true,
-		'SHEEP'   => true,
+		'RICE'        => true,
+		'MONEY'       => true,
+		'SPECIES'     => true,
+		'SERIES'      => true,
+		'FISH'        => true,
+		'SHEEP'       => true,
 	);
 
 	public function _pluralize($table) {
@@ -759,8 +759,8 @@ class ADODB_Active_Record {
 			$propertyName = $ft->name;
 
 			foreach ($ft->flds as $name => $fld) {
-				$value               = $row[current($keys)];
-				$foreignTable->$name = $value;
+				$value                     = $row[current($keys)];
+				$foreignTable->$name       = $value;
 				$foreignTable->_original[] = $value;
 
 				if (!next($keys)) {
@@ -773,8 +773,8 @@ class ADODB_Active_Record {
 			$ft = $foreignTable->TableInfo();
 
 			foreach ($ft->flds as $name => $fld) {
-				$value               = $row[current($keys)];
-				$foreignTable->$name = $value;
+				$value                     = $row[current($keys)];
+				$foreignTable->$name       = $value;
 				$foreignTable->_original[] = $value;
 
 				if (!next($keys)) {

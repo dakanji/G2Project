@@ -212,7 +212,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'width'  => 60,
+				'width' => 60,
 				'height' => 323,
 			),
 			$context,
@@ -230,7 +230,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'DEST',
 			array('10', '20', '60', '40.4'),
 			array(
-				'width'  => 200,
+				'width' => 200,
 				'height' => 50,
 			)
 		);
@@ -241,7 +241,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'width'  => 120,
+				'width' => 120,
 				'height' => 20,
 			),
 			$context,
@@ -278,7 +278,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'DEST',
 			array('-90'),
 			array(
-				'width'  => 200,
+				'width' => 200,
 				'height' => 50,
 			)
 		);
@@ -289,7 +289,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'width'  => 50,
+				'width' => 50,
 				'height' => 200,
 			),
 			$context,

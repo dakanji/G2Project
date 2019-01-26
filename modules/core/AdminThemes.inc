@@ -235,7 +235,7 @@ class AdminThemesController extends GalleryController {
 					}
 				} else {
 					foreach ($validationErrors as $validationKey => $validationMessage) {
-						$error[] = sprintf('form[error][key][%s][invalid]', $validationKey);
+						$error[]                      = sprintf('form[error][key][%s][invalid]', $validationKey);
 						$errorMessage[$validationKey] = $validationMessage;
 					}
 					GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
@@ -489,7 +489,7 @@ class AdminThemesView extends GalleryView {
 				$tmp = explode('|', $value, 2);
 
 				if (count($tmp) == 2) {
-					$value = $tmp[1];
+					$value                      = $tmp[1];
 					$form['default']['presort'] = $tmp[0];
 				} else {
 					$form['default']['presort'] = '';
@@ -502,7 +502,7 @@ class AdminThemesView extends GalleryView {
 
 		$newAlbumsUseDefaultsList = array(
 			'false' => $module->translate('Inherit settings from parent album'),
-			'true' => $module->translate('Use these settings'),
+			'true'  => $module->translate('Use these settings'),
 		);
 
 		// Set up our sort order selection list

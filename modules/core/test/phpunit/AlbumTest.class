@@ -904,8 +904,8 @@ class AlbumTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_parentAlbum->getId(),
 			array(
-				'theme'          => 'AlbumTestTheme',
-				'orderBy'        => 'b',
+				'theme' => 'AlbumTestTheme',
+				'orderBy' => 'b',
 				'orderDirection' => 'c',
 			)
 		);
@@ -975,8 +975,8 @@ class AlbumTest extends GalleryTestCase {
 		list($ret, $album2) = $this->_createRandomAlbum(
 			$this->_parentAlbum->getId(),
 			array(
-				'theme'          => '',
-				'orderBy'        => 'd',
+				'theme' => '',
+				'orderBy' => 'd',
 				'orderDirection' => 'e',
 			)
 		);

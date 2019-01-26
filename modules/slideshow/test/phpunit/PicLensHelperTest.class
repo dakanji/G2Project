@@ -248,8 +248,8 @@ class PicLensHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'version' => 'VERSION',
-				'jsUrl'   => 'http://host/path/js',
-				'swfUrl'  => 'http://host/path/swf',
+				'jsUrl' => 'http://host/path/js',
+				'swfUrl' => 'http://host/path/swf',
 			),
 			PicLensHelper::getLatestPicLensInfo()
 		);
@@ -268,8 +268,8 @@ class PicLensHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'version' => '&lt;evil&gt;',
-				'jsUrl'   => '&lt;eviler&gt;',
-				'swfUrl'  => '&lt;evilest&gt;',
+				'jsUrl' => '&lt;eviler&gt;',
+				'swfUrl' => '&lt;evilest&gt;',
 			),
 			PicLensHelper::getLatestPicLensInfo()
 		);

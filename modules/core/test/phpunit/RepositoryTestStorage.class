@@ -74,9 +74,9 @@ class RepositoryTestStorage {
 
 	public function getMapEntry($map, $data, $match) {
 		$this->_searches[] = array(
-			'map' => $map,
+			'map'    => $map,
 			'select' => $data,
-			'where' => $match,
+			'where'  => $match,
 		);
 
 		return array(

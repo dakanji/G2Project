@@ -50,10 +50,10 @@ class GalleryDatabaseExport {
 	 * as part of the import.
 	 */
 	public $_ignoreTables = array(
-		'cachemap' => 1,
-		'lock'     => 1,
+		'cachemap'   => 1,
+		'lock'       => 1,
 		'sessionmap' => 1,
-		'schema'   => 1,
+		'schema'     => 1,
 	);
 
 	/**
@@ -748,8 +748,8 @@ class GalleryDatabaseExport {
 						'Unable to write to export file'
 					);
 				}
-				$translatedName = $storage->_translateColumnName($fieldName);
-				$fieldNames[]   = $translatedName;
+				$translatedName                   = $storage->_translateColumnName($fieldName);
+				$fieldNames[]                     = $translatedName;
 				$fieldDescriptor[$translatedName] = $definition;
 			}
 

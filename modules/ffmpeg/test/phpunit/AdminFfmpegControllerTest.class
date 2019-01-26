@@ -82,10 +82,10 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -113,10 +113,10 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -144,10 +144,10 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -171,8 +171,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -188,8 +188,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -208,8 +208,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][testError]'),
+				'status' => array(),
+				'error' => array('form[error][path][testError]'),
 			),
 			$results
 		);
@@ -228,8 +228,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][badPath]'),
+				'status' => array(),
+				'error' => array('form[error][path][badPath]'),
 			),
 			$results
 		);
@@ -248,8 +248,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][notExecutable]'),
+				'status' => array(),
+				'error' => array('form[error][path][notExecutable]'),
 			),
 			$results
 		);
@@ -268,8 +268,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][missing]'),
+				'status' => array(),
+				'error' => array('form[error][path][missing]'),
 			),
 			$results
 		);
@@ -302,11 +302,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(
+				'status' => array(
 					'added' => 1,
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -335,11 +335,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
-				'status'   => array(
+				'status' => array(
 					'removed' => 1,
 					'saved'   => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);

@@ -226,7 +226,7 @@ class Smarty {
 	 */
 	public $security_settings = array(
 		'PHP_HANDLING' => false,
-		'IF_FUNCS' => array(
+		'IF_FUNCS'     => array(
 			'array',
 			'list',
 			'isset',
@@ -239,8 +239,8 @@ class Smarty {
 			'false',
 			'null',
 		),
-		'INCLUDE_ANY' => false,
-		'PHP_TAGS' => false,
+		'INCLUDE_ANY'  => false,
+		'PHP_TAGS'     => false,
 		'MODIFIER_FUNCS' => array('count'),
 		'ALLOW_CONSTANTS' => false,
 		'ALLOW_SUPER_GLOBALS' => true,
@@ -459,7 +459,7 @@ class Smarty {
 	 */
 	public $_config = array(
 		array(
-			'vars' => array(),
+			'vars'  => array(),
 			'files' => array(),
 		),
 	);
@@ -540,15 +540,15 @@ class Smarty {
 	 * @var array
 	 */
 	public $_plugins = array(
-		'modifier' => array(),
-		'function' => array(),
-		'block'    => array(),
-		'compiler' => array(),
-		'prefilter' => array(),
-		'postfilter' => array(),
+		'modifier'     => array(),
+		'function'     => array(),
+		'block'        => array(),
+		'compiler'     => array(),
+		'prefilter'    => array(),
+		'postfilter'   => array(),
 		'outputfilter' => array(),
-		'resource' => array(),
-		'insert'   => array(),
+		'resource'     => array(),
+		'insert'       => array(),
 	);
 
 
@@ -946,10 +946,10 @@ class Smarty {
 			);
 		}
 		$_params = array(
-			'auto_base'   => $this->cache_dir,
+			'auto_base' => $this->cache_dir,
 			'auto_source' => $tpl_file,
-			'auto_id'     => $_auto_id,
-			'exp_time'    => $exp_time,
+			'auto_id'   => $_auto_id,
+			'exp_time'  => $exp_time,
 		);
 
 		include_once SMARTY_CORE_DIR . 'core.rm_auto.php';
@@ -985,8 +985,8 @@ class Smarty {
 		}
 
 		$_params = array(
-			'tpl_file'   => $tpl_file,
-			'cache_id'   => $cache_id,
+			'tpl_file' => $tpl_file,
+			'cache_id' => $cache_id,
 			'compile_id' => $compile_id,
 		);
 
@@ -1018,11 +1018,11 @@ class Smarty {
 			$compile_id = $this->compile_id;
 		}
 		$_params = array(
-			'auto_base'   => $this->compile_dir,
+			'auto_base' => $this->compile_dir,
 			'auto_source' => $tpl_file,
-			'auto_id'     => $compile_id,
-			'exp_time'    => $exp_time,
-			'extensions'  => array('.inc', '.php'),
+			'auto_id'   => $compile_id,
+			'exp_time'  => $exp_time,
+			'extensions' => array('.inc', '.php'),
 		);
 
 		include_once SMARTY_CORE_DIR . 'core.rm_auto.php';
@@ -1039,8 +1039,8 @@ class Smarty {
 	public function template_exists($tpl_file) {
 		$_params = array(
 			'resource_name' => $tpl_file,
-			'quiet'         => true,
-			'get_source'    => false,
+			'quiet' => true,
+			'get_source' => false,
 		);
 
 		return $this->_fetch_resource_info($_params);
@@ -1149,9 +1149,9 @@ class Smarty {
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 			$_debug_start_time          = smarty_core_get_microtime($_params, $this);
 			$this->_smarty_debug_info[] = array(
-				'type'     => 'template',
+				'type'  => 'template',
 				'filename' => $resource_name,
-				'depth'    => 0,
+				'depth' => 0,
 			);
 			$_included_tpls_idx         = count($this->_smarty_debug_info) - 1;
 		}
@@ -1354,9 +1354,9 @@ class Smarty {
 		include_once $this->_get_plugin_filepath('function', 'config_load');
 		smarty_function_config_load(
 			array(
-				'file'    => $file,
+				'file'  => $file,
 				'section' => $section,
-				'scope'   => $scope,
+				'scope' => $scope,
 			),
 			$this
 		);
@@ -1615,7 +1615,7 @@ class Smarty {
 						$params['source_content'] = $this->_read_file($_resource_name);
 					}
 					$params['resource_timestamp'] = filemtime($_resource_name);
-					$_return = is_file($_resource_name) && is_readable($_resource_name);
+					$_return                      = is_file($_resource_name) && is_readable($_resource_name);
 
 					break;
 
@@ -1933,9 +1933,9 @@ class Smarty {
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 			$debug_start_time           = smarty_core_get_microtime($_params, $this);
 			$this->_smarty_debug_info[] = array(
-				'type'     => 'template',
+				'type'  => 'template',
 				'filename' => $params['smarty_include_tpl_file'],
-				'depth'    => ++$this->_inclusion_depth,
+				'depth' => ++$this->_inclusion_depth,
 			);
 			$included_tpls_idx          = count($this->_smarty_debug_info) - 1;
 		}

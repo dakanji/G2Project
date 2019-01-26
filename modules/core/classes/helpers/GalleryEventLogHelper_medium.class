@@ -60,14 +60,14 @@ class GalleryEventLogHelper_medium {
 		}
 
 		$rowData = array(
-			'userId' => $gallery->getActiveUserId(),
-			'type' => $type,
-			'summary' => $summary,
-			'details' => $details,
-			'location' => $urlGenerator->getCurrentUrl(),
-			'client' => GalleryUtilities::getRemoteHostAddress(),
+			'userId'    => $gallery->getActiveUserId(),
+			'type'      => $type,
+			'summary'   => $summary,
+			'details'   => $details,
+			'location'  => $urlGenerator->getCurrentUrl(),
+			'client'    => GalleryUtilities::getRemoteHostAddress(),
 			'timestamp' => $phpVm->time(),
-			'referer' => GalleryUtilities::getServerVar('HTTP_REFERER'),
+			'referer'   => GalleryUtilities::getServerVar('HTTP_REFERER'),
 		);
 
 		$ret = GalleryCoreApi::updateMapEntry(

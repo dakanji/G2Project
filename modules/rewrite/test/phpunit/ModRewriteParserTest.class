@@ -643,7 +643,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveEmbedConfig2() {
 		$this->_platform->_isWriteable = false;
-		$params = array(
+		$params                        = array(
 			'embeddedLocation' => '/test/',
 			'embeddedHtaccess' => '/phpunit/test',
 		);
@@ -661,7 +661,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveEmbedConfig3() {
 		$this->_platform->_isWriteable = false;
-		$params = array();
+		$params                        = array();
 
 		list($ret, $code, $errstr) = $this->_parser->saveEmbedConfig($params);
 

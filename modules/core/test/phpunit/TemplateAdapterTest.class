@@ -80,8 +80,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$test   = array(
 			'urlParams' => array(
 				'controller' => 'core.Monkey',
-				'view'       => 'core.Pirate',
-				'subView'    => 'core.Ninja',
+				'view' => 'core.Pirate',
+				'subView' => 'core.Ninja',
 			),
 		);
 		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
@@ -98,11 +98,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testLinkId6() {
 		$test   = array(
-			'view' => 'core.Pirate',
+			'view'      => 'core.Pirate',
 			'urlParams' => array(
 				'controller' => 'core.Monkey',
-				'view'       => 'core.Pirate',
-				'subView'    => 'core.Ninja',
+				'view' => 'core.Pirate',
+				'subView' => 'core.Ninja',
 			),
 		);
 		$result = GalleryTemplateAdapter::doStatic()->linkId($test);
@@ -131,7 +131,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 		$this->_templateAdapter->url(
 			array(
-				'arg1'         => 'foo=bar',
+				'arg1' => 'foo=bar',
 				'forceFullUrl' => 'anything',
 			),
 			$this->_mockSmarty
@@ -177,7 +177,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'params' => array(
 					'view' => 'fun.View',
 				),
-				'arg1'   => 'foo=bar',
+				'arg1' => 'foo=bar',
 			),
 			$this->_mockSmarty
 		);
@@ -202,7 +202,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 					'foo' => 'foo',
 					'bar' => 'bar',
 				),
-				'foo'     => 'bar',
+				'foo' => 'bar',
 			),
 			$this->_mockSmarty
 		);
@@ -221,8 +221,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testChangeInDescendents() {
 		$test = array(
-			'module' => 'pirate',
-			'text' => 'ninja',
+			'module'    => 'pirate',
+			'text'      => 'ninja',
 			'l10Domain' => 'modules_foo',
 		);
 		$this->_setupAdapterWithMocks();
@@ -269,7 +269,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
 		$translated = $this->_templateAdapter->text(
 			array(
-				'text'          => "Text with a single ' quote",
+				'text' => "Text with a single ' quote",
 				'forJavascript' => true,
 			),
 			$this->_mockSmarty
@@ -278,7 +278,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$translated = $this->_templateAdapter->text(
 			array(
-				'text'          => 'Text with a double " quote',
+				'text' => 'Text with a double " quote',
 				'forJavascript' => true,
 			),
 			$this->_mockSmarty
@@ -287,8 +287,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$translated = $this->_templateAdapter->text(
 			array(
-				'text'          => 'Text with a %s backslash',
-				'arg1'          => '\\',
+				'text' => 'Text with a %s backslash',
+				'arg1' => '\\',
 				'forJavascript' => true,
 			),
 			$this->_mockSmarty
@@ -304,8 +304,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$translated = $this->_templateAdapter->text(
 			array(
-				'text'            => 'Test %s',
-				'arg1'            => 'FOO',
+				'text' => 'Test %s',
+				'arg1' => 'FOO',
 				'postSprintfArg1' => 'foo',
 			),
 			$this->_mockSmarty
@@ -314,8 +314,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$translated = $this->_templateAdapter->text(
 			array(
-				'text'            => 'Test %s',
-				'arg1'            => 'FUN',
+				'text' => 'Test %s',
+				'arg1' => 'FUN',
 				'postSprintfArg1' => 'fun',
 			),
 			$this->_mockSmarty
@@ -618,11 +618,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals('[missing link]', $this->_templateAdapter->itemLink(array()));
 
 		$link = array(
-			'params' => array(
+			'params'  => array(
 				'view' => 'test.View',
 			),
 			'options' => array(),
-			'text' => 'test link',
+			'text'    => 'test link',
 		);
 
 		$expected = '<a href="Array" class="gbAdminLink gbLink-test_View">test link</a>';
@@ -647,25 +647,25 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$link = array(
-			'params' => array(
+			'params'  => array(
 				'view' => 'test.View',
 			),
 			'options' => array(
 				'forceFullUrl' => true,
 			),
-			'text' => 'Test Link',
-			'script' => 'alert(\'hi\')',
-			'attrs' => 'title="fun"',
+			'text'    => 'Test Link',
+			'script'  => 'alert(\'hi\')',
+			'attrs'   => 'title="fun"',
 		);
 
 		$expected = '<a href="Array" onclick="alert(\'hi\');return false" title="fun" '
 		. 'target="_blank">test link</a>';
 		$actual   = $this->_templateAdapter->itemLink(
 			array(
-				'link'      => $link,
+				'link'  => $link,
 				'lowercase' => true,
-				'class'     => null,
-				'target'    => '_blank',
+				'class' => null,
+				'target' => '_blank',
 			)
 		);
 		$this->assertTrue(
@@ -684,11 +684,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$link = array(
-			'params' => array(
+			'params'  => array(
 				'view' => 'test.View',
 			),
 			'options' => array(),
-			'text' => 'Test link',
+			'text'    => 'Test link',
 		);
 		$this->assertEquals(
 			'<option value="window.location=\'Array\'">Test link</option>',
@@ -710,11 +710,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$link = array(
-			'params' => array(
+			'params'  => array(
 				'view' => 'test.View',
 			),
 			'options' => array(),
-			'text' => 'Test link',
+			'text'    => 'Test link',
 		);
 
 		$expected = '<a href="Array" title="Some Title" class="">Text Override</a>';

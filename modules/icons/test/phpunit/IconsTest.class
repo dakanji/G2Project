@@ -47,8 +47,8 @@ class IconsTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_icons   = new IconsImpl();
-		$this->_saveRtl = $gallery->_translator->_isRightToLeft;
+		$this->_icons                         = new IconsImpl();
+		$this->_saveRtl                       = $gallery->_translator->_isRightToLeft;
 		$gallery->_translator->_isRightToLeft = false;
 	}
 

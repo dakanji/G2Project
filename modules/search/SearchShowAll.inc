@@ -192,12 +192,12 @@ class SearchShowAllView extends GalleryView {
 			'SearchShowAll',
 			array(
 				'controller' => 'search.SearchShowAll',
-				'maxPages'   => $maxPages,
+				'maxPages' => $maxPages,
 				'moduleInfo' => $moduleInfo,
-				'moduleId'   => $moduleId,
-				'results'    => $results,
+				'moduleId' => $moduleId,
+				'results' => $results,
 				'thumbnails' => $thumbnails,
-				'items'      => $items,
+				'items' => $items,
 			)
 		);
 

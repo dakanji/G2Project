@@ -238,28 +238,28 @@ class SiriuxTheme extends GalleryTheme {
 
 		// Add in our custom settings
 		$settings[] = array(
-			'key'  => 'contentWidth',
-			'name' => $this->translate('Width of page content in pixels'),
-			'type' => 'text-field',
+			'key'   => 'contentWidth',
+			'name'  => $this->translate('Width of page content in pixels'),
+			'type'  => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => $params['contentWidth'],
 		);
 		$settings[] = array(
-			'key'  => 'groupByYear',
-			'name' => $this->translate(
+			'key'   => 'groupByYear',
+			'name'  => $this->translate(
 				'Group sub-albums by year (album must be sorted by date!)'
 			),
-			'type' => 'checkbox',
+			'type'  => 'checkbox',
 			'value' => $params['groupByYear'],
 		);
 		$settings[] = array(
-			'key'  => 'enableImageMap',
-			'name' => $this->translate(
+			'key'   => 'enableImageMap',
+			'name'  => $this->translate(
 				'Enable prev/next navigation by clicking in the left/right half of the image'
 			),
-			'type' => 'checkbox',
+			'type'  => 'checkbox',
 			'value' => $params['enableImageMap'],
 		);
 

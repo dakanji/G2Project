@@ -318,11 +318,11 @@ class RewriteModule extends GalleryModule {
 
 		// Rule 0: Show Item
 		$rules[0] = array(
-			'comment' => $this->translate('Show Item'),
-			'match' => array(
+			'comment'  => $this->translate('Show Item'),
+			'match'    => array(
 				'view' => 'core.ShowItem',
 			),
-			'pattern' => 'v/%path%',
+			'pattern'  => 'v/%path%',
 			'keywords' => array(
 				'path' => array(
 					'pattern'  => '([^?]+)',
@@ -340,17 +340,17 @@ class RewriteModule extends GalleryModule {
 					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseLanguage'),
 				),
 			),
-			'onLoad' => array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath'),
-			'help' => $this->translate('The general URL for viewing items.'),
+			'onLoad'   => array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath'),
+			'help'     => $this->translate('The general URL for viewing items.'),
 		);
 
 		// Rule 1: Download Item
 		$rules[1] = array(
-			'comment' => $this->translate('Download Item'),
-			'match' => array(
+			'comment'  => $this->translate('Download Item'),
+			'match'    => array(
 				'view' => 'core.DownloadItem',
 			),
-			'pattern' => 'd/%itemId%-%serialNumber%/%fileName%',
+			'pattern'  => 'd/%itemId%-%serialNumber%/%fileName%',
 			'keywords' => array(
 				'serialNumber' => array(
 					'pattern'  => '([0-9]+)',
@@ -365,23 +365,23 @@ class RewriteModule extends GalleryModule {
 					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseFileName'),
 				),
 			),
-			'help' => $this->translate('The general URL for downloading items.'),
+			'help'     => $this->translate('The general URL for downloading items.'),
 		);
 
 		// Rule 4: Site Admin
 		$rules[4] = array(
 			'comment' => $this->translate('Site Admin'),
-			'match' => array(
+			'match'   => array(
 				'view' => 'core.SiteAdmin',
 			),
 			'pattern' => 'admin/',
-			'help' => $this->translate('Quick and easy way to access Site Admin.'),
+			'help'    => $this->translate('Quick and easy way to access Site Admin.'),
 		);
 
 		// Rule 2: File not found
 		$rules[2] = array(
-			'comment'     => $this->translate('404 File not found'),
-			'keywords'    => array(
+			'comment'  => $this->translate('404 File not found'),
+			'keywords' => array(
 				'path' => array(
 					'pattern' => '([^?]+)',
 					'ignore'  => true,
@@ -390,15 +390,15 @@ class RewriteModule extends GalleryModule {
 			'queryString' => array(
 				'view' => 'rewrite.FileNotFound',
 			),
-			'pattern'     => '%path%',
-			'locked'      => true,
+			'pattern'  => '%path%',
+			'locked'   => true,
 		);
 
 		// Rule 3: Block hotlinked items
 		$rules[3] = array(
-			'comment'       => $this->translate('Block hotlinked items'),
-			'flags'         => array('F'),
-			'restrict'      => array(
+			'comment'  => $this->translate('Block hotlinked items'),
+			'flags'    => array('F'),
+			'restrict' => array(
 				'view' => 'core.DownloadItem',
 			),
 			'exemptReferer' => true,
@@ -406,7 +406,7 @@ class RewriteModule extends GalleryModule {
 
 		// Rule 5: Send HTML for hotlinked items
 		$rules[5] = array(
-			'comment' => $this->translate('Send HTML for hotlinked items'),
+			'comment'  => $this->translate('Send HTML for hotlinked items'),
 			'restrict' => array(
 				GalleryUtilities::prefixFormVariable('view') => 'core.DownloadItem',
 				GalleryUtilities::prefixFormVariable('itemId') => '%itemId%',
@@ -415,11 +415,11 @@ class RewriteModule extends GalleryModule {
 			'queryString' => array(
 				'view' => 'rewrite.DownloadItem',
 			),
-			'options' => array(
+			'options'  => array(
 				'forceDirect' => true,
 			),
-			'flags' => array('L'),
-			'help' => $this->translate(
+			'flags'    => array('L'),
+			'help'     => $this->translate(
 				'Blocks use of images in other sites (HTML creates broken'
 				. ' image), but allows linking to images.'
 			),

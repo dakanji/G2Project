@@ -525,9 +525,9 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		// Run the tasks
 		$_REQUEST['ItemEditAlbumPluginTest_opCount'] = array(
 			'thumbnail' => 0,
-			'scale' => 0,
-			'crop' => 0,
-			'rotate' => 0,
+			'scale'     => 0,
+			'crop'      => 0,
+			'rotate'    => 0,
 		);
 		$ret = $mockAdapter->runCallbacks();
 

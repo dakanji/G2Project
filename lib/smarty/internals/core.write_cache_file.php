@@ -88,8 +88,8 @@ function smarty_core_write_cache_file($params, &$smarty) {
 		$_auto_id    = $smarty->_get_auto_id($params['cache_id'], $params['compile_id']);
 		$_cache_file = $smarty->_get_auto_filename($smarty->cache_dir, $params['tpl_file'], $_auto_id);
 		$_params     = array(
-			'filename'    => $_cache_file,
-			'contents'    => $params['results'],
+			'filename' => $_cache_file,
+			'contents' => $params['results'],
 			'create_dirs' => true,
 		);
 

@@ -225,7 +225,7 @@ class SessionTest extends GalleryTestCase {
 			if ($type == 'with-cookies') {
 				GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
 				$_COOKIE[SESSION_ID_PARAMETER] = 'TESTSID';
-				$expected = true;
+				$expected                      = true;
 			} else {
 				GalleryUtilities::putRequestVariable(SESSION_ID_PARAMETER, 'TESTSID');
 				unset($_COOKIE[SESSION_ID_PARAMETER]);
@@ -280,12 +280,12 @@ class SessionTest extends GalleryTestCase {
 		 * (When multiple cookies exist with different paths, or in IE)
 		 */
 		GalleryUtilities::fixCookieVars(false, true);
-		$sessionId      = $persistent->getId();
-		$wrongSessionId = md5(mt_rand());
+		$sessionId                     = $persistent->getId();
+		$wrongSessionId                = md5(mt_rand());
 		$_COOKIE[SESSION_ID_PARAMETER] = $wrongSessionId;
 		$_SERVER['HTTP_COOKIE']        = $this->_saveServerVars['HTTP_COOKIE'];
-		$delimiter              = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
-		$_SERVER['HTTP_COOKIE'] = SESSION_ID_PARAMETER . '=' . $sessionId . ' ; ' .
+		$delimiter                     = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
+		$_SERVER['HTTP_COOKIE']        = SESSION_ID_PARAMETER . '=' . $sessionId . ' ; ' .
 		SESSION_ID_PARAMETER . '=' . $wrongSessionId . $delimiter . $_SERVER['HTTP_COOKIE'];
 		// Force the use of cookies
 		if (!$isUsingCookies) {
@@ -474,7 +474,7 @@ class SessionTest extends GalleryTestCase {
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
 			$session                    = new GallerySession();
-			$ret = $session->init();
+			$ret                        = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -516,7 +516,7 @@ class SessionTest extends GalleryTestCase {
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
 			$session                    = new GallerySession();
-			$ret = $session->init();
+			$ret                        = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -540,7 +540,7 @@ class SessionTest extends GalleryTestCase {
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '6.7.9.9';
 			$session                    = new GallerySession();
-			$ret = $session->init();
+			$ret                        = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -563,7 +563,7 @@ class SessionTest extends GalleryTestCase {
 			$_SERVER['HTTP_USER_AGENT'] = 'DIFFERENT_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
 			$session                    = new GallerySession();
-			$ret = $session->init();
+			$ret                        = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -586,7 +586,7 @@ class SessionTest extends GalleryTestCase {
 			$_SERVER['HTTP_USER_AGENT'] = 'DIFFERENT_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '3.5.7.9';
 			$session                    = new GallerySession();
-			$ret = $session->init();
+			$ret                        = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -609,7 +609,7 @@ class SessionTest extends GalleryTestCase {
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
 			$session                    = new GallerySession();
-			$ret = $session->init();
+			$ret                        = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -703,8 +703,8 @@ class SessionTest extends GalleryTestCase {
 		$_COOKIE[SESSION_ID_PARAMETER] = $session->_sessionId;
 		$_SERVER['HTTP_COOKIE']        = SESSION_ID_PARAMETER . '=' . $sessionId;
 		$_SERVER['HTTPS']              = 1;
-		$session2 = new GallerySession();
-		$ret      = $session2->init();
+		$session2                      = new GallerySession();
+		$ret = $session2->init();
 
 		if ($ret) {
 			return $ret;
@@ -856,32 +856,32 @@ class SessionTest extends GalleryTestCase {
 		// A few test cases for which we either have to start a new persistent session or not
 		$tests   = array();
 		$tests[] = array(
-			'view' => 'core.ShowItem',
-			'force' => false,
-			'data' => false,
+			'view'   => 'core.ShowItem',
+			'force'  => false,
+			'data'   => false,
 			'userId' => $this->_anonymousUserId,
-			'er'   => false,
+			'er'     => false,
 		);
 		$tests[] = array(
-			'view' => 'core.ShowItem',
-			'force' => true,
-			'data' => false,
+			'view'   => 'core.ShowItem',
+			'force'  => true,
+			'data'   => false,
 			'userId' => $this->_anonymousUserId,
-			'er'   => true,
+			'er'     => true,
 		);
 		$tests[] = array(
-			'view' => 'core.ShowItem',
-			'force' => false,
-			'data' => true,
+			'view'   => 'core.ShowItem',
+			'force'  => false,
+			'data'   => true,
 			'userId' => $this->_anonymousUserId,
-			'er'   => true,
+			'er'     => true,
 		);
 		$tests[] = array(
-			'view' => 'core.DownloadItem',
-			'force' => false,
-			'data' => true,
+			'view'   => 'core.DownloadItem',
+			'force'  => false,
+			'data'   => true,
 			'userId' => 99,
-			'er'   => false,
+			'er'     => false,
 		);
 
 		$headers =& GalleryUtilities::_getResponseHeaders();
@@ -1262,7 +1262,7 @@ class SessionTest extends GalleryTestCase {
 		$session->_sessionId        = md5(mt_rand());
 		$session->_forceSaveSession = true;
 		$session->_userId           = null;
-		$ret = $session->save();
+		$ret                        = $session->save();
 
 		if ($ret) {
 			$this->assertEquals(ERROR_MISSING_VALUE | GALLERY_ERROR, $ret->getErrorCode(), 'error');
@@ -1305,7 +1305,7 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
-		$newSid = md5(mt_rand());
+		$newSid                        = md5(mt_rand());
 		$gallery->_session->_sessionId = $newSid;
 		$this->assertFalse($gallery->_session->_forceSaveSession, 'force save');
 
@@ -1505,7 +1505,7 @@ class SessionTest extends GalleryTestCase {
 		$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 		$_SERVER['REMOTE_ADDR']     = '1.1.1.1';
 		$session                    = new GallerySession();
-		$ret = $session->init();
+		$ret                        = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -1570,7 +1570,7 @@ class SessionTest extends GalleryTestCase {
 		$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 		$_SERVER['REMOTE_ADDR']     = '1.1.1.1';
 		$session                    = new GallerySession();
-		$ret = $session->init();
+		$ret                        = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -1631,7 +1631,7 @@ class SessionTest extends GalleryTestCase {
 		$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 		$_SERVER['REMOTE_ADDR']     = '1.1.1.1';
 		$session                    = new GallerySession();
-		$ret = $session->init();
+		$ret                        = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -1703,7 +1703,7 @@ class SessionTest extends GalleryTestCase {
 		$session->_sessionId = null;
 		$session->_userId    = $this->_anonymousUserId;
 
-		$storage =& $gallery->getStorage();
+		$storage                      =& $gallery->getStorage();
 		$storage->_nonTransactionalDb = null;
 		$storage->_db                 = null;
 
@@ -1892,7 +1892,7 @@ class SessionTest extends GalleryTestCase {
 			'remoteIdentifier' => serialize(array()),
 			'creationTimestamp' => time() - 86400 * 8,
 			'modificationTimestamp' => time() - 86400 * 3,
-			'data' => serialize(array()),
+			'data'   => serialize(array()),
 		);
 
 		foreach ($sessionIds as $id => $one) {
@@ -2132,20 +2132,20 @@ class SessionTest extends GalleryTestCase {
 		'0';
 		$expectedString = str_replace($search, $replace, $html);
 
-		$data           = array();
-		$data[$search]  = $html;
-		$data[]         = array($html, 15, array(1));
-		$data['object'] = new stdClass();
+		$data                         = array();
+		$data[$search]                = $html;
+		$data[]                       = array($html, 15, array(1));
+		$data['object']               = new stdClass();
 		$data['object']->stringMember = $html;
-		$data[] = 15;
+		$data[]                       = 15;
 
 		$expected = array();
 		// Don't touch array keys
-		$expected[$search]  = $expectedString;
-		$expected[]         = array($expectedString, 15, array(1));
-		$expected['object'] = new stdClass();
+		$expected[$search]                = $expectedString;
+		$expected[]                       = array($expectedString, 15, array(1));
+		$expected['object']               = new stdClass();
 		$expected['object']->stringMember = $expectedString;
-		$expected[] = 15;
+		$expected[]                       = 15;
 
 		$this->assertEquals($expected, $session->replaceSessionIdInData($data, $search, $replace));
 	}
@@ -2729,12 +2729,12 @@ class SessionTest extends GalleryTestCase {
 			'foo' => 'bar',
 		);
 		$entry            = array(
-			'id'   => $sid,
+			'id'     => $sid,
 			'userId' => $userId,
 			'remoteIdentifier' => serialize($remoteId),
 			'creationTimestamp' => $creationTime,
 			'modificationTimestamp' => $modificationTime,
-			'data' => serialize($data),
+			'data'   => serialize($data),
 		);
 		$ret              = GalleryCoreApi::addMapEntry('GallerySessionMap', $entry);
 
@@ -2828,12 +2828,12 @@ class SessionTest extends GalleryTestCase {
 				'foo' => 'bar',
 			);
 			$entry = array(
-				'id'                    => $sid,
-				'userId'                => 10,
-				'remoteIdentifier'      => serialize(array()),
-				'creationTimestamp'     => $now - 100,
+				'id'   => $sid,
+				'userId' => 10,
+				'remoteIdentifier' => serialize(array()),
+				'creationTimestamp' => $now - 100,
 				'modificationTimestamp' => $now - 50,
-				'data'                  => serialize($data),
+				'data' => serialize($data),
 			);
 			$ret   = GalleryCoreApi::addMapEntry('GallerySessionMap', $entry);
 
@@ -3199,24 +3199,24 @@ class SessionTest extends GalleryTestCase {
 		$tests = array();
 		// We don't expect a cookie header when requesting a DownloadItem
 		$tests[] = array(
-			'key' => 'view',
+			'key'   => 'view',
 			'value' => 'core.DownloadItem',
-			'er'  => false,
+			'er'    => false,
 		);
 		$tests[] = array(
-			'key' => 'view',
+			'key'   => 'view',
 			'value' => 'imageframe.CSS',
-			'er'  => false,
+			'er'    => false,
 		);
 		$tests[] = array(
-			'key' => 'view',
+			'key'   => 'view',
 			'value' => 'core.ShowItem',
-			'er'  => true,
+			'er'    => true,
 		);
 		$tests[] = array(
-			'key' => 'controller',
+			'key'   => 'controller',
 			'value' => 'migrate.Redirect',
-			'er'  => false,
+			'er'    => false,
 		);
 
 		unset($_COOKIE[SESSION_ID_PARAMETER]);
@@ -3381,7 +3381,7 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$session->_forceSaveSession = true;
-		$ret = $session->start();
+		$ret                        = $session->start();
 
 		if ($ret) {
 			return $ret;
@@ -3421,7 +3421,7 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$session->_forceSaveSession = true;
-		$ret = $session->start();
+		$ret                        = $session->start();
 
 		if ($ret) {
 			return $ret;
@@ -3452,34 +3452,34 @@ class SessionTest extends GalleryTestCase {
 		$tests = array();
 
 		$tests[] = array(
-			'type' => 'view',
+			'type'  => 'view',
 			'value' => 'core.DownloadItem',
-			'er'   => false,
+			'er'    => false,
 		);
 		$tests[] = array(
-			'type' => 'view',
+			'type'  => 'view',
 			'value' => 'core.ShowItem',
-			'er'   => true,
+			'er'    => true,
 		);
 		$tests[] = array(
-			'type' => 'controller',
+			'type'  => 'controller',
 			'value' => 'migrate.Redirect',
-			'er'   => false,
+			'er'    => false,
 		);
 		$tests[] = array(
-			'type' => 'view',
+			'type'  => 'view',
 			'value' => 'imageframe.CSS',
-			'er'   => false,
+			'er'    => false,
 		);
 		$tests[] = array(
-			'type' => 'view',
+			'type'  => 'view',
 			'value' => 'core.ItemAdmin',
-			'er'   => true,
+			'er'    => true,
 		);
 		$tests[] = array(
-			'type' => 'controller',
+			'type'  => 'controller',
 			'value' => 'core.Logout',
-			'er'   => true,
+			'er'    => true,
 		);
 
 		foreach ($tests as $testCase) {
@@ -3701,7 +3701,7 @@ class SessionTest extends GalleryTestCase {
 		}
 		$this->assertFalse($session->isPersistent(), 'after init');
 		$session->_forceSaveSession = true;
-		$ret = $session->start();
+		$ret                        = $session->start();
 
 		if ($ret) {
 			return $ret;
@@ -3769,7 +3769,7 @@ class SessionTest extends GalleryTestCase {
 		$session->_forceSaveSession = true;
 		$session->_userId           = 10;
 		$session_sessionData['foo'] = 'bar';
-		$ret = $session->start();
+		$ret                        = $session->start();
 
 		if ($ret) {
 			return $ret;

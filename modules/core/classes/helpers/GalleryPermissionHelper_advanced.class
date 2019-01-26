@@ -356,7 +356,7 @@ class GalleryPermissionHelper_advanced {
 			}
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			$query  = sprintf(
+			$query                     = sprintf(
 				'
 			SELECT
 			[GalleryAccessSubscriberMap::accessListId],
@@ -375,9 +375,9 @@ class GalleryPermissionHelper_advanced {
 			',
 				$aclMarkers
 			);
-			$data[] = $itemId;
-			$data[] = "$parentSequence/%";
-			$data   = array_merge($data, $aclIds);
+			$data[]                    = $itemId;
+			$data[]                    = "$parentSequence/%";
+			$data                      = array_merge($data, $aclIds);
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -843,7 +843,7 @@ class GalleryPermissionHelper_advanced {
 	public static function _copyAccessList($oldAccessListId) {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
+		$storage                     =& $gallery->getStorage();
 		list($ret, $newAccessListId) = $storage->getUniqueId();
 
 		if ($ret) {
@@ -1073,11 +1073,11 @@ class GalleryPermissionHelper_advanced {
 		// Add a new entry in our map to represent this relationship.
 		$ret = self::_setPermission(
 			array(
-				'module'      => $module,
-				'permission'  => $permissionId,
+				'module' => $module,
+				'permission' => $permissionId,
 				'description' => $description,
-				'flags'       => $flags,
-				'bits'        => $bits,
+				'flags' => $flags,
+				'bits'  => $bits,
 			)
 		);
 
@@ -1288,7 +1288,7 @@ class GalleryPermissionHelper_advanced {
 			return $ret;
 		}
 
-		$storage =& $gallery->getStorage();
+		$storage                      =& $gallery->getStorage();
 		list($ret, $andNotPermission) = $storage->getFunctionSql(
 			'BITAND',
 			array('[GalleryAccessMap::permission]', '?')

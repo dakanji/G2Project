@@ -145,8 +145,8 @@ class DatabaseSetupStep extends InstallStep {
 				break;
 
 			default:
-				$this->_config['type'] = 'mysqlt';
-				$dbPlatformType        = 'mysql';
+				$this->_config['type']                  = 'mysqlt';
+				$dbPlatformType                         = 'mysql';
 				$templateData['error']['invalidDbType'] = 1;
 		}
 
@@ -257,7 +257,7 @@ class DatabaseSetupStep extends InstallStep {
 				} elseif (!empty($dbVersion) && empty($datVersion)) {
 					// Database tables exist, but g2data seems to be not ok.
 					// Explain and offer clean install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['warnings'][]              = 'Gallery tables already exist in this database!  But there is no ' .
 					'\'versions.dat\' file in your G2 storage directory which we interpret ' .
@@ -268,7 +268,7 @@ class DatabaseSetupStep extends InstallStep {
 				} elseif (empty($dbVersion) && !empty($datVersion)) {
 					// Database tables don't exist, but g2data has versions.dat
 					// Explain and offer clean install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['warnings'][]              = 'The G2 storage directory has a versions.dat file of an old install. ' .
 					'But the Gallery database tables don\'t exist. Select a clean install ' .
@@ -277,7 +277,7 @@ class DatabaseSetupStep extends InstallStep {
 				} elseif ($dbVersion != $datVersion) {
 					// Installed version is not ok, mismatch between g2data and the database
 					// Explain and offer Clean Install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['warnings'][]              = 'Gallery tables already exist in the database and there is a versions.' .
 					'dat file in the Gallery storage directory. But the version of the ' .
@@ -287,7 +287,7 @@ class DatabaseSetupStep extends InstallStep {
 					' and to advance to the next step.';
 				} else {
 					// Installed version is ok, offer Reuse Tables and Clean Install.
-					$confirmRequired = 1;
+					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['showConfirmReuseTables']  = 1;
 

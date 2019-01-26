@@ -63,7 +63,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$this->_markToolkitForCleanup('CreateThumbnailOptionTestToolkit');
 
 		// Register operations that we can perform on our mock data items
-		$ret          = GalleryCoreApi::registerToolkitOperation(
+		$ret                         = GalleryCoreApi::registerToolkitOperation(
 			'CreateThumbnailOptionTestToolkit',
 			array('test/file'),
 			'thumbnail',
@@ -80,7 +80,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			'test-description',
 			''
 		);
-		$this->_items = array();
+		$this->_items                = array();
 		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
 			$this->_album->getId(),
 			'test/file'

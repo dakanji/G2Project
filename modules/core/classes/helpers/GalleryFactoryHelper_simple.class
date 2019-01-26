@@ -32,9 +32,9 @@ class GalleryFactoryHelper_simple {
 	 */
 	public static function deleteCache() {
 		$cacheParams = array(
-			'type' => 'module',
+			'type'   => 'module',
 			'itemId' => 'GalleryFactoryHelper_loadRegistry',
-			'id'   => '_all',
+			'id'     => '_all',
 		);
 		GalleryDataCache::removeFromDisk($cacheParams);
 
@@ -66,9 +66,9 @@ class GalleryFactoryHelper_simple {
 
 		if (empty($registry)) {
 			$cacheParams = array(
-				'type'   => 'module',
+				'type' => 'module',
 				'itemId' => 'GalleryFactoryHelper_loadRegistry',
-				'id'     => '_all',
+				'id'   => '_all',
 			);
 
 			// Don't get by reference here, it'll detach $registry from the singleton

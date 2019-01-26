@@ -69,7 +69,7 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 	if ($smarty->compile_check) {
 		$_params = array(
 			'get_source' => false,
-			'quiet'      => true,
+			'quiet' => true,
 		);
 
 		foreach (array_keys($_cache_info['template']) as $_template_dep) {
@@ -84,8 +84,8 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 		if (isset($_cache_info['config'])) {
 			$_params = array(
 				'resource_base_path' => $smarty->config_dir,
-				'get_source'         => false,
-				'quiet'              => true,
+				'get_source' => false,
+				'quiet' => true,
 			);
 
 			foreach (array_keys($_cache_info['config']) as $_config_dep) {

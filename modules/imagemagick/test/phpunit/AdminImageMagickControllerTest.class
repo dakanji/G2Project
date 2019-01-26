@@ -83,10 +83,10 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -113,8 +113,8 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -130,8 +130,8 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -154,8 +154,8 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][testError]'),
+				'status' => array(),
+				'error' => array('form[error][path][testError]'),
 			),
 			$results
 		);
@@ -178,8 +178,8 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][badPath]'),
+				'status' => array(),
+				'error' => array('form[error][path][badPath]'),
 			),
 			$results
 		);
@@ -202,8 +202,8 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][path][missing]'),
+				'status' => array(),
+				'error' => array('form[error][path][missing]'),
 			),
 			$results
 		);
@@ -226,8 +226,8 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][version][vulnerable]'),
+				'status' => array(),
+				'error' => array('form[error][version][vulnerable]'),
 			),
 			$results
 		);
@@ -262,10 +262,10 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);

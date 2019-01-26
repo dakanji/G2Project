@@ -75,7 +75,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$url    = 'v/%path%';
 		$entity = null;
 		$params = array(
-			'view' => 'core.ShowItem',
+			'view'   => 'core.ShowItem',
 			'itemId' => $testItem->getId(),
 		);
 		$ret    = RewriteSimpleHelper::parsePath($url, $params, $entity);
@@ -119,7 +119,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$url    = 'd/%fileName%';
 		$entity = null;
 		$params = array(
-			'view' => 'core.DownloadItem',
+			'view'   => 'core.DownloadItem',
 			'itemId' => $derivative->getId(),
 		);
 		$ret    = RewriteSimpleHelper::parseFileName($url, $params, $entity);
@@ -128,7 +128,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$this->assertEquals('d/' . $testItemName, $url, 'url');
 		$this->assertEquals(
 			array(
-				'view'   => 'core.DownloadItem',
+				'view' => 'core.DownloadItem',
 				'itemId' => $derivative->getId(),
 			),
 			$params,
@@ -164,7 +164,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$url    = 'd/%serialNumber%';
 		$entity = null;
 		$params = array(
-			'view' => 'core.DownloadItem',
+			'view'   => 'core.DownloadItem',
 			'itemId' => $derivative->getId(),
 		);
 		$ret    = RewriteSimpleHelper::parseSerialNumber($url, $params, $entity);
@@ -173,7 +173,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$this->assertEquals('d/' . $testSerialNumber, $url, 'url');
 		$this->assertEquals(
 			array(
-				'view'   => 'core.DownloadItem',
+				'view' => 'core.DownloadItem',
 				'itemId' => $derivative->getId(),
 			),
 			$params,

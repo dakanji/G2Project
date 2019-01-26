@@ -1019,24 +1019,24 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function _setUpRepositoryUtilitiesResponses(&$utilities, $options = array()) {
 		$installedPackages = array(
 			'base' => array(
-				'locked'  => false,
+				'locked' => false,
 				'version' => '1.0.0',
-				'build'   => '44444',
+				'build' => '44444',
 			),
 			'lang-en_GB' => array(
-				'locked'  => 0,
+				'locked' => 0,
 				'version' => '1.0.0',
-				'build'   => '44444',
+				'build' => '44444',
 			),
 			'lang-pt_PT' => array(
-				'locked'  => 1,
+				'locked' => 1,
 				'version' => '1.0.0',
-				'build'   => '44444',
+				'build' => '44444',
 			),
 			'lang-pt_BR' => array(
-				'locked'  => 0,
+				'locked' => 0,
 				'version' => '1.0.0',
-				'build'   => '44444',
+				'build' => '44444',
 			),
 		);
 		$utilities->setReply(
@@ -1047,7 +1047,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		if (empty($options['noTheme'])) {
 			$installedPackages = array(
-				'base'       => array(
+				'base' => array(
 					'locked'  => false,
 					'version' => '1.0.0',
 					'build'   => '11111',

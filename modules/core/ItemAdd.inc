@@ -113,9 +113,9 @@ class ItemAddController extends GalleryController {
 			$session             =& $gallery->getSession();
 			$results['status']   = $session->getStatus();
 			$results['redirect'] = array(
-				'view'    => 'core.ItemAdmin',
+				'view' => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId'  => $item->getId(),
+				'itemId' => $item->getId(),
 			);
 			$results['error']    = array();
 
@@ -134,8 +134,8 @@ class ItemAddController extends GalleryController {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 		);
 	}
@@ -800,8 +800,8 @@ class ItemAddView extends GalleryView {
 				return array($ret, null);
 			}
 			$plugins[] = array(
-				'title'      => $title,
-				'id'         => $pluginId,
+				'title' => $title,
+				'id'    => $pluginId,
 				'isSelected' => ($pluginId == $addPlugin),
 			);
 		}

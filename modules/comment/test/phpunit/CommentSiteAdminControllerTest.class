@@ -67,8 +67,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -82,17 +82,17 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
-		$results = $this->handleRequest();
+		$results                     = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'redirect' => array(
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -123,8 +123,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][show]'),
+				'status' => array(),
+				'error' => array('form[error][show]'),
 			),
 			$results
 		);
@@ -141,8 +141,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][show]'),
+				'status' => array(),
+				'error' => array('form[error][show]'),
 			),
 			$results
 		);
@@ -155,17 +155,17 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
-		$results = $this->handleRequest();
+		$results                     = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'redirect' => array(
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -190,15 +190,15 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(false);
-		$results = $this->handleRequest();
+		$results                     = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][apiKey][invalid]'),
+				'status' => array(),
+				'error' => array('form[error][apiKey][invalid]'),
 			),
 			$results
 		);
@@ -231,8 +231,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][apiKey][invalid]'),
+				'status' => array(),
+				'error' => array('form[error][apiKey][invalid]'),
 			),
 			$results
 		);
@@ -247,8 +247,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);

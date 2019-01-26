@@ -136,7 +136,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		// Send data to template.
 		$this->_package->_descriptor = $testDescriptor;
-		$ret = $this->_package->writeSinglePackageToDisk('package1');
+		$ret                         = $this->_package->writeSinglePackageToDisk('package1');
 
 		if ($ret) {
 			return $ret;

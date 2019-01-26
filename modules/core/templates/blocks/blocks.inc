@@ -6,11 +6,11 @@ $blocks = array(
 
 	'ItemLinks' => array(
 		'description' => $gallery->i18n('Item actions'),
-		'vars' => array(
+		'vars'        => array(
 			'useDropdown' => array(
-				'default'     => 'true',
+				'default' => 'true',
 				'description' => $gallery->i18n('Use dropdown menu'),
-				'type'        => 'boolean',
+				'type' => 'boolean',
 			),
 		),
 	),

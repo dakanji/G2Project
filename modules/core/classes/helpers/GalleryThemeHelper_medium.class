@@ -47,7 +47,7 @@ class GalleryThemeHelper_medium {
 			return $ret;
 		}
 		$data['theme'] = array(
-			'name' => $theme->getName(),
+			'name'      => $theme->getName(),
 			'l10Domain' => $theme->getL10Domain(),
 		);
 
@@ -260,7 +260,7 @@ class GalleryThemeHelper_medium {
 				$status = $module->translate('Successfully saved theme settings');
 			} else {
 				foreach ($validationErrors as $validationKey => $validationMessage) {
-					$error[] = 'form[error][key][' . $validationKey . '][invalid]';
+					$error[]                      = 'form[error][key][' . $validationKey . '][invalid]';
 					$errorMessage[$validationKey] = $validationMessage;
 				}
 				GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);

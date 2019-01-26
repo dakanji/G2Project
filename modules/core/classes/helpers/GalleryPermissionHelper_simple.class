@@ -91,7 +91,7 @@ class GalleryPermissionHelper_simple {
 				return array($ret, null);
 			}
 
-			$storage =& $gallery->getStorage();
+			$storage                      =& $gallery->getStorage();
 			list($ret, $bitAndPermission) = $storage->getFunctionSql('BITAND', array('[GalleryAccessMap::permission]', '?'));
 
 			if ($ret) {

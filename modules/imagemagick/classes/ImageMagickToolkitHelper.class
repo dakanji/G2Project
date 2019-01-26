@@ -70,7 +70,7 @@ class ImageMagickToolkitHelper {
 
 		// Scale
 		$operations['scale'] = array(
-			'params'      => array(
+			'params'    => array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n(
@@ -90,7 +90,7 @@ class ImageMagickToolkitHelper {
 			'description' => $gallery->i18n(
 				'Scale the image to the target size, maintain aspect ratio'
 			),
-			'mimeTypes'   => $mimeTypes,
+			'mimeTypes' => $mimeTypes,
 		);
 
 		// Thumbnail is an alias for scale
@@ -98,7 +98,7 @@ class ImageMagickToolkitHelper {
 
 		// Resize
 		$operations['resize'] = array(
-			'params'      => array(
+			'params'    => array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n(
@@ -119,24 +119,24 @@ class ImageMagickToolkitHelper {
 				),
 			),
 			'description' => $gallery->i18n('Resize the image to the target dimensions'),
-			'mimeTypes'   => $mimeTypes,
+			'mimeTypes' => $mimeTypes,
 		);
 
 		// Rotate
 		$operations['rotate'] = array(
-			'params'      => array(
+			'params'    => array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n('rotation degrees'),
 				),
 			),
 			'description' => $gallery->i18n('Rotate the image'),
-			'mimeTypes'   => $mimeTypes,
+			'mimeTypes' => $mimeTypes,
 		);
 
 		// Crop
 		$operations['crop'] = array(
-			'params'      => array(
+			'params'    => array(
 				array(
 					'type'        => 'float',
 					'description' => $gallery->i18n('left edge %'),
@@ -155,12 +155,12 @@ class ImageMagickToolkitHelper {
 				),
 			),
 			'description' => $gallery->i18n('Crop the image'),
-			'mimeTypes'   => $mimeTypes,
+			'mimeTypes' => $mimeTypes,
 		);
 
 		// Composite
 		$operations['composite'] = array(
-			'params'      => array(
+			'params'    => array(
 				array(
 					'type'        => 'string',
 					'description' => $gallery->i18n('overlay path'),
@@ -191,7 +191,7 @@ class ImageMagickToolkitHelper {
 				),
 			),
 			'description' => $gallery->i18n('Overlay source image with a second one'),
-			'mimeTypes'   => $mimeTypes,
+			'mimeTypes' => $mimeTypes,
 		);
 
 		// Select Page
@@ -238,7 +238,7 @@ class ImageMagickToolkitHelper {
 
 		// Dimensions
 		$properties['dimensions'] = array(
-			'type' => 'int,int',
+			'type'      => 'int,int',
 			'description' => $gallery->i18n('Get the width and height of the image'),
 			'mimeTypes' => array_merge(
 				$mimeTypes,
@@ -251,9 +251,9 @@ class ImageMagickToolkitHelper {
 
 		if (!empty($multiPageMimeTypes)) {
 			$properties['page-count'] = array(
-				'type'        => 'int',
+				'type' => 'int',
 				'description' => $gallery->i18n('Get the number of pages'),
-				'mimeTypes'   => $multiPageMimeTypes,
+				'mimeTypes' => $multiPageMimeTypes,
 			);
 		}
 
@@ -268,9 +268,9 @@ class ImageMagickToolkitHelper {
 
 		if (!empty($cmykTypes)) {
 			$properties['colorspace'] = array(
-				'type'        => 'string',
+				'type' => 'string',
 				'description' => $gallery->i18n('Get the colorspace of the image'),
-				'mimeTypes'   => $rgbTypes,
+				'mimeTypes' => $rgbTypes,
 			);
 		}
 
@@ -368,68 +368,68 @@ class ImageMagickToolkitHelper {
 
 		$tests   = array();
 		$tests[] = array(
-			'mime' => array('image/gif'),
-			'file' => 'test.gif',
+			'mime'     => array('image/gif'),
+			'file'     => 'test.gif',
 			'expected' => '/(GIF.*PseudoClass|PseudoClass.*GIF|DirectClass.*GIF)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/jpeg', 'image/pjpeg'),
-			'file' => 'test.jpg',
+			'mime'     => array('image/jpeg', 'image/pjpeg'),
+			'file'     => 'test.jpg',
 			'expected' => '/(JPEG.*(Direct|Pseudo)Class|DirectClass.*JPEG)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/jp2', 'image/jpg2', 'image/jpx'),
-			'file' => 'test.jp2',
+			'mime'     => array('image/jp2', 'image/jpg2', 'image/jpx'),
+			'file'     => 'test.jp2',
 			'expected' => '/(JP2.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*JP2)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/png'),
-			'file' => 'test.png',
+			'mime'     => array('image/png'),
+			'file'     => 'test.png',
 			'expected' => '/(PNG.*DirectClass|DirectClass.*PNG)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/tiff'),
-			'file' => 'test.tif',
+			'mime'     => array('image/tiff'),
+			'file'     => 'test.tif',
 			'expected' => '/(TIFF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*TIFF)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/svg+xml'),
-			'file' => 'test.svg',
+			'mime'     => array('image/svg+xml'),
+			'file'     => 'test.svg',
 			'expected' => '/(SVG.*DirectClass|DirectClass.*SVG)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/bmp'),
-			'file' => 'test.bmp',
+			'mime'     => array('image/bmp'),
+			'file'     => 'test.bmp',
 			'expected' => '/(BMP.*PseudoClass|PseudoClass.*BMP)/',
 		);
 		$tests[] = array(
-			'mime' => array('application/pdf'),
-			'file' => 'test.pdf',
+			'mime'     => array('application/pdf'),
+			'file'     => 'test.pdf',
 			'expected' => '/(PDF.*(Pseudo|Direct)Class|PseudoClass.*PDF)/',
 		);
 		$tests[] = array(
-			'mime' => array('application/postscript'),
-			'file' => 'test.eps',
+			'mime'     => array('application/postscript'),
+			'file'     => 'test.eps',
 			'expected' => '/(PS.*(Pseudo|Direct)Class|PseudoClass.*PS)/',
 		);
 		$tests[] = array(
-			'mime' => array('application/photoshop'),
-			'file' => 'test.psd',
+			'mime'     => array('application/photoshop'),
+			'file'     => 'test.psd',
 			'expected' => '/(PSD.*(Pseudo|Direct)Class|PseudoClass.*PSD)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/x-photo-cd'),
-			'file' => 'truncated.pcd',
+			'mime'     => array('image/x-photo-cd'),
+			'file'     => 'truncated.pcd',
 			'expected' => '/(PCD.*(Pseudo|Direct)Class|PseudoClass.*PCD)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/wmf'),
-			'file' => 'test.wmf',
+			'mime'     => array('image/wmf'),
+			'file'     => 'test.wmf',
 			'expected' => '/(WMF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*WMF)/',
 		);
 		$tests[] = array(
-			'mime' => array('image/tga'),
-			'file' => 'test.tga',
+			'mime'     => array('image/tga'),
+			'file'     => 'test.tga',
 			'expected' => '/((TGA|ICB).*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*(TGA|ICB))/',
 		);
 

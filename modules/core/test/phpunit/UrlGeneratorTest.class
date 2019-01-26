@@ -572,8 +572,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->generateUrl(
 				array(
 					'href' => 'test/blah.php',
-					'a'    => 123,
-					'b'    => 'ab&amp;c',
+					'a' => 123,
+					'b' => 'ab&amp;c',
 				),
 				array(
 					'htmlEntities' => false,
@@ -606,8 +606,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->generateUrl(
 				array(
 					'href' => 'test/blah.php',
-					'a'    => 'The Quick!Brown#Fox',
-					'b'    => 'Jumps Over%The/Lazy_Dog',
+					'a' => 'The Quick!Brown#Fox',
+					'b' => 'Jumps Over%The/Lazy_Dog',
 				),
 				array(
 					'urlEncode' => false,
@@ -1510,7 +1510,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('foo', 'bar');
 		$actualUrl   = $this->_urlGenerator->generateUrl(
 			array(
-				'href'   => '/foo.php',
+				'href' => '/foo.php',
 				'return' => true,
 			),
 			array(
@@ -1537,7 +1537,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('foo', 'bar');
 		$actualUrl    = $this->_urlGenerator->generateUrl(
 			array(
-				'href'   => '/1st.url',
+				'href' => '/1st.url',
 				'return' => true,
 			),
 			array(
@@ -1554,7 +1554,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('foo');
 		$actualUrl = $this->_urlGenerator->generateUrl(
 			array(
-				'href'   => '/2nd.url',
+				'href' => '/2nd.url',
 				'return' => true,
 			),
 			array(
@@ -1579,7 +1579,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('view', $currentView);
 		$actualUrl    = $this->_urlGenerator->generateUrl(
 			array(
-				'href'   => '/3rd.url',
+				'href' => '/3rd.url',
 				'return' => true,
 			),
 			array(
@@ -1723,64 +1723,64 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$tests   = array();
 		$tests[] = array(
 			'baseUri' => '/gallery2/phpunit_test.php?foo=bar',
-			'er' => '/gallery2/',
-			'g2Uri' => '/gallery2/phpunit_test.php',
-			'force' => false,
+			'er'      => '/gallery2/',
+			'g2Uri'   => '/gallery2/phpunit_test.php',
+			'force'   => false,
 		);
 		$tests[] = array(
 			'baseUri' => '/phpunit_test.php?foo=bar',
-			'g2Uri' => '/gallery2/foo.php',
-			'er' => '/',
-			'force' => false,
+			'g2Uri'   => '/gallery2/foo.php',
+			'er'      => '/',
+			'force'   => false,
 		);
 		// g2Uri is only relevant if forceG2Path is true
 		$tests[] = array(
-			'g2Uri' => '/gallery2/index.php?module=gallery2&foo=bar',
-			'er' => '/cms/',
+			'g2Uri'   => '/gallery2/index.php?module=gallery2&foo=bar',
+			'er'      => '/cms/',
 			'baseUri' => '/cms/index.php?module=gallery2',
-			'force' => false,
+			'force'   => false,
 		);
 		$tests[] = array(
 			'baseUri' => '/index.php?module=gallery2&foo=bar',
-			'er' => '/',
-			'g2Uri' => '/gallery2/index.php?module=gallery2',
-			'force' => false,
+			'er'      => '/',
+			'g2Uri'   => '/gallery2/index.php?module=gallery2',
+			'force'   => false,
 		);
 		$tests[] = array(
 			'baseUri' => '/cms/index.php?module=gallery2&foo=bar',
-			'force' => false,
-			'g2Uri' => '/modules/gallery2/index.php?module=gallery2',
-			'er' => '/cms/',
+			'force'   => false,
+			'g2Uri'   => '/modules/gallery2/index.php?module=gallery2',
+			'er'      => '/cms/',
 		);
 		$tests[] = array(
 			'baseUri' => '/apps/cms/index.php?module=gallery2&foo=bar',
-			'g2Uri' => '/apps/galery2/index.php?module=gallery2',
-			'force' => false,
-			'er' => '/apps/cms/',
+			'g2Uri'   => '/apps/galery2/index.php?module=gallery2',
+			'force'   => false,
+			'er'      => '/apps/cms/',
 		);
 		$tests[] = array(
 			'baseUri' => '/cms/index.php?module=gallery2&foo=bar',
-			'g2Uri' => '/gallery2/index.php?module=gallery2',
-			'force' => true,
-			'er' => '/gallery2/',
+			'g2Uri'   => '/gallery2/index.php?module=gallery2',
+			'force'   => true,
+			'er'      => '/gallery2/',
 		);
 		$tests[] = array(
 			'baseUri' => '/cms/index.php?module=gallery2&foo=bar',
-			'force' => true,
-			'g2Uri' => '/cms/modules/gallery2/index.php?module=gallery2',
-			'er' => '/cms/modules/gallery2/',
+			'force'   => true,
+			'g2Uri'   => '/cms/modules/gallery2/index.php?module=gallery2',
+			'er'      => '/cms/modules/gallery2/',
 		);
 		$tests[] = array(
 			'baseUri' => 'phpunit_test.php',
-			'g2Uri' => null,
-			'force' => true,
-			'er' => '/foobar/',
+			'g2Uri'   => null,
+			'force'   => true,
+			'er'      => '/foobar/',
 		);
 		$tests[] = array(
 			'baseUri' => 'phpunit_test.php',
-			'g2Uri' => null,
-			'force' => false,
-			'er' => '/foobar/',
+			'g2Uri'   => null,
+			'force'   => false,
+			'er'      => '/foobar/',
 		);
 
 		$i = 1;
@@ -2117,109 +2117,109 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testParseUri() {
 		$tests   = array();
 		$tests[] = array(
-			'uri'  => 'main.php',
+			'uri'      => 'main.php',
 			'protocol' => null,
-			'host' => null,
-			'path' => null,
-			'file' => 'main.php',
+			'host'     => null,
+			'path'     => null,
+			'file'     => 'main.php',
 		);
 		$tests[] = array(
-			'uri'  => '/main.php',
+			'uri'      => '/main.php',
 			'protocol' => null,
-			'host' => null,
-			'path' => '/',
-			'file' => 'main.php',
+			'host'     => null,
+			'path'     => '/',
+			'file'     => 'main.php',
 		);
 		$tests[] = array(
-			'uri'  => 'index.php?module=gallery2',
+			'uri'      => 'index.php?module=gallery2',
 			'protocol' => null,
-			'host' => null,
-			'path' => null,
-			'file' => 'index.php?module=gallery2',
+			'host'     => null,
+			'path'     => null,
+			'file'     => 'index.php?module=gallery2',
 		);
 		$tests[] = array(
-			'uri'  => 'main.php/',
+			'uri'      => 'main.php/',
 			'protocol' => null,
-			'host' => 'main.php',
-			'path' => '/',
-			'file' => '',
+			'host'     => 'main.php',
+			'path'     => '/',
+			'file'     => '',
 		);
 		$tests[] = array(
-			'uri'  => '/index.php/',
+			'uri'      => '/index.php/',
 			'protocol' => null,
-			'host' => null,
-			'path' => '/index.php/',
-			'file' => '',
+			'host'     => null,
+			'path'     => '/index.php/',
+			'file'     => '',
 		);
 		$tests[] = array(
-			'uri'  => '/gallery2/foo',
+			'uri'      => '/gallery2/foo',
 			'protocol' => null,
-			'host' => null,
-			'path' => '/gallery2/',
-			'file' => 'foo',
+			'host'     => null,
+			'path'     => '/gallery2/',
+			'file'     => 'foo',
 		);
 		$tests[] = array(
-			'uri'  => '/',
+			'uri'      => '/',
 			'protocol' => null,
-			'host' => null,
-			'path' => '/',
-			'file' => '',
+			'host'     => null,
+			'path'     => '/',
+			'file'     => '',
 		);
 		$tests[] = array(
-			'uri'  => 'www.example.com/',
+			'uri'      => 'www.example.com/',
 			'protocol' => null,
-			'host' => 'www.example.com',
-			'path' => '/',
-			'file' => '',
+			'host'     => 'www.example.com',
+			'path'     => '/',
+			'file'     => '',
 		);
 		$tests[] = array(
-			'uri'  => 'www.example.com',
+			'uri'      => 'www.example.com',
 			'protocol' => null,
-			'host' => null,
-			'path' => null,
-			'file' => 'www.example.com',
+			'host'     => null,
+			'path'     => null,
+			'file'     => 'www.example.com',
 		);
 		$tests[] = array(
-			'uri'  => 'https://www.example.com',
+			'uri'      => 'https://www.example.com',
 			'protocol' => 'https',
-			'host' => 'www.example.com',
-			'path' => null,
-			'file' => null,
+			'host'     => 'www.example.com',
+			'path'     => null,
+			'file'     => null,
 		);
 		$tests[] = array(
-			'uri'  => 'www.example.com',
+			'uri'      => 'www.example.com',
 			'protocol' => null,
-			'host' => null,
-			'path' => null,
-			'file' => 'www.example.com',
+			'host'     => null,
+			'path'     => null,
+			'file'     => 'www.example.com',
 		);
 		$tests[] = array(
-			'uri'  => 'www.example.com/mod/gallery2/',
+			'uri'      => 'www.example.com/mod/gallery2/',
 			'protocol' => null,
-			'host' => 'www.example.com',
-			'path' => '/mod/gallery2/',
-			'file' => '',
+			'host'     => 'www.example.com',
+			'path'     => '/mod/gallery2/',
+			'file'     => '',
 		);
 		$tests[] = array(
-			'uri'  => 'http://localhost/index.php?mod=gallery2',
+			'uri'      => 'http://localhost/index.php?mod=gallery2',
 			'protocol' => 'http',
-			'host' => 'localhost',
-			'path' => '/',
-			'file' => 'index.php?mod=gallery2',
+			'host'     => 'localhost',
+			'path'     => '/',
+			'file'     => 'index.php?mod=gallery2',
 		);
 		$tests[] = array(
-			'uri'  => 'https://127.0.0.1/test/index.php',
+			'uri'      => 'https://127.0.0.1/test/index.php',
 			'protocol' => 'https',
-			'host' => '127.0.0.1',
-			'path' => '/test/',
-			'file' => 'index.php',
+			'host'     => '127.0.0.1',
+			'path'     => '/test/',
+			'file'     => 'index.php',
 		);
 		$tests[] = array(
-			'uri'  => '127.0.0.1/test/index.php/',
+			'uri'      => '127.0.0.1/test/index.php/',
 			'protocol' => null,
-			'host' => '127.0.0.1',
-			'path' => '/test/index.php/',
-			'file' => '',
+			'host'     => '127.0.0.1',
+			'path'     => '/test/index.php/',
+			'file'     => '',
 		);
 
 		foreach ($tests as $test) {
@@ -2346,7 +2346,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		// Omit view parameter for default view
 		$url = $this->_urlGenerator->generateUrl(
 			array(
-				'view'   => $view,
+				'view' => $view,
 				'itemId' => 123,
 			),
 			array(
@@ -2358,7 +2358,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		// Omit itemId parameter for default album with default view
 		$url = $this->_urlGenerator->generateUrl(
 			array(
-				'view'   => $view,
+				'view' => $view,
 				'itemId' => $rootId,
 			),
 			array(
@@ -2372,7 +2372,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		$url = $this->_urlGenerator->generateUrl(
 			array(
-				'view'   => $view,
+				'view' => $view,
 				'itemId' => 123,
 			),
 			array(
@@ -2404,7 +2404,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$url         = $this->_urlGenerator->generateUrl(
 			array(
 				'controller' => 'core.UserLogin',
-				'foo'        => 123,
+				'foo' => 123,
 			)
 		);
 		$expectedUrl = $this->_signUrl('phpunit_test.php?g2_controller=core.UserLogin&amp;g2_foo=123');
@@ -2437,7 +2437,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$url         = $this->_urlGenerator->generateUrl(
 			array(
 				'controller' => 'core.UserLogin',
-				'foo'        => 123,
+				'foo' => 123,
 			),
 			array(
 				'useAuthToken' => true,
@@ -2455,7 +2455,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$url         = $this->_urlGenerator->generateUrl(
 			array(
 				'controller' => 'core.UserLogin',
-				'foo'        => 123,
+				'foo' => 123,
 			),
 			array(
 				'useAuthToken' => false,

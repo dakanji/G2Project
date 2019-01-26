@@ -59,7 +59,7 @@ class AdminPluginsView extends GalleryView {
 			return array($ret, null);
 		}
 		$themeGroup = array(
-			'group'      => 'theme',
+			'group' => 'theme',
 			'groupLabel' => $core->translate('Themes'),
 		);
 
@@ -113,12 +113,12 @@ class AdminPluginsView extends GalleryView {
 				$test1 = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
 				$test2 = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
 
-				$entry                = array();
-				$entry['type']        = $type;
-				$entry['name']        = $plugin->translate($plugin->getName());
-				$entry['id']          = $plugin->getId();
-				$entry['description'] = $plugin->translate($plugin->getDescription());
-				$entry['version']     = $plugin->getVersion();
+				$entry                     = array();
+				$entry['type']             = $type;
+				$entry['name']             = $plugin->translate($plugin->getName());
+				$entry['id']               = $plugin->getId();
+				$entry['description']      = $plugin->translate($plugin->getDescription());
+				$entry['version']          = $plugin->getVersion();
 				$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
 				$entry['deletable']        = ($test1 && $test2) ? 1 : 0;
 
@@ -226,7 +226,7 @@ class AdminPluginsView extends GalleryView {
 			$groupOrder = array(
 				'gallery' => 1,
 				'toolkits' => 2,
-				'' => 3,
+				''      => 3,
 				'other' => 4,
 			);
 		}

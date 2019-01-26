@@ -131,7 +131,7 @@ class SlideshowView extends GalleryView {
 				array(
 					'view' => 'slideshow.DownloadPicLens',
 					'file' => 'swf',
-					'v'    => $picLensVersion,
+					'v' => $picLensVersion,
 				),
 				$jsUrlParamsDirect
 			);
@@ -197,7 +197,7 @@ class SlideshowView extends GalleryView {
 		return array(
 			null,
 			array(
-				'body'          => 'modules/slideshow/templates/Slideshow.tpl',
+				'body' => 'modules/slideshow/templates/Slideshow.tpl',
 				'useFullScreen' => true,
 			),
 		);

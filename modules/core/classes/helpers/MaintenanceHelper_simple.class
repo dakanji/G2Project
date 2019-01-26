@@ -90,10 +90,10 @@ class MaintenanceHelper_simple {
 
 		if ($searchResults->resultCount() == 1) {
 			$info = array(
-				'runId'     => $result[0],
+				'runId' => $result[0],
 				'timestamp' => (int)$result[1],
-				'success'   => (bool)$result[2],
-				'details'   => unserialize($result[3]),
+				'success' => (bool)$result[2],
+				'details' => unserialize($result[3]),
 			);
 		}
 
@@ -122,11 +122,11 @@ class MaintenanceHelper_simple {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryMaintenanceMap',
 			array(
-				'runId'     => $runId,
-				'taskId'    => $taskId,
+				'runId' => $runId,
+				'taskId' => $taskId,
 				'timestamp' => $timestamp,
-				'success'   => (int)$success,
-				'details'   => serialize($details),
+				'success' => (int)$success,
+				'details' => serialize($details),
 			)
 		);
 

@@ -170,7 +170,7 @@ class GalleryTemplate {
 	 * @param string $path script path relative to gallery2 dir
 	 */
 	public function javascript($path) {
-		$head =& $this->getVariableByReference('head');
+		$head                      =& $this->getVariableByReference('head');
 		$head['javascript'][$path] = true;
 	}
 
@@ -208,7 +208,7 @@ class GalleryTemplate {
 	public function meta($name, $content, $isHttpEquiv = false) {
 		$head           =& $this->getVariableByReference('head');
 		$head['meta'][] = array(
-			'name' => $name,
+			'name'    => $name,
 			'content' => $content,
 			'isHttpEquiv' => $isHttpEquiv,
 		);
@@ -414,11 +414,11 @@ class GalleryTemplate {
 		$smarty->assign(
 			'head',
 			array(
-				'tpl'        => array(),
-				'style'      => array(),
+				'tpl'   => array(),
+				'style' => array(),
 				'javascript' => array(),
-				'meta'       => array(),
-				'link'       => array(),
+				'meta'  => array(),
+				'link'  => array(),
 			)
 		);
 

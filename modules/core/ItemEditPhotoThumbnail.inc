@@ -339,48 +339,48 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			}
 
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Photo 5x3'),
-				'width'  => 5,
+				'label' => $module->translate('Photo 5x3'),
+				'width' => 5,
 				'height' => 3,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Photo 6x4'),
-				'width'  => 6,
+				'label' => $module->translate('Photo 6x4'),
+				'width' => 6,
 				'height' => 4,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Photo 7x5'),
-				'width'  => 7,
+				'label' => $module->translate('Photo 7x5'),
+				'width' => 7,
 				'height' => 5,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Photo 10x8'),
-				'width'  => 10,
+				'label' => $module->translate('Photo 10x8'),
+				'width' => 10,
 				'height' => 8,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Fullscreen 4x3'),
-				'width'  => 4,
+				'label' => $module->translate('Fullscreen 4x3'),
+				'width' => 4,
 				'height' => 3,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Widescreen 16x9'),
-				'width'  => 16,
+				'label' => $module->translate('Widescreen 16x9'),
+				'width' => 16,
 				'height' => 9,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('CinemaScope 2.35x1'),
-				'width'  => 47,
+				'label' => $module->translate('CinemaScope 2.35x1'),
+				'width' => 47,
 				'height' => 20,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('Square 1x1'),
-				'width'  => 1,
+				'label' => $module->translate('Square 1x1'),
+				'width' => 1,
 				'height' => 1,
 			);
 			$aspectRatioList[] = array(
-				'label'  => $module->translate('As Image'),
-				'width'  => $item->getWidth(),
+				'label' => $module->translate('As Image'),
+				'width' => $item->getWidth(),
 				'height' => $item->getHeight(),
 			);
 			$ItemEditPhotoThumbnail['editThumbnail']['aspectRatioList'] = $aspectRatioList;

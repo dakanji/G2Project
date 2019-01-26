@@ -156,10 +156,10 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			$templateAdapter->updateProgressBar($heading, '', 0);
 
 			$callback = array(
-				'method'  => array($templateAdapter, 'updateProgressBar'),
-				'title'   => $heading,
+				'method' => array($templateAdapter, 'updateProgressBar'),
+				'title' => $heading,
 				'current' => 0,
-				'total'   => $totalActions,
+				'total' => $totalActions,
 			);
 
 			if ($installLanguagesCount > 0) {

@@ -42,7 +42,7 @@ class SetupRewriteController extends GalleryController {
 		$status   = $error = array();
 		$results  = array(
 			'redirect' => array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'rewrite.SetupRewrite',
 			),
 		);
@@ -123,7 +123,7 @@ class SetupRewriteController extends GalleryController {
 		if (!empty($error)) {
 			unset($results['redirect']);
 			$results['delegate'] = array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'rewrite.SetupRewrite',
 			);
 		}

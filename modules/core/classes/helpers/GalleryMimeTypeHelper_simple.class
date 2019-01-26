@@ -123,8 +123,8 @@ class GalleryMimeTypeHelper_simple {
 
 		if (empty($mimeData)) {
 			$cacheParams = array(
-				'type'   => 'module',
-				'id'     => '_all',
+				'type' => 'module',
+				'id'   => '_all',
 				'itemId' => 'GalleryMimeTypeHelper_mimeData',
 			);
 			$cached      = GalleryDataCache::getFromDisk($cacheParams);
@@ -138,7 +138,7 @@ class GalleryMimeTypeHelper_simple {
 				 * conversions.. for now I set desc order by extension so image/jpeg will
 				 * map to jpg instead of jpe (quick fix for most common case).
 				 */
-				$query = '
+				$query                     = '
 		SELECT
 		    [GalleryMimeTypeMap::extension],
 		    [GalleryMimeTypeMap::mimeType],
@@ -200,8 +200,8 @@ class GalleryMimeTypeHelper_simple {
 	public static function _deleteCache() {
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'module',
-				'id'     => '_all',
+				'type' => 'module',
+				'id'   => '_all',
 				'itemId' => 'GalleryMimeTypeHelper_mimeData',
 			)
 		);

@@ -51,8 +51,8 @@ class StatusTemplate {
 		$templateData = array();
 		$templateData['MainPage']['showStatus'] = 1;
 		$templateData['MainPage']['status']     = array(
-			'title'           => $title,
-			'description'     => $description,
+			'title' => $title,
+			'description' => $description,
 			'percentComplete' => GalleryUtilities::roundToString($percentComplete, 2),
 		);
 

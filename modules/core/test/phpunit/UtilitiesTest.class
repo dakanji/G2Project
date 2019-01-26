@@ -193,7 +193,7 @@ class UtilitiesTest extends GalleryTestCase {
 					'',
 					'',
 				),
-				'type'     => array(
+				'type' => array(
 					'test' => 'image/pjpeg',
 					'image/gif',
 					'',
@@ -205,13 +205,13 @@ class UtilitiesTest extends GalleryTestCase {
 					'',
 					'',
 				),
-				'error'    => array(
+				'error' => array(
 					'test' => 0,
 					0,
 					4,
 					4,
 				),
-				'size'     => array(
+				'size' => array(
 					'test' => 1779802,
 					102323,
 					0,
@@ -586,7 +586,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['DOCUMENT_ROOT'] = '/g2testroot';
 		$_SERVER['REQUEST_URI']   = '/g2test/phpunit_test.php?foo=bar';
 		$urlGenerator             = new GalleryUrlGenerator();
-		$ret = $urlGenerator->init('phpunit_test.php');
+		$ret                      = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -758,14 +758,14 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testGetRemoteHostAddress4() {
 		$_SERVER['HTTP_CLIENT_IP'] = '1.2.3.4';
 		$_SERVER['REMOTE_ADDR']    = '10.0.0.0';
-		$addr = GalleryUtilities::getRemoteHostAddress();
+		$addr                      = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('1.2.3.4', $addr, 'Trusted remote addr, use HTTP_CLIENT_IP ');
 	}
 
 	public function testGetRemoteHostAddress5() {
 		$_SERVER['HTTP_CLIENT_IP'] = '1.2.3.4';
 		$_SERVER['REMOTE_ADDR']    = '10.0.0.0';
-		$addr = GalleryUtilities::getRemoteHostAddress();
+		$addr                      = GalleryUtilities::getRemoteHostAddress();
 		$this->assertEquals('1.2.3.4', $addr, 'Trusted remote addr, use HTTP_CLIENT_IP ');
 	}
 
@@ -1073,44 +1073,44 @@ class UtilitiesTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$_FILES[GalleryUtilities::prefixFormVariable('userfile')] = array(
-			'name' => 'testfile.txt',
-			'type' => 'text/plain',
+			'name'     => 'testfile.txt',
+			'type'     => 'text/plain',
 			'tmp_name' => __FILE__,
-			'error' => 0,
-			'size' => $platform->filesize(__FILE__),
+			'error'    => 0,
+			'size'     => $platform->filesize(__FILE__),
 		);
 
 		$file = GalleryUtilities::getFile('userfile');
 		$file = GalleryUtilities::strArrToIntArr($file);
 		$this->assertEquals(
 			array(
-				'name'     => 'testfile.txt',
-				'type'     => 'text/plain',
+				'name'  => 'testfile.txt',
+				'type'  => 'text/plain',
 				'tmp_name' => __FILE__,
-				'error'    => 0,
-				'size'     => $platform->filesize(__FILE__),
+				'error' => 0,
+				'size'  => $platform->filesize(__FILE__),
 			),
 			$file,
 			'userfile'
 		);
 
 		$_FILES['testfile'] = array(
-			'name' => 'testfile.txt',
-			'type' => 'text/plain',
+			'name'     => 'testfile.txt',
+			'type'     => 'text/plain',
 			'tmp_name' => __FILE__,
-			'error' => 0,
-			'size' => $platform->filesize(__FILE__),
+			'error'    => 0,
+			'size'     => $platform->filesize(__FILE__),
 		);
 
 		$file = GalleryUtilities::getFile('testfile', false);
 		$file = GalleryUtilities::strArrToIntArr($file);
 		$this->assertEquals(
 			array(
-				'name'     => 'testfile.txt',
-				'type'     => 'text/plain',
+				'name'  => 'testfile.txt',
+				'type'  => 'text/plain',
 				'tmp_name' => __FILE__,
-				'error'    => 0,
-				'size'     => $platform->filesize(__FILE__),
+				'error' => 0,
+				'size'  => $platform->filesize(__FILE__),
 			),
 			$file,
 			'testfile'
@@ -1404,8 +1404,8 @@ class UtilitiesTest extends GalleryTestCase {
 
 	public function testGetCookieVar() {
 		// Normal
-		$key           = 'foo' . mt_rand(1, 9999);
-		$_COOKIE[$key] = 'foo';
+		$key                     = 'foo' . mt_rand(1, 9999);
+		$_COOKIE[$key]           = 'foo';
 		$_SERVER['HTTP_COOKIE'] .= !empty($this->_saveServerHttpCookie) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= $key . '=foo';
 		GalleryUtilities::fixCookieVars(false, true);
@@ -1418,9 +1418,9 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertEquals(null, GalleryUtilities::getCookieVar($key));
 
 		// Malicious value
-		$val                    = '<script>bar</script>';
-		$_COOKIE[$key]          = $val;
-		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
+		$val                     = '<script>bar</script>';
+		$_COOKIE[$key]           = $val;
+		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= $key . '=' . urlencode($val);
 		GalleryUtilities::fixCookieVars(false, true);
@@ -1445,7 +1445,7 @@ class UtilitiesTest extends GalleryTestCase {
 	// Test if we correctly fix the superglobal $_COOKIE
 	public function testFixCookieVars() {
 		// Only 1 cookie with the same NAME
-		$key = 'foo' . mt_rand(1, 9999);
+		$key                     = 'foo' . mt_rand(1, 9999);
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= "$key=foo";
 		// Execute our fix

@@ -110,9 +110,9 @@ class GalleryPluginHelper_medium {
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => $pluginType,
+				'type' => $pluginType,
 				'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-				'id'     => '_all',
+				'id'   => '_all',
 			)
 		);
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
@@ -193,13 +193,13 @@ class GalleryPluginHelper_medium {
 		GalleryDataCache::removeByPattern("GalleryPluginHelper::fetchAllParameters\(.*, $itemId\)");
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'module',
+				'type' => 'module',
 				'itemId' => $itemId,
 			)
 		);
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'theme',
+				'type' => 'theme',
 				'itemId' => $itemId,
 			)
 		);
@@ -325,9 +325,9 @@ class GalleryPluginHelper_medium {
 		);
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => $pluginType,
+				'type' => $pluginType,
 				'itemId' => 0,
-				'id'     => $pluginId,
+				'id'   => $pluginId,
 			)
 		);
 

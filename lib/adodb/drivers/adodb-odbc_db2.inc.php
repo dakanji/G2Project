@@ -237,11 +237,11 @@ if (!defined('ADODB_ODBC_DB2')) {
 			$indexes = array();
 			// parse index data into array
 			while ($row = $rs->FetchRow()) {
-				$indexes[$row[0]] = array(
+				$indexes[$row[0]]            = array(
 					'unique'  => ($row[1] == 'U' || $row[1] == 'P'),
 					'columns' => array(),
 				);
-				$cols             = ltrim($row[2], '+');
+				$cols                        = ltrim($row[2], '+');
 				$indexes[$row[0]]['columns'] = explode('+', $cols);
 			}
 

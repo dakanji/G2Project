@@ -154,7 +154,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		// Keyword param should be unsanitized as it will be resanitized when URL is used
 		$this->assertEquals(
 			array(
-				'view'    => 'keyalbum.KeywordAlbum',
+				'view' => 'keyalbum.KeywordAlbum',
 				'keyword' => 'test&key',
 			),
 			$theme['pageUrl'],
@@ -181,7 +181,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'view'    => 'keyalbum.KeywordAlbum',
+				'view' => 'keyalbum.KeywordAlbum',
 				'keyword' => 'test&key,fun',
 			),
 			$theme['pageUrl'],
@@ -212,7 +212,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$theme =& $this->_template->getVariableByReference('theme');
 		$this->assertEquals(
 			array(
-				'view'    => 'keyalbum.KeywordAlbum',
+				'view' => 'keyalbum.KeywordAlbum',
 				'keyword' => 'testkey',
 			),
 			$theme['pageUrl'],

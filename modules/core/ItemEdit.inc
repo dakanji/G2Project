@@ -342,8 +342,8 @@ class ItemEditView extends GalleryView {
 				return array($ret, null);
 			}
 			$plugins[] = array(
-				'title'      => $title,
-				'id'         => $pluginId,
+				'title' => $title,
+				'id'    => $pluginId,
 				'isSelected' => ($pluginId == $editPlugin),
 			);
 		}
@@ -351,10 +351,10 @@ class ItemEditView extends GalleryView {
 		// Record our item serial number in the form so that all plugins can use it
 		$form['serialNumber'] = $item->getSerialNumber();
 
-		$ItemEdit                  = array();
-		$ItemEdit['editPlugin']    = $editPlugin;
-		$ItemEdit['plugins']       = $plugins;
-		$ItemEdit['itemTypeNames'] = $item->itemTypeName();
+		$ItemEdit                      = array();
+		$ItemEdit['editPlugin']        = $editPlugin;
+		$ItemEdit['plugins']           = $plugins;
+		$ItemEdit['itemTypeNames']     = $item->itemTypeName();
 		$ItemEdit['showEditThumbnail'] = $thumbnail != null;
 
 		list($ret, $ItemEdit['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();

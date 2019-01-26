@@ -212,7 +212,7 @@ class AkismetApi {
 		$urlGenerator               =& $gallery->getUrlGenerator();
 		$postDataArray['permalink'] = $urlGenerator->generateUrl(
 			array(
-				'view'   => 'core.ShowItem',
+				'view' => 'core.ShowItem',
 				'itemId' => $comment->getParentId(),
 			),
 			array(

@@ -766,7 +766,7 @@ class GalleryView {
 		global $gallery;
 		$session =& $gallery->getSession();
 
-		$user = (array)$gallery->getActiveUser();
+		$user                        = (array)$gallery->getActiveUser();
 		list($ret, $user['isGuest']) = GalleryCoreApi::isAnonymousUser($user['id']);
 
 		if ($ret) {

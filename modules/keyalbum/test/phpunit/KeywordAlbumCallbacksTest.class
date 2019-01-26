@@ -633,8 +633,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 
 		foreach (array(
-			''     => array(),
-			'test' => array(
+			''        => array(),
+			'test'    => array(
 				'test' => 'test',
 			),
 			'one,two;three four' => array(
@@ -680,13 +680,13 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		foreach (array(
-			''     => array(),
-			'test' => array(
+			''        => array(),
+			'test'    => array(
 				'test' => 'test',
 			),
 			'one,two;three four' => array(
-				'one'        => 'one',
-				'two'        => 'two',
+				'one' => 'one',
+				'two' => 'two',
 				'three four' => 'three four',
 			),
 			' one ,; two; , , 3 ' => array(

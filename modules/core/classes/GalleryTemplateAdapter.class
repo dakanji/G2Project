@@ -572,9 +572,9 @@ class GalleryTemplateAdapter {
 		$key       = $phpVm->md5($key);
 		$cacheFile = GalleryDataCache::getCachePath(
 			array(
-				'type'   => 'module',
+				'type' => 'module',
 				'itemId' => 'CombinedJavascript_' . $key,
-				'id'     => '_all',
+				'id'   => '_all',
 			)
 		);
 
@@ -1294,7 +1294,7 @@ class GalleryTemplateAdapter {
 	public function registerTrailerCallback($callback, $args) {
 		$this->_trailerCallbacks[] = array(
 			'function' => $callback,
-			'args' => $args,
+			'args'     => $args,
 		);
 	}
 

@@ -129,8 +129,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$errors            = false;
 		$wrappedDescriptor = array(
 			'pluginType' => 'module',
-			'pluginId'   => 'testModule',
-			'contents'   => $this->_descriptor,
+			'pluginId' => 'testModule',
+			'contents' => $this->_descriptor,
 		);
 
 		foreach (array('base', 'lang-en_GB', 'lang-pt_PT') as $package) {
@@ -213,10 +213,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$this->_setRepositoryResponses();
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -256,10 +256,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -306,10 +306,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -347,10 +347,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -399,10 +399,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -453,10 +453,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -494,10 +494,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),
@@ -547,10 +547,10 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		);
 
 		$downloadData = array(
-			'name' => 'Test Module',
+			'name'  => 'Test Module',
 			'files' => array(
 				'descriptor' => 'testModule-descriptor',
-				'base'       => 'testModule-base-package',
+				'base' => 'testModule-base-package',
 				'lang-en_GB' => 'testModule-en_GB-package',
 				'lang-pt_PT' => 'testModule-pt_PT-package',
 			),

@@ -84,16 +84,16 @@ class ADODB2_sapdb extends ADODB_DataDict {
 			$len      = $fieldobj->max_length;
 		}
 		static $maxdb_type2adodb = array(
-			'VARCHAR' => 'C',
+			'VARCHAR'   => 'C',
 			'CHARACTER' => 'C',
-			'LONG' => 'X',     // no way to differ between 'X' and 'B' :-(
-			'DATE' => 'D',
+			'LONG'      => 'X',     // no way to differ between 'X' and 'B' :-(
+			'DATE'      => 'D',
 			'TIMESTAMP' => 'T',
-			'BOOLEAN' => 'L',
-			'INTEGER' => 'I4',
-			'SMALLINT' => 'I2',
-			'FLOAT' => 'F',
-			'FIXED' => 'N',
+			'BOOLEAN'   => 'L',
+			'INTEGER'   => 'I4',
+			'SMALLINT'  => 'I2',
+			'FLOAT'     => 'F',
+			'FIXED'     => 'N',
 		);
 		$type                    = isset($maxdb_type2adodb[$t]) ? $maxdb_type2adodb[$t] : 'C';
 

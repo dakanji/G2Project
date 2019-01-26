@@ -329,8 +329,8 @@ class GdToolkit extends GalleryToolkit {
 				 * $parameters[4]: alignment x %
 				 * $parameters[5]: alignment y %
 				 */
-				$cmd                  = 'composite';
-				$compositeOverlayPath = $parameters[0];
+				$cmd                      = 'composite';
+				$compositeOverlayPath     = $parameters[0];
 				$compositeOverlayMimeType = $parameters[1];
 				$compositeWidth           = $parameters[2];
 				$compositeHeight          = $parameters[3];

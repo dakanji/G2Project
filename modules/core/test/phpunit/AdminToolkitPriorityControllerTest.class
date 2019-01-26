@@ -74,13 +74,13 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'return'   => 0,
+				'return' => 0,
 				'redirect' => array(
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminToolkitPriority',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -94,15 +94,15 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'return'   => 0,
+				'return' => 0,
 				'redirect' => array(
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminToolkitPriority',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);

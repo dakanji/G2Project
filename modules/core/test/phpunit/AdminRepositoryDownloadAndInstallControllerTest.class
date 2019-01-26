@@ -347,8 +347,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationInUseModule() {
 		global $gallery;
-		$testModule                 = 'AdminRepositoryDownloadAndInstallControllerTest';
-		$this->_controller->_active = 0;
+		$testModule                     = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$this->_controller->_active     = 0;
 		$gallery->_phpVm->_class_exists = true;
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
@@ -705,7 +705,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				'test' => $repository,
 			),
 			array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'core.AdminRepository',
 			)
 		);
@@ -786,7 +786,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				'test' => $repository,
 			),
 			array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'core.AdminRepository',
 			)
 		);
@@ -813,7 +813,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
-		$session =& $gallery->getSession();
+		$session                      =& $gallery->getSession();
 		$expectedStatus['scanPlugin'] = array('module2');
 		$this->assertEquals(
 			$expectedStatus,
@@ -873,7 +873,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				'test' => $repository,
 			),
 			array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'core.AdminRepository',
 			)
 		);

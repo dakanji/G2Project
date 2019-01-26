@@ -361,9 +361,9 @@ class AdminFfmpegView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminFfmpeg              = array();
-		$AdminFfmpeg['tests']     = $tests;
-		$AdminFfmpeg['mimeTypes'] = $mimeTypes;
+		$AdminFfmpeg                     = array();
+		$AdminFfmpeg['tests']            = $tests;
+		$AdminFfmpeg['mimeTypes']        = $mimeTypes;
 		$AdminFfmpeg['mimeTypesEncoder'] = $mimeTypesEncoder;
 		$AdminFfmpeg['encodeWarnings']   = $encodeWarnings;
 		$AdminFfmpeg['version']          = $version;

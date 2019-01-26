@@ -105,22 +105,22 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 				),
 			),
 			'directories' => array(
-				'po'                    => array(
+				'po' => array(
 					'packages' => array('base'),
 				),
 				'locale/aa/LC_MESSAGES' => array(
 					'packages' => array('lang-aa'),
 				),
-				'locale/aa'             => array(
+				'locale/aa' => array(
 					'packages' => array('lang-aa'),
 				),
-				'locale'                => array(
+				'locale' => array(
 					'packages' => array('base'),
 				),
-				'test/phpunit'          => array(
+				'test/phpunit' => array(
 					'packages' => array(),
 				),
-				'test'                  => array(
+				'test' => array(
 					'packages' => array(),
 				),
 			),
@@ -181,7 +181,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 						'groupLabel'  => 'pt_PT-modules_testModule-Test Group',
 					),
 				),
-				'files'        => array(
+				'files' => array(
 					'MANIFEST' => array(
 						'bytes'    => '12121',
 						'hash'     => '1908582732',
@@ -237,7 +237,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 						'packages'   => array(),
 					),
 				),
-				'directories'  => array(
+				'directories' => array(
 					'locale/aa/LC_MESSAGES' => array(
 						'packages' => array('lang-aa'),
 					),
@@ -257,7 +257,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 						'packages' => array(),
 					),
 				),
-				'languages'    => array(
+				'languages' => array(
 					'22222' => array(
 						'aa' => '14444',
 					),
@@ -563,7 +563,7 @@ class RepositoryDescriptorTestPlugin {
 
 	public function getGroup() {
 		return array(
-			'group'      => 'testGroup',
+			'group' => 'testGroup',
 			'groupLabel' => 'Test Group',
 		);
 	}

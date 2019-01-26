@@ -36,8 +36,8 @@ class DatabaseBackupTask extends MaintenanceTask {
 		global $gallery;
 
 		return array(
-			'l10Domain'   => 'modules_core',
-			'title'       => $gallery->i18n('Backup the database'),
+			'l10Domain' => 'modules_core',
+			'title'     => $gallery->i18n('Backup the database'),
 			'description' => $gallery->i18n(
 				'Backup all your Gallery data (item data, users, comments, etc.) to a '
 				. 'single file in your storage folder.  The backup does not include '

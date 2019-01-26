@@ -43,10 +43,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		list($ret, $this->_user) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-				'email'          => 'test@email.com',
-				'fullName'       => 'Test User',
-				'language'       => 'te',
-				'locked'         => 0,
+				'email' => 'test@email.com',
+				'fullName' => 'Test User',
+				'language' => 'te',
+				'locked' => 0,
 			)
 		);
 
@@ -80,9 +80,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'return'   => true,
-				'status'   => array(),
-				'error'    => array(),
+				'return' => true,
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -98,8 +98,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(),
-				'error'    => array(),
+				'status' => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -121,10 +121,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -158,10 +158,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -190,8 +190,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][email][missing]'),
+				'status' => array(),
+				'error' => array('form[error][email][missing]'),
 			),
 			$results
 		);
@@ -206,10 +206,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -329,10 +329,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -373,8 +373,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][currentPassword][incorrect]'),
+				'status' => array(),
+				'error' => array('form[error][currentPassword][incorrect]'),
 			),
 			$results,
 			'invalid password'
@@ -423,8 +423,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][currentPassword][incorrect]'),
+				'status' => array(),
+				'error' => array('form[error][currentPassword][incorrect]'),
 			),
 			$results,
 			'invalid password'
@@ -466,8 +466,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(),
-				'error'    => array('form[error][currentPassword][missing]'),
+				'status' => array(),
+				'error' => array('form[error][currentPassword][missing]'),
 			),
 			$results,
 			'missing password'
@@ -503,10 +503,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		list($ret, $this->_user2) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-				'email'          => 'test2@email.com',
-				'fullName'       => 'Test User 2',
-				'language'       => 'te',
-				'locked'         => 1,
+				'email' => 'test2@email.com',
+				'fullName' => 'Test User 2',
+				'language' => 'te',
+				'locked' => 1,
 			)
 		);
 
@@ -548,10 +548,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserPreferences',
 				),
-				'status'   => array(
+				'status' => array(
 					'saved' => 1,
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);

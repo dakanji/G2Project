@@ -137,8 +137,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListCantWrite() {
 		$this->_platform->_isWriteable = false;
 		$accessList                    = array('phpunit.test1', 'phpunit.test2');
-		$ourParser        = $this->_parser;
-		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
+		$ourParser                     = $this->_parser;
+		list($ret, $code)              = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -539,7 +539,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveEmbedConfig2() {
 		$this->_platform->_isWriteable = false;
-		$params = array(
+		$params                        = array(
 			'embeddedLocation' => '/test/',
 		);
 
@@ -556,7 +556,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveEmbedConfig3() {
 		$this->_platform->_isWriteable = false;
-		$params = array();
+		$params                        = array();
 
 		list($ret, $code, $errstr) = $this->_parser->saveEmbedConfig($params);
 

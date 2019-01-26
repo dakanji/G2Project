@@ -310,7 +310,7 @@ class SiteAdminView extends GalleryView {
 			$groupOrder = array(
 				'gallery' => 1,
 				'toolkits' => 2,
-				'' => 3,
+				''      => 3,
 				'other' => 4,
 			);
 		}

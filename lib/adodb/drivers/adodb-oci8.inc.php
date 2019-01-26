@@ -94,16 +94,16 @@ BEGIN
 END;
 ";
 
-	public $_dropSeqSQL           = 'DROP SEQUENCE %s';
-	public $hasAffectedRows       = true;
-	public $random                = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
-	public $noNullStrings         = false;
-	public $connectSID            = false;
-	public $_bind                 = false;
-	public $_nestedSQL            = true;
-	public $_hasOciFetchStatement = false;
-	public $_getarray             = false; // currently not working
-	public $leftOuter             = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
+	public $_dropSeqSQL                 = 'DROP SEQUENCE %s';
+	public $hasAffectedRows             = true;
+	public $random                      = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
+	public $noNullStrings               = false;
+	public $connectSID                  = false;
+	public $_bind                       = false;
+	public $_nestedSQL                  = true;
+	public $_hasOciFetchStatement       = false;
+	public $_getarray                   = false; // currently not working
+	public $leftOuter                   = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
 	public $session_sharing_force_blob  = false; // alter session on updateblob if set to true
 	public $firstrows                   = true; // enable first rows optimization on SelectLimit()
 	public $selectOffsetAlg1            = 1000; // when to use 1st algorithm of selectlimit.
@@ -767,7 +767,7 @@ END;
 				if ($offset > 0) {
 					$nrows += $offset;
 				}
-				$sql = 'select * from (' . $sql . ') where rownum <= :adodb_offset';
+				$sql                      = 'select * from (' . $sql . ') where rownum <= :adodb_offset';
 				$inputarr['adodb_offset'] = $nrows;
 				$nrows                    = -1;
 			}
@@ -841,7 +841,7 @@ END;
 		}
 		$offset += 1; // in Oracle rownum starts at 1
 
-		$sql = "SELECT $hint $fields FROM" .
+		$sql                      = "SELECT $hint $fields FROM" .
 				"(SELECT rownum as adodb_rownum, $fields FROM" .
 				" ($sql) WHERE rownum <= :adodb_nrows" .
 				') WHERE adodb_rownum >= :adodb_offset';
@@ -1207,8 +1207,8 @@ END;
 				ADOConnection::outp("<b>Bind</b>: name = $name");
 			}
 			//we have to create a new Descriptor here
-			$numlob = count($this->_refLOBs);
-			$this->_refLOBs[$numlob]['LOB']  = oci_new_descriptor($this->_connectionID, oci_lob_desc($type));
+			$numlob                         = count($this->_refLOBs);
+			$this->_refLOBs[$numlob]['LOB'] = oci_new_descriptor($this->_connectionID, oci_lob_desc($type));
 			$this->_refLOBs[$numlob]['TYPE'] = $isOutput;
 
 			$tmp = $this->_refLOBs[$numlob]['LOB'];

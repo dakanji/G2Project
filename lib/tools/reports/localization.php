@@ -238,12 +238,12 @@ function parsePoFiles($poFiles) {
 		$poData[$locale]['plugins'][$plugin] = array(
 			'translated' => $translated,
 			'untranslated' => $untranslated,
-			'total' => $total,
-			'fuzzy' => $fuzzy,
+			'total'    => $total,
+			'fuzzy'    => $fuzzy,
 			'obsolete' => $obsolete,
 			'percentDone' => $percentDone,
 			'exactPercentDone' => $exactPercentDone,
-			'name' => $plugin,
+			'name'     => $plugin,
 		);
 		$totalTranslated                    += $translated - $fuzzy;
 

@@ -359,9 +359,9 @@ class GalleryRepositoryUtilities {
 
 		while ($result = $searchResults->nextResult()) {
 			$data[$result[3]] = array(
-				'locked'  => $result[0],
+				'locked' => $result[0],
 				'version' => $result[1],
-				'build'   => $result[2],
+				'build' => $result[2],
 			);
 		}
 

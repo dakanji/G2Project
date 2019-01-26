@@ -144,25 +144,25 @@ class DataCacheTest extends GalleryTestCase {
 
 		$cases = array();
 		$cases['/data/cache/module/core/0/0/1.inc'] = array(
-			'type' => 'module',
-			'id'   => 'core',
+			'type'   => 'module',
+			'id'     => 'core',
 			'itemId' => 1,
 		);
 		$cases['/data/cache/module/core/0/0/0.inc'] = array(
-			'type' => 'module',
-			'id'   => 'core',
+			'type'   => 'module',
+			'id'     => 'core',
 			'itemId' => '../EVIL',
 		);
 		$cases['/data/cache/module/0/0/0/1.inc']    = array(
-			'type' => 'module',
-			'id'   => '../EVIL',
+			'type'   => 'module',
+			'id'     => '../EVIL',
 			'itemId' => 1,
 		);
 
 		// We use itemId to store keys like 'GalleryFactoryHelper_loadRegistry'
 		$cases['/data/cache/module/core/0/0/Legal_key.inc'] = array(
-			'type' => 'module',
-			'id'   => 'core',
+			'type'   => 'module',
+			'id'     => 'core',
 			'itemId' => 'Legal_key',
 		);
 
@@ -172,80 +172,80 @@ class DataCacheTest extends GalleryTestCase {
 			'id'   => 'matrix',
 		);
 		$cases['/data/cache/theme/matrix/1/2/123.inc'] = array(
-			'type' => 'theme',
-			'id'   => 'matrix',
+			'type'   => 'theme',
+			'id'     => 'matrix',
 			'itemId' => 123,
 		);
 		$cases['/data/cache/theme/0/1/2/123.inc']      = array(
-			'type' => 'theme',
-			'id'   => '../EVIL',
+			'type'   => 'theme',
+			'id'     => '../EVIL',
 			'itemId' => 123,
 		);
 		$cases['/data/cache/theme/matrix/0/0/0.inc']   = array(
-			'type' => 'theme',
-			'id'   => 'matrix',
+			'type'   => 'theme',
+			'id'     => 'matrix',
 			'itemId' => '../EVIL',
 		);
 
 		$cases['/data/cache/entity/7/2/725.inc'] = array(
-			'type' => 'entity',
+			'type'   => 'entity',
 			'itemId' => 725,
 		);
 		$cases['/data/cache/entity/0/0/0.inc']   = array(
-			'type' => 'entity',
+			'type'   => 'entity',
 			'itemId' => '../EVIL',
 		);
 
 		$cases['/data/cache/derivative/1/2/123.dat'] = array(
-			'type' => 'derivative',
+			'type'   => 'derivative',
 			'itemId' => 123,
 		);
 		$cases['/data/cache/derivative/0/0/0.dat']   = array(
-			'type' => 'derivative',
+			'type'   => 'derivative',
 			'itemId' => '../EVIL',
 		);
 
 		$cases['derivative/1/2/123.dat'] = array(
-			'type' => 'derivative-relative',
+			'type'   => 'derivative-relative',
 			'itemId' => 123,
 		);
 		$cases['derivative/0/0/0.dat']   = array(
-			'type' => 'derivative-relative',
+			'type'   => 'derivative-relative',
 			'itemId' => '../EVIL',
 		);
 
 		$cases['/data/cache/entity/1/2/123-fast.inc'] = array(
-			'type' => 'fast-download',
+			'type'   => 'fast-download',
 			'itemId' => 123,
 		);
 		$cases['/data/cache/entity/0/0/0-fast.inc']   = array(
-			'type' => 'fast-download',
+			'type'   => 'fast-download',
 			'itemId' => '../EVIL',
 		);
 
 		$cases['/data/cache/module/foo/1/2/123.dat']       = array(
-			'type' => 'module-data',
+			'type'   => 'module-data',
 			'module' => 'foo',
 			'itemId' => 123,
 		);
 		$cases['/data/cache/module/foo/1/2/123_AZ_az.dat'] = array(
-			'type' => 'module-data',
+			'type'   => 'module-data',
 			'module' => 'foo',
 			'itemId' => '123_AZ_az',
 		);
 		$cases['/data/cache/module/foo/0/0/___EVIL.dat']   = array(
-			'type' => 'module-data',
+			'type'   => 'module-data',
 			'module' => 'foo',
 			'itemId' => '../EVIL',
 		);
 		$cases['/data/cache/module/0/1/2/123.dat']         = array(
-			'type' => 'module-data',
+			'type'   => 'module-data',
 			'module' => '../EVIL',
 			'itemId' => 123,
 		);
 
 		$cases['/data/cache/module/foo/'] = array(
-			'type' => 'module-data',
+			'type'   => 'module-data',
 			'module' => 'foo',
 		);
 
@@ -266,7 +266,7 @@ class DataCacheTest extends GalleryTestCase {
 		$testdata = "testdata c:\foo\bar";
 		GalleryDataCache::putToDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 1,
 			),
 			$testdata
@@ -279,7 +279,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::putToDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 1,
 			),
 			$testdata,
@@ -293,7 +293,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::putToDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 1,
 			),
 			$testdata,
@@ -307,7 +307,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::putToDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 21,
 			),
 			$testdata
@@ -320,7 +320,7 @@ class DataCacheTest extends GalleryTestCase {
 		$testdata = '|test#with\'funky"chars? \\*&%$[]}{ end';
 		GalleryDataCache::putToDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 721,
 			),
 			$testdata
@@ -355,7 +355,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 1,
 			)
 		);
@@ -367,8 +367,8 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'module',
-				'id'     => 'core',
+				'type' => 'module',
+				'id'   => 'core',
 				'itemId' => 1,
 			)
 		);
@@ -392,7 +392,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'module',
+				'type' => 'module',
 				'itemId' => 1,
 			)
 		);
@@ -408,7 +408,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type'   => 'theme',
+				'type' => 'theme',
 				'itemId' => 1,
 			)
 		);
@@ -442,14 +442,14 @@ class DataCacheTest extends GalleryTestCase {
 		 */
 		GalleryDataCache::getFromDisk(
 			array(
-				'type'   => 'entity',
+				'type' => 'entity',
 				'itemId' => 1,
 			)
 		);
 		GalleryDataCache::getFromDisk(
 			array(
-				'type'   => 'module',
-				'id'     => 'core',
+				'type' => 'module',
+				'id'   => 'core',
 				'itemId' => 1,
 			)
 		);
@@ -460,9 +460,9 @@ class DataCacheTest extends GalleryTestCase {
 
 		// Put some content containing | and , and make sure it parses back ok
 		$cacheParams = array(
-			'type' => 'module',
+			'type'   => 'module',
 			'itemId' => 'phpunit_DataCacheTest_testData',
-			'id'   => '_all',
+			'id'     => '_all',
 		);
 		$data        = array(
 			'key'  => 'value,with|pipe',
@@ -863,11 +863,11 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration = array(
 			'user' => array(
-				'type'       => 'full',
+				'type' => 'full',
 				'expiration' => 30,
 			),
 			'guest' => array(
-				'type'       => 'full',
+				'type' => 'full',
 				'expiration' => 30,
 			),
 		);
@@ -983,11 +983,11 @@ class DataCacheTest extends GalleryTestCase {
 		// Move treshold, making all rows valid again.
 		$acceleration = array(
 			'user' => array(
-				'type'       => 'full',
+				'type' => 'full',
 				'expiration' => 200,
 			),
 			'guest' => array(
-				'type'       => 'full',
+				'type' => 'full',
 				'expiration' => 200,
 			),
 		);
@@ -1179,7 +1179,7 @@ class DataCacheTestPlatform {
 	}
 
 	public function atomicWrite($filename, $data) {
-		$record =& $this->getRecord();
+		$record                        =& $this->getRecord();
 		$record['contents'][$filename] = $data;
 
 		return strlen($data);
@@ -1195,7 +1195,7 @@ class DataCacheTestPlatform {
 	}
 
 	public function recursiveRmDir($dir) {
-		$record =& $this->getRecord();
+		$record                      =& $this->getRecord();
 		$record['deleted-dir'][$dir] = 1;
 	}
 

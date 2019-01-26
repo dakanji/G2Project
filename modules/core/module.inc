@@ -273,7 +273,7 @@ class CoreModule extends GalleryModule {
 				&& !empty($childCounts[$itemId])
 				&& $childCounts[$itemId] > 0
 			) {
-				$link = array(
+				$link                        = array(
 					'text'   => $this->_translate('Edit Captions'),
 					'params' => array(
 						'view'    => 'core.ItemAdmin',
@@ -365,7 +365,7 @@ class CoreModule extends GalleryModule {
 
 		if ($isAdmin) {
 			$links['SiteAdmin'] = array(
-				'text'   => $this->translate('Site Admin'),
+				'text' => $this->translate('Site Admin'),
 				'params' => array(
 					'view'   => 'core.SiteAdmin',
 					'return' => 1,
@@ -463,9 +463,9 @@ class CoreModule extends GalleryModule {
 
 		if (!empty($list)) {
 			$data[] = array(
-				'name'       => $this->translate('Toolkit Priority'),
-				'view'       => 'core.AdminToolkitPriority',
-				'group'      => 'toolkits',
+				'name'  => $this->translate('Toolkit Priority'),
+				'view'  => 'core.AdminToolkitPriority',
+				'group' => 'toolkits',
 				'groupLabel' => $this->translate('Graphics Toolkits'),
 			);
 		}
@@ -542,7 +542,7 @@ class CoreModule extends GalleryModule {
 		}
 		$hasThumb = !empty($thumbTable[$item->getId()]);
 
-		$parentId = $item->getParentId();
+		$parentId                      = $item->getParentId();
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 
 		if ($ret) {

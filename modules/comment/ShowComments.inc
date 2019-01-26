@@ -111,9 +111,9 @@ class ShowCommentsView extends GalleryView {
 		}
 
 		foreach (array(
-			'delete' => 'comment.delete',
-			'edit' => 'comment.edit',
-			'view' => 'comment.view',
+			'delete'   => 'comment.delete',
+			'edit'     => 'comment.edit',
+			'view'     => 'comment.view',
 			'markSpam' => 'comment.edit',
 		) as $canFlag => $permission) {
 			$can[$canFlag] = isset($permissions[$permission]);
@@ -122,10 +122,10 @@ class ShowCommentsView extends GalleryView {
 		$template->setVariable(
 			'ShowComments',
 			array(
-				'comments'   => $comments,
+				'comments' => $comments,
 				'commenters' => $commenters,
-				'can'        => $can,
-				'item'       => (array)$item,
+				'can'  => $can,
+				'item' => (array)$item,
 			)
 		);
 

@@ -108,7 +108,7 @@ class AdminToolkitPriorityView extends GalleryView {
 		}
 
 		$AdminToolkitPriority = array(
-			'list' => $list,
+			'list'  => $list,
 			'count' => count($list),
 		);
 		$template->setVariable('AdminToolkitPriority', $AdminToolkitPriority);

@@ -619,8 +619,8 @@ class ViewTest extends GalleryTestCase {
 			true
 		);
 
-		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$view     = new ViewTestAdminView();
+		$template                    = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
+		$view                        = new ViewTestAdminView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -678,7 +678,7 @@ class ViewTest extends GalleryTestCase {
 			)
 		);
 		// Config view is Module View with no itemId defined
-		$view = new ViewTestConfigView();
+		$view                        = new ViewTestConfigView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -729,7 +729,7 @@ class ViewTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($item);
-		$itemId = $item->getId();
+		$itemId                      = $item->getId();
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -749,7 +749,7 @@ class ViewTest extends GalleryTestCase {
 				'meta' => array(),
 			)
 		);
-		$view = new ViewTestItemView();
+		$view                        = new ViewTestItemView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -790,7 +790,7 @@ class ViewTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($item);
-		$itemId = $item->getId();
+		$itemId                      = $item->getId();
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -810,7 +810,7 @@ class ViewTest extends GalleryTestCase {
 				'meta' => array(),
 			)
 		);
-		$view = new ViewTestItemView();
+		$view                        = new ViewTestItemView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -885,7 +885,7 @@ class ViewTest extends GalleryTestCase {
 			)
 		);
 		// This view overrides default cache control functionality
-		$view = new ViewTestNoAutoCacheControlItemView();
+		$view                        = new ViewTestNoAutoCacheControlItemView();
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {

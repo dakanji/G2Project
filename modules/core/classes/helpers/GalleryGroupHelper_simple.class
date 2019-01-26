@@ -119,7 +119,7 @@ class GalleryGroupHelper_simple {
 	public static function fetchGroupByGroupName($groupName = null) {
 		global $gallery;
 
-		$query = '
+		$query                     = '
 	SELECT
 	  [GalleryGroup::id]
 	FROM

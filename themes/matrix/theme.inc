@@ -37,17 +37,17 @@ class MatrixTheme extends GalleryTheme {
 		$this->setRequiredThemeApi(array(2, 4));
 		$this->setStandardSettings(
 			array(
-				'rows'            => 3,
-				'columns'         => 3,
-				'showImageOwner'  => 0,
-				'showAlbumOwner'  => 1,
-				'albumFrame'      => '',
-				'itemFrame'       => '',
-				'photoFrame'      => '',
-				'colorpack'       => '',
+				'rows' => 3,
+				'columns' => 3,
+				'showImageOwner' => 0,
+				'showAlbumOwner' => 1,
+				'albumFrame' => '',
+				'itemFrame' => '',
+				'photoFrame' => '',
+				'colorpack' => '',
 				'showMicroThumbs' => 0,
-				'dynamicLinks'    => 'browse',
-				'sidebarBlocks'   => serialize(
+				'dynamicLinks' => 'browse',
+				'sidebarBlocks' => serialize(
 					array(
 						array(
 							'search.SearchBlock',
@@ -65,12 +65,12 @@ class MatrixTheme extends GalleryTheme {
 						array('imageblock.ImageBlock', array()),
 					)
 				),
-				'albumBlocks'     => serialize(
+				'albumBlocks' => serialize(
 					array(
 						array('comment.ViewComments', array()),
 					)
 				),
-				'photoBlocks'     => serialize(
+				'photoBlocks' => serialize(
 					array(
 						array('exif.ExifInfo', array()),
 						array('comment.ViewComments', array()),

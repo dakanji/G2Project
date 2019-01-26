@@ -54,7 +54,7 @@ class ImageMagickModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'path' => '',
+			'path'      => '',
 			'jpegQuality' => '75',
 			'cmykSupport' => 'none',
 			'versionOk' => '',

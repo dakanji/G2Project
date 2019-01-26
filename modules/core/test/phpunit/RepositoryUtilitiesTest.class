@@ -394,9 +394,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		foreach ($testCases as $case) {
 			$providedApis = is_null($case['providedApis']) ? null : array(
-				'core'   => explode('.', $case['providedApis']['core']),
+				'core'  => explode('.', $case['providedApis']['core']),
 				'module' => explode('.', $case['providedApis']['module']),
-				'theme'  => explode('.', $case['providedApis']['theme']),
+				'theme' => explode('.', $case['providedApis']['theme']),
 			);
 
 			$isCompatible = $utilities->isPluginCompatible(
@@ -537,9 +537,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		 * part of the setSearchResults() call above.
 		 */
 		$expectedQuery = array(
-			'map' => 'GalleryPluginPackageMap',
+			'map'    => 'GalleryPluginPackageMap',
 			'select' => array('locked', 'packageVersion', 'packageBuild', 'packageName'),
-			'where' => array(
+			'where'  => array(
 				'pluginType' => 'module',
 				'pluginId'   => 'testModule',
 			),
@@ -725,9 +725,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$searches = $this->_testStorage->getSearches();
 		$this->assertEquals(
 			array(
-				'map'    => 'GalleryPluginPackageMap',
+				'map'   => 'GalleryPluginPackageMap',
 				'select' => array('packageVersion', 'packageBuild'),
-				'where'  => array(
+				'where' => array(
 					'pluginType'  => 'module',
 					'pluginId'    => 'testModule',
 					'packageName' => 'package',
@@ -777,9 +777,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$searches = $this->_testStorage->getSearches();
 		$this->assertEquals(
 			array(
-				'map'    => 'GalleryPluginPackageMap',
+				'map'   => 'GalleryPluginPackageMap',
 				'select' => array('packageVersion', 'packageBuild'),
-				'where'  => array(
+				'where' => array(
 					'pluginType'  => 'module',
 					'pluginId'    => 'testModule',
 					'packageName' => 'package',
@@ -855,9 +855,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	public function _getDescriptorForPreVerifyPackageTests() {
 		return array(
-			'pluginId'   => 'testplugin',
+			'pluginId' => 'testplugin',
 			'pluginType' => 'module',
-			'contents'   => array(
+			'contents' => array(
 				'files' => array(
 					'f1'    => array(
 						'packages' => array('p1'),

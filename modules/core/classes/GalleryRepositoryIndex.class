@@ -73,7 +73,7 @@ class GalleryRepositoryIndex {
 		$indexUrl     = $gallery->getConfig('repository.url') . $this->_source . '/index';
 		$indexHashUrl = $indexUrl . '.hash';
 
-		$path = $this->getRepositoryCacheDir();
+		$path                     = $this->getRepositoryCacheDir();
 		list($success1, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'modules');
 		list($success2, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'themes');
 

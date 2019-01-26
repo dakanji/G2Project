@@ -724,7 +724,7 @@ class EmbedTest extends GalleryTestCase {
 	public function testEmbeddingAppSpecifiesDifferentAdodbFetchMode() {
 		global $gallery;
 
-		$save = $GLOBALS['ADODB_FETCH_MODE'];
+		$save                        = $GLOBALS['ADODB_FETCH_MODE'];
 		$GLOBALS['ADODB_FETCH_MODE'] = ADODB_FETCH_ASSOC;
 
 		$storage =& $gallery->getStorage();

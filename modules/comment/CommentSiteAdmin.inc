@@ -133,8 +133,8 @@ class CommentSiteAdminController extends GalleryController {
 
 		// Figure out where to redirect upon success
 		if (empty($delegate)) {
-			$method                   = empty($error) ? 'redirect' : 'delegate';
-			$results[$method]['view'] = 'core.SiteAdmin';
+			$method                      = empty($error) ? 'redirect' : 'delegate';
+			$results[$method]['view']    = 'core.SiteAdmin';
 			$results[$method]['subView'] = 'comment.CommentSiteAdmin';
 		} else {
 			$results['delegate'] = $delegate;
@@ -265,8 +265,8 @@ class CommentSiteAdminController extends GalleryController {
 		$statusId          = $session->putStatus($status);
 		$continueUrl       = $urlGenerator->generateUrl(
 			array(
-				'view'     => 'core.SiteAdmin',
-				'subView'  => 'comment.CommentSiteAdmin',
+				'view' => 'core.SiteAdmin',
+				'subView' => 'comment.CommentSiteAdmin',
 				'statusId' => $statusId,
 			),
 			array(

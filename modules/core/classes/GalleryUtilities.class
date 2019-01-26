@@ -1203,7 +1203,7 @@ class GalleryUtilities {
 		$data   = array();
 		$data[] = array(
 			'depth' => $depth,
-			'data' => (array)$map[$id]['instance'],
+			'data'  => (array)$map[$id]['instance'],
 		);
 
 		if (isset($map[$id]['children'])) {

@@ -764,7 +764,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 		$expectedUncompressed   = array();
 		$expectedUncompressed[] = array(
-			'userId'     => $gallery->getActiveUserId(),
+			'userId' => $gallery->getActiveUserId(),
 			'permission' => 'core.changePermissions',
 		);
 

@@ -48,7 +48,7 @@ class RatingCallbacks {
 				}
 
 				if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-					$albumId = $itemId;
+					$albumId                      = $itemId;
 					list($ret, $allowAlbumRating) = GalleryCoreApi::getPluginParameter('module', 'rating', 'allowAlbumRating');
 
 					if ($ret) {
@@ -104,8 +104,8 @@ class RatingCallbacks {
 					'authToken'    => $authToken,
 				);
 
-				$block =& $smarty->_tpl_vars['block'];
-				$block['rating']['RatingData']    = $RatingData[$itemId];
+				$block                         =& $smarty->_tpl_vars['block'];
+				$block['rating']['RatingData'] = $RatingData[$itemId];
 				$block['rating']['RatingSummary'] = $RatingSummary;
 
 				return null;

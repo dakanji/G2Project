@@ -57,9 +57,9 @@ function smarty_function_config_load($params, &$smarty) {
 	}
 
 	$_params = array(
-		'resource_name'      => $_file,
+		'resource_name' => $_file,
 		'resource_base_path' => $smarty->config_dir,
-		'get_source'         => false,
+		'get_source'    => false,
 	);
 	$smarty->_parse_resource_name($_params);
 	$_file_path = $_params['resource_type'] . ':' . $_params['resource_name'];
@@ -155,9 +155,9 @@ function smarty_function_config_load($params, &$smarty) {
 
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 		$smarty->_smarty_debug_info[] = array(
-			'type' => 'config',
-			'filename' => $_file . ' [' . $_section . '] ' . $_scope,
-			'depth' => $smarty->_inclusion_depth,
+			'type'      => 'config',
+			'filename'  => $_file . ' [' . $_section . '] ' . $_scope,
+			'depth'     => $smarty->_inclusion_depth,
 			'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time,
 		);
 	}

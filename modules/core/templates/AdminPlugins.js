@@ -191,7 +191,7 @@ function addMessage(pluginType, pluginId, messageText, messageType) {
 	pluginStatus.className        = messageType;
 	pluginStatus.id               = detailsId;
 	pluginStatus.style.whiteSpace = "nowrap";
-	var text = messageText.replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]);
+	var text                      = messageText.replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]);
 
 	pluginStatus.appendChild(document.createTextNode(text));
 

@@ -263,10 +263,10 @@ class CoreModuleTest extends GalleryTestCase {
 		list($ret, $this->_user1) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-				'email'          => 'test2@email.com',
-				'fullName'       => 'Test User 2',
-				'language'       => 'te',
-				'locked'         => 0,
+				'email' => 'test2@email.com',
+				'fullName' => 'Test User 2',
+				'language' => 'te',
+				'locked' => 0,
 			)
 		);
 
@@ -309,10 +309,10 @@ class CoreModuleTest extends GalleryTestCase {
 		list($ret, $this->_user2) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-				'email'          => 'test2@email.com',
-				'fullName'       => 'Test User 2',
-				'language'       => 'te',
-				'locked'         => 1,
+				'email' => 'test2@email.com',
+				'fullName' => 'Test User 2',
+				'language' => 'te',
+				'locked' => 1,
 			)
 		);
 
@@ -407,7 +407,7 @@ class CoreModuleTest extends GalleryTestCase {
 		$versions = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			array(
-				'core'    => 0,
+				'core' => 0,
 				'gallery' => 0,
 			),
 			$versions,

@@ -96,8 +96,8 @@ class SlideshowMediaRssView extends GalleryView {
 		$template->setVariable(
 			'SlideshowMediaRss',
 			array(
-				'items'      => $items,
-				'itemId'     => $itemId,
+				'items' => $items,
+				'itemId' => $itemId,
 				'prevOffset' => $prevOffset,
 				'nextOffset' => $nextOffset,
 			)

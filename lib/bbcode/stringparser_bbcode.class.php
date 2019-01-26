@@ -128,8 +128,8 @@ class StringParser_BBCode extends StringParser {
 	 */
 	public $_paragraphHandling = array(
 		'detect_string' => "\n\n",
-		'start_tag' => '<p>',
-		'end_tag' => "</p>\n",
+		'start_tag'     => '<p>',
+		'end_tag'       => "</p>\n",
 	);
 
 	/**
@@ -168,7 +168,7 @@ class StringParser_BBCode extends StringParser {
 			return false; // invalid
 		}
 		$this->_codes[$name] = array(
-			'name' => $name,
+			'name'  => $name,
 			'callback_type' => $callback_type,
 			'callback_func' => $callback_func,
 			'callback_params' => $callback_params,
@@ -318,8 +318,8 @@ class StringParser_BBCode extends StringParser {
 	public function setParagraphHandlingParameters($detect_string, $start_tag, $end_tag) {
 		$this->_paragraphHandling = array(
 			'detect_string' => $detect_string,
-			'start_tag'     => $start_tag,
-			'end_tag'       => $end_tag,
+			'start_tag' => $start_tag,
+			'end_tag'   => $end_tag,
 		);
 	}
 

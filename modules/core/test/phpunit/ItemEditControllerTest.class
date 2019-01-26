@@ -127,11 +127,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditControllerTestPluginSuccess',
 					'itemId'     => $this->_item->getId(),
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => 'success',
 					'warning'     => array(),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -151,11 +151,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditControllerTestPluginSuccess',
 					'itemId'     => $this->_item->getId(),
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => 'success',
 					'warning'     => array(),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -219,11 +219,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => 'success',
 					'warning'     => array(),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);
@@ -261,11 +261,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status'   => array(
+				'status' => array(
 					'editMessage' => 'success',
 					'warning'     => array(),
 				),
-				'error'    => array(),
+				'error' => array(),
 			),
 			$results
 		);

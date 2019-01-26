@@ -406,7 +406,7 @@ class IsapiRewriteHelper {
 			}
 
 			$regexRule['conditions'][] = array(
-				'test'    => 'Host:',
+				'test' => 'Host:',
 				'pattern' => $Httpdini['host'],
 			);
 

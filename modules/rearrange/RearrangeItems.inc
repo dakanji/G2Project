@@ -93,9 +93,9 @@ class RearrangeItemsController extends GalleryController {
 		} // else $form['action']['reset']
 
 		$results['redirect'] = array(
-			'view' => 'core.ItemAdmin',
+			'view'    => 'core.ItemAdmin',
 			'subView' => 'rearrange.RearrangeItems',
-			'itemId' => $itemId,
+			'itemId'  => $itemId,
 		);
 		$results['status']   = $status;
 		$results['error']    = $error;

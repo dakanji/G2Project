@@ -121,12 +121,12 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 
 		if (!empty($redirectSubview)) {
 			$results['redirect'] = array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => $redirectSubview,
 			);
 		} else {
 			$results['delegate'] = array(
-				'view'    => 'core.SiteAdmin',
+				'view' => 'core.SiteAdmin',
 				'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 			);
 		}

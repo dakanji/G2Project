@@ -360,9 +360,9 @@ class AdminCoreView extends GalleryView {
 
 		// Miscellaneous lists
 		$embeddedMarkupList = array(
-			'none' => $module->translate('No Markup'),
+			'none'   => $module->translate('No Markup'),
 			'bbcode' => $module->translate('BBCode'),
-			'html' => $module->translate('Raw HTML'),
+			'html'   => $module->translate('Raw HTML'),
 		);
 
 		$lockSystemList = array(

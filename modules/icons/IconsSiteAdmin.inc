@@ -57,8 +57,8 @@ class IconsSiteAdminController extends GalleryController {
 		}
 
 		// Figure out where to redirect upon success
-		$method                   = empty($error) ? 'redirect' : 'delegate';
-		$results[$method]['view'] = 'core.SiteAdmin';
+		$method                      = empty($error) ? 'redirect' : 'delegate';
+		$results[$method]['view']    = 'core.SiteAdmin';
 		$results[$method]['subView'] = 'icons.IconsSiteAdmin';
 		$results['status']           = $status;
 		$results['error']            = $error;
