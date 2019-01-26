@@ -270,31 +270,31 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		// Some test cases
 		$tests   = array();
 		$tests[] = array(
-			'path'  => '',
+			'path' => '',
 			'saved' => 1,
-			'ep'    => '',
+			'ep'   => '',
 		);
 		$tests[] = array(
-			'path'  => '/',
+			'path' => '/',
 			'saved' => 1,
-			'ep'    => '/',
+			'ep'   => '/',
 		);
 		$tests[] = array(
-			'path'  => '/sub/',
+			'path' => '/sub/',
 			'saved' => 1,
-			'ep'    => '/sub/',
+			'ep'   => '/sub/',
 		);
 		$tests[] = array(
-			'path'  => '/sub',
+			'path' => '/sub',
 			'saved' => 1,
-			'ep'    => '/sub/',
+			'ep'   => '/sub/',
 		);
 		$tests[] = array(
-			'path'  => '/sub/gallery',
+			'path' => '/sub/gallery',
 			'saved' => 0,
 		);
 		$tests[] = array(
-			'path'  => '/sub/application',
+			'path' => '/sub/application',
 			'saved' => 0,
 		);
 
@@ -387,23 +387,23 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$tests   = array();
 		$tests[] = array(
 			'domain' => '',
-			'saved'  => 1,
-			'ep'     => '',
+			'saved' => 1,
+			'ep' => '',
 		);
 		$tests[] = array(
 			'domain' => 'example.com',
-			'saved'  => 1,
-			'ep'     => '.example.com',
+			'saved' => 1,
+			'ep' => '.example.com',
 		);
 		$tests[] = array(
 			'domain' => '.example.com',
-			'saved'  => 1,
-			'ep'     => '.example.com',
+			'saved' => 1,
+			'ep' => '.example.com',
 		);
 		$tests[] = array(
 			'domain' => '.www.example.com',
-			'saved'  => 1,
-			'ep'     => '.www.example.com',
+			'saved' => 1,
+			'ep' => '.www.example.com',
 		);
 		$tests[] = array(
 			'domain' => 'photos.example.com',

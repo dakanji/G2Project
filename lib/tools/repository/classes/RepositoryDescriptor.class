@@ -89,14 +89,14 @@ class RepositoryDescriptor extends RepositoryObject {
 		global $gallery;
 
 		// Get basic plugin meta data.
-		$pluginType      = $plugin->getPluginType();
-		$this->_pluginId = $plugin->getId();
+		$pluginType           = $plugin->getPluginType();
+		$this->_pluginId      = $plugin->getId();
 		$this->_pluginVersion = $plugin->getVersion();
 
 		// Create descriptor header.
-		$header['id']      = $this->_pluginId;
-		$header['version'] = $this->_pluginVersion;
-		$header['requiredCoreApi']   = $plugin->getRequiredCoreApi();
+		$header['id']              = $this->_pluginId;
+		$header['version']         = $this->_pluginVersion;
+		$header['requiredCoreApi'] = $plugin->getRequiredCoreApi();
 		$header['requiredPluginApi'] = $pluginType == 'module' ? $plugin->getRequiredModuleApi() : $plugin->getRequiredThemeApi();
 		$this->_data['header']       = $header;
 
@@ -249,8 +249,8 @@ class RepositoryDescriptor extends RepositoryObject {
 			$platform->file_get_contents($manifestFile)
 		);
 		$data['files']['MANIFEST'] = array(
-			'bytes'    => (string)strlen($manifestContents),
-			'hash'     => sprintf('%u', crc32($manifestContents)),
+			'bytes' => (string)strlen($manifestContents),
+			'hash' => sprintf('%u', crc32($manifestContents)),
 			'packages' => array('base'),
 		);
 

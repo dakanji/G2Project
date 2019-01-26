@@ -51,8 +51,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 		include __DIR__ . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
 		$this->_sampleIndex = $sampleIndex;
 
-		$this->_index         = new GalleryRepositoryIndex('test');
-		$this->_index->_index = $this->_sampleIndex;
+		$this->_index            = new GalleryRepositoryIndex('test');
+		$this->_index->_index    = $this->_sampleIndex;
 		$this->_index->_isLoaded = true;
 
 		$gallery->setConfig('repository.url', 'http://example.com/repository/');
@@ -230,7 +230,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		// Prepare mock objects.
 		$serializedSampleIndex = serialize($this->_sampleIndex);
-		$utilities = new UnitTestRepositoryUtilities();
+		$utilities             = new UnitTestRepositoryUtilities();
 		$this->_index->_utilities =& $utilities;
 
 		$utilities->setReply(
@@ -377,8 +377,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testLoadMalformedIndex() {
 		global $gallery;
 
-		$index         = new GalleryRepositoryIndex('test');
-		$index->_index = '';
+		$index            = new GalleryRepositoryIndex('test');
+		$index->_index    = '';
 		$index->_isLoaded = false;
 
 		$indexPath = $this->_index->getRepositoryCacheDir() . 'index.repository';
@@ -416,7 +416,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index->_isLoaded = false;
 
 		$serializedIndex = serialize($this->_sampleIndex);
-		$ret = $this->_index->unserializeIndex($serializedIndex);
+		$ret             = $this->_index->unserializeIndex($serializedIndex);
 
 		if ($ret) {
 			return $ret;
@@ -432,7 +432,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		// Cheat by serializing false, which is the value returned when unserialize fails
 		$serializedIndex = serialize(false);
-		$ret = $this->_index->unserializeIndex($serializedIndex);
+		$ret             = $this->_index->unserializeIndex($serializedIndex);
 
 		if (!$ret) {
 			return $this->assertFalse(true, 'Unserialize Malformed Index');
@@ -482,7 +482,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	public function testGetAvailableLanguagesInPlugin() {
 		// Load the cache for testing
-		$cacheKey = 'GalleryTranslator::SupportedLanguages';
+		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
 		$supportedLanguages = array();
 
 		// English

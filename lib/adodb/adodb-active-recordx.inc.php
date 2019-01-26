@@ -195,18 +195,18 @@ class ADODB_Active_Record {
 	// CFR: Constants found in Rails
 	public static $IrregularP = array(
 		'PERSON' => 'people',
-		'MAN'    => 'men',
-		'WOMAN'  => 'women',
-		'CHILD'  => 'children',
-		'COW'    => 'kine',
+		'MAN' => 'men',
+		'WOMAN' => 'women',
+		'CHILD' => 'children',
+		'COW' => 'kine',
 	);
 
 	public static $IrregularS = array(
-		'PEOPLE'   => 'PERSON',
-		'MEN'      => 'man',
-		'WOMEN'    => 'woman',
+		'PEOPLE' => 'PERSON',
+		'MEN' => 'man',
+		'WOMEN' => 'woman',
 		'CHILDREN' => 'child',
-		'KINE'     => 'cow',
+		'KINE' => 'cow',
 	);
 
 	public static $WeIsI = array(
@@ -309,7 +309,7 @@ class ADODB_Active_Record {
 	 *               = other-table-#2.this-table_id
 	 */
 	public function hasMany($foreignRef, $foreignKey = false) {
-		$ar = new self($foreignRef);
+		$ar              = new self($foreignRef);
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey = ($foreignKey) ? $foreignKey : strtolower(get_class($this)) . self::$_foreignSuffix;
@@ -334,7 +334,7 @@ class ADODB_Active_Record {
 	public function belongsTo($foreignRef, $foreignKey = false) {
 		global $inflector;
 
-		$ar = new self($this->_pluralize($foreignRef));
+		$ar              = new self($this->_pluralize($foreignRef));
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey = ($foreignKey) ? $foreignKey : $ar->foreignName . self::$_foreignSuffix;
@@ -475,7 +475,7 @@ class ADODB_Active_Record {
 		$activetab       = new ADODB_Active_Table();
 		$activetab->name = $table;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 		if ($db->fetchMode !== false) {
@@ -608,7 +608,7 @@ class ADODB_Active_Record {
 	public function Error($err, $fn) {
 		global $_ADODB_ACTIVE_DBS;
 
-		$fn = get_class($this) . '::' . $fn;
+		$fn             = get_class($this) . '::' . $fn;
 		$this->_lasterr = $fn . ': ' . $err;
 
 		if ($this->_dbat < 0) {
@@ -744,8 +744,8 @@ class ADODB_Active_Record {
 		$this->_original = array();
 
 		foreach ($table->flds as $name => $fld) {
-			$value       = $row[current($keys)];
-			$this->$name = $value;
+			$value             = $row[current($keys)];
+			$this->$name       = $value;
 			$this->_original[] = $value;
 
 			if (!next($keys)) {
@@ -755,12 +755,12 @@ class ADODB_Active_Record {
 		$table =& $this->TableInfo();
 
 		foreach ($table->_belongsTo as $foreignTable) {
-			$ft = $foreignTable->TableInfo();
+			$ft           = $foreignTable->TableInfo();
 			$propertyName = $ft->name;
 
 			foreach ($ft->flds as $name => $fld) {
-				$value = $row[current($keys)];
-				$foreignTable->$name       = $value;
+				$value               = $row[current($keys)];
+				$foreignTable->$name = $value;
 				$foreignTable->_original[] = $value;
 
 				if (!next($keys)) {
@@ -773,8 +773,8 @@ class ADODB_Active_Record {
 			$ft = $foreignTable->TableInfo();
 
 			foreach ($ft->flds as $name => $fld) {
-				$value = $row[current($keys)];
-				$foreignTable->$name       = $value;
+				$value               = $row[current($keys)];
+				$foreignTable->$name = $value;
 				$foreignTable->_original[] = $value;
 
 				if (!next($keys)) {
@@ -1490,7 +1490,7 @@ function adodb_GetActiveRecordsClass(
 							// Assumption: this property exists in every object since they are instances of the same class
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!
-								$foreignObj = $masterObj->$foreignName;
+								$foreignObj              = $masterObj->$foreignName;
 								$masterObj->$foreignName = array(clone $foreignObj);
 							} else {
 								// Pluck pluck!
@@ -1510,7 +1510,7 @@ function adodb_GetActiveRecordsClass(
 							// Assumption: this property exists in every object since they are instances of the same class
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!
-								$foreignObj = $masterObj->$foreignName;
+								$foreignObj              = $masterObj->$foreignName;
 								$masterObj->$foreignName = array(clone $foreignObj);
 							} else {
 								// Pluck pluck!

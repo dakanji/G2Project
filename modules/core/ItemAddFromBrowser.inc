@@ -32,9 +32,9 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 
-		$status   = array();
-		$error    = array();
-		$uploaded = false;
+		$status             = array();
+		$error              = array();
+		$uploaded           = false;
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -95,7 +95,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						}
 						$needToDeleteTmpFile = true;
 					} else {
-						$tmpFile = $file['tmp_name'];
+						$tmpFile             = $file['tmp_name'];
 						$needToDeleteTmpFile = false;
 					}
 
@@ -123,7 +123,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						'id'       => $newItem->getId(),
 						'warnings' => array(),
 					);
-					$uploaded = true;
+					$uploaded               = true;
 				} elseif (!empty($form['name'][$i])) {
 					$error[] = 'form[error][upload][' . $i . ']';
 
@@ -253,8 +253,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		$titleList = array(
 			'filename' => $module->translate('Base filename'),
-			'caption'  => $module->translate('Caption'),
-			''         => $module->translate('Blank'),
+			'caption' => $module->translate('Caption'),
+			'' => $module->translate('Blank'),
 		);
 
 		$template->setVariable(
@@ -270,7 +270,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		// Set the ItemAdmin form's encoding type specially since we're uploading binary files
 		if ($template->hasVariable('ItemAdmin')) {
-			$ItemAdmin =& $template->getVariableByReference('ItemAdmin');
+			$ItemAdmin            =& $template->getVariableByReference('ItemAdmin');
 			$ItemAdmin['enctype'] = 'multipart/form-data';
 		} else {
 			$ItemAdmin['enctype'] = 'multipart/form-data';

@@ -45,7 +45,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$this->_galleryTemplateAdapter = $gallery->getTemplateAdapter();
 		$gallery->_templateAdapter     = new MockTemplateAdapter();
 
-		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
+		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
 		GalleryDataCache::put(
 			$cacheKey,
@@ -85,7 +85,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage = new UnitTestStorage();
-		$storage =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 
 		$this->_callback = array(
 			'method'  => array(&$gallery->_templateAdapter, 'updateProgressBar'),
@@ -249,11 +249,11 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		}
 
 		$form = array(
-			'formName'       => 'adminLanguages',
-			'default'        => array(
+			'formName' => 'adminLanguages',
+			'default' => array(
 				'language' => $defaultLanguage,
 			),
-			'save'           => 'Save',
+			'save' => 'Save',
 			'languageAction' => array(
 				'af' => 'remove',
 				'ar' => 'upgrade',
@@ -451,14 +451,14 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$form = array(
-			'formName'       => 'adminLanguages',
-			'default'        => array(
+			'formName' => 'adminLanguages',
+			'default' => array(
 				'language' => $this->_defaultLanguage,
 			),
-			'language'       => array(
+			'language' => array(
 				'useBrowserPref' => $this->_useBrowserPref,
 			),
-			'save'           => 'Save',
+			'save' => 'Save',
 			'languageAction' => array(
 				'af' => 'download',
 			),

@@ -151,16 +151,16 @@ class Smarty_Compiler extends Smarty {
 		// $foo->bar($foo->bar)
 		// $foo->bar($foo->bar())
 		// $foo->bar($foo->bar($blah,$foo,44,"foo",$foo[0].bar))
-		$this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
+		$this->_obj_ext_regexp              = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
 		$this->_obj_restricted_param_regexp = '(?:'
 				. '(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')(?:' . $this->_obj_ext_regexp . '(?:\((?:(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')'
 				. '(?:\s*,\s*(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . '))*)?\))?)*)';
 		$this->_obj_single_param_regexp     = '(?:\w+|' . $this->_obj_restricted_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
 				. $this->_var_regexp . $this->_obj_restricted_param_regexp . ')))*)';
-		$this->_obj_params_regexp = '\((?:' . $this->_obj_single_param_regexp
+		$this->_obj_params_regexp           = '\((?:' . $this->_obj_single_param_regexp
 				. '(?:\s*,\s*' . $this->_obj_single_param_regexp . ')*)?\)';
-		$this->_obj_start_regexp  = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
-		$this->_obj_call_regexp   = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?)';
+		$this->_obj_start_regexp            = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
+		$this->_obj_call_regexp             = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?)';
 
 		// matches valid modifier syntax:
 		// |foo
@@ -326,7 +326,7 @@ class Smarty_Compiler extends Smarty {
 		for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
 			if ($compiled_tags[$i] == '{strip}') {
 				$compiled_tags[$i] = '';
-				$strip = true;
+				$strip             = true;
 				// remove leading whitespaces
 				$text_blocks[$i + 1] = ltrim($text_blocks[$i + 1]);
 			}
@@ -471,7 +471,7 @@ class Smarty_Compiler extends Smarty {
 		}
 
 		// Split tag into two three parts: command, command modifiers and the arguments.
-		if (! preg_match(
+		if (!preg_match(
 			'~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
 				. '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
@@ -903,9 +903,9 @@ class Smarty_Compiler extends Smarty {
 		$this->_add_plugin('function', $tag_command);
 
 		$_cacheable_state = $this->_push_cacheable_state('function', $tag_command);
-		$attrs        = $this->_parse_attrs($tag_args);
-		$_cache_attrs = '';
-		$arg_list     = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs);
+		$attrs            = $this->_parse_attrs($tag_args);
+		$_cache_attrs     = '';
+		$arg_list         = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs);
 
 		$output = $this->_compile_plugin_call('function', $tag_command) . '(array(' . implode(',', $arg_list) . '), $this)';
 
@@ -1727,7 +1727,7 @@ class Smarty_Compiler extends Smarty {
 						}
 
 						$attrs[$attr_name] = $token;
-						$state = 0;
+						$state             = 0;
 					} else {
 						$this->_syntax_error("'=' cannot be an attribute value", E_USER_ERROR, __FILE__, __LINE__);
 					}
@@ -1779,7 +1779,7 @@ class Smarty_Compiler extends Smarty {
 
 			if (!empty($this->default_modifiers) && !preg_match('~(^|\|)smarty:nodefaults($|\|)~', $modifiers)) {
 				$_default_mod_string = implode('|', (array)$this->default_modifiers);
-				$modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
+				$modifiers           = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
 			}
 			$this->_parse_modifiers($return, $modifiers);
 

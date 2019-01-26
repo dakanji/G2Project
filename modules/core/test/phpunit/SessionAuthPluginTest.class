@@ -71,7 +71,7 @@ class SessionAuthPluginTest extends GalleryTestCase {
 	public function testSessionAuthValidUser() {
 		$this->_mockSession->setUserId($this->_user->getId());
 
-		$plugin = new SessionAuthPlugin();
+		$plugin           = new SessionAuthPlugin();
 		list($ret, $user) = $plugin->getUser();
 
 		if ($ret) {
@@ -90,7 +90,7 @@ class SessionAuthPluginTest extends GalleryTestCase {
 
 		$this->_mockSession->setUserId($userId);
 
-		$plugin = new SessionAuthPlugin();
+		$plugin           = new SessionAuthPlugin();
 		list($ret, $user) = $plugin->getUser();
 
 		if ($ret) {
@@ -112,7 +112,7 @@ class SessionAuthPluginTest extends GalleryTestCase {
 		$this->_mockSession->setUserId($group->getId());
 
 		// The error should be caught and null should be returned.
-		$plugin = new SessionAuthPlugin();
+		$plugin           = new SessionAuthPlugin();
 		list($ret, $user) = $plugin->getUser();
 
 		if ($ret) {

@@ -215,8 +215,8 @@ class ItemEditCaptionsView extends GalleryView {
 			}
 
 			$form['childItems'] = array();
-			$numPages = 1;
-			$numPages = ceil(sizeof($childIds) / $form['numPerPage']);
+			$numPages           = 1;
+			$numPages           = ceil(sizeof($childIds) / $form['numPerPage']);
 
 			if (empty($page) && !empty($selectedId)) {
 				// No page given.  Determine which page we're on from the selectedId
@@ -290,7 +290,7 @@ class ItemEditCaptionsView extends GalleryView {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$ItemEditCaptions = array();
+		$ItemEditCaptions              = array();
 		$ItemEditCaptions['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemEditCaptions['page']      = $page;
 		$ItemEditCaptions['numPages']  = $numPages;

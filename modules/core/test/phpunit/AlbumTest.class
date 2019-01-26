@@ -1271,7 +1271,7 @@ class AlbumTest extends GalleryTestCase {
 
 		$savedUser = $gallery->getActiveUser();
 
-		$albumName = sprintf(' album %d test ', mt_rand());
+		$albumName               = sprintf(' album %d test ', mt_rand());
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1335,7 +1335,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 		$this->_markForCleanup($user);
 
-		$albumName = sprintf(' album %d test ', mt_rand());
+		$albumName               = sprintf(' album %d test ', mt_rand());
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,

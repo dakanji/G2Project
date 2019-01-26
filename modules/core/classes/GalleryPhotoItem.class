@@ -222,7 +222,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 		if ($localized) {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
-			if (! $ret) {
+			if (!$ret) {
 				return array($core->translate('Photo'), $core->translate('photo'));
 			}
 		}

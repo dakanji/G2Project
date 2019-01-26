@@ -132,19 +132,19 @@ class DeleteCommentView extends GalleryView {
 		}
 
 		// Associate the commenter's info
-		$commenterId = $comment->getCommenterId();
+		$commenterId           = $comment->getCommenterId();
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		$DeleteComment = array();
+		$DeleteComment              = array();
 		$DeleteComment['comment']   = (array)$comment;
 		$DeleteComment['commenter'] = (array)$commenter;
 		$DeleteComment['item']      = (array)$item;
 		$DeleteComment['can']       = array(
-			'edit'   => false,
+			'edit' => false,
 			'delete' => false,
 		);
 

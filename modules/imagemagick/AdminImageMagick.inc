@@ -259,7 +259,7 @@ class AdminImageMagickView extends GalleryView {
 			if (!empty($form['path'])) {
 				$gallery->startRecordingDebugSnippet();
 				list($ret, $testResults) = ImageMagickToolkitHelper::testBinaries($form['path']);
-				$debugSnippet = $gallery->stopRecordingDebugSnippet();
+				$debugSnippet            = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -321,10 +321,10 @@ class AdminImageMagickView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminImageMagick          = array();
-		$AdminImageMagick['tests'] = $tests;
-		$AdminImageMagick['version']         = $version;
-		$AdminImageMagick['mimeTypes']       = $mimeTypes;
+		$AdminImageMagick              = array();
+		$AdminImageMagick['tests']     = $tests;
+		$AdminImageMagick['version']   = $version;
+		$AdminImageMagick['mimeTypes'] = $mimeTypes;
 		$AdminImageMagick['jpegQualityList'] = $jpegQualityList;
 		$AdminImageMagick['debugSnippet']    = $debugSnippet;
 		$AdminImageMagick['failCount']       = $failCount;

@@ -211,7 +211,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-		$templateAdapter =& $gallery->getTemplateAdapter();
+		$templateAdapter           =& $gallery->getTemplateAdapter();
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -253,7 +253,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-		$templateAdapter =& $gallery->getTemplateAdapter();
+		$templateAdapter           =& $gallery->getTemplateAdapter();
 
 		$results = $this->handleRequest();
 		$this->assertEquals(

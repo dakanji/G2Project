@@ -707,8 +707,8 @@ class UserLoginControllerTestSession {
  */
 class UserLoginTestPhpVm {
 	public function __construct(&$test, $headersSent = false) {
-		$this->_test        =& $test;
-		$this->_headersSent = $headersSent;
+		$this->_test             =& $test;
+		$this->_headersSent      = $headersSent;
 		$this->_test->_exitCalls = 0;
 		$this->_test->_headers   = array();
 	}

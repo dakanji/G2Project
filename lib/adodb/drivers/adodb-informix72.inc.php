@@ -175,8 +175,8 @@ class ADODB_informix72 extends ADOConnection {
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
 
-		$false = false;
-		$save  = $ADODB_FETCH_MODE;
+		$false            = false;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -222,7 +222,7 @@ class ADODB_informix72 extends ADOConnection {
 		$false = false;
 
 		if (!empty($this->metaColumnsSQL)) {
-			$save = $ADODB_FETCH_MODE;
+			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -252,8 +252,8 @@ class ADODB_informix72 extends ADOConnection {
 				$fld->type = $rs->fields[1];
 				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields); //Added to set primary key flag
 				$fld->max_length = $rs->fields[2];*/
-				$pr        = ifx_props($rs->fields[1], $rs->fields[2]); //!eos
-				$fld->type = $pr[0];//!eos
+				$pr               = ifx_props($rs->fields[1], $rs->fields[2]); //!eos
+				$fld->type        = $pr[0];//!eos
 				$fld->primary_key = $rspkey->fields && array_search($rs->fields[4], $rspkey->fields);
 				$fld->max_length  = $pr[1]; //!eos
 				$fld->precision   = $pr[2];//!eos
@@ -460,11 +460,11 @@ class ADORecordset_informix72 extends ADORecordSet {
 			$fp = ifx_fieldproperties($this->_queryID);
 
 			foreach ($fp as $k => $v) {
-				$o       = new ADOFieldObject();
-				$o->name = $k;
-				$arr     = explode(';', $v); //"SQLTYPE;length;precision;scale;ISNULLABLE"
-				$o->type = $arr[0];
-				$o->max_length       = $arr[1];
+				$o             = new ADOFieldObject();
+				$o->name       = $k;
+				$arr           = explode(';', $v); //"SQLTYPE;length;precision;scale;ISNULLABLE"
+				$o->type       = $arr[0];
+				$o->max_length = $arr[1];
 				$this->_fieldprops[] = $o;
 				$o->not_null         = $arr[4] == 'N';
 			}

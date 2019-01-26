@@ -406,7 +406,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 			// Test compress
 			$this->_files['compressMe.jpg']['size'] = 250 << 10;
-			$this->_platform->_counter = 2;
+			$this->_platform->_counter              = 2;
 			$ret = $this->_testOperation(
 				'image/jpeg',
 				'compress',
@@ -1466,8 +1466,8 @@ class ImageMagickToolkitTestPlatform {
 							$binary => $params,
 						),
 					);
-					$output = array();
-					$status = true;
+					$output             = array();
+					$status             = true;
 				}
 			}
 		}

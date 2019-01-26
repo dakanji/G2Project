@@ -22,7 +22,7 @@ if (!defined('ADODB_DIR')) {
 
 // MSSQL has moved most performance info to Performance Monitor
 class perf_mssql extends adodb_perf {
-	public $sql1 = 'cast(sql1 as text)';
+	public $sql1           = 'cast(sql1 as text)';
 	public $createTableSQL = 'CREATE TABLE adodb_logsql (
 		  created datetime NOT NULL,
 		  sql0 varchar(250) NOT NULL,
@@ -34,7 +34,7 @@ class perf_mssql extends adodb_perf {
 
 	public $settings = array(
 		'Ratios',
-		'data cache hit ratio'   => array(
+		'data cache hit ratio' => array(
 			'RATIO',
 			"select round((a.cntr_value*100.0)/b.cntr_value,2) from master.dbo.sysperfinfo a, master.dbo.sysperfinfo b where a.counter_name = 'Buffer cache hit ratio' and b.counter_name='Buffer cache hit ratio base'",
 			'=WarnCacheRatio',
@@ -44,39 +44,39 @@ class perf_mssql extends adodb_perf {
 			array('dbcc cachestats', 'Prepared', 1, 100),
 			'',
 		),
-		'adhoc sql hit ratio'    => array(
+		'adhoc sql hit ratio' => array(
 			'RATIO',
 			array('dbcc cachestats', 'Adhoc', 1, 100),
 			'',
 		),
 		'IO',
-		'data reads'             => array(
+		'data reads'  => array(
 			'IO',
 			"select cntr_value from master.dbo.sysperfinfo where counter_name = 'Page reads/sec'",
 		),
-		'data writes'            => array(
+		'data writes' => array(
 			'IO',
 			"select cntr_value from master.dbo.sysperfinfo where counter_name = 'Page writes/sec'",
 		),
 
 		'Data Cache',
-		'data cache size'        => array(
+		'data cache size' => array(
 			'DATAC',
 			"select cntr_value*8192 from master.dbo.sysperfinfo where counter_name = 'Total Pages' and object_name='SQLServer:Buffer Manager'",
 			'',
 		),
-		'data cache blocksize'   => array(
+		'data cache blocksize' => array(
 			'DATAC',
 			'select 8192',
 			'page size',
 		),
 		'Connections',
-		'current connections'    => array(
+		'current connections' => array(
 			'SESS',
 			'=sp_who',
 			'',
 		),
-		'max connections'        => array(
+		'max connections' => array(
 			'SESS',
 			'SELECT @@MAX_CONNECTIONS',
 			'',
@@ -116,9 +116,9 @@ class perf_mssql extends adodb_perf {
 		$sql = str_replace('?', "''", $sql);
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$rs = $this->conn->Execute($sql);
+		$rs               = $this->conn->Execute($sql);
 		//adodb_printr($rs);
 		$ADODB_FETCH_MODE = $save;
 
@@ -145,7 +145,7 @@ class perf_mssql extends adodb_perf {
 	public function Tables() {
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		//$this->conn->debug=1;
 		$s   = '<table border=1 bgcolor=white><tr><td><b>tablename</b></td><td><b>size_in_k</b></td><td><b>index size</b></td><td><b>reserved size</b></td></tr>';

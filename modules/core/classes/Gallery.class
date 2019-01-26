@@ -171,24 +171,24 @@ class Gallery {
 
 		// Default config settings (can be overridden via config.php or embedded environment)
 		$this->_config = array(
-			'login'             => true,        // Offer UserAdmin links (Login/Logout/Your Account)
+			'login' => true,        // Offer UserAdmin links (Login/Logout/Your Account)
 
 			// UrlGenerator parameters for redirect URL to login page. Can be overridden.
-			'loginRedirect'     => array(
+			'loginRedirect' => array(
 				'view'    => 'core.UserAdmin',
 				'subView' => 'core.UserLogin',
 				'return'  => true,
 			),
 
-			'link'              => true,      // @deprecated - Allow item linking
+			'link' => true,      // @deprecated - Allow item linking
 			// (now unused, there is a separate replica module
 
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
 
-			'systemCharset'     => null,     // Specify system character set, skip autodetect
-			'defaultAlbumId'    => null,    // Initial album to display instead of root album
-			'breadcrumbRootId'  => null,  // Can omit parents above this id in fetchParentSequence
-			'anonymousUserId'   => null,   // Alternate user account for guest sessions
+			'systemCharset' => null,     // Specify system character set, skip autodetect
+			'defaultAlbumId' => null,    // Initial album to display instead of root album
+			'breadcrumbRootId' => null,  // Can omit parents above this id in fetchParentSequence
+			'anonymousUserId' => null,   // Alternate user account for guest sessions
 		);
 	}
 
@@ -206,7 +206,7 @@ class Gallery {
 	 * @see GalleryStorage::search
 	 */
 	public function search($query, $data = array(), $options = array()) {
-		$storage =& $this->getStorage();
+		$storage             =& $this->getStorage();
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
@@ -297,7 +297,7 @@ class Gallery {
 
 		if (empty($this->_session)) {
 			$this->_session = new GallerySession();
-			$ret = $this->_session->init();
+			$ret            = $this->_session->init();
 
 			if ($ret) {
 				return $ret;

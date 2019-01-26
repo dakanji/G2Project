@@ -48,11 +48,11 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		$gallery->_phpVm = new AdminRepositoryDownloadControllerTestPhpVm();
 
 		// Use our own wrapped controller so that we can override _fetchPluginStatus
-		$this->_controller = new AdminRepositoryDownloadControllerTestWrapper();
+		$this->_controller           = new AdminRepositoryDownloadControllerTestWrapper();
 		$this->_controller->_version = '0.1';
 		$this->_controller->_active  = true;
 
-		$cacheKey = 'GalleryTranslator::SupportedLanguages';
+		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
 		$supportedLanguages = array(
 			'en' => array(
 				'US' => array('US English'),
@@ -128,7 +128,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[base]', 'test:22222');
 		GalleryUtilities::putRequestVariable('form[action][download]', '1');
 
-		$mockAdapter = new MockTemplateAdapter();
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -138,7 +138,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		}
 
 		$gallery->_storage = new UnitTestStorage();
-		$storage =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 
 		$storage->setReply(
 			'getMapEntry',

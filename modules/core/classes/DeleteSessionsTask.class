@@ -51,7 +51,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 		global $gallery;
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$session         =& $gallery->getSession();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm           = $gallery->getPhpVm();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -89,7 +89,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 			$phpVm->time() - (7 * 86400),
 		);
 
-		$query = '
+		$query               = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR

@@ -426,7 +426,7 @@ class ADODB_db2 extends ADOConnection {
 			$this->transCnt -= 1;
 		}
 		$this->_autocommit = true;
-		$ret = db2_commit($this->_connectionID);
+		$ret               = db2_commit($this->_connectionID);
 		db2_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -441,7 +441,7 @@ class ADODB_db2 extends ADOConnection {
 			$this->transCnt -= 1;
 		}
 		$this->_autocommit = true;
-		$ret = db2_rollback($this->_connectionID);
+		$ret               = db2_rollback($this->_connectionID);
 		db2_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -456,16 +456,16 @@ class ADODB_db2 extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid = @db2_primarykeys($this->_connectionID, '', $schema, $table);
+		$qid              = @db2_primarykeys($this->_connectionID, '', $schema, $table);
 
 		if (!$qid) {
 			$ADODB_FETCH_MODE = $savem;
 
 			return false;
 		}
-		$rs = new ADORecordSet_db2($qid);
+		$rs               = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -494,9 +494,9 @@ class ADODB_db2 extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid = @db2_foreign_keys($this->_connectionID, '', $schema, $table);
+		$qid              = @db2_foreign_keys($this->_connectionID, '', $schema, $table);
 
 		if (!$qid) {
 			$ADODB_FETCH_MODE = $savem;
@@ -541,9 +541,9 @@ class ADODB_db2 extends ADOConnection {
 	public function MetaTables($ttype = false, $schema = false, $mask = false) {
 		global $ADODB_FETCH_MODE;
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$qid = db2_tables($this->_connectionID);
+		$qid              = db2_tables($this->_connectionID);
 
 		$rs = new ADORecordSet_db2($qid);
 
@@ -668,7 +668,7 @@ class ADODB_db2 extends ADOConnection {
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		$colname = '%';
@@ -678,7 +678,7 @@ class ADODB_db2 extends ADOConnection {
 			return $false;
 		}
 
-		$rs = new ADORecordSet_db2($qid);
+		$rs               = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -741,7 +741,7 @@ class ADODB_db2 extends ADOConnection {
 			return $false;
 		}
 
-		$rs = new ADORecordSet_db2($qid);
+		$rs               = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -776,7 +776,7 @@ class ADODB_db2 extends ADOConnection {
 	}
 
 	public function Prepare($sql) {
-		if (! $this->_bindInputArray) {
+		if (!$this->_bindInputArray) {
 			return $sql; // no binding
 		}
 		$stmt = db2_prepare($this->_connectionID, $sql);
@@ -807,7 +807,7 @@ class ADODB_db2 extends ADOConnection {
 				}
 			}
 
-			if (! db2_execute($stmtid, $inputarr)) {
+			if (!db2_execute($stmtid, $inputarr)) {
 				if ($this->_haserrorfunctions) {
 					$this->_errorMsg  = db2_stmt_errormsg();
 					$this->_errorCode = db2_stmt_error();
@@ -906,9 +906,9 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($offset = -1) {
-		$o       = new ADOFieldObject();
-		$o->name = @db2_field_name($this->_queryID, $offset);
-		$o->type = @db2_field_type($this->_queryID, $offset);
+		$o             = new ADOFieldObject();
+		$o->name       = @db2_field_name($this->_queryID, $offset);
+		$o->type       = @db2_field_type($this->_queryID, $offset);
 		$o->max_length = db2_field_width($this->_queryID, $offset);
 
 		if (ADODB_ASSOC_CASE == 0) {
@@ -959,7 +959,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 			return $rs;
 		}
-		$savem = $this->fetchMode;
+		$savem           = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
 		$this->Move($offset);
 		$this->fetchMode = $savem;

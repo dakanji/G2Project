@@ -215,9 +215,9 @@ class GalleryTranslatorHelper_medium {
 				$defaultCountry
 			) = GalleryTranslator::doStatic()->getLanguageData();
 
-			$installedLanguages = array();
-			$localeBase         = $gallery->getConfig('data.gallery.locale');
-			$platform =& $gallery->getPlatform();
+			$installedLanguages  = array();
+			$localeBase          = $gallery->getConfig('data.gallery.locale');
+			$platform            =& $gallery->getPlatform();
 			$languageDirectories = $platform->glob($localeBase . '*');
 
 			if ($languageDirectories) {

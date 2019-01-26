@@ -62,7 +62,7 @@ class EmbedTest extends GalleryTestCase {
 		// Clean all cached variables
 		GalleryDataCache::reset();
 
-		$session =& $gallery->getSession();
+		$session             =& $gallery->getSession();
 		$session->_sessionId = md5(mt_rand());
 
 		$this->_registerEventListener(array('Gallery::Login', 'Gallery::Logout'));
@@ -72,8 +72,8 @@ class EmbedTest extends GalleryTestCase {
 		// Restore
 		global $gallery;
 		$GLOBALS['gallery'] = $this->_origGallery;
-		$gallery =& $GLOBALS['gallery'];
-		$gallery->_session = $this->_savedSession;
+		$gallery            =& $GLOBALS['gallery'];
+		$gallery->_session  = $this->_savedSession;
 		GalleryDataCache::reset();
 
 		$ret = parent::tearDown();
@@ -266,7 +266,7 @@ class EmbedTest extends GalleryTestCase {
 	public function testInitSecondPass() {
 		$firstCacheKey  = 'GalleryEmbed::initFirstPass';
 		$secondCacheKey = 'GalleryEmbed::initSecondPass';
-		$ret = GalleryEmbed::init();
+		$ret            = GalleryEmbed::init();
 
 		if ($ret) {
 			return $ret;
@@ -681,7 +681,7 @@ class EmbedTest extends GalleryTestCase {
 	public function testCheckApiVersionOnInit() {
 		$apiVersion     = GalleryEmbed::getApiVersion();
 		$apiVersion[1] -= 2;
-		$ret = GalleryEmbed::init(
+		$ret            = GalleryEmbed::init(
 			array(
 				'apiVersion' => $apiVersion,
 			)
@@ -691,7 +691,7 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 		$apiVersion[1] += 7;
-		$ret = GalleryEmbed::init(
+		$ret            = GalleryEmbed::init(
 			array(
 				'apiVersion' => $apiVersion,
 			)
@@ -706,7 +706,7 @@ class EmbedTest extends GalleryTestCase {
 		}
 		$apiVersion[1] -= 8;
 		$apiVersion[0] -= 1;
-		$ret = GalleryEmbed::init(
+		$ret            = GalleryEmbed::init(
 			array(
 				'apiVersion' => $apiVersion,
 			)
@@ -927,7 +927,7 @@ class EmbedTest extends GalleryTestCase {
 
 	public function testCreateUserWithClearTextPassword() {
 		$externalUserId = '_test_' . mt_rand();
-		$ret = GalleryEmbed::createUser(
+		$ret            = GalleryEmbed::createUser(
 			$externalUserId,
 			array(
 				'username' => 'test_' . mt_rand(),
@@ -955,7 +955,7 @@ class EmbedTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$user = $users[0];
+		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
 		$ret = GalleryEmbed::updateUser(
@@ -985,7 +985,7 @@ class EmbedTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$user = $users[0];
+		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
 		$ret = GalleryEmbed::updateUser(
@@ -1016,7 +1016,7 @@ class EmbedTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$user = $users[0];
+		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
 		$ret = GalleryEmbed::updateUser(
@@ -1046,7 +1046,7 @@ class EmbedTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$user = $users[0];
+		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
 		$ret = GalleryEmbed::updateUser(
@@ -1064,7 +1064,7 @@ class EmbedTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$user = $users[0];
+		$user           = $users[0];
 		$externalUserId = $activeUserIds[0];
 
 		$ret = GalleryEmbed::updateUser(
@@ -1082,7 +1082,7 @@ class EmbedTest extends GalleryTestCase {
 
 		for ($i = 0; $i < $count; $i++) {
 			$activeUserIds[$i] = '_test_' . $i . '_' . mt_rand();
-			$ret = GalleryEmbed::createUser(
+			$ret               = GalleryEmbed::createUser(
 				$activeUserIds[$i],
 				array(
 					'username' => 'test_' . mt_rand(),

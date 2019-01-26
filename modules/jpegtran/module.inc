@@ -94,7 +94,7 @@ class JpegtranModule extends GalleryModule {
 
 		foreach ($results['operations'] as $operation => $info) {
 			$outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : '';
-			$ret = GalleryCoreApi::registerToolkitOperation(
+			$ret            = GalleryCoreApi::registerToolkitOperation(
 				$this->getId(),
 				$info['mimeTypes'],
 				$operation,

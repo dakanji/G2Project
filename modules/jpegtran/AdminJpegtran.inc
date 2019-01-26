@@ -202,7 +202,7 @@ class AdminJpegtranView extends GalleryView {
 			if (!empty($form['path'])) {
 				$gallery->startRecordingDebugSnippet();
 				list($ret, $testResults) = JpegtranToolkitHelper::testBinary($platform->realpath($form['path']));
-				$debugSnippet = $gallery->stopRecordingDebugSnippet();
+				$debugSnippet            = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {

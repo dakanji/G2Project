@@ -2,7 +2,7 @@
 $blocks = array(
 	'KeywordLinks' => array(
 		'description' => $gallery->i18n('Keyword album links'),
-		'vars'        => array(
+		'vars' => array(
 			'forItem' => array(
 				'description' => $gallery->i18n('Keywords for current item (uncheck to show all keywords)'),
 				'type'        => 'boolean',

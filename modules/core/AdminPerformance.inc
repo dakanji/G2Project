@@ -192,9 +192,9 @@ class AdminPerformanceView extends GalleryView {
 
 		// Set up our type lists
 		$typeList = array(
-			'none'    => $module->translate('No acceleration'),
+			'none' => $module->translate('No acceleration'),
 			'partial' => $module->translate('Partial acceleration'),
-			'full'    => $module->translate('Full acceleration'),
+			'full' => $module->translate('Full acceleration'),
 		);
 
 		// Set up our time lists
@@ -246,7 +246,7 @@ class AdminPerformanceView extends GalleryView {
 
 		$AdminPerformance = array();
 		$AdminPerformance['expirationTimeList'] = $expirationTimeList;
-		$AdminPerformance['typeList'] = $typeList;
+		$AdminPerformance['typeList']           = $typeList;
 
 		$template->setVariable('AdminPerformance', $AdminPerformance);
 		$template->setVariable('controller', 'core.AdminPerformance');

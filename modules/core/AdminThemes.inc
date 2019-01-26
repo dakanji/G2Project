@@ -352,8 +352,8 @@ class AdminThemesView extends GalleryView {
 				continue;
 			}
 
-			$entry         = array();
-			$entry['name'] = $theme->translate($theme->getName());
+			$entry              = array();
+			$entry['name']      = $theme->translate($theme->getName());
 			$entry['active']    = !empty($status['active']);
 			$entry['l10Domain'] = $theme->getL10Domain();
 			$entry['action']    = array();
@@ -463,7 +463,7 @@ class AdminThemesView extends GalleryView {
 			$entry['description']      = $theme->getDescription();
 			$entry['version']          = $theme->getVersion();
 			$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
-			$themes[$id] = $entry;
+			$themes[$id]               = $entry;
 
 			if (!empty($status['active'])) {
 				$themeList[$id] = $theme->translate($theme->getName());
@@ -502,7 +502,7 @@ class AdminThemesView extends GalleryView {
 
 		$newAlbumsUseDefaultsList = array(
 			'false' => $module->translate('Inherit settings from parent album'),
-			'true'  => $module->translate('Use these settings'),
+			'true' => $module->translate('Use these settings'),
 		);
 
 		// Set up our sort order selection list

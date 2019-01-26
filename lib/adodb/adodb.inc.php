@@ -447,26 +447,26 @@ if (!defined('_ADODB_LAYER')) {
 		//
 		// PUBLIC VARS
 		//
-		public $dataProvider = 'native';
-		public $databaseType = '';     /// RDBMS currently in use, eg. odbc, mysql, mssql
-		public $database     = '';         /// Name of database to be used.
-		public $host         = '';             /// The hostname of the database server
-		public $user         = '';             /// The username which is used to connect to the database server.
-		public $password     = '';         /// Password for the username. For security, we no longer store it.
-		public $debug        = false;         /// if set to true will output sql statements
-		public $maxblobsize  = 262144;  /// maximum size of blobs or large text fields (262144 = 256K)-- some db's die otherwise like foxpro
-		public $concat_operator = '+'; /// default concat operator -- change to || for Oracle/Interbase
-		public $substr          = 'substr';     /// substring operator
-		public $length          = 'length';     /// string length ofperator
-		public $random          = 'rand()';     /// random function
-		public $upperCase       = 'upper';       /// uppercase function
-		public $fmtDate         = "'Y-m-d'";   /// used by DBDate() as the default date format used by the database
-		public $fmtTimeStamp    = "'Y-m-d, h:i:s A'"; /// used by DBTimeStamp as the default timestamp fmt.
-		public $true         = '1';            /// string that represents TRUE for a database
-		public $false        = '0';           /// string that represents FALSE for a database
-		public $replaceQuote = "\\'";  /// string to use to replace quotes
-		public $nameQuote    = '"';       /// string to use to quote identifiers and names
-		public $charSet      = false;         /// character set to use - only for interbase, postgres and oci8
+		public $dataProvider     = 'native';
+		public $databaseType     = '';     /// RDBMS currently in use, eg. odbc, mysql, mssql
+		public $database         = '';         /// Name of database to be used.
+		public $host             = '';             /// The hostname of the database server
+		public $user             = '';             /// The username which is used to connect to the database server.
+		public $password         = '';         /// Password for the username. For security, we no longer store it.
+		public $debug            = false;         /// if set to true will output sql statements
+		public $maxblobsize      = 262144;  /// maximum size of blobs or large text fields (262144 = 256K)-- some db's die otherwise like foxpro
+		public $concat_operator  = '+'; /// default concat operator -- change to || for Oracle/Interbase
+		public $substr           = 'substr';     /// substring operator
+		public $length           = 'length';     /// string length ofperator
+		public $random           = 'rand()';     /// random function
+		public $upperCase        = 'upper';       /// uppercase function
+		public $fmtDate          = "'Y-m-d'";   /// used by DBDate() as the default date format used by the database
+		public $fmtTimeStamp     = "'Y-m-d, h:i:s A'"; /// used by DBTimeStamp as the default timestamp fmt.
+		public $true             = '1';            /// string that represents TRUE for a database
+		public $false            = '0';           /// string that represents FALSE for a database
+		public $replaceQuote     = "\\'";  /// string to use to replace quotes
+		public $nameQuote        = '"';       /// string to use to quote identifiers and names
+		public $charSet          = false;         /// character set to use - only for interbase, postgres and oci8
 		public $metaDatabasesSQL = '';
 		public $metaTablesSQL    = '';
 		public $uniqueOrderBy    = false; /// All order by columns have to be unique
@@ -503,12 +503,12 @@ if (!defined('_ADODB_LAYER')) {
 		public $numCacheHits         = 0;
 		public $numCacheMisses       = 0;
 		public $pageExecuteCountRows = true;
-		public $uniqueSort       = false; /// indicates that all fields in order by must be unique
-		public $leftOuter        = false; /// operator to use for left outer join in WHERE clause
-		public $rightOuter       = false; /// operator to use for right outer join in WHERE clause
-		public $ansiOuter        = false; /// whether ansi outer join syntax supported
-		public $autoRollback     = false; // autoRollback on PConnect().
-		public $poorAffectedRows = false; // affectedRows not working or unreliable
+		public $uniqueSort           = false; /// indicates that all fields in order by must be unique
+		public $leftOuter            = false; /// operator to use for left outer join in WHERE clause
+		public $rightOuter           = false; /// operator to use for right outer join in WHERE clause
+		public $ansiOuter            = false; /// whether ansi outer join syntax supported
+		public $autoRollback         = false; // autoRollback on PConnect().
+		public $poorAffectedRows     = false; // affectedRows not working or unreliable
 
 		public $fnExecute      = false;
 		public $fnCacheExecute = false;
@@ -943,7 +943,7 @@ if (!defined('_ADODB_LAYER')) {
 		 * @returns      The previous fetch mode
 		 */
 		public function SetFetchMode($mode) {
-			$old = $this->fetchMode;
+			$old             = $this->fetchMode;
 			$this->fetchMode = $mode;
 
 			if ($old === false) {
@@ -1035,7 +1035,7 @@ if (!defined('_ADODB_LAYER')) {
 
 		public function IgnoreErrors($saveErrs = false) {
 			if (!$saveErrs) {
-				$saveErrs = array($this->raiseErrorFn, $this->_transOK);
+				$saveErrs           = array($this->raiseErrorFn, $this->_transOK);
 				$this->raiseErrorFn = false;
 
 				return $saveErrs;
@@ -1068,7 +1068,7 @@ if (!defined('_ADODB_LAYER')) {
 			if ($this->debug && $this->transCnt > 0) {
 				self::outp('Bad Transaction: StartTrans called within BeginTrans');
 			}
-			$ok = $this->BeginTrans();
+			$ok             = $this->BeginTrans();
 			$this->transOff = 1;
 
 			return $ok;
@@ -1330,8 +1330,8 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			// return real recordset from select statement
-			$rsclass = $this->rsPrefix . $this->databaseType;
-			$rs      = new $rsclass($this->_queryID, $this->fetchMode);
+			$rsclass        = $this->rsPrefix . $this->databaseType;
+			$rs             = new $rsclass($this->_queryID, $this->fetchMode);
 			$rs->connection = $this; // Pablo suggestion
 			$rs->Init();
 
@@ -1346,7 +1346,7 @@ if (!defined('_ADODB_LAYER')) {
 
 				if ($ADODB_COUNTRECS) {
 					if (!$rs->EOF) {
-						$rs = $this->_rs2rs($rs, -1, -1, !is_array($sql));
+						$rs           = $this->_rs2rs($rs, -1, -1, !is_array($sql));
 						$rs->_queryID = $this->_queryID;
 					} else {
 						$rs->_numOfRows = 0;
@@ -1392,13 +1392,13 @@ if (!defined('_ADODB_LAYER')) {
 
 			$save_handler       = $this->raiseErrorFn;
 			$this->raiseErrorFn = '';
-			@($rs = $this->Execute($getnext));
+			@($rs               = $this->Execute($getnext));
 			$this->raiseErrorFn = $save_handler;
 
 			if (!$rs) {
 				$this->_transOK = $holdtransOK; //if the status was ok before reset
 				$createseq      = $this->Execute(sprintf($this->_genSeqSQL, $seqname, $startID));
-				$rs = $this->Execute($getnext);
+				$rs             = $this->Execute($getnext);
 			}
 
 			if ($rs && !$rs->EOF) {
@@ -1638,7 +1638,7 @@ if (!defined('_ADODB_LAYER')) {
 			// 0 to offset-1 which will be discarded anyway. So we disable $ADODB_COUNTRECS.
 			global $ADODB_COUNTRECS;
 
-			$savec = $ADODB_COUNTRECS;
+			$savec           = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = false;
 
 
@@ -1663,8 +1663,8 @@ if (!defined('_ADODB_LAYER')) {
 		 * @param rs         the recordset to serialize
 		 */
 		public function SerializableRS(&$rs) {
-			$rs2    = $this->_rs2rs($rs);
-			$ignore = false;
+			$rs2             = $this->_rs2rs($rs);
+			$ignore          = false;
 			$rs2->connection = $ignore;
 
 			return $rs2;
@@ -1681,7 +1681,7 @@ if (!defined('_ADODB_LAYER')) {
 		 * @return           the new recordset
 		 */
 		public function &_rs2rs(&$rs, $nrows = -1, $offset = -1, $close = true) {
-			if (! $rs) {
+			if (!$rs) {
 				return false;
 			}
 			$dbtype = $rs->databaseType;
@@ -1710,7 +1710,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			$arrayClass = $this->arrayClass;
 
-			$rs2 = new $arrayClass();
+			$rs2               = new $arrayClass();
 			$rs2->connection   = $this;
 			$rs2->sql          = $rs->sql;
 			$rs2->dataProvider = $this->dataProvider;
@@ -1763,7 +1763,7 @@ if (!defined('_ADODB_LAYER')) {
 		public function GetOne($sql, $inputarr = false) {
 			global $ADODB_COUNTRECS,$ADODB_GETONE_EOF;
 
-			$crecs = $ADODB_COUNTRECS;
+			$crecs           = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = false;
 
 			$ret = false;
@@ -1904,9 +1904,9 @@ if (!defined('_ADODB_LAYER')) {
 		public function GetArray($sql, $inputarr = false) {
 			global $ADODB_COUNTRECS;
 
-			$savec = $ADODB_COUNTRECS;
+			$savec           = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = false;
-			$rs = $this->Execute($sql, $inputarr);
+			$rs              = $this->Execute($sql, $inputarr);
 			$ADODB_COUNTRECS = $savec;
 
 			if (!$rs) {
@@ -1933,9 +1933,9 @@ if (!defined('_ADODB_LAYER')) {
 		public function CacheGetArray($secs2cache, $sql = false, $inputarr = false) {
 			global $ADODB_COUNTRECS;
 
-			$savec = $ADODB_COUNTRECS;
+			$savec           = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = false;
-			$rs = $this->CacheExecute($secs2cache, $sql, $inputarr);
+			$rs              = $this->CacheExecute($secs2cache, $sql, $inputarr);
 			$ADODB_COUNTRECS = $savec;
 
 			if (!$rs) {
@@ -1970,7 +1970,7 @@ if (!defined('_ADODB_LAYER')) {
 		public function GetRow($sql, $inputarr = false) {
 			global $ADODB_COUNTRECS;
 
-			$crecs = $ADODB_COUNTRECS;
+			$crecs           = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = false;
 
 			$rs = $this->Execute($sql, $inputarr);
@@ -2195,10 +2195,10 @@ if (!defined('_ADODB_LAYER')) {
 				$rs = $this->Execute($sqlparam, $inputarr);
 
 				if ($rs) {
-					$eof = $rs->EOF;
-					$rs  = $this->_rs2rs($rs); // read entire recordset into memory immediately
+					$eof             = $rs->EOF;
+					$rs              = $this->_rs2rs($rs); // read entire recordset into memory immediately
 					$rs->timeCreated = time(); // used by caching
-					$txt = _rs2serialize($rs, false, $sql); // serialize
+					$txt             = _rs2serialize($rs, false, $sql); // serialize
 
 					$ok = $ADODB_CACHE->writecache($md5file, $txt, $this->debug, $secs2cache);
 
@@ -2435,7 +2435,7 @@ if (!defined('_ADODB_LAYER')) {
 				$this->fnExecute = false;
 			}
 
-			$old = $this->_logsql;
+			$old           = $this->_logsql;
 			$this->_logsql = $enable;
 
 			if ($enable && !$old) {
@@ -2552,8 +2552,8 @@ if (!defined('_ADODB_LAYER')) {
 		 * Close Connection
 		 */
 		public function Close() {
-			$rez = $this->_close();
-			$this->_queryID      = false;
+			$rez            = $this->_close();
+			$this->_queryID = false;
 			$this->_connectionID = false;
 
 			return $rez;
@@ -2658,7 +2658,7 @@ if (!defined('_ADODB_LAYER')) {
 			global $ADODB_FETCH_MODE;
 
 			if ($this->metaDatabasesSQL) {
-				$save = $ADODB_FETCH_MODE;
+				$save             = $ADODB_FETCH_MODE;
 				$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 				if ($this->fetchMode !== false) {
@@ -2717,7 +2717,7 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			if ($this->metaTablesSQL) {
-				$save = $ADODB_FETCH_MODE;
+				$save             = $ADODB_FETCH_MODE;
 				$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 				if ($this->fetchMode !== false) {
@@ -2788,7 +2788,7 @@ if (!defined('_ADODB_LAYER')) {
 				$schema = false;
 				$this->_findschema($table, $schema);
 
-				$save = $ADODB_FETCH_MODE;
+				$save             = $ADODB_FETCH_MODE;
 				$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 				if ($this->fetchMode !== false) {
@@ -3849,8 +3849,8 @@ if (!defined('_ADODB_LAYER')) {
 					} else {
 						while (!$this->EOF) {
 							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
-							$v1 = trim(reset($this->fields));
-							$v2 = '' . next($this->fields);
+							$v1           = trim(reset($this->fields));
+							$v2           = '' . next($this->fields);
 							$results[$v1] = $v2;
 							adodb_movenext($this);
 						}
@@ -3865,8 +3865,8 @@ if (!defined('_ADODB_LAYER')) {
 					} else {
 						while (!$this->EOF) {
 							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
-							$v1 = trim(reset($this->fields));
-							$v2 = '' . next($this->fields);
+							$v1           = trim(reset($this->fields));
+							$v2           = '' . next($this->fields);
 							$results[$v1] = $v2;
 							$this->MoveNext();
 						}
@@ -4112,7 +4112,7 @@ if (!defined('_ADODB_LAYER')) {
 						adodb_movenext($this);
 					}
 				} else {
-					while (! $this->EOF && $this->_currentRow < $rowNumber) {
+					while (!$this->EOF && $this->_currentRow < $rowNumber) {
 						$this->_currentRow++;
 
 						if (!$this->_fetch()) {
@@ -4368,7 +4368,7 @@ if (!defined('_ADODB_LAYER')) {
 				$this->_names = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$f = $this->FetchField($i);
+					$f              = $this->FetchField($i);
 					$this->_names[] = $f->name;
 				}
 			}
@@ -4470,108 +4470,108 @@ if (!defined('_ADODB_LAYER')) {
 
 			// changed in 2.32 to hashing instead of switch stmt for speed...
 			static $typeMap = array(
-				'VARCHAR'                     => 'C',
-				'VARCHAR2'                    => 'C',
-				'CHAR'                        => 'C',
-				'C'                           => 'C',
-				'STRING'                      => 'C',
-				'NCHAR'                       => 'C',
-				'NVARCHAR'                    => 'C',
-				'VARYING'                     => 'C',
-				'BPCHAR'                      => 'C',
-				'CHARACTER'                   => 'C',
-				'INTERVAL'                    => 'C',  // Postgres
-				'MACADDR'                     => 'C', // postgres
-				'VAR_STRING'                  => 'C', // mysql
+				'VARCHAR' => 'C',
+				'VARCHAR2' => 'C',
+				'CHAR'  => 'C',
+				'C'     => 'C',
+				'STRING' => 'C',
+				'NCHAR' => 'C',
+				'NVARCHAR' => 'C',
+				'VARYING' => 'C',
+				'BPCHAR' => 'C',
+				'CHARACTER' => 'C',
+				'INTERVAL' => 'C',  // Postgres
+				'MACADDR' => 'C', // postgres
+				'VAR_STRING' => 'C', // mysql
 				//
-				'LONGCHAR'                    => 'X',
-				'TEXT'                        => 'X',
-				'NTEXT'                       => 'X',
-				'M'                           => 'X',
-				'X'                           => 'X',
-				'CLOB'                        => 'X',
-				'NCLOB'                       => 'X',
-				'LVARCHAR'                    => 'X',
+				'LONGCHAR' => 'X',
+				'TEXT'  => 'X',
+				'NTEXT' => 'X',
+				'M'     => 'X',
+				'X'     => 'X',
+				'CLOB'  => 'X',
+				'NCLOB' => 'X',
+				'LVARCHAR' => 'X',
 
-				'BLOB'                        => 'B',
-				'IMAGE'                       => 'B',
-				'BINARY'                      => 'B',
-				'VARBINARY'                   => 'B',
-				'LONGBINARY'                  => 'B',
-				'B'                           => 'B',
+				'BLOB'  => 'B',
+				'IMAGE' => 'B',
+				'BINARY' => 'B',
+				'VARBINARY' => 'B',
+				'LONGBINARY' => 'B',
+				'B'     => 'B',
 
-				'YEAR'                        => 'D', // mysql
-				'DATE'                        => 'D',
-				'D'                           => 'D',
+				'YEAR'  => 'D', // mysql
+				'DATE'  => 'D',
+				'D'     => 'D',
 
-				'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
+				'UNIQUEIDENTIFIER' => 'C', // MS SQL Server
 				//
-				'SMALLDATETIME'               => 'T',
-				'TIME'                        => 'T',
-				'TIMESTAMP'                   => 'T',
-				'DATETIME'                    => 'T',
-				'DATETIME2'                   => 'T',
-				'TIMESTAMPTZ'                 => 'T',
-				'T'                           => 'T',
+				'SMALLDATETIME' => 'T',
+				'TIME'  => 'T',
+				'TIMESTAMP' => 'T',
+				'DATETIME' => 'T',
+				'DATETIME2' => 'T',
+				'TIMESTAMPTZ' => 'T',
+				'T'     => 'T',
 				'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
 				//
-				'BOOL'                        => 'L',
-				'BOOLEAN'                     => 'L',
-				'BIT'                         => 'L',
-				'L'                           => 'L',
+				'BOOL'  => 'L',
+				'BOOLEAN' => 'L',
+				'BIT'   => 'L',
+				'L'     => 'L',
 
-				'COUNTER'                     => 'R',
-				'R'                           => 'R',
-				'SERIAL'                      => 'R', // ifx
-				'INT IDENTITY'                => 'R',
+				'COUNTER' => 'R',
+				'R'     => 'R',
+				'SERIAL' => 'R', // ifx
+				'INT IDENTITY' => 'R',
 
-				'INT'                         => 'I',
-				'INT2'                        => 'I',
-				'INT4'                        => 'I',
-				'INT8'                        => 'I',
-				'INTEGER'                     => 'I',
-				'INTEGER UNSIGNED'            => 'I',
-				'SHORT'                       => 'I',
-				'TINYINT'                     => 'I',
-				'SMALLINT'                    => 'I',
-				'I'                           => 'I',
+				'INT'   => 'I',
+				'INT2'  => 'I',
+				'INT4'  => 'I',
+				'INT8'  => 'I',
+				'INTEGER' => 'I',
+				'INTEGER UNSIGNED' => 'I',
+				'SHORT' => 'I',
+				'TINYINT' => 'I',
+				'SMALLINT' => 'I',
+				'I'     => 'I',
 
-				'LONG'                        => 'N', // interbase is numeric, oci8 is blob
-				'BIGINT'                      => 'N', // this is bigger than PHP 32-bit integers
-				'DECIMAL'                     => 'N',
-				'DEC'                         => 'N',
-				'REAL'                        => 'N',
-				'DOUBLE'                      => 'N',
-				'DOUBLE PRECISION'            => 'N',
-				'SMALLFLOAT'                  => 'N',
-				'FLOAT'                       => 'N',
-				'NUMBER'                      => 'N',
-				'NUM'                         => 'N',
-				'NUMERIC'                     => 'N',
-				'MONEY'                       => 'N',
+				'LONG'  => 'N', // interbase is numeric, oci8 is blob
+				'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
+				'DECIMAL' => 'N',
+				'DEC'   => 'N',
+				'REAL'  => 'N',
+				'DOUBLE' => 'N',
+				'DOUBLE PRECISION' => 'N',
+				'SMALLFLOAT' => 'N',
+				'FLOAT' => 'N',
+				'NUMBER' => 'N',
+				'NUM'   => 'N',
+				'NUMERIC' => 'N',
+				'MONEY' => 'N',
 
 				// informix 9.2
-				'SQLINT'                      => 'I',
-				'SQLSERIAL'                   => 'I',
-				'SQLSMINT'                    => 'I',
-				'SQLSMFLOAT'                  => 'N',
-				'SQLFLOAT'                    => 'N',
-				'SQLMONEY'                    => 'N',
-				'SQLDECIMAL'                  => 'N',
-				'SQLDATE'                     => 'D',
-				'SQLVCHAR'                    => 'C',
-				'SQLCHAR'                     => 'C',
-				'SQLDTIME'                    => 'T',
-				'SQLINTERVAL'                 => 'N',
-				'SQLBYTES'                    => 'B',
-				'SQLTEXT'                     => 'X',
+				'SQLINT' => 'I',
+				'SQLSERIAL' => 'I',
+				'SQLSMINT' => 'I',
+				'SQLSMFLOAT' => 'N',
+				'SQLFLOAT' => 'N',
+				'SQLMONEY' => 'N',
+				'SQLDECIMAL' => 'N',
+				'SQLDATE' => 'D',
+				'SQLVCHAR' => 'C',
+				'SQLCHAR' => 'C',
+				'SQLDTIME' => 'T',
+				'SQLINTERVAL' => 'N',
+				'SQLBYTES' => 'B',
+				'SQLTEXT' => 'X',
 				// informix 10
-				'SQLINT8'                     => 'I8',
-				'SQLSERIAL8'                  => 'I8',
-				'SQLNCHAR'                    => 'C',
-				'SQLNVCHAR'                   => 'C',
-				'SQLLVARCHAR'                 => 'X',
-				'SQLBOOL'                     => 'L',
+				'SQLINT8' => 'I8',
+				'SQLSERIAL8' => 'I8',
+				'SQLNCHAR' => 'C',
+				'SQLNVCHAR' => 'C',
+				'SQLLVARCHAR' => 'X',
+				'SQLBOOL' => 'L',
 			);
 
 			$tmap = false;
@@ -4755,10 +4755,10 @@ if (!defined('_ADODB_LAYER')) {
 			$this->_fieldobjects = array();
 
 			foreach ($hdr as $k => $name) {
-				$f       = new ADOFieldObject();
-				$f->name = $name;
-				$f->type = $this->_types[$k];
-				$f->max_length         = -1;
+				$f             = new ADOFieldObject();
+				$f->name       = $name;
+				$f->type       = $this->_types[$k];
+				$f->max_length = -1;
 				$this->_fieldobjects[] = $f;
 			}
 			$this->fields = reset($this->_array);
@@ -4853,9 +4853,9 @@ if (!defined('_ADODB_LAYER')) {
 			if (isset($this->_fieldobjects)) {
 				return $this->_fieldobjects[$fieldOffset];
 			}
-			$o       = new ADOFieldObject();
-			$o->name = $this->_colnames[$fieldOffset];
-			$o->type = $this->_types[$fieldOffset];
+			$o             = new ADOFieldObject();
+			$o->name       = $this->_colnames[$fieldOffset];
+			$o->type       = $this->_types[$fieldOffset];
 			$o->max_length = -1; // length not known
 
 			return $o;
@@ -5165,7 +5165,7 @@ if (!defined('_ADODB_LAYER')) {
 					switch (strtolower($k)) {
 						case 'new':
 										$nconnect = true;
-							$persist = true;
+							$persist              = true;
 
 							break;
 
@@ -5381,8 +5381,8 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		include_once $path;
-		$class = "ADODB2_$drivername";
-		$dict  = new $class();
+		$class              = "ADODB2_$drivername";
+		$dict               = new $class();
 		$dict->dataProvider = $conn->dataProvider;
 		$dict->connection   = $conn;
 		$dict->upperName    = strtoupper($drivername);

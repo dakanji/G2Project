@@ -98,7 +98,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testLinkId6() {
 		$test   = array(
-			'view'      => 'core.Pirate',
+			'view' => 'core.Pirate',
 			'urlParams' => array(
 				'controller' => 'core.Monkey',
 				'view'       => 'core.Pirate',
@@ -221,8 +221,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testChangeInDescendents() {
 		$test = array(
-			'module'    => 'pirate',
-			'text'      => 'ninja',
+			'module' => 'pirate',
+			'text' => 'ninja',
 			'l10Domain' => 'modules_foo',
 		);
 		$this->_setupAdapterWithMocks();
@@ -618,11 +618,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->assertEquals('[missing link]', $this->_templateAdapter->itemLink(array()));
 
 		$link = array(
-			'params'  => array(
+			'params' => array(
 				'view' => 'test.View',
 			),
 			'options' => array(),
-			'text'    => 'test link',
+			'text' => 'test link',
 		);
 
 		$expected = '<a href="Array" class="gbAdminLink gbLink-test_View">test link</a>';
@@ -647,15 +647,15 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$link = array(
-			'params'  => array(
+			'params' => array(
 				'view' => 'test.View',
 			),
 			'options' => array(
 				'forceFullUrl' => true,
 			),
-			'text'    => 'Test Link',
-			'script'  => 'alert(\'hi\')',
-			'attrs'   => 'title="fun"',
+			'text' => 'Test Link',
+			'script' => 'alert(\'hi\')',
+			'attrs' => 'title="fun"',
 		);
 
 		$expected = '<a href="Array" onclick="alert(\'hi\');return false" title="fun" '
@@ -684,11 +684,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$link = array(
-			'params'  => array(
+			'params' => array(
 				'view' => 'test.View',
 			),
 			'options' => array(),
-			'text'    => 'Test link',
+			'text' => 'Test link',
 		);
 		$this->assertEquals(
 			'<option value="window.location=\'Array\'">Test link</option>',
@@ -710,11 +710,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$link = array(
-			'params'  => array(
+			'params' => array(
 				'view' => 'test.View',
 			),
 			'options' => array(),
-			'text'    => 'Test link',
+			'text' => 'Test link',
 		);
 
 		$expected = '<a href="Array" title="Some Title" class="">Text Override</a>';

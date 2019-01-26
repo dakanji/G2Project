@@ -36,17 +36,17 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 		(case when c.xusertype=61 then 0 else c.xprec end),
 		(case when c.xusertype=61 then 0 else c.xscale end)
 		from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-	public $hasTop       = 'top';        // support mssql/interbase SELECT TOP 10 * FROM TABLE
-	public $sysDate      = 'GetDate()';
-	public $sysTimeStamp = 'GetDate()';
-	public $leftOuter    = '*=';
-	public $rightOuter   = '=*';
-	public $substr       = 'substring';
-	public $length       = 'len';
-	public $ansiOuter    = true; // for mssql7 or later
-	public $identitySQL  = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
-	public $hasInsertID  = true;
-	public $connectStmt  = 'SET CONCAT_NULL_YIELDS_NULL OFF'; // When SET CONCAT_NULL_YIELDS_NULL is ON,
+	public $hasTop           = 'top';        // support mssql/interbase SELECT TOP 10 * FROM TABLE
+	public $sysDate          = 'GetDate()';
+	public $sysTimeStamp     = 'GetDate()';
+	public $leftOuter        = '*=';
+	public $rightOuter       = '=*';
+	public $substr           = 'substring';
+	public $length           = 'len';
+	public $ansiOuter        = true; // for mssql7 or later
+	public $identitySQL      = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
+	public $hasInsertID      = true;
+	public $connectStmt      = 'SET CONCAT_NULL_YIELDS_NULL OFF'; // When SET CONCAT_NULL_YIELDS_NULL is ON,
 	// concatenating a null value with a string yields a NULL result
 
 	public function __construct() {
@@ -57,9 +57,9 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 	// crashes php...
 	public function ServerInfo() {
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$row = $this->GetRow('execute sp_server_info 2');
+		$row              = $this->GetRow('execute sp_server_info 2');
 		$ADODB_FETCH_MODE = $save;
 
 		if (!is_array($row)) {
@@ -87,9 +87,9 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 	public function MetaForeignKeys($table, $owner = false, $upper = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$table = $this->qstr(strtoupper($table));
+		$table            = $this->qstr(strtoupper($table));
 
 		$sql = "select object_name(constid) as constraint_name,
 	col_name(fkeyid, fkey) as column_name,
@@ -151,7 +151,7 @@ order by constraint_name, referenced_table_name, keyno";
 			$this->SelectDB($schema);
 		}
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -225,7 +225,7 @@ order by constraint_name, referenced_table_name, keyno";
 			ORDER BY O.name, I.Name, K.keyno";
 
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -297,7 +297,7 @@ order by constraint_name, referenced_table_name, keyno";
 		where tc.constraint_name = k.constraint_name and tc.constraint_type =
 		'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$a = $this->GetCol($sql);
 		$ADODB_FETCH_MODE = $savem;

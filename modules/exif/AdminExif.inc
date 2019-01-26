@@ -66,8 +66,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['added']['summary'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']           = 'core.SiteAdmin';
+				$redirect['subView']        = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][available][missing]';
 			}
@@ -95,8 +95,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['added']['detailed'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']            = 'core.SiteAdmin';
+				$redirect['subView']         = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][available][missing]';
 			}
@@ -126,8 +126,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['removed']['summary'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']             = 'core.SiteAdmin';
+				$redirect['subView']          = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][summary][missing]';
 			}
@@ -138,8 +138,8 @@ class AdminExifController extends GalleryController {
 				return array($ret, null);
 			}
 			$status['restored']['summary'] = 1;
-			$redirect['view']    = 'core.SiteAdmin';
-			$redirect['subView'] = 'exif.AdminExif';
+			$redirect['view']              = 'core.SiteAdmin';
+			$redirect['subView']           = 'exif.AdminExif';
 		} elseif (isset($form['action']['removeFromDetailed'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
@@ -166,8 +166,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['removed']['detailed'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']              = 'core.SiteAdmin';
+				$redirect['subView']           = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][detailed][missing]';
 			}
@@ -178,8 +178,8 @@ class AdminExifController extends GalleryController {
 				return array($ret, null);
 			}
 			$status['restored']['detailed'] = 1;
-			$redirect['view']    = 'core.SiteAdmin';
-			$redirect['subView'] = 'exif.AdminExif';
+			$redirect['view']               = 'core.SiteAdmin';
+			$redirect['subView']            = 'exif.AdminExif';
 		} elseif (isset($form['action']['moveUpSummary'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
@@ -196,7 +196,7 @@ class AdminExifController extends GalleryController {
 					for ($i = 0; $i < sizeof($properties); $i++) {
 						if ($properties[$i] == $propertyToShift) {
 							if ($i > 0) {
-								$save = $properties[$i - 1];
+								$save               = $properties[$i - 1];
 								$properties[$i - 1] = $properties[$i];
 								$properties[$i]     = $save;
 								$count++;
@@ -212,8 +212,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['movedUp']['summary'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']             = 'core.SiteAdmin';
+				$redirect['subView']          = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][summary][missing]';
 			}
@@ -233,7 +233,7 @@ class AdminExifController extends GalleryController {
 					for ($i = sizeof($properties) - 1; $i >= 0; $i--) {
 						if ($properties[$i] == $propertyToShift) {
 							if ($i < sizeof($properties) - 1) {
-								$save = $properties[$i + 1];
+								$save               = $properties[$i + 1];
 								$properties[$i + 1] = $properties[$i];
 								$properties[$i]     = $save;
 								$count++;
@@ -249,8 +249,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['movedDown']['summary'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']               = 'core.SiteAdmin';
+				$redirect['subView']            = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][summary][missing]';
 			}
@@ -270,7 +270,7 @@ class AdminExifController extends GalleryController {
 					for ($i = 0; $i < sizeof($properties); $i++) {
 						if ($properties[$i] == $propertyToShift) {
 							if ($i > 0) {
-								$save = $properties[$i - 1];
+								$save               = $properties[$i - 1];
 								$properties[$i - 1] = $properties[$i];
 								$properties[$i]     = $save;
 								$count++;
@@ -286,8 +286,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['movedUp']['detailed'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']              = 'core.SiteAdmin';
+				$redirect['subView']           = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][detailed][missing]';
 			}
@@ -307,7 +307,7 @@ class AdminExifController extends GalleryController {
 					for ($i = sizeof($properties) - 1; $i >= 0; $i--) {
 						if ($properties[$i] == $propertyToShift) {
 							if ($i < sizeof($properties) - 1) {
-								$save = $properties[$i + 1];
+								$save               = $properties[$i + 1];
 								$properties[$i + 1] = $properties[$i];
 								$properties[$i]     = $save;
 								$count++;

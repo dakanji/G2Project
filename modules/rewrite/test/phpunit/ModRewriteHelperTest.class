@@ -110,7 +110,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 
 		$this->_platform->_isWriteable = false;
-		list($ret, $code) = ModRewriteHelper::checkFile();
+		list($ret, $code)              = ModRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -118,7 +118,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'writeable');
 
 		$this->_platform->_isReadable = false;
-		list($ret, $code) = ModRewriteHelper::checkFile();
+		list($ret, $code)             = ModRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -126,7 +126,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'readable');
 
 		$this->_platform->_fileExists = false;
-		list($ret, $code) = ModRewriteHelper::checkFile();
+		list($ret, $code)             = ModRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -179,7 +179,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		unset($this->_fileContent);
 
 		$this->_platform->_isReadable = false;
-		list($ret, $code) = ModRewriteHelper::writeFile(array());
+		list($ret, $code)             = ModRewriteHelper::writeFile(array());
 
 		if ($ret) {
 			return $ret;
@@ -190,7 +190,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
-		list($ret, $code) = ModRewriteHelper::writeFile(array());
+		list($ret, $code)              = ModRewriteHelper::writeFile(array());
 
 		if ($ret) {
 			return $ret;
@@ -360,12 +360,12 @@ class ModRewriteHelperTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class ModRewriteHelperMockPlatform extends GalleryPlatform {
-	public $_isWriteable      = true;
-	public $_isReadable       = true;
-	public $_fileExists       = true;
-	public $_isWriteableEmbed = true;
-	public $_isReadableEmbed  = true;
-	public $_fileExistsEmbed  = true;
+	public $_isWriteable             = true;
+	public $_isReadable              = true;
+	public $_fileExists              = true;
+	public $_isWriteableEmbed        = true;
+	public $_isReadableEmbed         = true;
+	public $_fileExistsEmbed         = true;
 	public $_embeddedPreviousContent = array();
 	public $_previousContent         = array();
 
@@ -424,7 +424,7 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 		);
 
 		if ($handle == 'phpunit') {
-			$respons = GalleryUtilities::getRequestVariables('modRewriteTest');
+			$respons           = GalleryUtilities::getRequestVariables('modRewriteTest');
 			$this->_readBuffer = $buffer[$respons];
 
 			return strlen($string);
@@ -472,14 +472,14 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 			}
 
 			if ($length >= strlen(join("\n", $this->_readBuffer))) {
-				$tmp = join("\n", $this->_readBuffer);
+				$tmp               = join("\n", $this->_readBuffer);
 				$this->_readBuffer = array();
 
 				return $tmp;
 			}
 
-			$buf = join("\n", $this->_readBuffer);
-			$tmp = substr($buf, 0, $length);
+			$buf               = join("\n", $this->_readBuffer);
+			$tmp               = substr($buf, 0, $length);
 			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
 
 			return $tmp;

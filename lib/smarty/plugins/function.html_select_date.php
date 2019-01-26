@@ -78,12 +78,12 @@ function smarty_function_html_select_date($params, &$smarty) {
 	$field_order = 'MDY';
 	// String printed between the different fields.
 	$field_separator = "\n";
-	$time        = time();
-	$all_empty   = null;
-	$day_empty   = null;
-	$month_empty = null;
-	$year_empty  = null;
-	$extra_attrs = '';
+	$time            = time();
+	$all_empty       = null;
+	$day_empty       = null;
+	$month_empty     = null;
+	$year_empty      = null;
+	$extra_attrs     = '';
 
 	foreach ($params as $_key => $_value) {
 		switch ($_key) {

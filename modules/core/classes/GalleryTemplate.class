@@ -137,7 +137,7 @@ class GalleryTemplate {
 
 		if (!isset($l10Domain)) {
 			list($type, $id, $junk) = explode('/', $tpl, 3);
-			$l10Domain = $type . '_' . $id;
+			$l10Domain              = $type . '_' . $id;
 		}
 		$head['tpl'][$tpl] = $l10Domain;
 	}
@@ -194,7 +194,7 @@ class GalleryTemplate {
 			}
 			$linkHtml .= " $key=\"$value\"";
 		}
-		$linkHtml .= '/>';
+		$linkHtml               .= '/>';
 		$head['link'][$linkHtml] = true;
 	}
 
@@ -206,10 +206,10 @@ class GalleryTemplate {
 	 *                                             Default false.
 	 */
 	public function meta($name, $content, $isHttpEquiv = false) {
-		$head =& $this->getVariableByReference('head');
+		$head           =& $this->getVariableByReference('head');
 		$head['meta'][] = array(
-			'name'        => $name,
-			'content'     => $content,
+			'name' => $name,
+			'content' => $content,
 			'isHttpEquiv' => $isHttpEquiv,
 		);
 	}
@@ -535,9 +535,9 @@ class GalleryTemplate {
 		$templatePath = GalleryTemplate::_getActualTemplatePath($templateName, $smarty);
 
 		if (isset($templatePath) && $platform->file_exists($templatePath)) {
-			$stat = $platform->stat($templatePath);
+			$stat              = $platform->stat($templatePath);
 			$templateTimestamp = $stat[9];
-			$success = true;
+			$success           = true;
 		}
 
 		return $success;
@@ -612,7 +612,7 @@ class GalleryTemplate {
 		}
 
 		if (empty($qualifiedTemplatePath)) {
-			$tplFile = basename($templateName);
+			$tplFile               = basename($templateName);
 			$qualifiedTemplateName = $smarty->template_dir . '/' . $templateName;
 			$base = dirname($qualifiedTemplateName);
 
@@ -637,7 +637,7 @@ class GalleryTemplate {
 	 * @access private
 	 */
 	public static function _getThemeId() {
-		$view = new GalleryView();
+		$view               = new GalleryView();
 		list($ret, $itemId) = $view->getItem();
 
 		if ($ret) {

@@ -125,8 +125,8 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$title = '_test_exif_' . mt_rand();
-		$path  = __DIR__ . '/../data/CanonS30.small.jpg';
+		$title            = '_test_exif_' . mt_rand();
+		$path             = __DIR__ . '/../data/CanonS30.small.jpg';
 		list($ret, $item) = GalleryCoreApi::addItemToAlbum(
 			$path,
 			$title,
@@ -166,7 +166,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 			} else {
 				$filter = EXIF_SUMMARY;
 			}
-			$expModeSet = $expDataSet = true;
+			$expModeSet           = $expDataSet = true;
 			list($ret, $exifData) = ExifHelper::getExifData($path, $filter);
 
 			if ($ret) {

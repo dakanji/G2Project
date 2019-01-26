@@ -813,7 +813,7 @@ class CoreModuleExtras {
 				if ($results->resultCount() == 0) {
 					break;
 				}
-				$result = $results->nextResult();
+				$result               = $results->nextResult();
 				$totalPermissionItems = $result[0];
 
 				$itemsProcessed = 0;
@@ -895,8 +895,8 @@ class CoreModuleExtras {
 						 * of permission rows as our target.  Our target item is included in the dupes,
 						 * so this will always return at least 1 row.
 						 */
-						$markers = GalleryUtilities::makeMarkers($count);
-						$query   = sprintf($refineDupesQuery, $markers);
+						$markers             = GalleryUtilities::makeMarkers($count);
+						$query               = sprintf($refineDupesQuery, $markers);
 						list($ret, $results) = $gallery->search(
 							$query,
 							array_merge($chunk, array($permissionRowCount))
@@ -1913,7 +1913,7 @@ class CoreModuleExtras {
 
 				if (empty($langCode)) {
 					$useBrowserPref = '1';
-					$ret = $module->setParameter('default.language', 'en_US');
+					$ret            = $module->setParameter('default.language', 'en_US');
 
 					if ($ret) {
 						return $ret;
@@ -1959,7 +1959,7 @@ class CoreModuleExtras {
 						$derivativeIds[] = $result[0];
 					}
 					$totalDerivatives = count($derivativeIds);
-					$base = $gallery->getConfig('data.gallery.cache');
+					$base             = $gallery->getConfig('data.gallery.cache');
 					$gallery->guaranteeTimeLimit(60);
 
 					// Show a progress bar
@@ -3450,7 +3450,7 @@ class CoreModuleExtras {
 				list($usec, $sec) = explode(' ', microtime());
 				$cookieId         = substr(md5(mt_rand()), 0, 6);
 
-				$add[] = '
+				$add[]           = '
 				/*
 				* Set the name for Gallery session cookies.  The name of the session cookie is
 				* a concatenation of \'GALLERYSID_\' and cookieId, which is randomly generated
@@ -3560,15 +3560,15 @@ class CoreModuleExtras {
 				 * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
 				 * Escape the backslashes and quotes two times since we feed preg_replace with it.
 				 */
-				$edit = array();
-				$tmp  = strtr(
+				$edit           = array();
+				$tmp            = strtr(
 					$gallery->getConfig('data.gallery.base'),
 					array(
 						'\\' => '\\\\\\\\',
 						"'"  => "\\\\'",
 					)
 				);
-				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
+				$edit['regexp'] = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
 				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
 				. $tmp . '\');';
 				$configChanges[]     = array(
@@ -3629,8 +3629,8 @@ class CoreModuleExtras {
 				 * Prevent PHP from showing errors on direct access to config.php by adding a check
 				 * for the $gallery object before the first setConfig() call.
 				 */
-				$edit = array();
-				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
+				$edit           = array();
+				$edit['regexp'] = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
 			* Prevent direct access to config.php.
 			*/
@@ -3650,11 +3650,11 @@ class CoreModuleExtras {
 			case '1.1.29':
 			case '1.1.30':
 				// Reposition display_errors from the end to the beginning of the config file.
-				$remove = array(
+				$remove         = array(
 					'{/\*[^/]*\*/\s*\@?ini_set\(\'display_errors\',.*?;\s*}s',
 				);
-				$edit   = array();
-				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
+				$edit           = array();
+				$edit['regexp'] = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
 			* When display_errors is enabled, PHP errors are printed to the output.
 			* For production web sites, you\'re strongly encouraged to turn this feature off,
@@ -3707,14 +3707,14 @@ class CoreModuleExtras {
 			case '1.2.31':
 			case '1.2.32':
 				// Change the baseUri if it's not set.
-				$urlGenerator =& $gallery->getUrlGenerator();
-				$urlPath      = preg_replace(
+				$urlGenerator   =& $gallery->getUrlGenerator();
+				$urlPath        = preg_replace(
 					'|^(.*/)upgrade/index.php.*$|s',
 					'$1',
 					$urlGenerator->getCurrentUrl()
 				) . GALLERY_MAIN_PHP;
-				$edit         = array();
-				$edit['regexp']      = '{\$gallery->setConfig\(\'baseUri\', \'\'\);}s';
+				$edit           = array();
+				$edit['regexp'] = '{\$gallery->setConfig\(\'baseUri\', \'\'\);}s';
 				$edit['replacement'] = '$gallery->setConfig(\'baseUri\', \'' . $urlPath . '\');';
 				$configChanges[]     = array(
 					'remove' => array(),
@@ -4571,7 +4571,7 @@ class CoreModuleExtras {
 						return array($ret, null);
 					}
 					$gallery->guaranteeTimeLimit(120);
-					$storageExtras =& $storage->_getExtras();
+					$storageExtras             =& $storage->_getExtras();
 					list($ret, $tableVersions) = $storageExtras->_loadTableVersions();
 
 					if ($ret) {
@@ -4610,7 +4610,7 @@ class CoreModuleExtras {
 						 * 2. Convert text column to binary column
 						 * 3. Convert them to character/text columns with UTF8 charset
 						 */
-						$query = "SHOW FULL COLUMNS FROM `$tableName`";
+						$query               = "SHOW FULL COLUMNS FROM `$tableName`";
 						$originalFetchMode   = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
 						list($ret, $results) = $storage->search($query);
 

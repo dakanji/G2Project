@@ -43,12 +43,12 @@ class GalleryDataCache {
 		static $cache;
 
 		if (!isset($cache)) {
-			$cache['maxKeys']        = 800;
-			$cache['minKeys']        = 400;
-			$cache['positions']      = array();
-			$cache['latestPosition'] = 0;
-			$cache['keys']      = array();
-			$cache['protected'] = array();
+			$cache['maxKeys']            = 800;
+			$cache['minKeys']            = 400;
+			$cache['positions']          = array();
+			$cache['latestPosition']     = 0;
+			$cache['keys']               = array();
+			$cache['protected']          = array();
 			$cache['memoryCacheEnabled'] = 1;
 			$cache['fileCacheEnabled']   = 1;
 		}
@@ -442,7 +442,7 @@ class GalleryDataCache {
 		switch ($pathInfo['type']) {
 			case 'entity':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile = sprintf(
+				$cacheFile            = sprintf(
 					'%sentity/%s/%s/%d.inc',
 					$base,
 					$first,
@@ -454,7 +454,7 @@ class GalleryDataCache {
 
 			case 'derivative':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile = sprintf(
+				$cacheFile            = sprintf(
 					'%sderivative/%s/%s/%d.dat',
 					$base,
 					$first,
@@ -466,7 +466,7 @@ class GalleryDataCache {
 
 			case 'derivative-relative':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile = sprintf(
+				$cacheFile            = sprintf(
 					'derivative/%s/%s/%d.dat',
 					$first,
 					$second,
@@ -477,7 +477,7 @@ class GalleryDataCache {
 
 			case 'fast-download':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile = sprintf(
+				$cacheFile            = sprintf(
 					'%sentity/%s/%s/%d-fast.inc',
 					$base,
 					$first,
@@ -499,7 +499,7 @@ class GalleryDataCache {
 							$pathInfo['itemId'] = '0';
 						}
 						list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-						$cacheFile = sprintf(
+						$cacheFile            = sprintf(
 							'%s%s/%s/%s/%s/%s.inc',
 							$base,
 							$pathInfo['type'],
@@ -750,7 +750,7 @@ class GalleryDataCache {
 	public static function putPageData($type, $itemId, $keyData, $value) {
 		global $gallery;
 
-		$userId = $gallery->getActiveUserId();
+		$userId             = $gallery->getActiveUserId();
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 
 		if ($ret) {
@@ -906,7 +906,7 @@ class GalleryDataCache {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$acceleration = unserialize($acceleration);
+		$acceleration            = unserialize($acceleration);
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {

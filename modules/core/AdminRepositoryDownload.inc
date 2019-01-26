@@ -91,7 +91,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			if (!empty($form['base'])) {
 				list($languages, $defaultCountry) = $translator->getLanguageData();
 				list($baseSource, $baseNewBuild)  = explode(':', $form['base']);
-				$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+				$supportedLanguages               = GalleryCoreApi::getSupportedLanguages();
 
 				if (empty($pluginPackages['base']['build'])
 					|| $pluginPackages['base']['build'] != $baseNewBuild
@@ -115,7 +115,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			if (empty($installPackages)) {
 				$delegate['view']    = 'core.SiteAdmin';
 				$delegate['subView'] = 'core.AdminRepositoryDownload';
-				$error[] = 'form[error][nothingSelected]';
+				$error[]             = 'form[error][nothingSelected]';
 
 				/** @todo: Do we need to put these vars back into the request? */
 				GalleryUtilities::putRequestVariable('pluginId', $pluginId);

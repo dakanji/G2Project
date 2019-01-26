@@ -202,7 +202,7 @@ class GalleryRepository {
 			$apiVersions['core']   = implode('.', $header['coreApiVersion']);
 			$apiVersions['module'] = implode('.', $header['moduleApiVersion']);
 			$apiVersions['theme']  = implode('.', $header['themeApiVersion']);
-			$isAvailable = true;
+			$isAvailable           = true;
 		} else {
 			$apiVersions = array();
 			$isAvailable = false;
@@ -245,10 +245,10 @@ class GalleryRepository {
 			return array($ret, null);
 		}
 
-		$repositoryDataVersion = $header['version'];
-		$repositoryDataBuild   = $header['buildTimestamp'];
-		$upgradeInfo['base']['newVersion']   = $repositoryDataVersion;
-		$upgradeInfo['base']['newBuild']     = $repositoryDataBuild;
+		$repositoryDataVersion             = $header['version'];
+		$repositoryDataBuild               = $header['buildTimestamp'];
+		$upgradeInfo['base']['newVersion'] = $repositoryDataVersion;
+		$upgradeInfo['base']['newBuild']   = $repositoryDataBuild;
 		$upgradeInfo['base']['isCompatible'] = $this->_utilities->isPluginCompatible(
 			$pluginType,
 			$header['requiredCoreApi'],
@@ -600,7 +600,7 @@ class GalleryRepository {
 
 		// Create repository cache directory if it doesn't exist.
 		$repositoryCachePath = $gallery->getConfig('repository.cache');
-		$platform =& $gallery->getPlatform();
+		$platform            =& $gallery->getPlatform();
 
 		list($success, $created) = GalleryUtilities::guaranteeDirExists($repositoryCachePath);
 
@@ -786,7 +786,7 @@ class GalleryRepository {
 	) {
 		global $gallery;
 
-		$status = array();
+		$status             = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -1227,7 +1227,7 @@ class GalleryRepository {
 		}
 
 		$installedPackageCount = 0;
-		$cacheDir = $gallery->getConfig('repository.cache') . $this->_source . '/';
+		$cacheDir              = $gallery->getConfig('repository.cache') . $this->_source . '/';
 
 		foreach ($packages as $pluginType => $plugins) {
 			foreach ($plugins as $pluginId => $data) {

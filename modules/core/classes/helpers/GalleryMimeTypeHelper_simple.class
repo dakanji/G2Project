@@ -31,7 +31,7 @@ class GalleryMimeTypeHelper_simple {
 	 * @see GalleryCoreApi::getMimeType
 	 */
 	public static function getMimeType($filename, $requestMimeType = null) {
-		$extension = GalleryUtilities::getFileExtension($filename);
+		$extension            = GalleryUtilities::getFileExtension($filename);
 		list($ret, $mimetype) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
 
 		if ($ret) {

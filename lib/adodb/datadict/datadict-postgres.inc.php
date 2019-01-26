@@ -167,7 +167,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 		$sql      = array();
 		$not_null = false;
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$alter = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
+		$alter              = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
 
 		foreach ($lines as $v) {
 			if (($not_null = preg_match('/NOT NULL/i', $v))) {
@@ -225,7 +225,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 			$tabname = $this->TableName($tabname);
 			$sql     = array();
 			list($lines, $pkey) = $this->_GenFields($flds);
-			$set_null = false;
+			$set_null           = false;
 
 			foreach ($lines as $v) {
 				$alter = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';

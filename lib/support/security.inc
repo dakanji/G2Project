@@ -53,8 +53,8 @@ if (empty($config)) {
 } elseif (empty($config['setup.password'])) {
 	render('missingSetupPassword', $options);
 } elseif (!GallerySetupUtilities::isSessionAuthenticated()) {
-	$baseDir  = defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR : dirname(dirname(__DIR__));
-	$authFile = $baseDir . '/authFile.txt';
+	$baseDir             = defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR : dirname(dirname(__DIR__));
+	$authFile            = $baseDir . '/authFile.txt';
 	$options['attempts'] = GallerySetupUtilities::getLoginAttempts();
 	$options['error']    = ($options['attempts'] === false);
 	$options['authFile'] = sprintf(

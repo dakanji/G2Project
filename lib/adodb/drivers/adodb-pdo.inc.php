@@ -97,8 +97,8 @@ class ADODB_pdo extends ADOConnection {
 	}
 
 	public function _UpdatePDO() {
-		$d = $this->_driver;
-		$this->fmtDate         = $d->fmtDate;
+		$d             = $this->_driver;
+		$this->fmtDate = $d->fmtDate;
 		$this->fmtTimeStamp    = $d->fmtTimeStamp;
 		$this->replaceQuote    = $d->replaceQuote;
 		$this->sysDate         = $d->sysDate;
@@ -133,7 +133,7 @@ class ADODB_pdo extends ADOConnection {
 
 	// returns true or false
 	public function _connect($argDSN, $argUsername, $argPassword, $argDatabasename, $persist = false) {
-		$at = strpos($argDSN, ':');
+		$at            = strpos($argDSN, ':');
 		$this->dsnType = substr($argDSN, 0, $at);
 
 		if ($argDatabasename) {

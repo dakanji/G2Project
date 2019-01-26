@@ -301,7 +301,7 @@ class ADODB_Session {
 
 		if (!is_null($expire_notify)) {
 			$_expire_notify = $expire_notify;
-			$set = true;
+			$set            = true;
 		} elseif (!$set) {
 			// backwards compatibility
 			if (isset($GLOBALS['ADODB_SESSION_EXPIRE_NOTIFY'])) {
@@ -351,11 +351,11 @@ class ADODB_Session {
 	// !
 	public function syncSeconds($sync_seconds = null) {
 		static $_sync_seconds = 60;
-		static $set = false;
+		static $set           = false;
 
 		if (!is_null($sync_seconds)) {
 			$_sync_seconds = (int)$sync_seconds;
-			$set = true;
+			$set           = true;
 		} elseif (!$set) {
 			// backwards compatibility
 			if (defined('ADODB_SESSION_SYNCH_SECS')) {
@@ -660,12 +660,12 @@ class ADODB_Session {
 			return;
 		}
 
-		$clob   = self::clob();
-		$conn   = self::_conn();
-		$crc    = self::_crc();
-		$data   = self::dataFieldName();
-		$debug  = self::debug();
-		$driver = self::driver();
+		$clob          = self::clob();
+		$conn          = self::_conn();
+		$crc           = self::_crc();
+		$data          = self::dataFieldName();
+		$debug         = self::debug();
+		$driver        = self::driver();
 		$expire_notify = self::expireNotify();
 		$filter        = self::filter();
 		$lifetime      = self::lifetime();
@@ -715,9 +715,9 @@ class ADODB_Session {
 		}
 
 		$arr = array(
-			'sesskey'   => $key,
-			'expiry'    => $expiry,
-			$data       => $val,
+			'sesskey' => $key,
+			'expiry' => $expiry,
+			$data => $val,
 			'expireref' => '',
 		);
 

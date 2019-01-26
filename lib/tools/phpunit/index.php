@@ -488,7 +488,7 @@ class GalleryTestResult extends TestResult {
 				$this->_testsRunThenSkipped++;
 			}
 		} else {
-			$elapsed = sprintf('%2.4f', $test->elapsed());
+			$elapsed              = sprintf('%2.4f', $test->elapsed());
 			$this->_totalElapsed += $elapsed;
 
 			if ($test->failed()) {
@@ -636,12 +636,12 @@ $incorrectDevEnv       = array();
 $desiredErrorReporting = E_ALL & ~E_STRICT;
 
 foreach (array(
-	'error_reporting'                => array($desiredErrorReporting),
+	'error_reporting' => array($desiredErrorReporting),
 	'allow_call_time_pass_reference' => array('off', 0),
-	'register_globals'               => array('off', 0),
-	'display_errors'                 => array('on', 1),
-	'allow_url_fopen'                => array('off', 0),
-	'include_path'                   => array('/bogus'),
+	'register_globals' => array('off', 0),
+	'display_errors' => array('on', 1),
+	'allow_url_fopen' => array('off', 0),
+	'include_path' => array('/bogus'),
 ) as $key => $expected) {
 	$actual = ini_get($key);
 

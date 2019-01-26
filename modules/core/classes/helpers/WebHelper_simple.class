@@ -55,7 +55,7 @@ class WebHelper_simple {
 
 		$urlComponents = WebHelper_simple::_parseUrlForFsockopen($url);
 		$platform      =& $gallery->getPlatform();
-		$fd = @$platform->fsockopen(
+		$fd            = @$platform->fsockopen(
 			$urlComponents['fsockhost'],
 			$urlComponents['port'],
 			$errno,

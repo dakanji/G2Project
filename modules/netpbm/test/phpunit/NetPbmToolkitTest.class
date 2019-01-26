@@ -45,7 +45,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_platform = new NetPbmToolkitTestPlatform($gallery->getPlatform(), $this);
-		$ret = $this->_platform->init();
+		$ret             = $this->_platform->init();
 
 		if ($ret) {
 			return $ret;

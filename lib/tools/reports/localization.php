@@ -75,7 +75,7 @@ function parsePoFiles($poFiles) {
 	 * single data structure.
 	 */
 	global $pow;
-	$poData = $seenPlugins = $maxMessageCount = array();
+	$poData           = $seenPlugins = $maxMessageCount = array();
 	$mostRecentPoDate = $totalTranslated = 0;
 
 	foreach ($poFiles as $poFile) {
@@ -236,14 +236,14 @@ function parsePoFiles($poFiles) {
 			$exactPercentDone = ($translated - $fuzzy) * 100 / $total;
 		}
 		$poData[$locale]['plugins'][$plugin] = array(
-			'translated'       => $translated,
-			'untranslated'     => $untranslated,
-			'total'            => $total,
-			'fuzzy'            => $fuzzy,
-			'obsolete'         => $obsolete,
-			'percentDone'      => $percentDone,
+			'translated' => $translated,
+			'untranslated' => $untranslated,
+			'total' => $total,
+			'fuzzy' => $fuzzy,
+			'obsolete' => $obsolete,
+			'percentDone' => $percentDone,
 			'exactPercentDone' => $exactPercentDone,
-			'name'             => $plugin,
+			'name' => $plugin,
 		);
 		$totalTranslated += $translated - $fuzzy;
 
@@ -273,7 +273,7 @@ function parsePoFiles($poFiles) {
 				$poData[$locale]['plugins'][$plugin]['missing']          = 1;
 				$poData[$locale]['plugins'][$plugin]['percentDone']      = 0;
 				$poData[$locale]['plugins'][$plugin]['exactPercentDone'] = 0;
-				$poData[$locale]['plugins'][$plugin]['name'] = $plugin;
+				$poData[$locale]['plugins'][$plugin]['name']             = $plugin;
 			} else {
 				$pluginTotal += $poData[$locale]['plugins'][$plugin]['translated'] - $poData[$locale]['plugins'][$plugin]['fuzzy'];
 			}

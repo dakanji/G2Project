@@ -167,7 +167,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		 * is clean when we're done.
 		 */
 
-		$storage =& $gallery->getStorage();
+		$storage             =& $gallery->getStorage();
 		list($ret, $results) = $storage->search('SELECT COUNT(*) FROM [GalleryCacheMap]', array());
 
 		if ($ret) {

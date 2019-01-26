@@ -222,7 +222,7 @@ class ModRewriteHelper {
 				$urlGenerator->getCurrentUrlDir(true)
 			)
 		);
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret               = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'modrewrite.galleryLocation',
@@ -308,7 +308,7 @@ class ModRewriteHelper {
 		$Htaccess['baseFile']    = GALLERY_MAIN_PHP;
 
 		if ($embedded) {
-			$Htaccess['baseFile'] = $urlGenerator->_file[false];
+			$Htaccess['baseFile']              = $urlGenerator->_file[false];
 			list($ret, $Htaccess['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -320,7 +320,7 @@ class ModRewriteHelper {
 			}
 
 			$Htaccess['rewriteBase'] = $Htaccess['directory'];
-			$components = parse_url($Htaccess['baseFile']);
+			$components              = parse_url($Htaccess['baseFile']);
 
 			if (isset($components['host'])) {
 				$Htaccess['directory'] = '';

@@ -110,8 +110,8 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	}
 
 	public function testParseShortUrl1() {
-		$params = $options = $functions = array();
-		$url    = 't/%phpunit%';
+		$params            = $options = $functions = array();
+		$url               = 't/%phpunit%';
 		$params['phpunit'] = 'test';
 
 		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
@@ -129,9 +129,9 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	}
 
 	public function testParseShortUrlNoUrlEncode() {
-		$params = $options = $functions = array();
-		$url    = 't/%phpunit%';
-		$params['phpunit']    = 'The Quick!Brown#Fox';
+		$params            = $options = $functions = array();
+		$url               = 't/%phpunit%';
+		$params['phpunit'] = 'The Quick!Brown#Fox';
 		$options['urlEncode'] = false;
 
 		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);

@@ -42,9 +42,9 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$info = array(
-			'name'        => $module->translate('Comments'),
+			'name' => $module->translate('Comments'),
 			'description' => $module->translate('Comment Module'),
-			'options'     => array(
+			'options' => array(
 				'comments' => array(
 					'description' => $module->translate('Search comments'),
 					'enabled'     => 1,
@@ -225,9 +225,9 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$data = array(
-			'start'   => $numRows == 0 ? 0 : $offset + 1,
-			'end'     => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
-			'count'   => $numRows,
+			'start' => $numRows == 0 ? 0 : $offset + 1,
+			'end' => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
+			'count' => $numRows,
 			'results' => $searchResults,
 		);
 

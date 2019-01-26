@@ -124,7 +124,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$form['rating']['enabled'] = 1;
+		$form['rating']['enabled']             = 1;
 		$form['changeInDescendents']['rating'] = 1;
 
 		list($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());

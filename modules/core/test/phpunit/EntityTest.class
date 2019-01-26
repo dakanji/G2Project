@@ -39,7 +39,7 @@ class EntityTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_entity = new EntityTestEntity();
-		$ret = $this->_entity->create();
+		$ret           = $this->_entity->create();
 
 		if ($ret) {
 			return $ret;

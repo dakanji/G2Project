@@ -120,8 +120,8 @@ class AdminMaintenanceController extends GalleryController {
 			}
 
 			$status['setMode'][$statusMsg] = 1;
-			$redirect['view']    = 'core.SiteAdmin';
-			$redirect['subView'] = 'core.AdminMaintenance';
+			$redirect['view']              = 'core.SiteAdmin';
+			$redirect['subView']           = 'core.AdminMaintenance';
 		}
 
 		if (!empty($redirect)) {

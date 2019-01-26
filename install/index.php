@@ -290,7 +290,7 @@ function populateDataDirectory($dataBase) {
  */
 function secureStorageFolder($dataBase) {
 	$htaccessPath = $dataBase . '.htaccess';
-	$fh = @fopen($htaccessPath, 'w');
+	$fh           = @fopen($htaccessPath, 'w');
 
 	if ($fh) {
 		$htaccessContents = "DirectoryIndex .htaccess\n" .

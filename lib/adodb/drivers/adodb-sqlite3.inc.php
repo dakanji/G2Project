@@ -39,8 +39,8 @@ class ADODB_sqlite3 extends ADOConnection {
 	}
 
 	public function ServerInfo() {
-		$version        = SQLite3::version();
-		$arr['version'] = $version['versionString'];
+		$version            = SQLite3::version();
+		$arr['version']     = $version['versionString'];
 		$arr['description'] = 'SQLite 3';
 
 		return $arr;
@@ -50,7 +50,7 @@ class ADODB_sqlite3 extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
-		$ret = $this->Execute('BEGIN TRANSACTION');
+		$ret             = $this->Execute('BEGIN TRANSACTION');
 		$this->transCnt += 1;
 
 		return true;
@@ -89,8 +89,8 @@ class ADODB_sqlite3 extends ADOConnection {
 	// mark newnham
 	public function MetaColumns($table, $normalize = true) {
 		global $ADODB_FETCH_MODE;
-		$false = false;
-		$save  = $ADODB_FETCH_MODE;
+		$false            = false;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 		if ($this->fetchMode !== false) {
@@ -116,12 +116,12 @@ class ADODB_sqlite3 extends ADOConnection {
 			if (sizeof($type) == 2) {
 				$size = trim($type[1], ')');
 			}
-			$fn        = strtoupper($r['name']);
-			$fld       = new ADOFieldObject();
-			$fld->name = $r['name'];
-			$fld->type = $type[0];
-			$fld->max_length    = $size;
-			$fld->not_null      = $r['notnull'];
+			$fn              = strtoupper($r['name']);
+			$fld             = new ADOFieldObject();
+			$fld->name       = $r['name'];
+			$fld->type       = $type[0];
+			$fld->max_length = $size;
+			$fld->not_null   = $r['notnull'];
 			$fld->default_value = $r['dflt_value'];
 			$fld->scale         = 0;
 
@@ -301,7 +301,7 @@ class ADODB_sqlite3 extends ADOConnection {
 		$false = false;
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -404,9 +404,9 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 	}
 
 	public function FetchField($fieldOffset = -1) {
-		$fld       = new ADOFieldObject();
-		$fld->name = $this->_queryID->columnName($fieldOffset);
-		$fld->type = 'VARCHAR';
+		$fld             = new ADOFieldObject();
+		$fld->name       = $this->_queryID->columnName($fieldOffset);
+		$fld->type       = 'VARCHAR';
 		$fld->max_length = -1;
 
 		return $fld;

@@ -156,8 +156,8 @@ class FfmpegToolkit extends GalleryToolkit {
 				if (isset($context['audioChannels'])) {
 					if ($context['audioChannels'] > 0) {
 						$audioChannelIndex = count($args);
-						$args[] = '-ac';
-						$args[] = $context['audioChannels'];
+						$args[]            = '-ac';
+						$args[]            = $context['audioChannels'];
 					} else {
 						$args[] = '-an';
 						$muted  = true;
@@ -255,7 +255,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 			case 'set-audio-samplerate':
 				// Doesn't change file; just remembers audio setting for future operation
-				$futureOp = true;
+				$futureOp              = true;
 				$context['sampleRate'] = $parameters[0];
 
 				break;
@@ -270,7 +270,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 			case 'set-video-framerate':
 				// Doesn't change file; just remembers video setting for future operation
-				$futureOp = true;
+				$futureOp             = true;
 				$context['frameRate'] = $parameters[0];
 
 				break;

@@ -835,7 +835,7 @@ class dbData extends dbObject {
 
 		switch ($this->currentElement) {
 			case 'ROW':
-				$this->row = count($this->data);
+				$this->row              = count($this->data);
 				$this->data[$this->row] = array();
 
 				break;
@@ -923,9 +923,9 @@ class dbData extends dbObject {
 	 * @return array Array containing index creation SQL
 	 */
 	public function create(&$xmls) {
-		$table = $xmls->dict->TableName($this->parent->name);
+		$table             = $xmls->dict->TableName($this->parent->name);
 		$table_field_count = count($this->parent->fields);
-		$sql = array();
+		$sql               = array();
 
 		// eliminate any columns that aren't in the table
 		foreach ($this->data as $row) {
@@ -1358,10 +1358,10 @@ class adoSchema {
 			ini_set('magic_quotes_runtime', 0);
 		}
 
-		$this->db       = $db;
-		$this->debug    = $this->db->debug;
-		$this->dict     = NewDataDictionary($this->db);
-		$this->sqlArray = array();
+		$this->db            = $db;
+		$this->debug         = $this->db->debug;
+		$this->dict          = NewDataDictionary($this->db);
+		$this->sqlArray      = array();
 		$this->schemaVersion = XMLS_SCHEMA_VERSION;
 		$this->executeInline(XMLS_EXECUTE_INLINE);
 		$this->continueOnError(XMLS_CONTINUE_ON_ERROR);
@@ -1844,7 +1844,7 @@ class adoSchema {
 
 	public function TransformSchema($schema, $xsl, $schematype = 'string') {
 		// Fail if XSLT extension is not available
-		if (! function_exists('xslt_create')) {
+		if (!function_exists('xslt_create')) {
 			return false;
 		}
 
@@ -1906,9 +1906,9 @@ class adoSchema {
 			$msg = array(
 				'Message Type' => ucfirst($fields['msgtype']),
 				'Message Code' => $fields['code'],
-				'Message'      => $fields['msg'],
+				'Message' => $fields['msg'],
 				'Error Number' => $errno,
-				'Level'        => $level,
+				'Level' => $level,
 			);
 
 			switch ($fields['URI']) {
@@ -1931,8 +1931,8 @@ class adoSchema {
 			$msg = array(
 				'Message Type' => 'Error',
 				'Error Number' => $errno,
-				'Level'        => $level,
-				'Fields'       => var_export($fields, true),
+				'Level' => $level,
+				'Fields' => var_export($fields, true),
 			);
 		}
 
@@ -2213,9 +2213,9 @@ class adoSchema {
 
 			// if executeInline is enabled, and either no errors have occurred or continueOnError is enabled, execute SQL.
 			if ($this->ExecuteInline() && ($this->success == 2 || $this->ContinueOnError())) {
-				$saved = $this->db->debug;
+				$saved           = $this->db->debug;
 				$this->db->debug = $this->debug;
-				$ok = $this->db->Execute($sql);
+				$ok              = $this->db->Execute($sql);
 				$this->db->debug = $saved;
 
 				if (!$ok) {

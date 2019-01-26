@@ -46,9 +46,9 @@ foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) 
 		$generatorClass = "${db}Generator";
 		$generator      = new $generatorClass();
 
-		$base    = basename($xmlFile);
-		$base    = preg_replace('/\.[^\.]*$/', '', $base);
-		$output .= '# ' . $base . "\n";
+		$base            = basename($xmlFile);
+		$base            = preg_replace('/\.[^\.]*$/', '', $base);
+		$output         .= '# ' . $base . "\n";
 		$root[0]['base'] = $base;
 		$output         .= $generator->createSql($root[0], 0, 0, null);
 	}
@@ -115,7 +115,7 @@ class BaseGenerator {
 			return $crc % 100000;
 		}
 
-		return (int)substr(crc32($buf) + 2** 32, -5);
+		return (int)substr(crc32($buf) + 2 ** 32, -5);
 	}
 
 	public function getNotNullElement($child) {

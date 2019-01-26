@@ -32,9 +32,9 @@ class GalleryFactoryHelper_simple {
 	 */
 	public static function deleteCache() {
 		$cacheParams = array(
-			'type'   => 'module',
+			'type' => 'module',
 			'itemId' => 'GalleryFactoryHelper_loadRegistry',
-			'id'     => '_all',
+			'id'   => '_all',
 		);
 		GalleryDataCache::removeFromDisk($cacheParams);
 
@@ -102,8 +102,8 @@ class GalleryFactoryHelper_simple {
 
 				while ($result = $searchResults->nextResult()) {
 					$registry['implementations'][$result[0]][$result[1]] = $result[3];
-					$registry['ids'][$result[0]][$result[2]]       = $result[1];
-					$registry['pluginIds'][$result[0]][$result[1]] = $result[5];
+					$registry['ids'][$result[0]][$result[2]]             = $result[1];
+					$registry['pluginIds'][$result[0]][$result[1]]       = $result[5];
 
 					$hints = unserialize($result[4]);
 
@@ -152,7 +152,7 @@ class GalleryFactoryHelper_simple {
 		}
 
 		// Right now we just use the first available hint
-		$className = $classNames[0];
+		$className            = $classNames[0];
 		list($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
 
 		if ($ret) {
@@ -246,7 +246,7 @@ class GalleryFactoryHelper_simple {
 			return array(null, null);
 		}
 
-		$className = $registry['ids'][$classType][$id];
+		$className            = $registry['ids'][$classType][$id];
 		list($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
 
 		if ($ret) {

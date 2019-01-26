@@ -54,10 +54,10 @@ class ImageMagickModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'path'                  => '',
-			'jpegQuality'           => '75',
-			'cmykSupport'           => 'none',
-			'versionOk'             => '',
+			'path' => '',
+			'jpegQuality' => '75',
+			'cmykSupport' => 'none',
+			'versionOk' => '',
 			'useNewCoalesceOptions' => 0,
 		) as $key => $value) {
 			if (!isset($params[$key])) {

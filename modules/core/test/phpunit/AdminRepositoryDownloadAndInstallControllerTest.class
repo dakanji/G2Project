@@ -62,7 +62,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$gallery->_phpVm = new AdminRepositoryDownloadAndInstallControllerTestPhpVm();
 
 		// Use our own wrapped controller so that we can override _fetchPluginStatus
-		$this->_controller = new AdminRepositoryDownloadAndInstallControllerTestWrapper();
+		$this->_controller           = new AdminRepositoryDownloadAndInstallControllerTestWrapper();
 		$this->_controller->_version = '0.1';
 		$this->_controller->_active  = true;
 

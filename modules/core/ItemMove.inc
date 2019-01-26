@@ -49,7 +49,7 @@ class ItemMoveController extends GalleryController {
 
 			if (!empty($form['destination'])) {
 				// Check if we can add albums or items here
-				$newParentId = $form['destination'];
+				$newParentId             = $form['destination'];
 				list($ret, $permissions) = GalleryCoreApi::getPermissions($newParentId);
 
 				if ($ret) {
@@ -321,7 +321,7 @@ class ItemMoveView extends GalleryView {
 		$albumIds  = $albumTree = $selectedIds = $peers = $peerDescendentCounts = array();
 		$peerTypes = array(
 			'album' => array(),
-			'data'  => array(),
+			'data' => array(),
 		);
 		$numPages  = 1;
 
@@ -454,17 +454,17 @@ class ItemMoveView extends GalleryView {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$ItemMove = array();
+		$ItemMove              = array();
 		$ItemMove['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemMove['albumIds']  = $albumIds;
 		$ItemMove['peers']     = $peers;
 		$ItemMove['peerTypes'] = $peerTypes;
 		$ItemMove['peerDescendentCounts'] = $peerDescendentCounts;
-		$ItemMove['albumTree']   = $albumTree;
-		$ItemMove['page']        = $page;
-		$ItemMove['numPages']    = $numPages;
-		$ItemMove['numPerPage']  = $form['numPerPage'];
-		$ItemMove['selectedIds'] = array_keys($selectedIds);
+		$ItemMove['albumTree']            = $albumTree;
+		$ItemMove['page']            = $page;
+		$ItemMove['numPages']        = $numPages;
+		$ItemMove['numPerPage']      = $form['numPerPage'];
+		$ItemMove['selectedIds']     = array_keys($selectedIds);
 		$ItemMove['selectedIdCount'] = count($selectedIds);
 
 		$template->setVariable('ItemMove', $ItemMove);

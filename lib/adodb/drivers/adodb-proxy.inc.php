@@ -16,7 +16,7 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-if (! defined('_ADODB_PROXY_LAYER')) {
+if (!defined('_ADODB_PROXY_LAYER')) {
 	define('_ADODB_PROXY_LAYER', 1);
 
 	include ADODB_DIR . '/drivers/adodb-csv.inc.php';

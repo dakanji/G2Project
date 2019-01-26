@@ -154,7 +154,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		}
 
 		if (preg_match('{^convert-to-(image/.*)$}', $operationName, $matches)) {
-			$cmd = 'convert';
+			$cmd            = 'convert';
 			$outputMimeType = $matches[1];
 		} else {
 			switch ($operationName) {
@@ -254,7 +254,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					break;
 
 				case 'select-page':
-					$cmd = 'convert';
+					$cmd               = 'convert';
 					$transform['page'] = $parameters[0];
 
 					break;
@@ -271,11 +271,11 @@ class ImageMagickToolkit extends GalleryToolkit {
 					}
 					$compositeOverlayPath     = $parameters[0];
 					$compositeOverlayMimeType = $parameters[1];
-					$compositeWidth         = $parameters[2];
-					$compositeHeight        = $parameters[3];
-					$compositeAlignmentType = $parameters[4];
-					$compositeAlignX        = $parameters[5];
-					$compositeAlignY        = $parameters[6];
+					$compositeWidth           = $parameters[2];
+					$compositeHeight          = $parameters[3];
+					$compositeAlignmentType   = $parameters[4];
+					$compositeAlignX          = $parameters[5];
+					$compositeAlignY          = $parameters[6];
 
 					switch ($compositeAlignmentType) {
 						case 'top-left': // Top - Left

@@ -315,7 +315,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		// Verify all permission maps for this user are gone
-		$checkItemIds = array($item->getId(), $this->_getRootId());
+		$checkItemIds            = array($item->getId(), $this->_getRootId());
 		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 			$checkItemIds,
 			$userId
@@ -390,7 +390,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($user);
-		$userId = $user->getId();
+		$userId            = $user->getId();
 		list($ret, $group) = $this->_createRandomGroup();
 
 		if ($ret) {
@@ -934,7 +934,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		 * that have another owner, should still exist after a "delete user1" call.
 		 */
 		foreach ($remainingItems as $item) {
-			$id = $item->getId();
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -998,7 +998,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	public function testFetchUserCountBySubstring() {
 		global $gallery;
 
-		$unique = mt_rand(0, 65535);
+		$unique            = mt_rand(0, 65535);
 		list($ret, $count) = GalleryCoreApi::fetchUserCount($unique, null);
 
 		if ($ret) {

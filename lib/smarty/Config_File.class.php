@@ -278,7 +278,7 @@ class Config_File {
 			$contents = preg_replace('!\r\n?!', "\n", $contents);
 		}
 
-		$config_data = array();
+		$config_data             = array();
 		$config_data['sections'] = array();
 		$config_data['vars']     = array();
 

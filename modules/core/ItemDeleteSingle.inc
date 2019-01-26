@@ -89,7 +89,7 @@ class ItemDeleteSingleController extends GalleryController {
 		 * @todo: once there is a common status message, use it to provide feedback on success
 		 */
 		$params = array(
-			'view'   => 'core.ShowItem',
+			'view' => 'core.ShowItem',
 			'itemId' => ($itemId == $pageItemId ? $parentId : $pageItemId),
 		);
 

@@ -140,8 +140,8 @@ function toggleSidebar(menuId) {
 /*****************************************************************************/
 
 function popImage(img, title) {
-	picfile     = new Image();
-	picfile.src = img;
+	picfile            = new Image();
+	picfile.src        = img;
 	picfile.imageTitle = title;
 	fileCheck(100);
 }

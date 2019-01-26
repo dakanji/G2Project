@@ -128,7 +128,7 @@ function GalleryInitFirstPass($params = array()) {
 	}
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
-	$ret = $urlGenerator->init(
+	$ret           = $urlGenerator->init(
 		isset($params['baseUri']) ? $params['baseUri'] : (!empty($configBaseUri) ? $configBaseUri : null),
 		isset($params['g2Uri']) ? $params['g2Uri'] : null,
 		isset($params['embedSessionString']) ? $params['embedSessionString'] : null

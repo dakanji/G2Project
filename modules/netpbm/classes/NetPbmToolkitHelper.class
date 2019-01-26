@@ -78,7 +78,7 @@ class NetPbmToolkitHelper {
 
 		// Scale
 		$operations['scale']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n(
 				array(
 					'text'    => 'target width (# pixels or #% of full size)',
@@ -87,7 +87,7 @@ class NetPbmToolkitHelper {
 			),
 		);
 		$operations['scale']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n('(optional) target height, defaults to same as width'),
 		);
 		$operations['scale']['description'] = $gallery->i18n('Scale the image to the target size, maintain aspect ratio');
@@ -98,7 +98,7 @@ class NetPbmToolkitHelper {
 
 		// Resize
 		$operations['resize']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n(
 				array(
 					'text'    => 'target width (# pixels or #% of full size)',
@@ -107,7 +107,7 @@ class NetPbmToolkitHelper {
 			),
 		);
 		$operations['resize']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n(
 				array(
 					'text'    => 'target height (# pixels or #% of full size)',
@@ -120,7 +120,7 @@ class NetPbmToolkitHelper {
 
 		// Rotate
 		$operations['rotate']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n('rotation degrees'),
 		);
 		$operations['rotate']['description'] = $gallery->i18n('Rotate the image');
@@ -128,19 +128,19 @@ class NetPbmToolkitHelper {
 
 		// Crop
 		$operations['crop']['params'][]    = array(
-			'type'        => 'float',
+			'type' => 'float',
 			'description' => $gallery->i18n('left edge %'),
 		);
 		$operations['crop']['params'][]    = array(
-			'type'        => 'float',
+			'type' => 'float',
 			'description' => $gallery->i18n('top edge %'),
 		);
 		$operations['crop']['params'][]    = array(
-			'type'        => 'float',
+			'type' => 'float',
 			'description' => $gallery->i18n('width %'),
 		);
 		$operations['crop']['params'][]    = array(
-			'type'        => 'float',
+			'type' => 'float',
 			'description' => $gallery->i18n('height %'),
 		);
 		$operations['crop']['description'] = $gallery->i18n('Crop the image');
@@ -148,31 +148,31 @@ class NetPbmToolkitHelper {
 
 		// Watermark
 		$operations['composite']['params'][]    = array(
-			'type'        => 'string',
+			'type' => 'string',
 			'description' => $gallery->i18n('overlay path'),
 		);
 		$operations['composite']['params'][]    = array(
-			'type'        => 'string',
+			'type' => 'string',
 			'description' => $gallery->i18n('overlay mime type'),
 		);
 		$operations['composite']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n('overlay width'),
 		);
 		$operations['composite']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n('overlay height'),
 		);
 		$operations['composite']['params'][]    = array(
-			'type'        => 'string',
+			'type' => 'string',
 			'description' => $gallery->i18n('alignment type'),
 		);
 		$operations['composite']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n('alignment x %'),
 		);
 		$operations['composite']['params'][]    = array(
-			'type'        => 'int',
+			'type' => 'int',
 			'description' => $gallery->i18n('alignment y %'),
 		);
 		$operations['composite']['description'] = $gallery->i18n('Overlay source image with a second one');
@@ -255,7 +255,7 @@ class NetPbmToolkitHelper {
 			list($success, $results) = $platform->exec(array(array($fullPath, '-V')));
 		}
 		$tests[] = array(
-			'name'    => 'jhead',
+			'name' => 'jhead',
 			'success' => $success,
 			'message' => $results,
 		);
@@ -301,7 +301,7 @@ class NetPbmToolkitHelper {
 
 
 		$binaryData = array(
-			''                       => array(
+			'' => array(
 				'pnmscale',
 				'pnmcut|pamcut',
 				'pnmfile|pamfile',
@@ -309,14 +309,14 @@ class NetPbmToolkitHelper {
 				'exist' => 'pnmflip|pamflip',
 			), // No --version for this
 			'image/jpeg|image/pjpeg' => array('jpegtopnm', 'pnmtojpeg|ppmtojpeg'),
-			'image/gif'              => array(
+			'image/gif' => array(
 				'giftopnm',
 				'ppmtogif',
 				'exist' => 'ppmquant|pnmquant',
 			),
-			'image/png'              => array('pngtopnm', 'pnmtopng'),
-			'image/tiff'             => array('tifftopnm', 'pnmtotiff|pamtotiff'),
-			'image/bmp'              => array(
+			'image/png' => array('pngtopnm', 'pnmtopng'),
+			'image/tiff' => array('tifftopnm', 'pnmtotiff|pamtotiff'),
+			'image/bmp' => array(
 				'bmptopnm|bmptoppm',
 				'ppmtobmp',
 				'exist' => 'ppmquant|pnmquant',
@@ -329,7 +329,7 @@ class NetPbmToolkitHelper {
 			$failCount = 0;
 
 			foreach ($binaryList as $i => $binaries) {
-				$test = array();
+				$test               = array();
 				$checkExistenceOnly = is_string($i);
 
 				foreach (explode('|', $binaries) as $binary) {

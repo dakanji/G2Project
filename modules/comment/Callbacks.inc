@@ -30,7 +30,7 @@ class CommentCallbacks {
 
 		switch ($callback) {
 			case 'LoadComments':
-				$itemId = $params['itemId'];
+				$itemId           = $params['itemId'];
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 				if ($ret) {
@@ -116,7 +116,7 @@ class CommentCallbacks {
 						$commenters[$comments[$i]->getCommenterId()] = 1;
 
 						// Extract the member data
-						$comments[$i] = (array)$comments[$i];
+						$comments[$i]             = (array)$comments[$i];
 						$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . mt_rand();
 					}
 
@@ -144,7 +144,7 @@ class CommentCallbacks {
 					$can[$canFlag] = isset($permissions[$permission]);
 				}
 
-				$LoadComments = array();
+				$LoadComments               = array();
 				$LoadComments['comments']   = $comments;
 				$LoadComments['commenters'] = $commenters;
 				$LoadComments['can']        = $can;

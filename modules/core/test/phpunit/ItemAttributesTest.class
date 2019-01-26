@@ -71,7 +71,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			'core',
 			'id.everybodyGroup'
 		);
-		$everybodyGroupId = (int)$everybodyGroupId;
+		$everybodyGroupId             = (int)$everybodyGroupId;
 
 		if ($ret) {
 			return $ret;
@@ -305,7 +305,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 	public function testIncrementItemViewCountGuestNoSessionIfModifiedNotSetIsNotSearchEngine() {
 		global $gallery;
-		$now = time();
+		$now               = time();
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm(false, array(), $now);
 		$gallery->_session = new ItemAttributesTestSession(false, false);
 
@@ -916,8 +916,8 @@ class ItemAttributesTestSession {
 class ItemAttributesTestPhpVm extends GalleryPhpVm {
 	public function __construct($getAllHeadersExists = false, $headers = array(), $time = null) {
 		$this->_getAllHeadersExists = $getAllHeadersExists;
-		$this->_headers = $headers;
-		$this->_time    = $time;
+		$this->_headers             = $headers;
+		$this->_time = $time;
 	}
 
 	public function getallheaders() {

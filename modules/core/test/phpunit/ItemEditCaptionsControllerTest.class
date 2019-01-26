@@ -110,7 +110,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -174,7 +174,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -238,7 +238,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -447,7 +447,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		);
 
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {

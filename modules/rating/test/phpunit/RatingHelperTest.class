@@ -115,7 +115,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertTrue(!empty($session->_sessionId), 'session id');
 
-		$testRating = mt_rand(1, 5);
+		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
 
 		if ($ret) {
@@ -159,7 +159,7 @@ class RatingHelperTest extends GalleryTestCase {
 	public function testRateAsGuestWithoutPersistentCookie() {
 		global $gallery;
 		$gallery->_session = null;
-		$ret = $gallery->initSession();
+		$ret               = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -176,7 +176,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$anonymousUserId = (int)$guestId;
 
 		// Rate!
-		$testRating = mt_rand(1, 5);
+		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), 3, $anonymousUserId);
 
 		if ($ret) {
@@ -195,7 +195,7 @@ class RatingHelperTest extends GalleryTestCase {
 	}
 
 	public function testRateBogusItem() {
-		$testRating = mt_rand(1, 5);
+		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem(-1, $testRating, $this->_users[0]->getId());
 		// This *should* fail.
 		$this->assertTrue($ret, 'expected error');
@@ -210,7 +210,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$votes       = 0;
 
 		foreach ($this->_users as $user) {
-			$testRating = mt_rand(1, 5);
+			$testRating             = mt_rand(1, 5);
 			list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $user->getId());
 
 			if ($ret) {
@@ -288,7 +288,7 @@ class RatingHelperTest extends GalleryTestCase {
 		foreach ($testUserIds as $userId) {
 			if ($userId == $anonymousUserId) {
 				$gallery->_session = null;
-				$ret = $gallery->initSession();
+				$ret               = $gallery->initSession();
 
 				if ($ret) {
 					return $ret;
@@ -298,7 +298,7 @@ class RatingHelperTest extends GalleryTestCase {
 				$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 			}
 
-			$testRating = mt_rand(1, 5);
+			$testRating             = mt_rand(1, 5);
 			list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $userId);
 
 			if ($ret) {
@@ -345,7 +345,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Fetch ratings as guest without a persistent session
 		$gallery->_session = null;
-		$ret = $gallery->initSession();
+		$ret               = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -442,7 +442,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Verify we get a non empty item summary for the item
 		$permissions[$itemId]['rating.view'] = 1;
-		$template = new GalleryTemplate(__DIR__ . '/../../../..');
+		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			$permissions,
@@ -460,7 +460,7 @@ class RatingHelperTest extends GalleryTestCase {
 		// Get the item summary again, but without having the permissions
 		unset($content);
 		unset($template);
-		$template = new GalleryTemplate(__DIR__ . '/../../../..');
+		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			array(

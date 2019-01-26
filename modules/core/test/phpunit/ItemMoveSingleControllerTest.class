@@ -539,7 +539,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$thumb = $thumbnails[$this->_item->getId()];
+		$thumb              = $thumbnails[$this->_item->getId()];
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
 
 		if ($ret) {

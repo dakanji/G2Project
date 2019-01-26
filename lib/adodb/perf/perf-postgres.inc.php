@@ -123,13 +123,13 @@ class perf_postgres extends adodb_perf {
 	 * @see adodb_perf#optimizeTable
 	 */
 	public function optimizeTable($table, $mode = ADODB_OPT_LOW) {
-		if (! is_string($table)) {
+		if (!is_string($table)) {
 			return false;
 		}
 
 		$conn = $this->conn;
 
-		if (! $conn) {
+		if (!$conn) {
 			return false;
 		}
 

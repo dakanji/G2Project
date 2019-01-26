@@ -53,7 +53,7 @@ if (!$HTMLbody) {
 		$tmpArray = explode('|', $tmpData);
 
 		foreach ($tmpArray as $pair) {
-			$parts = explode(':', $pair);
+			$parts           = explode(':', $pair);
 			$args[$parts[0]] = $parts[1];
 		}
 	}
@@ -435,8 +435,8 @@ function getAlbumSelector($gID) {
 }
 
 function getAlbumTree($gID) {
-	$err      = $ret = $album = null;
-	$albumIds = $albums = array();
+	$err              = $ret = $album = null;
+	$albumIds         = $albums = array();
 	list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($gID, null, null, true);
 
 	if ($ret) {

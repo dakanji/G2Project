@@ -14,7 +14,7 @@ function smarty_core_run_insert_handler($params, &$smarty) {
 	include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 
 	if ($smarty->debugging) {
-		$_params = array();
+		$_params           = array();
 		$_debug_start_time = smarty_core_get_microtime($_params, $smarty);
 	}
 
@@ -62,9 +62,9 @@ function smarty_core_run_insert_handler($params, &$smarty) {
 
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 		$smarty->_smarty_debug_info[] = array(
-			'type'      => 'insert',
-			'filename'  => 'insert_' . $params['args']['name'],
-			'depth'     => $smarty->_inclusion_depth,
+			'type' => 'insert',
+			'filename' => 'insert_' . $params['args']['name'],
+			'depth' => $smarty->_inclusion_depth,
 			'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time,
 		);
 	}

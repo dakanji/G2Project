@@ -249,7 +249,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform->setReply('fclose', array('handle'), true);
 		$gallery->setPlatform($platform);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $revision) = $utilities->getLanguageBaseRevision('testPlugin', 'testModule');
 
 		if ($ret) {
@@ -295,7 +295,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 			$gallery->setPlatform($platform);
 
-			$utilities = new GalleryRepositoryUtilities();
+			$utilities               = new GalleryRepositoryUtilities();
 			list($ret, $isAvailable) = $utilities->isPluginAvailable($case['pluginType'], $case['pluginId']);
 
 			if ($ret) {
@@ -510,7 +510,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->getPluginPackages('module', 'testModule');
 
 		if ($ret) {
@@ -537,9 +537,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		 * part of the setSearchResults() call above.
 		 */
 		$expectedQuery = array(
-			'map'    => 'GalleryPluginPackageMap',
+			'map' => 'GalleryPluginPackageMap',
 			'select' => array('locked', 'packageVersion', 'packageBuild', 'packageName'),
-			'where'  => array(
+			'where' => array(
 				'pluginType' => 'module',
 				'pluginId'   => 'testModule',
 			),
@@ -564,7 +564,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities           = new GalleryRepositoryUtilities();
 		list($ret, $version) = $utilities->getPluginVersion('module', 'testModule');
 
 		if ($ret) {
@@ -1072,7 +1072,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform        =& $gallery->getPlatform();
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm           = $gallery->getPhpVm();
 
 		$gallery->setConfig('repository.cache', '/cache/');
 
@@ -1112,7 +1112,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'total'   => 10,
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 
 		if ($ret) {
@@ -1177,7 +1177,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'total'   => 10,
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 		$this->assertErrorEquals(ERROR_UNSUPPORTED_FILE_TYPE, $ret);
 
@@ -1191,7 +1191,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform        =& $gallery->getPlatform();
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm           = $gallery->getPhpVm();
 
 		$gallery->setConfig('repository.cache', '/cache/');
 
@@ -1217,7 +1217,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'total'   => 10,
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 
 		$this->assertErrorEquals(ERROR_UNSUPPORTED_FILE_TYPE, $ret);
@@ -1326,7 +1326,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform        =& $gallery->getPlatform();
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm           = $gallery->getPhpVm();
 
 		$phpVm->setReply('function_exists', array('gzinflate'), false);
 
@@ -1338,7 +1338,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$this->_setAggregrateDownloadResponses($files);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 
 		if ($ret) {
@@ -1356,7 +1356,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform        =& $gallery->getPlatform();
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm           = $gallery->getPhpVm();
 
 		$phpVm->setReply('function_exists', array('gzinflate'), false);
 
@@ -1373,7 +1373,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 		$this->assertErrorEquals(ERROR_BAD_PATH, $ret);
 
@@ -1405,7 +1405,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities = new GalleryRepositoryUtilities();
+		$utilities            = new GalleryRepositoryUtilities();
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 		$this->assertErrorEquals(ERROR_PLATFORM_FAILURE, $ret);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());

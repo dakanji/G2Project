@@ -2092,7 +2092,7 @@ class PermissionTestEventListener extends GalleryEventListener {
 
 	public function handleEvent($event) {
 		$this->_event[] = $event;
-		$data = $event->getData();
+		$data           = $event->getData();
 
 		return array(null, 'dummy');
 	}

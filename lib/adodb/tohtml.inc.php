@@ -52,7 +52,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 		return false;
 	}
 
-	if (! $ztabhtml) {
+	if (!$ztabhtml) {
 		$ztabhtml = "BORDER='1' WIDTH='98%'";
 	}
 	//else $docnt = true;

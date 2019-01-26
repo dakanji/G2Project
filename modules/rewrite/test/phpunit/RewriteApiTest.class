@@ -431,7 +431,7 @@ class RewriteApiTest extends GalleryTestCase {
 			);
 		}
 
-		$expectedRules = $activeRules;
+		$expectedRules             = $activeRules;
 		$activeRules['returnCode'] = $returnCode;
 
 		$ret = GalleryCoreApi::setPluginParameter(

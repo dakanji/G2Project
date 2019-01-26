@@ -50,10 +50,10 @@ class GalleryDatabaseExport {
 	 * as part of the import.
 	 */
 	public $_ignoreTables = array(
-		'cachemap'   => 1,
-		'lock'       => 1,
+		'cachemap' => 1,
+		'lock'     => 1,
 		'sessionmap' => 1,
-		'schema'     => 1,
+		'schema'   => 1,
 	);
 
 	/**
@@ -96,7 +96,7 @@ class GalleryDatabaseExport {
 			'total'    => 100,
 		);
 
-		$storageConfig = $gallery->getConfig('storage.config');
+		$storageConfig            = $gallery->getConfig('storage.config');
 		$this->_fieldPrefixLength = strlen($storageConfig['columnPrefix']);
 
 		list($ret, $fileHandle, $filepath) = $this->_openBackupFileForWriting($fileName);
@@ -376,7 +376,7 @@ class GalleryDatabaseExport {
 		$storage  =& $gallery->getStorage();
 
 		$storageExtras =& $storage->_getExtras();
-		$sql = $storageExtras->getModuleSql($pluginId);
+		$sql           = $storageExtras->getModuleSql($pluginId);
 
 		if (count($sql['table']) == 0) {
 			$this->updateStatus();
@@ -510,7 +510,7 @@ class GalleryDatabaseExport {
 
 		list($name1, $name2, $nameInSchema) = $storage->_translateTableName($table);
 
-		$query = 'SELECT [::createSql], [::pluginId], [::type], [::info]
+		$query               = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
 		list($ret, $results) = $storage->search($query, array($nameInSchema));
@@ -859,7 +859,7 @@ class GalleryDatabaseExport {
 		$phpVm    = $gallery->getPhpVm();
 
 		if (empty($fileName)) {
-			$dirName = $gallery->getConfig('data.gallery.backup');
+			$dirName               = $gallery->getConfig('data.gallery.backup');
 			list($exists, $unused) = GalleryUtilities::guaranteeDirExists($dirName);
 
 			if (!$exists) {

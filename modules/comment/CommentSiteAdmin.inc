@@ -163,7 +163,7 @@ class CommentSiteAdminController extends GalleryController {
 			return $ret;
 		}
 
-		$status = array();
+		$status             = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
@@ -177,9 +177,9 @@ class CommentSiteAdminController extends GalleryController {
 		GalleryCommentHelper::doStatic()->setAkismetSaveListenerSwitch(false);
 
 		$checkingCommentMessage = $module->translate('Checking all comments with Akismet');
-		$checkedCount = 0;
-		$spamCount    = 0;
-		$total        = null;
+		$checkedCount           = 0;
+		$spamCount              = 0;
+		$total = null;
 
 		while (true) {
 			$batchSize = 100;

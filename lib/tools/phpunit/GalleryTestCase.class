@@ -226,13 +226,13 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		// Restore saved vars
-		$_GET     = array_shift($this->_saveVars);
-		$_POST    = array_shift($this->_saveVars);
-		$_REQUEST = array_shift($this->_saveVars);
-		$_FILES   = array_shift($this->_saveVars);
-		$_COOKIE  = array_shift($this->_saveVars);
-		$_SERVER  = array_shift($this->_saveVars);
-		$_ENV     = array_shift($this->_saveVars);
+		$_GET              = array_shift($this->_saveVars);
+		$_POST             = array_shift($this->_saveVars);
+		$_REQUEST          = array_shift($this->_saveVars);
+		$_FILES            = array_shift($this->_saveVars);
+		$_COOKIE           = array_shift($this->_saveVars);
+		$_SERVER           = array_shift($this->_saveVars);
+		$_ENV              = array_shift($this->_saveVars);
 		$gallery->_storage = array_shift($this->_saveVars);
 		$platform          = array_shift($this->_saveVars);
 		$gallery->setPlatform($platform);
@@ -585,7 +585,7 @@ class GalleryTestCase extends TestCase {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
-		$lockIds = array();
+		$lockIds               = array();
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentId);
 
 		if ($ret) {
@@ -947,7 +947,7 @@ class GalleryTestCase extends TestCase {
 		static $unusedId;
 
 		if (!isset($unusedId)) {
-			$storage =& $gallery->getStorage();
+			$storage              =& $gallery->getStorage();
 			list($ret, $unusedId) = $storage->getUniqueId();
 
 			if ($ret) {
@@ -1191,7 +1191,7 @@ class GalleryTestCase extends TestCase {
 			'modules/core/classes/helpers/GalleryFactoryHelper_simple.class'
 		);
 		// Don't use references here
-		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+		list($ret, $registry)              = GalleryFactoryHelper_simple::_getFactoryData();
 		$this->_cleanup['factoryRegistry'] = $registry;
 	}
 
@@ -1206,7 +1206,7 @@ class GalleryTestCase extends TestCase {
 				'modules/core/classes/helpers/GalleryEventHelper_simple.class'
 			);
 			// Trigger all modules to register their event listeners
-			$event = GalleryCoreApi::newEvent('GalleryTest:PseudoEvent');
+			$event               = GalleryCoreApi::newEvent('GalleryTest:PseudoEvent');
 			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -1356,7 +1356,7 @@ class GalleryTestCase extends TestCase {
 			foreach ($registry['hints'][$classType] as $hint => $implementation) {
 				//list($implementationId, $ignore) = each($implementation);
 				$implementationId = array_keys($implementation)[0];
-				$ignore = array_values($implementation)[0];
+				$ignore           = array_values($implementation)[0];
 
 				if ($implementationId == $implId) {
 					unset($registry['hints'][$classType][$hint][$implId]);

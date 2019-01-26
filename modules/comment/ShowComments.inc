@@ -86,7 +86,7 @@ class ShowCommentsView extends GalleryView {
 				$commenters[$comments[$i]->getCommenterId()] = 1;
 
 				// Extract the member data
-				$comments[$i] = (array)$comments[$i];
+				$comments[$i]             = (array)$comments[$i];
 				$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . mt_rand();
 			}
 
@@ -111,9 +111,9 @@ class ShowCommentsView extends GalleryView {
 		}
 
 		foreach (array(
-			'delete'   => 'comment.delete',
-			'edit'     => 'comment.edit',
-			'view'     => 'comment.view',
+			'delete' => 'comment.delete',
+			'edit' => 'comment.edit',
+			'view' => 'comment.view',
 			'markSpam' => 'comment.edit',
 		) as $canFlag => $permission) {
 			$can[$canFlag] = isset($permissions[$permission]);

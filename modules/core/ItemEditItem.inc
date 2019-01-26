@@ -62,7 +62,7 @@ class ItemEditItem extends ItemEditPlugin {
 
 			if (!$isRootAlbum) {
 				if (empty($form['pathComponent']) || !is_string($form['pathComponent'])) {
-					$error[] = 'form[error][pathComponent][missing]';
+					$error[]               = 'form[error][pathComponent][missing]';
 					$form['pathComponent'] = '';
 				} elseif (!$platform->isLegalPathComponent($form['pathComponent'])) {
 					$error[] = 'form[error][pathComponent][invalid]';
@@ -418,7 +418,7 @@ class ItemEditItem extends ItemEditPlugin {
 		}
 
 		$ItemEditItem = array(
-			'can'      => $can,
+			'can' => $can,
 			'typeName' => array_merge($item->itemTypeName(), $item->itemTypeName(false)),
 		);
 

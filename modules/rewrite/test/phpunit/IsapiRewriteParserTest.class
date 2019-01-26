@@ -305,8 +305,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$form = array();
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$form['embeddedLocation'] = 'test';
-		$form['httpdini']         = '/phpunit/test';
+		$form['embeddedLocation']   = 'test';
+		$form['httpdini']           = '/phpunit/test';
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
@@ -351,8 +351,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$form = array();
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$form['embeddedLocation'] = '/';
-		$form['httpdini']         = '/phpunit/test';
+		$form['embeddedLocation']   = '/';
+		$form['httpdini']           = '/phpunit/test';
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
@@ -399,8 +399,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$this->_platform->_isWriteable = false;
 
-		$form['embeddedLocation'] = '/test/';
-		$form['httpdini']         = '/phpunit/test';
+		$form['embeddedLocation']   = '/test/';
+		$form['httpdini']           = '/phpunit/test';
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {

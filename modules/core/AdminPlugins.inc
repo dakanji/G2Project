@@ -154,7 +154,7 @@ class AdminPluginsView extends GalleryView {
 		}
 		usort($plugins, array($this, 'pluginSort'));
 
-		$AdminPlugins = array();
+		$AdminPlugins            = array();
 		$AdminPlugins['plugins'] = $plugins;
 		list($ret, $AdminPlugins['defaultTheme']) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -224,10 +224,10 @@ class AdminPluginsView extends GalleryView {
 		if (!isset($groupOrder)) {
 			// gallery first, toolkits second, other last
 			$groupOrder = array(
-				'gallery'  => 1,
+				'gallery' => 1,
 				'toolkits' => 2,
-				''         => 3,
-				'other'    => 4,
+				'' => 3,
+				'other' => 4,
 			);
 		}
 		$ag = $a['group'];

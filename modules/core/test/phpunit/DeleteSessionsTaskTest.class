@@ -62,11 +62,11 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 	public function testRun() {
 		global $gallery;
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-		$mockAdapter       =& $gallery->_templateAdapter;
-		$gallery->_session = new DeleteSessionsTaskTestSession();
+		$mockAdapter               =& $gallery->_templateAdapter;
+		$gallery->_session         = new DeleteSessionsTaskTestSession();
 		$session         =& $gallery->getSession();
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$phpVm = $gallery->getPhpVm();
+		$phpVm           = $gallery->getPhpVm();
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
@@ -95,7 +95,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 		}
 
 		$gallery->_storage = new UnitTestStorage();
-		$storage =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 
 		$query = '
 	SELECT COUNT([GallerySessionMap::id])

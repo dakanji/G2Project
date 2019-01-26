@@ -442,8 +442,8 @@ class FastDownloadTestRemovePermissionPlatform {
 	public $_stat;
 
 	public function __construct(&$buf) {
-		$this->_buf =& $buf;
-		$this->_buf['unlink']      = array();
+		$this->_buf           =& $buf;
+		$this->_buf['unlink'] = array();
 		$this->_buf['file_exists'] = array();
 	}
 

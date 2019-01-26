@@ -150,11 +150,11 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 function getCacheDirs() {
 	$dirs = array(
-		'entity'   => array(true, 'refreshCache', array('cache/entity'), 'album and photo data'),
-		'module'   => array(true, 'refreshCache', array('cache/module'), 'module setting'),
-		'theme'    => array(true, 'refreshCache', array('cache/theme'), 'theme setting'),
+		'entity' => array(true, 'refreshCache', array('cache/entity'), 'album and photo data'),
+		'module' => array(true, 'refreshCache', array('cache/module'), 'module setting'),
+		'theme' => array(true, 'refreshCache', array('cache/theme'), 'theme setting'),
 		'template' => array(true, 'refreshCache', array('smarty/templates_c'), 'template'),
-		'tmp'      => array(true, 'refreshCache', array('tmp'), 'temporary directory'),
+		'tmp' => array(true, 'refreshCache', array('tmp'), 'temporary directory'),
 	);
 
 	if (!empty($_COOKIE['g2pwdcache'])) {

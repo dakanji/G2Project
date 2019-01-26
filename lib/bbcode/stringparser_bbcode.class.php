@@ -128,8 +128,8 @@ class StringParser_BBCode extends StringParser {
 	 */
 	public $_paragraphHandling = array(
 		'detect_string' => "\n\n",
-		'start_tag'     => '<p>',
-		'end_tag'       => "</p>\n",
+		'start_tag' => '<p>',
+		'end_tag' => "</p>\n",
 	);
 
 	/**
@@ -168,14 +168,14 @@ class StringParser_BBCode extends StringParser {
 			return false; // invalid
 		}
 		$this->_codes[$name] = array(
-			'name'               => $name,
-			'callback_type'      => $callback_type,
-			'callback_func'      => $callback_func,
-			'callback_params'    => $callback_params,
-			'content_type'       => $content_type,
-			'allowed_within'     => $allowed_within,
+			'name' => $name,
+			'callback_type' => $callback_type,
+			'callback_func' => $callback_func,
+			'callback_params' => $callback_params,
+			'content_type' => $content_type,
+			'allowed_within' => $allowed_within,
 			'not_allowed_within' => $not_allowed_within,
-			'flags'              => array(),
+			'flags' => array(),
 		);
 
 		return true;
@@ -431,20 +431,20 @@ class StringParser_BBCode extends StringParser {
 		switch ($status) {
 			case 0:
 				$this->_charactersSearch = array('[/', '[');
-				$this->_status = $status;
+				$this->_status           = $status;
 
 				break;
 
 			case 1:
 				$this->_charactersSearch = array(']', ' = "', '="', ' = \'', '=\'', ' = ', '=', ': ', ':', ' ');
-				$this->_status = $status;
+				$this->_status           = $status;
 
 				break;
 
 			case 2:
 				$this->_charactersSearch = array(']');
-				$this->_status    = $status;
-				$this->_savedName = '';
+				$this->_status           = $status;
+				$this->_savedName        = '';
 
 				break;
 
@@ -471,9 +471,9 @@ class StringParser_BBCode extends StringParser {
 
 			case 4:
 				$this->_charactersSearch = array(' ', ']', '="', '=\'', '=');
-				$this->_status     = $status;
-				$this->_savedName  = '';
-				$this->_savedValue = '';
+				$this->_status           = $status;
+				$this->_savedName        = '';
+				$this->_savedValue       = '';
 
 				break;
 
@@ -1384,7 +1384,7 @@ class StringParser_BBCode extends StringParser {
 		if ($this->_hasParagraphAncestor($node)) {
 			return true;
 		}
-		$dest_nodes = array();
+		$dest_nodes              = array();
 		$last_node_was_paragraph = false;
 		$prevtype  = STRINGPARSER_NODE_TEXT;
 		$paragraph = null;
@@ -1404,10 +1404,10 @@ class StringParser_BBCode extends StringParser {
 
 				if ($sub_nodes[$i]->_type != STRINGPARSER_BBCODE_NODE_ELEMENT || $sub_nodes[$i]->getFlag('paragraph_type', 'integer', BBCODE_PARAGRAPH_ALLOW_BREAKUP) != BBCODE_PARAGRAPH_BLOCK_ELEMENT) {
 					$paragraph->appendChild($sub_nodes[$i]);
-					$dest_nodes[] =& $paragraph;
+					$dest_nodes[]            =& $paragraph;
 					$last_node_was_paragraph = true;
 				} else {
-					$dest_nodes[] =& $sub_nodes[$i];
+					$dest_nodes[]            =& $sub_nodes[$i];
 					$last_onde_was_paragraph = false;
 					unset($paragraph);
 					$paragraph = new StringParser_BBCode_Node_Paragraph();
@@ -1754,11 +1754,11 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	 * @return object
 	 */
 	public function &duplicate() {
-		$newnode         = new StringParser_BBCode_Node_Element($this->occurredAt);
-		$newnode->_name  = $this->_name;
-		$newnode->_flags = $this->_flags;
-		$newnode->_attributes       = $this->_attributes;
-		$newnode->_hadCloseTag      = $this->_hadCloseTag;
+		$newnode               = new StringParser_BBCode_Node_Element($this->occurredAt);
+		$newnode->_name        = $this->_name;
+		$newnode->_flags       = $this->_flags;
+		$newnode->_attributes  = $this->_attributes;
+		$newnode->_hadCloseTag = $this->_hadCloseTag;
 		$newnode->_paragraphHandled = $this->_paragraphHandled;
 		$newnode->_codeInfo         = $this->_codeInfo;
 

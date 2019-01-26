@@ -3,7 +3,7 @@
 // Ukrainian language file contributed by  Alex Rootoff rootoff{AT}pisem.net.
 
 $ADODB_LANG_ARRAY = array(
-	'LANG' => 'uk',
+	'LANG'   => 'uk',
 	DB_ERROR => 'невідома помилка',
 	DB_ERROR_ALREADY_EXISTS => 'вже існує',
 	DB_ERROR_CANNOT_CREATE => 'неможливо створити',
@@ -26,7 +26,7 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_VALUE_COUNT_ON_ROW => 'рахівник значень в стрічці',
 	DB_ERROR_INVALID_DSN => 'неправильна DSN',
 	DB_ERROR_CONNECT_FAILED => 'з\'єднання неуспішне',
-	0 => 'все гаразд', // DB_OK
+	0        => 'все гаразд', // DB_OK
 	DB_ERROR_NEED_MORE_DATA => 'надано недостатньо даних',
 	DB_ERROR_EXTENSION_NOT_FOUND => 'розширення не знайдено',
 	DB_ERROR_NOSUCHDB => 'не існує БД',

@@ -276,7 +276,7 @@ class CommentTest extends GalleryTestCase {
 		// Verify we get a non empty item summary for the item
 		$permissions[$itemId]['comment.view'] = 1;
 		$permissions[$itemId]['core.view']    = 1;
-		$unused = null;
+		$unused              = null;
 		list($ret, $content) = $module->getItemSummaries(array($this->_item), $permissions, $unused);
 
 		if ($ret) {

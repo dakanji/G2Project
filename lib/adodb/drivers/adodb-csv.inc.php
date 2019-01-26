@@ -22,7 +22,7 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-if (! defined('_ADODB_CSV_LAYER')) {
+if (!defined('_ADODB_CSV_LAYER')) {
 	define('_ADODB_CSV_LAYER', 1);
 
 	include_once ADODB_DIR . '/adodb-csvlib.inc.php';

@@ -39,7 +39,7 @@ class perf_oci8 extends ADODB_perf {
 
 	public $settings = array(
 		'Ratios',
-		'data cache hit ratio'          => array(
+		'data cache hit ratio' => array(
 			'RATIOH',
 			"select round((1-(phy.value / (cur.value + con.value)))*100,2)
 			from v\$sysstat cur, v\$sysstat con, v\$sysstat phy
@@ -49,13 +49,13 @@ class perf_oci8 extends ADODB_perf {
 			'=WarnCacheRatio',
 		),
 
-		'sql cache hit ratio'           => array(
+		'sql cache hit ratio' => array(
 			'RATIOH',
 			'select round(100*(sum(pins)-sum(reloads))/sum(pins),2)  from v$librarycache',
 			'increase <i>shared_pool_size</i> if too ratio low',
 		),
 
-		'datadict cache hit ratio'      => array(
+		'datadict cache hit ratio' => array(
 			'RATIOH',
 			'select
            round((1 - (sum(getmisses) / (sum(gets) +
@@ -64,7 +64,7 @@ class perf_oci8 extends ADODB_perf {
 			'increase <i>shared_pool_size</i> if too ratio low',
 		),
 
-		'memory sort ratio'             => array(
+		'memory sort ratio' => array(
 			'RATIOH',
 			"SELECT ROUND((100 * b.VALUE) /DECODE ((a.VALUE + b.VALUE),
        0,1,(a.VALUE + b.VALUE)),2)
@@ -76,93 +76,93 @@ AND    b.name = 'sorts (memory)'",
 		),
 
 		'IO',
-		'data reads'                    => array(
+		'data reads' => array(
 			'IO',
 			"select value from v\$sysstat where name='physical reads'",
 		),
 
-		'data writes'                   => array(
+		'data writes' => array(
 			'IO',
 			"select value from v\$sysstat where name='physical writes'",
 		),
 
 		'Data Cache',
 
-		'data cache buffers'            => array(
+		'data cache buffers' => array(
 			'DATAC',
 			"select a.value/b.value  from v\$parameter a, v\$parameter b
 			where a.name = 'db_cache_size' and b.name= 'db_block_size'",
 			'Number of cache buffers. Tune <i>db_cache_size</i> if the <i>data cache hit ratio</i> is too low.',
 		),
-		'data cache blocksize'          => array(
+		'data cache blocksize' => array(
 			'DATAC',
 			"select value from v\$parameter where name='db_block_size'",
 			'',
 		),
 
 		'Memory Pools',
-		'Mem Max Target (11g+)'         => array(
+		'Mem Max Target (11g+)' => array(
 			'DATAC',
 			"select value from v\$parameter where name = 'memory_max_target'",
 			'The memory_max_size is the maximum value to which memory_target can be set.',
 		),
-		'Memory target (11g+)'          => array(
+		'Memory target (11g+)' => array(
 			'DATAC',
 			"select value from v\$parameter where name = 'memory_target'",
 			'If memory_target is defined then SGA and PGA targets are consolidated into one memory_target.',
 		),
-		'SGA Max Size'                  => array(
+		'SGA Max Size' => array(
 			'DATAC',
 			"select nvl(value,0)/1024.0/1024 || 'M' from v\$parameter where name = 'sga_max_size'",
 			'The sga_max_size is the maximum value to which sga_target can be set.',
 		),
-		'SGA target'                    => array(
+		'SGA target' => array(
 			'DATAC',
 			"select nvl(value,0)/1024.0/1024 || 'M'  from v\$parameter where name = 'sga_target'",
 			'If sga_target is defined then data cache, shared, java and large pool size can be 0. This is because all these pools are consolidated into one sga_target.',
 		),
-		'PGA aggr target'               => array(
+		'PGA aggr target' => array(
 			'DATAC',
 			"select nvl(value,0)/1024.0/1024 || 'M' from v\$parameter where name = 'pga_aggregate_target'",
 			'If pga_aggregate_target is defined then this is the maximum memory that can be allocated for cursor operations such as sorts, group by, joins, merges. When in doubt, set it to 20% of sga_target.',
 		),
-		'data cache size'               => array(
+		'data cache size' => array(
 			'DATAC',
 			"select value from v\$parameter where name = 'db_cache_size'",
 			'db_cache_size',
 		),
-		'shared pool size'              => array(
+		'shared pool size' => array(
 			'DATAC',
 			"select value from v\$parameter where name = 'shared_pool_size'",
 			'shared_pool_size, which holds shared sql, stored procedures, dict cache and similar shared structs',
 		),
-		'java pool size'                => array(
+		'java pool size' => array(
 			'DATAJ',
 			"select value from v\$parameter where name = 'java_pool_size'",
 			'java_pool_size',
 		),
-		'large pool buffer size'        => array(
+		'large pool buffer size' => array(
 			'CACHE',
 			"select value from v\$parameter where name='large_pool_size'",
 			'this pool is for large mem allocations (not because it is larger than shared pool), for MTS sessions, parallel queries, io buffers (large_pool_size) ',
 		),
 
-		'dynamic memory usage'          => array('CACHE', "select '-' from dual", '=DynMemoryUsage'),
+		'dynamic memory usage' => array('CACHE', "select '-' from dual", '=DynMemoryUsage'),
 
 		'Connections',
-		'current connections'           => array(
+		'current connections' => array(
 			'SESS',
 			'select count(*) from sys.v_$session where username is not null',
 			'',
 		),
-		'max connections'               => array(
+		'max connections' => array(
 			'SESS',
 			"select value from v\$parameter where name='sessions'",
 			'',
 		),
 
 		'Memory Utilization',
-		'data cache utilization ratio'  => array(
+		'data cache utilization ratio' => array(
 			'RATIOU',
 			"select round((1-bytes/sgasize)*100, 2)
 			from (select sum(bytes) sgasize from sys.v_\$sgastat) s, sys.v_\$sgastat f
@@ -179,14 +179,14 @@ AND    b.name = 'sorts (memory)'",
 			'Percentage of shared pool actually used - too low is bad, too high is worse',
 		),
 
-		'large pool utilization ratio'  => array(
+		'large pool utilization ratio' => array(
 			'RATIOU',
 			"select round((1-bytes/sgasize)*100, 2)
 			from (select sum(bytes) sgasize from sys.v_\$sgastat) s, sys.v_\$sgastat f
 			where name = 'free memory' and pool = 'large pool'",
 			'Percentage of large_pool actually in use - too low is bad, too high is worse',
 		),
-		'sort buffer size'              => array(
+		'sort buffer size' => array(
 			'CACHE',
 			"select value from v\$parameter where name='sort_area_size'",
 			'max in-mem sort_area_size (per query), uses memory in pga',
@@ -195,26 +195,26 @@ AND    b.name = 'sorts (memory)'",
 		/*'pga usage at peak' => array('RATIOU',
 		'=PGA','Mb utilization at peak transactions (requires Oracle 9i+)'),*/
 	'Transactions',
-		'rollback segments'             => array(
+		'rollback segments' => array(
 			'ROLLBACK',
 			'select count(*) from sys.v_$rollstat',
 			'',
 		),
 
-		'peak transactions'             => array(
+		'peak transactions' => array(
 			'ROLLBACK',
 			"select max_utilization  tx_hwm
     		from sys.v_\$resource_limit
     		where resource_name = 'transactions'",
 			'Taken from high-water-mark',
 		),
-		'max transactions'              => array(
+		'max transactions' => array(
 			'ROLLBACK',
 			"select value from v\$parameter where name = 'transactions'",
 			'max transactions / rollback segments < 3.5 (or transactions_per_rollback_segment)',
 		),
 		'Parameters',
-		'cursor sharing'                => array(
+		'cursor sharing' => array(
 			'CURSOR',
 			"select value from v\$parameter where name = 'cursor_sharing'",
 			'Cursor reuse strategy. Recommended is FORCE (8i+) or SIMILAR (9i+). See <a href=http://www.praetoriate.com/oracle_tips_cursor_sharing.htm>cursor_sharing</a>.',
@@ -225,40 +225,40 @@ AND    b.name = 'sorts (memory)'",
 	from t1
 	group by sql_text_wo_constants
 	having count(*) > 100)",'These are sql statements that should be using bind variables'),*/
-		'index cache cost'              => array(
+		'index cache cost' => array(
 			'COST',
 			"select value from v\$parameter where name = 'optimizer_index_caching'",
 			'=WarnIndexCost',
 		),
-		'random page cost'              => array(
+		'random page cost' => array(
 			'COST',
 			"select value from v\$parameter where name = 'optimizer_index_cost_adj'",
 			'=WarnPageCost',
 		),
 		'Waits',
-		'Recent wait events'            => array('WAITS', 'select \'Top 5 events\' from dual', '=TopRecentWaits'),
+		'Recent wait events' => array('WAITS', 'select \'Top 5 events\' from dual', '=TopRecentWaits'),
 		//      'Historical wait SQL' => array('WAITS','select \'Last 2 days\' from dual','=TopHistoricalWaits'), -- requires AWR license
 				'Backup',
-		'Achivelog Mode'                => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
+		'Achivelog Mode' => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
 
-		'DBID'                          => array('BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog'),
-		'Archive Log Dest'              => array(
+		'DBID' => array('BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog'),
+		'Archive Log Dest' => array(
 			'BACKUP',
 			"SELECT NVL(v1.value,v2.value)
 FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.name='log_archive_dest_10'",
 			'',
 		),
 
-		'Flashback Area'                => array('BACKUP', "select nvl(value,'Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", 'Flashback area is a folder where all backup data and logs can be stored and managed by Oracle. If Error: message displayed, then it is not in use.'),
+		'Flashback Area' => array('BACKUP', "select nvl(value,'Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", 'Flashback area is a folder where all backup data and logs can be stored and managed by Oracle. If Error: message displayed, then it is not in use.'),
 
-		'Flashback Usage'               => array('BACKUP', "select nvl('-','Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", '=FlashUsage', 'Flashback area usage.'),
+		'Flashback Usage' => array('BACKUP', "select nvl('-','Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", '=FlashUsage', 'Flashback area usage.'),
 
-		'Control File Keep Time'        => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'", 'No of days to keep RMAN info in control file.  Recommended set to x2 or x3 times the frequency of your full backup.'),
-		'Recent RMAN Jobs'              => array('BACKUP', "select '-' from dual", '=RMAN'),
+		'Control File Keep Time' => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'", 'No of days to keep RMAN info in control file.  Recommended set to x2 or x3 times the frequency of your full backup.'),
+		'Recent RMAN Jobs' => array('BACKUP', "select '-' from dual", '=RMAN'),
 
 		//		'Control File Keep Time' => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'",'No of days to keep RMAN info in control file. I recommend it be set to x2 or x3 times the frequency of your full backup.'),
 		'Storage',
-		'Tablespaces'                   => array('TABLESPACE', "select '-' from dual", '=TableSpace'),
+		'Tablespaces' => array('TABLESPACE', "select '-' from dual", '=TableSpace'),
 		false,
 
 	);
@@ -685,7 +685,7 @@ order by
 		}
 		$s .= '<p>';
 
-		$save = $ADODB_CACHE_MODE;
+		$save             = $ADODB_CACHE_MODE;
 		$ADODB_CACHE_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -770,8 +770,8 @@ order by
 			return $s;
 		}
 
-		$s   .= '<p>';
-		$save = $ADODB_CACHE_MODE;
+		$s               .= '<p>';
+		$save             = $ADODB_CACHE_MODE;
 		$ADODB_CACHE_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {

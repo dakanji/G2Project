@@ -128,7 +128,7 @@ class ItemEditController extends GalleryController {
 						return array($ret, null);
 					}
 
-					$error = array_merge($error, $optionErrors);
+					$error             = array_merge($error, $optionErrors);
 					$status['warning'] = array_merge($status['warning'], $optionWarnings);
 				}
 			}
@@ -192,14 +192,14 @@ class ItemEditController extends GalleryController {
 				return $ret;
 			}
 
-			$error = array_merge($error, $optionErrors);
+			$error             = array_merge($error, $optionErrors);
 			$status['warning'] = array_merge($status['warning'], $optionWarnings);
 		}
 		$session =& $gallery->getSession();
 		$session->putStatus($status);
 
-		$redirect         = array();
-		$redirect['view'] = 'core.ItemAdmin';
+		$redirect               = array();
+		$redirect['view']       = 'core.ItemAdmin';
 		$redirect['subView']    = 'core.ItemEdit';
 		$redirect['itemId']     = $item->getId();
 		$redirect['editPlugin'] = $editPlugin;
@@ -316,7 +316,7 @@ class ItemEditView extends GalleryView {
 		 * If the plugin is empty get it from the session.  If it's empty there, default to the
 		 * first plugin we find.  Either way, save the user's preference in the session.
 		 */
-		$session =& $gallery->getSession();
+		$session              =& $gallery->getSession();
 		$editPluginSessionKey = 'core.view.ItemEdit.editPlugin.' . get_class($item);
 
 		if (empty($editPlugin)) {
@@ -351,10 +351,10 @@ class ItemEditView extends GalleryView {
 		// Record our item serial number in the form so that all plugins can use it
 		$form['serialNumber'] = $item->getSerialNumber();
 
-		$ItemEdit = array();
-		$ItemEdit['editPlugin']    = $editPlugin;
-		$ItemEdit['plugins']       = $plugins;
-		$ItemEdit['itemTypeNames'] = $item->itemTypeName();
+		$ItemEdit               = array();
+		$ItemEdit['editPlugin'] = $editPlugin;
+		$ItemEdit['plugins']    = $plugins;
+		$ItemEdit['itemTypeNames']     = $item->itemTypeName();
 		$ItemEdit['showEditThumbnail'] = $thumbnail != null;
 
 		list($ret, $ItemEdit['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();

@@ -403,7 +403,7 @@ class GalleryDerivative extends GalleryChildEntity {
 		} else {
 			// Get the path of the source file
 			if ($source->isLinked()) {
-				$linkedEntity = $source->getLinkedEntity();
+				$linkedEntity           = $source->getLinkedEntity();
 				list($ret, $sourcePath) = $linkedEntity->fetchPath();
 
 				if ($ret) {

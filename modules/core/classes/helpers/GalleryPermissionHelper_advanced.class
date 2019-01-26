@@ -117,7 +117,7 @@ class GalleryPermissionHelper_advanced {
 	 * @access private
 	 */
 	public static function _postGroupEvent($groupId, $itemId, $permission, $applyToChildren, $changeType) {
-		$userId = null;
+		$userId            = null;
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -729,7 +729,7 @@ class GalleryPermissionHelper_advanced {
 		$data    = array();
 
 		while ($result = $searchResults->nextResult()) {
-			$permissions = $storage->convertBitsToInt($result[3]);
+			$permissions             = $storage->convertBitsToInt($result[3]);
 			list($ret, $permissions) = GalleryCoreApi::convertPermissionBitsToIds(
 				$permissions,
 				$compress

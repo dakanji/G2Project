@@ -516,7 +516,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		// Execute the test: Try to use a path component that collides once it's truncated.
-		$newComponent = $component . 'abcdefghi';
+		$newComponent            = $component . 'abcdefghi';
 		list($ret, $isCollision) = GalleryCoreApi::checkPathCollision($newComponent, $this->_getRootId());
 
 		if ($ret) {

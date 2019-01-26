@@ -162,7 +162,7 @@ class CreateConfigFileStep extends InstallStep {
 			"'"  => "\\'",
 		);
 		$newStoreConfig = $galleryStub->getConfig('storage.config');
-		$in = @fopen($baseDir . '/install/config.php-template', 'r');
+		$in             = @fopen($baseDir . '/install/config.php-template', 'r');
 
 		while ($line = fgets($in, 2000)) {
 			if (trim($line) == '$gallery->setConfig(\'setup.password\', \'\');') {

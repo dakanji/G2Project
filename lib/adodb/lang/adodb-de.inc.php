@@ -1,7 +1,7 @@
 <?php
 // contributed by "Heinz Hombergs" <opn@hhombergs.de>
 $ADODB_LANG_ARRAY = array(
-	'LANG' => 'de',
+	'LANG'   => 'de',
 	DB_ERROR => 'Unbekannter Fehler',
 	DB_ERROR_ALREADY_EXISTS => 'existiert bereits',
 	DB_ERROR_CANNOT_CREATE => 'kann nicht erstellen',
@@ -24,7 +24,7 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_VALUE_COUNT_ON_ROW => 'Anzahl der zurückgelieferten Felder entspricht nicht der Anzahl der Felder in der Abfrage',
 	DB_ERROR_INVALID_DSN => 'ungültiger DSN',
 	DB_ERROR_CONNECT_FAILED => 'Verbindung konnte nicht hergestellt werden',
-	0 => 'kein Fehler', // DB_OK
+	0        => 'kein Fehler', // DB_OK
 	DB_ERROR_NEED_MORE_DATA => 'Nicht genügend Daten geliefert',
 	DB_ERROR_EXTENSION_NOT_FOUND => 'erweiterung nicht gefunden',
 	DB_ERROR_NOSUCHDB => 'keine Datenbank',

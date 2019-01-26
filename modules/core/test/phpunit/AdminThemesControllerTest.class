@@ -209,7 +209,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalOrderBy = 'albumsFirst|viewCount';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret             = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.orderBy',
@@ -245,7 +245,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalOrderBy = 'albumsFirst|viewCount';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret             = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.orderBy',
@@ -353,22 +353,22 @@ class TestThemeId1Theme extends GalleryTheme {
 	public function getSettings($itemId = 0) {
 		$settings   = array();
 		$settings[] = array(
-			'key'        => 'rows',
-			'name'       => 'Rows per album page',
-			'type'       => 'text-field',
+			'key'  => 'rows',
+			'name' => 'Rows per album page',
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value'      => 4,
+			'value' => 4,
 		);
 		$settings[] = array(
-			'key'        => 'columns',
-			'name'       => 'Columns per album page',
-			'type'       => 'text-field',
+			'key'  => 'columns',
+			'name' => 'Columns per album page',
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value'      => 99,
+			'value' => 99,
 		);
 
 		return array(null, $settings);
@@ -378,8 +378,8 @@ class TestThemeId1Theme extends GalleryTheme {
 	 * @see GalleryTheme::validateSettings
 	 */
 	public function validateSettings($settings) {
-		$error         = array();
-		$error['rows'] = 'rows error';
+		$error            = array();
+		$error['rows']    = 'rows error';
 		$error['columns'] = 'columns error';
 
 		return $error;
@@ -440,22 +440,22 @@ class TestThemeId2Theme extends GalleryTheme {
 	public function getSettings($itemId = 0) {
 		$settings   = array();
 		$settings[] = array(
-			'key'        => 'rows',
-			'name'       => 'Rows per album page',
-			'type'       => 'text-field',
+			'key'  => 'rows',
+			'name' => 'Rows per album page',
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value'      => 4,
+			'value' => 4,
 		);
 		$settings[] = array(
-			'key'        => 'columns',
-			'name'       => 'Columns per album page',
-			'type'       => 'text-field',
+			'key'  => 'columns',
+			'name' => 'Columns per album page',
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value'      => 3,
+			'value' => 3,
 		);
 
 		return array(null, $settings);
@@ -538,7 +538,7 @@ class AdminThemesControllerTestTheme {
 	}
 
 	public function resetCalls() {
-		$singleton = $this->doStatic();
+		$singleton           = $this->doStatic();
 		$singleton->_callMap = array();
 	}
 

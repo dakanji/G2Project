@@ -52,15 +52,15 @@ if (!function_exists('ctype_alnum')) {
  * @returns 2 dimensional array containing parsed tokens.
  */
 function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
-	$pos      = 0;
-	$intoken  = false;
-	$stmtno   = 0;
-	$endquote = false;
-	$tokens   = array();
+	$pos             = 0;
+	$intoken         = false;
+	$stmtno          = 0;
+	$endquote        = false;
+	$tokens          = array();
 	$tokens[$stmtno] = array();
-	$max    = strlen($args);
-	$quoted = false;
-	$tokarr = array();
+	$max             = strlen($args);
+	$quoted          = false;
+	$tokarr          = array();
 
 	while ($pos < $max) {
 		$ch = substr($args, $pos, 1);
@@ -72,7 +72,7 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 			case "\r":
 				if (!$quoted) {
 					if ($intoken) {
-						$intoken = false;
+						$intoken           = false;
 						$tokens[$stmtno][] = implode('', $tokarr);
 					}
 
@@ -111,8 +111,8 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 							$pos     += 1;
 							$tokarr[] = $ch2;
 						} else {
-							$quoted  = false;
-							$intoken = false;
+							$quoted            = false;
+							$intoken           = false;
 							$tokens[$stmtno][] = implode('', $tokarr);
 							$endquote          = '';
 						}
@@ -158,16 +158,16 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 				} else {
 					if ($ch == $endstmtchar) {
 						$tokens[$stmtno][] = implode('', $tokarr);
-						$stmtno         += 1;
-						$tokens[$stmtno] = array();
-						$intoken         = false;
-						$tokarr          = array();
+						$stmtno           += 1;
+						$tokens[$stmtno]   = array();
+						$intoken           = false;
+						$tokarr            = array();
 
 						break;
 					}
 					$tokens[$stmtno][] = implode('', $tokarr);
 					$tokens[$stmtno][] = $ch;
-					$intoken = false;
+					$intoken           = false;
 				}
 		}
 		$pos += 1;
@@ -182,22 +182,22 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 
 class ADODB_DataDict {
 	public $connection;
-	public $debug        = false;
-	public $dropTable    = 'DROP TABLE %s';
-	public $renameTable  = 'RENAME TABLE %s TO %s';
-	public $dropIndex    = 'DROP INDEX %s';
-	public $addCol       = ' ADD';
-	public $alterCol     = ' ALTER COLUMN';
-	public $dropCol      = ' DROP COLUMN';
-	public $renameColumn = 'ALTER TABLE %s RENAME COLUMN %s TO %s';    // table, old-column, new-column, column-definitions (not used by default)
-	public $nameRegex    = '\w';
+	public $debug             = false;
+	public $dropTable         = 'DROP TABLE %s';
+	public $renameTable       = 'RENAME TABLE %s TO %s';
+	public $dropIndex         = 'DROP INDEX %s';
+	public $addCol            = ' ADD';
+	public $alterCol          = ' ALTER COLUMN';
+	public $dropCol           = ' DROP COLUMN';
+	public $renameColumn      = 'ALTER TABLE %s RENAME COLUMN %s TO %s';    // table, old-column, new-column, column-definitions (not used by default)
+	public $nameRegex         = '\w';
 	public $nameRegexBrackets = 'a-zA-Z0-9_\(\)';
-	public $schema        = false;
-	public $serverInfo    = array();
-	public $autoIncrement = false;
+	public $schema            = false;
+	public $serverInfo        = array();
+	public $autoIncrement     = false;
 	public $dataProvider;
 	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME'); // for changetablesql
-	public $blobSize = 100;    /// any varchar/char field this size or greater is treated as a blob
+	public $blobSize            = 100;    /// any varchar/char field this size or greater is treated as a blob
 							/// in other words, we use a text area for editting.
 
 	public function GetCommentSQL($table, $col) {
@@ -555,7 +555,7 @@ class ADODB_DataDict {
 			if ($lines == null) {
 				$lines = array();
 			}
-			$first = current($lines);
+			$first              = current($lines);
 			list(, $column_def) = preg_split("/[\t ]+/", $first, 2);
 		}
 
@@ -685,9 +685,9 @@ class ADODB_DataDict {
 			}
 		}
 		$this->autoIncrement = false;
-		$lines = array();
-		$pkey  = array();
-		$idxs  = array();
+		$lines               = array();
+		$pkey = array();
+		$idxs = array();
 
 		foreach ($flds as $fld) {
 			$fld = _array_change_key_case($fld);
@@ -1101,7 +1101,7 @@ class ADODB_DataDict {
 	public function ChangeTableSQL($tablename, $flds, $tableoptions = false, $dropOldFlds = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 		if ($this->connection->fetchMode !== false) {

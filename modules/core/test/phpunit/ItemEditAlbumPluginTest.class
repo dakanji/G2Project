@@ -506,7 +506,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			$this->_album->getSerialNumber()
 		);
 
-		$mockAdapter = new MockTemplateAdapter();
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		// Perform the request and verify that we succeeded
@@ -525,9 +525,9 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		// Run the tasks
 		$_REQUEST['ItemEditAlbumPluginTest_opCount'] = array(
 			'thumbnail' => 0,
-			'scale'     => 0,
-			'crop'      => 0,
-			'rotate'    => 0,
+			'scale' => 0,
+			'crop' => 0,
+			'rotate' => 0,
 		);
 		$ret = $mockAdapter->runCallbacks();
 
@@ -671,7 +671,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	public function testRecreateResizesForSmallPhoto() {
 		global $gallery;
 
-		$album = $this->_album;
+		$album              = $this->_album;
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($album->getId());
 
 		if ($ret) {
@@ -738,7 +738,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][recreateResizes]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $album->getSerialNumber());
 
-		$mockAdapter = new MockTemplateAdapter();
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		// Perform the request and verify that we succeeded
@@ -918,7 +918,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			$this->_album->getSerialNumber()
 		);
 
-		$mockAdapter = new MockTemplateAdapter();
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		$results = $this->handleRequest($this->_album, $this->_preferred);

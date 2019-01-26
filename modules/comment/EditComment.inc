@@ -240,7 +240,7 @@ class EditCommentView extends GalleryView {
 		}
 
 		// Associate the commenter's info
-		$commenterId = $comment->getCommenterId();
+		$commenterId           = $comment->getCommenterId();
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {

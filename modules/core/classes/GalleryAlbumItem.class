@@ -513,7 +513,7 @@ class GalleryAlbumItem extends GalleryItem {
 		if ($localized) {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
-			if (! $ret) {
+			if (!$ret) {
 				return array($core->translate('Album'), $core->translate('album'));
 			}
 		}

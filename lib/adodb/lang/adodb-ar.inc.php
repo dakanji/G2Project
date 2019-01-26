@@ -1,7 +1,7 @@
 <?php
 // by "El-Shamaa, Khaled" <k.el-shamaa#cgiar.org>
 $ADODB_LANG_ARRAY = array(
-	'LANG' => 'ar',
+	'LANG'   => 'ar',
 	DB_ERROR => 'خطأ غير محدد',
 	DB_ERROR_ALREADY_EXISTS => 'موجود مسبقا',
 	DB_ERROR_CANNOT_CREATE => 'لا يمكن إنشاء',
@@ -24,7 +24,7 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_VALUE_COUNT_ON_ROW => 'عدد القيم في السجل',
 	DB_ERROR_INVALID_DSN => 'DSN غير صحيح',
 	DB_ERROR_CONNECT_FAILED => 'فشل عملية الإتصال',
-	0 => 'ليس هنالك أخطاء', // DB_OK
+	0        => 'ليس هنالك أخطاء', // DB_OK
 	DB_ERROR_NEED_MORE_DATA => 'البيانات المزودة غير كافية',
 	DB_ERROR_EXTENSION_NOT_FOUND => 'لم يتم إيجاد الإضافة المتعلقة',
 	DB_ERROR_NOSUCHDB => 'ليس هنالك قاعدة بيانات بهذا الاسم',

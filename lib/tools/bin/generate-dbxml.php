@@ -43,8 +43,8 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty = new Smarty();
-$smarty->compile_dir     = $tmpdir;
+$smarty              = new Smarty();
+$smarty->compile_dir = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
 $smarty->use_sub_dirs    = false;
@@ -69,7 +69,7 @@ function generateEntityDbXml() {
 
 		$membersBase = $root[0]['child'];
 		$schema      = array(
-			'name'  => $root[0]['child'][2]['child'][0]['content'],
+			'name' => $root[0]['child'][2]['child'][0]['content'],
 			'major' => $root[0]['child'][2]['child'][1]['content'],
 			'minor' => (!empty($root[0]['child'][2]['child'][2]['content']) ? $root[0]['child'][2]['child'][2]['content'] : 0),
 		);
@@ -113,7 +113,7 @@ function generateEntityDbXml() {
 								break;
 
 							case 'PRIMARY':
-								$keys[] = array(
+								$keys[]            = array(
 									'columns' => array($member['name']),
 									'primary' => 1,
 								);
@@ -239,7 +239,7 @@ function generateMapDbXml() {
 		$mapName = str_replace('TkOperation', 'TkOperatn', $mapName);
 
 		$schema  = array(
-			'name'  => $mapName,
+			'name' => $mapName,
 			'major' => $map['child'][1]['child'][0]['content'],
 			'minor' => $map['child'][1]['child'][1]['content'],
 		);
@@ -286,7 +286,7 @@ function generateMapDbXml() {
 								break;
 
 							case 'PRIMARY':
-								$keys[] = array(
+								$keys[]            = array(
 									'columns' => array($member['name']),
 									'primary' => 1,
 								);

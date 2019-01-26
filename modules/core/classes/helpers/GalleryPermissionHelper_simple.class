@@ -63,7 +63,7 @@ class GalleryPermissionHelper_simple {
 		global $gallery;
 
 		$sessionPermissions = (int)$sessionPermissions;
-		$cacheKey = 'GalleryPermissionHelper::fetchAccessListIds('
+		$cacheKey           = 'GalleryPermissionHelper::fetchAccessListIds('
 		. "$permission,$userId,$sessionPermissions)";
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
@@ -197,7 +197,7 @@ class GalleryPermissionHelper_simple {
 		$cacheKey = 'GalleryPermissionHelper::_allPermissions';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			$permissions = array();
+			$permissions               = array();
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'GalleryPermissionSetMap',
 				array('module', 'permission', 'description', 'bits', 'flags')
@@ -327,7 +327,7 @@ class GalleryPermissionHelper_simple {
 		$entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 		$groupBy         = 'GROUP BY [GalleryAccessSubscriberMap::itemId]';
 
-		$storage =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 		list($ret, $bitOr) = $storage->getFunctionSql(
 			'BIT_OR',
 			array(

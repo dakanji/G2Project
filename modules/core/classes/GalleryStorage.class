@@ -178,11 +178,11 @@ class GalleryStorage {
 	 * @param array $config database configuration values
 	 */
 	public function __construct($config) {
-		$this->_type     = $config['type'];
-		$this->_username = $config['username'];
-		$this->_password = $config['password'];
-		$this->_hostname = $config['hostname'];
-		$this->_database = $config['database'];
+		$this->_type            = $config['type'];
+		$this->_username        = $config['username'];
+		$this->_password        = $config['password'];
+		$this->_hostname        = $config['hostname'];
+		$this->_database        = $config['database'];
 		$this->_isTransactional = false;
 		$this->_isEmptyAllowedForNotNullColumn = true;
 		$this->_entityInfoCache = array();
@@ -226,7 +226,7 @@ class GalleryStorage {
 
 		$this->_traceStart();
 		$connectMethod = ($forceNew || !$this->_usePersistentConnections) ? 'NConnect' : 'PConnect';
-		$ret = $db->$connectMethod(
+		$ret           = $db->$connectMethod(
 			$this->_hostname,
 			$this->_username,
 			$this->_password,
@@ -289,7 +289,7 @@ class GalleryStorage {
 				'modules/core/classes/GalleryStorage/GalleryStorageExtras.class',
 				true
 			);
-			$tmp = new GalleryStorageExtras($this);
+			$tmp           = new GalleryStorageExtras($this);
 			$this->_extras =& $tmp;
 		}
 
@@ -1196,8 +1196,8 @@ class GalleryStorage {
 	public function _translateQuery($query) {
 		// Change '[Class::member]' to 'table.column' or 'alias.column'
 		while (preg_match('#\[([\w_=]*)::([\w_]*)\]#', $query, $regs)) {
-			$class  = $regs[1];
-			$member = $regs[2];
+			$class               = $regs[1];
+			$member              = $regs[2];
 			list($table, $alias) = $this->_translateTableName($class);
 
 			$column = $this->_translateColumnName($member);
@@ -1213,7 +1213,7 @@ class GalleryStorage {
 
 		// Change '[Class]' to 'table'
 		while (preg_match('#\[([\w_=]*)\]#', $query, $regs)) {
-			$class = $regs[1];
+			$class               = $regs[1];
 			list($table, $alias) = $this->_translateTableName($class);
 
 			if ($alias == null) {
@@ -1737,7 +1737,7 @@ function GalleryAdodbErrorHandler($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 
 		case 'EXECUTE':
 			$sql         = $p1;
 			$inputparams = $p2;
-			$s = "$dbms error: [$errno: $errmsg] in $fn(\"$sql\")\n";
+			$s           = "$dbms error: [$errno: $errmsg] in $fn(\"$sql\")\n";
 
 			break;
 

@@ -254,7 +254,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 	 * @param array A keyed array for errors and warnings. Keys are 'errors' and 'warnings'.
 	 */
 	public function _doStatusCheck($versions, &$errors) {
-		$pluginType = $versions[6];
+		$pluginType               = $versions[6];
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 
 		if ($ret) {
@@ -565,7 +565,7 @@ class _GallerySequenceTag extends GalleryImportElement {
 	 */
 	public function importSequence() {
 		$storageExtras =& $this->_storage->_getExtras();
-		$ret = $storageExtras->dropSequence($this->_sequenceName);
+		$ret           = $storageExtras->dropSequence($this->_sequenceName);
 		// Ignore any errors and assume that if we get an error, then the sequence doesn't exist
 
 		$ret = $storageExtras->createSequence($this->_sequenceName, $this->_startValue);
@@ -663,7 +663,7 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 		// Don't check the return code. Assume the table doesn't exist and create it.
 
 		$storageExtras =& $this->_storage->_getExtras();
-		$ret = $storageExtras->_executeSql($this->_currentSql);
+		$ret           = $storageExtras->_executeSql($this->_currentSql);
 
 		if ($ret) {
 			$this->setError($ret);
@@ -825,8 +825,8 @@ class _GalleryFieldDefinitionTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
-		$colName = GalleryUtilities::strToLower($attributes['name']);
-		$this->_translatedName          = $this->_storage->_translateColumnName($colName);
+		$colName               = GalleryUtilities::strToLower($attributes['name']);
+		$this->_translatedName = $this->_storage->_translateColumnName($colName);
 		$this->_fieldDefinition['type'] = $attributes['type'];
 
 		if (!empty($attributes['size'])) {

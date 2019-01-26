@@ -269,8 +269,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	public function testGetCurrentUrlDirEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
-		$expectedUrl         = 'http://example.com/cms/';
-		$this->_urlGenerator = new $this->_urlGeneratorName();
+		$expectedUrl            = 'http://example.com/cms/';
+		$this->_urlGenerator    = new $this->_urlGeneratorName();
 		$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 
 		if ($ret) {
@@ -292,8 +292,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetBaseUrl() {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
-		$urlGenerator = new $this->_urlGeneratorName();
-		$ret          = $urlGenerator->init('phpunit_test.php');
+		$urlGenerator           = new $this->_urlGeneratorName();
+		$ret = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -460,8 +460,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		// Let the URL generator know of the new cookie.path value
-		$baseUri = isset($env['baseUri']) ? $env['baseUri'] : null;
-		$g2Uri   = isset($env['g2Uri']) ? $env['g2Uri'] : null;
+		$baseUri             = isset($env['baseUri']) ? $env['baseUri'] : null;
+		$g2Uri               = isset($env['g2Uri']) ? $env['g2Uri'] : null;
 		$embedSessionString  = isset($env['embedSessionString']) ? $env['embedSessionString'] : null;
 		$this->_urlGenerator = new $this->_urlGeneratorName();
 		$ret = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
@@ -552,8 +552,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'foo'  => 'bar',
 		);
 		$params[1]  = array(
-			'view'         => 'core.DownloadItem',
-			'itemId'       => $this->_testItem->getId(),
+			'view' => 'core.DownloadItem',
+			'itemId' => $this->_testItem->getId(),
 			'serialNumber' => $this->_testItem->getSerialNumber(),
 		);
 		$params[2]  = array(
@@ -570,40 +570,40 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'view' => 'core.ShowItem',
 		);
 		$params[6]  = array(
-			'view'   => 'core.ShowItem',
+			'view' => 'core.ShowItem',
 			'itemId' => $this->_testAlbum->getId(),
 		);
 		$params[7]  = array(
-			'view'   => 'core.ShowItem',
+			'view' => 'core.ShowItem',
 			'itemId' => $this->_testItem->getId(),
 		);
 		$params[8]  = array(
-			'view'   => 'core.ShowItem',
+			'view' => 'core.ShowItem',
 			'itemId' => -5759,
 		);
 		$params[9]  = array(
-			'view'   => 'core.ShowItem',
+			'view' => 'core.ShowItem',
 			'itemId' => $this->_derivative->getId(),
 		);
 		$params[10] = array(
-			'view'    => 'php.Unit',
+			'view' => 'php.Unit',
 			'subView' => 'test.suffixPath',
-			'itemId'  => $this->_testAlbum->getId(),
+			'itemId' => $this->_testAlbum->getId(),
 		);
 		$params[11] = array(
-			'view'    => 'php.Unit',
+			'view' => 'php.Unit',
 			'subView' => 'test.suffixPath',
-			'itemId'  => $this->_testItem->getId(),
+			'itemId' => $this->_testItem->getId(),
 		);
 		$params[12] = array(
-			'view'    => 'php.Unit',
+			'view' => 'php.Unit',
 			'subView' => 'test.suffixExt',
-			'itemId'  => $this->_testAlbum->getId(),
+			'itemId' => $this->_testAlbum->getId(),
 		);
 		$params[13] = array(
-			'view'    => 'php.Unit',
+			'view' => 'php.Unit',
 			'subView' => 'test.suffixExt',
-			'itemId'  => $this->_testItem->getId(),
+			'itemId' => $this->_testItem->getId(),
 		);
 		$params[14] = array(
 			'view' => 'php.Unit',
@@ -612,9 +612,9 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'controller' => 'php.Unit',
 		);
 		$params[16] = array(
-			'view'    => 'php.Unit',
+			'view' => 'php.Unit',
 			'subView' => 'test.urlEncode',
-			'path'    => $this->_urlEncodePath,
+			'path' => $this->_urlEncodePath,
 		);
 
 		return $params;
@@ -636,14 +636,14 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 		// core.ShowItem on albums have the logical path, should go through the emApp
 		$params[0]       = array(
-			'view'   => 'core.ShowItem',
+			'view' => 'core.ShowItem',
 			'itemId' => $this->_testAlbum->getId(),
 		);
 		$expectedUrls[0] = '/cms/v' . $this->_testAlbumPath;
 
 		// core.DownloadItem should go to Gallery directly
 		$params[1]       = array(
-			'view'   => 'core.DownloadItem',
+			'view' => 'core.DownloadItem',
 			'itemId' => $this->_testItem->getId(),
 		);
 		$expectedUrls[1] = sprintf(

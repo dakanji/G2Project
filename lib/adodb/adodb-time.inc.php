@@ -933,8 +933,8 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 	static $YRS;
 	global $_month_table_normal,$_month_table_leaf;
 
-	$d          = $origd - ($is_gmt ? 0 : adodb_get_gmt_diff_ts($origd));
-	$_day_power = 86400;
+	$d           = $origd - ($is_gmt ? 0 : adodb_get_gmt_diff_ts($origd));
+	$_day_power  = 86400;
 	$_hour_power = 3600;
 	$_min_power  = 60;
 
@@ -1138,15 +1138,15 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 	return array(
 		'seconds' => $secs,
 		'minutes' => $min,
-		'hours'   => $hour,
-		'mday'    => $day,
-		'wday'    => $dow,
-		'mon'     => $month,
-		'year'    => $year,
-		'yday'    => floor($secsInYear / $_day_power),
+		'hours' => $hour,
+		'mday' => $day,
+		'wday' => $dow,
+		'mon' => $month,
+		'year' => $year,
+		'yday' => floor($secsInYear / $_day_power),
 		'weekday' => gmdate('l', $_day_power * (3 + $dow)),
-		'month'   => gmdate('F', mktime(0, 0, 0, $month, 2, 1971)),
-		0         => $origd,
+		'month' => gmdate('F', mktime(0, 0, 0, $month, 2, 1971)),
+		0     => $origd,
 	);
 }
 

@@ -77,7 +77,7 @@ class GalleryGroup extends GalleryEntity {
 		global $gallery;
 
 		// Check to see if we have a collision
-		$query = '
+		$query               = '
 	SELECT
 	  [GalleryGroup::id]
 	FROM
@@ -168,7 +168,7 @@ class GalleryGroup extends GalleryEntity {
 		if ($localized) {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
-			if (! $ret) {
+			if (!$ret) {
 				return array($core->translate('Group'), $core->translate('group'));
 			}
 		}

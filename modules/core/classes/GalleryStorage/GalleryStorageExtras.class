@@ -155,8 +155,8 @@ class GalleryStorageExtras {
 			while ($target) {
 				foreach ($memberInfo[$target]['members'] as $columnName => $columnInfo) {
 					list($tableName, $unused) = $this->_gs->_translateTableName($target);
-					$memberData[] = $columnInfo;
-					$callbacks[]  = $columnName;
+					$memberData[]             = $columnInfo;
+					$callbacks[]              = $columnName;
 					$columns[$tableName . '.' . $this->_gs->_translateColumnName($columnName)] = 1;
 					$tables[$tableName] = 1;
 				}
@@ -498,7 +498,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 
-		$entity->id = $id;
+		$entity->id           = $id;
 		$entity->serialNumber = 0;
 		$entity->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 
@@ -635,9 +635,9 @@ class GalleryStorageExtras {
 			// Check to see if any of the ids that we care about are write locked
 			$writeEntityIdCol = $this->_gs->_translateColumnName('writeEntityId');
 			$markers          = GalleryUtilities::makeMarkers(count($entityIds));
-			$query = 'SELECT COUNT(*) FROM ' . $lockTable
+			$query            = 'SELECT COUNT(*) FROM ' . $lockTable
 			. ' WHERE ' . $writeEntityIdCol . ' IN (' . $markers . ')';
-			$data  = $entityIds;
+			$data             = $entityIds;
 
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
@@ -776,11 +776,11 @@ class GalleryStorageExtras {
 			$readEntityIdCol  = $this->_gs->_translateColumnName('readEntityId');
 			$writeEntityIdCol = $this->_gs->_translateColumnName('writeEntityId');
 			$markers          = GalleryUtilities::makeMarkers(count($entityIds));
-			$query = 'SELECT COUNT(*) FROM ' . $lockTable . ' ' .
+			$query            = 'SELECT COUNT(*) FROM ' . $lockTable . ' ' .
 			'WHERE ' . $readEntityIdCol . ' IN (' . $markers . ') ' .
 			'OR ' . $writeEntityIdCol . ' IN (' . $markers . ')';
-			$data  = $entityIds;
-			$data  = array_merge($data, $entityIds);
+			$data             = $entityIds;
+			$data             = array_merge($data, $entityIds);
 
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
@@ -929,8 +929,8 @@ class GalleryStorageExtras {
 		}
 
 		list($lockTable, $unused) = $this->_gs->_translateTableName('Lock');
-		$freshUntilCol = $this->_gs->_translateColumnName('freshUntil');
-		$query         = sprintf(
+		$freshUntilCol            = $this->_gs->_translateColumnName('freshUntil');
+		$query = sprintf(
 			'DELETE FROM %s WHERE %s < ?',
 			$lockTable,
 			$freshUntilCol
@@ -1119,7 +1119,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 		list($tableName) = $this->_gs->_translateTableName($mapName);
-		$data = $columns = array();
+		$data            = $columns = array();
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (!array_key_exists($memberName, $entry)) {
@@ -1358,10 +1358,10 @@ class GalleryStorageExtras {
 	 */
 	public static function parseSqlTemplate($sqlData, $dbType) {
 		$info   = array(
-			'table'  => array(),
-			'alter'  => array(),
+			'table' => array(),
+			'alter' => array(),
 			'remove' => array(),
-			'test'   => array(),
+			'test' => array(),
 		);
 		$dbname = $tablename = null;
 		$record = false;
@@ -1878,7 +1878,7 @@ class GalleryStorageExtras {
 		 * version.  If so, apply it.
 		 */
 		list($schemaTableName, $unused) = $this->_gs->_translateTableName('Schema');
-		$schemaColumnName = $this->_gs->_translateColumnName('name');
+		$schemaColumnName               = $this->_gs->_translateColumnName('name');
 
 		foreach ($moduleSql['table'] as $rawTableName => $ignored) {
 			// Don't drop the schema table, it's part of the core.
@@ -2132,7 +2132,7 @@ class GalleryStorageExtras {
 
 		list($schemaTableName) = $this->_gs->_translateTableName('Schema');
 		$schemaTableName       = GalleryUtilities::strToLower($schemaTableName);
-		$isInstalled = preg_match("/\b$schemaTableName\b/", implode(' ', $metatables));
+		$isInstalled           = preg_match("/\b$schemaTableName\b/", implode(' ', $metatables));
 
 		return array(null, $isInstalled);
 	}
@@ -2352,8 +2352,8 @@ class GalleryStorageExtras {
 			$idCol         = $this->_gs->_translateColumnName('id');
 			$entityTypeCol = $this->_gs->_translateColumnName('entityType');
 			list($table, $unused) = $this->_gs->_translateTableName('GalleryEntity');
-			$markers = GalleryUtilities::makeMarkers(count($checkIds));
-			$query   = 'SELECT ' . $idCol . ', ' . $entityTypeCol
+			$markers              = GalleryUtilities::makeMarkers(count($checkIds));
+			$query = 'SELECT ' . $idCol . ', ' . $entityTypeCol
 			. ' FROM ' . $table . ' WHERE ' . $idCol . ' IN (' . $markers . ')';
 
 			$this->_gs->_traceStart();

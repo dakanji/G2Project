@@ -52,7 +52,7 @@ class ADODB_ado extends ADOConnection {
 
 		return array(
 			'description' => $desc,
-			'version'     => '',
+			'version' => '',
 		);
 	}
 
@@ -77,14 +77,14 @@ class ADODB_ado extends ADOConnection {
 			$dbc = new COM('ADODB.Connection');
 		}
 
-		if (! $dbc) {
+		if (!$dbc) {
 			return false;
 		}
 
 		// special support if provider is mssql or access
 		if ($argProvider == 'mssql') {
-			$u = 'User Id';  //User parameter name for OLEDB
-			$p = 'Password';
+			$u           = 'User Id';  //User parameter name for OLEDB
+			$p           = 'Password';
 			$argProvider = 'SQLOLEDB'; // SQL Server Provider
 
 			// not yet
@@ -204,10 +204,10 @@ class ADODB_ado extends ADOConnection {
 			$t = $adors->Fields(2);//table/view name
 			while (!$adors->EOF) {
 				if (strtoupper($t->Value) == $table) {
-					$fld       = new ADOFieldObject();
-					$c         = $adors->Fields(3);
-					$fld->name = $c->Value;
-					$fld->type = 'CHAR'; // cannot discover type in ADO!
+					$fld             = new ADOFieldObject();
+					$c               = $adors->Fields(3);
+					$fld->name       = $c->Value;
+					$fld->type       = 'CHAR'; // cannot discover type in ADO!
 					$fld->max_length = -1;
 					$arr[strtoupper($fld->name)] = $fld;
 				}
@@ -279,7 +279,7 @@ class ADODB_ado extends ADOConnection {
 			return $false;
 		}
 
-		if (! $rs) {
+		if (!$rs) {
 			return $false;
 		}
 
@@ -414,12 +414,12 @@ class ADORecordSet_ado extends ADORecordSet {
 	public function FetchField($fieldOffset = -1) {
 		$off = $fieldOffset + 1; // offsets begin at 1
 
-		$o       = new ADOFieldObject();
-		$rs      = $this->_queryID;
-		$f       = $rs->Fields($fieldOffset);
-		$o->name = $f->Name;
-		$t       = $f->Type;
-		$o->type = $this->MetaType($t);
+		$o             = new ADOFieldObject();
+		$rs            = $this->_queryID;
+		$f             = $rs->Fields($fieldOffset);
+		$o->name       = $f->Name;
+		$t             = $f->Type;
+		$o->type       = $this->MetaType($t);
 		$o->max_length = $f->DefinedSize;
 		$o->ado_type   = $t;
 
@@ -446,7 +446,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	}
 
 	public function _initrs() {
-		$rs = $this->_queryID;
+		$rs               = $this->_queryID;
 		$this->_numOfRows = $rs->RecordCount;
 
 		$f = $rs->Fields;
@@ -739,7 +739,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	}
 
 	public function NextRecordSet() {
-		$rs = $this->_queryID;
+		$rs             = $this->_queryID;
 		$this->_queryID = $rs->NextRecordSet();
 		//$this->_queryID = $this->_QueryId->NextRecordSet();
 		if ($this->_queryID == null) {

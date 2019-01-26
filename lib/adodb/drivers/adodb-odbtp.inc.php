@@ -43,7 +43,7 @@ class ADODB_odbtp extends ADOConnection {
 	public function ServerInfo() {
 		return array(
 			'description' => @odbtp_get_attr(ODB_ATTR_DBMSNAME, $this->_connectionID),
-			'version'     => @odbtp_get_attr(ODB_ATTR_DBMSVER, $this->_connectionID),
+			'version' => @odbtp_get_attr(ODB_ATTR_DBMSVER, $this->_connectionID),
 		);
 	}
 
@@ -226,8 +226,8 @@ class ADODB_odbtp extends ADOConnection {
 			$this->_dontPoolDBC = true;
 		}
 		$this->odbc_driver = @odbtp_get_attr(ODB_ATTR_DRIVER, $this->_connectionID);
-		$dbms = strtolower(@odbtp_get_attr(ODB_ATTR_DBMSNAME, $this->_connectionID));
-		$this->odbc_name = $dbms;
+		$dbms              = strtolower(@odbtp_get_attr(ODB_ATTR_DBMSNAME, $this->_connectionID));
+		$this->odbc_name   = $dbms;
 
 		// Account for inconsistent DBMS names
 		if ($this->odbc_driver == ODB_DRIVER_ORACLE) {
@@ -239,22 +239,22 @@ class ADODB_odbtp extends ADOConnection {
 		// Set DBMS specific attributes
 		switch ($dbms) {
 			case 'microsoft sql server':
-				$this->databaseType    = 'odbtp_mssql';
-				$this->fmtDate         = "'Y-m-d'";
-				$this->fmtTimeStamp    = "'Y-m-d h:i:sA'";
-				$this->sysDate         = 'convert(datetime,convert(char,GetDate(),102),102)';
-				$this->sysTimeStamp    = 'GetDate()';
-				$this->ansiOuter       = true;
-				$this->leftOuter       = '*=';
-				$this->rightOuter      = '=*';
-				$this->hasTop          = 'top';
-				$this->hasInsertID     = true;
-				$this->hasTransactions = true;
-				$this->_bindInputArray = true;
-				$this->_canSelectDb    = true;
-				$this->substr          = 'substring';
-				$this->length          = 'len';
-				$this->identitySQL     = 'select SCOPE_IDENTITY()';
+				$this->databaseType     = 'odbtp_mssql';
+				$this->fmtDate          = "'Y-m-d'";
+				$this->fmtTimeStamp     = "'Y-m-d h:i:sA'";
+				$this->sysDate          = 'convert(datetime,convert(char,GetDate(),102),102)';
+				$this->sysTimeStamp     = 'GetDate()';
+				$this->ansiOuter        = true;
+				$this->leftOuter        = '*=';
+				$this->rightOuter       = '=*';
+				$this->hasTop           = 'top';
+				$this->hasInsertID      = true;
+				$this->hasTransactions  = true;
+				$this->_bindInputArray  = true;
+				$this->_canSelectDb     = true;
+				$this->substr           = 'substring';
+				$this->length           = 'len';
+				$this->identitySQL      = 'select SCOPE_IDENTITY()';
 				$this->metaDatabasesSQL = "select name from master..sysdatabases where name <> 'master'";
 				$this->_canPrepareSP    = true;
 
@@ -281,8 +281,8 @@ class ADODB_odbtp extends ADOConnection {
 				$this->hasTop          = 'top';
 				$this->hasTransactions = false;
 				$this->replaceQuote    = "'+chr(39)+'";
-				$this->true  = '.T.';
-				$this->false = '.F.';
+				$this->true            = '.T.';
+				$this->false           = '.F.';
 
 				break;
 
@@ -348,7 +348,7 @@ class ADODB_odbtp extends ADOConnection {
 	public function MetaTables($ttype = '', $showSchema = false, $mask = false) {
 		global $ADODB_FETCH_MODE;
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -387,7 +387,7 @@ class ADODB_odbtp extends ADOConnection {
 			$table = strtoupper($table);
 		}
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -411,9 +411,9 @@ class ADODB_odbtp extends ADOConnection {
 		while (!$rs->EOF) {
 			//print_r($rs->fields);
 			if (strtoupper($rs->fields[2]) == $table) {
-				$fld       = new ADOFieldObject();
-				$fld->name = $rs->fields[3];
-				$fld->type = $rs->fields[5];
+				$fld             = new ADOFieldObject();
+				$fld->name       = $rs->fields[3];
+				$fld->type       = $rs->fields[5];
 				$fld->max_length = $rs->fields[6];
 				$fld->not_null   = !empty($rs->fields[9]);
 				$fld->scale      = $rs->fields[7];
@@ -438,9 +438,9 @@ class ADODB_odbtp extends ADOConnection {
 	public function MetaPrimaryKeys($table, $owner = '') {
 		global $ADODB_FETCH_MODE;
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$arr = $this->GetArray("||SQLPrimaryKeys||$owner|$table");
+		$arr              = $this->GetArray("||SQLPrimaryKeys||$owner|$table");
 		$ADODB_FETCH_MODE = $savem;
 
 		//print_r($arr);
@@ -458,7 +458,7 @@ class ADODB_odbtp extends ADOConnection {
 	public function MetaForeignKeys($table, $owner = '', $upper = false) {
 		global $ADODB_FETCH_MODE;
 
-		$savem = $ADODB_FETCH_MODE;
+		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$constraints      = $this->GetArray("||SQLForeignKeys|||||$owner|$table");
 		$ADODB_FETCH_MODE = $savem;
@@ -566,7 +566,7 @@ class ADODB_odbtp extends ADOConnection {
 	}
 
 	public function Prepare($sql) {
-		if (! $this->_bindInputArray) {
+		if (!$this->_bindInputArray) {
 			return $sql; // no binding
 		}
 
@@ -686,7 +686,7 @@ class ADODB_odbtp extends ADOConnection {
 			ORDER BY O.name, I.Name, K.keyno";
 
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -835,10 +835,10 @@ class ADORecordSet_odbtp extends ADORecordSet {
 	}
 
 	public function FetchField($fieldOffset = 0) {
-		$off     = $fieldOffset; // offsets begin at 0
-		$o       = new ADOFieldObject();
-		$o->name = @odbtp_field_name($this->_queryID, $off);
-		$o->type = @odbtp_field_type($this->_queryID, $off);
+		$off           = $fieldOffset; // offsets begin at 0
+		$o             = new ADOFieldObject();
+		$o->name       = @odbtp_field_name($this->_queryID, $off);
+		$o->type       = @odbtp_field_type($this->_queryID, $off);
 		$o->max_length = @odbtp_field_length($this->_queryID, $off);
 
 		if (ADODB_ASSOC_CASE == 0) {

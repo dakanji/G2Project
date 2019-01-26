@@ -43,7 +43,7 @@ if (!defined('G2_SUPPORT')) {
  * giant string, which can be eval'ed to an array.
  */
 function getGdLibraryInfo() {
-	if (! extension_loaded('gd')) {
+	if (!extension_loaded('gd')) {
 		return '';
 	}
 
@@ -116,12 +116,12 @@ function getGdLibraryInfo() {
 		$ok = true;
 
 		foreach ($check['functions'] as $fct) {
-			if (! function_exists($fct)) {
+			if (!function_exists($fct)) {
 				$ok = false;
 			}
 		}
 
-		if ($ok && ! ($check['value'] & imagetypes())) {
+		if ($ok && !($check['value'] & imagetypes())) {
 			$ok = false;
 		}
 
@@ -167,11 +167,11 @@ function getGdLibraryInfo() {
 	$out      .= "\t" . '\'constants\' => array(' . "\n";
 
 	foreach ($constants as $constant => $value) {
-		if (! preg_match('/^(IMAGE|IMG|GD|PHP)/', $constant)) {
+		if (!preg_match('/^(IMAGE|IMG|GD|PHP)/', $constant)) {
 			continue;
 		}
 
-		if (! is_int($value)) {
+		if (!is_int($value)) {
 			$value = sprintf('\'%s\'', $value);
 		}
 		$out .= "\t\t" . sprintf('\'%s\' => %s,', $constant, $value) . "\n";
@@ -210,7 +210,7 @@ function getGdLibraryInfo() {
 	);
 
 	foreach ($otherFunctions as $fct) {
-		if (! function_exists($fct)) {
+		if (!function_exists($fct)) {
 			continue;
 		}
 		$out .= "\t\t" . sprintf('\'%s\' => true,', $fct) . "\n";

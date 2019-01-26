@@ -284,9 +284,9 @@ class AdminNetPbmView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminNetPbm          = array();
-		$AdminNetPbm['tests'] = $tests;
-		$AdminNetPbm['mimeTypes']       = $mimeTypes;
+		$AdminNetPbm              = array();
+		$AdminNetPbm['tests']     = $tests;
+		$AdminNetPbm['mimeTypes'] = $mimeTypes;
 		$AdminNetPbm['jpegQualityList'] = $jpegQualityList;
 		$AdminNetPbm['failCount']       = $failCount;
 		$AdminNetPbm['debugSnippet']    = $debugSnippet;

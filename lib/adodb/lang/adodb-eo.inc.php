@@ -3,7 +3,7 @@
 // Traduko fare de Antono Vasiljev (anders[#]brainactive.org)
 
 $ADODB_LANG_ARRAY = array(
-	'LANG' => 'eo',
+	'LANG'   => 'eo',
 	DB_ERROR => 'nekonata eraro',
 	DB_ERROR_ALREADY_EXISTS => 'jam ekzistas',
 	DB_ERROR_CANNOT_CREATE => 'maleblas krei',
@@ -26,7 +26,7 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_VALUE_COUNT_ON_ROW => 'nombrilo de valoroj en linio',
 	DB_ERROR_INVALID_DSN => 'malregula DSN-o',
 	DB_ERROR_CONNECT_FAILED => 'konekto malsukcesa',
-	0 => 'ĉio bone', // DB_OK
+	0        => 'ĉio bone', // DB_OK
 	DB_ERROR_NEED_MORE_DATA => 'ne sufiĉe da datumo',
 	DB_ERROR_EXTENSION_NOT_FOUND => 'etendo ne trovita',
 	DB_ERROR_NOSUCHDB => 'datumbazo ne ekzistas',

@@ -422,7 +422,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 	public function testAddMaliciousComment() {
 		global $gallery;
 		$gallery->_phpVm = new CommentTestPhpVm();
-		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
+		$ret             = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
 
 		if ($ret) {
 			return $ret;

@@ -24,12 +24,12 @@ if (!defined('ADODB_DIR')) {
 require_once ADODB_DIR . '/drivers/adodb-postgres64.inc.php';
 
 class ADODB_netezza extends ADODB_postgres64 {
-	public $databaseType    = 'netezza';
-	public $dataProvider    = 'netezza';
-	public $hasInsertID     = false;
-	public $_resultid       = false;
-	public $concat_operator = '||';
-	public $random          = 'random';
+	public $databaseType     = 'netezza';
+	public $dataProvider     = 'netezza';
+	public $hasInsertID      = false;
+	public $_resultid        = false;
+	public $concat_operator  = '||';
+	public $random           = 'random';
 	public $metaDatabasesSQL = "select objname from _v_object_data where objtype='database' order by 1";
 	public $metaTablesSQL    = "select objname from _v_object_data where objtype='table' order by 1";
 	public $isoDates         = true; // accepts dates in ISO format
@@ -43,12 +43,12 @@ class ADODB_netezza extends ADODB_postgres64 {
 	public $metaKeySQL      = '';
 	public $hasAffectedRows = true;
 	public $hasLimit        = true;
-	public $true         = 't';        // string that represents TRUE for a database
-	public $false        = 'f';       // string that represents FALSE for a database
-	public $fmtDate      = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
-	public $fmtTimeStamp = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
-	public $ansiOuter    = true;
-	public $autoRollback = true; // apparently pgsql does not autorollback properly before 4.3.4
+	public $true            = 't';        // string that represents TRUE for a database
+	public $false           = 'f';       // string that represents FALSE for a database
+	public $fmtDate         = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
+	public $fmtTimeStamp    = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
+	public $ansiOuter       = true;
+	public $autoRollback    = true; // apparently pgsql does not autorollback properly before 4.3.4
 	// http://bugs.php.net/bug.php?id=25404
 
 	public function __construct() {
@@ -63,7 +63,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 
 		$table = strtolower($table);
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {

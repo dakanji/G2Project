@@ -105,112 +105,112 @@ class CarbonTheme extends GalleryTheme {
 
 		// Add in our custom settings
 		$settings[] = array(
-			'key'   => 'navigatorPhotoTop',
-			'name'  => $this->translate('Show top photo navigator'),
-			'type'  => 'checkbox',
+			'key'  => 'navigatorPhotoTop',
+			'name' => $this->translate('Show top photo navigator'),
+			'type' => 'checkbox',
 			'value' => $params['navigatorPhotoTop'],
 		);
 		$settings[] = array(
-			'key'   => 'navigatorPhotoBottom',
-			'name'  => $this->translate('Show bottom photo navigator'),
-			'type'  => 'checkbox',
+			'key'  => 'navigatorPhotoBottom',
+			'name' => $this->translate('Show bottom photo navigator'),
+			'type' => 'checkbox',
 			'value' => $params['navigatorPhotoBottom'],
 		);
 		$settings[] = array(
-			'key'   => 'photoProperties',
-			'name'  => $this->translate('Show \'Photo Properties\' icon'),
-			'type'  => 'checkbox',
+			'key'  => 'photoProperties',
+			'name' => $this->translate('Show \'Photo Properties\' icon'),
+			'type' => 'checkbox',
 			'value' => $params['photoProperties'],
 		);
 		$settings[] = array(
-			'key'   => 'fullSize',
-			'name'  => $this->translate('Show \'Full Size\' icon'),
-			'type'  => 'checkbox',
+			'key'  => 'fullSize',
+			'name' => $this->translate('Show \'Full Size\' icon'),
+			'type' => 'checkbox',
 			'value' => $params['fullSize'],
 		);
 		$settings[] = array(
-			'key'   => 'itemDetails',
-			'name'  => $this->translate('Show item details on album pages'),
-			'type'  => 'checkbox',
+			'key'  => 'itemDetails',
+			'name' => $this->translate('Show item details on album pages'),
+			'type' => 'checkbox',
 			'value' => $params['itemDetails'],
 		);
 		$settings[] = array(
-			'key'        => 'albumUpperBlocks',
-			'name'       => $this->translate(
+			'key'  => 'albumUpperBlocks',
+			'name' => $this->translate(
 				'Blocks to show on album pages (below description)'
 			),
-			'type'       => 'block-list',
+			'type' => 'block-list',
 			'typeParams' => array(
 				'packType' => 'block-list',
 			),
-			'value'      => $params['albumUpperBlocks'],
+			'value' => $params['albumUpperBlocks'],
 		);
 		$settings[] = array(
-			'key'        => 'photoUpperBlocks',
-			'name'       => $this->translate(
+			'key'  => 'photoUpperBlocks',
+			'name' => $this->translate(
 				'Blocks to show on photo pages (below description)'
 			),
-			'type'       => 'block-list',
+			'type' => 'block-list',
 			'typeParams' => array(
 				'packType' => 'block-list',
 			),
-			'value'      => $params['photoUpperBlocks'],
+			'value' => $params['photoUpperBlocks'],
 		);
 		$settings[] = array(
-			'key'        => 'sidebarTop',
-			'name'       => $this->translate('Sidebar top position'),
-			'type'       => 'text-field',
+			'key'  => 'sidebarTop',
+			'name' => $this->translate('Sidebar top position'),
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 4,
 			),
-			'value'      => $params['sidebarTop'],
+			'value' => $params['sidebarTop'],
 		);
 		$settings[] = array(
-			'key'        => 'maxMicroThumbs',
-			'name'       => $this->translate(
+			'key'  => 'maxMicroThumbs',
+			'name' => $this->translate(
 				'Maximum number of micro navigation thumbnails'
 			),
-			'type'       => 'text-field',
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value'      => $params['maxMicroThumbs'],
+			'value' => $params['maxMicroThumbs'],
 		);
 		$settings[] = array(
-			'key'        => 'logoImageLocation',
-			'name'       => $this->translate('URL or path to alternate logo image'),
-			'type'       => 'text-field',
+			'key'  => 'logoImageLocation',
+			'name' => $this->translate('URL or path to alternate logo image'),
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value'      => $params['logoImageLocation'],
+			'value' => $params['logoImageLocation'],
 		);
 		$settings[] = array(
-			'key'        => 'extraLink',
-			'name'       => $this->translate('Extra link for top navigation bar'),
-			'type'       => 'text-field',
+			'key'  => 'extraLink',
+			'name' => $this->translate('Extra link for top navigation bar'),
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value'      => $params['extraLink'],
+			'value' => $params['extraLink'],
 		);
 		$settings[] = array(
-			'key'        => 'extraLinkUrl',
-			'name'       => $this->translate('URL for the extra link'),
-			'type'       => 'text-field',
+			'key'  => 'extraLinkUrl',
+			'name' => $this->translate('URL for the extra link'),
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value'      => $params['extraLinkUrl'],
+			'value' => $params['extraLinkUrl'],
 		);
 		$settings[] = array(
-			'key'        => 'copyright',
-			'name'       => $this->translate('Copyright message to display on footer'),
-			'type'       => 'text-field',
+			'key'  => 'copyright',
+			'name' => $this->translate('Copyright message to display on footer'),
+			'type' => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value'      => $params['copyright'],
+			'value' => $params['copyright'],
 		);
 
 		return array(null, $settings, $params);

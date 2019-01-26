@@ -143,8 +143,8 @@ class FlockLockSystem extends GalleryLockSystem {
 
 		$this->_locks[$lockId] = array(
 			'lockId' => $lockId,
-			'type'   => $lockType,
-			'ids'    => $locked,
+			'type' => $lockType,
+			'ids'  => $locked,
 		);
 
 		return array(null, $lockId);
@@ -178,7 +178,7 @@ class FlockLockSystem extends GalleryLockSystem {
 		foreach ($this->_locks as $lockId => $lock) {
 			foreach ($lock['ids'] as $lockInfo) {
 				list($fd, $lockFile) = $lockInfo;
-				$count = $platform->fwrite($fd, '.');
+				$count               = $platform->fwrite($fd, '.');
 
 				if ($count == 0) {
 					return GalleryCoreApi::error(

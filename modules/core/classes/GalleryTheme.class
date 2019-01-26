@@ -930,7 +930,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if (!$gallery->getConfig('showSidebarBlocks') && !empty($params['sidebarBlocks'])) {
-			$extractedSidebarBlocks = $theme['params']['sidebarBlocks'];
+			$extractedSidebarBlocks           = $theme['params']['sidebarBlocks'];
 			$theme['params']['sidebarBlocks'] = array();
 		}
 
@@ -992,7 +992,7 @@ class GalleryTheme extends GalleryPlugin {
 
 			case VIEW_TYPE_SHOW_ITEM:
 				$this->_cacheablePage = true;
-				$session =& $gallery->getSession();
+				$session              =& $gallery->getSession();
 
 				// Albums page or Photo page
 				if ($item->getCanContainChildren()) {
@@ -1061,7 +1061,7 @@ class GalleryTheme extends GalleryPlugin {
 						$start = $perPage * ($page - 1);
 
 						if (isset($isDynamicAlbum)) {
-							$childIds = array_slice($theme['allChildIds'], $start, $perPage);
+							$childIds            = array_slice($theme['allChildIds'], $start, $perPage);
 							$theme['totalPages'] = ceil(count($theme['allChildIds']) / $perPage);
 						} else {
 							list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds(
@@ -2088,7 +2088,7 @@ class GalleryTheme extends GalleryPlugin {
 							}
 						}
 
-						$tmp = (array)$resize;
+						$tmp               = (array)$resize;
 						$tmp['viewInline'] = 1;
 						$imageViews[]      = $tmp;
 					}
@@ -2108,10 +2108,10 @@ class GalleryTheme extends GalleryPlugin {
 
 				// Show the preferred item, if it's there
 				if (empty($preferred)) {
-					$sourceImage = (array)$item;
+					$sourceImage               = (array)$item;
 					$sourceImage['viewInline'] = $item->canBeViewedInline();
 				} else {
-					$sourceImage = (array)$preferred[$itemId];
+					$sourceImage               = (array)$preferred[$itemId];
 					$sourceImage['viewInline'] = true;
 				}
 				$sourceImage['itemTypeName'] = $item->itemTypeName();
@@ -2130,7 +2130,7 @@ class GalleryTheme extends GalleryPlugin {
 				}
 
 				if (!empty($thumbnails)) {
-					$tmp = (array)$thumbnails[$itemId];
+					$tmp               = (array)$thumbnails[$itemId];
 					$tmp['viewInline'] = true;
 					$imageViews[]      = $tmp;
 				}
@@ -2338,7 +2338,7 @@ class GalleryTheme extends GalleryPlugin {
 					if (($bodyStart = strpos($mainHtml, '>', $bodyStart)) !== false) {
 						if (($bodyEnd = strpos($mainHtml, '</body>', $bodyStart)) !== false) {
 							$results['bodyHtml'] = substr($mainHtml, ++$bodyStart, $bodyEnd - $bodyStart);
-							$mainHtml = null;
+							$mainHtml            = null;
 						}
 					}
 				}

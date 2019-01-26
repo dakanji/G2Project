@@ -88,7 +88,7 @@ function smarty_function_config_load($params, &$smarty) {
 		// compile config file
 		if (!is_object($smarty->_conf_obj)) {
 			include_once SMARTY_DIR . $smarty->config_class . '.class.php';
-			$smarty->_conf_obj = new $smarty->config_class();
+			$smarty->_conf_obj               = new $smarty->config_class();
 			$smarty->_conf_obj->overwrite    = $smarty->config_overwrite;
 			$smarty->_conf_obj->booleanize   = $smarty->config_booleanize;
 			$smarty->_conf_obj->read_hidden  = $smarty->config_read_hidden;
@@ -155,9 +155,9 @@ function smarty_function_config_load($params, &$smarty) {
 
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 		$smarty->_smarty_debug_info[] = array(
-			'type'      => 'config',
-			'filename'  => $_file . ' [' . $_section . '] ' . $_scope,
-			'depth'     => $smarty->_inclusion_depth,
+			'type' => 'config',
+			'filename' => $_file . ' [' . $_section . '] ' . $_scope,
+			'depth' => $smarty->_inclusion_depth,
 			'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time,
 		);
 	}

@@ -232,10 +232,10 @@ class Mail_mime {
 			return $filedata;
 		}
 		$this->_html_images[] = array(
-			'body'   => $filedata,
-			'name'   => $filename,
+			'body' => $filedata,
+			'name' => $filename,
 			'c_type' => $c_type,
-			'cid'    => md5(uniqid(time())),
+			'cid'  => md5(uniqid(time())),
 		);
 
 		return true;
@@ -292,11 +292,11 @@ class Mail_mime {
 		}
 
 		$this->_parts[] = array(
-			'body'        => $filedata,
-			'name'        => $filename,
-			'c_type'      => $c_type,
-			'encoding'    => $encoding,
-			'charset'     => $charset,
+			'body' => $filedata,
+			'name' => $filename,
+			'c_type' => $c_type,
+			'encoding' => $encoding,
+			'charset' => $charset,
 			'disposition' => $disposition,
 		);
 
@@ -480,10 +480,10 @@ class Mail_mime {
 		$params['encoding']  = $value['encoding'];
 
 		if ($value['disposition'] != 'inline') {
-			$fname     = array(
+			$fname               = array(
 				'fname' => $value['name'],
 			);
-			$fname_enc = $this->_encodeHeaders($fname);
+			$fname_enc           = $this->_encodeHeaders($fname);
 			$params['dfilename'] = $fname_enc['fname'];
 		}
 
@@ -562,14 +562,14 @@ class Mail_mime {
 
 		if (!empty($this->_html_images) and isset($this->_htmlbody)) {
 			foreach ($this->_html_images as $key => $value) {
-				$regex   = array();
-				$regex[] = '#(\s)((?i)src|background|href(?-i))\s*=\s*(["\']?)' .
+				$regex           = array();
+				$regex[]         = '#(\s)((?i)src|background|href(?-i))\s*=\s*(["\']?)' .
 							preg_quote($value['name'], '#') . '\3#';
-				$regex[] = '#(?i)url(?-i)\(\s*(["\']?)' .
+				$regex[]         = '#(?i)url(?-i)\(\s*(["\']?)' .
 							preg_quote($value['name'], '#') . '\1\s*\)#';
-				$rep     = array();
-				$rep[]   = '\1\2=\3cid:' . $value['cid'] . '\3';
-				$rep[]   = 'url(\1cid:' . $value['cid'] . '\2)';
+				$rep             = array();
+				$rep[]           = '\1\2=\3cid:' . $value['cid'] . '\3';
+				$rep[]           = 'url(\1cid:' . $value['cid'] . '\2)';
 				$this->_htmlbody = preg_replace(
 					$regex,
 					$rep,
@@ -684,7 +684,7 @@ class Mail_mime {
 				$this->_headers,
 				$output['headers']
 			);
-			$body = $output['body'];
+			$body           = $output['body'];
 
 			return $body;
 		}
@@ -847,9 +847,9 @@ class Mail_mime {
 						//determine the maximum length of such strings.
 						//75 is the value specified in the RFC. The -2 is there so
 						//the later regexp doesn't break any of the translated chars.
-						$prefix    = '=?' . $this->_build_params['head_charset'] . '?B?';
-						$suffix    = '?=';
-						$maxLength = 75 - strlen($prefix . $suffix) - 2;
+						$prefix           = '=?' . $this->_build_params['head_charset'] . '?B?';
+						$suffix           = '?=';
+						$maxLength        = 75 - strlen($prefix . $suffix) - 2;
 						$maxLength1stLine = $maxLength - strlen($hdr_name);
 
 						//Base64 encode the entire string
@@ -870,9 +870,9 @@ class Mail_mime {
 						//determine the maximum length of such strings.
 						//75 is the value specified in the RFC. The -2 is there so
 						//the later regexp doesn't break any of the translated chars.
-						$prefix    = '=?' . $this->_build_params['head_charset'] . '?Q?';
-						$suffix    = '?=';
-						$maxLength = 75 - strlen($prefix . $suffix) - 2;
+						$prefix           = '=?' . $this->_build_params['head_charset'] . '?Q?';
+						$suffix           = '?=';
+						$maxLength        = 75 - strlen($prefix . $suffix) - 2;
 						$maxLength1stLine = $maxLength - strlen($hdr_name);
 
 						//Replace all special characters used by the encoder.

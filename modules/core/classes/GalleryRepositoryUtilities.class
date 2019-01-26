@@ -203,8 +203,8 @@ class GalleryRepositoryUtilities {
 		global $gallery;
 
 		// Make sure that strings.raw exists where we expect it.
-		$platform      =& $gallery->getPlatform();
-		$pluginBaseDir = GalleryCoreApi::getCodeBasePath();
+		$platform               =& $gallery->getPlatform();
+		$pluginBaseDir          = GalleryCoreApi::getCodeBasePath();
 		$pluginLanguageBasePath = sprintf('%s%ss/%s/po/strings.raw', $pluginBaseDir, $pluginType, $pluginId);
 
 		if (!$platform->file_exists($pluginLanguageBasePath)) {
@@ -418,7 +418,7 @@ class GalleryRepositoryUtilities {
 		$needsInflation = false;
 
 		if (!$ignoreCompression && $phpVm->function_exists('gzinflate')) {
-			$url .= '.gz';
+			$url           .= '.gz';
 			$needsInflation = true;
 		}
 

@@ -278,7 +278,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		$translator =& $gallery->getTranslator();
 
 		list($languageData) = $translator->getLanguageData();
-		$locales = array(
+		$locales            = array(
 			'install' => array(),
 			'delete'  => array(),
 		);
@@ -338,7 +338,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 				$count   = count($platform->glob($pattern));
 				$languagePacksDeleted += $count;
 				$callback['current']  += $count;
-				$percentage = $callback['current'] / $callback['total'];
+				$percentage            = $callback['current'] / $callback['total'];
 				call_user_func($callback['method'], $callback['title'], $deleteText, $percentage);
 
 				if (!$platform->recursiveRmdir($dir)) {
@@ -513,7 +513,7 @@ class AdminLanguageManagerView extends GalleryView {
 		}
 
 		$AdminLanguages['canTranslate'] = $translator->canTranslate();
-		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+		$supportedLanguages             = GalleryCoreApi::getSupportedLanguages();
 
 		foreach ($supportedLanguages as $lang => $list) {
 			foreach ($list as $country => $languageData) {
@@ -560,7 +560,7 @@ class AdminLanguageManagerView extends GalleryView {
 
 		list($languageData, $defaultCountry) = $translator->getLanguageData();
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
-		$packages = array();
+		$packages           = array();
 
 		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
@@ -590,7 +590,7 @@ class AdminLanguageManagerView extends GalleryView {
 					}
 					$installed = !empty($supportedLanguages[$language][$country]);
 					$enableAllFlags['remove'] = $enableAllFlags['remove'] || $installed;
-					$upgradeable = $isCompatible && $pack['relation'] == 'older';
+					$upgradeable              = $isCompatible && $pack['relation'] == 'older';
 
 					if (in_array($code, array('zh_CN', 'zh_TW', 'en_GB'))) {
 						$packages[$code] = array(
@@ -601,7 +601,7 @@ class AdminLanguageManagerView extends GalleryView {
 						$language        = $code;
 					} else {
 						if (empty($packages[$language])) {
-							$country = $defaultCountry[$language];
+							$country             = $defaultCountry[$language];
 							$packages[$language] = array(
 								'upgrade'     => $upgradeable,
 								'installed'   => $installed,

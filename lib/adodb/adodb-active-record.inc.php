@@ -221,7 +221,7 @@ class ADODB_Active_Record {
 	}
 
 	public function hasMany($foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
-		$ar = new $foreignClass($foreignRef);
+		$ar              = new $foreignClass($foreignRef);
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
@@ -255,7 +255,7 @@ class ADODB_Active_Record {
 	public function belongsTo($foreignRef, $foreignKey = false, $parentKey = '', $parentClass = 'ADODB_Active_Record') {
 		global $inflector;
 
-		$ar = new $parentClass($this->_pluralize($foreignRef));
+		$ar              = new $parentClass($this->_pluralize($foreignRef));
 		$ar->foreignName = $foreignRef;
 		$ar->parentKey   = $parentKey;
 		$ar->UpdateActiveTable();
@@ -424,7 +424,7 @@ class ADODB_Active_Record {
 		$activetab       = new ADODB_Active_Table();
 		$activetab->name = $table;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 		if ($db->fetchMode !== false) {
@@ -556,7 +556,7 @@ class ADODB_Active_Record {
 	public function Error($err, $fn) {
 		global $_ADODB_ACTIVE_DBS;
 
-		$fn = get_class($this) . '::' . $fn;
+		$fn             = get_class($this) . '::' . $fn;
 		$this->_lasterr = $fn . ': ' . $err;
 
 		if ($this->_dbat < 0) {
@@ -689,8 +689,8 @@ class ADODB_Active_Record {
 		$this->_original = array();
 
 		foreach ($table->flds as $name => $fld) {
-			$value       = $row[current($keys)];
-			$this->$name = $value;
+			$value             = $row[current($keys)];
+			$this->$name       = $value;
 			$this->_original[] = $value;
 			next($keys);
 		}
@@ -796,7 +796,7 @@ class ADODB_Active_Record {
 		}
 		$this->_where = $where;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($db->fetchMode !== false) {
@@ -834,7 +834,7 @@ class ADODB_Active_Record {
 		$this->_saved    = false;
 		$this->_lasterr  = false;
 		$this->_original = false;
-		$vars = get_object_vars($this);
+		$vars            = get_object_vars($this);
 
 		foreach ($vars as $k => $v) {
 			if (substr($k, 0, 1) !== '_') {

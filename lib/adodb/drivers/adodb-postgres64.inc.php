@@ -103,15 +103,15 @@ class ADODB_postgres64 extends ADOConnection {
 	public $hasAffectedRows = true;
 	public $hasLimit        = false;  // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
-	public $true         = 'TRUE';     // string that represents TRUE for a database
-	public $false        = 'FALSE';       // string that represents FALSE for a database
-	public $fmtDate      = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
-	public $fmtTimeStamp = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
-	public $hasMoveFirst = true;
-	public $hasGenID     = true;
-	public $_genIDSQL    = "SELECT NEXTVAL('%s')";
-	public $_genSeqSQL   = 'CREATE SEQUENCE %s START %s';
-	public $_dropSeqSQL  = 'DROP SEQUENCE %s';
+	public $true            = 'TRUE';     // string that represents TRUE for a database
+	public $false           = 'FALSE';       // string that represents FALSE for a database
+	public $fmtDate         = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
+	public $fmtTimeStamp    = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
+	public $hasMoveFirst    = true;
+	public $hasGenID        = true;
+	public $_genIDSQL       = "SELECT NEXTVAL('%s')";
+	public $_genSeqSQL      = 'CREATE SEQUENCE %s START %s';
+	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
 	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
 	public $random          = 'random()';       /// random function
 	public $autoRollback    = true; // apparently pgsql does not autorollback properly before php 4.3.4
@@ -574,7 +574,7 @@ class ADODB_postgres64 extends ADOConnection {
 			$table = strtolower($table);
 		}
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -617,8 +617,8 @@ class ADODB_postgres64 extends ADOConnection {
 
 		if (!empty($this->metaDefaultsSQL)) {
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-			$sql   = sprintf($this->metaDefaultsSQL, ($table));
-			$rsdef = $this->Execute($sql);
+			$sql              = sprintf($this->metaDefaultsSQL, ($table));
+			$rsdef            = $this->Execute($sql);
 
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
@@ -647,9 +647,9 @@ class ADODB_postgres64 extends ADOConnection {
 		$retarr = array();
 
 		while (!$rs->EOF) {
-			$fld       = new ADOFieldObject();
-			$fld->name = $rs->fields[0];
-			$fld->type = $rs->fields[1];
+			$fld             = new ADOFieldObject();
+			$fld->name       = $rs->fields[0];
+			$fld->type       = $rs->fields[1];
 			$fld->max_length = $rs->fields[2];
 			$fld->attnum     = $rs->fields[6];
 
@@ -748,7 +748,7 @@ class ADODB_postgres64 extends ADOConnection {
 			$sql .= ' AND i.indisprimary=false;';
 		}
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -863,7 +863,7 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 		$this->Execute("set datestyle='ISO'");
 
-		$info = $this->ServerInfo();
+		$info            = $this->ServerInfo();
 		$this->pgVersion = (float)substr($info['version'], 0, 3);
 
 		if ($this->pgVersion >= 7.1) { // good till version 999
@@ -1115,8 +1115,8 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
-		$qid = $this->_queryID;
-		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @pg_num_rows($qid) : -1;
+		$qid              = $this->_queryID;
+		$this->_numOfRows = ($ADODB_COUNTRECS) ? @pg_num_rows($qid) : -1;
 		$this->_numOfFields = @pg_num_fields($qid);
 
 		// cache types for blob decode check
@@ -1151,9 +1151,9 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 	public function FetchField($off = 0) {
 		// offsets begin at 0
 
-		$o       = new ADOFieldObject();
-		$o->name = @pg_field_name($this->_queryID, $off);
-		$o->type = @pg_field_type($this->_queryID, $off);
+		$o             = new ADOFieldObject();
+		$o->name       = @pg_field_name($this->_queryID, $off);
+		$o->type       = @pg_field_type($this->_queryID, $off);
 		$o->max_length = @pg_fieldsize($this->_queryID, $off);
 
 		return $o;

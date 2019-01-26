@@ -72,8 +72,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		}
 
 		// Force translated text to English to make comparisons easier.
-		$translator          =& $gallery->getTranslator();
-		$this->_languageCode = $translator->_languageCode;
+		$translator               =& $gallery->getTranslator();
+		$this->_languageCode      = $translator->_languageCode;
 		list($ret, $languageCode) = $translator->init('en');
 
 		if ($ret) {

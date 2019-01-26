@@ -112,7 +112,7 @@ class MaintenanceHelper_simple {
 	public static function addRun($taskId, $timestamp, $success, $details) {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
+		$storage           =& $gallery->getStorage();
 		list($ret, $runId) = $storage->getUniqueId();
 
 		if ($ret) {

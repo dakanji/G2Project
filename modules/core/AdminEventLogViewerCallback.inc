@@ -88,7 +88,7 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 					$pageSize = 10;
 				}
 
-				$query = 'SELECT COUNT(*) FROM [EventLogMap]';
+				$query               = 'SELECT COUNT(*) FROM [EventLogMap]';
 				list($ret, $results) = $gallery->search($query);
 
 				if ($ret) {

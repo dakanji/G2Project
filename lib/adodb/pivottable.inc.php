@@ -180,11 +180,11 @@ if (0) {
 		'CompanyName,QuantityPerUnit',              // row fields
 		// column ranges
 		array(
-			' 0 '      => 'UnitsInStock <= 0',
-			'1 to 5'   => '0 < UnitsInStock and UnitsInStock <= 5',
-			'6 to 10'  => '5 < UnitsInStock and UnitsInStock <= 10',
+			' 0 ' => 'UnitsInStock <= 0',
+			'1 to 5' => '0 < UnitsInStock and UnitsInStock <= 5',
+			'6 to 10' => '5 < UnitsInStock and UnitsInStock <= 10',
 			'11 to 15' => '10 < UnitsInStock and UnitsInStock <= 15',
-			'16+'      => '15 < UnitsInStock',
+			'16+' => '15 < UnitsInStock',
 		),
 		' p.CategoryID = c.CategoryID and s.SupplierID= p.SupplierID', // joins/where
 		'UnitsInStock',                             // sum this field

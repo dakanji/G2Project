@@ -3,7 +3,7 @@
 // Russian language file contributed by "Cyrill Malevanov" cyrill#malevanov.spb.ru.
 
 $ADODB_LANG_ARRAY = array(
-	'LANG' => 'ru',
+	'LANG'   => 'ru',
 	DB_ERROR => 'неизвестная ошибка',
 	DB_ERROR_ALREADY_EXISTS => 'уже существует',
 	DB_ERROR_CANNOT_CREATE => 'невозможно создать',
@@ -26,7 +26,7 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_VALUE_COUNT_ON_ROW => 'счетчик значений в строке',
 	DB_ERROR_INVALID_DSN => 'неправильная DSN',
 	DB_ERROR_CONNECT_FAILED => 'соединение неуспешно',
-	0 => 'нет ошибки', // DB_OK
+	0        => 'нет ошибки', // DB_OK
 	DB_ERROR_NEED_MORE_DATA => 'предоставлено недостаточно данных',
 	DB_ERROR_EXTENSION_NOT_FOUND => 'расширение не найдено',
 	DB_ERROR_NOSUCHDB => 'не существует БД',

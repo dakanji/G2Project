@@ -51,11 +51,11 @@ class NetPbmModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'path'        => '',
+			'path' => '',
 			'jpegQuality' => '75',
-			'pnmtojpeg'   => 'pnmtojpeg',
-			'bmptopnm'    => 'bmptopnm',
-			'pnmcomp'     => 'pnmcomp',
+			'pnmtojpeg' => 'pnmtojpeg',
+			'bmptopnm' => 'bmptopnm',
+			'pnmcomp' => 'pnmcomp',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
@@ -260,7 +260,7 @@ class NetPbmModule extends GalleryModule {
 
 		foreach ($results['operations'] as $operation => $info) {
 			$outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : '';
-			$ret = GalleryCoreApi::registerToolkitOperation(
+			$ret            = GalleryCoreApi::registerToolkitOperation(
 				'NetPBM',
 				$info['mimeTypes'],
 				$operation,

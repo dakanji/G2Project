@@ -677,8 +677,8 @@ class GalleryUtilities {
 		$shift[4][2] = 6;
 		$shift[4][3] = 0;
 
-		$pos = 0;
-		$len = strlen($source);
+		$pos           = 0;
+		$len           = strlen($source);
 		$encodedString = '';
 
 		while ($pos < $len) {
@@ -1203,7 +1203,7 @@ class GalleryUtilities {
 		$data   = array();
 		$data[] = array(
 			'depth' => $depth,
-			'data'  => (array)$map[$id]['instance'],
+			'data' => (array)$map[$id]['instance'],
 		);
 
 		if (isset($map[$id]['children'])) {
@@ -1348,13 +1348,13 @@ class GalleryUtilities {
 				$line = explode("\t", $line);
 
 				if (count($line) == 2 && $line[0] == 'R') {
-					$file = trim($line[1]);
+					$file            = trim($line[1]);
 					$manifest[$file] = array(
 						'removed' => 1,
 					);
 				} else {
 					list($file, $cksum, $cksum_crlf, $size, $size_crlf) = $line;
-					$file = trim($file);
+					$file            = trim($file);
 					$manifest[$file] = array(
 						'checksum'      => $cksum,
 						'checksum_crlf' => $cksum_crlf,
@@ -1634,8 +1634,8 @@ class GalleryUtilities {
 					 * and not as delimiters.  Thus, we have to parse it character by character.
 					 */
 					$quotedStringOpen = false;
-					$string  = $_SERVER['HTTP_COOKIE'];
-					$len     = strlen($string);
+					$string           = $_SERVER['HTTP_COOKIE'];
+					$len              = strlen($string);
 					$i       = 0;
 					$lastPos = 0;
 

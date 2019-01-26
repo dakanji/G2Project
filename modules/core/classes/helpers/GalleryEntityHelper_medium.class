@@ -276,7 +276,7 @@ class GalleryEntityHelper_medium {
 				'itemId' => $entityId,
 			)
 		);
-		$platform =& $gallery->getPlatform();
+		$platform             =& $gallery->getPlatform();
 
 		if ($platform->file_exists($fastDownloadFilePath)) {
 			$platform->unlink($fastDownloadFilePath);
@@ -409,7 +409,7 @@ class GalleryEntityHelper_medium {
 		}
 
 		$memberAccessInfo = array();
-		$target = $entityName;
+		$target           = $entityName;
 
 		while ($target) {
 			foreach ($entityInfo[$target]['members'] as $memberName => $memberInfo) {

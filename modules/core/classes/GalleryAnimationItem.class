@@ -159,7 +159,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		$mimeType = $this->getMimeType();
+		$mimeType            = $this->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 
 		if ($ret) {
@@ -195,7 +195,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 		if ($localized) {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
-			if (! $ret) {
+			if (!$ret) {
 				return array($core->translate('Animation'), $core->translate('animation'));
 			}
 		}

@@ -1160,11 +1160,11 @@ class PlatformTestPhpVm extends GalleryPhpVm {
 
 	public function mail($to, $subject, $body, $additionalHeaders = null, $additionalParameters = null) {
 		$this->_test->_mail = array(
-			'to'      => $to,
-			'subj'    => $subject,
-			'body'    => $body,
+			'to'   => $to,
+			'subj' => $subject,
+			'body' => $body,
 			'headers' => $additionalHeaders,
-			'params'  => $additionalParameters,
+			'params' => $additionalParameters,
 		);
 
 		return true;

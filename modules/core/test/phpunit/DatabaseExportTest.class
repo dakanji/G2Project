@@ -59,8 +59,8 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
-		$gallery->_storage = new UnitTestStorage();
-		$storage =& $gallery->getStorage();
+		$gallery->_storage     = new UnitTestStorage();
+		$storage               =& $gallery->getStorage();
 		$storage->_tablePrefix = 'g2_';
 		$gallery->_phpVm       = new UnitTestPhpVm();
 

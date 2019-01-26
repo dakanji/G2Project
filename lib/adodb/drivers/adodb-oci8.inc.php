@@ -99,11 +99,11 @@ END;
 	public $random          = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
 	public $noNullStrings   = false;
 	public $connectSID      = false;
-	public $_bind      = false;
-	public $_nestedSQL = true;
+	public $_bind           = false;
+	public $_nestedSQL      = true;
 	public $_hasOciFetchStatement = false;
-	public $_getarray = false; // currently not working
-	public $leftOuter = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
+	public $_getarray             = false; // currently not working
+	public $leftOuter             = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
 	public $session_sharing_force_blob = false; // alter session on updateblob if set to true
 	public $firstrows        = true; // enable first rows optimization on SelectLimit()
 	public $selectOffsetAlg1 = 1000; // when to use 1st algorithm of selectlimit.
@@ -130,7 +130,7 @@ END;
 		$schema = '';
 		$this->_findschema($table, $schema);
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -154,9 +154,9 @@ END;
 		$retarr = array();
 
 		while (!$rs->EOF) {
-			$fld       = new ADOFieldObject();
-			$fld->name = $rs->fields[0];
-			$fld->type = $rs->fields[1];
+			$fld             = new ADOFieldObject();
+			$fld->name       = $rs->fields[0];
+			$fld->type       = $rs->fields[1];
 			$fld->max_length = $rs->fields[2];
 			$fld->scale      = $rs->fields[3];
 
@@ -420,7 +420,7 @@ END;
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
@@ -528,7 +528,7 @@ END;
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret = oci_commit($this->_connectionID);
+		$ret              = oci_commit($this->_connectionID);
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -543,7 +543,7 @@ END;
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret = oci_rollback($this->_connectionID);
+		$ret              = oci_rollback($this->_connectionID);
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -780,7 +780,7 @@ END;
 		// Let Oracle return the name of the columns
 		$q_fields = 'SELECT * FROM (' . $sql . ') WHERE NULL = NULL';
 
-		if (! $stmt_arr = $this->Prepare($q_fields)) {
+		if (!$stmt_arr = $this->Prepare($q_fields)) {
 			return false;
 		}
 		$stmt = $stmt_arr[1];
@@ -1086,7 +1086,7 @@ END;
 		if (!$stmt) {
 			$this->_errorMsg  = false;
 			$this->_errorCode = false;
-			$arr = @oci_error($this->_connectionID);
+			$arr              = @oci_error($this->_connectionID);
 
 			if ($arr === false) {
 				return false;
@@ -1524,9 +1524,9 @@ SELECT /*+ RULE */ distinct b.column_name
 	public function MetaForeignKeys($table, $owner = false, $upper = false) {
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$table = $this->qstr(strtoupper($table));
+		$table            = $this->qstr(strtoupper($table));
 
 		if (!$owner) {
 			$owner = $this->user;
@@ -1689,7 +1689,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 
 		if ($this->_numOfFields > 0) {
 			$this->_fieldobjs = array();
-			$max = $this->_numOfFields;
+			$max              = $this->_numOfFields;
 
 			for ($i = 0; $i < $max;
 			$i++) {

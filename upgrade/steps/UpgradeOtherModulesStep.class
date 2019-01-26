@@ -38,7 +38,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$this->_startDebugLog('Upgrade Plugins');
 		$gallery->startRecordingDebugSnippet();
 
-		$totalPlugins = $currentModule = $currentTheme = 0;
+		$totalPlugins               = $currentModule = $currentTheme = 0;
 		$templateData['stackTrace'] = '';
 		$template = new StatusTemplate();
 		$template->renderHeader(true);
@@ -202,8 +202,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 		}
 
-		$groupedModules        = $groupLabel = array();
-		$moduleInstalledStatus = $pluginIsUpgradeable = $pluginIsCompatible = $installedVersion           = $deactivatedPlugins = array();
+		$groupedModules             = $groupLabel = array();
+		$moduleInstalledStatus      = $pluginIsUpgradeable = $pluginIsCompatible = $installedVersion           = $deactivatedPlugins = array();
 		$templateData['stackTrace'] = '';
 
 		if (empty($templateData['errors'])) {
@@ -361,7 +361,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$pluginIsUpgradeable['theme'][$themeId] = !empty($themeList[$themeId]['version'])
 				&& $themeList[$themeId]['version'] != $theme->getVersion()
 				&& $pluginIsCompatible['theme'][$themeId];
-				$currentVersion[$themeId] = $themeList[$themeId]['version'];
+				$currentVersion[$themeId]               = $themeList[$themeId]['version'];
 
 				$groupedModules['themes'][$themeId] =& $theme;
 			}
@@ -403,7 +403,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 
 			foreach ($deactivatedPlugins[$type] as $pluginId) {
-				$plugin = new $className($pluginId);
+				$plugin              = new $className($pluginId);
 				list($ret, $ignored) = $plugin->deactivate(false);
 
 				if ($ret) {
@@ -419,14 +419,14 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 		}
 
-		$templateData['groupedModules'] =& $groupedModules;
-		$templateData['groupLabel']     = $groupLabel;
-		$templateData['groupType']      = $groupType;
+		$templateData['groupedModules']      =& $groupedModules;
+		$templateData['groupLabel']          = $groupLabel;
+		$templateData['groupType']           = $groupType;
 		$templateData['pluginIsUpgradeable'] = $pluginIsUpgradeable;
 		$templateData['currentVersion']      = $currentVersion;
-		$templateData['bodyFile']       = 'UpgradeOtherModulesRequest.html';
-		$templateData['anyUpgradeable'] = false;
-		$templateData['deactivatedPlugins'] = $deactivatedPlugins;
+		$templateData['bodyFile']            = 'UpgradeOtherModulesRequest.html';
+		$templateData['anyUpgradeable']      = false;
+		$templateData['deactivatedPlugins']  = $deactivatedPlugins;
 
 		$templateData['pluginIsCompatible'] = $pluginIsCompatible;
 

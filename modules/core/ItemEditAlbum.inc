@@ -32,8 +32,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 	public function handleRequest($form, &$item, &$preferred) {
 		global $gallery;
 
-		$status = null;
-		$error  = array();
+		$status              = null;
+		$error               = array();
 		$requiresProgressBar = false;
 
 		if (isset($form['action']['undo'])) {
@@ -636,9 +636,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 		$templateAdapter->updateProgressBar($heading, '', 1);
 		$redirect = array(
-			'view'    => 'core.ItemAdmin',
+			'view' => 'core.ItemAdmin',
 			'subView' => 'core.ItemEdit',
-			'itemId'  => $item->getId(),
+			'itemId' => $item->getId(),
 		);
 
 		$urlGenerator =& $gallery->getUrlGenerator();
@@ -675,10 +675,10 @@ class ItemEditAlbum extends ItemEditPlugin {
 			}
 		}
 
-		$batchSize = 100;
-		$total     = count($childIds);
-		$ind       = 0;
-		$step      = min(500, intval($total / 20) + 1);
+		$batchSize      = 100;
+		$total          = count($childIds);
+		$ind            = 0;
+		$step           = min(500, intval($total / 20) + 1);
 		$thumbnailSizes = $thumbnailBuild = array();
 
 		while (!empty($childIds)) {

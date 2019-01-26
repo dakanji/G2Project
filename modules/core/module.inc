@@ -213,8 +213,8 @@ class CoreModule extends GalleryModule {
 				if (!empty($page)) {
 					$urlParams['page'] = $page;
 				}
-				$url     = $urlGenerator->generateUrl($urlParams);
-				$moreUrl = $isAlbum ? '' : $urlGenerator->generateUrl(
+				$url              = $urlGenerator->generateUrl($urlParams);
+				$moreUrl          = $isAlbum ? '' : $urlGenerator->generateUrl(
 					array(
 						'view'       => 'core.ItemAdmin',
 						'subView'    => 'core.ItemDelete',
@@ -356,7 +356,7 @@ class CoreModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$links = array();
+		$links               = array();
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {

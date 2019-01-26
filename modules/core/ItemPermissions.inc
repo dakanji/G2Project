@@ -489,7 +489,7 @@ class ItemPermissionsView extends GalleryView {
 			}
 
 			$form['owner']['ownerName'] = '';
-			$form['formName'] = 'ItemPermissions';
+			$form['formName']           = 'ItemPermissions';
 		}
 
 		// Get all available permissions
@@ -610,8 +610,8 @@ class ItemPermissionsView extends GalleryView {
 		$can['changeOwner']       = $isAdmin;
 		$can['applyToSubItems']   = $item->getCanContainChildren();
 
-		$ItemPermissions['owner'] = (array)$owner;
-		$ItemPermissions['can']   = $can;
+		$ItemPermissions['owner']            = (array)$owner;
+		$ItemPermissions['can']              = $can;
 		$ItemPermissions['userPermissions']  = $userPermissions;
 		$ItemPermissions['groupPermissions'] = $groupPermissions;
 		$ItemPermissions['allPermissions']   = $allPermissions;

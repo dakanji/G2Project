@@ -163,7 +163,7 @@ class GalleryEventHelper_simple {
 			return;
 		}
 
-		$allListeners =& GalleryEventHelper_simple::_getEventListeners();
+		$allListeners               =& GalleryEventHelper_simple::_getEventListeners();
 		$allListeners[$eventName][] =& $eventListener;
 	}
 }

@@ -811,7 +811,7 @@ class LockTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$itemId = $this->_item->getId();
+		$itemId             = $this->_item->getId();
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($itemId);
 
 		if ($ret) {

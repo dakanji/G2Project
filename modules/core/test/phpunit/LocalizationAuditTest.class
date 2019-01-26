@@ -134,8 +134,8 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	public function finishScan($halted) {
 		if (!$halted) {
 			foreach ($this->_idMap as $dir => $dirMap) {
-				$hash = $flavors = $wrongFormat = array();
-				$max  = 0;
+				$hash            = $flavors = $wrongFormat = array();
+				$max             = 0;
 				$probablyCorrect = '';
 
 				foreach ($dirMap as $localization => $projectIdVersion) {
@@ -147,7 +147,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 						if (count($hash[$projectIdVersion]) > $max) {
 							$probablyCorrect = $projectIdVersion;
-							$max = count($hash[$projectIdVersion]);
+							$max             = count($hash[$projectIdVersion]);
 						}
 					}
 				}
@@ -155,9 +155,9 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 				$matchCount = count(array_keys($flavors));
 
 				if (!empty($wrongFormat) || $matchCount > 1) {
-					$poDir      = substr($dir, strlen(dirname(dirname(dirname($dir)))) + 1);
-					$domain     = basename(dirname($poDir));
-					$mismatches = join(', ', array_merge(array_keys($wrongFormat), array_keys($hash)));
+					$poDir           = substr($dir, strlen(dirname(dirname(dirname($dir)))) + 1);
+					$domain          = basename(dirname($poDir));
+					$mismatches      = join(', ', array_merge(array_keys($wrongFormat), array_keys($hash)));
 					$probablyCorrect = empty($probablyCorrect) ? "Gallery: $domain" : $probablyCorrect;
 					$this->assertFalse(
 						true,

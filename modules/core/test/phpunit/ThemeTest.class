@@ -278,8 +278,8 @@ class ThemeTest extends GalleryTestCase {
 	}
 
 	public function testPackSettingBlockListVeryLongList() {
-		$count        = 3;
-		$data_pattern = '["a.b",{"c":"d"}]';
+		$count            = 3;
+		$data_pattern     = '["a.b",{"c":"d"}]';
 		$expected_pattern = array(
 			'a.b',
 			array(

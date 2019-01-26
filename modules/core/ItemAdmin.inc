@@ -175,12 +175,12 @@ class ItemAdminView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$ItemAdmin['viewBodyFile'] = $results['body'];
-		$ItemAdmin['item']         = (array)$item;
-		$ItemAdmin['parents']      = $parents;
-		$ItemAdmin['parent']       = empty($parents) ? null : $parents[sizeof($parents) - 1];
-		$ItemAdmin['itemType']     = $itemType;
-		$ItemAdmin['thumbnail']    = $thumbnailData;
+		$ItemAdmin['viewBodyFile']   = $results['body'];
+		$ItemAdmin['item']           = (array)$item;
+		$ItemAdmin['parents']        = $parents;
+		$ItemAdmin['parent']         = empty($parents) ? null : $parents[sizeof($parents) - 1];
+		$ItemAdmin['itemType']       = $itemType;
+		$ItemAdmin['thumbnail']      = $thumbnailData;
 		$ItemAdmin['subViewChoices'] = $subViewChoices;
 		$ItemAdmin['viewL10Domain']  = $subView->getL10Domain();
 		$ItemAdmin['isSiteAdmin']    = $isSiteAdmin;

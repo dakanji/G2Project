@@ -105,7 +105,7 @@ function copyVersionToInstalledVersion(pluginType, pluginId) {
 }
 
 function eraseInstalledVersion(pluginType, pluginId) {
-	installedVersionEl = document.getElementById(
+	installedVersionEl           = document.getElementById(
 		"plugin-" + pluginType + "-" + pluginId + "-installedVersion"
 	);
 	installedVersionEl.innerHTML = '';
@@ -188,8 +188,8 @@ function addMessage(pluginType, pluginId, messageText, messageType) {
 		document.getElementById(STATUS_BOX_ID).removeChild(document.getElementById(detailsId));
 	}
 
-	pluginStatus.className = messageType;
-	pluginStatus.id        = detailsId;
+	pluginStatus.className        = messageType;
+	pluginStatus.id               = detailsId;
 	pluginStatus.style.whiteSpace = "nowrap";
 	var text = messageText.replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]);
 

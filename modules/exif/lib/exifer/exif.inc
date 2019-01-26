@@ -1428,13 +1428,13 @@ function read_exif_data_raw($path, $verbose) {
 	$header = fread($in, 2);
 
 	if ($header === 'II') {
-		$intel = 1;
+		$intel            = 1;
 		$result['Endien'] = 'Intel';
 	} elseif ($header === 'MM') {
-		$intel = 0;
+		$intel            = 0;
 		$result['Endien'] = 'Motorola';
 	} else {
-		$intel = 1; //not sure what the default should be, but this seems reasonable
+		$intel            = 1; //not sure what the default should be, but this seems reasonable
 		$result['Endien'] = 'Unknown';
 	}
 

@@ -182,7 +182,7 @@ class StorageSetupStep extends InstallStep {
 		$probeFileName = 'probe_' . substr(md5(uniqid(mt_rand())), 0, 10) . '.html';
 		$probeFilePath = $dir . $probeFileName;
 		$checkString   = md5(mt_rand());
-		$fh = @fopen($probeFilePath, 'w');
+		$fh            = @fopen($probeFilePath, 'w');
 
 		if ($fh) {
 			$contents = "<html><head><title>Probe</title><body>$checkString</body></html>";

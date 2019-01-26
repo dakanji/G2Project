@@ -1035,7 +1035,7 @@ class StorageTest extends GalleryTestCase {
 		$storage->_isEmptyAllowedForNotNullColumn = false;
 
 		$memberData['notNullEmptyAllowed'] = true;
-		$memberData['notNull'] = true;
+		$memberData['notNull']             = true;
 
 		foreach (array(
 			STORAGE_TYPE_TIMESTAMP,
@@ -1110,7 +1110,7 @@ class StorageTest extends GalleryTestCase {
 			'from string 2'
 		);
 
-		$value = str_repeat('x', 135);
+		$value              = str_repeat('x', 135);
 		$memberData['size'] = STORAGE_SIZE_MEDIUM;
 		$this->assertEquals(
 			$value,
@@ -1153,7 +1153,7 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_BIT;
-		$expected = $storage->convertIntToBits(5);
+		$expected           = $storage->convertIntToBits(5);
 		$this->assertEquals($expected, $storage->_normalizeValue(5, $memberData), 'to DB');
 		$this->assertEquals(5, $storage->_normalizeValue($expected, $memberData, true), 'from DB');
 		$this->assertEquals(null, $storage->_normalizeValue(null, $memberData, true), 'null');

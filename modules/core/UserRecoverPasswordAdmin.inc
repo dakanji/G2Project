@@ -116,7 +116,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					 * user back to the recovery page after logging in
 					 */
 					$results['return'] = 0;
-					$subView = 'core.UserLogin';
+					$subView           = 'core.UserLogin';
 
 					$session->remove('core.UserRecoverPasswordAdminAuthKey');
 				} else {

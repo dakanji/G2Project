@@ -68,7 +68,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 	$NEWLINE       = "\r\n";
 	$BUFLINES      = 100;
 	$escquotequote = $escquote . $quote;
-	$s = '';
+	$s             = '';
 
 	if ($addtitles) {
 		$fieldTypes = $rs->FieldTypesArray();

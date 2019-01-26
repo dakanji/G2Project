@@ -331,7 +331,7 @@ class ADODB_Session {
 
 		if (!is_null($expire_notify)) {
 			$_expire_notify = $expire_notify;
-			$set = true;
+			$set            = true;
 		} elseif (!$set) {
 			// backwards compatibility
 			if (isset($GLOBALS['ADODB_SESSION_EXPIRE_NOTIFY'])) {
@@ -683,11 +683,11 @@ class ADODB_Session {
 			return;
 		}
 
-		$clob   = self::clob();
-		$conn   = self::_conn();
-		$crc    = self::_crc();
-		$debug  = self::debug();
-		$driver = self::driver();
+		$clob          = self::clob();
+		$conn          = self::_conn();
+		$crc           = self::_crc();
+		$debug         = self::debug();
+		$driver        = self::driver();
 		$expire_notify = self::expireNotify();
 		$filter        = self::filter();
 		$lifetime      = self::lifetime();

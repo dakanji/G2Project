@@ -95,8 +95,8 @@ $source
 	$_include_compiled .= "\n\n?>\n";
 
 	$_params = array(
-		'filename'    => $_compile_path,
-		'contents'    => $_include_compiled,
+		'filename' => $_compile_path,
+		'contents' => $_include_compiled,
 		'create_dirs' => true,
 	);
 

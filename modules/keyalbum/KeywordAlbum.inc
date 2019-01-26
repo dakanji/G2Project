@@ -91,7 +91,7 @@ class KeywordAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams = array(
+			$item->urlParams           = array(
 				'view'        => 'keyalbum.KeywordAlbum',
 				'keyword'     => $keyword,
 				'highlightId' => $itemId,
@@ -133,10 +133,10 @@ class KeywordAlbumView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($keyword, $itemId) = GalleryUtilities::getRequestVariables('keyword', 'itemId');
-		$rawKeyword = $keyword;
+		$rawKeyword             = $keyword;
 		GalleryUtilities::unsanitizeInputValues($rawKeyword, false);
 		$theme['pageUrl'] = array(
-			'view'    => 'keyalbum.KeywordAlbum',
+			'view' => 'keyalbum.KeywordAlbum',
 			'keyword' => $rawKeyword,
 		);
 

@@ -24,8 +24,8 @@ function smarty_core_write_compiled_resource($params, &$smarty) {
 	}
 
 	$_params = array(
-		'filename'    => $params['compile_path'],
-		'contents'    => $params['compiled_content'],
+		'filename' => $params['compile_path'],
+		'contents' => $params['compiled_content'],
 		'create_dirs' => true,
 	);
 

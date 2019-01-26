@@ -685,7 +685,7 @@ class Services_JSON {
 					$strlen_chrs = strlen($chrs);
 
 					for ($c = 0; $c <= $strlen_chrs; ++$c) {
-						$top = end($stk);
+						$top             = end($stk);
 						$substr_chrs_c_2 = substr($chrs, $c, 2);
 
 						if (($c == $strlen_chrs) || (($chrs[$c] == ',') && ($top['what'] == SERVICES_JSON_SLICE))) {

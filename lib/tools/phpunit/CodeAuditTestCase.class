@@ -311,12 +311,12 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 		if (is_array($function)) {
 			$classMethodCallsOnly = true;
-			$className    = GalleryUtilities::strToLower($function[0]);
-			$functionName = $function[1];
+			$className            = GalleryUtilities::strToLower($function[0]);
+			$functionName         = $function[1];
 		} else {
 			$classMethodCallsOnly = false;
 			$functionName         = $function;
-			$className = null;
+			$className            = null;
 		}
 		$functionName = GalleryUtilities::strToLower($functionName);
 

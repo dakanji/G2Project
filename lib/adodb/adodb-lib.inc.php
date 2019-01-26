@@ -174,10 +174,10 @@ function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_
 
 	foreach ($fieldArray as $k => $v) {
 		if ($v === null) {
-			$v = 'NULL';
+			$v              = 'NULL';
 			$fieldArray[$k] = $v;
 		} elseif ($autoQuote && /*!is_numeric($v) /*and strncmp($v,"'",1) !== 0 -- sql injection risk*/ strcasecmp($v, $zthis->null2null) != 0) {
-			$v = $zthis->qstr($v);
+			$v              = $zthis->qstr($v);
 			$fieldArray[$k] = $v;
 		}
 
@@ -888,7 +888,7 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 						case 2:
 							//Set empty
 							$arrFields[$upperfname] = '';
-							$setFields .= _adodb_column_sql($zthis, 'U', $type, $upperfname, $fnameq, $arrFields, $magicq);
+							$setFields             .= _adodb_column_sql($zthis, 'U', $type, $upperfname, $fnameq, $arrFields, $magicq);
 
 							break;
 
@@ -996,11 +996,11 @@ function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force 
 	static $cacheCols;
 	global $ADODB_QUOTE_FIELDNAMES;
 
-	$tableName = '';
-	$values    = '';
-	$fields    = '';
-	$recordSet = null;
-	$arrFields = _array_change_key_case($arrFields);
+	$tableName          = '';
+	$values             = '';
+	$fields             = '';
+	$recordSet          = null;
+	$arrFields          = _array_change_key_case($arrFields);
 	$fieldInsertedCount = 0;
 
 	if (is_string($rs)) {
@@ -1011,8 +1011,8 @@ function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force 
 		//we need an object for the recordSet
 		//because we have to call MetaType.
 		//php can't do a $rsclass::MetaType()
-		$rsclass   = $zthis->rsPrefix . $zthis->databaseType;
-		$recordSet = new $rsclass(-1, $zthis->fetchMode);
+		$rsclass               = $zthis->rsPrefix . $zthis->databaseType;
+		$recordSet             = new $rsclass(-1, $zthis->fetchMode);
 		$recordSet->connection = $zthis;
 
 		if (is_string($cacheRS) && $cacheRS == $rs) {

@@ -176,8 +176,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 	 * @see CodeAuditTestCase::checkFile
 	 */
 	public function checkFile($fileName, $buffer) {
-		$fileName = substr($fileName, strlen($this->_baseDir) + 1);
-		$lines    = preg_split("/(\r\n|\n)/", $buffer);
+		$fileName          = substr($fileName, strlen($this->_baseDir) + 1);
+		$lines             = preg_split("/(\r\n|\n)/", $buffer);
 		$checkSuperglobals = !preg_match('{/test/phpunit|^install/|^upgrade/}', $fileName);
 		$checkEntityType   = $fileName != 'modules/core/test/phpunit/EntityTest.class';
 		$currentFunction   = null;

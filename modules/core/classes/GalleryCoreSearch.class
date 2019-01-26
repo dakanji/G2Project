@@ -41,9 +41,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$info = array(
-			'name'        => $module->translate('Gallery Core'),
+			'name' => $module->translate('Gallery Core'),
 			'description' => $module->translate('Gallery Core Module'),
-			'options'     => array(
+			'options' => array(
 				'descriptions' => array(
 					'description' => $module->translate('Search descriptions'),
 					'enabled'     => 1,
@@ -238,9 +238,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$data = array(
-			'start'   => $numRows == 0 ? 0 : $offset + 1,
-			'end'     => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
-			'count'   => $numRows,
+			'start' => $numRows == 0 ? 0 : $offset + 1,
+			'end' => $numRows == 0 ? 0 : $offset + sizeof($searchResults),
+			'count' => $numRows,
 			'results' => $searchResults,
 		);
 

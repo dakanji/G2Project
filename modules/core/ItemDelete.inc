@@ -209,8 +209,8 @@ class ItemDeleteView extends GalleryView {
 		$peers     = array();
 		$peerTypes = array();
 		$peerDescendentCounts = array();
-		$numPages    = 1;
-		$selectedIds = array();
+		$numPages             = 1;
+		$selectedIds          = array();
 
 		if (!empty($peerIds)) {
 			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
@@ -293,15 +293,15 @@ class ItemDeleteView extends GalleryView {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 
-		$ItemDelete = array();
+		$ItemDelete              = array();
 		$ItemDelete['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemDelete['peers']     = $peers;
 		$ItemDelete['peerTypes'] = $peerTypes;
 		$ItemDelete['peerDescendentCounts'] = $peerDescendentCounts;
-		$ItemDelete['page']        = $page;
-		$ItemDelete['numPages']    = $numPages;
-		$ItemDelete['numPerPage']  = $form['numPerPage'];
-		$ItemDelete['selectedIds'] = array_keys($selectedIds);
+		$ItemDelete['page']            = $page;
+		$ItemDelete['numPages']        = $numPages;
+		$ItemDelete['numPerPage']      = $form['numPerPage'];
+		$ItemDelete['selectedIds']     = array_keys($selectedIds);
 		$ItemDelete['selectedIdCount'] = count($selectedIds);
 
 		$template->setVariable('ItemDelete', $ItemDelete);

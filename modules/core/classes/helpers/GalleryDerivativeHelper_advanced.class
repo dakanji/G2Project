@@ -145,7 +145,7 @@ class GalleryDerivativeHelper_advanced {
 
 			foreach ($derivatives as $derivative) {
 				foreach ($toolkits as $toolkitId => $toolkit) {
-					$currentOperations = $derivative->getDerivativeOperations();
+					$currentOperations             = $derivative->getDerivativeOperations();
 					list($success, $newOperations) = $toolkit->applyTransform($operation, $currentOperations, $reverse);
 
 					if ($success) {

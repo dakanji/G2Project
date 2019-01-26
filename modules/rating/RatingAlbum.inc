@@ -91,7 +91,7 @@ class RatingAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams = array(
+			$item->urlParams           = array(
 				'view'        => 'rating.RatingAlbum',
 				'limit'       => $limit,
 				'highlightId' => $itemId,
@@ -134,7 +134,7 @@ class RatingAlbumView extends GalleryView {
 
 		list($limit, $itemId) = GalleryUtilities::getRequestVariables('limit', 'itemId');
 		$theme['pageUrl']     = array(
-			'view'  => 'rating.RatingAlbum',
+			'view' => 'rating.RatingAlbum',
 			'limit' => $limit,
 		);
 

@@ -2,7 +2,7 @@
 $blocks = array(
 	'ViewComments' => array(
 		'description' => $gallery->i18n('Show comments'),
-		'vars'        => array(
+		'vars' => array(
 			'show' => array(
 				'description' => $gallery->i18n('Number of comments'),
 				'type'        => 'choice',
@@ -25,7 +25,7 @@ $blocks = array(
 	),
 	'AddComment' => array(
 		'description' => $gallery->i18n('Add Comment'),
-		'vars'        => array(
+		'vars' => array(
 			'expand' => array(
 				'description' => $gallery->i18n('Show a text box that expands into the full form'),
 				'type'        => 'boolean',

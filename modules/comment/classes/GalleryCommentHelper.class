@@ -488,8 +488,8 @@ class GalleryCommentHelper {
 		}
 
 		$AddComment = array(
-			'itemId'  => $item->getId(),
-			'host'    => GalleryUtilities::getRemoteHostAddress(),
+			'itemId' => $item->getId(),
+			'host' => GalleryUtilities::getRemoteHostAddress(),
 			'plugins' => $plugins,
 		);
 

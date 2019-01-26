@@ -90,10 +90,10 @@ class ADODB_ado_mssql extends ADODB_ado {
 
 		if ($adors) {
 			while (!$adors->EOF) {
-				$fld       = new ADOFieldObject();
-				$c         = $adors->Fields(3);
-				$fld->name = $c->Value;
-				$fld->type = 'CHAR'; // cannot discover type in ADO!
+				$fld             = new ADOFieldObject();
+				$c               = $adors->Fields(3);
+				$fld->name       = $c->Value;
+				$fld->type       = 'CHAR'; // cannot discover type in ADO!
 				$fld->max_length = -1;
 				$arr[strtoupper($fld->name)] = $fld;
 

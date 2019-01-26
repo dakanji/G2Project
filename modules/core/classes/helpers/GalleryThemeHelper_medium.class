@@ -47,7 +47,7 @@ class GalleryThemeHelper_medium {
 			return $ret;
 		}
 		$data['theme'] = array(
-			'name'      => $theme->getName(),
+			'name' => $theme->getName(),
 			'l10Domain' => $theme->getL10Domain(),
 		);
 

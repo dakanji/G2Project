@@ -15,7 +15,7 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-if (! defined('_ADODB_FBSQL_LAYER')) {
+if (!defined('_ADODB_FBSQL_LAYER')) {
 	define('_ADODB_FBSQL_LAYER', 1);
 
 	class ADODB_fbsql extends ADOConnection {

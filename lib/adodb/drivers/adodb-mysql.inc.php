@@ -23,7 +23,7 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-if (! defined('_ADODB_MYSQL_LAYER')) {
+if (!defined('_ADODB_MYSQL_LAYER')) {
 	define('_ADODB_MYSQL_LAYER', 1);
 
 	class ADODB_mysql extends ADOConnection {
@@ -49,9 +49,9 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 		public $poorAffectedRows = true;
 		public $clientFlags      = 0;
 		public $charSet          = '';
-		public $substr    = 'substring';
-		public $nameQuote = '`';       /// string to use to quote identifiers and names
-		public $compat323 = false;         // true if compat with mysql 3.23
+		public $substr           = 'substring';
+		public $nameQuote        = '`';       /// string to use to quote identifiers and names
+		public $compat323        = false;         // true if compat with mysql 3.23
 
 		public function __construct() {
 			if (defined('ADODB_EXTENSION')) {
@@ -95,8 +95,8 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 			// save old fetch mode
 			global $ADODB_FETCH_MODE;
 
-			$false = false;
-			$save  = $ADODB_FETCH_MODE;
+			$false            = false;
+			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -182,8 +182,8 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 			// save old fetch mode
 			global $ADODB_FETCH_MODE;
 
-			$false = false;
-			$save  = $ADODB_FETCH_MODE;
+			$false            = false;
+			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -325,7 +325,7 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 			$this->_logsql = false;
 			$getnext       = sprintf($this->_genIDSQL, $seqname);
 			$holdtransOK   = $this->_transOK; // save the current status
-			$rs = @$this->Execute($getnext);
+			$rs            = @$this->Execute($getnext);
 
 			if (!$rs) {
 				if ($holdtransOK) {
@@ -587,7 +587,7 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 				$this->SelectDB($schema);
 			}
 			global $ADODB_FETCH_MODE;
-			$save = $ADODB_FETCH_MODE;
+			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
@@ -628,10 +628,10 @@ if (! defined('_ADODB_MYSQL_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type  = $query_array[1];
-					$arr        = explode(',', $query_array[2]);
-					$fld->enums = $arr;
-					$zlen       = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
+					$fld->type       = $query_array[1];
+					$arr             = explode(',', $query_array[2]);
+					$fld->enums      = $arr;
+					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
 					$fld->type       = $type;

@@ -145,7 +145,7 @@ class ADODB_Cache_MemCache {
 		$rs = join("\n", $rs);
 		$rs = unserialize($rs);
 
-		if (! is_object($rs)) {
+		if (!is_object($rs)) {
 			$err = 'Unable to unserialize $rs';
 
 			return $false;
