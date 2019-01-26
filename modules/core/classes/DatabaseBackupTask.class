@@ -54,7 +54,7 @@ class DatabaseBackupTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
-		$storage =& $gallery->getStorage();
+		$storage                =& $gallery->getStorage();
 
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 

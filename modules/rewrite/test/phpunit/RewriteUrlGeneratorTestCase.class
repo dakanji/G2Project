@@ -228,7 +228,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrl() {
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-		$ret = $this->_urlGenerator->init();
+		$ret                 = $this->_urlGenerator->init();
 
 		if ($ret) {
 			return $ret;
@@ -245,7 +245,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		unset($_SERVER['QUERY_STRING']);
 		$expectedUrl         = 'http://example.com/cms/index.php?mod=gallery2';
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-		$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
+		$ret                 = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -256,7 +256,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrlDir() {
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-		$ret = $this->_urlGenerator->init();
+		$ret                 = $this->_urlGenerator->init();
 
 		if ($ret) {
 			return $ret;
@@ -271,7 +271,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
 		$expectedUrl            = 'http://example.com/cms/';
 		$this->_urlGenerator    = new $this->_urlGeneratorName();
-		$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
+		$ret                    = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -293,7 +293,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	public function testGetBaseUrl() {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
 		$urlGenerator           = new $this->_urlGeneratorName();
-		$ret = $urlGenerator->init('phpunit_test.php');
+		$ret                    = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -464,7 +464,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$g2Uri               = isset($env['g2Uri']) ? $env['g2Uri'] : null;
 		$embedSessionString  = isset($env['embedSessionString']) ? $env['embedSessionString'] : null;
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-		$ret = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
+		$ret                 = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
 
 		if ($ret) {
 			return $ret;

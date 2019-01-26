@@ -231,7 +231,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		}
 
 		$form['list']['userNames'] = array();
-		$canRemove = false;
+		$canRemove                 = false;
 
 		foreach ($users as $userId => $userName) {
 			$form['list']['userNames'][$userId]['userName'] = $userName;
@@ -246,7 +246,7 @@ class AdminEditGroupUsersView extends GalleryView {
 			}
 		}
 
-		$AdminEditGroupUsers = array();
+		$AdminEditGroupUsers                   = array();
 		$AdminEditGroupUsers['totalUserCount'] = $totalUserCount;
 		$AdminEditGroupUsers['canRemove']      = $canRemove;
 		$AdminEditGroupUsers['group']          = (array)$group;

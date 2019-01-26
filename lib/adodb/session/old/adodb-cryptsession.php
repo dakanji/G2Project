@@ -167,7 +167,7 @@ if (!defined('ADODB_SESSION')) {
 		if ($rs) {
 			if ($rs->EOF) {
 				$ADODB_SESS_INSERT = true;
-				$v = '';
+				$v                 = '';
 			} else {
 				// Decrypt session data
 				$v = rawurldecode($Crypt->Decrypt(reset($rs->fields), ADODB_Session_Key()));

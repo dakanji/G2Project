@@ -56,7 +56,7 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$_COOKIE = $this->_saveCookie;
+		$_COOKIE                = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 
 		$ret = parent::tearDown();
@@ -542,7 +542,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['HTTP_HOST']   = 'example.com';
 		$_SERVER['SERVER_PORT'] = 80;
 		$urlGenerator           = new GalleryUrlGenerator();
-		$ret = $urlGenerator->init('phpunit_test.php');
+		$ret                    = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -1418,9 +1418,9 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertEquals(null, GalleryUtilities::getCookieVar($key));
 
 		// Malicious value
-		$val           = '<script>bar</script>';
-		$_COOKIE[$key] = $val;
-		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
+		$val                    = '<script>bar</script>';
+		$_COOKIE[$key]          = $val;
+		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= $key . '=' . urlencode($val);
 		GalleryUtilities::fixCookieVars(false, true);
@@ -1431,10 +1431,10 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// COOKIE has a wrong value, should be fixed automatically
 		GalleryUtilities::fixCookieVars(false, true);
-		$rand          = mt_rand(1, 9999);
-		$val1          = 'bar' . $rand;
-		$val2          = 'bar' . ($rand + 3000);
-		$_COOKIE[$key] = $val2;
+		$rand                   = mt_rand(1, 9999);
+		$val1                   = 'bar' . $rand;
+		$val2                   = 'bar' . ($rand + 3000);
+		$_COOKIE[$key]          = $val2;
 		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 		$delimiter              = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] = $key . '=' . $val1 . ' ; ' . $key . '=' . $val2 . $delimiter .
@@ -1467,8 +1467,8 @@ class UtilitiesTest extends GalleryTestCase {
 		$val1 = 'bar' . $rand;
 		$val2 = 'bar' . ($rand + 3000);
 		// Define cookie with $val1 to be the one with higher precedence (more specific path)
-		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
-		$_COOKIE = $this->_saveCookie;
+		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
+		$_COOKIE                 = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= "$key=" . urlencode($val1) . '; $key=' . urlencode($val2);
 		// Set $_COOKIE as php would, with the wrong cookie value for our key
@@ -1487,7 +1487,7 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 
 		// Performance check.  It shouldn't be executed when it was already executed.
-		$_COOKIE = array();
+		$_COOKIE                = array();
 		$_SERVER['HTTP_COOKIE'] = '';
 		GalleryUtilities::fixCookieVars(true);
 		$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');

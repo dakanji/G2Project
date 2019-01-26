@@ -94,24 +94,24 @@ BEGIN
 END;
 ";
 
-	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
-	public $hasAffectedRows = true;
-	public $random          = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
-	public $noNullStrings   = false;
-	public $connectSID      = false;
-	public $_bind           = false;
-	public $_nestedSQL      = true;
+	public $_dropSeqSQL           = 'DROP SEQUENCE %s';
+	public $hasAffectedRows       = true;
+	public $random                = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
+	public $noNullStrings         = false;
+	public $connectSID            = false;
+	public $_bind                 = false;
+	public $_nestedSQL            = true;
 	public $_hasOciFetchStatement = false;
 	public $_getarray             = false; // currently not working
 	public $leftOuter             = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
-	public $session_sharing_force_blob = false; // alter session on updateblob if set to true
-	public $firstrows        = true; // enable first rows optimization on SelectLimit()
-	public $selectOffsetAlg1 = 1000; // when to use 1st algorithm of selectlimit.
-	public $NLS_DATE_FORMAT  = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
-	public $dateformat       = 'YYYY-MM-DD'; // DBDate format
+	public $session_sharing_force_blob  = false; // alter session on updateblob if set to true
+	public $firstrows                   = true; // enable first rows optimization on SelectLimit()
+	public $selectOffsetAlg1            = 1000; // when to use 1st algorithm of selectlimit.
+	public $NLS_DATE_FORMAT             = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
+	public $dateformat                  = 'YYYY-MM-DD'; // DBDate format
 	public $useDBDateFormatForTextInput = false;
-	public $datetime = false; // MetaType('DATE') returns 'D' (datetime==false) or 'T' (datetime == true)
-	public $_refLOBs = array();
+	public $datetime                    = false; // MetaType('DATE') returns 'D' (datetime==false) or 'T' (datetime == true)
+	public $_refLOBs                    = array();
 
 	// var $ansiOuter = true; // if oracle9
 
@@ -402,8 +402,8 @@ END;
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {
-			$save = $this->metaTablesSQL;
-			$mask = $this->qstr(strtoupper($mask));
+			$save                 = $this->metaTablesSQL;
+			$mask                 = $this->qstr(strtoupper($mask));
 			$this->metaTablesSQL .= " AND upper(table_name) like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -769,7 +769,7 @@ END;
 				}
 				$sql = 'select * from (' . $sql . ') where rownum <= :adodb_offset';
 				$inputarr['adodb_offset'] = $nrows;
-				$nrows = -1;
+				$nrows                    = -1;
 			}
 			// note that $nrows = 0 still has to work ==> no rows returned
 

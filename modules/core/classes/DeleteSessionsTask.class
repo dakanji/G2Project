@@ -72,8 +72,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
-		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
-		$lifetime          = (int)$params['session.lifetime'];
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -106,8 +106,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 		if ($total) {
 			// This limit controls the query text length, 1000 sessionIds => query size = 32kbyte
-			$stepSize   = $session->_expirationLimit = 1000;
-			$iterations = ceil($total / $stepSize);
+			$stepSize                 = $session->_expirationLimit = 1000;
+			$iterations               = ceil($total / $stepSize);
 			$option['limit']['count'] = $stepSize;
 
 			for ($i = 1; $i <= $iterations; $i++) {

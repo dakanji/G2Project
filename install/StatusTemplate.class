@@ -71,7 +71,7 @@ class StatusTemplate {
 		global $currentStep;
 		global $stepNumber;
 
-		$stepsComplete = max($stepNumber - ($currentStep->isComplete() ? 0 : 1), 0);
+		$stepsComplete                   = max($stepNumber - ($currentStep->isComplete() ? 0 : 1), 0);
 		$templateData['percentComplete'] = (int)((100 * ($stepsComplete / (sizeof($steps) - 1))) / 5) * 5;
 
 		$templateData['MainPage']['showBodyAndFooter'] = 1;

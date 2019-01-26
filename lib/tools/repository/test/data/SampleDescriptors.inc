@@ -6,7 +6,7 @@
  */
 $sampleModuleDescriptor = array(
 	'header' => array(
-		'id' => 'testModule',
+		'id'      => 'testModule',
 		'version' => '1.0.0',
 		'requiredCoreApi' => GalleryCoreApi::getApiVersion(),
 		'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
@@ -172,7 +172,7 @@ $sampleModule2Descriptor['languages']['22222']       = array(
 
 $sampleThemeDescriptor = array(
 	'header' => array(
-		'id' => 'testTheme',
+		'id'      => 'testTheme',
 		'version' => '1.0.0',
 		'requiredCoreApi' => GalleryCoreApi::getApiVersion(),
 		'requiredPluginApi' => GalleryTheme::doStatic()->getApiVersion(),

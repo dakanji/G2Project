@@ -130,7 +130,7 @@ class ItemMoveController extends GalleryController {
 				$storage =& $gallery->getStorage();
 
 				// Read lock old and new parent album, and all ancestor albums
-				$lockIds = array();
+				$lockIds                = array();
 				list($ret, $oldParents) = GalleryCoreApi::fetchParentSequence($itemId);
 
 				if ($ret) {
@@ -152,7 +152,7 @@ class ItemMoveController extends GalleryController {
 				}
 
 				// Do the move / locking in batches to prevent too many open files issues
-				$batchSize = 100;
+				$batchSize                = 100;
 				$status['moved']['count'] = 0;
 
 				do {
@@ -246,7 +246,7 @@ class ItemMoveController extends GalleryController {
 				$redirect['itemId']  = $itemId;
 			}
 		} elseif (isset($form['action']['next'])) {
-			$page = GalleryUtilities::getRequestVariables('page');
+			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.delete');
 
 			if ($ret) {
@@ -461,11 +461,11 @@ class ItemMoveView extends GalleryView {
 		$ItemMove['peerTypes'] = $peerTypes;
 		$ItemMove['peerDescendentCounts'] = $peerDescendentCounts;
 		$ItemMove['albumTree']            = $albumTree;
-		$ItemMove['page']            = $page;
-		$ItemMove['numPages']        = $numPages;
-		$ItemMove['numPerPage']      = $form['numPerPage'];
-		$ItemMove['selectedIds']     = array_keys($selectedIds);
-		$ItemMove['selectedIdCount'] = count($selectedIds);
+		$ItemMove['page']                 = $page;
+		$ItemMove['numPages']             = $numPages;
+		$ItemMove['numPerPage']           = $form['numPerPage'];
+		$ItemMove['selectedIds']          = array_keys($selectedIds);
+		$ItemMove['selectedIdCount']      = count($selectedIds);
 
 		$template->setVariable('ItemMove', $ItemMove);
 		$template->setVariable('controller', 'core.ItemMove');

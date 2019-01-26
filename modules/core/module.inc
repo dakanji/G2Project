@@ -191,7 +191,7 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
-				$title = smarty_modifier_escape(
+				$title                   = smarty_modifier_escape(
 					GalleryUtilities::markup(
 						$item->getTitle(),
 						'strip'
@@ -390,7 +390,7 @@ class CoreModule extends GalleryModule {
 					),
 				);
 			} else {
-				$user = $gallery->getActiveUser();
+				$user                 = $gallery->getActiveUser();
 				$links['YourAccount'] = array(
 					'text'   => $this->translate('Your Account'),
 					'params' => array(
@@ -515,7 +515,7 @@ class CoreModule extends GalleryModule {
 	public function getItemAdminViews($item) {
 		global $gallery;
 
-		$views = array();
+		$views                   = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {

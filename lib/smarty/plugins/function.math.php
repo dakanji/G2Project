@@ -26,24 +26,24 @@ function smarty_function_math($params, &$smarty) {
 	global $gallery;
 
 	static $_allowed_funcs = array(
-		'int' => true,
-		'abs' => true,
-		'ceil' => true,
-		'cos' => true,
-		'exp' => true,
+		'int'   => true,
+		'abs'   => true,
+		'ceil'  => true,
+		'cos'   => true,
+		'exp'   => true,
 		'floor' => true,
-		'log' => true,
+		'log'   => true,
 		'log10' => true,
-		'max' => true,
-		'min' => true,
-		'pi'  => true,
-		'pow' => true,
-		'rand' => true,
+		'max'   => true,
+		'min'   => true,
+		'pi'    => true,
+		'pow'   => true,
+		'rand'  => true,
 		'round' => true,
-		'sin' => true,
-		'sqrt' => true,
+		'sin'   => true,
+		'sqrt'  => true,
 		'srand' => true,
-		'tan' => true,
+		'tan'   => true,
 	);
 	// be sure equation parameter is present
 	if (empty($params[ 'equation' ])) {

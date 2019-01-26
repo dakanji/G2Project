@@ -1328,8 +1328,8 @@ class StorageTest extends GalleryTestCase {
 		// Get a STRING-LARGE version of that string
 		$originalStringLarge    = str_repeat($testString, 51);
 		$originalStringTooLarge = str_repeat($testString, 52);
-		$key    = 'test' . mt_rand();
-		$itemId = -7;
+		$key                    = 'test' . mt_rand();
+		$itemId                 = -7;
 
 		foreach (array($originalStringLarge, $originalStringTooLarge) as $testString) {
 			$ret = GalleryCoreApi::addMapEntry(

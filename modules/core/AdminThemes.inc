@@ -441,7 +441,7 @@ class AdminThemesView extends GalleryView {
 					}
 				}
 			} else {
-				$entry['state'] = 'incompatible';
+				$entry['state']                    = 'incompatible';
 				$entry['api']['required']['theme'] = join(
 					'.',
 					$theme->getRequiredThemeApi()
@@ -520,10 +520,10 @@ class AdminThemesView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminThemes['orderByList']        = $orderByList;
-		$AdminThemes['presortList']        = $presortList;
-		$AdminThemes['orderDirectionList'] = $orderDirectionList;
-		$AdminThemes['themeList']          = $themeList;
+		$AdminThemes['orderByList']              = $orderByList;
+		$AdminThemes['presortList']              = $presortList;
+		$AdminThemes['orderDirectionList']       = $orderDirectionList;
+		$AdminThemes['themeList']                = $themeList;
 		$AdminThemes['newAlbumsUseDefaultsList'] = $newAlbumsUseDefaultsList;
 
 		// Load the config settings from the active theme

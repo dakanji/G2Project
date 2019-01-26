@@ -133,8 +133,8 @@ class CommentSiteAdminController extends GalleryController {
 
 		// Figure out where to redirect upon success
 		if (empty($delegate)) {
-			$method = empty($error) ? 'redirect' : 'delegate';
-			$results[$method]['view']    = 'core.SiteAdmin';
+			$method                   = empty($error) ? 'redirect' : 'delegate';
+			$results[$method]['view'] = 'core.SiteAdmin';
 			$results[$method]['subView'] = 'comment.CommentSiteAdmin';
 		} else {
 			$results['delegate'] = $delegate;
@@ -179,7 +179,7 @@ class CommentSiteAdminController extends GalleryController {
 		$checkingCommentMessage = $module->translate('Checking all comments with Akismet');
 		$checkedCount           = 0;
 		$spamCount              = 0;
-		$total = null;
+		$total                  = null;
 
 		while (true) {
 			$batchSize = 100;
@@ -311,7 +311,7 @@ class CommentSiteAdminView extends GalleryView {
 		$form['latest']   = !empty($form['latest']);
 		$form['moderate'] = !empty($form['moderate']);
 
-		$CommentSiteAdmin = array();
+		$CommentSiteAdmin                  = array();
 		$CommentSiteAdmin['akismetActive'] = !empty($params['akismet.active']);
 		$template->setVariable('CommentSiteAdmin', $CommentSiteAdmin);
 		$template->setVariable('controller', 'comment.CommentSiteAdmin');

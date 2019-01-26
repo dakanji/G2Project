@@ -235,8 +235,8 @@ class Smarty_Compiler extends Smarty {
 
 		$this->_current_file    = $resource_name;
 		$this->_current_line_no = 1;
-		$ldq = preg_quote($this->left_delimiter, '~');
-		$rdq = preg_quote($this->right_delimiter, '~');
+		$ldq                    = preg_quote($this->left_delimiter, '~');
+		$rdq                    = preg_quote($this->right_delimiter, '~');
 
 		// run template source through prefilter functions
 		if (count($this->_plugins['prefilter']) > 0) {
@@ -621,7 +621,7 @@ class Smarty_Compiler extends Smarty {
 
 			case 'php':
 				// handle folded tags replaced by {php}
-				$block = array_shift($this->_folded_blocks);
+				$block                   = array_shift($this->_folded_blocks);
 				$this->_current_line_no += substr_count($block[0], "\n");
 				/* the number of matched elements in the regexp in _compile_file()
 				   determins the type of folded tag that was found */
@@ -1338,7 +1338,7 @@ class Smarty_Compiler extends Smarty {
 			$assign = isset($attrs['assign']) ? $attrs['assign'] : null;
 			$append = isset($attrs['append']) ? $attrs['append'] : null;
 
-			$output = '<?php ob_start(); ?>';
+			$output                 = '<?php ob_start(); ?>';
 			$this->_capture_stack[] = array($buffer, $assign, $append);
 		} else {
 			list($buffer, $assign, $append) = array_pop($this->_capture_stack);

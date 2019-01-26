@@ -379,7 +379,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 		);
 
 		if ($platform->file_exists($fileName)) {
-			$fileSize = $platform->filesize($fileName);
+			$fileSize                 = $platform->filesize($fileName);
 			$this->_callBack['total'] = ceil($fileSize / $this->_fileReadChunkSize);
 
 			// Open the file

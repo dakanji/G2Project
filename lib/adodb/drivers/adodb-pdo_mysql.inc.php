@@ -75,7 +75,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		}
 
 		if ($mask) {
-			$mask = $this->qstr($mask);
+			$mask                 = $this->qstr($mask);
 			$this->metaTablesSQL .= " like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -200,7 +200,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 	public function SelectDB($dbName) {
 		$this->database     = $dbName;
 		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
-		$try = $this->Execute('use ' . $dbName);
+		$try                = $this->Execute('use ' . $dbName);
 
 		return $try !== false;
 	}

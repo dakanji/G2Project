@@ -234,7 +234,7 @@ class AdminGroupsView extends GalleryView {
 			}
 		}
 
-		$AdminGroups = array();
+		$AdminGroups                    = array();
 		$AdminGroups['totalGroupCount'] = $totalGroupCount;
 
 		$template->setVariable('AdminGroups', $AdminGroups);

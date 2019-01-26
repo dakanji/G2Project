@@ -129,7 +129,7 @@ class ItemDeleteController extends GalleryController {
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
-			$page = GalleryUtilities::getRequestVariables('page');
+			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				array('core.delete', 'core.view')
@@ -206,8 +206,8 @@ class ItemDeleteView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$peers     = array();
-		$peerTypes = array();
+		$peers                = array();
+		$peerTypes            = array();
 		$peerDescendentCounts = array();
 		$numPages             = 1;
 		$selectedIds          = array();
@@ -298,11 +298,11 @@ class ItemDeleteView extends GalleryView {
 		$ItemDelete['peers']     = $peers;
 		$ItemDelete['peerTypes'] = $peerTypes;
 		$ItemDelete['peerDescendentCounts'] = $peerDescendentCounts;
-		$ItemDelete['page']            = $page;
-		$ItemDelete['numPages']        = $numPages;
-		$ItemDelete['numPerPage']      = $form['numPerPage'];
-		$ItemDelete['selectedIds']     = array_keys($selectedIds);
-		$ItemDelete['selectedIdCount'] = count($selectedIds);
+		$ItemDelete['page']                 = $page;
+		$ItemDelete['numPages']             = $numPages;
+		$ItemDelete['numPerPage']           = $form['numPerPage'];
+		$ItemDelete['selectedIds']          = array_keys($selectedIds);
+		$ItemDelete['selectedIdCount']      = count($selectedIds);
 
 		$template->setVariable('ItemDelete', $ItemDelete);
 		$template->setVariable('controller', 'core.ItemDelete');

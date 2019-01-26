@@ -751,7 +751,7 @@ class ItemAttributesTest extends GalleryTestCase {
 	public function testFetchDescendentCountsSessionPermission() {
 		// Session based permissions should not apply when calculating cached descendent count
 		global $gallery;
-		$session =& $gallery->getSession();
+		$session                 =& $gallery->getSession();
 		$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$itemId = $this->_items[1]->getId();
@@ -917,7 +917,7 @@ class ItemAttributesTestPhpVm extends GalleryPhpVm {
 	public function __construct($getAllHeadersExists = false, $headers = array(), $time = null) {
 		$this->_getAllHeadersExists = $getAllHeadersExists;
 		$this->_headers             = $headers;
-		$this->_time = $time;
+		$this->_time                = $time;
 	}
 
 	public function getallheaders() {

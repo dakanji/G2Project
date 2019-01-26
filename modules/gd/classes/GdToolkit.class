@@ -329,8 +329,8 @@ class GdToolkit extends GalleryToolkit {
 				 * $parameters[4]: alignment x %
 				 * $parameters[5]: alignment y %
 				 */
-				$cmd = 'composite';
-				$compositeOverlayPath     = $parameters[0];
+				$cmd                  = 'composite';
+				$compositeOverlayPath = $parameters[0];
 				$compositeOverlayMimeType = $parameters[1];
 				$compositeWidth           = $parameters[2];
 				$compositeHeight          = $parameters[3];
@@ -430,7 +430,7 @@ class GdToolkit extends GalleryToolkit {
 				$compositeAlignY = min($compositeAlignY, $sourceHeight - $compositeHeight);
 				$compositeAlignY = max(0, $compositeAlignY);
 
-				$dataDir = $gallery->getConfig('data.gallery.base');
+				$dataDir                = $gallery->getConfig('data.gallery.base');
 				list($ret, $overlayRes) = $this->_getImageResource(
 					$compositeOverlayMimeType,
 					$dataDir . $compositeOverlayPath
@@ -1141,8 +1141,8 @@ class GdToolkit extends GalleryToolkit {
 
 		if ($mimeType == 'image/gif' && $res) {
 			// Don't unnecessarily dither
-			$gd               =& $this->_getGdFunctionality();
-			$transparentColor = $gd->imagecolortransparent($res);
+			$gd                  =& $this->_getGdFunctionality();
+			$transparentColor    = $gd->imagecolortransparent($res);
 			$canHaveTransparency = $transparentColor != -1;
 		}
 

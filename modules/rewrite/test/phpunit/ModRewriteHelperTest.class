@@ -143,7 +143,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 
 		$this->_platform->_isWriteableEmbed = false;
-		list($ret, $code) = ModRewriteHelper::checkFile(true);
+		list($ret, $code)                   = ModRewriteHelper::checkFile(true);
 
 		if ($ret) {
 			return $ret;
@@ -151,7 +151,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_WRITE, $code, 'writeable');
 
 		$this->_platform->_isReadableEmbed = false;
-		list($ret, $code) = ModRewriteHelper::checkFile(true);
+		list($ret, $code)                  = ModRewriteHelper::checkFile(true);
 
 		if ($ret) {
 			return $ret;
@@ -159,7 +159,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_READ, $code, 'readable');
 
 		$this->_platform->_fileExistsEmbed = false;
-		list($ret, $code) = ModRewriteHelper::checkFile(true);
+		list($ret, $code)                  = ModRewriteHelper::checkFile(true);
 
 		if ($ret) {
 			return $ret;
@@ -212,7 +212,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		unset($this->_embeddedFileContent);
 
 		$this->_platform->_isReadableEmbed = false;
-		list($ret, $code) = ModRewriteHelper::writeFile(array(), true);
+		list($ret, $code)                  = ModRewriteHelper::writeFile(array(), true);
 
 		if ($ret) {
 			return $ret;
@@ -223,7 +223,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 
 		$this->_platform->_isReadableEmbed  = true;
 		$this->_platform->_isWriteableEmbed = false;
-		list($ret, $code) = ModRewriteHelper::writeFile(array(), true);
+		list($ret, $code)                   = ModRewriteHelper::writeFile(array(), true);
 
 		if ($ret) {
 			return $ret;

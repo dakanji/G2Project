@@ -14,7 +14,7 @@
 	<!-- ARGS -->
 	<arg name="tab-width" value="4" />
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html" />
-	<arg name="ignore" value="*/lib/composer/*,*/dev_vendor/*" />
+	<arg name="ignore" value="*/lib/composer/*,*/dev_vendor/*,*MANIFEST*" />
 
 	<!-- Load WordPress Standards -->
 	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
@@ -39,7 +39,7 @@
 	<rule ref="WordPress.PHP.TypeCasts" />
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
-			<property name="maxColumn" value="15" />
+			<property name="maxColumn" value="20" />
 			<property name="exact" value="true" />
 			<property name="alignMultilineItems" value="!=100" />
 		</properties>
@@ -74,7 +74,7 @@
 	</rule>
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
 		<properties>
-			<property name="maxPadding" value="15" />
+			<property name="maxPadding" value="20" />
 		</properties>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
@@ -105,7 +105,6 @@
 	<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing" />
 	<rule ref="Squiz.PHP.DisallowMultipleAssignments" />
 	<rule ref="Squiz.WhiteSpace.SemicolonSpacing" />
-	<rule ref="Squiz.CSS.Indentation" />
 	<rule ref="Squiz.Classes.SelfMemberReference">
 		<exclude name="Squiz.Classes.SelfMemberReference.NotUsed" />
 	</rule>

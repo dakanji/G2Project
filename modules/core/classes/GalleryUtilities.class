@@ -1155,8 +1155,8 @@ class GalleryUtilities {
 		$map = array();
 
 		foreach ($albums as $album) {
-			$albumId  = $album->getId();
-			$parentId = $album->getParentId();
+			$albumId                   = $album->getId();
+			$parentId                  = $album->getParentId();
 			$map[$albumId]['instance'] = $album;
 
 			if (!empty($parentId)) {
@@ -1636,8 +1636,8 @@ class GalleryUtilities {
 					$quotedStringOpen = false;
 					$string           = $_SERVER['HTTP_COOKIE'];
 					$len              = strlen($string);
-					$i       = 0;
-					$lastPos = 0;
+					$i                = 0;
+					$lastPos          = 0;
 
 					while ($i < $len) {
 						switch ($string[$i]) {
@@ -1816,8 +1816,8 @@ class GalleryUtilities {
 	 */
 	public static function strArrToIntArr($strArray) {
 		if (is_array($strArray)) {
-			$intArray = array();
-			$arr      = $strArray;
+			$intArray           = array();
+			$arr                = $strArray;
 			$isAssociativeArray = array_keys($arr) !== range(0, count($arr) - 1);
 
 			if ($isAssociativeArray) {

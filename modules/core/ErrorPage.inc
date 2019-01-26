@@ -97,8 +97,8 @@ class ErrorPageView extends GalleryView {
 			$ErrorPage['browser']       = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 
 			if ($gallery->isStorageInitialized()) {
-				$storage             =& $gallery->getStorage();
-				$ErrorPage['dbType'] = $storage->getAdoDbType();
+				$storage                =& $gallery->getStorage();
+				$ErrorPage['dbType']    = $storage->getAdoDbType();
 				$ErrorPage['dbVersion'] = @$storage->getVersion();
 
 				list($ret, $list) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
@@ -259,7 +259,7 @@ class ErrorPageView extends GalleryView {
 		}
 
 		if (!$failsafe) {
-			$t =& $template->getVariableByReference('theme');
+			$t                  =& $template->getVariableByReference('theme');
 			$t['errorTemplate'] = $results['body'];
 			$template->setVariable('l10Domain', 'modules_core');
 			list($ret, $templatePath) = $theme->showErrorPage($template);

@@ -103,7 +103,7 @@ class GalleryRepository {
 
 			foreach ($sources as $source) {
 				$repositories[$source] = new $repositoryClassName();
-				$ret = $repositories[$source]->init($source);
+				$ret                   = $repositories[$source]->init($source);
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
@@ -245,10 +245,10 @@ class GalleryRepository {
 			return array($ret, null);
 		}
 
-		$repositoryDataVersion             = $header['version'];
-		$repositoryDataBuild               = $header['buildTimestamp'];
-		$upgradeInfo['base']['newVersion'] = $repositoryDataVersion;
-		$upgradeInfo['base']['newBuild']   = $repositoryDataBuild;
+		$repositoryDataVersion               = $header['version'];
+		$repositoryDataBuild                 = $header['buildTimestamp'];
+		$upgradeInfo['base']['newVersion']   = $repositoryDataVersion;
+		$upgradeInfo['base']['newBuild']     = $repositoryDataBuild;
 		$upgradeInfo['base']['isCompatible'] = $this->_utilities->isPluginCompatible(
 			$pluginType,
 			$header['requiredCoreApi'],
@@ -650,7 +650,7 @@ class GalleryRepository {
 					return array($ret, null);
 				}
 
-				$files[$pluginType][$pluginId]['name'] = $pluginName;
+				$files[$pluginType][$pluginId]['name']                = $pluginName;
 				$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
 
 				foreach ($packages as $package => $value) {

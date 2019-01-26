@@ -219,7 +219,7 @@ class SetupRewriteView extends GalleryView {
 		} else {
 			$SetupRewrite['bootstrap'] = 1;
 			$SetupRewrite['server']    = 'UNKNOWN';
-			$serverTag = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
+			$serverTag                 = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
 
 			if (stristr($serverTag, 'apache') !== false) {
 				$SetupRewrite['server'] = 'APACHE';

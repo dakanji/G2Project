@@ -487,7 +487,7 @@ class GalleryEntity extends GalleryPersistent {
 
 		if (!empty($onLoadHandlers)) {
 			// Determine whether we're in an upgrade process
-			$session =& $gallery->getSession();
+			$session                  =& $gallery->getSession();
 			$isDuringInstallOrUpgrade = $session->get('isInstall') || $session->get('isUpgrade');
 
 			foreach (explode('|', $onLoadHandlers) as $handlerId) {

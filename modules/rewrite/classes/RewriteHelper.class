@@ -334,8 +334,8 @@ class RewriteHelper {
 	 * @access private
 	 */
 	public static function _parseRule(&$regexRules, $rule, $activeRule) {
-		$regexRule             = array();
-		$regexRule['keywords'] = array();
+		$regexRule                = array();
+		$regexRule['keywords']    = array();
 		$regexRule['queryString'] = $rule['queryString'];
 		$regexRule['options']     = $rule['options'];
 		$regexRule['flags']       = $rule['flags'];
@@ -366,7 +366,7 @@ class RewriteHelper {
 
 		if (!empty($activeRule['pattern'])) {
 			$regexRule['pattern'] = preg_quote($activeRule['pattern']);
-			$code = self::_parseKeywords(
+			$code                 = self::_parseKeywords(
 				$regexRule,
 				$regexRule['pattern'],
 				$rule['keywords']

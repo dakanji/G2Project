@@ -355,7 +355,7 @@ class GalleryRepositoryIndex {
 
 			foreach ($data['languages'][$stringRevision] as $langCode => $version) {
 				list($language, $country) = explode('_', $langCode . '_');
-				$installed = empty($country) ? !empty($languages[$language]) : !empty($languages[$language][$country]);
+				$installed                = empty($country) ? !empty($languages[$language]) : !empty($languages[$language][$country]);
 
 				if ($installed) {
 					$languageData[$langCode] = $version;
@@ -594,7 +594,7 @@ class GalleryRepositoryIndex {
 			);
 
 			if ($showAllPlugins || $isCompatible) {
-				$pluginList[$pluginType][$pluginId] = $plugin;
+				$pluginList[$pluginType][$pluginId]                 = $plugin;
 				$pluginList[$pluginType][$pluginId]['isCompatible'] = $isCompatible;
 
 				// If plugin is locally available, get its version.
@@ -757,7 +757,7 @@ class GalleryRepositoryIndex {
 							if ($ret) {
 								return array($ret, null);
 							}
-							$files[$pluginType][$pluginId]['name'] = $pluginName;
+							$files[$pluginType][$pluginId]['name']                = $pluginName;
 							$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
 							$files[$pluginType][$pluginId]['files'][$locale]      = $packageUrl;
 						}

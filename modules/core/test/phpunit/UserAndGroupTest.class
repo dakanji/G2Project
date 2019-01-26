@@ -429,7 +429,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$userId = $user->getId();
+		$userId                = $user->getId();
 		list($ret, $otherUser) = $this->_createRandomUser();
 
 		if ($ret) {

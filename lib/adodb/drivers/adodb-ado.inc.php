@@ -449,7 +449,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		$rs               = $this->_queryID;
 		$this->_numOfRows = $rs->RecordCount;
 
-		$f = $rs->Fields;
+		$f                  = $rs->Fields;
 		$this->_numOfFields = $f->Count;
 	}
 

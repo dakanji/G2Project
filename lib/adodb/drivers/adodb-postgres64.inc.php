@@ -1115,8 +1115,8 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
-		$qid              = $this->_queryID;
-		$this->_numOfRows = ($ADODB_COUNTRECS) ? @pg_num_rows($qid) : -1;
+		$qid                = $this->_queryID;
+		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @pg_num_rows($qid) : -1;
 		$this->_numOfFields = @pg_num_fields($qid);
 
 		// cache types for blob decode check

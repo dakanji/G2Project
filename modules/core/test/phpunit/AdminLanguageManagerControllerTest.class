@@ -98,8 +98,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 	public function tearDown() {
 		global $gallery;
 		$gallery->_templateAdapter = $this->_galleryTemplateAdapter;
-		$platform =& $gallery->getPlatform();
-		$storage  =& $gallery->getStorage();
+		$platform                  =& $gallery->getPlatform();
+		$storage                   =& $gallery->getStorage();
 
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue($storage->isComplete(), $storage->getRemaining());

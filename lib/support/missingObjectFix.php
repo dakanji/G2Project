@@ -305,10 +305,10 @@ function getAlbumIdsRecursive($id) {
 }
 
 function getItemIdsRecursive($id) {
-	$err        = null;
-	$albums     = array();
-	$itemIds    = array();
-	$missingIds = array();
+	$err                  = null;
+	$albums               = array();
+	$itemIds              = array();
+	$missingIds           = array();
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -350,8 +350,8 @@ function getItemIdsRecursive($id) {
 }
 
 function getMissingDerivatives($id) {
-	$err     = null;
-	$itemIds = $missingIds = $albums = array();
+	$err                  = null;
+	$itemIds              = $missingIds = $albums = array();
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -413,12 +413,12 @@ function getRoot() {
 }
 
 function getAlbumSelector($gID) {
-	$err    = $albumSelectorCode = $albumSelector = null;
-	$albums = array();
+	$err                = $albumSelectorCode = $albumSelector = null;
+	$albums             = array();
 	list($err, $rootID) = getRoot();
 
 	if (!$err) {
-		$gID = (isset($gID) && $gID != '') ? $gID : $rootID;
+		$gID                = (isset($gID) && $gID != '') ? $gID : $rootID;
 		list($err, $albums) = getAlbumTree($gID);
 
 		if (!$err) {

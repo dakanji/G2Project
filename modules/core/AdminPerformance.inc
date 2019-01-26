@@ -38,7 +38,7 @@ class AdminPerformanceController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results = $status = $error = array();
+		$results                  = $status = $error = array();
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {

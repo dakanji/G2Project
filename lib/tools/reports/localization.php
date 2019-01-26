@@ -84,7 +84,7 @@ function parsePoFiles($poFiles) {
 		}
 		list($plugin, $locale) = array($matches[1], $matches[2]);
 		$seenPlugins[$plugin]  = 1;
-		$stat = stat($poFile);
+		$stat                  = stat($poFile);
 
 		if ($stat && $stat['mtime'] > $mostRecentPoDate) {
 			$mostRecentPoDate = $stat['mtime'];
@@ -194,8 +194,8 @@ function parsePoFiles($poFiles) {
 					}
 					$untranslated++;
 				}
-				$msgId       = null;
-				$nextIsFuzzy = 0;
+				$msgId                  = null;
+				$nextIsFuzzy            = 0;
 				$lastLineWasEmptyMsgStr = 0;
 			}
 
@@ -245,7 +245,7 @@ function parsePoFiles($poFiles) {
 			'exactPercentDone' => $exactPercentDone,
 			'name' => $plugin,
 		);
-		$totalTranslated += $translated - $fuzzy;
+		$totalTranslated                    += $translated - $fuzzy;
 
 		foreach (array('translated', 'untranslated', 'fuzzy', 'obsolete') as $key) {
 			if (!isset($summary[$locale][$key])) {

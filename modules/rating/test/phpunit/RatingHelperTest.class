@@ -235,7 +235,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		// Test average
-		$average = round($totalRating / $votes, 3);
+		$average                = round($totalRating / $votes, 3);
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$this->_users[0]->getId()
@@ -323,7 +323,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		// Test fetch as guest with a persistent session that already has rated
-		$average = round($totalRating / $votes, 3);
+		$average                = round($totalRating / $votes, 3);
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$anonymousUserId

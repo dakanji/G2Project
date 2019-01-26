@@ -52,7 +52,7 @@ class ItemPermissionsController extends GalleryController {
 		if (isset($form['action']['deleteGroupPermission'])) {
 			// Figure out which one we're working with
 			$deleteGroupPermission = array_keys($form['action']['deleteGroupPermission']);
-			$index = array_pop($deleteGroupPermission);
+			$index                 = array_pop($deleteGroupPermission);
 
 			// Handle delete group perm actions
 			list($groupId, $permissionId) = explode(',', $form['group']['delete'][$index]);
@@ -68,14 +68,14 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Figure out where to redirect upon success
-			$redirect['view']    = 'core.ItemAdmin';
-			$redirect['subView'] = 'core.ItemPermissions';
-			$redirect['itemId']  = $itemId;
+			$redirect['view']                 = 'core.ItemAdmin';
+			$redirect['subView']              = 'core.ItemPermissions';
+			$redirect['itemId']               = $itemId;
 			$status['deletedGroupPermission'] = 1;
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[group][permission]'] = $permissionId;
-			list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+			list($ret, $group)                   = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 			if (!$ret) {
 				$redirect['form[group][groupName]'] = $group->getGroupName();
@@ -84,7 +84,7 @@ class ItemPermissionsController extends GalleryController {
 		} elseif (isset($form['action']['deleteUserPermission'])) {
 			// Figure out which one we're working with
 			$deleteUserPermission = array_keys($form['action']['deleteUserPermission']);
-			$index = array_pop($deleteUserPermission);
+			$index                = array_pop($deleteUserPermission);
 
 			// Handle delete user perm actions
 			list($userId, $permissionId) = explode(',', $form['user']['delete'][$index]);
@@ -100,14 +100,14 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Figure out where to redirect upon success
-			$redirect['view']    = 'core.ItemAdmin';
-			$redirect['subView'] = 'core.ItemPermissions';
-			$redirect['itemId']  = $itemId;
+			$redirect['view']                = 'core.ItemAdmin';
+			$redirect['subView']             = 'core.ItemPermissions';
+			$redirect['itemId']              = $itemId;
 			$status['deletedUserPermission'] = 1;
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[user][permission]'] = $permissionId;
-			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+			list($ret, $user)                   = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 			if (!$ret) {
 				$redirect['form[user][userName]'] = $user->getUserName();
@@ -134,7 +134,7 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Validate the permission
-			$permission = $form['user']['permission'];
+			$permission                 = $form['user']['permission'];
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -171,9 +171,9 @@ class ItemPermissionsController extends GalleryController {
 				}
 
 				// Figure out where to redirect upon success
-				$redirect['view']    = 'core.ItemAdmin';
-				$redirect['subView'] = 'core.ItemPermissions';
-				$redirect['itemId']  = $itemId;
+				$redirect['view']                 = 'core.ItemAdmin';
+				$redirect['subView']              = 'core.ItemPermissions';
+				$redirect['itemId']               = $itemId;
 				$redirect['form[user][userName]'] = $user->getUserName();
 				$status['addedUserPermission']    = 1;
 			}
@@ -195,7 +195,7 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Validate the permission
-			$permission = $form['group']['permission'];
+			$permission                 = $form['group']['permission'];
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -232,9 +232,9 @@ class ItemPermissionsController extends GalleryController {
 				}
 
 				// Figure out where to redirect upon success
-				$redirect['view']    = 'core.ItemAdmin';
-				$redirect['subView'] = 'core.ItemPermissions';
-				$redirect['itemId']  = $itemId;
+				$redirect['view']                   = 'core.ItemAdmin';
+				$redirect['subView']                = 'core.ItemPermissions';
+				$redirect['itemId']                 = $itemId;
 				$redirect['form[group][groupName]'] = $group->getGroupName();
 				$status['addedGroupPermission']     = 1;
 			}

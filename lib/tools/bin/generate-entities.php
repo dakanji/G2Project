@@ -37,8 +37,8 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty              = new Smarty();
-$smarty->compile_dir = $tmpdir;
+$smarty                  = new Smarty();
+$smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
 $smarty->use_sub_dirs    = false;
@@ -91,7 +91,7 @@ if (system("xmllint --valid --noout $entitiesXml", $retval)) {
 	cleanExit();
 }
 
-$p    =& new XmlParser();
+$p    = new XmlParser();
 $root = $p->parse($entitiesXml);
 
 $entities = array();

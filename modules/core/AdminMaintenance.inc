@@ -156,7 +156,7 @@ class AdminMaintenanceController extends GalleryController {
 
 		$status['run']['success'] = $success;
 		$status['run']['taskId']  = $taskId;
-		$session =& $gallery->getSession();
+		$session                  =& $gallery->getSession();
 		$session->putStatus($status);
 
 		$redirect['view']    = 'core.SiteAdmin';
@@ -222,7 +222,7 @@ class AdminMaintenanceView extends GalleryView {
 			}
 		}
 
-		$maintenanceMode = $gallery->getConfig('mode.maintenance');
+		$maintenanceMode                = $gallery->getConfig('mode.maintenance');
 		list($ret, $maintenanceModeUrl) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',

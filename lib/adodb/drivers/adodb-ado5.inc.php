@@ -505,7 +505,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		} catch (Exception $e) {
 			$this->_numOfRows = -1;
 		}
-		$f = $rs->Fields;
+		$f                  = $rs->Fields;
 		$this->_numOfFields = $f->Count;
 	}
 

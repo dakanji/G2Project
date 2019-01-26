@@ -139,7 +139,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 	public function testLoadTemplateForAlbum() {
 		global $gallery;
-		$theme =& $this->_template->getVariableByReference('theme');
+		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
 
 		GalleryUtilities::putRequestVariable('keyword', 'test&key');
@@ -166,7 +166,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 	public function testLoadTemplateForAlbumMultiKeyword() {
 		global $gallery;
-		$theme =& $this->_template->getVariableByReference('theme');
+		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
 
 		// Query for items with both testkey and fun keywords
@@ -267,7 +267,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 		GalleryUtilities::putRequestVariable('view', 'test.TestView');
 
-		$unused = null;
+		$unused                = null;
 		list($ret, $summaries) = $this->_module->getItemSummaries($itemList, $permissions, $unused);
 
 		if ($ret) {

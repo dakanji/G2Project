@@ -948,7 +948,7 @@ class TestCase extends Assert {
 	public function runBare() {
 		global $gallery;
 		$this->fTiming['start'] = microtime();
-		$ret = $this->setUp();
+		$ret                    = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());

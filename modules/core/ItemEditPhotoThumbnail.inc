@@ -196,7 +196,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		}
 
 		$targetThumbnailSize = 0;
-		$crop = array();
+		$crop                = array();
 
 		if (preg_match(
 			'/thumbnail\|(\d+)/',

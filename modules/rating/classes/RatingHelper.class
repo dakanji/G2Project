@@ -54,7 +54,7 @@ class RatingHelper {
 		$data = array();
 
 		while ($result = $searchResults->nextResult()) {
-			$rating = $result[1] / 1000;
+			$rating                = $result[1] / 1000;
 			$data[(int)$result[0]] = array(
 				'itemId'         => (int)$result[0],
 				'rating'         => GalleryUtilities::roundToString($rating, 3),
@@ -106,9 +106,9 @@ class RatingHelper {
 			}
 
 			if ($isAnonymous) {
-				$sessionId = $session->getId();
-				$remoteId  = $session->getRemoteIdentifier();
-				$searchParams['sessionId']        = $sessionId;
+				$sessionId                 = $session->getId();
+				$remoteId                  = $session->getRemoteIdentifier();
+				$searchParams['sessionId'] = $sessionId;
 				$searchParams['remoteIdentifier'] = implode(':', $remoteId);
 			}
 

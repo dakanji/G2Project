@@ -698,7 +698,7 @@ class ADODB_ibase extends ADOConnection {
 
 			if (isset($rs->fields[2])) {
 				$fld->has_default = true;
-				$d = substr($rs->fields[2], strlen('default '));
+				$d                = substr($rs->fields[2], strlen('default '));
 
 				switch ($fld->type) {
 					case 'smallint':
@@ -1009,7 +1009,7 @@ class ADORecordset_ibase extends ADORecordSet {
 
 		// cache types for blob decode check
 		for ($i = 0, $max = $this->_numOfFields; $i < $max; $i++) {
-			$f1 = $this->FetchField($i);
+			$f1                 = $this->FetchField($i);
 			$this->_cacheType[] = $f1->type;
 		}
 	}

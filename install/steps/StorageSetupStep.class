@@ -214,7 +214,7 @@ class StorageSetupStep extends InstallStep {
 			 */
 			$galleryPathElements = explode(DIRECTORY_SEPARATOR, $galleryPath);
 			$storagePathElements = explode(DIRECTORY_SEPARATOR, $storagePath);
-			$max = 30;
+			$max                 = 30;
 			// Before: e.g. /foo/bar/gallery2/ and /foo/bar/g2data/.
 			while (!empty($galleryPathElements) && !empty($storagePathElements) && $max-- > 0
 			&& $galleryPathElements[0] == $storagePathElements[0]) {

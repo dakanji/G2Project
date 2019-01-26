@@ -338,11 +338,11 @@ class ItemEditItem extends ItemEditPlugin {
 			// First time around, load the form with item data
 			$form['formName'] = 'ItemEditItem';
 
-			$form['title']         = $item->getTitle();
-			$form['summary']       = $item->getSummary();
-			$form['keywords']      = $item->getKeywords();
-			$form['description']   = $item->getDescription();
-			$form['pathComponent'] = $item->getPathComponent();
+			$form['title']                = $item->getTitle();
+			$form['summary']              = $item->getSummary();
+			$form['keywords']             = $item->getKeywords();
+			$form['description']          = $item->getDescription();
+			$form['pathComponent']        = $item->getPathComponent();
 			$form['originationTimestamp'] = $item->getOriginationTimestamp();
 
 			$form['thumbnail']['size'] = null;

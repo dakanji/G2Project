@@ -64,35 +64,35 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 
 		$_typeConversion = array(
 			-155 => 'D',
-			93 => 'D',
+			93   => 'D',
 			-154 => 'D',
-			-2 => 'D',
-			91 => 'D',
+			-2   => 'D',
+			91   => 'D',
 
-			12 => 'C',
-			1 => 'C',
-			-9 => 'C',
-			-8 => 'C',
+			12   => 'C',
+			1    => 'C',
+			-9   => 'C',
+			-8   => 'C',
 
-			-7 => 'L',
-			-6 => 'I2',
-			-5 => 'I8',
-			-11 => 'I',
-			4 => 'I',
-			5 => 'I4',
+			-7   => 'L',
+			-6   => 'I2',
+			-5   => 'I8',
+			-11  => 'I',
+			4    => 'I',
+			5    => 'I4',
 
-			-1 => 'X',
-			-10 => 'X',
+			-1   => 'X',
+			-10  => 'X',
 
-			2 => 'N',
-			3 => 'N',
-			6 => 'N',
-			7 => 'N',
+			2    => 'N',
+			3    => 'N',
+			6    => 'N',
+			7    => 'N',
 
 			-152 => 'X',
 			-151 => 'X',
-			-4 => 'X',
-			-3 => 'X',
+			-4   => 'X',
+			-3   => 'X',
 		);
 
 		return $_typeConversion($t);
@@ -158,10 +158,10 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname = $this->TableName($tabname);
-		$f       = array();
+		$tabname            = $this->TableName($tabname);
+		$f                  = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s = "ALTER TABLE $tabname $this->addCol";
+		$s                  = "ALTER TABLE $tabname $this->addCol";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";

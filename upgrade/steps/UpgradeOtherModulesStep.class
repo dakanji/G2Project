@@ -40,7 +40,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 		$totalPlugins               = $currentModule = $currentTheme = 0;
 		$templateData['stackTrace'] = '';
-		$template = new StatusTemplate();
+		$template                   = new StatusTemplate();
 		$template->renderHeader(true);
 
 		$ret = selectAdminUser(true);
@@ -299,7 +299,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$pluginIsUpgradeable['module'][$moduleId] = !empty($moduleList[$moduleId]['version'])
 				&& $moduleList[$moduleId]['version'] != $module->getVersion()
 				&& $pluginIsCompatible['module'][$moduleId];
-				$currentVersion[$moduleId] = $moduleList[$moduleId]['version'];
+				$currentVersion[$moduleId]                = $moduleList[$moduleId]['version'];
 
 				$group = $module->getGroup();
 
@@ -310,8 +310,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					);
 				}
 				$groupedModules[$group['group']][$moduleId] =& $module;
-				$groupLabel[$group['group']] = $group['groupLabel'];
-				$groupType[$group['group']]  = 'module';
+				$groupLabel[$group['group']]                = $group['groupLabel'];
+				$groupType[$group['group']]                 = 'module';
 			}
 
 			foreach (array_keys($themeList) as $themeId) {

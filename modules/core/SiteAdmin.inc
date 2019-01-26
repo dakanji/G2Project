@@ -170,7 +170,7 @@ class SiteAdminView extends GalleryView {
 		$subViewGroups = $groupLabels = array();
 
 		foreach ($subViewChoices as $adminView) {
-			$group = $adminView['group'];
+			$group                   = $adminView['group'];
 			$subViewGroups[$group][] = $adminView;
 
 			if (!empty($adminView['groupLabel'])) {
@@ -194,7 +194,7 @@ class SiteAdminView extends GalleryView {
 
 				foreach ($groupLabels[$group] as $label => $count) {
 					if ($count > $tmp) {
-						$tmp = $count;
+						$tmp                   = $count;
 						$data[0]['groupLabel'] = $label;
 					}
 				}

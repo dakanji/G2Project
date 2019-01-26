@@ -263,7 +263,7 @@ class AdminImageMagickView extends GalleryView {
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
-						$testResults = array();
+						$testResults                  = array();
 						$form['error']['path']['bad'] = 1;
 					} else {
 						return array($ret, null);
@@ -321,10 +321,10 @@ class AdminImageMagickView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminImageMagick              = array();
-		$AdminImageMagick['tests']     = $tests;
-		$AdminImageMagick['version']   = $version;
-		$AdminImageMagick['mimeTypes'] = $mimeTypes;
+		$AdminImageMagick                    = array();
+		$AdminImageMagick['tests']           = $tests;
+		$AdminImageMagick['version']         = $version;
+		$AdminImageMagick['mimeTypes']       = $mimeTypes;
 		$AdminImageMagick['jpegQualityList'] = $jpegQualityList;
 		$AdminImageMagick['debugSnippet']    = $debugSnippet;
 		$AdminImageMagick['failCount']       = $failCount;

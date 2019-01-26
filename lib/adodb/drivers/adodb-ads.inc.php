@@ -64,11 +64,11 @@ class ADODB_ads extends ADOConnection {
 	public $_autocommit        = true;
 	public $_haserrorfunctions = true;
 	public $_has_stupid_odbc_fetch_api_change = true;
-	public $_lastAffectedRows = 0;
-	public $uCaseTables       = true; // for meta* functions, uppercase table names
+	public $_lastAffectedRows                 = 0;
+	public $uCaseTables = true; // for meta* functions, uppercase table names
 
 	public function __construct() {
-		$this->_haserrorfunctions = ADODB_PHPVER >= 0x4050;
+		$this->_haserrorfunctions                = ADODB_PHPVER >= 0x4050;
 		$this->_has_stupid_odbc_fetch_api_change = ADODB_PHPVER >= 0x4200;
 	}
 
@@ -635,7 +635,7 @@ class ADODB_ads extends ADOConnection {
 		if ($stmtid) {
 			if (@ads_num_fields($stmtid) == 0) {
 				$this->_lastAffectedRows = ads_num_rows($stmtid);
-				$stmtid = true;
+				$stmtid                  = true;
 			} else {
 				$this->_lastAffectedRows = 0;
 				ads_binmode($stmtid, $this->binmode);
@@ -694,7 +694,7 @@ class ADODB_ads extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret = @ads_close($this->_connectionID);
+		$ret                 = @ads_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;

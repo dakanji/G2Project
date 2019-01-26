@@ -209,8 +209,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListCantWrite() {
 		$this->_platform->_isWriteable = false;
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
+		$accessList                    = array('phpunit.test1', 'phpunit.test2');
+		list($ret, $code)              = $this->_parser->saveAccessList($accessList, true);
 
 		if ($ret) {
 			return array($ret, null, null);

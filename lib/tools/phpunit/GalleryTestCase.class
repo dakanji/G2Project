@@ -1216,7 +1216,7 @@ class GalleryTestCase extends TestCase {
 		}
 
 		// Don't use references here
-		$eventListeners = GalleryEventHelper_simple::_getEventListeners();
+		$eventListeners                   = GalleryEventHelper_simple::_getEventListeners();
 		$this->_cleanup['eventListeners'] = $eventListeners;
 
 		return null;

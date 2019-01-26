@@ -67,7 +67,7 @@ class TestGdFunctionality {
 	public function getNewResource($filename = null) {
 		$this->_resourceCounter++;
 		$this->_undestroyedResourceCounter++;
-		$name = 'res #' . $this->_resourceCounter;
+		$name                    = 'res #' . $this->_resourceCounter;
 		$this->_resources[$name] = array(
 			'x' => 0,
 			'y' => 0,
@@ -92,7 +92,7 @@ class TestGdFunctionality {
 	public function copyResource($otherRes) {
 		$this->_resourceCounter++;
 		$this->_undestroyedResourceCounter++;
-		$newRes = 'Resource #' . $this->_resourceCounter;
+		$newRes                    = 'Resource #' . $this->_resourceCounter;
 		$this->_resources[$newRes] = $this->_resources[$otherRes];
 
 		return $newRes;

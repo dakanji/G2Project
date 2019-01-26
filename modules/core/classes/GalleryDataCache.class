@@ -790,7 +790,7 @@ class GalleryDataCache {
 				)
 			);
 
-			$storage =& $gallery->getStorage();
+			$storage                  =& $gallery->getStorage();
 			list($ret, $affectedRows) = $storage->getAffectedRows();
 
 			if ($ret) {

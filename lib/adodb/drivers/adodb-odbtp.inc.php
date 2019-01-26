@@ -788,7 +788,7 @@ class ADODB_odbtp extends ADOConnection {
 	}
 
 	public function _close() {
-		$ret = @odbtp_close($this->_connectionID);
+		$ret                 = @odbtp_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;

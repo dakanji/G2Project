@@ -94,9 +94,9 @@ class RepositoryDescriptor extends RepositoryObject {
 		$this->_pluginVersion = $plugin->getVersion();
 
 		// Create descriptor header.
-		$header['id']              = $this->_pluginId;
-		$header['version']         = $this->_pluginVersion;
-		$header['requiredCoreApi'] = $plugin->getRequiredCoreApi();
+		$header['id']                = $this->_pluginId;
+		$header['version']           = $this->_pluginVersion;
+		$header['requiredCoreApi']   = $plugin->getRequiredCoreApi();
 		$header['requiredPluginApi'] = $pluginType == 'module' ? $plugin->getRequiredModuleApi() : $plugin->getRequiredThemeApi();
 		$this->_data['header']       = $header;
 

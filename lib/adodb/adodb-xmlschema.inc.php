@@ -383,7 +383,7 @@ class dbTable extends dbObject {
 	 * @return object dbIndex object
 	 */
 	public function addIndex($attributes) {
-		$name = strtoupper($attributes['NAME']);
+		$name                 = strtoupper($attributes['NAME']);
 		$this->indexes[$name] = new dbIndex($this, $attributes);
 
 		return $this->indexes[$name];
@@ -2046,7 +2046,7 @@ class adoSchema {
 						// this stops the creation of 'R' columns,
 						// AUTOINCREMENT is used to create auto columns
 						$details->primary_key = 0;
-						$type = $rs->MetaType($details);
+						$type                 = $rs->MetaType($details);
 
 						$schema .= '		<field name="' . $details->name . '" type="' . $type . '"' . $extra . '>';
 

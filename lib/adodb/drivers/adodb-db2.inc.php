@@ -835,7 +835,7 @@ class ADODB_db2 extends ADOConnection {
 		if ($stmtid) {
 			if (@db2_num_fields($stmtid) == 0) {
 				$this->_lastAffectedRows = db2_num_rows($stmtid);
-				$stmtid = true;
+				$stmtid                  = true;
 			} else {
 				$this->_lastAffectedRows = 0;
 			}
@@ -873,7 +873,7 @@ class ADODB_db2 extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret = @db2_close($this->_connectionID);
+		$ret                 = @db2_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;

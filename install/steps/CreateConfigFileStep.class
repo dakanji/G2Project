@@ -62,8 +62,8 @@ class CreateConfigFileStep extends InstallStep {
 			} else {
 				$this->setInError(true);
 				$templateData['error']['configWriteError'] = 1;
-				$templateData['bodyFile']   = 'CreateConfigFileInstructions.html';
-				$templateData['galleryDir'] = basename($configDir);
+				$templateData['bodyFile']                  = 'CreateConfigFileInstructions.html';
+				$templateData['galleryDir']                = basename($configDir);
 			}
 		} else {
 			// Don't (overwrite) the config file, if we recommend an upgrade
@@ -187,7 +187,7 @@ class CreateConfigFileStep extends InstallStep {
 			) as $key) {
 				if (preg_match("/^.storeConfig\['$key'\] = '.*';/", $line)) {
 					$newStoreConfig[$key] = strtr($newStoreConfig[$key], $addslashes);
-					$line = "\$storeConfig['$key'] = '$newStoreConfig[$key]';\n";
+					$line                 = "\$storeConfig['$key'] = '$newStoreConfig[$key]';\n";
 				}
 			}
 
@@ -234,7 +234,7 @@ class CreateConfigFileStep extends InstallStep {
 			$versionsOk = true;
 		} else {
 			// Get the installed version from the DatabaseSetup Step
-			$tmp = $galleryStub->getConfig('installed.version');
+			$tmp                   = $galleryStub->getConfig('installed.version');
 			$versions['installed'] = empty($tmp) ? ' ' : $tmp;
 			// ^Avoid http://bugs.php.net/bug.php?id=17433
 			// Get the codebase version, also from the DB setup step

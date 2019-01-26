@@ -89,7 +89,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		// Standard Gallery init
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=bar&bar=foo';
 		$urlGenerator           = new PathInfoUrlGenerator();
-		$ret = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
+		$ret                    = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
 
 		if ($ret) {
 			return $ret;

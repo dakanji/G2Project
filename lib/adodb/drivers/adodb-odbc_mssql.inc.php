@@ -130,8 +130,8 @@ order by constraint_name, referenced_table_name, keyno";
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {//$this->debug=1;
-			$save = $this->metaTablesSQL;
-			$mask = $this->qstr($mask);
+			$save                 = $this->metaTablesSQL;
+			$mask                 = $this->qstr($mask);
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -299,7 +299,7 @@ order by constraint_name, referenced_table_name, keyno";
 
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		$a = $this->GetCol($sql);
+		$a                = $this->GetCol($sql);
 		$ADODB_FETCH_MODE = $savem;
 
 		if ($a && sizeof($a) > 0) {

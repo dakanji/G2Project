@@ -194,7 +194,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 			foreach (array_keys($modules) as $moduleId) {
 				$moduleInstalled[$moduleId] = !empty($moduleList[$moduleId]['version']);
-				$module =& $modules[$moduleId];
+				$module                   =& $modules[$moduleId];
 				$moduleInvalid[$moduleId] = !GalleryCoreApi::isPluginCompatibleWithApis($module);
 
 				$group = $module->getGroup();
@@ -206,7 +206,7 @@ class InstallOtherModulesStep extends InstallStep {
 					);
 				}
 				$groupedModules[$group['group']][$moduleId] =& $module;
-				$groupLabel[$group['group']] = $group['groupLabel'];
+				$groupLabel[$group['group']]                = $group['groupLabel'];
 			}
 		}
 

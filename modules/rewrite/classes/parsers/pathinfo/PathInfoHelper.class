@@ -175,7 +175,7 @@ class PathInfoHelper {
 			return array($ret, null, null);
 		}
 
-		$fetch = $urlGenerator->generateUrl(
+		$fetch                = $urlGenerator->generateUrl(
 			array(
 				'href' => 'modules/rewrite/data/path_info/index.php/test/path/info',
 			),

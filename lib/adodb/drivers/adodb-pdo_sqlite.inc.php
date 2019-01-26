@@ -205,13 +205,13 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 			if (sizeof($type) == 2) {
 				$size = trim($type[1], ')');
 			}
-			$fn               = strtoupper($r['name']);
-			$fld              = new ADOFieldObject();
-			$fld->name        = $r['name'];
-			$fld->type        = $type[0];
-			$fld->max_length  = $size;
-			$fld->not_null    = $r['notnull'];
-			$fld->primary_key = $r['pk'];
+			$fn                 = strtoupper($r['name']);
+			$fld                = new ADOFieldObject();
+			$fld->name          = $r['name'];
+			$fld->type          = $type[0];
+			$fld->max_length    = $size;
+			$fld->not_null      = $r['notnull'];
+			$fld->primary_key   = $r['pk'];
 			$fld->default_value = $r['dflt_value'];
 			$fld->scale         = 0;
 
@@ -231,8 +231,8 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		$parent = $this->pdoDriver;
 
 		if ($mask) {
-			$save = $this->metaTablesSQL;
-			$mask = $this->qstr(strtoupper($mask));
+			$save                 = $this->metaTablesSQL;
+			$mask                 = $this->qstr(strtoupper($mask));
 			$this->metaTablesSQL .= " AND name LIKE $mask";
 		}
 

@@ -471,8 +471,8 @@ class adodb_perf {
 	}
 
 	public function Tracer($sql) {
-		$perf_table = self::table();
-		$saveE      = $this->conn->fnExecute;
+		$perf_table            = self::table();
+		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		global $ADODB_FETCH_MODE;
@@ -526,7 +526,7 @@ class adodb_perf {
 		$saveE = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 		$perf_table            = self::table();
-		$rs = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
+		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
 		$this->conn->fnExecute = $saveE;
 
 		if ($rs) {
@@ -542,8 +542,8 @@ class adodb_perf {
 	public function _SuspiciousSQL($numsql = 10) {
 		global $ADODB_FETCH_MODE;
 
-		$perf_table = self::table();
-		$saveE      = $this->conn->fnExecute;
+		$perf_table            = self::table();
+		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		if (isset($_GET['exps']) && isset($_GET['sql'])) {
@@ -630,8 +630,8 @@ class adodb_perf {
 	public function _ExpensiveSQL($numsql = 10) {
 		global $ADODB_FETCH_MODE;
 
-		$perf_table = self::table();
-		$saveE      = $this->conn->fnExecute;
+		$perf_table            = self::table();
+		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		if (isset($_GET['expe']) && isset($_GET['sql'])) {
@@ -991,7 +991,7 @@ class adodb_perf {
 
 	// Returns basic health check as HTML
 	public function HealthCheck($cli = false) {
-		$saveE = $this->conn->fnExecute;
+		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
 		if ($cli) {

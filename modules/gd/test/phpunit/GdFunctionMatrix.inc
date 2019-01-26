@@ -1,12 +1,12 @@
 <?php
 
 $gdEnvironments[] = array(
-	'name' => '4.1.0|1.6.2-external|Linux',
+	'name'       => '4.1.0|1.6.2-external|Linux',
 	'phpVersion' => '4.1.0',
-	'gdVersion' => '1.6.2',
-	'gdBundled' => 0,
+	'gdVersion'  => '1.6.2',
+	'gdBundled'  => 0,
 	'imageTypes' => 30,
-	'constants' => array(
+	'constants'  => array(
 		'PHP_VERSION' => '4.1.0',
 		'PHP_OS'   => 'Linux',
 		'PHP_EXTENSION_DIR' => '/usr/share/20010901',
@@ -31,7 +31,7 @@ $gdEnvironments[] = array(
 		'IMG_COLOR_STYLEDBRUSHED' => -4,
 		'IMG_COLOR_TRANSPARENT' => -6,
 	),
-	'mimeTypes' => array(
+	'mimeTypes'  => array(
 		'image/jpeg',
 		'image/png',
 		'image/vnd.wap.wbmp',
@@ -308,7 +308,7 @@ $gdEnvironments[] = array(
 &lt;tr valign=&quot;baseline&quot; bgcolor=&quot;#cccccc&quot;&gt;&lt;td&gt;session mm&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;&lt;br&gt;
 &lt;/body&gt;&lt;/html&gt;',
-	'functions' => array(
+	'functions'  => array(
 		'imagearc' => true,
 		'imagechar' => true,
 		'imagecharup' => true,
@@ -399,12 +399,12 @@ $gdEnvironments[] = array(
 	),
 );
 $gdEnvironments[] = array(
-	'name'    => '4.3.1|2.0-bundled|Linux',
+	'name'       => '4.3.1|2.0-bundled|Linux',
 	'phpVersion' => '4.3.1',
-	'gdVersion' => '2.0',
-	'gdBundled' => 1,
+	'gdVersion'  => '2.0',
+	'gdBundled'  => 1,
 	'imageTypes' => 30,
-	'gd_info' => array(
+	'gd_info'    => array(
 		'GD Version'         => 'bundled (2.0 compatible)',
 		'FreeType Support'   => '1',
 		'FreeType Linkage'   => 'with freetype',
@@ -416,7 +416,7 @@ $gdEnvironments[] = array(
 		'WBMP Support'       => '1',
 		'XBM Support'        => '',
 	),
-	'constants' => array(
+	'constants'  => array(
 		'PHP_VERSION' => '4.3.1',
 		'PHP_OS'   => 'Linux',
 		'PHP_SAPI' => 'cgi',
@@ -469,7 +469,7 @@ $gdEnvironments[] = array(
 		'IMG_EFFECT_OVERLAY' => 3,
 		'GD_BUNDLED' => 1,
 	),
-	'mimeTypes' => array(
+	'mimeTypes'  => array(
 		'image/jpeg',
 		'image/png',
 		'image/vnd.wap.wbmp',
@@ -818,7 +818,7 @@ hr {width: 600px; align: center; background-color: #cccccc; border: 0px; height:
 &lt;tr&gt;&lt;td&gt;sysvshm&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;&lt;br /&gt;
 &lt;/div&gt;&lt;/body&gt;&lt;/html&gt;',
-	'functions' => array(
+	'functions'  => array(
 		'gd_info'  => true,
 		'imagearc' => true,
 		'imageellipse' => true,
@@ -912,12 +912,12 @@ hr {width: 600px; align: center; background-color: #cccccc; border: 0px; height:
 	),
 );
 $gdEnvironments[] = array(
-	'name'    => '4.3.9RC1|2.0.28-bundled|Linux',
+	'name'       => '4.3.9RC1|2.0.28-bundled|Linux',
 	'phpVersion' => '4.3.9RC1',
-	'gdVersion' => '2.0.28',
-	'gdBundled' => 1,
+	'gdVersion'  => '2.0.28',
+	'gdBundled'  => 1,
 	'imageTypes' => 31,
-	'gd_info' => array(
+	'gd_info'    => array(
 		'GD Version'                       => 'bundled (2.0.28 compatible)',
 		'FreeType Support'                 => '1',
 		'FreeType Linkage'                 => 'with freetype',
@@ -930,7 +930,7 @@ $gdEnvironments[] = array(
 		'XBM Support'                      => '1',
 		'JIS-mapped Japanese Font Support' => '',
 	),
-	'constants' => array(
+	'constants'  => array(
 		'PHP_VERSION' => '4.3.9RC1',
 		'PHP_OS'   => 'Linux',
 		'PHP_SAPI' => 'cgi',
@@ -988,7 +988,7 @@ $gdEnvironments[] = array(
 		'IMG_EFFECT_OVERLAY' => 3,
 		'GD_BUNDLED' => 1,
 	),
-	'mimeTypes' => array(
+	'mimeTypes'  => array(
 		'image/gif',
 		'image/jpeg',
 		'image/png',
@@ -1338,7 +1338,7 @@ hr {width: 600px; background-color: #cccccc; border: 0px; height: 1px; color: #0
 &lt;tr&gt;&lt;td&gt;sysvshm&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;&lt;br /&gt;
 &lt;/div&gt;&lt;/body&gt;&lt;/html&gt;',
-	'functions' => array(
+	'functions'  => array(
 		'gd_info'  => true,
 		'imagearc' => true,
 		'imageellipse' => true,

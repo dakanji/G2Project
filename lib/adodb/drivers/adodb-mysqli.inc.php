@@ -662,7 +662,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			if ($mask) {
-				$mask = $this->qstr($mask);
+				$mask                 = $this->qstr($mask);
 				$this->metaTablesSQL .= " AND table_name LIKE $mask";
 			}
 			$ret = ADOConnection::MetaTables($ttype, $showSchema);

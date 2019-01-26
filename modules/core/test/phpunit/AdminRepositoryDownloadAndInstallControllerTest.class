@@ -175,7 +175,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationInactiveModule() {
 		global $gallery;
-		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule                 = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active = 0;
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
@@ -260,7 +260,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationNotInstalledModule() {
 		global $gallery;
-		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule                  = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active  = 0;
 		$this->_controller->_version = 0;
 
@@ -347,8 +347,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 	public function testPerformDownloadAndInstallationInUseModule() {
 		global $gallery;
-		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
-		$this->_controller->_active     = 0;
+		$testModule                 = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$this->_controller->_active = 0;
 		$gallery->_phpVm->_class_exists = true;
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();

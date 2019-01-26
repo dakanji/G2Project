@@ -405,7 +405,7 @@ class CommentModule extends GalleryModule {
 	 * @see GalleryModule::getItemAdminViews
 	 */
 	public function getItemAdminViews($item) {
-		$views = array();
+		$views                   = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {

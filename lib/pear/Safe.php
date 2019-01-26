@@ -381,7 +381,7 @@ class HTML_Safe {
 			for ($i = 0; $i < strlen($proto); $i++) {
 				$preg .= $proto[$i] . "[\s\x01-\x1F]*";
 			}
-			$preg .= ':/i';
+			$preg                 .= ':/i';
 			$this->_protoRegexps[] = $preg;
 		}
 

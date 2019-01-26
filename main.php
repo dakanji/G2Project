@@ -184,8 +184,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 	// Figure out the target view/controller
 	list($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
-	$controllerName = is_string($controllerName) ? $controllerName : null;
-	$viewName       = is_string($viewName) ? $viewName : null;
+	$controllerName                  = is_string($controllerName) ? $controllerName : null;
+	$viewName = is_string($viewName) ? $viewName : null;
 	$gallery->debug("controller $controllerName, view $viewName");
 
 	// Check if core module needs upgrading

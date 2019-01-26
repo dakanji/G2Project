@@ -111,12 +111,12 @@ class CodeAuditTest extends CodeAuditTestCase {
 		$this->_preamble = $this->getPreamble(file(__FILE__));
 
 		// Turn the preamble into a pattern that we can use to match
-		$pattern = implode('NEWLINE PLACEHOLDER', $this->_preamble);
-		$pattern = str_replace('?', '\?', $pattern);
-		$pattern = str_replace('*', '\*', $pattern);
-		$pattern = str_replace('(', '\(', $pattern);
-		$pattern = str_replace(')', '\)', $pattern);
-		$pattern = str_replace('/', '\/', $pattern);
+		$pattern                = implode('NEWLINE PLACEHOLDER', $this->_preamble);
+		$pattern                = str_replace('?', '\?', $pattern);
+		$pattern                = str_replace('*', '\*', $pattern);
+		$pattern                = str_replace('(', '\(', $pattern);
+		$pattern                = str_replace(')', '\)', $pattern);
+		$pattern                = str_replace('/', '\/', $pattern);
 		$this->_preamblePattern = str_replace('NEWLINE PLACEHOLDER', '(:?\r\n|\n|\r)', $pattern);
 	}
 
@@ -364,7 +364,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 						$commaCount -= ($assignCount - 1);
 					}
 
-					$finalCount = "array($commaCount)";
+					$finalCount                 = "array($commaCount)";
 					$returnCount[$function][$i] = array($finalCount, $tmp);
 				} elseif (preg_match('/^GalleryCoreApi::error\(.*\)/', $returns[$i])) {
 					$returnCount[$function][$i] = array('scalar', $returns[$i]);

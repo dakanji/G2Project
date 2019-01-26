@@ -1107,7 +1107,7 @@ class StringParser_Node {
 		}
 
 		// append it to current node
-		$new_index = count($this->_children);
+		$new_index                   = count($this->_children);
 		$this->_children[$new_index] =& $node;
 		$node->_parent               =& $this;
 

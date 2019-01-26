@@ -199,7 +199,7 @@ class GalleryEntityHelper_medium {
 				if ($i++ % 10 == 0) {
 					$gallery->guaranteeTimeLimit(5);
 				}
-				$id = (int)$result[0];
+				$id                 = (int)$result[0];
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
 
 				if ($ret) {
@@ -382,7 +382,7 @@ class GalleryEntityHelper_medium {
 					'itemId' => $entity->getId(),
 				)
 			);
-			$buf = sprintf(
+			$buf                  = sprintf(
 				'<?php function GalleryFastDownload() { ' .
 				'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
 				'\'%s\', \'%s\', %d);} ?>',

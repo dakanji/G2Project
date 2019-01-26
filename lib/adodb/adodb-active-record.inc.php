@@ -529,7 +529,7 @@ class ADODB_Active_Record {
 
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
-			$s = serialize($activetab);
+			$s                   = serialize($activetab);
 
 			if (!function_exists('adodb_write_file')) {
 				include ADODB_DIR . '/adodb-csvlib.inc.php';

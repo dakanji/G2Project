@@ -209,7 +209,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		// Perform the second request from different IP and verify that we succeeded
 		$_SERVER['REMOTE_ADDR'] = '1.2.3.4';
-		$results = $this->handleRequest();
+		$results                = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'redirect' => array(

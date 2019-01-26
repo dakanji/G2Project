@@ -144,11 +144,11 @@ class CommentCallbacks {
 					$can[$canFlag] = isset($permissions[$permission]);
 				}
 
-				$LoadComments               = array();
-				$LoadComments['comments']   = $comments;
-				$LoadComments['commenters'] = $commenters;
-				$LoadComments['can']        = $can;
-				$LoadComments['item']       = (array)$item;
+				$LoadComments                  = array();
+				$LoadComments['comments']      = $comments;
+				$LoadComments['commenters']    = $commenters;
+				$LoadComments['can']           = $can;
+				$LoadComments['item']          = (array)$item;
 				$LoadComments['totalComments'] = $totalComments;
 
 				$block =& $smarty->_tpl_vars['block'];
@@ -165,7 +165,7 @@ class CommentCallbacks {
 				}
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-				$form =& $smarty->_tpl_vars['form'];
+				$form                   =& $smarty->_tpl_vars['form'];
 				list($ret, $AddComment) = GalleryCommentHelper::doStatic()->getAddComment($item, $form);
 
 				if ($ret) {

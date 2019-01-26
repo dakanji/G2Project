@@ -263,7 +263,7 @@ class FfmpegToolkitHelper {
 			'libmp3lame' => 'mp3',
 		);
 		list($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
-		$version = array();
+		$version                 = array();
 		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
 		$mimeTypes          = array();

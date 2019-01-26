@@ -64,9 +64,9 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$mockAdapter               =& $gallery->_templateAdapter;
 		$gallery->_session         = new DeleteSessionsTaskTestSession();
-		$session         =& $gallery->getSession();
-		$gallery->_phpVm = new UnitTestPhpVm();
-		$phpVm           = $gallery->getPhpVm();
+		$session                   =& $gallery->getSession();
+		$gallery->_phpVm           = new UnitTestPhpVm();
+		$phpVm = $gallery->getPhpVm();
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
@@ -74,8 +74,8 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
-		$lifetime          = (int)$params['session.lifetime'];
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {

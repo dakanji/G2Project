@@ -300,7 +300,7 @@ class ModRewriteHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$status = unserialize($status);
+		$status                  = unserialize($status);
 		$Htaccess['needOptions'] = $status['needOptions'];
 
 		$Htaccess['directory']   = $Htaccess['galleryDirectory'];
@@ -593,7 +593,7 @@ class ModRewriteHelper {
 			$target = 'custom';
 		}
 
-		$fetch = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
+		$fetch                = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -619,7 +619,7 @@ class ModRewriteHelper {
 		 * mod_rewrite needs Options +FollowSymlinks and we might need to explicitly require it in
 		 * the .htaccess file.
 		 */
-		$fetch = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
+		$fetch                = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {

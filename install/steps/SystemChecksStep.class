@@ -293,10 +293,10 @@ class SystemChecksStep extends InstallStep {
 		}
 
 		// Warning if memory_limit is set and is too low
-		$memoryLimit        = ini_get('memory_limit');
-		$memoryValue        = substr(trim($memoryLimit), 0, -1);
-		$minimumMemoryLimit = 16;
-		$title              = sprintf('%s %sMb', 'Memory Limit &gt;=', $minimumMemoryLimit);
+		$memoryLimit             = ini_get('memory_limit');
+		$memoryValue             = substr(trim($memoryLimit), 0, -1);
+		$minimumMemoryLimit      = 16;
+		$title                   = sprintf('%s %sMb', 'Memory Limit &gt;=', $minimumMemoryLimit);
 		$minimumMemoryLimitValue = 1024 * 1024;
 		$memoryLimitValue        = $this->_getBytes($memoryLimit) / (1024 * 1024);
 

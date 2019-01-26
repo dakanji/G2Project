@@ -84,7 +84,7 @@ class GalleryEntityHelper_simple {
 
 		// Move the new entities into the cache
 		foreach ($missing as $entity) {
-			$id = $entity->getId();
+			$id                    = $entity->getId();
 			list($ret, $classFile) = $entity->getClassFile();
 
 			if ($ret) {

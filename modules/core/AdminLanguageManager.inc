@@ -334,8 +334,8 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			$dir = "$localeDir/$language";
 
 			if ($platform->file_exists($dir)) {
-				$pattern = "$localeDir/$language/LC_MESSAGES/*.mo";
-				$count   = count($platform->glob($pattern));
+				$pattern               = "$localeDir/$language/LC_MESSAGES/*.mo";
+				$count                 = count($platform->glob($pattern));
 				$languagePacksDeleted += $count;
 				$callback['current']  += $count;
 				$percentage            = $callback['current'] / $callback['total'];
@@ -517,7 +517,7 @@ class AdminLanguageManagerView extends GalleryView {
 
 		foreach ($supportedLanguages as $lang => $list) {
 			foreach ($list as $country => $languageData) {
-				$locale = $lang . '_' . $country;
+				$locale                = $lang . '_' . $country;
 				$languageList[$locale] = $languageData['description'];
 			}
 		}
@@ -559,8 +559,8 @@ class AdminLanguageManagerView extends GalleryView {
 		$translator =& $gallery->getTranslator();
 
 		list($languageData, $defaultCountry) = $translator->getLanguageData();
-		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
-		$packages           = array();
+		$supportedLanguages                  = GalleryCoreApi::getSupportedLanguages();
+		$packages = array();
 
 		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
@@ -588,7 +588,7 @@ class AdminLanguageManagerView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-					$installed = !empty($supportedLanguages[$language][$country]);
+					$installed                = !empty($supportedLanguages[$language][$country]);
 					$enableAllFlags['remove'] = $enableAllFlags['remove'] || $installed;
 					$upgradeable              = $isCompatible && $pack['relation'] == 'older';
 

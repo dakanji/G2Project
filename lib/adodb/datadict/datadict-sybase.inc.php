@@ -109,10 +109,10 @@ class ADODB2_sybase extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname = $this->TableName($tabname);
-		$f       = array();
+		$tabname            = $this->TableName($tabname);
+		$f                  = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s = "ALTER TABLE $tabname $this->addCol";
+		$s                  = "ALTER TABLE $tabname $this->addCol";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";
@@ -124,8 +124,8 @@ class ADODB2_sybase extends ADODB_DataDict {
 	}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname = $this->TableName($tabname);
-		$sql     = array();
+		$tabname            = $this->TableName($tabname);
+		$sql                = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		foreach ($lines as $v) {

@@ -319,7 +319,7 @@ class GalleryChildEntityHelper_simple {
 
 		if ($linkableOnly) {
 			$idJoins['GalleryEntity'] = 'id';
-			$where[] = '[GalleryEntity::isLinkable] = 1';
+			$where[]                  = '[GalleryEntity::isLinkable] = 1';
 		}
 
 		foreach ($idJoins as $table => $column) {

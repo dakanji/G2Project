@@ -669,7 +669,7 @@ class GalleryDatabaseExport {
 			 */
 			if ($rowCount > $this->_rowChunkSize) {
 				// Oops the amount of work just got bigger.
-				$dataChunks = ceil($rowCount / $this->_rowChunkSize);
+				$dataChunks                = ceil($rowCount / $this->_rowChunkSize);
 				$this->_callBack['total'] += $dataChunks;
 			}
 
@@ -681,7 +681,7 @@ class GalleryDatabaseExport {
 			}
 
 			if ($ret) {
-				$fields = array(
+				$fields                   = array(
 					'id' => array(
 						'type'    => STORAGE_TYPE_INTEGER,
 						'notNull' => 1,

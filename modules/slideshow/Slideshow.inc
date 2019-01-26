@@ -116,12 +116,12 @@ class SlideshowView extends GalleryView {
 				)
 			);
 
-			$jsUrlParams       = array(
+			$jsUrlParams                = array(
 				'forJavascript' => true,
 				'forceFullUrl'  => true,
 				'htmlEntities'  => false,
 			);
-			$jsUrlParamsDirect = array_merge(
+			$jsUrlParamsDirect          = array_merge(
 				$jsUrlParams,
 				array(
 					'forceDirect' => true,

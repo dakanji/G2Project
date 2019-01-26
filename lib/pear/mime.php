@@ -398,7 +398,7 @@ class Mail_mime {
 	 */
 	public function &_addMixedPart() {
 		$params['content_type'] = 'multipart/mixed';
-		$ret = new Mail_mimePart('', $params);
+		$ret                    = new Mail_mimePart('', $params);
 
 		return $ret;
 	}
@@ -461,7 +461,7 @@ class Mail_mime {
 		$params['disposition']  = 'inline';
 		$params['dfilename']    = $value['name'];
 		$params['cid']          = $value['cid'];
-		$ret = $obj->addSubpart($value['body'], $params);
+		$ret                    = $obj->addSubpart($value['body'], $params);
 
 		return $ret;
 	}
@@ -493,7 +493,7 @@ class Mail_mime {
 		$params['content_type'] = $value['c_type'] . '; ' .
 								  'name="' . $params['dfilename'] . '"';
 		$params['disposition']  = isset($value['disposition']) ? $value['disposition'] : 'attachment';
-		$ret = $obj->addSubpart($value['body'], $params);
+		$ret                    = $obj->addSubpart($value['body'], $params);
 
 		return $ret;
 	}
@@ -835,8 +835,8 @@ class Mail_mime {
 				}
 				$imePrefs['input-charset']  = $this->_build_params['head_charset'];
 				$imePrefs['output-charset'] = $this->_build_params['head_charset'];
-				$hdr_value = iconv_mime_encode($hdr_name, $hdr_value, $imePrefs);
-				$hdr_value = preg_replace("#^{$hdr_name}\:\ #", '', $hdr_value);
+				$hdr_value                  = iconv_mime_encode($hdr_name, $hdr_value, $imePrefs);
+				$hdr_value                  = preg_replace("#^{$hdr_name}\:\ #", '', $hdr_value);
 			} elseif (preg_match('#[\x80-\xFF]{1}#', $hdr_value)) {
 				//This header contains non ASCII chars and should be encoded.
 				switch ($this->_build_params['head_encoding']) {

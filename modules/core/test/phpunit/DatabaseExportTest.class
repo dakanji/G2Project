@@ -250,7 +250,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
 
 		$this->_export->_ignoreTables['testtable'] = 1;
-		$this->_export->_callBack = array(
+		$this->_export->_callBack                  = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
 			'total'    => 100,

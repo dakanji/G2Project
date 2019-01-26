@@ -87,7 +87,7 @@ class AdminJpegtranController extends GalleryController {
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
-			$realPath = $platform->realpath($form['path']);
+			$realPath                = $platform->realpath($form['path']);
 			list($ret, $testResults) = JpegtranToolkitHelper::testBinary($realPath);
 
 			if ($ret) {
@@ -230,8 +230,8 @@ class AdminJpegtranView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminJpegtran          = array();
-		$AdminJpegtran['tests'] = $tests;
+		$AdminJpegtran                 = array();
+		$AdminJpegtran['tests']        = $tests;
 		$AdminJpegtran['debugSnippet'] = $debugSnippet;
 		$AdminJpegtran['failCount']    = $failCount;
 		$AdminJpegtran['isConfigure']  = !$isActive;

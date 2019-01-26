@@ -135,7 +135,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$templateData['storeConfig'] = $gallery->getConfig('storage.config');
 
 		// Load all table versions
-		$storage =& $gallery->getStorage();
+		$storage                   =& $gallery->getStorage();
 		list($ret, $tableVersions) = $storage->getTableVersions();
 
 		if ($ret) {
@@ -165,7 +165,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 				if ($ret) {
 					$templateData['warnings'][] = 'Unable to determine if automated backup is available.';
-					$canDoBackup = false;
+					$canDoBackup                = false;
 				} else {
 					$canDoBackup = $results->resultCount() > 0;
 				}

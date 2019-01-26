@@ -249,7 +249,7 @@ class XML_HTMLSax3_StateParser {
 	 */
 	public function parse($data) {
 		if ($this->parser_options['XML_OPTION_TRIM_DATA_NODES'] == 1) {
-			$decorator = new XML_HTMLSax3_Trim(
+			$decorator                 = new XML_HTMLSax3_Trim(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
@@ -258,7 +258,7 @@ class XML_HTMLSax3_StateParser {
 		}
 
 		if ($this->parser_options['XML_OPTION_CASE_FOLDING'] == 1) {
-			$open_decor = new XML_HTMLSax3_CaseFolding(
+			$open_decor                   = new XML_HTMLSax3_CaseFolding(
 				$this->handler_object_element,
 				$this->handler_method_opening,
 				$this->handler_method_closing
@@ -269,7 +269,7 @@ class XML_HTMLSax3_StateParser {
 		}
 
 		if ($this->parser_options['XML_OPTION_LINEFEED_BREAK'] == 1) {
-			$decorator = new XML_HTMLSax3_Linefeed(
+			$decorator                 = new XML_HTMLSax3_Linefeed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
@@ -278,7 +278,7 @@ class XML_HTMLSax3_StateParser {
 		}
 
 		if ($this->parser_options['XML_OPTION_TAB_BREAK'] == 1) {
-			$decorator = new XML_HTMLSax3_Tab(
+			$decorator                 = new XML_HTMLSax3_Tab(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
@@ -287,7 +287,7 @@ class XML_HTMLSax3_StateParser {
 		}
 
 		if ($this->parser_options['XML_OPTION_ENTITIES_UNPARSED'] == 1) {
-			$decorator = new XML_HTMLSax3_Entities_Unparsed(
+			$decorator                 = new XML_HTMLSax3_Entities_Unparsed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
@@ -296,7 +296,7 @@ class XML_HTMLSax3_StateParser {
 		}
 
 		if ($this->parser_options['XML_OPTION_ENTITIES_PARSED'] == 1) {
-			$decorator = new XML_HTMLSax3_Entities_Parsed(
+			$decorator                 = new XML_HTMLSax3_Entities_Parsed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
@@ -305,7 +305,7 @@ class XML_HTMLSax3_StateParser {
 		}
 		// Note switched on by default
 		if ($this->parser_options['XML_OPTION_STRIP_ESCAPES'] == 1) {
-			$decorator = new XML_HTMLSax3_Escape_Stripper(
+			$decorator                   = new XML_HTMLSax3_Escape_Stripper(
 				$this->handler_object_escape,
 				$this->handler_method_escape
 			);

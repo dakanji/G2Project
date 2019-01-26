@@ -90,7 +90,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_itemThumbnail = array();
+		$this->_itemThumbnail                = array();
 		list($ret, $this->_itemThumbnail[0]) = $this->_createDerivative(
 			$this->_items[0],
 			$this->_items[0]->getId(),
@@ -129,7 +129,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 	}
 
 	public function testDontCreateThumbnail() {
-		$form = array();
+		$form                    = array();
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);

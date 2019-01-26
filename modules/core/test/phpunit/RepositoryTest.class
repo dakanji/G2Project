@@ -1843,7 +1843,7 @@ class RepositoryTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$testTheme = $this->_sampleIndex['themes']['testTheme'];
+		$testTheme                 = $this->_sampleIndex['themes']['testTheme'];
 		$testTheme['isCompatible'] = true;
 		unset($testTheme['descriptions']['en_US']['groupLabel']);
 
@@ -2407,7 +2407,7 @@ class RepositoryTest extends GalleryTestCase {
 
 		$repository             = new GalleryRepository();
 		$repository->_utilities = null;  // this should fail without needing utilities
-		$modules = GalleryCoreApi::getCodeBasePath('modules');
+		$modules                = GalleryCoreApi::getCodeBasePath('modules');
 
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
@@ -2903,8 +2903,8 @@ class RepositoryTest extends GalleryTestCase {
 			$expectedCallback
 		);
 
-		$mockAdapter = new MockTemplateAdapter();
-		$callback    = array(
+		$mockAdapter                = new MockTemplateAdapter();
+		$callback                   = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
@@ -3002,8 +3002,8 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
 
-		$mockAdapter = new MockTemplateAdapter();
-		$callback    = array(
+		$mockAdapter                = new MockTemplateAdapter();
+		$callback                   = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
@@ -3092,8 +3092,8 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
 
-		$mockAdapter = new MockTemplateAdapter();
-		$callback    = array(
+		$mockAdapter                = new MockTemplateAdapter();
+		$callback                   = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,

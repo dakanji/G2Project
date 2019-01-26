@@ -280,8 +280,8 @@ class ItemMoveSingleView extends GalleryView {
 
 		$albumTree = GalleryUtilities::createAlbumTree($albums);
 
-		$ItemMoveSingle              = array();
-		$ItemMoveSingle['albumTree'] = $albumTree;
+		$ItemMoveSingle                  = array();
+		$ItemMoveSingle['albumTree']     = $albumTree;
 		$ItemMoveSingle['itemTypeNames'] = $item->itemTypeName();
 
 		$template->setVariable('ItemMoveSingle', $ItemMoveSingle);

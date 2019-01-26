@@ -136,7 +136,7 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListCantWrite() {
 		$this->_platform->_isWriteable = false;
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
+		$accessList                    = array('phpunit.test1', 'phpunit.test2');
 		$ourParser        = $this->_parser;
 		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 

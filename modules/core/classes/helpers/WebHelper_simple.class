@@ -371,10 +371,10 @@ class WebHelper_simple {
 
 		if (GalleryUtilities::strToLower($urlComponents['scheme']) == 'https') {
 			$urlComponents['fsockhost'] = 'ssl://' . $urlComponents['host'];
-			$defaultPort = 443;
+			$defaultPort                = 443;
 		} else {
 			$urlComponents['fsockhost'] = $urlComponents['host'];
-			$defaultPort = 80;
+			$defaultPort                = 80;
 		}
 
 		if (empty($urlComponents['port'])) {

@@ -229,8 +229,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index->_isLoaded = false;
 
 		// Prepare mock objects.
-		$serializedSampleIndex = serialize($this->_sampleIndex);
-		$utilities             = new UnitTestRepositoryUtilities();
+		$serializedSampleIndex    = serialize($this->_sampleIndex);
+		$utilities                = new UnitTestRepositoryUtilities();
 		$this->_index->_utilities =& $utilities;
 
 		$utilities->setReply(
@@ -697,7 +697,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$pluginType = $case['pluginType'];
 			$pluginId   = 'test' . ucfirst($pluginType);
 
-			$utilities = new UnitTestRepositoryUtilities();
+			$utilities                = new UnitTestRepositoryUtilities();
 			$this->_index->_utilities =& $utilities;
 
 			$pluginApi = $pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion();

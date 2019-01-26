@@ -281,7 +281,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalOrderDirection = 'desc';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                    = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.orderDirection',

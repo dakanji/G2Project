@@ -94,10 +94,10 @@ $_commonOperations = array(
  * --------------------------------------------------------------------------
  */
 $imEnvironment[] = array(
-	'name'    => 'ImageMagick',
-	'version' => '4.2.9',
-	'binary'  => '',
-	'mimeTypes' => array(
+	'name'       => 'ImageMagick',
+	'version'    => '4.2.9',
+	'binary'     => '',
+	'mimeTypes'  => array(
 		'image/gif',
 		'image/jpeg',
 		'image/pjpeg',
@@ -107,7 +107,7 @@ $imEnvironment[] = array(
 		'application/pdf',
 		'application/postscript',
 	),
-	'binaries' => array(
+	'binaries'   => array(
 		'animate',
 		'combine',
 		'convert',
@@ -147,8 +147,8 @@ $imEnvironment[] = array(
 			),
 		)
 	),
-	'identify' => array(
-		'' => 'Version: @(#)ImageMagick 4.2.9 99/09/01 cristy@mystic.es.dupont.com
+	'identify'   => array(
+		''         => 'Version: @(#)ImageMagick 4.2.9 99/09/01 cristy@mystic.es.dupont.com
 Copyright: Copyright 1999 E. I. du Pont de Nemours and Company
 
 Usage: identify [ options ... ] file [ file ... ]
@@ -158,7 +158,7 @@ Where options include:
   -size geometry  width and height of image
   -verbose        print detailed information about the image
 		',
-		'UNKNOWN' => 'identify: no delegate for this image format ().
+		'UNKNOWN'  => 'identify: no delegate for this image format ().
 identify: Missing an image file name [No such file or directory].',
 		'test-compressed.tif' => 'identify: test-compressed.tif: unknown field with tag 700 (0x2bc) ignored..
 identify: test-compressed.tif: unknown field with tag 34665 (0x8769) ignored..
@@ -183,7 +183,7 @@ test.eps[1] 43x18 PseudoClass 2c 3141b PS 1s',
 		'test.wmf' => 'identify: no delegate for this image format (WMF)',
 		'test.tga' => 'identify: no delegate for this image format (TGA)',
 		'testProfile.jpg' => 'testProfile.jpg 40x30 DirectClass 29kb JPEG 1s',
-		'-format' => array(
+		'-format'  => array(
 			'cmyk.jpg' => 'Does4.xWork?',
 		),
 	),
@@ -194,10 +194,10 @@ test.eps[1] 43x18 PseudoClass 2c 3141b PS 1s',
  * --------------------------------------------------------------------------
  */
 $imEnvironment[] = array(
-	'name'    => 'ImageMagick',
-	'version' => '5.4.2',
-	'binary'  => '',
-	'mimeTypes' => array(
+	'name'       => 'ImageMagick',
+	'version'    => '5.4.2',
+	'binary'     => '',
+	'mimeTypes'  => array(
 		'image/gif',
 		'image/jpeg',
 		'image/pjpeg',
@@ -209,7 +209,7 @@ $imEnvironment[] = array(
 		'application/postscript',
 		'application/photoshop',
 	),
-	'binaries' => array(
+	'binaries'   => array(
 		'animate',
 		'composite',
 		'conjure',
@@ -223,8 +223,8 @@ $imEnvironment[] = array(
 	),
 	'removeMetaDataSwitch' => array('+profile', '*'),
 	'operations' => $_commonOperations,
-	'identify' => array(
-		'' => 'Version: @(#)ImageMagick 5.4.2 01/01/02 Q:16 http://www.imagemagick.org
+	'identify'   => array(
+		''         => 'Version: @(#)ImageMagick 5.4.2 01/01/02 Q:16 http://www.imagemagick.org
 Copyright: Copyright (C) 2002 ImageMagick Studio LLC
 
 Usage: identify [ -option value ... ] file [ file ... ]
@@ -239,7 +239,7 @@ Where options include:
   -size geometry     width and height of image
   -verbose           print detailed information about the image
 		',
-		'UNKNOWN' => 'identify: Unable to open file (NOTHING) [No such file or directory].
+		'UNKNOWN'  => 'identify: Unable to open file (NOTHING) [No such file or directory].
 identify: Missing an image file name.',
 		'SIZED.gif' => '%filename% GIF %width%x%height%+0+0 PseudoClass 8c 8-bit 232b 0.0u 0:01',
 		'test-compressed.tif' => 'identify: unknown field ' .
@@ -265,7 +265,7 @@ identify: Missing an image file name.',
 		'test.tga' => 'identify: no delegate for this image format (test.tga) [No such file or directory].
 identify: Missing an image file name.',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 8-bit 30585b 0.0u 0:01',
-		'-format' => array(
+		'-format'  => array(
 			'cmyk.jpg' => "DirectClassCMYK\n",
 			'rgb_file' => "DirectClassCMYK\n",
 		), // Fails to convert to RGB
@@ -278,10 +278,10 @@ identify: Missing an image file name.',
  */
 
 $imEnvironment[] = array(
-	'name'    => 'ImageMagick',
-	'version' => '6.0.7',
-	'binary'  => '',
-	'mimeTypes' => array(
+	'name'       => 'ImageMagick',
+	'version'    => '6.0.7',
+	'binary'     => '',
+	'mimeTypes'  => array(
 		'image/gif',
 		'image/jpeg',
 		'image/pjpeg',
@@ -301,7 +301,7 @@ $imEnvironment[] = array(
 		'image/tiff-cmyk',
 		'application/photoshop-cmyk',
 	),
-	'binaries' => array(
+	'binaries'   => array(
 		'animate',
 		'compare',
 		'composite',
@@ -322,8 +322,8 @@ $imEnvironment[] = array(
 			),
 		)
 	),
-	'identify' => array(
-		'' => 'Version: ImageMagick 6.0.7 09/11/04 Q16 http://www.imagemagick.org
+	'identify'   => array(
+		''         => 'Version: ImageMagick 6.0.7 09/11/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
 Usage: identify [options ...] file [ [options ...] file ... ]
 
@@ -354,7 +354,7 @@ Where options include:
   -virtual-pixel method
                        Constant, Edge, Mirror, or Tile
 		',
-		'UNKNOWN' => 'identify: unable to open image `UNKNOWN\': No such file or directory.
+		'UNKNOWN'  => 'identify: unable to open image `UNKNOWN\': No such file or directory.
 identify: missing an image filename `UNKNOWN\'.',
 		'test-compressed.tif' => 'identify: unknown field with tag 34665 (0x8769) ignored..
 test-compressed.tif TIFF 50x50 DirectClass 8kb 0.110u 0:01',
@@ -376,7 +376,7 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
 		'test.wmf' => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
 		'test.tga' => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 30kb 0.010u 0:01',
-		'-format' => array(
+		'-format'  => array(
 			'cmyk.jpg' => 'DirectClassCMYK',
 			'rgb_file' => 'DirectClassRGB',
 		),
@@ -389,10 +389,10 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
  */
 
 $imEnvironment[] = array(
-	'name'    => 'ImageMagick',
-	'version' => '6.1.3',
-	'binary'  => '',
-	'mimeTypes' => array(
+	'name'       => 'ImageMagick',
+	'version'    => '6.1.3',
+	'binary'     => '',
+	'mimeTypes'  => array(
 		'image/gif',
 		'image/jpeg',
 		'image/pjpeg',
@@ -412,7 +412,7 @@ $imEnvironment[] = array(
 		'image/tiff-cmyk',
 		'application/photoshop-cmyk',
 	),
-	'binaries' => array(
+	'binaries'   => array(
 		'animate',
 		'compare',
 		'composite',
@@ -444,8 +444,8 @@ $imEnvironment[] = array(
 			),
 		)
 	),
-	'identify' => array(
-		'' => 'Version: ImageMagick 6.1.3 11/01/04 Q16 http://www.imagemagick.org
+	'identify'   => array(
+		''         => 'Version: ImageMagick 6.1.3 11/01/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
 
 Usage: identify [options ...] file [ [options ...] file ... ]
@@ -478,7 +478,7 @@ Where options include:
   -virtual-pixel method
                        Constant, Edge, Mirror, or Tile
 		',
-		'UNKNOWN' => 'identify: unable to open image `UNKNOWN\': No such file or directory.
+		'UNKNOWN'  => 'identify: unable to open image `UNKNOWN\': No such file or directory.
 identify: missing an image filename `UNKNOWN\'.',
 		'test-compressed.tif' => 'identify: unknown field with tag 34665 (0x8769) ignored..
 test-compressed.tif TIFF 50x50 DirectClass 8kb 0.110u 0:01',
@@ -500,7 +500,7 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
 		'test.wmf' => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
 		'test.tga' => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 30kb 0.010u 0:01',
-		'-format' => array(
+		'-format'  => array(
 			'cmyk.jpg' => 'DirectClassCMYK',
 			'rgb_file' => 'DirectClassRGB',
 		),
@@ -512,8 +512,8 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
  * --------------------------------------------------------------------------
  */
 
-$im627            = $imEnvironment[count($imEnvironment) - 1];
-$im627['version'] = '6.2.7';
+$im627                 = $imEnvironment[count($imEnvironment) - 1];
+$im627['version']      = '6.2.7';
 $im627['identify'][''] = 'Version: ImageMagick 6.2.7 11/01/05 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC';
 $imEnvironment[]       = $im627;
@@ -523,10 +523,10 @@ $imEnvironment[]       = $im627;
  * --------------------------------------------------------------------------
  */
 $imEnvironment[] = array(
-	'name'    => 'GraphicsMagick',
-	'version' => '1.0.5',
-	'binary'  => 'gm',
-	'mimeTypes' => array(
+	'name'       => 'GraphicsMagick',
+	'version'    => '1.0.5',
+	'binary'     => 'gm',
+	'mimeTypes'  => array(
 		'image/gif',
 		'image/jpeg',
 		'image/pjpeg',
@@ -537,7 +537,7 @@ $imEnvironment[] = array(
 		'application/pdf',
 		'application/postscript',
 	),
-	'binaries' => array(
+	'binaries'   => array(
 		'animate',
 		'composite',
 		'conjure',
@@ -550,8 +550,8 @@ $imEnvironment[] = array(
 	),
 	'removeMetaDataSwitch' => array('+profile', '*'),
 	'operations' => $_commonOperations,
-	'identify' => array(
-		'' => 'identify: Improper arguments supplied, please see manual.
+	'identify'   => array(
+		''         => 'identify: Improper arguments supplied, please see manual.
 Version: GraphicsMagick 1.0.5 November 26, 2004 Q8 http://www.GraphicsMagick.org/
 Copyright: Copyright (C) 2002, 2003, 2004 GraphicsMagick Group
 
@@ -575,7 +575,7 @@ Where options include:
   -virtual-pixel method
                        Constant, Edge, Mirror, or Tile
 		',
-		'UNKNOWN' => 'identify: Unable to open file (NOTHING) [No such file or directory].',
+		'UNKNOWN'  => 'identify: Unable to open file (NOTHING) [No such file or directory].',
 		'test-compressed.tif' => 'identify: unknown field with tag 34665 (0x8769) ignored. (test-compressed.tif).
 test-compressed.tif TIFF 50x50+0+0 DirectClass 8-bit 7.8k 0.000u 0:01',
 		'test-multiscene.tif' => 'test-multiscene.tif[0] TIFF 100x75+0+0 DirectClass 8-bit 44.7k 0.010u 0:01
@@ -595,7 +595,7 @@ test.pdf[1] PDF 612x792+0+0 PseudoClass 256c 8-bit 946.8k 0.030u 0:01',
 		'test.wmf' => 'identify: No decode delegate for this image format (test.wmf).',
 		'test.tga' => 'identify: No decode delegate for this image format (test.tga).',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30+0+0 DirectClass 8-bit 29.9k 0.000u 0:01',
-		'-format' => array(
+		'-format'  => array(
 			'cmyk.jpg' => 'DoesThisWork?',
 		),
 	),

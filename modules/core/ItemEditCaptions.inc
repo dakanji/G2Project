@@ -268,7 +268,7 @@ class ItemEditCaptionsView extends GalleryView {
 
 			// build peers table
 			foreach ($childItems as $child) {
-				$childId = $child->getId();
+				$childId                 = $child->getId();
 				$form['items'][$childId] = (array)$child;
 
 				// While we're at it, attach thumbnails and resizes

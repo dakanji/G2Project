@@ -195,7 +195,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if (!is_array($itemIds)) {
 			$itemIds = array($itemIds);
 		}
-		$data = array();
+		$data                   = array();
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 		if ($ret) {

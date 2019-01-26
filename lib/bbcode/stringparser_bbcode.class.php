@@ -1386,8 +1386,8 @@ class StringParser_BBCode extends StringParser {
 		}
 		$dest_nodes              = array();
 		$last_node_was_paragraph = false;
-		$prevtype  = STRINGPARSER_NODE_TEXT;
-		$paragraph = null;
+		$prevtype                = STRINGPARSER_NODE_TEXT;
+		$paragraph               = null;
 
 		while (count($node->_children)) {
 			$mynode =& $node->_children[0];
@@ -1754,11 +1754,11 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	 * @return object
 	 */
 	public function &duplicate() {
-		$newnode               = new StringParser_BBCode_Node_Element($this->occurredAt);
-		$newnode->_name        = $this->_name;
-		$newnode->_flags       = $this->_flags;
-		$newnode->_attributes  = $this->_attributes;
-		$newnode->_hadCloseTag = $this->_hadCloseTag;
+		$newnode                    = new StringParser_BBCode_Node_Element($this->occurredAt);
+		$newnode->_name             = $this->_name;
+		$newnode->_flags            = $this->_flags;
+		$newnode->_attributes       = $this->_attributes;
+		$newnode->_hadCloseTag      = $this->_hadCloseTag;
 		$newnode->_paragraphHandled = $this->_paragraphHandled;
 		$newnode->_codeInfo         = $this->_codeInfo;
 

@@ -54,7 +54,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$this->_urlGenerator = new GalleryUrlGenerator();
-		$ret = $this->_urlGenerator->init('phpunit_test.php');
+		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -131,7 +131,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		// Let the url generator know of the new cookie.path value
 		$this->_urlGenerator = new GalleryUrlGenerator();
-		$ret = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
+		$ret                 = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -1255,7 +1255,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	}
 
 	public function testInitEmbedded() {
-		$_SERVER['HTTPS'] = 'on';
+		$_SERVER['HTTPS']                 = 'on';
 		$_SERVER['HTTP_X_FORWARDED_HOST'] = 'http_x_forwarded_host';
 		$uG = new GalleryUrlGenerator();
 
@@ -1320,16 +1320,16 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 
 		// Session without cookies
-		$session             =& $gallery->getSession();
-		$savedIsUsingCookies = $session->_isUsingCookies;
+		$session                  =& $gallery->getSession();
+		$savedIsUsingCookies      = $session->_isUsingCookies;
 		$session->_isUsingCookies = false;
 
 		$sessionParam = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . $session->getId();
 
 		// No other params in URL
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php';
-		$_GET     = array();
-		$expected = '/gallery2/phpunit_test.php?' . $sessionParam;
+		$_GET                   = array();
+		$expected               = '/gallery2/phpunit_test.php?' . $sessionParam;
 		$this->assertEquals(
 			$expected,
 			$this->_urlGenerator->getNavigationReturnUrl(),

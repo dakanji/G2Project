@@ -536,10 +536,10 @@ if (!defined('_ADODB_LAYER')) {
 
 		public $_isPersistentConnection = false;   /// A boolean variable to state whether its a persistent connection or normal connection.	*/
 		public $_bindInputArray         = false; /// set to true if ADOConnection.Execute() permits binding of array parameters.
-		public $_evalAll   = false;
-		public $_affected  = false;
-		public $_logsql    = false;
-		public $_transmode = ''; // transaction mode
+		public $_evalAll                = false;
+		public $_affected               = false;
+		public $_logsql                 = false;
+		public $_transmode              = ''; // transaction mode
 
 		/*
 		 * Additional parameters that may be passed to drivers in the connect string
@@ -2172,11 +2172,11 @@ if (!defined('_ADODB_LAYER')) {
 			$err     = '';
 
 			if ($secs2cache > 0) {
-				$rs = $ADODB_CACHE->readcache($md5file, $err, $secs2cache, $this->arrayClass);
+				$rs                  = $ADODB_CACHE->readcache($md5file, $err, $secs2cache, $this->arrayClass);
 				$this->numCacheHits += 1;
 			} else {
-				$err = 'Timeout 1';
-				$rs  = false;
+				$err                   = 'Timeout 1';
+				$rs                    = false;
 				$this->numCacheMisses += 1;
 			}
 
@@ -2460,8 +2460,8 @@ if (!defined('_ADODB_LAYER')) {
 		// for best performance, use the actual $rs->MetaType().
 		public function MetaType($t, $len = -1, $fieldobj = false) {
 			if (empty($this->_metars)) {
-				$rsclass       = $this->rsPrefix . $this->databaseType;
-				$this->_metars = new $rsclass(false, $this->fetchMode);
+				$rsclass                   = $this->rsPrefix . $this->databaseType;
+				$this->_metars             = new $rsclass(false, $this->fetchMode);
 				$this->_metars->connection = $this;
 			}
 
@@ -2552,8 +2552,8 @@ if (!defined('_ADODB_LAYER')) {
 		 * Close Connection
 		 */
 		public function Close() {
-			$rez            = $this->_close();
-			$this->_queryID = false;
+			$rez                 = $this->_close();
+			$this->_queryID      = false;
 			$this->_connectionID = false;
 
 			return $rez;

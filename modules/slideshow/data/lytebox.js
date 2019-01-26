@@ -94,7 +94,7 @@ function LyteBox() {
 	this.ie7 = (this.ie && window.XMLHttpRequest);
 	this.initialize();
 }
-LyteBox.prototype.initialize         = function () {
+LyteBox.prototype.initialize            = function () {
 	this.updateLyteboxItems();
 	var objBody = this.doc.getElementsByTagName("body").item(0);
 	if (this.doc.getElementById('lbOverlay')) {
@@ -190,7 +190,7 @@ LyteBox.prototype.initialize         = function () {
 		objPlay.style.display = 'none';
 		objBottomNav.appendChild(objPlay);
 };
-LyteBox.prototype.updateLyteboxItems = function () {
+LyteBox.prototype.updateLyteboxItems    = function () {
 	var anchors = (this.isFrame) ? window.parent.frames[window.name].document.getElementsByTagName('a') : document.getElementsByTagName('a');
 	for (var i = 0; i < anchors.length; i++) {
 		var anchor       = anchors[i];
@@ -209,7 +209,7 @@ LyteBox.prototype.updateLyteboxItems = function () {
 		}
 	}
 };
-LyteBox.prototype.start              = function (imageLink, doSlide, doFrame) {
+LyteBox.prototype.start                 = function (imageLink, doSlide, doFrame) {
 	if (this.ie && !this.ie7) {
 		this.toggleSelects('hide');	}
 	if (this.hideFlash) {
@@ -321,7 +321,7 @@ LyteBox.prototype.start              = function (imageLink, doSlide, doFrame) {
 		}
 	}
 };
-LyteBox.prototype.changeContent      = function (imageNum) {
+LyteBox.prototype.changeContent         = function (imageNum) {
 	if (this.isSlideshow) {
 		for (var i = 0; i < this.slideshowIDCount; i++) {
 			window.clearTimeout(this.slideshowIDArray[i]); }
@@ -403,7 +403,7 @@ LyteBox.prototype.changeContent      = function (imageNum) {
 		imgPreloader.src    = (this.isSlideshow ? this.slideArray[this.activeSlide][0] : this.imageArray[this.activeImage][0]);
 	}
 };
-LyteBox.prototype.resizeContainer    = function (imgWidth, imgHeight) {
+LyteBox.prototype.resizeContainer       = function (imgWidth, imgHeight) {
 	this.wCur   = this.doc.getElementById('lbOuterContainer').offsetWidth;
 	this.hCur   = this.doc.getElementById('lbOuterContainer').offsetHeight;
 	this.xScale = ((imgWidth + (this.borderSize * 2)) / this.wCur) * 100;
@@ -432,7 +432,7 @@ LyteBox.prototype.resizeContainer    = function (imgWidth, imgHeight) {
 	this.doc.getElementById('lbDetailsContainer').style.width = (imgWidth + (this.borderSize * 2) + (this.ie && this.doc.compatMode == "BackCompat" && this.outerBorder ? 2 : 0)) + "px";
 	this.showContent();
 };
-LyteBox.prototype.showContent        = function () {
+LyteBox.prototype.showContent           = function () {
 	if (this.wDone && this.hDone) {
 		for (var i = 0; i < this.showContentTimerCount; i++) {
 			window.clearTimeout(this.showContentTimerArray[i]); }
@@ -486,7 +486,7 @@ LyteBox.prototype.showContent        = function () {
 		this.showContentTimerArray[this.showContentTimerCount++] = setTimeout("myLytebox.showContent()", 200);
 	}
 };
-LyteBox.prototype.updateDetails      = function () {
+LyteBox.prototype.updateDetails         = function () {
 	var object           = this.doc.getElementById('lbCaption');
 	var sTitle           = (this.isSlideshow ? this.slideArray[this.activeSlide][1] : (this.isLyteframe ? this.frameArray[this.activeFrame][1] : this.imageArray[this.activeImage][1]));
 	object.style.display = '';
@@ -511,7 +511,7 @@ LyteBox.prototype.updateDetails      = function () {
 	}
 	this.appear('lbDetailsContainer', (this.doAnimations ? 0 : 100));
 };
-LyteBox.prototype.updateNav          = function () {
+LyteBox.prototype.updateNav             = function () {
 	if (this.isSlideshow) {
 		if (this.activeSlide != 0) {
 			var object               = (this.navType == 2 ? this.doc.getElementById('lbPrev2') : this.doc.getElementById('lbPrev'));
@@ -580,11 +580,11 @@ LyteBox.prototype.updateNav          = function () {
 	}
 	this.enableKeyboardNav();
 };
-LyteBox.prototype.enableKeyboardNav  = function () {
+LyteBox.prototype.enableKeyboardNav     = function () {
 	document.onkeydown = this.keyboardAction; };
-LyteBox.prototype.disableKeyboardNav = function () {
+LyteBox.prototype.disableKeyboardNav    = function () {
 	document.onkeydown = ''; };
-LyteBox.prototype.keyboardAction     = function (e) {
+LyteBox.prototype.keyboardAction        = function (e) {
 	var keycode = key = escape = null;
 	keycode     = (e == null) ? event.keyCode : e.which;
 	key         = String.fromCharCode(keycode).toLowerCase();
@@ -666,7 +666,7 @@ LyteBox.prototype.togglePlayPause       = function (hideID, showID) {
 		this.isPaused = true;
 	}
 };
-LyteBox.prototype.end           = function (caller) {
+LyteBox.prototype.end                   = function (caller) {
 	var closeClick = (caller == 'slideshow' ? false : true);
 	if (this.isSlideshow && this.isPaused && !closeClick) {
 		return; }
@@ -684,7 +684,7 @@ LyteBox.prototype.end           = function (caller) {
 		 this.initialize();
 	}
 };
-LyteBox.prototype.checkFrame    = function () {
+LyteBox.prototype.checkFrame            = function () {
 	if (window.parent.frames[window.name] && (parent.document.getElementsByTagName('frameset').length <= 0)) {
 		this.isFrame = true;
 		this.lytebox = "window.parent." + window.name + ".myLytebox";
@@ -695,7 +695,7 @@ LyteBox.prototype.checkFrame    = function () {
 		this.doc     = document;
 	}
 };
-LyteBox.prototype.getPixelRate  = function (cur, img) {
+LyteBox.prototype.getPixelRate          = function (cur, img) {
 	var diff = (img > cur) ? img - cur : cur - img;
 	if (diff >= 0 && diff <= 100) {
 		return 10; }
@@ -714,7 +714,7 @@ LyteBox.prototype.getPixelRate  = function (cur, img) {
 	if (diff > 700) {
 		return 45; }
 };
-LyteBox.prototype.appear        = function (id, opacity) {
+LyteBox.prototype.appear                = function (id, opacity) {
 	var object          = this.doc.getElementById(id).style;
 	object.opacity      = (opacity / 100);
 	object.MozOpacity   = (opacity / 100);
@@ -744,7 +744,7 @@ LyteBox.prototype.appear        = function (id, opacity) {
 		}
 	}
 };
-LyteBox.prototype.fade          = function (id, opacity) {
+LyteBox.prototype.fade                  = function (id, opacity) {
 	var object          = this.doc.getElementById(id).style;
 	object.opacity      = (opacity / 100);
 	object.MozOpacity   = (opacity / 100);
@@ -761,7 +761,7 @@ LyteBox.prototype.fade          = function (id, opacity) {
 		this.timerIDArray[this.timerIDCount++] = setTimeout("myLytebox.fade('" + id + "', " + (opacity - 10) + ")", 1);
 	}
 };
-LyteBox.prototype.resizeW       = function (id, curW, maxW, pixelrate, speed) {
+LyteBox.prototype.resizeW               = function (id, curW, maxW, pixelrate, speed) {
 	if (!this.hDone) {
 		this.resizeWTimerArray[this.resizeWTimerCount++] = setTimeout("myLytebox.resizeW('" + id + "', " + curW + ", " + maxW + ", " + pixelrate + ")", 100);
 		return;
@@ -782,7 +782,7 @@ LyteBox.prototype.resizeW       = function (id, curW, maxW, pixelrate, speed) {
 			window.clearTimeout(this.resizeWTimerArray[i]); }
 	}
 };
-LyteBox.prototype.resizeH       = function (id, curH, maxH, pixelrate, speed) {
+LyteBox.prototype.resizeH               = function (id, curH, maxH, pixelrate, speed) {
 	var timer           = speed ? speed : (this.resizeDuration / 2);
 	var object          = this.doc.getElementById(id);
 	var newH            = (this.doAnimations ? curH : maxH);
@@ -799,7 +799,7 @@ LyteBox.prototype.resizeH       = function (id, curH, maxH, pixelrate, speed) {
 			window.clearTimeout(this.resizeHTimerArray[i]); }
 	}
 };
-LyteBox.prototype.getPageScroll = function () {
+LyteBox.prototype.getPageScroll         = function () {
 	if (self.pageYOffset) {
 		return this.isFrame ? parent.pageYOffset : self.pageYOffset;
 	} else if (this.doc.documentElement && this.doc.documentElement.scrollTop) {
@@ -808,7 +808,7 @@ LyteBox.prototype.getPageScroll = function () {
 		return this.doc.body.scrollTop;
 	}
 };
-LyteBox.prototype.getPageSize   = function () {
+LyteBox.prototype.getPageSize           = function () {
 	var xScroll, yScroll, windowWidth, windowHeight;
 	if (window.innerHeight && window.scrollMaxY) {
 		xScroll = this.doc.scrollWidth;
@@ -838,7 +838,7 @@ LyteBox.prototype.getPageSize   = function () {
 	var pageWidth  = (xScroll < windowWidth) ? windowWidth : xScroll;
 	return new Array(pageWidth, pageHeight, windowWidth, windowHeight);
 };
-LyteBox.prototype.toggleFlash   = function (state) {
+LyteBox.prototype.toggleFlash           = function (state) {
 	var objects = this.doc.getElementsByTagName("object");
 	for (var i = 0; i < objects.length; i++) {
 		objects[i].style.visibility = (state == "hide") ? 'hidden' : 'visible';
@@ -866,7 +866,7 @@ LyteBox.prototype.toggleFlash   = function (state) {
 		}
 	}
 };
-LyteBox.prototype.toggleSelects = function (state) {
+LyteBox.prototype.toggleSelects         = function (state) {
 	var selects = this.doc.getElementsByTagName("select");
 	for (var i = 0; i < selects.length; i++) {
 		selects[i].style.visibility = (state == "hide") ? 'hidden' : 'visible';
@@ -883,7 +883,7 @@ LyteBox.prototype.toggleSelects = function (state) {
 		}
 	}
 };
-LyteBox.prototype.pause         = function (numberMillis) {
+LyteBox.prototype.pause                 = function (numberMillis) {
 	var now      = new Date();
 	var exitTime = now.getTime() + numberMillis;
 	while (true) {

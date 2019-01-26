@@ -97,13 +97,13 @@ class ADODB_pdo extends ADOConnection {
 	}
 
 	public function _UpdatePDO() {
-		$d             = $this->_driver;
-		$this->fmtDate = $d->fmtDate;
-		$this->fmtTimeStamp    = $d->fmtTimeStamp;
-		$this->replaceQuote    = $d->replaceQuote;
-		$this->sysDate         = $d->sysDate;
-		$this->sysTimeStamp    = $d->sysTimeStamp;
-		$this->random          = $d->random;
+		$d                  = $this->_driver;
+		$this->fmtDate      = $d->fmtDate;
+		$this->fmtTimeStamp = $d->fmtTimeStamp;
+		$this->replaceQuote = $d->replaceQuote;
+		$this->sysDate      = $d->sysDate;
+		$this->sysTimeStamp = $d->sysTimeStamp;
+		$this->random       = $d->random;
 		$this->concat_operator = $d->concat_operator;
 		$this->nameQuote       = $d->nameQuote;
 

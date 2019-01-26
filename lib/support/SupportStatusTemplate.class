@@ -86,7 +86,7 @@ class SupportStatusTemplate {
 	 * Hide the status block
 	 */
 	public function hideStatusBlock() {
-		$templateData = array();
+		$templateData                    = array();
 		$templateData['hideStatusBlock'] = 1;
 
 		include __DIR__ . '/templates/SupportStatus.html';

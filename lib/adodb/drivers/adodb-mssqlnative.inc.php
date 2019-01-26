@@ -732,7 +732,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		if ($this->transCnt) {
 			$this->RollbackTrans();
 		}
-		$rez = @sqlsrv_close($this->_connectionID);
+		$rez                 = @sqlsrv_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $rez;
@@ -878,7 +878,7 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$a = $this->GetCol($sql);
+		$a                = $this->GetCol($sql);
 		$ADODB_FETCH_MODE = $savem;
 
 		if ($a && sizeof($a) > 0) {
@@ -891,8 +891,8 @@ class ADODB_mssqlnative extends ADOConnection {
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {
-			$save = $this->metaTablesSQL;
-			$mask = $this->qstr(($mask));
+			$save                 = $this->metaTablesSQL;
+			$mask                 = $this->qstr(($mask));
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
@@ -1094,27 +1094,27 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			-154 => 'time',
 			-152 => 'xml',
 			-151 => 'udt',
-			-11 => 'uniqueidentifier',
-			-10 => 'ntext',
-			-9 => 'nvarchar',
-			-8 => 'nchar',
-			-7 => 'bit',
-			-6 => 'tinyint',
-			-5 => 'bigint',
-			-4 => 'image',
-			-3 => 'varbinary',
-			-2 => 'timestamp',
-			-1 => 'text',
-			1 => 'char',
-			2 => 'numeric',
-			3 => 'decimal',
-			4 => 'int',
-			5 => 'smallint',
-			6 => 'float',
-			7 => 'real',
-			12 => 'varchar',
-			91 => 'date',
-			93 => 'datetime',
+			-11  => 'uniqueidentifier',
+			-10  => 'ntext',
+			-9   => 'nvarchar',
+			-8   => 'nchar',
+			-7   => 'bit',
+			-6   => 'tinyint',
+			-5   => 'bigint',
+			-4   => 'image',
+			-3   => 'varbinary',
+			-2   => 'timestamp',
+			-1   => 'text',
+			1    => 'char',
+			2    => 'numeric',
+			3    => 'decimal',
+			4    => 'int',
+			5    => 'smallint',
+			6    => 'float',
+			7    => 'real',
+			12   => 'varchar',
+			91   => 'date',
+			93   => 'datetime',
 		);
 
 		$fa = @sqlsrv_field_metadata($this->_queryID);

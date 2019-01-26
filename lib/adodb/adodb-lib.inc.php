@@ -650,8 +650,8 @@ function _adodb_pageexecute_all_rows(
 
 	$qryRecs = false; //count records for no offset
 
-	$qryRecs    = _adodb_getcount($zthis, $sql, $inputarr, $secs2cache);
-	$lastpageno = (int)ceil($qryRecs / $nrows);
+	$qryRecs                = _adodb_getcount($zthis, $sql, $inputarr, $secs2cache);
+	$lastpageno             = (int)ceil($qryRecs / $nrows);
 	$zthis->_maxRecordCount = $qryRecs;
 
 
@@ -1090,7 +1090,7 @@ function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force 
 					case 2:
 						//Set empty
 						$arrFields[$upperfname] = '';
-						$values .= _adodb_column_sql($zthis, 'I', $type, $upperfname, $fnameq, $arrFields, $magicq);
+						$values                .= _adodb_column_sql($zthis, 'I', $type, $upperfname, $fnameq, $arrFields, $magicq);
 
 						break;
 

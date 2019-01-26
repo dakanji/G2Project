@@ -437,7 +437,7 @@ class GalleryTranslator {
 		}
 
 		list($language, $country) = preg_split('/[-_]/', "${languageCode}_");
-		$country = GalleryUtilities::strToUpper($country);
+		$country                  = GalleryUtilities::strToUpper($country);
 
 		if ((empty($country) || !isset($supportedLanguages[$language][$country]))
 			&& isset($defaultCountry[$language])

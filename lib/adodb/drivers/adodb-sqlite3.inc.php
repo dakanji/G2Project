@@ -116,12 +116,12 @@ class ADODB_sqlite3 extends ADOConnection {
 			if (sizeof($type) == 2) {
 				$size = trim($type[1], ')');
 			}
-			$fn              = strtoupper($r['name']);
-			$fld             = new ADOFieldObject();
-			$fld->name       = $r['name'];
-			$fld->type       = $type[0];
-			$fld->max_length = $size;
-			$fld->not_null   = $r['notnull'];
+			$fn                 = strtoupper($r['name']);
+			$fld                = new ADOFieldObject();
+			$fld->name          = $r['name'];
+			$fld->type          = $type[0];
+			$fld->max_length    = $size;
+			$fld->not_null      = $r['notnull'];
 			$fld->default_value = $r['dflt_value'];
 			$fld->scale         = 0;
 

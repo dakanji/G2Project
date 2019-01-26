@@ -950,7 +950,7 @@ class GalleryPermissionHelper_advanced {
 			return array($ret, null);
 		}
 
-		$storage =& $gallery->getStorage();
+		$storage                   =& $gallery->getStorage();
 		list($ret, $andPermission) = $storage->getFunctionSql(
 			'BITAND',
 			array('[GalleryAccessMap::permission]', '?')

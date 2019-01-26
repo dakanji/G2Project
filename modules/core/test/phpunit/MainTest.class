@@ -43,7 +43,7 @@ class MainTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php';
 		GalleryUtilities::putRequestVariable('view', 'core.Foo');
 		$this->_urlGenerator = new GalleryUrlGenerator();
-		$ret = $this->_urlGenerator->init('phpunit_test.php');
+		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;

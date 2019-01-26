@@ -614,7 +614,7 @@ class GalleryTemplate {
 		if (empty($qualifiedTemplatePath)) {
 			$tplFile               = basename($templateName);
 			$qualifiedTemplateName = $smarty->template_dir . '/' . $templateName;
-			$base = dirname($qualifiedTemplateName);
+			$base                  = dirname($qualifiedTemplateName);
 
 			$file = "$base/local/$tplFile";
 

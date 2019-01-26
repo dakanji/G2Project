@@ -85,8 +85,8 @@ if ($ret) {
 
 		if ($verifiedFile != $importFile) {
 			$templateData['verifiedFile'] = $importFile;
-			$verifiedFile = $importFile;
-			$doImportFlag = verifyVersions($templateData, $importFile);
+			$verifiedFile                 = $importFile;
+			$doImportFlag                 = verifyVersions($templateData, $importFile);
 		}
 
 		if ($doImportFlag) {
@@ -118,7 +118,7 @@ if ($ret) {
 
 			$templateData['bodyFile']        = 'ImportFinished.html';
 			$templateData['hideStatusBlock'] = 1;
-			$renderFullPage = false;
+			$renderFullPage                  = false;
 		}
 	} else {
 		getBackupFiles($templateData);

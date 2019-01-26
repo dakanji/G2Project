@@ -48,7 +48,7 @@ class EmbedTest extends GalleryTestCase {
 		$this->_origGallery  = $gallery;
 		$this->_savedSession = $gallery->_session;
 		$gallery->_session   = new GallerySession();
-		$ret = $gallery->_session->init();
+		$ret                 = $gallery->_session->init();
 
 		if ($ret) {
 			return $ret;
@@ -754,7 +754,7 @@ class EmbedTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$event = GalleryCoreApi::newEvent('Gallery::LoadThemeAndParameters');
+		$event                    = GalleryCoreApi::newEvent('Gallery::LoadThemeAndParameters');
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {

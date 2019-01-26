@@ -658,7 +658,7 @@ class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
 class UserLoginControllerTestSession {
 	public function __construct() {
 		$this->_regenerateWasCalled = false;
-		$this->_hash = array();
+		$this->_hash                = array();
 	}
 
 	public function getId() {

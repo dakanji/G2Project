@@ -3560,15 +3560,15 @@ class CoreModuleExtras {
 				 * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
 				 * Escape the backslashes and quotes two times since we feed preg_replace with it.
 				 */
-				$edit           = array();
-				$tmp            = strtr(
+				$edit                = array();
+				$tmp                 = strtr(
 					$gallery->getConfig('data.gallery.base'),
 					array(
 						'\\' => '\\\\\\\\',
 						"'"  => "\\\\'",
 					)
 				);
-				$edit['regexp'] = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
+				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
 				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
 				. $tmp . '\');';
 				$configChanges[]     = array(
@@ -3629,8 +3629,8 @@ class CoreModuleExtras {
 				 * Prevent PHP from showing errors on direct access to config.php by adding a check
 				 * for the $gallery object before the first setConfig() call.
 				 */
-				$edit           = array();
-				$edit['regexp'] = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
+				$edit                = array();
+				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
 			* Prevent direct access to config.php.
 			*/
@@ -3650,11 +3650,11 @@ class CoreModuleExtras {
 			case '1.1.29':
 			case '1.1.30':
 				// Reposition display_errors from the end to the beginning of the config file.
-				$remove         = array(
+				$remove              = array(
 					'{/\*[^/]*\*/\s*\@?ini_set\(\'display_errors\',.*?;\s*}s',
 				);
-				$edit           = array();
-				$edit['regexp'] = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
+				$edit                = array();
+				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
 			* When display_errors is enabled, PHP errors are printed to the output.
 			* For production web sites, you\'re strongly encouraged to turn this feature off,
@@ -3707,14 +3707,14 @@ class CoreModuleExtras {
 			case '1.2.31':
 			case '1.2.32':
 				// Change the baseUri if it's not set.
-				$urlGenerator   =& $gallery->getUrlGenerator();
-				$urlPath        = preg_replace(
+				$urlGenerator        =& $gallery->getUrlGenerator();
+				$urlPath             = preg_replace(
 					'|^(.*/)upgrade/index.php.*$|s',
 					'$1',
 					$urlGenerator->getCurrentUrl()
 				) . GALLERY_MAIN_PHP;
-				$edit           = array();
-				$edit['regexp'] = '{\$gallery->setConfig\(\'baseUri\', \'\'\);}s';
+				$edit                = array();
+				$edit['regexp']      = '{\$gallery->setConfig\(\'baseUri\', \'\'\);}s';
 				$edit['replacement'] = '$gallery->setConfig(\'baseUri\', \'' . $urlPath . '\');';
 				$configChanges[]     = array(
 					'remove' => array(),

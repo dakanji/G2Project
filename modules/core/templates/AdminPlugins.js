@@ -97,8 +97,8 @@ function deletePlugin(pluginType, pluginId) {
 }
 
 function copyVersionToInstalledVersion(pluginType, pluginId) {
-	versionEl          = document.getElementById("plugin-" + pluginType + "-" + pluginId + "-version");
-	installedVersionEl = document.getElementById(
+	versionEl                    = document.getElementById("plugin-" + pluginType + "-" + pluginId + "-version");
+	installedVersionEl           = document.getElementById(
 		"plugin-" + pluginType + "-" + pluginId + "-installedVersion"
 	);
 	installedVersionEl.innerHTML = versionEl.innerHTML;

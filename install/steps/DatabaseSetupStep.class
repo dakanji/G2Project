@@ -36,16 +36,16 @@ class DatabaseSetupStep extends InstallStep {
 			$this->_config = $galleryStub->getConfig('storage.config');
 
 			if (empty($this->_config)) {
-				$this->_config             = array();
-				$this->_config['type']     = 'mysqlt';
-				$this->_config['hostname'] = 'localhost';
-				$this->_config['username'] = 'root';
-				$this->_config['password'] = '';
-				$this->_config['database'] = 'gallery2';
-				$this->_config['schema']   = '';
+				$this->_config                 = array();
+				$this->_config['type']         = 'mysqlt';
+				$this->_config['hostname']     = 'localhost';
+				$this->_config['username']     = 'root';
+				$this->_config['password']     = '';
+				$this->_config['database']     = 'gallery2';
+				$this->_config['schema']       = '';
 				$this->_config['tablePrefix']  = 'g2_';
 				$this->_config['columnPrefix'] = 'g_';
-				$firstConfig = true;
+				$firstConfig                   = true;
 			}
 			// All keys but 'schema' exist in all versions of G2
 			if (!isset($this->_config['schema'])) {
@@ -215,7 +215,7 @@ class DatabaseSetupStep extends InstallStep {
 
 				if ($result === false) {
 					$templateData['errors'][] = 'The database you specified does not exist.  Please create it.';
-					$dbVersion = '';
+					$dbVersion                = '';
 				} else {
 					/*
 					 * Check if the db user has (all?) required db privileges to finish the

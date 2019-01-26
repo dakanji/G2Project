@@ -248,7 +248,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 			case 'set-audio-channels':
 				// Doesn't change file; just remembers audio setting for future operation
-				$futureOp = true;
+				$futureOp                 = true;
 				$context['audioChannels'] = $parameters[0];
 
 				break;
@@ -284,7 +284,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 			case 'select-offset':
 				// Doesn't change file; just remembers offset for future operation
-				$futureOp = true;
+				$futureOp                 = true;
 				$context['ffmpeg.offset'] = $parameters[0];
 
 				break;

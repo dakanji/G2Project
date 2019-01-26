@@ -473,8 +473,8 @@ class SessionTest extends GalleryTestCase {
 			// Create a test session with cookie support put well known data in it
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-			$session = new GallerySession();
-			$ret     = $session->init();
+			$session                    = new GallerySession();
+			$ret = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -515,8 +515,8 @@ class SessionTest extends GalleryTestCase {
 			unset($_SERVER['HTTP_CLIENT_IP']);
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-			$session = new GallerySession();
-			$ret     = $session->init();
+			$session                    = new GallerySession();
+			$ret = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -539,8 +539,8 @@ class SessionTest extends GalleryTestCase {
 			// Vary only the IP, it should still work
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '6.7.9.9';
-			$session = new GallerySession();
-			$ret     = $session->init();
+			$session                    = new GallerySession();
+			$ret = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -562,8 +562,8 @@ class SessionTest extends GalleryTestCase {
 			// Vary only the user agent, it should still work
 			$_SERVER['HTTP_USER_AGENT'] = 'DIFFERENT_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-			$session = new GallerySession();
-			$ret     = $session->init();
+			$session                    = new GallerySession();
+			$ret = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -585,8 +585,8 @@ class SessionTest extends GalleryTestCase {
 			// Vary both.  Our data is gone, and we have a different cookie id.
 			$_SERVER['HTTP_USER_AGENT'] = 'DIFFERENT_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '3.5.7.9';
-			$session = new GallerySession();
-			$ret     = $session->init();
+			$session                    = new GallerySession();
+			$ret = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -608,8 +608,8 @@ class SessionTest extends GalleryTestCase {
 			// Verify that our original session has not been nuked
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-			$session = new GallerySession();
-			$ret     = $session->init();
+			$session                    = new GallerySession();
+			$ret = $session->init();
 
 			if ($ret) {
 				return $ret;
@@ -827,7 +827,7 @@ class SessionTest extends GalleryTestCase {
 
 		// Execute the test
 		$_COOKIE[SESSION_ID_PARAMETER] = $session->getId();
-		$newSession = new GallerySession();
+		$newSession                    = new GallerySession();
 
 		$ret = $newSession->init();
 
@@ -1463,7 +1463,7 @@ class SessionTest extends GalleryTestCase {
 			$gallery->_storage->_query,
 			'storage preparation failed for 2nd test'
 		);
-		$gallery->_phpVm = new SessionTestPhpVm(array(), $now, 10);
+		$gallery->_phpVm                  = new SessionTestPhpVm(array(), $now, 10);
 		$session->_isPersistentSessionNew = true;
 
 		$ret = $session->save();
@@ -1484,7 +1484,7 @@ class SessionTest extends GalleryTestCase {
 			$gallery->_storage->_query,
 			'storage preparation failed for 3rd test'
 		);
-		$gallery->_phpVm = new SessionTestPhpVm(array(), $now, 1);
+		$gallery->_phpVm                  = new SessionTestPhpVm(array(), $now, 1);
 		$session->_isPersistentSessionNew = false;
 
 		$ret = $session->save();
@@ -1504,8 +1504,8 @@ class SessionTest extends GalleryTestCase {
 		// Verify that our original session has not been nuked
 		$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 		$_SERVER['REMOTE_ADDR']     = '1.1.1.1';
-		$session = new GallerySession();
-		$ret     = $session->init();
+		$session                    = new GallerySession();
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -1569,8 +1569,8 @@ class SessionTest extends GalleryTestCase {
 		// Verify that our original session has not been nuked
 		$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 		$_SERVER['REMOTE_ADDR']     = '1.1.1.1';
-		$session = new GallerySession();
-		$ret     = $session->init();
+		$session                    = new GallerySession();
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -1630,8 +1630,8 @@ class SessionTest extends GalleryTestCase {
 		// Verify that our original session has not been nuked
 		$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 		$_SERVER['REMOTE_ADDR']     = '1.1.1.1';
-		$session = new GallerySession();
-		$ret     = $session->init();
+		$session                    = new GallerySession();
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -1705,7 +1705,7 @@ class SessionTest extends GalleryTestCase {
 
 		$storage =& $gallery->getStorage();
 		$storage->_nonTransactionalDb = null;
-		$storage->_db = null;
+		$storage->_db                 = null;
 
 		$ret = $session->_acquireNewPersistentSession();
 
@@ -1724,7 +1724,7 @@ class SessionTest extends GalleryTestCase {
 		$this->assertTrue(!empty($session->_sessionId), 'sid');
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$_COOKIE[SESSION_ID_PARAMETER] = $session->_sessionId;
-		$newSession = new GallerySession();
+		$newSession                    = new GallerySession();
 		// init loads the session
 		$ret = $newSession->init();
 
@@ -1798,7 +1798,7 @@ class SessionTest extends GalleryTestCase {
 			$gallery->_phpVm        = new SessionTestPhpVm($sessionIds);
 			$session->_sessionId    = '';
 			$session->_isPersistent = false;
-			$ret = $session->_acquireNewPersistentSession();
+			$ret                    = $session->_acquireNewPersistentSession();
 
 			if ($ret) {
 				return $ret;
@@ -1811,7 +1811,7 @@ class SessionTest extends GalleryTestCase {
 		// 6th persistent session has 5 collisions, should fail with error
 		$gallery->_phpVm     = new SessionTestPhpVm($sessionIds);
 		$session->_sessionId = '';
-		$ret = $session->_acquireNewPersistentSession();
+		$ret                 = $session->_acquireNewPersistentSession();
 
 		if ($ret) {
 			$this->assertEquals(
@@ -1887,7 +1887,7 @@ class SessionTest extends GalleryTestCase {
 			$sessionIds[md5(mt_rand())] = 1;
 		}
 		$totalOldGuestSessions = count($sessionIds);
-		$data = array(
+		$data                  = array(
 			'userId' => $this->_anonymousUserId,
 			'remoteIdentifier' => serialize(array()),
 			'creationTimestamp' => time() - 86400 * 8,
@@ -2101,7 +2101,7 @@ class SessionTest extends GalleryTestCase {
 		$session = new GallerySession();
 		$session->_isPersistentSessionNew = false;
 		$session->_sessionId              = '';
-		$sessionString = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
+		$sessionString                    = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
 
 		$html     = 'ksaj' . SESSION_TEMP_ID . 'sajlksa' . "?$sessionString\"" . 'jsaj29' .
 		urlencode($sessionString) . '131j0s0enld9u1odu' . urlencode("?$sessionString") .
@@ -2154,7 +2154,7 @@ class SessionTest extends GalleryTestCase {
 		$session = new GallerySession();
 		$session->_isPersistentSessionNew = false;
 		$session->_sessionId              = '';
-		$sessionString = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
+		$sessionString                    = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
 
 		// Verify that replaceSessionIdIfNecessary is applied to all string members.
 		$html           = 'ksaj' . SESSION_TEMP_ID . 'sajlksa' . "?$sessionString\"" . 'jsaj29' .
@@ -2214,7 +2214,7 @@ class SessionTest extends GalleryTestCase {
 		$session = new GallerySession();
 		$session->_isPersistentSessionNew = true;
 		$session->_sessionId              = '12345';
-		$sessionString = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
+		$sessionString                    = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
 
 		$html          = sprintf(
 			'ksaj%ssajlksajsaj29%s131j0s0enld9u1odu%s109211j0',
@@ -2237,8 +2237,8 @@ class SessionTest extends GalleryTestCase {
 		$session = new GallerySession();
 		$session->_isPersistentSessionNew = false;
 		$session->_sessionId              = '';
-		$sessionString = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
-		$html          = sprintf('<a href="main.php?%s">', $sessionString);
+		$sessionString                    = GalleryUtilities::prefixFormVariable($session->getKey()) . '=' . SESSION_TEMP_ID;
+		$html = sprintf('<a href="main.php?%s">', $sessionString);
 		$this->assertEquals(
 			'<a href="main.php">',
 			$session->replaceTempSessionIdIfNecessary($html),
@@ -2372,8 +2372,8 @@ class SessionTest extends GalleryTestCase {
 
 		// userId empty
 		$session->_isSearchEngineSession = false;
-		$session->_userId     = null;
-		list($ret, $required) = $session->_isPersistentSessionRequired();
+		$session->_userId                = null;
+		list($ret, $required)            = $session->_isPersistentSessionRequired();
 
 		if ($ret) {
 			return $ret;
@@ -2403,7 +2403,7 @@ class SessionTest extends GalleryTestCase {
 
 		$session->_sessionId = $sid = '12345abc';
 		$before              = time();
-		$ret = $session->_setCookie();
+		$ret                 = $session->_setCookie();
 
 		if ($ret) {
 			return $ret;
@@ -2485,7 +2485,7 @@ class SessionTest extends GalleryTestCase {
 
 		$session->_sessionId = $sid = md5('12345abc');
 		$_SERVER['HTTPS']    = 'on';
-		$ret = $session->_setCookie();
+		$ret                 = $session->_setCookie();
 
 		if ($ret) {
 			return $ret;
@@ -2632,7 +2632,7 @@ class SessionTest extends GalleryTestCase {
 
 		$session->_sessionId = $sid = '12345abc';
 		$before              = time();
-		$ret = $session->_setCookie(true);
+		$ret                 = $session->_setCookie(true);
 
 		if ($ret) {
 			return $ret;
@@ -3027,7 +3027,7 @@ class SessionTest extends GalleryTestCase {
 		$_SERVER['HTTP_COOKIE']     = '';
 		$_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
 		$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-		$session = new GallerySession();
+		$session                    = new GallerySession();
 
 		$ret = $session->init();
 
@@ -3055,7 +3055,7 @@ class SessionTest extends GalleryTestCase {
 		$_SERVER['HTTP_COOKIE']     = '';
 		$_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
 		$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-		$session = new GallerySession();
+		$session                    = new GallerySession();
 
 		$ret = $session->init();
 
@@ -3085,7 +3085,7 @@ class SessionTest extends GalleryTestCase {
 		$_SERVER['HTTP_COOKIE']     = '';
 		$_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
 		$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
-		$session = new GallerySession();
+		$session                    = new GallerySession();
 
 		list($ret, $user) = $this->_createRandomUser();
 

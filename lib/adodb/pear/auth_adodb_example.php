@@ -15,9 +15,9 @@ function loginFunction() {
 $dsn = 'mysql://username:password@hostname/database';
 // To use encrypted passwords, change cryptType to 'md5'
 $params = array(
-	'dsn'   => $dsn,
-	'table' => 'auth',
-	'cryptType' => 'none',
+	'dsn'         => $dsn,
+	'table'       => 'auth',
+	'cryptType'   => 'none',
 	'usernamecol' => 'username',
 	'passwordcol' => 'password',
 );

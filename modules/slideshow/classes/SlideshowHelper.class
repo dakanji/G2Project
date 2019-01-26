@@ -125,7 +125,7 @@ class SlideshowHelper {
 			return array(null, null, null);
 		}
 
-		$items = array();
+		$items                  = array();
 		list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 		if ($ret) {

@@ -185,7 +185,7 @@ class GalleryStorage {
 		$this->_database        = $config['database'];
 		$this->_isTransactional = false;
 		$this->_isEmptyAllowedForNotNullColumn = true;
-		$this->_entityInfoCache = array();
+		$this->_entityInfoCache                = array();
 
 		// We use persistent connections if the value is left out, or if it's non empty.
 		$this->_usePersistentConnections = !isset($config['usePersistentConnections'])

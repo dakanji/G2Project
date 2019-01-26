@@ -2069,7 +2069,7 @@ class ItemTest extends GalleryTestCase {
 			}
 
 			// Make sure that we have a preferred that contains the proper convert operations
-			$itemId = $item->getId();
+			$itemId                 = $item->getId();
 			list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
 
 			if ($ret) {

@@ -225,7 +225,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Get a username that doesn't exist
 		while (true) {
-			$name = 'testuser-' . mt_rand();
+			$name                  = 'testuser-' . mt_rand();
 			list($ret, $dummyUser) = GalleryCoreApi::fetchUserByUserName($name);
 
 			if ($ret) {

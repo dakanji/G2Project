@@ -323,8 +323,8 @@ class AdminExifController extends GalleryController {
 				}
 
 				$status['movedDown']['detailed'] = $count;
-				$redirect['view']    = 'core.SiteAdmin';
-				$redirect['subView'] = 'exif.AdminExif';
+				$redirect['view']                = 'core.SiteAdmin';
+				$redirect['subView']             = 'exif.AdminExif';
 			} else {
 				$error[] = 'form[error][detailed][missing]';
 			}
@@ -441,7 +441,7 @@ class AdminExifView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$AdminExif = array();
+		$AdminExif                  = array();
 		$AdminExif['availableList'] = $availableList;
 		$AdminExif['summaryList']   = $summaryList;
 		$AdminExif['detailedList']  = $detailedList;

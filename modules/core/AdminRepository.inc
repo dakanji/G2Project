@@ -235,9 +235,9 @@ class AdminRepositoryView extends GalleryView {
 					null,
 				);
 			}
-			$coreApis['core']   = explode('.', $coreApiVersion);
-			$coreApis['module'] = explode('.', $moduleApiVersion);
-			$coreApis['theme']  = explode('.', $themeApiVersion);
+			$coreApis['core']                    = explode('.', $coreApiVersion);
+			$coreApis['module']                  = explode('.', $moduleApiVersion);
+			$coreApis['theme']                   = explode('.', $themeApiVersion);
 			$AdminRepository['showIncompatible'] = 1;
 		}
 

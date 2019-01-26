@@ -77,7 +77,7 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 		switch ($command) {
 			case 'getRecords':
 				list($pageNumber, $pageSize) = GalleryUtilities::getRequestVariables('pageNumber', 'pageSize');
-				$pageNumber = (int)$pageNumber;
+				$pageNumber                  = (int)$pageNumber;
 
 				if (!$pageNumber) {
 					$pageNumber = 1;

@@ -195,18 +195,18 @@ class ADODB_Active_Record {
 	// CFR: Constants found in Rails
 	public static $IrregularP = array(
 		'PERSON' => 'people',
-		'MAN' => 'men',
-		'WOMAN' => 'women',
-		'CHILD' => 'children',
-		'COW' => 'kine',
+		'MAN'    => 'men',
+		'WOMAN'  => 'women',
+		'CHILD'  => 'children',
+		'COW'    => 'kine',
 	);
 
 	public static $IrregularS = array(
-		'PEOPLE' => 'PERSON',
-		'MEN' => 'man',
-		'WOMEN' => 'woman',
+		'PEOPLE'   => 'PERSON',
+		'MEN'      => 'man',
+		'WOMEN'    => 'woman',
 		'CHILDREN' => 'child',
-		'KINE' => 'cow',
+		'KINE'     => 'cow',
 	);
 
 	public static $WeIsI = array(
@@ -581,7 +581,7 @@ class ADODB_Active_Record {
 
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
-			$s = serialize($activetab);
+			$s                   = serialize($activetab);
 
 			if (!function_exists('adodb_write_file')) {
 				include ADODB_DIR . '/adodb-csvlib.inc.php';
