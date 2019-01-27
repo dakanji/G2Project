@@ -97,7 +97,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 	public function shouldCheckFile($fileName) {
 		$base = basename($fileName);
 
-		return in_array($base, array( 'MANIFEST', 'GNUmakefile', 'strings.raw' ))
+		return in_array($base, array('MANIFEST', 'GNUmakefile', 'strings.raw'))
 		|| preg_match('{\.(php|inc|class|tpl|html|css|js|txt|xml|po|mo|png|gif|jpg)$}', $base);
 	}
 
@@ -122,12 +122,12 @@ class SvnAuditTest extends CodeAuditTestCase {
 			$expected = array(
 				'svn:eol-style' => 'native',
 			);
-		} elseif (in_array($base, array( 'MANIFEST', 'GNUmakefile', 'strings.raw' ))
+		} elseif (in_array($base, array('MANIFEST', 'GNUmakefile', 'strings.raw'))
 			|| preg_match('{\.(php|inc|class|tpl|html|css|js|xml|po)$}', $base)
 		) {
 			$expected = array(
 				'svn:eol-style' => 'native',
-				'svn:keywords' => 'Author Id Revision',
+				'svn:keywords'  => 'Author Id Revision',
 			);
 		} else {
 			$expected = array(

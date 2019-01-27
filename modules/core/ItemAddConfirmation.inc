@@ -35,7 +35,7 @@ class ItemAddConfirmationView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -61,7 +61,7 @@ class ItemAddConfirmationView extends GalleryView {
 				} elseif ($ret->getErrorCode() & (ERROR_MISSING_OBJECT | ERROR_BAD_PARAMETER)) {
 					$status['addedFiles'][$i]['exists'] = false;
 				} else {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		} else {
@@ -90,9 +90,9 @@ class ItemAddConfirmationView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $core->translate('add items confirmation') );
+		return array(null, $core->translate('add items confirmation'));
 	}
 }

@@ -43,7 +43,7 @@ class ADODB_odbtp extends ADOConnection {
 	public function ServerInfo() {
 		return array(
 			'description' => @odbtp_get_attr(ODB_ATTR_DBMSNAME, $this->_connectionID),
-			'version' => @odbtp_get_attr(ODB_ATTR_DBMSVER, $this->_connectionID),
+			'version'     => @odbtp_get_attr(ODB_ATTR_DBMSVER, $this->_connectionID),
 		);
 	}
 
@@ -580,7 +580,7 @@ class ADODB_odbtp extends ADOConnection {
 			return $sql;
 		}
 
-		return array( $sql, $stmt, false );
+		return array($sql, $stmt, false);
 	}
 
 	public function PrepareSP($sql, $param = true) {
@@ -597,7 +597,7 @@ class ADODB_odbtp extends ADOConnection {
 			return false;
 		}
 
-		return array( $sql, $stmt );
+		return array($sql, $stmt);
 	}
 
 	/*
@@ -863,7 +863,7 @@ class ADORecordSet_odbtp extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$name = @odbtp_field_name($this->_queryID, $i);
+				$name                          = @odbtp_field_name($this->_queryID, $i);
 				$this->bind[strtoupper($name)] = $i;
 			}
 		}

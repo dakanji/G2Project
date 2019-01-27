@@ -74,7 +74,7 @@ class UnitTestTemplate extends GalleryTemplate {
 	 * Not implemented. Use a real GalleryTemplate to test compiled templates.
 	 */
 	public function fetch($templateName = null) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
 	/**

@@ -90,7 +90,7 @@ class GalleryView {
 	 *               array ('body' => string template or 'redirect' => array)
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
-		return array( null, null );
+		return array(null, null);
 	}
 
 	/**
@@ -171,12 +171,12 @@ class GalleryView {
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $module);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		list($ret, $isActive) = $plugin->isActive();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!$isActive) {
@@ -184,7 +184,7 @@ class GalleryView {
 				$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			} else {
 				return array(
@@ -252,7 +252,7 @@ class GalleryView {
 		// Tell the view what module its in
 		$view->init($module);
 
-		return array( null, $view );
+		return array(null, $view);
 	}
 
 	/**
@@ -288,7 +288,7 @@ class GalleryView {
 		$ret = $this->setStandardTemplateVariables($template);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Ask search engines to not index (site|item|user) admin pages
@@ -302,7 +302,7 @@ class GalleryView {
 			$ret = $this->setCacheControl($template);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -311,7 +311,7 @@ class GalleryView {
 		list($ret, $theme, $params, $item) = $this->loadThemeAndParameters();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (!isset($theme)) {
@@ -325,7 +325,7 @@ class GalleryView {
 				$isFallbackTheme = true;
 			} else {
 				$redirect = array(
-					'view' => 'core.ShowItemError',
+					'view'    => 'core.ShowItemError',
 					'problem' => 'missingTheme',
 				);
 				$itemId   = GalleryUtilities::getRequestVariables('itemId');
@@ -356,20 +356,20 @@ class GalleryView {
 		list($ret, $results) = $this->loadTemplate($template, $form);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (isset($results['redirect']) || isset($results['redirectUrl'])) {
-			return array( null, $results, $theme );
+			return array(null, $results, $theme);
 		}
 
 		list($ret, $results) = $theme->loadTemplate($this, $template, $item, $params, $results);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		return array( null, $results, $theme );
+		return array(null, $results, $theme);
 	}
 
 	/**
@@ -382,7 +382,7 @@ class GalleryView {
 	 *               string localized description
 	 */
 	public function getViewDescription() {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
 	/**
@@ -415,7 +415,7 @@ class GalleryView {
 			list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -423,23 +423,23 @@ class GalleryView {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if ($checkPermissions) {
 			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			if (!$hasPermission) {
 				// Avoid information disclosure by treating this as if the item didn't exist.
-				return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null );
+				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
 			}
 		}
 
-		return array( null, $item, $wasSpecified );
+		return array(null, $item, $wasSpecified);
 	}
 
 	/**
@@ -477,7 +477,7 @@ class GalleryView {
 			}
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 		}
 
@@ -485,7 +485,7 @@ class GalleryView {
 
 		if ($ret || !isset($theme)) {
 			// Ignore errors here so fallback theme can be used
-			return array( null, null, array(), $item );
+			return array(null, null, array(), $item);
 		}
 
 		if (empty($params)) {
@@ -498,11 +498,11 @@ class GalleryView {
 			list($ret, $params) = $theme->fetchParameters($wasSpecified ? $targetId : null);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 		}
 
-		return array( null, $theme, $params, $item );
+		return array(null, $theme, $params, $item);
 	}
 
 	/**
@@ -522,7 +522,7 @@ class GalleryView {
 			list($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -530,7 +530,7 @@ class GalleryView {
 		list($ret, $theme, $params) = $this->_getThemeAndParametersByEvent($item);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (!isset($theme)) {
@@ -539,24 +539,24 @@ class GalleryView {
 				list($ret, $themeId) = GalleryCoreApi::fetchThemeId($nearestAlbum);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 			} else {
 				list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 			}
 
 			list($ret, $theme) = $this->_loadTheme($themeId);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
-		return array( null, $theme, $params );
+		return array(null, $theme, $params);
 	}
 
 	/**
@@ -582,7 +582,7 @@ class GalleryView {
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$themeId = $theme = $params = null;
@@ -616,7 +616,7 @@ class GalleryView {
 					);
 					$theme = $params = null;
 				} else {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 			}
 		}
@@ -625,7 +625,7 @@ class GalleryView {
 			$params = null;
 		}
 
-		return array( null, $theme, $params );
+		return array(null, $theme, $params);
 	}
 
 	/**
@@ -642,14 +642,14 @@ class GalleryView {
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (isset($theme)) {
 			list($ret, $validTheme) = $theme->isActive();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -657,7 +657,7 @@ class GalleryView {
 			$theme = null;
 		}
 
-		return array( null, $theme );
+		return array(null, $theme);
 	}
 
 	/**
@@ -819,7 +819,7 @@ class GalleryView {
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT && ($ret2 || !$inGroup)) {
 				$ret->addErrorCode(ERROR_PERMISSION_DENIED);
 			}
-			$result = array( $ret, null );
+			$result = array($ret, null);
 
 			if ($ret2) {
 				return $result;

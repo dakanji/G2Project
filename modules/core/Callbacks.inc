@@ -47,7 +47,7 @@ class CoreCallbacks {
 				}
 
 				$block['core']['LanguageSelector'] = array(
-					'list' => $languageList,
+					'list'     => $languageList,
 					'language' => $language,
 				);
 
@@ -178,14 +178,14 @@ class CoreCallbacks {
 						$peers[] = $peer;
 					}
 					$block['core']['LoadPeers'] = array(
-						'peers' => $peers,
-						'peerCount' => count($peerIds),
+						'peers'         => $peers,
+						'peerCount'     => count($peerIds),
 						'thisPeerIndex' => $peerItemIndex + 1,
-						'parent' => (array)$parent,
+						'parent'        => (array)$parent,
 					);
 				} else {
 					$block['core']['LoadPeers'] = array(
-						'peers' => array(),
+						'peers'     => array(),
 						'peerCount' => 0,
 					);
 				}

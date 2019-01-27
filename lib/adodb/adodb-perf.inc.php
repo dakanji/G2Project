@@ -833,7 +833,7 @@ class adodb_perf {
 		// magic quotes
 
 		if (isset($_GET['sql']) && get_magic_quotes_gpc()) {
-			$_GET['sql'] = $_GET['sql'] = str_replace(array( "\\'", '\"' ), array( "'", '"' ), $_GET['sql']);
+			$_GET['sql'] = $_GET['sql'] = str_replace(array("\\'", '\"'), array("'", '"'), $_GET['sql']);
 		}
 
 		if (!isset($_SESSION['ADODB_PERF_SQL'])) {
@@ -1163,7 +1163,7 @@ class adodb_perf {
 			$sqla  = $this->SplitSQL($sql);
 		} else {
 			$print = false;
-			$sqla  = array( $sql );
+			$sqla  = array($sql);
 		}
 
 		foreach ($sqla as $sqls) {

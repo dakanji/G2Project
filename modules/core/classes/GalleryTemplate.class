@@ -208,8 +208,8 @@ class GalleryTemplate {
 	public function meta($name, $content, $isHttpEquiv = false) {
 		$head           =& $this->getVariableByReference('head');
 		$head['meta'][] = array(
-			'name'    => $name,
-			'content' => $content,
+			'name'        => $name,
+			'content'     => $content,
 			'isHttpEquiv' => $isHttpEquiv,
 		);
 	}
@@ -227,16 +227,16 @@ class GalleryTemplate {
 		list($ret, $this->_smarty->compile_dir) = $this->_initCompiledTemplateDir();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $html) = $this->_smarty->fetch($templateName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $html );
+		return array(null, $html);
 	}
 
 	/**
@@ -282,12 +282,12 @@ class GalleryTemplate {
 		list($ret, $themeId) = GalleryTemplate::_getThemeId();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$dir = $this->_compiledTemplateDir . DIRECTORY_SEPARATOR . $themeId;
 
 		if ($platform->file_exists($dir) && !$platform->is_dir($dir)) {
-			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 		}
 
 		$templateVersionFile = $dir . '/v_' . TEMPLATE_DATA_VERSION;
@@ -322,7 +322,7 @@ class GalleryTemplate {
 			}
 		} else {
 			if (!$platform->is_writeable($dir)) {
-				return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null );
+				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 			}
 
 			$rebuild = false;
@@ -347,12 +347,12 @@ class GalleryTemplate {
 				list($ret, $dir) = $this->_initCompiledTemplateDir();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
 
-		return array( null, $dir );
+		return array(null, $dir);
 	}
 
 	/**
@@ -393,7 +393,7 @@ class GalleryTemplate {
 			$templateAdapter,
 			array(),
 			true,
-			array( 'addToTrailer', 'autoComplete', 'container' )
+			array('addToTrailer', 'autoComplete', 'container')
 		);
 
 		$smarty->register_resource(
@@ -408,17 +408,17 @@ class GalleryTemplate {
 		);
 
 		if ($trimWhitespace) {
-			$smarty->register_prefilter(array( 'GalleryTemplate', 'preFilter' ));
+			$smarty->register_prefilter(array('GalleryTemplate', 'preFilter'));
 		}
 
 		$smarty->assign(
 			'head',
 			array(
-				'tpl'   => array(),
-				'style' => array(),
+				'tpl'        => array(),
+				'style'      => array(),
 				'javascript' => array(),
-				'meta'  => array(),
-				'link'  => array(),
+				'meta'       => array(),
+				'link'       => array(),
 			)
 		);
 
@@ -648,7 +648,7 @@ class GalleryTemplate {
 			if ($ret->getErrorCode() & (ERROR_MISSING_OBJECT | ERROR_PERMISSION_DENIED)) {
 				$itemId = null;
 			} else {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -667,14 +667,14 @@ class GalleryTemplate {
 				list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			} else {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
-		return array( null, $themeId );
+		return array(null, $themeId);
 	}
 
 	/**

@@ -61,7 +61,7 @@ class WelcomeStep extends UpgradeStep {
 
 			foreach ($supportedLanguages as $lang => $list) {
 				foreach ($list as $country => $data) {
-					$code = $lang . '_' . $country;
+					$code                             = $lang . '_' . $country;
 					$templateData['languages'][$code] = $data['description'];
 				}
 			}

@@ -126,8 +126,8 @@ $mapInfo['GalleryItemAttributesMap']            = array(
 		'size' => STORAGE_SIZE_MEDIUM,
 	),
 	'parentSequence' => array(
-		'type' => STORAGE_TYPE_STRING,
-		'size' => STORAGE_SIZE_LARGE,
+		'type'                => STORAGE_TYPE_STRING,
+		'size'                => STORAGE_SIZE_LARGE,
 		'notNullEmptyAllowed' => true,
 	),
 );
@@ -268,8 +268,8 @@ $mapInfo['GalleryPluginParameterMap']           = array(
 		'notNull' => true,
 	),
 	'parameterValue' => array(
-		'type' => STORAGE_TYPE_TEXT,
-		'size' => STORAGE_SIZE_SMALL,
+		'type'                => STORAGE_TYPE_TEXT,
+		'size'                => STORAGE_SIZE_SMALL,
 		'notNullEmptyAllowed' => true,
 	),
 );

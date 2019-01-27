@@ -52,7 +52,7 @@ class ADODB_ado extends ADOConnection {
 
 		return array(
 			'description' => $desc,
-			'version' => '',
+			'version'     => '',
 		);
 	}
 
@@ -239,11 +239,11 @@ class ADODB_ado extends ADOConnection {
 			$t = $adors->Fields(2);//table/view name
 			while (!$adors->EOF) {
 				if (strtoupper($t->Value) == $table) {
-					$fld             = new ADOFieldObject();
-					$c               = $adors->Fields(3);
-					$fld->name       = $c->Value;
-					$fld->type       = 'CHAR'; // cannot discover type in ADO!
-					$fld->max_length = -1;
+					$fld                         = new ADOFieldObject();
+					$c                           = $adors->Fields(3);
+					$fld->name                   = $c->Value;
+					$fld->type                   = 'CHAR'; // cannot discover type in ADO!
+					$fld->max_length             = -1;
 					$arr[strtoupper($fld->name)] = $fld;
 				}
 
@@ -489,7 +489,7 @@ class ADORecordSet_ado extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

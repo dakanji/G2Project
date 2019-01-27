@@ -39,9 +39,9 @@ class ImageMagickToolkit extends GalleryToolkit {
 				list($ret, $width, $height) = $this->_getImageDimensions($mimeType, $sourceFilename);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
-				$results = array( (int)$width, (int)$height );
+				$results = array((int)$width, (int)$height);
 
 				break;
 
@@ -49,9 +49,9 @@ class ImageMagickToolkit extends GalleryToolkit {
 				list($ret, $count) = $this->_getPageCount($sourceFilename, $mimeType);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
-				$results = array( $count );
+				$results = array($count);
 
 				break;
 
@@ -59,17 +59,17 @@ class ImageMagickToolkit extends GalleryToolkit {
 				list($ret, $colorspace) = $this->_getColorspace($sourceFilename);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
-				$results = array( $colorspace );
+				$results = array($colorspace);
 
 				break;
 
 			default:
-				return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+				return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	/**
@@ -113,7 +113,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		// Use context look-ahead to see if we can queue up parameters to use later
 		$queueIt = in_array($operationName, $convertOps) &&
-		isset($context['next.toolkit']) && $context['next.toolkit'] == $this &&
+		isset($context['next.toolkit'])                  && $context['next.toolkit'] == $this                  &&
 		in_array($context['next.operation'], $convertOps);
 
 		/*
@@ -122,23 +122,23 @@ class ImageMagickToolkit extends GalleryToolkit {
 		 * queue, then we can't queue the geometry.
 		 */
 		if ($queueIt
-			&& in_array($context['next.operation'], array( 'thumbnail', 'scale', 'resize' ))
+			&& in_array($context['next.operation'], array('thumbnail', 'scale', 'resize'))
 			&& ($operationName == 'crop' || in_array('-crop', $transform))
 		) {
 			$queueIt = false;
 		}
 
-		$usePercent = in_array($operationName, array( 'thumbnail', 'scale', 'resize' ))
+		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'
 			|| (isset($parameters[1]) && substr($parameters[1], -1) == '%'));
 
 		if (!isset($width) && ($queueIt || $usePercent
-			|| in_array($operationName, array( 'thumbnail', 'crop', 'composite' )))
+			|| in_array($operationName, array('thumbnail', 'crop', 'composite')))
 		) {
 			list($ret, $width, $height) = $this->_getImageDimensions($mimeType, $sourceFilename);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -169,7 +169,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					list($ret, $removeMetaDataSwitch) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'removeMetaDataSwitch');
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 
 					if (!empty($removeMetaDataSwitch)) {
@@ -215,7 +215,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					if (is_int($i = array_search('-size', $transform))) {
 						array_splice($transform, $i, 2);
 					}
-					$transform = array_merge($transform, array( '-rotate', (string)$parameters[0] ));
+					$transform = array_merge($transform, array('-rotate', (string)$parameters[0]));
 
 					if (isset($width) && ($parameters[0] == 90 || $parameters[0] == -90)) {
 						$tmp    = $width;
@@ -263,7 +263,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					list($ret, $cmd) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'compositeCmd');
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 
 					if (empty($cmd)) {
@@ -379,7 +379,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					list($ret, $quality) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality');
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 					$maxQuality = 100;
 					$minQuality = 5;
@@ -396,7 +396,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 						);
 
 						if ($ret) {
-							return array( $ret, null, null );
+							return array($ret, null, null);
 						}
 						clearstatcache();
 						$fileSize = $platform->filesize($destFilename) >> 10;
@@ -412,7 +412,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					} while ($maxQuality - $minQuality > 2
 					   && abs(($fileSize - $targetSize) / $targetSize) > 0.02);
 
-					return array( null, $outputMimeType, $context );
+					return array(null, $outputMimeType, $context);
 
 				default:
 					return array(
@@ -441,11 +441,11 @@ class ImageMagickToolkit extends GalleryToolkit {
 				$platform =& $gallery->getPlatform();
 
 				if (!$platform->copy($sourceFilename, $destFilename)) {
-					return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
+					return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 				}
 			}
 
-			return array( null, $outputMimeType, $context );
+			return array(null, $outputMimeType, $context);
 		}
 
 		if ($outputMimeType == $mimeType && empty($transform)) {
@@ -454,7 +454,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				$platform =& $gallery->getPlatform();
 
 				if (!$platform->copy($sourceFilename, $destFilename)) {
-					return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
+					return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 				}
 			}
 		} else {
@@ -468,11 +468,11 @@ class ImageMagickToolkit extends GalleryToolkit {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
-		return array( null, $outputMimeType, $context );
+		return array(null, $outputMimeType, $context);
 	}
 
 	/**
@@ -491,33 +491,33 @@ class ImageMagickToolkit extends GalleryToolkit {
 		if (($results != false)
 			&& (($results[0] > 1) && ($results[1] > 1))
 		) {
-			return array( null, $results[0], $results[1] );
+			return array(null, $results[0], $results[1]);
 		}
 
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 
 		if ($ret) {
-			return array( $ret, 0, 0 );
+			return array($ret, 0, 0);
 		}
 
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($gallery->getConfig('data.gallery.tmp'));
-		list($success, $output) = $platform->exec(array( array_merge($cmd, array( $filename )) ));
+		list($success, $output) = $platform->exec(array(array_merge($cmd, array($filename))));
 
 		if (!$success) {
 			$platform->chdir($oldCwd);
 
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), 0, 0 );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), 0, 0);
 		}
 		$platform->chdir($oldCwd);
 
 		foreach ($output as $line) {
 			if (preg_match('/([0-9]+)x([0-9]+)/', $line, $regs)) {
-				return array( null, $regs[1], $regs[2] );
+				return array(null, $regs[1], $regs[2]);
 			}
 		}
 
-		return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
+		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 	}
 
 	/**
@@ -531,7 +531,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$oldCwd = $platform->getcwd();
@@ -539,15 +539,15 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		if ($mimeType == 'application/photoshop') {
 			// Identify only shows the number of photoshop layers in verbose output
-			list($success, $output) = $platform->exec(array( array_merge($cmd, array( '-verbose', $filename )) ));
+			list($success, $output) = $platform->exec(array(array_merge($cmd, array('-verbose', $filename))));
 		} else {
-			list($success, $output) = $platform->exec(array( array_merge($cmd, array( $filename )) ));
+			list($success, $output) = $platform->exec(array(array_merge($cmd, array($filename))));
 		}
 
 		$platform->chdir($oldCwd);
 
 		if (!$success) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 
 		$count = 0;
@@ -570,7 +570,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 			}
 		}
 
-		return array( null, $count );
+		return array(null, $count);
 	}
 
 	/**
@@ -584,22 +584,22 @@ class ImageMagickToolkit extends GalleryToolkit {
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		list($success, $output) = $platform->exec(array( array_merge($cmd, array( '-format', '%r', $filename )) ));
+		list($success, $output) = $platform->exec(array(array_merge($cmd, array('-format', '%r', $filename))));
 
 		if (!$success || empty($output)) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 
-		foreach (array( 'RGB', 'CMYK' ) as $colorspace) {
+		foreach (array('RGB', 'CMYK') as $colorspace) {
 			if (strpos($output[0], $colorspace) !== false) {
-				return array( null, $colorspace );
+				return array(null, $colorspace);
 			}
 		}
 
-		return array( null, 'unknown' );
+		return array(null, 'unknown');
 	}
 
 	/**
@@ -783,7 +783,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($gallery->getConfig('data.gallery.tmp'));
-		list($success, $output) = $platform->exec(array( $command ));
+		list($success, $output) = $platform->exec(array($command));
 
 		if (!$success) {
 			@$platform->unlink($tmpFilename);
@@ -840,6 +840,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 	 */
 	public function _addResizeParam(&$transform, $w, $h = null) {
 		$size      = isset($h) ? ($w . 'x' . $h) : ($w . 'x' . $w);
-		$transform = array_merge($transform, empty($transform) ? array( '-size', $size, '-geometry', $size ) : array( '-geometry', $size ));
+		$transform = array_merge($transform, empty($transform) ? array('-size', $size, '-geometry', $size) : array('-geometry', $size));
 	}
 }

@@ -40,11 +40,11 @@ class PicLensHelper {
 		$info = PicLensHelper::getLatestPicLensInfo();
 
 		if (empty($info)) {
-			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 		}
 
 		if (empty($info['version']) || empty($info['jsUrl']) || empty($info['swfUrl'])) {
-			return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
+			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 		}
 
 		$codeDir        = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow/';
@@ -57,19 +57,19 @@ class PicLensHelper {
 			if (!$platform->rename("$jsPath.new", $jsPath)
 				|| !$platform->rename("$swfPath.new", $swfPath)
 			) {
-				return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null );
+				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 			}
 		} else {
-			foreach (array( $jsPath, $swfPath ) as $path) {
+			foreach (array($jsPath, $swfPath) as $path) {
 				if ($platform->file_exists("$path.new")) {
 					$platform->unlink("$path.new");
 				}
 			}
 
-			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 		}
 
-		return array( null, $info['version'] );
+		return array(null, $info['version']);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class PicLensHelper {
 
 		$codeDir = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow/';
 
-		foreach (array( 'piclens.js', 'PicLensLite.swf' ) as $file) {
+		foreach (array('piclens.js', 'PicLensLite.swf') as $file) {
 			$path = "{$codeDir}$file";
 
 			if ($platform->file_exists($path)) {

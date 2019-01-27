@@ -36,8 +36,8 @@ class NetPbmModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array( 7, 20 ));
-		$this->setRequiredModuleApi(array( 3, 6 ));
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -98,17 +98,17 @@ class NetPbmModule extends GalleryModule {
 
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		list($ret, $needsConfiguration) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array( $ret, false );
+			return array($ret, false);
 		}
 
 		if (!$needsConfiguration) {
-			return array( null, true );
+			return array(null, true);
 		}
 
 		// Try a bunch of likely seeming paths to see if any of them work.
@@ -165,7 +165,7 @@ class NetPbmModule extends GalleryModule {
 			$paths[] = '/bin/';
 			$paths[] = '/sw/bin/';
 		} else {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		// Load any classes we require
@@ -182,7 +182,7 @@ class NetPbmModule extends GalleryModule {
 			list($ret, $testResults, $mimeTypes) = NetPbmToolkitHelper::testBinaries($path);
 
 			if ($ret) {
-				return array( $ret, false );
+				return array($ret, false);
 			}
 
 			// Take the first path found with at least jpeg support
@@ -190,12 +190,12 @@ class NetPbmModule extends GalleryModule {
 				$ret = $this->setParameter('path', $path);
 
 				if ($ret) {
-					return array( $ret, false );
+					return array($ret, false);
 				}
 				$ret = NetPbmToolkitHelper::saveParameters($testResults);
 
 				if ($ret) {
-					return array( $ret, false );
+					return array($ret, false);
 				}
 				$success = true;
 
@@ -210,7 +210,7 @@ class NetPbmModule extends GalleryModule {
 			list($ret, $testResults) = NetPbmToolkitHelper::testJhead($path);
 
 			if ($ret) {
-				return array( $ret, false );
+				return array($ret, false);
 			}
 
 			foreach ($testResults as $testResult) {
@@ -218,7 +218,7 @@ class NetPbmModule extends GalleryModule {
 					$ret = $this->setParameter('jheadPath', $path);
 
 					if ($ret) {
-						return array( $ret, false );
+						return array($ret, false);
 					}
 
 					break 2;
@@ -226,7 +226,7 @@ class NetPbmModule extends GalleryModule {
 			}
 		}
 
-		return array( null, $success );
+		return array(null, $success);
 	}
 
 	/**
@@ -240,20 +240,20 @@ class NetPbmModule extends GalleryModule {
 		list($ret, $results) = NetPbmToolkitHelper::getOperationsAndProperties(true);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('NetPBM');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!$priority) {
 			list($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$priority = min($priority + 1, 40);
 		}
@@ -271,7 +271,7 @@ class NetPbmModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -285,17 +285,17 @@ class NetPbmModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -304,22 +304,22 @@ class NetPbmModule extends GalleryModule {
 	public function needsConfiguration() {
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array( null, true );
+			return array(null, true);
 		}
 		// This module requires all fields to be filled out before it can be activated.
-		foreach (array( 'path', 'jpegQuality', 'pnmtojpeg', 'bmptopnm', 'pnmcomp' ) as $key) {
+		foreach (array('path', 'jpegQuality', 'pnmtojpeg', 'bmptopnm', 'pnmcomp') as $key) {
 			list($ret, $value) = $this->getParameter($key);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($value)) {
-				return array( null, true );
+				return array(null, true);
 			}
 		}
 
-		return array( null, false );
+		return array(null, false);
 	}
 
 	/**

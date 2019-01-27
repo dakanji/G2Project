@@ -66,7 +66,7 @@ class DownloadItemTest extends GalleryTestCase {
 		$output = ob_get_contents();
 		ob_end_clean();
 
-		return array( $ret, $output );
+		return array($ret, $output);
 	}
 
 	public function testNoItemId() {
@@ -310,7 +310,7 @@ class DownloadItemTest extends GalleryTestCase {
 		// Flag in session allows print service to bypass viewResizes/viewSource for set of ids
 		global $gallery;
 		$session =& $gallery->getSession();
-		$session->put('core.isPrintService', array( 2, $this->_item->getId() ));
+		$session->put('core.isPrintService', array(2, $this->_item->getId()));
 
 		// Still need core.view
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
@@ -327,11 +327,11 @@ class DownloadItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$session->put('core.isPrintService', array( 2, 5 ));
+		$session->put('core.isPrintService', array(2, 5));
 		list($ret, $output) = $this->_download();
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error 2');
 
-		$session->put('core.isPrintService', array( 2, $this->_item->getId(), 5 ));
+		$session->put('core.isPrintService', array(2, $this->_item->getId(), 5));
 		list($ret, $output) = $this->_download();
 		$this->assertTrue(!$ret, 'expected success');
 	}
@@ -424,7 +424,7 @@ class DownloadItemTestChildEntity extends GalleryChildEntity {
 	}
 
 	public function fetchPath() {
-		return array( null, __FILE__ );
+		return array(null, __FILE__);
 	}
 }
 
@@ -436,7 +436,7 @@ class DownloadItemTestEntity extends GalleryEntity {
 	}
 
 	public function fetchPath() {
-		return array( null, __FILE__ );
+		return array(null, __FILE__);
 	}
 
 	public function getClassName() {

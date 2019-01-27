@@ -65,9 +65,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 	ORDER BY [GalleryItem::title]
 	', $aclMarkers);
 
-		$data = array();
+		$data   = array();
 		$data[] = $itemType;
-		$data = array_merge($data, $aclIds);
+		$data   = array_merge($data, $aclIds);
 
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
@@ -416,7 +416,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 		// Get existing derivatives
 		$derivs = array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL => array(),
-			DERIVATIVE_TYPE_IMAGE_RESIZE => array(), );
+			DERIVATIVE_TYPE_IMAGE_RESIZE                   => array(), );
 
 		if (!$isNew) {
 			list($ret, $tmp) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
@@ -446,7 +446,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 		foreach ($preferences as $preference) {
 			$operations = $preference['derivativeOperations'];
-			$type = $preference['derivativeType'];
+			$type       = $preference['derivativeType'];
 
 			// Guard against corrupted preferences with too many thumbnails
 			if ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
@@ -488,7 +488,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				 * We still have a derivative of the right type we can reuse.
 				 * Save operation below will clear the derivative cache.
 				 */
-				$derivative = array_shift($derivs[$type]);
+				$derivative         = array_shift($derivs[$type]);
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 				if ($ret) {
@@ -641,11 +641,11 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		 * 3. The fromItem data itself
 		 * 4. no thumbnail
 		 */
-		$source = null;
-		$sourceMimeType = null;
-		$parentId = null;
+		$source                    = null;
+		$sourceMimeType            = null;
+		$parentId                  = null;
 		$createdNewParentThumbnail = false;
-		$success = false;
+		$success                   = false;
 
 		// 1. The fromItem's preferred derivative's source id
 		list($ret, $derivatives) = GalleryCoreApi::fetchPreferredsByItemIds(array($fromItemId));
@@ -655,14 +655,14 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		}
 
 		if (!empty($derivatives[$fromItemId])) {
-			$source = $derivatives[$fromItemId];
+			$source         = $derivatives[$fromItemId];
 			$sourceMimeType = $source->getMimeType();
 		}
 
 		// 2. The item's thumbnail's source id
 		if (!$sourceMimeType) {
 			if (!empty($thumbnailTable[$fromItemId])) {
-				$source = $thumbnailTable[$fromItemId];
+				$source         = $thumbnailTable[$fromItemId];
 				$sourceMimeType = $source->getMimeType();
 			}
 		}
@@ -676,7 +676,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			}
 
 			if (GalleryUtilities::isA($fromItem, 'GalleryDataItem')) {
-				$source = $fromItem;
+				$source         = $fromItem;
 				$sourceMimeType = $fromItem->getMimeType();
 			}
 		}
@@ -1048,16 +1048,16 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			if ($ret) {
 				return array($ret, null);
 			}
-			$groupIds = array_keys($groupIds);
+			$groupIds       = array_keys($groupIds);
 			$groupIntersect = array_intersect(array($param['groupId']), $groupIds);
 
 			if (isset($param['userId']) && ($param['userId'] == 0 ||
 						$param['userId'] == $anonymousUserId) ||
 		isset($param['groupId']) && ($param['groupId'] == 0 || !empty($groupIntersect))) {
-				$thumbnailIds = array();
-				$resizeIds = array();
-				$preferredIds = array();
-				$itemIds = array();
+				$thumbnailIds      = array();
+				$resizeIds         = array();
+				$preferredIds      = array();
+				$itemIds           = array();
 				$targetDerivatives = array();
 
 				// Convert from newBits format to removeBits, if necessary
@@ -1086,7 +1086,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 					 */
 					if (($removeBits & $bits[2]) == $bits[2]) {
 						$preferredIds[] = $itemId;
-						$itemIds[] = $itemId;
+						$itemIds[]      = $itemId;
 					}
 				}
 

@@ -53,7 +53,7 @@ class WelcomeStep extends InstallStep {
 
 			foreach ($supportedLanguages as $lang => $list) {
 				foreach ($list as $country => $data) {
-					$code = $lang . '_' . $country;
+					$code                             = $lang . '_' . $country;
 					$templateData['languages'][$code] = $data['description'];
 				}
 			}

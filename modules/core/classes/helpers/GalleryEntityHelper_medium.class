@@ -163,10 +163,10 @@ class GalleryEntityHelper_medium {
 	  [GalleryEntity::id] ASC
 	';
 		$storage                   =& $gallery->getStorage();
-		list($ret, $searchResults) = $gallery->search($query, array( (int)$targetId ));
+		list($ret, $searchResults) = $gallery->search($query, array((int)$targetId));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$linkedIds = array();
@@ -175,7 +175,7 @@ class GalleryEntityHelper_medium {
 			$linkedIds[] = $result[0];
 		}
 
-		return array( null, $linkedIds );
+		return array(null, $linkedIds);
 	}
 
 	/**
@@ -189,7 +189,7 @@ class GalleryEntityHelper_medium {
 		$i     = 0;
 
 		foreach ($handlerIds as $handlerId) {
-			list($ret, $results) = $gallery->search($query, array( "%|$handlerId|%" ));
+			list($ret, $results) = $gallery->search($query, array("%|$handlerId|%"));
 
 			if ($ret) {
 				return $ret;
@@ -272,7 +272,7 @@ class GalleryEntityHelper_medium {
 
 		$fastDownloadFilePath = GalleryDataCache::getCachePath(
 			array(
-				'type' => 'fast-download',
+				'type'   => 'fast-download',
 				'itemId' => $entityId,
 			)
 		);
@@ -357,7 +357,7 @@ class GalleryEntityHelper_medium {
 			if (GalleryUtilities::isA($entity, 'GalleryDerivative')) {
 				$fullPath = GalleryDataCache::getCachePath(
 					array(
-						'type' => 'derivative',
+						'type'   => 'derivative',
 						'itemId' => $entity->getId(),
 					)
 				);
@@ -378,7 +378,7 @@ class GalleryEntityHelper_medium {
 
 			$fastDownloadFilePath = GalleryDataCache::getCachePath(
 				array(
-					'type' => 'fast-download',
+					'type'   => 'fast-download',
 					'itemId' => $entity->getId(),
 				)
 			);
@@ -405,7 +405,7 @@ class GalleryEntityHelper_medium {
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity($entityName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$memberAccessInfo = array();
@@ -421,6 +421,6 @@ class GalleryEntityHelper_medium {
 			$target = $entityInfo[$target]['parent'];
 		}
 
-		return array( null, $memberAccessInfo );
+		return array(null, $memberAccessInfo);
 	}
 }

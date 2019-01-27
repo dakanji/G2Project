@@ -40,14 +40,14 @@ class SiteAdminView extends GalleryView {
 		$ret = $this->_permissionCheck(GalleryCoreApi::assertUserIsSiteAdministrator());
 
 		if ($ret) {
-			return array( $ret[0], $ret[1] );
+			return array($ret[0], $ret[1]);
 		}
 
 		// Load the module list
 		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Get a list of all the admin views for each module
@@ -84,11 +84,11 @@ class SiteAdminView extends GalleryView {
 							continue;
 						}
 
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				} else {
 					list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
@@ -98,14 +98,14 @@ class SiteAdminView extends GalleryView {
 							continue;
 						}
 
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 
 				list($ret, $moduleViews) = $module->getSiteAdminViews();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$group = $module->getGroup();
@@ -187,7 +187,7 @@ class SiteAdminView extends GalleryView {
 		// Set labels
 		foreach (array_keys($subViewGroups) as $group) {
 			$data =& $subViewGroups[$group];
-			usort($data, array( $this, 'nameSort' ));
+			usort($data, array($this, 'nameSort'));
 
 			if (isset($groupLabels[$group])) {
 				$tmp = -1;
@@ -202,13 +202,13 @@ class SiteAdminView extends GalleryView {
 				$data[0]['groupLabel'] = ucwords($data[0]['group']);
 			}
 		}
-		usort($subViewGroups, array( $this, 'groupSort' ));
+		usort($subViewGroups, array($this, 'groupSort'));
 
 		// If we have a specific sub view, render it now
 		$subViewName = GalleryUtilities::getRequestVariables('subView');
 
 		if ($subViewName == 'core.SiteAdmin') {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		if (empty($subViewName)) {
@@ -225,13 +225,13 @@ class SiteAdminView extends GalleryView {
 		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $results) = $subView->loadTemplate($template, $form);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Our sub view may have set some hints, like the encoding type
@@ -244,7 +244,7 @@ class SiteAdminView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Set up my view parameters
@@ -277,22 +277,22 @@ class SiteAdminView extends GalleryView {
 		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $description) = $subView->getViewDescription();
 
 		if (!empty($description)) {
-			return array( null, $description );
+			return array(null, $description);
 		}
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Fallback if subView doesn't have a name
-		return array( null, $core->translate('site admin') );
+		return array(null, $core->translate('site admin'));
 	}
 
 	/**
@@ -308,10 +308,10 @@ class SiteAdminView extends GalleryView {
 		if (!isset($groupOrder)) {
 			// gallery first, toolkits second, other last
 			$groupOrder = array(
-				'gallery' => 1,
+				'gallery'  => 1,
 				'toolkits' => 2,
-				''      => 3,
-				'other' => 4,
+				''         => 3,
+				'other'    => 4,
 			);
 		}
 		$ag = $a[0]['group'];

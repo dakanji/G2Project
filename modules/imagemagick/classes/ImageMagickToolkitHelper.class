@@ -40,7 +40,7 @@ class ImageMagickToolkitHelper {
 		list($ret, $mimeTypes) = ImageMagickToolkitHelper::discoverMimeTypes();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// -------------------- Operations --------------------
@@ -57,12 +57,12 @@ class ImageMagickToolkitHelper {
 			'image/jp2',
 		) as $convertToMimeType) {
 			if (is_int($i = array_search($convertToMimeType, $mimeTypes))) {
-				$convertFromMimeTypes = array_merge($mimeTypes, array( 'image/x-portable-pixmap' ));
+				$convertFromMimeTypes = array_merge($mimeTypes, array('image/x-portable-pixmap'));
 				array_splice($convertFromMimeTypes, $i, 1);
 				$operations['convert-to-' . $convertToMimeType] = array(
-					'params' => array(),
-					'description' => $gallery->i18n('Convert to') . " $convertToMimeType",
-					'mimeTypes' => $convertFromMimeTypes,
+					'params'         => array(),
+					'description'    => $gallery->i18n('Convert to') . " $convertToMimeType",
+					'mimeTypes'      => $convertFromMimeTypes,
 					'outputMimeType' => $convertToMimeType,
 				);
 			}
@@ -72,16 +72,16 @@ class ImageMagickToolkitHelper {
 		$operations['scale'] = array(
 			'params'    => array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n(
 						array(
-							'text' => 'target width (# pixels or #% of full size)',
+							'text'    => 'target width (# pixels or #% of full size)',
 							'cFormat' => false,
 						)
 					),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n(
 						'(optional) target height, defaults to same as width'
 					),
@@ -100,98 +100,98 @@ class ImageMagickToolkitHelper {
 		$operations['resize'] = array(
 			'params'    => array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n(
 						array(
-							'text' => 'target width (# pixels or #% of full size)',
+							'text'    => 'target width (# pixels or #% of full size)',
 							'cFormat' => false,
 						)
 					),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n(
 						array(
-							'text' => 'target height (# pixels or #% of full size)',
+							'text'    => 'target height (# pixels or #% of full size)',
 							'cFormat' => false,
 						)
 					),
 				),
 			),
 			'description' => $gallery->i18n('Resize the image to the target dimensions'),
-			'mimeTypes' => $mimeTypes,
+			'mimeTypes'   => $mimeTypes,
 		);
 
 		// Rotate
 		$operations['rotate'] = array(
 			'params'    => array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('rotation degrees'),
 				),
 			),
 			'description' => $gallery->i18n('Rotate the image'),
-			'mimeTypes' => $mimeTypes,
+			'mimeTypes'   => $mimeTypes,
 		);
 
 		// Crop
 		$operations['crop'] = array(
 			'params'    => array(
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => $gallery->i18n('left edge %'),
 				),
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => $gallery->i18n('top edge %'),
 				),
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => $gallery->i18n('width %'),
 				),
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => $gallery->i18n('height %'),
 				),
 			),
 			'description' => $gallery->i18n('Crop the image'),
-			'mimeTypes' => $mimeTypes,
+			'mimeTypes'   => $mimeTypes,
 		);
 
 		// Composite
 		$operations['composite'] = array(
 			'params'    => array(
 				array(
-					'type' => 'string',
+					'type'        => 'string',
 					'description' => $gallery->i18n('overlay path'),
 				),
 				array(
-					'type' => 'string',
+					'type'        => 'string',
 					'description' => $gallery->i18n('overlay mime type'),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('overlay width'),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('overlay height'),
 				),
 				array(
-					'type' => 'string',
+					'type'        => 'string',
 					'description' => $gallery->i18n('alignment type'),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('alignment x %'),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('alignment y %'),
 				),
 			),
 			'description' => $gallery->i18n('Overlay source image with a second one'),
-			'mimeTypes' => $mimeTypes,
+			'mimeTypes'   => $mimeTypes,
 		);
 
 		// Select Page
@@ -209,28 +209,28 @@ class ImageMagickToolkitHelper {
 			$operations['select-page'] = array(
 				'params' => array(
 					array(
-						'type' => 'int',
+						'type'        => 'int',
 						'description' => $gallery->i18n('page number'),
 					),
 				),
 				'description' => $gallery->i18n('Select a single page from a multi-page file'),
-				'mimeTypes' => $multiPageMimeTypes,
+				'mimeTypes'   => $multiPageMimeTypes,
 			);
 		}
 
 		// Compress
-		$qualityMimeTypes = array_intersect(array( 'image/jpeg', 'image/png' ), $mimeTypes);
+		$qualityMimeTypes = array_intersect(array('image/jpeg', 'image/png'), $mimeTypes);
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
 				'params' => array(
 					array(
-						'type' => 'int',
+						'type'        => 'int',
 						'description' => $gallery->i18n('target size in kb'),
 					),
 				),
 				'description' => $gallery->i18n('Reduce image quality to reach target file size'),
-				'mimeTypes' => $qualityMimeTypes,
+				'mimeTypes'   => $qualityMimeTypes,
 			);
 		}
 
@@ -238,9 +238,9 @@ class ImageMagickToolkitHelper {
 
 		// Dimensions
 		$properties['dimensions'] = array(
-			'type'      => 'int,int',
+			'type'        => 'int,int',
 			'description' => $gallery->i18n('Get the width and height of the image'),
-			'mimeTypes' => array_merge(
+			'mimeTypes'   => array_merge(
 				$mimeTypes,
 				array(
 					'image/x-portable-pixmap',
@@ -251,9 +251,9 @@ class ImageMagickToolkitHelper {
 
 		if (!empty($multiPageMimeTypes)) {
 			$properties['page-count'] = array(
-				'type' => 'int',
+				'type'        => 'int',
 				'description' => $gallery->i18n('Get the number of pages'),
-				'mimeTypes' => $multiPageMimeTypes,
+				'mimeTypes'   => $multiPageMimeTypes,
 			);
 		}
 
@@ -268,9 +268,9 @@ class ImageMagickToolkitHelper {
 
 		if (!empty($cmykTypes)) {
 			$properties['colorspace'] = array(
-				'type' => 'string',
+				'type'        => 'string',
 				'description' => $gallery->i18n('Get the colorspace of the image'),
-				'mimeTypes' => $rgbTypes,
+				'mimeTypes'   => $rgbTypes,
 			);
 		}
 
@@ -303,7 +303,7 @@ class ImageMagickToolkitHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			list($ret, $binary) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -312,13 +312,13 @@ class ImageMagickToolkitHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} else {
 			list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -332,7 +332,7 @@ class ImageMagickToolkitHelper {
 			);
 		}
 
-		return array( null, array( $imageMagickPath . $binary, $cmd ) );
+		return array(null, array($imageMagickPath . $binary, $cmd));
 	}
 
 	/**
@@ -358,77 +358,77 @@ class ImageMagickToolkitHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($imageMagickPath)) {
-				return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
+				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
 		}
 
 		$tests   = array();
 		$tests[] = array(
-			'mime'     => array( 'image/gif' ),
+			'mime'     => array('image/gif'),
 			'file'     => 'test.gif',
 			'expected' => '/(GIF.*PseudoClass|PseudoClass.*GIF|DirectClass.*GIF)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/jpeg', 'image/pjpeg' ),
+			'mime'     => array('image/jpeg', 'image/pjpeg'),
 			'file'     => 'test.jpg',
 			'expected' => '/(JPEG.*(Direct|Pseudo)Class|DirectClass.*JPEG)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/jp2', 'image/jpg2', 'image/jpx' ),
+			'mime'     => array('image/jp2', 'image/jpg2', 'image/jpx'),
 			'file'     => 'test.jp2',
 			'expected' => '/(JP2.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*JP2)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/png' ),
+			'mime'     => array('image/png'),
 			'file'     => 'test.png',
 			'expected' => '/(PNG.*DirectClass|DirectClass.*PNG)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/tiff' ),
+			'mime'     => array('image/tiff'),
 			'file'     => 'test.tif',
 			'expected' => '/(TIFF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*TIFF)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/svg+xml' ),
+			'mime'     => array('image/svg+xml'),
 			'file'     => 'test.svg',
 			'expected' => '/(SVG.*DirectClass|DirectClass.*SVG)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/bmp' ),
+			'mime'     => array('image/bmp'),
 			'file'     => 'test.bmp',
 			'expected' => '/(BMP.*PseudoClass|PseudoClass.*BMP)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'application/pdf' ),
+			'mime'     => array('application/pdf'),
 			'file'     => 'test.pdf',
 			'expected' => '/(PDF.*(Pseudo|Direct)Class|PseudoClass.*PDF)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'application/postscript' ),
+			'mime'     => array('application/postscript'),
 			'file'     => 'test.eps',
 			'expected' => '/(PS.*(Pseudo|Direct)Class|PseudoClass.*PS)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'application/photoshop' ),
+			'mime'     => array('application/photoshop'),
 			'file'     => 'test.psd',
 			'expected' => '/(PSD.*(Pseudo|Direct)Class|PseudoClass.*PSD)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/x-photo-cd' ),
+			'mime'     => array('image/x-photo-cd'),
 			'file'     => 'truncated.pcd',
 			'expected' => '/(PCD.*(Pseudo|Direct)Class|PseudoClass.*PCD)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/wmf' ),
+			'mime'     => array('image/wmf'),
 			'file'     => 'test.wmf',
 			'expected' => '/(WMF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*WMF)/',
 		);
 		$tests[] = array(
-			'mime'     => array( 'image/tga' ),
+			'mime'     => array('image/tga'),
 			'file'     => 'test.tga',
 			'expected' => '/((TGA|ICB).*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*(TGA|ICB))/',
 		);
@@ -443,10 +443,10 @@ class ImageMagickToolkitHelper {
 			list($ret, $command) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
-			$command                 = array_merge($command, array( $dataPath . $test['file'] ));
-			list($success, $results) = $platform->exec(array( $command ));
+			$command                 = array_merge($command, array($dataPath . $test['file']));
+			list($success, $results) = $platform->exec(array($command));
 
 			$successCount += $success;
 
@@ -465,24 +465,24 @@ class ImageMagickToolkitHelper {
 		$platform->chdir($oldPwd);
 
 		if ($successCount == 0) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 
 		list($ret, $cmykSupport) = ImageMagickToolkitHelper::discoverColorspaceSupport($imageMagickPath);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($cmykSupport) {
-			foreach (array( 'image/jpeg', 'image/tiff', 'application/photoshop' ) as $mimeType) {
+			foreach (array('image/jpeg', 'image/tiff', 'application/photoshop') as $mimeType) {
 				if (isset($mimeTypes[$mimeType])) {
 					$mimeTypes[$mimeType . '-cmyk'] = 1;
 				}
 			}
 		}
 
-		return array( null, array_keys($mimeTypes) );
+		return array(null, array_keys($mimeTypes));
 	}
 
 	/**
@@ -509,18 +509,18 @@ class ImageMagickToolkitHelper {
 		if (!$platform->isRestrictedByOpenBaseDir($imageMagickPath)
 			&& !@$platform->is_dir($imageMagickPath)
 		) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PATH), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null);
 		}
 
 		// We need to translate some strings
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imagemagick');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// What do we want to test
-		$binaries = array( 'identify', 'convert', 'composite' );
+		$binaries = array('identify', 'convert', 'composite');
 
 		/*
 		 * Change to tmp, because IM5 sometimes wants to write stuff
@@ -538,33 +538,33 @@ class ImageMagickToolkitHelper {
 					list($ret, $command) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					if (!$platform->isRestrictedByOpenBaseDir($command[0])
 						&& !$platform->file_exists($command[0])
 					) {
 						$success = false;
-						$results = array( $module->translate('File does not exist') );
+						$results = array($module->translate('File does not exist'));
 					} else {
-						$command                 = array_merge($command, array( $dataPath . 'test.gif' ));
-						list($success, $results) = $platform->exec(array( $command ));
+						$command                 = array_merge($command, array($dataPath . 'test.gif'));
+						list($success, $results) = $platform->exec(array($command));
 					}
 
 					if (!$success) {
 						$testArray[] = array(
-							'name' => 'identify',
+							'name'    => 'identify',
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Problem executing binary:') ),
+								array($module->translate('Problem executing binary:')),
 								$results
 							),
 						);
 						$testArray[] = array(
-							'name' => 'identify',
+							'name'    => 'identify',
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Problem executing binary:') ),
+								array($module->translate('Problem executing binary:')),
 								$results
 							),
 						);
@@ -574,16 +574,16 @@ class ImageMagickToolkitHelper {
 					)
 					) {
 						$testArray[] = array(
-							'name' => 'identify',
+							'name'    => 'identify',
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Binary output:') ),
+								array($module->translate('Binary output:')),
 								$results
 							),
 						);
 					} else {
 						$testArray[] = array(
-							'name' => 'identify',
+							'name'    => 'identify',
 							'success' => true,
 						);
 					}
@@ -595,7 +595,7 @@ class ImageMagickToolkitHelper {
 					list($ret, $command) = ImageMagickToolkitHelper::getCommand('convert', $imageMagickPath);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 					$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 					$tmpFilename = $platform->tempnam($tmpDir, 'imgk_');
@@ -617,7 +617,7 @@ class ImageMagickToolkitHelper {
 						&& !$platform->file_exists($command[0])
 					) {
 						$success = false;
-						$results = array( $module->translate('File does not exist') );
+						$results = array($module->translate('File does not exist'));
 					} else {
 						$command                 = array_merge(
 							$command,
@@ -630,31 +630,31 @@ class ImageMagickToolkitHelper {
 								'gif:' . $tmpFilename,
 							)
 						);
-						list($success, $results) = $platform->exec(array( $command ));
+						list($success, $results) = $platform->exec(array($command));
 					}
 
 					if (!$success) {
 						$testArray[] = array(
-							'name' => 'convert',
+							'name'    => 'convert',
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Problem executing binary:') ),
+								array($module->translate('Problem executing binary:')),
 								$results
 							),
 						);
 					} elseif (implode('', $results) != '') {
 						// 'convert' normally doesn't say anything; if it does it was an error
 						$testArray[] = array(
-							'name' => 'convert',
+							'name'    => 'convert',
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Binary output:') ),
+								array($module->translate('Binary output:')),
 								$results
 							),
 						);
 					} else {
 						$testArray[] = array(
-							'name' => 'convert',
+							'name'    => 'convert',
 							'success' => true,
 						);
 					}
@@ -666,12 +666,12 @@ class ImageMagickToolkitHelper {
 					list($ret, $compositeCmd) = ImageMagickToolkitHelper::discoverCompositeCmd($imageMagickPath);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 					list($ret, $command) = ImageMagickToolkitHelper::getCommand($compositeCmd, $imageMagickPath);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 					$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 					$tmpFilename = $platform->tempnam($tmpDir, 'imgk_');
@@ -698,30 +698,30 @@ class ImageMagickToolkitHelper {
 							'gif:' . $tmpFilename,
 						)
 					);
-					list($success, $results) = $platform->exec(array( $command ));
+					list($success, $results) = $platform->exec(array($command));
 
 					if (!$success) {
 						$testArray[] = array(
-							'name' => $compositeCmd,
+							'name'    => $compositeCmd,
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Problem executing binary:') ),
+								array($module->translate('Problem executing binary:')),
 								$results
 							),
 						);
 					} elseif (!empty($results)) {
 						// 'composite' normally doesn't say anything; if it does it was an error
 						$testArray[] = array(
-							'name' => $compositeCmd,
+							'name'    => $compositeCmd,
 							'success' => false,
 							'message' => array_merge(
-								array( $module->translate('Binary output:') ),
+								array($module->translate('Binary output:')),
 								$results
 							),
 						);
 					} else {
 						$testArray[] = array(
-							'name' => $compositeCmd,
+							'name'    => $compositeCmd,
 							'success' => true,
 						);
 					}
@@ -730,14 +730,14 @@ class ImageMagickToolkitHelper {
 					break;
 
 				default:
-					return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+					return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 
 				break;
 			}
 		}
 		$platform->chdir($oldCwd);
 
-		return array( null, $testArray );
+		return array(null, $testArray);
 	}
 
 	/**
@@ -758,11 +758,11 @@ class ImageMagickToolkitHelper {
 			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($imageMagickPath)) {
-				return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
+				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
 		}
 
@@ -789,10 +789,10 @@ class ImageMagickToolkitHelper {
 		$gmBinary = $imageMagickPath . 'gm' . $suffix;
 
 		if ($platform->file_exists($gmBinary) && $platform->is_executable($gmBinary)) {
-			return array( null, 'gm' . $suffix );
+			return array(null, 'gm' . $suffix);
 		}
 
-		return array( null, '' );
+		return array(null, '');
 	}
 
 	/**
@@ -813,24 +813,24 @@ class ImageMagickToolkitHelper {
 		list($ret, $command) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		list($success, $results) = $platform->exec(array( $command ));
+		list($success, $results) = $platform->exec(array($command));
 
 		foreach ($results as $resultLine) {
 			if (preg_match('/(ImageMagick|GraphicsMagick)\s+([\d\.r-]+)/', $resultLine, $matches)) {
-				$version    = array( $matches[1], $matches[2] );
+				$version    = array($matches[1], $matches[2]);
 				$vulnerable = ($version[0] == 'ImageMagick' &&
 				   version_compare($version[1], '6.3.3-5', '<')) ||
 				  ($version[0] == 'GraphicsMagick' &&
 				   version_compare($version[1], '1.1.6-r1', '<'));
 
-				return array( null, $version, $vulnerable );
+				return array(null, $version, $vulnerable);
 			}
 		}
 
-		return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
+		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 	}
 
 	/**
@@ -850,38 +850,38 @@ class ImageMagickToolkitHelper {
 		list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($binary != '') {
 			// GraphicsMagick is always 'composite'
-			return array( null, 'composite' );
+			return array(null, 'composite');
 		}
 
 		if (empty($imageMagickPath)) {
 			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($imageMagickPath)) {
-				return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
+				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
 		}
 
-		$binaries = array( 'combine', 'composite' );
+		$binaries = array('combine', 'composite');
 
 		foreach ($binaries as $binary) {
 			$binaryPath  = $imageMagickPath . $binary;
 			$binaryPath .= (GalleryUtilities::isA($platform, 'WinNtPlatform') ? '.exe' : '');
 
 			if ($platform->file_exists($binaryPath) && $platform->is_executable($binaryPath)) {
-				return array( null, $binary );
+				return array(null, $binary);
 			}
 		}
 
-		return array( null, 'composite' );
+		return array(null, 'composite');
 	}
 
 	/**
@@ -906,7 +906,7 @@ class ImageMagickToolkitHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
@@ -925,25 +925,25 @@ class ImageMagickToolkitHelper {
 			);
 		}
 
-		foreach (array( array( '-strip' ), array( '+profile', '*' ) ) as $param) {
+		foreach (array(array('-strip'), array('+profile', '*')) as $param) {
 			$command                 = array_merge(
 				$convertCmd,
 				$param,
-				array( $dataPath . 'testProfile.jpg', $tmpFilename )
+				array($dataPath . 'testProfile.jpg', $tmpFilename)
 			);
 			$originalSize            = $platform->filesize($dataPath . 'testProfile.jpg');
-			list($success, $results) = $platform->exec(array( $command ));
+			list($success, $results) = $platform->exec(array($command));
 			$size                    = $platform->filesize($tmpFilename);
 			@$platform->unlink($tmpFilename);
 
 			if ($success) {
 				if ($size > 0 && $size < $originalSize) {
-					return array( null, $param );
+					return array(null, $param);
 				}
 			}
 		}
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -964,7 +964,7 @@ class ImageMagickToolkitHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $identifyCmd) = ImageMagickToolkitHelper::getCommand(
@@ -973,7 +973,7 @@ class ImageMagickToolkitHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
@@ -1043,7 +1043,7 @@ class ImageMagickToolkitHelper {
 		}
 		@$platform->unlink($tmpFilename);
 
-		return array( null, $cmykSupport );
+		return array(null, $cmykSupport);
 	}
 
 	/**

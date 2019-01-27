@@ -101,7 +101,7 @@ class RewriteApiTest extends GalleryTestCase {
 		}
 		$this->assertTrue($isCompatible, 'same version');
 
-		$compatibleVersion        = array( $currentVersion[0], 0 );
+		$compatibleVersion        = array($currentVersion[0], 0);
 		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($compatibleVersion);
 
 		if ($ret) {
@@ -109,7 +109,7 @@ class RewriteApiTest extends GalleryTestCase {
 		}
 		$this->assertTrue($isCompatible, 'should be compatible, requiring same or lower minor version');
 
-		$incompatibleVersion      = array( --$currentVersion[0], 0 );
+		$incompatibleVersion      = array(--$currentVersion[0], 0);
 		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($incompatibleVersion);
 
 		if ($ret) {
@@ -245,7 +245,7 @@ class RewriteApiTest extends GalleryTestCase {
 		}
 
 		// Verify the results
-		$this->assertEquals(array( 'rule2', 'rule0' ), $activeRules, 'active rules');
+		$this->assertEquals(array('rule2', 'rule0'), $activeRules, 'active rules');
 	}
 
 	public function testActivateRewriteRulesForModule() {
@@ -282,7 +282,7 @@ class RewriteApiTest extends GalleryTestCase {
 		}
 
 		// Execute the method under test
-		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId, array( 'rule2' ));
+		list($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId, array('rule2'));
 
 		if ($ret) {
 			return $ret;
@@ -442,7 +442,7 @@ class RewriteApiTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$_SERVER['saveActiveRules'] = null;
 
@@ -461,11 +461,11 @@ class RewriteApiTest extends GalleryTestCase {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
-		return array( null, $expectedRules, $moduleId );
+		return array(null, $expectedRules, $moduleId);
 	}
 }
 
@@ -480,7 +480,7 @@ class RewriteApiMockParser extends RewriteParser {
 	}
 
 	public function needsEmbedConfig() {
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public function fetchEmbedConfig() {
@@ -494,10 +494,10 @@ class RewriteApiMockParser extends RewriteParser {
 
 	public function saveEmbedConfig($params) {
 		if ($params['phpunit']) {
-			return array( null, REWRITE_STATUS_OK, null );
+			return array(null, REWRITE_STATUS_OK, null);
 		}
 
-		return array( null, REWRITE_STATUS_INVALID_PATTERN, 'Bad pattern' );
+		return array(null, REWRITE_STATUS_INVALID_PATTERN, 'Bad pattern');
 	}
 
 	/**
@@ -509,14 +509,14 @@ class RewriteApiMockParser extends RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
 		$returnCode = $activeRules['returnCode'];
 		unset($activeRules['returnCode']);
 		$_SERVER['saveActiveRules'] = $activeRules;
 
-		return array( null, $returnCode, null );
+		return array(null, $returnCode, null);
 	}
 }
 

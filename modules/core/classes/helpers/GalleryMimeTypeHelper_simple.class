@@ -35,26 +35,26 @@ class GalleryMimeTypeHelper_simple {
 		list($ret, $mimetype) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($mimetype == 'application/unknown' && !empty($requestMimeType)) {
 			list($ret, $mimeExtensions) = GalleryMimeTypeHelper_simple::convertMimeToExtensions($requestMimeType);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!empty($mimeExtensions)) {
 				list($ret, $mimetype) = GalleryMimeTypeHelper_simple::convertExtensionToMime($mimeExtensions[0]);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
 
-		return array( null, $mimetype );
+		return array(null, $mimetype);
 	}
 
 	/**
@@ -64,7 +64,7 @@ class GalleryMimeTypeHelper_simple {
 		list($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$extension = GalleryUtilities::strToLower($extension);
@@ -82,7 +82,7 @@ class GalleryMimeTypeHelper_simple {
 		list($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$mimeType = GalleryUtilities::strToLower($mimeType);
@@ -100,7 +100,7 @@ class GalleryMimeTypeHelper_simple {
 		list($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		return array(
@@ -123,8 +123,8 @@ class GalleryMimeTypeHelper_simple {
 
 		if (empty($mimeData)) {
 			$cacheParams = array(
-				'type' => 'module',
-				'id'   => '_all',
+				'type'   => 'module',
+				'id'     => '_all',
 				'itemId' => 'GalleryMimeTypeHelper_mimeData',
 			);
 			$cached      = GalleryDataCache::getFromDisk($cacheParams);
@@ -151,14 +151,14 @@ class GalleryMimeTypeHelper_simple {
 				list($ret, $searchResults) = $gallery->search($query);
 
 				if ($ret) {
-					$ret = array( $ret, null );
+					$ret = array($ret, null);
 
 					return $ret;
 				}
 
 				$mimeData = array(
 					'by-extension' => array(),
-					'by-mimetype' => array(),
+					'by-mimetype'  => array(),
 				);
 
 				while ($result = $searchResults->nextResult()) {
@@ -166,7 +166,7 @@ class GalleryMimeTypeHelper_simple {
 
 					if (!isset($mimeData['by-mimetype'][$result[1]])) {
 						$mimeData['by-mimetype'][$result[1]] = array(
-							'exts' => array( $result[0] ),
+							'exts'     => array($result[0]),
 							'viewable' => (bool)$result[2],
 						);
 					} else {
@@ -177,7 +177,7 @@ class GalleryMimeTypeHelper_simple {
 				GalleryDataCache::putToDisk($cacheParams, $mimeData);
 			}
 		}
-		$ret = array( null, &$mimeData );
+		$ret = array(null, &$mimeData);
 
 		return $ret;
 	}
@@ -200,8 +200,8 @@ class GalleryMimeTypeHelper_simple {
 	public static function _deleteCache() {
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'module',
-				'id'   => '_all',
+				'type'   => 'module',
+				'id'     => '_all',
 				'itemId' => 'GalleryMimeTypeHelper_mimeData',
 			)
 		);

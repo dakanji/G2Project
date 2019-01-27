@@ -52,7 +52,7 @@ function smarty_core_load_resource_plugin($params, &$smarty) {
 		include_once $_plugin_file;
 
 		// Locate functions that we require the plugin to provide.
-		$_resource_ops   = array( 'source', 'timestamp', 'secure', 'trusted' );
+		$_resource_ops   = array('source', 'timestamp', 'secure', 'trusted');
 		$_resource_funcs = array();
 
 		foreach ($_resource_ops as $_op) {
@@ -66,7 +66,7 @@ function smarty_core_load_resource_plugin($params, &$smarty) {
 			$_resource_funcs[] = $_plugin_func;
 		}
 
-		$smarty->_plugins['resource'][$params['type']] = array( $_resource_funcs, true );
+		$smarty->_plugins['resource'][$params['type']] = array($_resource_funcs, true);
 	}
 }
 

@@ -39,13 +39,13 @@ class MockObject {
 	public function __construct() {
 		$this->_className        = get_class($this);
 		$_GET[$this->_className] = array(
-			'replies' => array(),
+			'replies'    => array(),
 			'errorCount' => 0,
 		);
 	}
 
 	public function setReply($function, $inputs, $outputs, $optional = false) {
-		$_GET[$this->_className]['replies'][] = array( $function, $inputs, $outputs, $optional );
+		$_GET[$this->_className]['replies'][] = array($function, $inputs, $outputs, $optional);
 	}
 
 	public function isComplete() {

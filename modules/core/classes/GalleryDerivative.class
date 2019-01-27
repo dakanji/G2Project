@@ -167,7 +167,7 @@ class GalleryDerivative extends GalleryChildEntity {
 
 		// Find all derivatives for whom I am the source and whack them too
 		// TODO: just fetch the ids, instead of the entire entities
-		list($ret, $derivativesTable) = GalleryCoreApi::fetchDerivativesBySourceIds(array( $this->getId() ));
+		list($ret, $derivativesTable) = GalleryCoreApi::fetchDerivativesBySourceIds(array($this->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -253,7 +253,7 @@ class GalleryDerivative extends GalleryChildEntity {
 			}
 
 			// Expire anything that depends on me
-			$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array( $this->getId() ));
+			$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($this->getId()));
 
 			if ($ret) {
 				return $ret;
@@ -387,7 +387,7 @@ class GalleryDerivative extends GalleryChildEntity {
 				// Fetch the updated version back from our entity cache
 				list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 					$source->getId(),
-					array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+					array('GalleryFileSystemEntity', 'GalleryDerivative')
 				);
 
 				if ($ret) {
@@ -435,7 +435,7 @@ class GalleryDerivative extends GalleryChildEntity {
 
 		for ($i = 0; $i < count($operations); $i++) {
 			if (strpos($operations[$i], '|') === false) {
-				list($operationName, $operationArgs) = array( $operations[$i], null );
+				list($operationName, $operationArgs) = array($operations[$i], null);
 			} else {
 				list($operationName, $operationArgs) = explode('|', $operations[$i]);
 			}
@@ -514,8 +514,8 @@ class GalleryDerivative extends GalleryChildEntity {
 		$data = array(
 			'derivativePath' => $destPath,
 			'derivativeType' => $this->getDerivativeType(),
-			'mimeType' => $this->getMimeType(),
-			'parentId' => $this->getParentId(),
+			'mimeType'       => $this->getMimeType(),
+			'parentId'       => $this->getParentId(),
 		);
 		list($ret, $data['pseudoFileName']) = GalleryUtilities::getPseudoFileName($this);
 
@@ -547,11 +547,11 @@ class GalleryDerivative extends GalleryChildEntity {
 		// Load the source
 		list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 			$this->getDerivativeSourceId(),
-			array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+			array('GalleryFileSystemEntity', 'GalleryDerivative')
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (GalleryUtilities::isA($source, 'GalleryDerivative')) {
@@ -567,16 +567,16 @@ class GalleryDerivative extends GalleryChildEntity {
 			 * the derivative operations from the intervening parents to
 			 * discover the correct operations for this derivative.
 			 */
-			$sources = array( $source, $this );
+			$sources = array($source, $this);
 
 			while (GalleryUtilities::isA($sources[0], 'GalleryDerivative')) {
 				list($ret, $tmp) = GalleryCoreApi::loadEntitiesById(
 					$sources[0]->getDerivativeSourceId(),
-					array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+					array('GalleryFileSystemEntity', 'GalleryDerivative')
 				);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 
 				if (!GalleryUtilities::isA($tmp, 'GalleryDerivative')) {
@@ -613,7 +613,7 @@ class GalleryDerivative extends GalleryChildEntity {
 					list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations($operations, $newOperation);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 				}
 			}
@@ -631,14 +631,14 @@ class GalleryDerivative extends GalleryChildEntity {
 				list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations($operations, $newOperation);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 			}
 
 			$operations = explode(';', $operations);
 		}
 
-		return array( null, $source, $operations );
+		return array(null, $source, $operations);
 	}
 
 	/**
@@ -655,12 +655,12 @@ class GalleryDerivative extends GalleryChildEntity {
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
-			return array( $ret, false );
+			return array($ret, false);
 		}
 
 		$bool = $platform->file_exists($path);
 
-		return array( null, $bool );
+		return array(null, $bool);
 	}
 
 	/**
@@ -697,12 +697,12 @@ class GalleryDerivative extends GalleryChildEntity {
 
 		$cacheFile = GalleryDataCache::getCachePath(
 			array(
-				'type' => 'derivative',
+				'type'   => 'derivative',
 				'itemId' => $this->getId(),
 			)
 		);
 
-		return array( null, $cacheFile );
+		return array(null, $cacheFile);
 	}
 
 	/**

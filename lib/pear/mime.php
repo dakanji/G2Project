@@ -121,10 +121,10 @@ class Mail_mime {
 			'head_encoding' => 'quoted-printable',
 			'text_encoding' => '7bit',
 			'html_encoding' => 'quoted-printable',
-			'7bit_wrap' => 998,
-			'html_charset' => 'ISO-8859-1',
-			'text_charset' => 'ISO-8859-1',
-			'head_charset' => 'ISO-8859-1',
+			'7bit_wrap'     => 998,
+			'html_charset'  => 'ISO-8859-1',
+			'text_charset'  => 'ISO-8859-1',
+			'head_charset'  => 'ISO-8859-1',
 		);
 	}
 
@@ -292,11 +292,11 @@ class Mail_mime {
 		}
 
 		$this->_parts[] = array(
-			'body'     => $filedata,
-			'name'     => $filename,
-			'c_type'   => $c_type,
-			'encoding' => $encoding,
-			'charset'  => $charset,
+			'body'        => $filedata,
+			'name'        => $filename,
+			'c_type'      => $c_type,
+			'encoding'    => $encoding,
+			'charset'     => $charset,
 			'disposition' => $disposition,
 		);
 
@@ -849,7 +849,7 @@ class Mail_mime {
 						//the later regexp doesn't break any of the translated chars.
 						$prefix           = '=?' . $this->_build_params['head_charset'] . '?B?';
 						$suffix           = '?=';
-						$maxLength        = 75 - strlen($prefix . $suffix) - 2;
+						$maxLength        = 75         - strlen($prefix . $suffix)         - 2;
 						$maxLength1stLine = $maxLength - strlen($hdr_name);
 
 						//Base64 encode the entire string
@@ -872,12 +872,12 @@ class Mail_mime {
 						//the later regexp doesn't break any of the translated chars.
 						$prefix           = '=?' . $this->_build_params['head_charset'] . '?Q?';
 						$suffix           = '?=';
-						$maxLength        = 75 - strlen($prefix . $suffix) - 2;
+						$maxLength        = 75         - strlen($prefix . $suffix)         - 2;
 						$maxLength1stLine = $maxLength - strlen($hdr_name);
 
 						//Replace all special characters used by the encoder.
-						$search    = array( '=', '_', '?', ' ' );
-						$replace   = array( '=3D', '=5F', '=3F', '_' );
+						$search    = array('=', '_', '?', ' ');
+						$replace   = array('=3D', '=5F', '=3F', '_');
 						$hdr_value = str_replace($search, $replace, $hdr_value);
 
 						//Replace all extended characters (\x80-xFF) with their

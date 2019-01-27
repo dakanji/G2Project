@@ -60,7 +60,7 @@ class InstallCoreModuleStep extends InstallStep {
 		$gallery->debug('Init first pass');
 		$ret = GalleryInitFirstPass(
 			array(
-				'noDatabase' => true,
+				'noDatabase'     => true,
 				'activeLanguage' => $_SESSION['language'],
 			)
 		);
@@ -88,7 +88,7 @@ class InstallCoreModuleStep extends InstallStep {
 		 */
 		$platform =& $gallery->getPlatform();
 		$gallery->debug('Clear the cache directory');
-		$cacheDirs = array( 'entity', 'theme', 'module', 'derivative' );
+		$cacheDirs = array('entity', 'theme', 'module', 'derivative');
 
 		foreach ($cacheDirs as $dir) {
 			$dir = sprintf('%s/cache/%s', $dataBase, $dir);

@@ -33,10 +33,10 @@ class FileNotFoundView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('404 File Not Found') );
+		return array(null, $module->translate('404 File Not Found'));
 	}
 
 	/**

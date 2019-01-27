@@ -122,7 +122,7 @@ function adodb_transpose(&$arr, &$newarr, &$hdr, &$fobjs) {
 
 	if ($hdr) {
 		$startx = 1;
-		$hdr    = array( 'Fields' );
+		$hdr    = array('Fields');
 
 		for ($y = 0; $y < $oldY; $y++) {
 			$hdr[] = $arr[$y][0];
@@ -134,7 +134,7 @@ function adodb_transpose(&$arr, &$newarr, &$hdr, &$fobjs) {
 	for ($x = $startx; $x < $oldX; $x++) {
 		if ($fobjs) {
 			$o        = $fobjs[$x];
-			$newarr[] = array( $o->name );
+			$newarr[] = array($o->name);
 		} else {
 			$newarr[] = array();
 		}
@@ -169,7 +169,7 @@ function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_
 	$uSet  = '';
 
 	if (!is_array($keyCol)) {
-		$keyCol = array( $keyCol );
+		$keyCol = array($keyCol);
 	}
 
 	foreach ($fieldArray as $k => $v) {
@@ -947,7 +947,7 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 				preg_match('/\s.*(\) WHERE .*)/is', $whereClause[1], $discard); // see http://sourceforge.net/tracker/index.php?func=detail&aid=1379638&group_id=42718&atid=433976
 			}
 		} else {
-			$whereClause = array( false, false );
+			$whereClause = array(false, false);
 		}
 
 		if ($discard) {
@@ -1296,7 +1296,7 @@ function _adodb_column_sql(&$zthis, $action, $type, $fname, $fnameq, $arrFields,
 			break;
 
 		default:
-			$val = str_replace(array( "'", ' ', '(' ), '', $arrFields[$fname]); // basic sql injection defence
+			$val = str_replace(array("'", ' ', '('), '', $arrFields[$fname]); // basic sql injection defence
 			if (empty($val)) {
 				$val = '0';
 			}
@@ -1465,7 +1465,7 @@ function _adodb_backtrace($printOrArr = true, $levels = 9999, $skippy = 0, $isht
 					$args[] = $v ? 'true' : 'false';
 				} else {
 					$v   = (string)@$v;
-					$str = htmlspecialchars(str_replace(array( "\r", "\n" ), ' ', substr($v, 0, $MAXSTRLEN)));
+					$str = htmlspecialchars(str_replace(array("\r", "\n"), ' ', substr($v, 0, $MAXSTRLEN)));
 
 					if (strlen($v) > $MAXSTRLEN) {
 						$str .= '...';

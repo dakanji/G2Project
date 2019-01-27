@@ -203,7 +203,7 @@ class GalleryStatus {
 	 */
 	public function getErrorCodeConstants($errorCode) {
 		if ($errorCode == 0) {
-			$codes = array( 'GALLERY_SUCCESS' );
+			$codes = array('GALLERY_SUCCESS');
 		} else {
 			$codes = array();
 
@@ -217,7 +217,7 @@ class GalleryStatus {
 
 			if (empty($codes)) {
 				// No specific error specified
-				$codes = array( 'GALLERY_ERROR' );
+				$codes = array('GALLERY_ERROR');
 			}
 		}
 
@@ -247,9 +247,9 @@ class GalleryStatus {
 		if (empty($this->_stackTrace)) {
 			for ($i = 0; $i < count($this->_fileName); $i++) {
 				$trace[] = array(
-					'file' => str_replace($base, '', $this->_fileName[$i]),
-					'line' => $this->_lineNumber[$i],
-					'class' => null,
+					'file'     => str_replace($base, '', $this->_fileName[$i]),
+					'line'     => $this->_lineNumber[$i],
+					'class'    => null,
 					'function' => null,
 				);
 			}
@@ -263,14 +263,14 @@ class GalleryStatus {
 					$traceEntry['line'] = '???';
 				}
 				$trace[] = array(
-					'file' => str_replace($basePaths, '', $traceEntry['file']),
-					'line' => $traceEntry['line'],
-					'class' => empty($traceEntry['class']) ? null : $traceEntry['class'],
+					'file'     => str_replace($basePaths, '', $traceEntry['file']),
+					'line'     => $traceEntry['line'],
+					'class'    => empty($traceEntry['class']) ? null : $traceEntry['class'],
 					'function' => empty($traceEntry['function']) ? null : $traceEntry['function'],
 				);
 			}
 		}
 
-		return array( $codes, $trace );
+		return array($codes, $trace);
 	}
 }

@@ -632,7 +632,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			return $sql;
 		}
 
-		return array( $sql, $stmt );
+		return array($sql, $stmt);
 	}
 
 	// returns concatenated string
@@ -1068,7 +1068,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1132,18 +1132,18 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 
 			if ($fieldOffset != -1) {
 				$fb = array(
-					'name' => $fa['name'],
-					'max_length' => $fa['size'],
+					'name'          => $fa['name'],
+					'max_length'    => $fa['size'],
 					'column_source' => $fa['name'],
-					'type' => $_typeConversion[$fa['type']],
+					'type'          => $_typeConversion[$fa['type']],
 				);
 			} else {
 				foreach ($fa as $key => $value) {
 					$fb[] = array(
-						'name' => $value['name'],
-						'max_length' => $value['size'],
+						'name'          => $value['name'],
+						'max_length'    => $value['size'],
 						'column_source' => $value['name'],
-						'type' => $_typeConversion[$value['type']],
+						'type'          => $_typeConversion[$value['type']],
 					);
 				}
 			}

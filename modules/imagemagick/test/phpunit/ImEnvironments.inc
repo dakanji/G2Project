@@ -67,25 +67,25 @@ $_commonOperations = array(
 		),
 	),
 	'crop' => array(
-		'convert' => array( '-crop', '%width%x%height%+%x%+%y%', '%src%', '%dst%' ),
+		'convert' => array('-crop', '%width%x%height%+%x%+%y%', '%src%', '%dst%'),
 	),
 	'rotate' => array(
-		'convert' => array( '-rotate', '%angle%', '%src%', '%dst%' ),
+		'convert' => array('-rotate', '%angle%', '%src%', '%dst%'),
 	),
 	'convert-to-image/jpeg' => array(
-		'convert' => array( '%src%', '%dst%' ),
+		'convert' => array('%src%', '%dst%'),
 	),
 	'composite' => array(
-		'composite' => array( '-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%' ),
+		'composite' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
 	),
 	'convert-to-image/png' => array(
-		'convert' => array( '%src%', '%dst%' ),
+		'convert' => array('%src%', '%dst%'),
 	),
 	'select-page' => array(
-		'convert' => array( '%src%', '%dst%' ),
+		'convert' => array('%src%', '%dst%'),
 	),
 	'compress' => array(
-		'convert' => array( '%src%', '%dst%' ),
+		'convert' => array('%src%', '%dst%'),
 	),
 );
 
@@ -119,7 +119,7 @@ $imEnvironment[] = array(
 		'xtp',
 	),
 	'removeMetaDataSwitch' => array(),
-	'operations' => array_merge(
+	'operations'           => array_merge(
 		$_commonOperations,
 		array(
 			'thumbnail' => array(
@@ -143,7 +143,7 @@ $imEnvironment[] = array(
 				),
 			),
 			'composite' => array(
-				'combine' => array( '-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%' ),
+				'combine' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
 			),
 		)
 	),
@@ -180,10 +180,10 @@ identify: Missing an image file name [No such file or directory].',
 		'test.tif'  => 'test.tif 50x50 PseudoClass 256c 2729b TIFF 1s',
 		'test.eps'  => 'test.eps[0] 43x18 PseudoClass 2c 3141b PS 1s
 test.eps[1] 43x18 PseudoClass 2c 3141b PS 1s',
-		'test.wmf'  => 'identify: no delegate for this image format (WMF)',
-		'test.tga'  => 'identify: no delegate for this image format (TGA)',
+		'test.wmf'        => 'identify: no delegate for this image format (WMF)',
+		'test.tga'        => 'identify: no delegate for this image format (TGA)',
 		'testProfile.jpg' => 'testProfile.jpg 40x30 DirectClass 29kb JPEG 1s',
-		'-format'   => array(
+		'-format'         => array(
 			'cmyk.jpg' => 'Does4.xWork?',
 		),
 	),
@@ -221,9 +221,9 @@ $imEnvironment[] = array(
 		'montage',
 		'xtp',
 	),
-	'removeMetaDataSwitch' => array( '+profile', '*' ),
-	'operations' => $_commonOperations,
-	'identify'   => array(
+	'removeMetaDataSwitch' => array('+profile', '*'),
+	'operations'           => $_commonOperations,
+	'identify'             => array(
 		''          => 'Version: @(#)ImageMagick 5.4.2 01/01/02 Q:16 http://www.imagemagick.org
 Copyright: Copyright (C) 2002 ImageMagick Studio LLC
 
@@ -241,7 +241,7 @@ Where options include:
 		',
 		'UNKNOWN'   => 'identify: Unable to open file (NOTHING) [No such file or directory].
 identify: Missing an image file name.',
-		'SIZED.gif' => '%filename% GIF %width%x%height%+0+0 PseudoClass 8c 8-bit 232b 0.0u 0:01',
+		'SIZED.gif'           => '%filename% GIF %width%x%height%+0+0 PseudoClass 8c 8-bit 232b 0.0u 0:01',
 		'test-compressed.tif' => 'identify: unknown field ' .
 		'with tag 34665 (0x8769) ignored. (test-compressed.tif) [No such file or directory].
 test-compressed.tif TIFF 50x50 DirectClass 8-bit 8000b 0.0u 0:01',
@@ -265,7 +265,7 @@ identify: Missing an image file name.',
 		'test.tga'  => 'identify: no delegate for this image format (test.tga) [No such file or directory].
 identify: Missing an image file name.',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 8-bit 30585b 0.0u 0:01',
-		'-format'   => array(
+		'-format'         => array(
 			'cmyk.jpg' => "DirectClassCMYK\n",
 			'rgb_file' => "DirectClassCMYK\n",
 		), // Fails to convert to RGB
@@ -313,12 +313,12 @@ $imEnvironment[] = array(
 		'mogrify',
 		'montage',
 	),
-	'removeMetaDataSwitch' => array( '+profile', '*' ),
-	'operations' => array_merge(
+	'removeMetaDataSwitch' => array('+profile', '*'),
+	'operations'           => array_merge(
 		$_commonOperations,
 		array(
 			'convert-to-image/jpeg' => array(
-				'convert' => array( '-colorspace', 'RGB', '%src%', '%dst%' ),
+				'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
 			),
 		)
 	),
@@ -367,16 +367,16 @@ test-multiscene.tif[1] TIFF 100x75 DirectClass 45kb 0.000u 0:01',
 		'test.jp2'  => 'test.jp2 JP2 50x50 DirectClass 1kb 0.020u 0:01',
 		'test.pdf'  => 'test.pdf[0] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.060u 0:01
 test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
-		'test.pjpg' => 'test.pjpg JPEG 50x50 DirectClass 970 0.010u 0:01',
-		'test.png'  => 'test.png PNG 50x50 DirectClass 730 0.000u 0:01',
-		'test.svg'  => 'test.svg SVG 595x842 DirectClass 8kb 0.020u 0:01',
-		'test.tif'  => 'test.tif TIFF 50x50 PseudoClass 256c 3kb 0.000u 0:01',
-		'test.eps'  => 'test.eps PS 43x18 43x18+0+0 PseudoClass 2c 170 0.000u 0:01',
-		'test.psd'  => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
-		'test.wmf'  => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
-		'test.tga'  => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
+		'test.pjpg'       => 'test.pjpg JPEG 50x50 DirectClass 970 0.010u 0:01',
+		'test.png'        => 'test.png PNG 50x50 DirectClass 730 0.000u 0:01',
+		'test.svg'        => 'test.svg SVG 595x842 DirectClass 8kb 0.020u 0:01',
+		'test.tif'        => 'test.tif TIFF 50x50 PseudoClass 256c 3kb 0.000u 0:01',
+		'test.eps'        => 'test.eps PS 43x18 43x18+0+0 PseudoClass 2c 170 0.000u 0:01',
+		'test.psd'        => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
+		'test.wmf'        => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
+		'test.tga'        => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 30kb 0.010u 0:01',
-		'-format'   => array(
+		'-format'         => array(
 			'cmyk.jpg' => 'DirectClassCMYK',
 			'rgb_file' => 'DirectClassRGB',
 		),
@@ -424,8 +424,8 @@ $imEnvironment[] = array(
 		'mogrify',
 		'montage',
 	),
-	'removeMetaDataSwitch' => array( '-strip' ),
-	'operations' => array_merge(
+	'removeMetaDataSwitch' => array('-strip'),
+	'operations'           => array_merge(
 		$_commonOperations,
 		array(
 			'thumbnail' => array(
@@ -440,7 +440,7 @@ $imEnvironment[] = array(
 				),
 			),
 			'convert-to-image/jpeg' => array(
-				'convert' => array( '-colorspace', 'RGB', '%src%', '%dst%' ),
+				'convert' => array('-colorspace', 'RGB', '%src%', '%dst%'),
 			),
 		)
 	),
@@ -491,16 +491,16 @@ test-multiscene.tif[1] TIFF 100x75 DirectClass 45kb 0.000u 0:01',
 		'test.jp2'  => 'test.jp2 JP2 50x50 DirectClass 1kb 0.020u 0:01',
 		'test.pdf'  => 'test.pdf[0] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.060u 0:01
 test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
-		'test.pjpg' => 'test.pjpg JPEG 50x50 DirectClass 970 0.010u 0:01',
-		'test.png'  => 'test.png PNG 50x50 DirectClass 730 0.000u 0:01',
-		'test.svg'  => 'test.svg SVG 595x842 DirectClass 8kb 0.020u 0:01',
-		'test.tif'  => 'test.tif TIFF 50x50 PseudoClass 256c 3kb 0.000u 0:01',
-		'test.eps'  => 'test.eps PS 43x18 43x18+0+0 PseudoClass 2c 170 0.000u 0:01',
-		'test.psd'  => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
-		'test.wmf'  => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
-		'test.tga'  => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
+		'test.pjpg'       => 'test.pjpg JPEG 50x50 DirectClass 970 0.010u 0:01',
+		'test.png'        => 'test.png PNG 50x50 DirectClass 730 0.000u 0:01',
+		'test.svg'        => 'test.svg SVG 595x842 DirectClass 8kb 0.020u 0:01',
+		'test.tif'        => 'test.tif TIFF 50x50 PseudoClass 256c 3kb 0.000u 0:01',
+		'test.eps'        => 'test.eps PS 43x18 43x18+0+0 PseudoClass 2c 170 0.000u 0:01',
+		'test.psd'        => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
+		'test.wmf'        => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
+		'test.tga'        => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 30kb 0.010u 0:01',
-		'-format'   => array(
+		'-format'         => array(
 			'cmyk.jpg' => 'DirectClassCMYK',
 			'rgb_file' => 'DirectClassRGB',
 		),
@@ -548,9 +548,9 @@ $imEnvironment[] = array(
 		'mogrify',
 		'montage',
 	),
-	'removeMetaDataSwitch' => array( '+profile', '*' ),
-	'operations' => $_commonOperations,
-	'identify'   => array(
+	'removeMetaDataSwitch' => array('+profile', '*'),
+	'operations'           => $_commonOperations,
+	'identify'             => array(
 		''          => 'identify: Improper arguments supplied, please see manual.
 Version: GraphicsMagick 1.0.5 November 26, 2004 Q8 http://www.GraphicsMagick.org/
 Copyright: Copyright (C) 2002, 2003, 2004 GraphicsMagick Group
@@ -575,7 +575,7 @@ Where options include:
   -virtual-pixel method
                        Constant, Edge, Mirror, or Tile
 		',
-		'UNKNOWN'   => 'identify: Unable to open file (NOTHING) [No such file or directory].',
+		'UNKNOWN'             => 'identify: Unable to open file (NOTHING) [No such file or directory].',
 		'test-compressed.tif' => 'identify: unknown field with tag 34665 (0x8769) ignored. (test-compressed.tif).
 test-compressed.tif TIFF 50x50+0+0 DirectClass 8-bit 7.8k 0.000u 0:01',
 		'test-multiscene.tif' => 'test-multiscene.tif[0] TIFF 100x75+0+0 DirectClass 8-bit 44.7k 0.010u 0:01
@@ -587,15 +587,15 @@ test-multiscene.tif[1] TIFF 100x75+0+0 DirectClass 8-bit 44.7k 0.000u 0:01',
 		'test.jp2'  => 'identify: No decode delegate for this image format (test.jp2).',
 		'test.pdf'  => 'test.pdf[0] PDF 612x792+0+0 PseudoClass 256c 8-bit 946.8k 0.050u 0:01
 test.pdf[1] PDF 612x792+0+0 PseudoClass 256c 8-bit 946.8k 0.030u 0:01',
-		'test.pjpg' => 'test.pjpg JPEG 50x50+0+0 DirectClass 8-bit 970.0 0.000u 0:01',
-		'test.png'  => 'test.png PNG 50x50+0+0 DirectClass 8-bit 730.0 0.010u 0:01',
-		'test.svg'  => 'test.svg SVG 595x841+0+0 DirectClass 16-bit 7.8kb 0.008u 0:01',
-		'test.tif'  => 'test.tif TIFF 50x50+0+0 PseudoClass 256c 8-bit 2.7k 0.000u 0:01',
-		'test.eps'  => 'test.eps PS 43x18+0+0 PseudoClass 2c 8-bit 170.0 0.000u 0:01',
-		'test.wmf'  => 'identify: No decode delegate for this image format (test.wmf).',
-		'test.tga'  => 'identify: No decode delegate for this image format (test.tga).',
+		'test.pjpg'       => 'test.pjpg JPEG 50x50+0+0 DirectClass 8-bit 970.0 0.000u 0:01',
+		'test.png'        => 'test.png PNG 50x50+0+0 DirectClass 8-bit 730.0 0.010u 0:01',
+		'test.svg'        => 'test.svg SVG 595x841+0+0 DirectClass 16-bit 7.8kb 0.008u 0:01',
+		'test.tif'        => 'test.tif TIFF 50x50+0+0 PseudoClass 256c 8-bit 2.7k 0.000u 0:01',
+		'test.eps'        => 'test.eps PS 43x18+0+0 PseudoClass 2c 8-bit 170.0 0.000u 0:01',
+		'test.wmf'        => 'identify: No decode delegate for this image format (test.wmf).',
+		'test.tga'        => 'identify: No decode delegate for this image format (test.tga).',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30+0+0 DirectClass 8-bit 29.9k 0.000u 0:01',
-		'-format'   => array(
+		'-format'         => array(
 			'cmyk.jpg' => 'DoesThisWork?',
 		),
 	),

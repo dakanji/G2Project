@@ -159,7 +159,7 @@ class TestGdFunctionality {
 
 	public function phpinfo($section = null) {
 		if ($section != '8') {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 
 		if (!isset($this->_gdEnvironment['phpinfo(8)'])) {
@@ -178,7 +178,7 @@ class TestGdFunctionality {
 			array_flip(get_html_translation_table(HTML_ENTITIES))
 		);
 
-		return array( null, $out );
+		return array(null, $out);
 	}
 
 	public function tempnam($dir, $prefix) {
@@ -252,14 +252,14 @@ class TestGdFunctionality {
 		}
 
 		if (!isset($this->_gdEnvironment['gd_info'])) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 
-		return array( null, $this->_gdEnvironment['gd_info'] );
+		return array(null, $this->_gdEnvironment['gd_info']);
 	}
 
 	public function getImageSize($filename) {
-		return array( 0, 0 );
+		return array(0, 0);
 	}
 
 	public function imageCreate($width, $height) {
@@ -279,7 +279,7 @@ class TestGdFunctionality {
 		$this->setResourceData($res, 'y', $height);
 		$this->setResourceData($res, 'trueColor', false);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateTruecolor($width, $height) {
@@ -299,7 +299,7 @@ class TestGdFunctionality {
 		$this->setResourceData($res, 'y', $height);
 		$this->setResourceData($res, 'trueColor', true);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateFromGif($filename) {
@@ -316,7 +316,7 @@ class TestGdFunctionality {
 		}
 		$res = $this->getNewResource($filename);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateFromJpeg($filename) {
@@ -333,7 +333,7 @@ class TestGdFunctionality {
 		}
 		$res = $this->getNewResource($filename);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateFromPng($filename) {
@@ -350,7 +350,7 @@ class TestGdFunctionality {
 		}
 		$res = $this->getNewResource($filename);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateFromWbmp($filename) {
@@ -367,7 +367,7 @@ class TestGdFunctionality {
 		}
 		$res = $this->getNewResource($filename);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateFromXbm($filename) {
@@ -384,7 +384,7 @@ class TestGdFunctionality {
 		}
 		$res = $this->getNewResource($filename);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageCreateFromXpm($filename) {
@@ -401,7 +401,7 @@ class TestGdFunctionality {
 		}
 		$res = $this->getNewResource($filename);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imageGif($res, $filename) {
@@ -667,7 +667,7 @@ class TestGdFunctionality {
 			);
 		}
 
-		return array( null, $this->getResourceData($res, 'x') );
+		return array(null, $this->getResourceData($res, 'x'));
 	}
 
 	public function imageSy($res) {
@@ -690,7 +690,7 @@ class TestGdFunctionality {
 			);
 		}
 
-		return array( null, $this->getResourceData($res, 'y') );
+		return array(null, $this->getResourceData($res, 'y'));
 	}
 
 	// Currently this only handles rotation in 90deg-steps
@@ -719,7 +719,7 @@ class TestGdFunctionality {
 		$this->setResourceData($res, 'x', $newX);
 		$this->setResourceData($res, 'y', $newY);
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	public function imagedestroy($res) {
@@ -747,7 +747,7 @@ class TestGdFunctionality {
 			);
 		}
 
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public function imagealphablending($res, $blendmode) {
@@ -778,7 +778,7 @@ class TestGdFunctionality {
 			);
 		}
 
-		return array( null, 1 );
+		return array(null, 1);
 	}
 
 	public function imagecolorallocate($res, $red, $green, $blue) {

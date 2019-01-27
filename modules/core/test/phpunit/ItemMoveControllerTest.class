@@ -58,15 +58,15 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveTestToolkit',
-			array( 'image/test' ),
+			array('image/test'),
 			'thumbnail',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -78,15 +78,15 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		}
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveTestToolkit',
-			array( 'image/test' ),
+			array('image/test'),
 			'scale',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -260,7 +260,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 
 	public function _getDerivativeSizes($itemIds) {
 		if (!is_array($itemIds)) {
-			$itemIds = array( $itemIds );
+			$itemIds = array($itemIds);
 		}
 		$data                   = array();
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
@@ -285,7 +285,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			foreach ($derivs as $deriv) {
 				$data[$id][] = array(
 					'type' => $deriv->getDerivativeType(),
-					'op' => $deriv->getDerivativeOperations(),
+					'op'   => $deriv->getDerivativeOperations(),
 				);
 			}
 		}
@@ -312,9 +312,9 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
-					'itemId' => $this->_album[1]->getId(),
+					'itemId'  => $this->_album[1]->getId(),
 				),
 				'status' => array(
 					'moved' => array(
@@ -334,7 +334,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals(
-			array( $this->_getRootId(), $this->_album[0]->getId() ),
+			array($this->_getRootId(), $this->_album[0]->getId()),
 			$parentSequence
 		);
 	}
@@ -365,9 +365,9 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
-					'itemId' => $this->_album[0]->getId(),
+					'itemId'  => $this->_album[0]->getId(),
 				),
 				'status' => array(
 					'moved' => array(
@@ -401,7 +401,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 		$this->assertEquals(
-			array( $this->_getRootId(), $this->_album[0]->getId() ),
+			array($this->_getRootId(), $this->_album[0]->getId()),
 			$parentSequence,
 			'peer is under the root'
 		);
@@ -412,7 +412,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 		$this->assertEquals(
-			array( $this->_getRootId() ),
+			array($this->_getRootId()),
 			$parentSequence,
 			'album 0 is under the root'
 		);
@@ -457,13 +457,13 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
-					'itemId' => $this->_album[1]->getId(),
-					'page' => 2,
+					'itemId'  => $this->_album[1]->getId(),
+					'page'    => 2,
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Move Next Page Out Of Range'
@@ -504,13 +504,13 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
-					'itemId' => $this->_album[1]->getId(),
-					'page' => 1,
+					'itemId'  => $this->_album[1]->getId(),
+					'page'    => 1,
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -534,11 +534,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][destination][empty]' ),
+				'error'  => array('form[error][destination][empty]'),
 			),
 			$results
 		);
@@ -563,11 +563,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][source][' .
 								   $this->_album[1]->getId() .
 								   '][selfMove]',
@@ -596,11 +596,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][source][' .
 								   $this->_album[1]->getId() .
 								   '][selfMove]',
@@ -629,11 +629,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][destination][permission]' ),
+				'error'  => array('form[error][destination][permission]'),
 			),
 			$results
 		);
@@ -658,11 +658,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][source][' .
 								   $this->_album[4]->getId() .
 								   '][permission][delete]',
@@ -691,11 +691,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][source][' .
 								   $this->_album[3]->getId() .
 								   '][permission][addAlbumItem]',
@@ -724,11 +724,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][source][' .
 								   $this->_item->getId() .
 								   '][permission][addDataItem]',
@@ -763,11 +763,11 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'thumbnail|120',
+					'op'   => 'thumbnail|120',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|500',
+					'op'   => 'scale|500',
 				),
 			),
 			$sizes,
@@ -788,9 +788,9 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
-					'itemId' => $this->_album[3]->getId(),
+					'itemId'  => $this->_album[3]->getId(),
 				),
 				'status' => array(
 					'moved' => array(
@@ -824,7 +824,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'thumbnail|150',
+					'op'   => 'thumbnail|150',
 				),
 			),
 			// 800 deriv not created because item size only 700

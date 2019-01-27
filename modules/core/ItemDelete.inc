@@ -37,7 +37,7 @@ class ItemDeleteController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -51,19 +51,19 @@ class ItemDeleteController extends GalleryController {
 				list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($selectedIds);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				foreach ($selectedIds as $selectedId) {
 					if (!isset($permissions[$selectedId]['core.view'])) {
 						// Avoid information disclosure, act as if the item didn't exist.
-						return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
+						return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 					}
 					// Make sure we have permission to delete this item
 					if (!isset($permissions[$selectedId]['core.delete'])) {
@@ -99,14 +99,14 @@ class ItemDeleteController extends GalleryController {
 					$ret = GalleryCoreApi::deleteEntityById($selectedId, 'GalleryItem');
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					if (!(++$status['deleted']['count'] % 20)) {
 						$ret = $storage->checkPoint();
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 					}
 				}
@@ -114,7 +114,7 @@ class ItemDeleteController extends GalleryController {
 				list($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($itemId);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// What do we do if we weren't successful?  No thumbnail, I guess
@@ -125,18 +125,18 @@ class ItemDeleteController extends GalleryController {
 			 * Can't use return url because it may be for an item we just deleted
 			 */
 			$results['redirect'] = array(
-				'view' => 'core.ShowItem',
+				'view'   => 'core.ShowItem',
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
 			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
-				array( 'core.delete', 'core.view' )
+				array('core.delete', 'core.view')
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
@@ -144,7 +144,7 @@ class ItemDeleteController extends GalleryController {
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = min($page + 1, $numPages);
 		} elseif (isset($form['action']['previous'])) {
-			$page = GalleryUtilities::getRequestVariables('page');
+			$page                          = GalleryUtilities::getRequestVariables('page');
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = max($page - 1, 1);
 		} elseif (isset($form['action']['cancel'])) {
@@ -158,7 +158,7 @@ class ItemDeleteController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -175,7 +175,7 @@ class ItemDeleteView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -199,11 +199,11 @@ class ItemDeleteView extends GalleryView {
 
 		list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 			$itemId,
-			array( 'core.delete', 'core.view' )
+			array('core.delete', 'core.view')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$peers                = array();
@@ -243,14 +243,14 @@ class ItemDeleteView extends GalleryView {
 			list($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds, 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// get peer thumbnails and resizes
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($peerIds);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// build peers table
@@ -285,7 +285,7 @@ class ItemDeleteView extends GalleryView {
 				list($ret, $peerDescendentCounts) = GalleryCoreApi::fetchDescendentCounts(array_keys($peerTypes['album']));
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
@@ -323,9 +323,9 @@ class ItemDeleteView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $core->translate('delete an item') );
+		return array(null, $core->translate('delete an item'));
 	}
 }

@@ -139,7 +139,7 @@ class ADODB2_sapdb extends ADODB_DataDict {
 		$sql                = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
-		return array( 'ALTER TABLE ' . $tabname . ' ADD (' . implode(', ', $lines) . ')' );
+		return array('ALTER TABLE ' . $tabname . ' ADD (' . implode(', ', $lines) . ')');
 	}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
@@ -147,7 +147,7 @@ class ADODB2_sapdb extends ADODB_DataDict {
 		$sql                = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
-		return array( 'ALTER TABLE ' . $tabname . ' MODIFY (' . implode(', ', $lines) . ')' );
+		return array('ALTER TABLE ' . $tabname . ' MODIFY (' . implode(', ', $lines) . ')');
 	}
 
 	public function DropColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
@@ -161,6 +161,6 @@ class ADODB2_sapdb extends ADODB_DataDict {
 			$flds[$k] = $this->NameQuote($v);
 		}
 
-		return array( 'ALTER TABLE ' . $tabname . ' DROP (' . implode(', ', $flds) . ')' );
+		return array('ALTER TABLE ' . $tabname . ' DROP (' . implode(', ', $flds) . ')');
 	}
 }

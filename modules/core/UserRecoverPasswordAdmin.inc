@@ -68,20 +68,20 @@ class UserRecoverPasswordAdminController extends GalleryController {
 				list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (isset($user)) {
 					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					list($ret, $user) = $user->refresh();
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$user->changePassword($form['password1']);
@@ -89,13 +89,13 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					$ret = $user->save();
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$ret = GalleryCoreApi::removeMapEntry(
@@ -106,7 +106,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$status['passwordRecovered'] = 1;
@@ -142,7 +142,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 

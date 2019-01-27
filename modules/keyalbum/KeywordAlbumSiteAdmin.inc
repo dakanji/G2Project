@@ -65,7 +65,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 
 		if (isset($form['action']['save']) && empty($error)) {
 			$split = '';
-			$map = array('semicolon' => ';', 'comma' => ',', 'space' => '\\s');
+			$map   = array('semicolon' => ';', 'comma' => ',', 'space' => '\\s');
 
 			foreach ($form['split'] as $key => $unused) {
 				if (isset($map[$key])) {
@@ -91,11 +91,11 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 			$status['saved'] = 1;
 		}
 
-		$method = empty($error) ? 'redirect' : 'delegate';
+		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array($method => array('view' => 'core.SiteAdmin',
-					  'subView' => 'keyalbum.KeywordAlbumSiteAdmin', ),
+					  'subView'                           => 'keyalbum.KeywordAlbumSiteAdmin', ),
 			 'status' => $status,
-			 'error' => $error, );
+			 'error'  => $error, );
 
 		return array(null, $results);
 	}
@@ -132,8 +132,8 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 				$form['orderBy'] = $tmp[1];
 				$form['presort'] = $tmp[0];
 			}
-			$map = array(';' => 'semicolon', ',' => 'comma', 's' => 'space');
-			$split = $form['split'];
+			$map           = array(';' => 'semicolon', ',' => 'comma', 's' => 'space');
+			$split         = $form['split'];
 			$form['split'] = array();
 
 			for ($i = 0; $i < strlen($split); $i++) {
@@ -153,10 +153,10 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		}
 
 		$summaryList = array(
-		'all' => $module->translate('All album views'),
+		'all'   => $module->translate('All album views'),
 		'album' => $module->translate('Standard albums'),
-		'key' => $module->translate('Keyword albums'),
-		'none' => $module->translate('None'), );
+		'key'   => $module->translate('Keyword albums'),
+		'none'  => $module->translate('None'), );
 
 		// Set up sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
@@ -167,7 +167,7 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		}
 
 		// Set up theme selection list
-		$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
+		$themeList               = array('' => $module->translate('&laquo; default theme &raquo;'));
 		list($ret, $themeStatus) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
@@ -186,11 +186,11 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		}
 
 		$KeywordAlbumSiteAdmin = array(
-		'summaryList' => $summaryList,
-		'orderByList' => $orderByList,
-		'presortList' => $presortList,
+		'summaryList'        => $summaryList,
+		'orderByList'        => $orderByList,
+		'presortList'        => $presortList,
 		'orderDirectionList' => $orderDirectionList,
-		'themeList' => $themeList, );
+		'themeList'          => $themeList, );
 
 		// Set up theme settings
 		list($ret, $themeSettingsId) = 		GalleryCoreApi::getPluginParameter('module', 'keyalbum', 'themeSettingsId');

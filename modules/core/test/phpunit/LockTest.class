@@ -108,7 +108,7 @@ class LockTest extends GalleryTestCase {
 	public function _testManyWriteLocks($lockSystem) {
 		global $gallery;
 
-		$ids = array( $gallery->getActiveUserId(), $this->_getRootId(), $this->_item->getId() );
+		$ids = array($gallery->getActiveUserId(), $this->_getRootId(), $this->_item->getId());
 
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
 
@@ -160,7 +160,7 @@ class LockTest extends GalleryTestCase {
 	public function _testManyReadLocks($lockSystem) {
 		global $gallery;
 
-		$ids = array( $gallery->getActiveUserId(), $this->_getRootId(), $this->_item->getId() );
+		$ids = array($gallery->getActiveUserId(), $this->_getRootId(), $this->_item->getId());
 
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($ids);
 
@@ -282,7 +282,7 @@ class LockTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		foreach (array( $this->_getRootId(), $this->_album->getId() ) as $id) {
+		foreach (array($this->_getRootId(), $this->_album->getId()) as $id) {
 			$this->assertTrue(GalleryCoreApi::isReadLocked($id), "$lockSystem: read lock: $id");
 		}
 
@@ -301,7 +301,7 @@ class LockTest extends GalleryTestCase {
 		$this->assertTrue(GalleryCoreApi::isReadLocked($this->_getRootId()), "$lockSystem: read lock");
 
 		// Release locks
-		$ret = GalleryCoreApi::releaseLocks(array( $lockId, $writeLockId ));
+		$ret = GalleryCoreApi::releaseLocks(array($lockId, $writeLockId));
 
 		if ($ret) {
 			return $ret;
@@ -386,8 +386,8 @@ class LockTest extends GalleryTestCase {
 		}
 
 		// Temporarily clear the existing lock information to simulate another request
-		$queuedLocks = $gallery->_lockSystem->_releaseQueue;
-		$locks       = $gallery->_lockSystem->_locks;
+		$queuedLocks                         = $gallery->_lockSystem->_releaseQueue;
+		$locks                               = $gallery->_lockSystem->_locks;
 		$gallery->_lockSystem->_releaseQueue = array();
 		$gallery->_lockSystem->_locks        = array();
 
@@ -418,7 +418,7 @@ class LockTest extends GalleryTestCase {
 		// Restore lock information and force their release.
 		$gallery->_lockSystem->_releaseQueue = $queuedLocks;
 		$gallery->_lockSystem->_locks        = $locks;
-		$ret = $gallery->_lockSystem->releaseQueue();
+		$ret                                 = $gallery->_lockSystem->releaseQueue();
 
 		if ($ret) {
 			return $ret;

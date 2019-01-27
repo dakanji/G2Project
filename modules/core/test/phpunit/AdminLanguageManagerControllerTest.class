@@ -88,7 +88,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$storage           =& $gallery->getStorage();
 
 		$this->_callback = array(
-			'method'  => array( &$gallery->_templateAdapter, 'updateProgressBar' ),
+			'method'  => array(&$gallery->_templateAdapter, 'updateProgressBar'),
 			'title'   => $module->translate('Updating Language Settings'),
 			'current' => 0,
 			'total'   => 10,
@@ -120,7 +120,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable(
 			'form',
 			array(
-				'save' => 'Save',
+				'save'     => 'Save',
 				'language' => array(
 					'useBrowserPref' => $newValue,
 				),
@@ -140,9 +140,9 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			array(
 				'GalleryPluginParameterMap',
 				array(
-					'pluginType' => 'module',
-					'pluginId' => 'core',
-					'itemId' => 0,
+					'pluginType'    => 'module',
+					'pluginId'      => 'core',
+					'itemId'        => 0,
 					'parameterName' => 'language.useBrowserPref',
 				),
 				array(
@@ -158,7 +158,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminLanguageManager',
 				),
 				'status' => array(
@@ -179,7 +179,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable(
 			'form',
 			array(
-				'save' => 'Save',
+				'save'    => 'Save',
 				'default' => array(
 					'language' => $newValue,
 				),
@@ -204,9 +204,9 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			array(
 				'GalleryPluginParameterMap',
 				array(
-					'pluginType' => 'module',
-					'pluginId' => 'core',
-					'itemId' => 0,
+					'pluginType'    => 'module',
+					'pluginId'      => 'core',
+					'itemId'        => 0,
 					'parameterName' => 'default.language',
 				),
 				array(
@@ -222,7 +222,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminLanguageManager',
 				),
 				'status' => array(
@@ -253,7 +253,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			'default'  => array(
 				'language' => $defaultLanguage,
 			),
-			'save'     => 'Save',
+			'save'           => 'Save',
 			'languageAction' => array(
 				'af' => 'remove',
 				'ar' => 'upgrade',
@@ -264,7 +264,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			),
 		);
 
-		$repositories = GalleryRepository::getRepositories();
+		$repositories                                   = GalleryRepository::getRepositories();
 		list($ret, $installedPackages, $deletePackages) = $this->_controller->_getFormLanguages(
 			$form,
 			$repositories
@@ -274,10 +274,10 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$expected = array( 'ar', 'ca', 'da', 'es', 'es_MX', 'es_AR' );
+		$expected = array('ar', 'ca', 'da', 'es', 'es_MX', 'es_AR');
 		$this->assertEquals($expected, $installedPackages, 'Unexpected installed packages list');
 
-		$expected = array( 'af', 'cs' );
+		$expected = array('af', 'cs');
 		$this->assertEquals($expected, $deletePackages, 'Unexpected delete package list');
 	}
 
@@ -287,22 +287,22 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale');
 
-		$packages = array( 'af', 'cs' );
+		$packages = array('af', 'cs');
 
-		$platform->setReply('file_exists', array( '/g2data/locale/af' ), true);
+		$platform->setReply('file_exists', array('/g2data/locale/af'), true);
 		$platform->setReply(
 			'glob',
-			array( '/g2data/locale/af/LC_MESSAGES/*.mo', null ),
-			array( 'theme.mo', 'module.mo' )
+			array('/g2data/locale/af/LC_MESSAGES/*.mo', null),
+			array('theme.mo', 'module.mo')
 		);
-		$platform->setReply('recursiveRmdir', array( '/g2data/locale/af' ), true);
-		$platform->setReply('file_exists', array( '/g2data/locale/cs' ), true);
+		$platform->setReply('recursiveRmdir', array('/g2data/locale/af'), true);
+		$platform->setReply('file_exists', array('/g2data/locale/cs'), true);
 		$platform->setReply(
 			'glob',
-			array( '/g2data/locale/cs/LC_MESSAGES/*.mo', null ),
-			array( 'theme.mo', 'module.mo' )
+			array('/g2data/locale/cs/LC_MESSAGES/*.mo', null),
+			array('theme.mo', 'module.mo')
 		);
-		$platform->setReply('recursiveRmdir', array( '/g2data/locale/cs' ), true);
+		$platform->setReply('recursiveRmdir', array('/g2data/locale/cs'), true);
 
 		list($ret, $packagesDelete) = $this->_controller->_deleteLanguagePackages($packages, $this->_callback);
 
@@ -312,7 +312,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(4, $packagesDelete, 'Incorrect number of packages deleted');
 		$this->assertEquals(
-			array( '0.2', '0.4' ),
+			array('0.2', '0.4'),
 			$gallery->_templateAdapter->getProgressBarDump(),
 			'Incorrect progress'
 		);
@@ -332,7 +332,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				),
 				$this->_callback,
 			),
-			array( null, array( 'STATUS REPO1' ), 6 )
+			array(null, array('STATUS REPO1'), 6)
 		);
 
 		$this->_testRepository->setReply(
@@ -345,7 +345,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				),
 				$this->_callback,
 			),
-			array( null, array( 'STATUS REPO2' ), 3 )
+			array(null, array('STATUS REPO2'), 3)
 		);
 
 		list($ret, $status, $count) = $this->_controller->_downloadAndInstallLanguagePackages(
@@ -353,21 +353,21 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				'repo1' => array(
 					'module' => array(
 						'testModule' => array(
-							'name' => 'Test Module',
+							'name'  => 'Test Module',
 							'files' => array(
 								'descriptor' => 'modules/testModule.descriptor',
-								'af' => 'modules/testModule-af.package',
-								'cs' => 'modules/testModule-cs.package',
+								'af'         => 'modules/testModule-af.package',
+								'cs'         => 'modules/testModule-cs.package',
 							),
 						),
 					),
 					'theme' => array(
 						'testTheme' => array(
-							'name' => 'Test Theme',
+							'name'  => 'Test Theme',
 							'files' => array(
 								'descriptor' => 'themes/testTheme.descriptor',
-								'af' => 'themes/testTheme-af.package',
-								'cs' => 'themes/testTheme-cs.package',
+								'af'         => 'themes/testTheme-af.package',
+								'cs'         => 'themes/testTheme-cs.package',
 							),
 						),
 					),
@@ -375,11 +375,11 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				'repo2' => array(
 					'module' => array(
 						'anotherTestModule' => array(
-							'name' => 'Test Module',
+							'name'  => 'Test Module',
 							'files' => array(
 								'descriptor' => 'modules/anotherTest.descriptor',
-								'af' => 'modules/anotherTest-ab.package',
-								'cs' => 'modules/anotherTest-cd.package',
+								'af'         => 'modules/anotherTest-ab.package',
+								'cs'         => 'modules/anotherTest-cd.package',
 							),
 						),
 					),
@@ -398,7 +398,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(9, $count, 'Number of files that we should have downloaded');
 		$this->assertEquals(
-			array( 'STATUS REPO1', 'STATUS REPO2' ),
+			array('STATUS REPO1', 'STATUS REPO2'),
 			$status,
 			'Incorrect status returned'
 		);
@@ -421,10 +421,10 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			'form',
 			array(
 				'formName' => 'adminLanguages',
-				'default' => array(
+				'default'  => array(
 					'language' => $defaultLanguage,
 				),
-				'save' => 'Save',
+				'save'           => 'Save',
 				'languageAction' => array(
 					'af' => 'download',
 				),
@@ -439,7 +439,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'language general settings not updated'
@@ -458,7 +458,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			'language' => array(
 				'useBrowserPref' => $this->_useBrowserPref,
 			),
-			'save'     => 'Save',
+			'save'           => 'Save',
 			'languageAction' => array(
 				'af' => 'download',
 			),
@@ -470,25 +470,25 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 		$this->_testRepository->setReply(
 			'getLanguagePackageFiles',
-			array( array( 'af' ) ),
+			array(array('af')),
 			array(
 				null,
 				array(
 					'module' => array(
 						'testModule' => array(
-							'name' => 'Test Module',
+							'name'  => 'Test Module',
 							'files' => array(
 								'descriptor' => 'modules/testModule.descriptor',
-								'af' => 'modules/testModule-af.package',
+								'af'         => 'modules/testModule-af.package',
 							),
 						),
 					),
 					'theme' => array(
 						'testTheme' => array(
-							'name' => 'Test Theme',
+							'name'  => 'Test Theme',
 							'files' => array(
 								'descriptor' => 'themes/testTheme.descriptor',
-								'af' => 'themes/testTheme-af.package',
+								'af'         => 'themes/testTheme-af.package',
 							),
 						),
 					),
@@ -506,38 +506,38 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				),
 				$this->_callback,
 			),
-			array( null, array( 'STATUS' ), 2 )
+			array(null, array('STATUS'), 2)
 		);
 
 		$platform->setReply(
 			'glob',
-			array( GalleryCoreApi::getCodeBasePath('modules/*/po'), null ),
-			array( GalleryCoreApi::getCodeBasePath('modules/testModule/po') )
+			array(GalleryCoreApi::getCodeBasePath('modules/*/po'), null),
+			array(GalleryCoreApi::getCodeBasePath('modules/testModule/po'))
 		);
 		$platform->setReply(
 			'file_exists',
-			array( '/g2data/locale/af/LC_MESSAGES/modules_testModule.mo' ),
+			array('/g2data/locale/af/LC_MESSAGES/modules_testModule.mo'),
 			true
 		);
 		$platform->setReply(
 			'file_exists',
-			array( '/g2data/locale/af/LC_MESSAGES/modules_testModule.mo' ),
+			array('/g2data/locale/af/LC_MESSAGES/modules_testModule.mo'),
 			true
 		);
 
 		$platform->setReply(
 			'glob',
-			array( GalleryCoreApi::getCodeBasePath('themes/*/po'), null ),
-			array( GalleryCoreApi::getCodeBasePath('themes/testTheme/po') )
+			array(GalleryCoreApi::getCodeBasePath('themes/*/po'), null),
+			array(GalleryCoreApi::getCodeBasePath('themes/testTheme/po'))
 		);
 		$platform->setReply(
 			'file_exists',
-			array( '/g2data/locale/af/LC_MESSAGES/themes_testTheme.mo' ),
+			array('/g2data/locale/af/LC_MESSAGES/themes_testTheme.mo'),
 			true
 		);
 		$platform->setReply(
 			'file_exists',
-			array( '/g2data/locale/af/LC_MESSAGES/themes_testTheme.mo' ),
+			array('/g2data/locale/af/LC_MESSAGES/themes_testTheme.mo'),
 			true
 		);
 

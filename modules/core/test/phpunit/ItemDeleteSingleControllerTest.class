@@ -72,11 +72,11 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ShowItem',
+					'view'   => 'core.ShowItem',
 					'itemId' => $this->_album->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Delete Item'
@@ -110,11 +110,11 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ShowItem',
+					'view'   => 'core.ShowItem',
 					'itemId' => $this->_album->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -149,11 +149,11 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ShowItem',
+					'view'   => 'core.ShowItem',
 					'itemId' => $this->_album->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);

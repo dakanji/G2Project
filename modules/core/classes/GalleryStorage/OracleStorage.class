@@ -77,7 +77,7 @@ class OracleStorage extends GalleryStorage {
 				 * with sqlplus.  Then uncomment the line below:
 				 */
 				// return array(null, 'BIT_OR(' . $args[0] . ')');
-				return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null );
+				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null);
 
 			break;
 
@@ -163,7 +163,7 @@ class OracleStorage extends GalleryStorage {
 				);
 		}
 
-		return array( null, $sql );
+		return array(null, $sql);
 	}
 
 	/**
@@ -192,7 +192,7 @@ class OracleStorage extends GalleryStorage {
 	 */
 	public function _getOptimizeStatements() {
 		// Is this the right command to use?
-		return array( 'ANALYZE TABLE %s COMPUTE STATISTICS' );
+		return array('ANALYZE TABLE %s COMPUTE STATISTICS');
 	}
 
 	/**

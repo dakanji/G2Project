@@ -35,18 +35,18 @@ class AdminCoreController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$status  = $error = array();
 		$canSave = !empty($form['action']) &&
-		array_intersect(array_keys($form['action']), array( 'save', 'emailTest' ));
+		array_intersect(array_keys($form['action']), array('save', 'emailTest'));
 
 		if ($canSave) {
 			// Validate inputs
@@ -127,7 +127,7 @@ class AdminCoreController extends GalleryController {
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
@@ -166,7 +166,7 @@ class AdminCoreController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
@@ -183,7 +183,7 @@ class AdminCoreController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 
@@ -229,7 +229,7 @@ class AdminCoreController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -246,7 +246,7 @@ class AdminCoreView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($form['formName'] != 'AdminCore') {
@@ -274,7 +274,7 @@ class AdminCoreView extends GalleryView {
 				list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($outer, $inner)  = explode('.', $key);
@@ -289,7 +289,7 @@ class AdminCoreView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$platform   =& $gallery->getPlatform();
@@ -299,46 +299,46 @@ class AdminCoreView extends GalleryView {
 		// Set up our session time lists
 		$sessionTimeList = array();
 
-		foreach (array( 15, 30, 45 ) as $minutes) {
+		foreach (array(15, 30, 45) as $minutes) {
 			$sessionTimeList[$minutes * 60] = $module->translate(
 				array(
-					'one' => '%d minute',
-					'many' => '%d minutes',
+					'one'   => '%d minute',
+					'many'  => '%d minutes',
 					'count' => $minutes,
-					'arg1' => $minutes,
+					'arg1'  => $minutes,
 				)
 			);
 		}
 
-		foreach (array( 1, 6, 12 ) as $hours) {
+		foreach (array(1, 6, 12) as $hours) {
 			$sessionTimeList[$hours * 3600] = $module->translate(
 				array(
-					'one' => '%d hour',
-					'many' => '%d hours',
+					'one'   => '%d hour',
+					'many'  => '%d hours',
 					'count' => $hours,
-					'arg1' => $hours,
+					'arg1'  => $hours,
 				)
 			);
 		}
 
-		foreach (array( 1, 2, 3, 4, 5, 6 ) as $days) {
+		foreach (array(1, 2, 3, 4, 5, 6) as $days) {
 			$sessionTimeList[$days * 86400] = $module->translate(
 				array(
-					'one' => '%d day',
-					'many' => '%d days',
+					'one'   => '%d day',
+					'many'  => '%d days',
 					'count' => $days,
-					'arg1' => $days,
+					'arg1'  => $days,
 				)
 			);
 		}
 
-		foreach (array( 1, 2, 3 ) as $weeks) {
+		foreach (array(1, 2, 3) as $weeks) {
 			$sessionTimeList[$weeks * 7 * 86400] = $module->translate(
 				array(
-					'one' => '%d week',
-					'many' => '%d weeks',
+					'one'   => '%d week',
+					'many'  => '%d weeks',
 					'count' => $weeks,
-					'arg1' => $weeks,
+					'arg1'  => $weeks,
 				)
 			);
 		}
@@ -348,8 +348,8 @@ class AdminCoreView extends GalleryView {
 			$can['setPermissions'] = true;
 
 			// Set up our permission selection lists
-			$AdminCore['permissionsDirectoryList'] = array( '700', '750', '755', '770', '775', '777' );
-			$AdminCore['permissionsFileList']      = array( '600', '640', '644', '660', '664', '666' );
+			$AdminCore['permissionsDirectoryList'] = array('700', '750', '755', '770', '775', '777');
+			$AdminCore['permissionsFileList']      = array('600', '640', '644', '660', '664', '666');
 
 			$can['tweakSystemProcesses'] = true;
 			$AdminCore['beNiceList']     = array(

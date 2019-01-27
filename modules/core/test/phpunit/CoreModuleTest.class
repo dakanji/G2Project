@@ -89,8 +89,8 @@ class CoreModuleTest extends GalleryTestCase {
 		$url          = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'core.ItemDeleteSingle',
-				'itemId' => $albumId,
-				'pageId' => $albumId,
+				'itemId'     => $albumId,
+				'pageId'     => $albumId,
 			)
 		);
 		$this->assertEquals(
@@ -117,7 +117,7 @@ class CoreModuleTest extends GalleryTestCase {
 						),
 						'Album'
 					),
-					'view' => 'core.ItemDeleteSingle',
+					'view'   => 'core.ItemDeleteSingle',
 					'script' => 'core_confirmDelete(\'' . $url . '\', \'\', \''
 						. $albumTitle . '\');return false',
 				),
@@ -184,7 +184,7 @@ class CoreModuleTest extends GalleryTestCase {
 						),
 						'Album'
 					),
-					'view' => 'core.ItemDeleteSingle',
+					'view'   => 'core.ItemDeleteSingle',
 					'script' => 'core_confirmDelete(\'' . $url . '\', \'\', \''
 						 . $albumTitle . '\');return false',
 				),
@@ -233,25 +233,25 @@ class CoreModuleTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'SiteAdmin' => array(
-					'text' => $this->_module->translate('Site Admin'),
+					'text'   => $this->_module->translate('Site Admin'),
 					'params' => array(
-						'view' => 'core.SiteAdmin',
+						'view'   => 'core.SiteAdmin',
 						'return' => 1,
 					),
 				),
 				'YourAccount' => array(
-					'text' => $this->_module->translate('Your Account'),
+					'text'   => $this->_module->translate('Your Account'),
 					'params' => array(
-						'view' => 'core.UserAdmin',
+						'view'    => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return' => 1,
+						'return'  => 1,
 					),
 				),
 				'Logout' => array(
-					'text' => $this->_module->translate('Logout'),
+					'text'   => $this->_module->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return' => 1,
+						'return'     => 1,
 					),
 				),
 			),
@@ -263,10 +263,10 @@ class CoreModuleTest extends GalleryTestCase {
 		list($ret, $this->_user1) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-				'email' => 'test2@email.com',
-				'fullName' => 'Test User 2',
-				'language' => 'te',
-				'locked' => 0,
+				'email'          => 'test2@email.com',
+				'fullName'       => 'Test User 2',
+				'language'       => 'te',
+				'locked'         => 0,
 			)
 		);
 
@@ -287,18 +287,18 @@ class CoreModuleTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'YourAccount' => array(
-					'text' => $this->_module->translate('Your Account'),
+					'text'   => $this->_module->translate('Your Account'),
 					'params' => array(
-						'view' => 'core.UserAdmin',
+						'view'    => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return' => 1,
+						'return'  => 1,
 					),
 				),
 				'Logout' => array(
-					'text' => $this->_module->translate('Logout'),
+					'text'   => $this->_module->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return' => 1,
+						'return'     => 1,
 					),
 				),
 			),
@@ -309,10 +309,10 @@ class CoreModuleTest extends GalleryTestCase {
 		list($ret, $this->_user2) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
-				'email' => 'test2@email.com',
-				'fullName' => 'Test User 2',
-				'language' => 'te',
-				'locked' => 1,
+				'email'          => 'test2@email.com',
+				'fullName'       => 'Test User 2',
+				'language'       => 'te',
+				'locked'         => 1,
 			)
 		);
 
@@ -333,18 +333,18 @@ class CoreModuleTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'YourAccount' => array(
-					'text' => $this->_module->translate('Your Account'),
+					'text'   => $this->_module->translate('Your Account'),
 					'params' => array(
-						'view' => 'core.UserAdmin',
+						'view'    => 'core.UserAdmin',
 						'subView' => 'core.UserPreferences',
-						'return' => 1,
+						'return'  => 1,
 					),
 				),
 				'Logout' => array(
-					'text' => $this->_module->translate('Logout'),
+					'text'   => $this->_module->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
-						'return' => 1,
+						'return'     => 1,
 					),
 				),
 			),
@@ -402,12 +402,12 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array( $versionFile ), false);
+		$platform->setReply('file_exists', array($versionFile), false);
 
 		$versions = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			array(
-				'core' => 0,
+				'core'    => 0,
 				'gallery' => 0,
 			),
 			$versions,
@@ -446,10 +446,10 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array( $versionFile ), true);
+		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
-			array( $versionFile, false ),
+			array($versionFile, false),
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion(),
@@ -478,10 +478,10 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array( $versionFile ), true);
+		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
-			array( $versionFile, false ),
+			array($versionFile, false),
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",
@@ -511,10 +511,10 @@ class CoreModuleTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$platform->setReply('file_exists', array( $versionFile ), true);
+		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
-			array( $versionFile, false ),
+			array($versionFile, false),
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",

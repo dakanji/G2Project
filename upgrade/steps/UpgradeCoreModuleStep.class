@@ -66,10 +66,10 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$templateData['storeConfig']    = $gallery->getConfig('storage.config');
 
 		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::isConfigUpgradeRequired($versions['core']);
-		$platform       =& $gallery->getPlatform();
-		$configFilePath = GALLERY_CONFIG_DIR . '/config.php';
-		$templateData['isConfigWriteable'] = $platform->is_writeable($configFilePath);
-		$templateData['canChmod']          = strncasecmp(PHP_OS, 'win', 3);
+		$platform                                =& $gallery->getPlatform();
+		$configFilePath                          = GALLERY_CONFIG_DIR . '/config.php';
+		$templateData['isConfigWriteable']       = $platform->is_writeable($configFilePath);
+		$templateData['canChmod']                = strncasecmp(PHP_OS, 'win', 3);
 
 		$template = new StatusTemplate();
 
@@ -140,7 +140,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		if ($templateData['canChmod']
 			&& $templateData['bodyFile'] == 'UpgradeCoreModuleSuccess.html'
 		) {
-			$stat = $platform->stat($configFilePath);
+			$stat                           = $platform->stat($configFilePath);
 			$templateData['isConfigSecure'] = !($stat['mode'] & 022);
 			$templateData['configFileMode'] = substr(sprintf('%o', $stat['mode']), -3);
 			$templateData['configFilePath'] = $configFilePath;

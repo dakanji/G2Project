@@ -49,7 +49,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		$acceleration['user']['expiration']  = 0;
 		$acceleration['guest']['type']       = 'none';
 		$acceleration['guest']['expiration'] = 0;
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                                 = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -87,7 +87,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPerformance',
 				),
 				'status' => array(
@@ -108,11 +108,11 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'user' => array(
-					'type' => 'full',
+					'type'       => 'full',
 					'expiration' => 5678,
 				),
 				'guest' => array(
-					'type' => 'partial',
+					'type'       => 'partial',
 					'expiration' => 1234,
 				),
 			),
@@ -148,7 +148,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPerformance',
 				),
 				'status' => array(

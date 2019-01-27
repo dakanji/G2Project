@@ -36,8 +36,8 @@ class DatabaseBackupTask extends MaintenanceTask {
 		global $gallery;
 
 		return array(
-			'l10Domain' => 'modules_core',
-			'title'     => $gallery->i18n('Backup the database'),
+			'l10Domain'   => 'modules_core',
+			'title'       => $gallery->i18n('Backup the database'),
 			'description' => $gallery->i18n(
 				'Backup all your Gallery data (item data, users, comments, etc.) to a '
 				. 'single file in your storage folder.  The backup does not include '
@@ -59,7 +59,7 @@ class DatabaseBackupTask extends MaintenanceTask {
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$this->_progressBarTitle = $coreModule->translate('Backing up Gallery Database');
 		$this->_statusText       = $coreModule->translate('Exporting...');
@@ -67,10 +67,10 @@ class DatabaseBackupTask extends MaintenanceTask {
 
 		$exporter = $storage->getDatabaseExporter();
 
-		list($ret, $backupFile, $result) = $exporter->exportToXmlFile(array( $this, 'progressCallBack' ));
+		list($ret, $backupFile, $result) = $exporter->exportToXmlFile(array($this, 'progressCallBack'));
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 100);
@@ -90,7 +90,7 @@ class DatabaseBackupTask extends MaintenanceTask {
 		);
 		$result[] = sprintf('%s<br/><h2>%s</h2>', $msg1, $msg2);
 
-		return array( null, true, $result );
+		return array(null, true, $result);
 	}
 
 	/**

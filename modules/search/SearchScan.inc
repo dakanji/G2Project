@@ -46,7 +46,7 @@ class SearchScanController extends GalleryController {
 			list($ret, $slideshow) = GalleryCoreApi::newFactoryInstance('SlideshowInterface_1_0');
 
 			if ($ret || !isset($slideshow)) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			GalleryCoreApi::requireOnce(
@@ -55,14 +55,14 @@ class SearchScanController extends GalleryController {
 			list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach ($ids as $id => $className) {
 				list($ret, $searchInstances[$id]) = GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 			$itemIds = array();
@@ -75,7 +75,7 @@ class SearchScanController extends GalleryController {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					foreach ($resultSet['results'] as $result) {
@@ -90,7 +90,7 @@ class SearchScanController extends GalleryController {
 			list($ret, $results['delegate']) = $slideshow->getLinkData($itemIds);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} elseif (isset($form['action']['showAll'])) {
 			$results['delegate']['view'] = 'search.SearchShowAll';
@@ -101,7 +101,7 @@ class SearchScanController extends GalleryController {
 		$results['status'] = array();
 		$results['error']  = array();
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -125,14 +125,14 @@ class SearchScanView extends GalleryView {
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		foreach ($ids as $id => $className) {
 			list($ret, $searchInstances[$id]) = GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -141,7 +141,7 @@ class SearchScanView extends GalleryView {
 			list($ret, $modules[$id]) = $instance->getSearchModuleInfo();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -180,7 +180,7 @@ class SearchScanView extends GalleryView {
 						);
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 					}
 				}
@@ -205,7 +205,7 @@ class SearchScanView extends GalleryView {
 				list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				foreach ($itemList as $item) {
@@ -216,7 +216,7 @@ class SearchScanView extends GalleryView {
 				list($ret, $thumbnailList) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				foreach ($thumbnailList as $thumbnail) {
@@ -234,7 +234,7 @@ class SearchScanView extends GalleryView {
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('SlideshowInterface_1_0');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$slideshowAvailable = !empty($ids);
 
@@ -242,11 +242,11 @@ class SearchScanView extends GalleryView {
 		$template->setVariable(
 			'SearchScan',
 			array(
-				'controller' => 'search.SearchScan',
-				'modules' => $modules,
-				'searchResults' => $searchResults,
-				'thumbnails' => $thumbnails,
-				'items' => $items,
+				'controller'         => 'search.SearchScan',
+				'modules'            => $modules,
+				'searchResults'      => $searchResults,
+				'thumbnails'         => $thumbnails,
+				'items'              => $items,
 				'slideshowAvailable' => $slideshowAvailable,
 			)
 		);
@@ -254,7 +254,7 @@ class SearchScanView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$template->javascript('modules/search/HighlightResults.js');

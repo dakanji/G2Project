@@ -56,17 +56,17 @@ class OptimizeDatabaseTask extends MaintenanceTask {
 		$ret     = $storage->optimize();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		$details = array( $module->translate('Database optimized successfully') );
+		$details = array($module->translate('Database optimized successfully'));
 
-		return array( null, true, $details );
+		return array(null, true, $details);
 	}
 }

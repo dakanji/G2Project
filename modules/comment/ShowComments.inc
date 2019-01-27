@@ -33,14 +33,14 @@ class ShowCommentsView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($item->getId(), null, ORDER_ASCENDING);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$commenters = array();
@@ -50,7 +50,7 @@ class ShowCommentsView extends GalleryView {
 			list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			// If !comment.view || !core.view
 			list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
@@ -61,7 +61,7 @@ class ShowCommentsView extends GalleryView {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($anonymousViewable) {
@@ -73,7 +73,7 @@ class ShowCommentsView extends GalleryView {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 
@@ -95,7 +95,7 @@ class ShowCommentsView extends GalleryView {
 				list($ret, $commentersList) = GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 
@@ -107,7 +107,7 @@ class ShowCommentsView extends GalleryView {
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		foreach (array(
@@ -122,10 +122,10 @@ class ShowCommentsView extends GalleryView {
 		$template->setVariable(
 			'ShowComments',
 			array(
-				'comments' => $comments,
+				'comments'   => $comments,
 				'commenters' => $commenters,
-				'can'  => $can,
-				'item' => (array)$item,
+				'can'        => $can,
+				'item'       => (array)$item,
 			)
 		);
 
@@ -147,9 +147,9 @@ class ShowCommentsView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('show comments') );
+		return array(null, $module->translate('show comments'));
 	}
 }

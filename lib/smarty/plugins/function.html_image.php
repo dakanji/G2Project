@@ -37,16 +37,16 @@
 function smarty_function_html_image($params, &$smarty) {
 	require_once $smarty->_get_plugin_filepath('shared', 'escape_special_chars');
 
-	$alt = '';
-	$file = '';
-	$height = '';
-	$width = '';
-	$extra = '';
-	$prefix = '';
-	$suffix = '';
+	$alt         = '';
+	$file        = '';
+	$height      = '';
+	$width       = '';
+	$extra       = '';
+	$prefix      = '';
+	$suffix      = '';
 	$path_prefix = '';
 	$server_vars = ($smarty->request_use_auto_globals) ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
-	$basedir = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
+	$basedir     = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
 
 	foreach ($params as $_key => $_val) {
 		switch ($_key) {
@@ -140,8 +140,8 @@ function smarty_function_html_image($params, &$smarty) {
 			$dpi_default = 96;
 		}
 		$_resize = $dpi_default/$params['dpi'];
-		$width = round($width * $_resize);
-		$height = round($height * $_resize);
+		$width   = round($width * $_resize);
+		$height  = round($height * $_resize);
 	}
 
 	return $prefix . '<img src="' . $path_prefix . $file . '" alt="' . $alt . '" width="' . $width . '" height="' . $height . '"' . $extra . ' />' . $suffix;

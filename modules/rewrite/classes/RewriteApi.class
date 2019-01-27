@@ -58,10 +58,10 @@ class RewriteApi {
 	 */
 	public function isCompatibleWithApi($version) {
 		if (isset($this->_error)) {
-			return array( $this->_error, null );
+			return array($this->_error, null);
 		}
 
-		return array( null, GalleryUtilities::isCompatibleWithApi($version, $this->getApiVersion()) );
+		return array(null, GalleryUtilities::isCompatibleWithApi($version, $this->getApiVersion()));
 	}
 
 	/**
@@ -78,7 +78,7 @@ class RewriteApi {
 	 */
 	public function needsEmbedConfig() {
 		if (isset($this->_error)) {
-			return array( $this->_error, null );
+			return array($this->_error, null);
 		}
 
 		if (!GalleryUtilities::isEmbedded()) {
@@ -96,10 +96,10 @@ class RewriteApi {
 		list($ret, $status) = $this->_parser->needsEmbedConfig();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $status );
+		return array(null, $status);
 	}
 
 	/**
@@ -110,7 +110,7 @@ class RewriteApi {
 	 */
 	public function fetchEmbedConfig() {
 		if (isset($this->_error)) {
-			return array( $this->_error, null );
+			return array($this->_error, null);
 		}
 
 		if (!GalleryUtilities::isEmbedded()) {
@@ -128,10 +128,10 @@ class RewriteApi {
 		list($ret, $config) = $this->_parser->fetchEmbedConfig();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $config );
+		return array(null, $config);
 	}
 
 	/**
@@ -144,7 +144,7 @@ class RewriteApi {
 	 */
 	public function saveEmbedConfig($params) {
 		if (isset($this->_error)) {
-			return array( $this->_error, null, null );
+			return array($this->_error, null, null);
 		}
 
 		if (!GalleryUtilities::isEmbedded()) {
@@ -163,10 +163,10 @@ class RewriteApi {
 		list($ret, $status, $errstr) = $this->_parser->saveEmbedConfig($params);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		return array( null, $status, $errstr );
+		return array(null, $status, $errstr);
 	}
 
 	/**
@@ -180,22 +180,22 @@ class RewriteApi {
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'activeRules');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$activeRules = unserialize($activeRules);
 
 		if (isset($activeRules[$moduleId])) {
-			return array( null, array_keys($activeRules[$moduleId]) );
+			return array(null, array_keys($activeRules[$moduleId]));
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, array_keys($history) );
+		return array(null, array_keys($history));
 	}
 
 	/**
@@ -215,13 +215,13 @@ class RewriteApi {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'activeRules');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$activeRules = unserialize($activeRules);
 
@@ -229,7 +229,7 @@ class RewriteApi {
 		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$rules = $module->getRewriteRules();
@@ -263,7 +263,7 @@ class RewriteApi {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Update the history
@@ -271,11 +271,11 @@ class RewriteApi {
 			$ret = RewriteHelper::setHistoryForModule($moduleId, $history);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
-		return array( null, $code == REWRITE_STATUS_OK );
+		return array(null, $code == REWRITE_STATUS_OK);
 	}
 
 	// Getters below
@@ -284,7 +284,7 @@ class RewriteApi {
 	 * @return array api version
 	 */
 	public function getApiVersion() {
-		return array( 1, 1 );
+		return array(1, 1);
 	}
 
 	/**

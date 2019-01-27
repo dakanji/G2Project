@@ -97,7 +97,7 @@ if (!empty($storageConfig)) {
 
 	$ret = GalleryInitFirstPass(
 		array(
-			'debug' => 'buffered',
+			'debug'      => 'buffered',
 			'noDatabase' => 1,
 		)
 	);

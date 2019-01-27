@@ -43,7 +43,7 @@ class SearchShowAllController extends GalleryController {
 		$results['status'] = array();
 		$results['error']  = array();
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -117,7 +117,7 @@ class SearchShowAllView extends GalleryView {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (!isset($searchInstance)) {
@@ -130,7 +130,7 @@ class SearchShowAllView extends GalleryView {
 				list($ret, $moduleInfo) = $searchInstance->getSearchModuleInfo();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (isset($form['options'][$moduleId])) {
@@ -142,7 +142,7 @@ class SearchShowAllView extends GalleryView {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 				$maxPages = ceil($results['count'] / $pageSize);
@@ -164,7 +164,7 @@ class SearchShowAllView extends GalleryView {
 					list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					foreach ($itemList as $item) {
@@ -175,7 +175,7 @@ class SearchShowAllView extends GalleryView {
 					list($ret, $thumbnailList) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					foreach ($thumbnailList as $thumbnail) {
@@ -192,19 +192,19 @@ class SearchShowAllView extends GalleryView {
 			'SearchShowAll',
 			array(
 				'controller' => 'search.SearchShowAll',
-				'maxPages' => $maxPages,
+				'maxPages'   => $maxPages,
 				'moduleInfo' => $moduleInfo,
-				'moduleId' => $moduleId,
-				'results' => $results,
+				'moduleId'   => $moduleId,
+				'results'    => $results,
 				'thumbnails' => $thumbnails,
-				'items' => $items,
+				'items'      => $items,
 			)
 		);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$template->javascript('modules/search/HighlightResults.js');

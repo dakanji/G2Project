@@ -48,7 +48,7 @@ class GalleryEventHelper_simple {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$eventResults = array();
@@ -60,13 +60,13 @@ class GalleryEventHelper_simple {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $data) = $eventListener->handleEvent($event);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (isset($data)) {
@@ -81,7 +81,7 @@ class GalleryEventHelper_simple {
 			list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach ($moduleStatus as $moduleId => $status) {
@@ -102,7 +102,7 @@ class GalleryEventHelper_simple {
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (!GalleryCoreApi::isPluginCompatibleWithApis($module)) {
@@ -129,7 +129,7 @@ class GalleryEventHelper_simple {
 				list($ret, $data) = $listeners[$i]->handleEvent($event);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (isset($data)) {
@@ -139,7 +139,7 @@ class GalleryEventHelper_simple {
 		}
 		// --END-- of section to remove on next major API bump
 
-		return array( null, $eventResults );
+		return array(null, $eventResults);
 	}
 
 	/**

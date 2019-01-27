@@ -38,21 +38,21 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$info = array(
-			'name'    => $module->translate('Comments'),
+			'name'        => $module->translate('Comments'),
 			'description' => $module->translate('Comment Module'),
-			'options' => array(
+			'options'     => array(
 				'comments' => array(
 					'description' => $module->translate('Search comments'),
-					'enabled' => 1,
+					'enabled'     => 1,
 				),
 			),
 		);
 
-		return array( null, $info );
+		return array(null, $info);
 	}
 
 	/**
@@ -69,7 +69,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		list($ret, $viewAclIds) = GalleryCoreApi::fetchAccessListIds(
 			'core.view',
@@ -77,7 +77,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$aclIds = array_intersect($aclIds, $viewAclIds);
 
@@ -85,9 +85,9 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 			return array(
 				null,
 				array(
-					'start' => 0,
-					'end' => '0',
-					'count' => 0,
+					'start'   => 0,
+					'end'     => '0',
+					'count'   => 0,
 					'results' => array(),
 				),
 			);
@@ -158,7 +158,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		list($ret, $results) = $gallery->search($countQuery, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$result  = $results->nextResult();
 		$numRows = (int)$result[0];
@@ -169,19 +169,19 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 			array(
 				'limit' => array(
 					'offset' => $offset,
-					'count' => $count,
+					'count'  => $count,
 				),
 			)
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$text['subject']   = $module->translate('Subject');
@@ -204,17 +204,17 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 
 			if (!empty($result[7])) {
 				$fields[] = array(
-					'key' => $text['commenter'],
+					'key'   => $text['commenter'],
 					'value' => $result[7] . '(' . $text['guest'] . ')',
 				);
 			} elseif (!empty($result[4])) {
 				$fields[] = array(
-					'key' => $text['commenter'],
+					'key'   => $text['commenter'],
 					'value' => $result[4],
 				);
 			} else {
 				$fields[] = array(
-					'key' => $text['commenter'],
+					'key'   => $text['commenter'],
 					'value' => $result[5],
 				);
 			}
@@ -231,6 +231,6 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 			'results' => $searchResults,
 		);
 
-		return array( null, $data );
+		return array(null, $data);
 	}
 }

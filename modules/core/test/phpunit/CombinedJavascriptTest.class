@@ -60,7 +60,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'Anything';
-		$gallery->_phpVm->setReply('header', array( 'HTTP/1.0 304 Not Modified', null ), null);
+		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
 
@@ -74,7 +74,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 	public function testIfModifiedSinceFromGetAllHeadersWithCapitalLetters() {
 		global $gallery;
 
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), true);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), true);
 		$gallery->_phpVm->setReply(
 			'getAllHeaders',
 			array(),
@@ -82,7 +82,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-Modified-Since' => 'Anything',
 			)
 		);
-		$gallery->_phpVm->setReply('header', array( 'HTTP/1.0 304 Not Modified', null ), null);
+		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
 
@@ -96,7 +96,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 	public function testIfModifiedSinceFromGetAllHeadersWithLowerCaseLetters() {
 		global $gallery;
 
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), true);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), true);
 		$gallery->_phpVm->setReply(
 			'getAllHeaders',
 			array(),
@@ -104,7 +104,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-modified-since' => 'Anything',
 			)
 		);
-		$gallery->_phpVm->setReply('header', array( 'HTTP/1.0 304 Not Modified', null ), null);
+		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
 
@@ -119,7 +119,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('key', 'bogus');
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), false);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
 
 		list($ret, $results) = $this->_renderImmediate();
 
@@ -135,7 +135,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 
 		unset($_SERVER['HTTP_ACCEPT_ENCODING']);
 		GalleryUtilities::putRequestVariable('key', '/../sensitive_file');
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), false);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
 
 		list($ret, $results) = $this->_renderImmediate();
 
@@ -152,8 +152,8 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$path = $gallery->getConfig('data.gallery.cache') . $file;
-		$gallery->_platform->setReply('file_exists', array( $path ), true);
-		$gallery->_platform->setReply('file_get_contents', array( $path ), $contents);
+		$gallery->_platform->setReply('file_exists', array($path), true);
+		$gallery->_platform->setReply('file_get_contents', array($path), $contents);
 	}
 
 	public function testGzipAccepted() {
@@ -161,27 +161,27 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'gzip,and,other,stuff';
 		GalleryUtilities::putRequestVariable('key', '123');
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), false);
-		$gallery->_phpVm->setReply('function_exists', array( 'apache_setenv' ), false);
-		$gallery->_phpVm->setReply('header', array( 'Content-Encoding: gzip', null ), null);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
+		$gallery->_phpVm->setReply('function_exists', array('apache_setenv'), false);
+		$gallery->_phpVm->setReply('header', array('Content-Encoding: gzip', null), null);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Cache-Control: private, x-gzip-ok="public"', null ),
+			array('Cache-Control: private, x-gzip-ok="public"', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Content-type: text/javascript; charset=UTF-8', null ),
+			array('Content-type: text/javascript; charset=UTF-8', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null ),
+			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Expires: Tue, 19 Jan 2038 03:14:07 GMT', null ),
+			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
 			null
 		);
 
@@ -204,21 +204,21 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'something_that_doesnt_include_compression';
 		GalleryUtilities::putRequestVariable('key', '123');
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), false);
-		$gallery->_phpVm->setReply('header', array( 'Cache-Control: public', null ), null);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
+		$gallery->_phpVm->setReply('header', array('Cache-Control: public', null), null);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Content-type: text/javascript; charset=UTF-8', null ),
+			array('Content-type: text/javascript; charset=UTF-8', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null ),
+			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Expires: Tue, 19 Jan 2038 03:14:07 GMT', null ),
+			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
 			null
 		);
 
@@ -241,15 +241,15 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'gzip,and,other,stuff';
 		GalleryUtilities::putRequestVariable('key', '123');
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), false);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
 		$gallery->_phpVm->setReply('time', array(), 12345);
 		$this->_prepareToReadFromDiskCache('module/_all/0/0/CombinedJavascript_gzip_123.inc', null);
 		$this->_prepareToReadFromDiskCache('module/_all/0/0/CombinedJavascript_123.inc', null);
 
 		// Adding a log entry
-		$gallery->_storage->setReply('getUniqueId', array( 'SequenceEventLog' ), array( null, 1 ));
+		$gallery->_storage->setReply('getUniqueId', array('SequenceEventLog'), array(null, 1));
 		$gallery->_storage->setReply('updateMapEntry', '*', null);
-		$gallery->_storage->setReply('getAffectedRows', array( true ), array( null, 1 ));
+		$gallery->_storage->setReply('getAffectedRows', array(true), array(null, 1));
 
 		list($ret, $results) = $this->_renderImmediate();
 
@@ -279,21 +279,21 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'something_that_doesnt_include_compression';
 		GalleryUtilities::putRequestVariable('key', '123');
-		$gallery->_phpVm->setReply('function_exists', array( 'getallheaders' ), false);
-		$gallery->_phpVm->setReply('header', array( 'Cache-Control: public', null ), null);
+		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
+		$gallery->_phpVm->setReply('header', array('Cache-Control: public', null), null);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Content-type: text/javascript; charset=UTF-8', null ),
+			array('Content-type: text/javascript; charset=UTF-8', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null ),
+			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Expires: Tue, 19 Jan 2038 03:14:07 GMT', null ),
+			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
 			null
 		);
 

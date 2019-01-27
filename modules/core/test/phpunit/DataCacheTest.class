@@ -47,7 +47,7 @@ class DataCacheTest extends GalleryTestCase {
 		$acceleration['user']['type']       = 'full';
 		$acceleration['user']['expiration'] = 30;
 		$acceleration['guest']['type']      = 'none';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                                = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -129,20 +129,20 @@ class DataCacheTest extends GalleryTestCase {
 	}
 
 	public function testGetCacheTuple() {
-		$this->assertEquals(array( '0', '0' ), GalleryDataCache::getCacheTuple(0));
-		$this->assertEquals(array( '0', '0' ), GalleryDataCache::getCacheTuple(1));
-		$this->assertEquals(array( '0', '2' ), GalleryDataCache::getCacheTuple(21));
-		$this->assertEquals(array( '0', '9' ), GalleryDataCache::getCacheTuple(99));
-		$this->assertEquals(array( '7', '2' ), GalleryDataCache::getCacheTuple(721));
-		$this->assertEquals(array( '3', '4' ), GalleryDataCache::getCacheTuple(3412312));
-		$this->assertEquals(array( '0', '0' ), GalleryDataCache::getCacheTuple('_all'));
+		$this->assertEquals(array('0', '0'), GalleryDataCache::getCacheTuple(0));
+		$this->assertEquals(array('0', '0'), GalleryDataCache::getCacheTuple(1));
+		$this->assertEquals(array('0', '2'), GalleryDataCache::getCacheTuple(21));
+		$this->assertEquals(array('0', '9'), GalleryDataCache::getCacheTuple(99));
+		$this->assertEquals(array('7', '2'), GalleryDataCache::getCacheTuple(721));
+		$this->assertEquals(array('3', '4'), GalleryDataCache::getCacheTuple(3412312));
+		$this->assertEquals(array('0', '0'), GalleryDataCache::getCacheTuple('_all'));
 	}
 
 	public function testGetCachePath() {
 		global $gallery;
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 
-		$cases = array();
+		$cases                                      = array();
 		$cases['/data/cache/module/core/0/0/1.inc'] = array(
 			'type'   => 'module',
 			'id'     => 'core',
@@ -266,7 +266,7 @@ class DataCacheTest extends GalleryTestCase {
 		$testdata = "testdata c:\foo\bar";
 		GalleryDataCache::putToDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 1,
 			),
 			$testdata
@@ -279,11 +279,11 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::putToDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 1,
 			),
 			$testdata,
-			array( 'required-class' )
+			array('required-class')
 		);
 		$this->assertEquals(
 			'required-class|' . serialize($testdata),
@@ -293,11 +293,11 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::putToDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 1,
 			),
 			$testdata,
-			array( 'required-class1', 'required-class2' )
+			array('required-class1', 'required-class2')
 		);
 		$this->assertEquals(
 			'required-class1,required-class2|' . serialize($testdata),
@@ -307,7 +307,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::putToDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 21,
 			),
 			$testdata
@@ -320,7 +320,7 @@ class DataCacheTest extends GalleryTestCase {
 		$testdata = '|test#with\'funky"chars? \\*&%$[]}{ end';
 		GalleryDataCache::putToDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 721,
 			),
 			$testdata
@@ -355,7 +355,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 1,
 			)
 		);
@@ -367,8 +367,8 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'module',
-				'id'   => 'core',
+				'type'   => 'module',
+				'id'     => 'core',
 				'itemId' => 1,
 			)
 		);
@@ -392,7 +392,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'module',
+				'type'   => 'module',
 				'itemId' => 1,
 			)
 		);
@@ -408,7 +408,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'theme',
+				'type'   => 'theme',
 				'itemId' => 1,
 			)
 		);
@@ -442,14 +442,14 @@ class DataCacheTest extends GalleryTestCase {
 		 */
 		GalleryDataCache::getFromDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => 1,
 			)
 		);
 		GalleryDataCache::getFromDisk(
 			array(
-				'type' => 'module',
-				'id'   => 'core',
+				'type'   => 'module',
+				'id'     => 'core',
 				'itemId' => 1,
 			)
 		);
@@ -499,7 +499,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 		GalleryDataCache::remove('GalleryDataCache::cachePermissions::newEntries');
 
-		GalleryDataCache::cachePermissions(array( '1', '2' ), 'test.TestPermission');
+		GalleryDataCache::cachePermissions(array('1', '2'), 'test.TestPermission');
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should have permission test.TestPermission'
@@ -517,7 +517,7 @@ class DataCacheTest extends GalleryTestCase {
 			'1 shouldn\'t have permission test.OtherPermission'
 		);
 
-		GalleryDataCache::cachePermissions(array( '3' ), 'test.OtherPermission');
+		GalleryDataCache::cachePermissions(array('3'), 'test.OtherPermission');
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should still have permission test.TestPermission'
@@ -538,13 +538,13 @@ class DataCacheTest extends GalleryTestCase {
 
 	public function testPutAndGetPageData() {
 		$value = '<html><head><title>foo</title><body>this is some content</body></html>';
-		$ret   = GalleryDataCache::putPageData('test', 0, array( 'key' ), $value);
+		$ret   = GalleryDataCache::putPageData('test', 0, array('key'), $value);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $result) = GalleryDataCache::getPageData('test', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('test', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -554,13 +554,13 @@ class DataCacheTest extends GalleryTestCase {
 	}
 
 	public function testRemovePageData() {
-		$ret = GalleryDataCache::putPageData('test', 0, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('test', 0, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $result) = GalleryDataCache::getPageData('test', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('test', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -574,7 +574,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $result) = GalleryDataCache::getPageData('test', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('test', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -588,14 +588,14 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->_phpVm = new DataCacheTestMockVm();
 
 		$gallery->_phpVm->setTime(100);
-		$ret = GalleryDataCache::putPageData('test', 0, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('test', 0, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$gallery->_phpVm->setTime(time());
-		list($ret, $result) = GalleryDataCache::getPageData('test', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('test', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -647,7 +647,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$acceleration['user']['type'] = 'full';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                          = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -672,7 +672,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration['user']['type']  = 'full';
 		$acceleration['guest']['type'] = 'full';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                           = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -709,7 +709,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration['user']['type']  = 'none';
 		$acceleration['guest']['type'] = 'none';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                           = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -733,7 +733,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$acceleration['user']['type'] = 'none';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                          = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -832,7 +832,7 @@ class DataCacheTest extends GalleryTestCase {
 		$session->put('theme.guestPreviewMode', 1);
 
 		$acceleration['user']['type'] = 'full';
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                          = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -863,11 +863,11 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration = array(
 			'user' => array(
-				'type' => 'full',
+				'type'       => 'full',
 				'expiration' => 30,
 			),
 			'guest' => array(
-				'type' => 'full',
+				'type'       => 'full',
 				'expiration' => 30,
 			),
 		);
@@ -905,13 +905,13 @@ class DataCacheTest extends GalleryTestCase {
 
 		// Setup some cache entries.
 		$gallery->_phpVm->setTime(100);
-		$ret = GalleryDataCache::putPageData('first', 1, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('first', 1, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $result) = GalleryDataCache::getPageData('first', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('first', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -921,13 +921,13 @@ class DataCacheTest extends GalleryTestCase {
 		// Clean on, 25 seconds after start, no rows should be cleaned.
 		$gallery->_phpVm->setTime(125);
 
-		$ret = GalleryDataCache::putPageData('second', 2, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('second', 2, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $result) = GalleryDataCache::getPageData('first', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('first', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -938,7 +938,7 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setActiveUser($anonymousUser);
 		$gallery->_phpVm->setTime(135);
 
-		$ret = GalleryDataCache::putPageData('guest', 2, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('guest', 2, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
@@ -947,7 +947,7 @@ class DataCacheTest extends GalleryTestCase {
 		// Switch back to user and back in time check first entry.
 		$gallery->setActiveUser($activeUser);
 		$gallery->_phpVm->setTime(125);
-		list($ret, $result) = GalleryDataCache::getPageData('first', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('first', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -957,14 +957,14 @@ class DataCacheTest extends GalleryTestCase {
 		// Check if dice is set to 6 we don't clean.
 		$gallery->_phpVm->setRand(6);
 		$gallery->_phpVm->setTime(135);
-		$ret = GalleryDataCache::putPageData('third', 3, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('third', 3, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$gallery->_phpVm->setTime(125);
-		list($ret, $result) = GalleryDataCache::getPageData('first', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('first', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -974,7 +974,7 @@ class DataCacheTest extends GalleryTestCase {
 		// Expire all user rows with this last call, guest untouched and this one.
 		$gallery->_phpVm->setTime(200);
 		$gallery->_phpVm->setRand(1);
-		$ret = GalleryDataCache::putPageData('fourth', 4, array( 'key' ), 'test');
+		$ret = GalleryDataCache::putPageData('fourth', 4, array('key'), 'test');
 
 		if ($ret) {
 			return $ret;
@@ -983,11 +983,11 @@ class DataCacheTest extends GalleryTestCase {
 		// Move treshold, making all rows valid again.
 		$acceleration = array(
 			'user' => array(
-				'type' => 'full',
+				'type'       => 'full',
 				'expiration' => 200,
 			),
 			'guest' => array(
-				'type' => 'full',
+				'type'       => 'full',
 				'expiration' => 200,
 			),
 		);
@@ -1002,7 +1002,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $result) = GalleryDataCache::getPageData('first', array( 'key' ));
+		list($ret, $result) = GalleryDataCache::getPageData('first', array('key'));
 
 		if ($ret) {
 			return $ret;
@@ -1046,7 +1046,7 @@ class DataCacheTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$testdata = array(
-			'themes/test/theme.css' => 'theme/test/theme.css',
+			'themes/test/theme.css'      => 'theme/test/theme.css',
 			'modules/testmodule/test.js' => 'modules/testmodule/local/test.js',
 		);
 
@@ -1190,7 +1190,7 @@ class DataCacheTestPlatform {
 	}
 
 	public function unlink($filename) {
-		$record =& $this->getRecord();
+		$record                            =& $this->getRecord();
 		$record['deleted-file'][$filename] = 1;
 	}
 

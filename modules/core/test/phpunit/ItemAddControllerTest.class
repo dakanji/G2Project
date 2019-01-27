@@ -93,7 +93,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemAddControllerTestToolkit',
-			array( 'test/archive' ),
+			array('test/archive'),
 			'extract',
 			array(),
 			'test-description'
@@ -217,7 +217,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -248,13 +248,13 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_assertErrorFromProgressBar(array( 'failed' ));
+		$this->_assertErrorFromProgressBar(array('failed'));
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
-				'subView' => 'core.ItemAdd',
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
 				'addPlugin' => 'ItemAddControllerTestPluginFail',
-				'itemId' => $this->_album->getId(),
+				'itemId'    => $this->_album->getId(),
 			),
 			true
 		);
@@ -268,7 +268,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
 
 		$form = array(
-			'someParameter' => 'value 1',
+			'someParameter'   => 'value 1',
 			'other&Parameter' => 'value two',
 		);
 		$ret  = $this->handleRequestWithProgressBar(
@@ -284,11 +284,11 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
-				'subView' => 'core.ItemAdd',
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
 				'addPlugin' => 'ItemAddControllerTestPluginContinue',
-				'itemId' => $this->_album->getId(),
-				'form' => $form,
+				'itemId'    => $this->_album->getId(),
+				'form'      => $form,
 			),
 			true
 		);
@@ -317,9 +317,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $this->_album->getId(),
+				'itemId'  => $this->_album->getId(),
 			),
 			true
 		);
@@ -328,7 +328,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'addedFiles' => array(
 					array(
 						'fileName' => 'foo-' . $item->getId(),
-						'id' => $item->getId(),
+						'id'       => $item->getId(),
 						'warnings' => array(),
 					),
 				),
@@ -364,14 +364,14 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(
-			array( 'an error', 'form[error][itemsAddedDespiteFormErrors]' )
+			array('an error', 'form[error][itemsAddedDespiteFormErrors]')
 		);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
-				'subView' => 'core.ItemAdd',
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
 				'addPlugin' => 'ItemAddControllerTestPluginSuccess',
-				'itemId' => $this->_album->getId(),
+				'itemId'    => $this->_album->getId(),
 			),
 			true
 		);
@@ -407,9 +407,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $this->_album->getId(),
+				'itemId'  => $this->_album->getId(),
 			),
 			true
 		);
@@ -418,8 +418,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'addedFiles' => array(
 					array(
 						'fileName' => 'foo-' . $item->getId(),
-						'id' => $item->getId(),
-						'warnings' => array( 'a warning' ),
+						'id'       => $item->getId(),
+						'warnings' => array('a warning'),
 					),
 				),
 			),
@@ -434,8 +434,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			'test/archive',
 			array(
 				'pathComponent' => 'foo.zip',
-				'title' => 'foo',
-				'summary' => 'hoho',
+				'title'         => 'foo',
+				'summary'       => 'hoho',
 			)
 		);
 
@@ -469,9 +469,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $this->_album->getId(),
+				'itemId'  => $this->_album->getId(),
 			),
 			true
 		);
@@ -495,7 +495,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		foreach ($addedItems as $i => $addedItem) {
 			$itemNames[] = $addedItem['fileName'];
 			$this->assertEquals(
-				array( 'a warning' ),
+				array('a warning'),
 				$addedItem['warnings'],
 				"warning $i - item not processed by ItemAddOption"
 			);
@@ -543,8 +543,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			'test/archive',
 			array(
 				'pathComponent' => 'foo.zip',
-				'title' => 'foo',
-				'summary' => 'hoho',
+				'title'         => 'foo',
+				'summary'       => 'hoho',
 			)
 		);
 
@@ -564,7 +564,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		foreach (array( 'core.view', 'core.addDataItem' ) as $permissionId) {
+		foreach (array('core.view', 'core.addDataItem') as $permissionId) {
 			$ret = GalleryCoreApi::addUserPermission(
 				$this->_album->getId(),
 				$gallery->getActiveUserId(),
@@ -597,9 +597,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $this->_album->getId(),
+				'itemId'  => $this->_album->getId(),
 			),
 			true
 		);
@@ -623,7 +623,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		foreach ($addedItems as $i => $addedItem) {
 			$itemNames[] = $addedItem['fileName'];
 			$this->assertEquals(
-				array( 'a warning' ),
+				array('a warning'),
 				$addedItem['warnings'],
 				"warning $i - item not processed by ItemAddOption"
 			);
@@ -679,8 +679,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			'test/archive',
 			array(
 				'pathComponent' => 'foo.zip',
-				'title' => 'foo',
-				'summary' => 'hoho',
+				'title'         => 'foo',
+				'summary'       => 'hoho',
 			)
 		);
 
@@ -726,7 +726,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		if ($isUnix) {
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById(
-				array( $addedItems[1]['id'], $addedItems[2]['id'] ),
+				array($addedItems[1]['id'], $addedItems[2]['id']),
 				'GalleryItem'
 			);
 
@@ -768,13 +768,13 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_assertErrorFromProgressBar(array( 'failed' ));
+		$this->_assertErrorFromProgressBar(array('failed'));
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
-				'subView' => 'core.ItemAdd',
+				'view'      => 'core.ItemAdmin',
+				'subView'   => 'core.ItemAdd',
 				'addPlugin' => 'ItemAddControllerTestPluginFail',
-				'itemId' => $this->_album->getId(),
+				'itemId'    => $this->_album->getId(),
 			),
 			true
 		);
@@ -808,9 +808,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $this->_album->getId(),
+				'itemId'  => $this->_album->getId(),
 			),
 			true
 		);
@@ -819,7 +819,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'addedFiles' => array(
 					array(
 						'fileName' => 'foo-' . $item->getId(),
-						'id' => $item->getId(),
+						'id'       => $item->getId(),
 						'warnings' => array(),
 					),
 				),
@@ -856,9 +856,9 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(null);
 		$this->_assertCompleteProgressBar(
 			array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $this->_album->getId(),
+				'itemId'  => $this->_album->getId(),
 			),
 			false
 		);
@@ -867,7 +867,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'addedFiles' => array(
 					array(
 						'fileName' => 'foo-' . $item->getId(),
-						'id' => $item->getId(),
+						'id'       => $item->getId(),
 						'warnings' => array(),
 					),
 				),
@@ -984,15 +984,15 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddConfirmation',
-					'itemId' => $this->_album->getId(),
+					'itemId'  => $this->_album->getId(),
 				),
 				'status' => array(
 					'addedFiles' => array(
 						array(
 							'fileName' => 'foo-' . $item->getId(),
-							'id' => $item->getId(),
+							'id'       => $item->getId(),
 							'warnings' => array(),
 						),
 					),
@@ -1017,10 +1017,10 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 class ItemAddControllerTestPluginContinue {
 	public function handleRequest($form, &$item, &$addController = null) {
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
-		return array( null, array(), array() );
+		return array(null, array(), array());
 	}
 }
 
@@ -1030,21 +1030,21 @@ class ItemAddControllerTestPluginContinue {
 class ItemAddControllerTestPluginSuccess {
 	public function handleRequest($form, &$item, &$addController = null) {
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
 		// Pretend we just added item(s) that are already there
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$addedFiles = array();
 
 		foreach ($childIds as $id) {
 			$addedFiles[] = array(
 				'fileName' => 'foo-' . $id,
-				'id' => $id,
+				'id'       => $id,
 				'warnings' => array(),
 			);
 		}
@@ -1068,14 +1068,14 @@ class ItemAddControllerTestAddPluginWebDav {
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$addedFiles = array();
 
 		foreach ($childIds as $id) {
 			$addedFiles[] = array(
 				'fileName' => 'foo-' . $id,
-				'id' => $id,
+				'id'       => $id,
 				'warnings' => array(),
 			);
 		}
@@ -1096,10 +1096,10 @@ class ItemAddControllerTestAddPluginWebDav {
 class ItemAddControllerTestPluginFail {
 	public function handleRequest($form, &$item, &$addController = null) {
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
-		return array( null, array( 'failed' ), array() );
+		return array(null, array('failed'), array());
 	}
 }
 
@@ -1108,7 +1108,7 @@ class ItemAddControllerTestPluginFail {
  */
 class ItemAddTestOption extends ItemAddOption {
 	public function __construct($withError = false) {
-		$this->_withError = $withError;
+		$this->_withError                                = $withError;
 		$_SERVER['ItemAddControllerTest']['optionCalls'] = array();
 	}
 
@@ -1127,11 +1127,11 @@ class ItemAddTestOption extends ItemAddOption {
 		}
 		$_SERVER['ItemAddControllerTest']['optionCalls'][] = $itemIds;
 
-		return array( null, $errors, $warnings );
+		return array(null, $errors, $warnings);
 	}
 
 	public function isAppropriate() {
-		return array( null, true );
+		return array(null, true);
 	}
 }
 
@@ -1180,7 +1180,7 @@ class ItemAddControllerTestToolkit extends GalleryToolkit {
 			);
 		}
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 }
 

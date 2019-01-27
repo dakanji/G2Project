@@ -45,7 +45,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_controller->_parserIds = array( 'setuprewritemock' );
+		$this->_controller->_parserIds = array('setuprewritemock');
 
 		// Set up our mock parser
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -83,10 +83,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'saved' => 1,
 				),
@@ -133,10 +133,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'saved' => 1,
 				),
@@ -176,10 +176,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(),
 			),
 			$results,
@@ -205,10 +205,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(),
 			),
 			$results,
@@ -223,10 +223,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(),
 			),
 			$results,
@@ -242,10 +242,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'testSaved' => 1,
 				),
@@ -262,10 +262,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array( 'form[error][test]' ),
+				'error'  => array('form[error][test]'),
 				'status' => array(),
 			),
 			$results,
@@ -281,10 +281,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'adminSaved' => 1,
 				),
@@ -304,10 +304,10 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error' => array( 'form[error][admin]' ),
+				'error'  => array('form[error][admin]'),
 				'status' => array(),
 			),
 			$results,
@@ -345,7 +345,7 @@ class SetupRewriteMockParser extends RewriteParser {
 			$error[] = 'form[error][test]';
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	public function handleAdminParserRequest($form) {
@@ -357,6 +357,6 @@ class SetupRewriteMockParser extends RewriteParser {
 			$error[] = 'form[error][admin]';
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 }

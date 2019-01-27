@@ -223,11 +223,11 @@ class GalleryPhotoItem extends GalleryDataItem {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
-				return array( $core->translate('Photo'), $core->translate('photo') );
+				return array($core->translate('Photo'), $core->translate('photo'));
 			}
 		}
 
-		return array( 'Photo', 'photo' );
+		return array('Photo', 'photo');
 	}
 
 	/**
@@ -241,15 +241,15 @@ class GalleryPhotoItem extends GalleryDataItem {
 				$urlGenerator         =& $gallery->getUrlGenerator();
 				$src                  = $urlGenerator->generateUrl(
 					array(
-						'view' => 'core.DownloadItem',
-						'itemId' => $this->getId(),
+						'view'         => 'core.DownloadItem',
+						'itemId'       => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
 					array(
 						'forceFullUrl' => !empty($params['forceFullUrl']),
 					)
 				);
-				list($width, $height) = array( $this->getWidth(), $this->getHeight() );
+				list($width, $height) = array($this->getWidth(), $this->getHeight());
 
 				// Shrink our dimensions if necessary
 				if (isset($params['maxSize'])) {

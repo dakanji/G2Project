@@ -43,7 +43,7 @@ class AddCommentController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -51,13 +51,13 @@ class AddCommentController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.add');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $isAnonymousUser) = GalleryCoreApi::isAnonymousUser($gallery->getActiveUserId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$redirect = $status = $error = array();
@@ -85,7 +85,7 @@ class AddCommentController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$phpVm       = $gallery->getPhpVm();
 			$currentTime = $phpVm->time();
@@ -97,7 +97,7 @@ class AddCommentController extends GalleryController {
 			list($ret, $useValidationPlugins) = GalleryCommentHelper::doStatic()->useValidationPlugins();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($error) && $useValidationPlugins) {
@@ -107,7 +107,7 @@ class AddCommentController extends GalleryController {
 					list($ret, $pluginInstances) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					foreach (array_keys($pluginInstances) as $pluginId) {
@@ -117,7 +117,7 @@ class AddCommentController extends GalleryController {
 						);
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 					}
 				}
@@ -127,7 +127,7 @@ class AddCommentController extends GalleryController {
 					list($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$error = array_merge($error, $pluginErrors);
@@ -143,7 +143,7 @@ class AddCommentController extends GalleryController {
 				list($ret, $comment) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (!isset($comment)) {
@@ -156,13 +156,13 @@ class AddCommentController extends GalleryController {
 				$ret = $comment->create($itemId);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($markup == 'html') {
@@ -182,7 +182,7 @@ class AddCommentController extends GalleryController {
 				$ret = $comment->save();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// Send the user to a confirmation page, for now
@@ -219,7 +219,7 @@ class AddCommentController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -237,13 +237,13 @@ class AddCommentView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $AddComment) = GalleryCommentHelper::doStatic()->getAddComment($item, $form);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$template->setVariable('AddComment', $AddComment);
@@ -252,7 +252,7 @@ class AddCommentView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$template->title($module->translate('Add Comment'));
@@ -272,9 +272,9 @@ class AddCommentView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('add comment') );
+		return array(null, $module->translate('add comment'));
 	}
 }

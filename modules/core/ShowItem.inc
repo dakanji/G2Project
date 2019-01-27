@@ -49,7 +49,7 @@ class ShowItemController extends GalleryController {
 			array(
 				'return' => 1,
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 		);
 	}
@@ -80,7 +80,7 @@ class ShowItemView extends GalleryView {
 		list($ret, $item, $wasSpecified) = $this->getItem(true);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (isset($_GET[GalleryUtilities::prefixFormVariable('path')]) && !$wasSpecified) {
@@ -112,7 +112,7 @@ class ShowItemView extends GalleryView {
 				list($page, $highlightId) = GalleryUtilities::getRequestVariables('page', 'highlightId');
 
 				if ($highlightId || ($page && $page != 1)) {
-					return array( null, null );
+					return array(null, null);
 				}
 			}
 		}
@@ -120,10 +120,10 @@ class ShowItemView extends GalleryView {
 		$ret = GalleryCoreApi::incrementItemViewCount($item->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -134,7 +134,7 @@ class ShowItemView extends GalleryView {
 		list($ret, $item, $wasSpecified) = parent::getItem();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (!isset($originalSpecified)) {
@@ -146,7 +146,7 @@ class ShowItemView extends GalleryView {
 			GalleryUtilities::putRequestVariable('itemId', $item->getId());
 		}
 		// Default wasSpecified=true so without itemId we still use root album theme/params
-		return array( null, $item, $getOriginalSpecified ? $originalSpecified : true );
+		return array(null, $item, $getOriginalSpecified ? $originalSpecified : true);
 	}
 
 	/**
@@ -156,12 +156,12 @@ class ShowItemView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$typeName = $item->itemTypeName(true);
 
-		return array( null, $typeName[1] );
+		return array(null, $typeName[1]);
 	}
 
 	/**

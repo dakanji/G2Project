@@ -102,7 +102,7 @@ class GalleryDatabaseExport {
 		list($ret, $fileHandle, $filepath) = $this->_openBackupFileForWriting($fileName);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Calculate the number of tables that will probably be exported
@@ -111,7 +111,7 @@ class GalleryDatabaseExport {
 		list($ret, $results) = $storage->search('SELECT COUNT(*) FROM ' . $tableName);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$tableCount = 0;
@@ -124,7 +124,7 @@ class GalleryDatabaseExport {
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$versions = $coreModule->getInstalledVersions();
@@ -181,18 +181,18 @@ class GalleryDatabaseExport {
 			);
 		}
 
-		foreach (array( 'module', 'theme' ) as $pluginType) {
+		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::fetchPluginStatus($pluginType, true);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$this->_callBack['total'] = $this->_callBack['progress'] + count($plugins);
 
 			$ret = $this->_exportPluginStatus($fileHandle, $pluginType, $plugins, $warnings);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$this->updateStatus();
 		}
@@ -217,13 +217,13 @@ class GalleryDatabaseExport {
 		list($ret, $plugins) = GalleryCoreApi::fetchPluginStatus('module', true);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$ret = $this->_exportModule($fileHandle, 'core', $warnings);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		unset($plugins['core']);
 		$this->updateStatus();
@@ -244,7 +244,7 @@ class GalleryDatabaseExport {
 			$ret = $this->_exportModule($fileHandle, $pluginId, $warnings);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -278,7 +278,7 @@ class GalleryDatabaseExport {
 
 		$platform->chmod($filepath);
 
-		return array( null, $filepath, $warnings );
+		return array(null, $filepath, $warnings);
 	}
 
 	/**
@@ -357,8 +357,8 @@ class GalleryDatabaseExport {
 	 */
 	public function _encodeHtmlSpecialChars($valueToConvert) {
 		return str_replace(
-			array( '&', '"', '<', '>' ),
-			array( '&amp;', '&quot;', '&lt;', '&gt;' ),
+			array('&', '"', '<', '>'),
+			array('&amp;', '&quot;', '&lt;', '&gt;'),
 			$valueToConvert
 		);
 	}
@@ -513,7 +513,7 @@ class GalleryDatabaseExport {
 		$query               = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
-		list($ret, $results) = $storage->search($query, array( $nameInSchema ));
+		list($ret, $results) = $storage->search($query, array($nameInSchema));
 
 		if ($ret) {
 			return $ret;
@@ -683,7 +683,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				$fields                   = array(
 					'id' => array(
-						'type' => STORAGE_TYPE_INTEGER,
+						'type'    => STORAGE_TYPE_INTEGER,
 						'notNull' => 1,
 					),
 				);
@@ -838,7 +838,7 @@ class GalleryDatabaseExport {
 
 		$this->_callBack['progress']++;
 		$complete = $this->_callBack['progress'] / $this->_callBack['total'];
-		call_user_func_array($this->_callBack['callback'], array( $complete ));
+		call_user_func_array($this->_callBack['callback'], array($complete));
 
 		$gallery->guaranteeTimeLimit(60);
 	}
@@ -897,6 +897,6 @@ class GalleryDatabaseExport {
 			);
 		}
 
-		return array( null, $handle, $fileName );
+		return array(null, $handle, $fileName);
 	}
 }

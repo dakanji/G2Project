@@ -45,7 +45,7 @@ class RatingHelperTest extends GalleryTestCase {
 		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
-				'orderBy' => 'RatingSortOrder',
+				'orderBy'        => 'RatingSortOrder',
 				'orderDirection' => ORDER_DESCENDING,
 			)
 		);
@@ -237,7 +237,7 @@ class RatingHelperTest extends GalleryTestCase {
 		// Test average
 		$average                = round($totalRating / $votes, 3);
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
-			array( $this->_item->getId() ),
+			array($this->_item->getId()),
 			$this->_users[0]->getId()
 		);
 
@@ -325,7 +325,7 @@ class RatingHelperTest extends GalleryTestCase {
 		// Test fetch as guest with a persistent session that already has rated
 		$average                = round($totalRating / $votes, 3);
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
-			array( $this->_item->getId() ),
+			array($this->_item->getId()),
 			$anonymousUserId
 		);
 
@@ -355,7 +355,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
-			array( $this->_item->getId() ),
+			array($this->_item->getId()),
 			$anonymousUserId
 		);
 
@@ -380,7 +380,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$gallery->_session = $session;
 		$this->assertTrue($gallery->_session->isPersistent(), 'persistent');
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
-			array( $this->_item->getId() ),
+			array($this->_item->getId()),
 			$anonymousUserId
 		);
 
@@ -399,7 +399,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
-			array( $this->_item->getId() ),
+			array($this->_item->getId()),
 			$this->_users[1]->getId()
 		);
 
@@ -409,13 +409,13 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				$this->_item->getId() => array(
-					'itemId' => $this->_item->getId(),
-					'rating' => '4',
-					'votes' => 1,
+					'itemId'         => $this->_item->getId(),
+					'rating'         => '4',
+					'votes'          => 1,
 					'averagePercent' => '80',
-					'stars' => 8,
-					'userRating' => 'N/A',
-					'userStars' => 0,
+					'stars'          => 8,
+					'userRating'     => 'N/A',
+					'userStars'      => 0,
 				),
 			),
 			$RatingData
@@ -442,9 +442,9 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Verify we get a non empty item summary for the item
 		$permissions[$itemId]['rating.view'] = 1;
-		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
-		list($ret, $content) = $module->getItemSummaries(
-			array( $this->_item ),
+		$template                            = new GalleryTemplate(__DIR__ . '/../../../..');
+		list($ret, $content)                 = $module->getItemSummaries(
+			array($this->_item),
 			$permissions,
 			$template
 		);
@@ -462,7 +462,7 @@ class RatingHelperTest extends GalleryTestCase {
 		unset($template);
 		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content) = $module->getItemSummaries(
-			array( $this->_item ),
+			array($this->_item),
 			array(
 				$itemId => array(),
 			),
@@ -476,7 +476,7 @@ class RatingHelperTest extends GalleryTestCase {
 	}
 
 	public function testSortOrder() {
-		$items = array( $this->_item );
+		$items = array($this->_item);
 
 		for ($i = 0; $i < 3; $i++) {
 			list($ret, $items[]) = $this->_createRandomDataItem(
@@ -532,7 +532,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array( $items[3]->getId(), $items[1]->getId(), $items[2]->getId(), $items[0]->getId() ),
+			array($items[3]->getId(), $items[1]->getId(), $items[2]->getId(), $items[0]->getId()),
 			$childIds,
 			'order of child ids'
 		);

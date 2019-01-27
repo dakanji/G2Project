@@ -35,7 +35,7 @@ class ItemAddAlbumController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -43,13 +43,13 @@ class ItemAddAlbumController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($itemId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$status = $error = array();
@@ -68,7 +68,7 @@ class ItemAddAlbumController extends GalleryController {
 				list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($markup == 'html') {
@@ -90,13 +90,13 @@ class ItemAddAlbumController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (!isset($instance)) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
+					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 				}
 
 				// Figure out where to redirect upon success
@@ -115,7 +115,7 @@ class ItemAddAlbumController extends GalleryController {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockIds);
 
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$status['editMessage'] = $module->translate('Album created successfully.');
@@ -125,7 +125,7 @@ class ItemAddAlbumController extends GalleryController {
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!empty($redirect)) {
@@ -138,7 +138,7 @@ class ItemAddAlbumController extends GalleryController {
 		$results['error']  = $error;
 
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -155,7 +155,7 @@ class ItemAddAlbumView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -163,7 +163,7 @@ class ItemAddAlbumView extends GalleryView {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($form['formName'] == 'ItemAddAlbum') {
@@ -196,9 +196,9 @@ class ItemAddAlbumView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $core->translate('add sub-album') );
+		return array(null, $core->translate('add sub-album'));
 	}
 }

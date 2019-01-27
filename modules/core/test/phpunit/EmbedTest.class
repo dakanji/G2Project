@@ -65,7 +65,7 @@ class EmbedTest extends GalleryTestCase {
 		$session             =& $gallery->getSession();
 		$session->_sessionId = md5(mt_rand());
 
-		$this->_registerEventListener(array( 'Gallery::Login', 'Gallery::Logout' ));
+		$this->_registerEventListener(array('Gallery::Login', 'Gallery::Logout'));
 	}
 
 	public function tearDown() {
@@ -176,7 +176,7 @@ class EmbedTest extends GalleryTestCase {
 			}
 		}
 		$this->assertEquals(
-			array( '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>' ),
+			array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>'),
 			$meta
 		);
 	}
@@ -196,7 +196,7 @@ class EmbedTest extends GalleryTestCase {
 		$ret = GalleryEmbed::init(
 			array(
 				'embedUri' => '/cms/index.php?mod=g2',
-				'g2Uri' => '/',
+				'g2Uri'    => '/',
 			)
 		);
 
@@ -227,7 +227,7 @@ class EmbedTest extends GalleryTestCase {
 		$ret = GalleryEmbed::init(
 			array(
 				'embedUri' => '/cms2nd/index.php?mod=g2',
-				'g2Uri' => '/',
+				'g2Uri'    => '/',
 			)
 		);
 
@@ -762,7 +762,7 @@ class EmbedTest extends GalleryTestCase {
 			array(
 				array(
 					'themeId' => 'foobar',
-					'params' => array(
+					'params'  => array(
 						'foo' => 'bar',
 					),
 				),
@@ -800,10 +800,10 @@ class EmbedTest extends GalleryTestCase {
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('gethostbyname', array( '192.168.1.25' ), '192.168.1.25');
-		$gallery->_phpVm->setReply('defined', array( 'GALLERY_CONFIG_DIR' ), true);
+		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
+		$gallery->_phpVm->setReply('defined', array('GALLERY_CONFIG_DIR'), true);
 		$path = 'X-G2-EMBED-PATH: ' . GALLERY_CONFIG_DIR . '/embed.php';
-		$gallery->_phpVm->setReply('header', array( $path, null ), null);
+		$gallery->_phpVm->setReply('header', array($path, null), null);
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
@@ -819,7 +819,7 @@ class EmbedTest extends GalleryTestCase {
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('gethostbyname', array( '192.168.1.26' ), '192.168.1.26');
+		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.26'), '192.168.1.26');
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
@@ -837,11 +837,11 @@ class EmbedTest extends GalleryTestCase {
 		unset($_SERVER['SERVER_NAME']);
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('gethostbyname', array( '192.168.1.25' ), '192.168.1.25');
-		$gallery->_phpVm->setReply('gethostbyname', array( '192.168.1.25' ), '192.168.1.25');
-		$gallery->_phpVm->setReply('defined', array( 'GALLERY_CONFIG_DIR' ), true);
+		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
+		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
+		$gallery->_phpVm->setReply('defined', array('GALLERY_CONFIG_DIR'), true);
 		$path = 'X-G2-EMBED-PATH: ' . GALLERY_CONFIG_DIR . '/embed.php';
-		$gallery->_phpVm->setReply('header', array( $path, null ), null);
+		$gallery->_phpVm->setReply('header', array($path, null), null);
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
@@ -859,12 +859,12 @@ class EmbedTest extends GalleryTestCase {
 		unset($_SERVER['SERVER_NAME']);
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('gethostbyname', array( '192.168.1.25' ), '192.168.1.25');
-		$gallery->_phpVm->setReply('gethostbyname', array( '192.168.1.25' ), '192.168.1.25');
-		$gallery->_phpVm->setReply('defined', array( 'GALLERY_CONFIG_DIR' ), false);
+		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
+		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
+		$gallery->_phpVm->setReply('defined', array('GALLERY_CONFIG_DIR'), false);
 
 		$path = 'X-G2-EMBED-PATH: ' . GalleryCoreApi::getCodeBasePath('embed.php');
-		$gallery->_phpVm->setReply('header', array( $path, null ), null);
+		$gallery->_phpVm->setReply('header', array($path, null), null);
 
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
@@ -989,7 +989,7 @@ class EmbedTest extends GalleryTestCase {
 			$externalUserId,
 			array(
 				'hashedpassword' => md5('secret'),
-				'hashmethod' => 'md5',
+				'hashmethod'     => 'md5',
 			)
 		);
 
@@ -1020,7 +1020,7 @@ class EmbedTest extends GalleryTestCase {
 			$externalUserId,
 			array(
 				'hashedpassword' => 'secrethash',
-				'hashmethod' => 'phpass',
+				'hashmethod'     => 'phpass',
 			)
 		);
 
@@ -1068,7 +1068,7 @@ class EmbedTest extends GalleryTestCase {
 			$externalUserId,
 			array(
 				'hashedpassword' => 'secret',
-				'hashmethod' => 'sha-256',
+				'hashmethod'     => 'sha-256',
 			)
 		);
 		$this->assertErrorEquals(ERROR_BAD_PARAMETER, $ret);
@@ -1088,7 +1088,7 @@ class EmbedTest extends GalleryTestCase {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			list($ret, $users[$i]) = GalleryCoreApi::loadEntityByExternalId(
 				$activeUserIds[$i],
@@ -1096,7 +1096,7 @@ class EmbedTest extends GalleryTestCase {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$this->_markForCleanup($users[$i]);
 			$this->assertEquals(
@@ -1106,6 +1106,6 @@ class EmbedTest extends GalleryTestCase {
 			);
 		}
 
-		return array( null, $users, $activeUserIds );
+		return array(null, $users, $activeUserIds);
 	}
 }

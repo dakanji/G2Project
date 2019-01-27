@@ -35,40 +35,40 @@ class FfmpegToolkit extends GalleryToolkit {
 		list($ret, $width, $height, $duration, $frameRate, $sampleRate, $audioChannels) = $this->_getMovieDimensions($mimeType, $sourceFilename);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		switch ($propertyName) {
 			case 'dimensions':
-				$results = array( $width, $height );
+				$results = array($width, $height);
 
 				break;
 
 			case 'dimensions-and-duration':
-				$results = array( $width, $height, $duration );
+				$results = array($width, $height, $duration);
 
 				break;
 
 			case 'video-framerate':
-				$results = array( $frameRate );
+				$results = array($frameRate);
 
 				break;
 
 			case 'audio-samplerate':
-				$results = array( $sampleRate );
+				$results = array($sampleRate);
 
 				break;
 
 			case 'audio-channels':
-					$results = array( $audioChannels );
+					$results = array($audioChannels);
 
 				break;
 
 			default:
-				return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+				return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	/**
@@ -90,7 +90,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 		if (empty($tmpFilename)) {
 			// This can happen if the $tmpDir path is bad
-			return array( GalleryCoreApi::error(ERROR_BAD_PATH), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
 		}
 
 		$outputMimeType = null;
@@ -98,7 +98,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 		switch ($operationName) {
 			case 'convert-to-image/jpeg':
-				$args = array( '-f', 'mjpeg', '-t', '0.001', '-y', $tmpFilename );
+				$args = array('-f', 'mjpeg', '-t', '0.001', '-y', $tmpFilename);
 
 				if (isset($context['ffmpeg.offset'])) {
 					array_unshift($args, '-ss', $context['ffmpeg.offset']);
@@ -107,7 +107,7 @@ class FfmpegToolkit extends GalleryToolkit {
 				list($ret, $results) = $this->_ffmpeg($sourceFilename, $args);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 
 				$success = $platform->rename($tmpFilename, $destFilename);
@@ -133,7 +133,7 @@ class FfmpegToolkit extends GalleryToolkit {
 
 			case 'convert-to-video/x-flv':
 				// overwrite output files
-				$args = array( '-y' );
+				$args = array('-y');
 				// TODO: no longer append .flv when a better work around is found
 				$tmpFilename = $tmpFilename . '.flv';
 				// Add video dimensions (size)
@@ -204,9 +204,9 @@ class FfmpegToolkit extends GalleryToolkit {
 					}
 					// Return if already muted or known error not found
 					if ($muted || !$audioError || $audioRateIndex == -1) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
-					$spliceWith = array( '-an' );
+					$spliceWith = array('-an');
 					// Try muting audio
 					if ($audioRateIndex > -1) {
 						array_splice($args, $audioRateIndex, 2, $spliceWith);
@@ -220,7 +220,7 @@ class FfmpegToolkit extends GalleryToolkit {
 					list($ret, $stdout, $stderr) = $this->_ffmpeg($sourceFilename, $args);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 				}
 
@@ -321,7 +321,7 @@ class FfmpegToolkit extends GalleryToolkit {
 			$outputMimeType = $mimeType;
 		}
 
-		return array( null, $outputMimeType, $context );
+		return array(null, $outputMimeType, $context);
 	}
 
 	/**
@@ -330,7 +330,7 @@ class FfmpegToolkit extends GalleryToolkit {
 	public function _getMovieDimensions($mimeType, $sourceFilename) {
 		global $gallery;
 
-		list($ret, $results, $stderr) = $this->_ffmpeg($sourceFilename, array( '-vstats' ));
+		list($ret, $results, $stderr) = $this->_ffmpeg($sourceFilename, array('-vstats'));
 
 		/*
 		 * Ffmpeg 0.4.6 demands an output file and we're not providing one, so we'll always
@@ -338,7 +338,7 @@ class FfmpegToolkit extends GalleryToolkit {
 		 * the output we want.
 		 */
 		if ($ret && !($ret->getErrorCode() & ERROR_TOOLKIT_FAILURE)) {
-			return array( $ret, null, null, null, null, null, null );
+			return array($ret, null, null, null, null, null, null);
 		}
 
 		/*
@@ -375,7 +375,7 @@ class FfmpegToolkit extends GalleryToolkit {
 			)
 			) {
 				$successfulRun                     = true;
-				list($width, $height, $vframerate) = array( $regs[1], $regs[2], $regs[3] );
+				list($width, $height, $vframerate) = array($regs[1], $regs[2], $regs[3]);
 			}
 
 			if (preg_match('/Stream.*?Audio:(.*)/', $resultLine, $regs)) {
@@ -403,7 +403,7 @@ class FfmpegToolkit extends GalleryToolkit {
 		}
 
 		if ($successfulRun) {
-			return array( null, $width, $height, $duration, $vframerate, $asamplerate, $achannels );
+			return array(null, $width, $height, $duration, $vframerate, $asamplerate, $achannels);
 		}
 
 		return array(
@@ -430,17 +430,17 @@ class FfmpegToolkit extends GalleryToolkit {
 		list($ret, $ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Get error output back, because ffmpeg 0.4.6 returns some useful info only to stderr!
-		list($success, $results, $error) = $platform->exec(array( array_merge(array( $ffmpegPath, '-i', $sourceFilename ), $args) ));
+		list($success, $results, $error) = $platform->exec(array(array_merge(array($ffmpegPath, '-i', $sourceFilename), $args)));
 
 		if (!$success) {
 			// Return the output even if there's a failure
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), $results, $error );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), $results, $error);
 		}
 
-		return array( null, $results, $error );
+		return array(null, $results, $error);
 	}
 }

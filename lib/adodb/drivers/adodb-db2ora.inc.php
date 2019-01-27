@@ -56,14 +56,14 @@ if (!defined('ADODB_DB2OCI')) {
 		$sql2 = preg_replace_callback('/(:[0-9]+)/', '_colontrack', $sql);
 
 		if (empty($_COLONARR)) {
-			return array( $sql, $arr );
+			return array($sql, $arr);
 		}
 
 		foreach ($_COLONARR as $k => $v) {
 			$arr2[] = $arr[$v];
 		}
 
-		return array( $sql2, $arr2 );
+		return array($sql2, $arr2);
 	}
 
 	class ADODB_db2oci extends ADODB_db2 {

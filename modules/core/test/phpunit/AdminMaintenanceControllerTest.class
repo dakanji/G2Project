@@ -115,12 +115,12 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
 				'status' => array(
 					'run' => array(
-						'taskId' => 'AdminMaintenanceControllerTestTaskSuccess',
+						'taskId'  => 'AdminMaintenanceControllerTestTaskSuccess',
 						'success' => true,
 					),
 				),
@@ -138,7 +138,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertTrue($info['success']);
-		$this->assertEquals(array( 'success details' ), $info['details']);
+		$this->assertEquals(array('success details'), $info['details']);
 	}
 
 	public function testRunTaskProgressBar() {
@@ -161,7 +161,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Run Progress Bar - Main'
@@ -202,7 +202,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertTrue($info['success']);
-		$this->assertEquals(array( 'success details' ), $info['details']);
+		$this->assertEquals(array('success details'), $info['details']);
 	}
 
 	public function testRunTaskProgressBarFail() {
@@ -226,7 +226,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Progress Bar Fail - Main'
@@ -269,7 +269,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertTrue(!$info['success']);
-		$this->assertEquals(array( 'fail details' ), $info['details']);
+		$this->assertEquals(array('fail details'), $info['details']);
 	}
 
 	public function testRunTaskProgressBarError() {
@@ -293,7 +293,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Progress Bar Error - Main'
@@ -321,7 +321,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		// Assert that we saw what we expected
 		$this->assertEquals(
-			array( '0', '50', 'error' ),
+			array('0', '50', 'error'),
 			$mockAdapter->getProgressBarDump()
 		);
 
@@ -345,12 +345,12 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
 				'status' => array(
 					'run' => array(
-						'taskId' => 'AdminMaintenanceControllerTestTaskFail',
+						'taskId'  => 'AdminMaintenanceControllerTestTaskFail',
 						'success' => false,
 					),
 				),
@@ -368,30 +368,30 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertTrue(!$info['success']);
-		$this->assertEquals(array( 'fail details' ), $info['details']);
+		$this->assertEquals(array('fail details'), $info['details']);
 	}
 }
 
 class AdminMaintenanceControllerTestTaskSuccess extends MaintenanceTask {
 	public function getInfo() {
 		return array(
-			'title'     => 'AdminMaintenanceControllerTestTaskSuccess title',
+			'title'       => 'AdminMaintenanceControllerTestTaskSuccess title',
 			'description' => 'AdminMaintenanceControllerTestTaskSuccess description',
-			'l10Domain' => 'modules_core',
+			'l10Domain'   => 'modules_core',
 		);
 	}
 
 	public function run() {
-		return array( null, true, array( 'success details' ) );
+		return array(null, true, array('success details'));
 	}
 }
 
 class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 	public function getInfo() {
 		return array(
-			'title'     => 'AdminMaintenanceControllerTestTaskProgressBar title',
+			'title'       => 'AdminMaintenanceControllerTestTaskProgressBar title',
 			'description' => 'AdminMaintenanceControllerTestTaskProgressBar description',
-			'l10Domain' => 'modules_core',
+			'l10Domain'   => 'modules_core',
 		);
 	}
 
@@ -405,7 +405,7 @@ class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 		$templateAdapter->updateProgressBar('ignored', 'ignored', 50);
 
 		if (GalleryUtilities::getRequestVariables('forceTaskToError')) {
-			return array( GalleryCoreApi::error(ERROR_UNKNOWN), null, null );
+			return array(GalleryCoreApi::error(ERROR_UNKNOWN), null, null);
 		}
 
 		$templateAdapter->updateProgressBar('ignored', 'ignored', 100);
@@ -413,7 +413,7 @@ class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 		return array(
 			null,
 			$success,
-			array( ($success ? 'success' : 'fail') . ' details' ),
+			array(($success ? 'success' : 'fail') . ' details'),
 		);
 	}
 
@@ -425,14 +425,14 @@ class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 class AdminMaintenanceControllerTestTaskFail extends MaintenanceTask {
 	public function getInfo() {
 		return array(
-			'title'     => 'AdminMaintenanceControllerTestTaskFail title',
+			'title'       => 'AdminMaintenanceControllerTestTaskFail title',
 			'description' => 'AdminMaintenanceControllerTestTaskFail description',
-			'l10Domain' => 'modules_core',
+			'l10Domain'   => 'modules_core',
 		);
 	}
 
 	public function run() {
-		return array( null, false, array( 'fail details' ) );
+		return array(null, false, array('fail details'));
 	}
 }
 

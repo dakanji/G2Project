@@ -41,7 +41,7 @@ class GdFunctionality {
 		$phpinfo = ob_get_contents();
 		ob_end_clean();
 
-		return array( null, $phpinfo );
+		return array(null, $phpinfo);
 	}
 
 	/**
@@ -129,11 +129,11 @@ class GdFunctionality {
 	 */
 	public function gd_info() {
 		if (!function_exists('gd_info')) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 		$info = @gd_info();
 
-		return array( null, $info );
+		return array(null, $info);
 	}
 
 	/**
@@ -166,7 +166,7 @@ class GdFunctionality {
 			);
 		}
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	/**
@@ -196,10 +196,10 @@ class GdFunctionality {
 		$res = @imagecreatetruecolor($width, $height);
 
 		if (!$res) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	/**
@@ -241,7 +241,7 @@ class GdFunctionality {
 			);
 		}
 
-		return array( null, $res );
+		return array(null, $res);
 	}
 
 	/**
@@ -265,10 +265,10 @@ class GdFunctionality {
 		list($ret, $resource) = $this->checkResource($res, $filename);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $resource );
+		return array(null, $resource);
 	}
 
 	/**
@@ -586,7 +586,7 @@ class GdFunctionality {
 	 * @return int the width of the image
 	 */
 	public function imageSx($res) {
-		return array( null, @imagesx($res) );
+		return array(null, @imagesx($res));
 	}
 
 	/**
@@ -595,7 +595,7 @@ class GdFunctionality {
 	 * @return int the height of the image
 	 */
 	public function imageSy($res) {
-		return array( null, @imagesy($res) );
+		return array(null, @imagesy($res));
 	}
 
 	/**
@@ -617,10 +617,10 @@ class GdFunctionality {
 		$res = @imagerotate($srcRes, $angle, $bgdColor);
 
 		if ($res) {
-			return array( null, $res );
+			return array(null, $res);
 		}
 
-		return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null );
+		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 	}
 
 	/**
@@ -650,7 +650,7 @@ class GdFunctionality {
 			);
 		}
 
-		return array( null, @imagesavealpha($res, $saveflag) );
+		return array(null, @imagesavealpha($res, $saveflag));
 	}
 
 	/**
@@ -686,7 +686,7 @@ class GdFunctionality {
 			);
 		}
 
-		return array( null, @imagecolorallocatealpha($res, $red, $green, $blue, $alpha) );
+		return array(null, @imagecolorallocatealpha($res, $red, $green, $blue, $alpha));
 	}
 
 	/**

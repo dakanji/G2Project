@@ -70,8 +70,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 				$string,
 				array(
 					'\\' => '\\\\',
-					"'" => "\\'",
-					'"' => '\\"',
+					"'"  => "\\'",
+					'"'  => '\\"',
 					"\r" => '\\r',
 					"\n" => '\\n',
 					'</' => '<\/',
@@ -80,7 +80,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 
 		case 'mail':
 			// safe way to display e-mail address on a web page
-			return str_replace(array( '@', '.' ), array( ' [AT] ', ' [DOT] ' ), $string);
+			return str_replace(array('@', '.'), array(' [AT] ', ' [DOT] '), $string);
 
 		case 'nonstd':
 			// escape non-standard chars, such as ms document quotes

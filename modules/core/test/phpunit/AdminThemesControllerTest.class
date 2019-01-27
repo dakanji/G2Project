@@ -60,7 +60,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminThemes',
 					'themeId' => 'testThemeId2',
 				),
@@ -88,7 +88,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminThemes',
 					'themeId' => 'testThemeId2',
 				),
@@ -112,11 +112,11 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminThemes',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][key][rows][invalid]',
 					'form[error][key][columns][invalid]',
 				),
@@ -140,7 +140,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminThemes',
 					'themeId' => 'AdminThemesControllerTest',
 				),
@@ -353,25 +353,25 @@ class TestThemeId1Theme extends GalleryTheme {
 	public function getSettings($itemId = 0) {
 		$settings   = array();
 		$settings[] = array(
-			'key'   => 'rows',
-			'name'  => 'Rows per album page',
-			'type'  => 'text-field',
+			'key'        => 'rows',
+			'name'       => 'Rows per album page',
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => 4,
 		);
 		$settings[] = array(
-			'key'   => 'columns',
-			'name'  => 'Columns per album page',
-			'type'  => 'text-field',
+			'key'        => 'columns',
+			'name'       => 'Columns per album page',
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => 99,
 		);
 
-		return array( null, $settings );
+		return array(null, $settings);
 	}
 
 	/**
@@ -391,7 +391,7 @@ class TestThemeId1Theme extends GalleryTheme {
 	}
 
 	public function isActive() {
-		return array( null, true );
+		return array(null, true);
 	}
 }
 
@@ -440,25 +440,25 @@ class TestThemeId2Theme extends GalleryTheme {
 	public function getSettings($itemId = 0) {
 		$settings   = array();
 		$settings[] = array(
-			'key'   => 'rows',
-			'name'  => 'Rows per album page',
-			'type'  => 'text-field',
+			'key'        => 'rows',
+			'name'       => 'Rows per album page',
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => 4,
 		);
 		$settings[] = array(
-			'key'   => 'columns',
-			'name'  => 'Columns per album page',
-			'type'  => 'text-field',
+			'key'        => 'columns',
+			'name'       => 'Columns per album page',
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => 3,
 		);
 
-		return array( null, $settings );
+		return array(null, $settings);
 	}
 
 	/**
@@ -469,7 +469,7 @@ class TestThemeId2Theme extends GalleryTheme {
 	}
 
 	public function isActive() {
-		return array( null, true );
+		return array(null, true);
 	}
 }
 
@@ -511,7 +511,7 @@ class AdminThemesControllerTestTheme {
 	public function activate() {
 		$this->_setCalled('activate');
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	public function uninstall() {
@@ -523,7 +523,7 @@ class AdminThemesControllerTestTheme {
 	public function deactivate() {
 		$this->_setCalled('deactivate');
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	public function _setCalled($function) {
@@ -550,7 +550,7 @@ class AdminThemesControllerTestTheme {
 	public function isActive() {
 		$singleton = $this->doStatic();
 
-		return array( null, $singleton->_isActive );
+		return array(null, $singleton->_isActive);
 	}
 
 	public function isAdvancedSettings() {

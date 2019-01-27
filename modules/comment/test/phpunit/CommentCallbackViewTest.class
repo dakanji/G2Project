@@ -84,7 +84,7 @@ class CommentCallbackViewTest extends GalleryTestCase {
 		$results = ob_get_contents();
 		ob_end_clean();
 
-		return array( $ret, $results );
+		return array($ret, $results);
 	}
 
 	public function testDeleteComment() {

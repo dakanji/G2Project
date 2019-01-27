@@ -185,16 +185,16 @@ class RewriteModuleExtras {
 				}
 
 				$params = array(
-					'shortUrls' => serialize(array()),
-					'activeRules' => serialize($activeRules),
-					'allowEmptyReferer' => '1',
-					'parserId' => 'modrewrite',
-					'pathinfo.parser' => serialize(array()),
-					'pathinfo.forced' => '0',
-					'isapirewrite.forced' => '0',
-					'isapirewrite.galleryLocation' => '',
+					'shortUrls'                     => serialize(array()),
+					'activeRules'                   => serialize($activeRules),
+					'allowEmptyReferer'             => '1',
+					'parserId'                      => 'modrewrite',
+					'pathinfo.parser'               => serialize(array()),
+					'pathinfo.forced'               => '0',
+					'isapirewrite.forced'           => '0',
+					'isapirewrite.galleryLocation'  => '',
 					'isapirewrite.embeddedLocation' => '',
-					'isapirewrite.httpdini' => '',
+					'isapirewrite.httpdini'         => '',
 				);
 
 				// Rename mod_rewrite specific parameters

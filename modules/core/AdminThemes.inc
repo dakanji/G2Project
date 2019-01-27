@@ -33,7 +33,7 @@ class AdminThemesController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$status  = $error = $errorMessage = array();
@@ -51,7 +51,7 @@ class AdminThemesController extends GalleryController {
 			) = GallerySortInterface_1_2::getAllSortOrders(false);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (isset($form['default']['orderBy'])
@@ -64,7 +64,7 @@ class AdminThemesController extends GalleryController {
 					"Unknown sort order '$value'"
 				);
 
-				return array( $error, null );
+				return array($error, null);
 			}
 
 			if (isset($form['default']['presort'])
@@ -77,7 +77,7 @@ class AdminThemesController extends GalleryController {
 					"Unknown presort order '$value'"
 				);
 
-				return array( $error, null );
+				return array($error, null);
 			}
 
 			if (isset($form['default']['orderDirection'])
@@ -90,7 +90,7 @@ class AdminThemesController extends GalleryController {
 					"Unknown order direction '$value'"
 				);
 
-				return array( $error, null );
+				return array($error, null);
 			}
 
 			if (isset($form['default']['theme'])) {
@@ -102,12 +102,12 @@ class AdminThemesController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 
 			if (isset($form['default']['newAlbumsUseDefaults'])
-				&& !in_array($form['default']['newAlbumsUseDefaults'], array( 'true', 'false' ))
+				&& !in_array($form['default']['newAlbumsUseDefaults'], array('true', 'false'))
 			) {
 				$error = GalleryCoreApi::error(
 					ERROR_BAD_PARAMETER,
@@ -117,7 +117,7 @@ class AdminThemesController extends GalleryController {
 					. $form['default']['newAlbumsUseDefaults']
 				);
 
-				return array( $error, null );
+				return array($error, null);
 			}
 
 			// Save the values
@@ -138,7 +138,7 @@ class AdminThemesController extends GalleryController {
 					$ret = GalleryCoreApi::setPluginParameter('module', 'core', $key, $value);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
@@ -164,10 +164,10 @@ class AdminThemesController extends GalleryController {
 						list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, true);
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 					} else {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
@@ -176,14 +176,14 @@ class AdminThemesController extends GalleryController {
 				list($ret, $isActive) = $theme->isActive();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// Get all the possible settings
 				list($ret, $settings) = $theme->getSettings(null);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// Validate the settings
@@ -209,7 +209,7 @@ class AdminThemesController extends GalleryController {
 							$ret = $theme->setParameter($setting['key'], $value);
 
 							if ($ret) {
-								return array( $ret, null );
+								return array($ret, null);
 							}
 						}
 					}
@@ -218,7 +218,7 @@ class AdminThemesController extends GalleryController {
 						list($ret, $error, $statusKey) = $theme->handleSettingsRequest($form);
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 
 						if (empty($error)) {
@@ -257,7 +257,7 @@ class AdminThemesController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -272,19 +272,19 @@ class AdminThemesView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $defaultThemeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$themeId = GalleryUtilities::getRequestVariables('themeId');
@@ -297,7 +297,7 @@ class AdminThemesView extends GalleryView {
 		list($ret, $themes) = GalleryCoreApi::fetchPluginStatus('theme', true);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		/*
@@ -311,7 +311,7 @@ class AdminThemesView extends GalleryView {
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $id, false, true);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
@@ -320,7 +320,7 @@ class AdminThemesView extends GalleryView {
 		list($ret, $themes) = GalleryCoreApi::fetchPluginStatus('theme', true);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		/*
@@ -340,7 +340,7 @@ class AdminThemesView extends GalleryView {
 			list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $id, true);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Detect and remove old themes which not even had a setId() in their constructor
@@ -377,20 +377,20 @@ class AdminThemesView extends GalleryView {
 					if ($status['version'] != $theme->getVersion()) {
 						if (empty($status['version'])) {
 							$entry['action'][] = array(
-								'text' => $module->translate('install'),
+								'text'   => $module->translate('install'),
 								'params' => array(
-									'controller' => 'core.AdminThemes',
-									'themeId' => $id,
+									'controller'            => 'core.AdminThemes',
+									'themeId'               => $id,
 									'form[action][install]' => 1,
 								),
 							);
 							$entry['state']    = 'install';
 						} else {
 							$entry['action'][] = array(
-								'text' => $module->translate('upgrade'),
+								'text'   => $module->translate('upgrade'),
 								'params' => array(
-									'controller' => 'core.AdminThemes',
-									'themeId' => $id,
+									'controller'            => 'core.AdminThemes',
+									'themeId'               => $id,
 									'form[action][upgrade]' => 1,
 								),
 							);
@@ -398,18 +398,18 @@ class AdminThemesView extends GalleryView {
 						}
 					} else {
 						$entry['action'][] = array(
-							'text' => $module->translate('activate'),
+							'text'   => $module->translate('activate'),
 							'params' => array(
-								'controller' => 'core.AdminThemes',
-								'themeId' => $id,
+								'controller'             => 'core.AdminThemes',
+								'themeId'                => $id,
 								'form[action][activate]' => 1,
 							),
 						);
 						$entry['action'][] = array(
-							'text' => $module->translate('uninstall'),
+							'text'   => $module->translate('uninstall'),
 							'params' => array(
-								'controller' => 'core.AdminThemes',
-								'themeId' => $id,
+								'controller'              => 'core.AdminThemes',
+								'themeId'                 => $id,
 								'form[action][uninstall]' => 1,
 							),
 						);
@@ -419,10 +419,10 @@ class AdminThemesView extends GalleryView {
 
 					if ($id != $defaultThemeId) {
 						$entry['action'][] = array(
-							'text' => $module->translate('deactivate'),
+							'text'   => $module->translate('deactivate'),
 							'params' => array(
-								'controller' => 'core.AdminThemes',
-								'themeId' => $id,
+								'controller'               => 'core.AdminThemes',
+								'themeId'                  => $id,
 								'form[action][deactivate]' => 1,
 							),
 						);
@@ -430,10 +430,10 @@ class AdminThemesView extends GalleryView {
 
 					if ($status['version'] != $theme->getVersion()) {
 						$entry['action'][] = array(
-							'text' => $module->translate('upgrade'),
+							'text'   => $module->translate('upgrade'),
 							'params' => array(
-								'controller' => 'core.AdminThemes',
-								'themeId' => $id,
+								'controller'            => 'core.AdminThemes',
+								'themeId'               => $id,
 								'form[action][upgrade]' => 1,
 							),
 						);
@@ -482,7 +482,7 @@ class AdminThemesView extends GalleryView {
 			list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($key == 'default.orderBy') {
@@ -517,7 +517,7 @@ class AdminThemesView extends GalleryView {
 		) = GallerySortInterface_1_2::getAllSortOrders(false);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$AdminThemes['orderByList']              = $orderByList;
@@ -533,10 +533,10 @@ class AdminThemesView extends GalleryView {
 			if ($ret->getErrorCode() & (ERROR_PLUGIN_VERSION_MISMATCH | ERROR_BAD_PARAMETER | ERROR_BAD_PLUGIN)
 			) {
 				// The default theme isn't available. Show a warning, don't load any settings.
-				$theme = null;
+				$theme                             = null;
 				$form['error']['themeUnavailable'] = true;
 			} else {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -545,7 +545,7 @@ class AdminThemesView extends GalleryView {
 				list($ret, $tpl) = $theme->loadSettingsTemplate($template, $form);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				$AdminThemes['customTemplate'] = $tpl;
 			}
@@ -553,14 +553,14 @@ class AdminThemesView extends GalleryView {
 			list($ret, $AdminThemes['settings']) = $theme->getSettings(null);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
 		list($ret, $AdminThemes['availableBlocks']) = GalleryCoreApi::loadAvailableBlocks();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($form['formName'] != 'AdminThemes') {

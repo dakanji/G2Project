@@ -48,15 +48,15 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			),
 		);
 		$parser['dynamic'][]         = array(
-			'pattern'  => '/\/p\/([a-z]{2})\/([^\?]+)/',
-			'keywords' => array( null, 'language', 'path' ),
+			'pattern'     => '/\/p\/([a-z]{2})\/([^\?]+)/',
+			'keywords'    => array(null, 'language', 'path'),
 			'queryString' => array(
 				'view' => 'php.Dynamic',
 			),
 		);
 		$parser['dynamic'][]         = array(
-			'pattern'  => '/\/p\/([0-9]+).html/',
-			'keywords' => array( null, 'itemId' ),
+			'pattern'     => '/\/p\/([0-9]+).html/',
+			'keywords'    => array(null, 'itemId'),
 			'queryString' => array(
 				'view' => 'php.Dynamic2',
 			),
@@ -137,7 +137,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 	public function testParsePathInfo() {
 		// test = array(path info, array of expected request variables
-		$basePath = array( '', '/cms', '/cms/other' );
+		$basePath = array('', '/cms', '/cms/other');
 		$tests    = array();
 
 		// Test static path
@@ -151,9 +151,9 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$tests[] = array(
 			'/p/en/bogus/test+file.jpg.html',
 			array(
-				'view' => 'php.Dynamic',
+				'view'     => 'php.Dynamic',
 				'language' => 'en',
-				'path' => 'bogus/test file.jpg.html',
+				'path'     => 'bogus/test file.jpg.html',
 			),
 		);
 
@@ -161,7 +161,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$tests[] = array(
 			'/p/911.html',
 			array(
-				'view' => 'php.Dynamic2',
+				'view'   => 'php.Dynamic2',
 				'itemId' => '911',
 			),
 		);

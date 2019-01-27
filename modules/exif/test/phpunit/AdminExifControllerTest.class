@@ -106,7 +106,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -141,7 +141,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -173,11 +173,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][summary][missing]' ),
+				'error'  => array('form[error][summary][missing]'),
 			),
 			$results
 		);
@@ -196,7 +196,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -231,11 +231,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][summary][missing]' ),
+				'error'  => array('form[error][summary][missing]'),
 			),
 			$results
 		);
@@ -254,7 +254,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -291,11 +291,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][summary][missing]' ),
+				'error'  => array('form[error][summary][missing]'),
 			),
 			$results
 		);
@@ -314,7 +314,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -353,7 +353,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -388,7 +388,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -420,11 +420,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][detailed][missing]' ),
+				'error'  => array('form[error][detailed][missing]'),
 			),
 			$results
 		);
@@ -444,7 +444,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -485,11 +485,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][detailed][missing]' ),
+				'error'  => array('form[error][detailed][missing]'),
 			),
 			$results
 		);
@@ -509,7 +509,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -550,11 +550,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][detailed][missing]' ),
+				'error'  => array('form[error][detailed][missing]'),
 			),
 			$results
 		);
@@ -573,7 +573,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -613,7 +613,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(
@@ -657,7 +657,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
 				'status' => array(

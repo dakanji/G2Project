@@ -55,7 +55,7 @@ class FlockLockSystem extends GalleryLockSystem {
 			$fd       = $platform->fopen($lockFile, 'wb+');
 
 			if ($fd) {
-				$notLocked[$id] = array( $fd, $lockFile );
+				$notLocked[$id] = array($fd, $lockFile);
 			} else {
 				// Close the files that we already opened successfully and return an error
 				foreach ($notLocked as $lockInfo) {
@@ -147,7 +147,7 @@ class FlockLockSystem extends GalleryLockSystem {
 			'ids'    => $locked,
 		);
 
-		return array( null, $lockId );
+		return array(null, $lockId);
 	}
 
 	/**
@@ -251,6 +251,6 @@ class FlockLockSystem extends GalleryLockSystem {
 			$lockId = (int)($lockId + 0x080000000);
 		}
 
-		return array( null, $lockId );
+		return array(null, $lockId);
 	}
 }

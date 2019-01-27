@@ -100,7 +100,7 @@ class CommentCallbacks {
 					return $ret;
 				}
 
-				list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array( $item->getId() ));
+				list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array($item->getId()));
 
 				if ($ret) {
 					return $ret;
@@ -151,7 +151,7 @@ class CommentCallbacks {
 				$LoadComments['item']          = (array)$item;
 				$LoadComments['totalComments'] = $totalComments;
 
-				$block =& $smarty->_tpl_vars['block'];
+				$block                            =& $smarty->_tpl_vars['block'];
 				$block['comment']['LoadComments'] = $LoadComments;
 
 				return null;
@@ -176,7 +176,7 @@ class CommentCallbacks {
 					return $ret;
 				}
 
-				$block =& $smarty->_tpl_vars['block'];
+				$block                          =& $smarty->_tpl_vars['block'];
 				$block['comment']['AddComment'] = $AddComment;
 
 				return null;

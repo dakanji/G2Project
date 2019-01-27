@@ -35,7 +35,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 
-		foreach (array( 'rewrite', 'core' ) as $moduleId) {
+		foreach (array('rewrite', 'core') as $moduleId) {
 			$ret = $this->_markPluginParametersForCleanup('module', $moduleId);
 
 			if ($ret) {
@@ -50,9 +50,9 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			),
 			'pattern'   => 'v/%path%',
 			'functions' => array(
-				'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
+				'path' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
 			),
-			'onLoad'    => array( 'rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath' ),
+			'onLoad'    => array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath'),
 		);
 		$testUrls[] = array(
 			'match'     => array(
@@ -60,40 +60,40 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			),
 			'pattern'   => 'd/%itemId%-%serialNumber%/%fileName%',
 			'functions' => array(
-				'serialNumber' => array( 'rewrite', 'RewriteSimpleHelper', 'parseSerialNumber' ),
-				'fileName' => array( 'rewrite', 'RewriteSimpleHelper', 'parseFileName' ),
+				'serialNumber' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber'),
+				'fileName'     => array('rewrite', 'RewriteSimpleHelper', 'parseFileName'),
 			),
 		);
 		$testUrls[] = array(
 			'match'   => array(
-				'view' => 'php.Unit',
+				'view'    => 'php.Unit',
 				'subView' => 'test.subView',
 			),
 			'pattern' => 'phpunitsub/%itemId%',
 		);
 		$testUrls[] = array(
 			'match'     => array(
-				'view' => 'php.Unit',
+				'view'    => 'php.Unit',
 				'subView' => 'test.suffixExt',
 			),
 			'pattern'   => 't/%path%.test',
 			'functions' => array(
-				'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
+				'path' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
 			),
 		);
 		$testUrls[] = array(
 			'match'     => array(
-				'view' => 'php.Unit',
+				'view'    => 'php.Unit',
 				'subView' => 'test.suffixPath',
 			),
 			'pattern'   => '%path%/test.html',
 			'functions' => array(
-				'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
+				'path' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
 			),
 		);
 		$testUrls[] = array(
 			'match'   => array(
-				'view' => 'php.Unit',
+				'view'    => 'php.Unit',
 				'subView' => 'test.urlEncode',
 			),
 			'pattern' => 'phpunit/%path%',
@@ -498,11 +498,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		if (!is_array($expectedUrl)) {
-			$expectedUrl = array( $expectedUrl );
-			$params      = array( $params );
+			$expectedUrl = array($expectedUrl);
+			$params      = array($params);
 
 			if (isset($this->_expectedUrl)) {
-				$exptectedUrl = array( $this->_expectedUrl );
+				$exptectedUrl = array($this->_expectedUrl);
 				unset($this->_expectedUrl);
 			}
 		}
@@ -552,8 +552,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'foo'  => 'bar',
 		);
 		$params[1]  = array(
-			'view'   => 'core.DownloadItem',
-			'itemId' => $this->_testItem->getId(),
+			'view'         => 'core.DownloadItem',
+			'itemId'       => $this->_testItem->getId(),
 			'serialNumber' => $this->_testItem->getSerialNumber(),
 		);
 		$params[2]  = array(
@@ -561,7 +561,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		);
 		$params[3]  = array(
 			'controller' => 'core.ShowItem',
-			'itemId' => $this->_testItem->getId(),
+			'itemId'     => $this->_testItem->getId(),
 		);
 		$params[4]  = array(
 			'href' => 'themes/foo/images/bar.jpg',
@@ -626,11 +626,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	 */
 	public function testGenerateUrlEmbeddedThenDirect() {
 		$env = array(
-			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED' => 1,
-			'baseUri'  => '/cms/',
-			'g2Uri'    => '/gallery2/',
-			'cookiePath' => '/',
+			'REQUEST_URI'   => '/cms/otherpage/?foo=bar',
+			'G2_EMBED'      => 1,
+			'baseUri'       => '/cms/',
+			'g2Uri'         => '/gallery2/',
+			'cookiePath'    => '/',
 			'needTestItems' => 1,
 		);
 
@@ -746,7 +746,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$params = $this->_getTestUrlParams();
 		// forceServerRelativeUrl should have no effect, fullUrl has precedence
 		$options = array(
-			'forceFullUrl' => true,
+			'forceFullUrl'           => true,
 			'forceServerRelativeUrl' => true,
 		);
 
@@ -923,13 +923,13 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGenerateUrlEmbeddedCookieless() {
 		$env    = array(
-			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED' => true,
-			'baseUri'  => '/cms/index.php?mod=gallery2',
-			'g2Uri'    => '/gallery2/',
-			'cookiePath' => '/',
+			'REQUEST_URI'        => '/cms/otherpage/?foo=bar',
+			'G2_EMBED'           => true,
+			'baseUri'            => '/cms/index.php?mod=gallery2',
+			'g2Uri'              => '/gallery2/',
+			'cookiePath'         => '/',
 			'embedSessionString' => 'cmssid=12345',
-			'isNotUsingCookies' => true,
+			'isNotUsingCookies'  => true,
 		);
 		$params = $this->_getTestUrlParams();
 
@@ -979,11 +979,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGenerateUrlEmbedded() {
 		$env    = array(
-			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED' => true,
-			'baseUri'  => '/cms/index.php?mod=gallery2',
-			'g2Uri'    => '/gallery2/',
-			'cookiePath' => '/',
+			'REQUEST_URI'        => '/cms/otherpage/?foo=bar',
+			'G2_EMBED'           => true,
+			'baseUri'            => '/cms/index.php?mod=gallery2',
+			'g2Uri'              => '/gallery2/',
+			'cookiePath'         => '/',
 			'embedSessionString' => 'cmssid=12345',
 		);
 		$params = $this->_getTestUrlParams();
@@ -1062,11 +1062,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGenerateUrlEmbeddedMultisite() {
 		$env    = array(
-			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED' => true,
-			'baseUri'  => '/cms/index.php?mod=gallery2',
-			'g2Uri'    => '/gallery2/',
-			'cookiePath' => '/',
+			'REQUEST_URI'    => '/cms/otherpage/?foo=bar',
+			'G2_EMBED'       => true,
+			'baseUri'        => '/cms/index.php?mod=gallery2',
+			'g2Uri'          => '/gallery2/',
+			'cookiePath'     => '/',
 			'galleryBaseUrl' => 'codebase/rep/',
 		);
 		$params = $this->_getTestUrlParams();
@@ -1110,10 +1110,10 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 		$env    = array(
 			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED' => true,
-			'baseUri'  => '/cms/index.php?mod=gallery2',
-			'g2Uri'    => '/gallery2/',
-			'cookiePath' => '',
+			'G2_EMBED'    => true,
+			'baseUri'     => '/cms/index.php?mod=gallery2',
+			'g2Uri'       => '/gallery2/',
+			'cookiePath'  => '',
 		);
 		$params = $this->_getTestUrlParams();
 
@@ -1156,11 +1156,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	public function testGenerateUrlEmbeddedForceFullUrl() {
 		$env     = array(
 			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED'  => true,
-			'baseUri'   => 'https://cms.com/cms/index.php?mod=gallery2',
-			'g2Uri'     => 'http://photos.com:81/gallery2/',
-			'cookiePath' => '/',
-			'HTTP_HOST' => 'bla',
+			'G2_EMBED'    => true,
+			'baseUri'     => 'https://cms.com/cms/index.php?mod=gallery2',
+			'g2Uri'       => 'http://photos.com:81/gallery2/',
+			'cookiePath'  => '/',
+			'HTTP_HOST'   => 'bla',
 		);
 		$params  = $this->_getTestUrlParams();
 		$options = array(
@@ -1206,15 +1206,15 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		// Verify that all URLs are free of session ids when forceSessionId is set to false
 		$env     = array(
 			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
-			'G2_EMBED' => true,
-			'baseUri'  => 'https://cms.com/cms/index.php?mod=gallery2',
-			'g2Uri'    => 'http://photos.com:81/gallery2/',
-			'cookiePath' => '',
+			'G2_EMBED'    => true,
+			'baseUri'     => 'https://cms.com/cms/index.php?mod=gallery2',
+			'g2Uri'       => 'http://photos.com:81/gallery2/',
+			'cookiePath'  => '',
 		);
 		$params  = $this->_getTestUrlParams();
 		$options = array(
 			'forceSessionId' => false,
-			'forceFullUrl' => true,
+			'forceFullUrl'   => true,
 		);
 
 		$expectedUrl[0]  = 'https://cms.com/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
@@ -1254,7 +1254,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGenerateUrlOverrideBaseUri() {
 		$env    = array(
-			'baseUri' => 'index.php?page=photos',
+			'baseUri'     => 'index.php?page=photos',
 			'REQUEST_URI' => '/gallery2/index.php?page=photos',
 		);
 		$params = $this->_getTestUrlParams();
@@ -1300,7 +1300,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		 * correctly by setting a REQUEST_URI that allows finding the URL dir
 		 */
 		$env = array(
-			'error' => true,
+			'error'       => true,
 			'REQUEST_URI' => '/gallery2/main.php?foo=bar',
 		);
 

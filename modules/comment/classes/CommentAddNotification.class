@@ -47,7 +47,7 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($this->getItemId(), 'GalleryItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$title = GalleryUtilities::markup($item->getTitle(), 'strip');
@@ -95,8 +95,8 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 	 */
 	public function getEventSpecs() {
 		return array(
-			'eventName' => 'GalleryEntity::save',
-			'entityType' => 'GalleryComment',
+			'eventName'      => 'GalleryEntity::save',
+			'entityType'     => 'GalleryComment',
 			'persistentFlag' => STORAGE_FLAG_NEWLY_CREATED,
 		);
 	}
@@ -124,13 +124,13 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 
 		return $urlGenerator->generateUrl(
 			array(
-				'view' => 'comment.ShowComments',
+				'view'   => 'comment.ShowComments',
 				'itemId' => $this->getItemId(),
 			),
 			array(
-				'forceFullUrl' => true,
+				'forceFullUrl'   => true,
 				'forceSessionId' => false,
-				'htmlEntities' => false,
+				'htmlEntities'   => false,
 			)
 		);
 	}

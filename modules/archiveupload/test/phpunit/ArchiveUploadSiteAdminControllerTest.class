@@ -56,7 +56,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(
@@ -86,7 +86,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(
@@ -114,11 +114,11 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -131,11 +131,11 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -149,11 +149,11 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][unzipPath][exec]' ),
+				'error'  => array('form[error][unzipPath][exec]'),
 			),
 			$results
 		);
@@ -167,11 +167,11 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][unzipPath][badPath]' ),
+				'error'  => array('form[error][unzipPath][badPath]'),
 			),
 			$results
 		);
@@ -185,11 +185,11 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][unzipPath][notExecutable]' ),
+				'error'  => array('form[error][unzipPath][notExecutable]'),
 			),
 			$results
 		);
@@ -203,11 +203,11 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][unzipPath][missing]' ),
+				'error'  => array('form[error][unzipPath][missing]'),
 			),
 			$results
 		);
@@ -295,7 +295,7 @@ class ArchiveUploadSiteAdminControllerTestPlatform {
 				);
 
 			default:
-				return array( 0, array(), array() );
+				return array(0, array(), array());
 		}
 	}
 }

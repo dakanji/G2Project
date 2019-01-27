@@ -33,7 +33,7 @@ class AdminCreateGroupController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$results = $status = $error = array();
@@ -51,7 +51,7 @@ class AdminCreateGroupController extends GalleryController {
 				list($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (!isset($group)) {
@@ -65,7 +65,7 @@ class AdminCreateGroupController extends GalleryController {
 
 				if ($ret) {
 					if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					// Set our error status and fall back to the view.
@@ -74,7 +74,7 @@ class AdminCreateGroupController extends GalleryController {
 					$ret = $group->save();
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					// Request a redirect to the confirmation screen
@@ -97,7 +97,7 @@ class AdminCreateGroupController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -112,7 +112,7 @@ class AdminCreateGroupView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($form['formName'] != 'AdminCreateGroup') {

@@ -42,8 +42,8 @@ function smarty_core_rm_auto($params, &$smarty) {
 			}
 		} elseif ($smarty->use_sub_dirs) {
 			$_params = array(
-				'dirname' => $_tname,
-				'level' => 1,
+				'dirname'  => $_tname,
+				'level'    => 1,
 				'exp_time' => $params['exp_time'],
 			);
 

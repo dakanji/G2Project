@@ -60,8 +60,8 @@ class SupportStatusTemplate {
 		$templateData               = array();
 		$templateData['showStatus'] = 1;
 		$templateData['status']     = array(
-			'title' => $title,
-			'description' => $description,
+			'title'           => $title,
+			'description'     => $description,
 			'percentComplete' => GalleryUtilities::roundToString($percentComplete, 2),
 		);
 

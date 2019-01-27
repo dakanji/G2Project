@@ -279,7 +279,7 @@ class GalleryEntity extends GalleryPersistent {
 			$ret = GalleryCoreApi::addMapEntry(
 				'GalleryAccessSubscriberMap',
 				array(
-					'itemId' => $this->getId(),
+					'itemId'       => $this->getId(),
 					'accessListId' => $setAclId,
 				)
 			);
@@ -325,7 +325,7 @@ class GalleryEntity extends GalleryPersistent {
 				);
 				GalleryDataCache::removeFromDisk(
 					array(
-						'type' => 'entity',
+						'type'   => 'entity',
 						'itemId' => $this->getId(),
 					)
 				);
@@ -341,11 +341,11 @@ class GalleryEntity extends GalleryPersistent {
 				}
 				GalleryDataCache::putToDisk(
 					array(
-						'type' => 'entity',
+						'type'   => 'entity',
 						'itemId' => $this->getId(),
 					),
 					$this,
-					array( $classFile )
+					array($classFile)
 				);
 			}
 		}
@@ -377,10 +377,10 @@ class GalleryEntity extends GalleryPersistent {
 		list($ret, $freshEntity) = $storage->refreshEntity($this);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $freshEntity );
+		return array(null, $freshEntity);
 	}
 
 	/**
@@ -432,7 +432,7 @@ class GalleryEntity extends GalleryPersistent {
 		);
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => $this->getId(),
 			)
 		);

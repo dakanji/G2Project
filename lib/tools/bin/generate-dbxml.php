@@ -83,8 +83,8 @@ function generateEntityDbXml() {
 			switch ($child['name']) {
 				case 'MEMBER':
 					$member = array(
-						'name' => $child['child'][0]['content'],
-						'type' => $child['child'][1]['content'],
+						'name'   => $child['child'][0]['content'],
+						'type'   => $child['child'][1]['content'],
 						'ucName' => ucfirst($child['child'][0]['content']),
 						'lcType' => strtolower($child['child'][1]['content']),
 					);
@@ -98,7 +98,7 @@ function generateEntityDbXml() {
 
 							case 'INDEXED':
 								$indexes[] = array(
-									'columns' => array( $member['name'] ),
+									'columns' => array($member['name']),
 								);
 									$member[strtolower($child['child'][$i]['name'])] = 1;
 
@@ -106,7 +106,7 @@ function generateEntityDbXml() {
 
 							case 'UNIQUE':
 								$keys[] = array(
-									'columns' => array( $member['name'] ),
+									'columns' => array($member['name']),
 								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 
@@ -114,7 +114,7 @@ function generateEntityDbXml() {
 
 							case 'PRIMARY':
 								$keys[]            = array(
-									'columns' => array( $member['name'] ),
+									'columns' => array($member['name']),
 									'primary' => 1,
 								);
 								$member['primary'] = 1;
@@ -186,7 +186,7 @@ function generateEntityDbXml() {
 				case 'REQUIRES-ID':
 					$requiresId = true;
 					$keys[]     = array(
-						'columns' => array( 'id' ),
+						'columns' => array('id'),
 						'primary' => 1,
 					);
 
@@ -256,8 +256,8 @@ function generateMapDbXml() {
 			switch ($child['name']) {
 				case 'MEMBER':
 					$member = array(
-						'name' => $child['child'][0]['content'],
-						'type' => $child['child'][1]['content'],
+						'name'   => $child['child'][0]['content'],
+						'type'   => $child['child'][1]['content'],
 						'ucName' => ucfirst($child['child'][0]['content']),
 						'lcType' => strtolower($child['child'][1]['content']),
 					);
@@ -271,7 +271,7 @@ function generateMapDbXml() {
 
 							case 'INDEXED':
 								$indexes[] = array(
-									'columns' => array( $member['name'] ),
+									'columns' => array($member['name']),
 								);
 									$member[strtolower($child['child'][$i]['name'])] = 1;
 
@@ -279,7 +279,7 @@ function generateMapDbXml() {
 
 							case 'UNIQUE':
 								$keys[] = array(
-									'columns' => array( $member['name'] ),
+									'columns' => array($member['name']),
 								);
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 
@@ -287,7 +287,7 @@ function generateMapDbXml() {
 
 							case 'PRIMARY':
 								$keys[]            = array(
-									'columns' => array( $member['name'] ),
+									'columns' => array($member['name']),
 									'primary' => 1,
 								);
 								$member['primary'] = 1;

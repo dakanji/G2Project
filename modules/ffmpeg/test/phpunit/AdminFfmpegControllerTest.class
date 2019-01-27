@@ -79,7 +79,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(
@@ -110,7 +110,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(
@@ -141,7 +141,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(
@@ -168,11 +168,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -185,11 +185,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -205,11 +205,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][testError]' ),
+				'error'  => array('form[error][path][testError]'),
 			),
 			$results
 		);
@@ -225,11 +225,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][badPath]' ),
+				'error'  => array('form[error][path][badPath]'),
 			),
 			$results
 		);
@@ -245,11 +245,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][notExecutable]' ),
+				'error'  => array('form[error][path][notExecutable]'),
 			),
 			$results
 		);
@@ -265,11 +265,11 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][missing]' ),
+				'error'  => array('form[error][path][missing]'),
 			),
 			$results
 		);
@@ -299,7 +299,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(
@@ -332,12 +332,12 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'ffmpeg.AdminFfmpeg',
 				),
 				'status' => array(
 					'removed' => 1,
-					'saved' => 1,
+					'saved'   => 1,
 				),
 				'error' => array(),
 			),
@@ -504,10 +504,10 @@ class AdminFfmpegControllerTestPlatform {
 		switch ($args[0][0]) {
 			case '/validPath/ffmpeg':
 			case '/incompletePath/ffmpeg':
-				return array( 1, array( 'Input audio/video file formats: mpeg' ), array() );
+				return array(1, array('Input audio/video file formats: mpeg'), array());
 
 			default:
-				return array( 0, array(), array() );
+				return array(0, array(), array());
 		}
 	}
 }

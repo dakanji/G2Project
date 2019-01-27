@@ -33,7 +33,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 			$len      = $fieldobj->max_length;
 		}
 		$is_serial = is_object($fieldobj) && !empty($fieldobj->primary_key) && !empty($fieldobj->unique) &&
-			!empty($fieldobj->has_default) && substr($fieldobj->default_value, 0, 8) == 'nextval(';
+			!empty($fieldobj->has_default)   && substr($fieldobj->default_value, 0, 8) == 'nextval(';
 
 		switch (strtoupper($t)) {
 			case 'INTERVAL':
@@ -193,7 +193,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	}
 
 	public function DropIndexSQL($idxname, $tabname = null) {
-		return array( sprintf($this->dropIndex, $this->TableName($idxname), $this->TableName($tabname)) );
+		return array(sprintf($this->dropIndex, $this->TableName($idxname), $this->TableName($tabname)));
 	}
 
 	/**
@@ -362,7 +362,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 			if (!$dropflds || !in_array($fld->name, $dropflds)) {
 				// we need to explicit convert varchar to a number to be able to do an AlterColumn of a char column to a nummeric one
 				if (preg_match('/' . $fld->name . ' (I|I2|I4|I8|N|F)/i', $tableflds, $matches)
-					&& in_array($fld->type, array( 'varchar', 'char', 'text', 'bytea' ))
+					&& in_array($fld->type, array('varchar', 'char', 'text', 'bytea'))
 				) {
 					$copyflds[] = "to_number($fld->name,'S9999999999999D99')";
 				} else {
@@ -400,7 +400,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 						$idx_name,
 						$tabname,
 						$idx_data['columns'],
-						$idx_data['unique'] ? array( 'UNIQUE' ) : false
+						$idx_data['unique'] ? array('UNIQUE') : false
 					)
 				);
 			}
@@ -470,10 +470,10 @@ class ADODB2_postgres extends ADODB_DataDict {
 			$rename_to    = $this->TableName($newname);
 			$this->schema = $schema_save;
 
-			return array( sprintf($this->renameTable, $rename_from, $rename_to) );
+			return array(sprintf($this->renameTable, $rename_from, $rename_to));
 		}
 
-		return array( sprintf($this->renameTable, $this->TableName($tabname), $this->TableName($newname)) );
+		return array(sprintf($this->renameTable, $this->TableName($tabname), $this->TableName($newname)));
 	}
 
 	/*

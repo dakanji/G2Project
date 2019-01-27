@@ -152,11 +152,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][username][disabled]' ),
+				'error'  => array('form[error][username][disabled]'),
 			),
 			$results
 		);
@@ -213,11 +213,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][invalidPassword]' ),
+				'error'  => array('form[error][invalidPassword]'),
 			),
 			$results
 		);
@@ -241,11 +241,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][invalidPassword]' ),
+				'error'  => array('form[error][invalidPassword]'),
 			),
 			$results
 		);
@@ -260,11 +260,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][username][missing]',
 					'form[error][password][missing]',
 				),
@@ -281,7 +281,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 			array(
 				'return' => 1,
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -297,19 +297,19 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password]', 'wrong-password');
 
 		$plugin = new UserLoginControllerTestPlugin();
-		$plugin->setErrors(array( 'form[error][UserLoginControllerTestPlugin][anError]' ));
+		$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
 		$plugin->setContinue(false);
-		$this->_controller->setPluginInstances(array( $plugin ));
+		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][UserLoginControllerTestPlugin][anError]' ),
+				'error'  => array('form[error][UserLoginControllerTestPlugin][anError]'),
 			),
 			$results
 		);
@@ -326,23 +326,23 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password]', 'totally-wrong-password');
 
 		$plugin1 = new UserLoginControllerTestPlugin();
-		$plugin1->setErrors(array( 'form[error][UserLoginControllerTestPlugin1][anError]' ));
+		$plugin1->setErrors(array('form[error][UserLoginControllerTestPlugin1][anError]'));
 		$plugin1->setContinue(true);
 
 		$plugin2 = new UserLoginControllerTestPlugin();
-		$plugin2->setErrors(array( 'form[error][UserLoginControllerTestPlugin2][anError]' ));
+		$plugin2->setErrors(array('form[error][UserLoginControllerTestPlugin2][anError]'));
 		$plugin2->setContinue(false);
-		$this->_controller->setPluginInstances(array( $plugin1, $plugin2 ));
+		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][UserLoginControllerTestPlugin1][anError]',
 					'form[error][UserLoginControllerTestPlugin2][anError]',
 				),
@@ -362,23 +362,23 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password]', 'totally-wrong-password');
 
 		$plugin1 = new UserLoginControllerTestPlugin();
-		$plugin1->setErrors(array( 'form[error][UserLoginControllerTestPlugin1][anError]' ));
+		$plugin1->setErrors(array('form[error][UserLoginControllerTestPlugin1][anError]'));
 		$plugin1->setContinue(false);
 
 		$plugin2 = new UserLoginControllerTestPlugin();
-		$plugin2->setErrors(array( 'form[error][UserLoginControllerTestPlugin2][anError]' ));
+		$plugin2->setErrors(array('form[error][UserLoginControllerTestPlugin2][anError]'));
 		$plugin2->setContinue(false);
-		$this->_controller->setPluginInstances(array( $plugin1, $plugin2 ));
+		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][UserLoginControllerTestPlugin1][anError]' ),
+				'error'  => array('form[error][UserLoginControllerTestPlugin1][anError]'),
 			),
 			$results
 		);
@@ -394,19 +394,19 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
 
 		$plugin = new UserLoginControllerTestPlugin();
-		$plugin->setErrors(array( 'form[error][UserLoginControllerTestPlugin][anError]' ));
+		$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
 		$plugin->setContinue(true);
-		$this->_controller->setPluginInstances(array( $plugin ));
+		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][UserLoginControllerTestPlugin][anError]' ),
+				'error'  => array('form[error][UserLoginControllerTestPlugin][anError]'),
 			),
 			$results
 		);
@@ -426,7 +426,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$plugin = new UserLoginControllerTestPlugin();
 		$plugin->setErrors(array());
 		$plugin->setContinue(true);
-		$this->_controller->setPluginInstances(array( $plugin ));
+		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
 		// May get a redirect url (like from useralbum module) or return
@@ -455,9 +455,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
 
 		$plugin = new UserLoginControllerTestPlugin();
-		$plugin->setErrors(array( 'form[error][UserLoginControllerTestPlugin][anError]' ));
+		$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
 		$plugin->setContinue(false);
-		$this->_controller->setPluginInstances(array( $plugin ));
+		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
 		// May get a redirect url (like from useralbum module) or return
@@ -600,9 +600,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$gallery->setConfig(
 			'loginRedirect',
 			array(
-				'view' => 'core.UserAdmin',
+				'view'    => 'core.UserAdmin',
 				'subView' => 'test.AltLogin',
-				'href' => 'http://test.com/test.php',
+				'href'    => 'http://test.com/test.php',
 			)
 		);
 		$this->_becomeGuestUser();
@@ -648,7 +648,7 @@ class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
 	}
 
 	public function performValidation(&$form, $options = array()) {
-		return array( null, $this->_errors, $this->_continue );
+		return array(null, $this->_errors, $this->_continue);
 	}
 }
 
@@ -698,7 +698,7 @@ class UserLoginControllerTestSession {
 	}
 
 	public function hasSiteAdminSessionExpired() {
-		return array( null, true );
+		return array(null, true);
 	}
 }
 

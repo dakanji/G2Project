@@ -49,17 +49,17 @@ class GalleryItemHelper_advanced {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (empty($aclIds)) {
-			return array( null, array() );
+			return array(null, array());
 		}
 
 		list($ret, $like) = $storage->getFunctionSql(
@@ -71,7 +71,7 @@ class GalleryItemHelper_advanced {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$accessListMarkers = GalleryUtilities::makeMarkers(count($aclIds));
@@ -110,7 +110,7 @@ class GalleryItemHelper_advanced {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$counts = array();
@@ -118,12 +118,12 @@ class GalleryItemHelper_advanced {
 		while ($result = $searchResults->nextResult()) {
 			$counts[$result[0]] = array(
 				'GalleryAlbumItem' => $result[1],
-				'GalleryDataItem' => $result[2],
+				'GalleryDataItem'  => $result[2],
 			);
 		}
 		$counts = GalleryUtilities::strArrToIntArr($counts);
 
-		return array( null, $counts );
+		return array(null, $counts);
 	}
 
 	/**
@@ -132,10 +132,10 @@ class GalleryItemHelper_advanced {
 	public static function guaranteeAlbumHasThumbnail($albumId) {
 		global $gallery;
 
-		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $albumId ));
+		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($albumId));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$success                  = false;
@@ -147,7 +147,7 @@ class GalleryItemHelper_advanced {
 
 			list($ret, $thumbnailSource) = GalleryCoreApi::loadEntitiesById(
 				$thumbnail->getDerivativeSourceId(),
-				array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+				array('GalleryFileSystemEntity', 'GalleryDerivative')
 			);
 
 			if ($ret) {
@@ -155,7 +155,7 @@ class GalleryItemHelper_advanced {
 					// Derivative source is missing.. pick a new one
 					$highlightHasLeftTheAlbum = true;
 				} else {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			} else {
 				list($ret, $highlightItem) = GalleryCoreApi::loadEntitiesById(
@@ -164,7 +164,7 @@ class GalleryItemHelper_advanced {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($highlightItem->getParentId() != $albumId
@@ -182,7 +182,7 @@ class GalleryItemHelper_advanced {
 			list($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Grab the first few items and try them on for size
@@ -194,7 +194,7 @@ class GalleryItemHelper_advanced {
 				list($ret, $success) = GalleryCoreApi::setThumbnailFromItem($albumId, $childId);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($success) {
@@ -211,11 +211,11 @@ class GalleryItemHelper_advanced {
 			$ret = GalleryCoreApi::deleteEntityById($thumbnail->getId(), 'GalleryDerivative');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
-		return array( null, $success );
+		return array(null, $success);
 	}
 
 	/**
@@ -226,36 +226,36 @@ class GalleryItemHelper_advanced {
 
 		// Can't work without a name and a parentAlbum
 		if (empty($parentAlbumId) || empty($name)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		// Make sure the parent album is indeed an album
 		list($ret, $parentAlbum) = GalleryCoreApi::loadEntitiesById($parentAlbumId, 'GalleryAlbumItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!GalleryUtilities::isA($parentAlbum, 'GalleryAlbumItem')) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		// create the album object
 		list($ret, $album) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($album)) {
-			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
 		// acquire lock to reference the parent in our new object
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentAlbumId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ret = $album->create($parentAlbumId, $name);
@@ -263,7 +263,7 @@ class GalleryItemHelper_advanced {
 		if ($ret) {
 			GalleryCoreApi::releaseLocks($lockIds);
 
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Change album settings
@@ -278,29 +278,29 @@ class GalleryItemHelper_advanced {
 		if ($ret) {
 			GalleryCoreApi::releaseLocks($lockIds);
 
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// set order weight -- add to end of parent album
 		list($ret, $maxWeight) = GalleryCoreApi::fetchExtremeChildWeight($parentAlbumId, HIGHER_WEIGHT);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$ret = GalleryCoreApi::setItemOrderWeight($album->getId(), $maxWeight + 1000);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Leggo of our locks
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $album );
+		return array(null, $album);
 	}
 
 	/**
@@ -454,7 +454,7 @@ class GalleryItemHelper_advanced {
 		';
 		list($ret, $searchResults) = $gallery->search(
 			$query,
-			array( "$sortOrder|%", "%|$sortOrder", $sortOrder )
+			array("$sortOrder|%", "%|$sortOrder", $sortOrder)
 		);
 
 		if ($ret) {
@@ -539,7 +539,7 @@ class GalleryItemHelper_advanced {
 		WHERE
 		[GalleryItem::renderer] = ?
 		';
-		list($ret, $searchResults) = $gallery->search($query, array( $rendererClassName ));
+		list($ret, $searchResults) = $gallery->search($query, array($rendererClassName));
 
 		if ($ret) {
 			return $ret;

@@ -47,7 +47,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
-			return array( $ret, null, null, null );
+			return array($ret, null, null, null);
 		}
 
 		$this->_markForCleanup($album);
@@ -69,7 +69,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$preferred = null;
@@ -90,7 +90,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 						);
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 
 						break;
@@ -103,7 +103,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 						);
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 
 						break;
@@ -118,13 +118,13 @@ class SlideshowHelperTest extends GalleryTestCase {
 							'test-operation|100',
 							'test/file',
 							array(
-								'width' => $size,
+								'width'  => $size,
 								'height' => $size,
 							)
 						);
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 
 						break;
@@ -134,21 +134,21 @@ class SlideshowHelperTest extends GalleryTestCase {
 						break;
 
 					default:
-						return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null, null );
+						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null, null);
 				}
 			}
 
 			$info[] = array(
-				'item' => $item,
+				'item'      => $item,
 				'thumbnail' => $thumbnail,
 				'preferred' => $preferred,
-				'resizes' => $resizes,
+				'resizes'   => $resizes,
 			);
 
 			$itemIds[] = $item->getId();
 		}
 
-		return array( null, $album, $info, $itemIds );
+		return array(null, $album, $info, $itemIds);
 	}
 
 	public function testBuildAlbumSlideshow_StartingFromAlbum() {
@@ -169,13 +169,13 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['item'],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['item'],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 				array(
-					'item' => (array)$itemInfo[1]['item'],
-					'image' => (array)$itemInfo[1]['item'],
+					'item'      => (array)$itemInfo[1]['item'],
+					'image'     => (array)$itemInfo[1]['item'],
 					'thumbnail' => (array)$itemInfo[1]['thumbnail'],
 				),
 			),
@@ -202,13 +202,13 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['item'],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['item'],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 				array(
-					'item' => (array)$itemInfo[1]['item'],
-					'image' => (array)$itemInfo[1]['item'],
+					'item'      => (array)$itemInfo[1]['item'],
+					'image'     => (array)$itemInfo[1]['item'],
 					'thumbnail' => (array)$itemInfo[1]['thumbnail'],
 				),
 			),
@@ -290,13 +290,13 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['item'],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['item'],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 				array(
-					'item' => (array)$itemInfo[1]['item'],
-					'image' => (array)$itemInfo[1]['item'],
+					'item'      => (array)$itemInfo[1]['item'],
+					'image'     => (array)$itemInfo[1]['item'],
 					'thumbnail' => (array)$itemInfo[1]['thumbnail'],
 				),
 			),
@@ -343,13 +343,13 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['item'],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['item'],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 				array(
-					'item' => (array)$itemInfo[2]['item'],
-					'image' => (array)$itemInfo[2]['item'],
+					'item'      => (array)$itemInfo[2]['item'],
+					'image'     => (array)$itemInfo[2]['item'],
 					'thumbnail' => (array)$itemInfo[2]['thumbnail'],
 				),
 			),
@@ -376,8 +376,8 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[1]['item'],
-					'image' => (array)$itemInfo[1]['item'],
+					'item'      => (array)$itemInfo[1]['item'],
+					'image'     => (array)$itemInfo[1]['item'],
 					'thumbnail' => (array)$itemInfo[1]['thumbnail'],
 				),
 			),
@@ -404,13 +404,13 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['preferred'],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['preferred'],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 				array(
-					'item' => (array)$itemInfo[1]['item'],
-					'image' => (array)$itemInfo[1]['item'],
+					'item'      => (array)$itemInfo[1]['item'],
+					'image'     => (array)$itemInfo[1]['item'],
 					'thumbnail' => (array)$itemInfo[1]['thumbnail'],
 				),
 			),
@@ -437,7 +437,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$itemInfo[0]['item']->getId(),
 			$gallery->getActiveUserId(),
-			array( 'core.view', 'core.viewResizes' )
+			array('core.view', 'core.viewResizes')
 		);
 
 		if ($ret) {
@@ -454,8 +454,8 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['resizes'][1],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['resizes'][1],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 			),
@@ -480,7 +480,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$itemInfo[0]['item']->getId(),
 			$gallery->getActiveUserId(),
-			array( 'core.view', 'core.viewResizes' )
+			array('core.view', 'core.viewResizes')
 		);
 
 		if ($ret) {
@@ -497,8 +497,8 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[0]['item'],
-					'image' => (array)$itemInfo[0]['thumbnail'],
+					'item'      => (array)$itemInfo[0]['item'],
+					'image'     => (array)$itemInfo[0]['thumbnail'],
 					'thumbnail' => (array)$itemInfo[0]['thumbnail'],
 				),
 			),
@@ -524,8 +524,8 @@ class SlideshowHelperTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'item' => (array)$itemInfo[2]['item'],
-					'image' => (array)$itemInfo[2]['item'],
+					'item'      => (array)$itemInfo[2]['item'],
+					'image'     => (array)$itemInfo[2]['item'],
 					'thumbnail' => (array)$itemInfo[2]['thumbnail'],
 				),
 			),

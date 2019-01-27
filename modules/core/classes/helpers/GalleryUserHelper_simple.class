@@ -72,24 +72,24 @@ class GalleryUserHelper_simple {
 		if (GalleryDataCache::containsKey($cacheKey)) {
 			$permissions = GalleryDataCache::get($cacheKey);
 
-			return array( null, isset($permissions[$permission]) );
+			return array(null, isset($permissions[$permission]));
 		}
 
 		// Only use the permission cache from the session data for the activeUser
 		if ($sessionPermissions && $userId == $gallery->getActiveUserId()
 			&& GalleryDataCache::hasPermission($itemId, $permission)
 		) {
-			return array( null, true );
+			return array(null, true);
 		}
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $userId, $sessionPermissions);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (empty($aclIds)) {
-			return array( null, false );
+			return array(null, false);
 		}
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
@@ -99,9 +99,9 @@ class GalleryUserHelper_simple {
 		 */
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryAccessSubscriberMap',
-			array( 'itemId' ),
+			array('itemId'),
 			array(
-				'itemId' => (int)$itemId,
+				'itemId'       => (int)$itemId,
 				'accessListId' => $aclIds,
 			),
 			array(
@@ -112,11 +112,11 @@ class GalleryUserHelper_simple {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$hasPermission = ($searchResults->resultCount() > 0);
 
-		return array( null, $hasPermission );
+		return array(null, $hasPermission);
 	}
 }

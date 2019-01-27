@@ -127,7 +127,7 @@ class GalleryThemeHelper_medium {
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$data = array();
@@ -153,7 +153,7 @@ class GalleryThemeHelper_medium {
 			}
 		}
 
-		return array( null, $data );
+		return array(null, $data);
 	}
 
 	/**
@@ -164,13 +164,13 @@ class GalleryThemeHelper_medium {
 			list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$status = null;
@@ -180,14 +180,14 @@ class GalleryThemeHelper_medium {
 			list($ret, $error, $status) = $theme->handleSettingsRequest($form, $itemId);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
@@ -200,23 +200,23 @@ class GalleryThemeHelper_medium {
 				list($ret, $settings) = $theme->getSettings($itemId);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 
 				if (isset($form['changeInDescendents'])) {
 					list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 					list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 					array_unshift($subAlbumIds, $itemId);
 				} else {
-					$subAlbumIds = array( $itemId );
+					$subAlbumIds = array($itemId);
 				}
 
 				/*
@@ -233,7 +233,7 @@ class GalleryThemeHelper_medium {
 						$ret = $theme->removeParameter($key, $subAlbumIds);
 
 						if ($ret) {
-							return array( $ret, null, null );
+							return array($ret, null, null);
 						}
 					} else {
 						if ($setting['type'] == 'checkbox') {
@@ -252,7 +252,7 @@ class GalleryThemeHelper_medium {
 						$ret = $theme->setParameter($key, $value, $subAlbumIds);
 
 						if ($ret) {
-							return array( $ret, null, null );
+							return array($ret, null, null);
 						}
 					}
 				}
@@ -267,6 +267,6 @@ class GalleryThemeHelper_medium {
 			}
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 }

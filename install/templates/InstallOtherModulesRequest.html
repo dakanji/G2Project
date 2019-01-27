@@ -53,7 +53,7 @@
 	  <?php $counter = 0; ?>
 	  <?php foreach ($modules as $id => $module): ?>
 	  <?php $isInstalled = $templateData['moduleInstalled'][$id]; ?>
-	  <?php $isInvalid = $templateData['moduleInvalid'][$id]; ?>
+	  <?php $isInvalid   = $templateData['moduleInvalid'][$id]; ?>
 	  <tr<?php if ($counter % 2 == 0) {
 		  	echo ' style="background-color: #eee"';
 		  } ?>>

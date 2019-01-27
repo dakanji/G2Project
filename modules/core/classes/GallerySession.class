@@ -391,11 +391,11 @@ class GallerySession {
 							'id' => $this->_sessionId,
 						),
 						array(
-							'userId' => $this->_userId,
-							'remoteIdentifier' => serialize($this->_remoteIdentifier),
-							'creationTimestamp' => $this->_creationTime,
+							'userId'                => $this->_userId,
+							'remoteIdentifier'      => serialize($this->_remoteIdentifier),
+							'creationTimestamp'     => $this->_creationTime,
 							'modificationTimestamp' => $this->_modificationTime,
-							'data' => serialize($this->_sessionData),
+							'data'                  => serialize($this->_sessionData),
 						),
 						$useNonTransactionalConnection
 					);
@@ -561,7 +561,7 @@ class GallerySession {
 		$match   = '/' . $key . '[a-fA-F0-9]+/';
 		$replace = $key . $this->getId();
 
-		foreach (array( 'return', 'formUrl' ) as $key) {
+		foreach (array('return', 'formUrl') as $key) {
 			if (GalleryUtilities::hasRequestVariable($key)) {
 				GalleryUtilities::putRequestVariable(
 					$key,
@@ -727,11 +727,11 @@ class GallerySession {
 		// Assemble the data
 		$this->_modificationTime = $phpVm->time();
 		$data                    = array(
-			'userId' => $this->_userId,
-			'remoteIdentifier' => serialize($this->_remoteIdentifier),
-			'creationTimestamp' => $this->_creationTime,
+			'userId'                => $this->_userId,
+			'remoteIdentifier'      => serialize($this->_remoteIdentifier),
+			'creationTimestamp'     => $this->_creationTime,
 			'modificationTimestamp' => $this->_modificationTime,
-			'data'   => serialize($this->_sessionData),
+			'data'                  => serialize($this->_sessionData),
 		);
 
 		// Get new sessionId, there's a 1:2^128 probability of collision (md5), try it 5 times
@@ -786,14 +786,14 @@ class GallerySession {
 	public function _isPersistentSessionRequired() {
 		// For existing sessions, the session is necessary
 		if ($this->_isPersistent || $this->_forceSaveSession) {
-			return array( null, true );
+			return array(null, true);
 		}
 
 		if ($this->_userId) {
 			list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser($this->_userId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!$isAnonymous && $this->_isSearchEngineSession) {
@@ -807,7 +807,7 @@ class GallerySession {
 		}
 
 		if (!empty($this->_isSearchEngineSession) || empty($this->_userId)) {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		if ($isAnonymous) {
@@ -835,7 +835,7 @@ class GallerySession {
 			) = GalleryTranslator::doStatic()->getDefaultLanguageCode();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (isset($sessionDataCopy['core.language'])
@@ -845,10 +845,10 @@ class GallerySession {
 			}
 
 			// If there's anything left in the session data, we should probably create a session
-			return array( null, !empty($sessionDataCopy) );
+			return array(null, !empty($sessionDataCopy));
 		}
 
-		return array( null, true );
+		return array(null, true);
 	}
 
 	/**
@@ -1304,7 +1304,7 @@ class GallerySession {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!isset($this->_cookieDomain)) {
@@ -1312,7 +1312,7 @@ class GallerySession {
 			}
 		}
 
-		return array( null, $this->_cookieDomain );
+		return array(null, $this->_cookieDomain);
 	}
 
 	/**
@@ -1590,11 +1590,11 @@ class GallerySession {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$lastActivity = (int)$this->get('session.siteAdminActivityTimestamp');
 
-		return array( null, ($lastActivity + (int)$siteAdministrationTimeout) < $phpVm->time() );
+		return array(null, ($lastActivity + (int)$siteAdministrationTimeout) < $phpVm->time());
 	}
 }
 
@@ -1620,10 +1620,10 @@ class SessionAuthPlugin {
 
 			// ERROR_MISSING_OBJECT check to suppress error if user id doesn't exist
 			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
-			return array( null, $user );
+			return array(null, $user);
 		}
 	}
 }

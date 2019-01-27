@@ -33,25 +33,25 @@ class SiriuxTheme extends GalleryTheme {
 		$this->setName($gallery->i18n('Siriux'));
 		$this->setDescription($gallery->i18n('Siriux.net Gallery theme'));
 		$this->setVersion('1.1.5');
-		$this->setRequiredCoreApi(array( 7, 20 ));
-		$this->setRequiredThemeApi(array( 2, 4 ));
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredThemeApi(array(2, 4));
 		$this->setStandardSettings(
 			array(
-				'perPage' => 9,
+				'perPage'      => 9,
 				'contentWidth' => 700,
-				'albumBlocks' => serialize(
+				'albumBlocks'  => serialize(
 					array(
-						array( 'comment.ViewComments', array() ),
+						array('comment.ViewComments', array()),
 					)
 				),
 				'photoBlocks' => serialize(
 					array(
-						array( 'exif.ExifInfo', array() ),
-						array( 'comment.ViewComments', array() ),
+						array('exif.ExifInfo', array()),
+						array('comment.ViewComments', array()),
 					)
 				),
-				'contentWidth' => 700,
-				'groupByYear' => 0,
+				'contentWidth'   => 700,
+				'groupByYear'    => 0,
 				'enableImageMap' => 1,
 			)
 		);
@@ -83,7 +83,7 @@ class SiriuxTheme extends GalleryTheme {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Override some navigator settings
@@ -102,7 +102,7 @@ class SiriuxTheme extends GalleryTheme {
 		list($ret, $preferences)          = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		foreach ($preferences as $preference) {
@@ -115,7 +115,7 @@ class SiriuxTheme extends GalleryTheme {
 			}
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -139,7 +139,7 @@ class SiriuxTheme extends GalleryTheme {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Override some navigator settings
@@ -153,7 +153,7 @@ class SiriuxTheme extends GalleryTheme {
 			unset($theme['navigator']['last']);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -164,11 +164,11 @@ class SiriuxTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Add in our extra stuff
@@ -176,7 +176,7 @@ class SiriuxTheme extends GalleryTheme {
 		$theme['moduleTemplate'] = $templateFile;
 
 		// Add our header and styles
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -187,25 +187,25 @@ class SiriuxTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Add in our extra stuff
 		$theme                  =& $template->getVariableByReference('theme');
 		$theme['adminTemplate'] = $templateFile;
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
 	 * @see GalleryTheme::showErrorPage
 	 */
 	public function showErrorPage(&$template) {
-		return array( null, 'error.tpl' );
+		return array(null, 'error.tpl');
 	}
 
 	/**
@@ -216,14 +216,14 @@ class SiriuxTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -233,14 +233,14 @@ class SiriuxTheme extends GalleryTheme {
 		list($ret, $settings, $params) = parent::getSettings($itemId);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Add in our custom settings
 		$settings[] = array(
-			'key'   => 'contentWidth',
-			'name'  => $this->translate('Width of page content in pixels'),
-			'type'  => 'text-field',
+			'key'        => 'contentWidth',
+			'name'       => $this->translate('Width of page content in pixels'),
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
@@ -263,7 +263,7 @@ class SiriuxTheme extends GalleryTheme {
 			'value' => $params['enableImageMap'],
 		);
 
-		return array( null, $settings, $params );
+		return array(null, $settings, $params);
 	}
 
 	/**

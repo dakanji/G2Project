@@ -328,7 +328,7 @@ class ADODB_sqlite3 extends ADOConnection {
 
 			if (!isset($indexes[$row[0]])) {
 				$indexes[$row[0]] = array(
-					'unique' => preg_match('/unique/i', $row[1]),
+					'unique'  => preg_match('/unique/i', $row[1]),
 					'columns' => array(),
 				);
 			}
@@ -425,7 +425,7 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

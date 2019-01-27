@@ -32,7 +32,7 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 		// use cache_handler function
 		call_user_func_array(
 			$smarty->cache_handler_func,
-			array( 'read', &$smarty, &$params['results'], $params['tpl_file'], $params['cache_id'], $params['compile_id'], null )
+			array('read', &$smarty, &$params['results'], $params['tpl_file'], $params['cache_id'], $params['compile_id'], null)
 		);
 	} else {
 		// use local cache file
@@ -69,7 +69,7 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 	if ($smarty->compile_check) {
 		$_params = array(
 			'get_source' => false,
-			'quiet' => true,
+			'quiet'      => true,
 		);
 
 		foreach (array_keys($_cache_info['template']) as $_template_dep) {
@@ -84,8 +84,8 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 		if (isset($_cache_info['config'])) {
 			$_params = array(
 				'resource_base_path' => $smarty->config_dir,
-				'get_source' => false,
-				'quiet' => true,
+				'get_source'         => false,
+				'quiet'              => true,
 			);
 
 			foreach (array_keys($_cache_info['config']) as $_config_dep) {
@@ -99,7 +99,7 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 		}
 	}
 
-	$content_cache[$params['tpl_file'] . ',' . $params['cache_id'] . ',' . $params['compile_id']] = array( $params['results'], $_cache_info );
+	$content_cache[$params['tpl_file'] . ',' . $params['cache_id'] . ',' . $params['compile_id']] = array($params['results'], $_cache_info);
 
 	$smarty->_cache_info = $_cache_info;
 

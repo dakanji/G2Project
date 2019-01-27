@@ -65,15 +65,15 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret                         = GalleryCoreApi::registerToolkitOperation(
 			'CreateThumbnailOptionTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'thumbnail',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -108,7 +108,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 
 	public function testCreateThumbnail() {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -168,7 +168,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -185,7 +185,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 	// This won't do anything, but shouldn't have any errors either.
 	public function testCreateWithNoThumbnail() {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}
@@ -205,7 +205,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 			}
 		}
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
-		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+		list($errors, $warnings)                          = $this->_handleRequestAfterAdd($form, $this->_items);
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}
@@ -236,6 +236,6 @@ class CreateThumbnailOptionTestToolkit extends GalleryToolkit {
 			$platform->copy($sourceFilename, $destFilename);
 		}
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 }

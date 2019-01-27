@@ -137,7 +137,7 @@ function extractStrings($filename) {
 
 		for ($i = 0; $i < count($tokens); $i++) {
 			if (is_array($tokens[$i]) && $tokens[$i][0] == T_STRING
-				&& in_array($tokens[$i][1], array( 'translate', '_translate', 'i18n', '_' ))
+				&& in_array($tokens[$i][1], array('translate', '_translate', 'i18n', '_'))
 				&& $tokens[$i + 1] === '('
 			) {
 				// Found a function call for translation, process the contents
@@ -195,9 +195,9 @@ function extractStrings($filename) {
 					$text   = strtr(
 						$param,
 						array(
-							'"' => '\"',
+							'"'    => '\"',
 							"\r\n" => '\n',
-							"\n" => '\n',
+							"\n"   => '\n',
 						)
 					);
 					$string = 'gettext("' . $text . '")';
@@ -209,15 +209,15 @@ function extractStrings($filename) {
 					}
 					$localStrings[$string] = true;
 				} elseif (is_array($param)) {
-					foreach (array( 'text', 'one', 'many' ) as $key) {
+					foreach (array('text', 'one', 'many') as $key) {
 						if (isset($param[$key])) {
 							// Escape double quotes and newlines
 							$param[$key] = strtr(
 								$param[$key],
 								array(
-									'"' => '\\"',
+									'"'    => '\\"',
 									"\r\n" => '\n',
-									"\n" => '\n',
+									"\n"   => '\n',
 								)
 							);
 						}
@@ -301,7 +301,7 @@ function extractStrings($filename) {
 					$text,
 					array(
 						"\r\n" => '\n',
-						"\n" => '\n',
+						"\n"   => '\n',
 					)
 				) . '")';
 			} elseif (isset($one) && isset($many)) {
@@ -309,14 +309,14 @@ function extractStrings($filename) {
 					$one,
 					array(
 						"\r\n" => '\n',
-						"\n" => '\n',
+						"\n"   => '\n',
 					)
 				) . '", "'
 				. strtr(
 					$many,
 					array(
 						"\r\n" => '\n',
-						"\n" => '\n',
+						"\n"   => '\n',
 					)
 				) . '")';
 			} else {

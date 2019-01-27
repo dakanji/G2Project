@@ -243,6 +243,6 @@ class ShowItemTestTheme extends GalleryTheme {
 	}
 
 	public function isActive() {
-		return array( null, true );
+		return array(null, true);
 	}
 }

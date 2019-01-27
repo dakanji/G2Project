@@ -62,7 +62,7 @@ class PermissionSetTest extends GalleryTestCase {
 			'test.test3',
 			'composite permission',
 			GALLERY_PERMISSION_COMPOSITE,
-			array( 'test.test1', 'test.test2' )
+			array('test.test1', 'test.test2')
 		);
 
 		if ($ret) {
@@ -95,7 +95,7 @@ class PermissionSetTest extends GalleryTestCase {
 			'test.test6',
 			'overlap composite permission',
 			GALLERY_PERMISSION_COMPOSITE,
-			array( 'test.test1', 'test.test5' )
+			array('test.test1', 'test.test5')
 		);
 
 		if ($ret) {
@@ -139,18 +139,18 @@ class PermissionSetTest extends GalleryTestCase {
 
 		array(
 			array(
-				'id' => 'test.test1',
-				'module' => 'testModule',
+				'id'          => 'test.test1',
+				'module'      => 'testModule',
 				'description' => 'regular permission',
 			),
 			array(
-				'id' => 'test.test2',
-				'module' => 'testModule',
+				'id'          => 'test.test2',
+				'module'      => 'testModule',
 				'description' => 'another regular permission',
 			),
 			array(
-				'id' => 'test.test3',
-				'module' => 'testModule',
+				'id'          => 'test.test3',
+				'module'      => 'testModule',
 				'description' => 'composite permission',
 			),
 			$ids,
@@ -162,7 +162,7 @@ class PermissionSetTest extends GalleryTestCase {
 	 * Instead, make sure our round trip works
 	 */
 	public function testConvertRoundTrip1() {
-		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array( 'test.test1' ));
+		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array('test.test1'));
 
 		if ($ret) {
 			return $ret;
@@ -177,8 +177,8 @@ class PermissionSetTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'id' => 'test.test1',
-					'module' => 'testModule',
+					'id'          => 'test.test1',
+					'module'      => 'testModule',
 					'description' => 'regular permission',
 				),
 			),
@@ -191,7 +191,7 @@ class PermissionSetTest extends GalleryTestCase {
 	 * Instead, make sure our round trip works
 	 */
 	public function testConvertRoundTrip2() {
-		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array( 'test.test3' ));
+		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array('test.test3'));
 
 		if ($ret) {
 			return $ret;
@@ -206,18 +206,18 @@ class PermissionSetTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'id' => 'test.test1',
-					'module' => 'testModule',
+					'id'          => 'test.test1',
+					'module'      => 'testModule',
 					'description' => 'regular permission',
 				),
 				array(
-					'id' => 'test.test2',
-					'module' => 'testModule',
+					'id'          => 'test.test2',
+					'module'      => 'testModule',
 					'description' => 'another regular permission',
 				),
 				array(
-					'id' => 'test.test3',
-					'module' => 'testModule',
+					'id'          => 'test.test3',
+					'module'      => 'testModule',
 					'description' => 'composite permission',
 				),
 			),
@@ -247,28 +247,28 @@ class PermissionSetTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'id' => 'test.test1',
-					'module' => 'testModule',
+					'id'          => 'test.test1',
+					'module'      => 'testModule',
 					'description' => 'regular permission',
 				),
 				array(
-					'id' => 'test.test2',
-					'module' => 'testModule',
+					'id'          => 'test.test2',
+					'module'      => 'testModule',
 					'description' => 'another regular permission',
 				),
 				array(
-					'id' => 'test.test3',
-					'module' => 'testModule',
+					'id'          => 'test.test3',
+					'module'      => 'testModule',
 					'description' => 'composite permission',
 				),
 				array(
-					'id' => 'test.test5',
-					'module' => 'testModule',
+					'id'          => 'test.test5',
+					'module'      => 'testModule',
 					'description' => 'another regular permission',
 				),
 				array(
-					'id' => 'test.test6',
-					'module' => 'testModule',
+					'id'          => 'test.test6',
+					'module'      => 'testModule',
 					'description' => 'overlap composite permission',
 				),
 			),
@@ -298,13 +298,13 @@ class PermissionSetTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'id' => 'test.test3',
-					'module' => 'testModule',
+					'id'          => 'test.test3',
+					'module'      => 'testModule',
 					'description' => 'composite permission',
 				),
 				array(
-					'id' => 'test.test6',
-					'module' => 'testModule',
+					'id'          => 'test.test6',
+					'module'      => 'testModule',
 					'description' => 'overlap composite permission',
 				),
 			),
@@ -337,7 +337,7 @@ class PermissionSetTest extends GalleryTestCase {
 		// Unordered comparison
 		$this->assertEquals(
 			array(
-				'core.all' => 1,
+				'core.all'   => 1,
 				'test.test4' => 1,
 			),
 			array(

@@ -42,7 +42,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$status = $error = array();
@@ -61,7 +61,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 		$pluginType = $form['pluginType'];
 		$pluginId   = $form['pluginId'];
 
-		if (!in_array($pluginType, array( 'theme', 'module' ))) {
+		if (!in_array($pluginType, array('theme', 'module'))) {
 			return array(
 				GalleryCoreApi::error(
 					ERROR_BAD_PARAMETER,
@@ -85,7 +85,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!empty($form['base'])) {
@@ -126,13 +126,13 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				) = GalleryRepository::doStatic()->getRepositories();
 
 				if ($ret) {
-					return array( null, $ret );
+					return array(null, $ret);
 				}
 
 				$templateAdapter =& $gallery->getTemplateAdapter();
 				$templateAdapter->registerTrailerCallback(
-					array( $this, 'performDownloadAndInstallation' ),
-					array( $installPackages, $repositories )
+					array($this, 'performDownloadAndInstallation'),
+					array($installPackages, $repositories)
 				);
 				$delegate['view'] = 'core.ProgressBar';
 			}
@@ -151,7 +151,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -169,7 +169,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($form['formName'] != 'AdminRepositoryDownload') {
@@ -180,13 +180,13 @@ class AdminRepositoryDownloadView extends GalleryView {
 		list($ret, $repositories) = GalleryRepository::doStatic()->getRepositories();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables('pluginType', 'pluginId');
 
 		$AdminRepositoryDownload = array(
-			'pluginId' => $pluginId,
+			'pluginId'   => $pluginId,
 			'pluginType' => $pluginType,
 		);
 
@@ -194,7 +194,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 		list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($languages, $defaultCountry) = $translator->getLanguageData();
@@ -208,7 +208,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			list($ret, $upgradeData) = $repository->getPluginUpgradeInfo($pluginType, $pluginId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!$upgradeData['base']['isCompatible']) {
@@ -218,20 +218,20 @@ class AdminRepositoryDownloadView extends GalleryView {
 			list($ret, $upgradeData['pluginName']) = $repository->getPluginName($pluginType, $pluginId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Treat all variations of a language as one
 			$condensedData = array();
 
 			foreach ($upgradeData['languages'] as $langCode => $languageData) {
-				if (in_array($langCode, array( 'zh_CN', 'zh_TW', 'en_GB' ))) {
+				if (in_array($langCode, array('zh_CN', 'zh_TW', 'en_GB'))) {
 					$condensedData[$langCode] = $languageData;
 				} else {
 					list($ret, $language) = $translator->getLanguageAndCountryFromLanguageCode($langCode);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					if (empty($condensedData[$language])) {
@@ -253,7 +253,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			) = GalleryRepository::doStatic()->translateRepositoryName($source);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$AdminRepositoryDownload['upgradeData'][] = $upgradeData;
@@ -262,7 +262,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 				$AdminRepositoryDownload['pluginName'] = $upgradeData['pluginName'];
 			}
 		}
-		usort($AdminRepositoryDownload['upgradeData'], array( $this, 'versionComparator' ));
+		usort($AdminRepositoryDownload['upgradeData'], array($this, 'versionComparator'));
 
 		if (!empty($AdminRepositoryDownload['upgradeData'][0]['base']['currentVersion'])) {
 			for ($i = 0; $i < count($AdminRepositoryDownload['upgradeData']); $i++) {
@@ -273,16 +273,16 @@ class AdminRepositoryDownloadView extends GalleryView {
 				if ($AdminRepositoryDownload['upgradeData'][$i]['base']['relation'] == 'older') {
 					$newEntry['pluginName']    = $AdminRepositoryDownload['pluginName'];
 					$newEntry['base']          = array(
-						'newVersion' => $pluginPackages['base']['version'],
-						'newBuild' => $pluginPackages['base']['build'],
+						'newVersion'     => $pluginPackages['base']['version'],
+						'newBuild'       => $pluginPackages['base']['build'],
 						'currentVersion' => $pluginPackages['base']['version'],
-						'currentBuild' => $pluginPackages['base']['build'],
-						'relation' => 'equal',
+						'currentBuild'   => $pluginPackages['base']['build'],
+						'relation'       => 'equal',
 					);
 					$newEntry['repository']    = 'installed';
 					$newEntry['languages']     = array();
 					$newEntry['languageCount'] = 0;
-					array_splice($AdminRepositoryDownload['upgradeData'], $i, 0, array( $newEntry ));
+					array_splice($AdminRepositoryDownload['upgradeData'], $i, 0, array($newEntry));
 
 					break;
 				}

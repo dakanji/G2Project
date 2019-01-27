@@ -308,28 +308,28 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			list($ret, $path) = $this->fetchPath();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
-			return array( null, $path );
+			return array(null, $path);
 		}
 		list($ret, $parent) = $this->fetchParent();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (isset($parent)) {
 			list($ret, $path) = $parent->fetchContainerPath();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
-			return array( null, $path );
+			return array(null, $path);
 		}
 
-		return array( GalleryCoreApi::error(ERROR_BAD_PATH), null );
+		return array(GalleryCoreApi::error(ERROR_BAD_PATH), null);
 	}
 
 	/**
@@ -354,13 +354,13 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			list($ret, $parent) = $this->fetchParent();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $parentPath) = $parent->fetchLogicalPath();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} else {
 			$parentPath = '';
@@ -372,7 +372,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			$path .= '/';
 		}
 
-		return array( null, $path );
+		return array(null, $path);
 	}
 
 	/**
@@ -390,13 +390,13 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			list($ret, $logicalPath) = $linkedEntity->fetchLogicalPath();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} else {
 			list($ret, $logicalPath) = $this->fetchLogicalPath();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -416,7 +416,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			$logicalPath = str_replace('/', $platform->getDirectorySeparator(), $logicalPath);
 		}
 
-		return array( null, $absolutePath . $logicalPath );
+		return array(null, $absolutePath . $logicalPath);
 	}
 
 	/**

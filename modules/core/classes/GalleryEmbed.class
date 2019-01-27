@@ -49,7 +49,7 @@ class GalleryEmbed {
 	 * @return array major number, minor number
 	 */
 	public static function getApiVersion() {
-		return array( 1, 5 );
+		return array(1, 5);
 	}
 
 	/**
@@ -232,7 +232,7 @@ class GalleryEmbed {
 		if (!empty($activeUserId)) {
 			list($ret, $results) = GalleryCoreApi::getMapEntry(
 				'ExternalIdMap',
-				array( 'entityId' ),
+				array('entityId'),
 				array(
 					'externalId' => $activeUserId,
 					'entityType' => 'GalleryUser',
@@ -467,7 +467,7 @@ class GalleryEmbed {
 			array(
 				'externalId' => $extUserId,
 				'entityType' => 'GalleryUser',
-				'entityId' => $user->getId(),
+				'entityId'   => $user->getId(),
 			)
 		);
 
@@ -539,7 +539,7 @@ class GalleryEmbed {
 			$user->changePassword($args['password']);
 		} elseif (!empty($args['hashedpassword'])) {
 			if (!isset($args['hashmethod'])
-				|| !in_array($args['hashmethod'], array( 'md5', 'phpass' ))
+				|| !in_array($args['hashmethod'], array('md5', 'phpass'))
 			) {
 				return GalleryCoreApi::error(
 					ERROR_BAD_PARAMETER,
@@ -646,7 +646,7 @@ class GalleryEmbed {
 			array(
 				'externalId' => $extGroupId,
 				'entityType' => 'GalleryGroup',
-				'entityId' => $group->getId(),
+				'entityId'   => $group->getId(),
 			)
 		);
 
@@ -808,7 +808,7 @@ class GalleryEmbed {
 		$ret     = $session->start();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$session->doNotUseTempId();
 
@@ -817,14 +817,14 @@ class GalleryEmbed {
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		foreach ($ids as $id => $className) {
 			list($ret, $searchInstances[$id]) = GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -832,7 +832,7 @@ class GalleryEmbed {
 			list($ret, $searchInfo) = $instance->getSearchModuleInfo();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$options = array();
 
@@ -849,12 +849,12 @@ class GalleryEmbed {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$searchResults[$id]['name'] = $searchInfo['name'];
 		}
 
-		return array( null, $searchResults );
+		return array(null, $searchResults);
 	}
 
 	/**
@@ -875,7 +875,7 @@ class GalleryEmbed {
 		$ret     = $session->start();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$session->doNotUseTempId();
 
@@ -883,16 +883,16 @@ class GalleryEmbed {
 		list($ret, $searchInstance) = GalleryCoreApi::newFactoryInstanceById('GallerySearchInterface_1_0', $moduleId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($searchInstance)) {
-			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 		list($ret, $searchInfo) = $searchInstance->getSearchModuleInfo();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$options = array();
 
@@ -909,11 +909,11 @@ class GalleryEmbed {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$searchResults['name'] = $searchInfo['name'];
 
-		return array( null, $searchResults );
+		return array(null, $searchResults);
 	}
 
 	/**
@@ -968,7 +968,7 @@ class GalleryEmbed {
 			}
 		}
 
-		return array( $title, $css, $javascript, $meta );
+		return array($title, $css, $javascript, $meta);
 	}
 
 	/**
@@ -1012,7 +1012,7 @@ class GalleryEmbed {
 			array(
 				'externalId' => $externalId,
 				'entityType' => $entityType,
-				'entityId' => $entityId,
+				'entityId'   => $entityId,
 			)
 		);
 
@@ -1035,15 +1035,15 @@ class GalleryEmbed {
 	public static function getExternalIdMap($key) {
 		// Input validation
 		if ($key != 'externalId' && $key != 'entityId') {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 		list($ret, $results) = GalleryCoreApi::getMapEntry(
 			'ExternalIdMap',
-			array( 'entityId', 'externalId', 'entityType' )
+			array('entityId', 'externalId', 'entityType')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$map = array();
@@ -1051,7 +1051,7 @@ class GalleryEmbed {
 		while ($result = $results->nextResult()) {
 			$entry = array(
 				'externalId' => $result[1],
-				'entityId' => $result[0],
+				'entityId'   => $result[0],
 				'entityType' => $result[2],
 			);
 
@@ -1062,7 +1062,7 @@ class GalleryEmbed {
 			}
 		}
 
-		return array( null, $map );
+		return array(null, $map);
 	}
 
 	/**
@@ -1078,7 +1078,7 @@ class GalleryEmbed {
 	public static function isExternalIdMapped($externalId, $entityType) {
 		list($ret, $results) = GalleryCoreApi::getMapEntry(
 			'ExternalIdMap',
-			array( 'entityId' ),
+			array('entityId'),
 			array(
 				'externalId' => $externalId,
 				'entityType' => $entityType,
@@ -1113,7 +1113,7 @@ class GalleryEmbed {
 	public static function setThemeForRequest($themeId, $themeParams = null) {
 		global $gallery;
 
-		$gallery->setConfig('embeddedTheme', array( $themeId, $themeParams ));
+		$gallery->setConfig('embeddedTheme', array($themeId, $themeParams));
 
 		return GalleryCoreApi::registerFactoryImplementationForRequest(
 			'GalleryEventListener',
@@ -1121,7 +1121,7 @@ class GalleryEmbed {
 			'GalleryEmbed',
 			'modules/core/classes/GalleryEmbed.class',
 			'core',
-			array( 'Gallery::LoadThemeAndParameters' )
+			array('Gallery::LoadThemeAndParameters')
 		);
 	}
 
@@ -1138,12 +1138,12 @@ class GalleryEmbed {
 				null,
 				array(
 					'themeId' => $themeId,
-					'params' => $params,
+					'params'  => $params,
 				),
 			);
 		}
 
-		return array( null, null );
+		return array(null, null);
 	}
 
 	/**
@@ -1171,7 +1171,7 @@ class GalleryEmbed {
 		$ret = $session->start();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$session->doNotUseTempId();
 
@@ -1179,17 +1179,17 @@ class GalleryEmbed {
 		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$blockTpl = "modules/$moduleId/templates/blocks/$blockName.tpl";
 
 		if (!$platform->file_exists(GalleryCoreApi::getCodeBasePath($blockTpl))) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
 		if (!isset($moduleStatus[$moduleId]) || empty($moduleStatus[$moduleId]['active'])) {
-			return array( GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null, null );
+			return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null, null);
 		}
 		// Load the G2 templating engine
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
@@ -1203,7 +1203,7 @@ class GalleryEmbed {
 		$ret   = $theme->preloadBlock($template, $blockId, $params);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Default theme variables
@@ -1211,7 +1211,7 @@ class GalleryEmbed {
 		$ret = GalleryView::doStatic()->setStandardTemplateVariables($template);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Assign template variables
@@ -1226,7 +1226,7 @@ class GalleryEmbed {
 		list($ret, $blockHtml) = $template->fetch("gallery:$blockTpl");
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Check for any required CSS / JavaScript
@@ -1238,7 +1238,7 @@ class GalleryEmbed {
 				list($ret, $headHtml) = $template->fetch("gallery:$tpl");
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 			}
 
@@ -1275,7 +1275,7 @@ class GalleryEmbed {
 		$headHtml .= empty($css) ? '' : "\n" . implode("\n", $css);
 		$headHtml .= empty($javascript) ? '' : "\n" . implode("\n", $javascript);
 
-		return array( null, $blockHtml, $headHtml );
+		return array(null, $blockHtml, $headHtml);
 	}
 
 	/**

@@ -46,11 +46,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateUser',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -72,12 +72,12 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
-					'userId' => $user->getId(),
+					'userId'  => $user->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -90,11 +90,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][noUserSpecified]' ),
+				'error'  => array('form[error][text][noUserSpecified]'),
 			),
 			$results
 		);
@@ -110,11 +110,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][noSuchUser]' ),
+				'error'  => array('form[error][text][noSuchUser]'),
 			),
 			$results
 		);
@@ -136,12 +136,12 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
-					'userId' => $user->getId(),
+					'userId'  => $user->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -154,11 +154,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][noUserSpecified]' ),
+				'error'  => array('form[error][text][noUserSpecified]'),
 			),
 			$results
 		);
@@ -174,11 +174,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][noSuchUser]' ),
+				'error'  => array('form[error][text][noSuchUser]'),
 			),
 			$results
 		);
@@ -206,11 +206,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][cantDeleteAnonymous]' ),
+				'error'  => array('form[error][text][cantDeleteAnonymous]'),
 			),
 			$results
 		);
@@ -228,11 +228,11 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][cantDeleteSelf]' ),
+				'error'  => array('form[error][text][cantDeleteSelf]'),
 			),
 			$results
 		);
@@ -244,7 +244,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		list($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($user)) {
@@ -257,14 +257,14 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		$ret = $user->create('testuser-' . mt_rand());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$ret = $user->save();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $user );
+		return array(null, $user);
 	}
 }

@@ -36,8 +36,8 @@ class SlideshowModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getItemLinks|getSiteAdminViews');
-		$this->setRequiredCoreApi(array( 7, 49 ));
-		$this->setRequiredModuleApi(array( 3, 9 ));
+		$this->setRequiredCoreApi(array(7, 49));
+		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**
@@ -63,7 +63,7 @@ class SlideshowModule extends GalleryModule {
 			'SlideshowModule',
 			'modules/slideshow/module.inc',
 			'slideshow',
-			array( 'Gallery::BeforeDisplay' )
+			array('Gallery::BeforeDisplay')
 		);
 
 		if ($ret) {
@@ -104,7 +104,7 @@ class SlideshowModule extends GalleryModule {
 		list($ret, $uninstalled) = $this->getParameter('piclens.uninstalled');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($uninstalled)) {
@@ -114,7 +114,7 @@ class SlideshowModule extends GalleryModule {
 			list($ret, $version) = PicLensHelper::install();
 
 			if ($ret && $ret->getErrorCode() & ERROR_STORAGE_FAILURE) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($ret) {
@@ -133,7 +133,7 @@ class SlideshowModule extends GalleryModule {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
@@ -151,7 +151,7 @@ class SlideshowModule extends GalleryModule {
 		list($ret, $picLensVersion) = $this->getParameter('piclens.version');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$links = array();
@@ -160,7 +160,7 @@ class SlideshowModule extends GalleryModule {
 			$itemId            = $item->getId();
 			$jsUrlParams       = array(
 				'forJavascript' => true,
-				'forceFullUrl' => true,
+				'forceFullUrl'  => true,
 			);
 			$jsUrlParamsDirect = array_merge(
 				$jsUrlParams,
@@ -220,7 +220,7 @@ class SlideshowModule extends GalleryModule {
 							. 'p.start({feedUrl:\'%s\', guid:%d, pid:\'2PWfB4lurT4g\', delay:10})',
 							$urlGenerator->generateUrl(
 								array(
-									'view' => 'slideshow.Slideshow',
+									'view'   => 'slideshow.Slideshow',
 									'itemId' => $itemId,
 								),
 								$jsUrlParams
@@ -229,13 +229,13 @@ class SlideshowModule extends GalleryModule {
 								array(
 									'view' => 'slideshow.DownloadPicLens',
 									'file' => 'swf',
-									'v' => $picLensVersion,
+									'v'    => $picLensVersion,
 								),
 								$jsUrlParamsDirect
 							),
 							$urlGenerator->generateUrl(
 								array(
-									'view' => 'slideshow.SlideshowMediaRss',
+									'view'   => 'slideshow.SlideshowMediaRss',
 									'itemId' => $item->getId(),
 								),
 								$jsUrlParams
@@ -243,18 +243,18 @@ class SlideshowModule extends GalleryModule {
 							$itemId
 						);
 						$links[$itemId][] = array(
-							'text' => $this->translate('View Slideshow'),
+							'text'   => $this->translate('View Slideshow'),
 							'params' => array(
-								'view' => 'slideshow.Slideshow',
+								'view'   => 'slideshow.Slideshow',
 								'itemId' => $itemId,
 							),
 							'script' => $script,
 						);
 					} else {
 						$links[$itemId][] = array(
-							'text' => $this->translate('View Slideshow'),
+							'text'   => $this->translate('View Slideshow'),
 							'params' => array(
-								'view' => 'slideshow.Slideshow',
+								'view'   => 'slideshow.Slideshow',
 								'itemId' => $itemId,
 							),
 						);
@@ -263,7 +263,7 @@ class SlideshowModule extends GalleryModule {
 			}
 		}
 
-		return array( null, $links );
+		return array(null, $links);
 	}
 
 	/**
@@ -300,7 +300,7 @@ class SlideshowModule extends GalleryModule {
 		$rule['pattern']  = 'v/%path%/slideshow.html';
 		$rule['keywords'] = array(
 			'path' => array(
-				'pattern' => '([^?]+)',
+				'pattern'  => '([^?]+)',
 				'function' => array(
 					'rewrite',
 					'RewriteSimpleHelper',
@@ -339,24 +339,24 @@ class SlideshowModule extends GalleryModule {
 			list($ret, $item, $ignored) = GalleryView::doStatic()->getItem();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $picLensVersion) = $this->getParameter('piclens.version');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($picLensVersion) {
 				$template->link(
 					array(
-						'rel' => 'alternate',
-						'type' => 'application/rss+xml',
+						'rel'   => 'alternate',
+						'type'  => 'application/rss+xml',
 						'title' => 'Photo RSS',
-						'href' => $urlGenerator->generateUrl(
+						'href'  => $urlGenerator->generateUrl(
 							array(
-								'view' => 'slideshow.SlideshowMediaRss',
+								'view'   => 'slideshow.SlideshowMediaRss',
 								'itemId' => $item->getId(),
 							)
 						),
@@ -368,10 +368,10 @@ class SlideshowModule extends GalleryModule {
 						array(
 							'view' => 'slideshow.DownloadPicLens',
 							'file' => 'js',
-							'v' => $picLensVersion,
+							'v'    => $picLensVersion,
 						),
 						array(
-							'forceDirect' => true,
+							'forceDirect'  => true,
 							'forceFullUrl' => true,
 						)
 					)
@@ -379,6 +379,6 @@ class SlideshowModule extends GalleryModule {
 			}
 		}
 
-		return array( null, null );
+		return array(null, null);
 	}
 }

@@ -95,7 +95,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$expectedPluginData = array(
 			'module' => array(
 				$testModule => array(
-					'base' => 1,
+					'base'       => 1,
 					'lang-en_US' => 1,
 					'lang-hu_HU' => 1,
 				),
@@ -105,7 +105,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$pluginDownloadFileList = array(
 			'module' => array(
 				$testModule => array(
-					'name' => 'Test Module',
+					'name'  => 'Test Module',
 					'files' => array(
 						'descriptor' => 'testModule-descriptor',
 						'lang-en_US' => 'en_US-package',
@@ -118,8 +118,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$repository = new UnitTestRepository();
 		$repository->setReply(
 			'getDownloadFileList',
-			array( $expectedPluginData ),
-			array( null, $pluginDownloadFileList )
+			array($expectedPluginData),
+			array(null, $pluginDownloadFileList)
 		);
 
 		$startingAdapter = new MockTemplateAdapter();
@@ -131,22 +131,22 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				$testModule,
 				$pluginDownloadFileList['module'][$testModule],
 				array(
-					'method' => array( $startingAdapter, 'updateProgressBar' ),
-					'title' => $this->_coreModule->translate('Updating Packages'),
+					'method'  => array($startingAdapter, 'updateProgressBar'),
+					'title'   => $this->_coreModule->translate('Updating Packages'),
 					'current' => 0,
-					'total' => 7,
+					'total'   => 7,
 				),
 			),
-			array( null, true, array() )
+			array(null, true, array())
 		);
-		$repository->setReply('removeObsoleteFiles', array( 'module', $testModule ), null);
+		$repository->setReply('removeObsoleteFiles', array('module', $testModule), null);
 
 		$ret = $this->_controller->performDownloadAndInstallation(
 			array(
 				'test' => array(
 					'module' => array(
 						$testModule => array(
-							'base' => 1,
+							'base'       => 1,
 							'lang-en_US' => 1,
 							'lang-hu_HU' => 1,
 						),
@@ -166,8 +166,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
-				'autoConfigure' => 1,
-				'activate' => 1,
+				'autoConfigure'    => 1,
+				'activate'         => 1,
 			),
 			$_REQUEST['called']
 		);
@@ -194,10 +194,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$pluginDownloadFileList = array(
 			'module' => array(
 				$testModule => array(
-					'name' => 'Test Module',
+					'name'  => 'Test Module',
 					'files' => array(
 						'descriptor' => 'testModule-descriptor',
-						'base' => 'base-package',
+						'base'       => 'base-package',
 					),
 				),
 			),
@@ -206,8 +206,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$repository = new UnitTestRepository();
 		$repository->setReply(
 			'getDownloadFileList',
-			array( $expectedPluginData ),
-			array( null, $pluginDownloadFileList )
+			array($expectedPluginData),
+			array(null, $pluginDownloadFileList)
 		);
 
 		$startingAdapter = new MockTemplateAdapter();
@@ -219,15 +219,15 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				$testModule,
 				$pluginDownloadFileList['module'][$testModule],
 				array(
-					'method' => array( $startingAdapter, 'updateProgressBar' ),
-					'title' => $this->_coreModule->translate('Updating Packages'),
+					'method'  => array($startingAdapter, 'updateProgressBar'),
+					'title'   => $this->_coreModule->translate('Updating Packages'),
 					'current' => 0,
-					'total' => 5,
+					'total'   => 5,
 				),
 			),
-			array( null, true, array() )
+			array(null, true, array())
 		);
-		$repository->setReply('removeObsoleteFiles', array( 'module', $testModule ), null);
+		$repository->setReply('removeObsoleteFiles', array('module', $testModule), null);
 
 		$ret = $this->_controller->performDownloadAndInstallation(
 			array(
@@ -252,7 +252,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
-				'autoConfigure' => 1,
+				'autoConfigure'    => 1,
 			),
 			$_REQUEST['called']
 		);
@@ -280,10 +280,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$pluginDownloadFileList = array(
 			'module' => array(
 				$testModule => array(
-					'name' => 'Test Module',
+					'name'  => 'Test Module',
 					'files' => array(
 						'descriptor' => 'testModule-descriptor',
-						'base' => 'base-package',
+						'base'       => 'base-package',
 					),
 				),
 			),
@@ -292,8 +292,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$repository = new UnitTestRepository();
 		$repository->setReply(
 			'getDownloadFileList',
-			array( $expectedPluginData ),
-			array( null, $pluginDownloadFileList )
+			array($expectedPluginData),
+			array(null, $pluginDownloadFileList)
 		);
 
 		$startingAdapter = new MockTemplateAdapter();
@@ -305,15 +305,15 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				$testModule,
 				$pluginDownloadFileList['module'][$testModule],
 				array(
-					'method' => array( $startingAdapter, 'updateProgressBar' ),
-					'title' => $this->_coreModule->translate('Updating Packages'),
+					'method'  => array($startingAdapter, 'updateProgressBar'),
+					'title'   => $this->_coreModule->translate('Updating Packages'),
 					'current' => 0,
-					'total' => 5,
+					'total'   => 5,
 				),
 			),
-			array( null, true, array() )
+			array(null, true, array())
 		);
-		$repository->setReply('removeObsoleteFiles', array( 'module', $testModule ), null);
+		$repository->setReply('removeObsoleteFiles', array('module', $testModule), null);
 
 		$ret = $this->_controller->performDownloadAndInstallation(
 			array(
@@ -338,8 +338,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
-				'autoConfigure' => 1,
-				'activate' => 1,
+				'autoConfigure'    => 1,
+				'activate'         => 1,
 			),
 			$_REQUEST['called']
 		);
@@ -367,10 +367,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$pluginDownloadFileList = array(
 			'module' => array(
 				$testModule => array(
-					'name' => 'Test Module',
+					'name'  => 'Test Module',
 					'files' => array(
 						'descriptor' => 'testModule-descriptor',
-						'base' => 'base-package',
+						'base'       => 'base-package',
 					),
 				),
 			),
@@ -379,8 +379,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$repository = new UnitTestRepository();
 		$repository->setReply(
 			'getDownloadFileList',
-			array( $expectedPluginData ),
-			array( null, $pluginDownloadFileList )
+			array($expectedPluginData),
+			array(null, $pluginDownloadFileList)
 		);
 
 		$startingAdapter = new MockTemplateAdapter();
@@ -392,15 +392,15 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				$testModule,
 				$pluginDownloadFileList['module'][$testModule],
 				array(
-					'method' => array( $startingAdapter, 'updateProgressBar' ),
-					'title' => $this->_coreModule->translate('Updating Packages'),
+					'method'  => array($startingAdapter, 'updateProgressBar'),
+					'title'   => $this->_coreModule->translate('Updating Packages'),
 					'current' => 0,
-					'total' => 5,
+					'total'   => 5,
 				),
 			),
-			array( null, true, array() )
+			array(null, true, array())
 		);
-		$repository->setReply('removeObsoleteFiles', array( 'module', $testModule ), null);
+		$repository->setReply('removeObsoleteFiles', array('module', $testModule), null);
 
 		$ret = $this->_controller->performDownloadAndInstallation(
 			array(
@@ -429,7 +429,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertEquals(
 			array(
 				'error' => array(
-					'cantUpgradeInUse' => array( 'Test Module' ),
+					'cantUpgradeInUse' => array('Test Module'),
 				),
 			),
 			$status
@@ -450,7 +450,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$expectedPluginData = array(
 			'module' => array(
 				$testModule => array(
-					'base' => 1,
+					'base'       => 1,
 					'lang-en_US' => 1,
 					'lang-hu_HU' => 1,
 				),
@@ -460,10 +460,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$pluginDownloadFileList = array(
 			'module' => array(
 				$testModule => array(
-					'name' => 'Test Module',
+					'name'  => 'Test Module',
 					'files' => array(
 						'descriptor' => 'testModule-descriptor',
-						'base' => 'base-package',
+						'base'       => 'base-package',
 						'lang-en_US' => 'en_US-package',
 						'lang-hu_HU' => 'hu_HU-package',
 					),
@@ -474,8 +474,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$repository = new UnitTestRepository();
 		$repository->setReply(
 			'getDownloadFileList',
-			array( $expectedPluginData ),
-			array( null, $pluginDownloadFileList )
+			array($expectedPluginData),
+			array(null, $pluginDownloadFileList)
 		);
 
 		$startingAdapter = new MockTemplateAdapter();
@@ -487,10 +487,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				$testModule,
 				$pluginDownloadFileList['module'][$testModule],
 				array(
-					'method' => array( $startingAdapter, 'updateProgressBar' ),
-					'title' => $this->_coreModule->translate('Updating Packages'),
+					'method'  => array($startingAdapter, 'updateProgressBar'),
+					'title'   => $this->_coreModule->translate('Updating Packages'),
 					'current' => 0,
-					'total' => 9,
+					'total'   => 9,
 				),
 			),
 			array(
@@ -499,20 +499,20 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				array(
 					'failedToDownload' => array(
 						'module' => array(
-							'Test Module' => array( 'base-package' ),
+							'Test Module' => array('base-package'),
 						),
 					),
 				),
 			)
 		);
-		$repository->setReply('removeObsoleteFiles', array( 'module', $testModule ), null);
+		$repository->setReply('removeObsoleteFiles', array('module', $testModule), null);
 
 		$ret = $this->_controller->performDownloadAndInstallation(
 			array(
 				'test' => array(
 					'module' => array(
 						$testModule => array(
-							'base' => 1,
+							'base'       => 1,
 							'lang-en_US' => 1,
 							'lang-hu_HU' => 1,
 						),
@@ -535,7 +535,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			'error' => array(
 				'failedToDownload' => array(
 					'module' => array(
-						'Test Module' => array( 'base-package' ),
+						'Test Module' => array('base-package'),
 					),
 				),
 			),
@@ -557,7 +557,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$expectedPluginData = array(
 			'module' => array(
 				$testModule => array(
-					'base' => 1,
+					'base'       => 1,
 					'lang-en_US' => 1,
 					'lang-hu_HU' => 1,
 				),
@@ -567,10 +567,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$pluginDownloadFileList = array(
 			'module' => array(
 				$testModule => array(
-					'name' => 'Test Module',
+					'name'  => 'Test Module',
 					'files' => array(
 						'descriptor' => 'testModule-descriptor',
-						'base' => 'base-package',
+						'base'       => 'base-package',
 						'lang-en_US' => 'en_US-package',
 						'lang-hu_HU' => 'hu_HU-package',
 					),
@@ -581,8 +581,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$repository = new UnitTestRepository();
 		$repository->setReply(
 			'getDownloadFileList',
-			array( $expectedPluginData ),
-			array( null, $pluginDownloadFileList )
+			array($expectedPluginData),
+			array(null, $pluginDownloadFileList)
 		);
 
 		$startingAdapter = new MockTemplateAdapter();
@@ -594,10 +594,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				$testModule,
 				$pluginDownloadFileList['module'][$testModule],
 				array(
-					'method' => array( $startingAdapter, 'updateProgressBar' ),
-					'title' => $this->_coreModule->translate('Updating Packages'),
+					'method'  => array($startingAdapter, 'updateProgressBar'),
+					'title'   => $this->_coreModule->translate('Updating Packages'),
 					'current' => 0,
-					'total' => 9,
+					'total'   => 9,
 				),
 			),
 			array(
@@ -606,20 +606,20 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				array(
 					'failedToDownload' => array(
 						'module' => array(
-							'Test Module' => array( 'en_GB-package' ),
+							'Test Module' => array('en_GB-package'),
 						),
 					),
 				),
 			)
 		);
-		$repository->setReply('removeObsoleteFiles', array( 'module', $testModule ), null);
+		$repository->setReply('removeObsoleteFiles', array('module', $testModule), null);
 
 		$ret = $this->_controller->performDownloadAndInstallation(
 			array(
 				'test' => array(
 					'module' => array(
 						$testModule => array(
-							'base' => 1,
+							'base'       => 1,
 							'lang-en_US' => 1,
 							'lang-hu_HU' => 1,
 						),
@@ -640,8 +640,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
-				'autoConfigure' => 1,
-				'activate' => 1,
+				'autoConfigure'    => 1,
+				'activate'         => 1,
 			),
 			$_REQUEST['called']
 		);
@@ -651,11 +651,11 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			'error'   => array(
 				'failedToDownload' => array(
 					'module' => array(
-						'Test Module' => array( 'en_GB-package' ),
+						'Test Module' => array('en_GB-package'),
 					),
 				),
 			),
-			'updated' => array( 'Test Module' ),
+			'updated' => array('Test Module'),
 		);
 		$this->assertEquals($expected, $status, 'Expected status messages');
 	}
@@ -666,14 +666,14 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 
-		$storage->setReply('removeAllMapEntries', array( 'GalleryPluginPackageMap', null ), null);
+		$storage->setReply('removeAllMapEntries', array('GalleryPluginPackageMap', null), null);
 
 		$repository = new UnitTestRepository();
 		$repository->setReply('downloadIndex', array(), null);
-		$repository->setReply('scanPlugin', array( 'module', 'module1' ), null);
-		$repository->setReply('scanPlugin', array( 'module', 'module2' ), null);
-		$repository->setReply('scanPlugin', array( 'theme', 'theme1' ), null);
-		$repository->setReply('scanPlugin', array( 'theme', 'theme2' ), null);
+		$repository->setReply('scanPlugin', array('module', 'module1'), null);
+		$repository->setReply('scanPlugin', array('module', 'module2'), null);
+		$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
+		$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
 
 		$mockUrlGenerator       = new AdminRepositoryControllerTestUrlGenerator();
 		$gallery->_urlGenerator =& $mockUrlGenerator;
@@ -682,21 +682,21 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			array(
 				'module' => array(
 					'module1' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 					'module2' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 				),
 				'theme' => array(
 					'theme1' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 					'theme2' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 				),
@@ -705,7 +705,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				'test' => $repository,
 			),
 			array(
-				'view' => 'core.SiteAdmin',
+				'view'    => 'core.SiteAdmin',
 				'subView' => 'core.AdminRepository',
 			)
 		);
@@ -741,20 +741,20 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$gallery->_storage->setReply(
 			'removeAllMapEntries',
-			array( 'GalleryPluginPackageMap', false ),
+			array('GalleryPluginPackageMap', false),
 			null
 		);
 
 		$repository = new UnitTestRepository();
 		$repository->setReply('downloadIndex', array(), null);
-		$repository->setReply('scanPlugin', array( 'module', 'module1' ), null);
+		$repository->setReply('scanPlugin', array('module', 'module1'), null);
 		$repository->setReply(
 			'scanPlugin',
-			array( 'module', 'module2' ),
+			array('module', 'module2'),
 			GalleryCoreApi::error(ERROR_BAD_PATH)
 		);
-		$repository->setReply('scanPlugin', array( 'theme', 'theme1' ), null);
-		$repository->setReply('scanPlugin', array( 'theme', 'theme2' ), null);
+		$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
+		$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
 
 		$mockUrlGenerator       = new AdminRepositoryControllerTestUrlGenerator();
 		$gallery->_urlGenerator =& $mockUrlGenerator;
@@ -763,21 +763,21 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			array(
 				'module' => array(
 					'module1' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 					'module2' => array(
-						'active' => false,
+						'active'    => false,
 						'available' => true,
 					),
 				),
 				'theme' => array(
 					'theme1' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 					'theme2' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 				),
@@ -786,7 +786,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				'test' => $repository,
 			),
 			array(
-				'view' => 'core.SiteAdmin',
+				'view'    => 'core.SiteAdmin',
 				'subView' => 'core.AdminRepository',
 			)
 		);
@@ -814,7 +814,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
 		$session                      =& $gallery->getSession();
-		$expectedStatus['scanPlugin'] = array( 'module2' );
+		$expectedStatus['scanPlugin'] = array('module2');
 		$this->assertEquals(
 			$expectedStatus,
 			$session->getStatus(),
@@ -829,18 +829,18 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$gallery->_session         = new AdminRepositoryControllerTestSession();
 
-		$storage->setReply('removeAllMapEntries', array( 'GalleryPluginPackageMap', null ), null);
+		$storage->setReply('removeAllMapEntries', array('GalleryPluginPackageMap', null), null);
 
 		$repository = new UnitTestRepository();
 		$repository->setReply('downloadIndex', array(), null);
-		$repository->setReply('scanPlugin', array( 'module', 'module1' ), null);
+		$repository->setReply('scanPlugin', array('module', 'module1'), null);
 		$repository->setReply(
 			'scanPlugin',
-			array( 'module', 'module2' ),
+			array('module', 'module2'),
 			GalleryCoreApi::error(ERROR_STORAGE_FAILURE)
 		);
-		$repository->setReply('scanPlugin', array( 'theme', 'theme1' ), null);
-		$repository->setReply('scanPlugin', array( 'theme', 'theme2' ), null);
+		$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
+		$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
 
 		$mockUrlGenerator       = new AdminRepositoryControllerTestUrlGenerator();
 		$gallery->_urlGenerator =& $mockUrlGenerator;
@@ -850,21 +850,21 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			array(
 				'module' => array(
 					'module1' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 					'module2' => array(
-						'active' => false,
+						'active'    => false,
 						'available' => true,
 					),
 				),
 				'theme' => array(
 					'theme1' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 					'theme2' => array(
-						'active' => true,
+						'active'    => true,
 						'available' => true,
 					),
 				),
@@ -873,7 +873,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 				'test' => $repository,
 			),
 			array(
-				'view' => 'core.SiteAdmin',
+				'view'    => 'core.SiteAdmin',
 				'subView' => 'core.AdminRepository',
 			)
 		);
@@ -892,21 +892,21 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			'test' => array(
 				'module' => array(
 					'testModule' => array(
-						'name' => 'Test Module',
+						'name'  => 'Test Module',
 						'files' => array(
 							'descriptor' => 'modules/testModule.descriptor',
-							'af' => 'modules/testModule-af.package',
-							'cs' => 'modules/testModule-cs.package',
+							'af'         => 'modules/testModule-af.package',
+							'cs'         => 'modules/testModule-cs.package',
 						),
 					),
 				),
 				'theme' => array(
 					'testTheme' => array(
-						'name' => 'Test Theme',
+						'name'  => 'Test Theme',
 						'files' => array(
 							'descriptor' => 'themes/testTheme.descriptor',
-							'af' => 'themes/testTheme-af.package',
-							'cs' => 'themes/testTheme-cs.package',
+							'af'         => 'themes/testTheme-af.package',
+							'cs'         => 'themes/testTheme-cs.package',
 						),
 					),
 				),
@@ -939,13 +939,13 @@ class AdminRepositoryDownloadAndInstallControllerTestModule {
 	public function autoConfigure() {
 		$_REQUEST['called']['autoConfigure'] = 1;
 
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public function activate() {
 		$_REQUEST['called']['activate'] = 1;
 
-		return array( null, array() );
+		return array(null, array());
 	}
 }
 
@@ -957,14 +957,14 @@ class AdminRepositoryDownloadAndInstallControllerTestWrapper extends AdminReposi
 		list($ret, $pluginStatus) = parent::_fetchPluginStatus($pluginType, false);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
+		$testModule                           = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$pluginStatus[$testModule]['active']  = $this->_active;
 		$pluginStatus[$testModule]['version'] = $this->_version;
 
-		return array( null, $pluginStatus );
+		return array(null, $pluginStatus);
 	}
 }
 

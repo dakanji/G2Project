@@ -69,8 +69,8 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 				false,
 			),
 			array(
-				'repositorydir/modules/module.descriptor' => $serializeModuleDescriptor,
-				'repositorydir/themes/theme.descriptor' => $serializeThemeDescriptor,
+				'repositorydir/modules/module.descriptor'  => $serializeModuleDescriptor,
+				'repositorydir/themes/theme.descriptor'    => $serializeThemeDescriptor,
 				'repositorydir/modules/module2.descriptor' => $serializeModule2Descriptor,
 			)
 		);
@@ -84,7 +84,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'themes' => 1,
+				'themes'  => 1,
 				'modules' => 1,
 			),
 			$pluginsInIndex,
@@ -107,17 +107,17 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				0 => array(
-					'type' => 'modules',
-					'id' => 'testModule',
-					'version' => '1.0.0',
-					'requiredCoreApi' => GalleryCoreApi::getApiVersion(),
+					'type'              => 'modules',
+					'id'                => 'testModule',
+					'version'           => '1.0.0',
+					'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
 					'requiredPluginApi' => GalleryModule::doStatic()->getApiVersion(),
 				),
 				1 => array(
-					'type' => 'themes',
-					'id' => 'testTheme',
-					'version' => '1.0.0',
-					'requiredCoreApi' => GalleryCoreApi::getApiVersion(),
+					'type'              => 'themes',
+					'id'                => 'testTheme',
+					'version'           => '1.0.0',
+					'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
 					'requiredPluginApi' => GalleryTheme::doStatic()->getApiVersion(),
 				),
 			),

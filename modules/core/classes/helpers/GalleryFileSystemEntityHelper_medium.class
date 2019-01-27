@@ -48,7 +48,7 @@ class GalleryFileSystemEntityHelper_medium {
 	    [GalleryChildEntity::id] = [GalleryFileSystemEntity::id]
 	';
 		// The check is case-insensitive since it should be DBMS / FS independent.
-		$data = array( (int)$parentId, GalleryUtilities::strToUpper($pathComponent) );
+		$data = array((int)$parentId, GalleryUtilities::strToUpper($pathComponent));
 
 		if (isset($selfId)) {
 			$query .= '
@@ -60,13 +60,13 @@ class GalleryFileSystemEntityHelper_medium {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$result      = $searchResults->nextResult();
 		$isCollision = ($result[0] > 0);
 
-		return array( null, $isCollision );
+		return array(null, $isCollision);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class GalleryFileSystemEntityHelper_medium {
 		list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryEntity');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Extract the file base and extension
@@ -125,7 +125,7 @@ class GalleryFileSystemEntityHelper_medium {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!$isCollision) {
@@ -133,11 +133,11 @@ class GalleryFileSystemEntityHelper_medium {
 			}
 
 			if (++$retry > 100) {
-				return array( GalleryCoreApi::error(ERROR_COLLISION), null );
+				return array(GalleryCoreApi::error(ERROR_COLLISION), null);
 			}
 		}
 
-		return array( null, $newPathComponent );
+		return array(null, $newPathComponent);
 	}
 
 	/**

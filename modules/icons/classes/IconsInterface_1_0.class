@@ -34,7 +34,7 @@ class IconsInterface_1_0 {
 	 *               array of iconpack_id => localized_iconpack_name
 	 */
 	public function getIconPacks() {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
 	/**

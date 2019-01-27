@@ -101,7 +101,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					continue;
 				}
 				$templateData['upgradedModule'][$moduleId] = $module->getName();
-				$ret = $storage->checkPoint();
+				$ret                                       = $storage->checkPoint();
 
 				if ($ret) {
 					$templateData['errors'][]    = 'Unable to commit database transaction';
@@ -145,7 +145,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					continue;
 				}
 				$templateData['upgradedTheme'][$themeId] = $theme->getName();
-				$ret = $storage->checkPoint();
+				$ret                                     = $storage->checkPoint();
 
 				if ($ret) {
 					$templateData['errors'][]    = 'Unable to commit database transaction';
@@ -292,10 +292,10 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				}
 			}
 
-			uksort($modules, array( $this, '_sortModules' ));
+			uksort($modules, array($this, '_sortModules'));
 
 			foreach (array_keys($modules) as $moduleId) {
-				$module =& $modules[$moduleId];
+				$module                                   =& $modules[$moduleId];
 				$pluginIsUpgradeable['module'][$moduleId] = !empty($moduleList[$moduleId]['version'])
 				&& $moduleList[$moduleId]['version'] != $module->getVersion()
 				&& $pluginIsCompatible['module'][$moduleId];
@@ -305,7 +305,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if (empty($group)) {
 					$group = array(
-						'group' => 'others',
+						'group'      => 'others',
 						'groupLabel' => 'Other',
 					);
 				}
@@ -357,7 +357,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			$groupType['themes']  = 'theme';
 
 			foreach (array_keys($themes) as $themeId) {
-				$theme =& $themes[$themeId];
+				$theme                                  =& $themes[$themeId];
 				$pluginIsUpgradeable['theme'][$themeId] = !empty($themeList[$themeId]['version'])
 				&& $themeList[$themeId]['version'] != $theme->getVersion()
 				&& $pluginIsCompatible['theme'][$themeId];

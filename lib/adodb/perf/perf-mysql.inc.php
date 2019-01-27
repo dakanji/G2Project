@@ -96,7 +96,7 @@ class perf_mysql extends adodb_perf {
 
 		if ($partial) {
 			$sqlq = $this->conn->qstr($sql . '%');
-			$arr = $this->conn->GetArray("select distinct sql1 from adodb_logsql where sql1 like $sqlq");
+			$arr  = $this->conn->GetArray("select distinct sql1 from adodb_logsql where sql1 like $sqlq");
 
 			if ($arr) {
 				foreach ($arr as $row) {
@@ -112,10 +112,10 @@ class perf_mysql extends adodb_perf {
 
 		if ($partial) {
 			$sqlq = $this->conn->qstr($sql . '%');
-			$sql = $this->conn->GetOne("select sql1 from adodb_logsql where sql1 like $sqlq");
+			$sql  = $this->conn->GetOne("select sql1 from adodb_logsql where sql1 like $sqlq");
 		}
 
-		$s = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
+		$s  = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
 		$rs = $this->conn->Execute('EXPLAIN ' . $sql);
 		$s .= rs2html($rs, false, false, false, false);
 		$this->conn->LogSQL($save);
@@ -142,7 +142,7 @@ class perf_mysql extends adodb_perf {
 
 	public function GetReads() {
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -179,7 +179,7 @@ class perf_mysql extends adodb_perf {
 
 	public function GetWrites() {
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -229,7 +229,7 @@ break;
 		//$this->conn->debug=1;
 
 		global $ADODB_FETCH_MODE;
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -264,7 +264,7 @@ break;
 
 	public function GetQHitRatio() {
 		//Total number of queries = Qcache_inserts + Qcache_hits + Qcache_not_cached
-		$hits = $this->_DBParameter(array("show status", "Qcache_hits"));
+		$hits  = $this->_DBParameter(array("show status", "Qcache_hits"));
 		$total = $this->_DBParameter(array("show status", "Qcache_inserts"));
 		$total += $this->_DBParameter(array("show status", "Qcache_not_cached"));
 
@@ -292,7 +292,7 @@ break;
 	public function GetInnoDBHitRatio() {
 		global $ADODB_FETCH_MODE;
 
-		$save = $ADODB_FETCH_MODE;
+		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->conn->fetchMode !== false) {
@@ -311,11 +311,11 @@ break;
 		}
 		$stat = $rs->fields[0];
 		$rs->Close();
-		$at = strpos($stat, 'Buffer pool hit rate');
+		$at   = strpos($stat, 'Buffer pool hit rate');
 		$stat = substr($stat, $at, 200);
 
 		if (preg_match('!Buffer pool hit rate\s*([0-9]*) / ([0-9]*)!', $stat, $arr)) {
-			$val = 100*$arr[1]/$arr[2];
+			$val                        = 100*$arr[1]/$arr[2];
 			$_SESSION['INNODB_HIT_PCT'] = $val;
 
 			return round($val, 2);
@@ -342,7 +342,7 @@ break;
 	}
 
 	// start hack
-	public $optimizeTableLow = 'CHECK TABLE %s FAST QUICK';
+	public $optimizeTableLow  = 'CHECK TABLE %s FAST QUICK';
 	public $optimizeTableHigh = 'OPTIMIZE TABLE %s';
 
 	/**

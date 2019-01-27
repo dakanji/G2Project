@@ -132,7 +132,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			//odbc_setoption($this->_connectionID,1,101, 0 /*SQL_MODE_READ_WRITE*/);
 			return array(
 				'description' => 'DB2 ODBC driver',
-				'version' => $vers,
+				'version'     => $vers,
 			);
 		}
 
@@ -238,7 +238,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			// parse index data into array
 			while ($row = $rs->FetchRow()) {
 				$indexes[$row[0]]            = array(
-					'unique' => ($row[1] == 'U' || $row[1] == 'P'),
+					'unique'  => ($row[1] == 'U' || $row[1] == 'P'),
 					'columns' => array(),
 				);
 				$cols                        = ltrim($row[2], '+');

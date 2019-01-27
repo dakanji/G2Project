@@ -100,11 +100,11 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 
 				list($ret, $results) = GalleryCoreApi::getMapEntry(
 					'EventLogMap',
-					array( 'id', 'timestamp', 'type', 'location', 'client', 'summary' ),
+					array('id', 'timestamp', 'type', 'location', 'client', 'summary'),
 					array(),
 					array(
 						'limit' => array(
-							'count' => $pageSize,
+							'count'  => $pageSize,
 							'offset' => ($pageNumber - 1) * $pageSize,
 						),
 						'orderBy' => array(
@@ -130,18 +130,18 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 
 				while ($result = $results->nextResult()) {
 					$items[] = array(
-						'id' => $result[0],
-						'date' => $platform->strftime($formatDateTime, $result[1]),
-						'type' => $result[2],
+						'id'       => $result[0],
+						'date'     => $platform->strftime($formatDateTime, $result[1]),
+						'type'     => $result[2],
 						'location' => $result[3],
-						'client' => $result[4],
-						'summary' => $result[5],
+						'client'   => $result[4],
+						'summary'  => $result[5],
 					);
 				}
 				$data = array(
-					'records' => $items,
+					'records'     => $items,
 					'pageMessage' => $pageMessage,
-					'totalPages' => $totalPages,
+					'totalPages'  => $totalPages,
 				);
 
 				break;
@@ -180,15 +180,15 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 
 				$result = $results->nextResult();
 				$data   = array(
-					'id' => $id,
-					'userId' => $result[0],
-					'type' => $result[1],
-					'summary' => $result[2],
-					'details' => $result[3],
+					'id'       => $id,
+					'userId'   => $result[0],
+					'type'     => $result[1],
+					'summary'  => $result[2],
+					'details'  => $result[3],
 					'location' => $result[4],
-					'client' => $result[5],
-					'date' => $platform->strftime($formatDateTime, $result[6]),
-					'referer' => $result[7],
+					'client'   => $result[5],
+					'date'     => $platform->strftime($formatDateTime, $result[6]),
+					'referer'  => $result[7],
 				);
 
 				break;

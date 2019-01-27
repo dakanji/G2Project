@@ -256,7 +256,7 @@ class ExifHelper {
 			$gallery->debug(str_replace("\0", '', $buf));
 		}
 
-		return array( null, $result );
+		return array(null, $result);
 	}
 
 	/**
@@ -275,7 +275,7 @@ class ExifHelper {
 		list($ret, $iptcObj) = self::getIptcObject($path);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$exifKeys = self::getExifKeys();
@@ -284,7 +284,7 @@ class ExifHelper {
 		list($ret, $properties) = self::getProperties($viewMode);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		foreach ($properties as $property) {
@@ -313,7 +313,7 @@ class ExifHelper {
 			}
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	/**
@@ -537,7 +537,7 @@ class ExifHelper {
 	public static function getProperties($viewMode) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'ExifPropertiesMap',
-			array( 'property', 'sequence' ),
+			array('property', 'sequence'),
 			array(
 				'viewMode' => $viewMode,
 			),
@@ -549,7 +549,7 @@ class ExifHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$data = array();
@@ -558,7 +558,7 @@ class ExifHelper {
 			$data[] = $result[0];
 		}
 
-		return array( null, $data );
+		return array(null, $data);
 	}
 
 	/**

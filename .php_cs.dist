@@ -12,6 +12,9 @@ return PhpCsFixer\Config::create()
 		'@PSR2' => true,
 		'align_multiline_comment' => array('comment_type' => 'phpdocs_like'),
 		'array_syntax' => array('syntax' => 'long'),
+		'binary_operator_spaces' => array(
+			'default' => 'align',
+		),
 		'blank_line_before_statement' => array(
 			'statements' => array(
 				'break',
@@ -109,7 +112,7 @@ return PhpCsFixer\Config::create()
 		'single_line_comment_style' => true,
 		'standardize_not_equals' => true,
 		'trailing_comma_in_multiline_array' => true,
-		'trim_array_spaces' => false,
+		'trim_array_spaces' => true,
 		'whitespace_after_comma_in_array' => true,
 	))
 	->setCacheFile(__DIR__.'/.php_cs.cache')

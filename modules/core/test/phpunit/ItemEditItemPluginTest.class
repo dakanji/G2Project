@@ -73,7 +73,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditItemPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'convert-to-image/jpeg',
 			array(),
 			'test-description',
@@ -86,15 +86,15 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditItemPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'thumbnail',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -126,7 +126,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
-		$this->assertEquals(array( array(), null ), $results);
+		$this->assertEquals(array(array(), null), $results);
 	}
 
 	public function testEditItem() {
@@ -147,7 +147,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
@@ -163,7 +163,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals('new description', $this->_item[0]->getDescription());
 
 		// Examine the thumbnail and make sure it lines up
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -195,7 +195,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[description]', 'description<object>.</object>');
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
 
-		foreach (array( 'html', 'bbcode' ) as $i => $markup) {
+		foreach (array('html', 'bbcode') as $i => $markup) {
 			$ret = $this->_setMarkupType($markup, $i == 0);
 
 			if ($ret) {
@@ -206,7 +206,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 			$results = $this->handleRequest($item, $this->_preferred);
 			$this->assertEquals(
-				array( array(), $this->_translate('Changes saved successfully') ),
+				array(array(), $this->_translate('Changes saved successfully')),
 				$results,
 				$markup
 			);
@@ -235,7 +235,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array( 'form[error][pathComponent][invalid]' ), null ),
+			array(array('form[error][pathComponent][invalid]'), null),
 			$results
 		);
 	}
@@ -247,7 +247,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we fail
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array( 'form[error][pathComponent][invalid]' ), null ),
+			array(array('form[error][pathComponent][invalid]'), null),
 			$results
 		);
 	}
@@ -260,7 +260,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array( 'form[error][pathComponent][missing]' ), null ),
+			array(array('form[error][pathComponent][missing]'), null),
 			$results
 		);
 	}
@@ -286,7 +286,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify success (the controller works around the collision)
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
@@ -337,7 +337,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($rootAlbum, $this->_preferred);
 		$this->assertEquals(
-			array( array( 'form[error][title][missingRootTitle]' ), null ),
+			array(array('form[error][title][missingRootTitle]'), null),
 			$results
 		);
 
@@ -378,7 +378,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		// For Oracle, null is replaced with '' when loading data from the database
-		$this->assertTrue(in_array($rootAlbum->getPathComponent(), array( null, '' )));
+		$this->assertTrue(in_array($rootAlbum->getPathComponent(), array(null, '')));
 	}
 
 	public function testMissingRootTitle2() {
@@ -404,7 +404,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($rootAlbum, $this->_preferred);
 		$this->assertEquals(
-			array( array( 'form[error][title][missingRootTitle]' ), null ),
+			array(array('form[error][title][missingRootTitle]'), null),
 			$results
 		);
 
@@ -436,7 +436,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
@@ -586,7 +586,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we are ok
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 		$this->assertEquals(mktime(22, 50, 59, 8, 9, 2003), $this->_item[0]->getOriginationTimestamp());
@@ -600,12 +600,12 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[1], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
 		// Verify thumbnail
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item[1]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[1]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -630,7 +630,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		// Verify we don't have a highlight
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_album[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -644,12 +644,12 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
 		// Verify thumbnail
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_album[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -667,7 +667,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testRemoveThumbnail() {
 		// Verify we have a thumbnail
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -682,12 +682,12 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
 		// Verify we have no more thumbnail
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -700,7 +700,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testZeroThumbnail() {
 		// Size zero should remove thumbnail, just like empty value
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -715,12 +715,12 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
 		// Verify we have no more thumbnail
-		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item[0]->getId() ));
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -738,7 +738,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
-		$this->assertEquals(array( array( 'form[error][thumbnail][size][invalid]' ), null ), $results);
+		$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
 	}
 
 	public function testNegativeThumbnailSize() {
@@ -748,7 +748,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
-		$this->assertEquals(array( array( 'form[error][thumbnail][size][invalid]' ), null ), $results);
+		$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
 	}
 
 	public function testThumbnailForEmptyAlbum() {
@@ -759,7 +759,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_album[0], $this->_preferred);
 		$this->assertEquals(
-			array( array( 'form[error][thumbnail][create][forAlbum]' ), null ),
+			array(array('form[error][thumbnail][create][forAlbum]'), null),
 			$results
 		);
 	}
@@ -804,7 +804,7 @@ class ItemEditItemPluginTestToolkit extends GalleryToolkit {
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 
 	/**
@@ -816,7 +816,7 @@ class ItemEditItemPluginTestToolkit extends GalleryToolkit {
 		return array(
 			null,
 			$operation1 . '+' . $operation2,
-			array_merge($args1, array( '+' ), $args2),
+			array_merge($args1, array('+'), $args2),
 		);
 	}
 }

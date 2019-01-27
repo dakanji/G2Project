@@ -135,7 +135,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(
@@ -183,7 +183,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.EditComment',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -207,7 +207,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.EditComment',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][commenterName][missing]',
 					'form[error][comment][missing]',
 				),
@@ -236,7 +236,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.EditComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][commenterName][invalid]' ),
+				'error'  => array('form[error][commenterName][invalid]'),
 			),
 			$results
 		);
@@ -262,7 +262,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.EditComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][commenterName][invalid]' ),
+				'error'  => array('form[error][commenterName][invalid]'),
 			),
 			$results
 		);
@@ -291,7 +291,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.EditComment',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][commenterName][missing]',
 					'form[error][comment][missing]',
 				),
@@ -361,7 +361,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(
@@ -405,11 +405,11 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ShowItem',
+					'view'   => 'core.ShowItem',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -435,7 +435,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[1]->getId(),
 				),
 				'status' => array(
@@ -476,7 +476,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(
@@ -517,7 +517,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[0]->getId(),
 				),
 				'status' => array(

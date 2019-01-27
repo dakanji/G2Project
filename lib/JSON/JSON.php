@@ -396,7 +396,7 @@ class Services_JSON {
 				// treat as a JSON object
 				if (is_array($var) && count($var) && (array_keys($var) !== range(0, sizeof($var) - 1))) {
 					$properties = array_map(
-						array( $this, 'name_value' ),
+						array($this, 'name_value'),
 						array_keys($var),
 						array_values($var)
 					);
@@ -411,7 +411,7 @@ class Services_JSON {
 				}
 
 				// treat it like a regular array
-				$elements = array_map(array( $this, 'encode' ), $var);
+				$elements = array_map(array($this, 'encode'), $var);
 
 				foreach ($elements as $element) {
 					if (Services_JSON::isError($element)) {
@@ -425,7 +425,7 @@ class Services_JSON {
 				$vars = get_object_vars($var);
 
 				$properties = array_map(
-					array( $this, 'name_value' ),
+					array($this, 'name_value'),
 					array_keys($vars),
 					array_values($vars)
 				);
@@ -648,14 +648,14 @@ class Services_JSON {
 					// array, or object notation
 
 					if ($str[0] == '[') {
-						$stk = array( SERVICES_JSON_IN_ARR );
+						$stk = array(SERVICES_JSON_IN_ARR);
 						$arr = array();
 					} else {
 						if ($this->use & SERVICES_JSON_LOOSE_TYPE) {
-							$stk = array( SERVICES_JSON_IN_OBJ );
+							$stk = array(SERVICES_JSON_IN_OBJ);
 							$obj = array();
 						} else {
-							$stk = array( SERVICES_JSON_IN_OBJ );
+							$stk = array(SERVICES_JSON_IN_OBJ);
 							$obj = new stdClass();
 						}
 					}
@@ -663,7 +663,7 @@ class Services_JSON {
 					array_push(
 						$stk,
 						array(
-							'what' => SERVICES_JSON_SLICE,
+							'what'  => SERVICES_JSON_SLICE,
 							'where' => 0,
 							'delim' => false,
 						)
@@ -695,7 +695,7 @@ class Services_JSON {
 							array_push(
 								$stk,
 								array(
-									'what' => SERVICES_JSON_SLICE,
+									'what'  => SERVICES_JSON_SLICE,
 									'where' => ($c + 1),
 									'delim' => false,
 								)
@@ -739,7 +739,7 @@ class Services_JSON {
 							array_push(
 								$stk,
 								array(
-									'what' => SERVICES_JSON_IN_STR,
+									'what'  => SERVICES_JSON_IN_STR,
 									'where' => $c,
 									'delim' => $chrs[$c],
 								)
@@ -754,13 +754,13 @@ class Services_JSON {
 							array_pop($stk);
 						//print("Found end of string at {$c}: ".substr($chrs, $top['where'], (1 + 1 + $c - $top['where']))."\n");
 						} elseif (($chrs[$c] == '[')
-							&& in_array($top['what'], array( SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ ))
+							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
 						) {
 							// found a left-bracket, and we are in an array, object, or slice
 							array_push(
 								$stk,
 								array(
-									'what' => SERVICES_JSON_IN_ARR,
+									'what'  => SERVICES_JSON_IN_ARR,
 									'where' => $c,
 									'delim' => false,
 								)
@@ -771,13 +771,13 @@ class Services_JSON {
 							array_pop($stk);
 						//print("Found end of array at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 						} elseif (($chrs[$c] == '{')
-							&& in_array($top['what'], array( SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ ))
+							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
 						) {
 							// found a left-brace, and we are in an array, object, or slice
 							array_push(
 								$stk,
 								array(
-									'what' => SERVICES_JSON_IN_OBJ,
+									'what'  => SERVICES_JSON_IN_OBJ,
 									'where' => $c,
 									'delim' => false,
 								)
@@ -788,13 +788,13 @@ class Services_JSON {
 							array_pop($stk);
 						//print("Found end of object at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 						} elseif (($substr_chrs_c_2 == '/*')
-							&& in_array($top['what'], array( SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ ))
+							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
 						) {
 							// found a comment start, and we are in an array, object, or slice
 							array_push(
 								$stk,
 								array(
-									'what' => SERVICES_JSON_IN_CMT,
+									'what'  => SERVICES_JSON_IN_CMT,
 									'where' => $c,
 									'delim' => false,
 								)

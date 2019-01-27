@@ -107,8 +107,8 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a null language code and a valid accept language
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-		$translator = GalleryTranslator::doStatic();
-		list($ret, $languageCode) = $translator->init();
+		$translator                      = GalleryTranslator::doStatic();
+		list($ret, $languageCode)        = $translator->init();
 
 		if ($ret) {
 			return $ret;
@@ -123,7 +123,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a null language code and a valid accept language/country
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'pt_BR';
-		$translator = GalleryTranslator::doStatic();
+		$translator                      = GalleryTranslator::doStatic();
 		$translator->init();
 
 		if (function_exists('dgettext')) {
@@ -146,7 +146,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a real language code, thus browser pref has no meaning
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en_US';
-		$translator = GalleryTranslator::doStatic();
+		$translator                      = GalleryTranslator::doStatic();
 		$translator->init('no_NO');
 
 		if (function_exists('dgettext')) {
@@ -185,8 +185,8 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a null language code and a valid accept language
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
-		$gallery->_translator = null;
-		$ret = $gallery->initTranslator();
+		$gallery->_translator            = null;
+		$ret                             = $gallery->initTranslator();
 
 		if ($ret) {
 			return $ret;
@@ -217,7 +217,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Default language is set to fr_FR, browser check is off
 		$gallery->_translator = null;
-		$ret = $gallery->initTranslator();
+		$ret                  = $gallery->initTranslator();
 
 		if ($ret) {
 			return $ret;
@@ -240,7 +240,7 @@ class TranslatorTest extends GalleryTestCase {
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
 
 		$gallery->_translator = null;
-		$ret = $gallery->initTranslator(true);
+		$ret                  = $gallery->initTranslator(true);
 
 		if ($ret) {
 			return $ret;
@@ -258,14 +258,14 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-		$ret = $gallery->setActiveLanguageCode('fr_FR');
+		$ret                             = $gallery->setActiveLanguageCode('fr_FR');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$gallery->_translator = null;
-		$ret = $gallery->initTranslator();
+		$ret                  = $gallery->initTranslator();
 
 		if ($ret) {
 			return $ret;
@@ -282,14 +282,14 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-		$ret = $gallery->setActiveLanguageCode('fr_FR');
+		$ret                             = $gallery->setActiveLanguageCode('fr_FR');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$gallery->_translator = null;
-		$ret = $gallery->initTranslator(true);
+		$ret                  = $gallery->initTranslator(true);
 
 		if ($ret) {
 			return $ret;
@@ -305,7 +305,7 @@ class TranslatorTest extends GalleryTestCase {
 	public function testTranslateSingular() {
 		global $gallery;
 
-		$domain = 'modules_core';
+		$domain     = 'modules_core';
 		$translator = GalleryTranslator::doStatic();
 		$translator->init('es_AR');
 
@@ -340,7 +340,7 @@ class TranslatorTest extends GalleryTestCase {
 	public function testTranslatePlural() {
 		global $gallery;
 
-		$domain = 'modules_core';
+		$domain     = 'modules_core';
 		$translator = GalleryTranslator::doStatic();
 		$translator->init('es_AR');
 
@@ -348,9 +348,9 @@ class TranslatorTest extends GalleryTestCase {
 		list($ret, $results) = 		$translator->translateDomain(
 			$domain,
 					 array('one' => '%d user matches your filter',
-						   'many' => '%d users match your filter',
-						   'count' => 1,
-						   'arg1' => 1, )
+						   'many'   => '%d users match your filter',
+						   'count'  => 1,
+						   'arg1'   => 1, )
 		);
 
 		if ($ret) {
@@ -367,9 +367,9 @@ class TranslatorTest extends GalleryTestCase {
 		list($ret, $results) = 		$translator->translateDomain(
 			$domain,
 					 array('one' => '%d user matches your filter',
-						   'many' => '%d users match your filter',
-						   'count' => 2,
-						   'arg1' => 2, )
+						   'many'   => '%d users match your filter',
+						   'count'  => 2,
+						   'arg1'   => 2, )
 		);
 
 		if ($ret) {
@@ -410,7 +410,7 @@ class TranslatorTest extends GalleryTestCase {
 	}
 
 	public function testComment() {
-		$translator = GalleryTranslator::doStatic();
+		$translator               = GalleryTranslator::doStatic();
 		list($ret, $languageCode) = $translator->init('en_US');
 
 		if ($ret) {
@@ -420,7 +420,7 @@ class TranslatorTest extends GalleryTestCase {
 		list($ret, $text) = $translator->translateDomain(
 		'modules_core',
 		array('text' => 'test <!-- old style hint, no longer removed -->',
-			  'hint' => 'this is a hint to assist translators', )
+			  'hint'    => 'this is a hint to assist translators', )
 	);
 
 		if ($ret) {
@@ -431,7 +431,7 @@ class TranslatorTest extends GalleryTestCase {
 
 	public function testApiChange() {
 		// Core API 7.10 now allows simple string param, and 'args' array insead of 'arg1', etc
-		$translator = GalleryTranslator::doStatic();
+		$translator               = GalleryTranslator::doStatic();
 		list($ret, $languageCode) = $translator->init('en_US');
 
 		if ($ret) {
@@ -462,7 +462,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$modulePath = GalleryCoreApi::getCodeBasePath('modules/TranslatorTest/');
-		$poPath = "${modulePath}po/";
+		$poPath     = "${modulePath}po/";
 		$platform->setReply('glob', array("${poPath}*.mo", null), array("${poPath}aa.mo"));
 		$platform->setReply('file_exists', array('/g2data/locale/aa/LC_MESSAGES/'), true);
 		$platform->setReply('is_dir', array('/g2data/locale/aa/LC_MESSAGES/'), true);
@@ -488,7 +488,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$modulePath = GalleryCoreApi::getCodeBasePath('modules/TranslatorTest/');
-		$poPath = "${modulePath}po/";
+		$poPath     = "${modulePath}po/";
 		$platform->setReply('glob', array("${poPath}*.mo", null), array());
 		$platform->setReply(
 		'glob',
@@ -520,7 +520,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$modulePath = GalleryCoreApi::getCodeBasePath('modules/TranslatorTest/');
-		$poPath = "${modulePath}po/";
+		$poPath     = "${modulePath}po/";
 		$platform->setReply('glob', array("${poPath}*.mo", null), array("${poPath}aa.mo"));
 
 		// This next block is what GalleryUtilities::guaranteeDirExists requires
@@ -659,12 +659,12 @@ class TranslatorTest extends GalleryTestCase {
 
 	public function testInstallTranslationsForLocaleNoParam() {
 		global $gallery;
-		$platform = new UnitTestPlatform();
+		$platform   = new UnitTestPlatform();
 		$translator =& $gallery->getTranslator();
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$codeBase = GalleryCoreApi::getCodeBasePath();
-		$locale = $translator->getActiveLanguageCode();
+		$locale   = $translator->getActiveLanguageCode();
 
 		if ($locale != 'en_US') {
 			$language = substr($locale, 0, 2);

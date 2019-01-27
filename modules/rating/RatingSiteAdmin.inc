@@ -80,11 +80,11 @@ class RatingSiteAdminController extends GalleryController {
 			$status['saved'] = 1;
 		}
 
-		$method = empty($error) ? 'redirect' : 'delegate';
+		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array($method => array('view' => 'core.SiteAdmin',
-					  'subView' => 'rating.RatingSiteAdmin', ),
+					  'subView'                           => 'rating.RatingSiteAdmin', ),
 			 'status' => $status,
-			 'error' => $error, );
+			 'error'  => $error, );
 
 		return array(null, $results);
 	}
@@ -117,7 +117,7 @@ class RatingSiteAdminView extends GalleryView {
 			}
 			// Localize by casting to string
 			$form['minLimit'] = (string)GalleryUtilities::castToFloat($form['minLimit']);
-			$tmp = explode('|', $form['orderBy'], 2);
+			$tmp              = explode('|', $form['orderBy'], 2);
 
 			if (count($tmp) < 2) {
 				$form['presort'] = '';
@@ -145,7 +145,7 @@ class RatingSiteAdminView extends GalleryView {
 		}
 
 		// Set up theme selection list
-		$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
+		$themeList               = array('' => $module->translate('&laquo; default theme &raquo;'));
 		list($ret, $themeStatus) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
@@ -164,10 +164,10 @@ class RatingSiteAdminView extends GalleryView {
 		}
 
 		$RatingSiteAdmin = array(
-		'orderByList' => $orderByList,
-		'presortList' => $presortList,
+		'orderByList'        => $orderByList,
+		'presortList'        => $presortList,
 		'orderDirectionList' => $orderDirectionList,
-		'themeList' => $themeList, );
+		'themeList'          => $themeList, );
 
 		// Set up theme settings
 		list($ret, $themeSettingsId) = 		GalleryCoreApi::getPluginParameter('module', 'rating', 'themeSettingsId');

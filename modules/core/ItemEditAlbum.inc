@@ -70,7 +70,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 				$ret = GalleryCoreApi::removeDerivativePreferencesForItem($item->getId());
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				$changeTypes = array();
@@ -79,7 +79,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 					list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				}
 				// Add the thumbnail size back in
@@ -91,7 +91,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 				);
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				if (isset($form['changeInDescendents']['thumbnail'])) {
@@ -110,7 +110,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				}
 
@@ -126,7 +126,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					if (isset($form['changeInDescendents']['thumbnail'])) {
@@ -138,7 +138,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 						);
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 					}
 
@@ -154,7 +154,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 							);
 
 							if ($ret) {
-								return array( $ret, null, null, null );
+								return array($ret, null, null, null);
 							}
 						}
 					}
@@ -164,8 +164,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 				if (isset($form['recreateThumbnails'])) {
 					$templateAdapter =& $gallery->getTemplateAdapter();
 					$templateAdapter->registerTrailerCallback(
-						array( $this, 'runRecreateThumbnails' ),
-						array( $form, $item, $preferred )
+						array($this, 'runRecreateThumbnails'),
+						array($form, $item, $preferred)
 					);
 					$requiresProgressBar = true;
 				}
@@ -174,8 +174,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 				if (isset($form['recreateResizes'])) {
 					$templateAdapter =& $gallery->getTemplateAdapter();
 					$templateAdapter->registerTrailerCallback(
-						array( $this, 'runRecreateResizes' ),
-						array( $form, $item, $preferred )
+						array($this, 'runRecreateResizes'),
+						array($form, $item, $preferred)
 					);
 					$requiresProgressBar = true;
 				}
@@ -195,7 +195,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				$ret = $item->save();
@@ -203,13 +203,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 				if ($ret) {
 					GalleryCoreApi::releaseLocks($lockId);
 
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				// for sort order we need to load subalbums
@@ -217,13 +217,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($subAlbumIds);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					list($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					foreach ($subAlbums as $album) {
@@ -243,13 +243,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 						if ($ret) {
 							GalleryCoreApi::releaseLocks($lockId);
 
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 					}
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				}
 
@@ -257,14 +257,14 @@ class ItemEditAlbum extends ItemEditPlugin {
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				$status = $module->translate('Settings saved successfully.');
 			}
 		}
 
-		return array( null, $error, $status, $requiresProgressBar );
+		return array(null, $error, $status, $requiresProgressBar);
 	}
 
 	/**
@@ -288,7 +288,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			foreach ($preferences as $preference) {
@@ -312,13 +312,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 						if (empty($size)) {
 							$form['resizes'][] = array(
 								'active' => 0,
-								'width' => '',
+								'width'  => '',
 								'height' => '',
 							);
 						} else {
 							$form['resizes'][] = array(
 								'active' => 1,
-								'width' => $size,
+								'width'  => $size,
 								'height' => $height,
 							);
 						}
@@ -337,7 +337,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			while ($extraBlanks-- > 0) {
 				$form['resizes'][] = array(
 					'active' => 0,
-					'width' => '',
+					'width'  => '',
 					'height' => '',
 				);
 			}
@@ -362,7 +362,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Set up our sort order selection list
@@ -370,7 +370,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		list($ret, $orderByList, $presortList, $orderDirectionList) = GallerySortInterface_1_2::getAllSortOrders();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$ItemEditAlbum['orderByList']        = $orderByList;
@@ -486,8 +486,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 							$height                  = empty($matches[2]) ? $width : $matches[2];
 							$resizePrefs[$albumId][] = array(
 								'operations' => $preference['derivativeOperations'],
-								'width' => $width,
-								'height' => $height,
+								'width'      => $width,
+								'height'     => $height,
 							);
 						}
 					}
@@ -749,7 +749,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 					// Load the source of the thumbnail
 					list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 						$sourceId,
-						array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+						array('GalleryFileSystemEntity', 'GalleryDerivative')
 					);
 
 					if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
@@ -899,9 +899,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		if (!isset($form['recreateResizes'])) {
 			// Don't show "Complete" yet if there is another task
 			$redirect = array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemEdit',
-				'itemId' => $item->getId(),
+				'itemId'  => $item->getId(),
 			);
 
 			$urlGenerator =& $gallery->getUrlGenerator();
@@ -925,9 +925,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('Album') );
+		return array(null, $module->translate('Album'));
 	}
 }

@@ -36,14 +36,14 @@ class ExifToolkit extends GalleryToolkit {
 			case 'originationTimestamp':
 				GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 				$timestamp = ExifHelper::getOriginationTimestamp($sourceFilename);
-				$results   = array( $timestamp );
+				$results   = array($timestamp);
 
 				break;
 
 			default:
-				return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+				return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }

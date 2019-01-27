@@ -72,7 +72,7 @@ class CreateConfigFileStep extends InstallStep {
 			$versionStatus   = $upgradeRecommended = false;
 			$versions        = array(
 				'installed' => '',
-				'codebase' => false,
+				'codebase'  => false,
 			);
 
 			if (!$freshInstall) {
@@ -258,6 +258,6 @@ class CreateConfigFileStep extends InstallStep {
 			 */
 		}
 
-		return array( $versionsOk, $recommendUpgrade, $versions );
+		return array($versionsOk, $recommendUpgrade, $versions);
 	}
 }

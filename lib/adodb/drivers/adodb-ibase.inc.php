@@ -132,7 +132,7 @@ class ADODB_ibase extends ADOConnection {
 
 	public function MetaPrimaryKeys($table, $owner_notused = false, $internalKey = false) {
 		if ($internalKey) {
-			return array( 'RDB$DB_KEY' );
+			return array('RDB$DB_KEY');
 		}
 
 		$table = strtoupper($table);
@@ -289,7 +289,7 @@ class ADODB_ibase extends ADOConnection {
 					$row[3] = 0;
 				}
 				$indexes[$index] = array(
-					'unique' => ($row[3] == 1),
+					'unique'  => ($row[3] == 1),
 					'columns' => array(),
 				);
 			}
@@ -383,7 +383,7 @@ class ADODB_ibase extends ADOConnection {
 			return false;
 		}
 
-		return array( $sql, $stmt );
+		return array($sql, $stmt);
 	}
 
 	// returns query ID if successful, otherwise false
@@ -406,7 +406,7 @@ class ADODB_ibase extends ADOConnection {
 					if (!isset($iarr[0])) {
 						$iarr[0] = ''; // PHP5 compat hack
 					}
-					$fnarr = array_merge(array( $sql ), $iarr);
+					$fnarr = array_merge(array($sql), $iarr);
 					$ret   = call_user_func_array($fn, $fnarr);
 				} else {
 					switch (sizeof($iarr)) {
@@ -465,7 +465,7 @@ class ADODB_ibase extends ADOConnection {
 					if (sizeof($iarr) == 0) {
 						$iarr[0] = ''; // PHP5 compat hack
 					}
-					$fnarr = array_merge(array( $conn, $sql ), $iarr);
+					$fnarr = array_merge(array($conn, $sql), $iarr);
 					$ret   = call_user_func_array($fn, $fnarr);
 				} else {
 					switch (sizeof($iarr)) {
@@ -821,7 +821,7 @@ class ADODB_ibase extends ADOConnection {
 
 		fclose($fd);
 
-		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array( $blob_id_str )) != false;
+		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array($blob_id_str)) != false;
 	}
 
 	/*
@@ -861,7 +861,7 @@ class ADODB_ibase extends ADOConnection {
 
 		$blob_id_str = ibase_blob_close($blob_id);
 
-		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array( $blob_id_str )) != false;
+		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array($blob_id_str)) != false;
 	}
 
 	public function OldUpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
@@ -869,7 +869,7 @@ class ADODB_ibase extends ADOConnection {
 		ibase_blob_add($blob_id, $val);
 		$blob_id_str = ibase_blob_close($blob_id);
 
-		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array( $blob_id_str )) != false;
+		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array($blob_id_str)) != false;
 	}
 
 	// Format date column in sql string given an input format that understands Y M D
@@ -1071,7 +1071,7 @@ class ADORecordset_ibase extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

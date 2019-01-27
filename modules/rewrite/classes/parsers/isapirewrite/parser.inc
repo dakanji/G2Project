@@ -52,7 +52,7 @@ class IsapiRewriteParser extends RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
 		GalleryCoreApi::requireOnce(
@@ -133,14 +133,14 @@ class IsapiRewriteParser extends RewriteParser {
 			list($ret, $rewriteModule) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
 		list($ret, $message) = parent::getErrorMessage($code, $rewriteModule);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($message)) {
@@ -164,11 +164,11 @@ class IsapiRewriteParser extends RewriteParser {
 					break;
 
 				default:
-					return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+					return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
 		}
 
-		return array( null, $message );
+		return array(null, $message);
 	}
 
 	/**
@@ -191,7 +191,7 @@ class IsapiRewriteParser extends RewriteParser {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (isset($form['force']['test'])) {
@@ -203,13 +203,13 @@ class IsapiRewriteParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
 		$status['saved'] = 1;
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	/**
@@ -238,13 +238,13 @@ class IsapiRewriteParser extends RewriteParser {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (empty($form['httpdini'])) {
 			$error[] = 'form[error][' . REWRITE_STATUS_EMPTY_VALUE . ']';
 
-			return array( null, $error, $status );
+			return array(null, $error, $status);
 		}
 
 		$path = $form['httpdini'];
@@ -253,13 +253,13 @@ class IsapiRewriteParser extends RewriteParser {
 		if (!$platform->is_dir($path)) {
 			$error[] = 'form[error][invalidDir]';
 
-			return array( null, $error, $status );
+			return array(null, $error, $status);
 		}
 
 		if (!$platform->is_writeable($path . '\httpd.ini', 'w')) {
 			$error[] = 'form[error][' . REWRITE_STATUS_HTTPDINI_CANT_WRITE . ']';
 
-			return array( null, $error, $status );
+			return array(null, $error, $status);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -270,14 +270,14 @@ class IsapiRewriteParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (GalleryUtilities::isEmbedded()) {
 			if (empty($form['embeddedLocation'])) {
 				$error[] = 'form[error][' . REWRITE_STATUS_EMPTY_VALUE . ']';
 
-				return array( null, $error, $status );
+				return array(null, $error, $status);
 			}
 
 			list($ret, $code) = IsapiRewriteHelper::saveEmbedConfig(
@@ -289,7 +289,7 @@ class IsapiRewriteParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			if ($code != REWRITE_STATUS_OK) {
@@ -301,7 +301,7 @@ class IsapiRewriteParser extends RewriteParser {
 			$status['saved'] = 1;
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	/**
@@ -315,10 +315,10 @@ class IsapiRewriteParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, empty($value) );
+		return array(null, empty($value));
 	}
 
 	/**
@@ -332,7 +332,7 @@ class IsapiRewriteParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		return array(
@@ -354,7 +354,7 @@ class IsapiRewriteParser extends RewriteParser {
 		list($ret, $code) = IsapiRewriteHelper::saveEmbedConfig($param, $this, true);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		return array(

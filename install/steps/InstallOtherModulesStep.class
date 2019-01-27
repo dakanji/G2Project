@@ -52,7 +52,7 @@ class InstallOtherModulesStep extends InstallStep {
 		}
 
 		if (!empty($_REQUEST['module']) && is_array($_REQUEST['module'])) {
-			uksort($_REQUEST['module'], array( $this, '_sortModules' ));
+			uksort($_REQUEST['module'], array($this, '_sortModules'));
 			$template->renderHeader(true);
 			$totalModules = count($_REQUEST['module']);
 
@@ -90,7 +90,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$moduleInstalled[$moduleId] = true;
 
 				$templateData['installedModule'][$moduleId] = $module->getName();
-				$ret = $storage->checkPoint();
+				$ret                                        = $storage->checkPoint();
 
 				if ($ret) {
 					$this->resetL10Domain();
@@ -190,7 +190,7 @@ class InstallOtherModulesStep extends InstallStep {
 				}
 			}
 
-			uksort($modules, array( $this, '_sortModules' ));
+			uksort($modules, array($this, '_sortModules'));
 
 			foreach (array_keys($modules) as $moduleId) {
 				$moduleInstalled[$moduleId] = !empty($moduleList[$moduleId]['version']);
@@ -201,7 +201,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if (empty($group)) {
 					$group = array(
-						'group' => 'others',
+						'group'      => 'others',
 						'groupLabel' => 'Other',
 					);
 				}
@@ -252,8 +252,8 @@ class InstallOtherModulesStep extends InstallStep {
 			include_once __DIR__ . '/../../init.inc';
 			$ret = GalleryInitFirstPass(
 				array(
-					'debug' => 'buffered',
-					'noDatabase' => true,
+					'debug'          => 'buffered',
+					'noDatabase'     => true,
 					'activeLanguage' => $_SESSION['language'],
 				)
 			);

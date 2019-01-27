@@ -35,8 +35,8 @@ class RearrangeModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getItemLinks|getItemAdminViews');
-		$this->setRequiredCoreApi(array( 7, 27 ));
-		$this->setRequiredModuleApi(array( 3, 9 ));
+		$this->setRequiredCoreApi(array(7, 27));
+		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**
@@ -62,7 +62,7 @@ class RearrangeModule extends GalleryModule {
 			list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach ($itemIds as $itemId) {
@@ -71,12 +71,12 @@ class RearrangeModule extends GalleryModule {
 						&& !empty($childCounts[$itemId]) && $childCounts[$itemId] > 1
 					) {
 						$links[$itemId][] = array(
-							'text' => $this->translate('Rearrange Items'),
+							'text'   => $this->translate('Rearrange Items'),
 							'params' => array(
-								'view' => 'core.ItemAdmin',
+								'view'    => 'core.ItemAdmin',
 								'subView' => 'rearrange.RearrangeItems',
-								'itemId' => $itemId,
-								'return' => 1,
+								'itemId'  => $itemId,
+								'return'  => 1,
 							),
 						);
 					}
@@ -84,7 +84,7 @@ class RearrangeModule extends GalleryModule {
 			}
 		}
 
-		return array( null, $links );
+		return array(null, $links);
 	}
 
 	/**
@@ -94,18 +94,18 @@ class RearrangeModule extends GalleryModule {
 		$views = array();
 
 		if (!$item->getCanContainChildren()) {
-			return array( null, $views );
+			return array(null, $views);
 		}
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
-		list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array( $item->getId() ));
+		list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
 
@@ -116,6 +116,6 @@ class RearrangeModule extends GalleryModule {
 			);
 		}
 
-		return array( null, $views );
+		return array(null, $views);
 	}
 }

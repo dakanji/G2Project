@@ -33,21 +33,21 @@ class CarbonTheme extends GalleryTheme {
 		$this->setName($gallery->i18n('Carbon'));
 		$this->setDescription($gallery->i18n('Gallery2 theme by mincel.com'));
 		$this->setVersion('1.2.6');
-		$this->setRequiredCoreApi(array( 7, 51 ));
-		$this->setRequiredThemeApi(array( 2, 5 ));
+		$this->setRequiredCoreApi(array(7, 51));
+		$this->setRequiredThemeApi(array(2, 5));
 		$this->setStandardSettings(
 			array(
-				'rows' => 3,
-				'columns' => 3,
-				'showImageOwner' => 0,
-				'showAlbumOwner' => 1,
-				'albumFrame' => '',
-				'itemFrame' => '',
-				'photoFrame' => '',
-				'colorpack' => '',
+				'rows'            => 3,
+				'columns'         => 3,
+				'showImageOwner'  => 0,
+				'showAlbumOwner'  => 1,
+				'albumFrame'      => '',
+				'itemFrame'       => '',
+				'photoFrame'      => '',
+				'colorpack'       => '',
 				'showMicroThumbs' => 1,
-				'dynamicLinks' => 'browse',
-				'sidebarBlocks' => serialize(
+				'dynamicLinks'    => 'browse',
+				'sidebarBlocks'   => serialize(
 					array(
 						array(
 							'search.SearchBlock',
@@ -61,34 +61,34 @@ class CarbonTheme extends GalleryTheme {
 								'useDropdown' => false,
 							),
 						),
-						array( 'core.PeerList', array() ),
-						array( 'imageblock.ImageBlock', array() ),
+						array('core.PeerList', array()),
+						array('imageblock.ImageBlock', array()),
 					)
 				),
 				'albumBlocks' => serialize(
 					array(
-						array( 'comment.ViewComments', array() ),
+						array('comment.ViewComments', array()),
 					)
 				),
 				'photoBlocks' => serialize(
 					array(
-						array( 'exif.ExifInfo', array() ),
-						array( 'comment.ViewComments', array() ),
+						array('exif.ExifInfo', array()),
+						array('comment.ViewComments', array()),
 					)
 				),
-				'navigatorPhotoTop' => 1,
+				'navigatorPhotoTop'    => 1,
 				'navigatorPhotoBottom' => 1,
-				'photoProperties' => 1,
-				'fullSize' => 1,
-				'itemDetails' => 1,
-				'albumUpperBlocks' => serialize(array()),
-				'photoUpperBlocks' => serialize(array()),
-				'sidebarTop' => 106,
-				'maxMicroThumbs' => 12,
-				'logoImageLocation' => '',
-				'extraLink' => '',
-				'extraLinkUrl' => '',
-				'copyright' => '',
+				'photoProperties'      => 1,
+				'fullSize'             => 1,
+				'itemDetails'          => 1,
+				'albumUpperBlocks'     => serialize(array()),
+				'photoUpperBlocks'     => serialize(array()),
+				'sidebarTop'           => 106,
+				'maxMicroThumbs'       => 12,
+				'logoImageLocation'    => '',
+				'extraLink'            => '',
+				'extraLinkUrl'         => '',
+				'copyright'            => '',
 			)
 		);
 	}
@@ -100,7 +100,7 @@ class CarbonTheme extends GalleryTheme {
 		list($ret, $settings, $params) = parent::getSettings($itemId);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Add in our custom settings
@@ -139,7 +139,7 @@ class CarbonTheme extends GalleryTheme {
 			'name'  => $this->translate(
 				'Blocks to show on album pages (below description)'
 			),
-			'type'  => 'block-list',
+			'type'       => 'block-list',
 			'typeParams' => array(
 				'packType' => 'block-list',
 			),
@@ -150,16 +150,16 @@ class CarbonTheme extends GalleryTheme {
 			'name'  => $this->translate(
 				'Blocks to show on photo pages (below description)'
 			),
-			'type'  => 'block-list',
+			'type'       => 'block-list',
 			'typeParams' => array(
 				'packType' => 'block-list',
 			),
 			'value' => $params['photoUpperBlocks'],
 		);
 		$settings[] = array(
-			'key'   => 'sidebarTop',
-			'name'  => $this->translate('Sidebar top position'),
-			'type'  => 'text-field',
+			'key'        => 'sidebarTop',
+			'name'       => $this->translate('Sidebar top position'),
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 4,
 			),
@@ -170,50 +170,50 @@ class CarbonTheme extends GalleryTheme {
 			'name'  => $this->translate(
 				'Maximum number of micro navigation thumbnails'
 			),
-			'type'  => 'text-field',
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
 			'value' => $params['maxMicroThumbs'],
 		);
 		$settings[] = array(
-			'key'   => 'logoImageLocation',
-			'name'  => $this->translate('URL or path to alternate logo image'),
-			'type'  => 'text-field',
+			'key'        => 'logoImageLocation',
+			'name'       => $this->translate('URL or path to alternate logo image'),
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
 			'value' => $params['logoImageLocation'],
 		);
 		$settings[] = array(
-			'key'   => 'extraLink',
-			'name'  => $this->translate('Extra link for top navigation bar'),
-			'type'  => 'text-field',
+			'key'        => 'extraLink',
+			'name'       => $this->translate('Extra link for top navigation bar'),
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
 			'value' => $params['extraLink'],
 		);
 		$settings[] = array(
-			'key'   => 'extraLinkUrl',
-			'name'  => $this->translate('URL for the extra link'),
-			'type'  => 'text-field',
+			'key'        => 'extraLinkUrl',
+			'name'       => $this->translate('URL for the extra link'),
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
 			'value' => $params['extraLinkUrl'],
 		);
 		$settings[] = array(
-			'key'   => 'copyright',
-			'name'  => $this->translate('Copyright message to display on footer'),
-			'type'  => 'text-field',
+			'key'        => 'copyright',
+			'name'       => $this->translate('Copyright message to display on footer'),
+			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 30,
 			),
 			'value' => $params['copyright'],
 		);
 
-		return array( null, $settings, $params );
+		return array(null, $settings, $params);
 	}
 
 	/**
@@ -230,7 +230,7 @@ class CarbonTheme extends GalleryTheme {
 			$error['maxMicroThumbs'] = $this->translate('You must enter a number greater than 0');
 		}
 
-		foreach (array( 'albumUpperBlocks', 'photoUpperBlocks' ) as $blockKey) {
+		foreach (array('albumUpperBlocks', 'photoUpperBlocks') as $blockKey) {
 			if (isset($standard[$blockKey])) {
 				if (!empty($settings[$blockKey])) {
 					list($success, $newValue) = $this->packSetting('block-list', $settings[$blockKey]);
@@ -271,7 +271,7 @@ class CarbonTheme extends GalleryTheme {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Add in our extra stuff
@@ -284,7 +284,7 @@ class CarbonTheme extends GalleryTheme {
 		}
 
 		// Add our header and styles
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -308,7 +308,7 @@ class CarbonTheme extends GalleryTheme {
 		$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Check for JavaScript warning flag
@@ -316,7 +316,7 @@ class CarbonTheme extends GalleryTheme {
 			$template->setVariable('jsWarning', true);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -327,11 +327,11 @@ class CarbonTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Check for JavaScript warning flag
@@ -339,7 +339,7 @@ class CarbonTheme extends GalleryTheme {
 			$template->setVariable('jsWarning', true);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -350,21 +350,21 @@ class CarbonTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
 	 * @see GalleryTheme::showErrorPage
 	 */
 	public function showErrorPage(&$template) {
-		return array( null, 'error.tpl' );
+		return array(null, 'error.tpl');
 	}
 
 	/**
@@ -375,14 +375,14 @@ class CarbonTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**

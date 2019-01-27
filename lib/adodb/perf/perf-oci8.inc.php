@@ -147,7 +147,7 @@ AND    b.name = 'sorts (memory)'",
 			'this pool is for large mem allocations (not because it is larger than shared pool), for MTS sessions, parallel queries, io buffers (large_pool_size) ',
 		),
 
-		'dynamic memory usage' => array( 'CACHE', "select '-' from dual", '=DynMemoryUsage' ),
+		'dynamic memory usage' => array('CACHE', "select '-' from dual", '=DynMemoryUsage'),
 
 		'Connections',
 		'current connections' => array(
@@ -236,12 +236,12 @@ AND    b.name = 'sorts (memory)'",
 			'=WarnPageCost',
 		),
 		'Waits',
-		'Recent wait events' => array( 'WAITS', 'select \'Top 5 events\' from dual', '=TopRecentWaits' ),
+		'Recent wait events' => array('WAITS', 'select \'Top 5 events\' from dual', '=TopRecentWaits'),
 		//      'Historical wait SQL' => array('WAITS','select \'Last 2 days\' from dual','=TopHistoricalWaits'), -- requires AWR license
 				'Backup',
-		'Achivelog Mode' => array( 'BACKUP', 'select log_mode from v$database', '=LogMode' ),
+		'Achivelog Mode' => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
 
-		'DBID'         => array( 'BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog' ),
+		'DBID'             => array('BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog'),
 		'Archive Log Dest' => array(
 			'BACKUP',
 			"SELECT NVL(v1.value,v2.value)
@@ -249,16 +249,16 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 			'',
 		),
 
-		'Flashback Area' => array( 'BACKUP', "select nvl(value,'Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", 'Flashback area is a folder where all backup data and logs can be stored and managed by Oracle. If Error: message displayed, then it is not in use.' ),
+		'Flashback Area' => array('BACKUP', "select nvl(value,'Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", 'Flashback area is a folder where all backup data and logs can be stored and managed by Oracle. If Error: message displayed, then it is not in use.'),
 
-		'Flashback Usage' => array( 'BACKUP', "select nvl('-','Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", '=FlashUsage', 'Flashback area usage.' ),
+		'Flashback Usage' => array('BACKUP', "select nvl('-','Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", '=FlashUsage', 'Flashback area usage.'),
 
-		'Control File Keep Time' => array( 'BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'", 'No of days to keep RMAN info in control file.  Recommended set to x2 or x3 times the frequency of your full backup.' ),
-		'Recent RMAN Jobs' => array( 'BACKUP', "select '-' from dual", '=RMAN' ),
+		'Control File Keep Time' => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'", 'No of days to keep RMAN info in control file.  Recommended set to x2 or x3 times the frequency of your full backup.'),
+		'Recent RMAN Jobs'       => array('BACKUP', "select '-' from dual", '=RMAN'),
 
 		//		'Control File Keep Time' => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'",'No of days to keep RMAN info in control file. I recommend it be set to x2 or x3 times the frequency of your full backup.'),
 		'Storage',
-		'Tablespaces'  => array( 'TABLESPACE', "select '-' from dual", '=TableSpace' ),
+		'Tablespaces'  => array('TABLESPACE', "select '-' from dual", '=TableSpace'),
 		false,
 
 	);

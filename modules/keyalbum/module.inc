@@ -35,8 +35,8 @@ class KeyAlbumModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
-		$this->setRequiredCoreApi(array( 7, 27 ));
-		$this->setRequiredModuleApi(array( 3, 6 ));
+		$this->setRequiredCoreApi(array(7, 27));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -139,7 +139,7 @@ class KeyAlbumModule extends GalleryModule {
 		list($ret, $params) = $this->fetchParameters();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$mode = $params['summaryLinks'];
 
@@ -149,7 +149,7 @@ class KeyAlbumModule extends GalleryModule {
 			if ($mode == 'none' || ($mode == 'key' && $view != 'keyalbum.KeywordAlbum')
 				|| ($mode == 'album' && $view != 'core.ShowItem')
 			) {
-				return array( null, array() );
+				return array(null, array());
 			}
 		}
 
@@ -164,8 +164,8 @@ class KeyAlbumModule extends GalleryModule {
 				foreach ($this->splitKeywords($keywords, $params['split']) as $raw => $keyword) {
 					$links[] = ' <a href="' . $urlGenerator->generateUrl(
 						array(
-							'view' => 'keyalbum.KeywordAlbum',
-							'keyword' => $raw,
+							'view'        => 'keyalbum.KeywordAlbum',
+							'keyword'     => $raw,
 							'highlightId' => $itemId,
 						)
 					) . '">' . $keyword . '</a>';
@@ -174,7 +174,7 @@ class KeyAlbumModule extends GalleryModule {
 			}
 		}
 
-		return array( null, $summaries );
+		return array(null, $summaries);
 	}
 
 	/**
@@ -208,19 +208,19 @@ class KeyAlbumModule extends GalleryModule {
 		return array(
 			array(
 				'comment' => $this->translate('Keyword Album'),
-				'match' => array(
+				'match'   => array(
 					'view' => 'keyalbum.KeywordAlbum',
 				),
-				'pattern' => 'key/%keyword%',
-				'help'  => $this->translate('Short URL for Keyword Albums'),
+				'pattern'  => 'key/%keyword%',
+				'help'     => $this->translate('Short URL for Keyword Albums'),
 				'keywords' => array(
 					'keyword' => array(
 						'pattern' => '([^?/]+)',
-						'help' => $this->translate('Keyword to use for dynamic album'),
+						'help'    => $this->translate('Keyword to use for dynamic album'),
 					),
 					'page' => array(
 						'pattern' => '([0-9]*)',
-						'help' => $this->translate('Page number in a dynamic album'),
+						'help'    => $this->translate('Page number in a dynamic album'),
 					),
 				),
 			),

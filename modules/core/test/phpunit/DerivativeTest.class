@@ -56,7 +56,7 @@ class DerivativeTest extends GalleryTestCase {
 			'DerivativeTestItem',
 			$path,
 			'coreTest',
-			array( 'test/*' )
+			array('test/*')
 		);
 
 		if ($ret) {
@@ -81,7 +81,7 @@ class DerivativeTest extends GalleryTestCase {
 		// Register an operation that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'DerivativeTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'test-operation',
 			array(),
 			'test-description',
@@ -144,7 +144,7 @@ class DerivativeTest extends GalleryTestCase {
 			'bogus-operation|123',
 			'image/jpeg',
 			array(
-				'width' => 100,
+				'width'  => 100,
 				'height' => 200,
 			)
 		);
@@ -161,7 +161,7 @@ class DerivativeTest extends GalleryTestCase {
 			'bogus-operation|123',
 			'image/jpeg',
 			array(
-				'width' => 100,
+				'width'  => 100,
 				'height' => 200,
 			)
 		);
@@ -175,7 +175,7 @@ class DerivativeTest extends GalleryTestCase {
 		$this->assertEquals(200, $subDerivative->getHeight());
 
 		$ret = GalleryCoreApi::invalidateDerivativeDimensionsBySourceIds(
-			array( $parentDerivative->getId() )
+			array($parentDerivative->getId())
 		);
 
 		if ($ret) {
@@ -225,7 +225,7 @@ class DerivativeTest extends GalleryTestCase {
 		$this->assertTrue($current, 'cache is current');
 
 		$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(
-			array( $derivative->getDerivativeSourceId() )
+			array($derivative->getDerivativeSourceId())
 		);
 
 		if ($ret) {
@@ -310,14 +310,14 @@ class DerivativeTest extends GalleryTestCase {
 					'test-operation',
 					$sourcePath,
 					$firstDestPath,
-					array( 'testRebuildThumbnailOfSmallerThumbnail-1' ),
+					array('testRebuildThumbnailOfSmallerThumbnail-1'),
 				),
 				array(
 					'test/file',
 					'test-operation',
 					$sourcePath,
 					$secondDestPath,
-					array( 'testRebuildThumbnailOfSmallerThumbnail-2' ),
+					array('testRebuildThumbnailOfSmallerThumbnail-2'),
 				),
 			),
 			$ops
@@ -348,7 +348,7 @@ class DerivativeTest extends GalleryTestCase {
 			'bogus-operation|123',
 			'image/jpeg',
 			array(
-				'width' => 100,
+				'width'  => 100,
 				'height' => 200,
 			)
 		);
@@ -467,7 +467,7 @@ class DerivativeTest extends GalleryTestCase {
 			'bogus-operation|123',
 			'image/jpeg',
 			array(
-				'width' => 100,
+				'width'  => 100,
 				'height' => 200,
 			)
 		);
@@ -591,7 +591,7 @@ class DerivativeTest extends GalleryTestCase {
 
 		// Fetch thumbnails
 		list($ret, $ids) = GalleryCoreApi::fetchDerivativesBySourceIds(
-			array( $this->_root->getId(), $item->getId() ),
+			array($this->_root->getId(), $item->getId()),
 			DERIVATIVE_TYPE_IMAGE_THUMBNAIL
 		);
 
@@ -600,7 +600,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				$this->_root->getId() => array( $derivative1 ),
+				$this->_root->getId() => array($derivative1),
 			),
 			$ids,
 			'thumbnails'
@@ -620,7 +620,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				$item->getId() => array( $derivative2 ),
+				$item->getId() => array($derivative2),
 			),
 			$ids,
 			'resizes'
@@ -918,7 +918,7 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($source, $itemA);
-		$this->assertEquals(array( 'rotate|90', 'watermark|A1' ), $operations);
+		$this->assertEquals(array('rotate|90', 'watermark|A1'), $operations);
 
 		list($ret, $source, $operations) = $A2->fetchFinalOperations();
 
@@ -926,7 +926,7 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($source, $itemA);
-		$this->assertEquals(array( 'rotate|90', 'crop|25,49,33,25', 'thumbnail|150' ), $operations);
+		$this->assertEquals(array('rotate|90', 'crop|25,49,33,25', 'thumbnail|150'), $operations);
 
 		list($ret, $source, $operations) = $A3->fetchFinalOperations();
 
@@ -951,7 +951,7 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($source, $itemA);
-		$this->assertEquals(array( 'rotate|90', 'crop|25,49,33,25', 'thumbnail|300' ), $operations);
+		$this->assertEquals(array('rotate|90', 'crop|25,49,33,25', 'thumbnail|300'), $operations);
 
 		list($ret, $source, $operations) = $A5->fetchFinalOperations();
 
@@ -959,7 +959,7 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($source, $itemA);
-		$this->assertEquals(array( 'rotate|90', 'thumbnail|100' ), $operations);
+		$this->assertEquals(array('rotate|90', 'thumbnail|100'), $operations);
 
 		list($ret, $source, $operations) = $B1->fetchFinalOperations();
 
@@ -967,7 +967,7 @@ class DerivativeTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals($source, $itemB);
-		$this->assertEquals(array( 'watermark|B1' ), $operations);
+		$this->assertEquals(array('watermark|B1'), $operations);
 	}
 
 	public function testFinalOperations2() {
@@ -1041,14 +1041,14 @@ class DerivativeTest extends GalleryTestCase {
 					'test-operation',
 					$sourcePath,
 					$preferredPath,
-					array( 'source-to-preferred' ),
+					array('source-to-preferred'),
 				),
 				array(
 					'test/file',
 					'test-operation',
 					$preferredPath,
 					$thumbPath,
-					array( 'preferred-to-thumb' ),
+					array('preferred-to-thumb'),
 				),
 			),
 			$ops
@@ -1172,8 +1172,8 @@ class DerivativeTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'order' => 0,
-				'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+				'order'                => 0,
+				'derivativeType'       => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 				'derivativeOperations' => 'thumbnail|123',
 			),
 			$prefs[0],
@@ -1201,13 +1201,13 @@ class DerivativeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'order' => 0,
-					'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+					'order'                => 0,
+					'derivativeType'       => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					'derivativeOperations' => 'thumbnail|123',
 				),
 				array(
-					'order' => 0,
-					'derivativeType' => DERIVATIVE_TYPE_IMAGE_RESIZE,
+					'order'                => 0,
+					'derivativeType'       => DERIVATIVE_TYPE_IMAGE_RESIZE,
 					'derivativeOperations' => 'scale|654',
 				),
 			),
@@ -1222,8 +1222,8 @@ class DerivativeTest extends GalleryTestCase {
 		}
 		$this->assertEquals(
 			array(
-				'order' => 0,
-				'derivativeType' => DERIVATIVE_TYPE_IMAGE_RESIZE,
+				'order'                => 0,
+				'derivativeType'       => DERIVATIVE_TYPE_IMAGE_RESIZE,
 				'derivativeOperations' => 'scale|654',
 			),
 			$preferences[0],
@@ -1244,8 +1244,8 @@ class DerivativeTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'order' => 0,
-					'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+					'order'                => 0,
+					'derivativeType'       => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					'derivativeOperations' => 'thumbnail|123',
 				),
 			),
@@ -1296,14 +1296,14 @@ class DerivativeTestToolkit extends GalleryToolkit {
 		global $gallery;
 
 		$ops   =& DerivativeTestToolkit::getPerformedOperations();
-		$ops[] = array( $mimeType, $operationName, $sourceFilename, $destFilename, $parameters );
+		$ops[] = array($mimeType, $operationName, $sourceFilename, $destFilename, $parameters);
 
 		if ($sourceFilename != $destFilename) {
 			$platform =& $gallery->getPlatform();
 			$platform->copy($sourceFilename, $destFilename);
 		}
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 
 	/**
@@ -1317,20 +1317,20 @@ class DerivativeTestToolkit extends GalleryToolkit {
 				&& $args1[1] + $args2[1] == 0
 			) {
 				// Simulate an operation that cancels itself out when merged
-				return array( true, null, null );
+				return array(true, null, null);
 			}
 
 			if ($operation1 == 'test-operation'
 				&& $args1[0] == 'testRebuildThumbnailOfSmallerThumbnail-1'
 				&& $args2[0] == 'testRebuildThumbnailOfSmallerThumbnail-2'
 			) {
-				return array( true, $operation2, $args2 );
+				return array(true, $operation2, $args2);
 			}
 
-			return array( true, $operation2, $args2 );
+			return array(true, $operation2, $args2);
 		}
 
-		return array( false, null, null );
+		return array(false, null, null);
 	}
 }
 

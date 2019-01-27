@@ -58,15 +58,15 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveSingleTestToolkit',
-			array( 'image/test' ),
+			array('image/test'),
 			'thumbnail',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -78,15 +78,15 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		}
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveSingleTestToolkit',
-			array( 'image/test' ),
+			array('image/test'),
 			'scale',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'foo',
 				),
 			),
@@ -98,23 +98,23 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		}
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveSingleTestToolkit',
-			array( 'image/test' ),
+			array('image/test'),
 			'crop',
 			array(
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => 'foo',
 				),
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => 'foo',
 				),
 			),
@@ -193,7 +193,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 	public function _getDerivativeSizes($itemIds) {
 		if (!is_array($itemIds)) {
-			$itemIds = array( $itemIds );
+			$itemIds = array($itemIds);
 		}
 		$data                   = array();
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
@@ -218,7 +218,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			foreach ($derivs as $deriv) {
 				$data[$id][] = array(
 					'type' => $deriv->getDerivativeType(),
-					'op' => $deriv->getDerivativeOperations(),
+					'op'   => $deriv->getDerivativeOperations(),
 				);
 			}
 		}
@@ -247,15 +247,15 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'thumbnail|150',
+					'op'   => 'thumbnail|150',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|300',
+					'op'   => 'scale|300',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|400',
+					'op'   => 'scale|400',
 				),
 			),
 			$sizes,
@@ -273,9 +273,9 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
-					'itemId' => $this->_item->getId(),
+					'itemId'  => $this->_item->getId(),
 				),
 				'status' => array(
 					'moved' => 1,
@@ -306,20 +306,20 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'thumbnail|200',
+					'op'   => 'thumbnail|200',
 				),
 				// Order differs because old 400 kept as-is, and old 300 is reused for 600.
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|600',
+					'op'   => 'scale|600',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|400',
+					'op'   => 'scale|400',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|800',
+					'op'   => 'scale|800',
 				),
 			),
 			$sizes,
@@ -333,9 +333,9 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
-					'itemId' => $this->_item->getId(),
+					'itemId'  => $this->_item->getId(),
 				),
 				'status' => array(
 					'moved' => 1,
@@ -366,15 +366,15 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'thumbnail|150',
+					'op'   => 'thumbnail|150',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|300',
+					'op'   => 'scale|300',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|400',
+					'op'   => 'scale|400',
 				),
 			),
 			$sizes,
@@ -393,11 +393,11 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][destination][empty]' ),
+				'error'  => array('form[error][destination][empty]'),
 			),
 			$results
 		);
@@ -415,11 +415,11 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][destination][selfMove]' ),
+				'error'  => array('form[error][destination][selfMove]'),
 			),
 			$results
 		);
@@ -443,11 +443,11 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][destination][selfMove]' ),
+				'error'  => array('form[error][destination][selfMove]'),
 			),
 			$results
 		);
@@ -534,7 +534,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		}
 
 		// Add crop operation
-		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $this->_item->getId() ));
+		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -563,15 +563,15 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'crop|0,0,50,50;thumbnail|150',
+					'op'   => 'crop|0,0,50,50;thumbnail|150',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|300',
+					'op'   => 'scale|300',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|400',
+					'op'   => 'scale|400',
 				),
 			),
 			$sizes,
@@ -589,9 +589,9 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
-					'itemId' => $this->_item->getId(),
+					'itemId'  => $this->_item->getId(),
 				),
 				'status' => array(
 					'moved' => 1,
@@ -607,20 +607,20 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-					'op' => 'crop|0,0,50,50;thumbnail|200',
+					'op'   => 'crop|0,0,50,50;thumbnail|200',
 				),
 				// Order differs because old 400 kept as-is, and old 300 is reused for 600.
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|600',
+					'op'   => 'scale|600',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|400',
+					'op'   => 'scale|400',
 				),
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-					'op' => 'scale|800',
+					'op'   => 'scale|800',
 				),
 			),
 			$sizes,

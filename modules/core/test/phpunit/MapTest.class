@@ -37,8 +37,8 @@ class MapTest extends GalleryTestCase {
 		$ret  = GalleryCoreApi::addMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
-				'name' => $name,
-				'parametersCrc' => 'test',
+				'name'           => $name,
+				'parametersCrc'  => 'test',
 				'outputMimeType' => 'test',
 			)
 		);
@@ -51,10 +51,10 @@ class MapTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
-				'name' => $name,
-				'parametersCrc' => 'test',
+				'name'           => $name,
+				'parametersCrc'  => 'test',
 				'outputMimeType' => 'test',
-				'description' => null,
+				'description'    => null,
 			)
 		);
 		$this->assertTrue(!$ret, 'should succeed with null value');
@@ -81,10 +81,10 @@ class MapTest extends GalleryTestCase {
 		$ret  = GalleryCoreApi::addMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
-				'name' => $name,
-				'parametersCrc' => 'test',
+				'name'           => $name,
+				'parametersCrc'  => 'test',
 				'outputMimeType' => 'test',
-				'description' => 'test',
+				'description'    => 'test',
 			)
 		);
 
@@ -95,7 +95,7 @@ class MapTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
-				'name' => $name,
+				'name'           => $name,
 				'outputMimeType' => 'test',
 			),
 			array(
@@ -111,7 +111,7 @@ class MapTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
-				'name' => $name,
+				'name'        => $name,
 				'description' => null,
 			),
 			array(

@@ -58,17 +58,17 @@ class GalleryLockHelper_simple {
 		$ret    = $result[0];
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$lockSystem =& $result[1];
 
 		list($ret, $lockId) = $lockSystem->acquireReadLock($ids, $timeout);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $lockId );
+		return array(null, $lockId);
 	}
 
 	/**
@@ -88,7 +88,7 @@ class GalleryLockHelper_simple {
 		$ret     = $result[0];
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$lockSystem =& $result[1];
 
@@ -105,15 +105,15 @@ class GalleryLockHelper_simple {
 	  [GalleryChildEntity::parentId] = [GalleryItemAttributesMap::itemId]
 	';
 
-		list($ret, $searchResults) = $gallery->search($query, array( (int)$id ));
+		list($ret, $searchResults) = $gallery->search($query, array((int)$id));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($searchResults->resultCount() == 0) {
 			// No parents; nothing to lock
-			return array( null, null );
+			return array(null, null);
 		}
 
 		// Extract the parent ids
@@ -136,17 +136,17 @@ class GalleryLockHelper_simple {
 
 		if (empty($parentIds)) {
 			// No locks required
-			return array( null, null );
+			return array(null, null);
 		}
 
 		// Read lock the parents
 		list($ret, $lock) = $lockSystem->acquireReadLock($parentIds, $timeout);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $lock );
+		return array(null, $lock);
 	}
 
 	/**
@@ -181,17 +181,17 @@ class GalleryLockHelper_simple {
 		$ret    = $result[0];
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$lockSystem =& $result[1];
 
 		list($ret, $lockId) = $lockSystem->acquireWriteLock($ids, $timeout);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $lockId );
+		return array(null, $lockId);
 	}
 
 	/**

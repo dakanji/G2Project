@@ -37,33 +37,33 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$info = array(
-			'name'    => $module->translate('Gallery Core'),
+			'name'        => $module->translate('Gallery Core'),
 			'description' => $module->translate('Gallery Core Module'),
-			'options' => array(
+			'options'     => array(
 				'descriptions' => array(
 					'description' => $module->translate('Search descriptions'),
-					'enabled' => 1,
+					'enabled'     => 1,
 				),
 				'keywords' => array(
 					'description' => $module->translate('Search keywords'),
-					'enabled' => 1,
+					'enabled'     => 1,
 				),
 				'summaries' => array(
 					'description' => $module->translate('Search summaries'),
-					'enabled' => 1,
+					'enabled'     => 1,
 				),
 				'titles' => array(
 					'description' => $module->translate('Search titles'),
-					'enabled' => 1,
+					'enabled'     => 1,
 				),
 			),
 		);
 
-		return array( null, $info );
+		return array(null, $info);
 	}
 
 	/**
@@ -91,7 +91,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		// Always select back title and summary
-		foreach (array( '[GalleryItem::title]', '[GalleryItem::summary]' ) as $column) {
+		foreach (array('[GalleryItem::title]', '[GalleryItem::summary]') as $column) {
 			if (!isset($selectMap[$column])) {
 				$selectMap[$column] = $columnNumber++;
 				$selectList[]       = $column;
@@ -106,16 +106,16 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (empty($aclIds)) {
 			return array(
 				null,
 				array(
-					'start' => 0,
-					'end' => '0',
-					'count' => 0,
+					'start'   => 0,
+					'end'     => '0',
+					'count'   => 0,
 					'results' => array(),
 				),
 			);
@@ -171,7 +171,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		list($ret, $results) = $gallery->search($countQuery, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$result  = $results->nextResult();
 		$numRows = (int)$result[0];
@@ -183,19 +183,19 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 			array(
 				'limit' => array(
 					'offset' => $offset,
-					'count' => $count,
+					'count'  => $count,
 				),
 			)
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$text['description'] = $module->translate('Description');
@@ -221,7 +221,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 					 * (id, date, full name, username are columns 0-3)
 					 */
 					$fields[] = array(
-						'key' => $fieldText,
+						'key'   => $fieldText,
 						'value' => $result[$selectMap[$columnName] + 4],
 					);
 				}
@@ -244,6 +244,6 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 			'results' => $searchResults,
 		);
 
-		return array( null, $data );
+		return array(null, $data);
 	}
 }

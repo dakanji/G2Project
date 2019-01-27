@@ -46,8 +46,8 @@ class CommentModule extends GalleryModule {
 			'getItemLinks|getItemSummaries|' .
 			'getSiteAdminViews|getItemAdminViews'
 		);
-		$this->setRequiredCoreApi(array( 7, 41 ));
-		$this->setRequiredModuleApi(array( 3, 9 ));
+		$this->setRequiredCoreApi(array(7, 41));
+		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**
@@ -69,20 +69,20 @@ class CommentModule extends GalleryModule {
 		switch ($currentVersion) {
 			case '0':
 				// Initial install.  Register our permissions
-				$permissions[]  = array( 'add', $gallery->i18n('[comment] Add comments'), 0, array() );
-				$permissions[]  = array( 'edit', $gallery->i18n('[comment] Edit comments'), 0, array() );
+				$permissions[]  = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
+				$permissions[]  = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
 				$permissions[]  = array(
 					'delete',
 					$gallery->i18n('[comment] Delete comments'),
 					0,
 					array(),
 				);
-				 $permissions[] = array( 'view', $gallery->i18n('[comment] View comments'), 0, array() );
+				 $permissions[] = array('view', $gallery->i18n('[comment] View comments'), 0, array());
 				 $permissions[] = array(
 					 'all',
 					 $gallery->i18n('[comment] All access'),
 					 GALLERY_PERMISSION_COMPOSITE,
-					 array( 'comment.add', 'comment.edit', 'comment.delete', 'comment.view' ),
+					 array('comment.add', 'comment.edit', 'comment.delete', 'comment.view'),
 				 );
 
 				foreach ($permissions as $p) {
@@ -123,7 +123,7 @@ class CommentModule extends GalleryModule {
 				$ret = GalleryCoreApi::removeMapEntry(
 					'GalleryPermissionSetMap',
 					array(
-						'module' => 'comment',
+						'module'     => 'comment',
 						'permission' => 'comment.search',
 					)
 				);
@@ -135,7 +135,7 @@ class CommentModule extends GalleryModule {
 				// Fall Through
 			case '0.9.7':
 			case '1.0.0':
-				$ret = $storage->configureStore($this->getId(), array( 'GalleryComment:1.0' ));
+				$ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
 
 				if ($ret) {
 					return $ret;
@@ -183,7 +183,7 @@ class CommentModule extends GalleryModule {
 			case '1.0.9':
 			case '1.1.0':
 			case '1.1.1':
-				$ret = $storage->configureStore($this->getId(), array( 'GalleryComment:1.1' ));
+				$ret = $storage->configureStore($this->getId(), array('GalleryComment:1.1'));
 
 				if ($ret) {
 					return $ret;
@@ -199,7 +199,7 @@ class CommentModule extends GalleryModule {
 			case '1.1.4':
 			case '1.1.5':
 				// Add Akismet support
-				$ret = $storage->configureStore($this->getId(), array( 'GalleryComment:1.2' ));
+				$ret = $storage->configureStore($this->getId(), array('GalleryComment:1.2'));
 
 				if ($ret) {
 					return $ret;
@@ -253,7 +253,7 @@ class CommentModule extends GalleryModule {
 			'GalleryCommentHelper',
 			'modules/comment/classes/GalleryCommentHelper.class',
 			'comment',
-			array( 'GalleryEntity::delete', 'GalleryEntity::save' )
+			array('GalleryEntity::delete', 'GalleryEntity::save')
 		);
 
 		if ($ret) {
@@ -305,7 +305,7 @@ class CommentModule extends GalleryModule {
 			'CommentAddNotification',
 			'modules/comment/classes/CommentAddNotification.class',
 			'comment',
-			array( 'GalleryEntity::save' )
+			array('GalleryEntity::save')
 		);
 
 		if ($ret) {
@@ -319,7 +319,7 @@ class CommentModule extends GalleryModule {
 	 * @see GalleryModule::getModuleEntityTypes
 	 */
 	public function getModuleEntityTypes() {
-		return array( 'GalleryComment' );
+		return array('GalleryComment');
 	}
 
 	/**
@@ -329,7 +329,7 @@ class CommentModule extends GalleryModule {
 		list($ret, $showAll) = $this->getParameter('comments.latest');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$links = array();
 
@@ -339,9 +339,9 @@ class CommentModule extends GalleryModule {
 			if (isset($wantsDetailedLinks[$itemId])) {
 				if (isset($permissions[$itemId]['comment.add'])) {
 					$links[$itemId][] = array(
-						'text' => $this->translate('Add Comment'),
+						'text'   => $this->translate('Add Comment'),
 						'params' => array(
-							'view' => 'comment.AddComment',
+							'view'   => 'comment.AddComment',
 							'itemId' => $itemId,
 							'return' => 1,
 						),
@@ -350,9 +350,9 @@ class CommentModule extends GalleryModule {
 
 				if ($showAll && isset($permissions[$itemId]['comment.view'])) {
 					$links[$itemId][] = array(
-						'text' => $this->translate('View Latest Comments'),
+						'text'   => $this->translate('View Latest Comments'),
 						'params' => array(
-							'view' => 'comment.ShowAllComments',
+							'view'   => 'comment.ShowAllComments',
 							'itemId' => $itemId,
 							'return' => 1,
 						),
@@ -361,7 +361,7 @@ class CommentModule extends GalleryModule {
 			}
 		}
 
-		return array( null, $links );
+		return array(null, $links);
 	}
 
 	/**
@@ -378,7 +378,7 @@ class CommentModule extends GalleryModule {
 		list($ret, $commentCounts) = GalleryCommentHelper::doStatic()->fetchCommentCounts($ids);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$summaries = array();
@@ -398,7 +398,7 @@ class CommentModule extends GalleryModule {
 			}
 		}
 
-		return array( null, $summaries );
+		return array(null, $summaries);
 	}
 
 	/**
@@ -409,7 +409,7 @@ class CommentModule extends GalleryModule {
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (isset($permissions['comment.edit'])
@@ -422,7 +422,7 @@ class CommentModule extends GalleryModule {
 			);
 		}
 
-		return array( null, $views );
+		return array(null, $views);
 	}
 
 	/**

@@ -35,14 +35,14 @@ class AdminPerformanceController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$results                  = $status = $error = array();
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($acceleration) {
@@ -50,7 +50,7 @@ class AdminPerformanceController extends GalleryController {
 		}
 
 		if (isset($form['action']['save'])) {
-			foreach (array( 'user', 'guest' ) as $class) {
+			foreach (array('user', 'guest') as $class) {
 				if (!isset($form['acceleration'][$class])) {
 					return array(
 						GalleryCoreApi::error(
@@ -79,7 +79,7 @@ class AdminPerformanceController extends GalleryController {
 						break;
 
 					default:
-						return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 				}
 			}
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -90,7 +90,7 @@ class AdminPerformanceController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -101,23 +101,23 @@ class AdminPerformanceController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$status['saved'] = 1;
 			$redirect        = array(
-				'view' => 'core.SiteAdmin',
+				'view'    => 'core.SiteAdmin',
 				'subView' => 'core.AdminPerformance',
 			);
 		} elseif (isset($form['action']['clear'])) {
 			$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$status['cleared'] = 1;
 			$redirect          = array(
-				'view' => 'core.SiteAdmin',
+				'view'    => 'core.SiteAdmin',
 				'subView' => 'core.AdminPerformance',
 			);
 		}
@@ -132,7 +132,7 @@ class AdminPerformanceController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -147,13 +147,13 @@ class AdminPerformanceView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Load some standard form parameters
@@ -163,14 +163,14 @@ class AdminPerformanceView extends GalleryView {
 			list($ret, $acceleration) = $module->getParameter('acceleration');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($acceleration) {
 				$form['acceleration'] = unserialize($acceleration);
 			}
 
-			foreach (array( 'user', 'guest' ) as $class) {
+			foreach (array('user', 'guest') as $class) {
 				if (!isset($form['acceleration'][$class]['type'])) {
 					$form['acceleration'][$class]['type'] = 'none';
 				}
@@ -183,7 +183,7 @@ class AdminPerformanceView extends GalleryView {
 			list($ret, $compileCheck) = $module->getParameter('smarty.compile_check');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$form['disableCompileCheck'] = !$compileCheck;
 		}
@@ -200,46 +200,46 @@ class AdminPerformanceView extends GalleryView {
 		// Set up our time lists
 		$expirationTimeLists = array();
 
-		foreach (array( 15, 30, 45 ) as $minutes) {
+		foreach (array(15, 30, 45) as $minutes) {
 			$expirationTimeList[$minutes * 60] = $module->translate(
 				array(
-					'one' => '%d minute',
-					'many' => '%d minutes',
+					'one'   => '%d minute',
+					'many'  => '%d minutes',
 					'count' => $minutes,
-					'arg1' => $minutes,
+					'arg1'  => $minutes,
 				)
 			);
 		}
 
-		foreach (array( 1, 6, 12 ) as $hours) {
+		foreach (array(1, 6, 12) as $hours) {
 			$expirationTimeList[$hours * 3600] = $module->translate(
 				array(
-					'one' => '%d hour',
-					'many' => '%d hours',
+					'one'   => '%d hour',
+					'many'  => '%d hours',
 					'count' => $hours,
-					'arg1' => $hours,
+					'arg1'  => $hours,
 				)
 			);
 		}
 
-		foreach (array( 1, 2, 3, 4, 5, 6 ) as $days) {
+		foreach (array(1, 2, 3, 4, 5, 6) as $days) {
 			$expirationTimeList[$days * 86400] = $module->translate(
 				array(
-					'one' => '%d day',
-					'many' => '%d days',
+					'one'   => '%d day',
+					'many'  => '%d days',
 					'count' => $days,
-					'arg1' => $days,
+					'arg1'  => $days,
 				)
 			);
 		}
 
-		foreach (array( 1, 2, 3 ) as $weeks) {
+		foreach (array(1, 2, 3) as $weeks) {
 			$expirationTimeList[$weeks * 7 * 86400] = $module->translate(
 				array(
-					'one' => '%d week',
-					'many' => '%d weeks',
+					'one'   => '%d week',
+					'many'  => '%d weeks',
 					'count' => $weeks,
-					'arg1' => $weeks,
+					'arg1'  => $weeks,
 				)
 			);
 		}

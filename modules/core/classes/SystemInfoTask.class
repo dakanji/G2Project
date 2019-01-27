@@ -52,12 +52,12 @@ class SystemInfoTask extends MaintenanceTask {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$version = $core->getInstalledVersions();
@@ -65,7 +65,7 @@ class SystemInfoTask extends MaintenanceTask {
 
 		if ($platform->is_dir(GalleryCoreApi::getCodeBasePath('.svn'))) {
 			// Try to determine svn revision; ignore any error
-			list($success, $output) = $platform->exec(array( array( 'svn', 'info', GalleryCoreApi::getCodeBasePath() ) ));
+			list($success, $output) = $platform->exec(array(array('svn', 'info', GalleryCoreApi::getCodeBasePath())));
 
 			if ($success && is_array($output)) {
 				foreach ($output as $line) {
@@ -82,10 +82,10 @@ class SystemInfoTask extends MaintenanceTask {
 		$baseUrl      = $urlGenerator->generateUrl(
 			array(),
 			array(
-				'forceDirect' => true,
-				'forceFullUrl' => true,
+				'forceDirect'    => true,
+				'forceFullUrl'   => true,
 				'forceSessionId' => false,
-				'useAuthToken' => false,
+				'useAuthToken'   => false,
 			)
 		);
 
@@ -174,6 +174,6 @@ class SystemInfoTask extends MaintenanceTask {
 			);
 		}
 
-		return array( null, true, $info );
+		return array(null, true, $info);
 	}
 }

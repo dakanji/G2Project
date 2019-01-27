@@ -74,7 +74,7 @@ class UserLoginController extends GalleryController {
 				list($ret, $isDisabled) = GalleryCoreApi::isDisabledUsername($form['username']);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($isDisabled) {
@@ -86,7 +86,7 @@ class UserLoginController extends GalleryController {
 				list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['username']);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				GalleryUtilities::unsanitizeInputValues($form['password'], false);
 				$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
@@ -98,7 +98,7 @@ class UserLoginController extends GalleryController {
 				list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($options['level'] == 'MEDIUM') {
@@ -113,7 +113,7 @@ class UserLoginController extends GalleryController {
 					list($ret, $pluginInstances) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					foreach (array_keys($pluginInstances) as $pluginId) {
@@ -123,7 +123,7 @@ class UserLoginController extends GalleryController {
 						);
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 					}
 				}
@@ -133,7 +133,7 @@ class UserLoginController extends GalleryController {
 					list($ret, $pluginErrors, $continue) = $plugin->performValidation($form, $options);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$error = array_merge($error, $pluginErrors);
@@ -153,7 +153,7 @@ class UserLoginController extends GalleryController {
 					list($ret, $redirect) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					// Redirect if requested by event listener, otherwise return
@@ -178,7 +178,7 @@ class UserLoginController extends GalleryController {
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
@@ -193,7 +193,7 @@ class UserLoginController extends GalleryController {
 		$results['status'] = array();
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -218,7 +218,7 @@ class UserLoginView extends GalleryView {
 			list($ret, $isGuest) = GalleryCoreApi::isAnonymousUser();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$phpVm        = $gallery->getPhpVm();
@@ -229,7 +229,7 @@ class UserLoginView extends GalleryView {
 					$loginRedirect,
 					array(
 						'forceSessionId' => false,
-						'forceFullUrl' => true,
+						'forceFullUrl'   => true,
 					)
 				);
 				$redirectUrl = rtrim(str_replace('&amp;', '&', $redirectUrl), '&? ');
@@ -247,14 +247,14 @@ class UserLoginView extends GalleryView {
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($isAdmin) {
 			list($ret, $reauthenticate) = $session->hasSiteAdminSessionExpired();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 

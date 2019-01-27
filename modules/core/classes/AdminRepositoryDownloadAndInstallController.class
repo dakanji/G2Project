@@ -50,7 +50,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		 * Get the original plugin status from before we start making changes so that we can
 		 * try to counteract any activate/deactivate ripple effects.
 		 */
-		foreach (array( 'module', 'theme' ) as $pluginType) {
+		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $pluginStatus[$pluginType]) = $this->_fetchPluginStatus($pluginType, false);
 
 			if ($ret) {
@@ -79,7 +79,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		$currentAction = 0;
 
 		$callback = array(
-			'method'  => array( $templateAdapter, 'updateProgressBar' ),
+			'method'  => array($templateAdapter, 'updateProgressBar'),
 			'title'   => $titleText,
 			'current' => 0,
 			'total'   => $totalActions,
@@ -93,7 +93,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					$packageUrls = $pluginDownloadData['files'];
 					$pluginName  = $pluginDownloadData['name'];
 
-					$downloadStatus = array();
+					$downloadStatus                                = array();
 					list($ret, $reactivatePlugin, $downloadStatus) = $repository->downloadPackagesForPlugin(
 
 						$pluginType,
@@ -242,12 +242,12 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			list($ret, $tmp) = $repositories[$source]->getDownloadFileList($packages);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$sourcedFiles[$source] = empty($sourcedFiles[$source]) ? $tmp : array_merge($sourcedFiles[$source], $tmp);
 		}
 
-		return array( null, $sourcedFiles );
+		return array(null, $sourcedFiles);
 	}
 
 	/**
@@ -401,7 +401,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			$repository->init('bogus');
 		}
 
-		foreach (array( 'module', 'theme' ) as $pluginType) {
+		foreach (array('module', 'theme') as $pluginType) {
 			foreach (array_keys($pluginStatus[$pluginType]) as $pluginId) {
 				$gallery->guaranteeTimeLimit(30);
 

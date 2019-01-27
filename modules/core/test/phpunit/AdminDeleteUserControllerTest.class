@@ -96,11 +96,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -128,7 +128,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -166,11 +166,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -198,11 +198,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -249,11 +249,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][noSuchUser]' ),
+				'error'  => array('form[error][text][noSuchUser]'),
 			),
 			$results
 		);
@@ -297,11 +297,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][newOwnerIsDeletedUser]' ),
+				'error'  => array('form[error][text][newOwnerIsDeletedUser]'),
 			),
 			$results
 		);
@@ -358,11 +358,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][newOwnerIsGuest]' ),
+				'error'  => array('form[error][text][newOwnerIsGuest]'),
 			),
 			$results
 		);
@@ -438,7 +438,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -513,7 +513,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -613,7 +613,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -648,7 +648,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		);
 		// Verify the permissions were transfered correctly
 		list($ret, $userPermissions) = GalleryCoreApi::fetchPermissionsForItems(
-			array( $item->getId() ),
+			array($item->getId()),
 			$newOwner->getId()
 		);
 
@@ -686,7 +686,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		WHERE
 		[GalleryAccessMap::userOrGroupId] = ?
 		';
-		list($ret, $searchResults) = $gallery->search($query, array( $userId ));
+		list($ret, $searchResults) = $gallery->search($query, array($userId));
 
 		if ($ret) {
 			return $ret;

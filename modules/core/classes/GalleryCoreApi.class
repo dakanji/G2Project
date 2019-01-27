@@ -87,7 +87,7 @@ class GalleryCoreApi {
 	 *   of values.
 	 */
 	public static function getApiVersion() {
-		return array( 7, 55 );
+		return array(7, 55);
 	}
 
 	/**
@@ -3709,17 +3709,17 @@ class GalleryCoreApi {
 		global $gallery;
 
 		if (empty($mapName) || empty($select) || !is_array($match) || !is_array($optional)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		$storage                   =& $gallery->getStorage();
 		list($ret, $searchResults) = $storage->getMapEntry($mapName, $select, $match, $optional);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $searchResults );
+		return array(null, $searchResults);
 	}
 
 	/**
@@ -3805,10 +3805,10 @@ class GalleryCoreApi {
 		list($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $entityInfo );
+		return array(null, $entityInfo);
 	}
 
 	/**
@@ -3825,10 +3825,10 @@ class GalleryCoreApi {
 		list($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $entityInfo );
+		return array(null, $entityInfo);
 	}
 
 	/**
@@ -3879,11 +3879,11 @@ class GalleryCoreApi {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
-		return array( null, (int)$defaultId );
+		return array(null, (int)$defaultId);
 	}
 
 	/**
@@ -3904,11 +3904,11 @@ class GalleryCoreApi {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
-		return array( null, $id );
+		return array(null, $id);
 	}
 
 	/**
@@ -3926,10 +3926,10 @@ class GalleryCoreApi {
 		list($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $userId == $anonymousId );
+		return array(null, $userId == $anonymousId);
 	}
 
 	/**

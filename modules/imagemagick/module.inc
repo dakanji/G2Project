@@ -39,8 +39,8 @@ class ImageMagickModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array( 7, 20 ));
-		$this->setRequiredModuleApi(array( 3, 6 ));
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -134,20 +134,20 @@ class ImageMagickModule extends GalleryModule {
 		list($ret, $results) = ImageMagickToolkitHelper::getOperationsAndProperties();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('ImageMagick');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!$priority) {
 			list($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$priority = min($priority + 1, 40);
 		}
@@ -166,7 +166,7 @@ class ImageMagickModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -174,20 +174,20 @@ class ImageMagickModule extends GalleryModule {
 		list($ret, $cmykSupport) = $this->getParameter('cmykSupport');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($results['properties']['colorspace']) && $cmykSupport != 'none') {
 			$ret = $this->setParameter('cmykSupport', $cmykSupport = 'none');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} elseif (isset($results['properties']['colorspace']) && $cmykSupport == 'none') {
 			$ret = $this->setParameter('cmykSupport', $cmykSupport = 'off');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -205,7 +205,7 @@ class ImageMagickModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -213,16 +213,16 @@ class ImageMagickModule extends GalleryModule {
 		$ret = ImageMagickToolkitHelper::savePlatformParameters();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -231,7 +231,7 @@ class ImageMagickModule extends GalleryModule {
 	public function needsConfiguration() {
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array( null, true );
+			return array(null, true);
 		}
 		// This module requires all fields to be filled out before it can be activated.
 		foreach (array(
@@ -243,15 +243,15 @@ class ImageMagickModule extends GalleryModule {
 			list($ret, $value) = $this->getParameter($key);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($value)) {
-				return array( null, true );
+				return array(null, true);
 			}
 		}
 
-		return array( null, false );
+		return array(null, false);
 	}
 
 	/**
@@ -262,17 +262,17 @@ class ImageMagickModule extends GalleryModule {
 
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		list($ret, $needsConfiguration) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array( $ret, false );
+			return array($ret, false);
 		}
 
 		if (!$needsConfiguration) {
-			return array( null, true );
+			return array(null, true);
 		}
 
 		// Try a bunch of likely seeming paths to see if any of them work.
@@ -327,7 +327,7 @@ class ImageMagickModule extends GalleryModule {
 			$paths[] = '/bin/';
 			$paths[] = '/sw/bin/';
 		} else {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		// Load any classes we require
@@ -363,7 +363,7 @@ class ImageMagickModule extends GalleryModule {
 				);
 
 				if ($ret) {
-					return array( $ret, false );
+					return array($ret, false);
 				}
 
 				// Force admin to visit site admin to view warning for vulnerable version
@@ -380,17 +380,17 @@ class ImageMagickModule extends GalleryModule {
 					);
 
 					if ($ret) {
-						return array( $ret, false );
+						return array($ret, false);
 					}
 				} else {
 					$vulnerable = true;
 				}
 
-				return array( null, !$vulnerable );
+				return array(null, !$vulnerable);
 			}
 		}
 
-		return array( null, false );
+		return array(null, false);
 	}
 
 	/**

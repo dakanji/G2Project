@@ -55,10 +55,10 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
 		$supportedLanguages = array(
 			'en' => array(
-				'US' => array( 'US English' ),
+				'US' => array('US English'),
 			),
 			'hu' => array(
-				'HU' => array( 'Magyar' ),
+				'HU' => array('Magyar'),
 			),
 		);
 
@@ -104,11 +104,11 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminRepository',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -144,10 +144,10 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			'getMapEntry',
 			array(
 				'GalleryPluginPackageMap',
-				array( 'locked', 'packageVersion', 'packageBuild', 'packageName' ),
+				array('locked', 'packageVersion', 'packageBuild', 'packageName'),
 				array(
 					'pluginType' => 'module',
-					'pluginId' => 'testModule',
+					'pluginId'   => 'testModule',
 				),
 				array(),
 			),
@@ -155,14 +155,14 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 				null,
 				new UnitTestStorageSearchResults(
 					array(
-						array( 0, '12345', '11111', 'base' ),
-						array( 0, '12345', '11111', 'lang-en_GB' ),
-						array( 0, '12345', '11111', 'lang-es' ),
-						array( 0, '12345', '11111', 'lang-es_MX' ),
-						array( 0, '12345', '11111', 'lang-es_AR' ),
-						array( 0, '12345', '11111', 'lang-hu' ),
-						array( 0, '12345', '11111', 'lang-pt_BR' ),
-						array( 0, '12345', '11111', 'lang-pt_PT' ),
+						array(0, '12345', '11111', 'base'),
+						array(0, '12345', '11111', 'lang-en_GB'),
+						array(0, '12345', '11111', 'lang-es'),
+						array(0, '12345', '11111', 'lang-es_MX'),
+						array(0, '12345', '11111', 'lang-es_AR'),
+						array(0, '12345', '11111', 'lang-hu'),
+						array(0, '12345', '11111', 'lang-pt_BR'),
+						array(0, '12345', '11111', 'lang-pt_PT'),
 					)
 				),
 			)
@@ -175,7 +175,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Expected only core.ProgressBar delegation.'
@@ -185,7 +185,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		$callback = $mockAdapter->getCallback(0);
 
 		$this->assertEquals(
-			array( $this->_controller, 'performDownloadAndInstallation' ),
+			array($this->_controller, 'performDownloadAndInstallation'),
 			$callback[0],
 			'Incorrect callback method'
 		);
@@ -195,12 +195,12 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 				'test' => array(
 					'module' => array(
 						'testModule' => array(
-							'base' => 1,
+							'base'       => 1,
 							'lang-en_GB' => 1,
-							'lang-es' => 1,
+							'lang-es'    => 1,
 							'lang-es_MX' => 1,
 							'lang-es_AR' => 1,
-							'lang-hu' => 1,
+							'lang-hu'    => 1,
 						),
 					),
 				),
@@ -235,13 +235,13 @@ class AdminRepositoryDownloadControllerTestModule {
 	public function autoConfigure() {
 		$_REQUEST['called']['autoConfigure'] = 1;
 
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public function activate() {
 		$_REQUEST['called']['activate'] = 1;
 
-		return array( null, array() );
+		return array(null, array());
 	}
 }
 
@@ -253,14 +253,14 @@ class AdminRepositoryDownloadControllerTestWrapper extends AdminRepositoryDownlo
 		list($ret, $pluginStatus) = parent::_fetchPluginStatus($pluginType, $ignoreCache);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		$testModule = 'AdminRepositoryDownloadControllerTest';
+		$testModule                           = 'AdminRepositoryDownloadControllerTest';
 		$pluginStatus[$testModule]['active']  = $this->_active;
 		$pluginStatus[$testModule]['version'] = $this->_version;
 
-		return array( null, $pluginStatus );
+		return array(null, $pluginStatus);
 	}
 }
 

@@ -40,16 +40,16 @@ class KeywordAlbumView extends GalleryView {
 		list($ret, $item) = GalleryCoreApi::newFactoryInstance('GalleryDynamicAlbum');
 
 		if ($ret) {
-			return array( $ret, null, null, null );
+			return array($ret, null, null, null);
 		}
 
 		if (!isset($item)) {
-			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null );
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 		}
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
 
 		if ($ret) {
-			return array( $ret, null, null, null );
+			return array($ret, null, null, null);
 		}
 		list($keyword, $itemId) = GalleryUtilities::getRequestVariables('keyword', 'itemId');
 		$item->create(
@@ -60,15 +60,15 @@ class KeywordAlbumView extends GalleryView {
 				)
 			),
 			array(
-				array( 'Keyword Album', 'keyword album' ),
-				array( $module->translate('Keyword Album'), $module->translate('keyword album') ),
+				array('Keyword Album', 'keyword album'),
+				array($module->translate('Keyword Album'), $module->translate('keyword album')),
 			)
 		);
 
 		list($ret, $moduleParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'keyalbum');
 
 		if ($ret) {
-			return array( $ret, null, null, null );
+			return array($ret, null, null, null);
 		}
 		$item->setDescription($moduleParams['description']);
 
@@ -77,26 +77,26 @@ class KeywordAlbumView extends GalleryView {
 			list($ret, $viewItem) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			if (!$hasPermission) {
 				// Avoid information disclosure, act as if the item didn't exist.
-				return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null );
+				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
 			$item->urlParams           = array(
-				'view' => 'keyalbum.KeywordAlbum',
-				'keyword' => $keyword,
+				'view'        => 'keyalbum.KeywordAlbum',
+				'keyword'     => $keyword,
 				'highlightId' => $itemId,
 			);
-			$item->getChildrenFunction = array( 'KeywordAlbumView', 'getChildIds' );
+			$item->getChildrenFunction = array('KeywordAlbumView', 'getChildIds');
 			$viewItem->parent          = $item;
 			$item                      = $viewItem;
 		}
@@ -106,24 +106,24 @@ class KeywordAlbumView extends GalleryView {
 
 			if ($ret || !isset($theme)) {
 				// Ignore errors here so fallback theme can be used
-				return array( null, null, array(), $item );
+				return array(null, null, array(), $item);
 			}
 		} else {
 			list($ret, $theme) = GalleryView::_loadTheme($moduleParams['themeId']);
 
 			if ($ret || !isset($theme)) {
 				// Ignore errors here so fallback theme can be used
-				return array( null, null, array(), $item );
+				return array(null, null, array(), $item);
 			}
 		}
 
 		list($ret, $params) = $theme->fetchParameters($moduleParams['themeSettingsId']);
 
 		if ($ret) {
-			return array( $ret, null, null, null );
+			return array($ret, null, null, null);
 		}
 
-		return array( null, $theme, $params, $item );
+		return array(null, $theme, $params, $item);
 	}
 
 	/**
@@ -145,27 +145,27 @@ class KeywordAlbumView extends GalleryView {
 			list($ret, $theme['allChildIds']) = $this->getChildIds($theme['actingUserId'], $keyword);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} else {
 			// Item in dynamic album; use core.ShowItem to check permission, increment view count
 			list($ret, $showItem) = GalleryView::doStatic()->loadView('core.ShowItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			list($ret, $result) = $showItem->loadTemplate($template, $form);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (isset($result['redirect'])) {
-				return array( null, $result );
+				return array(null, $result);
 			}
 		}
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -185,18 +185,18 @@ class KeywordAlbumView extends GalleryView {
 		}
 
 		if (empty($keyword)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'keyalbum');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$keywords = $where = array();
@@ -219,17 +219,17 @@ class KeywordAlbumView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (empty($query)) {
-			return array( null, array() );
+			return array(null, array());
 		}
 
 		list($ret, $searchResults) = $gallery->search($query, array_merge($keywords, $data));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemIds = array();
 
@@ -237,7 +237,7 @@ class KeywordAlbumView extends GalleryView {
 			$itemIds[] = $result[0];
 		}
 
-		return array( null, $itemIds );
+		return array(null, $itemIds);
 	}
 
 	/**
@@ -247,9 +247,9 @@ class KeywordAlbumView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('keyword album') );
+		return array(null, $module->translate('keyword album'));
 	}
 }

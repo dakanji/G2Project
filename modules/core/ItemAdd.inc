@@ -70,7 +70,7 @@ class ItemAddController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -78,22 +78,22 @@ class ItemAddController extends GalleryController {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addDataItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!$item->getCanContainChildren()) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		// Load the correct add plugin
 		list($ret, $addPlugin) = GalleryCoreApi::newFactoryInstanceById('ItemAddPlugin', $addPluginId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($addPlugin)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		/**
@@ -107,25 +107,25 @@ class ItemAddController extends GalleryController {
 			ob_end_clean();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$session             =& $gallery->getSession();
 			$results['status']   = $session->getStatus();
 			$results['redirect'] = array(
-				'view' => 'core.ItemAdmin',
+				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemAddConfirmation',
-				'itemId' => $item->getId(),
+				'itemId'  => $item->getId(),
 			);
 			$results['error']    = array();
 
-			return array( null, $results );
+			return array(null, $results);
 		}
 
 		// Do the actual work in callback of a progress-bar view
 		$templateAdapter->registerTrailerCallback(
-			array( $this, 'handleRequestWithProgressBar' ),
-			array( $form, $item, $addPlugin )
+			array($this, 'handleRequestWithProgressBar'),
+			array($form, $item, $addPlugin)
 		);
 
 		return array(
@@ -135,7 +135,7 @@ class ItemAddController extends GalleryController {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 		);
 	}
@@ -209,10 +209,10 @@ class ItemAddController extends GalleryController {
 			$doRedirect  = true;
 			$continueUrl = $urlGenerator->generateUrl(
 				array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemAdd',
+					'view'      => 'core.ItemAdmin',
+					'subView'   => 'core.ItemAdd',
 					'addPlugin' => $addPluginId,
-					'itemId' => $item->getId(),
+					'itemId'    => $item->getId(),
 				),
 				array(
 					'forceFullUrl' => true,
@@ -230,11 +230,11 @@ class ItemAddController extends GalleryController {
 				 */
 				$continueUrl = $urlGenerator->generateUrl(
 					array(
-						'view' => 'core.ItemAdmin',
-						'subView' => 'core.ItemAdd',
+						'view'      => 'core.ItemAdmin',
+						'subView'   => 'core.ItemAdd',
 						'addPlugin' => $addPluginId,
-						'itemId' => $item->getId(),
-						'form' => $form,
+						'itemId'    => $item->getId(),
+						'form'      => $form,
 					),
 					array(
 						'forceFullUrl' => true,
@@ -248,9 +248,9 @@ class ItemAddController extends GalleryController {
 			} else {
 				$continueUrl = $urlGenerator->generateUrl(
 					array(
-						'view' => 'core.ItemAdmin',
+						'view'    => 'core.ItemAdmin',
 						'subView' => 'core.ItemAddConfirmation',
-						'itemId' => $item->getId(),
+						'itemId'  => $item->getId(),
 					),
 					array(
 						'forceFullUrl' => true,
@@ -285,7 +285,7 @@ class ItemAddController extends GalleryController {
 			list($ret, $this->_coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -295,7 +295,7 @@ class ItemAddController extends GalleryController {
 			list($ret, $this->_optionInstances) = ItemAddOption::getAllAddOptions();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -303,7 +303,7 @@ class ItemAddController extends GalleryController {
 			list($ret, $extractToolkits) = GalleryCoreApi::getToolkitOperationMimeTypes('extract');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$this->_extractionToolkitMap = array();
 
@@ -312,7 +312,7 @@ class ItemAddController extends GalleryController {
 					list($ret, $this->_extractionToolkitMap[$mimeType]) = GalleryCoreApi::getToolkitByOperation($mimeType, 'extract');
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
@@ -322,7 +322,7 @@ class ItemAddController extends GalleryController {
 			|| empty($this->_extractionToolkitMap) && empty($this->_optionInstances)
 		) {
 			// Nothing to do
-			return array( null, array() );
+			return array(null, array());
 		}
 
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 0);
@@ -330,7 +330,7 @@ class ItemAddController extends GalleryController {
 		$ret = $this->_storage->checkPoint();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$gallery->guaranteeTimeLimit(60);
 
@@ -356,7 +356,7 @@ class ItemAddController extends GalleryController {
 			list($ret, $addedItem) = GalleryCoreApi::loadEntitiesById($file['id'], 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Check if we should extract individual files out of an archive
@@ -369,12 +369,12 @@ class ItemAddController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				$ret = GalleryCoreApi::deleteEntityById($addedItem->getId(), 'GalleryItem');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				/*
 				 * Remove this element from the status and use array_merge to append the extracted
@@ -387,7 +387,7 @@ class ItemAddController extends GalleryController {
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			} else {
 				// This is not an archive, add it to our array of item objects
@@ -416,7 +416,7 @@ class ItemAddController extends GalleryController {
 					list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterAdd($form, $itemsToProcess);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$errors = array_merge($errors, $optionErrors);
@@ -433,7 +433,7 @@ class ItemAddController extends GalleryController {
 					$ret = $this->_storage->checkPoint();
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 
@@ -448,7 +448,7 @@ class ItemAddController extends GalleryController {
 
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 
-		return array( null, $errors );
+		return array(null, $errors);
 	}
 
 	/**
@@ -467,24 +467,24 @@ class ItemAddController extends GalleryController {
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
 
-		$parentId = $archiveItem->getParentId();
+		$parentId                          = $archiveItem->getParentId();
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $file) = $archiveItem->fetchPath();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$base   = $this->_platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'tmp_');
 		$tmpDir = $base . '.dir';
 
 		if (!$this->_platform->mkdir($tmpDir)) {
-			return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 		}
 
 		list($ret) = $toolkit->performOperation(
@@ -499,7 +499,7 @@ class ItemAddController extends GalleryController {
 			@$this->_platform->recursiveRmdir($tmpDir);
 			@$this->_platform->unlink($base);
 
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		/*
@@ -534,12 +534,12 @@ class ItemAddController extends GalleryController {
 		@$this->_platform->unlink($base);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 1);
 
-		return array( null, $addedFiles );
+		return array(null, $addedFiles);
 	}
 
 	/**
@@ -666,7 +666,7 @@ class ItemAddController extends GalleryController {
 				GalleryUtilities::sanitizeInputValues($sanitizedFilename);
 				$addedFiles[] = array(
 					'fileName' => $sanitizedFilename,
-					'id' => $newItem->getId(),
+					'id'       => $newItem->getId(),
 					'warnings' => array(),
 				);
 			}
@@ -707,7 +707,7 @@ class ItemAddView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -715,13 +715,13 @@ class ItemAddView extends GalleryView {
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addDataItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Get all the add plugins
@@ -730,7 +730,7 @@ class ItemAddView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$pluginInstances = array();
@@ -742,13 +742,13 @@ class ItemAddView extends GalleryView {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $isAppropriate) = $plugin->isAppropriate();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($isAppropriate) {
@@ -760,7 +760,7 @@ class ItemAddView extends GalleryView {
 		list($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		/*
@@ -797,11 +797,11 @@ class ItemAddView extends GalleryView {
 			list($ret, $title) = $plugin->getTitle();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$plugins[] = array(
-				'title' => $title,
-				'id'    => $pluginId,
+				'title'      => $title,
+				'id'         => $pluginId,
 				'isSelected' => ($pluginId == $addPlugin),
 			);
 		}
@@ -815,7 +815,7 @@ class ItemAddView extends GalleryView {
 		list($ret, $ItemAdd['pluginFile'], $ItemAdd['pluginL10Domain']) = $pluginInstances[$addPlugin]->loadTemplate($template, $form, $item);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Now let all options load their template data
@@ -825,7 +825,7 @@ class ItemAddView extends GalleryView {
 			list($ret, $entry['file'], $entry['l10Domain']) = $option->loadTemplate($template, $form, $item);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!empty($entry['file'])) {
@@ -837,7 +837,7 @@ class ItemAddView extends GalleryView {
 		list($ret, $operations) = GalleryCoreApi::getToolkitOperations('image/jpeg');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ItemAdd['hasToolkit'] = false;
@@ -868,10 +868,10 @@ class ItemAddView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $core->translate('add items') );
+		return array(null, $core->translate('add items'));
 	}
 }
 
@@ -894,7 +894,7 @@ class ItemAddPlugin {
 	 *               string localization domain for the template file
 	 */
 	public function loadTemplate(&$template, &$form, $item) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
 	/**
@@ -912,7 +912,7 @@ class ItemAddPlugin {
 	 *                                               'warnings' => array of strings), ...)
 	 */
 	public function handleRequest($form, &$item, &$addController = null) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
 	/**
@@ -922,7 +922,7 @@ class ItemAddPlugin {
 	 *               return-array (same as GalleryController::handleRequest)
 	 */
 	public function getTitle() {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
 	/**
@@ -932,7 +932,7 @@ class ItemAddPlugin {
 	 *               boolean true or false
 	 */
 	public function isAppropriate() {
-		return array( null, true );
+		return array(null, true);
 	}
 }
 
@@ -955,7 +955,7 @@ class ItemAddOption {
 		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIds('ItemAddOption');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$optionInstances = array();
@@ -964,13 +964,13 @@ class ItemAddOption {
 			list($ret, $option) = GalleryCoreApi::newFactoryInstanceById('ItemAddOption', $optionId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $isAppropriate) = $option->isAppropriate();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($isAppropriate) {
@@ -978,7 +978,7 @@ class ItemAddOption {
 			}
 		}
 
-		return array( null, $optionInstances );
+		return array(null, $optionInstances);
 	}
 
 	/**
@@ -993,7 +993,7 @@ class ItemAddOption {
 	 *               string localization domain for the template file
 	 */
 	public function loadTemplate(&$template, &$form, $item) {
-		return array( null, null, null );
+		return array(null, null, null);
 	}
 
 	/**
@@ -1008,7 +1008,7 @@ class ItemAddOption {
 	 *               array localized warning messages
 	 */
 	public function handleRequestAfterAdd($form, $items) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
 	/**
@@ -1018,6 +1018,6 @@ class ItemAddOption {
 	 *               boolean true or false
 	 */
 	public function isAppropriate() {
-		return array( null, false );
+		return array(null, false);
 	}
 }

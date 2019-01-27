@@ -60,14 +60,14 @@ class GalleryGroupHelper_simple {
 			$data,
 			array(
 				'limit' => array(
-					'count' => $count,
+					'count'  => $count,
 					'offset' => $offset,
 				),
 			)
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$groupnames = array();
@@ -76,7 +76,7 @@ class GalleryGroupHelper_simple {
 			$groupnames[$result[0]] = $result[1];
 		}
 
-		return array( null, $groupnames );
+		return array(null, $groupnames);
 	}
 
 	/**
@@ -104,13 +104,13 @@ class GalleryGroupHelper_simple {
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$groupnames = array();
 		$result     = $searchResults->nextResult();
 
-		return array( null, (int)$result[0] );
+		return array(null, (int)$result[0]);
 	}
 
 	/**
@@ -127,23 +127,23 @@ class GalleryGroupHelper_simple {
 	WHERE
 	  [GalleryGroup::groupName] = ?
 	';
-		list($ret, $searchResults) = $gallery->search($query, array( $groupName ));
+		list($ret, $searchResults) = $gallery->search($query, array($groupName));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($searchResults->resultCount() == 0) {
-			return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 		$result            = $searchResults->nextResult();
 		$id                = $result[0];
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($id, 'GalleryGroup');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $group );
+		return array(null, $group);
 	}
 }

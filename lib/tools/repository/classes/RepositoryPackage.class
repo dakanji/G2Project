@@ -79,7 +79,7 @@ class RepositoryPackage extends RepositoryObject {
 			$ret = $this->writeSinglePackageToDisk($packageType, $overwritePackages, $compressToo);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($this->_wasFileWritten) {

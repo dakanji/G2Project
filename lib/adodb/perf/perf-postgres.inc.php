@@ -116,7 +116,7 @@ class perf_postgres extends adodb_perf {
 		$this->conn = $conn;
 	}
 
-	public $optimizeTableLow = 'VACUUM %s';
+	public $optimizeTableLow  = 'VACUUM %s';
 	public $optimizeTableHigh = 'VACUUM ANALYZE %s';
 
 	/**
@@ -163,7 +163,7 @@ class perf_postgres extends adodb_perf {
 
 		if ($partial) {
 			$sqlq = $this->conn->qstr($sql . '%');
-			$arr = $this->conn->GetArray("select distinct distinct sql1 from adodb_logsql where sql1 like $sqlq");
+			$arr  = $this->conn->GetArray("select distinct distinct sql1 from adodb_logsql where sql1 like $sqlq");
 
 			if ($arr) {
 				foreach ($arr as $row) {
@@ -176,8 +176,8 @@ class perf_postgres extends adodb_perf {
 			}
 		}
 		$sql = str_replace('?', "''", $sql);
-		$s = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
-		$rs = $this->conn->Execute('EXPLAIN ' . $sql);
+		$s   = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
+		$rs  = $this->conn->Execute('EXPLAIN ' . $sql);
 		$this->conn->LogSQL($save);
 		$s .= '<pre>';
 

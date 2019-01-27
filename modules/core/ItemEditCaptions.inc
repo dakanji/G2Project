@@ -36,7 +36,7 @@ class ItemEditCaptionsController extends GalleryController {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -48,26 +48,26 @@ class ItemEditCaptionsController extends GalleryController {
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// We'll check permissions one at a time below, but precache them now
 			list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($ids);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$status['successCount'] = 0;
@@ -79,7 +79,7 @@ class ItemEditCaptionsController extends GalleryController {
 
 				if (!isset($permissions[$id]['core.view'])) {
 					// Avoid information disclosure, act as if the item didn't exist.
-					return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT), null );
+					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 				}
 
 				if (isset($permissions[$id]['core.edit'])) {
@@ -99,7 +99,7 @@ class ItemEditCaptionsController extends GalleryController {
 						$ret = $item->save();
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 						$status[$id]['saved'] = 1;
 						$status['successCount']++;
@@ -116,7 +116,7 @@ class ItemEditCaptionsController extends GalleryController {
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			/*
@@ -150,7 +150,7 @@ class ItemEditCaptionsController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -197,7 +197,7 @@ class ItemEditCaptionsView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$itemId = $item->getId();
 
@@ -207,11 +207,11 @@ class ItemEditCaptionsView extends GalleryView {
 
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
-				array( 'core.edit', 'core.view' )
+				array('core.edit', 'core.view')
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$form['childItems'] = array();
@@ -232,12 +232,12 @@ class ItemEditCaptionsView extends GalleryView {
 				list($ret, $theme) = $this->loadThemeForItem($item);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				list($ret, $params) = $theme->fetchParameters($itemId);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				$albumPageSize = $theme->getPageSize($params);
 
@@ -256,14 +256,14 @@ class ItemEditCaptionsView extends GalleryView {
 			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Get child thumbnails and resizes
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($childIds);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// build peers table
@@ -298,7 +298,7 @@ class ItemEditCaptionsView extends GalleryView {
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ItemEditCaptions['fieldLengths']          = array();
@@ -324,9 +324,9 @@ class ItemEditCaptionsView extends GalleryView {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $core->translate('edit captions') );
+		return array(null, $core->translate('edit captions'));
 	}
 }

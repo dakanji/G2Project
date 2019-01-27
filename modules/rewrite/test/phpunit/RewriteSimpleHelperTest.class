@@ -128,7 +128,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$this->assertEquals('d/' . $testItemName, $url, 'url');
 		$this->assertEquals(
 			array(
-				'view' => 'core.DownloadItem',
+				'view'   => 'core.DownloadItem',
 				'itemId' => $derivative->getId(),
 			),
 			$params,
@@ -173,7 +173,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		$this->assertEquals('d/' . $testSerialNumber, $url, 'url');
 		$this->assertEquals(
 			array(
-				'view' => 'core.DownloadItem',
+				'view'   => 'core.DownloadItem',
 				'itemId' => $derivative->getId(),
 			),
 			$params,
@@ -191,7 +191,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		if (empty($language)) {
-			$language = array( 'en', 'US' );
+			$language = array('en', 'US');
 		}
 		list($null, $defaultLanguages) = GalleryTranslator::doStatic()->getLanguageData();
 

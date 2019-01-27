@@ -35,10 +35,10 @@ class RatingSortOrder extends GallerySortInterface_1_2 {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rating');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		return array( null, $module->translate('Rating'), false );
+		return array(null, $module->translate('Rating'), false);
 	}
 
 	/**

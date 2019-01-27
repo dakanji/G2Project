@@ -80,7 +80,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(
@@ -93,11 +93,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 
 		// Verify the settings went in properly
 		$this->assertEquals(
-			array( null, $path ),
+			array(null, $path),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path')
 		);
 		$this->assertEquals(
-			array( null, '12' ),
+			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality')
 		);
 		$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
@@ -110,11 +110,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -127,11 +127,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -151,11 +151,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][testError]' ),
+				'error'  => array('form[error][path][testError]'),
 			),
 			$results
 		);
@@ -175,11 +175,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][badPath]' ),
+				'error'  => array('form[error][path][badPath]'),
 			),
 			$results
 		);
@@ -199,11 +199,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][path][missing]' ),
+				'error'  => array('form[error][path][missing]'),
 			),
 			$results
 		);
@@ -223,11 +223,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][version][vulnerable]' ),
+				'error'  => array('form[error][version][vulnerable]'),
 			),
 			$results
 		);
@@ -259,7 +259,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'imagemagick.AdminImageMagick',
 				),
 				'status' => array(
@@ -272,11 +272,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 
 		// Verify the settings went in properly
 		$this->assertEquals(
-			array( null, $path ),
+			array(null, $path),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path')
 		);
 		$this->assertEquals(
-			array( null, '80' ),
+			array(null, '80'),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality')
 		);
 		$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
@@ -357,7 +357,7 @@ class AdminImageMagickControllerTestPlatform {
 
 				return array(
 					1,
-					empty($args[0][1]) ? array( 'Version: ImageMagick 6.3.3-5' ) : array( 'test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01' ),
+					empty($args[0][1]) ? array('Version: ImageMagick 6.3.3-5') : array('test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01'),
 				);
 
 			case "${slash}vulnerablePath${slash}identify":
@@ -365,19 +365,19 @@ class AdminImageMagickControllerTestPlatform {
 
 				return array(
 					1,
-					empty($args[0][1]) ? array( 'Version: ImageMagick 6.1.3' ) : array( 'test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01' ),
+					empty($args[0][1]) ? array('Version: ImageMagick 6.1.3') : array('test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01'),
 				);
 
 			case "${slash}validPath${slash}convert":
 			case "${slash}vulnerablePath${slash}convert":
-				return array( 1, array() );
+				return array(1, array());
 
 			case "${slash}validPath${slash}composite":
 			case "${slash}vulnerablePath${slash}composite":
-				return array( 1, array() );
+				return array(1, array());
 
 			default:
-				return array( 0, array() );
+				return array(0, array());
 		}
 	}
 

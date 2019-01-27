@@ -57,7 +57,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
@@ -67,16 +67,16 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if ($converted) {
-			$details = array( $module->translate('Database successfully converted to UTF8') );
+			$details = array($module->translate('Database successfully converted to UTF8'));
 		} else {
-			$details = array( $module->translate('No conversion required') );
+			$details = array($module->translate('No conversion required'));
 		}
 
-		return array( null, true, $details );
+		return array(null, true, $details);
 	}
 }
 

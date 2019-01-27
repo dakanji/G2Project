@@ -106,7 +106,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 				'modules/' . $shortUrl['onLoad'][0]
 				. '/classes/' . $shortUrl['onLoad'][1] . '.class'
 			);
-			$ret = call_user_func(array( $shortUrl['onLoad'][1], $shortUrl['onLoad'][2] ));
+			$ret = call_user_func(array($shortUrl['onLoad'][1], $shortUrl['onLoad'][2]));
 
 			if ($ret) {
 				return $ret;
@@ -189,8 +189,8 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 				);
 
 				$ret = call_user_func_array(
-					array( $functions[$arg][1], $functions[$arg][2] ),
-					array( &$url, &$params, &$entity )
+					array($functions[$arg][1], $functions[$arg][2]),
+					array(&$url, &$params, &$entity)
 				);
 
 				if (!$ret) {

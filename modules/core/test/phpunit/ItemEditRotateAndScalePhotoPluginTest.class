@@ -64,15 +64,15 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditRotateAndScalePhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'scale',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -85,11 +85,11 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditRotateAndScalePhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'rotate',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -102,15 +102,15 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditRotateAndScalePhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'resize',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -124,7 +124,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditRotateAndScalePhotoPluginTestToolkit',
-			array( 'test/blob' ),
+			array('test/blob'),
 			'convert-to-image/jpeg',
 			array(),
 			'test-description',
@@ -159,7 +159,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 			'crop|10,10,30,40;thumbnail|200',
 			'test/file',
 			array(
-				'width' => 200,
+				'width'  => 200,
 				'height' => 150,
 			)
 		);
@@ -175,7 +175,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 			'scale|500',
 			'test/file',
 			array(
-				'width' => 640,
+				'width'  => 640,
 				'height' => 480,
 			)
 		);
@@ -242,7 +242,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		);
 
 		// Verify that we have a preferred again
-		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $this->_item->getId() ));
+		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -308,7 +308,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		);
 
 		// Verify that we don't have a preferred
-		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array( $this->_item->getId() ));
+		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -405,7 +405,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array( 'form[error][resize][size][missing]' ), null ),
+			array(array('form[error][resize][size][missing]'), null),
 			$results
 		);
 	}
@@ -420,7 +420,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array( 'form[error][resize][size][invalid]' ), null ),
+			array(array('form[error][resize][size][invalid]'), null),
 			$results
 		);
 	}
@@ -433,7 +433,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array(), $this->_translate('Rotated photo successfully') ),
+			array(array(), $this->_translate('Rotated photo successfully')),
 			$results
 		);
 
@@ -465,7 +465,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array(), $this->_translate('Rotated photo successfully') ),
+			array(array(), $this->_translate('Rotated photo successfully')),
 			$results
 		);
 
@@ -490,7 +490,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][rotate][clockwise]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 
-		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
+		$results                          = $this->handleRequest($this->_item, $this->_derivative[0]);
 		list($ret, $this->_derivative[1]) = $this->_derivative[1]->refresh();
 
 		if ($ret) {
@@ -526,7 +526,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array(), $this->_translate('Rotated photo successfully') ),
+			array(array(), $this->_translate('Rotated photo successfully')),
 			$results
 		);
 
@@ -570,7 +570,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_blob, $this->_blobDerivative[0]);
 		$this->assertEquals(
-			array( array(), $this->_translate('Rotated photo successfully') ),
+			array(array(), $this->_translate('Rotated photo successfully')),
 			$results
 		);
 
@@ -605,7 +605,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array(), $this->_translate('Reverted rotate and scale changes successfully') ),
+			array(array(), $this->_translate('Reverted rotate and scale changes successfully')),
 			$results
 		);
 
@@ -669,7 +669,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
 		$this->assertEquals(
-			array( array(), $this->_translate('Reverted rotate and scale changes successfully') ),
+			array(array(), $this->_translate('Reverted rotate and scale changes successfully')),
 			$results
 		);
 
@@ -701,7 +701,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 	}
 
 	public function testCheckForOperation() {
-		list($ret, $result) = $this->_plugin->_checkForOperation('scale', array( 'test/file' ));
+		list($ret, $result) = $this->_plugin->_checkForOperation('scale', array('test/file'));
 
 		if ($ret) {
 			return $ret;
@@ -710,7 +710,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		list($ret, $result) = $this->_plugin->_checkForOperation(
 			'scale',
-			array( 'test/notsupported', 'test/file' )
+			array('test/notsupported', 'test/file')
 		);
 
 		if ($ret) {
@@ -720,7 +720,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		list($ret, $result) = $this->_plugin->_checkForOperation(
 			'scale',
-			array( 'test/file', 'test/notsupported' )
+			array('test/file', 'test/notsupported')
 		);
 
 		if ($ret) {
@@ -730,7 +730,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		list($ret, $result) = $this->_plugin->_checkForOperation(
 			'scale',
-			array( 'test/notsupported' )
+			array('test/notsupported')
 		);
 
 		if ($ret) {
@@ -779,7 +779,7 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 		// Clear cache to ensure new filesize will be seen
 		$platform->clearstatcache();
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 
 	/**
@@ -787,7 +787,7 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 	 * Dummy operation
 	 */
 	public function mergeOperations($operation1, $args1, $operation2, $args2) {
-		switch (serialize(array( $operation1, $args1, $operation2, $args2 ))) {
+		switch (serialize(array($operation1, $args1, $operation2, $args2))) {
 			case serialize(
 				array(
 					'rotate',
@@ -800,7 +800,7 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 					),
 				)
 			):
-				return array( true, 'rotate', array( '180' ) );
+				return array(true, 'rotate', array('180'));
 
 			break;
 
@@ -816,7 +816,7 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 					),
 				)
 			):
-				return array( true, null, null );
+				return array(true, null, null);
 
 			break;
 
@@ -832,12 +832,12 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 					),
 				)
 			):
-				return array( true, 'rotate', array( '-90' ) );
+				return array(true, 'rotate', array('-90'));
 
 			break;
 
 			default:
-				return array( false, null, null );
+				return array(false, null, null);
 		}
 	}
 }

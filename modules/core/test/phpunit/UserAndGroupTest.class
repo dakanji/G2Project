@@ -315,7 +315,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		// Verify all permission maps for this user are gone
-		$checkItemIds            = array( $item->getId(), $this->_getRootId() );
+		$checkItemIds            = array($item->getId(), $this->_getRootId());
 		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 			$checkItemIds,
 			$userId
@@ -531,7 +531,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 	// Try to delete the all users group (this will fail)
 	public function testDeleteSpecialGroups() {
-		foreach (array( 'id.allUserGroup', 'id.everybodyGroup', 'id.adminGroup' ) as $paramName) {
+		foreach (array('id.allUserGroup', 'id.everybodyGroup', 'id.adminGroup') as $paramName) {
 			list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', $paramName);
 
 			if ($ret) {
@@ -702,7 +702,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$user1->getId(),
-			array( 'core.addDataItem', 'core.addAlbumItem' ),
+			array('core.addDataItem', 'core.addAlbumItem'),
 			false
 		);
 
@@ -743,22 +743,22 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$deletedItems[]          = $subItemWithDeletePermission;
-		$deletePermissionItems[] = $subItemWithDeletePermission;
+		$deletedItems[]                             = $subItemWithDeletePermission;
+		$deletePermissionItems[]                    = $subItemWithDeletePermission;
 		list($ret, $subSubItemWithDeletePermission) = $this->_createRandomDataItem($subAlbumWithDeletePermission->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$deletedItems[]          = $subSubItemWithDeletePermission;
-		$deletePermissionItems[] = $subSubItemWithDeletePermission;
+		$deletedItems[]                              = $subSubItemWithDeletePermission;
+		$deletePermissionItems[]                     = $subSubItemWithDeletePermission;
 		list($ret, $subSubAlbumWithDeletePermission) = $this->_createRandomAlbum($subAlbumWithDeletePermission->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$deletedItems[]          = $subSubAlbumWithDeletePermission;
-		$deletePermissionItems[] = $subSubAlbumWithDeletePermission;
+		$deletedItems[]                                = $subSubAlbumWithDeletePermission;
+		$deletePermissionItems[]                       = $subSubAlbumWithDeletePermission;
 		list($ret, $subSubSubItemWithDeletePermission) = $this->_createRandomDataItem($subSubAlbumWithDeletePermission->getId());
 
 		if ($ret) {
@@ -851,8 +851,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$remainingItems[]        = $subAlbumWithDeletePermission3;
-		$deletePermissionItems[] = $subAlbumWithDeletePermission3;
+		$remainingItems[]                            = $subAlbumWithDeletePermission3;
+		$deletePermissionItems[]                     = $subAlbumWithDeletePermission3;
 		list($ret, $subSubItemWithDeletePermission3) = $this->_createRandomDataItem($subAlbumWithDeletePermission3->getId());
 
 		if ($ret) {
@@ -881,7 +881,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			$ret = GalleryCoreApi::addUserPermission(
 				$item->getId(),
 				$user1->getId(),
-				array( 'core.delete' ),
+				array('core.delete'),
 				false
 			);
 

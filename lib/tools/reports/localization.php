@@ -35,7 +35,7 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 $precision = isset($_GET['precision']) ? (int)$_GET['precision'] : ($type == 'detail' ? 2 : 1);
 $pow       = 10 ** $precision;
 
-$poFiles = findPoFiles('../../..');
+$poFiles                                               = findPoFiles('../../..');
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 
 require __DIR__ . '/localization/main_' . $type . '.inc';
@@ -82,7 +82,7 @@ function parsePoFiles($poFiles) {
 		if (!preg_match('|((?:\w+/)+)po/(\w{2}(?:_\w{2})?)\.po|', $poFile, $matches)) {
 			continue;
 		}
-		list($plugin, $locale) = array( $matches[1], $matches[2] );
+		list($plugin, $locale) = array($matches[1], $matches[2]);
 		$seenPlugins[$plugin]  = 1;
 		$stat                  = stat($poFile);
 
@@ -233,21 +233,21 @@ function parsePoFiles($poFiles) {
 			$percentDone = $exactPercentDone = 0;
 		} else {
 			$percentDone      = floor(($translated - $fuzzy) * 100 * $pow / $total) / $pow;
-			$exactPercentDone = ($translated - $fuzzy) * 100 / $total;
+			$exactPercentDone = ($translated - $fuzzy) * 100                        / $total;
 		}
 		$poData[$locale]['plugins'][$plugin] = array(
-			'translated' => $translated,
-			'untranslated' => $untranslated,
-			'total'    => $total,
-			'fuzzy'    => $fuzzy,
-			'obsolete' => $obsolete,
-			'percentDone' => $percentDone,
+			'translated'       => $translated,
+			'untranslated'     => $untranslated,
+			'total'            => $total,
+			'fuzzy'            => $fuzzy,
+			'obsolete'         => $obsolete,
+			'percentDone'      => $percentDone,
 			'exactPercentDone' => $exactPercentDone,
-			'name'     => $plugin,
+			'name'             => $plugin,
 		);
 		$totalTranslated                    += $translated - $fuzzy;
 
-		foreach (array( 'translated', 'untranslated', 'fuzzy', 'obsolete' ) as $key) {
+		foreach (array('translated', 'untranslated', 'fuzzy', 'obsolete') as $key) {
 			if (!isset($summary[$locale][$key])) {
 				$summary[$locale][$key] = 0;
 			}
@@ -285,10 +285,10 @@ function parsePoFiles($poFiles) {
 			$poData[$locale]['percentDone'] = $poData[$locale]['exactPercentDone'] = 0;
 		} else {
 			$poData[$locale]['percentDone']      = floor($pluginTotal * 100 * $pow / $overallTotal) / $pow;
-			$poData[$locale]['exactPercentDone'] = $pluginTotal * 100 / $overallTotal;
+			$poData[$locale]['exactPercentDone'] = $pluginTotal * 100                               / $overallTotal;
 		}
 
-		foreach (array( 'translated', 'untranslated', 'fuzzy', 'obsolete' ) as $key) {
+		foreach (array('translated', 'untranslated', 'fuzzy', 'obsolete') as $key) {
 			$poData[$locale]['summary'][$key] = floor($summary[$locale][$key] * 100 * $pow / $overallTotal) / $pow;
 		}
 		$poData[$locale]['summary']['total'] = $overallTotal;
@@ -297,7 +297,7 @@ function parsePoFiles($poFiles) {
 	// Sort locales by overall total
 	uasort($poData, 'sortByPercentDone');
 
-	return array( $poData, $mostRecentPoDate, $totalTranslated );
+	return array($poData, $mostRecentPoDate, $totalTranslated);
 }
 
 /**

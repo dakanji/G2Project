@@ -71,8 +71,8 @@ class RepositoryCallbackTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'released' => 1,
-				'community' => 1,
+				'released'     => 1,
+				'community'    => 1,
 				'experimental' => 1,
 			),
 			unserialize($data)

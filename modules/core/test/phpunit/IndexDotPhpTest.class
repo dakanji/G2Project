@@ -80,7 +80,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 
 			if (isset($headers['Set-Cookie'])) {
 				// Check if the G2 cookie is present
-				$headers['Set-Cookie'] = is_array($headers['Set-Cookie']) ? $headers['Set-Cookie'] : array( $headers['Set-Cookie'] );
+				$headers['Set-Cookie'] = is_array($headers['Set-Cookie']) ? $headers['Set-Cookie'] : array($headers['Set-Cookie']);
 				$grep                  = preg_grep(
 					'/' . SESSION_ID_PARAMETER . '/',
 					$headers['Set-Cookie']

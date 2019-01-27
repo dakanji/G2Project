@@ -104,7 +104,7 @@ class ExifCallbacks {
 				$block                         =& $smarty->_tpl_vars['block'];
 				$block['exif']['LoadExifInfo'] = array(
 					'exifData' => $exifData,
-					'mode' => $mode,
+					'mode'     => $mode,
 					'blockNum' => $thisBlockNum,
 				);
 

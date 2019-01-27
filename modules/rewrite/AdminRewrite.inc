@@ -35,14 +35,14 @@ class AdminRewriteController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (isset($form['action']['rules'])) {
@@ -55,7 +55,7 @@ class AdminRewriteController extends GalleryController {
 					list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$rules = $module->getRewriteRules();
@@ -118,7 +118,7 @@ class AdminRewriteController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($code == REWRITE_STATUS_OK) {
@@ -158,7 +158,7 @@ class AdminRewriteController extends GalleryController {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($code == REWRITE_STATUS_OK) {
@@ -172,7 +172,7 @@ class AdminRewriteController extends GalleryController {
 			list($ret, $error, $status) = $rewriteParser->handleAdminParserRequest($form);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} elseif (isset($form['action']['testParser'])) {
 			$mode = 'test';
@@ -180,7 +180,7 @@ class AdminRewriteController extends GalleryController {
 			list($ret, $error, $status) = $rewriteParser->handleTestResultsRequest($form);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} elseif (isset($form['action']['refresh'])) {
 			$mode = 'test';
@@ -189,24 +189,24 @@ class AdminRewriteController extends GalleryController {
 		if (!empty($error)) {
 			$results = array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => $mode,
+					'mode'    => $mode,
 				),
 			);
 		} else {
 			$results = array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => $mode,
+					'mode'    => $mode,
 				),
 			);
 		}
 		$results['error']  = $error;
 		$results['status'] = $status;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -225,14 +225,14 @@ class AdminRewriteView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$AdminRewrite['parserType'] = $rewriteParser->getParserType();
 		$AdminRewrite['parserId']   = $rewriteParser->getParserId();
@@ -252,7 +252,7 @@ class AdminRewriteView extends GalleryView {
 					list($ret, $errors[]) = $rewriteParser->getErrorMessage($errno);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
@@ -271,7 +271,7 @@ class AdminRewriteView extends GalleryView {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				$activeRules = unserialize($activeRules);
 
@@ -279,7 +279,7 @@ class AdminRewriteView extends GalleryView {
 				list($ret, $modules) = GalleryCoreAPi::fetchPluginStatus('module');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				foreach ($modules as $moduleId => $status) {
@@ -291,7 +291,7 @@ class AdminRewriteView extends GalleryView {
 								continue;
 							}
 
-							return array( $ret, null );
+							return array($ret, null);
 						}
 
 						$AdminRewrite['modules'][$moduleId] = $module->translate($module->getName());
@@ -371,7 +371,7 @@ class AdminRewriteView extends GalleryView {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 					$form['accessList'] = unserialize($form['accessList']);
 
@@ -382,7 +382,7 @@ class AdminRewriteView extends GalleryView {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					if ($allowEmptyReferer) {
@@ -393,7 +393,7 @@ class AdminRewriteView extends GalleryView {
 				$ret = $rewriteParser->loadAdminParserTemplate($template, $form);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				break;
@@ -402,7 +402,7 @@ class AdminRewriteView extends GalleryView {
 				$ret = $rewriteParser->loadTestResultsTemplate($template, $form);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				break;

@@ -274,7 +274,7 @@ if (!defined('_ADODB_LAYER')) {
 	}
 
 	function _adodb_safedate($s) {
-		return str_replace(array( "'", '\\' ), '', $s);
+		return str_replace(array("'", '\\'), '', $s);
 	}
 
 	// parse date string to prevent injection attack
@@ -592,7 +592,7 @@ if (!defined('_ADODB_LAYER')) {
 		public function ServerInfo() {
 			return array(
 				'description' => '',
-				'version' => '',
+				'version'     => '',
 			);
 		}
 
@@ -1035,7 +1035,7 @@ if (!defined('_ADODB_LAYER')) {
 
 		public function IgnoreErrors($saveErrs = false) {
 			if (!$saveErrs) {
-				$saveErrs           = array( $this->raiseErrorFn, $this->_transOK );
+				$saveErrs           = array($this->raiseErrorFn, $this->_transOK);
 				$this->raiseErrorFn = false;
 
 				return $saveErrs;
@@ -1158,7 +1158,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			if ($inputarr !== false) {
 				if (!is_array($inputarr)) {
-					$inputarr = array( $inputarr );
+					$inputarr = array($inputarr);
 				}
 
 				$element0 = reset($inputarr);
@@ -1175,7 +1175,7 @@ if (!defined('_ADODB_LAYER')) {
 
 					if (!$array_2d) {
 						// When not Bind Bulk - convert to array of arguments list
-						$inputarr = array( $inputarr );
+						$inputarr = array($inputarr);
 					} else {
 						// Bulk bind - Make sure all list of params have the same number of elements
 						$countElements = array_map('count', $inputarr);
@@ -2380,7 +2380,7 @@ if (!defined('_ADODB_LAYER')) {
 		 *   $conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 		 */
 		public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
-			return $this->Execute("UPDATE $table SET $column=? WHERE $where", array( $val )) != false;
+			return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
 		}
 
 		/**
@@ -3142,7 +3142,7 @@ if (!defined('_ADODB_LAYER')) {
 			if (!$magic_quotes) {
 				if ($this->replaceQuote[0] == '\\') {
 					// only since php 4.0.5
-					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
+					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
 					//$s = str_replace("\0","\\\0", str_replace('\\','\\\\',$s));
 				}
 
@@ -3177,7 +3177,7 @@ if (!defined('_ADODB_LAYER')) {
 			if (!$magic_quotes) {
 				if ($this->replaceQuote[0] == '\\') {
 					// only since php 4.0.5
-					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
+					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
 					//$s = str_replace("\0","\\\0", str_replace('\\','\\\\',$s));
 				}
 
@@ -3354,7 +3354,7 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		public function __call($func, $params) {
-			return call_user_func_array(array( $this->rs, $func ), $params);
+			return call_user_func_array(array($this->rs, $func), $params);
 		}
 
 		public function hasMore() {
@@ -3481,7 +3481,7 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		public function __call($func, $params) {
-			return call_user_func_array(array( $this->rs, $func ), $params);
+			return call_user_func_array(array($this->rs, $func), $params);
 		}
 
 		public function hasMore() {
@@ -4470,35 +4470,35 @@ if (!defined('_ADODB_LAYER')) {
 
 			// changed in 2.32 to hashing instead of switch stmt for speed...
 			static $typeMap = array(
-				'VARCHAR' => 'C',
-				'VARCHAR2' => 'C',
-				'CHAR'  => 'C',
-				'C'     => 'C',
-				'STRING' => 'C',
-				'NCHAR' => 'C',
-				'NVARCHAR' => 'C',
-				'VARYING' => 'C',
-				'BPCHAR' => 'C',
-				'CHARACTER' => 'C',
-				'INTERVAL' => 'C',  // Postgres
-				'MACADDR' => 'C', // postgres
+				'VARCHAR'    => 'C',
+				'VARCHAR2'   => 'C',
+				'CHAR'       => 'C',
+				'C'          => 'C',
+				'STRING'     => 'C',
+				'NCHAR'      => 'C',
+				'NVARCHAR'   => 'C',
+				'VARYING'    => 'C',
+				'BPCHAR'     => 'C',
+				'CHARACTER'  => 'C',
+				'INTERVAL'   => 'C',  // Postgres
+				'MACADDR'    => 'C', // postgres
 				'VAR_STRING' => 'C', // mysql
 				//
 				'LONGCHAR' => 'X',
-				'TEXT'  => 'X',
-				'NTEXT' => 'X',
-				'M'     => 'X',
-				'X'     => 'X',
-				'CLOB'  => 'X',
-				'NCLOB' => 'X',
+				'TEXT'     => 'X',
+				'NTEXT'    => 'X',
+				'M'        => 'X',
+				'X'        => 'X',
+				'CLOB'     => 'X',
+				'NCLOB'    => 'X',
 				'LVARCHAR' => 'X',
 
-				'BLOB'  => 'B',
-				'IMAGE' => 'B',
-				'BINARY' => 'B',
-				'VARBINARY' => 'B',
+				'BLOB'       => 'B',
+				'IMAGE'      => 'B',
+				'BINARY'     => 'B',
+				'VARBINARY'  => 'B',
 				'LONGBINARY' => 'B',
-				'B'     => 'B',
+				'B'          => 'B',
 
 				'YEAR'  => 'D', // mysql
 				'DATE'  => 'D',
@@ -4506,72 +4506,72 @@ if (!defined('_ADODB_LAYER')) {
 
 				'UNIQUEIDENTIFIER' => 'C', // MS SQL Server
 				//
-				'SMALLDATETIME' => 'T',
-				'TIME'  => 'T',
-				'TIMESTAMP' => 'T',
-				'DATETIME' => 'T',
-				'DATETIME2' => 'T',
-				'TIMESTAMPTZ' => 'T',
-				'T'     => 'T',
+				'SMALLDATETIME'               => 'T',
+				'TIME'                        => 'T',
+				'TIMESTAMP'                   => 'T',
+				'DATETIME'                    => 'T',
+				'DATETIME2'                   => 'T',
+				'TIMESTAMPTZ'                 => 'T',
+				'T'                           => 'T',
 				'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
 				//
-				'BOOL'  => 'L',
+				'BOOL'    => 'L',
 				'BOOLEAN' => 'L',
-				'BIT'   => 'L',
-				'L'     => 'L',
+				'BIT'     => 'L',
+				'L'       => 'L',
 
-				'COUNTER' => 'R',
-				'R'     => 'R',
-				'SERIAL' => 'R', // ifx
+				'COUNTER'      => 'R',
+				'R'            => 'R',
+				'SERIAL'       => 'R', // ifx
 				'INT IDENTITY' => 'R',
 
-				'INT'   => 'I',
-				'INT2'  => 'I',
-				'INT4'  => 'I',
-				'INT8'  => 'I',
-				'INTEGER' => 'I',
+				'INT'              => 'I',
+				'INT2'             => 'I',
+				'INT4'             => 'I',
+				'INT8'             => 'I',
+				'INTEGER'          => 'I',
 				'INTEGER UNSIGNED' => 'I',
-				'SHORT' => 'I',
-				'TINYINT' => 'I',
-				'SMALLINT' => 'I',
-				'I'     => 'I',
+				'SHORT'            => 'I',
+				'TINYINT'          => 'I',
+				'SMALLINT'         => 'I',
+				'I'                => 'I',
 
-				'LONG'  => 'N', // interbase is numeric, oci8 is blob
-				'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
-				'DECIMAL' => 'N',
-				'DEC'   => 'N',
-				'REAL'  => 'N',
-				'DOUBLE' => 'N',
+				'LONG'             => 'N', // interbase is numeric, oci8 is blob
+				'BIGINT'           => 'N', // this is bigger than PHP 32-bit integers
+				'DECIMAL'          => 'N',
+				'DEC'              => 'N',
+				'REAL'             => 'N',
+				'DOUBLE'           => 'N',
 				'DOUBLE PRECISION' => 'N',
-				'SMALLFLOAT' => 'N',
-				'FLOAT' => 'N',
-				'NUMBER' => 'N',
-				'NUM'   => 'N',
-				'NUMERIC' => 'N',
-				'MONEY' => 'N',
+				'SMALLFLOAT'       => 'N',
+				'FLOAT'            => 'N',
+				'NUMBER'           => 'N',
+				'NUM'              => 'N',
+				'NUMERIC'          => 'N',
+				'MONEY'            => 'N',
 
 				// informix 9.2
-				'SQLINT' => 'I',
-				'SQLSERIAL' => 'I',
-				'SQLSMINT' => 'I',
-				'SQLSMFLOAT' => 'N',
-				'SQLFLOAT' => 'N',
-				'SQLMONEY' => 'N',
-				'SQLDECIMAL' => 'N',
-				'SQLDATE' => 'D',
-				'SQLVCHAR' => 'C',
-				'SQLCHAR' => 'C',
-				'SQLDTIME' => 'T',
+				'SQLINT'      => 'I',
+				'SQLSERIAL'   => 'I',
+				'SQLSMINT'    => 'I',
+				'SQLSMFLOAT'  => 'N',
+				'SQLFLOAT'    => 'N',
+				'SQLMONEY'    => 'N',
+				'SQLDECIMAL'  => 'N',
+				'SQLDATE'     => 'D',
+				'SQLVCHAR'    => 'C',
+				'SQLCHAR'     => 'C',
+				'SQLDTIME'    => 'T',
 				'SQLINTERVAL' => 'N',
-				'SQLBYTES' => 'B',
-				'SQLTEXT' => 'X',
+				'SQLBYTES'    => 'B',
+				'SQLTEXT'     => 'X',
 				// informix 10
-				'SQLINT8' => 'I8',
-				'SQLSERIAL8' => 'I8',
-				'SQLNCHAR' => 'C',
-				'SQLNVCHAR' => 'C',
+				'SQLINT8'     => 'I8',
+				'SQLSERIAL8'  => 'I8',
+				'SQLNCHAR'    => 'C',
+				'SQLNVCHAR'   => 'C',
 				'SQLLVARCHAR' => 'X',
-				'SQLBOOL' => 'L',
+				'SQLBOOL'     => 'L',
 			);
 
 			$tmap = false;
@@ -4841,7 +4841,7 @@ if (!defined('_ADODB_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o = $this->FetchField($i);
+					$o                                = $this->FetchField($i);
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}
@@ -5164,7 +5164,7 @@ if (!defined('_ADODB_LAYER')) {
 				foreach ($opt as $k => $v) {
 					switch (strtolower($k)) {
 						case 'new':
-										$nconnect = true;
+										$nconnect          = true;
 							$persist              = true;
 
 							break;

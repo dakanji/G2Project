@@ -103,7 +103,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -153,7 +153,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -173,7 +173,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][comment][flood]' ),
+				'error'  => array('form[error][comment][flood]'),
 			),
 			$results,
 			'Flood Comment'
@@ -195,7 +195,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -213,7 +213,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -258,7 +258,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -310,7 +310,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -351,7 +351,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -374,13 +374,13 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][comment][missing]' ),
+				'error'  => array('form[error][comment][missing]'),
 			),
 			$results
 		);
 
 		// Verify that there are no comments
-		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array( $this->_item->getId() ));
+		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -405,13 +405,13 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][comment][missing]' ),
+				'error'  => array('form[error][comment][missing]'),
 			),
 			$results
 		);
 
 		// Verify that there are no comments
-		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array( $this->_item->getId() ));
+		list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -449,7 +449,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -471,7 +471,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -575,7 +575,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -641,11 +641,11 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ShowItem',
+					'view'   => 'core.ShowItem',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -658,7 +658,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_controller->_pluginInstances = array( new AddCommentTestValidation() );
+		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
 
 		global $gallery;
 		$this->_becomeGuestUser();
@@ -685,7 +685,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][AddCommentTestValidation]' ),
+				'error'  => array('form[error][AddCommentTestValidation]'),
 			),
 			$results
 		);
@@ -698,7 +698,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->_controller->_pluginInstances = array( new AddCommentTestValidation() );
+		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
 
 		global $gallery;
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
@@ -716,14 +716,14 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view' => 'comment.AddComment',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][AddCommentTestValidation]' ),
+				'error'  => array('form[error][AddCommentTestValidation]'),
 			),
 			$results
 		);
 	}
 
 	public function testValidationPluginOff() {
-		$this->_controller->_pluginInstances = array( new AddCommentTestValidation() );
+		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
 
 		global $gallery;
 		$this->_becomeGuestUser();
@@ -747,7 +747,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'comment.CommentChangeConfirmation',
+					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
 				'status' => array(
@@ -839,7 +839,7 @@ class AddCommentTestValidation extends GalleryValidationPlugin {
 	public function performValidation(&$form, $options = array()) {
 		return array(
 			null,
-			array( 'form[error][AddCommentTestValidation]' ),
+			array('form[error][AddCommentTestValidation]'),
 			false,
 		);
 	}

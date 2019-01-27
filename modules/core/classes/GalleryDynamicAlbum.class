@@ -83,13 +83,13 @@ class GalleryDynamicAlbum extends GalleryItem {
 		if (!empty($itemTypeNameData)) {
 			$this->_itemTypeName = $itemTypeNameData;
 		} else {
-			$this->_itemTypeName = array( array( 'Dynamic Album', 'dynamic album' ) );
+			$this->_itemTypeName = array(array('Dynamic Album', 'dynamic album'));
 			list($ret, $module)  = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
 				$this->_itemTypeName[] = $this->_itemTypeName[0];
 			} else {
-				$this->_itemTypeName[] = array( $module->translate('Dynamic Album'), $module->translate('dynamic album') );
+				$this->_itemTypeName[] = array($module->translate('Dynamic Album'), $module->translate('dynamic album'));
 			}
 		}
 
@@ -135,6 +135,6 @@ class GalleryDynamicAlbum extends GalleryItem {
 	 * @see GalleryEntity::refresh
 	 */
 	public function refresh() {
-		return array( null, $this );
+		return array(null, $this);
 	}
 }

@@ -4,8 +4,8 @@ $blocks['SearchBlock'] = array(
 	'vars'        => array(
 		'showAdvancedLink' => array(
 			'description' => $gallery->i18n('Show advanced link'),
-			'default' => 'true',
-			'type'    => 'boolean',
+			'default'     => 'true',
+			'type'        => 'boolean',
 		),
 	),
 );

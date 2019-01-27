@@ -175,9 +175,9 @@ class Gallery {
 
 			// UrlGenerator parameters for redirect URL to login page. Can be overridden.
 			'loginRedirect' => array(
-				'view' => 'core.UserAdmin',
+				'view'    => 'core.UserAdmin',
 				'subView' => 'core.UserLogin',
-				'return' => true,
+				'return'  => true,
 			),
 
 			'link'  => true,      // @deprecated - Allow item linking
@@ -185,21 +185,21 @@ class Gallery {
 
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
 
-			'systemCharset' => null,     // Specify system character set, skip autodetect
-			'defaultAlbumId' => null,    // Initial album to display instead of root album
+			'systemCharset'    => null,     // Specify system character set, skip autodetect
+			'defaultAlbumId'   => null,    // Initial album to display instead of root album
 			'breadcrumbRootId' => null,  // Can omit parents above this id in fetchParentSequence
-			'anonymousUserId' => null,   // Alternate user account for guest sessions
+			'anonymousUserId'  => null,   // Alternate user account for guest sessions
 		);
 	}
 
 	/**
 	 * Register shutdown function to release any hanging locks.
 	 * This used to be done in the constructor, but moved here to avoid php4 vs php5 issue
-	 * ($gallery =& new Gallery() needed for php4, but this is deprecated in php5.3).
+	 * ($gallery = new Gallery() needed for php4, but this is deprecated in php5.3).
 	 */
 	public function init() {
 		// Set up a shutdown function to release any hanging locks
-		register_shutdown_function(array( &$this, '_shutdown' ));
+		register_shutdown_function(array(&$this, '_shutdown'));
 	}
 
 	/**
@@ -210,10 +210,10 @@ class Gallery {
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	/**
@@ -359,7 +359,7 @@ class Gallery {
 				list($ret, $which) = GalleryCoreApi::getPluginParameter('module', 'core', 'lock.system');
 
 				if ($ret) {
-					$ret = array( $ret, null );
+					$ret = array($ret, null);
 
 					return $ret;
 				}
@@ -386,13 +386,13 @@ class Gallery {
 					break;
 
 				default:
-					$ret = array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+					$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 
 					return $ret;
 			}
 		}
 
-		$ret = array( null, &$this->_lockSystem );
+		$ret = array(null, &$this->_lockSystem);
 
 		return $ret;
 	}
@@ -600,7 +600,7 @@ class Gallery {
 			$language = '';
 		}
 
-		return array( null, $language );
+		return array(null, $language);
 	}
 
 	/**
@@ -993,7 +993,7 @@ class Gallery {
 		if (!isset($this->_shutdownActions)) {
 			$this->_shutdownActions = array();
 		}
-		$action = array( $callback, $parameters );
+		$action = array($callback, $parameters);
 		// Skip duplicate actions
 		foreach ($this->_shutdownActions as $item) {
 			if ($item == $action) {

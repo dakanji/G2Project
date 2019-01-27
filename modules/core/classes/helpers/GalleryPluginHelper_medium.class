@@ -41,16 +41,16 @@ class GalleryPluginHelper_medium {
 		list($ret, $plugin) = GalleryPluginHelper_simple::loadPlugin($pluginType, $pluginId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $redirect) = $plugin->activate();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -67,16 +67,16 @@ class GalleryPluginHelper_medium {
 		list($ret, $plugin) = GalleryPluginHelper_simple::loadPlugin($pluginType, $pluginId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $redirect) = $plugin->deactivate();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -98,7 +98,7 @@ class GalleryPluginHelper_medium {
 			'GalleryPluginMap',
 			array(
 				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
+				'pluginId'   => $pluginId,
 			)
 		);
 
@@ -110,9 +110,9 @@ class GalleryPluginHelper_medium {
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => $pluginType,
+				'type'   => $pluginType,
 				'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-				'id'   => '_all',
+				'id'     => '_all',
 			)
 		);
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
@@ -165,7 +165,7 @@ class GalleryPluginHelper_medium {
 			GalleryDataCache::put($cacheKey, $pluginIds);
 		}
 
-		return array( null, $pluginIds );
+		return array(null, $pluginIds);
 	}
 
 	/**
@@ -193,13 +193,13 @@ class GalleryPluginHelper_medium {
 		GalleryDataCache::removeByPattern("GalleryPluginHelper::fetchAllParameters\(.*, $itemId\)");
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'module',
+				'type'   => 'module',
 				'itemId' => $itemId,
 			)
 		);
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'theme',
+				'type'   => 'theme',
 				'itemId' => $itemId,
 			)
 		);
@@ -219,18 +219,18 @@ class GalleryPluginHelper_medium {
 
 		// Convert null to 0, just in case
 		if ($itemIds == null) {
-			$itemIds = array( 0 );
+			$itemIds = array(0);
 		} elseif (!is_array($itemIds)) {
-			$itemIds = array( $itemIds );
+			$itemIds = array($itemIds);
 		}
 
 		foreach ($itemIds as $itemId) {
 			$ret = GalleryCoreApi::removeMapEntry(
 				'GalleryPluginParameterMap',
 				array(
-					'pluginType' => $pluginType,
-					'pluginId' => $pluginId,
-					'itemId' => $itemId,
+					'pluginType'    => $pluginType,
+					'pluginId'      => $pluginId,
+					'itemId'        => $itemId,
 					'parameterName' => $parameterName,
 				)
 			);
@@ -244,9 +244,9 @@ class GalleryPluginHelper_medium {
 			GalleryDataCache::remove($cacheKey);
 			GalleryDataCache::removeFromDisk(
 				array(
-					'type' => $pluginType,
+					'type'   => $pluginType,
 					'itemId' => $itemId,
-					'id' => $pluginId,
+					'id'     => $pluginId,
 				)
 			);
 		}
@@ -269,9 +269,9 @@ class GalleryPluginHelper_medium {
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryPluginParameterMap',
 			array(
-				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
-				'parameterName' => $parameterName,
+				'pluginType'     => $pluginType,
+				'pluginId'       => $pluginId,
+				'parameterName'  => $parameterName,
 				'parameterValue' => $parameterValue,
 			)
 		);
@@ -305,7 +305,7 @@ class GalleryPluginHelper_medium {
 			'GalleryPluginParameterMap',
 			array(
 				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
+				'pluginId'   => $pluginId,
 			)
 		);
 
@@ -325,9 +325,9 @@ class GalleryPluginHelper_medium {
 		);
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => $pluginType,
+				'type'   => $pluginType,
 				'itemId' => 0,
-				'id'   => $pluginId,
+				'id'     => $pluginId,
 			)
 		);
 
@@ -367,7 +367,7 @@ class GalleryPluginHelper_medium {
 		}
 
 		if (!is_array($itemId)) {
-			$itemId = array( $itemId );
+			$itemId = array($itemId);
 		}
 
 		foreach ($itemId as $id) {
@@ -402,9 +402,9 @@ class GalleryPluginHelper_medium {
 			GalleryDataCache::remove($cacheKey);
 			GalleryDataCache::removeFromDisk(
 				array(
-					'type' => $pluginType,
+					'type'   => $pluginType,
 					'itemId' => $id,
-					'id' => $pluginId,
+					'id'     => $pluginId,
 				)
 			);
 		}
@@ -446,10 +446,10 @@ class GalleryPluginHelper_medium {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryPluginParameterMap',
 			array(
-				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
-				'itemId' => $itemId,
-				'parameterName' => $parameterName,
+				'pluginType'     => $pluginType,
+				'pluginId'       => $pluginId,
+				'itemId'         => $itemId,
+				'parameterName'  => $parameterName,
 				'parameterValue' => (string)$parameterValue,
 			)
 		);
@@ -488,9 +488,9 @@ class GalleryPluginHelper_medium {
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryPluginParameterMap',
 			array(
-				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
-				'itemId' => $itemId,
+				'pluginType'    => $pluginType,
+				'pluginId'      => $pluginId,
+				'itemId'        => $itemId,
 				'parameterName' => $parameterName,
 			),
 			array(

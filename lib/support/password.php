@@ -56,7 +56,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				WHERE
 				[::pluginId] = ?
 				';
-				$ret     = $storage->execute($sql, array( 0, 'captcha' ));
+				$ret     = $storage->execute($sql, array(0, 'captcha'));
 				$captcha = 'off';
 			}
 		}
@@ -80,7 +80,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				WHERE
 				[GalleryUser::id] = ?
 				';
-				$ret = $storage->execute($sql, array( $process_user_name, 6 ));
+				$ret = $storage->execute($sql, array($process_user_name, 6));
 			}
 		}
 
@@ -121,7 +121,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				foreach ($_REQUEST['target'] as $key => $ignored) {
 					// Make sure the dir is legit
 					if (!array_key_exists($key, $caches)) {
-						$status[] = array( 'error', "Ignoring illegal cache: $key" );
+						$status[] = array('error', "Ignoring illegal cache: $key");
 
 						continue;
 					}
@@ -129,7 +129,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 					$func       = $caches[$key][1];
 					$args[0]    = $caches[$key][2];
 					$args[1]    = $caches[$key][3];
-					$status     = array_merge($status, call_user_func_array($func, array( $args[0], $args[1] )));
+					$status     = array_merge($status, call_user_func_array($func, array($args[0], $args[1])));
 					$remember[] = $key;
 				}
 				$_COOKIE['g2pwdcache'] = join(',', $remember);
@@ -150,11 +150,11 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 function getCacheDirs() {
 	$dirs = array(
-		'entity'   => array( true, 'refreshCache', array( 'cache/entity' ), 'album and photo data' ),
-		'module'   => array( true, 'refreshCache', array( 'cache/module' ), 'module setting' ),
-		'theme'    => array( true, 'refreshCache', array( 'cache/theme' ), 'theme setting' ),
-		'template' => array( true, 'refreshCache', array( 'smarty/templates_c' ), 'template' ),
-		'tmp'      => array( true, 'refreshCache', array( 'tmp' ), 'temporary directory' ),
+		'entity'   => array(true, 'refreshCache', array('cache/entity'), 'album and photo data'),
+		'module'   => array(true, 'refreshCache', array('cache/module'), 'module setting'),
+		'theme'    => array(true, 'refreshCache', array('cache/theme'), 'theme setting'),
+		'template' => array(true, 'refreshCache', array('smarty/templates_c'), 'template'),
+		'tmp'      => array(true, 'refreshCache', array('tmp'), 'temporary directory'),
 	);
 
 	if (!empty($_COOKIE['g2pwdcache'])) {
@@ -182,13 +182,13 @@ function recDelDir($dirname, &$status) {
 		if (is_dir($path)) {
 			recDelDir($path, $status);
 		} elseif (!@unlink($path)) {
-			$status[] = array( 'error', "Unable to remove cache file: $path" );
+			$status[] = array('error', "Unable to remove cache file: $path");
 		}
 	}
 	closedir($fd);
 
 	if (!@rmdir($dirname)) {
-		$status[] = array( 'error', "Unable to remove cache directory: $dirname" );
+		$status[] = array('error', "Unable to remove cache directory: $dirname");
 	}
 }
 
@@ -198,9 +198,9 @@ function refreshCache($dir, $mark) {
 	recDelDir($path, $status);
 
 	if (@mkdir($path)) {
-		$status[] = array( 'info', "Refreshed $mark cache" );
+		$status[] = array('info', "Refreshed $mark cache");
 	} else {
-		$status[] = array( 'error', "Unable to refresh $mark cache" );
+		$status[] = array('error', "Unable to refresh $mark cache");
 	}
 
 	return $status;
@@ -232,7 +232,7 @@ function validate() {
 		}
 	}
 
-	return array( $authError, $authString );
+	return array($authError, $authString);
 }
 
 // Set global variables

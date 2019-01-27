@@ -38,7 +38,7 @@ class GalleryFactoryHelper_medium {
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$hint = GalleryUtilities::strToLower($hint);
@@ -49,7 +49,7 @@ class GalleryFactoryHelper_medium {
 			$result = array();
 		}
 
-		return array( null, $result );
+		return array(null, $result);
 	}
 
 	/**
@@ -59,7 +59,7 @@ class GalleryFactoryHelper_medium {
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$hints = array();
@@ -70,7 +70,7 @@ class GalleryFactoryHelper_medium {
 			}
 		}
 
-		return array( null, $hints );
+		return array(null, $hints);
 	}
 
 	/**
@@ -86,7 +86,7 @@ class GalleryFactoryHelper_medium {
 			'GalleryFactoryMap',
 			array(
 				'classType' => $classType,
-				'implId' => $implId,
+				'implId'    => $implId,
 			),
 			array(
 				'hints' => $data,
@@ -130,7 +130,7 @@ class GalleryFactoryHelper_medium {
 			'GalleryFactoryMap',
 			array(
 				'classType' => $classType,
-				'implId' => $implId,
+				'implId'    => $implId,
 			)
 		);
 
@@ -181,13 +181,13 @@ class GalleryFactoryHelper_medium {
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryFactoryMap',
 			array(
-				'classType' => $classType,
-				'className' => $className,
-				'implId' => $implId,
-				'implPath' => $implPath,
+				'classType'    => $classType,
+				'className'    => $className,
+				'implId'       => $implId,
+				'implPath'     => $implPath,
 				'implModuleId' => $implModuleId,
-				'orderWeight' => (string)$orderWeight,
-				'hints' => serialize($hints),
+				'orderWeight'  => (string)$orderWeight,
+				'hints'        => serialize($hints),
 			)
 		);
 
@@ -218,7 +218,7 @@ class GalleryFactoryHelper_medium {
 		}
 		$registry =& $registryData[1];
 
-		foreach (array( 'implementations', 'ids', 'pluginIds', 'keys' ) as $key) {
+		foreach (array('implementations', 'ids', 'pluginIds', 'keys') as $key) {
 			if (!isset($registry[$key][$classType]) || !is_array($registry[$key][$classType])) {
 				$registry[$key][$classType] = array();
 			}

@@ -1246,7 +1246,7 @@ class GalleryPlatform {
 			list($this->_filePerms, $this->_dirPerms) = GalleryDataCache::get($cacheKey);
 		} else {
 			// To avoid looping if getPluginParameter calls platform functions
-			GalleryDataCache::put($cacheKey, array( $this->_filePerms, $this->_dirPerms ));
+			GalleryDataCache::put($cacheKey, array($this->_filePerms, $this->_dirPerms));
 
 			list($ret, $filePerms) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -1266,7 +1266,7 @@ class GalleryPlatform {
 			if (!$ret && !empty($dirPerms)) {
 				$this->_dirPerms = octdec($dirPerms);
 			}
-			GalleryDataCache::put($cacheKey, array( $this->_filePerms, $this->_dirPerms ));
+			GalleryDataCache::put($cacheKey, array($this->_filePerms, $this->_dirPerms));
 		}
 		$this->_umask = 0777 - $this->_filePerms;
 	}
@@ -1427,8 +1427,8 @@ class GalleryPlatform {
 		}
 		// Call strftime and convert to UTF-8; escape % characters before sprintf
 		$newFormat = str_replace(
-			array( '%', '&%%&' ),
-			array( '%%', '%' ),
+			array('%', '&%%&'),
+			array('%%', '%'),
 			GalleryCoreApi::convertToUtf8(
 				isset($timestamp) ? strftime($newFormat, $timestamp) : strftime($newFormat)
 			)

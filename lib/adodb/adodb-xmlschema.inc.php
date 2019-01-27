@@ -1881,7 +1881,7 @@ class adoSchema {
 		$xh = xslt_create();
 
 		// set error handler
-		xslt_set_error_handler($xh, array( &$this, 'xslt_error_handler' ));
+		xslt_set_error_handler($xh, array(&$this, 'xslt_error_handler'));
 
 		// process the schema
 		$result = xslt_process($xh, 'arg:/_xml', 'arg:/_xsl', null, $arguments);
@@ -1906,9 +1906,9 @@ class adoSchema {
 			$msg = array(
 				'Message Type' => ucfirst($fields['msgtype']),
 				'Message Code' => $fields['code'],
-				'Message' => $fields['msg'],
+				'Message'      => $fields['msg'],
 				'Error Number' => $errno,
-				'Level' => $level,
+				'Level'        => $level,
 			);
 
 			switch ($fields['URI']) {
@@ -1931,8 +1931,8 @@ class adoSchema {
 			$msg = array(
 				'Message Type' => 'Error',
 				'Error Number' => $errno,
-				'Level' => $level,
-				'Fields' => var_export($fields, true),
+				'Level'        => $level,
+				'Fields'       => var_export($fields, true),
 			);
 		}
 

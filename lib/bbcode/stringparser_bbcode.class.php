@@ -168,14 +168,14 @@ class StringParser_BBCode extends StringParser {
 			return false; // invalid
 		}
 		$this->_codes[$name] = array(
-			'name'  => $name,
-			'callback_type' => $callback_type,
-			'callback_func' => $callback_func,
-			'callback_params' => $callback_params,
-			'content_type' => $content_type,
-			'allowed_within' => $allowed_within,
+			'name'               => $name,
+			'callback_type'      => $callback_type,
+			'callback_func'      => $callback_func,
+			'callback_params'    => $callback_params,
+			'content_type'       => $content_type,
+			'allowed_within'     => $allowed_within,
 			'not_allowed_within' => $not_allowed_within,
-			'flags' => array(),
+			'flags'              => array(),
 		);
 
 		return true;
@@ -318,8 +318,8 @@ class StringParser_BBCode extends StringParser {
 	public function setParagraphHandlingParameters($detect_string, $start_tag, $end_tag) {
 		$this->_paragraphHandling = array(
 			'detect_string' => $detect_string,
-			'start_tag' => $start_tag,
-			'end_tag'   => $end_tag,
+			'start_tag'     => $start_tag,
+			'end_tag'       => $end_tag,
 		);
 	}
 
@@ -430,19 +430,19 @@ class StringParser_BBCode extends StringParser {
 	public function _setStatus($status) {
 		switch ($status) {
 			case 0:
-				$this->_charactersSearch = array( '[/', '[' );
+				$this->_charactersSearch = array('[/', '[');
 				$this->_status           = $status;
 
 				break;
 
 			case 1:
-				$this->_charactersSearch = array( ']', ' = "', '="', ' = \'', '=\'', ' = ', '=', ': ', ':', ' ' );
+				$this->_charactersSearch = array(']', ' = "', '="', ' = \'', '=\'', ' = ', '=', ': ', ':', ' ');
 				$this->_status           = $status;
 
 				break;
 
 			case 2:
-				$this->_charactersSearch = array( ']' );
+				$this->_charactersSearch = array(']');
 				$this->_status           = $status;
 				$this->_savedName        = '';
 
@@ -451,9 +451,9 @@ class StringParser_BBCode extends StringParser {
 			case 3:
 				if ($this->_quoting !== null) {
 					if ($this->_mixedAttributeTypes) {
-						$this->_charactersSearch = array( '\\\\', '\\' . $this->_quoting, $this->_quoting . ' ', $this->_quoting . ']', $this->_quoting );
+						$this->_charactersSearch = array('\\\\', '\\' . $this->_quoting, $this->_quoting . ' ', $this->_quoting . ']', $this->_quoting);
 					} else {
-						$this->_charactersSearch = array( '\\\\', '\\' . $this->_quoting, $this->_quoting . ']', $this->_quoting );
+						$this->_charactersSearch = array('\\\\', '\\' . $this->_quoting, $this->_quoting . ']', $this->_quoting);
 					}
 					$this->_status = $status;
 
@@ -461,16 +461,16 @@ class StringParser_BBCode extends StringParser {
 				}
 
 				if ($this->_mixedAttributeTypes) {
-					$this->_charactersSearch = array( ' ', ']' );
+					$this->_charactersSearch = array(' ', ']');
 				} else {
-					$this->_charactersSearch = array( ']' );
+					$this->_charactersSearch = array(']');
 				}
 				$this->_status = $status;
 
 				break;
 
 			case 4:
-				$this->_charactersSearch = array( ' ', ']', '="', '=\'', '=' );
+				$this->_charactersSearch = array(' ', ']', '="', '=\'', '=');
 				$this->_status           = $status;
 				$this->_savedName        = '';
 				$this->_savedValue       = '';
@@ -479,9 +479,9 @@ class StringParser_BBCode extends StringParser {
 
 			case 5:
 				if ($this->_quoting !== null) {
-					$this->_charactersSearch = array( '\\\\', '\\' . $this->_quoting, $this->_quoting . ' ', $this->_quoting . ']', $this->_quoting );
+					$this->_charactersSearch = array('\\\\', '\\' . $this->_quoting, $this->_quoting . ' ', $this->_quoting . ']', $this->_quoting);
 				} else {
-					$this->_charactersSearch = array( ' ', ']' );
+					$this->_charactersSearch = array(' ', ']');
 				}
 				$this->_status     = $status;
 				$this->_savedValue = '';
@@ -489,7 +489,7 @@ class StringParser_BBCode extends StringParser {
 				break;
 
 			case 7:
-				$this->_charactersSearch = array( '[/' . $this->_topNode('name') . ']' );
+				$this->_charactersSearch = array('[/' . $this->_topNode('name') . ']');
 
 				if (!$this->_topNode('getFlag', 'case_sensitive', 'boolean', true) || !$this->_caseSensitive) {
 					$this->_charactersSearch[] = '[/';
@@ -1061,7 +1061,7 @@ class StringParser_BBCode extends StringParser {
 	public function _isOpenableWithClose($name, &$closecount) {
 		$tnname = $this->_getCanonicalName($this->_topNode('name'));
 
-		if (!in_array($this->getCodeFlag($tnname, 'closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT), array( BBCODE_CLOSETAG_FORBIDDEN, BBCODE_CLOSETAG_OPTIONAL ))) {
+		if (!in_array($this->getCodeFlag($tnname, 'closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT), array(BBCODE_CLOSETAG_FORBIDDEN, BBCODE_CLOSETAG_OPTIONAL))) {
 			return false;
 		}
 		$node =& $this->_findNamedNode($name, true);
@@ -1082,7 +1082,7 @@ class StringParser_BBCode extends StringParser {
 				return true;
 			}
 
-			if (in_array($this->_stack[$i]->getFlag('closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT), array( BBCODE_CLOSETAG_IMPLICIT_ON_CLOSE_ONLY, BBCODE_CLOSETAG_MUSTEXIST ))) {
+			if (in_array($this->_stack[$i]->getFlag('closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT), array(BBCODE_CLOSETAG_IMPLICIT_ON_CLOSE_ONLY, BBCODE_CLOSETAG_MUSTEXIST))) {
 				return false;
 			}
 
@@ -2161,7 +2161,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 			if (($this->_codeInfo['callback_type'] == 'usecontent' || $this->_codeInfo['callback_type'] == 'usecontent?' || $this->_codeInfo['callback_type'] == 'callback_replace?') && count($this->_children) == 1 && $this->_children[0]->_type == STRINGPARSER_NODE_TEXT) {
 				// we have to make sure the object gets passed on as a reference
 				// if we do call_user_func(..., &$this) this will clash with PHP5
-				$callArray   = array( $action, $this->_attributes, $this->_children[0]->content, $this->_codeInfo['callback_params'] );
+				$callArray   = array($action, $this->_attributes, $this->_children[0]->content, $this->_codeInfo['callback_params']);
 				$callArray[] =& $this;
 				$res         = call_user_func_array($this->_codeInfo['callback_func'], $callArray);
 
@@ -2183,7 +2183,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 
 			// we have to make sure the object gets passed on as a reference
 			// if we do call_user_func(..., &$this) this will clash with PHP5
-			$callArray   = array( $action, $this->_attributes, null, $this->_codeInfo['callback_params'] );
+			$callArray   = array($action, $this->_attributes, null, $this->_codeInfo['callback_params']);
 			$callArray[] =& $this;
 
 			return call_user_func_array($this->_codeInfo['callback_func'], $callArray);
@@ -2216,7 +2216,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 
 		// we have to make sure the object gets passed on as a reference
 		// if we do call_user_func(..., &$this) this will clash with PHP5
-		$callArray   = array( 'output', $this->_attributes, $subcontent, $this->_codeInfo['callback_params'] );
+		$callArray   = array('output', $this->_attributes, $subcontent, $this->_codeInfo['callback_params']);
 		$callArray[] =& $this;
 
 		return call_user_func_array($this->_codeInfo['callback_func'], $callArray);

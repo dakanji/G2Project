@@ -67,10 +67,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId' => $this->_getChildId(),
+					'itemId'     => $this->_getChildId(),
 				),
 				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
@@ -112,10 +112,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId' => $this->_getSecondChildId(),
+					'itemId'     => $this->_getSecondChildId(),
 				),
 				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
@@ -150,11 +150,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddAlbum',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][pathComponent][missing]' ),
+				'error'  => array('form[error][pathComponent][missing]'),
 			),
 			$results
 		);
@@ -175,11 +175,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
+					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddAlbum',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][pathComponent][invalid]' ),
+				'error'  => array('form[error][pathComponent][invalid]'),
 			),
 			$results
 		);
@@ -210,10 +210,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId' => $id,
+					'itemId'     => $id,
 				),
 				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
@@ -268,10 +268,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId' => $id,
+					'itemId'     => $id,
 				),
 				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),
@@ -343,10 +343,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditAlbum',
-					'itemId' => ($id = $this->_getChildId()),
+					'itemId'     => ($id = $this->_getChildId()),
 				),
 				'status' => array(
 					'editMessage' => $core->translate('Album created successfully.'),

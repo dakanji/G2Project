@@ -105,7 +105,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		$descriptions['en_US']['description'] = $plugin->getDescription();
 
 		if ($pluginType == 'module') {
-			$groupData = $plugin->getGroup();
+			$groupData                           = $plugin->getGroup();
 			$descriptions['en_US']['groupLabel'] = $groupData['groupLabel'];
 		}
 
@@ -113,7 +113,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		 * Get translated strings for all supported languages. All
 		 * locales must be installed on the system for this to work.
 		 */
-		$translator =& $gallery->getTranslator();
+		$translator                                =& $gallery->getTranslator();
 		list($supportedLanguages, $defaultCountry) = $translator->getLanguageData();
 
 		foreach ($supportedLanguages as $language => $countries) {
@@ -159,7 +159,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				)
 			);
 
-			if (!in_array(substr($this->_pluginDir, -1), array( '/', '\\' ))) {
+			if (!in_array(substr($this->_pluginDir, -1), array('/', '\\'))) {
 				$this->_pluginDir .= '/';
 			}
 		}
@@ -207,7 +207,7 @@ class RepositoryDescriptor extends RepositoryObject {
 					return $ret;
 				}
 
-				$stringsRevision = $this->_data['header']['stringsRevision'];
+				$stringsRevision                                           = $this->_data['header']['stringsRevision'];
 				$this->_data['languages'][$stringsRevision][$languageCode] = $revision;
 			}
 		}
@@ -251,7 +251,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		$data['files']['MANIFEST'] = array(
 			'bytes'    => (string)strlen($manifestContents),
 			'hash'     => sprintf('%u', crc32($manifestContents)),
-			'packages' => array( 'base' ),
+			'packages' => array('base'),
 		);
 
 		foreach ($manifest as $file => $fileInfo) {
@@ -268,11 +268,11 @@ class RepositoryDescriptor extends RepositoryObject {
 				}
 			}
 			$data['files'][$file] = array(
-				'bytes' => $fileInfo['size'],
+				'bytes'      => $fileInfo['size'],
 				'bytes_crlf' => $fileInfo['size_crlf'],
-				'hash'  => $fileInfo['checksum'],
-				'hash_crlf' => $fileInfo['checksum_crlf'],
-				'packages' => $this->getPackageNames($file),
+				'hash'       => $fileInfo['checksum'],
+				'hash_crlf'  => $fileInfo['checksum_crlf'],
+				'packages'   => $this->getPackageNames($file),
 			);
 
 			if (basename($file) == 'strings.raw') {

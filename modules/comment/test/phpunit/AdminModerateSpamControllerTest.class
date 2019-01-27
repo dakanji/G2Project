@@ -106,7 +106,7 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.AdminModerateSpam',
 				),
 				'status' => array(

@@ -102,7 +102,7 @@ class GalleryModule extends GalleryPlugin {
 	 * @return array major number, minor number
 	 */
 	public function getApiVersion() {
-		return array( 3, 9 );
+		return array(3, 9);
 	}
 
 	/**
@@ -229,10 +229,10 @@ class GalleryModule extends GalleryPlugin {
 			 * the include.
 			 */
 			$data = array(
-				'_version' => $this->getVersion(),
-				'_templateVersion' => $this->getTemplateVersion(),
-				'_callbacks' => $this->getCallbacks(),
-				'_requiredCoreApi' => join(',', $this->getRequiredCoreApi()),
+				'_version'           => $this->getVersion(),
+				'_templateVersion'   => $this->getTemplateVersion(),
+				'_callbacks'         => $this->getCallbacks(),
+				'_requiredCoreApi'   => join(',', $this->getRequiredCoreApi()),
 				'_requiredModuleApi' => join(',', $this->getRequiredModuleApi()),
 			);
 
@@ -436,13 +436,13 @@ class GalleryModule extends GalleryPlugin {
 		$ret = GalleryCoreApi::unregisterToolkitsByModuleId($this->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		/*
@@ -452,10 +452,10 @@ class GalleryModule extends GalleryPlugin {
 		list($ret, $redirect) = parent::deactivate($postDeactivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -484,7 +484,7 @@ class GalleryModule extends GalleryPlugin {
 		list($ret, $needs) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($needs) {
@@ -497,28 +497,28 @@ class GalleryModule extends GalleryPlugin {
 		$ret = $storage->updateTableInfo($this->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ret = $this->performFactoryRegistrations();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ret = $this->_removeObsoleteThemeBlocks();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -528,7 +528,7 @@ class GalleryModule extends GalleryPlugin {
 	 *               boolean
 	 */
 	public function needsConfiguration() {
-		return array( null, false );
+		return array(null, false);
 	}
 
 	/**
@@ -543,7 +543,7 @@ class GalleryModule extends GalleryPlugin {
 	 */
 	public function autoConfigure() {
 		// By default we don't need any configuration
-		return array( null, true );
+		return array(null, true);
 	}
 
 	/**
@@ -556,7 +556,7 @@ class GalleryModule extends GalleryPlugin {
 	 *                 [optional: 'group' => group, 'groupLabel' => localized label]), ...)
 	 */
 	public function getSiteAdminViews() {
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -570,7 +570,7 @@ class GalleryModule extends GalleryPlugin {
 	 *               array( array('name' => name, 'view' => view), ...)
 	 */
 	public function getItemAdminViews($item) {
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -584,7 +584,7 @@ class GalleryModule extends GalleryPlugin {
 	 *               array( array('name' => name, 'view' => view), ...)
 	 */
 	public function getUserAdminViews($user) {
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -609,7 +609,7 @@ class GalleryModule extends GalleryPlugin {
 	 *                     ...)
 	 */
 	public function getSystemLinks() {
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -635,7 +635,7 @@ class GalleryModule extends GalleryPlugin {
 	 *               )
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -648,7 +648,7 @@ class GalleryModule extends GalleryPlugin {
 	 *               array (id => string HTML content, ..)
 	 */
 	public function getItemSummaries($items, $permissions, &$template) {
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -706,7 +706,7 @@ class GalleryModule extends GalleryPlugin {
 
 	public function setGroup($group, $groupLabel) {
 		$this->_group = array(
-			'group' => $group,
+			'group'      => $group,
 			'groupLabel' => $groupLabel,
 		);
 	}
@@ -721,13 +721,13 @@ class GalleryModule extends GalleryPlugin {
 			}
 
 			return array(
-				'group' => 'other',
+				'group'      => 'other',
 				'groupLabel' => $groupLabel,
 			);
 		}
 
 		return array(
-			'group' => $this->_group['group'],
+			'group'      => $this->_group['group'],
 			'groupLabel' => $this->translate($this->_group['groupLabel']),
 		);
 	}
@@ -813,9 +813,9 @@ class GalleryModule extends GalleryPlugin {
 		}
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryPluginParameterMap',
-			array( 'pluginId', 'itemId', 'parameterName', 'parameterValue' ),
+			array('pluginId', 'itemId', 'parameterName', 'parameterValue'),
 			array(
-				'pluginType' => 'theme',
+				'pluginType'    => 'theme',
 				'parameterName' => new GallerySqlFragment('LIKE ?', '%Blocks'),
 			)
 		);

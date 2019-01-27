@@ -133,7 +133,7 @@ class ThemeTest extends GalleryTestCase {
 								'param1' => 'value1',
 							),
 						),
-						array( 'module2.Block2', array() ),
+						array('module2.Block2', array()),
 						array(
 							'module.BlockName',
 							array(
@@ -188,7 +188,7 @@ class ThemeTest extends GalleryTestCase {
 								'x' => 'y',
 							),
 						),
-						array( 'b.c', array() ),
+						array('b.c', array()),
 					)
 				),
 			),
@@ -208,7 +208,7 @@ class ThemeTest extends GalleryTestCase {
 								'x' => "y \n y",
 							),
 						),
-						array( 'b.c', array() ),
+						array('b.c', array()),
 					)
 				),
 			),
@@ -237,42 +237,42 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testPackSettingBlockListEmpty() {
 		$this->assertEquals(
-			array( true, serialize(array()) ),
+			array(true, serialize(array())),
 			$this->_theme->packSetting('block-list', '')
 		);
 	}
 
 	public function testPackSettingBlockListMissingBlockName() {
 		$this->assertEquals(
-			array( false, serialize(array()) ),
+			array(false, serialize(array())),
 			$this->_theme->packSetting('block-list', '[foo]')
 		);
 	}
 
 	public function testPackSettingBlockListMissingRightBracket() {
 		$this->assertEquals(
-			array( false, serialize(array()) ),
+			array(false, serialize(array())),
 			$this->_theme->packSetting('block-list', '[foo.Bar')
 		);
 	}
 
 	public function testPackSettingBlockListMissingRightBracket2() {
 		$this->assertEquals(
-			array( false, serialize(array()) ),
+			array(false, serialize(array())),
 			$this->_theme->packSetting('block-list', '[foo.Bar a=b [foo.Baz b=c]')
 		);
 	}
 
 	public function testPackSettingBlockListMissingLeftBracket() {
 		$this->assertEquals(
-			array( false, serialize(array()) ),
+			array(false, serialize(array())),
 			$this->_theme->packSetting('block-list', 'foo.Bar]')
 		);
 	}
 
 	public function testPackSettingBlockListMissingBothBrackets() {
 		$this->assertEquals(
-			array( false, serialize(array()) ),
+			array(false, serialize(array())),
 			$this->_theme->packSetting('block-list', 'foo.Bar')
 		);
 	}
@@ -302,14 +302,14 @@ class ThemeTest extends GalleryTestCase {
 		$actual = $this->_theme->packSetting('block-list', $data);
 
 		$this->assertEquals(
-			array( true, $expected ),
-			array( $actual[0], unserialize($actual[1]) )
+			array(true, $expected),
+			array($actual[0], unserialize($actual[1]))
 		);
 	}
 
 	public function testUnpackSettingBlockList1() {
 		$this->assertEquals(
-			array( true, '[["a.B",{"foo":"bar"}]]' ),
+			array(true, '[["a.B",{"foo":"bar"}]]'),
 			$this->_theme->unpackSetting(
 				'block-list',
 				serialize(
@@ -328,7 +328,7 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testUnpackSettingBlockList2() {
 		$this->assertEquals(
-			array( true, '[["a.B",{"foo":"bar"}],["c.D",{}]]' ),
+			array(true, '[["a.B",{"foo":"bar"}],["c.D",{}]]'),
 			$this->_theme->unpackSetting(
 				'block-list',
 				serialize(
@@ -339,7 +339,7 @@ class ThemeTest extends GalleryTestCase {
 								'foo' => 'bar',
 							),
 						),
-						array( 'c.D' ),
+						array('c.D'),
 					)
 				)
 			)
@@ -348,7 +348,7 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testUnpackSettingBlockListTrueFalse() {
 		$this->assertEquals(
-			array( true, '[["a.B",{"foo":true,"bar":false}]]' ),
+			array(true, '[["a.B",{"foo":true,"bar":false}]]'),
 			$this->_theme->unpackSetting(
 				'block-list',
 				serialize(
@@ -368,21 +368,21 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testUnpackSettingBlockListEmpty() {
 		$this->assertEquals(
-			array( true, '[]' ),
+			array(true, '[]'),
 			$this->_theme->unpackSetting('block-list', serialize(array()))
 		);
 	}
 
 	public function testUnpackSettingBlockListMalformed1() {
 		$this->assertEquals(
-			array( false, '' ),
-			$this->_theme->unpackSetting('block-list', serialize(array( 'x' )))
+			array(false, ''),
+			$this->_theme->unpackSetting('block-list', serialize(array('x')))
 		);
 	}
 
 	public function testUnpackSettingBlockListMalformed2() {
 		$this->assertEquals(
-			array( false, '' ),
+			array(false, ''),
 			$this->_theme->unpackSetting(
 				'block-list',
 				serialize(
@@ -396,7 +396,7 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testInstallBadThemeApi() {
 		list($major, $minor) = $this->_theme->getRequiredThemeApi();
-		$this->_theme->setRequiredThemeApi(array( $major - 1, $minor ));
+		$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
 
 		$ret = $this->_theme->installOrUpgrade();
 
@@ -417,7 +417,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $this->_theme->getRequiredThemeApi();
-		$this->_theme->setRequiredThemeApi(array( $major - 1, $minor ));
+		$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $this->_theme->activate();
 
@@ -436,7 +436,7 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testInstallBadCoreApi() {
 		list($major, $minor) = $this->_theme->getRequiredCoreApi();
-		$this->_theme->setRequiredCoreApi(array( $major - 1, $minor ));
+		$this->_theme->setRequiredCoreApi(array($major - 1, $minor));
 
 		$ret = $this->_theme->installOrUpgrade();
 
@@ -454,7 +454,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $this->_theme->getRequiredCoreApi();
-		$this->_theme->setRequiredCoreApi(array( $major - 1, $minor ));
+		$this->_theme->setRequiredCoreApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $this->_theme->activate();
 
@@ -537,9 +537,9 @@ class ThemeTest extends GalleryTestCase {
 			$this->_item,
 			array(
 				'sidebarBlocks' => $block[1],
-				'albumBlocks' => $block[2],
-				'photoBlocks' => $block[3],
-				'moreBlocks' => $block[4],
+				'albumBlocks'   => $block[2],
+				'photoBlocks'   => $block[3],
+				'moreBlocks'    => $block[4],
 			),
 			array(
 				'body' => 'test.tpl',
@@ -573,7 +573,7 @@ class ThemeTest extends GalleryTestCase {
     	';
 		$extraHtml = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',
-			'other' => 1,
+			'other'             => 1,
 		);
 
 		$results = $this->_theme->splitHtml($html, $extraHtml);
@@ -620,7 +620,7 @@ class ThemeTest extends GalleryTestCase {
     	';
 		$extraHtml  = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',
-			'other' => 1,
+			'other'             => 1,
 		);
 
 		$results = $this->_theme->splitHtml($html, $extraHtml);

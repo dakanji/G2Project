@@ -35,14 +35,14 @@ class GalleryEntityHelper_simple {
 		$gallery->guaranteeTimeLimit(5);
 
 		if (empty($ids)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		if (is_array($ids)) {
 			$returnArray = true;
 		} else {
 			$returnArray = false;
-			$ids         = array( $ids );
+			$ids         = array($ids);
 		}
 
 		// Grab what we can from the cache and make up a list of what's missing
@@ -56,7 +56,7 @@ class GalleryEntityHelper_simple {
 			} else {
 				$data =& GalleryDataCache::getFromDisk(
 					array(
-						'type' => 'entity',
+						'type'   => 'entity',
 						'itemId' => $id,
 					)
 				);
@@ -78,7 +78,7 @@ class GalleryEntityHelper_simple {
 			list($ret, $missing) = $storage->loadEntities($missing);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -88,15 +88,15 @@ class GalleryEntityHelper_simple {
 			list($ret, $classFile) = $entity->getClassFile();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			GalleryDataCache::putToDisk(
 				array(
-					'type' => 'entity',
+					'type'   => 'entity',
 					'itemId' => $id,
 				),
 				$entity,
-				array( $classFile )
+				array($classFile)
 			);
 			$cached[$id] = $entity;
 		}
@@ -106,7 +106,7 @@ class GalleryEntityHelper_simple {
 			$ret = $cached[$id]->onLoad();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			GalleryDataCache::put("GalleryEntityHelper::loadEntitiesById($id)", $cached[$id]);
 		}
@@ -121,7 +121,7 @@ class GalleryEntityHelper_simple {
 		// Assert the entity-type if requested
 		if ($requiredEntityType && $requiredEntityType != 'GalleryEntity') {
 			if (!is_array($requiredEntityType)) {
-				$requiredEntityType = array( $requiredEntityType );
+				$requiredEntityType = array($requiredEntityType);
 			}
 
 			/*
@@ -166,7 +166,7 @@ class GalleryEntityHelper_simple {
 			$results = $results[0];
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	/**
@@ -177,7 +177,7 @@ class GalleryEntityHelper_simple {
 
 		list($ret, $results) = GalleryCoreApi::getMapEntry(
 			'ExternalIdMap',
-			array( 'entityId' ),
+			array('entityId'),
 			array(
 				'externalId' => $externalId,
 				'entityType' => $entityType,
@@ -185,7 +185,7 @@ class GalleryEntityHelper_simple {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!($result = $results->nextResult())) {
@@ -203,9 +203,9 @@ class GalleryEntityHelper_simple {
 		list($ret, $entity) = GalleryEntityHelper_simple::loadEntitiesById($result[0], $entityType);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $entity );
+		return array(null, $entity);
 	}
 }

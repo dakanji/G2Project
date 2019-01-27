@@ -64,13 +64,13 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode";
 
-		$this->_platform->setReply('file_exists', array( $this->_versionFile ), true);
+		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
 		$this->_platform->setReply(
 			'file',
-			array( $this->_versionFile, false ),
+			array($this->_versionFile, false),
 			$this->_versionFileContents
 		);
-		$this->_platform->setReply('atomicWrite', array( $this->_versionFile, $versionStr ), true);
+		$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
 
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
 		GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
@@ -80,7 +80,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
 				'status' => array(
@@ -102,13 +102,13 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode:$url";
 
-		$this->_platform->setReply('file_exists', array( $this->_versionFile ), true);
+		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
 		$this->_platform->setReply(
 			'file',
-			array( $this->_versionFile, false ),
+			array($this->_versionFile, false),
 			$this->_versionFileContents
 		);
-		$this->_platform->setReply('atomicWrite', array( $this->_versionFile, $versionStr ), true);
+		$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
 
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
 		GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
@@ -118,7 +118,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
 				'status' => array(
@@ -140,15 +140,15 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		$this->_versionFileContents[] = 'nmaintenance-mode';
 
-		$this->_platform->setReply('file_exists', array( $this->_versionFile ), true);
+		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
 		$this->_platform->setReply(
 			'file',
-			array( $this->_versionFile, false ),
+			array($this->_versionFile, false),
 			$this->_versionFileContents
 		);
 		$this->_platform->setReply(
 			'atomicWrite',
-			array( $this->_versionFile, $this->_versionContentsBase ),
+			array($this->_versionFile, $this->_versionContentsBase),
 			true
 		);
 
@@ -159,7 +159,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
 				'status' => array(
@@ -186,7 +186,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
 				'status' => array(

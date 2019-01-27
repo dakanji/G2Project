@@ -55,11 +55,11 @@ class RewriteHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($rewriteParserId)) {
-				return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
+				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
 
 			$path = 'modules/rewrite/classes/parsers/' . $rewriteParserId . '/parser.inc';
@@ -71,7 +71,7 @@ class RewriteHelper {
 			$rewriteParser = new $class();
 		}
 
-		return array( null, $rewriteParser );
+		return array(null, $rewriteParser);
 	}
 
 	/**
@@ -109,12 +109,12 @@ class RewriteHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null, null, null );
+			return array($ret, null, null, null, null);
 		}
-		$accessList = unserialize($accessList);
+		$accessList                                     = unserialize($accessList);
 		$ourHostNames[$urlGenerator->getHostName()]     = true;
 		$ourHostNames[$urlGenerator->getHostName(true)] = true;
-		$accessList = array_merge($accessList, array_keys($ourHostNames));
+		$accessList                                     = array_merge($accessList, array_keys($ourHostNames));
 
 		// Get allow empty referer
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
@@ -124,13 +124,13 @@ class RewriteHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null, null, null );
+			return array($ret, null, null, null, null);
 		}
 
 		list($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
-			return array( $ret, null, null, null, null );
+			return array($ret, null, null, null, null);
 		}
 
 		$regexRules = array();
@@ -149,7 +149,7 @@ class RewriteHelper {
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true, true);
 
 				if ($ret) {
-					return array( $ret, null, null, null, null );
+					return array($ret, null, null, null, null);
 				}
 			}
 
@@ -158,7 +158,7 @@ class RewriteHelper {
 				$ret = self::setHistoryForModule($moduleId, $activeRules[$moduleId]);
 
 				if ($ret) {
-					return array( $ret, null, null, null, null );
+					return array($ret, null, null, null, null);
 				}
 				unset($activeRules[$moduleId]);
 
@@ -182,14 +182,14 @@ class RewriteHelper {
 						REWRITE_STATUS_INVALID_PATTERN,
 						null,
 						null,
-						array( $moduleId, $ruleId ),
+						array($moduleId, $ruleId),
 					);
 				}
 
 				// Save the pattern for the URL generator to use
 				if (isset($rules[$ruleId]['match']) && isset($activeRule['pattern'])) {
 					$shortUrl = array(
-						'match' => $rules[$ruleId]['match'],
+						'match'   => $rules[$ruleId]['match'],
 						'pattern' => $activeRule['pattern'],
 					);
 
@@ -226,7 +226,7 @@ class RewriteHelper {
 				if (!empty($rules[$ruleId]['restrict'])) {
 					foreach ($rules[$ruleId]['restrict'] as $key => $value) {
 						$rules[$ruleId]['conditions'][] = array(
-							'test' => 'QUERY_STRING',
+							'test'    => 'QUERY_STRING',
 							'pattern' => $key . '=' . $value,
 						);
 					}
@@ -236,16 +236,16 @@ class RewriteHelper {
 				if (!empty($rules[$ruleId]['exemptReferer'])) {
 					foreach ($accessList as $host) {
 						$rules[$ruleId]['conditions'][] = array(
-							'test' => 'HTTP:Referer',
+							'test'    => 'HTTP:Referer',
 							'pattern' => '!^[a-zA-Z0-9\\+\\.\\-]+://' . $host . '/',
-							'flags' => array( 'NC' ),
+							'flags'   => array('NC'),
 						);
 					}
 
 					// Exempt requests with empty referer
 					if (!empty($allowEmptyReferer)) {
 						$rules[$ruleId]['conditions'][] = array(
-							'test' => 'HTTP:Referer',
+							'test'    => 'HTTP:Referer',
 							'pattern' => '!^$',
 						);
 					}
@@ -274,10 +274,10 @@ class RewriteHelper {
 						'forceDirect' => isset($rules[$ruleId]['queryString']['view'])
 									&& $rules[$ruleId]['queryString']['view'] == 'watermark.DownloadItem',
 						'forceServerRelativeUrl' => true,
-						'forceSessionId' => false,
-						'htmlEntities' => false,
-						'urlEncode' => false,
-						'useAuthToken' => false,
+						'forceSessionId'         => false,
+						'htmlEntities'           => false,
+						'urlEncode'              => false,
+						'useAuthToken'           => false,
 					),
 					$rules[$ruleId]['options']
 				);
@@ -310,18 +310,18 @@ class RewriteHelper {
 				);
 
 				if ($ret) {
-					return array( $ret, null, null, null, null );
+					return array($ret, null, null, null, null);
 				}
 
 				if ($code != REWRITE_STATUS_OK) {
-					return array( null, $code, null, null, array( $moduleId, $ruleId ) );
+					return array(null, $code, null, null, array($moduleId, $ruleId));
 				}
 			}
 		}
 
-		usort($regexRules, array( 'RewriteHelper', '_sortRules' ));
+		usort($regexRules, array('RewriteHelper', '_sortRules'));
 
-		return array( null, REWRITE_STATUS_OK, $regexRules, $shortUrls, null );
+		return array(null, REWRITE_STATUS_OK, $regexRules, $shortUrls, null);
 	}
 
 	/**
@@ -357,7 +357,7 @@ class RewriteHelper {
 				);
 
 				if ($code != REWRITE_STATUS_OK) {
-					return array( null, $code );
+					return array(null, $code);
 				}
 
 				$regexRule['conditions'][] = $condition;
@@ -373,13 +373,13 @@ class RewriteHelper {
 			);
 
 			if ($code != REWRITE_STATUS_OK) {
-				return array( null, $code );
+				return array(null, $code);
 			}
 		}
 
 		$regexRules[] = $regexRule;
 
-		return array( null, REWRITE_STATUS_OK );
+		return array(null, REWRITE_STATUS_OK);
 	}
 
 	/**
@@ -484,11 +484,11 @@ class RewriteHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$history = empty($history) ? array() : unserialize($history);
 
-		return array( null, $history );
+		return array(null, $history);
 	}
 
 	/**

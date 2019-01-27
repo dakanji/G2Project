@@ -56,7 +56,7 @@ class ModRewriteParser extends RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
 		GalleryCoreApi::requireOnce(
@@ -96,14 +96,14 @@ class ModRewriteParser extends RewriteParser {
 			list($ret, $rewriteModule) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
 		list($ret, $message) = parent::getErrorMessage($code, $rewriteModule);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($message)) {
@@ -145,11 +145,11 @@ class ModRewriteParser extends RewriteParser {
 					break;
 
 				default:
-					return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+					return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
 		}
 
-		return array( null, $message );
+		return array(null, $message);
 	}
 
 	/**
@@ -172,7 +172,7 @@ class ModRewriteParser extends RewriteParser {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (isset($form['force']['test1'])) {
@@ -183,13 +183,13 @@ class ModRewriteParser extends RewriteParser {
 				serialize(
 					array(
 						'needOptions' => false,
-						'forced' => 1,
+						'forced'      => 1,
 					)
 				)
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -201,19 +201,19 @@ class ModRewriteParser extends RewriteParser {
 				serialize(
 					array(
 						'needOptions' => true,
-						'forced' => 1,
+						'forced'      => 1,
 					)
 				)
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
 		$status['saved'] = 1;
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	/**
@@ -240,7 +240,7 @@ class ModRewriteParser extends RewriteParser {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// We can only save the embedded .htaccess in embedded mode
@@ -255,7 +255,7 @@ class ModRewriteParser extends RewriteParser {
 		if (empty($form['embeddedLocation']) || empty($form['embeddedHtaccess'])) {
 			$error[] = 'form[error][' . REWRITE_STATUS_EMPTY_VALUE . ']';
 
-			return array( null, $error, $status );
+			return array(null, $error, $status);
 		}
 
 		list($ret, $code) = ModRewriteHelper::saveEmbedConfig(
@@ -268,7 +268,7 @@ class ModRewriteParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if ($code == REWRITE_STATUS_OK) {
@@ -277,14 +277,14 @@ class ModRewriteParser extends RewriteParser {
 			$error[] = 'form[error][' . $code . ']';
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	/**
 	 * @see RewriteParser::needsEmbedConfig
 	 */
 	public function needsEmbedConfig() {
-		foreach (array( 'embeddedLocation', 'embeddedHtaccess' ) as $key) {
+		foreach (array('embeddedLocation', 'embeddedHtaccess') as $key) {
 			list($ret, $value) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -292,15 +292,15 @@ class ModRewriteParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (empty($value)) {
-				return array( null, true );
+				return array(null, true);
 			}
 		}
 
-		return array( null, false );
+		return array(null, false);
 	}
 
 	/**
@@ -309,7 +309,7 @@ class ModRewriteParser extends RewriteParser {
 	public function fetchEmbedConfig() {
 		$config = array();
 
-		foreach (array( 'embeddedLocation', 'embeddedHtaccess' ) as $key) {
+		foreach (array('embeddedLocation', 'embeddedHtaccess') as $key) {
 			list($ret, $value) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -317,13 +317,13 @@ class ModRewriteParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$config[$key] = $value;
 		}
 
-		return array( null, $config );
+		return array(null, $config);
 	}
 
 	/**
@@ -337,7 +337,7 @@ class ModRewriteParser extends RewriteParser {
 		list($ret, $code) = ModRewriteHelper::saveEmbedConfig($param, $this, true);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		return array(

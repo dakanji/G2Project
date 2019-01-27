@@ -93,7 +93,7 @@ class GalleryRepository {
 				);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 				$sources = array_keys(unserialize($sources));
 			}
@@ -110,16 +110,16 @@ class GalleryRepository {
 						unset($repositories[$source]);
 						$errorCount++;
 					} else {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 				}
 			}
-			GalleryDataCache::put($cacheKey, array( $repositories, $errorCount ));
+			GalleryDataCache::put($cacheKey, array($repositories, $errorCount));
 		} else {
 			list($repositories, $errorCount) = GalleryDataCache::get($cacheKey);
 		}
 
-		return array( null, $repositories, $errorCount );
+		return array(null, $repositories, $errorCount);
 	}
 
 	/**
@@ -168,7 +168,7 @@ class GalleryRepository {
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		list($ret, $header) = $this->_index->getPluginHeader('module', 'core');
@@ -179,10 +179,10 @@ class GalleryRepository {
 				 * No header for the core module.  Maybe the core package isn't available in any
 				 * this repository.
 				 */
-				return array( null, false, array() );
+				return array(null, false, array());
 			}
 
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$repositoryVersion = $header['version'];
 
@@ -193,7 +193,7 @@ class GalleryRepository {
 		list($ret, $relation) = $this->_utilities->compareVersions($repositoryVersion, $core->getVersion());
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$apiVersions = array();
@@ -208,7 +208,7 @@ class GalleryRepository {
 			$isAvailable = false;
 		}
 
-		return array( null, $isAvailable, $apiVersions );
+		return array(null, $isAvailable, $apiVersions);
 	}
 
 	/**
@@ -235,14 +235,14 @@ class GalleryRepository {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Get version info from repository index for base files.
 		list($ret, $header) = $this->_index->getPluginHeader($pluginType, $pluginId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$repositoryDataVersion               = $header['version'];
@@ -275,7 +275,7 @@ class GalleryRepository {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($upgradeInfo['base']['relation'] == 'older') {
@@ -293,7 +293,7 @@ class GalleryRepository {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$upgradeInfo['languages'] = array();
@@ -311,7 +311,7 @@ class GalleryRepository {
 						continue;
 					}
 
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$languagePackageName = 'lang-' . $language;
@@ -330,11 +330,11 @@ class GalleryRepository {
 				);
 
 				$upgradeInfo['languages'][$language] = array(
-					'name' => $languageDescription,
+					'name'         => $languageDescription,
 					'currentBuild' => $currentBuild,
-					'newBuild' => $revision,
-					'relation' => $relation,
-					'locked' => $locked,
+					'newBuild'     => $revision,
+					'relation'     => $relation,
+					'locked'       => $locked,
 				);
 
 				if ($relation == 'older' && $currentBuild) {
@@ -345,7 +345,7 @@ class GalleryRepository {
 			}
 		}
 
-		return array( null, $upgradeInfo );
+		return array(null, $upgradeInfo);
 	}
 
 	/**
@@ -377,7 +377,7 @@ class GalleryRepository {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$pluginList = array();
@@ -389,14 +389,14 @@ class GalleryRepository {
 			list($ret, $language) = $gallery->getActiveLanguageCode();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Load the core module for translation
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			// Fall back to en_US if there are no descriptions in the active language.
@@ -420,7 +420,7 @@ class GalleryRepository {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$localVersion  = $plugin['localVersion'];
@@ -441,32 +441,32 @@ class GalleryRepository {
 			$isDowngraded = version_compare($localVersion, $plugin['header']['version'], '>');
 
 			list($providedCoreApiVersion, $providedPluginApiVersion) = $this->_utilities->getProvidedApis($pluginType, $coreApis);
-			$pluginList[$pluginId] = array(
-				'type' => $pluginType,
-				'name' => $plugin['descriptions'][$language]['name'],
-				'description' => $plugin['descriptions'][$language]['description'],
-				'groupLabel' => $groupLabel,
+			$pluginList[$pluginId]                                   = array(
+				'type'              => $pluginType,
+				'name'              => $plugin['descriptions'][$language]['name'],
+				'description'       => $plugin['descriptions'][$language]['description'],
+				'groupLabel'        => $groupLabel,
 				'repositoryVersion' => $plugin['header']['version'],
-				'localVersion' => $localVersion,
-				'isCompatible' => $plugin['isCompatible'],
-				'api'  => array(
+				'localVersion'      => $localVersion,
+				'isCompatible'      => $plugin['isCompatible'],
+				'api'               => array(
 					'required' => array(
-						'core' => implode('.', $plugin['header']['requiredCoreApi']),
+						'core'   => implode('.', $plugin['header']['requiredCoreApi']),
 						'plugin' => implode('.', $plugin['header']['requiredPluginApi']),
 					),
 					'provided' => array(
-						'core' => implode('.', $providedCoreApiVersion),
+						'core'   => implode('.', $providedCoreApiVersion),
 						'plugin' => implode('.', $providedPluginApiVersion),
 					),
 				),
-				'locked' => $locked,
-				'isDowngraded' => $isDowngraded,
+				'locked'        => $locked,
+				'isDowngraded'  => $isDowngraded,
 				'isUpgradeable' => $isUpgradeable,
 			);
 		}
 
 		// Sort plugins by name.
-		if (!uasort($pluginList, array( 'GalleryRepository', 'comparePluginListEntries' ))) {
+		if (!uasort($pluginList, array('GalleryRepository', 'comparePluginListEntries'))) {
 			return array(
 				GalleryCoreApi::error(
 					ERROR_BAD_PARAMETER,
@@ -478,7 +478,7 @@ class GalleryRepository {
 			);
 		}
 
-		return array( null, $pluginList );
+		return array(null, $pluginList);
 	}
 
 	/**
@@ -521,11 +521,11 @@ class GalleryRepository {
 	public function getAllUpgradeablePackages() {
 		$packages = array();
 
-		foreach (array( 'module', 'theme' ) as $pluginType) {
+		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach ($plugins as $pluginId) {
@@ -540,7 +540,7 @@ class GalleryRepository {
 						continue;
 					}
 
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($upgradeInfo['base']['locked'] || !$upgradeInfo['base']['isCompatible']) {
@@ -563,7 +563,7 @@ class GalleryRepository {
 			}
 		}
 
-		return array( null, $packages );
+		return array(null, $packages);
 	}
 
 	/**
@@ -605,11 +605,11 @@ class GalleryRepository {
 		list($success, $created) = GalleryUtilities::guaranteeDirExists($repositoryCachePath);
 
 		if (!$success) {
-			return array( false, $gallery->i18n('Couldn\'t create repository cache path.') );
+			return array(false, $gallery->i18n('Couldn\'t create repository cache path.'));
 		}
 
 		// Create repository cache subdirectories.
-		foreach (array( 'modules', 'themes' ) as $cacheDir) {
+		foreach (array('modules', 'themes') as $cacheDir) {
 			$cacheDirectory = $repositoryCachePath . $cacheDir;
 
 			if (!@$platform->is_dir($cacheDirectory) && !@$platform->mkdir($cacheDirectory)) {
@@ -623,7 +623,7 @@ class GalleryRepository {
 			}
 		}
 
-		return array( true, '' );
+		return array(true, '');
 	}
 
 	/**
@@ -641,13 +641,13 @@ class GalleryRepository {
 				list($ret, $pluginName) = $this->_index->getPluginName($pluginType, $pluginId);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $descriptorUrl) = $this->_index->getDescriptorUrl($pluginType, $pluginId);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$files[$pluginType][$pluginId]['name']                = $pluginName;
@@ -663,7 +663,7 @@ class GalleryRepository {
 					if ($ret) {
 						echo $ret->getAsHtml();
 
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					$files[$pluginType][$pluginId]['files'][$package] = $packageUrl;
@@ -671,7 +671,7 @@ class GalleryRepository {
 			}
 		}
 
-		return array( null, $files );
+		return array(null, $files);
 	}
 
 	/**
@@ -759,13 +759,13 @@ class GalleryRepository {
 		} else {
 			// Unserialize descriptor.
 			$descriptor = array(
-				'pluginId' => $pluginId,
+				'pluginId'   => $pluginId,
 				'pluginType' => $pluginType,
-				'contents' => unserialize($packageContents),
+				'contents'   => unserialize($packageContents),
 			);
 		}
 
-		return array( null, $descriptor );
+		return array(null, $descriptor);
 	}
 
 	/**
@@ -790,7 +790,7 @@ class GalleryRepository {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$packageUrls = $pluginDownloadData['files'];
@@ -831,10 +831,10 @@ class GalleryRepository {
 				// XXX: storage failure means we failed to download the file properly
 				$status['failedToDownload'][$pluginType][$pluginName] = $relativeDescriptorUrl;
 
-				return array( null, false, $status );
+				return array(null, false, $status);
 			}
 
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$errors = array();
@@ -869,7 +869,7 @@ class GalleryRepository {
 		if ($errors) {
 			$status['failedToInstall'][$pluginType][$pluginName] = $errors;
 
-			return array( null, false, $status );
+			return array(null, false, $status);
 		}
 
 		$percentage = $callback['current'] / $callback['total'];
@@ -908,13 +908,13 @@ class GalleryRepository {
 					$status['failedToDownload'][$pluginType][$pluginName][] = $relativePackageUrl;
 
 					if ($packageName == 'base') {
-						return array( null, false, $status );
+						return array(null, false, $status);
 					}
 
 					continue;
 				}
 
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			// Check the unpacked files' integrity.
@@ -926,7 +926,7 @@ class GalleryRepository {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			// Update plugin package map.
@@ -937,7 +937,7 @@ class GalleryRepository {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$ret = $this->_utilities->updatePackageMetaData(
 				$pluginType,
@@ -949,12 +949,12 @@ class GalleryRepository {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$reactivatePlugin |= $packageName == 'base';
 		}
 
-		return array( null, (bool)$reactivatePlugin, $status );
+		return array(null, (bool)$reactivatePlugin, $status);
 	}
 
 	/**
@@ -1006,7 +1006,7 @@ class GalleryRepository {
 			'GalleryPluginPackageMap',
 			array(
 				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
+				'pluginId'   => $pluginId,
 			)
 		);
 
@@ -1043,12 +1043,12 @@ class GalleryRepository {
 		$ret    = GalleryCoreApi::addMapEntry(
 			'GalleryPluginPackageMap',
 			array(
-				'pluginType' => $pluginType,
-				'pluginId' => $pluginId,
-				'packageName' => 'base',
+				'pluginType'     => $pluginType,
+				'pluginId'       => $pluginId,
+				'packageName'    => 'base',
 				'packageVersion' => $plugin->getVersion(),
-				'packageBuild' => $revision,
-				'locked' => $locked,
+				'packageBuild'   => $revision,
+				'locked'         => $locked,
 			)
 		);
 
@@ -1077,14 +1077,14 @@ class GalleryRepository {
 					$ret = GalleryCoreApi::addMapEntry(
 						'GalleryPluginPackageMap',
 						array(
-							'pluginType' => $pluginType,
-							'pluginId' => $pluginId,
+							'pluginType'  => $pluginType,
+							'pluginId'    => $pluginId,
 							'packageName' => (
 							'lang-' . GalleryUtilities::getFileBase(basename($file))
 							),
 							'packageVersion' => $stringsRevision,
-							'packageBuild' => $revision,
-							'locked' => $platform->is_writeable($file) ? 0 : 1,
+							'packageBuild'   => $revision,
+							'locked'         => $platform->is_writeable($file) ? 0 : 1,
 						)
 					);
 
@@ -1111,21 +1111,21 @@ class GalleryRepository {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		switch ($source) {
 			case 'released':
-				return array( null, $module->translate('Official Release Repository') );
+				return array(null, $module->translate('Official Release Repository'));
 
 			case 'experimental':
-				return array( null, $module->translate('Experimental Repository') );
+				return array(null, $module->translate('Experimental Repository'));
 
 			case 'community':
-				return array( null, $module->translate('Community Repository') );
+				return array(null, $module->translate('Community Repository'));
 
 			default:
-				return array( null, '' );
+				return array(null, '');
 		}
 	}
 
@@ -1199,7 +1199,7 @@ class GalleryRepository {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		call_user_func(
@@ -1217,13 +1217,13 @@ class GalleryRepository {
 		$platform->unlink($aggregateFile);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		list($ret, $status) = $this->_preverifyAggregatePackages($packages, $callback);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$installedPackageCount = 0;
@@ -1260,7 +1260,7 @@ class GalleryRepository {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 
 					// Update plugin package map.
@@ -1271,7 +1271,7 @@ class GalleryRepository {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 					$ret = $utilities->updatePackageMetaData(
 						$pluginType,
@@ -1283,7 +1283,7 @@ class GalleryRepository {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 
 					call_user_func(
@@ -1296,7 +1296,7 @@ class GalleryRepository {
 			}
 		}
 
-		return array( null, $status, $installedPackageCount );
+		return array(null, $status, $installedPackageCount);
 	}
 
 	/**
@@ -1366,7 +1366,7 @@ class GalleryRepository {
 			}
 		}
 
-		return array( null, $status );
+		return array(null, $status);
 	}
 
 	/**

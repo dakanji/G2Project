@@ -117,7 +117,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 			AND ([GalleryChildEntity::id] = [GalleryDerivative::id])
 			';
 
-			list($ret, $searchResults) = $gallery->search($query, array( $parentId, $derivativeType ));
+			list($ret, $searchResults) = $gallery->search($query, array($parentId, $derivativeType));
 
 			if ($ret) {
 				return $ret;
@@ -210,8 +210,8 @@ class GalleryDerivativeImage extends GalleryDerivative {
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$src          = $urlGenerator->generateUrl(
 					array(
-						'view' => 'core.DownloadItem',
-						'itemId' => $this->getId(),
+						'view'         => 'core.DownloadItem',
+						'itemId'       => $this->getId(),
 						'serialNumber' => $this->getSerialNumber(),
 					),
 					array(
@@ -219,7 +219,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 					)
 				);
 
-				list($width, $height) = array( $this->getWidth(), $this->getHeight() );
+				list($width, $height) = array($this->getWidth(), $this->getHeight());
 
 				// Shrink our dimensions if necessary
 				if (isset($params['maxSize'])) {

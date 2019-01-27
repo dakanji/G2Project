@@ -41,8 +41,8 @@ class JpegtranModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array( 7, 20 ));
-		$this->setRequiredModuleApi(array( 3, 6 ));
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -78,17 +78,17 @@ class JpegtranModule extends GalleryModule {
 		list($ret, $results) = JpegtranToolkitHelper::getOperations();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (empty($results) || !isset($results['operations']['rotate'])) {
-			return array( GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null );
+			return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
 		}
 
 		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById($this->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$priority = $priority ? $priority : 5;
 
@@ -105,17 +105,17 @@ class JpegtranModule extends GalleryModule {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -130,16 +130,16 @@ class JpegtranModule extends GalleryModule {
 		$ret = GalleryCoreApi::unregisterToolkit($this->getId());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $redirect) = parent::deactivate($postDeactivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
@@ -148,16 +148,16 @@ class JpegtranModule extends GalleryModule {
 	public function needsConfiguration() {
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array( null, true );
+			return array(null, true);
 		}
 
 		list($ret, $path) = $this->getParameter('path');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, empty($path) );
+		return array(null, empty($path));
 	}
 
 	/**
@@ -168,17 +168,17 @@ class JpegtranModule extends GalleryModule {
 
 		// This module requires exec()
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		list($ret, $needsConfiguration) = $this->needsConfiguration();
 
 		if ($ret) {
-			return array( $ret, false );
+			return array($ret, false);
 		}
 
 		if (!$needsConfiguration) {
-			return array( null, true );
+			return array(null, true);
 		}
 
 		// Try a bunch of likely seeming paths to see if any of them work.
@@ -237,7 +237,7 @@ class JpegtranModule extends GalleryModule {
 			$paths[] = '/opt/libjpg-6b/bin/jpegtran';
 			$paths[] = '/sw/bin/jpegtran';
 		} else {
-			return array( null, false );
+			return array(null, false);
 		}
 
 		GalleryCoreApi::requireOnce('modules/jpegtran/classes/JpegtranToolkitHelper.class');
@@ -270,14 +270,14 @@ class JpegtranModule extends GalleryModule {
 				$ret = $this->setParameter('path', $path);
 
 				if ($ret) {
-					return array( $ret, false );
+					return array($ret, false);
 				}
 
-				return array( null, true );
+				return array(null, true);
 			}
 		}
 
-		return array( null, false );
+		return array(null, false);
 	}
 
 	/**

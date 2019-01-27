@@ -50,7 +50,7 @@ if (class_exists('HTML_Safe')) {
  *
  * <b>Example:</b>
  * <pre>
- * $parser =& new HTML_Safe();
+ * $parser = new HTML_Safe();
  * $result = $parser->parse($doc);
  * </pre>
  *
@@ -141,7 +141,7 @@ class HTML_Safe {
 	 * @var array
 	 * @access public
 	 */
-	public $singleTags = array( 'area', 'br', 'img', 'input', 'hr', 'wbr' );
+	public $singleTags = array('area', 'br', 'img', 'input', 'hr', 'wbr');
 
 	/**
 	 * List of dangerous tags (such tags will be deleted)
@@ -179,7 +179,7 @@ class HTML_Safe {
 	 * @var array
 	 * @access public
 	 */
-	public $deleteTagsContent = array( 'script', 'style', 'title', 'xml' );
+	public $deleteTagsContent = array('script', 'style', 'title', 'xml');
 
 	/**
 	 * Type of protocols filtering ('white' or 'black')
@@ -350,7 +350,7 @@ class HTML_Safe {
 	 * @var array
 	 * @access public
 	 */
-	public $listTags = array( 'dir', 'menu', 'ol', 'ul', 'dl' );
+	public $listTags = array('dir', 'menu', 'ol', 'ul', 'dl');
 
 	/**
 	 * List of dangerous attributes
@@ -358,7 +358,7 @@ class HTML_Safe {
 	 * @var array
 	 * @access public
 	 */
-	public $attributes = array( 'dynsrc', 'id', 'name' );
+	public $attributes = array('dynsrc', 'id', 'name');
 
 	/**
 	 * List of allowed "namespaced" attributes
@@ -366,7 +366,7 @@ class HTML_Safe {
 	 * @var array
 	 * @access public
 	 */
-	public $attributesNS = array( 'xml:lang' );
+	public $attributesNS = array('xml:lang');
 
 	/**
 	 * Constructs class
@@ -740,7 +740,7 @@ class HTML_Safe {
 	 * @access private
 	 */
 	public function repackUTF7($str) {
-		return preg_replace_callback('!\+([0-9a-zA-Z/]+)\-!', array( $this, 'repackUTF7Callback' ), $str);
+		return preg_replace_callback('!\+([0-9a-zA-Z/]+)\-!', array($this, 'repackUTF7Callback'), $str);
 	}
 
 	/**
@@ -752,7 +752,7 @@ class HTML_Safe {
 	 */
 	public function repackUTF7Callback($str) {
 		$str = base64_decode($str[1]);
-		$str = preg_replace_callback('/^((?:\x00.)*)((?:[^\x00].)+)/', array( $this, 'repackUTF7Back' ), $str);
+		$str = preg_replace_callback('/^((?:\x00.)*)((?:[^\x00].)+)/', array($this, 'repackUTF7Back'), $str);
 
 		return preg_replace('/\x00(.)/', '$1', $str);
 	}

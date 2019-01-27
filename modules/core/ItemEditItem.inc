@@ -44,7 +44,7 @@ class ItemEditItem extends ItemEditPlugin {
 			list($ret, $rootAlbumId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$isRootAlbum = $item->getId() == $rootAlbumId;
@@ -52,7 +52,7 @@ class ItemEditItem extends ItemEditPlugin {
 			// Validate the input data.
 			$platform =& $gallery->getPlatform();
 
-			foreach (array( 'title', 'summary', 'keywords', 'description' ) as $key) {
+			foreach (array('title', 'summary', 'keywords', 'description') as $key) {
 				if (!empty($form[$key]) && is_string($form[$key])) {
 					$form[$key] = trim($form[$key]);
 				} else {
@@ -98,10 +98,10 @@ class ItemEditItem extends ItemEditPlugin {
 
 			if (empty($error) && isset($form['thumbnail']['size'])) {
 				// Load the thumbnail
-				list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $item->getId() ));
+				list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 				$thumbnail = empty($thumbnail) ? null : $thumbnail[$item->getId()];
 
@@ -111,12 +111,12 @@ class ItemEditItem extends ItemEditPlugin {
 						list($ret) = GalleryCoreApi::guaranteeAlbumHasThumbnail($item->getId());
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
-						list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $item->getId() ));
+						list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 
 						if (empty($thumbnail)) {
@@ -130,7 +130,7 @@ class ItemEditItem extends ItemEditPlugin {
 						list($ret, $source) = GalleryCoreApi::fetchPreferredSource($item);
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 
 						if (isset($source)) {
@@ -140,7 +140,7 @@ class ItemEditItem extends ItemEditPlugin {
 							);
 
 							if ($ret) {
-								return array( $ret, null, null, null );
+								return array($ret, null, null, null);
 							}
 						}
 
@@ -165,17 +165,17 @@ class ItemEditItem extends ItemEditPlugin {
 						list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 						$ret = $thumbnail->save();
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
-						$ret = GalleryCoreApi::releaseLocks(array( $lockId ));
+						$ret = GalleryCoreApi::releaseLocks(array($lockId));
 
 						if ($ret) {
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 					}
 				} elseif (isset($thumbnail) && empty($form['thumbnail']['size'])) {
@@ -186,7 +186,7 @@ class ItemEditItem extends ItemEditPlugin {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				} elseif ($form['thumbnail']['size'] > 0 && empty($error)) {
 					// Create the thumbnail
@@ -196,7 +196,7 @@ class ItemEditItem extends ItemEditPlugin {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					if (!isset($thumbnail)) {
@@ -211,7 +211,7 @@ class ItemEditItem extends ItemEditPlugin {
 					$ret = $thumbnail->create($item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					$thumbnail->setMimeType($outputMimeType);
@@ -221,7 +221,7 @@ class ItemEditItem extends ItemEditPlugin {
 					$ret = $thumbnail->save();
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				}
 			}
@@ -230,7 +230,7 @@ class ItemEditItem extends ItemEditPlugin {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				/*
@@ -257,7 +257,7 @@ class ItemEditItem extends ItemEditPlugin {
 					if ($ret && !($ret->getErrorCode() & ERROR_COLLISION)) {
 						GalleryCoreApi::releaseLocks($lockId);
 
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				}
 
@@ -267,7 +267,7 @@ class ItemEditItem extends ItemEditPlugin {
 					list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					if ($markup == 'html') {
@@ -303,14 +303,14 @@ class ItemEditItem extends ItemEditPlugin {
 
 						GalleryCoreApi::releaseLocks($lockId);
 
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					// Prepare our status message
 					list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					$status = $module->translate('Changes saved successfully');
@@ -319,12 +319,12 @@ class ItemEditItem extends ItemEditPlugin {
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 			}
 		}
 
-		return array( null, $error, $status, false );
+		return array(null, $error, $status, false);
 	}
 
 	/**
@@ -357,7 +357,7 @@ class ItemEditItem extends ItemEditPlugin {
 			}
 		}
 
-		foreach (array( 'title', 'description', 'summary', 'pathComponent' ) as $key) {
+		foreach (array('title', 'description', 'summary', 'pathComponent') as $key) {
 			if (!empty($form[$key]) && !is_string($form[$key])) {
 				$form[$key] = '';
 			}
@@ -366,7 +366,7 @@ class ItemEditItem extends ItemEditPlugin {
 		list($ret, $rootAlbumId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$can                        = array(
@@ -381,7 +381,7 @@ class ItemEditItem extends ItemEditPlugin {
 				list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item, 0, 1);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 
 				if (empty($childIds)) {
@@ -391,11 +391,11 @@ class ItemEditItem extends ItemEditPlugin {
 		} elseif (isset($thumbnail) && $thumbnail->getDerivativeSourceId() != $item->getId()) {
 			list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 				$thumbnail->getDerivativeSourceId(),
-				array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+				array('GalleryFileSystemEntity', 'GalleryDerivative')
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			list($ret, $can['createThumbnail']) = GalleryCoreApi::isSupportedOperationSequence(
 				$source->getMimeType(),
@@ -403,7 +403,7 @@ class ItemEditItem extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		} elseif (method_exists($item, 'getMimeType')) {
 			list($ret, $operations) = GalleryCoreApi::makeSupportedViewableOperationSequence(
@@ -412,7 +412,7 @@ class ItemEditItem extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$can['createThumbnail'] = isset($operations);
 		}
@@ -426,18 +426,18 @@ class ItemEditItem extends ItemEditPlugin {
 		list($ret, $originationTimestamp) = GalleryCoreApi::fetchOriginationTimestamp($item);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if ($originationTimestamp > 0) {
 			$ItemEditItem['originationTimestamp'] = array(
-				'timestamp' => $originationTimestamp,
-				'Time_Hour' => $platform->strftime('%H', $originationTimestamp),
+				'timestamp'   => $originationTimestamp,
+				'Time_Hour'   => $platform->strftime('%H', $originationTimestamp),
 				'Time_Minute' => $platform->strftime('%M', $originationTimestamp),
 				'Time_Second' => $platform->strftime('%S', $originationTimestamp),
-				'Date_Day' => ltrim($platform->strftime('%d', $originationTimestamp), '0'),
-				'Date_Month' => $platform->strftime('%m', $originationTimestamp),
-				'Date_Year' => $platform->strftime('%Y', $originationTimestamp),
+				'Date_Day'    => ltrim($platform->strftime('%d', $originationTimestamp), '0'),
+				'Date_Month'  => $platform->strftime('%m', $originationTimestamp),
+				'Date_Year'   => $platform->strftime('%Y', $originationTimestamp),
 			);
 		}
 
@@ -473,9 +473,9 @@ class ItemEditItem extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('General') );
+		return array(null, $module->translate('General'));
 	}
 }

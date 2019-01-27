@@ -41,14 +41,14 @@ class RatingHelper {
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'RatingCacheMap',
-			array( 'itemId', 'averageRating', 'voteCount' ),
+			array('itemId', 'averageRating', 'voteCount'),
 			array(
 				'itemId' => $itemIds,
 			)
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$data = array();
@@ -56,13 +56,13 @@ class RatingHelper {
 		while ($result = $searchResults->nextResult()) {
 			$rating                = $result[1] / 1000;
 			$data[(int)$result[0]] = array(
-				'itemId' => (int)$result[0],
-				'rating' => GalleryUtilities::roundToString($rating, 3),
-				'votes' => (int)$result[2],
+				'itemId'         => (int)$result[0],
+				'rating'         => GalleryUtilities::roundToString($rating, 3),
+				'votes'          => (int)$result[2],
 				'averagePercent' => GalleryUtilities::roundToString(($rating * 100 / 5), 3),
-				'stars' => (int)round($rating * 2),
-				'userRating' => 'N/A',
-				'userStars' => 0,
+				'stars'          => (int)round($rating * 2),
+				'userRating'     => 'N/A',
+				'userStars'      => 0,
 			);
 
 			if ($rating == 0) {
@@ -74,12 +74,12 @@ class RatingHelper {
 		foreach ($itemIds as $itemId) {
 			if (!isset($data[$itemId])) {
 				$data[$itemId] = array(
-					'itemId' => $itemId,
-					'rating' => 0,
-					'votes' => 0,
-					'userRating' => 'N/A',
-					'userStars' => 0,
-					'stars' => 0,
+					'itemId'         => $itemId,
+					'rating'         => 0,
+					'votes'          => 0,
+					'userRating'     => 'N/A',
+					'userStars'      => 0,
+					'stars'          => 0,
 					'averagePercent' => 0,
 				);
 			}
@@ -102,7 +102,7 @@ class RatingHelper {
 			list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser($userId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if ($isAnonymous) {
@@ -114,12 +114,12 @@ class RatingHelper {
 
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'RatingMap',
-				array( 'itemId', 'rating' ),
+				array('itemId', 'rating'),
 				$searchParams
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			while ($result = $searchResults->nextResult()) {
@@ -133,7 +133,7 @@ class RatingHelper {
 			}
 		}
 
-		return array( null, $data );
+		return array(null, $data);
 	}
 
 	/**
@@ -153,14 +153,14 @@ class RatingHelper {
 		$botId = GalleryUtilities::identifySearchEngine();
 
 		if (isset($botId)) {
-			return array( null, null );
+			return array(null, null);
 		}
 
 		// Make sure the item really exists
 		list($ret, $entity) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Use this to get new IDs and check affected rows for updates
@@ -177,7 +177,7 @@ class RatingHelper {
 			$ret = $session->start();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -188,7 +188,7 @@ class RatingHelper {
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser($userId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Update existing user vote for this item
@@ -205,37 +205,37 @@ class RatingHelper {
 		$ret = GalleryCoreApi::removeMapEntry('RatingMap', $matchParams);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Insert record
 		list($ret, $ratingId) = $storage->getUniqueId();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ret = GalleryCoreApi::addMapEntry(
 			'RatingMap',
 			array(
-				'ratingId' => $ratingId,
-				'itemId' => $itemId,
-				'userId' => $userId,
-				'rating' => $rating,
-				'sessionId' => $sessionId,
+				'ratingId'         => $ratingId,
+				'itemId'           => $itemId,
+				'userId'           => $userId,
+				'rating'           => $rating,
+				'sessionId'        => $sessionId,
 				'remoteIdentifier' => implode(':', $remoteId),
 			)
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Compute average and update cache table
-		list($ret, $avg) = $storage->getFunctionSql('AVG', array( '[RatingMap::rating]' ));
+		list($ret, $avg) = $storage->getFunctionSql('AVG', array('[RatingMap::rating]'));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$query                     = '
 		SELECT
@@ -246,10 +246,10 @@ class RatingHelper {
 		WHERE
 		[RatingMap::itemId] = ?
 		';
-		list($ret, $searchResults) = $gallery->search($query, array( (int)$itemId ));
+		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$data = array();
@@ -268,20 +268,20 @@ class RatingHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$ret = GalleryCoreApi::addMapEntry(
 				'RatingCacheMap',
 				array(
-					'itemId' => $itemId,
+					'itemId'        => $itemId,
 					'averageRating' => $averageRating,
-					'voteCount' => $voteCount,
+					'voteCount'     => $voteCount,
 				)
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$data['itemId']     = (int)$itemId;
@@ -290,6 +290,6 @@ class RatingHelper {
 			$data['userRating'] = (int)$rating;
 		}
 
-		return array( null, $data );
+		return array(null, $data);
 	}
 }

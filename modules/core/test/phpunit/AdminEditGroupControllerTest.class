@@ -44,11 +44,11 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -69,12 +69,12 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroup',
 					'groupId' => $group->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Undo Edit Group'
@@ -99,7 +99,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(
@@ -127,11 +127,11 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroup',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][groupName][missing]' ),
+				'error'  => array('form[error][groupName][missing]'),
 			),
 			$results
 		);
@@ -144,7 +144,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 		list($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!isset($group)) {
@@ -157,15 +157,15 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 		$ret = $group->create('testgroup-' . mt_rand());
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$ret = $group->save();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $group );
+		return array(null, $group);
 	}
 
 	public function _deleteGroup($group) {

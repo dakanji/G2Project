@@ -37,10 +37,10 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 
 		if (isset($form['action']['crop']) || isset($form['action']['reset'])) {
 			// Load the thumbnail
-			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array( $item->getId() ));
+			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			if (!empty($thumbnails)) {
@@ -52,23 +52,23 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			// Get our source
 			list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 				$thumbnail->getDerivativeSourceId(),
-				array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+				array('GalleryFileSystemEntity', 'GalleryDerivative')
 			);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			list($ret, $lock) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			list($ret, $thumbnail) = $thumbnail->refresh();
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			if (empty($form['crop']['width'])) {
@@ -109,40 +109,40 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 			$thumbnail->setDerivativeOperations($operations);
 
 			$ret = $thumbnail->save();
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lock);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			// Figure out where to redirect upon success
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 			$status = $module->translate('Thumbnail cropped successfully');
 		} elseif (isset($form['action']['reset']) && isset($thumbnail)) {
 			list($ret, $lock) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			list($ret, $thumbnail) = $thumbnail->refresh();
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$operations = GalleryCoreApi::removeDerivativeOperation(
@@ -154,25 +154,25 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			$ret = $thumbnail->save();
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lock);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			// Figure out where to redirect upon success
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 			$status = $module->translate('Thumbnail reset successfully');
 		}
 
-		return array( null, $error, $status, false );
+		return array(null, $error, $status, false);
 	}
 
 	/**
@@ -187,7 +187,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		list($ret, $ItemEditPhotoThumbnail['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if ($form['formName'] != 'ItemEditPhotoThumbnail') {
@@ -232,11 +232,11 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		 */
 		list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 			$thumbnail->getDerivativeSourceId(),
-			array( 'GalleryFileSystemEntity', 'GalleryDerivative' )
+			array('GalleryFileSystemEntity', 'GalleryDerivative')
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Convert crop percentages into real pixels
@@ -256,27 +256,27 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($source->getId());
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			list($ret, $source) = $source->refresh();
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$ret = $source->rescan();
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$ret = $source->save();
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -284,7 +284,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($source->getMimeType(), 'crop');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$width = $source->getWidth();
@@ -310,13 +310,13 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			$urlGenerator =& $gallery->getUrlGenerator();
 			$url          = $urlGenerator->generateUrl(
 				array(
-					'view' => 'core.DownloadItem',
+					'view'   => 'core.DownloadItem',
 					'itemId' => $source->getId(),
 				),
 				array(
 					'forceSessionId' => true,
-					'forceFullUrl' => true,
-					'htmlEntities' => false,
+					'forceFullUrl'   => true,
+					'htmlEntities'   => false,
 				)
 			);
 
@@ -335,59 +335,59 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Photo 5x3'),
-				'width' => 5,
+				'label'  => $module->translate('Photo 5x3'),
+				'width'  => 5,
 				'height' => 3,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Photo 6x4'),
-				'width' => 6,
+				'label'  => $module->translate('Photo 6x4'),
+				'width'  => 6,
 				'height' => 4,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Photo 7x5'),
-				'width' => 7,
+				'label'  => $module->translate('Photo 7x5'),
+				'width'  => 7,
 				'height' => 5,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Photo 10x8'),
-				'width' => 10,
+				'label'  => $module->translate('Photo 10x8'),
+				'width'  => 10,
 				'height' => 8,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Fullscreen 4x3'),
-				'width' => 4,
+				'label'  => $module->translate('Fullscreen 4x3'),
+				'width'  => 4,
 				'height' => 3,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Widescreen 16x9'),
-				'width' => 16,
+				'label'  => $module->translate('Widescreen 16x9'),
+				'width'  => 16,
 				'height' => 9,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('CinemaScope 2.35x1'),
-				'width' => 47,
+				'label'  => $module->translate('CinemaScope 2.35x1'),
+				'width'  => 47,
 				'height' => 20,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('Square 1x1'),
-				'width' => 1,
+				'label'  => $module->translate('Square 1x1'),
+				'width'  => 1,
 				'height' => 1,
 			);
 			$aspectRatioList[] = array(
-				'label' => $module->translate('As Image'),
-				'width' => $item->getWidth(),
+				'label'  => $module->translate('As Image'),
+				'width'  => $item->getWidth(),
 				'height' => $item->getHeight(),
 			);
 			$ItemEditPhotoThumbnail['editThumbnail']['aspectRatioList'] = $aspectRatioList;
 
-			$orientationList              = array();
-			$orientationList['landscape'] = $module->translate('Landscape');
-			$orientationList['portrait']  = $module->translate('Portrait');
+			$orientationList                                            = array();
+			$orientationList['landscape']                               = $module->translate('Landscape');
+			$orientationList['portrait']                                = $module->translate('Portrait');
 			$ItemEditPhotoThumbnail['editThumbnail']['orientationList'] = $orientationList;
 
 
@@ -399,8 +399,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			$i             = 0;
 
 			// Set defaults
-			$selectedAspect      = 0;
-			$selectedOrientation = 'portrait';
+			$selectedAspect                                             = 0;
+			$selectedOrientation                                        = 'portrait';
 			$ItemEditPhotoThumbnail['editThumbnail']['cropRatioWidth']  = $aspectRatioList[0]['width'];
 			$ItemEditPhotoThumbnail['editThumbnail']['cropRatioHeight'] = $aspectRatioList[0]['height'];
 
@@ -454,9 +454,9 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('Crop Thumbnail') );
+		return array(null, $module->translate('Crop Thumbnail'));
 	}
 }

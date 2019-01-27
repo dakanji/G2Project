@@ -107,8 +107,8 @@ class GalleryBbcodeMarkupParser {
 
 		// Convert line breaks everywhere
 		$this->_bbcode->addParser(
-			array( 'block', 'inline', 'link', 'listitem', 'list' ),
-			array( $this, 'convertLineBreaks' )
+			array('block', 'inline', 'link', 'listitem', 'list'),
+			array($this, 'convertLineBreaks')
 		);
 
 		/*
@@ -119,13 +119,13 @@ class GalleryBbcodeMarkupParser {
 		 */
 
 		// Convert line endings
-		$this->_bbcode->addParser(array( 'block', 'inline', 'link', 'listitem' ), 'nl2br');
+		$this->_bbcode->addParser(array('block', 'inline', 'link', 'listitem'), 'nl2br');
 
 		// Strip last line break in list items
-		$this->_bbcode->addParser(array( 'listitem' ), array( $this, 'stripLastLineBreak' ));
+		$this->_bbcode->addParser(array('listitem'), array($this, 'stripLastLineBreak'));
 
 		// Strip contents in list elements
-		$this->_bbcode->addParser(array( 'list' ), array( $this, 'stripContents' ));
+		$this->_bbcode->addParser(array('list'), array($this, 'stripContents'));
 
 		// [b], [i]
 		$this->_bbcode->addCode(
@@ -134,10 +134,10 @@ class GalleryBbcodeMarkupParser {
 			null,
 			array(
 				'start_tag' => '<b>',
-				'end_tag' => '</b>',
+				'end_tag'   => '</b>',
 			),
 			'inline',
-			array( 'listitem', 'block', 'inline', 'link' ),
+			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
 
@@ -147,10 +147,10 @@ class GalleryBbcodeMarkupParser {
 			null,
 			array(
 				'start_tag' => '<i>',
-				'end_tag' => '</i>',
+				'end_tag'   => '</i>',
 			),
 			'inline',
-			array( 'listitem', 'block', 'inline', 'link' ),
+			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
 
@@ -158,25 +158,25 @@ class GalleryBbcodeMarkupParser {
 		$this->_bbcode->addCode(
 			'url',
 			'usecontent?',
-			array( $this, 'url' ),
+			array($this, 'url'),
 			array(
 				'usecontent_param' => 'default',
 			),
 			'link',
-			array( 'listitem', 'block', 'inline' ),
-			array( 'link' )
+			array('listitem', 'block', 'inline'),
+			array('link')
 		);
 
 		// [color=...]Text[/color]
 		$this->_bbcode->addCode(
 			'color',
 			'callback_replace',
-			array( $this, 'color' ),
+			array($this, 'color'),
 			array(
 				'usecontent_param' => 'default',
 			),
 			'inline',
-			array( 'listitem', 'block', 'inline', 'link' ),
+			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
 
@@ -184,10 +184,10 @@ class GalleryBbcodeMarkupParser {
 		$this->_bbcode->addCode(
 			'img',
 			'usecontent',
-			array( $this, 'image' ),
+			array($this, 'image'),
 			array(),
 			'image',
-			array( 'listitem', 'block', 'inline', 'link' ),
+			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
 
@@ -198,10 +198,10 @@ class GalleryBbcodeMarkupParser {
 			null,
 			array(
 				'start_tag' => '<ul>',
-				'end_tag' => '</ul>',
+				'end_tag'   => '</ul>',
 			),
 			'list',
-			array( 'block', 'listitem' ),
+			array('block', 'listitem'),
 			array()
 		);
 		$this->_bbcode->addCode(
@@ -210,10 +210,10 @@ class GalleryBbcodeMarkupParser {
 			null,
 			array(
 				'start_tag' => '<li>',
-				'end_tag' => "</li>\n",
+				'end_tag'   => "</li>\n",
 			),
 			'listitem',
-			array( 'list' ),
+			array('list'),
 			array()
 		);
 		$this->_bbcode->setCodeFlag('*', 'closetag', BBCODE_CLOSETAG_OPTIONAL);

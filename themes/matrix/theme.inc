@@ -33,21 +33,21 @@ class MatrixTheme extends GalleryTheme {
 		$this->setName($gallery->i18n('Matrix'));
 		$this->setDescription($gallery->i18n('Standard Gallery2 look and feel'));
 		$this->setVersion('1.2.0');
-		$this->setRequiredCoreApi(array( 7, 20 ));
-		$this->setRequiredThemeApi(array( 2, 4 ));
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredThemeApi(array(2, 4));
 		$this->setStandardSettings(
 			array(
-				'rows' => 3,
-				'columns' => 3,
-				'showImageOwner' => 0,
-				'showAlbumOwner' => 1,
-				'albumFrame' => '',
-				'itemFrame' => '',
-				'photoFrame' => '',
-				'colorpack' => '',
+				'rows'            => 3,
+				'columns'         => 3,
+				'showImageOwner'  => 0,
+				'showAlbumOwner'  => 1,
+				'albumFrame'      => '',
+				'itemFrame'       => '',
+				'photoFrame'      => '',
+				'colorpack'       => '',
 				'showMicroThumbs' => 0,
-				'dynamicLinks' => 'browse',
-				'sidebarBlocks' => serialize(
+				'dynamicLinks'    => 'browse',
+				'sidebarBlocks'   => serialize(
 					array(
 						array(
 							'search.SearchBlock',
@@ -61,19 +61,19 @@ class MatrixTheme extends GalleryTheme {
 								'useDropdown' => false,
 							),
 						),
-						array( 'core.PeerList', array() ),
-						array( 'imageblock.ImageBlock', array() ),
+						array('core.PeerList', array()),
+						array('imageblock.ImageBlock', array()),
 					)
 				),
 				'albumBlocks' => serialize(
 					array(
-						array( 'comment.ViewComments', array() ),
+						array('comment.ViewComments', array()),
 					)
 				),
 				'photoBlocks' => serialize(
 					array(
-						array( 'exif.ExifInfo', array() ),
-						array( 'comment.ViewComments', array() ),
+						array('exif.ExifInfo', array()),
+						array('comment.ViewComments', array()),
 					)
 				),
 			)
@@ -106,7 +106,7 @@ class MatrixTheme extends GalleryTheme {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Add in our extra stuff
@@ -114,7 +114,7 @@ class MatrixTheme extends GalleryTheme {
 		$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
 		// Add our header and styles
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -138,10 +138,10 @@ class MatrixTheme extends GalleryTheme {
 		$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -152,14 +152,14 @@ class MatrixTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
@@ -170,21 +170,21 @@ class MatrixTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 
 	/**
 	 * @see GalleryTheme::showErrorPage
 	 */
 	public function showErrorPage(&$template) {
-		return array( null, 'error.tpl' );
+		return array(null, 'error.tpl');
 	}
 
 	/**
@@ -195,13 +195,13 @@ class MatrixTheme extends GalleryTheme {
 			$template,
 			$item,
 			$params,
-			array( 'parents', 'systemLinks' )
+			array('parents', 'systemLinks')
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, 'theme.tpl' );
+		return array(null, 'theme.tpl');
 	}
 }

@@ -50,13 +50,13 @@ class GalleryPluginHelper_simple {
 			switch ($pluginType) {
 				case 'module':
 					$pluginSuperClass = 'GalleryModule';
-					$pluginClass = $pluginId . 'Module';
+					$pluginClass      = $pluginId . 'Module';
 
 					break;
 
 				case 'theme':
 					$pluginSuperClass = 'GalleryTheme';
-					$pluginClass = $pluginId . 'Theme';
+					$pluginClass      = $pluginId . 'Theme';
 
 					break;
 
@@ -78,7 +78,7 @@ class GalleryPluginHelper_simple {
 				}
 
 				$pluginBaseDir = GalleryCoreApi::getCodeBasePath();
-				$pluginFile = sprintf('%ss/%s/%s.inc', $pluginType, $pluginId, $pluginType);
+				$pluginFile    = sprintf('%ss/%s/%s.inc', $pluginType, $pluginId, $pluginType);
 
 				GalleryCoreApi::requireOnce(
 					sprintf('modules/core/classes/%s.class', $pluginSuperClass)
@@ -97,9 +97,9 @@ class GalleryPluginHelper_simple {
 						);
 						GalleryDataCache::removeFromDisk(
 							array(
-								'type' => $pluginType,
+								'type'   => $pluginType,
 								'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-								'id' => '_all',
+								'id'     => '_all',
 							)
 						);
 						list($ret, $plugin) = GalleryPluginHelper_simple::loadPlugin(
@@ -192,7 +192,7 @@ class GalleryPluginHelper_simple {
 							$gallery->debug_r($redirectInfo);
 						}
 						$urlGenerator =& $gallery->getUrlGenerator();
-						$phpVm = $gallery->getPhpVm();
+						$phpVm        = $gallery->getPhpVm();
 						$phpVm->header('Location: ' .
 						$urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php');
 
@@ -355,8 +355,8 @@ class GalleryPluginHelper_simple {
 		}
 
 		// Check cache
-		$data = $queryIds = array();
-		$itemIds = is_array($itemId) ? $itemId : array($itemId);
+		$data      = $queryIds      = array();
+		$itemIds   = is_array($itemId) ? $itemId : array($itemId);
 		$cacheBase = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, ";
 
 		foreach ($itemIds as $itemId) {
@@ -371,9 +371,9 @@ class GalleryPluginHelper_simple {
 			if (!$ignoreDiskCache) {
 				$cacheData =& GalleryDataCache::getFromDisk(
 					array(
-						'type' => $pluginType,
+						'type'   => $pluginType,
 						'itemId' => $itemId,
-						'id' => $pluginId,
+						'id'     => $pluginId,
 					)
 				);
 
@@ -392,7 +392,7 @@ class GalleryPluginHelper_simple {
 		}
 
 		$whereId = count($queryIds) > 1 ? 'IN (' . GalleryUtilities::makeMarkers($queryIds) . ')' : '= ?';
-		$query = '
+		$query   = '
 	  SELECT
 	    [GalleryPluginParameterMap::itemId],
 	    [GalleryPluginParameterMap::parameterName],
@@ -423,9 +423,9 @@ class GalleryPluginHelper_simple {
 			}
 			GalleryDataCache::putToDisk(
 				array(
-					'type' => $pluginType,
+					'type'   => $pluginType,
 					'itemId' => $itemId,
-					'id' => $pluginId,
+					'id'     => $pluginId,
 				),
 				$data[$itemId]
 			);
@@ -447,9 +447,9 @@ class GalleryPluginHelper_simple {
 			if (!$ignoreCache) {
 				$plugins =& GalleryDataCache::getFromDisk(
 					array(
-						'type' => $pluginType,
+						'type'   => $pluginType,
 						'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-						'id' => '_all',
+						'id'     => '_all',
 					)
 				);
 			}
@@ -498,7 +498,7 @@ class GalleryPluginHelper_simple {
 						);
 				}
 
-				$frameworkParams = array('version', 'callbacks', 'requiredCoreApi');
+				$frameworkParams   = array('version', 'callbacks', 'requiredCoreApi');
 				$frameworkParams[] = ($pluginType == 'module') ? 'requiredModuleApi' : 'requiredThemeApi';
 
 				$pluginBasePath = GalleryCoreApi::getCodeBasePath($pluginsDir);
@@ -533,7 +533,7 @@ class GalleryPluginHelper_simple {
 
 								// Separate out the major/minor version.
 								if (!strncmp($paramName, 'required', 8)) {
-									$tmp = explode(',', $plugins[$pluginId][$paramName]);
+									$tmp                            = explode(',', $plugins[$pluginId][$paramName]);
 									$plugins[$pluginId][$paramName] = (count($tmp) < 2) ? array(-1, -1) : array((int)$tmp[0], (int)$tmp[1]);
 								}
 							}
@@ -544,7 +544,7 @@ class GalleryPluginHelper_simple {
 
 				if ($pluginType == 'module') {
 					// Force the core module's status
-					$plugins['core']['active'] = 1;
+					$plugins['core']['active']    = 1;
 					$plugins['core']['available'] = 1;
 				}
 
@@ -560,9 +560,9 @@ class GalleryPluginHelper_simple {
 
 				GalleryDataCache::putToDisk(
 					array(
-						'type' => $pluginType,
+						'type'   => $pluginType,
 						'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-						'id' => '_all',
+						'id'     => '_all',
 					),
 					$plugins
 				);

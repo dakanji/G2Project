@@ -52,11 +52,11 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'icons.IconsSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -70,7 +70,7 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'icons.IconsSiteAdmin',
 				),
 				'status' => array(
@@ -96,11 +96,11 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'icons.IconsSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][iconpack][missing]' ),
+				'error'  => array('form[error][iconpack][missing]'),
 			),
 			$results
 		);

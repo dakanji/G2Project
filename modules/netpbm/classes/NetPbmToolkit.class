@@ -42,15 +42,15 @@ class NetPbmToolkit extends GalleryToolkit {
 						null,
 					);
 				}
-				$results = array( $width, $height );
+				$results = array($width, $height);
 
 				break;
 
 			default:
-				return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+				return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 		}
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	/**
@@ -89,21 +89,21 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		// Use context look-ahead to see if we can queue up parameters to use later..
 		$queueIt = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
-		&& $operationName != 'compress' && $context['next.operation'] != 'compress';
+		                                           && $operationName != 'compress'                                            && $context['next.operation'] != 'compress';
 
-		$usePercent = in_array($operationName, array( 'thumbnail', 'scale', 'resize' ))
+		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'
 			|| (isset($parameters[1]) && substr($parameters[1], -1) == '%'));
 
 		if (!isset($width) && ($queueIt || $usePercent
-			|| in_array($operationName, array( 'thumbnail', 'crop' )))
+			|| in_array($operationName, array('thumbnail', 'crop')))
 		) {
 			list($ret, $width, $height) = $this->_getImageDimensions($mimeType, $sourceFilename);
 
 			if ($ret) {
 				$this->_deleteTempFiles($context);
 
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -205,7 +205,7 @@ class NetPbmToolkit extends GalleryToolkit {
 						);
 				}
 
-				$transform[] = array( $this->_pnmCmd('pnmflip'), $flipArgument );
+				$transform[] = array($this->_pnmCmd('pnmflip'), $flipArgument);
 
 				if (isset($width) && ($parameters[0] == 90 || $parameters[0] == -90)) {
 					$tmp    = $width;
@@ -355,7 +355,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				}
 
 				// Execute commands
-				list($success, $output) = $platform->exec(array( $getOverlayCmd ));
+				list($success, $output) = $platform->exec(array($getOverlayCmd));
 
 				if (!$success) {
 					$this->_deleteTempFiles($context);
@@ -373,7 +373,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				}
 
 				if (isset($getAlphaCmd)) {
-					list($success, $output) = $platform->exec(array( $getAlphaCmd ));
+					list($success, $output) = $platform->exec(array($getAlphaCmd));
 
 					if (!$success) {
 						$this->_deleteTempFiles($context);
@@ -390,7 +390,7 @@ class NetPbmToolkit extends GalleryToolkit {
 						);
 					}
 				}
-				$pnmcomp = array( $this->_pnmCmd('pnmcomp') );
+				$pnmcomp = array($this->_pnmCmd('pnmcomp'));
 
 				switch ($compositeAlignmentType) {
 					case 'top-left': // Top - Left
@@ -455,7 +455,7 @@ class NetPbmToolkit extends GalleryToolkit {
 							if ($ret) {
 								$this->_deleteTempFiles($context);
 
-								return array( $ret, null, null );
+								return array($ret, null, null);
 							}
 						}
 
@@ -508,7 +508,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				list($ret, $quality) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality');
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 				$maxQuality = 100;
 				$minQuality = 5;
@@ -525,7 +525,7 @@ class NetPbmToolkit extends GalleryToolkit {
 					);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 					clearstatcache();
 					$fileSize = $platform->filesize($destFilename) >> 10;
@@ -541,7 +541,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				} while ($maxQuality - $minQuality > 2 &&
 					 abs(($fileSize - $targetSize) / $targetSize) > 0.02);
 
-				return array( null, $outputMimeType, $context );
+				return array(null, $outputMimeType, $context);
 
 			default:
 				$this->_deleteTempFiles($context);
@@ -586,7 +586,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			$context['netpbm.mime']      = $mimeType;
 			$context['netpbm.metadata']  = $preserveMetaData;
 
-			return array( null, $outputMimeType, $context );
+			return array(null, $outputMimeType, $context);
 		}
 
 		if (!empty($transform) || $outputMimeType != $mimeType) {
@@ -607,10 +607,10 @@ class NetPbmToolkit extends GalleryToolkit {
 		$this->_deleteTempFiles($context);
 
 		if (isset($ret) && $ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		return array( null, $outputMimeType, $context );
+		return array(null, $outputMimeType, $context);
 	}
 
 	/**
@@ -646,16 +646,16 @@ class NetPbmToolkit extends GalleryToolkit {
 		if (($results != false)
 			&& (($results[0] > 1) && ($results[1] > 1))
 		) {
-			return array( null, $results[0], $results[1] );
+			return array(null, $results[0], $results[1]);
 		}
 
 		if ($mimeType == 'image/x-portable-pixmap') {
-			$cmd[] = array( $this->_pnmCmd('pnmfile'), '--allimages', $filename );
+			$cmd[] = array($this->_pnmCmd('pnmfile'), '--allimages', $filename);
 		} else {
 			list($ret, $convertToPnmCmd) = $this->_convertToPnmCmd($mimeType, $filename);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			$cmd = array();
@@ -663,22 +663,22 @@ class NetPbmToolkit extends GalleryToolkit {
 			if (!empty($convertToPnmCmd)) {
 				$cmd[] = $convertToPnmCmd;
 			}
-			$cmd[] = array( $this->_pnmCmd('pnmfile'), '--allimages' );
+			$cmd[] = array($this->_pnmCmd('pnmfile'), '--allimages');
 		}
 
 		list($ret, $output) = $this->_exec($cmd);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		foreach ($output as $line) {
 			if (preg_match('/(\d+) by (\d+)/', $line, $regs)) {
-				return array( null, $regs[1], $regs[2] );
+				return array(null, $regs[1], $regs[2]);
 			}
 		}
 
-		return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
+		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 	}
 
 	/**
@@ -775,8 +775,8 @@ class NetPbmToolkit extends GalleryToolkit {
 			}
 
 			if (!empty($jheadPath)) {
-				$cmd                         = array( $jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename );
-				list($ret, $stdout, $stderr) = $this->_exec(array( $cmd ));
+				$cmd                         = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+				list($ret, $stdout, $stderr) = $this->_exec(array($cmd));
 
 				if ($ret) {
 					@$platform->unlink($tmpFilename);
@@ -859,10 +859,10 @@ class NetPbmToolkit extends GalleryToolkit {
 		}
 
 		if (!empty($cmd)) {
-			return array( null, array( $cmd, '--quiet', $filename ) );
+			return array(null, array($cmd, '--quiet', $filename));
 		}
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	/**
@@ -881,7 +881,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			list($ret, $jpegQuality) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -951,10 +951,10 @@ class NetPbmToolkit extends GalleryToolkit {
 				break;
 
 			default:
-				return array( GalleryCoreApi::error(ERROR_UNSUPPORTED_FILE_TYPE), null );
+				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_FILE_TYPE), null);
 		}
 
-		return array( null, $cmd );
+		return array(null, $cmd);
 	}
 
 	/**
@@ -973,10 +973,10 @@ class NetPbmToolkit extends GalleryToolkit {
 		list($success, $stdout, $stderr) = $platform->exec($cmdArray);
 
 		if (!$success) {
-			return array( GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null );
+			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 		}
 
-		return array( null, $stdout, $stderr );
+		return array(null, $stdout, $stderr);
 	}
 
 	/**
@@ -996,7 +996,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			return $ret;
 		}
 
-		if (in_array($cmd, array( 'pnmtojpeg', 'bmptopnm', 'pnmcomp' ))) {
+		if (in_array($cmd, array('pnmtojpeg', 'bmptopnm', 'pnmcomp'))) {
 			list($ret, $cmd) = GalleryCoreApi::getPluginParameter('module', 'netpbm', $cmd);
 
 			if ($ret) {
@@ -1054,6 +1054,6 @@ class NetPbmToolkit extends GalleryToolkit {
 			return $results;
 		}
 
-		return array( $results );
+		return array($results);
 	}
 }

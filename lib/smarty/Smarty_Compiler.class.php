@@ -43,7 +43,7 @@ class Smarty_Compiler extends Smarty {
 	public $_capture_stack    = array();    // keeps track of nested capture buffers
 	public $_plugin_info      = array();    // keeps track of plugins to load
 	public $_init_smarty_vars = false;
-	public $_permitted_tokens = array( 'true', 'false', 'yes', 'no', 'on', 'off', 'null' );
+	public $_permitted_tokens = array('true', 'false', 'yes', 'no', 'on', 'off', 'null');
 	public $_db_qstr_regexp;        // regexps are setup in the constructor
 	public $_si_qstr_regexp;
 	public $_qstr_regexp;
@@ -248,7 +248,7 @@ class Smarty_Compiler extends Smarty {
 				if ($prefilter[3] || is_callable($prefilter[0])) {
 					$source_content = call_user_func_array(
 						$prefilter[0],
-						array( $source_content, &$this )
+						array($source_content, &$this)
 					);
 					$this->_plugins['prefilter'][$filter_name][3] = true;
 				} else {
@@ -264,7 +264,7 @@ class Smarty_Compiler extends Smarty {
 		$this->_folded_blocks = $match;
 
 		// replace special blocks by "{php}"
-		$source_content = preg_replace_callback($search, array( $this, '_preg_callback' ), $source_content);
+		$source_content = preg_replace_callback($search, array($this, '_preg_callback'), $source_content);
 
 		// Gather all template tags.
 		preg_match_all("~{$ldq}\s*(.*?)\s*{$rdq}~s", $source_content, $_match);
@@ -344,7 +344,7 @@ class Smarty_Compiler extends Smarty {
 					$text_blocks[$j] = "<?php echo '" . strtr(
 						$text_blocks[$j],
 						array(
-							"'" => "\'",
+							"'"  => "\'",
 							'\\' => '\\\\',
 						)
 					) . "'; ?>";
@@ -404,7 +404,7 @@ class Smarty_Compiler extends Smarty {
 				if ($postfilter[3] || is_callable($postfilter[0])) {
 					$compiled_content = call_user_func_array(
 						$postfilter[0],
-						array( $compiled_content, &$this )
+						array($compiled_content, &$this)
 					);
 					$this->_plugins['postfilter'][$filter_name][3] = true;
 				} else {
@@ -434,7 +434,7 @@ class Smarty_Compiler extends Smarty {
 					$_plugins_params .= "array('$plugin_type', '$plugin_name', '" . strtr(
 						$plugin_info[0],
 						array(
-							"'" => "\\'",
+							"'"  => "\\'",
 							'\\' => '\\\\',
 						)
 					) . "', $plugin_info[1], ";
@@ -633,7 +633,7 @@ class Smarty_Compiler extends Smarty {
 						return "<?php echo '" . strtr(
 							$block[2],
 							array(
-								"'" => "\'",
+								"'"  => "\'",
 								'\\' => '\\\\',
 							)
 						) . "'; ?>" . $this->_additional_newline;
@@ -710,7 +710,7 @@ class Smarty_Compiler extends Smarty {
 				$message       = "plugin function $plugin_func() not found in $plugin_file\n";
 				$have_function = false;
 			} else {
-				$this->_plugins['compiler'][$tag_command] = array( $plugin_func, null, null, null, true );
+				$this->_plugins['compiler'][$tag_command] = array($plugin_func, null, null, null, true);
 			}
 		}
 
@@ -722,7 +722,7 @@ class Smarty_Compiler extends Smarty {
 		 */
 		if ($found) {
 			if ($have_function) {
-				$output = call_user_func_array($plugin_func, array( $tag_args, &$this ));
+				$output = call_user_func_array($plugin_func, array($tag_args, &$this));
 
 				if ($output != '') {
 					$output = '<?php ' . $this->_push_cacheable_state('compiler', $tag_command)
@@ -788,7 +788,7 @@ class Smarty_Compiler extends Smarty {
 				$message       = "plugin function $plugin_func() not found in $plugin_file\n";
 				$have_function = false;
 			} else {
-				$this->_plugins['block'][$tag_command] = array( $plugin_func, null, null, null, true );
+				$this->_plugins['block'][$tag_command] = array($plugin_func, null, null, null, true);
 			}
 		}
 
@@ -884,7 +884,7 @@ class Smarty_Compiler extends Smarty {
 				$message       = "plugin function $plugin_func() not found in $plugin_file\n";
 				$have_function = false;
 			} else {
-				$this->_plugins['function'][$tag_command] = array( $plugin_func, null, null, null, true );
+				$this->_plugins['function'][$tag_command] = array($plugin_func, null, null, null, true);
 			}
 		}
 
@@ -1339,7 +1339,7 @@ class Smarty_Compiler extends Smarty {
 			$append = isset($attrs['append']) ? $attrs['append'] : null;
 
 			$output                 = '<?php ob_start(); ?>';
-			$this->_capture_stack[] = array( $buffer, $assign, $append );
+			$this->_capture_stack[] = array($buffer, $assign, $append);
 		} else {
 			list($buffer, $assign, $append) = array_pop($this->_capture_stack);
 			$output                         = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
@@ -1829,7 +1829,7 @@ class Smarty_Compiler extends Smarty {
 					$val,
 					array(
 						'\\' => '\\\\',
-						'"' => '\\"',
+						'"'  => '\\"',
 					)
 				) . '"'
 			);
@@ -2099,7 +2099,7 @@ class Smarty_Compiler extends Smarty {
 				if ($this->security && !in_array($_modifier_name, $this->security_settings['MODIFIER_FUNCS'])) {
 					$this->_trigger_fatal_error("[plugin] (secure mode) modifier '$_modifier_name' is not allowed", $this->_current_file, $this->_current_line_no, __FILE__, __LINE__);
 				} else {
-					$this->_plugins['modifier'][$_modifier_name] = array( $_modifier_name, null, null, false );
+					$this->_plugins['modifier'][$_modifier_name] = array($_modifier_name, null, null, false);
 				}
 			}
 			$this->_add_plugin('modifier', $_modifier_name);
@@ -2437,7 +2437,7 @@ class Smarty_Compiler extends Smarty {
 				if ($prefilter === false) {
 					unset($this->_plugins['prefilter'][$filter_name]);
 					$_params = array(
-						'plugins' => array( array( 'prefilter', $filter_name, null, null, false ) ),
+						'plugins' => array(array('prefilter', $filter_name, null, null, false)),
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
@@ -2451,7 +2451,7 @@ class Smarty_Compiler extends Smarty {
 				if ($postfilter === false) {
 					unset($this->_plugins['postfilter'][$filter_name]);
 					$_params = array(
-						'plugins' => array( array( 'postfilter', $filter_name, null, null, false ) ),
+						'plugins' => array(array('postfilter', $filter_name, null, null, false)),
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
@@ -2539,7 +2539,7 @@ class Smarty_Compiler extends Smarty {
 	 * @param string the opening tag's name
 	 */
 	public function _push_tag($open_tag) {
-		array_push($this->_tag_stack, array( $open_tag, $this->_current_line_no ));
+		array_push($this->_tag_stack, array($open_tag, $this->_current_line_no));
 	}
 
 	/**

@@ -58,13 +58,13 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 		}
 
 		$viewData = array(
-			'moduleCount' => $pluginCounts['modules'],
-			'themeCount' => $pluginCounts['themes'],
-			'outputDir' => $repositoryDir,
+			'moduleCount'          => $pluginCounts['modules'],
+			'themeCount'           => $pluginCounts['themes'],
+			'outputDir'            => $repositoryDir,
 			'browseRepositoryLink' => $urlGenerator->generateUrl(
 				array(
 					'controller' => 'RepositoryManager',
-					'action' => 'browse',
+					'action'     => 'browse',
 				)
 			),
 		);

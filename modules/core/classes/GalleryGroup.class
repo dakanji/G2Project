@@ -87,7 +87,7 @@ class GalleryGroup extends GalleryEntity {
 	';
 		list($ret, $results) = $gallery->search(
 			$query,
-			array( $groupName ),
+			array($groupName),
 			array(
 				'limit' => array(
 					'count' => 1,
@@ -169,11 +169,11 @@ class GalleryGroup extends GalleryEntity {
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
-				return array( $core->translate('Group'), $core->translate('group') );
+				return array($core->translate('Group'), $core->translate('group'));
 			}
 		}
 
-		return array( 'Group', 'group' );
+		return array('Group', 'group');
 	}
 
 	/**

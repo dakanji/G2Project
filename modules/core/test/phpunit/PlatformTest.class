@@ -86,7 +86,7 @@ class PlatformTest extends GalleryTestCase {
 		if ($this->_platform->isSymlinkSupported()) {
 			$sourceDir = $dataBase = $gallery->getConfig('data.gallery.tmp');
 
-			foreach (array( 'platformTest', 'srcDir' ) as $subDir) {
+			foreach (array('platformTest', 'srcDir') as $subDir) {
 				$sourceDir .= "$subDir/";
 				$this->assertTrue(
 					mkdir($sourceDir, 0777),
@@ -376,7 +376,7 @@ class PlatformTest extends GalleryTestCase {
 	 * known-good script though.
 	 */
 	public function testExec() {
-		$results = $this->_platform->exec(array( array( '/bogus/path' ) ));
+		$results = $this->_platform->exec(array(array('/bogus/path')));
 		$this->assertFalse($results[0], 'Execute Bogus Path');
 	}
 
@@ -393,7 +393,7 @@ class PlatformTest extends GalleryTestCase {
 				$this->fail('failed to make temp dir');
 			} else {
 				$gallery->setConfig('data.gallery.tmp', $tmpDir);
-				list($success, $output, $stderr) = $this->_platform->exec(array( array( 'ls', '/bogus/path' ) ));
+				list($success, $output, $stderr) = $this->_platform->exec(array(array('ls', '/bogus/path')));
 				$this->assertFalse($success, 'expected exec to return error');
 				$this->assertTrue(!empty($stderr), 'expected some stderr output to be returned');
 				$this->_platform->rmdir($tmpDir);
@@ -416,7 +416,7 @@ class PlatformTest extends GalleryTestCase {
 				return $ret;
 			}
 			$this->_platform->resetPlatform();
-			$this->_permissionTest(0600, 1, array( 'copy', 'atomicWrite', 'symlink' ));
+			$this->_permissionTest(0600, 1, array('copy', 'atomicWrite', 'symlink'));
 
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '664');
 
@@ -424,7 +424,7 @@ class PlatformTest extends GalleryTestCase {
 				return $ret;
 			}
 			$this->_platform->resetPlatform();
-			$this->_permissionTest(0664, 2, array( 'copy', 'symlink', 'atomicWrite' ));
+			$this->_permissionTest(0664, 2, array('copy', 'symlink', 'atomicWrite'));
 
 			$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '612');
@@ -433,7 +433,7 @@ class PlatformTest extends GalleryTestCase {
 				return $ret;
 			}
 			$this->_platform->resetPlatform();
-			$this->_permissionTest(0612, 3, array( 'chmod' ));
+			$this->_permissionTest(0612, 3, array('chmod'));
 
 			$this->assertTrue($this->_platform->mkdir($this->_destFile), 'mkdir');
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -447,10 +447,10 @@ class PlatformTest extends GalleryTestCase {
 				return $ret;
 			}
 			$this->_platform->resetPlatform();
-			$this->_permissionTest(0751, 4, array( 'chmod' ));
+			$this->_permissionTest(0751, 4, array('chmod'));
 
 			// exec now uses a default umask of 022 -- exec'ers must chmod output files
-			$this->_permissionTest(0644, 5, array( 'exec' ));
+			$this->_permissionTest(0644, 5, array('exec'));
 
 			$this->_platform->resetPlatform();
 		}
@@ -466,7 +466,7 @@ class PlatformTest extends GalleryTestCase {
 				case 'exec':
 					$gallery->startRecordingDebugSnippet();
 					$results = $this->_platform->exec(
-						array( array( 'echo', 'test', '>', $this->_destFile ) )
+						array(array('echo', 'test', '>', $this->_destFile))
 					);
 					$debug   = $gallery->stopRecordingDebugSnippet();
 					$this->assertTrue($results[0], "exec $testNumber $debug");
@@ -719,16 +719,16 @@ class PlatformTest extends GalleryTestCase {
 		$platform = $isWin ? new PlatformTestOpenBaseDirWinNtPlatform() : new PlatformTestOpenBaseDirUnixPlatform();
 		$platform->setRealpathData(
 			array(
-				'C:\\Test' => 'C:\\Test',
+				'C:\\Test'       => 'C:\\Test',
 				'C:\\Test\\file' => 'C:\\Test\\file',
-				'D:\\Fun\\' => 'D:\\Fun',
-				'D:\\Fun\\file' => 'D:\\Fun\\file',
-				'/test' => '/test',
-				'/fun/' => '/fun',
-				'/test/file' => '/test/file',
-				'/fun/file' => '/fun/file',
+				'D:\\Fun\\'      => 'D:\\Fun',
+				'D:\\Fun\\file'  => 'D:\\Fun\\file',
+				'/test'          => '/test',
+				'/fun/'          => '/fun',
+				'/test/file'     => '/test/file',
+				'/fun/file'      => '/fun/file',
 				'c:\\TEST\\file' => 'C:\\Test\\file',
-				'/TEST/file' => '/TEST/file',
+				'/TEST/file'     => '/TEST/file',
 			)
 		);
 
@@ -751,10 +751,10 @@ class PlatformTest extends GalleryTestCase {
 		if (!$isWin) {
 			$platform->setRealpathData(
 				array(
-					'/test/real' => '/test/real',
-					'/test/real/file' => '/test/real/file',
-					'/test/link' => '/test/real',
-					'/test/link/file' => '/test/real/file',
+					'/test/real'                  => '/test/real',
+					'/test/real/file'             => '/test/real/file',
+					'/test/link'                  => '/test/real',
+					'/test/link/file'             => '/test/real/file',
 					'/test/real/linktoetc/passwd' => '/etc/passwd',
 					'/test/link/linktoetc/passwd' => '/etc/passwd',
 				)
@@ -796,12 +796,12 @@ class PlatformTest extends GalleryTestCase {
 		// Open_basedir entry can be a prefix and not a real dir
 		$platform->setRealpathData(
 			array(
-				'/tes'  => false,
-				'/test' => '/test',
-				'/testfile' => '/testfile',
-				'/test/file' => '/test/file',
+				'/tes'        => false,
+				'/test'       => '/test',
+				'/testfile'   => '/testfile',
+				'/test/file'  => '/test/file',
 				'/toast/file' => '/toast/file',
-				'/link/file' => '/test/file',
+				'/link/file'  => '/test/file',
 			)
 		);
 
@@ -824,15 +824,15 @@ class PlatformTest extends GalleryTestCase {
 
 			$platform->setRealpathData(
 				array(
-					'/lin' => false,
-					'/link' => '/test',
-					'/linnen' => '/linnen',
-					'/linkfile' => '/testfile',
+					'/lin'       => false,
+					'/link'      => '/test',
+					'/linnen'    => '/linnen',
+					'/linkfile'  => '/testfile',
 					'/link/file' => '/test/file',
 					'/lonk/file' => '/lonk/file',
-					'/link/fu' => false,
-					'/link/fun' => '/test/fun',
-					'/test/fun' => '/test/fun',
+					'/link/fu'   => false,
+					'/link/fun'  => '/test/fun',
+					'/test/fun'  => '/test/fun',
 				)
 			);
 			$gallery->_phpVm = new PlatformTestPhpVm('/lin', $this);
@@ -870,7 +870,7 @@ class PlatformTest extends GalleryTestCase {
 		$platform->setRealpathData(
 			array(
 				"${s}test${s}" => "${s}test",
-				"${s}testing" => "${s}testing",
+				"${s}testing"  => "${s}testing",
 			)
 		);
 		$gallery->_phpVm = new PlatformTestPhpVm("${s}test${s}", $this);
@@ -934,7 +934,7 @@ class PlatformTest extends GalleryTestCase {
 		$platform->setRealpathData(
 			array(
 				'/test/file' => '/test/file',
-				'/' => '/',
+				'/'          => '/',
 			)
 		);
 		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/'), '/ should be allowed');
@@ -968,7 +968,7 @@ class PlatformTest extends GalleryTestCase {
 	 */
 	public function testFsockopenBadHost() {
 		// We know this is going to bomb so bypass PHPunit's error handler
-		set_error_handler(array( 'PlatformTest', 'ignore_error_handler' ));
+		set_error_handler(array('PlatformTest', 'ignore_error_handler'));
 
 		$fd = @$this->_platform->fsockopen(
 			'www.BOGUSBOGUSBOGUSBOGUS.com',
@@ -1011,7 +1011,7 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testOpenMissingFile() {
 		// We know this is going to bomb so bypass PHPunit's error handler
-		set_error_handler(array( 'PlatformTest', 'ignore_error_handler' ));
+		set_error_handler(array('PlatformTest', 'ignore_error_handler'));
 
 		// And suppress warnings when we call fopen
 		$fd = @$this->_platform->fopen(sprintf('%s_BOGUS_BOGUS', __FILE__), 'rb');
@@ -1045,30 +1045,30 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testSplitPath() {
 		$this->assertEquals(
-			array( 'dir', 'path', 'file.txt' ),
+			array('dir', 'path', 'file.txt'),
 			$this->_platform->splitPath('dir/path/file.txt'),
 			'relative'
 		);
 
 		if (GalleryUtilities::isA($this->_platform, 'WinNtPlatform')) {
 			$this->assertEquals(
-				array( 'c:\\', 'dir', 'path', 'file.txt' ),
+				array('c:\\', 'dir', 'path', 'file.txt'),
 				$this->_platform->splitPath('c:\dir\path\file.txt'),
 				'absolute'
 			);
 			$this->assertEquals(
-				array( 'D:\\', 'path', 'file.txt' ),
+				array('D:\\', 'path', 'file.txt'),
 				$this->_platform->splitPath('D:\path/file.txt'),
 				'absolute2'
 			);
 			$this->assertEquals(
-				array( '\\', 'test' ),
+				array('\\', 'test'),
 				$this->_platform->splitPath('\test'),
 				'absolute3'
 			);
 		} else {
 			$this->assertEquals(
-				array( '/', 'dir', 'path', 'file.txt' ),
+				array('/', 'dir', 'path', 'file.txt'),
 				$this->_platform->splitPath('/dir/path/file.txt'),
 				'absolute'
 			);

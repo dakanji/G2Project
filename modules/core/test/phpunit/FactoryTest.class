@@ -59,7 +59,7 @@ class FactoryTest extends GalleryTestCase {
 			'FactoryTestDummyId',
 			$path,
 			'factoryTest',
-			array( 'dummy', '*' )
+			array('dummy', '*')
 		);
 
 		if ($ret) {
@@ -73,7 +73,7 @@ class FactoryTest extends GalleryTestCase {
 			'FactoryTestDummyId2',
 			$path,
 			'factoryTest2',
-			array( 'dummy' )
+			array('dummy')
 		);
 
 		if ($ret) {
@@ -108,7 +108,7 @@ class FactoryTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		foreach (array( 'factoryTest', 'factoryTest2' ) as $moduleId) {
+		foreach (array('factoryTest', 'factoryTest2') as $moduleId) {
 			list($ret, $ignored) = GalleryCoreApi::deactivatePlugin('module', $moduleId);
 
 			if ($ret) {
@@ -215,7 +215,7 @@ class FactoryTest extends GalleryTestCase {
 	public function testNewInstanceByHintList() {
 		list($ret, $instance) = GalleryCoreApi::newFactoryInstanceByHint(
 			'FactoryTest',
-			array( 'nomatch', 'dummy' )
+			array('nomatch', 'dummy')
 		);
 
 		if ($ret) {
@@ -251,7 +251,7 @@ class FactoryTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'FactoryTestDummyId3' => 'FactoryTestDummy',
-				'FactoryTestDummyId' => 'FactoryTestDummy',
+				'FactoryTestDummyId'  => 'FactoryTestDummy',
 				'FactoryTestDummyId2' => 'FactoryTestDummy2',
 			),
 			$ids
@@ -267,7 +267,7 @@ class FactoryTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'FactoryTestDummyId' => 'FactoryTestDummy',
+				'FactoryTestDummyId'  => 'FactoryTestDummy',
 				'FactoryTestDummyId2' => 'FactoryTestDummy2',
 			),
 			$ids
@@ -361,7 +361,7 @@ class FactoryTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::updateFactoryDefinitionHints(
 			'FactoryTest',
 			'FactoryTestDummyId3',
-			array( 'new hint' )
+			array('new hint')
 		);
 
 		if ($ret) {
@@ -377,7 +377,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array( 'new hint' ), $hints, 'Unexpected hints on update');
+		$this->assertEquals(array('new hint'), $hints, 'Unexpected hints on update');
 	}
 
 	public function testRegisterFactoryImplementationForRequest() {
@@ -388,7 +388,7 @@ class FactoryTest extends GalleryTestCase {
 			'TestErrorHandler',
 			$handlerPath,
 			'FactoryTestModule',
-			array( 'Gallery::Error' )
+			array('Gallery::Error')
 		);
 
 		if ($ret) {
@@ -452,7 +452,7 @@ class FactoryTest extends GalleryTestCase {
 			'TestErrorHandler',
 			$handlerPath,
 			'FactoryTestModule',
-			array( 'Gallery::Error' )
+			array('Gallery::Error')
 		);
 
 		if ($ret) {

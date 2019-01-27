@@ -64,11 +64,11 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -82,12 +82,12 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
-					'userId' => $this->_user[0]->getId(),
+					'userId'  => $this->_user[0]->getId(),
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results,
 			'Undo Edit User'
@@ -109,7 +109,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -137,7 +137,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -165,11 +165,11 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][userName][duplicate]' ),
+				'error'  => array('form[error][userName][duplicate]'),
 			),
 			$results
 		);
@@ -190,11 +190,11 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
 				),
 				'status' => array(),
-				'error' => array(
+				'error'  => array(
 					'form[error][userName][missing]',
 					'form[error][password2][mismatch]',
 				),
@@ -217,11 +217,11 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][email][invalid]' ),
+				'error'  => array('form[error][email][invalid]'),
 			),
 			$results
 		);
@@ -243,7 +243,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -280,7 +280,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -324,7 +324,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -357,7 +357,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -392,8 +392,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$ret = GalleryCoreApi::addMapEntry(
 			'FailedLoginsMap',
 			array(
-				'userName' => $this->_user[0]->getUserName(),
-				'count' => 10,
+				'userName'    => $this->_user[0]->getUserName(),
+				'count'       => 10,
 				'lastAttempt' => time(),
 			)
 		);
@@ -406,7 +406,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
 				'status' => array(
@@ -419,7 +419,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'FailedLoginsMap',
-			array( 'userName' ),
+			array('userName'),
 			array(
 				'userName' => $this->_user[0]->getUserName(),
 			)

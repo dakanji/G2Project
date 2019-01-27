@@ -63,15 +63,15 @@ class AlbumTest extends GalleryTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'AlbumTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'thumbnail',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -308,7 +308,7 @@ class AlbumTest extends GalleryTestCase {
 
 		// Read lock the root, write lock the two new albums
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(
-			array( $this->_parentAlbum->getId() )
+			array($this->_parentAlbum->getId())
 		);
 
 		if ($ret) {
@@ -495,7 +495,7 @@ class AlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array( $root, $album ), $actual);
+		$this->assertEquals(array($root, $album), $actual);
 	}
 
 	public function testFetchParentsWithoutPermission() {
@@ -563,7 +563,7 @@ class AlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $actual) = GalleryCoreApi::fetchParents($subalbum, array( 'core.view' ));
+		list($ret, $actual) = GalleryCoreApi::fetchParents($subalbum, array('core.view'));
 
 		if ($ret) {
 			return $ret;
@@ -580,13 +580,13 @@ class AlbumTest extends GalleryTestCase {
 
 		list($ret, $actual) = GalleryCoreApi::fetchParents(
 			$subalbum,
-			array( 'core.view', 'core.addDataItem' )
+			array('core.view', 'core.addDataItem')
 		);
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array( $root, $album ), $actual, 'albums with both permissions');
+		$this->assertEquals(array($root, $album), $actual, 'albums with both permissions');
 	}
 
 	/**
@@ -616,7 +616,7 @@ class AlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array( $child->getId() ), $actual);
+		$this->assertEquals(array($child->getId()), $actual);
 	}
 
 	public function testGuaranteeAlbumHasThumbnail1() {
@@ -729,7 +729,7 @@ class AlbumTest extends GalleryTestCase {
 
 		// Reload the thumbnail and examine it
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
-			array( $subAlbum->getId() )
+			array($subAlbum->getId())
 		);
 
 		if ($ret) {
@@ -830,14 +830,14 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(
-			array( $this->_getRootId(), $this->_parentAlbum->getId() )
+			array($this->_getRootId(), $this->_parentAlbum->getId())
 		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(array( $innerAlbum->getId(), $outerAlbum->getId() ));
+		list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(array($innerAlbum->getId(), $outerAlbum->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -904,8 +904,8 @@ class AlbumTest extends GalleryTestCase {
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_parentAlbum->getId(),
 			array(
-				'theme' => 'AlbumTestTheme',
-				'orderBy' => 'b',
+				'theme'          => 'AlbumTestTheme',
+				'orderBy'        => 'b',
 				'orderDirection' => 'c',
 			)
 		);
@@ -975,8 +975,8 @@ class AlbumTest extends GalleryTestCase {
 		list($ret, $album2) = $this->_createRandomAlbum(
 			$this->_parentAlbum->getId(),
 			array(
-				'theme' => '',
-				'orderBy' => 'd',
+				'theme'          => '',
+				'orderBy'        => 'd',
 				'orderDirection' => 'e',
 			)
 		);
@@ -1573,6 +1573,6 @@ class AlbumTestToolkit extends GalleryToolkit {
 			$platform->copy($sourceFilename, $destFilename);
 		}
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 }

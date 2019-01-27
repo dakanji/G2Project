@@ -81,7 +81,7 @@ class GallerySetupUtilities {
 		session_id($newSessionId);
 		$sessionName = session_name();
 		// Make sure we do not use invalid data at a later point
-		foreach (array( $_GET, $_POST, $_REQUEST, $_COOKIE ) as $superGlobal) {
+		foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 			unset($superGlobal[$sessionName]);
 		}
 		session_start();
@@ -379,7 +379,7 @@ class GallerySetupUtilities {
 				$sessionId = ereg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
 			}
 			// Make sure we don't use invalid data at a later point
-			foreach (array( $_GET, $_POST, $_REQUEST, $_COOKIE ) as $superGlobal) {
+			foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 				unset($superGlobal[$sessionName]);
 			}
 			/*

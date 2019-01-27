@@ -196,7 +196,7 @@ class ADODB_DataDict {
 	public $serverInfo        = array();
 	public $autoIncrement     = false;
 	public $dataProvider;
-	public $invalidResizeTypes4 = array( 'CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME' ); // for changetablesql
+	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME'); // for changetablesql
 	public $blobSize            = 100;    /// any varchar/char field this size or greater is treated as a blob
 							/// in other words, we use a text area for editting.
 
@@ -242,18 +242,18 @@ class ADODB_DataDict {
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		static $typeMap = array(
-			'VARCHAR'   => 'C',
-			'VARCHAR2'  => 'C',
-			'CHAR'      => 'C',
-			'C'         => 'C',
-			'STRING'    => 'C',
-			'NCHAR'     => 'C',
-			'NVARCHAR'  => 'C',
-			'VARYING'   => 'C',
-			'BPCHAR'    => 'C',
-			'CHARACTER' => 'C',
-			'INTERVAL'  => 'C',  // Postgres
-			'MACADDR'   => 'C', // postgres
+			'VARCHAR'    => 'C',
+			'VARCHAR2'   => 'C',
+			'CHAR'       => 'C',
+			'C'          => 'C',
+			'STRING'     => 'C',
+			'NCHAR'      => 'C',
+			'NVARCHAR'   => 'C',
+			'VARYING'    => 'C',
+			'BPCHAR'     => 'C',
+			'CHARACTER'  => 'C',
+			'INTERVAL'   => 'C',  // Postgres
+			'MACADDR'    => 'C', // postgres
 			'VAR_STRING' => 'C', // mysql
 			//
 			'LONGCHAR'  => 'X',
@@ -265,12 +265,12 @@ class ADODB_DataDict {
 			'NCLOB'     => 'X',
 			'LVARCHAR'  => 'X',
 
-			'BLOB'      => 'B',
-			'IMAGE'     => 'B',
-			'BINARY'    => 'B',
-			'VARBINARY' => 'B',
+			'BLOB'       => 'B',
+			'IMAGE'      => 'B',
+			'BINARY'     => 'B',
+			'VARBINARY'  => 'B',
 			'LONGBINARY' => 'B',
-			'B'         => 'B',
+			'B'          => 'B',
 
 			'YEAR'      => 'D', // mysql
 			'DATE'      => 'D',
@@ -278,12 +278,12 @@ class ADODB_DataDict {
 
 			'UNIQUEIDENTIFIER' => 'C', // MS SQL Server
 			//
-			'TIME'      => 'T',
-			'TIMESTAMP' => 'T',
-			'DATETIME'  => 'T',
-			'TIMESTAMPTZ' => 'T',
-			'SMALLDATETIME' => 'T',
-			'T'         => 'T',
+			'TIME'                        => 'T',
+			'TIMESTAMP'                   => 'T',
+			'DATETIME'                    => 'T',
+			'TIMESTAMPTZ'                 => 'T',
+			'SMALLDATETIME'               => 'T',
+			'T'                           => 'T',
 			'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
 			//
 			'BOOL'      => 'L',
@@ -291,58 +291,58 @@ class ADODB_DataDict {
 			'BIT'       => 'L',
 			'L'         => 'L',
 
-			'COUNTER'   => 'R',
-			'R'         => 'R',
-			'SERIAL'    => 'R', // ifx
+			'COUNTER'      => 'R',
+			'R'            => 'R',
+			'SERIAL'       => 'R', // ifx
 			'INT IDENTITY' => 'R',
 
-			'INT'       => 'I',
-			'INT2'      => 'I',
-			'INT4'      => 'I',
-			'INT8'      => 'I',
-			'INTEGER'   => 'I',
+			'INT'              => 'I',
+			'INT2'             => 'I',
+			'INT4'             => 'I',
+			'INT8'             => 'I',
+			'INTEGER'          => 'I',
 			'INTEGER UNSIGNED' => 'I',
-			'SHORT'     => 'I',
-			'TINYINT'   => 'I',
-			'SMALLINT'  => 'I',
-			'I'         => 'I',
+			'SHORT'            => 'I',
+			'TINYINT'          => 'I',
+			'SMALLINT'         => 'I',
+			'I'                => 'I',
 
-			'LONG'      => 'N', // interbase is numeric, oci8 is blob
-			'BIGINT'    => 'N', // this is bigger than PHP 32-bit integers
-			'DECIMAL'   => 'N',
-			'DEC'       => 'N',
-			'REAL'      => 'N',
-			'DOUBLE'    => 'N',
+			'LONG'             => 'N', // interbase is numeric, oci8 is blob
+			'BIGINT'           => 'N', // this is bigger than PHP 32-bit integers
+			'DECIMAL'          => 'N',
+			'DEC'              => 'N',
+			'REAL'             => 'N',
+			'DOUBLE'           => 'N',
 			'DOUBLE PRECISION' => 'N',
-			'SMALLFLOAT' => 'N',
-			'FLOAT'     => 'N',
-			'NUMBER'    => 'N',
-			'NUM'       => 'N',
-			'NUMERIC'   => 'N',
-			'MONEY'     => 'N',
+			'SMALLFLOAT'       => 'N',
+			'FLOAT'            => 'N',
+			'NUMBER'           => 'N',
+			'NUM'              => 'N',
+			'NUMERIC'          => 'N',
+			'MONEY'            => 'N',
 
 			// informix 9.2
-			'SQLINT'    => 'I',
-			'SQLSERIAL' => 'I',
-			'SQLSMINT'  => 'I',
-			'SQLSMFLOAT' => 'N',
-			'SQLFLOAT'  => 'N',
-			'SQLMONEY'  => 'N',
-			'SQLDECIMAL' => 'N',
-			'SQLDATE'   => 'D',
-			'SQLVCHAR'  => 'C',
-			'SQLCHAR'   => 'C',
-			'SQLDTIME'  => 'T',
+			'SQLINT'      => 'I',
+			'SQLSERIAL'   => 'I',
+			'SQLSMINT'    => 'I',
+			'SQLSMFLOAT'  => 'N',
+			'SQLFLOAT'    => 'N',
+			'SQLMONEY'    => 'N',
+			'SQLDECIMAL'  => 'N',
+			'SQLDATE'     => 'D',
+			'SQLVCHAR'    => 'C',
+			'SQLCHAR'     => 'C',
+			'SQLDTIME'    => 'T',
 			'SQLINTERVAL' => 'N',
-			'SQLBYTES'  => 'B',
-			'SQLTEXT'   => 'X',
+			'SQLBYTES'    => 'B',
+			'SQLTEXT'     => 'X',
 			// informix 10
-			'SQLINT8'   => 'I8',
-			'SQLSERIAL8' => 'I8',
-			'SQLNCHAR'  => 'C',
-			'SQLNVCHAR' => 'C',
+			'SQLINT8'     => 'I8',
+			'SQLSERIAL8'  => 'I8',
+			'SQLNCHAR'    => 'C',
+			'SQLNVCHAR'   => 'C',
 			'SQLLVARCHAR' => 'X',
-			'SQLBOOL'   => 'L',
+			'SQLBOOL'     => 'L',
 		);
 
 		if (!$this->connection->IsConnected()) {
@@ -473,7 +473,7 @@ class ADODB_DataDict {
 	}
 
 	public function DropIndexSQL($idxname, $tabname = null) {
-		return array( sprintf($this->dropIndex, $this->NameQuote($idxname), $this->TableName($tabname)) );
+		return array(sprintf($this->dropIndex, $this->NameQuote($idxname), $this->TableName($tabname)));
 	}
 
 	public function SetSchema($schema) {
@@ -559,7 +559,7 @@ class ADODB_DataDict {
 			list(, $column_def) = preg_split("/[\t ]+/", $first, 2);
 		}
 
-		return array( sprintf($this->renameColumn, $tabname, $this->NameQuote($oldcolumn), $this->NameQuote($newcolumn), $column_def) );
+		return array(sprintf($this->renameColumn, $tabname, $this->NameQuote($oldcolumn), $this->NameQuote($newcolumn), $column_def));
 	}
 
 	/**
@@ -588,11 +588,11 @@ class ADODB_DataDict {
 	}
 
 	public function DropTableSQL($tabname) {
-		return array( sprintf($this->dropTable, $this->TableName($tabname)) );
+		return array(sprintf($this->dropTable, $this->TableName($tabname)));
 	}
 
 	public function RenameTableSQL($tabname, $newname) {
-		return array( sprintf($this->renameTable, $this->TableName($tabname), $this->TableName($newname)) );
+		return array(sprintf($this->renameTable, $this->TableName($tabname), $this->TableName($newname)));
 	}
 
 	/**
@@ -864,10 +864,10 @@ class ADODB_DataDict {
 					}
 				} else {
 					$idxs[$findex]         = array();
-					$idxs[$findex]['cols'] = array( $fname );
+					$idxs[$findex]['cols'] = array($fname);
 
 					if ($funiqueindex) {
-						$idxs[$findex]['opts'] = array( 'UNIQUE' );
+						$idxs[$findex]['opts'] = array('UNIQUE');
 					} else {
 						$idxs[$findex]['opts'] = array();
 					}
@@ -925,7 +925,7 @@ class ADODB_DataDict {
 			}
 		} // foreach $flds
 
-		return array( $lines, $pkey, $idxs );
+		return array($lines, $pkey, $idxs);
 	}
 
 	/**
@@ -1089,7 +1089,7 @@ class ADODB_DataDict {
 			$fprec = substr($size, $dotat + 1);
 		}
 
-		return array( $fsize, $fprec );
+		return array($fsize, $fprec);
 	}
 
 	/**
@@ -1111,7 +1111,7 @@ class ADODB_DataDict {
 		// check table exists
 		$save_handler                   = $this->connection->raiseErrorFn;
 		$this->connection->raiseErrorFn = '';
-		$cols = $this->MetaColumns($tablename);
+		$cols                           = $this->MetaColumns($tablename);
 		$this->connection->raiseErrorFn = $save_handler;
 
 		if (isset($savem)) {

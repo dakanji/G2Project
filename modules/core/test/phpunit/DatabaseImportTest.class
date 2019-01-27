@@ -79,28 +79,28 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$pluginStatus = array(
 			'DatabaseImportTest1' => array(
-				'active' => 1,
-				'available' => 1,
-				'version' => '1.0.8',
-				'requiredCoreApi' => array( 7, 27 ),
-				'requiredModuleApi' => array( 3, 6 ),
-				'callbacks' => '',
+				'active'            => 1,
+				'available'         => 1,
+				'version'           => '1.0.8',
+				'requiredCoreApi'   => array(7, 27),
+				'requiredModuleApi' => array(3, 6),
+				'callbacks'         => '',
 			),
 			'DatabaseImportTest2' => array(
-				'active' => 1,
-				'available' => 1,
-				'version' => '1.1.5',
-				'requiredCoreApi' => array( 7, 20 ),
-				'requiredModuleApi' => array( 3, 6 ),
-				'callbacks' => '',
+				'active'            => 1,
+				'available'         => 1,
+				'version'           => '1.1.5',
+				'requiredCoreApi'   => array(7, 20),
+				'requiredModuleApi' => array(3, 6),
+				'callbacks'         => '',
 			),
 			'DatabaseImportTest3' => array(
-				'active' => 1,
-				'available' => 1,
-				'version' => '1.0.8',
-				'requiredCoreApi' => array( 7, 27 ),
-				'requiredModuleApi' => array( 3, 6 ),
-				'callbacks' => '',
+				'active'            => 1,
+				'available'         => 1,
+				'version'           => '1.0.8',
+				'requiredCoreApi'   => array(7, 27),
+				'requiredModuleApi' => array(3, 6),
+				'callbacks'         => '',
 			),
 		);
 		$cacheKey     = 'GalleryPluginHelper::fetchPluginStatus(module)';
@@ -111,7 +111,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		$installedModuleApi     = implode('.', $installedModuleVersion);
 		$installedCoreApi       = implode('.', $installedCoreVersion);
 
-		$exportedCoreVersion = array( 1, 2, 12 );
+		$exportedCoreVersion = array(1, 2, 12);
 
 		$exportedCoreVersion[1]    += 1;
 		$exportedCoreVersion        = implode('.', $exportedCoreVersion);
@@ -133,7 +133,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			)
 		);
 		$expected      = array(
-			'errors' => array( $expectedError ),
+			'errors' => array($expectedError),
 		);
 
 		$expected['warnings'] = array(
@@ -159,37 +159,37 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 		);
 
-		$platform->setReply('file_exists', array( 'testExport.xml' ), true);
-		$platform->setReply('fopen', array( 'testExport.xml', 'r', 0 ), 'testHandle');
-		$platform->setReply('feof', array( 'testHandle' ), false);
+		$platform->setReply('file_exists', array('testExport.xml'), true);
+		$platform->setReply('fopen', array('testExport.xml', 'r', 0), 'testHandle');
+		$platform->setReply('feof', array('testHandle'), false);
 
 		$line = '  <plugin-status id="DatabaseImportTest1" required-core-api="'
 		. $installedCoreApi . '" required-api="' . $installedModuleApi . '" version="1.0.8"'
 		. ' active="1" type="module"/>' . "\n";
-		$platform->setReply('fgets', array( 'testHandle', 4096 ), $line);
-		$platform->setReply('feof', array( 'testHandle' ), false);
+		$platform->setReply('fgets', array('testHandle', 4096), $line);
+		$platform->setReply('feof', array('testHandle'), false);
 
 		$line = '  <plugin-status id="DatabaseImportTest2" required-core-api="'
 		. $installedCoreApi . '" required-api="' . $exportedModuleApi . '" version="1.1.5"'
 		. ' active="1" type="module"/>' . "\n";
-		$platform->setReply('fgets', array( 'testHandle', 4096 ), $line);
-		$platform->setReply('feof', array( 'testHandle' ), false);
+		$platform->setReply('fgets', array('testHandle', 4096), $line);
+		$platform->setReply('feof', array('testHandle'), false);
 
 		$line = '  <plugin-status id="DatabaseImportTest3" required-core-api="'
 		. $exportedCoreApi . '" required-api="' . $installedModuleApi . '" version="1.0.8"'
 		. ' active="1" type="module"/>' . "\n";
-		$platform->setReply('fgets', array( 'testHandle', 4096 ), $line);
-		$platform->setReply('feof', array( 'testHandle' ), false);
+		$platform->setReply('fgets', array('testHandle', 4096), $line);
+		$platform->setReply('feof', array('testHandle'), false);
 
 		$line = '  <plugin-status id="DatabaseImportTest4" required-core-api="'
 		. $installedCoreApi . '" required-api="' . $installedModuleApi . '" version="1.0.6"'
 		. ' active="1" type="module"/>' . "\n";
 
-		$platform->setReply('fgets', array( 'testHandle', 4096 ), $line);
-		$platform->setReply('feof', array( 'testHandle' ), false);
+		$platform->setReply('fgets', array('testHandle', 4096), $line);
+		$platform->setReply('feof', array('testHandle'), false);
 
-		$platform->setReply('fgets', array( 'testHandle', 4096 ), '</plugin-status-list>');
-		$platform->setReply('fclose', array( 'testHandle' ), true);
+		$platform->setReply('fgets', array('testHandle', 4096), '</plugin-status-list>');
+		$platform->setReply('fclose', array('testHandle'), true);
 
 		$select = '
 	  SELECT
@@ -206,24 +206,24 @@ class DatabaseImportTest extends GalleryTestCase {
 	    [GalleryPluginParameterMap::itemId] = ?';
 		$storage->setReply(
 			'search',
-			array( $select, array( 'module', 'DatabaseImportTest1', 0 ), array() ),
-			array( null, new UnitTestStorageSearchResults(array( array( 0, '_version', '1.0.0' ) )) )
+			array($select, array('module', 'DatabaseImportTest1', 0), array()),
+			array(null, new UnitTestStorageSearchResults(array(array(0, '_version', '1.0.0'))))
 		);
 
 		$storage->setReply(
 			'search',
-			array( $select, array( 'module', 'DatabaseImportTest2', 0 ), array() ),
-			array( null, new UnitTestStorageSearchResults(array( array( 0, '_version', '1.0.0' ) )) )
+			array($select, array('module', 'DatabaseImportTest2', 0), array()),
+			array(null, new UnitTestStorageSearchResults(array(array(0, '_version', '1.0.0'))))
 		);
 		$storage->setReply(
 			'search',
-			array( $select, array( 'module', 'DatabaseImportTest3', 0 ), array() ),
-			array( null, new UnitTestStorageSearchResults(array( array( 0, '_version', '1.0.0' ) )) )
+			array($select, array('module', 'DatabaseImportTest3', 0), array()),
+			array(null, new UnitTestStorageSearchResults(array(array(0, '_version', '1.0.0'))))
 		);
 		$storage->setReply(
 			'search',
-			array( $select, array( 'module', 'DatabaseImportTest4', 0 ), array() ),
-			array( null, new UnitTestStorageSearchResults(array( array( 0, '_version', '1.0.0' ) )) )
+			array($select, array('module', 'DatabaseImportTest4', 0), array()),
+			array(null, new UnitTestStorageSearchResults(array(array(0, '_version', '1.0.0'))))
 		);
 
 		$this->_testObj = new GalleryDatabaseImport();
@@ -238,13 +238,13 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$writeString = implode("\n", array( 'C2.4', 'G2.2', 'maintenance-mode' ));
-		$platform->setReply('atomicWrite', array( $versionFile, $writeString ), true);
+		$writeString = implode("\n", array('C2.4', 'G2.2', 'maintenance-mode'));
+		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
 		$attributes     = array(
-			'core-version' => 'C2.4',
+			'core-version'    => 'C2.4',
 			'gallery-version' => 'G2.2',
-			'tables' => '5',
+			'tables'          => '5',
 		);
 		$this->_testObj = new _GalleryExportTag($this, $attributes);
 	}
@@ -253,8 +253,8 @@ class DatabaseImportTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$storage->setExtrasReply('dropSequence', array( 'testSequence' ), null);
-		$storage->setExtrasReply('createSequence', array( 'testSequence', '46' ), null);
+		$storage->setExtrasReply('dropSequence', array('testSequence'), null);
+		$storage->setExtrasReply('createSequence', array('testSequence', '46'), null);
 
 		$inputXml = '<sequence name="testSequence" start-value="46" />';
 
@@ -269,12 +269,12 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$storage->setReply(
 			'_translateTableName',
-			array( 'GalleryTestTable' ),
-			array( 'g2_GalleryTestTable', null, 'GalleryTestTable' )
+			array('GalleryTestTable'),
+			array('g2_GalleryTestTable', null, 'GalleryTestTable')
 		);
-		$storage->setReply('execute', array( 'DROP TABLE g2_GalleryTestTable', array() ), null);
+		$storage->setReply('execute', array('DROP TABLE g2_GalleryTestTable', array()), null);
 
-		$storage->setExtrasReply('_executeSql', array( 'test create sql' ), null);
+		$storage->setExtrasReply('_executeSql', array('test create sql'), null);
 
 		$storage->setExtrasReply(
 			'_updateSchemaTableInfo',
@@ -308,13 +308,13 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$storage->setReply(
 			'_translateTableName',
-			array( 'TestTable' ),
-			array( 'g2_TestTable', null, null )
+			array('TestTable'),
+			array('g2_TestTable', null, null)
 		);
 
-		$storage->setReply('_translateColumnName', array( 'accesslistid' ), 'g_accessListId');
-		$storage->setReply('_translateColumnName', array( 'userorgroupid' ), 'g_userOrGroupId');
-		$storage->setReply('_translateColumnName', array( 'permission' ), 'g_permission');
+		$storage->setReply('_translateColumnName', array('accesslistid'), 'g_accessListId');
+		$storage->setReply('_translateColumnName', array('userorgroupid'), 'g_userOrGroupId');
+		$storage->setReply('_translateColumnName', array('permission'), 'g_permission');
 
 		$query = 'INSERT INTO g2_TestTable (g_accessListId, g_userOrGroupId, g_permission) '
 			. 'VALUES (?,?,?)';
@@ -324,8 +324,8 @@ class DatabaseImportTest extends GalleryTestCase {
 			array(
 				'19',
 				array(
-					'type' => STORAGE_TYPE_INTEGER,
-					'size' => STORAGE_SIZE_MEDIUM,
+					'type'    => STORAGE_TYPE_INTEGER,
+					'size'    => STORAGE_SIZE_MEDIUM,
 					'notNull' => 1,
 				),
 				false,
@@ -337,8 +337,8 @@ class DatabaseImportTest extends GalleryTestCase {
 			array(
 				'3',
 				array(
-					'type' => STORAGE_TYPE_INTEGER,
-					'size' => STORAGE_SIZE_MEDIUM,
+					'type'    => STORAGE_TYPE_INTEGER,
+					'size'    => STORAGE_SIZE_MEDIUM,
 					'notNull' => 1,
 				),
 				false,
@@ -357,15 +357,15 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			'&2147483647'
 		);
-		$storage->setReply('execute', array( $query, array( 19, 3, '&2147483647' ) ), null);
+		$storage->setReply('execute', array($query, array(19, 3, '&2147483647')), null);
 
 		$storage->setReply(
 			'_normalizeValue',
 			array(
 				'19',
 				array(
-					'type' => STORAGE_TYPE_INTEGER,
-					'size' => STORAGE_SIZE_MEDIUM,
+					'type'    => STORAGE_TYPE_INTEGER,
+					'size'    => STORAGE_SIZE_MEDIUM,
 					'notNull' => 1,
 				),
 				false,
@@ -377,8 +377,8 @@ class DatabaseImportTest extends GalleryTestCase {
 			array(
 				'4',
 				array(
-					'type' => STORAGE_TYPE_INTEGER,
-					'size' => STORAGE_SIZE_MEDIUM,
+					'type'    => STORAGE_TYPE_INTEGER,
+					'size'    => STORAGE_SIZE_MEDIUM,
 					'notNull' => 1,
 				),
 				false,
@@ -397,15 +397,15 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			'<1040647>'
 		);
-		$storage->setReply('execute', array( $query, array( 19, 4, '<1040647>' ) ), null);
+		$storage->setReply('execute', array($query, array(19, 4, '<1040647>')), null);
 
 		$storage->setReply(
 			'_normalizeValue',
 			array(
 				'24',
 				array(
-					'type' => STORAGE_TYPE_INTEGER,
-					'size' => STORAGE_SIZE_MEDIUM,
+					'type'    => STORAGE_TYPE_INTEGER,
+					'size'    => STORAGE_SIZE_MEDIUM,
 					'notNull' => 1,
 				),
 				false,
@@ -417,15 +417,15 @@ class DatabaseImportTest extends GalleryTestCase {
 			array(
 				'3',
 				array(
-					'type' => STORAGE_TYPE_INTEGER,
-					'size' => STORAGE_SIZE_MEDIUM,
+					'type'    => STORAGE_TYPE_INTEGER,
+					'size'    => STORAGE_SIZE_MEDIUM,
 					'notNull' => 1,
 				),
 				false,
 			),
 			3
 		);
-		$storage->setReply('execute', array( $query, array( 24, 3, null ) ), null);
+		$storage->setReply('execute', array($query, array(24, 3, null)), null);
 
 		$inputXml = '<data>
           <field name="accessListId" type="' . STORAGE_TYPE_INTEGER . '" size="'

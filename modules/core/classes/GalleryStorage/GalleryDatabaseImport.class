@@ -105,7 +105,7 @@ class GalleryImportElement extends GalleryXmlHandler {
 			$this->_callBack['total']    += $total;
 			$complete                     = $this->_callBack['progress'] / $this->_callBack['total'];
 			$callback                     = $this->_callBack['callBack'];
-			call_user_func_array($callback, array( $complete ));
+			call_user_func_array($callback, array($complete));
 			$gallery->guaranteeTimeLimit(120);
 		}
 	}
@@ -118,8 +118,8 @@ class GalleryImportElement extends GalleryXmlHandler {
 	 */
 	public function _decodeHtmlSpecialChars($valueToConvert) {
 		return str_replace(
-			array( '&amp;', '&quot;', '&lt;', '&gt;' ),
-			array( '&', '"', '<', '>' ),
+			array('&amp;', '&quot;', '&lt;', '&gt;'),
+			array('&', '"', '<', '>'),
 			$valueToConvert
 		);
 	}
@@ -407,14 +407,14 @@ class GalleryDatabaseImport extends GalleryImportElement {
 				 * special characters.
 				 */
 				if (!$xmlParser->xmlParse($data, $platform->feof($handle))) {
-					return array( $xmlParser->getParserError(), null );
+					return array($xmlParser->getParserError(), null);
 				}
 				$this->updateStatus();
 			}
 
 			$xmlParser->release();
 
-			call_user_func_array($progressCallback, array( 1.0 ));
+			call_user_func_array($progressCallback, array(1.0));
 		} else {
 			return array(
 				GalleryCoreApi::error(
@@ -429,7 +429,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 
 		$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
 
-		foreach (array( 'entity', 'theme', 'module' ) as $dir) {
+		foreach (array('entity', 'theme', 'module') as $dir) {
 			$dir = sprintf('%s%s', $cacheBaseDir, $dir);
 
 			if ($platform->file_exists($dir)) {
@@ -438,7 +438,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 			}
 		}
 
-		return array( null, empty($this->_errors) ? null : $this->_errors );
+		return array(null, empty($this->_errors) ? null : $this->_errors);
 	}
 
 	/**
@@ -474,7 +474,7 @@ class _GalleryExportTag extends GalleryImportElement {
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
-		$versionsData = implode("\n", array( $coreVersion, $galleryVersion, 'maintenance-mode' ));
+		$versionsData = implode("\n", array($coreVersion, $galleryVersion, 'maintenance-mode'));
 
 		if (!$platform->atomicWrite($versionFile, $versionsData)) {
 			$gallery->debug('Error: Can\'t write to versions file');

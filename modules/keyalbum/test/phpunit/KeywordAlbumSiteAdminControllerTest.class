@@ -77,11 +77,11 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -111,7 +111,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
 				'status' => array(
@@ -133,19 +133,19 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		foreach ($params as $key => $value) {
-			if (in_array($key[0], array( '_', 'a' ))) {
+			if (in_array($key[0], array('_', 'a'))) {
 				unset($params[$key]);
 			}
 		}
 		ksort($params);
 		$this->assertEquals(
 			array(
-				'description' => 'test desc',
-				'orderBy' => 'albumsFirst|originationTimestamp',
-				'orderDirection' => ORDER_DESCENDING,
-				'split' => ',\s',
-				'summaryLinks' => 'album',
-				'themeId' => $this->_defaultThemeId,
+				'description'     => 'test desc',
+				'orderBy'         => 'albumsFirst|originationTimestamp',
+				'orderDirection'  => ORDER_DESCENDING,
+				'split'           => ',\s',
+				'summaryLinks'    => 'album',
+				'themeId'         => $this->_defaultThemeId,
 				'themeSettingsId' => $this->_entity->getId(),
 			),
 			$params,
@@ -180,11 +180,11 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][split]' ),
+				'error'  => array('form[error][split]'),
 			),
 			$results
 		);

@@ -783,7 +783,7 @@ order by constraint_name, referenced_table_name, keyno";
 			$sql2 .= '@P' . ($i - 1) . $sqlarr[$i];
 		}
 
-		return array( $sql, $this->qstr($sql2), $max, $sql2 );
+		return array($sql, $this->qstr($sql2), $max, $sql2);
 	}
 
 	public function PrepareSP($sql, $param = true) {
@@ -798,7 +798,7 @@ order by constraint_name, referenced_table_name, keyno";
 			return $sql;
 		}
 
-		return array( $sql, $stmt );
+		return array($sql, $stmt);
 	}
 
 	// returns concatenated string
@@ -1084,7 +1084,7 @@ class ADORecordset_mssql extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

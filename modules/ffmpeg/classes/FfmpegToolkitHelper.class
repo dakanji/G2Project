@@ -40,18 +40,18 @@ class FfmpegToolkitHelper {
 		list($ret, $ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (empty($ffmpegPath)) {
-			return array( GalleryCoreApi::error(ERROR_MISSING_VALUE), null );
+			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 		}
 
 		list($ret, $tests, $mimeTypes, $supportsOffset,
 		$mimeTypesEncoder, $encoderAudioCodecs, $version) = FfmpegToolkitHelper::testBinary($ffmpegPath);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// -------------------- Operations --------------------
@@ -66,12 +66,12 @@ class FfmpegToolkitHelper {
 			$operations['select-offset'] = array(
 				'params' => array(
 					array(
-						'type' => 'float',
+						'type'        => 'float',
 						'description' => $gallery->i18n('offset in seconds'),
 					),
 				),
-				'description' => $gallery->i18n('Select time offset in movie file'),
-				'mimeTypes' => $mimeTypes,
+				'description'    => $gallery->i18n('Select time offset in movie file'),
+				'mimeTypes'      => $mimeTypes,
 				'outputMimeType' => null,
 			);
 		}
@@ -86,11 +86,11 @@ class FfmpegToolkitHelper {
 			// set-video-dimensions
 			$operations['set-video-dimensions']['params']         = array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('video width in pixels'),
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => $gallery->i18n('video height in pixels'),
 				),
 			);
@@ -101,7 +101,7 @@ class FfmpegToolkitHelper {
 			// set-video-framerate
 			$operations['set-video-framerate']['params']         = array(
 				array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => $gallery->i18n(
 						'frames per second'
 					),
@@ -123,7 +123,7 @@ class FfmpegToolkitHelper {
 				// set-audio-channels
 				$operations['set-audio-channels']['params']         = array(
 					array(
-						'type' => 'int',
+						'type'        => 'int',
 						'description' => $gallery->i18n(
 							'number of channels'
 						),
@@ -138,7 +138,7 @@ class FfmpegToolkitHelper {
 				// set-audio-samplerate
 				$operations['set-audio-samplerate']['params']         = array(
 					array(
-						'type' => 'int',
+						'type'        => 'int',
 						'description' => $gallery->i18n(
 							'audio sample rate (Hz / cycles per second)'
 						),
@@ -259,12 +259,12 @@ class FfmpegToolkitHelper {
 		 *        correctly
 		 */
 		$relevantAudioCodecs     = array(
-			'mp3' => 'mp3',
+			'mp3'        => 'mp3',
 			'libmp3lame' => 'mp3',
 		);
-		list($ignored, $results) = $platform->exec(array( array( $ffmpegPath, '-formats' ) ));
-		$version                 = array();
-		list($ignored, $ignored, $version) = $platform->exec(array( array( $ffmpegPath, '-version' ) ));
+		list($ignored, $results)           = $platform->exec(array(array($ffmpegPath, '-formats')));
+		$version                           = array();
+		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
 		$mimeTypes          = array();
 		$mimeTypesEncoder   = array();
@@ -321,7 +321,7 @@ class FfmpegToolkitHelper {
 						);
 
 						if ($ret) {
-							return array( $ret, null, null, null, null, null, null );
+							return array($ret, null, null, null, null, null, null);
 						}
 						$mimeTypes[$mime] = 1;
 					}
@@ -338,7 +338,7 @@ class FfmpegToolkitHelper {
 							);
 
 							if ($ret) {
-								return array( $ret, null, null, null, null, null, null );
+								return array($ret, null, null, null, null, null, null);
 							}
 							$mimeTypes[$mime] = 1;
 						}
@@ -366,7 +366,7 @@ class FfmpegToolkitHelper {
 								);
 
 								if ($ret) {
-									return array( $ret, null, null, null, null, null, null );
+									return array($ret, null, null, null, null, null, null);
 								}
 
 								if (preg_match('|D|', $capabilities)) {
@@ -403,7 +403,7 @@ class FfmpegToolkitHelper {
 							);
 
 							if ($ret) {
-								return array( $ret, null, null, null, null, null, null );
+								return array($ret, null, null, null, null, null, null);
 							}
 							$mimeTypes[$mime] = 1;
 						}
@@ -420,7 +420,7 @@ class FfmpegToolkitHelper {
 
 		// Test if this ffmpeg supports -ss flag..
 		$supportsOffset   = false;
-		list($ok, $flags) = $platform->exec(array( array( $ffmpegPath, '-h' ) ));
+		list($ok, $flags) = $platform->exec(array(array($ffmpegPath, '-h')));
 
 		foreach ($flags as $line) {
 			if (!strncmp($line, '-ss ', 4)) {

@@ -545,7 +545,7 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$this->_markForCleanup($album);
 
@@ -555,7 +555,7 @@ class ViewTest extends GalleryTestCase {
 			list($ret, $dataItem) = $this->_createRandomDataItem($album->getId());
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$itemId = $dataItem->getId();
 		}
@@ -565,11 +565,11 @@ class ViewTest extends GalleryTestCase {
 		list($ret, $view) = GalleryView::doStatic()->loadView('core.ShowItem');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$gallery->setCurrentView('test.test');
 
-		return array( null, $view, $itemId );
+		return array(null, $view, $itemId);
 	}
 
 	public function testLoadThemeForItemPostsEvent() {
@@ -611,11 +611,11 @@ class ViewTest extends GalleryTestCase {
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('header', array( 'Cache-Control: no-cache', '' ), true);
-		$gallery->_phpVm->setReply('header', array( 'Pragma: no-cache', '' ), true);
+		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
+		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Expires: Sun, 09 Mar 2008 21:00:00 GMT', '' ),
+			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
 
@@ -631,23 +631,23 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'robots',
-					'content' => 'noindex',
+					'name'        => 'robots',
+					'content'     => 'noindex',
 					'isHttpEquiv' => false,
 				),
 				array(
-					'name' => 'Cache-Control',
-					'content' => 'no-cache',
+					'name'        => 'Cache-Control',
+					'content'     => 'no-cache',
 					'isHttpEquiv' => true,
 				),
 				array(
-					'name' => 'Pragma',
-					'content' => 'no-cache',
+					'name'        => 'Pragma',
+					'content'     => 'no-cache',
 					'isHttpEquiv' => true,
 				),
 				array(
-					'name' => 'Expires',
-					'content' => 'Sun, 09 Mar 2008 21:00:00 GMT',
+					'name'        => 'Expires',
+					'content'     => 'Sun, 09 Mar 2008 21:00:00 GMT',
 					'isHttpEquiv' => true,
 				),
 			),
@@ -662,11 +662,11 @@ class ViewTest extends GalleryTestCase {
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('header', array( 'Cache-Control: no-cache', '' ), true);
-		$gallery->_phpVm->setReply('header', array( 'Pragma: no-cache', '' ), true);
+		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
+		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Expires: Sun, 09 Mar 2008 21:00:00 GMT', '' ),
+			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
 
@@ -689,18 +689,18 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'Cache-Control',
-					'content' => 'no-cache',
+					'name'        => 'Cache-Control',
+					'content'     => 'no-cache',
 					'isHttpEquiv' => true,
 				),
 				array(
-					'name' => 'Pragma',
-					'content' => 'no-cache',
+					'name'        => 'Pragma',
+					'content'     => 'no-cache',
 					'isHttpEquiv' => true,
 				),
 				array(
-					'name' => 'Expires',
-					'content' => 'Sun, 09 Mar 2008 21:00:00 GMT',
+					'name'        => 'Expires',
+					'content'     => 'Sun, 09 Mar 2008 21:00:00 GMT',
 					'isHttpEquiv' => true,
 				),
 			),
@@ -767,11 +767,11 @@ class ViewTest extends GalleryTestCase {
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
-		$gallery->_phpVm->setReply('header', array( 'Cache-Control: no-cache', '' ), true);
-		$gallery->_phpVm->setReply('header', array( 'Pragma: no-cache', '' ), true);
+		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
+		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
 		$gallery->_phpVm->setReply(
 			'header',
-			array( 'Expires: Sun, 09 Mar 2008 21:00:00 GMT', '' ),
+			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
 		// Optional md5 call if authToken needs to be created and placed in session
@@ -821,18 +821,18 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'Cache-Control',
-					'content' => 'no-cache',
+					'name'        => 'Cache-Control',
+					'content'     => 'no-cache',
 					'isHttpEquiv' => true,
 				),
 				array(
-					'name' => 'Pragma',
-					'content' => 'no-cache',
+					'name'        => 'Pragma',
+					'content'     => 'no-cache',
 					'isHttpEquiv' => true,
 				),
 				array(
-					'name' => 'Expires',
-					'content' => 'Sun, 09 Mar 2008 21:00:00 GMT',
+					'name'        => 'Expires',
+					'content'     => 'Sun, 09 Mar 2008 21:00:00 GMT',
 					'isHttpEquiv' => true,
 				),
 			),
@@ -914,9 +914,9 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
-					'return' => true,
+					'return'  => true,
 				),
 			),
 			$results,
@@ -951,9 +951,9 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
-					'return' => true,
+					'return'  => true,
 				),
 			),
 			$results,
@@ -989,9 +989,9 @@ class ViewTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.UserAdmin',
+					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
-					'return' => true,
+					'return'  => true,
 				),
 			),
 			$results,
@@ -1034,7 +1034,7 @@ class ViewTest extends GalleryTestCase {
 
 class ViewTestModule {
 	public function isActive() {
-		return array( null, false );
+		return array(null, false);
 	}
 
 	public function getConfigurationView() {
@@ -1069,7 +1069,7 @@ class ViewTestNoAutoCacheControlItemView extends GalleryView {
 
 class ViewTestThemeId1Theme {
 	public function isActive() {
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public function getId() {
@@ -1088,7 +1088,7 @@ class ViewTestThemeId1Theme {
 
 class ViewTestThemeId2Theme {
 	public function isActive() {
-		return array( null, false );
+		return array(null, false);
 	}
 
 	public function getId() {
@@ -1096,7 +1096,7 @@ class ViewTestThemeId2Theme {
 	}
 
 	public function fetchParameters($itemId = 0) {
-		return array( null, array() );
+		return array(null, array());
 	}
 }
 
@@ -1130,7 +1130,7 @@ class ViewTestEventListener {
 			null,
 			array(
 				'themeId' => $this->_themeId,
-				'params' => $this->_params,
+				'params'  => $this->_params,
 			),
 		);
 	}

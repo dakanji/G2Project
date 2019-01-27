@@ -62,11 +62,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -92,13 +92,13 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $this->_group->getId(),
 				),
 				'status' => array(
 					'removedUsers' => 1,
-					'removedUser' => $this->_user->getUserName(),
+					'removedUser'  => $this->_user->getUserName(),
 				),
 				'error' => array(),
 			),
@@ -139,13 +139,13 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $this->_group->getId(),
 				),
 				'status' => array(
 					'removedUsers' => 2,
-					'removedUser' => 2,
+					'removedUser'  => 2,
 				),
 				'error' => array(),
 			),
@@ -190,11 +190,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][list][cantRemoveSelf]' ),
+				'error'  => array('form[error][list][cantRemoveSelf]'),
 			),
 			$results
 		);
@@ -218,7 +218,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $this->_group->getId(),
 				),
@@ -241,11 +241,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][userName][invalid]' ),
+				'error'  => array('form[error][text][userName][invalid]'),
 			),
 			$results
 		);
@@ -261,11 +261,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][userName][missing]' ),
+				'error'  => array('form[error][text][userName][missing]'),
 			),
 			$results
 		);
@@ -289,11 +289,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][text][userName][alreadyInGroup]' ),
+				'error'  => array('form[error][text][userName][alreadyInGroup]'),
 			),
 			$results
 		);

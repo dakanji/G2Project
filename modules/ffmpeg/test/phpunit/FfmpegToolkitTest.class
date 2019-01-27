@@ -63,7 +63,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array( 200, 240 ), $results, 'dimensions mismatch');
+		$this->assertEquals(array(200, 240), $results, 'dimensions mismatch');
 
 		list($ret, $results) = $this->_toolkit->getProperty(
 			'video/x-msvideo',
@@ -74,7 +74,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array( 200, 240, 3.1 ), $results, 'dimensions-and-duration mismatch');
+		$this->assertEquals(array(200, 240, 3.1), $results, 'dimensions-and-duration mismatch');
 
 		list($ret, $results) = $this->_toolkit->getProperty('video/x-msvideo', 'BOGUS', 'BOGUS');
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
@@ -97,20 +97,20 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'convert-to-image/jpeg' => array(
-					'params' => array(),
-					'description' => 'Convert to a JPEG',
-					'mimeTypes' => $expectedMimeTypes,
+					'params'         => array(),
+					'description'    => 'Convert to a JPEG',
+					'mimeTypes'      => $expectedMimeTypes,
 					'outputMimeType' => 'image/jpeg',
 				),
 				'select-offset' => array(
 					'params' => array(
 						array(
-							'type' => 'float',
+							'type'        => 'float',
 							'description' => 'offset in seconds',
 						),
 					),
-					'description' => 'Select time offset in movie file',
-					'mimeTypes' => $expectedMimeTypes,
+					'description'    => 'Select time offset in movie file',
+					'mimeTypes'      => $expectedMimeTypes,
 					'outputMimeType' => null,
 				),
 			),
@@ -121,29 +121,29 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'dimensions' => array(
-					'type' => 'int,int',
+					'type'        => 'int,int',
 					'description' => 'Get the width and height of the movie',
-					'mimeTypes' => $expectedMimeTypes,
+					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'dimensions-and-duration' => array(
-					'type' => 'int,int,float',
+					'type'        => 'int,int,float',
 					'description' => 'Get the width, height and duration of the movie',
-					'mimeTypes' => $expectedMimeTypes,
+					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'video-framerate' => array(
-					'type' => 'float',
+					'type'        => 'float',
 					'description' => 'Get video frames per seconds of the movie',
-					'mimeTypes' => $expectedMimeTypes,
+					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'audio-samplerate' => array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'Get audio samples per seconds of the movie',
-					'mimeTypes' => $expectedMimeTypes,
+					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'audio-channels' => array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'Get number of audio channels in movie',
-					'mimeTypes' => $expectedMimeTypes,
+					'mimeTypes'   => $expectedMimeTypes,
 				),
 			),
 			$results['properties'],
@@ -198,7 +198,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'ffmpeg',
+					'name'    => 'ffmpeg',
 					'success' => 1,
 					'results' => $output,
 				),
@@ -412,7 +412,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'ffmpeg',
+					'name'    => 'ffmpeg',
 					'success' => 1,
 					'results' => $output,
 				),
@@ -466,7 +466,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'ffmpeg',
+					'name'    => 'ffmpeg',
 					'success' => 1,
 					'results' => $output,
 				),
@@ -492,7 +492,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				array(
-					'name' => 'ffmpeg',
+					'name'    => 'ffmpeg',
 					'success' => 0,
 					'results' => $output,
 				),
@@ -525,7 +525,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			'select-offset',
 			'testPerformOperation1.avi',
 			'testPerformOperation2.avi',
-			array( '1.2' )
+			array('1.2')
 		);
 
 		if ($ret) {
@@ -564,7 +564,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			'set-audio-channels',
 			'testPerformOperation1.avi',
 			'testPerformOperation2.avi',
-			array( '2' )
+			array('2')
 		);
 
 		if ($ret) {
@@ -587,7 +587,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			'set-audio-samplerate',
 			'testPerformOperation1.avi',
 			'testPerformOperation2.avi',
-			array( '11025' )
+			array('11025')
 		);
 
 		if ($ret) {
@@ -650,10 +650,10 @@ class FfmpegToolkitTestPlatform {
 		switch (serialize($cmd)) {
 			case serialize(
 				array(
-					array( $this->_ffmpegPath, '-i', 'testGetProperties1.avi', '-vstats' ),
+					array($this->_ffmpegPath, '-i', 'testGetProperties1.avi', '-vstats'),
 				)
 			):
-			case serialize(array( array( $this->_ffmpegPath, '-i', 'BOGUS', '-vstats' ) )):
+			case serialize(array(array($this->_ffmpegPath, '-i', 'BOGUS', '-vstats'))):
 				$stderr[] = "Input #0, mov, from '../data/Sample.mov':";
 				$stderr[] = '  Duration: 00:00:03.1, bitrate: 193 kb/s';
 				$stderr[] = '  Stream #0.0: Video: svq1, 200x240, 15.00 fps';
@@ -664,10 +664,10 @@ class FfmpegToolkitTestPlatform {
 				 * Ffmpeg actually fails on this call -- but we continue because we
 				 * get the data we need from stderr
 				 */
-				return array( 0, $results, $stderr );
+				return array(0, $results, $stderr);
 
-			case serialize(array( array( '/validPath/ffmpeg', '-formats' ) )):
-			case serialize(array( array( $this->_ffmpegPath, '-formats' ) )):
+			case serialize(array(array('/validPath/ffmpeg', '-formats'))):
+			case serialize(array(array($this->_ffmpegPath, '-formats'))):
 				$results[] = 'Output audio/video file formats: mpeg vcd vob mpegts crc image ' .
 				'imagepipe mp2 ac3 h263 m4v h264 mpeg1video mjpeg s16le s16be u16le u16be s8 u8 ' .
 				'mulaw alaw rawvideo null rm asf asf_stream avi wav swf au gif mpjpeg dv flv ' .
@@ -694,9 +694,9 @@ class FfmpegToolkitTestPlatform {
 				$results[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 				'epzs(default) x1';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
-			case serialize(array( array( '/validPath/ffmpeg046FormatsOutput', '-formats' ) )):
+			case serialize(array(array('/validPath/ffmpeg046FormatsOutput', '-formats'))):
 				$results[] = 'File formats:';
 				$results[] = '  Encoding: mpeg vcd vob crc pgm pgmyuv ppm .Y.U.V pgmpipe pgmyuvpipe ' .
 				'ppmpipe yuv4mpegpipe mp2 ac3 h263 m4v mpeg1video mjpeg s16le s16be u16le u16be ' .
@@ -719,10 +719,10 @@ class FfmpegToolkitTestPlatform {
 				$results[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 				'epzs(default) x1';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
-			case serialize(array( array( '/validPath/ffmpeg048FormatsOutput', '-formats' ) )):
-			case serialize(array( array( $this->_ffmpegPath, '-formats' ) )):
+			case serialize(array(array('/validPath/ffmpeg048FormatsOutput', '-formats'))):
+			case serialize(array(array($this->_ffmpegPath, '-formats'))):
 				$results[] = 'File formats:';
 				$results[] = '  E 3gp';
 				$results[] = ' D  4xm';
@@ -906,7 +906,7 @@ class FfmpegToolkitTestPlatform {
 				'its even';
 				$results[] = 'worse';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
 			case serialize(
 				array(
@@ -934,7 +934,7 @@ class FfmpegToolkitTestPlatform {
 				$stderr[] = 'Press [q] to stop encoding';
 				$stderr[] = 'frame=    1 q=0.0 size=       2kB time=0.1 bitrate= 232.4kbits/s    ';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
 			case serialize(
 				array(
@@ -964,7 +964,7 @@ class FfmpegToolkitTestPlatform {
 				$stderr[] = 'Press [q] to stop encoding';
 				$stderr[] = 'frame=    2 q=0.0 size=       2kB time=0.1 bitrate= 232.4kbits/s    ';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
 			case serialize(
 				array(
@@ -983,38 +983,38 @@ class FfmpegToolkitTestPlatform {
 				$stderr[] = '  Stream #0.1: Audio: pcm_u8, 8000 Hz, mono, 64 kb/s';
 				$stderr[] = 'Output #0, mjpeg, to \'TEMPFILE.flv\':';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
-			case serialize(array( array( $this->_ffmpegPath, '-h' ) )):
-			case serialize(array( array( '/validPath/ffmpeg', '-h' ) )):
-			case serialize(array( array( '/validPath/ffmpeg048FormatsOutput', '-h' ) )):
+			case serialize(array(array($this->_ffmpegPath, '-h'))):
+			case serialize(array(array('/validPath/ffmpeg', '-h'))):
+			case serialize(array(array('/validPath/ffmpeg048FormatsOutput', '-h'))):
 				$results[] = '-ss time_off        set the start time offset';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 
-			case serialize(array( array( '/validPath/ffmpeg046FormatsOutput', '-h' ) )):
-				return array( 1, $results, $stderr );
+			case serialize(array(array('/validPath/ffmpeg046FormatsOutput', '-h'))):
+				return array(1, $results, $stderr);
 
-			case serialize(array( array( $this->_ffmpegPath, '-version' ) )):
-			case serialize(array( array( '/validPath/ffmpeg', '-version' ) )):
-			case serialize(array( array( '/validPath/ffmpeg046FormatsOutput', '-version' ) )):
-			case serialize(array( array( '/validPath/ffmpeg048FormatsOutput', '-version' ) )):
+			case serialize(array(array($this->_ffmpegPath, '-version'))):
+			case serialize(array(array('/validPath/ffmpeg', '-version'))):
+			case serialize(array(array('/validPath/ffmpeg046FormatsOutput', '-version'))):
+			case serialize(array(array('/validPath/ffmpeg048FormatsOutput', '-version'))):
 				$stderr[] = 'FFmpeg version SVN-r8743, Copyright (c) 2000-2007 Fabrice Bellard, et al.';
 
-				return array( 0, $results, $stderr );
+				return array(0, $results, $stderr);
 
-			case serialize(array( array( '/validPath/bogusBinary', '-h' ) )):
-			case serialize(array( array( '/validPath/bogusBinary', '-formats' ) )):
-			case serialize(array( array( '/validPath/bogusBinary', '-version' ) )):
+			case serialize(array(array('/validPath/bogusBinary', '-h'))):
+			case serialize(array(array('/validPath/bogusBinary', '-formats'))):
+			case serialize(array(array('/validPath/bogusBinary', '-version'))):
 				$results[] = 'Bogus stdout';
 				$stderr[]  = 'Bogus stderr';
 
-				return array( 1, $results, $stderr );
+				return array(1, $results, $stderr);
 		}
 
 		printf('Unexpected command for mock toolkit<pre>%s</pre>', print_r($cmd, true));
 
-		return array( 0, '', 'unprepared for exec()' );
+		return array(0, '', 'unprepared for exec()');
 	}
 
 	public function rename($oldName, $newName) {

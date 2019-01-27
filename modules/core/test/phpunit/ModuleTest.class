@@ -129,7 +129,7 @@ class ModuleTest extends GalleryTestCase {
 			'theme',
 			'bogusTheme',
 			'albumBlocks',
-			serialize(array( array( 'moduletest.missingBlock', array() ) ))
+			serialize(array(array('moduletest.missingBlock', array())))
 		);
 
 		if ($ret) {
@@ -141,8 +141,8 @@ class ModuleTest extends GalleryTestCase {
 			'albumBlocks',
 			serialize(
 				array(
-					array( 'bogusModule.someBlock', array() ),
-					array( 'moduletest.missingBlock', array() ),
+					array('bogusModule.someBlock', array()),
+					array('moduletest.missingBlock', array()),
 				)
 			),
 			42
@@ -168,7 +168,7 @@ class ModuleTest extends GalleryTestCase {
 				'theme',
 				'bogusTheme',
 				'albumBlocks',
-				serialize(array( array( "$pluginName.$blockName", array() ) )),
+				serialize(array(array("$pluginName.$blockName", array()))),
 				1337
 			);
 
@@ -293,7 +293,7 @@ class ModuleTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(
-			array( array( 'bogusModule.someBlock', array() ) ),
+			array(array('bogusModule.someBlock', array())),
 			unserialize($bogusBlock),
 			'bogusTheme parameter'
 		);
@@ -306,7 +306,7 @@ class ModuleTest extends GalleryTestCase {
 				return $ret;
 			}
 			$this->assertEquals(
-				array( array( "$pluginName.$blockName", array() ) ),
+				array(array("$pluginName.$blockName", array())),
 				unserialize($realBlock),
 				'Real block removed!'
 			);
@@ -399,7 +399,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 		// For Oracle, null is replaced with '' when loading data from the database
 		$this->assertTrue(
-			in_array($album->getOnLoadHandlers(), array( null, '' )),
+			in_array($album->getOnLoadHandlers(), array(null, '')),
 			'album onLoadHandlers'
 		);
 
@@ -438,7 +438,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredModuleApi();
-		$module->setRequiredModuleApi(array( $major - 1, $minor ));
+		$module->setRequiredModuleApi(array($major - 1, $minor));
 
 		$ret = $module->installOrUpgrade();
 
@@ -463,7 +463,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredModuleApi();
-		$module->setRequiredModuleApi(array( $major - 1, $minor ));
+		$module->setRequiredModuleApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $module->activate();
 
@@ -489,7 +489,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredCoreApi();
-		$module->setRequiredCoreApi(array( $major - 1, $minor ));
+		$module->setRequiredCoreApi(array($major - 1, $minor));
 
 		$ret = $module->installOrUpgrade();
 
@@ -514,7 +514,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredCoreApi();
-		$module->setRequiredCoreApi(array( $major - 1, $minor ));
+		$module->setRequiredCoreApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $module->activate();
 
@@ -692,7 +692,7 @@ class ModuleTest extends GalleryTestCase {
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$groupIds             = array_keys($groupIds);
@@ -712,7 +712,7 @@ class ModuleTest extends GalleryTestCase {
 			if ($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION) {
 				$bitOr = '[GalleryAccessMap::permission]';
 			} else {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -729,13 +729,13 @@ class ModuleTest extends GalleryTestCase {
 	  [GalleryAccessMap::userOrGroupId] IN (' . $userOrGroupIdMarkers . ')
 	';
 
-		$data = array( $itemId, $userId );
+		$data = array($itemId, $userId);
 		array_splice($data, count($data), 0, $groupIds);
 
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$permTable = array();
@@ -745,7 +745,7 @@ class ModuleTest extends GalleryTestCase {
 			$bits |= $storage->convertBitsToInt($result[0]);
 		}
 
-		return array( null, $bits );
+		return array(null, $bits);
 	}
 }
 
@@ -800,16 +800,16 @@ class ModuleTestModule extends GalleryModule {
 
 	public function activate($postActivationEvent = true) {
 		if (!$this->_activate) {
-			return array( GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null );
+			return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, array() );
+		return array(null, array());
 	}
 
 	public function performFactoryRegistrations() {
@@ -836,11 +836,11 @@ class ModuleTestModule extends GalleryModule {
 	}
 
 	public function getOnLoadHandlerIds() {
-		return array( 'ModuleTestOnLoadHandler' );
+		return array('ModuleTestOnLoadHandler');
 	}
 
 	public function getModuleEntityTypes() {
-		return array( 'ModuleTestEntity' );
+		return array('ModuleTestEntity');
 	}
 }
 
@@ -952,11 +952,11 @@ class ModuleTestEventListener {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$this->isOnLoadHandlerRegistered[] = isset($handler);
 		}
 
-		return array( null, null );
+		return array(null, null);
 	}
 }

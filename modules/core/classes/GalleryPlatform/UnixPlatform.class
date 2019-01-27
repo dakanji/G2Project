@@ -132,7 +132,7 @@ class UnixPlatform extends GalleryPlatform {
 			$gallery->debug("Status: $status (expected " . $this->_execExpectedStatus . ')');
 		}
 
-		return array( $status == $this->_execExpectedStatus, $results, $stderr );
+		return array($status == $this->_execExpectedStatus, $results, $stderr);
 	}
 
 	/**

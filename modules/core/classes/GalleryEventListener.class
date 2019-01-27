@@ -35,6 +35,6 @@ class GalleryEventListener {
 	 *               mixed data to send back to event source, or null
 	 */
 	public function handleEvent($event) {
-		return array( null, null );
+		return array(null, null);
 	}
 }

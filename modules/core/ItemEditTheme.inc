@@ -38,7 +38,7 @@ class ItemEditTheme extends ItemEditPlugin {
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 			} else {
 				$themeId = null;
@@ -47,19 +47,19 @@ class ItemEditTheme extends ItemEditPlugin {
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$item->setSerialNumber($form['serialNumber']);
@@ -69,33 +69,33 @@ class ItemEditTheme extends ItemEditPlugin {
 			if ($ret) {
 				GalleryCoreApi::releaseLocks($lockId);
 
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 
 			if (isset($form['changeInDescendents'])) {
 				list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
 
 				if ($ret) {
-					return array( $ret, null, null, null );
+					return array($ret, null, null, null);
 				}
 
 				if (!empty($subAlbumIds)) {
 					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($subAlbumIds);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					list($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 
 					foreach ($subAlbums as $album) {
@@ -107,13 +107,13 @@ class ItemEditTheme extends ItemEditPlugin {
 						if ($ret) {
 							GalleryCoreApi::releaseLocks($lockId);
 
-							return array( $ret, null, null, null );
+							return array($ret, null, null, null);
 						}
 					}
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
-						return array( $ret, null, null, null );
+						return array($ret, null, null, null);
 					}
 				}
 			}
@@ -123,7 +123,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			list($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 			list($ret, $error, $status) = GalleryCoreApi::handleThemeSettingsRequest(
 				$themeId,
@@ -132,11 +132,11 @@ class ItemEditTheme extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null, null );
+				return array($ret, null, null, null);
 			}
 		}
 
-		return array( null, $error, $status, false );
+		return array(null, $error, $status, false);
 	}
 
 	/**
@@ -149,7 +149,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			list($ret, $themeSettingsThemeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
@@ -164,12 +164,12 @@ class ItemEditTheme extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		} elseif ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
 			// Ignore incompatible / missing themes.  Just show a warning.
 		} else {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if ($form['formName'] != 'ItemEditTheme') {
@@ -180,14 +180,14 @@ class ItemEditTheme extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Set up our theme selection list
 		list($ret, $themeStatusList) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$themeList = array(
 			'' => $module->translate('&laquo; default theme &raquo;'),
@@ -206,7 +206,7 @@ class ItemEditTheme extends ItemEditPlugin {
 					continue;
 				}
 
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$themeList[$id] = $tmp->translate($tmp->getName());
 		}
@@ -216,7 +216,7 @@ class ItemEditTheme extends ItemEditPlugin {
 		$template->setVariable('controller', 'core.ItemEditTheme');
 		$template->setVariable('ItemEditTheme', $ItemEditTheme);
 
-		return array( null, 'modules/core/templates/ItemEditTheme.tpl', 'modules_core' );
+		return array(null, 'modules/core/templates/ItemEditTheme.tpl', 'modules_core');
 	}
 
 	/**
@@ -233,9 +233,9 @@ class ItemEditTheme extends ItemEditPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('Theme') );
+		return array(null, $module->translate('Theme'));
 	}
 }

@@ -131,7 +131,7 @@ class CommentCallbackView extends GalleryView {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
-		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array( $commentId ));
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($commentId));
 
 		if ($ret) {
 			return $ret;

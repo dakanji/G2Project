@@ -62,8 +62,8 @@ class DownloadPicLensView extends GalleryView {
 			case 'js':
 				return $this->_sendFile(
 					array(
-						'path' => "${codeDir}piclens.js",
-						'mimeType' => 'application/x-javascript',
+						'path'           => "${codeDir}piclens.js",
+						'mimeType'       => 'application/x-javascript',
 						'pseudoFileName' => 'piclens.js',
 					)
 				);
@@ -71,8 +71,8 @@ class DownloadPicLensView extends GalleryView {
 			case 'swf':
 				return $this->_sendFile(
 					array(
-						'path' => "${codeDir}PicLensLite.swf",
-						'mimeType' => 'application/x-shockwave-flash',
+						'path'           => "${codeDir}PicLensLite.swf",
+						'mimeType'       => 'application/x-shockwave-flash',
 						'pseudoFileName' => 'PicLensLite.swf',
 					)
 				);

@@ -404,10 +404,10 @@ class GalleryDataItem extends GalleryItem {
 		list($ret, $containerPath) = $target->fetchContainerPath();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $containerPath . $target->getPathComponent() );
+		return array(null, $containerPath . $target->getPathComponent());
 	}
 
 	/**

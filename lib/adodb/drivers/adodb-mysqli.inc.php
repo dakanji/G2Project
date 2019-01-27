@@ -67,7 +67,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		public $socket           = ''; //Default to empty string to fix HHVM bug
 		public $_bindInputArray  = false;
 		public $nameQuote        = '`';       /// string to use to quote identifiers and names
-		public $optionFlags      = array( array( MYSQLI_READ_DEFAULT_GROUP, 0 ) );
+		public $optionFlags      = array(array(MYSQLI_READ_DEFAULT_GROUP, 0));
 		public $arrayClass       = 'ADORecordSet_array_mysqli';
 		public $multiQuery       = false;
 
@@ -287,7 +287,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				}
 
 				if ($this->replaceQuote[0] == '\\') {
-					$s = adodb_str_replace(array( '\\', "\0" ), array( '\\\\', "\\\0" ), $s);
+					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
 				}
 
 				return "'" . str_replace("'", $this->replaceQuote, $s) . "'";
@@ -437,7 +437,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 				if (!isset($indexes[$row[2]])) {
 					$indexes[$row[2]] = array(
-						'unique' => ($row[1] == 0),
+						'unique'  => ($row[1] == 0),
 						'columns' => array(),
 					);
 				}
@@ -612,9 +612,9 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				// parse index data into array
 				while ($row = $rs->FetchRow()) {
 					$procedures[$row[1]] = array(
-						'type' => 'PROCEDURE',
+						'type'    => 'PROCEDURE',
 						'catalog' => '',
-						'schema' => '',
+						'schema'  => '',
 						'remarks' => $row[7],
 					);
 				}
@@ -626,9 +626,9 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				// parse index data into array
 				while ($row = $rs->FetchRow()) {
 					$procedures[$row[1]] = array(
-						'type' => 'FUNCTION',
+						'type'    => 'FUNCTION',
 						'catalog' => '',
-						'schema' => '',
+						'schema'  => '',
 						'remarks' => $row[7],
 					);
 				}
@@ -863,7 +863,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				return $sql;
 			}
 
-			return array( $sql, $stmt );
+			return array($sql, $stmt);
 		}
 
 		// returns queryID or false
@@ -893,7 +893,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					}
 				}
 
-				$fnarr = array_merge(array( $stmt, $a ), $inputarr);
+				$fnarr = array_merge(array($stmt, $a), $inputarr);
 				$ret   = call_user_func_array('mysqli_stmt_bind_param', $fnarr);
 				$ret   = mysqli_stmt_execute($stmt);
 
@@ -1115,7 +1115,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o = $this->FetchField($i);
+					$o                                = $this->FetchField($i);
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}

@@ -122,11 +122,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'test',
+					'mode'    => 'test',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(),
 			),
 			$results,
@@ -148,11 +148,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'saved' => 1,
 				),
@@ -193,19 +193,19 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 				'match' => array(
 					'view' => 'core.ShowItem',
 				),
-				'pattern' => 'uv/%path%',
+				'pattern'   => 'uv/%path%',
 				'functions' => array(
-					'path' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePath' ),
-					'page' => array( 'rewrite', 'RewriteSimpleHelper', 'parsePage' ),
-					'language' => array( 'rewrite', 'RewriteSimpleHelper', 'parseLanguage' ),
+					'path'     => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
+					'page'     => array('rewrite', 'RewriteSimpleHelper', 'parsePage'),
+					'language' => array('rewrite', 'RewriteSimpleHelper', 'parseLanguage'),
 				),
-				'onLoad' => array( 'rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath' ),
+				'onLoad' => array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath'),
 			),
 			array(
 				'match' => array(
 					'view' => 'core.DownloadItem',
 				),
-				'pattern' => 'ud/%itemId%-%serialNumber%/%fileName%',
+				'pattern'   => 'ud/%itemId%-%serialNumber%/%fileName%',
 				'functions' => array(
 					'fileName' => array(
 						'rewrite',
@@ -230,11 +230,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'saved' => 1,
 				),
@@ -275,9 +275,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
 				'error' => array(
 					'form[error][conditions][dupe][adminrewritemock][3]',
@@ -321,11 +321,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
-				'error' => array( 'form[error][pattern][empty][rewrite][0]' ),
+				'error'  => array('form[error][pattern][empty][rewrite][0]'),
 				'status' => array(),
 			),
 			$results,
@@ -366,9 +366,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
 				'error' => array(
 					'form[error][pattern][dupe][rewrite][0]',
@@ -412,11 +412,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
-				'error' => array( 'form[error][1][rewrite][0]' ),
+				'error'  => array('form[error][1][rewrite][0]'),
 				'status' => array(),
 			),
 			$results,
@@ -458,11 +458,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
-				'error' => array( 'form[error][4][adminrewritemock][2]' ),
+				'error'  => array('form[error][4][adminrewritemock][2]'),
 				'status' => array(),
 			),
 			$results,
@@ -510,11 +510,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'rules',
+					'mode'    => 'rules',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'saved' => 1,
 				),
@@ -585,11 +585,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'setup',
+					'mode'    => 'setup',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'saved' => 1,
 				),
@@ -607,7 +607,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array( 'unit1.test', 'unit2.test' ), unserialize($value), 'activeRules');
+		$this->assertEquals(array('unit1.test', 'unit2.test'), unserialize($value), 'activeRules');
 
 		list($ret, $value) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -630,9 +630,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'setup',
+					'mode'    => 'setup',
 				),
 				'status' => array(
 					'saved' => 1,
@@ -674,11 +674,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'test',
+					'mode'    => 'test',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'testSaved' => 1,
 				),
@@ -695,11 +695,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'test',
+					'mode'    => 'test',
 				),
-				'error' => array( 'form[error][test]' ),
+				'error'  => array('form[error][test]'),
 				'status' => array(),
 			),
 			$results,
@@ -715,11 +715,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'setup',
+					'mode'    => 'setup',
 				),
-				'error' => array(),
+				'error'  => array(),
 				'status' => array(
 					'adminSaved' => 1,
 				),
@@ -739,11 +739,11 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.AdminRewrite',
-					'mode' => 'setup',
+					'mode'    => 'setup',
 				),
-				'error' => array( 'form[error][admin]' ),
+				'error'  => array('form[error][admin]'),
 				'status' => array(),
 			),
 			$results,
@@ -788,7 +788,7 @@ class AdminRewriteMockParser extends RewriteParser {
 			$error[] = 'form[error][test]';
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	public function handleAdminParserRequest($form) {
@@ -800,7 +800,7 @@ class AdminRewriteMockParser extends RewriteParser {
 			$error[] = 'form[error][admin]';
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	/**
@@ -812,7 +812,7 @@ class AdminRewriteMockParser extends RewriteParser {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
 		if (is_null($activeRules)) {
@@ -823,7 +823,7 @@ class AdminRewriteMockParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$activeRules = unserialize($activeRules);
 		}
@@ -839,11 +839,11 @@ class AdminRewriteMockParser extends RewriteParser {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			if ($code != REWRITE_STATUS_OK) {
-				return array( null, $code, $errorId );
+				return array(null, $code, $errorId);
 			}
 		}
 
@@ -855,7 +855,7 @@ class AdminRewriteMockParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -866,10 +866,10 @@ class AdminRewriteMockParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		return array( null, REWRITE_STATUS_OK, null );
+		return array(null, REWRITE_STATUS_OK, null);
 	}
 
 	public function saveAccessList($accessList, $allowEmptyReferer) {
@@ -881,7 +881,7 @@ class AdminRewriteMockParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -892,10 +892,10 @@ class AdminRewriteMockParser extends RewriteParser {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, REWRITE_STATUS_OK );
+		return array(null, REWRITE_STATUS_OK);
 	}
 }
 
@@ -941,7 +941,7 @@ class AdminRewriteMockModule extends GalleryModule {
 		$rules[3] = array(
 			'conditions' => array(
 				array(
-					'test' => 'REQUEST_METHOD',
+					'test'    => 'REQUEST_METHOD',
 					'pattern' => 'FOO',
 				),
 			),
@@ -949,7 +949,7 @@ class AdminRewriteMockModule extends GalleryModule {
 		$rules[4] = array(
 			'conditions' => array(
 				array(
-					'test' => 'REQUEST_METHOD',
+					'test'    => 'REQUEST_METHOD',
 					'pattern' => 'FOO',
 				),
 			),

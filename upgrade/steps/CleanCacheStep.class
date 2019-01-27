@@ -33,7 +33,7 @@ class CleanCacheStep extends UpgradeStep {
 		$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
 
 		// Keep the obsolete layout dir in the list for a while
-		$cacheDirs = array( 'entity', 'layout', 'module', 'theme' );
+		$cacheDirs = array('entity', 'layout', 'module', 'theme');
 		$error     = false;
 
 		/*

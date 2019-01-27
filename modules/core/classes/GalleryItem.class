@@ -308,7 +308,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		WHERE
 		[GalleryChildEntity::parentId] = ?
 		';
-		list($ret, $searchResults) = $gallery->search($query, array( $this->getId() ));
+		list($ret, $searchResults) = $gallery->search($query, array($this->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -368,8 +368,8 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 			// Instruct G2 to "touch" modification timestamp of parent album at end of request
 			$gallery->addShutdownAction(
-				array( 'GalleryCoreApi', 'updateModificationTimestamp' ),
-				array( $this->getParentId() )
+				array('GalleryCoreApi', 'updateModificationTimestamp'),
+				array($this->getParentId())
 			);
 		}
 
@@ -394,7 +394,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		$event->setData(
 			array(
 				'userId' => null,
-				'itemId' => empty($parentId) ? $this->getParentId() : array( $parentId, $this->getParentId() ),
+				'itemId' => empty($parentId) ? $this->getParentId() : array($parentId, $this->getParentId()),
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -489,15 +489,15 @@ class GalleryItem extends GalleryFileSystemEntity {
 		if (($isNew || $changedParent) && $this->getParentId()) {
 			// Instruct G2 to "touch" modification timestamp of parent album at end of request
 			$gallery->addShutdownAction(
-				array( 'GalleryCoreApi', 'updateModificationTimestamp' ),
-				array( $this->getParentId() )
+				array('GalleryCoreApi', 'updateModificationTimestamp'),
+				array($this->getParentId())
 			);
 		}
 
 		if (!empty($oldParentId)) {
 			$gallery->addShutdownAction(
-				array( 'GalleryCoreApi', 'updateModificationTimestamp' ),
-				array( $oldParentId )
+				array('GalleryCoreApi', 'updateModificationTimestamp'),
+				array($oldParentId)
 			);
 		}
 

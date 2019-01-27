@@ -88,10 +88,10 @@ function rs2xmlrpcval_header($adodbrs) {
 
 	$header = new xmlrpcval(
 		array(
-			'fieldcount' => $fieldcount,
+			'fieldcount'  => $fieldcount,
 			'recordcount' => $recordcount,
-			'sql'       => $sql,
-			'fieldinfo' => $fieldinfo,
+			'sql'         => $sql,
+			'fieldinfo'   => $fieldinfo,
 		),
 		'struct'
 	);

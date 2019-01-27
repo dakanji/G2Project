@@ -87,7 +87,7 @@ class LanguageTest extends GalleryControllerTestCase {
 			array(
 				'return' => 1,
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -127,7 +127,7 @@ class LanguageTest extends GalleryControllerTestCase {
 		$expected['en']['US'] = $languageData['en']['US'];
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
-		$platform->setReply('glob', array( '/g2data/*', null ), array( '.', '..' ));
+		$platform->setReply('glob', array('/g2data/*', null), array('.', '..'));
 
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
@@ -148,9 +148,9 @@ class LanguageTest extends GalleryControllerTestCase {
 		$expected['pt']['BR'] = $languageData['pt']['BR'];
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
-		$platform->setReply('glob', array( '/g2data/*', null ), array( '.', '..', 'en_GB', 'pt_BR' ));
-		$platform->setReply('is_dir', array( 'en_GB' ), true);
-		$platform->setReply('is_dir', array( 'pt_BR' ), true);
+		$platform->setReply('glob', array('/g2data/*', null), array('.', '..', 'en_GB', 'pt_BR'));
+		$platform->setReply('is_dir', array('en_GB'), true);
+		$platform->setReply('is_dir', array('pt_BR'), true);
 
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
@@ -175,13 +175,13 @@ class LanguageTest extends GalleryControllerTestCase {
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
 		$platform->setReply(
 			'glob',
-			array( '/g2data/*', null ),
-			array( '.', '..', 'pt_BR', 'pt', 'zh_CN', 'zh_TW' )
+			array('/g2data/*', null),
+			array('.', '..', 'pt_BR', 'pt', 'zh_CN', 'zh_TW')
 		);
-		$platform->setReply('is_dir', array( 'pt_BR' ), true);
-		$platform->setReply('is_dir', array( 'pt' ), true);
-		$platform->setReply('is_dir', array( 'zh_CN' ), true);
-		$platform->setReply('is_dir', array( 'zh_TW' ), true);
+		$platform->setReply('is_dir', array('pt_BR'), true);
+		$platform->setReply('is_dir', array('pt'), true);
+		$platform->setReply('is_dir', array('zh_CN'), true);
+		$platform->setReply('is_dir', array('zh_TW'), true);
 
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 

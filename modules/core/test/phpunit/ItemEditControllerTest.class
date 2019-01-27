@@ -98,7 +98,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'ItemEditControllerTestOptionWithProgressBar',
 			$path,
 			'coreTest',
-			array( 'ItemEditControllerTestPluginSuccess' )
+			array('ItemEditControllerTestPluginSuccess')
 		);
 	}
 
@@ -122,14 +122,14 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditControllerTestPluginSuccess',
-					'itemId' => $this->_item->getId(),
+					'itemId'     => $this->_item->getId(),
 				),
 				'status' => array(
 					'editMessage' => 'success',
-					'warning' => array(),
+					'warning'     => array(),
 				),
 				'error' => array(),
 			),
@@ -146,14 +146,14 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditControllerTestPluginSuccess',
-					'itemId' => $this->_item->getId(),
+					'itemId'     => $this->_item->getId(),
 				),
 				'status' => array(
 					'editMessage' => 'success',
-					'warning' => array(),
+					'warning'     => array(),
 				),
 				'error' => array(),
 			),
@@ -174,13 +174,13 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.ItemAdmin',
-					'subView' => 'core.ItemEdit',
+					'view'       => 'core.ItemAdmin',
+					'subView'    => 'core.ItemEdit',
 					'editPlugin' => 'ItemEditControllerTestPluginFailAndWarn',
 				),
 				'status' => array(
 					'editMessage' => null,
-					'warning' => array( 'a warning' ),
+					'warning'     => array('a warning'),
 				),   // from its option
 				'error' => array(
 					'failed',   // from the plugin
@@ -221,7 +221,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 				),
 				'status' => array(
 					'editMessage' => 'success',
-					'warning' => array(),
+					'warning'     => array(),
 				),
 				'error' => array(),
 			),
@@ -263,7 +263,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 				),
 				'status' => array(
 					'editMessage' => 'success',
-					'warning' => array(),
+					'warning'     => array(),
 				),
 				'error' => array(),
 			),
@@ -295,10 +295,10 @@ class ItemEditControllerTestPluginSuccess {
 		// TODO: We should verify the item is legit here
 
 		// Check to see if we have a preferred source
-		list($ret, $preferredTable) = GalleryCoreApi::fetchPreferredsByItemIds(array( $item->getId() ));
+		list($ret, $preferredTable) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 
 		if ($ret) {
-			return array( $ret, null, null, null );
+			return array($ret, null, null, null);
 		}
 
 		if ($preferred != null
@@ -308,13 +308,13 @@ class ItemEditControllerTestPluginSuccess {
 		) {
 			return array(
 				GalleryCoreApi::error(ERROR_UNKNOWN),
-				array( 'PREFERRED MISMATCH' ),
+				array('PREFERRED MISMATCH'),
 				null,
 				null,
 			);
 		}
 
-		return array( null, array(), 'success', false );
+		return array(null, array(), 'success', false);
 	}
 }
 
@@ -326,7 +326,7 @@ class ItemEditControllerTestPluginSuccess {
  */
 class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
 	public function handleRequest($form, &$item, &$preferred) {
-		return array( null, array( 'failed' ), null, false );
+		return array(null, array('failed'), null, false);
 	}
 }
 
@@ -339,7 +339,7 @@ class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
  */
 class ItemEditControllerTestPluginRequiresProgressBar extends ItemEditPlugin {
 	public function handleRequest($form, &$item, &$preferred) {
-		return array( null, array(), 'success', true );
+		return array(null, array(), 'success', true);
 	}
 }
 
@@ -351,14 +351,14 @@ class ItemEditControllerTestPluginRequiresProgressBar extends ItemEditPlugin {
  */
 class ItemEditControllerTestOption extends ItemEditOption {
 	public static function isAppropriate($item, $thumbnail) {
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		return array(
 			null,
-			array( 'an error' ),
-			array( 'a warning' ),
+			array('an error'),
+			array('a warning'),
 		);
 	}
 }
@@ -371,14 +371,14 @@ class ItemEditControllerTestOption extends ItemEditOption {
  */
 class ItemEditControllerTestOptionWithProgressBar extends ItemEditOption {
 	public static function isAppropriate($item, $thumbnail) {
-		return array( null, true );
+		return array(null, true);
 	}
 
 	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
 		return array(
 			null,
-			array( 'another error' ),
-			array( 'another warning' ),
+			array('another error'),
+			array('another warning'),
 		);
 	}
 

@@ -37,7 +37,7 @@ class AdminNetPbmController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$status = $error = array();
@@ -63,7 +63,7 @@ class AdminNetPbmController extends GalleryController {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$error[] = 'form[error][path][badPath]';
 					} else {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				} elseif (empty($mimeTypes)) {
 					// At least one mime type must be supported, else this path is invalid
@@ -78,7 +78,7 @@ class AdminNetPbmController extends GalleryController {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$error[] = 'form[error][jheadPath][badPath]';
 					} else {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				} else {
 					$successCount = 0;
@@ -102,7 +102,7 @@ class AdminNetPbmController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// Set the image quality
@@ -114,7 +114,7 @@ class AdminNetPbmController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// Set the jhead binary name
@@ -127,25 +127,25 @@ class AdminNetPbmController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				// Save binaries to use for this netpbm path
 				$ret = NetPbmToolkitHelper::saveParameters($testResults);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$redirect['view'] = 'core.SiteAdmin';
@@ -175,7 +175,7 @@ class AdminNetPbmController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -193,16 +193,16 @@ class AdminNetPbmView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Load our default values if we didn't just come from this form.
 		if ($form['formName'] != 'AdminNetPbm') {
-			foreach (array( 'path', 'jpegQuality', 'jheadPath' ) as $key) {
+			foreach (array('path', 'jpegQuality', 'jheadPath') as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'netpbm', $key);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 			$form['formName'] = 'AdminNetPbm';
@@ -211,7 +211,7 @@ class AdminNetPbmView extends GalleryView {
 		// Guarantee that the path and jheadPath have a trailing slash.
 		$slash = $platform->getDirectorySeparator();
 
-		foreach (array( 'path', 'jheadPath' ) as $key) {
+		foreach (array('path', 'jheadPath') as $key) {
 			$form[$key] = trim($form[$key]);
 
 			if (!empty($form[$key])) {
@@ -242,7 +242,7 @@ class AdminNetPbmView extends GalleryView {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$form['error']['path']['badPath'] = 1;
 					} else {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				} else {
 					foreach ($tests as $test) {
@@ -262,7 +262,7 @@ class AdminNetPbmView extends GalleryView {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$form['error']['jheadPath']['badPath'] = 1;
 					} else {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				} else {
 					foreach ($jheadTests as $test) {
@@ -276,12 +276,12 @@ class AdminNetPbmView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$AdminNetPbm                    = array();

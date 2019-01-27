@@ -62,7 +62,7 @@ class GalleryLockSystem {
 	 */
 	public function acquireReadLock($ids, $timeout = 10) {
 		if (!is_array($ids)) {
-			$ids = array( $ids );
+			$ids = array($ids);
 		}
 
 		/*
@@ -84,7 +84,7 @@ class GalleryLockSystem {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				unset($this->_releaseQueue[$lockId]);
 			} elseif (!empty($foundIds)) {
@@ -92,7 +92,7 @@ class GalleryLockSystem {
 				$ret = $this->_removeObjectsFromLock($this->_releaseQueue[$lockId], $foundIds);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
@@ -100,10 +100,10 @@ class GalleryLockSystem {
 		list($ret, $lockId) = $this->_acquireLock($ids, $timeout, LOCK_READ);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $lockId );
+		return array(null, $lockId);
 	}
 
 	/**
@@ -116,7 +116,7 @@ class GalleryLockSystem {
 	 */
 	public function acquireWriteLock($ids, $timeout = 10) {
 		if (!is_array($ids)) {
-			$ids = array( $ids );
+			$ids = array($ids);
 		}
 
 		/*
@@ -145,7 +145,7 @@ class GalleryLockSystem {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				unset($this->_releaseQueue[$lockId]);
 			} elseif (!empty($foundIds)) {
@@ -153,7 +153,7 @@ class GalleryLockSystem {
 				$ret = $this->_removeObjectsFromLock($this->_releaseQueue[$lockId], $foundIds);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 		}
@@ -162,17 +162,17 @@ class GalleryLockSystem {
 			list($ret, $lockId) = $this->_acquireLock($ids, $timeout, LOCK_WRITE);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		} else {
 			list($ret, $lockId) = $this->_newLockId();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$this->_locks[$lockId] = array(
 				'lockId' => $lockId,
-				'type' => LOCK_WRITE,
+				'type'   => LOCK_WRITE,
 			);
 		}
 
@@ -180,11 +180,11 @@ class GalleryLockSystem {
 			$ret = $this->_moveObjectsBetweenLocks($relock, $lockId);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
-		return array( null, $lockId );
+		return array(null, $lockId);
 	}
 
 	/**
@@ -199,7 +199,7 @@ class GalleryLockSystem {
 	 * @abstract
 	 */
 	public function _acquireLock($ids, $timeout, $lockType) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
 	/**
@@ -247,7 +247,7 @@ class GalleryLockSystem {
 		$storage =& $gallery->getStorage();
 
 		if (!is_array($lockIds)) {
-			$lockIds = array( $lockIds );
+			$lockIds = array($lockIds);
 		}
 
 		// Remove any empty or invalid elements

@@ -2773,8 +2773,8 @@ class GalleryCharsetHelper_medium {
 		}
 
 		$strLength = count($characters);
-		$start     = $start < 0 ? $strLength + $start : $start;
-		$start     = $start < 0 ? 0 : $start;
+		$start     = $start  < 0 ? $strLength + $start : $start;
+		$start     = $start  < 0 ? 0 : $start;
 		$length    = $length < 0 ? $strLength - $start + $length : $length;
 		$length    = $length < 0 ? 0 : $length;
 		$length    = ($start + $length) > $strLength ? $strLength - $start : $length;
@@ -2805,8 +2805,8 @@ class GalleryCharsetHelper_medium {
 	 */
 	public static function phpUtf8Strcut($string, $start, $length) {
 		$strLength = strlen($string);
-		$start     = $start < 0 ? $strLength + $start : $start;
-		$start     = $start < 0 ? 0 : $start;
+		$start     = $start  < 0 ? $strLength + $start : $start;
+		$start     = $start  < 0 ? 0 : $start;
 		$length    = $length < 0 ? $strLength - $start + $length : $length;
 		$length    = $length < 0 ? 0 : $length;
 		$length    = ($start + $length) > $strLength ? $strLength - $start : $length;

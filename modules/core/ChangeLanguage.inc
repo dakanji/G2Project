@@ -36,13 +36,13 @@ class ChangeLanguageController extends GalleryController {
 		$ret      = $gallery->setActiveLanguageCode($language);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$results['return'] = 1;
 		$results['status'] = array();
 		$results['error']  = array();
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }

@@ -240,18 +240,18 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		 */
 		GalleryDataCache::put('G2_EMBED', 1, true);
 		$testRules[0]         = array(
-			'pattern'  => 'd/Test-Download-Rule',
-			'keywords' => array(),
+			'pattern'     => 'd/Test-Download-Rule',
+			'keywords'    => array(),
 			'queryString' => array(
 				'view' => 'core.DownloadItem',
 			),
 			'options'  => array(
-				'forceDirect' => true,
-				'forceSessionId' => false,
+				'forceDirect'            => true,
+				'forceSessionId'         => false,
 				'forceServerRelativeUrl' => true,
-				'htmlEntities' => false,
-				'urlEncode' => false,
-				'useAuthToken' => false,
+				'htmlEntities'           => false,
+				'urlEncode'              => false,
+				'useAuthToken'           => false,
 			),
 		);
 		list($ret, $htaccess) = ModRewriteHelper::getHtaccessContent($testRules, true);
@@ -332,7 +332,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 			serialize(
 				array(
 					'needOptions' => true,
-					'forced' => 1,
+					'forced'      => 1,
 				)
 			)
 		);

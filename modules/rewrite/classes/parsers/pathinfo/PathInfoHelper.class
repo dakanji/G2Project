@@ -35,7 +35,7 @@ class PathInfoHelper {
 		$upgradeModule = null
 	) {
 		if (is_null($parser)) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 		// By default we use the rules we've already got
 		if (is_null($activeRules)) {
@@ -46,7 +46,7 @@ class PathInfoHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			$activeRules = unserialize($activeRules);
 		}
@@ -62,18 +62,18 @@ class PathInfoHelper {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			if ($code != REWRITE_STATUS_OK) {
-				return array( null, $code, $errorId );
+				return array(null, $code, $errorId);
 			}
 		}
 
 		$ret = PathInfoHelper::saveParser($regexRules);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		// Finally, save the new rules
@@ -85,7 +85,7 @@ class PathInfoHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -96,10 +96,10 @@ class PathInfoHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		return array( null, REWRITE_STATUS_OK, null );
+		return array(null, REWRITE_STATUS_OK, null);
 	}
 
 	/**
@@ -126,8 +126,8 @@ class PathInfoHelper {
 				);
 			} else {
 				$dynamic[] = array(
-					'pattern' => '@^/' . $rule['pattern'] . '$@',
-					'keywords' => $rule['keywords'],
+					'pattern'     => '@^/' . $rule['pattern'] . '$@',
+					'keywords'    => $rule['keywords'],
 					'queryString' => $rule['queryString'],
 				);
 			}
@@ -139,7 +139,7 @@ class PathInfoHelper {
 			'pathinfo.parser',
 			serialize(
 				array(
-					'static' => $static,
+					'static'  => $static,
 					'dynamic' => $dynamic,
 				)
 			)
@@ -172,7 +172,7 @@ class PathInfoHelper {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		$fetch                = $urlGenerator->generateUrl(
@@ -186,7 +186,7 @@ class PathInfoHelper {
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_PATH_INFO', $body, 14)) {
-			return array( null, REWRITE_STATUS_OK, REWRITE_STATUS_OK );
+			return array(null, REWRITE_STATUS_OK, REWRITE_STATUS_OK);
 		}
 
 		return array(

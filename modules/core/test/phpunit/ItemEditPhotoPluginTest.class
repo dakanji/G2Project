@@ -63,15 +63,15 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		// Register operations that we can perform on our mock data items
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'scale',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -84,7 +84,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'convert-to-image/jpeg',
 			array(),
 			'test-description',
@@ -97,11 +97,11 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'rotate',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -114,15 +114,15 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'thumbnail',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -136,15 +136,15 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
-			array( 'test/file' ),
+			array('test/file'),
 			'resize',
 			array(
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 				array(
-					'type' => 'int',
+					'type'        => 'int',
 					'description' => 'test',
 				),
 			),
@@ -216,12 +216,12 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_unused);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
 		// Examine the resizes and make sure they line up
-		list($ret, $resizeTable) = GalleryCoreApi::fetchResizesByItemIds(array( $this->_item->getId() ));
+		list($ret, $resizeTable) = GalleryCoreApi::fetchResizesByItemIds(array($this->_item->getId()));
 
 		if ($ret) {
 			return $ret;
@@ -324,12 +324,12 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_unused);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 
 		// Examine the resizes and make sure they line up
-		list($ret, $resizeTable) = GalleryCoreApi::fetchResizesByItemIds(array( $itemId ));
+		list($ret, $resizeTable) = GalleryCoreApi::fetchResizesByItemIds(array($itemId));
 
 		if ($ret) {
 			return $ret;
@@ -368,7 +368,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		$itemId = $this->_item->getId();
 		$ret    = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
-			array( 'test/blob' ),
+			array('test/blob'),
 			'convert-to-image/jpeg',
 			array(),
 			'test-description',
@@ -407,11 +407,11 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_unused);
 		$this->assertEquals(
-			array( array(), $this->_translate('Changes saved successfully') ),
+			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
 		list($ret, $resizeTable) = GalleryCoreApi::fetchDerivativesByItemIds(
-			array( $this->_item->getId() )
+			array($this->_item->getId())
 		);
 
 		if ($ret) {
@@ -468,7 +468,7 @@ class ItemEditPhotoPluginTestToolkit extends GalleryToolkit {
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
 
-		return array( null, $mimeType, $context );
+		return array(null, $mimeType, $context);
 	}
 
 	/**
@@ -480,7 +480,7 @@ class ItemEditPhotoPluginTestToolkit extends GalleryToolkit {
 		return array(
 			null,
 			$operation1 . '+' . $operation2,
-			array_merge($args1, array( '+' ), $args2),
+			array_merge($args1, array('+'), $args2),
 		);
 	}
 }

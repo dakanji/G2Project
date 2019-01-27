@@ -38,14 +38,14 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
 		if (isset($form['action']['addFromBrowser'])) {
 			list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			// Upload any new files
@@ -55,11 +55,11 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 				// Placeholder for later
 				if (!empty($form['tmp_name'][$i]) && !empty($form['size'][$i])) {
 					$file = array(
-						'name' => $form['name'][$i],
-						'type' => $form['type'][$i],
+						'name'     => $form['name'][$i],
+						'type'     => $form['type'][$i],
 						'tmp_name' => $form['tmp_name'][$i],
-						'size' => $form['size'][$i],
-						'caption' => $form['caption'][$i],
+						'size'     => $form['size'][$i],
+						'caption'  => $form['caption'][$i],
 					);
 
 					if ($markup == 'html') {
@@ -73,7 +73,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 					list($ret, $mimeType) = GalleryCoreApi::getMimeType($filename, $file['type']);
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 
 					$title       = ($form['set']['title'] == 'filename') ? $base : (($form['set']['title'] == 'caption') ? $file['caption'] : '');
@@ -91,7 +91,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						$tmpFile = $platform->move_uploaded_file($file['tmp_name']);
 
 						if (!$tmpFile) {
-							return array( GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null );
+							return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 						}
 						$needToDeleteTmpFile = true;
 					} else {
@@ -115,12 +115,12 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 					}
 
 					if ($ret) {
-						return array( $ret, null, null );
+						return array($ret, null, null);
 					}
 
 					$status['addedFiles'][] = array(
 						'fileName' => $file['name'],
-						'id' => $newItem->getId(),
+						'id'       => $newItem->getId(),
 						'warnings' => array(),
 					);
 					$uploaded               = true;
@@ -173,8 +173,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 					}
 					$status['addedFiles'][] = array(
 						'fileName' => $form['name'][$i],
-						'id' => null,
-						'warnings' => array( $warning ),
+						'id'       => null,
+						'warnings' => array($warning),
 					);
 				}
 			}
@@ -193,7 +193,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			}
 		}
 
-		return array( null, $error, $status );
+		return array(null, $error, $status);
 	}
 
 	/**
@@ -217,26 +217,26 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 
-		foreach (array( 'totalUploadSize', 'maxFileSize' ) as $key) {
+		foreach (array('totalUploadSize', 'maxFileSize') as $key) {
 			if ($$key >= 1024 * 1024) {
 				$$key = $module->translate(
 					array(
-						'one' => '%d megabyte',
-						'many' => '%d megabytes',
+						'one'   => '%d megabyte',
+						'many'  => '%d megabytes',
 						'count' => (int)($$key / (1024 * 1024)),
-						'arg1' => (int)($$key / (1024 * 1024)),
+						'arg1'  => (int)($$key / (1024 * 1024)),
 					)
 				);
 			} elseif ($$key >= 1024) {
 				$$key = $module->translate(
 					array(
-						'one' => '%d kilobytes',
-						'many' => '%d kilobytes',
+						'one'   => '%d kilobytes',
+						'many'  => '%d kilobytes',
 						'count' => (int)($$key / (1024)),
-						'arg1' => (int)($$key / (1024)),
+						'arg1'  => (int)($$key / (1024)),
 					)
 				);
 			}
@@ -244,8 +244,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		if ($form['formName'] != 'ItemAddFromBrowser') {
 			$form['set']      = array(
-				'title' => 'filename',
-				'summary' => 1,
+				'title'       => 'filename',
+				'summary'     => 1,
 				'description' => 1,
 			);
 			$form['formName'] = 'ItemAddFromBrowser';
@@ -260,11 +260,11 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 		$template->setVariable(
 			'ItemAddFromBrowser',
 			array(
-				'totalUploadSize' => $totalUploadSize,
-				'maxFileSize' => $maxFileSize,
+				'totalUploadSize'  => $totalUploadSize,
+				'maxFileSize'      => $maxFileSize,
 				'uploadsPermitted' => $fileUploadsBool,
-				'titleList' => $titleList,
-				'status' => $status,
+				'titleList'        => $titleList,
+				'status'           => $status,
 			)
 		);
 
@@ -277,7 +277,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			$template->setVariable('ItemAdmin', $ItemAdmin);
 		}
 
-		return array( null, 'modules/core/templates/ItemAddFromBrowser.tpl', 'modules_core' );
+		return array(null, 'modules/core/templates/ItemAddFromBrowser.tpl', 'modules_core');
 	}
 
 	/**
@@ -287,9 +287,9 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('From Web Browser') );
+		return array(null, $module->translate('From Web Browser'));
 	}
 }

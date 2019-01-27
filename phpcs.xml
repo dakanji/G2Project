@@ -18,7 +18,7 @@
 
 	<!-- Load WordPress Standards -->
 	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
-	
+
 	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
 	<rule ref="PSR2">
 		<!-- PSR2 EXCEPTION: Allow Tab Indents -->
@@ -30,18 +30,18 @@
 		<!-- PSR2 EXCEPTION: Allow Method Declarations to Start with an Underscore -->
 		<exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
 	</rule>
-	
+
 	<!-- APPLY ADDITIONAL SELECTED WORDPRESS RULES -->
 	<rule ref="WordPress.WhiteSpace.DisallowInlineTabs" />
-	<rule ref="WordPress.Arrays.CommaAfterArrayItem" />	
-	<rule ref="WordPress.Arrays.ArrayIndentation" />	
+	<rule ref="WordPress.Arrays.CommaAfterArrayItem" />
+	<rule ref="WordPress.Arrays.ArrayIndentation" />
 	<rule ref="WordPress.WhiteSpace.PrecisionAlignment" />
 	<rule ref="WordPress.PHP.TypeCasts" />
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
-			<property name="maxColumn" value="25" />
-			<property name="exact" value="true" />
-			<property name="alignMultilineItems" value="!=100" />
+			<property name="maxColumn" value="80" />
+			<property name="exact" value="false" />
+			<property name="alignMultilineItems" value="<50" />
 		</properties>
 	</rule>
 	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
@@ -155,7 +155,7 @@
 			<property name="allowMultipleArguments" value="false" />
 		</properties>
 	</rule>
-	
+
 	<!-- APPLY ADDITIONAL SELECTED PSR12 RULES -->
 	<rule ref="PSR12.Keywords.ShortFormTypeKeywords" />
 </ruleset>

@@ -70,7 +70,7 @@ if ($gallery->isEmbedded()) {
 
 		$path = GalleryDataCache::getCachePath(
 			array(
-				'type' => 'fast-download',
+				'type'   => 'fast-download',
 				'itemId' => $itemId,
 			)
 		);
@@ -192,7 +192,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 	if ($ret) {
-		return array( $ret, null );
+		return array($ret, null);
 	}
 	$installedVersions = $core->getInstalledVersions();
 
@@ -211,13 +211,13 @@ function _GalleryMain($embedded = false, $template = null) {
 		}
 		list($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 
 	$ret = GalleryInitSecondPass();
 
 	if ($ret) {
-		return array( $ret, null );
+		return array($ret, null);
 	}
 
 	// Load and run the appropriate controller
@@ -228,7 +228,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		list($ret, $controller) = GalleryController::loadController($controllerName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!$embedded && $gallery->getConfig('mode.embed.only')
@@ -236,11 +236,11 @@ function _GalleryMain($embedded = false, $template = null) {
 		) {
 			// Lock out direct access when embed-only is set
 			if (($redirectUrl = $gallery->getConfig('mode.embed.only')) === true) {
-				return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
+				return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 			}
 			list($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
 
-			return array( null, $results );
+			return array(null, $results);
 		}
 
 		if ($gallery->getConfig('mode.maintenance') && !$controller->isAllowedInMaintenance()) {
@@ -248,7 +248,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!$isAdmin) {
@@ -264,7 +264,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				}
 				list($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
 
-				return array( null, $results );
+				return array(null, $results);
 			}
 		}
 
@@ -276,7 +276,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			$ret = GalleryController::assertIsGenuineRequest();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -287,7 +287,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			list($ret, $results) = $controller->permissionCheck($ret);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -375,7 +375,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	list($ret, $view) = GalleryView::doStatic()->loadView($viewName);
 
 	if ($ret) {
-		return array( $ret, null );
+		return array($ret, null);
 	}
 
 	if ($gallery->getConfig('mode.maintenance') && !$view->isAllowedInMaintenance()) {
@@ -383,21 +383,21 @@ function _GalleryMain($embedded = false, $template = null) {
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!$isAdmin) {
 			if (($redirectUrl = $gallery->getConfig('mode.maintenance')) !== true) {
 				list($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
 
-				return array( null, $results );
+				return array(null, $results);
 			}
 
 			$viewName         = 'core.MaintenanceMode';
 			list($ret, $view) = GalleryView::doStatic()->loadView($viewName);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 	}
@@ -405,7 +405,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	if (!$embedded && $gallery->getConfig('mode.embed.only') && !$view->isAllowedInEmbedOnly()) {
 		// Lock out direct access when embed-only is set
 		if (($redirectUrl = $gallery->getConfig('mode.embed.only')) === true) {
-			return array( GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null );
+			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 		}
 
 		return _GalleryMain_doRedirect($redirectUrl);
@@ -415,7 +415,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	list($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'full');
 
 	if ($ret) {
-		return array( $ret, null );
+		return array($ret, null);
 	}
 
 	$html = '';
@@ -428,7 +428,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if (!empty($html) && $embedded) {
@@ -439,7 +439,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 	}
@@ -473,7 +473,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			$ret = GalleryController::assertIsGenuineRequest();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -488,7 +488,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			$ret     = $session->start();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			// From now on, don't add sessionId to URLs if there's no persistent session
 			$session->doNotUseTempId();
@@ -508,7 +508,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				$ret  = $view->setCacheControl($null);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 
@@ -524,7 +524,7 @@ function _GalleryMain($embedded = false, $template = null) {
 					$ret->addErrorCode(ERROR_PERMISSION_DENIED);
 				}
 
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$data['isDone'] = true;
 		} else {
@@ -538,7 +538,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				list($ret, $results) = $view->_permissionCheck($ret);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 			}
 
@@ -590,7 +590,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				$ret = $template->display($templatePath);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				$data['isDone'] = true;
 			} else {
@@ -599,19 +599,19 @@ function _GalleryMain($embedded = false, $template = null) {
 				$event->setData(
 					array(
 						'templatePath' => $templatePath,
-						'view' => $view,
+						'view'         => $view,
 					)
 				);
 				list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $html) = $template->fetch($templatePath);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				/*
@@ -622,13 +622,13 @@ function _GalleryMain($embedded = false, $template = null) {
 				$ret     = $session->start();
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $shouldCache) = GalleryDataCache::shouldCache('write', 'full');
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($embedded) {
@@ -691,7 +691,7 @@ function _GalleryMain($embedded = false, $template = null) {
 						);
 
 						if ($ret) {
-							return array( $ret, null );
+							return array($ret, null);
 						}
 					}
 
@@ -703,14 +703,14 @@ function _GalleryMain($embedded = false, $template = null) {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 			}
 		}
 	}
 
-	return array( null, $data );
+	return array(null, $data);
 }
 
 function _GalleryMain_doRedirect(
@@ -733,7 +733,7 @@ function _GalleryMain_doRedirect(
 				. $ret->getAsHtml
 			);
 		} else {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 	}
 	$redirectUrl = $session->replaceTempSessionIdIfNecessary($redirectUrl);
@@ -772,7 +772,7 @@ function _GalleryMain_doRedirect(
 		 * See: http://support.microsoft.com/kb/q176113/
 		 * Our solution: detect IIS version and append GALLERYSID to the Location URL if necessary
 		 */
-		if (in_array($controller, array( 'core.Logout', 'core.UserLogin', 'publishxp.Login' ))) {
+		if (in_array($controller, array('core.Logout', 'core.UserLogin', 'publishxp.Login'))) {
 			// Check if it's IIS and if the version is < 6.0
 			$webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
 
@@ -808,9 +808,9 @@ function _GalleryMain_doRedirect(
 	return array(
 		null,
 		array(
-			'isDone'   => true,
+			'isDone'      => true,
 			'redirectUrl' => $redirectUrl,
-			'template' => $template,
+			'template'    => $template,
 		),
 	);
 }

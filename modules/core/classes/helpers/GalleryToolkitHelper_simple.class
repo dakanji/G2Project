@@ -59,10 +59,10 @@ class GalleryToolkitHelper_simple {
 	      [GalleryToolkitOperationMimeTypeMap::priority] ASC
 	    ';
 
-			list($ret, $searchResults) = $gallery->search($query, array( (string)$mimeType, (string)$operationName ));
+			list($ret, $searchResults) = $gallery->search($query, array((string)$mimeType, (string)$operationName));
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 
 			$toolkit        = null;
@@ -75,19 +75,19 @@ class GalleryToolkitHelper_simple {
 				list($ret, $toolkit) = GalleryCoreApi::newFactoryInstanceById('GalleryToolkit', $toolkitId);
 
 				if ($ret) {
-					return array( $ret, null, null );
+					return array($ret, null, null);
 				}
 
 				if (isset($toolkit)) {
 					break;
 				}
 			}
-			GalleryDataCache::put($cacheKey, array( $toolkit, $outputMimeType ));
+			GalleryDataCache::put($cacheKey, array($toolkit, $outputMimeType));
 		} else {
 			list($toolkit, $outputMimeType) = GalleryDataCache::get($cacheKey);
 		}
 
-		return array( null, $toolkit, $outputMimeType );
+		return array(null, $toolkit, $outputMimeType);
 	}
 
 	/**
@@ -100,14 +100,14 @@ class GalleryToolkitHelper_simple {
 			list($ret, $toolkits) = GalleryToolkitHelper_simple::getToolkitsByProperty($mimeType, $propertyName);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			$toolkit = $toolkits[0];
 		} else {
 			$toolkit = GalleryDataCache::get($cacheKey);
 		}
 
-		return array( null, $toolkit );
+		return array(null, $toolkit);
 	}
 
 	/**
@@ -135,10 +135,10 @@ class GalleryToolkitHelper_simple {
 	      [GalleryToolkitPropertyMap::name] = ?
 	    ';
 
-			list($ret, $searchResults) = $gallery->search($query, array( (string)$mimeType, (string)$propertyName ));
+			list($ret, $searchResults) = $gallery->search($query, array((string)$mimeType, (string)$propertyName));
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			$toolkits = null;
@@ -147,7 +147,7 @@ class GalleryToolkitHelper_simple {
 				list($ret, $toolkit) = GalleryCoreApi::newFactoryInstanceById('GalleryToolkit', $result[0]);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 				$toolkits[] = $toolkit;
 			}
@@ -156,7 +156,7 @@ class GalleryToolkitHelper_simple {
 			$toolkits = GalleryDataCache::get($cacheKey);
 		}
 
-		return array( null, $toolkits );
+		return array(null, $toolkits);
 	}
 
 	/**
@@ -177,7 +177,7 @@ class GalleryToolkitHelper_simple {
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($result = $results->nextResult()) {
@@ -188,7 +188,7 @@ class GalleryToolkitHelper_simple {
 			$priority = 20;
 		}
 
-		return array( null, $priority );
+		return array(null, $priority);
 	}
 
 	/**
@@ -197,14 +197,14 @@ class GalleryToolkitHelper_simple {
 	public static function getToolkitPriorityById($toolkitId) {
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryToolkitOperationMimeTypeMap',
-			array( 'priority' ),
+			array('priority'),
 			array(
 				'toolkitId' => (string)$toolkitId,
 			)
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($result = $searchResults->nextResult()) {
@@ -215,6 +215,6 @@ class GalleryToolkitHelper_simple {
 			$priority = null;
 		}
 
-		return array( null, $priority );
+		return array(null, $priority);
 	}
 }

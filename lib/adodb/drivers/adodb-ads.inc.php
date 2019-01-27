@@ -58,11 +58,11 @@ class ADODB_ads extends ADOConnection {
 	public $useFetchArray   = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
 	// breaking backward-compat
 	//var $longreadlen = 8000; // default number of chars to return for a Blob/Long field
-	public $_bindInputArray    = false;
-	public $curmode            = SQL_CUR_USE_DRIVER; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
-	public $_genSeqSQL         = 'create table %s (id integer)';
-	public $_autocommit        = true;
-	public $_haserrorfunctions = true;
+	public $_bindInputArray                   = false;
+	public $curmode                           = SQL_CUR_USE_DRIVER; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
+	public $_genSeqSQL                        = 'create table %s (id integer)';
+	public $_autocommit                       = true;
+	public $_haserrorfunctions                = true;
 	public $_has_stupid_odbc_fetch_api_change = true;
 	public $_lastAffectedRows                 = 0;
 	public $uCaseTables                       = true; // for meta* functions, uppercase table names
@@ -584,7 +584,7 @@ class ADODB_ads extends ADOConnection {
 			return $sql;
 		}
 
-		return array( $sql, $stmt, false );
+		return array($sql, $stmt, false);
 	}
 
 	// returns queryID or false
@@ -680,7 +680,7 @@ class ADODB_ads extends ADOConnection {
 			return false;
 		}
 
-		if (!ads_execute($stmtid, array( $val ), array( SQL_BINARY ))) {
+		if (!ads_execute($stmtid, array($val), array(SQL_BINARY))) {
 			if ($this->_haserrorfunctions) {
 				$this->_errorMsg  = ads_errormsg();
 				$this->_errorCode = ads_error();
@@ -759,7 +759,7 @@ class ADORecordSet_ads extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

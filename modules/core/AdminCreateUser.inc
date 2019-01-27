@@ -33,7 +33,7 @@ class AdminCreateUserController extends GalleryController {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$results = $status = $error = array();
@@ -55,7 +55,7 @@ class AdminCreateUserController extends GalleryController {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if (!isset($user)) {
@@ -69,7 +69,7 @@ class AdminCreateUserController extends GalleryController {
 
 				if ($ret) {
 					if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					// Set our error status and fall back to the view
@@ -84,7 +84,7 @@ class AdminCreateUserController extends GalleryController {
 					$ret = $user->save();
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 
 					// Request a redirect to the confirmation screen
@@ -93,7 +93,7 @@ class AdminCreateUserController extends GalleryController {
 					$status['createdUser'] = $form['userName'];
 				}
 			} else {
-				foreach (array( 'userName', 'email', 'password1', 'password2' ) as $key) {
+				foreach (array('userName', 'email', 'password1', 'password2') as $key) {
 					if (empty($form[$key])) {
 						$error[] = 'form[error][' . $key . '][missing]';
 					}
@@ -116,7 +116,7 @@ class AdminCreateUserController extends GalleryController {
 		$results['status'] = $status;
 		$results['error']  = $error;
 
-		return array( null, $results );
+		return array(null, $results);
 	}
 }
 
@@ -133,7 +133,7 @@ class AdminCreateUserView extends GalleryView {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		if ($form['formName'] != 'AdminCreateUser') {
@@ -149,7 +149,7 @@ class AdminCreateUserView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$languageList     = array();
 		$languageList[''] = $module->translate('&lt;none&gt;');

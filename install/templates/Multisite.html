@@ -74,7 +74,7 @@
 		<?php elseif (isset($templateData['error']['dir']['creation_error'])) : ?>
 			<?php echo 'Unable to create multisite files. Ensure the files listed below are writeable.'; ?>
 		  <br/><br/>
-			<?php foreach (array( 'main.php', 'index.php', 'embed.php', 'upgrade/index.php', 'lib/support/index.php (optional)' ) as $file) : ?>
+			<?php foreach (array('main.php', 'index.php', 'embed.php', 'upgrade/index.php', 'lib/support/index.php (optional)') as $file) : ?>
 				<?php printf('%s%s%s', $templateData['configPath'], DIRECTORY_SEPARATOR, $file); ?> <br/>
 			<?php endforeach; ?>
 		<?php endif; ?>

@@ -171,12 +171,12 @@ class StorageSetupStep extends InstallStep {
 		if (!function_exists('fsockopen')
 			|| in_array('fsockopen', preg_split('/,\s*/', ini_get('disable_functions')))
 		) {
-			return array( false, false );
+			return array(false, false);
 		}
 
 		// Add a .htaccess file.
 		if (!secureStorageFolder($dir)) {
-			return array( false, false );
+			return array(false, false);
 		}
 		// Add a probe file.
 		$probeFileName = 'probe_' . substr(md5(uniqid(mt_rand())), 0, 10) . '.html';
@@ -191,7 +191,7 @@ class StorageSetupStep extends InstallStep {
 		}
 
 		if (!file_exists($probeFilePath)) {
-			return array( false, false );
+			return array(false, false);
 		}
 
 		// Try to guess the URL to the g2data folder.
@@ -239,7 +239,7 @@ class StorageSetupStep extends InstallStep {
 		$isAccessible = false;
 
 		foreach ($storageUrlCandidates as $storageFolderUrl) {
-			$url = $storageFolderUrl . $probeFileName;
+			$url                             = $storageFolderUrl . $probeFileName;
 			list($urlFetched, $isAccessible) = $this->_isUrlAccessible($url, $checkString);
 
 			if ($urlFetched && $isAccessible) {
@@ -252,7 +252,7 @@ class StorageSetupStep extends InstallStep {
 		// Cleanup: Delete the probe file.
 		unlink($probeFilePath);
 
-		return array( true, $isAccessible );
+		return array(true, $isAccessible);
 	}
 
 	/**
@@ -268,7 +268,7 @@ class StorageSetupStep extends InstallStep {
 		$components = @parse_url($url);
 
 		if (!$components) {
-			return array( false, false );
+			return array(false, false);
 		}
 		$port = empty($components['port']) ? 80 : $components['port'];
 
@@ -279,7 +279,7 @@ class StorageSetupStep extends InstallStep {
 		$fd = @fsockopen($components['host'], $port, $errno, $errstr, 1);
 
 		if (empty($fd)) {
-			return array( false, false );
+			return array(false, false);
 		}
 
 		$get = $components['path'];
@@ -298,7 +298,7 @@ class StorageSetupStep extends InstallStep {
 
 		if (!$ok) {
 			// Zero bytes written or false was returned
-			return array( false, false );
+			return array(false, false);
 		}
 		fflush($fd);
 
@@ -337,6 +337,6 @@ class StorageSetupStep extends InstallStep {
 		fclose($fd);
 
 		// Check if the expected string is present.
-		return array( true, strpos($fetchedPage, $probeString) !== false );
+		return array(true, strpos($fetchedPage, $probeString) !== false);
 	}
 }

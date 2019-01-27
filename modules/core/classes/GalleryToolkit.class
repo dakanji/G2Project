@@ -43,7 +43,7 @@ class GalleryToolkit {
 	 *         mixed the value of the property
 	 */
 	public function getProperty($mimeType, $propertyName, $sourceFilename) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
 	/**
@@ -74,7 +74,7 @@ class GalleryToolkit {
 		$parameters,
 		$context = array()
 	) {
-		return array( GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null );
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
 	/**
@@ -181,7 +181,7 @@ class GalleryToolkit {
 			}
 		}
 
-		return array( true, $transformedOperations );
+		return array(true, $transformedOperations);
 	}
 
 	/**
@@ -204,12 +204,12 @@ class GalleryToolkit {
 		// We can only merge like operations
 		if ($operation1 != $operation2) {
 			// But not all like operations have the same name
-			$likeOperations = array( 'resize', 'scale', 'thumbnail' );
+			$likeOperations = array('resize', 'scale', 'thumbnail');
 
 			if (!(in_array($operation1, $likeOperations)
 				&& in_array($operation2, $likeOperations))
 			) {
-				return array( false, null, null );
+				return array(false, null, null);
 			}
 		}
 
@@ -219,7 +219,7 @@ class GalleryToolkit {
 			case 'scale':
 			case 'thumbnail':
 				// For like operations, the second operation takes precedence
-				return array( true, $operation2, $args2 );
+				return array(true, $operation2, $args2);
 
 			break;
 
@@ -229,17 +229,17 @@ class GalleryToolkit {
 
 				// 0 rotation means the operation goes away
 				if ($rotation == 0) {
-					return array( true, null, null );
+					return array(true, null, null);
 				}
 
 				if (abs($rotation) > 180) {
 					$rotation = $rotation - 360;
 				}
 
-				return array( true, $operation2, array( $rotation ) );
+				return array(true, $operation2, array($rotation));
 
 			default:
-				return array( false, null, null );
+				return array(false, null, null);
 		}
 	}
 

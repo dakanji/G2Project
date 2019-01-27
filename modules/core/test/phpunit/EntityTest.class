@@ -100,7 +100,7 @@ class EntityTest extends GalleryTestCase {
 		GalleryDataCache::reset();
 		GalleryDataCache::removeFromDisk(
 			array(
-				'type' => 'entity',
+				'type'   => 'entity',
 				'itemId' => $this->_entity->getId(),
 			)
 		);
@@ -119,7 +119,7 @@ class EntityTest extends GalleryTestCase {
 			GalleryDataCache::reset();
 			$data =& GalleryDataCache::getFromDisk(
 				array(
-					'type' => 'entity',
+					'type'   => 'entity',
 					'itemId' => $this->_entity->getId(),
 				)
 			);
@@ -367,7 +367,7 @@ class EntityTest extends GalleryTestCase {
 			$this->_getRootId(),
 			'application/unknown',
 			array(
-				'width' => 100,
+				'width'  => 100,
 				'height' => 200,
 			),
 			__FILE__,
@@ -375,7 +375,7 @@ class EntityTest extends GalleryTestCase {
 		);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$this->_markForCleanup($photo1);
 		$this->assertEquals(100, $photo1->getWidth());
@@ -383,11 +383,11 @@ class EntityTest extends GalleryTestCase {
 		list($ret, $photo2) = $this->_createLinkedItem($this->_rootAlbumId, $photo1);
 
 		if ($ret) {
-			return array( $ret, null, null );
+			return array($ret, null, null);
 		}
 		$this->_markForCleanup($photo2);
 
-		return array( null, $photo1, $photo2 );
+		return array(null, $photo1, $photo2);
 	}
 
 	public function testLinkedMembers() {
@@ -535,7 +535,7 @@ class EntityTest extends GalleryTestCase {
 		$this->_markForCleanup($dataItem);
 
 		list($ret, $entities) = GalleryCoreApi::loadEntitiesById(
-			array( $this->_getRootId(), $dataItem->getId() ),
+			array($this->_getRootId(), $dataItem->getId()),
 			'GalleryItem'
 		);
 
@@ -560,7 +560,7 @@ class EntityTest extends GalleryTestCase {
 		$this->_markForCleanup($dataItem);
 
 		list($ret, $entities) = GalleryCoreApi::loadEntitiesById(
-			array( $this->_getRootId(), $dataItem->getId() ),
+			array($this->_getRootId(), $dataItem->getId()),
 			'GalleryAlbumItem'
 		);
 
@@ -583,7 +583,7 @@ class EntityTest extends GalleryTestCase {
 		// Any of the entity-types has to match (boolean OR)
 		list($ret, $entity) = GalleryCoreApi::loadEntitiesById(
 			$this->_getRootId(),
-			array( 'GalleryDerivative', 'GalleryAlbumItem' )
+			array('GalleryDerivative', 'GalleryAlbumItem')
 		);
 
 		if ($ret) {
@@ -683,7 +683,7 @@ class EntityTestEntity extends GalleryEntity {
 	}
 
 	public function getClassFile() {
-		return array( null, 'modules/core/test/phpunit/EntityTest.class' );
+		return array(null, 'modules/core/test/phpunit/EntityTest.class');
 	}
 }
 
@@ -712,7 +712,7 @@ class EntityTestEventListener extends GalleryEventListener {
 		$this->_event = $event;
 		$data         = $event->getData();
 
-		return array( null, 'dummy' );
+		return array(null, 'dummy');
 	}
 
 	public function getEvent() {

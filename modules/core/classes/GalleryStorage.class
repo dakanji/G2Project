@@ -178,12 +178,12 @@ class GalleryStorage {
 	 * @param array $config database configuration values
 	 */
 	public function __construct($config) {
-		$this->_type            = $config['type'];
-		$this->_username        = $config['username'];
-		$this->_password        = $config['password'];
-		$this->_hostname        = $config['hostname'];
-		$this->_database        = $config['database'];
-		$this->_isTransactional = false;
+		$this->_type                           = $config['type'];
+		$this->_username                       = $config['username'];
+		$this->_password                       = $config['password'];
+		$this->_hostname                       = $config['hostname'];
+		$this->_database                       = $config['database'];
+		$this->_isTransactional                = false;
 		$this->_isEmptyAllowedForNotNullColumn = true;
 		$this->_entityInfoCache                = array();
 
@@ -211,7 +211,7 @@ class GalleryStorage {
 		$this->_traceStop();
 
 		if (empty($db)) {
-			return array( GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 		}
 
 		// Turn on debugging in the database connection if Gallery is in debug mode
@@ -235,7 +235,7 @@ class GalleryStorage {
 		$this->_traceStop();
 
 		if (!$ret) {
-			return array( GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 		}
 
 		if ($gallery->isProfiling('sql')) {
@@ -247,12 +247,12 @@ class GalleryStorage {
 		$ret = $this->_setConnectionSettings($db);
 
 		if ($ret) {
-			return array( GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null );
+			return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 		}
 
 		$db->SetFetchMode(ADODB_FETCH_NUM);
 
-		return array( null, $db );
+		return array(null, $db);
 	}
 
 	/**
@@ -486,7 +486,7 @@ class GalleryStorage {
 			list($ret, $this->_db) = $this->_getConnection();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -507,10 +507,10 @@ class GalleryStorage {
 		}
 
 		if ($recordSet) {
-			return array( null, new GallerySearchResults($recordSet) );
+			return array(null, new GallerySearchResults($recordSet));
 		}
 
-		return array( GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null );
+		return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 	}
 
 	/**
@@ -586,7 +586,7 @@ class GalleryStorage {
 			list($ret, $this->_db) = $this->_getConnection();
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -594,7 +594,7 @@ class GalleryStorage {
 		list($ret, $mapInfo) = $this->describeMap($mapName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		list($tableName, $unused) = $this->_translateTableName($mapName);
 		$data                     = $selectColumns = $where = $wheredata = $orderBy = array();
@@ -638,7 +638,7 @@ class GalleryStorage {
 			|| (!empty($optional['orderBy'])
 			&& count($optional['orderBy']) != count($orderBy))
 		) {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		// Generate SQL query
@@ -668,10 +668,10 @@ class GalleryStorage {
 		}
 
 		if ($recordSet) {
-			return array( null, new GallerySearchResults($recordSet, $select, $mapInfo) );
+			return array(null, new GallerySearchResults($recordSet, $select, $mapInfo));
 		}
 
-		return array( GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null );
+		return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 	}
 
 	/**
@@ -1081,7 +1081,7 @@ class GalleryStorage {
 	 *               string the function SQL
 	 */
 	public function getFunctionSql($functionName, $args) {
-		return array( GalleryCoreApi::error(ERROR_NOT_IMPLEMENTED), null );
+		return array(GalleryCoreApi::error(ERROR_NOT_IMPLEMENTED), null);
 	}
 
 	/**
@@ -1103,7 +1103,7 @@ class GalleryStorage {
 			$classes['[' . $match . ']'] = 1;
 		}
 
-		return array( null, array_keys($classes) );
+		return array(null, array_keys($classes));
 	}
 
 	/**
@@ -1295,7 +1295,7 @@ class GalleryStorage {
 			$alias     = null;
 		}
 
-		return array( $this->_tablePrefix . $tableName, $alias, $tableName );
+		return array($this->_tablePrefix . $tableName, $alias, $tableName);
 	}
 
 	/**
@@ -1321,7 +1321,7 @@ class GalleryStorage {
 			list($ret, $mapInfo) = $this->_getEntityOrMapInfo('map', $tryAllModules);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (!$tryAllModules) {
@@ -1333,7 +1333,7 @@ class GalleryStorage {
 			list($ret, $mapInfo[$mapName]) = $this->describeMap($mapName, true);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -1349,7 +1349,7 @@ class GalleryStorage {
 			);
 		}
 
-		return array( null, $mapInfo[$mapName] );
+		return array(null, $mapInfo[$mapName]);
 	}
 
 	/**
@@ -1373,16 +1373,16 @@ class GalleryStorage {
 			$query = 'SELECT [Schema::info] FROM [GalleryPluginMap], [Schema]
 		       WHERE [GalleryPluginMap::pluginId] = [Schema::pluginId]
 			 AND [Schema::type] = ? AND [GalleryPluginMap::active] = ?';
-			$data  = array( $type, 1 );
+			$data  = array($type, 1);
 		} else {
 			$query = 'SELECT [Schema::info] FROM [Schema] WHERE [Schema::type] = ?';
-			$data  = array( $type );
+			$data  = array($type);
 		}
 
 		list($ret, $results) = $this->search($query, $data);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$tableInfo = array();
@@ -1391,7 +1391,7 @@ class GalleryStorage {
 			$tableInfo = array_merge($tableInfo, unserialize($row[0]));
 		}
 
-		return array( null, $tableInfo );
+		return array(null, $tableInfo);
 	}
 
 	/**
@@ -1848,7 +1848,7 @@ class MySqlStorage extends GalleryStorage {
 		 */
 		return array(
 			'TYPE=DB_TABLE_TYPE' => $typeKeyword . '=' . $tableType,
-			'DB_TABLE_TYPE' => $typeKeyword . '=' . $tableType,
+			'DB_TABLE_TYPE'      => $typeKeyword . '=' . $tableType,
 		);
 	}
 
@@ -1952,7 +1952,7 @@ class MySqlStorage extends GalleryStorage {
 				);
 		}
 
-		return array( null, $sql );
+		return array(null, $sql);
 	}
 
 	/**
@@ -2006,7 +2006,7 @@ class MySqlStorage extends GalleryStorage {
 	 * @see GalleryStorage::_getOptimizeStatements
 	 */
 	public function _getOptimizeStatements() {
-		return array( 'OPTIMIZE TABLE `%s`;', 'ANALYZE TABLE `%s`;' );
+		return array('OPTIMIZE TABLE `%s`;', 'ANALYZE TABLE `%s`;');
 	}
 
 	/**
@@ -2018,7 +2018,7 @@ class MySqlStorage extends GalleryStorage {
 		list($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		return $extras->_getUniqueIdWithConnection($db, $sequence);

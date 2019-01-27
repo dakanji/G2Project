@@ -37,7 +37,7 @@ class UserAdminView extends GalleryView {
 		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Get a list of all the admin views for each module
@@ -57,13 +57,13 @@ class UserAdminView extends GalleryView {
 						continue;
 					}
 
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				list($ret, $moduleViews) = $module->getUserAdminViews($user);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				$subViewChoices = array_merge($subViewChoices, $moduleViews);
@@ -74,7 +74,7 @@ class UserAdminView extends GalleryView {
 		$subViewName = GalleryUtilities::getRequestVariables('subView');
 
 		if ($subViewName == 'core.UserAdmin') {
-			return array( GalleryCoreApi::error(ERROR_BAD_PARAMETER), null );
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
 		if (empty($subViewName) && !empty($subViewChoices)) {
@@ -84,7 +84,7 @@ class UserAdminView extends GalleryView {
 		list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Our sub view may have set some hints, like the encoding type
@@ -98,7 +98,7 @@ class UserAdminView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		// Set up my view parameters
@@ -110,17 +110,17 @@ class UserAdminView extends GalleryView {
 			list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			list($ret, $results) = $subView->loadTemplate($template, $form);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			if (isset($results['redirect'])) {
-				return array( null, $results );
+				return array(null, $results);
 			}
 
 			$UserAdmin['viewBodyFile']  = $results['body'];
@@ -160,16 +160,16 @@ class UserAdminView extends GalleryView {
 		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $description) = $subView->getViewDescription();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $description );
+		return array(null, $description);
 	}
 
 	/**

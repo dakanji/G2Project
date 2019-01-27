@@ -549,17 +549,17 @@ if (isset($_GET['filter'])) {
 			if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX
 				&& $matches[2] >= 1 && $matches[2] <= FILTER_MAX
 			) {
-				$range[] = array( $matches[1], $matches[2] );
+				$range[] = array($matches[1], $matches[2]);
 				$filter  = trim(preg_replace('/:?\d+-\d+,?/', '', $filter, 1));
 			}
 		} elseif (preg_match('/(\d+)-/', $filter, $matches)) {
 			if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX) {
-				$range[] = array( $matches[1], FILTER_MAX );
+				$range[] = array($matches[1], FILTER_MAX);
 				$filter  = trim(preg_replace('/:?\d+-,?/', '', $filter, 1));
 			}
 		} elseif (preg_match('/-(\d+)/', $filter, $matches)) {
 			if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX) {
-				$range[] = array( 1, $matches[1] );
+				$range[] = array(1, $matches[1]);
 				$filter  = preg_replace('/:?-\d+,?/', '', $filter, 1);
 			}
 		}
@@ -567,7 +567,7 @@ if (isset($_GET['filter'])) {
 	$displayFilter = $filter;
 
 	if (count($range) == 0) {
-		$range[] = array( 1, FILTER_MAX );
+		$range[] = array(1, FILTER_MAX);
 	}
 
 	for ($j = 0; $j < count($range); $j++) {
@@ -586,7 +586,7 @@ if (isset($_GET['filter'])) {
 } else {
 	$filter        = false;
 	$displayFilter = null;
-	$range         = array( array( 1, FILTER_MAX ) );
+	$range         = array(array(1, FILTER_MAX));
 }
 $testSuite = new TestSuite();
 $ret       = PhpUnitGalleryMain($testSuite, $filter);
@@ -636,17 +636,17 @@ $incorrectDevEnv       = array();
 $desiredErrorReporting = E_ALL & ~E_STRICT;
 
 foreach (array(
-	'error_reporting'  => array( $desiredErrorReporting ),
-	'allow_call_time_pass_reference' => array( 'off', 0 ),
-	'register_globals' => array( 'off', 0 ),
-	'display_errors'   => array( 'on', 1 ),
-	'allow_url_fopen'  => array( 'off', 0 ),
-	'include_path'     => array( '/bogus' ),
+	'error_reporting'  => array($desiredErrorReporting),
+	'allow_call_time_pass_reference' => array('off', 0),
+	'register_globals' => array('off', 0),
+	'display_errors'   => array('on', 1),
+	'allow_url_fopen'  => array('off', 0),
+	'include_path'     => array('/bogus'),
 ) as $key => $expected) {
 	$actual = ini_get($key);
 
 	if (!in_array($actual, $expected)) {
-		$incorrectDevEnv[$key] = array( $expected, $actual );
+		$incorrectDevEnv[$key] = array($expected, $actual);
 	}
 }
 

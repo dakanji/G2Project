@@ -64,11 +64,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -86,7 +86,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(
@@ -120,11 +120,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][show]' ),
+				'error'  => array('form[error][show]'),
 			),
 			$results
 		);
@@ -138,11 +138,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][show]' ),
+				'error'  => array('form[error][show]'),
 			),
 			$results
 		);
@@ -159,7 +159,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(
@@ -194,11 +194,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][apiKey][invalid]' ),
+				'error'  => array('form[error][apiKey][invalid]'),
 			),
 			$results
 		);
@@ -228,11 +228,11 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][apiKey][invalid]' ),
+				'error'  => array('form[error][apiKey][invalid]'),
 			),
 			$results
 		);
@@ -248,7 +248,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view' => 'core.ProgressBar',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);
@@ -320,7 +320,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'checked' => array(
-					'total' => 2,
+					'total'     => 2,
 					'spamCount' => 2,
 				),
 			),
@@ -357,10 +357,10 @@ class CommentSiteAdminControllerTest_FakeAkismetApi {
 	}
 
 	public function verifyApiKey($apiKey) {
-		return array( null, $this->_legal );
+		return array(null, $this->_legal);
 	}
 
 	public function checkComment(&$comment) {
-		return array( null, true );
+		return array(null, true);
 	}
 }

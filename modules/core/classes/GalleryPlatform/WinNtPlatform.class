@@ -139,7 +139,7 @@ class WinNtPlatform extends GalleryPlatform {
 			$gallery->debug("Status: $status (expected $expected)");
 		}
 
-		return array( $status == $expected, $results, $stderr );
+		return array($status == $expected, $results, $stderr);
 	}
 
 	/**

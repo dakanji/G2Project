@@ -786,7 +786,7 @@ class ADODB_db2 extends ADOConnection {
 			return $sql;
 		}
 
-		return array( $sql, $stmt, false );
+		return array($sql, $stmt, false);
 	}
 
 	// returns queryID or false
@@ -868,7 +868,7 @@ class ADODB_db2 extends ADOConnection {
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
-		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array( $val )) != false;
+		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
 	}
 
 	// returns true or false
@@ -930,7 +930,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

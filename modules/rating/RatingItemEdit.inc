@@ -36,11 +36,11 @@ class RatingItemEdit extends ItemEditOption {
 			list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 			array_unshift($subAlbumIds, $item->getId());
 		} else {
-			$subAlbumIds = array( $item->getId() );
+			$subAlbumIds = array($item->getId());
 		}
 
 		foreach ($subAlbumIds as $id) {
@@ -53,11 +53,11 @@ class RatingItemEdit extends ItemEditOption {
 			);
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
-		return array( null, array(), array() );
+		return array(null, array(), array());
 	}
 
 	/**
@@ -68,17 +68,17 @@ class RatingItemEdit extends ItemEditOption {
 			list($ret, $form['rating']['enabled']) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled', $item->getId());
 
 			if ($ret) {
-				return array( $ret, null, null );
+				return array($ret, null, null);
 			}
 		}
 
-		return array( null, 'modules/rating/templates/RatingItemEdit.tpl', 'modules_rating' );
+		return array(null, 'modules/rating/templates/RatingItemEdit.tpl', 'modules_rating');
 	}
 
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
 	public static function isAppropriate($item, $thumbnail) {
-		return array( null, true );
+		return array(null, true);
 	}
 }

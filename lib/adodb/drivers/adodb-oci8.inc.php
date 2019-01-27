@@ -479,7 +479,7 @@ END;
 
 			if (!isset($indexes[$row[0]])) {
 				$indexes[$row[0]] = array(
-					'unique' => ($row[1] == 'UNIQUE'),
+					'unique'  => ($row[1] == 'UNIQUE'),
 					'columns' => array(),
 				);
 			}
@@ -903,7 +903,7 @@ END;
 		}
 
 		$desc        = oci_new_descriptor($this->_connectionID, OCI_D_LOB);
-		$arr['blob'] = array( $desc, -1, $type );
+		$arr['blob'] = array($desc, -1, $type);
 
 		if ($this->session_sharing_force_blob) {
 			$this->Execute('ALTER SESSION SET CURSOR_SHARING=EXACT');
@@ -963,7 +963,7 @@ END;
 		}
 
 		$desc        = oci_new_descriptor($this->_connectionID, OCI_D_LOB);
-		$arr['blob'] = array( $desc, -1, $type );
+		$arr['blob'] = array($desc, -1, $type);
 
 		$this->BeginTrans();
 		$rs = self::Execute($sql, $arr);
@@ -1000,7 +1000,7 @@ END;
 
 		if ($inputarr !== false) {
 			if (!is_array($inputarr)) {
-				$inputarr = array( $inputarr );
+				$inputarr = array($inputarr);
 			}
 
 			$element0 = reset($inputarr);
@@ -1103,10 +1103,10 @@ END;
 		$sttype = @oci_statement_type($stmt);
 
 		if ($sttype == 'BEGIN' || $sttype == 'DECLARE') {
-			return array( $sql, $stmt, 0, $BINDNUM, ($cursor) ? oci_new_cursor($this->_connectionID) : false );
+			return array($sql, $stmt, 0, $BINDNUM, ($cursor) ? oci_new_cursor($this->_connectionID) : false);
 		}
 
-		return array( $sql, $stmt, 0, $BINDNUM );
+		return array($sql, $stmt, 0, $BINDNUM);
 	}
 
 	/*
@@ -1207,8 +1207,8 @@ END;
 				ADOConnection::outp("<b>Bind</b>: name = $name");
 			}
 			//we have to create a new Descriptor here
-			$numlob                         = count($this->_refLOBs);
-			$this->_refLOBs[$numlob]['LOB'] = oci_new_descriptor($this->_connectionID, oci_lob_desc($type));
+			$numlob                          = count($this->_refLOBs);
+			$this->_refLOBs[$numlob]['LOB']  = oci_new_descriptor($this->_connectionID, oci_lob_desc($type));
 			$this->_refLOBs[$numlob]['TYPE'] = $isOutput;
 
 			$tmp = $this->_refLOBs[$numlob]['LOB'];
@@ -1473,7 +1473,7 @@ END;
 
 	public function MetaPrimaryKeys($table, $owner = false, $internalKey = false) {
 		if ($internalKey) {
-			return array( 'ROWID' );
+			return array('ROWID');
 		}
 
 		// tested with oracle 8.1.7
@@ -1797,7 +1797,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

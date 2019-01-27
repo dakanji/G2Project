@@ -50,25 +50,25 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		 * will fail with permission errors.
 		 */
 		$this->_valueMap = array(
-			'permissions.directory' => 'x1',
-			'permissions.file' => 'x2',
-			'exec.beNice' => 'x2.5',
-			'exec.expectedStatus' => 'x3',
-			'default.orderBy' => 'x4',
+			'permissions.directory'  => 'x1',
+			'permissions.file'       => 'x2',
+			'exec.beNice'            => 'x2.5',
+			'exec.expectedStatus'    => 'x3',
+			'default.orderBy'        => 'x4',
 			'default.orderDirection' => 'x5',
-			'default.theme' => 'x7',
-			'session.lifetime' => 'x9',
-			'misc.markup' => 'x11',
-			'cookie.path' => '/sub/',
-			'cookie.domain' => '.example.com',
-			'lock.system' => 'x13',
-			'smtp.host' => 'smtp.example.com',
-			'smtp.username' => 'x14',
-			'smtp.password' => 'x15',
-			'smtp.from' => 'gallery@example.com',
-			'format.date' => 'x16',
-			'format.time' => 'x17',
-			'format.datetime' => 'x18',
+			'default.theme'          => 'x7',
+			'session.lifetime'       => 'x9',
+			'misc.markup'            => 'x11',
+			'cookie.path'            => '/sub/',
+			'cookie.domain'          => '.example.com',
+			'lock.system'            => 'x13',
+			'smtp.host'              => 'smtp.example.com',
+			'smtp.username'          => 'x14',
+			'smtp.password'          => 'x15',
+			'smtp.from'              => 'gallery@example.com',
+			'format.date'            => 'x16',
+			'format.time'            => 'x17',
+			'format.datetime'        => 'x18',
 		);
 
 		// The AdminCore controller uses the url generator to check the cookie path
@@ -95,7 +95,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(
@@ -139,7 +139,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(
@@ -185,7 +185,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(
@@ -222,7 +222,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(
@@ -251,20 +251,20 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		 * with permission errors.
 		 */
 		$valueMap = array(
-			'permissions.directory' => 'IGNORED',
-			'permissions.file' => 'IGNORED',
-			'exec.expectedStatus' => 'IGNORED',
-			'default.orderBy' => 'IGNORED',
-			'default.orderDirection' => 'IGNORED',
-			'default.theme' => 'IGNORED',
-			'default.language' => 'IGNORED',
+			'permissions.directory'   => 'IGNORED',
+			'permissions.file'        => 'IGNORED',
+			'exec.expectedStatus'     => 'IGNORED',
+			'default.orderBy'         => 'IGNORED',
+			'default.orderDirection'  => 'IGNORED',
+			'default.theme'           => 'IGNORED',
+			'default.language'        => 'IGNORED',
 			'language.useBrowserPref' => 'IGNORED',
-			'session.lifetime' => 'IGNORED',
-			'misc.markup' => 'IGNORED',
+			'session.lifetime'        => 'IGNORED',
+			'misc.markup'             => 'IGNORED',
 			// Set the cookie path in this test, the domain has to be a valid value
 			'cookie.domain' => '.example.com',
-			'lock.system' => 'IGNORED',
-			'format.date' => 'IGNORED',
+			'lock.system'   => 'IGNORED',
+			'format.date'   => 'IGNORED',
 		);
 
 		// Some test cases
@@ -320,7 +320,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 			// Perform the request and verify that we succeeded
 			$results = $this->handleRequest();
-			$error   = $testCase['saved'] ? array() : array( 'form[error][cookie][invalidPath]' );
+			$error   = $testCase['saved'] ? array() : array('form[error][cookie][invalidPath]');
 			$status  = !$testCase['saved'] ? array() : array(
 				'saved' => 1,
 			);
@@ -328,11 +328,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					$kind => array(
-						'view' => 'core.SiteAdmin',
+						'view'    => 'core.SiteAdmin',
 						'subView' => 'core.AdminCore',
 					),
 					'status' => $status,
-					'error' => $error,
+					'error'  => $error,
 				),
 				$results,
 				'Unexpected result for cookie path \'' . $testCase['path'] . '\''
@@ -367,16 +367,16 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		 * with permission errors.
 		 */
 		$valueMap = array(
-			'permissions.directory' => 'IGNORED',
-			'permissions.file' => 'IGNORED',
-			'exec.expectedStatus' => 'IGNORED',
-			'default.orderBy' => 'IGNORED',
-			'default.orderDirection' => 'IGNORED',
-			'default.theme' => 'IGNORED',
-			'default.language' => 'IGNORED',
+			'permissions.directory'   => 'IGNORED',
+			'permissions.file'        => 'IGNORED',
+			'exec.expectedStatus'     => 'IGNORED',
+			'default.orderBy'         => 'IGNORED',
+			'default.orderDirection'  => 'IGNORED',
+			'default.theme'           => 'IGNORED',
+			'default.language'        => 'IGNORED',
 			'language.useBrowserPref' => 'IGNORED',
-			'session.lifetime' => 'IGNORED',
-			'misc.markup' => 'IGNORED',
+			'session.lifetime'        => 'IGNORED',
+			'misc.markup'             => 'IGNORED',
 			// Set the cookie domain in this test, set the path to a valid value
 			'cookie.path' => '/sub/',
 			'lock.system' => 'IGNORED',
@@ -437,7 +437,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 			// Perform the request and verify that we succeeded
 			$results = $this->handleRequest();
-			$error   = $testCase['saved'] ? array() : array( 'form[error][cookie][invalidDomain]' );
+			$error   = $testCase['saved'] ? array() : array('form[error][cookie][invalidDomain]');
 			$status  = !$testCase['saved'] ? array() : array(
 				'saved' => 1,
 			);
@@ -445,11 +445,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals(
 				array(
 					$kind => array(
-						'view' => 'core.SiteAdmin',
+						'view'    => 'core.SiteAdmin',
 						'subView' => 'core.AdminCore',
 					),
 					'status' => $status,
-					'error' => $error,
+					'error'  => $error,
 				),
 				$results,
 				'Unexpected result for cookie domain \'' .
@@ -486,11 +486,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(),
-				'error' => array( 'form[error][smtp][invalidFrom]' ),
+				'error'  => array('form[error][smtp][invalidFrom]'),
 			),
 			$results
 		);
@@ -504,11 +504,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(),
-				'error' => array( 'form[emailTestError][invalidTo]' ),
+				'error'  => array('form[emailTestError][invalidTo]'),
 			),
 			$results
 		);
@@ -522,11 +522,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'delegate' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(),
-				'error' => array( 'form[emailTestError][invalidTo]' ),
+				'error'  => array('form[emailTestError][invalidTo]'),
 			),
 			$results
 		);
@@ -551,11 +551,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(
-					'saved' => 1,
+					'saved'            => 1,
 					'emailTestSuccess' => 1,
 				),
 				'error' => array(),
@@ -590,14 +590,14 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
-				'view' => 'core.SiteAdmin',
+				'view'    => 'core.SiteAdmin',
 				'subView' => 'core.AdminCore',
 			),
 			$results['redirect'],
 			'redirect'
 		);
 		$this->assertEquals(
-			array( 'saved', 'emailTestError', 'emailTestDebug' ),
+			array('saved', 'emailTestError', 'emailTestDebug'),
 			array_keys($results['status']),
 			'status keys'
 		);
@@ -633,11 +633,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array(
 				'redirect' => array(
-					'view' => 'core.SiteAdmin',
+					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
 				'status' => array(),
-				'error' => array(),
+				'error'  => array(),
 			),
 			$results
 		);

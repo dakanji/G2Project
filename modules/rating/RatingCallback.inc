@@ -83,10 +83,10 @@ class RatingCallbackView extends GalleryView {
 				}
 				$results['votesString'] = $module->translate(
 					array(
-						'one' => '%d vote',
-						'many' => '%d votes',
+						'one'   => '%d vote',
+						'many'  => '%d votes',
 						'count' => $results['votes'],
-						'arg1' => $results['votes'],
+						'arg1'  => $results['votes'],
 					)
 				);
 

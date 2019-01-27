@@ -42,18 +42,18 @@ class ShowAllCommentsView extends GalleryView {
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.view');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $showCount) = GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.show');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 		$page = GalleryUtilities::getRequestVariables('page');
 
@@ -69,7 +69,7 @@ class ShowAllCommentsView extends GalleryView {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		$commenters = $itemIds = $can = $itemData = array();
@@ -88,7 +88,7 @@ class ShowAllCommentsView extends GalleryView {
 			list($ret, $commentersList) = GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach ($commentersList as $commenter) {
@@ -101,12 +101,12 @@ class ShowAllCommentsView extends GalleryView {
 			$ret     = GalleryCoreApi::studyPermissions($itemIds);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 			list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach ($itemList as $it) {
@@ -117,7 +117,7 @@ class ShowAllCommentsView extends GalleryView {
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($itemIds);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 		}
 
@@ -126,14 +126,14 @@ class ShowAllCommentsView extends GalleryView {
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		foreach ($comments as $comment) {
 			list($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
 
 			if ($ret) {
-				return array( $ret, null );
+				return array($ret, null);
 			}
 
 			foreach (array(
@@ -154,7 +154,7 @@ class ShowAllCommentsView extends GalleryView {
 				);
 
 				if ($ret) {
-					return array( $ret, null );
+					return array($ret, null);
 				}
 
 				if ($anonymousViewable) {
@@ -166,7 +166,7 @@ class ShowAllCommentsView extends GalleryView {
 					);
 
 					if ($ret) {
-						return array( $ret, null );
+						return array($ret, null);
 					}
 				}
 
@@ -202,16 +202,16 @@ class ShowAllCommentsView extends GalleryView {
 		if ($page > 1) {
 			$navigator['first'] = array(
 				'urlParams' => array(
-					'view' => 'comment.ShowAllComments',
+					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
-					'page' => 1,
+					'page'   => 1,
 				),
 			);
 			$navigator['back']  = array(
 				'urlParams' => array(
-					'view' => 'comment.ShowAllComments',
+					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
-					'page' => $page - 1,
+					'page'   => $page - 1,
 				),
 			);
 		}
@@ -219,16 +219,16 @@ class ShowAllCommentsView extends GalleryView {
 		if ($page < $navigator['pageCount']) {
 			$navigator['next'] = array(
 				'urlParams' => array(
-					'view' => 'comment.ShowAllComments',
+					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
-					'page' => $page + 1,
+					'page'   => $page + 1,
 				),
 			);
 			$navigator['last'] = array(
 				'urlParams' => array(
-					'view' => 'comment.ShowAllComments',
+					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
-					'page' => $navigator['pageCount'],
+					'page'   => $navigator['pageCount'],
 				),
 			);
 		}
@@ -236,12 +236,12 @@ class ShowAllCommentsView extends GalleryView {
 		$template->setVariable(
 			'ShowAllComments',
 			array(
-				'comments' => $comments,
+				'comments'   => $comments,
 				'commenters' => $commenters,
-				'can'  => $can,
-				'item' => (array)$item,
-				'itemData' => $itemData,
-				'navigator' => $navigator,
+				'can'        => $can,
+				'item'       => (array)$item,
+				'itemData'   => $itemData,
+				'navigator'  => $navigator,
 			)
 		);
 		$template->style('modules/comment/comment.css');
@@ -263,9 +263,9 @@ class ShowAllCommentsView extends GalleryView {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $module->translate('show comments') );
+		return array(null, $module->translate('show comments'));
 	}
 }

@@ -10,7 +10,7 @@ ob_start();
 define('G2_SUPPORT', true);
 
 if (!empty($_SERVER['QUERY_STRING'])) {
-	foreach (array( 'phpinfo', 'cache', 'gd', 'chmod', 'import', 'password', 'search_db' ) as $script) {
+	foreach (array('phpinfo', 'cache', 'gd', 'chmod', 'import', 'password', 'search_db') as $script) {
 		/*
 		 * Don't use isset($_GET[$script]) since we want to allow for GET args could collide
 		 * with the above mentioned script names

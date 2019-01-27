@@ -48,19 +48,19 @@ class ArchiveUploadHelper {
 		 */
 		if (!$platform->isRestrictedByOpenBaseDir($unzipPath)) {
 			if (!$platform->file_exists($unzipPath) || !$platform->is_file($unzipPath)) {
-				return array( false, 'badPath', null );
+				return array(false, 'badPath', null);
 			}
 
 			if (!$platform->is_executable($unzipPath)) {
-				return array( false, 'notExecutable', null );
+				return array(false, 'notExecutable', null);
 			}
 		} else {
-			return array( false, 'badPath', null );
+			return array(false, 'badPath', null);
 		}
 
 		list($success, $results, $error) = $platform->exec(
 			array(
-				array( $unzipPath, '-v', dirname(__DIR__) . '/data/test.zip' ),
+				array($unzipPath, '-v', dirname(__DIR__) . '/data/test.zip'),
 			)
 		);
 		$valid = false;

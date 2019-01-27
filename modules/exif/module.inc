@@ -40,8 +40,8 @@ class ExifModule extends GalleryModule {
 		$this->_templateVersion = 1;
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array( 7, 41 ));
-		$this->setRequiredModuleApi(array( 3, 9 ));
+		$this->setRequiredCoreApi(array(7, 41));
+		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**
@@ -237,16 +237,16 @@ class ExifModule extends GalleryModule {
 		);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
 		if ($ret) {
-			return array( $ret, null );
+			return array($ret, null);
 		}
 
-		return array( null, $redirect );
+		return array(null, $redirect);
 	}
 
 	/**
