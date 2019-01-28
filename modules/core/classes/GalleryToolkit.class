@@ -34,6 +34,19 @@
  */
 class GalleryToolkit {
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryToolkit();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Get a certain property of a file
 	 *
 	 * @param string $mimeType
@@ -250,7 +263,7 @@ class GalleryToolkit {
 	 * @param GalleryEntity $source (probably a GalleryPhotoItem or GalleryMovieItem)
 	 * @static
 	 */
-	public static function estimateDimensions(&$derivative, $source) {
+	public function estimateDimensions(&$derivative, $source) {
 		if (method_exists($source, 'getwidth') && method_exists($source, 'getheight')) {
 			$width  = $source->getWidth();
 			$height = $source->getHeight();

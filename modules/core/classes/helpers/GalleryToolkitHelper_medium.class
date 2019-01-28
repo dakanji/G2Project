@@ -278,18 +278,19 @@ class GalleryToolkitHelper_medium {
 		}
 
 		// Find and remove any unused operations
-		$query                     = '
+		$query = '
 		SELECT DISTINCT
-		[GalleryToolkitOperationMap::name]
+			[GalleryToolkitOperationMap::name]
 		FROM
-		[GalleryToolkitOperationMap]
+			[GalleryToolkitOperationMap]
 		LEFT JOIN
-		[GalleryToolkitOperationMimeTypeMap]
+			[GalleryToolkitOperationMimeTypeMap]
 		ON
-		[GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
+			[GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
 		WHERE
-		[GalleryToolkitOperationMimeTypeMap::toolkitId] IS NULL
+			[GalleryToolkitOperationMimeTypeMap::toolkitId] IS NULL
 		';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -333,18 +334,19 @@ class GalleryToolkitHelper_medium {
 		}
 
 		// Find and remove any unused properties
-		$query                     = '
+		$query = '
 		SELECT DISTINCT
-		[GalleryToolkitPropertyMap::name]
+			[GalleryToolkitPropertyMap::name]
 		FROM
-		[GalleryToolkitPropertyMap]
+			[GalleryToolkitPropertyMap]
 		LEFT JOIN
-		[GalleryToolkitPropertyMimeTypeMap]
+			[GalleryToolkitPropertyMimeTypeMap]
 		ON
-		[GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
+			[GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
 		WHERE
-		[GalleryToolkitPropertyMimeTypeMap::toolkitId] IS NULL
+			[GalleryToolkitPropertyMimeTypeMap::toolkitId] IS NULL
 		';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -423,24 +425,24 @@ class GalleryToolkitHelper_medium {
 		} elseif (!GalleryDataCache::containsKey($cacheKey)) {
 			$query = '
 			SELECT DISTINCT
-			[GalleryToolkitOperationMap::name],
-			[GalleryToolkitOperationMap::outputMimeType],
-			[GalleryToolkitOperationMap::description],
-			[GalleryToolkitOperationParameterMap::type],
-			[GalleryToolkitOperationParameterMap::description],
-			[GalleryToolkitOperationParameterMap::position]
+				[GalleryToolkitOperationMap::name],
+				[GalleryToolkitOperationMap::outputMimeType],
+				[GalleryToolkitOperationMap::description],
+				[GalleryToolkitOperationParameterMap::type],
+				[GalleryToolkitOperationParameterMap::description],
+				[GalleryToolkitOperationParameterMap::position]
 			FROM
-			[GalleryToolkitOperationMap],
-			[GalleryToolkitOperationMimeTypeMap],
-			[GalleryToolkitOperationParameterMap]
+				[GalleryToolkitOperationMap],
+				[GalleryToolkitOperationMimeTypeMap],
+				[GalleryToolkitOperationParameterMap]
 			WHERE
-			[GalleryToolkitOperationMap::name] = 			[GalleryToolkitOperationParameterMap::operationName]
+				[GalleryToolkitOperationMap::name] = 			[GalleryToolkitOperationParameterMap::operationName]
 			AND
-			[GalleryToolkitOperationMap::name] = 			[GalleryToolkitOperationMimeTypeMap::operationName]
+				[GalleryToolkitOperationMap::name] = 			[GalleryToolkitOperationMimeTypeMap::operationName]
 			AND
-			[GalleryToolkitOperationMimeTypeMap::mimeType] = ?
+				[GalleryToolkitOperationMimeTypeMap::mimeType] = ?
 			ORDER BY
-			[GalleryToolkitOperationParameterMap::position] ASC
+				[GalleryToolkitOperationParameterMap::position] ASC
 			';
 
 			list($ret, $searchResults) = $gallery->search($query, array($mimeType));
@@ -490,15 +492,15 @@ class GalleryToolkitHelper_medium {
 		} elseif (!GalleryDataCache::containsKey($cacheKey)) {
 			$query = '
 			SELECT
-			[GalleryToolkitPropertyMap::name],
-			[GalleryToolkitPropertyMap::type],
-			[GalleryToolkitPropertyMap::description]
+				[GalleryToolkitPropertyMap::name],
+				[GalleryToolkitPropertyMap::type],
+				[GalleryToolkitPropertyMap::description]
 			FROM
-			[GalleryToolkitPropertyMap], [GalleryToolkitPropertyMimeTypeMap]
+				[GalleryToolkitPropertyMap], [GalleryToolkitPropertyMimeTypeMap]
 			WHERE
-			[GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
+				[GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
 			AND
-			[GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
+				[GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
 			';
 
 			list($ret, $searchResults) = $gallery->search($query, array($mimeType));
@@ -575,18 +577,20 @@ class GalleryToolkitHelper_medium {
 		$cacheKey = 'GalleryToolkitHelper::getRedundantPriorities()';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			$query               = '
+			$query = '
 			SELECT
-			[GalleryToolkitOperationMimeTypeMap::operationName],
-			[GalleryToolkitOperationMimeTypeMap::mimeType],
-			[GalleryToolkitOperationMimeTypeMap::toolkitId],
-			[GalleryToolkitOperationMimeTypeMap::priority]
+				[GalleryToolkitOperationMimeTypeMap::operationName],
+				[GalleryToolkitOperationMimeTypeMap::mimeType],
+				[GalleryToolkitOperationMimeTypeMap::toolkitId],
+				[GalleryToolkitOperationMimeTypeMap::priority]
 			FROM
-			[GalleryToolkitOperationMimeTypeMap]
+				[GalleryToolkitOperationMimeTypeMap]
 			WHERE
-			[GalleryToolkitOperationMimeTypeMap::priority] >= 20
-			AND [GalleryToolkitOperationMimeTypeMap::priority] <= 40
+				[GalleryToolkitOperationMimeTypeMap::priority] >= 20
+			AND
+				[GalleryToolkitOperationMimeTypeMap::priority] <= 40
 			';
+
 			list($ret, $results) = $gallery->search($query);
 
 			if ($ret) {
@@ -628,7 +632,10 @@ class GalleryToolkitHelper_medium {
 			}
 
 			// Get the appropriate toolkit
-			list($ret, $toolkit, $mimeType) = GalleryCoreApi::getToolkitByOperation($mimeType, $operationName);
+			list($ret, $toolkit, $mimeType) = GalleryCoreApi::getToolkitByOperation(
+				$mimeType,
+				$operationName
+			);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -740,20 +747,23 @@ class GalleryToolkitHelper_medium {
 		)
 		) {
 			if (!empty($matches[1])) {
-				list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($source->getMimeType(), $matches[1]);
+				list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
+					$source->getMimeType(),
+					$matches[1]
+				);
 
 				if ($ret) {
 					return $ret;
 				}
 
 				if (isset($toolkit)) {
-					$toolkit->estimateDimensions($derivative, $source);
+					$toolkit::doStatic()->estimateDimensions($derivative, $source);
 				} else {
 					// Fall back on the best-guess behaviour
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryToolkit.class'
 					);
-					GalleryToolkit::estimateDimensions($derivative, $source);
+					GalleryToolkit::doStatic()->estimateDimensions($derivative, $source);
 				}
 			}
 		}
