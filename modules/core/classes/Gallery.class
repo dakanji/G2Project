@@ -37,8 +37,9 @@ class Gallery {
 	public $_activeUser;
 
 	/**
-	 * Storage for all configuration variables, set in config.php.  The values contained here can't
-	 * be modified.  Well, they can be modified but they can't be saved so it's not a good idea.
+	 * Storage for all configuration variables, set in config.php.
+	 * The values contained here cannot be modified.
+	 * Well, they can be modified but they cannot be saved so it's not a good idea.
 	 * @var array
 	 * @access private
 	 */
@@ -184,11 +185,10 @@ class Gallery {
 			// (now unused, there is a separate replica module
 
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
-
-			'systemCharset'    => null,     // Specify system character set, skip autodetect
-			'defaultAlbumId'   => null,    // Initial album to display instead of root album
-			'breadcrumbRootId' => null,  // Can omit parents above this id in fetchParentSequence
-			'anonymousUserId'  => null,   // Alternate user account for guest sessions
+			'systemCharset'     => null,     // Specify system character set, skip autodetect
+			'defaultAlbumId'    => null,    // Initial album to display instead of root album
+			'breadcrumbRootId'  => null,  // Can omit parents above this id in fetchParentSequence
+			'anonymousUserId'   => null,   // Alternate user account for guest sessions
 		);
 	}
 
@@ -317,8 +317,8 @@ class Gallery {
 
 	/**
 	 * Get the Gallery session object.
-	 * Return a reference to the unique Gallery session object.  Any changes made to this object
-	 * will be saved in the session.
+	 * Return a reference to the unique Gallery session object.
+	 * Any changes made to this object will be saved in the session.
 	 *
 	 * @return GallerySession a session instance
 	 */
