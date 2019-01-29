@@ -436,9 +436,9 @@ class GalleryToolkitHelper_medium {
 				[GalleryToolkitOperationMimeTypeMap],
 				[GalleryToolkitOperationParameterMap]
 			WHERE
-				[GalleryToolkitOperationMap::name] = 			[GalleryToolkitOperationParameterMap::operationName]
+				[GalleryToolkitOperationMap::name] = [GalleryToolkitOperationParameterMap::operationName]
 			AND
-				[GalleryToolkitOperationMap::name] = 			[GalleryToolkitOperationMimeTypeMap::operationName]
+				[GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
 			AND
 				[GalleryToolkitOperationMimeTypeMap::mimeType] = ?
 			ORDER BY
