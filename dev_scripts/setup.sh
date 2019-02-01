@@ -9,5 +9,5 @@ then
 	fi
 
 	echo "symlinking '.git/hooks' to '/dev_scripts/hooks'"
-	ln -s ../dev_scripts/hooks .git/hooks
+	ln -s dev_scripts/hooks .git/hooks
 fi

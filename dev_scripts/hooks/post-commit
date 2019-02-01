@@ -1,0 +1,10 @@
+#!/bin/sh
+			
+# Periodically Update Developer Environment at Random
+LO_VAL=1
+HI_VAL=9
+UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $HI_VAL - $LO_VAL)))
+if [ $UPDATE_FLAG -eq 5 ];
+then
+	chmod +x dev_scripts/update.sh && dev_scripts/update.sh
+fi

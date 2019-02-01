@@ -73,21 +73,32 @@ if [ "$ALL_FILES" != "" ]; then
 				RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG $PROJECT/$TARGET_FILE)
 				RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
 
-				# Stage target file if appropriate
-				FILE_CHANGES=$(git diff $PROJECT/$TARGET_FILE)
-				if [ "$FILE_CHANGES" != "" ]; then
-					git add $PROJECT/$TARGET_FILE
-				fi
+				# Stage target file
+				git add $PROJECT/$TARGET_FILE
 			done
 
-			# Check for staged changes but not committed
-			CACHED_CHANGES=$(git diff --cached)
-			if [ "$CACHED_CHANGES" == "" ]; then
-				echo ""
+			# Check for changes staged but not committed
+			RET=$(git diff --cached)
+
+			if [ "$RET" == "" ]; then
 				echo "NOTE: Commit Emptied After Style Fix ... Aborting"
 				echo ""
 				exit 1
 			fi
+
+			# Add Dev Tag
+			echo "# COMMIT DATE" > .devtag
+			echo "$(date)" >> .devtag
+			echo " "  >> .devtag
+			echo "# COMMIT AUTHOR"  >> .devtag
+			echo "$GIT_AUTHOR_NAME" >> .devtag
+			echo " "  >> .devtag
+			echo "# COMMIT HEAD"  >> .devtag
+			echo "$(git log -1 --oneline)" >> .devtag
+			echo " "  >> .devtag
+			git add .devtag
+
+			# Completed
 			echo ""
 			echo "Coding Style Fixed"
 			echo ""

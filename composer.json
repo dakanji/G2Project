@@ -28,8 +28,11 @@
         "symfony/lock": "^3.4"
     },
     "scripts": {
+        "post-install-cmd": [
+            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh && ./dev_scripts/update.sh"
+        ],
         "post-update-cmd": [
-            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
+            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/*.sh && ./dev_scripts/setup.sh && ./dev_scripts/update.sh"
         ]
     }
 }
