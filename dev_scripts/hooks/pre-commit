@@ -19,89 +19,87 @@ then
 	FILE_LIST="$1"
 	IFS=$oIFS
 fi
+
 PHP_FILES=${FILE_LIST:-$STAGED_PHP_FILES}
 ALL_FILES=${FILE_LIST:-$STAGED_FIX_FILES}
 
-# Skip checks if relevant files are not present
-if [ "$ALL_FILES" != "" ]; then
-	# Skip lint if PHP files are not present
-	if [ "$PHP_FILES" != "" ]; then
-		echo ""
-		echo "Running PHP Lint ..."
-		echo ""
-		for PHP_FILE in $PHP_FILES
-		do
-			php -l -d display_errors=0 $PROJECT/$PHP_FILE
-			if [ $? != 0 ]
-			then
-				echo ""
-				echo "PHP Syntax Errors Found ... Aborting"
-				git reset HEAD $PROJECT/$PHP_FILE
-				echo ""
-				echo "Please Fix Errors and Repeat Commit"
-				exit 1
-			fi
-		done
-	fi
+# Lint PHP files if present
+if [ "$PHP_FILES" != "" ]; then
+	echo ""
+	echo "Running PHP Lint ..."
+	echo ""
+	for PHP_FILE in $PHP_FILES
+	do
+		php -l -d display_errors=0 $PROJECT/$PHP_FILE
+		if [ $? != 0 ]
+		then
+			echo ""
+			echo "PHP Syntax Errors Found ... Aborting"
+			git reset HEAD $PROJECT/$PHP_FILE
+			echo ""
+			echo "Please Fix Errors and Repeat Commit"
+			exit 1
+		fi
+	done
+fi
 
-	# Check if PHP-CS-FIXER and PHPCBF are set up correctly
-	if [ ! -x $PHP_FIX_BIN ]; then
+# Check if PHP-CS-FIXER and PHPCBF are set up correctly
+if [ ! -x $PHP_FIX_BIN ]; then
+	echo ""
+	echo ""
+	echo "PHP-CS-FIXER not Found or not Executable ... Aborting"
+	echo ""
+	exit 1
+else
+	if [ ! -x $PHP_CBF_BIN ]; then
 		echo ""
 		echo ""
-		echo "PHP-CS-FIXER not Found or not Executable ... Aborting"
+   		echo "PHPCBF not Found or not Executable ... Aborting"
 		echo ""
 		exit 1
 	else
-		if [ ! -x $PHP_CBF_BIN ]; then
-			echo ""
-			echo ""
-    		echo "PHPCBF not Found or not Executable ... Aborting"
+		# Execute PHPCBF & PHP-CS-FIXER
+		echo ""
+		echo ""
+		echo "Fixing Coding Style ..."
+		echo ""
+		for TARGET_FILE in $ALL_FILES
+		do
+			# Unstage target file
+			RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
+
+			# Apply coding style to target file
+			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG $PROJECT/$TARGET_FILE)
+			RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
+
+			# Stage target file
+			git add $PROJECT/$TARGET_FILE
+		done
+
+		# Check for changes staged but not committed
+		RET=$(git diff --cached)
+
+		if [ "$RET" == "" ]; then
+			echo "NOTE: Commit Emptied After Style Fix ... Aborting"
 			echo ""
 			exit 1
-		else
-			# Execute PHPCBF & PHP-CS-FIXER
-			echo ""
-			echo ""
-			echo "Fixing Coding Style ..."
-			echo ""
-			for TARGET_FILE in $ALL_FILES
-			do
-				# Unstage target file
-				RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
-
-				# Apply coding style to target file
-				RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG $PROJECT/$TARGET_FILE)
-				RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
-
-				# Stage target file
-				git add $PROJECT/$TARGET_FILE
-			done
-
-			# Check for changes staged but not committed
-			RET=$(git diff --cached)
-
-			if [ "$RET" == "" ]; then
-				echo "NOTE: Commit Emptied After Style Fix ... Aborting"
-				echo ""
-				exit 1
-			fi
-
-			# Add Dev Tag
-			echo "# COMMIT DATE" > .devtag
-			echo "$(date)" >> .devtag
-			echo " "  >> .devtag
-			echo "# COMMIT AUTHOR"  >> .devtag
-			echo "$GIT_AUTHOR_NAME" >> .devtag
-			echo " "  >> .devtag
-			echo "# COMMIT HEAD"  >> .devtag
-			echo "$(git log -1 --oneline)" >> .devtag
-			echo " "  >> .devtag
-			git add .devtag
-
-			# Completed
-			echo ""
-			echo "Coding Style Fixed"
-			echo ""
 		fi
+
+		# Completed
+		echo ""
+		echo "Coding Style Fixed"
+		echo ""
 	fi
 fi
+
+# Add Dev Tag
+echo "# COMMIT DATE" > .devtag
+echo "$(date)" >> .devtag
+echo " "  >> .devtag
+echo "# COMMIT AUTHOR"  >> .devtag
+echo "$GIT_AUTHOR_NAME" >> .devtag
+echo " "  >> .devtag
+echo "# COMMIT HEAD"  >> .devtag
+echo "$(git log -1 --oneline)" >> .devtag
+echo " "  >> .devtag
+git add .devtag
