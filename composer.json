@@ -32,7 +32,7 @@
             "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
         ],
         "post-update-cmd": [
-            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/*.sh && ./dev_scripts/setup.sh"
+            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
         ]
     }
 }
