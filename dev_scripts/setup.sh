@@ -33,6 +33,10 @@ then
 		touch $WP_XX_ArrayDeclarationSpacingSniff
 fi
 
+# Set merge strategy in case of conflicts
+echo "Set merge strategy"
+git config merge.theirs.driver true
+
 
 
 echo "Developer Environment Update Ended"

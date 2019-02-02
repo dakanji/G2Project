@@ -29,10 +29,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "chmod +x ./dev_scripts/hooks/* && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh && git config merge.theirs.driver true"
+            "chmod +x ./dev_scripts/hooks/* && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
         ],
         "post-update-cmd": [
-			"chmod +x ./dev_scripts/hooks/* && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh && git config merge.theirs.driver true"
+			"chmod +x ./dev_scripts/hooks/* && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
         ]
     }
 }
