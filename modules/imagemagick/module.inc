@@ -54,10 +54,10 @@ class ImageMagickModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'path'      => '',
-			'jpegQuality' => '75',
-			'cmykSupport' => 'none',
-			'versionOk' => '',
+			'path'                  => '',
+			'jpegQuality'           => '75',
+			'cmykSupport'           => 'none',
+			'versionOk'             => '',
 			'useNewCoalesceOptions' => 0,
 		) as $key => $value) {
 			if (!isset($params[$key])) {
@@ -154,8 +154,7 @@ class ImageMagickModule extends GalleryModule {
 
 		foreach ($results['operations'] as $operation => $info) {
 			$outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : '';
-
-			$ret = GalleryCoreApi::registerToolkitOperation(
+			$ret            = GalleryCoreApi::registerToolkitOperation(
 				'ImageMagick',
 				$info['mimeTypes'],
 				$operation,

@@ -136,11 +136,42 @@ class JpegtranToolkitHelper {
 			);
 		}
 
-		// Only used for translation, so ignore version mismatch during upgrade
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'jpegtran', true);
+	/* To test the binary we'll try to rotate a small jpeg file. */
+	$tmpDir = $gallery->getConfig('data.gallery.tmp');
+	$tmpFilename = $platform->tempnam($tmpDir, 'jpgt_');
+	$command = array($jpegtranPath, '-verbose', '-copy', 'all', '-rotate', '90',
+			 '-outfile', $tmpFilename, $dataPath . 'test.jpg');
 
-		if ($ret) {
-			return array($ret, null);
+	list ($success, $stdout, $stderr) = $platform->exec(array($command));
+
+	$testArray = array();
+	if (!$success) {
+	    $message = $module->translate('Incorrect exit status for jpegtran command.');
+	    $testArray[] = array('name' => 'rotate',
+				 'success' => false,
+				 'message' => array($message));
+	} else if (!$platform->file_exists($tmpFilename)) {
+	    $message = $module->translate('Output file was not generated.');
+	    $testArray[] = array('name' => 'rotate',
+				 'success' => false,
+				 'message' => array($message));
+	} else if (empty($stderr) || !is_array($stderr)){
+	    $message = $module->translate('Missing version information.');
+	    $testArray[] = array('name' => 'rotate',
+				 'success' => false,
+				 'message' => array($message));
+	} else {
+	    $isJpegtran = false;
+	    $detectsDimensions = false;
+	    $isFinished = false;
+	    while (null !== ($line = array_shift($stderr))) {
+		if (preg_match("/Independent JPEG Group's/", $line)) {
+		    $isJpegtran = true;
+		} else if (preg_match('/Start Of Frame 0xc0: width=50, height=50, components=3/',
+				      $line)) {
+		    $detectsDimensions = true;
+		} else if (preg_match('/End Of Image/', $line)) {
+		    $isFinished = true;
 		}
 
 		// To test the binary we'll try to rotate a small jpeg file.
