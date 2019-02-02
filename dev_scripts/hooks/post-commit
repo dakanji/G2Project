@@ -1,10 +1,17 @@
 #!/bin/sh
-			
-# Periodically Update Developer Environment at Random
+
+# Update the Developer Environment at Random
 LO_VAL=1
 HI_VAL=9
-UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $HI_VAL - $LO_VAL)))
-if [ $UPDATE_FLAG -eq 5 ];
+FREQ_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $HI_VAL - $LO_VAL)))
+if [ $FREQ_UPDATE_FLAG -eq (($HI_VAL + $LO_VAL) / 2) ];
 then
-	sh dev_scripts/setup.sh
+	composer install
+fi
+
+XX_VAL=($HI_VAL * $HI_VAL)
+RARE_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $XX_VAL - $LO_VAL)))
+if [ $RARE_UPDATE_FLAG -eq (($XX_VAL + $LO_VAL) / 2) ];
+then
+	composer update --no-dev && composer install
 fi
