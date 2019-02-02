@@ -13,5 +13,5 @@ XX_VAL=$(($HI_VAL * $HI_VAL))
 RARE_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $XX_VAL - $LO_VAL)))
 if [ $RARE_UPDATE_FLAG -eq $((($XX_VAL + $LO_VAL) / 2)) ];
 then
-	composer update --no-dev && composer install
+	composer install --no-dev && composer install
 fi
