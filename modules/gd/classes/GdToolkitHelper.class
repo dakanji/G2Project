@@ -92,10 +92,12 @@ class GdToolkitHelper {
 			// Scale
 			$operations['scale']['params'][]    = array(
 				'type'        => 'int',
-				'description' => $gallery->i18n(array(
-					'text'    => 'target width (# pixels or #% of full size)',
-					'cFormat' => false,
-				)),
+				'description' => $gallery->i18n(
+					array(
+						'text'    => 'target width (# pixels or #% of full size)',
+						'cFormat' => false,
+					)
+				),
 			);
 			$operations['scale']['params'][]    = array(
 				'type'        => 'int',
@@ -120,17 +122,21 @@ class GdToolkitHelper {
 			// Resize
 			$operations['resize']['params'][]    = array(
 				'type'        => 'int',
-				'description' => $gallery->i18n(array(
-					'text'    => 'target width (# pixels or #% of full size)',
-					'cFormat' => false,
-				)),
+				'description' => $gallery->i18n(
+					array(
+						'text'    => 'target width (# pixels or #% of full size)',
+						'cFormat' => false,
+					)
+				),
 			);
 			$operations['resize']['params'][]    = array(
 				'type'        => 'int',
-				'description' => $gallery->i18n(array(
-					'text'    => 'target height (# pixels or #% of full size)',
-					'cFormat' => false,
-				)),
+				'description' => $gallery->i18n(
+					array(
+						'text'    => 'target height (# pixels or #% of full size)',
+						'cFormat' => false,
+					)
+				),
 			);
 			$operations['resize']['description'] = $gallery->i18n(
 				'Resize the image to the target dimensions'
@@ -211,7 +217,7 @@ class GdToolkitHelper {
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
-				'params'      => array(
+				'params' => array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n('target size in kb'),
@@ -220,7 +226,7 @@ class GdToolkitHelper {
 				'description' => $gallery->i18n(
 					'Reduce image quality to reach target file size'
 				),
-				'mimeTypes'   => $qualityMimeTypes,
+				'mimeTypes' => $qualityMimeTypes,
 			);
 		}
 
