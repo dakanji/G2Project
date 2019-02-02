@@ -28,145 +28,150 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform.class');
  * @version $Revision: 17580 $
  */
 class UnixPlatform extends GalleryPlatform {
-
-    /**
-     * @see GalleryPlatform::exec
-     */
-    function exec($cmdArray) {
-	global $gallery;
-	$gallery->guaranteeTimeLimit(5);
-
-	if (!isset($this->_beNice)) {
-	    list ($ret, $this->_beNice) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'exec.beNice');
-	    if ($ret) {
-		if ($gallery->getDebug()) {
-		    $gallery->debug('Unable to look up core.exec.beNice param');
-		}
-		$this->_beNice = 0;
-	    }
-	}
-
-	if ($this->_beNice) {
-	    $preamble = 'nice ';
-	} else {
-	    $preamble = '';
-	}
-
-	/* Assemble the command array into a pipeline */
-	$command = $preamble;
-	foreach ($cmdArray as $cmdAndArgs) {
-	    if (strlen($command) && $command != $preamble) {
-		$command .= ' | ' . $preamble;
-	    }
-
-	    foreach ($cmdAndArgs as $arg) {
-		if ($arg === '>') {
-		    $command .= '>';
-		} else {
-		    $command .= ' "' . $arg . '" ';
-		}
-	    }
-	}
-
-	/* Redirect STDERR to a file */
-	$tmpDir = $gallery->getConfig('data.gallery.tmp');
-	$debugFile = tempnam($tmpDir, 'g2dbg');
-	$command = "($command) 2>\"$debugFile\"";
-
-	if ($gallery->getDebug()) {
-	    $gallery->debug("Executing: $command");
-	}
-	/*
-	 * It is the responsibility of exec'ers to chmod output files to preferred perms.
-	 * Set a default umask here in case any code forgets this.
+	/**
+	 * @see GalleryPlatform::exec
 	 */
-	$umask = umask(022);
-	$results = array();
-	exec($command, $results, $status);
-	umask($umask);
+	public function exec($cmdArray) {
+		global $gallery;
+		$gallery->guaranteeTimeLimit(5);
 
-	if (!isset($this->_execExpectedStatus)) {
-	    list ($ret, $this->_execExpectedStatus) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
-	    if ($ret) {
-		if ($gallery->getDebug()) {
-		    $gallery->debug('Unable to look up core.exec.expectedStatus param');
-		}
-		$this->_execExpectedStatus = 0;
-	    }
-	}
+		if (!isset($this->_beNice)) {
+			list($ret, $this->_beNice) = GalleryCoreApi::getPluginParameter('module', 'core', 'exec.beNice');
 
-	$stderr = array();
-	if ($this->file_exists($debugFile)) {
-	    if ($this->filesize($debugFile) > 0) {
-		if ($fd = $this->fopen($debugFile, "r")) {
-		    while (!$this->feof($fd)) {
-			$buf = $this->fgets($fd, 4096);
-			$buf = rtrim($buf);
-			if (!empty($buf)) {
-			    $stderr[] = $buf;
+			if ($ret) {
+				if ($gallery->getDebug()) {
+					$gallery->debug('Unable to look up core.exec.beNice param');
+				}
+				$this->_beNice = 0;
 			}
-		    }
-		    $this->fclose($fd);
 		}
-	    }
-	    $this->unlink($debugFile);
+
+		if ($this->_beNice) {
+			$preamble = 'nice ';
+		} else {
+			$preamble = '';
+		}
+
+		// Assemble the command array into a pipeline
+		$command = $preamble;
+
+		foreach ($cmdArray as $cmdAndArgs) {
+			if (strlen($command) && $command != $preamble) {
+				$command .= ' | ' . $preamble;
+			}
+
+			foreach ($cmdAndArgs as $arg) {
+				if ($arg === '>') {
+					$command .= '>';
+				} else {
+					$command .= ' "' . $arg . '" ';
+				}
+			}
+		}
+
+		// Redirect STDERR to a file
+		$tmpDir    = $gallery->getConfig('data.gallery.tmp');
+		$debugFile = tempnam($tmpDir, 'g2dbg');
+		$command   = "($command) 2>\"$debugFile\"";
+
+		if ($gallery->getDebug()) {
+			$gallery->debug("Executing: $command");
+		}
+		/*
+		 * It is the responsibility of exec'ers to chmod output files to preferred perms.
+		 * Set a default umask here in case any code forgets this.
+		 */
+		$umask   = umask(022);
+		$results = array();
+		exec($command, $results, $status);
+		umask($umask);
+
+		if (!isset($this->_execExpectedStatus)) {
+			list($ret, $this->_execExpectedStatus) = GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
+
+			if ($ret) {
+				if ($gallery->getDebug()) {
+					$gallery->debug('Unable to look up core.exec.expectedStatus param');
+				}
+				$this->_execExpectedStatus = 0;
+			}
+		}
+
+		$stderr = array();
+
+		if ($this->file_exists($debugFile)) {
+			if ($this->filesize($debugFile) > 0) {
+				if ($fd = $this->fopen($debugFile, 'r')) {
+					while (!$this->feof($fd)) {
+						$buf = $this->fgets($fd, 4096);
+						$buf = rtrim($buf);
+
+						if (!empty($buf)) {
+							$stderr[] = $buf;
+						}
+					}
+					$this->fclose($fd);
+				}
+			}
+			$this->unlink($debugFile);
+		}
+
+		// Dump any output we have
+		if ($gallery->getDebug()) {
+			$gallery->debug('Regular Output:');
+
+			foreach ($results as $line) {
+				$gallery->debug($line);
+			}
+
+			$gallery->debug('Error Output:');
+
+			foreach ($stderr as $line) {
+				$gallery->debug($line);
+			}
+			$gallery->debug("Status: $status (expected " . $this->_execExpectedStatus . ')');
+		}
+
+		return array($status == $this->_execExpectedStatus, $results, $stderr);
 	}
 
-	/* Dump any output we have */
-	if ($gallery->getDebug()) {
-	    $gallery->debug("Regular Output:");
-	    foreach ($results as $line) {
-		$gallery->debug($line);
-	    }
-
-	    $gallery->debug("Error Output:");
-	    foreach ($stderr as $line) {
-		$gallery->debug($line);
-	    }
-	    $gallery->debug("Status: $status (expected " . $this->_execExpectedStatus . ')');
+	/**
+	 * @see GalleryPlatform::isRestrictedByOpenBaseDir
+	 */
+	public function isRestrictedByOpenBaseDir($path) {
+		return $this->_isRestrictedByOpenBaseDir($path, ':', true);
 	}
 
-	return array($status == $this->_execExpectedStatus, $results, $stderr);
-    }
+	/**
+	 * @see GalleryPlatform::splitPath
+	 */
+	public function splitPath($path) {
+		$slash = $this->getDirectorySeparator();
+		$list  = array();
 
-    /**
-     * @see GalleryPlatform::isRestrictedByOpenBaseDir
-     */
-    function isRestrictedByOpenBaseDir($path) {
-	return $this->_isRestrictedByOpenBaseDir($path, ':', true);
-    }
+		foreach (explode($slash, $path) as $element) {
+			if (!empty($element)) {
+				$list[] = $element;
+			} elseif (empty($list)) {
+				$list[] = $slash;
+			}
+		}
 
-    /**
-     * @see GalleryPlatform::splitPath
-     */
-    function splitPath($path) {
-	$slash = $this->getDirectorySeparator();
-	$list = array();
-	foreach (explode($slash, $path) as $element) {
-	    if (!empty($element)) {
-		$list[] = $element;
-	    } else if (empty($list)) {
-		$list[] = $slash;
-	    }
+		return $list;
 	}
-	return $list;
-    }
 
-    /**
-     * @see GalleryPlatform::isSymlinkSupported
-     * symlink may have been disabled so make sure it still exists
-     */
-    function isSymlinkSupported() {
-	return function_exists('symlink');
-    }
+	/**
+	 * @see GalleryPlatform::isSymlinkSupported
+	 * symlink may have been disabled so make sure it still exists
+	 */
+	public function isSymlinkSupported() {
+		return function_exists('symlink');
+	}
 
-    /**
-     * @see GalleryPlatform::getLineEnding
-     */
-    function getLineEnding() {
-	return "\n";
-    }
+	/**
+	 * @see GalleryPlatform::getLineEnding
+	 */
+	public function getLineEnding() {
+		return "\n";
+	}
 }
-?>

@@ -28,58 +28,66 @@
  * @version $Revision: 17580 $
  */
 class RepositoryCallbackView extends GalleryView {
-    /**
-     * @see GalleryView::isImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::isControllerLike
-     */
-    function isControllerLike() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryView::isImmediate
+	 */
+	public function isImmediate() {
+		return true;
 	}
 
-	list ($command, $form) = GalleryUtilities::getRequestVariables('command', 'form');
-	if ($command == 'saveRepositoryList') {
-	    /*
-	     * Filter the form values through our list of valid keys to avoid exploits
-	     * This is duplicated from AdminRepositoryController.  Success is assumed here
-	     * since the UI is not configured to actually do anything on failure.  This probably
-	     * isn't the best long term approach.
-	     */
-	    $data = array();
-	    foreach (array('released', 'experimental', 'community') as $key) {
-		if ($form['repositories'][$key]) {
-		    $data[$key] = 1;
+	/**
+	 * @see GalleryView::isControllerLike
+	 */
+	public function isControllerLike() {
+		return true;
+	}
+
+	/**
+	 * @see GalleryView::renderImmediate
+	 */
+	public function renderImmediate($status = null, $error = null) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		if ($ret) {
+			return $ret;
 		}
-	    }
 
-	    if (empty($data)) {
-		$data['released'] = 1;
-	    }
+		list($command, $form) = GalleryUtilities::getRequestVariables('command', 'form');
 
-	    $ret = GalleryCoreApi::setPluginParameter(
-		'module', 'core', 'core.repositories', serialize($data));
-	    if ($ret) {
-		return $ret;
-	    }
+		if ($command == 'saveRepositoryList') {
+			/*
+			 * Filter the form values through our list of valid keys to avoid exploits
+			 * This is duplicated from AdminRepositoryController.  Success is assumed here
+			 * since the UI is not configured to actually do anything on failure.  This probably
+			 * isn't the best long term approach.
+			 */
+			$data = array();
 
-	    /* Remove the default repositories from the data cache */
-	    GalleryRepository::clearRepositoryCache();
+			foreach (array('released', 'experimental', 'community') as $key) {
+				if ($form['repositories'][$key]) {
+					$data[$key] = 1;
+				}
+			}
+
+			if (empty($data)) {
+				$data['released'] = 1;
+			}
+
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'core',
+				'core.repositories',
+				serialize($data)
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+
+			// Remove the default repositories from the data cache
+			GalleryRepository::doStatic()->clearRepositoryCache();
+		}
+
+		return null;
 	}
-	return null;
-    }
 }
-?>

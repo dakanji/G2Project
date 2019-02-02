@@ -25,18 +25,22 @@
  * @version $Revision: 17580 $
  */
 
-/* Include bootstrap.inc in case config.php overrides GALLERY_MAIN_PHP */
-require_once(dirname(__FILE__) . '/bootstrap.inc');
-require_once(dirname(__FILE__) . '/modules/core/classes/GalleryUrlGenerator.class');
-require_once(dirname(__FILE__) . '/modules/core/classes/GalleryCoreApi.class');
+// Include bootstrap.inc in case config.php overrides GALLERY_MAIN_PHP
+require_once __DIR__ . '/bootstrap.inc';
 
-/* The REQUEST_URI can either be /path/index.php or just /path/. Get rid of index.php.* */
+require_once __DIR__ . '/modules/core/classes/GalleryUrlGenerator.class';
+
+require_once __DIR__ . '/modules/core/classes/GalleryCoreApi.class';
+
+// The REQUEST_URI can either be /path/index.php or just /path/. Get rid of index.php.
 $path = GalleryUrlGenerator::getCurrentRequestUri();
+
 if (preg_match('|^(/(?:[^?#/]+/)*)(.*)|', $path, $matches)) {
-    $path = $matches[1] . GALLERY_MAIN_PHP;
-    if (!empty($matches[2]) && ($pos = strpos($matches[2], '?')) !== false) {
-	$path .= substr($matches[2], $pos);
-    }
+	$path = $matches[1] . GALLERY_MAIN_PHP;
+
+	if (!empty($matches[2]) && ($pos = strpos($matches[2], '?')) !== false) {
+		$path .= substr($matches[2], $pos);
+	}
 }
 
 $configBaseUri = @$gallery->getConfig('baseUri');
@@ -46,4 +50,3 @@ $urlGenerator->init(!empty($configBaseUri) ? $configBaseUri : null);
 
 $phpVm = $gallery->getPhpVm();
 $phpVm->header('Location: ' . $urlGenerator->makeUrl($path));
-?>

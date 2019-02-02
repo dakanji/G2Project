@@ -1,0 +1,38 @@
+{
+    "name": "dakanji/G2Project-main",
+    "description": "Community Update of Gallery2 - A web based photo album viewer and editor",
+    "type": "project",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/dakanji/G2Project-main/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/dakanji/G2Project-main/issues"
+    },
+    "config": {
+    	"vendor-dir": "dev_vendor"
+    },
+    "require": {
+    	"php": ">=5.3.3"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.4",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.0",
+        "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.0",
+        "wp-coding-standards/wpcs": "^2.0",
+        "phpunit/php-invoker": "^2.0",
+        "symfony/lock": "^3.4"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "chmod +x ./dev_scripts/hooks/* && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh && git config merge.theirs.driver true"
+        ],
+        "post-update-cmd": [
+			"chmod +x ./dev_scripts/hooks/* && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh && git config merge.theirs.driver true"
+        ]
+    }
+}

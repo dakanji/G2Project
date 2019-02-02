@@ -23,7 +23,7 @@
  * (if embedded in an application also using smarty it may be defined already)
  */
 if (!class_exists('Smarty')) {
-    GalleryCoreApi::requireOnce('lib/smarty/Smarty.class.php');
+	GalleryCoreApi::requireOnce('lib/smarty/Smarty.class.php');
 }
 
 /**
@@ -34,47 +34,53 @@ if (!class_exists('Smarty')) {
  * @version $Revision: 17580 $
  */
 class GallerySmarty extends Smarty {
+	/**
+	 * A GalleryStatus object from the last called fetch
+	 * @var GalleryStatus
+	 * @access private
+	 */
+	public $_firstGalleryStatus;
 
-    /**
-     * A GalleryStatus object from the last called fetch
-     * @var GalleryStatus
-     * @access private
-     */
-    var $_firstGalleryStatus;
+	/**
+	 * Fetch should also return a GalleryStatus object
+	 *
+	 * @see Smarty::fetch
+	 * @return array GalleryStatus the return status
+	 *               string the output from the template
+	 */
+	public function fetch(
+		$_smarty_tpl_file,
+		$_smarty_cache_id = null,
+		$_smarty_compile_id = null,
+		$_smarty_display = false
+	) {
+		$this->_firstGalleryStatus = null;
 
+		// This could change the value of _firstError:
+		$result = parent::fetch(
+			$_smarty_tpl_file,
+			$_smarty_cache_id,
+			$_smarty_compile_id,
+			$_smarty_display
+		);
 
-    /**
-     * Fetch should also return a GalleryStatus object
-     *
-     * @see Smarty::fetch
-     * @return array GalleryStatus the return status
-     *               string the output from the template
-     */
-    function fetch($_smarty_tpl_file, $_smarty_cache_id = null,
-		   $_smarty_compile_id = null, $_smarty_display = false) {
-	$this->_firstGalleryStatus = null;
-
-	/* This could change the value of _firstError: */
-	$result = parent::fetch($_smarty_tpl_file,
-				$_smarty_cache_id,
-				$_smarty_compile_id,
-				$_smarty_display);
-
-	return array($this->_firstGalleryStatus, $result);
-    }
-
-    /**
-     * Make trigger_error behave more Gallery-like
-     *
-     * @see Smarty::trigger_error
-     */
-    function trigger_error($error_msg, $error_type = E_USER_WARNING) {
-	/* Store this error for later usage */
-	if (!$this->_firstGalleryStatus) {
-	    $this->_firstGalleryStatus =
-		GalleryCoreApi::error(ERROR_BAD_PARAMETER, null, null,
-				      sprintf('Smarty error: %s', $error_msg, $error_type));
+		return array($this->_firstGalleryStatus, $result);
 	}
-    }
+
+	/**
+	 * Make trigger_error behave more Gallery-like
+	 *
+	 * @see Smarty::trigger_error
+	 */
+	public function trigger_error($error_msg, $error_type = E_USER_WARNING) {
+		// Store this error for later usage
+		if (!$this->_firstGalleryStatus) {
+			$this->_firstGalleryStatus = GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				null,
+				null,
+				sprintf('Smarty error: %s', $error_msg, $error_type)
+			);
+		}
+	}
 }
-?>

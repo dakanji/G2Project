@@ -26,187 +26,216 @@
  * @version $Revision: 17580 $
  */
 class ItemEditTheme extends ItemEditPlugin {
+	/**
+	 * @see ItemEditPlugin::handleRequest
+	 */
+	public function handleRequest($form, &$item, &$preferred) {
+		if (isset($form['action']['chooseTheme'])) {
+			$error = array();
 
-    /**
-     * @see ItemEditPlugin::handleRequest
-     */
-    function handleRequest($form, &$item, &$preferred) {
-	if (isset($form['action']['chooseTheme'])) {
-	    $error = array();
-	    if (!empty($form['theme'])) {
-		$themeId = $form['theme'];
-		list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-		if ($ret) {
-		    return array($ret, null, null, null);
-		}
-	    } else {
-		$themeId = null;
-	    }
+			if (!empty($form['theme'])) {
+				$themeId           = $form['theme'];
+				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-
-	    list ($ret, $item) = $item->refresh();
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-
-	    $item->setSerialNumber($form['serialNumber']);
-	    $item->setTheme($themeId);
-	    $ret = $item->save();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null, null);
-	    }
-
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-
-	    if (isset($form['changeInDescendents'])) {
-		list ($ret, $subAlbumIds) =
-		    GalleryCoreApi::fetchDescendentAlbumItemIds($item);
-		if ($ret) {
-		    return array($ret, null, null, null);
-		}
-
-		if (!empty($subAlbumIds)) {
-		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($subAlbumIds);
-		    if ($ret) {
-			return array($ret, null, null, null);
-		    }
-
-		    list ($ret, $subAlbums) =
-			GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
-		    if ($ret) {
-			return array($ret, null, null, null);
-		    }
-
-		    foreach ($subAlbums as $album) {
-			if (isset($form['changeInDescendents']['theme'])) {
-			    $album->setTheme($form['theme']);
+				if ($ret) {
+					return array($ret, null, null, null);
+				}
+			} else {
+				$themeId = null;
 			}
-			$ret = $album->save();
+
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
 			if ($ret) {
-			    GalleryCoreApi::releaseLocks($lockId);
-			    return array($ret, null, null, null);
+				return array($ret, null, null, null);
 			}
-		    }
-		    $ret = GalleryCoreApi::releaseLocks($lockId);
-		    if ($ret) {
-			return array($ret, null, null, null);
-		    }
+
+			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+
+			list($ret, $item) = $item->refresh();
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+
+			$item->setSerialNumber($form['serialNumber']);
+			$item->setTheme($themeId);
+			$ret = $item->save();
+
+			if ($ret) {
+				GalleryCoreApi::releaseLocks($lockId);
+
+				return array($ret, null, null, null);
+			}
+
+			$ret = GalleryCoreApi::releaseLocks($lockId);
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+
+			if (isset($form['changeInDescendents'])) {
+				list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
+
+				if ($ret) {
+					return array($ret, null, null, null);
+				}
+
+				if (!empty($subAlbumIds)) {
+					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($subAlbumIds);
+
+					if ($ret) {
+						return array($ret, null, null, null);
+					}
+
+					list($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
+
+					if ($ret) {
+						return array($ret, null, null, null);
+					}
+
+					foreach ($subAlbums as $album) {
+						if (isset($form['changeInDescendents']['theme'])) {
+							$album->setTheme($form['theme']);
+						}
+						$ret = $album->save();
+
+						if ($ret) {
+							GalleryCoreApi::releaseLocks($lockId);
+
+							return array($ret, null, null, null);
+						}
+					}
+					$ret = GalleryCoreApi::releaseLocks($lockId);
+
+					if ($ret) {
+						return array($ret, null, null, null);
+					}
+				}
+			}
+
+			$status = $module->translate('Successfully changed theme');
+		} else {
+			list($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
+			list($ret, $error, $status) = GalleryCoreApi::handleThemeSettingsRequest(
+				$themeId,
+				$item->getId(),
+				$form
+			);
+
+			if ($ret) {
+				return array($ret, null, null, null);
+			}
 		}
-	    }
 
-	    $status = $module->translate('Successfully changed theme');
-	} else {
-	    list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    list ($ret, $error, $status) = GalleryCoreApi::handleThemeSettingsRequest(
-		$themeId, $item->getId(), $form);
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
+		return array(null, $error, $status, false);
 	}
 
-	return array(null, $error, $status, false);
-    }
+	/**
+	 * @see ItemEditPlugin::loadTemplate
+	 */
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
+		$themeId = $themeSettingsThemeId = $item->getTheme();
 
-    /**
-     * @see ItemEditPlugin::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item, $thumbnail) {
-	$themeId = $themeSettingsThemeId = $item->getTheme();
-	if (empty($themeSettingsThemeId)) {
-	    list ($ret, $themeSettingsThemeId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	}
+		if (empty($themeSettingsThemeId)) {
+			list($ret, $themeSettingsThemeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
-	list ($ret, $theme) =
-	    GalleryCoreApi::loadPlugin('theme', $themeSettingsThemeId, false, true);
-	if (!$ret) {
-	    $ret = GalleryCoreApi::loadThemeSettingsForm(
-		$themeSettingsThemeId, $item->getId(), $template, $form);
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	} else if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    /* Ignore incompatible / missing themes.  Just show a warning. */
-	} else {
-	    return array($ret, null, null);
-	}
-
-	if ($form['formName'] != 'ItemEditTheme') {
-	    $form['formName'] = 'ItemEditTheme';
-	    $form['theme'] = $themeId;
-	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
-	/* Set up our theme selection list */
-	list ($ret, $themeStatusList) = GalleryCoreApi::fetchPluginStatus('theme');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
-	foreach ($themeStatusList as $id => $status) {
-	    if (empty($status['active'])) {
-		continue;
-	    }
-
-	    list ($ret, $tmp) = GalleryCoreApi::loadPlugin('theme', $id, false, true);
-	    if ($ret) {
-		
-		if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
-		    /* Ignore incompatible themes (but don't list them either) */
-		    continue;
+			if ($ret) {
+				return array($ret, null, null);
+			}
 		}
-	    	return array($ret, null, null);
-	    }
-	    $themeList[$id] = $tmp->translate($tmp->getName());
+
+		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeSettingsThemeId, false, true);
+
+		if (!$ret) {
+			$ret = GalleryCoreApi::loadThemeSettingsForm(
+				$themeSettingsThemeId,
+				$item->getId(),
+				$template,
+				$form
+			);
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+		} elseif ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
+			// Ignore incompatible / missing themes.  Just show a warning.
+		} else {
+			return array($ret, null, null);
+		}
+
+		if ($form['formName'] != 'ItemEditTheme') {
+			$form['formName'] = 'ItemEditTheme';
+			$form['theme']    = $themeId;
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		// Set up our theme selection list
+		list($ret, $themeStatusList) = GalleryCoreApi::fetchPluginStatus('theme');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$themeList = array(
+			'' => $module->translate('&laquo; default theme &raquo;'),
+		);
+
+		foreach ($themeStatusList as $id => $status) {
+			if (empty($status['active'])) {
+				continue;
+			}
+
+			list($ret, $tmp) = GalleryCoreApi::loadPlugin('theme', $id, false, true);
+
+			if ($ret) {
+				if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
+					// Ignore incompatible themes (but don't list them either)
+					continue;
+				}
+
+				return array($ret, null, null);
+			}
+			$themeList[$id] = $tmp->translate($tmp->getName());
+		}
+		$ItemEditTheme['themeList'] = $themeList;
+		$ItemEditTheme['theme']     = $themeId;
+
+		$template->setVariable('controller', 'core.ItemEditTheme');
+		$template->setVariable('ItemEditTheme', $ItemEditTheme);
+
+		return array(null, 'modules/core/templates/ItemEditTheme.tpl', 'modules_core');
 	}
-	$ItemEditTheme['themeList'] = $themeList;
-	$ItemEditTheme['theme'] = $themeId;
 
-	$template->setVariable('controller', 'core.ItemEditTheme');
-	$template->setVariable('ItemEditTheme', $ItemEditTheme);
-	return array(null, 'modules/core/templates/ItemEditTheme.tpl', 'modules_core');
-    }
-
-    /**
-     * @see ItemEditPlugin::isSupported
-     */
-    function isSupported($item, $thumbnail) {
-	return (GalleryUtilities::isA($item, 'GalleryAlbumItem'));
-    }
-
-    /**
-     * @see ItemEditPlugin::getTitle
-     */
-    function getTitle() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see ItemEditPlugin::isSupported
+	 */
+	public function isSupported($item, $thumbnail) {
+		return GalleryUtilities::isA($item, 'GalleryAlbumItem');
 	}
 
-	return array(null, $module->translate('Theme'));
-    }
+	/**
+	 * @see ItemEditPlugin::getTitle
+	 */
+	public function getTitle() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('Theme'));
+	}
 }
-?>

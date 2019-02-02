@@ -29,41 +29,44 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  * @version $Revision: 17580 $
  */
 class OptimizeDatabaseTask extends MaintenanceTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-	$info['l10Domain'] = 'modules_core';
-	$info['title'] = $gallery->i18n('Optimize database');
-	$info['description'] = $gallery->i18n(
-	    'Improve the performance of your database.  Results will vary depending on which ' .
-	    'database you\'re using, but this routine maintenance will make your Gallery run ' .
-	    'faster.  Especially useful after adding or deleting many items.');
-	return $info;
-    }
+		$info['l10Domain']   = 'modules_core';
+		$info['title']       = $gallery->i18n('Optimize database');
+		$info['description'] = $gallery->i18n(
+			'Improve the performance of your database.  Results will vary depending on which ' .
+			'database you\'re using, but this routine maintenance will make your Gallery run ' .
+			'faster.  Especially useful after adding or deleting many items.'
+		);
 
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	global $gallery;
-
-	$storage =& $gallery->getStorage();
-	$ret = $storage->optimize();
-	if ($ret) {
-	    return array($ret, null, null);
+		return $info;
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		global $gallery;
+
+		$storage =& $gallery->getStorage();
+		$ret     = $storage->optimize();
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$details = array($module->translate('Database optimized successfully'));
+
+		return array(null, true, $details);
 	}
-
-	$details = array($module->translate('Database optimized successfully'));
-
-	return array(null, true, $details);
-    }
 }
-?>

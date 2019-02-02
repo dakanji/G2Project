@@ -28,109 +28,121 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage/GalleryStorageE
  * @version $Revision: 17580 $
  */
 class DatabaseStorageTest extends GalleryTestCase {
-
-    function DatabaseStorageTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
-	$this->_data = array("## database_with_everything\n",
-			     "# A_SomeTable_1.0\n",
-			     "Some 0->1 alter SQL\n",
-			     "# A_SomeTable_1.1\n",
-			     "Some 1->2 alter SQL\n",
-			     "# T_AnInstallerTest_1\n",
-			     "Some test SQL\n",
-			     "# T_AnInstallerTest_2\n",
-			     "Some test SQL\n",
-			     "# SomeTable\n",
-			     "Some mysql SQL\n",
-			     "Some multiline SQL\n",
-			     "# R_SomeTable_1.0\n",
-			     "Some mysql drop table SQL\n",
-			     "## database_with_only_tables\n",
-			     "# SomeTable\n",
-			     "Some postgres SQL\n",
-			     "## database_with_only_removes\n",
-			     "# R_SomeTable_1.0\n",
-			     "Some oracle drop table SQL\n",
-			     "## database_with_nothing\n");
-    }
 
-    function testParseSqlTemplate1() {
-	$results = GalleryStorageExtras::parseSqlTemplate($this->_data,
-							   'database_with_everything');
-	$this->assertEquals(
-	    array('table' => array(
-		      'SomeTable' => "Some mysql SQL\nSome multiline SQL\n",
-		      ),
-		  'alter' => array(
-		      'SomeTable' => array(
-			  '1' => array(
-			      '0' => "Some 0->1 alter SQL\n",
-			      '1' => "Some 1->2 alter SQL\n"
-			      ),
-			  ),
-		      ),
-		  'remove' => array(
-		      'SomeTable' => array(
-			  '1' => array(
-			      '0' => "Some mysql drop table SQL\n"
-			      )
-			  )
-		      ),
-		  'test' => array(
-		      'AnInstallerTest' => array(
-			  '1' => "Some test SQL\n",
-			  '2' => "Some test SQL\n"
-			  )
-		      )
-		  ),
-	    $results);
-    }
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
 
-    function testParseSqlTemplate2() {
-	$results =
-	    GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_tables');
-	$this->assertEquals(
-	    array('table' => array(
-		      'SomeTable' => "Some postgres SQL\n"
-		      ),
-		  'alter' => array(),
-		  'remove' => array(),
-		  'test' => array(),
-		  ),
-	    $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->_data = array(
+			"## database_with_everything\n",
+			"# A_SomeTable_1.0\n",
+			"Some 0->1 alter SQL\n",
+			"# A_SomeTable_1.1\n",
+			"Some 1->2 alter SQL\n",
+			"# T_AnInstallerTest_1\n",
+			"Some test SQL\n",
+			"# T_AnInstallerTest_2\n",
+			"Some test SQL\n",
+			"# SomeTable\n",
+			"Some mysql SQL\n",
+			"Some multiline SQL\n",
+			"# R_SomeTable_1.0\n",
+			"Some mysql drop table SQL\n",
+			"## database_with_only_tables\n",
+			"# SomeTable\n",
+			"Some postgres SQL\n",
+			"## database_with_only_removes\n",
+			"# R_SomeTable_1.0\n",
+			"Some oracle drop table SQL\n",
+			"## database_with_nothing\n",
+		);
+	}
 
-    function testParseSqlTemplate3() {
-	$results =
-	    GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_removes');
-	$this->assertEquals(
-	    array('table' => array(),
-		  'alter' => array(),
-		  'remove' => array(
-		      'SomeTable' => array(
-			  '1' => array(
-			      '0' =>  "Some oracle drop table SQL\n"
-			      )
-			  )
-		      ),
-		  'test' => array()
-		  ),
-	    $results);
-    }
+	public function testParseSqlTemplate1() {
+		$results = GalleryStorageExtras::parseSqlTemplate(
+			$this->_data,
+			'database_with_everything'
+		);
+		$this->assertEquals(
+			array(
+				'table' => array(
+					'SomeTable' => "Some mysql SQL\nSome multiline SQL\n",
+				),
+				'alter' => array(
+					'SomeTable' => array(
+						'1' => array(
+							'0' => "Some 0->1 alter SQL\n",
+							'1' => "Some 1->2 alter SQL\n",
+						),
+					),
+				),
+				'remove' => array(
+					'SomeTable' => array(
+						'1' => array(
+							'0' => "Some mysql drop table SQL\n",
+						),
+					),
+				),
+				'test' => array(
+					'AnInstallerTest' => array(
+						'1' => "Some test SQL\n",
+						'2' => "Some test SQL\n",
+					),
+				),
+			),
+			$results
+		);
+	}
 
-    function testParseSqlTemplate4() {
-	$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_nothing');
-	$this->assertEquals(array('table' => array(),
-				  'alter' => array(),
-				  'remove' => array(),
-				  'test' => array()), $results);
-    }
+	public function testParseSqlTemplate2() {
+		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_tables');
+		$this->assertEquals(
+			array(
+				'table' => array(
+					'SomeTable' => "Some postgres SQL\n",
+				),
+				'alter'  => array(),
+				'remove' => array(),
+				'test'   => array(),
+			),
+			$results
+		);
+	}
+
+	public function testParseSqlTemplate3() {
+		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_removes');
+		$this->assertEquals(
+			array(
+				'table'  => array(),
+				'alter'  => array(),
+				'remove' => array(
+					'SomeTable' => array(
+						'1' => array(
+							'0' => "Some oracle drop table SQL\n",
+						),
+					),
+				),
+				'test'  => array(),
+			),
+			$results
+		);
+	}
+
+	public function testParseSqlTemplate4() {
+		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_nothing');
+		$this->assertEquals(
+			array(
+				'table'  => array(),
+				'alter'  => array(),
+				'remove' => array(),
+				'test'   => array(),
+			),
+			$results
+		);
+	}
 }
-?>

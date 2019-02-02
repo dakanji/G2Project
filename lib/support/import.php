@@ -18,110 +18,128 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 if (!defined('G2_SUPPORT')) {
-    return;
+	define('G2_SUPPORT_FILE', true);
+
+	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
 
 /**
  * Gallery Database Import
  * @package Support
  */
+$g2Base = dirname(dirname(__DIR__)) . '/';
 
-$g2Base = dirname(dirname(dirname(__FILE__))) . '/';
-require_once($g2Base . 'modules/core/classes/GalleryCoreApi.class');
-require_once($g2Base . 'modules/core/classes/GalleryStorage.class');
-require_once($g2Base . 'modules/core/classes/GalleryUtilities.class');
-require_once($g2Base . 'lib/support/SupportStatusTemplate.class');
+require_once $g2Base . 'modules/core/classes/GalleryCoreApi.class';
+
+require_once $g2Base . 'modules/core/classes/GalleryStorage.class';
+
+require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
+
+require_once $g2Base . 'lib/support/SupportStatusTemplate.class';
 
 $templateData = array();
 
 $template = new SupportStatusTemplate('Database Import');
 
-$configFilePath =
-    (defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR . '/' : $g2Base) . 'config.php';
+$configFilePath = (defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR . '/' : $g2Base) . 'config.php';
 
-require_once(dirname(__FILE__) . '/../../embed.php');
+require_once __DIR__ . '/../../embed.php';
 
-$templateData = array();
+$templateData             = array();
 $templateData['bodyFile'] = 'ImportRequest.html';
-$renderFullPage = true;
+$renderFullPage           = true;
 
-$ret = GalleryEmbed::init(array('fullInit' => false));
+$ret = GalleryEmbed::init(
+	array(
+		'fullInit' => false,
+	)
+);
+
 if ($ret) {
-    $templateData['errors'][] = $ret->getAsHtml();
+	$templateData['errors'][] = $ret->getAsHtml();
 } else {
-    $platform =& $gallery->getPlatform();
-    $storage =& $gallery->getStorage();
+	$platform =& $gallery->getPlatform();
+	$storage  =& $gallery->getStorage();
 
-    $templateData['warnings'] = array();
-    if (isset($_REQUEST['importDatabase'])) {
-	$importFile = $_REQUEST['importFile'];
-	/* Sanitize the input */
-	GalleryUtilities::sanitizeInputValues($importFile);
+	$templateData['warnings'] = array();
 
-	if (!$platform->file_exists($importFile)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, null, null,
-				     'The file "' . $importFile . '" does not exist.');
-	}
+	if (isset($_REQUEST['importDatabase'])) {
+		$importFile = $_REQUEST['importFile'];
+		// Sanitize the input
+		GalleryUtilities::sanitizeInputValues($importFile);
 
-	$verifiedFile = $_REQUEST['verifiedFile'];
-	/* Sanitize the input */
-	GalleryUtilities::sanitizeInputValues($verifiedFile);
-
-	$doImportFlag = true;
-	if ($verifiedFile != $importFile) {
-	    $templateData['verifiedFile'] = $importFile;
-	    $verifiedFile = $importFile;
-	    $doImportFlag = verifyVersions($templateData, $importFile);
-	}
-
-	if ($doImportFlag) {
-	    $template->renderHeader(true);
-	    $template->renderStatusMessage('Restoring Gallery Database', '', 0);
-
-	    /* Do the database import */
-	    $importer = $storage->getDatabaseImporter();
-	    list ($ret, $errors) = $importer->importToDb($verifiedFile, 'importProgressCallback');
-	    if ($ret) {
-		$templateData['errors'][] = $ret->getAsHtml();
-	    } else if ($errors != null) {
-		if (!is_array($errors)) {
-		    $templateData['errors'][] = $errors->getAsHtml();
-		} else {
-		    foreach ($errors as $status) {
-			$templateData['errors'][] = $status->getAsHtml();
-		    }
+		if (!$platform->file_exists($importFile)) {
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				null,
+				null,
+				'The file "' . $importFile . '" does not exist.'
+			);
 		}
-	    }
 
-	    /* The import processing sets Gallery into maintenance mode, undo that now */
-	    $ret = GalleryCoreApi::setMaintenanceMode(false);
-	    if ($ret) {
-		$templateData['errors'][] = $ret->getAsHtml();
-	    }
+		$verifiedFile = $_REQUEST['verifiedFile'];
+		// Sanitize the input
+		GalleryUtilities::sanitizeInputValues($verifiedFile);
 
-	    $templateData['bodyFile'] = 'ImportFinished.html';
-	    $templateData['hideStatusBlock'] = 1;
-	    $renderFullPage = false;
+		$doImportFlag = true;
+
+		if ($verifiedFile != $importFile) {
+			$templateData['verifiedFile'] = $importFile;
+			$verifiedFile                 = $importFile;
+			$doImportFlag                 = verifyVersions($templateData, $importFile);
+		}
+
+		if ($doImportFlag) {
+			$template->renderHeader(true);
+			$template->renderStatusMessage('Restoring Gallery Database', '', 0);
+
+			// Do the database import
+			$importer           = $storage->getDatabaseImporter();
+			list($ret, $errors) = $importer->importToDb($verifiedFile, 'importProgressCallback');
+
+			if ($ret) {
+				$templateData['errors'][] = $ret->getAsHtml();
+			} elseif ($errors != null) {
+				if (!is_array($errors)) {
+					$templateData['errors'][] = $errors->getAsHtml();
+				} else {
+					foreach ($errors as $status) {
+						$templateData['errors'][] = $status->getAsHtml();
+					}
+				}
+			}
+
+			// The import processing sets Gallery into maintenance mode, undo that now
+			$ret = GalleryCoreApi::setMaintenanceMode(false);
+
+			if ($ret) {
+				$templateData['errors'][] = $ret->getAsHtml();
+			}
+
+			$templateData['bodyFile']        = 'ImportFinished.html';
+			$templateData['hideStatusBlock'] = 1;
+			$renderFullPage                  = false;
+		}
+	} else {
+		getBackupFiles($templateData);
+
+		// Render the output
+		$templateData['bodyFile'] = 'ImportRequest.html';
 	}
-    } else {
-	getBackupFiles($templateData);
-
-	/* Render the output */
-	$templateData['bodyFile'] = 'ImportRequest.html';
-    }
 }
 
 if (!$ret) {
-    $ret = GalleryEmbed::done();
-    if ($ret) {
-	$templateData['errors'][] = $ret->getAsHtml();
-    }
+	$ret = GalleryEmbed::done();
+
+	if ($ret) {
+		$templateData['errors'][] = $ret->getAsHtml();
+	}
 }
 
 if ($renderFullPage) {
-    $template->renderHeaderBodyAndFooter($templateData);
+	$template->renderHeaderBodyAndFooter($templateData);
 } else {
-    $template->renderBodyAndFooter($templateData);
+	$template->renderBodyAndFooter($templateData);
 }
 
 /**
@@ -132,35 +150,36 @@ if ($renderFullPage) {
  * @return boolean true if there are no verification messages to display.
  */
 function verifyVersions(&$templateData, $importFile) {
-    global $gallery;
-    global $template;
-    $storage =& $gallery->getStorage();
+	global $gallery;
+	global $template;
+	$storage =& $gallery->getStorage();
 
-    $importer = $storage->getDatabaseImporter();
-    $errors = $importer->verifyVersions($importFile);
+	$importer = $storage->getDatabaseImporter();
+	$errors   = $importer->verifyVersions($importFile);
 
-    if (!empty($errors['warnings'])) {
-	$templateData['versionWarnings'] = $errors['warnings'];
-    } else {
-	$templateData['versionWarnings'] = null;
-    }
+	if (!empty($errors['warnings'])) {
+		$templateData['versionWarnings'] = $errors['warnings'];
+	} else {
+		$templateData['versionWarnings'] = null;
+	}
 
-    if (!empty($errors['errors'])) {
-	$templateData['errors'] = $errors['errors'];
-    } else {
-	$templateData['errors'] = null;
-    }
+	if (!empty($errors['errors'])) {
+		$templateData['errors'] = $errors['errors'];
+	} else {
+		$templateData['errors'] = null;
+	}
 
-    $verificationMessages = !empty($errors['warnings']) || !empty($errors['errors']);
-    if ($verificationMessages) {
-	getBackupFiles($templateData);
+	$verificationMessages = !empty($errors['warnings']) || !empty($errors['errors']);
 
-	/* Render the output */
-	$templateData['bodyFile'] = 'ImportRequest.html';
-	$templateData['hideStatusBlock'] = 1;
-    }
+	if ($verificationMessages) {
+		getBackupFiles($templateData);
 
-    return !$verificationMessages;
+		// Render the output
+		$templateData['bodyFile']        = 'ImportRequest.html';
+		$templateData['hideStatusBlock'] = 1;
+	}
+
+	return !$verificationMessages;
 }
 
 /**
@@ -168,22 +187,23 @@ function verifyVersions(&$templateData, $importFile) {
  * @param array $templateData The information to be displayed on the import page.
  */
 function getBackupFiles(&$templateData) {
-    global $gallery;
-    $platform =& $gallery->getPlatform();
+	global $gallery;
+	$platform =& $gallery->getPlatform();
 
-    $backupFiles = $gallery->getConfig('data.gallery.backup') . '*.xml';
+	$backupFiles = $gallery->getConfig('data.gallery.backup') . '*.xml';
 
-    $files = array();
-    foreach ($platform->glob($backupFiles) as $fileName) {
-       $files[filectime($fileName) . $fileName] = $fileName;
-    }
-    krsort($files);
+	$files = array();
 
-    $templateData['backupFiles'] = $files;
-    if (count($files) == 0) {
-        $templateData['errors'][] =
-	    'There are no backups found. You will probably have to reinstall.';
-    }
+	foreach ($platform->glob($backupFiles) as $fileName) {
+		$files[filectime($fileName) . $fileName] = $fileName;
+	}
+	krsort($files);
+
+	$templateData['backupFiles'] = $files;
+
+	if (count($files) == 0) {
+		$templateData['errors'][] = 'There are no backups found. You will probably have to reinstall.';
+	}
 }
 
 /**
@@ -191,7 +211,6 @@ function getBackupFiles(&$templateData) {
  * @param float $percentage The current completion percentage.
  */
 function importProgressCallback($percentage) {
-    global $template;
-    $template->renderStatusMessage('Importing Gallery Database', '', $percentage);
+	global $template;
+	$template->renderStatusMessage('Importing Gallery Database', '', $percentage);
 }
-?>

@@ -18,51 +18,53 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once(dirname(__FILE__) . '/../../modules/core/classes/GalleryCoreApi.class');
+require_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
 
 /**
  * Welcome screen
  * @package Upgrade
  */
 class WelcomeStep extends UpgradeStep {
-    function stepName() {
-	return _('Welcome');
-    }
-
-    function processRequest() {
-	if (isset($_POST['language'])) {
-	    global $translator;
-	    $translator->init($_POST['language'], true);
-	    $_SESSION['language'] = $_POST['language'];
-	}
-	return true;
-    }
-
-    function loadTemplateData(&$templateData) {
-	global $gallery;
-	global $translator;
-
-	if (@$gallery->getConfig('multisite')) {
-	    /* Prevent upgrade if old style multisite config.php is found */
-	    $templateData['bodyFile'] = 'InvalidConfig.html';
-	    return;
+	public function stepName() {
+		return _('Welcome');
 	}
 
-	$templateData['mode.maintenance'] = @$gallery->getConfig('mode.maintenance');
-	$templateData['totalSteps'] = count($GLOBALS['steps'])-1;
-	$templateData['bodyFile'] = 'Welcome.html';
-	$this->setComplete(true);
-
-	if (isset($translator)) {
-	    list ($supportedLanguages) = $translator->getLanguageData();
-	    $templateData['languages'] = array();
-	    foreach ($supportedLanguages as $lang => $list) {
-		foreach ($list as $country => $data) {
-		    $code = $lang . '_' . $country;
-		    $templateData['languages'][$code] = $data['description'];
+	public function processRequest() {
+		if (isset($_POST['language'])) {
+			global $translator;
+			$translator->init($_POST['language'], true);
+			$_SESSION['language'] = $_POST['language'];
 		}
-	    }
+
+		return true;
 	}
-    }
+
+	public function loadTemplateData(&$templateData) {
+		global $gallery;
+		global $translator;
+
+		if (@$gallery->getConfig('multisite')) {
+			// Prevent upgrade if old style multisite config.php is found
+			$templateData['bodyFile'] = 'InvalidConfig.html';
+
+			return;
+		}
+
+		$templateData['mode.maintenance'] = @$gallery->getConfig('mode.maintenance');
+		$templateData['totalSteps']       = count($GLOBALS['steps']) - 1;
+		$templateData['bodyFile']         = 'Welcome.html';
+		$this->setComplete(true);
+
+		if (isset($translator)) {
+			list($supportedLanguages)  = $translator->getLanguageData();
+			$templateData['languages'] = array();
+
+			foreach ($supportedLanguages as $lang => $list) {
+				foreach ($list as $country => $data) {
+					$code                             = $lang . '_' . $country;
+					$templateData['languages'][$code] = $data['description'];
+				}
+			}
+		}
+	}
 }
-?>

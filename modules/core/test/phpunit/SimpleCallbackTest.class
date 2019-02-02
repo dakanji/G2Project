@@ -26,413 +26,418 @@
  * @version $Revision: 18157 $
  */
 class SimpleCallbackTest extends GalleryTestCase {
-
-    function SimpleCallbackTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$this->_tag = 'SmplCb-' . rand(0, 999999);
-	list ($ret, $this->_view) = GalleryView::loadView('core.SimpleCallback');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_userNames = $this->_groupNames = array();
-	GalleryDataCache::reset();
-    }
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
 
-    function _createUser() {
-	list ($ret, $user) =
-	    $this->_createRandomUser($this->_tag . '-' . count($this->_userNames));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($user);
-	$this->_users[] = $user;
-	$this->_userNames[] = $user->getUsername();
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function _createGroup() {
-	list ($ret, $group) =
-	    $this->_createRandomGroup($this->_tag . '-' . count($this->_groupNames));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($group);
-	$this->_groupNames[] = $group->getGroupName();
-    }
+		$this->_tag              = 'SmplCb-' . mt_rand(0, 999999);
+		list($ret, $this->_view) = GalleryView::doStatic()->loadView('core.SimpleCallback');
 
-    function _runCallback() {
-	ob_start();
-	$ret = $this->_view->renderImmediate(array(), array());
-	$results = ob_get_contents();
-	ob_end_clean();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->_userNames = $this->_groupNames = array();
+		GalleryDataCache::reset();
 	}
 
-	return $results;
-    }
+	public function _createUser($fields = array()) {
+		list($ret, $user) = $this->_createRandomUser($this->_tag . '-' . count($this->_userNames));
 
-    function testLookupUsername() {
-	$this->_createUser();
-	$this->_createUser();
-	$this->_createUser();
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($user);
+		$this->_users[]     = $user;
+		$this->_userNames[] = $user->getUsername();
+	}
 
-	GalleryUtilities::putRequestVariable('command', 'lookupUsername');
-	GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-	$results = $this->_runCallback();
+	public function _createGroup() {
+		list($ret, $group) = $this->_createRandomGroup($this->_tag . '-' . count($this->_groupNames));
 
-	sort($this->_userNames);
-	$this->assertEquals(join("\n", $this->_userNames), $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($group);
+		$this->_groupNames[] = $group->getGroupName();
+	}
 
-    function testLookupUsernameAsGuestUser() {
-	$this->_createUser();
-	$this->_createUser();
-	$this->_createUser();
-	$this->_becomeGuestUser();
+	public function _runCallback() {
+		ob_start();
+		$ret     = $this->_view->renderImmediate(array(), array());
+		$results = ob_get_contents();
+		ob_end_clean();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupUsername');
-	GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-	$results = $this->_runCallback();
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Guest can't see results */
-	$this->assertEquals("", $results);
-    }
+		return $results;
+	}
 
-    function testLookupUsernameAlternateGuestUser() {
-	global $gallery;
-	$this->_createUser();
-	$this->_createUser();
-	$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
+	public function testLookupUsername() {
+		$this->_createUser();
+		$this->_createUser();
+		$this->_createUser();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupUsername');
-	GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-	$results = $this->_runCallback();
-	$this->assertEquals("", $results);
-    }
+		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
+		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
+		$results = $this->_runCallback();
 
-    function testLookupUsernameWithEntity() {
-	/* We expect user/group names in db to be entitized.. search for < should match &lt; */
-	$search = $this->_tag . '<t';
-	$this->_tag .= '&lt;t';
-	$this->_createUser();
-	$this->_createUser();
+		sort($this->_userNames);
+		$this->assertEquals(join("\n", $this->_userNames), $results);
+	}
 
-	GalleryUtilities::putRequestVariable('command', 'lookupUsername');
-	GalleryUtilities::putRequestVariable('prefix', $search);
-	$results = $this->_runCallback();
+	public function testLookupUsernameAsGuestUser() {
+		$this->_createUser();
+		$this->_createUser();
+		$this->_createUser();
+		$this->_becomeGuestUser();
 
-	sort($this->_userNames);
-	$this->assertEquals(join("\n", $this->_userNames), $results);
-    }
+		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
+		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
+		$results = $this->_runCallback();
 
-    function testLookupGroupname() {
-	$this->_createGroup();
-	$this->_createGroup();
-	$this->_createGroup();
+		// Guest can't see results
+		$this->assertEquals('', $results);
+	}
 
-	GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
-	GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-	$results = $this->_runCallback();
+	public function testLookupUsernameAlternateGuestUser() {
+		global $gallery;
+		$this->_createUser();
+		$this->_createUser();
+		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
 
-	sort($this->_groupNames);
-	$this->assertEquals(join("\n", $this->_groupNames), $results);
-    }
+		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
+		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
+		$results = $this->_runCallback();
+		$this->assertEquals('', $results);
+	}
 
-    function testLookupGroupnameAsGuestUser() {
-	$this->_createGroup();
-	$this->_createGroup();
-	$this->_createGroup();
-	$this->_becomeGuestUser();
+	public function testLookupUsernameWithEntity() {
+		// We expect user/group names in db to be entitized.. search for < should match &lt;
+		$search      = $this->_tag . '<t';
+		$this->_tag .= '&lt;t';
+		$this->_createUser();
+		$this->_createUser();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
-	GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-	$results = $this->_runCallback();
+		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
+		GalleryUtilities::putRequestVariable('prefix', $search);
+		$results = $this->_runCallback();
 
-	/* Guest can't see results */
-	$this->assertEquals('', $results);
-    }
+		sort($this->_userNames);
+		$this->assertEquals(join("\n", $this->_userNames), $results);
+	}
 
-    function testLookupGroupnameWithEntity() {
-	/* We expect user/group names in db to be entitized.. search for " should match &quot; */
-	$search = $this->_tag . '"test';
-	$this->_tag .= '&quot;test';
-	$this->_createGroup();
-	$this->_createGroup();
+	public function testLookupGroupname() {
+		$this->_createGroup();
+		$this->_createGroup();
+		$this->_createGroup();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
-	GalleryUtilities::putRequestVariable('prefix', $search);
-	$results = $this->_runCallback();
+		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
+		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
+		$results = $this->_runCallback();
 
-	sort($this->_groupNames);
-	$this->assertEquals(join("\n", $this->_groupNames), $results);
-    }
+		sort($this->_groupNames);
+		$this->assertEquals(join("\n", $this->_groupNames), $results);
+	}
 
-    function testLookupDirectories() {
-	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
-	GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__FILE__)));
-	$results = $this->_runCallback();
+	public function testLookupGroupnameAsGuestUser() {
+		$this->_createGroup();
+		$this->_createGroup();
+		$this->_createGroup();
+		$this->_becomeGuestUser();
 
-	$this->assert(strstr($results, dirname(__FILE__)), 'Missing result');
-    }
+		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
+		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
+		$results = $this->_runCallback();
 
-    function testLookupDirectoriesWithPattern() {
-	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
-	GalleryUtilities::putRequestVariable('prefix', dirname(dirname(dirname(__FILE__))) . '/c');
-	$results = $this->_runCallback();
+		// Guest can't see results
+		$this->assertEquals('', $results);
+	}
 
-	$this->assert(strstr($results, 'classes'), 'Missing classes in: ' . $results);
-	$this->assert(!strstr($results, 'templates'), 'Should not have templates in: ' . $results);
-    }
+	public function testLookupGroupnameWithEntity() {
+		// We expect user/group names in db to be entitized.. search for " should match &quot;
+		$search      = $this->_tag . '"test';
+		$this->_tag .= '&quot;test';
+		$this->_createGroup();
+		$this->_createGroup();
 
-    function testLookupDirectoriesWithEntity() {
-	/* Filesystem isn't entitized.. search for < should match literal < */
-	global $gallery;
-	$platform = new SimpleCallbackTestPlatform();
-	$platform->setReply('is_dir', array('/php<unit'), true);
-	$platform->setReply('opendir', array('/php<unit'), 'dh');
-	$platform->setReply('getDirectorySeparator', array(), '/');
-	$platform->setReply('readdir', array('dh'), 'test');
-	$platform->setReply('is_dir', array('/php<unit/test'), true);
-	$platform->setReply('readdir', array('dh'), false);
-	$platform->setReply('closedir', array('dh'), true);
-	$gallery->setPlatform($platform);
+		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
+		GalleryUtilities::putRequestVariable('prefix', $search);
+		$results = $this->_runCallback();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
-	GalleryUtilities::putRequestVariable('prefix', '/php<unit');
-	$results = $this->_runCallback();
+		sort($this->_groupNames);
+		$this->assertEquals(join("\n", $this->_groupNames), $results);
+	}
 
-	$this->assertEquals('/php&lt;unit/test', $results, 'results');
-	$this->assert($platform->isComplete(), $platform->getRemaining());
-    }
+	public function testLookupDirectories() {
+		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
+		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
+		$results = $this->_runCallback();
 
-    function testLookupDirectoriesWithUmlauts() {
-	/* Filesystem doesn't accept / return UTF-8 characters */
-	global $gallery;
-	$gallery->_phpVm = new SimpleCallbackTestPhpVm();
-	$platform = new SimpleCallbackTestPlatform();
-	$platform->setReply('is_dir', array('/phpäunit'), true);
-	$platform->setReply('opendir', array('/phpäunit'), 'dh');
-	$platform->setReply('getDirectorySeparator', array(), '/');
-	$platform->setReply('readdir', array('dh'), 'täst');
-	$platform->setReply('is_dir', array('/phpäunit/täst'), true);
-	$platform->setReply('readdir', array('dh'), false);
-	$platform->setReply('closedir', array('dh'), true);
-	$gallery->setPlatform($platform);
+		$this->assertTrue(strstr($results, __DIR__), 'Missing result');
+	}
 
-	/* Fake a specific charset to isolate this test */
-	GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
+	public function testLookupDirectoriesWithPattern() {
+		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
+		GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__DIR__)) . '/c');
+		$results = $this->_runCallback();
 
-	/* German umlaut 'ä' in ISO-8859-1 */
-	$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
-	$prefix = '/php' . $umlautUtf8 . 'unit';
-	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
-	GalleryUtilities::putRequestVariable('prefix', $prefix);
-	$results = $this->_runCallback();
+		$this->assertTrue(strstr($results, 'classes'), 'Missing classes in: ' . $results);
+		$this->assertTrue(!strstr($results, 'templates'), 'Should not have templates in: ' . $results);
+	}
 
-	$this->assertEquals($prefix . '/t' . $umlautUtf8 . 'st', $results, 'results');
-	$this->assert($platform->isComplete(), $platform->getRemaining());
-    }
+	public function testLookupDirectoriesWithEntity() {
+		// Filesystem isn't entitized.. search for < should match literal <
+		global $gallery;
+		$platform = new SimpleCallbackTestPlatform();
+		$platform->setReply('is_dir', array('/php<unit'), true);
+		$platform->setReply('opendir', array('/php<unit'), 'dh');
+		$platform->setReply('getDirectorySeparator', array(), '/');
+		$platform->setReply('readdir', array('dh'), 'test');
+		$platform->setReply('is_dir', array('/php<unit/test'), true);
+		$platform->setReply('readdir', array('dh'), false);
+		$platform->setReply('closedir', array('dh'), true);
+		$gallery->setPlatform($platform);
 
-    function testLookupDirectoriesAsNonSiteAdmin() {
-	global $gallery;
+		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
+		GalleryUtilities::putRequestVariable('prefix', '/php<unit');
+		$results = $this->_runCallback();
 
-	$this->_createUser();
-	$gallery->setActiveUser($this->_users[0]);
+		$this->assertEquals('/php&lt;unit/test', $results, 'results');
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+	}
 
-	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
-	GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__FILE__)));
-	$results = $this->_runCallback();
+	public function testLookupDirectoriesWithUmlauts() {
+		// Filesystem doesn't accept / return UTF-8 characters
+		global $gallery;
+		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
+		$platform        = new SimpleCallbackTestPlatform();
+		$platform->setReply('is_dir', array('/phpï¿½unit'), true);
+		$platform->setReply('opendir', array('/phpï¿½unit'), 'dh');
+		$platform->setReply('getDirectorySeparator', array(), '/');
+		$platform->setReply('readdir', array('dh'), 'tï¿½st');
+		$platform->setReply('is_dir', array('/phpï¿½unit/tï¿½st'), true);
+		$platform->setReply('readdir', array('dh'), false);
+		$platform->setReply('closedir', array('dh'), true);
+		$gallery->setPlatform($platform);
 
-	/* Regular users can't see results */
-	$this->assertEquals('', $results);
-    }
+		// Fake a specific charset to isolate this test
+		GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
 
-    function testLookupDirectoriesAsGuestUser() {
-	$this->_becomeGuestUser();
+		// German umlaut 'ï¿½' in ISO-8859-1
+		$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
+		$prefix     = '/php' . $umlautUtf8 . 'unit';
+		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
+		GalleryUtilities::putRequestVariable('prefix', $prefix);
+		$results = $this->_runCallback();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
-	GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__FILE__)));
-	$results = $this->_runCallback();
+		$this->assertEquals($prefix . '/t' . $umlautUtf8 . 'st', $results, 'results');
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+	}
 
-	/* Guests can't see results */
-	$this->assertEquals('', $results);
-    }
+	public function testLookupDirectoriesAsNonSiteAdmin() {
+		global $gallery;
 
-    function testLookupFiles() {
-	GalleryUtilities::putRequestVariable('command', 'lookupFiles');
-	GalleryUtilities::putRequestVariable('prefix', dirname(__FILE__));
-	$results = $this->_runCallback();
+		$this->_createUser();
+		$gallery->setActiveUser($this->_users[0]);
 
-	$this->assert(strstr($results, __FILE__), 'Missing result');
-    }
+		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
+		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
+		$results = $this->_runCallback();
 
-    function testLookupFilesWithPattern() {
-	GalleryUtilities::putRequestVariable('command', 'lookupFiles');
-	GalleryUtilities::putRequestVariable('prefix', dirname(__FILE__) . '/Si');
-	$results = $this->_runCallback();
+		// Regular users can't see results
+		$this->assertEquals('', $results);
+	}
 
-	$this->assert(strstr($results, __FILE__), 'Missing result in: ' . $results);
-	$this->assert(!strstr($results, 'CoreModuleTest'),
-		      'Should not have CoreModuleTest in: ' . $results);
-    }
+	public function testLookupDirectoriesAsGuestUser() {
+		$this->_becomeGuestUser();
 
-    function testLookupFilesWithEntity() {
-	/* Filesystem isn't entitized.. search for & should match literal & */
-	global $gallery;
-	$platform = new SimpleCallbackTestPlatform();
-	$platform->setReply('is_dir', array('/php&unit'), true);
-	$platform->setReply('opendir', array('/php&unit'), 'dh');
-	$platform->setReply('getDirectorySeparator', array(), '/');
-	$platform->setReply('readdir', array('dh'), 'test');
-	$platform->setReply('is_dir', array('/php&unit/test'), false);
-	$platform->setReply('is_file', array('/php&unit/test'), true);
-	$platform->setReply('readdir', array('dh'), 'dir');
-	$platform->setReply('is_dir', array('/php&unit/dir'), true);
-	$platform->setReply('readdir', array('dh'), false);
-	$platform->setReply('closedir', array('dh'), true);
-	$gallery->setPlatform($platform);
+		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
+		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
+		$results = $this->_runCallback();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupFiles');
-	GalleryUtilities::putRequestVariable('prefix', '/php&unit');
-	$results = $this->_runCallback();
+		// Guests can't see results
+		$this->assertEquals('', $results);
+	}
 
-	/* Dirs listed first, results entitized */
-	$this->assertEquals("/php&amp;unit/dir\n/php&amp;unit/test", $results, 'results');
-	$this->assert($platform->isComplete(), $platform->getRemaining());
-    }
+	public function testLookupFiles() {
+		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
+		GalleryUtilities::putRequestVariable('prefix', __DIR__);
+		$results = $this->_runCallback();
 
-    function testLookupFilesWithUmlauts() {
-	/* Filesystem doesn't accepts / return UTF-8 characters */
-	global $gallery;
-	$gallery->_phpVm = new SimpleCallbackTestPhpVm();
-	$platform = new SimpleCallbackTestPlatform();
-	$platform->setReply('is_dir', array('/phpäunit'), true);
-	$platform->setReply('opendir', array('/phpäunit'), 'dh');
-	$platform->setReply('getDirectorySeparator', array(), '/');
-	$platform->setReply('readdir', array('dh'), 'täst');
-	$platform->setReply('is_dir', array('/phpäunit/täst'), false);
-	$platform->setReply('is_file', array('/phpäunit/täst'), true);
-	$platform->setReply('readdir', array('dh'), 'dir');
-	$platform->setReply('is_dir', array('/phpäunit/dir'), true);
-	$platform->setReply('readdir', array('dh'), false);
-	$platform->setReply('closedir', array('dh'), true);
-	$gallery->setPlatform($platform);
+		$this->assertTrue(strstr($results, __FILE__), 'Missing result');
+	}
 
-	/* Fake a specific charset to isolate this test */
-	GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
+	public function testLookupFilesWithPattern() {
+		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
+		GalleryUtilities::putRequestVariable('prefix', __DIR__ . '/Si');
+		$results = $this->_runCallback();
 
-	/* German umlaut 'ä' in ISO-8859-1 */
-	$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
-	$prefix = '/php' . $umlautUtf8 . 'unit';
-	GalleryUtilities::putRequestVariable('command', 'lookupFiles');
-	GalleryUtilities::putRequestVariable('prefix', $prefix);
-	$results = $this->_runCallback();
+		$this->assertTrue(strstr($results, __FILE__), 'Missing result in: ' . $results);
+		$this->assertTrue(
+			!strstr($results, 'CoreModuleTest'),
+			'Should not have CoreModuleTest in: ' . $results
+		);
+	}
 
-	/* Dirs listed first, results in UTF-8  */
-	$this->assertEquals("$prefix/dir\n$prefix/t" . $umlautUtf8 . "st", $results, 'results');
-	$this->assert($platform->isComplete(), $platform->getRemaining());
-    }
+	public function testLookupFilesWithEntity() {
+		// Filesystem isn't entitized.. search for & should match literal &
+		global $gallery;
+		$platform = new SimpleCallbackTestPlatform();
+		$platform->setReply('is_dir', array('/php&unit'), true);
+		$platform->setReply('opendir', array('/php&unit'), 'dh');
+		$platform->setReply('getDirectorySeparator', array(), '/');
+		$platform->setReply('readdir', array('dh'), 'test');
+		$platform->setReply('is_dir', array('/php&unit/test'), false);
+		$platform->setReply('is_file', array('/php&unit/test'), true);
+		$platform->setReply('readdir', array('dh'), 'dir');
+		$platform->setReply('is_dir', array('/php&unit/dir'), true);
+		$platform->setReply('readdir', array('dh'), false);
+		$platform->setReply('closedir', array('dh'), true);
+		$gallery->setPlatform($platform);
 
-    function testLookupFilesAsNonSiteAdmin() {
-	global $gallery;
+		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
+		GalleryUtilities::putRequestVariable('prefix', '/php&unit');
+		$results = $this->_runCallback();
 
-	$this->_createUser();
-	$gallery->setActiveUser($this->_users[0]);
+		// Dirs listed first, results entitized
+		$this->assertEquals("/php&amp;unit/dir\n/php&amp;unit/test", $results, 'results');
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+	}
 
-	GalleryUtilities::putRequestVariable('command', 'lookupFiles');
-	GalleryUtilities::putRequestVariable('prefix', dirname(__FILE__));
-	$results = $this->_runCallback();
+	public function testLookupFilesWithUmlauts() {
+		// Filesystem doesn't accepts / return UTF-8 characters
+		global $gallery;
+		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
+		$platform        = new SimpleCallbackTestPlatform();
+		$platform->setReply('is_dir', array('/phpï¿½unit'), true);
+		$platform->setReply('opendir', array('/phpï¿½unit'), 'dh');
+		$platform->setReply('getDirectorySeparator', array(), '/');
+		$platform->setReply('readdir', array('dh'), 'tï¿½st');
+		$platform->setReply('is_dir', array('/phpï¿½unit/tï¿½st'), false);
+		$platform->setReply('is_file', array('/phpï¿½unit/tï¿½st'), true);
+		$platform->setReply('readdir', array('dh'), 'dir');
+		$platform->setReply('is_dir', array('/phpï¿½unit/dir'), true);
+		$platform->setReply('readdir', array('dh'), false);
+		$platform->setReply('closedir', array('dh'), true);
+		$gallery->setPlatform($platform);
 
-	/* Regular users can't see results */
-	$this->assertEquals('', $results);
-    }
+		// Fake a specific charset to isolate this test
+		GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
 
-    function testLookupFilesAsGuestUser() {
-	$this->_becomeGuestUser();
+		// German umlaut 'ï¿½' in ISO-8859-1
+		$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
+		$prefix     = '/php' . $umlautUtf8 . 'unit';
+		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
+		GalleryUtilities::putRequestVariable('prefix', $prefix);
+		$results = $this->_runCallback();
 
-	GalleryUtilities::putRequestVariable('command', 'lookupFiles!');
-	GalleryUtilities::putRequestVariable('prefix', dirname(__FILE__));
-	$results = $this->_runCallback();
+		// Dirs listed first, results in UTF-8
+		$this->assertEquals("$prefix/dir\n$prefix/t" . $umlautUtf8 . 'st', $results, 'results');
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+	}
 
-	/* Guests can't see results */
-	$this->assertEquals('', $results);
-    }
+	public function testLookupFilesAsNonSiteAdmin() {
+		global $gallery;
+
+		$this->_createUser();
+		$gallery->setActiveUser($this->_users[0]);
+
+		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
+		GalleryUtilities::putRequestVariable('prefix', __DIR__);
+		$results = $this->_runCallback();
+
+		// Regular users can't see results
+		$this->assertEquals('', $results);
+	}
+
+	public function testLookupFilesAsGuestUser() {
+		$this->_becomeGuestUser();
+
+		GalleryUtilities::putRequestVariable('command', 'lookupFiles!');
+		GalleryUtilities::putRequestVariable('prefix', __DIR__);
+		$results = $this->_runCallback();
+
+		// Guests can't see results
+		$this->assertEquals('', $results);
+	}
 }
 
 /**
  * For the directory listing tests, we need a mock PHP VM
  */
 class SimpleCallbackTestPhpVm {
-    function function_exists($functionName) {
-	/* make it use our charset tables, they work on all platforms */
-	switch ($functionName) {
-	case 'iconv':
-	case 'mb_convert_encoding':
-	case 'recode_string':
-	    return false;
-	case 'nl_langinfo':
-	    return true;
-	default:
-	    return function_exists($functionName);
+	public function function_exists($functionName) {
+		// make it use our charset tables, they work on all platforms
+		switch ($functionName) {
+			case 'iconv':
+			case 'mb_convert_encoding':
+			case 'recode_string':
+				return false;
+
+			case 'nl_langinfo':
+				return true;
+
+			default:
+				return function_exists($functionName);
+		}
 	}
-    }
 }
 
 class SimpleCallbackTestPlatform extends UnitTestPlatform {
-    var $_originalPlatform;
+	public $_originalPlatform;
 
-    function SimpleCallbackTestPlatform() {
-	global $gallery;
-	$this->_originalPlatform = & $gallery->getPlatform();
-	parent::UnitTestPlatform();
-    }
-
-    function opendir($path) {
-	if (strpos($path, 'module')) {
-	    return $this->_originalPlatform->opendir($path);
-	} else {
-	    return $this->_makeReply('opendir', array($path));
+	public function __construct() {
+		global $gallery;
+		$this->_originalPlatform = & $gallery->getPlatform();
+		parent::__construct();
 	}
-    }
 
-    function closedir($resource) {
-	if (!is_string($resource)) {
-	    return $this->_originalPlatform->closedir($resource);
-	} else {
-	    return $this->_makeReply('closedir', array($resource));
-	}
-    }
+	public function opendir($path) {
+		if (strpos($path, 'module')) {
+			return $this->_originalPlatform->opendir($path);
+		}
 
-    function is_dir($path) {
-	if (strpos($path, 'module')) {
-	    return $this->_originalPlatform->is_dir($path);
-	} else {
-	    return $this->_makeReply('is_dir', array($path));
+		return $this->_makeReply('opendir', array($path));
 	}
-    }
 
-    function readdir($resource) {
-	if (!is_string($resource)) {
-	    return $this->_originalPlatform->readdir($resource);
-	} else {
-	    return $this->_makeReply('readdir', array($resource));
-	}
-    }
+	public function closedir($resource) {
+		if (!is_string($resource)) {
+			return $this->_originalPlatform->closedir($resource);
+		}
 
-    function file_exists($filename) {
-	if (strpos($filename, 'module')) {
-	    return $this->_originalPlatform->file_exists($filename);
-	} else {
-	    return $this->_makeReply('file_exists', array($filename));
+		return $this->_makeReply('closedir', array($resource));
 	}
-    }
+
+	public function is_dir($path) {
+		if (strpos($path, 'module')) {
+			return $this->_originalPlatform->is_dir($path);
+		}
+
+		return $this->_makeReply('is_dir', array($path));
+	}
+
+	public function readdir($resource) {
+		if (!is_string($resource)) {
+			return $this->_originalPlatform->readdir($resource);
+		}
+
+		return $this->_makeReply('readdir', array($resource));
+	}
+
+	public function file_exists($filename) {
+		if (strpos($filename, 'module')) {
+			return $this->_originalPlatform->file_exists($filename);
+		}
+
+		return $this->_makeReply('file_exists', array($filename));
+	}
 }
-?>

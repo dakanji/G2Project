@@ -29,114 +29,157 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
  * @version $Revision: 17580 $
  */
 class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
-
-    function ItemMakeHighlightControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'core.ItemMakeHighlight');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core.ItemMakeHighlight');
 	}
 
-	/* Register a dummy toolkit */
-	$ret = GalleryCoreApi::registerFactoryImplementation('GalleryToolkit',
-	    'ItemMakeHighlightTestToolkit', 'ItemMakeHighlightTestToolkit',
-	    'modules/core/test/phpunit/ItemMakeHighlightControllerTest.class',
-	    'coreTest', null);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markToolkitForCleanup('ItemMakeHighlightTestToolkit');
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
 
-	/* Register operations that we can perform on our mock data items */
-	$ret = GalleryCoreApi::registerToolkitOperation(
-	    'ItemMakeHighlightTestToolkit', array('test/file'), 'thumbnail',
-	    array(array('type' => 'int', 'description' => 'foo'),
-		  array('type' => 'int', 'description' => 'foo')),
-	    'test-description');
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
+		// Register a dummy toolkit
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'GalleryToolkit',
+			'ItemMakeHighlightTestToolkit',
+			'ItemMakeHighlightTestToolkit',
+			'modules/core/test/phpunit/ItemMakeHighlightControllerTest.class',
+			'coreTest',
+			null
+		);
 
-	list ($ret, $this->_subalbum) = $this->_createRandomAlbum($this->_album->getId());
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markToolkitForCleanup('ItemMakeHighlightTestToolkit');
 
-	list ($ret, $this->_item) =
-	    $this->_createRandomDataItem($this->_subalbum->getId(), 'test/file');
-	if ($ret) {
-	    return $ret;
-	}
+		// Register operations that we can perform on our mock data items
+		$ret = GalleryCoreApi::registerToolkitOperation(
+			'ItemMakeHighlightTestToolkit',
+			array('test/file'),
+			'thumbnail',
+			array(
+				array(
+					'type'        => 'int',
+					'description' => 'foo',
+				),
+				array(
+					'type'        => 'int',
+					'description' => 'foo',
+				),
+			),
+			'test-description'
+		);
 
-	list ($ret, $this->_derivative) =
-	    $this->_createDerivative($this->_item, $this->_item->getId(),
-				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|200');
-	if ($ret) {
-	    return $ret;
-	}
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testCancel() {
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('return' => true, 'status' => array(), 'error' => array()),
-			    $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markForCleanup($this->_album);
 
-    function testMakeHighlightParent() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-	GalleryUtilities::putRequestVariable('form[parentId]', $this->_subalbum->getId());
-	GalleryUtilities::putRequestVariable('form[action][makeHighlight]', 1);
+		list($ret, $this->_subalbum) = $this->_createRandomAlbum($this->_album->getId());
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('return' => true, 'status' => array(), 'error' => array()),
-			    $results);
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Verify highlight was set */
-	list ($ret, $thumbnail) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_subalbum->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-	if (!empty($thumbnail)) {
-	    $thumbnail = array_shift($thumbnail);
-	}
+		list($ret, $this->_item) = $this->_createRandomDataItem($this->_subalbum->getId(), 'test/file');
 
-	$this->assertEquals($this->_derivative->getId(), $thumbnail->getDerivativeSourceId());
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testMakeHighlightGrandparent() {
-	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-	GalleryUtilities::putRequestVariable('form[parentId]', $this->_album->getId());
-	GalleryUtilities::putRequestVariable('form[action][makeHighlight]', 1);
+		list($ret, $this->_derivative) = $this->_createDerivative(
+			$this->_item,
+			$this->_item->getId(),
+			DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+			'thumbnail|200'
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('return' => true, 'status' => array(), 'error' => array()),
-			    $results);
-
-	/* Verify highlight was set */
-	list ($ret, $thumbnail) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-	if (!empty($thumbnail)) {
-	    $thumbnail = array_shift($thumbnail);
+		if ($ret) {
+			return $ret;
+		}
 	}
 
-	$this->assertEquals($this->_derivative->getId(), $thumbnail->getDerivativeSourceId());
-    }
+	public function testCancel() {
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'return' => true,
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+	}
+
+	public function testMakeHighlightParent() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+		GalleryUtilities::putRequestVariable('form[parentId]', $this->_subalbum->getId());
+		GalleryUtilities::putRequestVariable('form[action][makeHighlight]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'return' => true,
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+
+		// Verify highlight was set
+		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_subalbum->getId()));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!empty($thumbnail)) {
+			$thumbnail = array_shift($thumbnail);
+		}
+
+		$this->assertEquals($this->_derivative->getId(), $thumbnail->getDerivativeSourceId());
+	}
+
+	public function testMakeHighlightGrandparent() {
+		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+		GalleryUtilities::putRequestVariable('form[parentId]', $this->_album->getId());
+		GalleryUtilities::putRequestVariable('form[action][makeHighlight]', 1);
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'return' => true,
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+
+		// Verify highlight was set
+		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album->getId()));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!empty($thumbnail)) {
+			$thumbnail = array_shift($thumbnail);
+		}
+
+		$this->assertEquals($this->_derivative->getId(), $thumbnail->getDerivativeSourceId());
+	}
 }
 
 /**
@@ -144,5 +187,5 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ItemMakeHighlightTestToolkit extends GalleryToolkit { }
-?>
+class ItemMakeHighlightTestToolkit extends GalleryToolkit {
+}

@@ -26,101 +26,108 @@
  * @version $Revision: 17580 $
  */
 class AdminCreateGroupController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$results = $status = $error = array();
-	if (isset($form['action']['cancel'])) {
-
-	    /* Go back to the AdminGroups view */
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminGroups';
-
-	} else if (isset($form['action']['create'])) {
-	    /*
-	     * If all the right fields are in place then go ahead and
-	     * create the group.
-	     */
-	    if (!empty($form['groupName'])) {
-		list ($ret, $group) =
-		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 		if ($ret) {
-		    return array($ret, null);
-		}
-
-		if (!isset($group)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
-				 null);
-		}
-
-		$ret = $group->create($form['groupName']);
-		if ($ret) {
-		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 			return array($ret, null);
-		    }
+		}
 
-		    // Set our error status and fall back to the view.
-		    $error[] = 'form[error][groupName][exists]';
+		$results = $status = $error = array();
+
+		if (isset($form['action']['cancel'])) {
+			// Go back to the AdminGroups view
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'core.AdminGroups';
+		} elseif (isset($form['action']['create'])) {
+			/*
+			 * If all the right fields are in place then go ahead and
+			 * create the group.
+			 */
+			if (!empty($form['groupName'])) {
+				list($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				if (!isset($group)) {
+					return array(
+						GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+						null,
+					);
+				}
+
+				$ret = $group->create($form['groupName']);
+
+				if ($ret) {
+					if (!($ret->getErrorCode() & ERROR_COLLISION)) {
+						return array($ret, null);
+					}
+
+					// Set our error status and fall back to the view.
+					$error[] = 'form[error][groupName][exists]';
+				} else {
+					$ret = $group->save();
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					// Request a redirect to the confirmation screen
+					$redirect['view']       = 'core.SiteAdmin';
+					$redirect['subView']    = 'core.AdminGroups';
+					$status['createdGroup'] = $group->getGroupName();
+				}
+			} else {
+				// Set our error status and fall back to the view.
+				$error[] = 'form[error][groupName][missing]';
+			}
+		}
+
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
 		} else {
-		    $ret = $group->save();
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    /* Request a redirect to the confirmation screen */
-		    $redirect['view'] = 'core.SiteAdmin';
-		    $redirect['subView'] = 'core.AdminGroups';
-		    $status['createdGroup'] = $group->getGroupName();
+			$results['delegate']['view']    = 'core.SiteAdmin';
+			$results['delegate']['subView'] = 'core.AdminCreateGroup';
 		}
-	    } else {
-		// Set our error status and fall back to the view.
-		$error[] = 'form[error][groupName][missing]';
-	    }
-	}
+		$results['status'] = $status;
+		$results['error']  = $error;
 
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'core.AdminCreateGroup';
+		return array(null, $results);
 	}
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * This view will prompt for data to create a new group
  */
 class AdminCreateGroupView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'AdminCreateGroup') {
+			$form['groupName'] = '';
+			$form['formName']  = 'AdminCreateGroup';
+		}
+
+		$template->setVariable('AdminCreateGroup', array());
+		$template->setVariable('controller', 'core.AdminCreateGroup');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminCreateGroup.tpl',
+			),
+		);
 	}
-
-	if ($form['formName'] != 'AdminCreateGroup') {
-	    $form['groupName'] = '';
-	    $form['formName'] = 'AdminCreateGroup';
-	}
-
-	$template->setVariable('AdminCreateGroup', array());
-	$template->setVariable('controller', 'core.AdminCreateGroup');
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminCreateGroup.tpl'));
-    }
 }
-?>

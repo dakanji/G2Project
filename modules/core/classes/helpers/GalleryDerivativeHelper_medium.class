@@ -27,55 +27,64 @@
  * @static
  */
 class GalleryDerivativeHelper_medium {
+	/**
+	 * @see GalleryCoreApi::fetchResizesByItemIds
+	 */
+	public static function fetchResizesByItemIds($ids) {
+		if (!is_array($ids)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
 
-    /**
-     * @see GalleryCoreApi::fetchResizesByItemIds
-     */
-    function fetchResizesByItemIds($ids) {
-	if (!is_array($ids)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		if (empty($ids)) {
+			return array(null, array());
+		}
+
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class'
+		);
+		list($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
+			$ids,
+			null,
+			DERIVATIVE_TYPE_IMAGE_RESIZE
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $results);
 	}
 
-	if (empty($ids)) {
-	    return array(null, array());
-	}
+	/**
+	 * @see GalleryCoreApi::fetchPreferredsByItemIds
+	 */
+	public static function fetchPreferredsByItemIds($ids) {
+		if (!is_array($ids)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
 
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class');
-	list ($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
-	    $ids, null, DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $results);
-    }
+		if (empty($ids)) {
+			return array(null, array());
+		}
 
-    /**
-     * @see GalleryCoreApi::fetchPreferredsByItemIds
-     */
-    function fetchPreferredsByItemIds($ids) {
-	if (!is_array($ids)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
+		GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class'
+		);
+		list($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
+			$ids,
+			null,
+			DERIVATIVE_TYPE_IMAGE_PREFERRED
+		);
 
-	if (empty($ids)) {
-	    return array(null, array());
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class');
-	list ($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
-	    $ids, null, DERIVATIVE_TYPE_IMAGE_PREFERRED);
-	if ($ret) {
-	    return array($ret, null);
-	}
+		// Only one preferred per item, so simplify the results
+		foreach ($results as $id => $value) {
+			$results[$id] = $value[0];
+		}
 
-	/* Only one preferred per item, so simplify the results */
-	foreach ($results as $id => $value) {
-	    $results[$id] = $value[0];
+		return array(null, $results);
 	}
-
-	return array(null, $results);
-    }
 }
-?>

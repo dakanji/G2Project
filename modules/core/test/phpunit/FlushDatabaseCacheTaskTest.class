@@ -28,118 +28,139 @@ GalleryCoreApi::requireOnce('modules/core/classes/FlushDatabaseCacheTask.class')
  * @version $Revision: 17580 $
  */
 class FlushDatabaseCacheTaskTest extends GalleryTestCase {
-
-    function FlushDatabaseCacheTaskTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function testRunSuccess() {
-	global $gallery;
-
-	$gallery->setConfig('data.gallery.cache', '/cache/');
-	$mockPlatform = new FlushDatabaseCacheTaskTestPlatform(array());
-	$gallery->setPlatform($mockPlatform);
-	$task = new FlushDatabaseCacheTask();
-
-	list ($ret, $success, $details) = $task->run();
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
+	public function testRunSuccess() {
+		global $gallery;
+
+		$gallery->setConfig('data.gallery.cache', '/cache/');
+		$mockPlatform = new FlushDatabaseCacheTaskTestPlatform(array());
+		$gallery->setPlatform($mockPlatform);
+		$task = new FlushDatabaseCacheTask();
+
+		list($ret, $success, $details) = $task->run();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$expected = array();
+
+		foreach (array('/cache/entity', '/cache/theme', '/cache/module') as $dir) {
+			$expected[] = $module->translate(
+				array(
+					'text' => 'Successfully deleted directory: %s',
+					'arg1' => $dir,
+				)
+			);
+		}
+		$this->assertTrue($success, 'should have succeeded');
+		$this->assertEquals($details, $expected);
+		$this->assertEquals(
+			array(
+				'file_exists(/cache/entity)',
+				'recursiveRmdir(/cache/entity)',
+				'file_exists(/cache/theme)',
+				'recursiveRmdir(/cache/theme)',
+				'file_exists(/cache/module)',
+				'recursiveRmdir(/cache/module)',
+			),
+			$mockPlatform->getCalls()
+		);
 	}
 
-	$expected = array();
-	foreach (array('/cache/entity', '/cache/theme', '/cache/module') as $dir) {
-	    $expected[] = $module->translate(
-		array('text' => 'Successfully deleted directory: %s',
-		      'arg1' => $dir));
+	public function testRunFail() {
+		global $gallery;
+
+		$gallery->setConfig('data.gallery.cache', '/cache/');
+		$mockPlatform = new FlushDatabaseCacheTaskTestPlatform(
+			array(
+				'file_exists(/cache/entity)',
+				'recursiveRmdir(/cache/theme)',
+			)
+		);
+		$gallery->setPlatform($mockPlatform);
+		$task = new FlushDatabaseCacheTask();
+
+		list($ret, $success, $details) = $task->run();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$expected   = array();
+		$expected[] = $module->translate(
+			array(
+				'text' => 'Unable to delete directory: %s',
+				'arg1' => '/cache/theme',
+			)
+		);
+		$expected[] = $module->translate(
+			array(
+				'text' => 'Successfully deleted directory: %s',
+				'arg1' => '/cache/module',
+			)
+		);
+		$this->assertTrue(!$success, 'should have failed');
+		$this->assertEquals($expected, $details);
+		$this->assertEquals(
+			array(
+				'file_exists(/cache/entity)',
+				'file_exists(/cache/theme)',
+				'recursiveRmdir(/cache/theme)',
+				'file_exists(/cache/module)',
+				'recursiveRmdir(/cache/module)',
+			),
+			$mockPlatform->getCalls()
+		);
 	}
-	$this->assert($success, 'should have succeeded');
-	$this->assertEquals($details, $expected);
-	$this->assertEquals(array('file_exists(/cache/entity)',
-				  'recursiveRmdir(/cache/entity)',
-				  'file_exists(/cache/theme)',
-				  'recursiveRmdir(/cache/theme)',
-				  'file_exists(/cache/module)',
-				  'recursiveRmdir(/cache/module)',
-				  ),
-			    $mockPlatform->getCalls());
-    }
-
-    function testRunFail() {
-	global $gallery;
-
-	$gallery->setConfig('data.gallery.cache', '/cache/');
-	$mockPlatform = new FlushDatabaseCacheTaskTestPlatform(
-	    array('file_exists(/cache/entity)',
-		  'recursiveRmdir(/cache/theme)'));
-	$gallery->setPlatform($mockPlatform);
-	$task = new FlushDatabaseCacheTask();
-
-	list ($ret, $success, $details) = $task->run();
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$expected = array();
-	$expected[] = $module->translate(
-	    array('text' => 'Unable to delete directory: %s',
-		  'arg1' => '/cache/theme' ));
-	$expected[] = $module->translate(
-	    array('text' => 'Successfully deleted directory: %s',
-		  'arg1' => '/cache/module' ));
-	$this->assert(!$success, 'should have failed');
-	$this->assertEquals($expected,$details);
-	$this->assertEquals(array('file_exists(/cache/entity)',
-				  'file_exists(/cache/theme)',
-				  'recursiveRmdir(/cache/theme)',
-				  'file_exists(/cache/module)',
-				  'recursiveRmdir(/cache/module)',
-				  ),
-			    $mockPlatform->getCalls());
-    }
 }
 
 class FlushDatabaseCacheTaskTestPlatform {
-    function FlushDatabaseCacheTaskTestPlatform($failedCalls) {
-	GalleryUtilities::putRequestVariable('calls', array());
-	$this->_failedCalls = $failedCalls;
-    }
+	public function __construct($failedCalls) {
+		GalleryUtilities::putRequestVariable('calls', array());
+		$this->_failedCalls = $failedCalls;
+	}
 
-    function _addCall($call) {
-	$calls = GalleryUtilities::getRequestVariables('calls');
-	$calls[] = $call;
-	GalleryUtilities::putRequestVariable('calls', $calls);
+	public function _addCall($call) {
+		$calls   = GalleryUtilities::getRequestVariables('calls');
+		$calls[] = $call;
+		GalleryUtilities::putRequestVariable('calls', $calls);
 
-	return !in_array($call, $this->_failedCalls);
-    }
+		return !in_array($call, $this->_failedCalls);
+	}
 
-    function getCalls() {
-	return GalleryUtilities::getRequestVariables('calls');
-    }
+	public function getCalls() {
+		return GalleryUtilities::getRequestVariables('calls');
+	}
 
-    function file_exists($dir) {
-	return $this->_addCall("file_exists($dir)");
-    }
+	public function file_exists($dir) {
+		return $this->_addCall("file_exists($dir)");
+	}
 
-    function mkdir($dir) {
-	return $this->_addCall("mkdir($dir)");
-    }
+	public function mkdir($dir) {
+		return $this->_addCall("mkdir($dir)");
+	}
 
-    function recursiveRmdir($dir) {
-	return $this->_addCall("recursiveRmdir($dir)");
-    }
+	public function recursiveRmdir($dir) {
+		return $this->_addCall("recursiveRmdir($dir)");
+	}
 
-    function realpath($path) {
-	return $path;
-    }
+	public function realpath($path) {
+		return $path;
+	}
 }
-?>

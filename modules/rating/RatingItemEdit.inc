@@ -26,54 +26,59 @@
  * @version $Revision: 17580 $
  */
 class RatingItemEdit extends ItemEditOption {
+	/**
+	 * @see ItemEditOption::handleRequestAfterEdit
+	 */
+	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
+		global $gallery;
 
-    /**
-     * @see ItemEditOption::handleRequestAfterEdit
-     */
-    function handleRequestAfterEdit($form, &$item, &$preferred) {
-	global $gallery;
+		if (isset($form['changeInDescendents']['rating'])) {
+			list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
 
-	if (isset($form['changeInDescendents']['rating'])) {
-	    list ($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	    array_unshift($subAlbumIds, $item->getId());
-	} else {
-	    $subAlbumIds = array($item->getId());
+			if ($ret) {
+				return array($ret, null, null);
+			}
+			array_unshift($subAlbumIds, $item->getId());
+		} else {
+			$subAlbumIds = array($item->getId());
+		}
+
+		foreach ($subAlbumIds as $id) {
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'rating',
+				'enabled',
+				(empty($form['rating']['enabled']) ? 0 : 1),
+				$id
+			);
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+		}
+
+		return array(null, array(), array());
 	}
 
-	foreach ($subAlbumIds as $id) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'rating',
-		    'enabled', (empty($form['rating']['enabled']) ? 0 : 1), $id);
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
+	/**
+	 * @see ItemEditOption::loadTemplate
+	 */
+	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
+		if (empty($form['error'])) {
+			list($ret, $form['rating']['enabled']) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled', $item->getId());
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+		}
+
+		return array(null, 'modules/rating/templates/RatingItemEdit.tpl', 'modules_rating');
 	}
 
-	return array(null, array(), array());
-    }
-
-    /**
-     * @see ItemEditOption::loadTemplate
-     */
-    function loadTemplate(&$template, &$form, $item, $thumbnail) {
-	if (empty($form['error'])) {
-	    list ($ret, $form['rating']['enabled']) =
-		GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled', $item->getId());
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
+	/**
+	 * @see ItemEditOption::isAppropriate
+	 */
+	public static function isAppropriate($item, $thumbnail) {
+		return array(null, true);
 	}
-
-	return array(null, 'modules/rating/templates/RatingItemEdit.tpl', 'modules_rating');
-    }
-
-    /**
-     * @see ItemEditOption::isAppropriate
-     */
-    function isAppropriate($item, $thumbnail) {
-	return array(null, true);
-    }
 }
-?>

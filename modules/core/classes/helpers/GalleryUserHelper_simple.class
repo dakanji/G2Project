@@ -27,75 +27,96 @@
  * @static
  */
 class GalleryUserHelper_simple {
-
-    /**
-     * @see GalleryCoreApi::assertHasItemPermission
-     */
-    function assertHasItemPermission($itemId, $permission) {
-	global $gallery;
-
-	list ($ret, $hasPermission) =
-	    GalleryUserHelper_simple::hasItemPermission($itemId, $permission);
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (!$hasPermission) {
-	    return GalleryCoreApi::error(
-		ERROR_PERMISSION_DENIED, __FILE__, __LINE__,
-		sprintf('user id: %s doesn\'t have permission: %s for item id: %s',
-			$gallery->getActiveUserId(), $permission, $itemId));
-	}
-
-	return null;
-    }
-
-    /**
-     * @see GalleryCoreApi::hasItemPermission
-     */
-    function hasItemPermission($itemId, $permission, $userId=null, $sessionPermissions=true) {
-	global $gallery;
-	if (!isset($userId)) {
-	    $userId = $gallery->getActiveUserId();
-	}
-	$sessionPermissions = (int)$sessionPermissions;
-
-	$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
-	if (GalleryDataCache::containsKey($cacheKey)) {
-	    $permissions = GalleryDataCache::get($cacheKey);
-	    return array(null, isset($permissions[$permission]));
-	}
-
-	/* Only use the permission cache from the session data for the activeUser */
-	if ($sessionPermissions && $userId == $gallery->getActiveUserId()
-		&& GalleryDataCache::hasPermission($itemId, $permission)) {
-	    return array(null, true);
-	}
-
-	list ($ret, $aclIds) =
-	    GalleryCoreApi::fetchAccessListIds($permission, $userId, $sessionPermissions);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (empty($aclIds)) {
-	    return array(null, false);
-	}
-	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-
-	/*
-	 * TODO: We could get and cache the accessListId here, and then do a
-	 * hash lookup to see if it's in our valid aclid list.
+	/**
+	 * @see GalleryCoreApi::assertHasItemPermission
 	 */
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryAccessSubscriberMap',
-	    array('itemId'), array('itemId' => (int)$itemId, 'accessListId' => $aclIds),
-	    array('limit' => array('count' => 1)));
-	if ($ret) {
-	    return array($ret, null);
+	public static function assertHasItemPermission($itemId, $permission) {
+		global $gallery;
+
+		list($ret, $hasPermission) = GalleryUserHelper_simple::hasItemPermission($itemId, $permission);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!$hasPermission) {
+			return GalleryCoreApi::error(
+				ERROR_PERMISSION_DENIED,
+				__FILE__,
+				__LINE__,
+				sprintf(
+					'user id: %s doesn\'t have permission: %s for item id: %s',
+					$gallery->getActiveUserId(),
+					$permission,
+					$itemId
+				)
+			);
+		}
+
+		return null;
 	}
 
-	$hasPermission = ($searchResults->resultCount() > 0);
+	/**
+	 * @see GalleryCoreApi::hasItemPermission
+	 */
+	public static function hasItemPermission($itemId, $permission, $userId = null, $sessionPermissions = true) {
+		global $gallery;
 
-	return array(null, $hasPermission);
-    }
+		if (!isset($userId)) {
+			$userId = $gallery->getActiveUserId();
+		}
+		$sessionPermissions = (int)$sessionPermissions;
+
+		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
+
+		if (GalleryDataCache::containsKey($cacheKey)) {
+			$permissions = GalleryDataCache::get($cacheKey);
+
+			return array(null, isset($permissions[$permission]));
+		}
+
+		// Only use the permission cache from the session data for the activeUser
+		if ($sessionPermissions && $userId == $gallery->getActiveUserId()
+			&& GalleryDataCache::hasPermission($itemId, $permission)
+		) {
+			return array(null, true);
+		}
+
+		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $userId, $sessionPermissions);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if (empty($aclIds)) {
+			return array(null, false);
+		}
+		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+
+		/*
+		 * TODO: We could get and cache the accessListId here, and then do a
+		 * hash lookup to see if it's in our valid aclid list.
+		 */
+		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
+			'GalleryAccessSubscriberMap',
+			array('itemId'),
+			array(
+				'itemId'       => (int)$itemId,
+				'accessListId' => $aclIds,
+			),
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$hasPermission = ($searchResults->resultCount() > 0);
+
+		return array(null, $hasPermission);
+	}
 }
-?>

@@ -30,7 +30,7 @@
  *
  * In tearDown() or at the end of the test, call:
  *
- *  $this->assert($repositoryUtilties->isComplete(), $repositoryUtilties->getRemaining());
+ *  $this->assertTrue($repositoryUtilties->isComplete(), $repositoryUtilties->getRemaining());
  *
  * This check verifies that all expected calls were received.
  *
@@ -40,87 +40,118 @@
  * @version $Revision: 17580 $
  */
 class UnitTestRepositoryUtilities extends MockObject {
-    function extractRevision($string) {
-	return $this->_makeReply('extractRevision', array($string));
-    }
+	public function extractRevision($string) {
+		return $this->_makeReply('extractRevision', array($string));
+	}
 
-    function getFileRevision($file) {
-	return $this->_makeReply('getFileRevision', array($file));
-    }
+	public function getFileRevision($file) {
+		return $this->_makeReply('getFileRevision', array($file));
+	}
 
-    function compareVersions($version1, $version2, $build1=null, $build2=null) {
-	return $this->_makeReply('compareVersions', array($version1, $version2, $build1, $build2));
-    }
+	public function compareVersions($version1, $version2, $build1 = null, $build2 = null) {
+		return $this->_makeReply('compareVersions', array($version1, $version2, $build1, $build2));
+	}
 
-    function compareRevisions($revision1, $revision2) {
-	return $this->_makeReply('compareRevisions', array($revision1, $revision2));
-    }
+	public function compareRevisions($revision1, $revision2) {
+		return $this->_makeReply('compareRevisions', array($revision1, $revision2));
+	}
 
-    function getFirstBytesFromFile($path, $bytes) {
-	return $this->_makeReply('getFirstBytesFromFile', array($path, $bytes));
-    }
+	public function getFirstBytesFromFile($path, $bytes) {
+		return $this->_makeReply('getFirstBytesFromFile', array($path, $bytes));
+	}
 
-    function getLanguageBaseRevision($pluginType, $pluginId) {
-	return $this->_makeReply('getLanguageBaseRevision', array($pluginType, $pluginId));
-    }
+	public function getLanguageBaseRevision($pluginType, $pluginId) {
+		return $this->_makeReply('getLanguageBaseRevision', array($pluginType, $pluginId));
+	}
 
-    function isPluginAvailable($pluginType, $pluginId) {
-	return $this->_makeReply('isPluginAvailable', array($pluginType, $pluginId));
-    }
+	public function isPluginAvailable($pluginType, $pluginId) {
+		return $this->_makeReply('isPluginAvailable', array($pluginType, $pluginId));
+	}
 
-    function isPluginCompatible($pluginType, $requiredCoreApi, $requiredPluginApi,
-	    $providedApis=null) {
-	return $this->_makeReply('isPluginCompatible', array($pluginType, $requiredCoreApi,
-	    $requiredPluginApi, $providedApis));
-    }
+	public function isPluginCompatible(
+		$pluginType,
+		$requiredCoreApi,
+		$requiredPluginApi,
+		$providedApis = null
+	) {
+		return $this->_makeReply(
+			'isPluginCompatible',
+			array(
+				$pluginType,
+				$requiredCoreApi,
+				$requiredPluginApi,
+				$providedApis,
+			)
+		);
+	}
 
-    function getProvidedApis($pluginType, $providedApis=null) {
-	return $this->_makeReply('getProvidedApis', array($pluginType, $providedApis));
-    }
+	public function getProvidedApis($pluginType, $providedApis = null) {
+		return $this->_makeReply('getProvidedApis', array($pluginType, $providedApis));
+	}
 
-    function getPluginPackages($pluginType, $pluginId) {
-	return $this->_makeReply('getPluginPackages', array($pluginType, $pluginId));
-    }
+	public function getPluginPackages($pluginType, $pluginId) {
+		return $this->_makeReply('getPluginPackages', array($pluginType, $pluginId));
+	}
 
-    function getLanguageDescription($languageCode) {
-	return $this->_makeReply('getLanguageDescription', array($languageCode));
-    }
+	public function getLanguageDescription($languageCode) {
+		return $this->_makeReply('getLanguageDescription', array($languageCode));
+	}
 
-    function getPluginVersion($pluginType, $pluginId) {
-	return $this->_makeReply('getPluginVersion', array($pluginType, $pluginId));
-    }
+	public function getPluginVersion($pluginType, $pluginId) {
+		return $this->_makeReply('getPluginVersion', array($pluginType, $pluginId));
+	}
 
-    function downloadFile($url, $ignoreCompression=false) {
-	return $this->_makeReply('downloadFile', array($url, $ignoreCompression));
-    }
+	public function downloadFile($url, $ignoreCompression = false) {
+		return $this->_makeReply('downloadFile', array($url, $ignoreCompression));
+	}
 
-    function updatePackageMetaData(
-	$pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked) {
+	public function updatePackageMetaData(
+		$pluginType,
+		$pluginId,
+		$packageName,
+		$packageVersion,
+		$packageBuild,
+		$locked
+	) {
+		return $this->_makeReply(
+			'updatePackageMetaData',
+			array($pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked)
+		);
+	}
 
-	return $this->_makeReply('updatePackageMetaData',
-	    array($pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked));
-    }
+	public function unpackPackage($packageFile, $outputDirecory) {
+		return $this->_makeReply('unpackPackage', array($packageFile, $outputDirecory));
+	}
 
-    function unpackPackage($packageFile, $outputDirecory) {
-	return $this->_makeReply('unpackPackage', array($packageFile, $outputDirecory));
-    }
+	public function preVerifyPackage($pluginType, $pluginId, $packageName, $descriptor) {
+		return $this->_makeReply(
+			'preVerifyPackage',
+			array(
+				$pluginType,
+				$pluginId,
+				$packageName,
+				$descriptor,
+			)
+		);
+	}
 
-    function preVerifyPackage($pluginType, $pluginId, $packageName, $descriptor) {
-	return $this->_makeReply('preVerifyPackage', array($pluginType, $pluginId, $packageName, 
-	    $descriptor));
-    }
+	public function verifyPackageIntegrity($pluginType, $pluginId, $packageName, $descriptor) {
+		return $this->_makeReply(
+			'verifyPackageIntegrity',
+			array(
+				$pluginType,
+				$pluginId,
+				$packageName,
+				$descriptor,
+			)
+		);
+	}
 
-    function verifyPackageIntegrity($pluginType, $pluginId, $packageName, $descriptor) {
-	return $this->_makeReply('verifyPackageIntegrity', array($pluginType, $pluginId, 
-	    $packageName, $descriptor));
-    }
+	public function downloadAggregatePackages($source, $filesToDownload) {
+		return $this->_makeReply('downloadAggregatePackages', array($source, $filesToDownload));
+	}
 
-    function downloadAggregatePackages($source, $filesToDownload) {
-	return $this->_makeReply('downloadAggregatePackages', array($source, $filesToDownload));
-    }
-
-    function splitAggregatePackage($source, $outputFile, &$callback) {
-	return $this->_makeReply('splitAggregatePackage', array($source, $outputFile, $callback));
-    }
+	public function splitAggregatePackage($source, $outputFile, &$callback) {
+		return $this->_makeReply('splitAggregatePackage', array($source, $outputFile, $callback));
+	}
 }
-?>

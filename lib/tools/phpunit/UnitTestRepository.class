@@ -29,7 +29,7 @@
  *
  * In tearDown() or at the end of the test, call:
  *
- *  $this->assert($repository->isComplete(), $repository->getRemaining());
+ *  $this->assertTrue($repository->isComplete(), $repository->getRemaining());
  *
  * This check verifies that all expected calls were received.
  *
@@ -39,111 +39,128 @@
  * @version $Revision: 17582 $
  */
 class UnitTestRepository extends MockObject {
-    function init($source) {
-	return $this->_makeReply('init', array($source));
-    }
+	public function init($source) {
+		return $this->_makeReply('init', array($source));
+	}
 
-    function isCoreUpgradeAvailable() {
-	return $this->_makeReply('isCoreUpgradeAvailable', array());
-    }
+	public function isCoreUpgradeAvailable() {
+		return $this->_makeReply('isCoreUpgradeAvailable', array());
+	}
 
-    function getPluginUpgradeInfo($pluginType, $pluginId, $forBasePackageUpgrade=true) {
-	return $this->_makeReply('getPluginUpgradeInfo',
-	    array($pluginType, $pluginId, $forBasePackageUpgrade));
-    }
+	public function getPluginUpgradeInfo($pluginType, $pluginId, $forBasePackageUpgrade = true) {
+		return $this->_makeReply(
+			'getPluginUpgradeInfo',
+			array($pluginType, $pluginId, $forBasePackageUpgrade)
+		);
+	}
 
-    function getRepositoryPluginList($pluginType, $showAllPlugins=false, $coreApis=null) {
-	return $this->_makeReply('getRepositoryPluginList',
-	    array($pluginType, $showAllPlugins, $coreApis));
-    }
+	public function getRepositoryPluginList($pluginType, $showAllPlugins = false, $coreApis = null) {
+		return $this->_makeReply(
+			'getRepositoryPluginList',
+			array($pluginType, $showAllPlugins, $coreApis)
+		);
+	}
 
-    function comparePluginListEntries($plugin1, $plugin2) {
-	return $this->_makeReply('comparePluginListEntries', array($plugin1, $plugin2));
-    }
+	public function comparePluginListEntries($plugin1, $plugin2) {
+		return $this->_makeReply('comparePluginListEntries', array($plugin1, $plugin2));
+	}
 
-    function getAllUpgradeablePackages() {
-	return $this->_makeReply('getAllUpgradeablePackages', array());
-    }
+	public function getAllUpgradeablePackages() {
+		return $this->_makeReply('getAllUpgradeablePackages', array());
+	}
 
-    function getUpgradeableLanguagePackages($upgradeableLanguages) {
-	return $this->_makeReply('getUpgradeableLanguagePackages', array($upgradeableLanguages));
-    }
+	public function getUpgradeableLanguagePackages($upgradeableLanguages) {
+		return $this->_makeReply('getUpgradeableLanguagePackages', array($upgradeableLanguages));
+	}
 
-    function updatePackageMetaData(
-	$pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked) {
+	public function updatePackageMetaData(
+		$pluginType,
+		$pluginId,
+		$packageName,
+		$packageVersion,
+		$packageBuild,
+		$locked
+	) {
+		return $this->_makeReply(
+			'updatePackageMetaData',
+			array($pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked)
+		);
+	}
 
-	return $this->_makeReply('updatePackageMetaData',
-	    array($pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked));
-    }
+	public function createPluginsDirectory() {
+		return $this->_makeReply('createPluginsDirectory', array());
+	}
 
-    function createPluginsDirectory() {
-	return $this->_makeReply('createPluginsDirectory', array());
-    }
+	public function getDownloadFileList($pluginData) {
+		return $this->_makeReply('getDownloadFileList', array($pluginData));
+	}
 
-    function getDownloadFileList($pluginData) {
-	return $this->_makeReply('getDownloadFileList', array($pluginData));
-    }
+	public function downloadAndUnpack($pluginType, $pluginId, $packageName, $relativePackageUrl) {
+		return $this->_makeReply(
+			'downloadAndUnpack',
+			array($pluginType, $pluginId, $packageName, $relativePackageUrl)
+		);
+	}
 
-    function downloadAndUnpack($pluginType, $pluginId, $packageName, $relativePackageUrl) {
-	return $this->_makeReply('downloadAndUnpack',
-	    array($pluginType, $pluginId, $packageName, $relativePackageUrl));
-    }
+	public function downloadPackagesForPlugin($pluginType, $pluginId, $pluginDownloadData, &$callback) {
+		return $this->_makeReply(
+			'downloadPackagesForPlugin',
+			array($pluginType, $pluginId, $pluginDownloadData, $callback)
+		);
+	}
 
-    function downloadPackagesForPlugin($pluginType, $pluginId, $pluginDownloadData, &$callback) {
-	return $this->_makeReply('downloadPackagesForPlugin',
-	    array($pluginType, $pluginId, $pluginDownloadData, $callback));
-    }
+	public function preVerifyPackage($packageName, $descriptor) {
+		return $this->_makeReply('preVerifyPackage', array($packageName, $descriptor));
+	}
 
-    function preVerifyPackage($packageName, $descriptor) {
-	return $this->_makeReply('preVerifyPackage', array($packageName, $descriptor));
-    }
+	public function verifyPackageIntegrity($packageName, $descriptor) {
+		return $this->_makeReply('verifyPackageIntegrity', array($packageName, $descriptor));
+	}
 
-    function verifyPackageIntegrity($packageName, $descriptor) {
-	return $this->_makeReply('verifyPackageIntegrity', array($packageName, $descriptor));
-    }
+	public function scanPlugin($pluginType, $pluginId) {
+		return $this->_makeReply('scanPlugin', array($pluginType, $pluginId));
+	}
 
-    function scanPlugin($pluginType, $pluginId) {
-	return $this->_makeReply('scanPlugin', array($pluginType, $pluginId));
-    }
+	public function translateRepositoryName($source) {
+		return $this->_makeReply('translateRepositoryName', array($source));
+	}
 
-    function translateRepositoryName($source) {
-	return $this->_makeReply('translateRepositoryName', array($source));
-    }
+	public function localIndexExists() {
+		return $this->_makeReply('localIndexExists', array());
+	}
 
-    function localIndexExists() {
-	return $this->_makeReply('localIndexExists', array());
-    }
+	public function downloadIndex() {
+		return $this->_makeReply('downloadIndex', array());
+	}
 
-    function downloadIndex() {
-	return $this->_makeReply('downloadIndex', array());
-    }
+	public function pluginExistsInIndex($pluginType, $pluginId) {
+		return $this->_makeReply('pluginExistsInIndex', array($pluginType, $pluginId));
+	}
 
-    function pluginExistsInIndex($pluginType, $pluginId) {
-	return $this->_makeReply('pluginExistsInIndex', array($pluginType, $pluginId));
-    }
+	public function getIndexMetaData() {
+		return $this->_makeReply('getIndexMetaData', array());
+	}
 
-    function getIndexMetaData() {
-	return $this->_makeReply('getIndexMetaData', array());
-    }
+	public function getPackageVersionAndBuild($pluginType, $pluginId, $packageName) {
+		return $this->_makeReply(
+			'getPackageVersionAndBuild',
+			array($pluginType, $pluginId, $packageName)
+		);
+	}
 
-    function getPackageVersionAndBuild($pluginType, $pluginId, $packageName) {
-	return $this->_makeReply('getPackageVersionAndBuild',
-	    array($pluginType, $pluginId, $packageName));
-    }
+	public function getPluginName($pluginType, $pluginId) {
+		return $this->_makeReply('getPluginName', array($pluginType, $pluginId));
+	}
 
-    function getPluginName($pluginType, $pluginId) {
-	return $this->_makeReply('getPluginName', array($pluginType, $pluginId));
-    }
+	public function getLanguagePackageFiles($locales) {
+		return $this->_makeReply('getLanguagePackageFiles', array($locales));
+	}
 
-    function getLanguagePackageFiles($locales) {
-	return $this->_makeReply('getLanguagePackageFiles', array($locales));
-    }
+	public function downloadAndUnpackPackages($filesToDownload, &$callback) {
+		return $this->_makeReply('downloadAndUnpackPackages', array($filesToDownload, $callback));
+	}
 
-    function downloadAndUnpackPackages($filesToDownload, &$callback) {
-	return $this->_makeReply('downloadAndUnpackPackages', array($filesToDownload, $callback));
-    }
-
-    function removeObsoleteFiles($pluginType, $pluginId) {
-	return $this->_makeReply('removeObsoleteFiles', array($pluginType, $pluginId));
-    }
+	public function removeObsoleteFiles($pluginType, $pluginId) {
+		return $this->_makeReply('removeObsoleteFiles', array($pluginType, $pluginId));
+	}
 }

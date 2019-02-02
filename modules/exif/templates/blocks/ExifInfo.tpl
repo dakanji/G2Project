@@ -16,8 +16,7 @@
       function exifSwitchDetailMode(num, itemId, mode) {ldelim}
 	url = '{g->url arg1="view=exif.SwitchDetailMode" arg2="itemId=__ITEMID__"
 		arg3="mode=__MODE__" arg4="blockNum=__NUM__" htmlEntities=false forceDirect=true}';
-	document.getElementById('ExifInfoLabel' + num).innerHTML =
-	  '{g->text text="Loading.." forJavascript=true}';
+	document.getElementById('ExifInfoLabel' + num).innerHTML = 	  '{g->text text="Loading.." forJavascript=true}';
 	{literal}
 	YAHOO.util.Connect.asyncRequest('GET',
 	  url.replace('__ITEMID__', itemId).replace('__MODE__', mode).replace('__NUM__', num),

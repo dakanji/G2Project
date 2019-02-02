@@ -29,80 +29,96 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  * @version $Revision: 17580 $
  */
 class DatabaseBackupTask extends MaintenanceTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
-	return array('l10Domain' => 'modules_core',
-		     'title' => $gallery->i18n('Backup the database'),
-		     'description' => $gallery->i18n(
-			     'Backup all your Gallery data (item data, users, comments, etc.) to a '
-			     . 'single file in your storage folder.  The backup does not include '
-			     . 'the image files.  Before running the backup, your Gallery '
-			     . 'installation needs to be set into maintenance mode, as this is not '
-			     . 'done automatically.'));
-    }
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	global $gallery;
-	$this->_templateAdapter =& $gallery->getTemplateAdapter();
-	$storage =& $gallery->getStorage();
-
-	list ($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$this->_progressBarTitle = $coreModule->translate('Backing up Gallery Database');
-	$this->_statusText = $coreModule->translate('Exporting...');
-	$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 0);
-
-	$exporter = $storage->getDatabaseExporter();
-
-	list ($ret, $backupFile, $result) =
-	    $exporter->exportToXmlFile(array($this, 'progressCallBack'));
-	if ($ret) {
-	    return array($ret, null, null);
+		return array(
+			'l10Domain'   => 'modules_core',
+			'title'       => $gallery->i18n('Backup the database'),
+			'description' => $gallery->i18n(
+				'Backup all your Gallery data (item data, users, comments, etc.) to a '
+				. 'single file in your storage folder.  The backup does not include '
+				. 'the image files.  Before running the backup, your Gallery '
+				. 'installation needs to be set into maintenance mode, as this is not '
+				. 'done automatically.'
+			),
+		);
 	}
 
-	$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 100);
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		global $gallery;
+		$this->_templateAdapter =& $gallery->getTemplateAdapter();
+		$storage                =& $gallery->getStorage();
 
-	$msg1 = $coreModule->translate(
-	    array('text' => 'Database backup completed and the backup file is located at: %s',
-		  'arg1' => $backupFile));
-        $msg2 = $coreModule->translate(
-	    array('text' => 'Please note that your backup contains sensitive data (like passwords) '
-		. 'and should not be stored online! We recommend that you download it from your '
-		. 'server and keep it safely offline.'));
-	$result[] = sprintf('%s<br/><h2>%s</h2>', $msg1, $msg2);
+		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 
-	return array(null, true, $result);
-    }
+		if ($ret) {
+			return array($ret, null, null);
+		}
+		$this->_progressBarTitle = $coreModule->translate('Backing up Gallery Database');
+		$this->_statusText       = $coreModule->translate('Exporting...');
+		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 0);
 
-    /**
-     * @see MaintenanceTask::requiresProgressBar
-     */
-    function requiresProgressBar() {
-	return true;
-    }
+		$exporter = $storage->getDatabaseExporter();
 
-    /**
-     * @see MaintenanceTask::requiresMaintenanceMode
-     */
-    function requiresMaintenanceMode() {
-	return true;
-    }
+		list($ret, $backupFile, $result) = $exporter->exportToXmlFile(
+			array($this, 'progressCallBack')
+		);
 
-    /**
-     * Callback function to recieve notifications of database backup progess
-     * @param float $percentComplete from 0 to 1
-     */
-    function progressCallBack($percentage) {
-	$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, $this->_statusText,
-						   $percentage);
-    }
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 100);
+
+		$msg1 = $coreModule->translate(
+			array(
+				'text' => 'Database backup completed and the backup file is located at: %s',
+				'arg1' => $backupFile,
+			)
+		);
+
+		$msg2 = $coreModule->translate(
+			array(
+				'text' => 'Please note that your backup contains sensitive data (like passwords) '
+							. 'and should not be stored online! We recommend that you download '
+							. 'it from your server and keep it safely offline.',
+			)
+		);
+
+		$result[] = sprintf('%s<br/><h2>%s</h2>', $msg1, $msg2);
+
+		return array(null, true, $result);
+	}
+
+	/**
+	 * @see MaintenanceTask::requiresProgressBar
+	 */
+	public function requiresProgressBar() {
+		return true;
+	}
+
+	/**
+	 * @see MaintenanceTask::requiresMaintenanceMode
+	 */
+	public function requiresMaintenanceMode() {
+		return true;
+	}
+
+	/**
+	 * Callback function to recieve notifications of database backup progess
+	 */
+	public function progressCallBack($percentage) {
+		$this->_templateAdapter->updateProgressBar(
+			$this->_progressBarTitle,
+			$this->_statusText,
+			$percentage
+		);
+	}
 }
-?>

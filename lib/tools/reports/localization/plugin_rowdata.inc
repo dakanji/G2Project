@@ -1,29 +1,34 @@
-	    <?php newRow(); ?>
-	    <td class="<?php print modifier('plugin') ?>">
-	      <?php print $plugin ?>
-	    </td>
-	    <td style="background-color:#<?php print percentColor($pluginData['percentDone']) ?>">
-	      <?php print $pluginData['percentDone'] ?>%
-	    </td>
+		<?php newRow(); ?>
+		<td class="<?php echo modifier('plugin'); ?>">
+			<?php echo $plugin; ?>
+		</td>
+		<td style="background-color:#<?php echo percentColor($pluginData['percentDone']); ?>">
+			<?php echo $pluginData['percentDone']; ?>%
+		</td>
 
-	    <?php if (isset($pluginData['missing'])) { ?>
-	    <td colspan="5" class="<?php print modifier('missing') ?>">
-	      Missing
-	    </td>
-	    <?php } else { ?>
-	    <td class="<?php print modifier('total') ?>">
-	      <?php print $pluginData['total'] ?>
-	    </td>
-	    <td class="<?php print modifier('translated') ?>">
-	      <?php print $pluginData['translated'] ?>
-	    </td>
-	    <td class="<?php print modifier('fuzzy') ?>">
-	      <?php print $pluginData['fuzzy'] ?>
-	    </td>
-	    <td class="<?php print modifier('untranslated') ?>">
-	      <?php print $pluginData['untranslated'] ?>
-	    </td>
-	    <td class="<?php print modifier('obsolete') ?>">
-	      <?php print $pluginData['obsolete'] ?>
-	    </td>
-	    <?php } ?>
+		<?php
+		if (isset($pluginData['missing'])) {
+			?>
+		<td colspan="5" class="<?php echo modifier('missing'); ?>">
+		  Missing
+		</td>
+			<?php
+		} else {
+			?>
+		<td class="<?php echo modifier('total'); ?>">
+			<?php echo $pluginData['total']; ?>
+		</td>
+		<td class="<?php echo modifier('translated'); ?>">
+			<?php echo $pluginData['translated']; ?>
+		</td>
+		<td class="<?php echo modifier('fuzzy'); ?>">
+			<?php echo $pluginData['fuzzy']; ?>
+		</td>
+		<td class="<?php echo modifier('untranslated'); ?>">
+			<?php echo $pluginData['untranslated']; ?>
+		</td>
+		<td class="<?php echo modifier('obsolete'); ?>">
+			<?php echo $pluginData['obsolete']; ?>
+		</td>
+			<?php
+		} ?>

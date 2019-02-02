@@ -26,8 +26,6 @@
  * Purpose:  Use explode or preg_split to split a string into an array
  * -------------------------------------------------------------
  */
-function smarty_modifier_split($string, $separator=' ', $regexp=false) {
-    return empty($string) ? array() :
-	($regexp ? preg_split($separator, $string) : explode($separator, $string));
+function smarty_modifier_split($string, $separator = ' ', $regexp = false) {
+	return empty($string) ? array() : ($regexp ? preg_split($separator, $string) : explode($separator, $string));
 }
-?>

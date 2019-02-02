@@ -26,650 +26,753 @@
  * @version $Revision: 17580 $
  */
 class ItemEditItemPluginTest extends ItemEditPluginTestCase {
-
-    function ItemEditItemPluginTest($methodName) {
-	$this->ItemEditPluginTestCase($methodName, 'core', 'ItemEditItem');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core', 'ItemEditItem');
 	}
 
-	for ($i = 0; $i < 2; $i++) {
-	    list ($ret, $this->_item[$i]) =
-		$this->_createRandomDataItem($this->_getRootId(), 'test/file');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->_markForCleanup($this->_item[$i]);
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		for ($i = 0; $i < 2; $i++) {
+			list($ret, $this->_item[$i]) = $this->_createRandomDataItem($this->_getRootId(), 'test/file');
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->_markForCleanup($this->_item[$i]);
+		}
+
+		for ($i = 0; $i < 2; $i++) {
+			list($ret, $this->_album[$i]) = $this->_createRandomAlbum($this->_getRootId());
+
+			if ($ret) {
+				return $ret;
+			}
+			$this->_markForCleanup($this->_album[$i]);
+		}
+
+		// Register a dummy toolkit
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'GalleryToolkit',
+			'ItemEditItemPluginTestToolkit',
+			'ItemEditItemPluginTestToolkit',
+			'modules/core/test/phpunit/ItemEditItemPluginTest.class',
+			'coreTest',
+			null
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->_markToolkitForCleanup('ItemEditItemPluginTestToolkit');
+
+		// Register operations that we can perform on our mock data items
+		$ret = GalleryCoreApi::registerToolkitOperation(
+			'ItemEditItemPluginTestToolkit',
+			array('test/file'),
+			'convert-to-image/jpeg',
+			array(),
+			'test-description',
+			'image/jpeg'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::registerToolkitOperation(
+			'ItemEditItemPluginTestToolkit',
+			array('test/file'),
+			'thumbnail',
+			array(
+				array(
+					'type'        => 'int',
+					'description' => 'test',
+				),
+				array(
+					'type'        => 'int',
+					'description' => 'test',
+				),
+			),
+			'test-description',
+			''
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_thumbnail) = $this->_createDerivative(
+			$this->_item[0],
+			$this->_item[0]->getId(),
+			DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+			'thumbnail|200'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_preferred = null;
 	}
 
-	for ($i = 0; $i < 2; $i++) {
-	    list ($ret, $this->_album[$i]) = $this->_createRandomAlbum($this->_getRootId());
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->_markForCleanup($this->_album[$i]);
+	public function testUndo() {
+		// Use valid inputs
+		GalleryUtilities::putRequestVariable('form[action][undo]', 1);
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(array(array(), null), $results);
 	}
 
-	/* Register a dummy toolkit */
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryToolkit', 'ItemEditItemPluginTestToolkit', 'ItemEditItemPluginTestToolkit',
-	    'modules/core/test/phpunit/ItemEditItemPluginTest.class', 'coreTest', null);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markToolkitForCleanup('ItemEditItemPluginTestToolkit');
+	public function testEditItem() {
+		// Use valid inputs
+		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', $newPathComponent);
+		GalleryUtilities::putRequestVariable('form[title]', ' new title ');
+		GalleryUtilities::putRequestVariable('form[summary]', ' new summary ');
+		GalleryUtilities::putRequestVariable('form[keywords]', ' new keywords ');
+		GalleryUtilities::putRequestVariable('form[description]', ' new description ');
+		GalleryUtilities::putRequestVariable(
+			'form[serialNumber]',
+			$this->_item[0]->getSerialNumber()
+		);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
 
-	/* Register operations that we can perform on our mock data items */
-	$ret = GalleryCoreApi::registerToolkitOperation(
-	    'ItemEditItemPluginTestToolkit', array('test/file'), 'convert-to-image/jpeg',
-	    array(), 'test-description', 'image/jpeg');
-	if ($ret) {
-	    return $ret;
-	}
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
 
-	$ret = GalleryCoreApi::registerToolkitOperation(
-	    'ItemEditItemPluginTestToolkit', array('test/file'), 'thumbnail',
-	    array(array('type' => 'int', 'description' => 'test'),
-		  array('type' => 'int', 'description' => 'test')),
-	    'test-description', '');
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $this->_item[0]) = $this->_item[0]->refresh();
 
-	list ($ret, $this->_thumbnail) =
-	    $this->_createDerivative($this->_item[0], $this->_item[0]->getId(),
-				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|200');
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	$this->_preferred = null;
-    }
+		$this->assertEquals('new title', $this->_item[0]->getTitle());
+		$this->assertEquals('new summary', $this->_item[0]->getSummary());
+		$this->assertEquals('new keywords', $this->_item[0]->getKeywords());
+		$this->assertEquals('new description', $this->_item[0]->getDescription());
 
-    function testUndo() {
-	/* Use valid inputs */
-	GalleryUtilities::putRequestVariable('form[action][undo]', 1);
+		// Examine the thumbnail and make sure it lines up
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array(), null), $results);
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testEditItem() {
-	/* Use valid inputs */
-	$newPathComponent = $this->_item[0]->getPathComponent() . rand();
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', $newPathComponent);
-	GalleryUtilities::putRequestVariable('form[title]', ' new title ');
-	GalleryUtilities::putRequestVariable('form[summary]', ' new summary ');
-	GalleryUtilities::putRequestVariable('form[keywords]', ' new keywords ');
-	GalleryUtilities::putRequestVariable('form[description]', ' new description ');
-	GalleryUtilities::putRequestVariable('form[serialNumber]',
-					     $this->_item[0]->getSerialNumber());
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-				  $results);
-
-	list ($ret, $this->_item[0]) = $this->_item[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		if (isset($thumbTable[$this->_item[0]->getId()])) {
+			$this->assertEquals(
+				'thumbnail|400',
+				$thumbTable[$this->_item[0]->getId()]->getDerivativeOperations()
+			);
+		} else {
+			$this->assertFalse(true, 'thumbnail missing');
+		}
 	}
 
-	$this->assertEquals('new title', $this->_item[0]->getTitle());
-	$this->assertEquals('new summary', $this->_item[0]->getSummary());
-	$this->assertEquals('new keywords', $this->_item[0]->getKeywords());
-	$this->assertEquals('new description', $this->_item[0]->getDescription());
+	public function testMaliciousMarkup() {
+		$item = $this->_item[0];
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', $item->getPathComponent());
+		GalleryUtilities::putRequestVariable(
+			'form[title]',
+			'new[color="><script>alert(\'hi\')</script><"green]foo[/color] title'
+		);
+		GalleryUtilities::putRequestVariable(
+			'form[summary]',
+			' summary <a href="" onclick="alert(1)">hi</a>foo'
+		);
+		GalleryUtilities::putRequestVariable('form[keywords]', '');
+		GalleryUtilities::putRequestVariable('form[description]', 'description<object>.</object>');
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
 
-	/* Examine the thumbnail and make sure it lines up */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
-	if ($ret) {
-	    return $ret;
+		foreach (array('html', 'bbcode') as $i => $markup) {
+			$ret = $this->_setMarkupType($markup, $i == 0);
+
+			if ($ret) {
+				return $ret;
+			}
+
+			GalleryUtilities::putRequestVariable('form[serialNumber]', $item->getSerialNumber());
+
+			$results = $this->handleRequest($item, $this->_preferred);
+			$this->assertEquals(
+				array(array(), $this->_translate('Changes saved successfully')),
+				$results,
+				$markup
+			);
+
+			list($ret, $item) = $item->refresh();
+
+			if ($ret) {
+				return $ret;
+			}
+
+			$value = $markup == 'html' ? 'new[color=&quot;&gt;&amp;lt;&quot;green]foo[/color] title' : 'new[color=&quot;&gt;&lt;script&gt;alert(\'hi\')&lt;/script&gt;'
+			. '&lt;&quot;green]foo[/color] title';
+			$this->assertEquals($value, $item->getTitle(), "title $markup");
+			$value = $markup == 'html' ? 'summary &lt;a href=&quot;&quot;&gt;hi&lt;/a&gt;foo' : 'summary &lt;a href=&quot;&quot; onclick=&quot;alert(1)&quot;&gt;hi&lt;/a&gt;foo';
+			$this->assertEquals($value, $item->getSummary(), "summary $markup");
+			$value = $markup == 'html' ? 'description.' : 'description&lt;object&gt;.&lt;/object&gt;';
+			$this->assertEquals($value, $item->getDescription(), "description $markup");
+		}
 	}
 
-	if (isset($thumbTable[$this->_item[0]->getId()])) {
-	    $this->assertEquals('thumbnail|400',
-				$thumbTable[$this->_item[0]->getId()]->getDerivativeOperations());
-	} else {
-	    $this->assert(false, 'thumbnail missing');
-	}
-    }
-    
-    function testMaliciousMarkup() {
-	$item = $this->_item[0];
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', $item->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', 
-	    'new[color="><script>alert(\'hi\')</script><"green]foo[/color] title');
-	GalleryUtilities::putRequestVariable('form[summary]',
-					     ' summary <a href="" onclick="alert(1)">hi</a>foo');
-	GalleryUtilities::putRequestVariable('form[keywords]', '');
-	GalleryUtilities::putRequestVariable('form[description]', 'description<object>.</object>');
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
+	public function testInvalidPathComponent() {
+		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', '#$%W$%W?$%W%/');
 
-	foreach (array('html', 'bbcode') as $i => $markup) {
-	    $ret = $this->_setMarkupType($markup, $i == 0);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    GalleryUtilities::putRequestVariable('form[serialNumber]', $item->getSerialNumber());
-
-	    $results = $this->handleRequest($item, $this->_preferred);
-	    $this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			        $results, $markup);
-
-	    list ($ret, $item) = $item->refresh();
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    $value = $markup == 'html'
-		? 'new[color=&quot;&gt;&amp;lt;&quot;green]foo[/color] title'
-		: 'new[color=&quot;&gt;&lt;script&gt;alert(\'hi\')&lt;/script&gt;'
-		  . '&lt;&quot;green]foo[/color] title';
-	    $this->assertEquals($value, $item->getTitle(), "title $markup");
-	    $value = $markup == 'html'
-		? 'summary &lt;a href=&quot;&quot;&gt;hi&lt;/a&gt;foo'
-		: 'summary &lt;a href=&quot;&quot; onclick=&quot;alert(1)&quot;&gt;hi&lt;/a&gt;foo';
-	    $this->assertEquals($value, $item->getSummary(), "summary $markup");
-	    $value = $markup == 'html'
-		? 'description.' : 'description&lt;object&gt;.&lt;/object&gt;';
-	    $this->assertEquals($value, $item->getDescription(), "description $markup");
-	}
-    }
-
-    function testInvalidPathComponent() {
-	$newPathComponent = $this->_item[0]->getPathComponent() . rand();
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', '#$%W$%W?$%W%/');
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array('form[error][pathComponent][invalid]'), null),
-			    $results);
-    }
-
-    function testInvalidPathComponentDisallowedFileExtension() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', 'test_new.php');
-
-	/* Perform the request and verify that we fail */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array('form[error][pathComponent][invalid]'), null),
-			    $results);
-    }
-
-    function testMissingPathComponent() {
-	$newPathComponent = $this->_item[0]->getPathComponent() . rand();
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::removeRequestVariable('form[pathComponent]');
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array('form[error][pathComponent][missing]'), null),
-			    $results);
-    }
-
-    function testPathCollisionItem() {
-	global $gallery;
-
-	/* Use invalid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]',
-					     $this->_item[1]->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', 'new title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
-	GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
-	GalleryUtilities::putRequestVariable('form[description]', 'new description');
-	GalleryUtilities::putRequestVariable('form[serialNumber]',
-					     $this->_item[0]->getSerialNumber());
-
-	/* Perform the request and verify success (the controller works around the collision) */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-				  $results);
-
-	/* Make sure the object has been renamed to something similar to the new path */
-	list ($ret, $this->_item[0]) = $this->_item[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array('form[error][pathComponent][invalid]'), null),
+			$results
+		);
 	}
 
-	list ($ret, $newPath) = $this->_item[0]->fetchPath();
-	if ($ret) {
-	    return $ret;
+	public function testInvalidPathComponentDisallowedFileExtension() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', 'test_new.php');
+
+		// Perform the request and verify that we fail
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array('form[error][pathComponent][invalid]'), null),
+			$results
+		);
 	}
 
-	list ($ret, $comparePath) =  $this->_item[1]->fetchPath();
-	if ($ret) {
-	    return $ret;
+	public function testMissingPathComponent() {
+		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::removeRequestVariable('form[pathComponent]');
+
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array('form[error][pathComponent][missing]'), null),
+			$results
+		);
 	}
 
-	$this->assertEquals($comparePath . '_001', $newPath);
+	public function testPathCollisionItem() {
+		global $gallery;
 
-	/* Make sure that the file was moved */
-	$platform =& $gallery->getPlatform();
-	$this->assert($platform->file_exists($newPath));
-    }
+		// Use invalid inputs
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable(
+			'form[pathComponent]',
+			$this->_item[1]->getPathComponent()
+		);
+		GalleryUtilities::putRequestVariable('form[title]', 'new title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
+		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+		GalleryUtilities::putRequestVariable('form[description]', 'new description');
+		GalleryUtilities::putRequestVariable(
+			'form[serialNumber]',
+			$this->_item[0]->getSerialNumber()
+		);
 
-    function testMissingRootTitle() {
-	list ($ret, $rootAlbum) =
-	    GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
+		// Perform the request and verify success (the controller works around the collision)
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
+
+		// Make sure the object has been renamed to something similar to the new path
+		list($ret, $this->_item[0]) = $this->_item[0]->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $newPath) = $this->_item[0]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $comparePath) = $this->_item[1]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($comparePath . '_001', $newPath);
+
+		// Make sure that the file was moved
+		$platform =& $gallery->getPlatform();
+		$this->assertTrue($platform->file_exists($newPath));
 	}
 
-	$originalTitle = $rootAlbum->getTitle();
+	public function testMissingRootTitle() {
+		list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
 
-	/* Use invalid title (missing) */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', $rootAlbum->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', '');
-	GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
-	GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
-	GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
-	GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($rootAlbum, $this->_preferred);
-	$this->assertEquals(array(array('form[error][title][missingRootTitle]'), null),
-			    $results);
+		$originalTitle = $rootAlbum->getTitle();
 
-	/* Make sure the title was not changed */
-	list ($ret, $rootAlbum) = $rootAlbum->refresh();
-	if ($ret) {
-	    return $ret;
+		// Use invalid title (missing)
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', $rootAlbum->getPathComponent());
+		GalleryUtilities::putRequestVariable('form[title]', '');
+		GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
+		GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
+		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
+		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
+
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($rootAlbum, $this->_preferred);
+		$this->assertEquals(
+			array(array('form[error][title][missingRootTitle]'), null),
+			$results
+		);
+
+		// Make sure the title was not changed
+		list($ret, $rootAlbum) = $rootAlbum->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($originalTitle, $rootAlbum->getTitle());
 	}
 
-	$this->assertEquals($originalTitle, $rootAlbum->getTitle());
-    }
+	public function testRenameRoot() {
+		list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
 
-    function testRenameRoot() {
-	list ($ret, $rootAlbum) =
-	    GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		// Use invalid inputs
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', 'floort');
+		GalleryUtilities::putRequestVariable('form[title]', $rootAlbum->getTitle());
+		GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
+		GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
+		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
+		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
+
+		// There's no UI for renaming the root album so this returns a bad parameter.
+		$results = $this->handleRequest($rootAlbum, $this->_preferred, ERROR_BAD_PARAMETER);
+
+		// Verify that the path component is still the same
+		list($ret, $rootAlbum) = $rootAlbum->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// For Oracle, null is replaced with '' when loading data from the database
+		$this->assertTrue(in_array($rootAlbum->getPathComponent(), array(null, '')));
 	}
 
-	/* Use invalid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', 'floort');
-	GalleryUtilities::putRequestVariable('form[title]', $rootAlbum->getTitle());
-	GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
-	GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
-	GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
-	GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
+	public function testMissingRootTitle2() {
+		list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
 
-	/* There's no UI for renaming the root album so this returns a bad parameter. */
-	$results = $this->handleRequest($rootAlbum, $this->_preferred, ERROR_BAD_PARAMETER);
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Verify that the path component is still the same */
-	list ($ret, $rootAlbum) = $rootAlbum->refresh();
-	if ($ret) {
-	    return $ret;
+		$originalTitle = $rootAlbum->getTitle();
+
+		// Use invalid title
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', $rootAlbum->getPathComponent());
+		GalleryUtilities::putRequestVariable('form[title]', ' ');
+		GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
+		GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
+		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
+		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
+
+		list($ret, $rootAlbum) = $rootAlbum->refresh();
+
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($rootAlbum, $this->_preferred);
+		$this->assertEquals(
+			array(array('form[error][title][missingRootTitle]'), null),
+			$results
+		);
+
+		// Make sure the title was not changed
+		list($ret, $rootAlbum) = $rootAlbum->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($originalTitle, $rootAlbum->getTitle());
 	}
 
-	/* For Oracle, null is replaced with '' when loading data from the database */
-	$this->assert(in_array($rootAlbum->getPathComponent(), array(null, '')));
-    }
+	public function testPathCollisionAlbum() {
+		global $gallery;
 
-    function testMissingRootTitle2() {
-	list ($ret, $rootAlbum) =
-	    GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
+		// Use invalid inputs
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable(
+			'form[pathComponent]',
+			$this->_album[1]->getPathComponent()
+		);
+		GalleryUtilities::putRequestVariable('form[title]', 'new title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
+		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+		GalleryUtilities::putRequestVariable('form[description]', 'new description');
+		GalleryUtilities::putRequestVariable('form[serialNumber]', 1);
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_album[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
+
+		// The object is in the new path, but with a trailing _001 in the name to disambiguate it
+		list($ret, $this->_album[0]) = $this->_album[0]->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $newPath) = $this->_album[0]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $targetPath) = $this->_album[1]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Verify that the new path is correct
+		$platform   =& $gallery->getPlatform();
+		$slash      = $platform->getDirectorySeparator();
+		$targetPath = sprintf(
+			'%s%s%s_001%s',
+			dirname($targetPath),
+			$slash,
+			basename($targetPath),
+			$slash
+		);
+		$this->assertEquals($targetPath, $newPath);
+
+		// Make sure that the dir was actually moved
+		$this->assertTrue($platform->file_exists($targetPath));
 	}
 
-	$originalTitle = $rootAlbum->getTitle();
+	public function testInvalidSerialNumber() {
+		// Use an invalid Serial
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable(
+			'form[pathComponent]',
+			$this->_item[0]->getPathComponent()
+		);
+		GalleryUtilities::putRequestVariable('form[title]', 'new title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
+		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+		GalleryUtilities::putRequestVariable('form[description]', 'new description');
+		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
 
-	/* Use invalid title */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', $rootAlbum->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', ' ');
-	GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
-	GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
-	GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
-	GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
-
-	list ($ret, $rootAlbum) = $rootAlbum->refresh();
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($rootAlbum, $this->_preferred);
-	$this->assertEquals(array(array('form[error][title][missingRootTitle]'), null),
-			    $results);
-
-	/* Make sure the title was not changed */
-	list ($ret, $rootAlbum) = $rootAlbum->refresh();
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest($this->_item[0], $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
 
-	$this->assertEquals($originalTitle, $rootAlbum->getTitle());
-    }
+	public function testMoveItemWithInvalidSerialNumber() {
+		global $gallery;
 
-    function testPathCollisionAlbum() {
-	global $gallery;
+		// Get some stats on the file before we try moving
+		$platform                 =& $gallery->getPlatform();
+		list($ret, $originalPath) = $this->_item[0]->fetchPath();
 
-	/* Use invalid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]',
-					     $this->_album[1]->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', 'new title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
-	GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
-	GalleryUtilities::putRequestVariable('form[description]', 'new description');
-	GalleryUtilities::putRequestVariable('form[serialNumber]', 1);
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_album[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-				  $results);
+		// Use an invalid Serial
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', 'new' . mt_rand(0, 1000));
+		GalleryUtilities::putRequestVariable('form[title]', 'new title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
+		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+		GalleryUtilities::putRequestVariable('form[description]', 'new description');
+		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
 
-	/* The object is in the new path, but with a trailing _001 in the name to disambiguate it */
-	list ($ret, $this->_album[0]) = $this->_album[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		$results = $this->handleRequest($this->_item[0], $this->_preferred, ERROR_OBSOLETE_DATA);
+
+		// Make sure the object is still in the original path
+		list($ret, $this->_item[0]) = $this->_item[0]->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $newPath) = $this->_item[0]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals($originalPath, $newPath);
+
+		// Make sure that the file wasn't moved
+		$this->assertTrue($platform->file_exists($originalPath), 'File should not have been moved');
 	}
 
-	list ($ret, $newPath) = $this->_album[0]->fetchPath();
-	if ($ret) {
-	    return $ret;
+	public function testMoveAlbumWithInvalidSerialNumber() {
+		global $gallery;
+
+		// Get some stats on the file before we try moving
+		$platform                 =& $gallery->getPlatform();
+		list($ret, $originalPath) = $this->_album[0]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Use an invalid Serial
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[pathComponent]', 'new' . mt_rand(0, 1000));
+		GalleryUtilities::putRequestVariable('form[title]', 'new title');
+		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
+		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+		GalleryUtilities::putRequestVariable('form[description]', 'new description');
+		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
+		$results = $this->handleRequest($this->_album[0], $this->_preferred, ERROR_OBSOLETE_DATA);
+
+		// Make sure the object is still in the original path
+		list($ret, $this->_album[0]) = $this->_album[0]->refresh();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $newPath) = $this->_album[0]->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals($originalPath, $newPath);
+
+		// Make sure that the file wasn't moved
+		$this->assertTrue($platform->file_exists($originalPath), 'Album should not have been moved');
 	}
 
-	list ($ret, $targetPath) = $this->_album[1]->fetchPath();
-	if ($ret) {
-	    return $ret;
+	public function testEditOriginationTimestamp() {
+		// Use valid inputs
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		$this->_putItemRequestVariables($this->_item[0]);
+
+		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Month]', '08');
+		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Day]', '09');
+		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Year]', '2003');
+		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Hour]', '22');
+		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Minute]', '50');
+		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Second]', '59');
+
+		// Perform the request and verify that we are ok
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
+		$this->assertEquals(mktime(22, 50, 59, 8, 9, 2003), $this->_item[0]->getOriginationTimestamp());
 	}
 
-	/* Verify that the new path is correct */
-	$platform =& $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
-	$targetPath = sprintf(
-	    '%s%s%s_001%s', dirname($targetPath), $slash, basename($targetPath), $slash);
-	$this->assertEquals($targetPath, $newPath);
+	public function testCreateThumbnail() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
+		$this->_putItemRequestVariables($this->_item[1]);
 
-	/* Make sure that the dir was actually moved */
-	$this->assert($platform->file_exists($targetPath));
-    }
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_item[1], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
 
-    function testInvalidSerialNumber() {
-	/* Use an invalid Serial */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]',
-					     $this->_item[0]->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', 'new title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
-	GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
-	GalleryUtilities::putRequestVariable('form[description]', 'new description');
-	GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+		// Verify thumbnail
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[1]->getId()));
 
-	$results = $this->handleRequest($this->_item[0], $this->_preferred, ERROR_OBSOLETE_DATA);
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testMoveItemWithInvalidSerialNumber() {
-	global $gallery;
-
-	/* Get some stats on the file before we try moving */
-	$platform =& $gallery->getPlatform();
-	list ($ret, $originalPath) = $this->_item[0]->fetchPath();
-	if ($ret) {
-	    return $ret;
+		if (isset($thumbTable[$this->_item[1]->getId()])) {
+			// convert-to-image/jpeg is added to make thumbnail a viewable mime type
+			$this->assertEquals(
+				'thumbnail|200;convert-to-image/jpeg',
+				$thumbTable[$this->_item[1]->getId()]->getDerivativeOperations()
+			);
+		} else {
+			$this->assertTrue(false, 'We should have a thumbnail');
+		}
 	}
 
-	/* Use an invalid Serial */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', 'new' . rand(0,1000));
-	GalleryUtilities::putRequestVariable('form[title]', 'new title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
-	GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
-	GalleryUtilities::putRequestVariable('form[description]', 'new description');
-	GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+	public function testCreateAlbumHighlight() {
+		list($ret, $item) = $this->_createRandomDataItem($this->_album[0]->getId(), 'test/file');
 
-	$results = $this->handleRequest($this->_item[0], $this->_preferred, ERROR_OBSOLETE_DATA);
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Make sure the object is still in the original path */
-	list ($ret, $this->_item[0]) = $this->_item[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		// Verify we don't have a highlight
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertTrue(empty($thumbTable), 'We shouldn\'t have a thumbnail');
+
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
+		$this->_putItemRequestVariables($this->_album[0]);
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_album[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
+
+		// Verify thumbnail
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (isset($thumbTable[$this->_album[0]->getId()])) {
+			$this->assertEquals(
+				'thumbnail|200',
+				$thumbTable[$this->_album[0]->getId()]->getDerivativeOperations()
+			);
+		} else {
+			$this->assertTrue(false, 'We should have a thumbnail');
+		}
 	}
 
-	list ($ret, $newPath) = $this->_item[0]->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($originalPath, $newPath);
+	public function testRemoveThumbnail() {
+		// Verify we have a thumbnail
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
-	/* Make sure that the file wasn't moved */
-	$this->assert($platform->file_exists($originalPath), 'File should not have been moved');
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertTrue(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
 
-    function testMoveAlbumWithInvalidSerialNumber() {
-	global $gallery;
+		// Use valid inputs
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '');
+		$this->_putItemRequestVariables($this->_item[0]);
 
-	/* Get some stats on the file before we try moving */
-	$platform =& $gallery->getPlatform();
-	list ($ret, $originalPath) = $this->_album[0]->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
 
-	/* Use an invalid Serial */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', 'new' . rand(0,1000));
-	GalleryUtilities::putRequestVariable('form[title]', 'new title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
-	GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
-	GalleryUtilities::putRequestVariable('form[description]', 'new description');
-	GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+		// Verify we have no more thumbnail
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
-	$results = $this->handleRequest($this->_album[0], $this->_preferred, ERROR_OBSOLETE_DATA);
-
-	/* Make sure the object is still in the original path */
-	list ($ret, $this->_album[0]) = $this->_album[0]->refresh();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertTrue(
+			!isset($thumbTable[$this->_item[0]->getId()]),
+			'We should not have a thumbnail'
+		);
 	}
 
-	list ($ret, $newPath) = $this->_album[0]->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($originalPath, $newPath);
+	public function testZeroThumbnail() {
+		// Size zero should remove thumbnail, just like empty value
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
-	/* Make sure that the file wasn't moved */
-	$this->assert($platform->file_exists($originalPath), 'Album should not have been moved');
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertTrue(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
 
-    function testEditOriginationTimestamp() {
-	/* Use valid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	$this->_putItemRequestVariables($this->_item[0]);
+		// Use valid inputs
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '0');
+		$this->_putItemRequestVariables($this->_item[0]);
 
-	GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Month]', '08');
-	GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Day]', '09');
-	GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Year]', '2003');
-	GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Hour]', '22');
-	GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Minute]', '50');
-	GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Second]', '59');
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(
+			array(array(), $this->_translate('Changes saved successfully')),
+			$results
+		);
 
-	/* Perform the request and verify that we are ok */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-	$this->assertEquals(mktime(22,50,59,8,9,2003), $this->_item[0]->getOriginationTimestamp());
-    }
+		// Verify we have no more thumbnail
+		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
 
-    function testCreateThumbnail() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
-	$this->_putItemRequestVariables($this->_item[1]);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_item[1], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-
-	/* Verify thumbnail */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[1]->getId()));
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertTrue(
+			!isset($thumbTable[$this->_item[0]->getId()]),
+			'We should not have a thumbnail'
+		);
 	}
 
-	if (isset($thumbTable[$this->_item[1]->getId()])) {
-	    /* convert-to-image/jpeg is added to make thumbnail a viewable mime type */
-	    $this->assertEquals('thumbnail|200;convert-to-image/jpeg',
-				$thumbTable[$this->_item[1]->getId()]->getDerivativeOperations());
-	} else {
-	    $this->assert(false, 'We should have a thumbnail');
-	}
-    }
+	public function testInvalidThumbnailSize() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 'xyz');
+		$this->_putItemRequestVariables($this->_item[0]);
 
-    function testCreateAlbumHighlight() {
-	list ($ret, $item) = $this->_createRandomDataItem($this->_album[0]->getId(), 'test/file');
-	if ($ret) {
-	    return $ret;
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
 	}
 
-	/* Verify we don't have a highlight */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(empty($thumbTable), 'We shouldn\'t have a thumbnail');
+	public function testNegativeThumbnailSize() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '-100');
+		$this->_putItemRequestVariables($this->_item[0]);
 
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
-	$this->_putItemRequestVariables($this->_album[0]);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_album[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-
-	/* Verify thumbnail */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
-	if ($ret) {
-	    return $ret;
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+		$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
 	}
 
-	if (isset($thumbTable[$this->_album[0]->getId()])) {
-	    $this->assertEquals('thumbnail|200',
-				$thumbTable[$this->_album[0]->getId()]->getDerivativeOperations());
-	} else {
-	    $this->assert(false, 'We should have a thumbnail');
+	public function testThumbnailForEmptyAlbum() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '120');
+		$this->_putItemRequestVariables($this->_album[0]);
+
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest($this->_album[0], $this->_preferred);
+		$this->assertEquals(
+			array(array('form[error][thumbnail][create][forAlbum]'), null),
+			$results
+		);
 	}
-    }
 
-    function testRemoveThumbnail() {
-	/* Verify we have a thumbnail */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
-	if ($ret) {
-	    return $ret;
+	public function _putItemRequestVariables(&$item) {
+		// Put item attributes into request
+		GalleryUtilities::putRequestVariable('form[pathComponent]', $item->getPathComponent());
+		GalleryUtilities::putRequestVariable('form[title]', $item->getTitle());
+		GalleryUtilities::putRequestVariable('form[summary]', $item->getSummary());
+		GalleryUtilities::putRequestVariable('form[keywords]', $item->getKeywords());
+		GalleryUtilities::putRequestVariable('form[description]', $item->getDescription());
+		GalleryUtilities::putRequestVariable('form[serialNumber]', $item->getSerialNumber());
 	}
-	$this->assert(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
-
-	/* Use valid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '');
-	$this->_putItemRequestVariables($this->_item[0]);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-
-	/* Verify we have no more thumbnail */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($thumbTable[$this->_item[0]->getId()]),
-		      'We should not have a thumbnail');
-    }
-
-    function testZeroThumbnail() {
-	/* Size zero should remove thumbnail, just like empty value */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
-
-	/* Use valid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '0');
-	$this->_putItemRequestVariables($this->_item[0]);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
-			    $results);
-
-	/* Verify we have no more thumbnail */
-	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item[0]->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($thumbTable[$this->_item[0]->getId()]),
-		      'We should not have a thumbnail');
-    }
-
-    function testInvalidThumbnailSize() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', 'xyz');
-	$this->_putItemRequestVariables($this->_item[0]);
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
-    }
-
-    function testNegativeThumbnailSize() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '-100');
-	$this->_putItemRequestVariables($this->_item[0]);
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($this->_item[0], $this->_preferred);
-	$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
-    }
-
-    function testThumbnailForEmptyAlbum() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '120');
-	$this->_putItemRequestVariables($this->_album[0]);
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest($this->_album[0], $this->_preferred);
-	$this->assertEquals(array(array('form[error][thumbnail][create][forAlbum]'), null),
-			    $results);
-    }
-
-
-    function _putItemRequestVariables(&$item) {
-	/* Put item attributes into request */
-	GalleryUtilities::putRequestVariable('form[pathComponent]', $item->getPathComponent());
-	GalleryUtilities::putRequestVariable('form[title]', $item->getTitle());
-	GalleryUtilities::putRequestVariable('form[summary]', $item->getSummary());
-	GalleryUtilities::putRequestVariable('form[keywords]', $item->getKeywords());
-	GalleryUtilities::putRequestVariable('form[description]', $item->getDescription());
-	GalleryUtilities::putRequestVariable('form[serialNumber]', $item->getSerialNumber());
-    }
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -678,35 +781,42 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
  * Test toolkit
  */
 class ItemEditItemPluginTestToolkit extends GalleryToolkit {
-    /**
-     * @see GalleryToolkit::performOperation
-     * Dummy operation
-     */
-    function performOperation($mimeType, $operationName, $sourceFilename,
-			      $destFilename, $parameters, $context=array()) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
+	/**
+	 * @see GalleryToolkit::performOperation
+	 * Dummy operation
+	 */
+	public function performOperation(
+		$mimeType,
+		$operationName,
+		$sourceFilename,
+		$destFilename,
+		$parameters,
+		$context = array()
+	) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-	if ($sourceFilename != $destFilename) {
-	    $platform->copy($sourceFilename, $destFilename);
+		if ($sourceFilename != $destFilename) {
+			$platform->copy($sourceFilename, $destFilename);
+		}
+
+		$fd = $platform->fopen($destFilename, 'a');
+		$platform->fwrite($fd, $operationName);
+		$platform->fclose($fd);
+
+		return array(null, $mimeType, $context);
 	}
 
-	$fd = $platform->fopen($destFilename, 'a');
-	$platform->fwrite($fd, $operationName);
-	$platform->fclose($fd);
-
-	return array(null, $mimeType, $context);
-    }
-
-    /**
-     * @see GalleryToolkit::mergeOperations
-     * Dummy operation
-     */
-    function mergeOperations($operation1, $args1, $operation2, $args2) {
-	/* Do something stupid, but predictable */
-	return array(null,
-		     $operation1 . '+' . $operation2,
-		     array_merge($args1, array('+'), $args2));
-    }
+	/**
+	 * @see GalleryToolkit::mergeOperations
+	 * Dummy operation
+	 */
+	public function mergeOperations($operation1, $args1, $operation2, $args2) {
+		// Do something stupid, but predictable
+		return array(
+			null,
+			$operation1 . '+' . $operation2,
+			array_merge($args1, array('+'), $args2),
+		);
+	}
 }
-?>

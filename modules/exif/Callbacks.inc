@@ -24,83 +24,93 @@
  * @version $Revision: 17580 $
  */
 class ExifCallbacks {
+	public function callback($params, &$smarty, $callback, $userId = null) {
+		global $gallery;
+		static $blockNum = 0;
 
-    function callback($params, &$smarty, $callback, $userId=null) {
-	global $gallery;
-	static $blockNum = 0;
+		switch ($callback) {
+			case 'LoadExifInfo':
+				GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
-	switch ($callback) {
-	case 'LoadExifInfo':
-	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+				list($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
-	    if ($ret) {
-		return $ret;
-	    }
+				if ($ret) {
+					return $ret;
+				}
 
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-	    }
+				list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
 
-	    /* We only work on JPEG/raw data items */
-	    if (!GalleryUtilities::isA($item, 'GalleryDataItem') ||
-		!preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())) {
-		return null;
-	    }
+				if ($ret) {
+					return $ret;
+				}
 
-	    /* Feed the file to exifer */
-	    list ($ret, $path) = $item->fetchPath();
-	    if ($ret) {
-		return $ret;
-	    }
+				if (!$hasPermission) {
+					// Avoid information disclosure, act as if the item didn't exist.
+					return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+				}
 
-	    /* Figure out which version we're looking at */
-	    $session =& $gallery->getSession();
-	    if (empty($mode)) {
-		$mode = $session->get('exif.module.LoadExifInfo.mode');
-		if (empty($mode)) {
-		    $mode = 'summary';
+				// We only work on JPEG/raw data items
+				if (!GalleryUtilities::isA($item, 'GalleryDataItem')
+					|| !preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())
+				) {
+					return null;
+				}
+
+				// Feed the file to exifer
+				list($ret, $path) = $item->fetchPath();
+
+				if ($ret) {
+					return $ret;
+				}
+
+				// Figure out which version we're looking at
+				$session =& $gallery->getSession();
+
+				if (empty($mode)) {
+					$mode = $session->get('exif.module.LoadExifInfo.mode');
+
+					if (empty($mode)) {
+						$mode = 'summary';
+					}
+				}
+
+				$filter = ($mode == 'detailed') ? EXIF_DETAILED : EXIF_SUMMARY;
+
+				list($ret, $exifData) = ExifHelper::getExifData($path, $filter);
+
+				if ($ret) {
+					return $ret;
+				}
+
+				if (empty($exifData)) {
+					if ($filter == EXIF_SUMMARY) {
+						list($ret, $exifData) = ExifHelper::getExifData($path, EXIF_DETAILED);
+					} else {
+						list($ret, $exifData) = ExifHelper::getExifData($path, EXIF_SUMMARY);
+					}
+
+					if ($ret) {
+						return $ret;
+					}
+					$mode = null;
+				}
+
+				if (empty($exifData)) {
+					return null;
+				}
+
+				$ajaxBlockNum                  = GalleryUtilities::getRequestVariables('blockNum');
+				$thisBlockNum                  = !empty($ajaxBlockNum) ? $ajaxBlockNum : ++$blockNum;
+				$block                         =& $smarty->_tpl_vars['block'];
+				$block['exif']['LoadExifInfo'] = array(
+					'exifData' => $exifData,
+					'mode'     => $mode,
+					'blockNum' => $thisBlockNum,
+				);
+
+				return null;
 		}
-	    }
 
-	    $filter = ($mode == 'detailed') ? EXIF_DETAILED : EXIF_SUMMARY;
-
-	    list ($ret, $exifData) = ExifHelper::getExifData($path, $filter);
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (empty($exifData)) {
-		if ($filter == EXIF_SUMMARY) {
-		    list ($ret, $exifData) = ExifHelper::getExifData($path, EXIF_DETAILED);
-		} else {
-		    list ($ret, $exifData) = ExifHelper::getExifData($path, EXIF_SUMMARY);
-		}
-		if ($ret) {
-		    return $ret;
-		}
-		$mode = null;
-	    }
-	    if (empty($exifData)) {
-		return null;
-	    }
-
-	    $ajaxBlockNum = GalleryUtilities::getRequestVariables('blockNum');
-	    $thisBlockNum = !empty($ajaxBlockNum) ? $ajaxBlockNum : ++$blockNum;
-	    $block =& $smarty->_tpl_vars['block'];
-	    $block['exif']['LoadExifInfo'] = array('exifData' => $exifData,
-						   'mode' => $mode,
-						   'blockNum' => $thisBlockNum);
-
-	    return null;
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-    }
 }
-?>

@@ -30,189 +30,227 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
  * @version $Revision: 18067 $
  */
 class FlockLockSystem extends GalleryLockSystem {
+	/**
+	 * Reference counts for every lock we're holding so that if we've got a file doubly read locked
+	 * we don't try to delete it until all read locks are released.
+	 * @todo When we get rid of double read locks, we can delete this.
+	 * @var array
+	 * @access private
+	 */
+	public $_references;
 
-    /**
-     * Reference counts for every lock we're holding so that if we've got a file doubly read locked
-     * we don't try to delete it until all read locks are released.
-     * @todo When we get rid of double read locks, we can delete this.
-     * @var array
-     * @access private
-     */
-    var $_references;
+	/**
+	 * @see GalleryLockSystem::_acquireLock
+	 */
+	public function _acquireLock($ids, $timeout, $lockType) {
+		global $gallery;
+		$platform   =& $gallery->getPlatform();
+		$cutoffTime = time() + $timeout;
 
-    /**
-     * @see GalleryLockSystem::_acquireLock
-     */
-    function _acquireLock($ids, $timeout, $lockType) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$cutoffTime = time() + $timeout;
+		// Get a file handle (which is actually a lock handle) for all the files first
+		$notLocked = array();
 
-	/* Get a file handle (which is actually a lock handle) for all the files first */
-	$notLocked = array();
-	foreach ($ids as $id) {
-	    $lockFile = $this->_getLockFile($id);
-	    $fd = $platform->fopen($lockFile, 'wb+');
-	    if ($fd) {
-		$notLocked[$id] = array($fd, $lockFile);
-	    } else {
-		/* Close the files that we already opened successfully and return an error */
-		foreach ($notLocked as $lockInfo) {
-		    list ($fd, $lockFile) = $lockInfo;
-		    $platform->fclose($fd);
-		    /*
-		     * Delete the lock files even if others are locking it too (releaseLock calls
-		     * are too often forgotten in error handling)
-		     */
-		    if ($platform->file_exists($lockFile)) {
-			@$platform->unlink($lockFile);
-		    }
-		}
-		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-						   $lockFile), null);
-	    }
-	}
+		foreach ($ids as $id) {
+			$lockFile = $this->_getLockFile($id);
+			$fd       = $platform->fopen($lockFile, 'wb+');
 
-	/* Move them from notLocked -> locked as we acquire the lock */
-	$locked = array();
-	$wouldBlock = null;
-	$flockType = ($lockType == LOCK_READ) ? LOCK_SH : LOCK_EX;
-	while (!empty($notLocked)) {
-	    $tmp = $notLocked;
-	    $notLocked = array();
-	    foreach ($tmp as $id => $lockInfo) {
-		list ($fd, $lockFile) = $lockInfo;
-		/* Check if we can lock */
-		$flockReturned = $platform->flock($fd, $flockType | LOCK_NB, $wouldBlock);
-		if ($flockReturned && !$wouldBlock) {
-		    $locked[$id] = $lockInfo;
-		    /* Keep track of the number of locks there are for this object */
-		    if (isset($this->_references[$lockFile])) {
-			$this->_references[$lockFile]++;
-		    } else {
-			$this->_references[$lockFile] = 1;
-		    }
-		} else {
-		    /* Remember that it's not locked and keep going */
-		    $notLocked[$id] = $lockInfo;
-		}
-	    }
+			if ($fd) {
+				$notLocked[$id] = array($fd, $lockFile);
+			} else {
+				// Close the files that we already opened successfully and return an error
+				foreach ($notLocked as $lockInfo) {
+					list($fd, $lockFile) = $lockInfo;
+					$platform->fclose($fd);
+					/*
+					 * Delete the lock files even if others are locking it too (releaseLock calls
+					 * are too often forgotten in error handling)
+					 */
+					if ($platform->file_exists($lockFile)) {
+						@$platform->unlink($lockFile);
+					}
+				}
 
-	    if (!empty($notLocked)) {
-		if (time() > $cutoffTime) {
-		    /* Couldn't get the locks in time, release the ones that we have and return */
-		    foreach (array_merge($locked, $notLocked) as $lockInfo) {
-			$this->_closeLockFile($lockInfo);
-		    }
-		    return array(GalleryCoreApi::error(ERROR_LOCK_TIMEOUT, __FILE__, __LINE__,
-			array_reduce($notLocked,
-			    create_function('$v,$w', 'return empty($v) ? $w[1] : "$v $w[1]";'))),
-			null);
+				return array(
+					GalleryCoreApi::error(
+						ERROR_PLATFORM_FAILURE,
+						__FILE__,
+						__LINE__,
+						$lockFile
+					),
+					null,
+				);
+			}
 		}
 
-		/* Wait a second and try any unacquired locks again */
-		$gallery->debug('Waiting for a lock');
-		sleep(1);
-	    }
-	}
+		// Move them from notLocked -> locked as we acquire the lock
+		$locked     = array();
+		$wouldBlock = null;
+		$flockType  = ($lockType == LOCK_READ) ? LOCK_SH : LOCK_EX;
 
-	list ($ignored, $lockId) = $this->_newLockId();
+		while (!empty($notLocked)) {
+			$tmp       = $notLocked;
+			$notLocked = array();
 
-	$this->_locks[$lockId] = array('lockId' => $lockId, 'type' => $lockType, 'ids' => $locked);
-	return array(null, $lockId);
-    }
+			foreach ($tmp as $id => $lockInfo) {
+				list($fd, $lockFile) = $lockInfo;
+				// Check if we can lock
+				$flockReturned = $platform->flock($fd, $flockType | LOCK_NB, $wouldBlock);
 
-    /**
-     * @see GalleryLockSystem::_releaseLocksNow
-     */
-    function _releaseLocksNow($locks) {
-	global $gallery;
-	$gallery->guaranteeTimeLimit(count($locks) + 5);
+				if ($flockReturned && !$wouldBlock) {
+					$locked[$id] = $lockInfo;
+					// Keep track of the number of locks there are for this object
+					if (isset($this->_references[$lockFile])) {
+						$this->_references[$lockFile]++;
+					} else {
+						$this->_references[$lockFile] = 1;
+					}
+				} else {
+					// Remember that it's not locked and keep going
+					$notLocked[$id] = $lockInfo;
+				}
+			}
 
-	/* Release all locks by closing the files */
-	foreach ($locks as $lock) {
-	    foreach ($lock['ids'] as $lockInfo) {
-		$this->_closeLockFile($lockInfo);
-	    }
-	}
+			if (!empty($notLocked)) {
+				if (time() > $cutoffTime) {
+					// Couldn't get the locks in time, release the ones that we have and return
+					foreach (array_merge($locked, $notLocked) as $lockInfo) {
+						$this->_closeLockFile($lockInfo);
+					}
 
-	return null;
-    }
+					return array(
+						GalleryCoreApi::error(
+							ERROR_LOCK_TIMEOUT,
+							__FILE__,
+							__LINE__,
+							array_reduce(
+								$notLocked,
+								function ($v, $w) {
+									return empty($v) ? $w[1] : "$v $w[1]";
+								}
+							)
+						),
+						null,
+					);
+				}
 
-    /**
-     * @see GalleryLockSystem::refreshLocks
-     */
-    function refreshLocks($freshUntil) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	/* Flush one byte to each lock file to update its timestamp */
-	foreach ($this->_locks as $lockId => $lock) {
-	    foreach ($lock['ids'] as $lockInfo) {
-		list ($fd, $lockFile) = $lockInfo;
-		$count = $platform->fwrite($fd, '.');
-		if ($count == 0) {
-		    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
-						 $lockFile);
+				// Wait a second and try any unacquired locks again
+				$gallery->debug('Waiting for a lock');
+				sleep(1);
+			}
 		}
-		$platform->fflush($fd);
-	    }
+
+		list($ignored, $lockId) = $this->_newLockId();
+
+		$this->_locks[$lockId] = array(
+			'lockId' => $lockId,
+			'type'   => $lockType,
+			'ids'    => $locked,
+		);
+
+		return array(null, $lockId);
 	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryLockSystem::_releaseLocksNow
+	 */
+	public function _releaseLocksNow($locks) {
+		global $gallery;
+		$gallery->guaranteeTimeLimit(count($locks) + 5);
 
-    /**
-     * Return the lock file for a given object id.
-     * @param int $id the input id
-     * @return string the complete path to the lock file
-     * @access private
-     */
-    function _getLockFile($id) {
-	global $gallery;
-	return $gallery->getConfig('data.gallery.locks') . (int)$id;
-    }
+		// Release all locks by closing the files
+		foreach ($locks as $lock) {
+			foreach ($lock['ids'] as $lockInfo) {
+				$this->_closeLockFile($lockInfo);
+			}
+		}
 
-    /**
-     * Close file for this lock and remove file if there are no more references.
-     * @param array $lockInfo lockInfo
-     * @access private
-     */
-    function _closeLockFile($lockInfo) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	list ($fd, $lockFile) = $lockInfo;
-	$platform->fclose($fd);
-	if ($platform->file_exists($lockFile)) {
-	    $this->_references[$lockFile]--;
-	    if ($this->_references[$lockFile] == 0) {
-		$platform->unlink($lockFile);
-	    }
+		return null;
 	}
-    }
 
-    /**
-     * @see GalleryLockSystem::_removeObjectsFromLock
-     */
-    function _removeObjectsFromLock(&$lock, $ids) {
-	foreach ($ids as $id) {
-	    $this->_closeLockFile($lock['ids'][$id]);
-	    unset($lock['ids'][$id]);
-	}
-	return null;
-    }
+	/**
+	 * @see GalleryLockSystem::refreshLocks
+	 */
+	public function refreshLocks($freshUntil) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-    /**
-     * @see GalleryLockSystem::_newLockId
-     */
-    function _newLockId() {
-	$lockId = crc32(microtime());
-	if (0 > $lockId) {
-	    /* crc32 generates signed integers (-2^31..2^31-1). Cast to unsigned. */
-	    $lockId = (int)($lockId + 0x080000000);
+		// Flush one byte to each lock file to update its timestamp
+		foreach ($this->_locks as $lockId => $lock) {
+			foreach ($lock['ids'] as $lockInfo) {
+				list($fd, $lockFile) = $lockInfo;
+				$count               = $platform->fwrite($fd, '.');
+
+				if ($count == 0) {
+					return GalleryCoreApi::error(
+						ERROR_STORAGE_FAILURE,
+						__FILE__,
+						__LINE__,
+						$lockFile
+					);
+				}
+				$platform->fflush($fd);
+			}
+		}
+
+		return null;
 	}
-	return array(null, $lockId);
-    }
+
+	/**
+	 * Return the lock file for a given object id.
+	 * @param int $id the input id
+	 * @return string the complete path to the lock file
+	 * @access private
+	 */
+	public function _getLockFile($id) {
+		global $gallery;
+
+		return $gallery->getConfig('data.gallery.locks') . (int)$id;
+	}
+
+	/**
+	 * Close file for this lock and remove file if there are no more references.
+	 * @param array $lockInfo lockInfo
+	 * @access private
+	 */
+	public function _closeLockFile($lockInfo) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+
+		list($fd, $lockFile) = $lockInfo;
+		$platform->fclose($fd);
+
+		if ($platform->file_exists($lockFile)) {
+			$this->_references[$lockFile]--;
+
+			if ($this->_references[$lockFile] == 0) {
+				$platform->unlink($lockFile);
+			}
+		}
+	}
+
+	/**
+	 * @see GalleryLockSystem::_removeObjectsFromLock
+	 */
+	public function _removeObjectsFromLock(&$lock, $ids) {
+		foreach ($ids as $id) {
+			$this->_closeLockFile($lock['ids'][$id]);
+			unset($lock['ids'][$id]);
+		}
+
+		return null;
+	}
+
+	/**
+	 * @see GalleryLockSystem::_newLockId
+	 */
+	public function _newLockId() {
+		$lockId = crc32(microtime());
+
+		if (0 > $lockId) {
+			// crc32 generates signed integers (-2^31..2^31-1). Cast to unsigned.
+			$lockId = (int)($lockId + 0x080000000);
+		}
+
+		return array(null, $lockId);
+	}
 }
-?>

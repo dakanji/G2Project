@@ -1,6 +1,8 @@
-    <div <?php if ($templateData['secure']) print ' class="success"' ?>>
+    <div <?php if ($templateData['secure']) {
+	echo ' class="success"';
+} ?>>
     <h1>
-      <?php print _("Check Security") ?>
+      <?php echo _("Check Security") ?>
     </h1>
     </div>
 
@@ -17,7 +19,7 @@
     <?php endif; ?>
     <?php if (!$templateData['dir']['secure']): ?>
     <p>
-      <?php print _("We want to make sure that your Gallery is secure.  The directory containing your config.php file that this installer has edited has permissions that allow other people to write or delete files.  So before you finish, you should change the permissions on this directory such that other users can't write to it.  We suggest that you do this:") ?>
+      <?php echo _("We want to make sure that your Gallery is secure.  The directory containing your config.php file that this installer has edited has permissions that allow other people to write or delete files.  So before you finish, you should change the permissions on this directory such that other users can't write to it.  We suggest that you do this:") ?>
     </p>
 
     <div class="example">
@@ -26,13 +28,13 @@
     <?php endif; ?>
 
     <p>
-      <?php print _("If you really want to continue, you can.  But we recommend that you take an extra moment to make sure that you're safe.") ?>
+      <?php echo _("If you really want to continue, you can.  But we recommend that you take an extra moment to make sure that you're safe.") ?>
     </p>
     <?php endif; ?>
 
     <?php if ($templateData['secure']): ?>
     <p>
-      <?php print _("We've verified that your config.php is secure.") ?>
+      <?php echo _("We've verified that your config.php is secure.") ?>
     </p>
     <?php endif; ?>
     <?php endif; ?>

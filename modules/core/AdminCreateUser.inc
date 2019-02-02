@@ -26,143 +26,153 @@
  * @version $Revision: 17580 $
  */
 class AdminCreateUserController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$results = $status = $error = array();
-	if (isset($form['action']['cancel'])) {
-
-	    /* Go back to the AdminUsers view */
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminUsers';
-
-	} else if (isset($form['action']['create'])) {
-	    /*
-	     * If all the right fields are in place then go ahead and
-	     * create the user.
-	     */
-	    if (!empty($form['userName']) && !empty($form['email'])
-		    && !empty($form['password1']) && $form['password1'] == $form['password2']) {
-
-		list ($ret, $user) =
-		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 		if ($ret) {
-		    return array($ret, null);
-		}
-
-		if (!isset($user)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
-				 null);
-		}
-
-		$ret = $user->create($form['userName']);
-		if ($ret) {
-		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 			return array($ret, null);
-		    }
+		}
 
-		    /* Set our error status and fall back to the view */
-		    $error[] = 'form[error][userName][exists]';
+		$results = $status = $error = array();
+
+		if (isset($form['action']['cancel'])) {
+			// Go back to the AdminUsers view
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'core.AdminUsers';
+		} elseif (isset($form['action']['create'])) {
+			// If all the right fields are in place, go ahead and create user.
+			if (!empty($form['userName'])
+				&& !empty($form['email'])
+				&& !empty($form['password1'])
+				&& $form['password1'] == $form['password2']
+			) {
+				list($ret, $user) = GalleryCoreApi::newFactoryInstance(
+					'GalleryEntity',
+					'GalleryUser'
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				if (!isset($user)) {
+					return array(
+						GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+						null,
+					);
+				}
+
+				$ret = $user->create($form['userName']);
+
+				if ($ret) {
+					if (!($ret->getErrorCode() & ERROR_COLLISION)) {
+						return array($ret, null);
+					}
+
+					// Set our error status and fall back to the view
+					$error[] = 'form[error][userName][exists]';
+				} else {
+					$user->setEmail($form['email']);
+					$user->setFullName($form['fullName']);
+					$user->setLanguage($form['language']);
+					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
+					$user->changePassword($form['password1']);
+
+					$ret = $user->save();
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					// Request a redirect to the confirmation screen
+					$redirect['view']      = 'core.SiteAdmin';
+					$redirect['subView']   = 'core.AdminUsers';
+					$status['createdUser'] = $form['userName'];
+				}
+			} else {
+				foreach (array('userName', 'email', 'password1', 'password2') as $key) {
+					if (empty($form[$key])) {
+						$error[] = 'form[error][' . $key . '][missing]';
+					}
+				}
+
+				if (!empty($form['password1']) && !empty($form['password2'])
+					&& $form['password1'] != $form['password2']
+				) {
+					$error[] = 'form[error][password2][mismatch]';
+				}
+			}
+		}
+
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
 		} else {
-		    $user->setEmail($form['email']);
-		    $user->setFullName($form['fullName']);
-		    $user->setLanguage($form['language']);
-		    GalleryUtilities::unsanitizeInputValues($form['password1'], false);
-		    $user->changePassword($form['password1']);
-
-		    $ret = $user->save();
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    /* Request a redirect to the confirmation screen */
-		    $redirect['view'] = 'core.SiteAdmin';
-		    $redirect['subView'] = 'core.AdminUsers';
-		    $status['createdUser'] = $form['userName'];
+			$results['delegate']['view']    = 'core.SiteAdmin';
+			$results['delegate']['subView'] = 'core.AdminCreateUser';
 		}
-	    } else {
-		foreach (array('userName', 'email', 'password1', 'password2') as $key) {
-		    if (empty($form[$key])) {
-			$error[] = 'form[error][' . $key . '][missing]';
-		    }
-		}
+		$results['status'] = $status;
+		$results['error']  = $error;
 
-		if (!empty($form['password1']) && !empty($form['password2'])
-			&& $form['password1'] != $form['password2']) {
-		    $error[] = 'form[error][password2][mismatch]';
-		}
-	    }
+		return array(null, $results);
 	}
-
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'core.AdminCreateUser';
-	}
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * This view will prompt for data to create a new user
  */
 class AdminCreateUserView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'AdminCreateUser') {
+			// First time around, set our defaults here.
+			$form['userName'] = '';
+			$form['email']    = '';
+			$form['fullName'] = '';
+			$form['language'] = '';
+			$form['formName'] = 'AdminCreateUser';
+		}
+
+		// Set up our language selection list
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$languageList     = array();
+		$languageList[''] = $module->translate('&lt;none&gt;');
+
+		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+
+		foreach ($supportedLanguages as $language => $countryList) {
+			foreach ($countryList as $country => $languageData) {
+				$languageList[$language . '_' . $country] = $languageData['description'];
+			}
+		}
+
+		$AdminCreateUser                 = array();
+		$AdminCreateUser['languageList'] = $languageList;
+
+		$template->setVariable('AdminCreateUser', $AdminCreateUser);
+		$template->setVariable('controller', 'core.AdminCreateUser');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/AdminCreateUser.tpl',
+			),
+		);
 	}
-
-	if ($form['formName'] != 'AdminCreateUser') {
-	    /* First time around, set our defaults here. */
-	    $form['userName'] = '';
-	    $form['email'] = '';
-	    $form['fullName'] = '';
-	    $form['language'] = '';
-	    $form['formName'] = 'AdminCreateUser';
-	}
-
-	/* Set up our language selection list */
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$languageList = array();
-	$languageList[''] = $module->translate('&lt;none&gt;');
-
-	$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
-	foreach ($supportedLanguages as $language => $countryList) {
-	    foreach ($countryList as $country => $languageData) {
-		$languageList[$language . '_' . $country] =
-		    $languageData['description'];
-	    }
-	}
-
-	$AdminCreateUser = array();
-	$AdminCreateUser['languageList'] = $languageList;
-
-	$template->setVariable('AdminCreateUser', $AdminCreateUser);
-	$template->setVariable('controller', 'core.AdminCreateUser');
-
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminCreateUser.tpl'));
-    }
 }
-?>

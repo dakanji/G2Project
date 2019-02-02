@@ -18,100 +18,114 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ini_set('error_reporting', 2047);
+
 if (!empty($_SERVER['SERVER_NAME'])) {
-    print "You must run this from the command line\n";
-    exit(1);
+	echo "You must run this from the command line\n";
+
+	exit(1);
 }
 
-require_once(dirname(__FILE__) . '/XmlParser.inc');
-require_once(dirname(__FILE__) . '/../../smarty/Smarty.class.php');
+require_once __DIR__ . '/XmlParser.inc';
 
-$tmpdir = dirname(__FILE__) . '/tmp_maps_' . rand(1, 30000);
+require_once __DIR__ . '/../../smarty/Smarty.class.php';
+
+$tmpdir = __DIR__ . '/tmp_maps_' . mt_rand(1, 30000);
+
 if (file_exists($tmpdir)) {
-    print "Tmp dir already exists: $tmpdir\n";
-    exit(1);
+	echo "Tmp dir already exists: $tmpdir\n";
+
+	exit(1);
 }
 
 if (!mkdir($tmpdir)) {
-    print "Unable to make tmp dir: $tmpdir\n";
-    exit(1);
+	echo "Unable to make tmp dir: $tmpdir\n";
+
+	exit(1);
 }
 
-$smarty = new Smarty();
-$smarty->compile_dir = $tmpdir;
+$smarty                  = new Smarty();
+$smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
-$smarty->debugging = true;
-$smarty->use_sub_dirs = false;
-$smarty->template_dir = dirname(__FILE__);
+$smarty->debugging       = true;
+$smarty->use_sub_dirs    = false;
+$smarty->template_dir    = __DIR__;
 
 $xmlFile = 'Maps.xml';
 
 if (!file_exists($xmlFile)) {
-    print "Missing Maps.xml, can't continue.\n";
-    cleanExit(1);
+	echo "Missing Maps.xml, can't continue.\n";
+	cleanExit(1);
 }
 
-$p =& new XmlParser();
+$p    = new XmlParser();
 $root = $p->parse($xmlFile);
 
 $maps = array();
+
 foreach ($root[0]['child'] as $map) {
-    $mapName = $map['child'][0]['content'];
+	$mapName = $map['child'][0]['content'];
 
-    for ($j = 2; $j < count($map['child']); $j++) {
-	$child = $map['child'][$j];
-	if ($child['name'] == 'MEMBER') {
-	    $member = array(
-		'name' => $child['child'][0]['content'],
-		'type' => 'STORAGE_TYPE_' . $child['child'][1]['content']);
+	for ($j = 2; $j < count($map['child']); $j++) {
+		$child = $map['child'][$j];
 
-	    if (!empty($child['child'][2]['name']) &&
-		    $child['child'][2]['name'] == 'MEMBER-SIZE') {
-		$member['size'] = 'STORAGE_SIZE_' . $child['child'][2]['content'];
-	    } else {
-		$member['size'] = 'STORAGE_SIZE_MEDIUM';
-	    }
+		if ($child['name'] == 'MEMBER') {
+			$member = array(
+				'name' => $child['child'][0]['content'],
+				'type' => 'STORAGE_TYPE_' . $child['child'][1]['content'],
+			);
 
-	    for ($k = 2; $k < count($child['child']); $k++) {
-		if (!empty($child['child'][$k]['name'])) {
-		    $elem = $child['child'][$k];
-		    if ($elem['name'] == 'PRIMARY' || $elem['name'] == 'REQUIRED') {
-			if ($elem['name'] != 'REQUIRED' || empty($elem['attrs']['EMPTY']) ||
-			        $elem['attrs']['EMPTY'] != 'allowed') {
-			    $member['notNull'] = true;
+			if (!empty($child['child'][2]['name'])
+				&& $child['child'][2]['name'] == 'MEMBER-SIZE'
+			) {
+				$member['size'] = 'STORAGE_SIZE_' . $child['child'][2]['content'];
 			} else {
-			    $member['notNullEmptyAllowed'] = true;
+				$member['size'] = 'STORAGE_SIZE_MEDIUM';
 			}
-			break;
-		    }
-		}
-	    }
 
-	    $maps[$mapName][] = $member;
+			for ($k = 2; $k < count($child['child']); $k++) {
+				if (!empty($child['child'][$k]['name'])) {
+					$elem = $child['child'][$k];
+
+					if ($elem['name'] == 'PRIMARY' || $elem['name'] == 'REQUIRED') {
+						if ($elem['name'] != 'REQUIRED' || empty($elem['attrs']['EMPTY'])
+							|| $elem['attrs']['EMPTY'] != 'allowed'
+						) {
+							$member['notNull'] = true;
+						} else {
+							$member['notNullEmptyAllowed'] = true;
+						}
+
+						break;
+					}
+				}
+			}
+
+			$maps[$mapName][] = $member;
+		}
 	}
-    }
 }
 
 $smarty->assign('maps', $maps);
 $smarty->assign('mapName', $mapName);
 $new = $smarty->fetch('maps.tpl');
 
-# Windows leaves a CR at the end of the file
+// Windows leaves a CR at the end of the file
 $new = rtrim($new, "\r");
 
 $fd = fopen('Maps.inc', 'w');
 fwrite($fd, $new);
 fclose($fd);
 
-/* Done */
+// Done
 cleanExit(0);
 
-function cleanExit($status=0) {
-    /* Clean up the cheap and easy way */
-    global $tmpdir;
-    if (file_exists($tmpdir)) {
-	system("rm -rf $tmpdir");
-    }
-    exit($status);
+function cleanExit($status = 0) {
+	// Clean up the cheap and easy way
+	global $tmpdir;
+
+	if (file_exists($tmpdir)) {
+		system("rm -rf $tmpdir");
+	}
+
+	exit($status);
 }
-?>

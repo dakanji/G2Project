@@ -26,219 +26,238 @@
  * @version $Revision: 17657 $
  */
 class DownloadItemView extends GalleryView {
-
-    /**
-     * @see GalleryView::isImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::shouldSaveSession
-     */
-    function shouldSaveSession() {
-	return false;
-    }
-
-    /**
-     * @see GalleryView::autoCacheControl
-     */
-    function autoCacheControl() {
-        return false;
-    }
-    
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	/* Figure out which item we're talking about */
-	$itemId = (int) GalleryUtilities::getRequestVariables('itemId');
-	if (empty($itemId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	/**
+	 * @see GalleryView::isImmediate
+	 */
+	public function isImmediate() {
+		return true;
 	}
-
-	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (!method_exists($item, 'fetchPath') || !method_exists($item, 'getMimeType')) {
-	    /* Avoid information disclosure for bogus entities by acting as if it didn't exist */
-	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-	}
-
-	$derivativeType = null;
-	if (GalleryUtilities::isA($item, 'GalleryDerivative')) {
-	    $derivativeType = $item->getDerivativeType();
-	}
-
-	$ret = $this->_assertPermissions($item, $derivativeType);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Figure out the filename */
-	list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($item);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Don't allow malicious URLs */
-	$fileName = GalleryUtilities::getRequestVariables('fileName');
-	if (!empty($fileName) && $fileName != $pseudoFileName) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, 'malicious url');
-	}
-	
-	/* Get the path to the file */
-	list ($ret, $path) = $item->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Rebuild derivative cache, if necessary */
-	if (!empty($derivativeType)) {
-	    list ($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($itemId);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	$ret = $this->_sendFile(array('derivativePath' => $path,
-				      'mimeType' => $item->getMimeType(),
-				      'pseudoFileName' => $pseudoFileName));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::createFastDownloadFile($item);
-	    /* Ignore failures since the file has already been sent */
-
-	return null;
-    }
-
-    function _sendFile($data) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$phpVm = $gallery->getPhpVm();
 
 	/**
-	 * Try to prevent Apache's mod_deflate from gzipping the output since it's likely already
-	 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
+	 * @see GalleryView::isAllowedInEmbedOnly
 	 */
-	if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
-	    @apache_setenv('no-gzip', '1');
+	public function isAllowedInEmbedOnly() {
+		return true;
 	}
 
-	$requestMethod = strtolower(GalleryUtilities::getServerVar('REQUEST_METHOD'));
-
-	$phpVm->header('Content-type: ' . $data['mimeType']);
-	$phpVm->header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
-	$stats = $platform->stat($data['derivativePath']);
-	$phpVm->header('Last-Modified: ' . GalleryUtilities::getHttpDate($stats[9]));
-	$phpVm->header('Expires: ' . GalleryUtilities::getHttpDate(2147483647));
+	/**
+	 * @see GalleryView::shouldSaveSession
+	 */
+	public function shouldSaveSession() {
+		return false;
+	}
 
 	/**
-	 * If the file is publicly visible we could set this cache control to public (as we
-	 * do for fast download) but that would require us to do some extra calculations here that
-	 * would duplicate what we have in GalleryEntityHelper::createFastDownloadfile, so for now
-	 * just set the cache control to private.
-	 *
-	 * @todo: refactor the GalleryEntityHelper code so that we can do the permission check
-	 * here too and set Cache-Control to public when appropriate.
+	 * @see GalleryView::autoCacheControl
 	 */
-	$phpVm->header('Cache-Control: private');
+	public function autoCacheControl() {
+		return false;
+	}
 
-	/* If the request method is HEAD, don't send back the body */
-	if ($requestMethod == 'head') {
-	    $phpVm->header('Content-length: 0');
-	} else {
-	    if ($stats[7] > 0) {
-		$phpVm->header('Content-length: ' . $stats[7]);
-	    }
-	    /*
-	     * Don't use readfile() because it buffers the entire file in memory.  Profiling shows
-	     * that this approach is as efficient as fpassthru() but we get to call
-	     * guaranteeTimeLimit which prevents it from failing on very large files
-	     */
-	    if ($fd = $platform->fopen($data['derivativePath'], 'rb')) {
-		while (true) {
-		    $bits = $platform->fread($fd, 65535);
-		    if (strlen($bits) == 0) {
-			break;
-		    }
-		    print $bits;
-		    $gallery->guaranteeTimeLimit(30);
+	/**
+	 * @see GalleryView::renderImmediate
+	 */
+	public function renderImmediate($status = null, $error = null) {
+		// Figure out which item we're talking about
+		$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
+
+		if (empty($itemId)) {
+			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
-		$platform->fclose($fd);
-	    }
+
+		// Load the item
+		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!method_exists($item, 'fetchPath') || !method_exists($item, 'getMimeType')) {
+			// Avoid information disclosure for bogus entities by acting as if it didn't exist
+			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+		}
+
+		$derivativeType = null;
+
+		if (GalleryUtilities::isA($item, 'GalleryDerivative')) {
+			$derivativeType = $item->getDerivativeType();
+		}
+
+		$ret = $this->_assertPermissions($item, $derivativeType);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Figure out the filename
+		list($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($item);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Don't allow malicious URLs
+		$fileName = GalleryUtilities::getRequestVariables('fileName');
+
+		if (!empty($fileName) && $fileName != $pseudoFileName) {
+			return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, 'malicious url');
+		}
+
+		// Get the path to the file
+		list($ret, $path) = $item->fetchPath();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Rebuild derivative cache, if necessary
+		if (!empty($derivativeType)) {
+			list($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($itemId);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		$ret = $this->_sendFile(
+			array(
+				'derivativePath' => $path,
+				'mimeType'       => $item->getMimeType(),
+				'pseudoFileName' => $pseudoFileName,
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::createFastDownloadFile($item);
+		// Ignore failures since the file has already been sent
+
+		return null;
 	}
 
-	return null;
-    }
+	public function _sendFile($data) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+		$phpVm    = $gallery->getPhpVm();
 
-    /**
-     * Assert the required permissions for the given item.
-     * @param GalleryChildEntity $item GalleryDataItem or GalleryChildEntity with a data item as
-     *        parent. Throws ERROR_MISSING_OBJECT if a non-item has no item as parent.
-     * @param mixed $derivativeType
-     * @return GalleryStatus
-     */
-    function _assertPermissions($item, $derivativeType) {
-    	global $gallery;
-    	$session =& $gallery->getSession();
+		/**
+		 * Try to prevent Apache's mod_deflate from gzipping the output since it's likely already
+		 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
+		 */
+		if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
+			@apache_setenv('no-gzip', '1');
+		}
 
-    	$itemIdForPermission = $item->getId();
-	if (!empty($derivativeType)) {
-	    $itemIdForPermission = $item->getParentId();
+		$requestMethod = strtolower(GalleryUtilities::getServerVar('REQUEST_METHOD'));
+
+		$phpVm->header('Content-type: ' . $data['mimeType']);
+		$phpVm->header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
+		$stats = $platform->stat($data['derivativePath']);
+		$phpVm->header('Last-Modified: ' . GalleryUtilities::getHttpDate($stats[9]));
+		$phpVm->header('Expires: ' . GalleryUtilities::getHttpDate(2147483647));
+
+		/**
+		 * If the file is publicly visible we could set this cache control to public (as we
+		 * do for fast download) but that would require us to do some extra calculations here that
+		 * would duplicate what we have in GalleryEntityHelper::createFastDownloadfile, so for now
+		 * just set the cache control to private.
+		 *
+		 * @todo: refactor the GalleryEntityHelper code so that we can do the permission check
+		 * here too and set Cache-Control to public when appropriate.
+		 */
+		$phpVm->header('Cache-Control: private');
+
+		// If the request method is HEAD, don't send back the body
+		if ($requestMethod == 'head') {
+			$phpVm->header('Content-length: 0');
+		} else {
+			if ($stats[7] > 0) {
+				$phpVm->header('Content-length: ' . $stats[7]);
+			}
+			/*
+			 * Don't use readfile() because it buffers the entire file in memory.  Profiling shows
+			 * that this approach is as efficient as fpassthru() but we get to call
+			 * guaranteeTimeLimit which prevents it from failing on very large files
+			 */
+			if ($fd = $platform->fopen($data['derivativePath'], 'rb')) {
+				while (true) {
+					$bits = $platform->fread($fd, 65535);
+
+					if (strlen($bits) == 0) {
+						break;
+					}
+					echo $bits;
+					$gallery->guaranteeTimeLimit(30);
+				}
+				$platform->fclose($fd);
+			}
+		}
+
+		return null;
 	}
 
-	/* Make sure we have permission */
-	if (($ids = $session->get('core.isPrintService')) && in_array($item->getId(), $ids)) {
-	    /* Print services only need core.view to get access to full size version of photos */
-	    $permission = 'core.view';
-	} else {
-	    $permission = 'core.viewSource';
-	    switch ($derivativeType) {
-	    case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
-		$permission = 'core.view';
-		break;
+	/**
+	 * Assert the required permissions for the given item.
+	 * @param GalleryChildEntity $item GalleryDataItem or GalleryChildEntity with a data item as
+	 *        parent. Throws ERROR_MISSING_OBJECT if a non-item has no item as parent.
+	 * @return GalleryStatus
+	 */
+	public function _assertPermissions($item, $derivativeType) {
+		global $gallery;
+		$session =& $gallery->getSession();
 
-	    case DERIVATIVE_TYPE_IMAGE_RESIZE:
-		$permission = 'core.viewResizes';
-		break;
+		$itemIdForPermission = $item->getId();
 
-		/* DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource */
-	    }
+		if (!empty($derivativeType)) {
+			$itemIdForPermission = $item->getParentId();
+		}
+
+		// Make sure we have permission
+		if (($ids = $session->get('core.isPrintService')) && in_array($item->getId(), $ids)) {
+			// Print services only need core.view to get access to full size version of photos
+			$permission = 'core.view';
+		} else {
+			$permission = 'core.viewSource';
+
+			switch ($derivativeType) {
+				case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
+					$permission = 'core.view';
+
+					break;
+
+				case DERIVATIVE_TYPE_IMAGE_RESIZE:
+					$permission = 'core.viewResizes';
+
+					break;
+
+				// DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource
+			}
+		}
+		$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
+
+		if ($ret) {
+			// Avoid information disclosure
+			if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
+				if ($permission != 'core.view') {
+					list($ret2, $hasPermission) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
+
+					if ($ret2) {
+						return $ret2;
+					}
+				}
+
+				if ($permission == 'core.view' || empty($hasPermission)) {
+					$ret->addErrorCode(ERROR_MISSING_OBJECT);
+
+					return $ret;
+				}
+			}
+
+			return $ret;
+		}
+
+		return null;
 	}
-	$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
-	if ($ret) {
-	    /* Avoid information disclosure */
-	    if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
-	    	if ($permission != 'core.view') {
-		    list ($ret2, $hasPermission) =
-			GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-		    if ($ret2) {
-			return $ret2;
-		    }
-	    	}
-	    	if ($permission == 'core.view' || empty($hasPermission)) {
-		    $ret->addErrorCode(ERROR_MISSING_OBJECT);
-		    return $ret;
-	    	}
-	    }
-	    return $ret;
-	}
-
-	return null;
-    }
 }
-?>

@@ -2,7 +2,7 @@
 // __construct
 $finder = PhpCsFixer\Finder::create()
 	->name('/.+\.(php|inc|class|css|js|xaml|xml|html)$/')
-	->exclude('*/Iconv/Resources/charset/')
+	->exclude(array('lib/composer','dev_vendor','dev_scripts','MANIFEST'))
     ->in(__DIR__)
 ;
 
@@ -12,6 +12,9 @@ return PhpCsFixer\Config::create()
 		'@PSR2' => true,
 		'align_multiline_comment' => array('comment_type' => 'phpdocs_like'),
 		'array_syntax' => array('syntax' => 'long'),
+		'binary_operator_spaces' => array(
+			'default' => 'align',
+		),
 		'blank_line_before_statement' => array(
 			'statements' => array(
 				'break',
@@ -45,10 +48,18 @@ return PhpCsFixer\Config::create()
 			'position_after_functions_and_oop_constructs' => 'same',
 		),
 		'cast_spaces' => array('space' => 'none'),
+		'combine_consecutive_issets' => true,
+		'combine_consecutive_unsets' => true,
+		'class_attributes_separation' => array(
+			'elements' => array(
+				'method',
+			),
+		),
 		'comment_to_phpdoc' => false,
 		'concat_space' => array('spacing' => 'one'),
 		'date_time_immutable' => false,
 		'declare_equal_normalize' => array('space' => 'single'),
+		'encoding' => true,
 		'escape_implicit_backslashes' => false,
 		'explicit_indirect_variable' => false,
 		'explicit_string_variable' => false,
@@ -58,23 +69,32 @@ return PhpCsFixer\Config::create()
 		'linebreak_after_opening_tag' => true,
 		'list_syntax' => array('syntax' => 'long'),
 		'lowercase_cast' => true,
+		'mb_str_functions' => false,
 		'method_chaining_indentation' => true,
 		'new_with_braces' => true,
 		'native_function_casing' => true,
+		'no_alternative_syntax' => true,
 		'no_blank_lines_after_class_opening' => true,
 		'no_blank_lines_after_phpdoc' => true,
 		'no_break_comment' => array('comment_text' => 'Fall Through'),
+		'no_closing_tag' => true,
 		'no_empty_comment' => true,
 		'no_empty_phpdoc' => true,
 		'no_empty_statement' => true,
 		'no_mixed_echo_print' => array('use' => 'echo'),
 		'no_null_property_initialization' => true,
 		'no_php4_constructor' => true,
+		'no_short_bool_cast' => true,
 		'no_short_echo_tag' => true,
+		'no_singleline_whitespace_before_semicolons' => true,
+		'no_spaces_after_function_name' => true,
+		'no_spaces_around_offset' => true,
+		'no_spaces_inside_parenthesis' => true,
 		'no_superfluous_elseif' => true,
         'no_superfluous_phpdoc_tags' => true,
 		'no_trailing_comma_in_list_call' => true,
 		'no_trailing_comma_in_singleline_array' => true,
+		'no_trailing_whitespace_in_comment' => true,
 		'no_unneeded_control_parentheses' => array(
 			'statements' => array(
 				'break',
@@ -86,6 +106,7 @@ return PhpCsFixer\Config::create()
 				'yield',
 			),
 		),
+		'no_unneeded_curly_braces' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
 		'no_whitespace_before_comma_in_array' => true,
@@ -100,7 +121,6 @@ return PhpCsFixer\Config::create()
 				'srand' => 'mt_srand',
 			),
 		),
-		'self_accessor' => true,
 		'single_line_comment_style' => true,
 		'standardize_not_equals' => true,
 		'trailing_comma_in_multiline_array' => true,

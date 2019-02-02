@@ -26,157 +26,226 @@
  * @version $Revision: 17580 $
  */
 class AdminNetPbmControllerTest extends GalleryControllerTestCase {
-
-    function AdminNetPbmControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'netpbm.AdminNetPbm');
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'netpbm.AdminNetPbm');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'netpbm');
-	if ($ret) {
-	    return $ret;
+	public function setUp($x1 = null) {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'netpbm');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		foreach (array(
+			'jpegQuality' => 75,
+			'pnmcomp' => 'pamcomp',
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'netpbm', $key, $value);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		$gallery->setPlatform(new AdminNetPbmControllerTestPlatform($gallery->getPlatform()));
 	}
 
-	foreach (array('jpegQuality' => 75, 'pnmcomp' => 'pamcomp') as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'netpbm', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
+	public function testSaveGoodNetPbmPathNoJheadPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/');
+		GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
+
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(
+					'saved' => 1,
+				),
+				'error' => array(),
+			),
+			$results
+		);
+
+		// Verify the settings went in properly
+		$this->assertEquals(
+			array(null, '/validPath/'),
+			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path')
+		);
+		$this->assertEquals(
+			array(null, '12'),
+			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
+		);
 	}
 
-	$gallery->setPlatform(new AdminNetPbmControllerTestPlatform($gallery->getPlatform()));
-    }
+	public function testSaveGoodPaths() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/');
+		GalleryUtilities::putRequestVariable('form[jheadPath]', '/validPath/');
+		GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
 
-    function testSaveGoodNetPbmPathNoJheadPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/');
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
+		// Perform the request and verify that we succeeded
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(
+					'saved' => 1,
+				),
+				'error' => array(),
+			),
+			$results
+		);
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		// Verify the settings went in properly
+		$this->assertEquals(
+			array(null, '/validPath/'),
+			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path')
+		);
+		$this->assertEquals(
+			array(null, '/validPath/'),
+			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jheadPath')
+		);
+		$this->assertEquals(
+			array(null, '12'),
+			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
+		);
+		// Verify we detected which binaries to use:
+		$this->assertEquals(
+			array(null, 'pnmcomp'),
+			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'pnmcomp')
+		);
+	}
 
-	/* Verify the settings went in properly */
-	$this->assertEquals(array(null, '/validPath/'),
-			    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path'));
-	$this->assertEquals(array(null, '12'),
-			    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality'));
-    }
+	public function testReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
 
-    function testSaveGoodPaths() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/');
-	GalleryUtilities::putRequestVariable('form[jheadPath]', '/validPath/');
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+	}
 
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+	public function testCancel() {
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 
-	/* Verify the settings went in properly */
-	$this->assertEquals(array(null, '/validPath/'),
-			    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path'));
-	$this->assertEquals(array(null, '/validPath/'),
-			    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jheadPath'));
-	$this->assertEquals(array(null, '12'),
-			    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality'));
-	/* Verify we detected which binaries to use: */
-	$this->assertEquals(array(null, 'pnmcomp'),
-			    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'pnmcomp'));
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminPlugins',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+	}
 
-    function testReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+	public function testSaveTestErrorPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPathBadBinaries/');
+		GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(),
+				'error'  => array('form[error][path][testError]'),
+			),
+			$results
+		);
+	}
 
-    function testCancel() {
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+	public function testSaveBadPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/invalidPath/');
+		GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(),
+				'error'  => array('form[error][path][badPath]'),
+			),
+			$results
+		);
+	}
 
-    function testSaveTestErrorPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPathBadBinaries/');
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
+	public function testSaveMissingPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '');
+		GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
 
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array(),
-				  'error' => array('form[error][path][testError]')),
-				  $results);
-    }
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(),
+				'error'  => array('form[error][path][missing]'),
+			),
+			$results
+		);
+	}
 
-    function testSaveBadPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/invalidPath/');
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
+	public function testSaveGoodNetPbmBadJheadPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[path]', '/validPath/');
+		GalleryUtilities::putRequestVariable('form[jheadPath]', '/invalid/');
+		GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
 
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array(),
-				  'error' => array('form[error][path][badPath]')),
-			    $results);
-    }
-
-    function testSaveMissingPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '');
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array(),
-				  'error' => array('form[error][path][missing]')),
-			    $results);
-    }
-
-    function testSaveGoodNetPbmBadJheadPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', '/validPath/');
-	GalleryUtilities::putRequestVariable('form[jheadPath]', '/invalid/');
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '12');
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'netpbm.AdminNetPbm'),
-				  'status' => array(),
-				  'error' => array('form[error][jheadPath][badPath]')),
-			    $results);
-    }
+		// Perform the request and verify that we failed
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'netpbm.AdminNetPbm',
+				),
+				'status' => array(),
+				'error'  => array('form[error][jheadPath][badPath]'),
+			),
+			$results
+		);
+	}
 }
 
 /**
@@ -186,82 +255,81 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
  * @subpackage PHPUnit
  */
 class AdminNetPbmControllerTestPlatform {
-    function AdminNetPbmControllerTestPlatform($originalPlatform) {
-	$this->_platform = $originalPlatform;
-    }
-
-    function getDirectorySeparator() {
-	return '/';
-    }
-
-    function file_exists($path) {
-	switch ($path) {
-	case '/validPath/':
-	case '/validPath/pnmscale':
-	case '/validPath/pnmcut':
-	case '/validPath/pnmfile':
-	case '/validPath/pnmcomp':
-	case '/validPath/pnmflip':
-	case '/validPath/pnmquant':
-	case '/validPath/giftopnm':
-	case '/validPath/ppmtogif':
-	case '/validPath/jpegtopnm':
-	case '/validPath/ppmtojpeg':
-	case '/validPath/pnmtojpeg':
-	case '/validPath/pngtopnm':
-	case '/validPath/pnmtopng':
-	case '/validPath/tifftopnm':
-	case '/validPath/pnmtotiff':
-	case '/validPath/jhead':
-	case '/validPathBadBinaries/':
-	    return true;
+	public function __construct($originalPlatform) {
+		$this->_platform = $originalPlatform;
 	}
 
-	return false;
-    }
-
-    function is_dir($dir) {
-	switch ($dir) {
-	case '/validPath/':
-	case '/validPathBadBinaries/':
-	    return true;
+	public function getDirectorySeparator() {
+		return '/';
 	}
 
-	return false;
-    }
+	public function file_exists($path) {
+		switch ($path) {
+			case '/validPath/':
+			case '/validPath/pnmscale':
+			case '/validPath/pnmcut':
+			case '/validPath/pnmfile':
+			case '/validPath/pnmcomp':
+			case '/validPath/pnmflip':
+			case '/validPath/pnmquant':
+			case '/validPath/giftopnm':
+			case '/validPath/ppmtogif':
+			case '/validPath/jpegtopnm':
+			case '/validPath/ppmtojpeg':
+			case '/validPath/pnmtojpeg':
+			case '/validPath/pngtopnm':
+			case '/validPath/pnmtopng':
+			case '/validPath/tifftopnm':
+			case '/validPath/pnmtotiff':
+			case '/validPath/jhead':
+			case '/validPathBadBinaries/':
+				return true;
+		}
 
-    function unlink($args) {
-	/* do nothing */
-    }
-
-    function isRestrictedByOpenBaseDir($path) {
-	return false;
-    }
-
-    function exec($args) {
-	switch ($args[0][0]) {
-	case '/validPath/pnmscale':
-	case '/validPath/pnmcut':
-	case '/validPath/pnmfile':
-	case '/validPath/pnmcomp':
-	case '/validPath/giftopnm':
-	case '/validPath/ppmtogif':
-	case '/validPath/jpegtopnm':
-	case '/validPath/ppmtojpeg':
-	case '/validPath/pngtopnm':
-	case '/validPath/pnmtopng':
-	case '/validPath/tifftopnm':
-	case '/validPath/pnmtotiff':
-	case '/validPath/jhead':
-	    return array(1, array());
-
-	default:
-	    return array(0, null);
+		return false;
 	}
-    }
 
-    function realpath($file) {
-	return $this->_platform->realpath($file);
-    }
+	public function is_dir($dir) {
+		switch ($dir) {
+			case '/validPath/':
+			case '/validPathBadBinaries/':
+				return true;
+		}
+
+		return false;
+	}
+
+	public function unlink($args) {
+		// do nothing
+	}
+
+	public function isRestrictedByOpenBaseDir($path) {
+		return false;
+	}
+
+	public function exec($args) {
+		switch ($args[0][0]) {
+			case '/validPath/pnmscale':
+			case '/validPath/pnmcut':
+			case '/validPath/pnmfile':
+			case '/validPath/pnmcomp':
+			case '/validPath/giftopnm':
+			case '/validPath/ppmtogif':
+			case '/validPath/jpegtopnm':
+			case '/validPath/ppmtojpeg':
+			case '/validPath/pngtopnm':
+			case '/validPath/pnmtopng':
+			case '/validPath/tifftopnm':
+			case '/validPath/pnmtotiff':
+			case '/validPath/jhead':
+				return array(1, array());
+
+			default:
+				return array(0, null);
+		}
+	}
+
+	public function realpath($file) {
+		return $this->_platform->realpath($file);
+	}
 }
-?>

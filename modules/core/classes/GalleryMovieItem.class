@@ -38,292 +38,325 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @version $Revision: 17580 $
  */
 class GalleryMovieItem extends GalleryDataItem {
+	/**
+	 * The width of this movie.
+	 * @var int
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>width</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <linked/>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 */
+	public $width;
 
-    /**
-     * The width of this movie.
-     * @var int
-     *
-     * @g2 <member>
-     * @g2   <member-name>width</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <linked/>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     */
-    var $width;
+	/**
+	 * The height of this movie.
+	 * @var int
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>height</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <linked/>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 */
+	public $height;
 
-    /**
-     * The height of this movie.
-     * @var int
-     *
-     * @g2 <member>
-     * @g2   <member-name>height</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <linked/>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     */
-    var $height;
+	/**
+	 * The duration of the movie in seconds
+	 * @var int
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>duration</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <linked/>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 */
+	public $duration;
 
-    /**
-     * The duration of the movie in seconds
-     * @var int
-     *
-     * @g2 <member>
-     * @g2   <member-name>duration</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <linked/>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     */
-    var $duration;
+	/**
+	 * @see GalleryDataItem::canBeViewedInline
+	 */
+	public function canBeViewedInline() {
+		// The mimeTypes listed here should provide a render() output
+		static $mimeList = array(
+			'video/quicktime',
+			'video/mpeg',
+			'video/mp4',
+			'video/x-msvideo',
+			'video/x-ms-wmv',
+			'video/x-ms-asf',
+			'video/x-ms-asx',
+		);
 
-
-    /**
-     * @see GalleryDataItem::canBeViewedInline
-     */
-    function canBeViewedInline() {
-	/* The mimeTypes listed here should provide a render() output */
-	static $mimeList = array(
-	    'video/quicktime',
-	    'video/mpeg',
-	    'video/mp4',
-	    'video/x-msvideo',
-	    'video/x-ms-wmv',
-	    'video/x-ms-asf',
-	    'video/x-ms-asx',
-	);
-	return $this->_canBeViewedInline(
-		($this->getWidth() > 0 && $this->getHeight() > 0) ? $mimeList : null);
-    }
-
-    /**
-     * Create a new GalleryMovieItem from a video file
-     *
-     * @param int $parentId the id of the parent GalleryItem
-     * @param string $videoFileName the path to the source video
-     * @param string $mimeType
-     * @param string $targetName the desired name of the new item
-     * @param boolean $symlink (optional) a boolean true if we should symlink instead
-     *        of copy (default is false).
-     * @return GalleryStatus a status code
-     */
-    function create($parentId, $videoFileName, $mimeType, $targetName=null, $symlink=false) {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	/* Validate the input filename */
-	if (empty($videoFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+		return $this->_canBeViewedInline(
+			($this->getWidth() > 0 && $this->getHeight() > 0) ? $mimeList : null
+		);
 	}
 
-	if (!$platform->file_exists($videoFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH);
-	}
+	/**
+	 * Create a new GalleryMovieItem from a video file
+	 *
+	 * @param int $parentId the id of the parent GalleryItem
+	 * @param string $videoFileName the path to the source video
+	 * @param string $mimeType
+	 * @param string $targetName the desired name of the new item
+	 * @param boolean $symlink (optional) a boolean true if we should symlink instead
+	 *        of copy (default is false).
+	 * @return GalleryStatus a status code
+	 */
+	public function create(
+		$parentId = null,
+		$videoFileName = null,
+		$mimeType = false,
+		$targetName = null,
+		$symlink = false
+	) {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-	/* Create our data item */
-	$ret = parent::create($parentId, $videoFileName, $mimeType, $targetName, $symlink);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Default to empty dimensions */
-	$this->setWidth(0);
-	$this->setHeight(0);
-	$this->setDuration(0);
-
-	/* We're linkable */
-	$this->setIsLinkable(true);
-
-	/* Detect our dimensions, if possible */
-	$ret = $this->rescan();
-	if ($ret) {
-	    /* Cleanup our datafile on failure */
-	    list ($ret2, $path) = $this->fetchPath();
-	    if (!$ret2) {
-		@$platform->unlink($path);
-	    }
-	    return $ret;
-	}
-
-	return null;
-    }
-
-    /**
-     * @see GalleryDataItem::rescan
-     */
-    function rescan() {
-	global $gallery;
-
-	$ret = parent::rescan();
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $path) = $this->fetchPath();
-	if ($ret) {
-	    return $ret;
-	}
-
-	$mimeType = $this->getMimeType();
-	list ($ret, $toolkit) =
-	    GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (isset($toolkit)) {
-	    list ($ret, $dimensions) =
-		$toolkit->getProperty($mimeType, 'dimensions-and-duration', $path);
-	    if ($ret) {
-		if (!($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
-		    /*
-		     * We can't get the dimensions.  It may be a bad movie, or the graphics toolkit
-		     * may be broken.  We can't tell, so set everything to zero for now.
-		     *
-		     * TODO: trapping everything but storage failures is too broad.  Trap only
-		     * toolkit failures after we refactor all toolkits to set the
-		     * ERROR_TOOLKIT_FAILURE bit on every error that they generate or pass
-		     * through.
-		     */
-		    $dimensions = array(0, 0, 0);
-		} else {
-		    return $ret;
+		// Validate input
+		if (empty($videoFileName)) {
+			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
-	    }
 
-	    $this->setWidth($dimensions[0]);
-	    $this->setHeight($dimensions[1]);
-	    $this->setDuration(round($dimensions[2]));
-	}
-
-	return null;
-    }
-
-    /**
-     * @see GalleryEntity::itemTypeName
-     */
-    function itemTypeName($localized = true) {
-	global $gallery;
-	if ($localized) {
-	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret) {
-		return array($core->translate('Movie'), $core->translate('movie'));
-	    }
-	}
-	return array('Movie', 'movie');
-    }
-
-    /**
-     * @see GalleryDataItem::render
-     */
-    function render($format, $params) {
-	global $gallery;
-
-	$fallback = trim(preg_replace("/[\r\n]/", '', $params['fallback']));
-
-	switch ($format) {
-	case 'HTML':
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(
-		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
-		      'serialNumber' => $this->getSerialNumber()),
-		array('forceFullUrl' => true, 'forceSessionId' => true));
-
-	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
-	    switch ($this->getMimeType()) {
-	    case 'video/quicktime':
-		return sprintf(
-		'<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
-			 codebase="http://www.apple.com/qtactivex/qtplugin.cab"
-			 width="%s" height="%s" id="%s"%s>
-			   <param name="src" value="%s"/>
-			   <param name="controller" value="true"/>
-			   <param name="autoplay" value="true"/>
-			   <param name="loop" value="false"/>
-			   <embed src="%s" width="%s" height="%s" type="%s"
-				  pluginspage="http://www.apple.com/quicktime/download/"
-				  controller="true" autoplay="true" loop="false"/>
-			   <noembed>%s</noembed>
-		 </object>',
-
-		$width, $height + 16,
-		!empty($params['id']) ? $params['id'] : 'movie',
-		!empty($params['class']) ? ' class="' . $params['class'] . '"' : '',
-		$src, $src,
-		$width, $height + 16,
-		$this->getMimeType(),
-		$fallback);
-
-	    case 'video/mpeg':
-	    case 'video/mp4':
-	    case 'video/x-msvideo':
-	    case 'video/x-ms-wmv':
-		$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
-	    case 'video/x-ms-asf':
-	    case 'video/x-ms-asx':
-		if (!isset($classId)) {
-		    $classId = 'CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95';
+		if (!$platform->file_exists($videoFileName)) {
+			return GalleryCoreApi::error(ERROR_BAD_PATH);
 		}
-		return sprintf(
-		'<object classid="%s" width="%s" height="%s" id="%s"%s>
-			   <param name="ShowDisplay" value="0"/>
-			   <param name="ShowControls" value="1"/>
-			   <param name="AutoStart" value="1"/>
-			   <param name="AutoRewind" value="-1"/>
-			   <param name="Volume" value="0"/>
-			   <param name="FileName" value="%s"/>
-			   <embed src="%s" width="%s" height="%s" type="%s"
-				  controller="true" autoplay="true" loop="false"/>
-			   <noembed>%s</noembed>
-		 </object>',
 
-		$classId, $width, $height + 50,
-		!empty($params['id']) ? $params['id'] : 'movie',
-		!empty($params['class']) ? ' class="' . $params['class'] . '"' : '',
-		$src, $src,
-		$width, $height + 50,
-		$this->getMimeType(),
-		$fallback);
+		// Create our data item
+		$ret = parent::create($parentId, $videoFileName, $mimeType, $targetName, $symlink);
 
-	    default:
-		return $fallback;
-	    }
+		if ($ret) {
+			return $ret;
+		}
 
-	default:
-	    return null;
+		// Default to empty dimensions
+		$this->setWidth(0);
+		$this->setHeight(0);
+		$this->setDuration(0);
+
+		// We're linkable
+		$this->setIsLinkable(true);
+
+		// Detect our dimensions, if possible
+		$ret = $this->rescan();
+
+		if ($ret) {
+			// Cleanup our datafile on failure
+			list($ret2, $path) = $this->fetchPath();
+
+			if (!$ret2) {
+				@$platform->unlink($path);
+			}
+
+			return $ret;
+		}
+
+		return null;
 	}
-    }
 
-    /**
-     * @see GalleryEntity::getClassName
-     */
-    function getClassName() {
-	return 'GalleryMovieItem';
-    }
+	/**
+	 * @see GalleryDataItem::rescan
+	 */
+	public function rescan() {
+		global $gallery;
 
-    function getWidth() {
-	return $this->width;
-    }
+		$ret = parent::rescan();
 
-    function setWidth($width) {
-	$this->width = $width;
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function getHeight() {
-	return $this->height;
-    }
+		list($ret, $path) = $this->fetchPath();
 
-    function setHeight($height) {
-	$this->height = $height;
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function getDuration() {
-	return $this->duration;
-    }
+		$mimeType            = $this->getMimeType();
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
 
-    function setDuration($duration) {
-	$this->duration = $duration;
-    }
+		if ($ret) {
+			return $ret;
+		}
+
+		if (isset($toolkit)) {
+			list($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions-and-duration', $path);
+
+			if ($ret) {
+				if (!($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
+					/*
+					 * We can't get the dimensions.  It may be a bad movie, or the graphics toolkit
+					 * may be broken.  We can't tell, so set everything to zero for now.
+					 *
+					 * TODO: trapping everything but storage failures is too broad.  Trap only
+					 * toolkit failures after we refactor all toolkits to set the
+					 * ERROR_TOOLKIT_FAILURE bit on every error that they generate or pass
+					 * through.
+					 */
+					$dimensions = array(0, 0, 0);
+				} else {
+					return $ret;
+				}
+			}
+
+			$this->setWidth($dimensions[0]);
+			$this->setHeight($dimensions[1]);
+			$this->setDuration(round($dimensions[2]));
+		}
+
+		return null;
+	}
+
+	/**
+	 * @see GalleryEntity::itemTypeName
+	 */
+	public function itemTypeName($localized = true) {
+		global $gallery;
+
+		if ($localized) {
+			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
+
+			if (!$ret) {
+				return array($core->translate('Movie'), $core->translate('movie'));
+			}
+		}
+
+		return array('Movie', 'movie');
+	}
+
+	/**
+	 * @see GalleryDataItem::render
+	 */
+	public function render($format, $params) {
+		global $gallery;
+
+		$fallback = trim(preg_replace("/[\r\n]/", '', $params['fallback']));
+
+		switch ($format) {
+			case 'HTML':
+				$urlGenerator =& $gallery->getUrlGenerator();
+				$src          = $urlGenerator->generateUrl(
+					array(
+						'view'         => 'core.DownloadItem',
+						'itemId'       => $this->getId(),
+						'serialNumber' => $this->getSerialNumber(),
+					),
+					array(
+						'forceFullUrl'   => true,
+						'forceSessionId' => true,
+					)
+				);
+
+				list($width, $height) = array($this->getWidth(), $this->getHeight());
+
+				switch ($this->getMimeType()) {
+					case 'video/quicktime':
+						return sprintf(
+							'<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
+								codebase="http://www.apple.com/qtactivex/qtplugin.cab"
+								width="%s" height="%s" id="%s"%s>
+								<param name="src" value="%s"/>
+								<param name="controller" value="true"/>
+								<param name="autoplay" value="true"/>
+								<param name="loop" value="false"/>
+								<embed src="%s" width="%s" height="%s" type="%s"
+								pluginspage="http://www.apple.com/quicktime/download/"
+								controller="true" autoplay="true" loop="false"/>
+								<noembed>%s</noembed>
+							</object>',
+							$width,
+							$height + 16,
+							!empty($params['id']) ? $params['id'] : 'movie',
+							!empty($params['class']) ? ' class="' . $params['class'] . '"' : '',
+							$src,
+							$src,
+							$width,
+							$height + 16,
+							$this->getMimeType(),
+							$fallback
+						);
+
+					case 'video/mpeg':
+					case 'video/mp4':
+					case 'video/x-msvideo':
+					case 'video/x-ms-wmv':
+						$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
+
+						// Fall Through
+					case 'video/x-ms-asf':
+					case 'video/x-ms-asx':
+						if (!isset($classId)) {
+							$classId = 'CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95';
+						}
+
+						return sprintf(
+							'<object classid="%s" width="%s" height="%s" id="%s"%s>
+								<param name="ShowDisplay" value="0"/>
+								<param name="ShowControls" value="1"/>
+								<param name="AutoStart" value="1"/>
+								<param name="AutoRewind" value="-1"/>
+								<param name="Volume" value="0"/>
+								<param name="FileName" value="%s"/>
+								<embed src="%s" width="%s" height="%s" type="%s"
+								controller="true" autoplay="true" loop="false"/>
+								<noembed>%s</noembed>
+							</object>',
+							$classId,
+							$width,
+							$height + 50,
+							!empty($params['id']) ? $params['id'] : 'movie',
+							!empty($params['class']) ? ' class="' . $params['class'] . '"' : '',
+							$src,
+							$src,
+							$width,
+							$height + 50,
+							$this->getMimeType(),
+							$fallback
+						);
+
+					default:
+						return $fallback;
+				}
+
+				// Fall Through
+			default:
+				return null;
+		}
+	}
+
+	/**
+	 * @see GalleryEntity::getClassName
+	 */
+	public function getClassName() {
+		return 'GalleryMovieItem';
+	}
+
+	public function getWidth() {
+		return $this->width;
+	}
+
+	public function setWidth($width) {
+		$this->width = $width;
+	}
+
+	public function getHeight() {
+		return $this->height;
+	}
+
+	public function setHeight($height) {
+		$this->height = $height;
+	}
+
+	public function getDuration() {
+		return $this->duration;
+	}
+
+	public function setDuration($duration) {
+		$this->duration = $duration;
+	}
 }
-?>

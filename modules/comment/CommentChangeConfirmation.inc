@@ -26,21 +26,28 @@
  * @version $Revision: 17580 $
  */
 class CommentChangeConfirmationView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		list($ret, $item) = $this->getItem();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+		$template->setVariable(
+			'CommentChangeConfirmation',
+			array(
+				'item'         => (array)$item,
+				'itemTypeName' => $item->itemTypeName(),
+			)
+		);
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/comment/templates/CommentChangeConfirmation.tpl',
+			),
+		);
 	}
-	$template->setVariable('CommentChangeConfirmation',
-		array('item' => (array)$item,
-		      'itemTypeName' => $item->itemTypeName()));
-
-	return array(null,
-		     array('body' => 'modules/comment/templates/CommentChangeConfirmation.tpl'));
-    }
 }
-?>

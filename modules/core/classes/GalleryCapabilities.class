@@ -31,38 +31,38 @@
  * @deprecated
  */
 class GalleryCapabilities {
+	/**
+	 * Get a configuration value.
+	 *
+	 * @param string $key
+	 * @return string the configuration value or null if not found
+	 */
+	public function get($key) {
+		global $gallery;
 
-    /**
-     * Get a configuration value.
-     *
-     * @param string $key
-     * @return string the configuration value or null if not found
-     */
-    function get($key) {
-	global $gallery;
-	return $gallery->getConfig($key);
-    }
+		return $gallery->getConfig($key);
+	}
 
-    /**
-     * Get a boolean configuration flag.
-     *
-     * @param string $key
-     * @return boolean the configuration value or null if not found
-     */
-    function can($key) {
-	global $gallery;
-	return (boolean)$gallery->getConfig($key);
-    }
+	/**
+	 * Get a boolean configuration flag.
+	 *
+	 * @param string $key
+	 * @return boolean the configuration value or null if not found
+	 */
+	public function can($key) {
+		global $gallery;
 
-    /**
-     * Set a configuration value.
-     *
-     * @param string $key
-     * @param mixed $value (null to remove the value)
-     */
-    function set($key, $value) {
-	global $gallery;
-	$gallery->setConfig($key, $value);
-    }
+		return (bool)$gallery->getConfig($key);
+	}
+
+	/**
+	 * Set a configuration value.
+	 *
+	 * @param string $key
+	 * @param mixed $value (null to remove the value)
+	 */
+	public static function set($key, $value) {
+		global $gallery;
+		$gallery->setConfig($key, $value);
+	}
 }
-?>

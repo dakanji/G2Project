@@ -26,144 +26,192 @@
  * @version $Revision: 17580 $
  */
 class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
-
-    function ArchiveUploadSiteAdminControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'archiveupload.ArchiveUploadSiteAdmin');
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'archiveupload.ArchiveUploadSiteAdmin');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'archiveupload');
-	if ($ret) {
-	    return $ret;
+	public function setUp($x1 = null) {
+		global $gallery;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'archiveupload');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$gallery->_platform = new ArchiveUploadSiteAdminControllerTestPlatform();
 	}
 
-	$gallery->_platform = new ArchiveUploadSiteAdminControllerTestPlatform();
-    }
+	public function testSaveGoodPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[unzipPath]', '/validPath/unzip');
+		GalleryUtilities::putRequestVariable('form[removeMeta]', 1);
 
-    function testSaveGoodPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[unzipPath]', '/validPath/unzip');
-	GalleryUtilities::putRequestVariable('form[removeMeta]', 1);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(
+					'saved' => 1,
+				),
+				'error' => array(),
+			),
+			$results
+		);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		// Verify the settings went in properly
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
 
-	/* Verify the settings went in properly */
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('/validPath/unzip', $params['unzipPath'], 'unzipPath');
+		$this->assertEquals('1', $params['removeMeta'], 'removeMeta');
 	}
-	$this->assertEquals('/validPath/unzip', $params['unzipPath'], 'unzipPath');
-	$this->assertEquals('1', $params['removeMeta'], 'removeMeta');
-    }
 
-    function testSaveIncompletePath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[unzipPath]', '/incompletePath/');
-	GalleryUtilities::putRequestVariable('form[removeMeta]', 0);
+	public function testSaveIncompletePath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[unzipPath]', '/incompletePath/');
+		GalleryUtilities::putRequestVariable('form[removeMeta]', 0);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(
+					'saved' => 1,
+				),
+				'error' => array(),
+			),
+			$results
+		);
 
-	/* Verify the settings went in properly */
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
-	if ($ret) {
-	    return $ret;
+		// Verify the settings went in properly
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals('/incompletePath/unzip', $params['unzipPath'], 'unzipPath');
+		$this->assertEquals('0', $params['removeMeta'], 'removeMeta');
 	}
-	$this->assertEquals('/incompletePath/unzip', $params['unzipPath'], 'unzipPath');
-	$this->assertEquals('0', $params['removeMeta'], 'removeMeta');
-    }
 
-    function testReset() {
-	GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+	public function testReset() {
+		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+	}
 
-    function testCancel() {
-	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+	public function testCancel() {
+		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminPlugins',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+	}
 
-    function testSaveTestErrorPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[unzipPath]', '/validPathBadBinary/unzip');
+	public function testSaveTestErrorPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[unzipPath]', '/validPathBadBinary/unzip');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][unzipPath][exec]')),
-				  $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(),
+				'error'  => array('form[error][unzipPath][exec]'),
+			),
+			$results
+		);
+	}
 
-    function testSaveBadPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[unzipPath]', '/invalidPath/unzip');
+	public function testSaveBadPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[unzipPath]', '/invalidPath/unzip');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][unzipPath][badPath]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(),
+				'error'  => array('form[error][unzipPath][badPath]'),
+			),
+			$results
+		);
+	}
 
-    function testNotExecutablePath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[unzipPath]', '/notExecutablePath/unzip');
+	public function testNotExecutablePath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[unzipPath]', '/notExecutablePath/unzip');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][unzipPath][notExecutable]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(),
+				'error'  => array('form[error][unzipPath][notExecutable]'),
+			),
+			$results
+		);
+	}
 
-    function testSaveMissingPath() {
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[unzipPath]', '');
+	public function testSaveMissingPath() {
+		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+		GalleryUtilities::putRequestVariable('form[unzipPath]', '');
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array(
-					'view' => 'core.SiteAdmin',
-					'subView' => 'archiveupload.ArchiveUploadSiteAdmin'),
-				  'status' => array(),
-				  'error' => array('form[error][unzipPath][missing]')),
-			    $results);
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
+				),
+				'status' => array(),
+				'error'  => array('form[error][unzipPath][missing]'),
+			),
+			$results
+		);
+	}
 }
 
 /**
@@ -173,77 +221,81 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
  * @subpackage PHPUnit
  */
 class ArchiveUploadSiteAdminControllerTestPlatform {
-    function getDirectorySeparator() {
-	return '/';
-    }
-
-    function file_exists($path) {
-	switch ($path) {
-	case '/validPath/unzip':
-	case '/validPathBadBinary/unzip':
-	case '/notExecutablePath/unzip':
-	case '/incompletePath/':
-	case '/incompletePath/unzip':
-	    return true;
+	public function getDirectorySeparator() {
+		return '/';
 	}
 
-	return false;
-    }
+	public function file_exists($path) {
+		switch ($path) {
+			case '/validPath/unzip':
+			case '/validPathBadBinary/unzip':
+			case '/notExecutablePath/unzip':
+			case '/incompletePath/':
+			case '/incompletePath/unzip':
+				return true;
+		}
 
-    function is_dir($dir) {
-	switch ($dir) {
-	case '/validPath/':
-	case '/validPathBadBinary/':
-	case '/incompletePath/':
-	    return true;
+		return false;
 	}
 
-	return false;
-    }
+	public function is_dir($dir) {
+		switch ($dir) {
+			case '/validPath/':
+			case '/validPathBadBinary/':
+			case '/incompletePath/':
+				return true;
+		}
 
-    function is_file($path) {
-	switch ($path) {
-	case '/validPath/unzip':
-	case '/validPathBadBinary/unzip':
-	case '/notExecutablePath/unzip':
-	case '/incompletePath/unzip':
-	    return true;
+		return false;
 	}
 
-	return false;
-    }
+	public function is_file($path) {
+		switch ($path) {
+			case '/validPath/unzip':
+			case '/validPathBadBinary/unzip':
+			case '/notExecutablePath/unzip':
+			case '/incompletePath/unzip':
+				return true;
+		}
 
-    function is_executable($path) {
-	switch ($path) {
-	case '/validPath/unzip':
-	case '/validPathBadBinary/unzip':
-	case '/incompletePath/unzip':
-	    return true;
+		return false;
 	}
 
-	return false;
-    }
+	public function is_executable($path) {
+		switch ($path) {
+			case '/validPath/unzip':
+			case '/validPathBadBinary/unzip':
+			case '/incompletePath/unzip':
+				return true;
+		}
 
-    function unlink($args) {
-	/* do nothing */
-    }
-
-    function isRestrictedByOpenBaseDir($path) {
-	return false;
-    }
-
-    function exec($args) {
-	switch ($args[0][0]) {
-	case '/validPath/unzip':
-	case '/incompletePath/unzip':
-	    return array(1, array(
-		' Length   Method    Size  Ratio   Date   Time   CRC-32    Name',
-		'--------  ------  ------- -----   ----   ----   ------    ----',
-		'       5  Stored        5   0%  01-25-05 11:46  3bb935c6  test.txt'), array());
-
-	default:
-	    return array(0, array(), array());
+		return false;
 	}
-    }
+
+	public function unlink($args) {
+		// do nothing
+	}
+
+	public function isRestrictedByOpenBaseDir($path) {
+		return false;
+	}
+
+	public function exec($args) {
+		switch ($args[0][0]) {
+			case '/validPath/unzip':
+			case '/incompletePath/unzip':
+				return array(
+					1,
+					array(
+						' Length   Method    Size  Ratio   Date   Time   CRC-32    Name',
+						'--------  ------  ------- -----   ----   ----   ------    ----',
+						'       5  Stored        5   0%  01-25-05 11:46  3bb935c6  test.txt',
+					),
+					array(),
+				);
+
+			default:
+				return array(0, array(), array());
+		}
+	}
 }
-?>

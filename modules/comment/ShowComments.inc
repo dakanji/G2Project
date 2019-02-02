@@ -26,106 +26,130 @@
  * @version $Revision: 17657 $
  */
 class ShowCommentsView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		list($ret, $item) = $this->getItem();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-	list ($ret, $comments) =
-	    GalleryCommentHelper::fetchComments($item->getId(), null, ORDER_ASCENDING);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$commenters = array();
-	if (!empty($comments)) {
-	    /* Pages shouldn't be cached if any of the comments is not accessible for anonymous */ 
-	    list ($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    /* If !comment.view || !core.view */
-	    list ($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
-		$item->getId(), 'comment.view', $anonymousUserId, false);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    if ($anonymousViewable) {
-		list ($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
-		    $item->getId(), 'core.view', $anonymousUserId, false);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
-	    
-	    if (!$anonymousViewable) {
-		$this->setCacheControl($template, 'no-cache');
-	    }
-	    for ($i = 0; $i < sizeof($comments); $i++) {
-		/* Get the commenter ids */
-		$commenters[$comments[$i]->getCommenterId()] = 1;
 
-		/* Extract the member data */
-		$comments[$i] = (array)$comments[$i];
-		$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . rand() ;
-	    }
+		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+		list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($item->getId(), null, ORDER_ASCENDING);
 
-	    /* Load all the commenters */
-	    if (sizeof($commenters) > 0) {
-		list ($ret, $commentersList) =
-		    GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
 
-	    foreach ($commentersList as $commenter) {
-		$commenters[$commenter->getId()] = (array)$commenter;
-	    }
+		$commenters = array();
+
+		if (!empty($comments)) {
+			// Pages shouldn't be cached if any of the comments is not accessible for anonymous
+			list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			// If !comment.view || !core.view
+			list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
+				$item->getId(),
+				'comment.view',
+				$anonymousUserId,
+				false
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			if ($anonymousViewable) {
+				list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
+					$item->getId(),
+					'core.view',
+					$anonymousUserId,
+					false
+				);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+
+			if (!$anonymousViewable) {
+				$this->setCacheControl($template, 'no-cache');
+			}
+
+			for ($i = 0; $i < sizeof($comments); $i++) {
+				// Get the commenter ids
+				$commenters[$comments[$i]->getCommenterId()] = 1;
+
+				// Extract the member data
+				$comments[$i]             = (array)$comments[$i];
+				$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . mt_rand();
+			}
+
+			// Load all the commenters
+			if (sizeof($commenters) > 0) {
+				list($ret, $commentersList) = GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+
+			foreach ($commentersList as $commenter) {
+				$commenters[$commenter->getId()] = (array)$commenter;
+			}
+		}
+
+		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		foreach (array(
+			'delete'   => 'comment.delete',
+			'edit'     => 'comment.edit',
+			'view'     => 'comment.view',
+			'markSpam' => 'comment.edit',
+		) as $canFlag => $permission) {
+			$can[$canFlag] = isset($permissions[$permission]);
+		}
+
+		$template->setVariable(
+			'ShowComments',
+			array(
+				'comments'   => $comments,
+				'commenters' => $commenters,
+				'can'        => $can,
+				'item'       => (array)$item,
+			)
+		);
+
+		$template->javascript('lib/yui/utilities.js');
+		$template->javascript('lib/yui/container-min.js');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/comment/templates/ShowComments.tpl',
+			),
+		);
 	}
 
-	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('show comments'));
 	}
-
-	foreach (array('delete' => 'comment.delete',
-		       'edit' => 'comment.edit',
-		       'view' => 'comment.view',
-		       'markSpam' => 'comment.edit')
-		 as $canFlag => $permission) {
-	    $can[$canFlag] = isset($permissions[$permission]);
-	}
-
-	$template->setVariable('ShowComments', array(
-	    'comments' => $comments,
-	    'commenters' => $commenters,
-	    'can' => $can,
-	    'item' => (array)$item));
-
-	$template->javascript('lib/yui/utilities.js');
- 	$template->javascript('lib/yui/container-min.js');
-
-	return array(null,
-		     array('body' => 'modules/comment/templates/ShowComments.tpl'));
-    }
-
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $module->translate('show comments'));
-    }
 }
-?>

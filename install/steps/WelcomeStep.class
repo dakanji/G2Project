@@ -18,47 +18,49 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once(dirname(__FILE__) . '/../../modules/core/classes/GalleryCoreApi.class');
+require_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
 
 /**
  * Welcome screen
  * @package Install
  */
 class WelcomeStep extends InstallStep {
-    function stepName() {
-	return _('Welcome');
-    }
-
-    function processRequest() {
-	if (!empty($_POST['language'])) {
-	    global $translator, $gallery;
-	    $gallery = new GalleryStub();
-	    $translator->init($_POST['language'], true);
-	    unset($gallery);
-	    $_SESSION['language'] = $_POST['language'];
+	public function stepName() {
+		return _('Welcome');
 	}
-	return true;
-    }
 
-    function loadTemplateData(&$templateData) {
-	global $translator;
-
-	$templateData['totalSteps'] = count($GLOBALS['steps']) - 1;
-	$templateData['bodyFile'] = 'Welcome.html';
-	if (isset($translator)) {
-	    list ($supportedLanguages) = $translator->getLanguageData();
-	    $templateData['languages'] = array();
-	    foreach ($supportedLanguages as $lang => $list) {
-		foreach ($list as $country => $data) {
-		    $code = $lang . '_' . $country;
-		    $templateData['languages'][$code] = $data['description'];
+	public function processRequest() {
+		if (!empty($_POST['language'])) {
+			global $translator, $gallery;
+			$gallery = new GalleryStub();
+			$translator->init($_POST['language'], true);
+			unset($gallery);
+			$_SESSION['language'] = $_POST['language'];
 		}
-	    }
-	}
-    }
 
-    function isOptional() {
-	return true;
-    }
+		return true;
+	}
+
+	public function loadTemplateData(&$templateData) {
+		global $translator;
+
+		$templateData['totalSteps'] = count($GLOBALS['steps']) - 1;
+		$templateData['bodyFile']   = 'Welcome.html';
+
+		if (isset($translator)) {
+			list($supportedLanguages)  = $translator->getLanguageData();
+			$templateData['languages'] = array();
+
+			foreach ($supportedLanguages as $lang => $list) {
+				foreach ($list as $country => $data) {
+					$code                             = $lang . '_' . $country;
+					$templateData['languages'][$code] = $data['description'];
+				}
+			}
+		}
+	}
+
+	public function isOptional() {
+		return true;
+	}
 }
-?>

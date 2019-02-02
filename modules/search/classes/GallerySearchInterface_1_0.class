@@ -29,50 +29,49 @@
  * @abstract
  */
 class GallerySearchInterface_1_0 {
+	/**
+	 * Return the name, description and searchable options of this searchable subsystem
+	 *
+	 * @return array array GalleryStatus a status code,
+	 *                     array('name' => '...',
+	 *                           'description' => '...',
+	 *                           'options' => array('option_key_1' =>    *                                                  array('description' => 'Option 1',
+	 *                                                        'enabled' => 1),
+	 *                                              'option_key_2' =>    *                                                  array('description' => 'Option 2',
+	 *                                                        'enabled' => 0),
+	 *                                              'option_key_3' =>    *                                                  array('description' => 'Option 3',
+	 *                                                        'enabled' => 1)))
+	 */
+	public function getSearchModuleInfo() {
+		return array(
+			GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+			null,
+		);
+	}
 
-    /**
-     * Return the name, description and searchable options of this searchable subsystem
-     *
-     * @return array array GalleryStatus a status code,
-     *                     array('name' => '...',
-     *                           'description' => '...',
-     *                           'options' => array('option_key_1' =>
-     *                                                  array('description' => 'Option 1',
-     *                                                        'enabled' => 1),
-     *                                              'option_key_2' =>
-     *                                                  array('description' => 'Option 2',
-     *                                                        'enabled' => 0),
-     *                                              'option_key_3' =>
-     *                                                  array('description' => 'Option 3',
-     *                                                        'enabled' => 1)))
-     */
-    function getSearchModuleInfo() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
-		     null);
-    }
-
-    /**
-     * Search the module for the given criteria with the given options
-     *
-     * @param array $options array('option_key_1', 'option_key_3')
-     * @param string $criteria search criteria
-     * @param int $offset (optional) which hit to start with
-     * @param int $count (optional) how many hits to show
-     * @return array GalleryStatus a status code,
-     *               array('start' => 1..#,
-     *                     'end' => 1..#,
-     *                     'count' => #,
-     *                     'results' => array(itemId => id,
-     *                                        array(array('key' => 'localized title',
-     *                                                    'value' => 'localized text'),
-     *                                              array('key' => 'localized title',
-     *                                                    'value' => 'localized text'),
-     *                                              array('key' => 'localized title',
-     *                                                    'value' => 'localized text'))))
-     */
-    function search($options, $criteria, $offset=0, $count=-1) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
-		     null);
-    }
+	/**
+	 * Search the module for the given criteria with the given options
+	 *
+	 * @param array $options array('option_key_1', 'option_key_3')
+	 * @param string $criteria search criteria
+	 * @param int $offset (optional) which hit to start with
+	 * @param int $count (optional) how many hits to show
+	 * @return array GalleryStatus a status code,
+	 *               array('start' => 1..#,
+	 *                     'end' => 1..#,
+	 *                     'count' => #,
+	 *                     'results' => array(itemId => id,
+	 *                                        array(array('key' => 'localized title',
+	 *                                                    'value' => 'localized text'),
+	 *                                              array('key' => 'localized title',
+	 *                                                    'value' => 'localized text'),
+	 *                                              array('key' => 'localized title',
+	 *                                                    'value' => 'localized text'))))
+	 */
+	public function search($options, $criteria, $offset = 0, $count = -1) {
+		return array(
+			GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+			null,
+		);
+	}
 }
-?>

@@ -27,24 +27,22 @@
  * @abstract
  */
 class IconsInterface_1_0 {
+	/**
+	 * Get list of available iconpacks
+	 *
+	 * @return array GalleryStatus a status code,
+	 *               array of iconpack_id => localized_iconpack_name
+	 */
+	public function getIconPacks() {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 
-    /**
-     * Get list of available iconpacks
-     *
-     * @return array GalleryStatus a status code,
-     *               array of iconpack_id => localized_iconpack_name
-     */
-    function getIconPacks() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
-
-    /**
-     * Prepare icon system.
-     * @param GalleryTemplate $template
-     * @return GalleryStatus a status code
-     */
-    function init(&$template) {
-	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
-    }
+	/**
+	 * Prepare icon system.
+	 * @param GalleryTemplate $template
+	 * @return GalleryStatus a status code
+	 */
+	public function init(&$template) {
+		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+	}
 }
-?>

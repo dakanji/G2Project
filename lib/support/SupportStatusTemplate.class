@@ -23,79 +23,85 @@
  * @package Support
  */
 class SupportStatusTemplate {
-    var $_title;
+	public $_title;
 
-    /**
-     * Create a SupportStatusTemplate.
-     * @param string $title the status title
-     */
-    function SupportStatusTemplate($title) {
-    	$this->_title = $title;
-    }
-
-    /**
-     * Render the header (from <html> to the statusblock or the navbar)
-     * @param boolean $renderStatusBlock (optional) Flag to show status block (default: false).
-     */
-    function renderHeader($renderStatusBlock=false) {
-	$templateData = array();
-	$templateData['showHeader'] = 1;
-	$templateData['title'] = $this->_title;
-	if ($renderStatusBlock) {
-	    $templateData['showStatusBlock'] = 1;
+	/**
+	 * Create a SupportStatusTemplate.
+	 * @param string $title the status title
+	 */
+	public function __construct($title) {
+		$this->_title = $title;
 	}
-	include(dirname(__FILE__) . '/templates/SupportStatus.html');
-    }
 
-    /**
-     * Render a single status message
-     * @param string $title the status title
-     * @param string $description the status description
-     * @param float $percentComplete ranging from 0 to 1
-     * @return GalleryStatus a status code
-     */
-    function renderStatusMessage($title, $description, $percentComplete) {
-	$templateData = array();
-	$templateData['showStatus'] = 1;
-	$templateData['status'] = array('title' => $title,
-					'description' => $description,
-					'percentComplete' =>
-					      GalleryUtilities::roundToString($percentComplete, 2));
-	include(dirname(__FILE__) . '/templates/SupportStatus.html');
-	flush();
+	/**
+	 * Render the header (from <html> to the statusblock or the navbar)
+	 * @param boolean $renderStatusBlock (optional) Flag to show status block (default: false).
+	 */
+	public function renderHeader($renderStatusBlock = false) {
+		$templateData               = array();
+		$templateData['showHeader'] = 1;
+		$templateData['title']      = $this->_title;
 
-	return null;
-    }
+		if ($renderStatusBlock) {
+			$templateData['showStatusBlock'] = 1;
+		}
 
-    /**
-     * Render the body and footer (everything below the status message)
-     * @param array $templateData
-     */
-    function renderBodyAndFooter($templateData) {
-	$templateData['showBodyAndFooter'] = 1;
-	$templateData['title'] = $this->_title;
-	include(dirname(__FILE__) . '/templates/SupportStatus.html');
-    }
+		include __DIR__ . '/templates/SupportStatus.html';
+	}
 
-    /**
-     * Hide the status block
-     */
-    function hideStatusBlock() {
-	$templateData = array();
-	$templateData['hideStatusBlock'] = 1;
-	include(dirname(__FILE__) . '/templates/SupportStatus.html');
-    }
+	/**
+	 * Render a single status message
+	 * @param string $title the status title
+	 * @param string $description the status description
+	 * @param float $percentComplete ranging from 0 to 1
+	 * @return GalleryStatus a status code
+	 */
+	public function renderStatusMessage($title, $description, $percentComplete) {
+		$templateData               = array();
+		$templateData['showStatus'] = 1;
+		$templateData['status']     = array(
+			'title'           => $title,
+			'description'     => $description,
+			'percentComplete' => GalleryUtilities::roundToString($percentComplete, 2),
+		);
 
-    /**
-     * Render the whole page, except for the status block and messages.  This is the way
-     * that we render most pages that don't have interactive status messages.
-     * @param array $templateData
-     */
-    function renderHeaderBodyAndFooter($templateData) {
-	$templateData['showHeader'] = 1;
-	$templateData['title'] = $this->_title;
-	$templateData['showBodyAndFooter'] = 1;
-	include(dirname(__FILE__) . '/templates/SupportStatus.html');
-    }
+		include __DIR__ . '/templates/SupportStatus.html';
+		flush();
+
+		return null;
+	}
+
+	/**
+	 * Render the body and footer (everything below the status message)
+	 * @param array $templateData
+	 */
+	public function renderBodyAndFooter($templateData) {
+		$templateData['showBodyAndFooter'] = 1;
+		$templateData['title']             = $this->_title;
+
+		include __DIR__ . '/templates/SupportStatus.html';
+	}
+
+	/**
+	 * Hide the status block
+	 */
+	public function hideStatusBlock() {
+		$templateData                    = array();
+		$templateData['hideStatusBlock'] = 1;
+
+		include __DIR__ . '/templates/SupportStatus.html';
+	}
+
+	/**
+	 * Render the whole page, except for the status block and messages.  This is the way
+	 * that we render most pages that don't have interactive status messages.
+	 * @param array $templateData
+	 */
+	public function renderHeaderBodyAndFooter($templateData) {
+		$templateData['showHeader']        = 1;
+		$templateData['title']             = $this->_title;
+		$templateData['showBodyAndFooter'] = 1;
+
+		include __DIR__ . '/templates/SupportStatus.html';
+	}
 }
-?>

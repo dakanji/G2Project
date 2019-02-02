@@ -28,165 +28,183 @@
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 GalleryCoreApi::requireOnce(
-    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class');
+	'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class'
+);
 class IsapiRewriteHelperTest extends GalleryTestCase {
-
-    function IsapiRewriteHelperTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit.php';
+	public function setUp($x1 = null) {
+		global $gallery;
+		$ret = parent::setUp();
 
-	$urlGenerator = new GalleryUrlGenerator();
-	$ret = $urlGenerator->init('phpunit.php');
-	if ($ret) {
-	    return $ret;
-	}
-	$gallery->setUrlGenerator($urlGenerator);
+		if ($ret) {
+			return $ret;
+		}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-	if ($ret) {
-	    return $ret;
-	}
+		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit.php';
 
-	/* Set up our environment */
-	foreach (array('isapirewrite.forced' => '0',
-		       'isapirewrite.galleryLocation' => '/gallery2/',
-		       'isapirewrite.httpdini' => 'C:\phpunit\gallery2',
-		       'isapirewrite.embeddedLocation' => '/embedded/')
-		as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
+		$urlGenerator = new GalleryUrlGenerator();
+		$ret          = $urlGenerator->init('phpunit.php');
 
-	/* Set up our mock platform */
-	$this->_platform = new IsapiRewriteHelperMockPlatform();
-	$this->_platform->init($this);
-	unset($this->_fileContent);
-	$gallery->setPlatform($this->_platform);
-    }
+		if ($ret) {
+			return $ret;
+		}
+		$gallery->setUrlGenerator($urlGenerator);
 
-    function testHttpdiniPath() {
-	list ($ret, $path) = IsapiRewriteHelper::getHttpdiniPath();
-	if ($ret) {
-	    return $ret;
-	}
+		$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 
-	$this->assertEquals('C:\phpunit\gallery2\httpd.ini', $path);
-    }
+		if ($ret) {
+			return $ret;
+		}
 
-    function testCheckFile() {
-	list ($ret, $code) = IsapiRewriteHelper::checkFile();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
+		// Set up our environment
+		foreach (array(
+			'isapirewrite.forced' => '0',
+			'isapirewrite.galleryLocation' => '/gallery2/',
+			'isapirewrite.httpdini' => 'C:\phpunit\gallery2',
+			'isapirewrite.embeddedLocation' => '/embedded/',
+		) as $key => $value) {
+			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 
-	$this->_platform->_isWriteable = false;
-	list ($ret, $code) = IsapiRewriteHelper::checkFile();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
+			if ($ret) {
+				return $ret;
+			}
+		}
 
-	$this->_platform->_isReadable = false;
-	list ($ret, $code) = IsapiRewriteHelper::checkFile();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
-
-	$this->_platform->_fileExists = false;
-	list ($ret, $code) = IsapiRewriteHelper::checkFile();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(REWRITE_STATUS_HTTPDINI_MISSING, $code, 'exists');
-    }
-
-    function testWriteFile() {
-	list ($ret, $code) = IsapiRewriteHelper::writeFile(array());
-	if ($ret) {
-	    return $ret;
+		// Set up our mock platform
+		$this->_platform = new IsapiRewriteHelperMockPlatform();
+		$this->_platform->init($this);
+		unset($this->_fileContent);
+		$gallery->setPlatform($this->_platform);
 	}
 
-	$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-	$this->assert(!empty($this->_fileContent), 'success fileContent');
-	unset($this->_fileContent);
+	public function testHttpdiniPath() {
+		list($ret, $path) = IsapiRewriteHelper::getHttpdiniPath();
 
-	$this->_platform->_isReadable = false;
-	list ($ret, $code) = IsapiRewriteHelper::writeFile(array());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals('C:\phpunit\gallery2\httpd.ini', $path);
 	}
 
-	$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
-	$this->assert(!isset($this->_fileContent), 'readable fileContent');
+	public function testCheckFile() {
+		list($ret, $code) = IsapiRewriteHelper::checkFile();
 
-	$this->_platform->_isReadable = true;
-	$this->_platform->_isWriteable = false;
-	list ($ret, $code) = IsapiRewriteHelper::writeFile(array());
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
+
+		$this->_platform->_isWriteable = false;
+		list($ret, $code)              = IsapiRewriteHelper::checkFile();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
+
+		$this->_platform->_isReadable = false;
+		list($ret, $code)             = IsapiRewriteHelper::checkFile();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
+
+		$this->_platform->_fileExists = false;
+		list($ret, $code)             = IsapiRewriteHelper::checkFile();
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(REWRITE_STATUS_HTTPDINI_MISSING, $code, 'exists');
 	}
 
-	$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
-	$this->assert(!isset($this->_fileContent), 'writeable fileContent');
-    }
+	public function testWriteFile() {
+		list($ret, $code) = IsapiRewriteHelper::writeFile(array());
 
-    function testCheckIsapiRewrite() {
-	GalleryUtilities::putRequestVariable('isapiRewriteTest', 'pass');
-	list ($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
+		$this->assertTrue(!empty($this->_fileContent), 'success fileContent');
+		unset($this->_fileContent);
+
+		$this->_platform->_isReadable = false;
+		list($ret, $code)             = IsapiRewriteHelper::writeFile(array());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
+		$this->assertTrue(!isset($this->_fileContent), 'readable fileContent');
+
+		$this->_platform->_isReadable  = true;
+		$this->_platform->_isWriteable = false;
+		list($ret, $code)              = IsapiRewriteHelper::writeFile(array());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
+		$this->assertTrue(!isset($this->_fileContent), 'writeable fileContent');
 	}
 
-	$this->assertEquals(REWRITE_STATUS_OK, $status, 'status, pass');
-	$this->assertEquals(REWRITE_STATUS_OK, $trueStatus, 'truestatus, pass');
+	public function testCheckIsapiRewrite() {
+		GalleryUtilities::putRequestVariable('isapiRewriteTest', 'pass');
+		list($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
 
-	GalleryUtilities::putRequestVariable('isapiRewriteTest', 'fail');
-	list ($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_OK, $status, 'status, pass');
+		$this->assertEquals(REWRITE_STATUS_OK, $trueStatus, 'truestatus, pass');
+
+		GalleryUtilities::putRequestVariable('isapiRewriteTest', 'fail');
+		list($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $status, 'status, fail');
+		$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus, 'truestatus, fail');
+
+		GalleryUtilities::putRequestVariable('isapiRewriteTest', '404');
+		list($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $status, 'status, 404');
+		$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus, 'truestatus, 404');
 	}
 
-	$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $status, 'status, fail');
-	$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus, 'truestatus, fail');
+	public function testCheckIsapiRewriteForced() {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'isapirewrite.forced', '1');
 
-	GalleryUtilities::putRequestVariable('isapiRewriteTest', '404');
-	list ($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('isapiRewriteTest', 'fail');
+		list($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(REWRITE_STATUS_OK, $status);
+		$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus);
 	}
-
-	$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $status, 'status, 404');
-	$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus, 'truestatus, 404');
-    }
-
-    function testCheckIsapiRewriteForced() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'isapirewrite.forced', '1');
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('isapiRewriteTest', 'fail');
-	list ($ret, $status, $trueStatus) = IsapiRewriteHelper::checkIsapiRewrite();
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(REWRITE_STATUS_OK, $status);
-	$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus);
-    }
 }
 
 /**
@@ -196,167 +214,186 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
-    var $_isWriteable = true;
-    var $_isReadable = true;
-    var $_fileExists = true;
-    var $_previousContent = array();
+	public $_isWriteable     = true;
+	public $_isReadable      = true;
+	public $_fileExists      = true;
+	public $_previousContent = array();
 
-    function init(&$test) {
-	$this->_test =& $test;
-    }
-
-    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
-	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
-	/* The hostName can include the port part */
-	list ($host) = explode(':', $urlGenerator->getHostName());
-	if ($target == $host) {
-	    return 'phpunit';
+	public function init(&$test) {
+		$this->_test =& $test;
 	}
 
-	return parent::fsockopen($target, $port, $errno, $errstr, $timeout);
-    }
+	public function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
+		// The hostName can include the port part
+		list($host) = explode(':', $urlGenerator->getHostName());
 
-    function file_exists($file) {
-	if (strpos($file, 'httpd.ini') !== false) {
-	    return $this->_fileExists;
+		if ($target == $host) {
+			return 'phpunit';
+		}
+
+		return parent::fsockopen($target, $port, $errno, $errstr, $timeout);
 	}
 
-	return parent::file_exists($file);
-    }
+	public function file_exists($file) {
+		if (strpos($file, 'httpd.ini') !== false) {
+			return $this->_fileExists;
+		}
 
-    function is_dir($path) {
-	if ($path == 'phpunit/test') {
-	    return true;
+		return parent::file_exists($file);
 	}
 
-	return parent::is_dir($path);
-    }
+	public function is_dir($path) {
+		if ($path == 'phpunit/test') {
+			return true;
+		}
 
-    function fwrite($handle, $string, $length=0) {
-	$buffer = array(
-	    'pass' => array('HTTP/1.1 200 OK',
-			    'Content-Type: text/html; charset=ISO-8859-1',
-			    '',
-			    'PASS_ISAPI_REWRITE'),
-	    'fail' => array('HTTP/1.1 200 OK',
-			    'Content-Type: text/html; charset=ISO-8859-1',
-			    '',
-			    'FAIL_NO_ISAPI_REWRITE'),
-	    '404' => array('HTTP/1.1 404 Not Found',
-			    'Content-Type: text/html; charset=ISO-8859-1',
-			    '',
-			    'Not Found'));
-
-	if ($handle == 'phpunit') {
-	    $respons = GalleryUtilities::getRequestVariables('isapiRewriteTest');
-	    $this->_readBuffer = $buffer[$respons];
-
-	    return strlen($string);
-	} else if ($handle == 'httpd.ini') {
-	    $this->_test->_fileContent .= $string;
-	    return strlen($string);
+		return parent::is_dir($path);
 	}
 
-	return parent::fwrite($handle, $string, $length=0);
-    }
+	public function fwrite($handle, $string, $length = 0) {
+		$buffer = array(
+			'pass' => array(
+				'HTTP/1.1 200 OK',
+				'Content-Type: text/html; charset=ISO-8859-1',
+				'',
+				'PASS_ISAPI_REWRITE',
+			),
+			'fail' => array(
+				'HTTP/1.1 200 OK',
+				'Content-Type: text/html; charset=ISO-8859-1',
+				'',
+				'FAIL_NO_ISAPI_REWRITE',
+			),
+			'404' => array(
+				'HTTP/1.1 404 Not Found',
+				'Content-Type: text/html; charset=ISO-8859-1',
+				'',
+				'Not Found',
+			),
+		);
 
-    function feof($handle) {
-	if ($handle == 'phpunit') {
-	    return empty($this->_readBuffer);
+		if ($handle == 'phpunit') {
+			$respons           = GalleryUtilities::getRequestVariables('isapiRewriteTest');
+			$this->_readBuffer = $buffer[$respons];
+
+			return strlen($string);
+		}
+
+		if ($handle == 'httpd.ini') {
+			$this->_test->_fileContent .= $string;
+
+			return strlen($string);
+		}
+
+		return parent::fwrite($handle, $string, $length = 0);
 	}
 
-	return parent::feof($handle);
-    }
+	public function feof($handle) {
+		if ($handle == 'phpunit') {
+			return empty($this->_readBuffer);
+		}
 
-    function fgets($handle, $length) {
-	if ($handle == 'phpunit') {
-	    if (empty($this->_readBuffer)) {
-		return null;
-	    }
-
-	    return array_shift($this->_readBuffer) . "\n";
+		return parent::feof($handle);
 	}
 
-	return parent::fgets($handle, $length);
-    }
+	public function fgets($handle, $length = 0) {
+		if ($handle == 'phpunit') {
+			if (empty($this->_readBuffer)) {
+				return null;
+			}
 
-    function fread($handle, $length) {
-	if ($handle == 'phpunit') {
-	    if (empty($this->_readBuffer)) {
-		return null;
-	    }
+			return array_shift($this->_readBuffer) . "\n";
+		}
 
-	    if ($length >= strlen(join("\n", $this->_readBuffer))) {
-		$tmp = join("\n", $this->_readBuffer);
-		$this->_readBuffer = array();
-		return $tmp;
-	    }
-
-	    $buf = join("\n", $this->_readBuffer);
-	    $tmp = substr($buf, 0, $length);
-	    $this->_readBuffer = explode("\n", substr($buf, $length + 1));
-	    return $tmp;
+		return parent::fgets($handle, $length);
 	}
 
-	return parent::fread($handle, $length);
-    }
+	public function fread($handle, $length) {
+		if ($handle == 'phpunit') {
+			if (empty($this->_readBuffer)) {
+				return null;
+			}
 
-    function fflush($handle) {
-	if ($handle == 'phpunit') {
-	    return true;
+			if ($length >= strlen(join("\n", $this->_readBuffer))) {
+				$tmp               = join("\n", $this->_readBuffer);
+				$this->_readBuffer = array();
+
+				return $tmp;
+			}
+
+			$buf               = join("\n", $this->_readBuffer);
+			$tmp               = substr($buf, 0, $length);
+			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
+
+			return $tmp;
+		}
+
+		return parent::fread($handle, $length);
 	}
 
-	return parent::fflush($handle);
-    }
+	public function fflush($handle) {
+		if ($handle == 'phpunit') {
+			return true;
+		}
 
-    function is_readable($file) {
-	if (strpos($file, 'httpd.ini') !== false) {
-	    return $this->_isReadable;
+		return parent::fflush($handle);
 	}
 
-	return parent::is_readable($file);
-    }
+	public function is_readable($file) {
+		if (strpos($file, 'httpd.ini') !== false) {
+			return $this->_isReadable;
+		}
 
-    function is_writeable($file) {
-	if (strpos($file, 'httpd.ini') !== false) {
-	    return $this->_isWriteable;
-	} else if ($file == 'phpunit/gallery2') {
-	    return false;
+		return parent::is_readable($file);
 	}
 
-	return parent::is_writeable($file);
-    }
+	public function is_writeable($file) {
+		if (strpos($file, 'httpd.ini') !== false) {
+			return $this->_isWriteable;
+		}
 
-    function file($file) {
-	if (strpos($file, 'httpd.ini') !== false) {
-	    return $passCodeAudit = array();
+		if ($file == 'phpunit/gallery2') {
+			return false;
+		}
+
+		return parent::is_writeable($file);
 	}
 
-	return parent::file($file);
-    }
-    function fopen($file, $mode, $useIncludePath=null, $zcontext=null) {
-	if (strpos($file, 'httpd.ini') !== false) {
-	    if ($this->_isWriteable) {
-		$this->_test->_fileContent = '';
-		return 'httpd.ini';
-	    } else {
-		return null;
-	    }
+	public function file($file, $use_include_path = false) {
+		if (strpos($file, 'httpd.ini') !== false) {
+			return $passCodeAudit = array();
+		}
+
+		return parent::file($file);
 	}
 
-	return parent::fopen($file, $mode, $useIncludePath, $zcontext);
-    }
+	public function fopen($file, $mode, $useIncludePath = null, $zcontext = null) {
+		if (strpos($file, 'httpd.ini') !== false) {
+			if ($this->_isWriteable) {
+				$this->_test->_fileContent = '';
 
-    function fclose($handle) {
-	if ($handle == 'httpd.ini') {
-	    return true;
-	} else if ($handle == 'phpunit') {
-	    $this->_readBuffer = array();
-	    return true;
+				return 'httpd.ini';
+			}
+
+			return null;
+		}
+
+		return parent::fopen($file, $mode, $useIncludePath, $zcontext);
 	}
 
-	return fclose($handle);
-    }
+	public function fclose($handle) {
+		if ($handle == 'httpd.ini') {
+			return true;
+		}
+
+		if ($handle == 'phpunit') {
+			$this->_readBuffer = array();
+
+			return true;
+		}
+
+		return fclose($handle);
+	}
 }
-?>

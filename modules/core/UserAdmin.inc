@@ -26,138 +26,156 @@
  * @version $Revision: 17580 $
  */
 class UserAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
+		$user = $gallery->getActiveUser();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
-	$user = $gallery->getActiveUser();
+		// Load the module list
+		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
-	/* Load the module list */
-	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Get a list of all the admin views for each module */
-	$subViewChoices = array();
-	foreach ($moduleStatus as $moduleId => $status) {
-	    if (empty($status['active'])) {
-		continue;
-	    }
-
-	    /* Get the selected module's admin view */
-	    if (in_array('getUserAdminViews', explode('|', $status['callbacks']))) {
-		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 		if ($ret) {
-		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
-			continue;
-		    }
-		    return array($ret, null);
+			return array($ret, null);
 		}
 
-		list ($ret, $moduleViews) = $module->getUserAdminViews($user);
-		if ($ret) {
-		    return array($ret, null);
+		// Get a list of all the admin views for each module
+		$subViewChoices = array();
+
+		foreach ($moduleStatus as $moduleId => $status) {
+			if (empty($status['active'])) {
+				continue;
+			}
+
+			// Get the selected module's admin view
+			if (in_array('getUserAdminViews', explode('|', $status['callbacks']))) {
+				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
+
+				if ($ret) {
+					if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
+						continue;
+					}
+
+					return array($ret, null);
+				}
+
+				list($ret, $moduleViews) = $module->getUserAdminViews($user);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				$subViewChoices = array_merge($subViewChoices, $moduleViews);
+			}
 		}
 
-		$subViewChoices = array_merge($subViewChoices, $moduleViews);
-	    }
+		// If we have a specific sub view, load it now
+		$subViewName = GalleryUtilities::getRequestVariables('subView');
+
+		if ($subViewName == 'core.UserAdmin') {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
+
+		if (empty($subViewName) && !empty($subViewChoices)) {
+			$subViewName = $subViewChoices[0]['view'];
+		}
+
+		list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Our sub view may have set some hints, like the encoding type
+		if ($template->hasVariable('UserAdmin')) {
+			$UserAdmin =& $template->getVariableByReference('UserAdmin');
+		} else {
+			$UserAdmin = array();
+			$template->setVariableByReference('UserAdmin', $UserAdmin);
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Set up my view parameters
+		$UserAdmin['subViewChoices'] = $subViewChoices;
+		$UserAdmin['subViewName']    = $subViewName;
+		$UserAdmin['isSiteAdmin']    = $isSiteAdmin;
+
+		if (!empty($subViewName)) {
+			list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			list($ret, $results) = $subView->loadTemplate($template, $form);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			if (isset($results['redirect'])) {
+				return array(null, $results);
+			}
+
+			$UserAdmin['viewBodyFile']  = $results['body'];
+			$UserAdmin['viewL10Domain'] = $subView->getL10Domain();
+		}
+
+		$template->setVariable('UserAdmin', $UserAdmin);
+		$template->title($module->translate('Gallery User Administration'));
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/UserAdmin.tpl',
+			),
+		);
 	}
 
-	/* If we have a specific sub view, load it now */
-	$subViewName = GalleryUtilities::getRequestVariables('subView');
-	if ($subViewName == 'core.UserAdmin') {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-	if (empty($subViewName) && !empty($subViewChoices)) {
-	    $subViewName = $subViewChoices[0]['view'];
+	/**
+	 * @see GalleryView::isAllowedInMaintenance
+	 */
+	public function isAllowedInMaintenance() {
+		return GalleryUtilities::getRequestVariables('subView') == 'core.UserLogin';
 	}
 
-	list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		global $gallery;
+
+		// Get the description from the current subView
+		$subViewName = GalleryUtilities::getRequestVariables('subView');
+
+		if (empty($subViewName)) {
+			$subViewName = 'core.ItemEdit';
+		}
+		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $description) = $subView->getViewDescription();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $description);
 	}
 
-	/* Our sub view may have set some hints, like the encoding type */
-	if ($template->hasVariable('UserAdmin')) {
-	    $UserAdmin =& $template->getVariableByReference('UserAdmin');
-	} else {
-	    $UserAdmin = array();
-	    $template->setVariableByReference('UserAdmin', $UserAdmin);
+	/**
+	 * @see GalleryView::getViewType
+	 */
+	public function getViewType() {
+		return VIEW_TYPE_ADMIN;
 	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Set up my view parameters */
-	$UserAdmin['subViewChoices'] = $subViewChoices;
-	$UserAdmin['subViewName'] = $subViewName;
-	$UserAdmin['isSiteAdmin'] = $isSiteAdmin;
-
-	if (!empty($subViewName)) {
-	    list ($ret, $subView) = GalleryView::loadView($subViewName);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    list ($ret, $results) = $subView->loadTemplate($template, $form);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if (isset($results['redirect'])) {
-		return array(null, $results);
-	    }
-
-	    $UserAdmin['viewBodyFile'] = $results['body'];
-	    $UserAdmin['viewL10Domain'] = $subView->getL10Domain();
-	}
-
-	$template->setVariable('UserAdmin', $UserAdmin);
-	$template->title($module->translate('Gallery User Administration'));
-	return array(null, array('body' => 'modules/core/templates/UserAdmin.tpl'));
-    }
-
-    /**
-     * @see GalleryView::isAllowedInMaintenance
-     */
-    function isAllowedInMaintenance() {
-	return (GalleryUtilities::getRequestVariables('subView') == 'core.UserLogin');
-    }
-
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	global $gallery;
-
-	/* Get the description from the current subView */
-	$subViewName = GalleryUtilities::getRequestVariables('subView');
-	if (empty($subViewName)) {
-	    $subViewName = 'core.ItemEdit';
-	}
-	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $description) = $subView->getViewDescription();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $description);
-    }
-
-    /**
-     * @see GalleryView::getViewType
-     */
-    function getViewType() {
-	return VIEW_TYPE_ADMIN;
-    }
 }
-?>

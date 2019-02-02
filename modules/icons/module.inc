@@ -26,105 +26,127 @@
  * @version $Revision: 18172 $
  */
 class IconsModule extends GalleryModule {
-
-    function IconsModule() {
-	global $gallery;
-	$this->setId('icons');
-	$this->setName($gallery->i18n('Icons'));
-	$this->setDescription($gallery->i18n('Display icons for links'));
-	$this->setVersion('1.1.5'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
-	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
-    }
-
-    /**
-     * @see GalleryModule::upgrade
-     */
-    function upgrade($currentVersion) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'icons');
-	if ($ret) {
-	    return $ret;
+	public function __construct() {
+		global $gallery;
+		$this->setId('icons');
+		$this->setName($gallery->i18n('Icons'));
+		$this->setDescription($gallery->i18n('Display icons for links'));
+		$this->setVersion('1.1.5'); // Update upgrade() function below too
+		$this->_templateVersion = 1;
+		$this->setGroup('display', $gallery->i18n('Display'));
+		$this->setCallbacks('getSiteAdminViews');
+		$this->setRequiredCoreApi(array(7, 20));
+		$this->setRequiredModuleApi(array(3, 6));
 	}
-	foreach (array('iconpack' => '') as $key => $value) {
-	    if (!isset($params[$key])) {
-		$ret = $this->setParameter($key, $value);
+
+	/**
+	 * @see GalleryModule::upgrade
+	 */
+	public function upgrade($currentVersion, $x1 = null) {
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'icons');
+
 		if ($ret) {
-		    return $ret;
+			return $ret;
 		}
-	    }
+
+		foreach (array(
+			'iconpack' => '',
+		) as $key => $value) {
+			if (!isset($params[$key])) {
+				$ret = $this->setParameter($key, $value);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		if (empty($currentVersion)) {
+			$currentVersion = '0';
+		}
+
+		switch ($currentVersion) {
+			case '0':
+				$ret = $this->setParameter('iconpack', 'silk');
+
+				if ($ret) {
+					return $ret;
+				}
+
+				break;
+
+			case '0.9.0':
+			case '0.9.1':
+			case '0.9.2':
+				if (isset($params['iconpack']) && $params['iconpack'] == 'paularmstrongdesigns.com') {
+					// Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 didn't like it
+					$ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
+
+					if ($ret) {
+						return $ret;
+					}
+				}
+
+				// Fall Through
+			case '0.9.3':
+			case '0.9.4':
+			case '0.9.5':
+			case '1.0.0':
+			case '1.0.1':
+			case '1.0.2':
+			case '1.1.0':
+			case '1.1.1':
+			case '1.1.2':
+				// .mo file migration
+			case '1.1.3':
+			case '1.1.4':
+			case 'end of upgrade path':
+				break;
+
+			default:
+				return GalleryCoreApi::error(
+					ERROR_BAD_PLUGIN,
+					__FILE__,
+					__LINE__,
+					sprintf('Unknown module version %s', $currentVersion)
+				);
+		}
+
+		return null;
 	}
 
-	if (empty($currentVersion)) {
-	    $currentVersion = '0';
-	}
+	/**
+	 * @see GalleryModule::performFactoryRegistrations
+	 */
+	public function performFactoryRegistrations() {
+		$ret = GalleryCoreApi::registerFactoryImplementation(
+			'IconsInterface_1_0',
+			'IconsImpl',
+			'Icons',
+			'modules/icons/classes/IconsImpl.class',
+			'icons',
+			null
+		);
 
-	switch ($currentVersion) {
-	case '0':
-	    $ret = $this->setParameter('iconpack', 'silk');
-	    if ($ret) {
-		    return $ret;
-	    }
-	    break;
-
-	case '0.9.0':
-	case '0.9.1':
-	case '0.9.2':
-	    if (isset($params['iconpack']) && $params['iconpack'] == 'paularmstrongdesigns.com') {
-		/* Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 didn't like it */
-		$ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
 		if ($ret) {
-		    return $ret;
+			return $ret;
 		}
-	    }
 
-	case '0.9.3':
-	case '0.9.4':
-	case '0.9.5':
-	case '1.0.0':
-	case '1.0.1':
-	case '1.0.2':
-	case '1.1.0':
-	case '1.1.1':
-	case '1.1.2':
-	    /* .mo file migration */
-	case '1.1.3':
-	case '1.1.4':
-
-	case 'end of upgrade path':
-	    break;
-
-	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
-					sprintf('Unknown module version %s', $currentVersion));
+		return null;
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::performFactoryRegistrations
-     */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'IconsInterface_1_0', 'IconsImpl', 'Icons',
-	    'modules/icons/classes/IconsImpl.class', 'icons', null);
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryModule::getSiteAdminViews
+	 */
+	public function getSiteAdminViews() {
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Icons'),
+					'view' => 'icons.IconsSiteAdmin',
+				),
+			),
+		);
 	}
-
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Icons'),
-				 'view' => 'icons.IconsSiteAdmin')));
-    }
 }
-?>

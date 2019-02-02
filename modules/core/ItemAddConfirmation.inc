@@ -26,62 +26,73 @@
  * @version $Revision: 17580 $
  */
 class ItemAddConfirmationView extends GalleryView {
-
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	/*
-	 * We know what kind of operation happened, but for now let's compress
-	 * it down so that the template doesn't have to know.
+	/**
+	 * @see GalleryView::loadTemplate
 	 */
-	$status = $template->getVariable('status');
-	$uploaded = 0;
-	if (!empty($status['addedFiles'])) {
-	    $count = sizeof($status['addedFiles']);
-	    for ($i = 0; $i < $count; $i++) {
-		list ($ret, $entity) = GalleryCoreApi::loadEntitiesById(
-		    $status['addedFiles'][$i]['id'], 'GalleryItem');
-		if (!$ret) {
-		    $status['addedFiles'][$i]['exists'] = true;
-		    $uploaded++;
-		} else if ($ret->getErrorCode() & (ERROR_MISSING_OBJECT | ERROR_BAD_PARAMETER)) {
-		    $status['addedFiles'][$i]['exists'] = false;
-		} else {
-		    return array($ret, null);
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
+
+		list($ret, $item) = $this->getItem();
+
+		if ($ret) {
+			return array($ret, null);
 		}
-	    }
-	} else {
-	    $status['addedFiles'] = array();
+		$itemId = $item->getId();
+
+		/*
+		 * We know what kind of operation happened, but for now let's compress
+		 * it down so that the template doesn't have to know.
+		 */
+		$status   = $template->getVariable('status');
+		$uploaded = 0;
+
+		if (!empty($status['addedFiles'])) {
+			$count = sizeof($status['addedFiles']);
+
+			for ($i = 0; $i < $count; $i++) {
+				list($ret, $entity) = GalleryCoreApi::loadEntitiesById(
+					$status['addedFiles'][$i]['id'],
+					'GalleryItem'
+				);
+
+				if (!$ret) {
+					$status['addedFiles'][$i]['exists'] = true;
+					$uploaded++;
+				} elseif ($ret->getErrorCode() & (ERROR_MISSING_OBJECT | ERROR_BAD_PARAMETER)) {
+					$status['addedFiles'][$i]['exists'] = false;
+				} else {
+					return array($ret, null);
+				}
+			}
+		} else {
+			$status['addedFiles'] = array();
+		}
+
+		$ItemAddConfirmation           = array();
+		$ItemAddConfirmation['count']  = $uploaded;
+		$ItemAddConfirmation['status'] = $status;
+
+		$template->setVariable('ItemAddConfirmation', $ItemAddConfirmation);
+		$template->setVariable('controller', '');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemAddConfirmation.tpl',
+			),
+		);
 	}
 
-	$ItemAddConfirmation = array();
-	$ItemAddConfirmation['count'] = $uploaded;
-	$ItemAddConfirmation['status'] = $status;
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
-	$template->setVariable('ItemAddConfirmation', $ItemAddConfirmation);
-	$template->setVariable('controller', '');
-	return array(null, array('body' => 'modules/core/templates/ItemAddConfirmation.tpl'));
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
 
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
+		return array(null, $core->translate('add items confirmation'));
 	}
-
-	return array(null, $core->translate('add items confirmation'));
-    }
 }
-?>

@@ -26,37 +26,46 @@
  * @version $Revision: 17580 $
  */
 class SiteAdminTest extends GalleryTestCase {
-
-    function SiteAdminTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_view) = GalleryView::loadView('core.SiteAdmin');
-	if ($ret) {
-	    return $ret;
-	}
-    }
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
 
-    function testGuestRedirect() {
-	/* Verify redirect to login view if guest access SiteAdmin view */
-	$ret = $this->_becomeGuestUser();
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_view) = GalleryView::doStatic()->loadView('core.SiteAdmin');
+
+		if ($ret) {
+			return $ret;
+		}
 	}
-	$template = $form = null;
-	list ($ret, $result) = $this->_view->loadTemplate($template, $form);
-	if ($ret) {
-	    return $ret;
+
+	public function testGuestRedirect() {
+		// Verify redirect to login view if guest access SiteAdmin view
+		$ret = $this->_becomeGuestUser();
+
+		if ($ret) {
+			return $ret;
+		}
+		$template           = $form = null;
+		list($ret, $result) = $this->_view->loadTemplate($template, $form);
+
+		if ($ret) {
+			return $ret;
+		}
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.UserAdmin',
+					'subView' => 'core.UserLogin',
+					'return'  => true,
+				),
+			),
+			$result
+		);
 	}
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin', 'subView' => 'core.UserLogin',
-				      'return' => true)), $result);
-    }
 }
-?>

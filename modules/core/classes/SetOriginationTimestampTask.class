@@ -30,122 +30,159 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  * @version $Revision: 17580 $
  */
 class SetOriginationTimestampTask extends MaintenanceTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-	return array('l10Domain' => 'modules_core',
-		     'title' => $gallery->i18n('Refresh capture dates'),
-		     'description' => $gallery->i18n(
-			 'Update capture date stored in Gallery for all items with an available ' .
-			 'date in the original data file (usually from EXIF data).'),
-		     'confirmRun' => true);
-    }
-
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	global $gallery;
-	$templateAdapter =& $gallery->getTemplateAdapter();
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	$message = $module->translate('Processing...');
-
-	$templateAdapter->updateProgressBar(
-	    $module->translate('Refresh Capture Dates'), $message, '');
-
-	list ($ret, $results) =
-	    $gallery->search('SELECT [GalleryDataItem::id] FROM [GalleryDataItem] ' .
-			     'ORDER BY [GalleryDataItem::id]');
-	if ($ret) {
-	    return array($ret, null, null);
+		return array(
+			'l10Domain'   => 'modules_core',
+			'title'       => $gallery->i18n('Refresh capture dates'),
+			'description' => $gallery->i18n(
+				'Update capture date stored in Gallery for all items with an available ' .
+				 'date in the original data file (usually from EXIF data).'
+			),
+			'confirmRun' => true,
+		);
 	}
 
-	$i = $updated = 0;
-	$toolkitMap = array();
-	$total = $results->resultCount();
-	while ($result = $results->nextResult()) {
-	    $gallery->guaranteeTimeLimit(90);
-	    /* Grab 5 items at a time */
-	    $ids = array($result[0]);
-	    for ($j = 0; $j < 4 && ($result = $results->nextResult()); $j++) {
-		$ids[] = $result[0];
-	    }
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryDataItem');
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	    foreach ($items as $item) {
-		$mimeType = $item->getMimeType();
-		if (!isset($toolkitMap[$mimeType])) {
-		    list ($ret, $toolkitMap[$mimeType]) =
-			GalleryCoreApi::getToolkitsByProperty($mimeType, 'originationTimestamp');
-		    if ($ret) {
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		global $gallery;
+		$templateAdapter =& $gallery->getTemplateAdapter();
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
 			return array($ret, null, null);
-		    }
 		}
-		$toolkits = $toolkitMap[$mimeType];
-		if (!empty($toolkits)) {
-		    list ($ret, $path) = $item->fetchPath();
-		    if ($ret) {
+		$message = $module->translate('Processing...');
+
+		$templateAdapter->updateProgressBar(
+			$module->translate('Refresh Capture Dates'),
+			$message,
+			''
+		);
+
+		list($ret, $results) = $gallery->search(
+			'SELECT [GalleryDataItem::id] FROM [GalleryDataItem] ' .
+			'ORDER BY [GalleryDataItem::id]'
+		);
+
+		if ($ret) {
 			return array($ret, null, null);
-		    }
-		    foreach ($toolkits as $toolkit) {
-			if (!isset($toolkit)) {
-			    continue;
+		}
+
+		$i          = $updated = 0;
+		$toolkitMap = array();
+		$total      = $results->resultCount();
+
+		while ($result = $results->nextResult()) {
+			$gallery->guaranteeTimeLimit(90);
+			// Grab 5 items at a time
+			$ids = array($result[0]);
+
+			for ($j = 0; $j < 4 && ($result = $results->nextResult()); $j++) {
+				$ids[] = $result[0];
 			}
-			list ($ret, $originationTimestamp) =
-			    $toolkit->getProperty($mimeType, 'originationTimestamp', $path);
+			list($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryDataItem');
+
 			if ($ret) {
-			    return array($ret, null, null);
+				return array($ret, null, null);
 			}
-			if (is_array($originationTimestamp) && !empty($originationTimestamp[0])) {
-			    $item->setOriginationTimestamp($originationTimestamp[0]);
-			    if ($item->isModified()) {
-				list ($ret, $lockId) =
-				    GalleryCoreApi::acquireWriteLock($item->getId());
-				if ($ret) {
-				    return array($ret, null, null);
-				}
-				$ret = $item->save();
-				if ($ret) {
-				    GalleryCoreApi::releaseLocks($lockId);
-				    return array($ret, null, null);
-				}
-				$ret = GalleryCoreApi::releaseLocks($lockId);
-				if ($ret) {
-				    return array($ret, null, null);
-				}
-				$updated++;
-			    }
-			    break;
-			}
-		    }
-		}
-		$i++;
-	    }
 
-	    $message = $module->translate(
-		array('text' => 'Processing item %d of %d', 'arg1' => $i, 'arg2' => $total));
-	    $templateAdapter->updateProgressBar($message, '', $i / $total);
+			foreach ($items as $item) {
+				$mimeType = $item->getMimeType();
+
+				if (!isset($toolkitMap[$mimeType])) {
+					list($ret, $toolkitMap[$mimeType]) = GalleryCoreApi::getToolkitsByProperty($mimeType, 'originationTimestamp');
+
+					if ($ret) {
+						return array($ret, null, null);
+					}
+				}
+				$toolkits = $toolkitMap[$mimeType];
+
+				if (!empty($toolkits)) {
+					list($ret, $path) = $item->fetchPath();
+
+					if ($ret) {
+						return array($ret, null, null);
+					}
+
+					foreach ($toolkits as $toolkit) {
+						if (!isset($toolkit)) {
+							continue;
+						}
+						list($ret, $originationTimestamp) = $toolkit->getProperty($mimeType, 'originationTimestamp', $path);
+
+						if ($ret) {
+							return array($ret, null, null);
+						}
+
+						if (is_array($originationTimestamp) && !empty($originationTimestamp[0])) {
+							$item->setOriginationTimestamp($originationTimestamp[0]);
+
+							if ($item->isModified()) {
+								list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
+
+								if ($ret) {
+									return array($ret, null, null);
+								}
+								$ret = $item->save();
+
+								if ($ret) {
+									GalleryCoreApi::releaseLocks($lockId);
+
+									return array($ret, null, null);
+								}
+								$ret = GalleryCoreApi::releaseLocks($lockId);
+
+								if ($ret) {
+									return array($ret, null, null);
+								}
+								$updated++;
+							}
+
+							break;
+						}
+					}
+				}
+				$i++;
+			}
+
+			$message = $module->translate(
+				array(
+					'text' => 'Processing item %d of %d',
+					'arg1' => $i,
+					'arg2' => $total,
+				)
+			);
+			$templateAdapter->updateProgressBar($message, '', $i / $total);
+		}
+
+		return array(
+			null,
+			true,
+			array(
+				$module->translate(
+					array(
+						'text' => 'Updated %d of %d items',
+						'arg1' => $updated,
+						'arg2' => $total,
+					)
+				),
+			),
+		);
 	}
 
-	return array(null, true,
-		     array($module->translate(array('text' => 'Updated %d of %d items',
-						    'arg1' => $updated, 'arg2' => $total))));
-    }
-
-    /**
-     * @see MaintenanceTask::requiresProgressBar
-     */
-    function requiresProgressBar() {
-	return true;
-    }
+	/**
+	 * @see MaintenanceTask::requiresProgressBar
+	 */
+	public function requiresProgressBar() {
+		return true;
+	}
 }
-?>

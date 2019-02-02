@@ -26,18 +26,21 @@
  * @version $Revision: 17580 $
  */
 class CoreCaptchaAdminOption extends CaptchaAdminOption {
-    /**
-     * @see CaptchaAdminOption::getOptionData
-     */
-    function getOptionData() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null, null);
+	/**
+	 * @see CaptchaAdminOption::getOptionData
+	 */
+	public function getOptionData() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null, null, null);
+		}
+		// Note: we use validation.level for all plugins, but config is via captcha module
+		return array(
+			null,
+			$module->translate('Login'),
+			array('module', 'core', 'validation.level'),
+			array('HIGH', 'MEDIUM', 'LOW', 'OFF'),
+		);
 	}
-	/* Note: we use validation.level for all plugins, but config is via captcha module */
-	return array(null, $module->translate('Login'),
-		     array('module', 'core', 'validation.level'),
-		     array('HIGH', 'MEDIUM', 'LOW', 'OFF'));
-    }
 }
-?>

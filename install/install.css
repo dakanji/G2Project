@@ -203,8 +203,8 @@ div.warning { background: #ffc url('images/ico_warning.gif') 3px 50% no-repeat; 
 div.success { background: #cfc url('images/ico_success.gif') 3px 50% no-repeat; }
 
 div.success h1, div.error h2, div.warning h2 {
-    position: relative;
-    padding: 0;
+	position: relative;
+	padding: 0;
 }
 
 .go {
@@ -304,20 +304,20 @@ input, select {
 }
 
 .multisite {
-    padding: 0.5em 0.5em 0.5em 2.2em;
-    text-indent: -2.2em;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+	padding: 0.5em 0.5em 0.5em 2.2em;
+	text-indent: -2.2em;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
 }
 
 .multisite p {
-    padding-top: 0em;
-    text-indent: 0em;
+	padding-top: 0em;
+	text-indent: 0em;
 }
 
 .multisite + .multisite { margin-bottom: 0; }
 .multisite pre, .multisite .error {
-    text-indent: 0;
+	text-indent: 0;
 }
 
 .modules td {
@@ -402,15 +402,15 @@ input, select {
 }
 
 label.radio {
-    position: relative;
-    bottom: 2px;
-    padding: 2px;
-    font-weight: bold;
+	position: relative;
+	bottom: 2px;
+	padding: 2px;
+	font-weight: bold;
 }
 
 ol {
-    font-size: 1.1em;
-    line-height: 1.4em;
+	font-size: 1.1em;
+	line-height: 1.4em;
 }
 
 #MainPageStatus_statusBlock table {

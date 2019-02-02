@@ -26,35 +26,39 @@
  * @version $Revision: 17580 $
  */
 class FileNotFoundView extends GalleryView {
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $module->translate('404 File Not Found'));
 	}
 
-	return array(null, $module->translate('404 File Not Found'));
-    }
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
+		$phpVm        = $gallery->getPhpVm();
+		$urlGenerator =& $gallery->getUrlGenerator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
-	$phpVm = $gallery->getPhpVm();
-	$urlGenerator =& $gallery->getUrlGenerator();
+		// Don't use getCurrentUrl, it migh be staged by the url generator
+		$path = GalleryUtilities::getServerVar('REQUEST_URI');
+		$path = $urlGenerator->makeUrl($path);
 
-	/* Don't use getCurrentUrl, it migh be staged by the url generator */
-	$path = GalleryUtilities::getServerVar('REQUEST_URI');
-	$path = $urlGenerator->makeUrl($path);
+		$phpVm->header('HTTP/1.0 404 Not Found');
+		$template->setVariable('FileNotFound', $path);
 
-	$phpVm->header('HTTP/1.0 404 Not Found');
-	$template->setVariable('FileNotFound', $path);
-
-	return array(null, array('body' => 'modules/rewrite/templates/FileNotFound.tpl'));
-    }
+		return array(
+			null,
+			array(
+				'body' => 'modules/rewrite/templates/FileNotFound.tpl',
+			),
+		);
+	}
 }
-?>

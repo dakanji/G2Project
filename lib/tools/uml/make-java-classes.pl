@@ -71,9 +71,9 @@ G2_TMPDIR ?= tmp
 
 include $(TOOLDIR)/GNUmakefile.inc
 
-CLASSFILES  = $(wildcard $(CLASSDIR)/*.class)
-XMLFILES    = $(patsubst $(CLASSDIR)/%.class,%.xml,$(CLASSFILES))
-JAVAFILES   = $(patsubst %.xml,%.java,$(XMLFILES))
+CLASSFILES = $(wildcard $(CLASSDIR)/*.class)
+XMLFILES = $(patsubst $(CLASSDIR)/%.class,%.xml,$(CLASSFILES))
+JAVAFILES = $(patsubst %.xml,%.java,$(XMLFILES))
 
 java: $(G2_TMPDIR) $(JAVAFILES)
 

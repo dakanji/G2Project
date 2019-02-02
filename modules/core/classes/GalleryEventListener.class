@@ -27,16 +27,14 @@
  * @abstract
  */
 class GalleryEventListener {
-
-    /**
-     * Handle the event
-     *
-     * @param GalleryEvent $event
-     * @return array GalleryStatus a status code
-     *               mixed data to send back to event source, or null
-     */
-    function handleEvent($event) {
-	return array(null, null);
-    }
+	/**
+	 * Handle the event
+	 *
+	 * @param GalleryEvent $event
+	 * @return array GalleryStatus a status code
+	 *               mixed data to send back to event source, or null
+	 */
+	public function handleEvent($event) {
+		return array(null, null);
+	}
 }
-?>

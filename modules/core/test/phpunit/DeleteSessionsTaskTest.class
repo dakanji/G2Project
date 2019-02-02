@@ -28,69 +28,76 @@ GalleryCoreApi::requireOnce('modules/core/classes/DeleteSessionsTask.class');
  * @version $Revision: 17580 $
  */
 class DeleteSessionsTaskTest extends GalleryTestCase {
-
-    function DeleteSessionsTaskTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-
-	$ret = parent::setUp();
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	$this->_task = new DeleteSessionsTask();
+	public function setUp($x1 = null) {
+		global $gallery;
 
-	list ($ret, $this->_core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_task = new DeleteSessionsTask();
+
+		list($ret, $this->_core) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->_origSession = $gallery->_session;
 	}
 
-	$this->_origSession = $gallery->_session;
-    }
+	public function tearDown() {
+		global $gallery;
+		$gallery->_session = $this->_origSession;
 
-    function tearDown() {
-	global $gallery;
-	$gallery->_session = $this->_origSession;
-
-	return parent::tearDown();
-    }
-
-    function testRun() {
-	global $gallery;
-	$gallery->_templateAdapter = new MockTemplateAdapter();
-	$mockAdapter =& $gallery->_templateAdapter;
-	$gallery->_session = new DeleteSessionsTaskTestSession();
-	$session =& $gallery->getSession();
-	$gallery->_phpVm = new UnitTestPhpVm();
-	$phpVm = $gallery->getPhpVm();
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
-	    return $ret;
+		return parent::tearDown();
 	}
 
-	$inactivityTimeout = (int)$params['session.inactivityTimeout'];
-	$lifetime = (int)$params['session.lifetime'];
-	list ($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return $ret;
-	}
+	public function testRun() {
+		global $gallery;
+		$gallery->_templateAdapter = new MockTemplateAdapter();
+		$mockAdapter               =& $gallery->_templateAdapter;
+		$gallery->_session         = new DeleteSessionsTaskTestSession();
+		$session                   =& $gallery->getSession();
+		$gallery->_phpVm           = new UnitTestPhpVm();
+		$phpVm                     = $gallery->getPhpVm();
 
-	$currentTime = 123456789;
-	$data = array($currentTime - $inactivityTimeout, $currentTime - $lifetime,
-		      $anonymousUserId, $currentTime - (7 * 86400));
-    
-	for ($i = 0; $i < 5; $i++) {
-	    $phpVm->setReply('time', array(), $currentTime, true);
-	}
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
-	$gallery->_storage = new UnitTestStorage();
-	$storage =& $gallery->getStorage();
+		if ($ret) {
+			return $ret;
+		}
 
-	$query = '
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
+		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$currentTime = 123456789;
+		$data        = array(
+			$currentTime - $inactivityTimeout,
+			$currentTime - $lifetime,
+			$anonymousUserId,
+			$currentTime - (7 * 86400),
+		);
+
+		for ($i = 0; $i < 5; $i++) {
+			$phpVm->setReply('time', array(), $currentTime, true);
+		}
+
+		$gallery->_storage = new UnitTestStorage();
+		$storage           =& $gallery->getStorage();
+
+		$query = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR
@@ -98,31 +105,44 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 	      ([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)
 	';
 
-	$storage->setReply('search', array($query, $data, array()),
-			   array(null, new UnitTestStorageSearchResults(array(array(1500)))));
+		$storage->setReply(
+			'search',
+			array($query, $data, array()),
+			array(null, new UnitTestStorageSearchResults(array(array(1500))))
+		);
 
-	list ($ret, $success, $details) = $this->_task->run();
-	if ($ret) {
-	    return $ret;
+		list($ret, $success, $details) = $this->_task->run();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertTrue($success);
+		$this->assertEquals(
+			array(
+				$this->_core->translate(
+					array(
+						'text' => 'Deleted %d sessions.',
+						'arg1' => 1500,
+					)
+				),
+			),
+			$details
+		);
+		$this->assertEquals(2, $session->callCount, 'call count of _expireSessions()');
 	}
-
-	$this->assert($success);
-	$this->assertEquals(
-	    array($this->_core->translate(array('text' => 'Deleted %d sessions.', 'arg1' => 1500))),
-	    $details);
-	$this->assertEquals(2, $session->callCount, 'call count of _expireSessions()');
-    }
 }
 
 class DeleteSessionsTaskTestSession extends GallerySession {
-    var $callCount = 0;
-    function _expireSessions() {
-	$this->callCount++;
-	return null;
-    }
+	public $callCount = 0;
 
-    function save($useNonTransactionalConnection=false) {
-	return null;
-    }
+	public function _expireSessions() {
+		$this->callCount++;
+
+		return null;
+	}
+
+	public function save($useNonTransactionalConnection = false) {
+		return null;
+	}
 }
-?>

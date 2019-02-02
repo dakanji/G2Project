@@ -28,135 +28,156 @@ GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
  * @version $Revision: 17580 $
  */
 class AdminGdController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$error = $status = array();
+
+		if (isset($form['action']['save'])) {
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'gd',
+				'jpegQuality',
+				$form['jpegQuality']
+			);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			list($ret, $isActive) = $module->isActive();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$redirect['view'] = 'core.SiteAdmin';
+
+			if ($isActive) {
+				$redirect['subView'] = 'gd.AdminGd';
+				$status['saved']     = 1;
+			} else {
+				$redirect['subView'] = 'core.AdminPlugins';
+			}
+		} elseif (isset($form['action']['reset'])) {
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'gd.AdminGd';
+		} elseif (isset($form['action']['cancel'])) {
+			$redirect['view']    = 'core.SiteAdmin';
+			$redirect['subView'] = 'core.AdminPlugins';
+		}
+
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
+		} else {
+			$results['delegate']['view']    = 'core.SiteAdmin';
+			$results['delegate']['subView'] = 'gd.AdminGd';
+		}
+		$results['status'] = $status;
+		$results['error']  = $error;
+
+		return array(null, $results);
 	}
-
-	$error = $status = array();
-	if (isset($form['action']['save'])) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'gd',
-						      'jpegQuality', $form['jpegQuality']);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    list ($ret, $isActive) = $module->isActive();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $redirect['view'] = 'core.SiteAdmin';
-	    if ($isActive) {
-		$redirect['subView'] = 'gd.AdminGd';
-		$status['saved'] = 1;
-	    } else {
-		$redirect['subView'] = 'core.AdminPlugins';
-	    }
-	} else if (isset($form['action']['reset'])) {
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'gd.AdminGd';
-	} else if (isset($form['action']['cancel'])) {
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
-	}
-
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'gd.AdminGd';
-	}
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * Settings for GD
  */
 class AdminGdView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Load our default values if we didn't just come from this form. */
-	if ($form['formName'] != 'AdminGd') {
-	    foreach (array('path', 'jpegQuality') as $key) {
-		list ($ret, $form[$key]) =
-		    GalleryCoreApi::getPluginParameter('module', 'gd', $key);
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
-	    }
-	    $form['formName'] = 'AdminGd';
-	}
 
-	/* Set up our jpeg quality selection list */
-	for ($i = 100; $i >= 50; $i -= 5) {
-	    $jpegQualityList[] = $i;
-	}
+		// Load our default values if we didn't just come from this form.
+		if ($form['formName'] != 'AdminGd') {
+			foreach (array('path', 'jpegQuality') as $key) {
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'gd', $key);
 
-	list ($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $isGdBundled) = GdToolkitHelper::isBundled();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $isGdVersionSupported) = GdToolkitHelper::isGdVersionSupported($gdVersion);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$minGdVersion = GdToolkitHelper::minGdVersion();
+				if ($ret) {
+					return array($ret, null);
+				}
+			}
+			$form['formName'] = 'AdminGd';
+		}
 
-	$mimeTypes = array();
-	if ($isGdVersionSupported) {
-	    list ($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
+		// Set up our jpeg quality selection list
+		for ($i = 100; $i >= 50; $i -= 5) {
+			$jpegQualityList[] = $i;
+		}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $isActive) = $module->isActive();
-	if ($ret) {
-	    return array($ret, null);
-	}
+		list($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion();
 
-	$AdminGd = array();
-	$AdminGd['gdVersionTooOld'] = !$isGdVersionSupported;
-	$AdminGd['minGdVersion'] = $minGdVersion;
-	$AdminGd['mimeTypes'] = $mimeTypes;
-	$AdminGd['jpegQualityList'] = $jpegQualityList;
-	$AdminGd['gdVersion'] = $gdVersion;
-	$AdminGd['isGdBundled'] = $isGdBundled;
-	$AdminGd['isConfigure'] = !$isActive;
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $isGdBundled) = GdToolkitHelper::isBundled();
 
-	$template->setVariable('AdminGd', $AdminGd);
-	$template->setVariable('controller', 'gd.AdminGd');
-	return array(null, array('body' => 'modules/gd/templates/AdminGd.tpl'));
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $isGdVersionSupported) = GdToolkitHelper::isGdVersionSupported($gdVersion);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$minGdVersion = GdToolkitHelper::minGdVersion();
+
+		$mimeTypes = array();
+
+		if ($isGdVersionSupported) {
+			list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $isActive) = $module->isActive();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$AdminGd                    = array();
+		$AdminGd['gdVersionTooOld'] = !$isGdVersionSupported;
+		$AdminGd['minGdVersion']    = $minGdVersion;
+		$AdminGd['mimeTypes']       = $mimeTypes;
+		$AdminGd['jpegQualityList'] = $jpegQualityList;
+		$AdminGd['gdVersion']       = $gdVersion;
+		$AdminGd['isGdBundled']     = $isGdBundled;
+		$AdminGd['isConfigure']     = !$isActive;
+
+		$template->setVariable('AdminGd', $AdminGd);
+		$template->setVariable('controller', 'gd.AdminGd');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/gd/templates/AdminGd.tpl',
+			),
+		);
+	}
 }
-?>

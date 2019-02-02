@@ -27,106 +27,122 @@
  * @version $Revision: 17580 $
  */
 class RepositoryTestStorage {
+	/** @todo Convert this to use UnitTestStorage */
+	public $_addedMapData;
+	public $_updatedMapData;
+	public $_searchResults;
+	public $_searches;
+	public $_removedMapData;
 
-    /** @todo Convert this to use UnitTestStorage */
-    var $_addedMapData;
-    var $_updatedMapData;
-    var $_searchResults;
-    var $_searches;
-    var $_removedMapData;
+	public function __construct() {
+		$this->reset();
+	}
 
-    function RepositoryTestStorage() {
-	$this->reset();
-    }
+	public function reset() {
+		$this->_searches       = array();
+		$this->_searchResults  = array();
+		$this->_addedMapData   = array();
+		$this->_updatedMapData = array();
+		$this->_removedMapData = array();
+	}
 
-    function reset() {
-	$this->_searches = array();
-	$this->_searchResults = array();
-	$this->_addedMapData = array();
-	$this->_updatedMapData = array();
-	$this->_removedMapData = array();
-    }
+	public function search($query, $args) {
+		$this->_searches[] = array(
+			'query'     => $query,
+			'arguments' => $args,
+		);
 
-    function search($query, $args) {
-	$this->_searches[] = array('query' => $query, 'arguments' => $args);
+		return array(
+			null,
+			new RepositoryTestSearchResults($this->_searchResults),
+		);
+	}
 
-	return array(null,
-		     new RepositoryTestSearchResults($this->_searchResults));
-    }
+	public function setSearchResults($results) {
+		$this->_searchResults = $results;
+	}
 
-    function setSearchResults($results) {
-	$this->_searchResults = $results;
-    }
+	public function getSearches() {
+		return $this->_searches;
+	}
 
-    function getSearches() {
-	return $this->_searches;
-    }
+	public function addMapEntry($map, $data) {
+		$this->_addedMapData[$map][] = $data;
 
-    function addMapEntry($map, $data) {
-	$this->_addedMapData[$map][] = $data;
-	return null;
-    }
+		return null;
+	}
 
-    function getMapEntry($map, $data, $match) {
-	$this->_searches[] = array('map' => $map, 'select' => $data, 'where' => $match);
+	public function getMapEntry($map, $data, $match) {
+		$this->_searches[] = array(
+			'map'    => $map,
+			'select' => $data,
+			'where'  => $match,
+		);
 
-	return array(null,
-		     new RepositoryTestSearchResults($this->_searchResults));
-    }
+		return array(
+			null,
+			new RepositoryTestSearchResults($this->_searchResults),
+		);
+	}
 
-    function getAddedMapData() {
-	return $this->_addedMapData;
-    }
+	public function getAddedMapData() {
+		return $this->_addedMapData;
+	}
 
-    function updateMapEntry($map, $match, $change) {
-	$this->_updatedMapData[$map][] = array('match' => $match, 'change' => $change);
-	return null;
-    }
+	public function updateMapEntry($map, $match, $change) {
+		$this->_updatedMapData[$map][] = array(
+			'match'  => $match,
+			'change' => $change,
+		);
 
-    function removeMapEntry($map, $match) {
-	$this->_removedMapData[$map][] = array('match' => $match);
-	return null;
-    }
+		return null;
+	}
 
-    function getUpdatedMapData() {
-	return $this->_updatedMapData;
-    }
+	public function removeMapEntry($map, $match) {
+		$this->_removedMapData[$map][] = array(
+			'match' => $match,
+		);
 
-    function getRemovedMapData() {
-	return $this->_removedMapData;
-    }
+		return null;
+	}
 
-    function rollbackTransaction() {
-    }
+	public function getUpdatedMapData() {
+		return $this->_updatedMapData;
+	}
 
-    function getUniqueId($sequence) {
-	return 1;
-    }
+	public function getRemovedMapData() {
+		return $this->_removedMapData;
+	}
 
-    function getAffectedRows($useNonTransactionalConnection) {
-	return 1;
-    }
+	public function rollbackTransaction() {
+	}
+
+	public function getUniqueId($sequence) {
+		return 1;
+	}
+
+	public function getAffectedRows($useNonTransactionalConnection) {
+		return 1;
+	}
 }
 
 class RepositoryTestSearchResults {
+	public $_results;
+	public $_resultIndex;
 
-    var $_results;
-    var $_resultIndex;
+	public function __construct($results) {
+		$this->_results     = $results;
+		$this->_resultIndex = 0;
+	}
 
-    function RepositoryTestSearchResults($results) {
-	$this->_results = $results;
-	$this->_resultIndex = 0;
-    }
+	public function resultCount() {
+		return count($this->_results);
+	}
 
-    function resultCount() {
-	return count($this->_results);
-    }
+	public function nextResult() {
+		$result = $this->_resultIndex < $this->resultCount() ? $this->_results[$this->_resultIndex] : false;
+		$this->_resultIndex++;
 
-    function nextResult() {
-	$result = $this->_resultIndex < $this->resultCount() ? $this->_results[$this->_resultIndex]
-							     : false;
-	$this->_resultIndex++;
-	return $result;
-    }
+		return $result;
+	}
 }
-?>

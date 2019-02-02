@@ -26,192 +26,219 @@
  * @version $Revision: 17580 $
  */
 class ItemAdminView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		// Figure out the item we're referring to
+		list($ret, $item) = $this->getItem();
 
-	/* Figure out the item we're referring to */
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	/* Find its thumbnail */
-	list ($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (empty($thumbnailTable)) {
-	    $thumbnailData = null;
-	} else {
-	    $thumbnail = $thumbnailTable[$itemId];
-	    $thumbnailData = (array)$thumbnail;
-	}
-
-	/* Load the module list */
-	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Get a list of all the admin views for each module */
-	$subViewChoiceData = array();
-	foreach ($moduleStatus as $moduleId => $status) {
-	    if (empty($status['active'])) {
-		continue;
-	    }
-
-	    /* Get the selected module's admin view */
-	    if (in_array('getItemAdminViews', explode('|', $status['callbacks']))) {
-		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 		if ($ret) {
-		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
-			continue;
-		    }
-		    return array($ret, null);
+			return array($ret, null);
 		}
+		$itemId = $item->getId();
 
-		list ($ret, $moduleViews) = $module->getItemAdminViews($item);
+		// Find its thumbnail
+		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+
 		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
 
-		$subViewChoiceData = array_merge($subViewChoiceData, $moduleViews);
-	    }
-	}
-
-	usort($subViewChoiceData, array($this, 'sortByName'));
-
-	$subViewName = GalleryUtilities::getRequestVariables('subView');
-	if ($subViewName == 'core.ItemAdmin') {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-
-	/* Turn sub view choices into url params */
-	$subViewChoices = array();
-	foreach ($subViewChoiceData as $params) {
-	    /* Extract the view name */
-	    $name = $params['name'];
-	    unset($params['name']);
-
-	    if (isset($params['view'])) {
-		/* Move the view -> subView and set ItemAdmin as the view */
-		$params['subView'] = $params['view'];
-		$params['view'] = 'core.ItemAdmin';
-		if ($subViewName == $params['subView']) {
-		    $params['active'] = true;
+		if (empty($thumbnailTable)) {
+			$thumbnailData = null;
+		} else {
+			$thumbnail     = $thumbnailTable[$itemId];
+			$thumbnailData = (array)$thumbnail;
 		}
-	    }
 
-	    /* Set the item id if necessary */
-	    if (!isset($params['itemId'])) {
-		$params['itemId'] = $itemId;
-	    }
+		// Load the module list
+		list($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
-	    $subViewChoices[$name] = $params;
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Get a list of all the admin views for each module
+		$subViewChoiceData = array();
+
+		foreach ($moduleStatus as $moduleId => $status) {
+			if (empty($status['active'])) {
+				continue;
+			}
+
+			// Get the selected module's admin view
+			if (in_array('getItemAdminViews', explode('|', $status['callbacks']))) {
+				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
+
+				if ($ret) {
+					if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
+						continue;
+					}
+
+					return array($ret, null);
+				}
+
+				list($ret, $moduleViews) = $module->getItemAdminViews($item);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				$subViewChoiceData = array_merge($subViewChoiceData, $moduleViews);
+			}
+		}
+
+		usort($subViewChoiceData, array($this, 'sortByName'));
+
+		$subViewName = GalleryUtilities::getRequestVariables('subView');
+
+		if ($subViewName == 'core.ItemAdmin') {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
+
+		// Turn sub view choices into url params
+		$subViewChoices = array();
+
+		foreach ($subViewChoiceData as $params) {
+			// Extract the view name
+			$name = $params['name'];
+			unset($params['name']);
+
+			if (isset($params['view'])) {
+				// Move the view -> subView and set ItemAdmin as the view
+				$params['subView'] = $params['view'];
+				$params['view']    = 'core.ItemAdmin';
+
+				if ($subViewName == $params['subView']) {
+					$params['active'] = true;
+				}
+			}
+
+			// Set the item id if necessary
+			if (!isset($params['itemId'])) {
+				$params['itemId'] = $itemId;
+			}
+
+			$subViewChoices[$name] = $params;
+		}
+
+		// If we have a specific sub view, render it now
+		if (empty($subViewName) && !empty($subViewChoices)) {
+			$subViewName = 'core.ItemEdit';
+		}
+
+		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Get the type of the item
+		$itemType = $item->itemTypeName(true);
+
+		// Load the item's parents
+		list($ret, $parents) = GalleryCoreApi::fetchParents($item, 'core.view', true);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		for ($i = 0; $i < sizeof($parents); $i++) {
+			$parents[$i] = (array)$parents[$i];
+		}
+
+		list($ret, $results) = $subView->loadTemplate($template, $form);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Our sub view may have set some hints, like the encoding type
+		if ($template->hasVariable('ItemAdmin')) {
+			$ItemAdmin =& $template->getVariableByReference('ItemAdmin');
+		} else {
+			$ItemAdmin = array();
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$ItemAdmin['viewBodyFile']   = $results['body'];
+		$ItemAdmin['item']           = (array)$item;
+		$ItemAdmin['parents']        = $parents;
+		$ItemAdmin['parent']         = empty($parents) ? null : $parents[sizeof($parents) - 1];
+		$ItemAdmin['itemType']       = $itemType;
+		$ItemAdmin['thumbnail']      = $thumbnailData;
+		$ItemAdmin['subViewChoices'] = $subViewChoices;
+		$ItemAdmin['viewL10Domain']  = $subView->getL10Domain();
+		$ItemAdmin['isSiteAdmin']    = $isSiteAdmin;
+		$ItemAdmin['unsetCallback']  = function ($a, $k) {
+			unset($a[$k]);
+
+			return $a;
+		};
+
+		if (!isset($ItemAdmin['enctype'])) {
+			$ItemAdmin['enctype'] = 'application/x-www-form-urlencoded';
+		}
+
+		$template->setVariable('ItemAdmin', $ItemAdmin);
+		$template->title($module->translate('Gallery Item Administration'));
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/core/templates/ItemAdmin.tpl',
+			),
+		);
 	}
 
-	/* If we have a specific sub view, render it now */
-	if (empty($subViewName) && !empty($subViewChoices)) {
-	    $subViewName = 'core.ItemEdit';
+	public function sortByName($a, $b) {
+		return strcmp($a['name'], $b['name']);
 	}
 
-	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see GalleryView::getViewDescription
+	 */
+	public function getViewDescription() {
+		// Get the description from the current subView
+		$subViewName = GalleryUtilities::getRequestVariables('subView');
+
+		if (empty($subViewName)) {
+			$subViewName = 'core.ItemEdit';
+		}
+
+		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		list($ret, $description) = $subView->getViewDescription();
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $description);
 	}
 
-	/* Get the type of the item */
-	$itemType = $item->itemTypeName(true);
-
-	/* Load the item's parents */
-	list ($ret, $parents) = GalleryCoreApi::fetchParents($item, 'core.view', true);
-	if ($ret) {
-	    return array($ret, null);
+	/**
+	 * @see GalleryView::getViewType
+	 */
+	public function getViewType() {
+		return VIEW_TYPE_ADMIN;
 	}
-	for ($i = 0; $i < sizeof($parents); $i++) {
-	    $parents[$i] = (array)$parents[$i];
-	}
-
-	list ($ret, $results) = $subView->loadTemplate($template, $form);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Our sub view may have set some hints, like the encoding type */
-	if ($template->hasVariable('ItemAdmin')) {
-	    $ItemAdmin =& $template->getVariableByReference('ItemAdmin');
-	} else {
-	    $ItemAdmin = array();
-	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$ItemAdmin['viewBodyFile'] = $results['body'];
-	$ItemAdmin['item'] = (array)$item;
-	$ItemAdmin['parents'] = $parents;
-	$ItemAdmin['parent'] = empty($parents) ? null : $parents[sizeof($parents) - 1];
-	$ItemAdmin['itemType'] = $itemType;
-	$ItemAdmin['thumbnail'] = $thumbnailData;
-	$ItemAdmin['subViewChoices'] = $subViewChoices;
-	$ItemAdmin['viewL10Domain'] = $subView->getL10Domain();
-	$ItemAdmin['isSiteAdmin'] = $isSiteAdmin;
-	$ItemAdmin['unsetCallback'] = create_function('$a,$k', 'unset($a[$k]);return $a;');
-
-	if (!isset($ItemAdmin['enctype'])) {
-	    $ItemAdmin['enctype'] = 'application/x-www-form-urlencoded';
-	}
-
-	$template->setVariable('ItemAdmin', $ItemAdmin);
-	$template->title($module->translate('Gallery Item Administration'));
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemAdmin.tpl'));
-    }
-
-    function sortByName($a, $b) {
-	return strcmp($a['name'], $b['name']);
-    }
-
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	/* Get the description from the current subView */
-	$subViewName = GalleryUtilities::getRequestVariables('subView');
-	if (empty($subViewName)) {
-	    $subViewName = 'core.ItemEdit';
-	}
-
-	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $description) = $subView->getViewDescription();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $description);
-    }
-
-    /**
-     * @see GalleryView::getViewType
-     */
-    function getViewType() {
-	return VIEW_TYPE_ADMIN;
-    }
 }
-?>

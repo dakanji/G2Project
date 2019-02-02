@@ -28,140 +28,176 @@
  * @version $Revision: 17580 $
  */
 class AdminEventLogViewerCallbackView extends GalleryView {
-    /**
-     * @see GalleryView::isImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::isControllerLike
-     */
-    function isControllerLike() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	global $gallery;
-
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryView::isImmediate
+	 */
+	public function isImmediate() {
+		return true;
 	}
 
-	$session =& $gallery->getSession();
-	$storage =& $gallery->getStorage();
-	$platform =& $gallery->getPlatform();
-
-	$command = GalleryUtilities::getRequestVariables('command');
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryView::isControllerLike
+	 */
+	public function isControllerLike() {
+		return true;
 	}
 
-	list ($ret, $formatDateTime) = $module->getParameter('format.datetime');
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryView::renderImmediate
+	 */
+	public function renderImmediate($status = null, $error = null) {
+		global $gallery;
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$session  =& $gallery->getSession();
+		$storage  =& $gallery->getStorage();
+		$platform =& $gallery->getPlatform();
+
+		$command = GalleryUtilities::getRequestVariables('command');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $formatDateTime) = $module->getParameter('format.datetime');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$data = array();
+
+		switch ($command) {
+			case 'getRecords':
+				list($pageNumber, $pageSize) = GalleryUtilities::getRequestVariables('pageNumber', 'pageSize');
+				$pageNumber                  = (int)$pageNumber;
+
+				if (!$pageNumber) {
+					$pageNumber = 1;
+				}
+				$pageSize = (int)$pageSize;
+
+				if (!$pageSize) {
+					$pageSize = 10;
+				}
+
+				$query               = 'SELECT COUNT(*) FROM [EventLogMap]';
+				list($ret, $results) = $gallery->search($query);
+
+				if ($ret) {
+					return $ret;
+				}
+				$result       = $results->nextResult();
+				$totalRecords = $result[0];
+				$totalPages   = ceil($totalRecords / $pageSize);
+
+				list($ret, $results) = GalleryCoreApi::getMapEntry(
+					'EventLogMap',
+					array('id', 'timestamp', 'type', 'location', 'client', 'summary'),
+					array(),
+					array(
+						'limit' => array(
+							'count'  => $pageSize,
+							'offset' => ($pageNumber - 1) * $pageSize,
+						),
+						'orderBy' => array(
+							'timestamp' => ORDER_DESCENDING,
+						),
+					)
+				);
+
+				if ($ret) {
+					return $ret;
+				}
+
+				$items        = array();
+				$urlGenerator =& $gallery->getUrlGenerator();
+				$linkMessage  = $module->translate('Link');
+				$pageMessage  = $module->translate(
+					array(
+						'text' => 'Page %d of %d',
+						'arg1' => $pageNumber,
+						'arg2' => $totalPages,
+					)
+				);
+
+				while ($result = $results->nextResult()) {
+					$items[] = array(
+						'id'       => $result[0],
+						'date'     => $platform->strftime($formatDateTime, $result[1]),
+						'type'     => $result[2],
+						'location' => $result[3],
+						'client'   => $result[4],
+						'summary'  => $result[5],
+					);
+				}
+				$data = array(
+					'records'     => $items,
+					'pageMessage' => $pageMessage,
+					'totalPages'  => $totalPages,
+				);
+
+				break;
+
+			case 'getRecordDetails':
+				$id = (int)GalleryUtilities::getRequestVariables('id');
+
+				if (empty($id)) {
+					break;
+				}
+
+				list($ret, $results) = GalleryCoreApi::getMapEntry(
+					'EventLogMap',
+					array(
+						'userId',
+						'type',
+						'summary',
+						'details',
+						'location',
+						'client',
+						'timestamp',
+						'referer',
+					),
+					array(
+						'id' => $id,
+					)
+				);
+
+				if ($ret) {
+					return $ret;
+				}
+
+				if ($results->resultCount() == 0) {
+					break;
+				}
+
+				$result = $results->nextResult();
+				$data   = array(
+					'id'       => $id,
+					'userId'   => $result[0],
+					'type'     => $result[1],
+					'summary'  => $result[2],
+					'details'  => $result[3],
+					'location' => $result[4],
+					'client'   => $result[5],
+					'date'     => $platform->strftime($formatDateTime, $result[6]),
+					'referer'  => $result[7],
+				);
+
+				break;
+		}
+
+		GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+		$json = new Services_JSON();
+		echo $json->encode($data);
+
+		return null;
 	}
-
-	$data = array();
-	switch ($command) {
-	case 'getRecords':
-	    list ($pageNumber, $pageSize) =
-		GalleryUtilities::getRequestVariables('pageNumber', 'pageSize');
-	    $pageNumber = (int)$pageNumber;
-	    if (!$pageNumber) {
-		$pageNumber = 1;
-	    }
-	    $pageSize = (int)$pageSize;
-	    if (!$pageSize) {
-		$pageSize = 10;
-	    }
-
-	    $query = 'SELECT COUNT(*) FROM [EventLogMap]';
-	    list ($ret, $results) = $gallery->search($query);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $result = $results->nextResult();
-	    $totalRecords = $result[0];
-	    $totalPages = ceil($totalRecords / $pageSize);
-
-	    list ($ret, $results) = GalleryCoreApi::getMapEntry(
-		'EventLogMap',
-		array('id', 'timestamp', 'type', 'location', 'client', 'summary'),
-		array(),
-		array('limit' => array(
-			  'count' => $pageSize,
-			  'offset' => ($pageNumber - 1) * $pageSize),
-		      'orderBy' => array('timestamp' => ORDER_DESCENDING)));
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    $items = array();
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $linkMessage = $module->translate('Link');
-	    $pageMessage = $module->translate(
-		array('text' => 'Page %d of %d', 'arg1' => $pageNumber, 'arg2' => $totalPages));
-
-	    while ($result = $results->nextResult()) {
-		$items[] = array(
-		    'id' => $result[0],
-		    'date' => $platform->strftime($formatDateTime, $result[1]),
-		    'type' => $result[2],
-		    'location' => $result[3],
-		    'client' => $result[4],
-		    'summary' => $result[5]);
-	    }
-	    $data = array(
-		'records' => $items,
-		'pageMessage' => $pageMessage,
-		'totalPages' => $totalPages);
-	    break;
-
-	case 'getRecordDetails':
-	    $id = (int)GalleryUtilities::getRequestVariables('id');
-	    if (empty($id)) {
-		break;
-	    }
-
-	    list ($ret, $results) = GalleryCoreApi::getMapEntry(
-		'EventLogMap',
-		array('userId', 'type', 'summary', 'details', 'location',
-		      'client', 'timestamp', 'referer'),
-		array('id' => $id));
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    if ($results->resultCount() == 0) {
-		break;
-	    }
-
-	    $result = $results->nextResult();
-	    $data = array(
-		'id' => $id,
-		'userId' => $result[0],
-		'type' => $result[1],
-		'summary' => $result[2],
-		'details' => $result[3],
-		'location' => $result[4],
-		'client' => $result[5],
-		'date' => $platform->strftime($formatDateTime, $result[6]),
-		'referer' => $result[7]);
-	    break;
-	}
-
-	GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
-	$json = new Services_JSON();
-	print $json->encode($data);
-	return null;
-    }
 }
-?>

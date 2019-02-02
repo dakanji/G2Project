@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty strip modifier plugin
  *
@@ -23,11 +22,8 @@
  * @param string
  * @return string
  */
-function smarty_modifier_strip($text, $replace = ' ')
-{
-    return preg_replace('!\s+!', $replace, $text);
+function smarty_modifier_strip($text, $replace = ' ') {
+	return preg_replace('!\s+!', $replace, $text);
 }
 
-/* vim: set expandtab: */
-
-?>
+// vim: set expandtab:

@@ -26,26 +26,27 @@
  * @version $Revision: 17580 $
  */
 class GalleryImmediateViewTestCase extends GalleryTestCase {
-    /**
-     * The view instance
-     * @access protected
-     */
-    var $_view;
+	/**
+	 * The view instance
+	 * @access protected
+	 */
+	public $_view;
 
-    function GalleryImmediateViewTestCase($methodName, $viewName) {
-	$this->GalleryTestCase($methodName);
+	public function __construct($methodName, $viewName) {
+		parent::__construct($methodName);
 
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-	list ($ret, $this->_view) = GalleryView::loadView($viewName);
-	return $ret;
-    }
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+		list($ret, $this->_view) = GalleryView::doStatic()->loadView($viewName);
 
-    function _renderImmediate() {
-	ob_start();
-	$ret = $this->_view->renderImmediate(array(), array());
-	$results = ob_get_contents();
-	ob_end_clean();
-	return array($ret, $results);
-    }
+		return $ret;
+	}
+
+	public function _renderImmediate() {
+		ob_start();
+		$ret     = $this->_view->renderImmediate(array(), array());
+		$results = ob_get_contents();
+		ob_end_clean();
+
+		return array($ret, $results);
+	}
 }
-?>

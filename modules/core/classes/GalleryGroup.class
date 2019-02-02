@@ -40,46 +40,44 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  * @version $Revision: 17580 $
  */
 class GalleryGroup extends GalleryEntity {
+	/**
+	 * The group type
+	 * @var int
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>groupType</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <required/>
+	 * @g2 </member>
+	 */
+	public $groupType;
 
-    /**
-     * The group type
-     * @var int
-     *
-     * @g2 <member>
-     * @g2   <member-name>groupType</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <required/>
-     * @g2 </member>
-     */
-    var $groupType;
+	/**
+	 * The group name
+	 * @var string
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>groupName</member-name>
+	 * @g2   <member-type>STRING</member-type>
+	 * @g2   <member-size>MEDIUM</member-size>
+	 * @g2   <unique/>
+	 * @g2   <member-external-access>READ</member-external-access>
+	 * @g2 </member>
+	 */
+	public $groupName;
 
-    /**
-     * The group name
-     * @var string
-     *
-     * @g2 <member>
-     * @g2   <member-name>groupName</member-name>
-     * @g2   <member-type>STRING</member-type>
-     * @g2   <member-size>MEDIUM</member-size>
-     * @g2   <unique/>
-     * @g2   <member-external-access>READ</member-external-access>
-     * @g2 </member>
-     */
-    var $groupName;
+	/**
+	 * Create a new instance of this GalleryGroup in the persistent store
+	 *
+	 * @param string $groupName the name of the new group
+	 * @param int $groupType the type of group
+	 * @return GalleryStatus a status code
+	 */
+	public function create($groupName = null, $groupType = GROUP_NORMAL, $x1 = null) {
+		global $gallery;
 
-
-    /**
-     * Create a new instance of this GalleryGroup in the persistent store
-     *
-     * @param string $groupName the name of the new group
-     * @param int $groupType the type of group
-     * @return GalleryStatus a status code
-     */
-    function create($groupName, $groupType=GROUP_NORMAL) {
-	global $gallery;
-
-	/* Check to see if we have a collision */
-	$query = '
+		// Check to see if we have a collision
+		$query               = '
 	SELECT
 	  [GalleryGroup::id]
 	FROM
@@ -87,96 +85,117 @@ class GalleryGroup extends GalleryEntity {
 	WHERE
 	  [GalleryGroup::groupName] = ?
 	';
-	list ($ret, $results) =
-	    $gallery->search($query, array($groupName),
-			     array('limit' => array('count' => 1)));
-	if ($ret) {
-	    return $ret;
+		list($ret, $results) = $gallery->search(
+			$query,
+			array($groupName),
+			array(
+				'limit' => array(
+					'count' => 1,
+				),
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$result = $results->nextResult();
+
+		if ($result[0] > 0) {
+			return GalleryCoreApi::error(ERROR_COLLISION);
+		}
+
+		$ret = parent::create();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->setGroupName($groupName);
+		$this->setGroupType($groupType);
+
+		return null;
 	}
 
-	$result = $results->nextResult();
-	if ($result[0] > 0) {
-	    return GalleryCoreApi::error(ERROR_COLLISION);
+	/**
+	 * Delete this GalleryGroup.
+	 * Do some bookkeeping, like removing any user/group mappings.
+	 *
+	 * @return GalleryStatus a status code
+	 */
+	public function delete() {
+		// Don't allow to delete the special groups (admin, registered, everybody)
+		if ($this->getGroupType() != GROUP_NORMAL) {
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				'Special groups cannot be deleted!'
+			);
+		}
+
+		$ret = GalleryCoreApi::removeAllUsersFromGroup($this->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Delete all permissions from the permissions map table
+		$ret = GalleryCoreApi::removeMapEntry(
+			'GalleryAccessMap',
+			array(
+				'userOrGroupId' => $this->getId(),
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = parent::delete();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		return null;
 	}
 
-	$ret = parent::create();
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryEntity::itemTypeName
+	 */
+	public function itemTypeName($localized = true) {
+		if ($localized) {
+			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
+
+			if (!$ret) {
+				return array($core->translate('Group'), $core->translate('group'));
+			}
+		}
+
+		return array('Group', 'group');
 	}
 
-	$this->setGroupName($groupName);
-	$this->setGroupType($groupType);
-
-	return null;
-    }
-
-    /**
-     * Delete this GalleryGroup.
-     * Do some bookkeeping, like removing any user/group mappings.
-     *
-     * @return GalleryStatus a status code
-     */
-    function delete() {
-	/* Don't allow to delete the special groups (admin, registered, everybody) */
-	if ($this->getGroupType() != GROUP_NORMAL) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					 'Special groups cannot be deleted!');
+	/**
+	 * @see GalleryEntity::getClassName
+	 */
+	public function getClassName() {
+		return 'GalleryGroup';
 	}
 
-	$ret = GalleryCoreApi::removeAllUsersFromGroup($this->getId());
-	if ($ret) {
-	    return $ret;
+	public function getGroupType() {
+		return $this->groupType;
 	}
 
-	/* Delete all permissions from the permissions map table */
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'GalleryAccessMap', array('userOrGroupId' => $this->getId()));
-	if ($ret) {
-	    return $ret;
+	public function setGroupType($groupType) {
+		$this->groupType = $groupType;
 	}
 
-	$ret = parent::delete();
-	if ($ret) {
-	    return $ret;
+	public function getGroupName() {
+		return $this->groupName;
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryEntity::itemTypeName
-     */
-    function itemTypeName($localized = true) {
-	if ($localized) {
-	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret) {
-		return array($core->translate('Group'), $core->translate('group'));
-	    }
+	public function setGroupName($groupName) {
+		$this->groupName = $groupName;
 	}
-	return array('Group', 'group');
-    }
-
-    /**
-     * @see GalleryEntity::getClassName
-     */
-    function getClassName() {
-	return 'GalleryGroup';
-    }
-
-    function getGroupType() {
-	return $this->groupType;
-    }
-
-    function setGroupType($groupType) {
-	$this->groupType = $groupType;
-    }
-
-    function getGroupName() {
-	return $this->groupName;
-    }
-
-    function setGroupName($groupName) {
-	$this->groupName = $groupName;
-    }
 }
-?>

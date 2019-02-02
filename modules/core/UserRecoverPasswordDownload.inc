@@ -26,42 +26,44 @@
  * @version $Revision: 17785 $
  */
 class UserRecoverPasswordDownloadView extends GalleryView {
-
-    /**
-     * @see GalleryView::isImmediate
-     */
-    function isImmediate() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	global $gallery;
-	$session =& $gallery->getSession();
-
-	$authString = $session->get('core.UserRecoverPasswordAdminAuthKey');
-
-	if (empty($authString)) {
-	    return GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__, 
-					 'Authorization String Not Set');
+	/**
+	 * @see GalleryView::isImmediate
+	 */
+	public function isImmediate() {
+		return true;
 	}
 
-	header('Content-Type: text/plain');
-	header('Content-Length: ' . strlen($authString));
-	header('Content-Description: Download login.txt to your computer.');
-	header('Content-Disposition: attachment; filename="login.txt"');
-	print $authString;
+	/**
+	 * @see GalleryView::isAllowedInEmbedOnly
+	 */
+	public function isAllowedInEmbedOnly() {
+		return true;
+	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryView::renderImmediate
+	 */
+	public function renderImmediate($status = null, $error = null) {
+		global $gallery;
+		$session =& $gallery->getSession();
+
+		$authString = $session->get('core.UserRecoverPasswordAdminAuthKey');
+
+		if (empty($authString)) {
+			return GalleryCoreApi::error(
+				ERROR_MISSING_VALUE,
+				__FILE__,
+				__LINE__,
+				'Authorization String Not Set'
+			);
+		}
+
+		header('Content-Type: text/plain');
+		header('Content-Length: ' . strlen($authString));
+		header('Content-Description: Download authFile.txt to your computer.');
+		header('Content-Disposition: attachment; filename="authFile.txt"');
+		echo $authString;
+
+		return null;
+	}
 }
-?>

@@ -17,8 +17,7 @@
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCrypt
-{
+class JCrypt {
 	/**
 	 * Generate random bytes.
 	 *
@@ -29,23 +28,19 @@ class JCrypt
 	 * @since  12.1
 	 * @note   This method requires PHP 5
 	 */
-    function genRandomBytes($length = 16)
-    {
+	public function genRandomBytes($length = 16) {
 		$sslStr = '';
 		/*
 		 * if a secure randomness generator exists and we don't
 		 * have a buggy PHP version use it.
 		 */
-		if (
-			function_exists('openssl_random_pseudo_bytes')
+		if (function_exists('openssl_random_pseudo_bytes')
 			&& (version_compare(PHP_VERSION, '5.3.4') >= 0
-				|| substr(PHP_OS, 0, 3) !== 'WIN'
-			)
-		)
-		{
+			|| substr(PHP_OS, 0, 3) !== 'WIN')
+		) {
 			$sslStr = openssl_random_pseudo_bytes($length, $strong);
-			if ($strong)
-			{
+
+			if ($strong) {
 				return $sslStr;
 			}
 		}
@@ -54,43 +49,40 @@ class JCrypt
 		 * Collect any entropy available in the system along with a number
 		 * of time measurements of operating system randomness.
 		 */
-		$bitsPerRound = 2;
-		$maxTimeMicro = 400;
+		$bitsPerRound  = 2;
+		$maxTimeMicro  = 400;
 		$shaHashLength = 20;
-		$randomStr = '';
-		$total = $length;
+		$randomStr     = '';
+		$total         = $length;
 
 		// Check if we can use /dev/urandom.
 		$urandom = false;
-		$handle = null;
-		if (function_exists('stream_set_read_buffer') && @is_readable('/dev/urandom'))
-		{
+		$handle  = null;
+
+		if (function_exists('stream_set_read_buffer') && @is_readable('/dev/urandom')) {
 			$handle = @fopen('/dev/urandom', 'rb');
-			if ($handle)
-			{
+
+			if ($handle) {
 				$urandom = true;
 			}
 		}
 
-		while ($length > strlen($randomStr))
-		{
-			$bytes = ($total > $shaHashLength)? $shaHashLength : $total;
+		while ($length > strlen($randomStr)) {
+			$bytes  = ($total > $shaHashLength) ? $shaHashLength : $total;
 			$total -= $bytes;
 			/*
 			 * Collect any entropy available from the PHP system and filesystem.
 			 * If we have ssl data that isn't strong, we use it once.
 			 */
-			$entropy = rand() . uniqid(mt_rand(), true) . $sslStr;
-			$entropy .= implode('', @fstat(fopen( __FILE__, 'r')));
+			$entropy  = mt_rand() . uniqid(mt_rand(), true) . $sslStr;
+			$entropy .= implode('', @fstat(fopen(__FILE__, 'r')));
 			//$entropy .= memory_get_usage();
 			$sslStr = '';
-			if ($urandom)
-			{
+
+			if ($urandom) {
 				stream_set_read_buffer($handle, 0);
 				$entropy .= @fread($handle, $bytes);
-			}
-			else
-			{
+			} else {
 				/*
 				 * There is no external source of entropy so we repeat calls
 				 * to mt_rand until we are assured there's real randomness in
@@ -98,18 +90,19 @@ class JCrypt
 				 *
 				 * Measure the time that the operations will take on average.
 				 */
-				$samples = 3;
+				$samples  = 3;
 				$duration = 0;
-				for ($pass = 0; $pass < $samples; ++$pass)
-				{
+
+				for ($pass = 0; $pass < $samples; ++$pass) {
 					$microStart = microtime(true) * 1000000;
-					$hash = sha1(mt_rand());
-					for ($count = 0; $count < 50; ++$count)
-					{
+					$hash       = sha1(mt_rand());
+
+					for ($count = 0; $count < 50; ++$count) {
 						$hash = sha1($hash);
 					}
 					$microEnd = microtime(true) * 1000000;
 					$entropy .= $microStart . $microEnd;
+
 					if ($microStart > $microEnd) {
 						$microEnd += 1000000;
 					}
@@ -127,13 +120,13 @@ class JCrypt
 				 * Take additional measurements. On average we can expect
 				 * at least $bitsPerRound bits of entropy from each measurement.
 				 */
-				$iter = $bytes * (int) ceil(8 / $bitsPerRound);
-				for ($pass = 0; $pass < $iter; ++$pass)
-				{
+				$iter = $bytes * (int)ceil(8 / $bitsPerRound);
+
+				for ($pass = 0; $pass < $iter; ++$pass) {
 					$microStart = microtime(true);
-					$hash = sha1(mt_rand());
-					for ($count = 0; $count < $rounds; ++$count)
-					{
+					$hash       = sha1(mt_rand());
+
+					for ($count = 0; $count < $rounds; ++$count) {
 						$hash = sha1($hash);
 					}
 					$entropy .= $microStart . microtime(true);
@@ -143,8 +136,7 @@ class JCrypt
 			$randomStr .= sha1($entropy);
 		}
 
-		if ($urandom)
-		{
+		if ($urandom) {
 			@fclose($handle);
 		}
 

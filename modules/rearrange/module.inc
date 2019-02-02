@@ -26,85 +26,96 @@
  * @version $Revision: 18172 $
  */
 class RearrangeModule extends GalleryModule {
-
-    function RearrangeModule() {
-	global $gallery;
-	$this->setId('rearrange');
-	$this->setName($gallery->i18n('Rearrange'));
-	$this->setDescription($gallery->i18n('Rearrange the order of album items all at once'));
-	$this->setVersion('1.0.9');
-	$this->_templateVersion = 1;
-	$this->setGroup('gallery', $gallery->i18n('Gallery'));
-	$this->setCallbacks('getItemLinks|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 9));
-    }
-
-    /**
-     * @see GalleryModule::getItemLinks
-     */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
-	$links = array();
-
-	$itemIds = array();
-	foreach ($items as $item) {
-	    if ($item->getCanContainChildren()) {
-		$itemIds[] = $item->getId();
-	    }
+	public function __construct() {
+		global $gallery;
+		$this->setId('rearrange');
+		$this->setName($gallery->i18n('Rearrange'));
+		$this->setDescription($gallery->i18n('Rearrange the order of album items all at once'));
+		$this->setVersion('1.0.9');
+		$this->_templateVersion = 1;
+		$this->setGroup('gallery', $gallery->i18n('Gallery'));
+		$this->setCallbacks('getItemLinks|getItemAdminViews');
+		$this->setRequiredCoreApi(array(7, 27));
+		$this->setRequiredModuleApi(array(3, 9));
 	}
-	if (!empty($itemIds)) {
-	    /*
-	     * This doesn't obey the acting user id, but that's ok because we only use it to
-	     * determine if the link has children.  We're still gated on the acting user id's
-	     * permissions.
-	     */
-	    list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
-	    if ($ret) {
-		return array($ret, null);
-	    }
 
-	    foreach ($itemIds as $itemId) {
-		if (isset($wantsDetailedLinks[$itemId])) {
-		    if (isset($permissions[$itemId]['core.edit']) &&
-			!empty($childCounts[$itemId]) && $childCounts[$itemId] > 1) {
-			$links[$itemId][] =
-			    array('text' => $this->translate('Rearrange Items'),
-				  'params' => array('view' => 'core.ItemAdmin',
-						    'subView' => 'rearrange.RearrangeItems',
-						    'itemId' => $itemId, 'return' => 1));
-		    }
+	/**
+	 * @see GalleryModule::getItemLinks
+	 */
+	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
+		$links = array();
+
+		$itemIds = array();
+
+		foreach ($items as $item) {
+			if ($item->getCanContainChildren()) {
+				$itemIds[] = $item->getId();
+			}
 		}
-	    }
+
+		if (!empty($itemIds)) {
+			/*
+			 * This doesn't obey the acting user id, but that's ok because we only use it to
+			 * determine if the link has children.  We're still gated on the acting user id's
+			 * permissions.
+			 */
+			list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			foreach ($itemIds as $itemId) {
+				if (isset($wantsDetailedLinks[$itemId])) {
+					if (isset($permissions[$itemId]['core.edit'])
+						&& !empty($childCounts[$itemId]) && $childCounts[$itemId] > 1
+					) {
+						$links[$itemId][] = array(
+							'text'   => $this->translate('Rearrange Items'),
+							'params' => array(
+								'view'    => 'core.ItemAdmin',
+								'subView' => 'rearrange.RearrangeItems',
+								'itemId'  => $itemId,
+								'return'  => 1,
+							),
+						);
+					}
+				}
+			}
+		}
+
+		return array(null, $links);
 	}
 
-	return array(null, $links);
-    }
+	/**
+	 * @see GalleryModule::getItemAdminViews
+	 */
+	public function getItemAdminViews($item) {
+		$views = array();
 
-    /**
-     * @see GalleryModule::getItemAdminViews
-     */
-    function getItemAdminViews($item) {
-	$views = array();
-	if (!$item->getCanContainChildren()) {
-	    return array(null, $views);
-	}
+		if (!$item->getCanContainChildren()) {
+			return array(null, $views);
+		}
 
-	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
+		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
-	if (isset($permissions['core.edit']) && $childCount > 1) {
-	    $views[] = array('name' => $this->translate('Rearrange Items'),
-			     'view' => 'rearrange.RearrangeItems');
-	}
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
 
-	return array(null, $views);
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
+		$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
+
+		if (isset($permissions['core.edit']) && $childCount > 1) {
+			$views[] = array(
+				'name' => $this->translate('Rearrange Items'),
+				'view' => 'rearrange.RearrangeItems',
+			);
+		}
+
+		return array(null, $views);
+	}
 }
-?>

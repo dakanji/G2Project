@@ -28,52 +28,63 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  * @version $Revision: 17580 $
  */
 class FlushTemplatesTask extends MaintenanceTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-	$info['l10Domain'] = 'modules_core';
-	$info['title'] = $gallery->i18n('Delete template cache');
-	$info['description'] = $gallery->i18n(
-	    'Gallery compiles template files and saves them for increased performance.  If you\''
-	    . 're experiencing problems that say <i>Smarty error</i> then you might try running '
-	    . 'this task.  Also run this if you add or remove any local/*.tpl or theme override '
-	    . 'so Smarty will find the right file.');
-	return $info;
-    }
+		$info['l10Domain']   = 'modules_core';
+		$info['title']       = $gallery->i18n('Delete template cache');
+		$info['description'] = $gallery->i18n(
+			'Gallery compiles template files and saves them for increased performance.  If you'
+			. 'are experiencing problems that say <i>Smarty error</i> then you might try running '
+			. 'this task.  Also run this if you add or remove any local/*.tpl or theme override '
+			. 'so Smarty will find the right file.'
+		);
 
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$dir = $gallery->getConfig('data.smarty.templates_c');
-	$success = true;
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
+		return $info;
 	}
 
-	if ($platform->file_exists($dir)) {
-	    $success = $platform->recursiveRmdir($dir);
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
+		$dir      = $gallery->getConfig('data.smarty.templates_c');
+		$success  = true;
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		if ($platform->file_exists($dir)) {
+			$success = $platform->recursiveRmdir($dir);
+		}
+
+		// Clear UrlGenerator's /local/ URL map, somewhat related to templates/theming
+		GalleryDataCache::removeFromDisk(
+			array(
+				'type' => 'local-url-map',
+			)
+		);
+
+		$details = array();
+
+		if ($success) {
+			$details[] = $module->translate('Template cache deleted successfully');
+		} else {
+			$details[] = $module->translate(
+				array(
+					'text' => 'Unable to delete directory: %s',
+					'arg1' => $dir,
+				)
+			);
+		}
+
+		return array(null, $success, $details);
 	}
-
-	/* Clear UrlGenerator's /local/ URL map, somewhat related to templates/theming */
-	GalleryDataCache::removeFromDisk(array('type' => 'local-url-map'));
-
-	$details = array();
-	if ($success) {
-	    $details[] = $module->translate('Template cache deleted successfully');
-	} else {
-	    $details[] = $module->translate(
-		array('text' => 'Unable to delete directory: %s', 'arg1' => $dir));
-	}
-
-	return array(null, $success, $details);
-    }
 }
-?>

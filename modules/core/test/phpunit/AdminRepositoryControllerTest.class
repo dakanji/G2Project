@@ -26,151 +26,198 @@
  * @version $Revision: 17580 $
  */
 class AdminRepositoryControllerTest extends GalleryControllerTestCase {
+	public $_galleryTemplateAdapter;
 
-    var $_galleryTemplateAdapter;
-
-    function AdminRepositoryControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'core.AdminRepository');
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-	global $gallery;
-
-	$this->_originalSession = $gallery->_session;
-	$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
-    }
-
-    function tearDown() {
-	global $gallery;
-	$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
-	$gallery->_session = $this->_originalSession;
-	
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
-
-    function testUpdateIndex() {
-	global $gallery;
-	GalleryUtilities::putRequestVariable('form[action][update]', 1);
-
-	$mockAdapter = new MockTemplateAdapter();
-	$gallery->_templateAdapter =& $mockAdapter;
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
-
-	/* Assert that we have 1 callback in the queue */
-	$this->assertEquals(1, $mockAdapter->getCallbackCount());
-
-	$callback = $mockAdapter->getCallback(0);
-	$this->assertEquals(array($this->_controller, 'updatePluginStatus'), $callback[0]);
-    }
-
-    function testSaveRepositories() {
-	global $gallery;
-	GalleryUtilities::putRequestVariable('form[repositories][released]', 1);
-	GalleryUtilities::putRequestVariable(
-	    'form[repositories][experimental]', '<script>something malicious</script>');
-	GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
-	GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
-	GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
-	GalleryUtilities::putRequestVariable('form[action][update]', 1);
-
-	$this->_markPluginParametersForCleanup('module', 'core');
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'core', 'core.repositories', serialize(array()));
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core.AdminRepository');
 	}
 
-	$mockAdapter = new MockTemplateAdapter();
-	$gallery->_templateAdapter =& $mockAdapter;
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		if ($ret) {
+			return $ret;
+		}
+		global $gallery;
 
-	list ($ret, $data) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'core.repositories');
-	if ($ret) {
-	    return $ret;
+		$this->_originalSession        = $gallery->_session;
+		$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
 	}
 
-	$this->assertEquals(array('released' => 1, 'community' => 1, 'experimental' => 1),
-			    unserialize($data));
-    }
+	public function tearDown() {
+		global $gallery;
+		$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
+		$gallery->_session         = $this->_originalSession;
 
-    function testUpgradeAllNoUpgradeAvailable() {
-	GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+		$ret = parent::tearDown();
 
-	$repository = new UnitTestRepository();
-	$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
-	$this->_controller->_repositories['test'] = $repository;
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+	}
 
-	/* Test case when no upgradeable packages exist. */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminRepository'),
-				  'status' => array('noUpgradeAvailable' => 1),
-				  'error' => array()),
-			    $results);
-    }
+	public function testUpdateIndex() {
+		global $gallery;
+		GalleryUtilities::putRequestVariable('form[action][update]', 1);
 
-    function testUpgradeAll() {
-	GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+		$mockAdapter               = new MockTemplateAdapter();
+		$gallery->_templateAdapter =& $mockAdapter;
 
-	$packages = array(
-	    'module' => array('testModule' => array('package1' => 1, 'lang-en_US' => 1)));
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'core.ProgressBar',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
 
-	$repository = new UnitTestRepository();
-	$repository->setReply('getAllUpgradeablePackages', array(), array(null, $packages));
-	$this->_controller->_repositories['test'] = $repository;
+		// Assert that we have 1 callback in the queue
+		$this->assertEquals(1, $mockAdapter->getCallbackCount());
 
-	/* Test case when some packages are upgradeable. */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
+		$callback = $mockAdapter->getCallback(0);
+		$this->assertEquals(array($this->_controller, 'updatePluginStatus'), $callback[0]);
+	}
 
-	/*
-	 * We don't test the download process itself here, because it shares
-	 * the general download code path that is tested in testDownload.
-	 */
-    }
+	public function testSaveRepositories() {
+		global $gallery;
+		GalleryUtilities::putRequestVariable('form[repositories][released]', 1);
+		GalleryUtilities::putRequestVariable(
+			'form[repositories][experimental]',
+			'<script>something malicious</script>'
+		);
+		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
+		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
+		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
+		GalleryUtilities::putRequestVariable('form[action][update]', 1);
+
+		$this->_markPluginParametersForCleanup('module', 'core');
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'core',
+			'core.repositories',
+			serialize(array())
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$mockAdapter               = new MockTemplateAdapter();
+		$gallery->_templateAdapter =& $mockAdapter;
+
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'core.ProgressBar',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+
+		list($ret, $data) = GalleryCoreApi::getPluginParameter('module', 'core', 'core.repositories');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				'released'     => 1,
+				'community'    => 1,
+				'experimental' => 1,
+			),
+			unserialize($data)
+		);
+	}
+
+	public function testUpgradeAllNoUpgradeAvailable() {
+		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+
+		$repository = new UnitTestRepository();
+		$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
+		$this->_controller->_repositories['test'] = $repository;
+
+		// Test case when no upgradeable packages exist.
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminRepository',
+				),
+				'status' => array(
+					'noUpgradeAvailable' => 1,
+				),
+				'error' => array(),
+			),
+			$results
+		);
+	}
+
+	public function testUpgradeAll() {
+		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+
+		$packages = array(
+			'module' => array(
+				'testModule' => array(
+					'package1'   => 1,
+					'lang-en_US' => 1,
+				),
+			),
+		);
+
+		$repository = new UnitTestRepository();
+		$repository->setReply('getAllUpgradeablePackages', array(), array(null, $packages));
+		$this->_controller->_repositories['test'] = $repository;
+
+		// Test case when some packages are upgradeable.
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'delegate' => array(
+					'view' => 'core.ProgressBar',
+				),
+				'status' => array(),
+				'error'  => array(),
+			),
+			$results
+		);
+
+		/*
+		 * We don't test the download process itself here, because it shares
+		 * the general download code path that is tested in testDownload.
+		 */
+	}
 }
 
 class AdminRepositoryControllerTestUrlGenerator {
-    function generateUrl($params=array(), $options=array()) {
-	$buf = array();
-	foreach ($params as $key => $value) {
-	    $buf[] = "$key=$value";
+	public function generateUrl($params = array(), $options = array()) {
+		$buf = array();
+
+		foreach ($params as $key => $value) {
+			$buf[] = "$key=$value";
+		}
+
+		return implode(',', $buf);
 	}
-	return implode(',', $buf);
-    }
 }
 
 
 class AdminRepositoryControllerTestSession extends GallerySession {
-    var $_testStatus;
+	public $_testStatus;
 
-    function putStatus($statusData) {
-	$this->_testStatus = $statusData;
-    }
+	public function putStatus($statusData) {
+		$this->_testStatus = $statusData;
+	}
 
-    function getStatus($remove=true) {
-	return empty($this->_testStatus) ? false : array_pop($this->_testStatus);
-    }
+	public function getStatus($remove = true) {
+		return empty($this->_testStatus) ? false : array_pop($this->_testStatus);
+	}
 }
-?>

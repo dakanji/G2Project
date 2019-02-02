@@ -28,66 +28,76 @@
  * @static
  */
 class GalleryEventLogHelper_medium {
-
-    /**
-     * @see GalleryCoreApi::addEventLogEntry
-     */
-    function addEventLogEntry($type, $summary, $details) {
-	global $gallery;
-	$phpVm = $gallery->getPhpVm();
-	$storage =& $gallery->getStorage();
-	$urlGenerator =& $gallery->getUrlGenerator();
-
-	/** @todo make the log size configurable */
-	$logSize = 1000;
-
-	/*
-	 * We update the event log table in a round robin fashion so that we have a max of
-	 * $logSize rows at any given time.  When a new row comes in, first try overwriting an
-	 * existing row, and if that fails because the row didn't exist, insert a new row.
+	/**
+	 * @see GalleryCoreApi::addEventLogEntry
 	 */
+	public static function addEventLogEntry($type, $summary, $details) {
+		global $gallery;
+		$phpVm        = $gallery->getPhpVm();
+		$storage      =& $gallery->getStorage();
+		$urlGenerator =& $gallery->getUrlGenerator();
 
-	list ($ret, $sequenceId) = $storage->getUniqueId(DATABASE_SEQUENCE_EVENT_LOG);
-	if ($ret) {
-	    return $ret;
+		/** @todo make the log size configurable */
+		$logSize = 1000;
+
+		/*
+		 * We update the event log table in a round robin fashion so that we have a max of
+		 * $logSize rows at any given time.  When a new row comes in, first try overwriting an
+		 * existing row, and if that fails because the row didn't exist, insert a new row.
+		 */
+
+		list($ret, $sequenceId) = $storage->getUniqueId(DATABASE_SEQUENCE_EVENT_LOG);
+
+		if ($ret) {
+			return $ret;
+		}
+		$id = $sequenceId % $logSize;
+
+		$requestVariables = GalleryUtilities::getAllRequestVariables();
+
+		if (!empty($requestVariables)) {
+			$details .= "\nRequest variables: " . print_r($requestVariables, true);
+		}
+
+		$rowData = array(
+			'userId'    => $gallery->getActiveUserId(),
+			'type'      => $type,
+			'summary'   => $summary,
+			'details'   => $details,
+			'location'  => $urlGenerator->getCurrentUrl(),
+			'client'    => GalleryUtilities::getRemoteHostAddress(),
+			'timestamp' => $phpVm->time(),
+			'referer'   => GalleryUtilities::getServerVar('HTTP_REFERER'),
+		);
+
+		$ret = GalleryCoreApi::updateMapEntry(
+			'EventLogMap',
+			array(
+				'id' => $id,
+			),
+			$rowData,
+			true
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $affectedRows) = $storage->getAffectedRows(true);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if ($affectedRows == 0) {
+			$rowData['id'] = $id;
+			$ret           = GalleryCoreApi::addMapEntry('EventLogMap', $rowData, true);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		return null;
 	}
-	$id = $sequenceId % $logSize;
-
-	$requestVariables = GalleryUtilities::getAllRequestVariables();
-	if (!empty($requestVariables)) {
-	    $details .= "\nRequest variables: " . print_r($requestVariables, true);
-	}
-
-	$rowData = array(
-	    'userId' => $gallery->getActiveUserId(),
-	    'type' => $type,
-	    'summary' => $summary,
-	    'details' => $details,
-	    'location' => $urlGenerator->getCurrentUrl(),
-	    'client' => GalleryUtilities::getRemoteHostAddress(),
-	    'timestamp' => $phpVm->time(),
-	    'referer' => GalleryUtilities::getServerVar('HTTP_REFERER'));
-
-	$ret = GalleryCoreApi::updateMapEntry(
-	    'EventLogMap', array('id' => $id), $rowData, true);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $affectedRows) = $storage->getAffectedRows(true);
-	if ($ret) {
-	    return $ret;
-	}
-
-	if ($affectedRows == 0) {
-	    $rowData['id'] = $id;
-	    $ret = GalleryCoreApi::addMapEntry('EventLogMap', $rowData, true);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	return null;
-    }
 }
-?>

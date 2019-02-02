@@ -26,273 +26,362 @@
  * @version $Revision: 17580 $
  */
 class PluginParameterTest extends GalleryTestCase {
-
-    function PluginParameterTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName);
 	}
 
-	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return ($ret);
+	public function setUp($x1 = null) {
+		$ret = parent::setUp();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
+
+		if ($ret) {
+			echo $ret->getAsHtml();
+
+			return $ret;
+		}
+
+		$this->_markForCleanup($this->_parentAlbum);
 	}
 
-	$this->_markForCleanup($this->_parentAlbum);
-    }
+	public function tearDown() {
+		$ret = GalleryCoreApi::removeAllPluginParameters('module', 'unitTestModule');
 
-    function tearDown() {
-	$ret = GalleryCoreApi::removeAllPluginParameters('module', 'unitTestModule');
-	if ($ret) {
-	    $this->failWithStatus($ret);
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
+
+		$ret = parent::tearDown();
+
+		if ($ret) {
+			$this->failWithStatus($ret);
+		}
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
+	public function testAddParameter() {
+		global $gallery;
+		$key   = 'testParameter';
+		$value = 'testValue';
 
-    function testAddParameter() {
-	global $gallery;
-	$key = 'testParameter';
-	$value = 'testValue';
+		$ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', $key, $value);
 
-	$ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', $key, $value);
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	list ($ret, $newValue) =
-	    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
-	if ($ret) {
-	    return $ret;
-	}
+		list($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
 
-	$this->assertEquals($value, $newValue);
+		if ($ret) {
+			return $ret;
+		}
 
-	/* Reset the cache and try again */
-	GalleryDataCache::reset();
+		$this->assertEquals($value, $newValue);
 
-	list ($ret, $newValue) =
-	    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
-	if ($ret) {
-	    return $ret;
+		// Reset the cache and try again
+		GalleryDataCache::reset();
+
+		list($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals($value, $newValue);
 	}
 
-	$this->assertEquals($value, $newValue);
-    }
+	public function testUpdateParameter() {
+		global $gallery;
+		$key   = 'testParameter';
+		$value = 'testValue';
 
-    function testUpdateParameter() {
-	global $gallery;
-	$key = 'testParameter';
-	$value = 'testValue';
+		for ($i = 0; $i < 3; $i++) {
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'unitTestModule',
+				$key,
+				"${value}-$i"
+			);
 
-	for ($i = 0; $i < 3; $i++) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule',
-						      $key, "${value}-$i");
-	    if ($ret) {
-		return $ret;
-	    }
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		list($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals("${value}-2", $newValue);
 	}
 
-	list ($ret, $newValue) =
-	    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
-	if ($ret) {
-	    return $ret;
+	public function testFetchAllParameters() {
+		global $gallery;
+		$key   = 'testParameter';
+		$value = 'testValue';
+
+		for ($i = 0; $i < 3; $i++) {
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'unitTestModule',
+				"${key}-$i",
+				"${value}-$i"
+			);
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		list($ret, $newValues) = GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		for ($i = 0; $i < 3; $i++) {
+			$this->assertEquals("${value}-$i", $newValues["${key}-$i"]);
+		}
 	}
 
-	$this->assertEquals("${value}-2", $newValue);
-    }
+	public function testAddItemParameters() {
+		global $gallery;
+		$key   = 'testParameter';
+		$value = 'testValue';
 
-    function testFetchAllParameters() {
-	global $gallery;
-	$key = 'testParameter';
-	$value = 'testValue';
+		for ($i = 0; $i < 3; $i++) {
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'unitTestModule',
+				$key,
+				"${value}-$i",
+				$i
+			);
 
-	for ($i = 0; $i < 3; $i++) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule',
-						      "${key}-$i", "${value}-$i");
-	    if ($ret) {
-		return $ret;
-	    }
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		for ($i = 0; $i < 3; $i++) {
+			list($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, $i);
+
+			if ($ret) {
+				return $ret;
+			}
+
+			$this->assertEquals("${value}-$i", $newValue);
+		}
 	}
 
-	list ($ret, $newValues) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule');
-	if ($ret) {
-	    return $ret;
+	public function testCleanupAfterDeleteEntity() {
+		list($ret, $album) = $this->_createRandomAlbum($this->_parentAlbum->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'unitTestModule',
+			'foo',
+			'bar',
+			$album->getId()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule', $album->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(array(), $params);
 	}
 
-	for ($i = 0; $i < 3; $i++) {
-	    $this->assertEquals("${value}-$i", $newValues["${key}-$i"]);
-	}
-    }
+	public function testRemovePluginParameterByValue() {
+		$beforeArray = array(
+			'0' => 'bar',
+			'1' => 'bar',
+			'2' => 'baz',
+			'3' => 'blat',
+		);
 
-    function testAddItemParameters() {
-	global $gallery;
-	$key = 'testParameter';
-	$value = 'testValue';
+		foreach ($beforeArray as $item => $val) {
+			// Set test parameters
+			$ret = GalleryCoreApi::setPluginParameter(
+				'module',
+				'unitTestModule',
+				'foo1',
+				$val,
+				$item
+			);
 
-	for ($i = 0; $i < 3; $i++) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule',
-						      $key, "${value}-$i", $i);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
+			if ($ret) {
+				return $ret;
+			}
 
-	for ($i = 0; $i < 3; $i++) {
-	    list ($ret, $newValue) =
-		GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, $i);
-	    if ($ret) {
-		return $ret;
-	    }
+			// Verify that parameters were set
+			list($ret, $param) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', 'foo1', $item);
 
-	    $this->assertEquals("${value}-$i", $newValue);
-	}
-    }
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
+		}
 
+		// Remove all 'foo1' => 'bar' pairs
+		$ret = GalleryCoreApi::removePluginParameterByValue(
+			'module',
+			'unitTestModule',
+			'foo1',
+			'bar'
+		);
 
-    function testCleanupAfterDeleteEntity() {
-	list ($ret, $album) = $this->_createRandomAlbum($this->_parentAlbum->getId());
-	if ($ret) {
-	    return $ret;
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	$ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule',
-						  'foo', 'bar', $album->getId());
-	if ($ret) {
-	    return $ret;
-	}
+		// Verify that 'foo1' => 'bar' is deleted and other values remain
+		$afterArray = array(
+			'0' => null,
+			'1' => null,
+			'2' => 'baz',
+			'3' => 'blat',
+		);
 
-	$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
-	}
+		foreach ($afterArray as $item => $val) {
+			list($ret, $param) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', 'foo1', $item);
 
-	list ($ret, $params) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule', $album->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array(), $params);
-    }
-
-    function testRemovePluginParameterByValue() {
-
-	$beforeArray = array('0' => 'bar', '1' => 'bar', '2' => 'baz', '3' => 'blat');
-	foreach ($beforeArray as $item => $val) {
-	    /* Set test parameters */
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule',
-						      'foo1', $val, $item);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    /* Verify that parameters were set */
-	    list ($ret, $param) =
-		    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', 'foo1', $item);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
+			if ($ret) {
+				return $ret;
+			}
+			$this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
+		}
 	}
 
-	/* Remove all 'foo1' => 'bar' pairs */
-	$ret = GalleryCoreApi::removePluginParameterByValue('module', 'unitTestModule',
-							    'foo1', 'bar');
-	if ($ret) {
-	    return $ret;
+	public function testAddPluginParameterFieldTypes() {
+		global $gallery;
+		$gallery->_storage = new PluginParameterTestMockStorage($this);
+
+		// Prevent a db query by mocking up some GDC data
+		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, foo, 2)';
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'none' => '',
+			)
+		);
+
+		// the API should cast it to type string
+		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 99, 2);
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'none' => '',
+			)
+		);
+		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '99', 2);
 	}
 
-	/* Verify that 'foo1' => 'bar' is deleted and other values remain */
-	$afterArray = array('0' => null, '1' => null, '2' => 'baz', '3' => 'blat');
-	foreach ($afterArray as $item => $val) {
-	    list ($ret, $param) =
-		    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', 'foo1', $item);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
+	public function testUpdatePluginParameterFieldTypes() {
+		global $gallery;
+		$gallery->_storage = new PluginParameterTestMockStorage($this);
+
+		// Prevent a db query by mocking up some GDC data
+		$cacheKey = 'GalleryPluginHelper::fetchAllParameters(module, foo, 3)';
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'bar' => 'old value',
+			)
+		);
+
+		// the API should cast it to type string
+		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 55, 3);
+		GalleryDataCache::put(
+			$cacheKey,
+			array(
+				'bar' => 'old value',
+			)
+		);
+		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '55', 3);
 	}
-    }
-
-    function testAddPluginParameterFieldTypes() {
-	global $gallery;
-	$gallery->_storage = new PluginParameterTestMockStorage($this);
-	/* Prevent a db query by mocking up some GDC data */
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, foo, 2)";
-	GalleryDataCache::put($cacheKey, array('none' => ''));
-	/* the API should cast it to type string */
-	GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 99, 2);
-	GalleryDataCache::put($cacheKey, array('none' => ''));
-	GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '99', 2);
-    }
-
-    function testUpdatePluginParameterFieldTypes() {
-	global $gallery;
-	$gallery->_storage = new PluginParameterTestMockStorage($this);
-	/* Prevent a db query by mocking up some GDC data */
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters(module, foo, 3)";
-	GalleryDataCache::put($cacheKey, array('bar' => 'old value'));
-	/* the API should cast it to type string */
-	GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', 55, 3);
-	GalleryDataCache::put($cacheKey, array('bar' => 'old value'));
-	GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '55', 3);
-    }
 }
 
 class PluginParameterTestMockStorage {
-    var $_testCase;
+	public $_testCase;
 
-    function PluginParameterTestMockStorage(&$testCase) {
-	$this->_testCase =& $testCase;
-    }
-
-    function addMapEntry($map, $entry) {
-	$tc =& $this->_testCase;
-	/* Make sure all fields but the itemId are of type string */
-	foreach (array('pluginType' => 'module',
-		       'pluginId' => 'foo',
-		       'itemId' => 2,
-		       'parameterName' => 'bar',
-		       'parameterValue' => '99')
-		 as $field => $value) {
-	    $tc->assert(!empty($entry[$field]), "check if field $field is specified");
-	    /* assertEquals checks with === (including type) */
-	    $tc->assertEquals($value, $entry[$field],
-					   "type / value '$value' for field $field");
+	public function __construct(&$testCase) {
+		$this->_testCase =& $testCase;
 	}
-	$tc->assertEquals('GalleryPluginParameterMap', $map, "map name");
-	return null;
-    }
 
-    function updateMapEntry($map, $match, $change) {
-	$tc =& $this->_testCase;
-	foreach (array('pluginType' => 'module',
-		       'pluginId' => 'foo',
-		       'itemId' => 3,
-		       'parameterName' => 'bar')
-		 as $field => $value) {
-	    $tc->assert(!empty($match[$field]), "check if field $field is specified");
-	    $tc->assertEquals($value, $match[$field],
-					   "type/value '$value' for field $field");
+	public function isTransactional() {
+		return true;
 	}
-	$tc->assertEquals('GalleryPluginParameterMap', $map, 'map name');
-	$tc->assert(!empty($change['parameterValue']), 'parameterValue must be set');
-	$tc->assertEquals('55', $change['parameterValue'], 'type of parameterValue');
-	return null;
-    }
 
-    function removeMapEntry($map, $match) {
-	return null;
-    }
+	public function addMapEntry($map, $entry) {
+		$tc =& $this->_testCase;
+
+		// Make sure all fields but the itemId are of type string
+		foreach (array(
+			'pluginType' => 'module',
+			'pluginId' => 'foo',
+			'itemId'   => 2,
+			'parameterName' => 'bar',
+			'parameterValue' => '99',
+		) as $field => $value) {
+			$tc->assertTrue(!empty($entry[$field]), "check if field $field is specified");
+			// assertEquals checks with === (including type)
+			$tc->assertEquals(
+				$value,
+				$entry[$field],
+				"type / value '$value' for field $field"
+			);
+		}
+		$tc->assertEquals('GalleryPluginParameterMap', $map, 'map name');
+
+		return null;
+	}
+
+	public function updateMapEntry($map, $match, $change) {
+		$tc =& $this->_testCase;
+
+		foreach (array(
+			'pluginType' => 'module',
+			'pluginId' => 'foo',
+			'itemId'   => 3,
+			'parameterName' => 'bar',
+		) as $field => $value) {
+			$tc->assertTrue(!empty($match[$field]), "check if field $field is specified");
+			$tc->assertEquals(
+				$value,
+				$match[$field],
+				"type/value '$value' for field $field"
+			);
+		}
+		$tc->assertEquals('GalleryPluginParameterMap', $map, 'map name');
+		$tc->assertTrue(!empty($change['parameterValue']), 'parameterValue must be set');
+		$tc->assertEquals('55', $change['parameterValue'], 'type of parameterValue');
+
+		return null;
+	}
+
+	public function removeMapEntry($map, $match) {
+		return null;
+	}
 }
-?>

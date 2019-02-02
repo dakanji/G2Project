@@ -26,122 +26,136 @@
  * @version $Revision: 17580 $
  */
 class DeleteCommentController extends GalleryController {
+	/**
+	 * @see GalleryController::handleRequest
+	 */
+	public function handleRequest($form) {
+		global $gallery;
 
-    /**
-     * @see GalleryController::handleRequest
-     */
-    function handleRequest($form) {
-	global $gallery;
+		list($ret, $item) = $this->getItem();
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+		$itemId = $item->getId();
+
+		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
+
+		// Make sure we have permission to delete a comment
+		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.delete');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$status = array();
+		$error  = array();
+
+		if (isset($form['action']['delete'])) {
+			// Delete the comment
+			list($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			// Make sure that the comment<->parent relationship is right
+			if ($comment->getParentId() != $itemId) {
+				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+			}
+
+			$ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$redirect['view']   = 'comment.CommentChangeConfirmation';
+			$redirect['itemId'] = $itemId;
+			$status['deleted']  = 1;
+		} elseif (isset($form['action']['cancel'])) {
+			// Where to go on a cancel?  Go to item admin.
+			$redirect['view']   = 'core.ShowItem';
+			$redirect['itemId'] = (int)$itemId;
+		}
+
+		$results = array();
+
+		if (!empty($redirect)) {
+			$results['redirect'] = $redirect;
+		} else {
+			$results['delegate']['view']    = 'core.ItemAdmin';
+			$results['delegate']['subView'] = 'comment.DeleteComment';
+		}
+		$results['status'] = $status;
+		$results['error']  = $error;
+
+		return array(null, $results);
 	}
-	$itemId = $item->getId();
-
-	$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
-
-	/* Make sure we have permission to delete a comment */
-	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.delete');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$status = array();
-	$error = array();
-	if (isset($form['action']['delete'])) {
-	    /* Delete the comment */
-	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    /* Make sure that the comment<->parent relationship is right */
-	    if ($comment->getParentId() != $itemId) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	    }
-
-	    $ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $redirect['view'] = 'comment.CommentChangeConfirmation';
-	    $redirect['itemId'] = $itemId;
-	    $status['deleted'] = 1;
-	} else if (isset($form['action']['cancel'])) {
-	    /* Where to go on a cancel?  Go to item admin.*/
-	    $redirect['view'] = 'core.ShowItem';
-	    $redirect['itemId'] = (int)$itemId;
-	}
-
-	$results = array();
-	if (!empty($redirect)) {
-	    $results['redirect'] = $redirect;
-	} else {
-	    $results['delegate']['view'] = 'core.ItemAdmin';
-	    $results['delegate']['subView'] = 'comment.DeleteComment';
-	}
-	$results['status'] = $status;
-	$results['error'] = $error;
-
-	return array(null, $results);
-    }
 }
 
 /**
  * This view will ask for a confirmation to delete a comment
  */
 class DeleteCommentView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		// Load our item
+		list($ret, $item) = $this->getItem();
 
-	/* Load our item */
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
+
+		// Make sure we have permission to delete a comment
+		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.delete');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($form['formName'] != 'DeleteComment') {
+			$form['formName'] = 'DeleteComment';
+		}
+
+		// Load the specific comment
+		list($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		// Associate the commenter's info
+		$commenterId           = $comment->getCommenterId();
+		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$DeleteComment              = array();
+		$DeleteComment['comment']   = (array)$comment;
+		$DeleteComment['commenter'] = (array)$commenter;
+		$DeleteComment['item']      = (array)$item;
+		$DeleteComment['can']       = array(
+			'edit'   => false,
+			'delete' => false,
+		);
+
+		$template->setVariable('DeleteComment', $DeleteComment);
+		$template->setVariable('controller', 'comment.DeleteComment');
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/comment/templates/DeleteComment.tpl',
+			),
+		);
 	}
-
-	$commentId = (int) GalleryUtilities::getRequestVariables('commentId');
-
-	/* Make sure we have permission to delete a comment */
-	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.delete');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($form['formName'] != 'DeleteComment') {
-	    $form['formName'] = 'DeleteComment';
-	}
-
-	/* Load the specific comment */
-	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Associate the commenter's info */
-	$commenterId = $comment->getCommenterId();
-	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$DeleteComment = array();
-	$DeleteComment['comment'] = (array)$comment;
-	$DeleteComment['commenter'] = (array)$commenter;
-	$DeleteComment['item'] = (array)$item;
-	$DeleteComment['can'] = array('edit' => false, 'delete' => false);
-
-	$template->setVariable('DeleteComment', $DeleteComment);
-	$template->setVariable('controller', 'comment.DeleteComment');
-
-	return array(null,
-		     array('body' => 'modules/comment/templates/DeleteComment.tpl'));
-    }
 }
-?>

@@ -30,73 +30,94 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 GalleryCoreApi::requireOnce('modules/rewrite/classes/parsers/pathinfo/parser.inc');
 GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteParserTestCase.class');
 class PathInfoParserTest extends RewriteParserTestCase {
-
-    function PathInfoParserTest($methodName) {
-	$this->GalleryTestCase($methodName);
-    }
-
-    function setUp() {
-	global $gallery;
-	$ret = parent::setUp('PathInfoParser');
-	if ($ret) {
-	   return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, null);
 	}
 
-	$this->_testPassString = 'PASS_PATH_INFO';
-    }
+	public function setUp($x1 = null) {
+		global $gallery;
+		$ret = parent::setUp('PathInfoParser');
 
-    function testHandleTestResultsRequest1() {
-	$form  = array();
+		if ($ret) {
+			return $ret;
+		}
 
-	$form['force']['test'] = 1;
-	list ($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
-	if ($ret) {
-	    return $ret;
+		$this->_testPassString = 'PASS_PATH_INFO';
 	}
 
-	list ($ret, $forced) = GalleryCoreApi::getPluginParameter(
-	    'module', 'rewrite', 'pathinfo.forced');
-	if ($ret) {
-	    return $ret;
+	public function testHandleTestResultsRequest1() {
+		$form = array();
+
+		$form['force']['test']      = 1;
+		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $forced) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rewrite',
+			'pathinfo.forced'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals('1', $forced);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
+		$this->assertEquals(array(), $error);
 	}
 
-	$this->assertEquals('1', $forced);
-	$this->assertEquals(array('saved' => 1), $status);
-	$this->assertEquals(array(), $error);
-    }
+	public function testHandleTestResultsRequest2() {
+		$form = array();
 
-    function testHandleTestResultsRequest2() {
-	$form = array();
+		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
-	list ($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		list($ret, $forced) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rewrite',
+			'pathinfo.forced'
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals('0', $forced);
+		$this->assertEquals(
+			array(
+				'saved' => 1,
+			),
+			$status
+		);
+		$this->assertEquals(array(), $error);
 	}
 
-	list ($ret, $forced) = GalleryCoreApi::getPluginParameter(
-	    'module', 'rewrite', 'pathinfo.forced');
-	if ($ret) {
-	    return $ret;
+	public function testNeedsConfigurationForced() {
+		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.forced', '1');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
+		list($ret, $status) = $this->_parser->needsConfiguration();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertTrue(!$status, 'forced');
 	}
-
-	$this->assertEquals('0', $forced);
-	$this->assertEquals(array('saved' => 1), $status);
-	$this->assertEquals(array(), $error);
-    }
-
-    function testNeedsConfigurationForced() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.forced', '1');
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
-	list ($ret, $status) = $this->_parser->needsConfiguration();
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert(!$status, 'forced');
-    }
 }
-?>

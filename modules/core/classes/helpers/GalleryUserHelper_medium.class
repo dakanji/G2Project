@@ -26,16 +26,16 @@
  * @version $Revision: 17580 $
  * @static
  */
-class GalleryUserHelper_medium /* extends GalleryEventListener */ {
+class GalleryUserHelper_medium // extends GalleryEventListener
+{
+	/**
+	 * @see GalleryCoreApi::fetchUsernames
+	 */
+	public static function fetchUsernames($count=null, $offset=null, $substring=null) {
+		global $gallery;
 
-    /**
-     * @see GalleryCoreApi::fetchUsernames
-     */
-    function fetchUsernames($count=null, $offset=null, $substring=null) {
-	global $gallery;
-
-	$data = array();
-	$query = '
+		$data  = array();
+		$query = '
 	SELECT
 	  [GalleryUser::id],
 	  [GalleryUser::userName]
@@ -43,49 +43,55 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	  [GalleryUser]
 	';
 
-	if (!empty($substring)) {
-	    $query .= '
+		if (!empty($substring)) {
+			$query .= '
 	WHERE
 	  [GalleryUser::userName] LIKE ?
 	    ';
-	    $data[] = "%$substring%";
-	}
+			$data[] = "%$substring%";
+		}
 
-	$query .= '
+		$query .= '
 	ORDER BY
 	  [GalleryUser::userName] ASC
 	';
 
-	list ($ret, $searchResults) = $gallery->search(
-	    $query, $data, array('limit' => array('count' => $count, 'offset' => $offset)));
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $searchResults) = $gallery->search(
+		$query,
+		$data,
+		array('limit' => array('count' => $count, 'offset' => $offset))
+	);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$usernames = array();
+
+		while ($result = $searchResults->nextResult()) {
+			$usernames[$result[0]] = $result[1];
+		}
+
+		return array(null, $usernames);
 	}
 
-	$usernames = array();
-	while ($result = $searchResults->nextResult()) {
-	    $usernames[$result[0]] = $result[1];
-	}
+	/**
+	 * @see GalleryCoreApi::fetchUserCount
+	 */
+	public static function fetchUserCount($substring=null, $groupId=null) {
+		global $gallery;
 
-	return array(null, $usernames);
-    }
+		if (empty($groupId)) {
+			list($ret, $groupId) = 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
-    /**
-     * @see GalleryCoreApi::fetchUserCount
-     */
-    function fetchUserCount($substring=null, $groupId=null) {
-	global $gallery;
-	if (empty($groupId)) {
-	    list($ret, $groupId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	$data = array();
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+		$data = array();
 
-	if (!empty($substring)) {
-	    $query = '
+		if (!empty($substring)) {
+			$query = '
 	    SELECT
 	      COUNT([GalleryUserGroupMap::userId])
 	    FROM
@@ -98,9 +104,9 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	    AND
 	      [GalleryUserGroupMap::groupId] = ?
 	    ';
-	    $data[] = "%$substring%";
-	} else {
-	    $query = '
+			$data[] = "%$substring%";
+		} else {
+			$query = '
 	    SELECT
 	      COUNT([GalleryUserGroupMap::userId])
 	    FROM
@@ -108,25 +114,27 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	    WHERE
 	      [GalleryUserGroupMap::groupId] = ?
 	    ';
+		}
+		$data[] = (int)$groupId;
+
+		list($ret, $searchResults) = $gallery->search($query, $data);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$result = $searchResults->nextResult();
+
+		return array(null, (int)$result[0]);
 	}
-	$data[] = (int)$groupId;
 
-	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
-	    return array($ret, null);
-	}
+	/**
+	 * @see GalleryCoreApi::fetchUserByUserName
+	 */
+	public static function fetchUserByUserName($userName=null) {
+		global $gallery;
 
-	$result = $searchResults->nextResult();
-	return array(null, (int)$result[0]);
-    }
-
-    /**
-     * @see GalleryCoreApi::fetchUserByUserName
-     */
-    function fetchUserByUserName($userName=null) {
-	global $gallery;
-
-	$query = '
+		$query = '
 	SELECT
 	  [GalleryUser::id]
 	FROM
@@ -134,332 +142,362 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	WHERE
 	  [GalleryUser::userName] = ?
 	';
-	list ($ret, $searchResults) = $gallery->search($query, array($userName));
-	if ($ret) {
-	    return array($ret, null);
-	}
+		list($ret, $searchResults) = $gallery->search($query, array($userName));
 
-	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	} else {
-	    $result = $searchResults->nextResult();
-	    $id = $result[0];
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryUser');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    return array(null, $user);
-	}
-    }
-
-    /**
-     * @see GalleryCoreApi::fetchLanguageCodeForUser
-     */
-    function fetchLanguageCodeForUser($userId) {
-	global $gallery;
-
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$language = $user->getLanguage();
-	if (empty($language)) {
-	    list ($ret, $language) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $language);
-    }
-
-    /**
-     * @see GalleryCoreApi::assertUserIsSiteAdministrator
-     */
-    function assertSiteAdministrator() {
-	global $gallery;
-	$session =& $gallery->getSession();
-	$phpVm = $gallery->getPhpVm();
-
-	/* Make sure we have adequate permissions */
-	list ($ret, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (!$inGroup) {
-	    return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
-	}
-
-	list ($ret, $expired) = $session->hasSiteAdminSessionExpired();
-	if ($ret) {
-	    return $ret;
-	}
-
-	if ($expired) {
-	    return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
-	}
-
-	$session->put('session.siteAdminActivityTimestamp', $phpVm->time());
-	return null;
-    }
-
-    /**
-     * @see GalleryCoreApi::deleteUserItems
-     */
-    function deleteUserItems($userId) {
-	global $gallery;
-
-	if (empty($userId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
-	}
-
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* First check if the User is a valid gallery user! */
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Get all items by the user */
-	list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (empty($itemIds)) {
-	    return null;
-	}
-
-	/*
-	 * Get all the permissions the user has on the items,
-	 * need delete permission to delete an item
-	 */
-	list ($ret, $userItemPermissions) =
-	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $user->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* First sort out the items that we can delete (permissions) */
-	$itemIdsWithPermission = array();
-	foreach ($itemIds as $itemId) {
-	    if (!in_array('core.delete', array_keys($userItemPermissions[$itemId]))) {
-		continue;
-	    }
-	    $itemIdsWithPermission[] = $itemId;
-	}
-	$itemIds = $itemIdsWithPermission;
-
-	if (empty($itemIds)) {
-	    return null;
-	}
-
-	/* Load all items */
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$albums = array();
-	$albumIds = array();
-	/* First delete all non AlbumItem items */
-	foreach ($items as $item) {
-	    /* don't delete albums */
-	    if ($item->getCanContainChildren()) {
-		$albums[$item->getId()] = $item;
-		$albumIds[] = $item->getId();
-		continue;
-	    }
-	    /* delete the item */
-	    $ret = GalleryCoreApi::deleteEntityById($item->getId(), 'GalleryItem');
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	/*
-	 * Delete all empty albums
-	 * One of the albums may be the subalbum of another
-	 * To make sure the "descendentCount" is right, we have to delete the albums
-	 * in the right order and recompute the descendent count
-	 */
-	$remainingAlbums = array();
-	$modifiedAlbumIds = $albumIds;
-	while(!empty($modifiedAlbumIds)) {
-	    /*
-	     * TODO: fetchDescendentCounts works only if the activeUser is a SiteAdmin
-	     * If we want to use it from user space (i.e. let users remove delete their
-	     * accounts) we need to fix this.
-	     */
-	    list ($ret, $descendentCounts) =
-		GalleryCoreApi::fetchDescendentCounts($modifiedAlbumIds);
-	    if ($ret) {
-		return $ret;
-	    }
-	    /* $descendentCounts has no entry for all albums with 0 descendents!! */
-	    $newModifiedAlbumIds = array();
-	    foreach ($modifiedAlbumIds as $albumId) {
-		if (!isset($descendentCounts[$albumId]) || $descendentCounts[$albumId] == 0) {
-		    if (in_array($albums[$albumId]->getParentId(), $albumIds)) {
-			/*
-			 * This album was the subalbum of another album of this user
-			 * -> update descendentCount for this parent album
-			 */
-			$newModifiedAlbumIds[$albums[$albumId]->getParentId()] = 1;
-		    }
-		    /* delete albumItem */
-		    $ret = GalleryCoreApi::deleteEntityById($albumId, 'GalleryItem');
-		    if ($ret) {
-			return $ret;
-		    }
-		    $remainingAlbums[$albumId] = 0;
-		} else {
-		    $remainingAlbums[$albumId] = 1;
-		}
-	    }
-	    $modifiedAlbumIds = array_keys($newModifiedAlbumIds);
-	}
-
-	/* Make a new thumbnail if possible, if it doesn't succeed, we can't change it */
-	foreach ($remainingAlbums as $albumId => $remaining) {
-	    if ($remaining) {
-		list ($ret, $trueOrFalse) = GalleryCoreApi::guaranteeAlbumHasThumbnail($albumId);
 		if ($ret) {
-		    return $ret;
-		}
-	    }
-	}
-
-	return null;
-    }
-
-    /**
-     * Handler for Gallery::Login and Gallery::FailedLogin events.
-     *
-     * @see GalleryEventListener::handleEvent
-     */
-    function handleEvent($event) {
-	global $gallery;
-	$phpVm = $gallery->getPhpVm();
-
-	if ($event->getEventName() == 'Gallery::Login') {
-	    $user = $event->getEntity();
-	    $ret = GalleryCoreApi::removeMapEntry(
-		'FailedLoginsMap',
-		array('userName' => $user->getUserName()));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $session =& $gallery->getSession();
-	    $ret = $session->regenerate();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $session->put('session.siteAdminActivityTimestamp', $phpVm->time());
-	} else if ($event->getEventName() == 'Gallery::FailedLogin') {
-	    $data = $event->getData();
-	    if (!empty($data['userName'])) {
-		list ($ret, $searchResults) = GalleryCoreApi::getMapEntry(
-		    'FailedLoginsMap',
-		    array('count', 'lastAttempt'),
-		    array('userName' => $data['userName']));
-		if ($ret) {
-		    return array($ret, null);
+			return array($ret, null);
 		}
 
 		if ($searchResults->resultCount() == 0) {
-		    $count = null;
-		    $lastAttempt = null;
-		} else {
-		    $result = $searchResults->nextResult();
-		    $count = $result[0];
-		    $lastAttempt = $result[1];
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		}
+		$result           = $searchResults->nextResult();
+		$id               = $result[0];
+		list($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
 		}
 
-		if (!GalleryUserHelper_medium::_isDisabled($count, $lastAttempt)) {
-		    if (isset($count)) {
-			$ret = GalleryCoreApi::removeMapEntry(
-			    'FailedLoginsMap',
-			    array('userName' => $data['userName']));
-			if ($ret) {
-			    return array($ret, null);
-			}
-			$count++;
-		    } else {
-			$count = 1;
-		    }
+		return array(null, $user);
+	}
 
-		    $phpVm = $gallery->getPhpVm();
-		    $ret = GalleryCoreApi::addMapEntry(
+	/**
+	 * @see GalleryCoreApi::fetchLanguageCodeForUser
+	 */
+	public static function fetchLanguageCodeForUser($userId) {
+		global $gallery;
+
+		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$language = $user->getLanguage();
+
+		if (empty($language)) {
+			list($ret, $language) = 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		return array(null, $language);
+	}
+
+	/**
+	 * @see GalleryCoreApi::assertUserIsSiteAdministrator
+	 */
+	public static function assertSiteAdministrator() {
+		global $gallery;
+		$session =& $gallery->getSession();
+		$phpVm   = $gallery->getPhpVm();
+
+		// Make sure we have adequate permissions
+		list($ret, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (!$inGroup) {
+			return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
+		}
+
+		list($ret, $expired) = $session->hasSiteAdminSessionExpired();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if ($expired) {
+			return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
+		}
+
+		$session->put('session.siteAdminActivityTimestamp', $phpVm->time());
+
+		return null;
+	}
+
+	/**
+	 * @see GalleryCoreApi::deleteUserItems
+	 */
+	public static function deleteUserItems($userId) {
+		global $gallery;
+
+		if (empty($userId)) {
+			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+		}
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// First check if the User is a valid gallery user!
+		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// Get all items by the user
+		list($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if (empty($itemIds)) {
+			return null;
+		}
+
+		/*
+		 * Get all the permissions the user has on the items,
+		 * need delete permission to delete an item
+		 */
+		list($ret, $userItemPermissions) = 		GalleryCoreApi::fetchPermissionsForItems($itemIds, $user->getId());
+
+		if ($ret) {
+			return $ret;
+		}
+
+		// First sort out the items that we can delete (permissions)
+		$itemIdsWithPermission = array();
+
+		foreach ($itemIds as $itemId) {
+			if (!in_array('core.delete', array_keys($userItemPermissions[$itemId]))) {
+				continue;
+			}
+			$itemIdsWithPermission[] = $itemId;
+		}
+		$itemIds = $itemIdsWithPermission;
+
+		if (empty($itemIds)) {
+			return null;
+		}
+
+		// Load all items
+		list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$albums   = array();
+		$albumIds = array();
+		// First delete all non AlbumItem items
+		foreach ($items as $item) {
+			// don't delete albums
+			if ($item->getCanContainChildren()) {
+				$albums[$item->getId()] = $item;
+				$albumIds[]             = $item->getId();
+
+				continue;
+			}
+			// delete the item
+			$ret = GalleryCoreApi::deleteEntityById($item->getId(), 'GalleryItem');
+
+			if ($ret) {
+				return $ret;
+			}
+		}
+
+		/*
+		 * Delete all empty albums
+		 * One of the albums may be the subalbum of another
+		 * To make sure the "descendentCount" is right, we have to delete the albums
+		 * in the right order and recompute the descendent count
+		 */
+		$remainingAlbums  = array();
+		$modifiedAlbumIds = $albumIds;
+
+		while (!empty($modifiedAlbumIds)) {
+			/*
+			 * TODO: fetchDescendentCounts works only if the activeUser is a SiteAdmin
+			 * If we want to use it from user space (i.e. let users remove delete their
+			 * accounts) we need to fix this.
+			 */
+			list($ret, $descendentCounts) = 		GalleryCoreApi::fetchDescendentCounts($modifiedAlbumIds);
+
+			if ($ret) {
+				return $ret;
+			}
+			// $descendentCounts has no entry for all albums with 0 descendents!!
+			$newModifiedAlbumIds = array();
+
+			foreach ($modifiedAlbumIds as $albumId) {
+				if (!isset($descendentCounts[$albumId]) || $descendentCounts[$albumId] == 0) {
+					if (in_array($albums[$albumId]->getParentId(), $albumIds)) {
+						/*
+						 * This album was the subalbum of another album of this user
+						 * -> update descendentCount for this parent album
+						 */
+						$newModifiedAlbumIds[$albums[$albumId]->getParentId()] = 1;
+					}
+					// delete albumItem
+					$ret = GalleryCoreApi::deleteEntityById($albumId, 'GalleryItem');
+
+					if ($ret) {
+						return $ret;
+					}
+					$remainingAlbums[$albumId] = 0;
+				} else {
+					$remainingAlbums[$albumId] = 1;
+				}
+			}
+			$modifiedAlbumIds = array_keys($newModifiedAlbumIds);
+		}
+
+		// Make a new thumbnail if possible, if it doesn't succeed, we can't change it
+		foreach ($remainingAlbums as $albumId => $remaining) {
+			if ($remaining) {
+				list($ret, $trueOrFalse) = GalleryCoreApi::guaranteeAlbumHasThumbnail($albumId);
+
+				if ($ret) {
+					return $ret;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Handler for Gallery::Login and Gallery::FailedLogin events.
+	 *
+	 * @see GalleryEventListener::handleEvent
+	 */
+	public static function handleEvent($event) {
+		global $gallery;
+		$phpVm = $gallery->getPhpVm();
+
+		if ($event->getEventName() == 'Gallery::Login') {
+			$user = $event->getEntity();
+			$ret  = GalleryCoreApi::removeMapEntry(
+		'FailedLoginsMap',
+		array('userName' => $user->getUserName())
+		);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+
+			$session =& $gallery->getSession();
+			$ret     = $session->regenerate();
+
+			if ($ret) {
+				return array($ret, null);
+			}
+			$session->put('session.siteAdminActivityTimestamp', $phpVm->time());
+		} elseif ($event->getEventName() == 'Gallery::FailedLogin') {
+			$data = $event->getData();
+
+			if (!empty($data['userName'])) {
+				list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
+			'FailedLoginsMap',
+			array('count', 'lastAttempt'),
+			array('userName' => $data['userName'])
+		);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				if ($searchResults->resultCount() == 0) {
+					$count       = null;
+					$lastAttempt = null;
+				} else {
+					$result      = $searchResults->nextResult();
+					$count       = $result[0];
+					$lastAttempt = $result[1];
+				}
+
+				if (!GalleryUserHelper_medium::_isDisabled($count, $lastAttempt)) {
+					if (isset($count)) {
+						$ret = GalleryCoreApi::removeMapEntry(
+				'FailedLoginsMap',
+				array('userName' => $data['userName'])
+			);
+
+						if ($ret) {
+							return array($ret, null);
+						}
+						$count++;
+					} else {
+						$count = 1;
+					}
+
+					$phpVm = $gallery->getPhpVm();
+					$ret   = GalleryCoreApi::addMapEntry(
 			'FailedLoginsMap',
 			array('userName' => $data['userName'],
-			      'count' => $count,
-			      'lastAttempt' => $phpVm->time()));
-		    if ($ret) {
-			return array($ret, null);
-		    }
+				  'count'       => $count,
+				  'lastAttempt' => $phpVm->time(), )
+			);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				}
+			}
 		}
-	    }
+
+		return array(null,  null);
 	}
 
-	return array(null,  null);
-    }
+	/**
+	 * @see GalleryCoreApi::isDisabledUsername
+	 */
+	public static function isDisabledUsername($userName) {
+		global $gallery;
 
-    /**
-     * @see GalleryCoreApi::isDisabledUsername
-     */
-    function isDisabledUsername($userName) {
-	global $gallery;
+		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
+		'FailedLoginsMap',
+		array('count', 'lastAttempt'),
+		array('userName' => $userName)
+	);
 
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry(
-	    'FailedLoginsMap',
-	    array('count', 'lastAttempt'),
-	    array('userName' => $userName));
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($searchResults->resultCount() == 0) {
+			$count       = 0;
+			$lastAttempt = 0;
+		} else {
+			$result      = $searchResults->nextResult();
+			$count       = $result[0];
+			$lastAttempt = $result[1];
+		}
+
+		return array(null, GalleryUserHelper_medium::_isDisabled($count, $lastAttempt));
 	}
 
-	if ($searchResults->resultCount() == 0) {
-	    $count = 0;
-	    $lastAttempt = 0;
-	} else {
-	    $result = $searchResults->nextResult();
-	    $count = $result[0];
-	    $lastAttempt = $result[1];
+	/**
+	 * Return true if the failure count and last attempt are over our
+	 * threshold.  For every 10 failures, logins are disabled for 1 hour.
+	 *
+	 * @param int $count the number of consecutive failed logins
+	 * @param int $lastAttempt the time of the last failed login attempt
+	 * @return bool true if the account is disabled
+	 * @access private
+	 */
+	public static function _isDisabled($count, $lastAttempt) {
+		global $gallery;
+
+		if ($count >= 10) {
+			$phpVm         = $gallery->getPhpVm();
+			$hoursDisabled = ((int)$count / 10);
+
+			if (($phpVm->time() - $lastAttempt) < $hoursDisabled * 3600) {
+				return true;
+			}
+		}
+
+		return false;
 	}
-
-	return array(null, GalleryUserHelper_medium::_isDisabled($count, $lastAttempt));
-    }
-
-    /**
-     * Return true if the failure count and last attempt are over our
-     * threshold.  For every 10 failures, logins are disabled for 1 hour.
-     *
-     * @param int $count the number of consecutive failed logins
-     * @param int $lastAttempt the time of the last failed login attempt
-     * @return bool true if the account is disabled
-     * @access private
-     */
-    function _isDisabled($count, $lastAttempt) {
-	global $gallery;
-
-	if ($count >= 10) {
-	    $phpVm = $gallery->getPhpVm();
-	    $hoursDisabled = ((int)$count / 10);
-	    if (($phpVm->time() - $lastAttempt) < $hoursDisabled * 3600) {
-		return true;
-	    }
-	}
-
-	return false;
-    }
 }
-?>

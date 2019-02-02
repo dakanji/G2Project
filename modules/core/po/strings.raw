@@ -1219,7 +1219,7 @@ gettext("Recover") /* also in: templates/UserRecoverPasswordAdmin.tpl */
 /* templates/UserRecoverPasswordAdmin.tpl */
 gettext("In order to proceed with the password reset, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we're going to ask that you create a new text file called %s in your gallery2 directory. It must contain the following randomly generated characters:")
 gettext("%s")
-gettext("As a convenience to you, we've prepared a %scorrect version of login.txt%s for you.  Download that and copy it into your install directory and you're all set.")
+gettext("As a convenience to you, we've prepared a %scorrect version of authFile.txt%s for you.  Download that and copy it into your install directory and you're all set.")
 gettext("Once you've uploaded the file, click refresh to continue.")
 gettext("Emergency Administrator Password Reset")
 gettext("This page can be used by a system administrator to securely reset the password on any account.")

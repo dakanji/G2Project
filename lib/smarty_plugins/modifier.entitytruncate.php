@@ -37,39 +37,42 @@
  * @param boolean $breakWords break words or not?
  * @return string
  */
-function smarty_modifier_entitytruncate($string, $length, $etc='...', $breakWords=false) {
-    if (empty($string)) {
-	return '';
-    }
-
-    /*
-     * Convert multibyte characters to html entities and then get an entity-safe substring.
-     * Split the string exactly on the boundary.  If there's no change, then we're done.
-     */
-    $string = GalleryUtilities::utf8ToUnicodeEntities($string);
-    list ($tmp, $piece) = GalleryUtilities::entitySubstr($string, 0, $length);
-    if ($piece == $string) {
-	return GalleryUtilities::unicodeEntitiesToUtf8($piece);
-    }
-
-    $etcLength = strlen($etc);
-    if ($etcLength < $length) {
-	/* Make room for the $etc string */
-	list ($tmp, $piece) = GalleryUtilities::entitySubstr($piece, 0, $length - $etcLength);
-
-	$pieceLength = strlen($piece);
-	if (!$breakWords && $string{$pieceLength-1} != ' ' && $string{$pieceLength} != ' ') {
-	    /* We split a word, and we're not allowed to.  Try to back up to the last space */
-	    $splitIndex = strrpos($piece, ' ');
-	    if ($splitIndex > 0) {
-		/* Found a space, truncate there. */
-		$piece = substr($piece, 0, $splitIndex);
-	    }
+function smarty_modifier_entitytruncate($string, $length, $etc = '...', $breakWords = false) {
+	if (empty($string)) {
+		return '';
 	}
-	$piece .= $etc;
-    }
 
-    /* Unicode entities back to UTF-8; may convert entities in original string, but that's ok */
-    return GalleryUtilities::unicodeEntitiesToUtf8($piece);
+	/*
+	 * Convert multibyte characters to html entities and then get an entity-safe substring.
+	 * Split the string exactly on the boundary.  If there's no change, then we're done.
+	 */
+	$string            = GalleryUtilities::utf8ToUnicodeEntities($string);
+	list($tmp, $piece) = GalleryUtilities::entitySubstr($string, 0, $length);
+
+	if ($piece == $string) {
+		return GalleryUtilities::unicodeEntitiesToUtf8($piece);
+	}
+
+	$etcLength = strlen($etc);
+
+	if ($etcLength < $length) {
+		// Make room for the $etc string
+		list($tmp, $piece) = GalleryUtilities::entitySubstr($piece, 0, $length - $etcLength);
+
+		$pieceLength = strlen($piece);
+
+		if (!$breakWords && $string[$pieceLength - 1] != ' ' && $string[$pieceLength] != ' ') {
+			// We split a word, and we're not allowed to.  Try to back up to the last space
+			$splitIndex = strrpos($piece, ' ');
+
+			if ($splitIndex > 0) {
+				// Found a space, truncate there.
+				$piece = substr($piece, 0, $splitIndex);
+			}
+		}
+		$piece .= $etc;
+	}
+
+	// Unicode entities back to UTF-8; may convert entities in original string, but that's ok
+	return GalleryUtilities::unicodeEntitiesToUtf8($piece);
 }
-?>

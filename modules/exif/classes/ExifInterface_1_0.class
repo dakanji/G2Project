@@ -29,18 +29,16 @@
  * @abstract
  */
 class ExifInterface_1_0 {
-
-    /**
-     * Get metadata for the given items
-     *
-     * @param mixed $itemIds array of GalleryDataItem ids or a single id
-     * @param array $properties of properties to return or a single property name;
-     *        if empty or omitted return all available properties
-     * @return array GalleryStatus a status code,
-     *               array( id => array(property=>value,...) )
-     */
-    function getMetaData($itemIds, $properties=array()) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
-    }
+	/**
+	 * Get metadata for the given items
+	 *
+	 * @param mixed $itemIds array of GalleryDataItem ids or a single id
+	 * @param array $properties of properties to return or a single property name;
+	 *        if empty or omitted return all available properties
+	 * @return array GalleryStatus a status code,
+	 *               array( id => array(property=>value,...) )
+	 */
+	public static function getMetaData($itemIds, $properties = array()) {
+		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	}
 }
-?>

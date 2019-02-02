@@ -27,15 +27,14 @@
  * @static
  */
 class GalleryGroupHelper_simple {
+	/**
+	 * @see GalleryCoreApi::fetchGroupNames
+	 */
+	public static function fetchGroupNames($count = null, $offset = null, $substring = null) {
+		global $gallery;
 
-    /**
-     * @see GalleryCoreApi::fetchGroupNames
-     */
-    function fetchGroupNames($count=null, $offset=null, $substring=null) {
-	global $gallery;
-
-	$data = array();
-	$query = '
+		$data  = array();
+		$query = '
 	SELECT
 	  [GalleryGroup::id],
 	  [GalleryGroup::groupName]
@@ -43,75 +42,84 @@ class GalleryGroupHelper_simple {
 	  [GalleryGroup]
 	';
 
-	if (!empty($substring)) {
-	    $query .= '
+		if (!empty($substring)) {
+			$query .= '
 	WHERE
 	  [GalleryGroup::groupName] LIKE ?
 	    ';
-	    $data[] = "%$substring%";
-	}
+			$data[] = "%$substring%";
+		}
 
-	$query .= '
+		$query .= '
 	ORDER BY
 	  [GalleryGroup::groupName] ASC
 	';
 
-	list ($ret, $searchResults) =
-	    $gallery->search($query,
-			     $data,
-			     array('limit' => array('count' => $count,
-						    'offset' => $offset)));
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $searchResults) = $gallery->search(
+			$query,
+			$data,
+			array(
+				'limit' => array(
+					'count'  => $count,
+					'offset' => $offset,
+				),
+			)
+		);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$groupnames = array();
+
+		while ($result = $searchResults->nextResult()) {
+			$groupnames[$result[0]] = $result[1];
+		}
+
+		return array(null, $groupnames);
 	}
 
-	$groupnames = array();
-	while ($result = $searchResults->nextResult()) {
-	    $groupnames[$result[0]] = $result[1];
-	}
+	/**
+	 * @see GalleryCoreApi::fetchGroupCount
+	 */
+	public static function fetchGroupCount($substring = null) {
+		global $gallery;
 
-	return array(null, $groupnames);
-    }
-
-    /**
-     * @see GalleryCoreApi::fetchGroupCount
-     */
-    function fetchGroupCount($substring=null) {
-	global $gallery;
-
-	$data = array();
-	$query = '
+		$data  = array();
+		$query = '
 	SELECT
 	  COUNT([GalleryGroup::id])
 	FROM
 	  [GalleryGroup]
 	';
 
-	if (!empty($substring)) {
-	    $query .= '
+		if (!empty($substring)) {
+			$query .= '
 	WHERE
 	  [GalleryGroup::groupName] LIKE ?
 	    ';
-	    $data[] = "%$substring%";
+			$data[] = "%$substring%";
+		}
+
+		list($ret, $searchResults) = $gallery->search($query, $data);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$groupnames = array();
+		$result     = $searchResults->nextResult();
+
+		return array(null, (int)$result[0]);
 	}
 
-	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
-	    return array($ret, null);
-	}
+	/**
+	 * @see GalleryCoreApi::fetchGroupByGroupName
+	 */
+	public static function fetchGroupByGroupName($groupName = null) {
+		global $gallery;
 
-	$groupnames = array();
-	$result = $searchResults->nextResult();
-	return array(null, (int)$result[0]);
-    }
-
-    /**
-     * @see GalleryCoreApi::fetchGroupByGroupName
-     */
-    function fetchGroupByGroupName($groupName=null) {
-	global $gallery;
-
-	$query = '
+		$query                     = '
 	SELECT
 	  [GalleryGroup::id]
 	FROM
@@ -119,23 +127,23 @@ class GalleryGroupHelper_simple {
 	WHERE
 	  [GalleryGroup::groupName] = ?
 	';
-	list ($ret, $searchResults) = $gallery->search($query, array($groupName));
-	if ($ret) {
-	    return array($ret, null);
-	}
+		list($ret, $searchResults) = $gallery->search($query, array($groupName));
 
-	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	} else {
-	    $result = $searchResults->nextResult();
-	    $id = $result[0];
-	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($id, 'GalleryGroup');
-	    if ($ret) {
-		return array($ret, null);
-	    }
+		if ($ret) {
+			return array($ret, null);
+		}
 
-	    return array(null, $group);
+		if ($searchResults->resultCount() == 0) {
+			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		}
+		$result            = $searchResults->nextResult();
+		$id                = $result[0];
+		list($ret, $group) = GalleryCoreApi::loadEntitiesById($id, 'GalleryGroup');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $group);
 	}
-    }
 }
-?>

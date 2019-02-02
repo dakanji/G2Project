@@ -29,100 +29,112 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
  * @version $Revision: 17580 $
  */
 class GalleryDynamicAlbum extends GalleryItem {
+	/**
+	 * Type name info for this dynamic album
+	 * @var array
+	 * @access private
+	 */
+	public $_itemTypeName;
 
-    /**
-     * Type name info for this dynamic album
-     * @var array
-     * @access private
-     */
-    var $_itemTypeName;
+	/**
+	 * Initialize dynamic album
+	 *
+	 * @param string $title localized title
+	 * @param array $itemTypeNameData itemTypeName data, eg. array(Photo, photo), array(Foto, foto)
+	 */
+	public function create(
+		$title = null,
+		$itemTypeNameData = null,
+		$x3 = false,
+		$x4 = null,
+		$x5 = false
+	) {
+		global $gallery;
 
+		if (is_null($title)) {
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				'Missing title parameter'
+			);
+		}
 
-    /**
-     * Initialize dynamic album
-     *
-     * @param string $title localized title
-     * @param array $itemTypeNameData itemTypeName data, eg. array(Photo, photo), array(Foto, foto)
-     */
-    function create($title, $itemTypeNameData=null) {
-	global $gallery;
+		$this->setId(null);
+		$this->setParentId(null);
+		$this->setPathComponent(null);
+		$this->setEntityType($this->getClassName());
+		$this->setIsLinkable(false);
+		$this->setLinkId(null);
+		$this->setLinkedEntity(null);
+		$this->setOnLoadHandlers(null);
 
-	$this->setId(null);
-	$this->setParentId(null);
-	$this->setPathComponent(null);
-	$this->setEntityType($this->getClassName());
-	$this->setIsLinkable(false);
-	$this->setLinkId(null);
-	$this->setLinkedEntity(null);
-	$this->setOnLoadHandlers(null);
+		$this->setTitle($title);
+		$this->setSummary(null);
+		$this->setDescription(null);
+		$this->setKeywords(null);
+		$this->setCreationTimestamp(time());
+		$this->setOriginationTimestamp(time());
+		$this->setModificationTimestamp(time());
+		$this->setViewedSinceTimestamp(time());
+		$this->setCanContainChildren(true);
+		$this->setOwnerId($gallery->getActiveUserId());
 
-	$this->setTitle($title);
-	$this->setSummary(null);
-	$this->setDescription(null);
-	$this->setKeywords(null);
-	$this->setCreationTimestamp(time());
-	$this->setOriginationTimestamp(time());
-	$this->setModificationTimestamp(time());
-	$this->setViewedSinceTimestamp(time());
-	$this->setCanContainChildren(true);
-	$this->setOwnerId($gallery->getActiveUserId());
+		if (!empty($itemTypeNameData)) {
+			$this->_itemTypeName = $itemTypeNameData;
+		} else {
+			$this->_itemTypeName = array(array('Dynamic Album', 'dynamic album'));
+			list($ret, $module)  = GalleryCoreApi::loadPlugin('module', 'core');
 
-	if (!empty($itemTypeNameData)) {
-	    $this->_itemTypeName = $itemTypeNameData;
-	} else {
-	    $this->_itemTypeName = array(array('Dynamic Album', 'dynamic album'));
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret) {
-		$this->_itemTypeName[] = $this->_itemTypeName[0];
-	    } else {
-		$this->_itemTypeName[] =
-		    array($module->translate('Dynamic Album'), $module->translate('dynamic album'));
-	    }
+			if ($ret) {
+				$this->_itemTypeName[] = $this->_itemTypeName[0];
+			} else {
+				$this->_itemTypeName[] = array($module->translate('Dynamic Album'), $module->translate('dynamic album'));
+			}
+		}
+
+		return null;
 	}
 
-	return null;
-    }
+	/**
+	 * @see GalleryEntity::itemTypeName
+	 */
+	public function itemTypeName($localized = true) {
+		return $this->_itemTypeName[$localized ? 1 : 0];
+	}
 
-    /**
-     * @see GalleryEntity::itemTypeName
-     */
-    function itemTypeName($localized = true) {
-	return $this->_itemTypeName[$localized ? 1 : 0];
-    }
+	/**
+	 * @see GalleryEntity::itemTypeName
+	 */
+	public function getClassName() {
+		return 'GalleryDynamicAlbum';
+	}
 
-    /**
-     * @see GalleryEntity::itemTypeName
-     */
-    function getClassName() {
-	return 'GalleryDynamicAlbum';
-    }
+	/**
+	 * @see GalleryEntity::delete
+	 */
+	public function delete() {
+		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
+	}
 
-    /**
-     * @see GalleryEntity::delete
-     */
-    function delete() {
-	return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
-    }
+	/**
+	 * @see GalleryItem::move
+	 */
+	public function move($newParentId) {
+		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
+	}
 
-    /**
-     * @see GalleryItem::move
-     */
-    function move($newParentId) {
-	return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
-    }
+	/**
+	 * @see GalleryEntity::save
+	 */
+	public function save($postEvent = true, $x2 = null) {
+		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
+	}
 
-    /**
-     * @see GalleryEntity::save
-     */
-    function save($postEvent=true) {
-	return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
-    }
-
-    /**
-     * @see GalleryEntity::refresh
-     */
-    function refresh() {
-	return array(null, $this);
-    }
+	/**
+	 * @see GalleryEntity::refresh
+	 */
+	public function refresh() {
+		return array(null, $this);
+	}
 }
-?>

@@ -26,124 +26,179 @@
  * @version $Revision: 17580 $
  */
 class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
-
-    function AdminMaintenanceControllerModeTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'core.AdminMaintenance');
-    }
-
-    function setUp() {
-    	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	    return $ret;
+	public function __construct($methodName) {
+		parent::__construct($methodName, 'core.AdminMaintenance');
 	}
 
-    	$gallery->setPlatform(new UnitTestPlatform());
-    	$this->_platform =& $gallery->getPlatform();
+	public function setUp($x1 = null) {
+		global $gallery;
+		$ret = parent::setUp();
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
+		if ($ret) {
+			return $ret;
+		}
+
+		$UnitTestPlatform = new UnitTestPlatform();
+		$gallery->setPlatform($UnitTestPlatform);
+		$this->_platform =& $gallery->getPlatform();
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return $this->failWithStatus($ret);
+		}
+
+		$this->_versionFileContents = array(
+			$module->getVersion() . "\n",
+			$module->getGalleryVersion() . "\n",
+		);
+		$this->_versionFile         = $gallery->getConfig('data.gallery.version');
+		$this->_versionContentsBase = $module->getVersion() . "\n" . $module->getGalleryVersion();
+		GalleryDataCache::remove('CoreModule::installedVersions');
 	}
 
-	$this->_versionFileContents = array($module->getVersion() . "\n",
-					    $module->getGalleryVersion() . "\n");
-	$this->_versionFile = $gallery->getConfig('data.gallery.version');
-	$this->_versionContentsBase = $module->getVersion() . "\n" . $module->getGalleryVersion();
-	GalleryDataCache::remove('CoreModule::installedVersions');
-    }
+	public function testSetMaintenanceModeOnNoUrl() {
+		global $gallery;
 
-    function testSetMaintenanceModeOnNoUrl() {
-    	global $gallery;
+		$gallery->setConfig('mode.maintenance', false);
 
-   	$gallery->setConfig('mode.maintenance', false);
+		$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode";
 
-	$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode";
+		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
+		$this->_platform->setReply(
+			'file',
+			array($this->_versionFile, false),
+			$this->_versionFileContents
+		);
+		$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
 
-	$this->_platform->setReply('file_exists', array($this->_versionFile), true);
-	$this->_platform->setReply('file', array($this->_versionFile, false),
-				   $this->_versionFileContents);
-	$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
+		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
+		GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
+		GalleryUtilities::putRequestVariable('form[setMode][url]', '');
 
-	GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
-	GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
-	GalleryUtilities::putRequestVariable('form[setMode][url]', '');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminMaintenance',
+				),
+				'status' => array(
+					'setMode' => array(
+						'setOn' => 1,
+					),
+				),
+				'error' => array(),
+			),
+			$results
+		);
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminMaintenance'),
-				  'status' => array('setMode' => array('setOn' => 1)),
-				  'error' => array()),
-			    $results);
-	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-    }
+	public function testSetMaintenanceModeOnUrl() {
+		global $gallery;
+		$urlGenerator =& $gallery->getUrlGenerator();
+		$url          = $urlGenerator->makeAbsoluteUrl('/maintenance.html');
 
-    function testSetMaintenanceModeOnUrl() {
-    	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$url = $urlGenerator->makeAbsoluteUrl('/maintenance.html');
+		$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode:$url";
 
-	$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode:$url";
+		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
+		$this->_platform->setReply(
+			'file',
+			array($this->_versionFile, false),
+			$this->_versionFileContents
+		);
+		$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
 
-	$this->_platform->setReply('file_exists', array($this->_versionFile), true);
-	$this->_platform->setReply('file', array($this->_versionFile, false),
-				   $this->_versionFileContents);
-	$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
+		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
+		GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
+		GalleryUtilities::putRequestVariable('form[setMode][url]', $url);
 
-	GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
-	GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
-	GalleryUtilities::putRequestVariable('form[setMode][url]', $url);
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminMaintenance',
+				),
+				'status' => array(
+					'setMode' => array(
+						'setOn' => 1,
+					),
+				),
+				'error' => array(),
+			),
+			$results,
+			'The url was not properly'
+		);
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminMaintenance'),
-				  'status' => array('setMode' => array('setOn' => 1)),
-				  'error' => array()),
-			    $results,
-			    'The url was not properly');
-	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-    }
+	public function testSetMaintenanceModeOff() {
+		global $gallery;
+		$gallery->setConfig('mode.maintenance', true);
 
-    function testSetMaintenanceModeOff() {
-    	global $gallery;
-    	$gallery->setConfig('mode.maintenance', true);
+		$this->_versionFileContents[] = 'nmaintenance-mode';
 
-	$this->_versionFileContents[] = 'nmaintenance-mode';
+		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
+		$this->_platform->setReply(
+			'file',
+			array($this->_versionFile, false),
+			$this->_versionFileContents
+		);
+		$this->_platform->setReply(
+			'atomicWrite',
+			array($this->_versionFile, $this->_versionContentsBase),
+			true
+		);
 
-	$this->_platform->setReply('file_exists', array($this->_versionFile), true);
-	$this->_platform->setReply('file', array($this->_versionFile, false),
-				   $this->_versionFileContents);
-	$this->_platform->setReply('atomicWrite',
-				   array($this->_versionFile, $this->_versionContentsBase), true);
+		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
+		GalleryUtilities::putRequestVariable('form[setMode][url]', '');
 
-	GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
-	GalleryUtilities::putRequestVariable('form[setMode][url]', '');
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminMaintenance',
+				),
+				'status' => array(
+					'setMode' => array(
+						'setOff' => 1,
+					),
+				),
+				'error' => array(),
+			),
+			$results
+		);
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+	}
 
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminMaintenance'),
-				  'status' => array('setMode' => array('setOff' => 1)),
-				  'error' => array()),
-			    $results);
-	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-    }
+	public function testSetMaintenanceModeEqual() {
+		global $gallery;
 
-    function testSetMaintenanceModeEqual() {
-    	global $gallery;
+		$gallery->setConfig('mode.maintenance', false);
 
-    	$gallery->setConfig('mode.maintenance', false);
+		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
+		GalleryUtilities::putRequestVariable('form[setMode][url]', '');
 
-	GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
-	GalleryUtilities::putRequestVariable('form[setMode][url]', '');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminMaintenance'),
-				  'status' => array('setMode' => array('setOff' => 1)),
-				  'error' => array()),
-			    $results,
-			    'The maintenance  mode was set');
-	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-    }
+		$results = $this->handleRequest();
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'view'    => 'core.SiteAdmin',
+					'subView' => 'core.AdminMaintenance',
+				),
+				'status' => array(
+					'setMode' => array(
+						'setOff' => 1,
+					),
+				),
+				'error' => array(),
+			),
+			$results,
+			'The maintenance  mode was set'
+		);
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+	}
 }
-?>

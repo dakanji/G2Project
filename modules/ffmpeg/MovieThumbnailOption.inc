@@ -26,79 +26,91 @@
  * @version $Revision: 17580 $
  */
 class MovieThumbnailOption extends ItemAddOption {
+	/**
+	 * @see ItemAddOption::isAppropriate
+	 */
+	public function isAppropriate() {
+		list($ret, $useWatermark) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'useWatermark');
 
-    /**
-     * @see ItemAddOption::isAppropriate
-     */
-    function isAppropriate() {
-	list ($ret, $useWatermark) =
-	    GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'useWatermark');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'composite');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $useWatermark && isset($toolkit));
-    }
+		if ($ret) {
+			return array($ret, null);
+		}
+		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'composite');
 
-    /**
-     * @see ItemAddOption::handleRequestAfterAdd
-     */
-    function handleRequestAfterAdd($form, $items) {
-	$errors = $warnings = $movieIds = $thumbIds = array();
-	foreach ($items as $item) {
-	    if (GalleryUtilities::isA($item, 'GalleryMovieItem')) {
-		$movieIds[] = $item->getId();
-	    }
-	}
-	if (!empty($movieIds)) {
-	    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($movieIds);
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	    foreach ($thumbTable as $itemId => $thumbnail) {
-		$thumbIds[] = $thumbnail->getId();
-	    }
-	}
-	if (empty($thumbIds)) {
-	    return array(null, $errors, $warnings);
-	}
-	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbIds);
-	if ($ret) {
-	    return array($ret, null, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		return array(null, $useWatermark && isset($toolkit));
 	}
 
-	$op = 'composite|plugins_data/modules/ffmpeg/filmreel.png,image/png,12,399';
-	foreach ($thumbTable as $itemId => $thumbnail) {
-	    list ($ret, $thumbnail) = $thumbnail->refresh();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
-	    }
+	/**
+	 * @see ItemAddOption::handleRequestAfterAdd
+	 */
+	public function handleRequestAfterAdd($form, $items) {
+		$errors = $warnings = $movieIds = $thumbIds = array();
 
-	    /*
-	     * Set operations not postFilter so if this item is selected as an album highlight
-	     * then the highlight will get the watermark too.
-	     */
-	    $operations = $thumbnail->getDerivativeOperations();
-	    $operations .= (empty($operations) ? '' : ';') . "$op,top-left,0,0;$op,top-right,0,0";
-	    $thumbnail->setDerivativeOperations($operations);
+		foreach ($items as $item) {
+			if (GalleryUtilities::isA($item, 'GalleryMovieItem')) {
+				$movieIds[] = $item->getId();
+			}
+		}
 
-	    $ret = $thumbnail->save();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
-	    }
+		if (!empty($movieIds)) {
+			list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($movieIds);
+
+			if ($ret) {
+				return array($ret, null, null);
+			}
+
+			foreach ($thumbTable as $itemId => $thumbnail) {
+				$thumbIds[] = $thumbnail->getId();
+			}
+		}
+
+		if (empty($thumbIds)) {
+			return array(null, $errors, $warnings);
+		}
+		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbIds);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$op = 'composite|plugins_data/modules/ffmpeg/filmreel.png,image/png,12,399';
+
+		foreach ($thumbTable as $itemId => $thumbnail) {
+			list($ret, $thumbnail) = $thumbnail->refresh();
+
+			if ($ret) {
+				GalleryCoreApi::releaseLocks($lockId);
+
+				return array($ret, null, null);
+			}
+
+			/*
+			 * Set operations not postFilter so if this item is selected as an album highlight
+			 * then the highlight will get the watermark too.
+			 */
+			$operations  = $thumbnail->getDerivativeOperations();
+			$operations .= (empty($operations) ? '' : ';') . "$op,top-left,0,0;$op,top-right,0,0";
+			$thumbnail->setDerivativeOperations($operations);
+
+			$ret = $thumbnail->save();
+
+			if ($ret) {
+				GalleryCoreApi::releaseLocks($lockId);
+
+				return array($ret, null, null);
+			}
+		}
+
+		$ret = GalleryCoreApi::releaseLocks($lockId);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		return array(null, $errors, $warnings);
 	}
-
-	$ret = GalleryCoreApi::releaseLocks($lockId);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
-	return array(null, $errors, $warnings);
-    }
 }
-?>

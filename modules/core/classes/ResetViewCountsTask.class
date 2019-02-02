@@ -29,59 +29,64 @@ GalleryCoreApi::requireOnce('modules/core/classes/FlushDatabaseCacheTask.class')
  * @version $Revision: 17580 $
  */
 class ResetViewCountsTask extends FlushDatabaseCacheTask {
-    /**
-     * @see MaintenanceTask::getInfo
-     */
-    function getInfo() {
-	global $gallery;
+	/**
+	 * @see MaintenanceTask::getInfo
+	 */
+	public function getInfo() {
+		global $gallery;
 
-	$info['l10Domain'] = 'modules_core';
-	$info['title'] = $gallery->i18n('Reset view counts');
-	$info['description'] = $gallery->i18n(
-	    'Reset number of views to zero for all albums and items.  This task flushes the ' .
-	    'database cache as well.');
-	$info['confirmRun'] = true;
-	return $info;
-    }
+		$info['l10Domain']   = 'modules_core';
+		$info['title']       = $gallery->i18n('Reset view counts');
+		$info['description'] = $gallery->i18n(
+			'Reset number of views to zero for all albums and items.  This task flushes the ' .
+			'database cache as well.'
+		);
+		$info['confirmRun']  = true;
 
-    /**
-     * @see MaintenanceTask::run
-     */
-    function run() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
+		return $info;
+	}
 
-	$resetCount = '
+	/**
+	 * @see MaintenanceTask::run
+	 */
+	public function run() {
+		global $gallery;
+		$storage =& $gallery->getStorage();
+
+		$resetCount = '
 	UPDATE [GalleryItemAttributesMap] SET [::viewCount] = 0
 	';
-	$resetDate = '
+		$resetDate  = '
 	UPDATE [GalleryItem] SET [::viewedSinceTimestamp] = ?
 	';
 
-	$ret = $storage->execute($resetCount);
-	if ($ret) {
-	    return array($ret, null, null);
+		$ret = $storage->execute($resetCount);
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$ret = $storage->execute($resetDate, array(time()));
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		$details = array($module->translate('View counts reset successfully'));
+
+		// Call parent::run() to flush cache
+		list($ret, $success, $subDetails) = parent::run();
+
+		if ($ret) {
+			return array($ret, null, null);
+		}
+
+		return array(null, $success, array_merge($details, $subDetails));
 	}
-
-	$ret = $storage->execute($resetDate, array(time()));
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
-	$details = array($module->translate('View counts reset successfully'));
-
-	/* Call parent::run() to flush cache */
-	list ($ret, $success, $subDetails) = parent::run();
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
-	return array(null, $success, array_merge($details, $subDetails));
-    }
 }
-?>

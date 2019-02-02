@@ -26,76 +26,87 @@
  * @version $Revision: 17580 $
  */
 class ShowItemErrorView extends GalleryView {
+	/**
+	 * @see GalleryView::loadTemplate
+	 */
+	public function loadTemplate(&$template = null, &$form = null) {
+		global $gallery;
 
-    /**
-     * @see GalleryView::loadTemplate
-     */
-    function loadTemplate(&$template, &$form) {
-	global $gallery;
+		list($ret, $item, $wasSpecified) = $this->getItem();
 
-	list ($ret, $item, $wasSpecified) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		$problem = GalleryUtilities::getRequestVariables('problem');
+
+		switch ($problem) {
+			case 'missingTheme':
+				if ($wasSpecified) {
+					list($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
+						$targetId = $item->getParentId();
+					} else {
+						$targetId = $item->getId();
+					}
+
+					list($ret, $canEdit) = GalleryCoreApi::hasItemPermission($targetId, 'core.edit');
+
+					if ($ret) {
+						return array($ret, null);
+					}
+				} else {
+					list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+
+					if ($ret) {
+						return array($ret, null);
+					}
+
+					$targetId = null;
+					$canEdit  = false;
+				}
+
+				list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				$template->setVariable(
+					'ShowItemError',
+					array(
+						'itemId'  => $targetId,
+						'themeId' => $themeId,
+						'canEdit' => $canEdit,
+						'isAdmin' => $isAdmin,
+					)
+				);
+
+				return array(
+					null,
+					array(
+						'body' => 'modules/core/templates/ShowItemError.tpl',
+					),
+				);
+
+			default:
+				/*
+				 * We know of no other problems!   Returning an empty result will
+				 * throw up a security violation page.
+				 */
+				return array(null, array());
+		}
 	}
 
-	$problem = GalleryUtilities::getRequestVariables('problem');
-
-	switch ($problem) {
-	case 'missingTheme':
-	    if ($wasSpecified) {
-		list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
-		if ($ret) {
-		    return array($ret, null);
-		}
-
-		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-		    $targetId = $item->getParentId();
-		} else {
-		    $targetId = $item->getId();
-		}
-
-		list ($ret, $canEdit) = GalleryCoreApi::hasItemPermission($targetId, 'core.edit');
-		if ($ret) {
-		    return array($ret, null);
-		}
-	    } else {
-		list ($ret, $themeId) =
-		    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-		if ($ret) {
-		    return array($ret, null);
-		}
-
-		$targetId = null;
-		$canEdit = false;
-	    }
-
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    $template->setVariable('ShowItemError',
-				   array('itemId' => $targetId,
-					 'themeId' => $themeId,
-					 'canEdit' => $canEdit,
-					 'isAdmin' => $isAdmin));
-	    return array(null,
-			 array('body' => 'modules/core/templates/ShowItemError.tpl'));
-
-	default:
-	    /*
-	     * We know of no other problems!   Returning an empty result will
-	     * throw up a security violation page.
-	     */
-	    return array(null, array());
+	/**
+	 * @see GalleryView::getViewType
+	 */
+	public function getViewType() {
+		return VIEW_TYPE_ADMIN;
 	}
-    }
-
-    /**
-     * @see GalleryView::getViewType
-     */
-    function getViewType() {
-	return VIEW_TYPE_ADMIN;
-    }
 }
-?>

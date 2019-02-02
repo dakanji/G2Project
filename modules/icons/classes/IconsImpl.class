@@ -28,56 +28,63 @@ GalleryCoreApi::requireOnce('modules/icons/classes/IconsInterface_1_0.class');
  * @version $Revision: 17580 $
  */
 class IconsImpl extends IconsInterface_1_0 {
-    /**
-     * @see IconsInterface_1_0::getIconPacks
-     */
-    function getIconPacks() {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	/*
-	 * Load the plugin even if it's deactivated since we only need it for translation, and
-	 * it's possible that this is getting called during the core upgrade, when we won't be
-	 * able to properly deal with deactivated plugins.
+	/**
+	 * @see IconsInterface_1_0::getIconPacks
 	 */
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'icons', true);
-	if ($ret) {
-	    return array($ret, null);
-	}
+	public function getIconPacks() {
+		global $gallery;
+		$platform =& $gallery->getPlatform();
 
-	$icons = array('' => $module->translate('None'));
-	$dir = dirname(__FILE__) . '/../iconpacks';
-	if ($platform->is_dir($dir) && $platform->is_readable($dir)
-		&& $fd = $platform->opendir($dir)) {
-	    while ($file = $platform->readdir($fd)) {
-		$subdir = "$dir/$file";
-		$iconinc = "$subdir/iconpack.inc";
-		if ($platform->is_dir($subdir) && $platform->file_exists($iconinc)) {
-		    require($iconinc);
-		    $icons[$file] = $module->translate($iconData['name']);
+		/*
+		 * Load the plugin even if it's deactivated since we only need it for translation, and
+		 * it's possible that this is getting called during the core upgrade, when we won't be
+		 * able to properly deal with deactivated plugins.
+		 */
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'icons', true);
+
+		if ($ret) {
+			return array($ret, null);
 		}
-	    }
+
+		$icons = array(
+			'' => $module->translate('None'),
+		);
+		$dir   = __DIR__ . '/../iconpacks';
+
+		if ($platform->is_dir($dir) && $platform->is_readable($dir)
+			&& $fd = $platform->opendir($dir)
+		) {
+			while ($file = $platform->readdir($fd)) {
+				$subdir  = "$dir/$file";
+				$iconinc = "$subdir/iconpack.inc";
+
+				if ($platform->is_dir($subdir) && $platform->file_exists($iconinc)) {
+					include $iconinc;
+					$icons[$file] = $module->translate($iconData['name']);
+				}
+			}
+		}
+
+		return array(null, $icons);
 	}
 
-	return array(null, $icons);
-    }
+	/**
+	 * @see IconsInterface_1_0::init
+	 */
+	public function init(&$template) {
+		list($ret, $iconpack) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 
-    /**
-     * @see IconsInterface_1_0::init
-     */
-    function init(&$template) {
-	list ($ret, $iconpack) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
-	if ($ret) {
-	    return $ret;
-	}
-	if (!empty($iconpack)) {
-	    global $gallery;
-	    $translator =& $gallery->getTranslator();
-	    $rtl = $translator->isRightToLeft() ? '-rtl' : '';
-	    $template->style("modules/icons/iconpacks/$iconpack/icons$rtl.css");
-	}
+		if ($ret) {
+			return $ret;
+		}
 
-	return null;
-    }
+		if (!empty($iconpack)) {
+			global $gallery;
+			$translator =& $gallery->getTranslator();
+			$rtl        = $translator->isRightToLeft() ? '-rtl' : '';
+			$template->style("modules/icons/iconpacks/$iconpack/icons$rtl.css");
+		}
+
+		return null;
+	}
 }
-?>

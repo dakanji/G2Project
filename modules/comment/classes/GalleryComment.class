@@ -39,205 +39,205 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
  * @version $Revision: 17580 $
  */
 class GalleryComment extends GalleryChildEntity {
+	/**
+	 * Id of the commenter
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>commenterId</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <member-size>LARGE</member-size>
+	 * @g2   <required/>
+	 * @g2 </member>
+	 *
+	 * @var int $commenterId
+	 * @access public
+	 */
+	public $commenterId;
 
-    /**
-     * Id of the commenter
-     *
-     * @g2 <member>
-     * @g2   <member-name>commenterId</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <member-size>LARGE</member-size>
-     * @g2   <required/>
-     * @g2 </member>
-     *
-     * @var int $commenterId
-     * @access public
-     */
-    var $commenterId;
+	/**
+	 * Commenter's host name or address
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>host</member-name>
+	 * @g2   <member-type>STRING</member-type>
+	 * @g2   <member-size>MEDIUM</member-size>
+	 * @g2   <required/>
+	 * @g2 </member>
+	 *
+	 * @var string $host
+	 * @access public
+	 */
+	public $host;
 
-    /**
-     * Commenter's host name or address
-     *
-     * @g2 <member>
-     * @g2   <member-name>host</member-name>
-     * @g2   <member-type>STRING</member-type>
-     * @g2   <member-size>MEDIUM</member-size>
-     * @g2   <required/>
-     * @g2 </member>
-     *
-     * @var string $host
-     * @access public
-     */
-    var $host;
+	/**
+	 * Subject of the comment
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>subject</member-name>
+	 * @g2   <member-type>STRING</member-type>
+	 * @g2   <member-size>MEDIUM</member-size>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 *
+	 * @var string $subject
+	 * @access public
+	 */
+	public $subject;
 
-    /**
-     * Subject of the comment
-     *
-     * @g2 <member>
-     * @g2   <member-name>subject</member-name>
-     * @g2   <member-type>STRING</member-type>
-     * @g2   <member-size>MEDIUM</member-size>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     *
-     * @var string $subject
-     * @access public
-     */
-    var $subject;
+	/**
+	 * Text of the comment
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>comment</member-name>
+	 * @g2   <member-type>TEXT</member-type>
+	 * @g2   <member-size>SMALL</member-size>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 *
+	 * @var string $comment
+	 * @access public
+	 */
+	public $comment;
 
-    /**
-     * Text of the comment
-     *
-     * @g2 <member>
-     * @g2   <member-name>comment</member-name>
-     * @g2   <member-type>TEXT</member-type>
-     * @g2   <member-size>SMALL</member-size>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     *
-     * @var string $comment
-     * @access public
-     */
-    var $comment;
+	/**
+	 * Date of the comment
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>date</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <indexed/>
+	 * @g2   <required/>
+	 * @g2   <member-external-access>READ</member-external-access>
+	 * @g2 </member>
+	 *
+	 * @var int $date
+	 * @access public
+	 */
+	public $date;
 
-    /**
-     * Date of the comment
-     *
-     * @g2 <member>
-     * @g2   <member-name>date</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <indexed/>
-     * @g2   <required/>
-     * @g2   <member-external-access>READ</member-external-access>
-     * @g2 </member>
-     *
-     * @var int $date
-     * @access public
-     */
-    var $date;
+	/**
+	 * Author of the comment. Only used for guest comments.
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>author</member-name>
+	 * @g2   <member-type>STRING</member-type>
+	 * @g2   <member-size>MEDIUM</member-size>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 *
+	 * @var string $author
+	 * @access public
+	 */
+	public $author;
 
-    /**
-     * Author of the comment. Only used for guest comments.
-     *
-     * @g2 <member>
-     * @g2   <member-name>author</member-name>
-     * @g2   <member-type>STRING</member-type>
-     * @g2   <member-size>MEDIUM</member-size>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     *
-     * @var string $author
-     * @access public
-     */
-    var $author;
+	/**
+	 * Publication status of this comment.
+	 * @see modules/comment/module.inc for possible status values.
+	 *
+	 * @g2 <member>
+	 * @g2   <member-name>publishStatus</member-name>
+	 * @g2   <member-type>INTEGER</member-type>
+	 * @g2   <indexed/>
+	 * @g2   <required/>
+	 * @g2   <default>0</default>
+	 * @g2   <member-external-access>FULL</member-external-access>
+	 * @g2 </member>
+	 *
+	 * @var string $publishStatus
+	 * @access public
+	 */
+	public $publishStatus;
 
-    /**
-     * Publication status of this comment.
-     * @see modules/comment/module.inc for possible status values.
-     *
-     * @g2 <member>
-     * @g2   <member-name>publishStatus</member-name>
-     * @g2   <member-type>INTEGER</member-type>
-     * @g2   <indexed/>
-     * @g2   <required/>
-     * @g2   <default>0</default>
-     * @g2   <member-external-access>FULL</member-external-access>
-     * @g2 </member>
-     *
-     * @var string $publishStatus
-     * @access public
-     */
-    var $publishStatus;
-
-    /**
-     * @see GalleryEntity::getClassName
-     */
-    function getClassName() {
-	return 'GalleryComment';
-    }
-
-    /**
-     * @see GalleryEntity::create
-     */
-    function create($parentId) {
-	$ret = parent::create($parentId);
-	if ($ret) {
-	    return $ret;
+	/**
+	 * @see GalleryEntity::getClassName
+	 */
+	public function getClassName() {
+		return 'GalleryComment';
 	}
 
-	$this->setCommenterId(null);
-	$this->setHost(null);
-	$this->setSubject(null);
-	$this->setComment(null);
-	$this->setDate(time());
-	$this->setAuthor(null);
+	/**
+	 * @see GalleryEntity::create
+	 */
+	public function create($parentId = null, $x1 = null, $x2 = null) {
+		$ret = parent::create($parentId);
 
-	list ($ret, $moderate) =
-	    GalleryCoreApi::getPluginParameter ('module', 'comment', 'comments.moderate');
-	if ($ret) {
-	    return $ret;
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->setCommenterId(null);
+		$this->setHost(null);
+		$this->setSubject(null);
+		$this->setComment(null);
+		$this->setDate(time());
+		$this->setAuthor(null);
+
+		list($ret, $moderate) = GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.moderate');
+
+		if ($ret) {
+			return $ret;
+		}
+
+		if ($moderate) {
+			$this->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
+		} else {
+			$this->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
+		}
 	}
-	if ($moderate) {
-	    $this->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
-        } else {
-	    $this->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
+
+	public function getCommenterId() {
+		return $this->commenterId;
 	}
-    }
 
-    function getCommenterId() {
-	return $this->commenterId;
-    }
+	public function setCommenterId($commenterId) {
+		$this->commenterId = $commenterId;
+	}
 
-    function setCommenterId($commenterId) {
-	$this->commenterId = $commenterId;
-    }
+	public function getHost() {
+		return $this->host;
+	}
 
-    function getHost() {
-	return $this->host;
-    }
+	public function setHost($host) {
+		$this->host = $host;
+	}
 
-    function setHost($host) {
-	$this->host = $host;
-    }
+	public function getSubject() {
+		return $this->subject;
+	}
 
-    function getSubject() {
-	return $this->subject;
-    }
+	public function setSubject($subject) {
+		$this->subject = $subject;
+	}
 
-    function setSubject($subject) {
-	$this->subject = $subject;
-    }
+	public function getComment() {
+		return $this->comment;
+	}
 
-    function getComment() {
-	return $this->comment;
-    }
+	public function setComment($comment) {
+		$this->comment = $comment;
+	}
 
-    function setComment($comment) {
-	$this->comment = $comment;
-    }
+	public function getDate() {
+		return $this->date;
+	}
 
-    function getDate() {
-	return $this->date;
-    }
+	public function setDate($date) {
+		$this->date = $date;
+	}
 
-    function setDate($date) {
-	$this->date = $date;
-    }
+	public function setAuthor($author) {
+		$this->author = $author;
+	}
 
-    function setAuthor($author) {
-	$this->author = $author;
-    }
+	public function getAuthor() {
+		return $this->author;
+	}
 
-    function getAuthor() {
-	return $this->author;
-    }
+	public function setPublishStatus($publishStatus) {
+		$this->publishStatus = $publishStatus;
+	}
 
-    function setPublishStatus($publishStatus) {
-	$this->publishStatus = $publishStatus;
-    }
-
-    function getPublishStatus() {
-	return $this->publishStatus;
-    }
+	public function getPublishStatus() {
+		return $this->publishStatus;
+	}
 }
-?>

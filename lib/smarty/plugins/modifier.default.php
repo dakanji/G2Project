@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty default modifier plugin
  *
@@ -19,14 +18,12 @@
  * @param string
  * @return string
  */
-function smarty_modifier_default($string, $default = '')
-{
-    if (!isset($string) || $string === '')
-        return $default;
-    else
-        return $string;
+function smarty_modifier_default($string, $default = '') {
+	if (!isset($string) || $string === '') {
+		return $default;
+	}
+
+	return $string;
 }
 
-/* vim: set expandtab: */
-
-?>
+// vim: set expandtab:

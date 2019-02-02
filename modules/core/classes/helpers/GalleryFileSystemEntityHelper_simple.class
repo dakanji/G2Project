@@ -27,52 +27,56 @@
  * @static
  */
 class GalleryFileSystemEntityHelper_simple {
+	/**
+	 * @see GalleryCoreApi::fetchItemIdByPath
+	 */
+	public static function fetchItemIdByPath($path) {
+		global $gallery;
 
-    /**
-     * @see GalleryCoreApi::fetchItemIdByPath
-     */
-    function fetchItemIdByPath($path) {
-	global $gallery;
-	if (empty($path)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		if (empty($path)) {
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		}
+
+		list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+
+		if ($ret) {
+			return array($ret, null);
+		}
+		$rootId = (int)$rootId;
+
+		if ($path == '/') {
+			return array(null, $rootId);
+		}
+
+		$currentId = $rootId;
+
+		foreach (preg_split('|/|', $path, -1, PREG_SPLIT_NO_EMPTY) as $pathComponent) {
+			list($ret, $currentId) = GalleryCoreApi::fetchChildIdByPathComponent($currentId, $pathComponent);
+
+			if ($ret) {
+				return array($ret, null);
+			}
+		}
+
+		return array(null, $currentId);
 	}
 
-	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$rootId = (int)$rootId;
+	/**
+	 * @see GalleryCoreApi::fetchChildIdByPathComponent
+	 */
+	public static function fetchChildIdByPathComponent($parentId, $pathComponent) {
+		global $gallery;
 
-	if ($path == '/') {
-	    return array(null, $rootId);
-	}
+		if (empty($parentId) || empty($pathComponent)) {
+			return array(
+				GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+				null,
+			);
+		}
 
-	$currentId = $rootId;
-	foreach (preg_split('|/|', $path, -1, PREG_SPLIT_NO_EMPTY) as $pathComponent) {
-	    list ($ret, $currentId) =
-		GalleryCoreApi::fetchChildIdByPathComponent($currentId, $pathComponent);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
+		$storage =& $gallery->getStorage();
 
-	return array(null, $currentId);
-    }
-
-    /**
-     * @see GalleryCoreApi::fetchChildIdByPathComponent
-     */
-    function fetchChildIdByPathComponent($parentId, $pathComponent) {
-	global $gallery;
-
-	if (empty($parentId) || empty($pathComponent)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
-			 null);
-	}
-
-	$storage =& $gallery->getStorage();
-
-	$query = '
+		$query  = '
 	SELECT
 	  [GalleryFileSystemEntity::id]
 	FROM
@@ -84,29 +88,36 @@ class GalleryFileSystemEntityHelper_simple {
 	  AND
 	  [GalleryFileSystemEntity::pathComponent] = ?
 	';
-	$data = array();
-	$data[] = (int)$parentId;
-	$data[] = $pathComponent;
+		$data   = array();
+		$data[] = (int)$parentId;
+		$data[] = $pathComponent;
 
-	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
-	    return array($ret, null);
+		list($ret, $searchResults) = $gallery->search($query, $data);
+
+		if ($ret) {
+			return array($ret, null);
+		}
+
+		if ($searchResults->resultCount() == 0) {
+			return array(
+				GalleryCoreApi::error(
+					ERROR_MISSING_OBJECT,
+					__FILE__,
+					__LINE__,
+					"Parent $parentId path $pathComponent"
+				),
+				null,
+			);
+		}
+
+		if ($searchResults->resultCount() > 1) {
+			return array(GalleryCoreApi::error(ERROR_COLLISION), null);
+		}
+
+		$data     = array();
+		$result   = $searchResults->nextResult();
+		$targetId = (int)$result[0];
+
+		return array(null, $targetId);
 	}
-
-	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
-					      "Parent $parentId path $pathComponent"), null);
-	}
-
-	if ($searchResults->resultCount() > 1) {
-	    return array(GalleryCoreApi::error(ERROR_COLLISION), null);
-	}
-
-	$data = array();
-	$result = $searchResults->nextResult();
-	$targetId = (int)$result[0];
-
-	return array(null, $targetId);
-    }
 }
-?>
