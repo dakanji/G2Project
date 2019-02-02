@@ -49,36 +49,7 @@ class JpegtranToolkit extends GalleryToolkit {
 			return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
 		}
 
-    /**
-     * Round to the nearest smaller multiple of MCU
-     * @param float $value
-     * @param float $mcu
-     * @return float rounded rounded value
-     **/
-    function round_mcu($value, $mcu=16){
-	
-	$result = round($value);
-	$modulo = $result % $mcu;
-	if ($modulo != 0) {
-	    /* Move to nearest smaller MCU */
-	    $result = $result - $modulo;
-	    if ($result < 0) {
-		$result = 0;
-	    }
-	}
-	return $result;
-    }
-
-    /**
-     * @see GalleryToolkit::performOperation()
-     */
-    function performOperation($mimeType, $operationName, $sourceFilename,
-			      $destFilename, $parameters, $context=array()) {
-	global $gallery;
- 
-	if (!in_array($mimeType, array('image/jpeg', 'image/pjpeg'))) {
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
-	}
+		list($ret, $jpegtran) = GalleryCoreApi::getPluginParameter('module', 'jpegtran', 'path');
 
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 		$platform    =& $gallery->getPlatform();
@@ -168,11 +139,7 @@ class JpegtranToolkit extends GalleryToolkit {
 				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
 		}
 
-	    /* Source dimensions are required to convert from percentages to pixels  */
-	    $pixelX = $this->round_mcu($parameters[0] / 100 * $width);
-	    $pixelY = $this->round_mcu($parameters[1] / 100 * $height);
-	    $width = round($parameters[2] / 100 * $width);
-	    $height = round($parameters[3] / 100 * $height);
+		$cmd = array_merge($cmd, array('-outfile', $tmpFilename, $sourceFilename));
 
 		$gallery->guaranteeTimeLimit(90);
 		$oldCwd = $platform->getcwd();
@@ -215,12 +182,16 @@ class JpegtranToolkit extends GalleryToolkit {
 
 	/**
 	 * Get the dimensions of a jpeg image.
+	 *
 	 * @param string $filename
+	 *
 	 * @return array GalleryStatus a status code,
 	 *               int width,
 	 *               int height
 	 */
-	public function _getImageDimensions($filename) {
+	public function _getImageDimensions(
+		$filename
+	) {
 		global $gallery;
 
 		/*
