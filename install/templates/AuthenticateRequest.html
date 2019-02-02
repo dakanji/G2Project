@@ -1,7 +1,7 @@
 	<h1><?php echo 'Authenticate'; ?></h1>
 
 	<p>
-		<?php printf("In order to proceed with the install, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we're going to ask that you create a new text file called <strong>authFile.txt</strong> in the <tt>%s</tt> directory on your webserver (that's the same directory where main.php is located). It must contain the following randomly generated characters:", $templateData['authenticationDir']); ?>
+		<?php printf(_("In order to proceed with the install, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we're going to ask that you create a new text file called <strong>authFile.txt</strong> in the <tt>%s</tt> directory on your webserver (that's the same directory where main.php is located). It must contain the following randomly generated characters:"), $templateData['authenticationDir']); ?>
 	</p>
 
 	<p class="bold"><?php echo $currentStep->getUniqueKey(); ?></p>
@@ -9,7 +9,7 @@
 	<p>
 		<?php
 		printf(
-			"As a convenience to you, we've prepared a %scorrect version of authFile.txt%s for you.  Download that and copy it into your <tt>%s</tt> directory and you're all set.",
+			_("As a convenience to you, we've prepared a %scorrect version of authFile.txt%s for you.  Download that and copy it into your <tt>%s</tt> directory and you're all set."),
 			'<a href="' . generateUrl(INDEX_PHP . '?step=' . $currentStep->getStepNumber() . '&amp;downloadLogin=1', false) . '">',
 			'</a>',
 			$templateData['authenticationDir']
@@ -18,7 +18,7 @@
 	</p>
 
 	<p>
-		<?php echo "Once you've uploaded the file, click below to continue."; ?>
+		<?php echo _("Once you've uploaded the file, click below to continue."); ?>
 	</p>
 
 	<div class="go">

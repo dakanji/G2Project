@@ -26,7 +26,7 @@ require_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
  */
 class WelcomeStep extends UpgradeStep {
 	public function stepName() {
-		return 'Welcome';
+		return _('Welcome');
 	}
 
 	public function processRequest() {

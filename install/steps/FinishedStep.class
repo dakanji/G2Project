@@ -24,7 +24,7 @@
  */
 class FinishedStep extends InstallStep {
 	public function stepName() {
-		return 'Finish Installation';
+		return _('Finish Installation');
 	}
 
 	public function loadTemplateData(&$templateData) {

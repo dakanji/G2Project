@@ -54,7 +54,7 @@ class UpgradeStep {
 	}
 
 	public function stepName() {
-		return 'Unknown';
+		return _('Unknown');
 	}
 
 	public function setStepNumber($stepNumber) {

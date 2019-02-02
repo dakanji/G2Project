@@ -24,7 +24,7 @@
  */
 class SecureStep extends InstallStep {
 	public function stepName() {
-		return 'Check Security';
+		return _('Check Security');
 	}
 
 	public function loadTemplateData(&$templateData) {

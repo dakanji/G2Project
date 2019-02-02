@@ -133,9 +133,9 @@ class CoreModule extends GalleryModule {
 			if (isset($permissions[$itemId]['core.edit'])) {
 				if (false) {
 					// Specific translations:
-					'Edit Album';
-					'Edit Photo';
-					'Edit Movie';
+					_('Edit Album');
+					_('Edit Photo');
+					_('Edit Movie');
 				}
 				$links[$itemId][] = array(
 					'text' => $this->_translate(
@@ -183,9 +183,9 @@ class CoreModule extends GalleryModule {
 			if (!$isRoot && isset($permissions[$itemId]['core.delete'])) {
 				if (false) {
 					// Specific translations:
-					'Delete Album';
-					'Delete Photo';
-					'Delete Movie';
+					_('Delete Album');
+					_('Delete Photo');
+					_('Delete Movie');
 				}
 
 				if (!function_exists('smarty_modifier_escape')) {
@@ -245,9 +245,9 @@ class CoreModule extends GalleryModule {
 			if (!$isRoot && isset($permissions[$itemId]['core.delete'])) {
 				if (false) {
 					// Specific translations:
-					'Move Album';
-					'Move Photo';
-					'Move Movie';
+					_('Move Album');
+					_('Move Photo');
+					_('Move Movie');
 				}
 				$links[$itemId][] = array(
 					'text' => $this->_translate(

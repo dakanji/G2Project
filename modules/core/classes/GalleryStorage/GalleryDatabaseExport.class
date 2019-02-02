@@ -313,8 +313,8 @@ class GalleryDatabaseExport {
 				);
 
 				if (false) {
-					/* Specific translations for $pluginType */ 'module';
-					'theme';
+					/* Specific translations for $pluginType */ _('module');
+					_('theme');
 				}
 
 				continue;

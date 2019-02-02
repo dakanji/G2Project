@@ -1,32 +1,32 @@
-	<h1><?php echo 'Version Check'; ?></h1>
+	<h1><?php echo _('Version Check'); ?></h1>
 
 	<?php if ($templateData['configFileWritten']) : ?>
 	<div class="success">
 	  <h2>
-		<?php echo 'Config file created successfully.'; ?>
+		<?php echo _('Config file created successfully.'); ?>
 	  </h2>
 	</div>
 	<?php endif; ?>
 	<div class="error">
 	  <h2>
-		<?php echo 'This is not a fresh install and the installed version does not match the new version.'; ?>
+		<?php echo _('This is not a fresh install and the installed version does not match the new version.'); ?>
 	  </h2>
 	</div>
 
 	<?php if (!$templateData['recommendUpgrade']) : ?>
 	<p class="error">
-		<?php echo 'The installed version cannot be upgraded to the new version!'; ?>
+		<?php echo _('The installed version cannot be upgraded to the new version!'); ?>
 	</p>
 	<?php else : ?>
 	<p>
-		<?php echo 'The installed version is older than the new version. You should run the upgrader and not the installer!'; ?>
+		<?php echo _('The installed version is older than the new version. You should run the upgrader and not the installer!'); ?>
 	</p>
 	<?php endif; ?>
 
 	<table>
 	  <tr>
 	<td width="175">
-		<?php echo 'Currently installed'; ?>
+		<?php echo _('Currently installed'); ?>
 	</td>
 	<td>
 	  <b>
@@ -40,7 +40,7 @@
 	  </tr>
 	  <tr>
 	<td>
-		<?php echo 'New version'; ?>
+		<?php echo _('New version'); ?>
 	</td>
 	<td>
 	  <b>
@@ -57,11 +57,11 @@
 	<?php if ($templateData['recommendUpgrade']) : ?>
 		<?php if (!$templateData['isMultisite']) : ?>
 	<div class="go">
-	  <a href="../upgrade/index.php" class="btn continue"><i></i><span><span></span><i></i><?php echo 'Go to the Upgrader!'; ?></span></a>
+	  <a href="../upgrade/index.php" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Go to the Upgrader!'); ?></span></a>
 	</div>
 		<?php else : ?>
 	<p>
-			<?php printf('You should go now to the upgrader.  Enter the URL in your browser for %s/upgrade/index.php%s in your %s directory.'), '<tt>', '</tt>', '<tt>' . $templateData['galleryDir'] . '</tt>'; ?>
+			<?php printf(_('You should go now to the upgrader.  Enter the URL in your browser for %s/upgrade/index.php%s in your %s directory.'), '<tt>', '</tt>', '<tt>' . $templateData['galleryDir'] . '</tt>'); ?>
 	</p>
 		<?php endif; ?>
 	<?php endif; ?>

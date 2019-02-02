@@ -26,7 +26,7 @@ class AdminUserSetupStep extends InstallStep {
 	public $_hasBeenLoadedBefore;
 
 	public function stepName() {
-		return 'Admin User Setup';
+		return _('Admin User Setup');
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -35,9 +35,9 @@ class AdminUserSetupStep extends InstallStep {
 		if (!isset($this->_hasBeenLoadedBefore)) {
 			$this->_hasBeenLoadedBefore = 1;
 			$this->_password            = $galleryStub->getConfig('setup.password');
-			$this->_adminName           = 'admin';
+			$this->_adminName           = _('admin');
 			$this->_email               = '';
-			$this->_fullName            = 'Gallery Administrator';
+			$this->_fullName            = _('Gallery Administrator');
 		}
 
 		$templateData['passwordA'] = $templateData['passwordB'] = strlen($this->_password) ? '******' : '';
