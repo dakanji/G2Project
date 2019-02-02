@@ -37,6 +37,13 @@
 	<rule ref="WordPress.Arrays.ArrayIndentation" />
 	<rule ref="WordPress.WhiteSpace.PrecisionAlignment" />
 	<rule ref="WordPress.PHP.TypeCasts" />
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="80" />
+			<property name="exact" value="false" />
+			<property name="alignMultilineItems" value="!=100" />
+		</properties>
+	</rule>
 	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
 		<properties>
 			<property name="allow_single_item_single_line_associative_arrays" value="false" />

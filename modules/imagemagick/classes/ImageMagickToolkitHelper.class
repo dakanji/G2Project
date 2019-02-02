@@ -70,7 +70,7 @@ class ImageMagickToolkitHelper {
 
 		// Scale
 		$operations['scale'] = array(
-			'params'    => array(
+			'params'      => array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n(
@@ -90,7 +90,7 @@ class ImageMagickToolkitHelper {
 			'description' => $gallery->i18n(
 				'Scale the image to the target size, maintain aspect ratio'
 			),
-			'mimeTypes' => $mimeTypes,
+			'mimeTypes'   => $mimeTypes,
 		);
 
 		// Thumbnail is an alias for scale
@@ -98,7 +98,7 @@ class ImageMagickToolkitHelper {
 
 		// Resize
 		$operations['resize'] = array(
-			'params'    => array(
+			'params'      => array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n(
@@ -124,7 +124,7 @@ class ImageMagickToolkitHelper {
 
 		// Rotate
 		$operations['rotate'] = array(
-			'params'    => array(
+			'params'      => array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n('rotation degrees'),
@@ -136,7 +136,7 @@ class ImageMagickToolkitHelper {
 
 		// Crop
 		$operations['crop'] = array(
-			'params'    => array(
+			'params'      => array(
 				array(
 					'type'        => 'float',
 					'description' => $gallery->i18n('left edge %'),
@@ -160,7 +160,7 @@ class ImageMagickToolkitHelper {
 
 		// Composite
 		$operations['composite'] = array(
-			'params' => array(
+			'params'      => array(
 				array(
 					'type'        => 'string',
 					'description' => $gallery->i18n('overlay path'),
@@ -207,7 +207,7 @@ class ImageMagickToolkitHelper {
 
 		if (!empty($multiPageMimeTypes)) {
 			$operations['select-page'] = array(
-				'params' => array(
+				'params'      => array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n('page number'),
@@ -223,7 +223,7 @@ class ImageMagickToolkitHelper {
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
-				'params' => array(
+				'params'      => array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n('target size in kb'),
