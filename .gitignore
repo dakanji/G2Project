@@ -15,13 +15,14 @@ Thumbs.db
 # style guide #
 ##############
 .php_cs.cache
-wpcs
+dev_vendor
+
 
 # installed G2 #
 ##############
 g2data
 config.php
-.htaccess
+/.htaccess
 authFile.txt
 login.txt
 
@@ -30,3 +31,7 @@ login.txt
 .idea
 build
 attic
+
+# Misc stuff #
+##############
+composer.phar
