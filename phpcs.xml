@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?php xml version = '1.0'; ?>
 <ruleset name="G2_Ruleset">
 	<description>Coding Standards for Gallery 2 Community Edition</description>
 
@@ -41,7 +41,7 @@
 		<properties>
 			<property name="maxColumn" value="80" />
 			<property name="exact" value="false" />
-			<property name="alignMultilineItems" value="<50" />
+			<property name="alignMultilineItems" value="&lt;50" />
 		</properties>
 	</rule>
 	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
