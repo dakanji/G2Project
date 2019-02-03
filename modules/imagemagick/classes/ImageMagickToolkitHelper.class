@@ -383,7 +383,7 @@ class ImageMagickToolkitHelper {
 		$tests[] = array(
 			'mime'     => array('image/tiff'),
 			'file'     => 'test.tif',
-			'expected' => '/(TIFF.*(Pseudo|Direct)Class|TIFF.*RGB|(Pseudo|Direct)Class.*TIFF)/',
+			'expected' => '/(TIFF.*(Pseudo|Direct)Class|TIFF.*RGB|TIFF.*Gray|(Pseudo|Direct)Class.*TIFF)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/svg+xml'),
